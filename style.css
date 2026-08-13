@@ -1,0 +1,217 @@
+/* ============================================================
+   ANIBAL AMIOT — tokens de design
+   Palette inspirée des teintures textiles : indigo, curcuma, garance
+   sur un fond coton écru légèrement grisé (volontairement différent
+   du "cream + terracotta" par défaut).
+   ============================================================ */
+
+:root {
+  --color-ground:      #E7E1D2; /* coton écru */
+  --color-ground-warm: #DED5BE; /* écru plus chaud, pour cartes */
+  --color-ink:         #201B14; /* texte principal */
+  --color-ink-soft:    #4A4234; /* texte secondaire */
+  --color-indigo:      #29365A; /* accent primaire — cuve d'indigo */
+  --color-indigo-deep: #171F35;
+  --color-curcuma:     #C4841E; /* accent secondaire — teinture curcuma */
+  --color-garance:     #93283A; /* accent tertiaire — teinture garance */
+  --color-line:        #B9AF97; /* lisière / filets */
+
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body:    'Work Sans', 'Helvetica Neue', sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius: 2px;
+  --max-width: 1080px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+/* ---------- en-tête / lisière tissée ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--color-ground);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.selvage {
+  height: 6px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--color-indigo) 0 10px,
+    var(--color-curcuma) 10px 14px,
+    var(--color-garance) 14px 16px,
+    var(--color-indigo) 16px 26px
+  );
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: var(--color-ink);
+}
+
+.brand-tagline {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-soft);
+  display: block;
+  margin-top: 0.15rem;
+}
+
+/* ---------- navigation en "échantillons de tissu" ---------- */
+
+.swatch-nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem 1.1rem;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.swatch-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--color-ground-warm);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.85rem;
+  cursor: pointer;
+  color: var(--color-ink-soft);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.swatch-btn:hover {
+  border-color: var(--color-indigo);
+  color: var(--color-indigo);
+}
+
+.swatch-btn:focus-visible {
+  outline: 2px solid var(--color-indigo);
+  outline-offset: 2px;
+}
+
+.swatch-btn[aria-current="page"] {
+  background: var(--color-indigo);
+  border-color: var(--color-indigo);
+  color: var(--color-ground);
+}
+
+/* ---------- contenu principal ---------- */
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-garance);
+  margin: 0 0 0.9rem;
+}
+
+h1.page-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  line-height: 1.08;
+  margin: 0 0 1.3rem;
+  max-width: 18ch;
+}
+
+.intro {
+  font-size: 1.1rem;
+  color: var(--color-ink-soft);
+  max-width: 58ch;
+  margin: 0 0 2rem;
+}
+
+.placeholder-note {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-garance);
+  background: rgba(147, 40, 58, 0.07);
+  border-left: 2px solid var(--color-garance);
+  padding: 0.7rem 1rem;
+  max-width: 58ch;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: var(--color-indigo);
+  color: var(--color-ground);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cta-button:hover { background: var(--color-indigo-deep); }
+
+/* ---------- pied de page ---------- */
+
+.site-footer {
+  border-top: 1px solid var(--color-line);
+  padding: 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-ink-soft);
+}
+
+/* ---------- accessibilité / mouvement réduit ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .swatch-btn { transition: none; }
+}
+
+@media (max-width: 560px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  main { padding: 2.2rem 1.2rem 3.5rem; }
+}

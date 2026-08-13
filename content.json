@@ -1,0 +1,60 @@
+{
+  "site": {
+    "name": "Anibal Amiot",
+    "tagline": "Motifs textiles & tirages sur mesure",
+    "lang": "fr"
+  },
+  "nav": [
+    { "id": "accueil",         "label": "Accueil" },
+    { "id": "tirage-livree",   "label": "Tirage livrée" },
+    { "id": "creation-motifs", "label": "Création de motifs" },
+    { "id": "impression-360",  "label": "Imprimer les 360" },
+    { "id": "projets",         "label": "Projets & fonds d'écran" },
+    { "id": "contact",         "label": "Contact" }
+  ],
+  "pages": {
+    "accueil": {
+      "metaTitle": "Anibal Amiot — Motifs textiles & tirages sur mesure",
+      "metaDescription": "Portfolio de création de motifs textiles, tirages et impressions personnalisées. Basé en Thaïlande.",
+      "eyebrow": "Atelier de motifs textiles",
+      "title": "Chaque motif raconte un fil.",
+      "intro": "REMPLACER : une phrase d'accroche qui présente ton travail en une ligne — ce que tu fais, pour qui, et ce qui te distingue.",
+      "cta": { "label": "Voir les projets", "target": "projets" }
+    },
+    "tirage-livree": {
+      "metaTitle": "Tirage livrée — Anibal Amiot",
+      "metaDescription": "Commande et suivi de tirages livrés à l'adresse du client.",
+      "eyebrow": "Bouton 1",
+      "title": "Tirage livrée",
+      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
+    },
+    "creation-motifs": {
+      "metaTitle": "Création de motifs — Anibal Amiot",
+      "metaDescription": "Conception de motifs textiles sur mesure.",
+      "eyebrow": "Bouton 2",
+      "title": "Création de motifs",
+      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
+    },
+    "impression-360": {
+      "metaTitle": "Imprimer les 360 — Anibal Amiot",
+      "metaDescription": "Impression sur objets et supports à 360 degrés.",
+      "eyebrow": "Bouton 3",
+      "title": "Imprimer les 360",
+      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
+    },
+    "projets": {
+      "metaTitle": "Projets & fonds d'écran — Anibal Amiot",
+      "metaDescription": "Galerie de projets et fonds d'écran téléchargeables.",
+      "eyebrow": "Bouton 4",
+      "title": "Projets & fonds d'écran",
+      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
+    },
+    "contact": {
+      "metaTitle": "Contact — Anibal Amiot",
+      "metaDescription": "Me contacter pour un projet, une collaboration ou une commande.",
+      "eyebrow": "Bouton 5",
+      "title": "Contact",
+      "intro": "REMPLACER : coordonnées, formulaire ou lien direct à définir dans la conversation dédiée à ce bouton."
+    }
+  }
+}
