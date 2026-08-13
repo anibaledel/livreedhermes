@@ -32,6 +32,10 @@ function renderNav(activeId) {
     btn.type = 'button';
     if (item.id === activeId) btn.setAttribute('aria-current', 'page');
     btn.addEventListener('click', () => {
+      if (item.id === 'accueil') {
+        window.location.href = 'tirage-livree-hermes.html';
+        return;
+      }
       window.location.hash = item.id;
     });
     APP.navEl.appendChild(btn);
@@ -82,6 +86,10 @@ function escapeHtml(str) {
 
 function route() {
   const pageId = currentPageId();
+  if (pageId === 'accueil') {
+    window.location.replace('tirage-livree-hermes.html');
+    return;
+  }
   renderNav(pageId);
   renderPage(pageId);
 }
