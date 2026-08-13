@@ -54,6 +54,7 @@ function renderPage(pageId) {
 
   document.title = page.metaTitle || APP.data.site.name;
   setMeta('description', page.metaDescription || '');
+  setMeta('keywords', page.keywords || '');
 
   const isPlaceholder = page.intro && page.intro.startsWith('REMPLACER');
 
