@@ -29,21 +29,27 @@
   .gtranslate-slot img{ vertical-align:middle !important; }
   header .eyebrow{
     letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase;
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Helvetica,Arial,sans-serif; margin:0 0 20px; }
+  header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0 0 20px; }
 
   /* ---------- pied de page (identique à l'app Tirage) ---------- */
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
   .credit-line{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    font-size:10px; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-top:10px;
+    font-size:10px; color:var(--dim); font-family:Georgia,'Times New Roman',serif; margin-top:10px;
   }
   .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:10px; color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    margin-top:6px; font-family:Helvetica,Arial,sans-serif;
+    margin-top:6px; font-family:Georgia,'Times New Roman',serif;
   }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -73,7 +79,7 @@
   /* ---------- catégories ---------- */
   .cat-row{
     display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:28px 0;
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   .cat-btn{
     border:1px solid var(--line); background:var(--panel); color:var(--dim);
@@ -89,12 +95,12 @@
 
   .cat-intro{
     text-align:center; max-width:760px; margin:0 auto 26px; color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:12.5px; line-height:1.7;
+    font-family:Georgia,'Times New Roman',serif; font-size:12.5px; line-height:1.7;
   }
 
   /* ---------- grille de sélection ---------- */
   .pick-note{
-    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:11px;
+    text-align:center; font-family:Georgia,'Times New Roman',serif; font-size:11px;
     letter-spacing:.08em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
   }
   .sel-grid{
@@ -113,23 +119,23 @@
   }
   .sel-card.picked .pick-order{
     position:absolute; top:4px; left:4px; width:22px; height:22px; border-radius:50%;
-    background:var(--red); color:#fff; font-family:Helvetica,Arial,sans-serif; font-size:12px;
+    background:var(--red); color:#fff; font-family:Georgia,'Times New Roman',serif; font-size:12px;
     display:flex; align-items:center; justify-content:center; font-weight:bold;
     box-shadow:0 0 0 2px #000;
   }
-  .sel-card img{ width:100%; display:block; aspect-ratio:1; object-fit:cover; }
+  .sel-card canvas{ width:100%; display:block; aspect-ratio:1; }
   .sel-card .cap{
-    font-family:Helvetica,Arial,sans-serif; font-size:8.5px; color:var(--dim); text-align:center;
+    font-family:Georgia,'Times New Roman',serif; font-size:8.5px; color:var(--dim); text-align:center;
     padding:5px 3px; letter-spacing:.03em; line-height:1.3;
   }
   .sel-card.picked .cap{ color:var(--gold); }
   .sel-card .group-label{
-    font-family:Helvetica,Arial,sans-serif; font-size:8px; letter-spacing:.1em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:8px; letter-spacing:.1em; text-transform:uppercase;
     color:var(--red); text-align:center; padding-top:4px;
   }
 
   .group-heading{
-    font-family:Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.16em; text-transform:uppercase;
     color:var(--dim); margin:22px 0 10px; border-top:1px solid var(--line); padding-top:16px;
   }
   .group-heading:first-child{ border-top:none; padding-top:0; }
@@ -137,7 +143,7 @@
   .reset-row{ text-align:center; margin:18px 0 6px; }
   .reset-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     padding:8px 16px; cursor:pointer;
   }
   .reset-btn:hover{ border-color:var(--gold); color:var(--gold); }
@@ -145,7 +151,7 @@
   /* ---------- pending panel ---------- */
   .pending-panel{
     max-width:640px; margin:30px auto; text-align:center; border:1px solid var(--line);
-    background:var(--panel); padding:30px 26px; font-family:Helvetica,Arial,sans-serif;
+    background:var(--panel); padding:30px 26px; font-family:Georgia,'Times New Roman',serif;
   }
   .pending-panel .pair-imgs{ display:flex; justify-content:center; gap:16px; margin-bottom:20px; }
   .pending-panel .pair-imgs img{ width:130px; height:130px; object-fit:cover; border:1px solid var(--line); }
@@ -155,7 +161,7 @@
   /* ---------- échiquier ---------- */
   .echiquier-wrap{ margin-top:10px; }
   .echiquier-head{
-    text-align:center; font-family:Helvetica,Arial,sans-serif; margin-bottom:16px;
+    text-align:center; font-family:Georgia,'Times New Roman',serif; margin-bottom:16px;
   }
   .echiquier-head .pair-imgs{ display:flex; justify-content:center; gap:14px; margin-bottom:12px; }
   .echiquier-head .pair-imgs .one{ text-align:center; }
@@ -175,7 +181,7 @@
   .ech-cell canvas{ width:100%; height:100%; display:block; }
   .ech-cell .kw{
     position:absolute; bottom:1px; right:2px; font-size:7px; color:rgba(255,255,255,.55);
-    font-family:Helvetica,Arial,sans-serif; pointer-events:none;
+    font-family:Georgia,'Times New Roman',serif; pointer-events:none;
   }
 
   /* ---------- détail ---------- */
@@ -184,33 +190,33 @@
   }
   .detail-back{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     padding:8px 14px; cursor:pointer; margin-bottom:20px;
   }
   .detail-back:hover{ border-color:var(--gold); color:var(--gold); }
   .detail-head{ display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; margin-bottom:8px; }
   .detail-pavage{ position:relative; padding-bottom:20px; }
   .detail-pavage canvas{ width:170px; height:170px; border:1px solid var(--line); background:#050505; display:block; }
-  .detail-pavage .ticks{ display:flex; justify-content:space-between; width:170px; margin-top:6px; font-family:Helvetica,Arial,sans-serif; }
+  .detail-pavage .ticks{ display:flex; justify-content:space-between; width:170px; margin-top:6px; font-family:Georgia,'Times New Roman',serif; }
   .detail-pavage .tick{
     width:20px; height:20px; border-radius:50%; border:1px solid var(--line); color:var(--dim);
     font-size:9px; display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;
   }
   .detail-pavage .tick.on{ border-color:var(--red); color:var(--red); }
   .detail-info{ flex:1; min-width:220px; }
-  .detail-info .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Helvetica,Arial,sans-serif; }
+  .detail-info .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Georgia,'Times New Roman',serif; }
   .detail-info .name-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
   .detail-info h2{ font-weight:400; font-size:26px; margin:6px 0 2px; }
   .detail-info .hexglyph{ flex-shrink:0; }
   .detail-info .redline{ border:none; border-top:1px solid var(--red); margin:8px 0 12px; }
   .detail-info .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:10px; }
   .detail-info .keyword{
-    font-family:Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase;
     color:var(--gold); margin-bottom:14px;
   }
   .detail-block{ margin-bottom:18px; max-width:66ch; }
   .detail-block .lbl{
-    font-family:Helvetica,Arial,sans-serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--dim); margin-bottom:6px;
   }
   .detail-block .txt{ font-size:13.5px; line-height:1.7; }
@@ -221,27 +227,27 @@
     display:flex; flex-direction:column; align-items:center; text-align:center;
   }
   .pair-section .tag{
-    font-family:Helvetica,Arial,sans-serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--red); margin-bottom:16px;
   }
   .pair-compare{ display:flex; align-items:center; gap:22px; margin-bottom:16px; }
   .pair-compare .one{ text-align:center; }
   .pair-compare canvas{ width:96px; height:96px; border:1px solid var(--line); background:#050505; display:block; }
-  .pair-compare .pname{ font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--white); margin-top:8px; max-width:120px; }
-  .pair-compare .pnum{ font-family:Helvetica,Arial,sans-serif; font-size:9px; color:var(--dim); letter-spacing:.08em; }
+  .pair-compare .pname{ font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--white); margin-top:8px; max-width:120px; }
+  .pair-compare .pnum{ font-family:Georgia,'Times New Roman',serif; font-size:9px; color:var(--dim); letter-spacing:.08em; }
   .pair-compare .plus{ color:var(--dim); font-size:20px; }
-  .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; font-family:Georgia,serif; max-width:60ch; }
+  .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; font-family:Georgia,'Times New Roman',serif; max-width:60ch; }
 
   /* ---------- grille structurée (Bases/Par2/Par3/Par4) ---------- */
   .struct-grid{ display:grid; gap:6px; margin-bottom:8px; align-items:center; }
   .struct-colhead, .struct-rowhead{
-    font-family:Helvetica,Arial,sans-serif; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--gold); text-align:center; padding:4px;
   }
   .struct-rowhead{ text-align:right; padding-right:8px; }
 
   .stats-line{
-    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:10.5px; color:var(--dim);
+    text-align:center; font-family:Georgia,'Times New Roman',serif; font-size:10.5px; color:var(--dim);
     letter-spacing:.04em; margin-top:10px;
   }
   .stats-line b{ color:var(--gold); font-weight:400; }
@@ -254,10 +260,10 @@
 <body>
 <div class="wrap">
   <header>
-    <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <h1>Création de motifs</h1>
     <p>60 natures, 6 niveaux de traits, un échiquier d'images à chaque croisement</p>
+    <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
   <div class="cat-row" id="catRow"></div>
@@ -279,17 +285,20 @@
     </div>
 
     <div class="center-logo-slot">
-      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
-      <span>Créé avec Claude</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+    <div class="credit-line-secondary">
+      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
 
     <div class="footer-title-logo">
-      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
   </div>
 </div>
@@ -415,6 +424,7 @@ function drawColorGrid(canvas, grid){
   const w = canvas.width = Math.max(1,canvas.clientWidth)*dpr;
   const h = canvas.height = Math.max(1,canvas.clientHeight)*dpr;
   ctx.fillStyle='#050505'; ctx.fillRect(0,0,w,h);
+  if(!grid) return;
   const cw = w/12, ch = h/12;
   for(let r=0;r<12;r++){
     for(let c=0;c<12;c++){
@@ -422,6 +432,12 @@ function drawColorGrid(canvas, grid){
       ctx.fillRect(c*cw, r*ch, cw-Math.max(1,dpr*0.4), ch-Math.max(1,dpr*0.4));
     }
   }
+}
+
+// Peint les canvases d'aperçu des cartes de motifs une fois insérées dans le
+// DOM (il faut leurs dimensions CSS réelles pour dimensionner le canvas).
+function paintCardCanvases(root){
+  root.querySelectorAll('.sel-card canvas').forEach(cv => drawColorGrid(cv, cv.__grid));
 }
 
 // ============================================================
@@ -557,6 +573,7 @@ function buildPickArea(){
   } else {
     buildStructuredGrid(area, currentCat, itemsForCat(currentCat));
   }
+  paintCardCanvases(area);
 
   if(picked.length>0){
     const row = document.createElement('div');
@@ -645,10 +662,11 @@ function makeCard(item){
   const order = isPicked(item);
   card.className = 'sel-card' + (order?' picked':'');
   card.innerHTML = `
-    <img src="${item.file}" alt="${item.label}" loading="lazy">
+    <canvas aria-label="${item.label}"></canvas>
     ${order?`<span class="pick-order">${order}</span>`:''}
     <div class="cap">${item.label}</div>
   `;
+  card.querySelector('canvas').__grid = colorGridForItem(item);
   card.addEventListener('click', ()=>{
     const idx = picked.findIndex(p=>p.file===item.file);
     if(idx>=0){ picked.splice(idx,1); }
