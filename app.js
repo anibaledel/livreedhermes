@@ -52,9 +52,15 @@ function renderPage(pageId) {
   const page = APP.data.pages[pageId];
   if (!page) return;
 
-  document.title = page.metaTitle || APP.data.site.name;
+  const title = page.metaTitle || APP.data.site.name;
+  document.title = title;
   setMeta('description', page.metaDescription || '');
   setMeta('keywords', page.keywords || '');
+  setMetaProperty('og:title', title);
+  setMetaProperty('og:description', page.metaDescription || '');
+  setMetaProperty('og:url', `https://anibal-amiot.com/pages.html#${pageId}`);
+  setMeta('twitter:title', title);
+  setMeta('twitter:description', page.metaDescription || '');
 
   const isPlaceholder = page.intro && page.intro.startsWith('REMPLACER');
 
@@ -80,6 +86,16 @@ function setMeta(name, content) {
   if (!tag) {
     tag = document.createElement('meta');
     tag.setAttribute('name', name);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+}
+
+function setMetaProperty(property, content) {
+  let tag = document.querySelector(`meta[property="${property}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute('property', property);
     document.head.appendChild(tag);
   }
   tag.setAttribute('content', content);
