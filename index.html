@@ -45,15 +45,15 @@
     font-size:11px;
     color:var(--red);
     text-transform:uppercase;
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:8px 0 4px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Helvetica,Arial,sans-serif; margin:0; }
+  header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0; }
 
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   .app-lang-row{ display:none; }
   .app-lang-btn{
@@ -97,10 +97,10 @@
   .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
   .grid-head{
     display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:12px; font-family:Helvetica,Arial,sans-serif;
+    margin-bottom:12px; font-family:Georgia,'Times New Roman',serif;
   }
   .grid-head .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
-  .axis-note{ font-family:Helvetica,Arial,sans-serif; font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note{ font-family:Georgia,'Times New Roman',serif; font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
   .axis-note b{ color:var(--red); font-weight:400; }
 
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
@@ -115,13 +115,13 @@
   .cell.changing{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
   .cell .num{
     position:absolute; top:2px; left:3px; font-size:7px;
-    color:var(--dim); font-family:Helvetica,Arial,sans-serif;
+    color:var(--dim); font-family:Georgia,'Times New Roman',serif;
   }
   .cell svg{ width:70%; }
 
   .draw-btn{
     margin-top:14px; width:100%; background:transparent; border:1px solid var(--red);
-    color:var(--red); font-family:Helvetica,Arial,sans-serif; letter-spacing:.1em;
+    color:var(--red); font-family:Georgia,'Times New Roman',serif; letter-spacing:.1em;
     text-transform:uppercase; font-size:11px; padding:11px; cursor:pointer;
     transition:background .15s ease, color .15s ease;
   }
@@ -129,7 +129,7 @@
   .draw-btn.secondary{ border-color:var(--line); color:var(--dim); margin-top:8px; }
   .draw-btn.secondary:hover{ border-color:var(--dim); background:transparent; color:var(--white); }
 
-  .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-family:Helvetica,Arial,sans-serif; }
+  .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-family:Georgia,'Times New Roman',serif; }
   .legend .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:8px; display:block; }
   .legend-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .legend-item{ display:flex; align-items:center; gap:6px; }
@@ -138,10 +138,10 @@
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
 
-  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Helvetica,Arial,sans-serif; }
+  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Georgia,'Times New Roman',serif; }
   .detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
   .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:6px; }
-  .altnum{ font-size:10px; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-bottom:20px; }
+  .altnum{ font-size:10px; color:var(--dim); font-family:Georgia,'Times New Roman',serif; margin-bottom:20px; }
 
   .hex-block{ display:flex; gap:30px; align-items:flex-start; margin:18px 0 22px; flex-wrap:wrap; }
   .lines-col{ display:flex; flex-direction:column; gap:10px; }
@@ -151,13 +151,13 @@
   .triad-labels{ display:flex; flex-direction:column-reverse; gap:9px; }
   .triad-row{ height:16px; display:flex; align-items:center; }
   .triad-tag{
-    font-family:Helvetica,Arial,sans-serif; font-size:8px; letter-spacing:.12em; text-transform:uppercase;
+    font-family:Georgia,'Times New Roman',serif; font-size:8px; letter-spacing:.12em; text-transform:uppercase;
     color:var(--dim); opacity:0; transition:opacity .3s ease;
   }
   .triad-tag.shown{ opacity:1; }
 
   .square-wrap{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding-top:4px; }
-  .square-wrap .cap{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); font-family:Helvetica,Arial,sans-serif; max-width:150px; line-height:1.5; }
+  .square-wrap .cap{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); font-family:Georgia,'Times New Roman',serif; max-width:150px; line-height:1.5; }
   .pavage-sq{ width:130px; height:130px; border:1px solid var(--line); background:#050505; }
 
   .trigram-block{ display:flex; flex-direction:column; gap:10px; min-width:180px; }
@@ -168,7 +168,7 @@
   }
   .trigram-caduceus.shown{ opacity:.92; transform:scale(1); }
   .trigram-card{
-    border:1px solid var(--line); padding:10px 12px; font-family:Helvetica,Arial,sans-serif;
+    border:1px solid var(--line); padding:10px 12px; font-family:Georgia,'Times New Roman',serif;
     display:flex; align-items:center; gap:10px;
   }
   .trigram-card .sym{ font-size:26px; color:var(--gold); line-height:1; }
@@ -178,7 +178,7 @@
 
   .xref-row{
     display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px;
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   .xref-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -189,30 +189,30 @@
   .xref-btn .n{ color:var(--red); margin-right:4px; }
 
   .keyword{
-    font-family:Helvetica,Arial,sans-serif; font-size:11px; letter-spacing:.15em;
-    text-transform:uppercase; color:var(--red); margin-bottom:8px;
+    font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--red); margin:0 0 8px; text-align:center;
   }
   .keyword-sub{
-    font-family:Georgia,serif; font-size:16px; font-style:italic; color:var(--red);
-    margin:-4px 0 8px;
+    font-family:Georgia,'Times New Roman',serif; font-size:16px; font-style:italic; color:var(--red);
+    margin:-4px 0 8px; text-align:center;
   }
-  .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; }
+  .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; margin:0 auto; text-align:center; }
 
   .trait-notes{ margin-top:24px; text-align:center; }
   .trait-note{
     border-left:none; border-top:2px solid var(--gold); padding:10px 0 0; margin:0 auto 16px; max-width:52ch;
-    font-family:Helvetica,Arial,sans-serif;
+    font-family:Georgia,'Times New Roman',serif;
   }
   .trait-note .lbl{ font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
   .trait-note .txt{ font-size:12px; color:var(--dim); line-height:1.6; font-style:italic; }
 
   .mutation{ margin-top:32px; padding-top:26px; border-top:1px solid var(--line); }
   .mutation-head{
-    display:flex; align-items:center; justify-content:center; gap:14px; font-family:Helvetica,Arial,sans-serif;
+    display:flex; align-items:center; justify-content:center; gap:14px; font-family:Georgia,'Times New Roman',serif;
     font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
   }
   .mutation-head .arrow{ color:var(--dim); font-size:14px; }
-  .moving-lines{ font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim); margin-bottom:16px; }
+  .moving-lines{ font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--dim); margin-bottom:16px; text-align:center; }
   .moving-lines b{ color:var(--gold); font-weight:400; }
   .mutation-pair{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
   @media (max-width:640px){ .mutation-pair{ grid-template-columns:1fr; } }
@@ -226,11 +226,11 @@
 
   .share-row{
     margin-top:18px; display:flex; align-items:center; gap:8px;
-    font-family:Helvetica,Arial,sans-serif; font-size:10px; color:var(--dim);
+    font-family:Georgia,'Times New Roman',serif; font-size:10px; color:var(--dim);
   }
   .share-row input{
     flex:1; background:#050505; border:1px solid var(--line); color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:10px; padding:6px 8px;
+    font-family:Georgia,'Times New Roman',serif; font-size:10px; padding:6px 8px;
   }
   .share-row button{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -241,13 +241,13 @@
   .empty-state{
     display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     min-height:496px; gap:24px;
-    color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:13px;
+    color:var(--dim); font-family:Georgia,'Times New Roman',serif; font-size:13px;
     text-align:center; line-height:1.7;
   }
   .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
   @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
   .note{
-    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+    margin-top:40px; font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--dim);
     text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
   }
   .credit-line{
@@ -258,7 +258,7 @@
   .credit-line .credit-sep{ opacity:.5; }
   .site-nav-row{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+    margin-top:28px; font-family:Georgia,'Times New Roman',serif;
   }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -275,7 +275,7 @@
 
   .mutation-hex-row{ display:flex; align-items:center; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
   .mutation-hex-row .flank-sq{ width:92px; height:92px; border:1px solid var(--line); background:#050505; flex-shrink:0; }
-  .mutation-hex-row .flank-cap{ font-family:Helvetica,Arial,sans-serif; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
+  .mutation-hex-row .flank-cap{ font-family:Georgia,'Times New Roman',serif; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
   .mutation-hex-row .flank-col{ display:flex; flex-direction:column; align-items:center; }
   .mutation-hex-row .hex-mini{ text-align:center; }
   .mutation-hex-row .hex-mini .num-big{ font-size:10px; }
@@ -287,7 +287,7 @@
 
   .posterior-text{ max-height:0; overflow:hidden; transition:max-height .9s ease; }
   .posterior-text.open{ max-height:700px; }
-  .posterior-text .tag{ font-family:Helvetica,Arial,sans-serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; text-align:center; }
+  .posterior-text .tag{ font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; text-align:center; }
 
   .side-band{
     position:fixed; top:0; bottom:0; width:150px; display:flex; align-items:center; justify-content:center;
@@ -308,12 +308,12 @@
 <div class="wrap">
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
-         écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
-    <div id="google_translate_element" class="gtranslate-slot"></div>
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1 id="txt-title">Tirage — Ordre chronologique des 64 mutations</h1>
     <p id="txt-subtitle">Trigramme supérieur (poids 32·16·8) / trigramme inférieur (poids 4·2·1) — construction du bas vers le haut</p>
+    <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
+         écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
+    <div id="google_translate_element" class="gtranslate-slot"></div>
     <div class="book-bar">
       <span class="dl-group">
         <a class="dl-label" id="txt-readBook" href="book-viewer/index.html" target="_blank" rel="noopener">Lire le livre</a>
@@ -586,19 +586,18 @@ function traitSVG(bit, moving){
   const W=120,H=16, midY=H/2, cx=W/2;
   let inner='';
   if(bit===1){
-    inner += `<rect x="0" y="${midY-2.5}" width="${W}" height="5" fill="${moving?'var(--gold)':'var(--red)'}"/>`;
+    inner += `<rect x="0" y="${midY-2.5}" width="${W}" height="5" fill="var(--red)"/>`;
     if(moving){
-      inner += `<circle cx="${cx}" cy="${midY}" r="7" fill="#050505" stroke="var(--gold)" stroke-width="1.6"/>`;
+      inner += `<circle cx="${cx}" cy="${midY}" r="6" fill="var(--white)"/>`;
     }
   } else {
     const gap = 22;
     const segW = (W-gap)/2;
-    const col = moving ? 'var(--gold)' : 'var(--white)';
-    inner += `<rect x="0" y="${midY-2.5}" width="${segW}" height="5" fill="${col}"/>`;
-    inner += `<rect x="${segW+gap}" y="${midY-2.5}" width="${segW}" height="5" fill="${col}"/>`;
+    inner += `<rect x="0" y="${midY-2.5}" width="${segW}" height="5" fill="var(--white)"/>`;
+    inner += `<rect x="${segW+gap}" y="${midY-2.5}" width="${segW}" height="5" fill="var(--white)"/>`;
     if(moving){
-      inner += `<line x1="${segW+2}" y1="${midY-6}" x2="${segW+gap-2}" y2="${midY+6}" stroke="var(--gold)" stroke-width="1.6"/>`;
-      inner += `<line x1="${segW+2}" y1="${midY+6}" x2="${segW+gap-2}" y2="${midY-6}" stroke="var(--gold)" stroke-width="1.6"/>`;
+      inner += `<line x1="${segW+2}" y1="${midY-6}" x2="${segW+gap-2}" y2="${midY+6}" stroke="var(--red)" stroke-width="1.6"/>`;
+      inner += `<line x1="${segW+2}" y1="${midY+6}" x2="${segW+gap-2}" y2="${midY-6}" stroke="var(--red)" stroke-width="1.6"/>`;
     }
   }
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
