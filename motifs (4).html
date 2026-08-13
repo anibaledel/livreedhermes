@@ -154,7 +154,7 @@
     background:var(--panel); padding:30px 26px; font-family:Georgia,'Times New Roman',serif;
   }
   .pending-panel .pair-imgs{ display:flex; justify-content:center; gap:16px; margin-bottom:20px; }
-  .pending-panel .pair-imgs img{ width:130px; height:130px; object-fit:cover; border:1px solid var(--line); }
+  .pending-panel .pair-imgs canvas{ width:130px; height:130px; border:1px solid var(--line); }
   .pending-panel .tag{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
   .pending-panel p{ color:var(--dim); font-size:12.5px; line-height:1.7; }
 
@@ -165,7 +165,7 @@
   }
   .echiquier-head .pair-imgs{ display:flex; justify-content:center; gap:14px; margin-bottom:12px; }
   .echiquier-head .pair-imgs .one{ text-align:center; }
-  .echiquier-head .pair-imgs img{ width:78px; height:78px; object-fit:cover; border:1px solid var(--line); }
+  .echiquier-head .pair-imgs canvas{ width:78px; height:78px; border:1px solid var(--line); }
   .echiquier-head .pair-imgs .lbl{ font-size:8.5px; color:var(--dim); margin-top:4px; letter-spacing:.04em; }
   .echiquier-head .count{ font-size:11px; color:var(--dim); letter-spacing:.05em; }
   .echiquier-head .count b{ color:var(--gold); font-weight:400; }
@@ -698,13 +698,16 @@ function buildResultArea(){
     panel.className = 'pending-panel';
     panel.innerHTML = `
       <div class="pair-imgs">
-        <img src="${A.file}" alt="${A.label}">
-        <img src="${B.file}" alt="${B.label}">
+        <canvas aria-label="${A.label}"></canvas>
+        <canvas aria-label="${B.label}"></canvas>
       </div>
       <div class="tag">Échiquier pas encore activé pour cette combinaison</div>
       <p>« ${missing.label} » (${groupLabel(missing.__cat)}) attend encore ses calques trait par trait.</p>
     `;
     area.appendChild(panel);
+    const pendingCv = panel.querySelectorAll('.pair-imgs canvas');
+    drawColorGrid(pendingCv[0], gridA);
+    drawColorGrid(pendingCv[1], gridB);
     return;
   }
 
@@ -751,8 +754,8 @@ function buildResultArea(){
   head.className = 'echiquier-head';
   head.innerHTML = `
     <div class="pair-imgs">
-      <div class="one"><img src="${yangItem.file}"><div class="lbl">${yangItem.label} — rôle Créateur (yang)</div></div>
-      <div class="one"><img src="${yinItem.file}"><div class="lbl">${yinItem.label} — rôle Réceptif (yin)</div></div>
+      <div class="one"><canvas aria-label="${yangItem.label}"></canvas><div class="lbl">${yangItem.label} — rôle Créateur (yang)</div></div>
+      <div class="one"><canvas aria-label="${yinItem.label}"></canvas><div class="lbl">${yinItem.label} — rôle Réceptif (yin)</div></div>
     </div>
     <div class="count">64 croisements · <b>${distinctVisuals}</b> motif${distinctVisuals>1?'s':''} visuellement distinct${distinctVisuals>1?'s':''}${tie ? ' · (égalité de score yang — attribution arbitraire)' : ''}</div>
     ${nTwinGroups>0 ? `<div class="count" style="margin-top:4px;">${nTwinGroups} motif${nTwinGroups>1?'s':''} de cet échiquier ${nTwinGroups>1?'apparaissent':'apparaît'} deux fois (couleurs échangées entre le Créateur et le Réceptif) —
@@ -760,6 +763,9 @@ function buildResultArea(){
     <div class="stats-line">Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — clique une case pour la numérotation King Wen traditionnelle · <b>${TOTAL_ECHIQUIERS.toLocaleString('fr-FR')}</b> échiquiers différents possibles au total avec les 60 natures (C(60,2))</div>
   `;
   area.appendChild(head);
+  const headCv = head.querySelectorAll('.pair-imgs canvas');
+  drawColorGrid(headCv[0], colorGridForItem(yangItem));
+  drawColorGrid(headCv[1], colorGridForItem(yinItem));
 
   const wrap = document.createElement('div');
   wrap.className = 'echiquier-wrap';
