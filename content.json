@@ -10,7 +10,7 @@
     { "id": "creation-motifs", "label": "Création de motifs",  "link": "motifs%20(4).html" },
     { "id": "impression-360",  "label": "Imprimer les 360" },
     { "id": "projets",         "label": "Projets & fonds d'écran" },
-    { "id": "contact",         "label": "Contact" }
+    { "id": "contact",         "label": "Contact", "link": "contact.html" }
   ],
   "pages": {
     "impression-360": {
@@ -19,7 +19,8 @@
       "keywords": "Anibal Amiot, impression textile, impression sur tissu, impression 360, impression personnalisée textile, tirage numérique textile, tirage textile personnalisé, où commander un tirage textile personnalisé",
       "eyebrow": "Bouton 3",
       "title": "Imprimer les 360",
-      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
+      "intro": "Faites imprimer vos motifs sur tissu, en haute définition et sur mesure : de l'échantillon à la pièce finie, chaque impression textile part des créations originales d'Anibal Amiot ou de vos propres visuels. Un service d'impression numérique personnalisée pensé pour les créateurs, les marques et les particuliers qui veulent donner vie à un motif unique — contactez Anibal Amiot pour en discuter.",
+      "cta": { "label": "Contacter Anibal Amiot", "target": "contact" }
     },
     "projets": {
       "metaTitle": "Projets & fonds d'écran — Anibal Amiot",
@@ -27,15 +28,7 @@
       "keywords": "Anibal Amiot, motifs textiles sur mesure, design textile digital, motifs pour impression tissu, création de motifs textiles, designer motifs pour vêtements et accessoires",
       "eyebrow": "Bouton 4",
       "title": "Projets & fonds d'écran",
-      "intro": "REMPLACER : contenu à définir dans la conversation dédiée à ce bouton."
-    },
-    "contact": {
-      "metaTitle": "Contact — Anibal Amiot",
-      "metaDescription": "Contactez Anibal Amiot, créateur textile basé en Thaïlande, pour un projet, une collaboration institutionnelle ou une commande de motifs et tirages textiles.",
-      "keywords": "Anibal Amiot, créateur textile, designer textile Thaïlande, industrie textile Thaïlande, développement textile Asie du Sud-Est, créateur textile Bangkok, collaboration textile ministérielle",
-      "eyebrow": "Bouton 5",
-      "title": "Contact",
-      "intro": "REMPLACER : coordonnées, formulaire ou lien direct à définir dans la conversation dédiée à ce bouton."
+      "intro": "Une sélection de projets textiles, de motifs achevés et de fonds d'écran inspirés des 60 natures du Yi King, à parcourir librement. Cette galerie s'enrichit au fil des créations d'Anibal Amiot — motifs pour vêtements, accessoires, ou simple plaisir visuel sur votre écran."
     }
   }
 }
