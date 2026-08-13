@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Livrée d'Hermès — Tirage Yi King | Anibal Amiot</title>
 <meta name="description" content="Tirage Yi King en ligne : consultez les 64 hexagrammes et leurs mutations, tirés aux pièces ou explorés librement dans l'ordre chronologique. Un outil créé par Anibal Amiot, créateur textile basé en Thaïlande.">
 <meta name="keywords" content="Anibal Amiot, tirage textile personnalisé, tirage Yi King, Yi King en ligne, livre des mutations, hexagrammes Yi King, traduction Yi King, oracle chinois, tirage livré, tirage numérique textile, où commander un tirage textile personnalisé">
@@ -17,13 +18,16 @@
     --line:#242424;
   }
   *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
   body{
     margin:0;
     background:var(--bg);
     color:var(--white);
     font-family: Georgia, 'Times New Roman', serif;
     min-height:100vh;
+    overflow-x:hidden;
   }
+  img, canvas, svg{ max-width:100%; }
   .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
   header{
     text-align:center;
@@ -310,6 +314,46 @@
   @media (max-width:1320px){ .side-band{ display:none; } }
   @media (min-width:1620px){ .side-band{ width:222px; } }
   @media (min-width:1900px){ .side-band{ width:290px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:24px; }
+    .detail-outer{ padding:20px 18px; min-height:0; }
+    .grid-panel{ padding:12px; }
+    .hex-block{ gap:18px; }
+    .book-bar{ gap:10px; }
+    .book-bar .dl-group{ padding:6px 10px; }
+    .mutation-hex-row{ gap:14px; }
+    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
+    /* zones de touche plus confortables au doigt */
+    .xref-btn{ padding:9px 12px; }
+    .site-nav-btn{ padding:11px 16px; }
+    .share-row button{ padding:9px 12px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .book-bar .dl-btn{ padding:10px 14px; }
+    .draw-btn{ padding:13px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:20px; letter-spacing:.03em; }
+    header p{ font-size:14px; }
+    /* texte de lecture courant : lisible sans zoomer */
+    .judgement{ font-size:16px; }
+    .trait-note .txt{ font-size:14.5px; }
+    .pinyin{ font-size:15px; }
+    .empty-state{ font-size:14.5px; }
+    .lines svg{ width:96px; }
+    .mutation-col .lines svg{ width:68px; }
+    .pavage-sq{ width:104px; height:104px; }
+    .mutation-col .pavage-sq{ width:84px; height:84px; }
+    .trigram-block{ min-width:0; width:100%; }
+    .trigram-caduceus{ height:110px; }
+    .square-wrap .cap{ max-width:120px; }
+    .mutation-hex-row .flank-sq{ width:72px; height:72px; }
+    .mutation-hex-row .flank-cap{ max-width:72px; }
+    .mutation-hex-row .hex-mini .lines svg{ width:72px; }
+  }
 </style>
 </head>
 <body>

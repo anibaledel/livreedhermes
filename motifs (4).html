@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Livrée d'Hermès — Création de motifs | Anibal Amiot</title>
 <meta name="description" content="Création de motifs textiles sur mesure à partir des 60 natures du Yi King : pattern design digital, motifs répétitifs prêts pour l'impression tissu, par Anibal Amiot, designer motifs textiles en Thaïlande.">
 <meta name="keywords" content="Anibal Amiot, designer motifs textiles, atelier de motifs, création de motifs textiles, motifs répétitifs, pattern design textile, motif sur mesure, design textile digital, motifs pour impression tissu, créateur de motifs textiles sur mesure, designer motifs pour vêtements et accessoires, atelier création motifs textiles Thaïlande, designer textile Thaïlande">
@@ -12,10 +13,13 @@
     --v:#662d91; --m:#ee2a7b; --o:#fbb040;
   }
   *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
   body{
     margin:0; background:var(--bg); color:var(--white);
     font-family: Georgia, 'Times New Roman', serif; min-height:100vh;
+    overflow-x:hidden;
   }
+  img, canvas, svg{ max-width:100%; }
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
@@ -253,6 +257,38 @@
     letter-spacing:.04em; margin-top:10px;
   }
   .stats-line b{ color:var(--gold); font-weight:400; }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .cat-row{ gap:8px; margin:20px 0; }
+    .cat-btn{ min-width:0; flex:1 1 130px; padding:12px 14px; }
+    .detail-outer{ padding:18px 16px; }
+    .pending-panel{ padding:20px 16px; }
+    .detail-head{ gap:18px; }
+    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
+    /* zones de touche plus confortables au doigt */
+    .site-nav-btn{ padding:11px 16px; }
+    .reset-btn{ padding:10px 16px; }
+    .detail-back{ padding:10px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .cat-btn{ flex:1 1 100%; text-align:center; }
+    /* texte de lecture courant : lisible sans zoomer */
+    .detail-block .txt{ font-size:16px; }
+    .pair-section .txt{ font-size:15px; }
+    .detail-info .pinyin{ font-size:15px; }
+    .pending-panel p{ font-size:14.5px; }
+    .cat-intro{ font-size:13.5px; }
+    .detail-pavage canvas{ width:130px; height:130px; }
+    .detail-pavage .ticks{ width:130px; }
+    .pending-panel .pair-imgs canvas{ width:100px; height:100px; }
+    .detail-info{ min-width:0; width:100%; }
+  }
 
   @media print{
     .cat-row, .pick-note, #pickArea, .side-band, .detail-back{ display:none !important; }
@@ -535,7 +571,7 @@ function buildStructuredGrid(container, cat, items){
 
   const grid = document.createElement('div');
   grid.className = 'struct-grid';
-  grid.style.gridTemplateColumns = `92px repeat(${cols.length}, 1fr)`;
+  grid.style.gridTemplateColumns = `clamp(40px, 12vw, 92px) repeat(${cols.length}, 1fr)`;
 
   grid.appendChild(document.createElement('div'));
   cols.forEach(c=>{
