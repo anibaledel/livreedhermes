@@ -18,9 +18,15 @@ async function loadContent() {
   return res.json();
 }
 
+function navLink(id) {
+  const item = APP.data.nav.find(n => n.id === id);
+  return item && item.link;
+}
+
 function currentPageId() {
   const hash = window.location.hash.replace('#', '');
-  return hash && APP.data.pages[hash] ? hash : 'accueil';
+  if (!hash) return 'accueil';
+  return (APP.data.pages[hash] || navLink(hash)) ? hash : 'accueil';
 }
 
 function renderNav(activeId) {
@@ -32,8 +38,8 @@ function renderNav(activeId) {
     btn.type = 'button';
     if (item.id === activeId) btn.setAttribute('aria-current', 'page');
     btn.addEventListener('click', () => {
-      if (item.id === 'accueil') {
-        window.location.href = 'tirage-livree-hermes.html';
+      if (item.link) {
+        window.location.href = item.link;
         return;
       }
       window.location.hash = item.id;
@@ -86,8 +92,9 @@ function escapeHtml(str) {
 
 function route() {
   const pageId = currentPageId();
-  if (pageId === 'accueil') {
-    window.location.replace('tirage-livree-hermes.html');
+  const link = navLink(pageId);
+  if (link) {
+    window.location.replace(link);
     return;
   }
   renderNav(pageId);
