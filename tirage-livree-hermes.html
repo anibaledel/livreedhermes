@@ -45,7 +45,7 @@
     border-bottom:1px solid var(--line);
     padding-bottom:20px;
   }
-  .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:14px 0 16px; opacity:.75; }
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
@@ -63,7 +63,7 @@
     text-transform:uppercase;
     font-family:Georgia,'Times New Roman',serif;
   }
-  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:8px 0 4px; }
+  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:12px 0 8px; }
   header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0; }
 
   .book-bar{
@@ -310,7 +310,7 @@
   .mutation-hex-row .hex-mini{ text-align:center; max-width:150px; }
   .mutation-hex-row .hex-mini .num-big{ font-size:10px; }
   .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:16px; margin:4px 0 2px; color:var(--white); }
-  .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin-bottom:8px; color:var(--dim); }
+  .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin:8px 0; color:var(--dim); }
   .mutation-hex-row .hex-mini .lines{ margin:0 auto; align-items:center; }
   .mutation-hex-row .hex-mini .lines svg{ width:92px; height:13px; opacity:1; transform:none; }
   .mutation-hex-row .arrow-mid{ color:var(--dim); font-size:22px; padding:0 2px; align-self:center; }
@@ -1216,6 +1216,19 @@ function buildShareRow(){
 let lastShown = null;
 let lastTrigramCaduceus = null;
 
+// déclenche la transition CSS "shown" (opacity/transform) de façon fiable : sur un premier
+// chargement, le thread principal est chargé (dessin des pavages, widget Google Translate...)
+// et si la classe est ajoutée avant que le navigateur n'ait peint l'état initial (opacity:0),
+// les deux états peuvent fusionner en un seul repaint et le trait reste bloqué invisible/gris
+// jusqu'au prochain repaint (d'où le correctif "au rechargement"). Le double rAF force un
+// premier peint de l'état initial avant de basculer vers l'état final.
+function revealShown(el){
+  void el.offsetWidth;
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=> el.classList.add('shown'));
+  });
+}
+
 function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const info = curHexKW()[kwNum];
   const wrap = document.createElement('div');
@@ -1313,13 +1326,13 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
 
   lineEls.forEach((el,i)=>{
     setTimeout(()=>{
-      el.classList.add('shown');
-      triadEls[i].classList.add('shown');
+      revealShown(el);
+      revealShown(triadEls[i]);
       drawPavageSquare(sq, traits, movingSet, i);
       drawBandsProgressive(traits, movingSet, i);
     }, i*160);
   });
-  setTimeout(()=> smallCaduceus.classList.add('shown'), lineEls.length*160 + 120);
+  setTimeout(()=> revealShown(smallCaduceus), lineEls.length*160 + 120);
 
   return { wrap, sq, notes };
 }
@@ -1490,8 +1503,9 @@ function drawTirage(presetTosses){
 
       // alignement fin (uniquement quand la rangée tient sur une seule ligne — en dessous de
       // 1040px elle passe en colonne via CSS et ces micro-décalages n'ont plus lieu d'être) :
-      // flèche centrale équidistante des deux hexagrammes, et légendes "Pavage" calées sur
-      // le haut du texte gris (nom chinois + n° King Wen)
+      // flèche centrale équidistante des deux hexagrammes et calée verticalement sur le milieu
+      // de la pile de 6 traits (la frontière entre trigramme supérieur et inférieur), et
+      // légendes "Pavage" calées sur le haut du texte gris (nom chinois + n° King Wen)
       requestAnimationFrame(()=>{
         const rA = miniA.getBoundingClientRect(), rB = miniB.getBoundingClientRect();
         const sameRow = Math.abs(rA.top - rB.top) < 10;
@@ -1499,9 +1513,15 @@ function drawTirage(presetTosses){
 
         const rArrow = arrow.getBoundingClientRect();
         const centerA = rA.left + rA.width/2, centerB = rB.left + rB.width/2;
-        const midpoint = (centerA + centerB)/2;
-        const arrowCenter = rArrow.left + rArrow.width/2;
-        arrow.style.transform = `translateX(${midpoint - arrowCenter}px)`;
+        const midpointX = (centerA + centerB)/2;
+        const arrowCenterX = rArrow.left + rArrow.width/2;
+
+        const rLinesA = linesA.getBoundingClientRect(), rLinesB = linesB.getBoundingClientRect();
+        const midY_A = rLinesA.top + rLinesA.height/2, midY_B = rLinesB.top + rLinesB.height/2;
+        const midpointY = (midY_A + midY_B) / 2;
+        const arrowCenterY = rArrow.top + rArrow.height/2;
+
+        arrow.style.transform = `translate(${midpointX - arrowCenterX}px, ${midpointY - arrowCenterY}px)`;
 
         [[flankA, miniA], [flankB, miniB]].forEach(([flank, mini])=>{
           const pinyinTop = mini.querySelector('.pinyin').getBoundingClientRect().top;
