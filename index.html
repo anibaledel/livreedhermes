@@ -1437,7 +1437,9 @@ function drawTirage(presetTosses){
       const miniA = document.createElement('div'); miniA.className='hex-mini';
       miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('kingWenShort')}${kwNum}</div>`;
       const linesA = document.createElement('div'); linesA.className='lines';
-      traits.forEach((b,i)=> linesA.insertAdjacentHTML('afterbegin', traitSVG(b, movingSet.has(i))));
+      // .lines est en column-reverse : ajouter dans l'ordre naturel (trait 1 = bas, en premier
+      // dans le DOM) place bien le trait 1 en bas et le trait 6 en haut, comme dans le bloc principal
+      traits.forEach((b,i)=> linesA.insertAdjacentHTML('beforeend', traitSVG(b, movingSet.has(i))));
       miniA.appendChild(linesA);
       row.appendChild(miniA);
 
@@ -1449,7 +1451,7 @@ function drawTirage(presetTosses){
       miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('kingWenShort')}${dKwNum}</div>`;
       const linesB = document.createElement('div'); linesB.className='lines';
       // les traits postérieurs sont désormais fixes : la mutation est résolue, plus de jaune/or ici
-      derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('afterbegin', traitSVG(b, false)));
+      derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('beforeend', traitSVG(b, false)));
       miniB.appendChild(linesB);
       row.appendChild(miniB);
 
