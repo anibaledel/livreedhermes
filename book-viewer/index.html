@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>La Livrée d'Hermès — Le Livre</title>
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#6b6b6b;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html,body{ height:100%; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    font-family: Georgia, 'Times New Roman', serif; height:100vh;
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  header{
+    text-align:center; padding:20px 24px 16px; border-bottom:1px solid var(--line);
+  }
+  header .eyebrow{
+    letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:22px; letter-spacing:.04em; margin:8px 0 0; }
+
+  .lang-row{
+    display:flex; justify-content:center; gap:8px; margin-top:14px;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .lang-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:6px 14px;
+    cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .lang-btn.active{ border-color:var(--red); color:var(--red); }
+  .lang-btn:disabled{ opacity:.35; cursor:default; }
+  .lang-btn:not(:disabled):hover{ border-color:var(--gold); color:var(--gold); }
+
+  .viewer{
+    flex:1; display:flex; align-items:center; justify-content:center;
+    position:relative; padding:16px 24px; min-height:0;
+  }
+  .page-frame{
+    max-width:min(94vw, 1400px); max-height:100%; position:relative;
+    display:flex; align-items:center; justify-content:center; min-height:0;
+  }
+  .page-frame img{
+    width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain;
+    border:1px solid var(--line); background:#050505;
+    cursor:zoom-in; transition:opacity .25s ease;
+  }
+  .page-frame img.zoomed{
+    cursor:zoom-out; max-width:none; max-height:none;
+    width:auto; height:auto; position:fixed; top:50%; left:50%;
+    transform:translate(-50%,-50%); z-index:50; max-width:96vw; max-height:96vh;
+    box-shadow:0 0 0 2000px rgba(0,0,0,.88);
+  }
+  .nav-btn{
+    position:absolute; top:50%; transform:translateY(-50%);
+    background:transparent; border:1px solid var(--line); color:var(--dim);
+    width:44px; height:44px; border-radius:50%; cursor:pointer; font-size:18px;
+    display:flex; align-items:center; justify-content:center;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-btn:hover{ border-color:var(--red); color:var(--red); }
+  .nav-btn.prev{ left:10px; } .nav-btn.next{ right:10px; }
+  .nav-btn:disabled{ opacity:.25; cursor:default; }
+
+  footer{
+    border-top:1px solid var(--line); padding:14px 24px 18px;
+    display:flex; align-items:center; justify-content:center; gap:18px;
+    font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+  }
+  footer input{
+    width:52px; background:#050505; border:1px solid var(--line); color:var(--white);
+    font-family:Helvetica,Arial,sans-serif; font-size:12px; padding:5px 6px; text-align:center;
+  }
+  footer .sep{ color:var(--line); }
+  .jump-form{ display:flex; align-items:center; gap:6px; }
+  .jump-form button{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:5px 9px; cursor:pointer;
+  }
+  .jump-form button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .hint{
+    position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
+    font-family:Helvetica,Arial,sans-serif; font-size:9.5px; color:var(--dim);
+    letter-spacing:.06em; opacity:.7; pointer-events:none;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">La Livrée d'Hermès</div>
+  <h1>Le Livre — visualiseur</h1>
+  <div class="lang-row" id="langRow"></div>
+</header>
+
+<div class="viewer">
+  <button class="nav-btn prev" id="prevBtn" aria-label="Page précédente">‹</button>
+  <div class="page-frame">
+    <img id="pageImg" src="" alt="Page du livre">
+  </div>
+  <button class="nav-btn next" id="nextBtn" aria-label="Page suivante">›</button>
+</div>
+
+<footer>
+  <span id="pageLabel">Page — / —</span>
+  <span class="sep">|</span>
+  <form class="jump-form" id="jumpForm">
+    <span>Aller à</span>
+    <input type="text" id="jumpInput" placeholder="ex. 042">
+    <button type="submit">Voir</button>
+  </form>
+</footer>
+
+<div class="hint">← → pour naviguer · clic sur la page pour zoomer</div>
+
+<script>
+// ---------- pages disponibles (même pagination pour les 4 langues prêtes : FR/EN/ES/TH) ----------
+const PAGE_CODES = ["000A","000B","001","002","003","004A","004B","004C","005","006","007","008A","008B","008C","009","010","011","012A","012B","012C","013","014","015","016","017","018A","018B","018C","019","020","021","022","023","024A","024B","024C","025","026","027","028A","028B","028C","029","030","031","032","033","034","035","036","037","038A","038B","038C","039","040","041","042","043","044","045","046","047","048","049","050","051","052","053","054","055","056","057","058","059","060","061","062A","062B","062C","063","064","065","066","067","068","069","070","071","072","073","074","075","076A","077","078","079","080","081","082","083","084","085","086","087","088","089","090","091","092","093"];
+
+const LANGS = {
+  fr: { label: 'Français', pages: PAGE_CODES, ready: true },
+  en: { label: 'English',  pages: PAGE_CODES, ready: true },
+  es: { label: 'Español',  pages: PAGE_CODES, ready: true },
+  th: { label: 'ไทย',      pages: PAGE_CODES, ready: true },
+  zh: { label: '中文',      pages: [], ready: false },
+  ru: { label: 'Русский',  pages: [], ready: false },
+};
+
+let currentLang = 'fr';
+let currentIndex = 0;
+
+function buildLangRow(){
+  const row = document.getElementById('langRow');
+  row.innerHTML = '';
+  Object.entries(LANGS).forEach(([code, info])=>{
+    const btn = document.createElement('button');
+    btn.className = 'lang-btn' + (code===currentLang ? ' active' : '');
+    btn.textContent = info.label + (info.ready ? '' : ' · bientôt');
+    btn.disabled = !info.ready;
+    btn.addEventListener('click', ()=>{ if(info.ready){ currentLang = code; currentIndex = 0; render(); buildLangRow(); }});
+    row.appendChild(btn);
+  });
+}
+
+function pages(){ return LANGS[currentLang].pages; }
+
+function render(){
+  const list = pages();
+  if(!list.length) return;
+  currentIndex = Math.max(0, Math.min(list.length-1, currentIndex));
+  const code = list[currentIndex];
+  const img = document.getElementById('pageImg');
+  img.src = `pages/${currentLang}/${code}.webp`;
+  img.alt = 'Page ' + code;
+  img.classList.remove('zoomed');
+  document.getElementById('pageLabel').textContent = `Page ${code} — ${currentIndex+1} / ${list.length}`;
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  document.getElementById('nextBtn').disabled = currentIndex === list.length-1;
+  const usp = new URLSearchParams();
+  usp.set('lang', currentLang); usp.set('page', code);
+  history.replaceState(null, '', '?' + usp.toString());
+}
+
+document.getElementById('prevBtn').addEventListener('click', ()=>{ currentIndex--; render(); });
+document.getElementById('nextBtn').addEventListener('click', ()=>{ currentIndex++; render(); });
+document.getElementById('pageImg').addEventListener('click', (e)=> e.target.classList.toggle('zoomed'));
+
+document.getElementById('jumpForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const val = document.getElementById('jumpInput').value.trim().toUpperCase().padStart(3,'0');
+  const list = pages();
+  const idx = list.findIndex(c => c === val || c.replace(/[A-Z]$/,'') === val);
+  if(idx >= 0){ currentIndex = idx; render(); }
+});
+
+window.addEventListener('keydown', (e)=>{
+  if(e.key === 'ArrowLeft') document.getElementById('prevBtn').click();
+  if(e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+  if(e.key === 'Escape') document.getElementById('pageImg').classList.remove('zoomed');
+});
+
+// ---------- init depuis l'URL ----------
+(function initFromURL(){
+  const params = new URLSearchParams(location.search);
+  const lang = params.get('lang');
+  if(lang && LANGS[lang] && LANGS[lang].ready) currentLang = lang;
+  const page = params.get('page');
+  buildLangRow();
+  if(page){
+    const idx = pages().indexOf(page);
+    if(idx >= 0) currentIndex = idx;
+  }
+  render();
+})();
+</script>
+</body>
+</html>
