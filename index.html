@@ -108,6 +108,7 @@
 
   .layout{ display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
   @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+  @media (max-width:1040px){ .mutation-hex-row{ flex-direction:column; align-items:center; } .mutation-hex-row .trigram-block{ max-width:280px; } }
 
   .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
   .grid-head{
@@ -152,6 +153,8 @@
   .legend-item span{ font-size:9px; color:var(--dim); line-height:1.3; }
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
+  .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
+  .detail-below.visible{ display:block; }
 
   .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Georgia,'Times New Roman',serif; }
   .detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
@@ -298,7 +301,12 @@
   .mutation-hex-row .flank-sq{ width:92px; height:92px; border:1px solid var(--line); background:#050505; flex-shrink:0; }
   .mutation-hex-row .flank-cap{ font-family:Georgia,'Times New Roman',serif; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
   .mutation-hex-row .flank-col{ display:flex; flex-direction:column; align-items:center; }
-  .mutation-hex-row .hex-mini{ text-align:center; }
+  .mutation-hex-row .trigram-block{ flex-shrink:0; min-width:170px; max-width:210px; padding-top:2px; }
+  .mutation-hex-row .trigram-block .trigram-card{ padding:8px 10px; }
+  .mutation-hex-row .trigram-block .sym{ font-size:22px; }
+  .mutation-hex-row .trigram-block .txt{ font-size:9px; }
+  .mutation-hex-row .trigram-block .txt b{ font-size:10px; }
+  .mutation-hex-row .hex-mini{ text-align:center; max-width:150px; }
   .mutation-hex-row .hex-mini .num-big{ font-size:10px; }
   .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:16px; margin:4px 0 2px; color:var(--white); }
   .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin-bottom:8px; color:var(--dim); }
@@ -329,7 +337,7 @@
     .wrap{ padding:20px 16px 48px; }
     header{ margin-bottom:20px; padding-bottom:16px; }
     header h1{ font-size:24px; }
-    .detail-outer{ padding:20px 18px; min-height:0; }
+    .detail-outer, .detail-below{ padding:20px 18px; min-height:0; }
     .grid-panel{ padding:12px; }
     .hex-block{ gap:18px; }
     .book-bar{ gap:10px; }
@@ -435,6 +443,8 @@
       </div>
     </div>
   </div>
+
+  <div class="detail-below" id="detailBelow"></div>
 
   <div class="note">
     <span id="txt-footer1">Numérotation chronologique binaire (votre système, p.067) — le nom et le jugement restent ceux du Yi-king traditionnel, à titre de repère.</span><br>
@@ -625,6 +635,17 @@ function trigramOf(bits3){ return curTrigrams()[trigramValue(bits3)]; }
 // N° chronologique = r*8 + c  (strictement croissant, ligne par ligne)
 // table vérifiée par calcul : case 0 = Kun/Kun (tout yin), case 63 = Qian/Qian (tout yang)
 const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+
+// nom chinois (caractères traditionnels) par n° King Wen — source : wengu.tartarie.com/wg/wengu.php?l=Yijing&lang=fr
+const HANZI_BY_KW = {
+  1:"乾",2:"坤",3:"屯",4:"蒙",5:"需",6:"訟",7:"師",8:"比",9:"小畜",10:"履",
+  11:"泰",12:"否",13:"同人",14:"大有",15:"謙",16:"豫",17:"隨",18:"蠱",19:"臨",20:"觀",
+  21:"噬嗑",22:"賁",23:"剝",24:"復",25:"無妄",26:"大畜",27:"頤",28:"大過",29:"坎",30:"離",
+  31:"咸",32:"恆",33:"遯",34:"大壯",35:"晉",36:"明夷",37:"家人",38:"睽",39:"蹇",40:"解",
+  41:"損",42:"益",43:"夬",44:"姤",45:"萃",46:"升",47:"困",48:"井",49:"革",50:"鼎",
+  51:"震",52:"艮",53:"漸",54:"歸妹",55:"豐",56:"旅",57:"巽",58:"兌",59:"渙",60:"節",
+  61:"中孚",62:"小過",63:"既濟",64:"未濟"
+};
 
 function chronoOf(r,c){ return r*8+c; }
 function traitsFromChrono(chrono){
@@ -1276,15 +1297,17 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const kw=document.createElement('div'); kw.className='keyword-sub'; kw.textContent=info[2]; wrap.appendChild(jgTag); wrap.appendChild(kw);
   const judg=document.createElement('div'); judg.className='judgement'; judg.textContent=info[3]; wrap.appendChild(judg);
 
+  let notes = null;
   if(movingSet && movingSet.size){
-    const notes = document.createElement('div'); notes.className='trait-notes';
+    notes = document.createElement('div'); notes.className='trait-notes';
     const posLabels = [t('triadTerreBase'),t('triadTerreFin'),t('triadHommeBase'),t('triadHommeFin'),t('triadCielBase'),t('triadCielFin')];
     Array.from(movingSet).sort((a,b)=>a-b).forEach(i=>{
       const n = document.createElement('div'); n.className='trait-note';
       n.innerHTML = `<div class="lbl">${t('traitMutant')}${i+1} · ${posLabels[i]}</div><div class="txt">${hexLineText(kwNum, i+1, traits[i])}</div>`;
       notes.appendChild(n);
     });
-    wrap.appendChild(notes);
+    // ce bloc n'est pas ajouté à wrap : la section des traits mutants sort de la colonne
+    // étroite de l'échiquier et se rend dans #detailBelow, en pleine largeur (voir drawTirage)
   }
 
   lineEls.forEach((el,i)=>{
@@ -1297,7 +1320,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   });
   setTimeout(()=> smallCaduceus.classList.add('shown'), lineEls.length*160 + 120);
 
-  return { wrap, sq };
+  return { wrap, sq, notes };
 }
 
 function makeCell(chrono){
@@ -1334,8 +1357,8 @@ function showDetail(chrono){
 }
 
 function clearMutation(){
-  const old = document.getElementById('mutationZone');
-  if(old) old.remove();
+  const below = document.getElementById('detailBelow');
+  if(below){ below.innerHTML=''; below.classList.remove('visible'); }
 }
 
 // ---------- tirage aux pièces ----------
@@ -1368,8 +1391,14 @@ function drawTirage(presetTosses){
   const panel = document.getElementById('detail');
   panel.innerHTML='';
   const departCaption = movingIdx.length ? t('pavageReprod') : t('pavageFixed');
-  const { wrap } = buildHexBlock(traits, kwNum, chrono, movingSet, departCaption);
+  const { wrap, notes } = buildHexBlock(traits, kwNum, chrono, movingSet, departCaption);
   panel.appendChild(wrap);
+
+  const below = document.getElementById('detailBelow');
+  if(notes){
+    below.appendChild(notes);
+    below.classList.add('visible');
+  }
 
   setShareURL({ tire: tossesToTireDigits(tosses) });
 
@@ -1393,8 +1422,10 @@ function drawTirage(presetTosses){
       ml.innerHTML = t('movingLines') + '<b>' + movingIdx.map(i=>i+1).join(', ') + '</b>' + t('movingLinesEnd');
       zone.appendChild(ml);
 
-      // rangée : [pavé antérieur] [hexagramme antérieur] → [hexagramme postérieur] [pavé postérieur]
+      // rangée élargie : [trigrammes antérieurs] [pavé antérieur] [hexagramme antérieur] → [hexagramme postérieur] [pavé postérieur] [trigrammes postérieurs]
       const row = document.createElement('div'); row.className='mutation-hex-row'; row.id='antPostRow';
+
+      row.appendChild(buildTrigramBlock(traits));
 
       const flankA = document.createElement('div'); flankA.className='flank-col';
       const sqA = document.createElement('canvas'); sqA.className='flank-sq';
@@ -1404,7 +1435,7 @@ function drawTirage(presetTosses){
 
       const infoA = curHexKW()[kwNum];
       const miniA = document.createElement('div'); miniA.className='hex-mini';
-      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${infoA[0]} · ${t('kingWenShort')}${kwNum}</div>`;
+      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('kingWenShort')}${kwNum}</div>`;
       const linesA = document.createElement('div'); linesA.className='lines';
       traits.forEach((b,i)=> linesA.insertAdjacentHTML('afterbegin', traitSVG(b, movingSet.has(i))));
       miniA.appendChild(linesA);
@@ -1415,7 +1446,7 @@ function drawTirage(presetTosses){
 
       const infoB = curHexKW()[dKwNum];
       const miniB = document.createElement('div'); miniB.className='hex-mini';
-      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${infoB[0]} · ${t('kingWenShort')}${dKwNum}</div>`;
+      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('kingWenShort')}${dKwNum}</div>`;
       const linesB = document.createElement('div'); linesB.className='lines';
       // les traits postérieurs sont désormais fixes : la mutation est résolue, plus de jaune/or ici
       derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('afterbegin', traitSVG(b, false)));
@@ -1427,6 +1458,8 @@ function drawTirage(presetTosses){
       const capB = document.createElement('div'); capB.className='flank-cap'; capB.textContent=t('pavagePost');
       flankB.appendChild(sqB); flankB.appendChild(capB);
       row.appendChild(flankB);
+
+      row.appendChild(buildTrigramBlock(derivedTraits));
 
       zone.appendChild(row);
 
@@ -1448,20 +1481,25 @@ function drawTirage(presetTosses){
       postText.appendChild(jgTagB); postText.appendChild(kwB); postText.appendChild(jB);
       zone.appendChild(postText);
 
-      document.getElementById('detail').appendChild(zone);
-      document.getElementById('detail').appendChild(buildShareRow());
+      below.appendChild(zone);
+      below.appendChild(buildShareRow());
+      below.classList.add('visible');
 
-      // alignement fin : flèche centrale équidistante des deux hexagrammes,
-      // et légendes "Pavage" calées sur le trait médian du trigramme du bas
+      // alignement fin (uniquement quand la rangée tient sur une seule ligne — en dessous de
+      // 1040px elle passe en colonne via CSS et ces micro-décalages n'ont plus lieu d'être) :
+      // flèche centrale équidistante des deux hexagrammes, et légendes "Pavage" calées sur
+      // le haut du texte gris (nom chinois + n° King Wen)
       requestAnimationFrame(()=>{
-        const rA = miniA.getBoundingClientRect(), rB = miniB.getBoundingClientRect(), rArrow = arrow.getBoundingClientRect();
+        const rA = miniA.getBoundingClientRect(), rB = miniB.getBoundingClientRect();
+        const sameRow = Math.abs(rA.top - rB.top) < 10;
+        if(!sameRow) return;
+
+        const rArrow = arrow.getBoundingClientRect();
         const centerA = rA.left + rA.width/2, centerB = rB.left + rB.width/2;
         const midpoint = (centerA + centerB)/2;
         const arrowCenter = rArrow.left + rArrow.width/2;
         arrow.style.transform = `translateX(${midpoint - arrowCenter}px)`;
 
-        // le carré de pavage et sa légende descendent ensemble : le haut du carré se cale
-        // sur le haut du texte gris (nom chinois + n° King Wen), pas sur le nom de l'hexagramme
         [[flankA, miniA], [flankB, miniB]].forEach(([flank, mini])=>{
           const pinyinTop = mini.querySelector('.pinyin').getBoundingClientRect().top;
           const flankTop = flank.getBoundingClientRect().top;
