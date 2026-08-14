@@ -294,14 +294,14 @@
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   #credit-logo-slot svg.footer-logo{ width:26px; height:26px; vertical-align:middle; opacity:.9; }
 
-  .mutation-hex-row{ display:flex; align-items:center; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
+  .mutation-hex-row{ display:flex; align-items:flex-start; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
   .mutation-hex-row .flank-sq{ width:92px; height:92px; border:1px solid var(--line); background:#050505; flex-shrink:0; }
   .mutation-hex-row .flank-cap{ font-family:Georgia,'Times New Roman',serif; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
   .mutation-hex-row .flank-col{ display:flex; flex-direction:column; align-items:center; }
   .mutation-hex-row .hex-mini{ text-align:center; }
   .mutation-hex-row .hex-mini .num-big{ font-size:10px; }
-  .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:16px; margin:4px 0 2px; }
-  .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin-bottom:8px; }
+  .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:16px; margin:4px 0 2px; color:var(--white); }
+  .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin-bottom:8px; color:var(--dim); }
   .mutation-hex-row .hex-mini .lines{ margin:0 auto; align-items:center; }
   .mutation-hex-row .hex-mini .lines svg{ width:92px; height:13px; opacity:1; transform:none; }
   .mutation-hex-row .arrow-mid{ color:var(--dim); font-size:22px; padding:0 2px; align-self:center; }
@@ -624,7 +624,7 @@ function trigramOf(bits3){ return curTrigrams()[trigramValue(bits3)]; }
 // colonne c (0..7, gauche->droite) = valeur du trigramme INFÉRIEUR (poids 4/2/1)
 // N° chronologique = r*8 + c  (strictement croissant, ligne par ligne)
 // table vérifiée par calcul : case 0 = Kun/Kun (tout yin), case 63 = Qian/Qian (tout yang)
-const KINGWEN_BY_CHRONO = [2,8,45,20,16,23,35,12,24,51,3,17,27,21,42,25,7,40,29,47,4,64,59,6,19,54,60,58,41,38,61,10,15,62,39,31,52,56,53,33,36,55,63,49,22,30,37,13,46,32,48,28,18,50,57,44,11,34,5,43,26,14,9,1];
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
 
 function chronoOf(r,c){ return r*8+c; }
 function traitsFromChrono(chrono){
@@ -993,7 +993,7 @@ const UI = {
     legendYinFixe:"Yin fixe", legendYinMut:"Yin mutant — va se remplir",
     emptyState:"Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.",
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
-    chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ",
+    chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     imageLabel:"Image", judgementLabel:"Jugement", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)", xrefEchange:"Échange trig.",
@@ -1021,7 +1021,7 @@ const UI = {
     legendYinFixe:"Fixed yin", legendYinMut:"Moving yin — about to fill",
     emptyState:"Click a square on the board to consult a hexagram,<br>or cast the coins for a reading — with, where relevant, its moving lines and the hexagram that results.",
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
-    chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ",
+    chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     imageLabel:"Image", judgementLabel:"Judgment", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)", xrefEchange:"Trigram swap",
@@ -1404,7 +1404,7 @@ function drawTirage(presetTosses){
 
       const infoA = curHexKW()[kwNum];
       const miniA = document.createElement('div'); miniA.className='hex-mini';
-      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${infoA[0]}</div>`;
+      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${infoA[0]} · ${t('kingWenShort')}${kwNum}</div>`;
       const linesA = document.createElement('div'); linesA.className='lines';
       traits.forEach((b,i)=> linesA.insertAdjacentHTML('afterbegin', traitSVG(b, movingSet.has(i))));
       miniA.appendChild(linesA);
@@ -1415,7 +1415,7 @@ function drawTirage(presetTosses){
 
       const infoB = curHexKW()[dKwNum];
       const miniB = document.createElement('div'); miniB.className='hex-mini';
-      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${infoB[0]}</div>`;
+      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${infoB[0]} · ${t('kingWenShort')}${dKwNum}</div>`;
       const linesB = document.createElement('div'); linesB.className='lines';
       // les traits postérieurs sont désormais fixes : la mutation est résolue, plus de jaune/or ici
       derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('afterbegin', traitSVG(b, false)));
@@ -1460,14 +1460,12 @@ function drawTirage(presetTosses){
         const arrowCenter = rArrow.left + rArrow.width/2;
         arrow.style.transform = `translateX(${midpoint - arrowCenter}px)`;
 
-        [[linesA, capA], [linesB, capB]].forEach(([lines, cap])=>{
-          if(lines.children.length >= 2){
-            const midLine = lines.children[1]; // trait médian du trigramme visuellement en bas
-            const lineMidY = midLine.getBoundingClientRect().top + midLine.getBoundingClientRect().height/2;
-            const capR = cap.getBoundingClientRect();
-            const capMidY = capR.top + capR.height/2;
-            cap.style.transform = `translateY(${lineMidY - capMidY}px)`;
-          }
+        // le carré de pavage et sa légende descendent ensemble : le haut du carré se cale
+        // sur le haut du texte gris (nom chinois + n° King Wen), pas sur le nom de l'hexagramme
+        [[flankA, miniA], [flankB, miniB]].forEach(([flank, mini])=>{
+          const pinyinTop = mini.querySelector('.pinyin').getBoundingClientRect().top;
+          const flankTop = flank.getBoundingClientRect().top;
+          flank.style.transform = `translateY(${pinyinTop - flankTop}px)`;
         });
       });
 
