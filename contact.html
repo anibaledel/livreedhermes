@@ -24,7 +24,7 @@
   html{ overflow-x:hidden; }
   body{
     margin:0; background:var(--bg); color:var(--white);
-    font-family: Georgia, 'Times New Roman', serif; min-height:100vh;
+    min-height:100vh;
     overflow-x:hidden;
   }
   img, canvas, svg{ max-width:100%; }
@@ -42,7 +42,7 @@
   }
   .gtranslate-slot img{ vertical-align:middle !important; }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0 0 20px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
 
   /* ---------- contenu contact ---------- */
   .contact-body{ min-height:280px; padding:24px 0 8px; text-align:center; }
@@ -60,7 +60,6 @@
   .social-btn{
     display:flex; align-items:center; gap:9px;
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-family:Georgia,'Times New Roman',serif;
     font-size:11px; letter-spacing:.08em; text-transform:uppercase;
     padding:11px 20px; text-decoration:none; cursor:pointer;
     transition:border-color .15s ease, color .15s ease;
@@ -82,7 +81,7 @@
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
   .credit-line{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    font-size:10px; color:var(--dim); font-family:Georgia,'Times New Roman',serif; margin-top:10px;
+    font-size:10px; color:var(--dim); margin-top:10px;
   }
   .credit-line .credit-sep{ opacity:.5; }
   .credit-line-secondary{
@@ -93,8 +92,7 @@
   .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    margin-top:6px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin-top:6px; }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
@@ -104,8 +102,7 @@
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
-    margin:0 0 20px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin:0 0 20px; }
   .palette-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
   .palette-swatches{ display:flex; align-items:center; gap:10px; }
   .palette-swatch{
@@ -142,6 +139,10 @@
     .contact-bios{ margin-top:32px; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
 <div class="wrap">

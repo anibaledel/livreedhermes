@@ -33,7 +33,6 @@
     margin:0;
     background:var(--bg);
     color:var(--white);
-    font-family: Georgia, 'Times New Roman', serif;
     min-height:100vh;
     overflow-x:hidden;
   }
@@ -61,16 +60,14 @@
     font-size:11px;
     color:var(--red);
     text-transform:uppercase;
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:12px 0 8px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0; }
+  header p{ color:var(--dim); font-size:12px; margin:0; }
 
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   .app-lang-row{ display:none; }
   .app-lang-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -114,10 +111,9 @@
   .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
   .grid-head{
     display:flex; justify-content:space-between; align-items:center;
-    margin-bottom:12px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin-bottom:12px; }
   .grid-head .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
-  .axis-note{ font-family:Georgia,'Times New Roman',serif; font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note{ font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
   .axis-note b{ color:var(--red); font-weight:400; }
 
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
@@ -132,13 +128,12 @@
   .cell.changing{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
   .cell .num{
     position:absolute; top:2px; left:3px; font-size:7px;
-    color:var(--dim); font-family:Georgia,'Times New Roman',serif;
-  }
+    color:var(--dim); }
   .cell svg{ width:70%; }
 
   .draw-btn{
     margin-top:14px; width:100%; background:transparent; border:1px solid var(--red);
-    color:var(--red); font-family:Georgia,'Times New Roman',serif; letter-spacing:.1em;
+    color:var(--red); letter-spacing:.1em;
     text-transform:uppercase; font-size:11px; padding:11px; cursor:pointer;
     transition:background .15s ease, color .15s ease;
   }
@@ -146,7 +141,7 @@
   .draw-btn.secondary{ border-color:var(--line); color:var(--dim); margin-top:8px; }
   .draw-btn.secondary:hover{ border-color:var(--dim); background:transparent; color:var(--white); }
 
-  .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); font-family:Georgia,'Times New Roman',serif; }
+  .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
   .legend .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:8px; display:block; }
   .legend-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .legend-item{ display:flex; align-items:center; gap:6px; }
@@ -157,10 +152,10 @@
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
-  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Georgia,'Times New Roman',serif; }
+  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
   .detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
   .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:6px; }
-  .altnum{ font-size:10px; color:var(--dim); font-family:Georgia,'Times New Roman',serif; margin-bottom:20px; }
+  .altnum{ font-size:10px; color:var(--dim); margin-bottom:20px; }
 
   .hex-block{ display:flex; gap:30px; align-items:flex-start; margin:18px 0 22px; flex-wrap:wrap; }
   .lines-col{ display:flex; flex-direction:column; gap:10px; }
@@ -170,13 +165,13 @@
   .triad-labels{ display:flex; flex-direction:column-reverse; gap:9px; }
   .triad-row{ height:16px; display:flex; align-items:center; }
   .triad-tag{
-    font-family:Georgia,'Times New Roman',serif; font-size:8px; letter-spacing:.12em; text-transform:uppercase;
+    font-size:8px; font-weight:400; letter-spacing:.12em; text-transform:uppercase;
     color:var(--dim); opacity:0; transition:opacity .3s ease;
   }
   .triad-tag.shown{ opacity:1; }
 
   .square-wrap{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding-top:4px; }
-  .square-wrap .cap{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); font-family:Georgia,'Times New Roman',serif; max-width:150px; line-height:1.5; }
+  .square-wrap .cap{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); max-width:150px; line-height:1.5; }
   .pavage-sq{ width:130px; height:130px; border:1px solid var(--line); background:#050505; }
 
   .trigram-block{ display:flex; flex-direction:column; gap:10px; min-width:180px; }
@@ -187,8 +182,7 @@
   }
   .trigram-caduceus.shown{ opacity:.92; transform:scale(1); }
   .trigram-card{
-    border:1px solid var(--line); padding:10px 12px; font-family:Georgia,'Times New Roman',serif;
-    display:flex; align-items:center; gap:10px;
+    border:1px solid var(--line); padding:10px 12px; display:flex; align-items:center; gap:10px;
   }
   .trigram-card .sym{ font-size:26px; color:var(--gold); line-height:1; }
   .trigram-card .txt{ font-size:10px; color:var(--dim); line-height:1.5; }
@@ -197,8 +191,7 @@
 
   .xref-row{
     display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px;
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   .xref-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
     font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:6px 10px;
@@ -208,11 +201,11 @@
   .xref-btn .n{ color:var(--red); margin-right:4px; }
 
   .keyword{
-    font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:.15em;
+    font-size:11px; letter-spacing:.15em;
     text-transform:uppercase; color:var(--red); margin:0 0 8px; text-align:center;
   }
   .keyword-sub{
-    font-family:Georgia,'Times New Roman',serif; font-size:16px; font-style:italic; color:var(--red);
+    font-size:16px; font-style:italic; color:var(--red);
     margin:-4px 0 8px; text-align:center;
   }
   .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; margin:0 auto; text-align:center; }
@@ -220,18 +213,16 @@
   .trait-notes{ margin-top:24px; text-align:center; }
   .trait-note{
     border-left:none; border-top:2px solid var(--gold); padding:10px 0 0; margin:0 auto 16px; max-width:52ch;
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   .trait-note .lbl{ font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
   .trait-note .txt{ font-size:12px; color:var(--dim); line-height:1.6; font-style:italic; }
 
   .mutation{ margin-top:32px; padding-top:26px; border-top:1px solid var(--line); }
   .mutation-head{
-    display:flex; align-items:center; justify-content:center; gap:14px; font-family:Georgia,'Times New Roman',serif;
-    font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
+    display:flex; align-items:center; justify-content:center; gap:14px; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
   }
   .mutation-head .arrow{ color:var(--dim); font-size:14px; }
-  .moving-lines{ font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--dim); margin-bottom:16px; text-align:center; }
+  .moving-lines{ font-size:11px; color:var(--dim); margin-bottom:16px; text-align:center; }
   .moving-lines b{ color:var(--gold); font-weight:400; }
   .mutation-pair{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
   @media (max-width:640px){ .mutation-pair{ grid-template-columns:1fr; } }
@@ -245,11 +236,11 @@
 
   .share-row{
     margin-top:18px; display:flex; align-items:center; gap:8px;
-    font-family:Georgia,'Times New Roman',serif; font-size:10px; color:var(--dim);
+    font-size:10px; color:var(--dim);
   }
   .share-row input{
     flex:1; background:#050505; border:1px solid var(--line); color:var(--dim);
-    font-family:Georgia,'Times New Roman',serif; font-size:10px; padding:6px 8px;
+    font-size:10px; padding:6px 8px;
   }
   .share-row button{
     border:1px solid var(--line); background:transparent; color:var(--dim);
@@ -260,13 +251,13 @@
   .empty-state{
     display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     min-height:496px; gap:24px;
-    color:var(--dim); font-family:Georgia,'Times New Roman',serif; font-size:13px;
+    color:var(--dim); font-size:13px;
     text-align:center; line-height:1.7;
   }
   .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
   @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
   .note{
-    margin-top:40px; font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--dim);
+    margin-top:40px; font-size:11px; color:var(--dim);
     text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
   }
   .credit-line{
@@ -283,8 +274,7 @@
   .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    margin-top:28px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin-top:28px; }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
@@ -294,8 +284,7 @@
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
-    margin:24px 0 4px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin:24px 0 4px; }
   .palette-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
   .palette-swatches{ display:flex; align-items:center; gap:10px; }
   .palette-swatch{
@@ -316,7 +305,7 @@
 
   .mutation-hex-row{ display:flex; align-items:flex-start; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
   .mutation-hex-row .flank-sq{ width:92px; height:92px; border:1px solid var(--line); background:#050505; flex-shrink:0; }
-  .mutation-hex-row .flank-cap{ font-family:Georgia,'Times New Roman',serif; font-size:8.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
+  .mutation-hex-row .flank-cap{ font-size:8.5px; font-weight:400; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
   .mutation-hex-row .flank-col{ display:flex; flex-direction:column; align-items:center; }
   .mutation-hex-row .trigram-block{ flex-shrink:0; min-width:170px; max-width:210px; padding-top:2px; }
   .mutation-hex-row .trigram-block .trigram-card{ padding:8px 10px; }
@@ -333,7 +322,7 @@
 
   .posterior-text{ max-height:0; overflow:hidden; transition:max-height .9s ease; }
   .posterior-text.open{ max-height:700px; }
-  .posterior-text .tag{ font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; text-align:center; }
+  .posterior-text .tag{ font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; text-align:center; }
 
   .side-band{
     position:fixed; top:0; bottom:0; width:150px; display:flex; align-items:center; justify-content:center;
@@ -389,6 +378,10 @@
     .mutation-hex-row .hex-mini .lines svg{ width:72px; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
 <div class="wrap">
@@ -681,7 +674,6 @@ function chronoFromTraits(traits){ const {r,c}=rcFromTraits(traits); return chro
 // ---------- hexagrammes liés (calculés, pas de texte copié) ----------
 function binomeTraits(traits){ return traits.slice().reverse(); }          // retourné (miroir haut/bas)
 function opposeTraits(traits){ return traits.map(b=>1-b); }                // inversé (chaque trait change)
-function echangeTraits(traits){ return traits.slice(3,6).concat(traits.slice(0,3)); } // trigrammes échangés
 
 // ---------- glyphes de traits : symbolique traditionnelle ----------
 // yang fixe : trait plein. yang mutant : trait plein + cercle au centre (va se briser)
@@ -1051,7 +1043,7 @@ const UI = {
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     imageLabel:"Image", judgementLabel:"Jugement", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact",
     superior:"Supérieur", inferior:"Inférieur",
-    xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)", xrefEchange:"Échange trig.",
+    xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
     pavageFixed:"Pavage — traits fixes uniquement", pavageReprod:"Pavage — reproduit sous le départ",
     traitMutant:"Trait mutant — position ", triadTerreBase:"Terre (base)", triadTerreFin:"Terre (achèvement)",
     triadHommeBase:"Homme (base)", triadHommeFin:"Homme (achèvement)", triadCielBase:"Ciel (base)", triadCielFin:"Ciel (achèvement)",
@@ -1080,7 +1072,7 @@ const UI = {
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     imageLabel:"Image", judgementLabel:"Judgment", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact",
     superior:"Upper", inferior:"Lower",
-    xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)", xrefEchange:"Trigram swap",
+    xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
     pavageFixed:"Tiling — fixed lines only", pavageReprod:"Tiling — reproduced below the starting hexagram",
     traitMutant:"Moving line — position ", triadTerreBase:"Earth (base)", triadTerreFin:"Earth (completion)",
     triadHommeBase:"Man (base)", triadHommeFin:"Man (completion)", triadCielBase:"Heaven (base)", triadCielFin:"Heaven (completion)",
@@ -1195,7 +1187,6 @@ function buildXrefRow(traits, onJump){
   const refs = [
     [t('xrefBinome'), binomeTraits(traits)],
     [t('xrefOppose'), opposeTraits(traits)],
-    [t('xrefEchange'), echangeTraits(traits)],
   ];
   refs.forEach(([label, t2])=>{
     const chrono = chronoFromTraits(t2);
@@ -1270,7 +1261,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
 
   const numBig=document.createElement('div');
   numBig.className='num-big';
-  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' / 63 — ' + t('chronoLabel');
+  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — ' + t('chronoLabel');
   wrap.appendChild(numBig);
 
   const h2=document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);

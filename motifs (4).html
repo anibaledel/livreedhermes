@@ -25,7 +25,7 @@
   html{ overflow-x:hidden; }
   body{
     margin:0; background:var(--bg); color:var(--white);
-    font-family: Georgia, 'Times New Roman', serif; min-height:100vh;
+    min-height:100vh;
     overflow-x:hidden;
   }
   img, canvas, svg{ max-width:100%; }
@@ -44,16 +44,15 @@
   .gtranslate-slot img{ vertical-align:middle !important; }
   header .eyebrow{
     letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase;
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Georgia,'Times New Roman',serif; margin:0 0 20px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
 
   /* ---------- pied de page (identique à l'app Tirage) ---------- */
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
   .credit-line{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    font-size:10px; color:var(--dim); font-family:Georgia,'Times New Roman',serif; margin-top:10px;
+    font-size:10px; color:var(--dim); margin-top:10px;
   }
   .credit-line .credit-sep{ opacity:.5; }
   .credit-line-secondary{
@@ -64,8 +63,7 @@
   .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    margin-top:6px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin-top:6px; }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
@@ -75,8 +73,7 @@
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
-    margin:0 0 20px; font-family:Georgia,'Times New Roman',serif;
-  }
+    margin:0 0 20px; }
   .palette-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
   .palette-swatches{ display:flex; align-items:center; gap:10px; }
   .palette-swatch{
@@ -110,8 +107,7 @@
   /* ---------- catégories ---------- */
   .cat-row{
     display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:28px 0;
-    font-family:Georgia,'Times New Roman',serif;
-  }
+    }
   .cat-btn{
     border:1px solid var(--line); background:var(--panel); color:var(--dim);
     font-size:12px; letter-spacing:.1em; text-transform:uppercase; padding:14px 22px;
@@ -122,16 +118,16 @@
   .cat-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .cat-btn.active{ border-color:var(--red); color:var(--red); }
   .cat-btn.active .n{ color:var(--red); }
-  .cat-btn.pending::after{ content:" · calques en attente"; font-size:8.5px; color:var(--dim); display:block; margin-top:2px; letter-spacing:.05em; text-transform:none; }
+  .cat-btn.pending::after{ content:" · calques en attente"; font-size:8.5px; font-weight:400; color:var(--dim); display:block; margin-top:2px; letter-spacing:.05em; text-transform:none; }
 
   .cat-intro{
     text-align:center; max-width:760px; margin:0 auto 26px; color:var(--dim);
-    font-family:Georgia,'Times New Roman',serif; font-size:12.5px; line-height:1.7;
+    font-size:12.5px; line-height:1.7;
   }
 
   /* ---------- grille de sélection ---------- */
   .pick-note{
-    text-align:center; font-family:Georgia,'Times New Roman',serif; font-size:11px;
+    text-align:center; font-size:11px;
     letter-spacing:.08em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
   }
   .sel-grid{
@@ -150,23 +146,23 @@
   }
   .sel-card.picked .pick-order{
     position:absolute; top:4px; left:4px; width:22px; height:22px; border-radius:50%;
-    background:var(--red); color:#fff; font-family:Georgia,'Times New Roman',serif; font-size:12px;
+    background:var(--red); color:#fff; font-size:12px;
     display:flex; align-items:center; justify-content:center; font-weight:bold;
     box-shadow:0 0 0 2px #000;
   }
   .sel-card canvas{ width:100%; display:block; aspect-ratio:1; }
   .sel-card .cap{
-    font-family:Georgia,'Times New Roman',serif; font-size:8.5px; color:var(--dim); text-align:center;
+    font-size:8.5px; font-weight:400; color:var(--dim); text-align:center;
     padding:5px 3px; letter-spacing:.03em; line-height:1.3;
   }
   .sel-card.picked .cap{ color:var(--gold); }
   .sel-card .group-label{
-    font-family:Georgia,'Times New Roman',serif; font-size:8px; letter-spacing:.1em; text-transform:uppercase;
+    font-size:8px; font-weight:400; letter-spacing:.1em; text-transform:uppercase;
     color:var(--red); text-align:center; padding-top:4px;
   }
 
   .group-heading{
-    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.16em; text-transform:uppercase;
+    font-size:10px; letter-spacing:.16em; text-transform:uppercase;
     color:var(--dim); margin:22px 0 10px; border-top:1px solid var(--line); padding-top:16px;
   }
   .group-heading:first-child{ border-top:none; padding-top:0; }
@@ -174,7 +170,7 @@
   .reset-row{ text-align:center; margin:18px 0 6px; }
   .reset-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     padding:8px 16px; cursor:pointer;
   }
   .reset-btn:hover{ border-color:var(--gold); color:var(--gold); }
@@ -182,8 +178,7 @@
   /* ---------- pending panel ---------- */
   .pending-panel{
     max-width:640px; margin:30px auto; text-align:center; border:1px solid var(--line);
-    background:var(--panel); padding:30px 26px; font-family:Georgia,'Times New Roman',serif;
-  }
+    background:var(--panel); padding:30px 26px; }
   .pending-panel .pair-imgs{ display:flex; justify-content:center; gap:16px; margin-bottom:20px; }
   .pending-panel .pair-imgs canvas{ width:130px; height:130px; border:1px solid var(--line); }
   .pending-panel .tag{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
@@ -192,12 +187,12 @@
   /* ---------- échiquier ---------- */
   .echiquier-wrap{ margin-top:10px; }
   .echiquier-head{
-    text-align:center; font-family:Georgia,'Times New Roman',serif; margin-bottom:16px;
+    text-align:center; margin-bottom:16px;
   }
   .echiquier-head .pair-imgs{ display:flex; justify-content:center; gap:14px; margin-bottom:12px; }
   .echiquier-head .pair-imgs .one{ text-align:center; }
   .echiquier-head .pair-imgs canvas{ width:78px; height:78px; border:1px solid var(--line); }
-  .echiquier-head .pair-imgs .lbl{ font-size:8.5px; color:var(--dim); margin-top:4px; letter-spacing:.04em; }
+  .echiquier-head .pair-imgs .lbl{ font-size:8.5px; font-weight:400; color:var(--dim); margin-top:4px; letter-spacing:.04em; }
   .echiquier-head .count{ font-size:11px; color:var(--dim); letter-spacing:.05em; }
   .echiquier-head .count b{ color:var(--gold); font-weight:400; }
 
@@ -212,7 +207,7 @@
   .ech-cell canvas{ width:100%; height:100%; display:block; }
   .ech-cell .kw{
     position:absolute; bottom:1px; right:2px; font-size:7px; color:rgba(255,255,255,.55);
-    font-family:Georgia,'Times New Roman',serif; pointer-events:none;
+    pointer-events:none;
   }
 
   /* ---------- détail ---------- */
@@ -221,33 +216,33 @@
   }
   .detail-back{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-family:Georgia,'Times New Roman',serif; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     padding:8px 14px; cursor:pointer; margin-bottom:20px;
   }
   .detail-back:hover{ border-color:var(--gold); color:var(--gold); }
   .detail-head{ display:flex; gap:28px; flex-wrap:wrap; align-items:flex-start; margin-bottom:8px; }
   .detail-pavage{ position:relative; padding-bottom:20px; }
   .detail-pavage canvas{ width:170px; height:170px; border:1px solid var(--line); background:#050505; display:block; }
-  .detail-pavage .ticks{ display:flex; justify-content:space-between; width:170px; margin-top:6px; font-family:Georgia,'Times New Roman',serif; }
+  .detail-pavage .ticks{ display:flex; justify-content:space-between; width:170px; margin-top:6px; }
   .detail-pavage .tick{
     width:20px; height:20px; border-radius:50%; border:1px solid var(--line); color:var(--dim);
     font-size:9px; display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;
   }
   .detail-pavage .tick.on{ border-color:var(--red); color:var(--red); }
   .detail-info{ flex:1; min-width:220px; }
-  .detail-info .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; font-family:Georgia,'Times New Roman',serif; }
+  .detail-info .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
   .detail-info .name-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
   .detail-info h2{ font-weight:400; font-size:26px; margin:6px 0 2px; }
   .detail-info .hexglyph{ flex-shrink:0; }
   .detail-info .redline{ border:none; border-top:1px solid var(--red); margin:8px 0 12px; }
   .detail-info .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:10px; }
   .detail-info .keyword{
-    font-family:Georgia,'Times New Roman',serif; font-size:11px; letter-spacing:.15em; text-transform:uppercase;
+    font-size:11px; letter-spacing:.15em; text-transform:uppercase;
     color:var(--gold); margin-bottom:14px;
   }
   .detail-block{ margin-bottom:18px; max-width:66ch; }
   .detail-block .lbl{
-    font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--dim); margin-bottom:6px;
   }
   .detail-block .txt{ font-size:13.5px; line-height:1.7; }
@@ -258,27 +253,27 @@
     display:flex; flex-direction:column; align-items:center; text-align:center;
   }
   .pair-section .tag{
-    font-family:Georgia,'Times New Roman',serif; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
+    font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--red); margin-bottom:16px;
   }
   .pair-compare{ display:flex; align-items:center; gap:22px; margin-bottom:16px; }
   .pair-compare .one{ text-align:center; }
   .pair-compare canvas{ width:96px; height:96px; border:1px solid var(--line); background:#050505; display:block; }
-  .pair-compare .pname{ font-family:Georgia,'Times New Roman',serif; font-size:11px; color:var(--white); margin-top:8px; max-width:120px; }
-  .pair-compare .pnum{ font-family:Georgia,'Times New Roman',serif; font-size:9px; color:var(--dim); letter-spacing:.08em; }
+  .pair-compare .pname{ font-size:11px; color:var(--white); margin-top:8px; max-width:120px; }
+  .pair-compare .pnum{ font-size:9px; color:var(--dim); letter-spacing:.08em; }
   .pair-compare .plus{ color:var(--dim); font-size:20px; }
-  .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; font-family:Georgia,'Times New Roman',serif; max-width:60ch; }
+  .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; max-width:60ch; }
 
   /* ---------- grille structurée (Bases/Par2/Par3/Par4) ---------- */
   .struct-grid{ display:grid; gap:6px; margin-bottom:8px; align-items:center; }
   .struct-colhead, .struct-rowhead{
-    font-family:Georgia,'Times New Roman',serif; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+    font-size:9px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--gold); text-align:center; padding:4px;
   }
   .struct-rowhead{ text-align:right; padding-right:8px; }
 
   .stats-line{
-    text-align:center; font-family:Georgia,'Times New Roman',serif; font-size:10.5px; color:var(--dim);
+    text-align:center; font-size:10.5px; color:var(--dim);
     letter-spacing:.04em; margin-top:10px;
   }
   .stats-line b{ color:var(--gold); font-weight:400; }
@@ -319,6 +314,10 @@
     .cat-row, .pick-note, #pickArea, .side-band, .detail-back{ display:none !important; }
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
 <div class="wrap">

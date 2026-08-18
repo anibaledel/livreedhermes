@@ -12,7 +12,7 @@
   html,body{ height:100%; }
   body{
     margin:0; background:var(--bg); color:var(--white);
-    font-family: Georgia, 'Times New Roman', serif; height:100vh;
+    height:100vh;
     display:flex; flex-direction:column; overflow:hidden;
   }
   header{
@@ -20,14 +20,12 @@
   }
   header .eyebrow{
     letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase;
-    font-family:Helvetica,Arial,sans-serif;
-  }
+    }
   header h1{ font-weight:400; font-size:22px; letter-spacing:.04em; margin:8px 0 0; }
 
   .lang-row{
     display:flex; justify-content:center; gap:8px; margin-top:14px;
-    font-family:Helvetica,Arial,sans-serif;
-  }
+    }
   .lang-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; padding:6px 14px;
@@ -70,11 +68,11 @@
   footer{
     border-top:1px solid var(--line); padding:14px 24px 18px;
     display:flex; align-items:center; justify-content:center; gap:18px;
-    font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+    font-size:11px; color:var(--dim);
   }
   footer input{
     width:52px; background:#050505; border:1px solid var(--line); color:var(--white);
-    font-family:Helvetica,Arial,sans-serif; font-size:12px; padding:5px 6px; text-align:center;
+    font-size:12px; padding:5px 6px; text-align:center;
   }
   footer .sep{ color:var(--line); }
   .jump-form{ display:flex; align-items:center; gap:6px; }
@@ -86,10 +84,14 @@
 
   .hint{
     position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
-    font-family:Helvetica,Arial,sans-serif; font-size:9.5px; color:var(--dim);
+    font-size:9.5px; color:var(--dim);
     letter-spacing:.06em; opacity:.7; pointer-events:none;
   }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts.css">
 </head>
 <body>
 <header>
