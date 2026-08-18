@@ -290,6 +290,22 @@
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .palette-picker{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin:24px 0 4px; font-family:Georgia,'Times New Roman',serif;
+  }
+  .palette-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  .palette-swatches{ display:flex; align-items:center; gap:10px; }
+  .palette-swatch{
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
+    padding:0; overflow:hidden; position:relative; display:block; background:transparent;
+  }
+  button.palette-swatch{ cursor:pointer; }
+  button.palette-swatch:hover{ border-color:var(--gold); }
+  .palette-swatch input[type="color"]{
+    position:absolute; inset:-4px; width:calc(100% + 8px); height:calc(100% + 8px);
+    border:0; padding:0; cursor:pointer; background:none;
+  }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
@@ -447,9 +463,11 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <div class="note">
-    <span id="txt-footer1">Numérotation chronologique binaire (votre système, p.067) — le nom et le jugement restent ceux du Yi-king traditionnel, à titre de repère.</span><br>
-    <span id="txt-footer2">Pavage : transcription réelle en carré de 144, calculée à partir de vos calques 1-6. Les quatre jeux — <b style="color:var(--gold)">Yang fixe</b>, <b style="color:var(--gold)">Yin fixe</b>, <b style="color:var(--gold)">Yang mutant</b> et <b style="color:var(--gold)">Yin mutant</b> — sont désormais tous intégrés.</span><br>
-    <span id="txt-footer3">Un tirage effectué est encodé dans l'URL (<code>?tire=</code>) — copiez le lien pour le partager ou le retrouver tel quel.</span>
+    <div class="palette-picker" id="palettePicker">
+      <span class="palette-label" id="txt-paletteLabel">Palette</span>
+      <div class="palette-swatches" id="paletteSwatches"></div>
+      <button type="button" class="site-nav-btn" id="btnResetPalette">Réinitialiser la palette</button>
+    </div>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="archive-360-motifs.zip" download id="txt-navArchives">Archives</a>
@@ -717,6 +735,21 @@ const CALQUE_COLORS = {
 };
 const PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
 
+// ---------- registre de repeinture (canvas -> dernier appel de dessin) ----------
+// permet de rejouer tous les dessins de pavage en cours quand la palette change,
+// sans redéclencher un tirage.
+const __pavageRepaints = new Map();
+function paintAndTrack(canvas, fn){
+  fn();
+  if(canvas) __pavageRepaints.set(canvas, fn);
+}
+window.repaintAllPavage = function(){
+  for(const [canvas, fn] of __pavageRepaints){
+    if(!document.body.contains(canvas)){ __pavageRepaints.delete(canvas); continue; }
+    fn();
+  }
+};
+
 function natureKeyForTrait(bit, moving){
   if(bit===1) return moving ? 'YANGMUT' : 'YANG';
   return moving ? 'YINMUT' : 'YIN';
@@ -824,14 +857,14 @@ function resetSideBands(){
 
 function drawBandsProgressive(traits, movingSet, upTo){
   if(!bandLeftAnt) return;
-  drawPavageTile(bandLeftAnt, traits, movingSet, upTo);
-  drawPavageTile(bandRightAnt, traits, movingSet, upTo);
+  paintAndTrack(bandLeftAnt, ()=> drawPavageTile(bandLeftAnt, traits, movingSet, upTo));
+  paintAndTrack(bandRightAnt, ()=> drawPavageTile(bandRightAnt, traits, movingSet, upTo));
 }
 
 function finalizeBandsPost(derivedTraits){
   if(!bandLeftPost) return;
-  drawPavageTile(bandLeftPost, derivedTraits, new Set(), 5);
-  drawPavageTile(bandRightPost, derivedTraits, new Set(), 5);
+  paintAndTrack(bandLeftPost, ()=> drawPavageTile(bandLeftPost, derivedTraits, new Set(), 5));
+  paintAndTrack(bandRightPost, ()=> drawPavageTile(bandRightPost, derivedTraits, new Set(), 5));
   updateBandScrollCrossfade();
 }
 
@@ -1029,7 +1062,8 @@ const UI = {
     footerNote1:"Numérotation chronologique binaire (votre système, p.067) — le nom et le jugement restent ceux du Yi-king traditionnel, à titre de repère.",
     footerNote2Pre:"Pavage : transcription réelle en carré de 144, calculée à partir de vos calques 1-6. Les quatre jeux — ", footerNote2Post:" — sont désormais tous intégrés.",
     footerNote3:'Un tirage effectué est encodé dans l\'URL (<code>?tire=</code>) — copiez le lien pour le partager ou le retrouver tel quel.',
-    yangFixeW:"Yang fixe", yinFixeW:"Yin fixe", yangMutW:"Yang mutant", yinMutW:"Yin mutant"
+    yangFixeW:"Yang fixe", yinFixeW:"Yin fixe", yangMutW:"Yang mutant", yinMutW:"Yin mutant",
+    paletteLabel:"Palette", paletteReset:"Réinitialiser la palette"
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
@@ -1057,7 +1091,8 @@ const UI = {
     footerNote1:"Chronological binary numbering (your own system, p.067) — the name and judgment remain those of the traditional I Ching, as a reference point.",
     footerNote2Pre:"Tiling: a true transcription into a square of 144, calculated from your layers 1-6. All four sets — ", footerNote2Post:" — are now fully integrated.",
     footerNote3:'A completed casting is encoded in the URL (<code>?tire=</code>) — copy the link to share it or find it again exactly as it was.',
-    yangFixeW:"Fixed yang", yinFixeW:"Fixed yin", yangMutW:"Moving yang", yinMutW:"Moving yin"
+    yangFixeW:"Fixed yang", yinFixeW:"Fixed yin", yangMutW:"Moving yang", yinMutW:"Moving yin",
+    paletteLabel:"Palette", paletteReset:"Reset the palette"
   }
 };
 
@@ -1327,7 +1362,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
     setTimeout(()=>{
       revealShown(el);
       revealShown(triadEls[i]);
-      drawPavageSquare(sq, traits, movingSet, i);
+      paintAndTrack(sq, ()=> drawPavageSquare(sq, traits, movingSet, i));
       drawBandsProgressive(traits, movingSet, i);
     }, i*160);
   });
@@ -1529,9 +1564,9 @@ function drawTirage(presetTosses){
         });
       });
 
-      drawPavageSquare(sqA, traits, movingSet, 5);
+      paintAndTrack(sqA, ()=> drawPavageSquare(sqA, traits, movingSet, 5));
       // hexagramme d'arrivée : traits mutants déjà résolus, lu comme fixe (pas de calque MUT)
-      drawPavageSquare(sqB, derivedTraits, new Set(), 5);
+      paintAndTrack(sqB, ()=> drawPavageSquare(sqB, derivedTraits, new Set(), 5));
       finalizeBandsPost(derivedTraits);
 
       // déroulé du texte postérieur, légèrement différé pour l'effet
@@ -1582,14 +1617,143 @@ function applyUILang(){
   document.getElementById('txt-legendLabel').textContent = t('legendLabel');
   const emptyStateSpan = document.querySelector('#txt-emptyState span');
   if(emptyStateSpan) emptyStateSpan.innerHTML = t('emptyState');
-  document.getElementById('txt-footer1').textContent = t('footerNote1');
-  document.getElementById('txt-footer2').innerHTML = t('footerNote2Pre') +
-    `<b style="color:var(--gold)">${t('yangFixeW')}</b>, <b style="color:var(--gold)">${t('yinFixeW')}</b>, <b style="color:var(--gold)">${t('yangMutW')}</b> ${LANG==='fr'?'et':'and'} <b style="color:var(--gold)">${t('yinMutW')}</b>` +
-    t('footerNote2Post');
-  document.getElementById('txt-footer3').innerHTML = t('footerNote3');
+  document.getElementById('txt-paletteLabel').textContent = t('paletteLabel');
+  document.getElementById('btnResetPalette').textContent = t('paletteReset');
   document.documentElement.lang = LANG;
   buildLegend();
 }
+
+// ---------- palette liée (3 couleurs, persistante via localStorage) ----------
+const PALETTE_KEYS = ['V','M','O'];
+const PALETTE_DEFAULT = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+const PALETTE_STORAGE_KEY = 'lldh-palette';
+
+function hexToHsl(hex){
+  const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), l = (max+min)/2;
+  let h = 0, s = 0;
+  const d = max-min;
+  if(d!==0){
+    s = d / (1 - Math.abs(2*l-1));
+    switch(max){
+      case r: h = 60*(((g-b)/d)%6); break;
+      case g: h = 60*((b-r)/d+2); break;
+      default: h = 60*((r-g)/d+4);
+    }
+  }
+  if(h<0) h += 360;
+  return { h, s: s*100, l: l*100 };
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const c = (1-Math.abs(2*l-1))*s, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+
+function loadPaletteState(){
+  try{
+    const raw = localStorage.getItem(PALETTE_STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed && parsed.colors && PALETTE_KEYS.every(k=>/^#[0-9a-fA-F]{6}$/.test(parsed.colors[k]||''))){
+        return { colors:{ V:parsed.colors.V, M:parsed.colors.M, O:parsed.colors.O }, master: PALETTE_KEYS.includes(parsed.master) ? parsed.master : 'V' };
+      }
+    }
+  }catch(e){}
+  return { colors:{...PALETTE_DEFAULT}, master:'V' };
+}
+function savePaletteState(){
+  try{ localStorage.setItem(PALETTE_STORAGE_KEY, JSON.stringify(paletteState)); }catch(e){}
+}
+function computeFrozenDeltas(masterKey){
+  const mh = hexToHsl(paletteState.colors[masterKey]);
+  const out = {};
+  PALETTE_KEYS.forEach(k=>{
+    if(k===masterKey) return;
+    const h = hexToHsl(paletteState.colors[k]);
+    out[k] = { dh: ((h.h-mh.h+540)%360)-180, ds: h.s-mh.s, dl: h.l-mh.l };
+  });
+  return out;
+}
+function applyPaletteToSite(){
+  PALETTE_KEYS.forEach(k=>{ PALETTE[k] = paletteState.colors[k]; });
+  if(typeof window.repaintAllPavage === 'function') window.repaintAllPavage();
+}
+function renderPaletteSwatches(){
+  const wrap = document.getElementById('paletteSwatches');
+  if(!wrap) return;
+  wrap.innerHTML = '';
+  PALETTE_KEYS.forEach(k=>{
+    const isMaster = k===paletteState.master;
+    if(isMaster){
+      const span = document.createElement('span');
+      span.className = 'palette-swatch is-master';
+      const input = document.createElement('input');
+      input.type = 'color';
+      input.value = paletteState.colors[k];
+      input.setAttribute('aria-label', k);
+      input.addEventListener('input', e=> onPaletteMasterInput(e.target.value));
+      span.appendChild(input);
+      wrap.appendChild(span);
+    } else {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'palette-swatch';
+      btn.style.background = paletteState.colors[k];
+      btn.setAttribute('aria-label', k);
+      btn.addEventListener('click', ()=> makePaletteMaster(k));
+      wrap.appendChild(btn);
+    }
+  });
+}
+function updatePaletteSwatchColors(){
+  const wrap = document.getElementById('paletteSwatches');
+  if(!wrap) return;
+  [...wrap.children].forEach((el, idx)=>{
+    const k = PALETTE_KEYS[idx];
+    if(k!==paletteState.master) el.style.background = paletteState.colors[k];
+  });
+}
+function makePaletteMaster(key){
+  if(key===paletteState.master) return;
+  paletteState.master = key;
+  paletteFrozenDeltas = computeFrozenDeltas(key);
+  renderPaletteSwatches();
+  savePaletteState();
+}
+function onPaletteMasterInput(newHex){
+  paletteState.colors[paletteState.master] = newHex;
+  const mh = hexToHsl(newHex);
+  PALETTE_KEYS.forEach(k=>{
+    if(k===paletteState.master) return;
+    const d = paletteFrozenDeltas[k];
+    const h = ((mh.h+d.dh)%360+360)%360;
+    const s = Math.min(100, Math.max(0, mh.s+d.ds));
+    const l = Math.min(100, Math.max(0, mh.l+d.dl));
+    paletteState.colors[k] = hslToHex(h,s,l);
+  });
+  applyPaletteToSite();
+  updatePaletteSwatchColors();
+  savePaletteState();
+}
+function resetPaletteToDefault(){
+  paletteState = { colors:{...PALETTE_DEFAULT}, master:'V' };
+  paletteFrozenDeltas = computeFrozenDeltas('V');
+  try{ localStorage.removeItem(PALETTE_STORAGE_KEY); }catch(e){}
+  applyPaletteToSite();
+  renderPaletteSwatches();
+}
+
+let paletteState = loadPaletteState();
+let paletteFrozenDeltas = computeFrozenDeltas(paletteState.master);
+applyPaletteToSite();
+renderPaletteSwatches();
+const btnResetPaletteEl = document.getElementById('btnResetPalette');
+if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteToDefault);
 
 function setAppLang(lang){
   LANG = lang;
