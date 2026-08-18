@@ -468,6 +468,7 @@
       <a class="site-nav-btn" href="pages.html#projets" id="txt-navWallpaper">Fond d'écran</a>
       <a class="site-nav-btn" href="pages.html#impression-360" id="txt-navPrint">Impression</a>
       <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
+      <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
     </div>
 
     <div class="center-logo-slot">
@@ -1040,7 +1041,7 @@ const UI = {
     emptyState:"Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.",
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
-    imageLabel:"Image", judgementLabel:"Jugement", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact",
+    imageLabel:"Image", judgementLabel:"Jugement", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
     pavageFixed:"Pavage — traits fixes uniquement", pavageReprod:"Pavage — reproduit sous le départ",
@@ -1069,7 +1070,7 @@ const UI = {
     emptyState:"Click a square on the board to consult a hexagram,<br>or cast the coins for a reading — with, where relevant, its moving lines and the hexagram that results.",
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
-    imageLabel:"Image", judgementLabel:"Judgment", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact",
+    imageLabel:"Image", judgementLabel:"Judgment", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
     pavageFixed:"Tiling — fixed lines only", pavageReprod:"Tiling — reproduced below the starting hexagram",
@@ -1601,6 +1602,7 @@ function applyUILang(){
   document.getElementById('txt-navWallpaper').textContent = t('navWallpaper');
   document.getElementById('txt-navPrint').textContent = t('navPrint');
   document.getElementById('txt-navContact').textContent = t('navContact');
+  document.getElementById('txt-navAbout').textContent = t('navAbout');
   document.getElementById('txt-grid').textContent = t('grid');
   document.getElementById('txt-axisNote').innerHTML = t('axisNote');
   document.getElementById('drawBtn').textContent = t('drawBtn');

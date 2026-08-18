@@ -3,17 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Anibal Amiot | Designer textile en Thaïlande</title>
-<meta name="description" content="Contactez Anibal Amiot, créateur textile basé en Thaïlande, par email ou sur les réseaux sociaux (Instagram, Facebook, LinkedIn) pour un projet, une collaboration ou une commande de motifs et tirages textiles.">
-<meta name="keywords" content="Anibal Amiot, créateur textile, designer textile Thaïlande, industrie textile Thaïlande, développement textile Asie du Sud-Est, créateur textile Bangkok, collaboration textile ministérielle">
-<meta property="og:title" content="Contact — Anibal Amiot | Designer textile en Thaïlande">
-<meta property="og:description" content="Contactez Anibal Amiot, créateur textile basé en Thaïlande, par email ou sur les réseaux sociaux (Instagram, Facebook, LinkedIn) pour un projet, une collaboration ou une commande de motifs et tirages textiles.">
+<title>À propos — Anibal Amiot | Auteur de La Livrée d'Hermès</title>
+<meta name="description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
+<meta property="og:title" content="À propos — Anibal Amiot | Auteur de La Livrée d'Hermès">
+<meta property="og:description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer.png">
-<meta property="og:url" content="https://anibal-amiot.com/contact.html">
-<meta property="og:type" content="website">
+<meta property="og:url" content="https://anibal-amiot.com/a-propos.html">
+<meta property="og:type" content="profile">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Contact — Anibal Amiot | Designer textile en Thaïlande">
-<meta name="twitter:description" content="Contactez Anibal Amiot, créateur textile basé en Thaïlande, par email ou sur les réseaux sociaux (Instagram, Facebook, LinkedIn) pour un projet, une collaboration ou une commande de motifs et tirages textiles.">
+<meta name="twitter:title" content="À propos — Anibal Amiot | Auteur de La Livrée d'Hermès">
+<meta name="twitter:description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer.png">
 <style>
   :root{
@@ -44,38 +43,15 @@
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
   header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
 
-  /* ---------- contenu contact ---------- */
-  .contact-body{ min-height:280px; padding:24px 0 8px; text-align:center; }
-  .contact-intro{
-    max-width:56ch; margin:0 auto 26px; color:var(--dim);
-    font-size:15px; line-height:1.7;
+  /* ---------- contenu à propos ---------- */
+  .about-body{ padding:24px 0 8px; }
+  .about-intro{
+    max-width:64ch; margin:0 auto 26px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:left;
   }
-  .contact-email{
-    display:inline-block; font-size:20px; color:var(--red);
-    text-decoration:none; margin-bottom:32px; letter-spacing:.01em;
-    border-bottom:1px solid transparent; transition:color .15s ease, border-color .15s ease;
-  }
-  .contact-email:hover{ color:var(--gold); border-color:var(--gold); }
-  .social-row{ display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin:0 0 8px; }
-  .social-btn{
-    display:flex; align-items:center; gap:9px;
-    border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-    padding:11px 20px; text-decoration:none; cursor:pointer;
-    transition:border-color .15s ease, color .15s ease;
-  }
-  .social-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .social-btn svg{ width:19px; height:19px; flex-shrink:0; }
-  .social-btn.disabled{ opacity:.4; cursor:default; }
-  .social-btn.disabled:hover{ border-color:var(--line); color:var(--dim); }
-  .social-btn.disabled em{ display:block; font-style:normal; font-size:9px; letter-spacing:.06em; opacity:.8; margin-top:2px; }
-
-  /* ---------- bios ---------- */
-  .contact-bios{ max-width:640px; margin:40px auto 0; text-align:left; }
-  .bio-block{ margin-bottom:24px; }
-  .bio-block:last-child{ margin-bottom:0; }
-  .bio-name{ color:var(--gold); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 8px; }
-  .bio-text{ color:var(--dim); font-size:14px; line-height:1.7; margin:0; }
+  .about-intro p{ margin:0 0 22px; }
+  .about-intro p:last-child{ margin-bottom:0; }
+  .about-intro em{ color:var(--gold); font-style:italic; }
 
   /* ---------- pied de page (identique aux autres pages) ---------- */
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
@@ -127,64 +103,66 @@
     header h1{ font-size:22px; }
     .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
     .site-nav-btn{ padding:11px 16px; }
-    .social-btn{ padding:11px 16px; }
   }
   @media (max-width:480px){
     header h1{ font-size:19px; letter-spacing:.02em; }
     header p{ font-size:14px; }
-    .contact-intro{ font-size:14.5px; }
-    .contact-email{ font-size:17px; }
-    .social-row{ flex-direction:column; align-items:stretch; }
-    .social-btn{ justify-content:center; }
-    .contact-bios{ margin-top:32px; }
+    .about-intro{ font-size:14.5px; }
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fonts.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Amiot",
+      "jobTitle": ["Auteur", "Éditeur", "Concepteur", "Artiste"],
+      "description": "Anibal Amiot est auteur, éditeur, concepteur et artiste. Il est l'auteur de La Livrée d'Hermès, un livre d'arithmogéométrie qui se tient au croisement de la philosophie, des mathématiques et des sciences appliquées.",
+      "url": "https://anibal-amiot.com/a-propos.html",
+      "sameAs": [
+        "https://instagram.com/agnimed",
+        "https://t.me/Anibalamiot",
+        "https://linkedin.com/in/anibalamiot"
+      ]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "description": "Précis d'arithmogéométrie centré sur la construction des carrés magiques.",
+      "inLanguage": "fr",
+      "bookFormat": "https://schema.org/EBook",
+      "url": "https://anibal-amiot.com/book-viewer/index.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <h1>Contact</h1>
-    <p>Un projet, une collaboration ou une commande de motifs et tirages textiles</p>
+    <h1>À propos</h1>
+    <p>Anibal Amiot, auteur de La Livrée d'Hermès</p>
     <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
-  <div class="contact-body">
-    <p class="contact-intro">Pour toute question, projet de motif sur mesure, tirage textile ou collaboration, écrivez directement par email ou retrouvez Anibal Amiot sur les réseaux sociaux :</p>
-    <a class="contact-email" href="mailto:anibaledel@gmail.com">anibaledel@gmail.com</a>
+  <div class="about-body">
+    <div class="about-intro">
+      <p>Anibal Amiot a été éditeur de livres et concepteur de jeux vidéo. Il est également artiste et concepteur — deux activités qui se prolongent naturellement l'une dans l'autre, du jeu vidéo à son travail actuel de conception visuelle et éditoriale.</p>
 
-    <div class="social-row">
-      <a class="social-btn" href="https://instagram.com/agnimed" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
-        <span>Instagram</span>
-      </a>
-      <a class="social-btn" href="https://t.me/Anibalamiot" target="_blank" rel="noopener" aria-label="Telegram">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M6.5 12.2l11-4.7-2 10.4-3.4-2.6-1.7 1.7-.3-3 6.4-5.7-7.7 4.4z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Telegram</span>
-      </a>
-      <span class="social-btn disabled" aria-label="Facebook (temporairement indisponible)" title="Temporairement indisponible">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M14 8.6h-1.6c-.9 0-1.6.7-1.6 1.6v2.1h3.1l-.4 2.5h-2.7V19" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>Facebook<em>Temporairement indisponible</em></span>
-      </span>
-      <a class="social-btn" href="https://linkedin.com/in/anibalamiot" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="7.5" y1="10.5" x2="7.5" y2="16.5" stroke-linecap="round"/><circle cx="7.5" cy="7.3" r="1" fill="currentColor" stroke="none"/><path d="M11 16.5v-4c0-1.2.9-2.2 2.1-2.2s2.1 1 2.1 2.2v4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>LinkedIn</span>
-      </a>
-    </div>
+      <p>Il est l'auteur de La Livrée d'Hermès, un livre d'arithmogéométrie disponible en accès libre sur ce site. Le titre renvoie au sens premier du mot livrée : l'habit bariolé et cérémoniel porté en signe d'appartenance, dont chaque couleur et chaque motif sont porteurs de sens plutôt que purement décoratifs — c'est cette idée qui structure tout l'ouvrage.</p>
 
-    <div class="contact-bios">
-      <div class="bio-block">
-        <p class="bio-name">Anibal Amiot — auteur du projet</p>
-        <p class="bio-text">Anibal Amiot est le concepteur du projet La Livrée d'Hermès, une recherche originale portant sur la construction géométrique de carrés magiques auto-construits (« carrés solaires ») et leur application au tirage du Yi King. Basé en Thaïlande, il développe également un volet textile lié à cette recherche, en lien avec les acteurs locaux du secteur.</p>
-      </div>
-      <div class="bio-block">
-        <p class="bio-name">Gérald Kerma — webmaster</p>
-        <p class="bio-text">Gérald Kerma, alias Gandalf, est fondateur de CyberMind et contributeur au noyau Linux, avec plus de trente-cinq ans d'expérience en cybersécurité et systèmes embarqués. Il assure le développement et la maintenance technique du site La Livrée d'Hermès.</p>
-      </div>
+      <p>La Livrée d'Hermès est un précis d'arithmogéométrie centré sur la construction des carrés magiques. Il conduit le lecteur du carré magique jusqu'au tissage Jacquard, en proposant dans son huitième chapitre une série de 360 calques qui fonctionnent comme un métier à tisser Jacquard — une science appliquée directement issue de la construction géométrique développée dans les chapitres précédents.</p>
+
+      <p>Pour y parvenir, le livre s'appuie sur la méthode socratique : la <em>maïeutique</em>, qui ne transmet pas un savoir tout fait mais fait émerger une <em>réminiscence</em> chez le lecteur, par l'observation d'une suite de formes géométriques qui se déploient les unes à partir des autres. La Livrée d'Hermès se tient ainsi au croisement de trois territoires rarement réunis : la philosophie traditionnelle, les mathématiques, et les sciences appliquées.</p>
     </div>
   </div>
 
@@ -202,7 +180,7 @@
       <a class="site-nav-btn" href="archive-360-motifs.zip" download>Archives</a>
       <a class="site-nav-btn" href="pages.html#projets">Fond d'écran</a>
       <a class="site-nav-btn" href="pages.html#impression-360">Impression</a>
-      <a class="site-nav-btn" href="a-propos.html">À propos</a>
+      <a class="site-nav-btn" href="contact.html">Contact</a>
     </div>
 
     <div class="center-logo-slot">
