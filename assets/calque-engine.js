@@ -1,19 +1,20 @@
 /* ============================================================
    CalqueEngine — moteur de composition partagé (tirage-livree-hermes.html,
-   motifs (4).html). Reconstruit, pour chaque nature de trait (Yang, Yang
-   mutant, Yin, Yin mutant), la grille de couleurs 12x12 réelle du pavage
-   à partir des 24 calques individuels sources (une carte SVG par position
-   de trait, assets/trait-cartes/<nature>/<position>.svg — extraits du
-   dossier "-24-CARTES" de la catégorie IV, vérifiés cellule par cellule
-   contre LAYER_OF). Remplace les grilles CALQUE_COLORS qui étaient codées
-   en dur et avaient dérivé des fichiers réels (jusqu'à 83% d'écart).
+   motifs (4).html, impression.html catégorie II). Reconstruit, pour chaque
+   nature de trait (Yang, Yang mutant, Yin, Yin mutant), la grille de
+   couleurs 12x12 réelle du pavage à partir des 24 calques individuels
+   sources d'un "espace" donné (une carte SVG par position de trait,
+   <dossier>/<nature>/<position>.svg). L'espace par défaut ("hexagram",
+   assets/trait-cartes/) alimente les hexagrammes — vérifié cellule par
+   cellule contre LAYER_OF. D'autres espaces (une famille de la catégorie
+   II, assets/par2-cartes/<famille>/) se chargent à la demande via
+   loadSpace()/spaceColorAt(), même mécanisme, dossier différent.
    ============================================================ */
 window.CalqueEngine = (function(){
-  const DIR = 'assets/trait-cartes/';
   const NATURE_KEY = { yang:'YANG', 'yang-mut':'YANGMUT', yin:'YIN', 'yin-mut':'YINMUT' };
 
   // grille canonique de cellules du viewBox source (0 0 595.28 841.89), commune
-  // aux 24 calques (même échelle, mêmes coordonnées de cellule dans chaque fichier).
+  // à tous les calques (même échelle, mêmes coordonnées de cellule dans chaque fichier).
   const XS = [110.58,141.74,172.89,204.05,235.21,266.36,297.52,328.68,359.83,390.99,422.15,453.31];
   const YS = [234.1,265.25,296.41,327.57,358.72,389.88,421.04,452.19,483.35,514.51,545.66,576.82];
   const CELL_W = 31.16;
@@ -48,41 +49,52 @@ window.CalqueEngine = (function(){
     return cells;
   }
 
-  // grids[NATURE][row][col] = 'V'|'M'|'O'|null — rempli au fur et à mesure du
-  // chargement des 24 fichiers (6 positions x 4 natures), chacun ne renseignant
-  // que les 24 cellules qui lui appartiennent réellement.
-  const grids = {};
-  Object.values(NATURE_KEY).forEach(key => {
-    grids[key] = Array.from({ length: 12 }, () => Array(12).fill(null));
-  });
+  // spaces[name] = { grids: {NATURE: grille 12x12 'V'|'M'|'O'|null}, loadPromise }
+  const spaces = {};
 
-  let loadPromise = null;
-  function loadAll(){
-    if(loadPromise) return loadPromise;
+  function ensureSpace(name){
+    if(!spaces[name]) spaces[name] = { grids: {}, loadPromise: null };
+    const sp = spaces[name];
+    Object.values(NATURE_KEY).forEach(key => {
+      if(!sp.grids[key]) sp.grids[key] = Array.from({ length: 12 }, () => Array(12).fill(null));
+    });
+    return sp;
+  }
+
+  function loadSpace(name, dir){
+    const sp = ensureSpace(name);
+    if(sp.loadPromise) return sp.loadPromise;
     const tasks = [];
     Object.keys(NATURE_KEY).forEach(slug => {
       for(let pos = 1; pos <= 6; pos++){
-        const url = DIR + slug + '/' + pos + '.svg';
+        const url = dir + slug + '/' + pos + '.svg';
         tasks.push(
           fetch(url).then(r => r.text()).then(txt => {
             const cells = parseCarteCells(txt);
-            const grid = grids[NATURE_KEY[slug]];
+            const grid = sp.grids[NATURE_KEY[slug]];
             cells.forEach(c => { grid[c.row][c.col] = c.label; });
           }).catch(err => console.error('CalqueEngine: échec de chargement', url, err))
         );
       }
     });
-    loadPromise = Promise.all(tasks).then(() => {
+    sp.loadPromise = Promise.all(tasks).then(() => {
       if(typeof window.repaintAllPavage === 'function') window.repaintAllPavage();
     });
-    return loadPromise;
+    return sp.loadPromise;
   }
 
-  function colorAt(nature, row, col){
-    const grid = grids[nature];
+  function spaceColorAt(name, nature, row, col){
+    const sp = spaces[name];
+    if(!sp) return null;
+    const grid = sp.grids[nature];
     return grid ? grid[row][col] : null;
   }
 
+  // API rétrocompatible : l'espace par défaut ("hexagram") = assets/trait-cartes/,
+  // utilisé tel quel par tirage-livree-hermes.html et motifs (4).html.
+  function loadAll(){ return loadSpace('hexagram', 'assets/trait-cartes/'); }
+  function colorAt(nature, row, col){ return spaceColorAt('hexagram', nature, row, col); }
+
   loadAll();
-  return { loadAll, colorAt };
+  return { loadAll, colorAt, loadSpace, spaceColorAt };
 })();
