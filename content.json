@@ -8,7 +8,7 @@
     { "id": "accueil",         "label": "Accueil",             "link": "index.html" },
     { "id": "tirage-livree",   "label": "Tirage livrée",       "link": "index.html" },
     { "id": "creation-motifs", "label": "Création de motifs",  "link": "motifs%20(4).html" },
-    { "id": "impression-360",  "label": "Imprimer les 360" },
+    { "id": "impression-360",  "label": "Imprimer les 360", "link": "impression.html" },
     { "id": "projets",         "label": "Projets & fonds d'écran" },
     { "id": "contact",         "label": "Contact", "link": "contact.html" }
   ],
