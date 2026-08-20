@@ -535,23 +535,55 @@ function familyLabel(familyId){
   return familyId.split('-').map(w => w==='mut' ? 'Mut' : w[0].toUpperCase()+w.slice(1)).join(' ');
 }
 
+// Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes et
+// quasi identique entre positions (vérifié), donc récupéré une seule fois par famille
+// et mis en cache, plutôt que reconstruit à chaque tirage.
+const familyTemplates = {};
+async function loadFamilyTemplate(familyId){
+  if(familyTemplates[familyId]) return familyTemplates[familyId];
+  const res = await fetch(`assets/par2-cartes/${familyId}/yang/1.svg`);
+  const text = await res.text();
+  familyTemplates[familyId] = text;
+  return text;
+}
+
+// Remplace, dans le gabarit réel, les 144 cellules de la grille par le résultat du
+// tirage — tout le reste du fichier (cadre, logo, décor) reste inchangé.
+function insertGridIntoTemplate(templateSvgText, grid){
+  const rectRe = /<rect class="cls-\d+"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="31.16"\s+height="31.16"\/>/g;
+  let inserted = false;
+  return templateSvgText.replace(rectRe, (match, xStr, yStr) => {
+    const x = +xStr, y = +yStr;
+    const col = CELL_XS.findIndex(v => Math.abs(v - x) < 0.5);
+    const row = CELL_YS.findIndex(v => Math.abs(v - y) < 0.5);
+    if(row < 0 || col < 0) return match; // pas une cellule de la grille principale : on garde tel quel
+    if(inserted) return ''; // grille déjà insérée au premier point de rencontre : on retire les autres
+    inserted = true;
+    let block = '';
+    for(let r=0;r<12;r++){
+      for(let c=0;c<12;c++){
+        const label = grid[r][c];
+        if(label) block += `<rect x="${CELL_XS[c]}" y="${CELL_YS[r]}" width="31.16" height="31.16" fill="${PALETTE[label]}"/>`;
+      }
+    }
+    return block;
+  });
+}
+
 async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   await window.CalqueEngine.loadSpace('par2:'+familyId, 'assets/par2-cartes/'+familyId+'/');
+  const templateText = await loadFamilyTemplate(familyId);
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  let svg = `<svg viewBox="0 0 ${CELL_W*12} ${CELL_W*12}" xmlns="http://www.w3.org/2000/svg">`;
-  svg += `<rect x="0" y="0" width="${CELL_W*12}" height="${CELL_W*12}" fill="#050505"/>`;
+  const grid = Array.from({length:12},()=>Array(12).fill(null));
   for(let r=0;r<12;r++){
     for(let c=0;c<12;c++){
       const pos = LAYER_OF[r][c];
       const natureSlug = drawnSlugs[pos-1];
-      const label = window.CalqueEngine.spaceColorAt('par2:'+familyId, NATURE_KEY[natureSlug], r, c);
-      if(label){
-        svg += `<rect x="${c*CELL_W}" y="${r*CELL_W}" width="${CELL_W-0.6}" height="${CELL_W-0.6}" fill="${PALETTE[label]}"/>`;
-      }
+      grid[r][c] = window.CalqueEngine.spaceColorAt('par2:'+familyId, NATURE_KEY[natureSlug], r, c);
     }
   }
-  svg += '</svg>';
+  const svg = insertGridIntoTemplate(templateText, grid);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
