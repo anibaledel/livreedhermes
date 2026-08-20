@@ -535,21 +535,80 @@ function familyLabel(familyId){
   return familyId.split('-').map(w => w==='mut' ? 'Mut' : w[0].toUpperCase()+w.slice(1)).join(' ');
 }
 
-// Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes et
-// quasi identique entre positions (vérifié), donc récupéré une seule fois par famille
-// et mis en cache, plutôt que reconstruit à chaque tirage.
+// Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes,
+// donc récupéré une seule fois par famille et mis en cache. Chaque position ajoute en
+// plus une marque qui lui est propre (1 écusson + 3 tracés, vérifié) : sans elles le
+// cadre montre toujours la marque de la position 1, répétée — donc on récupère aussi les
+// 5 autres positions (une seule fois, même teinte 'yang' pour toutes, la décoration ne
+// dépendant pas de la teinte) pour en extraire ces marques propres à chaque position.
 const familyTemplates = {};
+const familyPositionMarks = {};
+
+function findFillClassesLocal(svgText){
+  const m = svgText.match(/<style>([\s\S]*?)<\/style>/);
+  const map = {};
+  if(!m) return map;
+  const blocks = [...m[1].matchAll(/\.(cls-\d+)\s*\{([^}]*)\}/g)];
+  for(const b of blocks){
+    const fm = b[2].match(/fill:\s*(#[0-9a-fA-F]{6})/);
+    if(fm) map[b[1]] = fm[1].toLowerCase();
+  }
+  return map;
+}
+
+function extractRects(svgText){
+  const fillMap = findFillClassesLocal(svgText);
+  const re = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    out.push({ key: mm.slice(2,6).join(','), fill: fillMap[mm[1]], x:mm[2], y:mm[3], w:mm[4], h:mm[5] });
+  }
+  return out;
+}
+function extractPaths(svgText){
+  const fillMap = findFillClassesLocal(svgText);
+  const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    out.push({ key: mm[2], fill: fillMap[mm[1]], d: mm[2] });
+  }
+  return out;
+}
+
+// Marques (rects/tracés) présentes dans otherText mais absentes de baseText, redessinées
+// avec une couleur explicite (fill=...) plutôt que la classe locale du fichier source.
+function extraMarksVsBase(baseText, otherText){
+  const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
+  const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
+  const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
+  const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
+  let out = '';
+  extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill||'#6b6b6b'}"/>`; });
+  extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill||'#6b6b6b'}"/>`; });
+  return out;
+}
+
 async function loadFamilyTemplate(familyId){
   if(familyTemplates[familyId]) return familyTemplates[familyId];
   const res = await fetch(`assets/par2-cartes/${familyId}/yang/1.svg`);
   const text = await res.text();
   familyTemplates[familyId] = text;
+
+  const marks = [null]; // index 0 inutilisé, positions 1-6
+  marks[1] = ''; // la position 1 EST le gabarit, rien à ajouter pour elle
+  for(let pos=2; pos<=6; pos++){
+    const r = await fetch(`assets/par2-cartes/${familyId}/yang/${pos}.svg`);
+    const t = await r.text();
+    marks[pos] = extraMarksVsBase(text, t);
+  }
+  familyPositionMarks[familyId] = marks;
   return text;
 }
 
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le résultat du
-// tirage — tout le reste du fichier (cadre, logo, décor) reste inchangé.
-function insertGridIntoTemplate(templateSvgText, grid){
+// tirage, et ajoute la marque propre à chaque position tirée (positionMarks[pos]) —
+// tout le reste du fichier (cadre, logo, décor commun) reste inchangé.
+function insertGridIntoTemplate(templateSvgText, grid, positionMarks){
   const rectRe = /<rect class="cls-\d+"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="31.16"\s+height="31.16"\/>/g;
   let inserted = false;
   return templateSvgText.replace(rectRe, (match, xStr, yStr) => {
@@ -566,6 +625,7 @@ function insertGridIntoTemplate(templateSvgText, grid){
         if(label) block += `<rect x="${CELL_XS[c]}" y="${CELL_YS[r]}" width="31.16" height="31.16" fill="${PALETTE[label]}"/>`;
       }
     }
+    if(positionMarks) for(let pos=1; pos<=6; pos++) block += (positionMarks[pos] || '');
     return block;
   });
 }
@@ -583,7 +643,7 @@ async function drawCategorie2(){
       grid[r][c] = window.CalqueEngine.spaceColorAt('par2:'+familyId, NATURE_KEY[natureSlug], r, c);
     }
   }
-  const svg = insertGridIntoTemplate(templateText, grid);
+  const svg = insertGridIntoTemplate(templateText, grid, familyPositionMarks[familyId]);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
