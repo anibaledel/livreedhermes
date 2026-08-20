@@ -63,6 +63,10 @@
     }
   header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:12px 0 8px; }
   header p{ color:var(--dim); font-size:12px; margin:0; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
+  }
 
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
@@ -117,6 +121,12 @@
   .axis-note b{ color:var(--red); font-weight:400; }
 
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
+  .tirage-guide{
+    font-size:11px; line-height:1.65; color:var(--dim);
+    margin:14px 0 16px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .tirage-guide p{ margin:0 0 10px; }
+  .tirage-guide p:last-child{ margin-bottom:0; }
   .cell{
     aspect-ratio:1; background:#050505; border:1px solid var(--line);
     cursor:pointer; display:flex; flex-direction:column; align-items:center;
@@ -407,6 +417,7 @@
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1 id="txt-title">Tirage — Ordre chronologique des 64 mutations</h1>
     <p id="txt-subtitle">Trigramme supérieur (poids 32·16·8) / trigramme inférieur (poids 4·2·1) — construction du bas vers le haut</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
     <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
          écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
     <div id="google_translate_element" class="gtranslate-slot"></div>
@@ -455,6 +466,10 @@
       </div>
       <div class="axis-note" id="txt-axisNote">Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne</div>
       <div class="hexgrid" id="hexgrid"></div>
+      <div class="tirage-guide" id="txt-tirageGuide">
+        <p>Le Yi King est un livre de sagesse qui peut s'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>
+        <p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, appuyez sur Parcourir au hasard ou sélectionnez directement une case de l'échiquier. Pour plus d'informations sur les images, n'hésitez pas à lire le livre.</p>
+      </div>
       <button class="draw-btn" id="drawBtn">Tirer aux pièces (6 traits)</button>
       <button class="draw-btn secondary" id="randomBtn">Parcourir au hasard</button>
 
@@ -466,7 +481,7 @@
 
     <div class="detail-outer">
       <div id="detail">
-        <div class="empty-state" id="txt-emptyState"><img src="assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès"><span>Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.</span></div>
+        <div class="empty-state" id="txt-emptyState"><img src="assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès"></div>
       </div>
     </div>
   </div>
@@ -1078,7 +1093,10 @@ const UI = {
       + '<div class="positions-guide-item"><b>3e trait — La transition.</b> À la frontière entre le monde intérieur et le monde extérieur. Position instable par nature : la tension entre l\'hésitation et le passage à l\'action.</div>'
       + '<div class="positions-guide-item"><b>4e trait — Le seuil.</b> Le début du trigramme supérieur. L\'entrée dans le monde social ou professionnel, souvent aux côtés direct de la position dirigeante (5e trait).</div>'
       + '<div class="positions-guide-item"><b>5e trait — Le dirigeant.</b> Le centre du trigramme supérieur — la position la plus juste et la plus influente de l\'hexagramme.</div>'
-      + '<div class="positions-guide-item"><b>6e trait — L\'achèvement.</b> La fin du cycle. Souvent l\'excès ou le dépassement d\'une situation arrivée à son terme.</div>'
+      + '<div class="positions-guide-item"><b>6e trait — L\'achèvement.</b> La fin du cycle. Souvent l\'excès ou le dépassement d\'une situation arrivée à son terme.</div>',
+    bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
+    tirageGuide:'<p>Le Yi King est un livre de sagesse qui peut s\'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d\'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>'
+      + '<p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, appuyez sur Parcourir au hasard ou sélectionnez directement une case de l\'échiquier. Pour plus d\'informations sur les images, n\'hésitez pas à lire le livre.</p>'
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
@@ -1114,7 +1132,10 @@ const UI = {
       + '<div class="positions-guide-item"><b>3rd line — The transition.</b> At the border between the inner and outer worlds. Unstable by nature: the tension between hesitation and taking action.</div>'
       + '<div class="positions-guide-item"><b>4th line — The threshold.</b> The start of the upper trigram. The entry into the social or professional world, often directly beside the ruling position (5th line).</div>'
       + '<div class="positions-guide-item"><b>5th line — The ruler.</b> The center of the upper trigram — the most correct and influential position of the hexagram.</div>'
-      + '<div class="positions-guide-item"><b>6th line — Completion.</b> The end of the cycle. Often excess, or the overshooting of a situation that has run its course.</div>'
+      + '<div class="positions-guide-item"><b>6th line — Completion.</b> The end of the cycle. Often excess, or the overshooting of a situation that has run its course.</div>',
+    bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
+    tirageGuide:'<p>The Yi Jing is a book of wisdom that can be used as an oracle. If you have a specific question, hold it in mind before pressing Cast. Without a particular question, the casting shows the situation of the moment. You can chain several castings for several questions — but a single casting is already enough on its own for the message that corresponds to your consultation.</p>'
+      + '<p>If you simply want to explore the meaning of the hexagrams and their related images, press Browse at random or select a square on the board directly. For more information about the images, feel free to read the book.</p>'
   }
 };
 
@@ -1607,6 +1628,8 @@ function applyUILang(){
   document.getElementById('txt-eyebrow').textContent = t('eyebrow');
   document.getElementById('txt-title').textContent = t('title');
   document.getElementById('txt-subtitle').textContent = t('subtitle');
+  document.getElementById('txt-bookIntro').textContent = t('bookIntro');
+  document.getElementById('txt-tirageGuide').innerHTML = t('tirageGuide');
   document.getElementById('txt-readBook').textContent = t('readBook');
   document.getElementById('txt-langBookTitle').title = t('langBookTitle');
   document.getElementById('txt-dlPdf').textContent = t('dlPdf');
