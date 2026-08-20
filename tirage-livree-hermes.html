@@ -181,6 +181,23 @@
     transition:opacity .5s ease, transform .5s ease;
   }
   .trigram-caduceus.shown{ opacity:.92; transform:scale(1); }
+  .positions-guide{
+    min-width:220px; max-width:280px; font-family:Georgia,'Times New Roman',serif;
+    font-size:11px; line-height:1.6; color:var(--dim);
+  }
+  .positions-guide-title{
+    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);
+    margin:0 0 10px;
+  }
+  .positions-guide-item{ margin-bottom:9px; }
+  .positions-guide-item:last-child{ margin-bottom:0; }
+  .positions-guide-item b{ color:var(--white); font-weight:400; font-style:italic; }
+  .footer-caduceus-wrap{ display:flex; justify-content:center; margin:0 0 20px; }
+  .footer-caduceus{
+    height:70px; width:auto; opacity:0; transform:scale(.8);
+    transition:opacity .5s ease, transform .5s ease;
+  }
+  .footer-caduceus.shown{ opacity:.92; transform:scale(1); }
   .trigram-card{
     border:1px solid var(--line); padding:10px 12px; display:flex; align-items:center; gap:10px;
   }
@@ -457,6 +474,10 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <div class="note">
+    <div class="footer-caduceus-wrap">
+      <img id="footerCaduceus" class="footer-caduceus" src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+    </div>
+
     <div class="palette-picker" id="palettePicker">
       <span class="palette-label" id="txt-paletteLabel">Palette</span>
       <div class="palette-swatches" id="paletteSwatches"></div>
@@ -467,7 +488,7 @@
       <a class="site-nav-btn" href="archive-360-motifs.zip" download id="txt-navArchives">Archives</a>
       <a class="site-nav-btn" href="motifs%20(4).html" id="txt-navMotif">Créer un motif</a>
       <a class="site-nav-btn" href="pages.html#projets" id="txt-navWallpaper">Fond d'écran</a>
-      <a class="site-nav-btn" href="pages.html#impression-360" id="txt-navPrint">Impression</a>
+      <a class="site-nav-btn" href="impression.html" id="txt-navPrint">Impression</a>
       <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
       <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
     </div>
@@ -1057,7 +1078,14 @@ const UI = {
     footerNote2Pre:"Pavage : transcription réelle en carré de 144, calculée à partir de vos calques 1-6. Les quatre jeux — ", footerNote2Post:" — sont désormais tous intégrés.",
     footerNote3:'Un tirage effectué est encodé dans l\'URL (<code>?tire=</code>) — copiez le lien pour le partager ou le retrouver tel quel.',
     yangFixeW:"Yang fixe", yinFixeW:"Yin fixe", yangMutW:"Yang mutant", yinMutW:"Yin mutant",
-    paletteLabel:"Palette", paletteReset:"Réinitialiser la palette"
+    paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
+    positionsGuide:'<p class="positions-guide-title">Signification des 6 positions (du bas vers le haut)</p>'
+      + '<div class="positions-guide-item"><b>1er trait — La base.</b> Le point de départ de la situation. Une question qui commence à se poser plutôt qu\'à se résoudre.</div>'
+      + '<div class="positions-guide-item"><b>2e trait — Le soutien intérieur.</b> La position centrale du trigramme inférieur, souvent associée à ce qui vous porte de l\'intérieur — une relation de confiance, une ressource stable.</div>'
+      + '<div class="positions-guide-item"><b>3e trait — La transition.</b> À la frontière entre le monde intérieur et le monde extérieur. Position instable par nature : la tension entre l\'hésitation et le passage à l\'action.</div>'
+      + '<div class="positions-guide-item"><b>4e trait — Le seuil.</b> Le début du trigramme supérieur. L\'entrée dans le monde social ou professionnel, souvent aux côtés direct de la position dirigeante (5e trait).</div>'
+      + '<div class="positions-guide-item"><b>5e trait — Le dirigeant.</b> Le centre du trigramme supérieur — la position la plus juste et la plus influente de l\'hexagramme.</div>'
+      + '<div class="positions-guide-item"><b>6e trait — L\'achèvement.</b> La fin du cycle. Souvent l\'excès ou le dépassement d\'une situation arrivée à son terme.</div>'
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
@@ -1086,7 +1114,14 @@ const UI = {
     footerNote2Pre:"Tiling: a true transcription into a square of 144, calculated from your layers 1-6. All four sets — ", footerNote2Post:" — are now fully integrated.",
     footerNote3:'A completed casting is encoded in the URL (<code>?tire=</code>) — copy the link to share it or find it again exactly as it was.',
     yangFixeW:"Fixed yang", yinFixeW:"Fixed yin", yangMutW:"Moving yang", yinMutW:"Moving yin",
-    paletteLabel:"Palette", paletteReset:"Reset the palette"
+    paletteLabel:"Palette", paletteReset:"Reset the palette",
+    positionsGuide:'<p class="positions-guide-title">Meaning of the 6 positions (bottom to top)</p>'
+      + '<div class="positions-guide-item"><b>1st line — The base.</b> The starting point of the situation. A question beginning to arise rather than to resolve.</div>'
+      + '<div class="positions-guide-item"><b>2nd line — Inner support.</b> The central position of the lower trigram, often associated with what carries you from within — a trusted relationship, a stable resource.</div>'
+      + '<div class="positions-guide-item"><b>3rd line — The transition.</b> At the border between the inner and outer worlds. Unstable by nature: the tension between hesitation and taking action.</div>'
+      + '<div class="positions-guide-item"><b>4th line — The threshold.</b> The start of the upper trigram. The entry into the social or professional world, often directly beside the ruling position (5th line).</div>'
+      + '<div class="positions-guide-item"><b>5th line — The ruler.</b> The center of the upper trigram — the most correct and influential position of the hexagram.</div>'
+      + '<div class="positions-guide-item"><b>6th line — Completion.</b> The end of the cycle. Often excess, or the overshooting of a situation that has run its course.</div>'
   }
 };
 
@@ -1241,7 +1276,6 @@ function buildShareRow(){
 
 // ---------- affichage d'un hexagramme ----------
 let lastShown = null;
-let lastTrigramCaduceus = null;
 
 // déclenche la transition CSS "shown" (opacity/transform) de façon fiable : sur un premier
 // chargement, le thread principal est chargé (dessin des pavages, widget Google Translate...)
@@ -1304,23 +1338,9 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const trigramBlockEl = buildTrigramBlock(traits);
   hexBlock.appendChild(trigramBlockEl);
 
-  const caduceusWrap = document.createElement('div'); caduceusWrap.className='trigram-caduceus-wrap';
-  const smallCaduceus = document.createElement('img'); smallCaduceus.className='trigram-caduceus';
-  smallCaduceus.src='assets/logo-caducee.gif'; smallCaduceus.alt="La Livrée d'Hermès";
-  caduceusWrap.appendChild(smallCaduceus);
-  hexBlock.appendChild(caduceusWrap);
-
-  requestAnimationFrame(()=>{
-    const top = numBig.getBoundingClientRect().top;
-    const bottom = trigramBlockEl.getBoundingClientRect().bottom;
-    const wrapTop = caduceusWrap.getBoundingClientRect().top;
-    const h = bottom - top;
-    if(h > 0){
-      smallCaduceus.style.height = h + 'px';
-      caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
-    }
-  });
-  lastTrigramCaduceus = { numBig, trigramBlockEl, smallCaduceus, caduceusWrap };
+  const positionsGuide = document.createElement('div'); positionsGuide.className='positions-guide';
+  positionsGuide.innerHTML = t('positionsGuide');
+  hexBlock.appendChild(positionsGuide);
 
   wrap.appendChild(hexBlock);
 
@@ -1359,7 +1379,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
       drawBandsProgressive(traits, movingSet, i);
     }, i*160);
   });
-  setTimeout(()=> revealShown(smallCaduceus), lineEls.length*160 + 120);
+  setTimeout(()=> revealShown(document.getElementById('footerCaduceus')), lineEls.length*160 + 120);
 
   return { wrap, sq, notes };
 }
@@ -1800,19 +1820,6 @@ function syncEmptyCaduceusHeight(){
 window.addEventListener('resize', syncEmptyCaduceusHeight);
 window.addEventListener('load', syncEmptyCaduceusHeight);
 setTimeout(syncEmptyCaduceusHeight, 0);
-window.addEventListener('resize', ()=>{
-  if(lastTrigramCaduceus && document.body.contains(lastTrigramCaduceus.trigramBlockEl)){
-    lastTrigramCaduceus.caduceusWrap.style.marginTop = '0px';
-    const top = lastTrigramCaduceus.numBig.getBoundingClientRect().top;
-    const bottom = lastTrigramCaduceus.trigramBlockEl.getBoundingClientRect().bottom;
-    const wrapTop = lastTrigramCaduceus.caduceusWrap.getBoundingClientRect().top;
-    const h = bottom - top;
-    if(h > 0){
-      lastTrigramCaduceus.smallCaduceus.style.height = h + 'px';
-      lastTrigramCaduceus.caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
-    }
-  }
-});
 
 // ---------- restauration depuis l'URL (nouveau) ----------
 (function initFromURL(){

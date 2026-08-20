@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Livrée d'Hermès — Impression</title>
+<meta name="description" content="Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, organisés en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer ou découper.">
+<meta property="og:title" content="La Livrée d'Hermès — Impression">
+<meta property="og:description" content="Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, organisés en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer ou découper.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer.png">
+<meta property="og:url" content="https://anibal-amiot.com/impression.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Livrée d'Hermès — Impression">
+<meta name="twitter:description" content="Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, organisés en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer ou découper.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer.png">
+<style>
+  /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
+  :root{
+    --bg:#000;
+    --panel:#0a0a0a;
+    --white:#f2f2f0;
+    --dim:#6b6b6b;
+    --red:#e0261b;
+    --red-dim:#5a120e;
+    --gold:#c9a15a;
+    --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+  }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
+  header .eyebrow{
+    letter-spacing:.35em;
+    font-size:11px;
+    color:var(--red);
+    text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; font-family:Helvetica,Arial,sans-serif; margin:0; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
+  }
+
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:14px; cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .book-bar .dl-group{
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+  }
+  .book-bar .dl-label{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .site-nav-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+
+  /* ===== Palette (le picker 3 couleurs liées, à la place du texte dans .note) ===== */
+  .palette-block{ margin:4px auto 0; max-width:520px; }
+  .palette-swatches{ display:flex; gap:12px; margin-bottom:10px; }
+  .palette-card{
+    flex:1; background:var(--panel); border:1px solid var(--line); padding:12px; text-align:center;
+  }
+  .palette-card.is-master{ border-color:var(--gold); }
+  .palette-card label{ font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:6px; }
+  .palette-card input[type=color]{ width:100%; height:32px; border:none; background:none; cursor:pointer; }
+  .palette-swatch-btn{ width:100%; height:32px; border:none; cursor:pointer; border-radius:2px; }
+  .palette-hex{ font-size:10px; color:var(--dim); margin-top:6px; font-family:Helvetica,Arial,sans-serif; }
+  .palette-reset{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:7px 14px;
+    cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .palette-reset:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ===== Contenu spécifique à la page impression ===== */
+  .print-main{ margin-top:8px; }
+  .cat-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px;
+    background:var(--line); margin-bottom:24px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .cat-card{ background:var(--panel); padding:20px 18px; cursor:pointer; transition:background .15s; }
+  .cat-card:hover{ background:#111; }
+  .cat-card.active{ background:#111; box-shadow:inset 0 0 0 1px var(--red-dim); }
+  .cat-num{ font-size:10px; color:var(--red); letter-spacing:.14em; margin-bottom:6px; text-transform:uppercase; }
+  .cat-title{ font-size:16px; font-weight:400; margin-bottom:4px; font-family:Georgia,serif; }
+  .cat-meta{ font-size:11px; color:var(--dim); line-height:1.5; }
+
+  .sub-row{
+    display:none; gap:20px; margin-bottom:24px; padding:16px 18px;
+    background:var(--panel); border:1px solid var(--line); font-family:Helvetica,Arial,sans-serif;
+  }
+  .sub-label{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; display:block; }
+  .dice-row{ display:flex; gap:6px; flex-wrap:wrap; }
+  .dice-btn{
+    width:32px; height:32px; border:1px solid var(--line); background:transparent; color:var(--white);
+    font-family:Helvetica,Arial,sans-serif; font-size:12px; cursor:pointer;
+  }
+  .dice-btn:hover{ border-color:var(--gold); }
+  .dice-btn.selected{ border-color:var(--red); color:var(--red); background:rgba(224,38,27,.08); }
+
+  .result-area{ display:grid; grid-template-columns:280px 1fr; gap:24px; align-items:start; }
+  @media (max-width:820px){ .result-area{ grid-template-columns:1fr; } }
+  .preview-box{
+    background:var(--panel); border:1px solid var(--line); padding:16px;
+    aspect-ratio:595.28/841.89;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .preview-box svg{ width:100%; height:100%; }
+  .result-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-bottom:6px; }
+  .result-value{ font-size:22px; color:var(--gold); font-weight:400; margin-bottom:14px; font-family:Georgia,serif; }
+  .result-idea{ font-size:13px; line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; font-family:Georgia,serif; }
+  .result-idea .kw{ color:var(--red); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
+    <div class="eyebrow" id="txt-eyebrow">La Livrée d'Hermès</div>
+    <h1 id="txt-title">Impression — tirage &amp; calques</h1>
+    <p id="txt-subtitle">Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" id="txt-readBook" href="book-viewer/index.html" target="_blank" rel="noopener">Lire le livre</a>
+        <span class="flags">
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=fr" target="_blank" rel="noopener" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=en" target="_blank" rel="noopener" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=es" target="_blank" rel="noopener" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=th" target="_blank" rel="noopener" title="ไทย">🇹🇭</a>
+          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
+          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlPdfBook">Télécharger le PDF du livre</span>
+        <span class="flags">
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-FR2.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-EN2.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-ES2.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-TH2.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
+          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlYiKing">Télécharger la traduction du Yi-King</span>
+        <span class="flags">
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-ZH.docx" download title="中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+        </span>
+      </span>
+    </div>
+  </header>
+
+  <!-- ===== Contenu spécifique impression ===== -->
+  <div class="print-main">
+    <div class="cat-grid" id="catGrid">
+      <div class="cat-card active" data-cat="1">
+        <div class="cat-num" id="txt-catNum1">Catégorie I</div>
+        <div class="cat-title" id="txt-catTitle1">Bases</div>
+        <div class="cat-meta" id="txt-catMeta1">16 motifs · tirage direct</div>
+      </div>
+      <div class="cat-card" data-cat="2">
+        <div class="cat-num" id="txt-catNum2">Catégorie II</div>
+        <div class="cat-title" id="txt-catTitle2">Comb. par 2 axes</div>
+        <div class="cat-meta" id="txt-catMeta2">24 motifs · 6 familles × 4 teintes</div>
+      </div>
+      <div class="cat-card" data-cat="3">
+        <div class="cat-num" id="txt-catNum3">Catégorie III</div>
+        <div class="cat-title" id="txt-catTitle3">Comb. par 3 axes</div>
+        <div class="cat-meta" id="txt-catMeta3">16 motifs · tirage direct</div>
+      </div>
+      <div class="cat-card" data-cat="4">
+        <div class="cat-num" id="txt-catNum4">Catégorie IV</div>
+        <div class="cat-title" id="txt-catTitle4">Comb. par 4 axes</div>
+        <div class="cat-meta" id="txt-catMeta4">4 motifs · tirage direct</div>
+      </div>
+    </div>
+
+    <div class="sub-row" id="subRow">
+      <div>
+        <span class="sub-label" id="txt-familleLabel">Famille (d6)</span>
+        <div class="dice-row" id="familleRow"></div>
+      </div>
+    </div>
+
+    <button class="site-nav-btn" id="rollBtn" style="margin-bottom:24px;border-color:var(--red);color:var(--red);">Effectuer le tirage</button>
+
+    <div class="result-area">
+      <div class="preview-box" id="previewBox"></div>
+      <div>
+        <div class="result-label" id="txt-resultLabel">Résultat</div>
+        <div class="result-value" id="resultValue">—</div>
+        <div class="result-idea" id="resultIdea">Effectuez un tirage pour voir apparaître le motif et son interprétation.</div>
+        <div class="book-bar" style="justify-content:flex-start;border-top:none;padding-top:0;margin-top:0;">
+          <span class="dl-btn" id="dlSvg" style="cursor:pointer;">Télécharger SVG</span>
+          <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pied de page : du titre à la palette ===== -->
+  <div class="note">
+    <div class="palette-block" id="paletteBlock"></div>
+
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="index.html" id="txt-navHome">Accueil</a>
+      <a class="site-nav-btn" href="tirage-livree-hermes.html" id="txt-navTirage">Tirage</a>
+      <a class="site-nav-btn" href="archive-360-motifs.zip" download id="txt-navArchives">Archives</a>
+      <a class="site-nav-btn" href="motifs%20(4).html" id="txt-navMotif">Créer un motif</a>
+      <a class="site-nav-btn" href="pages.html#projets" id="txt-navWallpaper">Fond d'écran</a>
+      <a class="site-nav-btn current" href="impression.html" id="txt-navPrint">Impression</a>
+      <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
+      <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
+    </div>
+
+    <div class="center-logo-slot">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé avec Claude</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+/* ===== Dictionnaire multilingue ===== */
+const UI = {
+  fr: {
+    eyebrow:"La Livrée d'Hermès", title:"Impression — tirage & calques",
+    subtitle:"Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.",
+    bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
+    readBook:"Lire le livre", dlPdfBook:"Télécharger le PDF du livre", dlYiKing:"Télécharger la traduction du Yi-King",
+    catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"16 motifs · tirage direct",
+    catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"24 motifs · 6 familles × 4 teintes",
+    catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"16 motifs · tirage direct",
+    catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"4 motifs · tirage direct",
+    familleLabel:"Famille (d6)", rollBtn:"Effectuer le tirage",
+    resultLabel:"Résultat", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
+    resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
+    noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
+    ideaGeneric:"Ce motif illustre une combinaison de base des calques trait par trait de La Livrée d'Hermès. Son interprétation par hexagramme précis sera reliée dans une prochaine étape.",
+    paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
+    navHome:"Accueil", navTirage:"Tirage", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos",
+  },
+  en: {
+    eyebrow:"The Livery of Hermes", title:"Printing — casting & layers",
+    subtitle:"Choose a category, cast, then download the layer ready to cut or print.",
+    bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
+    readBook:"Read the book", dlPdfBook:"Download the book's PDF", dlYiKing:"Download the Yi-King translation",
+    catNum1:"Category I", catTitle1:"Bases", catMeta1:"16 motifs · direct draw",
+    catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"24 motifs · 6 families × 4 tints",
+    catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"16 motifs · direct draw",
+    catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"4 motifs · direct draw",
+    familleLabel:"Family (d6)", rollBtn:"Cast",
+    resultLabel:"Result", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
+    resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
+    noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
+    ideaGeneric:"This motif illustrates a base combination of La Livrée d'Hermès's trait-by-trait layers. Its interpretation by specific hexagram will be connected in a later step.",
+    paletteLabel:"Palette", paletteReset:"Reset the palette",
+    navHome:"Home", navTirage:"Casting", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About",
+  },
+  es: {
+    eyebrow:"La Librea de Hermes", title:"Impresión — tirada y capas",
+    subtitle:"Elija una categoría, realice la tirada y descargue la capa lista para cortar o imprimir.",
+    bookIntro:"La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
+    readBook:"Leer el libro", dlPdfBook:"Descargar el PDF del libro", dlYiKing:"Descargar la traducción del Yi-King",
+    catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"16 motivos · tirada directa",
+    catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"24 motivos · 6 familias × 4 tonos",
+    catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"16 motivos · tirada directa",
+    catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"4 motivos · tirada directa",
+    familleLabel:"Familia (d6)", rollBtn:"Realizar la tirada",
+    resultLabel:"Resultado", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
+    resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
+    noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
+    ideaGeneric:"Este motivo ilustra una combinación de base de las capas trazo por trazo de La Livrée d'Hermès. Su interpretación por hexagrama preciso se conectará en una próxima etapa.",
+    paletteLabel:"Paleta", paletteReset:"Restablecer la paleta",
+    navHome:"Inicio", navTirage:"Tirada", navArchives:"Archivos", navMotif:"Crear un motivo", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de",
+  },
+  th: {
+    eyebrow:"เสื้อคลุมของเฮอร์เมส", title:"การพิมพ์ — การทำนายและชั้นลาย",
+    subtitle:"เลือกหมวดหมู่ ทำการทำนาย แล้วดาวน์โหลดชั้นลายที่พร้อมตัดหรือพิมพ์",
+    bookIntro:"La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสมหัศจรรย์และการถ่ายทอดสู่การทอผ้าแบบแจ็คการ์ด",
+    readBook:"อ่านหนังสือ", dlPdfBook:"ดาวน์โหลด PDF ของหนังสือ", dlYiKing:"ดาวน์โหลดคำแปลอี้จิง",
+    catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"16 ลวดลาย · ทำนายโดยตรง",
+    catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"24 ลวดลาย · 6 ตระกูล × 4 เฉดสี",
+    catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"16 ลวดลาย · ทำนายโดยตรง",
+    catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"4 ลวดลาย · ทำนายโดยตรง",
+    familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", rollBtn:"ทำการทำนาย",
+    resultLabel:"ผลลัพธ์", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
+    resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
+    noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
+    ideaGeneric:"ลวดลายนี้แสดงองค์ประกอบพื้นฐานของชั้นลายทีละเส้นของ La Livrée d'Hermès การตีความตามเลขที่แน่นอนของแต่ละรูปจะเชื่อมโยงในขั้นตอนถัดไป",
+    paletteLabel:"จานสี", paletteReset:"รีเซ็ตจานสี",
+    navHome:"หน้าแรก", navTirage:"การทำนาย", navArchives:"เอกสารเก็บถาวร", navMotif:"สร้างลวดลาย", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ",
+  },
+};
+let LANG = 'fr';
+function t(key){ return (UI[LANG] && UI[LANG][key]!==undefined) ? UI[LANG][key] : UI.fr[key]; }
+
+function applyUILang(){
+  document.getElementById('txt-eyebrow').textContent = t('eyebrow');
+  document.getElementById('txt-title').textContent = t('title');
+  document.getElementById('txt-subtitle').textContent = t('subtitle');
+  document.getElementById('txt-bookIntro').textContent = t('bookIntro');
+  document.getElementById('txt-readBook').textContent = t('readBook');
+  document.getElementById('txt-dlPdfBook').textContent = t('dlPdfBook');
+  document.getElementById('txt-dlYiKing').textContent = t('dlYiKing');
+  for(let i=1;i<=4;i++){
+    document.getElementById('txt-catNum'+i).textContent = t('catNum'+i);
+    document.getElementById('txt-catTitle'+i).textContent = t('catTitle'+i);
+    document.getElementById('txt-catMeta'+i).textContent = t('catMeta'+i);
+  }
+  document.getElementById('txt-familleLabel').textContent = t('familleLabel');
+  document.getElementById('rollBtn').textContent = t('rollBtn');
+  document.getElementById('txt-resultLabel').textContent = t('resultLabel');
+  if(!state.chrono) document.getElementById('resultIdea').textContent = t('resultPlaceholder');
+  document.getElementById('dlSvg').textContent = t('dlSvgBtn');
+  document.getElementById('dlPdf').textContent = t('dlPdfBtn');
+  document.getElementById('txt-navHome').textContent = t('navHome');
+  document.getElementById('txt-navTirage').textContent = t('navTirage');
+  document.getElementById('txt-navArchives').textContent = t('navArchives');
+  document.getElementById('txt-navMotif').textContent = t('navMotif');
+  document.getElementById('txt-navWallpaper').textContent = t('navWallpaper');
+  document.getElementById('txt-navPrint').textContent = t('navPrint');
+  document.getElementById('txt-navContact').textContent = t('navContact');
+  document.getElementById('txt-navAbout').textContent = t('navAbout');
+  document.documentElement.lang = LANG;
+  renderPalette();
+}
+
+/* ===== Palette 3 couleurs liées (reprise du widget validé précédemment) ===== */
+function hexToHsl(hex){
+  let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+  let max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
+  if(max===min){h=s=0;} else{
+    let d=max-min; s=l>0.5? d/(2-max-min) : d/(max+min);
+    switch(max){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; case b: h=(r-g)/d+4; break; }
+    h/=6;
+  }
+  return [h*360, s*100, l*100];
+}
+function hslToHex(h,s,l){
+  h=((h%360)+360)%360; s=Math.max(0,Math.min(100,s))/100; l=Math.max(0,Math.min(100,l))/100;
+  let c=(1-Math.abs(2*l-1))*s, x=c*(1-Math.abs((h/60)%2-1)), m=l-c/2, r,g,b;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  let toHex=v=>Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+const ORIGINAL = ['#e0261b', '#c9a15a', '#6b6b6b']; // rouge / or / gris — palette du site
+let colors = [...ORIGINAL];
+let paletteLabels = ['Rouge','Or','Gris'];
+let masterIndex = 0;
+let deltas = [{h:0,s:0,l:0},{h:0,s:0,l:0},{h:0,s:0,l:0}];
+
+function computeDeltas(){
+  const [h0,s0,l0] = hexToHsl(colors[masterIndex]);
+  for(let i=0;i<3;i++){
+    if(i===masterIndex){ deltas[i]={h:0,s:0,l:0}; continue; }
+    const [h,s,l] = hexToHsl(colors[i]);
+    deltas[i] = {h:h-h0, s:s-s0, l:l-l0};
+  }
+}
+computeDeltas();
+
+function applyFromMaster(hex){
+  colors[masterIndex] = hex;
+  const [h,s,l] = hexToHsl(hex);
+  for(let i=0;i<3;i++){
+    if(i===masterIndex) continue;
+    colors[i] = hslToHex(h+deltas[i].h, s+deltas[i].s, l+deltas[i].l);
+  }
+  renderPalette();
+}
+function makeMaster(i){ masterIndex = i; computeDeltas(); renderPalette(); }
+function resetPalette(){ colors=[...ORIGINAL]; masterIndex=0; computeDeltas(); renderPalette(); }
+
+function renderPalette(){
+  const block = document.getElementById('paletteBlock');
+  let html = '<div class="palette-swatches">';
+  for(let i=0;i<3;i++){
+    html += `<div class="palette-card ${i===masterIndex?'is-master':''}">
+      <label>${paletteLabels[i]}${i===masterIndex?' · master':''}</label>`;
+    if(i===masterIndex){
+      html += `<input type="color" value="${colors[i]}" data-idx="${i}">`;
+    } else {
+      html += `<button class="palette-swatch-btn" style="background:${colors[i]}" data-idx="${i}"></button>`;
+    }
+    html += `<div class="palette-hex">${colors[i].toUpperCase()}</div></div>`;
+  }
+  html += `</div><button class="palette-reset">${t('paletteReset')}</button>`;
+  block.innerHTML = html;
+
+  block.querySelector('input[type=color]').addEventListener('input', e=>applyFromMaster(e.target.value));
+  block.querySelectorAll('.palette-swatch-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>makeMaster(parseInt(btn.dataset.idx)));
+  });
+  block.querySelector('.palette-reset').addEventListener('click', resetPalette);
+}
+
+/* ===== Tirage / calques réels (manifeste des 60 superpositions) ===== */
+let MANIFEST = null;
+let state = { cat: 1, famille: null, chrono: null, item: null };
+
+async function loadManifest(){
+  const res = await fetch('assets/impression-calques/manifest.json');
+  MANIFEST = await res.json();
+}
+
+document.querySelectorAll('.cat-card').forEach(card=>{
+  card.addEventListener('click', ()=>{
+    document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('active'));
+    card.classList.add('active');
+    state.cat = parseInt(card.dataset.cat);
+    const subRow = document.getElementById('subRow');
+    if(state.cat === 2){
+      subRow.style.display = 'block';
+      const familleRow = document.getElementById('familleRow');
+      familleRow.innerHTML = '';
+      for(let i=1;i<=6;i++){
+        const btn = document.createElement('button');
+        btn.className = 'dice-btn'; btn.textContent = i;
+        btn.addEventListener('click', ()=>{
+          document.querySelectorAll('#familleRow .dice-btn').forEach(b=>b.classList.remove('selected'));
+          btn.classList.add('selected'); state.famille = i;
+        });
+        familleRow.appendChild(btn);
+      }
+    } else { subRow.style.display = 'none'; state.famille = null; }
+  });
+});
+
+function pickResult(){
+  if(!MANIFEST) return null;
+  if(state.cat === 1) return MANIFEST.cat1[Math.floor(Math.random()*MANIFEST.cat1.length)];
+  if(state.cat === 3) return MANIFEST.cat3[Math.floor(Math.random()*MANIFEST.cat3.length)];
+  if(state.cat === 4) return MANIFEST.cat4[Math.floor(Math.random()*MANIFEST.cat4.length)];
+  // cat 2 : d6 pour la famille (déjà choisie via state.famille), puis tirage parmi les 4 teintes de la famille
+  const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
+  const options = MANIFEST.cat2.filter(x => x.family === familyId);
+  return options[Math.floor(Math.random()*options.length)];
+}
+
+document.getElementById('rollBtn').addEventListener('click', async ()=>{
+  if(state.cat === 2 && !state.famille){ return; }
+  if(!MANIFEST) await loadManifest();
+  const item = pickResult();
+  if(!item) return;
+  state.item = item;
+  state.chrono = item.id;
+  try{
+    const res = await fetch('assets/impression-calques/' + item.file);
+    const svgText = await res.text();
+    document.getElementById('previewBox').innerHTML = svgText;
+  }catch(e){
+    document.getElementById('previewBox').innerHTML = '';
+  }
+  document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
+  document.getElementById('resultIdea').textContent = t('ideaGeneric');
+});
+
+document.getElementById('dlSvg').addEventListener('click', async ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  const res = await fetch('assets/impression-calques/' + state.item.file);
+  const blob = await res.blob();
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `calque_${state.item.id}.svg`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById('dlPdf').addEventListener('click', ()=>{
+  alert(t('pdfAlert'));
+});
+
+/* ===== init ===== */
+(function initFromURL(){
+  const params = new URLSearchParams(location.search);
+  if(params.has('lang') && UI[params.get('lang')]) LANG = params.get('lang');
+  applyUILang();
+  loadManifest();
+})();
+</script>
+
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+{
+  "cat1": [
+    {
+      "id": "yang-mut_yang-mut",
+      "axis1": "yang-mut",
+      "axis2": "yang-mut",
+      "label": "Yang mutant / Yang mutant",
+      "file": "cat1/yang-mut_yang-mut.svg"
+    },
+    {
+      "id": "yang-mut_yang",
+      "axis1": "yang-mut",
+      "axis2": "yang",
+      "label": "Yang mutant / Yang",
+      "file": "cat1/yang-mut_yang.svg"
+    },
+    {
+      "id": "yang-mut_yin-mut",
+      "axis1": "yang-mut",
+      "axis2": "yin-mut",
+      "label": "Yang mutant / Yin mutant",
+      "file": "cat1/yang-mut_yin-mut.svg"
+    },
+    {
+      "id": "yang-mut_yin",
+      "axis1": "yang-mut",
+      "axis2": "yin",
+      "label": "Yang mutant / Yin",
+      "file": "cat1/yang-mut_yin.svg"
+    },
+    {
+      "id": "yang_yang-mut",
+      "axis1": "yang",
+      "axis2": "yang-mut",
+      "label": "Yang / Yang mutant",
+      "file": "cat1/yang_yang-mut.svg"
+    },
+    {
+      "id": "yang_yang",
+      "axis1": "yang",
+      "axis2": "yang",
+      "label": "Yang / Yang",
+      "file": "cat1/yang_yang.svg"
+    },
+    {
+      "id": "yang_yin-mut",
+      "axis1": "yang",
+      "axis2": "yin-mut",
+      "label": "Yang / Yin mutant",
+      "file": "cat1/yang_yin-mut.svg"
+    },
+    {
+      "id": "yang_yin",
+      "axis1": "yang",
+      "axis2": "yin",
+      "label": "Yang / Yin",
+      "file": "cat1/yang_yin.svg"
+    },
+    {
+      "id": "yin-mut_yang-mut",
+      "axis1": "yin-mut",
+      "axis2": "yang-mut",
+      "label": "Yin mutant / Yang mutant",
+      "file": "cat1/yin-mut_yang-mut.svg"
+    },
+    {
+      "id": "yin-mut_yang",
+      "axis1": "yin-mut",
+      "axis2": "yang",
+      "label": "Yin mutant / Yang",
+      "file": "cat1/yin-mut_yang.svg"
+    },
+    {
+      "id": "yin-mut_yin-mut",
+      "axis1": "yin-mut",
+      "axis2": "yin-mut",
+      "label": "Yin mutant / Yin mutant",
+      "file": "cat1/yin-mut_yin-mut.svg"
+    },
+    {
+      "id": "yin-mut_yin",
+      "axis1": "yin-mut",
+      "axis2": "yin",
+      "label": "Yin mutant / Yin",
+      "file": "cat1/yin-mut_yin.svg"
+    },
+    {
+      "id": "yin_yang-mut",
+      "axis1": "yin",
+      "axis2": "yang-mut",
+      "label": "Yin / Yang mutant",
+      "file": "cat1/yin_yang-mut.svg"
+    },
+    {
+      "id": "yin_yang",
+      "axis1": "yin",
+      "axis2": "yang",
+      "label": "Yin / Yang",
+      "file": "cat1/yin_yang.svg"
+    },
+    {
+      "id": "yin_yin-mut",
+      "axis1": "yin",
+      "axis2": "yin-mut",
+      "label": "Yin / Yin mutant",
+      "file": "cat1/yin_yin-mut.svg"
+    },
+    {
+      "id": "yin_yin",
+      "axis1": "yin",
+      "axis2": "yin",
+      "label": "Yin / Yin",
+      "file": "cat1/yin_yin.svg"
+    }
+  ],
+  "cat2": [
+    {
+      "id": "yang-yang-mut_yang-mut",
+      "family": "yang-yang-mut",
+      "tint": "yang-mut",
+      "label": "Yang Yang Mut · Yang mutant",
+      "file": "cat2/yang-yang-mut_yang-mut.svg"
+    },
+    {
+      "id": "yang-yang-mut_yang",
+      "family": "yang-yang-mut",
+      "tint": "yang",
+      "label": "Yang Yang Mut · Yang",
+      "file": "cat2/yang-yang-mut_yang.svg"
+    },
+    {
+      "id": "yang-yang-mut_yin-mut",
+      "family": "yang-yang-mut",
+      "tint": "yin-mut",
+      "label": "Yang Yang Mut · Yin mutant",
+      "file": "cat2/yang-yang-mut_yin-mut.svg"
+    },
+    {
+      "id": "yang-yang-mut_yin",
+      "family": "yang-yang-mut",
+      "tint": "yin",
+      "label": "Yang Yang Mut · Yin",
+      "file": "cat2/yang-yang-mut_yin.svg"
+    },
+    {
+      "id": "yang-yin-mut_yang-mut",
+      "family": "yang-yin-mut",
+      "tint": "yang-mut",
+      "label": "Yang Yin Mut · Yang mutant",
+      "file": "cat2/yang-yin-mut_yang-mut.svg"
+    },
+    {
+      "id": "yang-yin-mut_yang",
+      "family": "yang-yin-mut",
+      "tint": "yang",
+      "label": "Yang Yin Mut · Yang",
+      "file": "cat2/yang-yin-mut_yang.svg"
+    },
+    {
+      "id": "yang-yin-mut_yin-mut",
+      "family": "yang-yin-mut",
+      "tint": "yin-mut",
+      "label": "Yang Yin Mut · Yin mutant",
+      "file": "cat2/yang-yin-mut_yin-mut.svg"
+    },
+    {
+      "id": "yang-yin-mut_yin",
+      "family": "yang-yin-mut",
+      "tint": "yin",
+      "label": "Yang Yin Mut · Yin",
+      "file": "cat2/yang-yin-mut_yin.svg"
+    },
+    {
+      "id": "yin-mut-yang-mut_yang-mut",
+      "family": "yin-mut-yang-mut",
+      "tint": "yang-mut",
+      "label": "Yin Mut Yang Mut · Yang mutant",
+      "file": "cat2/yin-mut-yang-mut_yang-mut.svg"
+    },
+    {
+      "id": "yin-mut-yang-mut_yang",
+      "family": "yin-mut-yang-mut",
+      "tint": "yang",
+      "label": "Yin Mut Yang Mut · Yang",
+      "file": "cat2/yin-mut-yang-mut_yang.svg"
+    },
+    {
+      "id": "yin-mut-yang-mut_yin-mut",
+      "family": "yin-mut-yang-mut",
+      "tint": "yin-mut",
+      "label": "Yin Mut Yang Mut · Yin mutant",
+      "file": "cat2/yin-mut-yang-mut_yin-mut.svg"
+    },
+    {
+      "id": "yin-mut-yang-mut_yin",
+      "family": "yin-mut-yang-mut",
+      "tint": "yin",
+      "label": "Yin Mut Yang Mut · Yin",
+      "file": "cat2/yin-mut-yang-mut_yin.svg"
+    },
+    {
+      "id": "yin-yang_yang-mut",
+      "family": "yin-yang",
+      "tint": "yang-mut",
+      "label": "Yin Yang · Yang mutant",
+      "file": "cat2/yin-yang_yang-mut.svg"
+    },
+    {
+      "id": "yin-yang_yang",
+      "family": "yin-yang",
+      "tint": "yang",
+      "label": "Yin Yang · Yang",
+      "file": "cat2/yin-yang_yang.svg"
+    },
+    {
+      "id": "yin-yang_yin-mut",
+      "family": "yin-yang",
+      "tint": "yin-mut",
+      "label": "Yin Yang · Yin mutant",
+      "file": "cat2/yin-yang_yin-mut.svg"
+    },
+    {
+      "id": "yin-yang_yin",
+      "family": "yin-yang",
+      "tint": "yin",
+      "label": "Yin Yang · Yin",
+      "file": "cat2/yin-yang_yin.svg"
+    },
+    {
+      "id": "yin-yang-mut_yang-mut",
+      "family": "yin-yang-mut",
+      "tint": "yang-mut",
+      "label": "Yin Yang Mut · Yang mutant",
+      "file": "cat2/yin-yang-mut_yang-mut.svg"
+    },
+    {
+      "id": "yin-yang-mut_yang",
+      "family": "yin-yang-mut",
+      "tint": "yang",
+      "label": "Yin Yang Mut · Yang",
+      "file": "cat2/yin-yang-mut_yang.svg"
+    },
+    {
+      "id": "yin-yang-mut_yin-mut",
+      "family": "yin-yang-mut",
+      "tint": "yin-mut",
+      "label": "Yin Yang Mut · Yin mutant",
+      "file": "cat2/yin-yang-mut_yin-mut.svg"
+    },
+    {
+      "id": "yin-yang-mut_yin",
+      "family": "yin-yang-mut",
+      "tint": "yin",
+      "label": "Yin Yang Mut · Yin",
+      "file": "cat2/yin-yang-mut_yin.svg"
+    },
+    {
+      "id": "yin-yin-mut_yang-mut",
+      "family": "yin-yin-mut",
+      "tint": "yang-mut",
+      "label": "Yin Yin Mut · Yang mutant",
+      "file": "cat2/yin-yin-mut_yang-mut.svg"
+    },
+    {
+      "id": "yin-yin-mut_yang",
+      "family": "yin-yin-mut",
+      "tint": "yang",
+      "label": "Yin Yin Mut · Yang",
+      "file": "cat2/yin-yin-mut_yang.svg"
+    },
+    {
+      "id": "yin-yin-mut_yin-mut",
+      "family": "yin-yin-mut",
+      "tint": "yin-mut",
+      "label": "Yin Yin Mut · Yin mutant",
+      "file": "cat2/yin-yin-mut_yin-mut.svg"
+    },
+    {
+      "id": "yin-yin-mut_yin",
+      "family": "yin-yin-mut",
+      "tint": "yin",
+      "label": "Yin Yin Mut · Yin",
+      "file": "cat2/yin-yin-mut_yin.svg"
+    }
+  ],
+  "cat3": [
+    {
+      "id": "yang_yang-mut",
+      "variant": "yang",
+      "tint": "yang-mut",
+      "label": "Sans Yang · Yang mutant",
+      "file": "cat3/yang_yang-mut.svg"
+    },
+    {
+      "id": "yang_yang",
+      "variant": "yang",
+      "tint": "yang",
+      "label": "Sans Yang · Yang",
+      "file": "cat3/yang_yang.svg"
+    },
+    {
+      "id": "yang_yin-mut",
+      "variant": "yang",
+      "tint": "yin-mut",
+      "label": "Sans Yang · Yin mutant",
+      "file": "cat3/yang_yin-mut.svg"
+    },
+    {
+      "id": "yang_yin",
+      "variant": "yang",
+      "tint": "yin",
+      "label": "Sans Yang · Yin",
+      "file": "cat3/yang_yin.svg"
+    },
+    {
+      "id": "yang-mut_yang-mut",
+      "variant": "yang-mut",
+      "tint": "yang-mut",
+      "label": "Sans Yang mutant · Yang mutant",
+      "file": "cat3/yang-mut_yang-mut.svg"
+    },
+    {
+      "id": "yang-mut_yang",
+      "variant": "yang-mut",
+      "tint": "yang",
+      "label": "Sans Yang mutant · Yang",
+      "file": "cat3/yang-mut_yang.svg"
+    },
+    {
+      "id": "yang-mut_yin-mut",
+      "variant": "yang-mut",
+      "tint": "yin-mut",
+      "label": "Sans Yang mutant · Yin mutant",
+      "file": "cat3/yang-mut_yin-mut.svg"
+    },
+    {
+      "id": "yang-mut_yin",
+      "variant": "yang-mut",
+      "tint": "yin",
+      "label": "Sans Yang mutant · Yin",
+      "file": "cat3/yang-mut_yin.svg"
+    },
+    {
+      "id": "yin_yang-mut",
+      "variant": "yin",
+      "tint": "yang-mut",
+      "label": "Sans Yin · Yang mutant",
+      "file": "cat3/yin_yang-mut.svg"
+    },
+    {
+      "id": "yin_yang",
+      "variant": "yin",
+      "tint": "yang",
+      "label": "Sans Yin · Yang",
+      "file": "cat3/yin_yang.svg"
+    },
+    {
+      "id": "yin_yin-mut",
+      "variant": "yin",
+      "tint": "yin-mut",
+      "label": "Sans Yin · Yin mutant",
+      "file": "cat3/yin_yin-mut.svg"
+    },
+    {
+      "id": "yin_yin",
+      "variant": "yin",
+      "tint": "yin",
+      "label": "Sans Yin · Yin",
+      "file": "cat3/yin_yin.svg"
+    },
+    {
+      "id": "yin-mut_yang-mut",
+      "variant": "yin-mut",
+      "tint": "yang-mut",
+      "label": "Sans Yin mutant · Yang mutant",
+      "file": "cat3/yin-mut_yang-mut.svg"
+    },
+    {
+      "id": "yin-mut_yang",
+      "variant": "yin-mut",
+      "tint": "yang",
+      "label": "Sans Yin mutant · Yang",
+      "file": "cat3/yin-mut_yang.svg"
+    },
+    {
+      "id": "yin-mut_yin-mut",
+      "variant": "yin-mut",
+      "tint": "yin-mut",
+      "label": "Sans Yin mutant · Yin mutant",
+      "file": "cat3/yin-mut_yin-mut.svg"
+    },
+    {
+      "id": "yin-mut_yin",
+      "variant": "yin-mut",
+      "tint": "yin",
+      "label": "Sans Yin mutant · Yin",
+      "file": "cat3/yin-mut_yin.svg"
+    }
+  ],
+  "cat4": [
+    {
+      "id": "yang-mut",
+      "tint": "yang-mut",
+      "label": "Yin & Yang · Yang mutant",
+      "file": "cat4/yang-mut.svg"
+    },
+    {
+      "id": "yang",
+      "tint": "yang",
+      "label": "Yin & Yang · Yang",
+      "file": "cat4/yang.svg"
+    },
+    {
+      "id": "yin-mut",
+      "tint": "yin-mut",
+      "label": "Yin & Yang · Yin mutant",
+      "file": "cat4/yin-mut.svg"
+    },
+    {
+      "id": "yin",
+      "tint": "yin",
+      "label": "Yin & Yang · Yin",
+      "file": "cat4/yin.svg"
+    }
+  ],
+  "cat2Families": [
+    "yang-yang-mut",
+    "yang-yin-mut",
+    "yin-mut-yang-mut",
+    "yin-yang",
+    "yin-yang-mut",
+    "yin-yin-mut"
+  ],
+  "viewBox": "0 0 595.28 841.89"
+}
