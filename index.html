@@ -474,10 +474,9 @@
       <div class="hexgrid" id="hexgrid"></div>
       <div class="tirage-guide" id="txt-tirageGuide">
         <p>Le Yi King est un livre de sagesse qui peut s'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>
-        <p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, appuyez sur Parcourir au hasard ou sélectionnez directement une case de l'échiquier. Pour plus d'informations sur les images, n'hésitez pas à lire le livre.</p>
+        <p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, sélectionnez directement une case de l'échiquier. Pour plus d'informations sur les images, n'hésitez pas à lire le livre.</p>
       </div>
       <button class="draw-btn" id="drawBtn">Tirer aux pièces (6 traits)</button>
-      <button class="draw-btn secondary" id="randomBtn">Parcourir au hasard</button>
 
       <div class="legend">
         <span class="label" id="txt-legendLabel">Traits — symbolique traditionnelle</span>
@@ -1074,7 +1073,7 @@ const UI = {
     subtitle:"Trigramme supérieur (poids 32·16·8) / trigramme inférieur (poids 4·2·1) — construction du bas vers le haut",
     readBook:"Lire le livre", dlPdf:"Télécharger le PDF", langBookTitle:"Langue du livre",
     dlYiKing:"Télécharger la traduction du Yi-King", dl360:"Archive 360 motifs",
-    grid:"Échiquier", drawBtn:"Tirer aux pièces (6 traits)", randomBtn:"Parcourir au hasard",
+    grid:"Échiquier", drawBtn:"Tirer aux pièces (6 traits)",
     legendLabel:"Traits — symbolique traditionnelle",
     legendYangFixe:"Yang fixe", legendYangMut:"Yang mutant — va se briser",
     legendYinFixe:"Yin fixe", legendYinMut:"Yin mutant — va se remplir",
@@ -1107,14 +1106,14 @@ const UI = {
       + '<div class="positions-guide-item"><b>6e trait — L\'achèvement.</b> La fin du cycle. Souvent l\'excès ou le dépassement d\'une situation arrivée à son terme.</div>',
     bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
     tirageGuide:'<p>Le Yi King est un livre de sagesse qui peut s\'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d\'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>'
-      + '<p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, appuyez sur Parcourir au hasard ou sélectionnez directement une case de l\'échiquier. Pour plus d\'informations sur les images, n\'hésitez pas à lire le livre.</p>'
+      + '<p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, sélectionnez directement une case de l\'échiquier. Pour plus d\'informations sur les images, n\'hésitez pas à lire le livre.</p>'
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
     subtitle:"Upper trigram (weight 32·16·8) / lower trigram (weight 4·2·1) — built from bottom to top",
     readBook:"Read the book", dlPdf:"Download the PDF", langBookTitle:"Book language",
     dlYiKing:"Download the Yi-King translation", dl360:"360-motifs archive",
-    grid:"Chessboard", drawBtn:"Cast the coins (6 lines)", randomBtn:"Browse at random",
+    grid:"Chessboard", drawBtn:"Cast the coins (6 lines)",
     legendLabel:"Lines — traditional symbolism",
     legendYangFixe:"Fixed yang", legendYangMut:"Moving yang — about to break",
     legendYinFixe:"Fixed yin", legendYinMut:"Moving yin — about to fill",
@@ -1147,7 +1146,7 @@ const UI = {
       + '<div class="positions-guide-item"><b>6th line — Completion.</b> The end of the cycle. Often excess, or the overshooting of a situation that has run its course.</div>',
     bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
     tirageGuide:'<p>The Yi Jing is a book of wisdom that can be used as an oracle. If you have a specific question, hold it in mind before pressing Cast. Without a particular question, the casting shows the situation of the moment. You can chain several castings for several questions — but a single casting is already enough on its own for the message that corresponds to your consultation.</p>'
-      + '<p>If you simply want to explore the meaning of the hexagrams and their related images, press Browse at random or select a square on the board directly. For more information about the images, feel free to read the book.</p>'
+      + '<p>If you simply want to explore the meaning of the hexagrams and their related images, select a square on the board directly. For more information about the images, feel free to read the book.</p>'
   }
 };
 
@@ -1689,7 +1688,6 @@ function applyUILang(){
   document.getElementById('txt-grid').textContent = t('grid');
   document.getElementById('txt-axisNote').innerHTML = t('axisNote');
   document.getElementById('drawBtn').textContent = t('drawBtn');
-  document.getElementById('randomBtn').textContent = t('randomBtn');
   document.getElementById('txt-legendLabel').textContent = t('legendLabel');
   document.getElementById('txt-positionsGuideToggle').textContent = t('positionsGuideToggle');
   document.getElementById('positionsGuideContent').innerHTML = t('positionsGuide');
@@ -1867,14 +1865,6 @@ positionsGuideToggleBtn.addEventListener('click', ()=>{
   const expanded = positionsGuideToggleBtn.getAttribute('aria-expanded') === 'true';
   positionsGuideToggleBtn.setAttribute('aria-expanded', String(!expanded));
   positionsGuideContentEl.hidden = expanded;
-});
-
-document.getElementById('randomBtn').addEventListener('click', ()=>{
-  clearMutation();
-  const chrono = Math.floor(Math.random()*64);
-  document.querySelectorAll('.cell').forEach(cell=>cell.classList.remove('changing'));
-  showDetail(chrono);
-  document.querySelector(`.cell[data-chrono="${chrono}"]`).scrollIntoView({behavior:'smooth',block:'center'});
 });
 
 // ---------- alignement des caducées sur la hauteur de leurs voisins ----------
