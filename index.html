@@ -202,12 +202,18 @@
   .positions-guide-item{ margin-bottom:9px; }
   .positions-guide-item:last-child{ margin-bottom:0; }
   .positions-guide-item b{ color:var(--white); font-weight:400; font-style:italic; }
-  .footer-caduceus-wrap{ display:flex; justify-content:center; margin:0 0 20px; }
-  .footer-caduceus{
-    height:70px; width:auto; opacity:0; transform:scale(.8);
-    transition:opacity .5s ease, transform .5s ease;
+  .positions-guide-panel{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
+  .positions-guide-toggle{
+    display:flex; align-items:center; justify-content:space-between; width:100%;
+    background:transparent; border:none; color:var(--dim); cursor:pointer;
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase; padding:0;
+    font-family:inherit;
   }
-  .footer-caduceus.shown{ opacity:.92; transform:scale(1); }
+  .positions-guide-toggle:hover{ color:var(--gold); }
+  .positions-guide-toggle .chevron{ display:inline-block; transition:transform .2s ease; font-size:12px; }
+  .positions-guide-toggle[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
+  .positions-guide-panel .positions-guide{ max-width:none; min-width:0; margin-top:12px; }
+  .positions-guide-panel .positions-guide-title{ display:none; }
   .trigram-card{
     border:1px solid var(--line); padding:10px 12px; display:flex; align-items:center; gap:10px;
   }
@@ -477,6 +483,14 @@
         <span class="label" id="txt-legendLabel">Traits — symbolique traditionnelle</span>
         <div class="legend-grid" id="legendGrid"></div>
       </div>
+
+      <div class="positions-guide-panel">
+        <button type="button" class="positions-guide-toggle" id="positionsGuideToggle" aria-expanded="false">
+          <span id="txt-positionsGuideToggle">Signification des 6 positions</span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="positions-guide" id="positionsGuideContent" hidden></div>
+      </div>
     </div>
 
     <div class="detail-outer">
@@ -489,10 +503,6 @@
   <div class="detail-below" id="detailBelow"></div>
 
   <div class="note">
-    <div class="footer-caduceus-wrap">
-      <img id="footerCaduceus" class="footer-caduceus" src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
-    </div>
-
     <div class="palette-picker" id="palettePicker">
       <span class="palette-label" id="txt-paletteLabel">Palette</span>
       <div class="palette-swatches" id="paletteSwatches"></div>
@@ -1087,6 +1097,7 @@ const UI = {
     footerNote3:'Un tirage effectué est encodé dans l\'URL (<code>?tire=</code>) — copiez le lien pour le partager ou le retrouver tel quel.',
     yangFixeW:"Yang fixe", yinFixeW:"Yin fixe", yangMutW:"Yang mutant", yinMutW:"Yin mutant",
     paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
+    positionsGuideToggle:"Signification des 6 positions",
     positionsGuide:'<p class="positions-guide-title">Signification des 6 positions (du bas vers le haut)</p>'
       + '<div class="positions-guide-item"><b>1er trait — La base.</b> Le point de départ de la situation. Une question qui commence à se poser plutôt qu\'à se résoudre.</div>'
       + '<div class="positions-guide-item"><b>2e trait — Le soutien intérieur.</b> La position centrale du trigramme inférieur, souvent associée à ce qui vous porte de l\'intérieur — une relation de confiance, une ressource stable.</div>'
@@ -1126,6 +1137,7 @@ const UI = {
     footerNote3:'A completed casting is encoded in the URL (<code>?tire=</code>) — copy the link to share it or find it again exactly as it was.',
     yangFixeW:"Fixed yang", yinFixeW:"Fixed yin", yangMutW:"Moving yang", yinMutW:"Moving yin",
     paletteLabel:"Palette", paletteReset:"Reset the palette",
+    positionsGuideToggle:"Meaning of the 6 positions",
     positionsGuide:'<p class="positions-guide-title">Meaning of the 6 positions (bottom to top)</p>'
       + '<div class="positions-guide-item"><b>1st line — The base.</b> The starting point of the situation. A question beginning to arise rather than to resolve.</div>'
       + '<div class="positions-guide-item"><b>2nd line — Inner support.</b> The central position of the lower trigram, often associated with what carries you from within — a trusted relationship, a stable resource.</div>'
@@ -1139,7 +1151,22 @@ const UI = {
   }
 };
 
-let LANG = 'fr';
+const LANG_STORAGE_KEY = 'lldh-lang';
+function detectBrowserLang(){
+  const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'fr'];
+  for(const raw of langs){
+    const code = (raw || '').slice(0,2).toLowerCase();
+    if(code === 'en') return 'en';
+    if(code === 'fr') return 'fr';
+  }
+  return 'fr'; // langue détectée non gérée nativement ici (es/th/zh/ru...) -> repli français
+}
+function initialLang(){
+  let stored = null;
+  try{ stored = localStorage.getItem(LANG_STORAGE_KEY); }catch(e){}
+  return (stored === 'fr' || stored === 'en') ? stored : detectBrowserLang();
+}
+let LANG = initialLang();
 function t(key){ return (UI[LANG] && UI[LANG][key]!==undefined) ? UI[LANG][key] : UI.fr[key]; }
 function curHexKW(){ return LANG==='en' ? HEX_KW_EN : HEX_KW; }
 function curLineComment(){ return LANG==='en' ? LINE_COMMENT_EN : LINE_COMMENT; }
@@ -1290,6 +1317,7 @@ function buildShareRow(){
 
 // ---------- affichage d'un hexagramme ----------
 let lastShown = null;
+let lastTrigramCaduceus = null;
 
 // déclenche la transition CSS "shown" (opacity/transform) de façon fiable : sur un premier
 // chargement, le thread principal est chargé (dessin des pavages, widget Google Translate...)
@@ -1352,9 +1380,23 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const trigramBlockEl = buildTrigramBlock(traits);
   hexBlock.appendChild(trigramBlockEl);
 
-  const positionsGuide = document.createElement('div'); positionsGuide.className='positions-guide';
-  positionsGuide.innerHTML = t('positionsGuide');
-  hexBlock.appendChild(positionsGuide);
+  const caduceusWrap = document.createElement('div'); caduceusWrap.className='trigram-caduceus-wrap';
+  const smallCaduceus = document.createElement('img'); smallCaduceus.className='trigram-caduceus';
+  smallCaduceus.src='assets/logo-caducee.gif'; smallCaduceus.alt="La Livrée d'Hermès";
+  caduceusWrap.appendChild(smallCaduceus);
+  hexBlock.appendChild(caduceusWrap);
+
+  requestAnimationFrame(()=>{
+    const top = numBig.getBoundingClientRect().top;
+    const bottom = trigramBlockEl.getBoundingClientRect().bottom;
+    const wrapTop = caduceusWrap.getBoundingClientRect().top;
+    const h = bottom - top;
+    if(h > 0){
+      smallCaduceus.style.height = h + 'px';
+      caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
+    }
+  });
+  lastTrigramCaduceus = { numBig, trigramBlockEl, smallCaduceus, caduceusWrap };
 
   wrap.appendChild(hexBlock);
 
@@ -1393,7 +1435,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
       drawBandsProgressive(traits, movingSet, i);
     }, i*160);
   });
-  setTimeout(()=> revealShown(document.getElementById('footerCaduceus')), lineEls.length*160 + 120);
+  setTimeout(()=> revealShown(smallCaduceus), lineEls.length*160 + 120);
 
   return { wrap, sq, notes };
 }
@@ -1500,7 +1542,8 @@ function drawTirage(presetTosses){
       // rangée élargie : [trigrammes antérieurs] [pavé antérieur] [hexagramme antérieur] → [hexagramme postérieur] [pavé postérieur] [trigrammes postérieurs]
       const row = document.createElement('div'); row.className='mutation-hex-row'; row.id='antPostRow';
 
-      row.appendChild(buildTrigramBlock(traits));
+      const trigramLeft = buildTrigramBlock(traits);
+      row.appendChild(trigramLeft);
 
       const flankA = document.createElement('div'); flankA.className='flank-col';
       const sqA = document.createElement('canvas'); sqA.className='flank-sq';
@@ -1536,7 +1579,8 @@ function drawTirage(presetTosses){
       flankB.appendChild(sqB); flankB.appendChild(capB);
       row.appendChild(flankB);
 
-      row.appendChild(buildTrigramBlock(derivedTraits));
+      const trigramRight = buildTrigramBlock(derivedTraits);
+      row.appendChild(trigramRight);
 
       zone.appendChild(row);
 
@@ -1584,10 +1628,12 @@ function drawTirage(presetTosses){
 
         arrow.style.transform = `translate(${midpointX - arrowCenterX}px, ${midpointY - arrowCenterY}px)`;
 
-        [[flankA, miniA], [flankB, miniB]].forEach(([flank, mini])=>{
-          const pinyinTop = mini.querySelector('.pinyin').getBoundingClientRect().top;
-          const flankTop = flank.getBoundingClientRect().top;
-          flank.style.transform = `translateY(${pinyinTop - flankTop}px)`;
+        // carrés de pavage ET blocs de trigrammes recentrés sur la même ligne horizontale
+        // médiane que les deux hexagrammes (plutôt qu'alignés en haut de la rangée)
+        [flankA, flankB, trigramLeft, trigramRight].forEach(el=>{
+          const r = el.getBoundingClientRect();
+          const centerY = r.top + r.height/2;
+          el.style.transform = `translateY(${midpointY - centerY}px)`;
         });
       });
 
@@ -1645,6 +1691,8 @@ function applyUILang(){
   document.getElementById('drawBtn').textContent = t('drawBtn');
   document.getElementById('randomBtn').textContent = t('randomBtn');
   document.getElementById('txt-legendLabel').textContent = t('legendLabel');
+  document.getElementById('txt-positionsGuideToggle').textContent = t('positionsGuideToggle');
+  document.getElementById('positionsGuideContent').innerHTML = t('positionsGuide');
   const emptyStateSpan = document.querySelector('#txt-emptyState span');
   if(emptyStateSpan) emptyStateSpan.innerHTML = t('emptyState');
   document.getElementById('txt-paletteLabel').textContent = t('paletteLabel');
@@ -1799,7 +1847,10 @@ function setAppLang(lang){
 }
 
 document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b=>{
-  b.addEventListener('click', ()=> setAppLang(b.dataset.lang));
+  b.addEventListener('click', ()=>{
+    setAppLang(b.dataset.lang);
+    try{ localStorage.setItem(LANG_STORAGE_KEY, b.dataset.lang); }catch(e){}
+  });
 });
 
 // ---------- init ----------
@@ -1809,6 +1860,14 @@ buildLegend();
 applyUILang();
 
 document.getElementById('drawBtn').addEventListener('click', ()=>drawTirage());
+
+const positionsGuideToggleBtn = document.getElementById('positionsGuideToggle');
+const positionsGuideContentEl = document.getElementById('positionsGuideContent');
+positionsGuideToggleBtn.addEventListener('click', ()=>{
+  const expanded = positionsGuideToggleBtn.getAttribute('aria-expanded') === 'true';
+  positionsGuideToggleBtn.setAttribute('aria-expanded', String(!expanded));
+  positionsGuideContentEl.hidden = expanded;
+});
 
 document.getElementById('randomBtn').addEventListener('click', ()=>{
   clearMutation();
@@ -1837,6 +1896,20 @@ window.addEventListener('resize', syncEmptyCaduceusHeight);
 window.addEventListener('load', syncEmptyCaduceusHeight);
 setTimeout(syncEmptyCaduceusHeight, 0);
 
+window.addEventListener('resize', ()=>{
+  if(lastTrigramCaduceus && document.body.contains(lastTrigramCaduceus.trigramBlockEl)){
+    lastTrigramCaduceus.caduceusWrap.style.marginTop = '0px';
+    const top = lastTrigramCaduceus.numBig.getBoundingClientRect().top;
+    const bottom = lastTrigramCaduceus.trigramBlockEl.getBoundingClientRect().bottom;
+    const wrapTop = lastTrigramCaduceus.caduceusWrap.getBoundingClientRect().top;
+    const h = bottom - top;
+    if(h > 0){
+      lastTrigramCaduceus.smallCaduceus.style.height = h + 'px';
+      lastTrigramCaduceus.caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
+    }
+  }
+});
+
 // ---------- restauration depuis l'URL (nouveau) ----------
 (function initFromURL(){
   const params = new URLSearchParams(location.search);
@@ -1846,6 +1919,7 @@ setTimeout(syncEmptyCaduceusHeight, 0);
       b.classList.toggle('active', b.dataset.lang===LANG);
     });
     applyUILang();
+    try{ localStorage.setItem(LANG_STORAGE_KEY, LANG); }catch(e){}
   }
   if(params.has('tire')){
     const digits = params.get('tire');
