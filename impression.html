@@ -256,6 +256,13 @@
       </div>
     </div>
 
+    <div class="sub-row" id="teinteSubRow">
+      <div>
+        <span class="sub-label" id="txt-teinteLabel">Teinte (d4)</span>
+        <div class="dice-row" id="teinteRow"></div>
+      </div>
+    </div>
+
     <button class="site-nav-btn" id="rollBtn" style="margin-bottom:24px;border-color:var(--red);color:var(--red);">Effectuer le tirage</button>
 
     <div class="result-area">
@@ -311,11 +318,11 @@ const UI = {
     subtitle:"Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.",
     bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
     readBook:"Lire le livre", dlPdfBook:"Télécharger le PDF du livre", dlYiKing:"Télécharger la traduction du Yi-King",
-    catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"16 motifs · tirage direct",
+    catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"64 motifs · teinte fixe (d4), tirage par position",
     catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"24 motifs · 6 familles × 4 teintes",
-    catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"16 motifs · tirage direct",
+    catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"64 motifs · teinte fixe (d4), tirage par position",
     catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"4 motifs · tirage direct",
-    familleLabel:"Famille (d6)", rollBtn:"Effectuer le tirage",
+    familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
     resultLabel:"Résultat", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
@@ -328,11 +335,11 @@ const UI = {
     subtitle:"Choose a category, cast, then download the layer ready to cut or print.",
     bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
     readBook:"Read the book", dlPdfBook:"Download the book's PDF", dlYiKing:"Download the Yi-King translation",
-    catNum1:"Category I", catTitle1:"Bases", catMeta1:"16 motifs · direct draw",
+    catNum1:"Category I", catTitle1:"Bases", catMeta1:"64 motifs · fixed tint (d4), draw per position",
     catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"24 motifs · 6 families × 4 tints",
-    catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"16 motifs · direct draw",
+    catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"64 motifs · fixed tint (d4), draw per position",
     catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"4 motifs · direct draw",
-    familleLabel:"Family (d6)", rollBtn:"Cast",
+    familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
     resultLabel:"Result", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
@@ -345,11 +352,11 @@ const UI = {
     subtitle:"Elija una categoría, realice la tirada y descargue la capa lista para cortar o imprimir.",
     bookIntro:"La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
     readBook:"Leer el libro", dlPdfBook:"Descargar el PDF del libro", dlYiKing:"Descargar la traducción del Yi-King",
-    catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"16 motivos · tirada directa",
+    catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"64 motivos · matiz fijo (d4), tirada por posición",
     catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"24 motivos · 6 familias × 4 tonos",
-    catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"16 motivos · tirada directa",
+    catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"64 motivos · matiz fijo (d4), tirada por posición",
     catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"4 motivos · tirada directa",
-    familleLabel:"Familia (d6)", rollBtn:"Realizar la tirada",
+    familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
     resultLabel:"Resultado", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
@@ -362,11 +369,11 @@ const UI = {
     subtitle:"เลือกหมวดหมู่ ทำการทำนาย แล้วดาวน์โหลดชั้นลายที่พร้อมตัดหรือพิมพ์",
     bookIntro:"La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสมหัศจรรย์และการถ่ายทอดสู่การทอผ้าแบบแจ็คการ์ด",
     readBook:"อ่านหนังสือ", dlPdfBook:"ดาวน์โหลด PDF ของหนังสือ", dlYiKing:"ดาวน์โหลดคำแปลอี้จิง",
-    catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"16 ลวดลาย · ทำนายโดยตรง",
+    catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"24 ลวดลาย · 6 ตระกูล × 4 เฉดสี",
-    catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"16 ลวดลาย · ทำนายโดยตรง",
+    catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"4 ลวดลาย · ทำนายโดยตรง",
-    familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", rollBtn:"ทำการทำนาย",
+    familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
     resultLabel:"ผลลัพธ์", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
@@ -392,6 +399,7 @@ function applyUILang(){
     document.getElementById('txt-catMeta'+i).textContent = t('catMeta'+i);
   }
   document.getElementById('txt-familleLabel').textContent = t('familleLabel');
+  document.getElementById('txt-teinteLabel').textContent = t('teinteLabel');
   document.getElementById('rollBtn').textContent = t('rollBtn');
   document.getElementById('txt-resultLabel').textContent = t('resultLabel');
   if(!state.chrono) document.getElementById('resultIdea').textContent = t('resultPlaceholder');
@@ -481,7 +489,7 @@ function renderPalette(){
 
 /* ===== Tirage / calques réels (manifeste des 60 superpositions) ===== */
 let MANIFEST = null;
-let state = { cat: 1, famille: null, chrono: null, item: null };
+let state = { cat: 1, famille: null, teinte: null, chrono: null, item: null };
 
 async function loadManifest(){
   const res = await fetch('assets/impression-calques/manifest.json');
@@ -494,6 +502,7 @@ document.querySelectorAll('.cat-card').forEach(card=>{
     card.classList.add('active');
     state.cat = parseInt(card.dataset.cat);
     const subRow = document.getElementById('subRow');
+    const teinteSubRow = document.getElementById('teinteSubRow');
     if(state.cat === 2){
       subRow.style.display = 'block';
       const familleRow = document.getElementById('familleRow');
@@ -508,15 +517,28 @@ document.querySelectorAll('.cat-card').forEach(card=>{
         familleRow.appendChild(btn);
       }
     } else { subRow.style.display = 'none'; state.famille = null; }
+
+    if(state.cat === 1 || state.cat === 3){
+      teinteSubRow.style.display = 'block';
+      const teinteRow = document.getElementById('teinteRow');
+      teinteRow.innerHTML = '';
+      for(let i=1;i<=4;i++){
+        const btn = document.createElement('button');
+        btn.className = 'dice-btn'; btn.textContent = i;
+        btn.addEventListener('click', ()=>{
+          document.querySelectorAll('#teinteRow .dice-btn').forEach(b=>b.classList.remove('selected'));
+          btn.classList.add('selected'); state.teinte = i;
+        });
+        teinteRow.appendChild(btn);
+      }
+    } else { teinteSubRow.style.display = 'none'; state.teinte = null; }
   });
 });
 
 function pickResult(){
   if(!MANIFEST) return null;
-  if(state.cat === 1) return MANIFEST.cat1[Math.floor(Math.random()*MANIFEST.cat1.length)];
-  if(state.cat === 3) return MANIFEST.cat3[Math.floor(Math.random()*MANIFEST.cat3.length)];
   if(state.cat === 4) return MANIFEST.cat4[Math.floor(Math.random()*MANIFEST.cat4.length)];
-  return null; // cat 2 : traité à part, tirage indépendant par position via CalqueEngine
+  return null; // cat 1/2/3 : traitées à part, tirage indépendant par position via CalqueEngine
 }
 
 /* ===== Catégorie II : tirage indépendant par position au sein de la famille choisie
@@ -541,8 +563,8 @@ function familyLabel(familyId){
 // cadre montre toujours la marque de la position 1, répétée — donc on récupère aussi les
 // 5 autres positions (une seule fois, même teinte 'yang' pour toutes, la décoration ne
 // dépendant pas de la teinte) pour en extraire ces marques propres à chaque position.
-const familyTemplates = {};
-const familyPositionMarks = {};
+const spaceTemplates = {};
+const spacePositionMarks = {};
 
 function findFillClassesLocal(svgText){
   const m = svgText.match(/<style>([\s\S]*?)<\/style>/);
@@ -561,6 +583,7 @@ function extractRects(svgText){
   const re = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
+    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // cellule de la grille principale : gérée par `grid`, jamais une marque
     out.push({ key: mm.slice(2,6).join(','), fill: fillMap[mm[1]], x:mm[2], y:mm[3], w:mm[4], h:mm[5] });
   }
   return out;
@@ -588,20 +611,24 @@ function extraMarksVsBase(baseText, otherText){
   return out;
 }
 
-async function loadFamilyTemplate(familyId){
-  if(familyTemplates[familyId]) return familyTemplates[familyId];
-  const res = await fetch(`assets/par2-cartes/${familyId}/yang/1.svg`);
+// spaceKey identifie le cache (ex. 'par2:<famille>', 'bases:<teinte>', 'par3:<teinte>') ;
+// baseDir pointe vers le dossier <espace>/ contenant un sous-dossier par nature/teinte,
+// chacun avec ses 6 fichiers 1.svg..6.svg ; donorSlug est le sous-dossier utilisé comme
+// gabarit (le décor ne dépend pas de ce choix, vérifié pour II comme pour I/III).
+async function loadSpaceTemplate(spaceKey, baseDir, donorSlug){
+  if(spaceTemplates[spaceKey]) return spaceTemplates[spaceKey];
+  const res = await fetch(`${baseDir}${donorSlug}/1.svg`);
   const text = await res.text();
-  familyTemplates[familyId] = text;
+  spaceTemplates[spaceKey] = text;
 
   const marks = [null]; // index 0 inutilisé, positions 1-6
   marks[1] = ''; // la position 1 EST le gabarit, rien à ajouter pour elle
   for(let pos=2; pos<=6; pos++){
-    const r = await fetch(`assets/par2-cartes/${familyId}/yang/${pos}.svg`);
+    const r = await fetch(`${baseDir}${donorSlug}/${pos}.svg`);
     const t = await r.text();
     marks[pos] = extraMarksVsBase(text, t);
   }
-  familyPositionMarks[familyId] = marks;
+  spacePositionMarks[spaceKey] = marks;
   return text;
 }
 
@@ -632,18 +659,19 @@ function insertGridIntoTemplate(templateSvgText, grid, positionMarks){
 
 async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
-  await window.CalqueEngine.loadSpace('par2:'+familyId, 'assets/par2-cartes/'+familyId+'/');
-  const templateText = await loadFamilyTemplate(familyId);
+  const spaceKey = 'par2:'+familyId;
+  await window.CalqueEngine.loadSpace(spaceKey, 'assets/par2-cartes/'+familyId+'/');
+  const templateText = await loadSpaceTemplate(spaceKey, 'assets/par2-cartes/'+familyId+'/', 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
   const grid = Array.from({length:12},()=>Array(12).fill(null));
   for(let r=0;r<12;r++){
     for(let c=0;c<12;c++){
       const pos = LAYER_OF[r][c];
       const natureSlug = drawnSlugs[pos-1];
-      grid[r][c] = window.CalqueEngine.spaceColorAt('par2:'+familyId, NATURE_KEY[natureSlug], r, c);
+      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
     }
   }
-  const svg = insertGridIntoTemplate(templateText, grid, familyPositionMarks[familyId]);
+  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
@@ -651,12 +679,51 @@ async function drawCategorie2(){
   };
 }
 
+// Catégories I et III : teinte (axis2) fixée pour tout le motif (tirée via un d4 dans
+// l'UI), et pour chacune des 6 positions, tirage indépendant parmi les 4 familles/variantes
+// (axis1) — validé cellule par cellule et visuellement contre les vrais fichiers : pour une
+// teinte fixée, les 4 valeurs d'axis1 ne sont qu'une permutation de couleur cohérente de la
+// même forme, donc un tirage indépendant par position reste visuellement cohérent.
+async function drawCategorie1Or3(cat){
+  const teinteSlug = NATURE_SLUGS[(state.teinte||1)-1];
+  const baseDir = cat === 1 ? 'assets/bases-cartes/' : 'assets/par3-cartes/';
+  const spaceKey = (cat === 1 ? 'bases:' : 'par3:') + teinteSlug;
+  await window.CalqueEngine.loadSpace(spaceKey, baseDir + teinteSlug + '/');
+  const templateText = await loadSpaceTemplate(spaceKey, baseDir + teinteSlug + '/', 'yang');
+  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+  const grid = Array.from({length:12},()=>Array(12).fill(null));
+  for(let r=0;r<12;r++){
+    for(let c=0;c<12;c++){
+      const pos = LAYER_OF[r][c];
+      const axis1Slug = drawnSlugs[pos-1];
+      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[axis1Slug], r, c);
+    }
+  }
+  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
+  return {
+    id: teinteSlug + '_' + drawnSlugs.join('-'),
+    label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
+    svgText: svg,
+  };
+}
+
 document.getElementById('rollBtn').addEventListener('click', async ()=>{
   if(state.cat === 2 && !state.famille){ return; }
+  if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
   if(!MANIFEST) await loadManifest();
 
   if(state.cat === 2){
     const item = await drawCategorie2();
+    state.item = item;
+    state.chrono = item.id;
+    document.getElementById('previewBox').innerHTML = item.svgText;
+    document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
+    document.getElementById('resultIdea').textContent = t('ideaGeneric');
+    return;
+  }
+
+  if(state.cat === 1 || state.cat === 3){
+    const item = await drawCategorie1Or3(state.cat);
     state.item = item;
     state.chrono = item.id;
     document.getElementById('previewBox').innerHTML = item.svgText;
