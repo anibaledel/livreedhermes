@@ -271,6 +271,10 @@
         <div class="result-label" id="txt-resultLabel">Résultat</div>
         <div class="result-value" id="resultValue">—</div>
         <div class="result-idea" id="resultIdea">Effectuez un tirage pour voir apparaître le motif et son interprétation.</div>
+        <div id="hexInfo" style="display:none;margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:var(--dim);">
+          <div id="hexInfoDepart"></div>
+          <div id="hexInfoArrivee" style="margin-top:8px;"></div>
+        </div>
         <div class="book-bar" style="justify-content:flex-start;border-top:none;padding-top:0;margin-top:0;">
           <span class="dl-btn" id="dlSvg" style="cursor:pointer;">Télécharger SVG</span>
           <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
@@ -327,6 +331,7 @@ const UI = {
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     ideaGeneric:"Ce motif illustre une combinaison de base des calques trait par trait de La Livrée d'Hermès. Son interprétation par hexagramme précis sera reliée dans une prochaine étape.",
+    hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
     navHome:"Accueil", navTirage:"Tirage", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos",
   },
@@ -344,6 +349,7 @@ const UI = {
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     ideaGeneric:"This motif illustrates a base combination of La Livrée d'Hermès's trait-by-trait layers. Its interpretation by specific hexagram will be connected in a later step.",
+    hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     paletteLabel:"Palette", paletteReset:"Reset the palette",
     navHome:"Home", navTirage:"Casting", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About",
   },
@@ -361,6 +367,7 @@ const UI = {
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     ideaGeneric:"Este motivo ilustra una combinación de base de las capas trazo por trazo de La Livrée d'Hermès. Su interpretación por hexagrama preciso se conectará en una próxima etapa.",
+    hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     paletteLabel:"Paleta", paletteReset:"Restablecer la paleta",
     navHome:"Inicio", navTirage:"Tirada", navArchives:"Archivos", navMotif:"Crear un motivo", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de",
   },
@@ -378,6 +385,7 @@ const UI = {
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     ideaGeneric:"ลวดลายนี้แสดงองค์ประกอบพื้นฐานของชั้นลายทีละเส้นของ La Livrée d'Hermès การตีความตามเลขที่แน่นอนของแต่ละรูปจะเชื่อมโยงในขั้นตอนถัดไป",
+    hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     paletteLabel:"จานสี", paletteReset:"รีเซ็ตจานสี",
     navHome:"หน้าแรก", navTirage:"การทำนาย", navArchives:"เอกสารเก็บถาวร", navMotif:"สร้างลวดลาย", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ",
   },
@@ -553,6 +561,101 @@ const NATURE_SLUGS = ['yang','yang-mut','yin','yin-mut'];
 const NATURE_LABELS = { yang:'Yang', 'yang-mut':'Yang mutant', yin:'Yin', 'yin-mut':'Yin mutant' };
 const NATURE_KEY = { yang:'YANG', 'yang-mut':'YANGMUT', yin:'YIN', 'yin-mut':'YINMUT' };
 
+/* ===== Hexagramme départ/arrivée pour Catégories I et III — un tirage à 6 positions
+   (chacune Yang/Yang mutant/Yin/Yin mutant) se convertit mécaniquement en un vrai
+   hexagramme via le même système chrono que tirage-livree-hermes.html (poids trigramme
+   supérieur 32·16·8 / inférieur 4·2·1 — page 067 du livre). ===== */
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+const HEX_KW = {
+1:["Qian","Le Créateur","Amorce","Le trait plein s'élance seul, sans encore de vêtement. Au tout premier degré de la figure, la puissance existe déjà tout entière, mais elle n'a encore pris aucune forme reconnaissable — elle n'est vêtue d'aucune fonction, d'aucun rôle. C'est la force à l'état pur, avant qu'elle ne se donne un nom. Ce trait annonce ce que seront les cinq suivants : une progression où le pouvoir d'agir se façonne peu à peu un habit, jusqu'à ce que la figure entière, au sommet, découvre que même la plus grande force doit apprendre à se retenir."],
+2:["Kun","Le Réceptif","Assise","Le sol reçoit, la forme se pose. Rien encore n'est advenu, et pourtant tout est déjà rendu possible : la terre du premier trait n'exige rien, elle attend. Ce n'est pas la passivité de qui renonce, mais la patience de qui sait que la docilité bien comprise porte en elle toute la fécondité à venir. La figure entière se déploiera à partir de cette seule qualité : accueillir avant de vouloir imposer, se poser avant de prétendre bâtir."],
+3:["Zhun","La Difficulté initiale","Germination","Le germe peine sous la terre du carré. Toute naissance commence dans l'obscurité et la résistance : la graine ignore encore la forme qu'elle prendra, elle ne sait que pousser. Ce trait dit la difficulté qui n'est pas un échec, mais la condition même de tout commencement véritable — rien de grand n'a jamais surgi sans d'abord avoir dû se dégager de ce qui le retenait."],
+4:["Meng","La Folie juvénile","Apprentissage","L'ignorance du disciple appelle le maître. Ce n'est pas une faiblesse que d'ignorer, c'est une ouverture : celui qui ne sait pas encore est celui-là même qui peut apprendre. La figure entière tourne autour de cette rencontre nécessaire entre l'inexpérience qui cherche et l'expérience qui répond — sans cette humilité première, aucun enseignement ne peut avoir prise."],
+5:["Xu","L'Attente","Contenance","L'eau attend sous le ciel sa juste heure. Attendre n'est pas ne rien faire : c'est tenir sa position avec constance pendant que les conditions se forment ailleurs, hors de portée de la volonté. Ce trait enseigne que la précipitation détruit ce que seule la patience peut accomplir — la pluie viendra quand le ciel et la terre seront prêts à se rencontrer, pas avant."],
+6:["Song","Le Conflit","Dénouement","La discorde des forces opposées cherche son issue. Le conflit n'est ni évité ni recherché : il est reconnu pour ce qu'il est, une tension entre deux mouvements qui ne peuvent, par nature, coexister sans friction. La sagesse ici n'est pas de gagner à tout prix, mais de savoir quand une querelle mérite d'être menée jusqu'au bout et quand elle mérite d'être quittée à temps."],
+7:["Shi","L'Armée","Cadence","La discipline collective se règle comme la marche d'une troupe. Aucune force dispersée ne vaut une force organisée : ce trait dit que la puissance véritable n'est jamais celle d'un seul geste éclatant, mais celle d'un ordre patiemment maintenu, où chacun sait sa place et le mouvement d'ensemble l'emporte sur l'élan individuel."],
+8:["Bi","La Solidarité","Tissage","L'union des clans se noue par en dessous, comme le fil de chaîne. Ce qui tient ensemble durablement se tisse dans la discrétion, trait après trait, avant même que la structure ne soit visible de l'extérieur. La solidarité véritable ne se décrète pas d'en haut : elle se construit depuis la base, fil après fil, jusqu'à former une trame que rien ne peut plus défaire."],
+9:["Xiao Chu","La Force apprivoisée du petit","Itinérance","Le frein léger posé sur le grand dessein. Tout grand projet connaît des moments où seule une retenue mineure est possible, où l'on ne peut qu'infléchir légèrement le cours des choses sans le changer radicalement. Ce trait enseigne la vertu du geste modeste : ce n'est pas encore l'heure d'agir en grand, c'est l'heure d'ajuster, patiemment, ce qui peut l'être."],
+10:["Lu","La Marche","Plénitude","Chaque pas posé sur la queue du tigre sans dévier. Le danger n'est pas toujours à éviter — parfois il doit être traversé, à condition d'y marcher avec une attention totale, sans un geste de trop. Ce trait dit que la prudence n'est pas la peur : elle est cette concentration exacte qui permet d'avancer là où l'inattention serait fatale."],
+11:["Tai","La Paix","Alliance","Le Ciel et la Terre se rencontrent et s'échangent librement. Quand le haut consent à descendre et que le bas consent à monter, la communication devient totale et féconde. Ce trait enseigne que la prospérité durable naît toujours de cet échange réciproque — jamais d'une seule direction imposée, toujours d'une rencontre où chacun donne et reçoit à la fois."],
+12:["Pi","La Stagnation","Lenteur","Quand la communication est coupée par le refus du système. Ce n'est pas un accident passager mais un blocage structurel : les forces qui devraient se répondre se sont figées chacune dans son propre refus. Ce trait dit qu'il existe des moments où rien ne sert de forcer le passage — il faut attendre que les conditions elles-mêmes se déplacent, ou se retirer sans perdre sa vertu dans une lutte vaine."],
+13:["Tong Ren","La Communauté avec les hommes","Stabilité","La fraternité qui s'ouvre au monde trouve son socle. Une communauté n'est solide que si elle ne se referme pas sur elle-même : c'est en s'ouvrant aux autres, en cherchant ce qui relie plutôt que ce qui divise, qu'elle trouve une assise durable. Ce trait enseigne que l'appartenance la plus forte naît souvent au contact du dehors, non dans le repli."],
+14:["Da You","La Possession de grande envergure","Sursaut","La richesse accumulée se mesure à sa capacité de traverser le choc. Ce n'est pas la quantité possédée qui compte, mais la solidité de ce qui a été bâti : une possession véritable résiste à l'épreuve, tandis qu'une abondance mal fondée s'effondre au premier heurt. Ce trait invite à ne jamais confondre l'accumulation avec la vraie richesse, qui se prouve dans la durée."],
+15:["Qian","La Modestie","Alchimie","L'effacement de soi nourrit la transmutation dans le creuset. Rien ne se transforme vraiment sans qu'une part de soi consente à disparaître dans le processus. Ce trait dit que l'humilité n'est pas une vertu passive : elle est la condition active de toute transformation profonde, le creuset où l'ancien se dissout pour que le nouveau puisse prendre forme."],
+16:["Yu","L'Enthousiasme","Élan","Le tonnerre sort de la terre et met les corps en mouvement. Il existe une énergie qui ne se commande pas, qui jaillit et entraîne d'elle-même, sans qu'on ait besoin de la forcer. Ce trait enseigne que le véritable pouvoir de rassembler ne vient jamais de la contrainte, mais de cette vibration commune que seul un enthousiasme sincère peut éveiller."],
+17:["Sui","La Suite","Profondeur","Suivre le mouvement du temps oblige à redescendre creuser la source. On ne peut suivre durablement sans revenir, de temps à autre, à ce qui nourrit le mouvement lui-même. Ce trait enseigne que l'adaptation la plus juste n'est pas la plus mobile, mais celle qui sait revenir à sa propre origine avant de repartir."],
+18:["Gu","Le Travail sur ce qui est gâté","Réparation","Redresser la corruption d'un héritage usé. Ce qui a été négligé pendant trop longtemps finit par exiger un travail exigeant, mais ce travail n'est pas une malédiction — c'est l'occasion de refonder sur des bases plus saines. Ce trait dit que l'héritage abîmé n'est perdu que si l'on refuse de s'en occuper."],
+19:["Lin","L'Approche","Croissance","L'approche bienveillante des forces vives stimule l'ascension patiente. Rien de grand ne se conquiert d'un coup ; tout ce qui grandit véritablement le fait par approches successives, chacune préparant la suivante. Ce trait enseigne que la croissance authentique se mesure en pas, non en sauts."],
+20:["Guan","La Contemplation","Convergence","Regarder au loin depuis la tour fédère ce qui était dispersé. Une vision large ne disperse pas l'attention, elle la rassemble : c'est en prenant de la hauteur que l'on découvre les liens invisibles entre des choses qui, de près, semblaient sans rapport. Ce trait dit que comprendre précède toujours le pouvoir d'agir avec justesse."],
+21:["Shi He","Mordre au travers","Tranchant","Trancher le faux pour souder ce qui est juste. Il y a des obstacles qui ne se contournent pas — ils doivent être traversés, mordus, dépassés par une décision nette. Ce trait enseigne que la clarté a parfois besoin de dureté pour s'imposer, et que cette dureté, employée à bon escient, n'est pas violence mais justice."],
+22:["Bi","La Grâce","Épure","L'ornement et la beauté de la forme cèdent, à l'extrême, la place à la décision. Toute beauté a sa limite utile : passé un certain point, l'ornement doit s'effacer devant la nécessité d'agir. Ce trait rappelle que la forme sert le fond, et non l'inverse — dès que l'un empiète sur l'autre, il faut savoir simplifier."],
+23:["Bo","L'Éclatement","Mutation","L'effondrement de l'ancien édifice libère l'énergie d'un accroissement neuf. Ce qui s'écroule n'emporte pas tout avec lui : la ruine d'une forme épuisée dégage l'espace et l'énergie nécessaires à ce qui va suivre. Ce trait enseigne à ne pas craindre l'éclatement des structures devenues creuses — il précède toujours un renouveau."],
+24:["Fu","Le Retour","Renaissance","Le principe vital revient au cœur de la nuit la plus dense. Rien n'est jamais définitivement perdu tant que subsiste, quelque part, ce germe minuscule qui recommence. Ce trait dit que le point le plus bas contient déjà, en germe, le mouvement du retour — c'est précisément dans l'obscurité la plus totale que la lumière recommence à croître."],
+25:["Wu Wang","L'Innocence","Dénouement","Agir sans artifice dissout de lui-même les nœuds de l'obstacle. La complication naît presque toujours du calcul ; la simplicité véritable, elle, désamorce les obstacles avant même de les affronter. Ce trait enseigne que la droiture spontanée résout souvent ce que la ruse la plus habile ne fait qu'entortiller davantage."],
+26:["Da Chu","La Force apprivoisée du grand","Retenue","L'accumulation intérieure de la puissance fait face à la dureté du relief. Ce qui grandit à l'intérieur, invisible, finit toujours par rencontrer une résistance extérieure — et c'est cette rencontre même qui révèle et affine la force accumulée. Ce trait dit que l'obstacle n'est pas l'ennemi de la puissance, il en est l'épreuve nécessaire."],
+27:["Yi","La Nourriture","Distinction","Ce qui nourrit l'esprit s'oppose à ce qui divise les vues. Toute nourriture n'élève pas également : certaines paroles, certaines pensées fortifient, d'autres dispersent et affaiblissent. Ce trait invite à choisir avec le même soin ce dont on se nourrit l'esprit que ce dont on se nourrit le corps."],
+28:["Da Guo","La Prépondérance du grand","Structure","La poutre faîtière qui fléchit sous son propre poids. Une structure poussée à l'extrême de sa capacité annonce, par sa flexion même, le moment où elle devra soit se briser soit être déchargée. Ce trait enseigne à reconnaître les signes avant-coureurs de la rupture avant qu'elle ne survienne."],
+29:["Kan","L'Insondable","Épreuve","Naviguer dans l'eau qui ne se laisse pas sonder. Certaines profondeurs ne se mesurent jamais complètement à l'avance — on ne peut qu'apprendre à s'y mouvoir avec les moyens du bord, sans jamais prétendre les maîtriser totalement. Ce trait dit que la vraie compétence face au danger n'est pas de l'éliminer, mais d'apprendre à y nager."],
+30:["Li","Ce qui s'attache, le Feu","Rayonnement","La clarté du feu s'attache à ce qui vit pour propager son éclat. Rien ne brille dans le vide : toute clarté véritable a besoin d'un ancrage, d'une matière à laquelle se lier pour se déployer. Ce trait enseigne que l'indépendance totale n'est pas un idéal — même la lumière la plus pure a besoin de ce qu'elle éclaire."],
+31:["Xian","L'Influence","Résonance","L'émotion subtile de l'influence mutuelle, à peine perceptible. Les liens les plus profonds entre les êtres se nouent souvent avant même qu'un mot soit prononcé, dans ce registre discret du ressenti partagé. Ce trait dit que l'influence la plus durable n'est jamais celle qui s'impose bruyamment, mais celle qui se glisse, presque imperceptible, entre deux présences ouvertes l'une à l'autre."],
+32:["Heng","La Durée","Permanence","La constance dans le temps traverse l'épreuve du repli. Ce qui dure vraiment n'est pas ce qui refuse tout changement, mais ce qui sait, quand il le faut, se retirer un temps sans perdre sa direction propre. Ce trait enseigne que la durée véritable inclut ses propres pauses."],
+33:["Dun","La Retraite","Permanence","La durée s'affirme en sachant s'effacer pour mieux durer. Paradoxalement, ce qui dure le plus longtemps est souvent ce qui a su, au bon moment, savoir disparaître de la scène. Ce trait enseigne que le retrait stratégique n'interrompt pas la continuité — il la protège."],
+34:["Da Zhuang","La Puissance du grand","Résonance","L'influence s'amplifie jusqu'à devenir une force qui ne se contient plus. Ce qui commence comme une simple résonance peut, si rien ne vient l'encadrer, grandir jusqu'à échapper à tout contrôle. Ce trait avertit que la puissance sans discipline se retourne, tôt ou tard, contre celui qui la déploie."],
+35:["Jin","Le Progrès","Rayonnement","L'éclat monte, comme le soleil, vers la reconnaissance de midi. Toute ascension véritable suit son propre rythme, comme le soleil qui ne saute jamais directement à son zénith. Ce trait dit que la reconnaissance méritée arrive toujours en son temps, jamais avant, jamais après."],
+36:["Ming Yi","L'Obscurcissement de la lumière","Épreuve","Avancer sous une lumière volontairement voilée. Il ne s'agit pas d'éteindre sa propre clarté, mais de savoir la contenir quand les circonstances rendent son plein éclat dangereux. Ce trait enseigne la discipline de qui continue d'agir juste, même quand personne ne peut encore le voir."],
+37:["Jia Ren","Les Gens de la maison","Structure","La rigueur ordonnée de la cellule familiale. Aucune structure plus large ne tient sans que sa cellule la plus intime — celle du foyer — ne soit elle-même ordonnée et juste. Ce trait dit que l'ordre du monde commence toujours par l'ordre de la maison."],
+38:["Kui","L'Opposition","Distinction","Le tri s'opère entre les mots qui élèvent et ceux qui séparent. Toute divergence n'est pas une rupture : certaines oppositions, bien comprises, affinent la pensée plutôt qu'elles ne la brisent. Ce trait enseigne à distinguer le désaccord fécond du conflit stérile."],
+39:["Jian","L'Obstacle","Retenue","La patience devient elle-même un bouclier face au relief. Face à ce qui ne peut être franchi de front, la patience n'est pas une résignation mais une protection active — elle préserve l'énergie pour le moment où le passage s'ouvrira. Ce trait dit que tout obstacle contient, en creux, l'indication du détour juste."],
+40:["Jie","La Délivrance","Dénouement","Les nœuds de l'obstacle se libèrent, le passage s'ouvre. Ce qui semblait inextricable finit, avec le temps et la bonne tension relâchée au bon moment, par se dénouer de lui-même. Ce trait enseigne que la délivrance arrive rarement par la force — elle vient quand la pression trouve enfin sa juste issue."],
+41:["Sun","La Diminution","Renoncement","Retourner au centre exige de consentir à perdre ce qui encombrait. On ne revient à l'essentiel qu'en acceptant de laisser partir ce qui, avec le temps, s'est révélé superflu. Ce trait dit que toute perte n'est pas un appauvrissement — certaines diminutions sont la condition même du retour à ce qui compte vraiment."],
+42:["Yi","L'Augmentation","Mutation","L'énergie d'un accroissement neuf se libère. Ce qui grandit véritablement ne le fait jamais seul : la croissance authentique libère une énergie qui profite à plus large que celui qui la porte. Ce trait enseigne que le véritable accroissement se reconnaît à ce qu'il partage, non à ce qu'il accumule."],
+43:["Guai","La Percée","Épure","La décision qui tranche net et élimine le superflu. Il vient un moment où l'hésitation elle-même devient plus dangereuse que le tranchant de la décision. Ce trait dit que la percée véritable ne consiste pas à tout détruire, mais à retirer précisément ce qui, à l'excès, menaçait l'ensemble."],
+44:["Gou","Venir à la rencontre","Tranchant","La rencontre imprévue expose au risque autant qu'à l'union. Tout ce qui se présente sans prévenir porte en lui une ambiguïté : promesse de lien ou germe de danger, on ne le sait jamais d'emblée. Ce trait enseigne la vigilance qui n'est pas méfiance, mais discernement au moment même de la rencontre."],
+45:["Cui","Le Rassemblement","Convergence","La contemplation est déjà un rassemblement silencieux. Avant même que les corps ne se réunissent, les esprits qui partagent un même regard sont déjà, en un sens, rassemblés. Ce trait dit que la véritable union commence toujours dans l'invisible, bien avant de devenir visible."],
+46:["Sheng","La Poussée vers le haut","Croissance","Approcher et grandir sont un seul geste vertical. Il n'existe pas de séparation véritable entre se rapprocher de son but et grandir vers lui — les deux mouvements n'en font qu'un, comme la tige qui pousse est déjà, en germe, l'arbre à venir. Ce trait enseigne la continuité entre le petit geste présent et le grand résultat futur."],
+47:["Kun","L'Accablement","Réparation","On ne restaure rien sans consentir d'abord à manquer. Il n'y a pas de renaissance véritable sans être passé, d'abord, par l'expérience réelle du dénuement. Ce trait dit que l'accablement, bien traversé, n'est pas seulement une épreuve à subir mais une purification qui prépare le retour de l'abondance."],
+48:["Jing","Le Puits","Profondeur","On ne suit bien que ce qu'on a d'abord puisé au fond. Aucune ressource ne profite à qui reste en surface : il faut descendre, chercher, puiser vraiment pour que le puits livre ce qu'il contient. Ce trait enseigne que la profondeur est la condition même de l'utilité."],
+49:["Ge","La Révolution","Élan","Le feu sous le lac dissout l'ancienne peau. Tout changement profond exige d'abord que l'ancienne forme se dissolve, aussi inconfortable que soit ce moment de transition. Ce trait dit que la révolution la plus juste n'est jamais gratuite — elle répond à une nécessité que l'ancienne forme ne pouvait plus contenir."],
+50:["Ding","Le Chaudron","Alchimie","La forme la plus discrète est celle qui recueille le mieux l'essence. Ce n'est pas l'éclat extérieur qui définit la valeur d'un contenant, mais sa capacité à préserver et transformer ce qu'il reçoit. Ce trait enseigne que la vraie valeur se loge souvent dans ce qui semble le plus modeste en apparence."],
+51:["Zhen","L'Ébranlement","Sursaut","Ce qui reste debout après le choc est ce qui était vraiment possédé. Le choc ne crée rien, il révèle : ce qui s'effondre au premier ébranlement n'a jamais été aussi solide qu'il le paraissait. Ce trait dit que l'épreuve est toujours, d'une certaine façon, un révélateur de vérité."],
+52:["Gen","L'Immobilisation","Stabilité","Le mouvement s'arrête pour que l'essentiel se voie. Ce n'est que dans l'immobilité que certaines choses, masquées par l'agitation permanente, deviennent enfin visibles. Ce trait enseigne que savoir s'arrêter n'est pas renoncer à agir, c'est se donner les moyens de voir où agir vraiment."],
+53:["Jian","Le Développement","Lenteur","Racine, tronc, branche — un pas après l'autre redresse l'axe. Aucune croissance authentique ne saute d'étape : chaque degré prépare le suivant, dans un ordre que rien ne peut inverser sans tout compromettre. Ce trait dit que la patience du développement graduel est elle-même une forme de force."],
+54:["Gui Mei","L'Épousée","Alliance","L'union scellée engage deux ordres inégaux dans une même trame. Toute union ne naît pas dans l'égalité parfaite ; certaines commencent dans le déséquilibre et doivent trouver, avec le temps, leur propre justice. Ce trait enseigne que la loyauté dans la durée peut réparer ce que les conditions initiales n'avaient pas rendu juste."],
+55:["Feng","L'Abondance","Plénitude","L'heure du plein midi, où la lumière ne projette plus d'ombre. Il existe un instant, au sommet de toute plénitude, où plus rien ne reste caché — mais cet instant, par nature, ne peut que décliner ensuite. Ce trait enseigne à savourer l'abondance sans oublier qu'elle porte en elle sa propre limite."],
+56:["Lu","Le Voyageur","Itinérance","Sans feu ni lieu, la livrée remplace la maison. Quand la demeure fait défaut, c'est l'habit, la posture, la conduite qui doivent en tenir lieu — une dignité qui ne dépend plus du lieu mais de la manière d'être. Ce trait dit que l'identité la plus solide est celle qu'on porte avec soi, indépendante de tout ancrage extérieur."],
+57:["Xun","Le Doux, le Vent","Tissage","Le vent pénètre partout sans bruit, comme la trame. La force la plus discrète est parfois la plus efficace : elle ne rencontre pas de résistance frontale parce qu'elle ne s'annonce jamais comme une force. Ce trait enseigne la puissance de l'influence continue et silencieuse."],
+58:["Dui","Le Joyeux","Cadence","La clarté du lac qui rassemble et met en commun. Ce qui rassemble sans contrainte, par la seule attraction naturelle de ce qu'il offre, crée les liens les plus durables. Ce trait dit que la véritable communauté se reconnaît à la légèreté avec laquelle elle se forme."],
+59:["Huan","La Dissolution","Dénouement","Ce qui s'affrontait se disperse et redevient fluide. Les blocages les plus rigides finissent, avec le temps et le mouvement juste, par se disperser d'eux-mêmes. Ce trait enseigne que la dissolution n'est pas une perte mais un retour à l'état fluide, préalable à toute nouvelle forme."],
+60:["Jie","La Limitation","Contenance","Le bambou pose ses nœuds pour que la sève ne se disperse pas. Sans les limites qui la ponctuent, la croissance elle-même perdrait sa force en se dispersant sans direction. Ce trait dit que la limitation bien posée n'est pas un frein à la vie, mais la condition de sa vigueur."],
+61:["Zhong Fu","La Vérité intérieure","Apprentissage","Le centre vide du cœur devient le lieu où la confiance se loge. C'est précisément parce que le cœur ne se referme pas sur lui-même, parce qu'il reste un espace ouvert, que la confiance authentique peut s'y établir. Ce trait enseigne que la sincérité la plus profonde naît d'un vide accueillant, non d'une certitude fermée."],
+62:["Xiao Guo","La Prépondérance du petit","Germination","Le petit trait déborde de son cadre. Il est des moments où seul le détail, le geste mesuré, peut encore agir — vouloir alors la grande action serait une erreur de jugement. Ce trait dit que la justesse, dans certaines circonstances, se trouve précisément dans la petitesse assumée."],
+63:["Ji Ji","Après l'accomplissement","Assise","La couture est refermée, la maille est nouée. Ce qui est achevé porte toujours, en lui, le germe de ce qui viendra le défaire — rien de fini n'est éternellement fini. Ce trait enseigne que l'accomplissement véritable inclut la conscience de sa propre fragilité."],
+64:["Wei Ji","Avant l'accomplissement","Amorce","Le passage est ouvert mais la trame n'est pas encore tissée. Rien n'est encore accompli, mais rien n'est non plus impossible : la porte reste ouverte à ce qui, patiemment, reste à construire. Ce trait dit que l'inachèvement n'est pas un échec — c'est la condition même de tout ce qui reste à venir, le point d'où repart, inlassablement, le cycle entier des 64 figures."]
+};
+
+function chronoOf(r,c){ return r*8+c; }
+function rcFromTraits(traits){
+  const c = traits[0] + traits[1]*2 + traits[2]*4;
+  const r = traits[3] + traits[4]*2 + traits[5]*4;
+  return {r,c};
+}
+function chronoFromTraits(traits){ const {r,c}=rcFromTraits(traits); return chronoOf(r,c); }
+
+// drawnSlugs[i] = nature tirée pour la position i+1 (1=bas .. 6=haut, comme LAYER_OF).
+function hexFromDrawnSlugs(drawnSlugs){
+  const traits = drawnSlugs.map(s => (s === 'yang' || s === 'yang-mut') ? 1 : 0);
+  const movingIdx = [];
+  drawnSlugs.forEach((s,i) => { if(s === 'yang-mut' || s === 'yin-mut') movingIdx.push(i); });
+  const chronoDepart = chronoFromTraits(traits);
+  const result = { chrono: chronoDepart, kw: KINGWEN_BY_CHRONO[chronoDepart], movingIdx, arrivee: null };
+  if(movingIdx.length){
+    const derived = traits.map((b,i) => movingIdx.includes(i) ? (1 - b) : b);
+    const chronoArrivee = chronoFromTraits(derived);
+    result.arrivee = { chrono: chronoArrivee, kw: KINGWEN_BY_CHRONO[chronoArrivee] };
+  }
+  return result;
+}
+
 function familyLabel(familyId){
   return familyId.split('-').map(w => w==='mut' ? 'Mut' : w[0].toUpperCase()+w.slice(1)).join(' ');
 }
@@ -704,7 +807,25 @@ async function drawCategorie1Or3(cat){
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
     svgText: svg,
+    hex: hexFromDrawnSlugs(drawnSlugs),
   };
+}
+
+function renderHexInfo(hex){
+  const box = document.getElementById('hexInfo');
+  const departEl = document.getElementById('hexInfoDepart');
+  const arriveeEl = document.getElementById('hexInfoArrivee');
+  if(!hex){ box.style.display = 'none'; return; }
+  box.style.display = 'block';
+  const infoD = HEX_KW[hex.kw];
+  departEl.innerHTML = `<b style="color:var(--white);">${t('hexDepart')} — N°${hex.kw} ${infoD[1]}</b> (${infoD[0]}) — ${infoD[2]}`;
+  if(hex.arrivee){
+    const infoA = HEX_KW[hex.arrivee.kw];
+    arriveeEl.innerHTML = `<b style="color:var(--white);">${t('hexArrivee')} — N°${hex.arrivee.kw} ${infoA[1]}</b> (${infoA[0]}) — ${infoA[2]}`;
+    arriveeEl.style.display = 'block';
+  } else {
+    arriveeEl.style.display = 'none';
+  }
 }
 
 document.getElementById('rollBtn').addEventListener('click', async ()=>{
@@ -719,6 +840,7 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
     document.getElementById('previewBox').innerHTML = item.svgText;
     document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
     document.getElementById('resultIdea').textContent = t('ideaGeneric');
+    renderHexInfo(null);
     return;
   }
 
@@ -729,9 +851,11 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
     document.getElementById('previewBox').innerHTML = item.svgText;
     document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
     document.getElementById('resultIdea').textContent = t('ideaGeneric');
+    renderHexInfo(item.hex);
     return;
   }
 
+  renderHexInfo(null);
   const item = pickResult();
   if(!item) return;
   state.item = item;
