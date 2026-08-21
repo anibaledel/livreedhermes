@@ -246,7 +246,7 @@
       <div class="cat-card" data-cat="4">
         <div class="cat-num" id="txt-catNum4">Catégorie IV</div>
         <div class="cat-title" id="txt-catTitle4">Comb. par 4 axes</div>
-        <div class="cat-meta" id="txt-catMeta4">4 motifs · tirage direct</div>
+        <div class="cat-meta" id="txt-catMeta4">64 motifs · tirage par position</div>
       </div>
     </div>
 
@@ -326,7 +326,7 @@ const UI = {
     catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"64 motifs · teinte fixe (d4), tirage par position",
     catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"24 motifs · 6 familles × 4 teintes",
     catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"64 motifs · teinte fixe (d4), tirage par position",
-    catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"4 motifs · tirage direct",
+    catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"64 motifs · tirage par position",
     familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
     resultLabel:"Résultat", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
@@ -344,7 +344,7 @@ const UI = {
     catNum1:"Category I", catTitle1:"Bases", catMeta1:"64 motifs · fixed tint (d4), draw per position",
     catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"24 motifs · 6 families × 4 tints",
     catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"64 motifs · fixed tint (d4), draw per position",
-    catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"4 motifs · direct draw",
+    catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"64 motifs · draw per position",
     familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
     resultLabel:"Result", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
@@ -362,7 +362,7 @@ const UI = {
     catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"64 motivos · matiz fijo (d4), tirada por posición",
     catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"24 motivos · 6 familias × 4 tonos",
     catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"64 motivos · matiz fijo (d4), tirada por posición",
-    catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"4 motivos · tirada directa",
+    catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"64 motivos · tirada por posición",
     familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
     resultLabel:"Resultado", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
@@ -380,7 +380,7 @@ const UI = {
     catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"24 ลวดลาย · 6 ตระกูล × 4 เฉดสี",
     catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
-    catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"4 ลวดลาย · ทำนายโดยตรง",
+    catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"64 ลวดลาย · สุ่มตามตำแหน่ง",
     familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
     resultLabel:"ผลลัพธ์", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
@@ -544,12 +544,6 @@ document.querySelectorAll('.cat-card').forEach(card=>{
   });
 });
 
-function pickResult(){
-  if(!MANIFEST) return null;
-  if(state.cat === 4) return MANIFEST.cat4[Math.floor(Math.random()*MANIFEST.cat4.length)];
-  return null; // cat 1/2/3 : traitées à part, tirage indépendant par position via CalqueEngine
-}
-
 /* ===== Catégorie II : tirage indépendant par position au sein de la famille choisie
    (même mécanisme que les hexagrammes — LAYER_OF + CalqueEngine — appliqué à
    assets/par2-cartes/<famille>/ au lieu de assets/trait-cartes/). ===== */
@@ -670,20 +664,33 @@ function familyLabel(familyId){
 const spaceTemplates = {};
 const spacePositionMarks = {};
 
-function findFillClassesLocal(svgText){
+// Comme findFillClasses de calque-engine.js, mais gère aussi les sélecteurs groupés
+// (ex. ".cls-3, .cls-6 { stroke: #ee2e7b; }") — nécessaire ici car au moins une couleur
+// de trait (le tiret de position de Catégorie I) n'est déclarée que dans un tel groupe.
+// Retourne aussi la police (font-family/font-size) des classes utilisées pour le chiffre
+// de position, qui est un <text> dans les fichiers bases-cartes/par3-cartes.
+function parseStyleColors(svgText){
   const m = svgText.match(/<style>([\s\S]*?)<\/style>/);
-  const map = {};
-  if(!m) return map;
-  const blocks = [...m[1].matchAll(/\.(cls-\d+)\s*\{([^}]*)\}/g)];
+  const fillMap = {}, strokeMap = {}, fontMap = {};
+  if(!m) return { fillMap, strokeMap, fontMap };
+  const blocks = [...m[1].matchAll(/([^{}]+)\{([^}]*)\}/g)];
   for(const b of blocks){
+    const classes = b[1].split(',').map(s=>s.trim().replace(/^\./,'')).filter(s=>/^cls-\d+$/.test(s));
     const fm = b[2].match(/fill:\s*(#[0-9a-fA-F]{6})/);
-    if(fm) map[b[1]] = fm[1].toLowerCase();
+    const sm = b[2].match(/stroke:\s*(#[0-9a-fA-F]{6})/);
+    const famM = b[2].match(/font-family:\s*([^;]+);/);
+    const sizeM = b[2].match(/font-size:\s*([\d.]+px)/);
+    classes.forEach(cls=>{
+      if(fm) fillMap[cls] = fm[1].toLowerCase();
+      if(sm) strokeMap[cls] = sm[1].toLowerCase();
+      if(famM || sizeM) fontMap[cls] = { family: famM && famM[1].trim(), size: sizeM && sizeM[1] };
+    });
   }
-  return map;
+  return { fillMap, strokeMap, fontMap };
 }
 
 function extractRects(svgText){
-  const fillMap = findFillClassesLocal(svgText);
+  const { fillMap } = parseStyleColors(svgText);
   const re = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
@@ -693,7 +700,7 @@ function extractRects(svgText){
   return out;
 }
 function extractPaths(svgText){
-  const fillMap = findFillClassesLocal(svgText);
+  const { fillMap } = parseStyleColors(svgText);
   const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
@@ -701,17 +708,59 @@ function extractPaths(svgText){
   }
   return out;
 }
+// Tirets/pastilles de repère par position : dessinés en <line>/<circle> (contour, pas
+// remplissage) dans les fichiers sources — invisibles pour extractRects/extractPaths.
+function extractLines(svgText){
+  const { strokeMap } = parseStyleColors(svgText);
+  const re = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    out.push({ key: mm.slice(2,6).join(','), stroke: strokeMap[mm[1]], x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
+  }
+  return out;
+}
+function extractCircles(svgText){
+  const { strokeMap } = parseStyleColors(svgText);
+  const re = /<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    out.push({ key: mm.slice(2,5).join(','), stroke: strokeMap[mm[1]], cx:mm[2], cy:mm[3], r:mm[4] });
+  }
+  return out;
+}
+// Chiffre de position (Catégories I/III) : un <text><tspan> dont le contenu et la position
+// changent à chaque position — jamais capturé par extractRects/extractPaths non plus.
+function extractTexts(svgText){
+  const { fillMap, fontMap } = parseStyleColors(svgText);
+  const re = /<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    const font = fontMap[mm[1]] || {};
+    out.push({ key: mm[2], fill: fillMap[mm[1]], transform: mm[2], content: mm[3], family: font.family, size: font.size });
+  }
+  return out;
+}
 
-// Marques (rects/tracés) présentes dans otherText mais absentes de baseText, redessinées
-// avec une couleur explicite (fill=...) plutôt que la classe locale du fichier source.
+// Marques (rects/tracés/tirets/pastilles/chiffre) présentes dans otherText mais absentes
+// de baseText, redessinées avec une couleur explicite plutôt que la classe locale du
+// fichier source (contour en stroke pour lignes/cercles, remplissage pour rects/paths/texte).
 function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
+  const baseLineKeys = new Set(extractLines(baseText).map(l=>l.key));
+  const baseCircleKeys = new Set(extractCircles(baseText).map(c=>c.key));
+  const baseTextKeys = new Set(extractTexts(baseText).map(x=>x.key));
   const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
   const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
+  const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key));
+  const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key));
+  const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key));
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill||'#6b6b6b'}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill||'#6b6b6b'}"/>`; });
+  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke||'#6b6b6b'}" stroke-width="3.5" fill="none"/>`; });
+  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke||'#6b6b6b'}" stroke-width="3.5" fill="none"/>`; });
+  extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill||'#6b6b6b'}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
   return out;
 }
 
@@ -812,6 +861,34 @@ async function drawCategorie1Or3(cat){
   };
 }
 
+// Catégorie IV : le vrai tirage Yi-King (mêmes 24 fichiers assets/trait-cartes/ et même
+// moteur CalqueEngine que la page d'accueil), sans teinte à fixer au préalable puisque
+// trait-cartes n'a pas de sous-dossier teinte — chacune des 6 positions tire librement
+// parmi les 4 natures. L'espace 'hexagram' est déjà chargé (calque-engine.js appelle
+// loadAll() dès son chargement), donc ce loadSpace() ne refait pas les 24 requêtes.
+async function drawCategorie4(){
+  const spaceKey = 'hexagram';
+  const baseDir = 'assets/trait-cartes/';
+  await window.CalqueEngine.loadSpace(spaceKey, baseDir);
+  const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
+  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+  const grid = Array.from({length:12},()=>Array(12).fill(null));
+  for(let r=0;r<12;r++){
+    for(let c=0;c<12;c++){
+      const pos = LAYER_OF[r][c];
+      const natureSlug = drawnSlugs[pos-1];
+      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
+    }
+  }
+  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
+  return {
+    id: drawnSlugs.join('-'),
+    label: drawnSlugs.map(s=>NATURE_LABELS[s]).join('/'),
+    svgText: svg,
+    hex: hexFromDrawnSlugs(drawnSlugs),
+  };
+}
+
 function renderHexInfo(hex){
   const box = document.getElementById('hexInfo');
   const departEl = document.getElementById('hexInfoDepart');
@@ -856,31 +933,18 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
     return;
   }
 
-  renderHexInfo(null);
-  const item = pickResult();
-  if(!item) return;
+  const item = await drawCategorie4();
   state.item = item;
   state.chrono = item.id;
-  try{
-    const res = await fetch('assets/impression-calques/' + item.file);
-    const svgText = await res.text();
-    document.getElementById('previewBox').innerHTML = svgText;
-  }catch(e){
-    document.getElementById('previewBox').innerHTML = '';
-  }
+  document.getElementById('previewBox').innerHTML = item.svgText;
   document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
   document.getElementById('resultIdea').textContent = t('ideaGeneric');
+  renderHexInfo(item.hex);
 });
 
 document.getElementById('dlSvg').addEventListener('click', async ()=>{
   if(!state.item){ alert(t('noResultAlert')); return; }
-  let blob;
-  if(state.cat === 2 && state.item.svgText){
-    blob = new Blob([state.item.svgText], { type: 'image/svg+xml' });
-  } else {
-    const res = await fetch('assets/impression-calques/' + state.item.file);
-    blob = await res.blob();
-  }
+  const blob = new Blob([state.item.svgText], { type: 'image/svg+xml' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = `calque_${state.item.id}.svg`; a.click();
   URL.revokeObjectURL(url);
