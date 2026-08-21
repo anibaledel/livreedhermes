@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>À propos — Anibal Amiot | Auteur de La Livrée d'Hermès</title>
-<meta name="description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
-<meta property="og:title" content="À propos — Anibal Amiot | Auteur de La Livrée d'Hermès">
-<meta property="og:description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
+<title>Profil documentaire — Anibal Amiot | Inventeur</title>
+<meta name="description" content="Profil documentaire d'Anibal Amiot : détail des brevets français (FR2840678, FR2865054) et des 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12 de La Livrée d'Hermès.">
+<meta property="og:title" content="Profil documentaire — Anibal Amiot | Inventeur">
+<meta property="og:description" content="Profil documentaire d'Anibal Amiot : détail des brevets français (FR2840678, FR2865054) et des 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12 de La Livrée d'Hermès.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
-<meta property="og:url" content="https://anibal-amiot.com/a-propos.html">
+<meta property="og:url" content="https://anibal-amiot.com/profil.html">
 <meta property="og:type" content="profile">
-<link rel="canonical" href="https://anibal-amiot.com/a-propos.html">
+<link rel="canonical" href="https://anibal-amiot.com/profil.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="À propos — Anibal Amiot | Auteur de La Livrée d'Hermès">
-<meta name="twitter:description" content="Anibal Amiot, auteur, éditeur, concepteur et artiste, et son livre La Livrée d'Hermès : un précis d'arithmogéométrie au croisement de la philosophie, des mathématiques et des sciences appliquées.">
+<meta name="twitter:title" content="Profil documentaire — Anibal Amiot | Inventeur">
+<meta name="twitter:description" content="Profil documentaire d'Anibal Amiot : détail des brevets français (FR2840678, FR2865054) et des 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12 de La Livrée d'Hermès.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
 <style>
   :root{
@@ -44,15 +44,31 @@
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
   header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
 
-  /* ---------- contenu à propos ---------- */
-  .about-body{ padding:24px 0 8px; }
-  .about-intro{
-    max-width:64ch; margin:0 auto 26px; color:var(--dim);
+  /* ---------- contenu profil ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-photo-wrap{ display:flex; flex-direction:column; align-items:center; margin:0 0 30px; }
+  .profile-photo{
+    width:160px; height:160px; object-fit:cover; border:1px solid var(--line);
+    filter:grayscale(35%);
+  }
+  .profile-photo-caption{ color:var(--dim); font-size:10.5px; letter-spacing:.04em; margin-top:8px; font-style:italic; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
     font-size:15px; line-height:1.8; text-align:left;
   }
-  .about-intro p{ margin:0 0 22px; }
-  .about-intro p:last-child{ margin-bottom:0; }
-  .about-intro em{ color:var(--gold); font-style:italic; }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; text-align:left; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .patent-entry{ margin-bottom:20px; }
+  .patent-entry:last-child{ margin-bottom:0; }
+  .patent-title{ color:var(--white); font-size:14px; margin:0 0 6px; }
+  .patent-title .num{ color:var(--red); }
+  .patent-meta{ color:var(--dim); font-size:12.5px; line-height:1.7; margin:0; }
+  .patent-note{ color:var(--dim); font-size:12.5px; line-height:1.7; margin:10px 0 0; font-style:italic; }
+  .profile-section p.profile-text{ color:var(--dim); font-size:14px; line-height:1.7; margin:0; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; opacity:.8; }
 
   /* ---------- pied de page (identique aux autres pages) ---------- */
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
@@ -108,69 +124,54 @@
   @media (max-width:480px){
     header h1{ font-size:19px; letter-spacing:.02em; }
     header p{ font-size:14px; }
-    .about-intro{ font-size:14.5px; }
+    .profile-intro, .profile-section p.profile-text{ font-size:14.5px; }
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fonts.css">
-<!-- "Inventeur" (jobTitle) et "genre" (Book) : appuyés par 2 brevets vérifiés à l'INPI
-     (FR2840678, FR2865054) et 63 dessins et modèles (n° 20193057, 4 juillet 2019),
-     documentés sur contact.html — Philosophe/Mathématicien restent hors jobTitle,
-     aucun contenu visible ne les justifie de la même façon. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
-      "name": "Anibal Amiot",
-      "alternateName": ["Anibal Edelbert Amiot", "Anibal Edelberto Amiot"],
-      "jobTitle": ["Auteur", "Éditeur", "Concepteur", "Artiste", "Inventeur"],
-      "description": "Anibal Amiot est auteur, éditeur, concepteur, artiste et inventeur. Il est l'auteur de La Livrée d'Hermès, un livre d'arithmogéométrie qui se tient au croisement de la philosophie, des mathématiques et des sciences appliquées.",
-      "url": "https://anibal-amiot.com/a-propos.html",
-      "sameAs": [
-        "https://instagram.com/agnimed",
-        "https://t.me/Anibalamiot",
-        "https://linkedin.com/in/anibalamiot"
-      ]
-    },
-    {
-      "@type": "Book",
-      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
-      "name": "La Livrée d'Hermès",
-      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
-      "genre": ["Philosophie", "Mathématiques"],
-      "description": "Précis d'arithmogéométrie centré sur la construction des carrés magiques.",
-      "inLanguage": "fr",
-      "bookFormat": "https://schema.org/EBook",
-      "url": "https://anibal-amiot.com/book-viewer/index.html"
-    }
-  ]
-}
-</script>
 </head>
 <body>
 <div class="wrap">
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <h1>À propos</h1>
-    <p>Anibal Amiot, auteur de La Livrée d'Hermès</p>
+    <h1>Profil documentaire</h1>
+    <p>Brevets et dessins et modèles vérifiables auprès de l'INPI</p>
     <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
-  <div class="about-body">
-    <div class="about-intro">
-      <p>Anibal Amiot a été éditeur de livres et concepteur de jeux vidéo. Il est également artiste et concepteur — deux activités qui se prolongent naturellement l'une dans l'autre, du jeu vidéo à son travail actuel de conception visuelle et éditoriale.</p>
-
-      <p>Il est l'auteur de La Livrée d'Hermès, un livre d'arithmogéométrie disponible en accès libre sur ce site. Le titre renvoie au sens premier du mot livrée : l'habit bariolé et cérémoniel porté en signe d'appartenance, dont chaque couleur et chaque motif sont porteurs de sens plutôt que purement décoratifs — c'est cette idée qui structure tout l'ouvrage.</p>
-
-      <p>La Livrée d'Hermès est un précis d'arithmogéométrie centré sur la construction des carrés magiques. Il conduit le lecteur du carré magique jusqu'au tissage Jacquard, en proposant dans son huitième chapitre une série de 360 calques qui fonctionnent comme un métier à tisser Jacquard — une science appliquée directement issue de la construction géométrique développée dans les chapitres précédents.</p>
-
-      <p>Pour y parvenir, le livre s'appuie sur la méthode socratique : la <em>maïeutique</em>, qui ne transmet pas un savoir tout fait mais fait émerger une <em>réminiscence</em> chez le lecteur, par l'observation d'une suite de formes géométriques qui se déploient les unes à partir des autres. La Livrée d'Hermès se tient ainsi au croisement de trois territoires rarement réunis : la philosophie traditionnelle, les mathématiques, et les sciences appliquées.</p>
+  <div class="profile-body">
+    <div class="profile-photo-wrap">
+      <img class="profile-photo" src="assets/anibal-amiot-portrait.jpg" alt="Anibal Amiot — portrait">
+      <span class="profile-photo-caption">Portrait — montage photographique</span>
     </div>
+
+    <p class="profile-intro">Anibal Amiot est auteur, éditeur, concepteur, artiste et inventeur. Il est l'auteur de <a href="index.html" style="color:var(--gold);">La Livrée d'Hermès</a>, un livre d'arithmogéométrie disponible en accès libre sur ce site, et le titulaire des brevets et des dessins et modèles détaillés ci-dessous, déposés en France et vérifiables auprès de l'Institut National de la Propriété Industrielle (INPI).</p>
+
+    <div class="profile-section">
+      <h2>Brevets</h2>
+      <div class="patent-entry">
+        <p class="patent-title">Brevet <span class="num">FR2840678</span> — Arme transformable pouvant convenir à la pratique de plusieurs arts martiaux</p>
+        <p class="patent-meta">Dépôt (priorité) : FR0206929, 5 juin 2002<br>
+        Publication : FR2840678A1, 12 décembre 2003<br>
+        Délivrance : FR2840678B1, 22 septembre 2006</p>
+      </div>
+      <div class="patent-entry">
+        <p class="patent-title">Brevet <span class="num">FR2865054</span> — Procédé et dispositif pour la composition automatisée d'un motif symbolique exprimant une relation mathématique</p>
+        <p class="patent-meta">Dépôt : FR0400189, 9 janvier 2004<br>
+        Publication : FR2865054A1, 15 juillet 2005<br>
+        Délivrance : FR2865054B1, 4 juillet 2008</p>
+        <p class="patent-note">Ce second brevet, portant sur la composition automatisée d'un motif symbolique à partir d'une relation mathématique, est le précurseur direct du système de calques développé dans La Livrée d'Hermès.</p>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h2>Dessins et modèles</h2>
+      <p class="profile-text">63 dessins et modèles déposés le 4 juillet 2019 sous le numéro d'enregistrement 20193057, couvrant les principaux carrés d'ordre 12 — le socle géométrique de La Livrée d'Hermès.</p>
+    </div>
+
+    <p class="profile-sources">Sources vérifiables : data.inpi.fr, Google Patents, Espacenet.</p>
   </div>
 
   <div class="note">
@@ -188,6 +189,7 @@
       <a class="site-nav-btn" href="pages.html#projets">Fond d'écran</a>
       <a class="site-nav-btn" href="impression.html">Impression</a>
       <a class="site-nav-btn" href="contact.html">Contact</a>
+      <a class="site-nav-btn" href="a-propos.html">À propos</a>
     </div>
 
     <div class="center-logo-slot">
