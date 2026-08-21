@@ -44,7 +44,7 @@
     border-bottom:1px solid var(--line);
     padding-bottom:20px;
   }
-  .gtranslate-slot{ display:flex; justify-content:center; margin:14px 0 16px; opacity:.75; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:16px 0 16px; opacity:.75; }
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
@@ -61,8 +61,7 @@
     color:var(--red);
     text-transform:uppercase;
     }
-  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:12px 0 8px; }
-  header p{ color:var(--dim); font-size:12px; margin:0; }
+  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:16px 0 8px; }
   .book-intro{
     max-width:56ch; margin:16px auto 0; color:var(--dim);
     font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
@@ -123,7 +122,7 @@
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
   .tirage-guide{
     font-size:11px; line-height:1.65; color:var(--dim);
-    margin:14px 0 16px; font-family:Helvetica,Arial,sans-serif;
+    margin:16px 0 16px; font-family:Helvetica,Arial,sans-serif;
   }
   .tirage-guide p{ margin:0 0 10px; }
   .tirage-guide p:last-child{ margin-bottom:0; }
@@ -355,7 +354,7 @@
 
   .posterior-text{ max-height:0; overflow:hidden; transition:max-height .9s ease; }
   .posterior-text.open{ max-height:700px; }
-  .posterior-text .tag{ font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; text-align:center; }
+  .posterior-text .tag{ font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; text-align:center; }
 
   .side-band{
     position:fixed; top:0; bottom:0; width:150px; display:flex; align-items:center; justify-content:center;
@@ -422,7 +421,6 @@
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1 id="txt-title">Tirage — Ordre chronologique des 64 mutations</h1>
-    <p id="txt-subtitle">Trigramme supérieur (poids 32·16·8) / trigramme inférieur (poids 4·2·1) — construction du bas vers le haut</p>
     <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
     <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
          écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
@@ -1070,7 +1068,6 @@ const TRIGRAMS_EN = [
 const UI = {
   fr: {
     eyebrow:"La Livrée d'Hermès", title:"Tirage — Ordre chronologique des 64 mutations",
-    subtitle:"Trigramme supérieur (poids 32·16·8) / trigramme inférieur (poids 4·2·1) — construction du bas vers le haut",
     readBook:"Lire le livre", dlPdf:"Télécharger le PDF", langBookTitle:"Langue du livre",
     dlYiKing:"Télécharger la traduction du Yi-King", dl360:"Archive 360 motifs",
     grid:"Échiquier", drawBtn:"Tirer aux pièces (6 traits)",
@@ -1110,7 +1107,6 @@ const UI = {
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
-    subtitle:"Upper trigram (weight 32·16·8) / lower trigram (weight 4·2·1) — built from bottom to top",
     readBook:"Read the book", dlPdf:"Download the PDF", langBookTitle:"Book language",
     dlYiKing:"Download the Yi-King translation", dl360:"360-motifs archive",
     grid:"Chessboard", drawBtn:"Cast the coins (6 lines)",
@@ -1672,7 +1668,6 @@ function buildLegend(){
 function applyUILang(){
   document.getElementById('txt-eyebrow').textContent = t('eyebrow');
   document.getElementById('txt-title').textContent = t('title');
-  document.getElementById('txt-subtitle').textContent = t('subtitle');
   document.getElementById('txt-bookIntro').textContent = t('bookIntro');
   document.getElementById('txt-tirageGuide').innerHTML = t('tirageGuide');
   document.getElementById('txt-readBook').textContent = t('readBook');
