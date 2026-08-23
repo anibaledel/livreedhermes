@@ -659,14 +659,19 @@ function familyLabel(familyId){
   return familyId.split('-').map(w => w==='mut' ? 'Mut' : w[0].toUpperCase()+w.slice(1)).join(' ');
 }
 
-// Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes,
-// donc récupéré une seule fois par famille et mis en cache. Chaque position ajoute en
-// plus une marque qui lui est propre (1 écusson + 3 tracés, vérifié) : sans elles le
-// cadre montre toujours la marque de la position 1, répétée — donc on récupère aussi les
-// 5 autres positions (une seule fois, même teinte 'yang' pour toutes, la décoration ne
-// dépendant pas de la teinte) pour en extraire ces marques propres à chaque position.
+// Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes/axes,
+// donc récupéré une seule fois par espace et mis en cache.
 const spaceTemplates = {};
-const spacePositionMarks = {};
+// Fichiers bruts <axe>/<position>.svg, mis en cache à la demande (indépendamment du
+// gabarit) : la marque de bordure de chaque position encode À LA FOIS sa position ET
+// l'axe réellement tiré à cette position (couleur, et parfois coordonnées, différentes
+// selon yang/yang-mut/yin/yin-mut — vérifié cellule par cellule sur les fichiers réels :
+// ex. assets/bases-cartes/yang/{yang,yang-mut}/1.svg utilisent la classe cls-6, yin
+// utilise cls-7 à la même position, et yin-mut place son tiret à des coordonnées
+// complètement différentes). Un gabarit unique (toujours axe 'yang') ne peut donc pas
+// fournir la bonne marque pour une position tirée sur un autre axe : chaque marque doit
+// être extraite depuis le fichier de SON PROPRE axe tiré, pas depuis celui du gabarit.
+const axisPositionTexts = {};
 
 // Comme findFillClasses de calque-engine.js, mais gère aussi les sélecteurs groupés
 // (ex. ".cls-3, .cls-6 { stroke: #ee2e7b; }") — nécessaire ici car au moins une couleur
@@ -771,22 +776,41 @@ function extraMarksVsBase(baseText, otherText){
 // spaceKey identifie le cache (ex. 'par2:<famille>', 'bases:<teinte>', 'par3:<teinte>') ;
 // baseDir pointe vers le dossier <espace>/ contenant un sous-dossier par nature/teinte,
 // chacun avec ses 6 fichiers 1.svg..6.svg ; donorSlug est le sous-dossier utilisé comme
-// gabarit (le décor ne dépend pas de ce choix, vérifié pour II comme pour I/III).
+// gabarit pour le cadre/logo/décor commun (ne dépend pas de ce choix, vérifié pour II
+// comme pour I/III) — mais PAS pour les marques de position, voir loadAxisPositionText.
 async function loadSpaceTemplate(spaceKey, baseDir, donorSlug){
   if(spaceTemplates[spaceKey]) return spaceTemplates[spaceKey];
   const res = await fetch(`${baseDir}${donorSlug}/1.svg`);
   const text = await res.text();
   spaceTemplates[spaceKey] = text;
-
-  const marks = [null]; // index 0 inutilisé, positions 1-6
-  marks[1] = ''; // la position 1 EST le gabarit, rien à ajouter pour elle
-  for(let pos=2; pos<=6; pos++){
-    const r = await fetch(`${baseDir}${donorSlug}/${pos}.svg`);
-    const t = await r.text();
-    marks[pos] = extraMarksVsBase(text, t);
-  }
-  spacePositionMarks[spaceKey] = marks;
   return text;
+}
+
+// Fichier brut <baseDir><axisSlug>/<pos>.svg, mis en cache. `axisSlug` doit être l'axe
+// RÉELLEMENT tiré à cette position (pas un donneur fixe), pour que la marque de bordure
+// reflète bien ce qui a été tiré.
+async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
+  const cache = axisPositionTexts[spaceKey] || (axisPositionTexts[spaceKey] = {});
+  const arr = cache[axisSlug] || (cache[axisSlug] = [null]);
+  if(arr[pos]) return arr[pos];
+  const res = await fetch(`${baseDir}${axisSlug}/${pos}.svg`);
+  const text = await res.text();
+  arr[pos] = text;
+  return text;
+}
+
+// Calcule, pour un tirage donné (drawnSlugs = axe réellement tiré à chaque position 1-6),
+// la marque de bordure de chaque position en la diffant contre le gabarit (toujours axe
+// 'yang', position 1) — jamais contre un gabarit fixe par position, donc la marque reflète
+// à la fois la position ET l'axe réellement tiré à cet endroit.
+async function computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs){
+  const marks = [null];
+  for(let pos=1; pos<=6; pos++){
+    const axisSlug = drawnSlugs[pos-1];
+    const posText = await loadAxisPositionText(spaceKey, baseDir, axisSlug, pos);
+    marks[pos] = extraMarksVsBase(templateText, posText);
+  }
+  return marks;
 }
 
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le résultat du
@@ -817,8 +841,9 @@ function insertGridIntoTemplate(templateSvgText, grid, positionMarks){
 async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   const spaceKey = 'par2:'+familyId;
-  await window.CalqueEngine.loadSpace(spaceKey, 'assets/par2-cartes/'+familyId+'/');
-  const templateText = await loadSpaceTemplate(spaceKey, 'assets/par2-cartes/'+familyId+'/', 'yang');
+  const baseDir = 'assets/par2-cartes/'+familyId+'/';
+  await window.CalqueEngine.loadSpace(spaceKey, baseDir);
+  const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
   const grid = Array.from({length:12},()=>Array(12).fill(null));
   for(let r=0;r<12;r++){
@@ -828,7 +853,8 @@ async function drawCategorie2(){
       grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
     }
   }
-  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
+  const marks = await computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertGridIntoTemplate(templateText, grid, marks);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
@@ -845,8 +871,9 @@ async function drawCategorie1Or3(cat){
   const teinteSlug = NATURE_SLUGS[(state.teinte||1)-1];
   const baseDir = cat === 1 ? 'assets/bases-cartes/' : 'assets/par3-cartes/';
   const spaceKey = (cat === 1 ? 'bases:' : 'par3:') + teinteSlug;
-  await window.CalqueEngine.loadSpace(spaceKey, baseDir + teinteSlug + '/');
-  const templateText = await loadSpaceTemplate(spaceKey, baseDir + teinteSlug + '/', 'yang');
+  const posDir = baseDir + teinteSlug + '/';
+  await window.CalqueEngine.loadSpace(spaceKey, posDir);
+  const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
   const grid = Array.from({length:12},()=>Array(12).fill(null));
   for(let r=0;r<12;r++){
@@ -856,7 +883,8 @@ async function drawCategorie1Or3(cat){
       grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[axis1Slug], r, c);
     }
   }
-  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
+  const marks = await computeMarksForDraw(spaceKey, posDir, templateText, drawnSlugs);
+  const svg = insertGridIntoTemplate(templateText, grid, marks);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
@@ -884,7 +912,8 @@ async function drawCategorie4(){
       grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
     }
   }
-  const svg = insertGridIntoTemplate(templateText, grid, spacePositionMarks[spaceKey]);
+  const marks = await computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertGridIntoTemplate(templateText, grid, marks);
   return {
     id: drawnSlugs.join('-'),
     label: drawnSlugs.map(s=>NATURE_LABELS[s]).join('/'),
