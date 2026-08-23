@@ -316,7 +316,6 @@
 
 </div>
 
-<script src="assets/calque-engine.js"></script>
 <script>
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 
@@ -549,10 +548,9 @@ document.querySelectorAll('.cat-card').forEach(card=>{
 });
 
 /* ===== Catégorie II : tirage indépendant par position au sein de la famille choisie
-   (même mécanisme que les hexagrammes — LAYER_OF + CalqueEngine — appliqué à
-   assets/par2-cartes/<famille>/ au lieu de assets/trait-cartes/). ===== */
+   (assets/par2-cartes/<famille>/<axe>/<position>.svg). LAYER_OF indique, pour chaque
+   cellule de la grille 12x12, quelle position (1-6) en est propriétaire. ===== */
 const LAYER_OF = [[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]];
-const PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
 const CELL_XS = [110.58,141.74,172.89,204.05,235.21,266.36,297.52,328.68,359.83,390.99,422.15,453.31];
 const CELL_YS = [234.1,265.25,296.41,327.57,358.72,389.88,421.04,452.19,483.35,514.51,545.66,576.82];
 const CELL_W = 31.16;
@@ -698,13 +696,18 @@ function parseStyleColors(svgText){
   return { fillMap, strokeMap, fontMap };
 }
 
+// Chaque extracteur exclut les éléments dont la couleur réelle ne se résout pas (ex. les
+// grands rects de cadre, contour seul, fill:none) : ce ne sont jamais des marques à
+// reproduire, et mieux vaut les ignorer que leur inventer une couleur de repli.
 function extractRects(svgText){
   const { fillMap } = parseStyleColors(svgText);
   const re = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // cellule de la grille principale : gérée par `grid`, jamais une marque
-    out.push({ key: mm.slice(2,6).join(','), fill: fillMap[mm[1]], x:mm[2], y:mm[3], w:mm[4], h:mm[5] });
+    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // cellule de la grille principale : gérée séparément, jamais une marque
+    const fill = fillMap[mm[1]];
+    if(!fill) continue;
+    out.push({ key: mm.slice(2,6).join(',')+'|'+fill, fill, x:mm[2], y:mm[3], w:mm[4], h:mm[5] });
   }
   return out;
 }
@@ -713,7 +716,9 @@ function extractPaths(svgText){
   const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    out.push({ key: mm[2], fill: fillMap[mm[1]], d: mm[2] });
+    const fill = fillMap[mm[1]];
+    if(!fill) continue;
+    out.push({ key: mm[2]+'|'+fill, fill, d: mm[2] });
   }
   return out;
 }
@@ -724,7 +729,9 @@ function extractLines(svgText){
   const re = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    out.push({ key: mm.slice(2,6).join(','), stroke: strokeMap[mm[1]], x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
+    const stroke = strokeMap[mm[1]];
+    if(!stroke) continue;
+    out.push({ key: mm.slice(2,6).join(',')+'|'+stroke, stroke, x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
   }
   return out;
 }
@@ -733,7 +740,9 @@ function extractCircles(svgText){
   const re = /<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    out.push({ key: mm.slice(2,5).join(','), stroke: strokeMap[mm[1]], cx:mm[2], cy:mm[3], r:mm[4] });
+    const stroke = strokeMap[mm[1]];
+    if(!stroke) continue;
+    out.push({ key: mm.slice(2,5).join(',')+'|'+stroke, stroke, cx:mm[2], cy:mm[3], r:mm[4] });
   }
   return out;
 }
@@ -744,15 +753,17 @@ function extractTexts(svgText){
   const re = /<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
+    const fill = fillMap[mm[1]];
+    if(!fill) continue;
     const font = fontMap[mm[1]] || {};
-    out.push({ key: mm[2], fill: fillMap[mm[1]], transform: mm[2], content: mm[3], family: font.family, size: font.size });
+    out.push({ key: mm[2]+'|'+mm[3], fill, transform: mm[2], content: mm[3], family: font.family, size: font.size });
   }
   return out;
 }
 
 // Marques (rects/tracés/tirets/pastilles/chiffre) présentes dans otherText mais absentes
-// de baseText, redessinées avec une couleur explicite plutôt que la classe locale du
-// fichier source (contour en stroke pour lignes/cercles, remplissage pour rects/paths/texte).
+// de baseText, reproduites avec leur couleur réelle telle que lue dans le fichier source
+// (jamais de couleur inventée : tout élément sans couleur résolue a déjà été exclu ci-dessus).
 function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
@@ -765,11 +776,11 @@ function extraMarksVsBase(baseText, otherText){
   const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key));
   const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key));
   let out = '';
-  extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill||'#6b6b6b'}"/>`; });
-  extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill||'#6b6b6b'}"/>`; });
-  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke||'#6b6b6b'}" stroke-width="3.5" fill="none"/>`; });
-  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke||'#6b6b6b'}" stroke-width="3.5" fill="none"/>`; });
-  extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill||'#6b6b6b'}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
+  extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
+  extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
+  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" fill="none"/>`; });
+  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" fill="none"/>`; });
+  extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
   return out;
 }
 
@@ -800,23 +811,37 @@ async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
 }
 
 // Calcule, pour un tirage donné (drawnSlugs = axe réellement tiré à chaque position 1-6),
-// la marque de bordure de chaque position en la diffant contre le gabarit (toujours axe
-// 'yang', position 1) — jamais contre un gabarit fixe par position, donc la marque reflète
-// à la fois la position ET l'axe réellement tiré à cet endroit.
-async function computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs){
-  const marks = [null];
+// le bloc complet à insérer dans le gabarit. Carré (24 cellules propres à la position) et
+// bordure (sa marque propre) viennent de LA MÊME extraction du MÊME fichier réel — jamais
+// dissociés en deux pipelines séparées (l'un reconstruisant la couleur via une grille
+// abstraite, l'autre redessinant la bordure séparément) : rien n'est recalculé ni recoloré,
+// tout est repris tel quel du fichier correspondant à ce qui a été réellement tiré.
+async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
+  let block = '';
   for(let pos=1; pos<=6; pos++){
     const axisSlug = drawnSlugs[pos-1];
     const posText = await loadAxisPositionText(spaceKey, baseDir, axisSlug, pos);
-    marks[pos] = extraMarksVsBase(templateText, posText);
+    const { fillMap } = parseStyleColors(posText);
+    const rectRe = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="31.16"\s+height="31.16"\/>/g;
+    let mm;
+    while((mm = rectRe.exec(posText))){
+      const x = +mm[2], y = +mm[3];
+      const col = CELL_XS.findIndex(v => Math.abs(v - x) < 0.5);
+      const row = CELL_YS.findIndex(v => Math.abs(v - y) < 0.5);
+      if(row < 0 || col < 0) continue;
+      if(LAYER_OF[row][col] !== pos) continue; // seulement les 24 cellules propres à cette position
+      const fill = fillMap[mm[1]];
+      if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
+    }
+    block += extraMarksVsBase(templateText, posText);
   }
-  return marks;
+  return block;
 }
 
-// Remplace, dans le gabarit réel, les 144 cellules de la grille par le résultat du
-// tirage, et ajoute la marque propre à chaque position tirée (positionMarks[pos]) —
-// tout le reste du fichier (cadre, logo, décor commun) reste inchangé.
-function insertGridIntoTemplate(templateSvgText, grid, positionMarks){
+// Remplace, dans le gabarit réel, les 144 cellules de la grille par le bloc déjà calculé
+// (carré + bordure de chaque position, ensemble) — tout le reste du fichier (cadre, logo,
+// décor commun) reste inchangé.
+function insertBlockIntoTemplate(templateSvgText, block){
   const rectRe = /<rect class="cls-\d+"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="31.16"\s+height="31.16"\/>/g;
   let inserted = false;
   return templateSvgText.replace(rectRe, (match, xStr, yStr) => {
@@ -824,16 +849,8 @@ function insertGridIntoTemplate(templateSvgText, grid, positionMarks){
     const col = CELL_XS.findIndex(v => Math.abs(v - x) < 0.5);
     const row = CELL_YS.findIndex(v => Math.abs(v - y) < 0.5);
     if(row < 0 || col < 0) return match; // pas une cellule de la grille principale : on garde tel quel
-    if(inserted) return ''; // grille déjà insérée au premier point de rencontre : on retire les autres
+    if(inserted) return ''; // bloc déjà inséré au premier point de rencontre : on retire les autres
     inserted = true;
-    let block = '';
-    for(let r=0;r<12;r++){
-      for(let c=0;c<12;c++){
-        const label = grid[r][c];
-        if(label) block += `<rect x="${CELL_XS[c]}" y="${CELL_YS[r]}" width="31.16" height="31.16" fill="${PALETTE[label]}"/>`;
-      }
-    }
-    if(positionMarks) for(let pos=1; pos<=6; pos++) block += (positionMarks[pos] || '');
     return block;
   });
 }
@@ -842,19 +859,10 @@ async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   const spaceKey = 'par2:'+familyId;
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
-  await window.CalqueEngine.loadSpace(spaceKey, baseDir);
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const grid = Array.from({length:12},()=>Array(12).fill(null));
-  for(let r=0;r<12;r++){
-    for(let c=0;c<12;c++){
-      const pos = LAYER_OF[r][c];
-      const natureSlug = drawnSlugs[pos-1];
-      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
-    }
-  }
-  const marks = await computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs);
-  const svg = insertGridIntoTemplate(templateText, grid, marks);
+  const block = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
@@ -872,19 +880,10 @@ async function drawCategorie1Or3(cat){
   const baseDir = cat === 1 ? 'assets/bases-cartes/' : 'assets/par3-cartes/';
   const spaceKey = (cat === 1 ? 'bases:' : 'par3:') + teinteSlug;
   const posDir = baseDir + teinteSlug + '/';
-  await window.CalqueEngine.loadSpace(spaceKey, posDir);
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const grid = Array.from({length:12},()=>Array(12).fill(null));
-  for(let r=0;r<12;r++){
-    for(let c=0;c<12;c++){
-      const pos = LAYER_OF[r][c];
-      const axis1Slug = drawnSlugs[pos-1];
-      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[axis1Slug], r, c);
-    }
-  }
-  const marks = await computeMarksForDraw(spaceKey, posDir, templateText, drawnSlugs);
-  const svg = insertGridIntoTemplate(templateText, grid, marks);
+  const block = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
@@ -893,27 +892,16 @@ async function drawCategorie1Or3(cat){
   };
 }
 
-// Catégorie IV : le vrai tirage Yi-King (mêmes 24 fichiers assets/trait-cartes/ et même
-// moteur CalqueEngine que la page d'accueil), sans teinte à fixer au préalable puisque
-// trait-cartes n'a pas de sous-dossier teinte — chacune des 6 positions tire librement
-// parmi les 4 natures. L'espace 'hexagram' est déjà chargé (calque-engine.js appelle
-// loadAll() dès son chargement), donc ce loadSpace() ne refait pas les 24 requêtes.
+// Catégorie IV : le vrai tirage Yi-King (mêmes 24 fichiers assets/trait-cartes/ que la
+// page d'accueil), sans teinte à fixer au préalable puisque trait-cartes n'a pas de
+// sous-dossier teinte — chacune des 6 positions tire librement parmi les 4 natures.
 async function drawCategorie4(){
   const spaceKey = 'hexagram';
   const baseDir = 'assets/trait-cartes/';
-  await window.CalqueEngine.loadSpace(spaceKey, baseDir);
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const grid = Array.from({length:12},()=>Array(12).fill(null));
-  for(let r=0;r<12;r++){
-    for(let c=0;c<12;c++){
-      const pos = LAYER_OF[r][c];
-      const natureSlug = drawnSlugs[pos-1];
-      grid[r][c] = window.CalqueEngine.spaceColorAt(spaceKey, NATURE_KEY[natureSlug], r, c);
-    }
-  }
-  const marks = await computeMarksForDraw(spaceKey, baseDir, templateText, drawnSlugs);
-  const svg = insertGridIntoTemplate(templateText, grid, marks);
+  const block = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: drawnSlugs.join('-'),
     label: drawnSlugs.map(s=>NATURE_LABELS[s]).join('/'),
