@@ -194,6 +194,8 @@
   }
   .hex-text-block .hex-title{ color:var(--red); font-size:18px; margin-bottom:10px; }
   .hex-text-block .hex-image{ margin-bottom:14px; }
+  .hex-text-block .pair-text{ margin-top:14px; color:var(--dim); font-size:12.5px; }
+  #resultIdea .pair-text{ margin-top:12px; color:var(--dim); font-size:12.5px; line-height:1.6; }
   .mutant-lines-block{ max-width:640px; margin:0 auto 36px; }
   .mutant-line{ margin-bottom:14px; font-size:12.5px; line-height:1.65; color:var(--dim); }
   .mutant-line:last-child{ margin-bottom:0; }
@@ -618,6 +620,19 @@ const NATURE_SLUGS = ['yang','yang-mut','yin','yin-mut'];
 const NATURE_LABELS = { yang:'Yang', 'yang-mut':'Yang mutant', yin:'Yin', 'yin-mut':'Yin mutant' };
 const NATURE_KEY = { yang:'YANG', 'yang-mut':'YANGMUT', yin:'YIN', 'yin-mut':'YINMUT' };
 
+// familyId (cat2Families) concatène 2 slugs d'axe sans séparateur fiable (ex. "yang-yang-mut"
+// = "yang" + "yang-mut") — on les retrouve en matchant les slugs connus, du plus long au plus court.
+function splitFamilyId(familyId){
+  let rest = familyId, out = [];
+  const ordered = ['yang-mut','yin-mut','yang','yin'];
+  while(rest.length){
+    const hit = ordered.find(s => rest.startsWith(s));
+    out.push(hit);
+    rest = rest.slice(hit.length).replace(/^-/, '');
+  }
+  return out;
+}
+
 /* ===== Hexagramme départ/arrivée pour Catégories I et III — un tirage à 6 positions
    (chacune Yang/Yang mutant/Yin/Yin mutant) se convertit mécaniquement en un vrai
    hexagramme via le même système chrono que tirage-livree-hermes.html (poids trigramme
@@ -826,8 +841,49 @@ function hexFromDrawnSlugs(drawnSlugs){
   return result;
 }
 
-function familyLabel(familyId){
-  return familyId.split('-').map(w => w==='mut' ? 'Mut' : w[0].toUpperCase()+w.slice(1)).join(' ');
+// Les 32 paires chrono (hexagramme et son inverse couleur, chrono <-> 63-chrono) : un
+// même texte-conseil sert aux deux hexagrammes de la paire. Régénéré directement depuis
+// KINGWEN_BY_CHRONO (voir 32_paires_chrono_CORRIGE.md / 32_paires_chrono_TEXTES.md).
+const PAIRS_32 = [
+  [2,1,"Fondation","Avant toute chose formée, il y a la matrice et l'élan : l'une reçoit sans exiger, portée par la docilité de la jument fidèle ; l'autre s'élance sans encore savoir ce qu'il deviendra, porté par la seule persévérance. Les deux jugements promettent la même « sublime réussite » — non par ce qu'ils accomplissent déjà, mais par la pureté de la disposition qu'ils inaugurent."],
+  [24,44,"Bascule","Un seul trait suffit à faire pivoter tout l'édifice : le trait yang qui revient au plus bas de l'hiver « sans erreur », et le trait yin qui surgit sans prévenir à la rencontre des cinq autres. Les deux jugements avertissent de la même chose — un commencement discret, presque invisible, porte déjà en germe tout ce qui va suivre, pour le meilleur ou pour le pire."],
+  [7,13,"Cohésion","Une troupe qui tient par la discipline silencieuse d'un chef ferme, une communauté qui tient par son ouverture même au grand large : les deux jugements promettent la réussite à condition que l'union dépasse l'intérêt du petit nombre. Ce qui rassemble vraiment ne se referme jamais sur soi — il se prouve dans l'épreuve commune ou dans la traversée des grandes eaux."],
+  [19,33,"Saison","L'approche qui grandit avertit elle-même qu'au huitième mois viendra le malheur ; la retraite qui se retire encore petite promet la réussite par cela seul. Les deux jugements enseignent qu'il existe une saison propre à chaque mouvement — avancer tant que la faveur dure, se retirer tant qu'il en reste la force."],
+  [15,10,"Tenue","Marcher sur la queue du tigre sans qu'il morde, ou pratiquer la modestie jusqu'à ce qu'elle porte l'homme de bien jusqu'au bout : dans les deux jugements, ce n'est jamais la situation qui protège, mais la justesse du maintien. Le danger comme l'excès ne se déjouent pas en les évitant, mais en s'y tenant avec une conduite qui ne dévie pas."],
+  [36,6,"Discrétion","Quand la lumière doit s'obscurcir pour survivre, et quand le conflit doit s'arrêter avant d'être poussé jusqu'au bout, le jugement dit la même prudence : la persévérance intérieure vaut mieux que l'éclat ou l'affrontement menés à leur terme. Ce qui reste juste au fond de soi n'a pas besoin de se montrer pour agir."],
+  [46,25,"Naturel","La poussée qui monte comme une plante vers le sud, et l'innocence qui n'agit jamais que selon ce qu'elle est vraiment : les deux jugements promettent la réussite sublime à ce qui grandit ou agit sans artifice. Dès qu'on s'écarte de sa propre nature, le malheur survient — dans un cas comme dans l'autre."],
+  [11,12,"Circulation","Le ciel et la terre s'unissent, ou ne s'unissent pas : dans un cas le petit s'en va et le grand approche, dans l'autre c'est l'inverse, et rien ne circule plus entre le haut et le bas. La paix et la stagnation ne sont pas deux forces distinctes mais le même axe observé à ses deux extrémités."],
+  [16,9,"Accumulation","L'enthousiasme qui mobilise des armées entières, et la petite force qui ne retient encore que des nuages sans pluie : les deux jugements décrivent une énergie qui se rassemble avant de se libérer, que ce soit dans l'éclat du mouvement commun ou dans la patience de ce qui n'a pas encore assez grandi pour agir."],
+  [51,57,"Sang-froid","Le choc qui terrifie sur cent lieues sans faire tomber la coupe du sacrifice, et le vent qui pénètre partout par petites touches continues : les deux jugements demandent la même chose face à une force qui les dépasse — garder le geste sûr, que l'influence soit brutale et soudaine ou douce et continue."],
+  [40,37,"Rétablissement","Ce qui se dénoue retourne au repos dès que rien n'exige plus qu'on parte ; ce qui s'ordonne dans la maison retourne à la droiture par la persévérance de la femme au foyer. Délivrance et famille disent la même chose : l'ordre juste se rétablit toujours par un retour au lieu propre, jamais par la fuite en avant."],
+  [54,53,"Noces","Une union précipitée, où rien ne favorise l'entreprise, et une union mûrie degré par degré, où la persévérance porte chance : les deux jugements parlent du même événement — le mariage — mais l'un met en garde contre la hâte quand l'autre récompense la patience du juste développement."],
+  [62,61,"Mesure","Il ne faut viser que les petites choses, dit l'un ; même les cochons et les poissons répondent à la sincérité, dit l'autre. Les deux jugements placent leur réussite dans l'économie du geste — rester en bas plutôt que de s'élever, offrir peu mais avec un cœur entièrement vrai."],
+  [55,59,"Zénith","Le roi atteint l'abondance et doit être « comme le soleil à son midi », sans tristesse ; le roi s'approche de son temple pour que se rassemble ce qui était dispersé. Plénitude et dissolution sont les deux moments d'un même sommet : l'un vient tout juste de l'atteindre, l'autre s'apprête déjà à recomposer ce qu'il en reste."],
+  [32,42,"Renouvellement","La durée qui persévère « en ayant quelque part où aller », et l'augmentation qui appelle à entreprendre et à traverser les grandes eaux : aucune des deux ne promet la réussite à l'immobilité. Ce qui dure et ce qui s'accroît vraiment ne le font qu'en se renouvelant sans cesse."],
+  [34,20,"Prestance","La grande puissance qui ne doit jamais fouler les chemins contraires à l'ordre établi, et la contemplation qui inspire confiance par sa seule dignité immobile, avant même l'offrande : les deux jugements enseignent que la vraie autorité se retient d'agir plus qu'elle ne se démontre."],
+  [8,14,"Fidélité","Il faut interroger encore l'oracle pour savoir si l'on possède vraiment la sublimité et la constance, dit l'un ; la possession en grande mesure obtient d'elle-même la réussite suprême, dit l'autre. Ce qui tient un groupe ou une fortune ensemble n'est jamais leur taille, mais la loyauté sincère et éprouvée qui les fonde."],
+  [3,50,"Gestation","Rien ne doit encore être entrepris à la difficulté du début, sinon nommer des aides ; et le chaudron promet la bonne fortune suprême à ce qui s'y transforme lentement. Le germe encore informe et la matière encore crue partagent le même besoin : un contenant, un soutien, le temps de prendre forme."],
+  [29,30,"Ancrage","Seule la sincérité du cœur traverse l'insondable ; seul le soin apporté à la vache — la docilité — permet au feu de s'attacher et de rayonner. Devant l'eau qui engloutit comme devant le feu qui a besoin d'un appui pour brûler, c'est une qualité intérieure, jamais la situation elle-même, qui rend le passage sûr."],
+  [60,56,"Sobriété","Une limitation trop dure ne doit pas être maintenue par persévérance, avertit l'une ; le voyageur n'obtient la réussite que « par ce qui est petit », avertit l'autre. Vivre dans la contrainte ou vivre sans feu ni lieu demandent la même sobriété — ni excès de rigueur, ni excès de besoin."],
+  [39,38,"Détour","Le sud-ouest favorise, le nord-est ne favorise pas, dit l'obstacle ; dans les petites affaires seulement, dit l'opposition. Devant ce qui résiste ou ce qui divise, les deux jugements recommandent le même chemin de traverse — chercher le grand homme, ménager le désaccord, plutôt que de forcer le passage."],
+  [63,64,"Vigilance","Bonne fortune au commencement, désordre à la fin, dit l'accomplissement déjà atteint ; le petit renard mouille sa queue juste avant d'achever la traversée, dit l'accomplissement qui approche. Les deux bords du même seuil enseignent que l'instant le plus délicat n'est ni avant ni après, mais celui, toujours proche, où l'on croit déjà être arrivé."],
+  [48,21,"Dégagement","Le puits ne change ni ne diminue, mais il faut sans cesse y puiser pour qu'il serve encore ; mordre au travers dégage ce qui bloquait le passage de la justice. Ressource constante ou obstacle ponctuel, l'un comme l'autre n'ont de valeur que dans le geste qui les maintient dégagés."],
+  [5,35,"Confiance","Attendre avec sincérité porte en soi sa propre lumière ; le prince honoré de chevaux nombreux reçoit trois audiences en un seul jour. L'attente qui ne s'inquiète pas et la reconnaissance qui vient enfin sont les deux temps d'une même confiance placée dans le moment juste."],
+  [45,26,"Vocation","Le roi s'approche de son temple pour que le peuple se rassemble ; celui qui a beaucoup accumulé trouve la bonne fortune en ne mangeant plus chez lui, en traversant les grandes eaux. Ce qui se rassemble et ce qui s'accumule ne trouvent leur juste emploi qu'en se tournant vers plus grand que soi."],
+  [17,18,"Héritage","Suivre son temps sans faute exige de savoir lâcher sa position ; réparer ce qui est gâté exige trois jours avant, trois jours après le point de départ. Ce qu'on hérite du passé — le mouvement des choses ou leurs dégâts accumulés — ne se traite jamais dans la précipitation."],
+  [47,22,"Dépouillement","Dans l'accablement, ce qu'on dit n'est plus cru, et pourtant le grand homme y trouve la bonne fortune par sa seule fermeté intérieure ; la grâce, elle, ne convient qu'aux petites affaires. Épuisement et ornement enseignent la même chose à l'envers l'un de l'autre — ce qui reste quand la forme s'est dépouillée est ce qui compte vraiment."],
+  [58,52,"Quiétude","La joie du lac réussit par la persévérance qui ne se dissipe pas ; l'immobilisation de la montagne va jusqu'à ne plus sentir son propre corps. Joie et arrêt sont les deux faces d'une même présence à soi, ni dispersée dans l'agitation ni figée dans l'isolement."],
+  [31,41,"Réciprocité","Prendre femme, dit l'influence, apporte la bonne fortune par la seule résonance mutuelle ; savoir appliquer les deux petites coupes du sacrifice, dit la diminution, suffit à la sincérité. Ce qui s'attire l'un l'autre et ce qui accepte de se réduire pour un autre décrivent le même échange entre deux pôles."],
+  [49,4,"Maturation","Ce n'est qu'en son propre jour qu'on croit à la révolution ; ce n'est que si le jeune ignorant cherche le maître, et non l'inverse, que l'enseignement porte. Le changement radical et le savoir encore informe partagent la même exigence : ils ne sont crus, ni l'un ni l'autre, avant d'avoir été éprouvés par le temps."],
+  [28,27,"Charge","La poutre faîtière plie sous son propre poids dans la prépondérance du grand ; veiller à ce qu'on cherche à se mettre dans la bouche est tout le jugement de la nourriture. Ce qu'une structure peut porter et ce qu'un être absorbe pour se nourrir relèvent de la même question — jusqu'où peut-on charger, avant la rupture ou l'excès ?"],
+  [43,23,"Usure","Il faut annoncer la vérité à la cour du roi sans recourir aux armes, dit la percée ; il ne sert à rien d'aller nulle part, dit l'éclatement déjà consommé. Retirer ce qui est corrompu tant qu'il en est encore temps, ou laisser l'usure aller jusqu'à son terme : les deux jugements disent comment l'ancien cède sa place, par décision ou par épuisement."]
+];
+const PAIR_TEXT = {};
+PAIRS_32.forEach(([kwA,kwB,label,text]) => { PAIR_TEXT[kwA] = {label,text}; PAIR_TEXT[kwB] = {label,text}; });
+function pairTextHtml(kwNum){
+  const p = PAIR_TEXT[kwNum];
+  if(!p) return '';
+  return `<div class="pair-text"><b style="color:var(--gold);">${p.label}</b> — ${p.text}</div>`;
 }
 
 // Gabarit complet (cadre, logo, décor) d'une famille — identique sur ses 4 teintes/axes,
@@ -1030,6 +1086,7 @@ function insertBlockIntoTemplate(templateSvgText, block){
 
 async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
+  const [axisA, axisB] = splitFamilyId(familyId);
   const spaceKey = 'par2:'+familyId;
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
@@ -1038,8 +1095,10 @@ async function drawCategorie2(){
   const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
-    label: `${familyLabel(familyId)} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
+    familyName: `Combinaison bases ${NATURE_LABELS[axisA]} et ${NATURE_LABELS[axisB]}`,
     svgText: svg,
+    hex: hexFromDrawnSlugs(drawnSlugs),
+    drawnSlugs, spaceKey, baseDir, templateText,
   };
 }
 
@@ -1059,7 +1118,7 @@ async function drawCategorie1Or3(cat){
   const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
-    label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
+    familyName: cat === 1 ? `Famille ${NATURE_LABELS[teinteSlug]}` : `Famille sans ${NATURE_LABELS[teinteSlug]}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
     drawnSlugs, spaceKey, baseDir: posDir, templateText,
@@ -1078,7 +1137,7 @@ async function drawCategorie4(){
   const svg = insertBlockIntoTemplate(templateText, block);
   return {
     id: drawnSlugs.join('-'),
-    label: drawnSlugs.map(s=>NATURE_LABELS[s]).join('/'),
+    familyName: `Combinaison des 4`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
     drawnSlugs, spaceKey, baseDir, templateText,
@@ -1102,7 +1161,8 @@ function hexTextBlockHtml(kwNum, tagLabel){
   return `<div class="hex-tag">${tagLabel} — N°${kwNum} ${info[1]} (${info[0]})</div>
     <div class="hex-title">${info[2]}</div>
     <div class="hex-image">${IMAGE_FR[kwNum] || ''}</div>
-    <div><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>`;
+    <div><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>
+    ${pairTextHtml(kwNum)}`;
 }
 
 function resultIdeaHtml(kwNum){
@@ -1110,7 +1170,8 @@ function resultIdeaHtml(kwNum){
   return `<div style="color:var(--gold);font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">${t('hexDepart')} — N°${kwNum} ${info[1]} (${info[0]})</div>
     <div style="color:var(--red);font-size:15px;margin-bottom:8px;">${info[2]}</div>
     ${IMAGE_FR[kwNum] || ''}
-    <div style="margin-top:10px;"><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>`;
+    <div style="margin-top:10px;"><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>
+    ${pairTextHtml(kwNum)}`;
 }
 
 async function renderMutationZone(item){
@@ -1144,22 +1205,13 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
   if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
   if(!MANIFEST) await loadManifest();
 
-  if(state.cat === 2){
-    const item = await drawCategorie2();
-    state.item = item;
-    state.chrono = item.id;
-    document.getElementById('previewBox').innerHTML = item.svgText;
-    document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
-    document.getElementById('resultIdea').innerHTML = '';
-    document.getElementById('hexMutationZone').classList.remove('visible');
-    return;
-  }
-
-  const item = (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat) : await drawCategorie4();
+  const item = state.cat === 2 ? await drawCategorie2()
+    : (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat)
+    : await drawCategorie4();
   state.item = item;
   state.chrono = item.id;
   document.getElementById('previewBox').innerHTML = item.svgText;
-  document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
+  document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.familyName}`;
   document.getElementById('resultIdea').innerHTML = resultIdeaHtml(item.hex.kw);
   await renderMutationZone(item);
 });
