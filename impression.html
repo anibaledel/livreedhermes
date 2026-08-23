@@ -175,6 +175,48 @@
   .result-value{ font-size:22px; color:var(--gold); font-weight:400; margin-bottom:14px; font-family:Georgia,serif; }
   .result-idea{ font-size:13px; line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; font-family:Georgia,serif; }
   .result-idea .kw{ color:var(--red); }
+
+  /* liseret : léger contour décoratif en retrait, posé autour des cadres (motif du haut
+     et les deux motifs antérieur/postérieur), un peu à l'écart du panneau lui-même. */
+  .liseret{ border:1px solid var(--gold); padding:6px; }
+
+  .hex-mutation-zone{
+    display:none; margin-top:48px; padding-top:32px; border-top:1px solid var(--line);
+  }
+  .hex-mutation-zone.visible{ display:block; }
+  .hex-text-block{
+    max-width:640px; margin:0 auto 28px; text-align:center;
+    font-family:Georgia,serif; color:var(--white); font-size:13px; line-height:1.7;
+  }
+  .hex-text-block .hex-tag{
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-family:Helvetica,Arial,sans-serif; margin-bottom:8px;
+  }
+  .hex-text-block .hex-title{ color:var(--red); font-size:18px; margin-bottom:10px; }
+  .hex-text-block .hex-image{ margin-bottom:14px; }
+  .mutant-lines-block{ max-width:640px; margin:0 auto 36px; }
+  .mutant-line{ margin-bottom:14px; font-size:12.5px; line-height:1.65; color:var(--dim); }
+  .mutant-line:last-child{ margin-bottom:0; }
+  .mutant-line .lbl{ color:var(--gold); font-family:Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+
+  .ant-post-row{ display:flex; justify-content:space-between; gap:32px; flex-wrap:wrap; margin:0 0 36px; }
+  .ant-post-col{ flex:1 1 320px; display:flex; flex-direction:column; max-width:400px; }
+  .ant-post-col.ant{ align-items:flex-start; margin-right:auto; }
+  .ant-post-col.post{ align-items:flex-end; margin-left:auto; }
+  .ant-post-col .ant-post-label{
+    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; margin-bottom:8px;
+  }
+  .ant-post-col .ant-post-box{
+    background:var(--panel); border:1px solid var(--line); padding:14px;
+    aspect-ratio:595.28/841.89; width:100%; max-width:300px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .ant-post-col .ant-post-box svg{ width:100%; height:100%; }
+  @media (max-width:700px){
+    .ant-post-row{ flex-direction:column; align-items:center; }
+    .ant-post-col.ant, .ant-post-col.post{ align-items:center; margin:0 auto; }
+  }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -271,20 +313,32 @@
     <button class="site-nav-btn" id="rollBtn" style="margin-bottom:24px;border-color:var(--red);color:var(--red);">Effectuer le tirage</button>
 
     <div class="result-area">
-      <div class="preview-box" id="previewBox"></div>
+      <div class="liseret"><div class="preview-box" id="previewBox"></div></div>
       <div>
         <div class="result-label" id="txt-resultLabel">Résultat</div>
         <div class="result-value" id="resultValue">—</div>
         <div class="result-idea" id="resultIdea">Effectuez un tirage pour voir apparaître le motif et son interprétation.</div>
-        <div id="hexInfo" style="display:none;margin-top:14px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:var(--dim);">
-          <div id="hexInfoDepart"></div>
-          <div id="hexInfoArrivee" style="margin-top:8px;"></div>
-        </div>
         <div class="book-bar" style="justify-content:flex-start;border-top:none;padding-top:0;margin-top:0;">
           <span class="dl-btn" id="dlSvg" style="cursor:pointer;">Télécharger SVG</span>
           <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
         </div>
       </div>
+    </div>
+
+    <div class="hex-mutation-zone" id="hexMutationZone">
+      <div class="hex-text-block" id="hexTextAnt"></div>
+      <div class="mutant-lines-block" id="mutantLinesBlock"></div>
+      <div class="ant-post-row">
+        <div class="ant-post-col ant">
+          <span class="ant-post-label" id="txt-situationAnt">Situation antérieure</span>
+          <div class="liseret"><div class="ant-post-box" id="antBox"></div></div>
+        </div>
+        <div class="ant-post-col post">
+          <span class="ant-post-label" id="txt-situationPost">Situation postérieure</span>
+          <div class="liseret"><div class="ant-post-box" id="postBox"></div></div>
+        </div>
+      </div>
+      <div class="hex-text-block" id="hexTextPost"></div>
     </div>
   </div>
 
@@ -334,8 +388,9 @@ const UI = {
     resultLabel:"Résultat", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
-    ideaGeneric:"Ce motif illustre une combinaison de base des calques trait par trait de La Livrée d'Hermès. Son interprétation par hexagramme précis sera reliée dans une prochaine étape.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
+    imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
+    situationAnt:"Situation antérieure", situationPost:"Situation postérieure",
     paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
     navHome:"Accueil", navTirage:"Tirage", navArchives:"Archives", navMotif:"Créer un motif", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos",
   },
@@ -352,8 +407,9 @@ const UI = {
     resultLabel:"Result", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
-    ideaGeneric:"This motif illustrates a base combination of La Livrée d'Hermès's trait-by-trait layers. Its interpretation by specific hexagram will be connected in a later step.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
+    imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
+    situationAnt:"Prior situation", situationPost:"Resulting situation",
     paletteLabel:"Palette", paletteReset:"Reset the palette",
     navHome:"Home", navTirage:"Casting", navArchives:"Archives", navMotif:"Create a motif", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About",
   },
@@ -370,8 +426,9 @@ const UI = {
     resultLabel:"Resultado", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
-    ideaGeneric:"Este motivo ilustra una combinación de base de las capas trazo por trazo de La Livrée d'Hermès. Su interpretación por hexagrama preciso se conectará en una próxima etapa.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
+    imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
+    situationAnt:"Situación anterior", situationPost:"Situación posterior",
     paletteLabel:"Paleta", paletteReset:"Restablecer la paleta",
     navHome:"Inicio", navTirage:"Tirada", navArchives:"Archivos", navMotif:"Crear un motivo", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de",
   },
@@ -388,8 +445,9 @@ const UI = {
     resultLabel:"ผลลัพธ์", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
-    ideaGeneric:"ลวดลายนี้แสดงองค์ประกอบพื้นฐานของชั้นลายทีละเส้นของ La Livrée d'Hermès การตีความตามเลขที่แน่นอนของแต่ละรูปจะเชื่อมโยงในขั้นตอนถัดไป",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
+    imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
+    situationAnt:"สถานการณ์ก่อนหน้า", situationPost:"สถานการณ์หลังจาก",
     paletteLabel:"จานสี", paletteReset:"รีเซ็ตจานสี",
     navHome:"หน้าแรก", navTirage:"การทำนาย", navArchives:"เอกสารเก็บถาวร", navMotif:"สร้างลวดลาย", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ",
   },
@@ -425,6 +483,8 @@ function applyUILang(){
   document.getElementById('txt-navPrint').textContent = t('navPrint');
   document.getElementById('txt-navContact').textContent = t('navContact');
   document.getElementById('txt-navAbout').textContent = t('navAbout');
+  document.getElementById('txt-situationAnt').textContent = t('situationAnt');
+  document.getElementById('txt-situationPost').textContent = t('situationPost');
   document.documentElement.lang = LANG;
   renderPalette();
 }
@@ -628,6 +688,119 @@ const HEX_KW = {
 62:["Xiao Guo","La Prépondérance du petit","Germination","Le petit trait déborde de son cadre. Il est des moments où seul le détail, le geste mesuré, peut encore agir — vouloir alors la grande action serait une erreur de jugement. Ce trait dit que la justesse, dans certaines circonstances, se trouve précisément dans la petitesse assumée."],
 63:["Ji Ji","Après l'accomplissement","Assise","La couture est refermée, la maille est nouée. Ce qui est achevé porte toujours, en lui, le germe de ce qui viendra le défaire — rien de fini n'est éternellement fini. Ce trait enseigne que l'accomplissement véritable inclut la conscience de sa propre fragilité."],
 64:["Wei Ji","Avant l'accomplissement","Amorce","Le passage est ouvert mais la trame n'est pas encore tissée. Rien n'est encore accompli, mais rien n'est non plus impossible : la porte reste ouverte à ce qui, patiemment, reste à construire. Ce trait dit que l'inachèvement n'est pas un échec — c'est la condition même de tout ce qui reste à venir, le point d'où repart, inlassablement, le cycle entier des 64 figures."]
+};
+
+const IMAGE_FR = {
+1:"Le Ciel se meut sans relâche au-dessus du Ciel : deux fois le trait plein, deux fois la même force, l'une portant l'autre sans jamais fléchir. Rien ici ne vient limiter le mouvement ; rien ne vient l'arrêter. C'est l'image de la vigueur pure, celle qui ne connaît pas de repos parce qu'elle n'a pas encore rencontré ce qui pourrait lui résister. Le sage qui contemple cette figure n'y voit pas une invitation à l'agitation, mais un modèle : de même que le Ciel tourne sans discontinuer, l'homme de bien ne cesse de s'affermir lui-même — non par effort ponctuel, mais par une discipline aussi continue que le mouvement des astres.",
+2:"La Terre porte et nourrit sans distinction : elle ne choisit pas ce qu'elle soutient, elle soutient tout. Deux fois le trait brisé, deux fois la même ouverture, l'une accueillant l'autre sans jamais se fermer. C'est l'image de la capacité pure — non celle qui agit la première, mais celle qui rend possible l'action de tout ce qui vient à elle. Le sage qui contemple cette figure comprend que la générosité n'a pas besoin d'éclat : ainsi l'homme de bien accueille les êtres par une vertu généreuse, large comme le sol qui ne refuse aucune graine.",
+3:"Le Nuage et le Tonnerre : l'image de la difficulté première. En haut, l'eau qui n'est pas encore pluie ; en bas, l'ébranlement qui cherche sa voie sans la trouver encore. Rien ne coule librement, tout se cherche, tout hésite au bord de sa propre naissance. C'est la figure du commencement encombré, celui qui doit se frayer un chemin avant même de savoir où il mène. Ainsi l'homme de bien, devant le désordre initial, ne force rien : il met de l'ordre en tissant patiemment ses fils, brin après brin, sans céder à l'impatience du résultat.",
+4:"Au pied de la montagne jaillit une source : l'image de la folie juvénile. L'eau est là, vive, mais elle ne sait pas encore où couler ; elle a la force sans la direction. C'est le portrait de l'inexpérience qui n'est pas un défaut mais un état — celui d'avant l'apprentissage, quand l'énergie déborde sans discernement. Ainsi l'homme de bien, reconnaissant cette figure en lui ou chez un autre, ne méprise pas l'ignorance : il nourrit son caractère par une action résolue, sachant que la source, bien guidée, deviendra rivière.",
+5:"Les nuages montent au-dessus du Ciel : l'image de l'attente. Tout est en place pour que la pluie tombe, et pourtant elle ne tombe pas encore — le moment n'est pas mûr. C'est la figure de la préparation silencieuse, celle qui ne force pas l'heure mais la laisse venir. Ainsi l'homme de bien mange et boit, joyeux et serein, en attendant son heure : il ne s'épuise pas à vouloir précipiter ce qui a son propre rythme, il nourrit sa force pour le moment où elle sera requise.",
+6:"Le Ciel et l'Eau s'éloignent en sens contraires : l'image du conflit. L'un monte, l'autre descend ; leurs natures mêmes les séparent, et aucun compromis de surface ne peut les réunir. C'est la figure de l'opposition fondamentale, celle qui ne se résout pas par la seule bonne volonté. Ainsi l'homme de bien, dès le début de toute affaire, en pèse la fin : il ne s'engage pas dans un différend sans avoir mesuré, à l'avance, jusqu'où ce chemin peut le mener.",
+7:"Au milieu de la Terre se cache l'Eau : l'image de l'armée. La force existe, mais elle ne s'expose pas — elle se tient prête, invisible, disciplinée sous la surface calme. C'est la figure du pouvoir contenu, celui qui n'a pas besoin de se montrer pour être réel. Ainsi l'homme de bien accroît son peuple par une générosité tolérante : la vraie autorité ne s'impose pas par la force affichée, mais se construit dans la constance et la retenue.",
+8:"Sur la Terre, l'Eau : l'image de la solidarité. L'eau épouse la forme du sol, s'y love, s'y répand sans jamais le combattre — union sans friction, appui mutuel. C'est la figure de l'alliance naturelle, celle qui ne se force pas mais se reconnaît. Ainsi les rois antiques rassemblaient les royaumes lointains et honoraient leurs princes : la solidarité durable ne naît pas de la contrainte, mais de la reconnaissance mutuelle de ce que chacun apporte à l'autre.",
+9:"Le Vent se déplace au-dessus du Ciel : l'image de la force apprivoisée du petit. Le vent n'a pas la puissance du tonnerre ni la masse de la montagne — il agit par insistance légère, par caresse répétée plutôt que par choc. C'est la figure de l'influence discrète, celle qui retient sans contraindre. Ainsi l'homme de bien affine les traits de sa culture intérieure : quand la grande force n'est pas encore de mise, c'est par le raffinement patient du détail que l'on prépare ce qui viendra.",
+10:"En haut le Ciel, en bas le Lac : l'image de la marche. Chaque chose garde sa place propre — le ciel demeure au-dessus, le lac en dessous — et c'est cet ordre respecté qui rend la marche possible sans danger. C'est la figure de la juste distance, celle qui permet d'avancer même auprès de ce qui pourrait mordre. Ainsi l'homme de bien distingue le haut et le bas, et affermit la volonté du peuple : chaque pas posé avec discernement, sur la queue même du tigre, devient un pas sûr.",
+11:"Le Ciel et la Terre s'unissent : l'image de la paix. Ce qui devrait, par nature, rester séparé — le haut et le bas — se rencontre ici et communique librement, sans obstacle entre eux. C'est la figure de l'harmonie accomplie, où chaque force trouve son complément plutôt que son adversaire. Ainsi le souverain façonne la voie du Ciel et de la Terre et vient en aide à tous les êtres : la paix n'est pas l'absence de mouvement, mais l'échange devenu fluide entre des forces qui se répondent.",
+12:"Le Ciel et la Terre ne communiquent pas : l'image de la stagnation. Le haut reste en haut, le bas reste en bas, et rien ne circule plus entre eux — chacun se referme sur sa propre nature. C'est la figure de la rupture stérile, où même les forces les plus puissantes s'épuisent faute d'échange. Ainsi l'homme de bien se retire dans sa vertu pour échapper au danger : quand le temps ne permet plus l'action féconde, la sagesse consiste à préserver l'essentiel plutôt qu'à s'épuiser contre un mur.",
+13:"Le Ciel et le Feu s'associent : l'image de la communauté avec les hommes. La flamme monte vers le ciel, cherchant sa nature propre, et dans ce mouvement partagé se dessine une parenté entre des choses qui, pourtant, restent distinctes. C'est la figure de la fraternité fondée sur une direction commune plutôt que sur l'uniformité. Ainsi l'homme de bien distingue les espèces et classe les catégories : la vraie communauté ne nie pas les différences, elle les reconnaît pour mieux les accorder.",
+14:"Le Feu au sommet du Ciel : l'image de la grande possession. La lumière, portée au plus haut, éclaire toute chose sans exception — rien ne demeure dans l'ombre sous un tel embrasement. C'est la figure de l'abondance visible, celle qui rayonne au point d'obliger à la responsabilité. Ainsi l'homme de bien refoule le mal et exalte le bien, obéissant à la faveur céleste : posséder beaucoup n'est jamais neutre, cela oblige à discerner ce que l'on nourrit et ce que l'on retranche.",
+15:"Au sein de la Terre se tient la montagne : l'image de la modestie. Ce qui est le plus haut se laisse ici contenir par ce qui l'entoure, sans jamais chercher à dominer le paysage par la seule hauteur. C'est la figure de la grandeur qui s'efface volontairement. Ainsi l'homme de bien réduit ce qui est trop et augmente ce qui manque, pesant les choses avec égalité : la modestie n'est pas la petitesse, c'est la force assez sûre d'elle-même pour ne pas avoir besoin de se montrer.",
+16:"Le Tonnerre sort de la Terre avec force : l'image de l'enthousiasme. L'énergie contenue se libère soudain, et ce surgissement met en branle tout ce qui l'entoure — rien ne reste immobile devant un tel éclat. C'est la figure de l'élan communicatif, celui qui entraîne sans avoir besoin de contraindre. Ainsi les rois antiques honoraient le mérite par la musique et la vertu : l'enthousiasme bien dirigé devient la force la plus douce et la plus puissante pour rassembler les volontés.",
+17:"Au milieu du Lac, le Tonnerre : l'image de la suite. Le mouvement qui gronde en profondeur se laisse porter par ce qui l'entoure plutôt que de forcer sa propre trajectoire — il suit le contour du lac au lieu de le briser. C'est la figure de l'adaptation au rythme d'autrui. Ainsi l'homme de bien, au crépuscule, rentre chez lui pour se reposer : suivre n'est pas se soumettre, c'est reconnaître le moment où l'action doit céder la place au repos, comme le jour cède à la nuit.",
+18:"Sous la montagne, le Vent : l'image du travail sur ce qui est gâté. Le vent s'engouffre dans les failles de la montagne, révélant ce qui, avec le temps, s'est corrompu et attend d'être redressé. C'est la figure de la réparation nécessaire, celle qu'on ne peut plus repousser. Ainsi l'homme de bien stimule le peuple et nourrit sa vertu : face à ce qui est gâté, il ne s'agit pas de condamner le passé, mais de retrousser ses manches pour restaurer ce qui peut encore l'être.",
+19:"Au-dessus du Lac, la Terre : l'image de l'approche. La terre se penche vers l'eau, s'en approche sans jamais la dominer complètement — un mouvement de rapprochement progressif, jamais brutal. C'est la figure de la bienveillance qui avance pas à pas. Ainsi l'homme de bien enseigne sans lassitude et embrasse le peuple sans limite : approcher véritablement quelqu'un demande cette patience qui ne force jamais la rencontre.",
+20:"Le Vent parcourt la Terre : l'image de la contemplation. Le vent touche chaque recoin du sol sans s'arrêter nulle part longtemps — un regard qui embrasse large plutôt qu'un geste qui s'attarde. C'est la figure de l'observation qui précède l'action. Ainsi les rois antiques visitaient les régions, observaient le peuple et instituaient l'enseignement : avant d'agir sur le monde, il faut d'abord apprendre à le voir tel qu'il est, sans hâte ni parti pris.",
+21:"Le Tonnerre et l'Éclair s'unissent : l'image de mordre au travers. Le choc et la lumière frappent ensemble, l'un révélant ce que l'autre brise — rien ne peut se cacher longtemps sous une telle union de force et de clarté. C'est la figure de la décision tranchante éclairée par la vérité. Ainsi les anciens rois rendaient les peines claires et rendaient vigilantes les lois : trancher juste exige d'abord de voir juste.",
+22:"Sous la montagne, le Feu : l'image de la grâce. La flamme éclaire les flancs de la montagne sans jamais prétendre l'égaler en hauteur — un embellissement qui respecte ce qu'il révèle plutôt que de le dominer. C'est la figure de l'ornement au service du fond. Ainsi l'homme de bien éclaire les multiples affaires, sans jamais présumer trancher les litiges à la seule lumière des apparences : la grâce sert à révéler, jamais à juger.",
+23:"La montagne repose sur la Terre : l'image de l'éclatement. Ce qui semblait le plus solide — la masse même de la montagne — n'est en réalité soutenu que par une base qui peut céder. C'est la figure de l'effondrement qui guette ce qui néglige ses fondations. Ainsi les grands affermissent ce qui est en bas pour donner repos à leur demeure : avant de bâtir plus haut, il faut toujours consolider ce qui porte.",
+24:"Le Tonnerre au sein de la Terre : l'image du retour. La force vitale, enfouie au plus profond de l'hiver, n'a pas disparu — elle attend, invisible, le moment de resurgir. C'est la figure du renouveau caché dans l'apparente immobilité. Ainsi les anciens rois, au solstice, fermaient les passages, marchands et voyageurs ne circulaient plus : il est des moments où le plus grand geste consiste à ne rien précipiter, pour laisser le retour s'accomplir de lui-même.",
+25:"Sous le Ciel, le Tonnerre chemine : l'image de l'innocence. Le mouvement suit son cours sous la vaste étendue céleste, sans calcul ni détour, avec la simplicité de ce qui n'a rien à cacher. C'est la figure de l'action droite, spontanée, non feinte. Ainsi les anciens rois, riches en vertu et conformes au temps, nourrissaient les dix mille êtres : l'innocence n'est pas la naïveté, c'est l'alignement parfait entre l'intention et le geste.",
+26:"Au sein du Ciel, la montagne : l'image de la force apprivoisée du grand. Une puissance considérable se tient contenue, retenue par quelque chose qui, sans l'égaler en taille, sait néanmoins la freiner. C'est la figure de la grande force qui accepte d'être disciplinée. Ainsi l'homme de bien retient dans sa mémoire les paroles et les actes anciens : la vraie grandeur ne se prouve pas seulement par ce qu'elle déploie, mais par ce qu'elle accepte de contenir.",
+27:"Sous la montagne, le Tonnerre : l'image de la nourriture. Le mouvement s'agite à la base de ce qui est stable, comme la mâchoire s'agite sous le visage immobile — un rappel que même la plus grande stabilité dépend de ce qui se nourrit en dessous. Ainsi l'homme de bien veille sur ses paroles et mesure son boire et son manger : ce qui entre en nous, par la bouche ou par les mots, façonne ce que nous devenons.",
+28:"Le Lac submerge le bois : l'image de la prépondérance du grand. L'eau monte au-dessus de ce qui devrait normalement la contenir — une charge trop lourde pour la structure qui la porte, prête à céder sous son propre poids. C'est la figure du fardeau extrême. Ainsi l'homme de bien, seul et sans crainte, quitte le monde sans amertume : il est des moments où la charge dépasse ce qu'aucun soutien ne peut porter, et où la seule dignité possible est d'y faire face sans plainte.",
+29:"L'Eau vient et revient : l'image de l'insondable redoublé. Le danger se répète, vague après vague, sans jamais offrir de répit complet — mais l'eau elle-même, dans son mouvement constant, trouve toujours son niveau. C'est la figure de l'épreuve répétée qui forge la constance. Ainsi l'homme de bien pratique constamment la vertu et enseigne les affaires : face au danger qui revient, seule la pratique répétée, elle aussi, construit la maîtrise.",
+30:"Clarté et Clarté à nouveau : l'image du Feu qui s'attache. La lumière ne brille jamais seule — elle a besoin de ce à quoi elle s'accroche pour continuer de rayonner, tout comme la flamme a besoin du bois. C'est la figure de l'éclat qui dépend d'un support. Ainsi le grand homme, par son éclat continu, illumine les quatre horizons : rayonner durablement suppose de rester attaché à ce qui nourrit sa propre lumière.",
+31:"Sur la montagne, un Lac : l'image de l'influence. L'eau repose sur la hauteur, s'y love sans la forcer, et c'est cette réceptivité mutuelle qui permet à l'influence de circuler entre les deux. C'est la figure de la sensibilité partagée, avant même que les mots n'interviennent. Ainsi l'homme de bien accueille en lui-même la vacuité pour recevoir les hommes : influencer commence toujours par savoir se laisser toucher.",
+32:"Le Tonnerre et le Vent : l'image de la durée. Deux mouvements différents par nature s'associent ici sans se contredire, chacun renforçant l'autre dans une constance partagée. C'est la figure de la persévérance qui ne s'use pas. Ainsi l'homme de bien se tient debout sans changer de direction : durer n'est pas résister à l'immobile, c'est trouver le mouvement qui peut se répéter indéfiniment sans se trahir.",
+33:"Sous le Ciel, la montagne : l'image de la retraite. Le ciel s'éloigne peu à peu de la montagne, prenant ses distances sans hostilité, simplement par nécessité de préserver son propre mouvement. C'est la figure du repli digne, jamais fuite honteuse. Ainsi l'homme de bien tient les petits hommes à distance, non par haine, mais par dignité : se retirer à temps n'est pas une faiblesse, c'est la sagesse de qui sait reconnaître le moment où rester coûterait plus que partir.",
+34:"Le Tonnerre au-dessus du Ciel : l'image de la puissance du grand. Une force considérable s'élève au plus haut, visible de tous, capable d'ébranler ce qui se trouve sur son passage. C'est la figure de la puissance à son apogée, celle qui doit apprendre à se maîtriser précisément parce qu'elle peut tout emporter. Ainsi l'homme de bien ne marche que sur les sentiers conformes au rite : la grande force sans la juste mesure devient sa propre ruine.",
+35:"Le Soleil se lève au-dessus de la Terre : l'image du progrès. La lumière gagne du terrain, degré après degré, sans un seul bond brusque — un mouvement ascendant aussi sûr que naturel. C'est la figure de l'avancement mérité. Ainsi l'homme de bien, de lui-même, met en lumière sa vertu claire : le vrai progrès ne se réclame pas, il se manifeste de lui-même à qui sait patienter jusqu'au lever du jour.",
+36:"La lumière descend au sein de la Terre : l'image de l'obscurcissement. Ce qui devrait briller se retrouve enfoui, contraint de voiler son propre éclat pour continuer d'exister sans être détruit. C'est la figure de la clarté qui doit, un temps, se dissimuler pour survivre. Ainsi l'homme de bien conduit les multitudes en voilant sa clarté, tout en restant lucide : il existe des époques où montrer sa pleine lumière serait une erreur — la sagesse est alors de rester juste, en silence.",
+37:"Le Vent naît du Feu : l'image des gens de la maison. La chaleur intérieure engendre un mouvement qui se propage vers l'extérieur — ce qui commence au foyer finit toujours par rayonner au-dehors. C'est la figure de l'influence domestique qui façonne le monde. Ainsi l'homme de bien ancre ses mots dans la substance et sa conduite dans la constance : ce qui se vit dans l'intimité de la maison devient, tôt ou tard, ce que l'on porte partout ailleurs.",
+38:"Au-dessus le Feu, en dessous le Lac : l'image de l'opposition. Le feu monte, l'eau descend — deux natures qui se côtoient sans jamais se confondre, chacune fidèle à sa propre direction. C'est la figure de la différence assumée sans rupture totale. Ainsi l'homme de bien, dans l'unité, distingue ce qui diffère : reconnaître une opposition n'oblige pas à la détruire, on peut coexister avec ce qui nous contredit sans prétendre l'effacer.",
+39:"Sur la montagne, l'Eau : l'image de l'obstacle. L'eau rencontre la pente et ne peut avancer directement — elle doit contourner, chercher un autre chemin, ralentir son cours naturel. C'est la figure de la difficulté qui impose un détour. Ainsi l'homme de bien se tourne vers lui-même et façonne sa propre vertu : l'obstacle extérieur, quand il ne peut être forcé, devient l'occasion de travailler ce qui, en soi, peut encore grandir.",
+40:"Le Tonnerre et la Pluie s'élèvent : l'image de la délivrance. La tension accumulée dans l'air se libère enfin, l'orage éclate et purifie ce qu'il traverse — un dénouement qui apaise plutôt qu'il ne détruit. C'est la figure du soulagement après la contrainte. Ainsi l'homme de bien pardonne les fautes et se montre clément envers les torts : la délivrance véritable ne s'arrête pas à soi, elle s'étend aussi à ceux qu'on pourrait encore retenir captifs de leurs erreurs.",
+41:"Sous la montagne, le Lac : l'image de la diminution. L'eau du bas s'évapore vers la hauteur, semblant s'appauvrir pour nourrir ce qui la surplombe — une perte qui, en réalité, sert un équilibre plus vaste. C'est la figure du renoncement qui profite à un ensemble plus grand que soi. Ainsi l'homme de bien réfrène sa colère et contient ses désirs : diminuer ce qui est en trop chez soi est souvent la condition pour que quelque chose d'autre puisse croître.",
+42:"Le Vent et le Tonnerre : l'image de l'augmentation. Deux forces se renforcent mutuellement, le vent amplifiant le tonnerre et le tonnerre donnant au vent sa pleine mesure — une croissance qui se nourrit de la rencontre plutôt que de l'isolement. Ainsi l'homme de bien, voyant le bien, s'y transporte ; ayant une faute, il la corrige : l'augmentation véritable ne se limite pas à accumuler, elle consiste à se corriger et à croître ensemble.",
+43:"Le Lac s'élève au-dessus du Ciel : l'image de la percée. L'eau, portée plus haut que ce qui devrait normalement la contenir, menace de déborder — une tension extrême qui appelle une décision claire et sans retour. C'est la figure de la résolution qui ne peut plus attendre. Ainsi l'homme de bien répand ses largesses jusqu'en bas, sans reposer sur sa seule vertu : trancher avec force doit toujours s'accompagner de générosité envers ceux que la décision affecte.",
+44:"Sous le Ciel, le Vent : l'image de venir à la rencontre. Le vent parcourt l'espace sans qu'on l'ait convoqué, touchant tout sur son passage — une rencontre qui s'impose plutôt qu'elle ne se planifie. C'est la figure de l'imprévu qu'il faut savoir accueillir avec discernement. Ainsi le souverain, par ses décrets, instruit les quatre horizons : ce qui vient à notre rencontre sans y être invité mérite d'être examiné avant d'être accepté ou repoussé.",
+45:"Le Lac monte au-dessus de la Terre : l'image du rassemblement. L'eau s'accumule et forme une étendue commune, rassemblant en un seul lieu ce qui, dispersé, n'aurait eu ni force ni visage. C'est la figure de la convergence qui donne consistance au multiple. Ainsi l'homme de bien répare ses armes pour parer à l'imprévu : rassembler ne suffit pas, il faut aussi se préparer à protéger ce qui a été rassemblé.",
+46:"Au sein de la Terre croît le bois : l'image de la poussée vers le haut. La graine, invisible sous la surface, pousse patiemment vers la lumière sans jamais brûler les étapes — une croissance lente mais inexorable. C'est la figure de l'ascension méritée par la constance. Ainsi l'homme de bien, docile à la vertu, accumule le petit pour atteindre le haut et le grand : rien de ce qui grandit vraiment ne saute d'étape, tout se construit couche après couche.",
+47:"Le Lac est sans eau : l'image de l'accablement. Ce qui devrait nourrir et soutenir s'est asséché, laissant derrière lui un manque criant là où l'on attendait l'abondance. C'est la figure de l'épuisement qui teste la vraie nature de celui qui le traverse. Ainsi l'homme de bien engage sa vie pour accomplir son dessein : c'est précisément dans le manque que se révèle ce à quoi l'on tient vraiment, au point d'être prêt à tout risquer pour cela.",
+48:"Sur le bois, l'Eau : l'image du puits. L'eau reste accessible à tous ceux qui viennent y puiser, inépuisable tant qu'on sait y descendre le seau au bon endroit — une ressource commune que l'usage ne tarit jamais vraiment. C'est la figure du bien partagé qui demeure. Ainsi l'homme de bien réconforte le peuple et l'exhorte à l'entraide : ce qui nourrit vraiment une communauté n'appartient à personne en propre, il ne fait que passer entre les mains de ceux qui savent y puiser.",
+49:"Au sein du Lac, le Feu : l'image de la révolution. La flamme brûle sous la surface de l'eau, deux natures qui ne peuvent coexister sans que l'une finisse par transformer l'autre — un affrontement qui débouche nécessairement sur un changement d'état. Ainsi l'homme de bien règle le calendrier et rend clairs les temps : la révolution véritable ne détruit pas pour détruire, elle réordonne ce que l'ancien temps avait laissé confus.",
+50:"Sur le bois, le Feu : l'image du chaudron. La flamme transforme la matière brute en quelque chose de nourrissant, de raffiné, d'utilisable — un récipient qui contient la transformation sans se laisser lui-même consumer. C'est la figure de la culture qui affine sans détruire. Ainsi l'homme de bien affermit son destin en le rendant droit : comme le chaudron donne forme à ce qu'il reçoit, chacun façonne son propre destin par ce qu'il choisit d'y faire cuire.",
+51:"Le Tonnerre redoublé : l'image de l'ébranlement. Le choc frappe deux fois, l'un répétant l'autre, et ce qui reste debout après une telle secousse révèle enfin sa solidité véritable. C'est la figure de l'épreuve qui teste sans détruire ce qui est réellement fondé. Ainsi l'homme de bien, dans la crainte et le tremblement, cultive et examine sa propre conduite : le choc extérieur, aussi brutal soit-il, peut devenir l'occasion d'un examen intérieur salutaire.",
+52:"Montagnes jointes : l'image de l'immobilisation. Deux masses stables se superposent, l'une renforçant l'immobilité de l'autre — un arrêt qui n'est pas paralysie mais fondation. C'est la figure du repos qui rend possible la clarté. Ainsi l'homme de bien ne laisse ses pensées dépasser la place qu'il occupe : s'arrêter au bon endroit, sans laisser l'esprit s'égarer au-delà de sa tâche présente, est la condition de toute vision juste.",
+53:"Sur la montagne, un arbre : l'image du développement graduel. L'arbre grandit lentement, racine après racine, cerne après cerne, sans jamais brûler une seule étape de sa croissance — une patience inscrite dans le bois lui-même. Ainsi l'homme de bien s'établit dans la vertu digne et améliore les mœurs : le développement véritable, comme celui de l'arbre sur la pente, se mesure en années, non en jours.",
+54:"Au-dessus le Tonnerre, en dessous le Lac : l'image de l'épousée. Le mouvement du haut entraîne ce qui repose en dessous dans une union qui n'est pas toujours choisie également par les deux parties — un lien qui engage malgré le déséquilibre initial. Ainsi l'homme de bien, mindful de ce qui endure, discerne ce qui corrompt cette union : toute alliance mérite d'être examinée dans sa durée, non jugée sur son seul commencement.",
+55:"Le Tonnerre et l'Éclair s'accomplissent ensemble : l'image de l'abondance. Le mouvement et la lumière atteignent simultanément leur plein déploiement — un instant de plénitude totale, rare et nécessairement passager. C'est la figure de l'apogée qui ne dure jamais éternellement. Ainsi l'homme de bien tranche les litiges et applique les châtiments : au sommet de l'abondance, la clarté du jugement devient plus nécessaire que jamais, car c'est aussi là que tout peut basculer.",
+56:"Sur la montagne, le Feu : l'image du voyageur. La flamme se déplace le long de la pente, ne s'attardant nulle part, consumant ce qui se présente sans jamais s'enraciner en un seul lieu. C'est la figure de qui n'a ni feu ni lieu fixe. Ainsi l'homme de bien applique la peine avec clarté et prudence, sans laisser un procès traîner : sans attaches durables, il faut d'autant plus de rigueur pour ne pas se perdre en chemin.",
+57:"Vents qui se suivent : l'image du doux redoublé. Le vent souffle, puis souffle encore, insistant sans jamais frapper — une influence qui pénètre par la répétition plutôt que par la force. Ainsi l'homme de bien propage ses ordres et met en œuvre ses affaires : ce qui ne peut être imposé d'un coup finit souvent par s'installer grâce à la constance douce d'une insistance patiente.",
+58:"Lacs qui se rejoignent : l'image du joyeux redoublé. Deux étendues d'eau communiquent, se nourrissant l'une l'autre, chacune amplifiant la joie de l'autre par leur simple proximité. C'est la figure du partage qui multiplie plutôt qu'il ne divise. Ainsi l'homme de bien, avec ses amis, discute et s'exerce : la joie véritable, comme l'eau des lacs joints, ne s'épuise jamais d'être partagée — elle s'en trouve au contraire renforcée.",
+59:"Le Vent se meut au-dessus de l'Eau : l'image de la dissolution. Le vent trouble la surface, dispersant ce qui s'était figé, brisant la glace en mouvement fluide — une dissolution qui libère plutôt qu'elle ne détruit. Ainsi les anciens rois offraient au Souverain d'en haut et établissaient des temples : quand ce qui séparait les êtres commence à se dissoudre, c'est le moment de reconstruire un lien commun, un centre partagé.",
+60:"Sur le Lac, l'Eau : l'image de la limitation. L'eau du lac reste contenue par ses berges, et c'est cette limite même qui lui permet d'exister comme lac plutôt que de se perdre en marécage informe. C'est la figure de la contrainte qui structure plutôt qu'elle n'étouffe. Ainsi l'homme de bien élabore le compte et la mesure, et réfléchit sur la vertu et la conduite : la limitation choisie avec justesse est ce qui donne forme à toute chose, y compris à soi-même.",
+61:"Sur le Lac, le Vent : l'image de la vérité intérieure. Le vent effleure la surface de l'eau et la fait vibrer jusqu'en son centre — une résonance qui part du dehors mais touche l'intérieur le plus profond. C'est la figure de la sincérité qui se transmet sans artifice. Ainsi l'homme de bien délibère sur les procès et retarde les peines de mort : la vérité intérieure exige qu'on prenne le temps nécessaire avant de trancher sur ce qui touche à l'essentiel.",
+62:"Sur la montagne, le Tonnerre : l'image de la prépondérance du petit. Le mouvement s'agite au sommet, contenu par la masse qui le porte, obligé de rester modeste dans son ampleur bien qu'intense dans son énergie. Ainsi l'homme de bien, dans sa conduite, penche vers l'excès de respect ; dans le deuil, vers l'excès de peine ; dans ses dépenses, vers l'excès d'économie : quand les circonstances imposent la retenue, mieux vaut pécher par excès de modestie que par excès d'ambition.",
+63:"L'Eau au-dessus du Feu : l'image de l'accomplissement. Chaque élément occupe exactement la place qui lui revient, l'eau maîtrisant le feu sans l'éteindre complètement — un équilibre si parfait qu'il appelle déjà, en germe, son propre déséquilibre à venir. Ainsi l'homme de bien songe au malheur et s'en prémunit d'avance : l'accomplissement le plus total n'est jamais un point d'arrivée définitif, c'est le moment précis où la vigilance doit redoubler.",
+64:"Le Feu au-dessus de l'Eau : l'image de l'inaccompli. Chaque élément se trouve à la place inverse de celle qui permettrait leur pleine rencontre — le feu ne peut réchauffer l'eau qui lui échappe par le haut. C'est la figure du désordre qui précède encore l'ordre à venir. Ainsi l'homme de bien discerne avec soin les êtres et les place chacun en son lieu : avant que tout ne trouve sa juste place, il faut d'abord accepter la lucidité du désordre présent, sans désespérer de l'ordre à naître."
+};
+
+// ---------- textes de traits spécifiques par hexagramme (composition originale, croisée avec
+// le texte source chinois classique et la traduction anglaise de James Legge, 1882, domaine
+// public — jamais copiée telle quelle, toujours réécrite). Rempli progressivement hexagramme
+// par hexagramme ; à défaut, on retombe sur le commentaire générique par position (LINE_COMMENT). ===== */
+const HEXLINES = {
+  43: {
+    1: "Aux orteils, la force s'avance : marcher sans que la puissance suive encore ne mène qu'à l'échec.",
+    2: "Le cri d'alarme résonne jusque dans la nuit : même si des armes se lèvent, rien ici ne doit inquiéter.",
+    3: "La fermeté se lit jusque sur le visage : présage funeste. Mais marcher seul sous la pluie, trempé comme par la colère, ne mérite aucun reproche.",
+    4: "Sans plus de peau sur les cuisses, on avance à peine, comme entraîné. Mener comme on mène un mouton dissiperait le regret — mais la parole, ici, ne trouve pas crédit.",
+    5: "Comme l'amarante arrachée d'un geste ferme sur le chemin du milieu : nulle faute ne s'attache à cette marche.",
+    6: "Nul cri ne s'élève : au bout du chemin, l'issue reste funeste."
+  }
+};
+function hexLineText(kwNum, pos, bit){
+  if(HEXLINES[kwNum] && HEXLINES[kwNum][pos]) return HEXLINES[kwNum][pos];
+  return LINE_COMMENT[pos][bit]; // repli générique tant que l'hexagramme n'a pas son texte propre
+}
+
+const LINE_COMMENT = {
+  1: {
+    1: "À la base de la terre, le plein s'ébranle : l'amorce yang qui portait la figure entière consent à céder la place.",
+    0: "À la base de la terre, le vide se referme : ce qui n'était encore qu'une ouverture commence à se remplir."
+  },
+  2: {
+    1: "La terre affermie touche à sa limite : la solidité qui soutenait l'édifice s'apprête à changer de nature.",
+    0: "La terre réceptive atteint son comble : l'accueil silencieux qui portait le bas de la figure va s'affirmer."
+  },
+  3: {
+    1: "Au seuil entre terre et homme, la force vacille : ce qui agissait par fermeté hésite avant de se retourner.",
+    0: "Au seuil entre terre et homme, la souplesse se charge : ce qui cédait par nature s'apprête à durcir."
+  },
+  4: {
+    1: "Dans l'action de l'homme, le plein trouve sa borne : l'initiative qui menait la figure se replie sur elle-même.",
+    0: "Dans l'écoute de l'homme, le creux se comble : la disponibilité qui recevait va bientôt s'affirmer."
+  },
+  5: {
+    1: "À la place du sage, le plein se creuse : la force qui gouvernait la figure depuis le centre s'apprête à s'inverser.",
+    0: "À la place du sage, le vide s'emplit : la souplesse qui gouvernait avec discrétion se charge d'une force nouvelle."
+  },
+  6: {
+    1: "Au sommet, le plein achève sa course et se brise : ce qui culminait ne peut aller plus loin sans se retourner.",
+    0: "Au sommet, le vide atteint son comble et se referme : l'ouverture la plus extrême bascule vers son contraire."
+  }
 };
 
 function chronoOf(r,c){ return r*8+c; }
@@ -889,6 +1062,7 @@ async function drawCategorie1Or3(cat){
     label: `${NATURE_LABELS[teinteSlug]} · ${drawnSlugs.map(s=>NATURE_LABELS[s]).join('/')}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
+    drawnSlugs, spaceKey, baseDir: posDir, templateText,
   };
 }
 
@@ -907,24 +1081,62 @@ async function drawCategorie4(){
     label: drawnSlugs.map(s=>NATURE_LABELS[s]).join('/'),
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
+    drawnSlugs, spaceKey, baseDir, templateText,
   };
 }
 
-function renderHexInfo(hex){
-  const box = document.getElementById('hexInfo');
-  const departEl = document.getElementById('hexInfoDepart');
-  const arriveeEl = document.getElementById('hexInfoArrivee');
-  if(!hex){ box.style.display = 'none'; return; }
-  box.style.display = 'block';
-  const infoD = HEX_KW[hex.kw];
-  departEl.innerHTML = `<b style="color:var(--white);">${t('hexDepart')} — N°${hex.kw} ${infoD[1]}</b> (${infoD[0]}) — ${infoD[2]}`;
-  if(hex.arrivee){
-    const infoA = HEX_KW[hex.arrivee.kw];
-    arriveeEl.innerHTML = `<b style="color:var(--white);">${t('hexArrivee')} — N°${hex.arrivee.kw} ${infoA[1]}</b> (${infoA[0]}) — ${infoA[2]}`;
-    arriveeEl.style.display = 'block';
-  } else {
-    arriveeEl.style.display = 'none';
+// Situation antérieure/postérieure : mêmes drawnSlugs partout, sauf aux positions
+// mutantes où l'axe est remplacé par son état figé — avant mutation (ant) ou résolu
+// (post). Jamais le style "-mut" lui-même à l'affichage : contrairement à la page
+// tirage-livrée, pas de représentation transitoire ici, seulement l'avant et l'après.
+function slugsForSituation(drawnSlugs, movingIdx, situation){
+  return drawnSlugs.map((s,i)=>{
+    if(!movingIdx.includes(i)) return s;
+    if(s === 'yang-mut') return situation === 'ant' ? 'yang' : 'yin';
+    return situation === 'ant' ? 'yin' : 'yang'; // yin-mut
+  });
+}
+
+function hexTextBlockHtml(kwNum, tagLabel){
+  const info = HEX_KW[kwNum];
+  return `<div class="hex-tag">${tagLabel} — N°${kwNum} ${info[1]} (${info[0]})</div>
+    <div class="hex-title">${info[2]}</div>
+    <div class="hex-image">${IMAGE_FR[kwNum] || ''}</div>
+    <div><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>`;
+}
+
+function resultIdeaHtml(kwNum){
+  const info = HEX_KW[kwNum];
+  return `<div style="color:var(--gold);font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">${t('hexDepart')} — N°${kwNum} ${info[1]} (${info[0]})</div>
+    <div style="color:var(--red);font-size:15px;margin-bottom:8px;">${info[2]}</div>
+    ${IMAGE_FR[kwNum] || ''}
+    <div style="margin-top:10px;"><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>`;
+}
+
+async function renderMutationZone(item){
+  const zone = document.getElementById('hexMutationZone');
+  const hex = item.hex;
+  if(!hex || !hex.movingIdx.length){
+    zone.classList.remove('visible');
+    return;
   }
+
+  document.getElementById('hexTextAnt').innerHTML = hexTextBlockHtml(hex.kw, t('hexDepart'));
+  document.getElementById('hexTextPost').innerHTML = hexTextBlockHtml(hex.arrivee.kw, t('hexArrivee'));
+
+  const traits = item.drawnSlugs.map(s => (s==='yang'||s==='yang-mut') ? 1 : 0);
+  document.getElementById('mutantLinesBlock').innerHTML = hex.movingIdx.slice().sort((a,b)=>a-b).map(i=>
+    `<div class="mutant-line"><div class="lbl">${t('traitMutantLabel')} ${i+1}</div>${hexLineText(hex.kw, i+1, traits[i])}</div>`
+  ).join('');
+
+  const antSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'ant');
+  const postSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'post');
+  const antBlock = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, antSlugs);
+  const postBlock = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, postSlugs);
+  document.getElementById('antBox').innerHTML = insertBlockIntoTemplate(item.templateText, antBlock);
+  document.getElementById('postBox').innerHTML = insertBlockIntoTemplate(item.templateText, postBlock);
+
+  zone.classList.add('visible');
 }
 
 document.getElementById('rollBtn').addEventListener('click', async ()=>{
@@ -938,29 +1150,18 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
     state.chrono = item.id;
     document.getElementById('previewBox').innerHTML = item.svgText;
     document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
-    document.getElementById('resultIdea').textContent = t('ideaGeneric');
-    renderHexInfo(null);
+    document.getElementById('resultIdea').innerHTML = '';
+    document.getElementById('hexMutationZone').classList.remove('visible');
     return;
   }
 
-  if(state.cat === 1 || state.cat === 3){
-    const item = await drawCategorie1Or3(state.cat);
-    state.item = item;
-    state.chrono = item.id;
-    document.getElementById('previewBox').innerHTML = item.svgText;
-    document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
-    document.getElementById('resultIdea').textContent = t('ideaGeneric');
-    renderHexInfo(item.hex);
-    return;
-  }
-
-  const item = await drawCategorie4();
+  const item = (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat) : await drawCategorie4();
   state.item = item;
   state.chrono = item.id;
   document.getElementById('previewBox').innerHTML = item.svgText;
   document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.label}`;
-  document.getElementById('resultIdea').textContent = t('ideaGeneric');
-  renderHexInfo(item.hex);
+  document.getElementById('resultIdea').innerHTML = resultIdeaHtml(item.hex.kw);
+  await renderMutationZone(item);
 });
 
 document.getElementById('dlSvg').addEventListener('click', async ()=>{
