@@ -993,6 +993,9 @@ function extractTexts(svgText){
 // Marques (rects/tracés/tirets/pastilles/chiffre) présentes dans otherText mais absentes
 // de baseText, reproduites avec leur couleur réelle telle que lue dans le fichier source
 // (jamais de couleur inventée : tout élément sans couleur résolue a déjà été exclu ci-dessus).
+// NB : la plupart des <path>/<line> d'un fichier de position sont en réalité du décor
+// partagé identique d'un fichier à l'autre (cadre, logo) — c'est ce diff qui les filtre
+// correctement ; les extraire "à sec" sans diff les dupliquerait à chaque position.
 function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
@@ -1010,6 +1013,37 @@ function extraMarksVsBase(baseText, otherText){
   extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" fill="none"/>`; });
   extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" fill="none"/>`; });
   extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
+  return out;
+}
+
+// Miroir de extraMarksVsBase : retire de baseText les marques qui lui sont propres et
+// absentes de otherText. Utile uniquement pour la position 1, dont le gabarit contient déjà
+// nativement les marques du donneur (axe fixe 'yang') — si l'axe réellement tiré en
+// position 1 diffère, ces marques du donneur doivent être retirées (pas seulement
+// complétées) pour ne pas rester affichées à tort ni se superposer aux nouvelles.
+function stripMarksUniqueToBase(baseText, otherText){
+  const { fillMap, strokeMap } = parseStyleColors(baseText);
+  const otherPathKeys = new Set(extractPaths(otherText).map(p=>p.key));
+  const otherLineKeys = new Set(extractLines(otherText).map(l=>l.key));
+  const otherCircleKeys = new Set(extractCircles(otherText).map(c=>c.key));
+  const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
+  let out = baseText;
+  out = out.replace(/<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g, (m, cls, d) => {
+    const fill = fillMap[cls]; if(!fill) return m;
+    return otherPathKeys.has(d+'|'+fill) ? m : '';
+  });
+  out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls, x1,y1,x2,y2) => {
+    const stroke = strokeMap[cls]; if(!stroke) return m;
+    return otherLineKeys.has([x1,y1,x2,y2].join(',')+'|'+stroke) ? m : '';
+  });
+  out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls, cx,cy,r) => {
+    const stroke = strokeMap[cls]; if(!stroke) return m;
+    return otherCircleKeys.has([cx,cy,r].join(',')+'|'+stroke) ? m : '';
+  });
+  out = out.replace(/<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g, (m, cls, transform, content) => {
+    const fill = fillMap[cls]; if(!fill) return m;
+    return otherTextKeys.has(transform+'|'+content) ? m : '';
+  });
   return out;
 }
 
@@ -1045,8 +1079,14 @@ async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
 // dissociés en deux pipelines séparées (l'un reconstruisant la couleur via une grille
 // abstraite, l'autre redessinant la bordure séparément) : rien n'est recalculé ni recoloré,
 // tout est repris tel quel du fichier correspondant à ce qui a été réellement tiré.
+// Retourne { block, template } : `template` est templateText tel quel pour toutes les
+// positions, SAUF si l'axe réellement tiré en position 1 diffère du donneur ('yang') — dans
+// ce cas les marques natives du donneur en position 1 (bakées dans templateText) sont
+// retirées de `template`, pour que la position 1 ne montre plus jamais un mélange des
+// marques du donneur et des marques reconstruites (voir stripMarksUniqueToBase).
 async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
   let block = '';
+  let template = templateText;
   for(let pos=1; pos<=6; pos++){
     const axisSlug = drawnSlugs[pos-1];
     const posText = await loadAxisPositionText(spaceKey, baseDir, axisSlug, pos);
@@ -1063,8 +1103,9 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
       if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
     }
     block += extraMarksVsBase(templateText, posText);
+    if(pos === 1) template = stripMarksUniqueToBase(templateText, posText);
   }
-  return block;
+  return { block, template };
 }
 
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le bloc déjà calculé
@@ -1091,8 +1132,8 @@ async function drawCategorie2(){
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const block = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
-  const svg = insertBlockIntoTemplate(templateText, block);
+  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(template, block);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     familyName: `Combinaison bases ${NATURE_LABELS[axisA]} et ${NATURE_LABELS[axisB]}`,
@@ -1114,8 +1155,8 @@ async function drawCategorie1Or3(cat){
   const posDir = baseDir + teinteSlug + '/';
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const block = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
-  const svg = insertBlockIntoTemplate(templateText, block);
+  const { block, template } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(template, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     familyName: cat === 1 ? `Famille ${NATURE_LABELS[teinteSlug]}` : `Famille sans ${NATURE_LABELS[teinteSlug]}`,
@@ -1133,8 +1174,8 @@ async function drawCategorie4(){
   const baseDir = 'assets/trait-cartes/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const block = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
-  const svg = insertBlockIntoTemplate(templateText, block);
+  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const svg = insertBlockIntoTemplate(template, block);
   return {
     id: drawnSlugs.join('-'),
     familyName: `Combinaison des 4`,
@@ -1192,10 +1233,10 @@ async function renderMutationZone(item){
 
   const antSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'ant');
   const postSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'post');
-  const antBlock = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, antSlugs);
-  const postBlock = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, postSlugs);
-  document.getElementById('antBox').innerHTML = insertBlockIntoTemplate(item.templateText, antBlock);
-  document.getElementById('postBox').innerHTML = insertBlockIntoTemplate(item.templateText, postBlock);
+  const ant = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, antSlugs);
+  const post = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, postSlugs);
+  document.getElementById('antBox').innerHTML = insertBlockIntoTemplate(ant.template, ant.block);
+  document.getElementById('postBox').innerHTML = insertBlockIntoTemplate(post.template, post.block);
 
   zone.classList.add('visible');
 }
