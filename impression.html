@@ -964,6 +964,20 @@ function extractLines(svgText){
   }
   return out;
 }
+// Croix rouge (famille yang) et symboles analogues : dessinés en 2 morceaux dans les
+// fichiers sources, une <line> (une diagonale) + une <polyline> à 3 points colinéaires
+// (l'autre diagonale) — jamais capturée avant, d'où la croix toujours incomplète.
+function extractPolylines(svgText){
+  const { strokeMap } = parseStyleColors(svgText);
+  const re = /<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    const stroke = strokeMap[mm[1]];
+    if(!stroke) continue;
+    out.push({ key: mm[2]+'|'+stroke, stroke, points: mm[2] });
+  }
+  return out;
+}
 function extractCircles(svgText){
   const { strokeMap } = parseStyleColors(svgText);
   const re = /<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g;
@@ -1000,17 +1014,20 @@ function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
   const baseLineKeys = new Set(extractLines(baseText).map(l=>l.key));
+  const basePolylineKeys = new Set(extractPolylines(baseText).map(p=>p.key));
   const baseCircleKeys = new Set(extractCircles(baseText).map(c=>c.key));
   const baseTextKeys = new Set(extractTexts(baseText).map(x=>x.key));
   const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
   const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
   const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key));
+  const extraPolylines = extractPolylines(otherText).filter(p => !basePolylineKeys.has(p.key));
   const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key));
   const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key));
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
   extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" fill="none"/>`; });
+  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" fill="none"/>`; });
   extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" fill="none"/>`; });
   extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
   return out;
@@ -1025,6 +1042,7 @@ function stripMarksUniqueToBase(baseText, otherText){
   const { fillMap, strokeMap } = parseStyleColors(baseText);
   const otherPathKeys = new Set(extractPaths(otherText).map(p=>p.key));
   const otherLineKeys = new Set(extractLines(otherText).map(l=>l.key));
+  const otherPolylineKeys = new Set(extractPolylines(otherText).map(p=>p.key));
   const otherCircleKeys = new Set(extractCircles(otherText).map(c=>c.key));
   const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
   let out = baseText;
@@ -1035,6 +1053,10 @@ function stripMarksUniqueToBase(baseText, otherText){
   out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls, x1,y1,x2,y2) => {
     const stroke = strokeMap[cls]; if(!stroke) return m;
     return otherLineKeys.has([x1,y1,x2,y2].join(',')+'|'+stroke) ? m : '';
+  });
+  out = out.replace(/<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g, (m, cls, points) => {
+    const stroke = strokeMap[cls]; if(!stroke) return m;
+    return otherPolylineKeys.has(points+'|'+stroke) ? m : '';
   });
   out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls, cx,cy,r) => {
     const stroke = strokeMap[cls]; if(!stroke) return m;
