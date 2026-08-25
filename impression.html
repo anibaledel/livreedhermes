@@ -1046,28 +1046,35 @@ function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
   const baseStrokePathKeys = new Set(extractStrokePaths(baseText).map(p=>p.key));
-  const baseLineKeys = new Set(extractLines(baseText).map(l=>l.key));
-  const basePolylineKeys = new Set(extractPolylines(baseText).map(p=>p.key));
-  const basePolygonKeys = new Set(extractPolygons(baseText).map(p=>p.key));
-  const baseCircleKeys = new Set(extractCircles(baseText).map(c=>c.key));
   const baseTextKeys = new Set(extractTexts(baseText).map(x=>x.key));
   const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
   const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
   const extraStrokePaths = extractStrokePaths(otherText).filter(p => !baseStrokePathKeys.has(p.key));
-  const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key));
-  const extraPolylines = extractPolylines(otherText).filter(p => !basePolylineKeys.has(p.key));
-  const extraPolygons = extractPolygons(otherText).filter(p => !basePolygonKeys.has(p.key));
-  const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key));
   const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key));
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
   extraStrokePaths.forEach(p => { out += `<path d="${p.d}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
-  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="${l.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
-  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
-  extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
-  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="${c.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
+  return out;
+}
+
+// Traits/polylignes/polygones/cercles : contrairement aux paths (très majoritairement du
+// décor partagé — cadre, logo — qu'il ne faut jamais dupliquer), ces 4 formes ne servent
+// dans ces fichiers qu'à des marques réelles (symbole de famille, accent d'axe, tirets de
+// position) — jamais du décor partagé. Diffées contre le gabarit, une marque identique au
+// gabarit à cette position n'était jamais réémise pour les positions 2-6, alors qu'elle
+// devait l'être : chaque position a sa PROPRE occurrence de ces marques dans son fichier
+// réel (mêmes coordonnées d'un fichier à l'autre pour le symbole de famille, coordonnées
+// propres à la position pour l'accent d'axe) — les réémettre à chaque position n'invente
+// rien ni ne duplique du décor partagé, ça reproduit fidèlement ce que le fichier réel de
+// CETTE position contient, sans dépendre de ce qui se trouve déjà dans le gabarit.
+function renderOwnStrokeShapes(svgText){
+  let out = '';
+  extractLines(svgText).forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="${l.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extractPolylines(svgText).forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extractPolygons(svgText).forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extractCircles(svgText).forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="${c.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   return out;
 }
 
@@ -1076,14 +1083,15 @@ function extraMarksVsBase(baseText, otherText){
 // nativement les marques du donneur (axe fixe 'yang') — si l'axe réellement tiré en
 // position 1 diffère, ces marques du donneur doivent être retirées (pas seulement
 // complétées) pour ne pas rester affichées à tort ni se superposer aux nouvelles.
+//
+// Traits/polylignes/polygones/cercles sont retirés inconditionnellement (pas en diff) : ces
+// 4 formes sont désormais toujours régénérées à neuf pour chaque position via
+// renderOwnStrokeShapes, y compris la position 1 — les garder nativement dans le gabarit les
+// ferait apparaître en double à cette position.
 function stripMarksUniqueToBase(baseText, otherText){
   const { fillMap, strokeMap } = parseStyleColors(baseText);
   const otherPathKeys = new Set(extractPaths(otherText).map(p=>p.key));
   const otherStrokePathKeys = new Set(extractStrokePaths(otherText).map(p=>p.key));
-  const otherLineKeys = new Set(extractLines(otherText).map(l=>l.key));
-  const otherPolylineKeys = new Set(extractPolylines(otherText).map(p=>p.key));
-  const otherPolygonKeys = new Set(extractPolygons(otherText).map(p=>p.key));
-  const otherCircleKeys = new Set(extractCircles(otherText).map(c=>c.key));
   const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
   let out = baseText;
   out = out.replace(/<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g, (m, cls, d) => {
@@ -1093,23 +1101,19 @@ function stripMarksUniqueToBase(baseText, otherText){
     if(stroke) return otherStrokePathKeys.has(d+'|'+stroke) ? m : '';
     return m;
   });
-  out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls, x1,y1,x2,y2) => {
-    const stroke = strokeMap[cls]; if(!stroke) return m;
-    return otherLineKeys.has([x1,y1,x2,y2].join(',')+'|'+stroke) ? m : '';
+  out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls) => {
+    return strokeMap[cls] ? '' : m;
   });
-  out = out.replace(/<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g, (m, cls, points) => {
-    const stroke = strokeMap[cls]; if(!stroke) return m;
-    return otherPolylineKeys.has(points+'|'+stroke) ? m : '';
+  out = out.replace(/<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g, (m, cls) => {
+    return strokeMap[cls] ? '' : m;
   });
   out = out.replace(/<polygon\b[^>]*\/>/g, (m) => {
-    const clsM = m.match(/class="(cls-\d+)"/), ptsM = m.match(/points="([^"]*)"/);
-    if(!clsM || !ptsM) return m;
-    const stroke = strokeMap[clsM[1]]; if(!stroke) return m;
-    return otherPolygonKeys.has(ptsM[1]+'|'+stroke) ? m : '';
+    const clsM = m.match(/class="(cls-\d+)"/);
+    if(!clsM) return m;
+    return strokeMap[clsM[1]] ? '' : m;
   });
-  out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls, cx,cy,r) => {
-    const stroke = strokeMap[cls]; if(!stroke) return m;
-    return otherCircleKeys.has([cx,cy,r].join(',')+'|'+stroke) ? m : '';
+  out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls) => {
+    return strokeMap[cls] ? '' : m;
   });
   out = out.replace(/<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g, (m, cls, transform, content) => {
     const fill = fillMap[cls]; if(!fill) return m;
@@ -1183,6 +1187,7 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
       if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
     }
     block += extraMarksVsBase(templateText, posText);
+    block += renderOwnStrokeShapes(posText);
     if(pos === 1) template = stripMarksUniqueToBase(templateText, posText);
   }
   return { block, template };
