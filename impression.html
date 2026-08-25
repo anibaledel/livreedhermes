@@ -953,6 +953,20 @@ function extractPaths(svgText){
   }
   return out;
 }
+// Demi-cercles (famille yin-mut) et symboles analogues : dessinés en <path> à contour seul
+// (fill:none, stroke résolu) — extractPaths ne regardait que le remplissage, jamais le
+// contour, donc ces arcs étaient invisibles partout sauf sur la position 1 (jamais retouchée).
+function extractStrokePaths(svgText){
+  const { strokeMap, widthMap } = parseStyleColors(svgText);
+  const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
+  let mm; const out = [];
+  while((mm = re.exec(svgText))){
+    const stroke = strokeMap[mm[1]];
+    if(!stroke) continue;
+    out.push({ key: mm[2]+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', d: mm[2] });
+  }
+  return out;
+}
 // Tirets/pastilles de repère par position : dessinés en <line>/<circle> (contour, pas
 // remplissage) dans les fichiers sources — invisibles pour extractRects/extractPaths.
 function extractLines(svgText){
@@ -1031,6 +1045,7 @@ function extractTexts(svgText){
 function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
+  const baseStrokePathKeys = new Set(extractStrokePaths(baseText).map(p=>p.key));
   const baseLineKeys = new Set(extractLines(baseText).map(l=>l.key));
   const basePolylineKeys = new Set(extractPolylines(baseText).map(p=>p.key));
   const basePolygonKeys = new Set(extractPolygons(baseText).map(p=>p.key));
@@ -1038,6 +1053,7 @@ function extraMarksVsBase(baseText, otherText){
   const baseTextKeys = new Set(extractTexts(baseText).map(x=>x.key));
   const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
   const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
+  const extraStrokePaths = extractStrokePaths(otherText).filter(p => !baseStrokePathKeys.has(p.key));
   const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key));
   const extraPolylines = extractPolylines(otherText).filter(p => !basePolylineKeys.has(p.key));
   const extraPolygons = extractPolygons(otherText).filter(p => !basePolygonKeys.has(p.key));
@@ -1046,6 +1062,7 @@ function extraMarksVsBase(baseText, otherText){
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
+  extraStrokePaths.forEach(p => { out += `<path d="${p.d}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="${l.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
@@ -1062,6 +1079,7 @@ function extraMarksVsBase(baseText, otherText){
 function stripMarksUniqueToBase(baseText, otherText){
   const { fillMap, strokeMap } = parseStyleColors(baseText);
   const otherPathKeys = new Set(extractPaths(otherText).map(p=>p.key));
+  const otherStrokePathKeys = new Set(extractStrokePaths(otherText).map(p=>p.key));
   const otherLineKeys = new Set(extractLines(otherText).map(l=>l.key));
   const otherPolylineKeys = new Set(extractPolylines(otherText).map(p=>p.key));
   const otherPolygonKeys = new Set(extractPolygons(otherText).map(p=>p.key));
@@ -1069,8 +1087,11 @@ function stripMarksUniqueToBase(baseText, otherText){
   const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
   let out = baseText;
   out = out.replace(/<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g, (m, cls, d) => {
-    const fill = fillMap[cls]; if(!fill) return m;
-    return otherPathKeys.has(d+'|'+fill) ? m : '';
+    const fill = fillMap[cls];
+    if(fill) return otherPathKeys.has(d+'|'+fill) ? m : '';
+    const stroke = strokeMap[cls];
+    if(stroke) return otherStrokePathKeys.has(d+'|'+stroke) ? m : '';
+    return m;
   });
   out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls, x1,y1,x2,y2) => {
     const stroke = strokeMap[cls]; if(!stroke) return m;
