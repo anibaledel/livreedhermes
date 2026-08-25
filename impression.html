@@ -1044,10 +1044,10 @@ function extraMarksVsBase(baseText, otherText){
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
-  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" fill="none"/>`; });
-  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" fill="none"/>`; });
-  extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" fill="none"/>`; });
-  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" fill="none"/>`; });
+  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
+  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
+  extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
+  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
   extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
   return out;
 }
