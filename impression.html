@@ -1026,29 +1026,7 @@ function extractTexts(svgText){
 // NB : la plupart des <path>/<line> d'un fichier de position sont en réalité du décor
 // partagé identique d'un fichier à l'autre (cadre, logo) — c'est ce diff qui les filtre
 // correctement ; les extraire "à sec" sans diff les dupliquerait à chaque position.
-// Le "milieu des bordures" (4 losanges/croix à mi-côté, identiques sur les 6 positions et
-// les 24 calques d'une famille — vérifié directement sur les fichiers réels) occupe 4 zones
-// de coordonnées fixes, toujours les mêmes quel que soit le fichier. Tout élément qui y tombe
-// doit être fixe par famille (jamais affecté par l'axe réellement tiré à cette position) ;
-// mode 'milieu' ne garde que ces éléments, mode 'axis' garde tout le reste (le symbole propre
-// à la position qui, lui, doit suivre l'axe tiré). mode absent = tout (catégories II/III/IV,
-// pas encore audités de la même façon).
-const MILIEU_ZONES = [
-  {x:[266,330], y:[172,232]},
-  {x:[266,330], y:[608,672]},
-  {x:[484,548], y:[390,452]},
-  {x:[48,112],  y:[390,452]},
-];
-function inMilieuZone(x, y){
-  if(x==null || y==null || isNaN(x) || isNaN(y)) return false;
-  return MILIEU_ZONES.some(z => x >= z.x[0] && x <= z.x[1] && y >= z.y[0] && y <= z.y[1]);
-}
-function keepByZone(zoneMode, x, y){
-  if(!zoneMode) return true;
-  const inZone = inMilieuZone(x, y);
-  return zoneMode === 'milieu' ? inZone : !inZone;
-}
-function extraMarksVsBase(baseText, otherText, zoneMode){
+function extraMarksVsBase(baseText, otherText){
   const baseRectKeys = new Set(extractRects(baseText).map(r=>r.key));
   const basePathKeys = new Set(extractPaths(baseText).map(p=>p.key));
   const baseLineKeys = new Set(extractLines(baseText).map(l=>l.key));
@@ -1056,13 +1034,13 @@ function extraMarksVsBase(baseText, otherText, zoneMode){
   const basePolygonKeys = new Set(extractPolygons(baseText).map(p=>p.key));
   const baseCircleKeys = new Set(extractCircles(baseText).map(c=>c.key));
   const baseTextKeys = new Set(extractTexts(baseText).map(x=>x.key));
-  const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key) && keepByZone(zoneMode, +r.x, +r.y));
-  const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key) && keepByZone(zoneMode, null, null));
-  const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key) && keepByZone(zoneMode, +l.x1, +l.y1));
-  const extraPolylines = extractPolylines(otherText).filter(p => !basePolylineKeys.has(p.key) && keepByZone(zoneMode, ...p.points.trim().split(/[\s,]+/).slice(0,2).map(Number)));
-  const extraPolygons = extractPolygons(otherText).filter(p => !basePolygonKeys.has(p.key) && keepByZone(zoneMode, ...p.points.trim().split(/[\s,]+/).slice(0,2).map(Number)));
-  const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key) && keepByZone(zoneMode, +c.cx, +c.cy));
-  const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key) && keepByZone(zoneMode, ...(x.transform.match(/-?[\d.]+/g)||[]).slice(0,2).map(Number)));
+  const extraRects = extractRects(otherText).filter(r => !baseRectKeys.has(r.key));
+  const extraPaths = extractPaths(otherText).filter(p => !basePathKeys.has(p.key));
+  const extraLines = extractLines(otherText).filter(l => !baseLineKeys.has(l.key));
+  const extraPolylines = extractPolylines(otherText).filter(p => !basePolylineKeys.has(p.key));
+  const extraPolygons = extractPolygons(otherText).filter(p => !basePolygonKeys.has(p.key));
+  const extraCircles = extractCircles(otherText).filter(c => !baseCircleKeys.has(c.key));
+  const extraTexts = extractTexts(otherText).filter(x => !baseTextKeys.has(x.key));
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
@@ -1079,7 +1057,7 @@ function extraMarksVsBase(baseText, otherText, zoneMode){
 // nativement les marques du donneur (axe fixe 'yang') — si l'axe réellement tiré en
 // position 1 diffère, ces marques du donneur doivent être retirées (pas seulement
 // complétées) pour ne pas rester affichées à tort ni se superposer aux nouvelles.
-function stripMarksUniqueToBase(baseText, otherText, zoneMode){
+function stripMarksUniqueToBase(baseText, otherText){
   const { fillMap, strokeMap } = parseStyleColors(baseText);
   const otherPathKeys = new Set(extractPaths(otherText).map(p=>p.key));
   const otherLineKeys = new Set(extractLines(otherText).map(l=>l.key));
@@ -1089,35 +1067,29 @@ function stripMarksUniqueToBase(baseText, otherText, zoneMode){
   const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
   let out = baseText;
   out = out.replace(/<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g, (m, cls, d) => {
-    const fill = fillMap[cls]; if(!fill || !keepByZone(zoneMode, null, null)) return m;
+    const fill = fillMap[cls]; if(!fill) return m;
     return otherPathKeys.has(d+'|'+fill) ? m : '';
   });
   out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls, x1,y1,x2,y2) => {
-    const stroke = strokeMap[cls]; if(!stroke || !keepByZone(zoneMode, +x1, +y1)) return m;
+    const stroke = strokeMap[cls]; if(!stroke) return m;
     return otherLineKeys.has([x1,y1,x2,y2].join(',')+'|'+stroke) ? m : '';
   });
   out = out.replace(/<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g, (m, cls, points) => {
     const stroke = strokeMap[cls]; if(!stroke) return m;
-    const [px,py] = points.trim().split(/[\s,]+/).slice(0,2).map(Number);
-    if(!keepByZone(zoneMode, px, py)) return m;
     return otherPolylineKeys.has(points+'|'+stroke) ? m : '';
   });
   out = out.replace(/<polygon\b[^>]*\/>/g, (m) => {
     const clsM = m.match(/class="(cls-\d+)"/), ptsM = m.match(/points="([^"]*)"/);
     if(!clsM || !ptsM) return m;
     const stroke = strokeMap[clsM[1]]; if(!stroke) return m;
-    const [px,py] = ptsM[1].trim().split(/[\s,]+/).slice(0,2).map(Number);
-    if(!keepByZone(zoneMode, px, py)) return m;
     return otherPolygonKeys.has(ptsM[1]+'|'+stroke) ? m : '';
   });
   out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls, cx,cy,r) => {
-    const stroke = strokeMap[cls]; if(!stroke || !keepByZone(zoneMode, +cx, +cy)) return m;
+    const stroke = strokeMap[cls]; if(!stroke) return m;
     return otherCircleKeys.has([cx,cy,r].join(',')+'|'+stroke) ? m : '';
   });
   out = out.replace(/<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g, (m, cls, transform, content) => {
     const fill = fillMap[cls]; if(!fill) return m;
-    const [tx,ty] = (transform.match(/-?[\d.]+/g)||[]).slice(0,2).map(Number);
-    if(!keepByZone(zoneMode, tx, ty)) return m;
     return otherTextKeys.has(transform+'|'+content) ? m : '';
   });
   return out;
@@ -1161,16 +1133,15 @@ async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
 // retirées de `template`, pour que la position 1 ne montre plus jamais un mélange des
 // marques du donneur et des marques reconstruites (voir stripMarksUniqueToBase).
 //
-// familySlug (optionnel, Catégorie I) : le milieu des bordures (4 losanges/croix à mi-côté,
-// zones MILIEU_ZONES) doit toujours rester fixe pour la famille — jamais affecté par l'axe
-// réellement tiré à une position, même quand cet axe diffère du nom de la famille — car les
-// fichiers <famille>/<axe>/N.svg dont l'axe ne correspond pas à la famille contiennent, dans
-// ces zones précises, la couleur d'une AUTRE famille (vérifié sur les fichiers réels : un
-// mélange de couleurs impossible sinon). Seul le fichier <famille>/<famille>/N.svg (axe =
-// nom de la famille) y est fiable ; on l'utilise donc systématiquement pour ces zones, tandis
-// que tout le reste (carré, chiffre de position, accent propre à la position) continue de
-// suivre l'axe réellement tiré comme avant.
-async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs, familySlug){
+// Les fichiers sources <famille>/<axe>/N.svg contiennent déjà, chacun, exactement les 2
+// couleurs attendues (celle de la famille au milieu + celle de l'axe réellement tiré) — un
+// seul fichier gouverne tout le bloc de la position (grille des 24 cellules ET bordure
+// ensemble, jamais dissociées). Pas besoin de puiser dans un autre fichier "famille" pour
+// une partie de la bordure : ça a été tenté (paramètre familySlug + zones MILIEU_ZONES) pour
+// compenser des fichiers sources alors erronés/pollués par d'autres familles, mais les 96
+// fichiers ont depuis été régénérés proprement (KRE-360-BASES-96-CARTES) et n'ont plus ce
+// problème — la reconstruction par zones a donc été retirée.
+async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
   let block = '';
   let template = templateText;
   for(let pos=1; pos<=6; pos++){
@@ -1188,15 +1159,8 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs, 
       const fill = fillMap[mm[1]];
       if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
     }
-    block += extraMarksVsBase(templateText, posText, familySlug ? 'axis' : undefined);
-    if(pos === 1){
-      template = stripMarksUniqueToBase(templateText, posText, familySlug ? 'axis' : undefined);
-      if(familySlug){
-        const familyText = await loadAxisPositionText(spaceKey, baseDir, familySlug, pos);
-        template = stripMarksUniqueToBase(template, familyText, 'milieu');
-        block += extraMarksVsBase(templateText, familyText, 'milieu');
-      }
-    }
+    block += extraMarksVsBase(templateText, posText);
+    if(pos === 1) template = stripMarksUniqueToBase(templateText, posText);
   }
   return { block, template };
 }
@@ -1248,7 +1212,7 @@ async function drawCategorie1Or3(cat){
   const posDir = baseDir + teinteSlug + '/';
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs, cat === 1 ? teinteSlug : undefined);
+  const { block, template } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
@@ -1256,7 +1220,6 @@ async function drawCategorie1Or3(cat){
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
     drawnSlugs, spaceKey, baseDir: posDir, templateText,
-    familySlug: cat === 1 ? teinteSlug : undefined,
   };
 }
 
@@ -1327,8 +1290,8 @@ async function renderMutationZone(item){
 
   const antSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'ant');
   const postSlugs = slugsForSituation(item.drawnSlugs, hex.movingIdx, 'post');
-  const ant = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, antSlugs, item.familySlug);
-  const post = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, postSlugs, item.familySlug);
+  const ant = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, antSlugs);
+  const post = await buildCompositeBlock(item.spaceKey, item.baseDir, item.templateText, postSlugs);
   document.getElementById('antBox').innerHTML = insertBlockIntoTemplate(ant.template, ant.block);
   document.getElementById('postBox').innerHTML = insertBlockIntoTemplate(post.template, post.block);
 
