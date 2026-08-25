@@ -1168,10 +1168,33 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le bloc déjà calculé
 // (carré + bordure de chaque position, ensemble) — tout le reste du fichier (cadre, logo,
 // décor commun) reste inchangé.
+// Le liseret extérieur (grand rectangle + segments de liaison, trait noir très fin, sans
+// remplissage) est invisible sur le fond noir du site — il existe déjà tel quel dans le
+// fichier, pas une couleur inventée, juste illisible à l'écran. On superpose une copie
+// blanche de ces mêmes éléments, par-dessus tout le reste.
+function renderWhiteLiseret(svgText){
+  const { fillMap, strokeMap } = parseStyleColors(svgText);
+  let out = '';
+  const rectRe = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
+  let mm;
+  while((mm = rectRe.exec(svgText))){
+    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // pas une cellule de la grille
+    const stroke = strokeMap[mm[1]], fill = fillMap[mm[1]];
+    if(stroke !== '#231f20' || fill) continue; // seulement le trait noir sans remplissage
+    out += `<rect x="${mm[2]}" y="${mm[3]}" width="${mm[4]}" height="${mm[5]}" fill="none" stroke="#ffffff" stroke-width="0.5"/>`;
+  }
+  const lineRe = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
+  while((mm = lineRe.exec(svgText))){
+    const stroke = strokeMap[mm[1]];
+    if(stroke !== '#231f20') continue;
+    out += `<line x1="${mm[2]}" y1="${mm[3]}" x2="${mm[4]}" y2="${mm[5]}" stroke="#ffffff" stroke-width="0.5"/>`;
+  }
+  return out;
+}
 function insertBlockIntoTemplate(templateSvgText, block){
   const rectRe = /<rect class="cls-\d+"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="31.16"\s+height="31.16"\/>/g;
   let inserted = false;
-  return templateSvgText.replace(rectRe, (match, xStr, yStr) => {
+  const withBlock = templateSvgText.replace(rectRe, (match, xStr, yStr) => {
     const x = +xStr, y = +yStr;
     const col = CELL_XS.findIndex(v => Math.abs(v - x) < 0.5);
     const row = CELL_YS.findIndex(v => Math.abs(v - y) < 0.5);
@@ -1180,6 +1203,8 @@ function insertBlockIntoTemplate(templateSvgText, block){
     inserted = true;
     return block;
   });
+  const liseret = renderWhiteLiseret(templateSvgText);
+  return withBlock.replace('</svg>', liseret + '</svg>');
 }
 
 async function drawCategorie2(){
