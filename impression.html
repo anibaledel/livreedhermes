@@ -932,24 +932,33 @@ function parseStyleColors(svgText){
 // reproduire, et mieux vaut les ignorer que leur inventer une couleur de repli.
 function extractRects(svgText){
   const { fillMap } = parseStyleColors(svgText);
-  const re = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
+  const re = /<rect\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // cellule de la grille principale : gérée séparément, jamais une marque
-    const fill = fillMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const wM = mm[0].match(/width="([\d.]+)"/);
+    if(wM && Math.abs(+wM[1] - 31.16) < 0.1) continue; // cellule de la grille principale : gérée séparément, jamais une marque
+    const fill = fillMap[clsM[1]];
     if(!fill) continue;
-    out.push({ key: mm.slice(2,6).join(',')+'|'+fill, fill, x:mm[2], y:mm[3], w:mm[4], h:mm[5] });
+    const xM = mm[0].match(/x="([\d.-]+)"/), yM = mm[0].match(/y="([\d.-]+)"/), hM = mm[0].match(/height="([\d.]+)"/);
+    if(!xM || !yM || !wM || !hM) continue;
+    out.push({ key: [xM[1],yM[1],wM[1],hM[1]].join(',')+'|'+fill, fill, x:xM[1], y:yM[1], w:wM[1], h:hM[1] });
   }
   return out;
 }
 function extractPaths(svgText){
   const { fillMap } = parseStyleColors(svgText);
-  const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
+  const re = /<path\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const fill = fillMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const fill = fillMap[clsM[1]];
     if(!fill) continue;
-    out.push({ key: mm[2]+'|'+fill, fill, d: mm[2] });
+    const dM = mm[0].match(/d="([^"]*)"/);
+    if(!dM) continue;
+    out.push({ key: dM[1]+'|'+fill, fill, d: dM[1] });
   }
   return out;
 }
@@ -958,25 +967,38 @@ function extractPaths(svgText){
 // contour, donc ces arcs étaient invisibles partout sauf sur la position 1 (jamais retouchée).
 function extractStrokePaths(svgText){
   const { strokeMap, widthMap } = parseStyleColors(svgText);
-  const re = /<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g;
+  const re = /<path\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const stroke = strokeMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const stroke = strokeMap[clsM[1]];
     if(!stroke) continue;
-    out.push({ key: mm[2]+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', d: mm[2] });
+    const dM = mm[0].match(/d="([^"]*)"/);
+    if(!dM) continue;
+    out.push({ key: dM[1]+'|'+stroke, stroke, strokeWidth: widthMap[clsM[1]]||'1', d: dM[1] });
   }
   return out;
 }
 // Tirets/pastilles de repère par position : dessinés en <line>/<circle> (contour, pas
 // remplissage) dans les fichiers sources — invisibles pour extractRects/extractPaths.
+// Certaines lignes "famille" portent un id/data-name AVANT class (comme les <polygon> —
+// voir extractPolygons) : elles étaient invisibles ici tant que class= devait suivre
+// immédiatement <line, donc jamais réémises pour les positions 2-6.
 function extractLines(svgText){
   const { strokeMap, widthMap } = parseStyleColors(svgText);
-  const re = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
+  const re = /<line\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const stroke = strokeMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const stroke = strokeMap[clsM[1]];
     if(!stroke) continue;
-    out.push({ key: mm.slice(2,6).join(',')+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
+    const x1M = mm[0].match(/x1="([\d.-]+)"/), y1M = mm[0].match(/y1="([\d.-]+)"/);
+    const x2M = mm[0].match(/x2="([\d.-]+)"/), y2M = mm[0].match(/y2="([\d.-]+)"/);
+    if(!x1M || !y1M || !x2M || !y2M) continue;
+    const x1=x1M[1], y1=y1M[1], x2=x2M[1], y2=y2M[1];
+    out.push({ key: [x1,y1,x2,y2].join(',')+'|'+stroke, stroke, strokeWidth: widthMap[clsM[1]]||'1', x1, y1, x2, y2 });
   }
   return out;
 }
@@ -985,12 +1007,16 @@ function extractLines(svgText){
 // (l'autre diagonale) — jamais capturée avant, d'où la croix toujours incomplète.
 function extractPolylines(svgText){
   const { strokeMap, widthMap } = parseStyleColors(svgText);
-  const re = /<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g;
+  const re = /<polyline\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const stroke = strokeMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const stroke = strokeMap[clsM[1]];
     if(!stroke) continue;
-    out.push({ key: mm[2]+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', points: mm[2] });
+    const ptsM = mm[0].match(/points="([^"]*)"/);
+    if(!ptsM) continue;
+    out.push({ key: ptsM[1]+'|'+stroke, stroke, strokeWidth: widthMap[clsM[1]]||'1', points: ptsM[1] });
   }
   return out;
 }
@@ -1012,12 +1038,16 @@ function extractPolygons(svgText){
 }
 function extractCircles(svgText){
   const { strokeMap, widthMap } = parseStyleColors(svgText);
-  const re = /<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g;
+  const re = /<circle\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const stroke = strokeMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const stroke = strokeMap[clsM[1]];
     if(!stroke) continue;
-    out.push({ key: mm.slice(2,5).join(',')+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', cx:mm[2], cy:mm[3], r:mm[4] });
+    const cxM = mm[0].match(/cx="([\d.-]+)"/), cyM = mm[0].match(/cy="([\d.-]+)"/), rM = mm[0].match(/r="([\d.]+)"/);
+    if(!cxM || !cyM || !rM) continue;
+    out.push({ key: [cxM[1],cyM[1],rM[1]].join(',')+'|'+stroke, stroke, strokeWidth: widthMap[clsM[1]]||'1', cx:cxM[1], cy:cyM[1], r:rM[1] });
   }
   return out;
 }
@@ -1025,13 +1055,17 @@ function extractCircles(svgText){
 // changent à chaque position — jamais capturé par extractRects/extractPaths non plus.
 function extractTexts(svgText){
   const { fillMap, fontMap } = parseStyleColors(svgText);
-  const re = /<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g;
+  const re = /<text\b[^>]*>\s*<tspan[^>]*>([^<]*)<\/tspan>\s*<\/text>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
-    const fill = fillMap[mm[1]];
+    const tagOpen = mm[0].slice(0, mm[0].indexOf('>')+1);
+    const clsM = tagOpen.match(/class="(cls-\d+)"/);
+    const transformM = tagOpen.match(/transform="([^"]*)"/);
+    if(!clsM || !transformM) continue;
+    const fill = fillMap[clsM[1]];
     if(!fill) continue;
-    const font = fontMap[mm[1]] || {};
-    out.push({ key: mm[2]+'|'+mm[3], fill, transform: mm[2], content: mm[3], family: font.family, size: font.size });
+    const font = fontMap[clsM[1]] || {};
+    out.push({ key: transformM[1]+'|'+mm[1], fill, transform: transformM[1], content: mm[1], family: font.family, size: font.size });
   }
   return out;
 }
@@ -1094,30 +1128,44 @@ function stripMarksUniqueToBase(baseText, otherText){
   const otherStrokePathKeys = new Set(extractStrokePaths(otherText).map(p=>p.key));
   const otherTextKeys = new Set(extractTexts(otherText).map(x=>x.key));
   let out = baseText;
-  out = out.replace(/<path class="(cls-\d+)"\s+d="([^"]*)"\/>/g, (m, cls, d) => {
-    const fill = fillMap[cls];
-    if(fill) return otherPathKeys.has(d+'|'+fill) ? m : '';
-    const stroke = strokeMap[cls];
-    if(stroke) return otherStrokePathKeys.has(d+'|'+stroke) ? m : '';
+  out = out.replace(/<path\b[^>]*\/>/g, (m) => {
+    const clsM = m.match(/class="(cls-\d+)"/);
+    if(!clsM) return m;
+    const dM = m.match(/d="([^"]*)"/);
+    if(!dM) return m;
+    const fill = fillMap[clsM[1]];
+    if(fill) return otherPathKeys.has(dM[1]+'|'+fill) ? m : '';
+    const stroke = strokeMap[clsM[1]];
+    if(stroke) return otherStrokePathKeys.has(dM[1]+'|'+stroke) ? m : '';
     return m;
   });
-  out = out.replace(/<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g, (m, cls) => {
-    return strokeMap[cls] ? '' : m;
+  out = out.replace(/<line\b[^>]*\/>/g, (m) => {
+    const clsM = m.match(/class="(cls-\d+)"/);
+    if(!clsM) return m;
+    return strokeMap[clsM[1]] ? '' : m;
   });
-  out = out.replace(/<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g, (m, cls) => {
-    return strokeMap[cls] ? '' : m;
+  out = out.replace(/<polyline\b[^>]*\/>/g, (m) => {
+    const clsM = m.match(/class="(cls-\d+)"/);
+    if(!clsM) return m;
+    return strokeMap[clsM[1]] ? '' : m;
   });
   out = out.replace(/<polygon\b[^>]*\/>/g, (m) => {
     const clsM = m.match(/class="(cls-\d+)"/);
     if(!clsM) return m;
     return strokeMap[clsM[1]] ? '' : m;
   });
-  out = out.replace(/<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g, (m, cls) => {
-    return strokeMap[cls] ? '' : m;
+  out = out.replace(/<circle\b[^>]*\/>/g, (m) => {
+    const clsM = m.match(/class="(cls-\d+)"/);
+    if(!clsM) return m;
+    return strokeMap[clsM[1]] ? '' : m;
   });
-  out = out.replace(/<text class="(cls-\d+)" transform="([^"]*)"><tspan[^>]*>([^<]*)<\/tspan><\/text>/g, (m, cls, transform, content) => {
-    const fill = fillMap[cls]; if(!fill) return m;
-    return otherTextKeys.has(transform+'|'+content) ? m : '';
+  out = out.replace(/<text\b[^>]*>\s*<tspan[^>]*>([^<]*)<\/tspan>\s*<\/text>/g, (m, content) => {
+    const tagOpen = m.slice(0, m.indexOf('>')+1);
+    const clsM = tagOpen.match(/class="(cls-\d+)"/);
+    const transformM = tagOpen.match(/transform="([^"]*)"/);
+    if(!clsM || !transformM) return m;
+    const fill = fillMap[clsM[1]]; if(!fill) return m;
+    return otherTextKeys.has(transformM[1]+'|'+content) ? m : '';
   });
   return out;
 }
@@ -1203,19 +1251,28 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
 function renderWhiteLiseret(svgText){
   const { fillMap, strokeMap } = parseStyleColors(svgText);
   let out = '';
-  const rectRe = /<rect class="(cls-\d+)"\s+x="([\d.-]+)"\s+y="([\d.-]+)"\s+width="([\d.]+)"\s+height="([\d.]+)"\/>/g;
+  const rectRe = /<rect\b[^>]*\/>/g;
   let mm;
   while((mm = rectRe.exec(svgText))){
-    if(Math.abs(+mm[4] - 31.16) < 0.1) continue; // pas une cellule de la grille
-    const stroke = strokeMap[mm[1]], fill = fillMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const wM = mm[0].match(/width="([\d.]+)"/);
+    if(wM && Math.abs(+wM[1] - 31.16) < 0.1) continue; // pas une cellule de la grille
+    const stroke = strokeMap[clsM[1]], fill = fillMap[clsM[1]];
     if(stroke !== '#231f20' || fill) continue; // seulement le trait noir sans remplissage
-    out += `<rect x="${mm[2]}" y="${mm[3]}" width="${mm[4]}" height="${mm[5]}" fill="none" stroke="#ffffff" stroke-width="0.5"/>`;
+    const xM = mm[0].match(/x="([\d.-]+)"/), yM = mm[0].match(/y="([\d.-]+)"/), hM = mm[0].match(/height="([\d.]+)"/);
+    if(!xM || !yM || !wM || !hM) continue;
+    out += `<rect x="${xM[1]}" y="${yM[1]}" width="${wM[1]}" height="${hM[1]}" fill="none" stroke="#ffffff" stroke-width="0.5"/>`;
   }
-  const lineRe = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
+  const lineRe = /<line\b[^>]*\/>/g;
   while((mm = lineRe.exec(svgText))){
-    const stroke = strokeMap[mm[1]];
+    const clsM = mm[0].match(/class="(cls-\d+)"/);
+    if(!clsM) continue;
+    const stroke = strokeMap[clsM[1]];
     if(stroke !== '#231f20') continue;
-    out += `<line x1="${mm[2]}" y1="${mm[3]}" x2="${mm[4]}" y2="${mm[5]}" stroke="#ffffff" stroke-width="0.5"/>`;
+    const x1M = mm[0].match(/x1="([\d.-]+)"/), y1M = mm[0].match(/y1="([\d.-]+)"/), x2M = mm[0].match(/x2="([\d.-]+)"/), y2M = mm[0].match(/y2="([\d.-]+)"/);
+    if(!x1M || !y1M || !x2M || !y2M) continue;
+    out += `<line x1="${x1M[1]}" y1="${y1M[1]}" x2="${x2M[1]}" y2="${y2M[1]}" stroke="#ffffff" stroke-width="0.5"/>`;
   }
   return out;
 }
