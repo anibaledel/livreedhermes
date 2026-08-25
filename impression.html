@@ -907,22 +907,24 @@ const axisPositionTexts = {};
 // de position, qui est un <text> dans les fichiers bases-cartes/par3-cartes.
 function parseStyleColors(svgText){
   const m = svgText.match(/<style>([\s\S]*?)<\/style>/);
-  const fillMap = {}, strokeMap = {}, fontMap = {};
-  if(!m) return { fillMap, strokeMap, fontMap };
+  const fillMap = {}, strokeMap = {}, fontMap = {}, widthMap = {};
+  if(!m) return { fillMap, strokeMap, fontMap, widthMap };
   const blocks = [...m[1].matchAll(/([^{}]+)\{([^}]*)\}/g)];
   for(const b of blocks){
     const classes = b[1].split(',').map(s=>s.trim().replace(/^\./,'')).filter(s=>/^cls-\d+$/.test(s));
     const fm = b[2].match(/fill:\s*(#[0-9a-fA-F]{6})/);
     const sm = b[2].match(/stroke:\s*(#[0-9a-fA-F]{6})/);
+    const wm = b[2].match(/stroke-width:\s*([\d.]+)/);
     const famM = b[2].match(/font-family:\s*([^;]+);/);
     const sizeM = b[2].match(/font-size:\s*([\d.]+px)/);
     classes.forEach(cls=>{
       if(fm) fillMap[cls] = fm[1].toLowerCase();
       if(sm) strokeMap[cls] = sm[1].toLowerCase();
+      if(wm) widthMap[cls] = wm[1];
       if(famM || sizeM) fontMap[cls] = { family: famM && famM[1].trim(), size: sizeM && sizeM[1] };
     });
   }
-  return { fillMap, strokeMap, fontMap };
+  return { fillMap, strokeMap, fontMap, widthMap };
 }
 
 // Chaque extracteur exclut les éléments dont la couleur réelle ne se résout pas (ex. les
@@ -954,13 +956,13 @@ function extractPaths(svgText){
 // Tirets/pastilles de repère par position : dessinés en <line>/<circle> (contour, pas
 // remplissage) dans les fichiers sources — invisibles pour extractRects/extractPaths.
 function extractLines(svgText){
-  const { strokeMap } = parseStyleColors(svgText);
+  const { strokeMap, widthMap } = parseStyleColors(svgText);
   const re = /<line class="(cls-\d+)"\s+x1="([\d.-]+)"\s+y1="([\d.-]+)"\s+x2="([\d.-]+)"\s+y2="([\d.-]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
     const stroke = strokeMap[mm[1]];
     if(!stroke) continue;
-    out.push({ key: mm.slice(2,6).join(',')+'|'+stroke, stroke, x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
+    out.push({ key: mm.slice(2,6).join(',')+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', x1:mm[2], y1:mm[3], x2:mm[4], y2:mm[5] });
   }
   return out;
 }
@@ -968,20 +970,20 @@ function extractLines(svgText){
 // fichiers sources, une <line> (une diagonale) + une <polyline> à 3 points colinéaires
 // (l'autre diagonale) — jamais capturée avant, d'où la croix toujours incomplète.
 function extractPolylines(svgText){
-  const { strokeMap } = parseStyleColors(svgText);
+  const { strokeMap, widthMap } = parseStyleColors(svgText);
   const re = /<polyline class="(cls-\d+)"\s+points="([^"]*)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
     const stroke = strokeMap[mm[1]];
     if(!stroke) continue;
-    out.push({ key: mm[2]+'|'+stroke, stroke, points: mm[2] });
+    out.push({ key: mm[2]+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', points: mm[2] });
   }
   return out;
 }
 // Losange (famille yang-mut) et symboles analogues : dessinés en <polygon>, avec id/data-name
 // AVANT class (contrairement aux autres formes) — jamais capturé avant faute d'en tenir compte.
 function extractPolygons(svgText){
-  const { strokeMap } = parseStyleColors(svgText);
+  const { strokeMap, widthMap } = parseStyleColors(svgText);
   const re = /<polygon\b[^>]*\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
@@ -990,18 +992,18 @@ function extractPolygons(svgText){
     if(!clsM || !ptsM) continue;
     const stroke = strokeMap[clsM[1]];
     if(!stroke) continue;
-    out.push({ key: ptsM[1]+'|'+stroke, stroke, points: ptsM[1] });
+    out.push({ key: ptsM[1]+'|'+stroke, stroke, strokeWidth: widthMap[clsM[1]]||'1', points: ptsM[1] });
   }
   return out;
 }
 function extractCircles(svgText){
-  const { strokeMap } = parseStyleColors(svgText);
+  const { strokeMap, widthMap } = parseStyleColors(svgText);
   const re = /<circle class="(cls-\d+)"\s+cx="([\d.-]+)"\s+cy="([\d.-]+)"\s+r="([\d.]+)"\/>/g;
   let mm; const out = [];
   while((mm = re.exec(svgText))){
     const stroke = strokeMap[mm[1]];
     if(!stroke) continue;
-    out.push({ key: mm.slice(2,5).join(',')+'|'+stroke, stroke, cx:mm[2], cy:mm[3], r:mm[4] });
+    out.push({ key: mm.slice(2,5).join(',')+'|'+stroke, stroke, strokeWidth: widthMap[mm[1]]||'1', cx:mm[2], cy:mm[3], r:mm[4] });
   }
   return out;
 }
@@ -1044,10 +1046,10 @@ function extraMarksVsBase(baseText, otherText){
   let out = '';
   extraRects.forEach(r => { out += `<rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" fill="${r.fill}"/>`; });
   extraPaths.forEach(p => { out += `<path d="${p.d}" fill="${p.fill}"/>`; });
-  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
-  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
-  extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
-  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="3.5" stroke-miterlimit="10" fill="none"/>`; });
+  extraLines.forEach(l => { out += `<line x1="${l.x1}" y1="${l.y1}" x2="${l.x2}" y2="${l.y2}" stroke="${l.stroke}" stroke-width="${l.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extraPolylines.forEach(p => { out += `<polyline points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extraPolygons.forEach(p => { out += `<polygon points="${p.points}" stroke="${p.stroke}" stroke-width="${p.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
+  extraCircles.forEach(c => { out += `<circle cx="${c.cx}" cy="${c.cy}" r="${c.r}" stroke="${c.stroke}" stroke-width="${c.strokeWidth}" stroke-miterlimit="10" fill="none"/>`; });
   extraTexts.forEach(x => { out += `<text transform="${x.transform}" fill="${x.fill}"${x.family?` font-family="${x.family}"`:''}${x.size?` font-size="${x.size}"`:''}><tspan x="0" y="0">${x.content}</tspan></text>`; });
   return out;
 }
