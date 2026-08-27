@@ -172,8 +172,8 @@
   }
   .preview-box svg{ width:100%; height:100%; }
   .result-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-bottom:6px; }
-  .result-value{ font-size:22px; color:var(--gold); font-weight:400; margin-bottom:14px; font-family:Georgia,serif; }
-  .result-idea{ font-size:13px; line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; font-family:Georgia,serif; }
+  .result-value{ font-size:22px; color:var(--gold); font-weight:400; margin-bottom:14px; }
+  .result-idea{ font-size:13px; line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; }
   .result-idea .kw{ color:var(--red); }
 
   /* liseret : léger contour décoratif en retrait, posé autour des cadres (motif du haut
@@ -186,8 +186,13 @@
   .hex-mutation-zone.visible{ display:block; }
   .hex-text-block{
     max-width:640px; margin:0 auto 28px; text-align:center;
-    font-family:Georgia,serif; color:var(--white); font-size:13px; line-height:1.7;
+    color:var(--white); font-size:13px; line-height:1.7;
   }
+  .hex-text-block .keyword{
+    font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px;
+  }
+  .hex-text-block .keyword-sub{ font-size:15px; font-style:italic; color:var(--red); margin:0 0 8px; }
+  .hex-text-block .judgement{ font-size:13px; line-height:1.65; color:var(--white); }
   .hex-text-block .hex-tag{
     font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
     font-family:Helvetica,Arial,sans-serif; margin-bottom:8px;
@@ -230,11 +235,11 @@
 
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
-    <div class="eyebrow" id="txt-eyebrow">La Livrée d'Hermès</div>
+    <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1 id="txt-title">Impression — tirage &amp; calques</h1>
     <p id="txt-subtitle">Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.</p>
     <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
+    <div id="google_translate_element" class="gtranslate-slot"></div>
 
     <div class="book-bar">
       <span class="dl-group">
@@ -328,9 +333,9 @@
     </div>
 
     <div class="hex-mutation-zone" id="hexMutationZone">
-      <div class="hex-text-block" id="hexTextAnt"></div>
       <div class="mutant-lines-block" id="mutantLinesBlock"></div>
-      <div class="ant-post-row">
+      <div class="hex-text-block" id="hexTextAnt"></div>
+      <div class="ant-post-row" id="antPostRow">
         <div class="ant-post-col ant">
           <span class="ant-post-label" id="txt-situationAnt">Situation antérieure</span>
           <div class="liseret"><div class="ant-post-box" id="antBox"></div></div>
@@ -1368,33 +1373,51 @@ function hexTextBlockHtml(kwNum, tagLabel){
   const info = HEX_KW[kwNum];
   return `<div class="hex-tag">${tagLabel} — N°${kwNum} ${info[1]} (${info[0]})</div>
     <div class="hex-title">${info[2]}</div>
-    <div class="hex-image">${IMAGE_FR[kwNum] || ''}</div>
-    <div><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>
+    <div class="keyword">${t('imageLabel')}</div>
+    <div class="keyword-sub">${info[1]}</div>
+    <div class="judgement">${IMAGE_FR[kwNum] || ''}</div>
+    <div class="keyword">${t('judgementLabel')}</div>
+    <div class="keyword-sub">${info[2]}</div>
+    <div class="judgement">${info[3]}</div>
     ${pairTextHtml(kwNum)}`;
 }
 
 function resultIdeaHtml(kwNum){
   const info = HEX_KW[kwNum];
   return `<div style="color:var(--gold);font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">${t('hexDepart')} — N°${kwNum} ${info[1]} (${info[0]})</div>
-    <div style="color:var(--red);font-size:15px;margin-bottom:8px;">${info[2]}</div>
-    ${IMAGE_FR[kwNum] || ''}
-    <div style="margin-top:10px;"><b style="color:var(--white);">${t('judgementLabel')}</b> — ${info[3]}</div>
-    ${pairTextHtml(kwNum)}`;
+    <div style="color:var(--red);font-size:15px;">${info[2]}</div>`;
 }
 
 async function renderMutationZone(item){
   const zone = document.getElementById('hexMutationZone');
   const hex = item.hex;
-  if(!hex || !hex.movingIdx.length){
+  if(!hex){
     zone.classList.remove('visible');
     return;
   }
 
+  const mutantBlock = document.getElementById('mutantLinesBlock');
+  const antPostRow = document.getElementById('antPostRow');
+  const postBlock = document.getElementById('hexTextPost');
+
+  // Texte général (Image + Jugement) du départ : affiché une seule fois sur toute
+  // la page, ici, après le bloc des traits mutables (jamais dans #resultIdea, qui
+  // ne montre plus qu'un intitulé court, pour éviter la répétition constatée).
   document.getElementById('hexTextAnt').innerHTML = hexTextBlockHtml(hex.kw, t('hexDepart'));
-  document.getElementById('hexTextPost').innerHTML = hexTextBlockHtml(hex.arrivee.kw, t('hexArrivee'));
+
+  if(!hex.movingIdx.length){
+    mutantBlock.innerHTML = '';
+    antPostRow.style.display = 'none';
+    postBlock.innerHTML = '';
+    zone.classList.add('visible');
+    return;
+  }
+
+  antPostRow.style.display = '';
+  postBlock.innerHTML = hexTextBlockHtml(hex.arrivee.kw, t('hexArrivee'));
 
   const traits = item.drawnSlugs.map(s => (s==='yang'||s==='yang-mut') ? 1 : 0);
-  document.getElementById('mutantLinesBlock').innerHTML = hex.movingIdx.slice().sort((a,b)=>a-b).map(i=>
+  mutantBlock.innerHTML = hex.movingIdx.slice().sort((a,b)=>a-b).map(i=>
     `<div class="mutant-line"><div class="lbl">${t('traitMutantLabel')} ${i+1}</div>${hexLineText(hex.kw, i+1, traits[i])}</div>`
   ).join('');
 
