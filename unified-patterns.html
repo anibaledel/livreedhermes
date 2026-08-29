@@ -571,7 +571,9 @@ function renderMotifDetail(){
   const swNeutral = document.createElement('span'); swNeutral.className='motif-swatch'; swNeutral.id='swatchNeutral'; swNeutral.title='Zone neutre';
   const swLight = document.createElement('span'); swLight.className='motif-swatch'; swLight.id='swatchLight'; swLight.title='Zone claire (+20% luminosité)';
   swatches.appendChild(swDark); swatches.appendChild(swNeutral); swatches.appendChild(swLight);
-  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches);
+  const resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='site-nav-btn'; resetBtn.id='btnResetMotifColor';
+  resetBtn.textContent = 'Réinitialiser la couleur';
+  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches); colorRow.appendChild(resetBtn);
   wrap.appendChild(colorRow);
 
   // ---- agrandissement ----
@@ -619,6 +621,7 @@ function renderMotifDetail(){
   panel.appendChild(wrap);
 
   colorInput.addEventListener('input', (e)=>{ currentColor = e.target.value; updateColorDependentParts(); });
+  resetBtn.addEventListener('click', ()=>{ currentColor = DEFAULT_COLOR; colorInput.value = DEFAULT_COLOR; updateColorDependentParts(); });
   dlBtn.addEventListener('click', downloadMotifPng);
 
   updateColorDependentParts();
