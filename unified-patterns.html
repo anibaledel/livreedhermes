@@ -491,16 +491,20 @@ function recolorSvg(svgText, shades){
   return svgText.replace(/<style>[\s\S]*?<\/style>/,
     `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
 }
-// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.29–572.71) au milieu
-// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré (avec une
-// petite marge) pour que le motif remplisse la vignette/l'agrandissement/la tessellation
-// au lieu d'apparaître comme un point minuscule.
-const MOTIF_CROP_VIEWBOX = '922 502 76 76';
-function cropSvg(svgText){
-  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${MOTIF_CROP_VIEWBOX}"`);
+// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.26–572.74) au milieu
+// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré pour que le
+// motif remplisse la vignette/l'agrandissement/la tessellation au lieu d'apparaître comme
+// un point minuscule.
+const MOTIF_CROP_VIEWBOX = '922 502 76 76'; // avec marge, pour la vignette/l'agrandissement isolés
+const MOTIF_TESS_VIEWBOX = '927.29 507.26 65.42 65.48'; // bbox exacte, sans marge, pour que les carrés du pavage se touchent
+function cropSvg(svgText, viewBox){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${viewBox}"`);
 }
 function prepareSvg(svgText, shades){
-  return cropSvg(recolorSvg(svgText, shades));
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_CROP_VIEWBOX);
+}
+function prepareTessSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_TESS_VIEWBOX);
 }
 function svgDataUri(svgText){
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
@@ -625,8 +629,9 @@ function updateColorDependentParts(){
   const uri = svgDataUri(prepareSvg(MOTIF_RAW[currentKw], shades));
   const enlargedImg = document.getElementById('motifEnlargedImg');
   if(enlargedImg) enlargedImg.src = uri;
+  const tessUri = svgDataUri(prepareTessSvg(MOTIF_RAW[currentKw], shades));
   const tessBox = document.getElementById('motifTessBox');
-  if(tessBox) tessBox.style.backgroundImage = `url("${uri}")`;
+  if(tessBox) tessBox.style.backgroundImage = `url("${tessUri}")`;
   const swDark = document.getElementById('swatchDark'); if(swDark) swDark.style.background = shades.dark;
   const swNeutral = document.getElementById('swatchNeutral'); if(swNeutral) swNeutral.style.background = shades.neutral;
   const swLight = document.getElementById('swatchLight'); if(swLight) swLight.style.background = shades.light;
