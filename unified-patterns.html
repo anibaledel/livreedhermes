@@ -143,9 +143,10 @@
   .motif-swatch{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:inline-block; }
   .motif-swatch-tag{ font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
 
-  .motif-box{ aspect-ratio:1920/1080; background:#050505; display:flex; align-items:center; justify-content:center; }
+  /* même taille que .pavage-sq de la page Tirage (le carré qui montre le tirage) */
+  .motif-box{ width:130px; height:130px; background:#050505; display:flex; align-items:center; justify-content:center; }
   .motif-box img{ width:100%; height:100%; display:block; }
-  .motif-box-wrap{ max-width:520px; margin-bottom:14px; }
+  .motif-box-wrap{ margin-bottom:14px; }
 
   .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
   .motif-detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
@@ -156,10 +157,10 @@
   .keyword-sub{ font-size:15px; font-style:italic; color:var(--red); margin:-2px 0 8px; }
   .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; }
 
-  .tessellation-wrap{ margin-top:28px; max-width:520px; }
+  .tessellation-wrap{ margin-top:28px; max-width:400px; }
   .tessellation-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
   .motif-tess-box{
-    aspect-ratio:1920/1080; background:#050505;
+    aspect-ratio:1/1; background:#050505;
     background-repeat:repeat; background-size:25% 25%;
   }
 
@@ -490,6 +491,17 @@ function recolorSvg(svgText, shades){
   return svgText.replace(/<style>[\s\S]*?<\/style>/,
     `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
 }
+// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.29–572.71) au milieu
+// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré (avec une
+// petite marge) pour que le motif remplisse la vignette/l'agrandissement/la tessellation
+// au lieu d'apparaître comme un point minuscule.
+const MOTIF_CROP_VIEWBOX = '922 502 76 76';
+function cropSvg(svgText){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${MOTIF_CROP_VIEWBOX}"`);
+}
+function prepareSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades));
+}
 function svgDataUri(svgText){
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
 }
@@ -521,7 +533,7 @@ function buildGrid(){
     const label = document.createElement('div'); label.className='num'; label.textContent = chrono;
     cell.appendChild(label);
     const img = document.createElement('img');
-    img.src = svgDataUri(recolorSvg(MOTIF_RAW[kw], defaultShades));
+    img.src = svgDataUri(prepareSvg(MOTIF_RAW[kw], defaultShades));
     img.alt = HEX_KW[kw][1];
     cell.appendChild(img);
     cell.addEventListener('click', ()=> selectMotif(kw));
@@ -610,7 +622,7 @@ function renderMotifDetail(){
 function updateColorDependentParts(){
   if(currentKw == null) return;
   const shades = deriveShades(currentColor);
-  const uri = svgDataUri(recolorSvg(MOTIF_RAW[currentKw], shades));
+  const uri = svgDataUri(prepareSvg(MOTIF_RAW[currentKw], shades));
   const enlargedImg = document.getElementById('motifEnlargedImg');
   if(enlargedImg) enlargedImg.src = uri;
   const tessBox = document.getElementById('motifTessBox');
@@ -624,13 +636,13 @@ function downloadMotifPng(){
   if(currentKw == null) return;
   const info = HEX_KW[currentKw];
   const shades = deriveShades(currentColor);
-  const recolored = recolorSvg(MOTIF_RAW[currentKw], shades);
+  const recolored = prepareSvg(MOTIF_RAW[currentKw], shades);
   const img = new Image();
   img.onload = ()=>{
-    const scale = 4; // 1920x1080 * 4 = 7680x4320 px, largement au-delà de 300dpi pour un usage textile
+    const size = 4096; // carré, largement au-delà de 300dpi pour un usage textile
     const canvas = document.createElement('canvas');
-    canvas.width = 1920*scale;
-    canvas.height = 1080*scale;
+    canvas.width = size;
+    canvas.height = size;
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     canvas.toBlob((blob)=>{
