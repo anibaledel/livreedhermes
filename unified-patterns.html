@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Patterns — La Livrée d'Hermès</title>
+<meta name="description" content="Les 64 motifs textiles associés aux 64 hexagrammes du Yi King, personnalisables en couleur et téléchargeables en haute résolution pour impression textile.">
+<meta property="og:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta property="og:description" content="Les 64 motifs textiles associés aux 64 hexagrammes du Yi King, personnalisables en couleur et téléchargeables en haute résolution pour impression textile.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/unified-patterns.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/unified-patterns.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta name="twitter:description" content="Les 64 motifs textiles associés aux 64 hexagrammes du Yi King, personnalisables en couleur et téléchargeables en haute résolution pour impression textile.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
+  :root{
+    --bg:#000;
+    --panel:#0a0a0a;
+    --white:#f2f2f0;
+    --dim:#6b6b6b;
+    --red:#e0261b;
+    --red-dim:#5a120e;
+    --gold:#c9a15a;
+    --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:16px 0 16px; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
+  header .eyebrow{
+    letter-spacing:.35em;
+    font-size:11px;
+    color:var(--red);
+    text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
+  }
+
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:14px; cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .book-bar .dl-group{
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+  }
+  .book-bar .dl-label{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+  .dl-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; display:inline-block;
+  }
+  .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .layout{ display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
+  @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+
+  .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
+  .grid-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .grid-head .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
+  .axis-note{ font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note b{ color:var(--red); font-weight:400; }
+
+  .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
+  .cell{
+    aspect-ratio:1; background:#050505; border:1px solid var(--line);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    padding:3px; position:relative; overflow:hidden;
+    transition:border-color .12s ease, transform .12s ease;
+  }
+  .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
+  .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .cell .num{ position:absolute; top:2px; left:3px; font-size:7px; color:var(--dim); z-index:1; }
+  .cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
+
+  .empty-state{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:496px; gap:24px;
+    color:var(--dim); font-size:13px;
+    text-align:center; line-height:1.7;
+  }
+  .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
+  @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
+
+  /* ===== bloc motif : couleur, agrandissement, texte, tessellation ===== */
+  .liseret{ border:1px solid var(--gold); padding:6px; }
+  .motif-color-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .motif-color-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  #motifColorInput{ width:44px; height:28px; border:1px solid var(--line); background:transparent; cursor:pointer; padding:0; }
+  .motif-swatches{ display:flex; gap:6px; align-items:center; }
+  .motif-swatch{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:inline-block; }
+  .motif-swatch-tag{ font-size:9px; color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+
+  .motif-box{ aspect-ratio:1920/1080; background:#050505; display:flex; align-items:center; justify-content:center; }
+  .motif-box img{ width:100%; height:100%; display:block; }
+  .motif-box-wrap{ max-width:520px; margin-bottom:14px; }
+
+  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
+  .motif-detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
+  .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:6px; }
+  .altnum{ font-size:10px; color:var(--dim); margin-bottom:20px; }
+
+  .keyword{ font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px; }
+  .keyword-sub{ font-size:15px; font-style:italic; color:var(--red); margin:-2px 0 8px; }
+  .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; }
+
+  .tessellation-wrap{ margin-top:28px; max-width:520px; }
+  .tessellation-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .motif-tess-box{
+    aspect-ratio:1920/1080; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .site-nav-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+
+  /* ---------- mobile ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .detail-outer{ padding:20px 18px; min-height:0; }
+    .grid-panel{ padding:12px; }
+    .book-bar{ gap:10px; }
+    .book-bar .dl-group{ padding:6px 10px; }
+    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
+    .site-nav-btn{ padding:11px 16px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .book-bar .dl-btn{ padding:10px 14px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    .judgement{ font-size:15px; }
+    .empty-state{ font-size:14.5px; }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1 id="txt-title">Unified Patterns</h1>
+    <p id="txt-subtitle" style="color:var(--dim);font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;">Les 64 motifs textiles associés aux 64 hexagrammes du Yi King — cliquez une case pour personnaliser sa couleur et télécharger le motif.</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
+    <div id="google_translate_element" class="gtranslate-slot"></div>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" id="txt-readBook" href="book-viewer/index.html" target="_blank" rel="noopener">Lire le livre</a>
+        <span class="flags">
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=fr" target="_blank" rel="noopener" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=en" target="_blank" rel="noopener" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=es" target="_blank" rel="noopener" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="book-viewer/index.html?lang=th" target="_blank" rel="noopener" title="ไทย">🇹🇭</a>
+          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
+          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlPdfBook">Télécharger le PDF du livre</span>
+        <span class="flags">
+          <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-EN2.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-ES2.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="book-viewer/LLDH-livre-TH2.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
+          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlYiKing">Télécharger la traduction du Yi-King</span>
+        <span class="flags">
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-ZH.docx" download title="中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+        </span>
+      </span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div class="grid-panel">
+      <div class="grid-head">
+        <span class="label">Motifs unifiés</span>
+        <span class="label">00 → 63</span>
+      </div>
+      <div class="axis-note">Même ordre chronologique que la page <b>Tirage</b> : <b>Le Créateur</b> en bas à droite, <b>Le Réceptif</b> en haut à gauche. Cliquez une case pour l'ouvrir ci-contre.</div>
+      <div class="hexgrid" id="hexgrid"></div>
+    </div>
+
+    <div class="detail-outer">
+      <div id="detail">
+        <div class="empty-state"><img src="assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès">Cliquez une case de l'échiquier pour afficher son motif, choisir sa couleur et voir sa tessellation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pied de page ===== -->
+  <div class="note">
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="index.html">Accueil</a>
+      <a class="site-nav-btn" href="/">Tirage</a>
+      <a class="site-nav-btn" href="motifs%20(4).html">Créer un motif</a>
+      <a class="site-nav-btn current" href="unified-patterns.html">Unified Patterns</a>
+      <a class="site-nav-btn" href="pages.html#projets">Fond d'écran</a>
+      <a class="site-nav-btn" href="impression.html">Impression</a>
+      <a class="site-nav-btn" href="contact.html">Contact</a>
+      <a class="site-nav-btn" href="a-propos.html">À propos</a>
+    </div>
+
+    <div class="center-logo-slot">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+// ---------- ordre chronologique (identique à index.html / impression.html) ----------
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+const CHRONO_BY_KW = {};
+KINGWEN_BY_CHRONO.forEach((kw,chrono)=>{ CHRONO_BY_KW[kw] = chrono; });
+
+// ---------- texte général des 64 hexagrammes (même contenu/source que la page Tirage) ----------
+// HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+const HEX_KW = {
+1:["Qian","Le Créateur","Amorce","Le trait plein s'élance seul, sans encore de vêtement. Au tout premier degré de la figure, la puissance existe déjà tout entière, mais elle n'a encore pris aucune forme reconnaissable — elle n'est vêtue d'aucune fonction, d'aucun rôle. C'est la force à l'état pur, avant qu'elle ne se donne un nom. Ce trait annonce ce que seront les cinq suivants : une progression où le pouvoir d'agir se façonne peu à peu un habit, jusqu'à ce que la figure entière, au sommet, découvre que même la plus grande force doit apprendre à se retenir."],
+2:["Kun","Le Réceptif","Assise","Le sol reçoit, la forme se pose. Rien encore n'est advenu, et pourtant tout est déjà rendu possible : la terre du premier trait n'exige rien, elle attend. Ce n'est pas la passivité de qui renonce, mais la patience de qui sait que la docilité bien comprise porte en elle toute la fécondité à venir. La figure entière se déploiera à partir de cette seule qualité : accueillir avant de vouloir imposer, se poser avant de prétendre bâtir."],
+3:["Zhun","La Difficulté initiale","Germination","Le germe peine sous la terre du carré. Toute naissance commence dans l'obscurité et la résistance : la graine ignore encore la forme qu'elle prendra, elle ne sait que pousser. Ce trait dit la difficulté qui n'est pas un échec, mais la condition même de tout commencement véritable — rien de grand n'a jamais surgi sans d'abord avoir dû se dégager de ce qui le retenait."],
+4:["Meng","La Folie juvénile","Apprentissage","L'ignorance du disciple appelle le maître. Ce n'est pas une faiblesse que d'ignorer, c'est une ouverture : celui qui ne sait pas encore est celui-là même qui peut apprendre. La figure entière tourne autour de cette rencontre nécessaire entre l'inexpérience qui cherche et l'expérience qui répond — sans cette humilité première, aucun enseignement ne peut avoir prise."],
+5:["Xu","L'Attente","Contenance","L'eau attend sous le ciel sa juste heure. Attendre n'est pas ne rien faire : c'est tenir sa position avec constance pendant que les conditions se forment ailleurs, hors de portée de la volonté. Ce trait enseigne que la précipitation détruit ce que seule la patience peut accomplir — la pluie viendra quand le ciel et la terre seront prêts à se rencontrer, pas avant."],
+6:["Song","Le Conflit","Dénouement","La discorde des forces opposées cherche son issue. Le conflit n'est ni évité ni recherché : il est reconnu pour ce qu'il est, une tension entre deux mouvements qui ne peuvent, par nature, coexister sans friction. La sagesse ici n'est pas de gagner à tout prix, mais de savoir quand une querelle mérite d'être menée jusqu'au bout et quand elle mérite d'être quittée à temps."],
+7:["Shi","L'Armée","Cadence","La discipline collective se règle comme la marche d'une troupe. Aucune force dispersée ne vaut une force organisée : ce trait dit que la puissance véritable n'est jamais celle d'un seul geste éclatant, mais celle d'un ordre patiemment maintenu, où chacun sait sa place et le mouvement d'ensemble l'emporte sur l'élan individuel."],
+8:["Bi","La Solidarité","Tissage","L'union des clans se noue par en dessous, comme le fil de chaîne. Ce qui tient ensemble durablement se tisse dans la discrétion, trait après trait, avant même que la structure ne soit visible de l'extérieur. La solidarité véritable ne se décrète pas d'en haut : elle se construit depuis la base, fil après fil, jusqu'à former une trame que rien ne peut plus défaire."],
+9:["Xiao Chu","La Force apprivoisée du petit","Itinérance","Le frein léger posé sur le grand dessein. Tout grand projet connaît des moments où seule une retenue mineure est possible, où l'on ne peut qu'infléchir légèrement le cours des choses sans le changer radicalement. Ce trait enseigne la vertu du geste modeste : ce n'est pas encore l'heure d'agir en grand, c'est l'heure d'ajuster, patiemment, ce qui peut l'être."],
+10:["Lu","La Marche","Plénitude","Chaque pas posé sur la queue du tigre sans dévier. Le danger n'est pas toujours à éviter — parfois il doit être traversé, à condition d'y marcher avec une attention totale, sans un geste de trop. Ce trait dit que la prudence n'est pas la peur : elle est cette concentration exacte qui permet d'avancer là où l'inattention serait fatale."],
+11:["Tai","La Paix","Alliance","Le Ciel et la Terre se rencontrent et s'échangent librement. Quand le haut consent à descendre et que le bas consent à monter, la communication devient totale et féconde. Ce trait enseigne que la prospérité durable naît toujours de cet échange réciproque — jamais d'une seule direction imposée, toujours d'une rencontre où chacun donne et reçoit à la fois."],
+12:["Pi","La Stagnation","Lenteur","Quand la communication est coupée par le refus du système. Ce n'est pas un accident passager mais un blocage structurel : les forces qui devraient se répondre se sont figées chacune dans son propre refus. Ce trait dit qu'il existe des moments où rien ne sert de forcer le passage — il faut attendre que les conditions elles-mêmes se déplacent, ou se retirer sans perdre sa vertu dans une lutte vaine."],
+13:["Tong Ren","La Communauté avec les hommes","Stabilité","La fraternité qui s'ouvre au monde trouve son socle. Une communauté n'est solide que si elle ne se referme pas sur elle-même : c'est en s'ouvrant aux autres, en cherchant ce qui relie plutôt que ce qui divise, qu'elle trouve une assise durable. Ce trait enseigne que l'appartenance la plus forte naît souvent au contact du dehors, non dans le repli."],
+14:["Da You","La Possession de grande envergure","Sursaut","La richesse accumulée se mesure à sa capacité de traverser le choc. Ce n'est pas la quantité possédée qui compte, mais la solidité de ce qui a été bâti : une possession véritable résiste à l'épreuve, tandis qu'une abondance mal fondée s'effondre au premier heurt. Ce trait invite à ne jamais confondre l'accumulation avec la vraie richesse, qui se prouve dans la durée."],
+15:["Qian","La Modestie","Alchimie","L'effacement de soi nourrit la transmutation dans le creuset. Rien ne se transforme vraiment sans qu'une part de soi consente à disparaître dans le processus. Ce trait dit que l'humilité n'est pas une vertu passive : elle est la condition active de toute transformation profonde, le creuset où l'ancien se dissout pour que le nouveau puisse prendre forme."],
+16:["Yu","L'Enthousiasme","Élan","Le tonnerre sort de la terre et met les corps en mouvement. Il existe une énergie qui ne se commande pas, qui jaillit et entraîne d'elle-même, sans qu'on ait besoin de la forcer. Ce trait enseigne que le véritable pouvoir de rassembler ne vient jamais de la contrainte, mais de cette vibration commune que seul un enthousiasme sincère peut éveiller."],
+17:["Sui","La Suite","Profondeur","Suivre le mouvement du temps oblige à redescendre creuser la source. On ne peut suivre durablement sans revenir, de temps à autre, à ce qui nourrit le mouvement lui-même. Ce trait enseigne que l'adaptation la plus juste n'est pas la plus mobile, mais celle qui sait revenir à sa propre origine avant de repartir."],
+18:["Gu","Le Travail sur ce qui est gâté","Réparation","Redresser la corruption d'un héritage usé. Ce qui a été négligé pendant trop longtemps finit par exiger un travail exigeant, mais ce travail n'est pas une malédiction — c'est l'occasion de refonder sur des bases plus saines. Ce trait dit que l'héritage abîmé n'est perdu que si l'on refuse de s'en occuper."],
+19:["Lin","L'Approche","Croissance","L'approche bienveillante des forces vives stimule l'ascension patiente. Rien de grand ne se conquiert d'un coup ; tout ce qui grandit véritablement le fait par approches successives, chacune préparant la suivante. Ce trait enseigne que la croissance authentique se mesure en pas, non en sauts."],
+20:["Guan","La Contemplation","Convergence","Regarder au loin depuis la tour fédère ce qui était dispersé. Une vision large ne disperse pas l'attention, elle la rassemble : c'est en prenant de la hauteur que l'on découvre les liens invisibles entre des choses qui, de près, semblaient sans rapport. Ce trait dit que comprendre précède toujours le pouvoir d'agir avec justesse."],
+21:["Shi He","Mordre au travers","Tranchant","Trancher le faux pour souder ce qui est juste. Il y a des obstacles qui ne se contournent pas — ils doivent être traversés, mordus, dépassés par une décision nette. Ce trait enseigne que la clarté a parfois besoin de dureté pour s'imposer, et que cette dureté, employée à bon escient, n'est pas violence mais justice."],
+22:["Bi","La Grâce","Épure","L'ornement et la beauté de la forme cèdent, à l'extrême, la place à la décision. Toute beauté a sa limite utile : passé un certain point, l'ornement doit s'effacer devant la nécessité d'agir. Ce trait rappelle que la forme sert le fond, et non l'inverse — dès que l'un empiète sur l'autre, il faut savoir simplifier."],
+23:["Bo","L'Éclatement","Mutation","L'effondrement de l'ancien édifice libère l'énergie d'un accroissement neuf. Ce qui s'écroule n'emporte pas tout avec lui : la ruine d'une forme épuisée dégage l'espace et l'énergie nécessaires à ce qui va suivre. Ce trait enseigne à ne pas craindre l'éclatement des structures devenues creuses — il précède toujours un renouveau."],
+24:["Fu","Le Retour","Renaissance","Le principe vital revient au cœur de la nuit la plus dense. Rien n'est jamais définitivement perdu tant que subsiste, quelque part, ce germe minuscule qui recommence. Ce trait dit que le point le plus bas contient déjà, en germe, le mouvement du retour — c'est précisément dans l'obscurité la plus totale que la lumière recommence à croître."],
+25:["Wu Wang","L'Innocence","Dénouement","Agir sans artifice dissout de lui-même les nœuds de l'obstacle. La complication naît presque toujours du calcul ; la simplicité véritable, elle, désamorce les obstacles avant même de les affronter. Ce trait enseigne que la droiture spontanée résout souvent ce que la ruse la plus habile ne fait qu'entortiller davantage."],
+26:["Da Chu","La Force apprivoisée du grand","Retenue","L'accumulation intérieure de la puissance fait face à la dureté du relief. Ce qui grandit à l'intérieur, invisible, finit toujours par rencontrer une résistance extérieure — et c'est cette rencontre même qui révèle et affine la force accumulée. Ce trait dit que l'obstacle n'est pas l'ennemi de la puissance, il en est l'épreuve nécessaire."],
+27:["Yi","La Nourriture","Distinction","Ce qui nourrit l'esprit s'oppose à ce qui divise les vues. Toute nourriture n'élève pas également : certaines paroles, certaines pensées fortifient, d'autres dispersent et affaiblissent. Ce trait invite à choisir avec le même soin ce dont on se nourrit l'esprit que ce dont on se nourrit le corps."],
+28:["Da Guo","La Prépondérance du grand","Structure","La poutre faîtière qui fléchit sous son propre poids. Une structure poussée à l'extrême de sa capacité annonce, par sa flexion même, le moment où elle devra soit se briser soit être déchargée. Ce trait enseigne à reconnaître les signes avant-coureurs de la rupture avant qu'elle ne survienne."],
+29:["Kan","L'Insondable","Épreuve","Naviguer dans l'eau qui ne se laisse pas sonder. Certaines profondeurs ne se mesurent jamais complètement à l'avance — on ne peut qu'apprendre à s'y mouvoir avec les moyens du bord, sans jamais prétendre les maîtriser totalement. Ce trait dit que la vraie compétence face au danger n'est pas de l'éliminer, mais d'apprendre à y nager."],
+30:["Li","Ce qui s'attache, le Feu","Rayonnement","La clarté du feu s'attache à ce qui vit pour propager son éclat. Rien ne brille dans le vide : toute clarté véritable a besoin d'un ancrage, d'une matière à laquelle se lier pour se déployer. Ce trait enseigne que l'indépendance totale n'est pas un idéal — même la lumière la plus pure a besoin de ce qu'elle éclaire."],
+31:["Xian","L'Influence","Résonance","L'émotion subtile de l'influence mutuelle, à peine perceptible. Les liens les plus profonds entre les êtres se nouent souvent avant même qu'un mot soit prononcé, dans ce registre discret du ressenti partagé. Ce trait dit que l'influence la plus durable n'est jamais celle qui s'impose bruyamment, mais celle qui se glisse, presque imperceptible, entre deux présences ouvertes l'une à l'autre."],
+32:["Heng","La Durée","Permanence","La constance dans le temps traverse l'épreuve du repli. Ce qui dure vraiment n'est pas ce qui refuse tout changement, mais ce qui sait, quand il le faut, se retirer un temps sans perdre sa direction propre. Ce trait enseigne que la durée véritable inclut ses propres pauses."],
+33:["Dun","La Retraite","Permanence","La durée s'affirme en sachant s'effacer pour mieux durer. Paradoxalement, ce qui dure le plus longtemps est souvent ce qui a su, au bon moment, savoir disparaître de la scène. Ce trait enseigne que le retrait stratégique n'interrompt pas la continuité — il la protège."],
+34:["Da Zhuang","La Puissance du grand","Résonance","L'influence s'amplifie jusqu'à devenir une force qui ne se contient plus. Ce qui commence comme une simple résonance peut, si rien ne vient l'encadrer, grandir jusqu'à échapper à tout contrôle. Ce trait avertit que la puissance sans discipline se retourne, tôt ou tard, contre celui qui la déploie."],
+35:["Jin","Le Progrès","Rayonnement","L'éclat monte, comme le soleil, vers la reconnaissance de midi. Toute ascension véritable suit son propre rythme, comme le soleil qui ne saute jamais directement à son zénith. Ce trait dit que la reconnaissance méritée arrive toujours en son temps, jamais avant, jamais après."],
+36:["Ming Yi","L'Obscurcissement de la lumière","Épreuve","Avancer sous une lumière volontairement voilée. Il ne s'agit pas d'éteindre sa propre clarté, mais de savoir la contenir quand les circonstances rendent son plein éclat dangereux. Ce trait enseigne la discipline de qui continue d'agir juste, même quand personne ne peut encore le voir."],
+37:["Jia Ren","Les Gens de la maison","Structure","La rigueur ordonnée de la cellule familiale. Aucune structure plus large ne tient sans que sa cellule la plus intime — celle du foyer — ne soit elle-même ordonnée et juste. Ce trait dit que l'ordre du monde commence toujours par l'ordre de la maison."],
+38:["Kui","L'Opposition","Distinction","Le tri s'opère entre les mots qui élèvent et ceux qui séparent. Toute divergence n'est pas une rupture : certaines oppositions, bien comprises, affinent la pensée plutôt qu'elles ne la brisent. Ce trait enseigne à distinguer le désaccord fécond du conflit stérile."],
+39:["Jian","L'Obstacle","Retenue","La patience devient elle-même un bouclier face au relief. Face à ce qui ne peut être franchi de front, la patience n'est pas une résignation mais une protection active — elle préserve l'énergie pour le moment où le passage s'ouvrira. Ce trait dit que tout obstacle contient, en creux, l'indication du détour juste."],
+40:["Jie","La Délivrance","Dénouement","Les nœuds de l'obstacle se libèrent, le passage s'ouvre. Ce qui semblait inextricable finit, avec le temps et la bonne tension relâchée au bon moment, par se dénouer de lui-même. Ce trait enseigne que la délivrance arrive rarement par la force — elle vient quand la pression trouve enfin sa juste issue."],
+41:["Sun","La Diminution","Renoncement","Retourner au centre exige de consentir à perdre ce qui encombrait. On ne revient à l'essentiel qu'en acceptant de laisser partir ce qui, avec le temps, s'est révélé superflu. Ce trait dit que toute perte n'est pas un appauvrissement — certaines diminutions sont la condition même du retour à ce qui compte vraiment."],
+42:["Yi","L'Augmentation","Mutation","L'énergie d'un accroissement neuf se libère. Ce qui grandit véritablement ne le fait jamais seul : la croissance authentique libère une énergie qui profite à plus large que celui qui la porte. Ce trait enseigne que le véritable accroissement se reconnaît à ce qu'il partage, non à ce qu'il accumule."],
+43:["Guai","La Percée","Épure","La décision qui tranche net et élimine le superflu. Il vient un moment où l'hésitation elle-même devient plus dangereuse que le tranchant de la décision. Ce trait dit que la percée véritable ne consiste pas à tout détruire, mais à retirer précisément ce qui, à l'excès, menaçait l'ensemble."],
+44:["Gou","Venir à la rencontre","Tranchant","La rencontre imprévue expose au risque autant qu'à l'union. Tout ce qui se présente sans prévenir porte en lui une ambiguïté : promesse de lien ou germe de danger, on ne le sait jamais d'emblée. Ce trait enseigne la vigilance qui n'est pas méfiance, mais discernement au moment même de la rencontre."],
+45:["Cui","Le Rassemblement","Convergence","La contemplation est déjà un rassemblement silencieux. Avant même que les corps ne se réunissent, les esprits qui partagent un même regard sont déjà, en un sens, rassemblés. Ce trait dit que la véritable union commence toujours dans l'invisible, bien avant de devenir visible."],
+46:["Sheng","La Poussée vers le haut","Croissance","Approcher et grandir sont un seul geste vertical. Il n'existe pas de séparation véritable entre se rapprocher de son but et grandir vers lui — les deux mouvements n'en font qu'un, comme la tige qui pousse est déjà, en germe, l'arbre à venir. Ce trait enseigne la continuité entre le petit geste présent et le grand résultat futur."],
+47:["Kun","L'Accablement","Réparation","On ne restaure rien sans consentir d'abord à manquer. Il n'y a pas de renaissance véritable sans être passé, d'abord, par l'expérience réelle du dénuement. Ce trait dit que l'accablement, bien traversé, n'est pas seulement une épreuve à subir mais une purification qui prépare le retour de l'abondance."],
+48:["Jing","Le Puits","Profondeur","On ne suit bien que ce qu'on a d'abord puisé au fond. Aucune ressource ne profite à qui reste en surface : il faut descendre, chercher, puiser vraiment pour que le puits livre ce qu'il contient. Ce trait enseigne que la profondeur est la condition même de l'utilité."],
+49:["Ge","La Révolution","Élan","Le feu sous le lac dissout l'ancienne peau. Tout changement profond exige d'abord que l'ancienne forme se dissolve, aussi inconfortable que soit ce moment de transition. Ce trait dit que la révolution la plus juste n'est jamais gratuite — elle répond à une nécessité que l'ancienne forme ne pouvait plus contenir."],
+50:["Ding","Le Chaudron","Alchimie","La forme la plus discrète est celle qui recueille le mieux l'essence. Ce n'est pas l'éclat extérieur qui définit la valeur d'un contenant, mais sa capacité à préserver et transformer ce qu'il reçoit. Ce trait enseigne que la vraie valeur se loge souvent dans ce qui semble le plus modeste en apparence."],
+51:["Zhen","L'Ébranlement","Sursaut","Ce qui reste debout après le choc est ce qui était vraiment possédé. Le choc ne crée rien, il révèle : ce qui s'effondre au premier ébranlement n'a jamais été aussi solide qu'il le paraissait. Ce trait dit que l'épreuve est toujours, d'une certaine façon, un révélateur de vérité."],
+52:["Gen","L'Immobilisation","Stabilité","Le mouvement s'arrête pour que l'essentiel se voie. Ce n'est que dans l'immobilité que certaines choses, masquées par l'agitation permanente, deviennent enfin visibles. Ce trait enseigne que savoir s'arrêter n'est pas renoncer à agir, c'est se donner les moyens de voir où agir vraiment."],
+53:["Jian","Le Développement","Lenteur","Racine, tronc, branche — un pas après l'autre redresse l'axe. Aucune croissance authentique ne saute d'étape : chaque degré prépare le suivant, dans un ordre que rien ne peut inverser sans tout compromettre. Ce trait dit que la patience du développement graduel est elle-même une forme de force."],
+54:["Gui Mei","L'Épousée","Alliance","L'union scellée engage deux ordres inégaux dans une même trame. Toute union ne naît pas dans l'égalité parfaite ; certaines commencent dans le déséquilibre et doivent trouver, avec le temps, leur propre justice. Ce trait enseigne que la loyauté dans la durée peut réparer ce que les conditions initiales n'avaient pas rendu juste."],
+55:["Feng","L'Abondance","Plénitude","L'heure du plein midi, où la lumière ne projette plus d'ombre. Il existe un instant, au sommet de toute plénitude, où plus rien ne reste caché — mais cet instant, par nature, ne peut que décliner ensuite. Ce trait enseigne à savourer l'abondance sans oublier qu'elle porte en elle sa propre limite."],
+56:["Lu","Le Voyageur","Itinérance","Sans feu ni lieu, la livrée remplace la maison. Quand la demeure fait défaut, c'est l'habit, la posture, la conduite qui doivent en tenir lieu — une dignité qui ne dépend plus du lieu mais de la manière d'être. Ce trait dit que l'identité la plus solide est celle qu'on porte avec soi, indépendante de tout ancrage extérieur."],
+57:["Xun","Le Doux, le Vent","Tissage","Le vent pénètre partout sans bruit, comme la trame. La force la plus discrète est parfois la plus efficace : elle ne rencontre pas de résistance frontale parce qu'elle ne s'annonce jamais comme une force. Ce trait enseigne la puissance de l'influence continue et silencieuse."],
+58:["Dui","Le Joyeux","Cadence","La clarté du lac qui rassemble et met en commun. Ce qui rassemble sans contrainte, par la seule attraction naturelle de ce qu'il offre, crée les liens les plus durables. Ce trait dit que la véritable communauté se reconnaît à la légèreté avec laquelle elle se forme."],
+59:["Huan","La Dissolution","Dénouement","Ce qui s'affrontait se disperse et redevient fluide. Les blocages les plus rigides finissent, avec le temps et le mouvement juste, par se disperser d'eux-mêmes. Ce trait enseigne que la dissolution n'est pas une perte mais un retour à l'état fluide, préalable à toute nouvelle forme."],
+60:["Jie","La Limitation","Contenance","Le bambou pose ses nœuds pour que la sève ne se disperse pas. Sans les limites qui la ponctuent, la croissance elle-même perdrait sa force en se dispersant sans direction. Ce trait dit que la limitation bien posée n'est pas un frein à la vie, mais la condition de sa vigueur."],
+61:["Zhong Fu","La Vérité intérieure","Apprentissage","Le centre vide du cœur devient le lieu où la confiance se loge. C'est précisément parce que le cœur ne se referme pas sur lui-même, parce qu'il reste un espace ouvert, que la confiance authentique peut s'y établir. Ce trait enseigne que la sincérité la plus profonde naît d'un vide accueillant, non d'une certitude fermée."],
+62:["Xiao Guo","La Prépondérance du petit","Germination","Le petit trait déborde de son cadre. Il est des moments où seul le détail, le geste mesuré, peut encore agir — vouloir alors la grande action serait une erreur de jugement. Ce trait dit que la justesse, dans certaines circonstances, se trouve précisément dans la petitesse assumée."],
+63:["Ji Ji","Après l'accomplissement","Assise","La couture est refermée, la maille est nouée. Ce qui est achevé porte toujours, en lui, le germe de ce qui viendra le défaire — rien de fini n'est éternellement fini. Ce trait enseigne que l'accomplissement véritable inclut la conscience de sa propre fragilité."],
+64:["Wei Ji","Avant l'accomplissement","Amorce","Le passage est ouvert mais la trame n'est pas encore tissée. Rien n'est encore accompli, mais rien n'est non plus impossible : la porte reste ouverte à ce qui, patiemment, reste à construire. Ce trait dit que l'inachèvement n'est pas un échec — c'est la condition même de tout ce qui reste à venir, le point d'où repart, inlassablement, le cycle entier des 64 figures."]
+};
+
+const IMAGE_FR = {
+1:"Le Ciel se meut sans relâche au-dessus du Ciel : deux fois le trait plein, deux fois la même force, l'une portant l'autre sans jamais fléchir. Rien ici ne vient limiter le mouvement ; rien ne vient l'arrêter. C'est l'image de la vigueur pure, celle qui ne connaît pas de repos parce qu'elle n'a pas encore rencontré ce qui pourrait lui résister. Le sage qui contemple cette figure n'y voit pas une invitation à l'agitation, mais un modèle : de même que le Ciel tourne sans discontinuer, l'homme de bien ne cesse de s'affermir lui-même — non par effort ponctuel, mais par une discipline aussi continue que le mouvement des astres.",
+2:"La Terre porte et nourrit sans distinction : elle ne choisit pas ce qu'elle soutient, elle soutient tout. Deux fois le trait brisé, deux fois la même ouverture, l'une accueillant l'autre sans jamais se fermer. C'est l'image de la capacité pure — non celle qui agit la première, mais celle qui rend possible l'action de tout ce qui vient à elle. Le sage qui contemple cette figure comprend que la générosité n'a pas besoin d'éclat : ainsi l'homme de bien accueille les êtres par une vertu généreuse, large comme le sol qui ne refuse aucune graine.",
+3:"Le Nuage et le Tonnerre : l'image de la difficulté première. En haut, l'eau qui n'est pas encore pluie ; en bas, l'ébranlement qui cherche sa voie sans la trouver encore. Rien ne coule librement, tout se cherche, tout hésite au bord de sa propre naissance. C'est la figure du commencement encombré, celui qui doit se frayer un chemin avant même de savoir où il mène. Ainsi l'homme de bien, devant le désordre initial, ne force rien : il met de l'ordre en tissant patiemment ses fils, brin après brin, sans céder à l'impatience du résultat.",
+4:"Au pied de la montagne jaillit une source : l'image de la folie juvénile. L'eau est là, vive, mais elle ne sait pas encore où couler ; elle a la force sans la direction. C'est le portrait de l'inexpérience qui n'est pas un défaut mais un état — celui d'avant l'apprentissage, quand l'énergie déborde sans discernement. Ainsi l'homme de bien, reconnaissant cette figure en lui ou chez un autre, ne méprise pas l'ignorance : il nourrit son caractère par une action résolue, sachant que la source, bien guidée, deviendra rivière.",
+5:"Les nuages montent au-dessus du Ciel : l'image de l'attente. Tout est en place pour que la pluie tombe, et pourtant elle ne tombe pas encore — le moment n'est pas mûr. C'est la figure de la préparation silencieuse, celle qui ne force pas l'heure mais la laisse venir. Ainsi l'homme de bien mange et boit, joyeux et serein, en attendant son heure : il ne s'épuise pas à vouloir précipiter ce qui a son propre rythme, il nourrit sa force pour le moment où elle sera requise.",
+6:"Le Ciel et l'Eau s'éloignent en sens contraires : l'image du conflit. L'un monte, l'autre descend ; leurs natures mêmes les séparent, et aucun compromis de surface ne peut les réunir. C'est la figure de l'opposition fondamentale, celle qui ne se résout pas par la seule bonne volonté. Ainsi l'homme de bien, dès le début de toute affaire, en pèse la fin : il ne s'engage pas dans un différend sans avoir mesuré, à l'avance, jusqu'où ce chemin peut le mener.",
+7:"Au milieu de la Terre se cache l'Eau : l'image de l'armée. La force existe, mais elle ne s'expose pas — elle se tient prête, invisible, disciplinée sous la surface calme. C'est la figure du pouvoir contenu, celui qui n'a pas besoin de se montrer pour être réel. Ainsi l'homme de bien accroît son peuple par une générosité tolérante : la vraie autorité ne s'impose pas par la force affichée, mais se construit dans la constance et la retenue.",
+8:"Sur la Terre, l'Eau : l'image de la solidarité. L'eau épouse la forme du sol, s'y love, s'y répand sans jamais le combattre — union sans friction, appui mutuel. C'est la figure de l'alliance naturelle, celle qui ne se force pas mais se reconnaît. Ainsi les rois antiques rassemblaient les royaumes lointains et honoraient leurs princes : la solidarité durable ne naît pas de la contrainte, mais de la reconnaissance mutuelle de ce que chacun apporte à l'autre.",
+9:"Le Vent se déplace au-dessus du Ciel : l'image de la force apprivoisée du petit. Le vent n'a pas la puissance du tonnerre ni la masse de la montagne — il agit par insistance légère, par caresse répétée plutôt que par choc. C'est la figure de l'influence discrète, celle qui retient sans contraindre. Ainsi l'homme de bien affine les traits de sa culture intérieure : quand la grande force n'est pas encore de mise, c'est par le raffinement patient du détail que l'on prépare ce qui viendra.",
+10:"En haut le Ciel, en bas le Lac : l'image de la marche. Chaque chose garde sa place propre — le ciel demeure au-dessus, le lac en dessous — et c'est cet ordre respecté qui rend la marche possible sans danger. C'est la figure de la juste distance, celle qui permet d'avancer même auprès de ce qui pourrait mordre. Ainsi l'homme de bien distingue le haut et le bas, et affermit la volonté du peuple : chaque pas posé avec discernement, sur la queue même du tigre, devient un pas sûr.",
+11:"Le Ciel et la Terre s'unissent : l'image de la paix. Ce qui devrait, par nature, rester séparé — le haut et le bas — se rencontre ici et communique librement, sans obstacle entre eux. C'est la figure de l'harmonie accomplie, où chaque force trouve son complément plutôt que son adversaire. Ainsi le souverain façonne la voie du Ciel et de la Terre et vient en aide à tous les êtres : la paix n'est pas l'absence de mouvement, mais l'échange devenu fluide entre des forces qui se répondent.",
+12:"Le Ciel et la Terre ne communiquent pas : l'image de la stagnation. Le haut reste en haut, le bas reste en bas, et rien ne circule plus entre eux — chacun se referme sur sa propre nature. C'est la figure de la rupture stérile, où même les forces les plus puissantes s'épuisent faute d'échange. Ainsi l'homme de bien se retire dans sa vertu pour échapper au danger : quand le temps ne permet plus l'action féconde, la sagesse consiste à préserver l'essentiel plutôt qu'à s'épuiser contre un mur.",
+13:"Le Ciel et le Feu s'associent : l'image de la communauté avec les hommes. La flamme monte vers le ciel, cherchant sa nature propre, et dans ce mouvement partagé se dessine une parenté entre des choses qui, pourtant, restent distinctes. C'est la figure de la fraternité fondée sur une direction commune plutôt que sur l'uniformité. Ainsi l'homme de bien distingue les espèces et classe les catégories : la vraie communauté ne nie pas les différences, elle les reconnaît pour mieux les accorder.",
+14:"Le Feu au sommet du Ciel : l'image de la grande possession. La lumière, portée au plus haut, éclaire toute chose sans exception — rien ne demeure dans l'ombre sous un tel embrasement. C'est la figure de l'abondance visible, celle qui rayonne au point d'obliger à la responsabilité. Ainsi l'homme de bien refoule le mal et exalte le bien, obéissant à la faveur céleste : posséder beaucoup n'est jamais neutre, cela oblige à discerner ce que l'on nourrit et ce que l'on retranche.",
+15:"Au sein de la Terre se tient la montagne : l'image de la modestie. Ce qui est le plus haut se laisse ici contenir par ce qui l'entoure, sans jamais chercher à dominer le paysage par la seule hauteur. C'est la figure de la grandeur qui s'efface volontairement. Ainsi l'homme de bien réduit ce qui est trop et augmente ce qui manque, pesant les choses avec égalité : la modestie n'est pas la petitesse, c'est la force assez sûre d'elle-même pour ne pas avoir besoin de se montrer.",
+16:"Le Tonnerre sort de la Terre avec force : l'image de l'enthousiasme. L'énergie contenue se libère soudain, et ce surgissement met en branle tout ce qui l'entoure — rien ne reste immobile devant un tel éclat. C'est la figure de l'élan communicatif, celui qui entraîne sans avoir besoin de contraindre. Ainsi les rois antiques honoraient le mérite par la musique et la vertu : l'enthousiasme bien dirigé devient la force la plus douce et la plus puissante pour rassembler les volontés.",
+17:"Au milieu du Lac, le Tonnerre : l'image de la suite. Le mouvement qui gronde en profondeur se laisse porter par ce qui l'entoure plutôt que de forcer sa propre trajectoire — il suit le contour du lac au lieu de le briser. C'est la figure de l'adaptation au rythme d'autrui. Ainsi l'homme de bien, au crépuscule, rentre chez lui pour se reposer : suivre n'est pas se soumettre, c'est reconnaître le moment où l'action doit céder la place au repos, comme le jour cède à la nuit.",
+18:"Sous la montagne, le Vent : l'image du travail sur ce qui est gâté. Le vent s'engouffre dans les failles de la montagne, révélant ce qui, avec le temps, s'est corrompu et attend d'être redressé. C'est la figure de la réparation nécessaire, celle qu'on ne peut plus repousser. Ainsi l'homme de bien stimule le peuple et nourrit sa vertu : face à ce qui est gâté, il ne s'agit pas de condamner le passé, mais de retrousser ses manches pour restaurer ce qui peut encore l'être.",
+19:"Au-dessus du Lac, la Terre : l'image de l'approche. La terre se penche vers l'eau, s'en approche sans jamais la dominer complètement — un mouvement de rapprochement progressif, jamais brutal. C'est la figure de la bienveillance qui avance pas à pas. Ainsi l'homme de bien enseigne sans lassitude et embrasse le peuple sans limite : approcher véritablement quelqu'un demande cette patience qui ne force jamais la rencontre.",
+20:"Le Vent parcourt la Terre : l'image de la contemplation. Le vent touche chaque recoin du sol sans s'arrêter nulle part longtemps — un regard qui embrasse large plutôt qu'un geste qui s'attarde. C'est la figure de l'observation qui précède l'action. Ainsi les rois antiques visitaient les régions, observaient le peuple et instituaient l'enseignement : avant d'agir sur le monde, il faut d'abord apprendre à le voir tel qu'il est, sans hâte ni parti pris.",
+21:"Le Tonnerre et l'Éclair s'unissent : l'image de mordre au travers. Le choc et la lumière frappent ensemble, l'un révélant ce que l'autre brise — rien ne peut se cacher longtemps sous une telle union de force et de clarté. C'est la figure de la décision tranchante éclairée par la vérité. Ainsi les anciens rois rendaient les peines claires et rendaient vigilantes les lois : trancher juste exige d'abord de voir juste.",
+22:"Sous la montagne, le Feu : l'image de la grâce. La flamme éclaire les flancs de la montagne sans jamais prétendre l'égaler en hauteur — un embellissement qui respecte ce qu'il révèle plutôt que de le dominer. C'est la figure de l'ornement au service du fond. Ainsi l'homme de bien éclaire les multiples affaires, sans jamais présumer trancher les litiges à la seule lumière des apparences : la grâce sert à révéler, jamais à juger.",
+23:"La montagne repose sur la Terre : l'image de l'éclatement. Ce qui semblait le plus solide — la masse même de la montagne — n'est en réalité soutenu que par une base qui peut céder. C'est la figure de l'effondrement qui guette ce qui néglige ses fondations. Ainsi les grands affermissent ce qui est en bas pour donner repos à leur demeure : avant de bâtir plus haut, il faut toujours consolider ce qui porte.",
+24:"Le Tonnerre au sein de la Terre : l'image du retour. La force vitale, enfouie au plus profond de l'hiver, n'a pas disparu — elle attend, invisible, le moment de resurgir. C'est la figure du renouveau caché dans l'apparente immobilité. Ainsi les anciens rois, au solstice, fermaient les passages, marchands et voyageurs ne circulaient plus : il est des moments où le plus grand geste consiste à ne rien précipiter, pour laisser le retour s'accomplir de lui-même.",
+25:"Sous le Ciel, le Tonnerre chemine : l'image de l'innocence. Le mouvement suit son cours sous la vaste étendue céleste, sans calcul ni détour, avec la simplicité de ce qui n'a rien à cacher. C'est la figure de l'action droite, spontanée, non feinte. Ainsi les anciens rois, riches en vertu et conformes au temps, nourrissaient les dix mille êtres : l'innocence n'est pas la naïveté, c'est l'alignement parfait entre l'intention et le geste.",
+26:"Au sein du Ciel, la montagne : l'image de la force apprivoisée du grand. Une puissance considérable se tient contenue, retenue par quelque chose qui, sans l'égaler en taille, sait néanmoins la freiner. C'est la figure de la grande force qui accepte d'être disciplinée. Ainsi l'homme de bien retient dans sa mémoire les paroles et les actes anciens : la vraie grandeur ne se prouve pas seulement par ce qu'elle déploie, mais par ce qu'elle accepte de contenir.",
+27:"Sous la montagne, le Tonnerre : l'image de la nourriture. Le mouvement s'agite à la base de ce qui est stable, comme la mâchoire s'agite sous le visage immobile — un rappel que même la plus grande stabilité dépend de ce qui se nourrit en dessous. Ainsi l'homme de bien veille sur ses paroles et mesure son boire et son manger : ce qui entre en nous, par la bouche ou par les mots, façonne ce que nous devenons.",
+28:"Le Lac submerge le bois : l'image de la prépondérance du grand. L'eau monte au-dessus de ce qui devrait normalement la contenir — une charge trop lourde pour la structure qui la porte, prête à céder sous son propre poids. C'est la figure du fardeau extrême. Ainsi l'homme de bien, seul et sans crainte, quitte le monde sans amertume : il est des moments où la charge dépasse ce qu'aucun soutien ne peut porter, et où la seule dignité possible est d'y faire face sans plainte.",
+29:"L'Eau vient et revient : l'image de l'insondable redoublé. Le danger se répète, vague après vague, sans jamais offrir de répit complet — mais l'eau elle-même, dans son mouvement constant, trouve toujours son niveau. C'est la figure de l'épreuve répétée qui forge la constance. Ainsi l'homme de bien pratique constamment la vertu et enseigne les affaires : face au danger qui revient, seule la pratique répétée, elle aussi, construit la maîtrise.",
+30:"Clarté et Clarté à nouveau : l'image du Feu qui s'attache. La lumière ne brille jamais seule — elle a besoin de ce à quoi elle s'accroche pour continuer de rayonner, tout comme la flamme a besoin du bois. C'est la figure de l'éclat qui dépend d'un support. Ainsi le grand homme, par son éclat continu, illumine les quatre horizons : rayonner durablement suppose de rester attaché à ce qui nourrit sa propre lumière.",
+31:"Sur la montagne, un Lac : l'image de l'influence. L'eau repose sur la hauteur, s'y love sans la forcer, et c'est cette réceptivité mutuelle qui permet à l'influence de circuler entre les deux. C'est la figure de la sensibilité partagée, avant même que les mots n'interviennent. Ainsi l'homme de bien accueille en lui-même la vacuité pour recevoir les hommes : influencer commence toujours par savoir se laisser toucher.",
+32:"Le Tonnerre et le Vent : l'image de la durée. Deux mouvements différents par nature s'associent ici sans se contredire, chacun renforçant l'autre dans une constance partagée. C'est la figure de la persévérance qui ne s'use pas. Ainsi l'homme de bien se tient debout sans changer de direction : durer n'est pas résister à l'immobile, c'est trouver le mouvement qui peut se répéter indéfiniment sans se trahir.",
+33:"Sous le Ciel, la montagne : l'image de la retraite. Le ciel s'éloigne peu à peu de la montagne, prenant ses distances sans hostilité, simplement par nécessité de préserver son propre mouvement. C'est la figure du repli digne, jamais fuite honteuse. Ainsi l'homme de bien tient les petits hommes à distance, non par haine, mais par dignité : se retirer à temps n'est pas une faiblesse, c'est la sagesse de qui sait reconnaître le moment où rester coûterait plus que partir.",
+34:"Le Tonnerre au-dessus du Ciel : l'image de la puissance du grand. Une force considérable s'élève au plus haut, visible de tous, capable d'ébranler ce qui se trouve sur son passage. C'est la figure de la puissance à son apogée, celle qui doit apprendre à se maîtriser précisément parce qu'elle peut tout emporter. Ainsi l'homme de bien ne marche que sur les sentiers conformes au rite : la grande force sans la juste mesure devient sa propre ruine.",
+35:"Le Soleil se lève au-dessus de la Terre : l'image du progrès. La lumière gagne du terrain, degré après degré, sans un seul bond brusque — un mouvement ascendant aussi sûr que naturel. C'est la figure de l'avancement mérité. Ainsi l'homme de bien, de lui-même, met en lumière sa vertu claire : le vrai progrès ne se réclame pas, il se manifeste de lui-même à qui sait patienter jusqu'au lever du jour.",
+36:"La lumière descend au sein de la Terre : l'image de l'obscurcissement. Ce qui devrait briller se retrouve enfoui, contraint de voiler son propre éclat pour continuer d'exister sans être détruit. C'est la figure de la clarté qui doit, un temps, se dissimuler pour survivre. Ainsi l'homme de bien conduit les multitudes en voilant sa clarté, tout en restant lucide : il existe des époques où montrer sa pleine lumière serait une erreur — la sagesse est alors de rester juste, en silence.",
+37:"Le Vent naît du Feu : l'image des gens de la maison. La chaleur intérieure engendre un mouvement qui se propage vers l'extérieur — ce qui commence au foyer finit toujours par rayonner au-dehors. C'est la figure de l'influence domestique qui façonne le monde. Ainsi l'homme de bien ancre ses mots dans la substance et sa conduite dans la constance : ce qui se vit dans l'intimité de la maison devient, tôt ou tard, ce que l'on porte partout ailleurs.",
+38:"Au-dessus le Feu, en dessous le Lac : l'image de l'opposition. Le feu monte, l'eau descend — deux natures qui se côtoient sans jamais se confondre, chacune fidèle à sa propre direction. C'est la figure de la différence assumée sans rupture totale. Ainsi l'homme de bien, dans l'unité, distingue ce qui diffère : reconnaître une opposition n'oblige pas à la détruire, on peut coexister avec ce qui nous contredit sans prétendre l'effacer.",
+39:"Sur la montagne, l'Eau : l'image de l'obstacle. L'eau rencontre la pente et ne peut avancer directement — elle doit contourner, chercher un autre chemin, ralentir son cours naturel. C'est la figure de la difficulté qui impose un détour. Ainsi l'homme de bien se tourne vers lui-même et façonne sa propre vertu : l'obstacle extérieur, quand il ne peut être forcé, devient l'occasion de travailler ce qui, en soi, peut encore grandir.",
+40:"Le Tonnerre et la Pluie s'élèvent : l'image de la délivrance. La tension accumulée dans l'air se libère enfin, l'orage éclate et purifie ce qu'il traverse — un dénouement qui apaise plutôt qu'il ne détruit. C'est la figure du soulagement après la contrainte. Ainsi l'homme de bien pardonne les fautes et se montre clément envers les torts : la délivrance véritable ne s'arrête pas à soi, elle s'étend aussi à ceux qu'on pourrait encore retenir captifs de leurs erreurs.",
+41:"Sous la montagne, le Lac : l'image de la diminution. L'eau du bas s'évapore vers la hauteur, semblant s'appauvrir pour nourrir ce qui la surplombe — une perte qui, en réalité, sert un équilibre plus vaste. C'est la figure du renoncement qui profite à un ensemble plus grand que soi. Ainsi l'homme de bien réfrène sa colère et contient ses désirs : diminuer ce qui est en trop chez soi est souvent la condition pour que quelque chose d'autre puisse croître.",
+42:"Le Vent et le Tonnerre : l'image de l'augmentation. Deux forces se renforcent mutuellement, le vent amplifiant le tonnerre et le tonnerre donnant au vent sa pleine mesure — une croissance qui se nourrit de la rencontre plutôt que de l'isolement. Ainsi l'homme de bien, voyant le bien, s'y transporte ; ayant une faute, il la corrige : l'augmentation véritable ne se limite pas à accumuler, elle consiste à se corriger et à croître ensemble.",
+43:"Le Lac s'élève au-dessus du Ciel : l'image de la percée. L'eau, portée plus haut que ce qui devrait normalement la contenir, menace de déborder — une tension extrême qui appelle une décision claire et sans retour. C'est la figure de la résolution qui ne peut plus attendre. Ainsi l'homme de bien répand ses largesses jusqu'en bas, sans reposer sur sa seule vertu : trancher avec force doit toujours s'accompagner de générosité envers ceux que la décision affecte.",
+44:"Sous le Ciel, le Vent : l'image de venir à la rencontre. Le vent parcourt l'espace sans qu'on l'ait convoqué, touchant tout sur son passage — une rencontre qui s'impose plutôt qu'elle ne se planifie. C'est la figure de l'imprévu qu'il faut savoir accueillir avec discernement. Ainsi le souverain, par ses décrets, instruit les quatre horizons : ce qui vient à notre rencontre sans y être invité mérite d'être examiné avant d'être accepté ou repoussé.",
+45:"Le Lac monte au-dessus de la Terre : l'image du rassemblement. L'eau s'accumule et forme une étendue commune, rassemblant en un seul lieu ce qui, dispersé, n'aurait eu ni force ni visage. C'est la figure de la convergence qui donne consistance au multiple. Ainsi l'homme de bien répare ses armes pour parer à l'imprévu : rassembler ne suffit pas, il faut aussi se préparer à protéger ce qui a été rassemblé.",
+46:"Au sein de la Terre croît le bois : l'image de la poussée vers le haut. La graine, invisible sous la surface, pousse patiemment vers la lumière sans jamais brûler les étapes — une croissance lente mais inexorable. C'est la figure de l'ascension méritée par la constance. Ainsi l'homme de bien, docile à la vertu, accumule le petit pour atteindre le haut et le grand : rien de ce qui grandit vraiment ne saute d'étape, tout se construit couche après couche.",
+47:"Le Lac est sans eau : l'image de l'accablement. Ce qui devrait nourrir et soutenir s'est asséché, laissant derrière lui un manque criant là où l'on attendait l'abondance. C'est la figure de l'épuisement qui teste la vraie nature de celui qui le traverse. Ainsi l'homme de bien engage sa vie pour accomplir son dessein : c'est précisément dans le manque que se révèle ce à quoi l'on tient vraiment, au point d'être prêt à tout risquer pour cela.",
+48:"Sur le bois, l'Eau : l'image du puits. L'eau reste accessible à tous ceux qui viennent y puiser, inépuisable tant qu'on sait y descendre le seau au bon endroit — une ressource commune que l'usage ne tarit jamais vraiment. C'est la figure du bien partagé qui demeure. Ainsi l'homme de bien réconforte le peuple et l'exhorte à l'entraide : ce qui nourrit vraiment une communauté n'appartient à personne en propre, il ne fait que passer entre les mains de ceux qui savent y puiser.",
+49:"Au sein du Lac, le Feu : l'image de la révolution. La flamme brûle sous la surface de l'eau, deux natures qui ne peuvent coexister sans que l'une finisse par transformer l'autre — un affrontement qui débouche nécessairement sur un changement d'état. Ainsi l'homme de bien règle le calendrier et rend clairs les temps : la révolution véritable ne détruit pas pour détruire, elle réordonne ce que l'ancien temps avait laissé confus.",
+50:"Sur le bois, le Feu : l'image du chaudron. La flamme transforme la matière brute en quelque chose de nourrissant, de raffiné, d'utilisable — un récipient qui contient la transformation sans se laisser lui-même consumer. C'est la figure de la culture qui affine sans détruire. Ainsi l'homme de bien affermit son destin en le rendant droit : comme le chaudron donne forme à ce qu'il reçoit, chacun façonne son propre destin par ce qu'il choisit d'y faire cuire.",
+51:"Le Tonnerre redoublé : l'image de l'ébranlement. Le choc frappe deux fois, l'un répétant l'autre, et ce qui reste debout après une telle secousse révèle enfin sa solidité véritable. C'est la figure de l'épreuve qui teste sans détruire ce qui est réellement fondé. Ainsi l'homme de bien, dans la crainte et le tremblement, cultive et examine sa propre conduite : le choc extérieur, aussi brutal soit-il, peut devenir l'occasion d'un examen intérieur salutaire.",
+52:"Montagnes jointes : l'image de l'immobilisation. Deux masses stables se superposent, l'une renforçant l'immobilité de l'autre — un arrêt qui n'est pas paralysie mais fondation. C'est la figure du repos qui rend possible la clarté. Ainsi l'homme de bien ne laisse ses pensées dépasser la place qu'il occupe : s'arrêter au bon endroit, sans laisser l'esprit s'égarer au-delà de sa tâche présente, est la condition de toute vision juste.",
+53:"Sur la montagne, un arbre : l'image du développement graduel. L'arbre grandit lentement, racine après racine, cerne après cerne, sans jamais brûler une seule étape de sa croissance — une patience inscrite dans le bois lui-même. Ainsi l'homme de bien s'établit dans la vertu digne et améliore les mœurs : le développement véritable, comme celui de l'arbre sur la pente, se mesure en années, non en jours.",
+54:"Au-dessus le Tonnerre, en dessous le Lac : l'image de l'épousée. Le mouvement du haut entraîne ce qui repose en dessous dans une union qui n'est pas toujours choisie également par les deux parties — un lien qui engage malgré le déséquilibre initial. Ainsi l'homme de bien, mindful de ce qui endure, discerne ce qui corrompt cette union : toute alliance mérite d'être examinée dans sa durée, non jugée sur son seul commencement.",
+55:"Le Tonnerre et l'Éclair s'accomplissent ensemble : l'image de l'abondance. Le mouvement et la lumière atteignent simultanément leur plein déploiement — un instant de plénitude totale, rare et nécessairement passager. C'est la figure de l'apogée qui ne dure jamais éternellement. Ainsi l'homme de bien tranche les litiges et applique les châtiments : au sommet de l'abondance, la clarté du jugement devient plus nécessaire que jamais, car c'est aussi là que tout peut basculer.",
+56:"Sur la montagne, le Feu : l'image du voyageur. La flamme se déplace le long de la pente, ne s'attardant nulle part, consumant ce qui se présente sans jamais s'enraciner en un seul lieu. C'est la figure de qui n'a ni feu ni lieu fixe. Ainsi l'homme de bien applique la peine avec clarté et prudence, sans laisser un procès traîner : sans attaches durables, il faut d'autant plus de rigueur pour ne pas se perdre en chemin.",
+57:"Vents qui se suivent : l'image du doux redoublé. Le vent souffle, puis souffle encore, insistant sans jamais frapper — une influence qui pénètre par la répétition plutôt que par la force. Ainsi l'homme de bien propage ses ordres et met en œuvre ses affaires : ce qui ne peut être imposé d'un coup finit souvent par s'installer grâce à la constance douce d'une insistance patiente.",
+58:"Lacs qui se rejoignent : l'image du joyeux redoublé. Deux étendues d'eau communiquent, se nourrissant l'une l'autre, chacune amplifiant la joie de l'autre par leur simple proximité. C'est la figure du partage qui multiplie plutôt qu'il ne divise. Ainsi l'homme de bien, avec ses amis, discute et s'exerce : la joie véritable, comme l'eau des lacs joints, ne s'épuise jamais d'être partagée — elle s'en trouve au contraire renforcée.",
+59:"Le Vent se meut au-dessus de l'Eau : l'image de la dissolution. Le vent trouble la surface, dispersant ce qui s'était figé, brisant la glace en mouvement fluide — une dissolution qui libère plutôt qu'elle ne détruit. Ainsi les anciens rois offraient au Souverain d'en haut et établissaient des temples : quand ce qui séparait les êtres commence à se dissoudre, c'est le moment de reconstruire un lien commun, un centre partagé.",
+60:"Sur le Lac, l'Eau : l'image de la limitation. L'eau du lac reste contenue par ses berges, et c'est cette limite même qui lui permet d'exister comme lac plutôt que de se perdre en marécage informe. C'est la figure de la contrainte qui structure plutôt qu'elle n'étouffe. Ainsi l'homme de bien élabore le compte et la mesure, et réfléchit sur la vertu et la conduite : la limitation choisie avec justesse est ce qui donne forme à toute chose, y compris à soi-même.",
+61:"Sur le Lac, le Vent : l'image de la vérité intérieure. Le vent effleure la surface de l'eau et la fait vibrer jusqu'en son centre — une résonance qui part du dehors mais touche l'intérieur le plus profond. C'est la figure de la sincérité qui se transmet sans artifice. Ainsi l'homme de bien délibère sur les procès et retarde les peines de mort : la vérité intérieure exige qu'on prenne le temps nécessaire avant de trancher sur ce qui touche à l'essentiel.",
+62:"Sur la montagne, le Tonnerre : l'image de la prépondérance du petit. Le mouvement s'agite au sommet, contenu par la masse qui le porte, obligé de rester modeste dans son ampleur bien qu'intense dans son énergie. Ainsi l'homme de bien, dans sa conduite, penche vers l'excès de respect ; dans le deuil, vers l'excès de peine ; dans ses dépenses, vers l'excès d'économie : quand les circonstances imposent la retenue, mieux vaut pécher par excès de modestie que par excès d'ambition.",
+63:"L'Eau au-dessus du Feu : l'image de l'accomplissement. Chaque élément occupe exactement la place qui lui revient, l'eau maîtrisant le feu sans l'éteindre complètement — un équilibre si parfait qu'il appelle déjà, en germe, son propre déséquilibre à venir. Ainsi l'homme de bien songe au malheur et s'en prémunit d'avance : l'accomplissement le plus total n'est jamais un point d'arrivée définitif, c'est le moment précis où la vigilance doit redoubler.",
+64:"Le Feu au-dessus de l'Eau : l'image de l'inaccompli. Chaque élément se trouve à la place inverse de celle qui permettrait leur pleine rencontre — le feu ne peut réchauffer l'eau qui lui échappe par le haut. C'est la figure du désordre qui précède encore l'ordre à venir. Ainsi l'homme de bien discerne avec soin les êtres et les place chacun en son lieu : avant que tout ne trouve sa juste place, il faut d'abord accepter la lucidité du désordre présent, sans désespérer de l'ordre à naître."
+};
+
+// ---------- HSL (mêmes fonctions que motifs (4).html) ----------
+function hexToHsl(hex){
+  const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), l = (max+min)/2;
+  let h = 0, s = 0;
+  const d = max-min;
+  if(d!==0){
+    s = d / (1 - Math.abs(2*l-1));
+    switch(max){
+      case r: h = 60*(((g-b)/d)%6); break;
+      case g: h = 60*((b-r)/d+2); break;
+      default: h = 60*((r-g)/d+4);
+    }
+  }
+  if(h<0) h += 360;
+  return { h, s: s*100, l: l*100 };
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const c = (1-Math.abs(2*l-1))*s, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+function clampL(l){ return Math.max(0, Math.min(100, l)); }
+// Dérivation à partir de la structure à 3 classes de gris du gabarit ech_order_new_def_bw.svg :
+// cls-1 = zone neutre (couleur choisie telle quelle), cls-2 = zone foncée (-20% luminosité),
+// cls-3 = zone claire (+20% luminosité).
+function deriveShades(baseHex){
+  const {h,s,l} = hexToHsl(baseHex);
+  return {
+    neutral: baseHex,
+    dark: hslToHex(h, s, clampL(l-20)),
+    light: hslToHex(h, s, clampL(l+20)),
+  };
+}
+function recolorSvg(svgText, shades){
+  return svgText.replace(/<style>[\s\S]*?<\/style>/,
+    `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
+}
+function svgDataUri(svgText){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
+}
+
+// ---------- chargement des 64 motifs ----------
+const MOTIF_RAW = {};
+async function loadAllMotifs(){
+  const kws = Array.from({length:64}, (_,i)=>i+1);
+  await Promise.all(kws.map(async kw=>{
+    const res = await fetch(`assets/unified-motifs/${kw}.svg`);
+    MOTIF_RAW[kw] = await res.text();
+  }));
+}
+
+const DEFAULT_COLOR = '#c9a15a';
+let currentColor = DEFAULT_COLOR;
+let currentKw = null;
+
+function buildGrid(){
+  const gridEl = document.getElementById('hexgrid');
+  gridEl.innerHTML = '';
+  const defaultShades = deriveShades(DEFAULT_COLOR);
+  for(let chrono=0; chrono<64; chrono++){
+    const kw = KINGWEN_BY_CHRONO[chrono];
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.chrono = chrono;
+    cell.dataset.kw = kw;
+    const label = document.createElement('div'); label.className='num'; label.textContent = chrono;
+    cell.appendChild(label);
+    const img = document.createElement('img');
+    img.src = svgDataUri(recolorSvg(MOTIF_RAW[kw], defaultShades));
+    img.alt = HEX_KW[kw][1];
+    cell.appendChild(img);
+    cell.addEventListener('click', ()=> selectMotif(kw));
+    gridEl.appendChild(cell);
+  }
+}
+
+function selectMotif(kw){
+  currentKw = kw;
+  document.querySelectorAll('.cell').forEach(c=> c.classList.toggle('active', +c.dataset.kw===kw));
+  renderMotifDetail();
+}
+
+function renderMotifDetail(){
+  const kw = currentKw;
+  const info = HEX_KW[kw];
+  const chrono = CHRONO_BY_KW[kw];
+  const panel = document.getElementById('detail');
+  panel.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'motif-detail';
+
+  // ---- sélecteur de couleur ----
+  const colorRow = document.createElement('div'); colorRow.className = 'motif-color-row';
+  const colorLabel = document.createElement('span'); colorLabel.className='motif-color-label'; colorLabel.textContent = 'Couleur';
+  const colorInput = document.createElement('input'); colorInput.type='color'; colorInput.id='motifColorInput'; colorInput.value = currentColor;
+  const swatches = document.createElement('div'); swatches.className='motif-swatches';
+  const swDark = document.createElement('span'); swDark.className='motif-swatch'; swDark.id='swatchDark'; swDark.title='Zone foncée (-20% luminosité)';
+  const swNeutral = document.createElement('span'); swNeutral.className='motif-swatch'; swNeutral.id='swatchNeutral'; swNeutral.title='Zone neutre';
+  const swLight = document.createElement('span'); swLight.className='motif-swatch'; swLight.id='swatchLight'; swLight.title='Zone claire (+20% luminosité)';
+  swatches.appendChild(swDark); swatches.appendChild(swNeutral); swatches.appendChild(swLight);
+  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches);
+  wrap.appendChild(colorRow);
+
+  // ---- agrandissement ----
+  const boxWrap = document.createElement('div'); boxWrap.className='motif-box-wrap';
+  const liseret1 = document.createElement('div'); liseret1.className='liseret';
+  const box = document.createElement('div'); box.className='motif-box';
+  const enlargedImg = document.createElement('img'); enlargedImg.id='motifEnlargedImg'; enlargedImg.alt = info[1];
+  box.appendChild(enlargedImg);
+  liseret1.appendChild(box);
+  boxWrap.appendChild(liseret1);
+  const dlBtn = document.createElement('span'); dlBtn.className='dl-btn'; dlBtn.id='dlMotifPng'; dlBtn.style.marginTop='10px'; dlBtn.style.display='inline-block';
+  dlBtn.textContent = 'Télécharger PNG haute résolution';
+  boxWrap.appendChild(dlBtn);
+  wrap.appendChild(boxWrap);
+
+  // ---- texte général (même contenu/source que la page Tirage) ----
+  const numBig = document.createElement('div'); numBig.className='num-big';
+  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — ORDRE CHRONOLOGIQUE';
+  wrap.appendChild(numBig);
+  const h2 = document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
+  const pin = document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
+  const alt = document.createElement('div'); alt.className='altnum'; alt.textContent = 'n° King Wen (traditionnel) : ' + kw; wrap.appendChild(alt);
+
+  const imgTxt = IMAGE_FR[kw];
+  if(imgTxt){
+    const imgTag = document.createElement('div'); imgTag.className='keyword'; imgTag.textContent = 'Image';
+    const imgName = document.createElement('div'); imgName.className='keyword-sub'; imgName.textContent = info[1];
+    const imgP = document.createElement('div'); imgP.className='judgement'; imgP.style.marginBottom='18px'; imgP.textContent = imgTxt;
+    wrap.appendChild(imgTag); wrap.appendChild(imgName); wrap.appendChild(imgP);
+  }
+  const jgTag = document.createElement('div'); jgTag.className='keyword'; jgTag.textContent = 'Jugement';
+  const kwEl = document.createElement('div'); kwEl.className='keyword-sub'; kwEl.textContent = info[2];
+  const judg = document.createElement('div'); judg.className='judgement'; judg.textContent = info[3];
+  wrap.appendChild(jgTag); wrap.appendChild(kwEl); wrap.appendChild(judg);
+
+  // ---- tessellation ----
+  const tessWrap = document.createElement('div'); tessWrap.className='tessellation-wrap';
+  const tessLabel = document.createElement('div'); tessLabel.className='tessellation-label'; tessLabel.textContent = 'Tessellation';
+  const liseret2 = document.createElement('div'); liseret2.className='liseret';
+  const tessBox = document.createElement('div'); tessBox.className='motif-tess-box'; tessBox.id='motifTessBox';
+  liseret2.appendChild(tessBox);
+  tessWrap.appendChild(tessLabel); tessWrap.appendChild(liseret2);
+  wrap.appendChild(tessWrap);
+
+  panel.appendChild(wrap);
+
+  colorInput.addEventListener('input', (e)=>{ currentColor = e.target.value; updateColorDependentParts(); });
+  dlBtn.addEventListener('click', downloadMotifPng);
+
+  updateColorDependentParts();
+}
+
+function updateColorDependentParts(){
+  if(currentKw == null) return;
+  const shades = deriveShades(currentColor);
+  const uri = svgDataUri(recolorSvg(MOTIF_RAW[currentKw], shades));
+  const enlargedImg = document.getElementById('motifEnlargedImg');
+  if(enlargedImg) enlargedImg.src = uri;
+  const tessBox = document.getElementById('motifTessBox');
+  if(tessBox) tessBox.style.backgroundImage = `url("${uri}")`;
+  const swDark = document.getElementById('swatchDark'); if(swDark) swDark.style.background = shades.dark;
+  const swNeutral = document.getElementById('swatchNeutral'); if(swNeutral) swNeutral.style.background = shades.neutral;
+  const swLight = document.getElementById('swatchLight'); if(swLight) swLight.style.background = shades.light;
+}
+
+function downloadMotifPng(){
+  if(currentKw == null) return;
+  const info = HEX_KW[currentKw];
+  const shades = deriveShades(currentColor);
+  const recolored = recolorSvg(MOTIF_RAW[currentKw], shades);
+  const img = new Image();
+  img.onload = ()=>{
+    const scale = 4; // 1920x1080 * 4 = 7680x4320 px, largement au-delà de 300dpi pour un usage textile
+    const canvas = document.createElement('canvas');
+    canvas.width = 1920*scale;
+    canvas.height = 1080*scale;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const slug = info[1].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+      a.download = `motif-unifie-${String(currentKw).padStart(2,'0')}-${slug}.png`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = svgDataUri(recolored);
+}
+
+(async () => {
+  await loadAllMotifs();
+  buildGrid();
+})();
+</script>
+</body>
+</html>
