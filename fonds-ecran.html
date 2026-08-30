@@ -340,9 +340,10 @@ function hexagramGrid(n, gridA, gridB){
 }
 
 function buildGridsFor(cat){
-  return DATA.entries
-    .filter(e => e[0].split(':')[0]===cat)
-    .map(([fam, subA, subB, n]) => hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]));
+  // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
+  // pas une sous-catégorie séparée : aucune entrée DATA n'a fam="par4".
+  const entries = cat==='par4' ? DATA.entries : DATA.entries.filter(e => e[0].split(':')[0]===cat);
+  return entries.map(([fam, subA, subB, n]) => hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]));
 }
 
 // --- écran de sélection : mini-aperçu par catégorie ---
