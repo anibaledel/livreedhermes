@@ -99,7 +99,8 @@
   #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
   #stage canvas{width:100%; height:100%; display:block;}
   #hud{
-    position:fixed; top:0; left:0; right:0; display:flex; justify-content:space-between; align-items:center;
+    position:fixed; top:0; left:0; right:0; display:flex; flex-wrap:wrap; row-gap:8px;
+    justify-content:space-between; align-items:center;
     padding:16px 20px; font-family:Helvetica,Arial,sans-serif; font-size:12px; color:rgba(255,255,255,.55);
     z-index:10; opacity:0; transition:opacity .3s; pointer-events:none;
   }
@@ -110,13 +111,20 @@
   }
   #hud button:hover{border-color:var(--gold); color:var(--gold);}
   #hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
-  #hud .left{display:flex; align-items:center; gap:10px;}
+  #hud .left{display:flex; flex-wrap:wrap; row-gap:8px; align-items:center; gap:10px;}
   #levelBar{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
   #levelFill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
   #fileInput{display:none;}
   #tintPicker{width:28px; height:28px; border:1px solid rgba(255,255,255,.3); border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;}
   #tintPicker::-webkit-color-swatch-wrapper{padding:0;}
   #tintPicker::-webkit-color-swatch{border:none; border-radius:50%;}
+  #stageNotice{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:20;
+    background:rgba(0,0,0,.8); color:#fff; border:1px solid rgba(255,255,255,.25);
+    padding:10px 18px; font-family:Helvetica,Arial,sans-serif; font-size:12px; max-width:80vw; text-align:center;
+    opacity:0; pointer-events:none; transition:opacity .3s;
+  }
+  #stageNotice.visible{ opacity:1; }
 
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; }
@@ -124,6 +132,19 @@
     header h1{ font-size:22px; }
     .site-nav-btn{ padding:11px 16px; }
     .book-bar .flag-btn{ width:36px; height:32px; }
+
+    /* pas de survol tactile fiable : le HUD reste visible en permanence sur mobile */
+    #hud{ opacity:1; pointer-events:auto; padding:10px 12px; font-size:11px; }
+    #hud button{ padding:8px 10px; font-size:10.5px; margin-left:6px; }
+    #rhythmSlider{ width:60px !important; }
+    #levelBar{ width:50px; }
+  }
+  @media (max-width:480px){
+    .cat-grid{ flex-direction:column; align-items:center; }
+    .cat-card{ width:100%; max-width:280px; height:130px; }
+    #hud .left{ gap:6px; }
+    #hud button{ padding:7px 8px; font-size:10px; margin-left:4px; }
+    #levelBar{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -231,6 +252,7 @@
   </div>
   <input type="file" id="fileInput" accept="audio/*">
   <audio id="audioEl" loop></audio>
+  <div id="stageNotice"></div>
 </div>
 
 <script>
@@ -457,7 +479,10 @@ function drawTessellation(grid){
 function drawTessellationOn(targetCtx, grid){
   const w = canvas.width, h = canvas.height;
   const tileCells = 12;
-  const tileSize = Math.max(w,h) / 6; // ~6 tuiles sur le plus grand côté
+  // basé sur le plus PETIT côté (pas le plus grand) pour garantir un nombre minimum de
+  // répétitions même sur les ratios extrêmes (téléphone très allongé, écran ultra-large) —
+  // sur un écran 16:9 classique ça reste visuellement proche de la densité d'origine.
+  const tileSize = Math.min(w,h) / 4;
   const cell = tileSize/tileCells;
   const cols = Math.ceil(w/tileSize)+1;
   const rows = Math.ceil(h/tileSize)+1;
@@ -508,6 +533,30 @@ function crossfadeTo(grid, durationMs){
   fadeRAF = requestAnimationFrame(step);
 }
 
+const stageNotice = document.getElementById('stageNotice');
+let stageNoticeTimer = null;
+function showStageNotice(msg, ms){
+  stageNotice.textContent = msg;
+  stageNotice.classList.add('visible');
+  if(stageNoticeTimer) clearTimeout(stageNoticeTimer);
+  stageNoticeTimer = setTimeout(()=> stageNotice.classList.remove('visible'), ms || 4000);
+}
+
+function requestStageFullscreen(){
+  // Safari (desktop et iOS) expose une méthode préfixée ; certains navigateurs mobiles
+  // (Safari < 16.4 notamment) ne supportent tout simplement pas le plein écran sur un
+  // élément quelconque — dans ce cas le pavage reste en plein viewport (position:fixed;
+  // inset:0), donc l'expérience reste fonctionnelle, seule la barre du navigateur reste visible.
+  const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
+  if(!req){
+    showStageNotice("Plein écran non disponible sur ce navigateur — le pavage reste affiché dans la fenêtre.");
+    return;
+  }
+  req.call(stage).catch(()=>{
+    showStageNotice("Plein écran refusé ou indisponible — le pavage reste affiché dans la fenêtre.");
+  });
+}
+
 function launch(cat, grids){
   currentGrids = grids;
   currentIndex = -1;
@@ -516,7 +565,7 @@ function launch(cat, grids){
   stage.style.display = 'block';
   resizeCanvas();
   showNextGrid();
-  if(stage.requestFullscreen) stage.requestFullscreen().catch(()=>{});
+  requestStageFullscreen();
   requestAnimationFrame(loop);
 }
 
@@ -543,6 +592,10 @@ function stopAudio(){
 }
 
 document.getElementById('btnMic').onclick = async ()=>{
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    showStageNotice("Le microphone n'est pas accessible sur ce navigateur (souvent le cas hors HTTPS, ou sur certains navigateurs mobiles). Utilisez plutôt un fichier audio ou le mode méditatif.", 6000);
+    return;
+  }
   stopMeditative();
   ensureAudioContext();
   stopAudio();
@@ -550,7 +603,7 @@ document.getElementById('btnMic').onclick = async ()=>{
     const stream = await navigator.mediaDevices.getUserMedia({audio:true});
     sourceNode = audioCtx.createMediaStreamSource(stream);
     sourceNode.connect(analyser);
-  }catch(e){ alert("Micro indisponible : " + e.message); }
+  }catch(e){ showStageNotice("Micro indisponible : " + e.message, 5000); }
 };
 
 document.getElementById('btnFile').onclick = ()=>{ stopMeditative(); document.getElementById('fileInput').click(); };
