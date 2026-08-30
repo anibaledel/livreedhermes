@@ -3,26 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Livrée d'Hermès — Galerie des 884 Patterns Unifiés</title>
-<meta name="description" content="Galerie des 884 patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage.">
-<meta property="og:title" content="La Livrée d'Hermès — Galerie des 884 Patterns Unifiés">
-<meta property="og:description" content="Galerie des 884 patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage.">
+<title>La Livrée d'Hermès — Fonds d'écran</title>
+<meta name="description" content="Fonds d'écran textiles plein écran, réactifs au son (micro ou fichier audio) ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
+<meta property="og:title" content="La Livrée d'Hermès — Fonds d'écran">
+<meta property="og:description" content="Fonds d'écran textiles plein écran, réactifs au son (micro ou fichier audio) ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
-<meta property="og:url" content="https://anibal-amiot.com/galerie-884-patterns-unifies.html">
+<meta property="og:url" content="https://anibal-amiot.com/fonds-ecran.html">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://anibal-amiot.com/galerie-884-patterns-unifies.html">
+<link rel="canonical" href="https://anibal-amiot.com/fonds-ecran.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="La Livrée d'Hermès — Galerie des 884 Patterns Unifiés">
-<meta name="twitter:description" content="Galerie des 884 patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage.">
+<meta name="twitter:title" content="La Livrée d'Hermès — Fonds d'écran">
+<meta name="twitter:description" content="Fonds d'écran textiles plein écran, réactifs au son (micro ou fichier audio) ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
 <style>
   :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#6b6b6b;
-    --red:#e0261b; --red-dim:#5a120e; --gold:#c9a15a; --line:#242424;
+    --bg:#000; --panel:#0a0a0a; --line:#242424;
+    --V:#662d91; --M:#ee2a7b; --O:#fbb040;
+    --gold:#c9a15a; --red:#e0261b; --text:#f2f2f0; --dim:#6b6b6b;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
-  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  body{margin:0; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden;}
   img, canvas, svg{ max-width:100%; }
   .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
@@ -59,41 +60,20 @@
   .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
 
-  .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
-  .stat .n{ font-size:22px; color:var(--gold); display:block; font-weight:400; }
-  .stat .l{ font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
-
-  .controls{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:24px 0 16px; font-family:Helvetica,Arial,sans-serif; }
-  .controls button{
-    background:transparent; color:var(--dim); border:1px solid var(--line);
-    padding:8px 16px; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
-    transition:border-color .12s ease, color .12s ease;
+  /* --- écran de sélection (intégré au flux normal de la page, header/pied compris) --- */
+  #selectScreen p.fondecran-intro{font-family:Helvetica,Arial,sans-serif; font-size:12px; color:var(--dim); max-width:56ch; text-align:center; margin:0 auto 28px; line-height:1.7;}
+  .cat-grid{display:flex; gap:18px; flex-wrap:wrap; justify-content:center;}
+  .cat-card{
+    width:150px; height:150px; border:1px solid var(--line);
+    background:var(--panel); display:flex; flex-direction:column; align-items:center; justify-content:center;
+    cursor:pointer; font-family:Helvetica,Arial,sans-serif; transition:transform .15s, border-color .15s;
+    position:relative; overflow:hidden;
   }
-  .controls button.active{ border-color:var(--red); color:var(--red); }
-  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
-
-  /* ---------- barre horizontale défilante ---------- */
-  .gallery-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; }
-  .gallery-label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
-  #gallery{
-    display:flex; gap:3px; overflow-x:auto; padding-bottom:10px;
-    scrollbar-width:thin; scrollbar-color:var(--line) transparent;
-  }
-  #gallery::-webkit-scrollbar{ height:6px; }
-  #gallery::-webkit-scrollbar-thumb{ background:var(--line); }
-  #gallery::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
-  .tile{ position:relative; cursor:pointer; background:#000; flex:0 0 auto; border:1px solid transparent; }
-  .tile canvas{ width:64px; height:64px; display:block; }
-  .tile:hover{ border-color:var(--gold); }
-  .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
-
-  /* ---------- pavage du motif sélectionné ---------- */
-  .paved-section{ margin-top:32px; }
-  .paved-label{ font-size:10px; letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
-  .paved-info{ font-size:12px; color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
-  .paved-info b{ color:var(--white); font-weight:400; }
-  .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
-  .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .cat-card:hover{transform:translateY(-4px); border-color:var(--gold);}
+  .cat-card canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.5;}
+  .cat-card .label{position:relative; z-index:2; background:rgba(0,0,0,.55); padding:6px 12px; font-size:11px; letter-spacing:.06em; text-transform:uppercase;}
+  .cat-card .count{position:relative; z-index:2; font-size:11px; color:var(--dim); margin-top:6px; background:rgba(0,0,0,.55); padding:2px 8px;}
+  .cat-card.disabled{opacity:.35; cursor:not-allowed;}
 
   .note{
     margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
@@ -115,6 +95,29 @@
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
 
+  /* --- écran plein écran (overlay indépendant du chrome du site) --- */
+  #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
+  #stage canvas{width:100%; height:100%; display:block;}
+  #hud{
+    position:fixed; top:0; left:0; right:0; display:flex; justify-content:space-between; align-items:center;
+    padding:16px 20px; font-family:Helvetica,Arial,sans-serif; font-size:12px; color:rgba(255,255,255,.55);
+    z-index:10; opacity:0; transition:opacity .3s; pointer-events:none;
+  }
+  #stage:hover #hud{opacity:1; pointer-events:auto;}
+  #hud button{
+    background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
+    padding:7px 14px; font-size:11px; cursor:pointer; margin-left:8px;
+  }
+  #hud button:hover{border-color:var(--gold); color:var(--gold);}
+  #hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
+  #hud .left{display:flex; align-items:center; gap:10px;}
+  #levelBar{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
+  #levelFill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
+  #fileInput{display:none;}
+  #tintPicker{width:28px; height:28px; border:1px solid rgba(255,255,255,.3); border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;}
+  #tintPicker::-webkit-color-swatch-wrapper{padding:0;}
+  #tintPicker::-webkit-color-swatch{border:none; border-radius:50%;}
+
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; }
     header{ margin-bottom:20px; padding-bottom:16px; }
@@ -129,13 +132,15 @@
 <link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
+
+<div id="selectScreen">
 <div class="wrap">
 
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
-    <h1>Galerie des 884 Patterns Unifiés</h1>
-    <p style="color:var(--dim);font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;">Engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage.</p>
+    <h1>Fonds d'écran</h1>
+    <p style="color:var(--dim);font-size:12px;font-family:Helvetica,Arial,sans-serif;margin:0;">Choisissez une catégorie de motifs unifiés, en plein écran, réactifs au son ou en mode méditatif.</p>
     <p class="book-intro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
     <div id="google_translate_element" class="gtranslate-slot"></div>
 
@@ -174,26 +179,10 @@
         </span>
       </span>
     </div>
-
-    <div class="stats">
-      <div class="stat"><span class="n">884</span><span class="l">Patterns unifiés</span></div>
-      <div class="stat"><span class="n">7</span><span class="l">Familles productives</span></div>
-      <div class="stat"><span class="n">64</span><span class="l">Hexagrammes / échiquier</span></div>
-    </div>
   </header>
 
-  <div class="controls" id="controls"></div>
-
-  <div class="gallery-panel">
-    <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
-    <div id="gallery"></div>
-  </div>
-
-  <div class="paved-section" id="pavedSection">
-    <div class="paved-label">Pavage du motif sélectionné</div>
-    <div class="paved-info" id="pavedInfo"></div>
-    <div class="paved-box"><canvas id="pavedCanvas"></canvas></div>
-  </div>
+  <p class="fondecran-intro">Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes.</p>
+  <div class="cat-grid" id="catGrid"></div>
 
   <div class="note">
     <div class="site-nav-row">
@@ -201,8 +190,8 @@
       <a class="site-nav-btn" href="/">Tirage</a>
       <a class="site-nav-btn" href="motifs%20(4).html">Créer un motif</a>
       <a class="site-nav-btn" href="unified-patterns.html">Unified Patterns</a>
-      <a class="site-nav-btn current" href="galerie-884-patterns-unifies.html">Galerie 884</a>
-      <a class="site-nav-btn" href="fonds-ecran.html">Fond d'écran</a>
+      <a class="site-nav-btn" href="galerie-884-patterns-unifies.html">Galerie 884</a>
+      <a class="site-nav-btn current" href="fonds-ecran.html">Fond d'écran</a>
       <a class="site-nav-btn" href="impression.html">Impression</a>
       <a class="site-nav-btn" href="contact.html">Contact</a>
       <a class="site-nav-btn" href="a-propos.html">À propos</a>
@@ -220,11 +209,117 @@
   </div>
 
 </div>
+</div>
+
+<div id="stage">
+  <canvas id="canvas"></canvas>
+  <div id="hud">
+    <div class="left">
+      <button id="btnMic">🎤 Micro</button>
+      <button id="btnFile">📁 Fichier audio</button>
+      <button id="btnMeditative">🧘 Méditatif</button>
+      <span id="rhythmWrap" style="display:none; align-items:center; gap:6px;">
+        <input type="range" id="rhythmSlider" min="2" max="30" step="1" value="8" style="width:90px;">
+        <span id="rhythmLabel" style="font-size:10px; color:rgba(255,255,255,.6);">8 s</span>
+      </span>
+      <button id="btnMode">1 couleur</button>
+      <input type="color" id="tintPicker" value="#fbb040" title="Choisir une teinte">
+      <button id="btnReset">↺ Réinitialiser</button>
+      <div id="levelBar"><div id="levelFill"></div></div>
+    </div>
+    <button id="btnExit">✕ Quitter</button>
+  </div>
+  <input type="file" id="fileInput" accept="audio/*">
+  <audio id="audioEl" loop></audio>
+</div>
 
 <script>
 const DATA = {"layerOf":[[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]],"families":{"bases":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","M","M","O","M","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","V","V","O","M","M","O","V","V","O","V"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["V","O","V","V","O","M","M","O","V","V","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","M","O","M","M","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","M","M","M","M","O","O","M","M","M","M","O"],["M","O","M","M","O","V","V","O","M","M","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","V","O","V","V","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","V","V","O","V","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","M","M","O","V","V","O","M","M","O","M"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","O","V","M","V","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","O","M","O","V","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","V","O","M","O","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","V","M","V","O","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","V","V","M","V","O","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","V","O","M","O","O","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","O","O","M","O","V","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","O","V","M","V","V","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yang+yang_mut":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"]]},"par2:yang+yin_mut":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yin+yang":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par2:yin+yang_mut":{"yang":[["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yang_mut":[["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"]]},"par2:yin+yin_mut":{"yang":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]]},"par2:yin_mut+yang_mut":{"yang":[["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"]]},"par3:sans_yang":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yang_mut":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yin":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par3:sans_yin_mut":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par4":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]}},"entries":[["bases","yang","yang_mut",0],["bases","yang","yang_mut",1],["bases","yang","yang_mut",2],["bases","yang","yang_mut",3],["bases","yang","yang_mut",4],["bases","yang","yang_mut",5],["bases","yang","yang_mut",6],["bases","yang","yang_mut",7],["bases","yang","yang_mut",8],["bases","yang","yang_mut",9],["bases","yang","yang_mut",10],["bases","yang","yang_mut",11],["bases","yang","yang_mut",12],["bases","yang","yang_mut",13],["bases","yang","yang_mut",14],["bases","yang","yang_mut",15],["bases","yang","yang_mut",16],["bases","yang","yang_mut",17],["bases","yang","yang_mut",18],["bases","yang","yang_mut",19],["bases","yang","yang_mut",20],["bases","yang","yang_mut",21],["bases","yang","yang_mut",22],["bases","yang","yang_mut",23],["bases","yang","yang_mut",24],["bases","yang","yang_mut",25],["bases","yang","yang_mut",26],["bases","yang","yang_mut",27],["bases","yang","yang_mut",28],["bases","yang","yang_mut",29],["bases","yang","yang_mut",30],["bases","yang","yang_mut",31],["bases","yang","yang_mut",32],["bases","yang","yang_mut",33],["bases","yang","yang_mut",34],["bases","yang","yang_mut",35],["bases","yang","yang_mut",36],["bases","yang","yang_mut",37],["bases","yang","yang_mut",38],["bases","yang","yang_mut",39],["bases","yang","yang_mut",40],["bases","yang","yang_mut",41],["bases","yang","yang_mut",42],["bases","yang","yang_mut",43],["bases","yang","yang_mut",44],["bases","yang","yang_mut",45],["bases","yang","yang_mut",46],["bases","yang","yang_mut",47],["bases","yang","yang_mut",48],["bases","yang","yang_mut",49],["bases","yang","yang_mut",50],["bases","yang","yang_mut",51],["bases","yang","yang_mut",52],["bases","yang","yang_mut",53],["bases","yang","yang_mut",54],["bases","yang","yang_mut",55],["bases","yang","yang_mut",56],["bases","yang","yang_mut",57],["bases","yang","yang_mut",58],["bases","yang","yang_mut",59],["bases","yang","yang_mut",60],["bases","yang","yang_mut",61],["bases","yang","yang_mut",62],["bases","yang","yang_mut",63],["bases","yang","yin",63],["bases","yang","yin_mut",63],["bases","yang_mut","yin",63],["bases","yang_mut","yin_mut",63],["par2:yang+yin_mut","yang","yang_mut",0],["par2:yang+yin_mut","yang","yang_mut",1],["par2:yang+yin_mut","yang","yang_mut",2],["par2:yang+yin_mut","yang","yang_mut",3],["par2:yang+yin_mut","yang","yang_mut",4],["par2:yang+yin_mut","yang","yang_mut",5],["par2:yang+yin_mut","yang","yang_mut",6],["par2:yang+yin_mut","yang","yang_mut",7],["par2:yang+yin_mut","yang","yang_mut",8],["par2:yang+yin_mut","yang","yang_mut",9],["par2:yang+yin_mut","yang","yang_mut",10],["par2:yang+yin_mut","yang","yang_mut",11],["par2:yang+yin_mut","yang","yang_mut",12],["par2:yang+yin_mut","yang","yang_mut",13],["par2:yang+yin_mut","yang","yang_mut",14],["par2:yang+yin_mut","yang","yang_mut",15],["par2:yang+yin_mut","yang","yang_mut",16],["par2:yang+yin_mut","yang","yang_mut",17],["par2:yang+yin_mut","yang","yang_mut",18],["par2:yang+yin_mut","yang","yang_mut",19],["par2:yang+yin_mut","yang","yang_mut",20],["par2:yang+yin_mut","yang","yang_mut",21],["par2:yang+yin_mut","yang","yang_mut",22],["par2:yang+yin_mut","yang","yang_mut",23],["par2:yang+yin_mut","yang","yang_mut",24],["par2:yang+yin_mut","yang","yang_mut",25],["par2:yang+yin_mut","yang","yang_mut",26],["par2:yang+yin_mut","yang","yang_mut",27],["par2:yang+yin_mut","yang","yang_mut",28],["par2:yang+yin_mut","yang","yang_mut",29],["par2:yang+yin_mut","yang","yang_mut",30],["par2:yang+yin_mut","yang","yang_mut",31],["par2:yang+yin_mut","yang","yang_mut",32],["par2:yang+yin_mut","yang","yang_mut",33],["par2:yang+yin_mut","yang","yang_mut",34],["par2:yang+yin_mut","yang","yang_mut",35],["par2:yang+yin_mut","yang","yang_mut",36],["par2:yang+yin_mut","yang","yang_mut",37],["par2:yang+yin_mut","yang","yang_mut",38],["par2:yang+yin_mut","yang","yang_mut",39],["par2:yang+yin_mut","yang","yang_mut",40],["par2:yang+yin_mut","yang","yang_mut",41],["par2:yang+yin_mut","yang","yang_mut",42],["par2:yang+yin_mut","yang","yang_mut",43],["par2:yang+yin_mut","yang","yang_mut",44],["par2:yang+yin_mut","yang","yang_mut",45],["par2:yang+yin_mut","yang","yang_mut",46],["par2:yang+yin_mut","yang","yang_mut",47],["par2:yang+yin_mut","yang","yang_mut",48],["par2:yang+yin_mut","yang","yang_mut",49],["par2:yang+yin_mut","yang","yang_mut",50],["par2:yang+yin_mut","yang","yang_mut",51],["par2:yang+yin_mut","yang","yang_mut",52],["par2:yang+yin_mut","yang","yang_mut",53],["par2:yang+yin_mut","yang","yang_mut",54],["par2:yang+yin_mut","yang","yang_mut",55],["par2:yang+yin_mut","yang","yang_mut",56],["par2:yang+yin_mut","yang","yang_mut",57],["par2:yang+yin_mut","yang","yang_mut",58],["par2:yang+yin_mut","yang","yang_mut",59],["par2:yang+yin_mut","yang","yang_mut",60],["par2:yang+yin_mut","yang","yang_mut",61],["par2:yang+yin_mut","yang","yang_mut",62],["par2:yang+yin_mut","yang","yang_mut",63],["par2:yang+yin_mut","yang","yin",0],["par2:yang+yin_mut","yang","yin",63],["par2:yang+yin_mut","yang","yin_mut",0],["par2:yang+yin_mut","yang","yin_mut",63],["par2:yang+yin_mut","yang_mut","yin",0],["par2:yang+yin_mut","yang_mut","yin",63],["par2:yang+yin_mut","yang_mut","yin_mut",0],["par2:yang+yin_mut","yang_mut","yin_mut",63],["par2:yang+yin_mut","yin","yin_mut",0],["par2:yang+yin_mut","yin","yin_mut",1],["par2:yang+yin_mut","yin","yin_mut",2],["par2:yang+yin_mut","yin","yin_mut",3],["par2:yang+yin_mut","yin","yin_mut",4],["par2:yang+yin_mut","yin","yin_mut",5],["par2:yang+yin_mut","yin","yin_mut",6],["par2:yang+yin_mut","yin","yin_mut",7],["par2:yang+yin_mut","yin","yin_mut",8],["par2:yang+yin_mut","yin","yin_mut",9],["par2:yang+yin_mut","yin","yin_mut",10],["par2:yang+yin_mut","yin","yin_mut",11],["par2:yang+yin_mut","yin","yin_mut",12],["par2:yang+yin_mut","yin","yin_mut",13],["par2:yang+yin_mut","yin","yin_mut",14],["par2:yang+yin_mut","yin","yin_mut",15],["par2:yang+yin_mut","yin","yin_mut",16],["par2:yang+yin_mut","yin","yin_mut",17],["par2:yang+yin_mut","yin","yin_mut",18],["par2:yang+yin_mut","yin","yin_mut",19],["par2:yang+yin_mut","yin","yin_mut",20],["par2:yang+yin_mut","yin","yin_mut",21],["par2:yang+yin_mut","yin","yin_mut",22],["par2:yang+yin_mut","yin","yin_mut",23],["par2:yang+yin_mut","yin","yin_mut",24],["par2:yang+yin_mut","yin","yin_mut",25],["par2:yang+yin_mut","yin","yin_mut",26],["par2:yang+yin_mut","yin","yin_mut",27],["par2:yang+yin_mut","yin","yin_mut",28],["par2:yang+yin_mut","yin","yin_mut",29],["par2:yang+yin_mut","yin","yin_mut",30],["par2:yang+yin_mut","yin","yin_mut",31],["par2:yang+yin_mut","yin","yin_mut",32],["par2:yang+yin_mut","yin","yin_mut",33],["par2:yang+yin_mut","yin","yin_mut",34],["par2:yang+yin_mut","yin","yin_mut",35],["par2:yang+yin_mut","yin","yin_mut",36],["par2:yang+yin_mut","yin","yin_mut",37],["par2:yang+yin_mut","yin","yin_mut",38],["par2:yang+yin_mut","yin","yin_mut",39],["par2:yang+yin_mut","yin","yin_mut",40],["par2:yang+yin_mut","yin","yin_mut",41],["par2:yang+yin_mut","yin","yin_mut",42],["par2:yang+yin_mut","yin","yin_mut",43],["par2:yang+yin_mut","yin","yin_mut",44],["par2:yang+yin_mut","yin","yin_mut",45],["par2:yang+yin_mut","yin","yin_mut",46],["par2:yang+yin_mut","yin","yin_mut",47],["par2:yang+yin_mut","yin","yin_mut",48],["par2:yang+yin_mut","yin","yin_mut",49],["par2:yang+yin_mut","yin","yin_mut",50],["par2:yang+yin_mut","yin","yin_mut",51],["par2:yang+yin_mut","yin","yin_mut",52],["par2:yang+yin_mut","yin","yin_mut",53],["par2:yang+yin_mut","yin","yin_mut",54],["par2:yang+yin_mut","yin","yin_mut",55],["par2:yang+yin_mut","yin","yin_mut",56],["par2:yang+yin_mut","yin","yin_mut",57],["par2:yang+yin_mut","yin","yin_mut",58],["par2:yang+yin_mut","yin","yin_mut",59],["par2:yang+yin_mut","yin","yin_mut",60],["par2:yang+yin_mut","yin","yin_mut",61],["par2:yang+yin_mut","yin","yin_mut",62],["par2:yang+yin_mut","yin","yin_mut",63],["par2:yin+yang","yang","yang_mut",0],["par2:yin+yang","yang","yang_mut",1],["par2:yin+yang","yang","yang_mut",2],["par2:yin+yang","yang","yang_mut",3],["par2:yin+yang","yang","yang_mut",4],["par2:yin+yang","yang","yang_mut",5],["par2:yin+yang","yang","yang_mut",6],["par2:yin+yang","yang","yang_mut",7],["par2:yin+yang","yang","yang_mut",8],["par2:yin+yang","yang","yang_mut",9],["par2:yin+yang","yang","yang_mut",10],["par2:yin+yang","yang","yang_mut",11],["par2:yin+yang","yang","yang_mut",12],["par2:yin+yang","yang","yang_mut",13],["par2:yin+yang","yang","yang_mut",14],["par2:yin+yang","yang","yang_mut",15],["par2:yin+yang","yang","yang_mut",16],["par2:yin+yang","yang","yang_mut",17],["par2:yin+yang","yang","yang_mut",18],["par2:yin+yang","yang","yang_mut",19],["par2:yin+yang","yang","yang_mut",20],["par2:yin+yang","yang","yang_mut",21],["par2:yin+yang","yang","yang_mut",22],["par2:yin+yang","yang","yang_mut",23],["par2:yin+yang","yang","yang_mut",24],["par2:yin+yang","yang","yang_mut",25],["par2:yin+yang","yang","yang_mut",26],["par2:yin+yang","yang","yang_mut",27],["par2:yin+yang","yang","yang_mut",28],["par2:yin+yang","yang","yang_mut",29],["par2:yin+yang","yang","yang_mut",30],["par2:yin+yang","yang","yang_mut",31],["par2:yin+yang","yang","yang_mut",32],["par2:yin+yang","yang","yang_mut",33],["par2:yin+yang","yang","yang_mut",34],["par2:yin+yang","yang","yang_mut",35],["par2:yin+yang","yang","yang_mut",36],["par2:yin+yang","yang","yang_mut",37],["par2:yin+yang","yang","yang_mut",38],["par2:yin+yang","yang","yang_mut",39],["par2:yin+yang","yang","yang_mut",40],["par2:yin+yang","yang","yang_mut",41],["par2:yin+yang","yang","yang_mut",42],["par2:yin+yang","yang","yang_mut",43],["par2:yin+yang","yang","yang_mut",44],["par2:yin+yang","yang","yang_mut",45],["par2:yin+yang","yang","yang_mut",46],["par2:yin+yang","yang","yang_mut",47],["par2:yin+yang","yang","yang_mut",48],["par2:yin+yang","yang","yang_mut",49],["par2:yin+yang","yang","yang_mut",50],["par2:yin+yang","yang","yang_mut",51],["par2:yin+yang","yang","yang_mut",52],["par2:yin+yang","yang","yang_mut",53],["par2:yin+yang","yang","yang_mut",54],["par2:yin+yang","yang","yang_mut",55],["par2:yin+yang","yang","yang_mut",56],["par2:yin+yang","yang","yang_mut",57],["par2:yin+yang","yang","yang_mut",58],["par2:yin+yang","yang","yang_mut",59],["par2:yin+yang","yang","yang_mut",60],["par2:yin+yang","yang","yang_mut",61],["par2:yin+yang","yang","yang_mut",62],["par2:yin+yang","yang","yang_mut",63],["par2:yin+yang","yang","yin",0],["par2:yin+yang","yang","yin",63],["par2:yin+yang","yang","yin_mut",0],["par2:yin+yang","yang","yin_mut",63],["par2:yin+yang","yang_mut","yin",0],["par2:yin+yang","yang_mut","yin",63],["par2:yin+yang","yang_mut","yin_mut",0],["par2:yin+yang","yang_mut","yin_mut",63],["par2:yin+yang","yin","yin_mut",0],["par2:yin+yang","yin","yin_mut",1],["par2:yin+yang","yin","yin_mut",2],["par2:yin+yang","yin","yin_mut",3],["par2:yin+yang","yin","yin_mut",4],["par2:yin+yang","yin","yin_mut",5],["par2:yin+yang","yin","yin_mut",6],["par2:yin+yang","yin","yin_mut",7],["par2:yin+yang","yin","yin_mut",8],["par2:yin+yang","yin","yin_mut",9],["par2:yin+yang","yin","yin_mut",10],["par2:yin+yang","yin","yin_mut",11],["par2:yin+yang","yin","yin_mut",12],["par2:yin+yang","yin","yin_mut",13],["par2:yin+yang","yin","yin_mut",14],["par2:yin+yang","yin","yin_mut",15],["par2:yin+yang","yin","yin_mut",16],["par2:yin+yang","yin","yin_mut",17],["par2:yin+yang","yin","yin_mut",18],["par2:yin+yang","yin","yin_mut",19],["par2:yin+yang","yin","yin_mut",20],["par2:yin+yang","yin","yin_mut",21],["par2:yin+yang","yin","yin_mut",22],["par2:yin+yang","yin","yin_mut",23],["par2:yin+yang","yin","yin_mut",24],["par2:yin+yang","yin","yin_mut",25],["par2:yin+yang","yin","yin_mut",26],["par2:yin+yang","yin","yin_mut",27],["par2:yin+yang","yin","yin_mut",28],["par2:yin+yang","yin","yin_mut",29],["par2:yin+yang","yin","yin_mut",30],["par2:yin+yang","yin","yin_mut",31],["par2:yin+yang","yin","yin_mut",32],["par2:yin+yang","yin","yin_mut",33],["par2:yin+yang","yin","yin_mut",34],["par2:yin+yang","yin","yin_mut",35],["par2:yin+yang","yin","yin_mut",36],["par2:yin+yang","yin","yin_mut",37],["par2:yin+yang","yin","yin_mut",38],["par2:yin+yang","yin","yin_mut",39],["par2:yin+yang","yin","yin_mut",40],["par2:yin+yang","yin","yin_mut",41],["par2:yin+yang","yin","yin_mut",42],["par2:yin+yang","yin","yin_mut",43],["par2:yin+yang","yin","yin_mut",44],["par2:yin+yang","yin","yin_mut",45],["par2:yin+yang","yin","yin_mut",46],["par2:yin+yang","yin","yin_mut",47],["par2:yin+yang","yin","yin_mut",48],["par2:yin+yang","yin","yin_mut",49],["par2:yin+yang","yin","yin_mut",50],["par2:yin+yang","yin","yin_mut",51],["par2:yin+yang","yin","yin_mut",52],["par2:yin+yang","yin","yin_mut",53],["par2:yin+yang","yin","yin_mut",54],["par2:yin+yang","yin","yin_mut",55],["par2:yin+yang","yin","yin_mut",56],["par2:yin+yang","yin","yin_mut",57],["par2:yin+yang","yin","yin_mut",58],["par2:yin+yang","yin","yin_mut",59],["par2:yin+yang","yin","yin_mut",60],["par2:yin+yang","yin","yin_mut",61],["par2:yin+yang","yin","yin_mut",62],["par2:yin+yang","yin","yin_mut",63],["par2:yin+yang_mut","yang","yang_mut",0],["par2:yin+yang_mut","yang","yang_mut",1],["par2:yin+yang_mut","yang","yang_mut",2],["par2:yin+yang_mut","yang","yang_mut",3],["par2:yin+yang_mut","yang","yang_mut",4],["par2:yin+yang_mut","yang","yang_mut",5],["par2:yin+yang_mut","yang","yang_mut",6],["par2:yin+yang_mut","yang","yang_mut",7],["par2:yin+yang_mut","yang","yang_mut",8],["par2:yin+yang_mut","yang","yang_mut",9],["par2:yin+yang_mut","yang","yang_mut",10],["par2:yin+yang_mut","yang","yang_mut",11],["par2:yin+yang_mut","yang","yang_mut",12],["par2:yin+yang_mut","yang","yang_mut",13],["par2:yin+yang_mut","yang","yang_mut",14],["par2:yin+yang_mut","yang","yang_mut",15],["par2:yin+yang_mut","yang","yang_mut",16],["par2:yin+yang_mut","yang","yang_mut",17],["par2:yin+yang_mut","yang","yang_mut",18],["par2:yin+yang_mut","yang","yang_mut",19],["par2:yin+yang_mut","yang","yang_mut",20],["par2:yin+yang_mut","yang","yang_mut",21],["par2:yin+yang_mut","yang","yang_mut",22],["par2:yin+yang_mut","yang","yang_mut",23],["par2:yin+yang_mut","yang","yang_mut",24],["par2:yin+yang_mut","yang","yang_mut",25],["par2:yin+yang_mut","yang","yang_mut",26],["par2:yin+yang_mut","yang","yang_mut",27],["par2:yin+yang_mut","yang","yang_mut",28],["par2:yin+yang_mut","yang","yang_mut",29],["par2:yin+yang_mut","yang","yang_mut",30],["par2:yin+yang_mut","yang","yang_mut",31],["par2:yin+yang_mut","yang","yang_mut",32],["par2:yin+yang_mut","yang","yang_mut",33],["par2:yin+yang_mut","yang","yang_mut",34],["par2:yin+yang_mut","yang","yang_mut",35],["par2:yin+yang_mut","yang","yang_mut",36],["par2:yin+yang_mut","yang","yang_mut",37],["par2:yin+yang_mut","yang","yang_mut",38],["par2:yin+yang_mut","yang","yang_mut",39],["par2:yin+yang_mut","yang","yang_mut",40],["par2:yin+yang_mut","yang","yang_mut",41],["par2:yin+yang_mut","yang","yang_mut",42],["par2:yin+yang_mut","yang","yang_mut",43],["par2:yin+yang_mut","yang","yang_mut",44],["par2:yin+yang_mut","yang","yang_mut",45],["par2:yin+yang_mut","yang","yang_mut",46],["par2:yin+yang_mut","yang","yang_mut",47],["par2:yin+yang_mut","yang","yang_mut",48],["par2:yin+yang_mut","yang","yang_mut",49],["par2:yin+yang_mut","yang","yang_mut",50],["par2:yin+yang_mut","yang","yang_mut",51],["par2:yin+yang_mut","yang","yang_mut",52],["par2:yin+yang_mut","yang","yang_mut",53],["par2:yin+yang_mut","yang","yang_mut",54],["par2:yin+yang_mut","yang","yang_mut",55],["par2:yin+yang_mut","yang","yang_mut",56],["par2:yin+yang_mut","yang","yang_mut",57],["par2:yin+yang_mut","yang","yang_mut",58],["par2:yin+yang_mut","yang","yang_mut",59],["par2:yin+yang_mut","yang","yang_mut",60],["par2:yin+yang_mut","yang","yang_mut",61],["par2:yin+yang_mut","yang","yang_mut",62],["par2:yin+yang_mut","yang","yang_mut",63],["par2:yin+yang_mut","yang","yin",0],["par2:yin+yang_mut","yang","yin",63],["par2:yin+yang_mut","yang","yin_mut",0],["par2:yin+yang_mut","yang","yin_mut",63],["par2:yin+yang_mut","yang_mut","yin",0],["par2:yin+yang_mut","yang_mut","yin",63],["par2:yin+yang_mut","yang_mut","yin_mut",0],["par2:yin+yang_mut","yang_mut","yin_mut",63],["par2:yin+yang_mut","yin","yin_mut",0],["par2:yin+yang_mut","yin","yin_mut",1],["par2:yin+yang_mut","yin","yin_mut",2],["par2:yin+yang_mut","yin","yin_mut",3],["par2:yin+yang_mut","yin","yin_mut",4],["par2:yin+yang_mut","yin","yin_mut",5],["par2:yin+yang_mut","yin","yin_mut",6],["par2:yin+yang_mut","yin","yin_mut",7],["par2:yin+yang_mut","yin","yin_mut",8],["par2:yin+yang_mut","yin","yin_mut",9],["par2:yin+yang_mut","yin","yin_mut",10],["par2:yin+yang_mut","yin","yin_mut",11],["par2:yin+yang_mut","yin","yin_mut",12],["par2:yin+yang_mut","yin","yin_mut",13],["par2:yin+yang_mut","yin","yin_mut",14],["par2:yin+yang_mut","yin","yin_mut",15],["par2:yin+yang_mut","yin","yin_mut",16],["par2:yin+yang_mut","yin","yin_mut",17],["par2:yin+yang_mut","yin","yin_mut",18],["par2:yin+yang_mut","yin","yin_mut",19],["par2:yin+yang_mut","yin","yin_mut",20],["par2:yin+yang_mut","yin","yin_mut",21],["par2:yin+yang_mut","yin","yin_mut",22],["par2:yin+yang_mut","yin","yin_mut",23],["par2:yin+yang_mut","yin","yin_mut",24],["par2:yin+yang_mut","yin","yin_mut",25],["par2:yin+yang_mut","yin","yin_mut",26],["par2:yin+yang_mut","yin","yin_mut",27],["par2:yin+yang_mut","yin","yin_mut",28],["par2:yin+yang_mut","yin","yin_mut",29],["par2:yin+yang_mut","yin","yin_mut",30],["par2:yin+yang_mut","yin","yin_mut",31],["par2:yin+yang_mut","yin","yin_mut",32],["par2:yin+yang_mut","yin","yin_mut",33],["par2:yin+yang_mut","yin","yin_mut",34],["par2:yin+yang_mut","yin","yin_mut",35],["par2:yin+yang_mut","yin","yin_mut",36],["par2:yin+yang_mut","yin","yin_mut",37],["par2:yin+yang_mut","yin","yin_mut",38],["par2:yin+yang_mut","yin","yin_mut",39],["par2:yin+yang_mut","yin","yin_mut",40],["par2:yin+yang_mut","yin","yin_mut",41],["par2:yin+yang_mut","yin","yin_mut",42],["par2:yin+yang_mut","yin","yin_mut",43],["par2:yin+yang_mut","yin","yin_mut",44],["par2:yin+yang_mut","yin","yin_mut",45],["par2:yin+yang_mut","yin","yin_mut",46],["par2:yin+yang_mut","yin","yin_mut",47],["par2:yin+yang_mut","yin","yin_mut",48],["par2:yin+yang_mut","yin","yin_mut",49],["par2:yin+yang_mut","yin","yin_mut",50],["par2:yin+yang_mut","yin","yin_mut",51],["par2:yin+yang_mut","yin","yin_mut",52],["par2:yin+yang_mut","yin","yin_mut",53],["par2:yin+yang_mut","yin","yin_mut",54],["par2:yin+yang_mut","yin","yin_mut",55],["par2:yin+yang_mut","yin","yin_mut",56],["par2:yin+yang_mut","yin","yin_mut",57],["par2:yin+yang_mut","yin","yin_mut",58],["par2:yin+yang_mut","yin","yin_mut",59],["par2:yin+yang_mut","yin","yin_mut",60],["par2:yin+yang_mut","yin","yin_mut",61],["par2:yin+yang_mut","yin","yin_mut",62],["par2:yin+yang_mut","yin","yin_mut",63],["par2:yin_mut+yang_mut","yang","yang_mut",0],["par2:yin_mut+yang_mut","yang","yang_mut",1],["par2:yin_mut+yang_mut","yang","yang_mut",2],["par2:yin_mut+yang_mut","yang","yang_mut",3],["par2:yin_mut+yang_mut","yang","yang_mut",4],["par2:yin_mut+yang_mut","yang","yang_mut",5],["par2:yin_mut+yang_mut","yang","yang_mut",6],["par2:yin_mut+yang_mut","yang","yang_mut",7],["par2:yin_mut+yang_mut","yang","yang_mut",8],["par2:yin_mut+yang_mut","yang","yang_mut",9],["par2:yin_mut+yang_mut","yang","yang_mut",10],["par2:yin_mut+yang_mut","yang","yang_mut",11],["par2:yin_mut+yang_mut","yang","yang_mut",12],["par2:yin_mut+yang_mut","yang","yang_mut",13],["par2:yin_mut+yang_mut","yang","yang_mut",14],["par2:yin_mut+yang_mut","yang","yang_mut",15],["par2:yin_mut+yang_mut","yang","yang_mut",16],["par2:yin_mut+yang_mut","yang","yang_mut",17],["par2:yin_mut+yang_mut","yang","yang_mut",18],["par2:yin_mut+yang_mut","yang","yang_mut",19],["par2:yin_mut+yang_mut","yang","yang_mut",20],["par2:yin_mut+yang_mut","yang","yang_mut",21],["par2:yin_mut+yang_mut","yang","yang_mut",22],["par2:yin_mut+yang_mut","yang","yang_mut",23],["par2:yin_mut+yang_mut","yang","yang_mut",24],["par2:yin_mut+yang_mut","yang","yang_mut",25],["par2:yin_mut+yang_mut","yang","yang_mut",26],["par2:yin_mut+yang_mut","yang","yang_mut",27],["par2:yin_mut+yang_mut","yang","yang_mut",28],["par2:yin_mut+yang_mut","yang","yang_mut",29],["par2:yin_mut+yang_mut","yang","yang_mut",30],["par2:yin_mut+yang_mut","yang","yang_mut",31],["par2:yin_mut+yang_mut","yang","yang_mut",32],["par2:yin_mut+yang_mut","yang","yang_mut",33],["par2:yin_mut+yang_mut","yang","yang_mut",34],["par2:yin_mut+yang_mut","yang","yang_mut",35],["par2:yin_mut+yang_mut","yang","yang_mut",36],["par2:yin_mut+yang_mut","yang","yang_mut",37],["par2:yin_mut+yang_mut","yang","yang_mut",38],["par2:yin_mut+yang_mut","yang","yang_mut",39],["par2:yin_mut+yang_mut","yang","yang_mut",40],["par2:yin_mut+yang_mut","yang","yang_mut",41],["par2:yin_mut+yang_mut","yang","yang_mut",42],["par2:yin_mut+yang_mut","yang","yang_mut",43],["par2:yin_mut+yang_mut","yang","yang_mut",44],["par2:yin_mut+yang_mut","yang","yang_mut",45],["par2:yin_mut+yang_mut","yang","yang_mut",46],["par2:yin_mut+yang_mut","yang","yang_mut",47],["par2:yin_mut+yang_mut","yang","yang_mut",48],["par2:yin_mut+yang_mut","yang","yang_mut",49],["par2:yin_mut+yang_mut","yang","yang_mut",50],["par2:yin_mut+yang_mut","yang","yang_mut",51],["par2:yin_mut+yang_mut","yang","yang_mut",52],["par2:yin_mut+yang_mut","yang","yang_mut",53],["par2:yin_mut+yang_mut","yang","yang_mut",54],["par2:yin_mut+yang_mut","yang","yang_mut",55],["par2:yin_mut+yang_mut","yang","yang_mut",56],["par2:yin_mut+yang_mut","yang","yang_mut",57],["par2:yin_mut+yang_mut","yang","yang_mut",58],["par2:yin_mut+yang_mut","yang","yang_mut",59],["par2:yin_mut+yang_mut","yang","yang_mut",60],["par2:yin_mut+yang_mut","yang","yang_mut",61],["par2:yin_mut+yang_mut","yang","yang_mut",62],["par2:yin_mut+yang_mut","yang","yang_mut",63],["par2:yin_mut+yang_mut","yang","yin",0],["par2:yin_mut+yang_mut","yang","yin",63],["par2:yin_mut+yang_mut","yang","yin_mut",0],["par2:yin_mut+yang_mut","yang","yin_mut",63],["par2:yin_mut+yang_mut","yang_mut","yin",0],["par2:yin_mut+yang_mut","yang_mut","yin",63],["par2:yin_mut+yang_mut","yang_mut","yin_mut",0],["par2:yin_mut+yang_mut","yang_mut","yin_mut",63],["par2:yin_mut+yang_mut","yin","yin_mut",0],["par2:yin_mut+yang_mut","yin","yin_mut",1],["par2:yin_mut+yang_mut","yin","yin_mut",2],["par2:yin_mut+yang_mut","yin","yin_mut",3],["par2:yin_mut+yang_mut","yin","yin_mut",4],["par2:yin_mut+yang_mut","yin","yin_mut",5],["par2:yin_mut+yang_mut","yin","yin_mut",6],["par2:yin_mut+yang_mut","yin","yin_mut",7],["par2:yin_mut+yang_mut","yin","yin_mut",8],["par2:yin_mut+yang_mut","yin","yin_mut",9],["par2:yin_mut+yang_mut","yin","yin_mut",10],["par2:yin_mut+yang_mut","yin","yin_mut",11],["par2:yin_mut+yang_mut","yin","yin_mut",12],["par2:yin_mut+yang_mut","yin","yin_mut",13],["par2:yin_mut+yang_mut","yin","yin_mut",14],["par2:yin_mut+yang_mut","yin","yin_mut",15],["par2:yin_mut+yang_mut","yin","yin_mut",16],["par2:yin_mut+yang_mut","yin","yin_mut",17],["par2:yin_mut+yang_mut","yin","yin_mut",18],["par2:yin_mut+yang_mut","yin","yin_mut",19],["par2:yin_mut+yang_mut","yin","yin_mut",20],["par2:yin_mut+yang_mut","yin","yin_mut",21],["par2:yin_mut+yang_mut","yin","yin_mut",22],["par2:yin_mut+yang_mut","yin","yin_mut",23],["par2:yin_mut+yang_mut","yin","yin_mut",24],["par2:yin_mut+yang_mut","yin","yin_mut",25],["par2:yin_mut+yang_mut","yin","yin_mut",26],["par2:yin_mut+yang_mut","yin","yin_mut",27],["par2:yin_mut+yang_mut","yin","yin_mut",28],["par2:yin_mut+yang_mut","yin","yin_mut",29],["par2:yin_mut+yang_mut","yin","yin_mut",30],["par2:yin_mut+yang_mut","yin","yin_mut",31],["par2:yin_mut+yang_mut","yin","yin_mut",32],["par2:yin_mut+yang_mut","yin","yin_mut",33],["par2:yin_mut+yang_mut","yin","yin_mut",34],["par2:yin_mut+yang_mut","yin","yin_mut",35],["par2:yin_mut+yang_mut","yin","yin_mut",36],["par2:yin_mut+yang_mut","yin","yin_mut",37],["par2:yin_mut+yang_mut","yin","yin_mut",38],["par2:yin_mut+yang_mut","yin","yin_mut",39],["par2:yin_mut+yang_mut","yin","yin_mut",40],["par2:yin_mut+yang_mut","yin","yin_mut",41],["par2:yin_mut+yang_mut","yin","yin_mut",42],["par2:yin_mut+yang_mut","yin","yin_mut",43],["par2:yin_mut+yang_mut","yin","yin_mut",44],["par2:yin_mut+yang_mut","yin","yin_mut",45],["par2:yin_mut+yang_mut","yin","yin_mut",46],["par2:yin_mut+yang_mut","yin","yin_mut",47],["par2:yin_mut+yang_mut","yin","yin_mut",48],["par2:yin_mut+yang_mut","yin","yin_mut",49],["par2:yin_mut+yang_mut","yin","yin_mut",50],["par2:yin_mut+yang_mut","yin","yin_mut",51],["par2:yin_mut+yang_mut","yin","yin_mut",52],["par2:yin_mut+yang_mut","yin","yin_mut",53],["par2:yin_mut+yang_mut","yin","yin_mut",54],["par2:yin_mut+yang_mut","yin","yin_mut",55],["par2:yin_mut+yang_mut","yin","yin_mut",56],["par2:yin_mut+yang_mut","yin","yin_mut",57],["par2:yin_mut+yang_mut","yin","yin_mut",58],["par2:yin_mut+yang_mut","yin","yin_mut",59],["par2:yin_mut+yang_mut","yin","yin_mut",60],["par2:yin_mut+yang_mut","yin","yin_mut",61],["par2:yin_mut+yang_mut","yin","yin_mut",62],["par2:yin_mut+yang_mut","yin","yin_mut",63],["par3:sans_yang","yang","yang_mut",0],["par3:sans_yang","yang","yang_mut",1],["par3:sans_yang","yang","yang_mut",2],["par3:sans_yang","yang","yang_mut",3],["par3:sans_yang","yang","yang_mut",4],["par3:sans_yang","yang","yang_mut",5],["par3:sans_yang","yang","yang_mut",6],["par3:sans_yang","yang","yang_mut",7],["par3:sans_yang","yang","yang_mut",8],["par3:sans_yang","yang","yang_mut",9],["par3:sans_yang","yang","yang_mut",10],["par3:sans_yang","yang","yang_mut",11],["par3:sans_yang","yang","yang_mut",12],["par3:sans_yang","yang","yang_mut",13],["par3:sans_yang","yang","yang_mut",14],["par3:sans_yang","yang","yang_mut",15],["par3:sans_yang","yang","yang_mut",16],["par3:sans_yang","yang","yang_mut",17],["par3:sans_yang","yang","yang_mut",18],["par3:sans_yang","yang","yang_mut",19],["par3:sans_yang","yang","yang_mut",20],["par3:sans_yang","yang","yang_mut",21],["par3:sans_yang","yang","yang_mut",22],["par3:sans_yang","yang","yang_mut",23],["par3:sans_yang","yang","yang_mut",24],["par3:sans_yang","yang","yang_mut",25],["par3:sans_yang","yang","yang_mut",26],["par3:sans_yang","yang","yang_mut",27],["par3:sans_yang","yang","yang_mut",28],["par3:sans_yang","yang","yang_mut",29],["par3:sans_yang","yang","yang_mut",30],["par3:sans_yang","yang","yang_mut",31],["par3:sans_yang","yang","yang_mut",32],["par3:sans_yang","yang","yang_mut",33],["par3:sans_yang","yang","yang_mut",34],["par3:sans_yang","yang","yang_mut",35],["par3:sans_yang","yang","yang_mut",36],["par3:sans_yang","yang","yang_mut",37],["par3:sans_yang","yang","yang_mut",38],["par3:sans_yang","yang","yang_mut",39],["par3:sans_yang","yang","yang_mut",40],["par3:sans_yang","yang","yang_mut",41],["par3:sans_yang","yang","yang_mut",42],["par3:sans_yang","yang","yang_mut",43],["par3:sans_yang","yang","yang_mut",44],["par3:sans_yang","yang","yang_mut",45],["par3:sans_yang","yang","yang_mut",46],["par3:sans_yang","yang","yang_mut",47],["par3:sans_yang","yang","yang_mut",48],["par3:sans_yang","yang","yang_mut",49],["par3:sans_yang","yang","yang_mut",50],["par3:sans_yang","yang","yang_mut",51],["par3:sans_yang","yang","yang_mut",52],["par3:sans_yang","yang","yang_mut",53],["par3:sans_yang","yang","yang_mut",54],["par3:sans_yang","yang","yang_mut",55],["par3:sans_yang","yang","yang_mut",56],["par3:sans_yang","yang","yang_mut",57],["par3:sans_yang","yang","yang_mut",58],["par3:sans_yang","yang","yang_mut",59],["par3:sans_yang","yang","yang_mut",60],["par3:sans_yang","yang","yang_mut",61],["par3:sans_yang","yang","yang_mut",62],["par3:sans_yang","yang","yang_mut",63],["par3:sans_yang","yang","yin",0],["par3:sans_yang","yang","yin",63],["par3:sans_yang","yang","yin_mut",0],["par3:sans_yang","yang","yin_mut",63],["par3:sans_yang","yang_mut","yin",0],["par3:sans_yang","yang_mut","yin",63],["par3:sans_yang","yang_mut","yin_mut",0],["par3:sans_yang","yang_mut","yin_mut",63],["par3:sans_yang","yin","yin_mut",0],["par3:sans_yang","yin","yin_mut",1],["par3:sans_yang","yin","yin_mut",2],["par3:sans_yang","yin","yin_mut",3],["par3:sans_yang","yin","yin_mut",4],["par3:sans_yang","yin","yin_mut",5],["par3:sans_yang","yin","yin_mut",6],["par3:sans_yang","yin","yin_mut",7],["par3:sans_yang","yin","yin_mut",8],["par3:sans_yang","yin","yin_mut",9],["par3:sans_yang","yin","yin_mut",10],["par3:sans_yang","yin","yin_mut",11],["par3:sans_yang","yin","yin_mut",12],["par3:sans_yang","yin","yin_mut",13],["par3:sans_yang","yin","yin_mut",14],["par3:sans_yang","yin","yin_mut",15],["par3:sans_yang","yin","yin_mut",16],["par3:sans_yang","yin","yin_mut",17],["par3:sans_yang","yin","yin_mut",18],["par3:sans_yang","yin","yin_mut",19],["par3:sans_yang","yin","yin_mut",20],["par3:sans_yang","yin","yin_mut",21],["par3:sans_yang","yin","yin_mut",22],["par3:sans_yang","yin","yin_mut",23],["par3:sans_yang","yin","yin_mut",24],["par3:sans_yang","yin","yin_mut",25],["par3:sans_yang","yin","yin_mut",26],["par3:sans_yang","yin","yin_mut",27],["par3:sans_yang","yin","yin_mut",28],["par3:sans_yang","yin","yin_mut",29],["par3:sans_yang","yin","yin_mut",30],["par3:sans_yang","yin","yin_mut",31],["par3:sans_yang","yin","yin_mut",32],["par3:sans_yang","yin","yin_mut",33],["par3:sans_yang","yin","yin_mut",34],["par3:sans_yang","yin","yin_mut",35],["par3:sans_yang","yin","yin_mut",36],["par3:sans_yang","yin","yin_mut",37],["par3:sans_yang","yin","yin_mut",38],["par3:sans_yang","yin","yin_mut",39],["par3:sans_yang","yin","yin_mut",40],["par3:sans_yang","yin","yin_mut",41],["par3:sans_yang","yin","yin_mut",42],["par3:sans_yang","yin","yin_mut",43],["par3:sans_yang","yin","yin_mut",44],["par3:sans_yang","yin","yin_mut",45],["par3:sans_yang","yin","yin_mut",46],["par3:sans_yang","yin","yin_mut",47],["par3:sans_yang","yin","yin_mut",48],["par3:sans_yang","yin","yin_mut",49],["par3:sans_yang","yin","yin_mut",50],["par3:sans_yang","yin","yin_mut",51],["par3:sans_yang","yin","yin_mut",52],["par3:sans_yang","yin","yin_mut",53],["par3:sans_yang","yin","yin_mut",54],["par3:sans_yang","yin","yin_mut",55],["par3:sans_yang","yin","yin_mut",56],["par3:sans_yang","yin","yin_mut",57],["par3:sans_yang","yin","yin_mut",58],["par3:sans_yang","yin","yin_mut",59],["par3:sans_yang","yin","yin_mut",60],["par3:sans_yang","yin","yin_mut",61],["par3:sans_yang","yin","yin_mut",62],["par3:sans_yang","yin","yin_mut",63],["par3:sans_yang_mut","yang","yang_mut",0],["par3:sans_yang_mut","yang","yang_mut",1],["par3:sans_yang_mut","yang","yang_mut",2],["par3:sans_yang_mut","yang","yang_mut",3],["par3:sans_yang_mut","yang","yang_mut",4],["par3:sans_yang_mut","yang","yang_mut",5],["par3:sans_yang_mut","yang","yang_mut",6],["par3:sans_yang_mut","yang","yang_mut",7],["par3:sans_yang_mut","yang","yang_mut",8],["par3:sans_yang_mut","yang","yang_mut",9],["par3:sans_yang_mut","yang","yang_mut",10],["par3:sans_yang_mut","yang","yang_mut",11],["par3:sans_yang_mut","yang","yang_mut",12],["par3:sans_yang_mut","yang","yang_mut",13],["par3:sans_yang_mut","yang","yang_mut",14],["par3:sans_yang_mut","yang","yang_mut",15],["par3:sans_yang_mut","yang","yang_mut",16],["par3:sans_yang_mut","yang","yang_mut",17],["par3:sans_yang_mut","yang","yang_mut",18],["par3:sans_yang_mut","yang","yang_mut",19],["par3:sans_yang_mut","yang","yang_mut",20],["par3:sans_yang_mut","yang","yang_mut",21],["par3:sans_yang_mut","yang","yang_mut",22],["par3:sans_yang_mut","yang","yang_mut",23],["par3:sans_yang_mut","yang","yang_mut",24],["par3:sans_yang_mut","yang","yang_mut",25],["par3:sans_yang_mut","yang","yang_mut",26],["par3:sans_yang_mut","yang","yang_mut",27],["par3:sans_yang_mut","yang","yang_mut",28],["par3:sans_yang_mut","yang","yang_mut",29],["par3:sans_yang_mut","yang","yang_mut",30],["par3:sans_yang_mut","yang","yang_mut",31],["par3:sans_yang_mut","yang","yang_mut",32],["par3:sans_yang_mut","yang","yang_mut",33],["par3:sans_yang_mut","yang","yang_mut",34],["par3:sans_yang_mut","yang","yang_mut",35],["par3:sans_yang_mut","yang","yang_mut",36],["par3:sans_yang_mut","yang","yang_mut",37],["par3:sans_yang_mut","yang","yang_mut",38],["par3:sans_yang_mut","yang","yang_mut",39],["par3:sans_yang_mut","yang","yang_mut",40],["par3:sans_yang_mut","yang","yang_mut",41],["par3:sans_yang_mut","yang","yang_mut",42],["par3:sans_yang_mut","yang","yang_mut",43],["par3:sans_yang_mut","yang","yang_mut",44],["par3:sans_yang_mut","yang","yang_mut",45],["par3:sans_yang_mut","yang","yang_mut",46],["par3:sans_yang_mut","yang","yang_mut",47],["par3:sans_yang_mut","yang","yang_mut",48],["par3:sans_yang_mut","yang","yang_mut",49],["par3:sans_yang_mut","yang","yang_mut",50],["par3:sans_yang_mut","yang","yang_mut",51],["par3:sans_yang_mut","yang","yang_mut",52],["par3:sans_yang_mut","yang","yang_mut",53],["par3:sans_yang_mut","yang","yang_mut",54],["par3:sans_yang_mut","yang","yang_mut",55],["par3:sans_yang_mut","yang","yang_mut",56],["par3:sans_yang_mut","yang","yang_mut",57],["par3:sans_yang_mut","yang","yang_mut",58],["par3:sans_yang_mut","yang","yang_mut",59],["par3:sans_yang_mut","yang","yang_mut",60],["par3:sans_yang_mut","yang","yang_mut",61],["par3:sans_yang_mut","yang","yang_mut",62],["par3:sans_yang_mut","yang","yang_mut",63],["par3:sans_yang_mut","yang","yin",0],["par3:sans_yang_mut","yang","yin",63],["par3:sans_yang_mut","yang","yin_mut",0],["par3:sans_yang_mut","yang","yin_mut",63],["par3:sans_yang_mut","yang_mut","yin",0],["par3:sans_yang_mut","yang_mut","yin",63],["par3:sans_yang_mut","yang_mut","yin_mut",0],["par3:sans_yang_mut","yang_mut","yin_mut",63],["par3:sans_yang_mut","yin","yin_mut",0],["par3:sans_yang_mut","yin","yin_mut",1],["par3:sans_yang_mut","yin","yin_mut",2],["par3:sans_yang_mut","yin","yin_mut",3],["par3:sans_yang_mut","yin","yin_mut",4],["par3:sans_yang_mut","yin","yin_mut",5],["par3:sans_yang_mut","yin","yin_mut",6],["par3:sans_yang_mut","yin","yin_mut",7],["par3:sans_yang_mut","yin","yin_mut",8],["par3:sans_yang_mut","yin","yin_mut",9],["par3:sans_yang_mut","yin","yin_mut",10],["par3:sans_yang_mut","yin","yin_mut",11],["par3:sans_yang_mut","yin","yin_mut",12],["par3:sans_yang_mut","yin","yin_mut",13],["par3:sans_yang_mut","yin","yin_mut",14],["par3:sans_yang_mut","yin","yin_mut",15],["par3:sans_yang_mut","yin","yin_mut",16],["par3:sans_yang_mut","yin","yin_mut",17],["par3:sans_yang_mut","yin","yin_mut",18],["par3:sans_yang_mut","yin","yin_mut",19],["par3:sans_yang_mut","yin","yin_mut",20],["par3:sans_yang_mut","yin","yin_mut",21],["par3:sans_yang_mut","yin","yin_mut",22],["par3:sans_yang_mut","yin","yin_mut",23],["par3:sans_yang_mut","yin","yin_mut",24],["par3:sans_yang_mut","yin","yin_mut",25],["par3:sans_yang_mut","yin","yin_mut",26],["par3:sans_yang_mut","yin","yin_mut",27],["par3:sans_yang_mut","yin","yin_mut",28],["par3:sans_yang_mut","yin","yin_mut",29],["par3:sans_yang_mut","yin","yin_mut",30],["par3:sans_yang_mut","yin","yin_mut",31],["par3:sans_yang_mut","yin","yin_mut",32],["par3:sans_yang_mut","yin","yin_mut",33],["par3:sans_yang_mut","yin","yin_mut",34],["par3:sans_yang_mut","yin","yin_mut",35],["par3:sans_yang_mut","yin","yin_mut",36],["par3:sans_yang_mut","yin","yin_mut",37],["par3:sans_yang_mut","yin","yin_mut",38],["par3:sans_yang_mut","yin","yin_mut",39],["par3:sans_yang_mut","yin","yin_mut",40],["par3:sans_yang_mut","yin","yin_mut",41],["par3:sans_yang_mut","yin","yin_mut",42],["par3:sans_yang_mut","yin","yin_mut",43],["par3:sans_yang_mut","yin","yin_mut",44],["par3:sans_yang_mut","yin","yin_mut",45],["par3:sans_yang_mut","yin","yin_mut",46],["par3:sans_yang_mut","yin","yin_mut",47],["par3:sans_yang_mut","yin","yin_mut",48],["par3:sans_yang_mut","yin","yin_mut",49],["par3:sans_yang_mut","yin","yin_mut",50],["par3:sans_yang_mut","yin","yin_mut",51],["par3:sans_yang_mut","yin","yin_mut",52],["par3:sans_yang_mut","yin","yin_mut",53],["par3:sans_yang_mut","yin","yin_mut",54],["par3:sans_yang_mut","yin","yin_mut",55],["par3:sans_yang_mut","yin","yin_mut",56],["par3:sans_yang_mut","yin","yin_mut",57],["par3:sans_yang_mut","yin","yin_mut",58],["par3:sans_yang_mut","yin","yin_mut",59],["par3:sans_yang_mut","yin","yin_mut",60],["par3:sans_yang_mut","yin","yin_mut",61],["par3:sans_yang_mut","yin","yin_mut",62],["par3:sans_yang_mut","yin","yin_mut",63]]};
-const PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+let PALETTE = Object.assign({}, DEFAULT_PALETTE);
+let colorMode = '3';
 const LAYER_OF = DATA.layerOf;
+const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
+
+function hexToRgb(hex){
+  hex = hex.replace('#','');
+  return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)];
+}
+function rgbToHex(r,g,b){
+  const c = v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0');
+  return '#'+c(r)+c(g)+c(b);
+}
+function rgbToHsl(r,g,b){
+  r/=255; g/=255; b/=255;
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
+  let h,s,l=(mx+mn)/2;
+  if(mx===mn){ h=s=0; }
+  else{
+    const d=mx-mn;
+    s = l>0.5 ? d/(2-mx-mn) : d/(mx+mn);
+    switch(mx){
+      case r: h=(g-b)/d+(g<b?6:0); break;
+      case g: h=(b-r)/d+2; break;
+      case b: h=(r-g)/d+4; break;
+    }
+    h/=6;
+  }
+  return [h,s,l];
+}
+function hslToRgb(h,s,l){
+  let r,g,b;
+  if(s===0){ r=g=b=l; }
+  else{
+    const hue2rgb=(p,q,t)=>{
+      if(t<0) t+=1; if(t>1) t-=1;
+      if(t<1/6) return p+(q-p)*6*t;
+      if(t<1/2) return q;
+      if(t<2/3) return p+(q-p)*(2/3-t)*6;
+      return p;
+    };
+    const q = l<0.5 ? l*(1+s) : l+s-l*s;
+    const p = 2*l-q;
+    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+  }
+  return [r*255,g*255,b*255];
+}
+function adjustLightness(hex, delta){
+  const [r,g,b] = hexToRgb(hex);
+  let [h,s,l] = rgbToHsl(r,g,b);
+  l = Math.max(0, Math.min(1, l+delta));
+  const [r2,g2,b2] = hslToRgb(h,s,l);
+  return rgbToHex(r2,g2,b2);
+}
+function hueOf(hex){
+  const [r,g,b] = hexToRgb(hex);
+  return rgbToHsl(r,g,b)[0];
+}
+function rotateHue(hex, deltaHue){
+  const [r,g,b] = hexToRgb(hex);
+  let [h,s,l] = rgbToHsl(r,g,b);
+  h = (h + deltaHue + 1) % 1;
+  const [r2,g2,b2] = hslToRgb(h,s,l);
+  return rgbToHex(r2,g2,b2);
+}
+function applyTintRotation(pickedHex){
+  const deltaHue = hueOf(pickedHex) - hueOf(DEFAULT_PALETTE.O);
+  PALETTE = {
+    V: rotateHue(DEFAULT_PALETTE.V, deltaHue),
+    M: rotateHue(DEFAULT_PALETTE.M, deltaHue),
+    O: rotateHue(DEFAULT_PALETTE.O, deltaHue),
+  };
+}
+function applySingleHue(pickedHex){
+  const mauve = adjustLightness(pickedHex, +0.20);
+  const rose  = adjustLightness(pickedHex, -0.20);
+  PALETTE = { V: mauve, M: rose, O: pickedHex };
+}
+function refreshPalette(){
+  const picked = document.getElementById('tintPicker').value;
+  if(colorMode==='1') applySingleHue(picked);
+  else applyTintRotation(picked);
+  if(currentGrid) drawTessellation(currentGrid);
+}
 
 function hexagramGrid(n, gridA, gridB){
   const col = n % 8, row = Math.floor(n/8);
@@ -244,107 +339,280 @@ function hexagramGrid(n, gridA, gridB){
   return grid;
 }
 
-function drawTile(canvas, grid, size){
-  size = size || 96;
-  const ctx = canvas.getContext('2d');
+function buildGridsFor(cat){
+  return DATA.entries
+    .filter(e => e[0].split(':')[0]===cat)
+    .map(([fam, subA, subB, n]) => hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]));
+}
+
+// --- écran de sélection : mini-aperçu par catégorie ---
+const catGrid = document.getElementById('catGrid');
+const cats = ['bases','par2','par3','par4'];
+const catGridsCache = {};
+cats.forEach(cat=>{
+  const grids = buildGridsFor(cat);
+  catGridsCache[cat] = grids;
+  const card = document.createElement('div');
+  card.className = 'cat-card' + (grids.length===0 ? ' disabled' : '');
+  const preview = document.createElement('canvas');
+  card.appendChild(preview);
+  const label = document.createElement('div'); label.className='label'; label.textContent = catLabel[cat];
+  const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
+  card.appendChild(label); card.appendChild(count);
+  if(grids.length>0){
+    drawStaticTile(preview, grids[0], 150);
+    card.onclick = ()=> launch(cat, grids);
+  }
+  catGrid.appendChild(card);
+});
+
+function drawStaticTile(canvas, grid, size){
   canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext('2d');
   const cell = size/12;
-  for(let r=0;r<12;r++){
-    for(let c=0;c<12;c++){
-      ctx.fillStyle = PALETTE[grid[r][c]];
-      ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
-    }
+  for(let r=0;r<12;r++) for(let c=0;c<12;c++){
+    ctx.fillStyle = PALETTE[grid[r][c]];
+    ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
   }
 }
 
-// Pavage : répète le motif (sans marge) plusieurs fois pour montrer l'effet tissé continu,
-// comme la tessellation de la page Unified Patterns.
-function drawPaved(canvas, grid, repeats){
-  repeats = repeats || 4;
-  const tileSize = 144;
-  const size = tileSize * repeats;
-  const ctx = canvas.getContext('2d');
-  canvas.width = size; canvas.height = size;
-  const cell = tileSize/12;
-  for(let ty=0; ty<repeats; ty++){
-    for(let tx=0; tx<repeats; tx++){
-      const ox = tx*tileSize, oy = ty*tileSize;
+// --- scène plein écran ---
+const stage = document.getElementById('stage');
+const selectScreen = document.getElementById('selectScreen');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const audioEl = document.getElementById('audioEl');
+let currentGrids = [];
+let currentGrid = null;
+let currentIndex = -1;
+let visited = new Set();
+let audioCtx, analyser, dataArray, sourceNode;
+let runningAvg = 0;
+let lastBeat = 0;
+let meditativeTimer = null;
+let meditativeActive = false;
+
+function stopMeditative(){
+  if(meditativeTimer){ clearInterval(meditativeTimer); meditativeTimer = null; }
+  meditativeActive = false;
+  document.getElementById('btnMeditative').classList.remove('active');
+  document.getElementById('rhythmWrap').style.display = 'none';
+}
+
+function startMeditative(){
+  stopAudio();
+  meditativeActive = true;
+  document.getElementById('btnMeditative').classList.add('active');
+  document.getElementById('rhythmWrap').style.display = 'inline-flex';
+  restartMeditativeTimer();
+}
+
+function restartMeditativeTimer(){
+  if(meditativeTimer) clearInterval(meditativeTimer);
+  const seconds = parseInt(document.getElementById('rhythmSlider').value, 10);
+  meditativeTimer = setInterval(()=> showNextGrid(1400), seconds*1000);
+}
+
+function gridDistance(a, b){
+  let d = 0;
+  for(let r=0;r<12;r++) for(let c=0;c<12;c++) if(a[r][c]!==b[r][c]) d++;
+  return d;
+}
+
+// choisit, parmi les motifs pas encore vus dans ce cycle, celui qui est
+// visuellement le plus proche du motif actuel (le moins de cellules qui changent)
+function pickNextByProximity(){
+  if(currentIndex === -1){
+    currentIndex = Math.floor(Math.random()*currentGrids.length);
+    visited = new Set([currentIndex]);
+    currentGrid = currentGrids[currentIndex];
+    return;
+  }
+  let candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
+  if(candidates.length===0){
+    // cycle complet : on repart, en gardant uniquement l'actuel comme "vu"
+    visited = new Set([currentIndex]);
+    candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
+  }
+  let best = candidates[0], bestDist = Infinity;
+  for(const i of candidates){
+    const d = gridDistance(currentGrid, currentGrids[i]);
+    if(d < bestDist){ bestDist = d; best = i; }
+  }
+  currentIndex = best;
+  visited.add(best);
+  currentGrid = currentGrids[best];
+}
+
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+
+function drawTessellation(grid){
+  drawTessellationOn(ctx, grid);
+}
+function drawTessellationOn(targetCtx, grid){
+  const w = canvas.width, h = canvas.height;
+  const tileCells = 12;
+  const tileSize = Math.max(w,h) / 6; // ~6 tuiles sur le plus grand côté
+  const cell = tileSize/tileCells;
+  const cols = Math.ceil(w/tileSize)+1;
+  const rows = Math.ceil(h/tileSize)+1;
+  for(let ty=0; ty<rows; ty++){
+    for(let tx=0; tx<cols; tx++){
       for(let r=0;r<12;r++){
         for(let c=0;c<12;c++){
-          ctx.fillStyle = PALETTE[grid[r][c]];
-          ctx.fillRect(ox+c*cell, oy+r*cell, cell+0.6, cell+0.6);
+          targetCtx.fillStyle = PALETTE[grid[r][c]];
+          targetCtx.fillRect(tx*tileSize + c*cell, ty*tileSize + r*cell, cell+0.7, cell+0.7);
         }
       }
     }
   }
 }
 
-const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
-function famLabel(fam){
-  const parts = fam.split(':');
-  if(parts.length===1) return catLabel[parts[0]] || parts[0];
-  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sans ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
-}
-function subLabel(s){
-  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
+function showNextGrid(fadeMs){
+  pickNextByProximity();
+  crossfadeTo(currentGrid, fadeMs);
 }
 
-const cats = ['all','bases','par2','par3'];
-const controls = document.getElementById('controls');
-cats.forEach(cat=>{
-  const btn = document.createElement('button');
-  btn.textContent = cat==='all' ? 'Toutes (884)' : catLabel[cat] + ' (' + DATA.entries.filter(e=>e[0].split(':')[0]===cat).length + ')';
-  btn.dataset.cat = cat;
-  if(cat==='all') btn.classList.add('active');
-  btn.onclick = ()=>{
-    document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    render(cat);
-  };
-  controls.appendChild(btn);
-});
+// --- fondu doux entre deux motifs (utilisé en mode méditatif, et réutilisable ailleurs) ---
+const offscreen = document.createElement('canvas');
+const offCtx = offscreen.getContext('2d');
+let fadeRAF = null;
 
-const galleryEl = document.getElementById('gallery');
-const pavedCanvas = document.getElementById('pavedCanvas');
-const pavedInfo = document.getElementById('pavedInfo');
-let currentEntries = [];
+function crossfadeTo(grid, durationMs){
+  if(!durationMs){ drawTessellation(grid); return; }
+  offscreen.width = canvas.width; offscreen.height = canvas.height;
+  // snapshot de l'état actuel
+  const prevSnapshot = document.createElement('canvas');
+  prevSnapshot.width = canvas.width; prevSnapshot.height = canvas.height;
+  prevSnapshot.getContext('2d').drawImage(canvas, 0, 0);
+  // dessine le nouveau motif hors écran
+  const savedCtx = ctx;
+  offCtx.clearRect(0,0,offscreen.width, offscreen.height);
+  drawTessellationOn(offCtx, grid);
 
-function entryLabel(fam, subA, subB, n){
-  return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
+  if(fadeRAF) cancelAnimationFrame(fadeRAF);
+  const start = performance.now();
+  function step(now){
+    const t = Math.min(1, (now-start)/durationMs);
+    ctx.drawImage(prevSnapshot, 0, 0);
+    ctx.globalAlpha = t;
+    ctx.drawImage(offscreen, 0, 0);
+    ctx.globalAlpha = 1;
+    if(t < 1){ fadeRAF = requestAnimationFrame(step); }
+  }
+  fadeRAF = requestAnimationFrame(step);
 }
 
-function selectEntry(idx){
-  document.querySelectorAll('.tile').forEach(t=> t.classList.toggle('selected', +t.dataset.idx===idx));
-  const [fam, subA, subB, n] = currentEntries[idx];
-  const gridA = DATA.families[fam][subA];
-  const gridB = DATA.families[fam][subB];
-  const grid = hexagramGrid(n, gridA, gridB);
-  drawPaved(pavedCanvas, grid);
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n;
+function launch(cat, grids){
+  currentGrids = grids;
+  currentIndex = -1;
+  visited = new Set();
+  selectScreen.style.display = 'none';
+  stage.style.display = 'block';
+  resizeCanvas();
+  showNextGrid();
+  if(stage.requestFullscreen) stage.requestFullscreen().catch(()=>{});
+  requestAnimationFrame(loop);
 }
 
-function render(filterCat){
-  galleryEl.innerHTML = '';
-  currentEntries = DATA.entries.filter(([fam])=> filterCat==='all' || fam.split(':')[0]===filterCat);
-  const frag = document.createDocumentFragment();
-  currentEntries.forEach(([fam, subA, subB, n], idx)=>{
-    const gridA = DATA.families[fam][subA];
-    const gridB = DATA.families[fam][subB];
-    const grid = hexagramGrid(n, gridA, gridB);
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-    tile.dataset.idx = idx;
-    tile.title = entryLabel(fam, subA, subB, n);
-    const canvas = document.createElement('canvas');
-    drawTile(canvas, grid, 64);
-    tile.appendChild(canvas);
-    tile.addEventListener('click', ()=> selectEntry(idx));
-    frag.appendChild(tile);
-  });
-  galleryEl.appendChild(frag);
-  if(currentEntries.length) selectEntry(0);
+document.getElementById('btnExit').onclick = ()=>{
+  if(document.fullscreenElement) document.exitFullscreen();
+  stopAudio();
+  stopMeditative();
+  stage.style.display='none';
+  selectScreen.style.display='block';
+};
+
+function ensureAudioContext(){
+  if(!audioCtx){
+    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 256;
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+  }
 }
-render('all');
+
+function stopAudio(){
+  if(sourceNode){ try{sourceNode.disconnect();}catch(e){} sourceNode=null; }
+  audioEl.pause();
+}
+
+document.getElementById('btnMic').onclick = async ()=>{
+  stopMeditative();
+  ensureAudioContext();
+  stopAudio();
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    sourceNode = audioCtx.createMediaStreamSource(stream);
+    sourceNode.connect(analyser);
+  }catch(e){ alert("Micro indisponible : " + e.message); }
+};
+
+document.getElementById('btnFile').onclick = ()=>{ stopMeditative(); document.getElementById('fileInput').click(); };
+document.getElementById('btnMeditative').onclick = ()=>{
+  if(meditativeActive) stopMeditative();
+  else startMeditative();
+};
+document.getElementById('rhythmSlider').oninput = (e)=>{
+  document.getElementById('rhythmLabel').textContent = e.target.value + ' s';
+  if(meditativeActive) restartMeditativeTimer();
+};
+document.getElementById('fileInput').onchange = (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  ensureAudioContext();
+  stopAudio();
+  audioEl.src = URL.createObjectURL(file);
+  audioEl.play();
+  sourceNode = audioCtx.createMediaElementSource(audioEl);
+  sourceNode.connect(analyser);
+  analyser.connect(audioCtx.destination);
+};
+
+// --- mode couleur, teinte, réinitialisation ---
+const btnMode = document.getElementById('btnMode');
+const tintPicker = document.getElementById('tintPicker');
+btnMode.onclick = ()=>{
+  colorMode = colorMode==='3' ? '1' : '3';
+  btnMode.textContent = colorMode==='3' ? '1 couleur' : '3 couleurs';
+  btnMode.classList.toggle('active', colorMode==='1');
+  refreshPalette();
+};
+tintPicker.oninput = refreshPalette;
+document.getElementById('btnReset').onclick = ()=>{
+  colorMode = '3';
+  btnMode.textContent = '1 couleur';
+  btnMode.classList.remove('active');
+  tintPicker.value = DEFAULT_PALETTE.O;
+  PALETTE = Object.assign({}, DEFAULT_PALETTE);
+  if(currentGrid) drawTessellation(currentGrid);
+};
+
+const levelFill = document.getElementById('levelFill');
+
+function loop(){
+  if(analyser){
+    analyser.getByteFrequencyData(dataArray);
+    // énergie sur les basses fréquences (premier quart du spectre)
+    const bassEnd = Math.floor(dataArray.length*0.25);
+    let sum=0;
+    for(let i=0;i<bassEnd;i++) sum += dataArray[i];
+    const level = sum/bassEnd/255; // 0..1
+    levelFill.style.width = (level*100).toFixed(0)+'%';
+
+    runningAvg = runningAvg*0.92 + level*0.08;
+    const now = performance.now();
+    if(level > runningAvg*1.35 && level > 0.12 && now-lastBeat > 220){
+      lastBeat = now;
+      showNextGrid();
+    }
+  }
+  requestAnimationFrame(loop);
+}
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 </body>
