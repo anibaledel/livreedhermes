@@ -363,6 +363,7 @@
       <a class="site-nav-btn current" href="impression.html" id="txt-navPrint">Impression</a>
       <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
       <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
+      <a class="site-nav-btn" href="lexique.html" id="txt-navLexique">Lexique</a>
     </div>
 
     <div class="center-logo-slot">
@@ -400,7 +401,7 @@ const UI = {
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
     situationAnt:"Situation antérieure", situationPost:"Situation postérieure",
     paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
-    navHome:"Accueil", navTirage:"Tirage", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos",
+    navHome:"Accueil", navTirage:"Tirage", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique",
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Printing — casting & layers",
@@ -419,7 +420,7 @@ const UI = {
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
     situationAnt:"Prior situation", situationPost:"Resulting situation",
     paletteLabel:"Palette", paletteReset:"Reset the palette",
-    navHome:"Home", navTirage:"Casting", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About",
+    navHome:"Home", navTirage:"Casting", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About", navLexique:"Glossary",
   },
   es: {
     eyebrow:"La Librea de Hermes", title:"Impresión — tirada y capas",
@@ -438,7 +439,7 @@ const UI = {
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
     situationAnt:"Situación anterior", situationPost:"Situación posterior",
     paletteLabel:"Paleta", paletteReset:"Restablecer la paleta",
-    navHome:"Inicio", navTirage:"Tirada", navMotif:"Crear un motivo", navUnified:"Unified Patterns", navGalerie:"Galería 884", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de",
+    navHome:"Inicio", navTirage:"Tirada", navMotif:"Crear un motivo", navUnified:"Unified Patterns", navGalerie:"Galería 884", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de", navLexique:"Glosario",
   },
   th: {
     eyebrow:"เสื้อคลุมของเฮอร์เมส", title:"การพิมพ์ — การทำนายและชั้นลาย",
@@ -457,7 +458,7 @@ const UI = {
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
     situationAnt:"สถานการณ์ก่อนหน้า", situationPost:"สถานการณ์หลังจาก",
     paletteLabel:"จานสี", paletteReset:"รีเซ็ตจานสี",
-    navHome:"หน้าแรก", navTirage:"การทำนาย", navMotif:"สร้างลวดลาย", navUnified:"Unified Patterns", navGalerie:"แกลเลอรี 884", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ",
+    navHome:"หน้าแรก", navTirage:"การทำนาย", navMotif:"สร้างลวดลาย", navUnified:"Unified Patterns", navGalerie:"แกลเลอรี 884", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ", navLexique:"อภิธานศัพท์",
   },
 };
 let LANG = 'fr';
@@ -492,6 +493,7 @@ function applyUILang(){
   document.getElementById('txt-navPrint').textContent = t('navPrint');
   document.getElementById('txt-navContact').textContent = t('navContact');
   document.getElementById('txt-navAbout').textContent = t('navAbout');
+  document.getElementById('txt-navLexique').textContent = t('navLexique');
   document.getElementById('txt-situationAnt').textContent = t('situationAnt');
   document.getElementById('txt-situationPost').textContent = t('situationPost');
   document.documentElement.lang = LANG;
