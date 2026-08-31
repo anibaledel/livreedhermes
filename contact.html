@@ -142,6 +142,19 @@
     .social-btn{ justify-content:center; }
     .contact-bios{ margin-top:32px; }
   }
+
+  /* ---------- colonnes latérales décoratives (mécanisme repris de la page Tirage) ---------- */
+  .side-band{
+    position:fixed; top:0; bottom:0; width:150px; display:flex; align-items:center; justify-content:center;
+    pointer-events:none; z-index:5; opacity:0; transition:opacity .5s ease, width .3s ease;
+  }
+  .side-band.visible{ opacity:1; }
+  .side-band.left{ left:0; }
+  .side-band.right{ right:0; }
+  .side-band canvas{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; background:#050505; }
+  @media (max-width:1320px){ .side-band{ display:none; } }
+  @media (min-width:1620px){ .side-band{ width:222px; } }
+  @media (min-width:1900px){ .side-band{ width:290px; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,6 +162,8 @@
 <link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
+<div class="side-band left" id="sideBandLeft"><canvas></canvas></div>
+<div class="side-band right" id="sideBandRight"><canvas></canvas></div>
 <div class="wrap">
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
@@ -359,6 +374,50 @@ let paletteFrozenDeltas = computeFrozenDeltas(paletteState.master);
 renderPaletteSwatches();
 const btnResetPaletteEl = document.getElementById('btnResetPalette');
 if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteToDefault);
+</script>
+
+<script>
+// ---------- colonnes latérales décoratives : même mécanisme que les bandes de la page
+// Tirage (tuile 116px canvas / 58px CSS, résolution doublée, mêmes paliers responsive),
+// mais avec un motif fixe de la catégorie Par 3 du système des 884 patterns unifiés
+// (galerie-884-patterns-unifies.html / fonds-ecran.html) et la palette par défaut du
+// site, au lieu du motif dynamique lié au tirage en cours.
+const SIDE_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+// par3:sans_yang_mut, yang/yin, hexagramme n°0
+const SIDE_GRID = [["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]];
+
+function drawSideTile(canvas){
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const cw = canvas.clientWidth || 58, ch = canvas.clientHeight || 400;
+  const w = canvas.width = cw*2, h = canvas.height = ch*2;
+  ctx.fillStyle = '#050505'; ctx.fillRect(0,0,w,h);
+  const BASE_TILE = 116; // taille fixe d'une tuile (canvas px, dpr x2 déjà appliqué) — identique à la page Tirage
+  const cellSize = BASE_TILE/12;
+  const tilesX = Math.ceil(w/BASE_TILE)+1;
+  const tilesY = Math.ceil(h/BASE_TILE)+1;
+  for(let ty=0; ty<tilesY; ty++){
+    for(let tx=0; tx<tilesX; tx++){
+      const ox = tx*BASE_TILE, oy = ty*BASE_TILE;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          ctx.fillStyle = SIDE_PALETTE[SIDE_GRID[r][c]];
+          ctx.fillRect(ox+c*cellSize, oy+r*cellSize, cellSize-0.6, cellSize-0.6);
+        }
+      }
+    }
+  }
+}
+function drawSideBands(){
+  drawSideTile(document.querySelector('#sideBandLeft canvas'));
+  drawSideTile(document.querySelector('#sideBandRight canvas'));
+}
+drawSideBands();
+window.addEventListener('resize', drawSideBands);
+requestAnimationFrame(()=>{
+  document.getElementById('sideBandLeft').classList.add('visible');
+  document.getElementById('sideBandRight').classList.add('visible');
+});
 </script>
 
 <script type="text/javascript">
