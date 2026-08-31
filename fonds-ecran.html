@@ -62,6 +62,12 @@
 
   /* --- écran de sélection (intégré au flux normal de la page, header/pied compris) --- */
   #selectScreen p.fondecran-intro{font-family:Helvetica,Arial,sans-serif; font-size:12px; color:var(--dim); max-width:56ch; text-align:center; margin:0 auto 28px; line-height:1.7;}
+  .mod-options{
+    max-width:560px; margin:32px auto 0; font-family:Helvetica,Arial,sans-serif; font-size:12px;
+    color:var(--dim); line-height:1.8; text-align:left; padding:20px 20px 0; border-top:1px solid var(--line);
+  }
+  .mod-options strong{ color:var(--gold); display:block; margin-bottom:8px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:400; }
+  .mod-options b{ color:var(--text); font-weight:400; }
   .cat-grid{display:flex; gap:18px; flex-wrap:wrap; justify-content:center;}
   .cat-card{
     width:150px; height:150px; border:1px solid var(--line);
@@ -136,7 +142,7 @@
     /* pas de survol tactile fiable : le HUD reste visible en permanence sur mobile */
     #hud{ opacity:1; pointer-events:auto; padding:10px 12px; font-size:11px; }
     #hud button{ padding:8px 10px; font-size:10.5px; margin-left:6px; }
-    #rhythmSlider{ width:60px !important; }
+    #rhythmSlider, #sizeSlider{ width:60px !important; }
     #levelBar{ width:50px; }
   }
   @media (max-width:480px){
@@ -205,6 +211,15 @@
   <p class="fondecran-intro">Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes.</p>
   <div class="cat-grid" id="catGrid"></div>
 
+  <div class="mod-options">
+    <strong>Options de modulation, une fois la catégorie choisie :</strong>
+    <div>🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.</div>
+    <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que tu proposes toi-même.</div>
+    <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
+    <div>🎨 <b>Teinte</b> — bascule entre 3 couleurs (palette d'origine, réajustable par rotation de teinte) et 1 couleur (une teinte médiane choisie, les deux autres dérivées automatiquement à ±20% de luminosité).</div>
+    <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
+  </div>
+
   <div class="note">
     <div class="site-nav-row">
       <a class="site-nav-btn" href="index.html">Accueil</a>
@@ -242,11 +257,15 @@
       <button id="btnFile">📁 Fichier audio</button>
       <button id="btnMeditative">🧘 Méditatif</button>
       <span id="rhythmWrap" style="display:none; align-items:center; gap:6px;">
-        <input type="range" id="rhythmSlider" min="2" max="30" step="1" value="8" style="width:90px;">
+        <input type="range" id="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;">
         <span id="rhythmLabel" style="font-size:10px; color:rgba(255,255,255,.6);">8 s</span>
       </span>
       <button id="btnMode">1 couleur</button>
       <input type="color" id="tintPicker" value="#fbb040" title="Choisir une teinte">
+      <span id="sizeWrap" style="display:inline-flex; align-items:center; gap:6px;">
+        <span style="font-size:10px; color:rgba(255,255,255,.6);">Densité</span>
+        <input type="range" id="sizeSlider" min="4" max="19" step="1" value="4" style="width:90px;">
+      </span>
       <button id="btnReset">↺ Réinitialiser</button>
       <div id="levelBar"><div id="levelFill"></div></div>
     </div>
@@ -416,6 +435,10 @@ let runningAvg = 0;
 let lastBeat = 0;
 let meditativeTimer = null;
 let meditativeActive = false;
+// diviseur du plus petit côté de l'écran (voir drawTessellationOn) : 4 = taille d'origine,
+// jusqu'à ~19 = tuiles resserrées au format de la page Tirage (58px CSS / 116px canvas) sur
+// un écran courant. Contrôlé par le curseur "Densité" du HUD.
+let tileDivisor = 4;
 
 function stopMeditative(){
   if(meditativeTimer){ clearInterval(meditativeTimer); meditativeTimer = null; }
@@ -434,8 +457,11 @@ function startMeditative(){
 
 function restartMeditativeTimer(){
   if(meditativeTimer) clearInterval(meditativeTimer);
-  const seconds = parseInt(document.getElementById('rhythmSlider').value, 10);
-  meditativeTimer = setInterval(()=> showNextGrid(1400), seconds*1000);
+  const seconds = parseFloat(document.getElementById('rhythmSlider').value);
+  // à un rythme rapide (jusqu'à 0,5s), un fondu de 1400ms chevaucherait le battement
+  // suivant — le fondu est plafonné et réduit proportionnellement au rythme choisi.
+  const fadeMs = Math.min(1400, seconds*1000*0.6);
+  meditativeTimer = setInterval(()=> showNextGrid(fadeMs), seconds*1000);
 }
 
 function gridDistance(a, b){
@@ -484,7 +510,7 @@ function drawTessellationOn(targetCtx, grid){
   // basé sur le plus PETIT côté (pas le plus grand) pour garantir un nombre minimum de
   // répétitions même sur les ratios extrêmes (téléphone très allongé, écran ultra-large) —
   // sur un écran 16:9 classique ça reste visuellement proche de la densité d'origine.
-  const tileSize = Math.min(w,h) / 4;
+  const tileSize = Math.min(w,h) / tileDivisor;
   const cell = tileSize/tileCells;
   const cols = Math.ceil(w/tileSize)+1;
   const rows = Math.ceil(h/tileSize)+1;
@@ -639,12 +665,19 @@ btnMode.onclick = ()=>{
   refreshPalette();
 };
 tintPicker.oninput = refreshPalette;
+document.getElementById('sizeSlider').oninput = (e)=>{
+  tileDivisor = parseInt(e.target.value, 10);
+  if(currentGrid) drawTessellation(currentGrid);
+};
+
 document.getElementById('btnReset').onclick = ()=>{
   colorMode = '3';
   btnMode.textContent = '1 couleur';
   btnMode.classList.remove('active');
   tintPicker.value = DEFAULT_PALETTE.O;
   PALETTE = Object.assign({}, DEFAULT_PALETTE);
+  tileDivisor = 4;
+  document.getElementById('sizeSlider').value = 4;
   if(currentGrid) drawTessellation(currentGrid);
 };
 
