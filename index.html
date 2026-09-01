@@ -335,7 +335,7 @@
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:150px; width:auto; opacity:.9; }
+  .footer-caduceus img{ height:200px; width:auto; opacity:.9; }
   @media (max-width:1320px){ .footer-caduceus{ display:none; } }
   #credit-logo-slot svg.footer-logo{ width:26px; height:26px; vertical-align:middle; opacity:.9; }
 
@@ -1393,7 +1393,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const caduceusPicture = document.createElement('picture');
   const caduceusSource = document.createElement('source');
   caduceusSource.media = '(min-width:1321px)';
-  caduceusSource.srcset = 'assets/caducee-unified-patterns-tint.gif';
+  caduceusSource.srcset = 'assets/logo-caducee.gif';
   const smallCaduceus = document.createElement('img'); smallCaduceus.className='trigram-caduceus';
   smallCaduceus.alt="La Livrée d'Hermès";
   caduceusPicture.appendChild(caduceusSource);
