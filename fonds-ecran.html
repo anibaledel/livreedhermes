@@ -297,7 +297,7 @@
       </span>
       <button id="btnReset">↺ Réinitialiser</button>
       <button id="btnBeatLogic" title="Comment combiner basses et aigus">Basses OU Aigus</button>
-      <button id="btnFullReactive" title="Aigus→teinte, médiums→motif, basses→densité">🌈 Full Réactif</button>
+      <button id="btnFullReactive" title="Basses→teinte, médiums→motif, aigus→densité">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
       <div id="levelBar"><div id="levelFill"></div></div>
     </div>
@@ -482,7 +482,7 @@ let beatLogic = 'or'; // 'or' = l'un ou l'autre, 'and' = les deux ensemble
 let fullReactive = false;
 let baseTintForReactive = '#fbb040';
 let runningAvgMid = 0;
-let smoothedBass = 0, smoothedTrebleBalance = 0;
+let smoothedTreble = 0, smoothedTrebleBalance = 0;
 let meditativeTimer = null;
 let meditativeActive = false;
 let paused = false;
@@ -821,20 +821,20 @@ function loop(){
     levelFill.style.width = (level*100).toFixed(0)+'%';
 
     if(fullReactive){
-      // --- BASSES -> densité du pavage (continu) ---
-      smoothedBass = smoothedBass*0.85 + bassLevel*0.15;
-      const newDivisor = 6 + smoothedBass*26; // de 6 (grand) à 32 (dense, format Tirage)
+      // --- AIGUS -> densité du pavage (continu) ---
+      smoothedTreble = smoothedTreble*0.85 + trebleLevel*0.15;
+      const newDivisor = 6 + smoothedTreble*26; // de 6 (grand) à 32 (dense, format Tirage)
       tileDivisor = newDivisor;
       const sizeSliderEl = document.getElementById('sizeSlider');
       if(sizeSliderEl) sizeSliderEl.value = Math.round(newDivisor);
 
-      // --- AIGUS -> teinte (équilibre grave/aigu DANS la bande des aigus, de part et d'autre de la teinte fixe) ---
-      const trebleMid = Math.floor((trebleStart+n)/2);
-      let lowTreble=0, highTreble=0;
-      for(let i=trebleStart;i<trebleMid;i++) lowTreble += dataArray[i];
-      for(let i=trebleMid;i<n;i++) highTreble += dataArray[i];
-      const totalTreble = lowTreble+highTreble;
-      const balance = totalTreble>0 ? (highTreble-lowTreble)/totalTreble : 0; // -1 (grave) .. +1 (aigu)
+      // --- BASSES -> teinte (équilibre grave/aigu DANS la bande des basses, de part et d'autre de la teinte fixe) ---
+      const bassMid = Math.floor(bassEnd/2);
+      let lowBass=0, highBass=0;
+      for(let i=0;i<bassMid;i++) lowBass += dataArray[i];
+      for(let i=bassMid;i<bassEnd;i++) highBass += dataArray[i];
+      const totalBass = lowBass+highBass;
+      const balance = totalBass>0 ? (highBass-lowBass)/totalBass : 0; // -1 (grave) .. +1 (moins grave)
       smoothedTrebleBalance = smoothedTrebleBalance*0.8 + balance*0.2;
       const hueOffset = smoothedTrebleBalance*0.15; // rotation de teinte autour de la teinte fixe
       const shiftedTint = rotateHue(baseTintForReactive, hueOffset);
