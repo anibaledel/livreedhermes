@@ -190,6 +190,7 @@
     transition:opacity .5s ease, transform .5s ease;
   }
   .trigram-caduceus.shown{ opacity:.92; transform:scale(1); }
+  @media (max-width:1320px){ .trigram-caduceus-wrap{ display:none; } }
   .positions-guide{
     min-width:220px; max-width:280px; font-family:Georgia,'Times New Roman',serif;
     font-size:11px; line-height:1.6; color:var(--dim);
@@ -333,6 +334,9 @@
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:150px; width:auto; opacity:.9; }
+  @media (max-width:1320px){ .footer-caduceus{ display:none; } }
   #credit-logo-slot svg.footer-logo{ width:26px; height:26px; vertical-align:middle; opacity:.9; }
 
   .mutation-hex-row{ display:flex; align-items:flex-start; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
@@ -403,7 +407,6 @@
     .pavage-sq{ width:104px; height:104px; }
     .mutation-col .pavage-sq{ width:84px; height:84px; }
     .trigram-block{ min-width:0; width:100%; }
-    .trigram-caduceus{ height:110px; }
     .square-wrap .cap{ max-width:120px; }
     .mutation-hex-row .flank-sq{ width:72px; height:72px; }
     .mutation-hex-row .flank-cap{ max-width:72px; }
@@ -521,6 +524,13 @@
 
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="footer-caduceus">
+      <picture>
+        <source media="(min-width:1321px)" srcset="assets/caducee-unified-patterns-tint.gif">
+        <img alt="La Livrée d'Hermès">
+      </picture>
     </div>
 
     <div class="credit-line">
@@ -1380,22 +1390,17 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   hexBlock.appendChild(trigramBlockEl);
 
   const caduceusWrap = document.createElement('div'); caduceusWrap.className='trigram-caduceus-wrap';
+  const caduceusPicture = document.createElement('picture');
+  const caduceusSource = document.createElement('source');
+  caduceusSource.media = '(min-width:1321px)';
+  caduceusSource.srcset = 'assets/caducee-unified-patterns-tint.gif';
   const smallCaduceus = document.createElement('img'); smallCaduceus.className='trigram-caduceus';
-  smallCaduceus.src='assets/logo-caducee.gif'; smallCaduceus.alt="La Livrée d'Hermès";
-  caduceusWrap.appendChild(smallCaduceus);
+  smallCaduceus.alt="La Livrée d'Hermès";
+  caduceusPicture.appendChild(caduceusSource);
+  caduceusPicture.appendChild(smallCaduceus);
+  caduceusWrap.appendChild(caduceusPicture);
   hexBlock.appendChild(caduceusWrap);
-
-  requestAnimationFrame(()=>{
-    const top = numBig.getBoundingClientRect().top;
-    const bottom = trigramBlockEl.getBoundingClientRect().bottom;
-    const wrapTop = caduceusWrap.getBoundingClientRect().top;
-    const h = bottom - top;
-    if(h > 0){
-      smallCaduceus.style.height = h + 'px';
-      caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
-    }
-  });
-  lastTrigramCaduceus = { numBig, trigramBlockEl, smallCaduceus, caduceusWrap };
+  lastTrigramCaduceus = { trigramBlockEl, smallCaduceus, caduceusWrap };
 
   wrap.appendChild(hexBlock);
 
@@ -1888,19 +1893,6 @@ window.addEventListener('resize', syncEmptyCaduceusHeight);
 window.addEventListener('load', syncEmptyCaduceusHeight);
 setTimeout(syncEmptyCaduceusHeight, 0);
 
-window.addEventListener('resize', ()=>{
-  if(lastTrigramCaduceus && document.body.contains(lastTrigramCaduceus.trigramBlockEl)){
-    lastTrigramCaduceus.caduceusWrap.style.marginTop = '0px';
-    const top = lastTrigramCaduceus.numBig.getBoundingClientRect().top;
-    const bottom = lastTrigramCaduceus.trigramBlockEl.getBoundingClientRect().bottom;
-    const wrapTop = lastTrigramCaduceus.caduceusWrap.getBoundingClientRect().top;
-    const h = bottom - top;
-    if(h > 0){
-      lastTrigramCaduceus.smallCaduceus.style.height = h + 'px';
-      lastTrigramCaduceus.caduceusWrap.style.marginTop = (top - wrapTop) + 'px';
-    }
-  }
-});
 
 // ---------- restauration depuis l'URL (nouveau) ----------
 (function initFromURL(){
