@@ -136,6 +136,22 @@
     header p{ font-size:14px; }
     .article-excerpt{ font-size:14.5px; }
   }
+
+  /* ---------- colonnes latérales décoratives (gif animé, mécanisme repris de la page Tirage) ---------- */
+  .side-band{
+    position:fixed; top:0; bottom:0; width:150px;
+    pointer-events:none; z-index:5; opacity:0; transition:width .3s ease;
+    background-image:url('assets/caducee-unified-patterns-tint.gif');
+    background-repeat:repeat; background-size:116px 116px; background-color:#050505;
+  }
+  .side-band.visible{ animation:sideBandFadeIn .5s ease forwards; }
+  @keyframes sideBandFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+  .side-band.left{ left:0; }
+  .side-band.right{ right:0; }
+  @media (max-width:1320px){ .side-band{ display:none; } }
+  @media (min-width:1620px){ .side-band{ width:222px; } }
+  @media (min-width:1900px){ .side-band{ width:290px; } }
+  @media (prefers-reduced-motion: reduce){ .side-band{ display:none; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,6 +159,8 @@
 <link rel="stylesheet" href="assets/fonts.css">
 </head>
 <body>
+<div class="side-band left visible"></div>
+<div class="side-band right visible"></div>
 <div class="wrap">
   <header>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
