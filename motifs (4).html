@@ -259,6 +259,12 @@
     font-size:9px; display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;
   }
   .detail-pavage .tick.on{ border-color:var(--red); color:var(--red); }
+  .btn-create-svg{
+    display:block; width:170px; margin-top:10px; border:1px solid var(--line); background:transparent;
+    color:var(--dim); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:9px 0;
+    cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .btn-create-svg:hover{ border-color:var(--gold); color:var(--gold); }
   .detail-info{ flex:1; min-width:220px; }
   .detail-info .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
   .detail-info .name-row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
@@ -336,6 +342,7 @@
     .cat-intro{ font-size:13.5px; }
     .detail-pavage canvas{ width:130px; height:130px; }
     .detail-pavage .ticks{ width:130px; }
+    .btn-create-svg{ width:130px; }
     .pending-panel .pair-imgs canvas{ width:100px; height:100px; }
     .detail-info{ min-width:0; width:100%; }
   }
@@ -629,6 +636,7 @@ const TOTAL_ECHIQUIERS = 60*59/2; // = 1770
 let currentCat = 'bases';
 let picked = []; // liste d'items {file,label,...,__cat}
 let lastEchiquierCells = []; // cellules du dernier échiquier calculé (pour retrouver le pavage d'une case pair)
+let lastShownCell = null; // dernière case affichée en détail (pour le bouton "Créer le SVG")
 
 function itemsForCat(cat){
   if(cat==='les60'){
@@ -985,9 +993,111 @@ function drawColorGridPartial(canvas, grid, maxPos){
 }
 
 // ============================================================
+// EXPORT SVG (Ink/Stitch) — fusion géométrique des cellules adjacentes de
+// même couleur en un seul chemin par teinte, comme dans bases-yang-inkstitch.svg.
+// Traçage par arêtes de grille : chaque arête de bordure est orientée pour
+// garder la couleur cible à sa droite ; aux points-selle (cellules ne se
+// touchant qu'en diagonale), priorité au virage à droite (règle de la main
+// sur le mur) pour séparer proprement les figures qui se touchent en un point.
+// ============================================================
+function traceColorPath(grid, targetColor, cellSize){
+  const R = grid.length, C = grid[0].length;
+  const at = (r,c) => (r>=0 && r<R && c>=0 && c<C) ? grid[r][c] : null;
+  const outgoing = new Map();
+  function addEdge(x1,y1,x2,y2,dir){
+    const k = x1+','+y1;
+    if(!outgoing.has(k)) outgoing.set(k, []);
+    outgoing.get(k).push({dir, to: x2+','+y2});
+  }
+  for(let r=0;r<R;r++){
+    for(let c=0;c<C;c++){
+      if(at(r,c) !== targetColor) continue;
+      const x0=c*cellSize, y0=r*cellSize, x1=(c+1)*cellSize, y1=(r+1)*cellSize;
+      if(at(r-1,c) !== targetColor) addEdge(x0,y0,x1,y0,'E');
+      if(at(r,c+1) !== targetColor) addEdge(x1,y0,x1,y1,'S');
+      if(at(r+1,c) !== targetColor) addEdge(x1,y1,x0,y1,'W');
+      if(at(r,c-1) !== targetColor) addEdge(x0,y1,x0,y0,'N');
+    }
+  }
+  const RIGHT_OF = { E:'S', S:'W', W:'N', N:'E' };
+  const LEFT_OF  = { E:'N', S:'E', W:'S', N:'W' };
+  const OPPOSITE = { E:'W', S:'N', W:'E', N:'S' };
+  function pickNext(vertexKey, arriveDir, used){
+    const all = outgoing.get(vertexKey) || [];
+    const pref = [RIGHT_OF[arriveDir], arriveDir, LEFT_OF[arriveDir], OPPOSITE[arriveDir]];
+    for(const dir of pref){
+      for(let i=0;i<all.length;i++){
+        const key = vertexKey+'|'+i;
+        if(all[i].dir === dir && !used.has(key)) return { edge: all[i], usedKey: key };
+      }
+    }
+    return null;
+  }
+  const usedEdges = new Set();
+  const subpaths = [];
+  for(const [startKey, edges] of outgoing){
+    for(let i=0;i<edges.length;i++){
+      const usedKey = startKey+'|'+i;
+      if(usedEdges.has(usedKey)) continue;
+      const loopPts = [startKey];
+      usedEdges.add(usedKey);
+      let dir = edges[i].dir;
+      let curKey = edges[i].to;
+      let guard = 0;
+      while(curKey !== startKey && guard < 100000){
+        guard++;
+        loopPts.push(curKey);
+        const next = pickNext(curKey, dir, usedEdges);
+        if(!next) break; // ne devrait pas arriver sur une grille bien formée
+        usedEdges.add(next.usedKey);
+        dir = next.edge.dir;
+        curKey = next.edge.to;
+      }
+      subpaths.push(loopPts);
+    }
+  }
+  return subpaths.map(pts => {
+    let s = '';
+    pts.forEach((p,i)=>{
+      const [x,y] = p.split(',').map(Number);
+      s += (i===0 ? `M ${x.toFixed(2)},${y.toFixed(2)}` : ` L ${x.toFixed(2)},${y.toFixed(2)}`);
+    });
+    return s + ' Z';
+  }).join(' ');
+}
+
+function generateInkstitchSVG(grid, palette){
+  const cellSize = 10; // même échelle que bases-yang-inkstitch.svg (120mm / 12 cellules)
+  const total = grid.length * cellSize;
+  let paths = '';
+  ['V','M','O'].forEach(key=>{
+    const hex = palette[key];
+    if(!hex || !grid.some(row => row.includes(key))) return;
+    const d = traceColorPath(grid, key, cellSize);
+    paths += `<path fill="${hex}" fill-rule="evenodd" d="${d}"/>`;
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${total}mm" height="${total}mm" viewBox="0 0 ${total} ${total}">${paths}</svg>`;
+}
+
+function downloadMotifSVG(){
+  if(!lastShownCell || !lastShownCell.grid) return;
+  const svg = generateInkstitchSVG(lastShownCell.grid, PALETTE);
+  const blob = new Blob([svg], {type:'image/svg+xml'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `motif-${lastShownCell.kw || 'hexagramme'}-inkstitch.svg`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 1000);
+}
+
+// ============================================================
 // DÉTAIL — hexagramme + paire correspondante + jumeaux visuels
 // ============================================================
 function showDetail(cell){
+  lastShownCell = cell;
   const area = document.getElementById('detailArea');
   const kw = cell.kw;
   const hex = HEX_FR[kw];
@@ -1045,6 +1155,7 @@ function showDetail(cell){
         <div class="detail-pavage">
           <canvas id="detailCanvas"></canvas>
           <div class="ticks">${[1,2,3,4,5,6].map(n=>`<span class="tick" data-n="${n}">${n}</span>`).join('')}</div>
+          <button type="button" class="btn-create-svg" id="btnCreateSVG">Créer le SVG</button>
         </div>
         <div class="detail-info">
           <div class="num-big">N° ${kw} / 64 — TRADITION KING WEN</div>
@@ -1074,6 +1185,7 @@ function showDetail(cell){
     </div>
   `;
   area.querySelector('.detail-back').addEventListener('click', ()=>{ area.innerHTML=''; });
+  area.querySelector('#btnCreateSVG').addEventListener('click', downloadMotifSVG);
 
   // Reconstruction trait par trait, en partant du bas (position 1) vers le haut (position 6)
   const canvas = document.getElementById('detailCanvas');
