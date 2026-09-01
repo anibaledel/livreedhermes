@@ -121,6 +121,16 @@
   /* --- écran plein écran (overlay indépendant du chrome du site) --- */
   #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
   #stage canvas{width:100%; height:100%; display:block;}
+  #pauseInfo{
+    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+    font-family:Arial,sans-serif; color:#fff; text-align:center; z-index:15;
+    background:rgba(0,0,0,.55); padding:16px 28px; border-radius:10px;
+    opacity:0; pointer-events:none; transition:opacity .35s;
+  }
+  #pauseInfo.visible{opacity:1;}
+  #pauseInfo .fam{font-size:16px; color:var(--gold); margin-bottom:4px;}
+  #pauseInfo .sub{font-size:13px; color:#ddd;}
+  #pauseInfo .hex{font-size:11px; color:#999; margin-top:4px;}
   #hud{
     position:fixed; top:0; left:0; right:0; display:flex; flex-wrap:wrap; row-gap:8px;
     justify-content:space-between; align-items:center;
@@ -268,6 +278,7 @@
 
 <div id="stage">
   <canvas id="canvas"></canvas>
+  <div id="pauseInfo"><div class="fam"></div><div class="sub"></div><div class="hex"></div></div>
   <div id="hud">
     <div class="left">
       <button id="btnMic">🎤 Micro</button>
@@ -285,6 +296,7 @@
       </span>
       <button id="btnReset">↺ Réinitialiser</button>
       <button id="btnBeatLogic" title="Comment combiner basses et aigus">Basses OU Aigus</button>
+      <button id="btnPause">⏸ Pause</button>
       <div id="levelBar"><div id="levelFill"></div></div>
     </div>
     <button id="btnExit">✕ Quitter</button>
@@ -301,6 +313,14 @@ let PALETTE = Object.assign({}, DEFAULT_PALETTE);
 let colorMode = 'mono'; // 'mono' = teinte dérivée (défaut), 'multi' = rotation de la palette à 3 teintes
 const LAYER_OF = DATA.layerOf;
 const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
+function famLabel(fam){
+  const parts = fam.split(':');
+  if(parts.length===1) return catLabel[parts[0]] || parts[0];
+  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sans ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
+}
+function subLabel(s){
+  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
+}
 
 function hexToRgb(hex){
   hex = hex.replace('#','');
@@ -404,7 +424,10 @@ function buildGridsFor(cat){
   // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
   // pas une sous-catégorie séparée : aucune entrée DATA n'a fam="par4".
   const entries = cat==='par4' ? DATA.entries : DATA.entries.filter(e => e[0].split(':')[0]===cat);
-  return entries.map(([fam, subA, subB, n]) => hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]));
+  return entries.map(([fam, subA, subB, n]) => ({
+    grid: hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]),
+    fam, subA, subB, n
+  }));
 }
 
 // --- écran de sélection : mini-aperçu par catégorie ---
@@ -422,7 +445,7 @@ cats.forEach(cat=>{
   const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
   card.appendChild(label); card.appendChild(count);
   if(grids.length>0){
-    drawStaticTile(preview, grids[0], 150);
+    drawStaticTile(preview, grids[0].grid, 150);
     card.onclick = ()=> launch(cat, grids);
   }
   catGrid.appendChild(card);
@@ -455,6 +478,7 @@ let lastBeat = 0;
 let beatLogic = 'or'; // 'or' = l'un ou l'autre, 'and' = les deux ensemble
 let meditativeTimer = null;
 let meditativeActive = false;
+let paused = false;
 // diviseur du plus petit côté de l'écran (voir drawTessellationOn) : 4 = taille d'origine,
 // jusqu'à ~19 = tuiles resserrées au format de la page Tirage (58px CSS / 116px canvas) sur
 // un écran courant. Contrôlé par le curseur "Densité" du HUD.
@@ -481,7 +505,7 @@ function restartMeditativeTimer(){
   // à un rythme rapide (jusqu'à 0,5s), un fondu de 1400ms chevaucherait le battement
   // suivant — le fondu est plafonné et réduit proportionnellement au rythme choisi.
   const fadeMs = Math.min(1400, seconds*1000*0.6);
-  meditativeTimer = setInterval(()=> showNextGrid(fadeMs), seconds*1000);
+  meditativeTimer = setInterval(()=>{ if(!paused) showNextGrid(fadeMs); }, seconds*1000);
 }
 
 function gridDistance(a, b){
@@ -496,7 +520,7 @@ function pickNextByProximity(){
   if(currentIndex === -1){
     currentIndex = Math.floor(Math.random()*currentGrids.length);
     visited = new Set([currentIndex]);
-    currentGrid = currentGrids[currentIndex];
+    currentGrid = currentGrids[currentIndex].grid;
     return;
   }
   let candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
@@ -507,12 +531,12 @@ function pickNextByProximity(){
   }
   let best = candidates[0], bestDist = Infinity;
   for(const i of candidates){
-    const d = gridDistance(currentGrid, currentGrids[i]);
+    const d = gridDistance(currentGrid, currentGrids[i].grid);
     if(d < bestDist){ bestDist = d; best = i; }
   }
   currentIndex = best;
   visited.add(best);
-  currentGrid = currentGrids[best];
+  currentGrid = currentGrids[best].grid;
 }
 
 function resizeCanvas(){
@@ -620,6 +644,10 @@ function launch(cat, grids){
   currentGrids = grids;
   currentIndex = -1;
   visited = new Set();
+  paused = false;
+  document.getElementById('btnPause').textContent = '⏸ Pause';
+  document.getElementById('btnPause').classList.remove('active');
+  document.getElementById('pauseInfo').classList.remove('visible');
   selectScreen.style.display = 'none';
   stage.style.display = 'block';
   resizeCanvas();
@@ -633,6 +661,8 @@ document.getElementById('btnExit').onclick = ()=>{
   if(document.fullscreenElement) document.exitFullscreen();
   stopAudio();
   stopMeditative();
+  paused = false;
+  document.getElementById('pauseInfo').classList.remove('visible');
   stage.style.display='none';
   selectScreen.style.display='block';
 };
@@ -708,6 +738,22 @@ document.getElementById('btnBeatLogic').onclick = (e)=>{
   e.target.classList.toggle('active', beatLogic==='and');
 };
 
+const pauseInfo = document.getElementById('pauseInfo');
+document.getElementById('btnPause').onclick = (e)=>{
+  paused = !paused;
+  e.target.textContent = paused ? '▶ Reprendre' : '⏸ Pause';
+  e.target.classList.toggle('active', paused);
+  if(paused && currentIndex !== -1){
+    const entry = currentGrids[currentIndex];
+    pauseInfo.querySelector('.fam').textContent = famLabel(entry.fam);
+    pauseInfo.querySelector('.sub').textContent = subLabel(entry.subA) + ' / ' + subLabel(entry.subB);
+    pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n;
+    pauseInfo.classList.add('visible');
+  } else {
+    pauseInfo.classList.remove('visible');
+  }
+};
+
 document.getElementById('btnReset').onclick = ()=>{
   colorMode = 'mono';
   btnMode.textContent = 'Multicolore';
@@ -723,7 +769,7 @@ const levelFill = document.getElementById('levelFill');
 
 function loop(){
   try{
-  if(analyser){
+  if(analyser && !paused){
     analyser.getByteFrequencyData(dataArray);
     const n = dataArray.length;
 
