@@ -742,15 +742,15 @@ function loop(){
     const level = Math.max(bassLevel, trebleLevel);
     levelFill.style.width = (level*100).toFixed(0)+'%';
 
-    runningAvgBass = runningAvgBass*0.9 + bassLevel*0.1;
-    runningAvgTreble = runningAvgTreble*0.8 + trebleLevel*0.2; // les aigus varient plus vite (claquements courts)
+    runningAvgBass = runningAvgBass*0.82 + bassLevel*0.18;
+    runningAvgTreble = runningAvgTreble*0.65 + trebleLevel*0.35; // quasi instantané
 
     const now = performance.now();
-    const bassHit = bassLevel > runningAvgBass*1.22 && bassLevel > 0.08;
-    const trebleHit = trebleLevel > runningAvgTreble*1.18 && trebleLevel > 0.035;
+    const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
+    const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
 
     if(beatLogic==='and' ? (bassHit && trebleHit) : (bassHit || trebleHit)){
-      if(now-lastBeat > 160){
+      if(now-lastBeat > 90){
         lastBeat = now;
         showNextGrid();
       }
