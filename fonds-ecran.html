@@ -518,6 +518,7 @@ function pickNextByProximity(){
 function resizeCanvas(){
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  if(currentGrid) drawTessellation(currentGrid); // redessiner après tout redimensionnement (ex: passage en plein écran)
 }
 window.addEventListener('resize', resizeCanvas);
 
