@@ -501,10 +501,10 @@ function crossfadeSideBand(band, grid, durationMs){
 // ---------- limitation mobile / accessibilité, réutilisable pour toute future animation
 // similaire sur le site : fige le motif (pas d'intervalle, pas de fondu) si l'utilisateur
 // préfère un mouvement réduit, ou si l'écran est trop étroit pour afficher les bandes à
-// pleine largeur (palier <=1620px, juste au-dessus du seuil qui les masque totalement).
+// pleine largeur (palier <=1320px, identique au seuil CSS qui les masque totalement).
 function prefersStaticMotion(){
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      || window.matchMedia('(max-width: 1620px)').matches;
+      || window.matchMedia('(max-width: 1320px)').matches;
 }
 
 let sideBandTimer = null;
