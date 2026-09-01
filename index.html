@@ -21,7 +21,7 @@
     --bg:#000;
     --panel:#0a0a0a;
     --white:#f2f2f0;
-    --dim:#6b6b6b;
+    --dim:#f2f2f0;
     --red:#e0261b;
     --red-dim:#5a120e;
     --gold:#c9a15a;
@@ -116,13 +116,13 @@
     display:flex; justify-content:space-between; align-items:center;
     margin-bottom:12px; }
   .grid-head .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
-  .axis-note{ font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note{ font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; text-align:center; }
   .axis-note b{ color:var(--red); font-weight:400; }
 
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
   .tirage-guide{
     font-size:11px; line-height:1.65; color:var(--dim);
-    margin:16px 0 16px; font-family:Helvetica,Arial,sans-serif;
+    margin:16px 0 16px; font-family:Helvetica,Arial,sans-serif; text-align:center;
   }
   .tirage-guide p{ margin:0 0 10px; }
   .tirage-guide p:last-child{ margin-bottom:0; }
@@ -193,7 +193,7 @@
   @media (max-width:1320px){ .trigram-caduceus-wrap{ display:none; } }
   .positions-guide{
     min-width:220px; max-width:280px; font-family:Georgia,'Times New Roman',serif;
-    font-size:11px; line-height:1.6; color:var(--dim);
+    font-size:11px; line-height:1.6; color:var(--dim); text-align:center;
   }
   .positions-guide-title{
     font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);

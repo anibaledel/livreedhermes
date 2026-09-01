@@ -36,7 +36,7 @@
   :root{
     --bg:#000; --panel:#0a0a0a; --line:#242424;
     --V:#662d91; --M:#ee2a7b; --O:#fbb040;
-    --gold:#c9a15a; --red:#e0261b; --text:#f2f2f0; --dim:#6b6b6b;
+    --gold:#c9a15a; --red:#e0261b; --text:#f2f2f0; --dim:#f2f2f0;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -81,7 +81,7 @@
   #selectScreen p.fondecran-intro{font-family:Helvetica,Arial,sans-serif; font-size:12px; color:var(--dim); max-width:56ch; text-align:center; margin:0 auto 28px; line-height:1.7;}
   .mod-options{
     max-width:560px; margin:32px auto 0; font-family:Helvetica,Arial,sans-serif; font-size:12px;
-    color:var(--dim); line-height:1.8; text-align:left; padding:20px 20px 0; border-top:1px solid var(--line);
+    color:var(--dim); line-height:1.8; text-align:center; padding:20px 20px 0; border-top:1px solid var(--line);
   }
   .mod-options strong{ color:var(--gold); display:block; margin-bottom:8px; font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:400; }
   .mod-options b{ color:var(--text); font-weight:400; }
@@ -117,6 +117,9 @@
   .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:200px; width:auto; opacity:.9; }
+  @media (max-width:1320px){ .footer-caduceus{ display:none; } }
 
   /* --- écran plein écran (overlay indépendant du chrome du site) --- */
   #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
@@ -129,9 +132,9 @@
     max-width:min(90vw, 520px);
   }
   #pauseInfo.visible{opacity:1;}
-  #pauseInfo .hex{font-size:13px; color:#999; margin-bottom:6px;}
+  #pauseInfo .hex{font-size:13px; color:var(--dim); margin-bottom:6px;}
   #pauseInfo .keyword{font-size:19px; color:var(--gold); margin-bottom:10px; letter-spacing:.03em;}
-  #pauseInfo .text{font-size:13px; color:#ddd; line-height:1.6; text-align:left;}
+  #pauseInfo .text{font-size:13px; color:#ddd; line-height:1.6; text-align:center;}
   #hud{
     position:fixed; top:0; left:0; right:0; display:flex; flex-wrap:wrap; row-gap:8px;
     justify-content:space-between; align-items:center;
@@ -268,6 +271,13 @@
       <a class="site-nav-btn" href="a-propos.html">À propos</a>
       <a class="site-nav-btn" href="lexique.html">Lexique</a>
       <a class="site-nav-btn" href="articles.html">Articles</a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture>
+        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
+        <img alt="La Livrée d'Hermès">
+      </picture>
     </div>
 
     <div class="credit-line">

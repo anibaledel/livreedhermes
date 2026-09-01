@@ -21,7 +21,7 @@
     --bg:#000;
     --panel:#0a0a0a;
     --white:#f2f2f0;
-    --dim:#6b6b6b;
+    --dim:#f2f2f0;
     --red:#e0261b;
     --red-dim:#5a120e;
     --gold:#c9a15a;
@@ -189,6 +189,9 @@
   .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:200px; width:auto; opacity:.9; }
+  @media (max-width:1320px){ .footer-caduceus{ display:none; } }
 
   /* ---------- mobile ---------- */
   @media (max-width:768px){
@@ -298,6 +301,13 @@
       <a class="site-nav-btn" href="a-propos.html">À propos</a>
       <a class="site-nav-btn" href="lexique.html">Lexique</a>
       <a class="site-nav-btn" href="articles.html">Articles</a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture>
+        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
+        <img alt="La Livrée d'Hermès">
+      </picture>
     </div>
 
     <div class="credit-line">

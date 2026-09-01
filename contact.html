@@ -72,7 +72,7 @@
   .social-btn.disabled em{ display:block; font-style:normal; font-size:9px; letter-spacing:.06em; opacity:.8; margin-top:2px; }
 
   /* ---------- bios ---------- */
-  .contact-bios{ max-width:640px; margin:40px auto 0; text-align:left; }
+  .contact-bios{ max-width:640px; margin:40px auto 0; text-align:center; }
   .bio-block{ margin-bottom:24px; }
   .bio-block:last-child{ margin-bottom:0; }
   .bio-name{ color:var(--gold); font-size:12px; letter-spacing:.08em; text-transform:uppercase; margin:0 0 8px; }
@@ -133,7 +133,7 @@
 
   /* ---------- colonnes latérales décoratives (gif animé, mécanisme repris de la page Articles) ---------- */
   .side-band{
-    position:fixed; top:0; bottom:0; width:300px;
+    position:fixed; top:0; bottom:0; width:150px;
     pointer-events:none; z-index:5; opacity:0; transition:width .3s ease;
     background-image:url('assets/caducee-unified-patterns-tint.gif');
     background-repeat:repeat; background-size:116px 116px; background-color:#050505;
@@ -143,14 +143,9 @@
   .side-band.left{ left:0; }
   .side-band.right{ right:0; }
   @media (max-width:1320px){ .side-band{ display:none; } }
-  @media (min-width:1620px){ .side-band{ width:444px; } }
-  @media (min-width:1900px){ .side-band{ width:580px; } }
+  @media (min-width:1620px){ .side-band{ width:222px; } }
+  @media (min-width:1900px){ .side-band{ width:290px; } }
   @media (prefers-reduced-motion: reduce){ .side-band{ display:none; } }
-  /* marge de sécurité : les colonnes (300-580px) sont plus larges que la marge naturelle
-     du contenu centré (max-width:1120px) à certaines largeurs — évite qu'un texte aligné
-     à gauche ou la navigation de pied de page ne passe sous les colonnes. 220px suffit
-     aux trois paliers (calculé au pire cas de chaque). */
-  @media (min-width:1321px){ .wrap{ padding-left:220px; padding-right:220px; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
