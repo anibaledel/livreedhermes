@@ -293,10 +293,11 @@
       <input type="color" id="tintPicker" value="#fbb040" title="Choisir une teinte">
       <span id="sizeWrap" style="display:inline-flex; align-items:center; gap:6px;">
         <span style="font-size:10px; color:rgba(255,255,255,.6);">Densité</span>
-        <input type="range" id="sizeSlider" min="4" max="19" step="1" value="4" style="width:90px;">
+        <input type="range" id="sizeSlider" min="4" max="32" step="1" value="4" style="width:90px;">
       </span>
       <button id="btnReset">↺ Réinitialiser</button>
       <button id="btnBeatLogic" title="Comment combiner basses et aigus">Basses OU Aigus</button>
+      <button id="btnFullReactive" title="Aigus→teinte, médiums→motif, basses→densité">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
       <div id="levelBar"><div id="levelFill"></div></div>
     </div>
@@ -478,6 +479,10 @@ let runningAvgBass = 0;
 let runningAvgTreble = 0;
 let lastBeat = 0;
 let beatLogic = 'or'; // 'or' = l'un ou l'autre, 'and' = les deux ensemble
+let fullReactive = false;
+let baseTintForReactive = '#fbb040';
+let runningAvgMid = 0;
+let smoothedBass = 0, smoothedTrebleBalance = 0;
 let meditativeTimer = null;
 let meditativeActive = false;
 let paused = false;
@@ -650,6 +655,9 @@ function launch(cat, grids){
   document.getElementById('btnPause').textContent = '⏸ Pause';
   document.getElementById('btnPause').classList.remove('active');
   document.getElementById('pauseInfo').classList.remove('visible');
+  fullReactive = false;
+  document.getElementById('btnFullReactive').classList.remove('active');
+  document.getElementById('btnBeatLogic').style.display = '';
   selectScreen.style.display = 'none';
   stage.style.display = 'block';
   resizeCanvas();
@@ -740,6 +748,20 @@ document.getElementById('btnBeatLogic').onclick = (e)=>{
   e.target.classList.toggle('active', beatLogic==='and');
 };
 
+document.getElementById('btnFullReactive').onclick = (e)=>{
+  fullReactive = !fullReactive;
+  e.target.classList.toggle('active', fullReactive);
+  if(fullReactive){
+    baseTintForReactive = document.getElementById('tintPicker').value;
+    document.getElementById('btnBeatLogic').style.display = 'none';
+  } else {
+    document.getElementById('btnBeatLogic').style.display = '';
+    // remettre la teinte de base propre au sortir du mode
+    refreshPalette();
+    if(currentGrid) drawTessellation(currentGrid);
+  }
+};
+
 function paireNumberFor(n){
   return n < 32 ? n+1 : 64-n;
 }
@@ -779,34 +801,67 @@ function loop(){
   if(analyser && !paused){
     analyser.getByteFrequencyData(dataArray);
     const n = dataArray.length;
-
-    // énergie sur les basses (premier quart du spectre)
     const bassEnd = Math.floor(n*0.25);
+    const midEnd = Math.floor(n*0.65);
+
     let bassSum=0;
     for(let i=0;i<bassEnd;i++) bassSum += dataArray[i];
     const bassLevel = bassSum/bassEnd/255;
 
-    // énergie sur les aigus (dernier tiers du spectre — claquements, cymbales, voix sifflantes)
-    const trebleStart = Math.floor(n*0.66);
+    let midSum=0;
+    for(let i=bassEnd;i<midEnd;i++) midSum += dataArray[i];
+    const midLevel = midSum/(midEnd-bassEnd)/255;
+
+    const trebleStart = midEnd;
     let trebleSum=0;
     for(let i=trebleStart;i<n;i++) trebleSum += dataArray[i];
     const trebleLevel = trebleSum/(n-trebleStart)/255;
 
-    // niveau affiché : le plus fort des deux, pour un retour visuel réactif
-    const level = Math.max(bassLevel, trebleLevel);
+    const level = Math.max(bassLevel, midLevel, trebleLevel);
     levelFill.style.width = (level*100).toFixed(0)+'%';
 
-    runningAvgBass = runningAvgBass*0.82 + bassLevel*0.18;
-    runningAvgTreble = runningAvgTreble*0.65 + trebleLevel*0.35; // quasi instantané
+    if(fullReactive){
+      // --- BASSES -> densité du pavage (continu) ---
+      smoothedBass = smoothedBass*0.85 + bassLevel*0.15;
+      const newDivisor = 6 + smoothedBass*26; // de 6 (grand) à 32 (dense, format Tirage)
+      tileDivisor = newDivisor;
+      const sizeSliderEl = document.getElementById('sizeSlider');
+      if(sizeSliderEl) sizeSliderEl.value = Math.round(newDivisor);
 
-    const now = performance.now();
-    const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
-    const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
+      // --- AIGUS -> teinte (équilibre grave/aigu DANS la bande des aigus, de part et d'autre de la teinte fixe) ---
+      const trebleMid = Math.floor((trebleStart+n)/2);
+      let lowTreble=0, highTreble=0;
+      for(let i=trebleStart;i<trebleMid;i++) lowTreble += dataArray[i];
+      for(let i=trebleMid;i<n;i++) highTreble += dataArray[i];
+      const totalTreble = lowTreble+highTreble;
+      const balance = totalTreble>0 ? (highTreble-lowTreble)/totalTreble : 0; // -1 (grave) .. +1 (aigu)
+      smoothedTrebleBalance = smoothedTrebleBalance*0.8 + balance*0.2;
+      const hueOffset = smoothedTrebleBalance*0.15; // rotation de teinte autour de la teinte fixe
+      const shiftedTint = rotateHue(baseTintForReactive, hueOffset);
+      if(colorMode==='multi') applyTintRotation(shiftedTint); else applySingleHue(shiftedTint);
 
-    if(beatLogic==='and' ? (bassHit && trebleHit) : (bassHit || trebleHit)){
-      if(now-lastBeat > 90){
+      // --- MÉDIUMS -> changement de motif ---
+      runningAvgMid = runningAvgMid*0.88 + midLevel*0.12;
+      const now = performance.now();
+      if(midLevel > runningAvgMid*1.15 && midLevel > 0.05 && now-lastBeat > 140){
         lastBeat = now;
-        showNextGrid();
+        pickNextByProximity();
+      }
+      if(currentGrid) drawTessellation(currentGrid);
+
+    } else {
+      runningAvgBass = runningAvgBass*0.82 + bassLevel*0.18;
+      runningAvgTreble = runningAvgTreble*0.65 + trebleLevel*0.35;
+
+      const now = performance.now();
+      const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
+      const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
+
+      if(beatLogic==='and' ? (bassHit && trebleHit) : (bassHit || trebleHit)){
+        if(now-lastBeat > 90){
+          lastBeat = now;
+          showNextGrid();
+        }
       }
     }
   }
