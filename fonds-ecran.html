@@ -721,6 +721,7 @@ document.getElementById('btnReset').onclick = ()=>{
 const levelFill = document.getElementById('levelFill');
 
 function loop(){
+  try{
   if(analyser){
     analyser.getByteFrequencyData(dataArray);
     const n = dataArray.length;
@@ -741,19 +742,22 @@ function loop(){
     const level = Math.max(bassLevel, trebleLevel);
     levelFill.style.width = (level*100).toFixed(0)+'%';
 
-    runningAvgBass = runningAvgBass*0.92 + bassLevel*0.08;
-    runningAvgTreble = runningAvgTreble*0.85 + trebleLevel*0.15; // les aigus varient plus vite (claquements courts)
+    runningAvgBass = runningAvgBass*0.9 + bassLevel*0.1;
+    runningAvgTreble = runningAvgTreble*0.8 + trebleLevel*0.2; // les aigus varient plus vite (claquements courts)
 
     const now = performance.now();
-    const bassHit = bassLevel > runningAvgBass*1.35 && bassLevel > 0.12;
-    const trebleHit = trebleLevel > runningAvgTreble*1.5 && trebleLevel > 0.08;
+    const bassHit = bassLevel > runningAvgBass*1.22 && bassLevel > 0.08;
+    const trebleHit = trebleLevel > runningAvgTreble*1.18 && trebleLevel > 0.035;
 
     if(beatLogic==='and' ? (bassHit && trebleHit) : (bassHit || trebleHit)){
-      if(now-lastBeat > 220){
+      if(now-lastBeat > 160){
         lastBeat = now;
         showNextGrid();
       }
     }
+  }
+  }catch(err){
+    console.error('Erreur dans loop() audio-réactif :', err);
   }
   requestAnimationFrame(loop);
 }
