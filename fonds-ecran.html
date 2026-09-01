@@ -521,6 +521,12 @@ window.addEventListener('resize', resizeCanvas);
 function drawTessellation(grid){
   drawTessellationOn(ctx, grid);
 }
+// tuile mise en cache : dessinée une seule fois par appel puis reproduite par drawImage
+// (au lieu de refaire les 144 fillRect par répétition) — à densité max, l'ancienne
+// approche cellule par cellule pouvait dépasser 40 000 fillRect et geler le thread
+// principal 80-140ms à chaque cycle du mode méditatif rapide, cassant le fondu.
+const tileBuffer = document.createElement('canvas');
+const tileBufferCtx = tileBuffer.getContext('2d');
 function drawTessellationOn(targetCtx, grid){
   const w = canvas.width, h = canvas.height;
   const tileCells = 12;
@@ -531,14 +537,18 @@ function drawTessellationOn(targetCtx, grid){
   const cell = tileSize/tileCells;
   const cols = Math.ceil(w/tileSize)+1;
   const rows = Math.ceil(h/tileSize)+1;
+  const tilePx = Math.max(1, Math.ceil(tileSize));
+  tileBuffer.width = tilePx; tileBuffer.height = tilePx;
+  const scale = tilePx/tileSize;
+  for(let r=0;r<tileCells;r++){
+    for(let c=0;c<tileCells;c++){
+      tileBufferCtx.fillStyle = PALETTE[grid[r][c]];
+      tileBufferCtx.fillRect(c*cell*scale, r*cell*scale, (cell+0.7)*scale, (cell+0.7)*scale);
+    }
+  }
   for(let ty=0; ty<rows; ty++){
     for(let tx=0; tx<cols; tx++){
-      for(let r=0;r<12;r++){
-        for(let c=0;c<12;c++){
-          targetCtx.fillStyle = PALETTE[grid[r][c]];
-          targetCtx.fillRect(tx*tileSize + c*cell, ty*tileSize + r*cell, cell+0.7, cell+0.7);
-        }
-      }
+      targetCtx.drawImage(tileBuffer, tx*tileSize, ty*tileSize, tileSize, tileSize);
     }
   }
 }
