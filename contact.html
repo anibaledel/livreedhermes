@@ -377,22 +377,68 @@ if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteTo
 </script>
 
 <script>
-// ---------- colonnes latérales décoratives : même mécanisme que les bandes de la page
-// Tirage (tuile 116px canvas / 58px CSS, résolution doublée, mêmes paliers responsive),
-// mais avec un motif fixe de la catégorie Par 3 du système des 884 patterns unifiés
-// (galerie-884-patterns-unifies.html / fonds-ecran.html) et la palette par défaut du
-// site, au lieu du motif dynamique lié au tirage en cours.
-const SIDE_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
-// par3:sans_yang_mut, yang/yin, hexagramme n°0
-const SIDE_GRID = [["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]];
+// ---------- colonnes latérales décoratives animées : même mécanisme de tuile que les bandes
+// de la page Tirage (116px canvas / 58px CSS, résolution doublée, mêmes paliers responsive),
+// mais motif animé — catégorie Par 3 des 884 patterns unifiés (galerie-884-patterns-unifies.html
+// / fonds-ecran.html), changement de motif toutes les 1s par proximité maximale (même algorithme
+// que fonds-ecran.html), palette dérivée de la couleur par défaut de la page Unified Patterns
+// (#c9a15a), pas la palette V/M/O par défaut du système des 884 patterns.
+const SIDE_PALETTE = { O:'#c9a15a', V:'#e2cda7', M:'#8e6c2f' };
+const PAR3_DATA = {"layerOf":[[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]],"families":{"par3:sans_yang":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yang_mut":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]}},"entries":[["par3:sans_yang","yang","yang_mut",0],["par3:sans_yang","yang","yang_mut",1],["par3:sans_yang","yang","yang_mut",2],["par3:sans_yang","yang","yang_mut",3],["par3:sans_yang","yang","yang_mut",4],["par3:sans_yang","yang","yang_mut",5],["par3:sans_yang","yang","yang_mut",6],["par3:sans_yang","yang","yang_mut",7],["par3:sans_yang","yang","yang_mut",8],["par3:sans_yang","yang","yang_mut",9],["par3:sans_yang","yang","yang_mut",10],["par3:sans_yang","yang","yang_mut",11],["par3:sans_yang","yang","yang_mut",12],["par3:sans_yang","yang","yang_mut",13],["par3:sans_yang","yang","yang_mut",14],["par3:sans_yang","yang","yang_mut",15],["par3:sans_yang","yang","yang_mut",16],["par3:sans_yang","yang","yang_mut",17],["par3:sans_yang","yang","yang_mut",18],["par3:sans_yang","yang","yang_mut",19],["par3:sans_yang","yang","yang_mut",20],["par3:sans_yang","yang","yang_mut",21],["par3:sans_yang","yang","yang_mut",22],["par3:sans_yang","yang","yang_mut",23],["par3:sans_yang","yang","yang_mut",24],["par3:sans_yang","yang","yang_mut",25],["par3:sans_yang","yang","yang_mut",26],["par3:sans_yang","yang","yang_mut",27],["par3:sans_yang","yang","yang_mut",28],["par3:sans_yang","yang","yang_mut",29],["par3:sans_yang","yang","yang_mut",30],["par3:sans_yang","yang","yang_mut",31],["par3:sans_yang","yang","yang_mut",32],["par3:sans_yang","yang","yang_mut",33],["par3:sans_yang","yang","yang_mut",34],["par3:sans_yang","yang","yang_mut",35],["par3:sans_yang","yang","yang_mut",36],["par3:sans_yang","yang","yang_mut",37],["par3:sans_yang","yang","yang_mut",38],["par3:sans_yang","yang","yang_mut",39],["par3:sans_yang","yang","yang_mut",40],["par3:sans_yang","yang","yang_mut",41],["par3:sans_yang","yang","yang_mut",42],["par3:sans_yang","yang","yang_mut",43],["par3:sans_yang","yang","yang_mut",44],["par3:sans_yang","yang","yang_mut",45],["par3:sans_yang","yang","yang_mut",46],["par3:sans_yang","yang","yang_mut",47],["par3:sans_yang","yang","yang_mut",48],["par3:sans_yang","yang","yang_mut",49],["par3:sans_yang","yang","yang_mut",50],["par3:sans_yang","yang","yang_mut",51],["par3:sans_yang","yang","yang_mut",52],["par3:sans_yang","yang","yang_mut",53],["par3:sans_yang","yang","yang_mut",54],["par3:sans_yang","yang","yang_mut",55],["par3:sans_yang","yang","yang_mut",56],["par3:sans_yang","yang","yang_mut",57],["par3:sans_yang","yang","yang_mut",58],["par3:sans_yang","yang","yang_mut",59],["par3:sans_yang","yang","yang_mut",60],["par3:sans_yang","yang","yang_mut",61],["par3:sans_yang","yang","yang_mut",62],["par3:sans_yang","yang","yang_mut",63],["par3:sans_yang","yang","yin",0],["par3:sans_yang","yang","yin",63],["par3:sans_yang","yang","yin_mut",0],["par3:sans_yang","yang","yin_mut",63],["par3:sans_yang","yang_mut","yin",0],["par3:sans_yang","yang_mut","yin",63],["par3:sans_yang","yang_mut","yin_mut",0],["par3:sans_yang","yang_mut","yin_mut",63],["par3:sans_yang","yin","yin_mut",0],["par3:sans_yang","yin","yin_mut",1],["par3:sans_yang","yin","yin_mut",2],["par3:sans_yang","yin","yin_mut",3],["par3:sans_yang","yin","yin_mut",4],["par3:sans_yang","yin","yin_mut",5],["par3:sans_yang","yin","yin_mut",6],["par3:sans_yang","yin","yin_mut",7],["par3:sans_yang","yin","yin_mut",8],["par3:sans_yang","yin","yin_mut",9],["par3:sans_yang","yin","yin_mut",10],["par3:sans_yang","yin","yin_mut",11],["par3:sans_yang","yin","yin_mut",12],["par3:sans_yang","yin","yin_mut",13],["par3:sans_yang","yin","yin_mut",14],["par3:sans_yang","yin","yin_mut",15],["par3:sans_yang","yin","yin_mut",16],["par3:sans_yang","yin","yin_mut",17],["par3:sans_yang","yin","yin_mut",18],["par3:sans_yang","yin","yin_mut",19],["par3:sans_yang","yin","yin_mut",20],["par3:sans_yang","yin","yin_mut",21],["par3:sans_yang","yin","yin_mut",22],["par3:sans_yang","yin","yin_mut",23],["par3:sans_yang","yin","yin_mut",24],["par3:sans_yang","yin","yin_mut",25],["par3:sans_yang","yin","yin_mut",26],["par3:sans_yang","yin","yin_mut",27],["par3:sans_yang","yin","yin_mut",28],["par3:sans_yang","yin","yin_mut",29],["par3:sans_yang","yin","yin_mut",30],["par3:sans_yang","yin","yin_mut",31],["par3:sans_yang","yin","yin_mut",32],["par3:sans_yang","yin","yin_mut",33],["par3:sans_yang","yin","yin_mut",34],["par3:sans_yang","yin","yin_mut",35],["par3:sans_yang","yin","yin_mut",36],["par3:sans_yang","yin","yin_mut",37],["par3:sans_yang","yin","yin_mut",38],["par3:sans_yang","yin","yin_mut",39],["par3:sans_yang","yin","yin_mut",40],["par3:sans_yang","yin","yin_mut",41],["par3:sans_yang","yin","yin_mut",42],["par3:sans_yang","yin","yin_mut",43],["par3:sans_yang","yin","yin_mut",44],["par3:sans_yang","yin","yin_mut",45],["par3:sans_yang","yin","yin_mut",46],["par3:sans_yang","yin","yin_mut",47],["par3:sans_yang","yin","yin_mut",48],["par3:sans_yang","yin","yin_mut",49],["par3:sans_yang","yin","yin_mut",50],["par3:sans_yang","yin","yin_mut",51],["par3:sans_yang","yin","yin_mut",52],["par3:sans_yang","yin","yin_mut",53],["par3:sans_yang","yin","yin_mut",54],["par3:sans_yang","yin","yin_mut",55],["par3:sans_yang","yin","yin_mut",56],["par3:sans_yang","yin","yin_mut",57],["par3:sans_yang","yin","yin_mut",58],["par3:sans_yang","yin","yin_mut",59],["par3:sans_yang","yin","yin_mut",60],["par3:sans_yang","yin","yin_mut",61],["par3:sans_yang","yin","yin_mut",62],["par3:sans_yang","yin","yin_mut",63],["par3:sans_yang_mut","yang","yang_mut",0],["par3:sans_yang_mut","yang","yang_mut",1],["par3:sans_yang_mut","yang","yang_mut",2],["par3:sans_yang_mut","yang","yang_mut",3],["par3:sans_yang_mut","yang","yang_mut",4],["par3:sans_yang_mut","yang","yang_mut",5],["par3:sans_yang_mut","yang","yang_mut",6],["par3:sans_yang_mut","yang","yang_mut",7],["par3:sans_yang_mut","yang","yang_mut",8],["par3:sans_yang_mut","yang","yang_mut",9],["par3:sans_yang_mut","yang","yang_mut",10],["par3:sans_yang_mut","yang","yang_mut",11],["par3:sans_yang_mut","yang","yang_mut",12],["par3:sans_yang_mut","yang","yang_mut",13],["par3:sans_yang_mut","yang","yang_mut",14],["par3:sans_yang_mut","yang","yang_mut",15],["par3:sans_yang_mut","yang","yang_mut",16],["par3:sans_yang_mut","yang","yang_mut",17],["par3:sans_yang_mut","yang","yang_mut",18],["par3:sans_yang_mut","yang","yang_mut",19],["par3:sans_yang_mut","yang","yang_mut",20],["par3:sans_yang_mut","yang","yang_mut",21],["par3:sans_yang_mut","yang","yang_mut",22],["par3:sans_yang_mut","yang","yang_mut",23],["par3:sans_yang_mut","yang","yang_mut",24],["par3:sans_yang_mut","yang","yang_mut",25],["par3:sans_yang_mut","yang","yang_mut",26],["par3:sans_yang_mut","yang","yang_mut",27],["par3:sans_yang_mut","yang","yang_mut",28],["par3:sans_yang_mut","yang","yang_mut",29],["par3:sans_yang_mut","yang","yang_mut",30],["par3:sans_yang_mut","yang","yang_mut",31],["par3:sans_yang_mut","yang","yang_mut",32],["par3:sans_yang_mut","yang","yang_mut",33],["par3:sans_yang_mut","yang","yang_mut",34],["par3:sans_yang_mut","yang","yang_mut",35],["par3:sans_yang_mut","yang","yang_mut",36],["par3:sans_yang_mut","yang","yang_mut",37],["par3:sans_yang_mut","yang","yang_mut",38],["par3:sans_yang_mut","yang","yang_mut",39],["par3:sans_yang_mut","yang","yang_mut",40],["par3:sans_yang_mut","yang","yang_mut",41],["par3:sans_yang_mut","yang","yang_mut",42],["par3:sans_yang_mut","yang","yang_mut",43],["par3:sans_yang_mut","yang","yang_mut",44],["par3:sans_yang_mut","yang","yang_mut",45],["par3:sans_yang_mut","yang","yang_mut",46],["par3:sans_yang_mut","yang","yang_mut",47],["par3:sans_yang_mut","yang","yang_mut",48],["par3:sans_yang_mut","yang","yang_mut",49],["par3:sans_yang_mut","yang","yang_mut",50],["par3:sans_yang_mut","yang","yang_mut",51],["par3:sans_yang_mut","yang","yang_mut",52],["par3:sans_yang_mut","yang","yang_mut",53],["par3:sans_yang_mut","yang","yang_mut",54],["par3:sans_yang_mut","yang","yang_mut",55],["par3:sans_yang_mut","yang","yang_mut",56],["par3:sans_yang_mut","yang","yang_mut",57],["par3:sans_yang_mut","yang","yang_mut",58],["par3:sans_yang_mut","yang","yang_mut",59],["par3:sans_yang_mut","yang","yang_mut",60],["par3:sans_yang_mut","yang","yang_mut",61],["par3:sans_yang_mut","yang","yang_mut",62],["par3:sans_yang_mut","yang","yang_mut",63],["par3:sans_yang_mut","yang","yin",0],["par3:sans_yang_mut","yang","yin",63],["par3:sans_yang_mut","yang","yin_mut",0],["par3:sans_yang_mut","yang","yin_mut",63],["par3:sans_yang_mut","yang_mut","yin",0],["par3:sans_yang_mut","yang_mut","yin",63],["par3:sans_yang_mut","yang_mut","yin_mut",0],["par3:sans_yang_mut","yang_mut","yin_mut",63],["par3:sans_yang_mut","yin","yin_mut",0],["par3:sans_yang_mut","yin","yin_mut",1],["par3:sans_yang_mut","yin","yin_mut",2],["par3:sans_yang_mut","yin","yin_mut",3],["par3:sans_yang_mut","yin","yin_mut",4],["par3:sans_yang_mut","yin","yin_mut",5],["par3:sans_yang_mut","yin","yin_mut",6],["par3:sans_yang_mut","yin","yin_mut",7],["par3:sans_yang_mut","yin","yin_mut",8],["par3:sans_yang_mut","yin","yin_mut",9],["par3:sans_yang_mut","yin","yin_mut",10],["par3:sans_yang_mut","yin","yin_mut",11],["par3:sans_yang_mut","yin","yin_mut",12],["par3:sans_yang_mut","yin","yin_mut",13],["par3:sans_yang_mut","yin","yin_mut",14],["par3:sans_yang_mut","yin","yin_mut",15],["par3:sans_yang_mut","yin","yin_mut",16],["par3:sans_yang_mut","yin","yin_mut",17],["par3:sans_yang_mut","yin","yin_mut",18],["par3:sans_yang_mut","yin","yin_mut",19],["par3:sans_yang_mut","yin","yin_mut",20],["par3:sans_yang_mut","yin","yin_mut",21],["par3:sans_yang_mut","yin","yin_mut",22],["par3:sans_yang_mut","yin","yin_mut",23],["par3:sans_yang_mut","yin","yin_mut",24],["par3:sans_yang_mut","yin","yin_mut",25],["par3:sans_yang_mut","yin","yin_mut",26],["par3:sans_yang_mut","yin","yin_mut",27],["par3:sans_yang_mut","yin","yin_mut",28],["par3:sans_yang_mut","yin","yin_mut",29],["par3:sans_yang_mut","yin","yin_mut",30],["par3:sans_yang_mut","yin","yin_mut",31],["par3:sans_yang_mut","yin","yin_mut",32],["par3:sans_yang_mut","yin","yin_mut",33],["par3:sans_yang_mut","yin","yin_mut",34],["par3:sans_yang_mut","yin","yin_mut",35],["par3:sans_yang_mut","yin","yin_mut",36],["par3:sans_yang_mut","yin","yin_mut",37],["par3:sans_yang_mut","yin","yin_mut",38],["par3:sans_yang_mut","yin","yin_mut",39],["par3:sans_yang_mut","yin","yin_mut",40],["par3:sans_yang_mut","yin","yin_mut",41],["par3:sans_yang_mut","yin","yin_mut",42],["par3:sans_yang_mut","yin","yin_mut",43],["par3:sans_yang_mut","yin","yin_mut",44],["par3:sans_yang_mut","yin","yin_mut",45],["par3:sans_yang_mut","yin","yin_mut",46],["par3:sans_yang_mut","yin","yin_mut",47],["par3:sans_yang_mut","yin","yin_mut",48],["par3:sans_yang_mut","yin","yin_mut",49],["par3:sans_yang_mut","yin","yin_mut",50],["par3:sans_yang_mut","yin","yin_mut",51],["par3:sans_yang_mut","yin","yin_mut",52],["par3:sans_yang_mut","yin","yin_mut",53],["par3:sans_yang_mut","yin","yin_mut",54],["par3:sans_yang_mut","yin","yin_mut",55],["par3:sans_yang_mut","yin","yin_mut",56],["par3:sans_yang_mut","yin","yin_mut",57],["par3:sans_yang_mut","yin","yin_mut",58],["par3:sans_yang_mut","yin","yin_mut",59],["par3:sans_yang_mut","yin","yin_mut",60],["par3:sans_yang_mut","yin","yin_mut",61],["par3:sans_yang_mut","yin","yin_mut",62],["par3:sans_yang_mut","yin","yin_mut",63]]};
 
-function drawSideTile(canvas){
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const cw = canvas.clientWidth || 58, ch = canvas.clientHeight || 400;
-  const w = canvas.width = cw*2, h = canvas.height = ch*2;
-  ctx.fillStyle = '#050505'; ctx.fillRect(0,0,w,h);
-  const BASE_TILE = 116; // taille fixe d'une tuile (canvas px, dpr x2 déjà appliqué) — identique à la page Tirage
+function hexagramGrid(n, gridA, gridB){
+  const col = n % 8, row = Math.floor(n/8);
+  const bitsCol = [col&1,(col>>1)&1,(col>>2)&1];
+  const bitsRow = [row&1,(row>>1)&1,(row>>2)&1];
+  const traits = bitsCol.concat(bitsRow);
+  const grid = [];
+  for(let r=0;r<12;r++){
+    const rowArr=[];
+    for(let c=0;c<12;c++){
+      const pos = PAR3_DATA.layerOf[r][c];
+      const bit = traits[pos-1];
+      rowArr.push(bit===1 ? gridA[r][c] : gridB[r][c]);
+    }
+    grid.push(rowArr);
+  }
+  return grid;
+}
+const SIDE_GRIDS = PAR3_DATA.entries.map(([fam,subA,subB,n]) => hexagramGrid(n, PAR3_DATA.families[fam][subA], PAR3_DATA.families[fam][subB]));
+
+function gridDistance(a, b){
+  let d = 0;
+  for(let r=0;r<12;r++) for(let c=0;c<12;c++) if(a[r][c]!==b[r][c]) d++;
+  return d;
+}
+let sideCurrentGrid = null, sideCurrentIndex = -1, sideVisited = new Set();
+// choisit, parmi les motifs pas encore vus dans ce cycle, celui qui est visuellement le plus
+// proche du motif actuel (le moins de cellules qui changent) — même algorithme que
+// pickNextByProximity() dans fonds-ecran.html
+function pickNextSideGrid(){
+  if(sideCurrentIndex === -1){
+    sideCurrentIndex = Math.floor(Math.random()*SIDE_GRIDS.length);
+    sideVisited = new Set([sideCurrentIndex]);
+    sideCurrentGrid = SIDE_GRIDS[sideCurrentIndex];
+    return sideCurrentGrid;
+  }
+  let candidates = SIDE_GRIDS.map((g,i)=>i).filter(i=>!sideVisited.has(i));
+  if(candidates.length===0){
+    sideVisited = new Set([sideCurrentIndex]);
+    candidates = SIDE_GRIDS.map((g,i)=>i).filter(i=>!sideVisited.has(i));
+  }
+  let best = candidates[0], bestDist = Infinity;
+  for(const i of candidates){
+    const d = gridDistance(sideCurrentGrid, SIDE_GRIDS[i]);
+    if(d < bestDist){ bestDist = d; best = i; }
+  }
+  sideCurrentIndex = best;
+  sideVisited.add(best);
+  sideCurrentGrid = SIDE_GRIDS[best];
+  return sideCurrentGrid;
+}
+
+const BASE_TILE = 116; // taille fixe d'une tuile (canvas px, dpr x2 déjà appliqué) — identique à la page Tirage
+function drawSideTileOn(targetCtx, w, h, grid){
   const cellSize = BASE_TILE/12;
   const tilesX = Math.ceil(w/BASE_TILE)+1;
   const tilesY = Math.ceil(h/BASE_TILE)+1;
@@ -401,23 +447,96 @@ function drawSideTile(canvas){
       const ox = tx*BASE_TILE, oy = ty*BASE_TILE;
       for(let r=0;r<12;r++){
         for(let c=0;c<12;c++){
-          ctx.fillStyle = SIDE_PALETTE[SIDE_GRID[r][c]];
-          ctx.fillRect(ox+c*cellSize, oy+r*cellSize, cellSize-0.6, cellSize-0.6);
+          targetCtx.fillStyle = SIDE_PALETTE[grid[r][c]];
+          targetCtx.fillRect(ox+c*cellSize, oy+r*cellSize, cellSize-0.6, cellSize-0.6);
         }
       }
     }
   }
 }
-function drawSideBands(){
-  drawSideTile(document.querySelector('#sideBandLeft canvas'));
-  drawSideTile(document.querySelector('#sideBandRight canvas'));
+
+// une paire canvas visible / tampons de fondu par bande (gauche, droite)
+function makeSideBand(canvas){
+  const offscreen = document.createElement('canvas');
+  const prevSnapshot = document.createElement('canvas');
+  return { canvas, ctx: canvas.getContext('2d'), offscreen, offCtx: offscreen.getContext('2d'), prevSnapshot, fadeRAF: null };
 }
-drawSideBands();
-window.addEventListener('resize', drawSideBands);
-requestAnimationFrame(()=>{
-  document.getElementById('sideBandLeft').classList.add('visible');
-  document.getElementById('sideBandRight').classList.add('visible');
-});
+const sideBands = [
+  makeSideBand(document.querySelector('#sideBandLeft canvas')),
+  makeSideBand(document.querySelector('#sideBandRight canvas'))
+].filter(b => b.canvas);
+
+function sizeSideCanvas(band){
+  const cw = band.canvas.clientWidth || 58, ch = band.canvas.clientHeight || 400;
+  band.canvas.width = cw*2; band.canvas.height = ch*2;
+}
+function drawSideBandInstant(band, grid){
+  sizeSideCanvas(band);
+  band.ctx.fillStyle = '#050505'; band.ctx.fillRect(0,0,band.canvas.width,band.canvas.height);
+  drawSideTileOn(band.ctx, band.canvas.width, band.canvas.height, grid);
+}
+
+// fondu doux entre deux motifs — même principe que crossfadeTo() dans fonds-ecran.html,
+// adapté pour dessiner sur deux bandes indépendantes en parallèle
+function crossfadeSideBand(band, grid, durationMs){
+  const { canvas, ctx, offscreen, offCtx, prevSnapshot } = band;
+  offscreen.width = canvas.width; offscreen.height = canvas.height;
+  prevSnapshot.width = canvas.width; prevSnapshot.height = canvas.height;
+  prevSnapshot.getContext('2d').drawImage(canvas, 0, 0);
+  offCtx.fillStyle = '#050505'; offCtx.fillRect(0,0,offscreen.width, offscreen.height);
+  drawSideTileOn(offCtx, offscreen.width, offscreen.height, grid);
+  if(band.fadeRAF) cancelAnimationFrame(band.fadeRAF);
+  const start = performance.now();
+  function step(now){
+    const t = Math.min(1, (now-start)/durationMs);
+    ctx.drawImage(prevSnapshot, 0, 0);
+    ctx.globalAlpha = t;
+    ctx.drawImage(offscreen, 0, 0);
+    ctx.globalAlpha = 1;
+    if(t < 1){ band.fadeRAF = requestAnimationFrame(step); }
+  }
+  band.fadeRAF = requestAnimationFrame(step);
+}
+
+// ---------- limitation mobile / accessibilité, réutilisable pour toute future animation
+// similaire sur le site : fige le motif (pas d'intervalle, pas de fondu) si l'utilisateur
+// préfère un mouvement réduit, ou si l'écran est trop étroit pour afficher les bandes à
+// pleine largeur (palier <=1620px, juste au-dessus du seuil qui les masque totalement).
+function prefersStaticMotion(){
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      || window.matchMedia('(max-width: 1620px)').matches;
+}
+
+let sideBandTimer = null;
+function stopSideBandAnimation(){
+  if(sideBandTimer){ clearInterval(sideBandTimer); sideBandTimer = null; }
+}
+function startSideBandAnimation(){
+  stopSideBandAnimation();
+  sideBandTimer = setInterval(()=>{
+    const grid = pickNextSideGrid();
+    sideBands.forEach(band => crossfadeSideBand(band, grid, 600));
+  }, 1000);
+}
+function refreshSideBandMotion(){
+  if(sideBands.length===0) return;
+  if(prefersStaticMotion()) stopSideBandAnimation();
+  else if(!sideBandTimer) startSideBandAnimation();
+}
+
+if(sideBands.length){
+  const firstGrid = pickNextSideGrid();
+  sideBands.forEach(band => drawSideBandInstant(band, firstGrid));
+  refreshSideBandMotion();
+  window.addEventListener('resize', ()=>{
+    sideBands.forEach(band => drawSideBandInstant(band, sideCurrentGrid));
+    refreshSideBandMotion();
+  });
+  requestAnimationFrame(()=>{
+    document.getElementById('sideBandLeft').classList.add('visible');
+    document.getElementById('sideBandRight').classList.add('visible');
+  });
+}
 </script>
 
 <script type="text/javascript">
