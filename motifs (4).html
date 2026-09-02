@@ -1383,16 +1383,18 @@ const btnResetPaletteEl = document.getElementById('btnResetPalette');
 if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteToDefault);
 
 // ---------- mode Monochrome (bascule avec la palette liée ci-dessus) ----------
-// Teinte médiane par défaut et écarts ±, calibrés sur mesure réelle des images sources
-// de la charte Unified Patterns (identique à fonds-ecran.html et à la galerie 884).
+// Teinte médiane par défaut calibrée sur mesure réelle des images sources de la charte
+// Unified Patterns (identique à fonds-ecran.html et à la galerie 884) — mais écarts de
+// luminosité ramenés à ±20% (comme partout ailleurs hors Unified Patterns elle-même) :
+// l'écart resserré de la mesure réelle (-8,4%/+7,4%) rendait les motifs moins lisibles.
 const DEFAULT_MONO_HUE = '#db694c';
 let colorMode = 'mono'; // 'mono' = teinte médiane dérivée (défaut, cohérent avec Unified Patterns) ; 'multi' = palette liée
 function applyMonoHue(){
   const hex = document.getElementById('monoPicker').value;
   const {h,s,l} = hexToHsl(hex);
   const clamp = v => Math.max(0, Math.min(100, v));
-  PALETTE.V = hslToHex(h, s, clamp(l + 7.4));
-  PALETTE.M = hslToHex(h, s, clamp(l - 8.4));
+  PALETTE.V = hslToHex(h, s, clamp(l + 20));
+  PALETTE.M = hslToHex(h, s, clamp(l - 20));
   PALETTE.O = hex;
   document.documentElement.style.setProperty('--v', PALETTE.V);
   document.documentElement.style.setProperty('--m', PALETTE.M);

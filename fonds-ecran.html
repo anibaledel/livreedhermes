@@ -411,8 +411,8 @@ function applyTintRotation(pickedHex){
   };
 }
 function applySingleHue(pickedHex){
-  const mauve = adjustLightness(pickedHex, +0.074);
-  const rose  = adjustLightness(pickedHex, -0.084);
+  const mauve = adjustLightness(pickedHex, +0.20);
+  const rose  = adjustLightness(pickedHex, -0.20);
   PALETTE = { V: mauve, M: rose, O: pickedHex };
 }
 function refreshPalette(){
