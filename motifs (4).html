@@ -72,6 +72,7 @@
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
@@ -113,12 +114,18 @@
     position:absolute; inset:-4px; width:calc(100% + 8px); height:calc(100% + 8px);
     border:0; padding:0; cursor:pointer; background:none;
   }
+  #monoPicker{
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
+    padding:0; background:none; cursor:pointer; overflow:hidden;
+  }
+  #monoPicker::-webkit-color-swatch-wrapper{ padding:0; }
+  #monoPicker::-webkit-color-swatch{ border:none; border-radius:50%; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:200px; width:auto; opacity:.9; }
+  .footer-caduceus img{ height:266.67px; width:auto; opacity:.9; }
   @media (max-width:1320px){ .footer-caduceus{ display:none; } }
 
   /* ---------- bandes latérales : pavage en tuiles, synchronisé à la sélection ---------- */
@@ -292,12 +299,14 @@
     font-size:9.5px; letter-spacing:.14em; text-transform:uppercase;
     color:var(--red); margin-bottom:16px;
   }
-  .pair-compare{ display:flex; align-items:center; gap:22px; margin-bottom:16px; }
+  .pair-compare-row{ display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:16px; }
+  .pair-compare{ display:flex; align-items:center; gap:22px; }
   .pair-compare .one{ text-align:center; }
   .pair-compare canvas{ width:96px; height:96px; border:1px solid var(--line); background:#050505; display:block; }
   .pair-compare .pname{ font-size:11px; color:var(--white); margin-top:8px; max-width:120px; }
   .pair-compare .pnum{ font-size:9px; color:var(--dim); letter-spacing:.08em; }
   .pair-compare .plus{ color:var(--dim); font-size:20px; }
+  .hexagram-glyph{ color:var(--dim); flex:0 0 auto; }
   .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; max-width:60ch; }
 
   /* ---------- grille structurée (Bases/Par2/Par3/Par4) ---------- */
@@ -411,9 +420,12 @@
 
   <div class="note">
     <div class="palette-picker" id="palettePicker">
-      <span class="palette-label">Palette</span>
+      <button type="button" class="site-nav-btn" id="btnColorMode">Monochrome</button>
+      <span class="palette-label" id="paletteLabelMulti">Palette</span>
       <div class="palette-swatches" id="paletteSwatches"></div>
       <button type="button" class="site-nav-btn" id="btnResetPalette">Réinitialiser la palette</button>
+      <span class="palette-label" id="monoLabel" style="display:none;">Teinte</span>
+      <input type="color" id="monoPicker" value="#db694c" title="Choisir une teinte" style="display:none;">
     </div>
 
     <div class="center-logo-slot">
@@ -534,6 +546,28 @@ function rcFromTraits(traits){
 }
 function chronoFromTraits(traits){ const {r,c}=rcFromTraits(traits); return r*8+c; }
 function kingWenFromTraits(traits){ return KINGWEN_BY_CHRONO[chronoFromTraits(traits)]; }
+const CHRONO_BY_KINGWEN = {};
+KINGWEN_BY_CHRONO.forEach((kw, chrono)=>{ CHRONO_BY_KINGWEN[kw] = chrono; });
+
+// ---------- dessin traditionnel d'un hexagramme (6 traits empilés, Yang plein / Yin brisé) ----------
+function hexagramGlyphSVG(kw, w, h){
+  w = w || 44; h = h || 62;
+  const traits = traitsFromChrono(CHRONO_BY_KINGWEN[kw]); // [trait1(bas) .. trait6(haut)]
+  const rowH = h/6, barH = Math.max(2, rowH*0.34), gap = w*0.14;
+  let rects = '';
+  for(let row=0; row<6; row++){
+    const t = traits[5-row]; // row 0 = trait6 (haut) ... row 5 = trait1 (bas)
+    const y = row*rowH + (rowH-barH)/2;
+    if(t===1){
+      rects += `<rect x="0" y="${y.toFixed(2)}" width="${w}" height="${barH.toFixed(2)}" fill="currentColor"/>`;
+    }else{
+      const segW = (w-gap)/2;
+      rects += `<rect x="0" y="${y.toFixed(2)}" width="${segW.toFixed(2)}" height="${barH.toFixed(2)}" fill="currentColor"/>`;
+      rects += `<rect x="${(segW+gap).toFixed(2)}" y="${y.toFixed(2)}" width="${segW.toFixed(2)}" height="${barH.toFixed(2)}" fill="currentColor"/>`;
+    }
+  }
+  return `<svg class="hexagram-glyph" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true">${rects}</svg>`;
+}
 
 // ---------- axes de base : bit (yang=1/yin=0) ----------
 const AXIS_INFO = {
@@ -1124,18 +1158,22 @@ function showDetail(cell){
         <div class="tag">${isVisualTwin
           ? 'Même motif, couleurs inversées — Créateur et Réceptif échangés'
           : `Case complémentaire de cet échiquier — n° ${cell.chrono+1} + n° ${pairCell.chrono+1} = 65`}</div>
-        <div class="pair-compare">
-          <div class="one">
-            <canvas id="pairCanvasA"></canvas>
-            <div class="pname">N° ${kw} · ${hex.pinyin}</div>
-            <div class="pnum">${hex.image_title}</div>
+        <div class="pair-compare-row">
+          ${hexagramGlyphSVG(kw)}
+          <div class="pair-compare">
+            <div class="one">
+              <canvas id="pairCanvasA"></canvas>
+              <div class="pname">N° ${kw} · ${hex.pinyin}</div>
+              <div class="pnum">${hex.image_title}</div>
+            </div>
+            <div class="plus">⇄</div>
+            <div class="one">
+              <canvas id="pairCanvasB"></canvas>
+              <div class="pname">N° ${pairCell.kw} · ${pairHex.pinyin}</div>
+              <div class="pnum">${pairHex.image_title}</div>
+            </div>
           </div>
-          <div class="plus">⇄</div>
-          <div class="one">
-            <canvas id="pairCanvasB"></canvas>
-            <div class="pname">N° ${pairCell.kw} · ${pairHex.pinyin}</div>
-            <div class="pnum">${pairHex.image_title}</div>
-          </div>
+          ${hexagramGlyphSVG(pairCell.kw)}
         </div>
         <div class="txt">${bookPair
           ? `<b>${bookPair.motcle}.</b> ${bookPair.jugement}`
@@ -1343,6 +1381,44 @@ applyPaletteToSite();
 renderPaletteSwatches();
 const btnResetPaletteEl = document.getElementById('btnResetPalette');
 if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteToDefault);
+
+// ---------- mode Monochrome (bascule avec la palette liée ci-dessus) ----------
+// Teinte médiane par défaut et écarts ±, calibrés sur mesure réelle des images sources
+// de la charte Unified Patterns (identique à fonds-ecran.html et à la galerie 884).
+const DEFAULT_MONO_HUE = '#db694c';
+let colorMode = 'multi'; // 'multi' = palette liée existante (défaut, inchangé) ; 'mono' = teinte médiane dérivée
+function applyMonoHue(){
+  const hex = document.getElementById('monoPicker').value;
+  const {h,s,l} = hexToHsl(hex);
+  const clamp = v => Math.max(0, Math.min(100, v));
+  PALETTE.V = hslToHex(h, s, clamp(l + 7.4));
+  PALETTE.M = hslToHex(h, s, clamp(l - 8.4));
+  PALETTE.O = hex;
+  document.documentElement.style.setProperty('--v', PALETTE.V);
+  document.documentElement.style.setProperty('--m', PALETTE.M);
+  document.documentElement.style.setProperty('--o', PALETTE.O);
+  if(typeof window.repaintAllPavage === 'function') window.repaintAllPavage();
+}
+const btnColorModeEl = document.getElementById('btnColorMode');
+const monoPickerEl = document.getElementById('monoPicker');
+const monoLabelEl = document.getElementById('monoLabel');
+const paletteLabelMultiEl = document.getElementById('paletteLabelMulti');
+const paletteSwatchesEl = document.getElementById('paletteSwatches');
+if(btnColorModeEl){
+  btnColorModeEl.addEventListener('click', ()=>{
+    colorMode = colorMode==='mono' ? 'multi' : 'mono';
+    btnColorModeEl.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';
+    btnColorModeEl.classList.toggle('current', colorMode==='mono');
+    const showMulti = colorMode==='multi';
+    paletteLabelMultiEl.style.display = showMulti ? '' : 'none';
+    paletteSwatchesEl.style.display = showMulti ? '' : 'none';
+    btnResetPaletteEl.style.display = showMulti ? '' : 'none';
+    monoLabelEl.style.display = showMulti ? 'none' : '';
+    monoPickerEl.style.display = showMulti ? 'none' : '';
+    if(showMulti) applyPaletteToSite(); else applyMonoHue();
+  });
+}
+if(monoPickerEl) monoPickerEl.addEventListener('input', applyMonoHue);
 
 // ============================================================
 // INIT
