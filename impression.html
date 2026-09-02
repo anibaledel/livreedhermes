@@ -119,26 +119,8 @@
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:266.67px; width:auto; opacity:.9; }
+  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
   @media (max-width:1320px){ .footer-caduceus{ display:none; } }
-
-  /* ===== Palette (le picker 3 couleurs liées, à la place du texte dans .note) ===== */
-  .palette-block{ margin:4px auto 0; max-width:520px; }
-  .palette-swatches{ display:flex; gap:12px; margin-bottom:10px; }
-  .palette-card{
-    flex:1; background:var(--panel); border:1px solid var(--line); padding:12px; text-align:center;
-  }
-  .palette-card.is-master{ border-color:var(--gold); }
-  .palette-card label{ font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); display:block; margin-bottom:6px; }
-  .palette-card input[type=color]{ width:100%; height:32px; border:none; background:none; cursor:pointer; }
-  .palette-swatch-btn{ width:100%; height:32px; border:none; cursor:pointer; border-radius:2px; }
-  .palette-hex{ font-size:10px; color:var(--dim); margin-top:6px; font-family:Helvetica,Arial,sans-serif; }
-  .palette-reset{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:7px 14px;
-    cursor:pointer; transition:border-color .12s ease, color .12s ease;
-  }
-  .palette-reset:hover{ border-color:var(--gold); color:var(--gold); }
 
   /* ===== Contenu spécifique à la page impression ===== */
   .print-main{ margin-top:8px; }
@@ -336,8 +318,8 @@
     </div>
 
     <div class="hex-mutation-zone" id="hexMutationZone">
-      <div class="mutant-lines-block" id="mutantLinesBlock"></div>
       <div class="hex-text-block" id="hexTextAnt"></div>
+      <div class="mutant-lines-block" id="mutantLinesBlock"></div>
       <div class="ant-post-row" id="antPostRow">
         <div class="ant-post-col ant">
           <span class="ant-post-label" id="txt-situationAnt">Situation antérieure</span>
@@ -352,10 +334,8 @@
     </div>
   </div>
 
-  <!-- ===== Pied de page : du titre à la palette ===== -->
+  <!-- ===== Pied de page ===== -->
   <div class="note">
-    <div class="palette-block" id="paletteBlock"></div>
-
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
@@ -411,7 +391,6 @@ const UI = {
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
     situationAnt:"Situation antérieure", situationPost:"Situation postérieure",
-    paletteLabel:"Palette", paletteReset:"Réinitialiser la palette",
     navHome:"Accueil", navTirage:"Tirage", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
   },
   en: {
@@ -430,7 +409,6 @@ const UI = {
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
     situationAnt:"Prior situation", situationPost:"Resulting situation",
-    paletteLabel:"Palette", paletteReset:"Reset the palette",
     navHome:"Home", navTirage:"Casting", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
   },
   es: {
@@ -449,7 +427,6 @@ const UI = {
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
     situationAnt:"Situación anterior", situationPost:"Situación posterior",
-    paletteLabel:"Paleta", paletteReset:"Restablecer la paleta",
     navHome:"Inicio", navTirage:"Tirada", navMotif:"Crear un motivo", navUnified:"Unified Patterns", navGalerie:"Galería 884", navWallpaper:"Fondo de pantalla", navPrint:"Impresión", navContact:"Contacto", navAbout:"Acerca de", navLexique:"Glosario", navArticles:"Artículos",
   },
   th: {
@@ -468,7 +445,6 @@ const UI = {
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
     situationAnt:"สถานการณ์ก่อนหน้า", situationPost:"สถานการณ์หลังจาก",
-    paletteLabel:"จานสี", paletteReset:"รีเซ็ตจานสี",
     navHome:"หน้าแรก", navTirage:"การทำนาย", navMotif:"สร้างลวดลาย", navUnified:"Unified Patterns", navGalerie:"แกลเลอรี 884", navWallpaper:"วอลเปเปอร์", navPrint:"การพิมพ์", navContact:"ติดต่อ", navAbout:"เกี่ยวกับ", navLexique:"อภิธานศัพท์", navArticles:"บทความ",
   },
 };
@@ -509,77 +485,6 @@ function applyUILang(){
   document.getElementById('txt-situationAnt').textContent = t('situationAnt');
   document.getElementById('txt-situationPost').textContent = t('situationPost');
   document.documentElement.lang = LANG;
-  renderPalette();
-}
-
-/* ===== Palette 3 couleurs liées (reprise du widget validé précédemment) ===== */
-function hexToHsl(hex){
-  let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
-  let max=Math.max(r,g,b), min=Math.min(r,g,b), h,s,l=(max+min)/2;
-  if(max===min){h=s=0;} else{
-    let d=max-min; s=l>0.5? d/(2-max-min) : d/(max+min);
-    switch(max){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; case b: h=(r-g)/d+4; break; }
-    h/=6;
-  }
-  return [h*360, s*100, l*100];
-}
-function hslToHex(h,s,l){
-  h=((h%360)+360)%360; s=Math.max(0,Math.min(100,s))/100; l=Math.max(0,Math.min(100,l))/100;
-  let c=(1-Math.abs(2*l-1))*s, x=c*(1-Math.abs((h/60)%2-1)), m=l-c/2, r,g,b;
-  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
-  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
-  let toHex=v=>Math.round((v+m)*255).toString(16).padStart(2,'0');
-  return '#'+toHex(r)+toHex(g)+toHex(b);
-}
-const ORIGINAL = ['#e0261b', '#c9a15a', '#6b6b6b']; // rouge / or / gris — palette du site
-let colors = [...ORIGINAL];
-let paletteLabels = ['Rouge','Or','Gris'];
-let masterIndex = 0;
-let deltas = [{h:0,s:0,l:0},{h:0,s:0,l:0},{h:0,s:0,l:0}];
-
-function computeDeltas(){
-  const [h0,s0,l0] = hexToHsl(colors[masterIndex]);
-  for(let i=0;i<3;i++){
-    if(i===masterIndex){ deltas[i]={h:0,s:0,l:0}; continue; }
-    const [h,s,l] = hexToHsl(colors[i]);
-    deltas[i] = {h:h-h0, s:s-s0, l:l-l0};
-  }
-}
-computeDeltas();
-
-function applyFromMaster(hex){
-  colors[masterIndex] = hex;
-  const [h,s,l] = hexToHsl(hex);
-  for(let i=0;i<3;i++){
-    if(i===masterIndex) continue;
-    colors[i] = hslToHex(h+deltas[i].h, s+deltas[i].s, l+deltas[i].l);
-  }
-  renderPalette();
-}
-function makeMaster(i){ masterIndex = i; computeDeltas(); renderPalette(); }
-function resetPalette(){ colors=[...ORIGINAL]; masterIndex=0; computeDeltas(); renderPalette(); }
-
-function renderPalette(){
-  const block = document.getElementById('paletteBlock');
-  let html = '<div class="palette-swatches">';
-  for(let i=0;i<3;i++){
-    html += `<div class="palette-card ${i===masterIndex?'is-master':''}">
-      <label>${paletteLabels[i]}${i===masterIndex?' · master':''}</label>`;
-    if(i===masterIndex){
-      html += `<input type="color" value="${colors[i]}" data-idx="${i}">`;
-    } else {
-      html += `<button class="palette-swatch-btn" style="background:${colors[i]}" data-idx="${i}"></button>`;
-    }
-    html += `<div class="palette-hex">${colors[i].toUpperCase()}</div></div>`;
-  }
-  html += `</div><button class="palette-reset">${t('paletteReset')}</button>`;
-  block.innerHTML = html;
-
-  block.querySelector('input[type=color]').addEventListener('input', e=>applyFromMaster(e.target.value));
-  block.querySelectorAll('.palette-swatch-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>makeMaster(parseInt(btn.dataset.idx)));
-  });
-  block.querySelector('.palette-reset').addEventListener('click', resetPalette);
 }
 
 /* ===== Tirage / calques réels (manifeste des 60 superpositions) ===== */
@@ -1417,7 +1322,7 @@ async function renderMutationZone(item){
   const postBlock = document.getElementById('hexTextPost');
 
   // Texte général (Image + Jugement) du départ : affiché une seule fois sur toute
-  // la page, ici, après le bloc des traits mutables (jamais dans #resultIdea, qui
+  // la page, ici, avant le bloc des traits mutables (jamais dans #resultIdea, qui
   // ne montre plus qu'un intitulé court, pour éviter la répétition constatée).
   document.getElementById('hexTextAnt').innerHTML = hexTextBlockHtml(hex.kw, t('hexDepart'));
 

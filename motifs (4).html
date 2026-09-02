@@ -125,7 +125,7 @@
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:266.67px; width:auto; opacity:.9; }
+  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
   @media (max-width:1320px){ .footer-caduceus{ display:none; } }
 
   /* ---------- bandes latérales : pavage en tuiles, synchronisé à la sélection ---------- */
@@ -420,12 +420,12 @@
 
   <div class="note">
     <div class="palette-picker" id="palettePicker">
-      <button type="button" class="site-nav-btn" id="btnColorMode">Monochrome</button>
-      <span class="palette-label" id="paletteLabelMulti">Palette</span>
-      <div class="palette-swatches" id="paletteSwatches"></div>
-      <button type="button" class="site-nav-btn" id="btnResetPalette">Réinitialiser la palette</button>
-      <span class="palette-label" id="monoLabel" style="display:none;">Teinte</span>
-      <input type="color" id="monoPicker" value="#db694c" title="Choisir une teinte" style="display:none;">
+      <button type="button" class="site-nav-btn current" id="btnColorMode">Multicolore</button>
+      <span class="palette-label" id="paletteLabelMulti" style="display:none;">Palette</span>
+      <div class="palette-swatches" id="paletteSwatches" style="display:none;"></div>
+      <button type="button" class="site-nav-btn" id="btnResetPalette" style="display:none;">Réinitialiser la palette</button>
+      <span class="palette-label" id="monoLabel">Teinte</span>
+      <input type="color" id="monoPicker" value="#db694c" title="Choisir une teinte">
     </div>
 
     <div class="center-logo-slot">
@@ -1386,7 +1386,7 @@ if(btnResetPaletteEl) btnResetPaletteEl.addEventListener('click', resetPaletteTo
 // Teinte médiane par défaut et écarts ±, calibrés sur mesure réelle des images sources
 // de la charte Unified Patterns (identique à fonds-ecran.html et à la galerie 884).
 const DEFAULT_MONO_HUE = '#db694c';
-let colorMode = 'multi'; // 'multi' = palette liée existante (défaut, inchangé) ; 'mono' = teinte médiane dérivée
+let colorMode = 'mono'; // 'mono' = teinte médiane dérivée (défaut, cohérent avec Unified Patterns) ; 'multi' = palette liée
 function applyMonoHue(){
   const hex = document.getElementById('monoPicker').value;
   const {h,s,l} = hexToHsl(hex);
@@ -1419,6 +1419,7 @@ if(btnColorModeEl){
   });
 }
 if(monoPickerEl) monoPickerEl.addEventListener('input', applyMonoHue);
+if(colorMode==='mono') applyMonoHue(); // état par défaut au chargement, cohérent avec l'UI (Monochrome déjà affiché)
 
 // ============================================================
 // INIT
