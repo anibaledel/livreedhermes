@@ -148,7 +148,7 @@
   .dice-btn:hover{ border-color:var(--gold); }
   .dice-btn.selected{ border-color:var(--red); color:var(--red); background:rgba(224,38,27,.08); }
 
-  .result-area{ display:grid; grid-template-columns:280px 1fr; gap:24px; align-items:start; }
+  .result-area{ display:grid; grid-template-columns:280px 130px 1fr; gap:24px; align-items:start; }
   @media (max-width:820px){ .result-area{ grid-template-columns:1fr; } }
   .preview-box{
     background:var(--panel); border:1px solid var(--line); padding:16px;
@@ -164,6 +164,15 @@
   /* liseret : léger contour décoratif en retrait, posé autour des cadres (motif du haut
      et les deux motifs antérieur/postérieur), un peu à l'écart du panneau lui-même. */
   .liseret{ border:1px solid var(--gold); padding:6px; }
+
+  /* carré de pavage à droite du tirage — même composant que .motif-tess-box sur
+     Unified Patterns (carré 1:1 en background-image répété), à la taille standard
+     130x130 du site (.motif-box / .pavage-sq). */
+  .tessellation-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; font-family:Helvetica,Arial,sans-serif; }
+  .motif-tess-box{
+    width:130px; height:130px; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
 
   .hex-mutation-zone{
     display:none; margin-top:48px; padding-top:32px; border-top:1px solid var(--line);
@@ -306,6 +315,10 @@
 
     <div class="result-area">
       <div class="liseret"><div class="preview-box" id="previewBox"></div></div>
+      <div class="tessellation-wrap">
+        <div class="tessellation-label" id="txt-pavageLabel">Pavage</div>
+        <div class="liseret"><div class="motif-tess-box" id="pavageBox"></div></div>
+      </div>
       <div>
         <div class="result-label" id="txt-resultLabel">Résultat</div>
         <div class="result-value" id="resultValue">—</div>
@@ -385,7 +398,7 @@ const UI = {
     catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"64 motifs · teinte fixe (d4), tirage par position",
     catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"64 motifs · tirage par position",
     familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
-    resultLabel:"Résultat", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
+    resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
@@ -403,7 +416,7 @@ const UI = {
     catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"64 motifs · fixed tint (d4), draw per position",
     catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"64 motifs · draw per position",
     familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
-    resultLabel:"Result", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
+    resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
@@ -421,7 +434,7 @@ const UI = {
     catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"64 motivos · matiz fijo (d4), tirada por posición",
     catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"64 motivos · tirada por posición",
     familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
-    resultLabel:"Resultado", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
+    resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
@@ -439,7 +452,7 @@ const UI = {
     catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"64 ลวดลาย · สุ่มตามตำแหน่ง",
     familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
-    resultLabel:"ผลลัพธ์", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
+    resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
@@ -468,6 +481,7 @@ function applyUILang(){
   document.getElementById('txt-teinteLabel').textContent = t('teinteLabel');
   document.getElementById('rollBtn').textContent = t('rollBtn');
   document.getElementById('txt-resultLabel').textContent = t('resultLabel');
+  document.getElementById('txt-pavageLabel').textContent = t('pavageLabel');
   if(!state.chrono) document.getElementById('resultIdea').textContent = t('resultPlaceholder');
   document.getElementById('dlSvg').textContent = t('dlSvgBtn');
   document.getElementById('dlPdf').textContent = t('dlPdfBtn');
@@ -1218,6 +1232,24 @@ function insertBlockIntoTemplate(templateSvgText, block){
   return withBlock.replace('</svg>', liseret + '</svg>');
 }
 
+// ---------- carré de pavage à droite du tirage (composant repris de .motif-tess-box
+// sur Unified Patterns : recadrage du viewBox sur le carré du motif, puis affichage en
+// background-image répété pour simuler le pavage continu) ----------
+// item.svgText est déjà entièrement coloré (fill="..." littéral inséré par
+// buildCompositeBlock) : pas de recolorSvg nécessaire ici, juste le recadrage.
+const PAVAGE_VIEWBOX = `${CELL_XS[0]} ${CELL_YS[0]} ${(12*CELL_W).toFixed(2)} ${(12*CELL_W).toFixed(2)}`;
+function cropSvgToPavage(svgText){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${PAVAGE_VIEWBOX}"`);
+}
+function svgDataUri(svgText){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
+}
+function renderPavageBox(svgText){
+  const box = document.getElementById('pavageBox');
+  if(!box) return;
+  box.style.backgroundImage = `url("${svgDataUri(cropSvgToPavage(svgText))}")`;
+}
+
 async function drawCategorie2(){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   const [axisA, axisB] = splitFamilyId(familyId);
@@ -1363,6 +1395,7 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
   state.item = item;
   state.chrono = item.id;
   document.getElementById('previewBox').innerHTML = item.svgText;
+  renderPavageBox(item.svgText);
   document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.familyName}`;
   document.getElementById('resultIdea').innerHTML = resultIdeaHtml(item.hex.kw);
   await renderMutationZone(item);
