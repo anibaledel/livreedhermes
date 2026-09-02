@@ -297,6 +297,8 @@
       </div>
     </div>
 
+    <button type="button" class="site-nav-btn random-btn" id="randomCatBtn" style="margin-bottom:24px;">🎲 <span id="txt-randomCatBtn">Choisir la catégorie au hasard</span></button>
+
     <div class="sub-row" id="subRow">
       <div>
         <span class="sub-label" id="txt-familleLabel">Famille (d6)</span>
@@ -310,6 +312,8 @@
         <div class="dice-row" id="teinteRow"></div>
       </div>
     </div>
+
+    <button type="button" class="site-nav-btn random-btn" id="randomSubBtn" style="display:none;margin-bottom:24px;">🎲 <span id="txt-randomSubBtn">Choisir la famille au hasard</span></button>
 
     <button class="site-nav-btn" id="rollBtn" style="margin-bottom:24px;border-color:var(--red);color:var(--red);">Effectuer le tirage</button>
 
@@ -398,6 +402,7 @@ const UI = {
     catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"64 motifs · teinte fixe (d4), tirage par position",
     catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"64 motifs · tirage par position",
     familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
+    randomCatBtn:"Choisir la catégorie au hasard", randomFamilleBtn:"Choisir la famille au hasard", randomTeinteBtn:"Choisir la teinte au hasard",
     resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
@@ -416,6 +421,7 @@ const UI = {
     catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"64 motifs · fixed tint (d4), draw per position",
     catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"64 motifs · draw per position",
     familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
+    randomCatBtn:"Pick a random category", randomFamilleBtn:"Pick a random family", randomTeinteBtn:"Pick a random tint",
     resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
@@ -434,6 +440,7 @@ const UI = {
     catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"64 motivos · matiz fijo (d4), tirada por posición",
     catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"64 motivos · tirada por posición",
     familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
+    randomCatBtn:"Elegir la categoría al azar", randomFamilleBtn:"Elegir la familia al azar", randomTeinteBtn:"Elegir el matiz al azar",
     resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
@@ -452,6 +459,7 @@ const UI = {
     catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
     catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"64 ลวดลาย · สุ่มตามตำแหน่ง",
     familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
+    randomCatBtn:"สุ่มเลือกหมวดหมู่", randomFamilleBtn:"สุ่มเลือกตระกูล", randomTeinteBtn:"สุ่มเลือกโทนสี",
     resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
@@ -479,6 +487,8 @@ function applyUILang(){
   }
   document.getElementById('txt-familleLabel').textContent = t('familleLabel');
   document.getElementById('txt-teinteLabel').textContent = t('teinteLabel');
+  document.getElementById('txt-randomCatBtn').textContent = t('randomCatBtn');
+  updateRandomSubBtnLabel();
   document.getElementById('rollBtn').textContent = t('rollBtn');
   document.getElementById('txt-resultLabel').textContent = t('resultLabel');
   document.getElementById('txt-pavageLabel').textContent = t('pavageLabel');
@@ -546,7 +556,43 @@ document.querySelectorAll('.cat-card').forEach(card=>{
         teinteRow.appendChild(btn);
       }
     } else { teinteSubRow.style.display = 'none'; state.teinte = null; }
+    updateRandomSubBtnLabel();
   });
+});
+
+// ===== Deux boutons "Choisir au hasard" (catégorie, puis famille/teinte une fois la
+// catégorie connue) : greffés sur le mécanisme existant plutôt que dupliqué — chacun se
+// contente de choisir un index au hasard puis de déclencher un vrai clic sur la carte ou
+// le dé correspondant, pour repasser par les mêmes gestionnaires que la sélection manuelle. =====
+function updateRandomSubBtnLabel(){
+  const btn = document.getElementById('randomSubBtn');
+  const label = document.getElementById('txt-randomSubBtn');
+  // On vérifie la visibilité réelle des lignes (pas seulement state.cat) : au premier
+  // chargement, la carte "Catégorie I" est visuellement active mais sa ligne de dés n'est
+  // peuplée qu'au premier clic — le bouton doit rester masqué jusque-là, pas seulement
+  // désynchronisé du contenu réel.
+  if(document.getElementById('subRow').style.display === 'block'){
+    btn.style.display = '';
+    label.textContent = t('randomFamilleBtn');
+  } else if(document.getElementById('teinteSubRow').style.display === 'block'){
+    btn.style.display = '';
+    label.textContent = t('randomTeinteBtn');
+  } else {
+    btn.style.display = 'none';
+  }
+}
+document.getElementById('randomCatBtn').addEventListener('click', ()=>{
+  const n = 1 + Math.floor(Math.random()*4);
+  document.querySelector(`.cat-card[data-cat="${n}"]`).click();
+});
+document.getElementById('randomSubBtn').addEventListener('click', ()=>{
+  let row;
+  if(state.cat === 2) row = document.getElementById('familleRow');
+  else if(state.cat === 1 || state.cat === 3) row = document.getElementById('teinteRow');
+  else return;
+  const dice = row.querySelectorAll('.dice-btn');
+  if(!dice.length) return;
+  dice[Math.floor(Math.random()*dice.length)].click();
 });
 
 /* ===== Catégorie II : tirage indépendant par position au sein de la famille choisie
