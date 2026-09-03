@@ -106,6 +106,13 @@
   .paved-info b{ color:var(--white); font-weight:400; }
   .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
   .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-actions button{
+    background:transparent; color:var(--dim); border:1px solid var(--line);
+    padding:8px 16px; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .paved-actions button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .note{
     margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
@@ -214,6 +221,10 @@
     <div class="paved-label">Pavage du motif sélectionné</div>
     <div class="paved-info" id="pavedInfo"></div>
     <div class="paved-box"><canvas id="pavedCanvas"></canvas></div>
+    <div class="paved-actions">
+      <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
+      <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
+    </div>
   </div>
 
   <div class="note">
@@ -484,6 +495,55 @@ btnColorMode.onclick = ()=>{
   redrawAll();
 };
 tintPicker.oninput = ()=>{ refreshPalette(); redrawAll(); };
+
+// ---------- export SVG (cellule seule / pavage complet), compatible Inkscape ----------
+// Contrairement aux motifs "ligne" d'unified-patterns.html, les patterns de cette galerie
+// sont de simples grilles 12x12 de couleurs (DATA.families) : le SVG le plus fidèle et le
+// plus propre à éditer sous Inkscape est donc généré directement depuis cette grille
+// (un <rect> par cellule), plutôt qu'en réutilisant l'extraction de tracés d'impression.html
+// (utile pour des motifs vectoriels complexes, pas pour une grille de couleurs plates).
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+
+function motifSvgMarkup(grid, repeats){
+  repeats = repeats || 1;
+  const cell = 12, tile = cell*12, size = tile*repeats;
+  let rects = '';
+  for(let ty=0; ty<repeats; ty++){
+    for(let tx=0; tx<repeats; tx++){
+      const ox = tx*tile, oy = ty*tile;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          rects += `<rect x="${(ox+c*cell).toFixed(2)}" y="${(oy+r*cell).toFixed(2)}" width="${(cell+0.5).toFixed(2)}" height="${(cell+0.5).toFixed(2)}" fill="${PALETTE[grid[r][c]]}"/>\n`;
+        }
+      }
+    }
+  }
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" version="1.1">\n${rects}</svg>\n`;
+}
+
+function downloadSvgString(svgString, filename){
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function currentSelection(){
+  const [fam, subA, subB, n] = currentEntries[selectedIdx];
+  const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+  return { grid, fam, subA, subB, n };
+}
+
+document.getElementById('btnDlCellSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 1), `motif-884-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.svg`);
+});
+document.getElementById('btnDlPavedSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 4), `pavage-884-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}-x4.svg`);
+});
 
 render('all');
 document.getElementById('credit-year').textContent = new Date().getFullYear();

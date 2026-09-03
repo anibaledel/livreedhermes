@@ -309,6 +309,20 @@
   .hexagram-glyph{ color:var(--dim); flex:0 0 auto; }
   .pair-section .txt{ font-size:12.5px; color:var(--dim); line-height:1.7; max-width:60ch; }
 
+  /* ---------- pavages encadrant la paire d'hexagrammes — même composant que
+     .motif-tess-box sur Unified Patterns/Impression (carré 1:1 en background-image
+     répété), taille standard 130x130 du site ---------- */
+  .pair-pavage-frame{ text-align:center; }
+  .pair-pavage-frame .tessellation-label{
+    font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:8px;
+  }
+  .pair-pavage-frame .liseret{ border:1px solid var(--gold); padding:6px; display:inline-block; }
+  .pair-pavage-frame .motif-tess-box{
+    width:130px; height:130px; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
+  .pair-pavage-frame .btn-create-svg{ width:130px; margin-top:8px; }
+
   /* ---------- grille structurée (Bases/Par2/Par3/Par4) ---------- */
   .struct-grid{ display:grid; gap:6px; margin-bottom:8px; align-items:center; }
   .struct-colhead, .struct-rowhead{
@@ -426,6 +440,7 @@
       <button type="button" class="site-nav-btn" id="btnResetPalette" style="display:none;">Réinitialiser la palette</button>
       <span class="palette-label" id="monoLabel">Teinte</span>
       <input type="color" id="monoPicker" value="#db694c" title="Choisir une teinte">
+      <button type="button" class="site-nav-btn" id="btnResetMono">Réinitialiser la teinte</button>
     </div>
 
     <div class="center-logo-slot">
@@ -1113,18 +1128,49 @@ function generateInkstitchSVG(grid, palette){
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${total}mm" height="${total}mm" viewBox="0 0 ${total} ${total}">${paths}</svg>`;
 }
 
-function downloadMotifSVG(){
-  if(!lastShownCell || !lastShownCell.grid) return;
-  const svg = generateInkstitchSVG(lastShownCell.grid, PALETTE);
+// Téléchargement générique d'un SVG Ink/Stitch pour une grille donnée — réutilisé à la
+// fois par le motif principal du détail et par les deux pavages de la paire d'hexagrammes.
+function downloadGridSVG(grid, kwLabel){
+  if(!grid) return;
+  const svg = generateInkstitchSVG(grid, PALETTE);
   const blob = new Blob([svg], {type:'image/svg+xml'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `motif-${lastShownCell.kw || 'hexagramme'}-inkstitch.svg`;
+  a.download = `motif-${kwLabel || 'hexagramme'}-inkstitch.svg`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   setTimeout(()=> URL.revokeObjectURL(url), 1000);
+}
+function downloadMotifSVG(){
+  if(!lastShownCell || !lastShownCell.grid) return;
+  downloadGridSVG(lastShownCell.grid, lastShownCell.kw);
+}
+
+// Aperçu de pavage (répétition en mosaïque) pour un carré 12x12 donné — même principe que
+// .motif-tess-box sur Unified Patterns/Impression, mais à partir d'un canvas hors-DOM
+// (les motifs de cette page sont des grilles de couleurs, pas des SVG illustrés) : on peint
+// une seule tuile en PNG, encodée en data-URI, et le CSS (background-repeat) simule le pavage.
+function offscreenGridDataUrl(grid, px){
+  const cv = document.createElement('canvas');
+  cv.width = px; cv.height = px;
+  const ctx = cv.getContext('2d');
+  const cell = px/12;
+  for(let r=0;r<12;r++){
+    for(let c=0;c<12;c++){
+      ctx.fillStyle = PALETTE[grid[r][c]];
+      ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
+    }
+  }
+  return cv.toDataURL('image/png');
+}
+function renderPairPavage(elId, grid){
+  const box = document.getElementById(elId);
+  if(!box || !grid) return;
+  // enregistré dans le même registre que les canvases (__pavageRepaints, via paintAndTrack)
+  // pour être redessiné automatiquement quand la palette ou la teinte change.
+  paintAndTrack(box, ()=>{ box.style.backgroundImage = `url("${offscreenGridDataUrl(grid, 240)}")`; });
 }
 
 // ============================================================
@@ -1159,6 +1205,11 @@ function showDetail(cell){
           ? 'Même motif, couleurs inversées — Créateur et Réceptif échangés'
           : `Case complémentaire de cet échiquier — n° ${cell.chrono+1} + n° ${pairCell.chrono+1} = 65`}</div>
         <div class="pair-compare-row">
+          <div class="pair-pavage-frame">
+            <div class="tessellation-label">Pavage — N° ${kw}</div>
+            <div class="liseret"><div class="motif-tess-box" id="pairPavageA"></div></div>
+            <button type="button" class="btn-create-svg" id="btnPairSvgA">Créer le SVG</button>
+          </div>
           ${hexagramGlyphSVG(kw)}
           <div class="pair-compare">
             <div class="one">
@@ -1174,6 +1225,11 @@ function showDetail(cell){
             </div>
           </div>
           ${hexagramGlyphSVG(pairCell.kw)}
+          <div class="pair-pavage-frame">
+            <div class="tessellation-label">Pavage — N° ${pairCell.kw}</div>
+            <div class="liseret"><div class="motif-tess-box" id="pairPavageB"></div></div>
+            <button type="button" class="btn-create-svg" id="btnPairSvgB">Créer le SVG</button>
+          </div>
         </div>
         <div class="txt">${bookPair
           ? `<b>${bookPair.motcle}.</b> ${bookPair.jugement}`
@@ -1242,7 +1298,12 @@ function showDetail(cell){
       const pairCvA = document.getElementById('pairCanvasA'), pairCvB = document.getElementById('pairCanvasB');
       paintAndTrack(pairCvA, ()=> drawColorGrid(pairCvA, cell.grid));
       paintAndTrack(pairCvB, ()=> drawColorGrid(pairCvB, pairCell.grid));
+      renderPairPavage('pairPavageA', cell.grid);
+      renderPairPavage('pairPavageB', pairCell.grid);
     });
+    const btnPairSvgA = document.getElementById('btnPairSvgA'), btnPairSvgB = document.getElementById('btnPairSvgB');
+    if(btnPairSvgA) btnPairSvgA.addEventListener('click', ()=> downloadGridSVG(cell.grid, kw));
+    if(btnPairSvgB) btnPairSvgB.addEventListener('click', ()=> downloadGridSVG(pairCell.grid, pairCell.kw));
   }
   area.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -1404,6 +1465,7 @@ function applyMonoHue(){
 const btnColorModeEl = document.getElementById('btnColorMode');
 const monoPickerEl = document.getElementById('monoPicker');
 const monoLabelEl = document.getElementById('monoLabel');
+const btnResetMonoEl = document.getElementById('btnResetMono');
 const paletteLabelMultiEl = document.getElementById('paletteLabelMulti');
 const paletteSwatchesEl = document.getElementById('paletteSwatches');
 if(btnColorModeEl){
@@ -1417,10 +1479,15 @@ if(btnColorModeEl){
     btnResetPaletteEl.style.display = showMulti ? '' : 'none';
     monoLabelEl.style.display = showMulti ? 'none' : '';
     monoPickerEl.style.display = showMulti ? 'none' : '';
+    btnResetMonoEl.style.display = showMulti ? 'none' : '';
     if(showMulti) applyPaletteToSite(); else applyMonoHue();
   });
 }
 if(monoPickerEl) monoPickerEl.addEventListener('input', applyMonoHue);
+if(btnResetMonoEl) btnResetMonoEl.addEventListener('click', ()=>{
+  monoPickerEl.value = DEFAULT_MONO_HUE;
+  applyMonoHue();
+});
 if(colorMode==='mono') applyMonoHue(); // état par défaut au chargement, cohérent avec l'UI (Monochrome déjà affiché)
 
 // ============================================================
