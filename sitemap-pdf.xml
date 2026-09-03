@@ -3,8 +3,8 @@
      relations hreflang portées ici en xhtml:link puisque <link rel="alternate"
      hreflang> dans un <head> ne peut pas cibler un fichier PDF directement — cette
      déclaration en sitemap est le mécanisme correct pour des ressources non-HTML.
-     À compléter avec TH/ZH/RU une fois ces fichiers renommés au même schéma
-     la-livree-d-hermes-anibal-amiot-[langue].pdf. -->
+     TH ajouté le 2026-09-03. À compléter avec ZH/RU une fois ces fichiers
+     renommés au même schéma la-livree-d-hermes-anibal-amiot-[langue].pdf. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
@@ -13,6 +13,7 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
@@ -21,6 +22,7 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
   <url>
@@ -29,6 +31,16 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf</loc>
+    <lastmod>2026-09-03</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"/>
   </url>
 </urlset>
