@@ -14,7 +14,7 @@
 
 (function(){
   // À REMPLACER par l'URL du Worker une fois déployé (voir worker/README.md).
-  const WORKER_BASE_URL = 'https://REMPLACER-PAR-URL-WORKER.workers.dev';
+  const WORKER_BASE_URL = 'https://livreedhermes-soutien.anibalamiot.workers.dev';
 
   const TOKEN_KEY = 'soutien_token';
   const SHORT_TEXT = 'Fichier réservé aux soutiens — prix libre';

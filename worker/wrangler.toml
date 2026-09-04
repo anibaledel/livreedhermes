@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 # remplace ensuite l'id ci-dessous par celui que la commande t'a donné.
 [[kv_namespaces]]
 binding = "SOUTIEN_KV"
-id = "REMPLACER_PAR_ID_KV_NAMESPACE"
+id = "045fad05c15a42d59fc56a7b0bf72ac8"
 
 # STRIPE_SECRET_KEY et STRIPE_WEBHOOK_SECRET ne sont JAMAIS mis ici.
 # Ce sont des secrets Cloudflare (wrangler secret put ...), voir README.md.
