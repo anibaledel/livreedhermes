@@ -164,7 +164,9 @@
   .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
   .detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
   .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:6px; }
-  .altnum{ font-size:10px; color:var(--dim); margin-bottom:20px; }
+  .altnum{ font-size:10px; color:var(--dim); margin-bottom:8px; }
+  .hex-more-link{ display:inline-block; font-size:10.5px; color:var(--gold); text-decoration:none; margin-bottom:20px; }
+  .hex-more-link:hover{ text-decoration:underline; }
 
   .hex-block{ display:flex; gap:30px; align-items:flex-start; margin:18px 0 22px; flex-wrap:wrap; }
   .lines-col{ display:flex; flex-direction:column; gap:10px; }
@@ -718,6 +720,18 @@ const HANZI_BY_KW = {
   61:"中孚",62:"小過",63:"既濟",64:"未濟"
 };
 
+// ---------- lien vers la page hexagramme statique (/hexagrammes/) ----------
+// même règle de nommage que scripts/generate-hexagram-pages.js : ne pas modifier
+// l'une sans l'autre.
+function slugifyFr(str){
+  return str.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+}
+function hexagramPageUrl(chrono){
+  const kwNum = KINGWEN_BY_CHRONO[chrono];
+  const [pinyin, nameFr] = HEX_KW[kwNum];
+  return `hexagrammes/${chrono}-${slugifyFr(pinyin)}-${slugifyFr(nameFr)}.html`;
+}
+
 function chronoOf(r,c){ return r*8+c; }
 function traitsFromChrono(chrono){
   const r = Math.floor(chrono/8), c = chrono%8;
@@ -1091,6 +1105,7 @@ const UI = {
     emptyState:"Cliquez une case de l'échiquier pour consulter un hexagramme,<br>ou tirez aux pièces pour une lecture — avec, le cas échéant, ses traits mutants et l'hexagramme qui en résulte.",
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
+    hexMoreInfo:"En savoir plus sur cet hexagramme →",
     imageLabel:"Image", judgementLabel:"Jugement", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
@@ -1130,6 +1145,7 @@ const UI = {
     emptyState:"Click a square on the board to consult a hexagram,<br>or cast the coins for a reading — with, where relevant, its moving lines and the hexagram that results.",
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
+    hexMoreInfo:"More about this hexagram →",
     imageLabel:"Image", judgementLabel:"Judgment", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
@@ -1353,6 +1369,7 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
   const h2=document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
   const pin=document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
   const alt=document.createElement('div'); alt.className='altnum'; alt.textContent = t('kingWenLabel')+kwNum; wrap.appendChild(alt);
+  const moreLink=document.createElement('a'); moreLink.className='hex-more-link'; moreLink.href=hexagramPageUrl(chrono); moreLink.textContent=t('hexMoreInfo'); wrap.appendChild(moreLink);
 
   const hexBlock = document.createElement('div'); hexBlock.className='hex-block';
 
@@ -1557,7 +1574,7 @@ function drawTirage(presetTosses){
 
       const infoA = curHexKW()[kwNum];
       const miniA = document.createElement('div'); miniA.className='hex-mini';
-      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('kingWenShort')}${kwNum}</div>`;
+      miniA.innerHTML = `<div class="num-big">N° ${String(chrono).padStart(2,'0')}</div><h3>${infoA[1]}</h3><div class="pinyin">${HANZI_BY_KW[kwNum]} · ${t('kingWenShort')}${kwNum}</div><a class="hex-more-link" href="${hexagramPageUrl(chrono)}">${t('hexMoreInfo')}</a>`;
       const linesA = document.createElement('div'); linesA.className='lines';
       // .lines est en column-reverse : ajouter dans l'ordre naturel (trait 1 = bas, en premier
       // dans le DOM) place bien le trait 1 en bas et le trait 6 en haut, comme dans le bloc principal
@@ -1570,7 +1587,7 @@ function drawTirage(presetTosses){
 
       const infoB = curHexKW()[dKwNum];
       const miniB = document.createElement('div'); miniB.className='hex-mini';
-      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('kingWenShort')}${dKwNum}</div>`;
+      miniB.innerHTML = `<div class="num-big">N° ${String(dChrono).padStart(2,'0')}</div><h3>${infoB[1]}</h3><div class="pinyin">${HANZI_BY_KW[dKwNum]} · ${t('kingWenShort')}${dKwNum}</div><a class="hex-more-link" href="${hexagramPageUrl(dChrono)}">${t('hexMoreInfo')}</a>`;
       const linesB = document.createElement('div'); linesB.className='lines';
       // les traits postérieurs sont désormais fixes : la mutation est résolue, plus de jaune/or ici
       derivedTraits.forEach((b,i)=> linesB.insertAdjacentHTML('beforeend', traitSVG(b, false)));

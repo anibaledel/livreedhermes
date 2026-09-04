@@ -1,0 +1,9 @@
+{
+  "name": "livreedhermes-scripts",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Scripts de génération statique (pages hexagrammes, assets associés).",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.53"
+  }
+}
