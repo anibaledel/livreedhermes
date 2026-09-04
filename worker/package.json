@@ -1,0 +1,16 @@
+{
+  "name": "livreedhermes-soutien-worker",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Backend Cloudflare Worker pour le soutien à prix libre (Stripe Checkout + déblocage des téléchargements) de La Livrée d'Hermès.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "stripe": "^17.4.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

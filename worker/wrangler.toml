@@ -1,0 +1,16 @@
+name = "livreedhermes-soutien"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Créé par `wrangler kv:namespace create SOUTIEN_KV` (voir README.md) —
+# remplace ensuite l'id ci-dessous par celui que la commande t'a donné.
+[[kv_namespaces]]
+binding = "SOUTIEN_KV"
+id = "REMPLACER_PAR_ID_KV_NAMESPACE"
+
+# STRIPE_SECRET_KEY et STRIPE_WEBHOOK_SECRET ne sont JAMAIS mis ici.
+# Ce sont des secrets Cloudflare (wrangler secret put ...), voir README.md.
+[vars]
+STRIPE_MIN_AMOUNT_CENTS = 100
+ALLOWED_ORIGIN = "https://anibal-amiot.com"
