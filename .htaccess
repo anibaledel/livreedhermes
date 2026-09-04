@@ -28,6 +28,24 @@ Redirect 301 "/motifs (4).html" "https://anibal-amiot.com/creation-motifs-yi-kin
 Redirect 301 "/pages.html" "https://anibal-amiot.com/fonds-ecran.html"
 
 # ---------------------------------------------------------------------------
+# P1 (audit SEO/GEO) : mise en cache des fichiers statiques.
+# Ces règles ne prennent effet que si mod_headers est actif (quasi systématique
+# sur l'hébergement mutualisé Apache). Si le cache ne s'applique pas une fois
+# en ligne, demande à gk2.net les mêmes valeurs (voir résumé transmis par
+# ailleurs pour le libellé exact à leur envoyer).
+<IfModule mod_headers.c>
+  <FilesMatch "\.(jpg|jpeg|png|gif|svg|webp|ico|woff|woff2|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
 # HSTS — NE PAS ACTIVER MAINTENANT.
 # Une fois la redirection HTTPS ci-dessus validée en production (vérifier
 # qu'aucune page ne casse en HTTPS, que les certificats sont bien en place),

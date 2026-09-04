@@ -61,8 +61,8 @@ for(let chrono = 0; chrono < 64; chrono++){
 
   const slug = `${chrono}-${slugify(pinyin)}-${slugify(nameFr)}.html`;
   const url = `https://anibal-amiot.com/hexagrammes/${slug}`;
-  const title = `Hexagramme ${chrono} — ${pinyin}, ${nameFr} : sens, trigrammes et motif associé`;
-  const description = `Hexagramme ${chrono} du Yi King (${pinyin}, ${nameFr} — n° King Wen ${kwNum}) : jugement, trigrammes supérieur et inférieur, les six traits, et le carré magique associé de La Livrée d'Hermès.`;
+  const title = `Hexagramme ${chrono} — ${pinyin}, ${nameFr}`;
+  const description = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum}) : jugement, trigrammes et carré magique de La Livrée d'Hermès.`;
 
   const linesHtml = traits.map((bit, i) => {
     const pos = i + 1;
@@ -85,7 +85,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${escapeHtml(title)} — La Livrée d'Hermès</title>
+<title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(description)}">
 <meta property="og:title" content="${escapeHtml(title)}">
 <meta property="og:description" content="${escapeHtml(description)}">
