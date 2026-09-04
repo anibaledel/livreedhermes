@@ -63,6 +63,14 @@ Le logo actuel (`assets/logo-caducee.gif`) est un GIF animé en boucle (4 varian
 4. Côté OVH, sur la zone DNS du domaine, ajouter les enregistrements pointant vers GitHub Pages (4 enregistrements A vers les IP GitHub Pages, + éventuellement un CNAME pour `www`). Voir la doc officielle GitHub : `docs.github.com/pages/configuring-a-custom-domain-for-your-github-pages-site`.
 5. Configurer les redirections des domaines secondaires (`.fr`, `.net`) vers `.com` côté OVH, pour éviter le contenu dupliqué.
 
+## Sitemap (sitemap.xml)
+
+`sitemap.xml` n'est pas maintenu à la main : il est généré par `scripts/generate-sitemap.js`, qui liste automatiquement tous les fichiers de `articles/` et `hexagrammes/` (plus les pages fixes déclarées en haut du script) et calcule `<lastmod>` depuis la date du dernier commit Git de chaque fichier.
+
+- **Automatique** : `.github/workflows/update-sitemap.yml` relance ce script à chaque push sur `main` et recommite `sitemap.xml` s'il a changé — rien à faire après avoir publié un nouvel article ou une nouvelle page d'hexagramme.
+- **Manuel** (si besoin de vérifier avant de pousser, ou si les Actions GitHub sont désactivées) : `node scripts/generate-sitemap.js` depuis la racine du dépôt, puis committer `sitemap.xml`.
+- Pour ajouter une page qui n'est ni un article ni un hexagramme (ex. une nouvelle page d'outil), l'ajouter à la liste `STATIC_PAGES` en haut du script.
+
 ## À venir
 
 - Contenu réel des pages "tirage livrée", "création de motifs", "impression 360", "projets & fonds d'écran", "contact" (actuellement en placeholder `REMPLACER`).

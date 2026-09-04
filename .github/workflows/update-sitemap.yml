@@ -1,0 +1,42 @@
+name: Update sitemap
+
+# Régénère sitemap.xml à chaque push sur main (voir scripts/generate-sitemap.js)
+# et recommite le résultat s'il a changé, pour que sitemap.xml reste
+# synchronisé avec les pages réellement présentes dans le dépôt sans
+# intervention manuelle. Le déclenchement est ignoré quand le seul commit du
+# push vient déjà de ce workflow, pour éviter toute boucle.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-sitemap:
+    if: github.event.head_commit.author.name != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Générer sitemap.xml
+        run: node scripts/generate-sitemap.js
+
+      - name: Commiter si le sitemap a changé
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "sitemap.xml déjà à jour."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "chore: update sitemap.xml [skip ci]"
+          git push
