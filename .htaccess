@@ -17,15 +17,28 @@
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# P0-3 : ancienne URL technique renommée en un slug stable (fait le 2026-09-03).
-# Cette règle donne un vrai 301 si mod_alias est actif ; le fichier
-# "motifs (4).html" laissé en place fait aussi une redirection HTML/JS en
-# repli si cette directive n'est pas honorée par l'hébergeur.
-Redirect 301 "/motifs (4).html" "https://anibal-amiot.com/creation-motifs-yi-king.html"
+# P0-3 (vérifié le 2026-09-05) : les directives "Redirect 301" (mod_alias)
+# ci-dessous ont été testées en production et ne sont PAS honorées par gk2.net
+# (les URLs répondaient 200, pas 301) — alors que le forçage HTTPS ci-dessus,
+# qui utilise mod_rewrite, fonctionne bien. Remplacées par l'équivalent
+# mod_rewrite, qui a le même effet mais passe par le module réellement actif
+# sur cet hébergement. Les fichiers de transition (motifs (4).html,
+# pages.html) restent en place comme repli HTML/JS si jamais cette règle
+# cessait d'être honorée après un changement de configuration côté hébergeur.
+<IfModule mod_rewrite.c>
+  RewriteCond %{THE_REQUEST} \s/+motifs%20\(4\)\.html[\s?] [NC]
+  RewriteRule ^ https://anibal-amiot.com/creation-motifs-yi-king.html [R=301,L]
 
-# P0-3 : pages.html est une ancienne coquille app.js/content.json, orpheline
-# (aucun lien interne actuel n'y pointe), remplacée par fonds-ecran.html.
-Redirect 301 "/pages.html" "https://anibal-amiot.com/fonds-ecran.html"
+  RewriteCond %{THE_REQUEST} \s/+pages\.html[\s?] [NC]
+  RewriteRule ^ https://anibal-amiot.com/fonds-ecran.html [R=301,L]
+
+  # /index.html sert exactement le même contenu que / (DirectoryIndex Apache) :
+  # on ne peut pas rediriger le fichier index.html lui-même (ça boucle avec /),
+  # donc la condition ne matche que la requête brute "GET /index.html", jamais
+  # la résolution interne de "/" vers index.html.
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^ https://anibal-amiot.com/ [R=301,L]
+</IfModule>
 
 # ---------------------------------------------------------------------------
 # P1 (audit SEO/GEO) : mise en cache des fichiers statiques.
