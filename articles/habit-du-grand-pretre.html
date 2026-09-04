@@ -99,21 +99,6 @@
   .article-content figcaption a:hover{ text-decoration:underline; }
   .article-sources{ font-size:12.5px; opacity:.85; }
 
-  .share-buttons{ max-width:64ch; margin:44px auto 0; text-align:left; }
-  .share-label{
-    font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
-    margin:0 0 12px;
-  }
-  .share-row{ display:flex; flex-wrap:wrap; gap:8px; }
-  .share-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:9px 15px;
-    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
-    font-family:Helvetica,Arial,sans-serif;
-  }
-  .share-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .share-btn.copied{ border-color:var(--gold); color:var(--gold); }
-
   .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:left; }
   .article-back-bottom:hover{ color:var(--gold); }
 
@@ -212,19 +197,6 @@
       <p class="article-sources"><b>Sources évoquées</b> : Exode 28 (versets 15, 16, 30, 39) ; M.-A. Ouaknin, <i>Le secret des nombres</i> ; Nombres 21:8-9.</p>
     </div>
 
-    <div class="share-buttons">
-      <div class="share-label">Partager cet article</div>
-      <div class="share-row">
-        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https://anibal-amiot.com/articles/habit-du-grand-pretre.html" target="_blank" rel="noopener">Facebook</a>
-        <a class="share-btn" href="https://twitter.com/intent/tweet?url=https://anibal-amiot.com/articles/habit-du-grand-pretre.html&text=L%27habit%20du%20grand%20pr%C3%AAtre%20%3A%20le%20carr%C3%A9%20cach%C3%A9%20dans%20le%20tashbetz" target="_blank" rel="noopener">X</a>
-        <a class="share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https://anibal-amiot.com/articles/habit-du-grand-pretre.html" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="share-btn" href="https://api.whatsapp.com/send?text=L%27habit%20du%20grand%20pr%C3%AAtre%20%3A%20le%20carr%C3%A9%20cach%C3%A9%20dans%20le%20tashbetz%20https://anibal-amiot.com/articles/habit-du-grand-pretre.html" target="_blank" rel="noopener">WhatsApp</a>
-        <a class="share-btn" href="https://t.me/share/url?url=https://anibal-amiot.com/articles/habit-du-grand-pretre.html&text=L%27habit%20du%20grand%20pr%C3%AAtre%20%3A%20le%20carr%C3%A9%20cach%C3%A9%20dans%20le%20tashbetz" target="_blank" rel="noopener">Telegram</a>
-        <a class="share-btn" href="https://www.reddit.com/r/Trismegistus/s/hC0QPXIA14" target="_blank" rel="noopener">Reddit</a>
-        <button type="button" class="share-btn" id="btnCopyLink">Copier le lien</button>
-      </div>
-    </div>
-
     <a class="article-back-bottom" href="https://anibal-amiot.com/articles.html">← Retour aux articles</a>
   </div>
 
@@ -269,23 +241,7 @@
   </div>
 </div>
 
-<script>
-// ---------- copier le lien ----------
-const btnCopyLink = document.getElementById('btnCopyLink');
-if(btnCopyLink){
-  btnCopyLink.addEventListener('click', async ()=>{
-    try{
-      await navigator.clipboard.writeText('https://anibal-amiot.com/articles/habit-du-grand-pretre.html');
-      const original = btnCopyLink.textContent;
-      btnCopyLink.textContent = 'Lien copié !';
-      btnCopyLink.classList.add('copied');
-      setTimeout(()=>{ btnCopyLink.textContent = original; btnCopyLink.classList.remove('copied'); }, 2000);
-    }catch(e){
-      alert('Impossible de copier le lien automatiquement — copiez-le depuis la barre d\'adresse.');
-    }
-  });
-}
-</script>
+<script src="../assets/share-widget.js" data-label="Partager cet article"></script>
 
 <script type="text/javascript">
   function googleTranslateElementInit(){
