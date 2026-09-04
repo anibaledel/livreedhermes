@@ -715,6 +715,8 @@ function buildCatRow(){
   const intro = document.getElementById('catIntro');
   if(currentCat==='les60'){
     intro.textContent = "Les 60 natures réunies, toutes catégories confondues. Choisis 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage.";
+  } else if(currentCat==='par2'){
+    intro.textContent = "Choisis 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image.";
   } else {
     const cat = CATEGORIES.find(c=>c.id===currentCat);
     intro.textContent = `Catégorie « ${cat.label} » (${cat.sub}) — choisis 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image.`;
@@ -988,6 +990,11 @@ function buildResultArea(){
   const headCv = head.querySelectorAll('.pair-imgs canvas');
   paintAndTrack(headCv[0], ()=> drawColorGrid(headCv[0], colorGridForItem(yangItem)));
   paintAndTrack(headCv[1], ()=> drawColorGrid(headCv[1], colorGridForItem(yinItem)));
+
+  const pickCellNote = document.createElement('div');
+  pickCellNote.className = 'pick-note';
+  pickCellNote.textContent = 'Choisis une des 64 cases pour voir le motif en grand et sa signification';
+  area.appendChild(pickCellNote);
 
   const wrap = document.createElement('div');
   wrap.className = 'echiquier-wrap';
