@@ -1,0 +1,44 @@
+# La Livrée d'Hermès — anibal-amiot.com
+# P0-1 (audit SEO/GEO) : forcer HTTPS sur tout le site.
+#
+# Ce fichier ne prend effet que si l'hébergeur (gk2.net) sert le site via
+# Apache avec mod_rewrite et AllowOverride activé pour ce répertoire — ce qui
+# est le cas le plus courant en hébergement mutualisé, mais n'est pas garanti.
+# Si la redirection ne fonctionne pas une fois déployée, demande à gk2.net :
+#   "Merci de forcer une redirection 301 permanente de tout trafic HTTP vers
+#   la version HTTPS du même chemin, pour anibal-amiot.com (et www si
+#   applicable)."
+# C'est l'équivalent, dans leur configuration serveur (nginx ou autre), de
+# la règle ci-dessous.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# P0-3 : ancienne URL technique renommée en un slug stable (fait le 2026-09-03).
+# Cette règle donne un vrai 301 si mod_alias est actif ; le fichier
+# "motifs (4).html" laissé en place fait aussi une redirection HTML/JS en
+# repli si cette directive n'est pas honorée par l'hébergeur.
+Redirect 301 "/motifs (4).html" "https://anibal-amiot.com/creation-motifs-yi-king.html"
+
+# P0-3 : pages.html est une ancienne coquille app.js/content.json, orpheline
+# (aucun lien interne actuel n'y pointe), remplacée par fonds-ecran.html.
+Redirect 301 "/pages.html" "https://anibal-amiot.com/fonds-ecran.html"
+
+# ---------------------------------------------------------------------------
+# HSTS — NE PAS ACTIVER MAINTENANT.
+# Une fois la redirection HTTPS ci-dessus validée en production (vérifier
+# qu'aucune page ne casse en HTTPS, que les certificats sont bien en place),
+# décommenter la ligne suivante pour indiquer aux navigateurs de toujours
+# utiliser HTTPS pour ce domaine, sans même passer par la redirection :
+#
+# <IfModule mod_headers.c>
+#   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+# </IfModule>
+#
+# Attention : une fois HSTS actif avec un max-age long, il est difficile de
+# revenir en arrière rapidement (les navigateurs mémorisent la directive pour
+# la durée indiquée) — ne l'activer qu'après avoir confirmé que HTTPS
+# fonctionne correctement sur toutes les pages, y compris les PDF et assets.
