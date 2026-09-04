@@ -9,12 +9,13 @@
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
 <meta property="og:url" content="https://anibal-amiot.com/book-viewer/index.html">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://anibal-amiot.com/book-viewer/index.html">
-<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/book-viewer/index.html?lang=fr">
-<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/book-viewer/index.html?lang=en">
-<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/book-viewer/index.html?lang=es">
-<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/book-viewer/index.html?lang=th">
-<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/book-viewer/index.html?lang=fr">
+<!-- P0-4 (audit SEO/GEO) : cette visionneuse JS n'est plus l'URL canonique par
+     langue — ce sont désormais /fr/livre/, /en/book/, /es/libro/, /th/book/,
+     qui portent chacune leur propre <html lang>, titre, description et
+     contenu visible. Cette page reste fonctionnelle et accessible (elle
+     n'est pas désindexée), mais son canonical pointe vers la version FR pour
+     éviter le contenu dupliqué détecté par l'audit. -->
+<link rel="canonical" href="https://anibal-amiot.com/fr/livre/">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -244,10 +245,27 @@ window.addEventListener('keydown', (e)=>{
   if(e.key === 'Escape') document.getElementById('pageImg').classList.remove('zoomed');
 });
 
+// ---------- P0-4 : redirection de l'ancien paramètre ?lang= vers l'URL
+// canonique par langue, sauf quand on arrive via ?read= (lien "Lire le
+// livre en ligne" déjà envoyé depuis la page canonique elle-même — ne pas
+// rediriger dans ce cas, sous peine de boucle). ----------
+const CANONICAL_BY_LANG = {
+  fr: 'https://anibal-amiot.com/fr/livre/',
+  en: 'https://anibal-amiot.com/en/book/',
+  es: 'https://anibal-amiot.com/es/libro/',
+  th: 'https://anibal-amiot.com/th/book/',
+};
+
 // ---------- init depuis l'URL ----------
 (function initFromURL(){
   const params = new URLSearchParams(location.search);
-  const lang = params.get('lang');
+  const readLang = params.get('read');
+  const legacyLang = params.get('lang');
+  if(!readLang && legacyLang && CANONICAL_BY_LANG[legacyLang]){
+    location.replace(CANONICAL_BY_LANG[legacyLang]);
+    return;
+  }
+  const lang = readLang || legacyLang;
   if(lang && LANGS[lang] && LANGS[lang].ready) currentLang = lang;
   const page = params.get('page');
   buildLangRow();
