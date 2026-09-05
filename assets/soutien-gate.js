@@ -32,7 +32,7 @@
     const token = localStorage.getItem(TOKEN_KEY);
     if(!token){ verifyDone = true; refreshUI(); return; }
     try{
-      const res = await fetch(`${WORKER_BASE_URL}/verify-access?token=${encodeURIComponent(token)}`);
+      const res = await fetch(`${WORKER_BASE_URL}/verify-access?token=${encodeURIComponent(token)}&type=soutien`);
       const data = await res.json();
       isUnlocked = !!data.valid;
     }catch(e){

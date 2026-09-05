@@ -5,6 +5,7 @@
   "description": "Scripts de génération statique (pages hexagrammes, assets associés).",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.53",
-    "archiver": "^6.0.2"
+    "archiver": "^6.0.2",
+    "pdfkit": "^0.20.2"
   }
 }

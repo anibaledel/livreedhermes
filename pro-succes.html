@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,follow">
+<title>Merci — Accès Pro activé — La Livrée d'Hermès</title>
+<style>
+  :root{
+    --bg:#000; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    font-family:Helvetica,Arial,sans-serif;
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .box{ max-width:520px; text-align:center; }
+  h1{ font-weight:400; font-size:24px; letter-spacing:.03em; color:var(--gold); margin-bottom:16px; }
+  p{ font-size:14.5px; line-height:1.8; color:var(--dim); }
+  a.btn{
+    display:inline-block; margin-top:24px; border:1px solid var(--line); color:var(--dim);
+    text-decoration:none; padding:12px 22px; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  a.btn:hover{ border-color:var(--gold); color:var(--gold); }
+  #status{ font-size:12.5px; color:var(--dim); opacity:.75; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <h1>Merci — accès Pro activé</h1>
+    <p id="status">Validation de votre accès en cours...</p>
+    <p id="doneMsg" style="display:none;">Votre accès Pro est débloqué sur cet appareil. Les pages et téléchargements réservés aux membres Pro sont accessibles.</p>
+    <a class="btn" href="pro.html">Accéder à l'espace Pro</a>
+  </div>
+
+<script>
+(async function(){
+  const WORKER_BASE_URL = 'https://livreedhermes-soutien.anibalamiot.workers.dev';
+  const statusEl = document.getElementById('status');
+  const doneEl = document.getElementById('doneMsg');
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get('session_id');
+  if(!sessionId){
+    statusEl.textContent = "Aucune session de paiement trouvée dans le lien.";
+    return;
+  }
+  try{
+    const res = await fetch(`${WORKER_BASE_URL}/claim-token?session_id=${encodeURIComponent(sessionId)}`);
+    const data = await res.json();
+    if(data.token){
+      localStorage.setItem('pro_token', data.token);
+      statusEl.style.display = 'none';
+      doneEl.style.display = 'block';
+    } else {
+      statusEl.textContent = "Impossible de valider cette session pour l'instant — réessayez dans quelques instants, ou contactez-nous si le problème persiste.";
+    }
+  }catch(e){
+    statusEl.textContent = "Impossible de contacter le service de validation.";
+  }
+})();
+</script>
+</body>
+</html>

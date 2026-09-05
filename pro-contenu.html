@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,follow">
+<title>Espace Pro — La Livrée d'Hermès</title>
+<meta name="description" content="Espace réservé aux membres Pro de La Livrée d'Hermès.">
+<link rel="canonical" href="https://anibal-amiot.com/pro-contenu.html">
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .pro-body{ padding:24px 0 8px; text-align:center; max-width:64ch; margin:0 auto; }
+  .pro-title{ font-size:26px; font-weight:400; margin:0 0 26px; }
+  .pro-placeholder{ border:1px solid var(--line); padding:40px 28px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-downloads{ margin-top:26px; text-align:left; }
+  .pro-download-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-top:1px solid var(--line); padding:14px 0; }
+  .pro-download-row:first-child{ border-top:none; }
+  .pro-download-name{ flex:1 1 220px; color:var(--white); font-size:13.5px; text-align:left; }
+  .pro-download-row a{
+    border:1px solid var(--line); color:var(--dim); text-decoration:none;
+    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:8px 14px;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-download-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-locked-box{ border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-locked-box button{
+    display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-locked-box button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  </header>
+
+  <div class="pro-body">
+    <h1 class="pro-title">Espace Pro</h1>
+
+    <div class="pro-locked-box" data-pro-locked-only hidden>
+      <p>Cette page est réservée aux membres Pro (paiement unique de 99 €).</p>
+      <button type="button" id="unlockBtn">Devenir membre Pro — 99 €</button>
+    </div>
+
+    <div class="pro-placeholder" data-pro-only hidden>
+      <p>Bienvenue dans l'espace Pro. Le contenu de cette page n'est pas encore défini — il sera ajouté prochainement. En attendant, voici le téléchargement complet des motifs.</p>
+
+      <div class="pro-downloads">
+        <div class="pro-download-row">
+          <span class="pro-download-name">Cellules — Tricolore YPM</span>
+          <a data-pro-locked href="assets/pro-downloads/cellules-tricolore-ypm.zip" download>ZIP (884 SVG)</a>
+          <a data-pro-locked href="assets/pro-downloads/cellules-tricolore-ypm.pdf" download>PDF</a>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Cellules — Monochrome Black</span>
+          <a data-pro-locked href="assets/pro-downloads/cellules-monochrome-black.zip" download>ZIP (884 SVG)</a>
+          <a data-pro-locked href="assets/pro-downloads/cellules-monochrome-black.pdf" download>PDF</a>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Pavages — Tricolore YPM</span>
+          <a data-pro-locked href="assets/pro-downloads/pavages-tricolore-ypm.zip" download>ZIP (884 SVG)</a>
+          <a data-pro-locked href="assets/pro-downloads/pavages-tricolore-ypm.pdf" download>PDF</a>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Pavages — Monochrome Black</span>
+          <a data-pro-locked href="assets/pro-downloads/pavages-monochrome-black.zip" download>ZIP (884 SVG)</a>
+          <a data-pro-locked href="assets/pro-downloads/pavages-monochrome-black.pdf" download>PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="center-logo-slot">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="index.html">Accueil</a>
+      <a class="site-nav-btn" href="pro.html">Accès Pro</a>
+      <a class="site-nav-btn" href="a-propos.html">À propos</a>
+      <a class="site-nav-btn" href="contact.html">Contact</a>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+    <div class="credit-line-secondary">
+      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+  document.getElementById('unlockBtn').addEventListener('click', function(){
+    window.ProGate.showModal();
+  });
+</script>
+<script src="assets/pro-gate.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accès Pro — La Livrée d'Hermès</title>
+<meta name="description" content="Accès Pro à La Livrée d'Hermès : paiement unique de 99 €, débloque le téléchargement complet des motifs (PDF et SVG) et les pages réservées aux membres Pro.">
+<meta property="og:title" content="Accès Pro — La Livrée d'Hermès">
+<meta property="og:description" content="Accès Pro à La Livrée d'Hermès : paiement unique de 99 €, débloque le téléchargement complet des motifs (PDF et SVG) et les pages réservées aux membres Pro.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/pro.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/pro.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Accès Pro — La Livrée d'Hermès">
+<meta name="twitter:description" content="Accès Pro à La Livrée d'Hermès : paiement unique de 99 €, débloque le téléchargement complet des motifs (PDF et SVG) et les pages réservées aux membres Pro.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .pro-body{ padding:24px 0 8px; text-align:center; }
+  .pro-title{ max-width:64ch; margin:0 auto 8px; font-size:26px; font-weight:400; line-height:1.35; }
+  .pro-intro{ max-width:56ch; margin:0 auto 30px; color:var(--dim); font-size:15px; line-height:1.8; }
+  .pro-price{ font-size:38px; color:var(--gold); margin-bottom:6px; }
+  .pro-price span{ font-size:12px; color:var(--dim); text-transform:uppercase; letter-spacing:.08em; display:block; margin-top:6px; }
+  .pro-cta{
+    display:inline-block; margin:22px 0 10px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:15px 28px; cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-cta:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-note{ font-size:11.5px; color:var(--dim); opacity:.75; max-width:48ch; margin:0 auto; }
+
+  .pro-features{ max-width:640px; margin:50px auto 0; text-align:left; }
+  .pro-features h2{ color:var(--gold); font-size:14px; font-weight:400; letter-spacing:.04em; text-align:center; margin:0 0 20px; }
+  .pro-feature{ border:1px solid var(--line); padding:16px 20px; margin-bottom:12px; }
+  .pro-feature b{ display:block; color:var(--white); font-weight:400; margin-bottom:6px; }
+  .pro-feature p{ margin:0; color:var(--dim); font-size:13.5px; line-height:1.6; }
+  .pro-feature em{ font-style:normal; color:var(--gold); font-size:11px; letter-spacing:.04em; }
+
+  .pro-unlocked-box{ max-width:640px; margin:40px auto 0; border:1px solid var(--gold); padding:22px 24px; text-align:center; }
+  .pro-unlocked-box p{ color:var(--dim); font-size:14px; line-height:1.7; margin:0 0 14px; }
+  .pro-unlocked-box a{ color:var(--gold); text-decoration:underline; }
+  .pro-unlocked-box a:hover{ color:var(--white); }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
+  @media (max-width:1320px){ .footer-caduceus{ display:none; } }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  </header>
+
+  <div class="pro-body">
+    <h1 class="pro-title">Accès Pro</h1>
+    <p class="pro-intro">Un palier complémentaire au soutien à prix libre du livre : un paiement unique, sans abonnement, pour un usage professionnel des motifs de La Livrée d'Hermès.</p>
+
+    <div class="pro-price">99 € <span>Paiement unique — pas d'abonnement</span></div>
+    <button type="button" class="pro-cta" data-pro-locked-only hidden id="proCtaBtn">Devenir membre Pro — 99 €</button>
+    <p class="pro-note" data-pro-locked-only hidden>Le paiement est sécurisé par Stripe. L'accès est activé automatiquement sur cet appareil juste après le paiement.</p>
+
+    <div class="pro-unlocked-box" data-pro-only hidden>
+      <p>Votre accès Pro est actif sur cet appareil.</p>
+      <a href="pro-contenu.html">Accéder à l'espace Pro →</a>
+    </div>
+
+    <div class="pro-features">
+      <h2>Ce que débloque l'accès Pro</h2>
+      <div class="pro-feature">
+        <b>Les 3536 motifs, en PDF et en SVG</b>
+        <p>L'intégralité des 4 catégories (cellules Tricolore YPM, cellules Monochrome Black, pavages Tricolore YPM, pavages Monochrome Black) en SVG individuels et en PDF vectoriel groupé, 884 motifs par catégorie.</p>
+      </div>
+      <div class="pro-feature">
+        <b>Pages réservées aux membres Pro</b>
+        <p>Un espace du site dédié aux membres Pro. <em>Contenu à venir.</em></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="center-logo-slot">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="index.html">Accueil</a>
+      <a class="site-nav-btn" href="/">Tirage</a>
+      <a class="site-nav-btn" href="creation-motifs-yi-king.html">Créer un motif</a>
+      <a class="site-nav-btn" href="galerie-884-patterns-unifies.html">Galerie 884</a>
+      <a class="site-nav-btn" href="a-propos.html">À propos</a>
+      <a class="site-nav-btn" href="contact.html">Contact</a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture>
+        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
+        <img alt="La Livrée d'Hermès">
+      </picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+    <div class="credit-line-secondary">
+      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+  document.getElementById('proCtaBtn').addEventListener('click', function(){
+    window.ProGate.showModal();
+  });
+</script>
+<script src="assets/pro-gate.js"></script>
+<script src="assets/share-widget.js"></script>
+</body>
+</html>

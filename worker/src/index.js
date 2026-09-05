@@ -1,6 +1,16 @@
-// Backend Cloudflare Worker — soutien à prix libre (La Livrée d'Hermès).
-// Endpoints : POST /create-checkout-session, POST /webhook,
-//             GET /claim-token, GET /verify-access.
+// Backend Cloudflare Worker — La Livrée d'Hermès.
+// Deux paliers distincts, sur la même infrastructure (ce Worker + le même
+// KV binding SOUTIEN_KV), chacun avec son propre jeton d'accès :
+//   - "soutien" : prix libre choisi par le client, débloque les
+//     téléchargements SVG/PDF déjà en place (inchangé).
+//   - "pro" : prix fixe (STRIPE_PRO_PRICE_CENTS, 99€ par défaut), débloque
+//     un contenu distinct (voir pro.html / pro-contenu.html côté site).
+// Un jeton "soutien" et un jeton "pro" sont indépendants : posséder l'un ne
+// donne pas accès à l'autre (voir le paramètre `type` de /verify-access).
+//
+// Endpoints : POST /create-checkout-session (soutien, montant libre),
+//             POST /create-pro-checkout-session (pro, montant fixe),
+//             POST /webhook, GET /claim-token, GET /verify-access.
 //
 // La clé secrète Stripe (env.STRIPE_SECRET_KEY) et le secret de signature
 // webhook (env.STRIPE_WEBHOOK_SECRET) sont des secrets Cloudflare
@@ -72,6 +82,7 @@ async function handleCreateCheckoutSession(request, env) {
       ],
       success_url: `${origin}/soutien-succes.html?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: origin,
+      metadata: { tier: 'soutien' },
       integration_identifier: 'lldhsoutien' + Math.random().toString(36).slice(2, 10).padEnd(8, 'x'),
     });
     return json({ url: session.url }, 200, env);
@@ -80,9 +91,47 @@ async function handleCreateCheckoutSession(request, env) {
   }
 }
 
-async function grantAccessForSession(env, sessionId) {
+// Palier "pro" : montant fixe décidé côté serveur uniquement — contrairement
+// à /create-checkout-session (soutien à prix libre), aucun montant n'est lu
+// depuis la requête du client, donc il ne peut pas être falsifié. Le prix
+// est en centimes dans STRIPE_PRO_PRICE_CENTS (9900 = 99,00 €) ; à défaut de
+// variable d'environnement, 9900 sert de repli.
+async function handleCreateProCheckoutSession(request, env) {
+  const amount = Number(env.STRIPE_PRO_PRICE_CENTS || 9900);
+  const currency = 'eur';
+  const origin = request.headers.get('Origin') || env.ALLOWED_ORIGIN;
+
+  try {
+    const stripe = getStripe(env);
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [
+        {
+          price_data: {
+            currency,
+            product_data: {
+              name: 'Accès Pro — La Livrée d\'Hermès',
+              description: 'Paiement unique : débloque le téléchargement complet des motifs (PDF + SVG) et les pages réservées aux membres Pro.',
+            },
+            unit_amount: amount,
+          },
+          quantity: 1,
+        },
+      ],
+      success_url: `${origin}/pro-succes.html?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: origin,
+      metadata: { tier: 'pro' },
+      integration_identifier: 'lldhpro' + Math.random().toString(36).slice(2, 10).padEnd(8, 'x'),
+    });
+    return json({ url: session.url }, 200, env);
+  } catch (e) {
+    return json({ error: 'Erreur Stripe lors de la création de la session' }, 500, env);
+  }
+}
+
+async function grantAccessForSession(env, sessionId, tier) {
   const token = crypto.randomUUID();
-  await env.SOUTIEN_KV.put(`token:${token}`, JSON.stringify({ createdAt: Date.now(), sessionId }));
+  await env.SOUTIEN_KV.put(`token:${token}`, JSON.stringify({ createdAt: Date.now(), sessionId, tier }));
   // Courte durée de vie : sert uniquement à la page de succès pour récupérer
   // le jeton une fois, juste après le paiement.
   await env.SOUTIEN_KV.put(`session:${sessionId}`, token, { expirationTtl: 60 * 60 * 24 });
@@ -104,7 +153,8 @@ async function handleWebhook(request, env) {
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     const session = event.data.object;
     if (session.payment_status !== 'unpaid') {
-      await grantAccessForSession(env, session.id);
+      const tier = (session.metadata && session.metadata.tier) || 'soutien';
+      await grantAccessForSession(env, session.id, tier);
     }
   } else if (event.type === 'checkout.session.async_payment_failed') {
     // Paiement différé échoué : rien à débloquer, pas d'action nécessaire.
@@ -129,10 +179,20 @@ async function handleClaimToken(request, env) {
 async function handleVerifyAccess(request, env) {
   const url = new URL(request.url);
   const token = url.searchParams.get('token');
+  // `type` distingue les paliers ("soutien" | "pro") : un jeton pro ne
+  // valide pas un accès soutien, et inversement. Omis, on ne vérifie que
+  // l'existence du jeton (compatibilité avec les appels déjà en place).
+  const type = url.searchParams.get('type');
   if (!token) return json({ valid: false }, 200, env);
 
-  const record = await env.SOUTIEN_KV.get(`token:${token}`);
-  return json({ valid: !!record }, 200, env);
+  const raw = await env.SOUTIEN_KV.get(`token:${token}`);
+  if (!raw) return json({ valid: false }, 200, env);
+  if (!type) return json({ valid: true }, 200, env);
+
+  let record;
+  try { record = JSON.parse(raw); } catch (e) { record = {}; }
+  const tokenTier = record.tier || 'soutien'; // jetons émis avant l'introduction du palier pro
+  return json({ valid: tokenTier === type }, 200, env);
 }
 
 export default {
@@ -146,6 +206,9 @@ export default {
     try {
       if (url.pathname === '/create-checkout-session' && request.method === 'POST') {
         return await handleCreateCheckoutSession(request, env);
+      }
+      if (url.pathname === '/create-pro-checkout-session' && request.method === 'POST') {
+        return await handleCreateProCheckoutSession(request, env);
       }
       if (url.pathname === '/webhook' && request.method === 'POST') {
         return await handleWebhook(request, env);

@@ -1,10 +1,16 @@
-# Worker — soutien à prix libre
+# Worker — soutien à prix libre + accès Pro
 
-Petit backend Cloudflare Worker : crée les sessions Stripe Checkout à montant
-libre, reçoit le webhook de confirmation de paiement, et délivre/valide les
-jetons d'accès aux téléchargements. Le site statique (gk2.net) n'est pas
-modifié dans son hébergement — ce Worker n'est appelé qu'en `fetch()` depuis
-le navigateur.
+Petit backend Cloudflare Worker, avec deux paliers indépendants sur la même
+infrastructure (même Worker, même KV) :
+- **Soutien** : montant libre choisi par le client (inchangé).
+- **Pro** : prix fixe (99 € par défaut, `STRIPE_PRO_PRICE_CENTS` dans
+  `wrangler.toml`), décidé uniquement côté serveur — le client ne peut pas
+  influencer ce montant.
+
+Chaque palier délivre un jeton distinct (`tier: "soutien"` ou `tier: "pro"`
+dans le KV) : posséder l'un ne donne pas accès à l'autre. Le site statique
+(gk2.net) n'est pas modifié dans son hébergement — ce Worker n'est appelé
+qu'en `fetch()` depuis le navigateur.
 
 ## Mise en place (à faire une seule fois)
 
@@ -63,8 +69,16 @@ rester en mode **Test** tant que les clés sont `sk_test_`/`pk_test_`) :
 
 ### 5. Brancher le site statique sur ce Worker
 
-Ouvre `assets/soutien-gate.js` à la racine du dépôt principal et remplace la
-constante `WORKER_BASE_URL` en tête de fichier par l'URL notée à l'étape 3.
+Ouvre `assets/soutien-gate.js` **et** `assets/pro-gate.js` à la racine du
+dépôt principal, et remplace la constante `WORKER_BASE_URL` en tête de
+chaque fichier par l'URL notée à l'étape 3 (le même Worker sert les deux
+paliers).
+
+### 6. Redéployer après une modification du Worker
+
+Après tout changement dans `src/index.js` ou `wrangler.toml` (comme l'ajout
+du palier Pro), relancer `npx wrangler deploy` — sans ça, le site continue
+d'appeler l'ancienne version déployée.
 
 ## Test rapide en local
 

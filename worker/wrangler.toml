@@ -14,3 +14,7 @@ id = "045fad05c15a42d59fc56a7b0bf72ac8"
 [vars]
 STRIPE_MIN_AMOUNT_CENTS = 100
 ALLOWED_ORIGIN = "https://anibal-amiot.com"
+# Prix fixe du palier Pro, en centimes (9900 = 99,00 €). Changer cette valeur
+# suffit pour ajuster le prix — aucun montant n'est jamais lu depuis le client
+# pour ce palier (contrairement au soutien à prix libre).
+STRIPE_PRO_PRICE_CENTS = 9900
