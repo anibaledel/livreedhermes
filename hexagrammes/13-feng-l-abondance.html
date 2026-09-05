@@ -25,6 +25,17 @@
   "url": "https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
+    { "@type": "ListItem", "position": 3, "name": "Hexagramme 13 — L'Abondance", "item": "https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html" }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
@@ -41,6 +52,12 @@
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
 
   .article-body{ padding:24px 0 8px; }
   .article-back{ display:block; max-width:64ch; margin:0 auto 24px; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
@@ -114,6 +131,10 @@
   </header>
 
   <div class="article-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme 13 — L'Abondance</span>
+    </nav>
+
     <a class="article-back" href="https://anibal-amiot.com/?chrono=13">← Voir cet hexagramme sur l'échiquier</a>
 
     <h1 class="article-title">Hexagramme 13 — Feng, L'Abondance</h1>
@@ -215,6 +236,7 @@
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
     </div>
     <div class="credit-line">

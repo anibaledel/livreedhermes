@@ -129,6 +129,17 @@ for(let chrono = 0; chrono < 64; chrono++){
   "url": "${url}"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
+    { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(`Hexagramme ${chrono} — ${nameFr}`)}, "item": "${url}" }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
@@ -145,6 +156,12 @@ for(let chrono = 0; chrono < 64; chrono++){
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
 
   .article-body{ padding:24px 0 8px; }
   .article-back{ display:block; max-width:64ch; margin:0 auto 24px; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
@@ -218,6 +235,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   </header>
 
   <div class="article-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
+    </nav>
+
     <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
     <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
@@ -291,6 +312,7 @@ ${linesHtml}
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
     </div>
     <div class="credit-line">
@@ -315,4 +337,147 @@ ${linesHtml}
 }
 
 fs.writeFileSync(path.join(__dirname, 'hexagram-pages-manifest.json'), JSON.stringify(pages, null, 2));
-console.log('Généré', pages.length, 'pages dans', OUT_DIR);
+
+// ============================================================
+// Page de listing /hexagrammes/ — cible du fil d'Ariane "Hexagrammes" de
+// chaque page hexagramme, et point d'entrée pour parcourir les 64 figures.
+// ============================================================
+const listingUrl = 'https://anibal-amiot.com/hexagrammes/';
+const listingTitle = 'Hexagrammes — La Livrée d\'Hermès';
+const listingDescription = 'Les 64 hexagrammes du Yi-King dans l\'ordre chronologique du site : jugement, trigrammes et carré magique associés à chacun.';
+
+const gridItems = allInfo.map(info =>
+  `        <a class="hex-grid-item" href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`
+).join('\n');
+
+const listingHtml = `<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${escapeHtml(listingTitle)}</title>
+<meta name="description" content="${escapeHtml(listingDescription)}">
+<meta property="og:title" content="${escapeHtml(listingTitle)}">
+<meta property="og:description" content="${escapeHtml(listingDescription)}">
+<meta property="og:image" content="https://anibal-amiot.com/assets/hexagrammes/0.png">
+<meta property="og:url" content="${listingUrl}">
+<meta property="og:type" content="website">
+<link rel="canonical" href="${listingUrl}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escapeHtml(listingTitle)}">
+<meta name="twitter:description" content="${escapeHtml(listingDescription)}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": ${JSON.stringify(listingTitle)},
+  "description": ${JSON.stringify(listingDescription)},
+  "url": "${listingUrl}",
+  "hasPart": [
+${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.chrono} — ${escapeHtml(info.nameFr)}", "url": "https://anibal-amiot.com/hexagrammes/${info.slug}" }`).join(',\n')}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Hexagrammes", "item": "${listingUrl}" }
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  .page-title{ max-width:64ch; margin:0 auto 8px; font-size:26px; font-weight:400; line-height:1.35; text-align:center; }
+  .page-sub{ max-width:64ch; margin:0 auto 30px; color:var(--dim); font-size:14px; line-height:1.7; text-align:center; }
+
+  .hex-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; margin:0 0 20px; }
+  .hex-grid-item{
+    border:1px solid var(--line); color:var(--dim); font-size:12.5px; letter-spacing:.02em;
+    padding:12px 14px; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .hex-grid-item:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  </header>
+
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Hexagrammes</span>
+  </nav>
+
+  <h1 class="page-title">Les 64 hexagrammes</h1>
+  <p class="page-sub">Chaque hexagramme du Yi-King, dans l'ordre chronologique (poids binaires) utilisé sur ce site, avec son jugement, ses trigrammes et le carré magique associé.</p>
+
+  <div class="hex-grid">
+${gridItems}
+  </div>
+
+  <div class="note">
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
+    </div>
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+    <div class="credit-line-secondary">
+      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
+    </div>
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+    </div>
+  </div>
+</div>
+</body>
+</html>
+`;
+
+const listingDir = path.join(OUT_DIR);
+fs.writeFileSync(path.join(listingDir, 'index.html'), listingHtml, 'utf8');
+
+console.log('Généré', pages.length, 'pages dans', OUT_DIR, '+ la page de listing hexagrammes/index.html');

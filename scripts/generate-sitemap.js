@@ -63,6 +63,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/a-propos.html`, file: 'a-propos.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
+  { loc: `${SITE}/hexagrammes/`, file: 'hexagrammes/index.html', changefreq: 'monthly', priority: '0.6' },
 ];
 
 // Pages livre multilingues, avec liens alternates réciproques.
@@ -98,7 +99,7 @@ const ARTICLE_PAGES = fs
 const hexagrammesDir = path.join(ROOT, 'hexagrammes');
 const HEXAGRAM_PAGES = fs
   .readdirSync(hexagrammesDir)
-  .filter((f) => f.endsWith('.html'))
+  .filter((f) => f.endsWith('.html') && f !== 'index.html')
   .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
   .map((f) => ({
     loc: `${SITE}/hexagrammes/${f}`,

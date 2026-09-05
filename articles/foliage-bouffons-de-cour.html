@@ -106,6 +106,12 @@
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
   header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
 
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
   /* ---------- article ---------- */
   .article-body{ padding:24px 0 8px; }
   .article-title{ max-width:64ch; margin:0 auto 8px; font-size:26px; font-weight:400; line-height:1.35; text-align:center; }
@@ -194,6 +200,10 @@
   </header>
 
   <div class="article-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/articles.html">Articles</a><span class="sep">/</span><span aria-current="page">Foliage, ou l'origine du bouffon de cour</span>
+    </nav>
+
     <h1 class="article-title">Foliage, ou l'art des bouffons de cour</h1>
     <p class="article-date">Publié le 2 septembre 2026</p>
 
