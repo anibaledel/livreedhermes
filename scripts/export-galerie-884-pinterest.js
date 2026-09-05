@@ -1,18 +1,23 @@
 /* ============================================================
-   Export PNG au format Pinterest (portrait 2:3, 1000x1500) de la Galerie
-   884 — pour l'automatisation de publication programmée (Metricool).
+   Export PNG au format Pinterest de la Galerie 884 — pour l'automatisation
+   de publication programmée (Metricool). Réutilise le même système de
+   génération que l'export PNG carré haute résolution
+   (export-galerie-884-hires.js) : mêmes données, mêmes palettes (Tricolore
+   YPM / Monochrome Black), fond du site (var(--bg):#000).
 
-   Réutilise le même système de génération que l'export PNG carré haute
-   résolution (export-galerie-884-hires.js) : mêmes données, mêmes
-   palettes (Tricolore YPM / Monochrome Black), même notion de pavage
-   (repeats=4, comme drawPaved()) — seul le cadrage change : le motif carré
-   est centré, sans déformation, sur un canevas portrait 1000x1500 avec un
-   fond noir (cohérent avec le thème sombre du site, var(--bg):#000),
-   la marge principale se retrouvant en haut/bas plutôt que sur les côtés.
+   Deux gabarits selon la catégorie, sans marge ni fond visible dans les
+   deux cas (couverture intégrale du canevas, bord à bord) :
+   - Cellules : carré 1500x1500, une seule tuile 12x12 qui remplit tout le
+     canevas.
+   - Pavages : portrait 1000x1500, motif répété 6x9 tuiles (ratio 6:9 =
+     2:3 = celui du canevas, donc cellules carrées non déformées) pour
+     couvrir toute la surface — le principe même du pavage, pas une tuile
+     centrée avec marge.
 
    Nommage : identique au fichier SVG correspondant (assets/motifs-svg/),
    seule l'extension change (.svg -> .png), pour permettre de reconstruire
-   les URLs directement depuis motifs-884-index.csv.
+   les URLs directement depuis motifs-884-index.csv. Noms de fichiers et
+   chemins inchangés par rapport à la version précédente de ce script.
 
    Usage :
      cd scripts
@@ -37,14 +42,19 @@ const PALETTE_MODE = argVal('--palette', 'color'); // 'color' | 'gray'
 const LIMIT = argVal('--limit', null) ? parseInt(argVal('--limit', null), 10) : null;
 const OFFSET = argVal('--offset', null) ? parseInt(argVal('--offset', null), 10) : 0;
 const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-884-pinterest-${MODE}-${PALETTE_MODE}`));
-const REPEATS = MODE === 'pavage' ? 4 : 1;
 
-// Canevas Pinterest portrait 2:3, motif carré centré sans déformation.
-const CANVAS_W = 1000, CANVAS_H = 1500;
-const MOTIF_SIZE = 820; // même proportion que l'ancien aperçu JPEG (renderPreviewJpeg)
-const MOTIF_X = (CANVAS_W - MOTIF_SIZE) / 2; // 90 — petite marge latérale
-const MOTIF_Y = (CANVAS_H - MOTIF_SIZE) / 2; // 340 — marge haut/bas dominante
-const BG_COLOR = '#000'; // var(--bg) du site
+// Cellules : carré 1500x1500, une seule tuile 12x12 qui remplit tout le
+// canevas (pas de portrait, pas de marge — un motif unitaire n'a pas de
+// notion de répétition).
+// Pavages : portrait 1000x1500, mais rempli intégralement bord à bord par
+// la répétition du motif (6 tuiles en largeur x 9 en hauteur — le ratio
+// 6:9 = 2:3 préserve des cellules carrées, sans déformation ni recadrage,
+// et couvre tout le canevas sans aucun fond visible).
+const CANVAS_W = MODE === 'pavage' ? 1000 : 1500;
+const CANVAS_H = 1500;
+const REPEATS_X = MODE === 'pavage' ? 6 : 1;
+const REPEATS_Y = MODE === 'pavage' ? 9 : 1;
+const BG_COLOR = '#000'; // var(--bg) du site — filet de sécurité anti-crénelage sur les bords, non visible en pratique (couverture bord à bord)
 
 // ---------- extraction des données (source de vérité unique) ----------
 function loadData() {
@@ -92,23 +102,27 @@ function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   return grid;
 }
 
-// ---------- rendu portrait Pinterest : motif carré centré, fond du site ----------
-function renderPinterestPng(grid, repeats, palette) {
+// ---------- rendu Pinterest : couverture intégrale du canevas, bord à bord ----------
+function renderPinterestPng(grid, palette) {
   const canvas = createCanvas(CANVAS_W, CANVAS_H);
   const ctx = canvas.getContext('2d');
   ctx.fillStyle = BG_COLOR;
   ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
 
-  const totalCells = 12 * repeats;
-  const cellPx = MOTIF_SIZE / totalCells;
-  for (let ty = 0; ty < repeats; ty++) {
-    for (let tx = 0; tx < repeats; tx++) {
+  // Cellules carrées : mêmes dimensions dans les deux axes (pas de
+  // déformation) — dérivées indépendamment de CANVAS_W/CANVAS_H, qui ont
+  // le même ratio que REPEATS_X/REPEATS_Y (2:3 pour le pavage, 1:1 pour la
+  // cellule), donc cellPxX === cellPxY dans les deux cas.
+  const cellPxX = CANVAS_W / (12 * REPEATS_X);
+  const cellPxY = CANVAS_H / (12 * REPEATS_Y);
+  for (let ty = 0; ty < REPEATS_Y; ty++) {
+    for (let tx = 0; tx < REPEATS_X; tx++) {
       const ox = tx * 12, oy = ty * 12;
       for (let r = 0; r < 12; r++) {
         for (let c = 0; c < 12; c++) {
           ctx.fillStyle = palette[grid[r][c]];
-          const x = MOTIF_X + (ox + c) * cellPx, y = MOTIF_Y + (oy + r) * cellPx;
-          ctx.fillRect(x, y, cellPx + 0.6, cellPx + 0.6);
+          const x = (ox + c) * cellPxX, y = (oy + r) * cellPxY;
+          ctx.fillRect(x, y, cellPxX + 0.6, cellPxY + 0.6);
         }
       }
     }
@@ -137,7 +151,7 @@ function main() {
 
   let entries = DATA.entries.map((e, i) => [e, i]);
   entries = entries.slice(OFFSET, LIMIT ? OFFSET + LIMIT : undefined);
-  console.log(`Mode: ${MODE} (repeats=${REPEATS}) — palette: ${PALETTE_MODE} — ${entries.length} motif(s) (offset ${OFFSET}) — ${CANVAS_W}x${CANVAS_H}`);
+  console.log(`Mode: ${MODE} (repeats ${REPEATS_X}x${REPEATS_Y}) — palette: ${PALETTE_MODE} — ${entries.length} motif(s) (offset ${OFFSET}) — ${CANVAS_W}x${CANVAS_H}`);
 
   const t0 = Date.now();
   entries.forEach(([[fam, subA, subB, n], idx]) => {
@@ -149,7 +163,7 @@ function main() {
     const idxStr = String(idx).padStart(3, '0');
     const baseName = `motif-${idxStr}-${slug(cat)}-${slug(subA)}-${slug(subB)}-n${n}-${slug(colors[0])}-${slug(colors[1])}`;
 
-    const png = renderPinterestPng(grid, REPEATS, PALETTE);
+    const png = renderPinterestPng(grid, PALETTE);
     fs.writeFileSync(path.join(OUT_DIR, baseName + '.png'), png);
 
     if ((idx + 1) % 100 === 0 || idx === entries[entries.length - 1][1]) {
