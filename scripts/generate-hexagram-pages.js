@@ -50,6 +50,23 @@ const ARTICLE_LINKS_BY_KW = {
 
 const pages = [];
 
+// Pré-calcul pour toutes les figures : nécessaire pour les liens croisés
+// (précédent/suivant, trigrammes partagés) construits dans la boucle principale.
+const allInfo = [];
+for(let chrono = 0; chrono < 64; chrono++){
+  const kwNum = DATA.KINGWEN_BY_CHRONO[chrono];
+  const traits = traitsFromChrono(chrono);
+  const [pinyin, nameFr] = DATA.HEX_KW[kwNum];
+  const lowerVal = trigramValue(traits.slice(0,3));
+  const upperVal = trigramValue(traits.slice(3,6));
+  const slug = `${chrono}-${slugify(pinyin)}-${slugify(nameFr)}.html`;
+  allInfo.push({ chrono, kwNum, pinyin, nameFr, lowerVal, upperVal, slug });
+}
+
+function hexLinkHtml(info){
+  return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
+}
+
 for(let chrono = 0; chrono < 64; chrono++){
   const kwNum = DATA.KINGWEN_BY_CHRONO[chrono];
   const traits = traitsFromChrono(chrono);
@@ -61,6 +78,11 @@ for(let chrono = 0; chrono < 64; chrono++){
 
   const slug = `${chrono}-${slugify(pinyin)}-${slugify(nameFr)}.html`;
   const url = `https://anibal-amiot.com/hexagrammes/${slug}`;
+
+  const prevInfo = allInfo[(chrono - 1 + 64) % 64];
+  const nextInfo = allInfo[(chrono + 1) % 64];
+  const sameUpper = allInfo.filter(h => h.chrono !== chrono && h.upperVal === allInfo[chrono].upperVal);
+  const sameLower = allInfo.filter(h => h.chrono !== chrono && h.lowerVal === allInfo[chrono].lowerVal);
   const title = `Hexagramme ${chrono} — ${pinyin}, ${nameFr}`;
   const description = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum}) : jugement, trigrammes et carré magique de La Livrée d'Hermès.`;
 
@@ -243,12 +265,21 @@ ${linesHtml}
       ${articleLinkHtml}
 
       <div class="cta-row">
-        <a class="cta-btn" href="https://anibal-amiot.com/fr/livre/">Lire le livre en ligne →</a>
+        <a class="cta-btn" href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">Lire le passage du livre (chap. 7.1) →</a>
         <a class="cta-btn" href="https://anibal-amiot.com/?chrono=${chrono}">Voir sur l'échiquier interactif →</a>
+        <a class="cta-btn" href="https://anibal-amiot.com/creation-motifs-yi-king.html">Créer le motif de cet hexagramme →</a>
       </div>
 
       <hr>
+      <p><i>L'ordre chronologique des 64 hexagrammes utilisé sur cette page est expliqué au chapitre 7.1 du livre, « Trame » (p. 63 à 68).</i></p>
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consulte le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
+
+      <h2>Hexagrammes voisins</h2>
+      <p>${hexLinkHtml(prevInfo)} · ${hexLinkHtml(nextInfo)}</p>
+
+      <h2>Hexagrammes liés par un trigramme commun</h2>
+      <p>Trigramme supérieur commun (${upper.symbol} ${escapeHtml(upper.name)}) : ${sameUpper.map(hexLinkHtml).join(' · ')}</p>
+      <p>Trigramme inférieur commun (${lower.symbol} ${escapeHtml(lower.name)}) : ${sameLower.map(hexLinkHtml).join(' · ')}</p>
     </div>
 
     <a class="article-back-bottom" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
