@@ -48,6 +48,20 @@ const ARTICLE_LINKS_BY_KW = {
   10: { href: 'https://anibal-amiot.com/articles/verticalite-damier-mosaique-echiquier.html', label: "Cet hexagramme est cité dans l'article « Verticalité, damier, mosaïque et échiquier »" },
 };
 
+// Les 64 pages ont été créées le même jour (voir git log) ; dateModified suit
+// le jour de régénération, pour rester cohérent avec le <lastmod> calculé
+// par scripts/generate-sitemap.js (lui aussi basé sur la date du dernier
+// commit qui touche chaque fichier).
+const DATE_PUBLISHED = '2026-09-04';
+const DATE_MODIFIED = new Date().toISOString().slice(0, 10);
+
+const MONTHS_FR = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+function formatDateFr(iso){
+  const [y, m, d] = iso.split('-').map(Number);
+  return `${d} ${MONTHS_FR[m - 1]} ${y}`;
+}
+const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>';
+
 const pages = [];
 
 // Pré-calcul pour toutes les figures : nécessaire pour les liens croisés
@@ -98,9 +112,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   const hexColumn = traits.slice().reverse().map(bit => `<div class="hexline-glyph small">${traitSVG(bit)}</div>`).join('\n');
 
   const articleLink = ARTICLE_LINKS_BY_KW[kwNum];
-  const articleLinkHtml = articleLink
-    ? `<p><a href="${articleLink.href}">${escapeHtml(articleLink.label)}</a>.</p>`
-    : '';
+  const sourcesHtml = `<p class="article-sources"><b>Sources</b> : ${BOOK_SOURCE_HTML}${articleLink ? `. <a href="${articleLink.href}">${escapeHtml(articleLink.label)}</a>` : ''}.</p>`;
 
   const html = `<!DOCTYPE html>
 <html lang="fr">
@@ -126,7 +138,14 @@ for(let chrono = 0; chrono < 64; chrono++){
   "name": "Hexagramme ${chrono} — ${escapeHtml(nameFr)}",
   "description": ${JSON.stringify(description)},
   "inDefinedTermSet": "https://anibal-amiot.com/lexique.html",
-  "url": "${url}"
+  "url": "${url}",
+  "datePublished": "${DATE_PUBLISHED}",
+  "dateModified": "${DATE_MODIFIED}",
+  "author": {
+    "@type": "Person",
+    "name": "Anibal Edelberto Amiot",
+    "url": "https://anibal-amiot.com/a-propos.html"
+  }
 }
 </script>
 <script type="application/ld+json">
@@ -167,8 +186,12 @@ for(let chrono = 0; chrono < 64; chrono++){
   .article-back{ display:block; max-width:64ch; margin:0 auto 24px; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
   .article-back:hover{ color:var(--gold); }
   .article-title{ max-width:64ch; margin:0 auto 4px; font-size:26px; font-weight:400; line-height:1.35; text-align:center; }
-  .article-sub{ max-width:64ch; margin:0 auto 26px; color:var(--dim); font-size:12.5px; text-align:center; }
+  .article-sub{ max-width:64ch; margin:0 auto 12px; color:var(--dim); font-size:12.5px; text-align:center; }
   .article-sub b{ color:var(--gold); font-weight:400; }
+  .article-date{ max-width:64ch; margin:0 auto 26px; color:var(--dim); font-size:11.5px; font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-sources{ font-size:12.5px; opacity:.85; }
   .article-content{ max-width:68ch; margin:0 auto; text-align:center; color:var(--dim); font-size:15px; line-height:1.8; }
   .article-content h2{ color:var(--gold); font-size:15px; font-weight:400; letter-spacing:.02em; margin:34px 0 14px; text-align:center; }
   .article-content p{ margin:0 0 18px; }
@@ -243,6 +266,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 
     <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
     <p class="article-sub">N° chronologique <b>${chrono}</b> (ordre par poids binaires) · n° King Wen (traditionnel) ${kwNum} · ${escapeHtml(hanzi || '')}</p>
+    <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${formatDateFr(DATE_MODIFIED)}</p>
 
     <div class="article-content">
       <div class="hex-figure">
@@ -283,8 +307,6 @@ ${hexColumn}
 ${linesHtml}
       </div>
 
-      ${articleLinkHtml}
-
       <div class="cta-row">
         <a class="cta-btn" href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">Lire le passage du livre (chap. 7.1) →</a>
         <a class="cta-btn" href="https://anibal-amiot.com/?chrono=${chrono}">Voir sur l'échiquier interactif →</a>
@@ -292,7 +314,7 @@ ${linesHtml}
       </div>
 
       <hr>
-      <p><i>L'ordre chronologique des 64 hexagrammes utilisé sur cette page est expliqué au chapitre 7.1 du livre, « Trame » (p. 63 à 68).</i></p>
+      ${sourcesHtml}
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consulte le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
 
       <h2>Hexagrammes voisins</h2>
