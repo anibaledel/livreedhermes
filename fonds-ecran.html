@@ -252,7 +252,6 @@
     <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que tu proposes toi-même.</div>
     <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
     <div>🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.</div>
-    <div>Basses/Aigus <b>OU / ET</b> — (hors mode Full Réactif) choisit si un seul des deux suffit à déclencher un changement, ou si les deux doivent se produire ensemble.</div>
     <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
     <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie.</div>
     <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
@@ -313,7 +312,6 @@
         <input type="range" id="sizeSlider" min="4" max="32" step="1" value="4" style="width:90px;">
       </span>
       <button id="btnReset">↺ Réinitialiser</button>
-      <button id="btnBeatLogic" title="Comment combiner basses et aigus">Basses OU Aigus</button>
       <button id="btnFullReactive" title="Basses→teinte, médiums→motif">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
       <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
@@ -513,7 +511,6 @@ let audioCtx, analyser, dataArray, sourceNode;
 let runningAvgBass = 0;
 let runningAvgTreble = 0;
 let lastBeat = 0;
-let beatLogic = 'or'; // 'or' = l'un ou l'autre, 'and' = les deux ensemble
 let fullReactive = false;
 let baseTintForReactive = '#fbb040';
 let runningAvgMid = 0;
@@ -692,7 +689,6 @@ function launch(cat, grids){
   document.getElementById('pauseInfo').classList.remove('visible');
   fullReactive = false;
   document.getElementById('btnFullReactive').classList.remove('active');
-  document.getElementById('btnBeatLogic').style.display = '';
   selectScreen.style.display = 'none';
   stage.style.display = 'block';
   resizeCanvas();
@@ -930,20 +926,12 @@ document.getElementById('sizeSlider').oninput = (e)=>{
   if(currentGrid) drawTessellation(currentGrid);
 };
 
-document.getElementById('btnBeatLogic').onclick = (e)=>{
-  beatLogic = beatLogic==='or' ? 'and' : 'or';
-  e.target.textContent = beatLogic==='or' ? 'Basses OU Aigus' : 'Basses ET Aigus';
-  e.target.classList.toggle('active', beatLogic==='and');
-};
-
 document.getElementById('btnFullReactive').onclick = (e)=>{
   fullReactive = !fullReactive;
   e.target.classList.toggle('active', fullReactive);
   if(fullReactive){
     baseTintForReactive = document.getElementById('tintPicker').value;
-    document.getElementById('btnBeatLogic').style.display = 'none';
   } else {
-    document.getElementById('btnBeatLogic').style.display = '';
     // remettre la teinte de base propre au sortir du mode
     refreshPalette();
     if(currentGrid) drawTessellation(currentGrid);
@@ -1038,7 +1026,7 @@ function loop(){
       const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
       const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
 
-      if(beatLogic==='and' ? (bassHit && trebleHit) : (bassHit || trebleHit)){
+      if(bassHit || trebleHit){
         if(now-lastBeat > 90){
           lastBeat = now;
           showNextGrid();
