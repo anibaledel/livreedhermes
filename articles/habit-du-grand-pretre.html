@@ -114,7 +114,7 @@
   /* ---------- article ---------- */
   .article-body{ padding:24px 0 8px; }
   .article-title{ max-width:64ch; margin:0 auto 8px; font-size:26px; font-weight:400; line-height:1.35; text-align:center; }
-  .article-date{ max-width:64ch; margin:0 auto 26px; color:var(--dim); font-size:11.5px; font-style:italic; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:11.5px; font-style:italic; text-align:center; }
   .article-date a{ color:var(--dim); }
   .article-date a:hover{ color:var(--gold); }
   .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:15px; line-height:1.8; }
@@ -135,6 +135,14 @@
   .article-sources{ font-size:12.5px; opacity:.85; }
 
   .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:11.5px; line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:9.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
   .article-back-bottom:hover{ color:var(--gold); }
 
   /* ---------- pied de page (identique aux autres pages) ---------- */
@@ -202,6 +210,7 @@
 
     <h1 class="article-title">L'habit du grand prêtre : le carré caché dans le tashbetz</h1>
     <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Publié le 2 septembre 2026</p>
+    <div class="article-badges" id="articleBadges"></div>
 
     <div class="article-content">
       <figure>
@@ -235,6 +244,7 @@
     </div>
 
     <a class="article-back-bottom" href="https://anibal-amiot.com/articles.html">← Retour aux articles</a>
+    <div class="article-nav-links" id="articleNavLinks"></div>
   </div>
 
   <div class="note">
@@ -283,6 +293,36 @@
 </div>
 
 <script src="../assets/share-widget.js" data-label="Partager cet article"></script>
+<script src="../assets/articles-data.js"></script>
+<script>
+(function(){
+  var CURRENT_SLUG = "habit-du-grand-pretre";
+  var articles = (window.ARTICLES || []).slice().sort(function(a, b){ return b.dateISO.localeCompare(a.dateISO); });
+  var current = articles.find(function(a){ return a.slug === CURRENT_SLUG; });
+  if(!current) return;
+
+  var badgesEl = document.getElementById('articleBadges');
+  if(badgesEl){
+    badgesEl.innerHTML = current.categories.map(function(c){ return '<span class="article-badge">' + c + '</span>'; }).join('');
+  }
+
+  var primaryCategory = current.categories[0];
+  var sameCategory = articles.filter(function(a){ return a.categories.indexOf(primaryCategory) !== -1; });
+  var pos = sameCategory.findIndex(function(a){ return a.slug === CURRENT_SLUG; });
+  var next = pos > 0 ? sameCategory[pos - 1] : null;
+  var prev = pos < sameCategory.length - 1 ? sameCategory[pos + 1] : null;
+
+  var navEl = document.getElementById('articleNavLinks');
+  if(navEl && (prev || next)){
+    var html = '';
+    html += prev ? '<a class="nav-prev" href="' + prev.url + '"><span class="nav-label">← Précédent · ' + primaryCategory + '</span>' + prev.title + '</a>' : '<span></span>';
+    if(next){
+      html += '<a class="nav-next" href="' + next.url + '"><span class="nav-label">Suivant · ' + primaryCategory + ' →</span>' + next.title + '</a>';
+    }
+    navEl.innerHTML = html;
+  }
+})();
+</script>
 
 <script type="text/javascript">
   function googleTranslateElementInit(){
