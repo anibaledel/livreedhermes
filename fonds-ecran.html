@@ -456,14 +456,29 @@ function hexagramGrid(n, gridA, gridB){
   return grid;
 }
 
+// Exclu des animations : motifs où les deux diagonales du carré 12x12 sont
+// entièrement dans la teinte la plus sombre des trois (M, en mode Monochrome
+// par défaut) — un effet visuel binaire propre à environ la moitié des 884
+// motifs (0 ou 12 cases "M" sur chaque diagonale, jamais entre les deux).
+// Esthétiquement, cette diagonale pleine écrase l'effet miroir/écho entre
+// les formes qui fait l'intérêt des autres motifs.
+function hasDarkDiagonal(grid){
+  for(let i=0;i<12;i++){
+    if(grid[i][i] !== 'M' || grid[i][11-i] !== 'M') return false;
+  }
+  return true;
+}
+
 function buildGridsFor(cat){
   // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
   // pas une sous-catégorie séparée : aucune entrée DATA n'a fam="par4".
   const entries = cat==='par4' ? DATA.entries : DATA.entries.filter(e => e[0].split(':')[0]===cat);
-  return entries.map(([fam, subA, subB, n]) => ({
-    grid: hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]),
-    fam, subA, subB, n
-  }));
+  return entries
+    .map(([fam, subA, subB, n]) => ({
+      grid: hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]),
+      fam, subA, subB, n
+    }))
+    .filter(({grid}) => !hasDarkDiagonal(grid));
 }
 
 // --- écran de sélection : mini-aperçu par catégorie ---
