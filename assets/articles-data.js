@@ -22,6 +22,17 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "reminiscence-caillou-carre",
+    url: "https://anibal-amiot.com/articles/reminiscence-caillou-carre.html",
+    title: "La réminiscence : du caillou pythagoricien au carré construit",
+    dateISO: "2026-09-06",
+    dateDisplay: "Publié le 6 septembre 2026",
+    categories: ["Philosophie", "Géométrie"],
+    excerpt: "Il existe une manière très ancienne de faire apparaître une vérité mathématique : ne pas l'énoncer, mais la construire, et laisser celui qui construit la découvrir de ses propres yeux — des cailloux pythagoriciens au garçon esclave du Ménon, jusqu'à une construction de carrés magiques contemporaine.",
+    cover: "https://anibal-amiot.com/assets/articles/reminiscence-socrate-alcibiade-cover.jpg",
+    coverAlt: "Détail du tableau Alcibiade instruit par Socrate montrant Socrate et la figure penchée vers lui"
+  },
+  {
     slug: "arlequin-trismegiste",
     url: "https://anibal-amiot.com/articles/arlequin-trismegiste.html",
     title: "Arlequin trismégiste : la livrée de Mercure",
