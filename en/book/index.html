@@ -119,13 +119,10 @@
   </div>
 
   <div class="note">
-    <div class="footer-cta-row" style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
-      <button type="button" class="site-nav-btn" id="btnPotoFooter" title="Become a Buddy of La Livrée d'Hermès — support at a price you choose, and permanently unlock the SVG/PDF file downloads.">Become a Buddy</button>
-      <div class="center-logo-slot">
+    <div class="center-logo-slot">
       <img src="https://anibal-amiot.com/assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/pro.html" title="Become a Boss of La Livrée d'Hermès. A one-time payment of €99 (lifetime access) unlocks the project's secret pages: the full, ever-growing Unified Patterns collection in SVG/PDF high resolution, advanced tools for textile design, a free consultation with the author, access to a private community space, and early access to the latest creations and tool updates.">Become a Boss</a>
-    </div>
+    <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Become a Supporter of La Livrée d'Hermès — contribute at a price you choose, and permanently unlock the SVG/PDF file downloads.">Become a Supporter</button>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Home</a>
@@ -153,12 +150,13 @@
     <div class="footer-title-logo">
       <img src="https://anibal-amiot.com/assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    <a class="site-nav-btn footer-partenaire-btn" id="btnPartenaireFooter" href="https://anibal-amiot.com/pro.html" style="display:inline-block; margin:14px 0;" title="Become a Partner of La Livrée d'Hermès. A one-time payment of €99 (lifetime access) unlocks the project's secret pages: the full, ever-growing Unified Patterns collection in SVG/PDF high resolution, advanced tools for textile design, a free consultation with the author, access to a private community space, and early access to the latest creations and tool updates.">Become a Partner</a>
   </div>
 </div>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
-  var b = document.getElementById('btnPotoFooter');
+  var b = document.getElementById('btnSoutienFooter');
   if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
 })();
 </script>

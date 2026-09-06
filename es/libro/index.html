@@ -119,13 +119,10 @@
   </div>
 
   <div class="note">
-    <div class="footer-cta-row" style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
-      <button type="button" class="site-nav-btn" id="btnPotoFooter" title="Hazte Colega de La Livrée d'Hermès — apoya el proyecto al precio que quieras y desbloquea, de forma permanente, la descarga de los archivos SVG/PDF del libro.">Hazte Colega</button>
-      <div class="center-logo-slot">
+    <div class="center-logo-slot">
       <img src="https://anibal-amiot.com/assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/pro.html" title="Hazte Jefe de La Livrée d'Hermès. Un pago único de 99€ (acceso de por vida) desbloquea las páginas secretas del proyecto: la colección completa de motivos Unified Patterns (en constante crecimiento) en SVG/PDF de alta resolución, herramientas avanzadas para la creación textil, una consulta gratuita con el autor, acceso a un espacio comunitario privado, y las últimas creaciones y actualizaciones de herramientas en primicia.">Hazte Jefe</a>
-    </div>
+    <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Hazte Colaborador/a de La Livrée d'Hermès — apoya el proyecto al precio que quieras y desbloquea, de forma permanente, la descarga de los archivos SVG/PDF del libro.">Hazte Colaborador/a</button>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Inicio</a>
@@ -153,12 +150,13 @@
     <div class="footer-title-logo">
       <img src="https://anibal-amiot.com/assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    <a class="site-nav-btn footer-partenaire-btn" id="btnPartenaireFooter" href="https://anibal-amiot.com/pro.html" style="display:inline-block; margin:14px 0;" title="Hazte Socio/a de La Livrée d'Hermès. Un pago único de 99€ (acceso de por vida) desbloquea las páginas secretas del proyecto: la colección completa de motivos Unified Patterns (en constante crecimiento) en SVG/PDF de alta resolución, herramientas avanzadas para la creación textil, una consulta gratuita con el autor, acceso a un espacio comunitario privado, y las últimas creaciones y actualizaciones de herramientas en primicia.">Hazte Socio/a</a>
   </div>
 </div>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
-  var b = document.getElementById('btnPotoFooter');
+  var b = document.getElementById('btnSoutienFooter');
   if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
 })();
 </script>

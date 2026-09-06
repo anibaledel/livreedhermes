@@ -85,11 +85,10 @@
     injectStyle();
     var block = buildBlock(label, url, title);
 
-    // .footer-cta-row (boutons Poto/Daron encadrant le caducée) englobe désormais
-    // .footer-caduceus : on s'ancre sur le plus englobant des deux pour insérer le
-    // bloc de partage juste après, à sa place d'origine dans .note plutôt qu'imbriqué
-    // dans la rangée de boutons.
-    var anchor = document.querySelector('.footer-cta-row') || document.querySelector('.footer-caduceus');
+    // Le bouton "Devenir Partenaire" suit désormais le caducée et précède ce
+    // bloc de partage dans .note : on s'ancre dessus pour s'insérer juste après,
+    // avec .footer-caduceus comme repli si jamais ce bouton était absent.
+    var anchor = document.querySelector('.footer-partenaire-btn') || document.querySelector('.footer-caduceus');
     if(anchor){
       anchor.insertAdjacentElement('afterend', block);
     } else {
