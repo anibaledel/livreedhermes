@@ -71,7 +71,7 @@ function footerCtaRow(logoBlockHtml){
   return `<div class="footer-cta-row" style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
       <button type="button" class="site-nav-btn" id="btnPotoFooter" title="${escapeHtml(POTO_TITLE)}">Devenir Poto</button>
       ${logoBlockHtml}
-      <a class="site-nav-btn" href="https://anibal-amiot.com/pro.html" title="${escapeHtml(DARON_TITLE)}">Devenir Daron(ne) — 99€</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/pro.html" title="${escapeHtml(DARON_TITLE)}">Devenir Daron(ne)</a>
     </div>`;
 }
 const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
