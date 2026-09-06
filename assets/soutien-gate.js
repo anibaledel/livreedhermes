@@ -128,6 +128,7 @@
     guard(triggerFn){
       if(isUnlocked){ triggerFn(); } else { showModal(); }
     },
+    showModal,
   };
 
   // ---------- câblage automatique ----------

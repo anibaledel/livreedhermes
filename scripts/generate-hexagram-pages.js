@@ -62,6 +62,26 @@ function formatDateFr(iso){
 }
 const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>';
 
+// Boutons "Devenir Poto" / "Devenir Daron(ne)" du footer, communs à toutes les
+// pages du site (voir assets/soutien-gate.js et pro.html) — encadrent le logo
+// du pied de page, ici .footer-title-logo faute de caducée sur ces pages.
+const POTO_TITLE = "Deviens Poto de la Livrée d'Hermès — soutiens à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
+const DARON_TITLE = "Deviens Daron(ne) de la Livrée d'Hermès. Un accès unique à 99€ (paiement unique, à vie) qui t'ouvre les pages secrètes du projet : la collection complète des motifs Unified Patterns (en croissance constante) en SVG/PDF haute résolution, des outils avancés pour la création textile, une consultation gratuite avec l'auteur, l'accès à un espace communautaire réservé, et les dernières créations/mises à jour en avant-première.";
+function footerCtaRow(logoBlockHtml){
+  return `<div class="footer-cta-row" style="display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <button type="button" class="site-nav-btn" id="btnPotoFooter" title="${escapeHtml(POTO_TITLE)}">Devenir Poto</button>
+      ${logoBlockHtml}
+      <a class="site-nav-btn" href="https://anibal-amiot.com/pro.html" title="${escapeHtml(DARON_TITLE)}">Devenir Daron(ne) — 99€</a>
+    </div>`;
+}
+const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
+<script>
+(function(){
+  var b = document.getElementById('btnPotoFooter');
+  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
+})();
+</script>`;
+
 const pages = [];
 
 // Pré-calcul pour toutes les figures : nécessaire pour les liens croisés
@@ -345,11 +365,12 @@ ${linesHtml}
     <div class="credit-line-secondary">
       <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
-    <div class="footer-title-logo">
+    ${footerCtaRow(`<div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
-    </div>
+    </div>`)}
   </div>
 </div>
+${FOOTER_CTA_SCRIPT}
 </body>
 </html>
 `;
@@ -490,11 +511,12 @@ ${gridItems}
     <div class="credit-line-secondary">
       <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
-    <div class="footer-title-logo">
+    ${footerCtaRow(`<div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
-    </div>
+    </div>`)}
   </div>
 </div>
+${FOOTER_CTA_SCRIPT}
 </body>
 </html>
 `;

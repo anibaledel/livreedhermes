@@ -85,11 +85,15 @@
     injectStyle();
     var block = buildBlock(label, url, title);
 
-    var anchor = document.querySelector('.footer-caduceus');
+    // .footer-cta-row (boutons Poto/Daron encadrant le caducée) englobe désormais
+    // .footer-caduceus : on s'ancre sur le plus englobant des deux pour insérer le
+    // bloc de partage juste après, à sa place d'origine dans .note plutôt qu'imbriqué
+    // dans la rangée de boutons.
+    var anchor = document.querySelector('.footer-cta-row') || document.querySelector('.footer-caduceus');
     if(anchor){
       anchor.insertAdjacentElement('afterend', block);
     } else {
-      // Repli : pas de .footer-caduceus trouvé, on ajoute en fin de <body>.
+      // Repli : ni l'un ni l'autre trouvé, on ajoute en fin de <body>.
       document.body.appendChild(block);
     }
     wireCopyButton(block, url);
