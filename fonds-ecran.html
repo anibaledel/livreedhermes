@@ -148,6 +148,10 @@
   }
   #hud button:hover{border-color:var(--gold); color:var(--gold);}
   #hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
+  #hud select{
+    background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
+    padding:6px 4px; font-size:10.5px; cursor:pointer;
+  }
   #hud .left{display:flex; flex-wrap:wrap; row-gap:8px; align-items:center; gap:10px;}
   #levelBar{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
   #levelFill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
@@ -312,6 +316,20 @@
       <button id="btnBeatLogic" title="Comment combiner basses et aigus">Basses OU Aigus</button>
       <button id="btnFullReactive" title="Basses→teinte, médiums→motif, aigus→densité">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
+      <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
+        <select id="recordRatio" title="Ratio d'export vidéo">
+          <option value="916">9:16 (vertical)</option>
+          <option value="11">1:1 (carré)</option>
+          <option value="native">Natif (écran)</option>
+        </select>
+        <select id="recordDuration" title="Durée d'enregistrement">
+          <option value="manual">Manuel</option>
+          <option value="15">15 s</option>
+          <option value="30">30 s</option>
+          <option value="60">60 s</option>
+        </select>
+        <button id="btnRecord" title="Enregistre le pavage animé et le son en cours en vidéo">🎬 Enregistrer</button>
+      </span>
       <div id="levelBar"><div id="levelFill"></div></div>
     </div>
     <button id="btnExit">✕ Quitter</button>
@@ -742,6 +760,159 @@ document.getElementById('fileInput').onchange = (e)=>{
   sourceNode = audioCtx.createMediaElementSource(audioEl);
   sourceNode.connect(analyser);
   analyser.connect(audioCtx.destination);
+};
+
+// ---------- export vidéo (MediaRecorder natif + canvas.captureStream) ----------
+// Aucune dépendance externe : le canevas visible sert de source vidéo, et l'audio
+// en cours (micro ou fichier) est routé vers une seconde sortie silencieuse
+// (AudioContext.createMediaStreamDestination) qui n'affecte ni les haut-parleurs
+// ni le graphe audio existant — juste une capture parallèle pour l'enregistreur.
+let mediaStreamDest = null;
+let analyserRoutedToRecorder = false;
+let mediaRecorder = null;
+let recordedChunks = [];
+let exportCanvas = null, exportCtx = null;
+let recordCompositeRAF = null;
+let recordAutoStopTimer = null;
+
+function getMediaStreamDest(){
+  ensureAudioContext();
+  if(!mediaStreamDest) mediaStreamDest = audioCtx.createMediaStreamDestination();
+  return mediaStreamDest;
+}
+
+// connecte la sortie de l'analyseur (commune au micro et au fichier) vers la
+// capture d'export — une seule fois pour la durée de la page, peu importe
+// combien de fois on démarre/arrête l'enregistrement ou change de source audio.
+function connectCurrentAudioToRecorder(){
+  if(!analyser || !sourceNode) return false;
+  const dest = getMediaStreamDest();
+  if(!analyserRoutedToRecorder){
+    try{ analyser.connect(dest); analyserRoutedToRecorder = true; }catch(e){}
+  }
+  return analyserRoutedToRecorder;
+}
+
+function pickRecorderMimeType(hasAudio){
+  const withAudio = [
+    'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
+    'video/mp4;codecs=h264,aac',
+    'video/webm;codecs=vp9,opus',
+    'video/webm;codecs=vp8,opus',
+  ];
+  const videoOnly = [
+    'video/mp4;codecs=avc1.42E01E',
+    'video/mp4',
+    'video/webm;codecs=vp9',
+    'video/webm;codecs=vp8',
+    'video/webm',
+  ];
+  const candidates = hasAudio ? withAudio.concat(videoOnly) : videoOnly.concat(withAudio);
+  for(const type of candidates){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported(type)) return type;
+  }
+  return '';
+}
+
+// recadrage "cover" (comme background-size:cover) : remplit toute la cible sans
+// déformer le pavage, en rognant l'excédent plutôt qu'en étirant.
+function coverDraw(destCtx, destW, destH, source){
+  const sw = source.width, sh = source.height;
+  if(!sw || !sh) return;
+  const srcRatio = sw/sh, destRatio = destW/destH;
+  let cropW, cropH, cropX, cropY;
+  if(srcRatio > destRatio){ cropH = sh; cropW = sh*destRatio; cropX = (sw-cropW)/2; cropY = 0; }
+  else { cropW = sw; cropH = sw/destRatio; cropX = 0; cropY = (sh-cropH)/2; }
+  destCtx.drawImage(source, cropX, cropY, cropW, cropH, 0, 0, destW, destH);
+}
+
+function stopCompositeLoop(){
+  if(recordCompositeRAF){ cancelAnimationFrame(recordCompositeRAF); recordCompositeRAF = null; }
+}
+
+function setRecordingUI(isRecording){
+  const btn = document.getElementById('btnRecord');
+  btn.textContent = isRecording ? '⏹ Arrêter' : '🎬 Enregistrer';
+  btn.classList.toggle('active', isRecording);
+  document.getElementById('recordRatio').disabled = isRecording;
+  document.getElementById('recordDuration').disabled = isRecording;
+}
+
+function startRecording(){
+  if(!currentGrid){ showStageNotice("Choisis d'abord une catégorie de motifs.", 4000); return; }
+  if(!window.MediaRecorder || !canvas.captureStream){
+    showStageNotice("L'enregistrement vidéo n'est pas supporté par ce navigateur.", 5000);
+    return;
+  }
+
+  const ratio = document.getElementById('recordRatio').value;
+  let captureSource;
+  if(ratio === 'native'){
+    captureSource = canvas;
+  } else {
+    const targetW = 1080, targetH = ratio === '916' ? 1920 : 1080;
+    exportCanvas = document.createElement('canvas');
+    exportCanvas.width = targetW; exportCanvas.height = targetH;
+    exportCtx = exportCanvas.getContext('2d');
+    captureSource = exportCanvas;
+    const drawFrame = ()=>{
+      coverDraw(exportCtx, targetW, targetH, canvas);
+      recordCompositeRAF = requestAnimationFrame(drawFrame);
+    };
+    drawFrame();
+  }
+
+  const videoStream = captureSource.captureStream(30);
+  const combined = new MediaStream();
+  videoStream.getVideoTracks().forEach(t=>combined.addTrack(t));
+
+  const hasAudio = connectCurrentAudioToRecorder();
+  if(hasAudio){ mediaStreamDest.stream.getAudioTracks().forEach(t=>combined.addTrack(t)); }
+
+  const mimeType = pickRecorderMimeType(hasAudio);
+  recordedChunks = [];
+  try{
+    mediaRecorder = mimeType ? new MediaRecorder(combined, {mimeType}) : new MediaRecorder(combined);
+  }catch(e){
+    showStageNotice("Impossible de démarrer l'enregistrement : " + e.message, 5000);
+    stopCompositeLoop();
+    return;
+  }
+  mediaRecorder.ondataavailable = (e)=>{ if(e.data && e.data.size>0) recordedChunks.push(e.data); };
+  mediaRecorder.onstop = ()=>{
+    stopCompositeLoop();
+    videoStream.getTracks().forEach(t=>t.stop());
+    const usedType = mediaRecorder.mimeType || mimeType || 'video/webm';
+    const ext = usedType.indexOf('mp4') !== -1 ? 'mp4' : 'webm';
+    const blob = new Blob(recordedChunks, {type: usedType});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `fond-ecran-${Date.now()}.${ext}`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    showStageNotice(`Vidéo enregistrée au format ${ext.toUpperCase()}.`, 5000);
+    setRecordingUI(false);
+  };
+  mediaRecorder.start();
+  setRecordingUI(true);
+  showStageNotice('Enregistrement en cours...', 3000);
+
+  const durationVal = document.getElementById('recordDuration').value;
+  if(durationVal !== 'manual'){
+    recordAutoStopTimer = setTimeout(stopRecording, parseInt(durationVal,10)*1000);
+  }
+}
+
+function stopRecording(){
+  if(recordAutoStopTimer){ clearTimeout(recordAutoStopTimer); recordAutoStopTimer = null; }
+  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+}
+
+document.getElementById('btnRecord').onclick = ()=>{
+  if(mediaRecorder && mediaRecorder.state === 'recording') stopRecording();
+  else startRecording();
 };
 
 // --- mode couleur, teinte, réinitialisation ---
