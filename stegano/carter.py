@@ -33,7 +33,7 @@ from cryptography.hazmat.primitives import hashes as _hashes
 
 from crypto_core import (
     ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols,
-    max_payload_for, max_message_for,
+    max_payload_for, max_message_for, _random_symbols,
 )
 from stegano_classic import apply_orientation, _find_ref
 
@@ -114,7 +114,6 @@ def encode_carter(message: str, master_key: bytes,
 
     grid_to_csv() pour sérialiser, csv_to_grid() pour désérialiser.
     """
-    import secrets as _sec
     xchacha_key, grammar_key = _carter_split(master_key)
     grammar = _carter_grammar(grammar_key, ref256)
 
@@ -135,8 +134,11 @@ def encode_carter(message: str, master_key: bytes,
             f"{len(message)} caractères > {max_message_for(n_pos)} "
             f"disponibles. Changer la clé ou réduire le message.")
 
-    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(CARTER_GRID)]
-              for _ in range(CARTER_GRID)]
+    # Remplissage bulk CSPRNG (voir crypto_core._random_symbols) : mesuré
+    # ~x6 plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
+    # G. Kerma, §4.8), même garantie de sécurité.
+    _flat = _random_symbols(CARTER_GRID * CARTER_GRID)
+    grid  = [_flat[i*CARTER_GRID:(i+1)*CARTER_GRID] for i in range(CARTER_GRID)]
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -276,7 +278,6 @@ def encode_carter_360(message: str, master_key: bytes,
     grammaire étant dérivée de la clé, la capacité varie fortement d'une clé
     à l'autre : carter360_capacity() donne le chiffre exact pour une clé.
     """
-    import secrets as _sec
     if ref360 is None:
         ref360 = _load_ref360()
 
@@ -302,8 +303,9 @@ def encode_carter_360(message: str, master_key: bytes,
             f"{max_message_for(n_pos)} disponibles "
             f"({n_msg} blocs message, {n_pos} positions).")
 
-    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(CARTER360_GRID)]
-              for _ in range(CARTER360_GRID)]
+    # Remplissage bulk CSPRNG — voir encode_carter().
+    _flat = _random_symbols(CARTER360_GRID * CARTER360_GRID)
+    grid  = [_flat[i*CARTER360_GRID:(i+1)*CARTER360_GRID] for i in range(CARTER360_GRID)]
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -463,7 +465,6 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     La capacité totale est elle-même dérivée de la clé (obscurcissement).
     """
-    import secrets as _sec
     if ref360 is None:
         ref360 = _load_ref360()
 
@@ -483,8 +484,9 @@ def encode_carter_mix(message: str, master_key: bytes,
             f"{max_message_for(nibbles_cap)} disponibles dans la "
             f"grammaire dérivée.")
 
-    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(CARTER_MIX_GRID)]
-              for _ in range(CARTER_MIX_GRID)]
+    # Remplissage bulk CSPRNG — voir encode_carter().
+    _flat = _random_symbols(CARTER_MIX_GRID * CARTER_MIX_GRID)
+    grid  = [_flat[i*CARTER_MIX_GRID:(i+1)*CARTER_MIX_GRID] for i in range(CARTER_MIX_GRID)]
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue

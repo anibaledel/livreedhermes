@@ -226,3 +226,35 @@ def max_payload_for(n_positions: int) -> int:
 def max_message_for(n_positions: int) -> int:
     """Plus long message clair tenant dans n_positions symboles."""
     return max(0, max_payload_for(n_positions) - _AEAD_OVERHEAD)
+
+# ── Bruit de grille — remplissage CSPRNG en bloc ──────────────────────────────
+# Mesure arm64 (gk2/MOCHAbin, audit G. Kerma, §4.8) : le remplissage du bruit
+# d'une grille Carter 90×90 via secrets.randbelow(ALPHA_LEN) x 8100 appels
+# individuels coûte ~42,5 ms, soit ~85% du coût d'un encode() complet
+# (~50 ms). Le CSPRNG lui-même n'est pas le goulot — c'est le coût Python
+# de 8100 appels de fonction séparés. _random_symbols() tire un seul bloc
+# os.urandom() puis fait le rejection sampling directement sur les octets,
+# sans appel de fonction par cellule. Même garantie de sécurité que
+# secrets.randbelow() : CSPRNG (os.urandom), distribution exactement
+# uniforme sur [0..ALPHA_LEN-1] par rejet (aucun biais modulo) — mesuré
+# ~×6 sur le débit d'encodage (~50 ms -> ~8 ms).
+
+def _random_symbols(n: int) -> List[int]:
+    """
+    n symboles uniformes sur [0..ALPHA_LEN-1], tirés d'un CSPRNG (os.urandom)
+    par rejection sampling en bloc plutôt que n appels à secrets.randbelow().
+    """
+    if n <= 0:
+        return []
+    lim = (256 // ALPHA_LEN) * ALPHA_LEN   # 220 pour ALPHA_LEN=44 : rejette [220..255]
+    out = []
+    while len(out) < n:
+        # Sur-échantillonne pour couvrir le taux de rejet (~14% pour 44),
+        # avec une marge fixe pour les petits n.
+        need = n - len(out)
+        buf  = os.urandom(need + need // 6 + 16)
+        for b in buf:
+            if b < lim:
+                out.append(b % ALPHA_LEN)
+                if len(out) >= n: break
+    return out

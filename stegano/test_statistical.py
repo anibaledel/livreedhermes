@@ -130,23 +130,48 @@ class TestAvalancheKey(unittest.TestCase):
                                   self.ref256, seed=seed)
         return _hamming_ratio(_grid_flat(g1), _grid_flat(g2))
 
-    def test_avalanche_carter_grid(self):
+    def test_grammar_avalanche(self):
         """
-        Avalanche grille Carter : flip 1 bit cle -> changement massif (>80%).
+        Avalanche de grammaire Carter-256 : flip 1 bit cle -> >35% des
+        blocs changent de role. Meme methode que
+        TestCarterRandomAvalanche.test_grammar_avalanche, appliquee au
+        referent fixe (carter.py) plutot qu'aux referents generes
+        dynamiquement (carter_random.py).
 
-        NB : la propriete Carter est differente d'un chiffrement par bloc.
-        Quand la cle change : la GRAMMAIRE change entierement (HKDF).
-        ~2/3 des blocs changent de role (message<->bruit).
-        ~1/3 restants (message->message) changent de valeur (cle differente).
-        Resultat attendu : ~97% des cellules changent (propriete desirable).
+        Remplace l'ancien test_avalanche_carter_grid, qui mesurait la
+        distance de Hamming sur la grille ENTIERE (8100 cellules). Ce
+        chiffre etait domine par le bruit independant de deux appels
+        os.urandom non correles (secrets.randbelow() n'etait alors pas
+        patchable par le mock os.urandom des tests, malgre le seed
+        partage voulu par _encode_fixed_noise) : deux grilles de bruit
+        independant differaient deja sur ~97,7% des cellules, quelle que
+        soit la cle. Depuis que le remplissage passe par
+        crypto_core._random_symbols() (perf, mesure arm64 gk2/MOCHAbin,
+        §4.8), le bruit EST reellement pin par le seed partage, et ce
+        qui reste a mesurer est le vrai signal : le changement de
+        grammaire. Sur la grille entiere, ce signal reel ne pese plus
+        que ~3-4% des cellules (seuls les blocs 'message' sont
+        effectivement ecrits ; 'structure' et 'pur' sont indiscernables
+        du bruit par construction) — la grammaire elle-meme reste
+        mesurable directement, sans passer par la grille.
         """
+        from stegano_lib import _carter_grammar, _MESSAGE
         key = os.urandom(32)
-        ratios = [self._avalanche_ratio(key, b) for b in range(self.BITS)]
+        ratios = []
+        for bit in range(self.BITS):
+            key2 = _flip_key_bit(key, bit)
+            _, gk1 = _carter_split(key)
+            _, gk2 = _carter_split(key2)
+            g1 = _carter_grammar(gk1, self.ref256)
+            g2 = _carter_grammar(gk2, self.ref256)
+            roles1 = [1 if g['role']==_MESSAGE else 0 for g in g1]
+            roles2 = [1 if g['role']==_MESSAGE else 0 for g in g2]
+            diff = sum(1 for a,b in zip(roles1,roles2) if a!=b)
+            ratios.append(diff/len(roles1))
         mean = statistics.mean(ratios)
-        self.assertGreater(mean, 0.80,
-            f"Avalanche Carter trop faible : {mean:.3f} < 0.80")
-        print(f"  Avalanche Carter grille : mean={mean:.3f} ")
-        print(f"  (attendu >80% : grammaire HKDF + chiffrement changent ensemble)")
+        self.assertGreater(mean, 0.35,
+            f"Grammar avalanche Carter-256 trop faible : {mean:.3f} < 0.35")
+        print(f"  Grammar avalanche Carter-256 : mean={mean:.3f} (attendu > 0.35)")
 
     def test_avalanche_chacha20_hkdf_key_sensitivity(self):
         """
@@ -206,6 +231,25 @@ class TestAvalancheMessage(unittest.TestCase):
         cls.key = os.urandom(32)
 
     def test_avalanche_message_bits(self):
+        """
+        Avalanche sur les cellules message (pas la grille entiere) : flip
+        1 bit du message -> le commitment HMAC-SHA256 (32B, avalanche
+        complete) et le tag Poly1305 (16B, avalanche complet) changent,
+        pour un ciphertext XChaCha20 qui ne differe lineairement que sur
+        l'octet touche. Isole aux cellules message (meme cle -> memes
+        positions pour msg et msg2, voir _carter_message_positions) plutot
+        que sur la grille entiere : les cellules hors-message sont
+        structurellement identiques entre les deux encodages (meme cle,
+        meme bruit pin par le seed partage), donc les compter aurait
+        dilue le signal sur ~8000 cellules qui ne peuvent PAS differer par
+        construction. Meme principe que le remplacement de
+        test_avalanche_carter_grid ci-dessus.
+        """
+        from stegano_lib import _carter_grammar, _carter_message_positions
+        _, grammar_key = _carter_split(self.key)
+        grammar = _carter_grammar(grammar_key, self.ref256)
+        n_msg_positions = _carter_message_positions(grammar, self.ref256)
+
         ratios = []
         for char_pos, bit_pos in self.BITS:
             msg2 = _flip_msg_bit(self.MSG, char_pos, bit_pos)
@@ -215,13 +259,16 @@ class TestAvalancheMessage(unittest.TestCase):
                                       self.ref256, seed=seed)
             g2 = _encode_fixed_noise(encode_carter, msg2, self.key,
                                       self.ref256, seed=seed)
-            r = _hamming_ratio(_grid_flat(g1), _grid_flat(g2))
-            ratios.append(r)
+            # Seules les cellules message peuvent differer (meme cle, meme
+            # bruit pin) : diviser par n_msg_positions plutot que la
+            # taille totale de la grille isole le signal reel.
+            diff = sum(1 for a, b in zip(_grid_flat(g1), _grid_flat(g2)) if a != b)
+            ratios.append(diff / n_msg_positions)
         if ratios:
             mean = statistics.mean(ratios)
-            self.assertGreater(mean, 0.05,
-                "Message : flip de bit sans effet significatif")
-            print(f"  Avalanche msg  : mean={mean:.3f}  n={len(ratios)}")
+            self.assertGreater(mean, 0.20,
+                f"Avalanche cellules message trop faible : {mean:.3f}")
+            print(f"  Avalanche msg (cellules message) : mean={mean:.3f}  n={len(ratios)}")
 
 
 class TestEntropy(unittest.TestCase):
