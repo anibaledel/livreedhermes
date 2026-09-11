@@ -366,6 +366,128 @@ class TestChiSquare(unittest.TestCase):
               f"echecs={bad}/{self.N_GRIDS}")
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Test 6.2 (plan v3) — Deux grilles, meme cle
+#
+# Remplace la partie statistique de TestHeaderUniformity (format v3, tache
+# 2 : N1 remplace en entier par la charge utile a longueur fixe). Compare
+# deux grilles Carter-256 sous la MEME cle mais avec deux messages
+# DIFFERENTS, sur TOUTES les positions message (pas un echantillon) : le
+# test qui aurait detecte a la fois le probleme des nibbles [0..15] et la
+# faille N1 (symbole de poids faible de l'en-tete confine a 11/44 valeurs,
+# span=2^32 = 4 mod 44).
+# ══════════════════════════════════════════════════════════════════════════════
+class TestTwoGridDifference(unittest.TestCase):
+    """Test 6.2 : chi2 de (G1-G2) mod ALPHA aux positions message, plusieurs paires."""
+
+    MSG_A   = "ANIBALAMIOTX"
+    MSG_B   = "LACROIXANSEE"
+    N_PAIRS = 8
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ref256, _ = load_referents()
+
+    def test_two_grids_same_key_different_messages_all_positions(self):
+        try:
+            import scipy.stats as st
+        except ImportError:
+            self.skipTest("scipy non installe")
+        from stegano_lib import (
+            _carter_split, _carter_grammar, _carter_positions,
+            _MESSAGE, CARTER_SIDE,
+        )
+        diffs = []
+        pairs_used = 0
+        for _ in range(self.N_PAIRS):
+            key = os.urandom(32)
+            try:
+                g1 = encode_carter(self.MSG_A, key, self.ref256)
+                g2 = encode_carter(self.MSG_B, key, self.ref256)
+            except ValueError:
+                continue   # grammaire trop petite pour cette cle, tres rare
+            pairs_used += 1
+            _, grammar_key = _carter_split(key)
+            grammar = _carter_grammar(grammar_key, self.ref256)
+            for i, gcell in enumerate(grammar):
+                if gcell['role'] != _MESSAGE:
+                    continue
+                br, bc = i // CARTER_SIDE, i % CARTER_SIDE
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
+                    diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
+        if not diffs:
+            self.skipTest("Aucune paire de cles valide")
+        n    = len(diffs)
+        exp  = n / ALPHA
+        obs  = [diffs.count(v) for v in range(ALPHA)]
+        chi2, p = st.chisquare(obs, [exp] * ALPHA)
+        self.assertGreater(p, CHI2_PVALUE_MIN,
+            f"Positions message distinguables entre deux messages differents "
+            f"sous la meme cle : chi2={chi2:.1f} p={p:.4f} (n={n})")
+        print(f"  Deux grilles (msgs differents, meme cle) : "
+              f"{pairs_used} paires, n={n} positions, chi2={chi2:.1f} p={p:.4f}")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Test 6.4 (plan v3) — Longueur masquee
+#
+# Remplace la partie statistique de TestHeaderUniformity (voir bloc
+# ci-dessus). Deux messages de longueurs TRES differentes sous la meme cle
+# produisent des grilles sans difference statistique mesurable aux
+# positions message : la longueur est chiffree a l'interieur du payload
+# (Definition 3.6), elle n'apparait plus dans un champ separe observable.
+# ══════════════════════════════════════════════════════════════════════════════
+class TestMaskedLength(unittest.TestCase):
+    """Test 6.4 : deux longueurs de message tres differentes, meme cle, chi2."""
+
+    MSG_SHORT = "A"
+    MSG_LONG  = "LACROIXANSEEESTLAMETHODECREATIVEDELALIVREEDHERMES"
+    N_PAIRS   = 8
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ref256, _ = load_referents()
+
+    def test_length_hidden_no_statistical_difference(self):
+        try:
+            import scipy.stats as st
+        except ImportError:
+            self.skipTest("scipy non installe")
+        from stegano_lib import (
+            _carter_split, _carter_grammar, _carter_positions,
+            _MESSAGE, CARTER_SIDE,
+        )
+        diffs = []
+        pairs_used = 0
+        for _ in range(self.N_PAIRS):
+            key = os.urandom(32)
+            try:
+                g1 = encode_carter(self.MSG_SHORT, key, self.ref256)
+                g2 = encode_carter(self.MSG_LONG, key, self.ref256)
+            except ValueError:
+                continue   # grammaire trop petite pour le message long, tres rare
+            pairs_used += 1
+            _, grammar_key = _carter_split(key)
+            grammar = _carter_grammar(grammar_key, self.ref256)
+            for i, gcell in enumerate(grammar):
+                if gcell['role'] != _MESSAGE:
+                    continue
+                br, bc = i // CARTER_SIDE, i % CARTER_SIDE
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
+                    diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
+        if not diffs:
+            self.skipTest("Aucune paire de cles valide")
+        n    = len(diffs)
+        exp  = n / ALPHA
+        obs  = [diffs.count(v) for v in range(ALPHA)]
+        chi2, p = st.chisquare(obs, [exp] * ALPHA)
+        self.assertGreater(p, CHI2_PVALUE_MIN,
+            f"Longueurs differentes ({len(self.MSG_SHORT)}/{len(self.MSG_LONG)} "
+            f"car.) distinguables statistiquement : chi2={chi2:.1f} p={p:.4f} (n={n})")
+        print(f"  Longueur masquee ({len(self.MSG_SHORT)}/{len(self.MSG_LONG)} car.) : "
+              f"{pairs_used} paires, n={n} positions, chi2={chi2:.1f} p={p:.4f}")
+
+
 class TestAutocorrelation(unittest.TestCase):
     """Autocorrelation des valeurs de grille : |r(lag)| < AUTOCORR_MAX."""
 

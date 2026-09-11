@@ -13,8 +13,9 @@ Structure :
   Classe A          — Dérivation de clés (pure, déterministe)
   Classe B          — Grammaire Carter (déterministe)
   Classe C          — Format payload (key commitment + XChaCha20-Poly1305)
-  Classe C-bis       — Uniformité de la charge utile à longueur fixe (tâche 2,
-                       remplace N1 — TestHeaderUniformity remplacée par v3)
+  Classe C-bis       — Charge utile à longueur fixe, correction seule (tâche 2,
+                       remplace N1 — voir test_statistical.py pour les
+                       tests statistiques 6.2/6.4 associés)
   Classe D          — Décodage (grilles pré-calculées, fixtures JSON)
   Classe E          — Compatibilité croisée encode/decode
 
@@ -32,7 +33,9 @@ la charge utile est de longueur FIXE, déterminée par L, et porte la longueur
 du message CHIFFRÉE à l'intérieur du payload plutôt que dans un en-tête
 séparé. N1 (l'en-tête de longueur à entropie pleine) est remplacé en entier,
 pas complété : TestHeaderUniformity est remplacée par TestFixedPayloadUniformity
-(tests 6.2/6.4 du plan v3 — voir cette classe pour le détail).
+ici (round-trip, invariant structurel) et par TestTwoGridDifference /
+TestMaskedLength dans test_statistical.py (tests 6.2/6.4 du plan v3 —
+propriétés statistiques, voir ce fichier).
 """
 
 import unittest, os, sys, hashlib, hmac, struct
@@ -411,11 +414,16 @@ class TestPayloadFormat(unittest.TestCase):
 # (pas complété) par la charge utile à longueur fixe de la Définition 3.6 :
 # TOUTES les positions message portent désormais un symbole de charge
 # utile, il n'existe plus de position structurellement différente des
-# autres. Remplacé par les tests 6.2 (différence de deux tirages sous la
-# même clé) et 6.4 (longueur masquée) du plan v3, qui couvrent la même
-# propriété d'uniformité de façon plus forte — et vérifient explicitement
-# que les positions qui portaient l'en-tête sous N1 (indices 0, 1) passent
-# le χ².
+# autres.
+#
+# Les tests 6.2 (différence de deux grilles) et 6.4 (longueur masquée) du
+# plan v3, qui remplacent la partie STATISTIQUE de TestHeaderUniformity,
+# vivent dans test_statistical.py (TestTwoGridDifference,
+# TestMaskedLength) — découpage cohérent avec le tableau 2 du papier
+# (régression = vecteurs de correction, statistique = propriétés
+# distributionnelles). Cette classe ne garde que les vérifications de
+# correction (round-trip, invariant structurel) qui ne sont pas des tests
+# statistiques.
 # ══════════════════════════════════════════════════════════════════════════════
 class TestFixedPayloadUniformity(unittest.TestCase):
     """Remplace TestHeaderUniformity (voir bloc de commentaire ci-dessus)."""
@@ -447,71 +455,6 @@ class TestFixedPayloadUniformity(unittest.TestCase):
             syms = payload_to_symbols(payload, self.L_TEST)
             lengths_seen.add(len(syms))
         self.assertEqual(lengths_seen, {self.L_TEST})
-
-    def test_two_draws_same_key_difference_uniform(self):
-        """
-        Test 6.2 du plan v3 (remplace TestHeaderUniformity) : deux tirages
-        du même message sous la même clé (aléa de rembourrage PtS frais à
-        chaque tirage) -> (syms1 - syms2) mod ALPHA_LEN doit être uniforme
-        sur [0..43], position par position — y COMPRIS les positions 0 et 1
-        qui portaient l'en-tête sous N1/v2. Un biais localisé sur ces deux
-        positions est exactement ce qui aurait détecté la faille N1
-        (span=2^32 ≡ 4 mod 44, 11/44 valeurs seulement pour le symbole de
-        poids faible de l'ancien en-tête).
-        """
-        import crypto_core as C
-        from collections import Counter
-        N = 4000
-        key = KEY_KNOWN
-        tracked = (0, 1, 2, self.L_TEST - 1)   # anciennes positions d'en-tête + fin
-        diffs = {idx: Counter() for idx in tracked}
-        for _ in range(N):
-            p1 = _encrypt(MSG_SHORT, key, self.L_TEST)
-            p2 = _encrypt(MSG_SHORT, key, self.L_TEST)
-            s1 = payload_to_symbols(p1, self.L_TEST)
-            s2 = payload_to_symbols(p2, self.L_TEST)
-            for idx in tracked:
-                diffs[idx][(s1[idx] - s2[idx]) % C.ALPHA_LEN] += 1
-        exp = N / C.ALPHA_LEN
-        for idx in tracked:
-            c = diffs[idx]
-            chi2 = sum((c.get(v, 0) - exp) ** 2 / exp for v in range(C.ALPHA_LEN))
-            label = f"position {idx}" + (" (ancienne position d'en-tête N1)" if idx < 2 else "")
-            with self.subTest(idx=idx):
-                self.assertEqual(len(c), C.ALPHA_LEN,
-                                 f"{label} : {len(c)}/44 valeurs seulement")
-                # χ²_0.9999 (df=43) ≈ 89 ; large marge anti-flakiness.
-                self.assertLess(chi2, 100.0, f"{label} non uniforme : chi2={chi2:.1f}")
-
-    def test_length_hidden_no_statistical_difference(self):
-        """
-        Test 6.4 du plan v3 (remplace TestHeaderUniformity) : deux messages
-        de longueurs différentes ("A" et un message long) produisent, à L
-        fixé, un symbole de première position (celle qui aurait porté
-        l'en-tête de longueur sous N1/v2) uniforme sur [0..43] quelle que
-        soit la longueur réellement encodée — la longueur n'est donc pas
-        mesurable statistiquement depuis le flux de symboles, elle est
-        chiffrée à l'intérieur du payload (Définition 3.6, format v3).
-        """
-        import crypto_core as C
-        from collections import Counter
-        N = 3000
-        key = KEY_KNOWN
-        max_len = max_message_for(self.L_TEST)
-        for msg in ("A", MSG_LONG[:max_len]):
-            c = Counter()
-            for _ in range(N):
-                payload = _encrypt(msg, key, self.L_TEST)
-                syms = payload_to_symbols(payload, self.L_TEST)
-                c[syms[0]] += 1
-            exp = N / C.ALPHA_LEN
-            chi2 = sum((c.get(v, 0) - exp) ** 2 / exp for v in range(C.ALPHA_LEN))
-            with self.subTest(msg_len=len(msg)):
-                self.assertEqual(len(c), C.ALPHA_LEN,
-                                 f"longueur {len(msg)} : {len(c)}/44 valeurs seulement")
-                self.assertLess(chi2, 100.0,
-                                f"longueur {len(msg)} : position 0 non uniforme, "
-                                f"chi2={chi2:.1f}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
