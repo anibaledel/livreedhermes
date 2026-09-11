@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>Carter Random JS — test navigateur</title></head>
+<body>
+<pre id="out">running...</pre>
+<script type="module">
+import {
+  encodeCarterRandom, decodeCarterRandom, carterRandomFits, carterRandomCapacity
+} from './carter_random.js';
+
+const out = document.getElementById('out');
+function log(...args) {
+  const line = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+  console.log(line);
+  out.textContent += line + '\n';
+}
+
+function randomKey() {
+  const k = new Uint8Array(32);
+  crypto.getRandomValues(k);
+  return k;
+}
+
+async function main() {
+  log('=== Carter Random JS — round-trip test (real browser) ===');
+  log('userAgent:', navigator.userAgent);
+
+  let ok = 0, tried = 0;
+  const t0 = performance.now();
+  for (let i = 0; i < 15; i++) {
+    const key = randomKey();
+    const msg = 'HELLO CARTER RANDOM JS ' + i;
+    if (!(await carterRandomFits(msg, key))) continue;
+    tried++;
+    const { grid, mode, seed } = await encodeCarterRandom(msg, key);
+    const dec = await decodeCarterRandom(grid, key);
+    if (dec !== msg) { log('MISMATCH', i, mode, seed, JSON.stringify(dec)); continue; }
+    ok++;
+  }
+  const t1 = performance.now();
+  log(`round-trips: ${ok}/${tried} (out of 15 keys tried) in ${(t1-t0).toFixed(1)}ms`);
+
+  // wrong key rejection
+  const key = randomKey();
+  const msg = 'SECRET MESSAGE BROWSER TEST';
+  let guard = 0;
+  while (!(await carterRandomFits(msg, key)) && guard++ < 50) {}
+  const { grid } = await encodeCarterRandom(msg, key);
+  try {
+    await decodeCarterRandom(grid, randomKey());
+    log('BUG: wrong key accepted');
+  } catch (e) {
+    log('wrong key correctly rejected:', e.message);
+  }
+
+  // capacity + non-ascii rejection (LH-1)
+  const cap = await carterRandomCapacity(key);
+  log('capacity sample:', cap);
+  try {
+    await encodeCarterRandom('café à paris', key);
+    log('BUG: non-ASCII accepted');
+  } catch (e) {
+    log('non-ASCII correctly rejected (LH-1):', e.message);
+  }
+
+  // basic uniformity sanity check on noise fill (not a full chi2, just a spot check)
+  const { grid: g2 } = await encodeCarterRandom('AB', key.length ? key : randomKey());
+  const flat = g2.flat();
+  const counts = new Array(44).fill(0);
+  for (const v of flat) counts[v]++;
+  const min = Math.min(...counts), max = Math.max(...counts);
+  log('noise distribution sanity (8100 cells / 44 symbols, expect ~184 each):', 'min='+min, 'max='+max);
+
+  log('=== DONE ===');
+  window.__TEST_DONE__ = true;
+  window.__TEST_OK__ = (ok === tried && tried > 0);
+}
+main().catch(e => { log('FATAL', e.message, e.stack); window.__TEST_DONE__ = true; window.__TEST_OK__ = false; });
+</script>
+</body>
+</html>
