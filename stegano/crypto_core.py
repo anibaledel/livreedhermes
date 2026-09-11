@@ -298,9 +298,10 @@ LABELS = {
         # séparé par variante ; le flux de masques lui-même vient ensuite
         # du keystream ChaCha20(mask_key, nonce=0) — voir carter_random.py.
         'salt':        b'Carter-masks-v3',
-        'info_random': b'position-masks-random',
-        'info_18':     b'position-masks-18',
-        'info_hybrid': b'position-masks-hybrid',
+        'info_random':   b'position-masks-random',
+        'info_18':       b'position-masks-18',
+        'info_hybrid':   b'position-masks-hybrid',
+        'info_deniable': b'position-masks-deniable',   # secu_box.py, tâche 5
     },
     'redraw': {
         # Racine du redraw déterministe (tâche 4) — voir _redraw_grammar_key
