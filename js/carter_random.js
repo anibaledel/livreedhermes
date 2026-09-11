@@ -40,7 +40,7 @@ export const CONC_ORDER = [
   [0,0],[0,2],[2,0],[2,2],
 ];
 
-const PURE = 0, STRUCTURED = 1, MESSAGE = 2;
+export const PURE = 0, STRUCTURED = 1, MESSAGE = 2;
 
 // ── Mersenne Twister (reproduction exacte du random.Random Python) ─────────────
 class MersenneTwister {
