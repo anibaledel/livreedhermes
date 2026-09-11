@@ -4,6 +4,9 @@ node_modules/
 !.env.example
 worker/.dev.vars
 worker/.wrangler
+worker/session.json
 
 __pycache__/
 *.py[cod]
+
+/carter_hybrid_review.zip
