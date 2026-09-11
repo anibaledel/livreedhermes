@@ -15,7 +15,8 @@ par la migration format v3 de crypto_core._encrypt/_decrypt/payload_to_symbols
 automatisé ; ce fichier existe pour que ça ne se reproduise pas.
 """
 
-import os, sys, secrets, unittest
+import os, sys, secrets, unittest, inspect
+from collections import Counter
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -23,10 +24,16 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'stegano'))
 
-from secu_box import encode_deniable, encode_deniable0, decode_deniable
+from secu_box import (
+    encode_deniable, encode_deniable0, decode_deniable,
+    _fisher_yates, _split_br_bd, _deniable_positions,
+)
+from stegano_lib import ALPHA_LEN
 
 MSG_REAL   = "MESSAGE SECRET ANIBAL"
 MSG_DURESS = "NOTES PERSO TEXTILE"
+GRID_SIZE  = 90
+N_BLOCKS   = (GRID_SIZE // 6) ** 2   # 225
 
 
 class TestDeniableRoundtrip(unittest.TestCase):
@@ -67,16 +74,44 @@ class TestDeniableKeyProperties(unittest.TestCase):
         self.assertNotEqual(dk1['steg_key'], dk2['steg_key'])
         self.assertNotEqual(rk1['steg_key'], dk1['steg_key'])
 
-    def test_br_bd_disjoint_and_cover_all_blocks(self):
-        """Br ∩ Bd = ∅ et Br ∪ Bd = [0, B) — partition stricte, aucune collision possible."""
+    def test_br_bd_disjoint_equal_size_one_leftover(self):
+        """
+        Br ∩ Bd = ∅, |Br| = |Bd| = ⌊B/2⌋. B=225 est impair : un bloc
+        (π[112]) reste hors des deux ensembles, jamais écrit (voir
+        _split_br_bd) — Br ∪ Bd ne couvre donc PAS tous les blocs, il en
+        manque exactement un.
+        """
         grid, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
         br, bd = set(rk['blocks']), set(dk['blocks'])
+        n_blocks = (90 // 6) ** 2   # 225
         self.assertTrue(br.isdisjoint(bd), "Br et Bd se chevauchent")
-        n_blocks = (90 // 6) ** 2
-        self.assertEqual(br | bd, set(range(n_blocks)),
-                         "Br ∪ Bd ne couvre pas tous les blocs de la grille")
         self.assertEqual(len(br), n_blocks // 2)
-        self.assertEqual(len(bd), n_blocks - n_blocks // 2)
+        self.assertEqual(len(bd), n_blocks // 2)
+        leftover = set(range(n_blocks)) - br - bd
+        self.assertEqual(len(leftover), 1,
+                         "Il ne reste pas exactement un bloc hors de Br et Bd")
+
+    def test_encode0_leaves_br_and_leftover_untouched(self):
+        """
+        Encode0 n'appelle _place_deniable QUE sur Bd -- Br ET le bloc
+        restant (B=225 impair) restent au bruit CSPRNG du remplissage
+        initial, jamais écrits par aucune fonction.
+        """
+        import secu_box as SB
+        calls = []
+        original = SB._place_deniable
+        def spy(grid, N, B, block_indices, message, sk):
+            calls.append(list(block_indices))
+            return original(grid, N, B, block_indices, message, sk)
+        SB._place_deniable = spy
+        try:
+            grid, dk = encode_deniable0(MSG_DURESS)
+        finally:
+            SB._place_deniable = original
+        self.assertEqual(len(calls), 1,
+                         "_place_deniable doit être appelée exactement une fois (Bd seul)")
+        self.assertEqual(set(calls[0]), set(dk['blocks']),
+                         "_place_deniable a été appelée avec autre chose que Bd")
 
     def test_permutation_independent_of_keys(self):
         """
@@ -117,13 +152,169 @@ class TestDeniableKeyProperties(unittest.TestCase):
 
 
 class TestDeniableCapacity(unittest.TestCase):
-    """Message trop long pour Br/Bd (112/113 blocs × 6 positions chacun)."""
+    """Message trop long pour Br/Bd (112 blocs × 6 positions chacun)."""
 
     def test_message_too_long_raises(self):
         with self.assertRaises(ValueError):
             encode_deniable("A" * 5000, MSG_DURESS)
         with self.assertRaises(ValueError):
             encode_deniable(MSG_REAL, "A" * 5000)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Classe — Tâche 6.3 (déni) : du point de vue du contraignant (dk_d seul)
+#
+# Invariant vérifié ici (formulation reprise telle quelle dans les
+# commentaires de secu_box.py, destinée à LH-5) : les ENSEMBLES de blocs
+# (Br, Bd, bloc orphelin) sont indépendants des clés ; les POSITIONS
+# INTRA-BLOC sont dérivées de la clé du message concerné — c'est voulu,
+# pas une fuite (voir _place_deniable/_deniable_positions).
+# ══════════════════════════════════════════════════════════════════════════════
+class TestDeniableStatistical(unittest.TestCase):
+    """Encode vs Encode0 du point de vue du porteur de dk_d — χ², seuils p > 0.001."""
+
+    def _outside_bd_values(self, grid, dk):
+        """Toutes les valeurs de la grille SAUF les positions message de Bd —
+        exactement ce que le porteur de dk_d peut isoler avec sa seule clé."""
+        B = GRID_SIZE // 6
+        bd_positions = set(_deniable_positions(GRID_SIZE, B, dk['blocks'],
+                                                dk['steg_key'], dk['key_2']))
+        return [grid[r][c] for r in range(GRID_SIZE) for c in range(GRID_SIZE)
+                if (r, c) not in bd_positions]
+
+    def test_cells_outside_bd_uniform_and_encode_vs_encode0(self):
+        """
+        6.3.1 : χ² des cellules hors Bd sous Encode et sous Encode0, plus un
+        test à deux échantillons entre les deux modes sur ces cellules —
+        le porteur de dk_d ne doit voir aucune différence entre "il y a un
+        message réel dans Br" (Encode) et "il n'y en a pas" (Encode0).
+        """
+        try:
+            import scipy.stats as st
+        except ImportError:
+            self.skipTest("scipy non installe")
+
+        N_TRIALS = 15
+        encode_vals, encode0_vals = [], []
+        for _ in range(N_TRIALS):
+            grid, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
+            encode_vals.extend(self._outside_bd_values(grid, dk))
+        for _ in range(N_TRIALS):
+            grid, dk = encode_deniable0(MSG_DURESS)
+            encode0_vals.extend(self._outside_bd_values(grid, dk))
+
+        for label, vals in (("Encode", encode_vals), ("Encode0", encode0_vals)):
+            n = len(vals)
+            exp = n / ALPHA_LEN
+            c = Counter(vals)
+            obs = [c.get(v, 0) for v in range(ALPHA_LEN)]
+            chi2, p = st.chisquare(obs, [exp] * ALPHA_LEN)
+            with self.subTest(mode=label, check="uniforme"):
+                self.assertGreater(p, 0.001,
+                    f"{label} : cellules hors Bd non uniformes (n={n}) chi2={chi2:.1f} p={p:.5f}")
+
+        # Test à deux échantillons : Encode vs Encode0, mêmes cellules (hors Bd)
+        ce, ce0 = Counter(encode_vals), Counter(encode0_vals)
+        table = [[ce.get(v, 0) for v in range(ALPHA_LEN)],
+                 [ce0.get(v, 0) for v in range(ALPHA_LEN)]]
+        chi2_2s, p_2s, dof, _ = st.chi2_contingency(table)
+        self.assertGreater(p_2s, 0.001,
+            f"Encode et Encode0 distinguables hors Bd : chi2={chi2_2s:.1f} p={p_2s:.5f} dof={dof}")
+        print(f"  Hors Bd : Encode n={len(encode_vals)} / Encode0 n={len(encode0_vals)} "
+              f"-- deux echantillons chi2={chi2_2s:.1f} p={p_2s:.4f}")
+
+    def test_bd_distribution_independent_of_real_message(self):
+        """
+        6.3.2 (mode vecteurs, dsk injecté) : même dsk, deux encodages
+        donnent des Bd différents ; la distribution de Bd (quels blocs sont
+        choisis) ne dépend ni de la présence ni de la longueur de m_r.
+        """
+        try:
+            import scipy.stats as st
+        except ImportError:
+            self.skipTest("scipy non installe")
+
+        fixed_dsk = secrets.token_bytes(32)
+
+        # même dsk, deux appels -> Bd différents
+        _, dk_a = encode_deniable0("A", _dsk=fixed_dsk)
+        _, dk_b = encode_deniable0("B", _dsk=fixed_dsk)
+        self.assertEqual(dk_a['steg_key'], fixed_dsk)
+        self.assertEqual(dk_b['steg_key'], fixed_dsk)
+        self.assertNotEqual(set(dk_a['blocks']), set(dk_b['blocks']))
+
+        # distribution de Bd (frequence d'appartenance par bloc), 3 conditions sur m_r
+        N_TRIALS = 60
+
+        def bd_hits(condition_fn):
+            hits = Counter()
+            for _ in range(N_TRIALS):
+                dk = condition_fn()
+                hits.update(dk['blocks'])
+            return hits
+
+        conditions = {
+            'no_real':    lambda: encode_deniable0(MSG_DURESS, _dsk=fixed_dsk)[1],
+            'short_real': lambda: encode_deniable("A", MSG_DURESS, _dsk=fixed_dsk)[2],
+            'long_real':  lambda: encode_deniable("A" * 100, MSG_DURESS, _dsk=fixed_dsk)[2],
+        }
+        tables = {name: bd_hits(fn) for name, fn in conditions.items()}
+        contingency = [[tables[name].get(b, 0) for b in range(N_BLOCKS)]
+                       for name in conditions]
+        chi2, p, dof, _ = st.chi2_contingency(contingency)
+        self.assertGreater(p, 0.001,
+            f"Distribution de Bd dépendante de la présence/longueur de m_r : "
+            f"chi2={chi2:.1f} p={p:.5f} dof={dof}")
+        print(f"  Bd vs m_r (no/short/long, dsk fixe, {N_TRIALS}/condition) : "
+              f"chi2={chi2:.1f} p={p:.4f}")
+
+    def test_block_set_derivation_never_uses_key_material(self):
+        """
+        6.3.3 : aucune fonction qui calcule les ENSEMBLES de blocs (Br, Bd,
+        bloc orphelin) n'est appelée avec rsk, dsk ni une valeur qui en
+        dérive. _fisher_yates(n) ne prend qu'un entier ; instrumenté pour
+        confirmer qu'aucun appel réel ne lui passe autre chose.
+        """
+        self.assertEqual(list(inspect.signature(_fisher_yates).parameters), ['n'])
+        self.assertEqual(list(inspect.signature(_split_br_bd).parameters), ['pi'])
+
+        import secu_box as SB
+        calls = []
+        original = SB._fisher_yates
+        def spy(n):
+            calls.append(n)
+            return original(n)
+        SB._fisher_yates = spy
+        try:
+            encode_deniable(MSG_REAL, MSG_DURESS)
+            encode_deniable0(MSG_DURESS)
+        finally:
+            SB._fisher_yates = original
+        self.assertEqual(len(calls), 2)
+        self.assertTrue(all(isinstance(n, int) for n in calls),
+                        "_fisher_yates a reçu autre chose qu'un entier — fuite potentielle de clé")
+
+    def test_k2_same_structure_and_storage_both_modes(self):
+        """
+        6.3.3 (suite) : form_id/dir (k2) sont stockés dans dk['key_2'] dans
+        les deux modes, tirés par _place_deniable() — LA MÊME fonction,
+        appelée identiquement pour Bd que le message réel existe ou non
+        (voir test_encode0_leaves_br_and_leftover_untouched pour la preuve
+        par instrumentation que seule cette fonction écrit dans la grille).
+        """
+        from carter_random import N_FORMS, N_DIR
+        _, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
+        _, dk0 = encode_deniable0(MSG_DURESS)
+        for label, k2 in (('Encode dk_r', rk['key_2']),
+                          ('Encode dk_d', dk['key_2']),
+                          ('Encode0 dk_d', dk0['key_2'])):
+            with self.subTest(source=label):
+                self.assertTrue(len(k2) > 0)
+                for entry in k2:
+                    self.assertIn('form_id', entry)
+                    self.assertIn('dir', entry)
+                    self.assertTrue(0 <= entry['form_id'] < N_FORMS)
+                    self.assertTrue(0 <= entry['dir'] < N_DIR)
 
 
 if __name__ == '__main__':

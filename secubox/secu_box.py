@@ -296,11 +296,11 @@ def _km_to_keys(km: bytes, ref256: List[Dict], session_id: str,
 # de blocs depuis (steg_key, counter). Br et Bd viennent d'une permutation π
 # de TOUS les blocs de la grille, tirée UNE FOIS par secrets (Fisher-Yates),
 # INDÉPENDAMMENT de rsk et dsk — ni l'une ni l'autre clé ne permet de la
-# recalculer. Br = π[:B//2], Bd = π[B//2:] : partition FIXE (B/2), jamais
-# proportionnelle à la longueur des messages — contrairement à LH-2 v3, dont
-# le tradeoff assumé (n_blocks_real ≈ n_blocks_duress observable par qui
-# détient les deux clés) disparaît avec une taille fixe indépendante du
-# contenu.
+# recalculer. Br et Bd ont TOUJOURS la même taille ⌊B/2⌋ (voir
+# _split_br_bd) : jamais proportionnelle à la longueur des messages —
+# contrairement à LH-2 v3, dont le tradeoff assumé (n_blocks_real ≈
+# n_blocks_duress observable par qui détient les deux clés) disparaît avec
+# une taille fixe indépendante du contenu.
 #
 # π n'étant dérivable d'AUCUNE clé, elle doit être stockée directement dans
 # les deux clés retournées (dk_r, dk_d) — LH-2 v3 ne stockait qu'un
@@ -310,15 +310,26 @@ def _km_to_keys(km: bytes, ref256: List[Dict], session_id: str,
 # CONTENU (c'était la fuite exploitée en v2, voir l'historique de
 # _derive_block_sequence dans les révisions précédentes de ce fichier).
 #
-# Point à ne pas manquer en révision : comme Bd = complément(Br) dans
-# [0, B), connaître Bd révèle TOUJOURS Br en tant qu'ENSEMBLE de positions
-# — c'est de l'arithmétique, pas un secret qui aurait pu fuiter. Ce n'est
-# PAS une régression : Encode0() (mode normal de l'API publique, pas un
-# mode de test) remplit Br de bruit CSPRNG UNIFORME sur CHAQUE appel, qu'il
-# y ait un message réel ou non — un adversaire qui isole Br ne peut jamais
-# distinguer « message réel chiffré » de « bruit pur », exactement la même
-# propriété d'indiscernabilité statistique que les cellules structurées de
-# Carter. Savoir OÙ se trouve Br ne prouve donc rien sur CE QU'il contient.
+# B = 225 (grille 90×90 par défaut) est IMPAIR : ⌊B/2⌋ = 112, donc
+# |Br| = |Bd| = 112 et il reste EXACTEMENT un bloc (π[112]) hors des deux
+# ensembles — jamais écrit, laissé au bruit CSPRNG du remplissage initial,
+# exactement comme le reste de Br sous Encode0. Ce choix (plutôt que
+# Bd = complément(Br), qui donnerait à Bd un bloc de plus que Br) garde les
+# deux clés de même taille.
+#
+# Point à ne pas manquer en révision : Bd N'EST DONC PAS le complément
+# exact de Br — complément(Br) = Bd ∪ {bloc restant}, un ensemble à 113
+# éléments qui CONTIENT Bd sans l'identifier exactement (113 candidats pour
+# 112 places). Mais même en ignorant cette nuance d'un bloc : connaître Bd
+# révèle de toute façon Br (ou son sur-ensemble à un bloc près) en tant
+# qu'ENSEMBLE de positions — c'est de l'arithmétique, pas un secret qui
+# aurait pu fuiter. Ce n'est PAS une régression : Encode0() (mode normal de
+# l'API publique, pas un mode de test) remplit Br ET le bloc restant de
+# bruit CSPRNG UNIFORME sur CHAQUE appel, qu'il y ait un message réel ou
+# non — un adversaire qui isole ces blocs ne peut jamais distinguer
+# « message réel chiffré » de « bruit pur », exactement la même propriété
+# d'indiscernabilité statistique que les cellules structurées de Carter.
+# Savoir OÙ se trouve Br ne prouve donc rien sur CE QU'il contient.
 
 def _fisher_yates(n: int) -> List[int]:
     """Permutation aléatoire de [0..n-1] via secrets — indépendante de toute clé."""
@@ -327,6 +338,51 @@ def _fisher_yates(n: int) -> List[int]:
         j = secrets.randbelow(i + 1)
         order[i], order[j] = order[j], order[i]
     return order
+
+def _split_br_bd(pi: List[int]) -> Tuple[List[int], List[int]]:
+    """
+    Br = π[:⌊B/2⌋], Bd = les ⌊B/2⌋ suivants — TAILLES ÉGALES. Si B est
+    impair (225 par défaut), π[⌊B/2⌋] (1 bloc) reste hors des deux
+    ensembles : ni Br ni Bd, jamais écrit par _place_deniable, laissé au
+    bruit CSPRNG du remplissage initial de la grille (voir encode_deniable/
+    encode_deniable0 — le bloc restant y est traité EXACTEMENT comme le
+    reste de Br : jamais touché, dans les deux fonctions).
+    """
+    n = len(pi)
+    half = n // 2
+    Br = pi[:half]
+    Bd = pi[half + 1:] if n % 2 else pi[half:]
+    return Br, Bd
+
+def _deniable_positions(N: int, B: int, block_indices: List[int],
+                         sk: bytes, k2: List[Dict]) -> List[Tuple[int, int]]:
+    """
+    Positions de lecture/écriture (row, col), dans l'ordre, pour ces blocs
+    sous la clé `sk` et les formes `k2`. Marche géométrique UNIQUE partagée
+    par _place_deniable, _read_deniable et les tests (même motivation que
+    grid_90._stream_positions : la vérité de ce qui est écrit ne doit
+    exister qu'à un seul endroit).
+
+    Référent (get_referent(seed_local)) dérivé de sk via _derive_params :
+    voir l'invariant documenté dans encode_deniable — les POSITIONS
+    intra-bloc dépendent de la clé du message concerné (voulu), les
+    ENSEMBLES de blocs n'en dépendent jamais (_fisher_yates/_split_br_bd).
+    """
+    from carter_random import get_referent, _derive_params
+    from stegano_lib import _carter_split
+    _, gk_local   = _carter_split(sk)
+    seed_local, _ = _derive_params(gk_local)
+    ref_local     = get_referent(seed_local)
+    positions = []
+    for blk, idx in enumerate(block_indices):
+        br, bc = idx // B, idx % B
+        fk   = k2[blk]
+        form = ref_local[fk['form_id'] % len(ref_local)]
+        for r, c in form[fk['dir']]:
+            gr, gc = br*6+r, bc*6+c
+            if 0 <= gr < N and 0 <= gc < N:
+                positions.append((gr, gc))
+    return positions
 
 def _place_deniable(grid: List[List[int]], N: int, B: int,
                      block_indices: List[int], message: str, sk: bytes) -> List[Dict]:
@@ -337,68 +393,64 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
     et dsk sont neufs à chaque appel, jamais fournis de l'extérieur : voir
     encode_deniable/encode_deniable0).
     """
-    from carter_random import get_referent, _derive_params, _derive_masks, CELL_SIZE, N_FORMS, N_DIR
+    from carter_random import _derive_masks, CELL_SIZE, N_FORMS, N_DIR
     from stegano_lib import _carter_split
-    _, gk_local   = _carter_split(sk)
-    seed_local, _ = _derive_params(gk_local)
-    ref_local     = get_referent(seed_local)
     L = len(block_indices) * CELL_SIZE
     payload = _encrypt(message, sk, L)
     nibbles = payload_to_symbols(payload, L)
+    k2 = [{'form_id': secrets.randbelow(N_FORMS),
+           'dir':     secrets.randbelow(N_DIR)} for _ in range(len(block_indices))]
+    positions = _deniable_positions(N, B, block_indices, sk, k2)
+    _, gk_local = _carter_split(sk)
     # gk_local diffère déjà entre rsk et dsk (secrets.token_bytes distincts) :
     # un seul domaine HKDF suffit à séparer les masques réel/contrainte, la
     # clé elle-même fait le travail de séparation.
     masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
-    k2 = [{'form_id': secrets.randbelow(N_FORMS),
-           'dir':     secrets.randbelow(N_DIR)} for _ in range(len(block_indices))]
-    ni = 0
-    for blk, idx in enumerate(block_indices):
+    for ni, (gr, gc) in enumerate(positions):
         if ni >= len(nibbles): break
-        br, bc = idx // B, idx % B
-        fk   = k2[blk]
-        form = ref_local[fk['form_id'] % len(ref_local)]
-        for r, c in form[fk['dir']]:
-            if ni >= len(nibbles): break
-            gr, gc = br*6+r, bc*6+c
-            if 0 <= gr < N and 0 <= gc < N:
-                grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
-            ni += 1
+        grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
     return k2
 
 def _read_deniable(grid: List[List[int]], N: int, B: int,
                     block_indices: List[int], sk: bytes, k2: List[Dict]) -> str:
     """Inverse de _place_deniable — mêmes blocs, même clé, même key_2."""
-    from carter_random import get_referent, _derive_params, _derive_masks, CELL_SIZE
+    from carter_random import _derive_masks, CELL_SIZE
     from stegano_lib import _carter_split
-    _, gk_local   = _carter_split(sk)
-    seed_local, _ = _derive_params(gk_local)
-    ref_local     = get_referent(seed_local)
+    _, gk_local = _carter_split(sk)
     L = len(block_indices) * CELL_SIZE
     masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
-    vals = []; ni = 0
-    for blk, idx in enumerate(block_indices):
-        br, bc = idx // B, idx % B
-        fk   = k2[blk]
-        form = ref_local[fk['form_id'] % len(ref_local)]
-        for r, c in form[fk['dir']]:
-            gr, gc = br*6+r, bc*6+c
-            if 0 <= gr < N and 0 <= gc < N:
-                vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
-            ni += 1
+    positions = _deniable_positions(N, B, block_indices, sk, k2)
+    vals = [(grid[gr][gc] - masks[ni]) % ALPHA_LEN
+            for ni, (gr, gc) in enumerate(positions)]
     return _decrypt(vals, sk, len(vals))
 
 def encode_deniable(real_message: str, duress_message: str,
-                     grid_size: int = 90) -> Tuple[List[List[int]], Dict, Dict]:
+                     grid_size: int = 90,
+                     _rsk: Optional[bytes] = None,
+                     _dsk: Optional[bytes] = None) -> Tuple[List[List[int]], Dict, Dict]:
     """
     Den.Encode(m_r, m_d) — Définition 1 révisée (bloc C, tâche 5, format v3).
 
     rsk et dsk sont neufs à chaque appel (secrets.token_bytes) — aucune API
-    ne permet d'en fournir un existant, hors mode vecteurs internes (tâche 7).
+    PUBLIQUE ne permet d'en fournir un existant. _rsk/_dsk (préfixés `_`)
+    sont un embryon interne du mode vecteurs de la tâche 7 — utile dès
+    maintenant pour les tests 6.3 (injecter un dsk fixe et vérifier que
+    Bd/référent/k2 ne dépendent pas de m_r) — jamais exposés par demo() ni
+    la CLI.
+
     π (permutation de TOUS les blocs) est tirée une fois par secrets,
-    indépendamment de rsk et dsk ; Br = π[:B//2] et Bd = π[B//2:] sont
-    stockés directement dans les clés retournées — voir le commentaire de
-    section ci-dessus pour pourquoi Bd révélant Br structurellement n'est
-    pas une fuite.
+    indépendamment de rsk et dsk ; Br et Bd (même taille ⌊B/2⌋ chacun, voir
+    _split_br_bd) sont stockés directement dans les clés retournées — voir
+    le commentaire de section ci-dessus pour pourquoi Bd révélant Br
+    structurellement n'est pas une fuite.
+
+    Invariant (à reprendre tel quel par LH-5) : les ENSEMBLES de blocs
+    (Br, Bd, et le bloc orphelin si B est impair) sont indépendants des
+    clés — aucune fonction qui les calcule (_fisher_yates, _split_br_bd)
+    n'est appelée avec rsk, dsk ni aucune valeur qui en dérive. Les
+    POSITIONS À L'INTÉRIEUR d'un bloc (référent, formes, k2) sont en
+    revanche dérivées de la clé du message CONCERNÉ par ce bloc (rsk pour
+    Br, dsk pour Bd) — c'est voulu, pas une fuite : voir _place_deniable.
 
     Retourne (grid, dk_r, dk_d), syntaxiquement identiques.
     """
@@ -407,12 +459,11 @@ def encode_deniable(real_message: str, duress_message: str,
 
     grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
 
-    rsk = secrets.token_bytes(32)
-    dsk = secrets.token_bytes(32)
+    rsk = _rsk if _rsk is not None else secrets.token_bytes(32)
+    dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
 
     pi = _fisher_yates(n_blocks)
-    Br = pi[:n_blocks // 2]
-    Bd = pi[n_blocks // 2:]
+    Br, Bd = _split_br_bd(pi)
 
     rk2 = _place_deniable(grid, N, B, Br, real_message,   rsk)
     dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk)
@@ -421,7 +472,8 @@ def encode_deniable(real_message: str, duress_message: str,
     dk_d = {'steg_key': dsk, 'blocks': Bd, 'key_2': dk2}
     return grid, dk_r, dk_d
 
-def encode_deniable0(duress_message: str, grid_size: int = 90) -> Tuple[List[List[int]], Dict]:
+def encode_deniable0(duress_message: str, grid_size: int = 90,
+                      _dsk: Optional[bytes] = None) -> Tuple[List[List[int]], Dict]:
     """
     Den.Encode0(m_d) — même procédure SANS message réel (bloc C, tâche 5).
 
@@ -433,6 +485,9 @@ def encode_deniable0(duress_message: str, grid_size: int = 90) -> Tuple[List[Lis
     encode_deniable() et une grille produite par encode_deniable0() sans
     connaître au moins une des deux clés.
 
+    _dsk (préfixé `_`) : embryon interne du mode vecteurs (tâche 7), voir
+    encode_deniable().
+
     Retourne (grid, dk_d) — pas de dk_r, il n'y a pas de message réel à décoder.
     """
     N = grid_size; B = N // 6
@@ -440,10 +495,10 @@ def encode_deniable0(duress_message: str, grid_size: int = 90) -> Tuple[List[Lis
 
     grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
 
-    dsk = secrets.token_bytes(32)
+    dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
 
     pi = _fisher_yates(n_blocks)
-    Bd = pi[n_blocks // 2:]   # Br = pi[:n_blocks//2] volontairement inutilisé
+    _, Bd = _split_br_bd(pi)   # Br (et le bloc restant si B impair) volontairement inutilisés
 
     dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk)
 
