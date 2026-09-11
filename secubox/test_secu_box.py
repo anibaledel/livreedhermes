@@ -15,7 +15,7 @@ par la migration format v3 de crypto_core._encrypt/_decrypt/payload_to_symbols
 automatisé ; ce fichier existe pour que ça ne se reproduise pas.
 """
 
-import os, sys, secrets, unittest, inspect
+import os, sys, secrets, unittest, inspect, random
 from collections import Counter
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
@@ -34,6 +34,73 @@ MSG_REAL   = "MESSAGE SECRET ANIBAL"
 MSG_DURESS = "NOTES PERSO TEXTILE"
 GRID_SIZE  = 90
 N_BLOCKS   = (GRID_SIZE // 6) ** 2   # 225
+
+
+# ── Test de permutation — Bd vs condition sur m_r ─────────────────────────────
+# chi2_contingency suppose un tirage multinomial AVEC remise ; chaque essai
+# tire ici EXACTEMENT 112 blocs SANS remise parmi 225 (Fisher-Yates), une
+# structure a variance reduite d'un facteur de correction de population finie
+# (225-112)/(225-1) ~ 0.50 par rapport a l'hypothese implicite de
+# chi2_contingency. Verifie experimentalement : cela biaisait p
+# systematiquement pres de 1 au lieu d'etre uniforme sur [0,1] sous
+# l'hypothese nulle (vraie ici par construction, Bd ne depend d'aucune cle ni
+# de m_r). Le test de permutation calibre la meme statistique par
+# re-echantillonnage des VRAIS tirages (les Bd effectivement obtenus),
+# respectant donc automatiquement la structure sans remise, sans hypothese
+# parametrique sur la variance.
+
+def _bd_condition_stat(tables: list) -> float:
+    """Statistique chi2-style (observe vs attendu pondere par condition) --
+    seule sa CALIBRATION change (permutation ci-dessous), pas sa formule."""
+    n_blocks = len(tables[0])
+    pooled = [sum(t[b] for t in tables) for b in range(n_blocks)]
+    total = sum(pooled)
+    s = 0.0
+    for t in tables:
+        n_t = sum(t)
+        for b in range(n_blocks):
+            exp = pooled[b] * n_t / total
+            if exp > 0:
+                s += (t[b] - exp) ** 2 / exp
+    return s
+
+def _permutation_pvalue_bd_by_condition(trials: list, n_blocks: int, n_perm: int = 3000):
+    """
+    trials : liste de (condition_label, blocks) -- un par essai.
+    Retourne (obs_stat, p) : p = fraction (+correction) des permutations
+    d'etiquettes dont la statistique est >= la statistique observee.
+    """
+    rng = random.Random()
+    labels = sorted(set(lab for lab, _ in trials))
+
+    def tables_from(trials_):
+        # Materialise en liste : trials_ est parcouru UNE FOIS PAR ETIQUETTE
+        # ci-dessous -- un iterateur a usage unique (ex. zip(...) passe tel
+        # quel) s'epuiserait des la premiere etiquette et laisserait les
+        # suivantes a zero, faussant silencieusement chaque permutation.
+        trials_ = list(trials_)
+        out = []
+        for label in labels:
+            counts = [0] * n_blocks
+            for lab, blocks in trials_:
+                if lab == label:
+                    for b in blocks:
+                        counts[b] += 1
+            out.append(counts)
+        return out
+
+    obs_stat = _bd_condition_stat(tables_from(trials))
+    all_labels = [lab for lab, _ in trials]
+    all_blocks = [b for _, b in trials]
+    count_ge = 0
+    for _ in range(n_perm):
+        perm_labels = all_labels[:]
+        rng.shuffle(perm_labels)
+        perm_stat = _bd_condition_stat(tables_from(zip(perm_labels, all_blocks)))
+        if perm_stat >= obs_stat:
+            count_ge += 1
+    p = (1 + count_ge) / (n_perm + 1)
+    return obs_stat, p
 
 
 class TestDeniableRoundtrip(unittest.TestCase):
@@ -228,12 +295,15 @@ class TestDeniableStatistical(unittest.TestCase):
         6.3.2 (mode vecteurs, dsk injecté) : même dsk, deux encodages
         donnent des Bd différents ; la distribution de Bd (quels blocs sont
         choisis) ne dépend ni de la présence ni de la longueur de m_r.
-        """
-        try:
-            import scipy.stats as st
-        except ImportError:
-            self.skipTest("scipy non installe")
 
+        Calibration par test de PERMUTATION sur les étiquettes de condition
+        (pas chi2_contingency — voir le commentaire de section en tête de
+        fichier) : chaque essai tire exactement 112 blocs SANS remise parmi
+        225 (Fisher-Yates), une structure que chi2_contingency modélise mal
+        (elle suppose un tirage multinomial AVEC remise) — vérifié
+        expérimentalement, cela biaisait p systématiquement près de 1 au
+        lieu d'être uniforme sur [0,1] sous l'hypothèse nulle.
+        """
         fixed_dsk = secrets.token_bytes(32)
 
         # même dsk, deux appels -> Bd différents
@@ -243,30 +313,23 @@ class TestDeniableStatistical(unittest.TestCase):
         self.assertEqual(dk_b['steg_key'], fixed_dsk)
         self.assertNotEqual(set(dk_a['blocks']), set(dk_b['blocks']))
 
-        # distribution de Bd (frequence d'appartenance par bloc), 3 conditions sur m_r
         N_TRIALS = 60
-
-        def bd_hits(condition_fn):
-            hits = Counter()
-            for _ in range(N_TRIALS):
-                dk = condition_fn()
-                hits.update(dk['blocks'])
-            return hits
-
         conditions = {
             'no_real':    lambda: encode_deniable0(MSG_DURESS, _dsk=fixed_dsk)[1],
             'short_real': lambda: encode_deniable("A", MSG_DURESS, _dsk=fixed_dsk)[2],
             'long_real':  lambda: encode_deniable("A" * 100, MSG_DURESS, _dsk=fixed_dsk)[2],
         }
-        tables = {name: bd_hits(fn) for name, fn in conditions.items()}
-        contingency = [[tables[name].get(b, 0) for b in range(N_BLOCKS)]
-                       for name in conditions]
-        chi2, p, dof, _ = st.chi2_contingency(contingency)
+        trials = []
+        for label, fn in conditions.items():
+            for _ in range(N_TRIALS):
+                trials.append((label, fn()['blocks']))
+
+        obs_stat, p = _permutation_pvalue_bd_by_condition(trials, N_BLOCKS, n_perm=3000)
         self.assertGreater(p, 0.001,
             f"Distribution de Bd dépendante de la présence/longueur de m_r : "
-            f"chi2={chi2:.1f} p={p:.5f} dof={dof}")
-        print(f"  Bd vs m_r (no/short/long, dsk fixe, {N_TRIALS}/condition) : "
-              f"chi2={chi2:.1f} p={p:.4f}")
+            f"stat={obs_stat:.1f} p={p:.5f} (test de permutation, {N_TRIALS}/condition)")
+        print(f"  Bd vs m_r (no/short/long, dsk fixe, {N_TRIALS}/condition, "
+              f"permutation n=3000) : stat={obs_stat:.1f} p={p:.4f}")
 
     def test_block_set_derivation_never_uses_key_material(self):
         """
