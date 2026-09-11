@@ -22,7 +22,7 @@ import json, os, secrets, math
 from typing import List, Dict, Tuple
 
 from crypto_core import (
-    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for,
+    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for, random_grid,
 )
 
 def _find_ref(name: str) -> str:
@@ -92,7 +92,14 @@ def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
 # ── Encodeur ─────────────────────────────────────────────────────────────────
 def encode(message: str, steg_key: bytes,
            key_b: List[int], key_c: List[List[int]], key_2: List[Dict],
-           ref256: List[Dict], grid_size: int = 60) -> List[List[int]]:
+           ref256: List[Dict], grid_size: int = 60,
+           _nonce: bytes = None, _y: int = None,
+           _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
+    """
+    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
+    interne pour le mode vecteurs — voir carter.encode_carter(). None
+    (défaut) préserve exactement le comportement actuel.
+    """
     for k in key_b: _chk_k(k)
     N = grid_size; B = N // 6
     if N % 6 != 0:
@@ -102,14 +109,17 @@ def encode(message: str, steg_key: bytes,
     if len(message) > max_len:
         raise ValueError(f"Message trop long : {len(message)} > {max_len}")
 
-    payload = _encrypt(message, steg_key, n_pos)
+    payload = _encrypt(message, steg_key, n_pos, _nonce=_nonce)
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, en symboles
     # base-44 uniformes — aucun en-tête distinct.
-    nibbles = payload_to_symbols(payload, n_pos)
+    nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
 
-    # Grille de bruit — même loi uniforme [0..ALPHA_LEN-1] que les symboles
-    grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
+    # Grille de bruit — même loi uniforme [0..ALPHA_LEN-1] que les symboles.
+    # random_grid() (crypto_core) plutôt qu'une boucle secrets.randbelow()
+    # locale : unifie le remplissage de bruit sur un seul point d'injection
+    # (_noise_seed, tâche 7) au lieu d'en dupliquer un second ici.
+    grid = random_grid(N, N, _noise_seed=_noise_seed)
 
     # Placer les nibbles
     nib_idx = 0

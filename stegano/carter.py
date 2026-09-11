@@ -126,7 +126,9 @@ def _carter_message_positions(grammar: List[Dict], ref256: List[Dict]) -> int:
                for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
 
 def encode_carter(message: str, master_key: bytes,
-                  ref256: List[Dict]) -> List[List[int]]:
+                  ref256: List[Dict],
+                  _nonce: bytes = None, _y: int = None,
+                  _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter 90×90.
 
@@ -139,6 +141,12 @@ def encode_carter(message: str, master_key: bytes,
     Blocs 'pur'        → tout aléatoire, aucune structure appliquée
 
     grid_to_csv() pour sérialiser, csv_to_grid() pour désérialiser.
+
+    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
+    interne pour le mode vecteurs — transmis tels quels à _encrypt/
+    payload_to_symbols/random_grid, None (défaut) préserve exactement le
+    comportement actuel. Aucun appelant public ne les renseigne ; voir
+    stegano/vectors_internal.py.
     """
     xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — un message
@@ -154,15 +162,15 @@ def encode_carter(message: str, master_key: bytes,
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
-    payload = _encrypt(message, xchacha_key, n_pos)
+    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    nibbles = payload_to_symbols(payload, n_pos)
+    nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
 
     # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
     # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
     # G. Kerma, §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
-    grid  = random_grid(CARTER_GRID, CARTER_GRID)
+    grid  = random_grid(CARTER_GRID, CARTER_GRID, _noise_seed=_noise_seed)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -299,9 +307,13 @@ def _carter360_message_positions(grammar: List[Dict], ref360: List[Dict]) -> int
                for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
 
 def encode_carter_360(message: str, master_key: bytes,
-                       ref360: Optional[List[Dict]] = None) -> List[List[int]]:
+                       ref360: Optional[List[Dict]] = None,
+                       _nonce: bytes = None, _y: int = None,
+                       _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter 180×180 (Référent 360).
+
+    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
 
     Grammaire dérivée de master_key :
       'pur'       → bruit aléatoire, aucune structure 12×12
@@ -337,13 +349,13 @@ def encode_carter_360(message: str, master_key: bytes,
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
-    payload = _encrypt(message, xchacha_key, n_pos)
+    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    nibbles = payload_to_symbols(payload, n_pos)
+    nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
 
     # Remplissage bulk CSPRNG — voir encode_carter().
-    grid  = random_grid(CARTER360_GRID, CARTER360_GRID)
+    grid  = random_grid(CARTER360_GRID, CARTER360_GRID, _noise_seed=_noise_seed)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -503,7 +515,9 @@ def _mix_message_positions(grammar: List[Dict], ref256: List[Dict],
 
 def encode_carter_mix(message: str, master_key: bytes,
                        ref256: List[Dict],
-                       ref360: Optional[List[Dict]] = None) -> List[List[int]]:
+                       ref360: Optional[List[Dict]] = None,
+                       _nonce: bytes = None, _y: int = None,
+                       _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter mixte 180×180.
     Ref256 et Ref360 coexistent — la clé détermine quel référent chaque méta-bloc utilise.
@@ -512,6 +526,8 @@ def encode_carter_mix(message: str, master_key: bytes,
     Méta-blocs Ref360 message :  8 positions =  4 bytes
 
     La capacité totale est elle-même dérivée de la clé (obscurcissement).
+
+    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
     """
     if ref360 is None:
         ref360 = _load_ref360()
@@ -531,13 +547,13 @@ def encode_carter_mix(message: str, master_key: bytes,
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
 
-    payload = _encrypt(message, xchacha_key, n_pos)
+    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    nibbles = payload_to_symbols(payload, n_pos)
+    nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
 
     # Remplissage bulk CSPRNG — voir encode_carter().
-    grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID)
+    grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID, _noise_seed=_noise_seed)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue

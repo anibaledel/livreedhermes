@@ -76,15 +76,21 @@ def hchacha20(key: bytes, nonce16: bytes) -> bytes:
     return struct.pack('<8I', *out_words)
 
 # ── XChaCha20-Poly1305 standard ───────────────────────────────────────────────
-def _xchacha20_enc(key: bytes, plaintext: bytes, aad: bytes = b'') -> bytes:
+def _xchacha20_enc(key: bytes, plaintext: bytes, aad: bytes = b'',
+                    _nonce: bytes = None) -> bytes:
     """
     XChaCha20-Poly1305 standard (draft-irtf-cfrg-xchacha). Nonce 24 octets :
     subkey = HChaCha20(key, nonce[0:16]) ; nonce ChaCha20-Poly1305 12 octets
     = 4 zéros || nonce[16:24]. Interopérable avec toute implémentation
     standard (libsodium, PyNaCl, etc.) — contrairement à la construction à
     sous-clé HKDF qu'elle remplace (LH-5, tâche 1 du format v3).
+
+    _nonce (préfixé `_`, tâche 7) : injection interne pour le mode vecteurs
+    de référence — None (défaut) préserve exactement le comportement actuel
+    (os.urandom(24)). Aucune fonction publique ne transmet cet argument ;
+    voir stegano/vectors_internal.py, seul appelant qui le renseigne.
     """
-    nonce  = os.urandom(24)
+    nonce  = _nonce if _nonce is not None else os.urandom(24)
     subkey = hchacha20(key, nonce[:16])
     chacha_nonce = b'\x00\x00\x00\x00' + nonce[16:]
     ct = ChaCha20Poly1305(subkey).encrypt(chacha_nonce, plaintext, aad or None)
@@ -156,10 +162,15 @@ def _capacity_k(L: int) -> int:
         j += 1
     return 8 * j
 
-def _bytes_to_syms(payload: bytes, m: int) -> List[int]:
+def _bytes_to_syms(payload: bytes, m: int, _y: int = None) -> List[int]:
     """
     PayloadToSymbols (Définition 3.6) : x = int(P) ; Q = floor(α^m / 2^k) ;
     y = random(Q) ; z = x + 2^k·y ; sortie = m chiffres de z en base α.
+
+    _y (préfixé `_`, tâche 7) : injection interne pour le mode vecteurs —
+    None (défaut) préserve exactement secrets.randbelow(Q). Doit satisfaire
+    0 <= _y < Q, vérifié explicitement (une valeur hors plage romprait
+    l'inversibilité x = z mod 2^k).
     """
     k = 8 * len(payload)
     span = 1 << k
@@ -167,7 +178,12 @@ def _bytes_to_syms(payload: bytes, m: int) -> List[int]:
     if Q < 1:
         raise ValueError(f"{m} symboles insuffisants pour {len(payload)} octets")
     x = int.from_bytes(payload, 'big')
-    y = secrets.randbelow(Q)
+    if _y is not None:
+        if not 0 <= _y < Q:
+            raise ValueError(f"_y hors plage : 0 <= {_y} < {Q} requis")
+        y = _y
+    else:
+        y = secrets.randbelow(Q)
     z = x + span * y
     out = []
     for _ in range(m):
@@ -409,10 +425,13 @@ def _validate_alphabet(message: str) -> bytes:
             f"ou retirer la ponctuation non supportée avant l'envoi.")
     return msg_upper.encode('ascii')
 
-def _encrypt(message: str, steg_key: bytes, L: int) -> bytes:
+def _encrypt(message: str, steg_key: bytes, L: int, _nonce: bytes = None) -> bytes:
     """
     Chiffre avec une charge utile à LONGUEUR FIXE (tâche 2, format v3 —
     remplace le correctif N1 en entier, pas en complément).
+
+    _nonce (préfixé `_`, tâche 7) : transmis tel quel à _xchacha20_enc — voir
+    ce dernier pour la garantie d'isolation (mode vecteurs uniquement).
 
     N1 rendait les 2 symboles de poids faible d'un en-tête de longueur
     SÉPARÉ exactement uniformes, mais cet en-tête restait un champ distinct,
@@ -443,7 +462,7 @@ def _encrypt(message: str, steg_key: bytes, L: int) -> bytes:
             f"Changer la clé ou réduire le message.")
     cleartext = (struct.pack('>I', len(msg_b)) + msg_b +
                  b'\x00' * (cleartext_len - 4 - len(msg_b)))
-    inner   = _xchacha20_enc(steg_key, cleartext)
+    inner   = _xchacha20_enc(steg_key, cleartext, _nonce=_nonce)
     ck      = _commit_key(steg_key)
     # Le HMAC porte sur `inner` seul : contrairement à LH-4 (v2), il n'existe
     # plus de longueur transmise séparément à authentifier — payload_bytes
@@ -495,7 +514,7 @@ def _decrypt(vals: List[int], steg_key: bytes, L: int) -> str:
 # cela, ils continueraient d'écrire des nibbles [0..15] repérables dans un
 # bruit couvrant [0..43], ou une longueur en clair distinguable du bruit.
 
-def random_grid(rows: int, cols: int) -> List[List[int]]:
+def random_grid(rows: int, cols: int, _noise_seed: bytes = None) -> List[List[int]]:
     """Grille rows×cols de symboles uniformes sur [0..ALPHA_LEN-1] (CSPRNG).
 
     Remplace le `secrets.randbelow(ALPHA_LEN)` appelé cellule-par-cellule (un
@@ -504,17 +523,37 @@ def random_grid(rows: int, cols: int) -> List[List[int]]:
     Même source (os.urandom) et même uniformité (le rejet des octets
     `>= 256 - 256 % ALPHA_LEN` supprime le biais modulo), mais ~40× plus rapide
     sur une grille 90×90 : l'initialisation du bruit de couverture dominait le
-    coût d'encodage Carter (mesuré ~42 ms/50 ms sur ARM Cortex-A72)."""
+    coût d'encodage Carter (mesuré ~42 ms/50 ms sur ARM Cortex-A72).
+
+    _noise_seed (préfixé `_`, tâche 7) : injection interne pour le mode
+    vecteurs de référence — None (défaut) préserve exactement le
+    comportement actuel (os.urandom). Si fourni (32 octets), la source de
+    bruit devient le keystream ChaCha20(_noise_seed, nonce=0), avec
+    EXACTEMENT la même règle de rejet que ci-dessus (un octet b est retenu
+    si b < limit = 256 - 256%ALPHA_LEN = 220, sa valeur est alors b%ALPHA_LEN ;
+    sinon il est jeté) — même construction que _derive_masks (tâche 3,
+    migration ChaCha20, commit df965da) : un seed alimente un keystream
+    ChaCha20 dont on ne garde, par rejet, que les octets < limit.
+    """
     n = rows * cols
     limit = 256 - (256 % ALPHA_LEN)      # ALPHA_LEN=44 -> 220 ; octets >=220 rejetés
     flat: List[int] = []
-    while len(flat) < n:
-        manque = n - len(flat)
-        buf = os.urandom(manque * 256 // limit + 16)   # sur-tirage ~ taux de rejet
-        flat.extend(b % ALPHA_LEN for b in buf if b < limit)
+    if _noise_seed is not None:
+        from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
+        keystream = Cipher(algorithms.ChaCha20(_noise_seed, bytes(16)), mode=None).encryptor()
+        while len(flat) < n:
+            manque = n - len(flat)
+            buf = keystream.update(b'\x00' * (manque * 256 // limit + 16))
+            flat.extend(b % ALPHA_LEN for b in buf if b < limit)
+    else:
+        while len(flat) < n:
+            manque = n - len(flat)
+            buf = os.urandom(manque * 256 // limit + 16)   # sur-tirage ~ taux de rejet
+            flat.extend(b % ALPHA_LEN for b in buf if b < limit)
     return [flat[r * cols:(r + 1) * cols] for r in range(rows)]
 
-def payload_to_symbols(payload: bytes, L: int) -> List[int]:
+def payload_to_symbols(payload: bytes, L: int,
+                        _y: int = None, _leftover: List[int] = None) -> List[int]:
     """
     Payload chiffré à longueur fixe → L symboles uniformes sur
     [0..ALPHA_LEN-1] (PayloadToSymbols, Définition 3.6, format v3).
@@ -528,13 +567,24 @@ def payload_to_symbols(payload: bytes, L: int) -> List[int]:
     aucune perte d'entropie de position. Toutes les positions message
     portent désormais un symbole de charge utile : aucune n'est un en-tête
     (répond à N1).
+
+    _y, _leftover (préfixés `_`, tâche 7) : injection interne pour le mode
+    vecteurs. _y est transmis tel quel à _bytes_to_syms(). _leftover (liste
+    de 0 ou 1 entier dans [0..ALPHA_LEN-1], selon m < L ou non) remplace le
+    tirage secrets.randbelow(ALPHA_LEN) du symbole de marge. None (défaut)
+    préserve exactement le comportement actuel pour les deux.
     """
     k = _capacity_k(L)
     assert len(payload) * 8 == k, "L incohérent avec la taille du payload"
     m = _smallest_m(k + _LAMBDA_S)
-    syms = _bytes_to_syms(payload, m)
+    syms = _bytes_to_syms(payload, m, _y=_y)
     if m < L:
-        syms += [secrets.randbelow(ALPHA_LEN) for _ in range(L - m)]
+        if _leftover is not None:
+            if len(_leftover) != L - m:
+                raise ValueError(f"_leftover doit contenir {L - m} symbole(s), reçu {len(_leftover)}")
+            syms += list(_leftover)
+        else:
+            syms += [secrets.randbelow(ALPHA_LEN) for _ in range(L - m)]
     return syms
 
 # NOTE : le remplissage de bruit de grille (mesure arm64 gk2/MOCHAbin, audit

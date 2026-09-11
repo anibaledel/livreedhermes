@@ -68,7 +68,7 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from stegano_lib import (
     load_referents, encode, decode,
     ALPHA_LEN, LABELS, apply_orientation,
-    _encrypt, _decrypt, payload_to_symbols,
+    _encrypt, _decrypt, payload_to_symbols, random_grid,
 )
 
 # ── Identité long-terme ───────────────────────────────────────────────────────
@@ -385,21 +385,33 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     return positions
 
 def _place_deniable(grid: List[List[int]], N: int, B: int,
-                     block_indices: List[int], message: str, sk: bytes) -> List[Dict]:
+                     block_indices: List[int], message: str, sk: bytes,
+                     _nonce: bytes = None, _y: int = None,
+                     _leftover: List[int] = None, _k2: List[Dict] = None) -> List[Dict]:
     """
     Écrit `message` (chiffré, charge utile à longueur fixe — format v3,
     tâche 2) dans les blocs `block_indices` (CELL_SIZE positions chacun).
     Retourne key_2 (formes/directions par bloc, fraîches via secrets — rsk
     et dsk sont neufs à chaque appel, jamais fournis de l'extérieur : voir
     encode_deniable/encode_deniable0).
+
+    _nonce/_y/_leftover/_k2 (préfixés `_`, tâche 7) : injection interne pour
+    le mode vecteurs — None (défaut) préserve exactement le comportement
+    actuel pour chacun. _k2 remplace le tirage secrets.randbelow(N_FORMS)/
+    secrets.randbelow(N_DIR) par bloc.
     """
     from carter_random import _derive_masks, CELL_SIZE, N_FORMS, N_DIR
     from stegano_lib import _carter_split
     L = len(block_indices) * CELL_SIZE
-    payload = _encrypt(message, sk, L)
-    nibbles = payload_to_symbols(payload, L)
-    k2 = [{'form_id': secrets.randbelow(N_FORMS),
-           'dir':     secrets.randbelow(N_DIR)} for _ in range(len(block_indices))]
+    payload = _encrypt(message, sk, L, _nonce=_nonce)
+    nibbles = payload_to_symbols(payload, L, _y=_y, _leftover=_leftover)
+    if _k2 is not None:
+        if len(_k2) != len(block_indices):
+            raise ValueError(f"_k2 doit contenir {len(block_indices)} entrée(s), reçu {len(_k2)}")
+        k2 = _k2
+    else:
+        k2 = [{'form_id': secrets.randbelow(N_FORMS),
+               'dir':     secrets.randbelow(N_DIR)} for _ in range(len(block_indices))]
     positions = _deniable_positions(N, B, block_indices, sk, k2)
     _, gk_local = _carter_split(sk)
     # gk_local diffère déjà entre rsk et dsk (secrets.token_bytes distincts) :
@@ -427,22 +439,29 @@ def _read_deniable(grid: List[List[int]], N: int, B: int,
 def encode_deniable(real_message: str, duress_message: str,
                      grid_size: int = 90,
                      _rsk: Optional[bytes] = None,
-                     _dsk: Optional[bytes] = None) -> Tuple[List[List[int]], Dict, Dict]:
+                     _dsk: Optional[bytes] = None,
+                     _pi: Optional[List[int]] = None,
+                     _noise_seed: Optional[bytes] = None,
+                     _real_inject: Optional[Dict] = None,
+                     _duress_inject: Optional[Dict] = None) -> Tuple[List[List[int]], Dict, Dict]:
     """
     Den.Encode(m_r, m_d) — Définition 1 révisée (bloc C, tâche 5, format v3).
 
     rsk et dsk sont neufs à chaque appel (secrets.token_bytes) — aucune API
-    PUBLIQUE ne permet d'en fournir un existant. _rsk/_dsk (préfixés `_`)
-    sont un embryon interne du mode vecteurs de la tâche 7 — utile dès
-    maintenant pour les tests 6.3 (injecter un dsk fixe et vérifier que
-    Bd/référent/k2 ne dépendent pas de m_r) — jamais exposés par demo() ni
-    la CLI.
+    PUBLIQUE ne permet d'en fournir un existant. _rsk/_dsk/_pi/_noise_seed/
+    _real_inject/_duress_inject (préfixés `_`) sont le mode vecteurs interne
+    de la tâche 7 — jamais exposés par demo() ni la CLI. _real_inject et
+    _duress_inject sont des dicts optionnels {'_nonce':.., '_y':.., '_leftover':..,
+    '_k2':..} (mêmes clés que les paramètres de _place_deniable, dépaquetés
+    directement en **kwargs) transmis pour le côté concerné.
 
     π (permutation de TOUS les blocs) est tirée une fois par secrets,
-    indépendamment de rsk et dsk ; Br et Bd (même taille ⌊B/2⌋ chacun, voir
-    _split_br_bd) sont stockés directement dans les clés retournées — voir
-    le commentaire de section ci-dessus pour pourquoi Bd révélant Br
-    structurellement n'est pas une fuite.
+    indépendamment de rsk et dsk — sauf si _pi est fourni (mode vecteurs),
+    auquel cas cette permutation exacte est utilisée telle quelle (validée
+    comme permutation de range(n_blocks)). Br et Bd (même taille ⌊B/2⌋
+    chacun, voir _split_br_bd) sont stockés directement dans les clés
+    retournées — voir le commentaire de section ci-dessus pour pourquoi Bd
+    révélant Br structurellement n'est pas une fuite.
 
     Invariant (à reprendre tel quel par LH-5) : les ENSEMBLES de blocs
     (Br, Bd, et le bloc orphelin si B est impair) sont indépendants des
@@ -457,23 +476,33 @@ def encode_deniable(real_message: str, duress_message: str,
     N = grid_size; B = N // 6
     n_blocks = B * B
 
-    grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
+    grid = random_grid(N, N, _noise_seed=_noise_seed)
 
     rsk = _rsk if _rsk is not None else secrets.token_bytes(32)
     dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
 
-    pi = _fisher_yates(n_blocks)
+    if _pi is not None:
+        if sorted(_pi) != list(range(n_blocks)):
+            raise ValueError(f"_pi doit être une permutation de range({n_blocks})")
+        pi = list(_pi)
+    else:
+        pi = _fisher_yates(n_blocks)
     Br, Bd = _split_br_bd(pi)
 
-    rk2 = _place_deniable(grid, N, B, Br, real_message,   rsk)
-    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk)
+    real_inject   = _real_inject or {}
+    duress_inject = _duress_inject or {}
+    rk2 = _place_deniable(grid, N, B, Br, real_message,   rsk, **real_inject)
+    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
 
     dk_r = {'steg_key': rsk, 'blocks': Br, 'key_2': rk2}
     dk_d = {'steg_key': dsk, 'blocks': Bd, 'key_2': dk2}
     return grid, dk_r, dk_d
 
 def encode_deniable0(duress_message: str, grid_size: int = 90,
-                      _dsk: Optional[bytes] = None) -> Tuple[List[List[int]], Dict]:
+                      _dsk: Optional[bytes] = None,
+                      _pi: Optional[List[int]] = None,
+                      _noise_seed: Optional[bytes] = None,
+                      _duress_inject: Optional[Dict] = None) -> Tuple[List[List[int]], Dict]:
     """
     Den.Encode0(m_d) — même procédure SANS message réel (bloc C, tâche 5).
 
@@ -485,22 +514,28 @@ def encode_deniable0(duress_message: str, grid_size: int = 90,
     encode_deniable() et une grille produite par encode_deniable0() sans
     connaître au moins une des deux clés.
 
-    _dsk (préfixé `_`) : embryon interne du mode vecteurs (tâche 7), voir
-    encode_deniable().
+    _dsk/_pi/_noise_seed/_duress_inject (préfixés `_`) : mode vecteurs
+    interne (tâche 7), voir encode_deniable().
 
     Retourne (grid, dk_d) — pas de dk_r, il n'y a pas de message réel à décoder.
     """
     N = grid_size; B = N // 6
     n_blocks = B * B
 
-    grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
+    grid = random_grid(N, N, _noise_seed=_noise_seed)
 
     dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
 
-    pi = _fisher_yates(n_blocks)
+    if _pi is not None:
+        if sorted(_pi) != list(range(n_blocks)):
+            raise ValueError(f"_pi doit être une permutation de range({n_blocks})")
+        pi = list(_pi)
+    else:
+        pi = _fisher_yates(n_blocks)
     _, Bd = _split_br_bd(pi)   # Br (et le bloc restant si B impair) volontairement inutilisés
 
-    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk)
+    duress_inject = _duress_inject or {}
+    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
 
     dk_d = {'steg_key': dsk, 'blocks': Bd, 'key_2': dk2}
     return grid, dk_d

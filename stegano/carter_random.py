@@ -302,10 +302,17 @@ def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
 # ── Encode ──────────────────────────────────────────────────────────────────────
 def encode_carter_random(message: str,
                           master_key: bytes,
-                          grid_size: int = GRID_SIZE) -> Tuple[List, Dict]:
+                          grid_size: int = GRID_SIZE,
+                          _nonce: bytes = None, _y: int = None,
+                          _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List, Dict]:
     """
     Encode un message dans une grille 90×90.
     Tous les paramètres géométriques sont dérivés de master_key.
+
+    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
+    interne pour le mode vecteurs — voir carter.encode_carter(). Le
+    redraw (ctr), le mode (CR-1) et les masques restent 100% déterministes
+    depuis master_key seul, aucune injection n'y est nécessaire.
     """
     xchacha_key, grammar_key = _carter_split(master_key)
     c_pub_key = _random_c_pub_key(grid_size)
@@ -324,16 +331,16 @@ def encode_carter_random(message: str,
     gk_ctr, seed, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
         grammar_key, grid_size)
 
-    payload = _encrypt(message, xchacha_key, cap)
+    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
     # Flux de symboles base-44 uniformes — même fonction que celle utilisée
     # par encode_carter() dans stegano_lib.py : toutes les positions message
     # portent un symbole de charge utile, aucun en-tête séparé.
-    nibbles = payload_to_symbols(payload, cap)
+    nibbles = payload_to_symbols(payload, cap, _y=_y, _leftover=_leftover)
 
     # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
     # plus rapide que grid_size² appels à secrets.randbelow() (audit G. Kerma,
     # §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
-    grid = random_grid(grid_size, grid_size)
+    grid = random_grid(grid_size, grid_size, _noise_seed=_noise_seed)
     # Masques dérivés de gk_ctr (même clé redraw que la grammaire, tâche 4) :
     # un redraw retire seed+mode+rôles+masques ensemble, comme une seule unité.
     masks = _derive_masks(gk_ctr, len(nibbles) + 128, LABELS['mask_seed']['info_random'])
@@ -616,7 +623,9 @@ def _find_carter18_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
 
 def encode_carter_18(message: str,
                      master_key: bytes,
-                     grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
+                     grid_size: int = GRID_SIZE,
+                     _nonce: bytes = None, _y: int = None,
+                     _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List[List[int]], Dict]:
     """
     Carter-18 : encode sur grille grid_size×grid_size avec méta-blocs 18×18.
 
@@ -627,6 +636,8 @@ def encode_carter_18(message: str,
 
     Capacité nettement supérieure à Carter-256 (324 positions par méta-bloc
     message en direction 0/1, contre 6 par bloc en Carter-256).
+
+    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter_random().
     """
     # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
     # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
@@ -646,15 +657,15 @@ def encode_carter_18(message: str,
     gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(
         grammar_key, grid_size)
 
-    payload = _encrypt(message, xchacha_key, cap)
+    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
     # Même flux de symboles base-44 que encode_carter_random() ci-dessus —
     # charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    nibbles = payload_to_symbols(payload, cap)
+    nibbles = payload_to_symbols(payload, cap, _y=_y, _leftover=_leftover)
 
     masks = _derive_masks(gk_ctr, len(nibbles) + 256, LABELS['mask_seed']['info_18'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
-    grid  = random_grid(grid_size, grid_size)
+    grid  = random_grid(grid_size, grid_size, _noise_seed=_noise_seed)
 
     ni = 0
     for blk, g in enumerate(grammar):
@@ -848,7 +859,9 @@ def _find_hybrid_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
 
 def encode_carter_hybrid(message: str,
                          master_key: bytes,
-                         grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
+                         grid_size: int = GRID_SIZE,
+                         _nonce: bytes = None, _y: int = None,
+                         _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List[List[int]], Dict]:
     """
     Carter-Hybrid : mélange 18×18 concentrique + 6×6 sous-blocs.
 
@@ -857,6 +870,8 @@ def encode_carter_hybrid(message: str,
     positions, 9 sous-blocs 6×6). Le mode par bloc est dérivé de la clé,
     pas du message : pas d'adaptation à la longueur qui distinguerait un
     message court d'un message long depuis la seule géométrie.
+
+    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter_random().
     """
     # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
     # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
@@ -878,12 +893,12 @@ def encode_carter_hybrid(message: str,
 
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    payload = _encrypt(message, xchacha_key, cap)
-    nibbles = payload_to_symbols(payload, cap)
+    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
+    nibbles = payload_to_symbols(payload, cap, _y=_y, _leftover=_leftover)
 
     masks = _derive_masks(gk_ctr, len(nibbles) + 512, LABELS['mask_seed']['info_hybrid'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
-    grid  = random_grid(grid_size, grid_size)
+    grid  = random_grid(grid_size, grid_size, _noise_seed=_noise_seed)
 
     ni = 0
     for blk, g in enumerate(grammar):
