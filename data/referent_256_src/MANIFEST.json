@@ -1,0 +1,17 @@
+{
+  "files": {
+    "data/referent_256_src/source.svg": {
+      "description": "SVG source fourni par l'auteur \u2014 LLDH CARRELONG 4TRAD 2026 JUILLET-047.svg (page 047, echiquier droit = 256 carres magiques 6x6 du livre).",
+      "sha256": "3ce9ceaff5f8da939a2c2b064d05c954e27fccc1c8af960200ecb16b7438512e"
+    },
+    "tools/generate_referent_256.py": {
+      "sha256": "b0a2e90bf830ede2a4a94d787cfffd6198480df51516f0f754fb2ff62d221580"
+    },
+    "verif_carre_magique.py": {
+      "description": "Fourni par l'auteur ; critere I corrige le 2026-09-12 (dualite EGO/ALTER, commit separe).",
+      "sha256": "2844dc9799b61718daad677856552a656e18e517bd2b2be067c67b5c3c284537"
+    }
+  },
+  "format_version": "referent-256-src-manifest-v1",
+  "generated_at_utc": "2026-09-11T20:29:41.440736+00:00"
+}

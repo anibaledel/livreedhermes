@@ -1,0 +1,7 @@
+# Fichiers dont le SHA-256 est enregistre dans data/referent_256_src/MANIFEST.json :
+# fige les fins de ligne en LF pour que ce hash reste vrai apres tout
+# checkout/clone (autocrlf=true convertirait sinon en CRLF sous Windows,
+# invalidant silencieusement le manifest).
+data/referent_256_src/source.svg text eol=lf
+tools/generate_referent_256.py text eol=lf
+verif_carre_magique.py text eol=lf
