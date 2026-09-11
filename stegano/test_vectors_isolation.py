@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+# © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
+# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+"""
+Isolation du mode vecteurs (tâche 7, format v3)
+La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
+
+Vérifie que la surface d'injection ajoutée pour vectors/carter_v3.json
+(paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _k2, _pi,
+_rsk, _dsk, _real_inject, _duress_inject) n'est JOIGNABLE que par un appel
+explicite qui les nomme — aucune API publique, aucun demo(), aucune CLI ne
+les transmet à l'intérieur.
+"""
+
+import inspect, os, sys, unittest
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from stegano_lib import (
+    encode_carter, encode_carter_360, encode_carter_mix, encode,
+)
+from carter_random import encode_carter_random, encode_carter_18, encode_carter_hybrid
+
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SECUBOX_DIR = os.path.join(REPO_ROOT, 'secubox')
+
+# Fonctions publiques exposant une surface d'injection (module, fonction).
+_INJECTABLE_FUNCS = [
+    encode_carter, encode_carter_360, encode_carter_mix,
+    encode_carter_random, encode_carter_18, encode_carter_hybrid,
+    encode,   # stegano_classic.encode, ré-exporté par stegano_lib
+]
+
+
+class TestInjectionSignatures(unittest.TestCase):
+    """Tout paramètre préfixé `_` doit exister et valoir None par défaut."""
+
+    def test_all_injectable_params_default_to_none(self):
+        for fn in _INJECTABLE_FUNCS:
+            sig = inspect.signature(fn)
+            underscored = [p for p in sig.parameters if p.startswith('_')]
+            with self.subTest(fn=fn.__qualname__):
+                self.assertTrue(underscored,
+                    f"{fn.__qualname__} n'expose aucun paramètre préfixé `_`")
+                for name in underscored:
+                    default = sig.parameters[name].default
+                    self.assertIsNone(default,
+                        f"{fn.__qualname__}.{name} n'a pas None par défaut : {default!r}")
+
+    def test_secu_box_deniable_injection_defaults_to_none(self):
+        sys.path.insert(0, SECUBOX_DIR)
+        from secu_box import encode_deniable, encode_deniable0, _place_deniable
+        for fn in (encode_deniable, encode_deniable0, _place_deniable):
+            sig = inspect.signature(fn)
+            underscored = [p for p in sig.parameters if p.startswith('_')]
+            with self.subTest(fn=fn.__qualname__):
+                self.assertTrue(underscored)
+                for name in underscored:
+                    self.assertIsNone(sig.parameters[name].default,
+                        f"{fn.__qualname__}.{name} n'a pas None par défaut")
+
+
+class TestNoPublicPathReachesInjection(unittest.TestCase):
+    """
+    Aucun code appelant (demo(), CLI) ne doit passer un mot-clé préfixé `_`
+    à l'une des fonctions injectables — recherche textuelle dans les
+    fichiers qui APPELLENT ces fonctions (pas dans leur propre définition).
+    """
+
+    _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=',
+                        '_k2=', '_pi=', '_rsk=', '_dsk=',
+                        '_real_inject=', '_duress_inject=')
+
+    def _scan_source_for_injected_kwargs(self, label, source):
+        """
+        Scanne le texte source d'UNE fonction appelante précise (demo(),
+        CLI...) — pas le fichier entier, qui contiendrait aussi le corps
+        des fonctions injectables elles-mêmes (leur transmission interne
+        _nonce=_nonce etc. est légitime, ce n'est pas ce qu'on cherche ici).
+        """
+        hits = []
+        for i, line in enumerate(source.splitlines(), 1):
+            stripped = line.strip()
+            if stripped.startswith('#') or stripped.startswith('"""'):
+                continue
+            for kw in self._INJECTED_KWARGS:
+                if kw in line:
+                    hits.append((label, i, stripped))
+        return hits
+
+    def test_demo_and_cli_never_pass_injected_kwargs(self):
+        """
+        Isole précisément les fonctions APPELANTES exposées à l'utilisateur
+        (demo(), main() de la CLI) via inspect.getsource(), plutôt que de
+        scanner le fichier entier — qui contiendrait aussi la transmission
+        interne légitime à l'intérieur des fonctions injectables elles-mêmes.
+        """
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        sys.path.insert(0, SECUBOX_DIR)
+        import stegano_classic
+        import secu_box
+        import secu_box_cli
+
+        callers = [
+            ('stegano_classic.demo', stegano_classic.demo),
+            ('secu_box.demo', secu_box.demo),
+        ]
+        for name in dir(secu_box_cli):
+            obj = getattr(secu_box_cli, name)
+            if inspect.isfunction(obj) and obj.__module__ == 'secu_box_cli':
+                callers.append((f'secu_box_cli.{name}', obj))
+
+        all_hits = []
+        for label, fn in callers:
+            try:
+                source = inspect.getsource(fn)
+            except (OSError, TypeError):
+                continue
+            all_hits.extend(self._scan_source_for_injected_kwargs(label, source))
+
+        self.assertEqual(all_hits, [],
+            f"Du code appelant public référence un mot-clé d'injection : {all_hits}")
+
+    def test_stegano_lib_does_not_export_vectors_internal(self):
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stegano_lib.py')
+        with open(path, encoding='utf-8') as f:
+            content = f.read()
+        self.assertNotIn('vectors_internal', content,
+            "stegano_lib.py (API publique) ne doit jamais référencer le module vecteurs")
+
+
+class TestDefaultBehaviorUnchanged(unittest.TestCase):
+    """Sans injection, chaque fonction reste bien source de fraîcheur CSPRNG."""
+
+    def test_carter_encode_still_random_without_injection(self):
+        from stegano_lib import load_referents, decode_carter
+        ref256, _ = load_referents()
+        key = os.urandom(32)
+        g1 = encode_carter("HELLO", key, ref256)
+        g2 = encode_carter("HELLO", key, ref256)
+        self.assertNotEqual(g1, g2, "encode_carter() sans injection doit rester aléatoire")
+        self.assertEqual(decode_carter(g1, key, ref256), "HELLO")
+
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
