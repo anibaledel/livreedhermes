@@ -25,27 +25,24 @@ positions x et 96 positions y distinctes = 16 grilles × 6 colonnes (resp.
 16 grilles × 6 lignes), confirmé par l'écart régulier entre positions
 (≈5.25 en case, ≈21/28.5 en saut de grille). Les 256 grilles sont
 numérotées ligne par ligne, haut-gauche → bas-droite (grid_id =
-grid_row×16 + grid_col, 0..255) — convention confirmée par la
-correspondance exacte (256/256, même id) avec les positions "blue"/
-"orange" de l'actuel data/referent_256.json.
+grid_row×16 + grid_col, 0..255).
 
 Couleurs : 4 classes CSS résolues par EFFECTIF (pas par nom a priori) —
 2 classes "petites" (6 cases/grille, stégano) et 2 "grandes" (12
 cases/grille, crypto seulement). Aucun <radialGradient> dans ce SVG ; les
 4 couleurs sont des fills hex directs. L'étiquetage rouge/bleu/vert/jaune
-est déterminé en testant les 4 permutations possibles (2 pour les
-petites × 2 pour les grandes) contre verif_carre_magique.check_croix_ansee.
-Depuis la correction EGO/ALTER du critère I, EXACTEMENT 2 des 4
-permutations donnent 256/256 : la retenue, et son "miroir" par
-inversion GLOBALE et SIMULTANÉE rouge<->bleu et vert<->jaune (une
-simple renommage des 4 couleurs, invariant pour les critères I-IV qui
-ne distinguent pas l'identité absolue d'une couleur). Cette ambiguïté
-est levée par recoupement avec l'actuel data/referent_256.json (blue/
-orange, déjà en production, validé par l'auteur sur le site) : la
-permutation retenue est celle dont les positions "bleu"/"rouge"
-coïncident EXACTEMENT (256/256 grilles, même id) avec ses positions
-"blue"/"orange" — confirmée par l'auteur : rouge=cls-1, bleu=cls-4,
-vert=cls-9, jaune=cls-10.
+est FIGÉ par la constante CONFIRMED_COLOR_HEX (rouge=#eb6725, bleu=
+#316287, vert=#94abbc, jaune=#f1a102 — confirmée par l'auteur le
+2026-09-12, indépendante du numéro de classe CSS cls-N, non stable d'un
+export Illustrator à l'autre). Cette résolution ne dépend PLUS de
+l'ancien data/referent_256.json (retiré comme dépendance de calcul —
+ce fichier reste néanmoins en production ailleurs, voir
+_optional_legacy_crosscheck ci-dessous) : elle est validée seule, en
+vérifiant que les 256 grilles satisfont verif_carre_magique.
+check_croix_ansee (critères I-IV) à 256/256 — si le SVG source changeait
+au point que la constante ne corresponde plus, cette vérification
+échouerait et le script s'arrêterait (ValueError), plutôt que de
+retomber silencieusement sur un mauvais étiquetage.
 
 Dualité EGO/ALTER : le critère I de check_croix_ansee (symétrie
 rouge/bleu par une diagonale) accepte l'anti-diagonale (EGO) OU la
@@ -53,6 +50,13 @@ diagonale principale (ALTER) — bug corrigé dans verif_carre_magique.py
 (2026-09-12) après diagnostic sur ces mêmes 256 grilles, qui se
 répartissent en damier EXACT 128 EGO / 128 ALTER selon la parité de
 (grid_row + grid_col).
+
+Contrôle facultatif (data/referent_256.json) : l'ancien fichier blue/
+orange reste ACTIVEMENT CHARGÉ EN PRODUCTION par stegano_classic.py et
+disk_lib.py (pas retiré du dépôt, pas retiré de ces deux modules) — ce
+script se contente d'un recoupement FACULTATIF et non bloquant avec lui
+(résultat consigné dans MANIFEST.json, jamais utilisé pour décider de
+l'étiquetage).
 """
 import hashlib
 import json
@@ -195,101 +199,110 @@ def parse_svg(path):
     return grid_color, fill_of_class, diag
 
 
-def _load_legacy_petite_positions():
-    """Positions 'blue'/'orange' de l'actuel data/referent_256.json (deja
-    en production), indexees par id de grille -- sert a lever
-    l'ambiguite du miroir global rouge<->bleu / vert<->jaune (voir
-    docstring du module). Retourne None si le fichier est absent."""
-    if not os.path.exists(LEGACY_REF256_JSON):
-        return None
-    with open(LEGACY_REF256_JSON, encoding='utf-8') as f:
-        legacy = json.load(f)
-    return {entry['id']: (set(tuple(p) for p in entry['blue']),
-                           set(tuple(p) for p in entry['orange']))
-            for entry in legacy}
+# Etiquetage confirme (auteur, 2026-09-12) : identite par fill hex, PAS
+# par nom de classe CSS (cls-N est un numero d'export Illustrator
+# arbitraire, non stable d'un export a l'autre -- le hex, lui, est la
+# couleur elle-meme). rouge=cls-1/bleu=cls-4/vert=cls-9/jaune=cls-10
+# confirme a 256/256 (criteres I-IV, dualite EGO/ALTER) SANS dependre de
+# l'ancien data/referent_256.json -- ce fichier reste un controle
+# FACULTATIF (voir _optional_legacy_crosscheck ci-dessous), jamais une
+# source de verite pour cette resolution.
+CONFIRMED_COLOR_HEX = {
+    '#eb6725': 'rouge',
+    '#316287': 'bleu',
+    '#94abbc': 'vert',
+    '#f1a102': 'jaune',
+}
 
 
 def _resolve_color_labels(grid_color, fill_of_class):
-    """Determine par EFFECTIF les 2 classes 'petites' (6/grille -- stegano)
-    et 2 'grandes' (12/grille -- crypto), puis teste les 4 etiquetages
-    rouge/bleu/vert/jaune possibles contre check_croix_ansee sur les 256
-    grilles. Depuis la correction EGO/ALTER, EXACTEMENT 2 permutations
-    donnent 256/256 -- un miroir global (rouge<->bleu ET vert<->jaune
-    simultanement, un simple renommage sans effet sur les criteres I-IV).
-    Cette paire est departagee par recoupement avec l'actuel
-    data/referent_256.json (blue/orange, deja en production) : la
-    permutation retenue est celle dont bleu/rouge coincident EXACTEMENT
-    avec blue/orange (meme id). Leve si aucune, ou plusieurs, ne
-    correspond -- ARRET, pas de decision unilaterale."""
+    """Etiquette les classes par leur fill hex via CONFIRMED_COLOR_HEX
+    (constante figee, independante de tout fichier externe). Deux
+    controles de coherence structurelle avant d'accepter le resultat :
+    1. effectif par classe (2 'petites' a 6/grille -- rouge/bleu, 2
+       'grandes' a 12/grille -- vert/jaune) ; 2. les 256 grilles
+       resultantes verifient check_croix_ansee (criteres I-IV, dualite
+       EGO/ALTER) a 256/256. Leve si l'un des deux echoue -- ARRET, la
+       constante ne correspond alors plus a ce SVG source."""
     counts = Counter(grid_color.values())
     petites = sorted([c for c, n in counts.items() if n == N_GRIDS * 6])
     grandes = sorted([c for c, n in counts.items() if n == N_GRIDS * 12])
     if len(petites) != 2 or len(grandes) != 2:
         raise ValueError(f"composition inattendue par classe : {dict(counts)} -- ARRET.")
 
-    def grids_of(cls_to_label):
-        for gid in range(N_GRIDS):
-            yield gid, [[cls_to_label[grid_color[(gid, r, c)]] for c in range(6)]
-                        for r in range(6)]
+    cls_to_label = {}
+    for cls in petites + grandes:
+        hexval = fill_of_class.get(cls)
+        label = CONFIRMED_COLOR_HEX.get(hexval)
+        if label is None:
+            raise ValueError(
+                f"classe {cls} (fill {hexval}) absente de CONFIRMED_COLOR_HEX "
+                f"-- le SVG source a change, la constante doit etre revue, ARRET.")
+        cls_to_label[cls] = label
+    if set(cls_to_label[c] for c in petites) != {'rouge', 'bleu'} or \
+       set(cls_to_label[c] for c in grandes) != {'vert', 'jaune'}:
+        raise ValueError(
+            f"CONFIRMED_COLOR_HEX assigne rouge/bleu ou vert/jaune au mauvais "
+            f"groupe (petites={petites}, grandes={grandes}) -- ARRET.")
 
-    def positions_of(cls_to_label, gid, label):
+    n_ok = 0
+    chiralites = {}
+    for gid in range(N_GRIDS):
+        grid = [[cls_to_label[grid_color[(gid, r, c)]] for c in range(6)] for r in range(6)]
+        rep = check_croix_ansee(grid, verbose=False)
+        if rep['tous_criteres_ok']:
+            n_ok += 1
+        chiralites[gid] = rep['critere_I_chiralite']
+    if n_ok != N_GRIDS:
+        raise ValueError(
+            f"CONFIRMED_COLOR_HEX donne seulement {n_ok}/{N_GRIDS} grilles valides "
+            f"(256 attendues) -- le SVG source a change, ARRET.")
+
+    return cls_to_label, chiralites
+
+
+def _optional_legacy_crosscheck(grid_color, cls_to_label):
+    """Controle FACULTATIF, PUREMENT INFORMATIF : compare bleu/rouge de
+    l'etiquetage retenu (ci-dessus, deja valide independamment) aux
+    positions blue/orange de l'actuel data/referent_256.json (fichier
+    encore charge en production par stegano_classic.py/disk_lib.py --
+    PAS retire, PAS une dependance de cette resolution). N'influence
+    jamais le resultat ; sert seulement a consigner la correspondance
+    dans MANIFEST.json. Retourne un dict de diagnostic, jamais une
+    exception (fichier absent = controle simplement ignore)."""
+    if not os.path.exists(LEGACY_REF256_JSON):
+        return {'performed': False, 'reason': 'data/referent_256.json absent'}
+    with open(LEGACY_REF256_JSON, encoding='utf-8') as f:
+        legacy = json.load(f)
+    legacy_by_id = {entry['id']: (set(tuple(p) for p in entry['blue']),
+                                   set(tuple(p) for p in entry['orange']))
+                    for entry in legacy}
+
+    def positions_of(gid, label):
         return set((r, c) for r in range(6) for c in range(6)
                    if cls_to_label[grid_color[(gid, r, c)]] == label)
 
-    winners = []
-    for p_perm in permutations(['rouge', 'bleu']):
-        petite_map = dict(zip(petites, p_perm))
-        for g_perm in permutations(['vert', 'jaune']):
-            grande_map = dict(zip(grandes, g_perm))
-            cls_to_label = {**petite_map, **grande_map}
-            n_ok = 0
-            chiralites = {}
-            for gid, grid in grids_of(cls_to_label):
-                rep = check_croix_ansee(grid, verbose=False)
-                if rep['tous_criteres_ok']:
-                    n_ok += 1
-                chiralites[gid] = rep['critere_I_chiralite']
-            if n_ok == N_GRIDS:
-                winners.append((cls_to_label, chiralites))
-
-    if len(winners) == 1:
-        return winners[0]
-
-    if len(winners) == 0:
-        raise ValueError(
-            f"0 etiquetage ne donne 256/256 -- ARRET. classes petites={petites}, "
-            f"grandes={grandes}, fills={ {c: fill_of_class.get(c) for c in petites+grandes} }")
-
-    # >1 gagnant (attendu : exactement 2, le miroir global) -- departage
-    # par recoupement avec l'actuel data/referent_256.json.
-    legacy = _load_legacy_petite_positions()
-    if legacy is None:
-        raise ValueError(
-            f"{len(winners)} etiquetages donnent 256/256 (miroir global attendu) et "
-            f"{LEGACY_REF256_JSON} est absent pour departager -- ARRET.")
-
-    matches = []
-    for cls_to_label, chiralites in winners:
-        all_match = True
-        for gid in range(N_GRIDS):
-            if gid not in legacy:
-                all_match = False
-                break
-            blue_legacy, orange_legacy = legacy[gid]
-            bleu_ext = positions_of(cls_to_label, gid, 'bleu')
-            rouge_ext = positions_of(cls_to_label, gid, 'rouge')
-            if blue_legacy != bleu_ext or orange_legacy != rouge_ext:
-                all_match = False
-                break
-        if all_match:
-            matches.append((cls_to_label, chiralites))
-
-    if len(matches) != 1:
-        raise ValueError(
-            f"{len(winners)} etiquetages a 256/256, {len(matches)} coincident avec "
-            f"{LEGACY_REF256_JSON} (1 attendu) -- ambigu, ARRET.")
-
-    return matches[0]
+    n_match = 0
+    mismatches = []
+    for gid in range(N_GRIDS):
+        if gid not in legacy_by_id:
+            mismatches.append(gid)
+            continue
+        blue_legacy, orange_legacy = legacy_by_id[gid]
+        if positions_of(gid, 'bleu') == blue_legacy and positions_of(gid, 'rouge') == orange_legacy:
+            n_match += 1
+        else:
+            mismatches.append(gid)
+    return {
+        'performed': True,
+        'legacy_file': os.path.relpath(LEGACY_REF256_JSON, REPO_ROOT).replace(os.sep, '/'),
+        'n_grids_matching': n_match,
+        'n_grids_total': N_GRIDS,
+        'mismatched_grid_ids': mismatches[:20],
+        'note': ('blue<->bleu (cls-4), orange<->rouge (cls-1) attendus, meme id -- '
+                 'controle historique de la resolution de couleur, plus utilise pour '
+                 'la resoudre (voir CONFIRMED_COLOR_HEX).'),
+    }
 
 
 def canonical_json_bytes(doc_without_id):
@@ -341,9 +354,7 @@ def generate_v3_json(source_path):
     doc['n_forms'] = len(forms)
     doc['numbering_rule'] = (
         "256 grilles numerotees ligne par ligne, haut-gauche -> bas-droite "
-        "sur l'echiquier 16x16 de la page 047 (id = row*16+col, 0..255) -- "
-        "confirme par correspondance exacte (256/256, meme id) avec les "
-        "positions blue/orange de l'actuel data/referent_256.json."
+        "sur l'echiquier 16x16 de la page 047 (id = row*16+col, 0..255)."
     )
     doc['extraction_rule'] = (
         "Echiquier droit de la page 047 (x>950 sur viewBox 1920x1080), "
@@ -353,18 +364,19 @@ def generate_v3_json(source_path):
         "en 96 positions distinctes de chaque cote = 16 grilles x 6 "
         "cases, sans ancrage manuel. 4 couleurs identifiees par effectif "
         "(2x6/grille = petites/stegano, 2x12/grille = grandes/crypto "
-        "seulement) ; etiquetage rouge/bleu/vert/jaune retenu = seul des "
-        "4 possibles a faire passer les 256 grilles sous "
+        "seulement) puis par fill hex (CONFIRMED_COLOR_HEX, figee) -- "
+        "confirme par les 256 grilles sous "
         "verif_carre_magique.check_croix_ansee (criteres I-IV, dualite "
-        "EGO/ALTER)."
+        "EGO/ALTER), independamment de tout autre fichier."
     )
     doc['chiralite_repartition'] = {'EGO': n_ego, 'ALTER': n_alter}
     doc['diag'] = diag
+    doc['legacy_crosscheck'] = _optional_legacy_crosscheck(grid_color, cls_to_label)
     doc['c_pub'] = None   # rempli par tools/calibrate_referent.py
     return doc
 
 
-def populate_committed_src(source_path):
+def populate_committed_src(source_path, legacy_crosscheck=None):
     os.makedirs(COMMITTED_SRC, exist_ok=True)
     if os.path.abspath(source_path) != os.path.abspath(COMMITTED_SVG):
         shutil.copyfile(source_path, COMMITTED_SVG)
@@ -387,6 +399,7 @@ def populate_committed_src(source_path):
                                  '2026-09-12 (dualite EGO/ALTER, commit separe).'),
             },
         },
+        'legacy_crosscheck': legacy_crosscheck,
     }
     with open(MANIFEST_PATH, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, indent=2, sort_keys=True)
@@ -400,9 +413,15 @@ if __name__ == '__main__':
     doc = generate_v3_json(source_path)
     print(f"{doc['n_forms']} grilles extraites, toutes valides "
           f"(criteres I-IV) -- repartition chiralite : {doc['chiralite_repartition']}")
-    print(f"Mapping couleurs retenu : {doc['color_hues_hex']}")
+    print(f"Mapping couleurs retenu (CONFIRMED_COLOR_HEX) : {doc['color_hues_hex']}")
+    lc = doc['legacy_crosscheck']
+    if lc['performed']:
+        print(f"Controle facultatif vs {lc['legacy_file']} : "
+              f"{lc['n_grids_matching']}/{lc['n_grids_total']} grilles coincident")
+    else:
+        print(f"Controle facultatif vs data/referent_256.json : ignore ({lc['reason']})")
 
-    manifest = populate_committed_src(source_path)
+    manifest = populate_committed_src(source_path, legacy_crosscheck=lc)
     print(f"data/referent_256_src/ peuple : MANIFEST.json ({len(manifest['files'])} fichiers)")
 
     with open(OUT_JSON, 'w', encoding='utf-8') as f:

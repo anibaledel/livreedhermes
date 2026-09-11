@@ -40475,11 +40475,11 @@
     }
   ],
   "referent_id": "14faaeaa5487d83dd63c082a6738ec3817ad2619c63e502ac924e8a95b9da9d0",
-  "generated_at_utc": "2026-09-11T20:29:41.435674+00:00",
+  "generated_at_utc": "2026-09-11T23:39:06.931250+00:00",
   "generator_tool": "tools/generate_referent_256.py",
   "n_forms": 256,
-  "numbering_rule": "256 grilles numerotees ligne par ligne, haut-gauche -> bas-droite sur l'echiquier 16x16 de la page 047 (id = row*16+col, 0..255) -- confirme par correspondance exacte (256/256, meme id) avec les positions blue/orange de l'actuel data/referent_256.json.",
-  "extraction_rule": "Echiquier droit de la page 047 (x>950 sur viewBox 1920x1080), groupe <g id=\"good\">, cases ~5x5 (a ne pas confondre avec les cases ~7x7 de l'echiquier gauche, hors sujet). 9216 cases regroupees par clustering des centres x/y (tolerance 1 unite) en 96 positions distinctes de chaque cote = 16 grilles x 6 cases, sans ancrage manuel. 4 couleurs identifiees par effectif (2x6/grille = petites/stegano, 2x12/grille = grandes/crypto seulement) ; etiquetage rouge/bleu/vert/jaune retenu = seul des 4 possibles a faire passer les 256 grilles sous verif_carre_magique.check_croix_ansee (criteres I-IV, dualite EGO/ALTER).",
+  "numbering_rule": "256 grilles numerotees ligne par ligne, haut-gauche -> bas-droite sur l'echiquier 16x16 de la page 047 (id = row*16+col, 0..255).",
+  "extraction_rule": "Echiquier droit de la page 047 (x>950 sur viewBox 1920x1080), groupe <g id=\"good\">, cases ~5x5 (a ne pas confondre avec les cases ~7x7 de l'echiquier gauche, hors sujet). 9216 cases regroupees par clustering des centres x/y (tolerance 1 unite) en 96 positions distinctes de chaque cote = 16 grilles x 6 cases, sans ancrage manuel. 4 couleurs identifiees par effectif (2x6/grille = petites/stegano, 2x12/grille = grandes/crypto seulement) puis par fill hex (CONFIRMED_COLOR_HEX, figee) -- confirme par les 256 grilles sous verif_carre_magique.check_croix_ansee (criteres I-IV, dualite EGO/ALTER), independamment de tout autre fichier.",
   "chiralite_repartition": {
     "EGO": 128,
     "ALTER": 128
@@ -40488,10 +40488,18 @@
     "n_total_rects": 18688,
     "n_right_cells": 9216
   },
-  "c_pub": 390,
+  "legacy_crosscheck": {
+    "performed": true,
+    "legacy_file": "data/referent_256.json",
+    "n_grids_matching": 256,
+    "n_grids_total": 256,
+    "mismatched_grid_ids": [],
+    "note": "blue<->bleu (cls-4), orange<->rouge (cls-1) attendus, meme id -- controle historique de la resolution de couleur, plus utilise pour la resoudre (voir CONFIRMED_COLOR_HEX)."
+  },
+  "c_pub": 399,
   "c_pub_calibration": {
     "rule": "plus grand c_pub tel que redraw < 1% sur 10000 cles (tache 4)",
-    "measured_redraw_rate_pct": 0.37,
+    "measured_redraw_rate_pct": 0.67,
     "measured_fail_rate_pct": 0.0,
     "n_keys": 10000
   }
