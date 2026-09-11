@@ -83,9 +83,11 @@ def _classic_n_pos(key_b: List[int], grid_size: int) -> int:
 
 def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
     """
-    Longueur max du message en clair. Charge utile à longueur fixe (format
-    v3, tâche 2) : max_message_for() calcule directement la réponse exacte
-    depuis le nombre de positions, plus besoin de recherche binaire locale.
+    Longueur max du message en clair, en OCTETS UTF-8 (pas en caractères —
+    voir crypto_core._message_to_bytes). Charge utile à longueur fixe
+    (format v3, tâche 2) : max_message_for() calcule directement la réponse
+    exacte depuis le nombre de positions, plus besoin de recherche binaire
+    locale.
     """
     return max_message_for(_classic_n_pos(key_b, grid_size))
 
@@ -105,9 +107,10 @@ def encode(message: str, steg_key: bytes,
     if N % 6 != 0:
         raise ValueError(f"grid_size {N} doit être multiple de 6")
     n_pos = _classic_n_pos(key_b, grid_size)
-    max_len = max_message_for(n_pos)
-    if len(message) > max_len:
-        raise ValueError(f"Message trop long : {len(message)} > {max_len}")
+    max_len = max_message_for(n_pos)   # en octets UTF-8, voir crypto_core._message_to_bytes
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > max_len:
+        raise ValueError(f"Message trop long : {msg_bytes_len} > {max_len} octets")
 
     payload = _encrypt(message, steg_key, n_pos, _nonce=_nonce)
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
@@ -169,6 +172,8 @@ def decode(grid: List[List[int]], steg_key: bytes,
 # ── Clés ─────────────────────────────────────────────────────────────────────
 def make_keys(msg_len: int, ref256: List[Dict],
               grid_size: int = 60, block_size: int = 1) -> Tuple:
+    """msg_len : longueur du message en OCTETS UTF-8 (len(message.encode('utf-8')),
+    pas len(message)) — voir crypto_core._message_to_bytes."""
     if block_size not in VALID_K:
         raise ValueError(f"block_size={block_size} invalide")
     B = grid_size // 6; n_blocks = B * B
@@ -203,7 +208,7 @@ def demo():
     print("=== STÉGANOGRAPHIE GÉOMÉTRIQUE — La Livrée d'Hermès ===\n")
     ref256, _ = load_referents()
     message = "ANIBALAMIOTX"
-    sk, kb, kc, k2 = make_keys(len(message), ref256, grid_size=60)
+    sk, kb, kc, k2 = make_keys(len(message.encode('utf-8')), ref256, grid_size=60)
     grid = encode(message, sk, kb, kc, k2, ref256)
     decoded = decode(grid, sk, kb, kc, k2, ref256)
     print(f"Message : '{message}' | Décodé : '{decoded}' | OK : {decoded==message}")

@@ -90,26 +90,26 @@ class TestVectorsRegeneration(unittest.TestCase):
                 self.assertEqual(decoded, sv['expected_decode'])
 
     def test_negative_and_rejection_vectors_still_reject(self):
-        """Les vecteurs négatifs/de rejet (tamper=... ou instantiation=
-        'rejection') doivent continuer à échouer au décodage/à l'encodage
-        de la même façon (même sous-chaîne d'erreur) après régénération."""
+        """Les vecteurs négatifs (tamper=...) doivent continuer à produire
+        le MÊME résultat après régénération : rejet (même sous-chaîne
+        d'erreur) pour cellule/commitment/mauvaise clé altérés, mais
+        décodage RÉUSSI pour une cellule de bruit altérée (elle ne porte
+        aucune information — voir gen_carter256_negative_vectors)."""
         for sv in self.stored['vectors']:
             if 'tamper' not in sv:
                 continue
             with self.subTest(id=sv['id']):
-                self.assertEqual(sv.get('expected_result'), 'rejet')
-                if sv['instantiation'] == 'rejection':
-                    with self.assertRaises(ValueError) as ctx:
-                        CT.encode_carter(sv['inputs']['message'],
-                                          bytes.fromhex(sv['inputs']['master_key_hex']),
-                                          self.ref256)
-                    self.assertIn('alphabet', str(ctx.exception).lower())
-                    continue
                 grid = self.fresh_grids[sv['id']]
-                key_hex = sv['inputs']['master_key_hex']
+                key = bytes.fromhex(sv['inputs']['master_key_hex'])
+                if sv['tamper']['type'] == 'bruit_altere':
+                    self.assertEqual(sv.get('expected_result'), 'decode_ok')
+                    decoded = CT.decode_carter(grid, key, self.ref256)
+                    self.assertEqual(decoded, sv['expected_decode'])
+                    continue
+                self.assertEqual(sv.get('expected_result'), 'rejet')
                 bad_key = (bytes.fromhex(sv['tamper']['wrong_key_hex'])
                            if sv['tamper']['type'] == 'mauvaise_cle'
-                           else bytes.fromhex(key_hex))
+                           else key)
                 with self.assertRaises(ValueError) as ctx:
                     CT.decode_carter(grid, bad_key, self.ref256)
                 self.assertIn('commitment', str(ctx.exception).lower())

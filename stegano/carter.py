@@ -34,7 +34,7 @@ from cryptography.hazmat.primitives import hashes as _hashes
 from crypto_core import (
     ALPHA_LEN, LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key,
     _encrypt, _decrypt, payload_to_symbols,
-    max_payload_for, max_message_for, random_grid,
+    max_payload_for, max_message_for, random_grid, _derive_masks,
 )
 from stegano_classic import apply_orientation, _find_ref
 
@@ -52,20 +52,23 @@ def _find_grammar_with_c_pub(grammar_key: bytes, variant: str,
     Recherche déterministe (tâche 4, format v3) : essaie grammar_key_ctr pour
     ctr=0..MAX_REDRAWS-1 (voir crypto_core._redraw_grammar_key pour l'ordre
     exact de la dérivation complète) jusqu'à trouver une grammaire dont la
-    capacité (max_message_for) est >= C_PUB[variant]. Retourne (grammar,
-    n_pos) du premier succès. Lève ValueError après MAX_REDRAWS échecs —
-    jamais de grille construite, même partielle.
+    capacité (max_message_for) est >= C_PUB[variant]. Retourne (grammar_key_ctr,
+    grammar, n_pos) du premier succès — grammar_key_ctr est aussi la clé de
+    dérivation des masques de position (voir encode_carter() ci-dessous) :
+    un redraw retire seed/grammaire/masques ENSEMBLE, jamais l'un sans les
+    autres (même invariant que Random/18/Hybrid, tâche 4). Lève ValueError
+    après MAX_REDRAWS échecs — jamais de grille construite, même partielle.
     """
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, variant, ctr)
         grammar = grammar_fn(gk_ctr)
         n_pos = message_positions_fn(grammar)
         if max_message_for(n_pos) >= C_PUB[variant]:
-            return grammar, n_pos
+            return gk_ctr, grammar, n_pos
     raise ValueError(
         f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
         f"régénérer la clé maître (capacité cible C_PUB={C_PUB[variant]} "
-        f"caractères non atteinte).")
+        f"octets non atteinte).")
 
 def _carter_split(master_key: bytes):
     """
@@ -153,12 +156,14 @@ def encode_carter(message: str, master_key: bytes,
     # plus long est refusé AVANT toute dérivation de grammaire ou
     # construction de grille, même si CETTE clé (après redraw) aurait pu
     # en porter davantage. Évite un canal où la limite accept/refuse
-    # dépendrait de la clé.
-    if len(message) > C_PUB['carter256']:
+    # dépendrait de la clé. En OCTETS UTF-8 (pas des caractères — voir
+    # crypto_core._message_to_bytes).
+    if len(message.encode('utf-8')) > C_PUB['carter256']:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter256']} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
-    grammar, n_pos = _find_grammar_with_c_pub(
+            f"Message trop long : {len(message.encode('utf-8'))} > "
+            f"C_PUB={C_PUB['carter256']} octets (capacité publique "
+            f"garantie, indépendante de la clé).")
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
@@ -166,6 +171,11 @@ def encode_carter(message: str, master_key: bytes,
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
+    # Masques de position (2026-09-12) : même construction ChaCha20 que
+    # Random/18/Hybrid/déni (crypto_core._derive_masks), domaine propre à
+    # Carter-256 — dérivés de gk_ctr (même clé que la grammaire : un
+    # redraw retire les deux ensemble, voir _find_grammar_with_c_pub()).
+    masks = _derive_masks(gk_ctr, len(nibbles), LABELS['mask_seed']['info_carter256'])
 
     # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
     # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
@@ -177,7 +187,7 @@ def encode_carter(message: str, master_key: bytes,
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
         for gr, gc in _carter_positions(br, bc, g, ref256):
             if nib_i >= len(nibbles): break
-            grid[gr][gc] = nibbles[nib_i]; nib_i += 1
+            grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter(grid: List[List[int]], master_key: bytes,
@@ -188,16 +198,17 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
     Lève ValueError si la clé est incorrecte (tag Poly1305 invalide).
     """
     xchacha_key, grammar_key = _carter_split(master_key)
-    grammar, _ = _find_grammar_with_c_pub(
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
-    vals = []
+    masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter256'])
+    vals, ni = [], 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-        vals.extend(grid[gr][gc]
-                    for gr, gc in _carter_positions(br, bc, g, ref256))
+        for gr, gc in _carter_positions(br, bc, g, ref256):
+            vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
@@ -205,7 +216,7 @@ def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
     (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter() utilise
     réellement, pas la grammaire brute avant recherche)."""
     _, grammar_key = _carter_split(master_key)
-    grammar, n_pos = _find_grammar_with_c_pub(
+    _, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
@@ -331,11 +342,12 @@ def encode_carter_360(message: str, master_key: bytes,
 
     xchacha_key, grammar_key = _carter360_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
-    # encode_carter() pour la justification complète.
-    if len(message) > C_PUB['carter360']:
+    # encode_carter() pour la justification complète. En OCTETS UTF-8.
+    if len(message.encode('utf-8')) > C_PUB['carter360']:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter360']} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
+            f"Message trop long : {len(message.encode('utf-8'))} > "
+            f"C_PUB={C_PUB['carter360']} octets (capacité publique "
+            f"garantie, indépendante de la clé).")
     # Positions réellement disponibles. La grammaire tire une couleur parmi
     # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
     # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
@@ -345,7 +357,7 @@ def encode_carter_360(message: str, master_key: bytes,
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
     # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
     # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
-    grammar, n_pos = _find_grammar_with_c_pub(
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
@@ -353,6 +365,8 @@ def encode_carter_360(message: str, master_key: bytes,
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
+    # Masques de position (2026-09-12) : voir encode_carter().
+    masks = _derive_masks(gk_ctr, len(nibbles), LABELS['mask_seed']['info_carter360'])
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER360_GRID, CARTER360_GRID, _noise_seed=_noise_seed)
@@ -362,7 +376,7 @@ def encode_carter_360(message: str, master_key: bytes,
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
         for gr, gc in _carter360_positions(br, bc, g, ref360):
             if nib_i >= len(nibbles): break
-            grid[gr][gc] = nibbles[nib_i]; nib_i += 1
+            grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter_360(grid: List[List[int]], master_key: bytes,
@@ -371,16 +385,17 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
     if ref360 is None:
         ref360 = _load_ref360()
     xchacha_key, grammar_key = _carter360_split(master_key)
-    grammar, _ = _find_grammar_with_c_pub(
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
-    vals = []
+    masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter360'])
+    vals, ni = [], 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
-        vals.extend(grid[gr][gc]
-                    for gr, gc in _carter360_positions(br, bc, g, ref360))
+        for gr, gc in _carter360_positions(br, bc, g, ref360):
+            vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter360_capacity(master_key: bytes,
@@ -396,7 +411,7 @@ def carter360_capacity(master_key: bytes,
     # canal manque, le bloc ne rend AUCUNE position. Mesuré sur 463 blocs
     # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
     # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
-    grammar, n_pos = _find_grammar_with_c_pub(
+    _, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
@@ -534,15 +549,16 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
-    # encode_carter() pour la justification complète.
-    if len(message) > C_PUB['cartermix']:
+    # encode_carter() pour la justification complète. En OCTETS UTF-8.
+    if len(message.encode('utf-8')) > C_PUB['cartermix']:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB['cartermix']} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
+            f"Message trop long : {len(message.encode('utf-8'))} > "
+            f"C_PUB={C_PUB['cartermix']} octets (capacité publique "
+            f"garantie, indépendante de la clé).")
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
     # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
     # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
-    grammar, n_pos = _find_grammar_with_c_pub(
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
@@ -551,6 +567,8 @@ def encode_carter_mix(message: str, master_key: bytes,
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
+    # Masques de position (2026-09-12) : voir encode_carter().
+    masks = _derive_masks(gk_ctr, len(nibbles), LABELS['mask_seed']['info_cartermix'])
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID, _noise_seed=_noise_seed)
@@ -560,7 +578,7 @@ def encode_carter_mix(message: str, master_key: bytes,
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
         for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360):
             if nib_i >= len(nibbles): break
-            grid[gr][gc] = nibbles[nib_i]; nib_i += 1
+            grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter_mix(grid: List[List[int]], master_key: bytes,
@@ -570,16 +588,17 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
     if ref360 is None:
         ref360 = _load_ref360()
     xchacha_key, grammar_key = _carter_mix_split(master_key)
-    grammar, _ = _find_grammar_with_c_pub(
+    gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
-    vals = []
+    masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_cartermix'])
+    vals, ni = [], 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
-        vals.extend(grid[gr][gc]
-                    for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360))
+        for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360):
+            vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_mix_capacity(master_key: bytes,
@@ -590,7 +609,7 @@ def carter_mix_capacity(master_key: bytes,
     if ref360 is None:
         ref360 = _load_ref360()
     _, grammar_key = _carter_mix_split(master_key)
-    grammar, nibs = _find_grammar_with_c_pub(
+    _, grammar, nibs = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))

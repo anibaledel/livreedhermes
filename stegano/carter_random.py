@@ -29,7 +29,7 @@ from typing import List, Dict, Tuple, Optional
 from stegano_lib import (
     ALPHA_LEN, LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key,
     _encrypt, _decrypt, payload_to_symbols, max_message_for,
-    _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid,
+    _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid, _derive_masks,
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hh
@@ -93,31 +93,11 @@ CONC_ORDER = [
 # toute façon implémenter pour HChaCha20/XChaCha20 (tâche 1) — un seul
 # cœur ChaCha20 à porter et auditer côté JS, pas deux constructions
 # distinctes.
-
-def _derive_masks(grammar_key: bytes, n: int, domain: bytes) -> list:
-    """
-    Dérive n masques ∈ [0..ALPHA_LEN-1] depuis grammar_key, domaine-séparés
-    par `domain` (un info HKDF distinct par variante — voir
-    crypto_core.LABELS['mask_seed']). mask_key = HKDF-SHA256(grammar_key) ;
-    masques = keystream ChaCha20(mask_key, nonce=0) + rejection sampling
-    vers [0..ALPHA_LEN-1] (pas de biais modulo). Chaque appel avec les
-    mêmes arguments produit les mêmes masques.
-    """
-    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
-    ML = LABELS['mask_seed']
-    mask_key = _HKDF(_hh.SHA256(), 32, salt=ML['salt'], info=domain).derive(grammar_key)
-    nonce = bytes(16)   # nul : sans risque, mask_key n'est jamais réemployée ailleurs
-    keystream = Cipher(algorithms.ChaCha20(mask_key, nonce), mode=None).encryptor()
-    lim   = (256 // ALPHA_LEN) * ALPHA_LEN   # limite pour rejection sampling
-    masks = []
-    while len(masks) < n:
-        # Sur-tirage ~ taux de rejet (256/220 ≈ 1.164), + marge fixe.
-        chunk = (n - len(masks)) * 256 // lim + 16
-        for b in keystream.update(b'\x00' * chunk):
-            if b < lim:
-                masks.append(b % ALPHA_LEN)
-                if len(masks) >= n: break
-    return masks[:n]
+#
+# Pipeline d'écriture unique (2026-09-12) : _derive_masks() a déménagé dans
+# crypto_core.py, partagée désormais par les 6 variantes Carter ET le déni
+# plausible (secu_box.py) — ré-exportée ici par le seul import ci-dessus
+# (via stegano_lib), aucun appelant de ce module ne change.
 
 # ── Génération des référents ────────────────────────────────────────────────────
 def _generate_form(rng) -> Optional[Dict]:
@@ -317,11 +297,13 @@ def encode_carter_random(message: str,
     xchacha_key, grammar_key = _carter_split(master_key)
     c_pub_key = _random_c_pub_key(grid_size)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
-    # carter.encode_carter() pour la justification complète.
-    if len(message) > C_PUB[c_pub_key]:
+    # carter.encode_carter() pour la justification complète. En OCTETS
+    # UTF-8 du message (pas des caractères — voir crypto_core._message_to_bytes).
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB[c_pub_key]:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB[c_pub_key]} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
+            f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB[c_pub_key]} "
+            f"octets (capacité publique garantie, indépendante de la clé).")
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
 
@@ -436,11 +418,12 @@ def random_fits(message: str, master_key: bytes,
     (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter_random()
     utilise réellement)."""
     c_pub_key = _random_c_pub_key(grid_size)
-    if len(message) > C_PUB[c_pub_key]:
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB[c_pub_key]:
         return False
     _, grammar_key = _carter_split(master_key)
     _, _, _, _, _, n_pos = _find_random_grammar_with_c_pub(grammar_key, grid_size)
-    return len(message) <= max_message_for(n_pos)
+    return msg_bytes_len <= max_message_for(n_pos)
 
 def random_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
     """Retourne la capacité disponible pour une clé donnée (après redraw
@@ -646,11 +629,12 @@ def encode_carter_18(message: str,
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
-    # carter.encode_carter() pour la justification complète.
-    if len(message) > C_PUB['carter18']:
+    # carter.encode_carter() pour la justification complète. En OCTETS UTF-8.
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB['carter18']:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter18']} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
+            f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB['carter18']} "
+            f"octets (capacité publique garantie, indépendante de la clé).")
     n_side_18 = grid_size // BLOCK_18
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
     # seed du référent et grammaire redérivés ensemble à chaque tentative.
@@ -718,11 +702,12 @@ def carter18_fits(message: str, master_key: bytes,
                   grid_size: int = GRID_SIZE) -> bool:
     """Vérifie si le message tient dans la grille Carter-18 avec la config
     dérivée (après redraw C_PUB, tâche 4)."""
-    if len(message) > C_PUB['carter18']:
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB['carter18']:
         return False
     _, grammar_key = _carter_split(master_key)
     _, _, _, _, cap = _find_carter18_grammar_with_c_pub(grammar_key, grid_size)
-    return len(message) <= max_message_for(cap)
+    return msg_bytes_len <= max_message_for(cap)
 
 
 def carter18_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
@@ -880,11 +865,12 @@ def encode_carter_hybrid(message: str,
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
-    # carter.encode_carter() pour la justification complète.
-    if len(message) > C_PUB['carterhybrid']:
+    # carter.encode_carter() pour la justification complète. En OCTETS UTF-8.
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB['carterhybrid']:
         raise ValueError(
-            f"Message trop long : {len(message)} > C_PUB={C_PUB['carterhybrid']} "
-            f"caractères (capacité publique garantie, indépendante de la clé).")
+            f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB['carterhybrid']} "
+            f"octets (capacité publique garantie, indépendante de la clé).")
     n_side_18 = grid_size // BLOCK_18
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
     # seeds 18/6 et grammaire redérivés ensemble à chaque tentative.
@@ -972,11 +958,12 @@ def carter_hybrid_fits(message: str, master_key: bytes,
                        grid_size: int = GRID_SIZE) -> bool:
     """Vérifie si le message tient dans la grille Carter-Hybrid avec la
     config dérivée (après redraw C_PUB, tâche 4)."""
-    if len(message) > C_PUB['carterhybrid']:
+    msg_bytes_len = len(message.encode('utf-8'))
+    if msg_bytes_len > C_PUB['carterhybrid']:
         return False
     _, grammar_key = _carter_split(master_key)
     _, _, _, _, _, _, cap = _find_hybrid_grammar_with_c_pub(grammar_key, grid_size)
-    return len(message) <= max_message_for(cap)
+    return msg_bytes_len <= max_message_for(cap)
 
 
 def carter_hybrid_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:

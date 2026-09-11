@@ -666,11 +666,22 @@ class TestEndToEnd(unittest.TestCase):
                             MSG_ALPHA, KEY_KNOWN2, self.ref256),
             MSG_ALPHA)
 
-    def test_message_case_normalization(self):
-        msg_lower = "anibalamiotx"
-        grid = encode_carter(msg_lower, KEY_KNOWN, self.ref256)
+    def test_message_case_preserved(self):
+        """Format v3 (UTF-8 sans restriction d'alphabet) : la casse n'est
+        plus normalisée à l'encodage — decode() renvoie exactement le texte
+        saisi (voir crypto_core._message_to_bytes)."""
+        msg_mixed = "AnibalAmiotX"
+        grid = encode_carter(msg_mixed, KEY_KNOWN, self.ref256)
         result = decode_carter(grid, KEY_KNOWN, self.ref256)
-        self.assertEqual(result, msg_lower.upper())
+        self.assertEqual(result, msg_mixed)
+
+    def test_message_utf8_non_ascii_roundtrip(self):
+        """UTF-8 sans restriction d'alphabet (format v3) : un message
+        accentué est accepté et redonné à l'identique, plus rejeté."""
+        msg = "déjà vu"
+        grid = encode_carter(msg, KEY_KNOWN, self.ref256)
+        result = decode_carter(grid, KEY_KNOWN, self.ref256)
+        self.assertEqual(result, msg)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

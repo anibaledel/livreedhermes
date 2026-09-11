@@ -125,10 +125,12 @@ class TestDeniableRoundtrip(unittest.TestCase):
                 self.assertEqual(decode_deniable(grid, rk), real.upper())
                 self.assertEqual(decode_deniable(grid, dk), duress.upper())
 
-    def test_message_case_normalization(self):
-        grid, rk, dk = encode_deniable("anibal amiot", "notes perso")
-        self.assertEqual(decode_deniable(grid, rk), "ANIBAL AMIOT")
-        self.assertEqual(decode_deniable(grid, dk), "NOTES PERSO")
+    def test_message_case_preserved(self):
+        """Format v3 (UTF-8 sans restriction d'alphabet) : la casse n'est
+        plus normalisée à l'encodage — voir crypto_core._message_to_bytes."""
+        grid, rk, dk = encode_deniable("Anibal Amiot", "Notes Perso")
+        self.assertEqual(decode_deniable(grid, rk), "Anibal Amiot")
+        self.assertEqual(decode_deniable(grid, dk), "Notes Perso")
 
 
 class TestDeniableKeyProperties(unittest.TestCase):

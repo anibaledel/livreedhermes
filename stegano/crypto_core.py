@@ -309,11 +309,20 @@ LABELS = {
         'subblock_salt': b'Carter-hybrid-sub-v3',
     },
     'mask_seed': {
-        # Point d'entrée labellisé pour _derive_masks() (carter_random.py) :
+        # Point d'entrée labellisé pour _derive_masks() (ci-dessous) :
         # mask_key = HKDF-SHA256(grammar_key, salt, info=domaine), domaine
         # séparé par variante ; le flux de masques lui-même vient ensuite
-        # du keystream ChaCha20(mask_key, nonce=0) — voir carter_random.py.
+        # du keystream ChaCha20(mask_key, nonce=0) — voir _derive_masks().
+        # Pipeline d'écriture unique (2026-09-12) : les 6 variantes Carter
+        # ET le déni plausible dérivent TOUTES leurs masques via cette même
+        # fonction, chacune avec son propre domaine ci-dessous — Carter-256/
+        # 360/Mix n'écrivaient auparavant AUCUN masque (vérifié par
+        # git log -S sur le tag v2-final : absent des trois avant ce
+        # changement, contrairement à Random/18/Hybrid/déni).
         'salt':        b'Carter-masks-v3',
+        'info_carter256': b'position-masks-carter256',
+        'info_carter360': b'position-masks-carter360',
+        'info_cartermix': b'position-masks-cartermix',
         'info_random':   b'position-masks-random',
         'info_18':       b'position-masks-18',
         'info_hybrid':   b'position-masks-hybrid',
@@ -345,7 +354,13 @@ LABELS = {
 # redraw (MAX_REDRAWS tentatives, ci-dessous) absorbe le reste avec une
 # probabilité d'échec totale négligeable.
 #
-# En octets de message (= caractères, alphabet ASCII 1 octet/caractère).
+# En OCTETS du message encodé UTF-8 — jamais des caractères : le clair
+# n'est plus restreint à un alphabet ASCII (voir _message_to_bytes), donc
+# un caractère peut occuper plusieurs octets (2-4 en UTF-8). La mesure
+# empirique elle-même (docs/PAPER_NUMBERS_v3.md) portait sur des messages
+# ASCII 1 octet/caractère ; les valeurs restent correctes en octets pour
+# tout texte, seule leur lecture en « nombre de caractères affichés »
+# cesse d'être valable pour un texte non-ASCII.
 # Random 90 et Random 360 sont deux cibles DISTINCTES : même code, deux
 # géométries, deux distributions de capacité mesurées séparément.
 C_PUB = {
@@ -406,24 +421,30 @@ def _commit_key(steg_key: bytes) -> bytes:
                   salt=LABELS['commit']['salt'],
                   info=LABELS['commit']['info']).derive(steg_key)
 
-def _validate_alphabet(message: str) -> bytes:
-    """Majuscule + vérifie l'alphabet, renvoie les octets ASCII (LH-1).
-
-    Refuse un message hors alphabet plutôt que de le mutiler silencieusement.
-    L'ancien errors='replace' remplaçait tout caractère non-ASCII par '?' sans
-    prévenir l'appelant — un accent oublié se retrouvait décodé en un message
-    différent du message saisi.
+def _message_to_bytes(message: str) -> bytes:
     """
-    msg_upper = message.upper()
-    invalid = [c for c in msg_upper if c not in ALPHABET]
-    if invalid:
-        unique_invalid = sorted(set(invalid))
-        raise ValueError(
-            f"Message contient {len(invalid)} caractère(s) hors alphabet : "
-            f"{unique_invalid!r}. Alphabet accepté : {ALPHABET!r}. "
-            f"Conseil : translittérer les accents (É→E, À→A, etc.) "
-            f"ou retirer la ponctuation non supportée avant l'envoi.")
-    return msg_upper.encode('ascii')
+    Encode le clair en UTF-8, sans restriction d'alphabet ni normalisation
+    de casse (remplace _validate_alphabet — LH-1 révisé, format v3).
+
+    ALPHABET/ALPHA_LEN (ci-dessus) ne décrivent QUE l'alphabet des SYMBOLES
+    de la grille (44 valeurs par cellule, base de PayloadToSymbols) — un
+    objet entièrement distinct du texte en clair que l'utilisateur saisit.
+    L'ancienne restriction (LH-1 historique) datait d'un schéma antérieur
+    où les octets du message étaient placés DIRECTEMENT comme nibbles dans
+    la grille (voir le commentaire historique sur _bytes_to_syms plus haut :
+    « l'encodage en nibbles plaçait les octets du message dans [0..15] »),
+    ce qui exigeait que chaque caractère du message tienne dans l'alphabet
+    de la grille. Depuis que le clair passe par XChaCha20-Poly1305 PUIS
+    PayloadToSymbols (Définition 3.6), le contenu du message n'apparaît
+    JAMAIS en clair sur la grille — seul du texte chiffré, opaque, y est
+    représenté en base-44 — donc la restriction n'avait plus aucune
+    fonction : elle rejetait des messages valides (tout texte non-ASCII)
+    sans protéger quoi que ce soit. Sans casse forcée non plus : forcer la
+    majuscule n'avait de sens que pour cet ancien alphabet majuscule-seul ;
+    la retirer permet un aller-retour exact, y compris pour des écritures
+    sans notion de casse.
+    """
+    return message.encode('utf-8')
 
 def _encrypt(message: str, steg_key: bytes, L: int, _nonce: bytes = None) -> bytes:
     """
@@ -448,7 +469,7 @@ def _encrypt(message: str, steg_key: bytes, L: int, _nonce: bytes = None) -> byt
     symboles, tous porteurs de charge utile — aucune position n'est
     structurellement différente d'une autre (répond à N1).
     """
-    msg_b = _validate_alphabet(message)
+    msg_b = _message_to_bytes(message)
     payload_bytes, cleartext_len = _cleartext_capacity(L)
     if cleartext_len == 0:
         raise ValueError(
@@ -501,11 +522,11 @@ def _decrypt(vals: List[int], steg_key: bytes, L: int) -> str:
         raise ValueError("Longueur de message invalide — clé incorrecte ou données altérées")
     msg_b = pt[4:4+msg_len]
     try:
-        return msg_b.decode('ascii', errors='strict')
+        return msg_b.decode('utf-8', errors='strict')
     except UnicodeDecodeError:
         raise ValueError(
-            "Texte déchiffré non-ASCII — données corrompues malgré une "
-            "authentification AEAD valide")
+            "Texte déchiffré n'est pas de l'UTF-8 valide — données "
+            "corrompues malgré une authentification AEAD valide")
 
 # ── Flux de symboles — API pour carter.py, carter_random.py, grid_90.py ──────
 # Ces modules construisent leur propre flux et appellent _decrypt() dessus.
@@ -551,6 +572,42 @@ def random_grid(rows: int, cols: int, _noise_seed: bytes = None) -> List[List[in
             buf = os.urandom(manque * 256 // limit + 16)   # sur-tirage ~ taux de rejet
             flat.extend(b % ALPHA_LEN for b in buf if b < limit)
     return [flat[r * cols:(r + 1) * cols] for r in range(rows)]
+
+def _derive_masks(grammar_key: bytes, n: int, domain: bytes) -> list:
+    """
+    Dérive n masques ∈ [0..ALPHA_LEN-1] depuis grammar_key, domaine-séparés
+    par `domain` (un info HKDF distinct par variante, voir
+    LABELS['mask_seed']). mask_key = HKDF-SHA256(grammar_key) ; masques =
+    keystream ChaCha20(mask_key, nonce=0) + rejection sampling vers
+    [0..ALPHA_LEN-1] (pas de biais modulo — même règle de rejet que
+    random_grid() ci-dessus). Chaque appel avec les mêmes arguments produit
+    les mêmes masques.
+
+    Primitive PARTAGÉE (pipeline d'écriture unique, 2026-09-12) : utilisée
+    par les 6 variantes Carter (carter.py, carter_random.py) ET par le déni
+    plausible (secu_box.py), chacune avec son propre domaine — c'est
+    l'unique point du dépôt qui dérive un masque de position, plutôt que de
+    dupliquer cette construction ChaCha20+rejet dans chaque module appelant.
+    Migrée depuis carter_random.py (commit df965da, ChaCha20 remplaçant la
+    chaîne SHA-256 bespoke d'origine) ; carter_random.py continue de
+    l'exposer sous le même nom (ré-export), aucun appelant existant ne
+    change.
+    """
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
+    ML = LABELS['mask_seed']
+    mask_key = _HKDF(_hashes.SHA256(), 32, salt=ML['salt'], info=domain).derive(grammar_key)
+    nonce = bytes(16)   # nul : sans risque, mask_key n'est jamais réemployée ailleurs
+    keystream = Cipher(algorithms.ChaCha20(mask_key, nonce), mode=None).encryptor()
+    lim   = (256 // ALPHA_LEN) * ALPHA_LEN   # limite pour rejection sampling
+    masks = []
+    while len(masks) < n:
+        # Sur-tirage ~ taux de rejet (256/220 ≈ 1.164), + marge fixe.
+        chunk = (n - len(masks)) * 256 // lim + 16
+        for b in keystream.update(b'\x00' * chunk):
+            if b < lim:
+                masks.append(b % ALPHA_LEN)
+                if len(masks) >= n: break
+    return masks[:n]
 
 def payload_to_symbols(payload: bytes, L: int,
                         _y: int = None, _leftover: List[int] = None) -> List[int]:
