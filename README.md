@@ -141,7 +141,8 @@ CLI Python. L'onglet « À propos » de `encodeur.html` détaille chaque écart.
 La couche cryptographique repose sur des primitives standard ; la couche
 géométrique est **en cours d'évaluation formelle** et n'est pas revendiquée
 comme un chiffrement autonome. Un audit cryptologique a été mené le 2026-09-10
-(voir l'historique Git).
+(voir l'historique Git). Mesures de performance sur matériel arm64 réel
+(MOCHAbin) : voir [`BENCHMARKS_ARM64.md`](BENCHMARKS_ARM64.md).
 
 ## Déploiement
 
