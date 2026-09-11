@@ -23,7 +23,6 @@ stegano_lib.py (séparation de clé Carter, chiffrement, flux de symboles
 base-44 uniforme) plutôt que d'en dupliquer une version propre à ce fichier.
 """
 
-import hashlib
 import random
 from typing import List, Dict, Tuple, Optional
 
@@ -76,29 +75,47 @@ CONC_ORDER = [
 # _derive_masks(grammar_key, n) ne dépendant que de ces deux valeurs, les
 # trois variantes dérivaient jusqu'ici EXACTEMENT le même flux de masques
 # sous la même clé. `domain` (un des LABELS['mask_seed']['info_*'])
-# domaine-sépare désormais l'amorce par variante ; la chaîne SHA-256
-# elle-même reste le mécanisme de flux (HKDF-Expand seul est borné à
-# 255×32 octets, insuffisant pour les plus grandes grilles — seule
-# l'amorce passe par HKDF, labellisée et centralisée).
+# domaine-sépare désormais l'amorce par variante.
+#
+# Migration ChaCha20 (suite tâche 3, avant tâche 4) : remplace la chaîne
+# SHA-256 non standard (h_{i+1} = SHA256(h_i), bespoke) par le flux
+# ChaCha20 lui-même — mask_key = HKDF-SHA256(grammar_key, salt, info=domain)
+# puis masques = keystream ChaCha20(mask_key, nonce=0) + rejet vers Z44.
+# Nonce nul sans risque de réutilisation clé+nonce : mask_key est une clé
+# dédiée à cet unique usage (dérivée fraîchement par HKDF, jamais utilisée
+# pour chiffrer quoi que ce soit d'autre), pas une clé de chiffrement
+# générique réemployée. Avantages sur la chaîne SHA-256 : construction
+# nommée/standard (plus auditable qu'une chaîne bespoke), flux non borné
+# sans contournement (HKDF-Expand seul est borné à 255×32 octets — ici
+# seule l'AMORCE passe par HKDF, le flux lui-même vient de ChaCha20, sans
+# limite pratique), et réutilise le même primitif que le port JS doit de
+# toute façon implémenter pour HChaCha20/XChaCha20 (tâche 1) — un seul
+# cœur ChaCha20 à porter et auditer côté JS, pas deux constructions
+# distinctes.
 
 def _derive_masks(grammar_key: bytes, n: int, domain: bytes) -> list:
     """
     Dérive n masques ∈ [0..ALPHA_LEN-1] depuis grammar_key, domaine-séparés
     par `domain` (un info HKDF distinct par variante — voir
-    crypto_core.LABELS['mask_seed']). Rejection sampling pour uniformité
-    exacte (pas de biais modulo). Chaque appel avec les mêmes arguments
-    produit les mêmes masques.
+    crypto_core.LABELS['mask_seed']). mask_key = HKDF-SHA256(grammar_key) ;
+    masques = keystream ChaCha20(mask_key, nonce=0) + rejection sampling
+    vers [0..ALPHA_LEN-1] (pas de biais modulo). Chaque appel avec les
+    mêmes arguments produit les mêmes masques.
     """
-    masks = []
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
     ML = LABELS['mask_seed']
-    state = _HKDF(_hh.SHA256(), 32, salt=ML['salt'], info=domain).derive(grammar_key)
+    mask_key = _HKDF(_hh.SHA256(), 32, salt=ML['salt'], info=domain).derive(grammar_key)
+    nonce = bytes(16)   # nul : sans risque, mask_key n'est jamais réemployée ailleurs
+    keystream = Cipher(algorithms.ChaCha20(mask_key, nonce), mode=None).encryptor()
     lim   = (256 // ALPHA_LEN) * ALPHA_LEN   # limite pour rejection sampling
+    masks = []
     while len(masks) < n:
-        for b in state:
+        # Sur-tirage ~ taux de rejet (256/220 ≈ 1.164), + marge fixe.
+        chunk = (n - len(masks)) * 256 // lim + 16
+        for b in keystream.update(b'\x00' * chunk):
             if b < lim:
                 masks.append(b % ALPHA_LEN)
                 if len(masks) >= n: break
-        state = hashlib.sha256(state).digest()
     return masks[:n]
 
 # ── Génération des référents ────────────────────────────────────────────────────
