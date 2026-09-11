@@ -10,3 +10,7 @@ __pycache__/
 *.py[cod]
 
 /carter_hybrid_review.zip
+
+# Calques sources bruts du Referent 360 (.ai/.svg/.zip, 660 Mo) -- en attente
+# de decision (commit direct, Git LFS, ou hors depot) avant tout ajout.
+/0 KRE-360/
