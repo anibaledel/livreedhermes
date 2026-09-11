@@ -29,7 +29,7 @@ from typing import List, Dict, Tuple, Optional
 
 from stegano_lib import (
     ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for,
-    _carter_split, _PURE, _STRUCTURED, _MESSAGE,
+    _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid,
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hh
@@ -239,8 +239,7 @@ def encode_carter_random(message: str,
     # [0..15] qui trahirait les cellules message dans un bruit [0..43].
     nibbles = payload_to_symbols(payload)
 
-    grid = [[_sec.randbelow(ALPHA_LEN) for _ in range(grid_size)]
-            for _ in range(grid_size)]
+    grid = random_grid(grid_size, grid_size)
     masks = _derive_masks(grammar_key, len(nibbles) + 128)
     nib_i = 0
 
@@ -561,8 +560,7 @@ def encode_carter_18(message: str,
             f"{sum(1 for g in grammar if g['role'] == _MESSAGE)}).")
 
     masks = _derive_masks(grammar_key, len(nibbles) + 256)
-    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(grid_size)]
-              for _ in range(grid_size)]
+    grid  = random_grid(grid_size, grid_size)
 
     ni = 0
     for blk, g in enumerate(grammar):
@@ -758,8 +756,7 @@ def encode_carter_hybrid(message: str,
             f"{max_message_for(cap)} disponibles.")
 
     masks = _derive_masks(grammar_key, len(nibbles) + 512)
-    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(grid_size)]
-              for _ in range(grid_size)]
+    grid  = random_grid(grid_size, grid_size)
 
     ni = 0
     for blk, g in enumerate(grammar):

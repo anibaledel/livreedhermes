@@ -314,6 +314,71 @@ class TestPayloadFormat(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Classe C-bis — En-tête de longueur à entropie pleine (correctif audit N1)
+# ══════════════════════════════════════════════════════════════════════════════
+class TestHeaderUniformity(unittest.TestCase):
+    """
+    N1 (audit passage 3) : le symbole de poids faible de l'en-tête de longueur
+    ne couvrait que 11 valeurs sur 44 ({0,4,…,40}) — span=2^32 ≡ 4 (mod 44) et
+    une longueur de faible entropie. Distingueur exploitable sans clé. Le champ
+    longueur doit désormais présenter une entrée à ENTROPIE PLEINE : ses
+    symboles de poids faible sont uniformes sur [0..ALPHA_LEN-1].
+    """
+
+    def test_header_roundtrip(self):
+        """La longueur reste exactement recouvrable malgré le rembourrage."""
+        import crypto_core as C
+        for L in (0, 1, 44, 255, 256, 1000, 65535, (1 << 24) - 1):
+            for _ in range(20):
+                syms = C._header_to_syms(L)
+                self.assertEqual(len(syms), C._SYM_HEADER)
+                self.assertEqual(C._syms_to_header(syms), L,
+                                 f"En-tête non réversible pour L={L}")
+
+    def test_header_slots_multiple_of_alpha(self):
+        """k = 44^m // 2^32 est un multiple de ALPHA_LEN (condition d'uniformité)."""
+        import crypto_core as C
+        self.assertEqual(C._HEADER_SLOTS % C.ALPHA_LEN, 0)
+        # capacité exactement remplie : u ∈ [0, 44^m)
+        self.assertEqual((C._HEADER_SPAN - 1) * C._HEADER_SLOTS
+                         + (C._HEADER_SLOTS - 1),
+                         C.ALPHA_LEN ** C._SYM_HEADER - 1)
+
+    def test_header_low_symbol_uniform(self):
+        """
+        Preuve empirique : pour une longueur FIXÉE, le symbole de poids faible
+        de l'en-tête parcourt les 44 valeurs de façon uniforme (44/44), contre
+        11/44 avant le correctif. Chi² à 43 ddl, seuil très lâche.
+        """
+        import crypto_core as C
+        from collections import Counter
+        N = 120_000
+        for L in (100, 12345):
+            for idx in (0, 1):   # les deux symboles de poids faible
+                c   = Counter(C._header_to_syms(L)[idx] for _ in range(N))
+                exp = N / C.ALPHA_LEN
+                chi2 = sum((c.get(v, 0) - exp) ** 2 / exp
+                           for v in range(C.ALPHA_LEN))
+                with self.subTest(L=L, idx=idx):
+                    self.assertEqual(len(c), C.ALPHA_LEN,
+                                     f"L={L} sym[{idx}] : {len(c)}/44 valeurs seulement")
+                    # χ²_0.9999 (df=43) ≈ 89 ; large marge anti-flakiness.
+                    self.assertLess(chi2, 100.0,
+                                    f"L={L} sym[{idx}] non uniforme : chi2={chi2:.1f}")
+
+    def test_length_hidden_and_hmac_length_preserved(self):
+        """
+        L'en-tête ne divulgue plus la longueur en clair (masquée par le
+        rembourrage), et le HMAC LH-4 porte toujours sur struct.pack('>I',
+        longueur)‖inner : decode reconstruit la même longueur avant de vérifier.
+        """
+        payload = _encrypt(MSG_SHORT, KEY_KNOWN)
+        syms    = payload_to_symbols(payload)
+        # decode complet réussit -> longueur correctement reconstruite + HMAC OK
+        self.assertEqual(_decrypt(syms, KEY_KNOWN), MSG_SHORT.upper())
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Classe D — Grilles pré-calculées (fixtures)
 # ══════════════════════════════════════════════════════════════════════════════
 class TestFixtures(unittest.TestCase):
@@ -473,7 +538,8 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     suite  = unittest.TestSuite()
     for cls in [TestKeyDerivation, TestCarterGrammar,
-                TestPayloadFormat, TestFixtures, TestEndToEnd]:
+                TestPayloadFormat, TestHeaderUniformity,
+                TestFixtures, TestEndToEnd]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
