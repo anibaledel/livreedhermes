@@ -26,7 +26,6 @@ Concept :
     → La grammaire elle-même est une couche secrète supplémentaire.
 """
 
-import json
 from typing import List, Dict, Tuple, Optional
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hashes
@@ -36,7 +35,7 @@ from crypto_core import (
     _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid, _derive_masks,
 )
-from stegano_classic import apply_orientation, _find_ref
+from stegano_classic import apply_orientation, load_referents
 
 # ── Grille Carter — Grammaire à 3 catégories dérivées de la clé ───────────────
 CARTER_GRID  = 90
@@ -245,14 +244,6 @@ CARTER360_N     = CARTER360_SIDE ** 2                  # 225
 
 _COLORS_360 = ['C1', 'C2', 'C3']
 
-def _load_ref360() -> List[Dict]:
-    """Charge le Référent 360 (formes complètes 3×8=24 positions)."""
-    with open(_find_ref('referent_360.json')) as f:
-        raw = json.load(f)
-    return [f for f in raw
-            if (isinstance(f['positions'], dict) and
-                sum(len(v) for v in f['positions'].values()) == 24)]
-
 def _carter360_split(master_key: bytes):
     """Séparation des clés pour Carter 360 (salt distinct du Carter 256).
     Labels centralisés dans crypto_core.LABELS['carter360'] (tâche 3)."""
@@ -338,7 +329,7 @@ def encode_carter_360(message: str, master_key: bytes,
     à l'autre : carter360_capacity() donne le chiffre exact pour une clé.
     """
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
 
     xchacha_key, grammar_key = _carter360_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
@@ -383,7 +374,7 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
                        ref360: Optional[List[Dict]] = None) -> str:
     """Décode une grille Carter 180×180. Lève ValueError si clé incorrecte."""
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
     xchacha_key, grammar_key = _carter360_split(master_key)
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
@@ -403,7 +394,7 @@ def carter360_capacity(master_key: bytes,
     """Statistiques de capacité de la grammaire Carter 360 (après redraw
     C_PUB, tâche 4 — reflète ce qu'encode_carter_360() utilise réellement)."""
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
     _, grammar_key = _carter360_split(master_key)
     # Positions réellement disponibles. La grammaire tire une couleur parmi
     # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
@@ -545,7 +536,7 @@ def encode_carter_mix(message: str, master_key: bytes,
     _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
     """
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
 
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
@@ -586,7 +577,7 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
                        ref360: Optional[List[Dict]] = None) -> str:
     """Décode une grille Carter mixte 180×180."""
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
@@ -607,7 +598,7 @@ def carter_mix_capacity(master_key: bytes,
     """Statistiques de capacité de la grammaire Carter mixte (après redraw
     C_PUB, tâche 4 — reflète ce qu'encode_carter_mix() utilise réellement)."""
     if ref360 is None:
-        ref360 = _load_ref360()
+        _, ref360 = load_referents()
     _, grammar_key = _carter_mix_split(master_key)
     _, grammar, nibs = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',

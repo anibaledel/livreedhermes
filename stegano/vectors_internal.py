@@ -34,7 +34,7 @@ import crypto_core as CC
 import carter as CT
 import carter_random as CR
 import stegano_classic as SC
-from stegano_lib import load_referents, _load_ref360, _carter_split
+from stegano_lib import load_referents, _carter_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
 import secu_box as SB

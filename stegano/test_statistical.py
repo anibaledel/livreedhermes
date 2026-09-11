@@ -39,7 +39,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from stegano_lib import (
-    load_referents, _load_ref360,
+    load_referents,
     encode_carter, decode_carter,
     encode_carter_360, encode_carter_mix,
     _encrypt, _xchacha20_enc, payload_to_symbols, ALPHA_LEN,
@@ -282,8 +282,7 @@ class TestEntropy(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
-        cls.ref360 = _load_ref360()
+        cls.ref256, cls.ref360 = load_referents()
 
     def _entropy(self, flat: List[int]) -> float:
         n = len(flat)
@@ -597,8 +596,7 @@ class TestSummary(unittest.TestCase):
 
     def test_print_summary(self):
         """Affiche un recap sans assertion (toujours OK)."""
-        ref256, _ = load_referents()
-        ref360    = _load_ref360()
+        ref256, ref360 = load_referents()
         key       = os.urandom(32)
         msg       = "ANIBALAMIOTX"
 

@@ -142,5 +142,69 @@ class TestDefaultBehaviorUnchanged(unittest.TestCase):
         self.assertEqual(decode_carter(g1, key, ref256), "HELLO")
 
 
+class TestSingleRef360Loader(unittest.TestCase):
+    """
+    Chargeur UNIQUE du Référent 360 (2026-09-12) : avant ce commit,
+    carter.py maintenait un second chargeur (_load_ref360()) qui filtrait
+    aux formes complètes (24 positions), tandis que
+    stegano_classic.load_referents() renvoyait les 360 formes BRUTES —
+    dont 247 dégradées (0 position pour une couleur absente). Un appelant
+    utilisant load_referents() pour son ref360 (vectors_internal.py,
+    benchmark.py) obtenait donc un référent différent de celui
+    qu'encode_carter_360()/encode_carter_mix() utilisent par défaut.
+    Ce test vérifie qu'il n'existe plus qu'UN SEUL chargeur, et que le
+    mode vecteurs (vectors_internal.py) et la production par défaut
+    produisent des grilles BIT-IDENTIQUES pour la même clé une fois tout
+    l'aléa figé — preuve empirique, en boîte noire, qu'ils chargent le
+    même référent 360 sans avoir à introspecter l'un ou l'autre.
+    """
+
+    def test_carter360_default_matches_vectors_referent(self):
+        import vectors_internal as VI
+        ref256_v, ref360_v = VI.load_referents()   # ce que vectors_internal.py charge
+        key = os.urandom(32)
+        nonce = os.urandom(24)
+        noise_seed = os.urandom(32)
+        # Grille via le référent EXPLICITE du mode vecteurs...
+        g_explicit = encode_carter_360(
+            "HELLO", key, ref360_v,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+        # ...contre la grille via le chargement PAR DÉFAUT de production
+        # (ref360=None -> load_referents() interne à carter.py).
+        g_default = encode_carter_360(
+            "HELLO", key,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+        self.assertEqual(g_explicit, g_default,
+            "vectors_internal.load_referents() et le chargement par défaut "
+            "d'encode_carter_360() ne chargent pas le même référent 360 — "
+            "un second chargeur non filtré a-t-il été réintroduit ?")
+
+    def test_cartermix_default_matches_vectors_referent(self):
+        from stegano_lib import encode_carter_mix
+        import vectors_internal as VI
+        ref256_v, ref360_v = VI.load_referents()
+        key = os.urandom(32)
+        nonce = os.urandom(24)
+        noise_seed = os.urandom(32)
+        g_explicit = encode_carter_mix(
+            "HELLO", key, ref256_v, ref360_v,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+        g_default = encode_carter_mix(
+            "HELLO", key, ref256_v,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+        self.assertEqual(g_explicit, g_default,
+            "vectors_internal.load_referents() et le chargement par défaut "
+            "d'encode_carter_mix() ne chargent pas le même référent 360.")
+
+    def test_no_second_ref360_loader_exists(self):
+        """Garde-fou textuel : aucun second chargeur '_load_ref360' ne doit
+        réapparaître dans carter.py (un seul chargeur, load_referents())."""
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'carter.py')
+        with open(path, encoding='utf-8') as f:
+            content = f.read()
+        self.assertNotIn('def _load_ref360', content,
+            "carter.py ne doit définir aucun second chargeur du Référent 360.")
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

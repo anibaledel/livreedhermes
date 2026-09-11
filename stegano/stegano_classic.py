@@ -36,8 +36,26 @@ def _find_ref(name: str) -> str:
     raise FileNotFoundError(f"{name} introuvable")
 
 def load_referents() -> Tuple[List, List]:
+    """
+    Chargeur UNIQUE du Référent 256 et du Référent 360 (2026-09-12) : avant
+    ce commit, carter.py maintenait son propre second chargeur pour le 360
+    (_load_ref360()) qui filtrait aux formes complètes (3×8=24 positions),
+    tandis que CETTE fonction renvoyait les 360 formes brutes du fichier —
+    dont 247 sont des formes à 1 ou 2 couleurs disponibles (8 ou 16
+    positions seulement), qui rendent 0 position pour toute couleur
+    absente. Tout appelant passant par CETTE fonction (vectors_internal.py,
+    benchmark.py) recevait donc un référent 360 dégradé par rapport à celui
+    utilisé par défaut par encode_carter_360()/encode_carter_mix() — un
+    écart mesuré à ~43% de capacité en moins, et une capacité annoncée par
+    C_PUB largement inatteignable pour ce chargeur (voir docs/
+    PAPER_NUMBERS_v3.md). Le filtre est maintenant appliqué ICI, dans
+    l'UNIQUE chargeur du dépôt — carter.py n'a plus le sien.
+    """
     with open(_find_ref('referent_256.json')) as f: r256 = json.load(f)
-    with open(_find_ref('referent_360.json')) as f: r360 = json.load(f)
+    with open(_find_ref('referent_360.json')) as f: raw360 = json.load(f)
+    r360 = [f for f in raw360
+            if (isinstance(f['positions'], dict) and
+                sum(len(v) for v in f['positions'].values()) == 24)]
     return r256, r360
 
 # ── Orientations D4 ──────────────────────────────────────────────────────────

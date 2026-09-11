@@ -47,7 +47,6 @@ from carter import (
     _carter_split, _carter_grammar, _carter_positions, _carter_message_positions,
     encode_carter, decode_carter, carter_capacity,
     CARTER360_GRID, CARTER360_BLOCK, CARTER360_SIDE, CARTER360_N, _COLORS_360,
-    _load_ref360,
     _carter360_split, _carter360_grammar, _carter360_positions,
     _carter360_message_positions,
     encode_carter_360, decode_carter_360, carter360_capacity,

@@ -46,7 +46,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from stegano_lib import (
-    load_referents, _load_ref360,
+    load_referents,
     _carter_split, _carter360_split, _carter_mix_split,
     _commit_key, _carter_grammar,
     _encrypt, _decrypt,
@@ -77,8 +77,7 @@ _REF360 = None
 def get_refs():
     global _REF256, _REF360
     if _REF256 is None:
-        _REF256, _ = load_referents()
-        _REF360    = _load_ref360()
+        _REF256, _REF360 = load_referents()
     return _REF256, _REF360
 
 # ── Utilitaire : mock os.urandom déterministe ─────────────────────────────────
@@ -536,8 +535,7 @@ class TestFixtures(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        ref256, _ = get_refs()
-        ref360    = _load_ref360()
+        ref256, ref360 = get_refs()
 
         def make_fixture(fn, *args, seed=b'seed'):
             rng = _FakeRandom(seed)
