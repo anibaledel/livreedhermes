@@ -535,6 +535,11 @@ def encode_carter_18(message: str,
     Capacité nettement supérieure à Carter-256 (324 positions par méta-bloc
     message en direction 0/1, contre 6 par bloc en Carter-256).
     """
+    # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
+    # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
+    # méta-blocs ne pavent plus la grille correctement.
+    if grid_size % BLOCK_18 != 0:
+        raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     seed  = _carter18_seed(grammar_key)
     ref18 = get_referent_18(seed)
@@ -582,6 +587,9 @@ def decode_carter_18(grid: List[List[int]],
                      master_key: bytes,
                      grid_size: int = GRID_SIZE) -> str:
     """Décode une grille encodée par encode_carter_18. ValueError si clé incorrecte."""
+    # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_18.
+    if grid_size % BLOCK_18 != 0:
+        raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     seed  = _carter18_seed(grammar_key)
     ref18 = get_referent_18(seed)
@@ -729,6 +737,11 @@ def encode_carter_hybrid(message: str,
     pas du message : pas d'adaptation à la longueur qui distinguerait un
     message court d'un message long depuis la seule géométrie.
     """
+    # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
+    # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
+    # méta-blocs ne pavent plus la grille correctement.
+    if grid_size % BLOCK_18 != 0:
+        raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     seed18, seed6 = _carter_hybrid_seeds(grammar_key)
     ref18 = get_referent_18(seed18)
@@ -783,6 +796,9 @@ def decode_carter_hybrid(grid: List[List[int]],
                          master_key: bytes,
                          grid_size: int = GRID_SIZE) -> str:
     """Décode une grille encodée par encode_carter_hybrid. ValueError si clé incorrecte."""
+    # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_hybrid.
+    if grid_size % BLOCK_18 != 0:
+        raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
     seed18, seed6 = _carter_hybrid_seeds(grammar_key)
     ref18 = get_referent_18(seed18)
