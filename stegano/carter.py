@@ -32,7 +32,7 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hashes
 
 from crypto_core import (
-    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols,
+    ALPHA_LEN, LABELS, _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid,
 )
 from stegano_classic import apply_orientation, _find_ref
@@ -49,16 +49,18 @@ def _carter_split(master_key: bytes):
     """
     Séparation explicite des clés Carter [correction 2].
     Deux usages distincts → deux sous-clés indépendantes via HKDF.
-      xchacha_key : chiffrement ChaCha20-Poly1305 à nonce étendu par HKDF (LH-5)
+      xchacha_key : chiffrement XChaCha20-Poly1305 standard (tâche 1)
       grammar_key : dérivation de la grammaire (rôles + formes)
     Propriété : la grammaire ne révèle rien sur la clé de chiffrement et vice-versa.
+    Labels centralisés dans crypto_core.LABELS['carter256'] (tâche 3).
     """
+    L = LABELS['carter256']
     xchacha_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'Carter-v2',
-                         info=b'encrypt').derive(master_key)
+                         salt=L['split_salt'],
+                         info=L['encrypt_info']).derive(master_key)
     grammar_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'Carter-v2',
-                         info=b'grammar').derive(master_key)
+                         salt=L['split_salt'],
+                         info=L['grammar_info']).derive(master_key)
     return xchacha_key, grammar_key
 
 def _carter_grammar(master_key: bytes, ref256: List[Dict]) -> List[Dict]:
@@ -66,12 +68,14 @@ def _carter_grammar(master_key: bytes, ref256: List[Dict]) -> List[Dict]:
     Dérive la grammaire Carter depuis la clé maître (HKDF-SHA256).
     Assigne à chaque bloc un rôle et une forme géométrique.
     Sans la clé, les rôles sont inconnus → grammaire = couche secrète.
+    Labels centralisés dans crypto_core.LABELS['carter256'] (tâche 3).
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
+    L = LABELS['carter256']
     km = HKDF(_hh.SHA256(), CARTER_N * 4,
-              salt=b'Carter-grammar-v1',
-              info=b'block-roles-and-forms').derive(master_key)
+              salt=L['grammar_content_salt'],
+              info=L['grammar_content_info']).derive(master_key)
     grammar = []
     for i in range(CARTER_N):
         b = km[i*4 : i*4+4]
@@ -195,11 +199,13 @@ def _load_ref360() -> List[Dict]:
                 sum(len(v) for v in f['positions'].values()) == 24)]
 
 def _carter360_split(master_key: bytes):
-    """Séparation des clés pour Carter 360 (salt distinct du Carter 256)."""
+    """Séparation des clés pour Carter 360 (salt distinct du Carter 256).
+    Labels centralisés dans crypto_core.LABELS['carter360'] (tâche 3)."""
+    L = LABELS['carter360']
     xchacha_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'Carter360-v2', info=b'encrypt').derive(master_key)
+                         salt=L['split_salt'], info=L['encrypt_info']).derive(master_key)
     grammar_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'Carter360-v2', info=b'grammar').derive(master_key)
+                         salt=L['split_salt'], info=L['grammar_info']).derive(master_key)
     return xchacha_key, grammar_key
 
 def _carter360_grammar(master_key: bytes, ref360: List[Dict]) -> List[Dict]:
@@ -207,12 +213,14 @@ def _carter360_grammar(master_key: bytes, ref360: List[Dict]) -> List[Dict]:
     Dérive la grammaire Carter pour le Référent 360 (blocs 12×12).
     Même principe que _carter_grammar pour Ref256,
     mais avec 3 couleurs (C1/C2/C3) au lieu de 2 (blue/orange).
+    Labels centralisés dans crypto_core.LABELS['carter360'] (tâche 3).
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
+    L = LABELS['carter360']
     km = HKDF(_hh.SHA256(), CARTER360_N * 4,
-              salt=b'Carter360-grammar-v1',
-              info=b'block-roles-360-forms').derive(master_key)
+              salt=L['grammar_content_salt'],
+              info=L['grammar_content_info']).derive(master_key)
     grammar = []
     for i in range(CARTER360_N):
         b = km[i*4 : i*4+4]
@@ -363,11 +371,13 @@ CARTER_MIX_N     = 225          # total méta-blocs
 _REF256, _REF360 = 0, 1         # identifiants de référent
 
 def _carter_mix_split(master_key: bytes):
-    """Séparation des clés pour Carter mixte (salt distinct)."""
+    """Séparation des clés pour Carter mixte (salt distinct).
+    Labels centralisés dans crypto_core.LABELS['cartermix'] (tâche 3)."""
+    L = LABELS['cartermix']
     xchacha_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'CarterMix-v2', info=b'encrypt').derive(master_key)
+                         salt=L['split_salt'], info=L['encrypt_info']).derive(master_key)
     grammar_key = _HKDF(_hashes.SHA256(), 32,
-                         salt=b'CarterMix-v2', info=b'grammar').derive(master_key)
+                         salt=L['split_salt'], info=L['grammar_info']).derive(master_key)
     return xchacha_key, grammar_key
 
 def _carter_mix_grammar(master_key: bytes,
@@ -380,12 +390,14 @@ def _carter_mix_grammar(master_key: bytes,
       - rôle     : pur / structuré / message
       - forme    : issue du référent sélectionné
     Sans la clé, référent ET rôle sont inconnus.
+    Labels centralisés dans crypto_core.LABELS['cartermix'] (tâche 3).
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
+    L = LABELS['cartermix']
     km = HKDF(_hh.SHA256(), CARTER_MIX_N * 5,
-              salt=b'CarterMix-v1',
-              info=b'mixed-256-360-grammar').derive(master_key)
+              salt=L['grammar_content_salt'],
+              info=L['grammar_content_info']).derive(master_key)
     grammar = []
     for i in range(CARTER_MIX_N):
         b = km[i*5 : i*5+5]

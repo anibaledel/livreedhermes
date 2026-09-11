@@ -21,7 +21,7 @@ Aucune logique ici — voir le module correspondant pour l'implémentation.
 """
 
 from crypto_core import (
-    ALPHABET, ALPHA_LEN,
+    ALPHABET, ALPHA_LEN, LABELS,
     hchacha20, _xchacha20_enc, _xchacha20_dec,
     _bytes_to_syms, _syms_to_bytes,
     _commit_key, _encrypt, _decrypt,

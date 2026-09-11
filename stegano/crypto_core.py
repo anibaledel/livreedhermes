@@ -217,13 +217,101 @@ def max_message_for(L: int) -> int:
     _, cleartext_len = _cleartext_capacity(L)
     return max(0, cleartext_len - 4)
 
+# ── Labels HKDF centralisés (format v3, tâche 3) ──────────────────────────────
+# Tous les labels HKDF (salt, info) de la couche Carter et du key commitment,
+# centralisés ici pour que LH-5 (spécification d'interopérabilité) les
+# reprenne tels quels. Convention : salt = 'Carter-<variante>-v3' (ou
+# 'commit-v3' pour le commitment, partagé par tous les schémas — classique,
+# Carter, grid_90) ; info = but précis de CETTE dérivation, distinct pour
+# toute paire (variante, but) — y compris les masques, qui utilisaient
+# jusqu'ici un domaine PARTAGÉ entre Carter Random/18/Hybrid (les trois
+# réutilisent le même _carter_split, donc le même grammar_key pour une
+# master_key donnée ; _derive_masks(grammar_key, n) ne dépendait que de ces
+# deux valeurs — sous la même clé, les trois variantes dérivaient donc EXACTEMENT
+# le même flux de masques jusqu'à la longueur n commune). Désormais
+# domaine-séparées par variante (masks_info distinct), fermant cet écart.
+#
+# Hors de ce dict, volontairement : secu_box.py (session X25519, chiffrement
+# d'identité, déni — ce dernier remplacé en entier par la tâche 5, qui
+# choisira ses propres labels sur ce même modèle) et vault_lib.py — ce ne
+# sont pas des primitives du format Carter v3, et l'une d'elles est
+# explicitement protégée contre un renommage par des données déjà exportées
+# (voir le commentaire sur _chacha20_hkdf_enc2/dec2 dans secu_box.py).
+LABELS = {
+    'commit': {
+        'salt': b'commit-v3',
+        'info': b'key-commitment',
+    },
+    'carter256': {
+        'split_salt':           b'Carter-256-v3',
+        'encrypt_info':         b'encrypt',
+        'grammar_info':         b'grammar',
+        'grammar_content_salt': b'Carter-256-grammar-v3',
+        'grammar_content_info': b'block-roles-and-forms',
+    },
+    'carter360': {
+        'split_salt':           b'Carter-360-v3',
+        'encrypt_info':         b'encrypt',
+        'grammar_info':         b'grammar',
+        'grammar_content_salt': b'Carter-360-grammar-v3',
+        'grammar_content_info': b'block-roles-360-forms',
+    },
+    'cartermix': {
+        'split_salt':           b'Carter-mix-v3',
+        'encrypt_info':         b'encrypt',
+        'grammar_info':         b'grammar',
+        'grammar_content_salt': b'Carter-mix-grammar-v3',
+        'grammar_content_info': b'mixed-256-360-grammar',
+    },
+    'carterrandom': {
+        # Random/18/Hybrid réutilisent _carter_split (Carter-256) pour
+        # xchacha_key/grammar_key — c'est un choix délibéré, documenté dans
+        # carter_random.py ("réutilise les primitives déjà auditées"), pas
+        # une omission de la tâche 3. Seules les dérivations SECONDAIRES
+        # depuis grammar_key sont propres à chaque variante ci-dessous.
+        'params_salt':             b'Carter-random-params-v3',
+        'params_info':             b'seed-and-mode',
+        'grammar_individual_salt': b'Carter-random-v3',
+        'grammar_individual_info': b'grammar-individual',
+        'grammar_meta_salt':       b'Carter-random-meta-v3',
+        'grammar_meta_roles_info': b'meta-roles',
+        'grammar_meta_forms_info': b'block-forms',
+    },
+    'carter18': {
+        'grammar_salt': b'Carter-18-v3',
+        'grammar_info': b'grammar-18',
+        'seed_salt':    b'Carter-18-seed-v3',
+        'seed_info':    b'seed',
+    },
+    'carterhybrid': {
+        'grammar_salt':  b'Carter-hybrid-v3',
+        'grammar_info':  b'grammar-hybrid',
+        'seed18_salt':   b'Carter-hybrid-seed-v3',
+        'seed18_info':   b'seed-18',
+        'seed6_salt':    b'Carter-hybrid-seed6-v3',
+        'seed6_info':    b'seed-6',
+        'subblock_salt': b'Carter-hybrid-sub-v3',
+    },
+    'mask_seed': {
+        # Point d'entrée labellisé pour _derive_masks() (carter_random.py) :
+        # seed HKDF-SHA256(grammar_key) domaine-séparée par variante, puis
+        # la même chaîne SHA-256 non bornée qu'avant (HKDF-Expand seul est
+        # borné à 255*32 octets, insuffisant pour les plus grandes grilles ;
+        # la chaîne reste le mécanisme de flux, seule son amorce change).
+        'salt':               b'Carter-masks-v3',
+        'info_random':        b'position-masks-random',
+        'info_18':             b'position-masks-18',
+        'info_hybrid':         b'position-masks-hybrid',
+    },
+}
+
 # ── Chiffrement du message — Key commitment + XChaCha20-Poly1305 ─────────────
 
 def _commit_key(steg_key: bytes) -> bytes:
     """Clé HMAC dédiée au key commitment (séparée de la clé de chiffrement)."""
     return _HKDF(_hashes.SHA256(), 32,
-                  salt=b'commit-v1',
-                  info=b'key-commitment').derive(steg_key)
+                  salt=LABELS['commit']['salt'],
+                  info=LABELS['commit']['info']).derive(steg_key)
 
 def _validate_alphabet(message: str) -> bytes:
     """Majuscule + vérifie l'alphabet, renvoie les octets ASCII (LH-1).

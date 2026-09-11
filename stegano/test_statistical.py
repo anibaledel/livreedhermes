@@ -778,6 +778,7 @@ class TestCarterRandomAvalanche(unittest.TestCase):
         expose separement dans ce depot.
         """
         from carter_random import _carter_split, _derive_masks
+        from crypto_core import LABELS
         ratios = []
         for _ in range(8):
             k  = os.urandom(32)
@@ -786,7 +787,7 @@ class TestCarterRandomAvalanche(unittest.TestCase):
                 xk, gk = _carter_split(key)
                 payload = _encrypt("LACROIXANSEE", xk, 150)
                 syms    = payload_to_symbols(payload, 150)
-                masks   = _derive_masks(gk, len(syms)+128)
+                masks   = _derive_masks(gk, len(syms)+128, LABELS['mask_seed']['info_random'])
                 return [(syms[i]+masks[i]) % ALPHA_LEN for i in range(len(syms))]
             v1 = syms_and_masks(k)
             v2 = syms_and_masks(k2)

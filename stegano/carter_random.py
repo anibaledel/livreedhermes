@@ -28,7 +28,7 @@ import random
 from typing import List, Dict, Tuple, Optional
 
 from stegano_lib import (
-    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for,
+    ALPHA_LEN, LABELS, _encrypt, _decrypt, payload_to_symbols, max_message_for,
     _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid,
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
@@ -70,15 +70,28 @@ CONC_ORDER = [
 # tel quel : il dérive de grammar_key SEUL, sans aléa propre à la grille
 # (même grammar_key -> mêmes masques à chaque appel), ce qui n'est pas la
 # propriété qu'on attendrait d'un masque cryptographique générique.
+#
+# Tâche 3 (format v3) : Random/18/Hybrid réutilisent tous _carter_split
+# (Carter-256), donc le même grammar_key pour une master_key donnée —
+# _derive_masks(grammar_key, n) ne dépendant que de ces deux valeurs, les
+# trois variantes dérivaient jusqu'ici EXACTEMENT le même flux de masques
+# sous la même clé. `domain` (un des LABELS['mask_seed']['info_*'])
+# domaine-sépare désormais l'amorce par variante ; la chaîne SHA-256
+# elle-même reste le mécanisme de flux (HKDF-Expand seul est borné à
+# 255×32 octets, insuffisant pour les plus grandes grilles — seule
+# l'amorce passe par HKDF, labellisée et centralisée).
 
-def _derive_masks(grammar_key: bytes, n: int) -> list:
+def _derive_masks(grammar_key: bytes, n: int, domain: bytes) -> list:
     """
-    Dérive n masques ∈ [0..ALPHA_LEN-1] depuis grammar_key.
-    Rejection sampling pour uniformité exacte (pas de biais modulo).
-    Chaque appel avec les mêmes arguments produit les mêmes masques.
+    Dérive n masques ∈ [0..ALPHA_LEN-1] depuis grammar_key, domaine-séparés
+    par `domain` (un info HKDF distinct par variante — voir
+    crypto_core.LABELS['mask_seed']). Rejection sampling pour uniformité
+    exacte (pas de biais modulo). Chaque appel avec les mêmes arguments
+    produit les mêmes masques.
     """
     masks = []
-    state = hashlib.sha256(grammar_key + b'position-masks-v1').digest()
+    ML = LABELS['mask_seed']
+    state = _HKDF(_hh.SHA256(), 32, salt=ML['salt'], info=domain).derive(grammar_key)
     lim   = (256 // ALPHA_LEN) * ALPHA_LEN   # limite pour rejection sampling
     while len(masks) < n:
         for b in state:
@@ -147,9 +160,12 @@ def _derive_params(grammar_key: bytes,
     la comparaison sur la géométrie effectivement encodée (90×90 ou
     180×180) — tous les appelants doivent transmettre leur grid_size réel,
     sinon la comparaison porte sur la mauvaise géométrie.
+
+    Labels centralisés dans crypto_core.LABELS['carterrandom'] (tâche 3).
     """
-    km = _HKDF(_hh.SHA256(), 4, salt=b'Carter-params-v3',
-               info=b'seed-and-mode').derive(grammar_key)
+    PL = LABELS['carterrandom']
+    km = _HKDF(_hh.SHA256(), 4, salt=PL['params_salt'],
+               info=PL['params_info']).derive(grammar_key)
     seed     = SEEDS[km[0] % len(SEEDS)]
     meta_raw = km[1] < 128   # ~50 % de chances
 
@@ -181,11 +197,13 @@ def _derive_params(grammar_key: bytes,
 def _grammar_individual(grammar_key: bytes,
                         ref: List[Dict],
                         n_side: int = N_SIDE) -> List[Dict]:
-    """n_side² blocs, chacun avec rôle + forme + direction."""
+    """n_side² blocs, chacun avec rôle + forme + direction.
+    Labels centralisés dans crypto_core.LABELS['carterrandom'] (tâche 3)."""
     n_blocks = n_side * n_side
+    GL = LABELS['carterrandom']
     km = _HKDF(_hh.SHA256(), n_blocks * 3,
-               salt=b'Carter-random-v3',
-               info=b'grammar-individual').derive(grammar_key)
+               salt=GL['grammar_individual_salt'],
+               info=GL['grammar_individual_info']).derive(grammar_key)
     return [{
         'role':    _PURE if km[i*3] < 85 else (_STRUCTURED if km[i*3] < 170
                    else _MESSAGE),
@@ -201,11 +219,13 @@ def _grammar_meta(grammar_key: bytes,
     """
     25 méta-blocs (5×5), chacun avec rôle + 9 sous-blocs (forme+direction).
     La lecture au sein d'un méta-bloc suit l'ordre concentrique CONC_ORDER.
+    Labels centralisés dans crypto_core.LABELS['carterrandom'] (tâche 3).
     """
+    ML = LABELS['carterrandom']
     km1 = _HKDF(_hh.SHA256(), n_meta_tot * 2,
-                salt=b'Carter-meta-v3', info=b'meta-roles').derive(grammar_key)
+                salt=ML['grammar_meta_salt'], info=ML['grammar_meta_roles_info']).derive(grammar_key)
     km2 = _HKDF(_hh.SHA256(), n_meta_tot * META * META * 2,
-                salt=b'Carter-meta-v3', info=b'block-forms').derive(grammar_key)
+                salt=ML['grammar_meta_salt'], info=ML['grammar_meta_forms_info']).derive(grammar_key)
     grammar = []
     for mi in range(n_meta_tot):
         role = (_PURE if km1[mi*2] < 85
@@ -255,7 +275,7 @@ def encode_carter_random(message: str,
     # plus rapide que grid_size² appels à secrets.randbelow() (audit G. Kerma,
     # §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
     grid = random_grid(grid_size, grid_size)
-    masks = _derive_masks(grammar_key, len(nibbles) + 128)
+    masks = _derive_masks(grammar_key, len(nibbles) + 128, LABELS['mask_seed']['info_random'])
     nib_i = 0
 
     if not meta_mode:
@@ -313,7 +333,7 @@ def decode_carter_random(grid: List, master_key: bytes,
     n_meta_g  = n_side_g  // META
     n_meta_tot_g = n_meta_g * n_meta_g
 
-    masks = _derive_masks(grammar_key, grid_size * grid_size)
+    masks = _derive_masks(grammar_key, grid_size * grid_size, LABELS['mask_seed']['info_random'])
     vals, nib_i = [], 0
 
     if not meta_mode:
@@ -501,12 +521,14 @@ def _grammar_18(grammar_key: bytes,
     Dérive la grammaire Carter-18 depuis grammar_key.
     Grille grid_size×grid_size divisée en (grid_size//18)² méta-blocs 18×18.
     Retourne la liste des méta-blocs avec rôle, form_id, dir_id.
+    Labels centralisés dans crypto_core.LABELS['carter18'] (tâche 3).
     """
     n_side_18 = grid_size // BLOCK_18   # ex. 5 pour grid 90×90
     n_blocks_18 = n_side_18 * n_side_18  # ex. 25
+    L18 = LABELS['carter18']
     km = _HKDF(_hh.SHA256(), n_blocks_18 * 3,
-                salt=b'Carter-18-v1',
-                info=b'grammar-18').derive(grammar_key)
+                salt=L18['grammar_salt'],
+                info=L18['grammar_info']).derive(grammar_key)
     return [{
         'role':    _PURE if km[i*3] < 85 else (_STRUCTURED if km[i*3] < 170
                    else _MESSAGE),
@@ -516,10 +538,12 @@ def _grammar_18(grammar_key: bytes,
 
 
 def _carter18_seed(grammar_key: bytes) -> int:
-    """Graine du référent 18×18 pour cette clé (dérivation partagée encode/decode)."""
+    """Graine du référent 18×18 pour cette clé (dérivation partagée encode/decode).
+    Labels centralisés dans crypto_core.LABELS['carter18'] (tâche 3)."""
+    L18 = LABELS['carter18']
     idx = int.from_bytes(
-        _HKDF(_hh.SHA256(), 4, salt=b'Carter-18-seed-v1',
-              info=b'seed').derive(grammar_key), 'big') % len(SEEDS)
+        _HKDF(_hh.SHA256(), 4, salt=L18['seed_salt'],
+              info=L18['seed_info']).derive(grammar_key), 'big') % len(SEEDS)
     return SEEDS[idx]
 
 
@@ -557,7 +581,7 @@ def encode_carter_18(message: str,
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, cap)
 
-    masks = _derive_masks(grammar_key, len(nibbles) + 256)
+    masks = _derive_masks(grammar_key, len(nibbles) + 256, LABELS['mask_seed']['info_18'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
     grid  = random_grid(grid_size, grid_size)
 
@@ -595,7 +619,7 @@ def decode_carter_18(grid: List[List[int]],
 
     n_tot_pos = sum(_POSITIONS_PER_DIR[g['dir']]
                     for g in grammar if g['role'] == _MESSAGE)
-    masks = _derive_masks(grammar_key, n_tot_pos + 256)
+    masks = _derive_masks(grammar_key, n_tot_pos + 256, LABELS['mask_seed']['info_18'])
 
     vals = []; ni = 0
     for blk, g in enumerate(grammar):
@@ -665,12 +689,14 @@ def _grammar_hybrid(grammar_key: bytes,
     """
     Dérive la grammaire hybride : rôle + mode de lecture pour chaque
     méta-bloc 18×18. Le mode (MODE_18 / MODE_6) est dérivé de la clé.
+    Labels centralisés dans crypto_core.LABELS['carterhybrid'] (tâche 3).
     """
     n_side_18 = grid_size // BLOCK_18
     n_blocks  = n_side_18 * n_side_18
+    LH = LABELS['carterhybrid']
     km = _HKDF(_hh.SHA256(), n_blocks * 4,
-                salt=b'Carter-hybrid-v1',
-                info=b'grammar-hybrid').derive(grammar_key)
+                salt=LH['grammar_salt'],
+                info=LH['grammar_info']).derive(grammar_key)
     return [{
         'role':    _PURE if km[i*4] < 85 else (
                    _STRUCTURED if km[i*4] < 170 else _MESSAGE),
@@ -686,10 +712,12 @@ def _subblock_positions(br18: int, bc18: int,
     """
     Pour un méta-bloc 18×18 en MODE_6 : dérive les positions de lecture
     pour chacun des 9 sous-blocs 6×6 internes, via le référent 6×6.
-    Retourne une liste de 9 listes de (row_abs, col_abs).
+    Retourne une liste de 9 listes de (row_abs, col_abs). L'info HKDF
+    (position du méta-bloc) est nécessairement dynamique par appel ; le
+    salt est centralisé dans crypto_core.LABELS['carterhybrid'] (tâche 3).
     """
     km_sub = _HKDF(_hh.SHA256(), 9 * 3,
-                   salt=b'Carter-hybrid-sub',
+                   salt=LABELS['carterhybrid']['subblock_salt'],
                    info=bytes([br18, bc18])).derive(grammar_key)
     positions = []
     for sub in range(9):
@@ -705,13 +733,15 @@ def _subblock_positions(br18: int, bc18: int,
 
 
 def _carter_hybrid_seeds(grammar_key: bytes) -> Tuple[int, int]:
-    """(seed_18, seed_6) pour cette clé (dérivation partagée encode/decode)."""
+    """(seed_18, seed_6) pour cette clé (dérivation partagée encode/decode).
+    Labels centralisés dans crypto_core.LABELS['carterhybrid'] (tâche 3)."""
+    LH = LABELS['carterhybrid']
     idx18 = int.from_bytes(
-        _HKDF(_hh.SHA256(), 4, salt=b'Carter-hybrid-seed',
-              info=b'seed').derive(grammar_key), 'big') % len(SEEDS)
+        _HKDF(_hh.SHA256(), 4, salt=LH['seed18_salt'],
+              info=LH['seed18_info']).derive(grammar_key), 'big') % len(SEEDS)
     idx6 = int.from_bytes(
-        _HKDF(_hh.SHA256(), 4, salt=b'Carter-hybrid-seed6',
-              info=b'seed6').derive(grammar_key), 'big') % len(SEEDS)
+        _HKDF(_hh.SHA256(), 4, salt=LH['seed6_salt'],
+              info=LH['seed6_info']).derive(grammar_key), 'big') % len(SEEDS)
     return SEEDS[idx18], SEEDS[idx6]
 
 
@@ -752,7 +782,7 @@ def encode_carter_hybrid(message: str,
     payload = _encrypt(message, xchacha_key, cap)
     nibbles = payload_to_symbols(payload, cap)
 
-    masks = _derive_masks(grammar_key, len(nibbles) + 512)
+    masks = _derive_masks(grammar_key, len(nibbles) + 512, LABELS['mask_seed']['info_hybrid'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
     grid  = random_grid(grid_size, grid_size)
 
@@ -802,7 +832,7 @@ def decode_carter_hybrid(grid: List[List[int]],
     n_side_18 = grid_size // BLOCK_18
 
     n_tot = _hybrid_capacity_positions(grammar)
-    masks = _derive_masks(grammar_key, n_tot + 512)
+    masks = _derive_masks(grammar_key, n_tot + 512, LABELS['mask_seed']['info_hybrid'])
 
     vals = []; ni = 0
     for blk, g in enumerate(grammar):
