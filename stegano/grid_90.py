@@ -94,27 +94,23 @@ def super_capacity(sr, sc, ref256, k2, kc) -> int:
 
 def encode_super(grid, message, sk, kb, kc, k2, sr, sc, ref256):
     """Encode un message dans les positions du super-bloc (sr, sc)."""
-    payload  = _encrypt(message, sk)
-    nibbles  = payload_to_symbols(payload)
     positions = _collect_positions(sr, sc, ref256, k2, kc)
-    # Sans cette garde, le surplus était écarté en silence à l'encodage et
-    # l'échec ne surgissait qu'au décodage, chez le destinataire.
-    if len(nibbles) > len(positions):
-        raise ValueError(
-            f"Message trop long pour un super-bloc : {len(message)} "
-            f"caractères > {max_message_for(len(positions))} disponibles "
-            f"({len(positions)} positions).")
+    # Charge utile à longueur fixe (format v3, tâche 2) : le nombre de
+    # positions doit être connu AVANT l'appel à _encrypt(), qui lève
+    # désormais lui-même l'erreur si le message ne tient pas.
+    payload  = _encrypt(message, sk, len(positions))
+    nibbles  = payload_to_symbols(payload, len(positions))
     for i, (gr, gc) in enumerate(positions):
         if i >= len(nibbles): break
         if 0 <= gr < GRID_SIZE and 0 <= gc < GRID_SIZE:
             grid[gr][gc] = nibbles[i]
 
 def decode_super(grid, sk, kc, k2, sr, sc, ref256):
-    """Lit les 54 nibbles du super-bloc et tente le déchiffrement."""
+    """Lit les nibbles du super-bloc et tente le déchiffrement."""
     positions = _collect_positions(sr, sc, ref256, k2, kc)
     vals = [grid[gr][gc] for gr,gc in positions
             if 0 <= gr < GRID_SIZE and 0 <= gc < GRID_SIZE]
-    return _decrypt(vals, sk)
+    return _decrypt(vals, sk, len(vals))
 
 # ── API principale ─────────────────────────────────────────────────────────────
 def make_grid_90(real_message, real_keys, lure_message, lure_keys, ref256):
@@ -173,19 +169,15 @@ def stream_capacity(keys, supers, ref256) -> int:
 
 def _encode_stream(grid, message, keys, supers, ref256):
     """Encode un message en stream sur une liste de super-blocs."""
-    payload   = _encrypt(message, keys['steg_key'])
-    nibbles   = payload_to_symbols(payload)
     positions = _stream_positions(keys, supers, ref256)
-    # make_keys() dimensionne ses clés sur la capacité d'une grille pleine,
-    # bien supérieure aux positions qu'un stream de super-blocs rend. Sans
-    # cette garde, le surplus était écarté en silence à l'encodage et
-    # l'échec ne surgissait qu'au décodage, chez le destinataire.
-    if len(nibbles) > len(positions):
-        raise ValueError(
-            f"Message trop long pour {len(supers)} super-blocs : "
-            f"{len(message)} caractères > "
-            f"{max_message_for(len(positions))} disponibles "
-            f"({len(positions)} positions).")
+    # Charge utile à longueur fixe (format v3, tâche 2) : le nombre de
+    # positions doit être connu AVANT l'appel à _encrypt(), qui lève
+    # désormais lui-même l'erreur si le message ne tient pas. make_keys()
+    # dimensionne ses clés sur la capacité d'une grille pleine, bien
+    # supérieure aux positions qu'un stream de super-blocs rend — d'où
+    # cette garde en amont plutôt qu'une taille fixe supposée.
+    payload   = _encrypt(message, keys['steg_key'], len(positions))
+    nibbles   = payload_to_symbols(payload, len(positions))
     for nib_i, (gr, gc) in enumerate(positions):
         if nib_i >= len(nibbles): break
         grid[gr][gc] = nibbles[nib_i]
@@ -194,7 +186,7 @@ def _decode_stream(grid, keys, supers, ref256):
     """Lit en stream depuis une liste de super-blocs."""
     vals = [grid[gr][gc]
             for gr, gc in _stream_positions(keys, supers, ref256)]
-    return _decrypt(vals, keys['steg_key'])
+    return _decrypt(vals, keys['steg_key'], len(vals))
 
 def decode_grid_90(grid, keys, ref256, role='center'):
     """Décode le message du rôle indiqué (center=réel, edge=leurre)."""

@@ -22,8 +22,7 @@ import json, os, secrets, math
 from typing import List, Dict, Tuple
 
 from crypto_core import (
-    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols,
-    _SYM_HEADER, _sym_count, _AEAD_OVERHEAD,
+    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for,
 )
 
 def _find_ref(name: str) -> str:
@@ -71,8 +70,8 @@ def zigzag_blocks(B: int) -> List[Tuple[int,int]]:
     return order
 
 # ── Capacité ─────────────────────────────────────────────────────────────────
-def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
-    """Longueur max du message en clair (bytes disponibles - overhead AEAD)."""
+def _classic_n_pos(key_b: List[int], grid_size: int) -> int:
+    """Nombre de positions message que encode()/decode() liront réellement pour ces clés."""
     B = grid_size // 6
     order = zigzag_blocks(B)
     n_pos = 0; pos_i = 0
@@ -80,17 +79,15 @@ def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
         if pos_i >= len(order): break
         available = min(k*k, len(order) - pos_i)
         n_pos += available * 6; pos_i += available
-    # CORRECTIF AUDIT : l'ancien calcul comptait un surcoût de 32 octets alors
-    # que le format en consomme 72 (32 commitment + 24 nonce + 16 tag). Un
-    # message de la taille annoncée était accepté à l'encodage, tronqué
-    # silencieusement faute de positions, puis irrécupérable au décodage.
-    avail = n_pos - _SYM_HEADER
-    lo, hi = 0, max(0, avail)
-    while lo < hi:                      # plus grand payload tenant dans avail
-        mid = (lo + hi + 1) // 2
-        if _sym_count(mid) <= avail: lo = mid
-        else: hi = mid - 1
-    return max(0, lo - _AEAD_OVERHEAD)
+    return n_pos
+
+def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
+    """
+    Longueur max du message en clair. Charge utile à longueur fixe (format
+    v3, tâche 2) : max_message_for() calcule directement la réponse exacte
+    depuis le nombre de positions, plus besoin de recherche binaire locale.
+    """
+    return max_message_for(_classic_n_pos(key_b, grid_size))
 
 # ── Encodeur ─────────────────────────────────────────────────────────────────
 def encode(message: str, steg_key: bytes,
@@ -100,13 +97,16 @@ def encode(message: str, steg_key: bytes,
     N = grid_size; B = N // 6
     if N % 6 != 0:
         raise ValueError(f"grid_size {N} doit être multiple de 6")
-    max_len = max_message_len(key_b, grid_size)
+    n_pos = _classic_n_pos(key_b, grid_size)
+    max_len = max_message_for(n_pos)
     if len(message) > max_len:
         raise ValueError(f"Message trop long : {len(message)} > {max_len}")
 
-    payload = _encrypt(message, steg_key)
-    # En-tête (longueur) + payload, en symboles base-44 uniformes
-    nibbles = payload_to_symbols(payload)
+    payload = _encrypt(message, steg_key, n_pos)
+    # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
+    # positions message portent un symbole de charge utile, en symboles
+    # base-44 uniformes — aucun en-tête distinct.
+    nibbles = payload_to_symbols(payload, n_pos)
 
     # Grille de bruit — même loi uniforme [0..ALPHA_LEN-1] que les symboles
     grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(N)] for _ in range(N)]
@@ -154,7 +154,7 @@ def decode(grid: List[List[int]], steg_key: bytes,
                     vals.append(grid[gr][gc])
             pos_i += 1
         block_i += 1
-    return _decrypt(vals, steg_key)
+    return _decrypt(vals, steg_key, len(vals))
 
 # ── Clés ─────────────────────────────────────────────────────────────────────
 def make_keys(msg_len: int, ref256: List[Dict],

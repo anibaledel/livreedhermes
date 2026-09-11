@@ -9,7 +9,8 @@ Ancien monolithe, désormais scindé pour la revue cryptographique externe
   crypto_core.py     — primitives cryptographiques pures (XChaCha20-Poly1305
                         standard, HChaCha20 pur Python — tâche 1, format v3,
                         remplace la sous-clé HKDF de LH-5 — key commitment,
-                        encodage base-44)
+                        PayloadToSymbols à charge utile de longueur fixe —
+                        tâche 2, remplace le correctif N1 en entier)
   stegano_classic.py — méthode stéganographique classique (clés B/C/2)
   carter.py          — grille Carter (grammaire dérivée de la clé,
                         Référent 256 / 360 / Mix)
@@ -22,7 +23,7 @@ Aucune logique ici — voir le module correspondant pour l'implémentation.
 from crypto_core import (
     ALPHABET, ALPHA_LEN,
     hchacha20, _xchacha20_enc, _xchacha20_dec,
-    _sym_count, _bytes_to_syms, _syms_to_bytes,
+    _bytes_to_syms, _syms_to_bytes,
     _commit_key, _encrypt, _decrypt,
     payload_to_symbols, symbols_needed,
     max_payload_for, max_message_for,

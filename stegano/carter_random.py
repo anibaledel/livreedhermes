@@ -233,11 +233,23 @@ def encode_carter_random(message: str,
     n_meta_g  = n_side_g  // META
     n_meta_tot_g = n_meta_g * n_meta_g
 
-    payload = _encrypt(message, xchacha_key)
+    # Charge utile à longueur fixe (format v3, tâche 2) : la capacité doit
+    # être connue AVANT l'appel à _encrypt(), donc la grammaire est dérivée
+    # ici plutôt que dans chaque branche de mode ci-dessous.
+    if not meta_mode:
+        grammar = _grammar_individual(grammar_key, ref, n_side_g)
+        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
+        cap     = n_msg * CELL_SIZE
+    else:
+        grammar = _grammar_meta(grammar_key, ref, n_meta_tot_g, n_meta_g)
+        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
+        cap     = n_msg * META * META * CELL_SIZE
+
+    payload = _encrypt(message, xchacha_key, cap)
     # Flux de symboles base-44 uniformes — même fonction que celle utilisée
-    # par encode_carter() dans stegano_lib.py, pas une conversion nibbles
-    # [0..15] qui trahirait les cellules message dans un bruit [0..43].
-    nibbles = payload_to_symbols(payload)
+    # par encode_carter() dans stegano_lib.py : toutes les positions message
+    # portent un symbole de charge utile, aucun en-tête séparé.
+    nibbles = payload_to_symbols(payload, cap)
 
     # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
     # plus rapide que grid_size² appels à secrets.randbelow() (audit G. Kerma,
@@ -248,13 +260,6 @@ def encode_carter_random(message: str,
 
     if not meta_mode:
         # ── Mode individuel : bloc à bloc ──
-        grammar = _grammar_individual(grammar_key, ref, n_side_g)
-        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-        cap     = n_msg * CELL_SIZE
-        if len(nibbles) > cap:
-            raise ValueError(
-                f"Message trop long : {len(message)} caractères > "
-                f"{max_message_for(cap)} disponibles (n_msg={n_msg})")
         for i, g in enumerate(grammar):
             if g['role'] != _MESSAGE: continue
             br, bc = i // n_side_g, i % n_side_g
@@ -272,13 +277,8 @@ def encode_carter_random(message: str,
 
     else:
         # ── Mode méta-concentrique : méta-blocs 18×18 ──
-        grammar = _grammar_meta(grammar_key, ref, n_meta_tot_g, n_meta_g)
-        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-        cap     = n_msg * META * META * CELL_SIZE
-        if len(nibbles) > cap:
-            raise ValueError(
-                f"Message trop long : {len(message)} caractères > "
-                f"{max_message_for(cap)} disponibles (n_msg_meta={n_msg})")
+        # grammar/n_msg/cap déjà dérivés plus haut (voir commentaire au
+        # début de la fonction) : _encrypt() a déjà validé la capacité.
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
             mr, mc = mi // n_meta_g, mi % n_meta_g
@@ -344,7 +344,7 @@ def decode_carter_random(grid: List, master_key: bytes,
                         vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
                     nib_i += 1
 
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 # ── Utilitaires ─────────────────────────────────────────────────────────────────
 def random_fits(message: str, master_key: bytes,
@@ -551,16 +551,11 @@ def encode_carter_18(message: str,
     cap = sum(_POSITIONS_PER_DIR[g['dir']]
               for g in grammar if g['role'] == _MESSAGE)
 
-    payload = _encrypt(message, xchacha_key)
+    payload = _encrypt(message, xchacha_key, cap)
     # Même flux de symboles base-44 que encode_carter_random() ci-dessus —
-    # pas de conversion "2 symboles par octet" fixe, qui ne correspondrait
-    # pas au format de payload_to_symbols()/max_message_for() de ce dépôt.
-    nibbles = payload_to_symbols(payload)
-    if len(nibbles) > cap:
-        raise ValueError(
-            f"Message trop long : {len(message)} caractères > "
-            f"{max_message_for(cap)} disponibles (n_msg_blocks="
-            f"{sum(1 for g in grammar if g['role'] == _MESSAGE)}).")
+    # charge utile à longueur fixe (format v3, tâche 2) : toutes les
+    # positions message portent un symbole de charge utile, aucun en-tête.
+    nibbles = payload_to_symbols(payload, cap)
 
     masks = _derive_masks(grammar_key, len(nibbles) + 256)
     # Remplissage bulk CSPRNG — voir encode_carter_random().
@@ -612,7 +607,7 @@ def decode_carter_18(grid: List[List[int]],
             if 0 <= gr < grid_size and 0 <= gc < grid_size:
                 vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
             ni += 1
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 
 def carter18_fits(message: str, master_key: bytes,
@@ -752,12 +747,10 @@ def encode_carter_hybrid(message: str,
     n_side_18 = grid_size // BLOCK_18
 
     cap = _hybrid_capacity_positions(grammar)
-    payload = _encrypt(message, xchacha_key)
-    nibbles = payload_to_symbols(payload)
-    if len(nibbles) > cap:
-        raise ValueError(
-            f"Message trop long : {len(message)} caractères > "
-            f"{max_message_for(cap)} disponibles.")
+    # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
+    # positions message portent un symbole de charge utile, aucun en-tête.
+    payload = _encrypt(message, xchacha_key, cap)
+    nibbles = payload_to_symbols(payload, cap)
 
     masks = _derive_masks(grammar_key, len(nibbles) + 512)
     # Remplissage bulk CSPRNG — voir encode_carter_random().
@@ -830,7 +823,7 @@ def decode_carter_hybrid(grid: List[List[int]],
                         vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
                     ni += 1
 
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 
 def carter_hybrid_fits(message: str, master_key: bytes,

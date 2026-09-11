@@ -9,11 +9,14 @@ Ce fichier contient les vecteurs de régression cryptographiques.
 Tout échec indique une rupture de compatibilité entre versions.
 
 Structure :
-  Classe A — Dérivation de clés (pure, déterministe)
-  Classe B — Grammaire Carter (déterministe)
-  Classe C — Format payload (key commitment + ChaCha20-HKDF)
-  Classe D — Décodage (grilles pré-calculées, fixtures JSON)
-  Classe E — Compatibilité croisée encode/decode
+  Classe XChaCha20  — Vecteurs officiels draft-irtf-cfrg-xchacha (tâche 1)
+  Classe A          — Dérivation de clés (pure, déterministe)
+  Classe B          — Grammaire Carter (déterministe)
+  Classe C          — Format payload (key commitment + XChaCha20-Poly1305)
+  Classe C-bis       — Uniformité de la charge utile à longueur fixe (tâche 2,
+                       remplace N1 — TestHeaderUniformity remplacée par v3)
+  Classe D          — Décodage (grilles pré-calculées, fixtures JSON)
+  Classe E          — Compatibilité croisée encode/decode
 
 Adapté de la suite de tests soumise en revue cryptographique externe pour
 coller à l'API réelle de stegano_lib.py (monolithe) : `_encrypt()` ne porte
@@ -22,6 +25,14 @@ niveau du flux de symboles base-44 par `payload_to_symbols()`. La Classe C
 a été réécrite en conséquence (voir commentaires locaux) ; les Classes A,
 B, D, E sont inchangées dans leur logique, seuls les imports/signatures
 ont été alignés sur stegano_lib.py.
+
+Format v3 (tâche 2) : `_encrypt`/`_decrypt`/`payload_to_symbols` prennent
+désormais un paramètre `L` (nombre de positions message de la grammaire) —
+la charge utile est de longueur FIXE, déterminée par L, et porte la longueur
+du message CHIFFRÉE à l'intérieur du payload plutôt que dans un en-tête
+séparé. N1 (l'en-tête de longueur à entropie pleine) est remplacé en entier,
+pas complété : TestHeaderUniformity est remplacée par TestFixedPayloadUniformity
+(tests 6.2/6.4 du plan v3 — voir cette classe pour le détail).
 """
 
 import unittest, os, sys, hashlib, hmac, struct
@@ -41,7 +52,7 @@ from stegano_lib import (
     encode_carter_360, decode_carter_360,
     encode_carter_mix, decode_carter_mix,
     grid_to_csv, csv_to_grid,
-    payload_to_symbols, symbols_needed,
+    payload_to_symbols, symbols_needed, max_message_for,
     hchacha20, _xchacha20_enc, _xchacha20_dec,
 )
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
@@ -312,40 +323,42 @@ class TestCarterGrammar(unittest.TestCase):
 # ce flux — pas les octets bruts de `_encrypt()` — que consomme `_decrypt()`.
 # ══════════════════════════════════════════════════════════════════════════════
 class TestPayloadFormat(unittest.TestCase):
-    """Vérifier la structure du payload ChaCha20-HKDF + key commitment."""
+    """Vérifier la structure du payload XChaCha20-Poly1305 + key commitment."""
 
-    def _make_payload(self, msg: str, key: bytes) -> bytes:
+    L_TEST = 200   # positions message arbitraires, largement au-dessus du
+                   # minimum utilisable (124) et suffisantes pour MSG_SHORT
+
+    def _make_payload(self, msg: str, key: bytes, L: int = None) -> bytes:
         """Génère un payload déterministe avec nonce fixe."""
         rng = _FakeRandom(b'format-test')
         with patch('os.urandom', rng.urandom):
-            return _encrypt(msg, key)
+            return _encrypt(msg, key, L if L is not None else self.L_TEST)
 
     def test_payload_header_size(self):
         """
-        L'en-tête de longueur vit dans le flux de symboles, pas dans les
-        octets de _encrypt() : payload_to_symbols() doit produire exactement
-        symbols_needed(len(payload)) symboles (en-tête + payload).
+        Format v3 (tâche 2) : plus d'en-tête de longueur séparé —
+        payload_to_symbols() produit exactement L symboles (= symbols_needed(L)),
+        toutes les positions message portant un symbole de charge utile.
         """
         payload = self._make_payload(MSG_SHORT, KEY_KNOWN)
-        syms = payload_to_symbols(payload)
-        self.assertEqual(len(syms), symbols_needed(len(payload)),
-                         "Taille du flux de symboles incohérente avec l'en-tête de longueur")
+        syms = payload_to_symbols(payload, self.L_TEST)
+        self.assertEqual(len(syms), symbols_needed(self.L_TEST),
+                         "Taille du flux de symboles incohérente avec L")
+        self.assertEqual(len(syms), self.L_TEST)
 
     def test_payload_commitment_present(self):
         """
         Les 32 premiers octets de _encrypt() sont le HMAC de key commitment.
 
-        LH-4 (audit G. Kerma) : le HMAC porte sur header||inner, où header
-        est l'en-tête de longueur (4 octets, = 32+len(inner)) que
-        payload_to_symbols() calculera pour ce payload — et non plus sur
-        inner seul. Sans cela, la longueur du message n'était pas couverte
-        par le commitment.
+        Format v3 (tâche 2) : le HMAC porte sur `inner` seul. Contrairement à
+        LH-4 (v2), il n'existe plus de longueur transmise séparément à
+        authentifier — la taille du payload se déduit de L, public et
+        identique des deux côtés, jamais transportée dans le flux.
         """
         payload = self._make_payload(MSG_SHORT, KEY_KNOWN)
         commit_recv, inner = payload[:32], payload[32:]
         ck = _commit_key(KEY_KNOWN)
-        header = struct.pack('>I', 32 + len(inner))
-        commit_calc = hmac.new(ck, header + inner, hashlib.sha256).digest()
+        commit_calc = hmac.new(ck, inner, hashlib.sha256).digest()
         self.assertEqual(len(commit_recv), 32,
                          "Key commitment HMAC absent ou tronqué")
         self.assertEqual(commit_recv, commit_calc,
@@ -361,9 +374,9 @@ class TestPayloadFormat(unittest.TestCase):
     def test_key_commitment_wrong_key(self):
         """Mauvaise clé → HMAC invalide détecté avant déchiffrement."""
         payload = self._make_payload(MSG_SHORT, KEY_KNOWN)
-        syms = payload_to_symbols(payload)
+        syms = payload_to_symbols(payload, self.L_TEST)
         with self.assertRaises(ValueError) as ctx:
-            _decrypt(syms, KEY_KNOWN2)
+            _decrypt(syms, KEY_KNOWN2, self.L_TEST)
         self.assertIn("commitment", str(ctx.exception).lower(),
                       "Key commitment non détecté comme tel")
 
@@ -379,76 +392,126 @@ class TestPayloadFormat(unittest.TestCase):
         """Le format du payload est stable entre versions."""
         rng = _FakeRandom(b'format-vector')
         with patch('os.urandom', rng.urandom):
-            payload = _encrypt(MSG_SHORT, KEY_KNOWN)
-        syms = payload_to_symbols(payload)
-        self.assertEqual(len(syms), symbols_needed(len(payload)))
-        result = _decrypt(syms, KEY_KNOWN)
+            payload = _encrypt(MSG_SHORT, KEY_KNOWN, self.L_TEST)
+        syms = payload_to_symbols(payload, self.L_TEST)
+        self.assertEqual(len(syms), self.L_TEST)
+        result = _decrypt(syms, KEY_KNOWN, self.L_TEST)
         self.assertEqual(result, MSG_SHORT.upper())
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# Classe C-bis — En-tête de longueur à entropie pleine (correctif audit N1)
+# Classe C-bis — Charge utile à longueur fixe (format v3, tâche 2)
+#
+# N1 (correctif audit, passage 3) : REMPLACÉ PAR v3, pas fermé. N1 rendait
+# les 2 symboles de poids faible d'un en-tête de longueur SÉPARÉ exactement
+# uniformes, mais restait un champ distinct, de taille variable selon la
+# longueur du message — hors du cadre des preuves du papier corrigé
+# (carter_v6_fixes.tex). TestHeaderUniformity testait ce mécanisme
+# (_header_to_syms/_syms_to_header) ; ce mécanisme est supprimé en entier
+# (pas complété) par la charge utile à longueur fixe de la Définition 3.6 :
+# TOUTES les positions message portent désormais un symbole de charge
+# utile, il n'existe plus de position structurellement différente des
+# autres. Remplacé par les tests 6.2 (différence de deux tirages sous la
+# même clé) et 6.4 (longueur masquée) du plan v3, qui couvrent la même
+# propriété d'uniformité de façon plus forte — et vérifient explicitement
+# que les positions qui portaient l'en-tête sous N1 (indices 0, 1) passent
+# le χ².
 # ══════════════════════════════════════════════════════════════════════════════
-class TestHeaderUniformity(unittest.TestCase):
-    """
-    N1 (audit passage 3) : le symbole de poids faible de l'en-tête de longueur
-    ne couvrait que 11 valeurs sur 44 ({0,4,…,40}) — span=2^32 ≡ 4 (mod 44) et
-    une longueur de faible entropie. Distingueur exploitable sans clé. Le champ
-    longueur doit désormais présenter une entrée à ENTROPIE PLEINE : ses
-    symboles de poids faible sont uniformes sur [0..ALPHA_LEN-1].
-    """
+class TestFixedPayloadUniformity(unittest.TestCase):
+    """Remplace TestHeaderUniformity (voir bloc de commentaire ci-dessus)."""
 
-    def test_header_roundtrip(self):
-        """La longueur reste exactement recouvrable malgré le rembourrage."""
-        import crypto_core as C
-        for L in (0, 1, 44, 255, 256, 1000, 65535, (1 << 24) - 1):
-            for _ in range(20):
-                syms = C._header_to_syms(L)
-                self.assertEqual(len(syms), C._SYM_HEADER)
-                self.assertEqual(C._syms_to_header(syms), L,
-                                 f"En-tête non réversible pour L={L}")
+    L_TEST = 300
 
-    def test_header_slots_multiple_of_alpha(self):
-        """k = 44^m // 2^32 est un multiple de ALPHA_LEN (condition d'uniformité)."""
-        import crypto_core as C
-        self.assertEqual(C._HEADER_SLOTS % C.ALPHA_LEN, 0)
-        # capacité exactement remplie : u ∈ [0, 44^m)
-        self.assertEqual((C._HEADER_SPAN - 1) * C._HEADER_SLOTS
-                         + (C._HEADER_SLOTS - 1),
-                         C.ALPHA_LEN ** C._SYM_HEADER - 1)
+    def test_roundtrip_various_lengths(self):
+        """Aller-retour correct pour plusieurs longueurs de message à L fixé."""
+        key = KEY_KNOWN
+        max_len = max_message_for(self.L_TEST)
+        for msg in ("", "A", MSG_SHORT, MSG_LONG[:max_len]):
+            payload = _encrypt(msg, key, self.L_TEST)
+            syms = payload_to_symbols(payload, self.L_TEST)
+            self.assertEqual(len(syms), self.L_TEST)
+            self.assertEqual(_decrypt(syms, key, self.L_TEST), msg.upper())
 
-    def test_header_low_symbol_uniform(self):
+    def test_symbol_count_independent_of_message_length(self):
         """
-        Preuve empirique : pour une longueur FIXÉE, le symbole de poids faible
-        de l'en-tête parcourt les 44 valeurs de façon uniforme (44/44), contre
-        11/44 avant le correctif. Chi² à 43 ddl, seuil très lâche.
+        Format v3 : le nombre de symboles produits ne dépend QUE de L (la
+        grammaire), jamais de la longueur du message — c'est la propriété
+        structurelle qui rend la longueur non observable depuis le flux
+        (répond à N1 : plus de champ distinct dont la taille varierait).
+        """
+        key = KEY_KNOWN
+        max_len = max_message_for(self.L_TEST)
+        lengths_seen = set()
+        for msg in ("", "A", MSG_SHORT, MSG_LONG[:max_len]):
+            payload = _encrypt(msg, key, self.L_TEST)
+            syms = payload_to_symbols(payload, self.L_TEST)
+            lengths_seen.add(len(syms))
+        self.assertEqual(lengths_seen, {self.L_TEST})
+
+    def test_two_draws_same_key_difference_uniform(self):
+        """
+        Test 6.2 du plan v3 (remplace TestHeaderUniformity) : deux tirages
+        du même message sous la même clé (aléa de rembourrage PtS frais à
+        chaque tirage) -> (syms1 - syms2) mod ALPHA_LEN doit être uniforme
+        sur [0..43], position par position — y COMPRIS les positions 0 et 1
+        qui portaient l'en-tête sous N1/v2. Un biais localisé sur ces deux
+        positions est exactement ce qui aurait détecté la faille N1
+        (span=2^32 ≡ 4 mod 44, 11/44 valeurs seulement pour le symbole de
+        poids faible de l'ancien en-tête).
         """
         import crypto_core as C
         from collections import Counter
-        N = 120_000
-        for L in (100, 12345):
-            for idx in (0, 1):   # les deux symboles de poids faible
-                c   = Counter(C._header_to_syms(L)[idx] for _ in range(N))
-                exp = N / C.ALPHA_LEN
-                chi2 = sum((c.get(v, 0) - exp) ** 2 / exp
-                           for v in range(C.ALPHA_LEN))
-                with self.subTest(L=L, idx=idx):
-                    self.assertEqual(len(c), C.ALPHA_LEN,
-                                     f"L={L} sym[{idx}] : {len(c)}/44 valeurs seulement")
-                    # χ²_0.9999 (df=43) ≈ 89 ; large marge anti-flakiness.
-                    self.assertLess(chi2, 100.0,
-                                    f"L={L} sym[{idx}] non uniforme : chi2={chi2:.1f}")
+        N = 4000
+        key = KEY_KNOWN
+        tracked = (0, 1, 2, self.L_TEST - 1)   # anciennes positions d'en-tête + fin
+        diffs = {idx: Counter() for idx in tracked}
+        for _ in range(N):
+            p1 = _encrypt(MSG_SHORT, key, self.L_TEST)
+            p2 = _encrypt(MSG_SHORT, key, self.L_TEST)
+            s1 = payload_to_symbols(p1, self.L_TEST)
+            s2 = payload_to_symbols(p2, self.L_TEST)
+            for idx in tracked:
+                diffs[idx][(s1[idx] - s2[idx]) % C.ALPHA_LEN] += 1
+        exp = N / C.ALPHA_LEN
+        for idx in tracked:
+            c = diffs[idx]
+            chi2 = sum((c.get(v, 0) - exp) ** 2 / exp for v in range(C.ALPHA_LEN))
+            label = f"position {idx}" + (" (ancienne position d'en-tête N1)" if idx < 2 else "")
+            with self.subTest(idx=idx):
+                self.assertEqual(len(c), C.ALPHA_LEN,
+                                 f"{label} : {len(c)}/44 valeurs seulement")
+                # χ²_0.9999 (df=43) ≈ 89 ; large marge anti-flakiness.
+                self.assertLess(chi2, 100.0, f"{label} non uniforme : chi2={chi2:.1f}")
 
-    def test_length_hidden_and_hmac_length_preserved(self):
+    def test_length_hidden_no_statistical_difference(self):
         """
-        L'en-tête ne divulgue plus la longueur en clair (masquée par le
-        rembourrage), et le HMAC LH-4 porte toujours sur struct.pack('>I',
-        longueur)‖inner : decode reconstruit la même longueur avant de vérifier.
+        Test 6.4 du plan v3 (remplace TestHeaderUniformity) : deux messages
+        de longueurs différentes ("A" et un message long) produisent, à L
+        fixé, un symbole de première position (celle qui aurait porté
+        l'en-tête de longueur sous N1/v2) uniforme sur [0..43] quelle que
+        soit la longueur réellement encodée — la longueur n'est donc pas
+        mesurable statistiquement depuis le flux de symboles, elle est
+        chiffrée à l'intérieur du payload (Définition 3.6, format v3).
         """
-        payload = _encrypt(MSG_SHORT, KEY_KNOWN)
-        syms    = payload_to_symbols(payload)
-        # decode complet réussit -> longueur correctement reconstruite + HMAC OK
-        self.assertEqual(_decrypt(syms, KEY_KNOWN), MSG_SHORT.upper())
+        import crypto_core as C
+        from collections import Counter
+        N = 3000
+        key = KEY_KNOWN
+        max_len = max_message_for(self.L_TEST)
+        for msg in ("A", MSG_LONG[:max_len]):
+            c = Counter()
+            for _ in range(N):
+                payload = _encrypt(msg, key, self.L_TEST)
+                syms = payload_to_symbols(payload, self.L_TEST)
+                c[syms[0]] += 1
+            exp = N / C.ALPHA_LEN
+            chi2 = sum((c.get(v, 0) - exp) ** 2 / exp for v in range(C.ALPHA_LEN))
+            with self.subTest(msg_len=len(msg)):
+                self.assertEqual(len(c), C.ALPHA_LEN,
+                                 f"longueur {len(msg)} : {len(c)}/44 valeurs seulement")
+                self.assertLess(chi2, 100.0,
+                                f"longueur {len(msg)} : position 0 non uniforme, "
+                                f"chi2={chi2:.1f}")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -611,7 +674,7 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     suite  = unittest.TestSuite()
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
-                TestPayloadFormat, TestHeaderUniformity,
+                TestPayloadFormat, TestFixedPayloadUniformity,
                 TestFixtures, TestEndToEnd]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)

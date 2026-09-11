@@ -313,9 +313,9 @@ class TestEntropy(unittest.TestCase):
         print(f"  Entropie Carter Mix : {h:.4f} bits")
 
     def test_entropy_chacha20_hkdf_output(self):
-        """_encrypt() (ChaCha20-HKDF + commitment) : entropie sur la sortie brute (bits)."""
+        """_encrypt() (XChaCha20-Poly1305 + commitment) : entropie sur la sortie brute (bits)."""
         key = os.urandom(32)
-        payload = _encrypt(self.MSG * 10, key)   # plus long pour stat
+        payload = _encrypt(self.MSG * 10, key, 320)   # L=320, plus long pour stat
         bits = []
         for b in payload:
             for bit in range(8):
@@ -662,8 +662,8 @@ class TestCarterRandomAvalanche(unittest.TestCase):
             k2 = bytearray(k); k2[0] ^= 1; k2 = bytes(k2)
             def syms_and_masks(key):
                 xk, gk = _carter_split(key)
-                payload = _encrypt("LACROIXANSEE", xk)
-                syms    = payload_to_symbols(payload)
+                payload = _encrypt("LACROIXANSEE", xk, 150)
+                syms    = payload_to_symbols(payload, 150)
                 masks   = _derive_masks(gk, len(syms)+128)
                 return [(syms[i]+masks[i]) % ALPHA_LEN for i in range(len(syms))]
             v1 = syms_and_masks(k)

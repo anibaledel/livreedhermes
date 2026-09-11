@@ -8,9 +8,12 @@ Extrait de stegano_lib.py (refactor de modularisation) : ce fichier ne
 contient QUE la couche cryptographique — XChaCha20-Poly1305 standard
 (HChaCha20 pur Python + ChaCha20Poly1305, format v3, tâche 1 —
 remplace la construction à sous-clé HKDF de LH-5, non interopérable),
-key commitment HMAC-SHA256, et l'encodage base-44 uniforme du payload
-chiffré (format v3, tâche 2). Aucune logique de placement géométrique
-ici.
+key commitment HMAC-SHA256, et PayloadToSymbols à charge utile de
+longueur FIXE (Définition 3.6, format v3, tâche 2 — remplace le
+correctif N1 en entier : plus d'en-tête de longueur séparé, la longueur
+est chiffrée à l'intérieur du payload lui-même, et le nombre de
+positions message consommées ne dépend que de la grammaire, jamais du
+message). Aucune logique de placement géométrique ici.
 
 Portée destinée à la revue cryptographique externe (voir
 NOTE_TECHNIQUE_CRYPTOEXPERTS.md dans le paquet d'export) : la couche
@@ -26,7 +29,7 @@ NOTE AUDIT : Confidentialité assurée par la construction ci-dessous, pas
 
 import hashlib
 import hmac as _hmac_mod
-import os, secrets, struct, math
+import os, secrets, struct
 from typing import List
 from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
@@ -98,100 +101,123 @@ def _xchacha20_dec(key: bytes, data: bytes, aad: bytes = b'') -> bytes:
 
 ALPHABET  = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-'
 ALPHA_LEN = len(ALPHABET)   # 44
-_AEAD_OVERHEAD = 32 + 24 + 16   # commitment HMAC + nonce ChaCha20-HKDF + tag Poly1305
-_MAX_PAYLOAD   = 1 << 24        # garde-fou en-tête (16 Mio)
+_AEAD_OVERHEAD = 32 + 24 + 16   # commitment HMAC + nonce XChaCha20 + tag Poly1305
 
-# ── Encodage base-44 ─────────────────────────────────────────────────────────
-# CORRECTIF AUDIT : l'encodage en nibbles plaçait les octets du message dans
-# [0..15] alors que le bruit couvre [0..43]. Toute cellule > 15 était donc
-# prouvablement du bruit, et une forme dont les 6 cellules valent <= 15 avait
-# 1 chance sur 432 d'être du bruit : les blocs porteurs se localisaient
+# ── Encodage base-44 — PayloadToSymbols (Définition 3.6, format v3) ──────────
+# CORRECTIF AUDIT (historique) : l'encodage en nibbles plaçait les octets du
+# message dans [0..15] alors que le bruit couvre [0..43]. Toute cellule > 15
+# était donc prouvablement du bruit : les blocs porteurs se localisaient
 # statistiquement sans aucune clé. Le message restait chiffré, mais sa
-# PRÉSENCE et son EMPLACEMENT étaient détectables — l'inverse du but d'un
-# système stéganographique.
+# PRÉSENCE et son EMPLACEMENT étaient détectables.
 #
-# Les symboles portent désormais la même loi uniforme sur [0..ALPHA_LEN-1]
-# que le bruit. Le payload est vu comme un entier, complété par un aléa de
-# rembourrage qui rend la distribution des symboles uniforme à 2^-64 près,
-# puis écrit en base ALPHA_LEN. Bonus : 1,47 symbole par octet au lieu de 2.
+# Les symboles portent la même loi uniforme sur [0..ALPHA_LEN-1] que le
+# bruit : le payload est vu comme un entier x, complété par un aléa de
+# rembourrage y qui rend la distribution des symboles uniforme à 2^-λs près
+# (λs = _LAMBDA_S), puis écrit en base ALPHA_LEN — PayloadToSymbols,
+# Définition 3.6 du bloc B (carter_v6_fixes.tex).
 
-_UNIFORM_MARGIN_BITS = 64   # écart à l'uniformité : <= 2^-64
+_LAMBDA_S = 64   # λ_s : marge de sécurité statistique, écart <= 2^-64 à l'uniforme
 
-def _sym_count(nbytes: int) -> int:
-    """Nombre de symboles base-44 pour nbytes octets, marge d'uniformité incluse."""
-    return math.ceil((8*nbytes + _UNIFORM_MARGIN_BITS) / math.log2(ALPHA_LEN))
+def _smallest_m(target_bits: int) -> int:
+    """
+    Plus petit entier m tel que ALPHA_LEN**m >= 2**target_bits.
 
-_SYM_HEADER = _sym_count(4)   # en-tête : longueur du payload sur 4 octets
+    Recherche entière exacte (Définition 3.6) : aucun flottant n'entre dans
+    la décision, uniquement des comparaisons entre entiers Python arbitraires
+    (ALPHA_LEN**m face à 2**target_bits).
+    """
+    if target_bits <= 0:
+        return 0
+    threshold = 1 << target_bits
+    m, val = 1, ALPHA_LEN
+    while val < threshold:
+        m += 1
+        val *= ALPHA_LEN
+    return m
 
-# ── En-tête de longueur à entropie pleine ─────────────────────────────────────
-# CORRECTIF AUDIT N1 — en-tête de longueur non uniforme.
-# _bytes_to_syms plaçait la valeur encodée dans les bits de POIDS FAIBLE :
-#   u = data + span·randbelow(k),  span = 2^(8·len(b))
-# Pour un PAYLOAD, `data` est du chiffré uniformément aléatoire, donc data mod
-# ALPHA_LEN est déjà uniforme et le symbole de poids faible l'est aussi. Pour
-# l'EN-TÊTE, `data` est la longueur — une valeur connue, de faible entropie et
-# souvent constante d'un message à l'autre. Comme span = 2^32 ≡ 4 (mod 44),
-# le symbole de poids faible de l'en-tête ne parcourait que le sous-groupe
-# {0,4,…,40} translaté par (longueur mod 44) : 11 valeurs sur 44. C'est un
-# distingueur exploitable SANS clé, et la longueur elle-même se lisait en
-# clair depuis le flux de symboles.
-#
-# L'en-tête utilise désormais un encodage dédié où la longueur occupe les
-# symboles de POIDS FORT et un rembourrage aléatoire occupe les poids faibles :
-#   u = longueur·k + randbelow(k),  k = ALPHA_LEN^_SYM_HEADER // 2^32
-# Comme 44^_SYM_HEADER = 2^36·11^18 est divisible par 2^32, on a
-# k = 2^4·11^18 = 44·(4·11^17) : k est un multiple de 44 (et même de 44^2).
-# Les deux symboles de poids faible de l'en-tête sont donc EXACTEMENT uniformes
-# sur [0..43], quelle que soit la longueur ; les suivants le sont à la même
-# marge que le payload. La longueur reste recouvrable par u // k, et le HMAC
-# LH-4 continue de porter sur struct.pack('>I', longueur)‖inner (inchangé :
-# _decrypt reconstruit la même longueur avant vérification).
-_HEADER_SPAN  = 1 << 32                                   # longueur sur 4 octets
-_HEADER_SLOTS = (ALPHA_LEN ** _SYM_HEADER) // _HEADER_SPAN  # k, multiple de 44
+def _capacity_k(L: int) -> int:
+    """
+    k = 8·floor((L·log2(ALPHA_LEN) − λs) / 8), en bits, calculé en entiers
+    exacts. Charge utile à longueur fixe (tâche 2, format v3) : k est la
+    taille en bits du payload chiffré que L positions message peuvent porter
+    avec la marge d'uniformité λs.
 
-def _header_to_syms(length: int) -> List[int]:
-    """Longueur (< 2^32) → _SYM_HEADER symboles à entropie pleine (voir N1)."""
-    if not 0 <= length < _HEADER_SPAN:
-        raise ValueError(f"Longueur d'en-tête hors plage : {length}")
-    u = length * _HEADER_SLOTS + secrets.randbelow(_HEADER_SLOTS)
-    out = []
-    for _ in range(_SYM_HEADER):
-        u, r = divmod(u, ALPHA_LEN)
-        out.append(r)
-    return out
+    j = plus grand entier tel que 2**(8·(j+1) + λs) <= ALPHA_LEN**L —
+    reformulation strictement équivalente et exacte de
+    8·(j+1) + λs <= L·log2(ALPHA_LEN) (les deux membres élevés en puissance
+    de 2 face à ALPHA_LEN**L, deux entiers Python arbitraires ; aucun
+    flottant, même en interne).
+    """
+    if L <= 0:
+        return 0
+    alpha_L = ALPHA_LEN ** L
+    j = 0
+    while (1 << (8*(j+1) + _LAMBDA_S)) <= alpha_L:
+        j += 1
+    return 8 * j
 
-def _syms_to_header(syms: List[int]) -> int:
-    """Inverse de _header_to_syms : le rembourrage aléatoire disparaît au // k."""
-    u = 0
-    for d in reversed(syms):
-        if not 0 <= d < ALPHA_LEN:
-            raise ValueError(f"Symbole hors plage : {d}")
-        u = u * ALPHA_LEN + d
-    return u // _HEADER_SLOTS
-
-def _bytes_to_syms(b: bytes, m: int) -> List[int]:
-    """Octets → m symboles uniformes sur [0..ALPHA_LEN-1]."""
-    span = 1 << (8*len(b))
-    k = (ALPHA_LEN ** m) // span
-    if k < 1:
-        raise ValueError(f"{m} symboles insuffisants pour {len(b)} octets")
-    u = int.from_bytes(b, 'big') + span * secrets.randbelow(k)
+def _bytes_to_syms(payload: bytes, m: int) -> List[int]:
+    """
+    PayloadToSymbols (Définition 3.6) : x = int(P) ; Q = floor(α^m / 2^k) ;
+    y = random(Q) ; z = x + 2^k·y ; sortie = m chiffres de z en base α.
+    """
+    k = 8 * len(payload)
+    span = 1 << k
+    Q = (ALPHA_LEN ** m) // span
+    if Q < 1:
+        raise ValueError(f"{m} symboles insuffisants pour {len(payload)} octets")
+    x = int.from_bytes(payload, 'big')
+    y = secrets.randbelow(Q)
+    z = x + span * y
     out = []
     for _ in range(m):
-        u, r = divmod(u, ALPHA_LEN)
+        z, r = divmod(z, ALPHA_LEN)
         out.append(r)
     return out
 
 def _syms_to_bytes(syms: List[int], nbytes: int) -> bytes:
-    """Inverse de _bytes_to_syms : le rembourrage aléatoire disparaît au modulo."""
-    u = 0
+    """Inverse de _bytes_to_syms : x = z mod 2^k, le rembourrage y disparaît."""
+    z = 0
     for d in reversed(syms):
         if not 0 <= d < ALPHA_LEN:
             raise ValueError(f"Symbole hors plage : {d}")
-        u = u * ALPHA_LEN + d
-    return (u & ((1 << (8*nbytes)) - 1)).to_bytes(nbytes, 'big')
+        z = z * ALPHA_LEN + d
+    return (z & ((1 << (8*nbytes)) - 1)).to_bytes(nbytes, 'big')
 
-# ── Chiffrement du message — Key commitment + ChaCha20-HKDF ──────────────────
+def _cleartext_capacity(L: int):
+    """
+    (payload_bytes, cleartext_len) pour L positions message.
+      payload_bytes : taille du payload chiffré (commit + nonce + ct + tag)
+      cleartext_len : taille du clair AVANT chiffrement
+                      (longueur 4B + message + rembourrage zéro)
+    (0, 0) si L est trop petit pour porter ne serait-ce qu'un message vide
+    (il faut au moins les 4 octets du champ de longueur).
+    """
+    payload_bytes = _capacity_k(L) // 8
+    cleartext_len = payload_bytes - _AEAD_OVERHEAD
+    if cleartext_len < 4:
+        return 0, 0
+    return payload_bytes, cleartext_len
+
+def symbols_needed(L: int) -> int:
+    """
+    Nombre de positions consommées pour une grammaire à L positions message.
+    Format v3 (tâche 2) : charge utile à longueur fixe — toutes les
+    positions message portent un symbole de charge utile, donc = L.
+    """
+    return L
+
+def max_payload_for(L: int) -> int:
+    """Taille en octets du payload chiffré porté par L positions message."""
+    payload_bytes, _ = _cleartext_capacity(L)
+    return payload_bytes
+
+def max_message_for(L: int) -> int:
+    """Plus long message clair (octets) tenant dans L positions message."""
+    _, cleartext_len = _cleartext_capacity(L)
+    return max(0, cleartext_len - 4)
+
+# ── Chiffrement du message — Key commitment + XChaCha20-Poly1305 ─────────────
 
 def _commit_key(steg_key: bytes) -> bytes:
     """Clé HMAC dédiée au key commitment (séparée de la clé de chiffrement)."""
@@ -199,22 +225,14 @@ def _commit_key(steg_key: bytes) -> bytes:
                   salt=b'commit-v1',
                   info=b'key-commitment').derive(steg_key)
 
-def _encrypt(message: str, steg_key: bytes) -> bytes:
-    """
-    Chiffre avec XChaCha20-Poly1305 standard (tâche 1, voir _xchacha20_enc)
-    + key commitment HMAC-SHA256 [correction 3].
+def _validate_alphabet(message: str) -> bytes:
+    """Majuscule + vérifie l'alphabet, renvoie les octets ASCII (LH-1).
 
-    Format : [32B HMAC(commit_key, header||inner)][inner]
-      inner = nonce(24) + ciphertext + tag(16)
-    La longueur est portée séparément par l'en-tête base-44 de la grille.
-
-    Key commitment : ce ciphertext ne peut déchiffrer valablement
-    que sous une seule clé — élimine les partitioning oracle attacks.
+    Refuse un message hors alphabet plutôt que de le mutiler silencieusement.
+    L'ancien errors='replace' remplaçait tout caractère non-ASCII par '?' sans
+    prévenir l'appelant — un accent oublié se retrouvait décodé en un message
+    différent du message saisi.
     """
-    # LH-1 (audit G. Kerma) : refuser un message hors alphabet plutôt que le
-    # mutiler silencieusement. L'ancien errors='replace' remplaçait tout
-    # caractère non-ASCII par '?' sans prévenir l'appelant — un accent oublié
-    # se retrouvait décodé en un message différent du message saisi.
     msg_upper = message.upper()
     invalid = [c for c in msg_upper if c not in ALPHABET]
     if invalid:
@@ -224,63 +242,93 @@ def _encrypt(message: str, steg_key: bytes) -> bytes:
             f"{unique_invalid!r}. Alphabet accepté : {ALPHABET!r}. "
             f"Conseil : translittérer les accents (É→E, À→A, etc.) "
             f"ou retirer la ponctuation non supportée avant l'envoi.")
-    msg_b    = msg_upper.encode('ascii')
-    inner    = _xchacha20_enc(steg_key, msg_b)
-    ck       = _commit_key(steg_key)
-    # LH-4 (audit G. Kerma) : authentifier l'en-tête de longueur. Le HMAC ne
-    # portait auparavant que sur `inner` ; la longueur totale du payload
-    # (portée séparément, en symboles, par payload_to_symbols()) n'était pas
-    # couverte par le commitment. `header` reproduit exactement l'en-tête que
-    # payload_to_symbols() calculera pour ce payload (4 octets, longueur de
-    # commit+inner) ; _decrypt() le reconstruit depuis le total_len déjà lu
-    # du flux de symboles — aucun changement de format, juste du contenu du
-    # HMAC.
-    header   = struct.pack('>I', 32 + len(inner))
-    commit   = _hmac_mod.new(ck, header + inner, hashlib.sha256).digest()  # 32 bytes
-    return commit + inner
+    return msg_upper.encode('ascii')
 
-def _decrypt(vals: List[int], steg_key: bytes) -> str:
+def _encrypt(message: str, steg_key: bytes, L: int) -> bytes:
+    """
+    Chiffre avec une charge utile à LONGUEUR FIXE (tâche 2, format v3 —
+    remplace le correctif N1 en entier, pas en complément).
+
+    N1 rendait les 2 symboles de poids faible d'un en-tête de longueur
+    SÉPARÉ exactement uniformes, mais cet en-tête restait un champ distinct,
+    de taille variable selon la longueur du message et potentiellement
+    corrélé entre deux grilles sous la même clé et la même grammaire — hors
+    du cadre des preuves du papier (carter_v6_fixes.tex).
+
+    Le clair est désormais [longueur(4B)][message][rembourrage zéro], de
+    taille FIXE déterminée par L (nombre de positions message de la
+    grammaire — connu du décodeur via la grammaire, jamais transmis),
+    chiffré comme un seul bloc XChaCha20-Poly1305 + key commitment
+    HMAC-SHA256. La longueur du message n'apparaît donc plus jamais en clair
+    ni dans un champ à part : payload_to_symbols() produit exactement L
+    symboles, tous porteurs de charge utile — aucune position n'est
+    structurellement différente d'une autre (répond à N1).
+    """
+    msg_b = _validate_alphabet(message)
+    payload_bytes, cleartext_len = _cleartext_capacity(L)
+    if cleartext_len == 0:
+        raise ValueError(
+            f"Grammaire trop petite ({L} positions) pour porter un message, "
+            f"même vide.")
+    max_msg = cleartext_len - 4
+    if len(msg_b) > max_msg:
+        raise ValueError(
+            f"Message trop long pour la grammaire dérivée : {len(msg_b)} "
+            f"octets > {max_msg} disponibles ({L} positions). "
+            f"Changer la clé ou réduire le message.")
+    cleartext = (struct.pack('>I', len(msg_b)) + msg_b +
+                 b'\x00' * (cleartext_len - 4 - len(msg_b)))
+    inner   = _xchacha20_enc(steg_key, cleartext)
+    ck      = _commit_key(steg_key)
+    # Le HMAC porte sur `inner` seul : contrairement à LH-4 (v2), il n'existe
+    # plus de longueur transmise séparément à authentifier — payload_bytes
+    # se déduit de L, public et identique des deux côtés, jamais transporté.
+    commit  = _hmac_mod.new(ck, inner, hashlib.sha256).digest()  # 32 bytes
+    payload = commit + inner
+    assert len(payload) == payload_bytes, "invariant PayloadToSymbols rompu"
+    return payload
+
+def _decrypt(vals: List[int], steg_key: bytes, L: int) -> str:
     """
     Vérifie le key commitment PUIS déchiffre.
-    Double protection : HMAC invalide → rejet immédiat sans tentative de déchiffrement.
+    Charge utile à longueur fixe (tâche 2, format v3) : L détermine la
+    taille exacte du payload — aucune longueur n'est lue depuis le flux de
+    symboles lui-même. Double protection : HMAC invalide → rejet immédiat
+    sans tentative de déchiffrement.
     """
-    if len(vals) < _SYM_HEADER:
-        raise ValueError("Grille trop petite")
-    total_len = _syms_to_header(vals[:_SYM_HEADER])   # N1 : en-tête entropie pleine
-    if total_len > _MAX_PAYLOAD:
-        raise ValueError("En-tête invalide — clé de dissimulation incorrecte")
-    need = _SYM_HEADER + _sym_count(total_len)
-    if len(vals) < need:
-        raise ValueError(f"Positions insuffisantes : {len(vals)} < {need}")
-    payload = _syms_to_bytes(vals[_SYM_HEADER:need], total_len)
-    if len(payload) < 32:
-        raise ValueError("Payload trop court (key commitment manquant)")
+    payload_bytes, cleartext_len = _cleartext_capacity(L)
+    if cleartext_len == 0:
+        raise ValueError(f"Grammaire trop petite ({L} positions) pour un message")
+    m = _smallest_m(_capacity_k(L) + _LAMBDA_S)
+    if len(vals) < m:
+        raise ValueError(f"Positions insuffisantes : {len(vals)} < {m}")
+    payload = _syms_to_bytes(vals[:m], payload_bytes)
     commit_recv, inner = payload[:32], payload[32:]
-    # Vérifier key commitment avant déchiffrement.
-    # LH-4 : header reconstruit depuis total_len (déjà lu ci-dessus, égal à
-    # len(payload) == 32+len(inner)) — même valeur que celle authentifiée
-    # côté _encrypt(), sans avoir à la transporter une seconde fois.
     ck          = _commit_key(steg_key)
-    header      = struct.pack('>I', total_len)
-    commit_calc = _hmac_mod.new(ck, header + inner, hashlib.sha256).digest()
+    commit_calc = _hmac_mod.new(ck, inner, hashlib.sha256).digest()
     if not _hmac_mod.compare_digest(commit_recv, commit_calc):
         raise ValueError("Key commitment invalide — clé incorrecte ou données altérées")
     try:
         pt = _xchacha20_dec(steg_key, inner)
     except Exception:
         raise ValueError("Tag Poly1305 invalide — clé incorrecte ou données altérées")
+    msg_len = struct.unpack('>I', pt[:4])[0]
+    if msg_len > len(pt) - 4:
+        raise ValueError("Longueur de message invalide — clé incorrecte ou données altérées")
+    msg_b = pt[4:4+msg_len]
     try:
-        return pt.decode('ascii', errors='strict')
+        return msg_b.decode('ascii', errors='strict')
     except UnicodeDecodeError:
         raise ValueError(
             "Texte déchiffré non-ASCII — données corrompues malgré une "
             "authentification AEAD valide")
 
-# ── Flux de symboles — API pour carter.py et grid_90.py ──────────────────────
+# ── Flux de symboles — API pour carter.py, carter_random.py, grid_90.py ──────
 # Ces modules construisent leur propre flux et appellent _decrypt() dessus.
-# Ils doivent donc produire exactement le même flux que encode() : en-tête de
-# longueur puis payload, en symboles base-44. Sans cela, ils continueraient
-# d'écrire des nibbles [0..15] repérables dans un bruit couvrant [0..43].
+# Ils doivent donc produire exactement le même flux que payload_to_symbols() :
+# L symboles de charge utile, sans en-tête séparé (format v3, tâche 2). Sans
+# cela, ils continueraient d'écrire des nibbles [0..15] repérables dans un
+# bruit couvrant [0..43], ou une longueur en clair distinguable du bruit.
 
 def random_grid(rows: int, cols: int) -> List[List[int]]:
     """Grille rows×cols de symboles uniformes sur [0..ALPHA_LEN-1] (CSPRNG).
@@ -301,30 +349,28 @@ def random_grid(rows: int, cols: int) -> List[List[int]]:
         flat.extend(b % ALPHA_LEN for b in buf if b < limit)
     return [flat[r * cols:(r + 1) * cols] for r in range(rows)]
 
-def payload_to_symbols(payload: bytes) -> List[int]:
-    """Payload chiffré → flux de symboles uniformes sur [0..ALPHA_LEN-1]."""
-    return (_header_to_syms(len(payload))
-            + _bytes_to_syms(payload, _sym_count(len(payload))))
+def payload_to_symbols(payload: bytes, L: int) -> List[int]:
+    """
+    Payload chiffré à longueur fixe → L symboles uniformes sur
+    [0..ALPHA_LEN-1] (PayloadToSymbols, Définition 3.6, format v3).
 
-def symbols_needed(payload_len: int) -> int:
-    """Nombre de positions nécessaires pour un payload de cette taille."""
-    return _SYM_HEADER + _sym_count(payload_len)
-
-def max_payload_for(n_positions: int) -> int:
-    """Plus grand payload (en octets) tenant dans n_positions symboles."""
-    avail = n_positions - _SYM_HEADER
-    if avail <= 0:
-        return 0
-    lo, hi = 0, avail
-    while lo < hi:
-        mid = (lo + hi + 1) // 2
-        if _sym_count(mid) <= avail: lo = mid
-        else: hi = mid - 1
-    return lo
-
-def max_message_for(n_positions: int) -> int:
-    """Plus long message clair tenant dans n_positions symboles."""
-    return max(0, max_payload_for(n_positions) - _AEAD_OVERHEAD)
+    m = _smallest_m(...) symboles portent le payload lui-même. Comme
+    L·log2(ALPHA_LEN) n'est en général pas un multiple exact de 8 bits (la
+    granularité de _capacity_k), il reste au plus UNE position de marge
+    entre m et L (jamais davantage — garanti par construction de
+    _capacity_k) ; elle est comblée par un symbole CSPRNG supplémentaire, de
+    la même loi uniforme que les symboles de charge utile — indiscernable,
+    aucune perte d'entropie de position. Toutes les positions message
+    portent désormais un symbole de charge utile : aucune n'est un en-tête
+    (répond à N1).
+    """
+    k = _capacity_k(L)
+    assert len(payload) * 8 == k, "L incohérent avec la taille du payload"
+    m = _smallest_m(k + _LAMBDA_S)
+    syms = _bytes_to_syms(payload, m)
+    if m < L:
+        syms += [secrets.randbelow(ALPHA_LEN) for _ in range(L - m)]
+    return syms
 
 # NOTE : le remplissage de bruit de grille (mesure arm64 gk2/MOCHAbin, audit
 # G. Kerma, §4.8 — voir BENCHMARKS_ARM64.md) est traité par random_grid()

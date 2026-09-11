@@ -117,22 +117,15 @@ def encode_carter(message: str, master_key: bytes,
     xchacha_key, grammar_key = _carter_split(master_key)
     grammar = _carter_grammar(grammar_key, ref256)
 
-    payload = _encrypt(message, xchacha_key)
-    # Même flux de symboles base-44 que encode() : les nibbles [0..15]
-    # trahissaient les cellules message dans un bruit couvrant [0..43].
-    nibbles = payload_to_symbols(payload)
-
     # Positions réellement rendues, comptées comme le fait la boucle
-    # d'écriture ci-dessous. Les 512 formes Ref256 comptent aujourd'hui
-    # 6 points chacune et la grille est alignée sur les blocs, donc
-    # n_pos == n_msg*6 ; le produit resterait juste par coïncidence, et
-    # la garde doit porter sur ce que l'encodeur écrit vraiment.
+    # d'écriture ci-dessous. Charge utile à longueur fixe (format v3, tâche
+    # 2) : n_pos détermine directement la taille du payload chiffré — il
+    # doit donc être connu AVANT l'appel à _encrypt(), pas après.
     n_pos = _carter_message_positions(grammar, ref256)
-    if len(nibbles) > n_pos:
-        raise ValueError(
-            f"Message trop long pour la grammaire dérivée : "
-            f"{len(message)} caractères > {max_message_for(n_pos)} "
-            f"disponibles. Changer la clé ou réduire le message.")
+    payload = _encrypt(message, xchacha_key, n_pos)
+    # Même flux de symboles base-44 que les autres encodeurs — toutes les
+    # positions message portent un symbole de charge utile, aucun en-tête.
+    nibbles = payload_to_symbols(payload, n_pos)
 
     # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
     # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
@@ -161,7 +154,7 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
         vals.extend(grid[gr][gc]
                     for gr, gc in _carter_positions(br, bc, g, ref256))
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
     """Retourne les statistiques de capacité de la grammaire dérivée."""
@@ -284,23 +277,19 @@ def encode_carter_360(message: str, master_key: bytes,
     grammar = _carter360_grammar(grammar_key, ref360)
     n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
 
-    payload = _encrypt(message, xchacha_key)
-    # Même flux de symboles base-44 que encode() : les nibbles [0..15]
-    # trahissaient les cellules message dans un bruit couvrant [0..43].
-    nibbles = payload_to_symbols(payload)
-
     # Positions réellement disponibles. La grammaire tire une couleur parmi
     # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
     # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
     # canal manque, le bloc ne rend AUCUNE position. Mesuré sur 463 blocs
     # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
     # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
+    # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
+    # connu AVANT l'appel à _encrypt().
     n_pos = _carter360_message_positions(grammar, ref360)
-    if len(nibbles) > n_pos:
-        raise ValueError(
-            f"Message trop long : {len(message)} caractères > "
-            f"{max_message_for(n_pos)} disponibles "
-            f"({n_msg} blocs message, {n_pos} positions).")
+    payload = _encrypt(message, xchacha_key, n_pos)
+    # Même flux de symboles base-44 que les autres encodeurs — toutes les
+    # positions message portent un symbole de charge utile, aucun en-tête.
+    nibbles = payload_to_symbols(payload, n_pos)
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER360_GRID, CARTER360_GRID)
@@ -326,7 +315,7 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
         vals.extend(grid[gr][gc]
                     for gr, gc in _carter360_positions(br, bc, g, ref360))
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 def carter360_capacity(master_key: bytes,
                         ref360: Optional[List[Dict]] = None) -> Dict:
@@ -468,19 +457,14 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     grammar = _carter_mix_grammar(grammar_key, ref256, ref360)
-    # Calculer la capacité
-    nibbles_cap = _mix_message_positions(grammar, ref256, ref360)
+    # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
+    # connu AVANT l'appel à _encrypt().
+    n_pos = _mix_message_positions(grammar, ref256, ref360)
 
-    payload = _encrypt(message, xchacha_key)
-    # Même flux de symboles base-44 que encode() : les nibbles [0..15]
-    # trahissaient les cellules message dans un bruit couvrant [0..43].
-    nibbles = payload_to_symbols(payload)
-
-    if len(nibbles) > nibbles_cap:
-        raise ValueError(
-            f"Message trop long : {len(message)} caractères > "
-            f"{max_message_for(nibbles_cap)} disponibles dans la "
-            f"grammaire dérivée.")
+    payload = _encrypt(message, xchacha_key, n_pos)
+    # Même flux de symboles base-44 que les autres encodeurs — toutes les
+    # positions message portent un symbole de charge utile, aucun en-tête.
+    nibbles = payload_to_symbols(payload, n_pos)
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID)
@@ -507,7 +491,7 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
         vals.extend(grid[gr][gc]
                     for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360))
-    return _decrypt(vals, xchacha_key)
+    return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_mix_capacity(master_key: bytes,
                          ref256: List[Dict],
