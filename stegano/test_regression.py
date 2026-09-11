@@ -458,6 +458,72 @@ class TestFixedPayloadUniformity(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Classe C-ter — PayloadToSymbols au niveau primitif (tâche 6.1)
+#
+# TestFixedPayloadUniformity exerce _bytes_to_syms/_syms_to_bytes UNIQUEMENT
+# via L (nombre de positions message d'une grammaire, toujours >= 124 en
+# pratique — voir tâche 2), donc k = _capacity_k(L) n'est jamais 0 ni petit.
+# Cette classe teste les primitives DIRECTEMENT, avec les cas limites du
+# plan v3 (k=0, k multiple de 8, grande taille) que le chemin par L ne peut
+# pas atteindre.
+# ══════════════════════════════════════════════════════════════════════════════
+class TestPtSPrimitive(unittest.TestCase):
+    """PayloadToSymbols (Définition 3.6) : _bytes_to_syms/_syms_to_bytes, cas limites."""
+
+    def test_roundtrip_various_nbytes(self):
+        """Aller-retour pour des tailles de payload variées, y compris 0."""
+        import crypto_core as C
+        for nbytes in (0, 1, 2, 4, 8, 16, 32, 64, 128, 500):
+            with self.subTest(nbytes=nbytes):
+                payload = os.urandom(nbytes)
+                m = C._smallest_m(8 * nbytes + C._LAMBDA_S)
+                syms = C._bytes_to_syms(payload, m)
+                self.assertEqual(len(syms), m)
+                self.assertTrue(all(0 <= s < C.ALPHA_LEN for s in syms))
+                self.assertEqual(C._syms_to_bytes(syms, nbytes), payload)
+
+    def test_k_zero_empty_payload(self):
+        """k=0 (payload vide) : cas limite explicitement requis par la tâche 6.1."""
+        import crypto_core as C
+        m = C._smallest_m(0 + C._LAMBDA_S)
+        syms = C._bytes_to_syms(b'', m)
+        self.assertEqual(len(syms), m)
+        self.assertEqual(C._syms_to_bytes(syms, 0), b'')
+
+    def test_k_multiple_of_8(self):
+        """k multiple de 8 (toujours vrai ici puisque k=8*nbytes, mais vérifié explicitement)."""
+        import crypto_core as C
+        for k_bits in (8, 64, 128, 256, 1024):
+            nbytes = k_bits // 8
+            with self.subTest(k_bits=k_bits):
+                payload = os.urandom(nbytes)
+                m = C._smallest_m(k_bits + C._LAMBDA_S)
+                syms = C._bytes_to_syms(payload, m)
+                self.assertEqual(C._syms_to_bytes(syms, nbytes), payload)
+
+    def test_large_size(self):
+        """Grande taille — ordre de grandeur du payload d'une grande grille (Carter-Random-360)."""
+        import crypto_core as C
+        nbytes = 1400
+        payload = os.urandom(nbytes)
+        m = C._smallest_m(8 * nbytes + C._LAMBDA_S)
+        syms = C._bytes_to_syms(payload, m)
+        self.assertEqual(len(syms), m)
+        self.assertEqual(C._syms_to_bytes(syms, nbytes), payload)
+
+    def test_smallest_m_exact_boundary(self):
+        """_smallest_m renvoie exactement le plus petit m tel que ALPHA_LEN**m >= 2**target_bits."""
+        import crypto_core as C
+        for target_bits in (0, 1, 5, 8, 64, 100, 1000):
+            with self.subTest(target_bits=target_bits):
+                m = C._smallest_m(target_bits)
+                threshold = 1 << target_bits
+                self.assertGreaterEqual(C.ALPHA_LEN ** m, threshold)
+                if m > 0:
+                    self.assertLess(C.ALPHA_LEN ** (m - 1), threshold)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Classe D — Grilles pré-calculées (fixtures)
 # ══════════════════════════════════════════════════════════════════════════════
 class TestFixtures(unittest.TestCase):
@@ -823,7 +889,7 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     suite  = unittest.TestSuite()
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
-                TestPayloadFormat, TestFixedPayloadUniformity,
+                TestPayloadFormat, TestFixedPayloadUniformity, TestPtSPrimitive,
                 TestFixtures, TestEndToEnd,
                 TestClassicVariants, TestGrid90, TestCPub]:
         suite.addTests(loader.loadTestsFromTestCase(cls))

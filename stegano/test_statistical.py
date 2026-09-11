@@ -488,6 +488,34 @@ class TestMaskedLength(unittest.TestCase):
               f"{pairs_used} paires, n={n} positions, chi2={chi2:.1f} p={p:.4f}")
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Test 6.1 (plan v3) — PayloadToSymbols, chi2 sur charges utiles aleatoires
+# ══════════════════════════════════════════════════════════════════════════════
+class TestPtSChiSquare(unittest.TestCase):
+    """chi2 des symboles PtS (Definition 3.6) issus de charges utiles aleatoires."""
+
+    def test_pts_symbols_uniform(self):
+        try:
+            import scipy.stats as st
+        except ImportError:
+            self.skipTest("scipy non installe")
+        import crypto_core as C
+        nbytes   = 32
+        m        = C._smallest_m(8 * nbytes + C._LAMBDA_S)
+        N_TRIALS = 3000
+        vals = []
+        for _ in range(N_TRIALS):
+            payload = os.urandom(nbytes)
+            vals.extend(C._bytes_to_syms(payload, m))
+        n   = len(vals)
+        exp = n / ALPHA
+        obs = [vals.count(v) for v in range(ALPHA)]
+        chi2, p = st.chisquare(obs, [exp] * ALPHA)
+        self.assertGreater(p, 0.001,
+            f"Symboles PtS non uniformes : chi2={chi2:.1f} p={p:.5f} (n={n})")
+        print(f"  PtS chi2 (nbytes={nbytes}, m={m}, N={N_TRIALS}) : chi2={chi2:.1f} p={p:.4f}")
+
+
 class TestAutocorrelation(unittest.TestCase):
     """Autocorrelation des valeurs de grille : |r(lag)| < AUTOCORR_MAX."""
 
