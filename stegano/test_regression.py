@@ -608,6 +608,130 @@ class TestEndToEnd(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Classe F — stegano_classic.py (couverture étendue)
+#
+# La suite existante (TestFixtures.test_classic_decode_stable,
+# TestEndToEnd.test_classic_roundtrip) n'exerce que block_size=1 (k=1),
+# avec une clé et un message uniques — jamais les blocs k=2/3/5, jamais le
+# rejet de mauvaise clé, jamais la garde de capacité. Ajoutée suite à la
+# migration de stegano_classic.py vers l'API v3 (tâche 2), qui n'avait
+# jusqu'ici été vérifiée que par un lancement manuel de demo().
+# ══════════════════════════════════════════════════════════════════════════════
+class TestClassicVariants(unittest.TestCase):
+    """stegano_classic.py : tailles de bloc, mauvaise clé, capacité."""
+
+    def setUp(self):
+        self.ref256, _ = get_refs()
+
+    def test_roundtrip_block_sizes(self):
+        """Round-trip pour chaque taille de bloc valide (k=1,2,3,5)."""
+        for k in (1, 2, 3, 5):
+            with self.subTest(block_size=k):
+                sk, kb, kc, k2 = make_keys(len(MSG_SHORT), self.ref256, block_size=k)
+                grid = encode(MSG_SHORT, sk, kb, kc, k2, self.ref256)
+                self.assertEqual(decode(grid, sk, kb, kc, k2, self.ref256), MSG_SHORT)
+
+    def test_wrong_key_rejected(self):
+        sk, kb, kc, k2 = make_keys(len(MSG_SHORT), self.ref256)
+        grid = encode(MSG_SHORT, sk, kb, kc, k2, self.ref256)
+        with self.assertRaises(ValueError):
+            decode(grid, KEY_KNOWN2, kb, kc, k2, self.ref256)
+
+    def test_capacity_exceeded_raises_before_grid(self):
+        """
+        Format v3 (tâche 2) : encode() calcule n_pos puis vérifie la
+        capacité AVANT d'appeler _encrypt()/de construire la moindre
+        grille — un message bien plus long que la capacité de la grille
+        par défaut (60×60) doit être rejeté par ValueError.
+        """
+        sk, kb, kc, k2 = make_keys(0, self.ref256)   # message vide : capacité OK
+        too_long = 'A' * 5000
+        with self.assertRaises(ValueError):
+            encode(too_long, sk, kb, kc, k2, self.ref256)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Classe G — grid_90.py (structure QR à trois niveaux)
+#
+# Module absent de tous les fichiers de test avant ce commit — vérifié
+# jusqu'ici uniquement par un lancement manuel de son bloc __main__.
+# Ajoutée après la migration de encode_super/_encode_stream vers l'API v3
+# à longueur fixe (tâche 2).
+# ══════════════════════════════════════════════════════════════════════════════
+class TestGrid90(unittest.TestCase):
+    """grid_90.py : réel/leurre, stream sur sous-ensemble de super-blocs, limites."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ref256, _ = get_refs()
+
+    def _make_keys_dict(self, msg_len, grid_size):
+        sk, kb, kc, k2 = make_keys(msg_len, self.ref256, grid_size=grid_size)
+        return {'steg_key': sk, 'key_b': kb, 'key_c': kc, 'key_2': k2}
+
+    def test_real_and_lure_roundtrip(self):
+        """Message réel (9 super-blocs centraux) et leurre (12 de bord), indépendamment décodables."""
+        from grid_90 import make_grid_90, decode_grid_90, GRID_SIZE
+        real_msg, lure_msg = "ANIBALAMIOTX", "TEXTEANODINS"
+        real_keys = self._make_keys_dict(len(real_msg), GRID_SIZE)
+        lure_keys = self._make_keys_dict(len(lure_msg), GRID_SIZE)
+        grid = make_grid_90(real_msg, real_keys, lure_msg, lure_keys, self.ref256)
+        self.assertEqual(
+            decode_grid_90(grid, real_keys, self.ref256, role='center'), real_msg)
+        self.assertEqual(
+            decode_grid_90(grid, lure_keys, self.ref256, role='edge'), lure_msg)
+
+    def test_real_wrong_key_rejected(self):
+        from grid_90 import make_grid_90, decode_grid_90, GRID_SIZE
+        real_keys = self._make_keys_dict(len(MSG_SHORT), GRID_SIZE)
+        lure_keys = self._make_keys_dict(len(MSG_SHORT), GRID_SIZE)
+        grid = make_grid_90(MSG_SHORT, real_keys, MSG_SHORT, lure_keys, self.ref256)
+        wrong_keys = dict(real_keys, steg_key=KEY_KNOWN2)
+        with self.assertRaises(ValueError):
+            decode_grid_90(grid, wrong_keys, self.ref256, role='center')
+
+    def test_encode_stream_roundtrip_few_superblocks(self):
+        """
+        _encode_stream/_decode_stream sur 4 super-blocs seulement (216
+        positions, contre 486 pour les 9 utilisés par make_grid_90) —
+        vérifie le format v3 au voisinage du minimum de capacité (124
+        positions), pas seulement sur la grille pleine.
+        """
+        import secrets
+        from grid_90 import _encode_stream, _decode_stream, GRID_SIZE, ALPHA_LEN
+        supers = [(1, 1), (1, 2), (2, 1), (2, 2)]   # 4 super-blocs = 216 positions
+        keys = self._make_keys_dict(0, GRID_SIZE)
+        grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(GRID_SIZE)]
+                for _ in range(GRID_SIZE)]
+        msg = "HI"
+        _encode_stream(grid, msg, keys, supers, self.ref256)
+        self.assertEqual(_decode_stream(grid, keys, supers, self.ref256), msg)
+
+    def test_encode_super_single_block_always_too_small(self):
+        """
+        encode_super() opère sur UN SEUL super-bloc (9 blocs × 6 = 54
+        positions). La charge utile à longueur fixe exige >= 124 positions
+        même pour un message VIDE (76 octets de surcoût AEAD+longueur,
+        format v3, tâche 2) — et c'était déjà vrai avant la tâche 2 :
+        l'ancien format variable exigeait >= 136 symboles pour un message
+        vide (en-tête 18 symboles + 118 pour 72 octets de surcoût AEAD),
+        également supérieur aux 54 positions disponibles. encode_super()
+        n'a donc jamais pu encoder quoi que ce soit sur un seul super-bloc,
+        dans AUCUNE version du format — ce n'est pas une régression de la
+        tâche 2. Ce test verrouille le comportement attendu (rejet propre
+        par ValueError) plutôt que de prétendre à un round-trip qui n'a
+        jamais été possible.
+        """
+        import secrets
+        from grid_90 import encode_super, GRID_SIZE, ALPHA_LEN
+        sk, kb, kc, k2 = make_keys(0, self.ref256, grid_size=GRID_SIZE)
+        grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(GRID_SIZE)]
+                for _ in range(GRID_SIZE)]
+        with self.assertRaises(ValueError):
+            encode_super(grid, "", sk, kb, kc, k2, 2, 2, self.ref256)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Point d'entrée
 # ══════════════════════════════════════════════════════════════════════════════
 if __name__ == '__main__':
@@ -618,7 +742,8 @@ if __name__ == '__main__':
     suite  = unittest.TestSuite()
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
                 TestPayloadFormat, TestFixedPayloadUniformity,
-                TestFixtures, TestEndToEnd]:
+                TestFixtures, TestEndToEnd,
+                TestClassicVariants, TestGrid90]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
