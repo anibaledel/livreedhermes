@@ -2,170 +2,141 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
 """
-generate_referent_6x6.py — Générateur de référents 6×6 (format v3)
+generate_referent_6x6.py — Génère les 256 référents 6×6 aléatoires (v3)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
-Composition d'une forme 6×6 (36 cases, décision de l'auteur, 2026-09-12) :
-  - 2 couleurs "petites" (6 cases chacune) : blue, orange (= rouge/bleu du
-    livre, même forme, autre charte de couleurs — confirmé par l'auteur).
-    Stégano = ces 12 cases ensemble, jamais un tirage de l'une ou l'autre.
-  - 2 couleurs "grandes" (12 cases chacune) : green, yellow.
-    Crypto = les 36 cases (les 4 couleurs).
-  Contrainte de génération : dans CHAQUE LIGNE (6 cases), jamais 3 cases
-  CONSÉCUTIVES de la MÊME couleur PETITE (blue ou orange, vérifié
-  séparément) — les grandes couleurs (green/yellow) sont libres. Vérifiée
-  ligne par ligne, PAS sur la séquence aplatie de toute la grille
-  (contrairement à l'ancienne contrainte "bariolée" de carter_random.py,
-  qui ignorait les frontières de ligne).
+Décision de l'auteur (2026-09-12) : 256 référents (au lieu des 10 graines
+Carter-Random précédentes), générés par l'algorithme normatif ChaCha20 de
+stegano/referent6x6_gen.py (remplace le Mersenne Twister — voir ce module
+pour la spécification complète de l'algorithme).
 
-Ce script est le générateur "outil" — non normatif. Le port JS et la
-bibliothèque Python lisent les JSON produits, ils ne régénèrent jamais.
-Les 10 graines Carter-Random restent identiques à avant (mêmes 10
-référents "aléatoires").
+Pas de gros fichier normatif : chaque référent est entièrement déterminé
+par son index n in [0,255] et l'algorithme de referent6x6_gen.py — le
+recalculer coûte ~5 ms (voir le rapport affiché en fin d'exécution). Ce
+script publie donc :
+  - data/referents_6x6_v3_hashes.json : SHA-256 de CHACUN des 256
+    référents (identité publique, sans le contenu), + le c_pub retenu
+    (calibré sur un échantillon, voir tools/calibrate_referent.py) et le
+    rapport de performance.
+  - data/referent_6x6_index0_v3.json, data/referent_6x6_index1_v3.json :
+    JSON complet des référents 0 et 1 SEULEMENT, pour le débogage — les
+    254 autres n'existent qu'implicitement (algorithme + hash).
 
-Référent-256 (carrés magiques du livre) : PAS généré par ce script. Sa
-source (new_ech.svg, échiquier 16×16, + verif_carre_magique.py) n'est pas
-dans ce dépôt (vérifié, absent) — en attente que l'auteur la fournisse.
-data/referent_6x6_seed256_v3.json est un référent ALÉATOIRE de secours
-(généré par ce script avec la graine 256, hors des 10 canoniques), PAS le
-Référent-256 du livre malgré son nom voisin — à ne pas confondre.
+Remplace entièrement l'ancien schéma à 10 graines Carter-Random
+(referent_6x6_seed*_v3.json, retirés du dépôt) : ces fichiers étaient un
+tirage Mersenne Twister non normatif, incompatible avec la décision
+ci-dessus.
 """
 import hashlib
 import json
 import os
-import random
 import sys
-from datetime import datetime, timezone
+import time
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(REPO_ROOT, 'stegano'))
+sys.path.insert(0, REPO_ROOT)
+import referent6x6_gen as G  # noqa: E402
+
 OUT_DIR = os.path.join(REPO_ROOT, 'data')
+HASHES_PATH = os.path.join(OUT_DIR, 'referents_6x6_v3_hashes.json')
+DEBUG_INDICES = (0, 1)
 
-CELL_SIZE = 6
-N_FORMS = 256
-SMALL_COLORS = ['blue', 'orange']     # 6 cases chacune -- stegano
-LARGE_COLORS = ['green', 'yellow']    # 12 cases chacune -- crypto seulement
-ALL_COLORS = SMALL_COLORS + LARGE_COLORS
-COUNTS = {'blue': 6, 'orange': 6, 'green': 12, 'yellow': 12}   # somme = 36
-
-CARTER_RANDOM_SEEDS = [42, 137, 999, 271, 1337, 31415, 27182, 61803, 65537, 99991]
-REFERENT_256_SEED = 256   # dedie, hors des 10 graines Carter-Random
+COLORS = ['blue', 'orange', 'green', 'yellow']
+STEGANO_COLORS = ['blue', 'orange']
 
 
-def _generate_form(rng):
-    """Une forme 6x6 : 36 cases, 6 blue/6 orange/12 green/12 yellow,
-    contrainte : par ligne, jamais 3 consecutives de la meme couleur
-    PETITE (blue ou orange verifie separement), grandes libres."""
-    cells = [(r, c) for r in range(CELL_SIZE) for c in range(CELL_SIZE)]
-    for _ in range(5000):
-        pool = []
-        for color in ALL_COLORS:
-            pool += [color] * COUNTS[color]
-        rng.shuffle(pool)
-        grid = {}
-        for pos, color in zip(cells, pool):
-            grid[pos] = color
-
-        ok = True
-        for r in range(CELL_SIZE):
-            for small in SMALL_COLORS:
-                run = 0
-                for c in range(CELL_SIZE):
-                    if grid[(r, c)] == small:
-                        run += 1
-                        if run > 2:
-                            ok = False; break
-                    else:
-                        run = 0
-                if not ok:
-                    break
-            if not ok:
-                break
-        if not ok:
-            continue
-
-        by_color = {color: [] for color in ALL_COLORS}
-        for pos, color in grid.items():
-            by_color[color].append(list(pos))
-        return by_color
-    return None
-
-
-def _make_forms(seed):
-    rng = random.Random(seed)
-    forms = []
-    while len(forms) < N_FORMS:
-        f = _generate_form(rng)
-        if f is not None:
-            forms.append(f)
-    return forms
-
-
-def canonical_json_bytes(doc):
-    return json.dumps(doc, sort_keys=True, separators=(',', ':'),
-                       ensure_ascii=False).encode('utf-8')
-
-
-def compute_referent_id(core):
-    return hashlib.sha256(canonical_json_bytes(core)).hexdigest()
-
-
-def build_doc(seed, referent_kind):
-    forms = _make_forms(seed)
-    forms_out = []
-    for i, by_color in enumerate(forms):
-        entry = {'id': i}
-        for color in ALL_COLORS:
-            entry[f'{color}_positions'] = sorted(by_color[color])
-        forms_out.append(entry)
-
+def _full_doc(n, forms):
     core = {
         'format_version': 'referent-v3',
-        'referent_kind': referent_kind,
-        'grid_size': CELL_SIZE,
-        'colors': ALL_COLORS,
-        'stegano_colors': SMALL_COLORS,
-        'crypto_color_order': ALL_COLORS,
-        'generation_seed': seed,
-        'forms': forms_out,
+        'referent_kind': 'referent_6x6_chacha',
+        'referent_index': n,
+        'grid_size': G.GRID_SIZE,
+        'colors': COLORS,
+        'stegano_colors': STEGANO_COLORS,
+        'crypto_color_order': COLORS,
+        'forms': [dict(id=i, **{f'{c}_positions': sorted(by_color[c]) for c in COLORS})
+                  for i, by_color in enumerate(forms)],
     }
-    referent_id = compute_referent_id(core)
-
+    referent_id = hashlib.sha256(G.canonical_json_bytes(core)).hexdigest()
     doc = dict(core)
     doc['referent_id'] = referent_id
-    doc['generated_at_utc'] = datetime.now(timezone.utc).isoformat()
-    doc['generator_tool'] = 'tools/generate_referent_6x6.py'
-    doc['n_forms'] = len(forms_out)
+    doc['generator_tool'] = 'tools/generate_referent_6x6.py (stegano/referent6x6_gen.py)'
+    doc['n_forms'] = len(forms)
     doc['generation_rule'] = (
-        "36 cases : blue/orange 6 chacune (couleurs 'petites', stégano — "
-        "= rouge/bleu du livre, autre charte de couleurs), green/yellow "
-        "12 chacune (couleurs 'grandes', crypto seulement). Par ligne "
-        "(6 cases), jamais 3 cases CONSÉCUTIVES de la MÊME couleur petite "
-        "(blue ou orange, vérifié séparément) — grandes couleurs libres. "
-        "Vérifié ligne par ligne (pas sur la grille aplatie)."
+        "Genere par HKDF-SHA256(IKM public fixe, salt='Carter-referent6x6-v3', "
+        "info=index)  ->  keystream ChaCha20(nonce=0)  ->  256 permutations "
+        "Fisher-Yates (36 cases : blue/orange 6 chacune, green/yellow 12 "
+        "chacune) par rejet d'octet (sans biais modulo), rejetees et "
+        "retirees si une ligne contient 3 cases consecutives de la meme "
+        "couleur petite (blue ou orange), ou si la forme duplique une "
+        "forme deja retenue dans ce meme referent. Voir "
+        "stegano/referent6x6_gen.py pour la specification complete "
+        "(normative, a reprendre a l'identique par LH-5)."
     )
-    doc['c_pub'] = None   # rempli par tools/calibrate_referent.py
+    doc['c_pub'] = G.C_PUB_6X6_CHACHA
     return doc
 
 
 if __name__ == '__main__':
-    # Par defaut : les 10 graines canoniques Carter-Random UNIQUEMENT. Le
-    # Referent-256 (carres magiques du livre) n'est PAS genere par ce
-    # script -- voir le docstring en tete de fichier. Passer 'spare256' en
-    # argument pour regenerer le referent aleatoire de secours (graine 256,
-    # hors canon) si besoin.
-    only = sys.argv[1] if len(sys.argv) > 1 else None
+    t_start = time.time()
+    hashes = {}
+    total_constraint_rejects = 0
+    total_duplicate_rejects = 0
+    debug_docs = {}
 
-    if only in (None, 'random'):
-        for seed in CARTER_RANDOM_SEEDS:
-            doc = build_doc(seed, 'referent_6x6_random')
-            path = os.path.join(OUT_DIR, f'referent_6x6_seed{seed}_v3.json')
-            with open(path, 'w', encoding='utf-8') as f:
-                json.dump(doc, f, indent=2)
-            print(f"{path} : {doc['n_forms']} formes, referent_id={doc['referent_id'][:16]}...")
+    for n in range(G.N_REFERENTS):
+        diag = G._DiagCounters()
+        forms = G.generate_referent(n, diag=diag)
+        total_constraint_rejects += diag.constraint_rejects
+        total_duplicate_rejects += diag.duplicate_rejects
+        hashes[str(n)] = G.referent_hash(n, forms)
+        if n in DEBUG_INDICES:
+            debug_docs[n] = _full_doc(n, forms)
 
-    if only == 'spare256':
-        doc = build_doc(REFERENT_256_SEED, 'referent_6x6_random')
-        path = os.path.join(OUT_DIR, 'referent_6x6_seed256_v3.json')
+    t_end = time.time()
+    per_referent_ms = (t_end - t_start) / G.N_REFERENTS * 1000
+    print(f"{G.N_REFERENTS} referents generes en {t_end - t_start:.2f}s "
+          f"({per_referent_ms:.2f} ms/referent)")
+    print(f"rejets de contrainte (moyenne/referent, sur {G.N_FORMS} formes) : "
+          f"{total_constraint_rejects / G.N_REFERENTS:.2f}")
+    print(f"rejets de doublon (moyenne/referent) : "
+          f"{total_duplicate_rejects / G.N_REFERENTS:.4f}")
+
+    hashes_doc = {
+        'format_version': 'referent-256-hashes-v1',
+        'referent_kind': 'referent_6x6_chacha',
+        'n_referents': G.N_REFERENTS,
+        'n_forms_per_referent': G.N_FORMS,
+        'generator_tool': 'tools/generate_referent_6x6.py (stegano/referent6x6_gen.py)',
+        'c_pub': G.C_PUB_6X6_CHACHA,
+        'c_pub_calibration': {
+            'method': ('calibre individuellement sur un echantillon de 8 referents '
+                       '(voir stegano/referent6x6_gen.py:C_PUB_6X6_CHACHA), variation '
+                       'negligeable (390-401) -> une seule valeur commune retenue '
+                       '(la plus basse), verifiee a N=8000 sur l\'echantillon.'),
+            'sample_indices': [0, 1, 5, 50, 100, 150, 200, 255],
+            'sample_calibrated_c_pub': {0: 401, 1: 399, 5: 400, 50: 399,
+                                         100: 390, 150: 399, 200: 399, 255: 399},
+            'retained_c_pub': G.C_PUB_6X6_CHACHA,
+            'verification_n8000_redraw_pct_range': [0.287, 0.500],
+        },
+        'perf_report': {
+            'total_seconds': round(t_end - t_start, 3),
+            'ms_per_referent': round(per_referent_ms, 3),
+            'mean_constraint_rejects_per_referent': round(
+                total_constraint_rejects / G.N_REFERENTS, 3),
+            'mean_duplicate_rejects_per_referent': round(
+                total_duplicate_rejects / G.N_REFERENTS, 5),
+        },
+        'hashes': hashes,
+    }
+    with open(HASHES_PATH, 'w', encoding='utf-8') as f:
+        json.dump(hashes_doc, f, indent=2, sort_keys=False)
+    print(f"{HASHES_PATH} ecrit ({len(hashes)} hash).")
+
+    for n, doc in debug_docs.items():
+        path = os.path.join(OUT_DIR, f'referent_6x6_index{n}_v3.json')
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(doc, f, indent=2)
-        print(f"{path} : {doc['n_forms']} formes, referent_id={doc['referent_id'][:16]}...")
+        print(f"{path} ecrit (debogage) : referent_id={doc['referent_id'][:16]}...")

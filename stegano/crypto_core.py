@@ -328,6 +328,22 @@ LABELS = {
         'info_hybrid':   b'position-masks-hybrid',
         'info_deniable': b'position-masks-deniable',   # secu_box.py, tâche 5
     },
+    'referent6x6': {
+        # Referents 6x6 aleatoires (256, tache generation ChaCha20,
+        # 2026-09-12) -- voir stegano/referent6x6_gen.py. Deux derivations
+        # DISTINCTES partagent ce salt racine, separees par leur `info` :
+        #   1. Generation d'un referent n in [0,255] (public, AUCUN secret
+        #      en entree -- IKM fixe REFERENT_IKM) : referent_key =
+        #      HKDF-SHA256(REFERENT_IKM, salt, info=bytes([n])).
+        #   2. Choix du referent a l'encodage/decodage (depuis gk, SECRET) :
+        #      selection_key = HKDF-SHA256(gk, salt, info='select',
+        #      length=1) ; l'unique octet obtenu EST l'index (0..255),
+        #      sans reduction modulo -- 1 octet couvre exactement les 256
+        #      valeurs possibles, donc aucun biais a corriger (voir
+        #      docs/PAPER_NUMBERS_v3.md, §5.3).
+        'salt': b'Carter-referent6x6-v3',
+        'select_info': b'select',
+    },
     'redraw': {
         # Racine du redraw déterministe (tâche 4) — voir _redraw_grammar_key
         # ci-dessous pour l'ordre exact de la dérivation complète. Une
