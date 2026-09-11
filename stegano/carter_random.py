@@ -60,6 +60,16 @@ CONC_ORDER = [
 # masquer chaque symbole rend les cellules message indiscernables du bruit
 # même si la géométrie des référents générés dynamiquement produit une
 # distribution de positions moins régulière que le Référent 256 fixe.
+#
+# CR-3 (audit G. Kerma) : les valeurs sont déjà uniformes par construction
+# (sortie XChaCha20 + rejection sampling base-44 — voir
+# crypto_core.payload_to_symbols). Ce masque additif (nibble + mask, mod
+# ALPHA_LEN) n'apporte donc pas d'uniformité supplémentaire. Il est
+# conservé comme couche défensive, mais ne doit pas être présenté comme
+# la source de l'indiscernabilité, et ne doit pas être réemployé ailleurs
+# tel quel : il dérive de grammar_key SEUL, sans aléa propre à la grille
+# (même grammar_key -> mêmes masques à chaque appel), ce qui n'est pas la
+# propriété qu'on attendrait d'un masque cryptographique générique.
 
 def _derive_masks(grammar_key: bytes, n: int) -> list:
     """
@@ -383,3 +393,446 @@ def encode_carter_random_360(message: str, master_key: bytes) -> Tuple[List, Dic
 def decode_carter_random_360(grid: List, master_key: bytes) -> str:
     """Décode une grille Carter Random 180×180."""
     return decode_carter_random(grid, master_key, grid_size=180)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# CARTER-18 : blocs 18×18 concentriques aléatoires
+# ── Spécification (planche 036, La Livrée d'Hermès) ──────────────────────────
+# Grille 18×18 = 9 couches concentriques, couche k = 8k+4 cellules.
+# 4 directions de lecture : couches 0→8, 8→0, paires, impaires.
+# Les positions à l'intérieur de chaque couche sont mélangées par graine.
+# Un référent 18×18 = 256 formes × 4 directions × positions aléatoires.
+#
+# Porté depuis une livraison externe (paquet d'export) : l'original importait
+# _byte_to_syms/_derive_masks depuis un crypto_core.py/carter.py qui n'existent
+# pas sous cette forme dans ce dépôt, et dimensionnait la capacité en
+# "nibbles // 2 - 76" (2 symboles par octet fixes + 76 octets de surcoût AEAD)
+# — une arithmétique propre au format de payload de cette livraison, pas à
+# celui de ce dépôt (payload_to_symbols() produit un nombre de symboles
+# variable par octet, marge d'uniformité incluse ; _AEAD_OVERHEAD vaut 72 ici,
+# pas 76). Reconstruit avec payload_to_symbols()/max_message_for(), comme le
+# fait déjà encode_carter_random() ci-dessus — la géométrie (couches,
+# directions, référent 18×18) est inchangée.
+# ══════════════════════════════════════════════════════════════════════════════
+
+BLOCK_18   = 18          # côté du bloc
+N_LAYERS   = 9           # couches concentriques (k=0..8)
+N_FORMS_18 = 256         # formes par référent 18×18
+N_DIR_18   = 4           # directions de lecture
+
+# Sélection des couches par direction
+_LAYERS_BY_DIR = [
+    list(range(9)),        # dir 0 : 0→8 (noyau→périphérie) — 324 positions
+    list(range(8,-1,-1)),  # dir 1 : 8→0 (périphérie→noyau) — 324 positions
+    list(range(0,9,2)),    # dir 2 : couches paires 0,2,4,6,8 — 180 positions
+    list(range(1,9,2)),    # dir 3 : couches impaires 1,3,5,7 — 144 positions
+]
+
+# Nombre de positions par direction (précalculé)
+_POSITIONS_PER_DIR = [sum(8*k+4 for k in layers) for layers in _LAYERS_BY_DIR]
+# = [324, 324, 180, 144]
+
+
+def _layer_cells(k: int) -> List[Tuple[int,int]]:
+    """
+    Retourne les (row, col) de la couche k dans une grille 18×18.
+    Couche 0 = noyau 2×2 (lignes 8-9, colonnes 8-9).
+    Couche k = anneau [8-k-1 .. 8+k+1] × [8-k-1 .. 8+k+1] - intérieur.
+    """
+    r_min = BLOCK_18//2 - k - 1
+    r_max = BLOCK_18//2 + k
+    c_min = BLOCK_18//2 - k - 1
+    c_max = BLOCK_18//2 + k
+
+    cells = []
+    for r in range(r_min, r_max+1):
+        for c in range(c_min, c_max+1):
+            # Uniquement la bordure (pas l'intérieur de l'anneau)
+            if r == r_min or r == r_max or c == c_min or c == c_max:
+                if 0 <= r < BLOCK_18 and 0 <= c < BLOCK_18:
+                    cells.append((r, c))
+    return cells
+
+
+def _build_form_18(rng: 'random.Random') -> List[List[Tuple[int,int]]]:
+    """
+    Construit une forme 18×18 : pour chaque direction, la liste ordonnée
+    des positions de lecture (couches dans l'ordre de la direction, positions
+    à l'intérieur de chaque couche mélangées aléatoirement).
+    Retourne une liste de 4 listes de (row, col).
+    """
+    # Pré-calculer les cellules de chaque couche (mélangées une fois par forme)
+    layer_cells_shuffled = []
+    for k in range(N_LAYERS):
+        cells = _layer_cells(k)
+        rng.shuffle(cells)
+        layer_cells_shuffled.append(cells)
+
+    dirs = []
+    for layer_order in _LAYERS_BY_DIR:
+        positions = []
+        for k in layer_order:
+            positions.extend(layer_cells_shuffled[k])
+        dirs.append(positions)
+    return dirs
+
+
+_CACHE_18: Dict[int, List] = {}
+
+def get_referent_18(seed: int) -> List[List[List[Tuple[int,int]]]]:
+    """
+    Génère (ou retourne depuis le cache) le référent 18×18 pour une graine
+    donnée. Retourne une liste de N_FORMS_18=256 formes.
+    Chaque forme = liste de 4 directions.
+    Chaque direction = liste ordonnée de (row, col).
+    Non cryptographique par conception (référents publics).
+    """
+    if seed not in _CACHE_18:
+        rng = random.Random(seed)
+        _CACHE_18[seed] = [_build_form_18(rng) for _ in range(N_FORMS_18)]
+    return _CACHE_18[seed]
+
+
+def _grammar_18(grammar_key: bytes,
+                grid_size: int = GRID_SIZE) -> List[Dict]:
+    """
+    Dérive la grammaire Carter-18 depuis grammar_key.
+    Grille grid_size×grid_size divisée en (grid_size//18)² méta-blocs 18×18.
+    Retourne la liste des méta-blocs avec rôle, form_id, dir_id.
+    """
+    n_side_18 = grid_size // BLOCK_18   # ex. 5 pour grid 90×90
+    n_blocks_18 = n_side_18 * n_side_18  # ex. 25
+    km = _HKDF(_hh.SHA256(), n_blocks_18 * 3,
+                salt=b'Carter-18-v1',
+                info=b'grammar-18').derive(grammar_key)
+    return [{
+        'role':    _PURE if km[i*3] < 85 else (_STRUCTURED if km[i*3] < 170
+                   else _MESSAGE),
+        'form_id': (km[i*3+1] * N_FORMS_18) // 256,
+        'dir':     km[i*3+2] % N_DIR_18,
+    } for i in range(n_blocks_18)]
+
+
+def _carter18_seed(grammar_key: bytes) -> int:
+    """Graine du référent 18×18 pour cette clé (dérivation partagée encode/decode)."""
+    idx = int.from_bytes(
+        _HKDF(_hh.SHA256(), 4, salt=b'Carter-18-seed-v1',
+              info=b'seed').derive(grammar_key), 'big') % len(SEEDS)
+    return SEEDS[idx]
+
+
+def encode_carter_18(message: str,
+                     master_key: bytes,
+                     grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
+    """
+    Carter-18 : encode sur grille grid_size×grid_size avec méta-blocs 18×18.
+
+    Chaque méta-bloc 18×18 porte ses symboles en ordre concentrique — noyau
+    d'abord pour dir 0, périphérie d'abord pour dir 1, couches paires/impaires
+    pour dir 2/3. Les positions à l'intérieur de chaque couche sont mélangées
+    aléatoirement par la graine (publique) du référent.
+
+    Capacité nettement supérieure à Carter-256 (324 positions par méta-bloc
+    message en direction 0/1, contre 6 par bloc en Carter-256).
+    """
+    xchacha_key, grammar_key = _carter_split(master_key)
+    seed  = _carter18_seed(grammar_key)
+    ref18 = get_referent_18(seed)
+    grammar = _grammar_18(grammar_key, grid_size)
+
+    n_side_18 = grid_size // BLOCK_18
+    cap = sum(_POSITIONS_PER_DIR[g['dir']]
+              for g in grammar if g['role'] == _MESSAGE)
+
+    payload = _encrypt(message, xchacha_key)
+    # Même flux de symboles base-44 que encode_carter_random() ci-dessus —
+    # pas de conversion "2 symboles par octet" fixe, qui ne correspondrait
+    # pas au format de payload_to_symbols()/max_message_for() de ce dépôt.
+    nibbles = payload_to_symbols(payload)
+    if len(nibbles) > cap:
+        raise ValueError(
+            f"Message trop long : {len(message)} caractères > "
+            f"{max_message_for(cap)} disponibles (n_msg_blocks="
+            f"{sum(1 for g in grammar if g['role'] == _MESSAGE)}).")
+
+    masks = _derive_masks(grammar_key, len(nibbles) + 256)
+    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(grid_size)]
+              for _ in range(grid_size)]
+
+    ni = 0
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE or ni >= len(nibbles): continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+        form = ref18[g['form_id']]
+        for r, c in form[g['dir']]:
+            if ni >= len(nibbles): break
+            gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
+            if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
+            ni += 1
+
+    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
+    return grid, {
+        'seed': seed, 'grid_size': grid_size, 'mode': 'carter-18',
+        'n_msg_blocks': n_msg, 'capacity_chars': max_message_for(cap),
+    }
+
+
+def decode_carter_18(grid: List[List[int]],
+                     master_key: bytes,
+                     grid_size: int = GRID_SIZE) -> str:
+    """Décode une grille encodée par encode_carter_18. ValueError si clé incorrecte."""
+    xchacha_key, grammar_key = _carter_split(master_key)
+    seed  = _carter18_seed(grammar_key)
+    ref18 = get_referent_18(seed)
+    grammar = _grammar_18(grammar_key, grid_size)
+    n_side_18 = grid_size // BLOCK_18
+
+    n_tot_pos = sum(_POSITIONS_PER_DIR[g['dir']]
+                    for g in grammar if g['role'] == _MESSAGE)
+    masks = _derive_masks(grammar_key, n_tot_pos + 256)
+
+    vals = []; ni = 0
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE: continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+        form = ref18[g['form_id']]
+        for r, c in form[g['dir']]:
+            gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
+            if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
+            ni += 1
+    return _decrypt(vals, xchacha_key)
+
+
+def carter18_fits(message: str, master_key: bytes,
+                  grid_size: int = GRID_SIZE) -> bool:
+    """Vérifie si le message tient dans la grille Carter-18 avec la config dérivée."""
+    _, grammar_key = _carter_split(master_key)
+    grammar = _grammar_18(grammar_key, grid_size)
+    cap = sum(_POSITIONS_PER_DIR[g['dir']]
+              for g in grammar if g['role'] == _MESSAGE)
+    return len(message) <= max_message_for(cap)
+
+
+def carter18_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
+    """Retourne les infos de capacité Carter-18 pour cette clé."""
+    _, grammar_key = _carter_split(master_key)
+    grammar = _grammar_18(grammar_key, grid_size)
+    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
+    n_side_18 = grid_size // BLOCK_18
+    cap = sum(_POSITIONS_PER_DIR[g['dir']]
+              for g in grammar if g['role'] == _MESSAGE)
+    return {
+        'n_blocks': n_side_18 * n_side_18,
+        'n_msg_blocks': n_msg,
+        'positions_per_block_dir0': _POSITIONS_PER_DIR[0],   # 324
+        'positions_per_block_dir2': _POSITIONS_PER_DIR[2],   # 180
+        'capacity_chars': max_message_for(cap),
+        'mode': 'carter-18',
+    }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# CARTER-HYBRID : mélange 18×18 concentrique + 6×6 selon la clé
+# ── Architecture ──────────────────────────────────────────────────────────────
+# Sur une grille grid_size×grid_size, (grid_size//18)² méta-blocs 18×18.
+# La grammaire dérivée de la clé assigne chaque méta-bloc message à l'un
+# de deux modes de lecture :
+#   • MODE_18 : lecture concentrique sur l'ensemble 18×18 (jusqu'à 324 positions)
+#   • MODE_6  : lecture en 9 sous-blocs 6×6 indépendants (54 positions)
+# Les méta-blocs MODE_18 absorbent l'essentiel du message (haute capacité).
+# Les méta-blocs MODE_6 complètent avec un grain plus fin.
+# Déterministe : encodeur et décodeur dérivent le même plan depuis la clé —
+# le mode par bloc dépend de la clé, pas de la longueur du message.
+#
+# Même remarque de portage que Carter-18 ci-dessus : reconstruit sur
+# payload_to_symbols()/max_message_for() plutôt que sur l'arithmétique à
+# 2 symboles/octet + 76 octets de la livraison d'origine.
+# ══════════════════════════════════════════════════════════════════════════════
+
+MODE_18 = 0  # lecture concentrique 18×18
+MODE_6  = 1  # lecture en 9 sous-blocs 6×6
+
+
+def _grammar_hybrid(grammar_key: bytes,
+                    grid_size: int = GRID_SIZE) -> List[Dict]:
+    """
+    Dérive la grammaire hybride : rôle + mode de lecture pour chaque
+    méta-bloc 18×18. Le mode (MODE_18 / MODE_6) est dérivé de la clé.
+    """
+    n_side_18 = grid_size // BLOCK_18
+    n_blocks  = n_side_18 * n_side_18
+    km = _HKDF(_hh.SHA256(), n_blocks * 4,
+                salt=b'Carter-hybrid-v1',
+                info=b'grammar-hybrid').derive(grammar_key)
+    return [{
+        'role':    _PURE if km[i*4] < 85 else (
+                   _STRUCTURED if km[i*4] < 170 else _MESSAGE),
+        'mode':    MODE_18 if km[i*4+1] < 128 else MODE_6,
+        'form_id': (km[i*4+2] * N_FORMS_18) // 256,  # pour MODE_18
+        'dir':     km[i*4+3] % N_DIR_18,              # pour MODE_18
+    } for i in range(n_blocks)]
+
+
+def _subblock_positions(br18: int, bc18: int,
+                        grammar_key: bytes,
+                        ref6: List[Dict]) -> List[List[Tuple[int,int]]]:
+    """
+    Pour un méta-bloc 18×18 en MODE_6 : dérive les positions de lecture
+    pour chacun des 9 sous-blocs 6×6 internes, via le référent 6×6.
+    Retourne une liste de 9 listes de (row_abs, col_abs).
+    """
+    km_sub = _HKDF(_hh.SHA256(), 9 * 3,
+                   salt=b'Carter-hybrid-sub',
+                   info=bytes([br18, bc18])).derive(grammar_key)
+    positions = []
+    for sub in range(9):
+        sr, sc = sub // 3, sub % 3
+        form_id   = (km_sub[sub*3] * N_FORMS) // 256
+        direction = km_sub[sub*3+2] % N_DIR
+        form = ref6[form_id % len(ref6)]
+        sub_pos = [(br18*BLOCK_18 + sr*CELL_SIZE + r,
+                    bc18*BLOCK_18 + sc*CELL_SIZE + c)
+                   for r, c in form[direction]]
+        positions.append(sub_pos)
+    return positions
+
+
+def _carter_hybrid_seeds(grammar_key: bytes) -> Tuple[int, int]:
+    """(seed_18, seed_6) pour cette clé (dérivation partagée encode/decode)."""
+    idx18 = int.from_bytes(
+        _HKDF(_hh.SHA256(), 4, salt=b'Carter-hybrid-seed',
+              info=b'seed').derive(grammar_key), 'big') % len(SEEDS)
+    idx6 = int.from_bytes(
+        _HKDF(_hh.SHA256(), 4, salt=b'Carter-hybrid-seed6',
+              info=b'seed6').derive(grammar_key), 'big') % len(SEEDS)
+    return SEEDS[idx18], SEEDS[idx6]
+
+
+def _hybrid_capacity_positions(grammar: List[Dict]) -> int:
+    """Positions totales disponibles pour les blocs message de cette grammaire."""
+    return sum(
+        _POSITIONS_PER_DIR[g['dir']] if g['mode'] == MODE_18 else 9*CELL_SIZE
+        for g in grammar if g['role'] == _MESSAGE)
+
+
+def encode_carter_hybrid(message: str,
+                         master_key: bytes,
+                         grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
+    """
+    Carter-Hybrid : mélange 18×18 concentrique + 6×6 sous-blocs.
+
+    Les méta-blocs message en MODE_18 offrent une haute capacité (jusqu'à
+    324 positions) ; ceux en MODE_6 complètent en grain plus fin (54
+    positions, 9 sous-blocs 6×6). Le mode par bloc est dérivé de la clé,
+    pas du message : pas d'adaptation à la longueur qui distinguerait un
+    message court d'un message long depuis la seule géométrie.
+    """
+    xchacha_key, grammar_key = _carter_split(master_key)
+    seed18, seed6 = _carter_hybrid_seeds(grammar_key)
+    ref18 = get_referent_18(seed18)
+    ref6  = get_referent(seed6)
+    grammar = _grammar_hybrid(grammar_key, grid_size)
+    n_side_18 = grid_size // BLOCK_18
+
+    cap = _hybrid_capacity_positions(grammar)
+    payload = _encrypt(message, xchacha_key)
+    nibbles = payload_to_symbols(payload)
+    if len(nibbles) > cap:
+        raise ValueError(
+            f"Message trop long : {len(message)} caractères > "
+            f"{max_message_for(cap)} disponibles.")
+
+    masks = _derive_masks(grammar_key, len(nibbles) + 512)
+    grid  = [[_sec.randbelow(ALPHA_LEN) for _ in range(grid_size)]
+              for _ in range(grid_size)]
+
+    ni = 0
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE or ni >= len(nibbles): continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+
+        if g['mode'] == MODE_18:
+            form = ref18[g['form_id']]
+            for r, c in form[g['dir']]:
+                if ni >= len(nibbles): break
+                gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
+                if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                    grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
+                ni += 1
+        else:  # MODE_6
+            for sub_pos in _subblock_positions(br18, bc18, grammar_key, ref6):
+                for gr, gc in sub_pos:
+                    if ni >= len(nibbles): break
+                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                        grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
+                    ni += 1
+                if ni >= len(nibbles): break
+
+    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
+    n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
+    return grid, {
+        'mode': 'carter-hybrid', 'seed_18': seed18, 'seed_6': seed6,
+        'n_msg_blocks': n_msg, 'n_mode_18': n_18, 'n_mode_6': n_msg - n_18,
+        'capacity_chars': max_message_for(cap),
+    }
+
+
+def decode_carter_hybrid(grid: List[List[int]],
+                         master_key: bytes,
+                         grid_size: int = GRID_SIZE) -> str:
+    """Décode une grille encodée par encode_carter_hybrid. ValueError si clé incorrecte."""
+    xchacha_key, grammar_key = _carter_split(master_key)
+    seed18, seed6 = _carter_hybrid_seeds(grammar_key)
+    ref18 = get_referent_18(seed18)
+    ref6  = get_referent(seed6)
+    grammar = _grammar_hybrid(grammar_key, grid_size)
+    n_side_18 = grid_size // BLOCK_18
+
+    n_tot = _hybrid_capacity_positions(grammar)
+    masks = _derive_masks(grammar_key, n_tot + 512)
+
+    vals = []; ni = 0
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE: continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+
+        if g['mode'] == MODE_18:
+            form = ref18[g['form_id']]
+            for r, c in form[g['dir']]:
+                gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
+                if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                    vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
+                ni += 1
+        else:
+            for sub_pos in _subblock_positions(br18, bc18, grammar_key, ref6):
+                for gr, gc in sub_pos:
+                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
+                        vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
+                    ni += 1
+
+    return _decrypt(vals, xchacha_key)
+
+
+def carter_hybrid_fits(message: str, master_key: bytes,
+                       grid_size: int = GRID_SIZE) -> bool:
+    """Vérifie si le message tient dans la grille Carter-Hybrid avec la config dérivée."""
+    _, grammar_key = _carter_split(master_key)
+    grammar = _grammar_hybrid(grammar_key, grid_size)
+    cap = _hybrid_capacity_positions(grammar)
+    return len(message) <= max_message_for(cap)
+
+
+def carter_hybrid_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
+    """Retourne les infos de capacité Carter-Hybrid pour cette clé."""
+    _, grammar_key = _carter_split(master_key)
+    grammar = _grammar_hybrid(grammar_key, grid_size)
+    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
+    n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
+    cap   = _hybrid_capacity_positions(grammar)
+    return {
+        'n_msg_blocks': n_msg, 'n_mode_18': n_18, 'n_mode_6': n_msg - n_18,
+        'capacity_chars': max_message_for(cap),
+        'mode': 'carter-hybrid',
+    }

@@ -121,7 +121,7 @@ constructions géométriques originales (référents 256 et 360 dans `data/`) :
 | `stegano/stegano_lib.py` | dissimulation géométrique, grilles Carter 256 / 360 / Mix |
 | `stegano/carter.py`, `stegano/grid_90.py` | grille Carter autonome, grille 90×90 à trois niveaux |
 | `secubox/secu_box.py` | identités X25519, échange de clés authentifié, déni plausible |
-| `secubox/vault_lib.py` | vault de fichiers chiffré (Argon2id + XChaCha20-Poly1305) |
+| `secubox/vault_lib.py` | vault de fichiers chiffré (Argon2id + ChaCha20-Poly1305 à nonce étendu par HKDF) |
 | `secubox/secu_box_cli.py` | CLI `secu-box` |
 | `disk/disk_lib.py` | chiffrement de fichiers (diversification géométrique + ChaCha20-Poly1305) |
 | `encodeur.html` | portage navigateur (Web Crypto) |
@@ -129,8 +129,10 @@ constructions géométriques originales (référents 256 et 360 dans `data/`) :
 Dépendances Python : `cryptography`, `argon2-cffi`.
 
 **Les deux implémentations ne sont pas interchangeables.** Le navigateur ne
-dispose ni d'Argon2id ni de XChaCha20-Poly1305 en natif ; `encodeur.html` leur
-substitue PBKDF2 et AES-256-GCM, et son échange de clés est authentifié par
+dispose nativement ni d'Argon2id ni de la construction ChaCha20-Poly1305 à
+nonce étendu par HKDF utilisée côté Python (LH-5 — ce n'est pas du
+XChaCha20-Poly1305 standard) ; `encodeur.html` leur substitue PBKDF2 et
+AES-256-GCM, et son échange de clés est authentifié par
 comparaison hors bande d'une chaîne de 128 bits, là où la CLI Python lie les
 identités long terme à la session par un triple DH. Les sessions dérivées de
 part et d'autre ne se correspondent pas. Pour un usage sensible, préférer la

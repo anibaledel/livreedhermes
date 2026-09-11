@@ -243,6 +243,17 @@ def _geo_derive(master_key: bytes, nonce: bytes, sn: int,
     # Appliquer le SPN sur deux chunks de 24B issus du bloc
     result = bytearray(32)
     for chunk_i in range(2):
+        # Chevauchement intentionnel : chunk 0 = block[0:24], chunk 1 =
+        # block[12:36]. Les deux chunks se recouvrent sur 12 octets
+        # (block[12:24]), pour que chaque octet du bloc d'entrée influence
+        # les deux chunks.
+        # SPN-4 (audit G. Kerma) : block fait 32 octets, donc chunk 1 =
+        # block[12:36] ne rend que 20 octets réels (block[12:32]) ; les 4
+        # octets suivants (block[32:36]) n'existent pas et sont remplis de
+        # zéros ci-dessous. Ces 4 octets nuls n'apportent aucune entropie
+        # supplémentaire au second passage. Impact : nul sur la sécurité
+        # (la sortie de 32 octets reste dérivée des 32 octets d'entrée via
+        # le premier chunk). Documenté ici pour éviter toute ambiguïté.
         chunk = bytes(block[chunk_i*12:chunk_i*12+24])  # overlap voulu
         if len(chunk) < 24: chunk = chunk + bytes(24 - len(chunk))
         data = bytes(chunk[:24])

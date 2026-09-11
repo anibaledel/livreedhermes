@@ -33,7 +33,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from stegano_lib  import load_referents, encode, decode, grid_to_csv, csv_to_grid
 from secu_box     import Identity, Session
 from vault_lib    import Vault
-from disk_lib     import passphrase_to_key
 
 # ── Fichiers de configuration locaux ─────────────────────────────────────────
 CONFIG_DIR  = os.path.expanduser('~/.secubox')
@@ -61,13 +60,33 @@ def _load_session() -> dict:
         return json.load(f)
 
 def _vault_key() -> bytes:
+    """
+    Clé maître du vault, depuis la passphrase.
+
+    Fix N2 (audit) : cette fonction appelait passphrase_to_key(pp,
+    b'SecuBox-Vault-KDF-v1') — un sel FIXE, identique pour tout vault sur
+    toute machine, et le sel aléatoire que la fonction aurait généré était
+    jeté (`key, _ = ...`). Un attaquant pouvait précalculer un dictionnaire
+    passphrase -> clé pour ce sel unique et le rejouer contre n'importe quel
+    vault, amortissant le cout des 300 000 iterations PBKDF2 sur l'ensemble
+    des vaults au lieu de le repayer pour chacun.
+
+    Vault.create()/Vault.open() dans vault_lib.py derivent deja
+    correctement un sel aleatoire PAR VAULT (os.urandom(SALT_SIZE), stocke
+    dans l'en-tete, relu a l'ouverture) et l'appliquent via Argon2id
+    (_key_material/_argon2id) — exactement comme _argon2id_identity() dans
+    secu_box.py passe deja la passphrase directement a Argon2id sans
+    pre-hachage a sel fixe. La double derivation ici etait non seulement
+    a sel fixe mais redondante : la passphrase est desormais transmise
+    telle quelle, et c'est le sel par vault de vault_lib.py qui fait tout
+    le travail de derivation.
+    """
     pp = getpass.getpass("Passphrase vault : ")
     pp2 = getpass.getpass("Confirmer (laisser vide si ouverture) : ")
     if pp2 and pp != pp2:
         print("Passphrases différentes.", file=sys.stderr)
         sys.exit(1)
-    key, _ = passphrase_to_key(pp, b'SecuBox-Vault-KDF-v1')
-    return key
+    return pp.encode('utf-8')
 
 # ── Commandes ─────────────────────────────────────────────────────────────────
 def cmd_exchange_init(args):

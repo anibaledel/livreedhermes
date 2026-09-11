@@ -6,7 +6,7 @@ La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Historique des versions :
   v1.0 : PBKDF2-SHA256 + ChaCha20-Poly1305
-  v1.1 : XChaCha20-Poly1305 (nonce 24B) + clé MAC dédiée + anti-DoS + versioning
+  v1.1 : ChaCha20-Poly1305 à nonce étendu par HKDF (LH-5 ; nonce 24B) + clé MAC dédiée + anti-DoS + versioning
   v1.2 : Argon2id remplace PBKDF2 (memory-hard, résistant GPU/ASIC)
 
 Les vaults v1 restent lisibles : leur dérivation (HKDF direct sur la clé
@@ -34,7 +34,7 @@ from argon2.low_level import hash_secret_raw, Type as Argon2Type
 
 MAGIC            = b'SBVT'
 VERSION          = 2               # v1.2 : Argon2id
-ALG_XCHACHA20    = 1
+ALG_CHACHA20_HKDF = 1   # LH-5 : renomme depuis ALG_XCHACHA20, valeur inchangee (format sur disque)
 SALT_SIZE        = 32
 MAC_SIZE         = 32
 HEADER_SIZE      = 4 + 1 + 1 + 2 + SALT_SIZE   # 40 bytes
@@ -129,20 +129,25 @@ def _entry_key(km: bytes, entry_name: str, salt: bytes,
     return HKDF(_h.SHA256(), 32, salt=salt,
                 info=f'{_labels(version)["entry"]}{entry_name}'.encode()).derive(km)
 
-# ── XChaCha20-Poly1305 ────────────────────────────────────────────────────────
-def _xchacha_subkey(key: bytes, nonce_24: bytes):
+# ── ChaCha20-Poly1305 à nonce étendu par HKDF ─────────────────────────────────
+# LH-5 (audit G. Kerma) : renommée depuis _xchacha_subkey. Pas du XChaCha20
+# standard (sous-clé HKDF-SHA256, pas HChaCha20) — non interopérable avec
+# libsodium/PyNaCl. Le HKDF info= reste 'XChaCha20-HChaCha20-subkey' tel
+# quel : c'est un libellé de dérivation figé dans le format, pas un nom
+# d'API ; le changer romprait le déchiffrement des vaults déjà créés.
+def _chacha20_hkdf_subkey(key: bytes, nonce_24: bytes):
     return (HKDF(_h.SHA256(), 32, salt=nonce_24[:16],
                  info=b'XChaCha20-HChaCha20-subkey').derive(key),
             b'\x00\x00\x00\x00' + nonce_24[16:])
 
 def _enc(data: bytes, key: bytes, aad: bytes = b'') -> bytes:
     nonce = os.urandom(24)
-    sk, cn = _xchacha_subkey(key, nonce)
+    sk, cn = _chacha20_hkdf_subkey(key, nonce)
     return nonce + ChaCha20Poly1305(sk).encrypt(cn, data, aad or None)
 
 def _dec(data: bytes, key: bytes, aad: bytes = b'') -> bytes:
     nonce, ct = data[:24], data[24:]
-    sk, cn = _xchacha_subkey(key, nonce)
+    sk, cn = _chacha20_hkdf_subkey(key, nonce)
     return ChaCha20Poly1305(sk).decrypt(cn, ct, aad or None)
 
 # ── Vault ─────────────────────────────────────────────────────────────────────
@@ -150,7 +155,7 @@ class Vault:
     """
     Vault chiffré SecuBox v1.2.
     KDF : Argon2id (time=3, mem=64MB) — résistant GPU.
-    Chiffrement : XChaCha20-Poly1305 par entrée.
+    Chiffrement : ChaCha20-Poly1305 à nonce étendu par HKDF (LH-5) par entrée.
     Intégrité : HMAC-SHA256 global (clé dédiée).
     """
 
@@ -282,7 +287,7 @@ class Vault:
             entry_enc = _enc(meta['data'], ekey, name.encode())
             entries_blob += struct.pack('>I', len(entry_enc)) + entry_enc
 
-        header  = MAGIC + bytes([VERSION, ALG_XCHACHA20, 0, 0]) + self.salt
+        header  = MAGIC + bytes([VERSION, ALG_CHACHA20_HKDF, 0, 0]) + self.salt
         payload = (header
                    + struct.pack('>I', len(manifest_enc))
                    + manifest_enc
