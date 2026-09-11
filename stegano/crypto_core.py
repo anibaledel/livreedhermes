@@ -328,6 +328,13 @@ LABELS = {
         'info_hybrid':   b'position-masks-hybrid',
         'info_deniable': b'position-masks-deniable',   # secu_box.py, tâche 5
     },
+    'sweep': {
+        # Balayage de lecture (tache "cablage production", 2026-09-12) :
+        # un octet derive de grammar_key_ctr PAR COULEUR, fixe pour toute
+        # la grammaire (jamais retire par bloc) -- voir stegano/sweep.py.
+        # 256 % 8 == 0 : aucun biais modulo, aucun rejet necessaire.
+        'salt': b'Carter-sweep-v3',
+    },
     'referent6x6': {
         # Referents 6x6 aleatoires (256, tache generation ChaCha20,
         # 2026-09-12) -- voir stegano/referent6x6_gen.py. Deux derivations
