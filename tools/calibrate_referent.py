@@ -137,6 +137,90 @@ def measure_redraw_rate(doc, c_pub_candidate, n_keys=10000):
     }
 
 
+CARTER6X6_N_BLOCKS = 225   # 15x15 blocs 6x6 sur une grille 90x90 (Carter-256/Carter-Random)
+
+
+def _n_pos_for_key_6x6(grammar_key_ctr: bytes, forms, stegano_color_keys):
+    """Grammaire a 225 blocs (meme repartition de roles) : pour CHAQUE bloc
+    message, UN tirage de forme (in [0..255] par octet, AUCUN rejet
+    necessaire car 256 divise 256 exactement) -- n_pos = somme sur tous les
+    blocs message des positions stegano (12 par forme, constant par
+    construction 6/6/12/12 -- voir generate_referent_6x6.py)."""
+    role_key = _HKDF(_hashes.SHA256(), CARTER6X6_N_BLOCKS, salt=b'referent6x6-roles-v3',
+                      info=b'block-roles').derive(grammar_key_ctr)
+    form_key = _HKDF(_hashes.SHA256(), CARTER6X6_N_BLOCKS, salt=b'referent6x6-forme-tirage-v3',
+                      info=b'block-form-index').derive(grammar_key_ctr)
+    n_pos = 0
+    for block in range(CARTER6X6_N_BLOCKS):
+        if _block_role(role_key[block]) != 'message':
+            continue
+        form = forms[form_key[block]]   # 256 formes, 1 octet, aucun rejet
+        for color_key in stegano_color_keys:
+            n_pos += len(form.get(color_key, []))
+    return n_pos
+
+
+def measure_redraw_rate_6x6(doc, c_pub_candidate, n_keys=10000):
+    forms = doc['forms']
+    assert len(forms) == 256, f"256 formes attendues, {len(forms)} trouvees"
+    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
+
+    fails = 0
+    redraws = 0
+    caps = []
+    for _ in range(n_keys):
+        grammar_key = secrets.token_bytes(32)
+        success = False
+        for ctr in range(MAX_REDRAWS):
+            gk_ctr = _grammar_key_ctr(grammar_key, ctr)
+            n_pos = _n_pos_for_key_6x6(gk_ctr, forms, stegano_color_keys)
+            cap = CC.max_message_for(n_pos)
+            if cap >= c_pub_candidate:
+                if ctr > 0:
+                    redraws += 1
+                caps.append(cap)
+                success = True
+                break
+        if not success:
+            fails += 1
+    return {
+        'c_pub_candidate': c_pub_candidate, 'n_keys': n_keys,
+        'redraw_rate_pct': round(100 * redraws / n_keys, 3),
+        'fail_rate_pct': round(100 * fails / n_keys, 4),
+        'mean_capacity': round(sum(caps) / len(caps), 1) if caps else None,
+    }
+
+
+def calibrate_6x6(doc, n_keys=10000, target_redraw_pct=1.0):
+    forms = doc['forms']
+    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
+
+    raw_caps = []
+    for _ in range(2000):
+        grammar_key = secrets.token_bytes(32)
+        gk0 = _grammar_key_ctr(grammar_key, 0)
+        n_pos = _n_pos_for_key_6x6(gk0, forms, stegano_color_keys)
+        raw_caps.append(CC.max_message_for(n_pos))
+    raw_caps.sort()
+    p1 = raw_caps[len(raw_caps) // 100]
+    print(f"  [calibrate-6x6] capacite brute (ctr=0, N=2000) : min={raw_caps[0]} p1={p1} "
+          f"median={raw_caps[len(raw_caps)//2]} max={raw_caps[-1]}")
+
+    lo, hi = 1, max(p1, 1)
+    best = None
+    while lo <= hi:
+        mid = (lo + hi) // 2
+        m = measure_redraw_rate_6x6(doc, mid, n_keys=n_keys)
+        print(f"  [calibrate-6x6] c_pub={mid} -> redraw={m['redraw_rate_pct']}% "
+              f"fail={m['fail_rate_pct']}%")
+        if m['redraw_rate_pct'] < target_redraw_pct and m['fail_rate_pct'] == 0.0:
+            best = mid
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return best
+
+
 def calibrate(doc, n_keys=10000, target_redraw_pct=1.0):
     """Recherche par dichotomie/balayage la plus grande c_pub_candidate
     telle que le taux de redraw mesuré reste < target_redraw_pct %."""
@@ -174,11 +258,17 @@ def calibrate(doc, n_keys=10000, target_redraw_pct=1.0):
 if __name__ == '__main__':
     path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(REPO_ROOT, 'data', 'referent_360_v3.json')
     doc = load_referent(path)
-    print(f"Calibration de {path} (referent_id={doc['referent_id']})")
-    c_pub = calibrate(doc)
-    print(f"c_pub retenu : {c_pub}")
+    is_6x6 = (doc.get('grid_size') == 6)
+    print(f"Calibration de {path} (referent_id={doc['referent_id']}, grid_size={doc.get('grid_size')})")
 
-    final_check = measure_redraw_rate(doc, c_pub, n_keys=10000)
+    if is_6x6:
+        c_pub = calibrate_6x6(doc)
+        final_check = measure_redraw_rate_6x6(doc, c_pub, n_keys=10000)
+    else:
+        c_pub = calibrate(doc)
+        final_check = measure_redraw_rate(doc, c_pub, n_keys=10000)
+
+    print(f"c_pub retenu : {c_pub}")
     print(f"Verification finale (N=10000) : {final_check}")
 
     doc['c_pub'] = c_pub
