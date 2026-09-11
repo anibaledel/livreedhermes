@@ -33,7 +33,7 @@ from cryptography.hazmat.primitives import hashes as _hashes
 
 from crypto_core import (
     ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols,
-    max_payload_for, max_message_for, _random_symbols,
+    max_payload_for, max_message_for, random_grid,
 )
 from stegano_classic import apply_orientation, _find_ref
 
@@ -134,11 +134,10 @@ def encode_carter(message: str, master_key: bytes,
             f"{len(message)} caractères > {max_message_for(n_pos)} "
             f"disponibles. Changer la clé ou réduire le message.")
 
-    # Remplissage bulk CSPRNG (voir crypto_core._random_symbols) : mesuré
-    # ~x6 plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
-    # G. Kerma, §4.8), même garantie de sécurité.
-    _flat = _random_symbols(CARTER_GRID * CARTER_GRID)
-    grid  = [_flat[i*CARTER_GRID:(i+1)*CARTER_GRID] for i in range(CARTER_GRID)]
+    # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
+    # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
+    # G. Kerma, §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
+    grid  = random_grid(CARTER_GRID, CARTER_GRID)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -304,8 +303,7 @@ def encode_carter_360(message: str, master_key: bytes,
             f"({n_msg} blocs message, {n_pos} positions).")
 
     # Remplissage bulk CSPRNG — voir encode_carter().
-    _flat = _random_symbols(CARTER360_GRID * CARTER360_GRID)
-    grid  = [_flat[i*CARTER360_GRID:(i+1)*CARTER360_GRID] for i in range(CARTER360_GRID)]
+    grid  = random_grid(CARTER360_GRID, CARTER360_GRID)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -485,8 +483,7 @@ def encode_carter_mix(message: str, master_key: bytes,
             f"grammaire dérivée.")
 
     # Remplissage bulk CSPRNG — voir encode_carter().
-    _flat = _random_symbols(CARTER_MIX_GRID * CARTER_MIX_GRID)
-    grid  = [_flat[i*CARTER_MIX_GRID:(i+1)*CARTER_MIX_GRID] for i in range(CARTER_MIX_GRID)]
+    grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID)
     nib_i = 0
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue

@@ -19,6 +19,11 @@
 
 import Stripe from 'stripe';
 
+// W1 : seules devises acceptées côté serveur. Le seuil minimum
+// (STRIPE_MIN_AMOUNT_CENTS) est exprimé dans cette devise ; toute autre est
+// refusée avant tout calcul de montant.
+const ALLOWED_CURRENCIES = ['eur'];
+
 // CORRECTIF AUDIT — origine de confiance.
 // success_url et cancel_url étaient construites depuis l'en-tête Origin de
 // la requête. Cet en-tête est libre pour tout client hors navigateur : un
@@ -83,7 +88,18 @@ async function handleCreateCheckoutSession(request, env) {
   }
 
   const amount = Math.round(Number(body.amount));
+  // CORRECTIF AUDIT W1 — devise fournie par le client.
+  // `currency` venait de la requête et n'était comparée au minimum
+  // (STRIPE_MIN_AMOUNT_CENTS, exprimé en centimes d'euro) sans aucune
+  // conversion : un client pouvait déclarer une devise sans décimales (jpy)
+  // ou de valeur très différente pour contourner le seuil, tout en payant
+  // dans une devise que le marchand n'accepte pas. Le palier « soutien » est
+  // libellé en euros comme le palier « pro » : on impose donc une liste
+  // blanche et on refuse toute autre devise.
   const currency = (body.currency || 'eur').toLowerCase();
+  if (!ALLOWED_CURRENCIES.includes(currency)) {
+    return json({ error: 'Devise non supportée' }, 400, request, env);
+  }
   const minAmount = Number(env.STRIPE_MIN_AMOUNT_CENTS || 100);
 
   if (!Number.isFinite(amount) || amount < minAmount) {
@@ -174,15 +190,38 @@ async function handleCreateProCheckoutSession(request, env) {
 // égaré ouvrir un accès des jours plus tard.
 const CLAIM_GRACE_SECONDS = 15 * 60;
 
-async function grantAccessForSession(env, sessionId, tier) {
+async function grantAccessForSession(env, sessionId, tier, paymentIntent) {
   const token = crypto.randomUUID();
   // Le jeton lui-même ne périme pas, et c'est voulu : l'accès est un achat
   // unique. Lui donner une durée de vie révoquerait un accès payé.
-  await env.SOUTIEN_KV.put(`token:${token}`, JSON.stringify({ createdAt: Date.now(), sessionId, tier }));
+  await env.SOUTIEN_KV.put(`token:${token}`, JSON.stringify({
+    createdAt: Date.now(), sessionId, tier,
+    paymentIntent: paymentIntent || null,
+  }));
   // L'association session -> jeton, elle, est temporaire : elle ne sert qu'à
   // remettre le jeton à l'acheteur juste après le paiement.
   await env.SOUTIEN_KV.put(`session:${sessionId}`, token, { expirationTtl: 60 * 60 * 24 });
+  // W2 : index inverse PaymentIntent -> jeton, permanent comme le jeton, pour
+  // pouvoir révoquer l'accès sur remboursement / litige (événements charge.*,
+  // dont l'objet ne porte pas l'id de la session Checkout mais son
+  // payment_intent). Sans cet index, aucune correspondance charge -> jeton.
+  if (paymentIntent) {
+    await env.SOUTIEN_KV.put(`pi:${paymentIntent}`, token);
+  }
   return token;
+}
+
+// W2 : révoque le jeton/accès lié à un PaymentIntent (remboursement, litige).
+// Supprime le jeton (verify-access renverra dès lors invalid) et l'index
+// inverse. Idempotent : un second événement pour le même PaymentIntent (p. ex.
+// remboursement partiel puis total, ou litige après remboursement) ne fait
+// rien de plus.
+async function revokeAccessForPaymentIntent(env, paymentIntent) {
+  if (!paymentIntent) return;
+  const token = await env.SOUTIEN_KV.get(`pi:${paymentIntent}`);
+  if (!token) return;
+  await env.SOUTIEN_KV.delete(`token:${token}`);
+  await env.SOUTIEN_KV.delete(`pi:${paymentIntent}`);
 }
 
 async function handleWebhook(request, env) {
@@ -201,10 +240,21 @@ async function handleWebhook(request, env) {
     const session = event.data.object;
     if (session.payment_status !== 'unpaid') {
       const tier = (session.metadata && session.metadata.tier) || 'soutien';
-      await grantAccessForSession(env, session.id, tier);
+      await grantAccessForSession(env, session.id, tier, session.payment_intent);
     }
   } else if (event.type === 'checkout.session.async_payment_failed') {
     // Paiement différé échoué : rien à débloquer, pas d'action nécessaire.
+  } else if (event.type === 'charge.refunded' || event.type === 'charge.dispute.created') {
+    // CORRECTIF AUDIT W2 — remboursements / litiges.
+    // Ces événements n'étaient pas traités : un acheteur remboursé (ou qui
+    // ouvre un litige / chargeback) conservait un jeton d'accès valable
+    // indéfiniment, l'accès étant volontairement perpétuel. On révoque
+    // désormais le jeton correspondant. L'objet de l'événement est une
+    // « charge » (charge.refunded) ou un « dispute » (charge.dispute.created) :
+    // dans les deux cas, .payment_intent relie au paiement d'origine, indexé
+    // à l'émission du jeton.
+    const obj = event.data.object;
+    await revokeAccessForPaymentIntent(env, obj && obj.payment_intent);
   }
 
   return new Response(JSON.stringify({ received: true }), {

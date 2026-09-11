@@ -146,7 +146,7 @@ class TestAvalancheKey(unittest.TestCase):
         partage voulu par _encode_fixed_noise) : deux grilles de bruit
         independant differaient deja sur ~97,7% des cellules, quelle que
         soit la cle. Depuis que le remplissage passe par
-        crypto_core._random_symbols() (perf, mesure arm64 gk2/MOCHAbin,
+        crypto_core.random_grid() (perf, mesure arm64 gk2/MOCHAbin,
         §4.8), le bruit EST reellement pin par le seed partage, et ce
         qui reste a mesurer est le vrai signal : le changement de
         grammaire. Sur la grille entiere, ce signal reel ne pese plus

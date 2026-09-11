@@ -89,6 +89,52 @@ def _sym_count(nbytes: int) -> int:
 
 _SYM_HEADER = _sym_count(4)   # en-tête : longueur du payload sur 4 octets
 
+# ── En-tête de longueur à entropie pleine ─────────────────────────────────────
+# CORRECTIF AUDIT N1 — en-tête de longueur non uniforme.
+# _bytes_to_syms plaçait la valeur encodée dans les bits de POIDS FAIBLE :
+#   u = data + span·randbelow(k),  span = 2^(8·len(b))
+# Pour un PAYLOAD, `data` est du chiffré uniformément aléatoire, donc data mod
+# ALPHA_LEN est déjà uniforme et le symbole de poids faible l'est aussi. Pour
+# l'EN-TÊTE, `data` est la longueur — une valeur connue, de faible entropie et
+# souvent constante d'un message à l'autre. Comme span = 2^32 ≡ 4 (mod 44),
+# le symbole de poids faible de l'en-tête ne parcourait que le sous-groupe
+# {0,4,…,40} translaté par (longueur mod 44) : 11 valeurs sur 44. C'est un
+# distingueur exploitable SANS clé, et la longueur elle-même se lisait en
+# clair depuis le flux de symboles.
+#
+# L'en-tête utilise désormais un encodage dédié où la longueur occupe les
+# symboles de POIDS FORT et un rembourrage aléatoire occupe les poids faibles :
+#   u = longueur·k + randbelow(k),  k = ALPHA_LEN^_SYM_HEADER // 2^32
+# Comme 44^_SYM_HEADER = 2^36·11^18 est divisible par 2^32, on a
+# k = 2^4·11^18 = 44·(4·11^17) : k est un multiple de 44 (et même de 44^2).
+# Les deux symboles de poids faible de l'en-tête sont donc EXACTEMENT uniformes
+# sur [0..43], quelle que soit la longueur ; les suivants le sont à la même
+# marge que le payload. La longueur reste recouvrable par u // k, et le HMAC
+# LH-4 continue de porter sur struct.pack('>I', longueur)‖inner (inchangé :
+# _decrypt reconstruit la même longueur avant vérification).
+_HEADER_SPAN  = 1 << 32                                   # longueur sur 4 octets
+_HEADER_SLOTS = (ALPHA_LEN ** _SYM_HEADER) // _HEADER_SPAN  # k, multiple de 44
+
+def _header_to_syms(length: int) -> List[int]:
+    """Longueur (< 2^32) → _SYM_HEADER symboles à entropie pleine (voir N1)."""
+    if not 0 <= length < _HEADER_SPAN:
+        raise ValueError(f"Longueur d'en-tête hors plage : {length}")
+    u = length * _HEADER_SLOTS + secrets.randbelow(_HEADER_SLOTS)
+    out = []
+    for _ in range(_SYM_HEADER):
+        u, r = divmod(u, ALPHA_LEN)
+        out.append(r)
+    return out
+
+def _syms_to_header(syms: List[int]) -> int:
+    """Inverse de _header_to_syms : le rembourrage aléatoire disparaît au // k."""
+    u = 0
+    for d in reversed(syms):
+        if not 0 <= d < ALPHA_LEN:
+            raise ValueError(f"Symbole hors plage : {d}")
+        u = u * ALPHA_LEN + d
+    return u // _HEADER_SLOTS
+
 def _bytes_to_syms(b: bytes, m: int) -> List[int]:
     """Octets → m symboles uniformes sur [0..ALPHA_LEN-1]."""
     span = 1 << (8*len(b))
@@ -166,7 +212,7 @@ def _decrypt(vals: List[int], steg_key: bytes) -> str:
     """
     if len(vals) < _SYM_HEADER:
         raise ValueError("Grille trop petite")
-    total_len = struct.unpack('>I', _syms_to_bytes(vals[:_SYM_HEADER], 4))[0]
+    total_len = _syms_to_header(vals[:_SYM_HEADER])   # N1 : en-tête entropie pleine
     if total_len > _MAX_PAYLOAD:
         raise ValueError("En-tête invalide — clé de dissimulation incorrecte")
     need = _SYM_HEADER + _sym_count(total_len)
@@ -202,9 +248,28 @@ def _decrypt(vals: List[int], steg_key: bytes) -> str:
 # longueur puis payload, en symboles base-44. Sans cela, ils continueraient
 # d'écrire des nibbles [0..15] repérables dans un bruit couvrant [0..43].
 
+def random_grid(rows: int, cols: int) -> List[List[int]]:
+    """Grille rows×cols de symboles uniformes sur [0..ALPHA_LEN-1] (CSPRNG).
+
+    Remplace le `secrets.randbelow(ALPHA_LEN)` appelé cellule-par-cellule (un
+    appel Python + un tirage os.urandom pour CHAQUE cellule) par un unique
+    tirage `os.urandom` en bloc, échantillonné par rejet vers [0..ALPHA_LEN-1].
+    Même source (os.urandom) et même uniformité (le rejet des octets
+    `>= 256 - 256 % ALPHA_LEN` supprime le biais modulo), mais ~40× plus rapide
+    sur une grille 90×90 : l'initialisation du bruit de couverture dominait le
+    coût d'encodage Carter (mesuré ~42 ms/50 ms sur ARM Cortex-A72)."""
+    n = rows * cols
+    limit = 256 - (256 % ALPHA_LEN)      # ALPHA_LEN=44 -> 220 ; octets >=220 rejetés
+    flat: List[int] = []
+    while len(flat) < n:
+        manque = n - len(flat)
+        buf = os.urandom(manque * 256 // limit + 16)   # sur-tirage ~ taux de rejet
+        flat.extend(b % ALPHA_LEN for b in buf if b < limit)
+    return [flat[r * cols:(r + 1) * cols] for r in range(rows)]
+
 def payload_to_symbols(payload: bytes) -> List[int]:
     """Payload chiffré → flux de symboles uniformes sur [0..ALPHA_LEN-1]."""
-    return (_bytes_to_syms(struct.pack('>I', len(payload)), _SYM_HEADER)
+    return (_header_to_syms(len(payload))
             + _bytes_to_syms(payload, _sym_count(len(payload))))
 
 def symbols_needed(payload_len: int) -> int:
@@ -227,34 +292,9 @@ def max_message_for(n_positions: int) -> int:
     """Plus long message clair tenant dans n_positions symboles."""
     return max(0, max_payload_for(n_positions) - _AEAD_OVERHEAD)
 
-# ── Bruit de grille — remplissage CSPRNG en bloc ──────────────────────────────
-# Mesure arm64 (gk2/MOCHAbin, audit G. Kerma, §4.8) : le remplissage du bruit
-# d'une grille Carter 90×90 via secrets.randbelow(ALPHA_LEN) x 8100 appels
-# individuels coûte ~42,5 ms, soit ~85% du coût d'un encode() complet
-# (~50 ms). Le CSPRNG lui-même n'est pas le goulot — c'est le coût Python
-# de 8100 appels de fonction séparés. _random_symbols() tire un seul bloc
-# os.urandom() puis fait le rejection sampling directement sur les octets,
-# sans appel de fonction par cellule. Même garantie de sécurité que
-# secrets.randbelow() : CSPRNG (os.urandom), distribution exactement
-# uniforme sur [0..ALPHA_LEN-1] par rejet (aucun biais modulo) — mesuré
-# ~×6 sur le débit d'encodage (~50 ms -> ~8 ms).
-
-def _random_symbols(n: int) -> List[int]:
-    """
-    n symboles uniformes sur [0..ALPHA_LEN-1], tirés d'un CSPRNG (os.urandom)
-    par rejection sampling en bloc plutôt que n appels à secrets.randbelow().
-    """
-    if n <= 0:
-        return []
-    lim = (256 // ALPHA_LEN) * ALPHA_LEN   # 220 pour ALPHA_LEN=44 : rejette [220..255]
-    out = []
-    while len(out) < n:
-        # Sur-échantillonne pour couvrir le taux de rejet (~14% pour 44),
-        # avec une marge fixe pour les petits n.
-        need = n - len(out)
-        buf  = os.urandom(need + need // 6 + 16)
-        for b in buf:
-            if b < lim:
-                out.append(b % ALPHA_LEN)
-                if len(out) >= n: break
-    return out
+# NOTE : le remplissage de bruit de grille (mesure arm64 gk2/MOCHAbin, audit
+# G. Kerma, §4.8 — voir BENCHMARKS_ARM64.md) est traité par random_grid()
+# ci-dessus, pas ici. Une implémentation équivalente (_random_symbols, flux
+# plat + reshape manuel) a existé brièvement dans cette branche ; random_grid
+# est la version retenue après fusion avec la branche perf indépendante
+# (même idée, même mesure, implémentation légèrement différente).

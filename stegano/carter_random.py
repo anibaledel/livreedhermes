@@ -29,7 +29,7 @@ from typing import List, Dict, Tuple, Optional
 
 from stegano_lib import (
     ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for,
-    _carter_split, _PURE, _STRUCTURED, _MESSAGE, _random_symbols,
+    _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid,
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hh
@@ -239,11 +239,10 @@ def encode_carter_random(message: str,
     # [0..15] qui trahirait les cellules message dans un bruit [0..43].
     nibbles = payload_to_symbols(payload)
 
-    # Remplissage bulk CSPRNG (voir crypto_core._random_symbols) : mesuré
-    # ~x6 plus rapide que grid_size² appels à secrets.randbelow() (audit
-    # G. Kerma, §4.8), même garantie de sécurité.
-    _flat = _random_symbols(grid_size * grid_size)
-    grid  = [_flat[i*grid_size:(i+1)*grid_size] for i in range(grid_size)]
+    # Remplissage bulk CSPRNG (voir crypto_core.random_grid) : mesuré ~x6-x40
+    # plus rapide que grid_size² appels à secrets.randbelow() (audit G. Kerma,
+    # §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
+    grid = random_grid(grid_size, grid_size)
     masks = _derive_masks(grammar_key, len(nibbles) + 128)
     nib_i = 0
 
@@ -565,8 +564,7 @@ def encode_carter_18(message: str,
 
     masks = _derive_masks(grammar_key, len(nibbles) + 256)
     # Remplissage bulk CSPRNG — voir encode_carter_random().
-    _flat = _random_symbols(grid_size * grid_size)
-    grid  = [_flat[i*grid_size:(i+1)*grid_size] for i in range(grid_size)]
+    grid  = random_grid(grid_size, grid_size)
 
     ni = 0
     for blk, g in enumerate(grammar):
@@ -763,8 +761,7 @@ def encode_carter_hybrid(message: str,
 
     masks = _derive_masks(grammar_key, len(nibbles) + 512)
     # Remplissage bulk CSPRNG — voir encode_carter_random().
-    _flat = _random_symbols(grid_size * grid_size)
-    grid  = [_flat[i*grid_size:(i+1)*grid_size] for i in range(grid_size)]
+    grid  = random_grid(grid_size, grid_size)
 
     ni = 0
     for blk, g in enumerate(grammar):

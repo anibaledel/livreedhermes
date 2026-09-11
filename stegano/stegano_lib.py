@@ -25,7 +25,7 @@ from crypto_core import (
     _commit_key, _encrypt, _decrypt,
     payload_to_symbols, symbols_needed,
     max_payload_for, max_message_for,
-    _random_symbols,
+    random_grid,
 )
 
 from stegano_classic import (
