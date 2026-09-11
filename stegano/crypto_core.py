@@ -294,16 +294,92 @@ LABELS = {
     },
     'mask_seed': {
         # Point d'entrée labellisé pour _derive_masks() (carter_random.py) :
-        # seed HKDF-SHA256(grammar_key) domaine-séparée par variante, puis
-        # la même chaîne SHA-256 non bornée qu'avant (HKDF-Expand seul est
-        # borné à 255*32 octets, insuffisant pour les plus grandes grilles ;
-        # la chaîne reste le mécanisme de flux, seule son amorce change).
-        'salt':               b'Carter-masks-v3',
-        'info_random':        b'position-masks-random',
-        'info_18':             b'position-masks-18',
-        'info_hybrid':         b'position-masks-hybrid',
+        # mask_key = HKDF-SHA256(grammar_key, salt, info=domaine), domaine
+        # séparé par variante ; le flux de masques lui-même vient ensuite
+        # du keystream ChaCha20(mask_key, nonce=0) — voir carter_random.py.
+        'salt':        b'Carter-masks-v3',
+        'info_random': b'position-masks-random',
+        'info_18':     b'position-masks-18',
+        'info_hybrid': b'position-masks-hybrid',
+    },
+    'redraw': {
+        # Racine du redraw déterministe (tâche 4) — voir _redraw_grammar_key
+        # ci-dessous pour l'ordre exact de la dérivation complète. Une
+        # entrée par variante ayant son propre C_PUB (Random 90 et 360
+        # partagent la même racine que le reste de Random : le grid_size
+        # n'est pas secret et influence déjà la dérivation en aval via
+        # _derive_params(grammar_key_ctr, grid_size), inutile de le
+        # dupliquer ici).
+        'carter256':     b'Carter-256-redraw-v3',
+        'carter360':     b'Carter-360-redraw-v3',
+        'cartermix':     b'Carter-mix-redraw-v3',
+        'carterrandom':  b'Carter-random-redraw-v3',
+        'carter18':      b'Carter-18-redraw-v3',
+        'carterhybrid':  b'Carter-hybrid-redraw-v3',
     },
 }
+
+# ── Capacité minimale publique — C_PUB (format v3, tâche 4) ──────────────────
+# Valeurs arbitrées par l'utilisateur (2026-09-11) à partir de la
+# distribution empirique de capacité sur 10 000 clés par variante (rapport
+# complet : docs/PAPER_NUMBERS_v3.md, tâche 8). Choisies sous le p1 mesuré
+# (moins de 1 % des clés tombent en dessous SANS même passer par le
+# redraw), avec marge : la queue basse est fine (voir le rapport), donc le
+# redraw (MAX_REDRAWS tentatives, ci-dessous) absorbe le reste avec une
+# probabilité d'échec totale négligeable.
+#
+# En octets de message (= caractères, alphabet ASCII 1 octet/caractère).
+# Random 90 et Random 360 sont deux cibles DISTINCTES : même code, deux
+# géométries, deux distributions de capacité mesurées séparément.
+C_PUB = {
+    'carter256':       150,
+    'carter360':        230,
+    'cartermix':        500,
+    'carterrandom90':   150,
+    'carterrandom360': 1000,
+    'carter18':         350,
+    'carterhybrid':     100,
+}
+
+MAX_REDRAWS = 10   # tentatives ctr=0..9 ; échec au-delà (voir _redraw_grammar_key)
+
+def _redraw_grammar_key(grammar_key: bytes, variant: str, ctr: int) -> bytes:
+    """
+    Racine du redraw déterministe (tâche 4, format v3) : reforge
+    grammar_key en fonction d'un compteur ctr, de sorte qu'un redraw
+    retire ENSEMBLE tout ce qui en dépend en cascade — seed, mode
+    (individuel/méta), rôles ET formes — et pas seulement le contenu final
+    de la grammaire à travers une dérivation secondaire isolée.
+
+    Ordre exact de la dérivation complète pour une variante donnée (à
+    reprendre tel quel par LH-5) :
+      1. xchacha_key, grammar_key = <split variante>(master_key)
+         — UNE SEULE FOIS par appel encode/decode. xchacha_key NE DÉPEND
+         JAMAIS de ctr : la séparation grammaire/chiffrement (correction 2,
+         Carter) reste intacte quel que soit le nombre de redraws.
+      2. Pour ctr = 0, 1, …, MAX_REDRAWS-1 :
+           grammar_key_ctr = _redraw_grammar_key(grammar_key, variant, ctr)
+           <dériver seed/mode/grammaire/masques DEPUIS grammar_key_ctr,
+            exactement comme avant la tâche 4 — aucune fonction de
+            dérivation existante n'est modifiée, seule la VALEUR qu'on lui
+            passe change>
+           si capacité(grammar_key_ctr) >= C_PUB[variant] : succès, arrêt
+      3. Échec après MAX_REDRAWS tentatives : ValueError explicite
+         invitant à régénérer la clé maître — jamais de grille construite,
+         même partielle (l'échec est un événement PUBLIC : C_PUB et
+         MAX_REDRAWS sont publics, la probabilité d'épuiser les 10
+         tentatives est negligeable — voir docs/PAPER_NUMBERS_v3.md —, mais
+         quand elle survient elle ne doit rien apprendre de plus que « cette
+         clé est à régénérer »).
+
+    ctr=0 n'est PAS un cas particulier « sans redraw » : même la première
+    tentative passe par cette dérivation, pour que le code de recherche
+    soit uniforme (pas de branchement encode/decode selon qu'un redraw a
+    eu lieu ou non).
+    """
+    return _HKDF(_hashes.SHA256(), 32,
+                 salt=LABELS['redraw'][variant],
+                 info=b'redraw-root|ctr=' + ctr.to_bytes(4, 'big')).derive(grammar_key)
 
 # ── Chiffrement du message — Key commitment + XChaCha20-Poly1305 ─────────────
 

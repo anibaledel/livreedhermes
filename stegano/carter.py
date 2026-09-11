@@ -32,7 +32,8 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hashes
 
 from crypto_core import (
-    ALPHA_LEN, LABELS, _encrypt, _decrypt, payload_to_symbols,
+    ALPHA_LEN, LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key,
+    _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid,
 )
 from stegano_classic import apply_orientation, _find_ref
@@ -44,6 +45,27 @@ CARTER_SIDE  = CARTER_GRID // CARTER_BLOCK    # 15 blocs par côté
 CARTER_N     = CARTER_SIDE ** 2               # 225 blocs
 
 _PURE, _STRUCTURED, _MESSAGE = 0, 1, 2
+
+def _find_grammar_with_c_pub(grammar_key: bytes, variant: str,
+                              grammar_fn, message_positions_fn):
+    """
+    Recherche déterministe (tâche 4, format v3) : essaie grammar_key_ctr pour
+    ctr=0..MAX_REDRAWS-1 (voir crypto_core._redraw_grammar_key pour l'ordre
+    exact de la dérivation complète) jusqu'à trouver une grammaire dont la
+    capacité (max_message_for) est >= C_PUB[variant]. Retourne (grammar,
+    n_pos) du premier succès. Lève ValueError après MAX_REDRAWS échecs —
+    jamais de grille construite, même partielle.
+    """
+    for ctr in range(MAX_REDRAWS):
+        gk_ctr = _redraw_grammar_key(grammar_key, variant, ctr)
+        grammar = grammar_fn(gk_ctr)
+        n_pos = message_positions_fn(grammar)
+        if max_message_for(n_pos) >= C_PUB[variant]:
+            return grammar, n_pos
+    raise ValueError(
+        f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
+        f"régénérer la clé maître (capacité cible C_PUB={C_PUB[variant]} "
+        f"caractères non atteinte).")
 
 def _carter_split(master_key: bytes):
     """
@@ -119,13 +141,19 @@ def encode_carter(message: str, master_key: bytes,
     grid_to_csv() pour sérialiser, csv_to_grid() pour désérialiser.
     """
     xchacha_key, grammar_key = _carter_split(master_key)
-    grammar = _carter_grammar(grammar_key, ref256)
-
-    # Positions réellement rendues, comptées comme le fait la boucle
-    # d'écriture ci-dessous. Charge utile à longueur fixe (format v3, tâche
-    # 2) : n_pos détermine directement la taille du payload chiffré — il
-    # doit donc être connu AVANT l'appel à _encrypt(), pas après.
-    n_pos = _carter_message_positions(grammar, ref256)
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — un message
+    # plus long est refusé AVANT toute dérivation de grammaire ou
+    # construction de grille, même si CETTE clé (après redraw) aurait pu
+    # en porter davantage. Évite un canal où la limite accept/refuse
+    # dépendrait de la clé.
+    if len(message) > C_PUB['carter256']:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter256']} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
+    grammar, n_pos = _find_grammar_with_c_pub(
+        grammar_key, 'carter256',
+        lambda gk: _carter_grammar(gk, ref256),
+        lambda g: _carter_message_positions(g, ref256))
     payload = _encrypt(message, xchacha_key, n_pos)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
@@ -147,11 +175,15 @@ def encode_carter(message: str, master_key: bytes,
 def decode_carter(grid: List[List[int]], master_key: bytes,
                   ref256: List[Dict]) -> str:
     """
-    Décode une grille Carter. La grammaire est re-dérivée depuis la clé.
+    Décode une grille Carter. La grammaire est re-dérivée depuis la clé
+    (même recherche C_PUB déterministe que l'encodeur — tâche 4).
     Lève ValueError si la clé est incorrecte (tag Poly1305 invalide).
     """
     xchacha_key, grammar_key = _carter_split(master_key)
-    grammar = _carter_grammar(grammar_key, ref256)
+    grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'carter256',
+        lambda gk: _carter_grammar(gk, ref256),
+        lambda g: _carter_message_positions(g, ref256))
     vals = []
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -161,13 +193,17 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
-    """Retourne les statistiques de capacité de la grammaire dérivée."""
+    """Retourne les statistiques de capacité de la grammaire dérivée
+    (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter() utilise
+    réellement, pas la grammaire brute avant recherche)."""
     _, grammar_key = _carter_split(master_key)
-    grammar = _carter_grammar(grammar_key, ref256)
+    grammar, n_pos = _find_grammar_with_c_pub(
+        grammar_key, 'carter256',
+        lambda gk: _carter_grammar(gk, ref256),
+        lambda g: _carter_message_positions(g, ref256))
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_str = sum(1 for g in grammar if g['role'] == _STRUCTURED)
     n_pur = sum(1 for g in grammar if g['role'] == _PURE)
-    n_pos = _carter_message_positions(grammar, ref256)
     return {
         'blocs_message':    n_msg,
         'blocs_structure':  n_str,
@@ -282,9 +318,12 @@ def encode_carter_360(message: str, master_key: bytes,
         ref360 = _load_ref360()
 
     xchacha_key, grammar_key = _carter360_split(master_key)
-    grammar = _carter360_grammar(grammar_key, ref360)
-    n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
+    # encode_carter() pour la justification complète.
+    if len(message) > C_PUB['carter360']:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter360']} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
     # Positions réellement disponibles. La grammaire tire une couleur parmi
     # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
     # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
@@ -292,8 +331,12 @@ def encode_carter_360(message: str, master_key: bytes,
     # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
     # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
-    # connu AVANT l'appel à _encrypt().
-    n_pos = _carter360_message_positions(grammar, ref360)
+    # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
+    # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
+    grammar, n_pos = _find_grammar_with_c_pub(
+        grammar_key, 'carter360',
+        lambda gk: _carter360_grammar(gk, ref360),
+        lambda g: _carter360_message_positions(g, ref360))
     payload = _encrypt(message, xchacha_key, n_pos)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
@@ -316,7 +359,10 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
     if ref360 is None:
         ref360 = _load_ref360()
     xchacha_key, grammar_key = _carter360_split(master_key)
-    grammar = _carter360_grammar(grammar_key, ref360)
+    grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'carter360',
+        lambda gk: _carter360_grammar(gk, ref360),
+        lambda g: _carter360_message_positions(g, ref360))
     vals = []
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -327,21 +373,24 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
 
 def carter360_capacity(master_key: bytes,
                         ref360: Optional[List[Dict]] = None) -> Dict:
-    """Statistiques de capacité de la grammaire Carter 360."""
+    """Statistiques de capacité de la grammaire Carter 360 (après redraw
+    C_PUB, tâche 4 — reflète ce qu'encode_carter_360() utilise réellement)."""
     if ref360 is None:
         ref360 = _load_ref360()
     _, grammar_key = _carter360_split(master_key)
-    grammar = _carter360_grammar(grammar_key, ref360)
-    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
-    n_str = sum(1 for g in grammar if g['role'] == _STRUCTURED)
-    n_pur = sum(1 for g in grammar if g['role'] == _PURE)
     # Positions réellement disponibles. La grammaire tire une couleur parmi
     # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
     # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
     # canal manque, le bloc ne rend AUCUNE position. Mesuré sur 463 blocs
     # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
     # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
-    n_pos = _carter360_message_positions(grammar, ref360)
+    grammar, n_pos = _find_grammar_with_c_pub(
+        grammar_key, 'carter360',
+        lambda gk: _carter360_grammar(gk, ref360),
+        lambda g: _carter360_message_positions(g, ref360))
+    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
+    n_str = sum(1 for g in grammar if g['role'] == _STRUCTURED)
+    n_pur = sum(1 for g in grammar if g['role'] == _PURE)
     return {
         'referent':         '360',
         'grille':           f'{CARTER360_GRID}×{CARTER360_GRID}',
@@ -468,10 +517,19 @@ def encode_carter_mix(message: str, master_key: bytes,
         ref360 = _load_ref360()
 
     xchacha_key, grammar_key = _carter_mix_split(master_key)
-    grammar = _carter_mix_grammar(grammar_key, ref256, ref360)
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
+    # encode_carter() pour la justification complète.
+    if len(message) > C_PUB['cartermix']:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB['cartermix']} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
-    # connu AVANT l'appel à _encrypt().
-    n_pos = _mix_message_positions(grammar, ref256, ref360)
+    # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
+    # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
+    grammar, n_pos = _find_grammar_with_c_pub(
+        grammar_key, 'cartermix',
+        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        lambda g: _mix_message_positions(g, ref256, ref360))
 
     payload = _encrypt(message, xchacha_key, n_pos)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
@@ -496,7 +554,10 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
     if ref360 is None:
         ref360 = _load_ref360()
     xchacha_key, grammar_key = _carter_mix_split(master_key)
-    grammar = _carter_mix_grammar(grammar_key, ref256, ref360)
+    grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'cartermix',
+        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        lambda g: _mix_message_positions(g, ref256, ref360))
     vals = []
     for i, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
@@ -508,11 +569,15 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
 def carter_mix_capacity(master_key: bytes,
                          ref256: List[Dict],
                          ref360: Optional[List[Dict]] = None) -> Dict:
-    """Statistiques de capacité de la grammaire Carter mixte."""
+    """Statistiques de capacité de la grammaire Carter mixte (après redraw
+    C_PUB, tâche 4 — reflète ce qu'encode_carter_mix() utilise réellement)."""
     if ref360 is None:
         ref360 = _load_ref360()
     _, grammar_key = _carter_mix_split(master_key)
-    grammar = _carter_mix_grammar(grammar_key, ref256, ref360)
+    grammar, nibs = _find_grammar_with_c_pub(
+        grammar_key, 'cartermix',
+        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        lambda g: _mix_message_positions(g, ref256, ref360))
     n256m = sum(1 for g in grammar if g['role']==_MESSAGE and g['ref']==_REF256)
     n360m = sum(1 for g in grammar if g['role']==_MESSAGE and g['ref']==_REF360)
     n256s = sum(1 for g in grammar if g['role']==_STRUCTURED and g['ref']==_REF256)
@@ -521,7 +586,7 @@ def carter_mix_capacity(master_key: bytes,
     # La capacité doit être calculée comme le fait l'encodeur : une forme
     # tronquée au bord de la grille rend moins de 24 (ou 8) positions.
     # L'ancien produit n256m*24 + n360m*8 annonçait jusqu'à 12 % de trop.
-    nibs  = _mix_message_positions(grammar, ref256, ref360)
+    # (nibs déjà obtenu par _find_grammar_with_c_pub ci-dessus.)
     return {
         'grille':              f'{CARTER_MIX_GRID}×{CARTER_MIX_GRID}',
         'meta_blocs':          CARTER_MIX_N,

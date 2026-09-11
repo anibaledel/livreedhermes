@@ -732,6 +732,88 @@ class TestGrid90(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Classe H — C_PUB (capacité minimale publique, tâche 4)
+#
+# Validation complète sur 10 000 clés par variante effectuée hors suite
+# (docs/PAPER_NUMBERS_v3.md, tâche 8) : 0/10000 échec pour les 7 cibles.
+# Ici, échantillon rapide + garantie structurelle (rejet avant toute grille).
+# ══════════════════════════════════════════════════════════════════════════════
+class TestCPub(unittest.TestCase):
+    """C_PUB : rejet public avant toute grille, capacité garantie après redraw."""
+
+    N_KEYS = 30   # échantillon rapide dans la suite ; validation complète = 10 000
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ref256, cls.ref360 = get_refs()
+
+    def test_c_pub_rejects_over_limit_before_grid(self):
+        """Un message > C_PUB est refusé, quelle que soit la clé (seuil public)."""
+        import crypto_core as C
+        cases = [
+            ('carter256', lambda msg: encode_carter(msg, KEY_KNOWN, self.ref256)),
+            ('carter360', lambda msg: encode_carter_360(msg, KEY_KNOWN, self.ref360)),
+            ('cartermix', lambda msg: encode_carter_mix(msg, KEY_KNOWN, self.ref256, self.ref360)),
+        ]
+        for variant, enc_fn in cases:
+            with self.subTest(variant=variant):
+                too_long = 'A' * (C.C_PUB[variant] + 1)
+                with self.assertRaises(ValueError):
+                    enc_fn(too_long)
+
+    def test_c_pub_guaranteed_capacity_sample(self):
+        """Capacité réelle (après redraw) toujours >= C_PUB, sur un échantillon de clés."""
+        import crypto_core as C
+        from carter import carter_capacity, carter360_capacity, carter_mix_capacity
+        checks = [
+            ('carter256', lambda k: carter_capacity(k, self.ref256)['chars_max']),
+            ('carter360', lambda k: carter360_capacity(k, self.ref360)['chars_max']),
+            ('cartermix', lambda k: carter_mix_capacity(k, self.ref256, self.ref360)['bytes_utiles']),
+        ]
+        for variant, cap_fn in checks:
+            with self.subTest(variant=variant):
+                for _ in range(self.N_KEYS):
+                    key = os.urandom(32)
+                    self.assertGreaterEqual(cap_fn(key), C.C_PUB[variant],
+                        f"{variant} : capacité sous C_PUB malgré le redraw")
+
+    def test_c_pub_roundtrip_at_boundary(self):
+        """Round-trip pour un message exactement à la limite C_PUB."""
+        import crypto_core as C
+        msg = 'A' * C.C_PUB['carter256']
+        grid = encode_carter(msg, KEY_KNOWN, self.ref256)
+        self.assertEqual(decode_carter(grid, KEY_KNOWN, self.ref256), msg)
+
+    def test_c_pub_carter_random_family(self):
+        """Même garantie pour Random/18/Hybrid (import local, non exposés par stegano_lib)."""
+        import crypto_core as C
+        from carter_random import (
+            encode_carter_random, encode_carter_random_360,
+            encode_carter_18, encode_carter_hybrid,
+            random_capacity, carter18_capacity, carter_hybrid_capacity,
+        )
+        cases = [
+            ('carterrandom90',  lambda msg: encode_carter_random(msg, KEY_KNOWN),
+             lambda k: random_capacity(k)['chars_max']),
+            ('carterrandom360', lambda msg: encode_carter_random_360(msg, KEY_KNOWN),
+             lambda k: random_capacity(k, grid_size=180)['chars_max']),
+            ('carter18',        lambda msg: encode_carter_18(msg, KEY_KNOWN),
+             lambda k: carter18_capacity(k)['capacity_chars']),
+            ('carterhybrid',    lambda msg: encode_carter_hybrid(msg, KEY_KNOWN),
+             lambda k: carter_hybrid_capacity(k)['capacity_chars']),
+        ]
+        for variant, enc_fn, cap_fn in cases:
+            with self.subTest(variant=variant):
+                too_long = 'A' * (C.C_PUB[variant] + 1)
+                with self.assertRaises(ValueError):
+                    enc_fn(too_long)
+                for _ in range(self.N_KEYS):
+                    key = os.urandom(32)
+                    self.assertGreaterEqual(cap_fn(key), C.C_PUB[variant],
+                        f"{variant} : capacité sous C_PUB malgré le redraw")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Point d'entrée
 # ══════════════════════════════════════════════════════════════════════════════
 if __name__ == '__main__':
@@ -743,7 +825,7 @@ if __name__ == '__main__':
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
                 TestPayloadFormat, TestFixedPayloadUniformity,
                 TestFixtures, TestEndToEnd,
-                TestClassicVariants, TestGrid90]:
+                TestClassicVariants, TestGrid90, TestCPub]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

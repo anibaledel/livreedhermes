@@ -27,7 +27,8 @@ import random
 from typing import List, Dict, Tuple, Optional
 
 from stegano_lib import (
-    ALPHA_LEN, LABELS, _encrypt, _decrypt, payload_to_symbols, max_message_for,
+    ALPHA_LEN, LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key,
+    _encrypt, _decrypt, payload_to_symbols, max_message_for,
     _carter_split, _PURE, _STRUCTURED, _MESSAGE, random_grid,
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
@@ -254,6 +255,50 @@ def _grammar_meta(grammar_key: bytes,
         grammar.append({'role': role, 'sub': sub, 'n_meta': n_meta})
     return grammar
 
+def _random_c_pub_key(grid_size: int) -> str:
+    """
+    Nom de la cible C_PUB pour cette géométrie. Seules 90 et 180 sont
+    utilisées dans ce dépôt (encode_carter_random / encode_carter_random_360) ;
+    toute autre valeur est traitée comme la grande géométrie par défaut.
+    """
+    return 'carterrandom90' if grid_size == GRID_SIZE else 'carterrandom360'
+
+def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
+    """
+    Recherche déterministe (tâche 4, format v3) pour Carter Random : essaie
+    grammar_key_ctr pour ctr=0..MAX_REDRAWS-1 (voir
+    crypto_core._redraw_grammar_key pour l'ordre exact). À CHAQUE tentative,
+    seed, mode (bascule CR-1 comprise) ET grammaire sont re-dérivés ENSEMBLE
+    depuis le même grammar_key_ctr — un redraw ne touche jamais un seul de
+    ces éléments isolément.
+
+    Retourne (grammar_key_ctr, seed, meta_mode, ref, grammar, n_pos) du
+    premier succès. Lève ValueError après MAX_REDRAWS échecs — jamais de
+    grille construite, même partielle.
+    """
+    c_pub_key = _random_c_pub_key(grid_size)
+    n_side_g     = grid_size // CELL_SIZE
+    n_meta_g     = n_side_g  // META
+    n_meta_tot_g = n_meta_g * n_meta_g
+    for ctr in range(MAX_REDRAWS):
+        gk_ctr = _redraw_grammar_key(grammar_key, 'carterrandom', ctr)
+        seed, meta_mode = _derive_params(gk_ctr, grid_size)
+        ref = get_referent(seed)
+        if not meta_mode:
+            grammar = _grammar_individual(gk_ctr, ref, n_side_g)
+            n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
+            n_pos   = n_msg * CELL_SIZE
+        else:
+            grammar = _grammar_meta(gk_ctr, ref, n_meta_tot_g, n_meta_g)
+            n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
+            n_pos   = n_msg * META * META * CELL_SIZE
+        if max_message_for(n_pos) >= C_PUB[c_pub_key]:
+            return gk_ctr, seed, meta_mode, ref, grammar, n_pos
+    raise ValueError(
+        f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
+        f"régénérer la clé maître (capacité cible C_PUB={C_PUB[c_pub_key]} "
+        f"caractères non atteinte).")
+
 # ── Encode ──────────────────────────────────────────────────────────────────────
 def encode_carter_random(message: str,
                           master_key: bytes,
@@ -263,24 +308,21 @@ def encode_carter_random(message: str,
     Tous les paramètres géométriques sont dérivés de master_key.
     """
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed, meta_mode = _derive_params(grammar_key, grid_size)
-    ref = get_referent(seed)
-    # Calculs dépendants de grid_size
+    c_pub_key = _random_c_pub_key(grid_size)
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
+    # carter.encode_carter() pour la justification complète.
+    if len(message) > C_PUB[c_pub_key]:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB[c_pub_key]} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
-    n_meta_tot_g = n_meta_g * n_meta_g
 
-    # Charge utile à longueur fixe (format v3, tâche 2) : la capacité doit
-    # être connue AVANT l'appel à _encrypt(), donc la grammaire est dérivée
-    # ici plutôt que dans chaque branche de mode ci-dessous.
-    if not meta_mode:
-        grammar = _grammar_individual(grammar_key, ref, n_side_g)
-        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-        cap     = n_msg * CELL_SIZE
-    else:
-        grammar = _grammar_meta(grammar_key, ref, n_meta_tot_g, n_meta_g)
-        n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-        cap     = n_msg * META * META * CELL_SIZE
+    # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
+    # seed, mode (CR-1 compris) et grammaire redérivés ensemble à chaque
+    # tentative, voir _find_random_grammar_with_c_pub().
+    gk_ctr, seed, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
+        grammar_key, grid_size)
 
     payload = _encrypt(message, xchacha_key, cap)
     # Flux de symboles base-44 uniformes — même fonction que celle utilisée
@@ -292,7 +334,9 @@ def encode_carter_random(message: str,
     # plus rapide que grid_size² appels à secrets.randbelow() (audit G. Kerma,
     # §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
     grid = random_grid(grid_size, grid_size)
-    masks = _derive_masks(grammar_key, len(nibbles) + 128, LABELS['mask_seed']['info_random'])
+    # Masques dérivés de gk_ctr (même clé redraw que la grammaire, tâche 4) :
+    # un redraw retire seed+mode+rôles+masques ensemble, comme une seule unité.
+    masks = _derive_masks(gk_ctr, len(nibbles) + 128, LABELS['mask_seed']['info_random'])
     nib_i = 0
 
     if not meta_mode:
@@ -309,13 +353,11 @@ def encode_carter_random(message: str,
                     grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
                 nib_i += 1
         mode_str  = 'individual'
-        n_msg_out = n_msg
-        n_pos_total = n_msg * CELL_SIZE
+        n_msg_out = sum(1 for g in grammar if g['role'] == _MESSAGE)
 
     else:
         # ── Mode méta-concentrique : méta-blocs 18×18 ──
-        # grammar/n_msg/cap déjà dérivés plus haut (voir commentaire au
-        # début de la fonction) : _encrypt() a déjà validé la capacité.
+        # grammar/cap déjà dérivés plus haut par la recherche C_PUB (tâche 4).
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
             mr, mc = mi // n_meta_g, mi % n_meta_g
@@ -331,30 +373,28 @@ def encode_carter_random(message: str,
                         grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
                     nib_i += 1
         mode_str  = 'meta'
-        n_msg_out = n_msg
-        n_pos_total = n_msg * META * META * CELL_SIZE
+        n_msg_out = sum(1 for g in grammar if g['role'] == _MESSAGE)
 
     return grid, {
         'seed': seed, 'mode': mode_str, 'meta_mode': meta_mode,
-        'n_msg_blocks': n_msg_out, 'capacity_chars': max_message_for(n_pos_total),
+        'n_msg_blocks': n_msg_out, 'capacity_chars': max_message_for(cap),
     }
 
 # ── Decode ──────────────────────────────────────────────────────────────────────
 def decode_carter_random(grid: List, master_key: bytes,
                           grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille 90×90."""
+    """Décode une grille 90×90 (même recherche C_PUB déterministe que
+    l'encodeur — tâche 4)."""
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed, meta_mode = _derive_params(grammar_key, grid_size)
-    ref = get_referent(seed)
+    gk_ctr, seed, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
+        grammar_key, grid_size)
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
-    n_meta_tot_g = n_meta_g * n_meta_g
 
-    masks = _derive_masks(grammar_key, grid_size * grid_size, LABELS['mask_seed']['info_random'])
+    masks = _derive_masks(gk_ctr, grid_size * grid_size, LABELS['mask_seed']['info_random'])
     vals, nib_i = [], 0
 
     if not meta_mode:
-        grammar = _grammar_individual(grammar_key, ref, n_side_g)
         for i, g in enumerate(grammar):
             if g['role'] != _MESSAGE: continue
             br, bc = i // n_side_g, i % n_side_g
@@ -366,7 +406,6 @@ def decode_carter_random(grid: List, master_key: bytes,
                     vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
                 nib_i += 1
     else:
-        grammar = _grammar_meta(grammar_key, ref, n_meta_tot_g, n_meta_g)
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
             mr, mc = mi // n_meta_g, mi % n_meta_g
@@ -386,37 +425,25 @@ def decode_carter_random(grid: List, master_key: bytes,
 # ── Utilitaires ─────────────────────────────────────────────────────────────────
 def random_fits(message: str, master_key: bytes,
                  grid_size: int = GRID_SIZE) -> bool:
-    """Vérifie si le message tient dans la grille avec la config dérivée."""
+    """Vérifie si le message tient dans la grille avec la config dérivée
+    (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter_random()
+    utilise réellement)."""
+    c_pub_key = _random_c_pub_key(grid_size)
+    if len(message) > C_PUB[c_pub_key]:
+        return False
     _, grammar_key = _carter_split(master_key)
-    seed, meta_mode = _derive_params(grammar_key, grid_size)
-    ref = get_referent(seed)
-    n_side_g = grid_size // CELL_SIZE
-    n_meta_g = n_side_g // META
-    if not meta_mode:
-        g     = _grammar_individual(grammar_key, ref, n_side_g)
-        n_pos = sum(1 for x in g if x['role'] == _MESSAGE) * CELL_SIZE
-    else:
-        g     = _grammar_meta(grammar_key, ref, n_meta_g * n_meta_g, n_meta_g)
-        n_pos = sum(1 for x in g if x['role'] == _MESSAGE) * META * META * CELL_SIZE
+    _, _, _, _, _, n_pos = _find_random_grammar_with_c_pub(grammar_key, grid_size)
     return len(message) <= max_message_for(n_pos)
 
 def random_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
-    """Retourne la capacité disponible pour une clé donnée."""
+    """Retourne la capacité disponible pour une clé donnée (après redraw
+    C_PUB, tâche 4)."""
     _, grammar_key = _carter_split(master_key)
-    seed, meta_mode = _derive_params(grammar_key, grid_size)
-    ref = get_referent(seed)
-    n_side_g = grid_size // CELL_SIZE
-    n_meta_g = n_side_g // META
-    if not meta_mode:
-        g    = _grammar_individual(grammar_key, ref, n_side_g)
-        mult = CELL_SIZE
-    else:
-        g    = _grammar_meta(grammar_key, ref, n_meta_g * n_meta_g, n_meta_g)
-        mult = META * META * CELL_SIZE
-    n_msg = sum(1 for x in g if x['role'] == _MESSAGE)
-    n_pur = sum(1 for x in g if x['role'] == _PURE)
-    n_str = sum(1 for x in g if x['role'] == _STRUCTURED)
-    n_pos = n_msg * mult
+    gk_ctr, seed, meta_mode, ref, grammar, n_pos = _find_random_grammar_with_c_pub(
+        grammar_key, grid_size)
+    n_msg = sum(1 for x in grammar if x['role'] == _MESSAGE)
+    n_pur = sum(1 for x in grammar if x['role'] == _PURE)
+    n_str = sum(1 for x in grammar if x['role'] == _STRUCTURED)
     return {
         'seed': seed, 'meta_mode': meta_mode,
         'n_msg': n_msg, 'n_pure': n_pur, 'n_struct': n_str,
@@ -564,6 +591,29 @@ def _carter18_seed(grammar_key: bytes) -> int:
     return SEEDS[idx]
 
 
+def _find_carter18_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
+    """
+    Recherche déterministe (tâche 4, format v3) pour Carter-18 : essaie
+    grammar_key_ctr pour ctr=0..MAX_REDRAWS-1 (voir
+    crypto_core._redraw_grammar_key). Seed du référent ET grammaire sont
+    re-dérivés ENSEMBLE depuis le même grammar_key_ctr à chaque tentative.
+    Retourne (grammar_key_ctr, seed, ref18, grammar, cap) du premier succès.
+    Lève ValueError après MAX_REDRAWS échecs.
+    """
+    for ctr in range(MAX_REDRAWS):
+        gk_ctr = _redraw_grammar_key(grammar_key, 'carter18', ctr)
+        seed  = _carter18_seed(gk_ctr)
+        ref18 = get_referent_18(seed)
+        grammar = _grammar_18(gk_ctr, grid_size)
+        cap = sum(_POSITIONS_PER_DIR[g['dir']]
+                  for g in grammar if g['role'] == _MESSAGE)
+        if max_message_for(cap) >= C_PUB['carter18']:
+            return gk_ctr, seed, ref18, grammar, cap
+    raise ValueError(
+        f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
+        f"régénérer la clé maître (capacité cible C_PUB={C_PUB['carter18']} "
+        f"caractères non atteinte).")
+
 def encode_carter_18(message: str,
                      master_key: bytes,
                      grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
@@ -584,13 +634,17 @@ def encode_carter_18(message: str,
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed  = _carter18_seed(grammar_key)
-    ref18 = get_referent_18(seed)
-    grammar = _grammar_18(grammar_key, grid_size)
-
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
+    # carter.encode_carter() pour la justification complète.
+    if len(message) > C_PUB['carter18']:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB['carter18']} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
     n_side_18 = grid_size // BLOCK_18
-    cap = sum(_POSITIONS_PER_DIR[g['dir']]
-              for g in grammar if g['role'] == _MESSAGE)
+    # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
+    # seed du référent et grammaire redérivés ensemble à chaque tentative.
+    gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(
+        grammar_key, grid_size)
 
     payload = _encrypt(message, xchacha_key, cap)
     # Même flux de symboles base-44 que encode_carter_random() ci-dessus —
@@ -598,7 +652,7 @@ def encode_carter_18(message: str,
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, cap)
 
-    masks = _derive_masks(grammar_key, len(nibbles) + 256, LABELS['mask_seed']['info_18'])
+    masks = _derive_masks(gk_ctr, len(nibbles) + 256, LABELS['mask_seed']['info_18'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
     grid  = random_grid(grid_size, grid_size)
 
@@ -624,19 +678,17 @@ def encode_carter_18(message: str,
 def decode_carter_18(grid: List[List[int]],
                      master_key: bytes,
                      grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille encodée par encode_carter_18. ValueError si clé incorrecte."""
+    """Décode une grille encodée par encode_carter_18. ValueError si clé
+    incorrecte (même recherche C_PUB déterministe que l'encodeur — tâche 4)."""
     # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_18.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed  = _carter18_seed(grammar_key)
-    ref18 = get_referent_18(seed)
-    grammar = _grammar_18(grammar_key, grid_size)
+    gk_ctr, seed, ref18, grammar, n_tot_pos = _find_carter18_grammar_with_c_pub(
+        grammar_key, grid_size)
     n_side_18 = grid_size // BLOCK_18
 
-    n_tot_pos = sum(_POSITIONS_PER_DIR[g['dir']]
-                    for g in grammar if g['role'] == _MESSAGE)
-    masks = _derive_masks(grammar_key, n_tot_pos + 256, LABELS['mask_seed']['info_18'])
+    masks = _derive_masks(gk_ctr, n_tot_pos + 256, LABELS['mask_seed']['info_18'])
 
     vals = []; ni = 0
     for blk, g in enumerate(grammar):
@@ -653,22 +705,23 @@ def decode_carter_18(grid: List[List[int]],
 
 def carter18_fits(message: str, master_key: bytes,
                   grid_size: int = GRID_SIZE) -> bool:
-    """Vérifie si le message tient dans la grille Carter-18 avec la config dérivée."""
+    """Vérifie si le message tient dans la grille Carter-18 avec la config
+    dérivée (après redraw C_PUB, tâche 4)."""
+    if len(message) > C_PUB['carter18']:
+        return False
     _, grammar_key = _carter_split(master_key)
-    grammar = _grammar_18(grammar_key, grid_size)
-    cap = sum(_POSITIONS_PER_DIR[g['dir']]
-              for g in grammar if g['role'] == _MESSAGE)
+    _, _, _, _, cap = _find_carter18_grammar_with_c_pub(grammar_key, grid_size)
     return len(message) <= max_message_for(cap)
 
 
 def carter18_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
-    """Retourne les infos de capacité Carter-18 pour cette clé."""
+    """Retourne les infos de capacité Carter-18 pour cette clé (après
+    redraw C_PUB, tâche 4)."""
     _, grammar_key = _carter_split(master_key)
-    grammar = _grammar_18(grammar_key, grid_size)
+    gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(
+        grammar_key, grid_size)
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_side_18 = grid_size // BLOCK_18
-    cap = sum(_POSITIONS_PER_DIR[g['dir']]
-              for g in grammar if g['role'] == _MESSAGE)
     return {
         'n_blocks': n_side_18 * n_side_18,
         'n_msg_blocks': n_msg,
@@ -769,6 +822,30 @@ def _hybrid_capacity_positions(grammar: List[Dict]) -> int:
         for g in grammar if g['role'] == _MESSAGE)
 
 
+def _find_hybrid_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
+    """
+    Recherche déterministe (tâche 4, format v3) pour Carter-Hybrid : essaie
+    grammar_key_ctr pour ctr=0..MAX_REDRAWS-1 (voir
+    crypto_core._redraw_grammar_key). Les deux seeds (18 et 6) ET la
+    grammaire sont re-dérivés ENSEMBLE depuis le même grammar_key_ctr à
+    chaque tentative. Retourne (grammar_key_ctr, seed18, seed6, ref18, ref6,
+    grammar, cap) du premier succès. Lève ValueError après MAX_REDRAWS
+    échecs.
+    """
+    for ctr in range(MAX_REDRAWS):
+        gk_ctr = _redraw_grammar_key(grammar_key, 'carterhybrid', ctr)
+        seed18, seed6 = _carter_hybrid_seeds(gk_ctr)
+        ref18 = get_referent_18(seed18)
+        ref6  = get_referent(seed6)
+        grammar = _grammar_hybrid(gk_ctr, grid_size)
+        cap = _hybrid_capacity_positions(grammar)
+        if max_message_for(cap) >= C_PUB['carterhybrid']:
+            return gk_ctr, seed18, seed6, ref18, ref6, grammar, cap
+    raise ValueError(
+        f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
+        f"régénérer la clé maître (capacité cible C_PUB={C_PUB['carterhybrid']} "
+        f"caractères non atteinte).")
+
 def encode_carter_hybrid(message: str,
                          master_key: bytes,
                          grid_size: int = GRID_SIZE) -> Tuple[List[List[int]], Dict]:
@@ -787,19 +864,24 @@ def encode_carter_hybrid(message: str,
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed18, seed6 = _carter_hybrid_seeds(grammar_key)
-    ref18 = get_referent_18(seed18)
-    ref6  = get_referent(seed6)
-    grammar = _grammar_hybrid(grammar_key, grid_size)
+    # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
+    # carter.encode_carter() pour la justification complète.
+    if len(message) > C_PUB['carterhybrid']:
+        raise ValueError(
+            f"Message trop long : {len(message)} > C_PUB={C_PUB['carterhybrid']} "
+            f"caractères (capacité publique garantie, indépendante de la clé).")
     n_side_18 = grid_size // BLOCK_18
+    # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
+    # seeds 18/6 et grammaire redérivés ensemble à chaque tentative.
+    gk_ctr, seed18, seed6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
+        grammar_key, grid_size)
 
-    cap = _hybrid_capacity_positions(grammar)
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     payload = _encrypt(message, xchacha_key, cap)
     nibbles = payload_to_symbols(payload, cap)
 
-    masks = _derive_masks(grammar_key, len(nibbles) + 512, LABELS['mask_seed']['info_hybrid'])
+    masks = _derive_masks(gk_ctr, len(nibbles) + 512, LABELS['mask_seed']['info_hybrid'])
     # Remplissage bulk CSPRNG — voir encode_carter_random().
     grid  = random_grid(grid_size, grid_size)
 
@@ -817,7 +899,7 @@ def encode_carter_hybrid(message: str,
                     grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
                 ni += 1
         else:  # MODE_6
-            for sub_pos in _subblock_positions(br18, bc18, grammar_key, ref6):
+            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6):
                 for gr, gc in sub_pos:
                     if ni >= len(nibbles): break
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -837,19 +919,17 @@ def encode_carter_hybrid(message: str,
 def decode_carter_hybrid(grid: List[List[int]],
                          master_key: bytes,
                          grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille encodée par encode_carter_hybrid. ValueError si clé incorrecte."""
+    """Décode une grille encodée par encode_carter_hybrid. ValueError si clé
+    incorrecte (même recherche C_PUB déterministe que l'encodeur — tâche 4)."""
     # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_hybrid.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
-    seed18, seed6 = _carter_hybrid_seeds(grammar_key)
-    ref18 = get_referent_18(seed18)
-    ref6  = get_referent(seed6)
-    grammar = _grammar_hybrid(grammar_key, grid_size)
+    gk_ctr, seed18, seed6, ref18, ref6, grammar, n_tot = _find_hybrid_grammar_with_c_pub(
+        grammar_key, grid_size)
     n_side_18 = grid_size // BLOCK_18
 
-    n_tot = _hybrid_capacity_positions(grammar)
-    masks = _derive_masks(grammar_key, n_tot + 512, LABELS['mask_seed']['info_hybrid'])
+    masks = _derive_masks(gk_ctr, n_tot + 512, LABELS['mask_seed']['info_hybrid'])
 
     vals = []; ni = 0
     for blk, g in enumerate(grammar):
@@ -864,7 +944,7 @@ def decode_carter_hybrid(grid: List[List[int]],
                     vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
                 ni += 1
         else:
-            for sub_pos in _subblock_positions(br18, bc18, grammar_key, ref6):
+            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6):
                 for gr, gc in sub_pos:
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
                         vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
@@ -875,20 +955,23 @@ def decode_carter_hybrid(grid: List[List[int]],
 
 def carter_hybrid_fits(message: str, master_key: bytes,
                        grid_size: int = GRID_SIZE) -> bool:
-    """Vérifie si le message tient dans la grille Carter-Hybrid avec la config dérivée."""
+    """Vérifie si le message tient dans la grille Carter-Hybrid avec la
+    config dérivée (après redraw C_PUB, tâche 4)."""
+    if len(message) > C_PUB['carterhybrid']:
+        return False
     _, grammar_key = _carter_split(master_key)
-    grammar = _grammar_hybrid(grammar_key, grid_size)
-    cap = _hybrid_capacity_positions(grammar)
+    _, _, _, _, _, _, cap = _find_hybrid_grammar_with_c_pub(grammar_key, grid_size)
     return len(message) <= max_message_for(cap)
 
 
 def carter_hybrid_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
-    """Retourne les infos de capacité Carter-Hybrid pour cette clé."""
+    """Retourne les infos de capacité Carter-Hybrid pour cette clé (après
+    redraw C_PUB, tâche 4)."""
     _, grammar_key = _carter_split(master_key)
-    grammar = _grammar_hybrid(grammar_key, grid_size)
+    gk_ctr, seed18, seed6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
+        grammar_key, grid_size)
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
-    cap   = _hybrid_capacity_positions(grammar)
     return {
         'n_msg_blocks': n_msg, 'n_mode_18': n_18, 'n_mode_6': n_msg - n_18,
         'capacity_chars': max_message_for(cap),
