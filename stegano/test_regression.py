@@ -42,7 +42,9 @@ from stegano_lib import (
     encode_carter_mix, decode_carter_mix,
     grid_to_csv, csv_to_grid,
     payload_to_symbols, symbols_needed,
+    hchacha20, _xchacha20_enc, _xchacha20_dec,
 )
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 
 # ── Clés fixes pour les tests ─────────────────────────────────────────────────
 KEY_ZERO   = bytes(32)                           # 00...00
@@ -85,6 +87,77 @@ def encode_deterministic(fn, *args, seed=b'DEADBEEF', **kwargs):
     rng = _FakeRandom(seed)
     with patch('os.urandom', rng.urandom):
         return fn(*args, **kwargs)
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Classe XChaCha20 — Vecteurs officiels draft-irtf-cfrg-xchacha (tâche 1)
+# ══════════════════════════════════════════════════════════════════════════════
+class TestXChaCha20Vectors(unittest.TestCase):
+    """
+    Vecteurs officiels du brouillon IETF draft-irtf-cfrg-xchacha, recopiés
+    depuis le texte du brouillon (sections 2.2.1 et A.1/A.3.1), pas
+    inventés. Confirme que hchacha20()/_xchacha20_enc()/_xchacha20_dec()
+    sont interopérables avec toute implémentation standard de
+    XChaCha20-Poly1305 (libsodium, PyNaCl, etc.) — contrairement à la
+    construction à sous-clé HKDF de LH-5 qu'ils remplacent (tâche 1,
+    format v3).
+    """
+
+    def test_hchacha20_vector_2_2_1(self):
+        """Vecteur HChaCha20, draft-irtf-cfrg-xchacha §2.2.1."""
+        key = bytes(range(32))  # 00 01 02 ... 1f
+        nonce16 = bytes.fromhex('000000090000004a0000000031415927')
+        expected = bytes.fromhex(
+            '82413b4227b27bfed30e42508a877d73a0f9e4d58a74a853c12ec41326d3ecdc'
+        )
+        self.assertEqual(hchacha20(key, nonce16), expected)
+
+    def test_xchacha20_poly1305_vector_a_3_1(self):
+        """
+        Vecteur AEAD_XChaCha20_Poly1305 complet, draft-irtf-cfrg-xchacha
+        annexes A.1/A.3.1 — même texte en clair que l'exemple ChaCha20-
+        Poly1305 de la RFC 8439 §2.8.2 ("Ladies and Gentlemen..."), réutilisé
+        par le brouillon XChaCha pour cet exemple.
+        """
+        key = bytes.fromhex(
+            '808182838485868788898a8b8c8d8e8f'
+            '909192939495969798999a9b9c9d9e9f'
+        )
+        nonce = bytes.fromhex('404142434445464748494a4b4c4d4e4f5051525354555657')
+        aad = bytes.fromhex('50515253c0c1c2c3c4c5c6c7')
+        plaintext = (
+            b"Ladies and Gentlemen of the class of '99: If I could offer you "
+            b"only one tip for the future, sunscreen would be it."
+        )
+        expected_ct = bytes.fromhex(
+            'bd6d179d3e83d43b9576579493c0e939'
+            '572a1700252bfaccbed2902c21396cbb'
+            '731c7f1b0b4aa6440bf3a82f4eda7e39'
+            'ae64c6708c54c216cb96b72e1213b452'
+            '2f8c9ba40db5d945b11b69b982c1bb9e'
+            '3f3fac2bc369488f76b2383565d3fff9'
+            '21f9664c97637da9768812f615c68b13'
+            'b52e'
+        )
+        expected_tag = bytes.fromhex('c0875924c1c7987947deafd8780acf49')
+        self.assertEqual(len(nonce), 24)
+        self.assertEqual(len(plaintext), 114)
+
+        subkey = hchacha20(key, nonce[:16])
+        chacha_nonce = b'\x00\x00\x00\x00' + nonce[16:]
+        ct_and_tag = ChaCha20Poly1305(subkey).encrypt(chacha_nonce, plaintext, aad)
+        ct, tag = ct_and_tag[:-16], ct_and_tag[-16:]
+        self.assertEqual(ct, expected_ct)
+        self.assertEqual(tag, expected_tag)
+
+    def test_xchacha20_enc_dec_roundtrip(self):
+        """_xchacha20_enc/_xchacha20_dec (l'API réellement utilisée par _encrypt/_decrypt) sont inverses l'une de l'autre."""
+        key = os.urandom(32)
+        msg = b'HELLO XCHACHA20 STANDARD'
+        ct = _xchacha20_enc(key, msg, aad=b'aad')
+        self.assertEqual(_xchacha20_dec(key, ct, aad=b'aad'), msg)
+        with self.assertRaises(Exception):
+            _xchacha20_dec(os.urandom(32), ct, aad=b'aad')
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -537,7 +610,7 @@ if __name__ == '__main__':
     print("="*64)
     loader = unittest.TestLoader()
     suite  = unittest.TestSuite()
-    for cls in [TestKeyDerivation, TestCarterGrammar,
+    for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
                 TestPayloadFormat, TestHeaderUniformity,
                 TestFixtures, TestEndToEnd]:
         suite.addTests(loader.loadTestsFromTestCase(cls))

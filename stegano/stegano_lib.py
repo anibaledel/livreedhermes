@@ -6,9 +6,10 @@ La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Ancien monolithe, désormais scindé pour la revue cryptographique externe
 (voir NOTE_TECHNIQUE_CRYPTOEXPERTS.md) :
-  crypto_core.py     — primitives cryptographiques pures (ChaCha20-Poly1305
-                        à nonce étendu par HKDF — pas du XChaCha20, voir
-                        LH-5 —, key commitment, encodage base-44)
+  crypto_core.py     — primitives cryptographiques pures (XChaCha20-Poly1305
+                        standard, HChaCha20 pur Python — tâche 1, format v3,
+                        remplace la sous-clé HKDF de LH-5 — key commitment,
+                        encodage base-44)
   stegano_classic.py — méthode stéganographique classique (clés B/C/2)
   carter.py          — grille Carter (grammaire dérivée de la clé,
                         Référent 256 / 360 / Mix)
@@ -20,7 +21,7 @@ Aucune logique ici — voir le module correspondant pour l'implémentation.
 
 from crypto_core import (
     ALPHABET, ALPHA_LEN,
-    _chacha20_hkdf_enc, _chacha20_hkdf_dec,
+    hchacha20, _xchacha20_enc, _xchacha20_dec,
     _sym_count, _bytes_to_syms, _syms_to_bytes,
     _commit_key, _encrypt, _decrypt,
     payload_to_symbols, symbols_needed,

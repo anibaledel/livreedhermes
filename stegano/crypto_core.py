@@ -5,10 +5,12 @@ crypto_core.py — Primitives cryptographiques pures
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Extrait de stegano_lib.py (refactor de modularisation) : ce fichier ne
-contient QUE la couche cryptographique — ChaCha20-Poly1305 à nonce étendu
-par HKDF (voir LH-5 ci-dessous), key commitment HMAC-SHA256, et
-l'encodage base-44 uniforme du payload chiffré. Aucune logique de
-placement géométrique ici.
+contient QUE la couche cryptographique — XChaCha20-Poly1305 standard
+(HChaCha20 pur Python + ChaCha20Poly1305, format v3, tâche 1 —
+remplace la construction à sous-clé HKDF de LH-5, non interopérable),
+key commitment HMAC-SHA256, et l'encodage base-44 uniforme du payload
+chiffré (format v3, tâche 2). Aucune logique de placement géométrique
+ici.
 
 Portée destinée à la revue cryptographique externe (voir
 NOTE_TECHNIQUE_CRYPTOEXPERTS.md dans le paquet d'export) : la couche
@@ -30,37 +32,69 @@ from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hashes
 
-def _chacha20_hkdf_enc(key: bytes, plaintext: bytes, aad: bytes = b'') -> bytes:
-    """
-    ChaCha20-Poly1305 à nonce étendu par HKDF. Nonce 24 bytes. [A3]
+# ── HChaCha20 (pur Python) — draft-irtf-cfrg-xchacha §2.2 ────────────────────
+# Tache 1 (format v3) : remplace la sous-cle derivee par HKDF (LH-5) par le
+# vrai HChaCha20, ce qui rend la construction interoperable avec toute
+# implementation standard de XChaCha20-Poly1305 (libsodium, PyNaCl, etc.).
 
-    LH-5 (audit G. Kerma) : renommée depuis _xchacha_enc. Bien que le
-    schéma soit structurellement analogue à XChaCha20-Poly1305 (nonce 24
-    octets → sous-clé → ChaCha20-Poly1305), la sous-clé est dérivée par
-    HKDF-SHA256 et non par HChaCha20 comme le spécifie XChaCha20
-    (draft-irtf-cfrg-xchacha). La construction est au moins aussi sûre
-    pour cet usage mais n'est PAS interopérable avec les implémentations
-    standard de XChaCha20-Poly1305 (libsodium, PyNaCl, etc.) : un
-    ciphertext produit ici ne se déchiffre qu'avec cette même fonction,
-    pas avec un décodeur XChaCha20 conforme au brouillon IETF. D'où le
-    nom «ChaCha20-Poly1305 à nonce étendu par HKDF» — et l'identifiant
-    _chacha20_hkdf_enc — plutôt que «XChaCha20-Poly1305» pour désigner
-    cette construction sans ambiguïté, dans le code comme dans la doc.
+_CHACHA_CONSTANTS = (0x61707865, 0x3320646e, 0x79622d32, 0x6b206574)
+
+def _rotl32(x: int, n: int) -> int:
+    x &= 0xffffffff
+    return ((x << n) | (x >> (32 - n))) & 0xffffffff
+
+def _qr(s: List[int], a: int, b: int, c: int, d: int) -> None:
+    s[a] = (s[a] + s[b]) & 0xffffffff; s[d] ^= s[a]; s[d] = _rotl32(s[d], 16)
+    s[c] = (s[c] + s[d]) & 0xffffffff; s[b] ^= s[c]; s[b] = _rotl32(s[b], 12)
+    s[a] = (s[a] + s[b]) & 0xffffffff; s[d] ^= s[a]; s[d] = _rotl32(s[d], 8)
+    s[c] = (s[c] + s[d]) & 0xffffffff; s[b] ^= s[c]; s[b] = _rotl32(s[b], 7)
+
+def hchacha20(key: bytes, nonce16: bytes) -> bytes:
+    """
+    HChaCha20 : dérive une sous-clé 256 bits depuis une clé 256 bits et un
+    nonce 128 bits, via la permutation ChaCha20 (20 tours, PAS d'addition
+    de l'état initial en sortie — contrairement au bloc ChaCha20 complet).
+    draft-irtf-cfrg-xchacha §2.2. Vérifié contre le vecteur officiel §2.2.1
+    (voir test_regression.py::TestXChaCha20Vectors).
+    """
+    if len(key) != 32:
+        raise ValueError(f"Clé HChaCha20 : 32 octets requis, reçu {len(key)}")
+    if len(nonce16) != 16:
+        raise ValueError(f"Nonce HChaCha20 : 16 octets requis, reçu {len(nonce16)}")
+    state = list(_CHACHA_CONSTANTS)
+    state += list(struct.unpack('<8I', key))
+    state += list(struct.unpack('<4I', nonce16))
+    for _ in range(10):  # 20 tours = 10 doubles-tours
+        _qr(state, 0, 4, 8, 12); _qr(state, 1, 5, 9, 13)
+        _qr(state, 2, 6, 10, 14); _qr(state, 3, 7, 11, 15)
+        _qr(state, 0, 5, 10, 15); _qr(state, 1, 6, 11, 12)
+        _qr(state, 2, 7, 8, 13); _qr(state, 3, 4, 9, 14)
+    out_words = state[0:4] + state[12:16]  # pas de state initial ajouté (HChaCha20, pas ChaCha20)
+    return struct.pack('<8I', *out_words)
+
+# ── XChaCha20-Poly1305 standard ───────────────────────────────────────────────
+def _xchacha20_enc(key: bytes, plaintext: bytes, aad: bytes = b'') -> bytes:
+    """
+    XChaCha20-Poly1305 standard (draft-irtf-cfrg-xchacha). Nonce 24 octets :
+    subkey = HChaCha20(key, nonce[0:16]) ; nonce ChaCha20-Poly1305 12 octets
+    = 4 zéros || nonce[16:24]. Interopérable avec toute implémentation
+    standard (libsodium, PyNaCl, etc.) — contrairement à la construction à
+    sous-clé HKDF qu'elle remplace (LH-5, tâche 1 du format v3).
     """
     nonce  = os.urandom(24)
-    subkey = _HKDF(_hashes.SHA256(), 32, salt=nonce[:16],
-                   info=b'XChaCha20-HChaCha20-subkey').derive(key)
-    ct = ChaCha20Poly1305(subkey).encrypt(b'\x00'*4 + nonce[16:], plaintext, aad or None)
+    subkey = hchacha20(key, nonce[:16])
+    chacha_nonce = b'\x00\x00\x00\x00' + nonce[16:]
+    ct = ChaCha20Poly1305(subkey).encrypt(chacha_nonce, plaintext, aad or None)
     return nonce + ct
 
-def _chacha20_hkdf_dec(key: bytes, data: bytes, aad: bytes = b'') -> bytes:
-    """ChaCha20-Poly1305 à nonce étendu par HKDF — déchiffrement (LH-5, voir _chacha20_hkdf_enc ; renommée depuis _xchacha_dec). [A3]"""
+def _xchacha20_dec(key: bytes, data: bytes, aad: bytes = b'') -> bytes:
+    """XChaCha20-Poly1305 standard — déchiffrement. Voir _xchacha20_enc."""
     if len(data) < 24 + 16:
         raise ValueError(f"Ciphertext trop court : {len(data)} octets, minimum 40 requis")
     nonce, ct = data[:24], data[24:]
-    subkey = _HKDF(_hashes.SHA256(), 32, salt=nonce[:16],
-                   info=b'XChaCha20-HChaCha20-subkey').derive(key)
-    return ChaCha20Poly1305(subkey).decrypt(b'\x00'*4 + nonce[16:], ct, aad or None)
+    subkey = hchacha20(key, nonce[:16])
+    chacha_nonce = b'\x00\x00\x00\x00' + nonce[16:]
+    return ChaCha20Poly1305(subkey).decrypt(chacha_nonce, ct, aad or None)
 
 ALPHABET  = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-'
 ALPHA_LEN = len(ALPHABET)   # 44
@@ -167,8 +201,8 @@ def _commit_key(steg_key: bytes) -> bytes:
 
 def _encrypt(message: str, steg_key: bytes) -> bytes:
     """
-    Chiffre avec ChaCha20-Poly1305 à nonce étendu par HKDF (LH-5, voir
-    _chacha20_hkdf_enc) + key commitment HMAC-SHA256 [correction 3].
+    Chiffre avec XChaCha20-Poly1305 standard (tâche 1, voir _xchacha20_enc)
+    + key commitment HMAC-SHA256 [correction 3].
 
     Format : [32B HMAC(commit_key, header||inner)][inner]
       inner = nonce(24) + ciphertext + tag(16)
@@ -191,7 +225,7 @@ def _encrypt(message: str, steg_key: bytes) -> bytes:
             f"Conseil : translittérer les accents (É→E, À→A, etc.) "
             f"ou retirer la ponctuation non supportée avant l'envoi.")
     msg_b    = msg_upper.encode('ascii')
-    inner    = _chacha20_hkdf_enc(steg_key, msg_b)
+    inner    = _xchacha20_enc(steg_key, msg_b)
     ck       = _commit_key(steg_key)
     # LH-4 (audit G. Kerma) : authentifier l'en-tête de longueur. Le HMAC ne
     # portait auparavant que sur `inner` ; la longueur totale du payload
@@ -232,7 +266,7 @@ def _decrypt(vals: List[int], steg_key: bytes) -> str:
     if not _hmac_mod.compare_digest(commit_recv, commit_calc):
         raise ValueError("Key commitment invalide — clé incorrecte ou données altérées")
     try:
-        pt = _chacha20_hkdf_dec(steg_key, inner)
+        pt = _xchacha20_dec(steg_key, inner)
     except Exception:
         raise ValueError("Tag Poly1305 invalide — clé incorrecte ou données altérées")
     try:

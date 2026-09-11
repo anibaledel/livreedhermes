@@ -18,9 +18,10 @@ Methode Avalanche : os.urandom fixe pour isoler l'effet de la cle.
 La grammaire Carter change => blocs reasignes => effets en cascade.
 
 Adapte de la suite soumise en revue cryptographique externe pour coller a
-l'API reelle de stegano_lib.py / carter_random.py. _chacha20_hkdf_enc
-(LH-5 ; anciennement _xchacha_enc, renomme car ce n'est pas du XChaCha20
-standard) et _encrypt vivent dans crypto_core.py, re-exportes par
+l'API reelle de stegano_lib.py / carter_random.py. _xchacha20_enc
+(tache 1, format v3 : XChaCha20-Poly1305 standard, remplace la
+construction a sous-cle HKDF de LH-5) et _encrypt vivent dans
+crypto_core.py, re-exportes par
 stegano_lib.py. Il n'existe pas de helper "un octet -> N
 symboles" isole (_byte_to_syms) : le flux de symboles d'un message se
 produit avec payload_to_symbols(), la meme fonction que les encodeurs
@@ -41,7 +42,7 @@ from stegano_lib import (
     load_referents, _load_ref360,
     encode_carter, decode_carter,
     encode_carter_360, encode_carter_mix,
-    _encrypt, _chacha20_hkdf_enc, payload_to_symbols, ALPHA_LEN,
+    _encrypt, _xchacha20_enc, payload_to_symbols, ALPHA_LEN,
 )
 
 from carter_random import (
@@ -175,15 +176,15 @@ class TestAvalancheKey(unittest.TestCase):
 
     def test_avalanche_chacha20_hkdf_key_sensitivity(self):
         """
-        ChaCha20-HKDF (LH-5 ; pas du XChaCha20 standard) key sensitivity :
+        XChaCha20-Poly1305 standard (tache 1) key sensitivity :
         flip 1 bit de CLE -> ~50% bits ciphertext changent.
         """
         msg = self.MSG.upper().encode('ascii')
         key = os.urandom(32)
-        seed = b'chacha20-hkdf-key-av'
+        seed = b'xchacha20-key-av'
         rng1 = _Det(seed)
         with patch('os.urandom', rng1.read):
-            ct1 = _chacha20_hkdf_enc(key, msg)
+            ct1 = _xchacha20_enc(key, msg)
         ratios = []
         NONCE = 24
         for bit_pos in range(32):   # 32 premiers bits de la cle
@@ -191,7 +192,7 @@ class TestAvalancheKey(unittest.TestCase):
             key2[bit_pos // 8] ^= (1 << (bit_pos % 8))
             rng2 = _Det(seed)   # meme nonce
             with patch('os.urandom', rng2.read):
-                ct2 = _chacha20_hkdf_enc(bytes(key2), msg)
+                ct2 = _xchacha20_enc(bytes(key2), msg)
             c1, c2 = ct1[NONCE:], ct2[NONCE:]
             n = min(len(c1), len(c2)) * 8
             diff = sum(bin(a^b).count('1') for a,b in zip(c1,c2))
