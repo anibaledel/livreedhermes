@@ -52,6 +52,10 @@ _DENIABLE_STALE_VECTOR_REASON = (
     "deniable-* : vecteur stocke gele avant le cablage etape 5 (referent "
     "v3 6x6 choisi par select_referent_index, mode crypto 36 cases/bloc) "
     "-- a regenerer a l'etape 10.")
+_CLASSIC_STALE_VECTOR_REASON = (
+    "classic-basic-01 : vecteur stocke gele avant le cablage etape 6 "
+    "(regle v3, plus de Cle C ni de tirage de couleur) -- a regenerer a "
+    "l'etape 10.")
 
 _DECODE_FN = {
     'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
@@ -98,6 +102,8 @@ class TestVectorsRegeneration(unittest.TestCase):
                     self.skipTest(_CARTERMIX_STALE_VECTOR_REASON)
                 if sv['id'].startswith('deniable'):
                     self.skipTest(_DENIABLE_STALE_VECTOR_REASON)
+                if sv['id'] == 'classic-basic-01':
+                    self.skipTest(_CLASSIC_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
@@ -145,16 +151,16 @@ class TestVectorsRegeneration(unittest.TestCase):
                 self.assertIn('commitment', str(ctx.exception).lower())
 
     def test_decoding_classic(self):
-        """Sens 2/2 (stegano_classic) : mêmes clés B/C/2 explicites du
-        vecteur, grille régénérée → message attendu."""
+        """Sens 2/2 (stegano_classic) : mêmes clés B/2 explicites du
+        vecteur (plus de Clé C depuis le câblage étape 6), grille
+        régénérée → message attendu."""
         classic = next(v for v in self.stored['vectors'] if v['instantiation'] == 'classic')
         grid = self.fresh_grids[classic['id']]
         steg_key = bytes.fromhex(classic['inputs']['steg_key_hex'])
         key_b = classic['inputs']['key_b']
-        key_c = classic['inputs']['key_c']
-        key_2 = classic['inputs']['key_2']
-        decoded = SC.decode(grid, steg_key, key_b, key_c, key_2,
-                             self.ref256, classic['inputs']['grid_size'])
+        key_2 = [{'form_id': d['form_id']} for d in classic['inputs']['key_2']]
+        decoded = SC.decode(grid, steg_key, key_b, key_2,
+                             VI.load_referent_256_v3(), classic['inputs']['grid_size'])
         self.assertEqual(decoded, classic['expected_decode'])
 
     def test_decoding_deniable(self):

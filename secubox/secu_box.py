@@ -66,7 +66,7 @@ def _chacha20_hkdf_dec2(key, data, aad=b''):
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 from stegano_lib import (
-    load_referents, encode, decode,
+    load_referents, load_referent_256_v3, encode, decode,
     ALPHA_LEN, LABELS, apply_orientation,
     _encrypt, _decrypt, payload_to_symbols, random_grid,
 )
@@ -154,7 +154,7 @@ class Session:
 
     OFFER_SIZE = 64   # 32 octets d'identité publique + 32 d'éphémère publique
 
-    def __init__(self, ref256: List[Dict], identity: 'Identity'):
+    def __init__(self, ref256: Dict, identity: 'Identity'):
         if not isinstance(identity, Identity):
             raise TypeError(
                 "Session exige une Identity : c'est elle qui authentifie "
@@ -216,7 +216,7 @@ class Session:
         return _chacha20_hkdf_enc2(self._pending_key(), raw, b'SecuBox-Pending-v1')
 
     @classmethod
-    def resume(cls, ref256: List[Dict], identity: 'Identity',
+    def resume(cls, ref256: Dict, identity: 'Identity',
                pending: bytes) -> 'Session':
         """Reconstruit la Session qui a produit ce pending, même éphémère."""
         self = cls(ref256, identity)
@@ -269,8 +269,12 @@ class Session:
         return _km_to_keys(km, self._ref256, session_id, grid_size, block_size)
 
 
-def _km_to_keys(km: bytes, ref256: List[Dict], session_id: str,
+def _km_to_keys(km: bytes, ref256: Dict, session_id: str,
                 grid_size: int = 60, block_size: int = 1) -> Dict:
+    """Câblage production étape 6 (2026-09-12) : plus de Clé C
+    (orientations D4, sans rôle sur les positions absolues du référent
+    v3) ni de tirage de couleur dans Clé 2 (rouge+bleu ensemble, un seul
+    form_id par bloc) -- voir stegano_classic.encode()."""
     B        = grid_size // 6
     n_blocks = B * B
     seed     = km[32:64]
@@ -282,12 +286,9 @@ def _km_to_keys(km: bytes, ref256: List[Dict], session_id: str,
         return struct.unpack('>Q', h[:8])[0] % n
 
     key_b = [block_size] * n_blocks
-    key_c = [[prng(8) for _ in range(block_size**2)] for _ in range(n_blocks)]
-    key_2 = [{'form_id': prng(len(ref256)),
-               'color':   'blue' if prng(2) == 0 else 'orange'}
-              for _ in range(n_blocks)]
+    key_2 = [{'form_id': prng(len(ref256['forms']))} for _ in range(n_blocks)]
 
-    return {'steg_key': km[:32], 'key_b': key_b, 'key_c': key_c,
+    return {'steg_key': km[:32], 'key_b': key_b,
             'key_2': key_2, 'session_id': session_id, 'grid_size': grid_size}
 
 
@@ -576,7 +577,7 @@ def decode_deniable(grid: List[List[int]], keys: Dict, grid_size: int = 90) -> s
 # ── Démo ──────────────────────────────────────────────────────────────────────
 def demo():
     print("=== SECUBOX — X25519 + Forward Secrecy + Déni Plausible ===\n")
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
 
     print("1. IDENTITÉS LONG-TERME\n")
     alice = Identity()
@@ -625,9 +626,9 @@ def demo():
     print("\n5. MESSAGE STÉGANO\n")
     msg = "ANIBALAMIOTX"
     grid = encode(msg, ka['steg_key'], ka['key_b'],
-                  ka['key_c'], ka['key_2'], ref256)
+                  ka['key_2'], ref256)
     decoded = decode(grid, kb['steg_key'], kb['key_b'],
-                     kb['key_c'], kb['key_2'], ref256)
+                     kb['key_2'], ref256)
     print(f"   Alice → Bob : '{msg}' → '{decoded}' ✓")
 
     print("\n6. DÉNI PLAUSIBLE (2 messages, 1 grille 90×90, bloc C — tâche 5)\n")

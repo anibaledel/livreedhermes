@@ -24,6 +24,7 @@ from typing import List, Dict, Tuple
 from crypto_core import (
     ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for, random_grid,
 )
+from sweep import derive_sweep_index, crypto_reading_order
 
 def _find_ref(name: str) -> str:
     _dir = os.path.dirname(os.path.abspath(__file__))
@@ -137,14 +138,17 @@ def zigzag_blocks(B: int) -> List[Tuple[int,int]]:
 
 # ── Capacité ─────────────────────────────────────────────────────────────────
 def _classic_n_pos(key_b: List[int], grid_size: int) -> int:
-    """Nombre de positions message que encode()/decode() liront réellement pour ces clés."""
+    """Nombre de positions message que encode()/decode() liront réellement
+    pour ces clés. 12 positions/sous-bloc 6×6 (règle v3, câblage
+    production étape 6 -- rouge+bleu ensemble, remplace les 6 positions
+    d'une seule couleur d'avant ce commit)."""
     B = grid_size // 6
     order = zigzag_blocks(B)
     n_pos = 0; pos_i = 0
     for k in key_b:
         if pos_i >= len(order): break
         available = min(k*k, len(order) - pos_i)
-        n_pos += available * 6; pos_i += available
+        n_pos += available * 12; pos_i += available
     return n_pos
 
 def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
@@ -159,11 +163,22 @@ def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
 
 # ── Encodeur ─────────────────────────────────────────────────────────────────
 def encode(message: str, steg_key: bytes,
-           key_b: List[int], key_c: List[List[int]], key_2: List[Dict],
-           ref256: List[Dict], grid_size: int = 60,
+           key_b: List[int], key_2: List[Dict],
+           ref256: Dict, grid_size: int = 60,
            _nonce: bytes = None, _y: int = None,
            _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
+    Câblage production étape 6 (2026-09-12) : positions stégano = rouge+
+    bleu ENSEMBLE (12/sous-bloc, référent v3 -- data/referent_256_v3.json),
+    triées par balayage (une seule dérivation par couleur pour tout
+    l'appel, depuis steg_key, jamais retirée par sous-bloc -- voir
+    stegano/sweep.py). Plus de Clé C (orientations D4) : le référent v3
+    encode déjà des positions absolues, aucune rotation/réflexion n'a de
+    rôle à jouer -- retirée du triplet de clés (devenu B/2), comme
+    l'orientation a disparu de la grammaire Carter-256 (étape 2).
+    Un même form_id (Clé 2) est appliqué IDENTIQUEMENT à chacun des k²
+    sous-blocs d'un bloc k×k (comme avant ce commit).
+
     _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
     interne pour le mode vecteurs — voir carter.encode_carter(). None
     (défaut) préserve exactement le comportement actuel.
@@ -190,20 +205,25 @@ def encode(message: str, steg_key: bytes,
     # (_noise_seed, tâche 7) au lieu d'en dupliquer un second ici.
     grid = random_grid(N, N, _noise_seed=_noise_seed)
 
+    stegano_colors = ref256['stegano_colors']
+    sweep_of_color = {c: derive_sweep_index(steg_key, c) for c in stegano_colors}
+
     # Placer les nibbles
     nib_idx = 0
     order = zigzag_blocks(B)
     pos_i = 0; block_i = 0
 
     while pos_i < len(order) and nib_idx < len(nibbles) and block_i < len(key_b):
-        k = key_b[block_i]; fk = key_2[block_i]; orients = key_c[block_i]
-        form = ref256[fk['form_id'] % len(ref256)]
-        base_pos = form[fk.get('color', 'blue')]
+        k = key_b[block_i]; fk = key_2[block_i]
+        form = ref256['forms'][fk['form_id']]
+        cells_by_niveau = {0: {c: [tuple(p) for p in form[f'{c}_positions']]
+                                for c in stegano_colors}}
+        local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                            ref256['grid_size'], sweep_of_color)
         for sub in range(k*k):
             if pos_i >= len(order) or nib_idx >= len(nibbles): break
             br, bc = order[pos_i]
-            t = apply_orientation(base_pos, orients[sub % len(orients)])
-            for r, c in t:
+            for r, c in local_order:
                 if nib_idx >= len(nibbles): break
                 gr, gc = br*6+r, bc*6+c
                 if 0 <= gr < N and 0 <= gc < N:
@@ -214,20 +234,24 @@ def encode(message: str, steg_key: bytes,
 
 # ── Décodeur ─────────────────────────────────────────────────────────────────
 def decode(grid: List[List[int]], steg_key: bytes,
-           key_b: List[int], key_c: List[List[int]], key_2: List[Dict],
-           ref256: List[Dict], grid_size: int = 60) -> str:
+           key_b: List[int], key_2: List[Dict],
+           ref256: Dict, grid_size: int = 60) -> str:
     for k in key_b: _chk_k(k)
     N = grid_size; B = N // 6
+    stegano_colors = ref256['stegano_colors']
+    sweep_of_color = {c: derive_sweep_index(steg_key, c) for c in stegano_colors}
     vals = []; order = zigzag_blocks(B); pos_i = 0; block_i = 0
     while pos_i < len(order) and block_i < len(key_b):
-        k = key_b[block_i]; fk = key_2[block_i]; orients = key_c[block_i]
-        form = ref256[fk['form_id'] % len(ref256)]
-        base_pos = form[fk.get('color', 'blue')]
+        k = key_b[block_i]; fk = key_2[block_i]
+        form = ref256['forms'][fk['form_id']]
+        cells_by_niveau = {0: {c: [tuple(p) for p in form[f'{c}_positions']]
+                                for c in stegano_colors}}
+        local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                            ref256['grid_size'], sweep_of_color)
         for sub in range(k*k):
             if pos_i >= len(order): break
             br, bc = order[pos_i]
-            t = apply_orientation(base_pos, orients[sub % len(orients)])
-            for r, c in t:
+            for r, c in local_order:
                 gr, gc = br*6+r, bc*6+c
                 if 0 <= gr < N and 0 <= gc < N:
                     vals.append(grid[gr][gc])
@@ -236,33 +260,37 @@ def decode(grid: List[List[int]], steg_key: bytes,
     return _decrypt(vals, steg_key, len(vals))
 
 # ── Clés ─────────────────────────────────────────────────────────────────────
-def make_keys(msg_len: int, ref256: List[Dict],
+def make_keys(msg_len: int, ref256: Dict,
               grid_size: int = 60, block_size: int = 1) -> Tuple:
     """msg_len : longueur du message en OCTETS UTF-8 (len(message.encode('utf-8')),
-    pas len(message)) — voir crypto_core._message_to_bytes."""
+    pas len(message)) — voir crypto_core._message_to_bytes. Retourne
+    (steg_key, key_b, key_2) -- plus de Clé C depuis l'étape 6 (voir
+    encode())."""
     if block_size not in VALID_K:
         raise ValueError(f"block_size={block_size} invalide")
     B = grid_size // 6; n_blocks = B * B
     steg_key = secrets.token_bytes(32)
     key_b = [block_size]*n_blocks
-    key_c = [[secrets.randbelow(8) for _ in range(block_size**2)]
-              for _ in range(n_blocks)]
-    key_2 = [{'form_id': secrets.randbelow(len(ref256)),
-               'color': secrets.choice(['blue','orange'])}
+    key_2 = [{'form_id': secrets.randbelow(len(ref256['forms']))}
               for _ in range(n_blocks)]
     max_len = max_message_len(key_b, grid_size)
     if msg_len > max_len:
         raise ValueError(f"Message {msg_len} > capacité {max_len}")
-    return steg_key, key_b, key_c, key_2
+    return steg_key, key_b, key_2
 
-def compute_keyspace(key_b: List[int], ref256: List[Dict]) -> Dict:
-    n_blocks = len(key_b); n_sub = sum(k**2 for k in key_b)
+def compute_keyspace(key_b: List[int], ref256: Dict) -> Dict:
+    """Câblage production étape 6 : plus de Clé C (retirée), plus de
+    tirage de couleur dans Clé 2 (rouge+bleu ensemble, un seul form_id
+    par bloc parmi les 256 du référent v3 -- avant ce commit :
+    log2(len(ref256)*2) par bloc, form_id ET choix blue/orange)."""
+    n_blocks = len(key_b)
     return {
         'steg_key'    : '256 bits (ChaCha20-HKDF)',
         'key_B_bits'  : round(math.log2(4)*n_blocks),
-        'key_C_bits'  : round(math.log2(8)*n_sub),
-        'key_2_bits'  : round(math.log2(len(ref256)*2)*n_blocks),
+        'key_2_bits'  : round(math.log2(len(ref256['forms']))*n_blocks),
         'key_A'       : 'Retirée — redondante avec Clé 2 (audit 2026-09-10)',
+        'key_C'       : 'Retirée — orientation D4 sans rôle sur positions '
+                         'absolues du référent v3 (câblage production, étape 6)',
         'note'        : 'Confidentialité = ChaCha20-HKDF (256 bits effectifs)',
     }
 
@@ -272,15 +300,15 @@ def csv_to_grid(s): return [[int(v) for v in r.split(',')]
 
 def demo():
     print("=== STÉGANOGRAPHIE GÉOMÉTRIQUE — La Livrée d'Hermès ===\n")
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     message = "ANIBALAMIOTX"
-    sk, kb, kc, k2 = make_keys(len(message.encode('utf-8')), ref256, grid_size=60)
-    grid = encode(message, sk, kb, kc, k2, ref256)
-    decoded = decode(grid, sk, kb, kc, k2, ref256)
+    sk, kb, k2 = make_keys(len(message.encode('utf-8')), ref256, grid_size=60)
+    grid = encode(message, sk, kb, k2, ref256)
+    decoded = decode(grid, sk, kb, k2, ref256)
     print(f"Message : '{message}' | Décodé : '{decoded}' | OK : {decoded==message}")
     # Mauvaise clé
     try:
-        decode(grid, secrets.token_bytes(32), kb, kc, k2, ref256)
+        decode(grid, secrets.token_bytes(32), kb, k2, ref256)
     except ValueError as e:
         print(f"Mauvaise clé : {e} ✓")
     # Anti-distingueur S4

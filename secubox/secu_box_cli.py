@@ -30,7 +30,7 @@ Commandes :
 import argparse, sys, os, json, getpass
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from stegano_lib  import load_referents, encode, decode, grid_to_csv, csv_to_grid
+from stegano_lib  import load_referent_256_v3, encode, decode, grid_to_csv, csv_to_grid
 from secu_box     import Identity, Session
 from vault_lib    import Vault
 
@@ -121,7 +121,7 @@ def cmd_exchange_show(args):
 def cmd_exchange_offer(args):
     """Premier temps : publier identité + éphémère, garder l'éphémère privée."""
     _ensure_config()
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     identity  = _load_identity()
     session   = Session(ref256, identity)
     with open(PENDING_FILE, 'wb') as f:
@@ -141,7 +141,7 @@ def cmd_exchange_complete(args):
         print("Aucune offer en attente. Lancer d'abord : secu-box exchange offer",
               file=sys.stderr)
         sys.exit(1)
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     identity  = _load_identity()
 
     try:
@@ -191,31 +191,29 @@ def cmd_exchange_complete(args):
     print(f"  Forward secrecy : clé éphémère détruite ✓")
 
 def cmd_send(args):
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     session = _load_session()
     steg_key = bytes.fromhex(session['steg_key'])
     key_b = session['key_b']
-    key_c = session['key_c']
     key_2 = session['key_2']
     msg   = args.message
     grid_size = args.grid or 60
     output    = args.output or 'grille.csv'
-    grid = encode(msg, steg_key, key_b, key_c, key_2, ref256, grid_size)
+    grid = encode(msg, steg_key, key_b, key_2, ref256, grid_size)
     with open(output, 'w') as f:
         f.write(grid_to_csv(grid))
     print(f"✓ '{msg}' encodé → {output}")
     print(f"  Grille {grid_size}×{grid_size}, session {session['session_id']}")
 
 def cmd_receive(args):
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     session = _load_session()
     steg_key = bytes.fromhex(session['steg_key'])
     key_b = session['key_b']
-    key_c = session['key_c']
     key_2 = session['key_2']
     with open(args.grid_file) as f:
         grid = csv_to_grid(f.read())
-    msg = decode(grid, steg_key, key_b, key_c, key_2, ref256)
+    msg = decode(grid, steg_key, key_b, key_2, ref256)
     print(f"Message décodé : '{msg}'")
 
 def cmd_vault_init(args):
@@ -273,16 +271,15 @@ def cmd_vault_verify(args):
         sys.exit(1)
 
 def cmd_verify(args):
-    ref256, _ = load_referents()
+    ref256 = load_referent_256_v3()
     session = _load_session()
     steg_key = bytes.fromhex(session['steg_key'])
     key_b = session['key_b']
-    key_c = session['key_c']
     key_2 = session['key_2']
     try:
         with open(args.grid_file) as f:
             grid = csv_to_grid(f.read())
-        decode(grid, steg_key, key_b, key_c, key_2, ref256)
+        decode(grid, steg_key, key_b, key_2, ref256)
         print(f"✓ Grille valide et authentifiée")
     except ValueError as e:
         print(f"✗ Grille invalide : {e}", file=sys.stderr)

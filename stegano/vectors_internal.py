@@ -717,9 +717,12 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
 # format n'exige aucune dérivation). Le vecteur fige donc des valeurs
 # explicites plutôt que de rechercher un cas particulier.
 
-def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_c, key_2,
+def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_2,
                         ref256, grid_size, nonce, y, leftover, noise_seed,
                         include_grid_csv=False):
+    """ref256 : référent v3 (câblage production, étape 6, 2026-09-12) --
+    plus de Clé C (orientations D4, sans rôle sur positions absolues) ni
+    de tirage de couleur dans Clé 2 (rouge+bleu ensemble)."""
     n_pos = SC._classic_n_pos(key_b, grid_size)
     payload = CC._encrypt(message, steg_key, n_pos, _nonce=nonce)
     hchacha_subkey = CC.hchacha20(steg_key, nonce[:16])
@@ -727,18 +730,18 @@ def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_c, key
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
 
-    grid = SC.encode(message, steg_key, key_b, key_c, key_2, ref256, grid_size,
+    grid = SC.encode(message, steg_key, key_b, key_2, ref256, grid_size,
                       _nonce=nonce, _y=y, _leftover=leftover, _noise_seed=noise_seed)
 
-    decoded = SC.decode(grid, steg_key, key_b, key_c, key_2, ref256, grid_size)
+    decoded = SC.decode(grid, steg_key, key_b, key_2, ref256, grid_size)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "classic", "description": description,
         "inputs": {
             "steg_key_hex": _hex(steg_key), "message": message, "grid_size": grid_size,
-            "key_b": list(key_b), "key_c": [list(o) for o in key_c],
-            "key_2": [{"form_id": d['form_id'], "color": d['color']} for d in key_2],
+            "key_b": list(key_b),
+            "key_2": [{"form_id": d['form_id']} for d in key_2],
         },
         "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
                      "noise_seed_hex": _hex(noise_seed)},
@@ -1036,16 +1039,17 @@ def generate_all(include_grid_csv_showcase=True):
         nonce, _Y_CARTERHYBRID_BASIC, [], noise_seed)
     add(v, g)
 
+    # TODO v3-format (etape 10) : _Y_CLASSIC_BASIC calculee pour l'ancien
+    # n_pos (6 positions/sous-bloc) -- regle v3 (12, rouge+bleu) change Q.
+    # y=0 le temps de retirer une valeur.
     steg_key = bytes((i * 13 + 5) % 256 for i in range(32))
     grid_size = 60; B = grid_size // 6; n_blocks = B * B
     key_b = [1] * n_blocks
-    key_c = [[i % 8] for i in range(n_blocks)]
-    key_2 = [{'form_id': i % len(ref256), 'color': 'blue' if i % 2 == 0 else 'orange'}
-              for i in range(n_blocks)]
+    key_2 = [{'form_id': i % len(ref256_v3['forms'])} for i in range(n_blocks)]
     v, g = gen_classic_vector(
         "classic-basic-01", "Vecteur de base stegano_classic.",
-        steg_key, "BONJOUR ANIBAL", key_b, key_c, key_2, ref256, grid_size,
-        nonce, _Y_CLASSIC_BASIC, [], noise_seed)
+        steg_key, "BONJOUR ANIBAL", key_b, key_2, ref256_v3, grid_size,
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     rsk = bytes((i * 17 + 6) % 256 for i in range(32))

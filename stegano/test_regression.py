@@ -571,13 +571,13 @@ class TestFixtures(unittest.TestCase):
             with patch('os.urandom', rng.urandom):
                 return fn(*args)
 
-        sk, kb, kc, k2 = make_fixture(
-            lambda: make_keys(len(MSG_SHORT), ref256), seed=b'classic-keys')
-        grid = make_fixture(encode, MSG_SHORT, sk, kb, kc, k2, ref256,
+        sk, kb, k2 = make_fixture(
+            lambda: make_keys(len(MSG_SHORT), ref256_v3), seed=b'classic-keys')
+        grid = make_fixture(encode, MSG_SHORT, sk, kb, k2, ref256_v3,
                              seed=b'classic-grid')
         cls.FIXTURES['classic'] = {
             'grid': grid_to_csv(grid), 'steg_key': sk.hex(),
-            'key_b': kb, 'key_c': kc, 'key_2': k2, 'message': MSG_SHORT,
+            'key_b': kb, 'key_2': k2, 'message': MSG_SHORT,
         }
         grid2 = make_fixture(encode_carter, MSG_SHORT, KEY_KNOWN, ref256_v3,
                               seed=b'carter256-2026')
@@ -595,11 +595,11 @@ class TestFixtures(unittest.TestCase):
             'grid': grid_to_csv(grid4), 'key': KEY_KNOWN.hex(), 'message': MSG_SHORT}
 
     def test_classic_decode_stable(self):
-        ref256, _ = get_refs()
+        ref256_v3 = get_ref256_v3()
         f = self.FIXTURES['classic']
         grid = csv_to_grid(f['grid'])
         sk   = bytes.fromhex(f['steg_key'])
-        result = decode(grid, sk, f['key_b'], f['key_c'], f['key_2'], ref256)
+        result = decode(grid, sk, f['key_b'], f['key_2'], ref256_v3)
         self.assertEqual(result, f['message'],
                          "Rupture encode/decode classique !")
 
@@ -663,9 +663,9 @@ class TestEndToEnd(unittest.TestCase):
         return result
 
     def test_classic_roundtrip(self):
-        sk, kb, kc, k2 = make_keys(len(MSG_LONG), self.ref256)
-        grid = encode(MSG_LONG, sk, kb, kc, k2, self.ref256)
-        self.assertEqual(decode(grid, sk, kb, kc, k2, self.ref256), MSG_LONG)
+        sk, kb, k2 = make_keys(len(MSG_LONG), self.ref256_v3)
+        grid = encode(MSG_LONG, sk, kb, k2, self.ref256_v3)
+        self.assertEqual(decode(grid, sk, kb, k2, self.ref256_v3), MSG_LONG)
 
     def test_carter_256_roundtrip(self):
         self.assertEqual(
@@ -729,21 +729,21 @@ class TestClassicVariants(unittest.TestCase):
     """stegano_classic.py : tailles de bloc, mauvaise clé, capacité."""
 
     def setUp(self):
-        self.ref256, _ = get_refs()
+        self.ref256_v3 = get_ref256_v3()
 
     def test_roundtrip_block_sizes(self):
         """Round-trip pour chaque taille de bloc valide (k=1,2,3,5)."""
         for k in (1, 2, 3, 5):
             with self.subTest(block_size=k):
-                sk, kb, kc, k2 = make_keys(len(MSG_SHORT), self.ref256, block_size=k)
-                grid = encode(MSG_SHORT, sk, kb, kc, k2, self.ref256)
-                self.assertEqual(decode(grid, sk, kb, kc, k2, self.ref256), MSG_SHORT)
+                sk, kb, k2 = make_keys(len(MSG_SHORT), self.ref256_v3, block_size=k)
+                grid = encode(MSG_SHORT, sk, kb, k2, self.ref256_v3)
+                self.assertEqual(decode(grid, sk, kb, k2, self.ref256_v3), MSG_SHORT)
 
     def test_wrong_key_rejected(self):
-        sk, kb, kc, k2 = make_keys(len(MSG_SHORT), self.ref256)
-        grid = encode(MSG_SHORT, sk, kb, kc, k2, self.ref256)
+        sk, kb, k2 = make_keys(len(MSG_SHORT), self.ref256_v3)
+        grid = encode(MSG_SHORT, sk, kb, k2, self.ref256_v3)
         with self.assertRaises(ValueError):
-            decode(grid, KEY_KNOWN2, kb, kc, k2, self.ref256)
+            decode(grid, KEY_KNOWN2, kb, k2, self.ref256_v3)
 
     def test_capacity_exceeded_raises_before_grid(self):
         """
@@ -752,10 +752,10 @@ class TestClassicVariants(unittest.TestCase):
         grille — un message bien plus long que la capacité de la grille
         par défaut (60×60) doit être rejeté par ValueError.
         """
-        sk, kb, kc, k2 = make_keys(0, self.ref256)   # message vide : capacité OK
+        sk, kb, k2 = make_keys(0, self.ref256_v3)   # message vide : capacité OK
         too_long = 'A' * 5000
         with self.assertRaises(ValueError):
-            encode(too_long, sk, kb, kc, k2, self.ref256)
+            encode(too_long, sk, kb, k2, self.ref256_v3)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -774,7 +774,8 @@ class TestGrid90(unittest.TestCase):
         cls.ref256, _ = get_refs()
 
     def _make_keys_dict(self, msg_len, grid_size):
-        sk, kb, kc, k2 = make_keys(msg_len, self.ref256, grid_size=grid_size)
+        from grid_90 import make_keys_legacy
+        sk, kb, kc, k2 = make_keys_legacy(msg_len, self.ref256, grid_size=grid_size)
         return {'steg_key': sk, 'key_b': kb, 'key_c': kc, 'key_2': k2}
 
     def test_real_and_lure_roundtrip(self):
@@ -831,8 +832,8 @@ class TestGrid90(unittest.TestCase):
         jamais été possible.
         """
         import secrets
-        from grid_90 import encode_super, GRID_SIZE, ALPHA_LEN
-        sk, kb, kc, k2 = make_keys(0, self.ref256, grid_size=GRID_SIZE)
+        from grid_90 import encode_super, make_keys_legacy, GRID_SIZE, ALPHA_LEN
+        sk, kb, kc, k2 = make_keys_legacy(0, self.ref256, grid_size=GRID_SIZE)
         grid = [[secrets.randbelow(ALPHA_LEN) for _ in range(GRID_SIZE)]
                 for _ in range(GRID_SIZE)]
         with self.assertRaises(ValueError):

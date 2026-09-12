@@ -31,10 +31,48 @@ Capacité :
 import secrets
 from typing import List, Tuple
 from stegano_lib import (
-    load_referents, make_keys,
+    load_referents,
     apply_orientation, ALPHA_LEN,
     _encrypt, _decrypt, payload_to_symbols, max_message_for
 )
+from stegano_classic import zigzag_blocks
+
+# grid_90.py mis de côté (décision de l'auteur, 2026-09-12), pas migré vers
+# la règle de lecture v3 -- voir stegano_classic.load_referents()). Reste
+# sur l'ancien schéma de référent (blue/orange, form_id+color+orientation
+# D4) : stegano_classic.make_keys() est passée à la règle v3 (étape 6) et
+# ne convient plus ici, donc grid_90.py garde sa PROPRE génération de clés
+# B/C/2 dans l'ancien format, ci-dessous (copie de l'ancien make_keys()).
+
+def _legacy_classic_n_pos(key_b: List[int], grid_size: int) -> int:
+    B = grid_size // 6
+    order = zigzag_blocks(B)
+    n_pos = 0; pos_i = 0
+    for k in key_b:
+        if pos_i >= len(order): break
+        available = min(k*k, len(order) - pos_i)
+        n_pos += available * 6; pos_i += available
+    return n_pos
+
+def make_keys_legacy(msg_len: int, ref256: List, grid_size: int = 60,
+                      block_size: int = 1) -> Tuple:
+    """Ancien schéma de clés (form_id+color, orientations D4), pour
+    grid_90.py seul -- voir la note de module ci-dessus. ref256 : ancien
+    schéma (liste de dicts blue/orange, PAS le référent v3)."""
+    if block_size not in (1, 2, 3, 5):
+        raise ValueError(f"block_size={block_size} invalide")
+    B = grid_size // 6; n_blocks = B * B
+    steg_key = secrets.token_bytes(32)
+    key_b = [block_size] * n_blocks
+    key_c = [[secrets.randbelow(8) for _ in range(block_size**2)]
+              for _ in range(n_blocks)]
+    key_2 = [{'form_id': secrets.randbelow(len(ref256)),
+               'color': secrets.choice(['blue', 'orange'])}
+              for _ in range(n_blocks)]
+    max_len = max_message_for(_legacy_classic_n_pos(key_b, grid_size))
+    if msg_len > max_len:
+        raise ValueError(f"Message {msg_len} > capacité {max_len}")
+    return steg_key, key_b, key_c, key_2
 
 GRID_SIZE   = 90
 BLOCK_SIZE  = 6
@@ -240,9 +278,9 @@ if __name__ == '__main__':
 
     # Générer des clés pour 9×9 = 81 blocs (super-blocs centraux)
     N_BLOCS = SUPER_BL * SUPER_BL * 9   # 81 blocs pour les 9 super-blocs centraux
-    real_sk, real_kb, real_kc, real_k2 = make_keys(
+    real_sk, real_kb, real_kc, real_k2 = make_keys_legacy(
         len("ANIBALAMIOTX"), ref256, grid_size=GRID_SIZE)
-    lure_sk, lure_kb, lure_kc, lure_k2 = make_keys(
+    lure_sk, lure_kb, lure_kc, lure_k2 = make_keys_legacy(
         len("TEXTEANODINS"), ref256, grid_size=GRID_SIZE)
 
     real_keys = {'steg_key':real_sk,'key_b':real_kb,'key_c':real_kc,'key_2':real_k2}
