@@ -39,7 +39,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from stegano_lib import (
-    load_referents,
+    load_referents, load_referent_256_v3,
     encode_carter, decode_carter,
     encode_carter_360, encode_carter_mix,
     _encrypt, _xchacha20_enc, payload_to_symbols, ALPHA_LEN,
@@ -122,7 +122,7 @@ class TestAvalancheKey(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def _avalanche_ratio(self, key: bytes, bit_pos: int) -> float:
         seed = f'av-{bit_pos}'.encode()
@@ -167,8 +167,8 @@ class TestAvalancheKey(unittest.TestCase):
             _, gk2 = _carter_split(key2)
             g1 = _carter_grammar(gk1, self.ref256)
             g2 = _carter_grammar(gk2, self.ref256)
-            roles1 = [1 if g['role']==_MESSAGE else 0 for g in g1]
-            roles2 = [1 if g['role']==_MESSAGE else 0 for g in g2]
+            roles1 = [1 if g['role']==_MESSAGE else 0 for g in g1['blocks']]
+            roles2 = [1 if g['role']==_MESSAGE else 0 for g in g2['blocks']]
             diff = sum(1 for a,b in zip(roles1,roles2) if a!=b)
             ratios.append(diff/len(roles1))
         mean = statistics.mean(ratios)
@@ -230,7 +230,7 @@ class TestAvalancheMessage(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
         cls.key = os.urandom(32)
 
     def test_avalanche_message_bits(self):
@@ -283,6 +283,7 @@ class TestEntropy(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.ref256, cls.ref360 = load_referents()
+        cls.ref256_v3 = load_referent_256_v3()
 
     def _entropy(self, flat: List[int]) -> float:
         n = len(flat)
@@ -302,7 +303,7 @@ class TestEntropy(unittest.TestCase):
         return mean_h
 
     def test_entropy_carter_256(self):
-        h = self._test_mode(encode_carter, self.ref256)
+        h = self._test_mode(encode_carter, self.ref256_v3)
         print(f"  Entropie Carter 256 : {h:.4f} bits (max {H_MAX:.4f})")
 
     def test_entropy_carter_360(self):
@@ -337,7 +338,7 @@ class TestChiSquare(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def _chisq(self, flat: List[int]) -> Tuple[float, float]:
         """Retourne (chi2_stat, p_value) pour k=ALPHA classes."""
@@ -387,7 +388,7 @@ class TestTwoGridDifference(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def test_two_grids_same_key_different_messages_all_positions(self):
         try:
@@ -410,11 +411,11 @@ class TestTwoGridDifference(unittest.TestCase):
             pairs_used += 1
             _, grammar_key = _carter_split(key)
             grammar = _carter_grammar(grammar_key, self.ref256)
-            for i, gcell in enumerate(grammar):
+            for i, gcell in enumerate(grammar['blocks']):
                 if gcell['role'] != _MESSAGE:
                     continue
                 br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256, grammar['sweep_of_color']):
                     diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
         if not diffs:
             self.skipTest("Aucune paire de cles valide")
@@ -447,7 +448,7 @@ class TestMaskedLength(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def test_length_hidden_no_statistical_difference(self):
         try:
@@ -470,11 +471,11 @@ class TestMaskedLength(unittest.TestCase):
             pairs_used += 1
             _, grammar_key = _carter_split(key)
             grammar = _carter_grammar(grammar_key, self.ref256)
-            for i, gcell in enumerate(grammar):
+            for i, gcell in enumerate(grammar['blocks']):
                 if gcell['role'] != _MESSAGE:
                     continue
                 br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256, grammar['sweep_of_color']):
                     diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
         if not diffs:
             self.skipTest("Aucune paire de cles valide")
@@ -525,7 +526,7 @@ class TestAutocorrelation(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def _autocorr(self, seq: List[float], lag: int) -> float:
         n    = len(seq)
@@ -559,7 +560,7 @@ class TestSerialCorrelation(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.ref256, _ = load_referents()
+        cls.ref256 = load_referent_256_v3()
 
     def _serial_chi2(self, flat: List[int]) -> float:
         n    = len(flat)
@@ -597,11 +598,12 @@ class TestSummary(unittest.TestCase):
     def test_print_summary(self):
         """Affiche un recap sans assertion (toujours OK)."""
         ref256, ref360 = load_referents()
+        ref256_v3 = load_referent_256_v3()
         key       = os.urandom(32)
         msg       = "ANIBALAMIOTX"
 
         grids = {
-            'Carter 256': encode_carter(msg, key, ref256),
+            'Carter 256': encode_carter(msg, key, ref256_v3),
             'Carter 360': encode_carter_360(msg, key, ref360),
             'Carter Mix': encode_carter_mix(msg, key, ref256, ref360),
         }

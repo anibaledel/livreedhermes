@@ -31,7 +31,7 @@ from crypto_core import (
 )
 
 from stegano_classic import (
-    _find_ref, load_referents,
+    _find_ref, load_referents, load_referent_256_v3,
     ORIENTATIONS, apply_orientation,
     VALID_K, _chk_k, zigzag_blocks,
     max_message_len,

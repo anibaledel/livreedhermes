@@ -652,21 +652,26 @@ if __name__ == '__main__':
 # La grammaire est entièrement dérivée de steg_key → moins de surface d'attaque.
 
 def encode_carter_session(message: str, session_keys: Dict,
-                           ref256: List[Dict]) -> List[List[int]]:
+                           ref256: Dict) -> List[List[int]]:
     """
     Encode un message en mode Carter depuis une session X25519.
     Utilise steg_key comme master_key de la grammaire Carter.
 
     session_keys : résultat de Session.derive()
+    ref256 : référent 256 v3 (stegano_classic.load_referent_256_v3()) --
+             câblage production 2026-09-12, remplace l'ancien schéma
+             blue/orange. Pas de callers de production actuels (fonction
+             non testée) : signalé pour tout futur appelant.
     Retourne     : grille 90×90 (liste de listes)
     """
     from stegano_lib import encode_carter
     return encode_carter(message, session_keys['steg_key'], ref256)
 
 def decode_carter_session(grid: List[List[int]], session_keys: Dict,
-                           ref256: List[Dict]) -> str:
+                           ref256: Dict) -> str:
     """
-    Décode une grille Carter depuis les clés de session.
+    Décode une grille Carter depuis les clés de session. ref256 : voir
+    encode_carter_session().
     """
     from stegano_lib import decode_carter
     return decode_carter(grid, session_keys['steg_key'], ref256)
@@ -676,7 +681,7 @@ def carter_deniable(
     real_key:       bytes,
     duress_message: str,
     duress_key:     bytes,
-    ref256:         List[Dict],
+    ref256:         Dict,
 ) -> tuple:
     """
     Déni plausible Carter : deux grilles indépendantes avec deux clés.

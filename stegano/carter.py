@@ -36,6 +36,7 @@ from crypto_core import (
     max_payload_for, max_message_for, random_grid, _derive_masks,
 )
 from stegano_classic import apply_orientation, load_referents
+from sweep import derive_sweep_index, crypto_reading_order
 
 # ── Grille Carter — Grammaire à 3 catégories dérivées de la clé ───────────────
 CARTER_GRID  = 90
@@ -87,48 +88,71 @@ def _carter_split(master_key: bytes):
                          info=L['grammar_info']).derive(master_key)
     return xchacha_key, grammar_key
 
-def _carter_grammar(master_key: bytes, ref256: List[Dict]) -> List[Dict]:
+def _carter_grammar(master_key: bytes, ref256: Dict) -> Dict:
     """
     Dérive la grammaire Carter depuis la clé maître (HKDF-SHA256).
-    Assigne à chaque bloc un rôle et une forme géométrique.
-    Sans la clé, les rôles sont inconnus → grammaire = couche secrète.
+    Assigne à chaque bloc un rôle et une forme (référent 256 v3, format
+    déclaratif — data/referent_256_v3.json, 256 formes, plus d'orientation
+    D4 ni de tirage de couleur : voir _carter_positions). Sans la clé, les
+    rôles sont inconnus → grammaire = couche secrète.
     Labels centralisés dans crypto_core.LABELS['carter256'] (tâche 3).
+
+    RÈGLE DE LECTURE v3 (câblage production, 2026-09-12) : positions
+    stégano = les cases des couleurs déclarées `stegano_colors` du
+    référent PRISES ENSEMBLE (rouge+bleu, 12 cases/forme — remplace
+    l'ancien tirage d'UNE seule couleur, 6 cases). Seuls les blocs
+    'message' en tiennent compte ; 'pure'/'structured' restent du bruit
+    CSPRNG non structuré, EXACTEMENT comme avant (décision de l'auteur :
+    le papier ne prévoit aucun changement hors des positions stégano).
+
+    Retourne {'blocks': [{'role','form_id'}, ...], 'sweep_of_color':
+    {couleur: 0..7}} -- le balayage (stegano.py) est dérivé UNE FOIS par
+    couleur stégano pour toute la grammaire, jamais retiré par bloc.
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
     L = LABELS['carter256']
-    km = HKDF(_hh.SHA256(), CARTER_N * 4,
+    km = HKDF(_hh.SHA256(), CARTER_N * 2,
               salt=L['grammar_content_salt'],
               info=L['grammar_content_info']).derive(master_key)
-    grammar = []
+    blocks = []
     for i in range(CARTER_N):
-        b = km[i*4 : i*4+4]
-        rb = b[0]
+        rb, fb = km[i*2], km[i*2 + 1]
         role = _PURE if rb < 85 else (_STRUCTURED if rb < 170 else _MESSAGE)
-        grammar.append({
-            'role':    role,
-            'form_id': (b[1] * len(ref256)) // 256,
-            'color':   'blue' if b[2] < 128 else 'orange',
-            'orient':  b[3] % 8,
-        })
-    return grammar
+        # 256 formes exactement (referent_256_v3.json) : fb utilisé tel
+        # quel comme form_id, aucune mise à l'échelle ni rejet nécessaire.
+        blocks.append({'role': role, 'form_id': fb})
+    sweep_of_color = {c: derive_sweep_index(master_key, c)
+                       for c in ref256['stegano_colors']}
+    return {'blocks': blocks, 'sweep_of_color': sweep_of_color}
 
-def _carter_positions(br: int, bc: int, g: Dict, ref256: List[Dict]) -> List[Tuple]:
-    """6 positions de lecture du bloc (br, bc) selon la grammaire g."""
-    form = ref256[g['form_id'] % len(ref256)]
-    base = form[g['color']]
-    t    = apply_orientation(base, g['orient'])
+def _carter_positions(br: int, bc: int, g: Dict, ref256: Dict,
+                       sweep_of_color: Dict) -> List[Tuple]:
+    """Positions stégano de lecture du bloc (br, bc) selon la grammaire g :
+    les cases des couleurs stégano du référent (rouge+bleu, 12 pour le
+    référent 256 v3), ensemble, dans l'ordre de lecture (chaque couleur
+    triée par son balayage, voir crypto_reading_order). `sweep_of_color`
+    vient de _carter_grammar() (une seule dérivation pour toute la
+    grammaire, jamais retirée par bloc)."""
+    form = ref256['forms'][g['form_id']]
+    stegano_colors = ref256['stegano_colors']
+    grid_size = ref256['grid_size']
+    cells_by_niveau = {0: {c: [tuple(p) for p in form[f'{c}_positions']]
+                            for c in stegano_colors}}
+    local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                        grid_size, sweep_of_color)
     r0, c0 = br * CARTER_BLOCK, bc * CARTER_BLOCK
-    return [(r0+r, c0+c) for r, c in t
+    return [(r0+r, c0+c) for r, c in local_order
             if 0 <= r0+r < CARTER_GRID and 0 <= c0+c < CARTER_GRID]
 
-def _carter_message_positions(grammar: List[Dict], ref256: List[Dict]) -> int:
+def _carter_message_positions(grammar: Dict, ref256: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""
-    return sum(len(_carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256))
-               for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
+    sweep_of_color = grammar['sweep_of_color']
+    return sum(len(_carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256, sweep_of_color))
+               for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE)
 
 def encode_carter(message: str, master_key: bytes,
-                  ref256: List[Dict],
+                  ref256: Dict,
                   _nonce: bytes = None, _y: int = None,
                   _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
@@ -180,17 +204,18 @@ def encode_carter(message: str, master_key: bytes,
     # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
     # G. Kerma, §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
     grid  = random_grid(CARTER_GRID, CARTER_GRID, _noise_seed=_noise_seed)
+    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-        for gr, gc in _carter_positions(br, bc, g, ref256):
+        for gr, gc in _carter_positions(br, bc, g, ref256, sweep_of_color):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter(grid: List[List[int]], master_key: bytes,
-                  ref256: List[Dict]) -> str:
+                  ref256: Dict) -> str:
     """
     Décode une grille Carter. La grammaire est re-dérivée depuis la clé
     (même recherche C_PUB déterministe que l'encodeur — tâche 4).
@@ -202,15 +227,16 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter256'])
+    sweep_of_color = grammar['sweep_of_color']
     vals, ni = [], 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-        for gr, gc in _carter_positions(br, bc, g, ref256):
+        for gr, gc in _carter_positions(br, bc, g, ref256, sweep_of_color):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
-def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
+def carter_capacity(master_key: bytes, ref256: Dict) -> Dict:
     """Retourne les statistiques de capacité de la grammaire dérivée
     (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter() utilise
     réellement, pas la grammaire brute avant recherche)."""
@@ -219,9 +245,10 @@ def carter_capacity(master_key: bytes, ref256: List[Dict]) -> Dict:
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
-    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
-    n_str = sum(1 for g in grammar if g['role'] == _STRUCTURED)
-    n_pur = sum(1 for g in grammar if g['role'] == _PURE)
+    blocks = grammar['blocks']
+    n_msg = sum(1 for g in blocks if g['role'] == _MESSAGE)
+    n_str = sum(1 for g in blocks if g['role'] == _STRUCTURED)
+    n_pur = sum(1 for g in blocks if g['role'] == _PURE)
     return {
         'blocs_message':    n_msg,
         'blocs_structure':  n_str,

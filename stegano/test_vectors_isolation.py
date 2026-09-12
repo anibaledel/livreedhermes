@@ -133,13 +133,13 @@ class TestDefaultBehaviorUnchanged(unittest.TestCase):
     """Sans injection, chaque fonction reste bien source de fraîcheur CSPRNG."""
 
     def test_carter_encode_still_random_without_injection(self):
-        from stegano_lib import load_referents, decode_carter
-        ref256, _ = load_referents()
+        from stegano_lib import load_referent_256_v3, decode_carter
+        ref256_v3 = load_referent_256_v3()
         key = os.urandom(32)
-        g1 = encode_carter("HELLO", key, ref256)
-        g2 = encode_carter("HELLO", key, ref256)
+        g1 = encode_carter("HELLO", key, ref256_v3)
+        g2 = encode_carter("HELLO", key, ref256_v3)
         self.assertNotEqual(g1, g2, "encode_carter() sans injection doit rester aléatoire")
-        self.assertEqual(decode_carter(g1, key, ref256), "HELLO")
+        self.assertEqual(decode_carter(g1, key, ref256_v3), "HELLO")
 
 
 class TestSingleRef360Loader(unittest.TestCase):

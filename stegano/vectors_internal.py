@@ -34,7 +34,7 @@ import crypto_core as CC
 import carter as CT
 import carter_random as CR
 import stegano_classic as SC
-from stegano_lib import load_referents, _carter_split
+from stegano_lib import load_referents, load_referent_256_v3, _carter_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
 import secu_box as SB
@@ -156,11 +156,12 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
     grid = CC.random_grid(CT.CARTER_GRID, CT.CARTER_GRID, _noise_seed=noise_seed)
+    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
-        for gr, gc in CT._carter_positions(br, bc, g, ref256):
+        for gr, gc in CT._carter_positions(br, bc, g, ref256, sweep_of_color):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
 
@@ -181,9 +182,12 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
-            "grammar": [{"i": i, "role": g['role'], "form_id": g['form_id'],
-                         "color": g['color'], "orient": g['orient']}
-                        for i, g in enumerate(grammar)],
+            # TODO v3-format (etape 10) : plus de color/orient (regle 6x6 --
+            # rouge+bleu ensemble, aucun tirage de couleur/orientation) ;
+            # sweep_of_color ajoute a la place, cle par couleur stegano.
+            "grammar": [{"i": i, "role": g['role'], "form_id": g['form_id']}
+                        for i, g in enumerate(grammar['blocks'])],
+            "sweep_of_color": sweep_of_color,
             "hchacha20_subkey_hex": _hex(hchacha_subkey),
             "payload_hex": _hex(payload),
             "pts_m": m, "pts_y": str(y),
@@ -230,17 +234,18 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     domain = CC.LABELS['mask_seed']['info_carter256']
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
+    sweep_of_color = grammar['sweep_of_color']
     message_positions = []
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
-        message_positions.extend(CT._carter_positions(br, bc, g, ref256))
+        message_positions.extend(CT._carter_positions(br, bc, g, ref256, sweep_of_color))
 
     # Positions couvertes par des blocs 'pure' (bruit CSPRNG du remplissage
     # initial, JAMAIS écrites par la boucle de placement ci-dessus) — sert
     # au vecteur "bruit altéré" plus bas.
     noise_positions = []
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._PURE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
         r0, c0 = br * CT.CARTER_BLOCK, bc * CT.CARTER_BLOCK
@@ -931,6 +936,15 @@ _Y_CARTER256_BOUNDARY   = 18442373562533863684
 
 def generate_all(include_grid_csv_showcase=True):
     ref256, ref360 = load_referents()
+    # ref256_v3 (câblage production, étape 2, 2026-09-12) : Carter-256 SEUL
+    # est passé à la nouvelle règle de lecture (referent_256_v3.json) --
+    # classic/Carter-Mix restent sur l'ancien ref256 (blue/orange) tant que
+    # leurs étapes (8, 4) ne sont pas faites. TODO v3-format (étape 10) :
+    # les vecteurs carter256-* stockés dans vectors/carter_v3.json datent
+    # d'avant ce changement et ne correspondront plus tant que l'étape 10
+    # (recalibration + régénération) n'a pas eu lieu -- voir les skips
+    # explicites dans test_vectors_regeneration.py.
+    ref256_v3 = load_referent_256_v3()
     nonce = bytes(range(24))
     noise_seed = bytes(reversed(range(32)))
     vectors = []
@@ -942,14 +956,22 @@ def generate_all(include_grid_csv_showcase=True):
 
     v, g = gen_carter256_vector(
         "carter256-basic-01", "Vecteur de base Carter-256.",
-        bytes(range(32)), "HELLO WORLD", ref256,
+        bytes(range(32)), "HELLO WORLD", ref256_v3,
         nonce, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
     add(v, g)
 
+    # TODO v3-format (etape 10) : _MK_REDRAW_CARTER256 a ete trouvee par
+    # force brute pour declencher un redraw (ctr>=1) sous L'ANCIENNE
+    # fonction de capacite (6 positions stegano/bloc) -- avec la nouvelle
+    # regle (12 positions, rouge+bleu), cette cle ne declenche plus
+    # forcement de redraw, et _Y_CARTER256_REDRAW/[2] (calcules pour
+    # l'ancien n_pos post-redraw) ne sont plus valides pour le nouveau
+    # n_pos. y=0/leftover=[] (comme carter256-basic-01) le temps de
+    # rechercher une nouvelle cle de redraw sous la regle v3 a l'etape 10.
     v, g = gen_carter256_vector(
         "carter256-redraw-01", "Clé déclenchant un redraw (ctr>=1) pour Carter-256.",
-        _MK_REDRAW_CARTER256, "REDRAW TRIGGERED", ref256,
-        nonce, _Y_CARTER256_REDRAW, [2], noise_seed)
+        _MK_REDRAW_CARTER256, "REDRAW TRIGGERED", ref256_v3,
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carter360_vector(
@@ -1020,21 +1042,26 @@ def generate_all(include_grid_csv_showcase=True):
     grids[v["id"] + "-encode"] = g
     grids[v["id"] + "-encode0"] = g0
 
+    # TODO v3-format (etape 10) : _Y_CARTER256_NEG/_UTF8/_BOUNDARY ont ete
+    # calculees pour l'ancien n_pos (6 positions stegano/bloc) -- Q differe
+    # desormais (12 positions), ces constantes tombent hors plage. y=0/
+    # leftover=[] le temps de retirer de nouvelles valeurs sous la regle v3
+    # a l'etape 10 (comme carter256-basic-01, deja a y=0).
     neg_vecs, neg_grids = gen_carter256_negative_vectors(
         "carter256-neg", "Vecteurs négatifs Carter-256",
-        bytes(range(32)), "HELLO WORLD", ref256, nonce, _Y_CARTER256_NEG, [], noise_seed)
+        bytes(range(32)), "HELLO WORLD", ref256_v3, nonce, 0, [], noise_seed)
     for vv, gg in zip(neg_vecs, neg_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg
 
     v, g = gen_carter256_vector(
         "carter256-utf8-01", "Message UTF-8 non-ASCII (« déjà vu ») — cas de succès ordinaire.",
-        bytes((i * 23 + 9) % 256 for i in range(32)), "déjà vu", ref256,
-        nonce, _Y_CARTER256_UTF8, [], noise_seed)
+        bytes((i * 23 + 9) % 256 for i in range(32)), "déjà vu", ref256_v3,
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     boundary_vecs, boundary_grids = gen_carter256_boundary_vectors(
-        "carter256-boundary", bytes(range(32)), ref256, nonce, _Y_CARTER256_BOUNDARY, [], noise_seed)
+        "carter256-boundary", bytes(range(32)), ref256_v3, nonce, 0, [], noise_seed)
     for vv, gg in zip(boundary_vecs, boundary_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg

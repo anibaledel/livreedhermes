@@ -37,6 +37,30 @@ def _find_ref(name: str) -> str:
 
 def load_referents() -> Tuple[List, List]:
     """
+    TODO v3-format : cohabitation avec load_referent_256_v3() (nouveau,
+    ci-dessous) et le futur chargeur v3 du Référent 360 -- ce chargeur
+    reste sur l'ancien schéma referent_256.json (blue/orange, 6+6 cases)
+    tant que TOUS ses appelants n'ont pas migré vers la nouvelle règle de
+    lecture (rouge+bleu ensemble, 12 cases stégano ; le « 36 en crypto »
+    de la règle ne s'applique PAS ici -- décision de l'auteur, 2026-09-12 :
+    il ne concerne que le mode crypto de secu_box, pas les blocs stégano
+    de Carter/Random/18/Hybrid, qui restent bruit CSPRNG non structuré
+    pour pure/structured, inchangé). Appelants restants sous l'ancien
+    schéma au 2026-09-12 :
+      - grid_90.py : mis de côté (décision de l'auteur, 2026-09-12), PAS
+        migré pour l'instant -- garde CET appelant vivant tant que sa
+        décision finale (garder/migrer/abandonner) n'est pas prise. Ses
+        tests (test_regression.py, classe G) doivent rester au vert à
+        chaque étape du câblage ; signaler immédiatement toute casse.
+      - stegano_classic.encode/decode/make_keys/compute_keyspace (étape
+        8, pas encore faite).
+      - secu_box._km_to_keys/Session, mode « classique » (étape 5 bis,
+        pas encore faite).
+      - disk_lib.py/cryptanalyse_spn.py (hors périmètre, S-box de
+        chiffrement disque sans rapport).
+    Objectif final : UN SEUL chargeur si/quand grid_90.py migre ou est
+    abandonné -- sinon cette fonction reste nécessaire pour lui seul.
+
     Chargeur UNIQUE du Référent 256 et du Référent 360 (2026-09-12) : avant
     ce commit, carter.py maintenait son propre second chargeur pour le 360
     (_load_ref360()) qui filtrait aux formes complètes (3×8=24 positions),
@@ -57,6 +81,19 @@ def load_referents() -> Tuple[List, List]:
             if (isinstance(f['positions'], dict) and
                 sum(len(v) for v in f['positions'].values()) == 24)]
     return r256, r360
+
+def load_referent_256_v3() -> Dict:
+    """
+    Chargeur du Référent 256 au format v3 (data/referent_256_v3.json --
+    36 cases, colors=[rouge,bleu,vert,jaune], stegano_colors=[rouge,bleu],
+    c_pub calibré). NOUVEAU (câblage production, 2026-09-12) : cohabite
+    TEMPORAIREMENT avec load_referents() ci-dessus (voir son TODO
+    v3-format) tant que tous les appelants n'ont pas migré vers la
+    nouvelle règle de lecture. Utilisé par carter.py (Carter-256, Carter-
+    Mix) dès l'étape 2 du câblage ; stegano_classic.encode/decode y
+    migreront à l'étape 8."""
+    with open(_find_ref('referent_256_v3.json')) as f:
+        return json.load(f)
 
 # ── Orientations D4 ──────────────────────────────────────────────────────────
 ORIENTATIONS = [

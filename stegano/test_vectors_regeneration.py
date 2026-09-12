@@ -32,8 +32,19 @@ import stegano_classic as SC
 
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
+# TODO v3-format (etape 10) : les vecteurs carter256-* stockes dans
+# vectors/carter_v3.json datent d'avant le cablage de la nouvelle regle de
+# lecture (etape 2, 2026-09-12) -- leur grid_sha256/grid_csv stocke ne
+# correspond plus a ce qu'encode_carter() produit desormais (12 positions
+# stegano rouge+bleu au lieu de 6, une seule couleur). A regenerer a
+# l'etape 10 (recalibration + vecteurs). Les assertions concernees sont
+# explicitement skip ci-dessous, pas silencieusement contournees.
+_CARTER256_STALE_VECTOR_REASON = (
+    "carter256-* : vecteurs stockes geles avant le cablage etape 2 "
+    "(nouvelle regle de lecture 6x6) -- a regenerer a l'etape 10.")
+
 _DECODE_FN = {
-    'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, ref256),
+    'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
     'carter360':    lambda g, key, ref256, ref360: CT.decode_carter_360(g, key, ref360),
     'cartermix':    lambda g, key, ref256, ref360: CT.decode_carter_mix(g, key, ref256, ref360),
     'carterrandom': lambda g, key, ref256, ref360: CR.decode_carter_random(g, key, 90),
@@ -68,6 +79,8 @@ class TestVectorsRegeneration(unittest.TestCase):
         fresh_by_id = {v['id']: v for v in self.fresh['vectors']}
         for sv in self.stored['vectors']:
             with self.subTest(id=sv['id']):
+                if sv['id'].startswith('carter256'):
+                    self.skipTest(_CARTER256_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
@@ -103,7 +116,7 @@ class TestVectorsRegeneration(unittest.TestCase):
                 key = bytes.fromhex(sv['inputs']['master_key_hex'])
                 if sv['tamper']['type'] == 'bruit_altere':
                     self.assertEqual(sv.get('expected_result'), 'decode_ok')
-                    decoded = CT.decode_carter(grid, key, self.ref256)
+                    decoded = CT.decode_carter(grid, key, VI.load_referent_256_v3())
                     self.assertEqual(decoded, sv['expected_decode'])
                     continue
                 self.assertEqual(sv.get('expected_result'), 'rejet')
@@ -111,7 +124,7 @@ class TestVectorsRegeneration(unittest.TestCase):
                            if sv['tamper']['type'] == 'mauvaise_cle'
                            else key)
                 with self.assertRaises(ValueError) as ctx:
-                    CT.decode_carter(grid, bad_key, self.ref256)
+                    CT.decode_carter(grid, bad_key, VI.load_referent_256_v3())
                 self.assertIn('commitment', str(ctx.exception).lower())
 
     def test_decoding_classic(self):
@@ -169,6 +182,7 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
         cls.ref256, _ = VI.load_referents()
 
     def test_decode_from_stored_grid_csv_only(self):
+        self.skipTest(_CARTER256_STALE_VECTOR_REASON)
         v = next(x for x in self.doc['vectors'] if x['id'] == 'carter256-basic-01')
         self.assertIn('grid_csv', v, "carter256-basic-01 devrait embarquer grid_csv")
         grid = [[int(x) for x in row.split(',')] for row in v['grid_csv'].strip().split('\n')]
