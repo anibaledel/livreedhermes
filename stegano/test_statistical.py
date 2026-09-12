@@ -48,7 +48,7 @@ from stegano_lib import (
 from carter_random import (
     encode_carter_random, decode_carter_random,
     encode_carter_random_360, decode_carter_random_360,
-    random_capacity, random_fits, SEEDS,
+    random_capacity, random_fits,
     encode_carter_18, decode_carter_18, carter18_fits,
     encode_carter_hybrid, decode_carter_hybrid, carter_hybrid_fits,
     _carter_split, _derive_params,

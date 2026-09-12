@@ -496,8 +496,9 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
     xchacha_key, grammar_key = CR._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
 
-    (gk_ctr, seed, meta_mode, ref, grammar, n_pos), attempts = _count_redraw_attempts(
+    (gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos), attempts = _count_redraw_attempts(
         CR, lambda: CR._find_random_grammar_with_c_pub(grammar_key, grid_size))
+    sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
     payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
     hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
@@ -516,12 +517,12 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
     grammar_export = []
     if not meta_mode:
         for i, g in enumerate(grammar):
-            grammar_export.append({"i": i, "role": g['role'], "form_id": g['form_id'], "dir": g['dir']})
+            grammar_export.append({"i": i, "role": g['role'], "form_id": g['form_id']})
             if g['role'] != CR._MESSAGE: continue
             br, bc = i // n_side_g, i % n_side_g
             form = ref[g['form_id']]
             r0, c0 = br * CR.CELL_SIZE, bc * CR.CELL_SIZE
-            for pos in form[g['dir']]:
+            for pos in CR._form_stegano_positions(form, sweep_of_color):
                 if ni >= len(symbols): break
                 gr, gc = r0 + pos[0], c0 + pos[1]
                 if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -537,7 +538,7 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
                 form = ref[sg['form_id']]
                 br, bc = mr * CR.META + br_off, mc * CR.META + bc_off
                 r0, c0 = br * CR.CELL_SIZE, bc * CR.CELL_SIZE
-                for pos in form[sg['dir']]:
+                for pos in CR._form_stegano_positions(form, sweep_of_color):
                     if ni >= len(symbols): break
                     gr, gc = r0 + pos[0], c0 + pos[1]
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -557,7 +558,8 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
-            "params": {"seed": seed, "meta_mode": meta_mode},
+            "params": {"referent_index": ref_idx, "meta_mode": meta_mode},
+            "sweep_of_color": sweep_of_color,
             "n_pos": n_pos,
             "grammar": grammar_export,
             "hchacha20_subkey_hex": _hex(hchacha_subkey), "payload_hex": _hex(payload),
@@ -644,8 +646,9 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
     xchacha_key, grammar_key = CR._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
 
-    (gk_ctr, seed18, seed6, ref18, ref6, grammar, n_pos), attempts = _count_redraw_attempts(
+    (gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_pos), attempts = _count_redraw_attempts(
         CR, lambda: CR._find_hybrid_grammar_with_c_pub(grammar_key, grid_size))
+    sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
     payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
     hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
@@ -672,7 +675,7 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
                     grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
                 ni += 1
         else:
-            for sub_pos in CR._subblock_positions(br18, bc18, gk_ctr, ref6):
+            for sub_pos in CR._subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
                 for gr, gc in sub_pos:
                     if ni >= len(symbols): break
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -692,7 +695,8 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
-            "params": {"seed_18": seed18, "seed_6": seed6},
+            "params": {"seed_18": seed18, "referent_index_6": ref_idx6},
+            "sweep_of_color": sweep_of_color,
             "n_pos": n_pos,
             "grammar": [{"i": i, "role": g['role'], "mode": g['mode'],
                          "form_id": g['form_id'], "dir": g['dir']}
@@ -1015,16 +1019,22 @@ def generate_all(include_grid_csv_showcase=True):
         nonce, 0, [], noise_seed)
     add(v, g)
 
+    # TODO v3-format (etape 10) : _Y_CARTERRANDOM_BASIC/_CR1 calculees pour
+    # l'ancienne capacite (6 positions/bloc, referent bariole) -- la regle
+    # v3 (12 positions, rouge+bleu) change Q, et _MK_CR1_CARTERRANDOM (cle
+    # brute-forcee pour declencher le repli CR-1 sous l'ancienne formule)
+    # peut ne plus declencher ce repli. y=0/leftover=[] le temps de
+    # retirer de nouvelles valeurs sous la regle v3.
     v, g = gen_carterrandom_vector(
         "carterrandom-basic-01", "Vecteur de base Carter-Random (90×90).",
         bytes((i * 3 + 1) % 256 for i in range(32)), "CARTER RANDOM TEST", 90,
-        nonce, _Y_CARTERRANDOM_BASIC, [], noise_seed)
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carterrandom_vector(
         "carterrandom-cr1-01", "Clé déclenchant le repli CR-1 (méta→individuel).",
         _MK_CR1_CARTERRANDOM, "CR1 FALLBACK TEST", 90,
-        nonce, _Y_CARTERRANDOM_CR1, [], noise_seed)
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carter18_vector(

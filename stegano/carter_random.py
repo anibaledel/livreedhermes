@@ -3,24 +3,30 @@
 """
 carter_random.py  v3 — Encodage Carter avec référents aléatoires 6×6
 
-Architecture :
+Architecture (câblage production, étape 6, 2026-09-12 -- remplace l'ancien
+référent bariolé local) :
   - Cellule unique : 6×6 (90÷6=15 blocs par côté, 225 blocs, 25 méta-blocs)
-  - 10 référents de 256 formes aléatoires bariolées
-  - 4 sens de lecture par forme (directions 0-3)
+  - 256 référents v3 (rouge/bleu/vert/jaune, ChaCha20 -- referent6x6_gen.py)
+  - Stégano = rouge+bleu ensemble (12 positions/forme), triées par balayage
+    (stegano/sweep.py) -- plus de tirage de direction (l'ancien référent
+    bariolé n'a pas de notion de couleur, ses formes étaient génériques)
   - Mode individuel OU méta-concentrique (3×3 → 18×18), dérivé de la clé
   - Lecture concentrique dans les méta-blocs : noyau → anneau → coins
 
 Paramètres dérivés de la clé (transparents pour l'appelant) :
-  seed ∈ {10 valeurs}  ×  mode ∈ {2}  → 20 configurations globales, toutes
-  inaccessibles sans la clé. Direction et forme sont tirées par bloc dans
-  la grammaire (entropie de grammaire, non de configuration globale). Le
-  mode méta bascule vers le mode individuel si sa capacité est insuffisante
-  pour la clé donnée (CR-1, voir _derive_params).
+  referent_index ∈ [0,255] (select_referent_index, un octet sans réduction
+  modulo)  ×  mode ∈ {2}  → 512 configurations globales, toutes
+  inaccessibles sans la clé. La forme est tirée par bloc dans la grammaire
+  (entropie de grammaire, non de configuration globale). Le mode méta
+  bascule vers le mode individuel si sa capacité est insuffisante pour la
+  clé donnée (CR-1, voir _derive_params).
 
-Module autonome : les référents sont générés dynamiquement depuis la clé
-(pas de fichier JSON à charger). Réutilise les primitives déjà auditées de
-stegano_lib.py (séparation de clé Carter, chiffrement, flux de symboles
-base-44 uniforme) plutôt que d'en dupliquer une version propre à ce fichier.
+Module autonome au sens où aucun fichier n'est chargé ICI : referent6x6_gen.
+get_referent_cached() régénère le référent choisi depuis son seul index
+(déterministe, ChaCha20 -- pas de fichier JSON). Réutilise les primitives
+déjà auditées de stegano_lib.py (séparation de clé Carter, chiffrement,
+flux de symboles base-44 uniforme) plutôt que d'en dupliquer une version
+propre à ce fichier.
 """
 
 import random
@@ -33,6 +39,8 @@ from stegano_lib import (
 )
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hh
+import referent6x6_gen as _R6
+from sweep import derive_sweep_index, crypto_reading_order
 
 # ── Constantes ─────────────────────────────────────────────────────────────────
 GRID_SIZE  = 90
@@ -45,6 +53,13 @@ N_META_TOT = N_META * N_META          # 25 méta-blocs
 N_DIR      = 4
 N_FORMS    = 256
 
+# Carter-18 UNIQUEMENT (referent 18x18, get_referent_18/_carter18_seed plus
+# bas) -- hors perimetre du cablage etape 6 (regle 6x6 rouge/bleu/vert/
+# jaune, referent6x6_gen.py) : Carter-Random n'utilise plus SEEDS depuis
+# ce commit (select_referent_index, 256 referents), mais Carter-18 garde
+# son propre choix parmi ces 10 graines fixes, un systeme de referent
+# entierement distinct (18x18, sans notion de couleur) que cette regle ne
+# couvre pas.
 SEEDS = [42, 137, 999, 271, 1337, 31415, 27182, 61803, 65537, 99991]
 
 # Ordre concentrique dans un méta-bloc 3×3
@@ -99,54 +114,38 @@ CONC_ORDER = [
 # plausible (secu_box.py) — ré-exportée ici par le seul import ci-dessus
 # (via stegano_lib), aucun appelant de ce module ne change.
 
-# ── Génération des référents ────────────────────────────────────────────────────
-def _generate_form(rng) -> Optional[Dict]:
-    """Génère une forme 6×6 aléatoire bariolée (run ≤ 2 en lecture ligne/col)."""
-    n_assign = N_DIR * CELL_SIZE  # 24 positions assignées sur 36
-    for _ in range(5000):
-        cells = [(r, c) for r in range(CELL_SIZE) for c in range(CELL_SIZE)]
-        rng.shuffle(cells)
-        grid = {pos: -1 for pos in cells}
-        for i, pos in enumerate(cells[:n_assign]):
-            grid[pos] = i % N_DIR
-        # Contrainte bariolé : pas plus de 2 positions consécutives
-        # de la même direction en lecture ligne par ligne
-        seq = [grid[(r, c)] for r in range(CELL_SIZE)
-               for c in range(CELL_SIZE) if grid[(r, c)] >= 0]
-        run, ok = 1, True
-        for i in range(1, len(seq)):
-            run = run + 1 if seq[i] == seq[i-1] else 1
-            if run > 2: ok = False; break
-        if ok:
-            dirs = {d: [] for d in range(N_DIR)}
-            for pos, d in grid.items():
-                if d >= 0: dirs[d].append(list(pos))
-            return dirs
-    return None
+# ── Référent 6×6 (câblage production, étape 6, 2026-09-12) ─────────────────────
+# Remplace ENTIÈREMENT l'ancien générateur bariolé local (_generate_form/
+# _make_referent/get_referent/SEEDS, Mersenne Twister) : les référents sont
+# désormais les 256 référents ChaCha20 normatifs de referent6x6_gen.py
+# (déjà construits, voir stegano/referent6x6_gen.py et docs/
+# PAPER_NUMBERS_v3.md §5.3), choisis par UN octet de grammar_key sans
+# réduction modulo (256 référents = 256 valeurs possibles). get_referent()
+# reste exposé (ré-export de get_referent_cached) pour compatibilité des
+# appelants existants (secu_box.py l'a déjà adopté directement à l'étape 5).
 
-def _make_referent(seed: int) -> List[Dict]:
-    """Génère 256 formes pour un seed donné."""
-    rng = random.Random(seed)
-    forms = []
-    while len(forms) < N_FORMS:
-        f = _generate_form(rng)
-        if f is not None:
-            forms.append(f)
-    return forms
+def get_referent(ref_idx: int):
+    """Référent 6×6 (256 formes v3, rouge/bleu/vert/jaune) -- ré-export de
+    referent6x6_gen.get_referent_cached (cache mémoire complet, 256
+    référents possibles)."""
+    return _R6.get_referent_cached(ref_idx)
 
-_CACHE: Dict[int, List[Dict]] = {}
+_RANDOM_STEGANO_COLORS = list(_R6.SMALL_COLORS)   # ['blue', 'orange']
 
-def get_referent(seed: int) -> List[Dict]:
-    """Retourne le référent (depuis le cache ou régénéré)."""
-    if seed not in _CACHE:
-        _CACHE[seed] = _make_referent(seed)
-    return _CACHE[seed]
+def _form_stegano_positions(form: Dict, sweep_of_color: Dict) -> List[Tuple[int, int]]:
+    """Positions stégano (blue+orange ensemble, 12) d'une forme, triées par
+    balayage -- règle v3 6×6, remplace form[dir] (l'ancien référent
+    bariolé n'a pas de notion de couleur)."""
+    cells_by_niveau = {0: {c: [tuple(p) for p in form[c]] for c in _RANDOM_STEGANO_COLORS}}
+    return crypto_reading_order(cells_by_niveau, _RANDOM_STEGANO_COLORS,
+                                 _R6.GRID_SIZE, sweep_of_color)
 
 # ── Dérivation des paramètres clé ───────────────────────────────────────────────
 def _derive_params(grammar_key: bytes,
                     grid_size: int = GRID_SIZE) -> Tuple[int, bool]:
     """
-    Retourne (seed, meta_mode) depuis grammar_key.
+    Retourne (ref_idx, meta_mode) depuis grammar_key. ref_idx ∈ [0,255]
+    (select_referent_index, un octet sans réduction modulo -- étape 6).
     meta_mode=True  : lecture par méta-blocs 18×18 (concentrique)
     meta_mode=False : lecture bloc à bloc 6×6
 
@@ -164,11 +163,12 @@ def _derive_params(grammar_key: bytes,
     PL = LABELS['carterrandom']
     km = _HKDF(_hh.SHA256(), 4, salt=PL['params_salt'],
                info=PL['params_info']).derive(grammar_key)
-    seed     = SEEDS[km[0] % len(SEEDS)]
+    ref_idx  = _R6.select_referent_index(grammar_key)
     meta_raw = km[1] < 128   # ~50 % de chances
 
     if meta_raw:
-        ref = get_referent(seed)
+        ref = get_referent(ref_idx)
+        sweep_of_color = {c: derive_sweep_index(grammar_key, c) for c in _RANDOM_STEGANO_COLORS}
 
         # Capacité méta sur la géométrie effectivement encodée
         n_meta_side = grid_size // (CELL_SIZE * META)
@@ -176,37 +176,38 @@ def _derive_params(grammar_key: bytes,
                                      n_meta_tot=n_meta_side * n_meta_side,
                                      n_meta=n_meta_side)
         n_msg_meta  = sum(1 for x in mg if x['role'] == _MESSAGE)
-        cap_meta    = n_msg_meta * META * META * CELL_SIZE
+        cap_meta    = n_msg_meta * META * META * 12
 
         # Capacité individuelle pour la même clé et la même géométrie
         n_side_ind = grid_size // CELL_SIZE
         gi         = _grammar_individual(grammar_key, ref, n_side=n_side_ind)
         n_msg_ind  = sum(1 for x in gi if x['role'] == _MESSAGE)
-        cap_ind    = n_msg_ind * CELL_SIZE
+        cap_ind    = n_msg_ind * 12
 
         # Bascule déterministe : méta seulement si meilleur que individuel
         meta_mode = cap_meta >= cap_ind
     else:
         meta_mode = False
 
-    return seed, meta_mode
+    return ref_idx, meta_mode
 
 # ── Grammaire individuelle ──────────────────────────────────────────────────────
 def _grammar_individual(grammar_key: bytes,
                         ref: List[Dict],
                         n_side: int = N_SIDE) -> List[Dict]:
-    """n_side² blocs, chacun avec rôle + forme + direction.
+    """n_side² blocs, chacun avec rôle + forme (256 formes v3, 1 octet
+    direct, aucun rejet nécessaire -- plus de tirage de direction, le
+    référent v3 encode déjà des positions absolues par couleur).
     Labels centralisés dans crypto_core.LABELS['carterrandom'] (tâche 3)."""
     n_blocks = n_side * n_side
     GL = LABELS['carterrandom']
-    km = _HKDF(_hh.SHA256(), n_blocks * 3,
+    km = _HKDF(_hh.SHA256(), n_blocks * 2,
                salt=GL['grammar_individual_salt'],
                info=GL['grammar_individual_info']).derive(grammar_key)
     return [{
-        'role':    _PURE if km[i*3] < 85 else (_STRUCTURED if km[i*3] < 170
+        'role':    _PURE if km[i*2] < 85 else (_STRUCTURED if km[i*2] < 170
                    else _MESSAGE),
-        'form_id': (km[i*3+1] * N_FORMS) // 256,
-        'dir':     km[i*3+2] % N_DIR,
+        'form_id': km[i*2+1],
     } for i in range(n_blocks)]
 
 # ── Grammaire méta-blocs ────────────────────────────────────────────────────────
@@ -215,23 +216,21 @@ def _grammar_meta(grammar_key: bytes,
                   n_meta_tot: int = N_META_TOT,
                   n_meta: int = N_META) -> List[Dict]:
     """
-    25 méta-blocs (5×5), chacun avec rôle + 9 sous-blocs (forme+direction).
-    La lecture au sein d'un méta-bloc suit l'ordre concentrique CONC_ORDER.
+    25 méta-blocs (5×5), chacun avec rôle + 9 sous-blocs (une forme
+    chacun, plus de direction -- voir _grammar_individual). La lecture au
+    sein d'un méta-bloc suit l'ordre concentrique CONC_ORDER.
     Labels centralisés dans crypto_core.LABELS['carterrandom'] (tâche 3).
     """
     ML = LABELS['carterrandom']
     km1 = _HKDF(_hh.SHA256(), n_meta_tot * 2,
                 salt=ML['grammar_meta_salt'], info=ML['grammar_meta_roles_info']).derive(grammar_key)
-    km2 = _HKDF(_hh.SHA256(), n_meta_tot * META * META * 2,
+    km2 = _HKDF(_hh.SHA256(), n_meta_tot * META * META,
                 salt=ML['grammar_meta_salt'], info=ML['grammar_meta_forms_info']).derive(grammar_key)
     grammar = []
     for mi in range(n_meta_tot):
         role = (_PURE if km1[mi*2] < 85
                 else (_STRUCTURED if km1[mi*2] < 170 else _MESSAGE))
-        sub = [{
-            'form_id': (km2[(mi*9+bi)*2] * N_FORMS) // 256,
-            'dir':      km2[(mi*9+bi)*2+1] % N_DIR,
-        } for bi in range(META * META)]
+        sub = [{'form_id': km2[mi*9+bi]} for bi in range(META * META)]
         grammar.append({'role': role, 'sub': sub, 'n_meta': n_meta})
     return grammar
 
@@ -248,11 +247,11 @@ def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     Recherche déterministe (tâche 4, format v3) pour Carter Random : essaie
     grammar_key_ctr pour ctr=0..MAX_REDRAWS-1 (voir
     crypto_core._redraw_grammar_key pour l'ordre exact). À CHAQUE tentative,
-    seed, mode (bascule CR-1 comprise) ET grammaire sont re-dérivés ENSEMBLE
-    depuis le même grammar_key_ctr — un redraw ne touche jamais un seul de
-    ces éléments isolément.
+    ref_idx, mode (bascule CR-1 comprise) ET grammaire sont re-dérivés
+    ENSEMBLE depuis le même grammar_key_ctr — un redraw ne touche jamais un
+    seul de ces éléments isolément.
 
-    Retourne (grammar_key_ctr, seed, meta_mode, ref, grammar, n_pos) du
+    Retourne (grammar_key_ctr, ref_idx, meta_mode, ref, grammar, n_pos) du
     premier succès. Lève ValueError après MAX_REDRAWS échecs — jamais de
     grille construite, même partielle.
     """
@@ -262,18 +261,18 @@ def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     n_meta_tot_g = n_meta_g * n_meta_g
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, 'carterrandom', ctr)
-        seed, meta_mode = _derive_params(gk_ctr, grid_size)
-        ref = get_referent(seed)
+        ref_idx, meta_mode = _derive_params(gk_ctr, grid_size)
+        ref = get_referent(ref_idx)
         if not meta_mode:
             grammar = _grammar_individual(gk_ctr, ref, n_side_g)
             n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-            n_pos   = n_msg * CELL_SIZE
+            n_pos   = n_msg * 12
         else:
             grammar = _grammar_meta(gk_ctr, ref, n_meta_tot_g, n_meta_g)
             n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-            n_pos   = n_msg * META * META * CELL_SIZE
+            n_pos   = n_msg * META * META * 12
         if max_message_for(n_pos) >= C_PUB[c_pub_key]:
-            return gk_ctr, seed, meta_mode, ref, grammar, n_pos
+            return gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos
     raise ValueError(
         f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
         f"régénérer la clé maître (capacité cible C_PUB={C_PUB[c_pub_key]} "
@@ -310,8 +309,9 @@ def encode_carter_random(message: str,
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
     # seed, mode (CR-1 compris) et grammaire redérivés ensemble à chaque
     # tentative, voir _find_random_grammar_with_c_pub().
-    gk_ctr, seed, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
+    gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
         grammar_key, grid_size)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
 
     payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
     # Flux de symboles base-44 uniformes — même fonction que celle utilisée
@@ -324,7 +324,7 @@ def encode_carter_random(message: str,
     # §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
     grid = random_grid(grid_size, grid_size, _noise_seed=_noise_seed)
     # Masques dérivés de gk_ctr (même clé redraw que la grammaire, tâche 4) :
-    # un redraw retire seed+mode+rôles+masques ensemble, comme une seule unité.
+    # un redraw retire ref_idx+mode+rôles+masques ensemble, comme une seule unité.
     masks = _derive_masks(gk_ctr, len(nibbles) + 128, LABELS['mask_seed']['info_random'])
     nib_i = 0
 
@@ -335,7 +335,7 @@ def encode_carter_random(message: str,
             br, bc = i // n_side_g, i % n_side_g
             form   = ref[g['form_id']]
             r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-            for pos in form[g['dir']]:
+            for pos in _form_stegano_positions(form, sweep_of_color):
                 if nib_i >= len(nibbles): break
                 gr, gc = r0 + pos[0], c0 + pos[1]
                 if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -355,7 +355,7 @@ def encode_carter_random(message: str,
                 form   = ref[sg['form_id']]
                 br, bc = mr * META + br_off, mc * META + bc_off
                 r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-                for pos in form[sg['dir']]:
+                for pos in _form_stegano_positions(form, sweep_of_color):
                     if nib_i >= len(nibbles): break
                     gr, gc = r0 + pos[0], c0 + pos[1]
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -365,7 +365,7 @@ def encode_carter_random(message: str,
         n_msg_out = sum(1 for g in grammar if g['role'] == _MESSAGE)
 
     return grid, {
-        'seed': seed, 'mode': mode_str, 'meta_mode': meta_mode,
+        'referent_index': ref_idx, 'mode': mode_str, 'meta_mode': meta_mode,
         'n_msg_blocks': n_msg_out, 'capacity_chars': max_message_for(cap),
     }
 
@@ -375,8 +375,9 @@ def decode_carter_random(grid: List, master_key: bytes,
     """Décode une grille 90×90 (même recherche C_PUB déterministe que
     l'encodeur — tâche 4)."""
     xchacha_key, grammar_key = _carter_split(master_key)
-    gk_ctr, seed, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
+    gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
         grammar_key, grid_size)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
 
@@ -389,7 +390,7 @@ def decode_carter_random(grid: List, master_key: bytes,
             br, bc = i // n_side_g, i % n_side_g
             form   = ref[g['form_id']]
             r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-            for pos in form[g['dir']]:
+            for pos in _form_stegano_positions(form, sweep_of_color):
                 gr, gc = r0 + pos[0], c0 + pos[1]
                 if 0 <= gr < grid_size and 0 <= gc < grid_size:
                     vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
@@ -403,7 +404,7 @@ def decode_carter_random(grid: List, master_key: bytes,
                 form   = ref[sg['form_id']]
                 br, bc = mr * META + br_off, mc * META + bc_off
                 r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-                for pos in form[sg['dir']]:
+                for pos in _form_stegano_positions(form, sweep_of_color):
                     gr, gc = r0 + pos[0], c0 + pos[1]
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
                         vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
@@ -429,16 +430,16 @@ def random_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
     """Retourne la capacité disponible pour une clé donnée (après redraw
     C_PUB, tâche 4)."""
     _, grammar_key = _carter_split(master_key)
-    gk_ctr, seed, meta_mode, ref, grammar, n_pos = _find_random_grammar_with_c_pub(
+    gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos = _find_random_grammar_with_c_pub(
         grammar_key, grid_size)
     n_msg = sum(1 for x in grammar if x['role'] == _MESSAGE)
     n_pur = sum(1 for x in grammar if x['role'] == _PURE)
     n_str = sum(1 for x in grammar if x['role'] == _STRUCTURED)
     return {
-        'seed': seed, 'meta_mode': meta_mode,
+        'referent_index': ref_idx, 'meta_mode': meta_mode,
         'n_msg': n_msg, 'n_pure': n_pur, 'n_struct': n_str,
         'chars_max': max_message_for(n_pos),
-        'geometry': f"cell=6×6 ref_seed={seed} mode={'meta' if meta_mode else 'individual'}",
+        'geometry': f"cell=6×6 referent_index={ref_idx} mode={'meta' if meta_mode else 'individual'}",
     }
 
 # ── Aliases Carter Random 360 (grille 180×180) ────────────────────────────────
@@ -774,47 +775,56 @@ def _grammar_hybrid(grammar_key: bytes,
 
 def _subblock_positions(br18: int, bc18: int,
                         grammar_key: bytes,
-                        ref6: List[Dict]) -> List[List[Tuple[int,int]]]:
+                        ref6: List[Dict],
+                        sweep_of_color: Dict) -> List[List[Tuple[int,int]]]:
     """
-    Pour un méta-bloc 18×18 en MODE_6 : dérive les positions de lecture
-    pour chacun des 9 sous-blocs 6×6 internes, via le référent 6×6.
+    Pour un méta-bloc 18×18 en MODE_6 : dérive les positions stégano de
+    lecture pour chacun des 9 sous-blocs 6×6 internes, via le référent v3
+    (rouge+bleu ensemble, 12/sous-bloc -- règle v3, câblage étape 6,
+    remplace le tirage de direction sur l'ancien référent bariolé).
     Retourne une liste de 9 listes de (row_abs, col_abs). L'info HKDF
     (position du méta-bloc) est nécessairement dynamique par appel ; le
     salt est centralisé dans crypto_core.LABELS['carterhybrid'] (tâche 3).
+    `sweep_of_color` : dérivé UNE FOIS par appel encode/decode (pas par
+    sous-bloc), voir encode_carter_hybrid/decode_carter_hybrid.
     """
-    km_sub = _HKDF(_hh.SHA256(), 9 * 3,
+    km_sub = _HKDF(_hh.SHA256(), 9,
                    salt=LABELS['carterhybrid']['subblock_salt'],
                    info=bytes([br18, bc18])).derive(grammar_key)
     positions = []
     for sub in range(9):
         sr, sc = sub // 3, sub % 3
-        form_id   = (km_sub[sub*3] * N_FORMS) // 256
-        direction = km_sub[sub*3+2] % N_DIR
-        form = ref6[form_id % len(ref6)]
+        form = ref6[km_sub[sub]]
         sub_pos = [(br18*BLOCK_18 + sr*CELL_SIZE + r,
                     bc18*BLOCK_18 + sc*CELL_SIZE + c)
-                   for r, c in form[direction]]
+                   for r, c in _form_stegano_positions(form, sweep_of_color)]
         positions.append(sub_pos)
     return positions
 
 
 def _carter_hybrid_seeds(grammar_key: bytes) -> Tuple[int, int]:
-    """(seed_18, seed_6) pour cette clé (dérivation partagée encode/decode).
-    Labels centralisés dans crypto_core.LABELS['carterhybrid'] (tâche 3)."""
+    """(seed_18, ref_idx_6) pour cette clé (dérivation partagée encode/
+    decode). seed_18 : Carter-18, hors périmètre du câblage étape 6, reste
+    choisi parmi SEEDS (10 valeurs). ref_idx_6 : référent 6×6 v3, choisi
+    par select_referent_index (un octet, sans réduction modulo -- étape 6,
+    remplace le tirage parmi SEEDS pour ce côté). Labels centralisés dans
+    crypto_core.LABELS['carterhybrid'] (tâche 3)."""
     LH = LABELS['carterhybrid']
     idx18 = int.from_bytes(
         _HKDF(_hh.SHA256(), 4, salt=LH['seed18_salt'],
               info=LH['seed18_info']).derive(grammar_key), 'big') % len(SEEDS)
-    idx6 = int.from_bytes(
-        _HKDF(_hh.SHA256(), 4, salt=LH['seed6_salt'],
-              info=LH['seed6_info']).derive(grammar_key), 'big') % len(SEEDS)
-    return SEEDS[idx18], SEEDS[idx6]
+    seed6_key = _HKDF(_hh.SHA256(), 32, salt=LH['seed6_salt'],
+                       info=LH['seed6_info']).derive(grammar_key)
+    ref_idx6 = _R6.select_referent_index(seed6_key)
+    return SEEDS[idx18], ref_idx6
 
 
 def _hybrid_capacity_positions(grammar: List[Dict]) -> int:
-    """Positions totales disponibles pour les blocs message de cette grammaire."""
+    """Positions totales disponibles pour les blocs message de cette
+    grammaire. 9*12 pour MODE_6 (règle v3, rouge+bleu ensemble par
+    sous-bloc -- remplace 9*6 d'une seule direction avant ce commit)."""
     return sum(
-        _POSITIONS_PER_DIR[g['dir']] if g['mode'] == MODE_18 else 9*CELL_SIZE
+        _POSITIONS_PER_DIR[g['dir']] if g['mode'] == MODE_18 else 9*12
         for g in grammar if g['role'] == _MESSAGE)
 
 
@@ -822,21 +832,21 @@ def _find_hybrid_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     """
     Recherche déterministe (tâche 4, format v3) pour Carter-Hybrid : essaie
     grammar_key_ctr pour ctr=0..MAX_REDRAWS-1 (voir
-    crypto_core._redraw_grammar_key). Les deux seeds (18 et 6) ET la
-    grammaire sont re-dérivés ENSEMBLE depuis le même grammar_key_ctr à
-    chaque tentative. Retourne (grammar_key_ctr, seed18, seed6, ref18, ref6,
-    grammar, cap) du premier succès. Lève ValueError après MAX_REDRAWS
-    échecs.
+    crypto_core._redraw_grammar_key). seed18 (Carter-18), ref_idx6
+    (référent v3 6×6) ET la grammaire sont re-dérivés ENSEMBLE depuis le
+    même grammar_key_ctr à chaque tentative. Retourne (grammar_key_ctr,
+    seed18, ref_idx6, ref18, ref6, grammar, cap) du premier succès. Lève
+    ValueError après MAX_REDRAWS échecs.
     """
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, 'carterhybrid', ctr)
-        seed18, seed6 = _carter_hybrid_seeds(gk_ctr)
+        seed18, ref_idx6 = _carter_hybrid_seeds(gk_ctr)
         ref18 = get_referent_18(seed18)
-        ref6  = get_referent(seed6)
+        ref6  = get_referent(ref_idx6)
         grammar = _grammar_hybrid(gk_ctr, grid_size)
         cap = _hybrid_capacity_positions(grammar)
         if max_message_for(cap) >= C_PUB['carterhybrid']:
-            return gk_ctr, seed18, seed6, ref18, ref6, grammar, cap
+            return gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap
     raise ValueError(
         f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
         f"régénérer la clé maître (capacité cible C_PUB={C_PUB['carterhybrid']} "
@@ -873,9 +883,10 @@ def encode_carter_hybrid(message: str,
             f"octets (capacité publique garantie, indépendante de la clé).")
     n_side_18 = grid_size // BLOCK_18
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
-    # seeds 18/6 et grammaire redérivés ensemble à chaque tentative.
-    gk_ctr, seed18, seed6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
+    # seed18/ref_idx6 et grammaire redérivés ensemble à chaque tentative.
+    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
         grammar_key, grid_size)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
 
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
@@ -900,7 +911,7 @@ def encode_carter_hybrid(message: str,
                     grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
                 ni += 1
         else:  # MODE_6
-            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6):
+            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
                 for gr, gc in sub_pos:
                     if ni >= len(nibbles): break
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
@@ -911,7 +922,7 @@ def encode_carter_hybrid(message: str,
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
     return grid, {
-        'mode': 'carter-hybrid', 'seed_18': seed18, 'seed_6': seed6,
+        'mode': 'carter-hybrid', 'seed_18': seed18, 'referent_index_6': ref_idx6,
         'n_msg_blocks': n_msg, 'n_mode_18': n_18, 'n_mode_6': n_msg - n_18,
         'capacity_chars': max_message_for(cap),
     }
@@ -926,8 +937,9 @@ def decode_carter_hybrid(grid: List[List[int]],
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
     xchacha_key, grammar_key = _carter_split(master_key)
-    gk_ctr, seed18, seed6, ref18, ref6, grammar, n_tot = _find_hybrid_grammar_with_c_pub(
+    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_tot = _find_hybrid_grammar_with_c_pub(
         grammar_key, grid_size)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_18 = grid_size // BLOCK_18
 
     masks = _derive_masks(gk_ctr, n_tot + 512, LABELS['mask_seed']['info_hybrid'])
@@ -945,7 +957,7 @@ def decode_carter_hybrid(grid: List[List[int]],
                     vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
                 ni += 1
         else:
-            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6):
+            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
                 for gr, gc in sub_pos:
                     if 0 <= gr < grid_size and 0 <= gc < grid_size:
                         vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
@@ -970,7 +982,7 @@ def carter_hybrid_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dic
     """Retourne les infos de capacité Carter-Hybrid pour cette clé (après
     redraw C_PUB, tâche 4)."""
     _, grammar_key = _carter_split(master_key)
-    gk_ctr, seed18, seed6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
+    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
         grammar_key, grid_size)
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)

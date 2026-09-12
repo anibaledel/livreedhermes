@@ -56,6 +56,13 @@ _CLASSIC_STALE_VECTOR_REASON = (
     "classic-basic-01 : vecteur stocke gele avant le cablage etape 6 "
     "(regle v3, plus de Cle C ni de tirage de couleur) -- a regenerer a "
     "l'etape 10.")
+_CARTERRANDOM_STALE_VECTOR_REASON = (
+    "carterrandom-* : vecteurs stockes geles avant le cablage Carter-Random "
+    "(referent v3 6x6 choisi par select_referent_index, 12 positions/bloc) "
+    "-- a regenerer a l'etape 10.")
+_CARTERHYBRID_STALE_VECTOR_REASON = (
+    "carterhybrid-* : vecteur stocke gele avant le cablage MODE_6 (referent "
+    "v3 6x6 pour les sous-blocs) -- a regenerer a l'etape 10.")
 
 _DECODE_FN = {
     'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
@@ -104,6 +111,10 @@ class TestVectorsRegeneration(unittest.TestCase):
                     self.skipTest(_DENIABLE_STALE_VECTOR_REASON)
                 if sv['id'] == 'classic-basic-01':
                     self.skipTest(_CLASSIC_STALE_VECTOR_REASON)
+                if sv['id'].startswith('carterrandom'):
+                    self.skipTest(_CARTERRANDOM_STALE_VECTOR_REASON)
+                if sv['id'].startswith('carterhybrid'):
+                    self.skipTest(_CARTERHYBRID_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
