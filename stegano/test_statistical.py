@@ -176,10 +176,17 @@ class TestAvalancheKey(unittest.TestCase):
             f"Grammar avalanche Carter-256 trop faible : {mean:.3f} < 0.35")
         print(f"  Grammar avalanche Carter-256 : mean={mean:.3f} (attendu > 0.35)")
 
-    def test_avalanche_chacha20_hkdf_key_sensitivity(self):
+    def test_avalanche_xchacha20_key_sensitivity(self):
         """
         XChaCha20-Poly1305 standard (tache 1) key sensitivity :
         flip 1 bit de CLE -> ~50% bits ciphertext changent.
+
+        Libelle corrige (2026-09-12) : cette methode et ses messages
+        s'appelaient "ChaCha20-HKDF", un nom herite de l'ANCIENNE
+        construction a sous-cle derivee par HKDF, remplacee par HChaCha20
+        natif (draft-irtf-cfrg-xchacha, voir crypto_core.hchacha20 /
+        _xchacha20_enc) -- la mesure elle-meme portait deja sur la
+        construction ACTUELLE (_xchacha20_enc), seul le nom etait perime.
         """
         msg = self.MSG.upper().encode('ascii')
         key = os.urandom(32)
@@ -201,10 +208,10 @@ class TestAvalancheKey(unittest.TestCase):
             ratios.append(diff / n if n > 0 else 0)
         mean = statistics.mean(ratios)
         self.assertGreater(mean, 0.40,
-            f"ChaCha20-HKDF key sensitivity faible : {mean:.3f}")
+            f"XChaCha20-Poly1305 key sensitivity faible : {mean:.3f}")
         self.assertLess(mean, 0.60,
-            f"ChaCha20-HKDF key sensitivity anormale : {mean:.3f}")
-        print(f"  ChaCha20-HKDF key sensitivity : mean={mean:.3f} (attendu ~0.50)")
+            f"XChaCha20-Poly1305 key sensitivity anormale : {mean:.3f}")
+        print(f"  XChaCha20-Poly1305 key sensitivity : mean={mean:.3f} (attendu ~0.50)")
 
     def test_avalanche_no_zero_bit(self):
         """Aucun flip de bit ne laisse la grille identique."""
@@ -240,18 +247,30 @@ class TestAvalancheMessage(unittest.TestCase):
         complete) et le tag Poly1305 (16B, avalanche complet) changent,
         pour un ciphertext XChaCha20 qui ne differe lineairement que sur
         l'octet touche. Isole aux cellules message (meme cle -> memes
-        positions pour msg et msg2, voir _carter_message_positions) plutot
-        que sur la grille entiere : les cellules hors-message sont
-        structurellement identiques entre les deux encodages (meme cle,
-        meme bruit pin par le seed partage), donc les compter aurait
-        dilue le signal sur ~8000 cellules qui ne peuvent PAS differer par
-        construction. Meme principe que le remplacement de
-        test_avalanche_carter_grid ci-dessus.
+        positions pour msg et msg2) plutot que sur la grille entiere : les
+        cellules hors-message sont structurellement identiques entre les
+        deux encodages (meme cle, meme bruit pin par le seed partage),
+        donc les compter aurait dilue le signal sur ~8000 cellules qui ne
+        peuvent PAS differer par construction. Meme principe que le
+        remplacement de test_avalanche_carter_grid ci-dessus.
+
+        CORRECTIF (2026-09-12) : n_msg_positions doit venir de
+        carter_capacity() (n_pos APRES redraw C_PUB, tache 4), pas de
+        _carter_grammar() seule (grammaire ctr=0, AVANT recherche) --
+        sinon, pour une cle dont le tirage ctr=0 est sous C_PUB,
+        encode_carter() redessine en interne vers un ctr>0 a n_pos PLUS
+        GRAND que celui calcule ici, et diff (compte sur la grille reelle,
+        donc sur le VRAI n_pos post-redraw) peut depasser ce denominateur
+        trop petit -- ratio > 1, mathematiquement impossible pour une
+        vraie fraction de cellules. Observe en pratique (mean=1.270 dans
+        un rapport genere avant ce correctif) : la moitie environ des
+        cles aleatoires ont un tirage ctr=0 sous C_PUB=399 (voir la
+        distribution de capacite brute, docs/PAPER_NUMBERS_v3.md), donc
+        le bug se manifestait sur une fraction significative des essais,
+        pas un cas limite rare.
         """
-        from stegano_lib import _carter_grammar, _carter_message_positions
-        _, grammar_key = _carter_split(self.key)
-        grammar = _carter_grammar(grammar_key, self.ref256)
-        n_msg_positions = _carter_message_positions(grammar, self.ref256)
+        from stegano_lib import carter_capacity
+        n_msg_positions = carter_capacity(self.key, self.ref256)['nibbles']
 
         ratios = []
         for char_pos, bit_pos in self.BITS:
@@ -314,8 +333,14 @@ class TestEntropy(unittest.TestCase):
         h = self._test_mode(encode_carter_mix, self.ref256_v3, self.ref360_v3)
         print(f"  Entropie Carter Mix : {h:.4f} bits")
 
-    def test_entropy_chacha20_hkdf_output(self):
-        """_encrypt() (XChaCha20-Poly1305 + commitment) : entropie sur la sortie brute (bits)."""
+    def test_entropy_xchacha20_output(self):
+        """_encrypt() (XChaCha20-Poly1305 + commitment) : entropie sur la sortie brute (bits).
+
+        Libelle corrige (2026-09-12) : voir test_avalanche_xchacha20_key_
+        sensitivity ci-dessus -- "ChaCha20-HKDF" etait le nom de l'ANCIENNE
+        construction a sous-cle HKDF, remplacee par HChaCha20 natif ; la
+        mesure porte deja sur _encrypt()/_xchacha20_enc() actuels.
+        """
         key = os.urandom(32)
         payload = _encrypt(self.MSG * 10, key, 320)   # L=320, plus long pour stat
         bits = []
@@ -326,8 +351,8 @@ class TestEntropy(unittest.TestCase):
         p0 = 1 - p1
         h = -(p0 * math.log2(p0) if p0 > 0 else 0) \
             -(p1 * math.log2(p1) if p1 > 0 else 0)
-        self.assertGreater(h, 0.98, f"ChaCha20-HKDF entropie bit faible : {h:.4f}")
-        print(f"  Entropie ChaCha20-HKDF : {h:.4f} bits/bit (proportion 1s={p1:.4f})")
+        self.assertGreater(h, 0.98, f"XChaCha20-Poly1305 entropie bit faible : {h:.4f}")
+        print(f"  Entropie XChaCha20-Poly1305 : {h:.4f} bits/bit (proportion 1s={p1:.4f})")
 
 
 class TestChiSquare(unittest.TestCase):
@@ -339,6 +364,7 @@ class TestChiSquare(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.ref256 = load_referent_256_v3()
+        cls.ref360 = load_referent_360_v3()
 
     def _chisq(self, flat: List[int]) -> Tuple[float, float]:
         """Retourne (chi2_stat, p_value) pour k=ALPHA classes."""
@@ -349,23 +375,38 @@ class TestChiSquare(unittest.TestCase):
         chi2, p = st.chisquare(obs, [exp] * ALPHA)
         return chi2, p
 
-    def test_chisq_carter_256(self):
+    def _run(self, label, encode_fn, *args):
         try:
             import scipy.stats
         except ImportError:
             self.skipTest("scipy non installe")
-        p_values = []
+        chi2_values, p_values = [], []
         for _ in range(self.N_GRIDS):
             key  = os.urandom(32)
-            grid = encode_carter(self.MSG, key, self.ref256)
-            _, p = self._chisq(_grid_flat(grid))
+            grid = encode_fn(self.MSG, key, *args)
+            chi2, p = self._chisq(_grid_flat(grid))
+            chi2_values.append(chi2)
             p_values.append(p)
         bad = sum(1 for p in p_values if p < CHI2_PVALUE_MIN)
         self.assertLessEqual(bad, 2,
-            f"Chi2 : trop de grilles non uniformes ({bad}/{self.N_GRIDS})")
+            f"Chi2 {label} : trop de grilles non uniformes ({bad}/{self.N_GRIDS})")
+        mean_c = statistics.mean(chi2_values)
         mean_p = statistics.mean(p_values)
-        print(f"  Chi2 Carter 256 : mean_p={mean_p:.3f}  "
+        print(f"  Chi2 {label} : mean={mean_c:.1f}  mean_p={mean_p:.3f}  "
               f"echecs={bad}/{self.N_GRIDS}")
+
+    def test_chisq_carter_256(self):
+        self._run("Carter 256", encode_carter, self.ref256)
+
+    def test_chisq_carter_360(self):
+        """Ajoute 2026-09-12 -- absent jusqu'ici, seul Carter-256 avait un
+        test chi2 dedie parmi les variantes a referent fixe (256/360/Mix),
+        contrairement a Random/18/Hybrid qui en ont chacun un."""
+        self._run("Carter 360", encode_carter_360, self.ref360)
+
+    def test_chisq_carter_mix(self):
+        """Ajoute 2026-09-12 -- voir test_chisq_carter_360."""
+        self._run("Carter Mix", encode_carter_mix, self.ref256, self.ref360)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -762,7 +803,8 @@ class TestCarterRandomAvalanche(unittest.TestCase):
     On mesure a la place :
     1. Grammaire (roles des blocs) : flip 1 bit -> HKDF derive une grammaire
        entierement differente -> >35% des blocs changent de role.
-    2. Cellules message : les symboles chiffres changent a ~97% (ChaCha20-HKDF).
+    2. Cellules message : les symboles chiffres changent a ~97%
+       (XChaCha20-Poly1305 + masques derives par HKDF).
     """
 
     BITS = 16
@@ -800,7 +842,9 @@ class TestCarterRandomAvalanche(unittest.TestCase):
     def test_message_cell_avalanche(self):
         """
         Avalanche des symboles message : flip 1 bit cle -> >80% des symboles
-        chiffres changent (propriete de ChaCha20-HKDF + masques HKDF).
+        chiffres changent (propriete de XChaCha20-Poly1305 + masques
+        derives par HKDF -- ces derniers, contrairement au chiffrement,
+        utilisent bien HKDF, voir _derive_masks).
 
         Utilise payload_to_symbols() (le meme flux de symboles que produisent
         les encodeurs Carter en production) plutot qu'une conversion octet
@@ -826,7 +870,7 @@ class TestCarterRandomAvalanche(unittest.TestCase):
         mean = statistics.mean(ratios)
         self.assertGreater(mean, 0.80,
             f"Avalanche symboles message : {mean:.3f} < 0.80")
-        print(f"  Avalanche msg symboles : mean={mean:.3f} (attendu >0.80 — ChaCha20-HKDF)")
+        print(f"  Avalanche msg symboles : mean={mean:.3f} (attendu >0.80 — XChaCha20-Poly1305 + masques HKDF)")
 
 
 class TestCarter18Statistical(unittest.TestCase):

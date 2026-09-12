@@ -57,6 +57,43 @@ avec une capacité médiane supérieure montre qu'il l'emporte sur un
 sous-ensemble de clés où sa géométrie concentrique rend mieux que le
 découpage bloc à bloc.
 
+### 1.2 Carter-Mix — répartition des méta-blocs entre Ref256 et Ref360
+
+Carter-Mix (§1) affiche une capacité médiane (2394) quasiment identique à
+Carter-360 seul (2389). Vérifié le 2026-09-12 (mesure dédiée, N=3000
+clés, `carter._carter_mix_grammar`/`_mix_positions` appelées directement,
+production, jamais réimplémenté) : **le mélange fonctionne toujours** —
+ce n'est pas une panne, c'est une conséquence attendue du câblage.
+
+| Mesure | Résultat |
+|---|--:|
+| Blocs message tirés Ref256 (fraction) | 49,97 % ± 5,78 % (std) |
+| Blocs message tirés Ref360 (fraction) | 50,03 % ± 5,78 % (std) |
+| Positions totales issues de Ref256 | 50,0 % du total |
+| Positions totales issues de Ref360 | 50,0 % du total |
+| Positions moyennes / bloc message Ref256 | 48,00 (4 sous-blocs 6×6 × 12, réplication identique) |
+| Positions moyennes / bloc message Ref360 | 48,01 (union des violettes, 6 niveaux) |
+
+Le tirage `ref = REF256 si octet<128 sinon REF360` (`carter.py::_carter_
+mix_grammar`) reste un tirage 50/50 sans biais, intact. Ce qui a changé,
+c'est qu'**avant le câblage production, Ref256 et Ref360 ne rendaient PAS
+le même nombre de positions stégano par bloc** (ancien schéma : une seule
+couleur lue, comptage différent selon le référent) — Carter-Mix
+produisait alors une capacité dépendant réellement de LA PROPORTION de
+blocs tirés de chaque référent pour une clé donnée. Depuis que la règle
+de lecture v3 fait converger les deux référents vers ~48 positions/bloc
+chacun (rouge+bleu ensemble pour Ref256, union multi-niveaux pour
+Ref360), **mélanger les deux à 50/50 produit une distribution de
+capacité statistiquement indiscernable de Carter-360 seul** — la variable
+"quel référent tire ce bloc" n'a presque plus d'effet sur la capacité
+totale, seulement sur la forme géométrique de chaque bloc. Ce n'est donc
+plus un mélange de deux capacités différentes, mais un mélange de deux
+GÉOMÉTRIES à capacité équivalente — une réduction réelle, mais attendue,
+de ce que Carter-Mix apporte par rapport à Carter-360 seul en termes de
+capacité (la valeur ajoutée de Carter-Mix reste entière du point de vue
+de l'indistinguabilité géométrique : un observateur ne sait toujours pas,
+sans clé, si un bloc donné vient de Ref256 ou de Ref360).
+
 ## 2. Propriétés statistiques (indistinguabilité, avalanche, dérivation)
 
 Mesuré le 2026-09-12 (`stegano/test_statistical.py`, suite complète
@@ -79,59 +116,101 @@ cet environnement).
 ### 2.2 Chi² d'indistinguabilité (grille vs. bruit uniforme)
 
 Seuil retenu : α=0,001, df=43 → chi²≤77,42 (α=0,05 → 59,3, réservé pour
-comparaison). `échecs` = nombre de tirages (sur 10, sauf Carter 256/360/
-Mix : voir note) dépassant le seuil.
+comparaison). `échecs` = nombre de tirages (sur 10) dépassant le seuil.
+
+**Correction (2026-09-12) :** Carter-360 et Carter-Mix n'avaient jusqu'ici
+AUCUN test chi² dédié dans la suite — seul Carter-256 en avait un
+(`test_chisq_carter_256`, χ² moyen jamais imprimé, seul `p` moyen
+l'était). Corrigé : `stegano/test_statistical.py::TestChiSquare` factorise
+maintenant la mesure (`_run`) et l'applique aux trois variantes, avec le
+χ² moyen exposé pour chacune.
 
 | Variante | chi² moyen | p moyen | Échecs/tirages |
 |---|--:|--:|--:|
+| Carter 256 | 45,7 | 0,458 | 0/10 |
+| Carter 360 | 45,5 | 0,439 | 0/10 |
+| Carter Mix | 37,6 | 0,674 | 0/10 |
 | Random 90 | 40,3 | 0,591 | 0/10 |
 | Random 360 | 45,6 | 0,445 | 0/10 |
 | Carter-18 | 37,4 | 0,658 | 0/10 |
 | Carter-Hybrid | 41,0 | 0,552 | 0/10 |
-| Carter 256/360/Mix | — (p moyen rapporté seul) | 0,564 | 0/10 |
 
 ### 2.3 Autres propriétés (Carter-256, sauf mention contraire)
 
 | Propriété | Mesure | Attendu |
 |---|---|---|
-| Autocorrélation spatiale (max_r) | 0,0209 | < 2/√8100 = 0,0222 |
-| Sensibilité à la clé (ChaCha20-HKDF) | mean=0,497 | ~0,50 |
-| Avalanche de grammaire (Carter-256) | mean=0,432 | > 0,35 |
-| Avalanche de grammaire (Carter-18) | mean=0,490 | > 0,35 |
-| Avalanche de grammaire (Carter-Hybrid) | mean=0,415 | > 0,35 |
-| Avalanche de grammaire (moyenne globale) | mean=0,436 | ~0,44 (théorique) |
-| Avalanche message (cellules message) | mean=1,270 (n=12) | — |
-| Avalanche message (symboles) | mean=0,974 | > 0,80 |
-| Entropie ChaCha20-HKDF (bit à bit) | 0,9995 bits/bit (prop. 1 = 0,5125) | ~1,0 |
-| Longueur masquée (1 vs 49 car.) | 8 paires, n=7260, chi²=47,1, p=0,3071 | p non significatif |
-| PtS chi² (nbytes=32, m=59, N=3000) | chi²=57,2, p=0,0717 | p non significatif |
-| Corrélation série | chi²=101,9, df=1849, ratio=0,055 | ratio < 1 |
-| Deux grilles (msgs différents, même clé) | 8 paires, n=7080, chi²=39,5, p=0,6245 | p non significatif |
+| Autocorrélation spatiale (max_r) | 0,0100 | < 2/√8100 = 0,0222 |
+| Sensibilité à la clé (XChaCha20-Poly1305) | mean=0,495 | ~0,50 |
+| Avalanche de grammaire (Carter-256) | mean=0,437 | > 0,35 |
+| Avalanche de grammaire (Carter-18) | mean=0,395 | > 0,35 |
+| Avalanche de grammaire (Carter-Hybrid) | mean=0,465 | > 0,35 |
+| Avalanche de grammaire (moyenne globale) | mean=0,453 | ~0,44 (théorique) |
+| Avalanche message (cellules message) | mean=0,978 (n=12) | > 0,20 |
+| Avalanche message (symboles) | mean=0,981 | > 0,80 |
+| Entropie XChaCha20-Poly1305 (bit à bit) | 0,9999 bits/bit (prop. 1 = 0,4946) | ~1,0 |
+| Longueur masquée (1 vs 49 car.) | 8 paires, n=6936, chi²=41,4, p=0,5425 | p non significatif |
+| PtS chi² (nbytes=32, m=59, N=3000) | chi²=50,4, p=0,2038 | p non significatif |
+| Corrélation série | chi²=37,6, df=1849, ratio=0,020 | ratio < 1 |
+| Deux grilles (msgs différents, même clé) | 8 paires, n=7704, chi²=43,6, p=0,4444 | p non significatif |
 | Round-trip Carter-18 | 20/20 clés valides, 0 échec | 0 échec |
 | Round-trip Carter-Hybrid | 20/20 clés valides, 0 échec | 0 échec |
 | Round-trip Carter-Random (30/100/150 car.) | 0,0 % refus (0/500 clés, les 3 longueurs) | < 2 % à 30 car. |
 
+**Corrections (2026-09-12), deux libellés et une mesure :**
+
+- « ChaCha20-HKDF » (sensibilité à la clé, entropie) renommé
+  « XChaCha20-Poly1305 » : nom hérité de l'ANCIENNE construction à
+  sous-clé dérivée par HKDF, remplacée par HChaCha20 natif
+  (draft-irtf-cfrg-xchacha, `crypto_core.hchacha20`/`_xchacha20_enc`,
+  tâche 1 du format v3). La mesure elle-même portait déjà sur la
+  construction ACTUELLE — seul le nom était périmé. « Avalanche message
+  (symboles) » reste correctement attribuée à « XChaCha20-Poly1305 +
+  masques HKDF » : les MASQUES, contrairement au chiffrement, utilisent
+  bien HKDF (`_derive_masks`) — ce n'est pas la même construction que le
+  chiffrement du message, et son nom était déjà correct.
+- **Avalanche message (cellules message) : 1,270 → 0,978, bug corrigé.**
+  Une proportion ne peut pas dépasser 1 — c'était un bug de test, pas une
+  propriété du système. `test_avalanche_message_bits` calculait son
+  dénominateur (`n_msg_positions`, le nombre de positions message) via
+  `_carter_grammar()` seule (la grammaire BRUTE au compteur de redraw
+  ctr=0), alors que les grilles comparées sont produites par
+  `encode_carter()`, qui applique en interne la recherche de redraw
+  (`_find_grammar_with_c_pub`, tâche 4) : pour une clé dont le tirage
+  ctr=0 est sous C_PUB=399 (environ la moitié des clés aléatoires, voir
+  §1 — c'est le mécanisme même qui garantit `min ≥ C_PUB`), le VRAI
+  n_pos utilisé par `encode_carter()` est plus grand que celui calculé
+  par le test, et le nombre de cellules différentes (compté sur les
+  grilles réelles, donc sur le vrai n_pos) peut dépasser ce dénominateur
+  trop petit. Corrigé en dérivant `n_msg_positions` via
+  `carter_capacity()['nibbles']`, qui reflète le n_pos RÉEL après redraw
+  — la même valeur qu'utilise `encode_carter()`. La valeur corrigée
+  (0,978) est cohérente avec ce que le test cherche à démontrer : un
+  seul bit de message change TOUT le commitment (32 octets HMAC-SHA256)
+  et TOUT le tag Poly1305 (16 octets) en plus de l'octet de texte chiffré
+  lui-même, un avalanche quasi total sur les cellules message.
+
 Ces mesures varient légèrement d'un lancement à l'autre (tirages
 aléatoires, pas de graine fixe) : les valeurs ci-dessus sont celles d'un
-lancement représentatif de la suite verte au 2026-09-12, pas des
-constantes figées — seuls les SEUILS (attendu) sont contractuels.
+lancement représentatif de la suite verte au 2026-09-12 (post-corrections
+ci-dessus), pas des constantes figées — seuls les SEUILS (attendu) sont
+contractuels.
 
 ## 3. Couverture de tests
 
 | Fichier | Tests | Contenu |
 |---|--:|---|
 | `stegano/test_regression.py` | 49 | Vecteurs XChaCha20, dérivation de clés, grammaire Carter, format payload, fixtures, round-trip de bout en bout, variantes classiques, C_PUB |
-| `stegano/test_statistical.py` | 30 | Entropie, chi², avalanche, autocorrélation, corrélation série, capacité Carter-Random (individuel/méta) |
+| `stegano/test_statistical.py` | 32 | Entropie, chi² (256/360/Mix/Random90/360/18/Hybrid), avalanche, autocorrélation, corrélation série, capacité Carter-Random (individuel/méta) |
 | `stegano/test_sweep.py` | 12 | Balayages (8), `derive_sweep_index`, `sort_by_sweep`, `crypto_reading_order` |
 | `stegano/test_referent_360_v3.py` | 11 | Structure du référent 360, `c_pub` absent, `referent_id` stable |
 | `stegano/test_referent6x6_v3.py` | 9 | Génération ChaCha20 (256 référents), `select_referent_index`, `c_pub` absent |
+| `stegano/test_vectors_regeneration.py` | 9 | Régénération bit-exacte de `vectors/carter_v3.json`, décodage depuis grille régénérée/stockée (256, 360 et déni auto-contenus) |
 | `stegano/test_vectors_isolation.py` | 8 | Chargeur unique du référent 360, comportement par défaut inchangé sans injection |
-| `stegano/test_vectors_regeneration.py` | 7 | Régénération bit-exacte de `vectors/carter_v3.json`, décodage depuis grille régénérée/stockée |
-| **Total `stegano/`** | **126** | |
+| **Total `stegano/`** | **130** | |
 | `secubox/test_secu_box.py` | 15 | Identités X25519, session authentifiée, déni plausible (structure, statistique, round-trip) |
 | **Total `secubox/`** | **15** | |
 | `stegano/legacy/test_grid_90.py` | 4 | grid_90.py (hors production, voir §"Hors périmètre" de REFERENT_FORMAT_V3.md) |
-| **Total général** | **145** | |
+| **Total général** | **149** | |
 
 Aucun test marqué `skip` dans cette suite au 2026-09-12 (scipy installé
 dans cet environnement — les branches `skipTest("scipy non installe")`
