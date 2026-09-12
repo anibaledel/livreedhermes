@@ -1,0 +1,110 @@
+{
+  "_avertissement": "Fichier généré — voir gen_vecteurs.py. Ne pas éditer à la main. Vérifier avec verify_vecteurs.py.",
+  "x3dh_triple_dh": {
+    "algorithme": "X25519 triple DH (DH_ee, DH_es, DH_se) + HKDF-SHA256, voir secu_box.py Session.derive()",
+    "note": "km = HKDF-SHA256(ikm=dh_ee+cross, salt=_SESSION_INFO, info=ids+ephs, L=64). cross/ids/ephs ordonnés par comparaison des identités publiques (la plus petite en premier).",
+    "session_info": "SecuBox-Session-v2-3dh",
+    "vecteurs": {
+      "cas_1_ordre_a_lt_b": {
+        "identite_a_privee": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "ephemere_a_privee": "202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+        "identite_b_privee": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "ephemere_b_privee": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "identite_a_publique": "8f40c5adb68f25624ae5b214ea767a6ec94d829d3d7b5e1ad1ba6f3e2138285f",
+        "ephemere_a_publique": "358072d6365880d1aeea329adf9121383851ed21a28e3b75e965d0d2cd166254",
+        "identite_b_publique": "14ca9e4d387bccf35746e0407daaacc6b28a4f8445ef5a5158894db983e24070",
+        "ephemere_b_publique": "6b0b616d718e53691236d3be3ce6d44f9d28836426d81305d131f488206f8d2b",
+        "km_attendu": "0e959b2bc00d79766707c5f61abded0f0eff15d8e9e244cc1333fad9f02c67ea7736847f61df52411aac89986b455f2e881b7b2c540684438350cc2558790dad",
+        "session_id_attendu": "7cc915c61f2bcfd1"
+      },
+      "cas_2_cles_nulles_privees": {
+        "identite_a_privee": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ephemere_a_privee": "0100000000000000000000000000000000000000000000000000000000000000",
+        "identite_b_privee": "0200000000000000000000000000000000000000000000000000000000000000",
+        "ephemere_b_privee": "0300000000000000000000000000000000000000000000000000000000000000",
+        "identite_a_publique": "2fe57da347cd62431528daac5fbb290730fff684afc4cfc2ed90995f58cb3b74",
+        "ephemere_a_publique": "2fe57da347cd62431528daac5fbb290730fff684afc4cfc2ed90995f58cb3b74",
+        "identite_b_publique": "2fe57da347cd62431528daac5fbb290730fff684afc4cfc2ed90995f58cb3b74",
+        "ephemere_b_publique": "2fe57da347cd62431528daac5fbb290730fff684afc4cfc2ed90995f58cb3b74",
+        "km_attendu": "f8d5a33c1480a9a1a6905c5d9e3c237d83b9ad5bc208c7a119f6ef7ddb3227030d2de660e257378351d2f4993bb54634b643909e034dc2705af8717b54a7c4d1",
+        "session_id_attendu": "64814ec247cfe01d"
+      }
+    }
+  },
+  "vault_argon2id": {
+    "algorithme": "Argon2id(master_key, salt[:16]) -> km ; HKDF-SHA256(salt=salt, info=label).derive(km) par sous-clé",
+    "etiquettes_hkdf_v2": {
+      "manifest": "SecuBox-Vault-Manifest-v2",
+      "mac": "SecuBox-Vault-MAC-v2",
+      "entry": "SecuBox-Vault-Entry-v2:<nom_entree>"
+    },
+    "avertissement": "time_cost=3, memory_cost=64Mo — chaque vecteur prend plusieurs centaines de ms à recalculer, c'est voulu.",
+    "vecteurs": {
+      "cas_1": {
+        "master_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "salt": "5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a",
+        "parametres_argon2id": {
+          "time_cost": 3,
+          "memory_cost": 65536,
+          "parallelism": 4,
+          "hash_len": 64,
+          "type": "Argon2id"
+        },
+        "km_attendu": "2e3956bd5f56c89eecf722685388fe6db59c820726b302e1d1c8b884e68f2ff2ebdb74ef7501cdb1ec665638148de64e6e40aa44d9857bdb1ec09891b7204412",
+        "manifest_key_attendue": "a5048938ce530ab748b53f9075b336acc2d0fea7f329c6e9401c9bfc0415ebf5",
+        "mac_key_attendue": "bd7ad23c36d35d5f409b61e0cdb31c577bed69a406498dbb7b227b8067025715",
+        "entry_key_attendue_pour_mon_secret.txt": "d0390083e524cdb2ea294afe8a7e93c63ff6980869db8397695ef3e8520b585a"
+      },
+      "cas_2_master_key_nulle": {
+        "master_key": "0000000000000000000000000000000000000000000000000000000000000000",
+        "salt": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "parametres_argon2id": {
+          "time_cost": 3,
+          "memory_cost": 65536,
+          "parallelism": 4,
+          "hash_len": 64,
+          "type": "Argon2id"
+        },
+        "km_attendu": "8b1887d7801e8df22d6c86bea3580d7d0bc69f31004048f38aaa834ef2cd3ba8eab58df056e072efaff9ca4c6798cdac272fa8fc1bb05d717bbcb82b659b7128",
+        "manifest_key_attendue": "87d3936473c345410c8f8861c8dbef9cb382519d36a3db0adbdd6ae0ceb50470",
+        "mac_key_attendue": "b20a24ce26d9ac770ae4f2043f29939b18becc1531f05e3a6f9fec879a3d108e",
+        "entry_key_attendue_pour_mon_secret.txt": "e6310e03ff6bb4f9f6dc3ef6532d93d9f9bf580aef4f1a788b3c8bad23abbf9f"
+      }
+    }
+  },
+  "lldh_aead_v1": {
+    "algorithme": "Voir SPEC-LLDH-AEAD-v1.md — ChaCha20-Poly1305 à nonce étendu 24 octets, sous-clé par HKDF-SHA256 (PAS HChaCha20 : non interopérable avec XChaCha20-Poly1305 standard)",
+    "vecteurs": {
+      "cas_1_message_court": {
+        "key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+        "nonce_24_octets": "202122232425262728292a2b2c2d2e2f3031323334353637",
+        "plaintext_ascii": "BONJOUR MONDE",
+        "subkey_attendue": "ba460236e087e02175b163b20c0397baae05b5c46796ee2ad1f4ea70d5bc8c28",
+        "commit_key_attendue": "5dedff3fe26bed4887c46e517e85e49619c4965c6b59c11467976df15fa5c848",
+        "ciphertext_plus_tag_attendu": "d2a1db2c9c78fd02bfa63faff31c6696a39556cda68c762ae6246607a0",
+        "commit_attendu": "4c790b676797a8518833b38dea54833bab78fdae762edec85f628cc451399133",
+        "payload_complet_attendu": "4c790b676797a8518833b38dea54833bab78fdae762edec85f628cc451399133202122232425262728292a2b2c2d2e2f3031323334353637d2a1db2c9c78fd02bfa63faff31c6696a39556cda68c762ae6246607a0"
+      },
+      "cas_2_message_vide": {
+        "key": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "nonce_24_octets": "000102030405060708090a0b0c0d0e0f1011121314151617",
+        "plaintext_ascii": "",
+        "subkey_attendue": "7ae499129a89d6ae98ce4a88e7379bce41f582bae376c4807f08a93f40373892",
+        "commit_key_attendue": "169764c2f3389839497aa6a1fb0ab980e517e4e73492114934a4f97060d93d59",
+        "ciphertext_plus_tag_attendu": "7949e8459fb2f94de16244bc31f8f1b2",
+        "commit_attendu": "4f478529bba6e7ebff5c7b130c9908b356438cef34b252b65c0c58ff0e37405c",
+        "payload_complet_attendu": "4f478529bba6e7ebff5c7b130c9908b356438cef34b252b65c0c58ff0e37405c000102030405060708090a0b0c0d0e0f10111213141516177949e8459fb2f94de16244bc31f8f1b2"
+      },
+      "cas_3_alphabet_complet": {
+        "key": "0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f20",
+        "nonce_24_octets": "c8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf",
+        "plaintext_ascii": " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-",
+        "subkey_attendue": "939cae51a37db2108d564053cde1de3d23c63b0de59af655c465ff777655cff7",
+        "commit_key_attendue": "eb49742879d12998051e025d8a59e35cb3c84a89f8c96b1ba3359318e56bb337",
+        "ciphertext_plus_tag_attendu": "134c03a3784bc65203c80d6cfd3003c2b5525769f05a36ba0a4f2209bf771d7ecb0011a679187ebcb73de097e00267121e46a42bea32f80d176f9cac",
+        "commit_attendu": "753af99a465b05d2264bd728330e8e4e91a4d4f61bd46000d2a10b286e23e09d",
+        "payload_complet_attendu": "753af99a465b05d2264bd728330e8e4e91a4d4f61bd46000d2a10b286e23e09dc8c9cacbcccdcecfd0d1d2d3d4d5d6d7d8d9dadbdcdddedf134c03a3784bc65203c80d6cfd3003c2b5525769f05a36ba0a4f2209bf771d7ecb0011a679187ebcb73de097e00267121e46a42bea32f80d176f9cac"
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+theory SecuBoxX3DH
+begin
+
+/*
+ * Modèle Tamarin — établissement de session X3DH triple-DH (secu_box.py).
+ *
+ * ÉCRIT MAIS NON EXÉCUTÉ dans cet environnement : Tamarin Prover (et sa
+ * dépendance Maude) ne sont pas installés, et aucun accès réseau fiable
+ * ne permet de les récupérer ici (paquets absents d'apt, github.com
+ * inaccessible via le proxy de cet environnement). Ce fichier est prêt à
+ * l'emploi pour quiconque dispose de l'outillage :
+ *
+ *     tamarin-prover session_x3dh.spthy --prove
+ *
+ * (Tamarin Prover >= 1.8, https://tamarin-prover.github.io/)
+ *
+ * Portée : modélise UNIQUEMENT l'établissement de session — les trois
+ * Diffie-Hellman (DH_ee, DH_es, DH_se) et la dérivation HKDF qui en sort
+ * km. Les modes de dissimulation géométrique (Carter, déni plausible…)
+ * ne sont pas des protocoles à proprement parler — rien à vérifier
+ * formellement au sens de Tamarin/ProVerif au-delà de ce qui l'est déjà
+ * par exécution (voir secu_box.py, LH-2 v3).
+ *
+ * Correspondance avec le code (secu_box.py) :
+ *   - Identity        -> le canal long terme (~ltk)
+ *   - Session.__init__ -> génère l'éphémère (~eph)
+ *   - Session.offer()  -> publie (pk(~ltk), pk(~eph)) sur le réseau
+ *   - Session.derive() -> calcule dh_ee/dh_es/dh_se, ordonne par
+ *                         comparaison des identités publiques, dérive km
+ *   - _SESSION_INFO     -> constante publique, entre dans le sel HKDF
+ */
+
+builtins: diffie-hellman, hashing
+
+functions:
+    hkdf/2      // hkdf(ikm, info) -> matériel dérivé. Abstraction de HKDF-SHA256 :
+                // Tamarin n'a pas de HKDF natif, on le modélise comme une
+                // fonction libre à sens unique (pas d'équation), ce qui est
+                // l'abstraction standard pour une PRF dans ce cadre.
+    session_id/1
+
+/*
+ * Ordre canonique : DH_es et DH_se sont échangés selon min(idA, idB).
+ * Tamarin n'a pas de comparaison native sur les termes ; on modélise
+ * l'ordre par une règle par PARTIE (chaque partie sait si elle est
+ * "premier" ou "second" — dans le code réel, cette information vient de
+ * la comparaison des clés publiques, dont l'issue est stable et connue
+ * des deux côtés). Pour ne pas complexifier inutilement le modèle, les
+ * deux rôles (initiateur/répondeur) fixent l'ordre par construction —
+ * fidèle à l'algorithme, puisque min(A,B) est déterministe et identique
+ * des deux côtés dans l'implémentation réelle.
+ */
+
+rule GenerateLongTermKey:
+    [ Fr(~ltk) ]
+  --[ LongTermKey($A, ~ltk) ]->
+    [ !Ltk($A, ~ltk), !Pk($A, pk(~ltk)), Out(pk(~ltk)) ]
+
+rule RevealLongTermKey:
+    [ !Ltk($A, ~ltk) ]
+  --[ RevealLtk($A) ]->
+    [ Out(~ltk) ]
+
+/*
+ * Initiateur : génère son éphémère, publie l'offer, attend celle du
+ * correspondant, calcule les trois DH dans l'ordre "initiateur premier"
+ * (correspond au cas my_id < their_id dans secu_box.py), dérive km.
+ */
+rule Initiator_1_SendOffer:
+    [ Fr(~eph_i), !Ltk($I, ~ltk_i) ]
+  --[ EphemeralKey($I, ~eph_i) ]->
+    [ St_Init_1($I, ~ltk_i, ~eph_i),
+      Out(<pk(~ltk_i), pk(~eph_i)>) ]
+
+rule Initiator_2_Derive:
+    [ St_Init_1($I, ~ltk_i, ~eph_i),
+      In(<pk_id_r, pk_eph_r>) ]
+  --[ SessionKey($I, hkdf(<'ee', pk_eph_r^~eph_i,
+                           'es', pk_id_r^~eph_i,
+                           'se', pk_eph_r^~ltk_i>, 'initiator-order')),
+      Role($I, 'initiator'),
+      Commit($I, <pk(~ltk_i), pk_id_r, pk(~eph_i), pk_eph_r>) ]->
+    [ St_Init_Done($I,
+        hkdf(<'ee', pk_eph_r^~eph_i, 'es', pk_id_r^~eph_i, 'se', pk_eph_r^~ltk_i>,
+             'initiator-order')) ]
+
+/*
+ * Répondeur : symétrique, ordre "second" — DH_es et DH_se échangent leurs
+ * rôles par rapport à l'initiateur, comme dans le code réel où my_id >
+ * their_id fait cross = dh_se + dh_es côté répondeur.
+ */
+rule Responder_1_ReceiveOffer:
+    [ !Ltk($R, ~ltk_r), Fr(~eph_r), In(<pk_id_i, pk_eph_i>) ]
+  --[ EphemeralKey($R, ~eph_r) ]->
+    [ St_Resp_1($R, ~ltk_r, ~eph_r, pk_id_i, pk_eph_i),
+      Out(<pk(~ltk_r), pk(~eph_r)>) ]
+
+rule Responder_2_Derive:
+    [ St_Resp_1($R, ~ltk_r, ~eph_r, pk_id_i, pk_eph_i) ]
+  --[ SessionKey($R, hkdf(<'ee', pk_eph_i^~eph_r,
+                           'es', pk_eph_i^~ltk_r,
+                           'se', pk_id_i^~eph_r>, 'initiator-order')),
+      Role($R, 'responder'),
+      Commit($R, <pk_id_i, pk(~ltk_r), pk_eph_i, pk(~eph_r)>) ]->
+    [ St_Resp_Done($R,
+        hkdf(<'ee', pk_eph_i^~eph_r, 'es', pk_eph_i^~ltk_r, 'se', pk_id_i^~eph_r>,
+             'initiator-order')) ]
+
+/*
+ * NOTE DE MODÉLISATION — accord sur km entre les deux rôles :
+ *
+ * Le code réel ordonne cross=dh_es+dh_se selon min(idA,idB), IDENTIQUE
+ * des deux côtés, si bien que 'ee'+'es'+'se' dans le même ordre donne la
+ * MÊME valeur pour les deux parties (dh_ee est symétrique par
+ * construction Diffie-Hellman : pk_eph_r^eph_i = pk_eph_i^eph_r ;
+ * dh_es et dh_se sont eux aussi symétriques pris ensemble, puisque
+ * pk_id_r^eph_i = pk_eph_i^ltk_r, la même valeur vue par les deux
+ * parties selon QUI calcule quoi). Les règles ci-dessus fixent le même
+ * ordre lexical ('ee','es','se') pour les deux rôles avec la même
+ * disposition des exposants — modélisation fidèle à l'accord réel, sans
+ * introduire de branchement sur une comparaison min(idA,idB) que Tamarin
+ * ne sait pas exprimer nativement de façon légère.
+ *
+ * PROPRIÉTÉS À PROUVER (déclaratives, pour qui exécute ce modèle) :
+ */
+
+// (1) Secret — la clé de session dérivée n'est jamais connue de
+//     l'attaquant, sauf compromission explicite d'une clé long terme ou
+//     éphémère impliquée dans SA dérivation.
+lemma session_key_secret:
+  "All A k #i.
+    SessionKey(A, k) @ #i
+    ==>
+    not (Ex #j. K(k) @ #j)
+    | (Ex #r. RevealLtk(A) @ #r)"
+
+// (2) Authentification non-injective — si l'initiateur I termine avec une
+//     session qu'il croit partagée avec R (transcript Commit), alors R a
+//     bien exécuté une session avec le même transcript, SAUF si l'une des
+//     deux clés long terme impliquées a été révélée. C'est la propriété
+//     que le fingerprint hors bande est censé garantir (voir le
+//     commentaire d'origine dans secu_box.py : « le fingerprint vérifié
+//     ne protégeait rien » avant le triple DH — cette lemme est
+//     précisément ce que le correctif visait à obtenir).
+lemma session_authentication:
+  "All I transcript #i.
+    Commit(I, transcript) @ #i & Role(I, 'initiator')
+    ==>
+    (Ex R #j. Commit(R, transcript) @ #j & Role(R, 'responder'))
+    | (Ex A #r. RevealLtk(A) @ #r)"
+
+// (3) Secret persistant (forward secrecy) au niveau session — la
+//     compromission d'une clé long terme APRÈS qu'une session a été
+//     dérivée ne révèle pas la clé de CETTE session, parce que
+//     l'éphémère qui y entre n'est jamais stocké (voir secu_box.py :
+//     « del self._eph, dh_ee, dh_es, dh_se, cross » après derive()).
+//     Modélisé ici par l'ABSENCE de règle qui exposerait ~eph une fois
+//     la session dérivée : seule RevealLongTermKey existe, pas de
+//     RevealEphemeral après Initiator_2_Derive/Responder_2_Derive.
+lemma forward_secrecy_after_derive:
+  "All A k #i #r.
+    SessionKey(A, k) @ #i & RevealLtk(A) @ #r & #i < #r
+    ==>
+    not (Ex #j. K(k) @ #j)"
+
+end

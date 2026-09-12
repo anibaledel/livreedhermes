@@ -1,0 +1,150 @@
+(*
+ * Modèle ProVerif — établissement de session X3DH triple-DH (secu_box.py).
+ *
+ * ÉCRIT MAIS NON EXÉCUTÉ dans cet environnement : ProVerif (OCaml, build
+ * depuis les sources) n'est pas installé et aucun accès réseau fiable ne
+ * permet de le récupérer ici (pas de paquet apt, dépôt source
+ * inaccessible via le proxy de cet environnement). Prêt à l'emploi pour
+ * qui dispose de l'outillage :
+ *
+ *     proverif session_x3dh.pv
+ *
+ * (ProVerif >= 2.05, https://bblanche.gitlabpages.inria.fr/proverif/)
+ *
+ * Modélise le MÊME protocole que session_x3dh.spthy (Tamarin), avec la
+ * même portée : le triple DH et la dérivation HKDF de secu_box.py, pas
+ * les modes de dissimulation géométrique. Les deux modèles sont
+ * volontairement écrits indépendamment plutôt que traduits l'un de
+ * l'autre mécaniquement — deux modélisations convergentes d'un même
+ * protocole se corrigent mutuellement les erreurs de modélisation qu'un
+ * seul outil ne peut pas révéler.
+ *)
+
+(* Groupe Diffie-Hellman abstrait, exponentiation commutative. *)
+type G.
+type expo.
+
+const g: G [data].
+fun exp(G, expo): G.
+equation forall x: expo, y: expo; exp(exp(g, x), y) = exp(exp(g, y), x).
+
+(* HKDF-SHA256, abstrait en fonction libre à sens unique — pas d'équation,
+   c'est l'abstraction standard d'une PRF dans ce cadre. *)
+fun hkdf(bitstring, bitstring): bitstring.
+
+(* Chiffrement symétrique standard (idiome courant de la bibliothèque
+   d'exemples ProVerif), utilisé uniquement comme témoin observable pour
+   la requête de secret : si l'attaquant distingue senc(km, km) d'un
+   aléa, il connaît km. *)
+fun senc(bitstring, bitstring): bitstring.
+reduc forall m: bitstring, k: bitstring; sdec(senc(m, k), k) = m.
+
+free c: channel.
+
+(* Événements — pour les requêtes d'authentification et de secret. *)
+event SessionKeyInit(G, bitstring).
+event SessionKeyResp(G, bitstring).
+event CommitInit(G, G, G, G).
+event CommitResp(G, G, G, G).
+event RevealLtk(G).
+
+(* Clé de session révélée à l'attaquant seulement si annoncée — table
+   utilisée pour la requête de secret conditionnel (voir plus bas). *)
+table compromised(G).
+
+(*
+ * Initiateur — identité de clé privée ltk_i, génère un éphémère eph_i,
+ * publie (pk_ltk_i, pk_eph_i), reçoit (pk_id_r, pk_eph_r), calcule les
+ * trois DH et dérive km. Ordre "initiateur" : ('ee','es','se') avec
+ * dh_es = pk_id_r^eph_i, dh_se = pk_eph_r^ltk_i — fidèle au cas
+ * my_id < their_id de secu_box.py.
+ *)
+let Initiator(ltk_i: expo) =
+    new eph_i: expo;
+    let pk_ltk_i = exp(g, ltk_i) in
+    let pk_eph_i = exp(g, eph_i) in
+    out(c, (pk_ltk_i, pk_eph_i));
+    in(c, (pk_id_r: G, pk_eph_r: G));
+    let dh_ee = exp(pk_eph_r, eph_i) in
+    let dh_es = exp(pk_id_r, eph_i) in
+    let dh_se = exp(pk_eph_r, ltk_i) in
+    (* Simplification assumée par rapport au code réel : secu_box.py fait
+       entrer ids+ephs (les QUATRE clés publiques, concaténées dans
+       l'ordre canonique) dans l'info HKDF. Ce modèle simplifie à la
+       seule identité publique de l'initiateur, ce qui suffit à faire
+       accorder les deux rôles sur la même valeur (voir Responder :
+       pk_id_i y désigne exactement pk_ltk_i ici) sans changer les
+       propriétés de secret/authentification visées. *)
+    let km = hkdf((dh_ee, dh_es, dh_se), pk_ltk_i) in
+    event SessionKeyInit(pk_ltk_i, km);
+    event CommitInit(pk_ltk_i, pk_id_r, pk_eph_i, pk_eph_r);
+    out(c, senc(km, km))  (* fuite volontaire pour la requête reachability *)
+.
+
+(*
+ * Répondeur — symétrique, ordre "second" : dh_es = pk_eph_i^ltk_r,
+ * dh_se = pk_id_i^eph_r — fidèle au cas my_id > their_id, où
+ * cross = dh_se + dh_es côté répondeur dans secu_box.py.
+ *)
+let Responder(ltk_r: expo) =
+    new eph_r: expo;
+    let pk_ltk_r = exp(g, ltk_r) in
+    let pk_eph_r = exp(g, eph_r) in
+    in(c, (pk_id_i: G, pk_eph_i: G));
+    out(c, (pk_ltk_r, pk_eph_r));
+    let dh_ee = exp(pk_eph_i, eph_r) in
+    let dh_es = exp(pk_eph_i, ltk_r) in
+    let dh_se = exp(pk_id_i, eph_r) in
+    let km = hkdf((dh_ee, dh_es, dh_se), pk_id_i) in
+    event SessionKeyResp(pk_ltk_r, km);
+    event CommitResp(pk_id_i, pk_ltk_r, pk_eph_i, pk_eph_r)
+.
+
+let RevealIdentity(ltk: expo) =
+    event RevealLtk(exp(g, ltk));
+    out(c, ltk)
+.
+
+process
+    new ltk_a: expo; new ltk_b: expo;
+    ( !Initiator(ltk_a)
+    | !Initiator(ltk_b)
+    | !Responder(ltk_a)
+    | !Responder(ltk_b)
+    | !RevealIdentity(ltk_a)
+    | !RevealIdentity(ltk_b) )
+
+(*
+ * PROPRIÉTÉS À PROUVER (déclaratives, pour qui exécute ce modèle) :
+ *
+ * (1) Secret — la clé de session n'est jamais déductible par
+ *     l'attaquant à partir du seul trafic réseau, sans révélation d'une
+ *     clé long terme. `senc(km, km)` sert de témoin observable : si
+ *     l'attaquant peut distinguer ce chiffrement, il connaît km.
+ *
+ *     query attacker(new eph_i).  -- à ajouter par variable liée, ou :
+ *
+ * ProVerif ne permet pas de paramétrer directement une requête par un
+ * événement conditionnel de la façon dont Tamarin le permet (implication
+ * avec RevealLtk) sans restructurer le modèle en correspondance ; la
+ * forme correcte, standard pour ce genre de propriété, est :
+ *
+ *     query km: bitstring; event(SessionKeyInit(pkA, km)) ==>
+ *           attacker(km) ==> event(RevealLtk(pkA)).
+ *
+ * (2) Authentification — CommitInit(pkI, pkR, ...) implique l'existence
+ *     d'un CommitResp(pkR', pkI, ...) avec le même transcript, sauf
+ *     révélation :
+ *
+ *     query pkI: G, pkR: G, ei: G, er: G;
+ *           event(CommitInit(pkI, pkR, ei, er)) ==>
+ *           event(CommitResp(pkR, pkI, ei, er)) || event(RevealLtk(pkI))
+ *           || event(RevealLtk(pkR)).
+ *
+ * Ces deux requêtes ne sont pas exécutées ici (ProVerif absent de
+ * l'environnement) ; elles sont documentées pour être copiées dans le
+ * bloc de requêtes ProVerif au moment de l'exécution, une fois la
+ * syntaxe exacte validée par le vérificateur de types du outil (query
+ * event/attacker n'est pas 100% stable d'une version à l'autre de
+ * ProVerif — à ajuster si le typecheck le demande).
+ *)
