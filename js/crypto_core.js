@@ -109,6 +109,33 @@ function symCount(nbytes) {
 }
 
 const SYM_HEADER = symCount(4); // en-tête : longueur sur 4 octets
+const HEADER_SPAN = 1n << 32n;
+const HEADER_SLOTS = (BigInt(ALPHA_LEN) ** BigInt(SYM_HEADER)) / HEADER_SPAN;
+
+function headerToSyms(length) {
+  /** Longueur uint32 → symboles d'en-tête à entropie pleine (correctif N1). */
+  if (!Number.isInteger(length) || length < 0 || BigInt(length) >= HEADER_SPAN)
+    throw new Error(`Longueur d'en-tête hors plage : ${length}`);
+
+  let value = BigInt(length) * HEADER_SLOTS + randomBigInt(HEADER_SLOTS);
+  const out = new Array(SYM_HEADER);
+  for (let index = 0; index < SYM_HEADER; index++) {
+    out[index] = Number(value % BigInt(ALPHA_LEN));
+    value /= BigInt(ALPHA_LEN);
+  }
+  return out;
+}
+
+function symsToHeader(syms) {
+  /** Inverse de headerToSyms : le rembourrage disparaît au quotient. */
+  let value = 0n;
+  for (let index = syms.length - 1; index >= 0; index--) {
+    if (!Number.isInteger(syms[index]) || syms[index] < 0 || syms[index] >= ALPHA_LEN)
+      throw new Error(`Symbole hors plage : ${syms[index]}`);
+    value = value * BigInt(ALPHA_LEN) + BigInt(syms[index]);
+  }
+  return Number(value / HEADER_SLOTS);
+}
 
 function bytesToSyms(bytes, m) {
   /** Octets → m symboles uniformes sur [0..ALPHA_LEN-1] (BigInt). */
@@ -201,9 +228,7 @@ export async function decrypt(vals, stegKey) {
    */
   if (vals.length < SYM_HEADER)
     throw new Error('Grille trop petite');
-  const totalLen = new DataView(
-    symsToBytes(vals.slice(0, SYM_HEADER), 4).buffer
-  ).getUint32(0, false);
+  const totalLen = symsToHeader(vals.slice(0, SYM_HEADER));
   if (totalLen > MAX_PAYLOAD)
     throw new Error('En-tête invalide — clé incorrecte');
   const need = SYM_HEADER + symCount(totalLen);
@@ -235,10 +260,8 @@ export function payloadToSymbols(payload) {
    * Correspond à payload_to_symbols(payload) en Python.
    * payload : Uint8Array — retourne tableau de symboles base-44.
    */
-  const header = new Uint8Array(4);
-  new DataView(header.buffer).setUint32(0, payload.length, false);
   return [
-    ...bytesToSyms(header, SYM_HEADER),
+    ...headerToSyms(payload.length),
     ...bytesToSyms(payload, symCount(payload.length)),
   ];
 }
@@ -292,5 +315,6 @@ function randomUint32s(count) {
 
 export {
   hkdf, hmacSha256, symCount, SYM_HEADER, bytesToSyms, symsToBytes,
+  headerToSyms, symsToHeader,
   utf8ToBytes, concatBytes, randomBytes,
 };
