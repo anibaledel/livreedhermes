@@ -811,33 +811,12 @@ def carter_hybrid_fits_session(message: str, session_keys: Dict) -> bool:
     from carter_random import carter_hybrid_fits
     return carter_hybrid_fits(message, session_keys['steg_key'])
 
-def carter_random_deniable(
-    real_message:   str,
-    real_key:       bytes,
-    duress_message: str,
-    duress_key:     bytes,
-) -> tuple:
-    """
-    Déni plausible Carter Random v3 : deux grilles 90×90 indépendantes, une
-    par clé, chacune avec sa propre grammaire et ses propres référents
-    dérivés. Aucun observateur ne peut prouver laquelle est réelle.
-
-    Retourne (grid_real, grid_duress) — chaque élément est le couple
-    (grille, métadonnées) renvoyé par encode_carter_random().
-    """
-    from carter_random import encode_carter_random
-    grid_real   = encode_carter_random(real_message,   real_key)
-    grid_duress = encode_carter_random(duress_message, duress_key)
-    return grid_real, grid_duress
-
-def carter_random_deniable_360(
-    real_message:   str,
-    real_key:       bytes,
-    duress_message: str,
-    duress_key:     bytes,
-) -> tuple:
-    """Variante 180×180 de carter_random_deniable()."""
-    from carter_random import encode_carter_random_360
-    grid_real   = encode_carter_random_360(real_message,   real_key)
-    grid_duress = encode_carter_random_360(duress_message, duress_key)
-    return grid_real, grid_duress
+# carter_random_deniable/carter_random_deniable_360 (deux grilles Carter-
+# Random 90×90/180×180 indépendantes sous deux clés) SUPPRIMÉES le
+# 2026-09-12 : fonctions mortes (aucun appelant, aucun test, ne
+# correspondent à aucun paragraphe du papier -- voir docs/
+# REFERENT_FORMAT_V3.md, §4.2, « Risque de confusion pour LH-5 »). Seul
+# le mécanisme de secu_box.py (encode_deniable/encode_deniable0/
+# decode_deniable, partitionnement de blocs Br/Bd, §5.6 du papier) fait
+# foi pour le déni plausible. Approche reprise depuis le tag v2-final et
+# l'historique git si elle devait resservir un jour.

@@ -210,18 +210,22 @@ couleurs : toute la forme est lue).
 > un mode crypto 12×12 apparaît un jour, `referent_360_v3.json` DEVRA
 > déclarer ce champ à ce moment-là.
 >
-> **Risque de confusion pour LH-5 :** `secu_box.py` contient DEUX
-> mécanismes distincts qui portent le mot « déniable »/« deniable », sans
-> rapport l'un avec l'autre : le mode crypto ci-dessus (`_deniable_
-> positions`/`_place_deniable`/`_read_deniable`, partitionnement de blocs
-> Br/Bd, référent 6×6 uniquement, ce que ce document appelle « mode
-> crypto ») et `carter_random_deniable_360` (deux encodages STÉGANO
-> Carter-Random-360 INDÉPENDANTS sous deux clés différentes sur la même
-> grille, référent 360, aucun partitionnement de blocs). Un lecteur de
-> LH-5 qui chercherait « le » mécanisme de déni plausible de ce dépôt
-> pourrait légitimement confondre les deux. Signalé ici tel quel, sans
-> modification du code — à trancher séparément si une clarification (ex.
-> renommage) est souhaitée.
+> **Risque de confusion pour LH-5, résolu (2026-09-12) :** `secu_box.py`
+> contenait DEUX mécanismes distincts portant le mot « déniable »/
+> « deniable », sans rapport l'un avec l'autre : le mode crypto ci-dessus
+> (`_deniable_positions`/`_place_deniable`/`_read_deniable`,
+> partitionnement de blocs Br/Bd, référent 6×6 uniquement, ce que ce
+> document appelle « mode crypto », §5.6 du papier) et
+> `carter_random_deniable`/`carter_random_deniable_360` (deux encodages
+> STÉGANO Carter-Random 90×90/180×180 INDÉPENDANTS sous deux clés
+> différentes sur la même grille, aucun partitionnement de blocs). Un
+> lecteur de LH-5 qui aurait cherché « le » mécanisme de déni plausible
+> de ce dépôt aurait pu légitimement confondre les deux. Vérifié : les
+> deux fonctions `carter_random_deniable*` n'avaient aucun appelant,
+> aucun test, et ne correspondaient à aucun paragraphe du papier —
+> supprimées. Seul le mode crypto ci-dessus fait foi ; repris depuis le
+> tag `v2-final` et l'historique git si l'approche devait resservir un
+> jour.
 
 ### 4.3 Balayages (8, dérivés de la clé)
 
