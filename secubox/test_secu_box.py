@@ -215,7 +215,7 @@ class TestDeniableKeyProperties(unittest.TestCase):
         le commitment HMAC / tag Poly1305 échoue.
         """
         grid, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
-        forged = {'steg_key': dk['steg_key'], 'blocks': rk['blocks'], 'key_2': rk['key_2']}
+        forged = {'steg_key': dk['steg_key'], 'blocks': rk['blocks']}
         with self.assertRaises(ValueError):
             decode_deniable(grid, forged)
 
@@ -247,7 +247,7 @@ class TestDeniableStatistical(unittest.TestCase):
         exactement ce que le porteur de dk_d peut isoler avec sa seule clé."""
         B = GRID_SIZE // 6
         bd_positions = set(_deniable_positions(GRID_SIZE, B, dk['blocks'],
-                                                dk['steg_key'], dk['key_2']))
+                                                dk['steg_key']))
         return [grid[r][c] for r in range(GRID_SIZE) for c in range(GRID_SIZE)
                 if (r, c) not in bd_positions]
 
@@ -359,31 +359,52 @@ class TestDeniableStatistical(unittest.TestCase):
         self.assertTrue(all(isinstance(n, int) for n in calls),
                         "_fisher_yates a reçu autre chose qu'un entier — fuite potentielle de clé")
 
-    def test_k2_same_structure_and_storage_both_modes(self):
+    def test_form_id_derived_from_key_not_stored(self):
         """
-        6.3.3 (suite) : form_id (k2) est stocké dans dk['key_2'] dans les
-        deux modes, tiré par _place_deniable() — LA MÊME fonction, appelée
-        identiquement pour Bd que le message réel existe ou non (voir
-        test_encode0_leaves_br_and_leftover_untouched pour la preuve par
-        instrumentation que seule cette fonction écrit dans la grille).
+        6.3.3 (suite), câblage 2026-09-12 : form_id N'EST PLUS stocké dans
+        la clé (key_2 a disparu de dk_r/dk_d) -- dérivé de gk_local par
+        _derive_deniable_form_ids(), comme les balayages et les masques.
+        Corrige une divergence entre le docstring d'encode_deniable, qui
+        affirmait déjà "dérivées de la clé du message concerné", et
+        l'implémentation antérieure, qui tirait form_id par
+        secrets.randbelow() et le stockait séparément.
 
-        Câblage production étape 5 (2026-09-12) : plus de tirage de
-        direction (l'ancien référent bariolé à 4 directions n'existe plus
-        ici) — un seul form_id par bloc, dans le référent v3 6×6 choisi
-        pour ce message par select_referent_index (referent6x6_gen.py).
+        Vérifié : dk_r/dk_d ne portent plus 'key_2' ; les form_id
+        redérivés depuis steg_key sont dans [0, N_FORMS) ; Bd sous Encode
+        et sous Encode0 (même dsk, même liste de blocs) donnent les MÊMES
+        form_id -- déterminisme, pas juste "même fonction appelée" comme
+        avant (où seule la fonction était identique, le tirage restait
+        aléatoire à chaque appel).
         """
         import referent6x6_gen as R6
+        from secu_box import _derive_deniable_form_ids
+        from stegano_lib import _carter_split
         _, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
         _, dk0 = encode_deniable0(MSG_DURESS)
-        for label, k2 in (('Encode dk_r', rk['key_2']),
-                          ('Encode dk_d', dk['key_2']),
-                          ('Encode0 dk_d', dk0['key_2'])):
+
+        for label, keys in (('Encode dk_r', rk), ('Encode dk_d', dk), ('Encode0 dk_d', dk0)):
             with self.subTest(source=label):
-                self.assertTrue(len(k2) > 0)
-                for entry in k2:
-                    self.assertIn('form_id', entry)
-                    self.assertNotIn('dir', entry)
-                    self.assertTrue(0 <= entry['form_id'] < R6.N_FORMS)
+                self.assertNotIn('key_2', keys)
+                _, gk_local = _carter_split(keys['steg_key'])
+                form_ids = _derive_deniable_form_ids(gk_local, len(keys['blocks']))
+                self.assertTrue(len(form_ids) > 0)
+                for fid in form_ids:
+                    self.assertTrue(0 <= fid < R6.N_FORMS)
+
+        # Meme dsk (injecte) et memes blocs (meme pi) entre Encode et
+        # Encode0 -- alors, et seulement alors, les form_id derives
+        # doivent coincider (determinisme, pas juste "meme fonction").
+        fixed_dsk = secrets.token_bytes(32)
+        fixed_pi  = _fisher_yates(N_BLOCKS)
+        _, _, dk_fixed  = encode_deniable(MSG_REAL, MSG_DURESS, _dsk=fixed_dsk, _pi=fixed_pi)
+        _, dk0_fixed    = encode_deniable0(MSG_DURESS, _dsk=fixed_dsk, _pi=fixed_pi)
+        self.assertEqual(dk_fixed['blocks'], dk0_fixed['blocks'])
+        _, gk_d = _carter_split(fixed_dsk)
+        self.assertEqual(
+            _derive_deniable_form_ids(gk_d, len(dk_fixed['blocks'])),
+            _derive_deniable_form_ids(gk_d, len(dk0_fixed['blocks'])),
+            "Bd sous Encode et sous Encode0 devrait donner les mêmes form_id "
+            "(même dsk, même liste de blocs, dérivation déterministe)")
 
 
 if __name__ == '__main__':

@@ -769,11 +769,11 @@ def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_2,
 # appelée avec une clé (voir l'invariant documenté dans
 # secu_box.encode_deniable). Encode ET Encode0 sont tous deux couverts.
 
-def _deniable_block_list(role_label, block_indices, key_2):
-    # TODO v3-format (etape 10) : plus de 'dir' depuis le cablage etape 5
-    # (referent v3 6x6, plus l'ancien referent bariole a 4 directions).
-    return [{"idx": idx, "role": role_label, "form_id": k2['form_id']}
-            for idx, k2 in zip(block_indices, key_2)]
+def _deniable_block_list(role_label, block_indices, form_ids):
+    # Cablage 2026-09-12 : form_ids vient de SB._derive_deniable_form_ids
+    # (derive de gk_local, plus un tirage stocke -- voir gen_deniable_vector).
+    return [{"idx": idx, "role": role_label, "form_id": fid}
+            for idx, fid in zip(block_indices, form_ids)]
 
 def _bd_expected(pi, grid_size):
     N = grid_size; B = N // 6; n_blocks = B * B
@@ -786,9 +786,10 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
                          include_grid_csv=False):
     """
     Encode(m_r, m_d) ET Encode0(m_d) avec la MÊME π/dsk/duress_inject, pour
-    que le vecteur montre directement (§ acceptance) que Bd/key_2 côté
-    duress sont identiques dans les deux modes — l'invariant testé par
-    TestDeniableStatistical côté code.
+    que le vecteur montre directement (§ acceptance) que Bd (et les form_id
+    qui en dérivent, câblage 2026-09-12) côté duress sont identiques dans
+    les deux modes — l'invariant testé par TestDeniableStatistical côté
+    code.
     """
     real_inject   = dict(real_inject or {})
     duress_inject = dict(duress_inject or {})
@@ -847,6 +848,13 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
     color_order = list(R6.CRYPTO_COLOR_ORDER)
     sweep_r = {c: CR.derive_sweep_index(gk_r, c) for c in color_order}
     sweep_d = {c: CR.derive_sweep_index(gk_d, c) for c in color_order}
+    # form_id par bloc (cablage 2026-09-12) : derive de gk_local, plus un
+    # tirage stocke -- voir secu_box._derive_deniable_form_ids. Recalcule
+    # ici uniquement pour l'AFFICHAGE dans le vecteur (block_list) ; la
+    # production le derive de son cote, en interne, au meme titre que le
+    # balayage et les masques.
+    form_ids_r = SB._derive_deniable_form_ids(gk_r, len(dk_r['blocks']))
+    form_ids_d = SB._derive_deniable_form_ids(gk_d, len(dk_d['blocks']))
 
     vector = {
         "id": vec_id, "instantiation": "deniable", "description": description,
@@ -871,14 +879,14 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
                 "sweep_of_color": sweep_r,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_r), "masks": masks_r,
-                "block_list": _deniable_block_list("real", dk_r['blocks'], dk_r['key_2']),
+                "block_list": _deniable_block_list("real", dk_r['blocks'], form_ids_r),
             },
             "Bd": {
                 "blocks": dk_d['blocks'], "grammar_key_hex": _hex(gk_d),
                 "sweep_of_color": sweep_d,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_d), "masks": masks_d,
-                "block_list": _deniable_block_list("duress", dk_d['blocks'], dk_d['key_2']),
+                "block_list": _deniable_block_list("duress", dk_d['blocks'], form_ids_d),
             },
         },
         "expected_decode": {
@@ -1073,17 +1081,15 @@ def generate_all(include_grid_csv_showcase=True):
     # est injectée pour la reproductibilité du vecteur, voir gen_deniable_vector).
     pi = pi[::2] + pi[1::2]
     half_den = n_blocks_den // 2   # 112 : taille de Br ET de Bd
-    # TODO v3-format (etape 10) : plus de tirage de direction (cablage
-    # production etape 5) -- un seul form_id par bloc, referent v3 6x6
-    # choisi par select_referent_index (referent6x6_gen.py), pas
-    # l'ancien referent bariole de carter_random.
-    real_k2   = [{'form_id': (i * 3) % CR.N_FORMS} for i in range(half_den)]
-    duress_k2 = [{'form_id': (i * 5 + 1) % CR.N_FORMS} for i in range(half_den)]
+    # Cablage 2026-09-12 : form_id n'est plus un tirage a injecter -- il
+    # est derive de gk_local (un octet par bloc, comme les balayages et
+    # les masques), donc deja entierement determine par rsk/dsk/pi
+    # ci-dessus. Plus de "_k2" a construire ni a injecter.
     v, g, g0 = gen_deniable_vector(
         "deniable-basic-01", "Déni plausible — Encode(m_r,m_d) et Encode0(m_d), même π/dsk.",
         "MESSAGE SECRET ANIBAL", "NOTES PERSO TEXTILE", 90, rsk, dsk, pi, noise_seed,
-        real_inject={"_nonce": nonce, "_y": _Y_DENIABLE_REAL, "_leftover": [1], "_k2": real_k2},
-        duress_inject={"_nonce": nonce[::-1], "_y": _Y_DENIABLE_DURESS, "_leftover": [2], "_k2": duress_k2},
+        real_inject={"_nonce": nonce, "_y": _Y_DENIABLE_REAL, "_leftover": [1]},
+        duress_inject={"_nonce": nonce[::-1], "_y": _Y_DENIABLE_DURESS, "_leftover": [2]},
         include_grid_csv=include_grid_csv_showcase)
     vectors.append(v)
     grids[v["id"] + "-encode"] = g

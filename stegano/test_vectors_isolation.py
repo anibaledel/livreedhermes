@@ -6,10 +6,14 @@ Isolation du mode vecteurs (tâche 7, format v3)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Vérifie que la surface d'injection ajoutée pour vectors/carter_v3.json
-(paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _k2, _pi,
+(paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _pi,
 _rsk, _dsk, _real_inject, _duress_inject) n'est JOIGNABLE que par un appel
 explicite qui les nomme — aucune API publique, aucun demo(), aucune CLI ne
 les transmet à l'intérieur.
+
+_k2 (câblage 2026-09-12) : n'existe plus -- form_id est désormais dérivé
+de gk_local par _derive_deniable_form_ids(), comme les balayages et les
+masques, plus rien à injecter séparément.
 """
 
 import inspect, os, sys, unittest
@@ -68,7 +72,7 @@ class TestNoPublicPathReachesInjection(unittest.TestCase):
     """
 
     _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=',
-                        '_k2=', '_pi=', '_rsk=', '_dsk=',
+                        '_pi=', '_rsk=', '_dsk=',
                         '_real_inject=', '_duress_inject=')
 
     def _scan_source_for_injected_kwargs(self, label, source):

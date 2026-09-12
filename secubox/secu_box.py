@@ -355,20 +355,47 @@ def _split_br_bd(pi: List[int]) -> Tuple[List[int], List[int]]:
     Bd = pi[half + 1:] if n % 2 else pi[half:]
     return Br, Bd
 
+def _derive_deniable_form_ids(gk_local: bytes, n_blocks: int) -> List[int]:
+    """
+    Un form_id (0..255) par bloc, dérivé de gk_local -- câblage 2026-09-12,
+    corrige une divergence entre le docstring d'encode_deniable (qui
+    affirmait déjà que le form_id est "dérivé de la clé du message
+    concerné") et l'implémentation antérieure, qui le tirait par
+    secrets.randbelow() et devait le stocker dans la clé retournée. Même
+    principe que les balayages (derive_sweep_index) et les masques
+    (_derive_masks) : plus rien à retenir hors de `sk`.
+
+    N_FORMS=256=2^8 (voir crypto_core.LABELS['deniable']) : un octet
+    HKDF-Expand EST directement le form_id, sans réduction modulo -- même
+    raisonnement que select_referent_index (docs/PAPER_NUMBERS_v3.md
+    §5.2). L'assertion ci-dessous documente cette précondition plutôt que
+    de coder un rejet qui ne se déclencherait jamais.
+    """
+    import referent6x6_gen as R6
+    assert R6.N_FORMS == 256, (
+        f"dérivation directe (1 octet, sans rejet) invalide si N_FORMS "
+        f"({R6.N_FORMS}) != 256 -- il faudrait alors un rejet, voir "
+        f"referent6x6_gen.select_referent_index pour le principe.")
+    L = LABELS['deniable']
+    form_bytes = _HKDF2(_hashes2.SHA256(), n_blocks,
+                         salt=L['form_salt'], info=L['form_info']).derive(gk_local)
+    return list(form_bytes)
+
 def _deniable_positions(N: int, B: int, block_indices: List[int],
-                         sk: bytes, k2: List[Dict]) -> List[Tuple[int, int]]:
+                         sk: bytes) -> List[Tuple[int, int]]:
     """
     Positions de lecture/écriture (row, col), dans l'ordre, pour ces blocs
-    sous la clé `sk` et les formes `k2`. Marche géométrique UNIQUE partagée
-    par _place_deniable, _read_deniable et les tests (même motivation que
+    sous la clé `sk`. Marche géométrique UNIQUE partagée par
+    _place_deniable, _read_deniable et les tests (même motivation que
     grid_90._stream_positions : la vérité de ce qui est écrit ne doit
     exister qu'à un seul endroit).
 
     RÈGLE DE LECTURE v3, mode CRYPTO (câblage production, étape 5,
     2026-09-12) : contrairement aux positions stégano de Carter (12 sur
     36), ici TOUTES LES CASES d'un bloc portent de l'information -- 36 en
-    6×6. Un seul tirage de forme par bloc (1 octet, k2[i]['form_id'],
-    0..255) dans le référent choisi pour ce message par
+    6×6. Un seul tirage de forme par bloc (1 octet, _derive_deniable_
+    form_ids(gk_local), 0..255 -- câblage 2026-09-12, ne dépend QUE de
+    `sk`) dans le référent choisi pour ce message par
     select_referent_index(gk_local) (referent6x6_gen.py, 256 référents
     ChaCha20) -- PLUS de "direction" (l'ancien référent bariolé à 4
     directions n'a pas de notion de couleur ; le référent v3 encode déjà
@@ -392,11 +419,11 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     ref_local = R6.get_referent_cached(ref_idx)
     color_order = list(R6.CRYPTO_COLOR_ORDER)
     sweep_of_color = {c: derive_sweep_index(gk_local, c) for c in color_order}
+    form_ids = _derive_deniable_form_ids(gk_local, len(block_indices))
     positions = []
     for blk, idx in enumerate(block_indices):
         br, bc = idx // B, idx % B
-        fk   = k2[blk]
-        form = ref_local[fk['form_id']]
+        form = ref_local[form_ids[blk]]
         cells_by_niveau = {0: {c: form[c] for c in color_order}}
         local_order = crypto_reading_order(cells_by_niveau, color_order,
                                             R6.GRID_SIZE, sweep_of_color)
@@ -409,18 +436,17 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
 def _place_deniable(grid: List[List[int]], N: int, B: int,
                      block_indices: List[int], message: str, sk: bytes,
                      _nonce: bytes = None, _y: int = None,
-                     _leftover: List[int] = None, _k2: List[Dict] = None) -> List[Dict]:
+                     _leftover: List[int] = None) -> None:
     """
     Écrit `message` (chiffré, charge utile à longueur fixe — format v3,
     tâche 2) dans les blocs `block_indices` (36 positions chacun, mode
-    crypto -- voir _deniable_positions). Retourne key_2 (une forme par
-    bloc, fraîches via secrets — rsk et dsk sont neufs à chaque appel,
-    jamais fournis de l'extérieur : voir encode_deniable/encode_deniable0).
+    crypto -- voir _deniable_positions). Rien à retourner : le form_id par
+    bloc est dérivé de `sk` (câblage 2026-09-12, voir
+    _derive_deniable_form_ids), plus un tirage à conserver séparément.
 
-    _nonce/_y/_leftover/_k2 (préfixés `_`, tâche 7) : injection interne pour
+    _nonce/_y/_leftover (préfixés `_`, tâche 7) : injection interne pour
     le mode vecteurs — None (défaut) préserve exactement le comportement
-    actuel pour chacun. _k2 remplace le tirage secrets.randbelow(N_FORMS)
-    par bloc (plus de tirage de direction, voir _deniable_positions).
+    actuel pour chacun.
     """
     import referent6x6_gen as R6
     from carter_random import _derive_masks
@@ -429,13 +455,7 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
     L = len(block_indices) * CELL_SIZE
     payload = _encrypt(message, sk, L, _nonce=_nonce)
     nibbles = payload_to_symbols(payload, L, _y=_y, _leftover=_leftover)
-    if _k2 is not None:
-        if len(_k2) != len(block_indices):
-            raise ValueError(f"_k2 doit contenir {len(block_indices)} entrée(s), reçu {len(_k2)}")
-        k2 = _k2
-    else:
-        k2 = [{'form_id': secrets.randbelow(R6.N_FORMS)} for _ in range(len(block_indices))]
-    positions = _deniable_positions(N, B, block_indices, sk, k2)
+    positions = _deniable_positions(N, B, block_indices, sk)
     _, gk_local = _carter_split(sk)
     # gk_local diffère déjà entre rsk et dsk (secrets.token_bytes distincts) :
     # un seul domaine HKDF suffit à séparer les masques réel/contrainte, la
@@ -444,11 +464,10 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
     for ni, (gr, gc) in enumerate(positions):
         if ni >= len(nibbles): break
         grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
-    return k2
 
 def _read_deniable(grid: List[List[int]], N: int, B: int,
-                    block_indices: List[int], sk: bytes, k2: List[Dict]) -> str:
-    """Inverse de _place_deniable — mêmes blocs, même clé, même key_2."""
+                    block_indices: List[int], sk: bytes) -> str:
+    """Inverse de _place_deniable — mêmes blocs, même clé."""
     import referent6x6_gen as R6
     from carter_random import _derive_masks
     from stegano_lib import _carter_split
@@ -456,7 +475,7 @@ def _read_deniable(grid: List[List[int]], N: int, B: int,
     CELL_SIZE = R6.GRID_SIZE * R6.GRID_SIZE
     L = len(block_indices) * CELL_SIZE
     masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
-    positions = _deniable_positions(N, B, block_indices, sk, k2)
+    positions = _deniable_positions(N, B, block_indices, sk)
     vals = [(grid[gr][gc] - masks[ni]) % ALPHA_LEN
             for ni, (gr, gc) in enumerate(positions)]
     return _decrypt(vals, sk, len(vals))
@@ -476,8 +495,8 @@ def encode_deniable(real_message: str, duress_message: str,
     PUBLIQUE ne permet d'en fournir un existant. _rsk/_dsk/_pi/_noise_seed/
     _real_inject/_duress_inject (préfixés `_`) sont le mode vecteurs interne
     de la tâche 7 — jamais exposés par demo() ni la CLI. _real_inject et
-    _duress_inject sont des dicts optionnels {'_nonce':.., '_y':.., '_leftover':..,
-    '_k2':..} (mêmes clés que les paramètres de _place_deniable, dépaquetés
+    _duress_inject sont des dicts optionnels {'_nonce':.., '_y':.., '_leftover':..}
+    (mêmes clés que les paramètres de _place_deniable, dépaquetés
     directement en **kwargs) transmis pour le côté concerné.
 
     π (permutation de TOUS les blocs) est tirée une fois par secrets,
@@ -492,9 +511,18 @@ def encode_deniable(real_message: str, duress_message: str,
     (Br, Bd, et le bloc orphelin si B est impair) sont indépendants des
     clés — aucune fonction qui les calcule (_fisher_yates, _split_br_bd)
     n'est appelée avec rsk, dsk ni aucune valeur qui en dérive. Les
-    POSITIONS À L'INTÉRIEUR d'un bloc (référent, formes, k2) sont en
+    POSITIONS À L'INTÉRIEUR d'un bloc (référent, formes, form_id) sont en
     revanche dérivées de la clé du message CONCERNÉ par ce bloc (rsk pour
-    Br, dsk pour Bd) — c'est voulu, pas une fuite : voir _place_deniable.
+    Br, dsk pour Bd) — c'est voulu, pas une fuite : voir _place_deniable/
+    _derive_deniable_form_ids (câblage 2026-09-12 : form_id est désormais
+    RÉELLEMENT dérivé de cette clé, comme cette phrase l'affirmait déjà
+    avant que ce ne soit vrai — l'implémentation tirait jusque-là form_id
+    par secrets.randbelow() et le stockait séparément dans key_2).
+
+    dk_r/dk_d ne portent donc plus que {steg_key, blocks} — 32 octets +
+    la liste des indices de blocs (elle, non dérivable, voir ci-dessus),
+    contre 32+112 octets avant ce câblage (key_2 stocké séparément, un
+    octet de form_id par bloc de Br/Bd).
 
     Retourne (grid, dk_r, dk_d), syntaxiquement identiques.
     """
@@ -516,11 +544,11 @@ def encode_deniable(real_message: str, duress_message: str,
 
     real_inject   = _real_inject or {}
     duress_inject = _duress_inject or {}
-    rk2 = _place_deniable(grid, N, B, Br, real_message,   rsk, **real_inject)
-    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
+    _place_deniable(grid, N, B, Br, real_message,   rsk, **real_inject)
+    _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
 
-    dk_r = {'steg_key': rsk, 'blocks': Br, 'key_2': rk2}
-    dk_d = {'steg_key': dsk, 'blocks': Bd, 'key_2': dk2}
+    dk_r = {'steg_key': rsk, 'blocks': Br}
+    dk_d = {'steg_key': dsk, 'blocks': Bd}
     return grid, dk_r, dk_d
 
 def encode_deniable0(duress_message: str, grid_size: int = 90,
@@ -560,9 +588,9 @@ def encode_deniable0(duress_message: str, grid_size: int = 90,
     _, Bd = _split_br_bd(pi)   # Br (et le bloc restant si B impair) volontairement inutilisés
 
     duress_inject = _duress_inject or {}
-    dk2 = _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
+    _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
 
-    dk_d = {'steg_key': dsk, 'blocks': Bd, 'key_2': dk2}
+    dk_d = {'steg_key': dsk, 'blocks': Bd}
     return grid, dk_d
 
 def decode_deniable(grid: List[List[int]], keys: Dict, grid_size: int = 90) -> str:
@@ -574,7 +602,7 @@ def decode_deniable(grid: List[List[int]], keys: Dict, grid_size: int = 90) -> s
     clé est incorrecte (commitment ou tag Poly1305 invalide).
     """
     N = grid_size; B = N // 6
-    return _read_deniable(grid, N, B, keys['blocks'], keys['steg_key'], keys['key_2'])
+    return _read_deniable(grid, N, B, keys['blocks'], keys['steg_key'])
 
 
 # ── Démo ──────────────────────────────────────────────────────────────────────

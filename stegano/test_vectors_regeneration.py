@@ -140,16 +140,12 @@ class TestVectorsRegeneration(unittest.TestCase):
         dsk = bytes.fromhex(den['inputs']['dsk_hex'])
         Br_blocks = den['derivation']['Br']['blocks']
         Bd_blocks = den['derivation']['Bd']['blocks']
-        # Cablage production etape 5 (2026-09-12) : plus de 'dir' (voir
-        # secu_box._deniable_positions) -- ignore silencieusement si
-        # present dans un vecteur stocke avant ce commit.
-        rk2 = [{'form_id': b['form_id']}
-               for b in den['derivation']['Br']['block_list']]
-        dk2 = [{'form_id': b['form_id']}
-               for b in den['derivation']['Bd']['block_list']]
+        # Cablage 2026-09-12 : form_id (block_list) est desormais DERIVE
+        # de steg_key par decode_deniable() lui-meme -- plus de 'key_2' a
+        # reconstruire ni a passer, dk_r/dk_d ne portent que steg_key+blocks.
 
-        dk_r = {'steg_key': rsk, 'blocks': Br_blocks, 'key_2': rk2}
-        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks, 'key_2': dk2}
+        dk_r = {'steg_key': rsk, 'blocks': Br_blocks}
+        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks}
 
         self.assertEqual(SB.decode_deniable(grid, dk_r, den['inputs']['grid_size']),
                           den['expected_decode']['real_via_dk_r'])
@@ -205,10 +201,8 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
         dsk = bytes.fromhex(v['inputs']['dsk_hex'])
         Br_blocks = v['derivation']['Br']['blocks']
         Bd_blocks = v['derivation']['Bd']['blocks']
-        rk2 = [{'form_id': b['form_id']} for b in v['derivation']['Br']['block_list']]
-        dk2 = [{'form_id': b['form_id']} for b in v['derivation']['Bd']['block_list']]
-        dk_r = {'steg_key': rsk, 'blocks': Br_blocks, 'key_2': rk2}
-        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks, 'key_2': dk2}
+        dk_r = {'steg_key': rsk, 'blocks': Br_blocks}
+        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks}
 
         grid_size = v['inputs']['grid_size']
         self.assertEqual(SB.decode_deniable(grid, dk_r, grid_size),

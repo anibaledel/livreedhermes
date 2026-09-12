@@ -362,6 +362,24 @@ LABELS = {
         'salt': b'Carter-referent6x6-v3',
         'select_info': b'select',
     },
+    'deniable': {
+        # Choix du form_id par bloc en mode crypto de secu_box.py (câblage
+        # 2026-09-12, corrige une divergence entre le docstring d'encode_
+        # deniable -- qui affirmait déjà "référent, formes, k2... dérivées
+        # de la clé du message concerné" -- et l'implémentation, qui
+        # tirait form_id par secrets.randbelow() et le stockait dans la
+        # clé retournée). Un octet HKDF PAR BLOC depuis gk_local (dérivé
+        # de rsk pour Br, dsk pour Bd -- voir _carter_split), EXACTEMENT
+        # comme les balayages (LABELS['sweep']) et les masques
+        # (LABELS['mask_seed']['info_deniable']) : plus rien à stocker,
+        # la clé retournée (steg_key + blocks) redonne tout. N_FORMS=256
+        # =2^8 : même raisonnement que select_referent_index (voir
+        # LABELS['referent6x6'] ci-dessus, ou docs/PAPER_NUMBERS_v3.md
+        # §5.2) -- un octet HKDF EST l'index [0,255], aucun rejet n'est
+        # jamais nécessaire.
+        'form_salt': b'Carter-deniable-form-v3',
+        'form_info': b'block-form-index',
+    },
     'redraw': {
         # Racine du redraw déterministe (tâche 4) — voir _redraw_grammar_key
         # ci-dessous pour l'ordre exact de la dérivation complète. Une
