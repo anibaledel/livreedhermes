@@ -4,6 +4,12 @@
 """
 Cryptanalyse du SPN géométrique — La Livrée d'Hermès.
 
+HORS PÉRIMÈTRE du format de référent v3 (docs/REFERENT_FORMAT_V3.md,
+confirmé 2026-09-12) : ce module analyse le SPN de disk_lib.py, construit
+sur les anciens referent_256.json/referent_360.json (schéma PRÉ-v3) via
+disk_lib.load_referents() -- sans rapport avec Carter/stegano_classic/
+secu_box ni avec les référents v3.
+
 L'en-tête de disk_lib.py affirme trois choses sur la couche géométrique :
 max_DDT ≤ 4 pour la S-box, un nombre de branche ≥ 4 pour la couche
 linéaire, et 288 permutations distinctes seulement pour Ref256. Aucune

@@ -5,6 +5,17 @@
 Chiffrement de disque — Architecture hybride géométrique + ChaCha20-Poly1305
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
+HORS PÉRIMÈTRE du format de référent v3 (docs/REFERENT_FORMAT_V3.md,
+confirmé 2026-09-12) : ce module lit directement les anciens
+data/referent_256.json / referent_360.json (schéma PRÉ-v3 : blue/orange,
+294 formes plates), via son propre load_referents() ci-dessous --
+totalement indépendant de stegano_classic.py (aucun import commun). Le
+SPN géométrique ci-dessous est une construction de diversification de
+clé pour le chiffrement DISQUE, sans rapport avec Carter, stegano_classic
+ou secu_box. Ne pas migrer vers le format v3 sans revoir cette
+architecture dans son ensemble (les 288/164 permutations distinctes
+mesurées ci-dessous dépendent de la table PRÉ-v3 exacte).
+
 ARCHITECTURE (suite à évaluation cryptologique externe) :
 
   Couche 1 — Géométrique (La Livrée d'Hermès) :
