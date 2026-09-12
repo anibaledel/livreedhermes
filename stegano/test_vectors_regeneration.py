@@ -48,6 +48,10 @@ _CARTER360_STALE_VECTOR_REASON = (
 _CARTERMIX_STALE_VECTOR_REASON = (
     "cartermix-* : vecteurs stockes geles avant le cablage etape 4 "
     "(regle v3 des deux cotes) -- a regenerer a l'etape 10.")
+_DENIABLE_STALE_VECTOR_REASON = (
+    "deniable-* : vecteur stocke gele avant le cablage etape 5 (referent "
+    "v3 6x6 choisi par select_referent_index, mode crypto 36 cases/bloc) "
+    "-- a regenerer a l'etape 10.")
 
 _DECODE_FN = {
     'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
@@ -92,6 +96,8 @@ class TestVectorsRegeneration(unittest.TestCase):
                     self.skipTest(_CARTER360_STALE_VECTOR_REASON)
                 if sv['id'].startswith('cartermix'):
                     self.skipTest(_CARTERMIX_STALE_VECTOR_REASON)
+                if sv['id'].startswith('deniable'):
+                    self.skipTest(_DENIABLE_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
@@ -164,9 +170,12 @@ class TestVectorsRegeneration(unittest.TestCase):
         dsk = bytes.fromhex(den['inputs']['dsk_hex'])
         Br_blocks = den['derivation']['Br']['blocks']
         Bd_blocks = den['derivation']['Bd']['blocks']
-        rk2 = [{'form_id': b['form_id'], 'dir': b['dir']}
+        # Cablage production etape 5 (2026-09-12) : plus de 'dir' (voir
+        # secu_box._deniable_positions) -- ignore silencieusement si
+        # present dans un vecteur stocke avant ce commit.
+        rk2 = [{'form_id': b['form_id']}
                for b in den['derivation']['Br']['block_list']]
-        dk2 = [{'form_id': b['form_id'], 'dir': b['dir']}
+        dk2 = [{'form_id': b['form_id']}
                for b in den['derivation']['Bd']['block_list']]
 
         dk_r = {'steg_key': rsk, 'blocks': Br_blocks, 'key_2': rk2}

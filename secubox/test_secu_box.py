@@ -361,13 +361,18 @@ class TestDeniableStatistical(unittest.TestCase):
 
     def test_k2_same_structure_and_storage_both_modes(self):
         """
-        6.3.3 (suite) : form_id/dir (k2) sont stockés dans dk['key_2'] dans
-        les deux modes, tirés par _place_deniable() — LA MÊME fonction,
-        appelée identiquement pour Bd que le message réel existe ou non
-        (voir test_encode0_leaves_br_and_leftover_untouched pour la preuve
-        par instrumentation que seule cette fonction écrit dans la grille).
+        6.3.3 (suite) : form_id (k2) est stocké dans dk['key_2'] dans les
+        deux modes, tiré par _place_deniable() — LA MÊME fonction, appelée
+        identiquement pour Bd que le message réel existe ou non (voir
+        test_encode0_leaves_br_and_leftover_untouched pour la preuve par
+        instrumentation que seule cette fonction écrit dans la grille).
+
+        Câblage production étape 5 (2026-09-12) : plus de tirage de
+        direction (l'ancien référent bariolé à 4 directions n'existe plus
+        ici) — un seul form_id par bloc, dans le référent v3 6×6 choisi
+        pour ce message par select_referent_index (referent6x6_gen.py).
         """
-        from carter_random import N_FORMS, N_DIR
+        import referent6x6_gen as R6
         _, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
         _, dk0 = encode_deniable0(MSG_DURESS)
         for label, k2 in (('Encode dk_r', rk['key_2']),
@@ -377,9 +382,8 @@ class TestDeniableStatistical(unittest.TestCase):
                 self.assertTrue(len(k2) > 0)
                 for entry in k2:
                     self.assertIn('form_id', entry)
-                    self.assertIn('dir', entry)
-                    self.assertTrue(0 <= entry['form_id'] < N_FORMS)
-                    self.assertTrue(0 <= entry['dir'] < N_DIR)
+                    self.assertNotIn('dir', entry)
+                    self.assertTrue(0 <= entry['form_id'] < R6.N_FORMS)
 
 
 if __name__ == '__main__':

@@ -363,23 +363,41 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     grid_90._stream_positions : la vérité de ce qui est écrit ne doit
     exister qu'à un seul endroit).
 
-    Référent (get_referent(seed_local)) dérivé de sk via _derive_params :
-    voir l'invariant documenté dans encode_deniable — les POSITIONS
-    intra-bloc dépendent de la clé du message concerné (voulu), les
-    ENSEMBLES de blocs n'en dépendent jamais (_fisher_yates/_split_br_bd).
+    RÈGLE DE LECTURE v3, mode CRYPTO (câblage production, étape 5,
+    2026-09-12) : contrairement aux positions stégano de Carter (12 sur
+    36), ici TOUTES LES CASES d'un bloc portent de l'information -- 36 en
+    6×6. Un seul tirage de forme par bloc (1 octet, k2[i]['form_id'],
+    0..255) dans le référent choisi pour ce message par
+    select_referent_index(gk_local) (referent6x6_gen.py, 256 référents
+    ChaCha20) -- PLUS de "direction" (l'ancien référent bariolé à 4
+    directions n'a pas de notion de couleur ; le référent v3 encode déjà
+    des positions absolues par couleur). Lues dans l'ordre crypto :
+    couleurs dans l'ordre déclaré (blue/orange/green/yellow), chacune
+    triée par son propre balayage (stegano/sweep.py).
+
+    Référent choisi UNE FOIS pour tout `sk` (gk_local dérivé de sk) : voir
+    l'invariant documenté dans encode_deniable — les POSITIONS intra-bloc
+    dépendent de la clé du message concerné (voulu), les ENSEMBLES de
+    blocs n'en dépendent jamais (_fisher_yates/_split_br_bd).
     """
-    from carter_random import get_referent, _derive_params
+    import referent6x6_gen as R6
+    from sweep import derive_sweep_index, crypto_reading_order
     from stegano_lib import _carter_split
-    _, gk_local   = _carter_split(sk)
-    seed_local, _ = _derive_params(gk_local)
-    ref_local     = get_referent(seed_local)
+    _, gk_local = _carter_split(sk)
+    ref_idx   = R6.select_referent_index(gk_local)
+    ref_local = R6.get_referent_cached(ref_idx)
+    color_order = list(R6.SMALL_COLORS) + list(R6.LARGE_COLORS)
+    sweep_of_color = {c: derive_sweep_index(gk_local, c) for c in color_order}
     positions = []
     for blk, idx in enumerate(block_indices):
         br, bc = idx // B, idx % B
         fk   = k2[blk]
-        form = ref_local[fk['form_id'] % len(ref_local)]
-        for r, c in form[fk['dir']]:
-            gr, gc = br*6+r, bc*6+c
+        form = ref_local[fk['form_id']]
+        cells_by_niveau = {0: {c: form[c] for c in color_order}}
+        local_order = crypto_reading_order(cells_by_niveau, color_order,
+                                            R6.GRID_SIZE, sweep_of_color)
+        for r, c in local_order:
+            gr, gc = br*R6.GRID_SIZE+r, bc*R6.GRID_SIZE+c
             if 0 <= gr < N and 0 <= gc < N:
                 positions.append((gr, gc))
     return positions
@@ -390,18 +408,20 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
                      _leftover: List[int] = None, _k2: List[Dict] = None) -> List[Dict]:
     """
     Écrit `message` (chiffré, charge utile à longueur fixe — format v3,
-    tâche 2) dans les blocs `block_indices` (CELL_SIZE positions chacun).
-    Retourne key_2 (formes/directions par bloc, fraîches via secrets — rsk
-    et dsk sont neufs à chaque appel, jamais fournis de l'extérieur : voir
-    encode_deniable/encode_deniable0).
+    tâche 2) dans les blocs `block_indices` (36 positions chacun, mode
+    crypto -- voir _deniable_positions). Retourne key_2 (une forme par
+    bloc, fraîches via secrets — rsk et dsk sont neufs à chaque appel,
+    jamais fournis de l'extérieur : voir encode_deniable/encode_deniable0).
 
     _nonce/_y/_leftover/_k2 (préfixés `_`, tâche 7) : injection interne pour
     le mode vecteurs — None (défaut) préserve exactement le comportement
-    actuel pour chacun. _k2 remplace le tirage secrets.randbelow(N_FORMS)/
-    secrets.randbelow(N_DIR) par bloc.
+    actuel pour chacun. _k2 remplace le tirage secrets.randbelow(N_FORMS)
+    par bloc (plus de tirage de direction, voir _deniable_positions).
     """
-    from carter_random import _derive_masks, CELL_SIZE, N_FORMS, N_DIR
+    import referent6x6_gen as R6
+    from carter_random import _derive_masks
     from stegano_lib import _carter_split
+    CELL_SIZE = R6.GRID_SIZE * R6.GRID_SIZE   # 36 : mode crypto, toutes les cases
     L = len(block_indices) * CELL_SIZE
     payload = _encrypt(message, sk, L, _nonce=_nonce)
     nibbles = payload_to_symbols(payload, L, _y=_y, _leftover=_leftover)
@@ -410,8 +430,7 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
             raise ValueError(f"_k2 doit contenir {len(block_indices)} entrée(s), reçu {len(_k2)}")
         k2 = _k2
     else:
-        k2 = [{'form_id': secrets.randbelow(N_FORMS),
-               'dir':     secrets.randbelow(N_DIR)} for _ in range(len(block_indices))]
+        k2 = [{'form_id': secrets.randbelow(R6.N_FORMS)} for _ in range(len(block_indices))]
     positions = _deniable_positions(N, B, block_indices, sk, k2)
     _, gk_local = _carter_split(sk)
     # gk_local diffère déjà entre rsk et dsk (secrets.token_bytes distincts) :
@@ -426,9 +445,11 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
 def _read_deniable(grid: List[List[int]], N: int, B: int,
                     block_indices: List[int], sk: bytes, k2: List[Dict]) -> str:
     """Inverse de _place_deniable — mêmes blocs, même clé, même key_2."""
-    from carter_random import _derive_masks, CELL_SIZE
+    import referent6x6_gen as R6
+    from carter_random import _derive_masks
     from stegano_lib import _carter_split
     _, gk_local = _carter_split(sk)
+    CELL_SIZE = R6.GRID_SIZE * R6.GRID_SIZE
     L = len(block_indices) * CELL_SIZE
     masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
     positions = _deniable_positions(N, B, block_indices, sk, k2)

@@ -762,7 +762,9 @@ def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_c, key
 # secu_box.encode_deniable). Encode ET Encode0 sont tous deux couverts.
 
 def _deniable_block_list(role_label, block_indices, key_2):
-    return [{"idx": idx, "role": role_label, "form_id": k2['form_id'], "dir": k2['dir']}
+    # TODO v3-format (etape 10) : plus de 'dir' depuis le cablage etape 5
+    # (referent v3 6x6, plus l'ancien referent bariole a 4 directions).
+    return [{"idx": idx, "role": role_label, "form_id": k2['form_id']}
             for idx, k2 in zip(block_indices, key_2)]
 
 def _bd_expected(pi, grid_size):
@@ -788,7 +790,9 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
     # même de tirer pi, ce qui permet de normaliser _leftover ici comme pour
     # les 6 variantes Carter (voir _normalize_leftover).
     N = grid_size; B = N // 6; n_blocks = B * B
-    L_side = (n_blocks // 2) * CR.CELL_SIZE
+    # Cablage production etape 5 (2026-09-12) : 36 positions/bloc (mode
+    # crypto, toutes les cases), plus 6 (ancien referent bariole).
+    L_side = (n_blocks // 2) * 36
     if '_leftover' in real_inject:
         real_inject['_leftover'] = _normalize_leftover(L_side, real_inject['_leftover'])
     if '_leftover' in duress_inject:
@@ -819,8 +823,8 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
     _, gk_r = _carter_split(rsk)
     _, gk_d = _carter_split(dsk)
     domain = CC.LABELS['mask_seed']['info_deniable']
-    L_r = len(dk_r['blocks']) * CR.CELL_SIZE
-    L_d = len(dk_d['blocks']) * CR.CELL_SIZE
+    L_r = len(dk_r['blocks']) * 36   # mode crypto, 36 positions/bloc (etape 5)
+    L_d = len(dk_d['blocks']) * 36
     raw_keystream_r = _raw_mask_keystream(gk_r, domain, L_r * 2 + 32)
     raw_keystream_d = _raw_mask_keystream(gk_d, domain, L_d * 2 + 32)
     masks_r = CR._derive_masks(gk_r, L_r, domain)
@@ -1052,8 +1056,12 @@ def generate_all(include_grid_csv_showcase=True):
     # est injectée pour la reproductibilité du vecteur, voir gen_deniable_vector).
     pi = pi[::2] + pi[1::2]
     half_den = n_blocks_den // 2   # 112 : taille de Br ET de Bd
-    real_k2   = [{'form_id': (i * 3) % CR.N_FORMS, 'dir': i % CR.N_DIR} for i in range(half_den)]
-    duress_k2 = [{'form_id': (i * 5 + 1) % CR.N_FORMS, 'dir': (i + 1) % CR.N_DIR} for i in range(half_den)]
+    # TODO v3-format (etape 10) : plus de tirage de direction (cablage
+    # production etape 5) -- un seul form_id par bloc, referent v3 6x6
+    # choisi par select_referent_index (referent6x6_gen.py), pas
+    # l'ancien referent bariole de carter_random.
+    real_k2   = [{'form_id': (i * 3) % CR.N_FORMS} for i in range(half_den)]
+    duress_k2 = [{'form_id': (i * 5 + 1) % CR.N_FORMS} for i in range(half_den)]
     v, g, g0 = gen_deniable_vector(
         "deniable-basic-01", "Déni plausible — Encode(m_r,m_d) et Encode0(m_d), même π/dsk.",
         "MESSAGE SECRET ANIBAL", "NOTES PERSO TEXTILE", 90, rsk, dsk, pi, noise_seed,
