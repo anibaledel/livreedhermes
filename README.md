@@ -158,3 +158,14 @@ de fichier `CNAME`.
 Double licence : AGPL v3 pour l'usage non commercial (`LICENSE`), licence
 commerciale sur demande (`LICENSE-COMMERCIAL`). Voir `NOTICE` pour les
 attributions et le brevet FR2865054.
+
+**Exception — sources du livre.** Les planches et fichiers sources de
+*La Livrée d'Hermès* dans `data/referent_256_src/` et
+`data/referent_360_src/` ne relèvent pas de l'AGPL v3 : ils sont diffusés
+par l'auteur sous licence **Creative Commons Attribution - Pas d'Utilisation
+Commerciale 4.0 International (CC BY-NC 4.0)**. Le code qui les lit
+(`tools/`) et les référents JSON qu'il en dérive
+(`data/referent_256_v3.json`, `data/referent_360_v3.json`, les référents
+pseudo-aléatoires et leurs empreintes) restent sous AGPL v3. Détails :
+[`data/referent_256_src/LICENSE.md`](data/referent_256_src/LICENSE.md),
+[`data/referent_360_src/LICENSE.md`](data/referent_360_src/LICENSE.md).
