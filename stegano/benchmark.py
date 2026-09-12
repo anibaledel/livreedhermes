@@ -42,11 +42,9 @@ def _cles(n, rng):
     return [rng.randbytes(32) for _ in range(n)]
 
 
-def _modes(ref256_v3, ref256, ref360):
+def _modes(ref256_v3, ref360_v3):
     """(nom, encodeur, décodeur, capacité, cellules porteuses, référents).
-    ref256_v3 : référent 256 v3 (câblage production, Carter-256 seul --
-    Carter-Mix reste sur l'ancien ref256 tant que l'étape 4 n'est pas
-    faite)."""
+    Format v3 pour les trois modes (câblage production, étapes 2-4)."""
     def cellules_256(cle, grille):
         _, gk = S._carter_split(cle)
         gram = S._carter_grammar(gk, ref256_v3)
@@ -58,47 +56,50 @@ def _modes(ref256_v3, ref256, ref360):
 
     def cellules_360(cle, grille):
         _, gk = S._carter360_split(cle)
-        gram = S._carter360_grammar(gk, ref360)
+        gram = S._carter360_grammar(gk, ref360_v3)
+        by_niveau, sweep = gram['by_niveau'], gram['sweep_of_color']
         return [grille[r][c]
-                for i, g in enumerate(gram) if g['role'] == S._MESSAGE
+                for i, g in enumerate(gram['blocks']) if g['role'] == S._MESSAGE
                 for r, c in S._carter360_positions(i // S.CARTER360_SIDE,
-                                                   i % S.CARTER360_SIDE, g, ref360)]
+                                                   i % S.CARTER360_SIDE, g, ref360_v3, by_niveau, sweep)]
 
     def cellules_mix(cle, grille):
         _, gk = S._carter_mix_split(cle)
-        gram = S._carter_mix_grammar(gk, ref256, ref360)
+        gram = S._carter_mix_grammar(gk, ref256_v3, ref360_v3)
+        by_niveau = gram['by_niveau']
+        sweep_256, sweep_360 = gram['sweep_256'], gram['sweep_360']
         return [grille[r][c]
-                for i, g in enumerate(gram) if g['role'] == S._MESSAGE
-                for r, c in S._mix_positions(i // S.CARTER_MIX_SIDE,
-                                             i % S.CARTER_MIX_SIDE, g, ref256, ref360)]
+                for i, g in enumerate(gram['blocks']) if g['role'] == S._MESSAGE
+                for r, c in S._mix_positions(i // S.CARTER_MIX_SIDE, i % S.CARTER_MIX_SIDE,
+                                             g, ref256_v3, ref360_v3, by_niveau, sweep_256, sweep_360)]
 
     return [
         ('Carter-256', S.encode_carter,     S.decode_carter,
-         lambda k: S.carter_capacity(k, ref256_v3),       (ref256_v3,),     cellules_256),
+         lambda k: S.carter_capacity(k, ref256_v3),          (ref256_v3,),            cellules_256),
         ('Carter-360', S.encode_carter_360, S.decode_carter_360,
-         lambda k: S.carter360_capacity(k, ref360),       (ref360,),        cellules_360),
+         lambda k: S.carter360_capacity(k, ref360_v3),       (ref360_v3,),            cellules_360),
         ('Carter-Mix', S.encode_carter_mix, S.decode_carter_mix,
-         lambda k: S.carter_mix_capacity(k, ref256, ref360), (ref256, ref360), cellules_mix),
+         lambda k: S.carter_mix_capacity(k, ref256_v3, ref360_v3), (ref256_v3, ref360_v3), cellules_mix),
     ]
 
 
-def _carter256_geom_fns(ref256_v3):
-    """Carter-256 seul renvoie une grammaire {'blocks','sweep_of_color'}
-    (câblage production) au lieu d'une liste plate -- ce petit adaptateur
-    garde compte()/le tuple ci-dessous génériques (Carter-360/Mix
-    inchangés, liste plate) en capturant sweep_of_color par closure."""
+def _dict_grammar_geom_fns(grammar_fn, positions_fn):
+    """Carter-256/360/Mix renvoient désormais une grammaire {'blocks':...,
+    ...} (câblage production) au lieu d'une liste plate -- adaptateur
+    générique qui garde compte()/le tuple ci-dessous uniformes en
+    capturant le reste de la grammaire (sweep_of_color, by_niveau, ...)
+    par closure."""
     holder = {}
     def grammaire(gk):
-        g = S._carter_grammar(gk, ref256_v3)
-        holder['sweep'] = g['sweep_of_color']
+        g = grammar_fn(gk)
+        holder['g'] = g
         return g['blocks']
     def positions(i, g):
-        return S._carter_positions(i // S.CARTER_SIDE, i % S.CARTER_SIDE,
-                                    g, ref256_v3, holder['sweep'])
+        return positions_fn(i, g, holder['g'])
     return grammaire, positions
 
 
-def geometrie(ref256_v3, ref256, ref360, cles):
+def geometrie(ref256_v3, ref360_v3, cles):
     """Positions rendues par bloc message, et blocs qui n'en rendent aucune."""
     out = {}
 
@@ -107,15 +108,25 @@ def geometrie(ref256_v3, ref256, ref360, cles):
                     if g['role'] == S._MESSAGE]
         return par_bloc
 
-    _carter256_grammaire, _carter256_positions = _carter256_geom_fns(ref256_v3)
+    _carter256_grammaire, _carter256_positions = _dict_grammar_geom_fns(
+        lambda gk: S._carter_grammar(gk, ref256_v3),
+        lambda i, g, gram: S._carter_positions(i // S.CARTER_SIDE, i % S.CARTER_SIDE,
+                                                g, ref256_v3, gram['sweep_of_color']))
+    _carter360_grammaire, _carter360_positions = _dict_grammar_geom_fns(
+        lambda gk: S._carter360_grammar(gk, ref360_v3),
+        lambda i, g, gram: S._carter360_positions(i // S.CARTER360_SIDE, i % S.CARTER360_SIDE,
+                                                   g, ref360_v3, gram['by_niveau'], gram['sweep_of_color']))
+    _mix_grammaire, _mix_positions_fn = _dict_grammar_geom_fns(
+        lambda gk: S._carter_mix_grammar(gk, ref256_v3, ref360_v3),
+        lambda i, g, gram: S._mix_positions(i // S.CARTER_MIX_SIDE, i % S.CARTER_MIX_SIDE,
+                                             g, ref256_v3, ref360_v3, gram['by_niveau'],
+                                             gram['sweep_256'], gram['sweep_360']))
     for nom, cle_split, grammaire, positions, cote in (
         ('Carter-256', S._carter_split, _carter256_grammaire, _carter256_positions,
          S.CARTER_SIDE),
-        ('Carter-360', S._carter360_split, lambda gk: S._carter360_grammar(gk, ref360),
-         lambda i, g: S._carter360_positions(i // S.CARTER360_SIDE, i % S.CARTER360_SIDE, g, ref360),
+        ('Carter-360', S._carter360_split, _carter360_grammaire, _carter360_positions,
          S.CARTER360_SIDE),
-        ('Carter-Mix', S._carter_mix_split, lambda gk: S._carter_mix_grammar(gk, ref256, ref360),
-         lambda i, g: S._mix_positions(i // S.CARTER_MIX_SIDE, i % S.CARTER_MIX_SIDE, g, ref256, ref360),
+        ('Carter-Mix', S._carter_mix_split, _mix_grammaire, _mix_positions_fn,
          S.CARTER_MIX_SIDE),
     ):
         tous = []
@@ -245,14 +256,14 @@ def main():
     a = p.parse_args()
 
     rng = random.Random(a.seed)
-    ref256, ref360 = S.load_referents()
     ref256_v3 = S.load_referent_256_v3()
+    ref360_v3 = S.load_referent_360_v3()
     cles = _cles(a.cles, rng)
-    modes = _modes(ref256_v3, ref256, ref360)
+    modes = _modes(ref256_v3, ref360_v3)
 
     res = {
         'parametres': {'cles': a.cles, 'repetitions': a.repetitions, 'seed': a.seed},
-        'geometrie':  geometrie(ref256_v3, ref256, ref360, cles),
+        'geometrie':  geometrie(ref256_v3, ref360_v3, cles),
         'capacite':   capacite(modes, cles),
         'uniformite': uniformite(modes, cles, a.repetitions),
         'duree':      duree(modes, cles),

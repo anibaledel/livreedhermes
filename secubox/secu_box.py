@@ -697,8 +697,8 @@ def carter_deniable(
     return grid_real, grid_duress
 
 def encode_carter_mix_session(message: str, session_keys: Dict,
-                                ref256: List[Dict],
-                                ref360: Optional[List[Dict]] = None) -> List[List[int]]:
+                                ref256: Dict,
+                                ref360: Optional[Dict] = None) -> List[List[int]]:
     """
     Encode en mode Carter mixte (Ref256 + Ref360) depuis une session X25519.
     steg_key de session → master_key de la grammaire mixte 180×180.
@@ -707,8 +707,8 @@ def encode_carter_mix_session(message: str, session_keys: Dict,
     return encode_carter_mix(message, session_keys['steg_key'], ref256, ref360)
 
 def decode_carter_mix_session(grid: List[List[int]], session_keys: Dict,
-                                ref256: List[Dict],
-                                ref360: Optional[List[Dict]] = None) -> str:
+                                ref256: Dict,
+                                ref360: Optional[Dict] = None) -> str:
     from stegano_lib import decode_carter_mix
     return decode_carter_mix(grid, session_keys['steg_key'], ref256, ref360)
 

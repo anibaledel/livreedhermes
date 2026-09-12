@@ -312,7 +312,7 @@ class TestEntropy(unittest.TestCase):
         print(f"  Entropie Carter 360 : {h:.4f} bits")
 
     def test_entropy_carter_mix(self):
-        h = self._test_mode(encode_carter_mix, self.ref256, self.ref360)
+        h = self._test_mode(encode_carter_mix, self.ref256_v3, self.ref360_v3)
         print(f"  Entropie Carter Mix : {h:.4f} bits")
 
     def test_entropy_chacha20_hkdf_output(self):
@@ -607,7 +607,7 @@ class TestSummary(unittest.TestCase):
         grids = {
             'Carter 256': encode_carter(msg, key, ref256_v3),
             'Carter 360': encode_carter_360(msg, key, ref360_v3),
-            'Carter Mix': encode_carter_mix(msg, key, ref256, ref360),
+            'Carter Mix': encode_carter_mix(msg, key, ref256_v3, ref360_v3),
         }
 
         print(f"\n{'='*56}")

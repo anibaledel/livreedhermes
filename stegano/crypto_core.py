@@ -284,6 +284,11 @@ LABELS = {
         'grammar_info':         b'grammar',
         'grammar_content_salt': b'Carter-mix-grammar-v3',
         'grammar_content_info': b'mixed-256-360-grammar',
+        # Cablage production (2026-09-12) : derivation SEPAREE pour les 6
+        # tirages de calque par meta-bloc Ref360 (rejet sans biais vers
+        # [0,59], un par niveau) -- meme construction que carter360.
+        'niveau_calque_salt':   b'Carter-mix-niveau-calque-v3',
+        'niveau_calque_info':   b'niveau-calque-index',
     },
     'carterrandom': {
         # Random/18/Hybrid réutilisent _carter_split (Carter-256) pour

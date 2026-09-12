@@ -518,95 +518,124 @@ def _carter_mix_split(master_key: bytes):
     return xchacha_key, grammar_key
 
 def _carter_mix_grammar(master_key: bytes,
-                         ref256: List[Dict],
-                         ref360: List[Dict]) -> List[Dict]:
+                         ref256: Dict,
+                         ref360: Dict) -> Dict:
     """
-    Dérive la grammaire Carter mixte depuis la clé maître.
-    Pour chaque méta-bloc 12×12 (225 total) :
+    Dérive la grammaire Carter mixte depuis la clé maître (format v3,
+    câblage production 2026-09-12). Pour chaque méta-bloc 12×12 (225
+    total) :
       - référent : 256 (4 sous-blocs 6×6) ou 360 (1 bloc 12×12)
       - rôle     : pur / structuré / message
-      - forme    : issue du référent sélectionné
+      - Ref256 : UN form_id (0..255, direct, référent v3) appliqué
+        IDENTIQUEMENT aux 4 sous-blocs -- jusqu'à 4×12=48 positions
+        stégano (rouge+bleu ensemble par sous-bloc).
+      - Ref360 : 6 calques tirés (un par niveau, comme _carter360_grammar)
+        -- positions stégano = union des violettes, ~48 en moyenne.
     Sans la clé, référent ET rôle sont inconnus.
     Labels centralisés dans crypto_core.LABELS['cartermix'] (tâche 3).
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
     L = LABELS['cartermix']
-    km = HKDF(_hh.SHA256(), CARTER_MIX_N * 5,
+    km = HKDF(_hh.SHA256(), CARTER_MIX_N * 3,
               salt=L['grammar_content_salt'],
               info=L['grammar_content_info']).derive(master_key)
-    grammar = []
+    calque_key = HKDF(_hh.SHA256(), 32,
+                       salt=L['niveau_calque_salt'],
+                       info=L['niveau_calque_info']).derive(master_key)
+    keystream = Cipher(algorithms.ChaCha20(calque_key, bytes(16)), mode=None).encryptor()
+    buf = keystream.update(b'\x00' * (CARTER_MIX_N * N_NIVEAUX_360 * 4))
+    byte_iter = iter(buf)
+
+    blocks = []
     for i in range(CARTER_MIX_N):
-        b = km[i*5 : i*5+5]
+        b = km[i*3 : i*3+3]
         role = _PURE if b[0] < 85 else (_STRUCTURED if b[0] < 170 else _MESSAGE)
         ref  = _REF256 if b[1] < 128 else _REF360
         if ref == _REF256:
-            cfg = {'form_id': (b[2] * len(ref256)) // 256,
-                   'color':   'blue' if b[3] < 128 else 'orange',
-                   'orient':  b[4] % 8}
+            blocks.append({'role': role, 'ref': ref, 'form_id': b[2]})
         else:
-            cfg = {'form_id': (b[2] * len(ref360)) // 256,
-                   'color':   _COLORS_360[b[3] % 3],
-                   'orient':  b[4] % 6}
-        grammar.append({'role': role, 'ref': ref, **cfg})
-    return grammar
+            niveau_calque_idx = ([_rejection_index_60(byte_iter) for _ in range(N_NIVEAUX_360)]
+                                  if role == _MESSAGE else None)
+            blocks.append({'role': role, 'ref': ref, 'niveau_calque_idx': niveau_calque_idx})
 
-def _mix_positions(mbr: int, mbc: int,
-                   g: Dict, ref256: List[Dict],
-                   ref360: List[Dict]) -> List[Tuple]:
+    sweep_256 = {c: derive_sweep_index(master_key, c) for c in ref256['stegano_colors']}
+    sweep_360 = {c: derive_sweep_index(master_key, c) for c in ref360['stegano_colors']}
+    return {'blocks': blocks, 'by_niveau': _calques_by_niveau_360(ref360),
+            'sweep_256': sweep_256, 'sweep_360': sweep_360}
+
+def _mix_positions(mbr: int, mbc: int, g: Dict, ref256: Dict, ref360: Dict,
+                    by_niveau: Dict, sweep_256: Dict, sweep_360: Dict) -> List[Tuple]:
     """
-    Positions de lecture d'un méta-bloc (mbr, mbc) selon sa grammaire.
-    Ref256 : 4 sous-blocs × 6 = 24 positions
-    Ref360 : 1 bloc 12×12 × 8 =  8 positions
+    Positions stégano de lecture d'un méta-bloc (mbr, mbc) selon sa
+    grammaire. Ref256 : le même form_id (rouge+bleu ensemble, 12
+    positions triées par balayage) répliqué sur les 4 sous-blocs 6×6 --
+    jusqu'à 48. Ref360 : union des positions violettes des 6 calques
+    tirés (un par niveau) sur le bloc 12×12 entier -- ~48 en moyenne.
     """
     N = CARTER_MIX_GRID
     if g['ref'] == _REF256:
-        form = ref256[g['form_id'] % len(ref256)]
-        base = form[g['color']]
-        t    = apply_orientation(base, g['orient'])
-        pos  = []
+        form = ref256['forms'][g['form_id']]
+        stegano_colors = ref256['stegano_colors']
+        cells_by_niveau = {0: {c: [tuple(p) for p in form[f'{c}_positions']]
+                                for c in stegano_colors}}
+        local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                            ref256['grid_size'], sweep_256)
+        pos = []
         for dr in range(2):      # 2×2 sous-blocs dans le méta-bloc
             for dc in range(2):
                 r0 = mbr * CARTER_MIX_META + dr * CARTER_BLOCK
                 c0 = mbc * CARTER_MIX_META + dc * CARTER_BLOCK
-                for r, c in t:
+                for r, c in local_order:
                     gr, gc = r0+r, c0+c
                     if 0 <= gr < N and 0 <= gc < N:
                         pos.append((gr, gc))
-        return pos   # jusqu'à 24
+        return pos   # jusqu'à 48 (4×12)
     else:
-        form = ref360[g['form_id'] % len(ref360)]
-        pts  = form['positions'].get(g['color'], [])
-        r0   = mbr * CARTER_MIX_META
-        c0   = mbc * CARTER_MIX_META
-        return [(r0+r, c0+c) for r, c in pts
-                if 0 <= r0+r < N and 0 <= c0+c < N]  # 8
+        stegano_colors = ref360['stegano_colors']
+        cells_by_niveau = {}
+        for niveau, calque_idx in zip(range(1, N_NIVEAUX_360 + 1), g['niveau_calque_idx']):
+            calque = by_niveau[niveau][calque_idx]
+            cells_by_niveau[niveau] = {
+                c: [tuple(p) for p in calque.get(f'{c}_positions', [])]
+                for c in stegano_colors
+            }
+        local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                            ref360['grid_size'], sweep_360)
+        r0, c0 = mbr * CARTER_MIX_META, mbc * CARTER_MIX_META
+        return [(r0+r, c0+c) for r, c in local_order
+                if 0 <= r0+r < N and 0 <= c0+c < N]
 
-def _mix_message_positions(grammar: List[Dict], ref256: List[Dict],
-                           ref360: List[Dict]) -> int:
+def _mix_message_positions(grammar: Dict, ref256: Dict, ref360: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""
+    by_niveau = grammar['by_niveau']
+    sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
     return sum(len(_mix_positions(i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE,
-                                  g, ref256, ref360))
-               for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
+                                  g, ref256, ref360, by_niveau, sweep_256, sweep_360))
+               for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE)
 
 def encode_carter_mix(message: str, master_key: bytes,
-                       ref256: List[Dict],
-                       ref360: Optional[List[Dict]] = None,
+                       ref256: Dict,
+                       ref360: Optional[Dict] = None,
                        _nonce: bytes = None, _y: int = None,
                        _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
-    Encode un message dans une grille Carter mixte 180×180.
-    Ref256 et Ref360 coexistent — la clé détermine quel référent chaque méta-bloc utilise.
+    Encode un message dans une grille Carter mixte 180×180 (format v3).
+    Ref256 et Ref360 coexistent — la clé détermine quel référent chaque
+    méta-bloc utilise.
 
-    Méta-blocs Ref256 message : 24 positions = 12 bytes
-    Méta-blocs Ref360 message :  8 positions =  4 bytes
+    Méta-blocs Ref256 message : jusqu'à 4×12=48 positions (même form_id,
+    répliqué sur les 4 sous-blocs 6×6, rouge+bleu ensemble par sous-bloc).
+    Méta-blocs Ref360 message : ~48 en moyenne (6 calques tirés, un par
+    niveau, union des positions violettes).
 
     La capacité totale est elle-même dérivée de la clé (obscurcissement).
 
     _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
     """
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
 
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
@@ -633,55 +662,61 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER_MIX_GRID, CARTER_MIX_GRID, _noise_seed=_noise_seed)
+    by_niveau = grammar['by_niveau']
+    sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
-        for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360):
+        for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter_mix(grid: List[List[int]], master_key: bytes,
-                       ref256: List[Dict],
-                       ref360: Optional[List[Dict]] = None) -> str:
+                       ref256: Dict,
+                       ref360: Optional[Dict] = None) -> str:
     """Décode une grille Carter mixte 180×180."""
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
     xchacha_key, grammar_key = _carter_mix_split(master_key)
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_cartermix'])
+    by_niveau = grammar['by_niveau']
+    sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
     vals, ni = [], 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
-        for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360):
+        for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter_mix_capacity(master_key: bytes,
-                         ref256: List[Dict],
-                         ref360: Optional[List[Dict]] = None) -> Dict:
+                         ref256: Dict,
+                         ref360: Optional[Dict] = None) -> Dict:
     """Statistiques de capacité de la grammaire Carter mixte (après redraw
     C_PUB, tâche 4 — reflète ce qu'encode_carter_mix() utilise réellement)."""
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
     _, grammar_key = _carter_mix_split(master_key)
     _, grammar, nibs = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
-    n256m = sum(1 for g in grammar if g['role']==_MESSAGE and g['ref']==_REF256)
-    n360m = sum(1 for g in grammar if g['role']==_MESSAGE and g['ref']==_REF360)
-    n256s = sum(1 for g in grammar if g['role']==_STRUCTURED and g['ref']==_REF256)
-    n360s = sum(1 for g in grammar if g['role']==_STRUCTURED and g['ref']==_REF360)
-    n_pur = sum(1 for g in grammar if g['role']==_PURE)
-    # La capacité doit être calculée comme le fait l'encodeur : une forme
-    # tronquée au bord de la grille rend moins de 24 (ou 8) positions.
-    # L'ancien produit n256m*24 + n360m*8 annonçait jusqu'à 12 % de trop.
+    blocks = grammar['blocks']
+    n256m = sum(1 for g in blocks if g['role']==_MESSAGE and g['ref']==_REF256)
+    n360m = sum(1 for g in blocks if g['role']==_MESSAGE and g['ref']==_REF360)
+    n256s = sum(1 for g in blocks if g['role']==_STRUCTURED and g['ref']==_REF256)
+    n360s = sum(1 for g in blocks if g['role']==_STRUCTURED and g['ref']==_REF360)
+    n_pur = sum(1 for g in blocks if g['role']==_PURE)
+    # La capacité doit être calculée comme le fait l'encodeur : Ref256
+    # rend jusqu'à 4×12=48 positions/méta-bloc (répliqué sur 4 sous-blocs),
+    # Ref360 ~48 en moyenne (6 calques tirés) -- jamais une constante
+    # exacte, une forme tronquée au bord de la grille en rend moins.
     # (nibs déjà obtenu par _find_grammar_with_c_pub ci-dessus.)
     return {
         'grille':              f'{CARTER_MIX_GRID}×{CARTER_MIX_GRID}',

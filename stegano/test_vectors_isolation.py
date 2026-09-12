@@ -186,18 +186,22 @@ class TestSingleRef360Loader(unittest.TestCase):
     def test_cartermix_default_matches_vectors_referent(self):
         from stegano_lib import encode_carter_mix
         import vectors_internal as VI
-        ref256_v, ref360_v = VI.load_referents()
+        # Cablage production etape 4 (2026-09-12) : encode_carter_mix() par
+        # defaut charge desormais load_referent_360_v3() pour ref360 (Ref256
+        # reste un parametre requis, meme convention qu'encode_carter()).
+        ref256_v3 = VI.load_referent_256_v3()
+        ref360_v3 = VI.load_referent_360_v3()
         key = os.urandom(32)
         nonce = os.urandom(24)
         noise_seed = os.urandom(32)
         g_explicit = encode_carter_mix(
-            "HELLO", key, ref256_v, ref360_v,
+            "HELLO", key, ref256_v3, ref360_v3,
             _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
         g_default = encode_carter_mix(
-            "HELLO", key, ref256_v,
+            "HELLO", key, ref256_v3,
             _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
         self.assertEqual(g_explicit, g_default,
-            "vectors_internal.load_referents() et le chargement par défaut "
+            "load_referent_360_v3() et le chargement par défaut "
             "d'encode_carter_mix() ne chargent pas le même référent 360.")
 
     def test_no_second_ref360_loader_exists(self):

@@ -445,11 +445,13 @@ def gen_cartermix_vector(vec_id, description, master_key, message, ref256, ref36
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
     grid = CC.random_grid(CT.CARTER_MIX_GRID, CT.CARTER_MIX_GRID, _noise_seed=noise_seed)
+    by_niveau = grammar['by_niveau']
+    sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         mbr, mbc = i // CT.CARTER_MIX_SIDE, i % CT.CARTER_MIX_SIDE
-        for gr, gc in CT._mix_positions(mbr, mbc, g, ref256, ref360):
+        for gr, gc in CT._mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
 
@@ -467,9 +469,13 @@ def gen_cartermix_vector(vec_id, description, master_key, message, ref256, ref36
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
-            "grammar": [{"i": i, "role": g['role'], "ref": g['ref'], "form_id": g['form_id'],
-                         "color": g['color'], "orient": g['orient']}
-                        for i, g in enumerate(grammar)],
+            # TODO v3-format (etape 10) : plus de color/orient/form_id
+            # unique cote 360 (regle niveaux) ; niveau_calque_idx present
+            # seulement pour les meta-blocs ref=360, form_id seul pour 256.
+            "grammar": [{"i": i, "role": g['role'], "ref": g['ref'],
+                         **{k: v for k, v in g.items() if k not in ('role', 'ref')}}
+                        for i, g in enumerate(grammar['blocks'])],
+            "sweep_256": sweep_256, "sweep_360": sweep_360,
             "hchacha20_subkey_hex": _hex(hchacha_subkey), "payload_hex": _hex(payload),
             "pts_m": m, "pts_y": str(y), "symbols": symbols,
             "mask_domain_ascii": domain.decode('ascii'),
@@ -993,11 +999,13 @@ def generate_all(include_grid_csv_showcase=True):
         nonce, 0, [], noise_seed)
     add(v, g)
 
+    # TODO v3-format (etape 10) : _Y_CARTERMIX_BASIC calculee pour l'ancien
+    # n_pos -- y=0 le temps de retirer une valeur sous la regle v3.
     v, g = gen_cartermix_vector(
         "cartermix-basic-01", "Vecteur de base Carter-Mix (Ref256+Ref360).",
         bytes((i * 7 + 3) % 256 for i in range(32)),
-        "CARTER MIX TEST", ref256, ref360,
-        nonce, _Y_CARTERMIX_BASIC, [], noise_seed)
+        "CARTER MIX TEST", ref256_v3, ref360_v3,
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carterrandom_vector(
