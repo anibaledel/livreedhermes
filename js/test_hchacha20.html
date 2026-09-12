@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>HChaCha20 JS — vecteur draft-irtf-cfrg-xchacha (navigateur)</title></head>
+<body>
+<pre id="out">running...</pre>
+<script type="module">
+import { runTests } from './test_hchacha20.mjs';
+
+const out = document.getElementById('out');
+function log(line) { console.log(line); out.textContent += line + '\n'; }
+
+try {
+  const results = runTests();
+  out.textContent = '';
+  for (const r of results) log('  ' + r);
+  log(`\n${results.length}/${results.length} vecteurs HChaCha20 conformes.`);
+  window.__TEST_OK__ = true;
+} catch (e) {
+  out.textContent = '';
+  log('ÉCHEC : ' + e.message);
+  window.__TEST_OK__ = false;
+}
+window.__TEST_DONE__ = true;
+</script>
+</body>
+</html>
