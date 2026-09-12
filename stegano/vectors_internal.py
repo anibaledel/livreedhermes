@@ -34,6 +34,7 @@ import crypto_core as CC
 import carter as CT
 import carter_random as CR
 import stegano_classic as SC
+import referent6x6_gen as R6
 from stegano_lib import load_referent_256_v3, load_referent_360_v3, _carter_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
@@ -836,6 +837,16 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
     raw_keystream_d = _raw_mask_keystream(gk_d, domain, L_d * 2 + 32)
     masks_r = CR._derive_masks(gk_r, L_r, domain)
     masks_d = CR._derive_masks(gk_d, L_d, domain)
+    # Ordre crypto (câblage production, étape 5, 2026-09-12) : secu_box.
+    # _deniable_positions derive un balayage PAR COULEUR depuis gk_local
+    # (ici gk_r/gk_d, l'equivalent exact de gk_local pour Br/Bd
+    # respectivement) -- absent du vecteur jusqu'ici (seul generateur des
+    # 5 sur les couleurs stegano/crypto a ne pas l'exposer). Ajoute pour
+    # verification independante, meme si expected_decode ne depend QUE du
+    # message final, pas de cette etape intermediaire.
+    color_order = list(R6.CRYPTO_COLOR_ORDER)
+    sweep_r = {c: CR.derive_sweep_index(gk_r, c) for c in color_order}
+    sweep_d = {c: CR.derive_sweep_index(gk_d, c) for c in color_order}
 
     vector = {
         "id": vec_id, "instantiation": "deniable", "description": description,
@@ -854,14 +865,17 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
             "n_blocks": n_blocks, "half": half, "orphan_block_idx": orphan,
             "note": "Br=pi[:half], Bd=pi[half+1:] si n_blocks impair sinon pi[half:] "
                     "(voir secu_box._split_br_bd) ; l'orphelin n'est ecrit par personne.",
+            "color_order": color_order,
             "Br": {
                 "blocks": dk_r['blocks'], "grammar_key_hex": _hex(gk_r),
+                "sweep_of_color": sweep_r,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_r), "masks": masks_r,
                 "block_list": _deniable_block_list("real", dk_r['blocks'], dk_r['key_2']),
             },
             "Bd": {
                 "blocks": dk_d['blocks'], "grammar_key_hex": _hex(gk_d),
+                "sweep_of_color": sweep_d,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_d), "masks": masks_d,
                 "block_list": _deniable_block_list("duress", dk_d['blocks'], dk_d['key_2']),
