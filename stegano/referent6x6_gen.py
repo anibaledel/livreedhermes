@@ -83,6 +83,22 @@ LARGE_COLORS = ('green', 'yellow')
 COUNTS = {'blue': 6, 'orange': 6, 'green': 12, 'yellow': 12}
 _POOL_TEMPLATE = (['blue'] * 6) + (['orange'] * 6) + (['green'] * 12) + (['yellow'] * 12)
 
+# Déclaration unique du jeu de couleurs de CE référent (schéma v3, voir
+# docs/REFERENT_FORMAT_V3.md) : `colors`/`stegano_colors`/`crypto_color_
+# order` tels qu'écrits par tools/generate_referent_6x6.py dans les JSON
+# publiés. Les 256 référents du pool partagent le MÊME jeu de couleurs
+# (seule la géométrie des formes diffère par index) ; ce module est donc
+# l'UNIQUE source de vérité pour ce jeu, lu à la fois par le générateur de
+# JSON (au lieu d'une liste dupliquée) et par le code de PRODUCTION qui
+# lit ce référent en mode crypto (secu_box._deniable_positions) -- avant
+# le câblage du 2026-09-12, ce dernier reconstruisait l'ordre en dur par
+# concaténation de SMALL_COLORS+LARGE_COLORS à chaque appel plutôt que de
+# lire une propriété nommée du référent, ce qui aurait laissé un référent
+# personnalisé (LH-5) à jeu de couleurs différent silencieusement ignoré.
+COLORS = SMALL_COLORS + LARGE_COLORS
+STEGANO_COLORS = SMALL_COLORS
+CRYPTO_COLOR_ORDER = COLORS
+
 
 class _DiagCounters:
     """Compteurs de diagnostic (rejets), remis à zéro par appel à

@@ -130,7 +130,7 @@ def get_referent(ref_idx: int):
     référents possibles)."""
     return _R6.get_referent_cached(ref_idx)
 
-_RANDOM_STEGANO_COLORS = list(_R6.SMALL_COLORS)   # ['blue', 'orange']
+_RANDOM_STEGANO_COLORS = list(_R6.STEGANO_COLORS)   # ['blue', 'orange']
 
 def _form_stegano_positions(form: Dict, sweep_of_color: Dict) -> List[Tuple[int, int]]:
     """Positions stégano (blue+orange ensemble, 12) d'une forme, triées par

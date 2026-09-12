@@ -373,8 +373,11 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     ChaCha20) -- PLUS de "direction" (l'ancien référent bariolé à 4
     directions n'a pas de notion de couleur ; le référent v3 encode déjà
     des positions absolues par couleur). Lues dans l'ordre crypto :
-    couleurs dans l'ordre déclaré (blue/orange/green/yellow), chacune
-    triée par son propre balayage (stegano/sweep.py).
+    couleurs dans l'ordre déclaré par le référent
+    (referent6x6_gen.CRYPTO_COLOR_ORDER, câblage 2026-09-12 -- plus de
+    reconstruction en dur par SMALL_COLORS+LARGE_COLORS, pour qu'un
+    référent personnalisé à jeu de couleurs différent soit réellement pris
+    en compte), chacune triée par son propre balayage (stegano/sweep.py).
 
     Référent choisi UNE FOIS pour tout `sk` (gk_local dérivé de sk) : voir
     l'invariant documenté dans encode_deniable — les POSITIONS intra-bloc
@@ -387,7 +390,7 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     _, gk_local = _carter_split(sk)
     ref_idx   = R6.select_referent_index(gk_local)
     ref_local = R6.get_referent_cached(ref_idx)
-    color_order = list(R6.SMALL_COLORS) + list(R6.LARGE_COLORS)
+    color_order = list(R6.CRYPTO_COLOR_ORDER)
     sweep_of_color = {c: derive_sweep_index(gk_local, c) for c in color_order}
     positions = []
     for blk, idx in enumerate(block_indices):

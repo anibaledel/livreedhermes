@@ -44,8 +44,15 @@ OUT_DIR = os.path.join(REPO_ROOT, 'data')
 HASHES_PATH = os.path.join(OUT_DIR, 'referents_6x6_v3_hashes.json')
 DEBUG_INDICES = (0, 1)
 
-COLORS = ['blue', 'orange', 'green', 'yellow']
-STEGANO_COLORS = ['blue', 'orange']
+# Réutilise les constantes déclaratives de referent6x6_gen.py (COLORS/
+# STEGANO_COLORS/CRYPTO_COLOR_ORDER) plutôt que de les redéfinir ici --
+# deux listes locales identiques par coïncidence auraient pu diverger
+# silencieusement du jeu de couleurs réellement utilisé par le code de
+# production qui génère et lit ces référents (même erreur que celle
+# corrigée pour c_pub le 2026-09-12).
+COLORS = list(G.COLORS)
+STEGANO_COLORS = list(G.STEGANO_COLORS)
+CRYPTO_COLOR_ORDER = list(G.CRYPTO_COLOR_ORDER)
 
 
 def _full_doc(n, forms):
@@ -56,7 +63,7 @@ def _full_doc(n, forms):
         'grid_size': G.GRID_SIZE,
         'colors': COLORS,
         'stegano_colors': STEGANO_COLORS,
-        'crypto_color_order': COLORS,
+        'crypto_color_order': CRYPTO_COLOR_ORDER,
         'forms': [dict(id=i, **{f'{c}_positions': sorted(by_color[c]) for c in COLORS})
                   for i, by_color in enumerate(forms)],
     }

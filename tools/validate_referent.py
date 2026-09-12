@@ -93,6 +93,22 @@ def validate(doc):
     if not set(stegano_colors) <= set(colors):
         errors.append(f"stegano_colors {stegano_colors} contient une couleur hors de colors {colors}")
 
+    # crypto_color_order (câblage production, 2026-09-12) : réellement lu
+    # par le mode crypto de secu_box.py (référent 6×6) -- voir
+    # docs/REFERENT_FORMAT_V3.md. Champ optionnel (un référent sans
+    # consommateur crypto peut l'omettre), mais s'il est présent, il DOIT
+    # être une permutation exacte de colors (aucune couleur ajoutée,
+    # omise ou dupliquée), et stegano_colors doit en être un sous-ensemble
+    # (la lecture stégano ne fait qu'en restreindre l'ordre déclaré).
+    crypto_color_order = doc.get('crypto_color_order')
+    if crypto_color_order is not None:
+        if sorted(crypto_color_order) != sorted(colors) or len(crypto_color_order) != len(set(crypto_color_order)):
+            errors.append(f"crypto_color_order {crypto_color_order} n'est pas une permutation "
+                           f"exacte de colors {colors}")
+        if not set(stegano_colors) <= set(crypto_color_order):
+            errors.append(f"stegano_colors {stegano_colors} contient une couleur hors de "
+                           f"crypto_color_order {crypto_color_order}")
+
     layer_of = doc.get('layer_of')
     items = doc[items_key]
     has_niveau = layer_of is not None and all('niveau' in it for it in items)
