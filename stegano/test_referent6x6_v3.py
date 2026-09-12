@@ -96,22 +96,11 @@ class TestRegenerationMatchesHashes(unittest.TestCase):
                 self.assertNotIn(key, seen, f"referent {n} : forme dupliquee")
                 seen.add(key)
 
-    def test_row_constraint_no_three_consecutive_small_color(self):
-        for n in (0, 1, 255):
-            forms = G.generate_referent(n)
-            for by_color in forms:
-                grid = [[None] * 6 for _ in range(6)]
-                for color in ('blue', 'orange'):
-                    for r, c in by_color[color]:
-                        grid[r][c] = color
-                for row in grid:
-                    for small in ('blue', 'orange'):
-                        run = 0
-                        for cell in row:
-                            run = run + 1 if cell == small else 0
-                            self.assertLessEqual(run, 2,
-                                f"referent {n} : 3 cases consecutives {small} sur une ligne")
-
+    # test_row_constraint_no_three_consecutive_small_color SUPPRIME le
+    # 2026-09-12 : la contrainte de non-alignement qu'il vérifiait a été
+    # retirée du générateur (décision de l'auteur -- sans effet
+    # cryptographique, coûteuse en rejets et en règle supplémentaire à
+    # porter en JS). Voir stegano/referent6x6_gen.py.
 
 class TestSelectReferentIndex(unittest.TestCase):
 

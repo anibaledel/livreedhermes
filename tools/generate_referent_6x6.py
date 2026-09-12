@@ -76,12 +76,12 @@ def _full_doc(n, forms):
         "Genere par HKDF-SHA256(IKM public fixe, salt='Carter-referent6x6-v3', "
         "info=index)  ->  keystream ChaCha20(nonce=0)  ->  256 permutations "
         "Fisher-Yates (36 cases : blue/orange 6 chacune, green/yellow 12 "
-        "chacune) par rejet d'octet (sans biais modulo), rejetees et "
-        "retirees si une ligne contient 3 cases consecutives de la meme "
-        "couleur petite (blue ou orange), ou si la forme duplique une "
-        "forme deja retenue dans ce meme referent. Voir "
-        "stegano/referent6x6_gen.py pour la specification complete "
-        "(normative, a reprendre a l'identique par LH-5)."
+        "chacune) par rejet d'octet (sans biais modulo), rejetee et retiree "
+        "si la forme duplique une forme deja retenue dans ce meme referent "
+        "(seule contrainte de rejet depuis le 2026-09-12 -- l'ancienne "
+        "contrainte de non-alignement, sans effet cryptographique, a ete "
+        "retiree ce jour-la). Voir stegano/referent6x6_gen.py pour la "
+        "specification complete (normative, a reprendre a l'identique par LH-5)."
     )
     return doc
 
@@ -89,14 +89,12 @@ def _full_doc(n, forms):
 if __name__ == '__main__':
     t_start = time.time()
     hashes = {}
-    total_constraint_rejects = 0
     total_duplicate_rejects = 0
     debug_docs = {}
 
     for n in range(G.N_REFERENTS):
         diag = G._DiagCounters()
         forms = G.generate_referent(n, diag=diag)
-        total_constraint_rejects += diag.constraint_rejects
         total_duplicate_rejects += diag.duplicate_rejects
         hashes[str(n)] = G.referent_hash(n, forms)
         if n in DEBUG_INDICES:
@@ -106,8 +104,6 @@ if __name__ == '__main__':
     per_referent_ms = (t_end - t_start) / G.N_REFERENTS * 1000
     print(f"{G.N_REFERENTS} referents generes en {t_end - t_start:.2f}s "
           f"({per_referent_ms:.2f} ms/referent)")
-    print(f"rejets de contrainte (moyenne/referent, sur {G.N_FORMS} formes) : "
-          f"{total_constraint_rejects / G.N_REFERENTS:.2f}")
     print(f"rejets de doublon (moyenne/referent) : "
           f"{total_duplicate_rejects / G.N_REFERENTS:.4f}")
 
@@ -120,8 +116,6 @@ if __name__ == '__main__':
         'perf_report': {
             'total_seconds': round(t_end - t_start, 3),
             'ms_per_referent': round(per_referent_ms, 3),
-            'mean_constraint_rejects_per_referent': round(
-                total_constraint_rejects / G.N_REFERENTS, 3),
             'mean_duplicate_rejects_per_referent': round(
                 total_duplicate_rejects / G.N_REFERENTS, 5),
         },

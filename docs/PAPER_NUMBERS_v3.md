@@ -426,3 +426,41 @@ la variante reçoit un référent explicite (`tools/calibrate_referent.py`
 référent par clé dans un pool (`tools/recalibrate_carter_v3.py`,
 inchangé — carterrandom90/360, carterhybrid) — voir
 `docs/REFERENT_FORMAT_V3.md` §6-7 pour le détail et la justification.
+
+### 6.1 Second recalibration — retrait de la contrainte de non-alignement (2026-09-12)
+
+Décision de l'auteur, le même jour : la contrainte de non-alignement du
+générateur 6×6 (« pas 3 cases consécutives de la même couleur stégano par
+ligne », voir `stegano/referent6x6_gen.py`) est retirée — sans effet
+cryptographique, coûteuse en rejets et en règle supplémentaire à porter
+en JS. Les 256 référents du pool changent en conséquence (composition
+6/6/12/12 et rejet des formes dupliquées inchangés) ; seules les
+variantes qui sélectionnent un référent dans ce pool sont concernées
+(carterrandom90, carterrandom360, carterhybrid — carter256/360/mix/18
+utilisent un référent fixe, sans rapport avec ce pool, inchangés).
+
+Recalibré par `tools/recalibrate_carter_v3.py`, même méthode, N=3000
+(échantillon réduit par rapport aux N=10000 habituels — l'écart attendu
+étant faible, un échantillon plus petit suffit à le mesurer sans
+engager le temps d'une campagne complète) :
+
+| Variante          | C_PUB avant retrait | C_PUB après retrait |
+|-------------------|---------------------:|---------------------:|
+| carterrandom90    |                   415 |                   409 |
+| carterrandom360   |                  2144 |                  2147 |
+| carterhybrid      |                   246 |                   235 |
+
+Écarts faibles (±3 % au plus) et sans direction constante — cohérent
+avec une contrainte qui ne rejetait qu'un sous-ensemble marginal de
+formes, sans biaiser la distribution de capacité dans un sens
+particulier. `vectors/carter_v3.json` et `docs/vectors_extract.md`
+régénérés en conséquence ; §1 (distributions min/p1/p5/médiane/p95/max)
+non remesuré pour ce changement mineur — les valeurs qui y figurent
+datent d'avant le retrait de la contrainte et restent indicatives à
+±3 % près pour ces trois variantes.
+
+**Génération des référents (nouvelle mesure, `tools/generate_referent_6x6.py`) :**
+~6,1-6,4 ms/référent (256 référents, Python pur) — les seuls rejets
+restants sont des rejets de forme dupliquée, mesurés à 0,0000 en
+moyenne par référent sur cette régénération (aucune duplication
+observée sur les 256 × 256 formes tirées).

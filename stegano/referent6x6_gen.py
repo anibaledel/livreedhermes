@@ -35,19 +35,24 @@ Algorithme (par référent n) :
           chaque tirage d'indice étant un octet du keystream retenu par
           REJET (uniforme, sans biais modulo) vers [0, i] au pas i de
           l'algorithme.
-       b. Si, dans une des 6 lignes de la grille 6x6 résultante (remplie
-          ligne par ligne, positions 0..35 = (0,0)..(5,5)), 3 cases
-          CONSÉCUTIVES portent la même couleur "petite" (blue ou orange,
-          vérifié séparément) : la forme entière est REJETÉE, retirage
-          complet depuis (a) — nouveaux octets du même keystream, jamais
-          les mêmes tirages réutilisés.
-       c. Si la forme (une fois la contrainte b. satisfaite) est
-          IDENTIQUE à une forme déjà retenue plus tôt dans CE référent :
-          rejetée aussi, retirage complet depuis (a). Chaque référent
-          contient donc 256 formes deux-à-deux distinctes.
+       b. Si la forme est IDENTIQUE à une forme déjà retenue plus tôt
+          dans CE référent : rejetée, retirage complet depuis (a) —
+          nouveaux octets du même keystream, jamais les mêmes tirages
+          réutilisés. Chaque référent contient donc 256 formes
+          deux-à-deux distinctes.
   Un référent est donc entièrement déterminé par son index n ; deux
   exécutions de generate_referent(n) produisent bit-à-bit le même
   résultat.
+
+  RETIRÉ (décision de l'auteur, 2026-09-12) : une contrainte de non-
+  alignement (« pas 3 cases consécutives de la même couleur stégano —
+  blue ou orange — par ligne ») existait à l'étape 3 entre (a) et (b).
+  Sans effet cryptographique (les preuves ne dépendent pas de la
+  géométrie du référent), elle ne coûtait que des rejets supplémentaires
+  et une règle de plus à porter fidèlement dans un futur port JS (LH-5).
+  Les 256 référents ont changé en conséquence de ce retrait (nouvelle
+  génération, empreintes republiées) ; la composition 6/6/12/12 et le
+  rejet des formes dupliquées sont inchangés.
 """
 import hashlib
 import json
@@ -103,11 +108,14 @@ CRYPTO_COLOR_ORDER = COLORS
 class _DiagCounters:
     """Compteurs de diagnostic (rejets), remis à zéro par appel à
     generate_referent(..., diag=...). Ne participent PAS au résultat
-    (purement informatif, pour le rapport de performance)."""
-    __slots__ = ('constraint_rejects', 'duplicate_rejects', 'forms_accepted')
+    (purement informatif, pour le rapport de performance).
+
+    constraint_rejects a disparu le 2026-09-12 avec le retrait de la
+    contrainte de non-alignement (voir le docstring de module) : seuls
+    les rejets de forme dupliquée subsistent désormais."""
+    __slots__ = ('duplicate_rejects', 'forms_accepted')
 
     def __init__(self):
-        self.constraint_rejects = 0
         self.duplicate_rejects = 0
         self.forms_accepted = 0
 
@@ -151,33 +159,19 @@ def _referent_key(n: int) -> bytes:
                  info=bytes([n])).derive(REFERENT_IKM)
 
 
-def _row_constraint_ok(pool):
-    """Aucune ligne (6 cases consécutives de `pool`) ne doit contenir 3
-    cases CONSÉCUTIVES de la même couleur petite (blue ou orange, vérifié
-    séparément) ; les grandes couleurs (green/yellow) sont libres."""
-    for row in range(GRID_SIZE):
-        base = row * GRID_SIZE
-        for small in SMALL_COLORS:
-            run = 0
-            for c in range(GRID_SIZE):
-                if pool[base + c] == small:
-                    run += 1
-                    if run > 2:
-                        return False
-                else:
-                    run = 0
-    return True
-
-
-def _draw_one_form(stream: _KeystreamBytes, diag: _DiagCounters):
-    while True:
-        pool = list(_POOL_TEMPLATE)
-        for i in range(len(pool) - 1, 0, -1):
-            j = _rand_below(stream, i + 1)
-            pool[i], pool[j] = pool[j], pool[i]
-        if _row_constraint_ok(pool):
-            return pool
-        diag.constraint_rejects += 1
+def _draw_one_form(stream: _KeystreamBytes) -> list:
+    """Permutation uniforme de la réserve de 36 couleurs par Fisher-Yates
+    (rejet d'octet sans biais modulo) -- composition 6/6/12/12 fixée par
+    _POOL_TEMPLATE. Aucune contrainte au-delà de la permutation elle-même
+    depuis le retrait de la contrainte de non-alignement (2026-09-12,
+    voir le docstring de module) : toujours un seul tirage, jamais de
+    retirage à ce niveau (seules les formes dupliquées sont rejetées,
+    dans generate_referent ci-dessous)."""
+    pool = list(_POOL_TEMPLATE)
+    for i in range(len(pool) - 1, 0, -1):
+        j = _rand_below(stream, i + 1)
+        pool[i], pool[j] = pool[j], pool[i]
+    return pool
 
 
 def _pool_to_positions(pool):
@@ -198,7 +192,7 @@ def generate_referent(n: int, n_forms: int = N_FORMS, diag: _DiagCounters = None
     forms = []
     seen = set()
     while len(forms) < n_forms:
-        pool = _draw_one_form(stream, diag)
+        pool = _draw_one_form(stream)
         key_repr = tuple(pool)
         if key_repr in seen:
             diag.duplicate_rejects += 1
@@ -213,11 +207,12 @@ def generate_referent(n: int, n_forms: int = N_FORMS, diag: _DiagCounters = None
 def get_referent_cached(n: int):
     """Cache mémoire COMPLET (maxsize couvre les 256 valeurs possibles) --
     une fois un référent généré dans ce process, il n'est plus jamais
-    regénéré. Mesuré (docs/PAPER_NUMBERS_v3.md, §5.3) : ~4,7 ms/référent
-    en Python pur (256 formes, ~36 rejets de contrainte en moyenne) --
-    déjà négligeable pour un encodage isolé, mais ce cache élimine même
-    ce coût pour tout appel répété au même index dans un process
-    long-vivant (serveur, CLI interactive)."""
+    regénéré. Mesuré (`tools/generate_referent_6x6.py`, 2026-09-12, après
+    retrait de la contrainte de non-alignement) : ~6,1-6,4 ms/référent en
+    Python pur (256 formes, rejets de doublon quasi nuls -- 0,0000 en
+    moyenne sur cette mesure) -- déjà négligeable pour un encodage isolé,
+    mais ce cache élimine même ce coût pour tout appel répété au même
+    index dans un process long-vivant (serveur, CLI interactive)."""
     return generate_referent(n)
 
 
