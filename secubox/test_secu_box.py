@@ -221,13 +221,36 @@ class TestDeniableKeyProperties(unittest.TestCase):
 
 
 class TestDeniableCapacity(unittest.TestCase):
-    """Message trop long pour Br/Bd (112 blocs × 6 positions chacun)."""
+    """Message trop long pour Br/Bd (112 blocs × 36 positions chacun,
+    mode crypto -- 6 était l'ancien schéma stégano, périmé depuis le
+    câblage production étape 5, 2026-09-12)."""
 
     def test_message_too_long_raises(self):
         with self.assertRaises(ValueError):
             encode_deniable("A" * 5000, MSG_DURESS)
         with self.assertRaises(ValueError):
             encode_deniable(MSG_REAL, "A" * 5000)
+
+    def test_capacity_exact_bound(self):
+        """
+        Vérifie la borne EXACTE (question de l'audit du 2026-09-12) :
+        L = 112 blocs × 36 positions (mode crypto) = 4032 symboles,
+        max_message_for(4032) = 2667 octets -- calculé par la fonction de
+        PRODUCTION (crypto_core.max_message_for), jamais réimplémenté.
+        Un message pile à cette limite passe, un octet de plus échoue --
+        avant ce test, seul « 5000 caractères → erreur » était couvert,
+        loin de la frontière réelle.
+        """
+        import crypto_core as C
+        L = 112 * 36
+        limit = C.max_message_for(L)
+        self.assertEqual(limit, 2667)
+        msg_ok = "A" * limit
+        msg_too_long = "A" * (limit + 1)
+        grid, rk, dk = encode_deniable(msg_ok, MSG_DURESS)
+        self.assertEqual(decode_deniable(grid, rk), msg_ok)
+        with self.assertRaises(ValueError):
+            encode_deniable(msg_too_long, MSG_DURESS)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

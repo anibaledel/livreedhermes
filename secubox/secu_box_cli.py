@@ -43,6 +43,24 @@ PENDING_FILE  = os.path.join(CONFIG_DIR, 'pending.bin')
 def _ensure_config():
     os.makedirs(CONFIG_DIR, mode=0o700, exist_ok=True)
 
+
+def _write_secret_file(path: str, data) -> None:
+    """
+    Écrit un fichier sensible avec les permissions 0o600 posées à la
+    CRÉATION du descripteur (os.open avec le mode demandé), pas après
+    coup par os.chmod() -- corrige une fenêtre où le fichier existe avec
+    l'umask par défaut (souvent lisible par le groupe/les autres) entre
+    sa création et le chmod qui suit (identité, offer en attente, session).
+    `data` : bytes ou str (encodé en UTF-8 si str).
+    """
+    if isinstance(data, str):
+        data = data.encode('utf-8')
+    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+    try:
+        os.write(fd, data)
+    finally:
+        os.close(fd)
+
 def _load_identity() -> Identity:
     if not os.path.exists(IDENTITY_FILE):
         print("Aucune identité. Lancer : secu-box exchange init", file=sys.stderr)
@@ -99,9 +117,7 @@ def cmd_exchange_init(args):
     if pp != pp2:
         print("Passphrases différentes.", file=sys.stderr); sys.exit(1)
     identity = Identity()
-    with open(IDENTITY_FILE, 'wb') as f:
-        f.write(identity.export_private(pp))
-    os.chmod(IDENTITY_FILE, 0o600)
+    _write_secret_file(IDENTITY_FILE, identity.export_private(pp))
     print(f"✓ Identité créée")
     print(f"  Clé publique  : {identity.public_bytes.hex()}")
     print(f"  Fingerprint   : {identity.fingerprint()}")
@@ -124,9 +140,7 @@ def cmd_exchange_offer(args):
     ref256 = load_referent_256_v3()
     identity  = _load_identity()
     session   = Session(ref256, identity)
-    with open(PENDING_FILE, 'wb') as f:
-        f.write(session.export_pending())
-    os.chmod(PENDING_FILE, 0o600)
+    _write_secret_file(PENDING_FILE, session.export_pending())
     print("Votre offer — à transmettre au correspondant :\n")
     print(f"  {session.offer().hex()}\n")
     print(f"Votre fingerprint : {identity.fingerprint()}")
@@ -178,10 +192,9 @@ def cmd_exchange_complete(args):
         print(f"Dérivation refusée : {e}", file=sys.stderr)
         sys.exit(1)
 
-    with open(SESSION_FILE, 'w') as f:
-        json.dump({k: (v.hex() if isinstance(v, bytes) else v)
-                   for k, v in keys.items()}, f, indent=2)
-    os.chmod(SESSION_FILE, 0o600)
+    session_json = json.dumps({k: (v.hex() if isinstance(v, bytes) else v)
+                                for k, v in keys.items()}, indent=2)
+    _write_secret_file(SESSION_FILE, session_json)
     os.unlink(PENDING_FILE)          # referme la fenêtre de forward secrecy
 
     print(f"\n✓ Session dérivée : {keys['session_id']}")

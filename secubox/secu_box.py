@@ -49,10 +49,15 @@ def _argon2id_identity(passphrase: str, salt: bytes) -> bytes:
 # LH-5 (audit G. Kerma) : renommees depuis _xchacha_enc2/_xchacha_dec2.
 # ChaCha20-Poly1305 a nonce etendu par HKDF (pas du XChaCha20 standard :
 # la sous-cle vient de HKDF-SHA256, non de HChaCha20 — non interoperable
-# avec libsodium/PyNaCl). Meme construction que crypto_core.py, dupliquee
-# ici plutot qu'importee ; le HKDF info= reste 'XChaCha20-HChaCha20-subkey'
-# tel quel, c'est un simple libelle de derivation, pas un nom d'API — le
-# changer romprait le dechiffrement des identites deja exportees.
+# avec libsodium/PyNaCl). Corrige (audit du 2026-09-12) : la construction
+# N'EST PLUS la meme que crypto_core.py depuis le passage de ce dernier a
+# HChaCha20 natif (_xchacha20_enc, tache 1, format v3) -- SEUL le chemin
+# identite/pending (ici) est reste sur l'ancienne construction a sous-cle
+# HKDF, deliberement, pour ne pas casser le dechiffrement des identites
+# deja exportees sous cette construction. Dupliquee ici plutot qu'importee ;
+# le HKDF info= reste 'XChaCha20-HChaCha20-subkey' tel quel, c'est un
+# simple libelle de derivation, pas un nom d'API — le changer romprait le
+# dechiffrement des identites deja exportees.
 def _chacha20_hkdf_enc2(key, pt, aad=b''):
     n=os.urandom(24)
     sk=_HKDF2(_hashes2.SHA256(),32,salt=n[:16],info=b'XChaCha20-HChaCha20-subkey').derive(key)
@@ -150,6 +155,17 @@ class Session:
 
     La clé éphémère privée est détruite après derive(), et une Session ne
     peut servir qu'une fois.
+
+    Pas de confirmation de clé (audit externe, 2026-09-12, confirme par
+    ailleurs la correction du triple DH : ordre canonique, transcript
+    complet dans `info`, résistance KCI). derive() ne vérifie PAS que les
+    deux parties ont abouti à la même `steg_key` -- rien dans le
+    protocole ne le fait. Une erreur de fingerprint (mauvais
+    correspondant vérifié hors bande, ou vérification sautée) n'est donc
+    détectée qu'INDIRECTEMENT, au premier déchiffrement raté (tag
+    Poly1305 ou commitment invalide) côté applicatif -- jamais par
+    Session elle-même, qui retourne une paire de clés sans jamais savoir
+    si elle correspond à celle du correspondant.
     """
 
     OFFER_SIZE = 64   # 32 octets d'identité publique + 32 d'éphémère publique
@@ -729,26 +745,6 @@ def decode_carter_session(grid: List[List[int]], session_keys: Dict,
     from stegano_lib import decode_carter
     return decode_carter(grid, session_keys['steg_key'], ref256)
 
-def carter_deniable(
-    real_message:   str,
-    real_key:       bytes,
-    duress_message: str,
-    duress_key:     bytes,
-    ref256:         Dict,
-) -> tuple:
-    """
-    Déni plausible Carter : deux grilles indépendantes avec deux clés.
-    Chaque grille est une grille Carter 90×90 autonome.
-    Aucun observateur ne peut prouver laquelle est réelle.
-
-    Retourne (grid_real, grid_duress).
-    Les deux grilles sont transmises ensemble ou séparément selon le contexte.
-    """
-    from stegano_lib import encode_carter
-    grid_real   = encode_carter(real_message,   real_key,   ref256)
-    grid_duress = encode_carter(duress_message, duress_key, ref256)
-    return grid_real, grid_duress
-
 def encode_carter_mix_session(message: str, session_keys: Dict,
                                 ref256: Dict,
                                 ref360: Optional[Dict] = None) -> List[List[int]]:
@@ -765,14 +761,20 @@ def decode_carter_mix_session(grid: List[List[int]], session_keys: Dict,
     from stegano_lib import decode_carter_mix
     return decode_carter_mix(grid, session_keys['steg_key'], ref256, ref360)
 
+# carter_deniable() (deux grilles Carter indépendantes sous deux clés,
+# référent fixe) SUPPRIMÉE le 2026-09-12 : même cas que carter_random_
+# deniable/carter_random_deniable_360 (voir leur propre note plus bas) --
+# aucun appelant, aucun test, ne correspond à aucun paragraphe du papier.
+# Vérifié à cette occasion : la note qui justifiait la suppression de ces
+# deux dernières ne mentionnait pas carter_deniable() -- corrigé ici.
 
 # ── Mode Carter Random v3 dans SecuBox ──────────────────────────────────────────
 # Variante de la section « Mode Carter » ci-dessus : au lieu de la grille
 # Carter à Référent 256/360 fixe, la grammaire dérive ses PROPRES référents
 # (10 seeds, 256 formes générées dynamiquement chacun). Aucun fichier JSON de
 # référent n'est nécessaire. Fonctions additives — n'affectent pas
-# encode_carter_session/decode_carter_session/carter_deniable ci-dessus, qui
-# restent la voie Carter à référent fixe.
+# encode_carter_session/decode_carter_session ci-dessus, qui restent la
+# voie Carter à référent fixe.
 
 def encode_carter_random_session(message: str, session_keys: Dict) -> Tuple:
     """
