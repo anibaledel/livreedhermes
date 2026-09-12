@@ -46,7 +46,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from stegano_lib import (
-    load_referents, load_referent_256_v3,
+    load_referents, load_referent_256_v3, load_referent_360_v3,
     _carter_split, _carter360_split, _carter_mix_split,
     _commit_key, _carter_grammar,
     _encrypt, _decrypt,
@@ -74,6 +74,7 @@ MSG_ALPHA  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 _REF256 = None
 _REF360 = None
 _REF256_V3 = None
+_REF360_V3 = None
 
 def get_refs():
     global _REF256, _REF360
@@ -91,6 +92,16 @@ def get_ref256_v3():
     if _REF256_V3 is None:
         _REF256_V3 = load_referent_256_v3()
     return _REF256_V3
+
+def get_ref360_v3():
+    """Référent 360 v3 (câblage production, étape 3, 2026-09-12) --
+    UNIQUEMENT pour encode_carter_360/decode_carter_360/carter360_capacity
+    (Carter-360 seul). Le ref360 de get_refs() (294 formes plates) reste
+    utilisé pour Carter-Mix, non migré à cette étape."""
+    global _REF360_V3
+    if _REF360_V3 is None:
+        _REF360_V3 = load_referent_360_v3()
+    return _REF360_V3
 
 # ── Utilitaire : mock os.urandom déterministe ─────────────────────────────────
 class _FakeRandom:
@@ -555,6 +566,7 @@ class TestFixtures(unittest.TestCase):
     def setUpClass(cls):
         ref256, ref360 = get_refs()
         ref256_v3 = get_ref256_v3()
+        ref360_v3 = get_ref360_v3()
 
         def make_fixture(fn, *args, seed=b'seed'):
             rng = _FakeRandom(seed)
@@ -574,7 +586,7 @@ class TestFixtures(unittest.TestCase):
         cls.FIXTURES['carter_256'] = {
             'grid': grid_to_csv(grid2), 'key': KEY_KNOWN.hex(), 'message': MSG_SHORT}
 
-        grid3 = make_fixture(encode_carter_360, MSG_SHORT, KEY_KNOWN, ref360,
+        grid3 = make_fixture(encode_carter_360, MSG_SHORT, KEY_KNOWN, ref360_v3,
                               seed=b'carter360-2026')
         cls.FIXTURES['carter_360'] = {
             'grid': grid_to_csv(grid3), 'key': KEY_KNOWN.hex(), 'message': MSG_SHORT}
@@ -602,11 +614,11 @@ class TestFixtures(unittest.TestCase):
             f['message'], "Rupture Carter 256 !")
 
     def test_carter_360_decode_stable(self):
-        _, ref360 = get_refs()
+        ref360_v3 = get_ref360_v3()
         f   = self.FIXTURES['carter_360']
         key = bytes.fromhex(f['key'])
         self.assertEqual(
-            decode_carter_360(csv_to_grid(f['grid']), key, ref360),
+            decode_carter_360(csv_to_grid(f['grid']), key, ref360_v3),
             f['message'], "Rupture Carter 360 !")
 
     def test_carter_mix_decode_stable(self):
@@ -620,13 +632,14 @@ class TestFixtures(unittest.TestCase):
     def test_wrong_key_rejected_all_modes(self):
         ref256, ref360 = get_refs()
         ref256_v3 = get_ref256_v3()
+        ref360_v3 = get_ref360_v3()
         wrong = KEY_KNOWN2
 
         for name, fn, args in [
             ('carter_256', decode_carter,
              (csv_to_grid(self.FIXTURES['carter_256']['grid']), wrong, ref256_v3)),
             ('carter_360', decode_carter_360,
-             (csv_to_grid(self.FIXTURES['carter_360']['grid']), wrong, ref360)),
+             (csv_to_grid(self.FIXTURES['carter_360']['grid']), wrong, ref360_v3)),
             ('carter_mix', decode_carter_mix,
              (csv_to_grid(self.FIXTURES['carter_mix']['grid']), wrong, ref256, ref360)),
         ]:
@@ -644,6 +657,7 @@ class TestEndToEnd(unittest.TestCase):
     def setUp(self):
         self.ref256, self.ref360 = get_refs()
         self.ref256_v3 = get_ref256_v3()
+        self.ref360_v3 = get_ref360_v3()
 
     def _roundtrip(self, enc_fn, dec_fn, msg, key, *args):
         grid = enc_fn(msg, key, *args)
@@ -664,7 +678,7 @@ class TestEndToEnd(unittest.TestCase):
     def test_carter_360_roundtrip(self):
         self.assertEqual(
             self._roundtrip(encode_carter_360, decode_carter_360,
-                            MSG_LONG, KEY_KNOWN, self.ref360),
+                            MSG_LONG, KEY_KNOWN, self.ref360_v3),
             MSG_LONG)
 
     def test_carter_mix_roundtrip(self):
@@ -675,9 +689,9 @@ class TestEndToEnd(unittest.TestCase):
 
     def test_key_isolation(self):
         grid256 = encode_carter(MSG_SHORT, KEY_KNOWN,  self.ref256_v3)
-        grid360 = encode_carter_360(MSG_SHORT, KEY_KNOWN, self.ref360)
-        self.assertEqual(decode_carter(grid256, KEY_KNOWN, self.ref256_v3),  MSG_SHORT)
-        self.assertEqual(decode_carter_360(grid360, KEY_KNOWN, self.ref360), MSG_SHORT)
+        grid360 = encode_carter_360(MSG_SHORT, KEY_KNOWN, self.ref360_v3)
+        self.assertEqual(decode_carter(grid256, KEY_KNOWN, self.ref256_v3),     MSG_SHORT)
+        self.assertEqual(decode_carter_360(grid360, KEY_KNOWN, self.ref360_v3), MSG_SHORT)
 
     def test_alpha_message(self):
         self.assertEqual(
@@ -843,13 +857,14 @@ class TestCPub(unittest.TestCase):
     def setUpClass(cls):
         cls.ref256, cls.ref360 = get_refs()
         cls.ref256_v3 = get_ref256_v3()
+        cls.ref360_v3 = get_ref360_v3()
 
     def test_c_pub_rejects_over_limit_before_grid(self):
         """Un message > C_PUB est refusé, quelle que soit la clé (seuil public)."""
         import crypto_core as C
         cases = [
             ('carter256', lambda msg: encode_carter(msg, KEY_KNOWN, self.ref256_v3)),
-            ('carter360', lambda msg: encode_carter_360(msg, KEY_KNOWN, self.ref360)),
+            ('carter360', lambda msg: encode_carter_360(msg, KEY_KNOWN, self.ref360_v3)),
             ('cartermix', lambda msg: encode_carter_mix(msg, KEY_KNOWN, self.ref256, self.ref360)),
         ]
         for variant, enc_fn in cases:
@@ -864,7 +879,7 @@ class TestCPub(unittest.TestCase):
         from carter import carter_capacity, carter360_capacity, carter_mix_capacity
         checks = [
             ('carter256', lambda k: carter_capacity(k, self.ref256_v3)['chars_max']),
-            ('carter360', lambda k: carter360_capacity(k, self.ref360)['chars_max']),
+            ('carter360', lambda k: carter360_capacity(k, self.ref360_v3)['chars_max']),
             ('cartermix', lambda k: carter_mix_capacity(k, self.ref256, self.ref360)['bytes_utiles']),
         ]
         for variant, cap_fn in checks:

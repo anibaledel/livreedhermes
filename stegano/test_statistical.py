@@ -39,7 +39,7 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from stegano_lib import (
-    load_referents, load_referent_256_v3,
+    load_referents, load_referent_256_v3, load_referent_360_v3,
     encode_carter, decode_carter,
     encode_carter_360, encode_carter_mix,
     _encrypt, _xchacha20_enc, payload_to_symbols, ALPHA_LEN,
@@ -284,6 +284,7 @@ class TestEntropy(unittest.TestCase):
     def setUpClass(cls):
         cls.ref256, cls.ref360 = load_referents()
         cls.ref256_v3 = load_referent_256_v3()
+        cls.ref360_v3 = load_referent_360_v3()
 
     def _entropy(self, flat: List[int]) -> float:
         n = len(flat)
@@ -307,7 +308,7 @@ class TestEntropy(unittest.TestCase):
         print(f"  Entropie Carter 256 : {h:.4f} bits (max {H_MAX:.4f})")
 
     def test_entropy_carter_360(self):
-        h = self._test_mode(encode_carter_360, self.ref360)
+        h = self._test_mode(encode_carter_360, self.ref360_v3)
         print(f"  Entropie Carter 360 : {h:.4f} bits")
 
     def test_entropy_carter_mix(self):
@@ -599,12 +600,13 @@ class TestSummary(unittest.TestCase):
         """Affiche un recap sans assertion (toujours OK)."""
         ref256, ref360 = load_referents()
         ref256_v3 = load_referent_256_v3()
+        ref360_v3 = load_referent_360_v3()
         key       = os.urandom(32)
         msg       = "ANIBALAMIOTX"
 
         grids = {
             'Carter 256': encode_carter(msg, key, ref256_v3),
-            'Carter 360': encode_carter_360(msg, key, ref360),
+            'Carter 360': encode_carter_360(msg, key, ref360_v3),
             'Carter Mix': encode_carter_mix(msg, key, ref256, ref360),
         }
 

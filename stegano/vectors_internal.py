@@ -34,7 +34,7 @@ import crypto_core as CC
 import carter as CT
 import carter_random as CR
 import stegano_classic as SC
-from stegano_lib import load_referents, load_referent_256_v3, _carter_split
+from stegano_lib import load_referents, load_referent_256_v3, load_referent_360_v3, _carter_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
 import secu_box as SB
@@ -380,11 +380,13 @@ def gen_carter360_vector(vec_id, description, master_key, message, ref360,
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
     grid = CC.random_grid(CT.CARTER360_GRID, CT.CARTER360_GRID, _noise_seed=noise_seed)
+    by_niveau = grammar['by_niveau']
+    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         br, bc = i // CT.CARTER360_SIDE, i % CT.CARTER360_SIDE
-        for gr, gc in CT._carter360_positions(br, bc, g, ref360):
+        for gr, gc in CT._carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
 
@@ -402,9 +404,12 @@ def gen_carter360_vector(vec_id, description, master_key, message, ref360,
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
-            "grammar": [{"i": i, "role": g['role'], "form_id": g['form_id'],
-                         "color": g['color'], "orient": g['orient']}
-                        for i, g in enumerate(grammar)],
+            # TODO v3-format (etape 10) : plus de color/orient/form_id
+            # unique (regle niveaux -- 6 calques tires, un par niveau) ;
+            # niveau_calque_idx et sweep_of_color ajoutes a la place.
+            "grammar": [{"i": i, "role": g['role'], "niveau_calque_idx": g['niveau_calque_idx']}
+                        for i, g in enumerate(grammar['blocks'])],
+            "sweep_of_color": sweep_of_color,
             "hchacha20_subkey_hex": _hex(hchacha_subkey), "payload_hex": _hex(payload),
             "pts_m": m, "pts_y": str(y), "symbols": symbols,
             "mask_domain_ascii": domain.decode('ascii'),
@@ -945,6 +950,11 @@ def generate_all(include_grid_csv_showcase=True):
     # (recalibration + régénération) n'a pas eu lieu -- voir les skips
     # explicites dans test_vectors_regeneration.py.
     ref256_v3 = load_referent_256_v3()
+    # ref360_v3 (câblage production, étape 3, 2026-09-12) : Carter-360 SEUL
+    # passé à la règle de lecture par niveaux (referent_360_v3.json) --
+    # Carter-Mix reste sur l'ancien ref360 (294 formes plates) tant que
+    # l'étape 4 n'est pas faite.
+    ref360_v3 = load_referent_360_v3()
     nonce = bytes(range(24))
     noise_seed = bytes(reversed(range(32)))
     vectors = []
@@ -974,10 +984,13 @@ def generate_all(include_grid_csv_showcase=True):
         nonce, 0, [], noise_seed)
     add(v, g)
 
+    # TODO v3-format (etape 10) : _Y_CARTER360_BASIC calculee pour l'ancien
+    # n_pos (tirage plat C1/C2/C3) -- regle par niveaux change Q. y=0 le
+    # temps de retirer une valeur sous la regle v3 a l'etape 10.
     v, g = gen_carter360_vector(
         "carter360-basic-01", "Vecteur de base Carter-360.",
-        bytes(range(32, 64)), "BONJOUR CARTER 360", ref360,
-        nonce, _Y_CARTER360_BASIC, [], noise_seed)
+        bytes(range(32, 64)), "BONJOUR CARTER 360", ref360_v3,
+        nonce, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_cartermix_vector(

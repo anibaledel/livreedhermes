@@ -82,6 +82,17 @@ def load_referents() -> Tuple[List, List]:
                 sum(len(v) for v in f['positions'].values()) == 24)]
     return r256, r360
 
+def load_referent_360_v3() -> Dict:
+    """
+    Chargeur du Référent 360 au format v3 (data/referent_360_v3.json --
+    360 calques, niveaux/LAYER_OF, colors=[violet,magenta,orange],
+    stegano_colors=[violet], c_pub calibré). NOUVEAU (câblage production,
+    2026-09-12) : cohabite TEMPORAIREMENT avec load_referents() ci-dessus
+    tant que Carter-Mix (étape 4) n'a pas migré. Utilisé par carter.py
+    (Carter-360) dès l'étape 3 du câblage."""
+    with open(_find_ref('referent_360_v3.json')) as f:
+        return json.load(f)
+
 def load_referent_256_v3() -> Dict:
     """
     Chargeur du Référent 256 au format v3 (data/referent_256_v3.json --

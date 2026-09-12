@@ -271,6 +271,12 @@ LABELS = {
         'grammar_info':         b'grammar',
         'grammar_content_salt': b'Carter-360-grammar-v3',
         'grammar_content_info': b'block-roles-360-forms',
+        # Cablage production (referent_360_v3.json, niveaux/LAYER_OF,
+        # 2026-09-12) : derivation SEPAREE pour les 6 tirages de calque
+        # par bloc message (rejet sans biais vers [0,59], un par niveau) --
+        # keystream ChaCha20 distinct de celui des roles ci-dessus.
+        'niveau_calque_salt':   b'Carter-360-niveau-calque-v3',
+        'niveau_calque_info':   b'niveau-calque-index',
     },
     'cartermix': {
         'split_salt':           b'Carter-mix-v3',

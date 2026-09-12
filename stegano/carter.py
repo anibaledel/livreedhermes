@@ -35,7 +35,7 @@ from crypto_core import (
     _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid, _derive_masks,
 )
-from stegano_classic import apply_orientation, load_referents
+from stegano_classic import apply_orientation, load_referents, load_referent_360_v3
 from sweep import derive_sweep_index, crypto_reading_order
 
 # ── Grille Carter — Grammaire à 3 catégories dérivées de la clé ───────────────
@@ -281,82 +281,133 @@ def _carter360_split(master_key: bytes):
                          salt=L['split_salt'], info=L['grammar_info']).derive(master_key)
     return xchacha_key, grammar_key
 
-def _carter360_grammar(master_key: bytes, ref360: List[Dict]) -> List[Dict]:
+N_NIVEAUX_360 = 6
+N_CALQUES_PAR_NIVEAU_360 = 60
+
+
+def _calques_by_niveau_360(ref360: Dict) -> Dict[int, List[Dict]]:
+    """{niveau: [calque, ...]} (60 par niveau), ordre STABLE (trié par
+    famille/teinte) pour que le tirage par index soit reproductible --
+    même construction que tools/calibrate_referent.py::_calques_by_niveau,
+    désormais la version de production."""
+    by_niveau = {n: [] for n in range(1, N_NIVEAUX_360 + 1)}
+    for calque in sorted(ref360['calques'], key=lambda c: (c['famille'], c['teinte'], c['niveau'])):
+        by_niveau[calque['niveau']].append(calque)
+    return by_niveau
+
+
+def _rejection_index_60(byte_iter) -> int:
+    """Index dans [0,59] par rejet d'octet, sans biais modulo (limit =
+    256 - 256%60 = 240)."""
+    limit = 256 - (256 % N_CALQUES_PAR_NIVEAU_360)
+    for b in byte_iter:
+        if b < limit:
+            return b % N_CALQUES_PAR_NIVEAU_360
+    raise RuntimeError("keystream épuisé sans octet accepté (ne devrait jamais arriver)")
+
+
+def _carter360_grammar(master_key: bytes, ref360: Dict) -> Dict:
     """
-    Dérive la grammaire Carter pour le Référent 360 (blocs 12×12).
-    Même principe que _carter_grammar pour Ref256,
-    mais avec 3 couleurs (C1/C2/C3) au lieu de 2 (blue/orange).
-    Labels centralisés dans crypto_core.LABELS['carter360'] (tâche 3).
+    Dérive la grammaire Carter pour le Référent 360 (blocs 12×12, format
+    v3 -- data/referent_360_v3.json).
+
+    RÈGLE DE LECTURE v3 (câblage production, 2026-09-12) : pour chaque
+    bloc 'message', UN calque est tiré PAR NIVEAU (6 tirages, rejet sans
+    biais vers [0,59] parmi les 60 calques de ce niveau) -- les positions
+    stégano du bloc sont l'UNION des positions violettes des 6 calques
+    ainsi tirés (48 en moyenne : 8 par niveau pour 56/60 identités, 0 ou
+    16 pour les 4 identités "MUT"). Remplace l'ancien tirage à une seule
+    couleur (C1/C2/C3) parmi 294 formes plates, qui rendait 0 position
+    pour 44,9% des blocs message (canal absent de la forme tirée).
+
+    Retourne {'blocks':[{role, niveau_calque_idx|None}, ...],
+    'by_niveau': {...}, 'sweep_of_color': {'violet': 0..7}}.
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
+    from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
     L = LABELS['carter360']
-    km = HKDF(_hh.SHA256(), CARTER360_N * 4,
-              salt=L['grammar_content_salt'],
-              info=L['grammar_content_info']).derive(master_key)
-    grammar = []
+    role_key = HKDF(_hh.SHA256(), CARTER360_N,
+                     salt=L['grammar_content_salt'],
+                     info=L['grammar_content_info']).derive(master_key)
+    calque_key = HKDF(_hh.SHA256(), 32,
+                       salt=L['niveau_calque_salt'],
+                       info=L['niveau_calque_info']).derive(master_key)
+    # Sur-tirage large : jusqu'à CARTER360_N*N_NIVEAUX_360 tirages, ~6,25%
+    # de rejet chacun (limite=240/256) -- même dimensionnement que
+    # tools/calibrate_referent.py::_n_pos_for_key (calibration).
+    keystream = Cipher(algorithms.ChaCha20(calque_key, bytes(16)), mode=None).encryptor()
+    buf = keystream.update(b'\x00' * (CARTER360_N * N_NIVEAUX_360 * 4))
+    byte_iter = iter(buf)
+
+    blocks = []
     for i in range(CARTER360_N):
-        b = km[i*4 : i*4+4]
-        rb = b[0]
+        rb = role_key[i]
         role = _PURE if rb < 85 else (_STRUCTURED if rb < 170 else _MESSAGE)
-        grammar.append({
-            'role':    role,
-            'form_id': (b[1] * len(ref360)) // 256,
-            'color':   _COLORS_360[b[2] % 3],
-            'orient':  b[3] % 6,   # 6 permutations de couleurs
-        })
-    return grammar
+        niveau_calque_idx = None
+        if role == _MESSAGE:
+            niveau_calque_idx = [_rejection_index_60(byte_iter)
+                                  for _ in range(N_NIVEAUX_360)]
+        blocks.append({'role': role, 'niveau_calque_idx': niveau_calque_idx})
 
-def _carter360_positions(br: int, bc: int,
-                          g: Dict, ref360: List[Dict]) -> List[Tuple]:
-    """
-    Positions de lecture du bloc 12×12 (br, bc) selon la grammaire g.
+    sweep_of_color = {c: derive_sweep_index(master_key, c)
+                       for c in ref360['stegano_colors']}
+    return {'blocks': blocks, 'by_niveau': _calques_by_niveau_360(ref360),
+            'sweep_of_color': sweep_of_color}
 
-    Zéro à 16 positions, et non 8 comme on pourrait l'attendre. La grammaire
-    tire une couleur parmi C1/C2/C3, mais une forme n'offre pas forcément le
-    canal tiré : sur les 294 formes du référent, 84 portent C1, 198 portent
-    C3, 214 portent C2. Le canal absent, le .get() rend une liste vide et le
-    bloc ne porte rien. Les canaux existants comptent 8 points, sauf 21
-    d'entre eux qui en comptent 16.
-
-    Mesuré sur 463 blocs message : 44,9 % ne rendent aucune position, la
-    moyenne s'établissant à 4,60. Toute capacité calculée comme n_msg*8 est
-    donc inatteignable — voir _carter360_message_positions().
-    """
-    form = ref360[g['form_id'] % len(ref360)]
-    pts  = form['positions'].get(g['color'], [])
+def _carter360_positions(br: int, bc: int, g: Dict, ref360: Dict,
+                          by_niveau: Dict, sweep_of_color: Dict) -> List[Tuple]:
+    """Positions stégano de lecture du bloc 12×12 (br, bc) : l'union des
+    positions violettes des 6 calques tirés (un par niveau, voir
+    _carter360_grammar), dans l'ordre de lecture (niveaux croissants,
+    chacun trié par le balayage de 'violet' -- une seule couleur stégano
+    pour ce référent, voir crypto_reading_order)."""
+    stegano_colors = ref360['stegano_colors']
+    cells_by_niveau = {}
+    for niveau, calque_idx in zip(range(1, N_NIVEAUX_360 + 1), g['niveau_calque_idx']):
+        calque = by_niveau[niveau][calque_idx]
+        cells_by_niveau[niveau] = {
+            c: [tuple(p) for p in calque.get(f'{c}_positions', [])]
+            for c in stegano_colors
+        }
+    local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
+                                        ref360['grid_size'], sweep_of_color)
     r0, c0 = br * CARTER360_BLOCK, bc * CARTER360_BLOCK
-    return [(r0+r, c0+c) for r, c in pts
+    return [(r0+r, c0+c) for r, c in local_order
             if 0 <= r0+r < CARTER360_GRID and 0 <= c0+c < CARTER360_GRID]
 
-def _carter360_message_positions(grammar: List[Dict], ref360: List[Dict]) -> int:
+def _carter360_message_positions(grammar: Dict, ref360: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""
+    by_niveau = grammar['by_niveau']
+    sweep_of_color = grammar['sweep_of_color']
     return sum(len(_carter360_positions(i // CARTER360_SIDE, i % CARTER360_SIDE,
-                                        g, ref360))
-               for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
+                                        g, ref360, by_niveau, sweep_of_color))
+               for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE)
 
 def encode_carter_360(message: str, master_key: bytes,
-                       ref360: Optional[List[Dict]] = None,
+                       ref360: Optional[Dict] = None,
                        _nonce: bytes = None, _y: int = None,
                        _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
-    Encode un message dans une grille Carter 180×180 (Référent 360).
+    Encode un message dans une grille Carter 180×180 (Référent 360, format
+    v3 -- data/referent_360_v3.json par défaut).
 
     _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
 
     Grammaire dérivée de master_key :
       'pur'       → bruit aléatoire, aucune structure 12×12
-      'structuré' → forme Ref360 appliquée, valeurs aléatoires
-      'message'   → forme Ref360 appliquée, valeurs = message ChaCha20-HKDF
+      'structuré' → bruit aléatoire, EXACTEMENT comme 'pur' (rien ne
+                    change hors des positions stégano, décision de
+                    l'auteur, câblage production 2026-09-12)
+      'message'   → 6 calques tirés (un par niveau) → positions violettes
+                    ensemble, valeurs = message ChaCha20-HKDF
 
-    Capacité utile : 152 caractères en moyenne sur 200 clés (49 à 246),
-    contre 214 pour Carter 90×90 Ref256 — inférieure malgré une grille plus
-    grande, pour la raison expliquée sous _carter360_positions(). La
-    grammaire étant dérivée de la clé, la capacité varie fortement d'une clé
-    à l'autre : carter360_capacity() donne le chiffre exact pour une clé.
+    Capacité : ~48 positions stégano en moyenne par bloc message (8 par
+    niveau pour 56/60 identités, 0 ou 16 pour les 4 identités "MUT") --
+    voir carter360_capacity() pour le chiffre exact d'une clé donnée.
     """
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
 
     xchacha_key, grammar_key = _carter360_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
@@ -366,12 +417,6 @@ def encode_carter_360(message: str, master_key: bytes,
             f"Message trop long : {len(message.encode('utf-8'))} > "
             f"C_PUB={C_PUB['carter360']} octets (capacité publique "
             f"garantie, indépendante de la clé).")
-    # Positions réellement disponibles. La grammaire tire une couleur parmi
-    # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
-    # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
-    # canal manque, le bloc ne rend AUCUNE position. Mesuré sur 463 blocs
-    # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
-    # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
     # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
     # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
@@ -388,64 +433,62 @@ def encode_carter_360(message: str, master_key: bytes,
 
     # Remplissage bulk CSPRNG — voir encode_carter().
     grid  = random_grid(CARTER360_GRID, CARTER360_GRID, _noise_seed=_noise_seed)
+    by_niveau = grammar['by_niveau']
+    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
-        for gr, gc in _carter360_positions(br, bc, g, ref360):
+        for gr, gc in _carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
 
 def decode_carter_360(grid: List[List[int]], master_key: bytes,
-                       ref360: Optional[List[Dict]] = None) -> str:
+                       ref360: Optional[Dict] = None) -> str:
     """Décode une grille Carter 180×180. Lève ValueError si clé incorrecte."""
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
     xchacha_key, grammar_key = _carter360_split(master_key)
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter360'])
+    by_niveau = grammar['by_niveau']
+    sweep_of_color = grammar['sweep_of_color']
     vals, ni = [], 0
-    for i, g in enumerate(grammar):
+    for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
-        for gr, gc in _carter360_positions(br, bc, g, ref360):
+        for gr, gc in _carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return _decrypt(vals, xchacha_key, len(vals))
 
 def carter360_capacity(master_key: bytes,
-                        ref360: Optional[List[Dict]] = None) -> Dict:
+                        ref360: Optional[Dict] = None) -> Dict:
     """Statistiques de capacité de la grammaire Carter 360 (après redraw
     C_PUB, tâche 4 — reflète ce qu'encode_carter_360() utilise réellement)."""
     if ref360 is None:
-        _, ref360 = load_referents()
+        ref360 = load_referent_360_v3()
     _, grammar_key = _carter360_split(master_key)
-    # Positions réellement disponibles. La grammaire tire une couleur parmi
-    # C1/C2/C3, mais une forme Ref360 n'offre pas forcément le canal tiré :
-    # 84 formes sur 294 portent C1, 198 portent C3, 214 portent C2. Quand le
-    # canal manque, le bloc ne rend AUCUNE position. Mesuré sur 463 blocs
-    # message : 44,9 % n'en rendent aucune, et la moyenne tombe à 4,60 par
-    # bloc. Le produit n_msg*8 annonçait donc une capacité inatteignable.
     _, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
         lambda g: _carter360_message_positions(g, ref360))
-    n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
-    n_str = sum(1 for g in grammar if g['role'] == _STRUCTURED)
-    n_pur = sum(1 for g in grammar if g['role'] == _PURE)
+    blocks = grammar['blocks']
+    n_msg = sum(1 for g in blocks if g['role'] == _MESSAGE)
+    n_str = sum(1 for g in blocks if g['role'] == _STRUCTURED)
+    n_pur = sum(1 for g in blocks if g['role'] == _PURE)
     return {
         'referent':         '360',
         'grille':           f'{CARTER360_GRID}×{CARTER360_GRID}',
         'blocs_message':    n_msg,
         'blocs_structure':  n_str,
         'blocs_purs':       n_pur,
-        # Moyenne constatée, et non la constante 8 d'avant : un canal de
-        # couleur existant porte bien 8 points (16 pour 21 d'entre eux),
-        # mais près d'un bloc message sur deux tire un canal absent de sa
-        # forme et ne rend rien du tout.
+        # Moyenne constatee sur les positions violettes reellement rendues
+        # (6 niveaux, ~8/niveau pour 56/60 identites -- 0 ou 16 pour les 4
+        # identites MUT) -- voir _carter360_grammar/_carter360_positions.
         'positions_bloc':   (n_pos / n_msg) if n_msg else 0,
         'nibbles':          n_pos,
         'bytes_utiles':     max_message_for(n_pos),

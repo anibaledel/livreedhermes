@@ -161,7 +161,11 @@ class TestSingleRef360Loader(unittest.TestCase):
 
     def test_carter360_default_matches_vectors_referent(self):
         import vectors_internal as VI
-        ref256_v, ref360_v = VI.load_referents()   # ce que vectors_internal.py charge
+        # Cablage production etape 3 (2026-09-12) : encode_carter_360() par
+        # defaut charge desormais load_referent_360_v3(), plus
+        # load_referents() (294 formes plates, toujours utilise par
+        # Carter-Mix, non migre) -- compare contre ce meme chargeur v3.
+        ref360_v = VI.load_referent_360_v3()
         key = os.urandom(32)
         nonce = os.urandom(24)
         noise_seed = os.urandom(32)

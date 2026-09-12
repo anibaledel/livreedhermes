@@ -42,10 +42,13 @@ VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 _CARTER256_STALE_VECTOR_REASON = (
     "carter256-* : vecteurs stockes geles avant le cablage etape 2 "
     "(nouvelle regle de lecture 6x6) -- a regenerer a l'etape 10.")
+_CARTER360_STALE_VECTOR_REASON = (
+    "carter360-* : vecteurs stockes geles avant le cablage etape 3 "
+    "(nouvelle regle de lecture par niveaux) -- a regenerer a l'etape 10.")
 
 _DECODE_FN = {
     'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
-    'carter360':    lambda g, key, ref256, ref360: CT.decode_carter_360(g, key, ref360),
+    'carter360':    lambda g, key, ref256, ref360: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
     'cartermix':    lambda g, key, ref256, ref360: CT.decode_carter_mix(g, key, ref256, ref360),
     'carterrandom': lambda g, key, ref256, ref360: CR.decode_carter_random(g, key, 90),
     'carter18':     lambda g, key, ref256, ref360: CR.decode_carter_18(g, key, 90),
@@ -81,6 +84,8 @@ class TestVectorsRegeneration(unittest.TestCase):
             with self.subTest(id=sv['id']):
                 if sv['id'].startswith('carter256'):
                     self.skipTest(_CARTER256_STALE_VECTOR_REASON)
+                if sv['id'].startswith('carter360'):
+                    self.skipTest(_CARTER360_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
