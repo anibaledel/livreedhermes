@@ -278,67 +278,77 @@ class TestKeyDerivation(unittest.TestCase):
 # ══════════════════════════════════════════════════════════════════════════════
 # Classe B — Grammaire Carter
 # ══════════════════════════════════════════════════════════════════════════════
-@unittest.skip("Cablage production etape 2 (2026-09-12) : _carter_grammar() ne "
-                "renvoie plus une liste plate de blocs {role,form_id,color,orient} "
-                "mais {'blocks':[...],'sweep_of_color':...} (plus de tirage de "
-                "couleur/orientation, regle 12 positions rouge+bleu). Cette classe "
-                "fige l'ancienne forme de la grammaire ; a reecrire pour la v3 a "
-                "l'etape 10 (vecteurs et docs).")
 class TestCarterGrammar(unittest.TestCase):
-    """La grammaire Carter doit être identique d'une version à l'autre."""
+    """La grammaire Carter doit être identique d'une version à l'autre.
+
+    Réécrite pour la forme v3 (câblage production, étape 2, 2026-09-12) :
+    _carter_grammar() renvoie {'blocks':[{role,form_id}, ...],
+    'sweep_of_color':{...}} -- plus de couleur/orientation tirées par bloc
+    (le référent v3 encode déjà des positions absolues, lues rouge+bleu
+    ensemble ; voir carter._carter_positions)."""
 
     GRAMMAR_VECTOR = None
 
     @classmethod
     def setUpClass(cls):
-        ref256, _ = get_refs()
-        grammar = _carter_grammar(KEY_KNOWN, ref256)
+        ref256_v3 = get_ref256_v3()
+        grammar = _carter_grammar(KEY_KNOWN, ref256_v3)
         cls.GRAMMAR_VECTOR = [
-            {'role': g['role'], 'form_id': g['form_id'],
-             'color': g['color'], 'orient': g['orient']}
-            for g in grammar[:10]
+            {'role': g['role'], 'form_id': g['form_id']}
+            for g in grammar['blocks'][:10]
         ]
+        cls.SWEEP_VECTOR = dict(grammar['sweep_of_color'])
         cls.ROLE_COUNTS = {
-            0: sum(1 for g in grammar if g['role'] == 0),  # PURE
-            1: sum(1 for g in grammar if g['role'] == 1),  # STRUCTURED
-            2: sum(1 for g in grammar if g['role'] == 2),  # MESSAGE
+            0: sum(1 for g in grammar['blocks'] if g['role'] == 0),  # PURE
+            1: sum(1 for g in grammar['blocks'] if g['role'] == 1),  # STRUCTURED
+            2: sum(1 for g in grammar['blocks'] if g['role'] == 2),  # MESSAGE
         }
 
     def test_grammar_deterministic(self):
-        ref256, _ = get_refs()
-        g1 = _carter_grammar(KEY_KNOWN, ref256)
-        g2 = _carter_grammar(KEY_KNOWN, ref256)
+        ref256_v3 = get_ref256_v3()
+        g1 = _carter_grammar(KEY_KNOWN, ref256_v3)
+        g2 = _carter_grammar(KEY_KNOWN, ref256_v3)
         self.assertEqual(
-            [(g['role'], g['form_id'], g['color']) for g in g1],
-            [(g['role'], g['form_id'], g['color']) for g in g2])
+            [(g['role'], g['form_id']) for g in g1['blocks']],
+            [(g['role'], g['form_id']) for g in g2['blocks']])
+        self.assertEqual(g1['sweep_of_color'], g2['sweep_of_color'])
 
     def test_grammar_key_sensitive(self):
-        ref256, _ = get_refs()
-        g1 = _carter_grammar(KEY_KNOWN,  ref256)
-        g2 = _carter_grammar(KEY_KNOWN2, ref256)
-        roles1 = [g['role'] for g in g1]
-        roles2 = [g['role'] for g in g2]
+        ref256_v3 = get_ref256_v3()
+        g1 = _carter_grammar(KEY_KNOWN,  ref256_v3)
+        g2 = _carter_grammar(KEY_KNOWN2, ref256_v3)
+        roles1 = [g['role'] for g in g1['blocks']]
+        roles2 = [g['role'] for g in g2['blocks']]
         self.assertNotEqual(roles1, roles2,
                             "Clés différentes → même grammaire (collision)")
 
     def test_grammar_vector_stable(self):
-        ref256, _ = get_refs()
-        grammar = _carter_grammar(KEY_KNOWN, ref256)
+        ref256_v3 = get_ref256_v3()
+        grammar = _carter_grammar(KEY_KNOWN, ref256_v3)
         current = [
-            {'role': g['role'], 'form_id': g['form_id'],
-             'color': g['color'], 'orient': g['orient']}
-            for g in grammar[:10]
+            {'role': g['role'], 'form_id': g['form_id']}
+            for g in grammar['blocks'][:10]
         ]
         self.assertEqual(current, self.GRAMMAR_VECTOR,
                          "Grammaire modifiée — rupture de compatibilité !")
+        self.assertEqual(dict(grammar['sweep_of_color']), self.SWEEP_VECTOR,
+                         "Balayage modifié — rupture de compatibilité !")
 
     def test_grammar_covers_225_blocks(self):
-        ref256, _ = get_refs()
-        grammar = _carter_grammar(KEY_KNOWN, ref256)
-        self.assertEqual(len(grammar), 225)
+        ref256_v3 = get_ref256_v3()
+        grammar = _carter_grammar(KEY_KNOWN, ref256_v3)
+        self.assertEqual(len(grammar['blocks']), 225)
 
     def test_grammar_total_consistent(self):
         self.assertEqual(sum(self.ROLE_COUNTS.values()), 225)
+
+    def test_sweep_of_color_covers_stegano_colors(self):
+        ref256_v3 = get_ref256_v3()
+        grammar = _carter_grammar(KEY_KNOWN, ref256_v3)
+        self.assertEqual(set(grammar['sweep_of_color']), set(ref256_v3['stegano_colors']))
+        for idx in grammar['sweep_of_color'].values():
+            self.assertGreaterEqual(idx, 0)
+            self.assertLessEqual(idx, 7)
 
 
 # ══════════════════════════════════════════════════════════════════════════════

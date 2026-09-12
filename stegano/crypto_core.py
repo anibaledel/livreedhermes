@@ -380,31 +380,31 @@ LABELS = {
 }
 
 # ── Capacité minimale publique — C_PUB (format v3, tâche 4) ──────────────────
-# Valeurs arbitrées par l'utilisateur (2026-09-11) à partir de la
-# distribution empirique de capacité sur 10 000 clés par variante (rapport
-# complet : docs/PAPER_NUMBERS_v3.md, tâche 8). Choisies sous le p1 mesuré
-# (moins de 1 % des clés tombent en dessous SANS même passer par le
-# redraw), avec marge : la queue basse est fine (voir le rapport), donc le
-# redraw (MAX_REDRAWS tentatives, ci-dessous) absorbe le reste avec une
-# probabilité d'échec totale négligeable.
+# Recalibrées (2026-09-12, tools/recalibrate_carter_v3.py, N=10000/variante)
+# après le câblage de la nouvelle règle de lecture (référent en paramètre,
+# 12 positions stégano/bloc au lieu de 6 -- voir les commits de câblage
+# production) pour carter256/360/mix/carterrandom90/360/carterhybrid :
+# même méthode que l'étalonnage initial (2026-09-11, valeurs alors
+# arbitrées par l'utilisateur) -- plus grand C_PUB tel que le taux de
+# REDRAW (pas le taux d'échec) reste < 1 % sur 10 000 clés, mesuré en
+# appelant directement les fonctions de recherche de grammaire de
+# PRODUCTION (_find_*_grammar_with_c_pub), jamais une réimplémentation.
+# carter18 INCHANGÉ : hors périmètre du câblage, sa géométrie (référent
+# 18×18) n'a pas changé.
 #
 # En OCTETS du message encodé UTF-8 — jamais des caractères : le clair
 # n'est plus restreint à un alphabet ASCII (voir _message_to_bytes), donc
-# un caractère peut occuper plusieurs octets (2-4 en UTF-8). La mesure
-# empirique elle-même (docs/PAPER_NUMBERS_v3.md) portait sur des messages
-# ASCII 1 octet/caractère ; les valeurs restent correctes en octets pour
-# tout texte, seule leur lecture en « nombre de caractères affichés »
-# cesse d'être valable pour un texte non-ASCII.
+# un caractère peut occuper plusieurs octets (2-4 en UTF-8).
 # Random 90 et Random 360 sont deux cibles DISTINCTES : même code, deux
 # géométries, deux distributions de capacité mesurées séparément.
 C_PUB = {
-    'carter256':       150,
-    'carter360':        230,
-    'cartermix':        500,
-    'carterrandom90':   150,
-    'carterrandom360': 1000,
+    'carter256':        399,
+    'carter360':       1861,
+    'cartermix':       1872,
+    'carterrandom90':   415,
+    'carterrandom360': 2144,
     'carter18':         350,
-    'carterhybrid':     100,
+    'carterhybrid':     246,
 }
 
 MAX_REDRAWS = 10   # tentatives ctr=0..9 ; échec au-delà (voir _redraw_grammar_key)

@@ -32,38 +32,6 @@ import stegano_classic as SC
 
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
-# TODO v3-format (etape 10) : les vecteurs carter256-* stockes dans
-# vectors/carter_v3.json datent d'avant le cablage de la nouvelle regle de
-# lecture (etape 2, 2026-09-12) -- leur grid_sha256/grid_csv stocke ne
-# correspond plus a ce qu'encode_carter() produit desormais (12 positions
-# stegano rouge+bleu au lieu de 6, une seule couleur). A regenerer a
-# l'etape 10 (recalibration + vecteurs). Les assertions concernees sont
-# explicitement skip ci-dessous, pas silencieusement contournees.
-_CARTER256_STALE_VECTOR_REASON = (
-    "carter256-* : vecteurs stockes geles avant le cablage etape 2 "
-    "(nouvelle regle de lecture 6x6) -- a regenerer a l'etape 10.")
-_CARTER360_STALE_VECTOR_REASON = (
-    "carter360-* : vecteurs stockes geles avant le cablage etape 3 "
-    "(nouvelle regle de lecture par niveaux) -- a regenerer a l'etape 10.")
-_CARTERMIX_STALE_VECTOR_REASON = (
-    "cartermix-* : vecteurs stockes geles avant le cablage etape 4 "
-    "(regle v3 des deux cotes) -- a regenerer a l'etape 10.")
-_DENIABLE_STALE_VECTOR_REASON = (
-    "deniable-* : vecteur stocke gele avant le cablage etape 5 (referent "
-    "v3 6x6 choisi par select_referent_index, mode crypto 36 cases/bloc) "
-    "-- a regenerer a l'etape 10.")
-_CLASSIC_STALE_VECTOR_REASON = (
-    "classic-basic-01 : vecteur stocke gele avant le cablage etape 6 "
-    "(regle v3, plus de Cle C ni de tirage de couleur) -- a regenerer a "
-    "l'etape 10.")
-_CARTERRANDOM_STALE_VECTOR_REASON = (
-    "carterrandom-* : vecteurs stockes geles avant le cablage Carter-Random "
-    "(referent v3 6x6 choisi par select_referent_index, 12 positions/bloc) "
-    "-- a regenerer a l'etape 10.")
-_CARTERHYBRID_STALE_VECTOR_REASON = (
-    "carterhybrid-* : vecteur stocke gele avant le cablage MODE_6 (referent "
-    "v3 6x6 pour les sous-blocs) -- a regenerer a l'etape 10.")
-
 _DECODE_FN = {
     'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
     'carter360':    lambda g, key, ref256, ref360: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
@@ -101,20 +69,6 @@ class TestVectorsRegeneration(unittest.TestCase):
         fresh_by_id = {v['id']: v for v in self.fresh['vectors']}
         for sv in self.stored['vectors']:
             with self.subTest(id=sv['id']):
-                if sv['id'].startswith('carter256'):
-                    self.skipTest(_CARTER256_STALE_VECTOR_REASON)
-                if sv['id'].startswith('carter360'):
-                    self.skipTest(_CARTER360_STALE_VECTOR_REASON)
-                if sv['id'].startswith('cartermix'):
-                    self.skipTest(_CARTERMIX_STALE_VECTOR_REASON)
-                if sv['id'].startswith('deniable'):
-                    self.skipTest(_DENIABLE_STALE_VECTOR_REASON)
-                if sv['id'] == 'classic-basic-01':
-                    self.skipTest(_CLASSIC_STALE_VECTOR_REASON)
-                if sv['id'].startswith('carterrandom'):
-                    self.skipTest(_CARTERRANDOM_STALE_VECTOR_REASON)
-                if sv['id'].startswith('carterhybrid'):
-                    self.skipTest(_CARTERHYBRID_STALE_VECTOR_REASON)
                 fv = fresh_by_id[sv['id']]
                 if 'grid_sha256' in sv:
                     self.assertEqual(sv['grid_sha256'], fv['grid_sha256'])
@@ -216,15 +170,14 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
     def setUpClass(cls):
         with open(VECTORS_PATH, encoding='utf-8') as f:
             cls.doc = json.load(f)
-        cls.ref256, _ = VI.load_referents()
+        cls.ref256_v3 = VI.load_referent_256_v3()
 
     def test_decode_from_stored_grid_csv_only(self):
-        self.skipTest(_CARTER256_STALE_VECTOR_REASON)
         v = next(x for x in self.doc['vectors'] if x['id'] == 'carter256-basic-01')
         self.assertIn('grid_csv', v, "carter256-basic-01 devrait embarquer grid_csv")
         grid = [[int(x) for x in row.split(',')] for row in v['grid_csv'].strip().split('\n')]
         key = bytes.fromhex(v['inputs']['master_key_hex'])
-        decoded = CT.decode_carter(grid, key, self.ref256)
+        decoded = CT.decode_carter(grid, key, self.ref256_v3)
         self.assertEqual(decoded, v['expected_decode'])
 
 
