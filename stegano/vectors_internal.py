@@ -996,7 +996,7 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_carter360_vector(
         "carter360-basic-01", "Vecteur de base Carter-360.",
         bytes(range(32, 64)), "BONJOUR CARTER 360", ref360_v3,
-        nonce, 0, [], noise_seed)
+        nonce, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CARTERMIX_BASIC calculee pour l'ancien
@@ -1069,7 +1069,8 @@ def generate_all(include_grid_csv_showcase=True):
         "deniable-basic-01", "Déni plausible — Encode(m_r,m_d) et Encode0(m_d), même π/dsk.",
         "MESSAGE SECRET ANIBAL", "NOTES PERSO TEXTILE", 90, rsk, dsk, pi, noise_seed,
         real_inject={"_nonce": nonce, "_y": _Y_DENIABLE_REAL, "_leftover": [1], "_k2": real_k2},
-        duress_inject={"_nonce": nonce[::-1], "_y": _Y_DENIABLE_DURESS, "_leftover": [2], "_k2": duress_k2})
+        duress_inject={"_nonce": nonce[::-1], "_y": _Y_DENIABLE_DURESS, "_leftover": [2], "_k2": duress_k2},
+        include_grid_csv=include_grid_csv_showcase)
     vectors.append(v)
     grids[v["id"] + "-encode"] = g
     grids[v["id"] + "-encode0"] = g0

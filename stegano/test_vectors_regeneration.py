@@ -160,24 +160,63 @@ class TestVectorsRegeneration(unittest.TestCase):
 
 
 class TestShowcaseVectorSelfContained(unittest.TestCase):
-    """Le vecteur carter256-basic-01 embarque grid_csv (la grille
-    complète) : ce test décode DIRECTEMENT depuis cette grille stockée,
-    SANS rien régénérer — le cas visé par le critère d'acceptation
-    (suffisant pour quelqu'un qui n'a que LH-5 et ce fichier)."""
+    """carter256-basic-01, carter360-basic-01 et deniable-basic-01
+    embarquent grid_csv (la grille complète) : ces tests décodent
+    DIRECTEMENT depuis cette grille stockée, SANS rien régénérer — le cas
+    visé par le critère d'acceptation (suffisant pour quelqu'un qui n'a
+    que LH-5 et ce fichier)."""
 
     @classmethod
     def setUpClass(cls):
         with open(VECTORS_PATH, encoding='utf-8') as f:
             cls.doc = json.load(f)
         cls.ref256_v3 = VI.load_referent_256_v3()
+        cls.ref360_v3 = VI.load_referent_360_v3()
+
+    def _csv_to_grid(self, csv_text):
+        return [[int(x) for x in row.split(',')] for row in csv_text.strip().split('\n')]
 
     def test_decode_from_stored_grid_csv_only(self):
         v = next(x for x in self.doc['vectors'] if x['id'] == 'carter256-basic-01')
         self.assertIn('grid_csv', v, "carter256-basic-01 devrait embarquer grid_csv")
-        grid = [[int(x) for x in row.split(',')] for row in v['grid_csv'].strip().split('\n')]
+        grid = self._csv_to_grid(v['grid_csv'])
         key = bytes.fromhex(v['inputs']['master_key_hex'])
         decoded = CT.decode_carter(grid, key, self.ref256_v3)
         self.assertEqual(decoded, v['expected_decode'])
+
+    def test_decode_carter360_from_stored_grid_csv_only(self):
+        v = next(x for x in self.doc['vectors'] if x['id'] == 'carter360-basic-01')
+        self.assertIn('grid_csv', v, "carter360-basic-01 devrait embarquer grid_csv")
+        grid = self._csv_to_grid(v['grid_csv'])
+        key = bytes.fromhex(v['inputs']['master_key_hex'])
+        decoded = CT.decode_carter_360(grid, key, self.ref360_v3)
+        self.assertEqual(decoded, v['expected_decode'])
+
+    def test_decode_deniable_from_stored_grid_csv_only(self):
+        import secu_box as SB
+        v = next(x for x in self.doc['vectors'] if x['id'] == 'deniable-basic-01')
+        self.assertIn('grid_csv', v, "deniable-basic-01 devrait embarquer grid_csv")
+        self.assertIn('grid0_csv_encode0', v,
+            "deniable-basic-01 devrait embarquer grid0_csv_encode0")
+        grid  = self._csv_to_grid(v['grid_csv'])
+        grid0 = self._csv_to_grid(v['grid0_csv_encode0'])
+
+        rsk = bytes.fromhex(v['inputs']['rsk_hex'])
+        dsk = bytes.fromhex(v['inputs']['dsk_hex'])
+        Br_blocks = v['derivation']['Br']['blocks']
+        Bd_blocks = v['derivation']['Bd']['blocks']
+        rk2 = [{'form_id': b['form_id']} for b in v['derivation']['Br']['block_list']]
+        dk2 = [{'form_id': b['form_id']} for b in v['derivation']['Bd']['block_list']]
+        dk_r = {'steg_key': rsk, 'blocks': Br_blocks, 'key_2': rk2}
+        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks, 'key_2': dk2}
+
+        grid_size = v['inputs']['grid_size']
+        self.assertEqual(SB.decode_deniable(grid, dk_r, grid_size),
+                          v['expected_decode']['real_via_dk_r'])
+        self.assertEqual(SB.decode_deniable(grid, dk_d, grid_size),
+                          v['expected_decode']['duress_via_dk_d'])
+        self.assertEqual(SB.decode_deniable(grid0, dk_d, grid_size),
+                          v['expected_decode']['duress_via_dk_d0_encode0'])
 
 
 if __name__ == '__main__':
