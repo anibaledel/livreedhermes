@@ -34,7 +34,7 @@ import crypto_core as CC
 import carter as CT
 import carter_random as CR
 import stegano_classic as SC
-from stegano_lib import load_referents, load_referent_256_v3, load_referent_360_v3, _carter_split
+from stegano_lib import load_referent_256_v3, load_referent_360_v3, _carter_split
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
 import secu_box as SB
@@ -957,20 +957,9 @@ _Y_CARTER256_BOUNDARY   = 18442373562533863684
 
 
 def generate_all(include_grid_csv_showcase=True):
-    ref256, ref360 = load_referents()
-    # ref256_v3 (câblage production, étape 2, 2026-09-12) : Carter-256 SEUL
-    # est passé à la nouvelle règle de lecture (referent_256_v3.json) --
-    # classic/Carter-Mix restent sur l'ancien ref256 (blue/orange) tant que
-    # leurs étapes (8, 4) ne sont pas faites. TODO v3-format (étape 10) :
-    # les vecteurs carter256-* stockés dans vectors/carter_v3.json datent
-    # d'avant ce changement et ne correspondront plus tant que l'étape 10
-    # (recalibration + régénération) n'a pas eu lieu -- voir les skips
-    # explicites dans test_vectors_regeneration.py.
+    # Chargeurs uniques du dépôt (v3) -- tous les modes de generate_all()
+    # (classique, Carter-256/360/Mix/Random/18/Hybrid, déni) y sont passés.
     ref256_v3 = load_referent_256_v3()
-    # ref360_v3 (câblage production, étape 3, 2026-09-12) : Carter-360 SEUL
-    # passé à la règle de lecture par niveaux (referent_360_v3.json) --
-    # Carter-Mix reste sur l'ancien ref360 (294 formes plates) tant que
-    # l'étape 4 n'est pas faite.
     ref360_v3 = load_referent_360_v3()
     nonce = bytes(range(24))
     noise_seed = bytes(reversed(range(32)))

@@ -66,7 +66,7 @@ def _chacha20_hkdf_dec2(key, data, aad=b''):
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 from stegano_lib import (
-    load_referents, load_referent_256_v3, encode, decode,
+    load_referent_256_v3, encode, decode,
     ALPHA_LEN, LABELS, apply_orientation,
     _encrypt, _decrypt, payload_to_symbols, random_grid,
 )

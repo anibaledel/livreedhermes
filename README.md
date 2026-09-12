@@ -119,7 +119,7 @@ constructions géométriques originales (référents 256 et 360 dans `data/`) :
 | Emplacement | Contenu |
 |---|---|
 | `stegano/stegano_lib.py` | dissimulation géométrique, grilles Carter 256 / 360 / Mix |
-| `stegano/carter.py`, `stegano/grid_90.py` | grille Carter autonome, grille 90×90 à trois niveaux |
+| `stegano/carter.py` | grille Carter autonome (256 / 360 / Mix / Random / 18 / Hybrid) |
 | `secubox/secu_box.py` | identités X25519, échange de clés authentifié, déni plausible |
 | `secubox/vault_lib.py` | vault de fichiers chiffré (Argon2id + ChaCha20-Poly1305 à nonce étendu par HKDF) |
 | `secubox/secu_box_cli.py` | CLI `secu-box` |
@@ -127,6 +127,14 @@ constructions géométriques originales (référents 256 et 360 dans `data/`) :
 | `encodeur.html` | portage navigateur (Web Crypto) |
 
 Dépendances Python : `cryptography`, `argon2-cffi`.
+
+`stegano/legacy/grid_90.py` (grille 90×90 à trois niveaux) est sorti du
+chemin de production le 2026-09-12 : son rôle d'origine — banc d'essai pour
+l'implantation des deux référents et bruit structurel dans le code — est
+désormais couvert par les blocs pure/structured de Carter, vérifiés par des
+preuves formelles. Conservé à titre de référence historique, avec ses
+propres tests (`stegano/legacy/test_grid_90.py`), sur l'ancien schéma de
+référent.
 
 **Les deux implémentations ne sont pas interchangeables.** Le navigateur ne
 dispose nativement ni d'Argon2id ni de la construction ChaCha20-Poly1305 à

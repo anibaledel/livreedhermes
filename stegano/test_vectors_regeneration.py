@@ -33,13 +33,13 @@ import stegano_classic as SC
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
 _DECODE_FN = {
-    'carter256':    lambda g, key, ref256, ref360: CT.decode_carter(g, key, VI.load_referent_256_v3()),
-    'carter360':    lambda g, key, ref256, ref360: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
-    'cartermix':    lambda g, key, ref256, ref360: CT.decode_carter_mix(
+    'carter256':    lambda g, key: CT.decode_carter(g, key, VI.load_referent_256_v3()),
+    'carter360':    lambda g, key: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
+    'cartermix':    lambda g, key: CT.decode_carter_mix(
                         g, key, VI.load_referent_256_v3(), VI.load_referent_360_v3()),
-    'carterrandom': lambda g, key, ref256, ref360: CR.decode_carter_random(g, key, 90),
-    'carter18':     lambda g, key, ref256, ref360: CR.decode_carter_18(g, key, 90),
-    'carterhybrid': lambda g, key, ref256, ref360: CR.decode_carter_hybrid(g, key, 90),
+    'carterrandom': lambda g, key: CR.decode_carter_random(g, key, 90),
+    'carter18':     lambda g, key: CR.decode_carter_18(g, key, 90),
+    'carterhybrid': lambda g, key: CR.decode_carter_hybrid(g, key, 90),
 }
 
 
@@ -53,7 +53,6 @@ class TestVectorsRegeneration(unittest.TestCase):
         # grid_sha256 (présent pour tous les vecteurs), pas besoin de
         # regénérer le CSV complet, plus lourd, pour ce test.
         cls.fresh, cls.fresh_grids = VI.generate_all(include_grid_csv_showcase=False)
-        cls.ref256, cls.ref360 = VI.load_referents()
 
     def test_vector_id_list_matches(self):
         stored_ids = [v['id'] for v in self.stored['vectors']]
@@ -87,7 +86,7 @@ class TestVectorsRegeneration(unittest.TestCase):
             with self.subTest(id=sv['id']):
                 key = bytes.fromhex(sv['inputs']['master_key_hex'])
                 grid = self.fresh_grids[sv['id']]
-                decoded = _DECODE_FN[inst](grid, key, self.ref256, self.ref360)
+                decoded = _DECODE_FN[inst](grid, key)
                 self.assertEqual(decoded, sv['expected_decode'])
 
     def test_negative_and_rejection_vectors_still_reject(self):

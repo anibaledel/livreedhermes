@@ -35,7 +35,7 @@ from crypto_core import (
     _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid, _derive_masks,
 )
-from stegano_classic import apply_orientation, load_referents, load_referent_360_v3
+from stegano_classic import apply_orientation, load_referent_360_v3
 from sweep import derive_sweep_index, crypto_reading_order
 
 # ── Grille Carter — Grammaire à 3 catégories dérivées de la clé ───────────────
