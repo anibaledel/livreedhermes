@@ -102,38 +102,83 @@ cet environnement).
 
 ### 2.1 Entropie / uniformité par variante
 
-| Variante | H (bits/cellule) | E[V] | Std | Valeurs uniques |
-|---|--:|--:|--:|--:|
-| Carter 256 | 5,4561 | 21,30 | 12,71 | 44 |
-| Carter 360 | 5,4585 | 21,51 | 12,73 | 44 |
-| Carter Mix | 5,4587 | 21,49 | 12,78 | 44 |
-| Random 90 | 5,4558 | 21,62 | 12,67 | 44 |
-| Random 360 | 5,4583 | 21,57 | 12,69 | 44 |
-| Carter-18 | 5,4552 | 21,83 | 12,63 | 44 |
-| Carter-Hybrid | 5,4562 | 21,63 | 12,70 | 44 |
-| **Idéal (uniforme, 44 symboles)** | **5,4594** | **21,50** | **12,70** | **44** |
+**Correction (2026-09-12) : mesure recalculée sur les cellules message
+seules, pas la grille entière.** La colonne H ci-dessous provenait
+jusqu'ici de `_grid_flat(grid)` (toutes les cellules, y compris les blocs
+`pure`/`structured` — ~2/3 de la grille, bruit CSPRNG uniforme par
+construction). Un tel calcul ne peut rien démontrer sur le signal réel :
+le bruit uniforme masque tout biais des cellules message. Corrigé dans
+`stegano/test_statistical.py::TestEntropy` (Carter 256/360/Mix) et dans
+`TestCarterRandomChiSquare`/`TestCarter18Statistical`/
+`TestCarterHybridStatistical` (nouvelles méthodes `test_entropy_*`, ces
+trois classes n'avaient jusqu'ici aucun test d'entropie dédié — seul un
+calcul plein-grille non assertif existait dans `TestCarterRandomSummary`,
+à but d'affichage). Les positions de cellules message sont extraites en
+ré-appelant les MÊMES fonctions de grammaire/géométrie que chaque
+encodeur de production (jamais de réimplémentation), voir les helpers
+`_carter*_message_positions*` en tête de `test_statistical.py`.
+`n` = nombre de cellules message par grille (varie avec la grammaire
+tirée par clé — colonne informative, pas un seuil contractuel). Les
+colonnes E[V]/Std/Valeurs uniques restent calculées sur la grille
+ENTIÈRE (propriété différente, non concernée par cette correction :
+elles décrivent l'uniformité visuelle du support complet, pas le signal
+chiffré) — voir `TestSummary`/`TestCarterRandomSummary`.
 
-### 2.2 Chi² d'indistinguabilité (grille vs. bruit uniforme)
+| Variante | H (bits/cellule message) | n (cellules message) | E[V] (grille entière) | Std (grille entière) | Valeurs uniques |
+|---|--:|--:|--:|--:|--:|
+| Carter 256 | 5,4267 | ≈948 | 21,30 | 12,71 | 44 |
+| Carter 360 | 5,4512 | ≈3642 | 21,51 | 12,73 | 44 |
+| Carter Mix | 5,4509 | ≈3606 | 21,49 | 12,78 | 44 |
+| Random 90 | 5,4279 | ≈990 | 21,62 | 12,67 | 44 |
+| Random 360 | 5,4506 | ≈3716 | 21,57 | 12,69 | 44 |
+| Carter-18 | 5,4472 | ≈2614 | 21,83 | 12,63 | 44 |
+| Carter-Hybrid | 5,4374 | ≈1444 | 21,63 | 12,70 | 44 |
+| **Idéal (uniforme, 44 symboles)** | **5,4594** | — | **21,50** | **12,70** | **44** |
+
+### 2.2 Chi² d'indistinguabilité (cellules message vs. bruit uniforme)
 
 Seuil retenu : α=0,001, df=43 → chi²≤77,42 (α=0,05 → 59,3, réservé pour
 comparaison). `échecs` = nombre de tirages (sur 10) dépassant le seuil.
 
-**Correction (2026-09-12) :** Carter-360 et Carter-Mix n'avaient jusqu'ici
-AUCUN test chi² dédié dans la suite — seul Carter-256 en avait un
-(`test_chisq_carter_256`, χ² moyen jamais imprimé, seul `p` moyen
-l'était). Corrigé : `stegano/test_statistical.py::TestChiSquare` factorise
-maintenant la mesure (`_run`) et l'applique aux trois variantes, avec le
-χ² moyen exposé pour chacune.
+**Correction (2026-09-12), deux bugs distincts sur la même table :**
 
-| Variante | chi² moyen | p moyen | Échecs/tirages |
-|---|--:|--:|--:|
-| Carter 256 | 45,7 | 0,458 | 0/10 |
-| Carter 360 | 45,5 | 0,439 | 0/10 |
-| Carter Mix | 37,6 | 0,674 | 0/10 |
-| Random 90 | 40,3 | 0,591 | 0/10 |
-| Random 360 | 45,6 | 0,445 | 0/10 |
-| Carter-18 | 37,4 | 0,658 | 0/10 |
-| Carter-Hybrid | 41,0 | 0,552 | 0/10 |
+1. Carter-360 et Carter-Mix n'avaient jusqu'ici AUCUN test chi² dédié
+   dans la suite — seul Carter-256 en avait un (`test_chisq_carter_256`,
+   χ² moyen jamais imprimé, seul `p` moyen l'était). Corrigé :
+   `stegano/test_statistical.py::TestChiSquare` factorise maintenant la
+   mesure (`_run`) et l'applique aux trois variantes, avec le χ² moyen
+   exposé pour chacune.
+2. **Grille entière au lieu des cellules message** (les quatre classes
+   `TestChiSquare`, `TestCarterRandomChiSquare`, `TestCarter18Statistical`,
+   `TestCarterHybridStatistical` mesuraient `_grid_flat(grid)` ou son
+   équivalent inline `[v for row in grid for v in row]`) — alors que leur
+   propre docstring annonçait déjà « cellules message ». Un χ² plein-grille
+   ne peut rien démontrer : ~2/3 des cellules sont du bruit CSPRNG uniforme
+   par construction (blocs `pure`/`structured`, indiscernables du message
+   par design), qui masque tout biais réel des cellules message — même
+   classe de défaut que celle qui avait révélé la faille d'encodage des
+   nibbles en v5. Corrigé en isolant les positions message via les mêmes
+   fonctions de production que chaque encodeur (jamais de
+   réimplémentation de la géométrie). Un test de garde-fou
+   (`TestMessageCellLabelGuard`, nouveau) inspecte désormais le code
+   source de ces cinq classes et échoue si une mesure dont le docstring
+   annonce « cellules message » recalcule sur la grille entière — pour
+   que cette régression ne puisse pas revenir en silence.
+
+`n` = nombre de cellules message effectivement mesurées (varie par tirage
+de clé, colonne informative) ; plage observée cohérente avec l'ordre de
+grandeur attendu (une capacité C_PUB de quelques centaines à ~2000
+octets, avec un facteur de conversion octets→symboles proche de 1).
+
+| Variante | chi² moyen | p moyen | n (cellules message) | Échecs/tirages |
+|---|--:|--:|--:|--:|
+| Carter 256 | 45,0 | 0,484 | 804..1068 | 0/10 |
+| Carter 360 | 42,9 | 0,483 | 3008..4008 | 0/10 |
+| Carter Mix | 42,7 | 0,518 | 3016..4440 | 0/10 |
+| Random 90 | 47,8 | 0,353 | 756..1296 | 0/10 |
+| Random 360 | 41,4 | 0,506 | 3492..4212 | 0/10 |
+| Carter-18 | 40,8 | 0,576 | 684..3240 | 0/10 |
+| Carter-Hybrid | 40,3 | 0,611 | 756..2016 | 0/10 |
 
 ### 2.3 Autres propriétés (Carter-256, sauf mention contraire)
 
@@ -200,17 +245,17 @@ contractuels.
 | Fichier | Tests | Contenu |
 |---|--:|---|
 | `stegano/test_regression.py` | 49 | Vecteurs XChaCha20, dérivation de clés, grammaire Carter, format payload, fixtures, round-trip de bout en bout, variantes classiques, C_PUB |
-| `stegano/test_statistical.py` | 32 | Entropie, chi² (256/360/Mix/Random90/360/18/Hybrid), avalanche, autocorrélation, corrélation série, capacité Carter-Random (individuel/méta) |
+| `stegano/test_statistical.py` | 37 | Entropie, chi² (256/360/Mix/Random90/360/18/Hybrid, cellules message seules — corrigé 2026-09-12), avalanche, autocorrélation, corrélation série, capacité Carter-Random (individuel/méta), garde-fou anti-régression « cellules message » |
 | `stegano/test_sweep.py` | 12 | Balayages (8), `derive_sweep_index`, `sort_by_sweep`, `crypto_reading_order` |
 | `stegano/test_referent_360_v3.py` | 11 | Structure du référent 360, `c_pub` absent, `referent_id` stable |
-| `stegano/test_referent6x6_v3.py` | 9 | Génération ChaCha20 (256 référents), `select_referent_index`, `c_pub` absent |
+| `stegano/test_referent6x6_v3.py` | 8 | Génération ChaCha20 (256 référents), `select_referent_index`, `c_pub` absent |
 | `stegano/test_vectors_regeneration.py` | 9 | Régénération bit-exacte de `vectors/carter_v3.json`, décodage depuis grille régénérée/stockée (256, 360 et déni auto-contenus) |
 | `stegano/test_vectors_isolation.py` | 8 | Chargeur unique du référent 360, comportement par défaut inchangé sans injection |
-| **Total `stegano/`** | **130** | |
-| `secubox/test_secu_box.py` | 15 | Identités X25519, session authentifiée, déni plausible (structure, statistique, round-trip) |
-| **Total `secubox/`** | **15** | |
+| **Total `stegano/`** | **134** | |
+| `secubox/test_secu_box.py` | 16 | Identités X25519, session authentifiée, déni plausible (structure, statistique, round-trip) |
+| **Total `secubox/`** | **16** | |
 | `stegano/legacy/test_grid_90.py` | 4 | grid_90.py (hors production, voir §"Hors périmètre" de REFERENT_FORMAT_V3.md) |
-| **Total général** | **149** | |
+| **Total général** | **154** | |
 
 Aucun test marqué `skip` dans cette suite au 2026-09-12 (scipy installé
 dans cet environnement — les branches `skipTest("scipy non installe")`

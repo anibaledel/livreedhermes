@@ -29,7 +29,7 @@ Carter utilisent en production - c'est elle qui remplace l'ancienne
 boucle "par octet" dans test_message_cell_avalanche ci-dessous.
 """
 
-import os, sys, math, struct, statistics, unittest
+import os, sys, math, re, struct, statistics, unittest
 from unittest.mock import patch
 from typing import List, Tuple
 
@@ -112,6 +112,164 @@ def _hamming_ratio(a: List[int], b: List[int]) -> float:
     """Fraction de positions differentes entre deux grilles."""
     assert len(a) == len(b)
     return sum(1 for x, y in zip(a, b) if x != y) / len(a)
+
+def _message_cell_values(grid: List[List[int]], positions: List[Tuple[int, int]]) -> List[int]:
+    """Valeurs de grille aux positions listees (cellules message uniquement)."""
+    return [grid[r][c] for r, c in positions]
+
+def _shannon_entropy(flat: List[int], alpha: int = ALPHA) -> float:
+    n = len(flat)
+    if n == 0:
+        return 0.0
+    freq = [flat.count(v) / n for v in range(alpha)]
+    return -sum(p * math.log2(p) for p in freq if p > 0)
+
+# ── Positions des cellules message (production, jamais reimplementees) ─────────
+# Bug corrige 2026-09-12 : TestChiSquare/TestEntropy/TestCarterRandomChiSquare/
+# TestCarter18Statistical/TestCarterHybridStatistical mesuraient chi2/entropie
+# sur la grille ENTIERE (_grid_flat ou son equivalent inline "for row in grid"),
+# alors que leurs propres docstrings annoncaient deja "cellules message" -- un
+# chi2/une entropie pleine grille ne peut rien demontrer, ~2/3 des cellules
+# etant du bruit CSPRNG uniforme par construction (blocs 'pure'/'structured',
+# indiscernables du message par design) : ce bruit masque tout biais reel des
+# cellules message. Meme classe de defaut que celui qui avait revele la faille
+# d'encodage des nibbles en v5 -- la mesure doit porter sur les positions
+# effectivement LUES, pas sur le support entier.
+#
+# Chaque helper ci-dessous re-derive la MEME grammaire (post-redraw C_PUB,
+# tache 4) que l'encodeur correspondant, avec les MEMES fonctions de
+# production que carter.py/carter_random.py utilisent en interne -- jamais de
+# reimplementation de la geometrie. Deterministe depuis master_key seul (les
+# encodeurs re-derivent une grammaire identique en interne), voir
+# _find_grammar_with_c_pub / _find_*_grammar_with_c_pub.
+
+def _carter256_message_positions(key: bytes, ref256) -> List[Tuple[int, int]]:
+    from carter import _find_grammar_with_c_pub
+    from stegano_lib import (_carter_split, _carter_grammar, _carter_positions,
+                              _carter_message_positions, _MESSAGE, CARTER_SIDE)
+    _, grammar_key = _carter_split(key)
+    _, grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'carter256',
+        lambda gk: _carter_grammar(gk, ref256),
+        lambda g: _carter_message_positions(g, ref256))
+    sweep_of_color = grammar['sweep_of_color']
+    return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
+            for pos in _carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256, sweep_of_color)]
+
+def _carter360_message_positions_list(key: bytes, ref360) -> List[Tuple[int, int]]:
+    from carter import _find_grammar_with_c_pub
+    from stegano_lib import (_carter360_split, _carter360_grammar, _carter360_positions,
+                              _carter360_message_positions, _MESSAGE, CARTER360_SIDE)
+    _, grammar_key = _carter360_split(key)
+    _, grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'carter360',
+        lambda gk: _carter360_grammar(gk, ref360),
+        lambda g: _carter360_message_positions(g, ref360))
+    by_niveau, sweep_of_color = grammar['by_niveau'], grammar['sweep_of_color']
+    return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
+            for pos in _carter360_positions(i // CARTER360_SIDE, i % CARTER360_SIDE,
+                                             g, ref360, by_niveau, sweep_of_color)]
+
+def _carter_mix_message_positions_list(key: bytes, ref256, ref360) -> List[Tuple[int, int]]:
+    from carter import _find_grammar_with_c_pub
+    from stegano_lib import (_carter_mix_split, _carter_mix_grammar, _mix_positions,
+                              _mix_message_positions, _MESSAGE, CARTER_MIX_SIDE)
+    _, grammar_key = _carter_mix_split(key)
+    _, grammar, _ = _find_grammar_with_c_pub(
+        grammar_key, 'cartermix',
+        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        lambda g: _mix_message_positions(g, ref256, ref360))
+    by_niveau = grammar['by_niveau']
+    sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
+    return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
+            for pos in _mix_positions(i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE,
+                                       g, ref256, ref360, by_niveau, sweep_256, sweep_360)]
+
+def _carter_random_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    from carter_random import (
+        _carter_split, _find_random_grammar_with_c_pub,
+        _form_stegano_positions, derive_sweep_index, _RANDOM_STEGANO_COLORS,
+        _MESSAGE, CELL_SIZE, META, CONC_ORDER, GRID_SIZE as _CR_GRID_SIZE,
+    )
+    gs = grid_size or _CR_GRID_SIZE
+    _, grammar_key = _carter_split(key)
+    gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(grammar_key, gs)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
+    n_side_g = gs // CELL_SIZE
+    n_meta_g = n_side_g // META
+    positions = []
+    if not meta_mode:
+        for i, g in enumerate(grammar):
+            if g['role'] != _MESSAGE: continue
+            br, bc = i // n_side_g, i % n_side_g
+            form   = ref[g['form_id']]
+            r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
+            for pos in _form_stegano_positions(form, sweep_of_color):
+                gr, gc = r0 + pos[0], c0 + pos[1]
+                if 0 <= gr < gs and 0 <= gc < gs:
+                    positions.append((gr, gc))
+    else:
+        for mi, mg in enumerate(grammar):
+            if mg['role'] != _MESSAGE: continue
+            mr, mc = mi // n_meta_g, mi % n_meta_g
+            for ci, (br_off, bc_off) in enumerate(CONC_ORDER):
+                sg     = mg['sub'][ci]
+                form   = ref[sg['form_id']]
+                br, bc = mr * META + br_off, mc * META + bc_off
+                r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
+                for pos in _form_stegano_positions(form, sweep_of_color):
+                    gr, gc = r0 + pos[0], c0 + pos[1]
+                    if 0 <= gr < gs and 0 <= gc < gs:
+                        positions.append((gr, gc))
+    return positions
+
+def _carter18_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    from carter_random import (
+        _carter_split, _find_carter18_grammar_with_c_pub,
+        BLOCK_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
+    )
+    gs = grid_size or _CR_GRID_SIZE
+    _, grammar_key = _carter_split(key)
+    gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(grammar_key, gs)
+    n_side_18 = gs // BLOCK_18
+    positions = []
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE: continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+        form = ref18[g['form_id']]
+        for r, c in form[g['dir']]:
+            gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
+            if 0 <= gr < gs and 0 <= gc < gs:
+                positions.append((gr, gc))
+    return positions
+
+def _carter_hybrid_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    from carter_random import (
+        _carter_split, _find_hybrid_grammar_with_c_pub,
+        _subblock_positions, derive_sweep_index, _RANDOM_STEGANO_COLORS,
+        BLOCK_18, MODE_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
+    )
+    gs = grid_size or _CR_GRID_SIZE
+    _, grammar_key = _carter_split(key)
+    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(grammar_key, gs)
+    sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
+    n_side_18 = gs // BLOCK_18
+    positions = []
+    for blk, g in enumerate(grammar):
+        if g['role'] != _MESSAGE: continue
+        br18, bc18 = blk // n_side_18, blk % n_side_18
+        if g['mode'] == MODE_18:
+            form = ref18[g['form_id']]
+            for r, c in form[g['dir']]:
+                gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
+                if 0 <= gr < gs and 0 <= gc < gs:
+                    positions.append((gr, gc))
+        else:
+            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
+                for gr, gc in sub_pos:
+                    if 0 <= gr < gs and 0 <= gc < gs:
+                        positions.append((gr, gc))
+    return positions
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 class TestAvalancheKey(unittest.TestCase):
@@ -305,33 +463,42 @@ class TestEntropy(unittest.TestCase):
         cls.ref360_v3 = load_referent_360_v3()
 
     def _entropy(self, flat: List[int]) -> float:
-        n = len(flat)
-        freq = [flat.count(v) / n for v in range(ALPHA)]
-        return -sum(p * math.log2(p) for p in freq if p > 0)
+        return _shannon_entropy(flat)
 
-    def _test_mode(self, fn, *args):
-        entropies = []
+    def _test_mode(self, fn, message_positions_fn, *args):
+        """Entropie sur les cellules message uniquement (docstring de classe :
+        voir la note 2026-09-12 pres de _message_cell_values/_shannon_entropy
+        ci-dessus -- l'ancienne version mesurait la grille entiere, ~2/3 de
+        bruit CSPRNG uniforme par construction, qui masque tout biais reel
+        des cellules message)."""
+        entropies, ns = [], []
         for i in range(self.N_GRIDS):
             key  = os.urandom(32)
             grid = fn(self.MSG, key, *args)
-            h    = self._entropy(_grid_flat(grid))
-            entropies.append(h)
+            flat = _message_cell_values(grid, message_positions_fn(key, *args))
+            entropies.append(self._entropy(flat))
+            ns.append(len(flat))
         mean_h = statistics.mean(entropies)
+        mean_n = statistics.mean(ns)
         self.assertGreater(mean_h, H_MIN_OK,
             f"{fn.__name__} : entropie trop basse {mean_h:.4f} < {H_MIN_OK:.4f}")
-        return mean_h
+        return mean_h, mean_n
 
     def test_entropy_carter_256(self):
-        h = self._test_mode(encode_carter, self.ref256_v3)
-        print(f"  Entropie Carter 256 : {h:.4f} bits (max {H_MAX:.4f})")
+        """Entropie Shannon des cellules message Carter-256."""
+        h, n = self._test_mode(encode_carter, _carter256_message_positions, self.ref256_v3)
+        print(f"  Entropie Carter 256 (cellules message) : {h:.4f} bits (max {H_MAX:.4f})  n≈{n:.0f}")
 
     def test_entropy_carter_360(self):
-        h = self._test_mode(encode_carter_360, self.ref360_v3)
-        print(f"  Entropie Carter 360 : {h:.4f} bits")
+        """Entropie Shannon des cellules message Carter-360."""
+        h, n = self._test_mode(encode_carter_360, _carter360_message_positions_list, self.ref360_v3)
+        print(f"  Entropie Carter 360 (cellules message) : {h:.4f} bits  n≈{n:.0f}")
 
     def test_entropy_carter_mix(self):
-        h = self._test_mode(encode_carter_mix, self.ref256_v3, self.ref360_v3)
-        print(f"  Entropie Carter Mix : {h:.4f} bits")
+        """Entropie Shannon des cellules message Carter Mix."""
+        h, n = self._test_mode(encode_carter_mix, _carter_mix_message_positions_list,
+                                self.ref256_v3, self.ref360_v3)
+        print(f"  Entropie Carter Mix (cellules message) : {h:.4f} bits  n≈{n:.0f}")
 
     def test_entropy_xchacha20_output(self):
         """_encrypt() (XChaCha20-Poly1305 + commitment) : entropie sur la sortie brute (bits).
@@ -375,38 +542,47 @@ class TestChiSquare(unittest.TestCase):
         chi2, p = st.chisquare(obs, [exp] * ALPHA)
         return chi2, p
 
-    def _run(self, label, encode_fn, *args):
+    def _run(self, label, encode_fn, message_positions_fn, *args):
+        """Chi2 sur les cellules message uniquement (voir la note 2026-09-12
+        pres de _message_cell_values ci-dessus)."""
         try:
             import scipy.stats
         except ImportError:
             self.skipTest("scipy non installe")
-        chi2_values, p_values = [], []
+        chi2_values, p_values, ns = [], [], []
         for _ in range(self.N_GRIDS):
             key  = os.urandom(32)
             grid = encode_fn(self.MSG, key, *args)
-            chi2, p = self._chisq(_grid_flat(grid))
+            flat = _message_cell_values(grid, message_positions_fn(key, *args))
+            chi2, p = self._chisq(flat)
             chi2_values.append(chi2)
             p_values.append(p)
+            ns.append(len(flat))
         bad = sum(1 for p in p_values if p < CHI2_PVALUE_MIN)
         self.assertLessEqual(bad, 2,
             f"Chi2 {label} : trop de grilles non uniformes ({bad}/{self.N_GRIDS})")
         mean_c = statistics.mean(chi2_values)
         mean_p = statistics.mean(p_values)
-        print(f"  Chi2 {label} : mean={mean_c:.1f}  mean_p={mean_p:.3f}  "
+        print(f"  Chi2 {label} (cellules message) : mean={mean_c:.1f}  mean_p={mean_p:.3f}  "
+              f"n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})  "
               f"echecs={bad}/{self.N_GRIDS}")
 
     def test_chisq_carter_256(self):
-        self._run("Carter 256", encode_carter, self.ref256)
+        """Chi2 sur les cellules message Carter-256."""
+        self._run("Carter 256", encode_carter, _carter256_message_positions, self.ref256)
 
     def test_chisq_carter_360(self):
-        """Ajoute 2026-09-12 -- absent jusqu'ici, seul Carter-256 avait un
+        """Chi2 sur les cellules message Carter-360.
+        Ajoute 2026-09-12 -- absent jusqu'ici, seul Carter-256 avait un
         test chi2 dedie parmi les variantes a referent fixe (256/360/Mix),
         contrairement a Random/18/Hybrid qui en ont chacun un."""
-        self._run("Carter 360", encode_carter_360, self.ref360)
+        self._run("Carter 360", encode_carter_360, _carter360_message_positions_list, self.ref360)
 
     def test_chisq_carter_mix(self):
-        """Ajoute 2026-09-12 -- voir test_chisq_carter_360."""
-        self._run("Carter Mix", encode_carter_mix, self.ref256, self.ref360)
+        """Chi2 sur les cellules message Carter Mix.
+        Ajoute 2026-09-12 -- voir test_chisq_carter_360."""
+        self._run("Carter Mix", encode_carter_mix, _carter_mix_message_positions_list,
+                   self.ref256, self.ref360)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -759,20 +935,22 @@ class TestCarterRandomChiSquare(unittest.TestCase):
         exp = n / ALPHA_LEN
         return sum((flat.count(v) - exp)**2 / exp for v in range(ALPHA_LEN))
 
-    def _run_serie(self, encode_fn, label):
+    def _run_serie(self, encode_fn, label, grid_size=None):
+        """Chi2 sur les cellules message uniquement (voir la note 2026-09-12
+        pres de _message_cell_values ci-dessus)."""
         try:
             import scipy.stats as st
         except ImportError:
             self.skipTest("scipy non installe")
-        chi2s, ps = [], []
+        chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
             if not random_fits(self.MSG, k): continue
             grid, _ = encode_fn(self.MSG, k)
-            flat = [v for row in grid for v in row]
+            flat = _message_cell_values(grid, _carter_random_message_positions(k, grid_size))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
-            chi2s.append(c); ps.append(p)
+            chi2s.append(c); ps.append(p); ns.append(len(flat))
         if not chi2s:
             self.skipTest("Aucune cle valide")
         mean_c = statistics.mean(chi2s)
@@ -780,16 +958,45 @@ class TestCarterRandomChiSquare(unittest.TestCase):
         bad    = sum(1 for c in chi2s if c > self.CHI2_SEUIL)
         self.assertLessEqual(bad, 2,
             f"{label} chi2 : {bad}/{len(chi2s)} grilles au-dessus du seuil")
-        print(f"  chi2 {label:<12} : mean={mean_c:.1f}  "
-              f"p={mean_p:.3f}  "
-              f"seuil={self.CHI2_SEUIL}  "
+        print(f"  chi2 {label:<12} (cellules message) : mean={mean_c:.1f}  "
+              f"p={mean_p:.3f}  seuil={self.CHI2_SEUIL}  "
+              f"n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})  "
               f"echecs={bad}/{len(chi2s)}")
+        return statistics.mean(ns)
 
     def test_chi2_carter_random_90(self):
-        self._run_serie(encode_carter_random, "Random 90")
+        """Chi2 sur les cellules message, Carter Random 90x90."""
+        self._run_serie(encode_carter_random, "Random 90", grid_size=90)
 
     def test_chi2_carter_random_360(self):
-        self._run_serie(encode_carter_random_360, "Random 360")
+        """Chi2 sur les cellules message, Carter Random 180x180 (alias 360)."""
+        self._run_serie(encode_carter_random_360, "Random 360", grid_size=180)
+
+    def _run_entropy_serie(self, encode_fn, label, grid_size=None):
+        """Entropie Shannon sur les cellules message uniquement."""
+        entropies, ns = [], []
+        for _ in range(self.N_GRIDS):
+            k = os.urandom(32)
+            if not random_fits(self.MSG, k): continue
+            grid, _ = encode_fn(self.MSG, k)
+            flat = _message_cell_values(grid, _carter_random_message_positions(k, grid_size))
+            entropies.append(_shannon_entropy(flat))
+            ns.append(len(flat))
+        if not entropies:
+            self.skipTest("Aucune cle valide")
+        mean_h = statistics.mean(entropies)
+        self.assertGreater(mean_h, H_MIN_OK,
+            f"{label} : entropie trop basse {mean_h:.4f} < {H_MIN_OK:.4f}")
+        print(f"  Entropie {label:<12} (cellules message) : {mean_h:.4f} bits  "
+              f"n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})")
+
+    def test_entropy_carter_random_90(self):
+        """Entropie Shannon des cellules message, Carter Random 90x90."""
+        self._run_entropy_serie(encode_carter_random, "Random 90", grid_size=90)
+
+    def test_entropy_carter_random_360(self):
+        """Entropie Shannon des cellules message, Carter Random 180x180 (alias 360)."""
+        self._run_entropy_serie(encode_carter_random_360, "Random 360", grid_size=180)
 
 
 class TestCarterRandomAvalanche(unittest.TestCase):
@@ -898,15 +1105,15 @@ class TestCarter18Statistical(unittest.TestCase):
             import scipy.stats as st
         except ImportError:
             self.skipTest("scipy non installe")
-        chi2s, ps = [], []
+        chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
             if not carter18_fits(self.MSG, k): continue
             grid, _ = encode_carter_18(self.MSG, k)
-            flat = [v for row in grid for v in row]
+            flat = _message_cell_values(grid, _carter18_message_positions(k))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
-            chi2s.append(c); ps.append(p)
+            chi2s.append(c); ps.append(p); ns.append(len(flat))
         if not chi2s:
             self.skipTest("Aucune cle valide")
         mean_c = statistics.mean(chi2s)
@@ -914,8 +1121,28 @@ class TestCarter18Statistical(unittest.TestCase):
         bad    = sum(1 for c in chi2s if c > self.CHI2_SEUIL)
         self.assertLessEqual(bad, 2,
             f"Carter-18 chi2 : {bad}/{len(chi2s)} grilles au-dessus du seuil")
-        print(f"  chi2 Carter-18     : mean={mean_c:.1f}  p={mean_p:.3f}  "
-              f"seuil={self.CHI2_SEUIL}  echecs={bad}/{len(chi2s)}")
+        print(f"  chi2 Carter-18 (cellules message) : mean={mean_c:.1f}  p={mean_p:.3f}  "
+              f"seuil={self.CHI2_SEUIL}  n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})  "
+              f"echecs={bad}/{len(chi2s)}")
+
+    def test_entropy_carter_18(self):
+        """Entropie Shannon sur les cellules message : distribution uniforme
+        sur [0..43]."""
+        entropies, ns = [], []
+        for _ in range(self.N_GRIDS):
+            k = os.urandom(32)
+            if not carter18_fits(self.MSG, k): continue
+            grid, _ = encode_carter_18(self.MSG, k)
+            flat = _message_cell_values(grid, _carter18_message_positions(k))
+            entropies.append(_shannon_entropy(flat))
+            ns.append(len(flat))
+        if not entropies:
+            self.skipTest("Aucune cle valide")
+        mean_h = statistics.mean(entropies)
+        self.assertGreater(mean_h, H_MIN_OK,
+            f"Carter-18 : entropie trop basse {mean_h:.4f} < {H_MIN_OK:.4f}")
+        print(f"  Entropie Carter-18 (cellules message) : {mean_h:.4f} bits  "
+              f"n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})")
 
     def test_grammar_avalanche_carter_18(self):
         """Avalanche de grammaire : flip 1 bit cle -> >35% des blocs changent de role."""
@@ -982,15 +1209,15 @@ class TestCarterHybridStatistical(unittest.TestCase):
             import scipy.stats as st
         except ImportError:
             self.skipTest("scipy non installe")
-        chi2s, ps = [], []
+        chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
             if not carter_hybrid_fits(self.MSG, k): continue
             grid, _ = encode_carter_hybrid(self.MSG, k)
-            flat = [v for row in grid for v in row]
+            flat = _message_cell_values(grid, _carter_hybrid_message_positions(k))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
-            chi2s.append(c); ps.append(p)
+            chi2s.append(c); ps.append(p); ns.append(len(flat))
         if not chi2s:
             self.skipTest("Aucune cle valide")
         mean_c = statistics.mean(chi2s)
@@ -998,8 +1225,28 @@ class TestCarterHybridStatistical(unittest.TestCase):
         bad    = sum(1 for c in chi2s if c > self.CHI2_SEUIL)
         self.assertLessEqual(bad, 2,
             f"Carter-Hybrid chi2 : {bad}/{len(chi2s)} grilles au-dessus du seuil")
-        print(f"  chi2 Carter-Hybrid : mean={mean_c:.1f}  p={mean_p:.3f}  "
-              f"seuil={self.CHI2_SEUIL}  echecs={bad}/{len(chi2s)}")
+        print(f"  chi2 Carter-Hybrid (cellules message) : mean={mean_c:.1f}  p={mean_p:.3f}  "
+              f"seuil={self.CHI2_SEUIL}  n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})  "
+              f"echecs={bad}/{len(chi2s)}")
+
+    def test_entropy_carter_hybrid(self):
+        """Entropie Shannon sur les cellules message : distribution uniforme
+        sur [0..43]."""
+        entropies, ns = [], []
+        for _ in range(self.N_GRIDS):
+            k = os.urandom(32)
+            if not carter_hybrid_fits(self.MSG, k): continue
+            grid, _ = encode_carter_hybrid(self.MSG, k)
+            flat = _message_cell_values(grid, _carter_hybrid_message_positions(k))
+            entropies.append(_shannon_entropy(flat))
+            ns.append(len(flat))
+        if not entropies:
+            self.skipTest("Aucune cle valide")
+        mean_h = statistics.mean(entropies)
+        self.assertGreater(mean_h, H_MIN_OK,
+            f"Carter-Hybrid : entropie trop basse {mean_h:.4f} < {H_MIN_OK:.4f}")
+        print(f"  Entropie Carter-Hybrid (cellules message) : {mean_h:.4f} bits  "
+              f"n={min(ns)}..{max(ns)} (moy={statistics.mean(ns):.0f})")
 
     def test_grammar_avalanche_carter_hybrid(self):
         """Avalanche de grammaire : flip 1 bit cle -> >35% des blocs changent de role."""
@@ -1038,6 +1285,58 @@ class TestCarterHybridStatistical(unittest.TestCase):
             ok += 1
         self.assertGreater(tried, 0, "Aucune cle valide sur 20 essais")
         print(f"  Round-trip Carter-Hybrid : {ok}/{tried} cles valides, 0 echec")
+
+
+class TestMessageCellLabelGuard(unittest.TestCase):
+    """
+    Garde-fou (2026-09-12) contre la classe de bug corrigee dans ce meme
+    commit : TestChiSquare, TestEntropy, TestCarterRandomChiSquare,
+    TestCarter18Statistical et TestCarterHybridStatistical annoncaient deja
+    dans leur docstring une mesure sur les « cellules message », alors que
+    leur code calculait chi2/entropie sur la grille ENTIERE (soit via
+    _grid_flat(), soit via l'equivalent inline "for row in grid for v in
+    row") -- silencieusement invalide, puisque ~2/3 des cellules sont du
+    bruit CSPRNG uniforme par construction (blocs 'pure'/'structured') qui
+    masque tout biais reel des cellules message. Meme classe de defaut que
+    celle qui avait revele la faille d'encodage des nibbles en v5.
+
+    Inspecte le SOURCE des methodes de test (inspect.getsource) plutot que
+    d'executer une mesure : detecte la classe de bug elle-meme (le motif de
+    lecture pleine grille dans un corps de test dont le docstring annonce
+    "cellules message"), pas une valeur numerique particuliere -- pour que
+    cette regression ne puisse pas revenir en silence.
+    """
+
+    TARGET_CLASSES = [
+        'TestChiSquare', 'TestEntropy',
+        'TestCarterRandomChiSquare', 'TestCarter18Statistical',
+        'TestCarterHybridStatistical',
+    ]
+    _WHOLE_GRID_PATTERN = re.compile(
+        r'_grid_flat\(|for\s+\w+\s+in\s+grid\s+for\s+\w+\s+in\s+\w+')
+
+    def test_no_whole_grid_measurement_labeled_message_cells(self):
+        """
+        Inspecte la classe ENTIERE (pas methode par methode) : la mesure
+        reelle vit souvent dans un helper partage (_run/_run_serie/
+        _test_mode), pas dans la methode test_* elle-meme -- exactement la
+        forme du bug corrige ici (le docstring de test_chi2_carter_18
+        annoncait deja "cellules message" alors que le calcul, dans le
+        corps de la methode, lisait la grille entiere).
+        """
+        import inspect
+        module = sys.modules[__name__]
+        offenders = []
+        for cls_name in self.TARGET_CLASSES:
+            cls = getattr(module, cls_name)
+            src = inspect.getsource(cls)
+            if 'cellules message' not in src.lower():
+                continue
+            if self._WHOLE_GRID_PATTERN.search(src):
+                offenders.append(cls_name)
+        self.assertEqual(offenders, [],
+            "Classe(s) annoncant une mesure \"cellules message\" mais "
+            f"calculant sur la grille entiere : {offenders}")
 
 
 class TestCarterRandomSummary(unittest.TestCase):
@@ -1102,6 +1401,7 @@ if __name__ == '__main__':
                 TestCarterRandomCapacity, TestCarterRandomChiSquare,
                 TestCarterRandomAvalanche,
                 TestCarter18Statistical, TestCarterHybridStatistical,
+                TestMessageCellLabelGuard,
                 TestCarterRandomSummary]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
 
