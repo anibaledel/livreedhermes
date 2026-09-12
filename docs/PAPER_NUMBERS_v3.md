@@ -2,16 +2,247 @@
 
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
-> **Document en construction (tâche 8, différée).** Seules les sections
-> ci-dessous sont rédigées pour l'instant : §5.3 (choix du référent 6×6)
-> et §5.4 (recalibration C_PUB après le câblage production, 2026-09-12).
-> Le reste (mesures de capacité détaillées par variante, méthodologie de
-> calibration générale) n'est pas encore écrit ici ; il vit pour
-> l'instant dans les commentaires de `stegano/crypto_core.py` (dict
-> `C_PUB`) et dans les scripts `tools/calibrate_referent.py` /
-> `tools/generate_referent_*.py` / `tools/recalibrate_carter_v3.py`.
+> Complète `docs/REFERENT_FORMAT_V3.md` (schéma, règle de lecture,
+> validation) avec les mesures EMPIRIQUES : capacités par variante,
+> propriétés statistiques, couverture de tests, labels HKDF complets.
+> Toutes les mesures de ce document proviennent d'appels DIRECTS aux
+> fonctions de PRODUCTION (jamais une réimplémentation séparée) — voir la
+> suite `stegano/test_statistical.py` pour le code source de chaque
+> mesure, et `docs/REFERENT_FORMAT_V3.md` §7 pour la méthodologie de
+> calibration de C_PUB.
 
-## 5.3 Choix du référent 6×6 parmi les 256
+## 1. Capacités par variante (min / p1 / p5 / médiane / p95 / max)
+
+Mesuré le 2026-09-12 sur N=3000 clés aléatoires par variante, en appelant
+directement `carter_capacity`/`carter360_capacity`/`carter_mix_capacity`
+(`carter.py`), `random_capacity`/`carter18_capacity`/
+`carter_hybrid_capacity` (`carter_random.py`) — capacité RÉELLE après
+redraw (jamais avant recherche de grammaire), pour les référents par
+défaut de ce dépôt. Toutes les valeurs sont en **octets** du message
+clair encodé UTF-8 (`crypto_core.max_message_for`), comme `C_PUB`.
+
+| Variante | N | min | p1 | p5 | médiane | p95 | max |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| carter256 | 3000 | 399 | 415 | 440 | 530 | 628 | 710 |
+| carter360 | 3000 | 1865 | 1941 | 2034 | 2389 | 2776 | 3235 |
+| cartermix | 3000 | 1875 | 1925 | 2028 | 2394 | 2776 | 3240 |
+| carter18 | 3000 | 358 | 456 | 677 | 1340 | 2077 | 2888 |
+| carterhybrid | 3000 | 259 | 309 | 456 | 898 | 1512 | 2642 |
+
+`min` ≥ `C_PUB[variant]` pour chaque variante (garantie publique — voir
+`REFERENT_FORMAT_V3.md` §7) ; les colonnes suivantes montrent l'étalement
+réel au-dessus de ce plancher, dû à la variation naturelle du nombre de
+blocs `message` tirés par la grammaire d'une clé à l'autre.
+
+### 1.1 Carter-Random — répartition individuel/méta
+
+Carter-Random (90×90 et 180×180) tire, par clé, entre deux régimes de
+lecture — **individuel** (bloc à bloc, 6×6) et **méta** (méta-blocs
+concentriques 18×18) — et bascule déterministiquement vers celui des deux
+qui offre le PLUS de capacité pour cette clé précise (règle CR-1, audit
+G. Kerma) : ce n'est donc pas un tirage 50/50, mais une répartition
+mesurée empiriquement.
+
+| Grille | N | Individuel | Méta | Individuel : min/p1/p5/méd/p95/max | Méta : min/p1/p5/méd/p95/max | Combiné : min/p1/p5/méd/p95/max |
+|---|--:|--:|--:|---|---|---|
+| 90×90 (carterrandom90) | 3000 | 2265 (75,5 %) | 735 (24,5 %) | 415/423/448/538/636/726 | 431/431/505/653/874/1095 | 415/431/456/554/726/1095 |
+| 180×180 (carterrandom360) | 3000 | 2234 (74,5 %) | 766 (25,5 %) | 2151/2168/2225/2397/2585/2814 | 2200/2274/2348/2642/3158/3601 | 2151/2176/2233/2430/2864/3601 |
+
+Le mode méta offre une capacité MÉDIANE plus élevée que le mode
+individuel dans les deux géométries (653 > 538 pour 90×90, 2642 > 2397
+pour 180×180) — cohérent avec la règle CR-1 (bascule vers le régime le
+plus favorable) : si méta perd presque toujours sur une clé donnée, il
+n'est presque jamais choisi ; le fait qu'il apparaisse ~25 % du temps
+avec une capacité médiane supérieure montre qu'il l'emporte sur un
+sous-ensemble de clés où sa géométrie concentrique rend mieux que le
+découpage bloc à bloc.
+
+## 2. Propriétés statistiques (indistinguabilité, avalanche, dérivation)
+
+Mesuré le 2026-09-12 (`stegano/test_statistical.py`, suite complète
+verte, scipy installé — aucun test statistique sous scipy skippé dans
+cet environnement).
+
+### 2.1 Entropie / uniformité par variante
+
+| Variante | H (bits/cellule) | E[V] | Std | Valeurs uniques |
+|---|--:|--:|--:|--:|
+| Carter 256 | 5,4561 | 21,30 | 12,71 | 44 |
+| Carter 360 | 5,4585 | 21,51 | 12,73 | 44 |
+| Carter Mix | 5,4587 | 21,49 | 12,78 | 44 |
+| Random 90 | 5,4558 | 21,62 | 12,67 | 44 |
+| Random 360 | 5,4583 | 21,57 | 12,69 | 44 |
+| Carter-18 | 5,4552 | 21,83 | 12,63 | 44 |
+| Carter-Hybrid | 5,4562 | 21,63 | 12,70 | 44 |
+| **Idéal (uniforme, 44 symboles)** | **5,4594** | **21,50** | **12,70** | **44** |
+
+### 2.2 Chi² d'indistinguabilité (grille vs. bruit uniforme)
+
+Seuil retenu : α=0,001, df=43 → chi²≤77,42 (α=0,05 → 59,3, réservé pour
+comparaison). `échecs` = nombre de tirages (sur 10, sauf Carter 256/360/
+Mix : voir note) dépassant le seuil.
+
+| Variante | chi² moyen | p moyen | Échecs/tirages |
+|---|--:|--:|--:|
+| Random 90 | 40,3 | 0,591 | 0/10 |
+| Random 360 | 45,6 | 0,445 | 0/10 |
+| Carter-18 | 37,4 | 0,658 | 0/10 |
+| Carter-Hybrid | 41,0 | 0,552 | 0/10 |
+| Carter 256/360/Mix | — (p moyen rapporté seul) | 0,564 | 0/10 |
+
+### 2.3 Autres propriétés (Carter-256, sauf mention contraire)
+
+| Propriété | Mesure | Attendu |
+|---|---|---|
+| Autocorrélation spatiale (max_r) | 0,0209 | < 2/√8100 = 0,0222 |
+| Sensibilité à la clé (ChaCha20-HKDF) | mean=0,497 | ~0,50 |
+| Avalanche de grammaire (Carter-256) | mean=0,432 | > 0,35 |
+| Avalanche de grammaire (Carter-18) | mean=0,490 | > 0,35 |
+| Avalanche de grammaire (Carter-Hybrid) | mean=0,415 | > 0,35 |
+| Avalanche de grammaire (moyenne globale) | mean=0,436 | ~0,44 (théorique) |
+| Avalanche message (cellules message) | mean=1,270 (n=12) | — |
+| Avalanche message (symboles) | mean=0,974 | > 0,80 |
+| Entropie ChaCha20-HKDF (bit à bit) | 0,9995 bits/bit (prop. 1 = 0,5125) | ~1,0 |
+| Longueur masquée (1 vs 49 car.) | 8 paires, n=7260, chi²=47,1, p=0,3071 | p non significatif |
+| PtS chi² (nbytes=32, m=59, N=3000) | chi²=57,2, p=0,0717 | p non significatif |
+| Corrélation série | chi²=101,9, df=1849, ratio=0,055 | ratio < 1 |
+| Deux grilles (msgs différents, même clé) | 8 paires, n=7080, chi²=39,5, p=0,6245 | p non significatif |
+| Round-trip Carter-18 | 20/20 clés valides, 0 échec | 0 échec |
+| Round-trip Carter-Hybrid | 20/20 clés valides, 0 échec | 0 échec |
+| Round-trip Carter-Random (30/100/150 car.) | 0,0 % refus (0/500 clés, les 3 longueurs) | < 2 % à 30 car. |
+
+Ces mesures varient légèrement d'un lancement à l'autre (tirages
+aléatoires, pas de graine fixe) : les valeurs ci-dessus sont celles d'un
+lancement représentatif de la suite verte au 2026-09-12, pas des
+constantes figées — seuls les SEUILS (attendu) sont contractuels.
+
+## 3. Couverture de tests
+
+| Fichier | Tests | Contenu |
+|---|--:|---|
+| `stegano/test_regression.py` | 49 | Vecteurs XChaCha20, dérivation de clés, grammaire Carter, format payload, fixtures, round-trip de bout en bout, variantes classiques, C_PUB |
+| `stegano/test_statistical.py` | 30 | Entropie, chi², avalanche, autocorrélation, corrélation série, capacité Carter-Random (individuel/méta) |
+| `stegano/test_sweep.py` | 12 | Balayages (8), `derive_sweep_index`, `sort_by_sweep`, `crypto_reading_order` |
+| `stegano/test_referent_360_v3.py` | 11 | Structure du référent 360, `c_pub` absent, `referent_id` stable |
+| `stegano/test_referent6x6_v3.py` | 9 | Génération ChaCha20 (256 référents), `select_referent_index`, `c_pub` absent |
+| `stegano/test_vectors_isolation.py` | 8 | Chargeur unique du référent 360, comportement par défaut inchangé sans injection |
+| `stegano/test_vectors_regeneration.py` | 7 | Régénération bit-exacte de `vectors/carter_v3.json`, décodage depuis grille régénérée/stockée |
+| **Total `stegano/`** | **126** | |
+| `secubox/test_secu_box.py` | 15 | Identités X25519, session authentifiée, déni plausible (structure, statistique, round-trip) |
+| **Total `secubox/`** | **15** | |
+| `stegano/legacy/test_grid_90.py` | 4 | grid_90.py (hors production, voir §"Hors périmètre" de REFERENT_FORMAT_V3.md) |
+| **Total général** | **145** | |
+
+Aucun test marqué `skip` dans cette suite au 2026-09-12 (scipy installé
+dans cet environnement — les branches `skipTest("scipy non installe")`
+ne se déclenchent jamais ici, mais existent pour un environnement qui ne
+l'aurait pas).
+
+## 4. Labels HKDF (domaines de dérivation, `crypto_core.LABELS`)
+
+Convention : `salt = 'Carter-<variante>-v3'` (ou `'commit-v3'` pour le
+key commitment, partagé par tous les schémas — classique, Carter,
+`grid_90` legacy) ; `info` = but précis de CETTE dérivation, distinct
+pour toute paire (variante, but). Centralisés dans
+`stegano/crypto_core.py::LABELS` pour que LH-5 les reprenne tels quels.
+
+```python
+LABELS = {
+    'commit': {
+        'salt': b'commit-v3', 'info': b'key-commitment',
+    },
+    'carter256': {
+        'split_salt': b'Carter-256-v3', 'encrypt_info': b'encrypt',
+        'grammar_info': b'grammar',
+        'grammar_content_salt': b'Carter-256-grammar-v3',
+        'grammar_content_info': b'block-roles-and-forms',
+    },
+    'carter360': {
+        'split_salt': b'Carter-360-v3', 'encrypt_info': b'encrypt',
+        'grammar_info': b'grammar',
+        'grammar_content_salt': b'Carter-360-grammar-v3',
+        'grammar_content_info': b'block-roles-360-forms',
+        'niveau_calque_salt': b'Carter-360-niveau-calque-v3',
+        'niveau_calque_info': b'niveau-calque-index',
+    },
+    'cartermix': {
+        'split_salt': b'Carter-mix-v3', 'encrypt_info': b'encrypt',
+        'grammar_info': b'grammar',
+        'grammar_content_salt': b'Carter-mix-grammar-v3',
+        'grammar_content_info': b'mixed-256-360-grammar',
+        'niveau_calque_salt': b'Carter-mix-niveau-calque-v3',
+        'niveau_calque_info': b'niveau-calque-index',
+    },
+    'carterrandom': {
+        'params_salt': b'Carter-random-params-v3', 'params_info': b'seed-and-mode',
+        'grammar_individual_salt': b'Carter-random-v3',
+        'grammar_individual_info': b'grammar-individual',
+        'grammar_meta_salt': b'Carter-random-meta-v3',
+        'grammar_meta_roles_info': b'meta-roles',
+        'grammar_meta_forms_info': b'block-forms',
+    },
+    'carter18': {
+        'grammar_salt': b'Carter-18-v3', 'grammar_info': b'grammar-18',
+        'seed_salt': b'Carter-18-seed-v3', 'seed_info': b'seed',
+    },
+    'carterhybrid': {
+        'grammar_salt': b'Carter-hybrid-v3', 'grammar_info': b'grammar-hybrid',
+        'seed18_salt': b'Carter-hybrid-seed-v3', 'seed18_info': b'seed-18',
+        'seed6_salt': b'Carter-hybrid-seed6-v3', 'seed6_info': b'seed-6',
+        'subblock_salt': b'Carter-hybrid-sub-v3',
+    },
+    'mask_seed': {
+        'salt': b'Carter-masks-v3',
+        'info_carter256': b'position-masks-carter256',
+        'info_carter360': b'position-masks-carter360',
+        'info_cartermix': b'position-masks-cartermix',
+        'info_random': b'position-masks-random',
+        'info_18': b'position-masks-18',
+        'info_hybrid': b'position-masks-hybrid',
+        'info_deniable': b'position-masks-deniable',
+    },
+    'sweep': {
+        'salt': b'Carter-sweep-v3',
+    },
+    'referent6x6': {
+        'salt': b'Carter-referent6x6-v3', 'select_info': b'select',
+    },
+    'redraw': {
+        'carter256': b'Carter-256-redraw-v3', 'carter360': b'Carter-360-redraw-v3',
+        'cartermix': b'Carter-mix-redraw-v3', 'carterrandom': b'Carter-random-redraw-v3',
+        'carter18': b'Carter-18-redraw-v3', 'carterhybrid': b'Carter-hybrid-redraw-v3',
+    },
+}
+```
+
+Notes :
+
+- `mask_seed` : POINT D'ENTRÉE labellisé, partagé par les 6 variantes
+  Carter ET le déni plausible via `_derive_masks()` — chacune avec son
+  propre domaine `info_*`. Avant le câblage de ce pipeline unique,
+  Carter-256/360/Mix n'écrivaient AUCUN masque (vérifié par `git log -S`
+  sur le tag `v2-final`), contrairement à Random/18/Hybrid/déni.
+  `info_deniable` est le SEUL des sept domaines de masque lu par
+  `secu_box.py` — voir `docs/REFERENT_FORMAT_V3.md` pour la distinction
+  entre mode stégano et mode crypto.
+- `redraw` : Random 90 et Random 360 PARTAGENT la même racine
+  (`'carterrandom'`) — `grid_size` n'est pas secret et influence déjà la
+  dérivation en aval via `_derive_params(grammar_key_ctr, grid_size)`,
+  inutile de le dupliquer dans le label.
+- `referent6x6` : deux dérivations DISTINCTES partagent ce salt racine,
+  séparées par leur `info` — génération d'un référent `n` (IKM public
+  fixe, aucun secret) vs. sélection du référent à l'encodage (depuis
+  `gk`, secret) — voir `docs/REFERENT_FORMAT_V3.md` §4.1 et
+  `stegano/referent6x6_gen.py`.
+- Labels HORS de `crypto_core.LABELS`, non centralisés (périmètre
+  différent, pas des dérivations Carter/référent) : la sous-clé
+  XChaCha20/HChaCha20 (`salt=nonce[:16]`, `info=b'XChaCha20-HChaCha20-
+  subkey'`, construction standard de l'extension de nonce) et
+  `'SecuBox-Pending-v1'`/`'ephemeral-at-rest'` (chiffrement au repos
+  d'une session en attente, `secu_box.py` — sans rapport avec les
+  référents).
+
+## 5. Choix du référent 6×6 parmi les 256
 
 Depuis la décision de l'auteur du 2026-09-12, il existe **256 référents
 6×6 aléatoires**, indexés `n ∈ [0, 255]`, générés par l'algorithme
@@ -21,7 +252,7 @@ génération elle-même). Cette section documente uniquement **le choix
 DE QUEL référent utiliser** pour un encodage donné — une dérivation
 distincte de la génération des référents.
 
-### Dérivation
+### 5.1 Dérivation
 
 ```
 selection_key = HKDF-SHA256(IKM=gk, salt='Carter-referent6x6-v3',
@@ -36,7 +267,7 @@ nouvelle clé secrète n'est introduite : la sélection du référent est
 juste une sortie HKDF supplémentaire de `gk`, domaine-séparée par
 `info='select'` de toutes les autres dérivations qui en partent.
 
-### Pourquoi un seul octet, sans réduction modulo
+### 5.2 Pourquoi un seul octet, sans réduction modulo
 
 `HKDF-Expand` avec une longueur de sortie demandée de **1 octet** produit
 directement une valeur dans `[0, 255]` — c'est-à-dire exactement l'espace
@@ -54,11 +285,9 @@ octet ne serait jamais rejeté même si on appliquait la même règle. Le
 faire quand même n'introduirait pas d'erreur, mais ajouterait du code de
 rejet qui ne rejette jamais rien ; le tirage direct est aussi correct et
 plus simple. Voir `stegano/referent6x6_gen.py::select_referent_index()`
-pour l'implémentation, et `LABELS['referent6x6']` dans
-`stegano/crypto_core.py` pour les constantes de dérivation (salt/info)
-centralisées à l'usage de LH-5.
+pour l'implémentation.
 
-### Portée actuelle
+### 5.3 Portée actuelle
 
 Câblée en production depuis le 2026-09-12 : `carter_random.py`
 (`_derive_params`, choix du référent 6×6 pour Carter-Random individuel/
@@ -75,7 +304,7 @@ dehors : ils choisissent leur propre référent 18×18 parmi les 10
 entièrement distinct sans notion de couleur, que cette règle ne couvre
 pas.
 
-## 5.4 Recalibration C_PUB après le câblage production (2026-09-12)
+## 6. Recalibration C_PUB après le câblage production (2026-09-12)
 
 Le câblage de la nouvelle règle de lecture (référent en paramètre — voir
 les commits « Câblage production, étape N/10 ») fait passer les positions
@@ -110,3 +339,11 @@ un doublement de capacité comme pour les autres variantes.
 
 Toutes les valeurs sont en OCTETS du message encodé UTF-8 (voir
 `crypto_core._message_to_bytes`), comme les C_PUB originaux.
+
+**Depuis (2026-09-12, correction de conception) :** `c_pub` n'est plus un
+champ du référent, et la méthode de calibration a été scindée selon que
+la variante reçoit un référent explicite (`tools/calibrate_referent.py`
+— carter256/360/mix, couple référent×variante) ou sélectionne son
+référent par clé dans un pool (`tools/recalibrate_carter_v3.py`,
+inchangé — carterrandom90/360, carterhybrid) — voir
+`docs/REFERENT_FORMAT_V3.md` §6-7 pour le détail et la justification.
