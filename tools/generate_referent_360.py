@@ -401,11 +401,14 @@ def compute_referent_id(doc_without_id):
 # ── Génération de data/referent_360_v3.json (format v3 déclaratif) ─────────
 # Format figé, contenu paramétrable (2026-09-12) : TOUT référent (celui-ci
 # comme un futur référent personnalisé) déclare format_version/grid_size/
-# colors/stegano_colors/calques/c_pub -- voir tools/validate_referent.py
-# pour les contrôles génériques, et docs/REFERENT_FORMAT_V3.md (à écrire,
-# tâche 8) pour la spécification complète. c_pub est laissé null ici :
-# tools/calibrate_referent.py le calcule et l'écrit séparément (la
-# bibliothèque refuse un référent sans c_pub).
+# colors/stegano_colors/calques -- voir tools/validate_referent.py pour les
+# contrôles génériques, et docs/REFERENT_FORMAT_V3.md pour la spécification
+# complète. c_pub N'EST PAS un champ du référent (décision de l'auteur,
+# 2026-09-12) : la capacité publique garantie dépend du COUPLE (référent,
+# variante Carter qui le lit), jamais du référent seul -- le même référent
+# 6×6 vaut C_PUB=399 sous Carter-256, 415 sous Carter-Random-90, 2144 sous
+# Carter-Random-360. Elle vit uniquement dans crypto_core.C_PUB, indexée
+# par variante, calibrée par tools/calibrate_referent.py (voir ce script).
 
 def generate_v3_json(files):
     calques = []
@@ -426,13 +429,10 @@ def generate_v3_json(files):
 
     # Coeur canonique de l'identité du référent (geometrie/couleurs/calques
     # UNIQUEMENT) : referent_id = SHA-256 de CE sous-document, PAS du
-    # document final. c_pub est calibré APRES coup (tools/calibrate_
-    # referent.py) et ne doit jamais faire varier referent_id -- sinon
-    # calibrer changerait l'identité (et l'info HKDF, et les clés déjà
-    # dérivées) du référent. generated_at_utc/generator_tool sont du
-    # metadata non-identitaire, exclus pour la même raison (deux
-    # regénérations du MEME contenu source doivent donner le MEME
-    # referent_id, meme si l'horodatage differe).
+    # document final. generated_at_utc/generator_tool sont du metadata
+    # non-identitaire, exclus pour la même raison (deux regénérations du
+    # MEME contenu source doivent donner le MEME referent_id, meme si
+    # l'horodatage differe).
     core = {
         'format_version': 'referent-v3',
         'referent_kind': 'referent_360',
@@ -468,7 +468,6 @@ def generate_v3_json(files):
         "couleurs (0 ou 16 cases violettes par niveau, jamais 8) — "
         "magenta fixe côté YIN, orange fixe côté YANG (axe2)."
     )
-    doc['c_pub'] = None   # rempli par tools/calibrate_referent.py
     return doc
 
 

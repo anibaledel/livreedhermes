@@ -45,9 +45,14 @@ class TestHashesFileStructure(unittest.TestCase):
         self.assertEqual(len(self.doc['hashes']), 256)
         self.assertEqual(set(self.doc['hashes'].keys()), {str(n) for n in range(256)})
 
-    def test_c_pub_present(self):
-        self.assertIsNotNone(self.doc.get('c_pub'))
-        self.assertGreater(self.doc['c_pub'], 0)
+    def test_c_pub_not_a_referent_field(self):
+        """c_pub N'EST PAS un champ du référent (décision de l'auteur,
+        2026-09-12) : le même référent 6×6 vaut C_PUB=399 sous Carter-256,
+        415 sous Carter-Random-90, 2144 sous Carter-Random-360 -- la
+        capacité publique garantie dépend du couple (référent, variante),
+        pas du référent seul. Elle vit uniquement dans crypto_core.C_PUB."""
+        self.assertNotIn('c_pub', self.doc)
+        self.assertNotIn('c_pub_calibration', self.doc)
 
     def test_all_hashes_distinct(self):
         hashes = list(self.doc['hashes'].values())

@@ -40495,12 +40495,5 @@
     "n_grids_total": 256,
     "mismatched_grid_ids": [],
     "note": "blue<->bleu (cls-4), orange<->rouge (cls-1) attendus, meme id -- controle historique de la resolution de couleur, plus utilise pour la resoudre (voir CONFIRMED_COLOR_HEX)."
-  },
-  "c_pub": 399,
-  "c_pub_calibration": {
-    "rule": "plus grand c_pub tel que redraw < 1% sur 10000 cles (tache 4)",
-    "measured_redraw_rate_pct": 0.67,
-    "measured_fail_rate_pct": 0.0,
-    "n_keys": 10000
   }
 }

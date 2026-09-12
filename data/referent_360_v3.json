@@ -39409,12 +39409,5 @@
   "n_calques": 360,
   "n_identities": 60,
   "extraction_rule": "Couleur d'une case = l'\u00e9l\u00e9ment visible (display/visibility/opacity non masqu\u00e9s, sur l'\u00e9l\u00e9ment ou un anc\u00eatre <g>) le plus haut dans la pile (dernier dessin\u00e9 dans l'ordre du document) qui couvre son centre, tous types d'\u00e9l\u00e9ments confondus (rect/path/polygon/polyline). Classe hex\u2192{violet,magenta,orange} par teinte HSV la plus proche. fill:url(#gradient) r\u00e9solu par ORDRE D'APPARITION document, pas par id (non fiable sur les exports source).",
-  "invariant_48_48_48": "Pour chaque identit\u00e9 (famille,teinte), la somme des cases violettes/magenta/orange sur ses 6 niveaux vaut exactement 48/48/48. 56/60 identit\u00e9s : 8 cases violettes par niveau uniform\u00e9ment. 4 identit\u00e9s 'YIN-MUT-*' : transposition \u00e0 2 couleurs (0 ou 16 cases violettes par niveau, jamais 8) \u2014 magenta fixe c\u00f4t\u00e9 YIN, orange fixe c\u00f4t\u00e9 YANG (axe2).",
-  "c_pub": 1826,
-  "c_pub_calibration": {
-    "rule": "plus grand c_pub tel que redraw < 1% sur 10000 cles (tache 4)",
-    "measured_redraw_rate_pct": 0.69,
-    "measured_fail_rate_pct": 0.0,
-    "n_keys": 10000
-  }
+  "invariant_48_48_48": "Pour chaque identit\u00e9 (famille,teinte), la somme des cases violettes/magenta/orange sur ses 6 niveaux vaut exactement 48/48/48. 56/60 identit\u00e9s : 8 cases violettes par niveau uniform\u00e9ment. 4 identit\u00e9s 'YIN-MUT-*' : transposition \u00e0 2 couleurs (0 ou 16 cases violettes par niveau, jamais 8) \u2014 magenta fixe c\u00f4t\u00e9 YIN, orange fixe c\u00f4t\u00e9 YANG (axe2)."
 }

@@ -372,7 +372,6 @@ def generate_v3_json(source_path):
     doc['chiralite_repartition'] = {'EGO': n_ego, 'ALTER': n_alter}
     doc['diag'] = diag
     doc['legacy_crosscheck'] = _optional_legacy_crosscheck(grid_color, cls_to_label)
-    doc['c_pub'] = None   # rempli par tools/calibrate_referent.py
     return doc
 
 

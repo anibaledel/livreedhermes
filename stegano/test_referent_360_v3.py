@@ -42,15 +42,18 @@ class TestReferent360Structure(unittest.TestCase):
         self.assertEqual(self.doc['n_identities'], 60)
         self.assertEqual(len(self.doc['calques']), 360)
 
-    def test_c_pub_present(self):
-        self.assertIsNotNone(self.doc.get('c_pub'),
-            "c_pub absent -- executer tools/calibrate_referent.py")
-        self.assertGreater(self.doc['c_pub'], 0)
+    def test_c_pub_not_a_referent_field(self):
+        """c_pub N'EST PAS un champ du référent (décision de l'auteur,
+        2026-09-12) : la capacité publique garantie dépend du couple
+        (référent, variante qui le lit), pas du référent seul -- elle vit
+        uniquement dans crypto_core.C_PUB, indexée par variante."""
+        self.assertNotIn('c_pub', self.doc)
+        self.assertNotIn('c_pub_calibration', self.doc)
 
     def test_referent_id_stable_across_recompute(self):
-        """referent_id ne doit PAS dépendre de c_pub/generated_at_utc/
-        generator_tool -- recalibrer ou regénérer à la même date ne doit
-        jamais changer l'identité du référent."""
+        """referent_id ne doit PAS dépendre de generated_at_utc/
+        generator_tool -- regénérer à la même date ne doit jamais changer
+        l'identité du référent."""
         import sys
         sys.path.insert(0, os.path.join(REPO_ROOT, 'tools'))
         import generate_referent_360 as GEN

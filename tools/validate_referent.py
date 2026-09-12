@@ -206,7 +206,6 @@ if __name__ == '__main__':
     print(f"=== Validation de {path} ===")
     print(f"referent_id : {doc.get('referent_id', '(absent)')}")
     print(f"format_version : {doc.get('format_version', '(absent)')}")
-    print(f"c_pub : {doc.get('c_pub')}")
     print()
     print(f"info : {info}")
     print()
@@ -226,6 +225,3 @@ if __name__ == '__main__':
         sys.exit(1)
     else:
         print("Référent VALIDE (aucune erreur).")
-        if doc.get('c_pub') is None:
-            print("ATTENTION : c_pub absent -- la bibliothèque refusera ce référent tant que "
-                  "tools/calibrate_referent.py n'a pas été exécuté.")

@@ -4,35 +4,6 @@
   "n_referents": 256,
   "n_forms_per_referent": 256,
   "generator_tool": "tools/generate_referent_6x6.py (stegano/referent6x6_gen.py)",
-  "c_pub": 390,
-  "c_pub_calibration": {
-    "method": "calibre individuellement sur un echantillon de 8 referents (voir stegano/referent6x6_gen.py:C_PUB_6X6_CHACHA), variation negligeable (390-401) -> une seule valeur commune retenue (la plus basse), verifiee a N=8000 sur l'echantillon.",
-    "sample_indices": [
-      0,
-      1,
-      5,
-      50,
-      100,
-      150,
-      200,
-      255
-    ],
-    "sample_calibrated_c_pub": {
-      "0": 401,
-      "1": 399,
-      "5": 400,
-      "50": 399,
-      "100": 390,
-      "150": 399,
-      "200": 399,
-      "255": 399
-    },
-    "retained_c_pub": 390,
-    "verification_n8000_redraw_pct_range": [
-      0.287,
-      0.5
-    ]
-  },
   "perf_report": {
     "total_seconds": 1.819,
     "ms_per_referent": 7.106,

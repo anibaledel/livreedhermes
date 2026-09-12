@@ -70,19 +70,13 @@ SELECT_INFO = b'select'
 N_REFERENTS = 256
 N_FORMS = 256
 
-# c_pub COMMUN aux 256 référents (tools/calibrate_referent.py, 2026-09-12) :
-# calibré séparément sur un échantillon de 8 référents (indices 0, 1, 5,
-# 50, 100, 150, 200, 255 -- couvrant le début, le milieu et la fin de la
-# plage) ; les 8 valeurs individuelles calibrées (redraw cible 1 %)
-# vont de 390 à 401 (mean_capacity ~534-536 partout, quasi identique) --
-# variation NÉGLIGEABLE, comme attendu : les 256 référents partagent la
-# même composition (6/6/12/12) et la même grammaire de blocs message,
-# seule la géométrie des formes diffère. Retenu : la valeur la plus
-# BASSE observée (390, référent 100), vérifiée ensuite à N=8000 clés sur
-# les 8 référents de l'échantillon -> redraw entre 0,29 % et 0,50 %
-# partout (marge confortable sous la cible 1 %, échec 0 % partout). Un
-# seul c_pub pour tous les 256 référents, pas de calibration individuelle.
-C_PUB_6X6_CHACHA = 390
+# La capacité publique garantie (C_PUB) N'EST PAS un attribut du référent
+# 6×6 lui-même (décision de l'auteur, 2026-09-12) : elle dépend du COUPLE
+# (référent, variante Carter qui le lit) -- le MÊME référent 6×6 vaut
+# C_PUB=399 sous Carter-256, 415 sous Carter-Random-90, 2144 sous
+# Carter-Random-360 (la grammaire de blocs, donc le nombre de positions
+# lues par clé, diffère selon la variante). Voir crypto_core.C_PUB,
+# indexée par variante, et tools/calibrate_referent.py pour la méthode.
 GRID_SIZE = 6
 SMALL_COLORS = ('blue', 'orange')
 LARGE_COLORS = ('green', 'yellow')

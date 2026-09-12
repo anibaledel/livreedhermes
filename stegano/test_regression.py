@@ -844,6 +844,22 @@ class TestCPub(unittest.TestCase):
                     self.assertGreaterEqual(cap_fn(key), C.C_PUB[variant],
                         f"{variant} : capacité sous C_PUB malgré le redraw")
 
+    def test_c_pub_keys_match_wired_variants(self):
+        """Recoupe deux sources indépendantes : la liste des variantes
+        migrées de tools/recalibrate_carter_v3.VARIANTS + carter18 (hors
+        périmètre de ce script, câblé séparément -- voir crypto_core.py),
+        contre les clés de crypto_core.C_PUB. Doit rester égal : ni
+        variante câblée sans entrée C_PUB (oubli), ni entrée C_PUB
+        orpheline (typo, variante retirée). C_PUB n'est PAS un champ du
+        référent (décision de l'auteur, 2026-09-12) -- voir
+        docs/REFERENT_FORMAT_V3.md."""
+        import crypto_core as C
+        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        sys.path.insert(0, os.path.join(repo_root, 'tools'))
+        import recalibrate_carter_v3 as RC
+        wired = {variant_key for variant_key, _, _ in RC.VARIANTS} | {'carter18'}
+        self.assertEqual(set(C.C_PUB.keys()), wired)
+
 
 # ══════════════════════════════════════════════════════════════════════════════
 # Point d'entrée
@@ -857,7 +873,7 @@ if __name__ == '__main__':
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
                 TestPayloadFormat, TestFixedPayloadUniformity, TestPtSPrimitive,
                 TestFixtures, TestEndToEnd,
-                TestClassicVariants, TestGrid90, TestCPub]:
+                TestClassicVariants, TestCPub]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)

@@ -2,218 +2,110 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
 """
-calibrate_referent.py — Calibre c_pub pour un référent (format v3)
+calibrate_referent.py — Calibre C_PUB pour un (référent, variante)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
-Règle de la tâche 4 (inchangée) : c_pub est la plus grande valeur telle que
-le taux de redraw (MAX_REDRAWS=10 tentatives) reste < 1 % sur 10 000 clés
-tirées au hasard. La bibliothèque refuse un référent sans c_pub (voir
-tools/validate_referent.py).
+Réécrit le 2026-09-12 : la version précédente de ce script calibrait un
+« c_pub » et l'écrivait DANS le fichier JSON du référent. C'était une
+erreur de conception -- la capacité publique garantie ne dépend pas du
+référent seul, mais du COUPLE (référent, variante Carter qui le lit) : le
+même référent 6×6 vaut C_PUB=399 sous Carter-256, 415 sous
+Carter-Random-90, 2144 sous Carter-Random-360 (la grammaire de blocs,
+donc le nombre de positions message lues par clé, diffère selon la
+variante). Un champ unique dans le référent ne peut donc jamais être
+correct pour toutes ses variantes -- voir docs/REFERENT_FORMAT_V3.md.
 
-Ceci est un PROTOTYPE de calibration autonome (pas la grammaire de
-production — carter.py n'est pas modifié tant que la conception n'est pas
-validée) : simule la grammaire décrite dans la conception du référent 360
-paramétrable — pour chaque bloc message, 6 niveaux, chacun tirant un
-calque ∈ [0..59] par REJET SANS BIAIS (jamais de modulo), les positions
-stégano (violettes) du calque tiré à ce niveau étant les positions
-réellement lues (0, 8 ou 16 selon le calque — voir data/referent_360_v3.json).
-Redraw déterministe : le compteur ctr entre à la racine de la dérivation
-depuis grammar_key, un redraw retire l'ensemble des 6 tirages de calque
-ensemble (jamais un niveau isolément) — même principe que le redraw
-Carter existant (tâche 4).
+Ce script calibre maintenant un COUPLE (référent, variante) à la fois, en
+appelant directement les fonctions de recherche de grammaire de
+PRODUCTION (jamais une réimplémentation -- même principe et même code que
+tools/recalibrate_carter_v3.py, dont les closures _sf_carter256/360/mix
+sont réutilisées ici, généralisées pour accepter un référent explicite
+plutôt que le référent par défaut chargé au niveau module). Règle de la
+tâche 4 (inchangée) : C_PUB est la plus grande valeur telle que le taux
+de redraw (MAX_REDRAWS=10 tentatives) reste < 1 % sur N clés.
+
+Variantes couvertes : carter256, carter360, cartermix -- les trois seules
+variantes qui reçoivent un référent EXPLICITE en paramètre (Ref256 et/ou
+Ref360). carterrandom90/360, carterhybrid et carter18 sélectionnent leur
+référent PAR CLÉ parmi un pool (256 référents 6×6, ou 10 graines 18×18) :
+il n'y a pas de « référent unique » à calibrer pour elles -- leur C_PUB
+se calibre en pool, avec tools/recalibrate_carter_v3.py (inchangé).
+
+Usage :
+    # Calibre les 3 variantes pour le référent par défaut (celui chargé
+    # par la production), affiche un tableau (référent × variante) :
+    python tools/calibrate_referent.py
+
+    # Une seule variante :
+    python tools/calibrate_referent.py --variant carter256
+
+    # Un référent candidat (hypothétique, pas encore celui chargé par
+    # défaut) -- calibration exploratoire, --apply refusé :
+    python tools/calibrate_referent.py --ref256 /tmp/candidat_256.json
+
+    # Écrit les valeurs calibrées dans crypto_core.py C_PUB (refusé si
+    # les référents donnés ne sont pas ceux effectivement chargés par
+    # défaut par la production -- une valeur C_PUB n'a de sens que pour
+    # le référent qui sera réellement utilisé) :
+    python tools/calibrate_referent.py --apply
 """
-import hashlib
-import json
+import argparse
 import os
+import re
 import secrets
 import sys
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO_ROOT, 'stegano'))
-from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
-from cryptography.hazmat.primitives import hashes as _hashes
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms
-import crypto_core as CC   # primitive pure et deja en production : max_message_for()
 
-MAX_REDRAWS = 10
-N_NIVEAUX = 6
+import crypto_core as CC
+import carter as CT
+from vectors_internal import _count_redraw_attempts
 
-
-def load_referent(path):
-    with open(path, encoding='utf-8') as f:
-        return json.load(f)
+DEFAULT_REF256_PATH = os.path.join(REPO_ROOT, 'data', 'referent_256_v3.json')
+DEFAULT_REF360_PATH = os.path.join(REPO_ROOT, 'data', 'referent_360_v3.json')
 
 
-def _calques_by_niveau(doc):
-    """{niveau: [calque, ...]} -- groupe les calques par niveau (1..6),
-    dans un ordre STABLE (trié par famille/teinte) pour que le tirage par
-    index soit reproductible."""
-    by_niveau = {n: [] for n in range(1, N_NIVEAUX + 1)}
-    for calque in sorted(doc['calques'], key=lambda c: (c['famille'], c['teinte'], c['niveau'])):
-        by_niveau[calque['niveau']].append(calque)
-    for n in by_niveau:
-        assert len(by_niveau[n]) == 60, f"niveau {n} : {len(by_niveau[n])} calques, 60 attendus"
-    return by_niveau
-
-
-def _rejection_index_60(keystream_bytes_iter):
-    """Tire un index dans [0..59] par rejet, SANS biais modulo : limit =
-    256 - (256 % 60) = 240, un octet b<240 donne b%60, b>=240 est rejeté."""
-    limit = 256 - (256 % 60)
-    for b in keystream_bytes_iter:
-        if b < limit:
-            return b % 60
-    raise RuntimeError("keystream épuisé sans octet accepté (ne devrait jamais arriver)")
-
-
-def _grammar_key_ctr(grammar_key: bytes, ctr: int) -> bytes:
-    return _HKDF(_hashes.SHA256(), 32, salt=b'referent360-redraw-v3',
-                 info=b'redraw-root|ctr=' + ctr.to_bytes(4, 'big')).derive(grammar_key)
-
-
-CARTER360_N_BLOCKS = 225   # 15x15 blocs 12x12 sur une grille 180x180 (meme grammaire que carter.py)
-
-
-def _block_role(role_byte: int) -> str:
-    """Meme repartition que _carter_grammar/_carter360_grammar existants :
-    <85 pur, <170 structure, sinon message (~1/3 chacun)."""
-    return 'pure' if role_byte < 85 else ('structured' if role_byte < 170 else 'message')
-
-
-def _n_pos_for_key(grammar_key_ctr: bytes, by_niveau, stegano_color_keys):
-    """Grammaire a 225 blocs (meme repartition de roles que Carter-360
-    existant) : pour CHAQUE bloc message, 6 tirages independants (un par
-    niveau), calque in [0..59] par rejet sans biais -- n_pos = somme sur
-    TOUS les blocs message des positions stegano (violettes) des calques
-    tires. Une seule cle de bloc a la fois, jamais un bloc isole."""
-    role_key = _HKDF(_hashes.SHA256(), CARTER360_N_BLOCKS, salt=b'referent360-roles-v3',
-                      info=b'block-roles').derive(grammar_key_ctr)
-    calque_key = _HKDF(_hashes.SHA256(), 32, salt=b'referent360-calque-tirage-v3',
-                        info=b'niveau-calque-index').derive(grammar_key_ctr)
-    keystream = Cipher(algorithms.ChaCha20(calque_key, bytes(16)), mode=None).encryptor()
-    # Sur-tirage large : jusqu'a 225*6 tirages, ~6.25% de rejet chacun (limite=240/256).
-    buf = keystream.update(b'\x00' * (CARTER360_N_BLOCKS * N_NIVEAUX * 4))
-    it = iter(buf)
-
-    n_pos = 0
-    for block in range(CARTER360_N_BLOCKS):
-        if _block_role(role_key[block]) != 'message':
-            continue
-        for niveau in range(1, N_NIVEAUX + 1):
-            idx = _rejection_index_60(it)
-            calque = by_niveau[niveau][idx]
-            for color_key in stegano_color_keys:
-                n_pos += len(calque.get(color_key, []))
-    return n_pos
-
-
-def measure_redraw_rate(doc, c_pub_candidate, n_keys=10000):
-    by_niveau = _calques_by_niveau(doc)
-    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
-
-    fails = 0
-    redraws = 0
-    caps = []
-    for _ in range(n_keys):
-        grammar_key = secrets.token_bytes(32)
-        success = False
-        for ctr in range(MAX_REDRAWS):
-            gk_ctr = _grammar_key_ctr(grammar_key, ctr)
-            n_pos = _n_pos_for_key(gk_ctr, by_niveau, stegano_color_keys)
-            cap = CC.max_message_for(n_pos)
-            if cap >= c_pub_candidate:
-                if ctr > 0:
+def _measure(module, variant_key, search_fn_for_key, candidate, n_keys):
+    """Même mesure que tools/recalibrate_carter_v3.py::_measure -- voir ce
+    module pour la justification de la méthode (monkey-patch temporaire de
+    crypto_core.C_PUB, restauré après chaque mesure, jamais persistant)."""
+    original = CC.C_PUB[variant_key]
+    CC.C_PUB[variant_key] = candidate
+    try:
+        redraws = 0
+        fails = 0
+        caps = []
+        for _ in range(n_keys):
+            key = secrets.token_bytes(32)
+            try:
+                result, attempts = _count_redraw_attempts(module, search_fn_for_key(key))
+                n_pos = result[-1]
+                caps.append(CC.max_message_for(n_pos))
+                if attempts > 1:
                     redraws += 1
-                caps.append(cap)
-                success = True
-                break
-        if not success:
-            fails += 1
-    return {
-        'c_pub_candidate': c_pub_candidate, 'n_keys': n_keys,
-        'redraw_rate_pct': round(100 * redraws / n_keys, 3),
-        'fail_rate_pct': round(100 * fails / n_keys, 4),
-        'mean_capacity': round(sum(caps) / len(caps), 1) if caps else None,
-    }
+            except ValueError:
+                fails += 1
+        mean_cap = sum(caps) / len(caps) if caps else None
+        return (100 * redraws / n_keys, 100 * fails / n_keys, mean_cap)
+    finally:
+        CC.C_PUB[variant_key] = original
 
 
-CARTER6X6_N_BLOCKS = 225   # 15x15 blocs 6x6 sur une grille 90x90 (Carter-256/Carter-Random)
-
-
-def _n_pos_for_key_6x6(grammar_key_ctr: bytes, forms, stegano_color_keys):
-    """Grammaire a 225 blocs (meme repartition de roles) : pour CHAQUE bloc
-    message, UN tirage de forme (in [0..255] par octet, AUCUN rejet
-    necessaire car 256 divise 256 exactement) -- n_pos = somme sur tous les
-    blocs message des positions stegano (12 par forme, constant par
-    construction 6/6/12/12 -- voir generate_referent_6x6.py)."""
-    role_key = _HKDF(_hashes.SHA256(), CARTER6X6_N_BLOCKS, salt=b'referent6x6-roles-v3',
-                      info=b'block-roles').derive(grammar_key_ctr)
-    form_key = _HKDF(_hashes.SHA256(), CARTER6X6_N_BLOCKS, salt=b'referent6x6-forme-tirage-v3',
-                      info=b'block-form-index').derive(grammar_key_ctr)
-    n_pos = 0
-    for block in range(CARTER6X6_N_BLOCKS):
-        if _block_role(role_key[block]) != 'message':
-            continue
-        form = forms[form_key[block]]   # 256 formes, 1 octet, aucun rejet
-        for color_key in stegano_color_keys:
-            n_pos += len(form.get(color_key, []))
-    return n_pos
-
-
-def measure_redraw_rate_6x6(doc, c_pub_candidate, n_keys=10000):
-    forms = doc['forms']
-    assert len(forms) == 256, f"256 formes attendues, {len(forms)} trouvees"
-    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
-
-    fails = 0
-    redraws = 0
-    caps = []
-    for _ in range(n_keys):
-        grammar_key = secrets.token_bytes(32)
-        success = False
-        for ctr in range(MAX_REDRAWS):
-            gk_ctr = _grammar_key_ctr(grammar_key, ctr)
-            n_pos = _n_pos_for_key_6x6(gk_ctr, forms, stegano_color_keys)
-            cap = CC.max_message_for(n_pos)
-            if cap >= c_pub_candidate:
-                if ctr > 0:
-                    redraws += 1
-                caps.append(cap)
-                success = True
-                break
-        if not success:
-            fails += 1
-    return {
-        'c_pub_candidate': c_pub_candidate, 'n_keys': n_keys,
-        'redraw_rate_pct': round(100 * redraws / n_keys, 3),
-        'fail_rate_pct': round(100 * fails / n_keys, 4),
-        'mean_capacity': round(sum(caps) / len(caps), 1) if caps else None,
-    }
-
-
-def calibrate_6x6(doc, n_keys=10000, target_redraw_pct=1.0):
-    forms = doc['forms']
-    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
-
-    raw_caps = []
-    for _ in range(2000):
-        grammar_key = secrets.token_bytes(32)
-        gk0 = _grammar_key_ctr(grammar_key, 0)
-        n_pos = _n_pos_for_key_6x6(gk0, forms, stegano_color_keys)
-        raw_caps.append(CC.max_message_for(n_pos))
-    raw_caps.sort()
-    p1 = raw_caps[len(raw_caps) // 100]
-    print(f"  [calibrate-6x6] capacite brute (ctr=0, N=2000) : min={raw_caps[0]} p1={p1} "
-          f"median={raw_caps[len(raw_caps)//2]} max={raw_caps[-1]}")
-
-    lo, hi = 1, max(p1, 1)
-    best = None
+def _calibrate(module, variant_key, search_fn_for_key, n_keys, target_redraw_pct=1.0):
+    """Recherche par dichotomie -- identique à
+    tools/recalibrate_carter_v3.py::_calibrate."""
+    _, _, mean_cap = _measure(module, variant_key, search_fn_for_key, 1, min(n_keys, 500))
+    hi = int(mean_cap * 1.5) if mean_cap else 2000
+    lo, best = 1, None
+    print(f"  [{variant_key}] fenetre de recherche initiale : [1, {hi}]")
     while lo <= hi:
         mid = (lo + hi) // 2
-        m = measure_redraw_rate_6x6(doc, mid, n_keys=n_keys)
-        print(f"  [calibrate-6x6] c_pub={mid} -> redraw={m['redraw_rate_pct']}% "
-              f"fail={m['fail_rate_pct']}%")
-        if m['redraw_rate_pct'] < target_redraw_pct and m['fail_rate_pct'] == 0.0:
+        redraw_pct, fail_pct, mean_cap = _measure(
+            module, variant_key, search_fn_for_key, mid, n_keys)
+        print(f"  [{variant_key}] c_pub={mid} -> redraw={redraw_pct:.2f}% "
+              f"fail={fail_pct:.3f}% mean_cap={mean_cap:.1f}")
+        if redraw_pct < target_redraw_pct and fail_pct == 0.0:
             best = mid
             lo = mid + 1
         else:
@@ -221,63 +113,132 @@ def calibrate_6x6(doc, n_keys=10000, target_redraw_pct=1.0):
     return best
 
 
-def calibrate(doc, n_keys=10000, target_redraw_pct=1.0):
-    """Recherche par dichotomie/balayage la plus grande c_pub_candidate
-    telle que le taux de redraw mesuré reste < target_redraw_pct %."""
-    by_niveau = _calques_by_niveau(doc)
-    stegano_color_keys = [f'{c}_positions' for c in doc['stegano_colors']]
+# ── Constructeurs de search_fn, paramétrés par le référent EXPLICITE ────────
+# Généralisation de tools/recalibrate_carter_v3.py::_sf_carter256/360/mix
+# (qui fermaient sur REF256_V3/REF360_V3 au niveau module) -- ici le
+# référent est un paramètre, pour pouvoir calibrer un référent candidat.
 
-    # Mesure la distribution de n_pos brute (ctr=0 seul, sans redraw) pour
-    # borner la recherche -- meme methodologie que la tache 4.
-    raw_caps = []
-    for _ in range(2000):
-        grammar_key = secrets.token_bytes(32)
-        gk0 = _grammar_key_ctr(grammar_key, 0)
-        n_pos = _n_pos_for_key(gk0, by_niveau, stegano_color_keys)
-        raw_caps.append(CC.max_message_for(n_pos))
-    raw_caps.sort()
-    p1 = raw_caps[len(raw_caps) // 100]
-    print(f"  [calibrate] capacite brute (ctr=0, N=2000) : min={raw_caps[0]} p1={p1} "
-          f"median={raw_caps[len(raw_caps)//2]} max={raw_caps[-1]}")
+def _sf_carter256(ref256):
+    def make(master_key):
+        _, gk = CT._carter_split(master_key)
+        return lambda: CT._find_grammar_with_c_pub(
+            gk, 'carter256',
+            lambda k: CT._carter_grammar(k, ref256),
+            lambda g: CT._carter_message_positions(g, ref256))
+    return make
 
-    lo, hi = 1, p1
-    best = None
-    while lo <= hi:
-        mid = (lo + hi) // 2
-        m = measure_redraw_rate(doc, mid, n_keys=n_keys)
-        print(f"  [calibrate] c_pub={mid} -> redraw={m['redraw_rate_pct']}% "
-              f"fail={m['fail_rate_pct']}%")
-        if m['redraw_rate_pct'] < target_redraw_pct and m['fail_rate_pct'] == 0.0:
-            best = mid
-            lo = mid + 1
-        else:
-            hi = mid - 1
-    return best
+def _sf_carter360(ref360):
+    def make(master_key):
+        _, gk = CT._carter360_split(master_key)
+        return lambda: CT._find_grammar_with_c_pub(
+            gk, 'carter360',
+            lambda k: CT._carter360_grammar(k, ref360),
+            lambda g: CT._carter360_message_positions(g, ref360))
+    return make
+
+def _sf_cartermix(ref256, ref360):
+    def make(master_key):
+        _, gk = CT._carter_mix_split(master_key)
+        return lambda: CT._find_grammar_with_c_pub(
+            gk, 'cartermix',
+            lambda k: CT._carter_mix_grammar(k, ref256, ref360),
+            lambda g: CT._mix_message_positions(g, ref256, ref360))
+    return make
+
+
+VARIANTS_NEEDING = {
+    'carter256': ('ref256',),
+    'carter360': ('ref360',),
+    'cartermix': ('ref256', 'ref360'),
+}
+
+
+def _build_search_fn(variant_key, ref256, ref360):
+    if variant_key == 'carter256':
+        return CT, _sf_carter256(ref256)
+    if variant_key == 'carter360':
+        return CT, _sf_carter360(ref360)
+    if variant_key == 'cartermix':
+        return CT, _sf_cartermix(ref256, ref360)
+    raise ValueError(f"variante inconnue ou hors périmètre de ce script : {variant_key!r} "
+                      f"(carterrandom90/360, carterhybrid, carter18 : voir "
+                      f"tools/recalibrate_carter_v3.py, calibration en pool)")
+
+
+def main():
+    p = argparse.ArgumentParser(description=__doc__,
+                                 formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument('--ref256', default=DEFAULT_REF256_PATH,
+                   help=f"chemin du référent 256 (défaut : {DEFAULT_REF256_PATH})")
+    p.add_argument('--ref360', default=DEFAULT_REF360_PATH,
+                   help=f"chemin du référent 360 (défaut : {DEFAULT_REF360_PATH})")
+    p.add_argument('--variant', choices=['carter256', 'carter360', 'cartermix', 'all'],
+                   default='all', help="variante à calibrer (défaut : les trois)")
+    p.add_argument('--n-keys', type=int, default=10000)
+    p.add_argument('--apply', action='store_true',
+                   help="écrit les valeurs calibrées dans crypto_core.py C_PUB -- "
+                        "refusé si --ref256/--ref360 ne sont pas les référents "
+                        "effectivement chargés par défaut en production")
+    a = p.parse_args()
+
+    # load_referent_256_v3()/360_v3() ne prennent pas de chemin -- on charge
+    # directement via json, comme ces fonctions le font en interne, pour
+    # pouvoir pointer sur un référent candidat arbitraire.
+    import json
+    with open(a.ref256, encoding='utf-8') as f:
+        ref256 = json.load(f)
+    with open(a.ref360, encoding='utf-8') as f:
+        ref360 = json.load(f)
+
+    is_default = (os.path.abspath(a.ref256) == os.path.abspath(DEFAULT_REF256_PATH) and
+                  os.path.abspath(a.ref360) == os.path.abspath(DEFAULT_REF360_PATH))
+    if a.apply and not is_default:
+        print("--apply refusé : --ref256/--ref360 ne sont pas les référents "
+              f"chargés par défaut en production ({DEFAULT_REF256_PATH}, "
+              f"{DEFAULT_REF360_PATH}). Une valeur C_PUB n'a de sens que pour "
+              "le référent réellement utilisé -- calibrer un référent candidat "
+              "sans --apply pour l'évaluer, puis relancer sans --ref256/--ref360 "
+              "une fois qu'il a remplacé le référent par défaut.")
+        sys.exit(1)
+
+    variants = ['carter256', 'carter360', 'cartermix'] if a.variant == 'all' else [a.variant]
+
+    print(f"référent 256 : {a.ref256}  (referent_id={ref256.get('referent_id', '?')[:16]}...)")
+    print(f"référent 360 : {a.ref360}  (referent_id={ref360.get('referent_id', '?')[:16]}...)")
+    if not is_default:
+        print("(référent CANDIDAT, pas celui chargé par défaut -- calibration "
+              "exploratoire, --apply indisponible)")
+
+    results = {}
+    for variant_key in variants:
+        module, sf = _build_search_fn(variant_key, ref256, ref360)
+        print(f"\n=== {variant_key} (actuel C_PUB={CC.C_PUB[variant_key]}) ===")
+        new_c_pub = _calibrate(module, variant_key, sf, a.n_keys)
+        results[variant_key] = new_c_pub
+        print(f"  -> C_PUB retenu : {new_c_pub} (etait {CC.C_PUB[variant_key]})")
+
+    print(f"\n=== Tableau (référent × variante) ===")
+    print(f"  {'variante':16s} {'C_PUB actuel':>14s} {'C_PUB calibré':>14s}")
+    for variant_key, new_val in results.items():
+        print(f"  {variant_key:16s} {CC.C_PUB[variant_key]:14d} {new_val:14d}")
+
+    if a.apply:
+        path = os.path.join(REPO_ROOT, 'stegano', 'crypto_core.py')
+        with open(path, encoding='utf-8') as f:
+            content = f.read()
+        for variant_key, new_val in results.items():
+            pattern = rf"('{variant_key}':\s*)\d+(,)"
+            replacement = rf"\g<1>{new_val}\g<2>"
+            new_content, n = re.subn(pattern, replacement, content, count=1)
+            if n != 1:
+                raise RuntimeError(f"impossible de localiser C_PUB['{variant_key}'] dans {path}")
+            content = new_content
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"\n{path} mis a jour.")
+    else:
+        print("\n(dry-run : relancer avec --apply pour ecrire ces valeurs dans crypto_core.py)")
 
 
 if __name__ == '__main__':
-    path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(REPO_ROOT, 'data', 'referent_360_v3.json')
-    doc = load_referent(path)
-    is_6x6 = (doc.get('grid_size') == 6)
-    print(f"Calibration de {path} (referent_id={doc['referent_id']}, grid_size={doc.get('grid_size')})")
-
-    if is_6x6:
-        c_pub = calibrate_6x6(doc)
-        final_check = measure_redraw_rate_6x6(doc, c_pub, n_keys=10000)
-    else:
-        c_pub = calibrate(doc)
-        final_check = measure_redraw_rate(doc, c_pub, n_keys=10000)
-
-    print(f"c_pub retenu : {c_pub}")
-    print(f"Verification finale (N=10000) : {final_check}")
-
-    doc['c_pub'] = c_pub
-    doc['c_pub_calibration'] = {
-        'rule': 'plus grand c_pub tel que redraw < 1% sur 10000 cles (tache 4)',
-        'measured_redraw_rate_pct': final_check['redraw_rate_pct'],
-        'measured_fail_rate_pct': final_check['fail_rate_pct'],
-        'n_keys': 10000,
-    }
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(doc, f, indent=2)
-    print(f"c_pub={c_pub} ecrit dans {path} (referent_id inchange : {doc['referent_id']})")
+    main()

@@ -15,9 +15,11 @@ par son index n in [0,255] et l'algorithme de referent6x6_gen.py — le
 recalculer coûte ~5 ms (voir le rapport affiché en fin d'exécution). Ce
 script publie donc :
   - data/referents_6x6_v3_hashes.json : SHA-256 de CHACUN des 256
-    référents (identité publique, sans le contenu), + le c_pub retenu
-    (calibré sur un échantillon, voir tools/calibrate_referent.py) et le
-    rapport de performance.
+    référents (identité publique, sans le contenu) et le rapport de
+    performance. c_pub N'EST PAS un champ du référent (décision de
+    l'auteur, 2026-09-12) : la capacité publique garantie dépend du
+    couple (référent, variante Carter qui le lit), jamais du référent
+    seul -- voir crypto_core.C_PUB et tools/calibrate_referent.py.
   - data/referent_6x6_index0_v3.json, data/referent_6x6_index1_v3.json :
     JSON complet des référents 0 et 1 SEULEMENT, pour le débogage — les
     254 autres n'existent qu'implicitement (algorithme + hash).
@@ -74,7 +76,6 @@ def _full_doc(n, forms):
         "stegano/referent6x6_gen.py pour la specification complete "
         "(normative, a reprendre a l'identique par LH-5)."
     )
-    doc['c_pub'] = G.C_PUB_6X6_CHACHA
     return doc
 
 
@@ -109,18 +110,6 @@ if __name__ == '__main__':
         'n_referents': G.N_REFERENTS,
         'n_forms_per_referent': G.N_FORMS,
         'generator_tool': 'tools/generate_referent_6x6.py (stegano/referent6x6_gen.py)',
-        'c_pub': G.C_PUB_6X6_CHACHA,
-        'c_pub_calibration': {
-            'method': ('calibre individuellement sur un echantillon de 8 referents '
-                       '(voir stegano/referent6x6_gen.py:C_PUB_6X6_CHACHA), variation '
-                       'negligeable (390-401) -> une seule valeur commune retenue '
-                       '(la plus basse), verifiee a N=8000 sur l\'echantillon.'),
-            'sample_indices': [0, 1, 5, 50, 100, 150, 200, 255],
-            'sample_calibrated_c_pub': {0: 401, 1: 399, 5: 400, 50: 399,
-                                         100: 390, 150: 399, 200: 399, 255: 399},
-            'retained_c_pub': G.C_PUB_6X6_CHACHA,
-            'verification_n8000_redraw_pct_range': [0.287, 0.500],
-        },
         'perf_report': {
             'total_seconds': round(t_end - t_start, 3),
             'ms_per_referent': round(per_referent_ms, 3),

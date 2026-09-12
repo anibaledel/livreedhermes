@@ -39704,6 +39704,5 @@
   "referent_id": "73e9bd7a7e9fbf3b4560d5504f9943fb15dc200e1895b24f338ef666c504e27a",
   "generator_tool": "tools/generate_referent_6x6.py (stegano/referent6x6_gen.py)",
   "n_forms": 256,
-  "generation_rule": "Genere par HKDF-SHA256(IKM public fixe, salt='Carter-referent6x6-v3', info=index)  ->  keystream ChaCha20(nonce=0)  ->  256 permutations Fisher-Yates (36 cases : blue/orange 6 chacune, green/yellow 12 chacune) par rejet d'octet (sans biais modulo), rejetees et retirees si une ligne contient 3 cases consecutives de la meme couleur petite (blue ou orange), ou si la forme duplique une forme deja retenue dans ce meme referent. Voir stegano/referent6x6_gen.py pour la specification complete (normative, a reprendre a l'identique par LH-5).",
-  "c_pub": 390
+  "generation_rule": "Genere par HKDF-SHA256(IKM public fixe, salt='Carter-referent6x6-v3', info=index)  ->  keystream ChaCha20(nonce=0)  ->  256 permutations Fisher-Yates (36 cases : blue/orange 6 chacune, green/yellow 12 chacune) par rejet d'octet (sans biais modulo), rejetees et retirees si une ligne contient 3 cases consecutives de la meme couleur petite (blue ou orange), ou si la forme duplique une forme deja retenue dans ce meme referent. Voir stegano/referent6x6_gen.py pour la specification complete (normative, a reprendre a l'identique par LH-5)."
 }
