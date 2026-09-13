@@ -760,16 +760,21 @@ def encode_carter_mix_session(message: str, session_keys: Dict,
                                 ref360: Optional[Dict] = None) -> List[List[int]]:
     """
     Encode en mode Carter mixte (Ref256 + Ref360) depuis une session X25519.
-    steg_key de session → master_key de la grammaire mixte 180×180.
+    steg_key de session → (ck, gk) via keys.keys_from_master (mode legacy),
+    voir encode_carter_session().
     """
     from stegano_lib import encode_carter_mix
-    return encode_carter_mix(message, session_keys['steg_key'], ref256, ref360)
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'cartermix')
+    return encode_carter_mix(message, k['ck'], k['gk'], ref256, ref360)
 
 def decode_carter_mix_session(grid: List[List[int]], session_keys: Dict,
                                 ref256: Dict,
                                 ref360: Optional[Dict] = None) -> str:
     from stegano_lib import decode_carter_mix
-    return decode_carter_mix(grid, session_keys['steg_key'], ref256, ref360)
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'cartermix')
+    return decode_carter_mix(grid, k['ck'], k['gk'], ref256, ref360)
 
 # carter_deniable() (deux grilles Carter indépendantes sous deux clés,
 # référent fixe) SUPPRIMÉE le 2026-09-12 : même cas que carter_random_
