@@ -5,6 +5,7 @@ node_modules/
 worker/.dev.vars
 worker/.wrangler
 worker/session.json
+worker/.tmp-bundle
 
 __pycache__/
 *.py[cod]
