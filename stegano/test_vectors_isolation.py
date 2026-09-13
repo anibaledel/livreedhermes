@@ -6,7 +6,7 @@ Isolation du mode vecteurs (tâche 7, format v3)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Vérifie que la surface d'injection ajoutée pour vectors/carter_v3.json
-(paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _pi,
+(paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _nu, _pi,
 _rsk, _dsk, _real_inject, _duress_inject) n'est JOIGNABLE que par un appel
 explicite qui les nomme — aucune API publique, aucun demo(), aucune CLI ne
 les transmet à l'intérieur.
@@ -14,6 +14,10 @@ les transmet à l'intérieur.
 _k2 (câblage 2026-09-12) : n'existe plus -- form_id est désormais dérivé
 de gk_local par _derive_deniable_form_ids(), comme les balayages et les
 masques, plus rien à injecter séparément.
+
+_nu (format v4, keys.py) : nonce de disposition de Carter-256, injectable
+pour le mode vecteurs comme les autres paramètres `_` ci-dessus -- None
+par défaut préserve le tirage CSPRNG normal (new_layout_nonce()).
 """
 
 import inspect, os, sys, unittest
@@ -71,7 +75,7 @@ class TestNoPublicPathReachesInjection(unittest.TestCase):
     fichiers qui APPELLENT ces fonctions (pas dans leur propre définition).
     """
 
-    _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=',
+    _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=', '_nu=',
                         '_pi=', '_rsk=', '_dsk=',
                         '_real_inject=', '_duress_inject=')
 
@@ -139,11 +143,12 @@ class TestDefaultBehaviorUnchanged(unittest.TestCase):
     def test_carter_encode_still_random_without_injection(self):
         from stegano_lib import load_referent_256_v3, decode_carter
         ref256_v3 = load_referent_256_v3()
-        key = os.urandom(32)
-        g1 = encode_carter("HELLO", key, ref256_v3)
-        g2 = encode_carter("HELLO", key, ref256_v3)
-        self.assertNotEqual(g1, g2, "encode_carter() sans injection doit rester aléatoire")
-        self.assertEqual(decode_carter(g1, key, ref256_v3), "HELLO")
+        ck, gk = os.urandom(32), os.urandom(32)
+        g1 = encode_carter("HELLO", ck, gk, ref256_v3)
+        g2 = encode_carter("HELLO", ck, gk, ref256_v3)
+        self.assertNotEqual(g1, g2, "encode_carter() sans injection doit rester aléatoire "
+                                     "(nu frais a chaque appel, format v4)")
+        self.assertEqual(decode_carter(g1, ck, gk, ref256_v3), "HELLO")
 
 
 class TestSingleRef360Loader(unittest.TestCase):

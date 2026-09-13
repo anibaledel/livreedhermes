@@ -33,7 +33,9 @@ import stegano_classic as SC
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
 _DECODE_FN = {
-    'carter256':    lambda g, key: CT.decode_carter(g, key, VI.load_referent_256_v3()),
+    # carter256 (format v4, deux cles) : gere a part dans les appelants
+    # ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas sv['inputs']
+    # ['master_key_hex']) -- absent de cette table generique a cle unique.
     'carter360':    lambda g, key: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
     'cartermix':    lambda g, key: CT.decode_carter_mix(
                         g, key, VI.load_referent_256_v3(), VI.load_referent_360_v3()),
@@ -81,7 +83,17 @@ class TestVectorsRegeneration(unittest.TestCase):
             inst = sv['instantiation']
             # Les vecteurs négatifs/de rejet (tamper=...) sont volontairement
             # NON décodables — voir test_negative_and_rejection_vectors.
-            if inst not in _DECODE_FN or 'tamper' in sv:
+            if 'tamper' in sv:
+                continue
+            if inst == 'carter256':
+                with self.subTest(id=sv['id']):
+                    ck = bytes.fromhex(sv['keys']['ck_hex'])
+                    gk = bytes.fromhex(sv['keys']['gk_hex'])
+                    grid = self.fresh_grids[sv['id']]
+                    decoded = CT.decode_carter(grid, ck, gk, VI.load_referent_256_v3())
+                    self.assertEqual(decoded, sv['expected_decode'])
+                continue
+            if inst not in _DECODE_FN:
                 continue
             with self.subTest(id=sv['id']):
                 key = bytes.fromhex(sv['inputs']['master_key_hex'])
@@ -99,19 +111,25 @@ class TestVectorsRegeneration(unittest.TestCase):
             if 'tamper' not in sv:
                 continue
             with self.subTest(id=sv['id']):
+                # Tous les vecteurs "tamper" actuels sont carter256 (format
+                # v4, deux cles) -- voir gen_carter256_negative_vectors.
+                self.assertEqual(sv['instantiation'], 'carter256')
                 grid = self.fresh_grids[sv['id']]
-                key = bytes.fromhex(sv['inputs']['master_key_hex'])
+                ck = bytes.fromhex(sv['keys']['ck_hex'])
+                gk = bytes.fromhex(sv['keys']['gk_hex'])
                 if sv['tamper']['type'] == 'bruit_altere':
                     self.assertEqual(sv.get('expected_result'), 'decode_ok')
-                    decoded = CT.decode_carter(grid, key, VI.load_referent_256_v3())
+                    decoded = CT.decode_carter(grid, ck, gk, VI.load_referent_256_v3())
                     self.assertEqual(decoded, sv['expected_decode'])
                     continue
                 self.assertEqual(sv.get('expected_result'), 'rejet')
-                bad_key = (bytes.fromhex(sv['tamper']['wrong_key_hex'])
-                           if sv['tamper']['type'] == 'mauvaise_cle'
-                           else key)
+                if sv['tamper']['type'] == 'mauvaise_cle':
+                    bad_ck = bytes.fromhex(sv['tamper']['wrong_ck_hex'])
+                    bad_gk = bytes.fromhex(sv['tamper']['wrong_gk_hex'])
+                else:
+                    bad_ck, bad_gk = ck, gk
                 with self.assertRaises(ValueError) as ctx:
-                    CT.decode_carter(grid, bad_key, VI.load_referent_256_v3())
+                    CT.decode_carter(grid, bad_ck, bad_gk, VI.load_referent_256_v3())
                 self.assertIn('commitment', str(ctx.exception).lower())
 
     def test_decoding_classic(self):
@@ -176,8 +194,9 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
         v = next(x for x in self.doc['vectors'] if x['id'] == 'carter256-basic-01')
         self.assertIn('grid_csv', v, "carter256-basic-01 devrait embarquer grid_csv")
         grid = self._csv_to_grid(v['grid_csv'])
-        key = bytes.fromhex(v['inputs']['master_key_hex'])
-        decoded = CT.decode_carter(grid, key, self.ref256_v3)
+        ck = bytes.fromhex(v['keys']['ck_hex'])
+        gk = bytes.fromhex(v['keys']['gk_hex'])
+        decoded = CT.decode_carter(grid, ck, gk, self.ref256_v3)
         self.assertEqual(decoded, v['expected_decode'])
 
     def test_decode_carter360_from_stored_grid_csv_only(self):

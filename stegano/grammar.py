@@ -33,7 +33,19 @@ from cryptography.hazmat.primitives import hashes as _hh
 
 from crypto_core import LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key, max_message_for
 from sweep import derive_sweep_index, crypto_reading_order
+from keys import NU_SYMBOLS
 import referent6x6_gen as _R6
+
+def _is_nu_cell(r: int, c: int) -> bool:
+    """
+    Format v4 (deux clés + nonce de disposition, keys.py) : le nonce nu
+    occupe les NU_SYMBOLS=36 premières cases de la ligne 0 (colonnes
+    0..35), quel que soit le bloc qui les contient et quel que soit son
+    rôle -- ces positions sont retirées des positions LISIBLES de ce
+    bloc. Utilisé par chaque fonction *_positions ci-dessous pour filtrer
+    la géométrie, jamais en la réimplémentant.
+    """
+    return r == 0 and c < NU_SYMBOLS
 
 # ── Rôles de bloc (partagés par les six variantes) ─────────────────────────────
 _PURE, _STRUCTURED, _MESSAGE = 0, 1, 2
@@ -123,7 +135,8 @@ def _carter_positions(br: int, bc: int, g: Dict, ref256: Dict,
                                         grid_size, sweep_of_color)
     r0, c0 = br * CARTER_BLOCK, bc * CARTER_BLOCK
     return [(r0+r, c0+c) for r, c in local_order
-            if 0 <= r0+r < CARTER_GRID and 0 <= c0+c < CARTER_GRID]
+            if 0 <= r0+r < CARTER_GRID and 0 <= c0+c < CARTER_GRID
+            and not _is_nu_cell(r0+r, c0+c)]
 
 def _carter_message_positions(grammar: Dict, ref256: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""

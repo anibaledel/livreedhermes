@@ -732,9 +732,17 @@ def encode_carter_session(message: str, session_keys: Dict,
              blue/orange. Pas de callers de production actuels (fonction
              non testée) : signalé pour tout futur appelant.
     Retourne     : grille 90×90 (liste de listes)
+
+    Format v4 (deux clés, keys.py) : steg_key est encore une clé de
+    session UNIQUE (X25519, non migrée -- fonction déjà sans appelant de
+    production, voir ci-dessus) ; keys_from_master() en dérive (ck, gk)
+    en mode legacy à clé unique, plutôt que de redessiner ici la
+    dérivation de session X25519.
     """
     from stegano_lib import encode_carter
-    return encode_carter(message, session_keys['steg_key'], ref256)
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carter256')
+    return encode_carter(message, k['ck'], k['gk'], ref256)
 
 def decode_carter_session(grid: List[List[int]], session_keys: Dict,
                            ref256: Dict) -> str:
@@ -743,7 +751,9 @@ def decode_carter_session(grid: List[List[int]], session_keys: Dict,
     encode_carter_session().
     """
     from stegano_lib import decode_carter
-    return decode_carter(grid, session_keys['steg_key'], ref256)
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carter256')
+    return decode_carter(grid, k['ck'], k['gk'], ref256)
 
 def encode_carter_mix_session(message: str, session_keys: Dict,
                                 ref256: Dict,

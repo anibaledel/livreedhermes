@@ -53,6 +53,7 @@ from carter_random import (
     encode_carter_hybrid, decode_carter_hybrid, carter_hybrid_fits,
     _carter_split, _derive_params,
 )
+from keys import new_layout_nonce, derive_gk_nu, NU_BYTES
 
 # ── Constantes statistiques ────────────────────────────────────────────────────
 ALPHA       = ALPHA_LEN           # 44 symboles (stegano_lib.ALPHABET)
@@ -84,11 +85,14 @@ class _Det:
     def randbelow(self, n): return struct.unpack('>Q', self.read(8))[0] % n
 
 
-def _encode_fixed_noise(fn, *args, seed=b'fixed'):
-    """Encode avec bruit fixe pour isoler l'effet de la cle."""
+def _encode_fixed_noise(fn, *args, seed=b'fixed', **kwargs):
+    """Encode avec bruit fixe pour isoler l'effet de la cle. **kwargs :
+    transmis tels quels (ex. _nu= pour fixer le nonce de disposition,
+    format v4 -- secrets.token_bytes n'est pas intercepte par le pin
+    os.urandom ci-dessous, voir TestAvalancheMessage)."""
     rng = _Det(seed)
     with patch('os.urandom', rng.read):
-        return fn(*args)
+        return fn(*args, **kwargs)
 
 def _flip_key_bit(key: bytes, bit_pos: int) -> bytes:
     """Retourne la cle avec le bit bit_pos flippe."""
@@ -143,18 +147,43 @@ def _shannon_entropy(flat: List[int], alpha: int = ALPHA) -> float:
 # encodeurs re-derivent une grammaire identique en interne), voir
 # _find_grammar_with_c_pub / _find_*_grammar_with_c_pub.
 
-def _carter256_message_positions(key: bytes, ref256) -> List[Tuple[int, int]]:
+def _carter256_message_positions(gk: bytes, nu: bytes, ref256) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu (pas une master_key unique) -- nu doit etre
+    celui injecte via _nu dans l'appel encode_carter() correspondant,
+    sinon la geometrie recalculee ici ne correspond pas a celle reellement
+    ecrite (voir keys.derive_gk_nu)."""
     from carter import _find_grammar_with_c_pub
-    from stegano_lib import (_carter_split, _carter_grammar, _carter_positions,
+    from stegano_lib import (_carter_grammar, _carter_positions,
                               _carter_message_positions, _MESSAGE, CARTER_SIDE)
-    _, grammar_key = _carter_split(key)
+    from keys import derive_gk_nu
+    gk_nu = derive_gk_nu(gk, nu, 'carter256')
     _, grammar, _ = _find_grammar_with_c_pub(
-        grammar_key, 'carter256',
-        lambda gk: _carter_grammar(gk, ref256),
+        gk_nu, 'carter256',
+        lambda k: _carter_grammar(k, ref256),
         lambda g: _carter_message_positions(g, ref256))
     sweep_of_color = grammar['sweep_of_color']
     return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
             for pos in _carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256, sweep_of_color)]
+
+def _v4_split(key: bytes):
+    """Deux cles + nu deterministes depuis une seule graine aleatoire --
+    UNIQUEMENT pour que les helpers statistiques generiques ci-dessous
+    (_run/_test_mode, partages avec Carter-360/Mix, encore a cle unique)
+    restent a un seul parametre "key" par tirage. L'appli tire ck/gk
+    INDEPENDAMMENT (keys.generate_keys()) ; ceci n'est pas cette
+    derivation-la, juste un expedient de test."""
+    ck = key
+    gk = bytes(b ^ 0xFF for b in key)
+    nu = bytes((b + 1) % 256 for b in key[:24])
+    return ck, gk, nu
+
+def _encode_carter256_v4(msg: str, key: bytes, ref256) -> List[List[int]]:
+    ck, gk, nu = _v4_split(key)
+    return encode_carter(msg, ck, gk, ref256, _nu=nu)
+
+def _carter256_message_positions_v4(key: bytes, ref256) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter256_message_positions(gk, nu, ref256)
 
 def _carter360_message_positions_list(key: bytes, ref360) -> List[Tuple[int, int]]:
     from carter import _find_grammar_with_c_pub
@@ -284,11 +313,13 @@ class TestAvalancheKey(unittest.TestCase):
 
     def _avalanche_ratio(self, key: bytes, bit_pos: int) -> float:
         seed = f'av-{bit_pos}'.encode()
-        g1 = _encode_fixed_noise(encode_carter, self.MSG, key,
-                                  self.ref256, seed=seed)
-        g2 = _encode_fixed_noise(encode_carter, self.MSG,
-                                  _flip_key_bit(key, bit_pos),
-                                  self.ref256, seed=seed)
+        key2 = _flip_key_bit(key, bit_pos)
+        ck1, gk1, nu1 = _v4_split(key)
+        ck2, gk2, nu2 = _v4_split(key2)
+        g1 = _encode_fixed_noise(encode_carter, self.MSG, ck1, gk1,
+                                  self.ref256, seed=seed, _nu=nu1)
+        g2 = _encode_fixed_noise(encode_carter, self.MSG, ck2, gk2,
+                                  self.ref256, seed=seed, _nu=nu2)
         return _hamming_ratio(_grid_flat(g1), _grid_flat(g2))
 
     def test_grammar_avalanche(self):
@@ -317,13 +348,13 @@ class TestAvalancheKey(unittest.TestCase):
         mesurable directement, sans passer par la grille.
         """
         from stegano_lib import _carter_grammar, _MESSAGE
-        key = os.urandom(32)
+        # Format v4 : gk directement (plus de master_key a scinder via
+        # _carter_split -- ce test mesure la sensibilite de gk lui-meme).
+        gk = os.urandom(32)
         ratios = []
         for bit in range(self.BITS):
-            key2 = _flip_key_bit(key, bit)
-            _, gk1 = _carter_split(key)
-            _, gk2 = _carter_split(key2)
-            g1 = _carter_grammar(gk1, self.ref256)
+            gk2 = _flip_key_bit(gk, bit)
+            g1 = _carter_grammar(gk, self.ref256)
             g2 = _carter_grammar(gk2, self.ref256)
             roles1 = [1 if g['role']==_MESSAGE else 0 for g in g1['blocks']]
             roles2 = [1 if g['role']==_MESSAGE else 0 for g in g2['blocks']]
@@ -396,7 +427,15 @@ class TestAvalancheMessage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.ref256 = load_referent_256_v3()
-        cls.key = os.urandom(32)
+        cls.ck = os.urandom(32)
+        cls.gk = os.urandom(32)
+        # Format v4 : nu FIXE et injecte (_nu) dans les deux encodages
+        # compares -- sans lui, encode_carter() tirerait un nu frais (via
+        # secrets.token_bytes, non intercepte par _encode_fixed_noise, qui
+        # ne pince que os.urandom) a CHAQUE appel, donc une geometrie
+        # differente pour msg/msg2 : "meme cle -> memes positions", la
+        # premisse du test, ne tiendrait plus.
+        cls.nu = new_layout_nonce()
 
     def test_avalanche_message_bits(self):
         """
@@ -427,18 +466,18 @@ class TestAvalancheMessage(unittest.TestCase):
         le bug se manifestait sur une fraction significative des essais,
         pas un cas limite rare.
         """
-        from stegano_lib import carter_capacity
-        n_msg_positions = carter_capacity(self.key, self.ref256)['nibbles']
+        from carter import carter_capacity
+        n_msg_positions = carter_capacity(self.gk, self.ref256, _nu=self.nu)['nibbles']
 
         ratios = []
         for char_pos, bit_pos in self.BITS:
             msg2 = _flip_msg_bit(self.MSG, char_pos, bit_pos)
             if msg2 == self.MSG: continue   # bit flip sans effet sur ASCII
             seed = f'msgav-{char_pos}-{bit_pos}'.encode()
-            g1 = _encode_fixed_noise(encode_carter, self.MSG, self.key,
-                                      self.ref256, seed=seed)
-            g2 = _encode_fixed_noise(encode_carter, msg2, self.key,
-                                      self.ref256, seed=seed)
+            g1 = _encode_fixed_noise(encode_carter, self.MSG, self.ck, self.gk,
+                                      self.ref256, seed=seed, _nu=self.nu)
+            g2 = _encode_fixed_noise(encode_carter, msg2, self.ck, self.gk,
+                                      self.ref256, seed=seed, _nu=self.nu)
             # Seules les cellules message peuvent differer (meme cle, meme
             # bruit pin) : diviser par n_msg_positions plutot que la
             # taille totale de la grille isole le signal reel.
@@ -486,7 +525,7 @@ class TestEntropy(unittest.TestCase):
 
     def test_entropy_carter_256(self):
         """Entropie Shannon des cellules message Carter-256."""
-        h, n = self._test_mode(encode_carter, _carter256_message_positions, self.ref256_v3)
+        h, n = self._test_mode(_encode_carter256_v4, _carter256_message_positions_v4, self.ref256_v3)
         print(f"  Entropie Carter 256 (cellules message) : {h:.4f} bits (max {H_MAX:.4f})  n≈{n:.0f}")
 
     def test_entropy_carter_360(self):
@@ -569,7 +608,7 @@ class TestChiSquare(unittest.TestCase):
 
     def test_chisq_carter_256(self):
         """Chi2 sur les cellules message Carter-256."""
-        self._run("Carter 256", encode_carter, _carter256_message_positions, self.ref256)
+        self._run("Carter 256", _encode_carter256_v4, _carter256_message_positions_v4, self.ref256)
 
     def test_chisq_carter_360(self):
         """Chi2 sur les cellules message Carter-360.
@@ -612,22 +651,20 @@ class TestTwoGridDifference(unittest.TestCase):
             import scipy.stats as st
         except ImportError:
             self.skipTest("scipy non installe")
-        from stegano_lib import (
-            _carter_split, _carter_grammar, _carter_positions,
-            _MESSAGE, CARTER_SIDE,
-        )
+        from stegano_lib import _carter_grammar, _carter_positions, _MESSAGE, CARTER_SIDE
         diffs = []
         pairs_used = 0
         for _ in range(self.N_PAIRS):
             key = os.urandom(32)
+            ck, gk, nu = _v4_split(key)
             try:
-                g1 = encode_carter(self.MSG_A, key, self.ref256)
-                g2 = encode_carter(self.MSG_B, key, self.ref256)
+                g1 = encode_carter(self.MSG_A, ck, gk, self.ref256, _nu=nu)
+                g2 = encode_carter(self.MSG_B, ck, gk, self.ref256, _nu=nu)
             except ValueError:
                 continue   # grammaire trop petite pour cette cle, tres rare
             pairs_used += 1
-            _, grammar_key = _carter_split(key)
-            grammar = _carter_grammar(grammar_key, self.ref256)
+            gk_nu = derive_gk_nu(gk, nu, 'carter256')
+            grammar = _carter_grammar(gk_nu, self.ref256)
             for i, gcell in enumerate(grammar['blocks']):
                 if gcell['role'] != _MESSAGE:
                     continue
@@ -672,22 +709,20 @@ class TestMaskedLength(unittest.TestCase):
             import scipy.stats as st
         except ImportError:
             self.skipTest("scipy non installe")
-        from stegano_lib import (
-            _carter_split, _carter_grammar, _carter_positions,
-            _MESSAGE, CARTER_SIDE,
-        )
+        from stegano_lib import _carter_grammar, _carter_positions, _MESSAGE, CARTER_SIDE
         diffs = []
         pairs_used = 0
         for _ in range(self.N_PAIRS):
             key = os.urandom(32)
+            ck, gk, nu = _v4_split(key)
             try:
-                g1 = encode_carter(self.MSG_SHORT, key, self.ref256)
-                g2 = encode_carter(self.MSG_LONG, key, self.ref256)
+                g1 = encode_carter(self.MSG_SHORT, ck, gk, self.ref256, _nu=nu)
+                g2 = encode_carter(self.MSG_LONG, ck, gk, self.ref256, _nu=nu)
             except ValueError:
                 continue   # grammaire trop petite pour le message long, tres rare
             pairs_used += 1
-            _, grammar_key = _carter_split(key)
-            grammar = _carter_grammar(grammar_key, self.ref256)
+            gk_nu = derive_gk_nu(gk, nu, 'carter256')
+            grammar = _carter_grammar(gk_nu, self.ref256)
             for i, gcell in enumerate(grammar['blocks']):
                 if gcell['role'] != _MESSAGE:
                     continue
@@ -756,7 +791,7 @@ class TestAutocorrelation(unittest.TestCase):
 
     def test_autocorrelation_carter_256(self):
         key  = os.urandom(32)
-        grid = encode_carter(self.MSG, key, self.ref256)
+        grid = _encode_carter256_v4(self.MSG, key, self.ref256)
         flat = [float(v) for v in _grid_flat(grid)]
         n    = len(flat)
         threshold = 2.0 / math.sqrt(n)
@@ -798,7 +833,7 @@ class TestSerialCorrelation(unittest.TestCase):
     def test_serial_chi2_reasonable(self):
         """Chi2 serial < 2.5 x esperance (df ~= (ALPHA-1)^2)."""
         key    = os.urandom(32)
-        grid   = encode_carter(self.MSG, key, self.ref256)
+        grid   = _encode_carter256_v4(self.MSG, key, self.ref256)
         flat   = _grid_flat(grid)
         chi2   = self._serial_chi2(flat)
         df     = (ALPHA - 1) ** 2
@@ -820,7 +855,7 @@ class TestSummary(unittest.TestCase):
         msg       = "ANIBALAMIOTX"
 
         grids = {
-            'Carter 256': encode_carter(msg, key, ref256_v3),
+            'Carter 256': _encode_carter256_v4(msg, key, ref256_v3),
             'Carter 360': encode_carter_360(msg, key, ref360_v3),
             'Carter Mix': encode_carter_mix(msg, key, ref256_v3, ref360_v3),
         }

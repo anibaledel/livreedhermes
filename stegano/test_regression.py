@@ -66,6 +66,17 @@ KEY_ONE    = bytes([0xFF] * 32)                  # FF...FF
 KEY_KNOWN  = bytes(range(32))                    # 00 01 02 ... 1F
 KEY_KNOWN2 = bytes(range(32, 64))                # 20 21 22 ... 3F
 
+# Format v4 (deux clés, keys.py) : Carter-256 seul est migré pour l'instant
+# (carter360/cartermix restent sur KEY_KNOWN, une seule clé, inchangés).
+# keys_from_master() est le mode LEGACY -- utilisé ici uniquement pour
+# garder des clés de test fixes/reproductibles, pas une dérivation de
+# production (l'appli tire ck/gk indépendamment, voir keys.generate_keys()).
+from keys import keys_from_master as _keys_from_master
+_K256  = _keys_from_master(KEY_KNOWN,  'carter256')
+_K2562 = _keys_from_master(KEY_KNOWN2, 'carter256')
+CK_KNOWN,  GK_KNOWN  = _K256['ck'],  _K256['gk']
+CK_KNOWN2, GK_KNOWN2 = _K2562['ck'], _K2562['gk']
+
 MSG_SHORT  = "ANIBALAMIOTX"
 MSG_LONG   = "LACROIXANSEEESTLAMETHODECREATIVEDELALIVREEDHERMES"
 MSG_ALPHA  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -579,10 +590,11 @@ class TestFixtures(unittest.TestCase):
             'grid': grid_to_csv(grid), 'steg_key': sk.hex(),
             'key_b': kb, 'key_2': k2, 'message': MSG_SHORT,
         }
-        grid2 = make_fixture(encode_carter, MSG_SHORT, KEY_KNOWN, ref256_v3,
+        grid2 = make_fixture(encode_carter, MSG_SHORT, CK_KNOWN, GK_KNOWN, ref256_v3,
                               seed=b'carter256-2026')
         cls.FIXTURES['carter_256'] = {
-            'grid': grid_to_csv(grid2), 'key': KEY_KNOWN.hex(), 'message': MSG_SHORT}
+            'grid': grid_to_csv(grid2), 'ck': CK_KNOWN.hex(), 'gk': GK_KNOWN.hex(),
+            'message': MSG_SHORT}
 
         grid3 = make_fixture(encode_carter_360, MSG_SHORT, KEY_KNOWN, ref360_v3,
                               seed=b'carter360-2026')
@@ -605,10 +617,11 @@ class TestFixtures(unittest.TestCase):
 
     def test_carter_256_decode_stable(self):
         ref256_v3 = get_ref256_v3()
-        f   = self.FIXTURES['carter_256']
-        key = bytes.fromhex(f['key'])
+        f  = self.FIXTURES['carter_256']
+        ck = bytes.fromhex(f['ck'])
+        gk = bytes.fromhex(f['gk'])
         self.assertEqual(
-            decode_carter(csv_to_grid(f['grid']), key, ref256_v3),
+            decode_carter(csv_to_grid(f['grid']), ck, gk, ref256_v3),
             f['message'], "Rupture Carter 256 !")
 
     def test_carter_360_decode_stable(self):
@@ -635,7 +648,7 @@ class TestFixtures(unittest.TestCase):
 
         for name, fn, args in [
             ('carter_256', decode_carter,
-             (csv_to_grid(self.FIXTURES['carter_256']['grid']), wrong, ref256_v3)),
+             (csv_to_grid(self.FIXTURES['carter_256']['grid']), CK_KNOWN2, GK_KNOWN2, ref256_v3)),
             ('carter_360', decode_carter_360,
              (csv_to_grid(self.FIXTURES['carter_360']['grid']), wrong, ref360_v3)),
             ('carter_mix', decode_carter_mix,
@@ -667,10 +680,10 @@ class TestEndToEnd(unittest.TestCase):
         self.assertEqual(decode(grid, sk, kb, k2, self.ref256_v3), MSG_LONG)
 
     def test_carter_256_roundtrip(self):
-        self.assertEqual(
-            self._roundtrip(encode_carter, decode_carter,
-                            MSG_LONG, KEY_KNOWN, self.ref256_v3),
-            MSG_LONG)
+        # Carter-256 (format v4, deux clés) ne passe plus par _roundtrip
+        # (générique à clé unique, encore valable pour 360/mix ci-dessous).
+        grid = encode_carter(MSG_LONG, CK_KNOWN, GK_KNOWN, self.ref256_v3)
+        self.assertEqual(decode_carter(grid, CK_KNOWN, GK_KNOWN, self.ref256_v3), MSG_LONG)
 
     def test_carter_360_roundtrip(self):
         self.assertEqual(
@@ -685,32 +698,30 @@ class TestEndToEnd(unittest.TestCase):
             MSG_LONG)
 
     def test_key_isolation(self):
-        grid256 = encode_carter(MSG_SHORT, KEY_KNOWN,  self.ref256_v3)
+        grid256 = encode_carter(MSG_SHORT, CK_KNOWN, GK_KNOWN, self.ref256_v3)
         grid360 = encode_carter_360(MSG_SHORT, KEY_KNOWN, self.ref360_v3)
-        self.assertEqual(decode_carter(grid256, KEY_KNOWN, self.ref256_v3),     MSG_SHORT)
+        self.assertEqual(decode_carter(grid256, CK_KNOWN, GK_KNOWN, self.ref256_v3), MSG_SHORT)
         self.assertEqual(decode_carter_360(grid360, KEY_KNOWN, self.ref360_v3), MSG_SHORT)
 
     def test_alpha_message(self):
-        self.assertEqual(
-            self._roundtrip(encode_carter, decode_carter,
-                            MSG_ALPHA, KEY_KNOWN2, self.ref256_v3),
-            MSG_ALPHA)
+        grid = encode_carter(MSG_ALPHA, CK_KNOWN2, GK_KNOWN2, self.ref256_v3)
+        self.assertEqual(decode_carter(grid, CK_KNOWN2, GK_KNOWN2, self.ref256_v3), MSG_ALPHA)
 
     def test_message_case_preserved(self):
         """Format v3 (UTF-8 sans restriction d'alphabet) : la casse n'est
         plus normalisée à l'encodage — decode() renvoie exactement le texte
         saisi (voir crypto_core._message_to_bytes)."""
         msg_mixed = "AnibalAmiotX"
-        grid = encode_carter(msg_mixed, KEY_KNOWN, self.ref256_v3)
-        result = decode_carter(grid, KEY_KNOWN, self.ref256_v3)
+        grid = encode_carter(msg_mixed, CK_KNOWN, GK_KNOWN, self.ref256_v3)
+        result = decode_carter(grid, CK_KNOWN, GK_KNOWN, self.ref256_v3)
         self.assertEqual(result, msg_mixed)
 
     def test_message_utf8_non_ascii_roundtrip(self):
         """UTF-8 sans restriction d'alphabet (format v3) : un message
         accentué est accepté et redonné à l'identique, plus rejeté."""
         msg = "déjà vu"
-        grid = encode_carter(msg, KEY_KNOWN, self.ref256_v3)
-        result = decode_carter(grid, KEY_KNOWN, self.ref256_v3)
+        grid = encode_carter(msg, CK_KNOWN, GK_KNOWN, self.ref256_v3)
+        result = decode_carter(grid, CK_KNOWN, GK_KNOWN, self.ref256_v3)
         self.assertEqual(result, msg)
 
 
@@ -783,7 +794,7 @@ class TestCPub(unittest.TestCase):
         """Un message > C_PUB est refusé, quelle que soit la clé (seuil public)."""
         import crypto_core as C
         cases = [
-            ('carter256', lambda msg: encode_carter(msg, KEY_KNOWN, self.ref256_v3)),
+            ('carter256', lambda msg: encode_carter(msg, CK_KNOWN, GK_KNOWN, self.ref256_v3)),
             ('carter360', lambda msg: encode_carter_360(msg, KEY_KNOWN, self.ref360_v3)),
             ('cartermix', lambda msg: encode_carter_mix(msg, KEY_KNOWN, self.ref256_v3, self.ref360_v3)),
         ]
@@ -813,8 +824,8 @@ class TestCPub(unittest.TestCase):
         """Round-trip pour un message exactement à la limite C_PUB."""
         import crypto_core as C
         msg = 'A' * C.C_PUB['carter256']
-        grid = encode_carter(msg, KEY_KNOWN, self.ref256_v3)
-        self.assertEqual(decode_carter(grid, KEY_KNOWN, self.ref256_v3), msg)
+        grid = encode_carter(msg, CK_KNOWN, GK_KNOWN, self.ref256_v3)
+        self.assertEqual(decode_carter(grid, CK_KNOWN, GK_KNOWN, self.ref256_v3), msg)
 
     def test_c_pub_carter_random_family(self):
         """Même garantie pour Random/18/Hybrid (import local, non exposés par stegano_lib)."""

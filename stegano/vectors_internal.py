@@ -135,19 +135,34 @@ def _count_redraw_attempts(module, search_fn):
 
 # ── Carter-256 ───────────────────────────────────────────────────────────────
 
-def gen_carter256_vector(vec_id, description, master_key, message, ref256,
-                          nonce, y, leftover, noise_seed, include_grid_csv=False):
-    xchacha_key, grammar_key = CT._carter_split(master_key)
-    ck = CC._commit_key(xchacha_key)
+def _v4_keys_from_seed(seed32: bytes):
+    """
+    Dérive (ck, gk, nu) déterministes et DISTINCTS depuis un seed unique
+    par vecteur -- pas une dérivation de production (le format v4 tire ck
+    et gk indépendamment, voir keys.generate_keys()) : un simple expédient
+    pour garder chaque vecteur reproductible sans réintroduire une
+    dérivation partagée de type KeySplit (justement ce que le format v4
+    supprime).
+    """
+    ck = seed32
+    gk = bytes(b ^ 0xFF for b in seed32)
+    nu = bytes((b + 1) % 256 for b in seed32[:24])
+    return ck, gk, nu
+
+def gen_carter256_vector(vec_id, description, ck, gk, message, ref256,
+                          nonce, y, leftover, noise_seed, nu, include_grid_csv=False):
+    from keys import derive_gk_nu, nu_to_symbols
+    commit_key = CC._commit_key(ck)
+    gk_nu = derive_gk_nu(gk, nu, 'carter256')
 
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
         GR, lambda: CT._find_grammar_with_c_pub(
-            grammar_key, 'carter256',
-            lambda gk: CT._carter_grammar(gk, ref256),
+            gk_nu, 'carter256',
+            lambda k: CT._carter_grammar(k, ref256),
             lambda g: CT._carter_message_positions(g, ref256)))
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
+    hchacha_subkey = CC.hchacha20(ck, nonce[:16])
     k = CC._capacity_k(n_pos)
     m = CC._smallest_m(k + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
@@ -166,21 +181,23 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
         for gr, gc in CT._carter_positions(br, bc, g, ref256, sweep_of_color):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
+    for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+        grid[0][c] = sym
 
-    decoded = CT.decode_carter(grid, master_key, ref256)
+    decoded = CT.decode_carter(grid, ck, gk, ref256)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "carter256", "description": description,
-        "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": CT.CARTER_GRID},
+        "inputs": {"message": message, "grid_size": CT.CARTER_GRID},
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
         "injected": {
             "nonce_hex": _hex(nonce), "y": str(y), "leftover": list(leftover) if leftover else [],
             "noise_seed_hex": _hex(noise_seed),
         },
         "derivation": {
-            "commit_key_hex": _hex(ck),
-            "xchacha_key_hex": _hex(xchacha_key),
-            "grammar_key_hex": _hex(grammar_key),
+            "commit_key_hex": _hex(commit_key),
+            "gk_nu_hex": _hex(gk_nu),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
@@ -222,14 +239,15 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
 # rejetée avant la moindre tentative de déchiffrement authentifié).
 
 def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
-                                    master_key, message, ref256,
-                                    nonce, y, leftover, noise_seed):
-    xchacha_key, grammar_key = CT._carter_split(master_key)
+                                    ck, gk, message, ref256,
+                                    nonce, y, leftover, noise_seed, nu):
+    from keys import derive_gk_nu, nu_to_symbols
+    gk_nu = derive_gk_nu(gk, nu, 'carter256')
     gk_ctr, grammar, n_pos = CT._find_grammar_with_c_pub(
-        grammar_key, 'carter256',
-        lambda gk: CT._carter_grammar(gk, ref256),
+        gk_nu, 'carter256',
+        lambda k: CT._carter_grammar(k, ref256),
         lambda g: CT._carter_message_positions(g, ref256))
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -251,23 +269,29 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
         if g['role'] != CT._PURE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
         r0, c0 = br * CT.CARTER_BLOCK, bc * CT.CARTER_BLOCK
+        # Exclut les cases reservees au nonce de disposition (ligne 0,
+        # colonnes 0..35, format v4) : ce ne sont plus des cases de bruit
+        # libres, meme dans un bloc 'pure' -- les alterer alterait nu.
         noise_positions.extend(
-            (r0+r, c0+c) for r in range(CT.CARTER_BLOCK) for c in range(CT.CARTER_BLOCK))
+            (r0+r, c0+c) for r in range(CT.CARTER_BLOCK) for c in range(CT.CARTER_BLOCK)
+            if not GR._is_nu_cell(r0+r, c0+c))
 
     def _place(syms):
         grid = CC.random_grid(CT.CARTER_GRID, CT.CARTER_GRID, _noise_seed=noise_seed)
         for idx, (gr, gc) in enumerate(message_positions):
             if idx >= len(syms): break
             grid[gr][gc] = (syms[idx] + masks[idx]) % CC.ALPHA_LEN
+        for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+            grid[0][c] = sym
         return grid
 
     base_grid = _place(symbols)
-    decoded = CT.decode_carter(base_grid, master_key, ref256)
+    decoded = CT.decode_carter(base_grid, ck, gk, ref256)
     assert decoded == message, "auto-verification (base valide) a echoue"
 
-    def _try_decode(grid, key, ref):
+    def _try_decode(grid, k_ck, k_gk, ref):
         try:
-            CT.decode_carter(grid, key, ref)
+            CT.decode_carter(grid, k_ck, k_gk, ref)
             return None
         except ValueError as e:
             return str(e)
@@ -277,12 +301,14 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     cell_gr, cell_gc = message_positions[len(message_positions) // 2]
     grid_cell = [row[:] for row in base_grid]
     grid_cell[cell_gr][cell_gc] = (grid_cell[cell_gr][cell_gc] + 1) % CC.ALPHA_LEN
-    err_cell = _try_decode(grid_cell, master_key, ref256)
+    err_cell = _try_decode(grid_cell, ck, gk, ref256)
 
-    # 2) mauvaise clé : grille valide, clé de déchiffrement totalement différente
-    #    (grammaire ET commit_key changent tous les deux avec la clé).
-    wrong_key = bytes((b + 1) % 256 for b in master_key)
-    err_wrong_key = _try_decode(base_grid, wrong_key, ref256)
+    # 2) mauvaise clé : grille valide, clés de déchiffrement ET de géométrie
+    #    totalement différentes (format v4 : les deux sont indépendantes,
+    #    on les fausse toutes les deux pour un "mauvaise clé" sans ambiguïté).
+    wrong_ck = bytes((b + 1) % 256 for b in ck)
+    wrong_gk = bytes((b + 1) % 256 for b in gk)
+    err_wrong_key = _try_decode(base_grid, wrong_ck, wrong_gk, ref256)
 
     # 3) commitment altéré : falsifie l'octet 0 du commitment HMAC lui-même
     #    (les 32 premiers octets de `payload`) AVANT tout placement — le
@@ -290,7 +316,7 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     tampered_payload = bytes([payload[0] ^ 0x01]) + payload[1:]
     tampered_symbols = CC.payload_to_symbols(tampered_payload, n_pos, _y=y, _leftover=leftover)
     grid_commit = _place(tampered_symbols)
-    err_commit = _try_decode(grid_commit, master_key, ref256)
+    err_commit = _try_decode(grid_commit, ck, gk, ref256)
 
     assert err_cell is not None and 'commitment' in err_cell.lower(), \
         f"cellule alteree aurait du etre rejetee au commitment, obtenu : {err_cell!r}"
@@ -300,8 +326,9 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
 
     common = {
         "instantiation": "carter256", "inputs": {
-            "master_key_hex": _hex(master_key), "message": message, "grid_size": CT.CARTER_GRID,
+            "message": message, "grid_size": CT.CARTER_GRID,
         },
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
     }
     v_cell = {
         **common, "id": f"{vec_id_prefix}-cellule-alteree",
@@ -315,7 +342,7 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     v_wrong_key = {
         **common, "id": f"{vec_id_prefix}-mauvaise-cle",
         "description": f"{description_prefix} — grille valide, clé de décodage incorrecte.",
-        "tamper": {"type": "mauvaise_cle", "wrong_key_hex": _hex(wrong_key)},
+        "tamper": {"type": "mauvaise_cle", "wrong_ck_hex": _hex(wrong_ck), "wrong_gk_hex": _hex(wrong_gk)},
         "grid_sha256": _grid_sha256(base_grid), "expected_result": "rejet",
         "expected_error": err_wrong_key,
     }
@@ -342,7 +369,7 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     noise_gr, noise_gc = noise_positions[len(noise_positions) // 2]
     grid_noise = [row[:] for row in base_grid]
     grid_noise[noise_gr][noise_gc] = (grid_noise[noise_gr][noise_gc] + 1) % CC.ALPHA_LEN
-    decoded_noise = CT.decode_carter(grid_noise, master_key, ref256)
+    decoded_noise = CT.decode_carter(grid_noise, ck, gk, ref256)
     assert decoded_noise == message, \
         f"bruit altere aurait du laisser le decodage intact, obtenu : {decoded_noise!r}"
     v_noise = {
@@ -920,11 +947,11 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
 # (tâche 2). Réutilise gen_carter256_vector() telle quelle : ce sont des cas
 # de succès, pas des rejets.
 
-def gen_carter256_boundary_vectors(vec_id_prefix, master_key, ref256,
-                                    nonce, y, leftover, noise_seed):
+def gen_carter256_boundary_vectors(vec_id_prefix, ck, gk, ref256,
+                                    nonce, y, leftover, noise_seed, nu):
     empty_v, empty_g = gen_carter256_vector(
         f"{vec_id_prefix}-message-vide", "Message vide (longueur 0).",
-        master_key, "", ref256, nonce, y, leftover, noise_seed)
+        ck, gk, "", ref256, nonce, y, leftover, noise_seed, nu)
 
     alphabet_no_space = CC.ALPHABET[1:]  # sans l'espace, pour un pavage simple
     boundary_msg = (alphabet_no_space * (CC.C_PUB['carter256'] // len(alphabet_no_space) + 1)
@@ -936,7 +963,7 @@ def gen_carter256_boundary_vectors(vec_id_prefix, master_key, ref256,
     assert len(boundary_msg.encode('utf-8')) == CC.C_PUB['carter256']
     boundary_v, boundary_g = gen_carter256_vector(
         f"{vec_id_prefix}-c-pub-exact", f"Message de longueur EXACTE C_PUB={CC.C_PUB['carter256']} octets.",
-        master_key, boundary_msg, ref256, nonce, y, leftover, noise_seed)
+        ck, gk, boundary_msg, ref256, nonce, y, leftover, noise_seed, nu)
 
     return [empty_v, boundary_v], [empty_g, boundary_g]
 
@@ -993,24 +1020,26 @@ def generate_all(include_grid_csv_showcase=True):
         vectors.append(v)
         grids[v["id"]] = g
 
+    ck_256_basic, gk_256_basic, nu_256_basic = _v4_keys_from_seed(bytes(range(32)))
     v, g = gen_carter256_vector(
         "carter256-basic-01", "Vecteur de base Carter-256.",
-        bytes(range(32)), "HELLO WORLD", ref256_v3,
-        nonce, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
+        ck_256_basic, gk_256_basic, "HELLO WORLD", ref256_v3,
+        nonce, 0, [], noise_seed, nu_256_basic, include_grid_csv=include_grid_csv_showcase)
     add(v, g)
 
-    # TODO v3-format (etape 10) : _MK_REDRAW_CARTER256 a ete trouvee par
-    # force brute pour declencher un redraw (ctr>=1) sous L'ANCIENNE
-    # fonction de capacite (6 positions stegano/bloc) -- avec la nouvelle
-    # regle (12 positions, rouge+bleu), cette cle ne declenche plus
-    # forcement de redraw, et _Y_CARTER256_REDRAW/[2] (calcules pour
-    # l'ancien n_pos post-redraw) ne sont plus valides pour le nouveau
-    # n_pos. y=0/leftover=[] (comme carter256-basic-01) le temps de
-    # rechercher une nouvelle cle de redraw sous la regle v3 a l'etape 10.
+    # Format v4 : _MK_REDRAW_CARTER256 (brute-forcee sous l'ancien KeySplit
+    # a cle unique) n'a plus de raison particuliere de declencher un
+    # redraw sous gk_nu (deja incertain sous la seule regle v3, voir
+    # l'ancien commentaire ici) -- gardee comme SEED de _v4_keys_from_seed
+    # pour la reproductibilite du vecteur, sans pretention a declencher un
+    # redraw particulier. Rechercher une paire (gk, nu) qui en declenche
+    # un reellement est un travail separe (recherche par force brute sur
+    # gk_nu, pas juste sur gk).
+    ck_256_redraw, gk_256_redraw, nu_256_redraw = _v4_keys_from_seed(_MK_REDRAW_CARTER256)
     v, g = gen_carter256_vector(
-        "carter256-redraw-01", "Clé déclenchant un redraw (ctr>=1) pour Carter-256.",
-        _MK_REDRAW_CARTER256, "REDRAW TRIGGERED", ref256_v3,
-        nonce, 0, [], noise_seed)
+        "carter256-redraw-01", "Clé de démonstration Carter-256 (ancienne clé de redraw v3).",
+        ck_256_redraw, gk_256_redraw, "REDRAW TRIGGERED", ref256_v3,
+        nonce, 0, [], noise_seed, nu_256_redraw)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CARTER360_BASIC calculee pour l'ancien
@@ -1103,19 +1132,21 @@ def generate_all(include_grid_csv_showcase=True):
     # a l'etape 10 (comme carter256-basic-01, deja a y=0).
     neg_vecs, neg_grids = gen_carter256_negative_vectors(
         "carter256-neg", "Vecteurs négatifs Carter-256",
-        bytes(range(32)), "HELLO WORLD", ref256_v3, nonce, 0, [], noise_seed)
+        ck_256_basic, gk_256_basic, "HELLO WORLD", ref256_v3, nonce, 0, [], noise_seed, nu_256_basic)
     for vv, gg in zip(neg_vecs, neg_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg
 
+    ck_256_utf8, gk_256_utf8, nu_256_utf8 = _v4_keys_from_seed(
+        bytes((i * 23 + 9) % 256 for i in range(32)))
     v, g = gen_carter256_vector(
         "carter256-utf8-01", "Message UTF-8 non-ASCII (« déjà vu ») — cas de succès ordinaire.",
-        bytes((i * 23 + 9) % 256 for i in range(32)), "déjà vu", ref256_v3,
-        nonce, 0, [], noise_seed)
+        ck_256_utf8, gk_256_utf8, "déjà vu", ref256_v3,
+        nonce, 0, [], noise_seed, nu_256_utf8)
     add(v, g)
 
     boundary_vecs, boundary_grids = gen_carter256_boundary_vectors(
-        "carter256-boundary", bytes(range(32)), ref256_v3, nonce, 0, [], noise_seed)
+        "carter256-boundary", ck_256_basic, gk_256_basic, ref256_v3, nonce, 0, [], noise_seed, nu_256_basic)
     for vv, gg in zip(boundary_vecs, boundary_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg
