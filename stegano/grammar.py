@@ -243,7 +243,8 @@ def _carter360_positions(br: int, bc: int, g: Dict, ref360: Dict,
                                         ref360['grid_size'], sweep_of_color)
     r0, c0 = br * CARTER360_BLOCK, bc * CARTER360_BLOCK
     return [(r0+r, c0+c) for r, c in local_order
-            if 0 <= r0+r < CARTER360_GRID and 0 <= c0+c < CARTER360_GRID]
+            if 0 <= r0+r < CARTER360_GRID and 0 <= c0+c < CARTER360_GRID
+            and not _is_nu_cell(r0+r, c0+c)]
 
 def _carter360_message_positions(grammar: Dict, ref360: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""

@@ -231,17 +231,20 @@ def carter_capacity(gk: bytes, ref256: Dict, _nu: bytes = None) -> Dict:
 
 # ── Carter-360 ──────────────────────────────────────────────────────────────────
 
-def encode_carter_360(message: str, master_key: bytes,
+def encode_carter_360(message: str, ck: bytes, gk: bytes,
                        ref360: Optional[Dict] = None,
                        _nonce: bytes = None, _y: int = None,
-                       _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
+                       _leftover: List[int] = None, _noise_seed: bytes = None,
+                       _nu: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter 180×180 (Référent 360, format
-    v3 -- data/referent_360_v3.json par défaut).
+    v4 : deux clés indépendantes, keys.py -- voir encode_carter() pour le
+    détail de ck/gk et du nonce de disposition nu).
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
+    _nonce/_y/_leftover/_noise_seed/_nu (tâche 7 puis format v4) : voir
+    encode_carter().
 
-    Grammaire dérivée de master_key :
+    Grammaire dérivée de gk_nu = derive_gk_nu(gk, nu, 'carter360') :
       'pur'       → bruit aléatoire, aucune structure 12×12
       'structuré' → bruit aléatoire, EXACTEMENT comme 'pur' (rien ne
                     change hors des positions stégano, décision de
@@ -257,7 +260,6 @@ def encode_carter_360(message: str, master_key: bytes,
     if ref360 is None:
         ref360 = load_referent_360_v3()
 
-    xchacha_key, grammar_key = _carter360_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
     # encode_carter() pour la justification complète. En OCTETS UTF-8.
     if len(message.encode('utf-8')) > C_PUB['carter360']:
@@ -265,14 +267,16 @@ def encode_carter_360(message: str, master_key: bytes,
             f"Message trop long : {len(message.encode('utf-8'))} > "
             f"C_PUB={C_PUB['carter360']} octets (capacité publique "
             f"garantie, indépendante de la clé).")
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carter360')
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
     # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
     # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
-        grammar_key, 'carter360',
-        lambda gk: _carter360_grammar(gk, ref360),
+        gk_nu, 'carter360',
+        lambda k: _carter360_grammar(k, ref360),
         lambda g: _carter360_message_positions(g, ref360))
-    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
+    payload = _encrypt(message, ck, n_pos, _nonce=_nonce)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
@@ -290,17 +294,22 @@ def encode_carter_360(message: str, master_key: bytes,
         for gr, gc in _carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
+    # Nonce de disposition, écrit en dernier — voir encode_carter().
+    for c, sym in enumerate(nu_to_symbols(nu)):
+        grid[0][c] = sym
     return grid
 
-def decode_carter_360(grid: List[List[int]], master_key: bytes,
+def decode_carter_360(grid: List[List[int]], ck: bytes, gk: bytes,
                        ref360: Optional[Dict] = None) -> str:
-    """Décode une grille Carter 180×180. Lève ValueError si clé incorrecte."""
+    """Décode une grille Carter 180×180 (format v4). Lit nu depuis les 36
+    premières cases de la ligne 0. Lève ValueError si clé incorrecte."""
     if ref360 is None:
         ref360 = load_referent_360_v3()
-    xchacha_key, grammar_key = _carter360_split(master_key)
+    nu = symbols_to_nu(grid[0][:NU_SYMBOLS])
+    gk_nu = derive_gk_nu(gk, nu, 'carter360')
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
-        grammar_key, 'carter360',
-        lambda gk: _carter360_grammar(gk, ref360),
+        gk_nu, 'carter360',
+        lambda k: _carter360_grammar(k, ref360),
         lambda g: _carter360_message_positions(g, ref360))
     masks = derive_masks(gk_ctr, n_pos, 'carter360')
     by_niveau = grammar['by_niveau']
@@ -311,18 +320,20 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
         for gr, gc in _carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
-def carter360_capacity(master_key: bytes,
-                        ref360: Optional[Dict] = None) -> Dict:
+def carter360_capacity(gk: bytes, ref360: Optional[Dict] = None,
+                        _nu: bytes = None) -> Dict:
     """Statistiques de capacité de la grammaire Carter 360 (après redraw
-    C_PUB, tâche 4 — reflète ce qu'encode_carter_360() utilise réellement)."""
+    C_PUB, tâche 4 — reflète ce qu'encode_carter_360() utilise réellement).
+    Format v4 : la capacité dépend de gk ET de nu -- voir carter_capacity()."""
     if ref360 is None:
         ref360 = load_referent_360_v3()
-    _, grammar_key = _carter360_split(master_key)
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carter360')
     _, grammar, n_pos = _find_grammar_with_c_pub(
-        grammar_key, 'carter360',
-        lambda gk: _carter360_grammar(gk, ref360),
+        gk_nu, 'carter360',
+        lambda k: _carter360_grammar(k, ref360),
         lambda g: _carter360_message_positions(g, ref360))
     blocks = grammar['blocks']
     n_msg = sum(1 for g in blocks if g['role'] == _MESSAGE)

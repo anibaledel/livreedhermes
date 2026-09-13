@@ -185,19 +185,30 @@ def _carter256_message_positions_v4(key: bytes, ref256) -> List[Tuple[int, int]]
     _, gk, nu = _v4_split(key)
     return _carter256_message_positions(gk, nu, ref256)
 
-def _carter360_message_positions_list(key: bytes, ref360) -> List[Tuple[int, int]]:
+def _carter360_message_positions(gk: bytes, nu: bytes, ref360) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu (pas une master_key unique) -- voir
+    _carter256_message_positions."""
     from carter import _find_grammar_with_c_pub
-    from stegano_lib import (_carter360_split, _carter360_grammar, _carter360_positions,
+    from stegano_lib import (_carter360_grammar, _carter360_positions,
                               _carter360_message_positions, _MESSAGE, CARTER360_SIDE)
-    _, grammar_key = _carter360_split(key)
+    from keys import derive_gk_nu
+    gk_nu = derive_gk_nu(gk, nu, 'carter360')
     _, grammar, _ = _find_grammar_with_c_pub(
-        grammar_key, 'carter360',
-        lambda gk: _carter360_grammar(gk, ref360),
+        gk_nu, 'carter360',
+        lambda k: _carter360_grammar(k, ref360),
         lambda g: _carter360_message_positions(g, ref360))
     by_niveau, sweep_of_color = grammar['by_niveau'], grammar['sweep_of_color']
     return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
             for pos in _carter360_positions(i // CARTER360_SIDE, i % CARTER360_SIDE,
                                              g, ref360, by_niveau, sweep_of_color)]
+
+def _encode_carter360_v4(msg: str, key: bytes, ref360) -> List[List[int]]:
+    ck, gk, nu = _v4_split(key)
+    return encode_carter_360(msg, ck, gk, ref360, _nu=nu)
+
+def _carter360_message_positions_v4(key: bytes, ref360) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter360_message_positions(gk, nu, ref360)
 
 def _carter_mix_message_positions_list(key: bytes, ref256, ref360) -> List[Tuple[int, int]]:
     from carter import _find_grammar_with_c_pub
@@ -530,7 +541,7 @@ class TestEntropy(unittest.TestCase):
 
     def test_entropy_carter_360(self):
         """Entropie Shannon des cellules message Carter-360."""
-        h, n = self._test_mode(encode_carter_360, _carter360_message_positions_list, self.ref360_v3)
+        h, n = self._test_mode(_encode_carter360_v4, _carter360_message_positions_v4, self.ref360_v3)
         print(f"  Entropie Carter 360 (cellules message) : {h:.4f} bits  n≈{n:.0f}")
 
     def test_entropy_carter_mix(self):
@@ -615,7 +626,7 @@ class TestChiSquare(unittest.TestCase):
         Ajoute 2026-09-12 -- absent jusqu'ici, seul Carter-256 avait un
         test chi2 dedie parmi les variantes a referent fixe (256/360/Mix),
         contrairement a Random/18/Hybrid qui en ont chacun un."""
-        self._run("Carter 360", encode_carter_360, _carter360_message_positions_list, self.ref360)
+        self._run("Carter 360", _encode_carter360_v4, _carter360_message_positions_v4, self.ref360)
 
     def test_chisq_carter_mix(self):
         """Chi2 sur les cellules message Carter Mix.
@@ -856,7 +867,7 @@ class TestSummary(unittest.TestCase):
 
         grids = {
             'Carter 256': _encode_carter256_v4(msg, key, ref256_v3),
-            'Carter 360': encode_carter_360(msg, key, ref360_v3),
+            'Carter 360': _encode_carter360_v4(msg, key, ref360_v3),
             'Carter Mix': encode_carter_mix(msg, key, ref256_v3, ref360_v3),
         }
 

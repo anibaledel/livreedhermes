@@ -389,17 +389,19 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
 
 # ── Carter-360 ───────────────────────────────────────────────────────────────
 
-def gen_carter360_vector(vec_id, description, master_key, message, ref360,
-                          nonce, y, leftover, noise_seed, include_grid_csv=False):
-    xchacha_key, grammar_key = CT._carter360_split(master_key)
-    ck = CC._commit_key(xchacha_key)
+def gen_carter360_vector(vec_id, description, ck, gk, message, ref360,
+                          nonce, y, leftover, noise_seed, nu, include_grid_csv=False):
+    from keys import derive_gk_nu, nu_to_symbols
+    commit_key = CC._commit_key(ck)
+    gk_nu = derive_gk_nu(gk, nu, 'carter360')
+
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
         GR, lambda: CT._find_grammar_with_c_pub(
-            grammar_key, 'carter360',
-            lambda gk: CT._carter360_grammar(gk, ref360),
+            gk_nu, 'carter360',
+            lambda k: CT._carter360_grammar(k, ref360),
             lambda g: CT._carter360_message_positions(g, ref360)))
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
+    hchacha_subkey = CC.hchacha20(ck, nonce[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -418,18 +420,21 @@ def gen_carter360_vector(vec_id, description, master_key, message, ref360,
         for gr, gc in CT._carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
+    for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+        grid[0][c] = sym
 
-    decoded = CT.decode_carter_360(grid, master_key, ref360)
+    decoded = CT.decode_carter_360(grid, ck, gk, ref360)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "carter360", "description": description,
-        "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": CT.CARTER360_GRID},
+        "inputs": {"message": message, "grid_size": CT.CARTER360_GRID},
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
         "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": list(leftover) if leftover else [],
                      "noise_seed_hex": _hex(noise_seed)},
         "derivation": {
-            "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
-            "grammar_key_hex": _hex(grammar_key),
+            "commit_key_hex": _hex(commit_key),
+            "gk_nu_hex": _hex(gk_nu),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
@@ -1045,10 +1050,11 @@ def generate_all(include_grid_csv_showcase=True):
     # TODO v3-format (etape 10) : _Y_CARTER360_BASIC calculee pour l'ancien
     # n_pos (tirage plat C1/C2/C3) -- regle par niveaux change Q. y=0 le
     # temps de retirer une valeur sous la regle v3 a l'etape 10.
+    ck_360_basic, gk_360_basic, nu_360_basic = _v4_keys_from_seed(bytes(range(32, 64)))
     v, g = gen_carter360_vector(
         "carter360-basic-01", "Vecteur de base Carter-360.",
-        bytes(range(32, 64)), "BONJOUR CARTER 360", ref360_v3,
-        nonce, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
+        ck_360_basic, gk_360_basic, "BONJOUR CARTER 360", ref360_v3,
+        nonce, 0, [], noise_seed, nu_360_basic, include_grid_csv=include_grid_csv_showcase)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CARTERMIX_BASIC calculee pour l'ancien

@@ -33,10 +33,9 @@ import stegano_classic as SC
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
 _DECODE_FN = {
-    # carter256 (format v4, deux cles) : gere a part dans les appelants
-    # ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas sv['inputs']
-    # ['master_key_hex']) -- absent de cette table generique a cle unique.
-    'carter360':    lambda g, key: CT.decode_carter_360(g, key, VI.load_referent_360_v3()),
+    # carter256/carter360 (format v4, deux cles) : geres a part dans les
+    # appelants ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas sv['inputs']
+    # ['master_key_hex']) -- absents de cette table generique a cle unique.
     'cartermix':    lambda g, key: CT.decode_carter_mix(
                         g, key, VI.load_referent_256_v3(), VI.load_referent_360_v3()),
     'carterrandom': lambda g, key: CR.decode_carter_random(g, key, 90),
@@ -91,6 +90,14 @@ class TestVectorsRegeneration(unittest.TestCase):
                     gk = bytes.fromhex(sv['keys']['gk_hex'])
                     grid = self.fresh_grids[sv['id']]
                     decoded = CT.decode_carter(grid, ck, gk, VI.load_referent_256_v3())
+                    self.assertEqual(decoded, sv['expected_decode'])
+                continue
+            if inst == 'carter360':
+                with self.subTest(id=sv['id']):
+                    ck = bytes.fromhex(sv['keys']['ck_hex'])
+                    gk = bytes.fromhex(sv['keys']['gk_hex'])
+                    grid = self.fresh_grids[sv['id']]
+                    decoded = CT.decode_carter_360(grid, ck, gk, VI.load_referent_360_v3())
                     self.assertEqual(decoded, sv['expected_decode'])
                 continue
             if inst not in _DECODE_FN:
@@ -203,8 +210,9 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
         v = next(x for x in self.doc['vectors'] if x['id'] == 'carter360-basic-01')
         self.assertIn('grid_csv', v, "carter360-basic-01 devrait embarquer grid_csv")
         grid = self._csv_to_grid(v['grid_csv'])
-        key = bytes.fromhex(v['inputs']['master_key_hex'])
-        decoded = CT.decode_carter_360(grid, key, self.ref360_v3)
+        ck = bytes.fromhex(v['keys']['ck_hex'])
+        gk = bytes.fromhex(v['keys']['gk_hex'])
+        decoded = CT.decode_carter_360(grid, ck, gk, self.ref360_v3)
         self.assertEqual(decoded, v['expected_decode'])
 
     def test_decode_deniable_from_stored_grid_csv_only(self):

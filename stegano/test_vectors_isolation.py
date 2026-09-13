@@ -178,19 +178,30 @@ class TestSingleRef360Loader(unittest.TestCase):
         # encode_carter_360() par defaut charge load_referent_360_v3(),
         # chargeur unique du Referent 360 -- compare contre ce meme chargeur.
         ref360_v = VI.load_referent_360_v3()
-        key = os.urandom(32)
+        ck, gk = os.urandom(32), os.urandom(32)
         nonce = os.urandom(24)
         noise_seed = os.urandom(32)
+        nu = os.urandom(24)
         # Grille via le référent EXPLICITE du mode vecteurs...
         g_explicit = encode_carter_360(
-            "HELLO", key, ref360_v,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            "HELLO", ck, gk, ref360_v,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed, _nu=nu)
         # ...contre la grille via le chargement PAR DÉFAUT de production
         # (ref360=None -> load_referent_360_v3() interne à carter.py).
         g_default = encode_carter_360(
-            "HELLO", key,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
-        self.assertEqual(g_explicit, g_default,
+            "HELLO", ck, gk,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed, _nu=nu)
+        # Format v4 : les 36 premières cases de la ligne 0 portent nu encodé
+        # en symboles (keys.nu_to_symbols) -- ce codage tire sa propre
+        # fraîcheur CSPRNG interne (aucun _y exposé pour lui par
+        # encode_carter_360(), volontairement, voir nu_to_symbols()), donc
+        # ces 36 cases diffèrent légitimement d'un appel à l'autre même à nu
+        # identique. Comparer le reste de la grille (positions message et
+        # bruit CSPRNG, tous deux déterministes ici) suffit à démontrer que
+        # les deux appels dérivent la même grammaire, donc le même référent.
+        def _without_nu_cells(grid):
+            return [row[36:] if r == 0 else row for r, row in enumerate(grid)]
+        self.assertEqual(_without_nu_cells(g_explicit), _without_nu_cells(g_default),
             "vectors_internal.load_referent_360_v3() et le chargement par "
             "défaut d'encode_carter_360() ne chargent pas le même référent "
             "360 — un second chargeur non filtré a-t-il été réintroduit ?")
