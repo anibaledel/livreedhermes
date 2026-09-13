@@ -357,15 +357,17 @@ def carter360_capacity(gk: bytes, ref360: Optional[Dict] = None,
 
 # ── Carter-Mix ──────────────────────────────────────────────────────────────────
 
-def encode_carter_mix(message: str, master_key: bytes,
+def encode_carter_mix(message: str, ck: bytes, gk: bytes,
                        ref256: Dict,
                        ref360: Optional[Dict] = None,
                        _nonce: bytes = None, _y: int = None,
-                       _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
+                       _leftover: List[int] = None, _noise_seed: bytes = None,
+                       _nu: bytes = None) -> List[List[int]]:
     """
-    Encode un message dans une grille Carter mixte 180×180 (format v3).
-    Ref256 et Ref360 coexistent — la clé détermine quel référent chaque
-    méta-bloc utilise.
+    Encode un message dans une grille Carter mixte 180×180 (format v4 :
+    deux clés indépendantes, keys.py -- voir encode_carter()). Ref256 et
+    Ref360 coexistent — la clé détermine quel référent chaque méta-bloc
+    utilise.
 
     Méta-blocs Ref256 message : jusqu'à 4×12=48 positions (même form_id,
     répliqué sur les 4 sous-blocs 6×6, rouge+bleu ensemble par sous-bloc).
@@ -374,13 +376,13 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     La capacité totale est elle-même dérivée de la clé (obscurcissement).
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
+    _nonce/_y/_leftover/_noise_seed/_nu (tâche 7 puis format v4) : voir
+    encode_carter().
     """
     from crypto_core import C_PUB
     if ref360 is None:
         ref360 = load_referent_360_v3()
 
-    xchacha_key, grammar_key = _carter_mix_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
     # encode_carter() pour la justification complète. En OCTETS UTF-8.
     if len(message.encode('utf-8')) > C_PUB['cartermix']:
@@ -388,15 +390,17 @@ def encode_carter_mix(message: str, master_key: bytes,
             f"Message trop long : {len(message.encode('utf-8'))} > "
             f"C_PUB={C_PUB['cartermix']} octets (capacité publique "
             f"garantie, indépendante de la clé).")
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'cartermix')
     # Charge utile à longueur fixe (format v3, tâche 2) : n_pos doit être
     # connu AVANT l'appel à _encrypt(). Recherche C_PUB (tâche 4) : redraw
     # déterministe jusqu'à satisfaction, voir _find_grammar_with_c_pub().
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
-        grammar_key, 'cartermix',
-        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        gk_nu, 'cartermix',
+        lambda k: _carter_mix_grammar(k, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
 
-    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
+    payload = _encrypt(message, ck, n_pos, _nonce=_nonce)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
@@ -414,18 +418,23 @@ def encode_carter_mix(message: str, master_key: bytes,
         for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
+    # Nonce de disposition, écrit en dernier — voir encode_carter().
+    for c, sym in enumerate(nu_to_symbols(nu)):
+        grid[0][c] = sym
     return grid
 
-def decode_carter_mix(grid: List[List[int]], master_key: bytes,
+def decode_carter_mix(grid: List[List[int]], ck: bytes, gk: bytes,
                        ref256: Dict,
                        ref360: Optional[Dict] = None) -> str:
-    """Décode une grille Carter mixte 180×180."""
+    """Décode une grille Carter mixte 180×180 (format v4). Lit nu depuis
+    les 36 premières cases de la ligne 0."""
     if ref360 is None:
         ref360 = load_referent_360_v3()
-    xchacha_key, grammar_key = _carter_mix_split(master_key)
+    nu = symbols_to_nu(grid[0][:NU_SYMBOLS])
+    gk_nu = derive_gk_nu(gk, nu, 'cartermix')
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
-        grammar_key, 'cartermix',
-        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        gk_nu, 'cartermix',
+        lambda k: _carter_mix_grammar(k, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
     masks = derive_masks(gk_ctr, n_pos, 'cartermix')
     by_niveau = grammar['by_niveau']
@@ -436,19 +445,22 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
         for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
-def carter_mix_capacity(master_key: bytes,
+def carter_mix_capacity(gk: bytes,
                          ref256: Dict,
-                         ref360: Optional[Dict] = None) -> Dict:
+                         ref360: Optional[Dict] = None,
+                         _nu: bytes = None) -> Dict:
     """Statistiques de capacité de la grammaire Carter mixte (après redraw
-    C_PUB, tâche 4 — reflète ce qu'encode_carter_mix() utilise réellement)."""
+    C_PUB, tâche 4 — reflète ce qu'encode_carter_mix() utilise réellement).
+    Format v4 : la capacité dépend de gk ET de nu -- voir carter_capacity()."""
     if ref360 is None:
         ref360 = load_referent_360_v3()
-    _, grammar_key = _carter_mix_split(master_key)
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'cartermix')
     _, grammar, nibs = _find_grammar_with_c_pub(
-        grammar_key, 'cartermix',
-        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        gk_nu, 'cartermix',
+        lambda k: _carter_mix_grammar(k, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
     blocks = grammar['blocks']
     n256m = sum(1 for g in blocks if g['role']==_MESSAGE and g['ref']==_REF256)

@@ -66,8 +66,8 @@ KEY_ONE    = bytes([0xFF] * 32)                  # FF...FF
 KEY_KNOWN  = bytes(range(32))                    # 00 01 02 ... 1F
 KEY_KNOWN2 = bytes(range(32, 64))                # 20 21 22 ... 3F
 
-# Format v4 (deux clés, keys.py) : Carter-256 et Carter-360 sont migrés
-# (cartermix reste sur KEY_KNOWN, une seule clé, inchangé).
+# Format v4 (deux clés, keys.py) : Carter-256, Carter-360 et Carter-Mix
+# sont migrés.
 # keys_from_master() est le mode LEGACY -- utilisé ici uniquement pour
 # garder des clés de test fixes/reproductibles, pas une dérivation de
 # production (l'appli tire ck/gk indépendamment, voir keys.generate_keys()).
@@ -80,6 +80,10 @@ _K360  = _keys_from_master(KEY_KNOWN,  'carter360')
 _K3602 = _keys_from_master(KEY_KNOWN2, 'carter360')
 CK360_KNOWN,  GK360_KNOWN  = _K360['ck'],  _K360['gk']
 CK360_KNOWN2, GK360_KNOWN2 = _K3602['ck'], _K3602['gk']
+_KMIX  = _keys_from_master(KEY_KNOWN,  'cartermix')
+_KMIX2 = _keys_from_master(KEY_KNOWN2, 'cartermix')
+CKMIX_KNOWN,  GKMIX_KNOWN  = _KMIX['ck'],  _KMIX['gk']
+CKMIX_KNOWN2, GKMIX_KNOWN2 = _KMIX2['ck'], _KMIX2['gk']
 
 MSG_SHORT  = "ANIBALAMIOTX"
 MSG_LONG   = "LACROIXANSEEESTLAMETHODECREATIVEDELALIVREEDHERMES"
@@ -606,10 +610,11 @@ class TestFixtures(unittest.TestCase):
             'grid': grid_to_csv(grid3), 'ck': CK360_KNOWN.hex(), 'gk': GK360_KNOWN.hex(),
             'message': MSG_SHORT}
 
-        grid4 = make_fixture(encode_carter_mix, MSG_SHORT, KEY_KNOWN,
+        grid4 = make_fixture(encode_carter_mix, MSG_SHORT, CKMIX_KNOWN, GKMIX_KNOWN,
                               ref256_v3, ref360_v3, seed=b'cartermix-2026')
         cls.FIXTURES['carter_mix'] = {
-            'grid': grid_to_csv(grid4), 'key': KEY_KNOWN.hex(), 'message': MSG_SHORT}
+            'grid': grid_to_csv(grid4), 'ck': CKMIX_KNOWN.hex(), 'gk': GKMIX_KNOWN.hex(),
+            'message': MSG_SHORT}
 
     def test_classic_decode_stable(self):
         ref256_v3 = get_ref256_v3()
@@ -641,16 +646,16 @@ class TestFixtures(unittest.TestCase):
     def test_carter_mix_decode_stable(self):
         ref256_v3 = get_ref256_v3()
         ref360_v3 = get_ref360_v3()
-        f   = self.FIXTURES['carter_mix']
-        key = bytes.fromhex(f['key'])
+        f  = self.FIXTURES['carter_mix']
+        ck = bytes.fromhex(f['ck'])
+        gk = bytes.fromhex(f['gk'])
         self.assertEqual(
-            decode_carter_mix(csv_to_grid(f['grid']), key, ref256_v3, ref360_v3),
+            decode_carter_mix(csv_to_grid(f['grid']), ck, gk, ref256_v3, ref360_v3),
             f['message'], "Rupture Carter Mix !")
 
     def test_wrong_key_rejected_all_modes(self):
         ref256_v3 = get_ref256_v3()
         ref360_v3 = get_ref360_v3()
-        wrong = KEY_KNOWN2
 
         for name, fn, args in [
             ('carter_256', decode_carter,
@@ -658,7 +663,7 @@ class TestFixtures(unittest.TestCase):
             ('carter_360', decode_carter_360,
              (csv_to_grid(self.FIXTURES['carter_360']['grid']), CK360_KNOWN2, GK360_KNOWN2, ref360_v3)),
             ('carter_mix', decode_carter_mix,
-             (csv_to_grid(self.FIXTURES['carter_mix']['grid']), wrong, ref256_v3, ref360_v3)),
+             (csv_to_grid(self.FIXTURES['carter_mix']['grid']), CKMIX_KNOWN2, GKMIX_KNOWN2, ref256_v3, ref360_v3)),
         ]:
             with self.subTest(mode=name):
                 with self.assertRaises(ValueError, msg=f"Mauvaise clé acceptée en mode {name}"):
@@ -698,9 +703,11 @@ class TestEndToEnd(unittest.TestCase):
         self.assertEqual(decode_carter_360(grid, CK360_KNOWN, GK360_KNOWN, self.ref360_v3), MSG_LONG)
 
     def test_carter_mix_roundtrip(self):
+        # Carter-Mix (format v4, deux clés) ne passe plus par _roundtrip
+        # (générique à clé unique) -- voir test_carter_256_roundtrip.
+        grid = encode_carter_mix(MSG_LONG, CKMIX_KNOWN, GKMIX_KNOWN, self.ref256_v3, self.ref360_v3)
         self.assertEqual(
-            self._roundtrip(encode_carter_mix, decode_carter_mix,
-                            MSG_LONG, KEY_KNOWN, self.ref256_v3, self.ref360_v3),
+            decode_carter_mix(grid, CKMIX_KNOWN, GKMIX_KNOWN, self.ref256_v3, self.ref360_v3),
             MSG_LONG)
 
     def test_key_isolation(self):
@@ -802,7 +809,7 @@ class TestCPub(unittest.TestCase):
         cases = [
             ('carter256', lambda msg: encode_carter(msg, CK_KNOWN, GK_KNOWN, self.ref256_v3)),
             ('carter360', lambda msg: encode_carter_360(msg, CK360_KNOWN, GK360_KNOWN, self.ref360_v3)),
-            ('cartermix', lambda msg: encode_carter_mix(msg, KEY_KNOWN, self.ref256_v3, self.ref360_v3)),
+            ('cartermix', lambda msg: encode_carter_mix(msg, CKMIX_KNOWN, GKMIX_KNOWN, self.ref256_v3, self.ref360_v3)),
         ]
         for variant, enc_fn in cases:
             with self.subTest(variant=variant):

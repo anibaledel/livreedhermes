@@ -214,16 +214,22 @@ class TestSingleRef360Loader(unittest.TestCase):
         # reste un parametre requis, meme convention qu'encode_carter()).
         ref256_v3 = VI.load_referent_256_v3()
         ref360_v3 = VI.load_referent_360_v3()
-        key = os.urandom(32)
+        ck, gk = os.urandom(32), os.urandom(32)
         nonce = os.urandom(24)
         noise_seed = os.urandom(32)
+        nu = os.urandom(24)
         g_explicit = encode_carter_mix(
-            "HELLO", key, ref256_v3, ref360_v3,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            "HELLO", ck, gk, ref256_v3, ref360_v3,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed, _nu=nu)
         g_default = encode_carter_mix(
-            "HELLO", key, ref256_v3,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
-        self.assertEqual(g_explicit, g_default,
+            "HELLO", ck, gk, ref256_v3,
+            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed, _nu=nu)
+        # Format v4 : les 36 cases de nu different legitimement d'un appel
+        # a l'autre (nu_to_symbols tire sa propre fraicheur interne) --
+        # voir test_carter360_default_matches_vectors_referent.
+        def _without_nu_cells(grid):
+            return [row[36:] if r == 0 else row for r, row in enumerate(grid)]
+        self.assertEqual(_without_nu_cells(g_explicit), _without_nu_cells(g_default),
             "load_referent_360_v3() et le chargement par défaut "
             "d'encode_carter_mix() ne chargent pas le même référent 360.")
 

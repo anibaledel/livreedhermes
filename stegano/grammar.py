@@ -331,7 +331,7 @@ def _mix_positions(mbr: int, mbc: int, g: Dict, ref256: Dict, ref360: Dict,
                 c0 = mbc * CARTER_MIX_META + dc * CARTER_BLOCK
                 for r, c in local_order:
                     gr, gc = r0+r, c0+c
-                    if 0 <= gr < N and 0 <= gc < N:
+                    if 0 <= gr < N and 0 <= gc < N and not _is_nu_cell(gr, gc):
                         pos.append((gr, gc))
         return pos   # jusqu'à 48 (4×12)
     else:
@@ -347,7 +347,8 @@ def _mix_positions(mbr: int, mbc: int, g: Dict, ref256: Dict, ref360: Dict,
                                             ref360['grid_size'], sweep_360)
         r0, c0 = mbr * CARTER_MIX_META, mbc * CARTER_MIX_META
         return [(r0+r, c0+c) for r, c in local_order
-                if 0 <= r0+r < N and 0 <= c0+c < N]
+                if 0 <= r0+r < N and 0 <= c0+c < N
+                and not _is_nu_cell(r0+r, c0+c)]
 
 def _mix_message_positions(grammar: Dict, ref256: Dict, ref360: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""

@@ -33,11 +33,10 @@ import stegano_classic as SC
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
 _DECODE_FN = {
-    # carter256/carter360 (format v4, deux cles) : geres a part dans les
-    # appelants ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas sv['inputs']
-    # ['master_key_hex']) -- absents de cette table generique a cle unique.
-    'cartermix':    lambda g, key: CT.decode_carter_mix(
-                        g, key, VI.load_referent_256_v3(), VI.load_referent_360_v3()),
+    # carter256/carter360/cartermix (format v4, deux cles) : geres a part
+    # dans les appelants ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas
+    # sv['inputs']['master_key_hex']) -- absents de cette table generique
+    # a cle unique.
     'carterrandom': lambda g, key: CR.decode_carter_random(g, key, 90),
     'carter18':     lambda g, key: CR.decode_carter_18(g, key, 90),
     'carterhybrid': lambda g, key: CR.decode_carter_hybrid(g, key, 90),
@@ -98,6 +97,15 @@ class TestVectorsRegeneration(unittest.TestCase):
                     gk = bytes.fromhex(sv['keys']['gk_hex'])
                     grid = self.fresh_grids[sv['id']]
                     decoded = CT.decode_carter_360(grid, ck, gk, VI.load_referent_360_v3())
+                    self.assertEqual(decoded, sv['expected_decode'])
+                continue
+            if inst == 'cartermix':
+                with self.subTest(id=sv['id']):
+                    ck = bytes.fromhex(sv['keys']['ck_hex'])
+                    gk = bytes.fromhex(sv['keys']['gk_hex'])
+                    grid = self.fresh_grids[sv['id']]
+                    decoded = CT.decode_carter_mix(
+                        grid, ck, gk, VI.load_referent_256_v3(), VI.load_referent_360_v3())
                     self.assertEqual(decoded, sv['expected_decode'])
                 continue
             if inst not in _DECODE_FN:

@@ -210,20 +210,31 @@ def _carter360_message_positions_v4(key: bytes, ref360) -> List[Tuple[int, int]]
     _, gk, nu = _v4_split(key)
     return _carter360_message_positions(gk, nu, ref360)
 
-def _carter_mix_message_positions_list(key: bytes, ref256, ref360) -> List[Tuple[int, int]]:
+def _carter_mix_message_positions(gk: bytes, nu: bytes, ref256, ref360) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu (pas une master_key unique) -- voir
+    _carter256_message_positions."""
     from carter import _find_grammar_with_c_pub
-    from stegano_lib import (_carter_mix_split, _carter_mix_grammar, _mix_positions,
+    from stegano_lib import (_carter_mix_grammar, _mix_positions,
                               _mix_message_positions, _MESSAGE, CARTER_MIX_SIDE)
-    _, grammar_key = _carter_mix_split(key)
+    from keys import derive_gk_nu
+    gk_nu = derive_gk_nu(gk, nu, 'cartermix')
     _, grammar, _ = _find_grammar_with_c_pub(
-        grammar_key, 'cartermix',
-        lambda gk: _carter_mix_grammar(gk, ref256, ref360),
+        gk_nu, 'cartermix',
+        lambda k: _carter_mix_grammar(k, ref256, ref360),
         lambda g: _mix_message_positions(g, ref256, ref360))
     by_niveau = grammar['by_niveau']
     sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
     return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
             for pos in _mix_positions(i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE,
                                        g, ref256, ref360, by_niveau, sweep_256, sweep_360)]
+
+def _encode_cartermix_v4(msg: str, key: bytes, ref256, ref360) -> List[List[int]]:
+    ck, gk, nu = _v4_split(key)
+    return encode_carter_mix(msg, ck, gk, ref256, ref360, _nu=nu)
+
+def _carter_mix_message_positions_v4(key: bytes, ref256, ref360) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter_mix_message_positions(gk, nu, ref256, ref360)
 
 def _carter_random_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
     from carter_random import (
@@ -546,7 +557,7 @@ class TestEntropy(unittest.TestCase):
 
     def test_entropy_carter_mix(self):
         """Entropie Shannon des cellules message Carter Mix."""
-        h, n = self._test_mode(encode_carter_mix, _carter_mix_message_positions_list,
+        h, n = self._test_mode(_encode_cartermix_v4, _carter_mix_message_positions_v4,
                                 self.ref256_v3, self.ref360_v3)
         print(f"  Entropie Carter Mix (cellules message) : {h:.4f} bits  n≈{n:.0f}")
 
@@ -631,7 +642,7 @@ class TestChiSquare(unittest.TestCase):
     def test_chisq_carter_mix(self):
         """Chi2 sur les cellules message Carter Mix.
         Ajoute 2026-09-12 -- voir test_chisq_carter_360."""
-        self._run("Carter Mix", encode_carter_mix, _carter_mix_message_positions_list,
+        self._run("Carter Mix", _encode_cartermix_v4, _carter_mix_message_positions_v4,
                    self.ref256, self.ref360)
 
 
@@ -868,7 +879,7 @@ class TestSummary(unittest.TestCase):
         grids = {
             'Carter 256': _encode_carter256_v4(msg, key, ref256_v3),
             'Carter 360': _encode_carter360_v4(msg, key, ref360_v3),
-            'Carter Mix': encode_carter_mix(msg, key, ref256_v3, ref360_v3),
+            'Carter Mix': _encode_cartermix_v4(msg, key, ref256_v3, ref360_v3),
         }
 
         print(f"\n{'='*56}")
