@@ -39,6 +39,7 @@ sys.path.insert(0, os.path.join(REPO_ROOT, 'stegano'))
 import crypto_core as CC
 import carter as CT
 import carter_random as CR
+import grammar as GR
 import stegano_classic as SC
 from vectors_internal import _count_redraw_attempts
 
@@ -134,12 +135,18 @@ def _sf_carterhybrid(master_key):
 
 
 VARIANTS = [
-    ('carter256',       CT, _sf_carter256),
-    ('carter360',       CT, _sf_carter360),
-    ('cartermix',       CT, _sf_cartermix),
-    ('carterrandom90',  CR, _sf_carterrandom90),
-    ('carterrandom360', CR, _sf_carterrandom360),
-    ('carterhybrid',    CR, _sf_carterhybrid),
+    # Module passe ici uniquement pour le monkey-patch de
+    # _redraw_grammar_key (voir _count_redraw_attempts) : cette fonction
+    # est appelee par les recherches de grammaire qui vivent desormais
+    # dans grammar.py (reorganisation stegano/, branche deux-cles), pas
+    # dans carter.py/carter_random.py -- patcher CT/CR n'aurait plus
+    # aucun effet (namespaces distincts).
+    ('carter256',       GR, _sf_carter256),
+    ('carter360',       GR, _sf_carter360),
+    ('cartermix',       GR, _sf_cartermix),
+    ('carterrandom90',  GR, _sf_carterrandom90),
+    ('carterrandom360', GR, _sf_carterrandom360),
+    ('carterhybrid',    GR, _sf_carterhybrid),
 ]
 
 

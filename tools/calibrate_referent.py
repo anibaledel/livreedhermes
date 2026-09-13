@@ -60,6 +60,7 @@ sys.path.insert(0, os.path.join(REPO_ROOT, 'stegano'))
 
 import crypto_core as CC
 import carter as CT
+import grammar as GR
 from vectors_internal import _count_redraw_attempts
 
 DEFAULT_REF256_PATH = os.path.join(REPO_ROOT, 'data', 'referent_256_v3.json')
@@ -154,12 +155,15 @@ VARIANTS_NEEDING = {
 
 
 def _build_search_fn(variant_key, ref256, ref360):
+    # GR (grammar.py), pas CT : c'est la ou vit desormais _redraw_grammar_key
+    # que _count_redraw_attempts monkey-patche (reorganisation stegano/,
+    # branche deux-cles) -- patcher CT n'aurait plus aucun effet.
     if variant_key == 'carter256':
-        return CT, _sf_carter256(ref256)
+        return GR, _sf_carter256(ref256)
     if variant_key == 'carter360':
-        return CT, _sf_carter360(ref360)
+        return GR, _sf_carter360(ref360)
     if variant_key == 'cartermix':
-        return CT, _sf_cartermix(ref256, ref360)
+        return GR, _sf_cartermix(ref256, ref360)
     raise ValueError(f"variante inconnue ou hors périmètre de ce script : {variant_key!r} "
                       f"(carterrandom90/360, carterhybrid, carter18 : voir "
                       f"tools/recalibrate_carter_v3.py, calibration en pool)")

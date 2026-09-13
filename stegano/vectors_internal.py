@@ -33,6 +33,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import crypto_core as CC
 import carter as CT
 import carter_random as CR
+import grammar as GR
 import stegano_classic as SC
 import referent6x6_gen as R6
 from stegano_lib import load_referent_256_v3, load_referent_360_v3, _carter_split
@@ -140,7 +141,7 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
     ck = CC._commit_key(xchacha_key)
 
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
-        CT, lambda: CT._find_grammar_with_c_pub(
+        GR, lambda: CT._find_grammar_with_c_pub(
             grammar_key, 'carter256',
             lambda gk: CT._carter_grammar(gk, ref256),
             lambda g: CT._carter_message_positions(g, ref256)))
@@ -366,7 +367,7 @@ def gen_carter360_vector(vec_id, description, master_key, message, ref360,
     xchacha_key, grammar_key = CT._carter360_split(master_key)
     ck = CC._commit_key(xchacha_key)
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
-        CT, lambda: CT._find_grammar_with_c_pub(
+        GR, lambda: CT._find_grammar_with_c_pub(
             grammar_key, 'carter360',
             lambda gk: CT._carter360_grammar(gk, ref360),
             lambda g: CT._carter360_message_positions(g, ref360)))
@@ -431,7 +432,7 @@ def gen_cartermix_vector(vec_id, description, master_key, message, ref256, ref36
     xchacha_key, grammar_key = CT._carter_mix_split(master_key)
     ck = CC._commit_key(xchacha_key)
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
-        CT, lambda: CT._find_grammar_with_c_pub(
+        GR, lambda: CT._find_grammar_with_c_pub(
             grammar_key, 'cartermix',
             lambda gk: CT._carter_mix_grammar(gk, ref256, ref360),
             lambda g: CT._mix_message_positions(g, ref256, ref360)))
@@ -498,7 +499,7 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
     ck = CC._commit_key(xchacha_key)
 
     (gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_random_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_random_grammar_with_c_pub(grammar_key, grid_size))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
     payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
@@ -584,7 +585,7 @@ def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
     ck = CC._commit_key(xchacha_key)
 
     (gk_ctr, seed, ref18, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_carter18_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_carter18_grammar_with_c_pub(grammar_key, grid_size))
 
     payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
     hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
@@ -648,7 +649,7 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
     ck = CC._commit_key(xchacha_key)
 
     (gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_hybrid_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_hybrid_grammar_with_c_pub(grammar_key, grid_size))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
     payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
