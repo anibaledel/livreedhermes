@@ -362,6 +362,28 @@ LABELS = {
         'salt': b'Carter-referent6x6-v3',
         'select_info': b'select',
     },
+    'keys_v4': {
+        # Format v4 (stegano/keys.py) : deux clés independantes ck/gk, plus
+        # aucune derivation de l'une vers l'autre (remplace KeySplit(mk)).
+        #   1. gk_from_designation(planche_id, date_iso) : cle de geometrie
+        #      DESIGNEE (faible entropie, parametre convenu -- pas un secret
+        #      fort ; la securite du contenu repose sur ck) :
+        #      gk = HKDF(SHA256(planche_id || date_iso), salt=designated_salt).
+        #   2. Nonce de disposition nu (24 octets CSPRNG par grille, tache 2) :
+        #      gk_nu = HKDF(gk, salt=nu, info=layout_info[variant]) remplace
+        #      gk dans TOUTES les derivations de geometrie/masques de cette
+        #      grille -- voir stegano/keys.py::derive_gk_nu.
+        'designated_salt': b'Carter-gk-designated-v4',
+        'layout_info': {
+            'carter256':     b'Carter-carter256-v4-layout',
+            'carter360':     b'Carter-carter360-v4-layout',
+            'cartermix':     b'Carter-cartermix-v4-layout',
+            'carterrandom':  b'Carter-carterrandom-v4-layout',
+            'carter18':      b'Carter-carter18-v4-layout',
+            'carterhybrid':  b'Carter-carterhybrid-v4-layout',
+            'deniable':      b'Carter-deniable-v4-layout',
+        },
+    },
     'deniable': {
         # Choix du form_id par bloc en mode crypto de secu_box.py (câblage
         # 2026-09-12, corrige une divergence entre le docstring d'encode_
