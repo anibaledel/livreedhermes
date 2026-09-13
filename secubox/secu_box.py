@@ -15,16 +15,23 @@ La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Zones déni plausible (grille 90×90 = 225 blocs 6×6) :
   Den.Encode/Encode0/Decode — Définition 1 révisée (bloc C, tâche 5,
-  format v3). Br/Bd viennent d'une permutation π de TOUS les blocs, tirée
-  une fois par secrets (Fisher-Yates), INDÉPENDAMMENT de rsk et dsk — ni
-  l'une ni l'autre clé ne permet de la recalculer. Partition FIXE
-  (Br=π[:B/2], Bd=π[B/2:]), stockée directement dans les clés retournées
-  (π n'est dérivable d'aucune clé, contrairement à LH-2 v3 qui ne stockait
-  qu'un compteur). Remplace ENTIÈREMENT _derive_block_sequence (LH-2 v3) —
-  voir le commentaire de section au-dessus d'encode_deniable() pour le
-  détail, notamment pourquoi Bd révélant Br structurellement n'est pas une
-  fuite (Encode0 est un mode normal, pas un mode de test).
+  format v4 : deux clés indépendantes (ck, gk) par côté + un nonce de
+  disposition nu COMMUN aux deux, voir keys.py). Br/Bd viennent d'une
+  permutation π de TOUS les blocs, tirée une fois par secrets
+  (Fisher-Yates), INDÉPENDAMMENT de toute clé — aucune clé ne permet de
+  la recalculer. Partition FIXE (Br=π[:B/2], Bd=π[B/2:]), stockée
+  directement dans les clés retournées (π n'est dérivable d'aucune clé,
+  contrairement à LH-2 v3 qui ne stockait qu'un compteur). Remplace
+  ENTIÈREMENT _derive_block_sequence (LH-2 v3) — voir le commentaire de
+  section au-dessus d'encode_deniable() pour le détail, notamment
+  pourquoi Bd révélant Br structurellement n'est pas une fuite (Encode0
+  est un mode normal, pas un mode de test).
   → aucune collision possible entre les deux messages (partition stricte)
+
+  The coercer holding dk_d learns B_d, hence B_r up to one block. What is
+  protected is the content of B_r, indistinguishable from uniform noise
+  (Definition 5 / Theorem 2 of the paper); the location of the blocks is
+  not a secret.
 """
 
 import os, secrets, struct, hashlib
@@ -308,11 +315,11 @@ def _km_to_keys(km: bytes, ref256: Dict, session_id: str,
             'key_2': key_2, 'session_id': session_id, 'grid_size': grid_size}
 
 
-# ── Déni plausible (bloc C, Définition 1 révisée — tâche 5, format v3) ────────
+# ── Déni plausible (bloc C, Définition 1 révisée — tâche 5, format v4) ────────
 # Remplace ENTIÈREMENT _derive_block_sequence (LH-2 v3) : plus de dérivation
 # de blocs depuis (steg_key, counter). Br et Bd viennent d'une permutation π
 # de TOUS les blocs de la grille, tirée UNE FOIS par secrets (Fisher-Yates),
-# INDÉPENDAMMENT de rsk et dsk — ni l'une ni l'autre clé ne permet de la
+# INDÉPENDAMMENT de toute clé — aucune clé ne permet de la
 # recalculer. Br et Bd ont TOUJOURS la même taille ⌊B/2⌋ (voir
 # _split_br_bd) : jamais proportionnelle à la longueur des messages —
 # contrairement à LH-2 v3, dont le tradeoff assumé (n_blocks_real ≈
@@ -398,44 +405,46 @@ def _derive_deniable_form_ids(gk_local: bytes, n_blocks: int) -> List[int]:
     return list(form_bytes)
 
 def _deniable_positions(N: int, B: int, block_indices: List[int],
-                         sk: bytes) -> List[Tuple[int, int]]:
+                         gk: bytes, nu: bytes) -> List[Tuple[int, int]]:
     """
     Positions de lecture/écriture (row, col), dans l'ordre, pour ces blocs
-    sous la clé `sk`. Marche géométrique UNIQUE partagée par
-    _place_deniable, _read_deniable et les tests (même motivation que
-    grid_90._stream_positions : la vérité de ce qui est écrit ne doit
-    exister qu'à un seul endroit).
+    sous la clé de géométrie `gk` et le nonce de disposition `nu` (format
+    v4, commun aux côtés réel et leurre -- voir encode_deniable). Marche
+    géométrique UNIQUE partagée par _place_deniable, _read_deniable et les
+    tests (même motivation que grid_90._stream_positions : la vérité de ce
+    qui est écrit ne doit exister qu'à un seul endroit).
 
     RÈGLE DE LECTURE v3, mode CRYPTO (câblage production, étape 5,
     2026-09-12) : contrairement aux positions stégano de Carter (12 sur
     36), ici TOUTES LES CASES d'un bloc portent de l'information -- 36 en
     6×6. Un seul tirage de forme par bloc (1 octet, _derive_deniable_
-    form_ids(gk_local), 0..255 -- câblage 2026-09-12, ne dépend QUE de
-    `sk`) dans le référent choisi pour ce message par
-    select_referent_index(gk_local) (referent6x6_gen.py, 256 référents
-    ChaCha20) -- PLUS de "direction" (l'ancien référent bariolé à 4
-    directions n'a pas de notion de couleur ; le référent v3 encode déjà
-    des positions absolues par couleur). Lues dans l'ordre crypto :
-    couleurs dans l'ordre déclaré par le référent
-    (referent6x6_gen.CRYPTO_COLOR_ORDER, câblage 2026-09-12 -- plus de
-    reconstruction en dur par SMALL_COLORS+LARGE_COLORS, pour qu'un
-    référent personnalisé à jeu de couleurs différent soit réellement pris
-    en compte), chacune triée par son propre balayage (stegano/sweep.py).
+    form_ids(gk_nu), 0..255 -- câblage 2026-09-12, ne dépend QUE de gk_nu)
+    dans le référent choisi pour ce message par select_referent_index(gk_nu)
+    (referent6x6_gen.py, 256 référents ChaCha20) -- PLUS de "direction"
+    (l'ancien référent bariolé à 4 directions n'a pas de notion de
+    couleur ; le référent v3 encode déjà des positions absolues par
+    couleur). Lues dans l'ordre crypto : couleurs dans l'ordre déclaré par
+    le référent (referent6x6_gen.CRYPTO_COLOR_ORDER, câblage 2026-09-12 --
+    plus de reconstruction en dur par SMALL_COLORS+LARGE_COLORS, pour
+    qu'un référent personnalisé à jeu de couleurs différent soit
+    réellement pris en compte), chacune triée par son propre balayage
+    (stegano/sweep.py).
 
-    Référent choisi UNE FOIS pour tout `sk` (gk_local dérivé de sk) : voir
-    l'invariant documenté dans encode_deniable — les POSITIONS intra-bloc
-    dépendent de la clé du message concerné (voulu), les ENSEMBLES de
-    blocs n'en dépendent jamais (_fisher_yates/_split_br_bd).
+    Référent choisi UNE FOIS pour tout (gk, nu) de ce côté (format v4 :
+    gk_nu = derive_gk_nu(gk, nu, 'deniable'), voir keys.py) : les
+    POSITIONS intra-bloc dépendent de la clé du message concerné (voulu),
+    les ENSEMBLES de blocs n'en dépendent jamais (_fisher_yates/
+    _split_br_bd).
     """
     import referent6x6_gen as R6
     from sweep import derive_sweep_index, crypto_reading_order
-    from stegano_lib import _carter_split
-    _, gk_local = _carter_split(sk)
-    ref_idx   = R6.select_referent_index(gk_local)
+    from keys import derive_gk_nu
+    gk_nu = derive_gk_nu(gk, nu, 'deniable')
+    ref_idx   = R6.select_referent_index(gk_nu)
     ref_local = R6.get_referent_cached(ref_idx)
     color_order = list(R6.CRYPTO_COLOR_ORDER)
-    sweep_of_color = {c: derive_sweep_index(gk_local, c) for c in color_order}
-    form_ids = _derive_deniable_form_ids(gk_local, len(block_indices))
+    sweep_of_color = {c: derive_sweep_index(gk_nu, c) for c in color_order}
+    form_ids = _derive_deniable_form_ids(gk_nu, len(block_indices))
     positions = []
     for blk, idx in enumerate(block_indices):
         br, bc = idx // B, idx % B
@@ -450,15 +459,18 @@ def _deniable_positions(N: int, B: int, block_indices: List[int],
     return positions
 
 def _place_deniable(grid: List[List[int]], N: int, B: int,
-                     block_indices: List[int], message: str, sk: bytes,
+                     block_indices: List[int], message: str,
+                     ck: bytes, gk: bytes, nu: bytes,
                      _nonce: bytes = None, _y: int = None,
                      _leftover: List[int] = None) -> None:
     """
     Écrit `message` (chiffré, charge utile à longueur fixe — format v3,
     tâche 2) dans les blocs `block_indices` (36 positions chacun, mode
-    crypto -- voir _deniable_positions). Rien à retourner : le form_id par
-    bloc est dérivé de `sk` (câblage 2026-09-12, voir
-    _derive_deniable_form_ids), plus un tirage à conserver séparément.
+    crypto -- voir _deniable_positions). Format v4 : ck (contenu) et gk
+    (géométrie) sont deux clés indépendantes -- voir encode_deniable. Le
+    form_id par bloc est dérivé de gk_nu = derive_gk_nu(gk, nu, 'deniable')
+    (câblage 2026-09-12, voir _derive_deniable_form_ids), plus un tirage à
+    conserver séparément.
 
     _nonce/_y/_leftover (préfixés `_`, tâche 7) : injection interne pour
     le mode vecteurs — None (défaut) préserve exactement le comportement
@@ -466,57 +478,68 @@ def _place_deniable(grid: List[List[int]], N: int, B: int,
     """
     import referent6x6_gen as R6
     from carter_random import _derive_masks
-    from stegano_lib import _carter_split
+    from keys import derive_gk_nu
     CELL_SIZE = R6.GRID_SIZE * R6.GRID_SIZE   # 36 : mode crypto, toutes les cases
     L = len(block_indices) * CELL_SIZE
-    payload = _encrypt(message, sk, L, _nonce=_nonce)
+    payload = _encrypt(message, ck, L, _nonce=_nonce)
     nibbles = payload_to_symbols(payload, L, _y=_y, _leftover=_leftover)
-    positions = _deniable_positions(N, B, block_indices, sk)
-    _, gk_local = _carter_split(sk)
-    # gk_local diffère déjà entre rsk et dsk (secrets.token_bytes distincts) :
-    # un seul domaine HKDF suffit à séparer les masques réel/contrainte, la
-    # clé elle-même fait le travail de séparation.
-    masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
+    positions = _deniable_positions(N, B, block_indices, gk, nu)
+    gk_nu = derive_gk_nu(gk, nu, 'deniable')
+    # gk_nu diffère déjà entre le côté réel et le côté leurre (gk_r/gk_d
+    # tirés indépendamment) : un seul domaine HKDF suffit à séparer les
+    # masques réel/contrainte, la clé elle-même fait le travail de séparation.
+    masks = _derive_masks(gk_nu, L, LABELS['mask_seed']['info_deniable'])
     for ni, (gr, gc) in enumerate(positions):
         if ni >= len(nibbles): break
         grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
 
 def _read_deniable(grid: List[List[int]], N: int, B: int,
-                    block_indices: List[int], sk: bytes) -> str:
-    """Inverse de _place_deniable — mêmes blocs, même clé."""
+                    block_indices: List[int], ck: bytes, gk: bytes, nu: bytes) -> str:
+    """Inverse de _place_deniable — mêmes blocs, mêmes clés (format v4 :
+    ck, gk, nu)."""
     import referent6x6_gen as R6
     from carter_random import _derive_masks
-    from stegano_lib import _carter_split
-    _, gk_local = _carter_split(sk)
+    from keys import derive_gk_nu
+    gk_nu = derive_gk_nu(gk, nu, 'deniable')
     CELL_SIZE = R6.GRID_SIZE * R6.GRID_SIZE
     L = len(block_indices) * CELL_SIZE
-    masks = _derive_masks(gk_local, L, LABELS['mask_seed']['info_deniable'])
-    positions = _deniable_positions(N, B, block_indices, sk)
+    masks = _derive_masks(gk_nu, L, LABELS['mask_seed']['info_deniable'])
+    positions = _deniable_positions(N, B, block_indices, gk, nu)
     vals = [(grid[gr][gc] - masks[ni]) % ALPHA_LEN
             for ni, (gr, gc) in enumerate(positions)]
-    return _decrypt(vals, sk, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
 def encode_deniable(real_message: str, duress_message: str,
                      grid_size: int = 90,
-                     _rsk: Optional[bytes] = None,
-                     _dsk: Optional[bytes] = None,
+                     _ck_r: Optional[bytes] = None,
+                     _gk_r: Optional[bytes] = None,
+                     _ck_d: Optional[bytes] = None,
+                     _gk_d: Optional[bytes] = None,
+                     _nu: Optional[bytes] = None,
                      _pi: Optional[List[int]] = None,
                      _noise_seed: Optional[bytes] = None,
                      _real_inject: Optional[Dict] = None,
                      _duress_inject: Optional[Dict] = None) -> Tuple[List[List[int]], Dict, Dict]:
     """
-    Den.Encode(m_r, m_d) — Définition 1 révisée (bloc C, tâche 5, format v3).
+    Den.Encode(m_r, m_d) — Définition 1 révisée (bloc C, tâche 5), format
+    v4 (deux clés indépendantes par côté + nonce de disposition commun,
+    voir keys.py).
 
-    rsk et dsk sont neufs à chaque appel (secrets.token_bytes) — aucune API
-    PUBLIQUE ne permet d'en fournir un existant. _rsk/_dsk/_pi/_noise_seed/
-    _real_inject/_duress_inject (préfixés `_`) sont le mode vecteurs interne
-    de la tâche 7 — jamais exposés par demo() ni la CLI. _real_inject et
-    _duress_inject sont des dicts optionnels {'_nonce':.., '_y':.., '_leftover':..}
-    (mêmes clés que les paramètres de _place_deniable, dépaquetés
-    directement en **kwargs) transmis pour le côté concerné.
+    (ck_r, gk_r) et (ck_d, gk_d) sont tirées indépendamment (keys.
+    generate_keys(), CSPRNG) à chaque appel — aucune API PUBLIQUE ne
+    permet d'en fournir une existante. nu (nonce de disposition, 24
+    octets CSPRNG) est COMMUN aux deux côtés : chaque côté calcule son
+    propre gk_nu = derive_gk_nu(gk, nu, 'deniable') à partir de son propre
+    gk et de ce nu partagé -- jamais dérivé de ck_r/gk_r/ck_d/gk_d.
+    _ck_r/_gk_r/_ck_d/_gk_d/_nu/_pi/_noise_seed/_real_inject/_duress_inject
+    (préfixés `_`) sont le mode vecteurs interne de la tâche 7 — jamais
+    exposés par demo() ni la CLI. _real_inject et _duress_inject sont des
+    dicts optionnels {'_nonce':.., '_y':.., '_leftover':..} (mêmes clés
+    que les paramètres de _place_deniable, dépaquetés directement en
+    **kwargs) transmis pour le côté concerné.
 
     π (permutation de TOUS les blocs) est tirée une fois par secrets,
-    indépendamment de rsk et dsk — sauf si _pi est fourni (mode vecteurs),
+    indépendamment de toute clé — sauf si _pi est fourni (mode vecteurs),
     auquel cas cette permutation exacte est utilisée telle quelle (validée
     comme permutation de range(n_blocks)). Br et Bd (même taille ⌊B/2⌋
     chacun, voir _split_br_bd) sont stockés directement dans les clés
@@ -526,29 +549,29 @@ def encode_deniable(real_message: str, duress_message: str,
     Invariant (à reprendre tel quel par LH-5) : les ENSEMBLES de blocs
     (Br, Bd, et le bloc orphelin si B est impair) sont indépendants des
     clés — aucune fonction qui les calcule (_fisher_yates, _split_br_bd)
-    n'est appelée avec rsk, dsk ni aucune valeur qui en dérive. Les
+    n'est appelée avec une clé ni aucune valeur qui en dérive. Les
     POSITIONS À L'INTÉRIEUR d'un bloc (référent, formes, form_id) sont en
-    revanche dérivées de la clé du message CONCERNÉ par ce bloc (rsk pour
-    Br, dsk pour Bd) — c'est voulu, pas une fuite : voir _place_deniable/
-    _derive_deniable_form_ids (câblage 2026-09-12 : form_id est désormais
-    RÉELLEMENT dérivé de cette clé, comme cette phrase l'affirmait déjà
-    avant que ce ne soit vrai — l'implémentation tirait jusque-là form_id
-    par secrets.randbelow() et le stockait séparément dans key_2).
+    revanche dérivées de la clé de géométrie du côté CONCERNÉ par ce bloc
+    (gk_r pour Br, gk_d pour Bd, chacune combinée à nu) — c'est voulu, pas
+    une fuite : voir _place_deniable/_derive_deniable_form_ids.
 
-    dk_r/dk_d ne portent donc plus que {steg_key, blocks} — 32 octets +
-    la liste des indices de blocs (elle, non dérivable, voir ci-dessus),
-    contre 32+112 octets avant ce câblage (key_2 stocké séparément, un
-    octet de form_id par bloc de Br/Bd).
+    dk_r/dk_d portent {ck, gk, layout_nonce, blocks} — layout_nonce est le
+    MÊME nu dans les deux (voir ci-dessus) ; blocks n'est pas dérivable
+    d'une clé (voir l'invariant).
 
     Retourne (grid, dk_r, dk_d), syntaxiquement identiques.
     """
+    from keys import new_layout_nonce
     N = grid_size; B = N // 6
     n_blocks = B * B
 
     grid = random_grid(N, N, _noise_seed=_noise_seed)
 
-    rsk = _rsk if _rsk is not None else secrets.token_bytes(32)
-    dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
+    ck_r = _ck_r if _ck_r is not None else secrets.token_bytes(32)
+    gk_r = _gk_r if _gk_r is not None else secrets.token_bytes(32)
+    ck_d = _ck_d if _ck_d is not None else secrets.token_bytes(32)
+    gk_d = _gk_d if _gk_d is not None else secrets.token_bytes(32)
+    nu   = _nu if _nu is not None else new_layout_nonce()
 
     if _pi is not None:
         if sorted(_pi) != list(range(n_blocks)):
@@ -560,20 +583,23 @@ def encode_deniable(real_message: str, duress_message: str,
 
     real_inject   = _real_inject or {}
     duress_inject = _duress_inject or {}
-    _place_deniable(grid, N, B, Br, real_message,   rsk, **real_inject)
-    _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
+    _place_deniable(grid, N, B, Br, real_message,   ck_r, gk_r, nu, **real_inject)
+    _place_deniable(grid, N, B, Bd, duress_message, ck_d, gk_d, nu, **duress_inject)
 
-    dk_r = {'steg_key': rsk, 'blocks': Br}
-    dk_d = {'steg_key': dsk, 'blocks': Bd}
+    dk_r = {'ck': ck_r, 'gk': gk_r, 'layout_nonce': nu, 'blocks': Br}
+    dk_d = {'ck': ck_d, 'gk': gk_d, 'layout_nonce': nu, 'blocks': Bd}
     return grid, dk_r, dk_d
 
 def encode_deniable0(duress_message: str, grid_size: int = 90,
-                      _dsk: Optional[bytes] = None,
+                      _ck_d: Optional[bytes] = None,
+                      _gk_d: Optional[bytes] = None,
+                      _nu: Optional[bytes] = None,
                       _pi: Optional[List[int]] = None,
                       _noise_seed: Optional[bytes] = None,
                       _duress_inject: Optional[Dict] = None) -> Tuple[List[List[int]], Dict]:
     """
-    Den.Encode0(m_d) — même procédure SANS message réel (bloc C, tâche 5).
+    Den.Encode0(m_d) — même procédure SANS message réel (bloc C, tâche 5),
+    format v4 (voir encode_deniable).
 
     Mode d'usage NORMAL de l'API publique, pas un mode de test : Br reste
     au bruit CSPRNG déjà posé par le remplissage initial de la grille —
@@ -583,17 +609,20 @@ def encode_deniable0(duress_message: str, grid_size: int = 90,
     encode_deniable() et une grille produite par encode_deniable0() sans
     connaître au moins une des deux clés.
 
-    _dsk/_pi/_noise_seed/_duress_inject (préfixés `_`) : mode vecteurs
-    interne (tâche 7), voir encode_deniable().
+    _ck_d/_gk_d/_nu/_pi/_noise_seed/_duress_inject (préfixés `_`) : mode
+    vecteurs interne (tâche 7), voir encode_deniable().
 
     Retourne (grid, dk_d) — pas de dk_r, il n'y a pas de message réel à décoder.
     """
+    from keys import new_layout_nonce
     N = grid_size; B = N // 6
     n_blocks = B * B
 
     grid = random_grid(N, N, _noise_seed=_noise_seed)
 
-    dsk = _dsk if _dsk is not None else secrets.token_bytes(32)
+    ck_d = _ck_d if _ck_d is not None else secrets.token_bytes(32)
+    gk_d = _gk_d if _gk_d is not None else secrets.token_bytes(32)
+    nu   = _nu if _nu is not None else new_layout_nonce()
 
     if _pi is not None:
         if sorted(_pi) != list(range(n_blocks)):
@@ -604,21 +633,23 @@ def encode_deniable0(duress_message: str, grid_size: int = 90,
     _, Bd = _split_br_bd(pi)   # Br (et le bloc restant si B impair) volontairement inutilisés
 
     duress_inject = _duress_inject or {}
-    _place_deniable(grid, N, B, Bd, duress_message, dsk, **duress_inject)
+    _place_deniable(grid, N, B, Bd, duress_message, ck_d, gk_d, nu, **duress_inject)
 
-    dk_d = {'steg_key': dsk, 'blocks': Bd}
+    dk_d = {'ck': ck_d, 'gk': gk_d, 'layout_nonce': nu, 'blocks': Bd}
     return grid, dk_d
 
 def decode_deniable(grid: List[List[int]], keys: Dict, grid_size: int = 90) -> str:
     """
     Den.Decode — décode un message depuis la grille. Fonctionne
-    identiquement pour dk_r et dk_d (mêmes clés syntaxiquement) : les blocs
-    sont stockés directement dans `keys['blocks']` (π est indépendante des
-    clés, non re-dérivable — voir encode_deniable). Lève ValueError si la
-    clé est incorrecte (commitment ou tag Poly1305 invalide).
+    identiquement pour dk_r et dk_d (mêmes clés syntaxiquement, format v4 :
+    ck/gk/layout_nonce/blocks) : les blocs sont stockés directement dans
+    `keys['blocks']` (π est indépendante des clés, non re-dérivable — voir
+    encode_deniable). Lève ValueError si la clé est incorrecte (commitment
+    ou tag Poly1305 invalide).
     """
     N = grid_size; B = N // 6
-    return _read_deniable(grid, N, B, keys['blocks'], keys['steg_key'])
+    return _read_deniable(grid, N, B, keys['blocks'],
+                           keys['ck'], keys['gk'], keys['layout_nonce'])
 
 
 # ── Démo ──────────────────────────────────────────────────────────────────────
@@ -685,7 +716,7 @@ def demo():
     duress_out = decode_deniable(grid_d, dk)
     print(f"   Clé réelle     → '{real_out}' ✓")
     print(f"   Clé contrainte → '{duress_out}' ✓")
-    print(f"   Br/Bd viennent d'une permutation π tirée par secrets, indépendante de rsk/dsk")
+    print(f"   Br/Bd viennent d'une permutation π tirée par secrets, indépendante de toute clé")
     print(f"   (remplace _derive_block_sequence — voir le commentaire de section, tâche 5)")
 
     print("\n6bis. DÉNI PLAUSIBLE — Encode0 (pas de message réel, mode normal)\n")

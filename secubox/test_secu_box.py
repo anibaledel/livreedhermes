@@ -6,7 +6,8 @@ Vecteurs de régression — secu_box.py (déni plausible)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Tests de bout en bout pour secu_box.encode_deniable / encode_deniable0 /
-decode_deniable (bloc C, Définition 1 révisée — tâche 5, format v3).
+decode_deniable (bloc C, Définition 1 révisée — tâche 5, format v4 : deux
+clés indépendantes (ck, gk) par côté + nonce de disposition nu commun).
 
 Absent de la suite avant ce fichier : encode_deniable/decode_deniable
 n'étaient exercés que par demo() (lancement manuel). La rupture introduite
@@ -134,14 +135,18 @@ class TestDeniableRoundtrip(unittest.TestCase):
 
 
 class TestDeniableKeyProperties(unittest.TestCase):
-    """rsk/dsk neufs, π indépendante des clés, partition stricte de tous les blocs."""
+    """(ck, gk) neufs et indépendants par côté, π indépendante des clés,
+    partition stricte de tous les blocs (format v4)."""
 
     def test_fresh_keys_each_call(self):
         _, rk1, dk1 = encode_deniable(MSG_REAL, MSG_DURESS)
         _, rk2, dk2 = encode_deniable(MSG_REAL, MSG_DURESS)
-        self.assertNotEqual(rk1['steg_key'], rk2['steg_key'])
-        self.assertNotEqual(dk1['steg_key'], dk2['steg_key'])
-        self.assertNotEqual(rk1['steg_key'], dk1['steg_key'])
+        self.assertNotEqual(rk1['ck'], rk2['ck'])
+        self.assertNotEqual(rk1['gk'], rk2['gk'])
+        self.assertNotEqual(dk1['ck'], dk2['ck'])
+        self.assertNotEqual(dk1['gk'], dk2['gk'])
+        self.assertNotEqual(rk1['ck'], dk1['ck'])
+        self.assertNotEqual(rk1['gk'], dk1['gk'])
 
     def test_br_bd_disjoint_equal_size_one_leftover(self):
         """
@@ -169,9 +174,9 @@ class TestDeniableKeyProperties(unittest.TestCase):
         import secu_box as SB
         calls = []
         original = SB._place_deniable
-        def spy(grid, N, B, block_indices, message, sk):
+        def spy(grid, N, B, block_indices, message, ck, gk, nu):
             calls.append(list(block_indices))
-            return original(grid, N, B, block_indices, message, sk)
+            return original(grid, N, B, block_indices, message, ck, gk, nu)
         SB._place_deniable = spy
         try:
             grid, dk = encode_deniable0(MSG_DURESS)
@@ -200,8 +205,8 @@ class TestDeniableKeyProperties(unittest.TestCase):
 
     def test_wrong_key_rejected_both_sides(self):
         grid, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
-        wrong_rk = dict(rk, steg_key=secrets.token_bytes(32))
-        wrong_dk = dict(dk, steg_key=secrets.token_bytes(32))
+        wrong_rk = dict(rk, ck=secrets.token_bytes(32))
+        wrong_dk = dict(dk, ck=secrets.token_bytes(32))
         with self.assertRaises(ValueError):
             decode_deniable(grid, wrong_rk)
         with self.assertRaises(ValueError):
@@ -211,11 +216,14 @@ class TestDeniableKeyProperties(unittest.TestCase):
         """
         Le porteur de la seule clé de contrainte ne peut pas décoder le
         message réel, même en connaissant Br (structurellement déductible
-        de Bd, voir le commentaire de section dans secu_box.py) : sans rsk,
-        le commitment HMAC / tag Poly1305 échoue.
+        de Bd, voir le commentaire de section dans secu_box.py) et nu (le
+        nonce de disposition est commun aux deux côtés, donc déjà connu du
+        porteur de dk_d) : sans (ck_r, gk_r), le commitment HMAC / tag
+        Poly1305 échoue.
         """
         grid, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
-        forged = {'steg_key': dk['steg_key'], 'blocks': rk['blocks']}
+        forged = {'ck': dk['ck'], 'gk': dk['gk'],
+                  'layout_nonce': dk['layout_nonce'], 'blocks': rk['blocks']}
         with self.assertRaises(ValueError):
             decode_deniable(grid, forged)
 
@@ -270,7 +278,7 @@ class TestDeniableStatistical(unittest.TestCase):
         exactement ce que le porteur de dk_d peut isoler avec sa seule clé."""
         B = GRID_SIZE // 6
         bd_positions = set(_deniable_positions(GRID_SIZE, B, dk['blocks'],
-                                                dk['steg_key']))
+                                                dk['gk'], dk['layout_nonce']))
         return [grid[r][c] for r in range(GRID_SIZE) for c in range(GRID_SIZE)
                 if (r, c) not in bd_positions]
 
@@ -329,20 +337,22 @@ class TestDeniableStatistical(unittest.TestCase):
         expérimentalement, cela biaisait p systématiquement près de 1 au
         lieu d'être uniforme sur [0,1] sous l'hypothèse nulle.
         """
-        fixed_dsk = secrets.token_bytes(32)
+        fixed_ck_d = secrets.token_bytes(32)
+        fixed_gk_d = secrets.token_bytes(32)
 
-        # même dsk, deux appels -> Bd différents
-        _, dk_a = encode_deniable0("A", _dsk=fixed_dsk)
-        _, dk_b = encode_deniable0("B", _dsk=fixed_dsk)
-        self.assertEqual(dk_a['steg_key'], fixed_dsk)
-        self.assertEqual(dk_b['steg_key'], fixed_dsk)
+        # même (ck_d, gk_d), deux appels -> Bd différents (nu et pi restent
+        # frais par défaut, mais Bd ne dépend de toute façon d'aucune clé)
+        _, dk_a = encode_deniable0("A", _ck_d=fixed_ck_d, _gk_d=fixed_gk_d)
+        _, dk_b = encode_deniable0("B", _ck_d=fixed_ck_d, _gk_d=fixed_gk_d)
+        self.assertEqual(dk_a['ck'], fixed_ck_d)
+        self.assertEqual(dk_b['ck'], fixed_ck_d)
         self.assertNotEqual(set(dk_a['blocks']), set(dk_b['blocks']))
 
         N_TRIALS = 60
         conditions = {
-            'no_real':    lambda: encode_deniable0(MSG_DURESS, _dsk=fixed_dsk)[1],
-            'short_real': lambda: encode_deniable("A", MSG_DURESS, _dsk=fixed_dsk)[2],
-            'long_real':  lambda: encode_deniable("A" * 100, MSG_DURESS, _dsk=fixed_dsk)[2],
+            'no_real':    lambda: encode_deniable0(MSG_DURESS, _ck_d=fixed_ck_d, _gk_d=fixed_gk_d)[1],
+            'short_real': lambda: encode_deniable("A", MSG_DURESS, _ck_d=fixed_ck_d, _gk_d=fixed_gk_d)[2],
+            'long_real':  lambda: encode_deniable("A" * 100, MSG_DURESS, _ck_d=fixed_ck_d, _gk_d=fixed_gk_d)[2],
         }
         trials = []
         for label, fn in conditions.items():
@@ -393,41 +403,46 @@ class TestDeniableStatistical(unittest.TestCase):
         secrets.randbelow() et le stockait séparément.
 
         Vérifié : dk_r/dk_d ne portent plus 'key_2' ; les form_id
-        redérivés depuis steg_key sont dans [0, N_FORMS) ; Bd sous Encode
-        et sous Encode0 (même dsk, même liste de blocs) donnent les MÊMES
-        form_id -- déterminisme, pas juste "même fonction appelée" comme
-        avant (où seule la fonction était identique, le tirage restait
-        aléatoire à chaque appel).
+        redérivés depuis gk_nu = derive_gk_nu(gk, layout_nonce, 'deniable')
+        sont dans [0, N_FORMS) ; Bd sous Encode et sous Encode0 (mêmes
+        ck_d/gk_d/nu, même liste de blocs) donnent les MÊMES form_id --
+        déterminisme, pas juste "même fonction appelée" comme avant (où
+        seule la fonction était identique, le tirage restait aléatoire à
+        chaque appel).
         """
         import referent6x6_gen as R6
         from secu_box import _derive_deniable_form_ids
-        from stegano_lib import _carter_split
+        from keys import derive_gk_nu
         _, rk, dk = encode_deniable(MSG_REAL, MSG_DURESS)
         _, dk0 = encode_deniable0(MSG_DURESS)
 
         for label, keys in (('Encode dk_r', rk), ('Encode dk_d', dk), ('Encode0 dk_d', dk0)):
             with self.subTest(source=label):
                 self.assertNotIn('key_2', keys)
-                _, gk_local = _carter_split(keys['steg_key'])
-                form_ids = _derive_deniable_form_ids(gk_local, len(keys['blocks']))
+                gk_nu = derive_gk_nu(keys['gk'], keys['layout_nonce'], 'deniable')
+                form_ids = _derive_deniable_form_ids(gk_nu, len(keys['blocks']))
                 self.assertTrue(len(form_ids) > 0)
                 for fid in form_ids:
                     self.assertTrue(0 <= fid < R6.N_FORMS)
 
-        # Meme dsk (injecte) et memes blocs (meme pi) entre Encode et
-        # Encode0 -- alors, et seulement alors, les form_id derives
-        # doivent coincider (determinisme, pas juste "meme fonction").
-        fixed_dsk = secrets.token_bytes(32)
-        fixed_pi  = _fisher_yates(N_BLOCKS)
-        _, _, dk_fixed  = encode_deniable(MSG_REAL, MSG_DURESS, _dsk=fixed_dsk, _pi=fixed_pi)
-        _, dk0_fixed    = encode_deniable0(MSG_DURESS, _dsk=fixed_dsk, _pi=fixed_pi)
+        # Memes (ck_d, gk_d, nu) (injectes) et memes blocs (meme pi) entre
+        # Encode et Encode0 -- alors, et seulement alors, les form_id
+        # derives doivent coincider (determinisme, pas juste "meme fonction").
+        fixed_ck_d = secrets.token_bytes(32)
+        fixed_gk_d = secrets.token_bytes(32)
+        fixed_nu   = secrets.token_bytes(24)
+        fixed_pi   = _fisher_yates(N_BLOCKS)
+        _, _, dk_fixed = encode_deniable(MSG_REAL, MSG_DURESS,
+            _ck_d=fixed_ck_d, _gk_d=fixed_gk_d, _nu=fixed_nu, _pi=fixed_pi)
+        _, dk0_fixed = encode_deniable0(MSG_DURESS,
+            _ck_d=fixed_ck_d, _gk_d=fixed_gk_d, _nu=fixed_nu, _pi=fixed_pi)
         self.assertEqual(dk_fixed['blocks'], dk0_fixed['blocks'])
-        _, gk_d = _carter_split(fixed_dsk)
+        gk_nu_d = derive_gk_nu(fixed_gk_d, fixed_nu, 'deniable')
         self.assertEqual(
-            _derive_deniable_form_ids(gk_d, len(dk_fixed['blocks'])),
-            _derive_deniable_form_ids(gk_d, len(dk0_fixed['blocks'])),
+            _derive_deniable_form_ids(gk_nu_d, len(dk_fixed['blocks'])),
+            _derive_deniable_form_ids(gk_nu_d, len(dk0_fixed['blocks'])),
             "Bd sous Encode et sous Encode0 devrait donner les mêmes form_id "
-            "(même dsk, même liste de blocs, dérivation déterministe)")
+            "(mêmes ck_d/gk_d/nu, même liste de blocs, dérivation déterministe)")
 
 
 if __name__ == '__main__':

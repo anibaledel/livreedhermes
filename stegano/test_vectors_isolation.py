@@ -7,18 +7,20 @@ La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
 Vérifie que la surface d'injection ajoutée pour vectors/carter_v3.json
 (paramètres préfixés `_` : _nonce, _y, _leftover, _noise_seed, _nu, _pi,
-_rsk, _dsk, _real_inject, _duress_inject) n'est JOIGNABLE que par un appel
-explicite qui les nomme — aucune API publique, aucun demo(), aucune CLI ne
-les transmet à l'intérieur.
+_ck_r, _gk_r, _ck_d, _gk_d, _real_inject, _duress_inject) n'est JOIGNABLE
+que par un appel explicite qui les nomme — aucune API publique, aucun
+demo(), aucune CLI ne les transmet à l'intérieur.
 
 _k2 (câblage 2026-09-12) : n'existe plus -- form_id est désormais dérivé
-de gk_local par _derive_deniable_form_ids(), comme les balayages et les
+de gk_nu par _derive_deniable_form_ids(), comme les balayages et les
 masques, plus rien à injecter séparément.
 
 _nu (format v4, keys.py) : nonce de disposition, injectable pour le mode
 vecteurs comme les autres paramètres `_` ci-dessus -- None par défaut
 préserve le tirage CSPRNG normal (new_layout_nonce()). Carter-256/360/
-Mix/Random/18/Hybrid sont tous migrés au format v4 (deux clés + nu).
+Mix/Random/18/Hybrid et le mode déni (secu_box, _ck_r/_gk_r/_ck_d/_gk_d)
+sont tous migrés au format v4 (deux clés + nu) ; pour le déni, nu est
+COMMUN aux deux côtés (réel et leurre), jamais dérivé de ck_r/gk_r/ck_d/gk_d.
 """
 
 import inspect, os, sys, unittest
@@ -77,7 +79,7 @@ class TestNoPublicPathReachesInjection(unittest.TestCase):
     """
 
     _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=', '_nu=',
-                        '_pi=', '_rsk=', '_dsk=',
+                        '_pi=', '_ck_r=', '_gk_r=', '_ck_d=', '_gk_d=',
                         '_real_inject=', '_duress_inject=')
 
     def _scan_source_for_injected_kwargs(self, label, source):

@@ -169,16 +169,20 @@ class TestVectorsRegeneration(unittest.TestCase):
         grid  = self.fresh_grids[den['id'] + '-encode']
         grid0 = self.fresh_grids[den['id'] + '-encode0']
 
-        rsk = bytes.fromhex(den['inputs']['rsk_hex'])
-        dsk = bytes.fromhex(den['inputs']['dsk_hex'])
+        ck_r = bytes.fromhex(den['keys']['ck_r_hex'])
+        gk_r = bytes.fromhex(den['keys']['gk_r_hex'])
+        ck_d = bytes.fromhex(den['keys']['ck_d_hex'])
+        gk_d = bytes.fromhex(den['keys']['gk_d_hex'])
+        nu   = bytes.fromhex(den['keys']['nu_hex'])
         Br_blocks = den['derivation']['Br']['blocks']
         Bd_blocks = den['derivation']['Bd']['blocks']
         # Cablage 2026-09-12 : form_id (block_list) est desormais DERIVE
-        # de steg_key par decode_deniable() lui-meme -- plus de 'key_2' a
-        # reconstruire ni a passer, dk_r/dk_d ne portent que steg_key+blocks.
+        # de gk_nu par decode_deniable() lui-meme -- plus de 'key_2' a
+        # reconstruire ni a passer, dk_r/dk_d ne portent que
+        # ck/gk/layout_nonce/blocks (format v4).
 
-        dk_r = {'steg_key': rsk, 'blocks': Br_blocks}
-        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks}
+        dk_r = {'ck': ck_r, 'gk': gk_r, 'layout_nonce': nu, 'blocks': Br_blocks}
+        dk_d = {'ck': ck_d, 'gk': gk_d, 'layout_nonce': nu, 'blocks': Bd_blocks}
 
         self.assertEqual(SB.decode_deniable(grid, dk_r, den['inputs']['grid_size']),
                           den['expected_decode']['real_via_dk_r'])
@@ -232,12 +236,15 @@ class TestShowcaseVectorSelfContained(unittest.TestCase):
         grid  = self._csv_to_grid(v['grid_csv'])
         grid0 = self._csv_to_grid(v['grid0_csv_encode0'])
 
-        rsk = bytes.fromhex(v['inputs']['rsk_hex'])
-        dsk = bytes.fromhex(v['inputs']['dsk_hex'])
+        ck_r = bytes.fromhex(v['keys']['ck_r_hex'])
+        gk_r = bytes.fromhex(v['keys']['gk_r_hex'])
+        ck_d = bytes.fromhex(v['keys']['ck_d_hex'])
+        gk_d = bytes.fromhex(v['keys']['gk_d_hex'])
+        nu   = bytes.fromhex(v['keys']['nu_hex'])
         Br_blocks = v['derivation']['Br']['blocks']
         Bd_blocks = v['derivation']['Bd']['blocks']
-        dk_r = {'steg_key': rsk, 'blocks': Br_blocks}
-        dk_d = {'steg_key': dsk, 'blocks': Bd_blocks}
+        dk_r = {'ck': ck_r, 'gk': gk_r, 'layout_nonce': nu, 'blocks': Br_blocks}
+        dk_d = {'ck': ck_d, 'gk': gk_d, 'layout_nonce': nu, 'blocks': Bd_blocks}
 
         grid_size = v['inputs']['grid_size']
         self.assertEqual(SB.decode_deniable(grid, dk_r, grid_size),

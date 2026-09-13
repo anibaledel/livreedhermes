@@ -36,7 +36,7 @@ import carter_random as CR
 import grammar as GR
 import stegano_classic as SC
 import referent6x6_gen as R6
-from stegano_lib import load_referent_256_v3, load_referent_360_v3, _carter_split
+from stegano_lib import load_referent_256_v3, load_referent_360_v3
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'secubox'))
 import secu_box as SB
@@ -787,16 +787,16 @@ def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_2,
     return vector, grid
 
 
-# ── Déni plausible (secu_box.py, bloc C — tâche 5) ──────────────────────────
+# ── Déni plausible (secu_box.py, bloc C — tâche 5, format v4) ───────────────
 # π est injectée (mode vecteurs) : c'est elle qui fixe Br/Bd/bloc orphelin,
-# donc c'est ELLE qu'il faut figer pour un vecteur reproductible — rsk/dsk
-# le sont aussi (_rsk/_dsk), mais _fisher_yates elle-même n'est jamais
-# appelée avec une clé (voir l'invariant documenté dans
+# donc c'est ELLE qu'il faut figer pour un vecteur reproductible — les clés
+# le sont aussi (_ck_r/_gk_r/_ck_d/_gk_d/_nu), mais _fisher_yates elle-même
+# n'est jamais appelée avec une clé (voir l'invariant documenté dans
 # secu_box.encode_deniable). Encode ET Encode0 sont tous deux couverts.
 
 def _deniable_block_list(role_label, block_indices, form_ids):
     # Cablage 2026-09-12 : form_ids vient de SB._derive_deniable_form_ids
-    # (derive de gk_local, plus un tirage stocke -- voir gen_deniable_vector).
+    # (derive de gk_nu, plus un tirage stocke -- voir gen_deniable_vector).
     return [{"idx": idx, "role": role_label, "form_id": fid}
             for idx, fid in zip(block_indices, form_ids)]
 
@@ -806,16 +806,19 @@ def _bd_expected(pi, grid_size):
     return pi[half + 1:] if n_blocks % 2 else pi[half:]
 
 def gen_deniable_vector(vec_id, description, real_message, duress_message,
-                         grid_size, rsk, dsk, pi, noise_seed,
+                         grid_size, ck_r, gk_r, ck_d, gk_d, nu, pi, noise_seed,
                          real_inject=None, duress_inject=None,
                          include_grid_csv=False):
     """
-    Encode(m_r, m_d) ET Encode0(m_d) avec la MÊME π/dsk/duress_inject, pour
-    que le vecteur montre directement (§ acceptance) que Bd (et les form_id
-    qui en dérivent, câblage 2026-09-12) côté duress sont identiques dans
-    les deux modes — l'invariant testé par TestDeniableStatistical côté
-    code.
+    Encode(m_r, m_d) ET Encode0(m_d) avec la MÊME π/(ck_d,gk_d)/nu/
+    duress_inject, pour que le vecteur montre directement (§ acceptance)
+    que Bd (et les form_id qui en dérivent, câblage 2026-09-12) côté
+    duress sont identiques dans les deux modes — l'invariant testé par
+    TestDeniableStatistical côté code. nu est COMMUN aux deux côtés
+    (format v4, voir secu_box.encode_deniable) : jamais dérivé de
+    ck_r/gk_r/ck_d/gk_d.
     """
+    from keys import derive_gk_nu
     real_inject   = dict(real_inject or {})
     duress_inject = dict(duress_inject or {})
 
@@ -834,12 +837,13 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
 
     grid, dk_r, dk_d = SB.encode_deniable(
         real_message, duress_message, grid_size,
-        _rsk=rsk, _dsk=dsk, _pi=pi, _noise_seed=noise_seed,
+        _ck_r=ck_r, _gk_r=gk_r, _ck_d=ck_d, _gk_d=gk_d, _nu=nu,
+        _pi=pi, _noise_seed=noise_seed,
         _real_inject=real_inject, _duress_inject=duress_inject)
 
     grid0, dk_d0 = SB.encode_deniable0(
         duress_message, grid_size,
-        _dsk=dsk, _pi=pi, _noise_seed=noise_seed,
+        _ck_d=ck_d, _gk_d=gk_d, _nu=nu, _pi=pi, _noise_seed=noise_seed,
         _duress_inject=duress_inject)
 
     real_out   = SB.decode_deniable(grid, dk_r, grid_size)
@@ -854,38 +858,43 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
     half = n_blocks // 2
     orphan = pi[half] if n_blocks % 2 else None
 
-    _, gk_r = _carter_split(rsk)
-    _, gk_d = _carter_split(dsk)
+    gk_nu_r = derive_gk_nu(gk_r, nu, 'deniable')
+    gk_nu_d = derive_gk_nu(gk_d, nu, 'deniable')
     domain = CC.LABELS['mask_seed']['info_deniable']
     L_r = len(dk_r['blocks']) * 36   # mode crypto, 36 positions/bloc (etape 5)
     L_d = len(dk_d['blocks']) * 36
-    raw_keystream_r = _raw_mask_keystream(gk_r, domain, L_r * 2 + 32)
-    raw_keystream_d = _raw_mask_keystream(gk_d, domain, L_d * 2 + 32)
-    masks_r = CR._derive_masks(gk_r, L_r, domain)
-    masks_d = CR._derive_masks(gk_d, L_d, domain)
+    raw_keystream_r = _raw_mask_keystream(gk_nu_r, domain, L_r * 2 + 32)
+    raw_keystream_d = _raw_mask_keystream(gk_nu_d, domain, L_d * 2 + 32)
+    masks_r = CR._derive_masks(gk_nu_r, L_r, domain)
+    masks_d = CR._derive_masks(gk_nu_d, L_d, domain)
     # Ordre crypto (câblage production, étape 5, 2026-09-12) : secu_box.
-    # _deniable_positions derive un balayage PAR COULEUR depuis gk_local
-    # (ici gk_r/gk_d, l'equivalent exact de gk_local pour Br/Bd
+    # _deniable_positions derive un balayage PAR COULEUR depuis gk_nu (ici
+    # gk_nu_r/gk_nu_d, l'equivalent exact de gk_nu pour Br/Bd
     # respectivement) -- absent du vecteur jusqu'ici (seul generateur des
     # 5 sur les couleurs stegano/crypto a ne pas l'exposer). Ajoute pour
     # verification independante, meme si expected_decode ne depend QUE du
     # message final, pas de cette etape intermediaire.
     color_order = list(R6.CRYPTO_COLOR_ORDER)
-    sweep_r = {c: CR.derive_sweep_index(gk_r, c) for c in color_order}
-    sweep_d = {c: CR.derive_sweep_index(gk_d, c) for c in color_order}
-    # form_id par bloc (cablage 2026-09-12) : derive de gk_local, plus un
+    sweep_r = {c: CR.derive_sweep_index(gk_nu_r, c) for c in color_order}
+    sweep_d = {c: CR.derive_sweep_index(gk_nu_d, c) for c in color_order}
+    # form_id par bloc (cablage 2026-09-12) : derive de gk_nu, plus un
     # tirage stocke -- voir secu_box._derive_deniable_form_ids. Recalcule
     # ici uniquement pour l'AFFICHAGE dans le vecteur (block_list) ; la
     # production le derive de son cote, en interne, au meme titre que le
     # balayage et les masques.
-    form_ids_r = SB._derive_deniable_form_ids(gk_r, len(dk_r['blocks']))
-    form_ids_d = SB._derive_deniable_form_ids(gk_d, len(dk_d['blocks']))
+    form_ids_r = SB._derive_deniable_form_ids(gk_nu_r, len(dk_r['blocks']))
+    form_ids_d = SB._derive_deniable_form_ids(gk_nu_d, len(dk_d['blocks']))
 
     vector = {
         "id": vec_id, "instantiation": "deniable", "description": description,
         "inputs": {
             "real_message": real_message, "duress_message": duress_message,
-            "grid_size": grid_size, "rsk_hex": _hex(rsk), "dsk_hex": _hex(dsk),
+            "grid_size": grid_size,
+        },
+        "keys": {
+            "ck_r_hex": _hex(ck_r), "gk_r_hex": _hex(gk_r),
+            "ck_d_hex": _hex(ck_d), "gk_d_hex": _hex(gk_d),
+            "nu_hex": _hex(nu),
         },
         "injected": {
             "pi": list(pi), "noise_seed_hex": _hex(noise_seed),
@@ -900,14 +909,14 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
                     "(voir secu_box._split_br_bd) ; l'orphelin n'est ecrit par personne.",
             "color_order": color_order,
             "Br": {
-                "blocks": dk_r['blocks'], "grammar_key_hex": _hex(gk_r),
+                "blocks": dk_r['blocks'], "gk_nu_hex": _hex(gk_nu_r),
                 "sweep_of_color": sweep_r,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_r), "masks": masks_r,
                 "block_list": _deniable_block_list("real", dk_r['blocks'], form_ids_r),
             },
             "Bd": {
-                "blocks": dk_d['blocks'], "grammar_key_hex": _hex(gk_d),
+                "blocks": dk_d['blocks'], "gk_nu_hex": _hex(gk_nu_d),
                 "sweep_of_color": sweep_d,
                 "mask_domain_ascii": domain.decode('ascii'),
                 "mask_keystream_raw_hex": _hex(raw_keystream_d), "masks": masks_d,
@@ -1110,8 +1119,12 @@ def generate_all(include_grid_csv_showcase=True):
         nonce, 0, [], noise_seed)
     add(v, g)
 
-    rsk = bytes((i * 17 + 6) % 256 for i in range(32))
-    dsk = bytes((i * 19 + 7) % 256 for i in range(32))
+    # Format v4 : (ck_r, gk_r) et (ck_d, gk_d) independantes, nu COMMUN aux
+    # deux cotes (derive du seed reel, discretionnaire -- seule la valeur
+    # compte pour la reproductibilite du vecteur, jamais derive de ck/gk
+    # en production, voir secu_box.encode_deniable).
+    ck_r, gk_r, nu_den = _v4_keys_from_seed(bytes((i * 17 + 6) % 256 for i in range(32)))
+    ck_d, gk_d, _       = _v4_keys_from_seed(bytes((i * 19 + 7) % 256 for i in range(32)))
     n_blocks_den = (90 // 6) ** 2
     pi = list(range(n_blocks_den))
     # Permutation fixe non-triviale (pas d'aléa ici : c'est π elle-même qui
@@ -1119,12 +1132,13 @@ def generate_all(include_grid_csv_showcase=True):
     pi = pi[::2] + pi[1::2]
     half_den = n_blocks_den // 2   # 112 : taille de Br ET de Bd
     # Cablage 2026-09-12 : form_id n'est plus un tirage a injecter -- il
-    # est derive de gk_local (un octet par bloc, comme les balayages et
-    # les masques), donc deja entierement determine par rsk/dsk/pi
+    # est derive de gk_nu (un octet par bloc, comme les balayages et les
+    # masques), donc deja entierement determine par (gk_d, nu)/pi
     # ci-dessus. Plus de "_k2" a construire ni a injecter.
     v, g, g0 = gen_deniable_vector(
-        "deniable-basic-01", "Déni plausible — Encode(m_r,m_d) et Encode0(m_d), même π/dsk.",
-        "MESSAGE SECRET ANIBAL", "NOTES PERSO TEXTILE", 90, rsk, dsk, pi, noise_seed,
+        "deniable-basic-01", "Déni plausible — Encode(m_r,m_d) et Encode0(m_d), même π/(ck_d,gk_d)/nu.",
+        "MESSAGE SECRET ANIBAL", "NOTES PERSO TEXTILE", 90,
+        ck_r, gk_r, ck_d, gk_d, nu_den, pi, noise_seed,
         real_inject={"_nonce": nonce, "_y": _Y_DENIABLE_REAL, "_leftover": [1]},
         duress_inject={"_nonce": nonce[::-1], "_y": _Y_DENIABLE_DURESS, "_leftover": [2]},
         include_grid_csv=include_grid_csv_showcase)
