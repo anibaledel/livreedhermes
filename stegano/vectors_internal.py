@@ -530,17 +530,18 @@ def gen_cartermix_vector(vec_id, description, ck, gk, message, ref256, ref360,
 
 # ── Carter-Random ──────────────────────────────────────────────────────────
 
-def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
-                             nonce, y, leftover, noise_seed, include_grid_csv=False):
-    xchacha_key, grammar_key = CR._carter_split(master_key)
-    ck = CC._commit_key(xchacha_key)
+def gen_carterrandom_vector(vec_id, description, ck, gk, message, grid_size,
+                             nonce, y, leftover, noise_seed, nu, include_grid_csv=False):
+    from keys import derive_gk_nu, nu_to_symbols
+    commit_key = CC._commit_key(ck)
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
 
     (gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos), attempts = _count_redraw_attempts(
-        GR, lambda: CR._find_random_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_random_grammar_with_c_pub(gk_nu, grid_size))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
+    hchacha_subkey = CC.hchacha20(ck, nonce[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -558,43 +559,35 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
         for i, g in enumerate(grammar):
             grammar_export.append({"i": i, "role": g['role'], "form_id": g['form_id']})
             if g['role'] != CR._MESSAGE: continue
-            br, bc = i // n_side_g, i % n_side_g
-            form = ref[g['form_id']]
-            r0, c0 = br * CR.CELL_SIZE, bc * CR.CELL_SIZE
-            for pos in CR._form_stegano_positions(form, sweep_of_color):
+            for gr, gc in GR._random_individual_positions(i // n_side_g, i % n_side_g,
+                                                            g, ref, sweep_of_color, grid_size):
                 if ni >= len(symbols): break
-                gr, gc = r0 + pos[0], c0 + pos[1]
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
+                grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
                 ni += 1
     else:
         for mi, mg in enumerate(grammar):
             grammar_export.append({"i": mi, "role": mg['role'], "sub": mg['sub']})
             if mg['role'] != CR._MESSAGE: continue
-            mr, mc = mi // n_meta_g, mi % n_meta_g
-            for ci, (br_off, bc_off) in enumerate(CR.CONC_ORDER):
-                sg = mg['sub'][ci]
-                form = ref[sg['form_id']]
-                br, bc = mr * CR.META + br_off, mc * CR.META + bc_off
-                r0, c0 = br * CR.CELL_SIZE, bc * CR.CELL_SIZE
-                for pos in CR._form_stegano_positions(form, sweep_of_color):
-                    if ni >= len(symbols): break
-                    gr, gc = r0 + pos[0], c0 + pos[1]
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
-                    ni += 1
+            for gr, gc in GR._random_meta_positions(mi // n_meta_g, mi % n_meta_g,
+                                                      mg, ref, sweep_of_color, grid_size):
+                if ni >= len(symbols): break
+                grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
+                ni += 1
+    for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+        grid[0][c] = sym
 
-    decoded = CR.decode_carter_random(grid, master_key, grid_size)
+    decoded = CR.decode_carter_random(grid, ck, gk, grid_size)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "carterrandom", "description": description,
-        "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
+        "inputs": {"message": message, "grid_size": grid_size},
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
         "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
                      "noise_seed_hex": _hex(noise_seed)},
         "derivation": {
-            "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
-            "grammar_key_hex": _hex(grammar_key),
+            "commit_key_hex": _hex(commit_key),
+            "gk_nu_hex": _hex(gk_nu),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "params": {"referent_index": ref_idx, "meta_mode": meta_mode},
@@ -616,16 +609,17 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
 
 # ── Carter-18 ────────────────────────────────────────────────────────────────
 
-def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
-                         nonce, y, leftover, noise_seed, include_grid_csv=False):
-    xchacha_key, grammar_key = CR._carter_split(master_key)
-    ck = CC._commit_key(xchacha_key)
+def gen_carter18_vector(vec_id, description, ck, gk, message, grid_size,
+                         nonce, y, leftover, noise_seed, nu, include_grid_csv=False):
+    from keys import derive_gk_nu, nu_to_symbols
+    commit_key = CC._commit_key(ck)
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
 
     (gk_ctr, seed, ref18, grammar, n_pos), attempts = _count_redraw_attempts(
-        GR, lambda: CR._find_carter18_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_carter18_grammar_with_c_pub(gk_nu, grid_size))
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
+    hchacha_subkey = CC.hchacha20(ck, nonce[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -640,25 +634,25 @@ def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
     for blk, g in enumerate(grammar):
         if g['role'] != CR._MESSAGE or ni >= len(symbols): continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
-        form = ref18[g['form_id']]
-        for r, c in form[g['dir']]:
+        for gr, gc in GR._carter18_positions(br18, bc18, g, ref18, grid_size):
             if ni >= len(symbols): break
-            gr, gc = br18*CR.BLOCK_18+r, bc18*CR.BLOCK_18+c
-            if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
+            grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
             ni += 1
+    for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+        grid[0][c] = sym
 
-    decoded = CR.decode_carter_18(grid, master_key, grid_size)
+    decoded = CR.decode_carter_18(grid, ck, gk, grid_size)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "carter18", "description": description,
-        "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
+        "inputs": {"message": message, "grid_size": grid_size},
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
         "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
                      "noise_seed_hex": _hex(noise_seed)},
         "derivation": {
-            "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
-            "grammar_key_hex": _hex(grammar_key),
+            "commit_key_hex": _hex(commit_key),
+            "gk_nu_hex": _hex(gk_nu),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "params": {"seed": seed},
@@ -680,17 +674,18 @@ def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
 
 # ── Carter-Hybrid ────────────────────────────────────────────────────────────
 
-def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
-                             nonce, y, leftover, noise_seed, include_grid_csv=False):
-    xchacha_key, grammar_key = CR._carter_split(master_key)
-    ck = CC._commit_key(xchacha_key)
+def gen_carterhybrid_vector(vec_id, description, ck, gk, message, grid_size,
+                             nonce, y, leftover, noise_seed, nu, include_grid_csv=False):
+    from keys import derive_gk_nu, nu_to_symbols
+    commit_key = CC._commit_key(ck)
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
 
     (gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_pos), attempts = _count_redraw_attempts(
-        GR, lambda: CR._find_hybrid_grammar_with_c_pub(grammar_key, grid_size))
+        GR, lambda: CR._find_hybrid_grammar_with_c_pub(gk_nu, grid_size))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC._encrypt(message, ck, n_pos, _nonce=nonce)
+    hchacha_subkey = CC.hchacha20(ck, nonce[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -705,33 +700,25 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
     for blk, g in enumerate(grammar):
         if g['role'] != CR._MESSAGE or ni >= len(symbols): continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
-        if g['mode'] == CR.MODE_18:
-            form = ref18[g['form_id']]
-            for r, c in form[g['dir']]:
-                if ni >= len(symbols): break
-                gr, gc = br18*CR.BLOCK_18+r, bc18*CR.BLOCK_18+c
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
-                ni += 1
-        else:
-            for sub_pos in CR._subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
-                for gr, gc in sub_pos:
-                    if ni >= len(symbols): break
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
-                    ni += 1
+        for gr, gc in GR._hybrid_positions(br18, bc18, g, ref18, ref6, gk_ctr, sweep_of_color, grid_size):
+            if ni >= len(symbols): break
+            grid[gr][gc] = (symbols[ni] + masks[ni]) % CC.ALPHA_LEN
+            ni += 1
+    for c, sym in enumerate(nu_to_symbols(nu, _y=0)):
+        grid[0][c] = sym
 
-    decoded = CR.decode_carter_hybrid(grid, master_key, grid_size)
+    decoded = CR.decode_carter_hybrid(grid, ck, gk, grid_size)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
 
     vector = {
         "id": vec_id, "instantiation": "carterhybrid", "description": description,
-        "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
+        "inputs": {"message": message, "grid_size": grid_size},
+        "keys": {"ck_hex": _hex(ck), "gk_hex": _hex(gk), "nu_hex": _hex(nu)},
         "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
                      "noise_seed_hex": _hex(noise_seed)},
         "derivation": {
-            "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
-            "grammar_key_hex": _hex(grammar_key),
+            "commit_key_hex": _hex(commit_key),
+            "gk_nu_hex": _hex(gk_nu),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "params": {"seed_18": seed18, "referent_index_6": ref_idx6},
@@ -1079,28 +1066,35 @@ def generate_all(include_grid_csv_showcase=True):
     # brute-forcee pour declencher le repli CR-1 sous l'ancienne formule)
     # peut ne plus declencher ce repli. y=0/leftover=[] le temps de
     # retirer de nouvelles valeurs sous la regle v3.
+    ck_rand_basic, gk_rand_basic, nu_rand_basic = _v4_keys_from_seed(
+        bytes((i * 3 + 1) % 256 for i in range(32)))
     v, g = gen_carterrandom_vector(
         "carterrandom-basic-01", "Vecteur de base Carter-Random (90×90).",
-        bytes((i * 3 + 1) % 256 for i in range(32)), "CARTER RANDOM TEST", 90,
-        nonce, 0, [], noise_seed)
+        ck_rand_basic, gk_rand_basic, "CARTER RANDOM TEST", 90,
+        nonce, 0, [], noise_seed, nu_rand_basic)
     add(v, g)
 
+    ck_cr1, gk_cr1, nu_cr1 = _v4_keys_from_seed(_MK_CR1_CARTERRANDOM)
     v, g = gen_carterrandom_vector(
         "carterrandom-cr1-01", "Clé déclenchant le repli CR-1 (méta→individuel).",
-        _MK_CR1_CARTERRANDOM, "CR1 FALLBACK TEST", 90,
-        nonce, 0, [], noise_seed)
+        ck_cr1, gk_cr1, "CR1 FALLBACK TEST", 90,
+        nonce, 0, [], noise_seed, nu_cr1)
     add(v, g)
 
+    ck_18_basic, gk_18_basic, nu_18_basic = _v4_keys_from_seed(
+        bytes((i * 5 + 2) % 256 for i in range(32)))
     v, g = gen_carter18_vector(
         "carter18-basic-01", "Vecteur de base Carter-18.",
-        bytes((i * 5 + 2) % 256 for i in range(32)), "CARTER 18 TEST", 90,
-        nonce, _Y_CARTER18_BASIC, [], noise_seed)
+        ck_18_basic, gk_18_basic, "CARTER 18 TEST", 90,
+        nonce, _Y_CARTER18_BASIC, [], noise_seed, nu_18_basic)
     add(v, g)
 
+    ck_hyb_basic, gk_hyb_basic, nu_hyb_basic = _v4_keys_from_seed(
+        bytes((i * 11 + 4) % 256 for i in range(32)))
     v, g = gen_carterhybrid_vector(
         "carterhybrid-basic-01", "Vecteur de base Carter-Hybrid.",
-        bytes((i * 11 + 4) % 256 for i in range(32)), "CARTER HYBRID TEST", 90,
-        nonce, _Y_CARTERHYBRID_BASIC, [], noise_seed)
+        ck_hyb_basic, gk_hyb_basic, "CARTER HYBRID TEST", 90,
+        nonce, _Y_CARTERHYBRID_BASIC, [], noise_seed, nu_hyb_basic)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CLASSIC_BASIC calculee pour l'ancien

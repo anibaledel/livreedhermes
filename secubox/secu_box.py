@@ -794,67 +794,87 @@ def decode_carter_mix_session(grid: List[List[int]], session_keys: Dict,
 def encode_carter_random_session(message: str, session_keys: Dict) -> Tuple:
     """
     Encode un message en mode Carter Random v3 depuis une session X25519.
-    Utilise steg_key comme master_key de la grammaire (référents dérivés,
-    pas de referent_256.json requis).
+    steg_key de session → (ck, gk) via keys.keys_from_master (mode legacy,
+    référents dérivés, pas de referent_256.json requis), voir
+    encode_carter_session().
 
     session_keys : résultat de Session.derive()
     Retourne     : (grille 90×90, métadonnées de capacité)
     """
     from carter_random import encode_carter_random
-    return encode_carter_random(message, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterrandom')
+    return encode_carter_random(message, k['ck'], k['gk'])
 
 def decode_carter_random_session(grid: List[List[int]], session_keys: Dict) -> str:
     """Décode une grille Carter Random v3 depuis les clés de session."""
     from carter_random import decode_carter_random
-    return decode_carter_random(grid, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterrandom')
+    return decode_carter_random(grid, k['ck'], k['gk'])
 
 def encode_carter_random_session_360(message: str, session_keys: Dict) -> Tuple:
     """Carter Random v3 sur grille 180×180 depuis une session X25519."""
     from carter_random import encode_carter_random_360
-    return encode_carter_random_360(message, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterrandom')
+    return encode_carter_random_360(message, k['ck'], k['gk'])
 
 def decode_carter_random_session_360(grid: List[List[int]], session_keys: Dict) -> str:
     """Décode une grille Carter Random v3 180×180 depuis les clés de session."""
     from carter_random import decode_carter_random_360
-    return decode_carter_random_360(grid, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterrandom')
+    return decode_carter_random_360(grid, k['ck'], k['gk'])
 
 def encode_carter_session_18(message: str, session_keys: Dict) -> Tuple:
     """
     Carter-18 (méta-blocs concentriques 18×18) depuis une session X25519.
-    Utilise steg_key comme master_key de la grammaire.
+    steg_key de session → (ck, gk) via keys.keys_from_master (mode legacy).
 
     session_keys : résultat de Session.derive()
     Retourne     : (grille 90×90, métadonnées de capacité)
     """
     from carter_random import encode_carter_18
-    return encode_carter_18(message, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carter18')
+    return encode_carter_18(message, k['ck'], k['gk'])
 
 def decode_carter_session_18(grid: List[List[int]], session_keys: Dict) -> str:
     """Décode une grille Carter-18 depuis les clés de session."""
     from carter_random import decode_carter_18
-    return decode_carter_18(grid, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carter18')
+    return decode_carter_18(grid, k['ck'], k['gk'])
 
 def encode_carter_session_hybrid(message: str, session_keys: Dict) -> Tuple:
     """
     Carter-Hybrid (mélange 18×18 concentrique + 6×6) depuis une session X25519.
-    Le mode par méta-bloc (18×18 ou 6×6) est dérivé de steg_key, pas de la
-    longueur du message.
+    Le mode par méta-bloc (18×18 ou 6×6) est dérivé de gk, pas de la
+    longueur du message. steg_key de session → (ck, gk) via
+    keys.keys_from_master (mode legacy).
 
     session_keys : résultat de Session.derive()
     Retourne     : (grille 90×90, métadonnées de capacité)
     """
     from carter_random import encode_carter_hybrid
-    return encode_carter_hybrid(message, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterhybrid')
+    return encode_carter_hybrid(message, k['ck'], k['gk'])
 
 def decode_carter_session_hybrid(grid: List[List[int]], session_keys: Dict) -> str:
     """Décode une grille Carter-Hybrid depuis les clés de session."""
     from carter_random import decode_carter_hybrid
-    return decode_carter_hybrid(grid, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterhybrid')
+    return decode_carter_hybrid(grid, k['ck'], k['gk'])
 
 def carter_hybrid_fits_session(message: str, session_keys: Dict) -> bool:
     """Vérifie si le message tient dans la grille Carter-Hybrid pour cette session."""
     from carter_random import carter_hybrid_fits
-    return carter_hybrid_fits(message, session_keys['steg_key'])
+    from keys import keys_from_master
+    k = keys_from_master(session_keys['steg_key'], 'carterhybrid')
+    return carter_hybrid_fits(message, k['ck'], k['gk'])
 
 # carter_random_deniable/carter_random_deniable_360 (deux grilles Carter-
 # Random 90×90/180×180 indépendantes sous deux clés) SUPPRIMÉES le

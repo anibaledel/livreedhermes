@@ -402,6 +402,36 @@ def _form_stegano_positions(form: Dict, sweep_of_color: Dict) -> List[Tuple[int,
     return crypto_reading_order(cells_by_niveau, _RANDOM_STEGANO_COLORS,
                                  _R6.GRID_SIZE, sweep_of_color)
 
+def _random_individual_positions(br: int, bc: int, g: Dict, ref: List[Dict],
+                                  sweep_of_color: Dict, grid_size: int) -> List[Tuple[int, int]]:
+    """Positions stégano absolues du bloc 6×6 (br, bc) en mode individuel,
+    nonce de disposition exclu (format v4, voir _is_nu_cell)."""
+    form = ref[g['form_id']]
+    r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
+    out = []
+    for pos in _form_stegano_positions(form, sweep_of_color):
+        gr, gc = r0 + pos[0], c0 + pos[1]
+        if 0 <= gr < grid_size and 0 <= gc < grid_size and not _is_nu_cell(gr, gc):
+            out.append((gr, gc))
+    return out
+
+def _random_meta_positions(mr: int, mc: int, mg: Dict, ref: List[Dict],
+                            sweep_of_color: Dict, grid_size: int) -> List[Tuple[int, int]]:
+    """Positions stégano absolues du méta-bloc 18×18 (mr, mc) en mode
+    concentrique (9 sous-blocs, ordre CONC_ORDER), nonce de disposition
+    exclu (format v4, voir _is_nu_cell)."""
+    out = []
+    for ci, (br_off, bc_off) in enumerate(CONC_ORDER):
+        sg = mg['sub'][ci]
+        form = ref[sg['form_id']]
+        br, bc = mr * META + br_off, mc * META + bc_off
+        r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
+        for pos in _form_stegano_positions(form, sweep_of_color):
+            gr, gc = r0 + pos[0], c0 + pos[1]
+            if 0 <= gr < grid_size and 0 <= gc < grid_size and not _is_nu_cell(gr, gc):
+                out.append((gr, gc))
+    return out
+
 def _derive_params(grammar_key: bytes,
                     grid_size: int = GRID_SIZE) -> Tuple[int, bool]:
     """
@@ -513,6 +543,12 @@ def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     Retourne (grammar_key_ctr, ref_idx, meta_mode, ref, grammar, n_pos) du
     premier succès. Lève ValueError après MAX_REDRAWS échecs — jamais de
     grille construite, même partielle.
+
+    Format v4 : n_pos est le compte RÉEL de positions (via
+    _random_individual_positions/_random_meta_positions, nonce de
+    disposition exclu -- voir _is_nu_cell), pas n_msg*12/n_msg*META²*12
+    (fixe, ignorait l'exclusion) -- sinon la capacité annoncée ici
+    dépasserait ce que l'encodeur écrit réellement.
     """
     c_pub_key = _random_c_pub_key(grid_size)
     n_side_g     = grid_size // CELL_SIZE
@@ -522,14 +558,17 @@ def _find_random_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
         gk_ctr = _redraw_grammar_key(grammar_key, 'carterrandom', ctr)
         ref_idx, meta_mode = _derive_params(gk_ctr, grid_size)
         ref = get_referent(ref_idx)
+        sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
         if not meta_mode:
             grammar = _grammar_individual(gk_ctr, ref, n_side_g)
-            n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-            n_pos   = n_msg * 12
+            n_pos = sum(len(_random_individual_positions(i // n_side_g, i % n_side_g,
+                                                           g, ref, sweep_of_color, grid_size))
+                        for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
         else:
             grammar = _grammar_meta(gk_ctr, ref, n_meta_tot_g, n_meta_g)
-            n_msg   = sum(1 for g in grammar if g['role'] == _MESSAGE)
-            n_pos   = n_msg * META * META * 12
+            n_pos = sum(len(_random_meta_positions(i // n_meta_g, i % n_meta_g,
+                                                     g, ref, sweep_of_color, grid_size))
+                        for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
         if max_message_for(n_pos) >= C_PUB[c_pub_key]:
             return gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos
     raise ValueError(
@@ -652,6 +691,18 @@ def _carter18_seed(grammar_key: bytes) -> int:
     return SEEDS[idx]
 
 
+def _carter18_positions(br18: int, bc18: int, g: Dict, ref18: List,
+                         grid_size: int) -> List[Tuple[int, int]]:
+    """Positions stégano absolues du méta-bloc 18×18 (br18, bc18), nonce de
+    disposition exclu (format v4, voir _is_nu_cell)."""
+    form = ref18[g['form_id']]
+    out = []
+    for r, c in form[g['dir']]:
+        gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
+        if 0 <= gr < grid_size and 0 <= gc < grid_size and not _is_nu_cell(gr, gc):
+            out.append((gr, gc))
+    return out
+
 def _find_carter18_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     """
     Recherche déterministe (tâche 4, format v3) pour Carter-18 : essaie
@@ -660,14 +711,19 @@ def _find_carter18_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     re-dérivés ENSEMBLE depuis le même grammar_key_ctr à chaque tentative.
     Retourne (grammar_key_ctr, seed, ref18, grammar, cap) du premier succès.
     Lève ValueError après MAX_REDRAWS échecs.
+
+    Format v4 : cap est le compte RÉEL de positions (via
+    _carter18_positions, nonce de disposition exclu), pas
+    _POSITIONS_PER_DIR[dir] (fixe) -- voir _find_random_grammar_with_c_pub.
     """
+    n_side_18 = grid_size // BLOCK_18
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, 'carter18', ctr)
         seed  = _carter18_seed(gk_ctr)
         ref18 = get_referent_18(seed)
         grammar = _grammar_18(gk_ctr, grid_size)
-        cap = sum(_POSITIONS_PER_DIR[g['dir']]
-                  for g in grammar if g['role'] == _MESSAGE)
+        cap = sum(len(_carter18_positions(i // n_side_18, i % n_side_18, g, ref18, grid_size))
+                  for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
         if max_message_for(cap) >= C_PUB['carter18']:
             return gk_ctr, seed, ref18, grammar, cap
     raise ValueError(
@@ -748,13 +804,26 @@ def _carter_hybrid_seeds(grammar_key: bytes) -> Tuple[int, int]:
     return SEEDS[idx18], ref_idx6
 
 
-def _hybrid_capacity_positions(grammar: List[Dict]) -> int:
-    """Positions totales disponibles pour les blocs message de cette
-    grammaire. 9*12 pour MODE_6 (règle v3, rouge+bleu ensemble par
-    sous-bloc -- remplace 9*6 d'une seule direction avant ce commit)."""
-    return sum(
-        _POSITIONS_PER_DIR[g['dir']] if g['mode'] == MODE_18 else 9*12
-        for g in grammar if g['role'] == _MESSAGE)
+def _hybrid_positions(br18: int, bc18: int, g: Dict, ref18: List, ref6: List[Dict],
+                       grammar_key: bytes, sweep_of_color: Dict,
+                       grid_size: int) -> List[Tuple[int, int]]:
+    """Positions stégano absolues du méta-bloc 18×18 (br18, bc18), selon son
+    mode (MODE_18 concentrique ou MODE_6, 9 sous-blocs), nonce de
+    disposition exclu (format v4, voir _is_nu_cell)."""
+    if g['mode'] == MODE_18:
+        form = ref18[g['form_id']]
+        out = []
+        for r, c in form[g['dir']]:
+            gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
+            if 0 <= gr < grid_size and 0 <= gc < grid_size and not _is_nu_cell(gr, gc):
+                out.append((gr, gc))
+        return out
+    out = []
+    for sub_pos in _subblock_positions(br18, bc18, grammar_key, ref6, sweep_of_color):
+        for gr, gc in sub_pos:
+            if 0 <= gr < grid_size and 0 <= gc < grid_size and not _is_nu_cell(gr, gc):
+                out.append((gr, gc))
+    return out
 
 
 def _find_hybrid_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
@@ -766,14 +835,22 @@ def _find_hybrid_grammar_with_c_pub(grammar_key: bytes, grid_size: int):
     même grammar_key_ctr à chaque tentative. Retourne (grammar_key_ctr,
     seed18, ref_idx6, ref18, ref6, grammar, cap) du premier succès. Lève
     ValueError après MAX_REDRAWS échecs.
+
+    Format v4 : cap est le compte RÉEL de positions (via _hybrid_positions,
+    nonce de disposition exclu), pas 9*12/_POSITIONS_PER_DIR[dir] (fixes)
+    -- voir _find_random_grammar_with_c_pub.
     """
+    n_side_18 = grid_size // BLOCK_18
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, 'carterhybrid', ctr)
         seed18, ref_idx6 = _carter_hybrid_seeds(gk_ctr)
         ref18 = get_referent_18(seed18)
         ref6  = get_referent(ref_idx6)
         grammar = _grammar_hybrid(gk_ctr, grid_size)
-        cap = _hybrid_capacity_positions(grammar)
+        sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
+        cap = sum(len(_hybrid_positions(i // n_side_18, i % n_side_18, g, ref18, ref6,
+                                         gk_ctr, sweep_of_color, grid_size))
+                  for i, g in enumerate(grammar) if g['role'] == _MESSAGE)
         if max_message_for(cap) >= C_PUB['carterhybrid']:
             return gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap
     raise ValueError(

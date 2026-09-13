@@ -31,7 +31,7 @@ boucle "par octet" dans test_message_cell_avalanche ci-dessous.
 
 import os, sys, math, re, struct, statistics, unittest
 from unittest.mock import patch
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')   # console Windows (cp1252) vs. symboles
@@ -45,14 +45,11 @@ from stegano_lib import (
     _encrypt, _xchacha20_enc, payload_to_symbols, ALPHA_LEN,
 )
 
-from carter_random import (
-    encode_carter_random, decode_carter_random,
-    encode_carter_random_360, decode_carter_random_360,
-    random_capacity, random_fits,
-    encode_carter_18, decode_carter_18, carter18_fits,
-    encode_carter_hybrid, decode_carter_hybrid, carter_hybrid_fits,
-    _carter_split, _derive_params,
-)
+from carter_random import random_capacity
+# Format v4 (deux clés, keys.py) : les autres fonctions Carter Random/18/
+# Hybrid (encode_*/decode_*/_*_fits) prennent désormais (ck, gk, ...) --
+# voir les adaptateurs _v4 ci-dessous (_encode_carter_random_v4 etc.),
+# importés localement là où ils en ont besoin.
 from keys import new_layout_nonce, derive_gk_nu, NU_BYTES
 
 # ── Constantes statistiques ────────────────────────────────────────────────────
@@ -236,15 +233,21 @@ def _carter_mix_message_positions_v4(key: bytes, ref256, ref360) -> List[Tuple[i
     _, gk, nu = _v4_split(key)
     return _carter_mix_message_positions(gk, nu, ref256, ref360)
 
-def _carter_random_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+def _carter_random_message_positions(gk: bytes, nu: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu (pas une master_key unique) -- voir
+    _carter256_message_positions. Réutilise les fonctions de positions
+    partagées de grammar.py (mêmes que la production), pas de
+    réimplémentation locale de la géométrie."""
     from carter_random import (
-        _carter_split, _find_random_grammar_with_c_pub,
-        _form_stegano_positions, derive_sweep_index, _RANDOM_STEGANO_COLORS,
-        _MESSAGE, CELL_SIZE, META, CONC_ORDER, GRID_SIZE as _CR_GRID_SIZE,
+        _find_random_grammar_with_c_pub,
+        derive_sweep_index, _RANDOM_STEGANO_COLORS,
+        _MESSAGE, CELL_SIZE, META, GRID_SIZE as _CR_GRID_SIZE,
     )
+    from grammar import _random_individual_positions, _random_meta_positions
+    from keys import derive_gk_nu
     gs = grid_size or _CR_GRID_SIZE
-    _, grammar_key = _carter_split(key)
-    gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(grammar_key, gs)
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
+    gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(gk_nu, gs)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_g = gs // CELL_SIZE
     n_meta_g = n_side_g // META
@@ -252,75 +255,107 @@ def _carter_random_message_positions(key: bytes, grid_size: int = None) -> List[
     if not meta_mode:
         for i, g in enumerate(grammar):
             if g['role'] != _MESSAGE: continue
-            br, bc = i // n_side_g, i % n_side_g
-            form   = ref[g['form_id']]
-            r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-            for pos in _form_stegano_positions(form, sweep_of_color):
-                gr, gc = r0 + pos[0], c0 + pos[1]
-                if 0 <= gr < gs and 0 <= gc < gs:
-                    positions.append((gr, gc))
+            positions.extend(_random_individual_positions(i // n_side_g, i % n_side_g,
+                                                            g, ref, sweep_of_color, gs))
     else:
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
-            mr, mc = mi // n_meta_g, mi % n_meta_g
-            for ci, (br_off, bc_off) in enumerate(CONC_ORDER):
-                sg     = mg['sub'][ci]
-                form   = ref[sg['form_id']]
-                br, bc = mr * META + br_off, mc * META + bc_off
-                r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-                for pos in _form_stegano_positions(form, sweep_of_color):
-                    gr, gc = r0 + pos[0], c0 + pos[1]
-                    if 0 <= gr < gs and 0 <= gc < gs:
-                        positions.append((gr, gc))
+            positions.extend(_random_meta_positions(mi // n_meta_g, mi % n_meta_g,
+                                                      mg, ref, sweep_of_color, gs))
     return positions
 
-def _carter18_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+def _encode_carter_random_v4(msg: str, key: bytes, grid_size: int = None) -> Tuple[List, Dict]:
+    from carter_random import encode_carter_random, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return encode_carter_random(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _carter_random_message_positions_v4(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter_random_message_positions(gk, nu, grid_size)
+
+def _encode_carter_random_360_v4(msg: str, key: bytes) -> Tuple[List, Dict]:
+    return _encode_carter_random_v4(msg, key, grid_size=180)
+
+def _random_fits_v4(msg: str, key: bytes, grid_size: int = None) -> bool:
+    from carter_random import random_fits, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return random_fits(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _carter18_message_positions(gk: bytes, nu: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu -- voir _carter_random_message_positions."""
     from carter_random import (
-        _carter_split, _find_carter18_grammar_with_c_pub,
-        BLOCK_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
+        _find_carter18_grammar_with_c_pub, BLOCK_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
     )
+    from grammar import _carter18_positions
+    from keys import derive_gk_nu
     gs = grid_size or _CR_GRID_SIZE
-    _, grammar_key = _carter_split(key)
-    gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(grammar_key, gs)
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
+    gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(gk_nu, gs)
     n_side_18 = gs // BLOCK_18
     positions = []
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
-        br18, bc18 = blk // n_side_18, blk % n_side_18
-        form = ref18[g['form_id']]
-        for r, c in form[g['dir']]:
-            gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
-            if 0 <= gr < gs and 0 <= gc < gs:
-                positions.append((gr, gc))
+        positions.extend(_carter18_positions(blk // n_side_18, blk % n_side_18, g, ref18, gs))
     return positions
 
-def _carter_hybrid_message_positions(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+def _encode_carter_18_v4(msg: str, key: bytes, grid_size: int = None) -> Tuple[List, Dict]:
+    from carter_random import encode_carter_18, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return encode_carter_18(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _carter18_message_positions_v4(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter18_message_positions(gk, nu, grid_size)
+
+def _carter18_fits_v4(msg: str, key: bytes, grid_size: int = None) -> bool:
+    from carter_random import carter18_fits, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return carter18_fits(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _decode_carter_18_v4(grid, key: bytes, grid_size: int = None) -> str:
+    from carter_random import decode_carter_18, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, _ = _v4_split(key)
+    return decode_carter_18(grid, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE))
+
+def _carter_hybrid_message_positions(gk: bytes, nu: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    """Format v4 : gk et nu -- voir _carter_random_message_positions."""
     from carter_random import (
-        _carter_split, _find_hybrid_grammar_with_c_pub,
-        _subblock_positions, derive_sweep_index, _RANDOM_STEGANO_COLORS,
-        BLOCK_18, MODE_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
+        _find_hybrid_grammar_with_c_pub,
+        derive_sweep_index, _RANDOM_STEGANO_COLORS,
+        BLOCK_18, _MESSAGE, GRID_SIZE as _CR_GRID_SIZE,
     )
+    from grammar import _hybrid_positions
+    from keys import derive_gk_nu
     gs = grid_size or _CR_GRID_SIZE
-    _, grammar_key = _carter_split(key)
-    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(grammar_key, gs)
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
+    gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(gk_nu, gs)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_18 = gs // BLOCK_18
     positions = []
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
-        br18, bc18 = blk // n_side_18, blk % n_side_18
-        if g['mode'] == MODE_18:
-            form = ref18[g['form_id']]
-            for r, c in form[g['dir']]:
-                gr, gc = br18 * BLOCK_18 + r, bc18 * BLOCK_18 + c
-                if 0 <= gr < gs and 0 <= gc < gs:
-                    positions.append((gr, gc))
-        else:
-            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
-                for gr, gc in sub_pos:
-                    if 0 <= gr < gs and 0 <= gc < gs:
-                        positions.append((gr, gc))
+        positions.extend(_hybrid_positions(blk // n_side_18, blk % n_side_18, g, ref18, ref6,
+                                            gk_ctr, sweep_of_color, gs))
     return positions
+
+def _encode_carter_hybrid_v4(msg: str, key: bytes, grid_size: int = None) -> Tuple[List, Dict]:
+    from carter_random import encode_carter_hybrid, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return encode_carter_hybrid(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _carter_hybrid_message_positions_v4(key: bytes, grid_size: int = None) -> List[Tuple[int, int]]:
+    _, gk, nu = _v4_split(key)
+    return _carter_hybrid_message_positions(gk, nu, grid_size)
+
+def _carter_hybrid_fits_v4(msg: str, key: bytes, grid_size: int = None) -> bool:
+    from carter_random import carter_hybrid_fits, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, nu = _v4_split(key)
+    return carter_hybrid_fits(msg, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE), _nu=nu)
+
+def _decode_carter_hybrid_v4(grid, key: bytes, grid_size: int = None) -> str:
+    from carter_random import decode_carter_hybrid, GRID_SIZE as _CR_GRID_SIZE
+    ck, gk, _ = _v4_split(key)
+    return decode_carter_hybrid(grid, ck, gk, grid_size=(grid_size or _CR_GRID_SIZE))
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 class TestAvalancheKey(unittest.TestCase):
@@ -969,7 +1004,7 @@ class TestCarterRandomCapacity(unittest.TestCase):
         """
         for lng in self.MESSAGES:
             msg  = 'A' * lng
-            refus = sum(1 for _ in range(500) if not random_fits(msg, os.urandom(32)))
+            refus = sum(1 for _ in range(500) if not _random_fits_v4(msg, os.urandom(32)))
             pct   = refus / 5  # %
             if lng == 30:
                 self.assertLess(pct, 2.0,
@@ -1002,9 +1037,9 @@ class TestCarterRandomChiSquare(unittest.TestCase):
         chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not random_fits(self.MSG, k): continue
+            if not _random_fits_v4(self.MSG, k): continue
             grid, _ = encode_fn(self.MSG, k)
-            flat = _message_cell_values(grid, _carter_random_message_positions(k, grid_size))
+            flat = _message_cell_values(grid, _carter_random_message_positions_v4(k, grid_size))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
             chi2s.append(c); ps.append(p); ns.append(len(flat))
@@ -1023,20 +1058,20 @@ class TestCarterRandomChiSquare(unittest.TestCase):
 
     def test_chi2_carter_random_90(self):
         """Chi2 sur les cellules message, Carter Random 90x90."""
-        self._run_serie(encode_carter_random, "Random 90", grid_size=90)
+        self._run_serie(_encode_carter_random_v4, "Random 90", grid_size=90)
 
     def test_chi2_carter_random_360(self):
         """Chi2 sur les cellules message, Carter Random 180x180 (alias 360)."""
-        self._run_serie(encode_carter_random_360, "Random 360", grid_size=180)
+        self._run_serie(_encode_carter_random_360_v4, "Random 360", grid_size=180)
 
     def _run_entropy_serie(self, encode_fn, label, grid_size=None):
         """Entropie Shannon sur les cellules message uniquement."""
         entropies, ns = [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not random_fits(self.MSG, k): continue
+            if not _random_fits_v4(self.MSG, k): continue
             grid, _ = encode_fn(self.MSG, k)
-            flat = _message_cell_values(grid, _carter_random_message_positions(k, grid_size))
+            flat = _message_cell_values(grid, _carter_random_message_positions_v4(k, grid_size))
             entropies.append(_shannon_entropy(flat))
             ns.append(len(flat))
         if not entropies:
@@ -1049,11 +1084,11 @@ class TestCarterRandomChiSquare(unittest.TestCase):
 
     def test_entropy_carter_random_90(self):
         """Entropie Shannon des cellules message, Carter Random 90x90."""
-        self._run_entropy_serie(encode_carter_random, "Random 90", grid_size=90)
+        self._run_entropy_serie(_encode_carter_random_v4, "Random 90", grid_size=90)
 
     def test_entropy_carter_random_360(self):
         """Entropie Shannon des cellules message, Carter Random 180x180 (alias 360)."""
-        self._run_entropy_serie(encode_carter_random_360, "Random 360", grid_size=180)
+        self._run_entropy_serie(_encode_carter_random_360_v4, "Random 360", grid_size=180)
 
 
 class TestCarterRandomAvalanche(unittest.TestCase):
@@ -1079,17 +1114,18 @@ class TestCarterRandomAvalanche(unittest.TestCase):
         Mesure directe de la sensibilite HKDF sur l'assignation des roles.
         """
         from carter_random import (
-            _carter_split, _derive_params, get_referent,
+            _derive_params, get_referent,
             _grammar_individual, _grammar_meta, _MESSAGE,
         )
-        key = os.urandom(32)
+        # Format v4 : gk directement (plus de master_key a scinder via
+        # _carter_split -- ce test mesure la sensibilite de gk lui-meme).
+        gk = os.urandom(32)
         ratios = []
         for bit in range(self.BITS):
-            key2 = bytearray(key)
-            key2[bit // 8] ^= (1 << (bit % 8))
-            key2 = bytes(key2)
-            _, gk1 = _carter_split(key);  s1, m1 = _derive_params(gk1)
-            _, gk2 = _carter_split(key2); s2, m2 = _derive_params(gk2)
+            gk2 = _flip_key_bit(gk, bit)
+            gk1 = gk
+            s1, m1 = _derive_params(gk1)
+            s2, m2 = _derive_params(gk2)
             r1 = get_referent(s1); r2 = get_referent(s2)
             g1 = _grammar_individual(gk1, r1) if not m1 else _grammar_meta(gk1, r1)
             g2 = _grammar_individual(gk2, r2) if not m2 else _grammar_meta(gk2, r2)
@@ -1165,9 +1201,9 @@ class TestCarter18Statistical(unittest.TestCase):
         chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not carter18_fits(self.MSG, k): continue
-            grid, _ = encode_carter_18(self.MSG, k)
-            flat = _message_cell_values(grid, _carter18_message_positions(k))
+            if not _carter18_fits_v4(self.MSG, k): continue
+            grid, _ = _encode_carter_18_v4(self.MSG, k)
+            flat = _message_cell_values(grid, _carter18_message_positions_v4(k))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
             chi2s.append(c); ps.append(p); ns.append(len(flat))
@@ -1188,9 +1224,9 @@ class TestCarter18Statistical(unittest.TestCase):
         entropies, ns = [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not carter18_fits(self.MSG, k): continue
-            grid, _ = encode_carter_18(self.MSG, k)
-            flat = _message_cell_values(grid, _carter18_message_positions(k))
+            if not _carter18_fits_v4(self.MSG, k): continue
+            grid, _ = _encode_carter_18_v4(self.MSG, k)
+            flat = _message_cell_values(grid, _carter18_message_positions_v4(k))
             entropies.append(_shannon_entropy(flat))
             ns.append(len(flat))
         if not entropies:
@@ -1204,14 +1240,12 @@ class TestCarter18Statistical(unittest.TestCase):
     def test_grammar_avalanche_carter_18(self):
         """Avalanche de grammaire : flip 1 bit cle -> >35% des blocs changent de role."""
         from carter_random import _grammar_18, _MESSAGE, GRID_SIZE
-        key = os.urandom(32)
+        # Format v4 : gk directement (plus de master_key a scinder via
+        # _carter_split -- ce test mesure la sensibilite de gk lui-meme).
+        gk1 = os.urandom(32)
         ratios = []
         for bit in range(self.BITS):
-            key2 = bytearray(key)
-            key2[bit // 8] ^= (1 << (bit % 8))
-            key2 = bytes(key2)
-            _, gk1 = _carter_split(key)
-            _, gk2 = _carter_split(bytes(key2))
+            gk2 = _flip_key_bit(gk1, bit)
             g1 = _grammar_18(gk1, GRID_SIZE)
             g2 = _grammar_18(gk2, GRID_SIZE)
             roles1 = [1 if x["role"]==_MESSAGE else 0 for x in g1]
@@ -1229,10 +1263,10 @@ class TestCarter18Statistical(unittest.TestCase):
         ok, tried = 0, 0
         for _ in range(self.N_ROUNDTRIP):
             k = os.urandom(32)
-            if not carter18_fits(self.MSG, k): continue
+            if not _carter18_fits_v4(self.MSG, k): continue
             tried += 1
-            grid, _ = encode_carter_18(self.MSG, k)
-            dec = decode_carter_18(grid, k)
+            grid, _ = _encode_carter_18_v4(self.MSG, k)
+            dec = _decode_carter_18_v4(grid, k)
             self.assertEqual(dec, self.MSG,
                 f"Rupture round-trip Carter-18 pour une cle valide")
             ok += 1
@@ -1269,9 +1303,9 @@ class TestCarterHybridStatistical(unittest.TestCase):
         chi2s, ps, ns = [], [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not carter_hybrid_fits(self.MSG, k): continue
-            grid, _ = encode_carter_hybrid(self.MSG, k)
-            flat = _message_cell_values(grid, _carter_hybrid_message_positions(k))
+            if not _carter_hybrid_fits_v4(self.MSG, k): continue
+            grid, _ = _encode_carter_hybrid_v4(self.MSG, k)
+            flat = _message_cell_values(grid, _carter_hybrid_message_positions_v4(k))
             c    = self._chi2_stat(flat)
             p    = 1 - st.chi2.cdf(c, self.DF)
             chi2s.append(c); ps.append(p); ns.append(len(flat))
@@ -1292,9 +1326,9 @@ class TestCarterHybridStatistical(unittest.TestCase):
         entropies, ns = [], []
         for _ in range(self.N_GRIDS):
             k = os.urandom(32)
-            if not carter_hybrid_fits(self.MSG, k): continue
-            grid, _ = encode_carter_hybrid(self.MSG, k)
-            flat = _message_cell_values(grid, _carter_hybrid_message_positions(k))
+            if not _carter_hybrid_fits_v4(self.MSG, k): continue
+            grid, _ = _encode_carter_hybrid_v4(self.MSG, k)
+            flat = _message_cell_values(grid, _carter_hybrid_message_positions_v4(k))
             entropies.append(_shannon_entropy(flat))
             ns.append(len(flat))
         if not entropies:
@@ -1308,14 +1342,12 @@ class TestCarterHybridStatistical(unittest.TestCase):
     def test_grammar_avalanche_carter_hybrid(self):
         """Avalanche de grammaire : flip 1 bit cle -> >35% des blocs changent de role."""
         from carter_random import _grammar_hybrid, _MESSAGE, GRID_SIZE
-        key = os.urandom(32)
+        # Format v4 : gk directement (plus de master_key a scinder via
+        # _carter_split -- ce test mesure la sensibilite de gk lui-meme).
+        gk1 = os.urandom(32)
         ratios = []
         for bit in range(self.BITS):
-            key2 = bytearray(key)
-            key2[bit // 8] ^= (1 << (bit % 8))
-            key2 = bytes(key2)
-            _, gk1 = _carter_split(key)
-            _, gk2 = _carter_split(bytes(key2))
+            gk2 = _flip_key_bit(gk1, bit)
             g1 = _grammar_hybrid(gk1, GRID_SIZE)
             g2 = _grammar_hybrid(gk2, GRID_SIZE)
             roles1 = [1 if x["role"]==_MESSAGE else 0 for x in g1]
@@ -1333,10 +1365,10 @@ class TestCarterHybridStatistical(unittest.TestCase):
         ok, tried = 0, 0
         for _ in range(self.N_ROUNDTRIP):
             k = os.urandom(32)
-            if not carter_hybrid_fits(self.MSG, k): continue
+            if not _carter_hybrid_fits_v4(self.MSG, k): continue
             tried += 1
-            grid, _ = encode_carter_hybrid(self.MSG, k)
-            dec = decode_carter_hybrid(grid, k)
+            grid, _ = _encode_carter_hybrid_v4(self.MSG, k)
+            dec = _decode_carter_hybrid_v4(grid, k)
             self.assertEqual(dec, self.MSG,
                 f"Rupture round-trip Carter-Hybrid pour une cle valide")
             ok += 1
@@ -1407,15 +1439,15 @@ class TestCarterRandomSummary(unittest.TestCase):
         except ImportError:
             self.skipTest("scipy non installe")
         key = os.urandom(32)
-        while not (random_fits(self.MSG, key) and carter18_fits(self.MSG, key)
-                   and carter_hybrid_fits(self.MSG, key)):
+        while not (_random_fits_v4(self.MSG, key) and _carter18_fits_v4(self.MSG, key)
+                   and _carter_hybrid_fits_v4(self.MSG, key)):
             key = os.urandom(32)
 
         results = {}
-        for label, fn in [('Random 90', encode_carter_random),
-                           ('Random 360', encode_carter_random_360),
-                           ('Carter-18', encode_carter_18),
-                           ('Carter-Hybrid', encode_carter_hybrid)]:
+        for label, fn in [('Random 90', _encode_carter_random_v4),
+                           ('Random 360', _encode_carter_random_360_v4),
+                           ('Carter-18', _encode_carter_18_v4),
+                           ('Carter-Hybrid', _encode_carter_hybrid_v4)]:
             grid, _ = fn(self.MSG, key)
             flat = [v for row in grid for v in row]
             n    = len(flat)

@@ -30,40 +30,45 @@ from stegano_lib import (
 )
 from masks import derive_masks
 from sweep import derive_sweep_index, crypto_reading_order
+from keys import new_layout_nonce, derive_gk_nu, nu_to_symbols, symbols_to_nu, NU_SYMBOLS
 
 from grammar import (
     # Carter-Random (individuel/méta)
     GRID_SIZE, CELL_SIZE, N_SIDE, N_BLOCKS, META, N_META, N_META_TOT, N_DIR, N_FORMS,
     SEEDS, CONC_ORDER,
     get_referent, _RANDOM_STEGANO_COLORS, _form_stegano_positions,
+    _random_individual_positions, _random_meta_positions,
     _derive_params, _grammar_individual, _grammar_meta, _random_c_pub_key,
     _find_random_grammar_with_c_pub,
     # Carter-18
     BLOCK_18, N_LAYERS, N_FORMS_18, N_DIR_18, _LAYERS_BY_DIR, _POSITIONS_PER_DIR,
     _layer_cells, _build_form_18, get_referent_18, _grammar_18, _carter18_seed,
-    _find_carter18_grammar_with_c_pub,
+    _carter18_positions, _find_carter18_grammar_with_c_pub,
     # Carter-Hybrid
     MODE_18, MODE_6,
     _grammar_hybrid, _subblock_positions, _carter_hybrid_seeds,
-    _hybrid_capacity_positions, _find_hybrid_grammar_with_c_pub,
+    _hybrid_positions, _find_hybrid_grammar_with_c_pub,
 )
 
 # ── Carter-Random : encode ──────────────────────────────────────────────────────
 def encode_carter_random(message: str,
-                          master_key: bytes,
+                          ck: bytes, gk: bytes,
                           grid_size: int = GRID_SIZE,
                           _nonce: bytes = None, _y: int = None,
-                          _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List, Dict]:
+                          _leftover: List[int] = None, _noise_seed: bytes = None,
+                          _nu: bytes = None) -> Tuple[List, Dict]:
     """
-    Encode un message dans une grille 90×90.
-    Tous les paramètres géométriques sont dérivés de master_key.
+    Encode un message dans une grille 90×90 (format v4 : deux clés
+    indépendantes, keys.py -- voir carter.encode_carter()). Tous les
+    paramètres géométriques sont dérivés de gk_nu = derive_gk_nu(gk, nu,
+    'carterrandom').
 
-    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
-    interne pour le mode vecteurs — voir carter.encode_carter(). Le
-    redraw (ctr), le mode (CR-1) et les masques restent 100% déterministes
-    depuis master_key seul, aucune injection n'y est nécessaire.
+    _nonce/_y/_leftover/_noise_seed/_nu (préfixés `_`, tâche 7 puis format
+    v4) : injection interne pour le mode vecteurs — voir
+    carter.encode_carter(). Le redraw (ctr), le mode (CR-1) et les masques
+    restent 100% déterministes depuis gk_nu seul, aucune injection n'y est
+    nécessaire.
     """
-    xchacha_key, grammar_key = _carter_split(master_key)
     c_pub_key = _random_c_pub_key(grid_size)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
     # carter.encode_carter() pour la justification complète. En OCTETS
@@ -73,6 +78,8 @@ def encode_carter_random(message: str,
         raise ValueError(
             f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB[c_pub_key]} "
             f"octets (capacité publique garantie, indépendante de la clé).")
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
 
@@ -80,10 +87,10 @@ def encode_carter_random(message: str,
     # seed, mode (CR-1 compris) et grammaire redérivés ensemble à chaque
     # tentative, voir _find_random_grammar_with_c_pub().
     gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
 
-    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
+    payload = _encrypt(message, ck, cap, _nonce=_nonce)
     # Flux de symboles base-44 uniformes — même fonction que celle utilisée
     # par encode_carter() dans stegano_lib.py : toutes les positions message
     # portent un symbole de charge utile, aucun en-tête séparé.
@@ -102,14 +109,10 @@ def encode_carter_random(message: str,
         # ── Mode individuel : bloc à bloc ──
         for i, g in enumerate(grammar):
             if g['role'] != _MESSAGE: continue
-            br, bc = i // n_side_g, i % n_side_g
-            form   = ref[g['form_id']]
-            r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-            for pos in _form_stegano_positions(form, sweep_of_color):
+            for gr, gc in _random_individual_positions(i // n_side_g, i % n_side_g,
+                                                         g, ref, sweep_of_color, grid_size):
                 if nib_i >= len(nibbles): break
-                gr, gc = r0 + pos[0], c0 + pos[1]
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
+                grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
                 nib_i += 1
         mode_str  = 'individual'
         n_msg_out = sum(1 for g in grammar if g['role'] == _MESSAGE)
@@ -119,20 +122,17 @@ def encode_carter_random(message: str,
         # grammar/cap déjà dérivés plus haut par la recherche C_PUB (tâche 4).
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
-            mr, mc = mi // n_meta_g, mi % n_meta_g
-            for ci, (br_off, bc_off) in enumerate(CONC_ORDER):
-                sg     = mg['sub'][ci]
-                form   = ref[sg['form_id']]
-                br, bc = mr * META + br_off, mc * META + bc_off
-                r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-                for pos in _form_stegano_positions(form, sweep_of_color):
-                    if nib_i >= len(nibbles): break
-                    gr, gc = r0 + pos[0], c0 + pos[1]
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
-                    nib_i += 1
+            for gr, gc in _random_meta_positions(mi // n_meta_g, mi % n_meta_g,
+                                                  mg, ref, sweep_of_color, grid_size):
+                if nib_i >= len(nibbles): break
+                grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN
+                nib_i += 1
         mode_str  = 'meta'
         n_msg_out = sum(1 for g in grammar if g['role'] == _MESSAGE)
+
+    # Nonce de disposition, écrit en dernier — voir carter.encode_carter().
+    for c, sym in enumerate(nu_to_symbols(nu)):
+        grid[0][c] = sym
 
     return grid, {
         'referent_index': ref_idx, 'mode': mode_str, 'meta_mode': meta_mode,
@@ -140,13 +140,15 @@ def encode_carter_random(message: str,
     }
 
 # ── Carter-Random : decode ───────────────────────────────────────────────────────
-def decode_carter_random(grid: List, master_key: bytes,
+def decode_carter_random(grid: List, ck: bytes, gk: bytes,
                           grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille 90×90 (même recherche C_PUB déterministe que
+    """Décode une grille 90×90 (format v4). Lit nu depuis les 36 premières
+    cases de la ligne 0 (même recherche C_PUB déterministe que
     l'encodeur — tâche 4)."""
-    xchacha_key, grammar_key = _carter_split(master_key)
+    nu = symbols_to_nu(grid[0][:NU_SYMBOLS])
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
     gk_ctr, ref_idx, meta_mode, ref, grammar, cap = _find_random_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_g  = grid_size // CELL_SIZE
     n_meta_g  = n_side_g  // META
@@ -157,34 +159,23 @@ def decode_carter_random(grid: List, master_key: bytes,
     if not meta_mode:
         for i, g in enumerate(grammar):
             if g['role'] != _MESSAGE: continue
-            br, bc = i // n_side_g, i % n_side_g
-            form   = ref[g['form_id']]
-            r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-            for pos in _form_stegano_positions(form, sweep_of_color):
-                gr, gc = r0 + pos[0], c0 + pos[1]
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
+            for gr, gc in _random_individual_positions(i // n_side_g, i % n_side_g,
+                                                         g, ref, sweep_of_color, grid_size):
+                vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
                 nib_i += 1
     else:
         for mi, mg in enumerate(grammar):
             if mg['role'] != _MESSAGE: continue
-            mr, mc = mi // n_meta_g, mi % n_meta_g
-            for ci, (br_off, bc_off) in enumerate(CONC_ORDER):
-                sg     = mg['sub'][ci]
-                form   = ref[sg['form_id']]
-                br, bc = mr * META + br_off, mc * META + bc_off
-                r0, c0 = br * CELL_SIZE, bc * CELL_SIZE
-                for pos in _form_stegano_positions(form, sweep_of_color):
-                    gr, gc = r0 + pos[0], c0 + pos[1]
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
-                    nib_i += 1
+            for gr, gc in _random_meta_positions(mi // n_meta_g, mi % n_meta_g,
+                                                  mg, ref, sweep_of_color, grid_size):
+                vals.append((grid[gr][gc] - masks[nib_i]) % ALPHA_LEN)
+                nib_i += 1
 
-    return _decrypt(vals, xchacha_key, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
 # ── Utilitaires ─────────────────────────────────────────────────────────────────
-def random_fits(message: str, master_key: bytes,
-                 grid_size: int = GRID_SIZE) -> bool:
+def random_fits(message: str, ck: bytes, gk: bytes,
+                 grid_size: int = GRID_SIZE, _nu: bytes = None) -> bool:
     """Vérifie si le message tient dans la grille avec la config dérivée
     (après redraw C_PUB, tâche 4 — reflète ce qu'encode_carter_random()
     utilise réellement)."""
@@ -192,16 +183,19 @@ def random_fits(message: str, master_key: bytes,
     msg_bytes_len = len(message.encode('utf-8'))
     if msg_bytes_len > C_PUB[c_pub_key]:
         return False
-    _, grammar_key = _carter_split(master_key)
-    _, _, _, _, _, n_pos = _find_random_grammar_with_c_pub(grammar_key, grid_size)
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
+    _, _, _, _, _, n_pos = _find_random_grammar_with_c_pub(gk_nu, grid_size)
     return msg_bytes_len <= max_message_for(n_pos)
 
-def random_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
+def random_capacity(gk: bytes, grid_size: int = GRID_SIZE, _nu: bytes = None) -> Dict:
     """Retourne la capacité disponible pour une clé donnée (après redraw
-    C_PUB, tâche 4)."""
-    _, grammar_key = _carter_split(master_key)
+    C_PUB, tâche 4). Format v4 : la capacité dépend de gk ET de nu -- voir
+    carter.carter_capacity()."""
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterrandom')
     gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos = _find_random_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     n_msg = sum(1 for x in grammar if x['role'] == _MESSAGE)
     n_pur = sum(1 for x in grammar if x['role'] == _PURE)
     n_str = sum(1 for x in grammar if x['role'] == _STRUCTURED)
@@ -213,24 +207,26 @@ def random_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
     }
 
 # ── Aliases Carter Random 360 (grille 180×180) ────────────────────────────────
-def encode_carter_random_360(message: str, master_key: bytes) -> Tuple[List, Dict]:
+def encode_carter_random_360(message: str, ck: bytes, gk: bytes) -> Tuple[List, Dict]:
     """Carter Random sur grille 180×180 (4× plus de blocs, capacité ~4×)."""
-    return encode_carter_random(message, master_key, grid_size=180)
+    return encode_carter_random(message, ck, gk, grid_size=180)
 
-def decode_carter_random_360(grid: List, master_key: bytes) -> str:
+def decode_carter_random_360(grid: List, ck: bytes, gk: bytes) -> str:
     """Décode une grille Carter Random 180×180."""
-    return decode_carter_random(grid, master_key, grid_size=180)
+    return decode_carter_random(grid, ck, gk, grid_size=180)
 
 
 # ── Carter-18 ───────────────────────────────────────────────────────────────────
 
 def encode_carter_18(message: str,
-                     master_key: bytes,
+                     ck: bytes, gk: bytes,
                      grid_size: int = GRID_SIZE,
                      _nonce: bytes = None, _y: int = None,
-                     _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List[List[int]], Dict]:
+                     _leftover: List[int] = None, _noise_seed: bytes = None,
+                     _nu: bytes = None) -> Tuple[List[List[int]], Dict]:
     """
-    Carter-18 : encode sur grille grid_size×grid_size avec méta-blocs 18×18.
+    Carter-18 : encode sur grille grid_size×grid_size avec méta-blocs 18×18
+    (format v4 : deux clés indépendantes, keys.py -- voir carter.encode_carter()).
 
     Chaque méta-bloc 18×18 porte ses symboles en ordre concentrique — noyau
     d'abord pour dir 0, périphérie d'abord pour dir 1, couches paires/impaires
@@ -240,14 +236,14 @@ def encode_carter_18(message: str,
     Capacité nettement supérieure à Carter-256 (324 positions par méta-bloc
     message en direction 0/1, contre 6 par bloc en Carter-256).
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter_random().
+    _nonce/_y/_leftover/_noise_seed/_nu (tâche 7 puis format v4) : voir
+    encode_carter_random().
     """
     # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
     # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
     # méta-blocs ne pavent plus la grille correctement.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
-    xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
     # carter.encode_carter() pour la justification complète. En OCTETS UTF-8.
     msg_bytes_len = len(message.encode('utf-8'))
@@ -255,13 +251,15 @@ def encode_carter_18(message: str,
         raise ValueError(
             f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB['carter18']} "
             f"octets (capacité publique garantie, indépendante de la clé).")
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
     n_side_18 = grid_size // BLOCK_18
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
     # seed du référent et grammaire redérivés ensemble à chaque tentative.
     gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
 
-    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
+    payload = _encrypt(message, ck, cap, _nonce=_nonce)
     # Même flux de symboles base-44 que encode_carter_random() ci-dessus —
     # charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
@@ -275,13 +273,14 @@ def encode_carter_18(message: str,
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE or ni >= len(nibbles): continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
-        form = ref18[g['form_id']]
-        for r, c in form[g['dir']]:
+        for gr, gc in _carter18_positions(br18, bc18, g, ref18, grid_size):
             if ni >= len(nibbles): break
-            gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
-            if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
+            grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
             ni += 1
+
+    # Nonce de disposition, écrit en dernier — voir carter.encode_carter().
+    for c, sym in enumerate(nu_to_symbols(nu)):
+        grid[0][c] = sym
 
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     return grid, {
@@ -291,16 +290,18 @@ def encode_carter_18(message: str,
 
 
 def decode_carter_18(grid: List[List[int]],
-                     master_key: bytes,
+                     ck: bytes, gk: bytes,
                      grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille encodée par encode_carter_18. ValueError si clé
+    """Décode une grille encodée par encode_carter_18 (format v4). Lit nu
+    depuis les 36 premières cases de la ligne 0. ValueError si clé
     incorrecte (même recherche C_PUB déterministe que l'encodeur — tâche 4)."""
     # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_18.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
-    xchacha_key, grammar_key = _carter_split(master_key)
+    nu = symbols_to_nu(grid[0][:NU_SYMBOLS])
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
     gk_ctr, seed, ref18, grammar, n_tot_pos = _find_carter18_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     n_side_18 = grid_size // BLOCK_18
 
     masks = derive_masks(gk_ctr, n_tot_pos + 256, 'carter18')
@@ -309,33 +310,32 @@ def decode_carter_18(grid: List[List[int]],
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
-        form = ref18[g['form_id']]
-        for r, c in form[g['dir']]:
-            gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
-            if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
+        for gr, gc in _carter18_positions(br18, bc18, g, ref18, grid_size):
+            vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
             ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
 
-def carter18_fits(message: str, master_key: bytes,
-                  grid_size: int = GRID_SIZE) -> bool:
+def carter18_fits(message: str, ck: bytes, gk: bytes,
+                  grid_size: int = GRID_SIZE, _nu: bytes = None) -> bool:
     """Vérifie si le message tient dans la grille Carter-18 avec la config
     dérivée (après redraw C_PUB, tâche 4)."""
     msg_bytes_len = len(message.encode('utf-8'))
     if msg_bytes_len > C_PUB['carter18']:
         return False
-    _, grammar_key = _carter_split(master_key)
-    _, _, _, _, cap = _find_carter18_grammar_with_c_pub(grammar_key, grid_size)
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
+    _, _, _, _, cap = _find_carter18_grammar_with_c_pub(gk_nu, grid_size)
     return msg_bytes_len <= max_message_for(cap)
 
 
-def carter18_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
+def carter18_capacity(gk: bytes, grid_size: int = GRID_SIZE, _nu: bytes = None) -> Dict:
     """Retourne les infos de capacité Carter-18 pour cette clé (après
-    redraw C_PUB, tâche 4)."""
-    _, grammar_key = _carter_split(master_key)
+    redraw C_PUB, tâche 4). Format v4 : la capacité dépend de gk ET de nu."""
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carter18')
     gk_ctr, seed, ref18, grammar, cap = _find_carter18_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_side_18 = grid_size // BLOCK_18
     return {
@@ -351,12 +351,14 @@ def carter18_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
 # ── Carter-Hybrid ───────────────────────────────────────────────────────────────
 
 def encode_carter_hybrid(message: str,
-                         master_key: bytes,
+                         ck: bytes, gk: bytes,
                          grid_size: int = GRID_SIZE,
                          _nonce: bytes = None, _y: int = None,
-                         _leftover: List[int] = None, _noise_seed: bytes = None) -> Tuple[List[List[int]], Dict]:
+                         _leftover: List[int] = None, _noise_seed: bytes = None,
+                         _nu: bytes = None) -> Tuple[List[List[int]], Dict]:
     """
-    Carter-Hybrid : mélange 18×18 concentrique + 6×6 sous-blocs.
+    Carter-Hybrid : mélange 18×18 concentrique + 6×6 sous-blocs (format v4 :
+    deux clés indépendantes, keys.py -- voir carter.encode_carter()).
 
     Les méta-blocs message en MODE_18 offrent une haute capacité (jusqu'à
     324 positions) ; ceux en MODE_6 complètent en grain plus fin (54
@@ -364,14 +366,14 @@ def encode_carter_hybrid(message: str,
     pas du message : pas d'adaptation à la longueur qui distinguerait un
     message court d'un message long depuis la seule géométrie.
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter_random().
+    _nonce/_y/_leftover/_noise_seed/_nu (tâche 7 puis format v4) : voir
+    encode_carter_random().
     """
     # C18-2 (audit G. Kerma, rév. 5) : grid_size doit être multiple de BLOCK_18,
     # sinon n_side_18 = grid_size // BLOCK_18 tronque silencieusement et les
     # méta-blocs ne pavent plus la grille correctement.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
-    xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — voir
     # carter.encode_carter() pour la justification complète. En OCTETS UTF-8.
     msg_bytes_len = len(message.encode('utf-8'))
@@ -379,16 +381,18 @@ def encode_carter_hybrid(message: str,
         raise ValueError(
             f"Message trop long : {msg_bytes_len} > C_PUB={C_PUB['carterhybrid']} "
             f"octets (capacité publique garantie, indépendante de la clé).")
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
     n_side_18 = grid_size // BLOCK_18
     # Recherche C_PUB (tâche 4) : redraw déterministe jusqu'à satisfaction —
     # seed18/ref_idx6 et grammaire redérivés ensemble à chaque tentative.
     gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
 
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
-    payload = _encrypt(message, xchacha_key, cap, _nonce=_nonce)
+    payload = _encrypt(message, ck, cap, _nonce=_nonce)
     nibbles = payload_to_symbols(payload, cap, _y=_y, _leftover=_leftover)
 
     masks = derive_masks(gk_ctr, len(nibbles) + 512, 'carterhybrid')
@@ -399,23 +403,14 @@ def encode_carter_hybrid(message: str,
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE or ni >= len(nibbles): continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
+        for gr, gc in _hybrid_positions(br18, bc18, g, ref18, ref6, gk_ctr, sweep_of_color, grid_size):
+            if ni >= len(nibbles): break
+            grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
+            ni += 1
 
-        if g['mode'] == MODE_18:
-            form = ref18[g['form_id']]
-            for r, c in form[g['dir']]:
-                if ni >= len(nibbles): break
-                gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
-                ni += 1
-        else:  # MODE_6
-            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
-                for gr, gc in sub_pos:
-                    if ni >= len(nibbles): break
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        grid[gr][gc] = (nibbles[ni] + masks[ni]) % ALPHA_LEN
-                    ni += 1
-                if ni >= len(nibbles): break
+    # Nonce de disposition, écrit en dernier — voir carter.encode_carter().
+    for c, sym in enumerate(nu_to_symbols(nu)):
+        grid[0][c] = sym
 
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
@@ -427,16 +422,18 @@ def encode_carter_hybrid(message: str,
 
 
 def decode_carter_hybrid(grid: List[List[int]],
-                         master_key: bytes,
+                         ck: bytes, gk: bytes,
                          grid_size: int = GRID_SIZE) -> str:
-    """Décode une grille encodée par encode_carter_hybrid. ValueError si clé
+    """Décode une grille encodée par encode_carter_hybrid (format v4). Lit
+    nu depuis les 36 premières cases de la ligne 0. ValueError si clé
     incorrecte (même recherche C_PUB déterministe que l'encodeur — tâche 4)."""
     # C18-2 (audit G. Kerma, rév. 5) : voir encode_carter_hybrid.
     if grid_size % BLOCK_18 != 0:
         raise ValueError(f"grid_size={grid_size} n'est pas multiple de BLOCK_18={BLOCK_18}")
-    xchacha_key, grammar_key = _carter_split(master_key)
+    nu = symbols_to_nu(grid[0][:NU_SYMBOLS])
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
     gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_tot = _find_hybrid_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     sweep_of_color = {c: derive_sweep_index(gk_ctr, c) for c in _RANDOM_STEGANO_COLORS}
     n_side_18 = grid_size // BLOCK_18
 
@@ -446,42 +443,33 @@ def decode_carter_hybrid(grid: List[List[int]],
     for blk, g in enumerate(grammar):
         if g['role'] != _MESSAGE: continue
         br18, bc18 = blk // n_side_18, blk % n_side_18
+        for gr, gc in _hybrid_positions(br18, bc18, g, ref18, ref6, gk_ctr, sweep_of_color, grid_size):
+            vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
+            ni += 1
 
-        if g['mode'] == MODE_18:
-            form = ref18[g['form_id']]
-            for r, c in form[g['dir']]:
-                gr, gc = br18*BLOCK_18+r, bc18*BLOCK_18+c
-                if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                    vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
-                ni += 1
-        else:
-            for sub_pos in _subblock_positions(br18, bc18, gk_ctr, ref6, sweep_of_color):
-                for gr, gc in sub_pos:
-                    if 0 <= gr < grid_size and 0 <= gc < grid_size:
-                        vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN)
-                    ni += 1
-
-    return _decrypt(vals, xchacha_key, len(vals))
+    return _decrypt(vals, ck, len(vals))
 
 
-def carter_hybrid_fits(message: str, master_key: bytes,
-                       grid_size: int = GRID_SIZE) -> bool:
+def carter_hybrid_fits(message: str, ck: bytes, gk: bytes,
+                       grid_size: int = GRID_SIZE, _nu: bytes = None) -> bool:
     """Vérifie si le message tient dans la grille Carter-Hybrid avec la
     config dérivée (après redraw C_PUB, tâche 4)."""
     msg_bytes_len = len(message.encode('utf-8'))
     if msg_bytes_len > C_PUB['carterhybrid']:
         return False
-    _, grammar_key = _carter_split(master_key)
-    _, _, _, _, _, _, cap = _find_hybrid_grammar_with_c_pub(grammar_key, grid_size)
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
+    _, _, _, _, _, _, cap = _find_hybrid_grammar_with_c_pub(gk_nu, grid_size)
     return msg_bytes_len <= max_message_for(cap)
 
 
-def carter_hybrid_capacity(master_key: bytes, grid_size: int = GRID_SIZE) -> Dict:
+def carter_hybrid_capacity(gk: bytes, grid_size: int = GRID_SIZE, _nu: bytes = None) -> Dict:
     """Retourne les infos de capacité Carter-Hybrid pour cette clé (après
-    redraw C_PUB, tâche 4)."""
-    _, grammar_key = _carter_split(master_key)
+    redraw C_PUB, tâche 4). Format v4 : la capacité dépend de gk ET de nu."""
+    nu = _nu if _nu is not None else new_layout_nonce()
+    gk_nu = derive_gk_nu(gk, nu, 'carterhybrid')
     gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, cap = _find_hybrid_grammar_with_c_pub(
-        grammar_key, grid_size)
+        gk_nu, grid_size)
     n_msg = sum(1 for g in grammar if g['role'] == _MESSAGE)
     n_18  = sum(1 for g in grammar if g['role']==_MESSAGE and g['mode']==MODE_18)
     return {

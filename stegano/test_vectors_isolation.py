@@ -15,9 +15,10 @@ _k2 (câblage 2026-09-12) : n'existe plus -- form_id est désormais dérivé
 de gk_local par _derive_deniable_form_ids(), comme les balayages et les
 masques, plus rien à injecter séparément.
 
-_nu (format v4, keys.py) : nonce de disposition de Carter-256, injectable
-pour le mode vecteurs comme les autres paramètres `_` ci-dessus -- None
-par défaut préserve le tirage CSPRNG normal (new_layout_nonce()).
+_nu (format v4, keys.py) : nonce de disposition, injectable pour le mode
+vecteurs comme les autres paramètres `_` ci-dessus -- None par défaut
+préserve le tirage CSPRNG normal (new_layout_nonce()). Carter-256/360/
+Mix/Random/18/Hybrid sont tous migrés au format v4 (deux clés + nu).
 """
 
 import inspect, os, sys, unittest

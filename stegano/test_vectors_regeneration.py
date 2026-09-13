@@ -32,15 +32,9 @@ import stegano_classic as SC
 
 VECTORS_PATH = os.path.join(VI.REPO_ROOT, 'vectors', 'carter_v3.json')
 
-_DECODE_FN = {
-    # carter256/carter360/cartermix (format v4, deux cles) : geres a part
-    # dans les appelants ci-dessous (sv['keys']['ck_hex'/'gk_hex'], pas
-    # sv['inputs']['master_key_hex']) -- absents de cette table generique
-    # a cle unique.
-    'carterrandom': lambda g, key: CR.decode_carter_random(g, key, 90),
-    'carter18':     lambda g, key: CR.decode_carter_18(g, key, 90),
-    'carterhybrid': lambda g, key: CR.decode_carter_hybrid(g, key, 90),
-}
+# Toutes les instantiations Carter (format v4, deux cles) sont gerees a
+# part dans test_decoding_from_regenerated_grid ci-dessous
+# (sv['keys']['ck_hex'/'gk_hex'], pas sv['inputs']['master_key_hex']).
 
 
 class TestVectorsRegeneration(unittest.TestCase):
@@ -108,13 +102,19 @@ class TestVectorsRegeneration(unittest.TestCase):
                         grid, ck, gk, VI.load_referent_256_v3(), VI.load_referent_360_v3())
                     self.assertEqual(decoded, sv['expected_decode'])
                 continue
-            if inst not in _DECODE_FN:
+            if inst in ('carterrandom', 'carter18', 'carterhybrid'):
+                with self.subTest(id=sv['id']):
+                    ck = bytes.fromhex(sv['keys']['ck_hex'])
+                    gk = bytes.fromhex(sv['keys']['gk_hex'])
+                    grid = self.fresh_grids[sv['id']]
+                    decode_fn = {
+                        'carterrandom': CR.decode_carter_random,
+                        'carter18':     CR.decode_carter_18,
+                        'carterhybrid': CR.decode_carter_hybrid,
+                    }[inst]
+                    decoded = decode_fn(grid, ck, gk, 90)
+                    self.assertEqual(decoded, sv['expected_decode'])
                 continue
-            with self.subTest(id=sv['id']):
-                key = bytes.fromhex(sv['inputs']['master_key_hex'])
-                grid = self.fresh_grids[sv['id']]
-                decoded = _DECODE_FN[inst](grid, key)
-                self.assertEqual(decoded, sv['expected_decode'])
 
     def test_negative_and_rejection_vectors_still_reject(self):
         """Les vecteurs négatifs (tamper=...) doivent continuer à produire

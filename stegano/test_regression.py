@@ -84,6 +84,12 @@ _KMIX  = _keys_from_master(KEY_KNOWN,  'cartermix')
 _KMIX2 = _keys_from_master(KEY_KNOWN2, 'cartermix')
 CKMIX_KNOWN,  GKMIX_KNOWN  = _KMIX['ck'],  _KMIX['gk']
 CKMIX_KNOWN2, GKMIX_KNOWN2 = _KMIX2['ck'], _KMIX2['gk']
+_KRAND = _keys_from_master(KEY_KNOWN, 'carterrandom')
+_K18   = _keys_from_master(KEY_KNOWN, 'carter18')
+_KHYB  = _keys_from_master(KEY_KNOWN, 'carterhybrid')
+CKRAND_KNOWN, GKRAND_KNOWN = _KRAND['ck'], _KRAND['gk']
+CK18_KNOWN,   GK18_KNOWN   = _K18['ck'],   _K18['gk']
+CKHYB_KNOWN,  GKHYB_KNOWN  = _KHYB['ck'],  _KHYB['gk']
 
 MSG_SHORT  = "ANIBALAMIOTX"
 MSG_LONG   = "LACROIXANSEEESTLAMETHODECREATIVEDELALIVREEDHERMES"
@@ -849,13 +855,13 @@ class TestCPub(unittest.TestCase):
             random_capacity, carter18_capacity, carter_hybrid_capacity,
         )
         cases = [
-            ('carterrandom90',  lambda msg: encode_carter_random(msg, KEY_KNOWN),
+            ('carterrandom90',  lambda msg: encode_carter_random(msg, CKRAND_KNOWN, GKRAND_KNOWN),
              lambda k: random_capacity(k)['chars_max']),
-            ('carterrandom360', lambda msg: encode_carter_random_360(msg, KEY_KNOWN),
+            ('carterrandom360', lambda msg: encode_carter_random_360(msg, CKRAND_KNOWN, GKRAND_KNOWN),
              lambda k: random_capacity(k, grid_size=180)['chars_max']),
-            ('carter18',        lambda msg: encode_carter_18(msg, KEY_KNOWN),
+            ('carter18',        lambda msg: encode_carter_18(msg, CK18_KNOWN, GK18_KNOWN),
              lambda k: carter18_capacity(k)['capacity_chars']),
-            ('carterhybrid',    lambda msg: encode_carter_hybrid(msg, KEY_KNOWN),
+            ('carterhybrid',    lambda msg: encode_carter_hybrid(msg, CKHYB_KNOWN, GKHYB_KNOWN),
              lambda k: carter_hybrid_capacity(k)['capacity_chars']),
         ]
         for variant, enc_fn, cap_fn in cases:
