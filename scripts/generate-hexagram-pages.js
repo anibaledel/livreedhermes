@@ -66,6 +66,10 @@ const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href
 // (voir assets/soutien-gate.js). Précède .site-nav-row.
 const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
 const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</button>`;
+// Lien de pied de page vers la page Soutien — occupe l'emplacement laissé
+// vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
+// voir espace-libre), après .footer-title-logo.
+const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
 const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
@@ -363,6 +367,7 @@ ${linesHtml}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    ${SOUTIEN_LINK_HTML}
   </div>
 </div>
 ${FOOTER_CTA_SCRIPT}
@@ -512,6 +517,7 @@ ${gridItems}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    ${SOUTIEN_LINK_HTML}
   </div>
 </div>
 ${FOOTER_CTA_SCRIPT}
