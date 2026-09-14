@@ -346,6 +346,7 @@ ${linesHtml}
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a>
@@ -495,6 +496,7 @@ ${gridItems}
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
