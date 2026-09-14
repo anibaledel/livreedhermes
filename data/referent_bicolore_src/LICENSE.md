@@ -31,6 +31,13 @@ Restent sous AGPL v3, comme le reste du dépôt :
   bicolore généré au format JSON ;
 - tout le code qui lit ces fichiers.
 
+`data/referent_bandes_v1.json` (page Cymatique, 15 gammes « bandes »,
+même format que le référent bicolore ci-dessus) est traité de la même
+façon — donnée générée, AGPL v3 — bien que le script qui l'a produit
+n'ait pas été versé dans `tools/` : il n'a pas été fourni avec le
+fichier. À verser dès qu'il sera disponible, pour rester régénérable
+comme le reste.
+
 ## En cas de doute
 
 Un fichier de ce dossier qui n'est pas une donnée générée par un
