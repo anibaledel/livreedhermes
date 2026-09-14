@@ -10,18 +10,12 @@
 //
 // Endpoints : POST /create-checkout-session (soutien, montant libre),
 //             POST /create-pro-checkout-session (pro, montant fixe),
-//             POST /webhook, GET /claim-token, GET /verify-access,
-//             POST /export-bicolore (jeton "pro" requis).
+//             POST /webhook, GET /claim-token, GET /verify-access.
 //
-// /export-bicolore rend les motifs bicolores côté serveur (module partagé
-// assets/bicolore-render.js, données data/referent_bicolore_v1.json — les
-// mêmes fichiers que ceux importés côté client, générés par
-// tools/generate_referent_bicolore.py, jamais copiés à la main). Cette
-// route ne journalise rien de propre à la requête (pas d'appel console.*) :
-// aucune route de ce fichier n'en fait, et la seule information conservée
-// est la vérification du jeton déjà nécessaire pour /verify-access, plus un
-// compteur de débit par jeton (SOUTIEN_KV, clé rl:bicolore:<jeton>:<heure>,
-// sans le contenu de la composition).
+// Les pages Cymatique et Échiquiers (motifs bicolores) n'ont pas de route
+// ici : accès libre, export SVG/PNG entièrement côté client (voir
+// assets/bicolore-render.js) — décision explicite de l'auteur, pas
+// d'exports réservés pour ces pages.
 //
 // La clé secrète Stripe (env.STRIPE_SECRET_KEY) et le secret de signature
 // webhook (env.STRIPE_WEBHOOK_SECRET) sont des secrets Cloudflare
@@ -29,8 +23,6 @@
 // wrangler.toml. Voir README.md pour la mise en place.
 
 import Stripe from 'stripe';
-import calques from '../../data/referent_bicolore_v1.json';
-import { composeSvg, composeFamily64, composePavage } from '../../assets/bicolore-render.js';
 
 // W1 : seules devises acceptées côté serveur. Le seuil minimum
 // (STRIPE_MIN_AMOUNT_CENTS) est exprimé dans cette devise ; toute autre est
@@ -300,8 +292,7 @@ async function handleClaimToken(request, env) {
 }
 
 // Lit le jeton depuis SOUTIEN_KV et renvoie son palier ("soutien" | "pro"),
-// ou null si le jeton n'existe pas. Partagé par /verify-access et
-// /export-bicolore — un seul chemin de lecture du jeton.
+// ou null si le jeton n'existe pas.
 async function readTokenTier(env, token) {
   if (!token) return null;
   const raw = await env.SOUTIEN_KV.get(`token:${token}`);
@@ -322,123 +313,6 @@ async function handleVerifyAccess(request, env) {
   if (tier === null) return json({ valid: false }, 200, request, env);
   if (!type) return json({ valid: true }, 200, request, env);
   return json({ valid: tier === type }, 200, request, env);
-}
-
-// ── /export-bicolore ────────────────────────────────────────────────────
-// Limite de débit par jeton : ce que /verify-access exige déjà (un jeton
-// "pro" valide) protège l'existence de la route, pas son coût — une
-// composition family64 produit 64 rendus en un seul appel. On compte donc
-// des « unités de rendu » (1 pour cell/pavage/calques-json, 64 pour
-// family64) sur une fenêtre glissante d'une heure, dans SOUTIEN_KV (même
-// binding que le reste du worker, pas d'infra supplémentaire). La fenêtre
-// fixe (compteur par heure d'horloge, pas glissant seconde par seconde) et
-// la lecture-puis-écriture non atomique acceptent une petite marge de
-// dépassement sous concurrence : ce n'est pas une garantie dure, seulement
-// une limite contre l'abus automatisé, cohérente avec le reste du worker
-// (aucune section critique n'existe ailleurs dans ce fichier non plus).
-const RATE_LIMIT_PER_HOUR = 200;
-const RATE_LIMIT_TTL_SECONDS = 3700; // > 1h, pour survivre à la fin de fenêtre
-
-async function checkRateLimit(env, token, cost) {
-  const bucket = Math.floor(Date.now() / 3600000);
-  const key = `rl:bicolore:${token}:${bucket}`;
-  const current = Number((await env.SOUTIEN_KV.get(key)) || '0');
-  if (current + cost > RATE_LIMIT_PER_HOUR) return false;
-  await env.SOUTIEN_KV.put(key, String(current + cost), { expirationTtl: RATE_LIMIT_TTL_SECONDS });
-  return true;
-}
-
-const FAMILLES_VALIDES = new Set(Object.keys(calques.familles));
-const HEX_COLOR_RE = /^#[0-9a-fA-F]{3,8}$/;
-
-// Composition envoyée par le client : jamais interpolée telle quelle dans
-// le SVG sans validation stricte — palette[] finit dans un bloc <style>,
-// famille[] indexe calques.familles. Un format inattendu est un rejet, pas
-// une tentative de correction.
-function validateComposition(composition) {
-  if (!composition || typeof composition !== 'object') return 'composition manquante';
-  const { niveaux, palette } = composition;
-  if (!Array.isArray(niveaux) || niveaux.length !== 6) return 'niveaux : 6 attendus';
-  for (const niv of niveaux) {
-    if (!niv || !FAMILLES_VALIDES.has(niv.famille)) return 'famille inconnue';
-    if (niv.teinte !== 'yang' && niv.teinte !== 'yin') return 'teinte invalide';
-  }
-  if (!Array.isArray(palette) || palette.length !== 2) return 'palette : 2 couleurs attendues';
-  if (!palette.every((c) => typeof c === 'string' && HEX_COLOR_RE.test(c))) {
-    return 'palette : couleurs hexadécimales uniquement';
-  }
-  return null;
-}
-
-async function handleExportBicolore(request, env) {
-  let body;
-  try {
-    body = await request.json();
-  } catch (e) {
-    return json({ error: 'JSON invalide' }, 400, request, env);
-  }
-
-  const tier = await readTokenTier(env, body.token);
-  if (tier !== 'pro') return json({ error: 'Accès refusé' }, 403, request, env);
-
-  const scope = body.scope;
-  if (!['cell', 'pavage', 'family64', 'calques-json'].includes(scope)) {
-    return json({ error: 'scope invalide' }, 400, request, env);
-  }
-
-  if (scope === 'calques-json') {
-    if (!(await checkRateLimit(env, body.token, 1))) {
-      return json({ error: 'Limite de débit atteinte' }, 429, request, env);
-    }
-    return new Response(JSON.stringify(calques), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Disposition': 'attachment; filename="referent_bicolore_v1.json"',
-        ...corsHeaders(request, env),
-      },
-    });
-  }
-
-  const err = validateComposition(body.composition);
-  if (err) return json({ error: err }, 400, request, env);
-
-  if (scope === 'family64') {
-    if (!(await checkRateLimit(env, body.token, 64))) {
-      return json({ error: 'Limite de débit atteinte' }, 429, request, env);
-    }
-    const { niveaux, palette } = body.composition;
-    const famille = niveaux[0].famille;
-    if (!niveaux.every((n) => n.famille === famille)) {
-      return json({ error: 'family64 exige la même famille sur les 6 niveaux' }, 400, request, env);
-    }
-    const svgs = composeFamily64(calques, famille, palette);
-    return json({ svgs }, 200, request, env);
-  }
-
-  if (!(await checkRateLimit(env, body.token, 1))) {
-    return json({ error: 'Limite de débit atteinte' }, 429, request, env);
-  }
-
-  let svg, filename;
-  if (scope === 'pavage') {
-    const rows = Math.min(Math.max(Number(body.composition.pavage?.rows) || 1, 1), 12);
-    const cols = Math.min(Math.max(Number(body.composition.pavage?.cols) || 1, 1), 12);
-    svg = composePavage(calques, body.composition, rows, cols);
-    filename = 'motif-bicolore-pavage.svg';
-  } else {
-    svg = composeSvg(calques, body.composition);
-    filename = 'motif-bicolore.svg';
-  }
-
-  return new Response(svg, {
-    status: 200,
-    headers: {
-      'Content-Type': 'image/svg+xml',
-      'Content-Disposition': `attachment; filename="${filename}"`,
-      ...corsHeaders(request, env),
-    },
-  });
 }
 
 export default {
@@ -464,9 +338,6 @@ export default {
       }
       if (url.pathname === '/verify-access' && request.method === 'GET') {
         return await handleVerifyAccess(request, env);
-      }
-      if (url.pathname === '/export-bicolore' && request.method === 'POST') {
-        return await handleExportBicolore(request, env);
       }
       return json({ error: 'Not found' }, 404, request, env);
     } catch (e) {

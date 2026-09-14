@@ -5,14 +5,12 @@
   "description": "Backend Cloudflare Worker pour le soutien à prix libre (Stripe Checkout + déblocage des téléchargements) de La Livrée d'Hermès.",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
-    "test:bicolore": "node test_export_bicolore.mjs"
+    "deploy": "wrangler deploy"
   },
   "dependencies": {
     "stripe": "^17.4.0"
   },
   "devDependencies": {
-    "wrangler": "^3.90.0",
-    "miniflare": "3.20250718.3"
+    "wrangler": "^3.90.0"
   }
 }
