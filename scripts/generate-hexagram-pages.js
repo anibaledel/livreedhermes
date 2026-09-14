@@ -39,7 +39,7 @@ function traitSVG(bit){
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/><rect x="${segW+gap}" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/></svg>`;
 }
 
-const POS_LABELS = ["Terre (base)","Terre (achèvement)","Homme (base)","Homme (achèvement)","Ciel (base)","Ciel (achèvement)"];
+const POS_LABELS = ["Premier trait","Deuxième trait","Troisième trait","Quatrième trait","Cinquième trait","Sixième trait"];
 
 // correspondance article <-> jugement d'hexagramme déjà citée ailleurs sur le
 // site (vérifiée manuellement) : verticalite-damier-mosaique-echiquier.html
@@ -117,10 +117,9 @@ for(let chrono = 0; chrono < 64; chrono++){
     const pos = i + 1;
     const text = DATA.LINE_COMMENT[pos][bit];
     return `      <div class="hexline">
-        <div class="hexline-glyph">${traitSVG(bit)}</div>
         <div class="hexline-body"><b>${escapeHtml(POS_LABELS[i])}</b><p>${escapeHtml(text)}</p></div>
       </div>`;
-  }).reverse().join('\n'); // affichage du haut (trait 6) vers le bas (trait 1), comme sur le site
+  }).join('\n'); // affichage du premier trait (base) en haut vers le sixième (sommet) en bas — ordre de lecture, pas l'ordre de tirage traditionnel
 
   const hexColumn = traits.slice().reverse().map(bit => `<div class="hexline-glyph small">${traitSVG(bit)}</div>`).join('\n');
 
