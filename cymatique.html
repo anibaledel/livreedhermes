@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cymatique — La Livrée d'Hermès</title>
+<meta name="description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez — une correspondance construite, pas physique, à comparer avec la cymatique de l'eau ou de la plaque.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+
+  header{ text-align:center; margin-bottom:20px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header .kicker{ letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase; }
+  header h1{ font-size:22px; font-weight:400; margin:10px 0 12px; }
+  .framing{ color:var(--dim); font-size:13px; line-height:1.7; max-width:66ch; margin:0 auto; opacity:.9; }
+
+  .lang-row{ display:flex; justify-content:center; gap:8px; margin-top:16px; flex-wrap:wrap; }
+  .app-lang-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:5px 11px;
+    cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .app-lang-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .app-lang-btn.active{ border-color:var(--red); color:var(--red); }
+
+  main{ display:grid; grid-template-columns:1fr 360px; gap:24px; margin-top:28px; }
+  .pane-controls{ order:2; }
+  .pane-render{ order:1; }
+  @media (min-width:761px){
+    .pane-controls{ order:1; }
+    .pane-render{ order:2; }
+  }
+  @media (max-width:760px){ main{ grid-template-columns:1fr; } }
+
+  .panel{ border:1px solid var(--line); background:var(--panel); border-radius:2px; padding:18px; }
+  .panel + .panel{ margin-top:18px; }
+  .panel h2{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:0 0 14px; font-weight:400; }
+
+  button{ background:transparent; color:var(--dim); border:1px solid var(--line);
+          border-radius:2px; padding:9px 15px; font-size:12px; letter-spacing:.04em;
+          cursor:pointer; font-family:inherit; transition:border-color .12s ease, color .12s ease; }
+  button:hover{ border-color:var(--gold); color:var(--gold); }
+  button[disabled]{ opacity:.4; cursor:default; }
+  button.active{ border-color:var(--red); color:var(--red); }
+
+  .freq{ font-size:34px; font-weight:300; letter-spacing:-.02em; margin:14px 0 2px; font-variant-numeric:tabular-nums; }
+  .freq .unit{ font-size:16px; color:var(--dim); opacity:.6; }
+  .match-line{ font-size:13px; color:var(--dim); opacity:.85; min-height:18px; }
+  .match-line b{ color:var(--gold); font-weight:400; }
+
+  canvas#spec{ width:100%; height:56px; display:block; margin-top:14px; background:#050505; border:1px solid var(--line); }
+
+  .ctl-row{ display:flex; gap:16px; align-items:center; flex-wrap:wrap; margin-top:12px; }
+  .ctl-row label{ font-size:11px; color:var(--dim); opacity:.75; display:flex; align-items:center; gap:6px; }
+  input[type=range]{ width:120px; accent-color:var(--red); }
+  input[type=checkbox]{ accent-color:var(--red); }
+
+  .warn{ color:var(--gold); font-size:11.5px; margin-top:10px; line-height:1.5; }
+
+  .tone-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin-top:6px; }
+  .tone-freq{ font-variant-numeric:tabular-nums; font-size:15px; min-width:64px; }
+
+  .gamme-list{ margin-top:6px; max-height:260px; overflow:auto; border-top:1px solid var(--line); }
+  .gamme-row{ display:flex; justify-content:space-between; padding:8px 4px; border-bottom:1px solid var(--line);
+              font-size:12.5px; cursor:pointer; }
+  .gamme-row:hover{ color:var(--gold); }
+  .gamme-row.on{ color:var(--red); }
+  .gamme-row .g-meta{ opacity:.6; font-variant-numeric:tabular-nums; }
+
+  .render-box{ text-align:center; }
+  .render-box svg{ width:100%; height:auto; display:block; border:1px solid var(--line); }
+  .render-caption{ font-size:11.5px; color:var(--dim); opacity:.7; margin-top:10px; }
+
+  .palette-picker{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:14px; }
+  .palette-swatch{ width:26px; height:26px; border:1px solid var(--line); padding:0; cursor:pointer; border-radius:50%; }
+  .palette-label{ font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); opacity:.7; }
+
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+    display:inline-block;
+  }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">La Livrée d'Hermès</div>
+    <h1 data-i18n="pageTitle">Cymatique — gammes et fréquences</h1>
+    <p class="framing" data-i18n="framing">
+      La correspondance ci-dessous est construite, pas physique : elle repose sur la
+      fréquence spatiale dominante de chaque gamme, étalée sur une octave — pas sur une
+      loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure
+      de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension
+      superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines
+      fréquences, c'est une observation à noter, pas une preuve.
+    </p>
+    <div class="lang-row" id="langRow">
+      <button type="button" class="app-lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="app-lang-btn" data-lang="en">EN</button>
+      <button type="button" class="app-lang-btn" data-lang="es">ES</button>
+      <button type="button" class="app-lang-btn" data-lang="th">TH</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="pane-controls">
+      <div class="panel">
+        <h2 data-i18n="listeningHeading">Écoute</h2>
+        <button type="button" id="btnMic" data-i18n="micIdle">Activer le micro</button>
+        <div class="freq"><span id="f">—</span> <span class="unit">Hz</span></div>
+        <div class="match-line" id="matchLine" data-i18n="waiting">en attente</div>
+        <canvas id="spec" width="600" height="56"></canvas>
+        <div class="ctl-row">
+          <label><span data-i18n="smoothing">lissage</span> <input type="range" id="sm" min="0" max="95" value="70"></label>
+          <label><span data-i18n="threshold">seuil</span> <input type="range" id="th" min="0" max="60" value="18"></label>
+        </div>
+        <div class="ctl-row">
+          <label><input type="checkbox" id="freeze"> <span data-i18n="freeze">Mode figé — n'actualise plus au son</span></label>
+        </div>
+        <div class="warn" id="warn"></div>
+      </div>
+
+      <div class="panel">
+        <h2 data-i18n="toneHeading">Générateur de sons purs</h2>
+        <p class="render-caption" data-i18n="toneHelp">Pour tester sans micro ni matériel — la fréquence choisie pilote directement le pavage.</p>
+        <div class="tone-row">
+          <button type="button" id="btnTone" data-i18n="tonePlay">Jouer</button>
+          <input type="range" id="toneFreq" min="200" max="900" step="1" value="440">
+          <span class="tone-freq"><span id="toneFreqVal">440</span> Hz</span>
+        </div>
+        <div class="match-line" id="toneMatchLine"></div>
+      </div>
+
+      <div class="panel">
+        <h2 data-i18n="gammesHeading">Les quinze gammes</h2>
+        <div class="gamme-list" id="list"></div>
+      </div>
+    </div>
+
+    <div class="pane-render">
+      <div class="panel render-box">
+        <h2 id="gammeName">—</h2>
+        <div id="renderTarget"></div>
+        <div class="render-caption" id="gammeMeta"></div>
+        <div class="palette-picker">
+          <span class="palette-label" data-i18n="paletteLabel">Palette</span>
+          <input type="color" id="pal0" value="#808285" title="Couleur 1">
+          <input type="color" id="pal1" value="#a7a9ac" title="Couleur 2">
+          <button type="button" id="btnResetPalette" data-i18n="paletteReset">Réinitialiser</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="note">
+    <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="margin:14px 0;"
+      title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre."
+      data-i18n="soutenir">Soutenir</button>
+    <div class="site-nav-row">
+      <a class="site-nav-btn" href="index.html" data-i18n="navHome">Accueil</a>
+      <a class="site-nav-btn" href="creation-motifs-yi-king.html" data-i18n="navMotifs">Créer un motif</a>
+      <a class="site-nav-btn" href="unified-patterns.html">Unified Patterns</a>
+      <a class="site-nav-btn" href="galerie-884-patterns-unifies.html">Galerie 884</a>
+      <a class="site-nav-btn" href="impression.html" data-i18n="navImpression">Impression</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/soutien-gate.js"></script>
+<script type="module">
+import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
+
+// ── i18n ─────────────────────────────────────────────────────────────────
+// Dictionnaire à quatre langues, même motif que index.html (UI[lang][key],
+// t(key), détection navigateur, persistance localStorage). ES et TH sont en
+// repli FR le temps que l'auteur fournisse ses propres traductions -- voir
+// i18n_todo_cymatique.md, généré à part, à ne pas modifier ici : ce fichier
+// sera remplacé par les clés qu'il contient une fois rempli.
+const UI = {
+  fr: {
+    pageTitle: "Cymatique — gammes et fréquences",
+    framing: "La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, étalée sur une octave — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.",
+    listeningHeading: "Écoute",
+    micIdle: "Activer le micro",
+    micActive: "Micro actif",
+    micUnavailable: "Micro indisponible : ",
+    micUnavailableSuffix: " — les gammes restent cliquables.",
+    waiting: "en attente",
+    silence: "silence",
+    nearestPrefix: "gamme la plus proche : ",
+    smoothing: "lissage",
+    threshold: "seuil",
+    freeze: "Mode figé — n'actualise plus au son",
+    toneHeading: "Générateur de sons purs",
+    toneHelp: "Pour tester sans micro ni matériel — la fréquence choisie pilote directement le pavage.",
+    tonePlay: "Jouer",
+    toneStop: "Arrêter",
+    gammesHeading: "Les quinze gammes",
+    paletteLabel: "Palette",
+    paletteReset: "Réinitialiser",
+    soutenir: "Soutenir",
+    navHome: "Accueil",
+    navMotifs: "Créer un motif",
+    navImpression: "Impression",
+    cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
+  },
+  en: {
+    pageTitle: "Cymatics — scales and frequencies",
+    framing: "The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, spread across one octave — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.",
+    listeningHeading: "Listening",
+    micIdle: "Enable microphone",
+    micActive: "Microphone active",
+    micUnavailable: "Microphone unavailable: ",
+    micUnavailableSuffix: " — the scales remain clickable.",
+    waiting: "waiting",
+    silence: "silence",
+    nearestPrefix: "closest scale: ",
+    smoothing: "smoothing",
+    threshold: "threshold",
+    freeze: "Freeze — stop updating on sound",
+    toneHeading: "Pure tone generator",
+    toneHelp: "To test without a microphone or equipment — the chosen frequency drives the pattern directly.",
+    tonePlay: "Play",
+    toneStop: "Stop",
+    gammesHeading: "The fifteen scales",
+    paletteLabel: "Palette",
+    paletteReset: "Reset",
+    soutenir: "Support",
+    navHome: "Home",
+    navMotifs: "Create a pattern",
+    navImpression: "Print",
+    cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
+  },
+  // ES/TH : repli FR en attendant la traduction de l'auteur (voir
+  // i18n_todo_cymatique.md). Ne pas synthétiser de traduction ici.
+  es: {},
+  th: {},
+};
+for (const k of Object.keys(UI.fr)) {
+  if (!(k in UI.es)) UI.es[k] = UI.fr[k];
+  if (!(k in UI.th)) UI.th[k] = UI.fr[k];
+}
+
+const LANG_STORAGE_KEY = 'lldh-lang';
+const LANGS = ['fr', 'en', 'es', 'th'];
+function detectBrowserLang() {
+  const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'fr'];
+  for (const raw of langs) {
+    const code = (raw || '').slice(0, 2).toLowerCase();
+    if (LANGS.includes(code)) return code;
+  }
+  return 'fr';
+}
+function initialLang() {
+  const params = new URLSearchParams(location.search);
+  if (params.has('lang') && LANGS.includes(params.get('lang'))) return params.get('lang');
+  let stored = null;
+  try { stored = localStorage.getItem(LANG_STORAGE_KEY); } catch (e) {}
+  return LANGS.includes(stored) ? stored : detectBrowserLang();
+}
+let LANG = initialLang();
+function t(key) { return (UI[LANG] && UI[LANG][key] !== undefined) ? UI[LANG][key] : UI.fr[key]; }
+function applyUILang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (UI.fr[key] !== undefined) el.textContent = t(key);
+  });
+  document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === LANG);
+  });
+  document.title = t('pageTitle') + " — La Livrée d'Hermès";
+  refreshMatchTexts();
+}
+document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
+  b.addEventListener('click', () => {
+    LANG = b.dataset.lang;
+    try { localStorage.setItem(LANG_STORAGE_KEY, LANG); } catch (e) {}
+    applyUILang();
+    setShareURL(currentShareParams());
+  });
+});
+
+// ── palette (2 teintes, persistance localStorage) ───────────────────────
+const PALETTE_STORAGE_KEY = 'lldh-palette-bicolore';
+const PALETTE_DEFAULT = ['#808285', '#a7a9ac'];
+function loadPalette() {
+  try {
+    const raw = localStorage.getItem(PALETTE_STORAGE_KEY);
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (Array.isArray(p) && p.length === 2 && p.every(c => /^#[0-9a-fA-F]{6}$/.test(c))) return p;
+    }
+  } catch (e) {}
+  return [...PALETTE_DEFAULT];
+}
+function savePalette() { try { localStorage.setItem(PALETTE_STORAGE_KEY, JSON.stringify(palette)); } catch (e) {} }
+let palette = loadPalette();
+const pal0El = document.getElementById('pal0'), pal1El = document.getElementById('pal1');
+pal0El.value = palette[0]; pal1El.value = palette[1];
+function onPaletteChange() {
+  palette = [pal0El.value, pal1El.value];
+  savePalette();
+  if (current) render(current);
+  setShareURL(currentShareParams());
+}
+pal0El.addEventListener('input', onPaletteChange);
+pal1El.addEventListener('input', onPaletteChange);
+document.getElementById('btnResetPalette').addEventListener('click', () => {
+  palette = [...PALETTE_DEFAULT];
+  pal0El.value = palette[0]; pal1El.value = palette[1];
+  savePalette();
+  if (current) render(current);
+  setShareURL(currentShareParams());
+});
+
+// ── URL state (motif Tirage, index.html) ────────────────────────────────
+function setShareURL(params) {
+  const usp = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => { if (v !== null && v !== undefined && v !== '') usp.set(k, v); });
+  history.replaceState(null, '', '?' + usp.toString());
+}
+function currentShareParams() {
+  const p = { lang: LANG, gamme: current, pal: palette.join(',') };
+  if (toneActive) p.freq = String(Math.round(toneFreqEl.value));
+  return p;
+}
+
+// ── données ──────────────────────────────────────────────────────────────
+let DATA = null;
+let TABLE = [];
+let current = null;
+
+function render(name) {
+  const g = DATA.gammes[name];
+  const bits = hexToBits(g.yang);
+  document.getElementById('renderTarget').innerHTML =
+    maskToPavageSvg(bits, palette, 2, 2, { size: 320 });
+}
+
+function show(name) {
+  if (!DATA || !DATA.gammes[name]) return;
+  current = name;
+  const g = DATA.gammes[name];
+  document.getElementById('gammeName').textContent = name;
+  document.getElementById('gammeMeta').textContent =
+    `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — ${g.note} · ${g.f_hz.toFixed(0)} Hz`;
+  render(name);
+  document.querySelectorAll('.gamme-row').forEach(el => el.classList.toggle('on', el.dataset.n === name));
+}
+
+function buildList() {
+  TABLE = Object.entries(DATA.gammes)
+    .map(([n, g]) => ({ n, f: g.f_hz, note: g.note }))
+    .sort((a, b) => a.f - b.f);
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  TABLE.forEach(g => {
+    const d = document.createElement('div');
+    d.className = 'gamme-row'; d.dataset.n = g.n;
+    d.innerHTML = `<span>${g.n}</span><span class="g-meta">${g.note} · ${g.f.toFixed(0)} Hz</span>`;
+    d.onclick = () => { show(g.n); setShareURL(currentShareParams()); };
+    list.appendChild(d);
+  });
+}
+
+// Repli d'octave dans [220, 440[, puis plus proche voisin en cents.
+function nearest(f) {
+  let x = f;
+  while (x >= 440) x /= 2;
+  while (x < 220) x *= 2;
+  let best = TABLE[0], cents = 1e9;
+  for (const g of TABLE) {
+    const c = 1200 * Math.log2(x / g.f);
+    if (Math.abs(c) < Math.abs(cents)) { cents = c; best = g; }
+  }
+  return { gamme: best, cents, folded: x };
+}
+
+let lastMatch = null; // {gamme, cents} du dernier calcul mic ou générateur, pour retraduire au changement de langue
+function matchLineText(m) {
+  const sign = m.cents >= 0 ? '+' : '';
+  return `${t('nearestPrefix')}${m.gamme.note} (${sign}${m.cents.toFixed(0)}¢)`;
+}
+function refreshMatchTexts() {
+  if (lastMatch) document.getElementById('matchLine').textContent = matchLineText(lastMatch);
+}
+
+// ── micro + spectre ──────────────────────────────────────────────────────
+let ana, buf, sampleRate;
+const micBtn = document.getElementById('btnMic');
+micBtn.addEventListener('click', async () => {
+  try {
+    const st = await navigator.mediaDevices.getUserMedia({ audio: {
+      echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+    const ac = new (window.AudioContext || window.webkitAudioContext)();
+    const src = ac.createMediaStreamSource(st);
+    ana = ac.createAnalyser(); ana.fftSize = 8192;
+    src.connect(ana);
+    buf = new Float32Array(ana.frequencyBinCount);
+    sampleRate = ac.sampleRate;
+    micBtn.disabled = true;
+    micBtn.textContent = t('micActive');
+    loop();
+  } catch (e) {
+    document.getElementById('warn').textContent = t('micUnavailable') + e.message + t('micUnavailableSuffix');
+  }
+});
+
+function loop() {
+  ana.smoothingTimeConstant = document.getElementById('sm').value / 100;
+  ana.getFloatFrequencyData(buf);
+  const th = -100 + Number(document.getElementById('th').value);
+  let bi = -1, bv = th;
+  const lo = Math.floor(60 / (sampleRate / ana.fftSize)), hi = Math.floor(3000 / (sampleRate / ana.fftSize));
+  for (let i = lo; i < hi && i < buf.length; i++) if (buf[i] > bv) { bv = buf[i]; bi = i; }
+
+  const sp = document.getElementById('spec'), g = sp.getContext('2d');
+  g.clearRect(0, 0, sp.width, sp.height);
+  for (let x = 0; x < sp.width; x++) {
+    const i = lo + Math.floor((hi - lo) * x / sp.width);
+    const v = Math.max(0, (buf[i] + 110) / 110);
+    g.fillStyle = (bi >= 0 && Math.abs(i - bi) < 3) ? '#c9a15a' : '#242424';
+    g.fillRect(x, sp.height - v * sp.height, 1, v * sp.height);
+  }
+
+  const frozen = document.getElementById('freeze').checked;
+  if (bi > 0) {
+    const a = buf[bi - 1], b = buf[bi], c = buf[bi + 1];
+    const d = 0.5 * (a - c) / (a - 2 * b + c || 1);
+    const f = (bi + d) * sampleRate / ana.fftSize;
+    document.getElementById('f').textContent = f.toFixed(1);
+    if (!frozen) {
+      const m = nearest(f);
+      lastMatch = m;
+      document.getElementById('matchLine').textContent = matchLineText(m);
+      show(m.gamme.n);
+    }
+  } else if (!frozen) {
+    document.getElementById('f').textContent = '—';
+    document.getElementById('matchLine').textContent = t('silence');
+  }
+  requestAnimationFrame(loop);
+}
+
+// ── générateur de sons purs ──────────────────────────────────────────────
+// Sinusoïdale pure (un harmonique ne ferait qu'ajouter du bruit à une
+// correspondance qui ne repose que sur une seule fréquence dominante).
+// Enveloppe de gain (~15ms) à l'attaque et à l'arrêt pour éviter les clics
+// d'un changement de gain instantané.
+let toneCtx = null, toneOsc = null, toneGain = null, toneActive = false;
+const toneFreqEl = document.getElementById('toneFreq');
+const toneFreqVal = document.getElementById('toneFreqVal');
+const toneBtn = document.getElementById('btnTone');
+
+function toneShow(f) {
+  toneFreqVal.textContent = Math.round(f);
+  const m = nearest(f);
+  lastMatch = m;
+  document.getElementById('toneMatchLine').textContent = matchLineText(m);
+  show(m.gamme.n);
+  if (toneOsc) toneOsc.frequency.setTargetAtTime(f, toneCtx.currentTime, 0.01);
+}
+toneFreqEl.addEventListener('input', () => {
+  toneShow(Number(toneFreqEl.value));
+  setShareURL(currentShareParams());
+});
+
+function startTone() {
+  toneCtx = toneCtx || new (window.AudioContext || window.webkitAudioContext)();
+  toneOsc = toneCtx.createOscillator();
+  toneOsc.type = 'sine';
+  toneOsc.frequency.value = Number(toneFreqEl.value);
+  toneGain = toneCtx.createGain();
+  toneGain.gain.setValueAtTime(0, toneCtx.currentTime);
+  toneGain.gain.linearRampToValueAtTime(0.2, toneCtx.currentTime + 0.015);
+  toneOsc.connect(toneGain).connect(toneCtx.destination);
+  toneOsc.start();
+  toneActive = true;
+  toneBtn.textContent = t('toneStop');
+}
+function stopTone() {
+  if (!toneOsc) return;
+  const osc = toneOsc, gain = toneGain;
+  gain.gain.setTargetAtTime(0, toneCtx.currentTime, 0.006);
+  setTimeout(() => { try { osc.stop(); } catch (e) {} }, 60);
+  toneOsc = null; toneGain = null;
+  toneActive = false;
+  toneBtn.textContent = t('tonePlay');
+}
+toneBtn.addEventListener('click', () => {
+  if (toneActive) stopTone(); else startTone();
+  setShareURL(currentShareParams());
+});
+
+// ── démarrage ─────────────────────────────────────────────────────────────
+fetch('data/referent_bandes_v1.json')
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    buildList();
+    applyUILang();
+
+    const params = new URLSearchParams(location.search);
+    const startGamme = (params.has('gamme') && DATA.gammes[params.get('gamme')]) ? params.get('gamme') : TABLE[0].n;
+    const startPal = params.get('pal');
+    if (startPal) {
+      const parts = startPal.split(',');
+      if (parts.length === 2 && parts.every(c => /^#[0-9a-fA-F]{6}$/.test(c))) {
+        palette = parts; pal0El.value = parts[0]; pal1El.value = parts[1];
+      }
+    }
+    show(startGamme);
+    if (params.has('freq')) {
+      const f = Number(params.get('freq'));
+      if (Number.isFinite(f) && f >= 200 && f <= 900) {
+        toneFreqEl.value = f;
+        toneShow(f);
+      }
+    }
+  });
+
+document.getElementById('btnSoutienFooter').addEventListener('click', () => {
+  if (window.SoutienGate) window.SoutienGate.showModal();
+});
+</script>
+</body>
+</html>
