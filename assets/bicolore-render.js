@@ -98,7 +98,7 @@ export function maskToPavageSvg(mask, palette, rows, cols, { size = 900 } = {}) 
   const uses = [];
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      uses.push(`<use href="#cell" x="${c * size}" y="${r * size}"/>`);
+      uses.push(`<use href="#cell" x="${c * size}" y="${r * size}" width="${size}" height="${size}"/>`);
     }
   }
   return (
