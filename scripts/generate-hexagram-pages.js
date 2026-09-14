@@ -66,7 +66,8 @@ const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href
 // (voir assets/soutien-gate.js). Précède .site-nav-row.
 const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
 const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</button>`;
-const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
+const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/share-widget.js"></script>
+<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
   var b = document.getElementById('btnSoutienFooter');
@@ -211,7 +212,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   .article-content a:hover{ text-decoration:underline; }
   .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
 
-  .hex-figure{ display:flex; justify-content:center; align-items:center; gap:32px; flex-wrap:wrap; margin:0 0 28px; }
+  .hex-figure{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:32px; margin:0 0 28px; }
+  .hex-figure .hex-column{ grid-column:1; justify-self:end; }
+  .hex-figure .hex-square{ grid-column:2; }
+  @media (max-width:600px){ .hex-figure{ grid-template-columns:1fr; justify-items:center; } .hex-figure .hex-column{ grid-column:1; justify-self:center; } .hex-figure .hex-square{ grid-column:1; } }
   .hex-column{ display:flex; flex-direction:column; gap:8px; width:170px; }
   .hex-column .hexline-glyph{ flex:0 0 auto; padding-top:0; }
   .hex-column .hexline-glyph.small svg{ display:block; width:100%; height:16px; }
@@ -240,7 +244,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .cta-btn{ border:1px solid var(--line); color:var(--dim); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
-  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:left; }
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
   .article-back-bottom:hover{ color:var(--gold); }
 
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
