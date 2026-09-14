@@ -158,8 +158,8 @@
         <div class="render-caption" id="gammeMeta"></div>
         <div class="palette-picker">
           <span class="palette-label" data-i18n="paletteLabel">Palette</span>
-          <input type="color" id="pal0" value="#808285" title="Couleur 1">
-          <input type="color" id="pal1" value="#a7a9ac" title="Couleur 2">
+          <input type="color" id="pal0" value="#f2ece1" title="Couleur 1">
+          <input type="color" id="pal1" value="#2b2b2b" title="Couleur 2">
           <button type="button" id="btnResetPalette" data-i18n="paletteReset">Réinitialiser</button>
         </div>
       </div>
@@ -296,7 +296,7 @@ document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
 
 // ── palette (2 teintes, persistance localStorage) ───────────────────────
 const PALETTE_STORAGE_KEY = 'lldh-palette-bicolore';
-const PALETTE_DEFAULT = ['#808285', '#a7a9ac'];
+const PALETTE_DEFAULT = ['#f2ece1', '#2b2b2b'];
 function loadPalette() {
   try {
     const raw = localStorage.getItem(PALETTE_STORAGE_KEY);
