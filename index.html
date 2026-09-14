@@ -546,9 +546,11 @@
       <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</button>
 
     <div class="site-nav-row">
+      <a class="site-nav-btn" href="hexagrammes/" id="txt-navHexagrammes">Hexagrammes</a>
       <a class="site-nav-btn" href="creation-motifs-yi-king.html" id="txt-navMotif">Créer un motif</a>
       <a class="site-nav-btn" href="unified-patterns.html" id="txt-navUnified">Unified Patterns</a>
       <a class="site-nav-btn" href="galerie-884-patterns-unifies.html" id="txt-navGalerie">Galerie 884</a>
+      <a class="site-nav-btn" href="cymatique.html" id="txt-navCymatique">Cymatique</a>
       <a class="site-nav-btn" href="fonds-ecran.html" id="txt-navWallpaper">Fond d'écran</a>
       <a class="site-nav-btn" href="impression.html" id="txt-navPrint">Impression</a>
       <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
@@ -564,7 +566,6 @@
         <img alt="La Livrée d'Hermès">
       </picture>
     </div>
-      <a class="site-nav-btn footer-partenaire-btn" id="btnPartenaireFooter" href="https://anibal-amiot.com/pro.html" style="display:inline-block; margin:14px 0;" title="Deviens Partenaire de la Livrée d'Hermès. Un accès unique à 99€ (paiement unique, à vie) qui t'ouvre les pages secrètes du projet : la collection complète des motifs Unified Patterns (en croissance constante) en SVG/PDF haute résolution, des outils avancés pour la création textile, une consultation gratuite avec l'auteur, l'accès à un espace communautaire réservé, et les dernières créations/mises à jour en avant-première.">Devenir Partenaire</a>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
@@ -1137,7 +1138,7 @@ const UI = {
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     hexMoreInfo:"En savoir plus sur cet hexagramme →",
-    imageLabel:"Image", judgementLabel:"Jugement", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
+    imageLabel:"Image", judgementLabel:"Jugement", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
     pavageFixed:"Pavage — traits fixes uniquement", pavageReprod:"Pavage — reproduit sous le départ",
@@ -1177,7 +1178,7 @@ const UI = {
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     hexMoreInfo:"More about this hexagram →",
-    imageLabel:"Image", judgementLabel:"Judgment", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
+    imageLabel:"Image", judgementLabel:"Judgment", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
     pavageFixed:"Tiling — fixed lines only", pavageReprod:"Tiling — reproduced below the starting hexagram",
@@ -1731,9 +1732,11 @@ function applyUILang(){
   document.getElementById('txt-langBookTitle').title = t('langBookTitle');
   document.getElementById('txt-dlPdf').textContent = t('dlPdf');
   document.getElementById('txt-dlYiKing').textContent = t('dlYiKing');
+  document.getElementById('txt-navHexagrammes').textContent = t('navHexagrammes');
   document.getElementById('txt-navMotif').textContent = t('navMotif');
   document.getElementById('txt-navUnified').textContent = t('navUnified');
   document.getElementById('txt-navGalerie').textContent = t('navGalerie');
+  document.getElementById('txt-navCymatique').textContent = t('navCymatique');
   document.getElementById('txt-navWallpaper').textContent = t('navWallpaper');
   document.getElementById('txt-navPrint').textContent = t('navPrint');
   document.getElementById('txt-navContact').textContent = t('navContact');

@@ -12,6 +12,11 @@
 //             POST /create-pro-checkout-session (pro, montant fixe),
 //             POST /webhook, GET /claim-token, GET /verify-access.
 //
+// Les pages Cymatique et Échiquiers (motifs bicolores) n'ont pas de route
+// ici : accès libre, export SVG/PNG entièrement côté client (voir
+// assets/bicolore-render.js) — décision explicite de l'auteur, pas
+// d'exports réservés pour ces pages.
+//
 // La clé secrète Stripe (env.STRIPE_SECRET_KEY) et le secret de signature
 // webhook (env.STRIPE_WEBHOOK_SECRET) sont des secrets Cloudflare
 // (wrangler secret put ...) — jamais présents dans ce fichier ni dans
