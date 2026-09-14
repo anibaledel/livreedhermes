@@ -58,6 +58,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/impression.html`, file: 'impression.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/galerie-884-patterns-unifies.html`, file: 'galerie-884-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
+  { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/cymatique.html`, file: 'cymatique.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/articles.html`, file: 'articles.html', changefreq: 'weekly', priority: '0.7' },
   { loc: `${SITE}/lexique.html`, file: 'lexique.html', changefreq: 'monthly', priority: '0.6' },
@@ -65,7 +66,8 @@ const STATIC_PAGES = [
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
   { loc: `${SITE}/hexagrammes/`, file: 'hexagrammes/index.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/pro.html`, file: 'pro.html', changefreq: 'monthly', priority: '0.6' },
+  { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
+  { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
 ];
 
 // Pages livre multilingues, avec liens alternates réciproques.

@@ -3,21 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex,follow">
-<title>Encodeur stéganographique — Espace Pro — La Livrée d'Hermès</title>
-<meta name="description" content="Outil d'encodage stéganographique géométrique par double référent (croix ansée + Jacquard), réservé aux membres Partenaires de La Livrée d'Hermès.">
+<title>Encodeur stéganographique — La Livrée d'Hermès</title>
+<meta name="description" content="Outil d'encodage stéganographique géométrique par double référent (croix ansée + Jacquard), en accès libre sur La Livrée d'Hermès.">
 <link rel="canonical" href="https://anibal-amiot.com/encodeur.html">
 <script>
-  // Préchargement des référents (~403 Ko) si l'utilisateur est déjà reconnu Partenaire,
-  // pour que l'interface s'affiche sans latence supplémentaire une fois l'accès vérifié.
+  // Préchargement des référents (~403 Ko) dès le chargement de la page, pour
+  // que l'interface s'affiche sans latence — l'outil est en accès libre.
   try{
-    if(localStorage.getItem('pro_token')){
-      ['data/referent_256.json','data/referent_360.json'].forEach(function(href){
-        var l = document.createElement('link');
-        l.rel = 'prefetch'; l.href = href;
-        document.head.appendChild(l);
-      });
-    }
+    ['data/referent_256.json','data/referent_360.json'].forEach(function(href){
+      var l = document.createElement('link');
+      l.rel = 'prefetch'; l.href = href;
+      document.head.appendChild(l);
+    });
   }catch(e){}
 </script>
 <style>
@@ -159,21 +156,7 @@
   </header>
 
   <div class="pro-body">
-    <div class="pro-locked-box" data-pro-locked-only hidden>
-      <p>Cette page est réservée aux Partenaires (paiement unique de 99 €).</p>
-      <p>L'accès Partenaire débloque, entre autres avantages, l'outil d'encodage stéganographique géométrique développé par l'auteur — un système de dissimulation de message dans une grille de nombres, à double référent (croix ansée à 256 formes, calques Jacquard à 360 formes) :</p>
-      <ul>
-        <li>Démonstration et encodage/décodage de messages, entièrement côté client</li>
-        <li>Visualisation des 256 formes de la croix ansée et des 360 formes Jacquard</li>
-        <li>Téléchargement de la grille et des clés générées</li>
-        <li>Accès à la collection complète Unified Patterns, des outils avancés de création textile, une consultation avec l'auteur, et l'espace communautaire réservé</li>
-      </ul>
-      <button type="button" id="unlockBtn">Devenir Partenaire — 99 €</button>
-      <br>
-      <a class="back-link" href="pro.html">← Voir tous les avantages Partenaire</a>
-    </div>
-
-    <div data-pro-only hidden id="encProOnly">
+    <div id="encProOnly">
       <p id="encLoading">Chargement des référents…</p>
 
       <div id="encApp" hidden>
@@ -510,7 +493,7 @@
       </div>
     </div>
 
-    <div class="iacr-mention" data-pro-only hidden>
+    <div class="iacr-mention">
       Système soumis à l'<a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> — Septembre 2026 · <a href="https://anibal-amiot.com" target="_blank" rel="noopener">anibal-amiot.com</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a> · Brevet FR2865054
     </div>
   </div>
@@ -523,8 +506,8 @@
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="index.html">Accueil</a>
-      <a class="site-nav-btn" href="pro.html">Accès Pro</a>
-      <a class="site-nav-btn" href="pro-contenu.html">Espace Pro</a>
+      <a class="site-nav-btn" href="soutenir.html">Soutenir</a>
+      <a class="site-nav-btn" href="telechargements.html">Téléchargements</a>
       <a class="site-nav-btn" href="a-propos.html">À propos</a>
       <a class="site-nav-btn" href="contact.html">Contact</a>
     </div>
@@ -541,16 +524,13 @@
     <div class="footer-title-logo">
       <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
   </div>
 </div>
 
 <script>
   document.getElementById('credit-year').textContent = new Date().getFullYear();
-  document.getElementById('unlockBtn').addEventListener('click', function(){
-    window.ProGate.showModal();
-  });
 </script>
-<script src="assets/pro-gate.js"></script>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
@@ -568,9 +548,9 @@
 
 <!-- ============================================================
      Encodeur stéganographique — algorithmes JS repris tels quels de
-     stegano_app.zip/index.html (Anibal Edelberto Amiot). Ne charge les
-     référents (data/referent_256.json, data/referent_360.json, ~403 Ko)
-     qu'une fois l'accès Pro confirmé par assets/pro-gate.js — jamais avant.
+     stegano_app.zip/index.html (Anibal Edelberto Amiot). En accès libre :
+     charge les référents (data/referent_256.json, data/referent_360.json,
+     ~403 Ko) dès le chargement de la page.
      ============================================================ -->
 <script>
 (function(){
