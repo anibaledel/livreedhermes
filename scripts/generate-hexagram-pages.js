@@ -62,15 +62,10 @@ function formatDateFr(iso){
 }
 const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>';
 
-// Boutons "Devenir Soutien" / "Devenir Partenaire" du footer, communs à toutes
-// les pages du site (voir assets/soutien-gate.js et pro.html). Soutien précède
-// .site-nav-row, Partenaire suit .footer-title-logo — faute de GIF caducée ou
-// de petit logo rouge et blanc sur ces pages, .footer-title-logo (seul élément
-// "logo" du pied de page ici) sert de repère de substitution pour Partenaire.
+// Bouton "Devenir Soutien" du footer, commun à toutes les pages du site
+// (voir assets/soutien-gate.js). Précède .site-nav-row.
 const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
-const PARTENAIRE_TITLE = "Deviens Partenaire de la Livrée d'Hermès. Un accès unique à 99€ (paiement unique, à vie) qui t'ouvre les pages secrètes du projet : la collection complète des motifs Unified Patterns (en croissance constante) en SVG/PDF haute résolution, des outils avancés pour la création textile, une consultation gratuite avec l'auteur, l'accès à un espace communautaire réservé, et les dernières créations/mises à jour en avant-première.";
 const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</button>`;
-const PARTENAIRE_BTN_HTML = `<a class="site-nav-btn footer-partenaire-btn" id="btnPartenaireFooter" href="https://anibal-amiot.com/pro.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(PARTENAIRE_TITLE)}">Devenir Partenaire</a>`;
 const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
@@ -367,7 +362,6 @@ ${linesHtml}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
-    ${PARTENAIRE_BTN_HTML}
   </div>
 </div>
 ${FOOTER_CTA_SCRIPT}
@@ -516,7 +510,6 @@ ${gridItems}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
-    ${PARTENAIRE_BTN_HTML}
   </div>
 </div>
 ${FOOTER_CTA_SCRIPT}

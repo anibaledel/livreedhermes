@@ -291,17 +291,6 @@ async function handleClaimToken(request, env) {
   return json({ token }, 200, request, env);
 }
 
-// Lit le jeton depuis SOUTIEN_KV et renvoie son palier ("soutien" | "pro"),
-// ou null si le jeton n'existe pas.
-async function readTokenTier(env, token) {
-  if (!token) return null;
-  const raw = await env.SOUTIEN_KV.get(`token:${token}`);
-  if (!raw) return null;
-  let record;
-  try { record = JSON.parse(raw); } catch (e) { record = {}; }
-  return record.tier || 'soutien'; // jetons émis avant l'introduction du palier pro
-}
-
 async function handleVerifyAccess(request, env) {
   const url = new URL(request.url);
   const token = url.searchParams.get('token');
@@ -309,10 +298,16 @@ async function handleVerifyAccess(request, env) {
   // valide pas un accès soutien, et inversement. Omis, on ne vérifie que
   // l'existence du jeton (compatibilité avec les appels déjà en place).
   const type = url.searchParams.get('type');
-  const tier = await readTokenTier(env, token);
-  if (tier === null) return json({ valid: false }, 200, request, env);
+  if (!token) return json({ valid: false }, 200, request, env);
+
+  const raw = await env.SOUTIEN_KV.get(`token:${token}`);
+  if (!raw) return json({ valid: false }, 200, request, env);
   if (!type) return json({ valid: true }, 200, request, env);
-  return json({ valid: tier === type }, 200, request, env);
+
+  let record;
+  try { record = JSON.parse(raw); } catch (e) { record = {}; }
+  const tokenTier = record.tier || 'soutien'; // jetons émis avant l'introduction du palier pro
+  return json({ valid: tokenTier === type }, 200, request, env);
 }
 
 export default {

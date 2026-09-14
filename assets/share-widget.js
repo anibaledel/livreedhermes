@@ -85,9 +85,10 @@
     injectStyle();
     var block = buildBlock(label, url, title);
 
-    // Le bouton "Devenir Partenaire" suit désormais le caducée et précède ce
-    // bloc de partage dans .note : on s'ancre dessus pour s'insérer juste après,
-    // avec .footer-caduceus comme repli si jamais ce bouton était absent.
+    // Le bouton "Devenir Partenaire" a été retiré du pied de page (site-wide) ;
+    // .footer-caduceus reste l'ancre sur laquelle ce bloc de partage s'insère.
+    // .footer-partenaire-btn est gardé en premier essai par compatibilité,
+    // au cas où une page n'aurait pas encore reçu le retrait.
     var anchor = document.querySelector('.footer-partenaire-btn') || document.querySelector('.footer-caduceus');
     if(anchor){
       anchor.insertAdjacentElement('afterend', block);
