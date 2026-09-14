@@ -65,7 +65,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
   { loc: `${SITE}/hexagrammes/`, file: 'hexagrammes/index.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/pro.html`, file: 'pro.html', changefreq: 'monthly', priority: '0.6' },
+  { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
 ];
 
 // Pages livre multilingues, avec liens alternates réciproques.
