@@ -39,7 +39,7 @@ function traitSVG(bit){
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/><rect x="${segW+gap}" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/></svg>`;
 }
 
-const POS_LABELS = ["Terre (base)","Terre (achèvement)","Homme (base)","Homme (achèvement)","Ciel (base)","Ciel (achèvement)"];
+const POS_LABELS = ["Premier trait","Deuxième trait","Troisième trait","Quatrième trait","Cinquième trait","Sixième trait"];
 
 // correspondance article <-> jugement d'hexagramme déjà citée ailleurs sur le
 // site (vérifiée manuellement) : verticalite-damier-mosaique-echiquier.html
@@ -70,7 +70,8 @@ const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSout
 // vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
 // voir espace-libre), après .footer-title-logo.
 const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
-const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
+const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/share-widget.js"></script>
+<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
 (function(){
   var b = document.getElementById('btnSoutienFooter');
@@ -120,10 +121,9 @@ for(let chrono = 0; chrono < 64; chrono++){
     const pos = i + 1;
     const text = DATA.LINE_COMMENT[pos][bit];
     return `      <div class="hexline">
-        <div class="hexline-glyph">${traitSVG(bit)}</div>
         <div class="hexline-body"><b>${escapeHtml(POS_LABELS[i])}</b><p>${escapeHtml(text)}</p></div>
       </div>`;
-  }).reverse().join('\n'); // affichage du haut (trait 6) vers le bas (trait 1), comme sur le site
+  }).join('\n'); // affichage du premier trait (base) en haut vers le sixième (sommet) en bas — ordre de lecture, pas l'ordre de tirage traditionnel
 
   const hexColumn = traits.slice().reverse().map(bit => `<div class="hexline-glyph small">${traitSVG(bit)}</div>`).join('\n');
 
@@ -191,6 +191,17 @@ for(let chrono = 0; chrono < 64; chrono++){
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -215,7 +226,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   .article-content a:hover{ text-decoration:underline; }
   .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
 
-  .hex-figure{ display:flex; justify-content:center; align-items:center; gap:32px; flex-wrap:wrap; margin:0 0 28px; }
+  .hex-figure{ display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:32px; margin:0 0 28px; }
+  .hex-figure .hex-column{ grid-column:1; justify-self:end; }
+  .hex-figure .hex-square{ grid-column:2; }
+  @media (max-width:600px){ .hex-figure{ grid-template-columns:1fr; justify-items:center; } .hex-figure .hex-column{ grid-column:1; justify-self:center; } .hex-figure .hex-square{ grid-column:1; } }
   .hex-column{ display:flex; flex-direction:column; gap:8px; width:170px; }
   .hex-column .hexline-glyph{ flex:0 0 auto; padding-top:0; }
   .hex-column .hexline-glyph.small svg{ display:block; width:100%; height:16px; }
@@ -244,7 +258,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .cta-btn{ border:1px solid var(--line); color:var(--dim); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
-  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:left; }
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
   .article-back-bottom:hover{ color:var(--gold); }
 
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
@@ -259,7 +273,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
   @media (max-width:480px){ .article-title{ font-size:21px; } .article-content{ font-size:14.5px; } .hex-square img{ width:170px; height:170px; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -271,6 +285,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 <div class="wrap">
   <header>
     <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
   <div class="article-body">
@@ -370,6 +385,12 @@ ${linesHtml}
     ${SOUTIEN_LINK_HTML}
   </div>
 </div>
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
@@ -442,6 +463,17 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   img{ max-width:100%; }
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -471,7 +503,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -482,6 +514,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 <div class="wrap">
   <header>
     <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
   <nav class="breadcrumb" aria-label="Fil d'Ariane">
@@ -520,6 +553,12 @@ ${gridItems}
     ${SOUTIEN_LINK_HTML}
   </div>
 </div>
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>

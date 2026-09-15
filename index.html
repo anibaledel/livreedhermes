@@ -558,6 +558,13 @@
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
+    <div class="footer-caduceus">
+      <picture>
+        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
+        <source media="(max-width:768px)" srcset="assets/logo-caducee.gif">
+        <img alt="La Livrée d'Hermès">
+      </picture>
+    </div>
 
     <div class="nav-tiles">
       <a class="nav-tile" href="hexagrammes/"><img src="assets/nav-icons/hexagrammes.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span></a>
@@ -575,22 +582,12 @@
       <a class="nav-tile" href="articles.html"><img src="assets/nav-icons/articles.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navArticles">Articles</span></a>
     </div>
 
-    <div class="footer-caduceus">
-      <picture>
-        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
-        <source media="(max-width:768px)" srcset="assets/logo-caducee.gif">
-        <img alt="La Livrée d'Hermès">
-      </picture>
-    </div>
       <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
-    </div>
-    <div class="credit-line-secondary">
-      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
 
     <div class="footer-title-logo">
@@ -1962,7 +1959,6 @@ function syncEmptyCaduceusHeight(){
 window.addEventListener('resize', syncEmptyCaduceusHeight);
 window.addEventListener('load', syncEmptyCaduceusHeight);
 setTimeout(syncEmptyCaduceusHeight, 0);
-
 
 // ---------- restauration depuis l'URL (nouveau) ----------
 (function initFromURL(){
