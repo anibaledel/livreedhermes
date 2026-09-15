@@ -354,7 +354,6 @@
   .nav-tile:hover{ border-color:var(--gold); color:var(--gold); }
   .nav-tile img{ width:56px; height:56px; display:block; }
   .nav-tile-label{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; text-align:center; line-height:1.3; }
-  .nav-tile[aria-current="page"]{ border-color:var(--gold); opacity:.55; pointer-events:none; }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin:24px 0 4px; }
@@ -567,8 +566,6 @@
     </div>
 
     <div class="nav-tiles">
-      <a class="nav-tile" href="index.html" aria-current="page"><img src="assets/nav-icons/accueil.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navAccueil">Accueil</span></a>
-      <a class="nav-tile" href="/" aria-current="page"><img src="assets/nav-icons/tirage.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navTirage">Tirage</span></a>
       <a class="nav-tile" href="hexagrammes/"><img src="assets/nav-icons/hexagrammes.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span></a>
       <a class="nav-tile" href="creation-motifs-yi-king.html"><img src="assets/nav-icons/creation-motifs.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span></a>
       <a class="nav-tile" href="unified-patterns.html"><img src="assets/nav-icons/unified-patterns.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navUnified">Unified Patterns</span></a>
@@ -1154,7 +1151,7 @@ const UI = {
     axisNote:'Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne',
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     hexMoreInfo:"En savoir plus sur cet hexagramme →",
-    imageLabel:"Image", judgementLabel:"Jugement", navAccueil:"Accueil", navTirage:"Tirage", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
+    imageLabel:"Image", judgementLabel:"Jugement", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
     pavageFixed:"Pavage — traits fixes uniquement", pavageReprod:"Pavage — reproduit sous le départ",
@@ -1194,7 +1191,7 @@ const UI = {
     axisNote:'Rows = <b>upper</b> trigram (0 to 7, top to bottom) · Columns = <b>lower</b> trigram (0 to 7, left to right) · No. = row×8 + column',
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     hexMoreInfo:"More about this hexagram →",
-    imageLabel:"Image", judgementLabel:"Judgment", navAccueil:"Home", navTirage:"Reading", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
+    imageLabel:"Image", judgementLabel:"Judgment", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
     pavageFixed:"Tiling — fixed lines only", pavageReprod:"Tiling — reproduced below the starting hexagram",
@@ -1748,8 +1745,6 @@ function applyUILang(){
   document.getElementById('txt-langBookTitle').title = t('langBookTitle');
   document.getElementById('txt-dlPdf').textContent = t('dlPdf');
   document.getElementById('txt-dlYiKing').textContent = t('dlYiKing');
-  document.getElementById('txt-navAccueil').textContent = t('navAccueil');
-  document.getElementById('txt-navTirage').textContent = t('navTirage');
   document.getElementById('txt-navHexagrammes').textContent = t('navHexagrammes');
   document.getElementById('txt-navMotif').textContent = t('navMotif');
   document.getElementById('txt-navUnified').textContent = t('navUnified');
