@@ -20,34 +20,33 @@ h2{ color:var(--gold); font-weight:400; }
 .nav-card h3{ font-size:14.5px; font-weight:400; margin:0 0 6px; line-height:1.25; color:var(--white); }
 .nav-card-excerpt{ color:var(--dim); font-size:12.5px; line-height:1.55; margin:0; }
 
-.sprite-row{ display:flex; gap:24px; flex-wrap:wrap; margin-bottom:20px; }
+.sprite-row{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
 .sprite-tile{ display:inline-flex; flex-direction:column; align-items:center; gap:6px; padding:10px 6px 12px; border:1px solid var(--line); text-decoration:none; color:var(--dim); }
 .sprite-tile:hover{ border-color:var(--gold); color:var(--gold); }
 .sprite-icon{ width:56px; height:56px; display:block; background-size:448px 56px; background-position:0 0; image-rendering:pixelated; }
 .sprite-tile:hover .sprite-icon{ animation:navSpriteSteps 1.4s steps(8) infinite; }
 @keyframes navSpriteSteps{ from{ background-position:0 0; } to{ background-position:-448px 0; } }
-.sheet{ border:1px dashed #444; display:inline-block; margin-bottom:16px; }
+.sheet{ border:1px dashed #444; display:inline-block; margin-bottom:10px; }
 .sheet img{ display:block; image-rendering:pixelated; width:512px; }
+.sheet-label{ font-size:11px; color:var(--dim); margin:14px 0 4px; }
 </style></head><body>
 
-<h2>1. Les 15 icônes — moteur fonds-ecran.html (12 familles + Cymatique figée)</h2>
+<h2>1. Les 15 icônes — moteur triangle unique (bicolore-render.js)</h2>
 <div class="icons-sheet" id="icons"></div>
 
 <h2>2. Carte : carré entier, texte à droite (desktop) / dessous (mobile ≤699px)</h2>
 <div class="nav-card-grid" id="cards"></div>
 
-<h2>3. Planches d'animation — Cymatique (figée, gammes) + 2 nouvelles (familles, hexagrammes espacés)</h2>
-<p style="font-size:13px;color:var(--dim);max-width:640px;">Hexagrammes/Encodeur : 8 vues = 8 numéros d'hexagramme espacés (0,8,16,24,32,40,48,56) dans la même famille. Cymatique : 8 gammes différentes, inchangée depuis le premier prototype.</p>
+<h2>3. Les 15 planches d'animation — survole chaque tuile pour l'animer (steps(8))</h2>
+<p style="font-size:13px;color:var(--dim);max-width:680px;">14 planches : révélation cumulative des 6 niveaux de trait (vue 0 = vide → vue 6 = motif yang complet), puis le motif yin complet en 8e vue. Cymatique (figée) : 8 gammes différentes, inchangée depuis le premier prototype.</p>
 <div class="sprite-row" id="sprites"></div>
 <div id="sheets"></div>
 
 <script>
 const entries = [["accueil","Accueil"],["tirage","Tirage"],["hexagrammes","Hexagrammes"],["creation-motifs","Créer un motif"],["unified-patterns","Unified Patterns"],["galerie-884","Galerie 884"],["motifs-svg","Motifs SVG"],["cymatique","Cymatique"],["fond-ecran","Fond d'écran"],["impression","Impression"],["encodeur","Encodeur"],["contact","Contact"],["a-propos","À propos"],["lexique","Lexique"],["articles","Articles"]];
-document.getElementById('icons').innerHTML = entries.map(([k,l])=>`<figure><img src="assets/nav-icons/${k}.png?v=3"><figcaption>${k}</figcaption></figure>`).join('');
-document.getElementById('cards').innerHTML = entries.map(([k,l])=>`<a class="nav-card" href="#"><img class="nav-card-cover" src="assets/nav-icons/${k}.png?v=3" alt=""><div class="nav-card-body"><div class="nav-card-badges"><span class="nav-card-badge">Motif</span></div><h3>${l}</h3><p class="nav-card-excerpt">Texte descriptif court pour cette entrée de navigation.</p></div></a>`).join('');
-
-const spriteKeys = ['cymatique','hexagrammes','encodeur'];
-document.getElementById('sprites').innerHTML = spriteKeys.map(k=>`<a class="sprite-tile" href="#"><span class="sprite-icon" style="background-image:url(assets/nav-icons/${k}-sprite.png?v=3)"></span><span>${k}</span></a>`).join('');
-document.getElementById('sheets').innerHTML = spriteKeys.map(k=>`<div><p style="font-size:12px;color:var(--dim);">${k}-sprite.png (planche brute) :</p><div class="sheet"><img src="assets/nav-icons/${k}-sprite.png?v=3"></div></div>`).join('');
+document.getElementById('icons').innerHTML = entries.map(([k,l])=>`<figure><img src="assets/nav-icons/${k}.png?v=4"><figcaption>${k}</figcaption></figure>`).join('');
+document.getElementById('cards').innerHTML = entries.map(([k,l])=>`<a class="nav-card" href="#"><img class="nav-card-cover" src="assets/nav-icons/${k}.png?v=4" alt=""><div class="nav-card-body"><div class="nav-card-badges"><span class="nav-card-badge">Motif</span></div><h3>${l}</h3><p class="nav-card-excerpt">Texte descriptif court pour cette entrée de navigation.</p></div></a>`).join('');
+document.getElementById('sprites').innerHTML = entries.map(([k,l])=>`<a class="sprite-tile" href="#"><span class="sprite-icon" style="background-image:url(assets/nav-icons/${k}-sprite.png?v=4)"></span><span>${k}</span></a>`).join('');
+document.getElementById('sheets').innerHTML = entries.map(([k,l])=>`<div class="sheet-label">${k}-sprite.png :</div><div class="sheet"><img src="assets/nav-icons/${k}-sprite.png?v=4"></div>`).join('');
 </script>
 </body></html>
