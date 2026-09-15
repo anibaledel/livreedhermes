@@ -73,6 +73,7 @@
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
   .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
@@ -454,12 +455,12 @@
         <img alt="La Livrée d'Hermès">
       </picture>
     </div>
-      <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</button>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="index.html">Accueil</a>
       <a class="site-nav-btn" href="/">Tirage</a>
       <a class="site-nav-btn" href="hexagrammes/">Hexagrammes</a>
+      <a class="site-nav-btn current" href="creation-motifs-yi-king.html" aria-current="page">Créer un motif</a>
       <a class="site-nav-btn" href="impression.html">Impression</a>
       <a class="site-nav-btn" href="unified-patterns.html">Unified Patterns</a>
       <a class="site-nav-btn" href="galerie-884-patterns-unifies.html">Galerie 884</a>
@@ -1524,11 +1525,5 @@ render();
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
-<script>
-(function(){
-  var b = document.getElementById('btnSoutienFooter');
-  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
-})();
-</script>
 </body>
 </html>

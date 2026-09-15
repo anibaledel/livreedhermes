@@ -90,6 +90,7 @@
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
@@ -253,7 +254,6 @@
         <img alt="La Livrée d'Hermès">
       </picture>
     </div>
-      <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</button>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="index.html">Accueil</a>
@@ -268,6 +268,7 @@
       <a class="site-nav-btn" href="impression.html">Impression</a>
       <a class="site-nav-btn" href="encodeur.html">Encodeur</a>
       <a class="site-nav-btn" href="contact.html">Contact</a>
+      <a class="site-nav-btn current" href="a-propos.html" aria-current="page">À propos</a>
       <a class="site-nav-btn" href="lexique.html">Lexique</a>
       <a class="site-nav-btn" href="articles.html">Articles</a>
     </div>
@@ -294,11 +295,5 @@
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/share-widget.js"></script>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
-<script>
-(function(){
-  var b = document.getElementById('btnSoutienFooter');
-  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
-})();
-</script>
 </body>
 </html>
