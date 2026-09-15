@@ -62,22 +62,14 @@ function formatDateFr(iso){
 }
 const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>';
 
-// Bouton "Devenir Soutien" du footer, commun à toutes les pages du site
-// (voir assets/soutien-gate.js). Précède .site-nav-row.
-const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
-const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</button>`;
 // Lien de pied de page vers la page Soutien — occupe l'emplacement laissé
 // vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
-// voir espace-libre), après .footer-title-logo.
+// voir espace-libre), après .footer-title-logo. Contrôle unique : l'ancien
+// bouton modal #btnSoutienFooter a été retiré (doublon avec ce lien direct).
+const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
 const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
 const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/share-widget.js"></script>
-<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
-<script>
-(function(){
-  var b = document.getElementById('btnSoutienFooter');
-  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
-})();
-</script>`;
+<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>`;
 
 const pages = [];
 
@@ -360,8 +352,6 @@ ${linesHtml}
   </div>
 
   <div class="note">
-    ${SOUTIEN_BTN_HTML}
-
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
@@ -529,8 +519,6 @@ ${gridItems}
   </div>
 
   <div class="note">
-    ${SOUTIEN_BTN_HTML}
-
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
