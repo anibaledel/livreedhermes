@@ -262,7 +262,6 @@ for(let chrono = 0; chrono < 64; chrono++){
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
   .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
@@ -491,7 +490,6 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
   .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
@@ -527,7 +525,6 @@ ${gridItems}
       <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
-      <a class="site-nav-btn current" href="https://anibal-amiot.com/hexagrammes/" aria-current="page">Hexagrammes</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
     </div>
     <div class="credit-line">
