@@ -66,6 +66,10 @@ const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href
 // (voir assets/soutien-gate.js). Précède .site-nav-row.
 const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
 const SOUTIEN_BTN_HTML = `<button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</button>`;
+// Lien de pied de page vers la page Soutien — occupe l'emplacement laissé
+// vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
+// voir espace-libre), après .footer-title-logo.
+const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
 const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/share-widget.js"></script>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
 <script>
@@ -187,6 +191,17 @@ for(let chrono = 0; chrono < 64; chrono++){
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -258,7 +273,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
   @media (max-width:480px){ .article-title{ font-size:21px; } .article-content{ font-size:14.5px; } .hex-square img{ width:170px; height:170px; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,6 +285,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 <div class="wrap">
   <header>
     <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
   <div class="article-body">
@@ -366,8 +382,15 @@ ${linesHtml}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    ${SOUTIEN_LINK_HTML}
   </div>
 </div>
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
@@ -440,6 +463,17 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   img{ max-width:100%; }
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -469,7 +503,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -480,6 +514,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 <div class="wrap">
   <header>
     <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
   <nav class="breadcrumb" aria-label="Fil d'Ariane">
@@ -515,8 +550,15 @@ ${gridItems}
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
+    ${SOUTIEN_LINK_HTML}
   </div>
 </div>
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
