@@ -342,6 +342,19 @@
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(92px, 1fr)); gap:10px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tile{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    padding:10px 6px 12px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-tile img{ width:56px; height:56px; display:block; }
+  .nav-tile-label{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; text-align:center; line-height:1.3; }
+  .nav-tile[aria-current="page"]{ border-color:var(--gold); opacity:.55; pointer-events:none; }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin:24px 0 4px; }
@@ -419,6 +432,8 @@
     /* zones de touche plus confortables au doigt */
     .xref-btn{ padding:9px 12px; }
     .site-nav-btn{ padding:11px 16px; }
+    .nav-tiles{ grid-template-columns:repeat(auto-fill, minmax(76px, 1fr)); gap:8px; }
+    .nav-tile img{ width:48px; height:48px; }
     .share-row button{ padding:9px 12px; }
     .book-bar .flag-btn{ width:36px; height:32px; }
     .book-bar .dl-btn{ padding:10px 14px; }
@@ -543,22 +558,21 @@
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
-      <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</button>
 
-    <div class="site-nav-row">
-      <a class="site-nav-btn" href="hexagrammes/" id="txt-navHexagrammes">Hexagrammes</a>
-      <a class="site-nav-btn" href="creation-motifs-yi-king.html" id="txt-navMotif">Créer un motif</a>
-      <a class="site-nav-btn" href="unified-patterns.html" id="txt-navUnified">Unified Patterns</a>
-      <a class="site-nav-btn" href="galerie-884-patterns-unifies.html" id="txt-navGalerie">Galerie 884</a>
-      <a class="site-nav-btn" href="telechargements.html" id="txt-navMotifsSvg">Motifs SVG</a>
-      <a class="site-nav-btn" href="cymatique.html" id="txt-navCymatique">Cymatique</a>
-      <a class="site-nav-btn" href="fonds-ecran.html" id="txt-navWallpaper">Fond d'écran</a>
-      <a class="site-nav-btn" href="impression.html" id="txt-navPrint">Impression</a>
-      <a class="site-nav-btn" href="encodeur.html" id="txt-navEncodeur">Encodeur</a>
-      <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
-      <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
-      <a class="site-nav-btn" href="lexique.html" id="txt-navLexique">Lexique</a>
-      <a class="site-nav-btn" href="articles.html" id="txt-navArticles">Articles</a>
+    <div class="nav-tiles">
+      <a class="nav-tile" href="hexagrammes/"><img src="assets/nav-icons/hexagrammes.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span></a>
+      <a class="nav-tile" href="creation-motifs-yi-king.html"><img src="assets/nav-icons/creation-motifs.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span></a>
+      <a class="nav-tile" href="unified-patterns.html"><img src="assets/nav-icons/unified-patterns.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navUnified">Unified Patterns</span></a>
+      <a class="nav-tile" href="galerie-884-patterns-unifies.html"><img src="assets/nav-icons/galerie-884.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navGalerie">Galerie 884</span></a>
+      <a class="nav-tile" href="telechargements.html"><img src="assets/nav-icons/motifs-svg.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navMotifsSvg">Motifs SVG</span></a>
+      <a class="nav-tile" href="cymatique.html"><img src="assets/nav-icons/cymatique.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navCymatique">Cymatique</span></a>
+      <a class="nav-tile" href="fonds-ecran.html"><img src="assets/nav-icons/fond-ecran.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navWallpaper">Fond d'écran</span></a>
+      <a class="nav-tile" href="impression.html"><img src="assets/nav-icons/impression.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navPrint">Impression</span></a>
+      <a class="nav-tile" href="encodeur.html"><img src="assets/nav-icons/encodeur.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navEncodeur">Encodeur</span></a>
+      <a class="nav-tile" href="contact.html"><img src="assets/nav-icons/contact.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navContact">Contact</span></a>
+      <a class="nav-tile" href="a-propos.html"><img src="assets/nav-icons/a-propos.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navAbout">À propos</span></a>
+      <a class="nav-tile" href="lexique.html"><img src="assets/nav-icons/lexique.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navLexique">Lexique</span></a>
+      <a class="nav-tile" href="articles.html"><img src="assets/nav-icons/articles.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navArticles">Articles</span></a>
     </div>
 
     <div class="footer-caduceus">
@@ -1986,11 +2000,5 @@ function googleTranslateElementInit() {
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
-<script>
-(function(){
-  var b = document.getElementById('btnSoutienFooter');
-  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
-})();
-</script>
 </body>
 </html>
