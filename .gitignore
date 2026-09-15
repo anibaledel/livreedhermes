@@ -15,3 +15,12 @@ __pycache__/
 # Calques sources bruts du Referent 360 (.ai/.svg/.zip, 660 Mo) -- en attente
 # de decision (commit direct, Git LFS, ou hors depot) avant tout ajout.
 /0 KRE-360/
+
+# PDF de copyright (4 x ~260 Mo, au-dela de la limite GitHub de 100 Mo/fichier)
+# et SVG source associe (5,8 Mo) -- jamais commites, en attente de decision
+# sur leur sortie du depot.
+/lalivreedhermes ENGLISH pdf copyright.pdf
+/lalivreedhermes ES pdf copyright.pdf
+/lalivreedhermes FR pdf copyright.pdf
+/lalivreedhermes TH pdf copyright.pdf
+/LLDH CARRELONG 4TRAD 2026 JUILLET-047.svg
