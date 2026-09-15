@@ -115,6 +115,7 @@
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
   .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
@@ -375,7 +376,7 @@
       <a class="site-nav-btn" href="telechargements.html" id="txt-navMotifsSvg">Motifs SVG</a>
       <a class="site-nav-btn" href="cymatique.html" id="txt-navCymatique">Cymatique</a>
       <a class="site-nav-btn" href="fonds-ecran.html" id="txt-navWallpaper">Fond d'écran</a>
-      <a class="site-nav-btn current" href="impression.html" id="txt-navPrint">Impression</a>
+      <a class="site-nav-btn current" href="impression.html" id="txt-navPrint" aria-current="page">Impression</a>
       <a class="site-nav-btn" href="encodeur.html" id="txt-navEncodeur">Encodeur</a>
       <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
       <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
