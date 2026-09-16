@@ -168,8 +168,7 @@
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
-  @media (max-width:1320px) and (min-width:769px){ .footer-caduceus{ display:none; } }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
   /* ---------- mobile : mise en page ---------- */
@@ -245,11 +244,7 @@
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
     <div class="footer-caduceus">
-      <picture>
-        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
-        <source media="(max-width:768px)" srcset="assets/logo-caducee.gif">
-        <img alt="La Livrée d'Hermès">
-      </picture>
+      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
     </div>
 
     <div class="site-nav-row">
