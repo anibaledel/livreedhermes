@@ -227,19 +227,10 @@
     #grid-canvas .cell { width: 4px; height: 4px; }
   }
 
-  .format-notice {
-    background: var(--err);
-    color: #fff;
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-align: center;
-    padding: 0.6rem 1rem;
-  }
+
 </style>
 </head>
 <body>
-
-<div class="format-notice">démonstration au format v2, non compatible avec la version actuelle du code</div>
 
 <header>
   <h1>Carter Random</h1>
@@ -304,9 +295,10 @@
       Démo du port JS de <code>carter_random.py</code> — voir
       <a href="encodeur.html" style="color:var(--gold-dim)">encodeur.html</a>
       pour l'outil de chiffrement principal du site. Tout se passe dans le
-      navigateur : rien n'est transmis au serveur. AES-256-GCM (Web Crypto
-      natif) substitue ChaCha20-Poly1305, absent de l'API navigateur — voir
-      la note technique dans <code>js/crypto_core.js</code>.
+      navigateur : rien n'est transmis au serveur. XChaCha20-Poly1305 (le
+      même chiffrement que côté Python, en JS pur — voir
+      <code>js/carter-core.js</code>), vérifié contre les vecteurs produits
+      par le code Python.
     </p>
 
   </div>
@@ -327,60 +319,53 @@
 
 <script type="module">
 // ═══════════════════════════════════════════════════════════════════════════════
-// UI — s'appuie sur js/crypto_core.js + js/carter_random.js (AES-256-GCM natif,
-// CSPRNG en bloc, capacité exacte — voir ces fichiers pour la crypto elle-même).
-// Cette page ne fait QUE dériver la grammaire une seconde fois pour la
-// visualisation (coloration des rôles de cellule) ; encode/decode réels
-// passent entièrement par encodeCarterRandom()/decodeCarterRandom().
+// UI — s'appuie sur js/carter-core.js (XChaCha20-Poly1305, vérifié contre les
+// vecteurs Python — voir ce fichier pour la crypto elle-même). Cette page ne
+// fait QUE dériver la grammaire une seconde fois pour la visualisation
+// (coloration des rôles de cellule), via les mêmes fonctions internes que
+// encode_carter_random()/decode_carter_random() — aucune logique dupliquée.
+// Mode méta (concentrique) non disponible : voir la note dans carter-core.js.
 // ═══════════════════════════════════════════════════════════════════════════════
 import {
-  encodeCarterRandom, decodeCarterRandom, carterRandomFits, carterRandomCapacity,
-  carterSplit, deriveParams, grammarIndividual, grammarMeta, getReferent,
-  N_SIDE, N_META, CELL_SIZE, META, CONC_ORDER, PURE, STRUCTURED, MESSAGE,
-} from './js/carter_random.js';
-import { ALPHABET, ALPHA_LEN, randomSymbols } from './js/crypto_core.js';
+  encode_carter_random, decode_carter_random, carter256_split,
+  carter_random_find_grammar, carter_random_positions, get_referent6x6,
+  derive_sweep_index, random_grid,
+  ROLE_PURE, ROLE_STRUCTURED, ROLE_MESSAGE, RANDOM_STEGANO_COLORS,
+  ALPHABET, ALPHA_LEN,
+} from './js/carter-core.js';
 
 const GRID_SIZE = 90;
+const CELL_SIZE = 6;
+const N_SIDE = GRID_SIZE / CELL_SIZE; // 15
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // Rôles par cellule — pour la visualisation uniquement (même grammaire que
-// celle qu'encodeCarterRandom() dérive en interne, recalculée ici à partir
+// celle qu'encode_carter_random() dérive en interne, recalculée ici à partir
 // de la même clé pour connaître le rôle de chaque cellule et la colorer).
+// Mode méta non porté en JS (voir carter-core.js) : signalé, pas simulé.
 // ═══════════════════════════════════════════════════════════════════════════════
 async function computeCellRoles(masterKey) {
-  const { grammarKey } = await carterSplit(masterKey);
-  const { seed, metaMode } = await deriveParams(grammarKey);
-  const ref = getReferent(seed);
-  const roles = new Uint8Array(GRID_SIZE * GRID_SIZE).fill(PURE);
-
-  if (!metaMode) {
-    const grammar = await grammarIndividual(grammarKey, ref, N_SIDE);
-    grammar.forEach((g, i) => {
-      if (g.role === PURE) return;
-      const br = Math.floor(i / N_SIDE), bc = i % N_SIDE;
-      const form = ref[g.formId];
-      for (const [pr, pc] of form[g.dir]) {
-        const gr = br*CELL_SIZE+pr, gc = bc*CELL_SIZE+pc;
-        if (gr < GRID_SIZE && gc < GRID_SIZE) roles[gr*GRID_SIZE+gc] = g.role;
-      }
-    });
-  } else {
-    const nMetaG = N_META;
-    const grammar = await grammarMeta(grammarKey, ref, nMetaG*nMetaG, nMetaG);
-    grammar.forEach((mg, mi) => {
-      if (mg.role === PURE) return;
-      const mr = Math.floor(mi / nMetaG), mc = mi % nMetaG;
-      CONC_ORDER.forEach(([brOff, bcOff], ci) => {
-        const sg = mg.sub[ci], form = ref[sg.formId];
-        const br = mr*META+brOff, bc = mc*META+bcOff;
-        for (const [pr, pc] of form[sg.dir]) {
-          const gr = br*CELL_SIZE+pr, gc = bc*CELL_SIZE+pc;
-          if (gr < GRID_SIZE && gc < GRID_SIZE) roles[gr*GRID_SIZE+gc] = mg.role;
-        }
-      });
-    });
+  const { grammar_key } = await carter256_split(masterKey);
+  const { gkCtr, refIdx, metaMode, grammar } = await carter_random_find_grammar(grammar_key, GRID_SIZE);
+  if (metaMode) {
+    throw new Error('Cette clé dérive une grammaire en mode méta (concentrique), pas encore porté en JS — réessayer avec une autre clé.');
   }
-  return { roles, seed, metaMode };
+  const ref = await get_referent6x6(refIdx);
+  const sweepOfColor = {};
+  for (const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+
+  const roles = new Uint8Array(GRID_SIZE * GRID_SIZE).fill(ROLE_PURE);
+  grammar.forEach((g, i) => {
+    if (g.role === ROLE_PURE) return;
+    const br = Math.floor(i / N_SIDE), bc = i % N_SIDE;
+    const form = ref[g.form_id];
+    const r0 = br * CELL_SIZE, c0 = bc * CELL_SIZE;
+    for (const [pr, pc] of carter_random_positions(form, sweepOfColor)) {
+      const gr = r0 + pr, gc = c0 + pc;
+      if (gr < GRID_SIZE && gc < GRID_SIZE) roles[gr * GRID_SIZE + gc] = g.role;
+    }
+  });
+  return { roles, seed: refIdx, metaMode };
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -401,25 +386,19 @@ async function encode() {
     const masterKey = hexToBytes(keyHex);
     const t0 = performance.now();
 
-    if (!(await carterRandomFits(msg, masterKey))) {
-      const cap = await carterRandomCapacity(masterKey);
-      throw new Error(`Message trop long pour cette clé (capacité ${cap.charsMax} car.). `
-        + `Essayer une autre clé ou raccourcir le message.`);
-    }
-
-    const { grid, mode, seed, nMsgBlocks, capacityChars } = await encodeCarterRandom(msg, masterKey);
+    const { grid, info } = await encode_carter_random(msg, masterKey);
     const { roles } = await computeCellRoles(masterKey);
 
     const dt = performance.now() - t0;
     currentGrid = grid;
     currentKey  = masterKey;
 
-    const nMsgCells = roles.reduce((s, r) => s + (r === MESSAGE ? 1 : 0), 0);
+    const nMsgCells = roles.reduce((s, r) => s + (r === ROLE_MESSAGE ? 1 : 0), 0);
 
-    document.getElementById('s-mode').textContent = mode === 'meta' ? 'méta-concentrique' : 'individuel';
-    document.getElementById('s-seed').textContent = seed;
-    document.getElementById('s-nmsg').textContent = `${nMsgBlocks} blocs · ${nMsgCells} cellules`;
-    document.getElementById('s-cap').textContent  = `${capacityChars} car. max`;
+    document.getElementById('s-mode').textContent = info.meta_mode ? 'méta-concentrique' : 'individuel';
+    document.getElementById('s-seed').textContent = info.referent_index;
+    document.getElementById('s-nmsg').textContent = `${info.n_msg_blocks} blocs · ${nMsgCells} cellules`;
+    document.getElementById('s-cap').textContent  = `${info.capacity_chars} car. max`;
     document.getElementById('s-time').textContent = `${dt.toFixed(0)} ms`;
     document.getElementById('stats').style.display = 'block';
 
@@ -437,7 +416,7 @@ async function decode() {
   if (!currentGrid || !currentKey) return;
   showStatus('info', 'Décodage…', 'decode-result');
   try {
-    const msg = await decodeCarterRandom(currentGrid, currentKey);
+    const msg = await decode_carter_random(currentGrid, currentKey);
     showStatus('ok', `Décodé : ${msg}`, 'decode-result');
   } catch (e) {
     showStatus('err', e.message, 'decode-result');
@@ -458,8 +437,8 @@ const PALETTE = [
 ];
 
 function valToColor(val, role) {
-  if (role === MESSAGE)    return '#4e9eff';
-  if (role === STRUCTURED) return '#3a7a5a';
+  if (role === ROLE_MESSAGE)    return '#4e9eff';
+  if (role === ROLE_STRUCTURED) return '#3a7a5a';
   return PALETTE[val % PALETTE.length];
 }
 
@@ -471,7 +450,7 @@ function renderGrid(grid, roles) {
     for (let c = 0; c < GRID_SIZE; c++) {
       const div = document.createElement('div');
       div.className = 'cell';
-      const role = roles ? roles[r*GRID_SIZE+c] : PURE;
+      const role = roles ? roles[r*GRID_SIZE+c] : ROLE_PURE;
       div.style.background = valToColor(grid[r][c], role);
       div.dataset.r = r; div.dataset.c = c;
       div.dataset.v = grid[r][c];
@@ -520,9 +499,7 @@ document.getElementById('btn-random-key').addEventListener('click', () => {
 
 // Grille de bruit initiale (décorative, avant tout encode — CSPRNG par cohérence,
 // même si rien de sensible n'est protégé ici).
-const initFlat = randomSymbols(GRID_SIZE * GRID_SIZE);
-const initGrid = Array.from({length: GRID_SIZE}, (_, r) => initFlat.slice(r*GRID_SIZE, (r+1)*GRID_SIZE));
-renderGrid(initGrid, null);
+renderGrid(random_grid(GRID_SIZE, GRID_SIZE), null);
 </script>
 </body>
 </html>

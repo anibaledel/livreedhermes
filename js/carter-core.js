@@ -493,11 +493,11 @@ function cryptoReadingOrder(cellsByNiveauAndColor, colorOrder, gridSize, sweepOf
 // instanciations (360/mix/random/random360/18/hybrid/classic/deniable)
 // viendront dans des passes séparées, chacune contre son propre vecteur.
 // ═══════════════════════════════════════════════════════════════════════
-const CARTER_GRID = 90;
-const CARTER_BLOCK = 6;
-const CARTER_SIDE = CARTER_GRID / CARTER_BLOCK; // 15 blocs par côté
+export const CARTER_GRID = 90;
+export const CARTER_BLOCK = 6;
+export const CARTER_SIDE = CARTER_GRID / CARTER_BLOCK; // 15 blocs par côté
 const CARTER_N = CARTER_SIDE * CARTER_SIDE;     // 225 blocs
-const ROLE_PURE = 0, ROLE_STRUCTURED = 1, ROLE_MESSAGE = 2;
+export const ROLE_PURE = 0, ROLE_STRUCTURED = 1, ROLE_MESSAGE = 2;
 
 /** carter256_split(masterKey) -> {xchacha_key, grammar_key}. */
 export async function carter256_split(masterKey) {
@@ -543,6 +543,18 @@ export function carter256_positions(br, bc, g, ref256, sweepOfColor) {
     if (gr >= 0 && gr < CARTER_GRID && gc >= 0 && gc < CARTER_GRID) out.push([gr, gc]);
   }
   return out;
+}
+
+/**
+ * carter256_find_grammar(grammarKey, ref256) -> {gkCtr, grammar, nPos}. Expose
+ * pour la seule visualisation (colorer les cellules par rôle) la recherche de
+ * grammaire déjà effectuée en interne par encode_carter()/decode_carter() —
+ * même fonction, mêmes arguments, aucune logique dupliquée.
+ */
+export async function carter256_find_grammar(grammarKey, ref256) {
+  return findGrammarWithCPub(grammarKey, 'carter256',
+    gk => carter256_grammar(gk, ref256),
+    g => carter256MessagePositions(g, ref256));
 }
 
 function carter256MessagePositions(grammar, ref256) {
@@ -641,7 +653,7 @@ const R6_POOL_TEMPLATE = [
   ...Array(6).fill('blue'), ...Array(6).fill('orange'),
   ...Array(12).fill('green'), ...Array(12).fill('yellow'),
 ];
-const RANDOM_STEGANO_COLORS = ['blue', 'orange'];
+export const RANDOM_STEGANO_COLORS = ['blue', 'orange'];
 
 // Lecteur bufferisé d'un keystream ChaCha20(referentKey, nonce=0), octet
 // par octet, rejet sans biais modulo (_rand_below). Buffer généreux et
@@ -726,6 +738,11 @@ function formSteganoPositions(form, sweepOfColor) {
   const cellsByNiveau = { 0: {} };
   for (const c of RANDOM_STEGANO_COLORS) cellsByNiveau[0][c] = form[c];
   return cryptoReadingOrder(cellsByNiveau, RANDOM_STEGANO_COLORS, R6_GRID_SIZE, sweepOfColor);
+}
+
+/** carter_random_positions(form, sweepOfColor) -> [[r,c],...] positions locales d'un référent 6×6 (visualisation uniquement, même fonction qu'en interne). */
+export function carter_random_positions(form, sweepOfColor) {
+  return formSteganoPositions(form, sweepOfColor);
 }
 
 // ═══════════════════════════════════════════════════════════════════════
@@ -813,6 +830,16 @@ async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE) {
   throw new Error(
     `Échec de dérivation de grammaire après ${MAX_REDRAWS} tentatives : régénérer la clé maître ` +
     `(capacité cible C_PUB=${C_PUB[cPubKey]} octets non atteinte).`);
+}
+
+/**
+ * carter_random_find_grammar(grammarKey, gridSize) -> {gkCtr, refIdx, metaMode, grammar, nPos}.
+ * Expose, pour la seule visualisation, la recherche de grammaire déjà
+ * effectuée en interne par encode_carter_random()/decode_carter_random() —
+ * même fonction, aucune logique dupliquée.
+ */
+export async function carter_random_find_grammar(grammarKey, gridSize = CR_GRID_SIZE) {
+  return findRandomGrammarWithCPub(grammarKey, gridSize);
 }
 
 /** encode_carter_random(message, masterKey, opts) -> {grid, info}. Mode individuel uniquement (voir note ci-dessus). */
