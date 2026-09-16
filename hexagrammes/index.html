@@ -103,6 +103,7 @@
   :root{
     --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
     --red:#e0261b; --gold:#c9a15a; --line:#242424;
+    --fs-bump:2px;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -118,37 +119,91 @@
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
   }
   .gtranslate-slot img{ vertical-align:middle !important; }
 
-  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:11px; letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
   .breadcrumb a:hover{ color:var(--gold); }
   .breadcrumb .sep{ margin:0 6px; opacity:.5; }
   .breadcrumb [aria-current]{ color:var(--gold); }
 
-  .page-title{ max-width:64ch; margin:0 auto 8px; font-size:26px; font-weight:400; line-height:1.35; text-align:center; }
-  .page-sub{ max-width:64ch; margin:0 auto 30px; color:var(--dim); font-size:14px; line-height:1.7; text-align:center; }
+  .page-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .page-sub{ max-width:64ch; margin:0 auto 30px; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; text-align:center; }
 
   .hex-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:10px; margin:0 0 20px; }
   .hex-grid-item{
-    border:1px solid var(--line); color:var(--dim); font-size:12.5px; letter-spacing:.02em;
+    border:1px solid var(--line); color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); letter-spacing:.02em;
     padding:12px 14px; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .hex-grid-item:hover{ border-color:var(--gold); color:var(--gold); }
 
-  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
-  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
   .credit-line .credit-sep{ opacity:.5; }
-  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
-  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
-  .credit-line-secondary a:hover{ color:var(--gold); }
-  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
-  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
 </style>
@@ -239,26 +294,48 @@
   </div>
 
   <div class="note">
-    <div class="site-nav-row">
-      <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
+    <div class="center-logo-slot">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
+    <div class="footer-caduceus">
+      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="https://anibal-amiot.com/index.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/accueil.png); --hover-icon:url(../assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/tirage.png); --hover-icon:url(../assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/unified-patterns.png); --hover-icon:url(../assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Unified Patterns</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/galerie-884-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/galerie-884.png); --hover-icon:url(../assets/nav-icons/galerie-884-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie 884</span><span class="nav-tile-excerpt">884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/motifs-svg.png); --hover-icon:url(../assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/contact.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/contact.png); --hover-icon:url(../assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/a-propos.png); --hover-icon:url(../assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/lexique.png); --hover-icon:url(../assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Lexique</span><span class="nav-tile-excerpt">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/articles.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/articles.png); --hover-icon:url(../assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="nav-tiles">
+      <a class="nav-tile" href="https://anibal-amiot.com/fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/fond-ecran.png); --hover-icon:url(../assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/creation-motifs.png); --hover-icon:url(../assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/encodeur.png); --hover-icon:url(../assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/impression.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/impression.png); --hover-icon:url(../assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/cymatique.png); --hover-icon:url(../assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+    </div>
+
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
     </div>
-    <div class="credit-line-secondary">
-      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
-    </div>
+
     <div class="footer-title-logo">
       <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
-    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
   </div>
 </div>
 <script type="text/javascript">

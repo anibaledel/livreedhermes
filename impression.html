@@ -18,6 +18,7 @@
 <style>
   /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
   :root{
+    --fs-bump:2px;
     --bg:#000;
     --panel:#0a0a0a;
     --white:#f2f2f0;
@@ -49,21 +50,21 @@
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
   }
   .gtranslate-slot img{ vertical-align:middle !important; }
   header .eyebrow{
     letter-spacing:.35em;
-    font-size:11px;
+    font-size:calc(11px + var(--fs-bump));
     color:var(--red);
     text-transform:uppercase;
     font-family:Helvetica,Arial,sans-serif;
   }
-  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:8px 0 4px; }
-  header p{ color:var(--dim); font-size:12px; font-family:Helvetica,Arial,sans-serif; margin:0; }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); font-family:Helvetica,Arial,sans-serif; margin:0; }
   .book-intro{
     max-width:56ch; margin:16px auto 0; color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
   }
 
   .book-bar{
@@ -75,7 +76,7 @@
   .book-bar .flag-btn{
     border:1px solid var(--line); background:transparent; border-radius:3px;
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
-    font-size:14px; cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
     transition:opacity .12s ease, border-color .12s ease;
   }
   .book-bar .flag-btn.ready{ opacity:1; filter:none; }
@@ -83,25 +84,26 @@
   .book-bar .flag-btn:not(.ready){ cursor:default; }
   .book-bar .dl-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .book-bar .dl-group{
     display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
   }
-  .book-bar .dl-label{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
   .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
 
   .note{
-    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:11px; color:var(--dim);
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
     text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
   }
   .credit-line{
     margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    font-size:10px; color:var(--dim);
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
   }
   .credit-line .credit-sep{ opacity:.5; }
   .site-nav-row{
@@ -110,11 +112,50 @@
   }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
   .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
@@ -132,19 +173,19 @@
   .cat-card{ background:var(--panel); padding:20px 18px; cursor:pointer; transition:background .15s; }
   .cat-card:hover{ background:#111; }
   .cat-card.active{ background:#111; box-shadow:inset 0 0 0 1px var(--red-dim); }
-  .cat-num{ font-size:10px; color:var(--red); letter-spacing:.14em; margin-bottom:6px; text-transform:uppercase; }
-  .cat-title{ font-size:16px; font-weight:400; margin-bottom:4px; font-family:Georgia,serif; }
-  .cat-meta{ font-size:11px; color:var(--dim); line-height:1.5; }
+  .cat-num{ font-size:calc(10px + var(--fs-bump)); color:var(--red); letter-spacing:.14em; margin-bottom:6px; text-transform:uppercase; }
+  .cat-title{ font-size:calc(16px + var(--fs-bump)); font-weight:400; margin-bottom:4px; font-family:Georgia,serif; }
+  .cat-meta{ font-size:calc(11px + var(--fs-bump)); color:var(--dim); line-height:1.5; }
 
   .sub-row{
     display:none; gap:20px; margin-bottom:24px; padding:16px 18px;
     background:var(--panel); border:1px solid var(--line); font-family:Helvetica,Arial,sans-serif;
   }
-  .sub-label{ font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; display:block; }
+  .sub-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; display:block; }
   .dice-row{ display:flex; gap:6px; flex-wrap:wrap; }
   .dice-btn{
     width:32px; height:32px; border:1px solid var(--line); background:transparent; color:var(--white);
-    font-family:Helvetica,Arial,sans-serif; font-size:12px; cursor:pointer;
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); cursor:pointer;
   }
   .dice-btn:hover{ border-color:var(--gold); }
   .dice-btn.selected{ border-color:var(--red); color:var(--red); background:rgba(224,38,27,.08); }
@@ -157,9 +198,9 @@
     display:flex; align-items:center; justify-content:center;
   }
   .preview-box svg{ width:100%; height:100%; }
-  .result-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-bottom:6px; }
-  .result-value{ font-size:22px; color:var(--gold); font-weight:400; margin-bottom:14px; }
-  .result-idea{ font-size:13px; line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; }
+  .result-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--dim); font-family:Helvetica,Arial,sans-serif; margin-bottom:6px; }
+  .result-value{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); font-weight:400; margin-bottom:14px; }
+  .result-idea{ font-size:calc(13px + var(--fs-bump)); line-height:1.7; color:var(--white); margin-bottom:20px; max-width:440px; }
   .result-idea .kw{ color:var(--red); }
 
   /* liseret : léger contour décoratif en retrait, posé autour des cadres (motif du haut
@@ -169,7 +210,7 @@
   /* carré de pavage à droite du tirage — même composant que .motif-tess-box sur
      Unified Patterns (carré 1:1 en background-image répété), à la taille standard
      130x130 du site (.motif-box / .pavage-sq). */
-  .tessellation-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; font-family:Helvetica,Arial,sans-serif; }
+  .tessellation-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; font-family:Helvetica,Arial,sans-serif; }
   .motif-tess-box{
     width:130px; height:130px; background:#050505;
     background-repeat:repeat; background-size:25% 25%;
@@ -181,32 +222,32 @@
   .hex-mutation-zone.visible{ display:block; }
   .hex-text-block{
     max-width:640px; margin:0 auto 28px; text-align:center;
-    color:var(--white); font-size:13px; line-height:1.7;
+    color:var(--white); font-size:calc(13px + var(--fs-bump)); line-height:1.7;
   }
   .hex-text-block .keyword{
-    font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px;
+    font-size:calc(11px + var(--fs-bump)); letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px;
   }
-  .hex-text-block .keyword-sub{ font-size:15px; font-style:italic; color:var(--red); margin:0 0 8px; }
-  .hex-text-block .judgement{ font-size:13px; line-height:1.65; color:var(--white); }
+  .hex-text-block .keyword-sub{ font-size:calc(15px + var(--fs-bump)); font-style:italic; color:var(--red); margin:0 0 8px; }
+  .hex-text-block .judgement{ font-size:calc(13px + var(--fs-bump)); line-height:1.65; color:var(--white); }
   .hex-text-block .hex-tag{
-    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
     font-family:Helvetica,Arial,sans-serif; margin-bottom:8px;
   }
-  .hex-text-block .hex-title{ color:var(--red); font-size:18px; margin-bottom:10px; }
+  .hex-text-block .hex-title{ color:var(--red); font-size:calc(18px + var(--fs-bump)); margin-bottom:10px; }
   .hex-text-block .hex-image{ margin-bottom:14px; }
-  .hex-text-block .pair-text{ margin-top:14px; color:var(--dim); font-size:12.5px; }
-  #resultIdea .pair-text{ margin-top:12px; color:var(--dim); font-size:12.5px; line-height:1.6; }
+  .hex-text-block .pair-text{ margin-top:14px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); }
+  #resultIdea .pair-text{ margin-top:12px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.6; }
   .mutant-lines-block{ max-width:640px; margin:0 auto 36px; }
-  .mutant-line{ margin-bottom:14px; font-size:12.5px; line-height:1.65; color:var(--dim); }
+  .mutant-line{ margin-bottom:14px; font-size:calc(12.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); }
   .mutant-line:last-child{ margin-bottom:0; }
-  .mutant-line .lbl{ color:var(--gold); font-family:Helvetica,Arial,sans-serif; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
+  .mutant-line .lbl{ color:var(--gold); font-family:Helvetica,Arial,sans-serif; font-size:calc(10px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; margin-bottom:4px; }
 
   .ant-post-row{ display:flex; justify-content:space-between; gap:32px; flex-wrap:wrap; margin:0 0 36px; }
   .ant-post-col{ flex:1 1 320px; display:flex; flex-direction:column; max-width:400px; }
   .ant-post-col.ant{ align-items:flex-start; margin-right:auto; }
   .ant-post-col.post{ align-items:flex-end; margin-left:auto; }
   .ant-post-col .ant-post-label{
-    font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+    font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
     font-family:Helvetica,Arial,sans-serif; margin-bottom:8px;
   }
   .ant-post-col .ant-post-box{
@@ -361,30 +402,41 @@
       <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
     </div>
 
-    <div class="site-nav-row">
-      <a class="site-nav-btn" href="index.html" id="txt-navHome">Accueil</a>
-      <a class="site-nav-btn" href="/" id="txt-navTirage">Tirage</a>
-      <a class="site-nav-btn" href="hexagrammes/" id="txt-navHexagrammes">Hexagrammes</a>
-      <a class="site-nav-btn" href="creation-motifs-yi-king.html" id="txt-navMotif">Créer un motif</a>
-      <a class="site-nav-btn" href="unified-patterns.html" id="txt-navUnified">Unified Patterns</a>
-      <a class="site-nav-btn" href="galerie-884-patterns-unifies.html" id="txt-navGalerie">Galerie 884</a>
-      <a class="site-nav-btn" href="telechargements.html" id="txt-navMotifsSvg">Motifs SVG</a>
-      <a class="site-nav-btn" href="cymatique.html" id="txt-navCymatique">Cymatique</a>
-      <a class="site-nav-btn" href="fonds-ecran.html" id="txt-navWallpaper">Fond d'écran</a>
-      <a class="site-nav-btn current" href="impression.html" id="txt-navPrint" aria-current="page">Impression</a>
-      <a class="site-nav-btn" href="encodeur.html" id="txt-navEncodeur">Encodeur</a>
-      <a class="site-nav-btn" href="contact.html" id="txt-navContact">Contact</a>
-      <a class="site-nav-btn" href="a-propos.html" id="txt-navAbout">À propos</a>
-      <a class="site-nav-btn" href="lexique.html" id="txt-navLexique">Lexique</a>
-      <a class="site-nav-btn" href="articles.html" id="txt-navArticles">Articles</a>
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="index.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/accueil.png); --hover-icon:url(assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navHome">Accueil</span><span class="nav-tile-excerpt" id="txt-navHomeDesc">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/tirage.png); --hover-icon:url(assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navTirage">Tirage</span><span class="nav-tile-excerpt" id="txt-navTirageDesc">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/hexagrammes.png); --hover-icon:url(assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span><span class="nav-tile-excerpt" id="txt-navHexagrammesDesc">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+      <a class="nav-tile" href="unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/unified-patterns.png); --hover-icon:url(assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navUnified">Unified Patterns</span><span class="nav-tile-excerpt" id="txt-navUnifiedDesc">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+      <a class="nav-tile" href="galerie-884-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/galerie-884.png); --hover-icon:url(assets/nav-icons/galerie-884-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navGalerie">Galerie 884</span><span class="nav-tile-excerpt" id="txt-navGalerieDesc">884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/motifs-svg.png); --hover-icon:url(assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navMotifsSvg">Motifs SVG</span><span class="nav-tile-excerpt" id="txt-navMotifsSvgDesc">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="contact.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/contact.png); --hover-icon:url(assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navContact">Contact</span><span class="nav-tile-excerpt" id="txt-navContactDesc">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/a-propos.png); --hover-icon:url(assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navAbout">À propos</span><span class="nav-tile-excerpt" id="txt-navAboutDesc">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/lexique.png); --hover-icon:url(assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navLexique">Lexique</span><span class="nav-tile-excerpt" id="txt-navLexiqueDesc">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="articles.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/articles.png); --hover-icon:url(assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navArticles">Articles</span><span class="nav-tile-excerpt" id="txt-navArticlesDesc">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+        <div class="nav-tiles">
+      <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navWallpaper">Fond d'écran</span><span class="nav-tile-excerpt" id="txt-navWallpaperDesc">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/creation-motifs.png); --hover-icon:url(assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span><span class="nav-tile-excerpt" id="txt-navMotifDesc">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/encodeur.png); --hover-icon:url(assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navEncodeur">Encodeur</span><span class="nav-tile-excerpt" id="txt-navEncodeurDesc">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="impression.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/impression.png); --hover-icon:url(assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navPrint">Impression</span><span class="nav-tile-excerpt" id="txt-navPrintDesc">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/cymatique.png); --hover-icon:url(assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navCymatique">Cymatique</span><span class="nav-tile-excerpt" id="txt-navCymatiqueDesc">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
     </div>
 
       <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
       <span>Créé avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès">
     </div>
   </div>
 
@@ -413,6 +465,7 @@ const UI = {
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
     situationAnt:"Situation antérieure", situationPost:"Situation postérieure",
     navHome:"Accueil", navTirage:"Tirage", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
+    navHomeDesc:"Le livre, ses planches et l'ensemble des outils.", navTirageDesc:"Tirez un hexagramme au hasard et découvrez son carré.", navHexagrammesDesc:"Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.", navMotifDesc:"Composez vos propres motifs textiles à partir des 60 natures du Yi King.", navUnifiedDesc:"Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.", navGalerieDesc:"884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.", navMotifsSvgDesc:"Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.", navCymatiqueDesc:"Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.", navWallpaperDesc:"Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.", navPrintDesc:"Tirez et téléchargez les calques d'impression, prêts à imprimer.", navEncodeurDesc:"Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.", navContactDesc:"Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.", navAboutDesc:"L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.", navLexiqueDesc:"Dix notions clés pour comprendre La Livrée d'Hermès.", navArticlesDesc:"Réflexions et recherches autour de La Livrée d'Hermès.",
   },
   en: {
     eyebrow:"The Livery of Hermes", title:"Printing — casting & layers",
@@ -432,6 +485,8 @@ const UI = {
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
     situationAnt:"Prior situation", situationPost:"Resulting situation",
     navHome:"Home", navTirage:"Casting", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
+    /* TODO Claude Code (draft, à valider) : traductions EN des descriptions de nav-tiles */
+    navHomeDesc:"The book, its plates, and the full set of tools.", navTirageDesc:"Cast a random hexagram and discover its magic square.", navHexagrammesDesc:"The 64 hexagrams of the Yi-King: judgment, trigrams, and magic square for each.", navMotifDesc:"Compose your own textile motifs from the 60 natures of the Yi King.", navUnifiedDesc:"The 64 hexagram motifs, customizable and downloadable in high resolution.", navGalerieDesc:"884 unified patterns, generated by hue blending — select a motif to see its tiling.", navMotifsSvgDesc:"Download the print layers in 4 categories of line combinations, in SVG format.", navCymatiqueDesc:"The tiling whose spatial frequency comes closest to the sound you make.", navWallpaperDesc:"Full-screen textile wallpapers, sound-reactive or in a meditative mode with adjustable pace.", navPrintDesc:"Pull and download the print layers, ready to print.", navEncodeurDesc:"Geometric steganographic encoding by double referent, ankh and Jacquard.", navContactDesc:"Contact the author for a project or a commission of motifs and textile prints.", navAboutDesc:"The author and his book, at the crossing of philosophy, mathematics and applied sciences.", navLexiqueDesc:"Ten key notions for understanding The Livery of Hermes.", navArticlesDesc:"Reflections and research around The Livery of Hermes.",
   },
   es: {
     eyebrow:"La Librea de Hermes", title:"Impresión — tirada y capas",
@@ -499,20 +554,35 @@ function applyUILang(){
   document.getElementById('dlSvg').textContent = t('dlSvgBtn');
   document.getElementById('dlPdf').textContent = t('dlPdfBtn');
   document.getElementById('txt-navHome').textContent = t('navHome');
+  document.getElementById('txt-navHomeDesc').textContent = t('navHomeDesc');
   document.getElementById('txt-navTirage').textContent = t('navTirage');
+  document.getElementById('txt-navTirageDesc').textContent = t('navTirageDesc');
   document.getElementById('txt-navHexagrammes').textContent = t('navHexagrammes');
+  document.getElementById('txt-navHexagrammesDesc').textContent = t('navHexagrammesDesc');
   document.getElementById('txt-navMotif').textContent = t('navMotif');
+  document.getElementById('txt-navMotifDesc').textContent = t('navMotifDesc');
   document.getElementById('txt-navUnified').textContent = t('navUnified');
+  document.getElementById('txt-navUnifiedDesc').textContent = t('navUnifiedDesc');
   document.getElementById('txt-navGalerie').textContent = t('navGalerie');
+  document.getElementById('txt-navGalerieDesc').textContent = t('navGalerieDesc');
   document.getElementById('txt-navMotifsSvg').textContent = t('navMotifsSvg');
+  document.getElementById('txt-navMotifsSvgDesc').textContent = t('navMotifsSvgDesc');
   document.getElementById('txt-navCymatique').textContent = t('navCymatique');
+  document.getElementById('txt-navCymatiqueDesc').textContent = t('navCymatiqueDesc');
   document.getElementById('txt-navWallpaper').textContent = t('navWallpaper');
+  document.getElementById('txt-navWallpaperDesc').textContent = t('navWallpaperDesc');
   document.getElementById('txt-navPrint').textContent = t('navPrint');
+  document.getElementById('txt-navPrintDesc').textContent = t('navPrintDesc');
   document.getElementById('txt-navEncodeur').textContent = t('navEncodeur');
+  document.getElementById('txt-navEncodeurDesc').textContent = t('navEncodeurDesc');
   document.getElementById('txt-navContact').textContent = t('navContact');
+  document.getElementById('txt-navContactDesc').textContent = t('navContactDesc');
   document.getElementById('txt-navAbout').textContent = t('navAbout');
+  document.getElementById('txt-navAboutDesc').textContent = t('navAboutDesc');
   document.getElementById('txt-navLexique').textContent = t('navLexique');
+  document.getElementById('txt-navLexiqueDesc').textContent = t('navLexiqueDesc');
   document.getElementById('txt-navArticles').textContent = t('navArticles');
+  document.getElementById('txt-navArticlesDesc').textContent = t('navArticlesDesc');
   document.getElementById('txt-situationAnt').textContent = t('situationAnt');
   document.getElementById('txt-situationPost').textContent = t('situationPost');
   document.documentElement.lang = LANG;
@@ -1390,8 +1460,8 @@ function hexTextBlockHtml(kwNum, tagLabel){
 
 function resultIdeaHtml(kwNum){
   const info = HEX_KW[kwNum];
-  return `<div style="color:var(--gold);font-family:Helvetica,Arial,sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">${t('hexDepart')} — N°${kwNum} ${info[1]} (${info[0]})</div>
-    <div style="color:var(--red);font-size:15px;">${info[2]}</div>`;
+  return `<div style="color:var(--gold);font-family:Helvetica,Arial,sans-serif;font-size:calc(10px + var(--fs-bump));letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">${t('hexDepart')} — N°${kwNum} ${info[1]} (${info[0]})</div>
+    <div style="color:var(--red);font-size:calc(15px + var(--fs-bump));">${info[2]}</div>`;
 }
 
 async function renderMutationZone(item){
