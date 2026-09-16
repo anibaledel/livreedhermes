@@ -124,9 +124,31 @@ constructions géométriques originales (référents 256 et 360 dans `data/`) :
 | `secubox/vault_lib.py` | vault de fichiers chiffré (Argon2id + ChaCha20-Poly1305 à nonce étendu par HKDF) |
 | `secubox/secu_box_cli.py` | CLI `secu-box` |
 | `disk/disk_lib.py` | chiffrement de fichiers (diversification géométrique + ChaCha20-Poly1305) |
-| `encodeur.html` | portage navigateur (Web Crypto) |
+| `encodeur.html`, `carter-demo.html` | portage navigateur — stéganographie Carter via `js/carter-core.js` (voir ci-dessous) ; vault, échange de clés et chiffrement de fichiers via Web Crypto (AES-256-GCM, X25519, PBKDF2) |
 
 Dépendances Python : `cryptography`, `argon2-cffi`.
+
+### JavaScript core (`js/carter-core.js`)
+
+Port JS pur (sans dépendance) de la stéganographie Carter (`stegano/carter.py`,
+`stegano/carter_random.py`) : ChaCha20, HChaCha20, Poly1305, XChaCha20-Poly1305
+et HKDF-SHA256 (via `crypto.subtle` quand disponible), jusqu'aux fonctions
+`encode_carter`/`decode_carter` (Carter-256) et
+`encode_carter_random`/`decode_carter_random` (Carter-Random, mode individuel
+— le mode méta concentrique n'est pas encore porté). `encodeur.html` et
+`carter-demo.html` s'appuient dessus pour ces deux variantes ; les six autres
+variantes du système (Deniable, Carter-360, Carter-Mix, Carter-18,
+Carter-Hybrid, Classic) restent Python uniquement pour l'instant.
+
+**L'interopérabilité avec Python est vérifiée par `vectors/carter_v3.json`** :
+chaque étape intermédiaire de la dérivation (clés, grammaire, positions,
+masques, symboles) et la grille entière sont comparées octet pour octet aux
+valeurs produites par le code Python.
+
+Lancer les tests : `node --test js/test/*.test.mjs` (Node 22+, sans
+framework — 27 tests couvrant les vecteurs Carter-256 et Carter-Random, les
+primitives XChaCha20-Poly1305/HKDF contre leurs vecteurs de référence, et un
+test négatif par altération).
 
 `stegano/legacy/grid_90.py` (grille 90×90 à trois niveaux) est sorti du
 chemin de production le 2026-09-12 : son rôle d'origine — banc d'essai pour
@@ -136,15 +158,18 @@ preuves formelles. Conservé à titre de référence historique, avec ses
 propres tests (`stegano/legacy/test_grid_90.py`), sur l'ancien schéma de
 référent.
 
-**Les deux implémentations ne sont pas interchangeables.** Le navigateur ne
-dispose nativement ni d'Argon2id ni de la construction ChaCha20-Poly1305 à
-nonce étendu par HKDF utilisée côté Python (LH-5 — ce n'est pas du
-XChaCha20-Poly1305 standard) ; `encodeur.html` leur substitue PBKDF2 et
-AES-256-GCM, et son échange de clés est authentifié par
-comparaison hors bande d'une chaîne de 128 bits, là où la CLI Python lie les
-identités long terme à la session par un triple DH. Les sessions dérivées de
-part et d'autre ne se correspondent pas. Pour un usage sensible, préférer la
-CLI Python. L'onglet « À propos » de `encodeur.html` détaille chaque écart.
+**Les deux implémentations ne sont pas entièrement interchangeables.** La
+stéganographie Carter (`js/carter-core.js`, voir ci-dessus) utilise le même
+XChaCha20-Poly1305 que le Python et est vérifiée contre ses vecteurs — pas de
+substitution sur ce composant. Le Vault et le chiffrement de fichiers du
+navigateur restent sur PBKDF2/AES-256-GCM (Argon2id et la construction
+ChaCha20-Poly1305 à nonce étendu par HKDF utilisée côté Python n'ont pas
+d'équivalent Web Crypto natif) ; pour un usage sensible sur ces deux
+composants, préférer la CLI Python. L'échange de clés (X25519, triple DH)
+est en revanche identique des deux côtés — une session dérivée dans le
+navigateur et une session dérivée par `secu-box exchange` aboutissent à la
+même clé. L'onglet « À propos » de `encodeur.html` détaille chaque écart
+restant.
 
 La couche cryptographique repose sur des primitives standard ; la couche
 géométrique est **en cours d'évaluation formelle** et n'est pas revendiquée

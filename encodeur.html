@@ -176,7 +176,7 @@
         <div id="tab-demo" class="enc-tab active">
           <div class="enc-card">
             <h2>Démonstration : message ANIBALAMIOTX</h2>
-            <p class="enc-info-box"><b>ANIBALAMIOTX</b> est d'abord chiffré avec AES-256-GCM (clé stéganographique de 256 bits), puis le texte chiffré est dissimulé dans une grille 60×60 de nombres aléatoires, aux positions désignées par la taille de bloc (Clé B), l'orientation (Clé C) et la forme du Référent 256 (Clé 2) — le reste est du bruit indiscernable. La confidentialité vient du chiffrement, pas de la géométrie.</p>
+            <p class="enc-info-box"><b>ANIBALAMIOTX</b> est d'abord chiffré avec XChaCha20-Poly1305 (clé maître de 256 bits), puis le texte chiffré est réparti sur les blocs qu'une seule et même clé désigne comme « message » dans une grille 90×90 — le reste est du bruit indiscernable, y compris les blocs « structurés », statistiquement identiques aux blocs « message » sans la clé. La confidentialité vient du chiffrement, la géométrie ne fait que cacher où se trouve le texte chiffré.</p>
             <button type="button" class="enc-btn" id="btnRunDemo">Lancer la démonstration</button>
             <div id="demo-result" hidden>
               <div class="enc-result-box" id="demo-msg"></div>
@@ -244,34 +244,17 @@
             </div>
           </div>
           <div class="enc-card">
-            <h2>Encoder un message (clés libres)</h2>
+            <h2>Encoder un message (clé libre)</h2>
             <label class="enc-label">Message à encoder</label>
             <input type="text" class="enc-input" id="enc-message" placeholder="VOTRE MESSAGE ICI" maxlength="200">
-            <div class="enc-row">
-              <div>
-                <label class="enc-label">Taille de grille</label>
-                <select class="enc-select" id="enc-grid">
-                  <option value="60">60×60 — recommandé</option>
-                  <option value="48">48×48</option>
-                  <option value="36">36×36</option>
-                </select>
-              </div>
-              <div>
-                <label class="enc-label">Taille de bloc (Clé B)</label>
-                <select class="enc-select" id="enc-mode">
-                  <option value="1">6×6 (1 sous-bloc)</option>
-                  <option value="2">12×12 (4 sous-blocs)</option>
-                  <option value="3">18×18 (9 sous-blocs)</option>
-                  <option value="5">30×30 (25 sous-blocs)</option>
-                </select>
-              </div>
-            </div>
+            <label class="enc-label">Variante</label>
+            <select class="enc-select" id="enc-variant"></select>
             <button type="button" class="enc-btn" id="btnEncode">Encoder</button>
             <div id="enc-result" hidden>
               <div class="enc-info-box" id="enc-info"></div>
               <div class="enc-row" style="margin-top:14px">
                 <div>
-                  <label class="enc-label">Clé stéganographique + Clé B</label>
+                  <label class="enc-label">Clé maître Carter</label>
                   <textarea class="enc-textarea" id="enc-key1" readonly></textarea>
                 </div>
                 <div>
@@ -279,20 +262,19 @@
                   <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
                 </div>
               </div>
-              <label class="enc-label">Clé C + Clé 2</label>
-              <textarea class="enc-textarea" id="enc-key2" readonly style="min-height:70px"></textarea>
               <button type="button" class="enc-btn" id="btnDownloadGrid">⬇ Télécharger la grille CSV</button>
-              <button type="button" class="enc-btn secondary" id="btnDownloadKeys">⬇ Télécharger les clés (JSON)</button>
             </div>
           </div>
 
           <div class="enc-card">
-            <h2>Grille Carter 90×90 (grammaire dérivée de la clé)</h2>
-            <p class="ref-note">Une seule passphrase dérive le rôle (pur / structuré / message), la forme et l'orientation de chacun des 225 blocs 6×6 — aucun placement n'est stocké en dehors de la clé. Les blocs « structurés » et « message » sont statistiquement indiscernables sans elle. Chaque encodage tire un <b>sel</b> aléatoire, affiché après coup : le transmettre avec la passphrase. Il n'est pas secret et ne figure pas dans le CSV, mais sans lui la grille reste close — et c'est lui qui empêche qu'une table précalculée sur des passphrases courantes n'ouvre les grilles de tous les utilisateurs à la fois.</p>
+            <h2>Grille Carter (grammaire dérivée de la clé)</h2>
+            <p class="ref-note">Une seule passphrase dérive, par HKDF-SHA256, la clé de chiffrement et la grammaire de la grille (rôle — pur / structuré / message — et forme de chacun de ses blocs) — aucun placement n'est stocké en dehors de la clé. Les blocs « structurés » et « message » sont statistiquement indiscernables sans elle. Chaque encodage tire un <b>sel</b> aléatoire, affiché après coup : le transmettre avec la passphrase. Il n'est pas secret et ne figure pas dans le CSV, mais sans lui la grille reste close — et c'est lui qui empêche qu'une table précalculée sur des passphrases courantes n'ouvre les grilles de tous les utilisateurs à la fois.</p>
             <label class="enc-label">Passphrase Carter</label>
             <input type="password" class="enc-input" id="carter-passphrase" placeholder="Passphrase Carter" autocomplete="off">
             <label class="enc-label">Message à encoder</label>
             <input type="text" class="enc-input" id="carter-message" placeholder="VOTRE MESSAGE ICI" maxlength="200">
+            <label class="enc-label">Variante</label>
+            <select class="enc-select" id="carter-variant"></select>
             <button type="button" class="enc-btn" id="btnCarterEncode">Encoder et télécharger grille_carter.csv</button>
             <div id="carter-encode-result" hidden>
               <div class="enc-info-box" id="carter-encode-info"></div>
@@ -314,11 +296,13 @@
             </div>
           </div>
           <div class="enc-card">
-            <h2>Décoder avec des clés manuelles</h2>
+            <h2>Décoder avec une clé manuelle</h2>
             <label class="enc-label">Grille CSV (coller ou charger)</label>
             <textarea class="enc-textarea" id="dec-grid" placeholder="1,23,5,14,2,..."></textarea>
-            <label class="enc-label">Les clés (JSON — {stegKeyHex, keyB, keyC, key2, gridSize})</label>
-            <textarea class="enc-textarea" id="dec-keys" placeholder='{"stegKeyHex":"a1b2...","keyB":[1,1,...],"keyC":[[0,3,...],...],"key2":[{"form_id":42,"color":"blue"},...],"gridSize":60}' style="min-height:110px"></textarea>
+            <label class="enc-label">Clé maître Carter (hex)</label>
+            <input type="text" class="enc-input" id="dec-masterkey" placeholder="Clé maître (hex 64 caractères)" autocomplete="off">
+            <label class="enc-label">Variante</label>
+            <select class="enc-select" id="dec-variant"></select>
             <button type="button" class="enc-btn" id="btnDecode">Décoder</button>
             <div id="dec-result" hidden>
               <div class="enc-result-box" id="dec-msg"></div>
@@ -328,12 +312,10 @@
             <h2>Charger depuis un fichier</h2>
             <label class="enc-label">Fichier grille CSV</label>
             <input type="file" class="enc-input" id="dec-file-grid" accept=".csv">
-            <label class="enc-label">Fichier des clés (JSON)</label>
-            <input type="file" class="enc-input" id="dec-file-keys" accept=".json">
           </div>
 
           <div class="enc-card">
-            <h2>Décoder une grille Carter 90×90</h2>
+            <h2>Décoder une grille Carter</h2>
             <label class="enc-label">Passphrase Carter</label>
             <input type="password" class="enc-input" id="carter-dec-passphrase" placeholder="Passphrase Carter" autocomplete="off">
             <label class="enc-label">Sel de la grille (32 caractères hex, transmis avec la passphrase)</label>
@@ -341,6 +323,8 @@
             <label class="enc-label">Grille CSV (coller ou charger)</label>
             <textarea class="enc-textarea" id="carter-dec-grid" placeholder="1,23,5,14,2,..."></textarea>
             <input type="file" class="enc-input" id="carter-dec-file-grid" accept=".csv">
+            <label class="enc-label">Variante</label>
+            <select class="enc-select" id="carter-dec-variant"></select>
             <button type="button" class="enc-btn" id="btnCarterDecode">Décoder</button>
             <div id="carter-dec-result" hidden>
               <div class="enc-result-box" id="carter-dec-msg"></div>
@@ -402,13 +386,11 @@
             <h2>Stéganographie géométrique — chiffrer puis dissimuler</h2>
             <p>Ce système est une application cryptographique des constructions arithmogéométriques développées dans <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026). Soumis à l'<a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> en septembre 2026. Architecture revue suite à un audit cryptologique externe (2026-09-10).</p>
             <div class="enc-info-box">
-              <b>Principe :</b> le message est d'abord chiffré (AES-256-GCM), puis le texte chiffré est dissimulé dans une grille de nombres aléatoires. La confidentialité vient du chiffrement, la géométrie ne fait que cacher où se trouve le texte chiffré. Sans les clés, la grille est statistiquement indiscernable du bruit aléatoire.<br><br>
-              <b>Clé stéganographique — chiffrement :</b> clé AES-256-GCM de 256 bits, générée aléatoirement par message. Chiffre le message avant toute dissimulation ; authentifie le déchiffrement (une clé ou des données incorrectes sont détectées, pas silencieusement corrompues).<br><br>
-              <b>Clé B — grammaire des blocs :</b> taille de cellule par bloc — 6×6, 12×12, 18×18 ou 30×30.<br><br>
-              <b>Clé C — orientations :</b> l'une des 8 transformations diédrales (D4 : rotations et miroirs) appliquée à chaque sous-bloc 6×6.<br><br>
-              <b>Clé 2 — formes et couleurs :</b> sélection d'une forme et d'une couleur (bleu/orange) dans le Référent 256, par bloc.<br><br>
-              <b>Ancienne Clé A retirée :</b> l'audit a constaté que le mélange secret du référent (Clé A) était entièrement redondant avec la Clé 2 — 0 bit de sécurité apporté malgré un espace de clés apparent de 2^1684. Le Référent 256 est maintenant utilisé directement.<br><br>
-              <b>Espace de clés (honnête) :</b> confidentialité = 256 bits (AES-256-GCM) ; dissimulation géométrique = Clé B + Clé C + Clé 2 (jusqu'à 2^2300 bits pour une grille 60×60 en blocs 12×12). Une clé de dissimulation incorrecte échoue désormais à l'authentification AES-GCM — une erreur explicite, plus une fausse lecture plausible comme dans les versions antérieures.
+              <b>Principe :</b> le message est d'abord chiffré (XChaCha20-Poly1305), puis le texte chiffré est réparti sur les blocs d'une grille de nombres — le reste est du bruit uniforme. La confidentialité vient du chiffrement, la géométrie ne fait que cacher où se trouve le texte chiffré. Sans la clé, la grille est statistiquement indiscernable du bruit aléatoire : c'est le χ² affiché dans l'onglet Démo qui en fait le contrôle, pas une affirmation.<br><br>
+              <b>Clé maître :</b> 256 bits, générée aléatoirement (ou dérivée d'une passphrase, ou d'une session Exchange). Une seule clé, dérivée par HKDF-SHA256 en une clé de chiffrement et une clé de grammaire — ces deux usages ne partagent jamais le même matériel de clé.<br><br>
+              <b>Grammaire :</b> la clé de grammaire assigne à chaque bloc de la grille un rôle (pur / structuré / message) et une forme, tirés dans le Référent 256 (croix ansée) ou un référent 6×6 régénéré pour Carter-Random. Les blocs « structurés » et « message » sont statistiquement indiscernables l'un de l'autre sans la clé — ils existent précisément pour cette raison, pas pour porter du contenu.<br><br>
+              <b>Authentification :</b> une clé ou des données incorrectes échouent explicitement à l'authentification (Poly1305), jamais rendues en fausse lecture plausible.<br><br>
+              <b>Variantes :</b> Carter-256 (référent croix ansée fixe) et Carter-Random (référent 6×6 régénéré par clé) sont portées et vérifiées en JavaScript contre les vecteurs produits par le code Python. Les autres variantes du même système (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté Python mais ne sont pas encore portées dans le navigateur.
             </div>
             <div class="enc-info-box">
               <b>Kerckhoffs :</b> le système respecte le principe de Kerckhoffs (1883) — l'algorithme est entièrement public, le secret repose uniquement sur les clés et, optionnellement, sur des référents personnalisés.<br><br>
@@ -422,11 +404,11 @@
             <p>SecuBox assemble cinq composants indépendants, chacun documenté et vérifié séparément dans ses propres onglets :</p>
             <div class="enc-info-box">
               <b>1. Exchange (X25519)</b> — échange de clés authentifié par triple Diffie-Hellman sur courbe Curve25519 (natif dans l'API Web Crypto de ce navigateur) : éphémère × éphémère pour la forward secrecy, puis éphémère × identité de chaque côté, ce qui lie les identités long terme à la session. HKDF-SHA256 sur le transcript complet — les quatre clés publiques — dérive la clé de session. Un relais qui substitue ses clés éphémères ne possède aucune des deux identités privées et ne peut donc pas calculer la clé ; l'authentification tient à la vérification hors bande du fingerprint d'identité annoncé par l'offer. La clé privée éphémère est détruite après dérivation. <b>Même protocole que la CLI Python</b> : une session dérivée ici et une session dérivée par <code>secu-box exchange</code> aboutissent à la même clé — vérifié par dérivation croisée des deux implémentations. Seule l'identité elle-même n'est pas transportable d'un côté à l'autre : la CLI protège la sienne par Argon2id, absent de Web Crypto, et celle du navigateur est non extractible par construction. Chaque côté garde donc la sienne.<br><br>
-              <b>2. Message / Déchiffrer</b> — stéganographie géométrique (voir ci-dessus), utilisant les clés dérivées par la session Exchange active.<br><br>
+              <b>2. Message / Déchiffrer</b> — stéganographie géométrique Carter (voir ci-dessus), utilisant la clé maître dérivée par la session Exchange active, une passphrase, ou saisie directement.<br><br>
               <b>3. Vault</b> — chiffrement de fichiers en local, AES-256-GCM par entrée, manifest chiffré, HMAC-SHA256 global (architecture inspirée de <code>vault_lib.py</code>).<br><br>
               <b>4. Chiffrement fichier</b> — SPN géométrique (Ref256+Ref360) en couche de diversification de clé, AES-256-GCM en couche de chiffrement authentifié (voir l'onglet Chiffrement).<br><br>
-              <b>5. Référents 256 et 360</b> — les tables de formes géométriques (croix ansée, Jacquard) qui alimentent les quatre composants ci-dessus.<br><br>
-              <b>Note sur les substitutions de chiffrement :</b> la référence Python (<code>secu_box.py</code>, <code>vault_lib.py</code>, <code>disk_lib.py</code>) utilise XChaCha20-Poly1305, absent de l'API Web Crypto des navigateurs. AES-256-GCM lui est substitué dans cette page — même classe de garantie (AEAD, 256 bits, standard audité) via l'implémentation native du navigateur plutôt qu'une implémentation ChaCha20 maison. X25519 est en revanche implémenté nativement et identiquement des deux côtés.<br><br>
+              <b>5. Référents 256 et 360</b> — les tables de formes géométriques (croix ansée, Jacquard) qui alimentent les composants ci-dessus.<br><br>
+              <b>Note sur les substitutions de chiffrement :</b> le composant Message/Déchiffrer (2) utilise XChaCha20-Poly1305 en JavaScript pur, identique à la référence Python (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) et vérifié contre ses vecteurs — plus de substitution ici. Le Vault (3) et le Chiffrement fichier (4) restent sur AES-256-GCM natif du navigateur, XChaCha20-Poly1305 n'étant pas exposé par l'API Web Crypto pour ces deux composants ; même classe de garantie (AEAD, 256 bits, standard audité). X25519 est implémenté nativement et identiquement des deux côtés.<br><br>
               <b>Écart connu — dérivation de clé du Vault :</b> depuis sa version 1.2, <code>vault_lib.py</code> utilise Argon2id (memory-hard, résistant GPU/ASIC) au lieu de PBKDF2 pour sa dérivation de clé interne. Les navigateurs n'ont ni Argon2id ni scrypt en natif — contrairement aux cas ci-dessus, il n'existe pas d'équivalent Web Crypto à substituer sans ajouter une dépendance externe. Le Vault de cette page reste donc sur PBKDF2 (300 000 itérations) et, de ce fait, moins résistant au brute-force par GPU/ASIC que son homologue Python. Pour une utilisation sensible en production, préférer la CLI Python (<code>secu-box vault</code>).<br><br>
               <b>Avertissement général :</b> SecuBox est un système expérimental basé sur des constructions géométriques originales. La couche cryptographique (AES-256-GCM, X25519, HKDF, PBKDF2) est standard et auditée. La couche géométrique (La Livrée d'Hermès) est en cours d'évaluation formelle — voir l'audit cryptologique externe du 2026-09-10 mentionné dans les onglets Chiffrement et Déchiffrer.
             </div>
@@ -555,18 +537,54 @@
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- ============================================================
-     Encodeur stéganographique — algorithmes JS repris tels quels de
-     stegano_app.zip/index.html (Anibal Edelberto Amiot). En accès libre :
-     charge les référents (data/referent_256.json, data/referent_360.json,
-     ~403 Ko) dès le chargement de la page.
+     Encodeur stéganographique — la stéganographie Carter (js/carter-core.js)
+     est un port JS de stegano/carter.py et stegano/carter_random.py, vérifié
+     contre les vecteurs produits par le code Python (vectors/carter_v3.json).
+     Vault, Exchange et Chiffrement fichier restent des implémentations
+     indépendantes, propres à cette page. En accès libre : charge les
+     référents dès le chargement de la page.
      ============================================================ -->
-<script>
-(function(){
-  let REF256 = null, REF360 = null;
+<script type="module">
+import {
+  encode_carter, decode_carter, encode_carter_random, decode_carter_random,
+  carter256_find_grammar, carter_random_find_grammar, carter_random_positions,
+  carter256_positions, get_referent6x6, derive_sweep_index,
+  ROLE_PURE, ROLE_STRUCTURED, ROLE_MESSAGE, RANDOM_STEGANO_COLORS,
+  ALPHA_LEN, hexToBytes as carterHexToBytes,
+  bytesToHex as carterBytesToHex, hkdf_sha256, carter256_split,
+  CARTER_GRID, CARTER_BLOCK, CARTER_SIDE,
+} from './js/carter-core.js';
 
-  const ALPHABET = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-';
-  function charToNum(c){ const i=ALPHABET.indexOf(c.toUpperCase()); return i<0?0:i; }
-  function numToChar(n){ return n>=0&&n<ALPHABET.length?ALPHABET[n]:'?'; }
+  let REF256 = null, REF360 = null, REF256_V3 = null;
+
+  // Variantes Carter exposées dans l'interface — seules carter256 et
+  // carterrandom sont portées en JS pour l'instant (voir js/carter-core.js).
+  // Les six autres apparaissent dans le sélecteur mais lèvent une exception
+  // claire : elles viendront dans des passes séparées, chacune contre son
+  // propre vecteur (voir tools/ et vectors/carter_v3.json côté Python).
+  const CARTER_VARIANTS = [
+    { id: 'carter256',    label: 'Carter-256 — référent croix ansée (par défaut)' },
+    { id: 'carterrandom', label: 'Carter-Random — référent aléatoire dérivé de la clé' },
+    { id: 'deniable',     label: 'Deniable (pas encore disponible dans le navigateur)' },
+    { id: 'carter360',    label: 'Carter-360 (pas encore disponible dans le navigateur)' },
+    { id: 'cartermix',    label: 'Carter-Mix (pas encore disponible dans le navigateur)' },
+    { id: 'carter18',     label: 'Carter-18 (pas encore disponible dans le navigateur)' },
+    { id: 'carterhybrid', label: 'Carter-Hybrid (pas encore disponible dans le navigateur)' },
+  ];
+
+  async function carterEncodeByVariant(variant, message, masterKey){
+    if(variant === 'carter256') return encode_carter(message, masterKey, REF256_V3);
+    if(variant === 'carterrandom'){ const { grid } = await encode_carter_random(message, masterKey); return grid; }
+    throw new Error(`Variante non disponible dans le navigateur : ${variant}.`);
+  }
+  async function carterDecodeByVariant(variant, grid, masterKey){
+    if(variant === 'carter256') return decode_carter(grid, masterKey, REF256_V3);
+    if(variant === 'carterrandom') return decode_carter_random(grid, masterKey);
+    throw new Error(`Variante non disponible dans le navigateur : ${variant}.`);
+  }
+  function populateVariantSelect(selectEl){
+    selectEl.innerHTML = CARTER_VARIANTS.map(v => `<option value="${v.id}">${v.label}</option>`).join('');
+  }
 
   function showTab(name, btnEl){
     document.querySelectorAll('.enc-tab').forEach(t=>t.classList.remove('active'));
@@ -576,537 +594,173 @@
     if(name==='referents') renderReferents();
   }
 
-  // Entiers uniformes cryptographiquement sûrs par rejet (pas de biais modulo)
-  // — porté depuis stegano_lib.py::secrets.randbelow, pour le bruit de grille
-  // et la génération des clés B/C/2.
-  function stegRandomInts(count, maxExclusive){
-    const maxUint32 = 0x100000000;
-    const limit = maxUint32 - (maxUint32 % maxExclusive);
-    const out = new Array(count);
-    let i = 0;
-    while(i < count){
-      const batch = crypto.getRandomValues(new Uint32Array(Math.max(64, count-i)));
-      for(let b=0;b<batch.length && i<count;b++){
-        if(batch[b] < limit) out[i++] = batch[b] % maxExclusive;
-      }
-    }
-    return out;
-  }
-  function stegRandomInt(maxExclusive){ return stegRandomInts(1, maxExclusive)[0]; }
-  function stegRandomChoice(arr){ return arr[stegRandomInt(arr.length)]; }
-
   // ============================================================
-  // Stéganographie géométrique — chiffrer puis dissimuler (stegano_lib.py v5,
-  // suite à audit cryptologique externe du 2026-09-10) :
-  //   Couche 1 — le message est chiffré avec AES-256-GCM (clé stéganographique
-  //     de 256 bits) AVANT toute dissimulation. La confidentialité vient de
-  //     cette couche, pas de la géométrie.
-  //   Couche 2 — le texte chiffré (converti en nibbles) est placé aux
-  //     positions désignées par Clé B (taille de bloc), Clé C (orientations
-  //     D4) et Clé 2 (forme + couleur dans le Référent 256) — dissimulation,
-  //     pas protection cryptographique.
-  // L'ancienne Clé A (mélange du référent) a été retirée : l'audit a constaté
-  // qu'elle était entièrement redondante avec Clé 2 (0 bit de sécurité
-  // apporté), donc le Référent 256 est utilisé directement, sans mélange.
-  // La référence Python chiffre avec XChaCha20-Poly1305 (absent de l'API Web
-  // Crypto des navigateurs) ; AES-256-GCM est substitué ici, même classe de
-  // garantie via l'implémentation native du navigateur plutôt qu'une
-  // implémentation ChaCha20 maison.
+  // Stéganographie géométrique Carter — chiffrer puis dissimuler
+  // (stegano/carter.py, stegano/carter_random.py, portés en JS dans
+  // js/carter-core.js et vérifiés octet pour octet contre les vecteurs
+  // produits par le code Python — vectors/carter_v3.json). Une seule clé
+  // maître de 256 bits dérive, par HKDF-SHA256, la clé de chiffrement
+  // (XChaCha20-Poly1305) et la grammaire (rôle — pur / structuré / message —
+  // et forme de chacun des blocs de la grille) : aucune métadonnée de
+  // placement n'existe en dehors de la clé, et un bloc structuré est
+  // statistiquement indiscernable d'un bloc message sans elle.
   // ============================================================
-  const STEG_ORIENTATIONS = [
-    (r,c,n)=>[r,   c  ],  // 0 identité
-    (r,c,n)=>[c,   n-r],  // 1 rotation 90°
-    (r,c,n)=>[n-r, n-c],  // 2 rotation 180°
-    (r,c,n)=>[n-c, r  ],  // 3 rotation 270°
-    (r,c,n)=>[r,   n-c],  // 4 miroir horizontal
-    (r,c,n)=>[n-r, c  ],  // 5 miroir vertical
-    (r,c,n)=>[c,   r  ],  // 6 miroir diagonale principale
-    (r,c,n)=>[n-c, n-r],  // 7 miroir diagonale secondaire
-  ];
-  function stegApplyOrientation(positions, orient, gridN=5){
-    const t = STEG_ORIENTATIONS[((orient%8)+8)%8];
-    return positions.map(([r,c])=>t(r,c,gridN));
-  }
 
-  function stegZigzagBlocks(B){
-    const order=[];
-    for(let r=0;r<B;r++){
-      if(r%2===0) for(let c=B-1;c>=0;c--) order.push([r,c]);
-      else for(let c=0;c<B;c++) order.push([r,c]);
-    }
-    return order;
-  }
-
-  const VALID_K = [1,2,3,5];
-  function stegValidateK(k){
-    if(!VALID_K.includes(k)) throw new Error(`Taille de bloc k=${k} invalide. Valeurs autorisées : ${VALID_K.join(', ')}`);
-  }
-
-  // Nombre maximal de caractères encodables (hors header de longueur, -2).
-  // Nombre max d'octets de message en clair que la grille peut porter, une
-  // fois retiré le surcoût AEAD (4B en-tête longueur + 12B nonce + 16B tag).
-  function stegMaxMessageLen(keyB, gridSize=60){
-    const B = Math.floor(gridSize/6);
-    const order = stegZigzagBlocks(B);
-    let nPos = 0, posI = 0;
-    for(const k of keyB){
-      if(posI >= order.length) break;
-      const available = Math.min(k*k, order.length - posI);
-      nPos += available*6;
-      posI += available;
-    }
-    const nBytes = Math.floor(nPos/2); // 2 nibbles par octet
-    const overhead = 4+32+12+16; // header + commitment HMAC + nonce AES-GCM + tag AES-GCM
-    return Math.max(0, nBytes - overhead);
-  }
-
-  function stegBytesToHex(bytes){ return Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join(''); }
-  function stegHexToBytes(hex){ const a = new Uint8Array(hex.length/2); for(let i=0;i<a.length;i++) a[i]=parseInt(hex.substr(i*2,2),16); return a; }
-  function stegByteToNibs(b){ return [b>>4, b&0xF]; }
-  function stegNibsToByte(hi, lo){ return ((hi&0xF)<<4)|(lo&0xF); }
-
-  // Clé de key commitment dédiée (HKDF depuis stegKey) — l'engagement HMAC
-  // qu'elle produit est vérifié AVANT toute tentative de déchiffrement, ce
-  // qui élimine les attaques par partitioning oracle (un même texte chiffré
-  // qui se déchiffrerait « valablement » sous plusieurs clés différentes).
-  async function stegCommitKey(stegKey){
-    const keyMaterial = await crypto.subtle.importKey('raw', stegKey, 'HKDF', false, ['deriveBits']);
-    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt: new TextEncoder().encode('commit-v1'), info: new TextEncoder().encode('key-commitment')}, keyMaterial, 256);
-    return new Uint8Array(bits);
-  }
-  async function stegHmacSha256(key, data){
-    const k = await crypto.subtle.importKey('raw', key, {name:'HMAC', hash:'SHA-256'}, false, ['sign']);
-    return new Uint8Array(await crypto.subtle.sign('HMAC', k, data));
-  }
-  function stegTimingSafeEqual(a,b){
-    if(a.length!==b.length) return false;
-    let d=0; for(let i=0;i<a.length;i++) d|=a[i]^b[i];
-    return d===0;
-  }
-
-  // Chiffre le message avec AES-256-GCM avant dissimulation (substitué à
-  // XChaCha20-Poly1305, absent de l'API Web Crypto — voir note en tête de
-  // section), plus un engagement de clé (key commitment) HMAC-SHA256.
-  // Format : [4B longueur_totale][32B commitment][12B nonce][ciphertext+16B tag].
-  async function stegEncryptPayload(message, stegKey){
-    const msgBytes = new TextEncoder().encode(message.toUpperCase());
-    const nonce = crypto.getRandomValues(new Uint8Array(12));
-    const key = await crypto.subtle.importKey('raw', stegKey, {name:'AES-GCM'}, false, ['encrypt']);
-    const ctBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv:nonce, tagLength:128}, key, msgBytes);
-    const inner = new Uint8Array(12+ctBuf.byteLength);
-    inner.set(nonce, 0); inner.set(new Uint8Array(ctBuf), 12);
-    const ck = await stegCommitKey(stegKey);
-    const commit = await stegHmacSha256(ck, inner);
-    const innerPayload = new Uint8Array(32+inner.length);
-    innerPayload.set(commit, 0); innerPayload.set(inner, 32);
-    const payload = new Uint8Array(4+innerPayload.length);
-    new DataView(payload.buffer, 0, 4).setUint32(0, innerPayload.length, false);
-    payload.set(innerPayload, 4);
-    return payload;
-  }
-
-  async function stegDecryptPayload(vals, stegKey){
-    if(vals.length < 8) throw new Error('Grille trop petite.');
-    const headerBytes = new Uint8Array(4);
-    for(let i=0;i<4;i++) headerBytes[i] = stegNibsToByte(vals[i*2], vals[i*2+1]);
-    const totalLen = new DataView(headerBytes.buffer).getUint32(0, false);
-    const need = 8 + totalLen*2;
-    if(vals.length < need) throw new Error(`Positions insuffisantes : ${vals.length} < ${need}`);
-    const innerPayload = new Uint8Array(totalLen);
-    for(let i=0;i<totalLen;i++) innerPayload[i] = stegNibsToByte(vals[8+i*2], vals[8+i*2+1]);
-    if(innerPayload.length < 32) throw new Error('Payload trop court (key commitment manquant).');
-    const commitRecv = innerPayload.slice(0,32);
-    const inner = innerPayload.slice(32);
-    const ck = await stegCommitKey(stegKey);
-    const commitCalc = await stegHmacSha256(ck, inner);
-    if(!stegTimingSafeEqual(commitRecv, commitCalc)) throw new Error('Key commitment invalide — clé incorrecte ou données altérées.');
-    const nonce = inner.slice(0, 12);
-    const ct = inner.slice(12);
-    const key = await crypto.subtle.importKey('raw', stegKey, {name:'AES-GCM'}, false, ['decrypt']);
-    let ptBuf;
-    try{
-      ptBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce, tagLength:128}, key, ct);
-    }catch(e){
-      throw new Error('Tag AES-GCM invalide — clé incorrecte ou données altérées.');
-    }
-    return String.fromCharCode(...new Uint8Array(ptBuf));
-  }
-
-  // Place le texte chiffré (converti en nibbles) aux positions désignées par
-  // Clé B/C/2 dans le Référent 256 utilisé directement (plus de mélange —
-  // l'ancienne Clé A a été retirée, redondante avec Clé 2 selon l'audit).
-  async function stegEncode(message, stegKey, keyB, keyC, key2, ref256, gridSize=60){
-    keyB.forEach(stegValidateK);
-    const maxLen = stegMaxMessageLen(keyB, gridSize);
-    if(message.length > maxLen) throw new Error(`Message trop long : ${message.length} > ${maxLen}`);
-    const N=gridSize, B=Math.floor(N/6);
-    const payload = await stegEncryptPayload(message, stegKey);
-    const nibbles = [];
-    for(const b of payload){ nibbles.push(b>>4); nibbles.push(b&0xF); }
-    const flatNoise = stegRandomInts(N*N, ALPHABET.length);
-    const grid = [];
-    for(let r=0;r<N;r++) grid.push(flatNoise.slice(r*N, (r+1)*N));
-    let nibIdx=0;
-    const order = stegZigzagBlocks(B);
-    let posI=0, blockI=0;
-    while(posI<order.length && nibIdx<nibbles.length && blockI<keyB.length){
-      const k=keyB[blockI], fk=key2[blockI], orients=keyC[blockI];
-      const form = ref256[fk.form_id % ref256.length];
-      const basePos = form[fk.color || 'blue'];
-      for(let sub=0; sub<k*k; sub++){
-        if(posI>=order.length || nibIdx>=nibbles.length) break;
-        const [br,bc]=order[posI];
-        const orient = orients[sub % orients.length];
-        const transformed = stegApplyOrientation(basePos, orient);
-        for(const [r,c] of transformed){
-          if(nibIdx>=nibbles.length) break;
-          const gr=br*6+r, gc=bc*6+c;
-          if(gr>=0 && gr<N && gc>=0 && gc<N){ grid[gr][gc]=nibbles[nibIdx]; nibIdx++; }
-        }
-        posI++;
-      }
-      blockI++;
-    }
-    return grid;
-  }
-
-  async function stegDecode(grid, stegKey, keyB, keyC, key2, ref256, gridSize=60){
-    keyB.forEach(stegValidateK);
-    const N=gridSize, B=Math.floor(N/6);
-    const vals=[];
-    const order = stegZigzagBlocks(B);
-    let posI=0, blockI=0;
-    while(posI<order.length && blockI<keyB.length){
-      const k=keyB[blockI], fk=key2[blockI], orients=keyC[blockI];
-      const form = ref256[fk.form_id % ref256.length];
-      const basePos = form[fk.color || 'blue'];
-      for(let sub=0; sub<k*k; sub++){
-        if(posI>=order.length) break;
-        const [br,bc]=order[posI];
-        const orient = orients[sub % orients.length];
-        const transformed = stegApplyOrientation(basePos, orient);
-        for(const [r,c] of transformed){
-          const gr=br*6+r, gc=bc*6+c;
-          if(gr>=0 && gr<N && gc>=0 && gc<N) vals.push(grid[gr][gc]);
-        }
-        posI++;
-      }
-      blockI++;
-    }
-    return stegDecryptPayload(vals, stegKey);
-  }
-
-  function stegMakeKeys(ref256, gridSize=60, blockSize=1){
-    stegValidateK(blockSize);
-    const B = Math.floor(gridSize/6);
-    const nBlocks = B*B;
-    const stegKey = crypto.getRandomValues(new Uint8Array(32));
-    const keyB = Array(nBlocks).fill(blockSize);
-    const keyC = Array.from({length:nBlocks},()=>stegRandomInts(blockSize*blockSize, 8));
-    const key2 = Array.from({length:nBlocks},()=>({form_id: stegRandomInt(ref256.length), color: stegRandomChoice(['blue','orange'])}));
-    return {stegKey, keyB, keyC, key2};
-  }
-
-  // Espace de clés honnête (audit 2026-09-10) : plus de Clé A gonflée
-  // artificiellement (256! ≈ 2^1684 bits, entièrement redondante avec Clé 2).
-  // La confidentialité vient d'AES-256-GCM ; B/C/2 ne font que dissimuler.
-  function stegKeyspace(keyB, ref256){
-    const nBlocks = keyB.length;
-    const nSub = keyB.reduce((s,k)=>s+k*k,0);
-    const bitsB = Math.log2(4)*nBlocks;
-    const bitsC = Math.log2(8)*nSub;
-    const bits2 = Math.log2(ref256.length*2)*nBlocks;
-    return {
-      stegKeyBits: 256,
-      keyB: Math.round(bitsB), keyC: Math.round(bitsC), key2: Math.round(bits2),
-    };
-  }
-
-  // ============================================================
-  // Grille Carter — grammaire à 3 rôles dérivée de la clé (stegano_lib.py,
-  // section Carter, portée en JS). Contrairement à encode/decode ci-dessus
-  // (Clés B/C/2 explicites), ici une SEULE clé maître dérive par HKDF-SHA256
-  // le rôle (pur / structuré / message), la forme, la couleur et l'orientation
-  // de chacun des 225 blocs 6×6 d'une grille 90×90 — aucune métadonnée de
-  // placement n'existe en dehors de la clé. Les blocs « structurés » et
-  // « message » sont statistiquement indiscernables sans elle. Seul le mode
-  // 90×90/Ref256 est implémenté ici ; les variantes 360 et mixte (180×180)
-  // exigent le Référent 360 complet, pas encore disponible dans /data/.
-  // Réutilise stegEncryptPayload/stegDecryptPayload (AES-256-GCM, substitué
-  // à XChaCha20-Poly1305 — voir note en tête de section stéganographie) et
-  // stegApplyOrientation. Vérifié octet pour octet contre
-  // stegano_lib.py::_carter_grammar avant intégration.
-  // ============================================================
-  const CARTER_GRID = 90, CARTER_BLOCK = 6, CARTER_SIDE = 15, CARTER_N = 225;
-  const CARTER_PURE = 0, CARTER_STRUCTURED = 1, CARTER_MESSAGE = 2;
-
-  // CORRECTIF AUDIT 2026-09-10 — sel de la dérivation Carter.
-  //
-  // La clé maître dérivait de PBKDF2(passphrase, "SecuBox-Carter-KDF-v1"),
-  // un libellé applicatif identique pour tout le monde. Une seule table
-  // précalculée sur des passphrases candidates ouvrait donc TOUTES les
-  // grilles Carter de TOUS les utilisateurs — exactement le défaut corrigé
-  // pour le Vault, dont la v2 utilise le sel aléatoire de son en-tête.
-  //
-  // Carter n'a pas d'en-tête où loger un sel : la grille doit rester du
-  // bruit uniforme, et un sel lisible sans la clé y serait une structure
-  // visible, ce qui ruinerait la dissimulation. Mais le sel n'a pas besoin
-  // d'être DANS la grille — il n'est pas secret, et il peut voyager avec la
-  // passphrase, qui circule déjà hors bande. Il n'est donc volontairement
-  // pas écrit dans le CSV : un « #salt= » en tête de fichier annoncerait un
-  // contenu chiffré, alors que le transmettre avec la passphrase ne coûte
-  // aucun canal supplémentaire.
-  //
-  // Le sel est tiré au hasard à chaque encodage. La précomputation globale
-  // disparaît : casser une grille redemande 300 000 itérations par
-  // passphrase candidate ET par grille.
-  const CARTER_SALT_BYTES = 16;
-  const CARTER_LEGACY_SALT = 'SecuBox-Carter-KDF-v1';
-
-  async function carterDeriveMasterKey(passphrase, salt){
-    // salt absent → grille produite avant ce correctif : on retombe sur le
-    // libellé constant pour rester capable de les relire.
-    const saltBytes = salt && salt.length
-      ? salt
-      : new TextEncoder().encode(CARTER_LEGACY_SALT);
-    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
-    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: saltBytes, iterations:300000, hash:'SHA-256'}, keyMat, 256);
-    return new Uint8Array(bits);
-  }
-
-  function carterNewSalt(){ return crypto.getRandomValues(new Uint8Array(CARTER_SALT_BYTES)); }
-  function carterSaltToHex(b){ return Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join(''); }
-  function carterSaltFromHex(hex){
-    const h = hex.trim().toLowerCase().replace(/[^0-9a-f]/g,'');
-    if(!h) return null;
-    if(h.length !== CARTER_SALT_BYTES*2) throw new Error(`Sel invalide : ${CARTER_SALT_BYTES*2} caractères hexadécimaux attendus.`);
-    const a = new Uint8Array(CARTER_SALT_BYTES);
-    for(let i=0;i<a.length;i++) a[i] = parseInt(h.substr(i*2,2),16);
-    return a;
-  }
-
-  // Sépare la clé maître en deux sous-clés indépendantes (HKDF) : la
-  // grammaire ne révèle rien sur la clé de chiffrement et vice-versa.
-  async function carterSplitKeys(masterKey){
-    const keyMaterial = await crypto.subtle.importKey('raw', masterKey, 'HKDF', false, ['deriveBits']);
-    const salt = new TextEncoder().encode('Carter-v2');
-    const xchachaBits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info: new TextEncoder().encode('encrypt')}, keyMaterial, 256);
-    const grammarBits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info: new TextEncoder().encode('grammar')}, keyMaterial, 256);
-    return { xchachaKey: new Uint8Array(xchachaBits), grammarKey: new Uint8Array(grammarBits) };
-  }
-
-  async function carterGrammar(masterKey, ref256Len){
-    const keyMaterial = await crypto.subtle.importKey('raw', masterKey, 'HKDF', false, ['deriveBits']);
-    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt: new TextEncoder().encode('Carter-grammar-v1'), info: new TextEncoder().encode('block-roles-and-forms')}, keyMaterial, CARTER_N*4*8);
-    const km = new Uint8Array(bits);
-    const grammar = [];
-    for(let i=0;i<CARTER_N;i++){
-      const b0=km[i*4], b1=km[i*4+1], b2=km[i*4+2], b3=km[i*4+3];
-      const role = b0<85 ? CARTER_PURE : (b0<170 ? CARTER_STRUCTURED : CARTER_MESSAGE);
-      grammar.push({
-        role,
-        form_id: Math.floor((b1*ref256Len)/256),
-        color: b2<128 ? 'blue' : 'orange',
-        orient: b3%8,
+  // Rôles par cellule — pour la seule visualisation (coloration de la
+  // grille) ; encode/decode réels passent entièrement par
+  // carterEncodeByVariant()/carterDecodeByVariant() ci-dessus, qui
+  // appellent directement js/carter-core.js. Aucune logique dupliquée ici :
+  // carter256_find_grammar()/carter_random_find_grammar() délèguent à la
+  // même recherche de grammaire que l'encodage réel.
+  async function computeCarterRoles(variant, masterKey){
+    if(variant === 'carter256'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, grammar } = await carter256_find_grammar(grammar_key, REF256_V3);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      const sweepOfColor = grammar.sweep_of_color;
+      grammar.blocks.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
+        for(const [gr, gc] of carter256_positions(br, bc, g, REF256_V3, sweepOfColor)) roles[gr*CARTER_GRID+gc] = g.role;
       });
+      return roles;
     }
-    return grammar;
-  }
-
-  function carterPositions(br, bc, g, ref256){
-    const form = ref256[g.form_id % ref256.length];
-    const base = form[g.color];
-    const t = stegApplyOrientation(base, g.orient);
-    const r0 = br*CARTER_BLOCK, c0 = bc*CARTER_BLOCK;
-    const out = [];
-    for(const [r,c] of t){
-      const gr=r0+r, gc=c0+c;
-      if(gr>=0 && gr<CARTER_GRID && gc>=0 && gc<CARTER_GRID) out.push([gr,gc]);
-    }
-    return out;
-  }
-
-  async function carterCapacity(masterKey, ref256){
-    const { grammarKey } = await carterSplitKeys(masterKey);
-    const grammar = await carterGrammar(grammarKey, ref256.length);
-    const nMsg = grammar.filter(g=>g.role===CARTER_MESSAGE).length;
-    const nStr = grammar.filter(g=>g.role===CARTER_STRUCTURED).length;
-    const nPur = grammar.filter(g=>g.role===CARTER_PURE).length;
-    const overhead = 4+32+12+16; // header + commitment HMAC + nonce AES-GCM + tag AES-GCM
-    return {
-      blocsMessage: nMsg, blocsStructure: nStr, blocsPurs: nPur,
-      charsMax: Math.max(0, nMsg*3 - overhead),
-      ambiguite: `1 message parmi ${nMsg+nStr} blocs structurés`,
-    };
-  }
-
-  async function encodeCarter(message, masterKey, ref256){
-    const { xchachaKey, grammarKey } = await carterSplitKeys(masterKey);
-    const grammar = await carterGrammar(grammarKey, ref256.length);
-    const nMsg = grammar.filter(g=>g.role===CARTER_MESSAGE).length;
-    const payload = await stegEncryptPayload(message, xchachaKey);
-    const nibbles = [];
-    for(const b of payload){ nibbles.push(b>>4); nibbles.push(b&0xF); }
-    if(nibbles.length > nMsg*6) throw new Error(`Message trop long pour la grammaire dérivée : ${Math.floor(nibbles.length/2)} bytes > ${nMsg*3} bytes disponibles. Changer la clé ou réduire le message.`);
-    const flatNoise = stegRandomInts(CARTER_GRID*CARTER_GRID, ALPHABET.length);
-    const grid = [];
-    for(let r=0;r<CARTER_GRID;r++) grid.push(flatNoise.slice(r*CARTER_GRID,(r+1)*CARTER_GRID));
-    let nibI=0;
-    for(let i=0;i<grammar.length;i++){
-      const g = grammar[i];
-      if(g.role !== CARTER_MESSAGE) continue;
-      const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
-      for(const [gr,gc] of carterPositions(br,bc,g,ref256)){
-        if(nibI>=nibbles.length) break;
-        grid[gr][gc] = nibbles[nibI]; nibI++;
-      }
-    }
-    return grid;
-  }
-
-  async function decodeCarter(grid, masterKey, ref256){
-    const { xchachaKey, grammarKey } = await carterSplitKeys(masterKey);
-    const grammar = await carterGrammar(grammarKey, ref256.length);
-    const vals = [];
-    for(let i=0;i<grammar.length;i++){
-      const g = grammar[i];
-      if(g.role !== CARTER_MESSAGE) continue;
-      const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
-      for(const [gr,gc] of carterPositions(br,bc,g,ref256)) vals.push(grid[gr][gc]);
-    }
-    return stegDecryptPayload(vals, xchachaKey);
-  }
-
-  function stegDrawGrid(grid, keyBArr, keyC, key2, ref256, canvasId){
-    const N=grid.length, B=Math.floor(N/6);
-    const cs=8;
-    const canvas=document.getElementById(canvasId);
-    canvas.width=N*cs; canvas.height=N*cs;
-    const ctx=canvas.getContext('2d');
-    ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,N*cs,N*cs);
-    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
-      const v=grid[r][c];
-      const g=Math.floor(40+v*1.4);
-      ctx.fillStyle=`rgb(${g},${g},${g-6})`;
-      ctx.fillRect(c*cs,r*cs,cs-1,cs-1);
-    }
-    const order = stegZigzagBlocks(B);
-    let posI=0, blockI=0;
-    while(posI<order.length && blockI<keyBArr.length){
-      const k=keyBArr[blockI], fk=key2[blockI], orients=keyC[blockI];
-      const form = ref256[fk.form_id % ref256.length];
-      const basePos = form[fk.color || 'blue'];
-      ctx.fillStyle = fk.color==='blue' ? 'rgba(201,161,90,0.85)' : 'rgba(224,38,27,0.85)';
-      for(let sub=0; sub<k*k; sub++){
-        if(posI>=order.length) break;
-        const [br,bc]=order[posI];
-        const orient = orients[sub % orients.length];
-        const transformed = stegApplyOrientation(basePos, orient);
-        for(const [r,c] of transformed){
-          const gr=br*6+r, gc=bc*6+c;
-          if(gr>=0 && gr<N && gc>=0 && gc<N) ctx.fillRect(gc*cs,gr*cs,cs-1,cs-1);
+    if(variant === 'carterrandom'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, refIdx, metaMode, grammar } = await carter_random_find_grammar(grammar_key, CARTER_GRID);
+      if(metaMode) throw new Error('Cette clé dérive une grammaire en mode méta (concentrique), pas encore porté en JS — réessayer avec une autre clé.');
+      const ref = await get_referent6x6(refIdx);
+      const sweepOfColor = {};
+      for(const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      const nSide = CARTER_GRID/CARTER_BLOCK;
+      grammar.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/nSide), bc = i%nSide;
+        const form = ref[g.form_id];
+        const r0 = br*CARTER_BLOCK, c0 = bc*CARTER_BLOCK;
+        for(const [pr, pc] of carter_random_positions(form, sweepOfColor)){
+          const gr = r0+pr, gc = c0+pc;
+          if(gr<CARTER_GRID && gc<CARTER_GRID) roles[gr*CARTER_GRID+gc] = g.role;
         }
-        posI++;
-      }
-      blockI++;
+      });
+      return roles;
     }
-    ctx.strokeStyle='rgba(242,242,240,0.15)'; ctx.lineWidth=0.5;
-    for(let b=0;b<=B;b++){
-      ctx.beginPath(); ctx.moveTo(b*6*cs,0); ctx.lineTo(b*6*cs,N*cs); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0,b*6*cs); ctx.lineTo(N*cs,b*6*cs); ctx.stroke();
+    return null; // variante non visualisée (rôle par cellule non applicable/non porté)
+  }
+
+  function drawCarterGrid(grid, roles, canvasId){
+    const N = grid.length, cs = 8;
+    const canvas = document.getElementById(canvasId);
+    canvas.width = N*cs; canvas.height = N*cs;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, N*cs, N*cs);
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      const role = roles ? roles[r*N+c] : ROLE_PURE;
+      if(role === ROLE_MESSAGE) ctx.fillStyle = 'rgba(224,38,27,0.85)';
+      else if(role === ROLE_STRUCTURED) ctx.fillStyle = 'rgba(201,161,90,0.65)';
+      else { const v = grid[r][c]; const g = Math.floor(40+v*1.4); ctx.fillStyle = `rgb(${g},${g},${g-6})`; }
+      ctx.fillRect(c*cs, r*cs, cs-1, cs-1);
+    }
+    ctx.strokeStyle = 'rgba(242,242,240,0.15)'; ctx.lineWidth = 0.5;
+    for(let b=0; b<=CARTER_SIDE; b++){
+      ctx.beginPath(); ctx.moveTo(b*CARTER_BLOCK*cs, 0); ctx.lineTo(b*CARTER_BLOCK*cs, N*cs); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, b*CARTER_BLOCK*cs); ctx.lineTo(N*cs, b*CARTER_BLOCK*cs); ctx.stroke();
     }
   }
 
-  let _lastGrid=null, _lastKeys=null;
+  // χ² des 44 symboles sur l'ensemble de la grille — le contrôle promis par
+  // l'article (« cherchez les cases, vous ne les trouverez pas ») : sous
+  // l'hypothèse nulle (grille indiscernable du bruit uniforme), la
+  // statistique suit une loi du χ² à 43 degrés de liberté. Pas un argument
+  // marketing : un χ² anormalement élevé indique un biais réel, à corriger.
+  function chiSquareUniform(grid){
+    const counts = new Array(ALPHA_LEN).fill(0);
+    let total = 0;
+    for(const row of grid) for(const v of row){ counts[v]++; total++; }
+    const expected = total/ALPHA_LEN;
+    let chi2 = 0;
+    for(const n of counts) chi2 += (n-expected)*(n-expected)/expected;
+    return { chi2, df: ALPHA_LEN-1, n: total };
+  }
+
+  let _lastGrid = null, _lastMasterKey = null, _lastVariant = null;
 
   async function runDemo(){
-    if(!REF256) return;
-    const msg='ANIBALAMIOTX';
-    const {stegKey, keyB, keyC, key2} = stegMakeKeys(REF256, 60, 1);
-    const grid = await stegEncode(msg, stegKey, keyB, keyC, key2, REF256, 60);
-    const decoded = await stegDecode(grid, stegKey, keyB, keyC, key2, REF256, 60);
-    const ks = stegKeyspace(keyB, REF256);
-    _lastGrid=grid; _lastKeys={stegKeyHex: stegBytesToHex(stegKey), keyB, keyC, key2, gridSize:60};
-    document.getElementById('demo-result').hidden=false;
-    document.getElementById('demo-msg').innerHTML=
+    if(!REF256_V3) return;
+    const msg = 'ANIBALAMIOTX';
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    const variant = 'carter256';
+    const grid = await carterEncodeByVariant(variant, msg, masterKey);
+    const decoded = await carterDecodeByVariant(variant, grid, masterKey);
+    const roles = await computeCarterRoles(variant, masterKey);
+    const nMsgCells = roles ? roles.reduce((s,r)=>s+(r===ROLE_MESSAGE?1:0),0) : 0;
+    const { chi2, df } = chiSquareUniform(grid);
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
+    document.getElementById('demo-result').hidden = false;
+    document.getElementById('demo-msg').innerHTML =
       `<div>Message encodé : <span class="enc-msg">${msg}</span></div>
        <div style="margin-top:6px">Décodé : <span class="enc-msg">${decoded}</span> — identique : ${decoded===msg}</div>`;
-    document.getElementById('demo-ks').innerHTML=
-      `<b>Espace de clés</b> (blocs 6×6, grille 60×60) : Clé stéganographique 256 bits (AES-256-GCM) · Clé B 2^${ks.keyB} · Clé C 2^${ks.keyC} · Clé 2 2^${ks.key2} — confidentialité assurée par AES-256-GCM, B/C/2 dissimulent<br>
-       AES-256 (standard militaire) : 2^256 bits`;
-    stegDrawGrid(grid, keyB, keyC, key2, REF256, 'demo-canvas');
+    document.getElementById('demo-ks').innerHTML =
+      `<b>Carter-256</b>, grille 90×90 (8 100 cellules) — une seule clé maître de 256 bits dérive le chiffrement (XChaCha20-Poly1305) et la grammaire de la grille · ${nMsgCells} cellules portent le message sur 8 100<br>
+       χ² des 44 symboles sur la grille entière : <b>${chi2.toFixed(1)}</b> (${df} degrés de liberté) — une grille indiscernable du bruit uniforme donne un χ² proche de ${df}.`;
+    drawCarterGrid(grid, roles, 'demo-canvas');
   }
 
   async function encodeMessage(){
-    if(!REF256) return;
+    if(!REF256_V3) return;
     const infoEl = document.getElementById('enc-info');
     const resultEl = document.getElementById('enc-result');
-    const msg=document.getElementById('enc-message').value.trim().toUpperCase();
+    const msg = document.getElementById('enc-message').value.trim().toUpperCase();
     if(!msg){ resultEl.hidden=false; infoEl.textContent='Entrez un message.'; return; }
-    const N=parseInt(document.getElementById('enc-grid').value);
-    const blockSize=parseInt(document.getElementById('enc-mode').value);
-    let stegKey, keyB, keyC, key2, grid;
+    const variant = document.getElementById('enc-variant').value;
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    let grid;
     try{
-      ({stegKey, keyB, keyC, key2} = stegMakeKeys(REF256, N, blockSize));
-      grid = await stegEncode(msg, stegKey, keyB, keyC, key2, REF256, N);
+      grid = await carterEncodeByVariant(variant, msg, masterKey);
     }catch(e){
       resultEl.hidden=false;
       infoEl.textContent = 'Erreur : ' + e.message;
       return;
     }
-    _lastGrid=grid; _lastKeys={stegKeyHex: stegBytesToHex(stegKey), keyB, keyC, key2, gridSize:N};
-    const ks = stegKeyspace(keyB, REF256);
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
     document.getElementById('enc-result').hidden=false;
-    document.getElementById('enc-info').innerHTML=
-      `Message « ${msg} » encodé dans une grille ${N}×${N} (blocs ${blockSize*6}×${blockSize*6})<br>
-       Confidentialité : AES-256-GCM (256 bits) · Dissimulation : Clé B 2^${ks.keyB} · Clé C 2^${ks.keyC} · Clé 2 2^${ks.key2}`;
-    document.getElementById('enc-key1').value = 'Clé stéganographique (hex) : ' + stegBytesToHex(stegKey) + '\nClé B (tailles) : ' + JSON.stringify(keyB);
-    document.getElementById('enc-key2').value = 'Clé C (orientations) : ' + JSON.stringify(keyC) + '\nClé 2 (formes+couleurs) : ' + JSON.stringify(key2);
-    const csvLines=grid.slice(0,5).map(r=>r.join(',')).join('\n')+'\n...';
-    document.getElementById('enc-grid-out').value=csvLines;
+    document.getElementById('enc-info').innerHTML =
+      `Message « ${msg} » encodé — grille 90×90, variante ${variant}.`;
+    document.getElementById('enc-key1').value = 'Clé maître Carter (hex) : ' + carterBytesToHex(masterKey);
+    const csvLines = grid.slice(0,5).map(r=>r.join(',')).join('\n')+'\n...';
+    document.getElementById('enc-grid-out').value = csvLines;
   }
   function gridToCsv(grid){ return grid.map(r=>r.join(',')).join('\n'); }
   function downloadGrid(){
     if(!_lastGrid) return;
-    const blob=new Blob([gridToCsv(_lastGrid)],{type:'text/csv'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download='grille_steganographique.csv'; a.click();
-  }
-  function downloadKeys(){
-    if(!_lastKeys) return;
-    const blob=new Blob([JSON.stringify(_lastKeys,null,2)],{type:'application/json'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
-    a.download='cles_steganographiques.json'; a.click();
+    const blob = new Blob([gridToCsv(_lastGrid)], {type:'text/csv'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'grille_steganographique.csv'; a.click();
   }
 
   async function decodeMessage(){
-    if(!REF256) return;
+    if(!REF256_V3) return;
     const resultEl = document.getElementById('dec-msg');
-    const csvStr=document.getElementById('dec-grid').value.trim();
-    const keysStr=document.getElementById('dec-keys').value.trim();
-    if(!csvStr||!keysStr){ resultEl.textContent='Remplis la grille et les clés.'; document.getElementById('dec-result').hidden=false; return; }
+    const csvStr = document.getElementById('dec-grid').value.trim();
+    const keyHex = document.getElementById('dec-masterkey').value.trim();
+    const variant = document.getElementById('dec-variant').value;
+    if(!csvStr || !keyHex){ resultEl.textContent='Remplis la grille et la clé maître.'; document.getElementById('dec-result').hidden=false; return; }
     try{
-      const grid=csvStr.split('\n').map(r=>r.split(',').map(Number));
-      const keys=JSON.parse(keysStr);
-      const stegKey = stegHexToBytes(keys.stegKeyHex);
-      const msg=await stegDecode(grid, stegKey, keys.keyB, keys.keyC, keys.key2, REF256, keys.gridSize || grid.length);
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const masterKey = carterHexToBytes(keyHex);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
       document.getElementById('dec-result').hidden=false;
-      resultEl.innerHTML=`Message décodé : <span class="enc-msg">${msg}</span>`;
+      resultEl.innerHTML = `Message décodé : <span class="enc-msg">${msg}</span>`;
     } catch(e){
       document.getElementById('dec-result').hidden=false;
-      resultEl.textContent='Erreur : '+e.message;
+      resultEl.textContent = 'Erreur : '+e.message;
     }
   }
   function loadGridFile(input){
     if(!input.files[0]) return;
     const fr=new FileReader();
     fr.onload=e=>{ document.getElementById('dec-grid').value=e.target.result; };
-    fr.readAsText(input.files[0]);
-  }
-  function loadKeysFile(input){
-    if(!input.files[0]) return;
-    const fr=new FileReader();
-    fr.onload=e=>{ document.getElementById('dec-keys').value=e.target.result; };
     fr.readAsText(input.files[0]);
   }
 
@@ -1129,9 +783,6 @@
   // servir pour dériver. Contrepartie assumée — elle ne peut pas être
   // sauvegardée ni déplacée vers un autre navigateur ; perdre les données du
   // site, c'est perdre l'identité et son fingerprint.
-  //
-  // Les clés B/C/2 restent dérivées dans le même ordre qu'en Python (tout
-  // Clé C d'abord, puis toute Clé 2).
 
   const SC_IDB_NAME = 'secubox-identity', SC_IDB_STORE = 'keys';
   const SC_SESSION_INFO = 'SecuBox-Session-v2-3dh';
@@ -1217,43 +868,6 @@
     return { keyPair: kp, publicHex: scBytesToHex(new Uint8Array(pubRaw)) };
   }
 
-  // PRNG HMAC-SHA256 déterministe (compatible secu_box.py::_km_to_keys) :
-  // seed + compteur(uint64 BE) -> SHA256 -> 8 premiers octets en uint64 BE % n.
-  function scMakePrng(seed){
-    let counter = 0;
-    return async function(n){
-      const ctrBuf = new Uint8Array(8);
-      new DataView(ctrBuf.buffer).setBigUint64(0, BigInt(counter), false);
-      counter++;
-      const data = new Uint8Array(seed.length+8);
-      data.set(seed,0); data.set(ctrBuf, seed.length);
-      const hash = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
-      const val = new DataView(hash.buffer).getBigUint64(0, false);
-      return Number(val % BigInt(n));
-    };
-  }
-
-  async function scDeriveGeoKeys(seed, ref256Len, gridSize=60, blockSize=1){
-    const B = gridSize/6, nBlocks = B*B;
-    const prng = scMakePrng(seed);
-    const keyB = Array(nBlocks).fill(blockSize);
-    // Tous les blocs de Clé C d'abord, puis tous les blocs de Clé 2 —
-    // ordre exact de Python (deux compréhensions de liste séparées).
-    const keyC = [];
-    for(let i=0;i<nBlocks;i++){
-      const sub = [];
-      for(let j=0;j<blockSize*blockSize;j++) sub.push(await prng(8));
-      keyC.push(sub);
-    }
-    const key2 = [];
-    for(let i=0;i<nBlocks;i++){
-      const form_id = await prng(ref256Len);
-      const color = (await prng(2))===0 ? 'blue' : 'orange';
-      key2.push({form_id, color});
-    }
-    return {keyB, keyC, key2};
-  }
-
   // Dérivation de session — triple DH, port exact de secu_box.py::Session.derive.
   //
   //   DH_ee = ECDH(éphémère moi, éphémère pair)   → forward secrecy
@@ -1264,7 +878,7 @@
   // identités privées : il ne peut calculer ni DH_es ni DH_se, donc pas la
   // clé de session. L'authentification tient à la vérification hors bande du
   // fingerprint d'identité annoncé par l'offer.
-  async function scDeriveSession(identityKp, myEphKp, theirOfferRaw, ref256, gridSize=60, blockSize=1){
+  async function scDeriveSession(identityKp, myEphKp, theirOfferRaw){
     const [theirId, theirEph] = scSplitOffer(theirOfferRaw);
     const myId  = await scIdentityPub(identityKp);
     const myEph = new Uint8Array(await crypto.subtle.exportKey('raw', myEphKp.publicKey));
@@ -1284,10 +898,12 @@
     const ephs  = avant ? scConcat(myEph, theirEph) : scConcat(theirEph, myEph);
 
     // Transcript complet dans info : les quatre clés publiques sont
-    // authentifiées par la clé dérivée.
+    // authentifiées par la clé dérivée. Les 32 premiers octets deviennent
+    // directement la clé maître Carter (masterKey) — plus de dérivation
+    // géométrique séparée (Clé B/C/2) : la grammaire de la grille est
+    // elle-même dérivée de cette clé maître par carter-core.js.
     const km = await scHkdf(scConcat(dhEe, cross), SC_SESSION_INFO, scConcat(ids, ephs), 512);
-    const stegKey = km.slice(0,32);
-    const geoSeed = km.slice(32,64);
+    const masterKey = km.slice(0,32);
 
     // Dérivés du matériel HKDF, sous des libellés propres — jamais du secret
     // ECDH brut, qui ne doit pas se retrouver engagé dans une valeur publiée.
@@ -1295,9 +911,7 @@
     const authString = Array.from(await scHkdf(km, SC_SESSION_INFO, new TextEncoder().encode('session-auth-string'), 128))
       .map(b=>b.toString(16).padStart(2,'0')).join(':');
 
-    const geoKeys = await scDeriveGeoKeys(geoSeed, ref256.length, gridSize, blockSize);
-    return { stegKeyHex: scBytesToHex(stegKey), keyB: geoKeys.keyB, keyC: geoKeys.keyC,
-             key2: geoKeys.key2, sessionId, authString, gridSize };
+    return { masterKeyHex: scBytesToHex(masterKey), sessionId, authString };
   }
 
   const SC_SESSION_KEY = 'secubox_session_v1';
@@ -1323,7 +937,7 @@
     const clearBtn = document.getElementById('btnScClearSession');
     if(!el) return;
     if(scSession){
-      el.innerHTML = `Session active : <b>${scSession.sessionId}</b> (grille ${scSession.gridSize}×${scSession.gridSize})`;
+      el.innerHTML = `Session active : <b>${scSession.sessionId}</b> (Carter-256, grille 90×90)`;
       clearBtn.hidden = false;
     }else{
       el.textContent = 'Aucune session active. Dérivez une session ci-dessus, ou utilisez les onglets Message/Déchiffrer avec des clés générées librement.';
@@ -1338,7 +952,7 @@
     const encStatus = document.getElementById('enc-session-status');
     if(encStatus){
       encStatus.textContent = scSession
-        ? `Session active : ${scSession.sessionId} (grille ${scSession.gridSize}×${scSession.gridSize})`
+        ? `Session active : ${scSession.sessionId} (Carter-256, grille 90×90)`
         : 'Aucune session active (onglet Exchange) — encode ci-dessous avec des clés générées librement.';
     }
   }
@@ -1346,13 +960,13 @@
   async function onEncodeSession(){
     const infoEl = document.getElementById('enc-session-info');
     const resultBox = document.getElementById('enc-session-result');
-    if(!REF256) return;
+    if(!REF256_V3) return;
     if(!scSession){ resultBox.hidden=false; infoEl.textContent = 'Dérive une session d\'abord (onglet Exchange).'; return; }
     const msg = document.getElementById('enc-session-message').value.trim().toUpperCase();
     if(!msg){ resultBox.hidden=false; infoEl.textContent = 'Entre un message.'; return; }
     try{
-      const stegKey = stegHexToBytes(scSession.stegKeyHex);
-      const grid = await stegEncode(msg, stegKey, scSession.keyB, scSession.keyC, scSession.key2, REF256, scSession.gridSize);
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const grid = await carterEncodeByVariant('carter256', msg, masterKey);
       const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
@@ -1433,7 +1047,7 @@
         resultEl.textContent = 'Échange interrompu — session non dérivée.';
         return;
       }
-      const session = await scDeriveSession(idKp, scEphemeralKeyPair, theirOffer, REF256, 60, 1);
+      const session = await scDeriveSession(idKp, scEphemeralKeyPair, theirOffer);
       scSaveSession(session);
       resultBox.hidden = false;
       resultEl.innerHTML = `Session dérivée ✓<br>Session ID : <b>${session.sessionId}</b><br>`
@@ -1459,14 +1073,14 @@
     const statusEl = document.getElementById('dec-session-status');
     const resultEl = document.getElementById('dec-session-msg');
     const resultBox = document.getElementById('dec-session-result');
-    if(!REF256) return;
+    if(!REF256_V3) return;
     if(!scSession){ statusEl.textContent = 'Aucune session active (onglet Exchange).'; return; }
     const csvStr = document.getElementById('dec-session-grid').value.trim();
     if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'Colle ou charge une grille CSV.'; return; }
     try{
       const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
-      const stegKey = stegHexToBytes(scSession.stegKeyHex);
-      const msg = await stegDecode(grid, stegKey, scSession.keyB, scSession.keyC, scSession.key2, REF256, scSession.gridSize);
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const msg = await carterDecodeByVariant('carter256', grid, masterKey);
       resultBox.hidden = false;
       resultEl.innerHTML = `Message décodé : <span class="enc-msg">${msg}</span>`;
     }catch(e){
@@ -1475,27 +1089,50 @@
     }
   }
 
+  // Couche de confort passphrase → clé maître (PBKDF2-SHA256, 300 000
+  // itérations), indépendante de la variante Carter choisie ci-dessous —
+  // voir la note d'audit 2026-09-10 sur le sel : tiré au hasard à chaque
+  // encodage, transmis avec la passphrase, jamais écrit dans le CSV.
+  const CARTER_SALT_BYTES = 16;
+  const CARTER_LEGACY_SALT = 'SecuBox-Carter-KDF-v1';
+  async function carterDeriveMasterKey(passphrase, salt){
+    const saltBytes = salt && salt.length ? salt : new TextEncoder().encode(CARTER_LEGACY_SALT);
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: saltBytes, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  function carterNewSalt(){ return crypto.getRandomValues(new Uint8Array(CARTER_SALT_BYTES)); }
+  function carterSaltToHex(b){ return Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  function carterSaltFromHex(hex){
+    const h = hex.trim().toLowerCase().replace(/[^0-9a-f]/g,'');
+    if(!h) return null;
+    if(h.length !== CARTER_SALT_BYTES*2) throw new Error(`Sel invalide : ${CARTER_SALT_BYTES*2} caractères hexadécimaux attendus.`);
+    const a = new Uint8Array(CARTER_SALT_BYTES);
+    for(let i=0;i<a.length;i++) a[i] = parseInt(h.substr(i*2,2),16);
+    return a;
+  }
+
   async function onCarterEncode(){
     const infoEl = document.getElementById('carter-encode-info');
     const resultBox = document.getElementById('carter-encode-result');
-    if(!REF256) return;
+    if(!REF256_V3) return;
     const pass = document.getElementById('carter-passphrase').value;
     if(!pass){ resultBox.hidden=false; infoEl.textContent = 'Entre une passphrase Carter.'; return; }
     const msg = document.getElementById('carter-message').value.trim().toUpperCase();
     if(!msg){ resultBox.hidden=false; infoEl.textContent = 'Entre un message.'; return; }
+    const variant = document.getElementById('carter-variant').value;
     try{
       const salt = carterNewSalt();
       const saltHex = carterSaltToHex(salt);
       const masterKey = await carterDeriveMasterKey(pass, salt);
-      const grid = await encodeCarter(msg, masterKey, REF256);
-      const cap = await carterCapacity(masterKey, REF256);
+      const grid = await carterEncodeByVariant(variant, msg, masterKey);
       const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'grille_carter.csv';
       a.click();
       resultBox.hidden = false;
-      infoEl.innerHTML = `« ${msg} » encodé et téléchargé — grille_carter.csv<br>Grammaire : ${cap.blocsMessage} blocs message, ${cap.blocsStructure} structurés, ${cap.blocsPurs} purs — ${cap.ambiguite}.<br><br><b>Sel de cette grille :</b><br><b style="word-break:break-all">${saltHex}</b><br>Le transmettre au destinataire <b>avec la passphrase</b>, par le même canal hors bande. Il n'est pas secret et ne figure pas dans le CSV — l'y écrire signalerait un contenu chiffré. Sans lui, la grille est indéchiffrable ; il est propre à cette grille et change à chaque encodage.`;
+      infoEl.innerHTML = `« ${msg} » encodé et téléchargé — grille_carter.csv (variante ${variant}).<br><br><b>Sel de cette grille :</b><br><b style="word-break:break-all">${saltHex}</b><br>Le transmettre au destinataire <b>avec la passphrase</b>, par le même canal hors bande. Il n'est pas secret et ne figure pas dans le CSV — l'y écrire signalerait un contenu chiffré. Sans lui, la grille est indéchiffrable ; il est propre à cette grille et change à chaque encodage.`;
     }catch(e){
       resultBox.hidden = false;
       infoEl.textContent = 'Erreur : ' + e.message;
@@ -1505,16 +1142,17 @@
   async function onCarterDecode(){
     const resultEl = document.getElementById('carter-dec-msg');
     const resultBox = document.getElementById('carter-dec-result');
-    if(!REF256) return;
+    if(!REF256_V3) return;
     const pass = document.getElementById('carter-dec-passphrase').value;
     if(!pass){ resultBox.hidden=false; resultEl.textContent = 'Entre la passphrase Carter.'; return; }
     const csvStr = document.getElementById('carter-dec-grid').value.trim();
     if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'Colle ou charge une grille CSV.'; return; }
+    const variant = document.getElementById('carter-dec-variant').value;
     try{
       const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
       const salt = carterSaltFromHex(document.getElementById('carter-dec-salt').value);
       const masterKey = await carterDeriveMasterKey(pass, salt);
-      const msg = await decodeCarter(grid, masterKey, REF256);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
       resultBox.hidden = false;
       resultEl.innerHTML = `Message décodé : <span class="enc-msg">${msg}</span>`;
     }catch(e){
@@ -1887,12 +1525,14 @@
 
   async function loadReferents(){
     try{
-      const [r256, r360] = await Promise.all([
+      const [r256, r360, r256v3] = await Promise.all([
         fetch('data/referent_256.json').then(r => r.json()),
         fetch('data/referent_360.json').then(r => r.json()),
+        fetch('data/referent_256_v3.json').then(r => r.json()),
       ]);
       REF256 = r256;
       REF360 = r360;
+      REF256_V3 = r256v3;
       document.getElementById('encLoading').hidden = true;
       document.getElementById('encApp').hidden = false;
       // Tables de permutation du chiffrement disque (Ref256 + Ref360) :
@@ -2362,13 +2002,15 @@
     document.querySelectorAll('.enc-nav button[data-tab]').forEach(btn=>{
       btn.addEventListener('click', function(){ showTab(this.getAttribute('data-tab'), this); });
     });
+    populateVariantSelect(document.getElementById('enc-variant'));
+    populateVariantSelect(document.getElementById('carter-variant'));
+    populateVariantSelect(document.getElementById('dec-variant'));
+    populateVariantSelect(document.getElementById('carter-dec-variant'));
     document.getElementById('btnRunDemo').addEventListener('click', runDemo);
     document.getElementById('btnEncode').addEventListener('click', encodeMessage);
     document.getElementById('btnDecode').addEventListener('click', decodeMessage);
     document.getElementById('btnDownloadGrid').addEventListener('click', downloadGrid);
-    document.getElementById('btnDownloadKeys').addEventListener('click', downloadKeys);
     document.getElementById('dec-file-grid').addEventListener('change', function(){ loadGridFile(this); });
-    document.getElementById('dec-file-keys').addEventListener('change', function(){ loadKeysFile(this); });
 
     document.getElementById('btnDiskEncrypt').addEventListener('click', onDiskEncrypt);
     document.getElementById('btnDiskDecrypt').addEventListener('click', onDiskDecrypt);
@@ -2423,7 +2065,6 @@
     new MutationObserver(tryInit).observe(proOnlyEl, {attributes:true, attributeFilter:['hidden']});
     tryInit();
   });
-})();
 </script>
 </body>
 </html>
