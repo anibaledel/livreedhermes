@@ -629,3 +629,260 @@ export async function decode_carter(grid, masterKey, ref256) {
   }
   return decrypt(vals, xchacha_key, vals.length);
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// referent6x6_gen.py — 256 référents 6×6 générés (pas chargés depuis un
+// JSON statique), déterministes en n seul, IKM public fixe.
+// ═══════════════════════════════════════════════════════════════════════
+const REFERENT_IKM = utf8('Carter-referent6x6-v3-public-root');
+const R6_GRID_SIZE = 6;
+const R6_N_FORMS = 256;
+const R6_POOL_TEMPLATE = [
+  ...Array(6).fill('blue'), ...Array(6).fill('orange'),
+  ...Array(12).fill('green'), ...Array(12).fill('yellow'),
+];
+const RANDOM_STEGANO_COLORS = ['blue', 'orange'];
+
+// Lecteur bufferisé d'un keystream ChaCha20(referentKey, nonce=0), octet
+// par octet, rejet sans biais modulo (_rand_below). Buffer généreux et
+// FIXE (retour utilisateur, cf. rejectSample plus haut) : ~256 formes ×
+// 35 tirages Fisher-Yates, rejet <=~2% par tirage (limit proche de 256
+// pour n<=36) => ~9100 octets attendus ; 32768 couvre une marge large,
+// avec exception explicite si même ça ne suffit pas plutôt qu'un
+// agrandissement silencieux.
+const R6_KEYSTREAM_BYTES = 32768;
+function makeByteReader(key) {
+  const buf = chacha20Keystream(key, 0, new Uint8Array(12), R6_KEYSTREAM_BYTES);
+  let pos = 0;
+  return function nextByte() {
+    if (pos >= buf.length) throw new Error(
+      `referent6x6 : flux ChaCha20 épuisé (${R6_KEYSTREAM_BYTES} octets) avant la fin de la génération du référent.`);
+    return buf[pos++];
+  };
+}
+
+function randBelow(nextByte, n) {
+  const limit = 256 - (256 % n);
+  for (;;) {
+    const b = nextByte();
+    if (b < limit) return b % n;
+  }
+}
+
+function drawOneForm(nextByte) {
+  const pool = R6_POOL_TEMPLATE.slice();
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = randBelow(nextByte, i + 1);
+    const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+  }
+  return pool;
+}
+
+function poolToPositions(pool) {
+  const byColor = { blue: [], orange: [], green: [], yellow: [] };
+  pool.forEach((color, idx) => {
+    const r = Math.floor(idx / R6_GRID_SIZE), c = idx % R6_GRID_SIZE;
+    byColor[color].push([r, c]);
+  });
+  return byColor;
+}
+
+async function referentKey(n) {
+  if (!(n >= 0 && n < 256)) throw new Error(`index de référent hors [0,255] : ${n}`);
+  return hkdf_sha256(REFERENT_IKM, LABELS.referent6x6.salt, new Uint8Array([n]), 32);
+}
+
+function generateReferent6x6(key, nForms = R6_N_FORMS) {
+  const nextByte = makeByteReader(key);
+  const forms = [];
+  const seen = new Set();
+  while (forms.length < nForms) {
+    const pool = drawOneForm(nextByte);
+    const repr = pool.join(',');
+    if (seen.has(repr)) continue; // forme dupliquée, retirage (rarissime)
+    seen.add(repr);
+    forms.push(poolToPositions(pool));
+  }
+  return forms;
+}
+
+const referent6x6Cache = new Map();
+/** get_referent(n) -> 256 formes {blue,orange,green,yellow: [[r,c],...]}, mémorisé. */
+export async function get_referent6x6(n) {
+  if (referent6x6Cache.has(n)) return referent6x6Cache.get(n);
+  const key = await referentKey(n);
+  const forms = generateReferent6x6(key);
+  referent6x6Cache.set(n, forms);
+  return forms;
+}
+
+/** select_referent_index(grammarKey) -> 0..255, 1 octet HKDF-SHA256 tel quel. */
+export async function select_referent_index(grammarKey) {
+  const b = await hkdf_sha256(grammarKey, LABELS.referent6x6.salt, LABELS.referent6x6.select_info, 1);
+  return b[0];
+}
+
+function formSteganoPositions(form, sweepOfColor) {
+  const cellsByNiveau = { 0: {} };
+  for (const c of RANDOM_STEGANO_COLORS) cellsByNiveau[0][c] = form[c];
+  return cryptoReadingOrder(cellsByNiveau, RANDOM_STEGANO_COLORS, R6_GRID_SIZE, sweepOfColor);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// carter_random.py — Carter-Random (référent 6×6 dynamique). Mode méta
+// (18×18 concentrique) implémenté pour le RÔLE/la CAPACITÉ (nécessaire à
+// la comparaison CR-1) ; le PLACEMENT en grille du mode méta lui-même
+// n'est pas encore porté — aucun des deux vecteurs disponibles
+// (carterrandom-basic-01, carterrandom-cr1-01) ne s'y résout
+// (meta_mode=false dans les deux cas, cr1-01 testant justement le repli
+// méta→individuel). À compléter si/quand un vecteur meta_mode=true existe.
+// ═══════════════════════════════════════════════════════════════════════
+const CR_GRID_SIZE = 90, CR_CELL_SIZE = 6;
+const CR_N_SIDE = CR_GRID_SIZE / CR_CELL_SIZE; // 15
+const CR_META = 3;
+const CR_N_META = CR_N_SIDE / CR_META; // 5
+const CR_N_META_TOT = CR_N_META * CR_N_META; // 25
+
+async function carterRandomGrammarIndividual(gkCtr, nSide) {
+  const nBlocks = nSide * nSide;
+  const GL = LABELS.carterrandom;
+  const km = await hkdf_sha256(gkCtr, GL.grammar_individual_salt, GL.grammar_individual_info, nBlocks * 2);
+  const out = new Array(nBlocks);
+  for (let i = 0; i < nBlocks; i++) {
+    const rb = km[i * 2], fb = km[i * 2 + 1];
+    out[i] = { role: rb < 85 ? ROLE_PURE : (rb < 170 ? ROLE_STRUCTURED : ROLE_MESSAGE), form_id: fb };
+  }
+  return out;
+}
+
+async function carterRandomGrammarMeta(gkCtr, nMetaTot, nMeta) {
+  const ML = LABELS.carterrandom;
+  const km1 = await hkdf_sha256(gkCtr, ML.grammar_meta_salt, ML.grammar_meta_roles_info, nMetaTot * 2);
+  const km2 = await hkdf_sha256(gkCtr, ML.grammar_meta_salt, ML.grammar_meta_forms_info, nMetaTot * CR_META * CR_META);
+  const out = new Array(nMetaTot);
+  for (let mi = 0; mi < nMetaTot; mi++) {
+    const rb = km1[mi * 2];
+    const role = rb < 85 ? ROLE_PURE : (rb < 170 ? ROLE_STRUCTURED : ROLE_MESSAGE);
+    const sub = new Array(CR_META * CR_META);
+    for (let bi = 0; bi < CR_META * CR_META; bi++) sub[bi] = { form_id: km2[mi * 9 + bi] };
+    out[mi] = { role, sub, n_meta: nMeta };
+  }
+  return out;
+}
+
+function randomCPubKey(gridSize) { return gridSize === CR_GRID_SIZE ? 'carterrandom90' : 'carterrandom360'; }
+
+async function deriveRandomParams(gkCtr, gridSize = CR_GRID_SIZE) {
+  const PL = LABELS.carterrandom;
+  const km = await hkdf_sha256(gkCtr, PL.params_salt, PL.params_info, 4);
+  const refIdx = await select_referent_index(gkCtr);
+  const metaRaw = km[1] < 128;
+  if (!metaRaw) return { refIdx, metaMode: false };
+
+  const nMetaSide = Math.floor(gridSize / (CR_CELL_SIZE * CR_META));
+  const mg = await carterRandomGrammarMeta(gkCtr, nMetaSide * nMetaSide, nMetaSide);
+  const nMsgMeta = mg.filter(x => x.role === ROLE_MESSAGE).length;
+  const capMeta = nMsgMeta * CR_META * CR_META * 12;
+
+  const nSideInd = Math.floor(gridSize / CR_CELL_SIZE);
+  const gi = await carterRandomGrammarIndividual(gkCtr, nSideInd);
+  const nMsgInd = gi.filter(x => x.role === ROLE_MESSAGE).length;
+  const capInd = nMsgInd * 12;
+
+  return { refIdx, metaMode: capMeta >= capInd };
+}
+
+async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE) {
+  const cPubKey = randomCPubKey(gridSize);
+  const nSideG = Math.floor(gridSize / CR_CELL_SIZE);
+  const nMetaG = Math.floor(nSideG / CR_META);
+  const nMetaTotG = nMetaG * nMetaG;
+  for (let ctr = 0; ctr < MAX_REDRAWS; ctr++) {
+    const gkCtr = await redraw_grammar_key(grammarKey, 'carterrandom', ctr);
+    const { refIdx, metaMode } = await deriveRandomParams(gkCtr, gridSize);
+    let grammar, nPos;
+    if (!metaMode) {
+      grammar = await carterRandomGrammarIndividual(gkCtr, nSideG);
+      nPos = grammar.filter(g => g.role === ROLE_MESSAGE).length * 12;
+    } else {
+      grammar = await carterRandomGrammarMeta(gkCtr, nMetaTotG, nMetaG);
+      nPos = grammar.filter(g => g.role === ROLE_MESSAGE).length * CR_META * CR_META * 12;
+    }
+    if (max_message_for(nPos) >= C_PUB[cPubKey]) return { gkCtr, refIdx, metaMode, grammar, nPos };
+  }
+  throw new Error(
+    `Échec de dérivation de grammaire après ${MAX_REDRAWS} tentatives : régénérer la clé maître ` +
+    `(capacité cible C_PUB=${C_PUB[cPubKey]} octets non atteinte).`);
+}
+
+/** encode_carter_random(message, masterKey, opts) -> {grid, info}. Mode individuel uniquement (voir note ci-dessus). */
+export async function encode_carter_random(message, masterKey, opts = {}) {
+  const { gridSize = CR_GRID_SIZE, _nonce = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
+  const { xchacha_key, grammar_key } = await carter256_split(masterKey);
+  const cPubKey = randomCPubKey(gridSize);
+  const msgBytes = utf8(message).length;
+  if (msgBytes > C_PUB[cPubKey]) {
+    throw new Error(`Message trop long : ${msgBytes} > C_PUB=${C_PUB[cPubKey]} octets (capacité publique garantie, indépendante de la clé).`);
+  }
+  const nSideG = Math.floor(gridSize / CR_CELL_SIZE);
+  const { gkCtr, refIdx, metaMode, grammar, nPos } = await findRandomGrammarWithCPub(grammar_key, gridSize);
+  if (metaMode) throw new Error('encode_carter_random : mode méta pas encore porté en JS (aucun vecteur ne le requiert actuellement).');
+
+  const sweepOfColor = {};
+  for (const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+  const ref = await get_referent6x6(refIdx);
+
+  const payload = await encrypt(message, xchacha_key, nPos, _nonce);
+  const symbols = payload_to_symbols(payload, nPos, { _y, _leftover });
+  const grid = random_grid(gridSize, gridSize, _noiseSeed);
+  const masks = await derive_masks(gkCtr, symbols.length + 128, LABELS.mask_seed.info_random);
+
+  let ni = 0;
+  for (let i = 0; i < grammar.length; i++) {
+    const g = grammar[i];
+    if (g.role !== ROLE_MESSAGE) continue;
+    const br = Math.floor(i / nSideG), bc = i % nSideG;
+    const form = ref[g.form_id];
+    const r0 = br * CR_CELL_SIZE, c0 = bc * CR_CELL_SIZE;
+    for (const [pr, pc] of formSteganoPositions(form, sweepOfColor)) {
+      if (ni >= symbols.length) break;
+      const gr = r0 + pr, gc = c0 + pc;
+      if (gr >= 0 && gr < gridSize && gc >= 0 && gc < gridSize) grid[gr][gc] = (symbols[ni] + masks[ni]) % ALPHA_LEN;
+      ni++;
+    }
+  }
+  const nMsgOut = grammar.filter(g => g.role === ROLE_MESSAGE).length;
+  return { grid, info: { referent_index: refIdx, mode: 'individual', meta_mode: false, n_msg_blocks: nMsgOut, capacity_chars: max_message_for(nPos) } };
+}
+
+/** decode_carter_random(grid, masterKey, opts) -> message. Mode individuel uniquement. */
+export async function decode_carter_random(grid, masterKey, opts = {}) {
+  const { gridSize = CR_GRID_SIZE } = opts;
+  const { xchacha_key, grammar_key } = await carter256_split(masterKey);
+  const { gkCtr, metaMode, grammar, refIdx } = await findRandomGrammarWithCPub(grammar_key, gridSize);
+  if (metaMode) throw new Error('decode_carter_random : mode méta pas encore porté en JS (aucun vecteur ne le requiert actuellement).');
+
+  const sweepOfColor = {};
+  for (const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+  const ref = await get_referent6x6(refIdx);
+  const nSideG = Math.floor(gridSize / CR_CELL_SIZE);
+  const masks = await derive_masks(gkCtr, gridSize * gridSize, LABELS.mask_seed.info_random);
+
+  const vals = [];
+  let ni = 0;
+  for (let i = 0; i < grammar.length; i++) {
+    const g = grammar[i];
+    if (g.role !== ROLE_MESSAGE) continue;
+    const br = Math.floor(i / nSideG), bc = i % nSideG;
+    const form = ref[g.form_id];
+    const r0 = br * CR_CELL_SIZE, c0 = bc * CR_CELL_SIZE;
+    for (const [pr, pc] of formSteganoPositions(form, sweepOfColor)) {
+      const gr = r0 + pr, gc = c0 + pc;
+      if (gr >= 0 && gr < gridSize && gc >= 0 && gc < gridSize) {
+        vals.push(((grid[gr][gc] - masks[ni]) % ALPHA_LEN + ALPHA_LEN) % ALPHA_LEN);
+      }
+      ni++;
+    }
+  }
+  return decrypt(vals, xchacha_key, vals.length);
+}
