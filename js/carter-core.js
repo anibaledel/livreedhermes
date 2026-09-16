@@ -389,27 +389,36 @@ export async function decrypt(vals, stegKey, L) {
 // ── Bruit / masques (rejet sans biais, keystream ChaCha20) ─────────────────
 const REJECT_LIMIT = 256 - (256 % ALPHA_LEN); // 220 pour ALPHA_LEN=44
 
-// Rejet sans biais sur un flux de longueur `bufLen`, en repartant TOUJOURS
-// du début du flux (bloc 0) plutôt que de tenter de reprendre un flux
-// continu par tranches : le Cipher Python (`keystream.update(...)` appelé
-// plusieurs fois) est un flux STATEFUL continu — chacha20Keystream(key,
-// counter, nonce, length) recalculée à chaque itération avec un `counter`
-// avancé approximativement (arrondi au bloc de 64 octets) désaligne le
-// flux dès que la taille demandée n'est pas un multiple exact de 64.
-// Reprendre depuis 0 avec une longueur croissante reproduit exactement le
-// même flux que Python lirait en continu, au prix de refaire le rejet
-// depuis le début si la marge initiale (~+16%, cf. REJECT_LIMIT) ne
-// suffit pas — un cas rarissime avec cette marge.
+// Rejet sans biais sur un flux dérivé UNE SEULE FOIS depuis le bloc 0 (pas
+// de reprise par tranches — voir la note historique ci-dessous) : le Cipher
+// Python (`keystream.update(...)` appelé plusieurs fois) est un flux
+// STATEFUL continu, non borné ; chacha20Keystream(key, counter, nonce,
+// length) recalculée à chaque itération avec un `counter` avancé par
+// arrondi au bloc de 64 octets désaligne le flux dès que la taille
+// demandée n'est pas un multiple exact de 64.
+//
+// Dimensionnement (retour utilisateur) : le rejet des octets >= 220
+// consomme une quantité VARIABLE d'octets sources pour produire n symboles
+// — une marge "généreuse" mais fixe en proportion de n peut s'épuiser sur
+// un tirage défavorable, d'autant plus improbable à mesure que n grandit
+// (donc plus rare à détecter en test, plus surprenant en production —
+// carter360/cartermix atteignent des n dans les centaines/milliers). Plutôt
+// que de boucler sur un tampon agrandi (ce qui revient à consommer deux fois
+// les mêmes octets de tête si le premier tampon était déjà entièrement
+// scanné), on dimensionne large d'emblée (n*2 minimum, où le facteur exact
+// n'a plus d'importance dès lors que le tampon est fixe) et on lève une
+// exception explicite si même ce tampon ne suffit pas plutôt que de
+// silencieusement retirer un second tampon.
 function rejectSample(keystreamFn, n) {
-  let bufLen = Math.ceil(n * 256 / REJECT_LIMIT) + 16;
-  for (;;) {
-    const buf = keystreamFn(bufLen);
-    const out = [];
-    for (const b of buf) {
-      if (b < REJECT_LIMIT) { out.push(b % ALPHA_LEN); if (out.length >= n) return out; }
-    }
-    bufLen *= 2;
+  const bufLen = Math.max(n * 2, Math.ceil(n * 256 / REJECT_LIMIT) + 32);
+  const buf = keystreamFn(bufLen);
+  const out = [];
+  for (const b of buf) {
+    if (b < REJECT_LIMIT) { out.push(b % ALPHA_LEN); if (out.length >= n) return out; }
   }
+  throw new Error(
+    `rejectSample : tampon de ${bufLen} octets épuisé avant d'obtenir ${n} symboles ` +
+    `(${out.length} obtenus) — tirage défavorable ou dimensionnement insuffisant.`);
 }
 
 /** random_grid(rows, cols) -> grille de symboles uniformes CSPRNG. */
