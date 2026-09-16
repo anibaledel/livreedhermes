@@ -1,11 +1,14 @@
 /* ============================================================
    Widget de partage partagé — La Livrée d'Hermès.
    Génère le bloc "Partager cette page" (Facebook, X, LinkedIn, WhatsApp,
-   Telegram, Reddit, Copier le lien) et l'insère juste après le premier
-   .footer-caduceus trouvé sur la page. URL = <link rel="canonical"> si
-   présent, sinon location.href ; titre = <meta property="og:title"> si
-   présent, sinon document.title. Personnalisable via l'attribut data-label
-   du tag <script> (ex. data-label="Partager cet article").
+   Telegram, Reddit, Copier le lien) et l'insère juste avant .credit-line
+   (ancre stable, indépendante de l'ordre caducée/bouton Soutien, présente
+   sur la quasi-totalité des pages) — avec repli sur .footer-caduceus,
+   .footer-title-logo puis .site-nav-row pour les pages qui n'ont pas
+   .credit-line. URL = <link rel="canonical"> si présent, sinon
+   location.href ; titre = <meta property="og:title"> si présent, sinon
+   document.title. Personnalisable via l'attribut data-label du tag
+   <script> (ex. data-label="Partager cet article").
    ============================================================ */
 (function(){
   var REDDIT_URL = 'https://www.reddit.com/r/Trismegistus/s/hC0QPXIA14';
@@ -85,15 +88,21 @@
     injectStyle();
     var block = buildBlock(label, url, title);
 
-    // Le bouton "Devenir Partenaire" suit désormais le caducée et précède ce
-    // bloc de partage dans .note : on s'ancre dessus pour s'insérer juste après,
-    // avec .footer-caduceus comme repli si jamais ce bouton était absent.
-    var anchor = document.querySelector('.footer-partenaire-btn') || document.querySelector('.footer-caduceus');
-    if(anchor){
-      anchor.insertAdjacentElement('afterend', block);
+    // .credit-line d'abord (insertion avant elle) : ancre stable, qui ne
+    // bouge pas si l'ordre caducée / bouton Soutien change dans le pied de
+    // page. Repli sur .footer-caduceus, .footer-title-logo puis
+    // .site-nav-row pour les pages qui n'ont pas .credit-line, et sur la
+    // fin de <body> en tout dernier recours.
+    var creditLine = document.querySelector('.credit-line');
+    if(creditLine){
+      creditLine.insertAdjacentElement('beforebegin', block);
     } else {
-      // Repli : ni l'un ni l'autre trouvé, on ajoute en fin de <body>.
-      document.body.appendChild(block);
+      var anchor = document.querySelector('.footer-caduceus') || document.querySelector('.footer-title-logo') || document.querySelector('.site-nav-row');
+      if(anchor){
+        anchor.insertAdjacentElement('afterend', block);
+      } else {
+        document.body.appendChild(block);
+      }
     }
     wireCopyButton(block, url);
   }

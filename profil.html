@@ -152,8 +152,7 @@
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
-  @media (max-width:1320px) and (min-width:769px){ .footer-caduceus{ display:none; } }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
   /* ---------- mobile : mise en page ---------- */
@@ -239,38 +238,34 @@
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
-      <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</button>
+    <div class="footer-caduceus">
+      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+    </div>
 
     <div class="site-nav-row">
       <a class="site-nav-btn" href="index.html">Accueil</a>
       <a class="site-nav-btn" href="/">Tirage</a>
+      <a class="site-nav-btn" href="hexagrammes/">Hexagrammes</a>
       <a class="site-nav-btn" href="creation-motifs-yi-king.html">Créer un motif</a>
       <a class="site-nav-btn" href="unified-patterns.html">Unified Patterns</a>
       <a class="site-nav-btn" href="galerie-884-patterns-unifies.html">Galerie 884</a>
+      <a class="site-nav-btn" href="telechargements.html">Motifs SVG</a>
+      <a class="site-nav-btn" href="cymatique.html">Cymatique</a>
       <a class="site-nav-btn" href="fonds-ecran.html">Fond d'écran</a>
       <a class="site-nav-btn" href="impression.html">Impression</a>
+      <a class="site-nav-btn" href="encodeur.html">Encodeur</a>
       <a class="site-nav-btn" href="contact.html">Contact</a>
       <a class="site-nav-btn" href="a-propos.html">À propos</a>
       <a class="site-nav-btn" href="lexique.html">Lexique</a>
       <a class="site-nav-btn" href="articles.html">Articles</a>
     </div>
 
-    <div class="footer-caduceus">
-      <picture>
-        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
-        <source media="(max-width:768px)" srcset="assets/logo-caducee.gif">
-        <img alt="La Livrée d'Hermès">
-      </picture>
-    </div>
-      <a class="site-nav-btn footer-partenaire-btn" id="btnPartenaireFooter" href="https://anibal-amiot.com/pro.html" style="display:inline-block; margin:14px 0;" title="Deviens Partenaire de la Livrée d'Hermès. Un accès unique à 99€ (paiement unique, à vie) qui t'ouvre les pages secrètes du projet : la collection complète des motifs Unified Patterns (en croissance constante) en SVG/PDF haute résolution, des outils avancés pour la création textile, une consultation gratuite avec l'auteur, l'accès à un espace communautaire réservé, et les dernières créations/mises à jour en avant-première.">Devenir Partenaire</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
-    </div>
-    <div class="credit-line-secondary">
-      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
 
     <div class="footer-title-logo">
@@ -287,11 +282,5 @@
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/share-widget.js"></script>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
-<script>
-(function(){
-  var b = document.getElementById('btnSoutienFooter');
-  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
-})();
-</script>
 </body>
 </html>

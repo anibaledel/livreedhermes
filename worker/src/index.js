@@ -1,16 +1,21 @@
 // Backend Cloudflare Worker — La Livrée d'Hermès.
-// Deux paliers distincts, sur la même infrastructure (ce Worker + le même
-// KV binding SOUTIEN_KV), chacun avec son propre jeton d'accès :
-//   - "soutien" : prix libre choisi par le client, débloque les
-//     téléchargements SVG/PDF déjà en place (inchangé).
-//   - "pro" : prix fixe (STRIPE_PRO_PRICE_CENTS, 99€ par défaut), débloque
-//     un contenu distinct (voir pro.html / pro-contenu.html côté site).
-// Un jeton "soutien" et un jeton "pro" sont indépendants : posséder l'un ne
-// donne pas accès à l'autre (voir le paramètre `type` de /verify-access).
+// Chantier espace-libre (2026-09) : le palier "pro" à prix fixe (99€,
+// contenu réservé par jeton) a été retiré — le site est en accès libre
+// intégral, sans souscription. Ne reste que "soutien" : prix libre choisi
+// par le client, débloque les téléchargements SVG/PDF déjà en place. Le
+// paiement reste (Stripe), le contrôle d'accès qui allait avec le palier
+// pro a disparu avec lui — /create-pro-checkout-session est retiré, et
+// /verify-access?type=pro ne recevra plus jamais d'appel légitime (aucune
+// page ne charge plus assets/pro-gate.js). Le paramètre `type` de
+// /verify-access reste générique : il continue de servir "soutien".
 //
 // Endpoints : POST /create-checkout-session (soutien, montant libre),
-//             POST /create-pro-checkout-session (pro, montant fixe),
 //             POST /webhook, GET /claim-token, GET /verify-access.
+//
+// Les pages Cymatique et Échiquiers (motifs bicolores) n'ont pas de route
+// ici : accès libre, export SVG/PNG entièrement côté client (voir
+// assets/bicolore-render.js) — décision explicite de l'auteur, pas
+// d'exports réservés pour ces pages.
 //
 // La clé secrète Stripe (env.STRIPE_SECRET_KEY) et le secret de signature
 // webhook (env.STRIPE_WEBHOOK_SECRET) sont des secrets Cloudflare
@@ -136,47 +141,6 @@ async function handleCreateCheckoutSession(request, env) {
       cancel_url: origin,
       metadata: { tier: 'soutien' },
       integration_identifier: 'lldhsoutien' + Math.random().toString(36).slice(2, 10).padEnd(8, 'x'),
-    });
-    return json({ url: session.url }, 200, request, env);
-  } catch (e) {
-    return json({ error: 'Erreur Stripe lors de la création de la session' }, 500, request, env);
-  }
-}
-
-// Palier "pro" : montant fixe décidé côté serveur uniquement — contrairement
-// à /create-checkout-session (soutien à prix libre), aucun montant n'est lu
-// depuis la requête du client, donc il ne peut pas être falsifié. Le prix
-// est en centimes dans STRIPE_PRO_PRICE_CENTS (9900 = 99,00 €) ; à défaut de
-// variable d'environnement, 9900 sert de repli.
-async function handleCreateProCheckoutSession(request, env) {
-  const amount = Number(env.STRIPE_PRO_PRICE_CENTS || 9900);
-  const currency = 'eur';
-  const origin = resolveOrigin(request, env);
-  if (!origin) {
-    return json({ error: 'Service mal configuré : ALLOWED_ORIGIN absent' }, 500, request, env);
-  }
-
-  try {
-    const stripe = getStripe(env);
-    const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
-      line_items: [
-        {
-          price_data: {
-            currency,
-            product_data: {
-              name: 'Accès Pro — La Livrée d\'Hermès',
-              description: 'Paiement unique : débloque le téléchargement complet des motifs (PDF + SVG) et les pages réservées aux membres Pro.',
-            },
-            unit_amount: amount,
-          },
-          quantity: 1,
-        },
-      ],
-      success_url: `${origin}/pro-succes.html?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: origin,
-      metadata: { tier: 'pro' },
-      integration_identifier: 'lldhpro' + Math.random().toString(36).slice(2, 10).padEnd(8, 'x'),
     });
     return json({ url: session.url }, 200, request, env);
   } catch (e) {
@@ -316,9 +280,6 @@ export default {
     try {
       if (url.pathname === '/create-checkout-session' && request.method === 'POST') {
         return await handleCreateCheckoutSession(request, env);
-      }
-      if (url.pathname === '/create-pro-checkout-session' && request.method === 'POST') {
-        return await handleCreateProCheckoutSession(request, env);
       }
       if (url.pathname === '/webhook' && request.method === 'POST') {
         return await handleWebhook(request, env);

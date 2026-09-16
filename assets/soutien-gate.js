@@ -1,15 +1,23 @@
 /* ============================================================
-   Soutien à prix libre — verrouillage des téléchargements SVG/PDF.
-   Chargé sur toutes les pages qui proposent un téléchargement SVG ou PDF
-   (motifs, galerie 884, impression, PDF du livre). N'intercepte QUE ces
-   boutons — la lecture des motifs à l'écran, le tirage, les articles et
-   les viewers du livre (fr/livre, en/book, es/libro, th/book) ne passent
-   jamais par ce script.
+   Soutien à prix libre — verrouillage des téléchargements de fichiers
+   finis (SVG/PNG haute résolution des motifs, SVG/PDF du tirage, les 8
+   fichiers ZIP/PDF de telechargements.html/pro-downloads/). Chargé sur de
+   nombreuses pages mais n'intercepte QUE les boutons/liens listés ci-dessous
+   (GATED_BUTTON_IDS + href*="pro-downloads/") — la lecture des motifs à
+   l'écran, le tirage, les articles, et les PDF du livre (voir plus bas)
+   ne passent jamais par ce script.
 
-   Verrou de type UX (le clic est intercepté) : les fichiers PDF du livre
-   restent des fichiers statiques publics sur l'hébergement, dont les URLs
-   sont déjà publiées dans sitemap-pdf.xml et le JSON-LD Book pour le
-   référencement — ce n'est pas un DRM sur les fichiers eux-mêmes.
+   Verrou de type UX (le clic est intercepté), pas un DRM : les fichiers
+   restent statiques et servis normalement, seule l'action de clic est
+   redirigée vers soutenir.html tant qu'aucun jeton valide n'est présent.
+
+   Les PDF du livre ne sont PLUS verrouillés ici (décision de l'auteur,
+   correction de l'audit du 2026-09-16) : ils sont publiés en accès libre sur
+   Zenodo sous licence CC BY-NC 4.0 — un verrou ici contredirait cette
+   licence. L'accès aux PAGES (telechargements.html, encodeur.html, la
+   galerie, l'impression) reste entièrement libre dans tous les cas ; seul
+   le TÉLÉCHARGEMENT d'un fichier fini est conditionné à une participation
+   à prix libre (1€ minimum, cf. worker/).
    ============================================================ */
 
 (function(){
@@ -22,7 +30,7 @@
   const DEFAULT_AMOUNT_EUR = 5;
   const MIN_AMOUNT_EUR = 1;
 
-  const SVG_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg'];
+  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng'];
 
   let isUnlocked = false;
   let verifyDone = false;
@@ -89,6 +97,17 @@
   function showModal(){ buildModal().style.display = 'flex'; }
   function hideModal(){ if(modalEl) modalEl.style.display = 'none'; }
 
+  // Le VERROU (clics interceptés sur les fichiers réservés) redirige vers
+  // soutenir.html plutôt que d'ouvrir la modale — showModal() reste la
+  // modale réelle, toujours utilisée par le bouton "Soutenir" de
+  // soutenir.html lui-même (window.SoutienGate.showModal(), voir son
+  // <script> inline) : la remplacer par une redirection casserait ce
+  // bouton (redirection vers sa propre page). Seuls les points
+  // d'interception ci-dessous changent de comportement.
+  function redirectToSoutenir(){
+    window.location.href = 'https://anibal-amiot.com/soutenir.html';
+  }
+
   async function startCheckout(){
     const input = document.getElementById('soutienAmount');
     const errorEl = document.getElementById('soutienError');
@@ -132,18 +151,27 @@
   };
 
   // ---------- câblage automatique ----------
-  function wireBookPdfLinks(){
-    const links = document.querySelectorAll('a.flag-btn[href*="la-livree-d-hermes-anibal-amiot-"][href$=".pdf"]');
+  // Les PDF du livre (a.flag-btn[href*="la-livree-d-hermes-anibal-amiot-"])
+  // ne sont PLUS verrouillés ici (décision de l'auteur) : ils sont publiés
+  // en accès libre sur Zenodo sous CC BY-NC 4.0 — les verrouiller sur ce
+  // site contredirait cette licence. wireBookPdfLinks() a été retirée.
+
+  // Fichiers "pro" (assets/pro-downloads/*.zip, *.pdf, sur telechargements.html) :
+  // liens bruts sans id, repérés par motif d'URL comme les anciens PDF du
+  // livre l'étaient — même mécanique, cible différente.
+  function wireProDownloadLinks(){
+    const links = document.querySelectorAll('a[href*="pro-downloads/"]');
     if(!links.length) return;
     links.forEach(a=>{
       a.addEventListener('click', function(e){
-        if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); showModal(); }
+        if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); redirectToSoutenir(); }
       }, true); // capture : passe avant tout autre listener existant
     });
-    // Une seule légende sous tout le groupe de drapeaux plutôt que 4 répétitions
-    // côte à côte (les 4 drapeaux partagent le même verrou / le même jeton).
-    const group = links[0].closest('.flags') || links[0].parentElement;
-    addCaption(group);
+    // Une légende par ligne (chaque .pro-download-row a 2 liens — ZIP+PDF —
+    // qui partagent le même verrou), pas une par lien.
+    const rows = new Set();
+    links.forEach(a => { const row = a.closest('.pro-download-row'); if(row) rows.add(row); });
+    rows.forEach(row => addCaption(row));
   }
 
   // Délégation sur `document`, en phase de capture : se déclenche AVANT le
@@ -152,12 +180,13 @@
   // garantit pas l'ordre pour les listeners portés par le même élément) —
   // et fonctionne aussi pour les boutons créés dynamiquement après une
   // interaction utilisateur (comparaison par paire, cellule de galerie
-  // sélectionnée), qui n'existent pas encore au chargement de la page.
-  function wireSvgButtonsDelegated(){
+  // sélectionnée, export PNG haute résolution), qui n'existent pas encore
+  // au chargement de la page.
+  function wireGatedButtonsDelegated(){
     document.addEventListener('click', function(e){
-      const el = e.target.closest(SVG_BUTTON_IDS.map(id=>'#'+id).join(','));
+      const el = e.target.closest(GATED_BUTTON_IDS.map(id=>'#'+id).join(','));
       if(!el) return;
-      if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); showModal(); }
+      if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); redirectToSoutenir(); }
     }, true);
   }
 
@@ -165,7 +194,7 @@
   // (certains sont créés dynamiquement après une interaction utilisateur).
   const captionedIds = new Set();
   function tryCaptionAll(){
-    SVG_BUTTON_IDS.forEach(id=>{
+    GATED_BUTTON_IDS.forEach(id=>{
       if(captionedIds.has(id)) return;
       const el = document.getElementById(id);
       if(el){ addCaption(el); captionedIds.add(id); }
@@ -178,8 +207,8 @@
   }
 
   function init(){
-    wireBookPdfLinks();
-    wireSvgButtonsDelegated();
+    wireProDownloadLinks();
+    wireGatedButtonsDelegated();
     watchForDynamicButtons();
     checkAccess();
   }

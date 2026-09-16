@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Aperçu nav-carres-reactifs</title><style>
+:root{ --bg:#000; --white:#f2f2f0; --dim:#f2f2f0; --gold:#c9a15a; --line:#242424; }
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--white); font-family:Helvetica,Arial,sans-serif; padding:24px; }
+h2{ color:var(--gold); font-weight:400; }
+.icons-sheet{ display:flex; flex-wrap:wrap; gap:16px; margin-bottom:40px; }
+.icons-sheet figure{ margin:0; text-align:center; }
+.icons-sheet img{ width:96px; height:96px; image-rendering:pixelated; border:1px solid var(--line); }
+.icons-sheet figcaption{ font-size:11px; margin-top:4px; }
+
+.nav-card-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:24px; max-width:840px; margin-bottom:40px; }
+@media (max-width:699px){ .nav-card-grid{ grid-template-columns:1fr; } }
+.nav-card{ display:flex; flex-direction:row; align-items:flex-start; border:1px solid var(--line); text-decoration:none; color:inherit; }
+@media (max-width:699px){ .nav-card{ flex-direction:column; } .nav-card-cover{ width:100% !important; height:auto !important; aspect-ratio:1; } }
+.nav-card-cover{ width:128px; height:128px; flex-shrink:0; display:block; }
+.nav-card-body{ padding:12px 16px; display:flex; flex-direction:column; justify-content:center; flex:1; min-width:0; }
+.nav-card-badges{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px; }
+.nav-card-badge{ border:1px solid var(--line); color:var(--gold); font-size:9.5px; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+.nav-card h3{ font-size:14.5px; font-weight:400; margin:0 0 6px; line-height:1.25; color:var(--white); }
+.nav-card-excerpt{ color:var(--dim); font-size:12.5px; line-height:1.55; margin:0; }
+
+.sprite-row{ display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px; }
+.sprite-tile{ display:inline-flex; flex-direction:column; align-items:center; gap:6px; padding:10px 6px 12px; border:1px solid var(--line); text-decoration:none; color:var(--dim); }
+.sprite-tile:hover{ border-color:var(--gold); color:var(--gold); }
+.sprite-icon{ width:56px; height:56px; display:block; background-size:448px 56px; background-position:0 0; image-rendering:pixelated; }
+.sprite-tile:hover .sprite-icon{ animation:navSpriteSteps 1.4s steps(8) infinite; }
+@keyframes navSpriteSteps{ from{ background-position:0 0; } to{ background-position:-448px 0; } }
+.sheet{ border:1px dashed #444; display:inline-block; margin-bottom:10px; }
+.sheet img{ display:block; image-rendering:pixelated; width:512px; }
+.sheet-label{ font-size:11px; color:var(--dim); margin:14px 0 4px; }
+</style></head><body>
+
+<h2>1. Les 15 icônes — moteur fonds-ecran.html (12 familles, palette neutre à 3 tons) + Cymatique figée</h2>
+<div class="icons-sheet" id="icons"></div>
+
+<h2>2. Carte : carré entier, texte à droite (desktop) / dessous (mobile ≤699px)</h2>
+<div class="nav-card-grid" id="cards"></div>
+
+<h2>3. Les 15 planches d'animation — survole chaque tuile pour l'animer (steps(8))</h2>
+<p style="font-size:13px;color:var(--dim);max-width:680px;">14 planches : vue 0 = icône statique (paire yang/yang_mut) ; vues 1-4 = paire yang/yin (la plus contrastée, 120-144/144 cellules) sur 4 numéros d'hexagramme en complément de bits ; vues 5-7 = paire yang_mut/yin_mut, mêmes numéros. Cymatique (figée) : 8 gammes différentes, inchangée depuis le premier prototype.</p>
+<div class="sprite-row" id="sprites"></div>
+<div id="sheets"></div>
+
+<script>
+const entries = [["accueil","Accueil"],["tirage","Tirage"],["hexagrammes","Hexagrammes"],["creation-motifs","Créer un motif"],["unified-patterns","Unified Patterns"],["galerie-884","Galerie 884"],["motifs-svg","Motifs SVG"],["cymatique","Cymatique"],["fond-ecran","Fond d'écran"],["impression","Impression"],["encodeur","Encodeur"],["contact","Contact"],["a-propos","À propos"],["lexique","Lexique"],["articles","Articles"]];
+document.getElementById('icons').innerHTML = entries.map(([k,l])=>`<figure><img src="assets/nav-icons/${k}.png?v=5"><figcaption>${k}</figcaption></figure>`).join('');
+document.getElementById('cards').innerHTML = entries.map(([k,l])=>`<a class="nav-card" href="#"><img class="nav-card-cover" src="assets/nav-icons/${k}.png?v=5" alt=""><div class="nav-card-body"><div class="nav-card-badges"><span class="nav-card-badge">Motif</span></div><h3>${l}</h3><p class="nav-card-excerpt">Texte descriptif court pour cette entrée de navigation.</p></div></a>`).join('');
+document.getElementById('sprites').innerHTML = entries.map(([k,l])=>`<a class="sprite-tile" href="#"><span class="sprite-icon" style="background-image:url(assets/nav-icons/${k}-sprite.png?v=5)"></span><span>${k}</span></a>`).join('');
+document.getElementById('sheets').innerHTML = entries.map(([k,l])=>`<div class="sheet-label">${k}-sprite.png :</div><div class="sheet"><img src="assets/nav-icons/${k}-sprite.png?v=5"></div>`).join('');
+</script>
+</body></html>
