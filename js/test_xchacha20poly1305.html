@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>XChaCha20-Poly1305 AEAD — vecteur draft-irtf-cfrg-xchacha (navigateur)</title></head>
+<body>
+<pre id="out">running...</pre>
+<script type="module">
+import { runTests } from './test_xchacha20poly1305.mjs';
+
+const out = document.getElementById('out');
+function log(line) { console.log(line); out.textContent += line + '\n'; }
+
+try {
+  const results = runTests();
+  out.textContent = '';
+  for (const r of results) log('  ' + r);
+  log(`\n${results.length}/${results.length} vérifications AEAD_XCHACHA20_POLY1305 conformes.`);
+  window.__TEST_OK__ = true;
+} catch (e) {
+  out.textContent = '';
+  log('ÉCHEC : ' + e.message);
+  window.__TEST_OK__ = false;
+}
+window.__TEST_DONE__ = true;
+</script>
+</body>
+</html>
