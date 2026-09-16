@@ -32,7 +32,8 @@
     "name": "Anibal Edelberto Amiot",
     "sameAs": [
       "https://www.wikidata.org/wiki/Q141191562",
-      "https://github.com/anibaledel/livreedhermes"
+      "https://github.com/anibaledel/livreedhermes",
+      "https://orcid.org/0009-0002-6414-9448"
     ]
   },
   "description": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
@@ -51,6 +52,7 @@
     --red-dim:#5a120e;
     --gold:#c9a15a;
     --line:#242424;
+    --fs-bump:2px; /* +2px sur tous les font-size du fichier (calc(Npx + var(--fs-bump))) — mettre à 0px pour annuler */
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -77,19 +79,19 @@
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:10px !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
   }
   .gtranslate-slot img{ vertical-align:middle !important; }
   header .eyebrow{
     letter-spacing:.35em;
-    font-size:11px;
+    font-size:calc(11px + var(--fs-bump));
     color:var(--red);
     text-transform:uppercase;
     }
-  header h1{ font-weight:400; font-size:30px; letter-spacing:.06em; margin:16px 0 8px; }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
   .book-intro{
     max-width:56ch; margin:16px auto 0; color:var(--dim);
-    font-family:Helvetica,Arial,sans-serif; font-size:11.5px; line-height:1.7;
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
   }
 
   .book-bar{
@@ -99,13 +101,13 @@
   .app-lang-row{ display:none; }
   .app-lang-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:5px 11px;
+    font-size:calc(10px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:5px 11px;
     cursor:pointer; transition:border-color .12s ease, color .12s ease;
   }
   .app-lang-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .app-lang-btn.active{ border-color:var(--red); color:var(--red); }  .book-bar .read-btn{
     border:1px solid var(--red); background:transparent; color:var(--red);
-    font-size:11px; letter-spacing:.1em; text-transform:uppercase; padding:9px 18px;
+    font-size:calc(11px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; padding:9px 18px;
     cursor:pointer; text-decoration:none; transition:background .15s ease, color .15s ease;
   }
   .book-bar .read-btn:hover{ background:var(--red); color:#000; }
@@ -113,7 +115,7 @@
   .book-bar .flag-btn{
     border:1px solid var(--line); background:transparent; border-radius:3px;
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
-    font-size:14px; cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
     transition:opacity .12s ease, border-color .12s ease;
   }
   .book-bar .flag-btn.ready{ opacity:1; filter:none; }
@@ -121,14 +123,14 @@
   .book-bar .flag-btn:not(.ready){ cursor:default; }
   .book-bar .dl-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .book-bar .dl-group{
     display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
   }
-  .book-bar .dl-label{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
   .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
 
@@ -140,13 +142,13 @@
   .grid-head{
     display:flex; justify-content:space-between; align-items:center;
     margin-bottom:12px; }
-  .grid-head .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
-  .axis-note{ font-size:9.5px; color:var(--dim); line-height:1.5; margin-bottom:10px; text-align:center; }
+  .grid-head .label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
+  .axis-note{ font-size:calc(9.5px + var(--fs-bump)); color:var(--dim); line-height:1.5; margin-bottom:10px; text-align:center; }
   .axis-note b{ color:var(--red); font-weight:400; }
 
   .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
   .tirage-guide{
-    font-size:11px; line-height:1.65; color:var(--dim);
+    font-size:calc(11px + var(--fs-bump)); line-height:1.65; color:var(--dim);
     margin:16px 0 16px; font-family:Helvetica,Arial,sans-serif; text-align:center;
   }
   .tirage-guide p{ margin:0 0 10px; }
@@ -161,14 +163,14 @@
   .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
   .cell.changing{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
   .cell .num{
-    position:absolute; top:2px; left:3px; font-size:7px;
+    position:absolute; top:2px; left:3px; font-size:calc(7px + var(--fs-bump));
     color:var(--dim); }
   .cell svg{ width:70%; }
 
   .draw-btn{
     margin-top:14px; width:100%; background:transparent; border:1px solid var(--red);
     color:var(--red); letter-spacing:.1em;
-    text-transform:uppercase; font-size:11px; padding:11px; cursor:pointer;
+    text-transform:uppercase; font-size:calc(11px + var(--fs-bump)); padding:11px; cursor:pointer;
     transition:background .15s ease, color .15s ease;
   }
   .draw-btn:hover{ background:var(--red); color:#000; }
@@ -176,21 +178,21 @@
   .draw-btn.secondary:hover{ border-color:var(--dim); background:transparent; color:var(--white); }
 
   .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
-  .legend .label{ font-size:10px; letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:8px; display:block; }
+  .legend .label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:8px; display:block; }
   .legend-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
   .legend-item{ display:flex; align-items:center; gap:6px; }
   .legend-item svg{ width:26px; flex-shrink:0; }
-  .legend-item span{ font-size:9px; color:var(--dim); line-height:1.3; }
+  .legend-item span{ font-size:calc(9px + var(--fs-bump)); color:var(--dim); line-height:1.3; }
 
   .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
   .detail-below{ background:var(--panel); border:1px solid var(--line); padding:32px 36px; margin-top:28px; display:none; }
   .detail-below.visible{ display:block; }
 
-  .num-big{ font-size:12px; color:var(--red); letter-spacing:.2em; }
-  .detail h2{ font-weight:400; font-size:28px; margin:6px 0 2px; letter-spacing:.02em; }
-  .pinyin{ color:var(--dim); font-style:italic; font-size:13px; margin-bottom:6px; }
-  .altnum{ font-size:10px; color:var(--dim); margin-bottom:8px; }
-  .hex-more-link{ display:inline-block; font-size:10.5px; color:var(--gold); text-decoration:none; margin-bottom:20px; }
+  .num-big{ font-size:calc(12px + var(--fs-bump)); color:var(--red); letter-spacing:.2em; }
+  .detail h2{ font-weight:400; font-size:calc(28px + var(--fs-bump)); margin:6px 0 2px; letter-spacing:.02em; }
+  .pinyin{ color:var(--dim); font-style:italic; font-size:calc(13px + var(--fs-bump)); margin-bottom:6px; }
+  .altnum{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-bottom:8px; }
+  .hex-more-link{ display:inline-block; font-size:calc(10.5px + var(--fs-bump)); color:var(--gold); text-decoration:none; margin-bottom:20px; }
   .hex-more-link:hover{ text-decoration:underline; }
 
   .hex-block{ display:flex; gap:30px; align-items:flex-start; margin:18px 0 22px; flex-wrap:wrap; }
@@ -201,13 +203,13 @@
   .triad-labels{ display:flex; flex-direction:column-reverse; gap:9px; }
   .triad-row{ height:16px; display:flex; align-items:center; }
   .triad-tag{
-    font-size:8px; font-weight:400; letter-spacing:.12em; text-transform:uppercase;
+    font-size:calc(8px + var(--fs-bump)); font-weight:400; letter-spacing:.12em; text-transform:uppercase;
     color:var(--dim); opacity:0; transition:opacity .3s ease;
   }
   .triad-tag.shown{ opacity:1; }
 
   .square-wrap{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; padding-top:4px; }
-  .square-wrap .cap{ font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); max-width:150px; line-height:1.5; }
+  .square-wrap .cap{ font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); max-width:150px; line-height:1.5; }
   .pavage-sq{ width:130px; height:130px; border:1px solid var(--line); background:#050505; }
 
   .trigram-block{ display:flex; flex-direction:column; gap:10px; min-width:180px; }
@@ -220,10 +222,10 @@
   @media (max-width:1320px){ .trigram-caduceus-wrap{ display:none; } }
   .positions-guide{
     min-width:220px; max-width:280px; font-family:Georgia,'Times New Roman',serif;
-    font-size:11px; line-height:1.6; color:var(--dim); text-align:center;
+    font-size:calc(11px + var(--fs-bump)); line-height:1.6; color:var(--dim); text-align:center;
   }
   .positions-guide-title{
-    font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; color:var(--gold);
     margin:0 0 10px;
   }
   .positions-guide-item{ margin-bottom:9px; }
@@ -233,20 +235,20 @@
   .positions-guide-toggle{
     display:flex; align-items:center; justify-content:space-between; width:100%;
     background:transparent; border:none; color:var(--dim); cursor:pointer;
-    font-size:10px; letter-spacing:.14em; text-transform:uppercase; padding:0;
+    font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; padding:0;
     font-family:inherit;
   }
   .positions-guide-toggle:hover{ color:var(--gold); }
-  .positions-guide-toggle .chevron{ display:inline-block; transition:transform .2s ease; font-size:12px; }
+  .positions-guide-toggle .chevron{ display:inline-block; transition:transform .2s ease; font-size:calc(12px + var(--fs-bump)); }
   .positions-guide-toggle[aria-expanded="true"] .chevron{ transform:rotate(180deg); }
   .positions-guide-panel .positions-guide{ max-width:none; min-width:0; margin-top:12px; }
   .positions-guide-panel .positions-guide-title{ display:none; }
   .trigram-card{
     border:1px solid var(--line); padding:10px 12px; display:flex; align-items:center; gap:10px;
   }
-  .trigram-card .sym{ font-size:26px; color:var(--gold); line-height:1; }
-  .trigram-card .txt{ font-size:10px; color:var(--dim); line-height:1.5; }
-  .trigram-card .txt b{ color:var(--white); font-weight:400; font-size:11px; display:block; }
+  .trigram-card .sym{ font-size:calc(26px + var(--fs-bump)); color:var(--gold); line-height:1; }
+  .trigram-card .txt{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); line-height:1.5; }
+  .trigram-card .txt b{ color:var(--white); font-weight:400; font-size:calc(11px + var(--fs-bump)); display:block; }
   .trigram-card .txt .role{ color:var(--red); }
 
   .xref-row{
@@ -254,81 +256,97 @@
     }
   .xref-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:6px 10px;
+    font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:6px 10px;
     cursor:pointer; transition:border-color .12s ease, color .12s ease;
   }
   .xref-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .xref-btn .n{ color:var(--red); margin-right:4px; }
 
   .keyword{
-    font-size:11px; letter-spacing:.15em;
+    font-size:calc(11px + var(--fs-bump)); letter-spacing:.15em;
     text-transform:uppercase; color:var(--red); margin:0 0 8px; text-align:center;
   }
   .keyword-sub{
-    font-size:16px; font-style:italic; color:var(--red);
+    font-size:calc(16px + var(--fs-bump)); font-style:italic; color:var(--red);
     margin:-4px 0 8px; text-align:center;
   }
-  .judgement{ font-size:13.5px; line-height:1.65; color:var(--white); max-width:62ch; margin:0 auto; text-align:center; }
+  .judgement{ font-size:calc(13.5px + var(--fs-bump)); line-height:1.65; color:var(--white); max-width:62ch; margin:0 auto; text-align:center; }
 
   .trait-notes{ margin-top:24px; text-align:center; }
   .trait-note{
     border-left:none; border-top:2px solid var(--gold); padding:10px 0 0; margin:0 auto 16px; max-width:52ch;
     }
-  .trait-note .lbl{ font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
-  .trait-note .txt{ font-size:12px; color:var(--dim); line-height:1.6; font-style:italic; }
+  .trait-note .lbl{ font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.12em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
+  .trait-note .txt{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); line-height:1.6; font-style:italic; }
 
   .mutation{ margin-top:32px; padding-top:26px; border-top:1px solid var(--line); }
   .mutation-head{
-    display:flex; align-items:center; justify-content:center; gap:14px; font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
+    display:flex; align-items:center; justify-content:center; gap:14px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:16px;
   }
-  .mutation-head .arrow{ color:var(--dim); font-size:14px; }
-  .moving-lines{ font-size:11px; color:var(--dim); margin-bottom:16px; text-align:center; }
+  .mutation-head .arrow{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); }
+  .moving-lines{ font-size:calc(11px + var(--fs-bump)); color:var(--dim); margin-bottom:16px; text-align:center; }
   .moving-lines b{ color:var(--gold); font-weight:400; }
   .mutation-pair{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
   @media (max-width:640px){ .mutation-pair{ grid-template-columns:1fr; } }
-  .mutation-col .num-big{ font-size:10px; }
-  .mutation-col h3{ font-weight:400; font-size:17px; margin:4px 0 2px; }
-  .mutation-col .pinyin{ font-size:11.5px; margin-bottom:8px; }
+  .mutation-col .num-big{ font-size:calc(10px + var(--fs-bump)); }
+  .mutation-col h3{ font-weight:400; font-size:calc(17px + var(--fs-bump)); margin:4px 0 2px; }
+  .mutation-col .pinyin{ font-size:calc(11.5px + var(--fs-bump)); margin-bottom:8px; }
   .mutation-col .lines{ margin:10px 0; }
   .mutation-col .lines svg{ width:80px; height:12px; opacity:1; transform:none; }
   .mutation-col .pavage-sq{ width:100px; height:100px; }
-  .mutation-col .judgement{ font-size:12px; line-height:1.55; }
+  .mutation-col .judgement{ font-size:calc(12px + var(--fs-bump)); line-height:1.55; }
 
   .share-row{
     margin-top:18px; display:flex; align-items:center; gap:8px;
-    font-size:10px; color:var(--dim);
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
   }
   .share-row input{
     flex:1; background:#050505; border:1px solid var(--line); color:var(--dim);
-    font-size:10px; padding:6px 8px;
+    font-size:calc(10px + var(--fs-bump)); padding:6px 8px;
   }
   .share-row button{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; padding:6px 10px; cursor:pointer;
+    font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:6px 10px; cursor:pointer;
   }
   .share-row button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .empty-state{
     display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
     min-height:496px; gap:24px;
-    color:var(--dim); font-size:13px;
+    color:var(--dim); font-size:calc(13px + var(--fs-bump));
     text-align:center; line-height:1.7;
   }
   .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
   @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
   .note{
-    margin-top:40px; font-size:11px; color:var(--dim);
+    margin-top:40px; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
     text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
   }
+  /* Ordre visuel du pied de page, indépendant de l'ordre DOM — nécessaire
+     car share-widget.js s'insère lui-même juste avant .credit-line, quel
+     que soit ce qui se trouve déjà à cet endroit ; sans ce découplage, le
+     second gif-cercle (placé juste avant .credit-line dans le HTML) se
+     retrouverait entre le bloc de partage et .credit-line au lieu d'après. */
+  .note > .palette-picker{ order:0; }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
   .credit-line{
     margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
-    font-size:10px; color:var(--dim);
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
   }
   .credit-line .credit-sep{ opacity:.5; }
   .credit-line-secondary{
     margin-top:6px; display:flex; align-items:center; justify-content:center;
-    font-size:10px; color:var(--dim);
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
   }
   .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
   .credit-line-secondary a:hover{ color:var(--gold); }
@@ -337,27 +355,47 @@
     margin-top:6px; }
   .site-nav-btn{
     border:1px solid var(--line); background:transparent; color:var(--dim);
-    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  /* ---------- carrés de nav : option B — carré 72x72 à gauche, texte à
+     droite, à toutes les largeurs, jamais d'empilement plein-cadre. ---------- */
   .nav-tiles{
-    display:grid; grid-template-columns:repeat(auto-fill, minmax(92px, 1fr)); gap:10px;
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
     max-width:840px; margin:18px auto 0;
   }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
   .nav-tile{
-    display:flex; flex-direction:column; align-items:center; gap:6px;
-    padding:10px 6px 12px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
     transition:border-color .12s ease, color .12s ease;
   }
-  .nav-tile:hover{ border-color:var(--gold); color:var(--gold); }
-  .nav-tile img{ width:56px; height:56px; display:block; }
-  .nav-tile-label{ font-size:10px; letter-spacing:.05em; text-transform:uppercase; text-align:center; line-height:1.3; }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .palette-picker{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin:24px 0 4px; }
-  .palette-label{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  .palette-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
   .palette-swatches{ display:flex; align-items:center; gap:10px; }
   .palette-swatch{
     width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
@@ -380,24 +418,24 @@
 
   .mutation-hex-row{ display:flex; align-items:flex-start; justify-content:center; gap:22px; margin:4px 0 24px; flex-wrap:wrap; }
   .mutation-hex-row .flank-sq{ width:92px; height:92px; border:1px solid var(--line); background:#050505; flex-shrink:0; }
-  .mutation-hex-row .flank-cap{ font-size:8.5px; font-weight:400; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
+  .mutation-hex-row .flank-cap{ font-size:calc(8.5px + var(--fs-bump)); font-weight:400; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); text-align:center; margin-top:5px; max-width:92px; }
   .mutation-hex-row .flank-col{ display:flex; flex-direction:column; align-items:center; }
   .mutation-hex-row .trigram-block{ flex-shrink:0; min-width:170px; max-width:210px; padding-top:2px; }
   .mutation-hex-row .trigram-block .trigram-card{ padding:8px 10px; }
-  .mutation-hex-row .trigram-block .sym{ font-size:22px; }
-  .mutation-hex-row .trigram-block .txt{ font-size:9px; }
-  .mutation-hex-row .trigram-block .txt b{ font-size:10px; }
+  .mutation-hex-row .trigram-block .sym{ font-size:calc(22px + var(--fs-bump)); }
+  .mutation-hex-row .trigram-block .txt{ font-size:calc(9px + var(--fs-bump)); }
+  .mutation-hex-row .trigram-block .txt b{ font-size:calc(10px + var(--fs-bump)); }
   .mutation-hex-row .hex-mini{ text-align:center; max-width:150px; }
-  .mutation-hex-row .hex-mini .num-big{ font-size:10px; }
-  .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:16px; margin:4px 0 2px; color:var(--white); }
-  .mutation-hex-row .hex-mini .pinyin{ font-size:11px; margin:8px 0; color:var(--dim); }
+  .mutation-hex-row .hex-mini .num-big{ font-size:calc(10px + var(--fs-bump)); }
+  .mutation-hex-row .hex-mini h3{ font-weight:400; font-size:calc(16px + var(--fs-bump)); margin:4px 0 2px; color:var(--white); }
+  .mutation-hex-row .hex-mini .pinyin{ font-size:calc(11px + var(--fs-bump)); margin:8px 0; color:var(--dim); }
   .mutation-hex-row .hex-mini .lines{ margin:0 auto; align-items:center; }
   .mutation-hex-row .hex-mini .lines svg{ width:92px; height:13px; opacity:1; transform:none; }
-  .mutation-hex-row .arrow-mid{ color:var(--dim); font-size:22px; padding:0 2px; align-self:center; }
+  .mutation-hex-row .arrow-mid{ color:var(--dim); font-size:calc(22px + var(--fs-bump)); padding:0 2px; align-self:center; }
 
   .posterior-text{ max-height:0; overflow:hidden; transition:max-height .9s ease; }
   .posterior-text.open{ max-height:700px; }
-  .posterior-text .tag{ font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; text-align:center; }
+  .posterior-text .tag{ font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; text-align:center; }
 
   .side-band{
     position:fixed; top:0; bottom:0; width:150px; display:flex; align-items:center; justify-content:center;
@@ -417,7 +455,7 @@
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; }
     header{ margin-bottom:20px; padding-bottom:16px; }
-    header h1{ font-size:24px; }
+    header h1{ font-size:calc(24px + var(--fs-bump)); }
     .detail-outer, .detail-below{ padding:20px 18px; min-height:0; }
     .empty-state{ min-height:0; }
     .empty-state img.empty-caduceus{ display:none; }
@@ -430,21 +468,20 @@
     /* zones de touche plus confortables au doigt */
     .xref-btn{ padding:9px 12px; }
     .site-nav-btn{ padding:11px 16px; }
-    .nav-tiles{ grid-template-columns:repeat(auto-fill, minmax(76px, 1fr)); gap:8px; }
-    .nav-tile img{ width:48px; height:48px; }
+    .nav-tiles{ grid-template-columns:1fr; gap:8px; }
     .share-row button{ padding:9px 12px; }
     .book-bar .flag-btn{ width:36px; height:32px; }
     .book-bar .dl-btn{ padding:10px 14px; }
     .draw-btn{ padding:13px; }
   }
   @media (max-width:480px){
-    header h1{ font-size:20px; letter-spacing:.03em; }
-    header p{ font-size:14px; }
+    header h1{ font-size:calc(20px + var(--fs-bump)); letter-spacing:.03em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
     /* texte de lecture courant : lisible sans zoomer */
-    .judgement{ font-size:16px; }
-    .trait-note .txt{ font-size:14.5px; }
-    .pinyin{ font-size:15px; }
-    .empty-state{ font-size:14.5px; }
+    .judgement{ font-size:calc(16px + var(--fs-bump)); }
+    .trait-note .txt{ font-size:calc(14.5px + var(--fs-bump)); }
+    .pinyin{ font-size:calc(15px + var(--fs-bump)); }
+    .empty-state{ font-size:calc(14.5px + var(--fs-bump)); }
     .lines svg{ width:96px; }
     .mutation-col .lines svg{ width:68px; }
     .pavage-sq{ width:104px; height:104px; }
@@ -556,27 +593,35 @@
     <div class="center-logo-slot">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
     </div>
+
+    <div class="nav-tiles">
+      <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navWallpaper">Fond d'écran</span><span class="nav-tile-excerpt" id="txt-navWallpaperDesc">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/creation-motifs.png); --hover-icon:url(assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span><span class="nav-tile-excerpt" id="txt-navMotifDesc">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/encodeur.png); --hover-icon:url(assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navEncodeur">Encodeur</span><span class="nav-tile-excerpt" id="txt-navEncodeurDesc">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="impression.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/impression.png); --hover-icon:url(assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navPrint">Impression</span><span class="nav-tile-excerpt" id="txt-navPrintDesc">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/cymatique.png); --hover-icon:url(assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navCymatique">Cymatique</span><span class="nav-tile-excerpt" id="txt-navCymatiqueDesc">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+    </div>
+
     <div class="footer-caduceus">
       <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
     </div>
 
-    <div class="nav-tiles">
-      <a class="nav-tile" href="hexagrammes/"><img src="assets/nav-icons/hexagrammes.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span></a>
-      <a class="nav-tile" href="creation-motifs-yi-king.html"><img src="assets/nav-icons/creation-motifs.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span></a>
-      <a class="nav-tile" href="unified-patterns.html"><img src="assets/nav-icons/unified-patterns.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navUnified">Unified Patterns</span></a>
-      <a class="nav-tile" href="galerie-884-patterns-unifies.html"><img src="assets/nav-icons/galerie-884.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navGalerie">Galerie 884</span></a>
-      <a class="nav-tile" href="telechargements.html"><img src="assets/nav-icons/motifs-svg.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navMotifsSvg">Motifs SVG</span></a>
-      <a class="nav-tile" href="cymatique.html"><img src="assets/nav-icons/cymatique.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navCymatique">Cymatique</span></a>
-      <a class="nav-tile" href="fonds-ecran.html"><img src="assets/nav-icons/fond-ecran.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navWallpaper">Fond d'écran</span></a>
-      <a class="nav-tile" href="impression.html"><img src="assets/nav-icons/impression.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navPrint">Impression</span></a>
-      <a class="nav-tile" href="encodeur.html"><img src="assets/nav-icons/encodeur.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navEncodeur">Encodeur</span></a>
-      <a class="nav-tile" href="contact.html"><img src="assets/nav-icons/contact.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navContact">Contact</span></a>
-      <a class="nav-tile" href="a-propos.html"><img src="assets/nav-icons/a-propos.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navAbout">À propos</span></a>
-      <a class="nav-tile" href="lexique.html"><img src="assets/nav-icons/lexique.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navLexique">Lexique</span></a>
-      <a class="nav-tile" href="articles.html"><img src="assets/nav-icons/articles.png" alt="" width="128" height="128"><span class="nav-tile-label" id="txt-navArticles">Articles</span></a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/hexagrammes.png); --hover-icon:url(assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navHexagrammes">Hexagrammes</span><span class="nav-tile-excerpt" id="txt-navHexagrammesDesc">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+      <a class="nav-tile" href="unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/unified-patterns.png); --hover-icon:url(assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navUnified">Unified Patterns</span><span class="nav-tile-excerpt" id="txt-navUnifiedDesc">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+      <a class="nav-tile" href="galerie-884-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/galerie-884.png); --hover-icon:url(assets/nav-icons/galerie-884-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navGalerie">Galerie 884</span><span class="nav-tile-excerpt" id="txt-navGalerieDesc">884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/motifs-svg.png); --hover-icon:url(assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navMotifsSvg">Motifs SVG</span><span class="nav-tile-excerpt" id="txt-navMotifsSvgDesc">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="contact.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/contact.png); --hover-icon:url(assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navContact">Contact</span><span class="nav-tile-excerpt" id="txt-navContactDesc">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/a-propos.png); --hover-icon:url(assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navAbout">À propos</span><span class="nav-tile-excerpt" id="txt-navAboutDesc">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/lexique.png); --hover-icon:url(assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navLexique">Lexique</span><span class="nav-tile-excerpt" id="txt-navLexiqueDesc">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="articles.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/articles.png); --hover-icon:url(assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navArticles">Articles</span><span class="nav-tile-excerpt" id="txt-navArticlesDesc">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
     </div>
 
-      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
@@ -1147,6 +1192,19 @@ const UI = {
     chronoLabel:"ORDRE CHRONOLOGIQUE", kingWenLabel:"n° King Wen (traditionnel) : ", kingWenShort:"King Wen n°",
     hexMoreInfo:"En savoir plus sur cet hexagramme →",
     imageLabel:"Image", judgementLabel:"Jugement", navHexagrammes:"Hexagrammes", navMotif:"Créer un motif", navUnified:"Unified Patterns", navGalerie:"Galerie 884", navMotifsSvg:"Motifs SVG", navCymatique:"Cymatique", navWallpaper:"Fond d'écran", navPrint:"Impression", navEncodeur:"Encodeur", navContact:"Contact", navAbout:"À propos", navLexique:"Lexique", navArticles:"Articles",
+    navHexagrammesDesc:"Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.",
+    navMotifDesc:"Composez vos propres motifs textiles à partir des 60 natures du Yi King.",
+    navUnifiedDesc:"Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.",
+    navGalerieDesc:"884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.",
+    navMotifsSvgDesc:"Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.",
+    navCymatiqueDesc:"Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.",
+    navWallpaperDesc:"Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.",
+    navPrintDesc:"Tirez et téléchargez les calques d'impression, prêts à imprimer.",
+    navEncodeurDesc:"Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.",
+    navContactDesc:"Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.",
+    navAboutDesc:"L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.",
+    navLexiqueDesc:"Dix notions clés pour comprendre La Livrée d'Hermès.",
+    navArticlesDesc:"Réflexions et recherches autour de La Livrée d'Hermès.",
     superior:"Supérieur", inferior:"Inférieur",
     xrefBinome:"Binôme (retourné)", xrefOppose:"Opposé (inversé)",
     pavageFixed:"Pavage — traits fixes uniquement", pavageReprod:"Pavage — reproduit sous le départ",
@@ -1187,6 +1245,20 @@ const UI = {
     chronoLabel:"CHRONOLOGICAL ORDER", kingWenLabel:"King Wen no. (traditional): ", kingWenShort:"King Wen no. ",
     hexMoreInfo:"More about this hexagram →",
     imageLabel:"Image", judgementLabel:"Judgment", navHexagrammes:"Hexagrams", navMotif:"Create a motif", navUnified:"Unified Patterns", navGalerie:"Gallery 884", navMotifsSvg:"SVG Patterns", navCymatique:"Cymatics", navWallpaper:"Wallpaper", navPrint:"Printing", navEncodeur:"Encoder", navContact:"Contact", navAbout:"About", navLexique:"Glossary", navArticles:"Articles",
+    /* TODO Claude Code (draft, à valider) : traductions EN des descriptions de nav-tiles */
+    navHexagrammesDesc:"The 64 hexagrams of the Yi-King: judgment, trigrams and magic square for each.",
+    navMotifDesc:"Compose your own textile motifs from the 60 natures of the Yi King.",
+    navUnifiedDesc:"The 64 motifs of the hexagrams, customizable and downloadable in high resolution.",
+    navGalerieDesc:"884 unified patterns, generated by hue blending — select a motif to see its tiling.",
+    navMotifsSvgDesc:"Download the print layers in 4 categories of line combinations, in SVG format.",
+    navCymatiqueDesc:"The tiling whose spatial frequency comes closest to the sound you make.",
+    navWallpaperDesc:"Full-screen textile wallpapers, sound-reactive or in a meditative mode with adjustable pace.",
+    navPrintDesc:"Pull and download the print layers, ready to print.",
+    navEncodeurDesc:"Geometric steganographic encoding by double referent, ankh and Jacquard.",
+    navContactDesc:"Contact the author for a project or a commission of motifs and textile prints.",
+    navAboutDesc:"The author and his book, at the crossing of philosophy, mathematics and applied sciences.",
+    navLexiqueDesc:"Ten key notions for understanding The Livery of Hermes.",
+    navArticlesDesc:"Reflections and research around The Livery of Hermes.",
     superior:"Upper", inferior:"Lower",
     xrefBinome:"Binomial (flipped)", xrefOppose:"Opposite (inverted)",
     pavageFixed:"Tiling — fixed lines only", pavageReprod:"Tiling — reproduced below the starting hexagram",
@@ -1753,6 +1825,19 @@ function applyUILang(){
   document.getElementById('txt-navAbout').textContent = t('navAbout');
   document.getElementById('txt-navLexique').textContent = t('navLexique');
   document.getElementById('txt-navArticles').textContent = t('navArticles');
+  document.getElementById('txt-navHexagrammesDesc').textContent = t('navHexagrammesDesc');
+  document.getElementById('txt-navMotifDesc').textContent = t('navMotifDesc');
+  document.getElementById('txt-navUnifiedDesc').textContent = t('navUnifiedDesc');
+  document.getElementById('txt-navGalerieDesc').textContent = t('navGalerieDesc');
+  document.getElementById('txt-navMotifsSvgDesc').textContent = t('navMotifsSvgDesc');
+  document.getElementById('txt-navCymatiqueDesc').textContent = t('navCymatiqueDesc');
+  document.getElementById('txt-navWallpaperDesc').textContent = t('navWallpaperDesc');
+  document.getElementById('txt-navPrintDesc').textContent = t('navPrintDesc');
+  document.getElementById('txt-navEncodeurDesc').textContent = t('navEncodeurDesc');
+  document.getElementById('txt-navContactDesc').textContent = t('navContactDesc');
+  document.getElementById('txt-navAboutDesc').textContent = t('navAboutDesc');
+  document.getElementById('txt-navLexiqueDesc').textContent = t('navLexiqueDesc');
+  document.getElementById('txt-navArticlesDesc').textContent = t('navArticlesDesc');
   document.getElementById('txt-grid').textContent = t('grid');
   document.getElementById('txt-axisNote').innerHTML = t('axisNote');
   document.getElementById('drawBtn').textContent = t('drawBtn');
