@@ -3,21 +3,21 @@
  * Python (stegano/crypto_core.py, carter.py, carter_random.py).
  * La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
  *
- * Port JS v3 — Étape 2.1 (première tranche de la couche format, après les
- * primitives 1.1-1.6). Couvre ce que crypto_core.py appelle « couche
- * cryptographique pure » : HChaCha20/XChaCha20-Poly1305 (déjà portés,
- * réutilisés ici tels quels — aucune réimplémentation), HKDF-SHA256 et
- * HMAC-SHA256 via crypto.subtle (RFC-conformants par construction, voir
- * js/test_hkdf.mjs), key commitment, PayloadToSymbols/SymbolsToPayload en
- * base-44 (Définition 3.6, BigInt — Python utilise des entiers arbitraires,
- * un Number JS perdrait la précision dès quelques centaines de bits), et
- * la dérivation de masques de position.
+ * Port JS v3 — Étape 2.1 (couche crypto_core.py-équivalente : HKDF/HMAC,
+ * commit, encrypt/decrypt, PayloadToSymbols/SymbolsToPayload en base-44
+ * BigInt, derive_masks/random_grid) + Étape 2.2 (Carter-256 SEUL : sweep.py
+ * porté, grammaire/positions/encode/decode contre referent_256_v3.json).
  *
- * NE couvre PAS encore : grammar()/encode()/decode() des 8 instanciations
- * (carter256/360/mix/random/random360/18/hybrid/classic/deniable) — cette
- * couche dépend du format des référents (data/referent_256_v3.json,
- * referent_360_v3.json) et de sweep.py/stegano_classic.py, pas encore lus
- * avec la même rigueur que crypto_core.py. Prochaine étape.
+ * Carter-256 validé étape par étape contre vectors/carter_v3.json::
+ * carter256-basic-01 (rôles, formes, sens de lecture, positions, masques,
+ * symboles, PUIS grille entière bit à bit, PUIS décodage) — voir
+ * js/test/carter256.test.mjs.
+ *
+ * NE couvre PAS encore les 7 autres instanciations (carter360/mix/random/
+ * random360/18/hybrid/classic/deniable) — Carter-Random est la prochaine
+ * étape (même construction, référent différent), demandée explicitement
+ * avant les six restantes, chacune dans sa propre passe contre son propre
+ * vecteur.
  *
  * Toutes les fonctions HKDF/HMAC sont asynchrones (crypto.subtle) —
  * différence structurelle avec le Python synchrone : toute fonction qui en
@@ -436,4 +436,196 @@ export function random_grid(rows, cols, _noiseSeed = null) {
 export async function derive_masks(grammarKey, n, domain) {
   const maskKey = await hkdf_sha256(grammarKey, LABELS.mask_seed.salt, domain, 32);
   return rejectSample(len => chacha20Keystream(maskKey, 0, new Uint8Array(12), len), n);
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// sweep.py — Ordre de lecture par balayage (règle de lecture v3), porté
+// tel quel. 8 balayages (4 coins × 2 axes), dérivés de la clé, UN par
+// couleur, fixé pour toute la grammaire (jamais retiré par bloc).
+// ═══════════════════════════════════════════════════════════════════════
+const SWEEP_CORNERS = ['TL', 'TR', 'BL', 'BR'];
+const SWEEP_AXES = ['H', 'V'];
+const SWEEPS = [];
+for (const corner of SWEEP_CORNERS) for (const axis of SWEEP_AXES) SWEEPS.push([corner, axis]);
+const N_SWEEPS = SWEEPS.length; // 8 ; 256 % 8 == 0, aucun biais modulo
+
+/** derive_sweep_index(key, color) -> 0..7, 1 octet HKDF-SHA256 mod 8. */
+export async function derive_sweep_index(key, color) {
+  const b = await hkdf_sha256(key, LABELS.sweep.salt, utf8(color), 1);
+  return b[0] % N_SWEEPS;
+}
+
+/** sort_by_sweep(positions, sweepIndex, gridSize) — positions : [[row,col],...] LOCALES. */
+function sortBySweep(positions, sweepIndex, gridSize) {
+  const [corner, axis] = SWEEPS[sweepIndex];
+  function adjusted([r, c]) {
+    const ar = corner[0] === 'T' ? r : (gridSize - 1 - r);
+    const ac = corner[1] === 'L' ? c : (gridSize - 1 - c);
+    return axis === 'H' ? [ar, ac] : [ac, ar];
+  }
+  return positions
+    .map(p => [p, adjusted(p)])
+    .sort((a, b) => (a[1][0] - b[1][0]) || (a[1][1] - b[1][1]))
+    .map(pair => pair[0]);
+}
+
+/**
+ * crypto_reading_order(cellsByNiveauAndColor, colorOrder, gridSize, sweepOfColor)
+ * -> [[row,col], ...] à plat, dans l'ordre de lecture (niveaux croissants,
+ * puis colorOrder, chaque couleur triée par son balayage).
+ */
+function cryptoReadingOrder(cellsByNiveauAndColor, colorOrder, gridSize, sweepOfColor) {
+  const order = [];
+  const niveaus = Object.keys(cellsByNiveauAndColor).map(Number).sort((a, b) => a - b);
+  for (const niveau of niveaus) {
+    const byColor = cellsByNiveauAndColor[niveau];
+    for (const color of colorOrder) {
+      const positions = byColor[color];
+      if (!positions || !positions.length) continue;
+      order.push(...sortBySweep(positions, sweepOfColor[color], gridSize));
+    }
+  }
+  return order;
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// carter.py — Carter-256 SEUL (référent 256, grille 90×90). Les 7 autres
+// instanciations (360/mix/random/random360/18/hybrid/classic/deniable)
+// viendront dans des passes séparées, chacune contre son propre vecteur.
+// ═══════════════════════════════════════════════════════════════════════
+const CARTER_GRID = 90;
+const CARTER_BLOCK = 6;
+const CARTER_SIDE = CARTER_GRID / CARTER_BLOCK; // 15 blocs par côté
+const CARTER_N = CARTER_SIDE * CARTER_SIDE;     // 225 blocs
+const ROLE_PURE = 0, ROLE_STRUCTURED = 1, ROLE_MESSAGE = 2;
+
+/** carter256_split(masterKey) -> {xchacha_key, grammar_key}. */
+export async function carter256_split(masterKey) {
+  const L = LABELS.carter256;
+  const xchacha_key = await hkdf_sha256(masterKey, L.split_salt, L.encrypt_info, 32);
+  const grammar_key = await hkdf_sha256(masterKey, L.split_salt, L.grammar_info, 32);
+  return { xchacha_key, grammar_key };
+}
+
+/**
+ * carter256_grammar(gkCtr, ref256) -> {blocks, sweep_of_color}. `gkCtr` :
+ * la clé post-redraw (grammar_key_ctr) — malgré le nom du paramètre Python
+ * correspondant (`master_key`, trompeur : _carter_grammar est en réalité
+ * TOUJOURS appelée avec gk_ctr, jamais la vraie clé maître — voir le site
+ * d'appel dans _find_grammar_with_c_pub).
+ */
+export async function carter256_grammar(gkCtr, ref256) {
+  const L = LABELS.carter256;
+  const km = await hkdf_sha256(gkCtr, L.grammar_content_salt, L.grammar_content_info, CARTER_N * 2);
+  const blocks = [];
+  for (let i = 0; i < CARTER_N; i++) {
+    const rb = km[i * 2], fb = km[i * 2 + 1];
+    const role = rb < 85 ? ROLE_PURE : (rb < 170 ? ROLE_STRUCTURED : ROLE_MESSAGE);
+    blocks.push({ role, form_id: fb }); // 256 formes exactement, fb tel quel
+  }
+  const sweep_of_color = {};
+  for (const c of ref256.stegano_colors) sweep_of_color[c] = await derive_sweep_index(gkCtr, c);
+  return { blocks, sweep_of_color };
+}
+
+/** carter256_positions(br, bc, g, ref256, sweepOfColor) -> [[gr,gc], ...] positions globales du bloc. */
+export function carter256_positions(br, bc, g, ref256, sweepOfColor) {
+  const form = ref256.forms[g.form_id];
+  const steganoColors = ref256.stegano_colors;
+  const gridSize = ref256.grid_size;
+  const cellsByNiveau = { 0: {} };
+  for (const c of steganoColors) cellsByNiveau[0][c] = form[c + '_positions'];
+  const localOrder = cryptoReadingOrder(cellsByNiveau, steganoColors, gridSize, sweepOfColor);
+  const r0 = br * CARTER_BLOCK, c0 = bc * CARTER_BLOCK;
+  const out = [];
+  for (const [r, c] of localOrder) {
+    const gr = r0 + r, gc = c0 + c;
+    if (gr >= 0 && gr < CARTER_GRID && gc >= 0 && gc < CARTER_GRID) out.push([gr, gc]);
+  }
+  return out;
+}
+
+function carter256MessagePositions(grammar, ref256) {
+  const sweepOfColor = grammar.sweep_of_color;
+  let total = 0;
+  grammar.blocks.forEach((g, i) => {
+    if (g.role !== ROLE_MESSAGE) return;
+    total += carter256_positions(Math.floor(i / CARTER_SIDE), i % CARTER_SIDE, g, ref256, sweepOfColor).length;
+  });
+  return total;
+}
+
+/**
+ * find_grammar_with_c_pub(grammarKey, variant, grammarFn, messagePositionsFn)
+ * -> {gkCtr, grammar, nPos}. Recherche déterministe : essaie ctr=0..MAX_REDRAWS-1
+ * jusqu'à ce que max_message_for(nPos) >= C_PUB[variant]. Jamais de grille
+ * construite, même partielle, en cas d'échec.
+ */
+async function findGrammarWithCPub(grammarKey, variant, grammarFn, messagePositionsFn) {
+  for (let ctr = 0; ctr < MAX_REDRAWS; ctr++) {
+    const gkCtr = await redraw_grammar_key(grammarKey, variant, ctr);
+    const grammar = await grammarFn(gkCtr);
+    const nPos = messagePositionsFn(grammar);
+    if (max_message_for(nPos) >= C_PUB[variant]) return { gkCtr, grammar, nPos };
+  }
+  throw new Error(
+    `Échec de dérivation de grammaire après ${MAX_REDRAWS} tentatives : régénérer la clé maître ` +
+    `(capacité cible C_PUB=${C_PUB[variant]} octets non atteinte).`);
+}
+
+/**
+ * encode_carter(message, masterKey, ref256, opts) -> grille 90×90.
+ * opts : {_nonce, _y, _leftover, _noiseSeed} — injection pour le mode
+ * vecteurs, None/absent préserve le comportement aléatoire normal.
+ */
+export async function encode_carter(message, masterKey, ref256, opts = {}) {
+  const { _nonce = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
+  const { xchacha_key, grammar_key } = await carter256_split(masterKey);
+  const msgBytes = utf8(message).length;
+  if (msgBytes > C_PUB.carter256) {
+    throw new Error(`Message trop long : ${msgBytes} > C_PUB=${C_PUB.carter256} octets ` +
+      `(capacité publique garantie, indépendante de la clé).`);
+  }
+  const { gkCtr, grammar, nPos } = await findGrammarWithCPub(grammar_key, 'carter256',
+    gk => carter256_grammar(gk, ref256),
+    g => carter256MessagePositions(g, ref256));
+  const payload = await encrypt(message, xchacha_key, nPos, _nonce);
+  const symbols = payload_to_symbols(payload, nPos, { _y, _leftover });
+  const masks = await derive_masks(gkCtr, symbols.length, LABELS.mask_seed.info_carter256);
+  const grid = random_grid(CARTER_GRID, CARTER_GRID, _noiseSeed);
+  const sweepOfColor = grammar.sweep_of_color;
+  let ni = 0;
+  for (let i = 0; i < grammar.blocks.length; i++) {
+    const g = grammar.blocks[i];
+    if (g.role !== ROLE_MESSAGE) continue;
+    const br = Math.floor(i / CARTER_SIDE), bc = i % CARTER_SIDE;
+    for (const [gr, gc] of carter256_positions(br, bc, g, ref256, sweepOfColor)) {
+      if (ni >= symbols.length) break;
+      grid[gr][gc] = (symbols[ni] + masks[ni]) % ALPHA_LEN;
+      ni++;
+    }
+  }
+  return grid;
+}
+
+/** decode_carter(grid, masterKey, ref256) -> message. Lève si clé/données invalides. */
+export async function decode_carter(grid, masterKey, ref256) {
+  const { xchacha_key, grammar_key } = await carter256_split(masterKey);
+  const { gkCtr, grammar, nPos } = await findGrammarWithCPub(grammar_key, 'carter256',
+    gk => carter256_grammar(gk, ref256),
+    g => carter256MessagePositions(g, ref256));
+  const masks = await derive_masks(gkCtr, nPos, LABELS.mask_seed.info_carter256);
+  const sweepOfColor = grammar.sweep_of_color;
+  const vals = [];
+  for (let i = 0; i < grammar.blocks.length; i++) {
+    const g = grammar.blocks[i];
+    if (g.role !== ROLE_MESSAGE) continue;
+    const br = Math.floor(i / CARTER_SIDE), bc = i % CARTER_SIDE;
+    for (const [gr, gc] of carter256_positions(br, bc, g, ref256, sweepOfColor)) {
+      // Modulo Python-compatible : (a - b) peut être négatif, le % JS garde
+      // le signe du dividende (contrairement à Python) — d'où +ALPHA_LEN.
+      vals.push(((grid[gr][gc] - masks[vals.length]) % ALPHA_LEN + ALPHA_LEN) % ALPHA_LEN);
+    }
+  }
+  return decrypt(vals, xchacha_key, vals.length);
 }
