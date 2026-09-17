@@ -24,7 +24,7 @@
    le seul à rester lisible à 380px. Suppose --line déjà déclarée. */
 .atalanta-block{ position:relative; z-index:1; }
 .atalanta-block .corner{ position:absolute; width:16px; height:16px; }
-.atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:var(--line); }
+.atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:#c9a15a; }
 .atalanta-block .corner::before{ width:16px; height:1px; }
 .atalanta-block .corner::after{ width:1px; height:16px; }
 .atalanta-block .corner.tl{ top:0; left:0; } .atalanta-block .corner.tl::before,.atalanta-block .corner.tl::after{ top:0; left:0; }
@@ -32,7 +32,7 @@
 .atalanta-block .corner.bl{ bottom:0; left:0; } .atalanta-block .corner.bl::before{ bottom:0; left:0; } .atalanta-block .corner.bl::after{ bottom:0; left:0; }
 .atalanta-block .corner.br{ bottom:0; right:0; } .atalanta-block .corner.br::before{ bottom:0; right:0; } .atalanta-block .corner.br::after{ bottom:0; right:0; }
 .atalanta-block .corner2{ position:absolute; width:23px; height:23px; }
-.atalanta-block .corner2::before, .atalanta-block .corner2::after{ content:""; position:absolute; background:var(--line); opacity:.6; }
+.atalanta-block .corner2::before, .atalanta-block .corner2::after{ content:""; position:absolute; background:#c9a15a; opacity:.6; }
 .atalanta-block .corner2::before{ width:23px; height:1px; }
 .atalanta-block .corner2::after{ width:1px; height:23px; }
 .atalanta-block .corner2.tl2{ top:6px; left:6px; } .atalanta-block .corner2.tl2::before,.atalanta-block .corner2.tl2::after{ top:0; left:0; }
