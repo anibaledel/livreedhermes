@@ -23,23 +23,39 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Book",
-  "name": "La Livrée d'Hermès",
-  "subtitle": "Traité d'arithmogéométrie",
-  "numberOfPages": 111,
-  "author": {
-    "@type": "Person",
-    "name": "Anibal Edelberto Amiot",
-    "sameAs": [
-      "https://www.wikidata.org/wiki/Q141191562",
-      "https://github.com/anibaledel/livreedhermes",
-      "https://orcid.org/0009-0002-6414-9448"
-    ]
-  },
-  "description": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
-  "url": "https://anibal-amiot.com",
-  "inLanguage": ["fr", "en"],
-  "genre": ["Mathematics", "Philosophy", "Textile Arts"]
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://github.com/anibaledel/livreedhermes",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "subtitle": "Traité d'arithmogéométrie",
+      "numberOfPages": 111,
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722486" },
+      "sameAs": "https://zenodo.org/records/22722486",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+      "description": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+      "url": "https://anibal-amiot.com",
+      "inLanguage": ["fr", "en"],
+      "genre": ["Mathematics", "Philosophy", "Textile Arts"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    }
+  ]
 }
 </script>
 <style>
