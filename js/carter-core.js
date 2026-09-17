@@ -913,3 +913,154 @@ export async function decode_carter_random(grid, masterKey, opts = {}) {
   }
   return decrypt(vals, xchacha_key, vals.length);
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// secu_box.py — déni plausible (Den.Encode/Encode0/Decode). Réutilise
+// carter256_split (même fonction que Carter-256/Random — c'est elle qui
+// est nommée _carter_split côté Python), select_referent_index et
+// get_referent6x6 (référents 6×6 de referent6x6_gen.py, comme
+// Carter-Random). Diffère de tous les autres modes sur deux points :
+//   - « mode crypto » : les 36 cases d'un bloc portent toutes de
+//     l'information (pas seulement les 12 cases stéganographiques de
+//     Carter-Random), sur les 4 couleurs du référent dans l'ordre
+//     déclaré par referent6x6_gen.CRYPTO_COLOR_ORDER.
+//   - le chiffrement utilise sk (rsk ou dsk) directement comme clé
+//     XChaCha20-Poly1305 — pas de moitié xchacha_key issue du split ;
+//     carter256_split n'est appelée que pour sa grammar_key (positions,
+//     formes, masques). Voir secu_box._place_deniable/_read_deniable.
+// L'ensemble des blocs (π, puis Br/Bd) est indépendant de toute clé —
+// tiré par CSPRNG (pas par HKDF) — et peut être injecté (_pi) pour le
+// mode vecteurs. Vérifié contre vectors/carter_v3.json::deniable-basic-01.
+// ═══════════════════════════════════════════════════════════════════════
+const DENIABLE_COLOR_ORDER = ['blue', 'orange', 'green', 'yellow'];
+
+function csprngRandBelow(n) {
+  if (!(n > 0)) throw new Error(`csprngRandBelow : n doit être positif (reçu ${n}).`);
+  const bytesNeeded = Math.max(1, Math.ceil(Math.log2(n) / 8));
+  const limit = Math.pow(256, bytesNeeded);
+  const usable = limit - (limit % n);
+  for (;;) {
+    const buf = crypto.getRandomValues(new Uint8Array(bytesNeeded));
+    let val = 0;
+    for (const b of buf) val = val * 256 + b;
+    if (val < usable) return val % n;
+  }
+}
+
+function fisherYatesCSPRNG(n) {
+  const order = Array.from({ length: n }, (_, i) => i);
+  for (let i = n - 1; i > 0; i--) {
+    const j = csprngRandBelow(i + 1);
+    const tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+  }
+  return order;
+}
+
+function splitBrBd(pi) {
+  const n = pi.length;
+  const half = Math.floor(n / 2);
+  const Br = pi.slice(0, half);
+  const Bd = (n % 2) ? pi.slice(half + 1) : pi.slice(half);
+  return { Br, Bd };
+}
+
+function validatePermutation(pi, nBlocks) {
+  const sorted = [...pi].sort((a, b) => a - b);
+  for (let i = 0; i < nBlocks; i++) {
+    if (sorted[i] !== i) throw new Error(`_pi doit être une permutation de range(${nBlocks}).`);
+  }
+}
+
+function deniablePositionsForm(form, sweepOfColor) {
+  const cellsByNiveau = { 0: {} };
+  for (const c of DENIABLE_COLOR_ORDER) cellsByNiveau[0][c] = form[c];
+  return cryptoReadingOrder(cellsByNiveau, DENIABLE_COLOR_ORDER, R6_GRID_SIZE, sweepOfColor);
+}
+
+async function deniableFormIds(grammarKey, nBlocks) {
+  const bytes = await hkdf_sha256(grammarKey, LABELS.deniable.form_salt, LABELS.deniable.form_info, nBlocks);
+  return Array.from(bytes);
+}
+
+async function deniablePositions(blockIndices, sk, N, B) {
+  const { grammar_key } = await carter256_split(sk);
+  const refIdx = await select_referent_index(grammar_key);
+  const ref = await get_referent6x6(refIdx);
+  const sweepOfColor = {};
+  for (const c of DENIABLE_COLOR_ORDER) sweepOfColor[c] = await derive_sweep_index(grammar_key, c);
+  const formIds = await deniableFormIds(grammar_key, blockIndices.length);
+  const positions = [];
+  for (let blk = 0; blk < blockIndices.length; blk++) {
+    const idx = blockIndices[blk];
+    const br = Math.floor(idx / B), bc = idx % B;
+    const form = ref[formIds[blk]];
+    for (const [r, c] of deniablePositionsForm(form, sweepOfColor)) {
+      const gr = br * R6_GRID_SIZE + r, gc = bc * R6_GRID_SIZE + c;
+      if (gr >= 0 && gr < N && gc >= 0 && gc < N) positions.push([gr, gc]);
+    }
+  }
+  return positions;
+}
+
+async function placeDeniable(grid, N, B, blockIndices, message, sk, inject = {}) {
+  const { _nonce = null, _y = null, _leftover = null } = inject;
+  const L = blockIndices.length * (R6_GRID_SIZE * R6_GRID_SIZE);
+  const payload = await encrypt(message, sk, L, _nonce);
+  const symbols = payload_to_symbols(payload, L, { _y, _leftover });
+  const positions = await deniablePositions(blockIndices, sk, N, B);
+  const { grammar_key } = await carter256_split(sk);
+  const masks = await derive_masks(grammar_key, L, LABELS.mask_seed.info_deniable);
+  for (let ni = 0; ni < positions.length; ni++) {
+    if (ni >= symbols.length) break;
+    const [gr, gc] = positions[ni];
+    grid[gr][gc] = (symbols[ni] + masks[ni]) % ALPHA_LEN;
+  }
+}
+
+async function readDeniable(grid, N, B, blockIndices, sk) {
+  const { grammar_key } = await carter256_split(sk);
+  const L = blockIndices.length * (R6_GRID_SIZE * R6_GRID_SIZE);
+  const masks = await derive_masks(grammar_key, L, LABELS.mask_seed.info_deniable);
+  const positions = await deniablePositions(blockIndices, sk, N, B);
+  const vals = positions.map(([gr, gc], ni) => ((grid[gr][gc] - masks[ni]) % ALPHA_LEN + ALPHA_LEN) % ALPHA_LEN);
+  return decrypt(vals, sk, vals.length);
+}
+
+export async function encode_deniable(realMessage, duressMessage, opts = {}) {
+  const {
+    gridSize = 90, _rsk = null, _dsk = null, _pi = null, _noiseSeed = null,
+    _realInject = {}, _duressInject = {},
+  } = opts;
+  const N = gridSize, B = Math.floor(N / 6);
+  const nBlocks = B * B;
+  const grid = random_grid(N, N, _noiseSeed);
+  const rsk = _rsk || crypto.getRandomValues(new Uint8Array(32));
+  const dsk = _dsk || crypto.getRandomValues(new Uint8Array(32));
+  let pi;
+  if (_pi) { validatePermutation(_pi, nBlocks); pi = [..._pi]; }
+  else pi = fisherYatesCSPRNG(nBlocks);
+  const { Br, Bd } = splitBrBd(pi);
+  await placeDeniable(grid, N, B, Br, realMessage, rsk, _realInject);
+  await placeDeniable(grid, N, B, Bd, duressMessage, dsk, _duressInject);
+  return { grid, dk_r: { steg_key: rsk, blocks: Br }, dk_d: { steg_key: dsk, blocks: Bd } };
+}
+
+export async function encode_deniable0(duressMessage, opts = {}) {
+  const { gridSize = 90, _dsk = null, _pi = null, _noiseSeed = null, _duressInject = {} } = opts;
+  const N = gridSize, B = Math.floor(N / 6);
+  const nBlocks = B * B;
+  const grid = random_grid(N, N, _noiseSeed);
+  const dsk = _dsk || crypto.getRandomValues(new Uint8Array(32));
+  let pi;
+  if (_pi) { validatePermutation(_pi, nBlocks); pi = [..._pi]; }
+  else pi = fisherYatesCSPRNG(nBlocks);
+  const { Bd } = splitBrBd(pi);
+  await placeDeniable(grid, N, B, Bd, duressMessage, dsk, _duressInject);
+  return { grid, dk_d: { steg_key: dsk, blocks: Bd } };
+}
+
+export async function decode_deniable(grid, keys, opts = {}) {
+  const { gridSize = 90 } = opts;
+  const N = gridSize, B = Math.floor(N / 6);
+  return readDeniable(grid, N, B, keys.blocks, keys.steg_key);
+}
