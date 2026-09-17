@@ -163,8 +163,9 @@ for(let chrono = 0; chrono < 64; chrono++){
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
-    { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(`Hexagramme ${chrono} — ${nameFr}`)}, "item": "${url}" }
+    { "@type": "ListItem", "position": 2, "name": "Le traité", "item": "https://anibal-amiot.com/la-livree-d-hermes.html" },
+    { "@type": "ListItem", "position": 3, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
+    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(`Hexagramme ${chrono} — ${nameFr}`)}, "item": "${url}" }
   ]
 }
 </script>
@@ -434,7 +435,8 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Hexagrammes", "item": "${listingUrl}" }
+    { "@type": "ListItem", "position": 2, "name": "Le traité", "item": "https://anibal-amiot.com/la-livree-d-hermes.html" },
+    { "@type": "ListItem", "position": 3, "name": "Hexagrammes", "item": "${listingUrl}" }
   ]
 }
 </script>
