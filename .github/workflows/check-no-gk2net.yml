@@ -1,0 +1,27 @@
+name: No gk2.net
+
+# Garde-fou indépendant du générateur : la mention "gk2.net" (ancien
+# hébergeur, retirée du site par la PR #37 le 2026-09-16) a déjà manqué
+# revenir deux fois via scripts/generate-hexagram-pages.js — mais ce
+# workflow couvre aussi toute autre source (édition manuelle, copier-coller
+# depuis un document obsolète, etc.). Échoue si la mention apparaît ailleurs
+# que dans les fichiers d'infrastructure qui la nomment légitimement (voir
+# ALLOWLIST dans scripts/check-no-gk2net.js).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/check-no-gk2net.js

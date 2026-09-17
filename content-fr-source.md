@@ -98,7 +98,6 @@ commentaires de traits — n'est pas reprise ici : elle vit dans `index.html`
 ### Bloc copyright
 - « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
 - « Créé en collaboration avec Claude »
-- « Hébergé par https://gk2.net – l'internet des créatifs »
 
 ---
 
@@ -168,7 +167,6 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 ### Bloc copyright
 - « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
 - « Créé en collaboration avec Claude »
-- « Hébergé par https://gk2.net – l'internet des créatifs »
 
 ---
 
@@ -206,7 +204,6 @@ aujourd'hui un fichier HTML autonome.
 ### Pied de page du site
 - « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
 - « Créé en collaboration avec Claude »
-- « Hébergé par https://gk2.net – l'internet des créatifs »
 
 ### Barre du livre
 Présente sur `impression.html`, `fonds-ecran.html`,
