@@ -13,6 +13,7 @@ const ALLOWLIST = new Set([
   'worker/README.md',             // décrit l'hébergeur réel du site statique
   'scripts/check-no-gk2net.js',           // ce fichier — la chaîne y figure par nécessité
   'scripts/generate-hexagram-pages.js',   // appelle ce garde-fou, en parle dans ses messages
+  '.github/workflows/check-no-gk2net.yml', // décrit ce que ce workflow surveille
 ]);
 
 let output = '';

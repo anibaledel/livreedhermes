@@ -19,6 +19,7 @@
   :root{
     --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
     --red:#e0261b; --gold:#c9a15a; --line:#242424;
+    --fs-bump:2px;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -67,6 +68,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
 </head>
 <body>
 <div class="wrap">
@@ -75,6 +77,9 @@
   </header>
 
   <div class="pro-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Soutenir</span>
+    </nav>
     <h1 class="pro-title">Soutenir</h1>
     <p class="pro-intro">Ce site et son contenu sont entièrement gratuits, et le resteront. Aucun palier, aucune souscription : si le travail vous est utile, vous pouvez le soutenir à prix libre — c'est vous qui fixez le montant.</p>
 

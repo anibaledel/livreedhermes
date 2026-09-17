@@ -40,6 +40,7 @@
   :root{
     --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
     --red:#e0261b; --gold:#c9a15a; --line:#242424;
+    --fs-bump:2px;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -106,6 +107,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://anibal-amiot.com/assets/fonts.css">
+<link rel="stylesheet" href="https://anibal-amiot.com/assets/breadcrumb.css">
 </head>
 <body>
 <div class="wrap">
@@ -114,6 +116,9 @@
   </header>
 
   <div class="book-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">La Livrée d'Hermès</a><span class="sep">/</span><span aria-current="page">Édition française</span>
+    </nav>
     <h1 class="book-title">La Livrée d'Hermès</h1>
     <p class="book-intro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard — un précis d'arithmogéométrie qui conduit le lecteur du carré magique jusqu'au métier à tisser.</p>
 

@@ -1,0 +1,7 @@
+/* Fil d'Ariane — commun à toutes les pages qui en portent un. Suppose
+   --dim, --gold et --fs-bump déjà déclarées dans le :root de la page. */
+.breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+.breadcrumb a{ color:var(--dim); text-decoration:none; }
+.breadcrumb a:hover{ color:var(--gold); }
+.breadcrumb .sep{ margin:0 6px; opacity:.5; }
+.breadcrumb [aria-current]{ color:var(--gold); }
