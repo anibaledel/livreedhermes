@@ -270,9 +270,6 @@ Présente sur `impression.html`, `fonds-ecran.html`,
 - Liens : « profil documentaire complet », « fiche Wikidata d'Anibal Edelberto Amiot »
 - « Inventeur — brevets déposés : FR2865054 (procédé de composition automatisée d'un motif symbolique — précurseur direct de la méthode de La Livrée d'Hermès), FR2840678 (arme transformable pour arts martiaux). »
 
-### Bloc « Gérald Kerma — webmaster »
-- « Gérald Kerma, alias Gandalf, est fondateur de CyberMind et contributeur au noyau Linux, avec plus de trente-cinq ans d'expérience en cybersécurité et systèmes embarqués. Il assure le développement et la maintenance technique du site La Livrée d'Hermès. »
-
 ---
 
 ## Page : Galerie des 884 patterns unifiés (`galerie-884-patterns-unifies.html`)
