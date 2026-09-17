@@ -215,6 +215,10 @@ const NON_CYMATIQUE_ENTRIES = [
   // nettement différent de l'entrée qui a pris la famille en premier.
   { key: 'lexique',          familyKey: FAMILY_KEYS[0],  n: 32 },
   { key: 'articles',         familyKey: FAMILY_KEYS[1],  n: 32 },
+  // chantier catégories (2026-09) : deux nouvelles pages de sommaire,
+  // même logique de réutilisation, n=48 pour rester distinct de n=0 et n=32.
+  { key: 'outils',           familyKey: FAMILY_KEYS[2],  n: 48 },
+  { key: 'la-livree-d-hermes', familyKey: FAMILY_KEYS[3], n: 48 },
 ];
 
 // ---------- Cymatique : figée, moteur triangle d'origine (bicolore-render.js) ----------

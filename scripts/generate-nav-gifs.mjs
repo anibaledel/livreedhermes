@@ -223,6 +223,8 @@ const NON_CYMATIQUE_ENTRIES = [
   { key: 'a-propos',         familyKey: FAMILY_KEYS[11], n: 0 },
   { key: 'lexique',          familyKey: FAMILY_KEYS[0],  n: 32 },
   { key: 'articles',         familyKey: FAMILY_KEYS[1],  n: 32 },
+  { key: 'outils',           familyKey: FAMILY_KEYS[2],  n: 48 },
+  { key: 'la-livree-d-hermes', familyKey: FAMILY_KEYS[3], n: 48 },
 ];
 const referentBandes = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'referent_bandes_v1.json'), 'utf8'));
 const CYMATIQUE_GAMME_KEYS = ['yang pur yin pur', 'yang mut', 'yang', 'yin mut', 'yin', 'yang mut yin mut', 'yang pur', 'yang yin mut'];
