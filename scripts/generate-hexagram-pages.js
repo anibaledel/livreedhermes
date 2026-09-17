@@ -272,6 +272,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/atalanta-bg.css">
 </head>
 <body>
 <div class="wrap">
@@ -281,15 +282,21 @@ for(let chrono = 0; chrono < 64; chrono++){
   </header>
 
   <div class="article-body">
-    <nav class="breadcrumb" aria-label="Fil d'Ariane">
-      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
-    </nav>
+    <div class="atalanta-zone" style="--atalanta-plate:url(../assets/atalanta/plate-4-hexagrammes.avif);">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
+      </nav>
 
-    <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
+      <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
-    <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
-    <p class="article-sub">N° chronologique <b>${chrono}</b> (ordre par poids binaires) · n° King Wen (traditionnel) ${kwNum} · ${escapeHtml(hanzi || '')}</p>
-    <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${formatDateFr(DATE_MODIFIED)}</p>
+      <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
+      <p class="article-sub">N° chronologique <b>${chrono}</b> (ordre par poids binaires) · n° King Wen (traditionnel) ${kwNum} · ${escapeHtml(hanzi || '')}</p>
+      <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${formatDateFr(DATE_MODIFIED)}</p>
+    </div>
+    </div>
 
     <div class="article-content">
       <div class="hex-figure">
@@ -552,6 +559,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/atalanta-bg.css">
 </head>
 <body>
 <div class="wrap">
@@ -560,12 +568,18 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
     <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
-  <nav class="breadcrumb" aria-label="Fil d'Ariane">
-    <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><span aria-current="page">Hexagrammes</span>
-  </nav>
+  <div class="atalanta-zone" style="--atalanta-plate:url(../assets/atalanta/plate-4-hexagrammes.avif);">
+  <div class="atalanta-block" style="padding:28px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><span aria-current="page">Hexagrammes</span>
+    </nav>
 
-  <h1 class="page-title">Les 64 hexagrammes</h1>
-  <p class="page-sub">Chaque hexagramme du Yi-King, dans l'ordre chronologique (poids binaires) utilisé sur ce site, avec son jugement, ses trigrammes et le carré magique associé.</p>
+    <h1 class="page-title">Les 64 hexagrammes</h1>
+    <p class="page-sub">Chaque hexagramme du Yi-King, dans l'ordre chronologique (poids binaires) utilisé sur ce site, avec son jugement, ses trigrammes et le carré magique associé.</p>
+  </div>
+  </div>
 
   <div class="hex-grid">
 ${gridItems}
