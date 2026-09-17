@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motifs bicolores — La Livrée d'Hermès</title>
+<meta name="description" content="Composez une cellule 12×12 en superposant six calques bicolores, et voyez le pavage se former.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/bicolore.html">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+    --fs-bump:2px;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .panes{ display:flex; gap:24px; flex-wrap:wrap; justify-content:center; margin-top:24px; }
+  .pane{ border:1px solid var(--line); padding:18px; text-align:center; flex:1 1 320px; max-width:400px; }
+  .pane h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; }
+  .pane svg{ display:block; width:100%; height:auto; border:1px solid var(--line); }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Motifs bicolores</span>
+    </nav>
+    <h1>Motifs bicolores</h1>
+    <p>Famille YANG — les deux teintes, Yang et son inverse Yin.</p>
+  </header>
+
+  <div class="panes">
+    <div class="pane">
+      <h2>Yang</h2>
+      <div id="paneYang"></div>
+    </div>
+    <div class="pane">
+      <h2>Yin</h2>
+      <div id="paneYin"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
+
+const PALETTE = ['#0a0a0a', '#e0261b'];
+
+async function main() {
+  const res = await fetch('data/referent_bicolore_v1.json');
+  const data = await res.json();
+  const famille = data.familles.YANG;
+
+  const bitsYang = hexToBits(famille.yang);
+  const bitsYin = hexToBits(famille.yin);
+
+  document.getElementById('paneYang').innerHTML = maskToPavageSvg(bitsYang, PALETTE, 1, 1, { size: 360 });
+  document.getElementById('paneYin').innerHTML = maskToPavageSvg(bitsYin, PALETTE, 1, 1, { size: 360 });
+}
+
+main().catch(err => {
+  console.error(err);
+  document.querySelector('.panes').innerHTML = `<p style="color:var(--red);">Erreur de chargement : ${err.message}</p>`;
+});
+</script>
+</body>
+</html>
