@@ -62,8 +62,8 @@ window.ARTICLES = [
     dateDisplay: "Publié le 3 septembre 2026",
     categories: ["Livrée", "Philosophie", "Divination"],
     excerpt: "Pourquoi Apollinaire referme un poème sur \"l'arlequin trismégiste\" ? La naissance d'Hermès, le témoignage de Niklaus et Crowley, et le geste que Baphomet partage avec le Bateleur.",
-    cover: "https://anibal-amiot.com/assets/articles/arlequin-trismegiste-cover.avif",
-    coverAlt: "Arlequin : les deux croix ansées en costume de losanges"
+    cover: "https://anibal-amiot.com/assets/articles/penguilly-parade-cover.jpg",
+    coverAlt: "Parade : Pierrot présente à l'assemblée ses compagnons Arlequin et Polichinelle, Octave Penguilly L'Haridon, 1846"
   },
   {
     slug: "verticalite-damier-mosaique-echiquier",
