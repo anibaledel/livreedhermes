@@ -1,10 +1,13 @@
 name: Update sitemap
 
 # Régénère sitemap.xml à chaque push sur main (voir scripts/generate-sitemap.js)
-# et recommite le résultat s'il a changé, pour que sitemap.xml reste
-# synchronisé avec les pages réellement présentes dans le dépôt sans
-# intervention manuelle. Le déclenchement est ignoré quand le seul commit du
-# push vient déjà de ce workflow, pour éviter toute boucle.
+# et ouvre — ou met à jour — une pull request avec le résultat s'il a changé.
+# N'écrit plus jamais directement sur main : la branche est protégée (PR +
+# revue de code owner obligatoires, voir .github/CODEOWNERS) et
+# github-actions[bot] n'a pas de contournement — un push direct y est rejeté
+# (GH013). Une seule PR à la fois : la branche update-sitemap est
+# réinitialisée sur main à chaque run, donc un run ultérieur remplace le
+# contenu de la PR déjà ouverte plutôt que d'en créer une seconde.
 
 on:
   push:
@@ -12,11 +15,14 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update-sitemap:
     if: github.event.head_commit.author.name != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -29,14 +35,50 @@ jobs:
       - name: Générer sitemap.xml
         run: node scripts/generate-sitemap.js
 
-      - name: Commiter si le sitemap a changé
+      - name: Ouvrir ou mettre à jour la PR si le sitemap a changé
         run: |
           if git diff --quiet -- sitemap.xml; then
             echo "sitemap.xml déjà à jour."
             exit 0
           fi
+
+          # URL ajoutées / retirées entre l'ancien sitemap (HEAD) et le nouveau
+          # (working tree), pour le corps de la PR — afficher le changement
+          # sans avoir à ouvrir le diff.
+          git show HEAD:sitemap.xml | grep -oP '(?<=<loc>)[^<]+' | sort -u > /tmp/old_urls.txt
+          grep -oP '(?<=<loc>)[^<]+' sitemap.xml | sort -u > /tmp/new_urls.txt
+          ADDED=$(comm -13 /tmp/old_urls.txt /tmp/new_urls.txt)
+          REMOVED=$(comm -23 /tmp/old_urls.txt /tmp/new_urls.txt)
+          N_ADDED=$(printf '%s' "$ADDED" | grep -c . || true)
+          N_REMOVED=$(printf '%s' "$REMOVED" | grep -c . || true)
+
+          {
+            echo "Sitemap régénéré par \`scripts/generate-sitemap.js\` suite à ${{ github.sha }}."
+            echo ""
+            if [ -n "$ADDED" ]; then
+              echo "### Ajoutées ($N_ADDED)"
+              printf '%s\n' "$ADDED" | sed 's/^/- /'
+              echo ""
+            fi
+            if [ -n "$REMOVED" ]; then
+              echo "### Retirées ($N_REMOVED)"
+              printf '%s\n' "$REMOVED" | sed 's/^/- /'
+              echo ""
+            fi
+          } > /tmp/pr_body.md
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B update-sitemap
           git add sitemap.xml
-          git commit -m "chore: update sitemap.xml [skip ci]"
-          git push
+          git commit -m "chore: update sitemap.xml"
+          git push --force origin update-sitemap
+
+          TITLE="chore: sitemap.xml — +${N_ADDED:-0} / -${N_REMOVED:-0} URL"
+          EXISTING=$(gh pr list --head update-sitemap --base main --state open --json number --jq '.[0].number')
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "$TITLE" --body-file /tmp/pr_body.md
+            echo "PR #$EXISTING mise à jour."
+          else
+            gh pr create --head update-sitemap --base main --title "$TITLE" --body-file /tmp/pr_body.md
+          fi
