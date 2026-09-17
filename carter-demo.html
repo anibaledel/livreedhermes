@@ -7,6 +7,7 @@
 <meta name="description" content="Démo interactive du Carter Random : visualisation de la grille et des référents dérivés de la clé, en accès libre sur La Livrée d'Hermès.">
 <meta name="author" content="Anibal Edelberto Amiot">
 <link rel="canonical" href="https://anibal-amiot.com/carter-demo.html">
+<link rel="stylesheet" href="assets/breadcrumb.css">
 <meta property="og:title" content="Carter Random — démo interactive">
 <meta property="og:description" content="Démo interactive du Carter Random : visualisation de la grille et des référents dérivés de la clé, en accès libre sur La Livrée d'Hermès.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
@@ -69,12 +70,14 @@
     --border:  #1e2a36;
     --text:    #e8e4d9;
     --muted:   #7a8898;
+    --dim:     #7a8898;
     --gold:    #c8aa6e;
     --gold-dim:#8a7248;
     --msg:     #4e9eff;   /* cellule message */
     --struct:  #3a7a5a;   /* cellule structurée */
     --pure:    #1e2a36;   /* cellule pure */
     --err:     #d64444;
+    --fs-bump: 2px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -289,6 +292,9 @@
 <body>
 
 <header>
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Carter Random</span>
+  </nav>
   <h1>Carter Random</h1>
   <p>encodage stéganographique à référents dérivés de la clé · La Livrée d'Hermès</p>
 </header>
