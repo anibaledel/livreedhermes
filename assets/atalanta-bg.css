@@ -1,0 +1,41 @@
+/* Fond de page Atalanta fugiens (1617/1618, Michael Maier / Matthäus Merian,
+   domaine public) — planche entière en background-size:cover, assombrie en
+   CSS (jamais cuite dans l'image), pour rester légère et le réglage de
+   noirceur ajustable d'un seul endroit ici. --atalanta-plate se définit par
+   page (voir chaque fichier), --atalanta-veil règle l'assombrissement
+   (0 = image d'origine, 1 = noir total) — .85 retenu par défaut.
+   Suppose --bg déjà déclarée dans le :root de la page. */
+.atalanta-zone{
+  --atalanta-veil: .85;
+  position:relative; overflow:hidden;
+  background-color:var(--bg);
+  background-image:var(--atalanta-plate);
+  background-repeat:no-repeat;
+  background-position:center 22%;
+  background-size:cover;
+}
+.atalanta-zone::before{
+  content:""; position:absolute; inset:0;
+  background:#000; opacity:var(--atalanta-veil);
+}
+
+/* Bloc de contenu posé sur le fond — coins en équerre (deux équerres
+   emboîtées), pas de trait continu : seul traitement retenu après essai,
+   le seul à rester lisible à 380px. Suppose --line déjà déclarée. */
+.atalanta-block{ position:relative; z-index:1; }
+.atalanta-block .corner{ position:absolute; width:16px; height:16px; }
+.atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:var(--line); }
+.atalanta-block .corner::before{ width:16px; height:1px; }
+.atalanta-block .corner::after{ width:1px; height:16px; }
+.atalanta-block .corner.tl{ top:0; left:0; } .atalanta-block .corner.tl::before,.atalanta-block .corner.tl::after{ top:0; left:0; }
+.atalanta-block .corner.tr{ top:0; right:0; } .atalanta-block .corner.tr::before{ top:0; right:0; } .atalanta-block .corner.tr::after{ top:0; right:0; }
+.atalanta-block .corner.bl{ bottom:0; left:0; } .atalanta-block .corner.bl::before{ bottom:0; left:0; } .atalanta-block .corner.bl::after{ bottom:0; left:0; }
+.atalanta-block .corner.br{ bottom:0; right:0; } .atalanta-block .corner.br::before{ bottom:0; right:0; } .atalanta-block .corner.br::after{ bottom:0; right:0; }
+.atalanta-block .corner2{ position:absolute; width:23px; height:23px; }
+.atalanta-block .corner2::before, .atalanta-block .corner2::after{ content:""; position:absolute; background:var(--line); opacity:.6; }
+.atalanta-block .corner2::before{ width:23px; height:1px; }
+.atalanta-block .corner2::after{ width:1px; height:23px; }
+.atalanta-block .corner2.tl2{ top:6px; left:6px; } .atalanta-block .corner2.tl2::before,.atalanta-block .corner2.tl2::after{ top:0; left:0; }
+.atalanta-block .corner2.tr2{ top:6px; right:6px; } .atalanta-block .corner2.tr2::before{ top:0; right:0; } .atalanta-block .corner2.tr2::after{ top:0; right:0; }
+.atalanta-block .corner2.bl2{ bottom:6px; left:6px; } .atalanta-block .corner2.bl2::before{ bottom:0; left:0; } .atalanta-block .corner2.bl2::after{ bottom:0; left:0; }
+.atalanta-block .corner2.br2{ bottom:6px; right:6px; } .atalanta-block .corner2.br2::before{ bottom:0; right:0; } .atalanta-block .corner2.br2::after{ bottom:0; right:0; }

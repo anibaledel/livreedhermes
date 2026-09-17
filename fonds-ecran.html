@@ -234,13 +234,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/atalanta-bg.css">
 </head>
 <body>
 
 <div id="selectScreen">
 <div class="wrap">
 
-  <header>
+  <div class="atalanta-zone" style="--atalanta-plate:url(atalanta/plate-33-fonds-ecran.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1>Fonds d'écran</h1>
@@ -284,6 +288,7 @@
       </span>
     </div>
   </header>
+  </div>
 
   <p class="fondecran-intro">Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes.</p>
   <div class="cat-grid" id="catGrid"></div>
