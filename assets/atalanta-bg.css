@@ -3,10 +3,12 @@
    CSS (jamais cuite dans l'image), pour rester légère et le réglage de
    noirceur ajustable d'un seul endroit ici. --atalanta-plate se définit par
    page (voir chaque fichier), --atalanta-veil règle l'assombrissement
-   (0 = image d'origine, 1 = noir total) — .85 retenu par défaut.
+   (0 = image d'origine, 1 = noir total) — .72 retenu par défaut : la
+   scène doit rester reconnaissable, pas juste une texture (.85 la
+   noyait entièrement — vérifié, ça ne se voyait pas).
    Suppose --bg déjà déclarée dans le :root de la page. */
 .atalanta-zone{
-  --atalanta-veil: .85;
+  --atalanta-veil: .72;
   position:relative; overflow:hidden;
   background-color:var(--bg);
   background-image:var(--atalanta-plate);
@@ -16,7 +18,7 @@
 }
 .atalanta-zone::before{
   content:""; position:absolute; inset:0;
-  background:#000; opacity:var(--atalanta-veil);
+  background:var(--bg); opacity:var(--atalanta-veil);
 }
 
 /* Bloc de contenu posé sur le fond — coins en équerre (deux équerres
@@ -24,7 +26,7 @@
    le seul à rester lisible à 380px. Suppose --line déjà déclarée. */
 .atalanta-block{ position:relative; z-index:1; }
 .atalanta-block .corner{ position:absolute; width:16px; height:16px; }
-.atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:var(--line); }
+.atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:#c9a15a; }
 .atalanta-block .corner::before{ width:16px; height:1px; }
 .atalanta-block .corner::after{ width:1px; height:16px; }
 .atalanta-block .corner.tl{ top:0; left:0; } .atalanta-block .corner.tl::before,.atalanta-block .corner.tl::after{ top:0; left:0; }
@@ -32,7 +34,7 @@
 .atalanta-block .corner.bl{ bottom:0; left:0; } .atalanta-block .corner.bl::before{ bottom:0; left:0; } .atalanta-block .corner.bl::after{ bottom:0; left:0; }
 .atalanta-block .corner.br{ bottom:0; right:0; } .atalanta-block .corner.br::before{ bottom:0; right:0; } .atalanta-block .corner.br::after{ bottom:0; right:0; }
 .atalanta-block .corner2{ position:absolute; width:23px; height:23px; }
-.atalanta-block .corner2::before, .atalanta-block .corner2::after{ content:""; position:absolute; background:var(--line); opacity:.6; }
+.atalanta-block .corner2::before, .atalanta-block .corner2::after{ content:""; position:absolute; background:#c9a15a; opacity:.6; }
 .atalanta-block .corner2::before{ width:23px; height:1px; }
 .atalanta-block .corner2::after{ width:1px; height:23px; }
 .atalanta-block .corner2.tl2{ top:6px; left:6px; } .atalanta-block .corner2.tl2::before,.atalanta-block .corner2.tl2::after{ top:0; left:0; }
