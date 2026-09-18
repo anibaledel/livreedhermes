@@ -3,8 +3,12 @@
 Chaque clé ci-dessous existe dans `UI.fr` et `UI.en` du fichier
 `cymatique.html` (objet `UI`, juste après `<script type="module">`). Elle
 est actuellement en repli sur le texte FR pour `es` et `th`.
-**Colonnes ES et TH remplies — 28 clés.** L'intégration consiste à
+**Colonnes ES et TH remplies — 29 clés.** L'intégration consiste à
 recopier chaque valeur dans `UI.es[clé]` / `UI.th[clé]`.
+
+Pas encore intégrée en FR/EN non plus : `diapasonNote` (ci-dessous) est
+un texte nouveau, en attente de l'implémentation du changement de
+diapason avant d'être placé dans la page.
 
 Terminologie alignée sur celle déjà en place dans `es/libro/` et
 `th/book/` : Inicio / Crear un motivo / Impresión ; หน้าแรก / สร้างลวดลาย /
@@ -186,6 +190,13 @@ position en début ou fin de chaîne.
 - ES : 4 bases
 - TH : 4 ฐาน
 
+## diapasonNote
+(texte de cadrage, à placer près du sélecteur de gamme — même ton que `framing`)
+- FR : Le diapason retenu ici est le do à 256 Hz, dit diapason philosophique. Joseph Sauveur le propose en 1713 devant l'Académie royale des sciences, pour une raison simple : 256 est 1 doublé huit fois, ce qui place toutes les octaves sur des nombres entiers. Les musiciens de son temps l'ont refusé ; les physiciens l'ont gardé comme référence de mesure. Ce do donne, en intervalles justes, un la à 432 Hz. Il est retenu ici parce que les fréquences spatiales des quinze gammes ont des carrés entiers, et que cet ancrage les laisse voir : chaque gamme tombe alors sur 2,56 fois un entier. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.
+- EN : The reference pitch used here is C at 256 Hz, known as the philosophical pitch. Joseph Sauveur proposed it in 1713 before the Royal Academy of Sciences, for a simple reason: 256 is 1 doubled eight times, which places every octave on a whole number. The musicians of his day rejected it; physicists kept it as a measurement standard. In just intonation, this C gives an A at 432 Hz. It is used here because the spatial frequencies of the fifteen scales have whole-number squares, and this anchor makes that visible: each scale then lands on 2.56 times a whole number. Another reference pitch would work just as well; this one makes the structure legible.
+- ES : El diapasón elegido aquí es el do a 256 Hz, llamado diapasón filosófico. Joseph Sauveur lo propone en 1713 ante la Academia Real de Ciencias, por una razón simple: 256 es 1 duplicado ocho veces, lo que sitúa todas las octavas en números enteros. Los músicos de su época lo rechazaron; los físicos lo conservaron como referencia de medida. Este do da, en entonación justa, un la a 432 Hz. Se retiene aquí porque las frecuencias espaciales de las quince escalas tienen cuadrados enteros, y este anclaje permite verlo: cada escala cae entonces en 2,56 veces un entero. Otro diapasón serviría igual de bien; este hace legible la estructura.
+- TH : เสียงมาตรฐานที่ใช้ในหน้านี้คือเสียงโดที่ 256 เฮิรตซ์ เรียกว่าเสียงมาตรฐานเชิงปรัชญา โฌแซฟ โซเวอร์เสนอเสียงนี้ในปี ค.ศ. 1713 ต่อหน้าราชบัณฑิตยสภาวิทยาศาสตร์แห่งฝรั่งเศส ด้วยเหตุผลง่าย ๆ คือ 256 เกิดจากเลข 1 คูณสองซ้ำแปดครั้ง ซึ่งทำให้ทุกช่วงคู่แปดตกอยู่บนจำนวนเต็ม นักดนตรีในยุคนั้นปฏิเสธเสียงนี้ แต่นักฟิสิกส์ยังคงใช้เป็นค่าอ้างอิงในการวัด เสียงโดนี้ เมื่อคิดตามอัตราส่วนเสียงบริสุทธิ์ จะให้เสียงลาที่ 432 เฮิรตซ์ เหตุผลที่เลือกใช้เสียงนี้ในหน้านี้ก็เพราะความถี่เชิงพื้นที่ของบันไดเสียงทั้งสิบห้ามีค่ายกกำลังสองเป็นจำนวนเต็ม และการยึดจุดอ้างอิงนี้ทำให้เห็นสิ่งนั้นได้ชัด แต่ละบันไดเสียงจะตกอยู่ที่ 2.56 เท่าของจำนวนเต็ม เสียงมาตรฐานอื่นก็ใช้ได้ดีเช่นกัน แต่เสียงนี้ทำให้โครงสร้างมองเห็นได้ชัดเจน
+
 ---
 
 ## Notes de traduction
@@ -214,6 +225,15 @@ technique, où l'usage thaï les admet.
 ช่วงคู่แปด) est translittéré ou calqué ; ce sont des termes peu courants en
 thaï. Une relecture par un locuteur natif serait utile, surtout sur
 `framing`.
+
+**`diapasonNote`** — « diapason philosophique » n'a pas d'équivalent
+figé en ES/TH ; rendu littéralement (*diapasón filosófico*, เสียงมาตรฐานเชิงปรัชญา).
+« Académie royale des sciences » traduit en ES par l'usage courant
+(*Academia Real de Ciencias*) ; en TH par une périphrase descriptive
+(ราชบัณฑิตยสภาวิทยาศาสตร์แห่งฝรั่งเศส), faute de nom consacré — comme pour
+`framing`, une relecture par un locuteur natif serait utile ici en
+particulier, le paragraphe mêlant vocabulaire musical (« intervalles
+justes »), historique et mathématique.
 
 ## Deux points repérés hors de ce fichier
 
