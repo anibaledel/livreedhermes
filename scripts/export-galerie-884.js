@@ -1,11 +1,11 @@
 /* ============================================================
-   Export en lot de la Galerie 884 (motifs unifiés) — SVG propre +
+   Export en lot de la Galerie 768 (motifs unifiés) — SVG propre +
    JPEG d'aperçu Pinterest (1000x1500) + métadonnées + archive ZIP.
 
    Réutilise directement les fonctions de rendu déjà présentes dans
-   galerie-884-patterns-unifies.html (hexagramGrid, motifSvgMarkup) :
+   galerie-768-patterns-unifies.html (hexagramGrid, motifSvgMarkup) :
    ce sont des fonctions pures (aucune dépendance DOM), extraites ici
-   telles quelles plutôt que réécrites. Les données (884 entrées,
+   telles quelles plutôt que réécrites. Les données (768 entrées,
    grilles de familles, table layerOf) sont lues directement depuis
    le bloc `const DATA = {...}` embarqué dans cette même page, pour
    que cet export ne puisse jamais diverger de ce qui s'affiche à
@@ -17,8 +17,8 @@
 
    Sortie (par défaut, hors du dépôt git) :
      <scratchpad>/galerie-884-export/
-       svg/*.svg   (884 fichiers, motif seul, repeats=1)
-       jpg/*.jpg   (884 fichiers, aperçu 1000x1500)
+       svg/*.svg   (768 fichiers, motif seul, repeats=1)
+       jpg/*.jpg   (768 fichiers, aperçu 1000x1500)
        metadata.json
        metadata.csv
      <scratchpad>/galerie-884-export.zip
@@ -30,7 +30,7 @@ const { createCanvas } = require('@napi-rs/canvas');
 const archiver = require('archiver');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-884-patterns-unifies.html');
+const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-768-patterns-unifies.html');
 
 // ---------- CLI args ----------
 const args = process.argv.slice(2);
@@ -56,7 +56,7 @@ function loadData() {
   return { DATA, LAYER_OF: DATA.layerOf, DEFAULT_PALETTE };
 }
 
-// ---------- portage direct de hexagramGrid() (galerie-884-patterns-unifies.html) ----------
+// ---------- portage direct de hexagramGrid() (galerie-768-patterns-unifies.html) ----------
 function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   const col = n % 8, row = Math.floor(n / 8);
   const bitsCol = [col & 1, (col >> 1) & 1, (col >> 2) & 1];
@@ -75,7 +75,7 @@ function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   return grid;
 }
 
-// ---------- portage direct de motifSvgMarkup() (galerie-884-patterns-unifies.html) ----------
+// ---------- portage direct de motifSvgMarkup() (galerie-768-patterns-unifies.html) ----------
 function motifSvgMarkup(grid, repeats, PALETTE) {
   repeats = repeats || 1;
   const cell = 12, tile = cell * 12, size = tile * repeats;

@@ -1,10 +1,10 @@
 /* ============================================================
-   Export en lot haute résolution de la Galerie 884 (motifs unifiés) —
+   Export en lot haute résolution de la Galerie 768 (motifs unifiés) —
    PNG 4096x4096 pour usage Pinterest / Adobe Stock, en 4 combinaisons
    possibles : cellule/pavage x multicolore/niveaux de gris.
 
    Réutilise directement la même source de données que export-galerie-884.js
-   (le bloc `const DATA = {...}` embarqué dans galerie-884-patterns-unifies.html)
+   (le bloc `const DATA = {...}` embarqué dans galerie-768-patterns-unifies.html)
    et le même repeats=4 que la fonction drawPaved() de cette page pour la
    notion de "pavage".
 
@@ -20,7 +20,7 @@
      node export-galerie-884-hires.js --mode pavage --palette color --out DIR
      node export-galerie-884-hires.js --mode pavage --palette gray  --out DIR
 
-   Sortie : <out>/*.png (884 fichiers) + <out>/metadata.csv, puis <out>.zip
+   Sortie : <out>/*.png (768 fichiers) + <out>/metadata.csv, puis <out>.zip
    ============================================================ */
 
 const fs = require('fs');
@@ -29,7 +29,7 @@ const { createCanvas } = require('@napi-rs/canvas');
 const archiver = require('archiver');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-884-patterns-unifies.html');
+const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-768-patterns-unifies.html');
 
 // ---------- CLI args ----------
 const args = process.argv.slice(2);
@@ -76,7 +76,7 @@ function buildGrayPalette(colorPalette) {
   return gray;
 }
 
-// ---------- portage direct de hexagramGrid() (galerie-884-patterns-unifies.html) ----------
+// ---------- portage direct de hexagramGrid() (galerie-768-patterns-unifies.html) ----------
 function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   const col = n % 8, row = Math.floor(n / 8);
   const bitsCol = [col & 1, (col >> 1) & 1, (col >> 2) & 1];
@@ -96,7 +96,7 @@ function hexagramGrid(n, gridA, gridB, LAYER_OF) {
 }
 
 // ---------- rendu PNG haute résolution (cellule seule, ou pavage répété) ----------
-// Même principe que drawPaved() (galerie-884-patterns-unifies.html) : la grille
+// Même principe que drawPaved() (galerie-768-patterns-unifies.html) : la grille
 // 12x12 est répétée `repeats` fois sans marge pour montrer l'effet tissé continu.
 function renderHighResPng(grid, repeats, palette, size) {
   const totalCells = 12 * repeats;

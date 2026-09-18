@@ -3,7 +3,7 @@
    Usage : node scripts/generate-nav-icons.mjs (depuis la racine du dépôt).
 
    MOTEUR : le même que fonds-ecran.html (et sa copie identique dans
-   galerie-884-patterns-unifies.html) — hexagramGrid(n, gridA, gridB) sur
+   galerie-768-patterns-unifies.html) — hexagramGrid(n, gridA, gridB) sur
    DATA.families, dessiné ici avec la même logique que drawStaticTile mais
    sur un canvas hors écran (@napi-rs/canvas) au lieu d'un <canvas> DOM.
    Source extraite dans data/fonds_ecran_v1.json (voir plus bas) plutôt que
@@ -204,7 +204,7 @@ const NON_CYMATIQUE_ENTRIES = [
   { key: 'hexagrammes',      familyKey: FAMILY_KEYS[2],  n: 0 },
   { key: 'creation-motifs',  familyKey: FAMILY_KEYS[3],  n: 0 },
   { key: 'unified-patterns', familyKey: FAMILY_KEYS[4],  n: 0 },
-  { key: 'galerie-884',      familyKey: FAMILY_KEYS[5],  n: 0 },
+  { key: 'galerie-768',      familyKey: FAMILY_KEYS[5],  n: 0 },
   { key: 'motifs-svg',       familyKey: FAMILY_KEYS[6],  n: 0 },
   { key: 'fond-ecran',       familyKey: FAMILY_KEYS[7],  n: 0 }, // la page source elle-même
   { key: 'impression',       familyKey: FAMILY_KEYS[8],  n: 0 },

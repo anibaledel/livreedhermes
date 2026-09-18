@@ -58,7 +58,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/impression.html`, file: 'impression.html', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${SITE}/galerie-884-patterns-unifies.html`, file: 'galerie-884-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
+  { loc: `${SITE}/galerie-768-patterns-unifies.html`, file: 'galerie-768-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/cymatique.html`, file: 'cymatique.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/articles.html`, file: 'articles.html', changefreq: 'weekly', priority: '0.7' },
