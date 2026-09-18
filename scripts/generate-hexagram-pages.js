@@ -282,7 +282,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   </header>
 
   <div class="article-body">
-    <div class="atalanta-zone" style="--atalanta-plate:url(../assets/atalanta/plate-4-hexagrammes.avif);">
+    <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
     <div class="atalanta-block" style="padding:28px 24px;">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
@@ -568,7 +568,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
     <div id="google_translate_element" class="gtranslate-slot"></div>
   </header>
 
-  <div class="atalanta-zone" style="--atalanta-plate:url(../assets/atalanta/plate-4-hexagrammes.avif);">
+  <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
