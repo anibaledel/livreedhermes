@@ -22,6 +22,28 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "encodeur-cacher-n-est-pas-proteger",
+    url: "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html",
+    title: "L'encodeur : cacher n'est pas protéger",
+    dateISO: "2026-09-16",
+    dateDisplay: "Publié le 16 septembre 2026",
+    categories: ["Géométrie", "Philosophie", "Livrée"],
+    excerpt: "Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.",
+    cover: "https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg",
+    coverAlt: "Détail d'une rangée de carrés du Référent 256, issus de la croix ansée, en quatre couleurs"
+  },
+  {
+    slug: "cymatique-spectre-d-un-motif",
+    url: "https://anibal-amiot.com/articles/cymatique-spectre-d-un-motif.html",
+    title: "Cymatique : ce que le spectre d'un motif laisse voir",
+    dateISO: "2026-09-16",
+    dateDisplay: "Publié le 16 septembre 2026",
+    categories: ["Géométrie", "Philosophie", "Livrée"],
+    excerpt: "De la plaque de Chladni au pavage : les quinze gammes du traité ont des fréquences spatiales dont les carrés sont entiers — la forme même que prennent les modes d'une plaque carrée.",
+    cover: "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg",
+    coverAlt: "Bandeau des quinze motifs Yin et Yang du traité, en noir et blanc, côte à côte"
+  },
+  {
     slug: "reminiscence-caillou-carre",
     url: "https://anibal-amiot.com/articles/reminiscence-caillou-carre.html",
     title: "La réminiscence : du caillou pythagoricien au carré construit",

@@ -50,9 +50,6 @@
   .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
   .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
   .credit-line .credit-sep{ opacity:.5; }
-  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
-  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
-  .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
   .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
@@ -61,8 +58,7 @@
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
   .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
-  .footer-caduceus img{ height:355.56px; width:auto; opacity:.9; }
-  @media (max-width:1320px) and (min-width:769px){ .footer-caduceus{ display:none; } }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
@@ -113,20 +109,13 @@
     </div>
 
     <div class="footer-caduceus">
-      <picture>
-        <source media="(min-width:1321px)" srcset="assets/logo-caducee.gif">
-        <source media="(max-width:768px)" srcset="assets/logo-caducee.gif">
-        <img alt="La Livrée d'Hermès">
-      </picture>
+      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès">
     </div>
 
     <div class="credit-line">
       <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
-    </div>
-    <div class="credit-line-secondary">
-      <span>Hébergé par <a href="https://gk2.net" target="_blank" rel="noopener">https://gk2.net</a> – l'internet des créatifs</span>
     </div>
 
     <div class="footer-title-logo">

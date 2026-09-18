@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>L'encodeur : cacher n'est pas protéger — La Livrée d'Hermès</title>
+<meta name="description" content="Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.">
+<meta property="og:title" content="L'encodeur : cacher n'est pas protéger">
+<meta property="og:description" content="Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg">
+<meta property="og:url" content="https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-16">
+<link rel="canonical" href="https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="L'encodeur : cacher n'est pas protéger">
+<meta name="twitter:description" content="Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722486" },
+      "sameAs": "https://zenodo.org/records/22722486",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html",
+      "headline": "L'encodeur : cacher n'est pas protéger",
+      "description": "Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.",
+      "image": "https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16",
+      "inLanguage": "fr",
+      "keywords": ["stéganographie", "Kerckhoffs", "XChaCha20-Poly1305", "croix ansée", "référent 256", "référent 360", "cryptographie", "arithmogéométrie"],
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Livrée d'Hermès",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://anibal-amiot.com/assets/title-logo-footer.png"
+        }
+      },
+      "url": "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html",
+      "mainEntityOfPage": "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "Articles — La Livrée d'Hermès",
+        "url": "https://anibal-amiot.com/articles.html"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://anibal-amiot.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "L'encodeur : cacher n'est pas protéger",
+      "item": "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html"
+    }
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --gold:#c9a15a; --line:#242424;
+    --fs-bump:2px;
+  }
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  /* ---------- article ---------- */
+  .article-body{ padding:24px 0 8px; }
+  .article-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:calc(15px + var(--fs-bump)); line-height:1.8; }
+  .article-content h2{
+    color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em;
+    margin:34px 0 14px; text-align:center;
+  }
+  .article-content p{ margin:0 0 18px; }
+  .article-content p:last-child{ margin-bottom:0; }
+  .article-content b{ color:var(--white); font-weight:400; }
+  .article-content i{ color:var(--white); font-style:italic; }
+  .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .article-content figure{ margin:0 0 22px; }
+  .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); background:#000; }
+  .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:none; }
+  .article-content figcaption a:hover{ text-decoration:underline; }
+  .article-epigraph{ font-size:calc(14.5px + var(--fs-bump)); font-style:italic; color:var(--gold); margin:0 0 22px; }
+  .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
+
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-back-bottom:hover{ color:var(--gold); }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:calc(9.5px + var(--fs-bump)); text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .article-title{ font-size:calc(21px + var(--fs-bump)); }
+    .article-content{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+    <div id="google_translate_element" class="gtranslate-slot"></div>
+  </header>
+
+  <div class="article-body">
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/articles.html">Articles</a><span class="sep">/</span><span aria-current="page">L'encodeur : cacher n'est pas protéger</span>
+    </nav>
+
+    <h1 class="article-title">L'encodeur : cacher n'est pas protéger</h1>
+    <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Publié le 16 septembre 2026</p>
+    <div class="article-badges" id="articleBadges"></div>
+
+    <div class="article-content">
+      <p class="article-epigraph">« Le secret d'un message ne doit jamais être le secret de la méthode qui l'écrit. »</p>
+
+      <h2>Un aveu en tête de page</h2>
+      <p>Il y a, dans l'onglet d'explication de l'encodeur, une phrase qui mérite qu'on s'y arrête : <i>la confidentialité vient du chiffrement, pas de la géométrie</i>.</p>
+
+      <p>Elle est là pour désamorcer ce qu'un outil comme celui-ci suggère naturellement. Un message dissimulé dans une grille de nombres, à des positions désignées par des carrés issus d'une croix ansée et par les calques d'un métier Jacquard — l'imagination va vite, et elle va au mauvais endroit. Elle imagine que la complexité du dispositif fait sa force.</p>
+
+      <p>Elle ne la fait pas. La géométrie choisit <i>où</i> écrire. Ce qu'on écrit est déjà chiffré avant qu'elle intervienne. Si le chiffrement tombe, aucune subtilité de placement ne sauvera le message ; si le chiffrement tient, le placement n'ajoute rien à sa solidité. Ce sont deux couches qui font deux choses différentes, et les confondre est l'erreur que cette page refuse de laisser commettre.</p>
+
+      <h2>Kerckhoffs, 1883</h2>
+      <p>Le principe que l'encodeur invoque nommément date de 1883. Auguste Kerckhoffs, linguiste néerlandais installé en France, énonce alors ce qui deviendra la règle d'or de la cryptographie moderne : un système doit rester sûr même si tout de son fonctionnement est connu, à l'exception de la clé.</p>
+
+      <p>L'idée est contre-intuitive. Elle contredit le réflexe qui consiste à protéger sa méthode autant que son message. Mais le raisonnement est implacable : une méthode finit toujours par être connue — par indiscrétion, par capture d'un appareil, par analyse. Une sécurité qui reposerait sur son ignorance est une sécurité dont la date d'expiration est inconnue de celui qui s'y fie.</p>
+
+      <p>Cela place la stéganographie dans une position délicate, et il faut la nommer. Dissimuler l'existence d'un message, c'est parier sur l'inattention de l'adversaire, pas sur son ignorance de la méthode. Un observateur qui sait qu'une grille de nombres contient un message, et qui connaît l'algorithme jusqu'à la disposition des cases, n'a rien gagné pour autant : ce qu'il trouve aux positions désignées est un chiffré, uniforme, sans prise. La dissimulation ne lui a rien coûté, et elle ne lui a rien donné.</p>
+
+      <p>D'où l'ordre des opérations. Chiffrer d'abord, dissimuler ensuite. La première couche résiste à celui qui sait ; la seconde évite d'attirer l'attention de celui qui ne sait pas encore. L'une protège, l'autre rend discret. Les confondre, c'est croire qu'une porte fermée à clé et une porte peinte en trompe-l'œil offrent le même service.</p>
+
+      <h2>Un audit, et zéro bit</h2>
+      <p>Le passage le plus instructif de la page est celui où elle rapporte le résultat d'un audit.</p>
+
+      <p>Une première version du système comportait une clé de plus — un mélange secret des formes du référent — dont l'espace apparent se comptait en milliers de bits. Un nombre qui dépasse l'entendement, bien au-delà du nombre d'atomes de l'univers observable. On aurait pu croire cette clé décisive.</p>
+
+      <p>L'audit a constaté qu'elle apportait <b>zéro bit de sécurité</b>. Elle était entièrement redondante avec une autre clé du système : tout ce qu'elle permettait d'exprimer, l'autre l'exprimait déjà. Un adversaire qui cherchait l'une n'avait aucun travail supplémentaire à fournir pour l'autre.</p>
+
+      <p>Il faut mesurer ce que cet écart signifie. Entre des milliers de bits apparents et zéro bit réel, il n'y a pas une erreur de calcul — il y a la différence entre compter les configurations possibles et compter celles qui sont <i>distinguables</i>. C'est le piège le plus courant de la cryptographie amateur : bâtir un système dont l'espace des clés est immense et dont l'espace des effets est étroit. La même leçon vaut pour la géométrie elle-même : 256 carrés, 360 calques, huit sens de lecture, cela fait beaucoup de dispositions, et pas un bit de clé. La sécurité tient dans les 256 bits de la clé de chiffrement, et nulle part ailleurs.</p>
+
+      <p>Que cette découverte figure dans la page plutôt que d'avoir été discrètement corrigée dit quelque chose de la méthode. La clé redondante a été retirée. Le système a perdu un nombre impressionnant et n'a rien perdu de sa sécurité, puisqu'il n'en tirait rien.</p>
+
+      <h2>Deux référents</h2>
+      <p>Reste ce que la géométrie fait réellement, et qui est autre chose que de la protection : elle fournit un vocabulaire de positions.</p>
+
+      <p>Le <b>Référent 256</b> vient de la croix ansée d'ordre 6 : les deux cent cinquante-six carrés magiques que la construction du livre engendre, cent vingt-huit de chaque chiralité. Chaque carré colorie ses trente-six cases en quatre couleurs — six, six, douze et douze — et ce sont les deux petites couleurs, douze cases, qui portent l'écriture. Le reste du carré est le fond.</p>
+
+      <p>Le <b>Référent 360</b> vient du métier Jacquard à trois cent soixante calques : six couches de vingt-quatre cases, et soixante calques disponibles à chaque couche. Une forme est un choix d'un calque par couche ; la couleur d'écriture désigne huit cases par couche, quarante-huit par bloc de douze sur douze.</p>
+
+      <p>Ces deux systèmes n'ont pas été inventés pour chiffrer. Ils existaient comme grammaires de motifs — l'un issu d'une figure, l'autre d'une technique de tissage. Leur emploi ici ne les détourne pas : un métier Jacquard <i>est</i> une machine à lire des positions, carte après carte, et c'est à ce titre qu'on le range parmi les ancêtres de l'informatique. Lui faire désigner les cases d'un message n'est pas une métaphore, c'est son usage propre appliqué à un autre contenu.</p>
+
+      <p>Et l'on peut en changer. Le référent est un paramètre de l'encodeur, pas une pièce de son mécanisme : on peut remplacer les carrés de la croix ansée par des formes tirées au hasard — c'est ce que fait la variante Carter-Random de l'outil — ou mélanger les deux sur une même grille, sans que rien ne change à ce qui protège le message. C'est le résultat que la page revendique, et c'est le seul.</p>
+
+      <figure>
+        <img src="https://anibal-amiot.com/assets/articles/encodeur-referent-256-planche-page47.jpg" alt="Planche du Référent 256 : les 256 carrés magiques d'ordre 6 issus de la croix ansée, en quatre couleurs, disposés en grille" loading="lazy">
+        <figcaption>Le Référent 256 — planche extraite de <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026), p. 47 : les 256 carrés magiques d'ordre 6 que la croix ansée engendre, chacun colorié en quatre couleurs.</figcaption>
+      </figure>
+
+      <h2>Le bruit et le grain</h2>
+      <p>Concrètement, le message chiffré s'écrit dans une grille de quatre-vingt-dix sur quatre-vingt-dix remplie de symboles aléatoires. Une clé de géométrie commande la lecture : le rôle de chaque bloc, la forme du référent qu'il prend, le sens dans lequel on parcourt ses cases. Les cases désignées portent le texte chiffré ; toutes les autres portent du bruit.</p>
+
+      <p>L'expression employée par la page est juste — <i>le reste est du bruit indiscernable</i>. Indiscernable, et non pas absent : c'est ce qui fait tenir l'ensemble. Une grille où les cases utiles se distingueraient des autres par une quelconque propriété statistique trahirait son contenu sans qu'on ait besoin d'aucune clé. C'est pourquoi le chiffré est encore masqué avant d'être posé, et converti dans le même alphabet que le bruit, symbole pour symbole : à la fin, une case écrite et une case vide se ressemblent exactement.</p>
+
+      <p>Il y a là une exigence qui rejoint, sans le chercher, celle du tissage. Une trame réussie est une trame où l'on ne voit pas le point de départ, pas la reprise, pas l'endroit où le motif a changé. La régularité d'une surface est ce qui permet à une irrégularité d'y disparaître.</p>
+
+      <figure>
+        <img src="https://anibal-amiot.com/assets/articles/encodeur-demo-grille-90x90-roles.png" alt="Grille 90×90 de symboles générée par l'encodeur, avec les cases de lecture surlignées en rouge et les cases structurées en or" loading="lazy">
+        <figcaption>Une grille de démonstration de l'encodeur (90×90), avec ses cases « message » surlignées en rouge et ses cases « structurées » en or — un surlignage qui n'est possible ici que parce qu'on tient la clé de démonstration. Sans elle, ces cases sont indiscernables du bruit qui les entoure.</figcaption>
+      </figure>
+
+      <h2>Ce que l'outil propose</h2>
+      <p>La page n'est pas une démonstration figée. Elle ouvre un message, un déchiffrement, un échange de clés X25519, un coffre chiffré, le chiffrement de fichiers, la grille Carter en quatre-vingt-dix sur quatre-vingt-dix, et la table complète des deux référents, qu'on peut parcourir forme par forme.</p>
+
+      <p>Le chiffrement sous-jacent n'a rien de particulier, et c'est voulu : XChaCha20-Poly1305 pour le message lui-même — la même implémentation, en JavaScript pur, des deux côtés du site, vérifiée octet pour octet contre le code Python de référence — AES-256-GCM pour le coffre et le chiffrement de fichiers, X25519 pour l'échange de clés. Des primitives standard, publiques, étudiées depuis des années par des gens dont c'est le métier. La partie originale du système est celle qui place, pas celle qui protège — et il vaut mieux qu'il en soit ainsi. Inventer son propre chiffrement est la faute que tout manuel de cryptographie apprend à ne pas commettre.</p>
+
+      <h2>Ce qu'il faut en attendre</h2>
+      <p>Essayez l'onglet de démonstration. Regardez la grille se remplir, et cherchez où sont les cases qui portent le message. Vous ne les trouverez pas — mais l'intérêt n'est pas là.</p>
+
+      <p>L'intérêt est de voir une grammaire de motifs, née pour orner du tissu, se révéler capable de désigner des positions dans une grille avec assez de précision pour qu'un texte s'y loge et s'en extraie. Ce qui passe d'un domaine à l'autre n'est pas un secret. C'est une manière de compter et d'ordonner, qui se moque de ce qu'on lui demande de compter.</p>
+
+      <p>Et si l'on veut retenir une seule chose de cette page, que ce soit sa phrase la plus sobre : cacher n'est pas protéger. Les deux gestes ont leur usage. Ils ne se remplacent pas.</p>
+
+      <p><i>Essayez l'outil → <a href="https://anibal-amiot.com/encodeur.html" style="color:var(--gold);">Ouvrir l'encodeur</a>.</i></p>
+    </div>
+
+    <a class="article-back-bottom" href="https://anibal-amiot.com/articles.html">← Retour aux articles</a>
+    <div class="article-nav-links" id="articleNavLinks"></div>
+  </div>
+
+  <div class="note">
+    <div class="center-logo-slot">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+    <div class="footer-caduceus">
+      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="https://anibal-amiot.com/index.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/accueil.png); --hover-icon:url(../assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/tirage.png); --hover-icon:url(../assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/hexagrammes.png); --hover-icon:url(../assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Hexagrammes</span><span class="nav-tile-excerpt">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/unified-patterns.png); --hover-icon:url(../assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Unified Patterns</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/galerie-884-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/galerie-884.png); --hover-icon:url(../assets/nav-icons/galerie-884-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie 884</span><span class="nav-tile-excerpt">884 patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/motifs-svg.png); --hover-icon:url(../assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/contact.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/contact.png); --hover-icon:url(../assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/a-propos.png); --hover-icon:url(../assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/lexique.png); --hover-icon:url(../assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Lexique</span><span class="nav-tile-excerpt">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/articles.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/articles.png); --hover-icon:url(../assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+        <div class="nav-tiles">
+      <a class="nav-tile" href="https://anibal-amiot.com/fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/fond-ecran.png); --hover-icon:url(../assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/creation-motifs.png); --hover-icon:url(../assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/encodeur.png); --hover-icon:url(../assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/impression.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/impression.png); --hover-icon:url(../assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/cymatique.png); --hover-icon:url(../assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+    </div>
+
+      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+    </div>
+  </div>
+</div>
+
+<script src="../assets/share-widget.js" data-label="Partager cet article"></script>
+<script src="../assets/articles-data.js"></script>
+<script>
+(function(){
+  var CURRENT_SLUG = "encodeur-cacher-n-est-pas-proteger";
+  var articles = (window.ARTICLES || []).slice().sort(function(a, b){ return b.dateISO.localeCompare(a.dateISO); });
+  var current = articles.find(function(a){ return a.slug === CURRENT_SLUG; });
+  if(!current) return;
+
+  var badgesEl = document.getElementById('articleBadges');
+  if(badgesEl){
+    badgesEl.innerHTML = current.categories.map(function(c){ return '<span class="article-badge">' + c + '</span>'; }).join('');
+  }
+
+  var primaryCategory = current.categories[0];
+  var sameCategory = articles.filter(function(a){ return a.categories.indexOf(primaryCategory) !== -1; });
+  var pos = sameCategory.findIndex(function(a){ return a.slug === CURRENT_SLUG; });
+  var next = pos > 0 ? sameCategory[pos - 1] : null;
+  var prev = pos < sameCategory.length - 1 ? sameCategory[pos + 1] : null;
+
+  var navEl = document.getElementById('articleNavLinks');
+  if(navEl && (prev || next)){
+    var html = '';
+    html += prev ? '<a class="nav-prev" href="' + prev.url + '"><span class="nav-label">← Précédent · ' + primaryCategory + '</span>' + prev.title + '</a>' : '<span></span>';
+    if(next){
+      html += '<a class="nav-next" href="' + next.url + '"><span class="nav-label">Suivant · ' + primaryCategory + ' →</span>' + next.title + '</a>';
+    }
+    navEl.innerHTML = html;
+  }
+})();
+</script>
+
+<script type="text/javascript">
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
+</body>
+</html>

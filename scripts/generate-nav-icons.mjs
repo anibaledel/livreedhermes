@@ -64,7 +64,7 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const ICON_SIZE = 128;
 const NAV_LIGHT = '#f2ece1';
-const NAV_DARK = '#2b2b2b';
+const NAV_DARK = '#e0261b'; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
 
 // ---------- Dérivation de palette (portée de applySingleHue, fonds-ecran.html) ----------
 function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
@@ -116,12 +116,11 @@ function applySingleHue(pickedHex){
   return { V: mauve, M: rose, O: pickedHex };
 }
 
-// Ancre neutre : teinte de NAV_LIGHT (chaude, parchemin), désaturée à 40% de
-// sa saturation d'origine, luminosité 50% pour que +-20% ne clippe ni V ni M.
-const [lr, lg, lb] = hexToRgb(NAV_LIGHT);
-const [lh, ls] = rgbToHsl(lr, lg, lb);
-const NEUTRAL_ANCHOR = rgbToHex(...hslToRgb(lh, ls * 0.4, 0.5));
-const PALETTE = applySingleHue(NEUTRAL_ANCHOR);
+// Ancre rouge : --red:#e0261b de la charte du site, passé tel quel à
+// applySingleHue (pas de désaturation — à revoir si le rendu vibre trop
+// en petit format sur fond noir, cf. tête de session).
+const RED_ANCHOR = '#e0261b';
+const PALETTE = applySingleHue(RED_ANCHOR);
 
 // ---------- Moteur fonds-ecran.html, porté (hexagramGrid + drawStaticTile) ----------
 const fondsEcran = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
