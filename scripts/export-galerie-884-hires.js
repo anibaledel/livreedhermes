@@ -50,7 +50,7 @@ const ZIP_ONLY = args.includes('--zip-only');
 // ---------- extraction des données depuis la page (source de vérité unique) ----------
 function loadData() {
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\n/);
+  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
   if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
   const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);

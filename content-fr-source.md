@@ -397,7 +397,7 @@ Navigation réduite par rapport au reste du site.
 - Titre : « Espace Pro »
 - « Cette page est réservée aux membres Pro (paiement unique de 99 €). »
 - « Bienvenue dans l'espace Pro. Le contenu de cette page n'est pas encore défini — il sera ajouté prochainement. En attendant, voici le téléchargement complet des motifs. »
-- Catégories de téléchargement : « Cellules — Tricolore YPM », « Cellules — Monochrome Black », « Pavages — Tricolore YPM », « Pavages — Monochrome Black », chacune avec « ZIP (884 SVG) » et « PDF »
+- Catégories de téléchargement : « Cellules — Tricolore YPM », « Cellules — Monochrome Black », « Pavages — Tricolore YPM », « Pavages — Monochrome Black », chacune avec « ZIP (768 SVG) » et « PDF »
 
 ### `pro-succes.html`
 - Titre : « Merci — accès Pro activé »

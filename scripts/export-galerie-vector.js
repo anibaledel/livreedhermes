@@ -24,7 +24,7 @@
 
    Usage :
      cd scripts
-     node export-galerie-884-vector.js --mode cells|pavage --palette color|gray --out DIR [--limit N] [--offset N] [--no-pdf] [--no-zip] [--svg-only]
+     node export-galerie-vector.js --mode cells|pavage --palette color|gray --out DIR [--limit N] [--offset N] [--no-pdf] [--no-zip] [--svg-only]
    ============================================================ */
 
 const fs = require('fs');
@@ -45,7 +45,7 @@ const MODE = argVal('--mode', 'cells'); // 'cells' (repeats=1) | 'pavage' (repea
 const PALETTE_MODE = argVal('--palette', 'color'); // 'color' (Tricolore YPM) | 'gray' (Monochrome Black)
 const LIMIT = argVal('--limit', null) ? parseInt(argVal('--limit', null), 10) : null;
 const OFFSET = argVal('--offset', null) ? parseInt(argVal('--offset', null), 10) : 0;
-const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-884-vector-${MODE}-${PALETTE_MODE}`));
+const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-vector-${MODE}-${PALETTE_MODE}`));
 const REPEATS = MODE === 'pavage' ? 4 : 1;
 const PAGE_SIZE = 500; // pt, page carrée pour le PDF (full bleed, pas de marge)
 const NO_PDF = args.includes('--no-pdf');
@@ -56,7 +56,7 @@ const PDF_ONLY = args.includes('--pdf-only'); // reconstruit le PDF depuis les S
 // ---------- extraction des données (source de vérité unique) ----------
 function loadData() {
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\n/);
+  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
   if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
   const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
