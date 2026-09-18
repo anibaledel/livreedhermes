@@ -1133,8 +1133,8 @@ function hexGlyphSVG(traits){
   for(let level=0; level<6; level++){
     const bit = traits[5-level]; // level 0 = trait le plus haut (trait6)
     const y = level*(barH+gap);
-    if(bit) bars += `<rect x="0" y="${y}" width="${w}" height="${barH}" fill="#f2f2f0"/>`;
-    else bars += `<rect x="0" y="${y}" width="${w*0.42}" height="${barH}" fill="#f2f2f0"/><rect x="${w*0.58}" y="${y}" width="${w*0.42}" height="${barH}" fill="#f2f2f0"/>`;
+    if(bit) bars += `<rect x="0" y="${y}" width="${w}" height="${barH}" fill="var(--white)"/>`;
+    else bars += `<rect x="0" y="${y}" width="${w*0.42}" height="${barH}" fill="var(--white)"/><rect x="${w*0.58}" y="${y}" width="${w*0.42}" height="${barH}" fill="var(--white)"/>`;
   }
   return `<svg width="${w}" height="${full}" viewBox="0 0 ${w} ${full}">${bars}</svg>`;
 }

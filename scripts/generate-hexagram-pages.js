@@ -34,10 +34,10 @@ function escapeHtml(str){
 function traitSVG(bit){
   const W=160,H=18, midY=H/2;
   if(bit===1){
-    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${W}" height="6" fill="var(--red)"/></svg>`;
+    return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${W}" height="6" fill="var(--white)"/></svg>`;
   }
   const gap = 26, segW = (W-gap)/2;
-  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/><rect x="${segW+gap}" y="${midY-3}" width="${segW}" height="6" fill="var(--white)"/></svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="${midY-3}" width="${segW}" height="6" fill="var(--red)"/><rect x="${segW+gap}" y="${midY-3}" width="${segW}" height="6" fill="var(--red)"/></svg>`;
 }
 
 const POS_LABELS = ["Premier trait","Deuxième trait","Troisième trait","Quatrième trait","Cinquième trait","Sixième trait"];
