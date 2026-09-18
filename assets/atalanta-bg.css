@@ -23,8 +23,17 @@
 
 /* Bloc de contenu posé sur le fond — coins en équerre (deux équerres
    emboîtées), pas de trait continu : seul traitement retenu après essai,
-   le seul à rester lisible à 380px. Suppose --line déjà déclarée. */
-.atalanta-block{ position:relative; z-index:1; }
+   le seul à rester lisible à 380px. Suppose --line déjà déclarée.
+   margin-bottom:0 annule le header{margin-bottom:28px/20px} générique de
+   chaque page (règle antérieure au fond Atalanta, pensée pour un <header>
+   nu) : capturé à l'intérieur de .atalanta-zone par son overflow:hidden
+   (qui empêche le collapse de marge), cet espace ne créait aucun espace
+   visible après le cadre — seulement un écart entre le bas des équerres
+   (ancrées sur .atalanta-block) et le bas réel de la gravure (mesuré :
+   28px à ≥1200px, 20px à 380px). L'espacement après le cadre reste
+   inchangé : il vient de .gtranslate-slot/.about-body (ou équivalent),
+   pas de cette marge. */
+.atalanta-block{ position:relative; z-index:1; margin-bottom:0; }
 .atalanta-block .corner{ position:absolute; width:16px; height:16px; }
 .atalanta-block .corner::before, .atalanta-block .corner::after{ content:""; position:absolute; background:#c9a15a; }
 .atalanta-block .corner::before{ width:16px; height:1px; }
