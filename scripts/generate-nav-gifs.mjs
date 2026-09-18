@@ -214,7 +214,7 @@ const NON_CYMATIQUE_ENTRIES = [
   { key: 'hexagrammes',      familyKey: FAMILY_KEYS[2],  n: 0 },
   { key: 'creation-motifs',  familyKey: FAMILY_KEYS[3],  n: 0 },
   { key: 'unified-patterns', familyKey: FAMILY_KEYS[4],  n: 0 },
-  { key: 'galerie-884',      familyKey: FAMILY_KEYS[5],  n: 0 },
+  { key: 'galerie-768',      familyKey: FAMILY_KEYS[5],  n: 0 },
   { key: 'motifs-svg',       familyKey: FAMILY_KEYS[6],  n: 0 },
   { key: 'fond-ecran',       familyKey: FAMILY_KEYS[7],  n: 0 },
   { key: 'impression',       familyKey: FAMILY_KEYS[8],  n: 0 },

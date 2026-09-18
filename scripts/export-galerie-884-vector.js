@@ -1,14 +1,14 @@
 /* ============================================================
-   Export vectoriel de la Galerie 884 (motifs unifiés) — pour chacune des
+   Export vectoriel de la Galerie 768 (motifs unifiés) — pour chacune des
    4 catégories (cellules/pavages x Tricolore YPM/Monochrome Black) :
-     - 884 fichiers SVG individuels (usage communication / Pinterest,
+     - 768 fichiers SVG individuels (usage communication / Pinterest,
        chemin technique non listé)
-     - 1 ZIP des 884 SVG de la catégorie (livrable palier Pro)
-     - 1 PDF multi-pages (884 pages, une par motif, ordre = numérotation
+     - 1 ZIP des 768 SVG de la catégorie (livrable palier Pro)
+     - 1 PDF multi-pages (768 pages, une par motif, ordre = numérotation
        continue), 100% vectoriel — pas de rasterisation (livrable palier Pro)
 
    Réutilise la même source de données que export-galerie-884-hires.js (le
-   bloc `const DATA = {...}` de galerie-884-patterns-unifies.html), la même
+   bloc `const DATA = {...}` de galerie-768-patterns-unifies.html), la même
    notion de "pavage" (repeats=4, comme drawPaved()) et la même conversion
    niveaux de gris par luminance perceptive.
 
@@ -33,7 +33,7 @@ const archiver = require('archiver');
 const PDFDocument = require('pdfkit');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-884-patterns-unifies.html');
+const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-768-patterns-unifies.html');
 
 // ---------- CLI args ----------
 const args = process.argv.slice(2);
@@ -99,7 +99,7 @@ function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   return grid;
 }
 
-// ---------- adapté de motifSvgMarkup() (galerie-884-patterns-unifies.html / export-galerie-884.js) ----------
+// ---------- adapté de motifSvgMarkup() (galerie-768-patterns-unifies.html / export-galerie-884.js) ----------
 // Pour un pavage (repeats>1), la tuile de base (144 rects) est déclarée une
 // seule fois dans <defs> et référencée via <use> à chaque répétition, plutôt
 // que dupliquée à plat : même rendu vectoriel exact, mais un fichier ~16x

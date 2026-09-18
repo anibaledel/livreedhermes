@@ -86,7 +86,7 @@ commentaires de traits — n'est pas reprise ici : elle vit dans `index.html`
 ### Navigation du pied de page
 - « Créer un motif »
 - « Unified Patterns »
-- « Galerie 884 »
+- « Galerie 768 »
 - « Fond d'écran »
 - « Impression »
 - « Contact »
@@ -156,7 +156,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 - « Tirage »
 - « Impression »
 - « Unified Patterns »
-- « Galerie 884 »
+- « Galerie 768 »
 - « Fond d'écran »
 - « Contact »
 - « À propos »
@@ -175,7 +175,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 Neuf pages portent la même navigation de pied de page, à l'identique :
 `impression.html`, `fonds-ecran.html`, `contact.html`, `articles.html`,
 `lexique.html`, `a-propos.html`, `profil.html`,
-`galerie-884-patterns-unifies.html` et `unified-patterns.html`.
+`galerie-768-patterns-unifies.html` et `unified-patterns.html`.
 `creation-motifs-yi-king.html` porte la même, moins sa propre entrée
 « Créer un motif ». `index.html` en omet deux, « Accueil » et « Tirage » :
 il tient les deux rôles. Trois pages font exception : `pro.html` et `encodeur.html` ont
@@ -191,7 +191,7 @@ aujourd'hui un fichier HTML autonome.
 - « Tirage »
 - « Créer un motif »
 - « Unified Patterns »
-- « Galerie 884 »
+- « Galerie 768 »
 - « Fond d'écran »
 - « Impression »
 - « Contact »
@@ -207,7 +207,7 @@ aujourd'hui un fichier HTML autonome.
 
 ### Barre du livre
 Présente sur `impression.html`, `fonds-ecran.html`,
-`galerie-884-patterns-unifies.html` et `unified-patterns.html`.
+`galerie-768-patterns-unifies.html` et `unified-patterns.html`.
 - « La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard. »
 - « Lire le livre »
 - Drapeaux : 🇫🇷 🇬🇧 🇪🇸 🇹🇭 🇨🇳 🇷🇺
@@ -269,14 +269,14 @@ Présente sur `impression.html`, `fonds-ecran.html`,
 
 ---
 
-## Page : Galerie des 884 patterns unifiés (`galerie-884-patterns-unifies.html`)
+## Page : Galerie des 768 patterns unifiés (`galerie-768-patterns-unifies.html`)
 
 ### En-tête
-- Titre du document : « La Livrée d'Hermès — Galerie des 884 Patterns Unifiés »
+- Titre du document : « La Livrée d'Hermès — Galerie des 768 Patterns Unifiés »
 - Marque : « La Livrée d'Hermès »
-- Titre : « Galerie des 884 Patterns Unifiés »
+- Titre : « Galerie des 768 Patterns Unifiés »
 - Sous-titre : « Engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage. »
-- Compteur : « 884 » — « Patterns unifiés »
+- Compteur : « 768 » — « Patterns unifiés »
 
 ### Questions fréquentes
 Bloc dépliant, partagé avec `unified-patterns.html` :
@@ -296,7 +296,7 @@ Bloc dépliant, partagé avec `unified-patterns.html` :
 - Titre : « Unified Patterns »
 - Sous-titre : « Les 64 motifs textiles associés aux 64 hexagrammes du Yi King — cliquez une case pour personnaliser sa couleur et télécharger le motif. »
 
-Même bloc « Questions fréquentes » que la galerie 884.
+Même bloc « Questions fréquentes » que la galerie 768.
 
 ---
 

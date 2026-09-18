@@ -5,7 +5,7 @@ Yi King, des motifs textiles génératifs et de la stéganographie géométrique
 Site statique servi tel quel — pas d'étape de compilation, pas de framework :
 chaque page est un fichier HTML autonome que l'on peut ouvrir depuis le disque.
 
-Les pages lourdes (galerie des 884 motifs, encodeur, impression) embarquent leur
+Les pages lourdes (galerie des 768 motifs, encodeur, impression) embarquent leur
 JavaScript en ligne. Ce qui est partagé entre plusieurs pages vit dans
 `assets/*.js` et se charge par une balise `<script src>`.
 
@@ -17,7 +17,7 @@ JavaScript en ligne. Ce qui est partagé entre plusieurs pages vit dans
 ├── tirage-livree-hermes.html        tirage et numérotation binaire
 ├── creation-motifs-yi-king.html     création de motifs
 ├── impression.html                  impression 360
-├── galerie-884-patterns-unifies.html galerie des 884 motifs unifiés
+├── galerie-768-patterns-unifies.html galerie des 768 motifs unifiés
 ├── unified-patterns.html            présentation des motifs unifiés
 ├── fonds-ecran.html                 fonds d'écran
 ├── articles.html + articles/        six articles de fond
@@ -81,7 +81,7 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `export-galerie-884.js` | SVG + JPEG Pinterest + métadonnées + archive ZIP |
 | `export-galerie-884-hires.js` | PNG 4096×4096 (Pinterest, Adobe Stock) |
 | `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
-| `export-galerie-884-vector.js` | 884 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
+| `export-galerie-884-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
