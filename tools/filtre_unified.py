@@ -1,39 +1,78 @@
 #!/usr/bin/env python3
 # ============================================================
-# Filtre le catalogue data/fonds_ecran_v1.json (clé "entries") selon le
-# critere de forme unifiee, verifie par l'auteur :
+# Reproduit le Théorème 2 de la note « A Half-Shift Criterion on
+# Three-Colour 12×12 Grids, and Its Restriction on the Cube » : construit
+# les candidats (famille, teinteA, teinteB, n) pour les 15 familles, les
+# deux couples (yang,yang_mut) et (yin,yin_mut), et les 64 hexagrammes, et
+# ne retient que ceux qui satisfont le critère, vérifié par l'auteur :
 #
-#   Pour une entree [famille, teinteA, teinteB, n] :
+#   Pour un candidat [famille, teinteA, teinteB, n] :
 #     g = hexagramGrid(n, families[famille][teinteA], families[famille][teinteB])
 #     d = g decalee de 6 cases en ligne et 6 en colonne, torique :
 #         d[r][c] = g[(r-6)%12][(c-6)%12]
 #     s = hexagramGrid(n, families[famille][teinteB], families[famille][teinteA])
 #         (les deux teintes echangees)
-#     L'entree est retenue si d == s case par case (egalite stricte).
+#     Le candidat est retenu si d == s case par case (egalite stricte).
 #
 # hexagramGrid() est reprise a l'identique de fonds-ecran.html:519 — meme
-# boucle, meme indexation LAYER_OF/traits.
+# boucle, meme indexation LAYER_OF/traits. La reconstruction des familles
+# depuis referent_360_v3.json est une redite volontaire de celle de
+# tools/cube_edges.py — deux implementations independantes du meme calcul,
+# pas une source partagee : c'est leur convergence qui vaut preuve.
 #
-# Le fichier actuel n'a jamais ete filtre : c'est une enumeration, pas une
-# selection (884 entrees). Resultat attendu : 768 exactement — le script
-# echoue (exit 1, rien ecrit) si ce n'est pas le cas, plutot que d'ecrire
-# un resultat qui contredirait la specification.
+# Jusqu'au 2026-09-19, ce script lisait data/fonds_ecran_v1.json, dont les
+# quatre familles a une base etaient incompletes (12 couches sur 60
+# manquantes, voir tools/generate_fonds_ecran.py) — le resultat attendu
+# etait alors 768 sur 6 familles. Corrige pour lire directement
+# data/referent_360_v3.json (la source complete, 15 familles x 4 natures) :
+# 1024 sur 8 familles.
 #
-# Usage : python tools/filtre_unified.py [--check-only]
+# Ce script ne modifie plus aucun fichier — c'est une verification, pas un
+# generateur (data/fonds_ecran_v1.json est produit par
+# tools/generate_fonds_ecran.py, seule source de ce fichier).
+#
+# Usage : python tools/filtre_unified.py
 # ============================================================
 import json
 import sys
+from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA_PATH = ROOT / "data" / "fonds_ecran_v1.json"
+DATA_PATH = ROOT / "data" / "referent_360_v3.json"
 
-EXPECTED_COUNT = 768
+EXPECTED_COUNT = 1024
 EXPECTED_FAMILIES = {
-    "par2:yang+yin_mut", "par2:yin+yang", "par2:yin+yang_mut",
-    "par2:yin_mut+yang_mut", "par3:sans_yang", "par3:sans_yang_mut",
+    "BASE-YANG", "BASE-YANG-MUT",
+    "PAR2-YANG-YIN-MUT", "PAR2-YIN-MUT-YANG-MUT", "PAR2-YIN-YANG", "PAR2-YIN-YANG-MUT",
+    "PAR3-SANS-YANG", "PAR3-SANS-YANG-MUT",
 }
 EXPECTED_PAIRS = {("yang", "yang_mut"), ("yin", "yin_mut")}
+
+
+def familles_depuis_referent_360(doc):
+    """Les 15 familles et leurs 60 couches, depuis referent_360_v3.json.
+
+    Le fichier range les quatre familles à une base sous l'étiquette BASES,
+    avec une teinte « BASE-NATURE » ; on les sépare en quatre familles."""
+    lettre = {'violet': 'V', 'magenta': 'M', 'orange': 'O'}
+    couches = defaultdict(lambda: [[None] * 12 for _ in range(12)])
+    for c in doc['calques']:
+        for col, l in lettre.items():
+            for r, cc in c[col + '_positions']:
+                couches[(c['famille'], c['teinte'])][r][cc] = l
+    familles = defaultdict(dict)
+    for (f, t), g in couches.items():
+        if any(x is None for row in g for x in row):
+            sys.exit(f"couche incomplète après union des 6 niveaux : {f}/{t}")
+        if f == 'BASES':
+            for b in ('YANG-MUT', 'YIN-MUT', 'YANG', 'YIN'):  # ordre : préfixes longs d'abord
+                if t.startswith(b + '-'):
+                    familles['BASE-' + b][t[len(b) + 1:].lower().replace('-', '_')] = g
+                    break
+        else:
+            familles[f][t.lower().replace('-', '_')] = g
+    return doc['layer_of'], dict(familles)
 
 
 def hexagram_grid(n, grid_a, grid_b, layer_of):
@@ -64,23 +103,19 @@ def is_unified(fam, a, b, n, families, layer_of):
 
 
 def main():
-    check_only = "--check-only" in sys.argv
+    doc = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    layer_of, families = familles_depuis_referent_360(doc)
+    print(f"familles : {len(families)} ; couches : {sum(len(v) for v in families.values())}")
 
-    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
-    layer_of = data["layerOf"]
-    families = data["families"]
-    entries = data["entries"]
+    candidats = [(fam, a, b, n) for fam in families for a, b in EXPECTED_PAIRS for n in range(64)]
+    print(f"Candidats (15 familles x 2 couples x 64 hexagrammes) : {len(candidats)}")
 
-    print(f"Entrees avant filtrage : {len(entries)}")
+    kept = [[fam, a, b, n] for fam, a, b, n in candidats
+            if is_unified(fam, a, b, n, families, layer_of)]
 
-    kept = []
-    for fam, a, b, n in entries:
-        if is_unified(fam, a, b, n, families, layer_of):
-            kept.append([fam, a, b, n])
+    print(f"Retenus (critère appliqué, n contrôlé un par un plutôt que par le "
+          f"raccourci B=A∘σ) : {len(kept)}")
 
-    print(f"Entrees retenues (critere applique) : {len(kept)}")
-
-    # Repartition par famille, pour comparer a la specification.
     by_family = {}
     for fam, a, b, n in kept:
         by_family.setdefault(fam, []).append((a, b, n))
@@ -111,22 +146,10 @@ def main():
             ok = False
 
     if not ok:
-        print("\nLe compte ou la composition ne correspond pas a la specification.")
-        print("Rien n'est ecrit — fichier de donnees inchange.")
+        print("\nLe compte ou la composition ne correspond pas à la spécification.")
         sys.exit(1)
 
-    print(f"\nOK : {EXPECTED_COUNT} entrees, composition conforme a la specification.")
-
-    if check_only:
-        print("(--check-only : fichier de donnees non modifie)")
-        return
-
-    data["entries"] = kept
-    DATA_PATH.write_text(
-        json.dumps(data, ensure_ascii=False, separators=(",", ":")),
-        encoding="utf-8",
-    )
-    print(f"Ecrit : {DATA_PATH}")
+    print(f"\nOK : {EXPECTED_COUNT} triplets, composition conforme au Théorème 2.")
 
 
 if __name__ == "__main__":
