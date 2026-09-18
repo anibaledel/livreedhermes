@@ -59,7 +59,7 @@ const BG_COLOR = '#000'; // var(--bg) du site — filet de sécurité anti-crén
 // ---------- extraction des données (source de vérité unique) ----------
 function loadData() {
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\n/);
+  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
   if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
   const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
@@ -130,7 +130,7 @@ function renderPinterestPng(grid, palette) {
   return canvas.toBuffer('image/png');
 }
 
-// ---------- mêmes conventions de nommage que export-galerie-884-vector.js (garantit l'identité avec les .svg) ----------
+// ---------- mêmes conventions de nommage que export-galerie-vector.js (garantit l'identité avec les .svg) ----------
 const colorName = { V: 'violet', M: 'magenta', O: 'orange' };
 function dominantColors(grid) {
   const counts = { V: 0, M: 0, O: 0 };

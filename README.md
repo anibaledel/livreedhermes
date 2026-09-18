@@ -81,7 +81,7 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `export-galerie-884.js` | SVG + JPEG Pinterest + métadonnées + archive ZIP |
 | `export-galerie-884-hires.js` | PNG 4096×4096 (Pinterest, Adobe Stock) |
 | `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
-| `export-galerie-884-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
+| `export-galerie-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
