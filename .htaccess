@@ -32,9 +32,6 @@
   RewriteCond %{THE_REQUEST} \s/+pages\.html[\s?] [NC]
   RewriteRule ^ https://anibal-amiot.com/fonds-ecran.html [R=301,L]
 
-  RewriteCond %{THE_REQUEST} \s/+galerie-884-patterns-unifies\.html[\s?] [NC]
-  RewriteRule ^ https://anibal-amiot.com/galerie-768-patterns-unifies.html [R=301,L]
-
   # /index.html sert exactement le même contenu que / (DirectoryIndex Apache) :
   # on ne peut pas rediriger le fichier index.html lui-même (ça boucle avec /),
   # donc la condition ne matche que la requête brute "GET /index.html", jamais
