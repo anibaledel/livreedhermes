@@ -1,0 +1,29 @@
+name: fonds_ecran complet (60 couches)
+
+# data/fonds_ecran_v1.json doit porter les 15 familles x 4 natures (60
+# couches) reconstructibles depuis data/referent_360_v3.json
+# (tools/generate_fonds_ecran.py). Jusqu'au 2026-09-19, les quatre
+# familles a une base etaient rangees sous une seule cle "bases" avec une
+# seule couche chacune -- 12 des 60 couches manquaient, et le critere
+# d'unification (tools/cube_edges.py) n'en voyait que 6 familles sur 8,
+# sans qu'aucun controle ne le signale. Ce workflow echoue si
+# fonds_ecran_v1.json redevient incomplet -- voir
+# tools/check_fonds_ecran_completude.py.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/check_fonds_ecran_completude.py
