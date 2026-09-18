@@ -219,6 +219,11 @@ const NON_CYMATIQUE_ENTRIES = [
   // même logique de réutilisation, n=48 pour rester distinct de n=0 et n=32.
   { key: 'outils',           familyKey: FAMILY_KEYS[2],  n: 48 },
   { key: 'la-livree-d-hermes', familyKey: FAMILY_KEYS[3], n: 48 },
+  // bicolore.html (2026-09) : troisième page de sommaire ajoutée après
+  // outils/la-livree-d-hermes, même logique de réutilisation — famille
+  // déjà prise par unified-patterns (FAMILY_KEYS[4], n=0), n=16 pour
+  // rester distinct de 0/21/32/42/48/63 déjà utilisés ailleurs.
+  { key: 'bicolore',         familyKey: FAMILY_KEYS[4],  n: 16 },
 ];
 
 // ---------- Cymatique : figée, moteur triangle d'origine (bicolore-render.js) ----------
@@ -279,7 +284,7 @@ function cymatiqueSprite(){
 
 // ---------- Génération ----------
 let totalBytes = 0;
-console.log(`Génération de 15 vignettes (${ICON_SIZE}px) — palette V=${PALETTE.V} M=${PALETTE.M} O=${PALETTE.O}\n`);
+console.log(`Génération de 16 vignettes (${ICON_SIZE}px) — palette V=${PALETTE.V} M=${PALETTE.M} O=${PALETTE.O}\n`);
 
 for (const { key, familyKey, n } of NON_CYMATIQUE_ENTRIES) {
   const grid = familyGrid(familyKey, n);
@@ -294,7 +299,7 @@ fs.writeFileSync(path.join(OUT_DIR, 'cymatique.png'), cymBuf);
 totalBytes += cymBuf.length;
 console.log(`  ${'cymatique'.padEnd(18)} ${(cymBuf.length/1024).toFixed(2).padStart(6)} Ko   FIGÉE — moteur triangle d'origine, gamme 'yang pur yin pur'`);
 
-console.log(`\nTotal : ${(totalBytes/1024).toFixed(1)} Ko pour 15 vignettes -> assets/nav-icons/`);
+console.log(`\nTotal : ${(totalBytes/1024).toFixed(1)} Ko pour 16 vignettes -> assets/nav-icons/`);
 
 // ---------- Planches d'animation : les 15 (14 + Cymatique figée) ----------
 console.log(`\nPlanches d'animation (8 vues) :`);
@@ -314,5 +319,5 @@ for (const { key, familyKey, n } of NON_CYMATIQUE_ENTRIES) {
   console.log(`  ${(key+'-sprite.png').padEnd(24)} ${(buf.length/1024).toFixed(2).padStart(6)} Ko   famille ${familyKey}, vue0=n${n}(yang/yang_mut), vues1-4=(yang/yin), vues5-7=(yang_mut/yin_mut)`);
 }
 
-console.log(`\nTotal planches : ${(totalSpriteBytes/1024).toFixed(1)} Ko pour 15 planches à 8 vues`);
+console.log(`\nTotal planches : ${(totalSpriteBytes/1024).toFixed(1)} Ko pour 16 planches à 8 vues`);
 console.log(`Total général : ${((totalBytes+totalSpriteBytes)/1024).toFixed(1)} Ko -> assets/nav-icons/`);
