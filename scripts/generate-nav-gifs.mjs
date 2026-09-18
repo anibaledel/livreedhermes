@@ -225,13 +225,14 @@ const NON_CYMATIQUE_ENTRIES = [
   { key: 'articles',         familyKey: FAMILY_KEYS[1],  n: 32 },
   { key: 'outils',           familyKey: FAMILY_KEYS[2],  n: 48 },
   { key: 'la-livree-d-hermes', familyKey: FAMILY_KEYS[3], n: 48 },
+  { key: 'bicolore',         familyKey: FAMILY_KEYS[4],  n: 16 },
 ];
 const referentBandes = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'referent_bandes_v1.json'), 'utf8'));
 const CYMATIQUE_GAMME_KEYS = ['yang pur yin pur', 'yang mut', 'yang', 'yin mut', 'yin', 'yang mut yin mut', 'yang pur', 'yang yin mut'];
 
 // ---------- génération ----------
 let totalBytes = 0;
-console.log(`Génération de 15 GIF de survol (${TILE_SIZE}px, ${FRAME_DELAY}ms/image)\n`);
+console.log(`Génération de 16 GIF de survol (${TILE_SIZE}px, ${FRAME_DELAY}ms/image)\n`);
 
 for(const {key, familyKey, n} of NON_CYMATIQUE_ENTRIES){
   const pool = buildFamilyPool(familyKey);
@@ -251,4 +252,4 @@ fs.writeFileSync(path.join(OUT_DIR, 'cymatique-hover.gif'), cymBuf);
 totalBytes += cymBuf.length;
 console.log(`  ${'cymatique'.padEnd(18)} ${(cymBuf.length/1024).toFixed(2).padStart(6)} Ko   (figée, 8 gammes)`);
 
-console.log(`\nTotal 15 GIF : ${(totalBytes/1024).toFixed(2)} Ko (contre 145 Ko pour les 15 planches PNG actuelles)`);
+console.log(`\nTotal 16 GIF : ${(totalBytes/1024).toFixed(2)} Ko (contre 175 Ko pour les 16 planches PNG actuelles)`);

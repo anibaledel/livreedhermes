@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Motifs bicolores — La Livrée d'Hermès</title>
-<meta name="description" content="Composez une cellule 12×12 en superposant six calques bicolores, et voyez le pavage se former.">
+<meta name="description" content="Composez une cellule 12×12 en superposant six niveaux bicolores, un par trait d'hexagramme, et partagez la composition par son URL.">
 <meta name="author" content="Anibal Edelberto Amiot">
 <link rel="canonical" href="https://anibal-amiot.com/bicolore.html">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
@@ -25,12 +25,44 @@
   header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
   header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
 
-  .panes{ display:flex; gap:24px; flex-wrap:wrap; justify-content:center; margin-top:24px; }
-  .pane{ border:1px solid var(--line); padding:18px; text-align:center; flex:1 1 320px; max-width:400px; }
-  .pane h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; }
-  .pane svg{ display:block; width:100%; height:auto; border:1px solid var(--line); }
+  .composer{ display:flex; gap:28px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } }
+  .hexselect{ display:flex; flex-direction:column-reverse; gap:8px; padding:16px 10px; border:1px solid var(--line); background:var(--panel); }
+  .hexselect button{
+    all:unset; cursor:pointer; width:88px; height:22px; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .hexselect button .bar{ display:flex; gap:10%; width:100%; height:9px; }
+  .hexselect button .bar span{ flex:1; background:var(--dim); }
+  .hexselect button.gap .bar{ gap:14%; }
+  .hexselect button[aria-pressed="true"]{ outline:2px solid var(--gold); outline-offset:4px; }
+  .hexselect button .num{
+    position:absolute; left:-22px; font-size:11px; color:var(--dim); opacity:.6;
+  }
+
+  .preview{ border:1px solid var(--line); padding:18px; text-align:center; }
+  .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); }
+  .preview p{ margin:10px 0 0; font-size:12px; color:var(--dim); opacity:.7; }
+
+  .controls{ width:300px; max-width:100%; border:1px solid var(--line); padding:18px; background:var(--panel); }
+  .controls h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; }
+  .ctl-colors{ display:flex; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line); }
+  .ctl-colors label{ display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--dim); flex:1; }
+  .ctl-colors input[type="color"]{ width:100%; height:32px; border:1px solid var(--line); background:none; padding:2px; }
+  .ctl-level label{ display:block; font-size:12px; color:var(--dim); margin:12px 0 4px; }
+  .ctl-level select{
+    width:100%; padding:8px; background:var(--bg); color:var(--white); border:1px solid var(--line); font-family:inherit; font-size:13px;
+  }
+
+  .share{ max-width:1120px; margin:32px auto 0; padding:0 24px; }
+  .share label{ display:block; font-size:12px; color:var(--dim); opacity:.7; margin-bottom:6px; }
+  .share input{ width:100%; padding:10px; background:var(--panel); color:var(--white); border:1px solid var(--line); font-family:inherit; font-size:12px; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .composer{ flex-direction:column; align-items:center; }
+    .hexselect{ flex-direction:row; }
+  }
 </style>
 </head>
 <body>
@@ -41,41 +73,178 @@
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Motifs bicolores</span>
     </nav>
     <h1>Motifs bicolores</h1>
-    <p>Famille YANG — les deux teintes, Yang et son inverse Yin.</p>
+    <p>Six niveaux, chacun sa famille et sa teinte — cliquez un trait pour le régler.</p>
   </header>
 
-  <div class="panes">
-    <div class="pane">
-      <h2>Yang</h2>
-      <div id="paneYang"></div>
+  <div class="composer">
+    <div class="hexselect" id="hexSelect" role="group" aria-label="Sélecteur de niveau (trait 1 en bas, trait 6 en haut)"></div>
+
+    <div class="preview">
+      <div id="paneMotif"></div>
+      <p>Cellule 12×12 — niveau <span id="previewLevelNum">1</span> sélectionné</p>
     </div>
-    <div class="pane">
-      <h2>Yin</h2>
-      <div id="paneYin"></div>
+
+    <div class="controls">
+      <h2>Couleurs</h2>
+      <div class="ctl-colors">
+        <label>Teinte A <input type="color" id="colorA" value="#0a0a0a"></label>
+        <label>Teinte B <input type="color" id="colorB" value="#e0261b"></label>
+      </div>
+      <h2 id="levelHeading">Niveau 1</h2>
+      <div class="ctl-level">
+        <label for="familleSelect">Famille</label>
+        <select id="familleSelect"></select>
+        <label for="etatSelect">État</label>
+        <select id="etatSelect">
+          <option value="yang">Teinte Yang</option>
+          <option value="yin">Teinte Yin</option>
+        </select>
+      </div>
     </div>
+  </div>
+
+  <div class="share">
+    <label for="shareUrl">URL de cette composition</label>
+    <input type="text" id="shareUrl" readonly onclick="this.select()">
   </div>
 </div>
 
 <script type="module">
-import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
+import { composeNiveauxMask, maskToPavageSvg } from './assets/bicolore-render.js';
 
-const PALETTE = ['#0a0a0a', '#e0261b'];
+const N_LEVELS = 6;
+
+function familleLabel(key) {
+  const terms = key.split('+');
+  const used = new Set();
+  const parts = [];
+  for (const pole of ['YIN', 'YANG']) {
+    const mut = pole + '-MUT';
+    if (terms.includes(pole) && terms.includes(mut)) {
+      parts.push(pole[0] + pole.slice(1).toLowerCase() + ' pur');
+      used.add(pole); used.add(mut);
+    }
+  }
+  for (const t of terms) {
+    if (used.has(t)) continue;
+    if (t.endsWith('-MUT')) {
+      const base = t.slice(0, -4);
+      parts.push(base[0] + base.slice(1).toLowerCase() + ' (mutant)');
+    } else {
+      parts.push(t[0] + t.slice(1).toLowerCase());
+    }
+  }
+  return parts.join(' + ');
+}
 
 async function main() {
   const res = await fetch('data/referent_bicolore_v1.json');
   const data = await res.json();
-  const famille = data.familles.YANG;
 
-  const bitsYang = hexToBits(famille.yang);
-  const bitsYin = hexToBits(famille.yin);
+  const familleKeys = Object.keys(data.familles).sort((a, b) => {
+    const na = a.split('+').length, nb = b.split('+').length;
+    return na - nb || a.localeCompare(b);
+  });
 
-  document.getElementById('paneYang').innerHTML = maskToPavageSvg(bitsYang, PALETTE, 1, 1, { size: 360 });
-  document.getElementById('paneYin').innerHTML = maskToPavageSvg(bitsYin, PALETTE, 1, 1, { size: 360 });
+  const params = new URLSearchParams(location.search);
+
+  const levels = [];
+  for (let n = 1; n <= N_LEVELS; n++) {
+    const raw = params.get('l' + n);
+    let name = familleKeys[0], teinte = 'yang';
+    if (raw) {
+      const [rn, rt] = raw.split('.');
+      if (data.familles[rn] && (rt === 'yang' || rt === 'yin')) { name = rn; teinte = rt; }
+    }
+    levels.push({ name, teinte });
+  }
+
+  const colorA = /^#[0-9a-f]{6}$/i.test(params.get('c0') || '') ? '#' + params.get('c0').replace('#', '') : '#0a0a0a';
+  const colorB = /^#[0-9a-f]{6}$/i.test(params.get('c1') || '') ? '#' + params.get('c1').replace('#', '') : '#e0261b';
+  document.getElementById('colorA').value = colorA;
+  document.getElementById('colorB').value = colorB;
+
+  let selected = 1;
+
+  const familleSelect = document.getElementById('familleSelect');
+  familleKeys.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = familleLabel(k);
+    familleSelect.appendChild(opt);
+  });
+  const etatSelect = document.getElementById('etatSelect');
+
+  const hexSelect = document.getElementById('hexSelect');
+  const bars = [];
+  for (let n = 1; n <= N_LEVELS; n++) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.level = String(n);
+    btn.innerHTML = '<span class="num">' + n + '</span><span class="bar"></span>';
+    btn.addEventListener('click', () => selectLevel(n));
+    hexSelect.appendChild(btn);
+    bars.push(btn);
+  }
+
+  function renderBars() {
+    bars.forEach((btn, i) => {
+      const n = i + 1;
+      const lvl = levels[n - 1];
+      const bar = btn.querySelector('.bar');
+      btn.classList.toggle('gap', lvl.teinte === 'yin');
+      bar.innerHTML = lvl.teinte === 'yin' ? '<span></span><span></span>' : '<span></span>';
+      btn.setAttribute('aria-pressed', n === selected ? 'true' : 'false');
+    });
+  }
+
+  function selectLevel(n) {
+    selected = n;
+    const lvl = levels[n - 1];
+    familleSelect.value = lvl.name;
+    etatSelect.value = lvl.teinte;
+    document.getElementById('levelHeading').textContent = 'Niveau ' + n;
+    document.getElementById('previewLevelNum').textContent = n;
+    renderBars();
+  }
+
+  function updateUrl() {
+    const p = new URLSearchParams();
+    levels.forEach((lvl, i) => p.set('l' + (i + 1), lvl.name + '.' + lvl.teinte));
+    p.set('c0', document.getElementById('colorA').value.replace('#', ''));
+    p.set('c1', document.getElementById('colorB').value.replace('#', ''));
+    const url = location.origin + location.pathname + '?' + p.toString();
+    history.replaceState(null, '', '?' + p.toString());
+    document.getElementById('shareUrl').value = url;
+  }
+
+  function render() {
+    const palette = [document.getElementById('colorA').value, document.getElementById('colorB').value];
+    const mask = composeNiveauxMask(data.familles, data.layers, levels);
+    document.getElementById('paneMotif').innerHTML = maskToPavageSvg(mask, palette, 1, 1, { size: 500 });
+    updateUrl();
+  }
+
+  familleSelect.addEventListener('change', () => {
+    levels[selected - 1].name = familleSelect.value;
+    renderBars();
+    render();
+  });
+  etatSelect.addEventListener('change', () => {
+    levels[selected - 1].teinte = etatSelect.value;
+    renderBars();
+    render();
+  });
+  document.getElementById('colorA').addEventListener('input', render);
+  document.getElementById('colorB').addEventListener('input', render);
+
+  selectLevel(1);
+  render();
 }
 
 main().catch(err => {
   console.error(err);
-  document.querySelector('.panes').innerHTML = `<p style="color:var(--red);">Erreur de chargement : ${err.message}</p>`;
+  document.querySelector('.composer').innerHTML = `<p style="color:var(--red);">Erreur de chargement : ${err.message}</p>`;
 });
 </script>
 </body>
