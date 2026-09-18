@@ -865,18 +865,18 @@ function traitSVG(bit, moving){
   const W=120,H=16, midY=H/2, cx=W/2;
   let inner='';
   if(bit===1){
-    inner += `<rect x="0" y="${midY-2.5}" width="${W}" height="5" fill="var(--red)"/>`;
+    inner += `<rect x="0" y="${midY-2.5}" width="${W}" height="5" fill="var(--white)"/>`;
     if(moving){
-      inner += `<circle cx="${cx}" cy="${midY}" r="6" fill="var(--white)"/>`;
+      inner += `<circle cx="${cx}" cy="${midY}" r="6" fill="var(--red)"/>`;
     }
   } else {
     const gap = 22;
     const segW = (W-gap)/2;
-    inner += `<rect x="0" y="${midY-2.5}" width="${segW}" height="5" fill="var(--white)"/>`;
-    inner += `<rect x="${segW+gap}" y="${midY-2.5}" width="${segW}" height="5" fill="var(--white)"/>`;
+    inner += `<rect x="0" y="${midY-2.5}" width="${segW}" height="5" fill="var(--red)"/>`;
+    inner += `<rect x="${segW+gap}" y="${midY-2.5}" width="${segW}" height="5" fill="var(--red)"/>`;
     if(moving){
-      inner += `<line x1="${segW+2}" y1="${midY-6}" x2="${segW+gap-2}" y2="${midY+6}" stroke="var(--red)" stroke-width="1.6"/>`;
-      inner += `<line x1="${segW+2}" y1="${midY+6}" x2="${segW+gap-2}" y2="${midY-6}" stroke="var(--red)" stroke-width="1.6"/>`;
+      inner += `<line x1="${segW+2}" y1="${midY-6}" x2="${segW+gap-2}" y2="${midY+6}" stroke="var(--white)" stroke-width="1.6"/>`;
+      inner += `<line x1="${segW+2}" y1="${midY+6}" x2="${segW+gap-2}" y2="${midY-6}" stroke="var(--white)" stroke-width="1.6"/>`;
     }
   }
   return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
@@ -886,8 +886,8 @@ function makeCellSVG(traits){
   return `<svg viewBox="0 0 40 60" xmlns="http://www.w3.org/2000/svg">${
     traits.slice().reverse().map((b,i)=>{
       const y=i*9;
-      if(b===1) return `<rect x="4" y="${y+3}" width="32" height="3" fill="var(--red)"/>`;
-      return `<rect x="4" y="${y+3}" width="13" height="3" fill="var(--white)"/><rect x="23" y="${y+3}" width="13" height="3" fill="var(--white)"/>`;
+      if(b===1) return `<rect x="4" y="${y+3}" width="32" height="3" fill="var(--white)"/>`;
+      return `<rect x="4" y="${y+3}" width="13" height="3" fill="var(--red)"/><rect x="23" y="${y+3}" width="13" height="3" fill="var(--red)"/>`;
     }).join('')
   }</svg>`;
 }
