@@ -1,0 +1,28 @@
+name: referent_bandes en phase avec le bicolore
+
+# data/referent_bandes_v1.json est une vue generee de
+# data/referent_bicolore_v1.json (tools/generate_referent_bandes.py) depuis
+# le 2026-09-19 -- avant cette date, les deux etaient dessines
+# independamment et avaient diverge sur les 15 gammes pendant plusieurs
+# semaines sans que rien ne le signale. Ce workflow echoue si
+# referent_bandes_v1.json ne correspond plus exactement a ce que le
+# generateur produirait depuis referent_bicolore_v1.json (edition manuelle,
+# generation partielle, etc.) -- voir tools/check_referent_bandes_sync.py.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/check_referent_bandes_sync.py
