@@ -6,13 +6,25 @@ generate_referent_bandes.py — Générateur de data/referent_bandes_v1.json
 
 VUE GÉNÉRÉE de data/referent_bicolore_v1.json — ne dessine plus les masques
 indépendamment. Historique : jusqu'au 2026-09-19, ce fichier était produit à
-part, depuis 15 SVG dessinés séparément (data/referent_bandes_src/, dossier
-ORIGINES). Les deux dessins ont divergé sur les 15 gammes pendant plusieurs
-semaines sans que rien ne le signale — voir tools/check_referent_bandes_sync.py,
-le garde-fou ajouté à cette occasion. Une source unique (le bicolore, déjà
-généré par combinaison de 4 bases, tools/generate_referent_bicolore.py) rend
-cette divergence structurellement impossible : ce script ne fait plus que
-regarder dans le bicolore et retraduire son vocabulaire.
+part, depuis 15 SVG dessinés séparément (alors rangés sous
+data/referent_bandes_src/, supprimé depuis — voir plus bas). Les deux dessins
+ont divergé sur les 15 gammes pendant plusieurs semaines sans que rien ne le
+signale — voir tools/check_referent_bandes_sync.py, le garde-fou ajouté à
+cette occasion. Une source unique (le bicolore, déjà généré par combinaison
+de 4 bases, tools/generate_referent_bicolore.py) rend cette divergence
+structurellement impossible : ce script ne fait plus que regarder dans le
+bicolore et retraduire son vocabulaire.
+
+CORRECTION (2026-09-19, après dépôt) : data/referent_bandes_src/ n'était pas
+« les 15 SVG ORIGINES » comme l'affirmait ce fichier — c'était une copie de la
+géométrie T1 (1152 polygones, 2 tons), sous un nom qui devrait désigner un
+troisième tour distinct (T3, des bandes — lignes parallèles, pas des figures
+emboîtées autour d'un centre). Le vrai T1 est maintenant versionné à
+data/ORIGINES/, le vrai T2 à data/ORIGINES T2/, et la vraie source T3 à
+data/referent_bandes_t3_src/ (576 polygones, 2 tons, fournie directement —
+non intégrée pour l'instant, aucun script ne la lit encore). L'ancien
+data/referent_bandes_src/ a été supprimé : ORIGINES/ porte déjà cette
+géométrie sous son vrai nom, le garder en double n'apportait rien.
 
 Ce que ce fichier garde en propre, que le bicolore n'a pas :
   - le vocabulaire des 15 gammes ("yang pur yin mut", "yin yang fix", ...),
@@ -35,9 +47,9 @@ NAME_TABLE ci-dessous a deux parties :
     gammes de même taille et composition proche (ex. "yang pur" et
     "yang yin mut", toutes deux à 2 bases) peuvent avoir des polarités
     opposées. Cette moitié de la table reste donc une donnée, établie une
-    fois par recoupement bit à bit exact contre les 15 SVG ORIGINES
-    (data/referent_bandes_src/, conservés comme trace d'audit, plus lus
-    par ce script).
+    fois par recoupement bit à bit exact contre les 15 SVG T1
+    (data/ORIGINES/ — voir la correction plus haut ; ce script ne les lit
+    plus, le recoupement a été fait une fois, pas à chaque génération).
 
 Règle de dérivation de la combinaison (axe, qualificatif) -> bases bicolore :
     (yin,  None) -> {YIN}              (yang, None) -> {YANG}
