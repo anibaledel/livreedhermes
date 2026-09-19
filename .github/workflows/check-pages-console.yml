@@ -1,0 +1,34 @@
+name: Pages sans exception JS ni zone vide
+
+# creation-motifs-yi-king.html a ete inutilisable en production pendant des
+# semaines : une exception JS non rattrapee (bouton absent du DOM) arretait
+# le script avant le premier rendu, laissant tout son contenu interactif
+# vide, sans aucune erreur reseau ni signe visible en surface. Ce workflow
+# charge chaque page listee dans tools/check_pages_console.mjs sous Chromium
+# headless et echoue sur la premiere exception JS ou zone attendue restee
+# vide -- voir la docstring du script pour la liste des pages couvertes et
+# pourquoi.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - name: Serveur statique local
+        run: |
+          npx --yes http-server . -p 8123 -s &
+          npx --yes wait-on http://localhost:8123/index.html
+      - run: node tools/check_pages_console.mjs --base-url http://localhost:8123

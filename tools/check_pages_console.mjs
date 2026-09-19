@@ -1,0 +1,169 @@
+#!/usr/bin/env node
+// © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
+// AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+//
+// check_pages_console.mjs — Contrôle automatique : charge chaque page listée
+// ci-dessous dans un navigateur headless et échoue si l'une d'elles lève une
+// exception JavaScript non rattrapée, ou si une zone attendue reste vide.
+//
+// Pourquoi ce script existe
+// --------------------------
+// creation-motifs-yi-king.html a été inutilisable en production pendant des
+// semaines : une exception non rattrapée (document.getElementById() sur un
+// bouton absent de la page, addEventListener() appelé sur null) arrêtait le
+// script avant le premier rendu, laissant le sélecteur d'images et
+// l'échiquier entièrement vides. Rien ne le signalait : la page se chargeait
+// sans erreur réseau, avec son en-tête et son pied de page intacts — seule
+// une zone précise, construite par JS, restait vide. Ce contrôle vérifie les
+// deux symptômes séparément : l'exception elle-même (le signal le plus
+// direct), et, pour les pages où on le sait, la zone qui doit en résulter.
+//
+// Portée : les 28 pages racine, les 8 articles, trois pages hexagrammes en
+// échantillon (65 pages quasi identiques — structure getElementById() vérifiée
+// identique entre les deux extrêmes du gabarit, voir l'audit qui a précédé ce
+// script). Pas une garantie totale, un filet — mieux qu'aucun contrôle.
+//
+// Usage
+// -----
+//     node tools/check_pages_console.mjs --base-url http://localhost:8123
+//
+// Le serveur statique (racine du dépôt) doit déjà tourner à --base-url ;
+// voir .github/workflows/check-pages-console.yml pour l'invocation complète.
+
+import { chromium } from 'playwright';
+
+const args = process.argv.slice(2);
+const baseUrlIdx = args.indexOf('--base-url');
+const BASE_URL = baseUrlIdx >= 0 ? args[baseUrlIdx + 1] : 'http://localhost:8123';
+
+// zone: sélecteur CSS dont le contenu texte doit être non vide après
+// chargement — connu seulement pour les pages où une zone JS précise a un
+// sens (outils interactifs). Les autres pages n'ont que le contrôle
+// générique (texte du <body> non vide) et l'absence d'exception.
+const PAGES = [
+  // ── 28 pages racine ──────────────────────────────────────────────────
+  { path: '_preview.html' },
+  { path: 'a-propos.html' },
+  { path: 'articles.html' },
+  { path: 'bicolore.html' },
+  { path: 'carter-demo.html' },
+  { path: 'contact.html' },
+  { path: 'creation-motifs-yi-king.html', zone: '#pickArea' },
+  { path: 'cymatique.html' },
+  { path: 'encodeur.html' },
+  { path: 'fonds-ecran.html' },
+  { path: 'galerie-768-patterns-unifies.html' },
+  { path: 'galerie-884-patterns-unifies.html' },
+  { path: 'galerie-patterns-unifies.html', zone: '#gallery' },
+  { path: 'impression.html' },
+  { path: 'index.html' },
+  { path: 'la-livree-d-hermes.html' },
+  { path: 'lexique.html' },
+  { path: 'motifs%20(4).html' },
+  { path: 'outils.html' },
+  { path: 'pages.html' },
+  { path: 'pro-contenu.html' },
+  { path: 'pro.html' },
+  { path: 'profil.html' },
+  { path: 'soutenir.html' },
+  { path: 'soutien-succes.html' },
+  { path: 'telechargements.html' },
+  { path: 'tirage-livree-hermes.html' },
+  { path: 'unified-patterns.html' },
+  // ── 8 articles ───────────────────────────────────────────────────────
+  { path: 'articles/arlequin-trismegiste.html' },
+  { path: 'articles/cymatique-spectre-d-un-motif.html' },
+  { path: 'articles/encodeur-cacher-n-est-pas-proteger.html' },
+  { path: 'articles/foliage-bouffons-de-cour.html' },
+  { path: 'articles/habit-du-grand-pretre.html' },
+  { path: 'articles/hanuman-et-arlequin.html' },
+  { path: 'articles/reminiscence-caillou-carre.html' },
+  { path: 'articles/verticalite-damier-mosaique-echiquier.html' },
+  // ── 3 hexagrammes, en échantillon (les deux extrêmes du gabarit + un milieu) ──
+  { path: 'hexagrammes/0-kun-le-receptif.html' },
+  { path: 'hexagrammes/33-yi-la-nourriture.html' },
+  { path: 'hexagrammes/63-qian-le-createur.html' },
+];
+
+// caractères — filet générique "page pas totalement vide", volontairement bas :
+// une page de confirmation légitime (ex. soutien-succes.html) peut n'avoir que
+// quelques dizaines de caractères de texte réel. Le signal qui compte est
+// l'exception JS et, où on la connaît, la zone attendue — voir docstring.
+const MIN_BODY_TEXT = 40;
+
+async function checkPage(browser, page_def) {
+  const url = `${BASE_URL}/${page_def.path}`;
+  const page = await browser.newPage();
+  const errors = [];
+  page.on('pageerror', (err) => errors.push(`exception : ${err.message}`));
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') errors.push(`console.error : ${msg.text()}`);
+  });
+  page.on('requestfailed', (req) => {
+    // ignore les échecs de tiers (polices Google, traduction) — on contrôle
+    // le site, pas le réseau du jour ; ne garder que le même-origine.
+    if (req.url().startsWith(BASE_URL)) {
+      errors.push(`requête échouée (${req.failure()?.errorText || '?'}) : ${req.url()}`);
+    }
+  });
+
+  let bodyText = '';
+  let zoneText = null;
+  let loadError = null;
+  try {
+    // 'domcontentloaded', pas 'load' : on veut savoir si le script inline a
+    // fini de construire la page, pas attendre chaque police ou image tierce
+    // (une ressource externe lente ferait échouer le contrôle pour une raison
+    // qui n'a rien à voir avec ce qu'il vérifie).
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 20000 });
+    await page.waitForTimeout(400); // laisse les scripts synchrones finir leur rendu initial
+    bodyText = (await page.evaluate(() => document.body.innerText || '')).trim();
+    if (page_def.zone) {
+      zoneText = await page.evaluate((sel) => {
+        const el = document.querySelector(sel);
+        return el ? el.innerHTML.trim() : null;
+      }, page_def.zone);
+    }
+  } catch (e) {
+    loadError = e.message;
+  } finally {
+    await page.close();
+  }
+
+  const problems = [];
+  if (loadError) problems.push(`chargement : ${loadError}`);
+  if (errors.length) problems.push(...errors);
+  if (!loadError && bodyText.length < MIN_BODY_TEXT) {
+    problems.push(`page quasi vide : ${bodyText.length} caractères de texte (seuil ${MIN_BODY_TEXT})`);
+  }
+  if (page_def.zone && !loadError) {
+    if (zoneText === null) problems.push(`zone attendue absente du DOM : ${page_def.zone}`);
+    else if (zoneText.length === 0) problems.push(`zone attendue vide : ${page_def.zone}`);
+  }
+  return { path: page_def.path, ok: problems.length === 0, problems };
+}
+
+async function main() {
+  const browser = await chromium.launch();
+  const results = [];
+  for (const page_def of PAGES) {
+    results.push(await checkPage(browser, page_def));
+  }
+  await browser.close();
+
+  const failed = results.filter((r) => !r.ok);
+  for (const r of results) {
+    console.log(`${r.ok ? '  OK ' : 'FAIL'}  ${r.path}`);
+    for (const p of r.problems) console.log(`        ${p}`);
+  }
+  console.log(`\n${results.length - failed.length}/${results.length} pages OK`);
+  if (failed.length) {
+    console.error(`\n${failed.length} page(s) en échec — voir le détail ci-dessus.`);
+    process.exit(1);
+  }
+}
+
+main().catch((e) => {
+  console.error('Erreur du contrôle lui-même (pas des pages) :', e);
+  process.exit(1);
+});

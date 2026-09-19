@@ -43,7 +43,7 @@ h2{ color:var(--gold); font-weight:400; }
 <div id="sheets"></div>
 
 <script>
-const entries = [["accueil","Accueil"],["tirage","Tirage"],["hexagrammes","Hexagrammes"],["creation-motifs","Créer un motif"],["unified-patterns","Unified Patterns"],["galerie-884","Galerie 884"],["motifs-svg","Motifs SVG"],["cymatique","Cymatique"],["fond-ecran","Fond d'écran"],["impression","Impression"],["encodeur","Encodeur"],["contact","Contact"],["a-propos","À propos"],["lexique","Lexique"],["articles","Articles"]];
+const entries = [["accueil","Accueil"],["tirage","Tirage"],["hexagrammes","Hexagrammes"],["creation-motifs","Créer un motif"],["unified-patterns","Unified Patterns"],["galerie","Galerie"],["motifs-svg","Motifs SVG"],["cymatique","Cymatique"],["fond-ecran","Fond d'écran"],["impression","Impression"],["encodeur","Encodeur"],["contact","Contact"],["a-propos","À propos"],["lexique","Lexique"],["articles","Articles"]];
 document.getElementById('icons').innerHTML = entries.map(([k,l])=>`<figure><img src="assets/nav-icons/${k}.png?v=5"><figcaption>${k}</figcaption></figure>`).join('');
 document.getElementById('cards').innerHTML = entries.map(([k,l])=>`<a class="nav-card" href="#"><img class="nav-card-cover" src="assets/nav-icons/${k}.png?v=5" alt=""><div class="nav-card-body"><div class="nav-card-badges"><span class="nav-card-badge">Motif</span></div><h3>${l}</h3><p class="nav-card-excerpt">Texte descriptif court pour cette entrée de navigation.</p></div></a>`).join('');
 document.getElementById('sprites').innerHTML = entries.map(([k,l])=>`<a class="sprite-tile" href="#"><span class="sprite-icon" style="background-image:url(assets/nav-icons/${k}-sprite.png?v=5)"></span><span>${k}</span></a>`).join('');
