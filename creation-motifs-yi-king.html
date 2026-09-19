@@ -392,6 +392,8 @@
     color:var(--dim); margin-bottom:6px;
   }
   .detail-block .txt{ font-size:calc(13.5px + var(--fs-bump)); line-height:1.7; }
+  .cube-preview-svg{ margin:6px 0 10px; }
+  .cube-preview-svg svg{ max-width:100%; height:auto; border:1px solid var(--line); }
 
   /* ---------- bloc paire : centré, façon "situation ant/post" du Tirage ---------- */
   .pair-section{
@@ -704,6 +706,229 @@ function closingSet(typeA, typeB){
   if(typeA === typeB) return typeA === 'yang' ? 'ALL' : 'NONE';
   return typeA === 'yang-mut' ? [0,2,16,18] : [45,47,61,63];
 }
+
+// ---------- Aperçu de cube (Section 6 du papier) ----------
+// Portage JS de tools/cube_edges.py (géométrie, habillage) et
+// tools/make_figures.py (projection isométrique) — pas de duplication de
+// données, seulement du calcul : la grille vient toujours de cell.grid,
+// déjà construite par buildResultArea().
+//
+// Ce qui est calculé à la volée (rapide : la décision par arête coupe presque
+// immédiatement dès qu'une grille ferme) : π extrait de la grille, puis un
+// habillage qui satisfait les 144 contraintes. Ce qui ne l'est pas : trouver
+// le MEILLEUR habillage d'une grille qui ne ferme pas demande d'énumérer les
+// 8^6 = 262 144 possibilités pour les départager (pas une décision, une
+// optimisation) — l'exemple non fermant ci-dessous est donc précalculé une
+// fois pour toutes (tools/make_figures.py, meilleur_habillage()), pas
+// recalculé par visiteur.
+function sigmaCube(g){
+  return g.map((row,r)=> row.map((_,c)=> g[(r+6)%12][(c+6)%12]));
+}
+function quartTourCube(g){
+  return g.map((row,r)=> row.map((_,c)=> g[12-1-c][r]));
+}
+function miroirCube(g){ return g.map(row=> row.slice().reverse()); }
+function variantesCube(g){
+  const out=[]; let x=g;
+  for(let i=0;i<4;i++){ out.push(x); x=quartTourCube(x); }
+  let y=miroirCube(g);
+  for(let i=0;i<4;i++){ out.push(y); y=quartTourCube(y); }
+  return out;
+}
+function extraitPiCube(g){
+  // π tel que g∘σ = π∘g, involution non triviale — même critère que
+  // condition_faible()/involution_de() côté Python, appliqué à cell.grid
+  // directement (pas besoin de connaître A et B séparément).
+  const s = sigmaCube(g), m = {};
+  for(let r=0;r<12;r++) for(let c=0;c<12;c++){
+    const k=s[r][c], v=g[r][c];
+    if(!(k in m)) m[k]=v; else if(m[k]!==v) return null;
+  }
+  for(const k in m){ if(m[m[k]] !== k) return null; }
+  if(Object.keys(m).every(k=> m[k]===k)) return null;
+  return m;
+}
+
+const NOMS_FACES_CUBE = ['top','bottom','front','back','left','right'];
+const FACES_CUBE = {
+  top:    [[0,0,12],[1,0,0],[0,1,0]],
+  bottom: [[0,0,0], [1,0,0],[0,1,0]],
+  front:  [[0,0,12],[1,0,0],[0,0,-1]],
+  back:   [[0,12,12],[1,0,0],[0,0,-1]],
+  left:   [[0,0,12],[0,1,0],[0,0,-1]],
+  right:  [[12,0,12],[0,1,0],[0,0,-1]],
+};
+function sommetsCube(face, r, c){
+  const [O,ec,er] = FACES_CUBE[face];
+  const P = (i,j)=> [O[0]+ec[0]*i+er[0]*j, O[1]+ec[1]*i+er[1]*j, O[2]+ec[2]*i+er[2]*j];
+  return [P(c,r), P(c+1,r), P(c+1,r+1), P(c,r+1)];
+}
+function aretesDuCube(){
+  // Les 12 arêtes du cube, chacune donnée par ses 12 paires de cases
+  // adjacentes — critère géométrique (segment 3D partagé), indépendant de
+  // toute convention de repérage. Calculé une fois au chargement.
+  const segments = new Map();
+  for(const f of NOMS_FACES_CUBE){
+    for(let r=0;r<12;r++) for(let c=0;c<12;c++){
+      const v = sommetsCube(f,r,c);
+      for(let i=0;i<4;i++){
+        const a=v[i], b=v[(i+1)%4];
+        const key = [a.join(','), b.join(',')].sort().join('|');
+        if(!segments.has(key)) segments.set(key, []);
+        segments.get(key).push([f,r,c]);
+      }
+    }
+  }
+  const parArete = {};
+  for(const cellules of segments.values()){
+    if(cellules.length===2 && cellules[0][0]!==cellules[1][0]){
+      let [[f1,r1,c1],[f2,r2,c2]] = cellules;
+      let i = NOMS_FACES_CUBE.indexOf(f1), j = NOMS_FACES_CUBE.indexOf(f2);
+      let pair;
+      if(i<j) pair=[[r1,c1],[r2,c2]]; else { [i,j]=[j,i]; pair=[[r2,c2],[r1,c1]]; }
+      const key = i+','+j;
+      (parArete[key] || (parArete[key]=[])).push(pair);
+    }
+  }
+  return parArete;
+}
+const ARETES_CUBE = aretesDuCube();
+
+function habillageQuiFerme(g, pi){
+  // Existe-t-il un habillage satisfaisant la règle d'arête ? Décomposition
+  // par arête puis retour arrière sur les six faces (comme
+  // tools/spectre_et_cube.py, ferme()) — rend l'assignation elle-même (pour
+  // le rendu), pas seulement oui/non.
+  const R = variantesCube(g);
+  const admissibles = {};
+  for(const key in ARETES_CUBE){
+    const S = new Set();
+    for(let k1=0;k1<8;k1++) for(let k2=0;k2<8;k2++){
+      let ok=true;
+      for(const [[r1,c1],[r2,c2]] of ARETES_CUBE[key]){
+        if(R[k2][r2][c2] !== pi[R[k1][r1][c1]]){ ok=false; break; }
+      }
+      if(ok) S.add(k1+'_'+k2);
+    }
+    if(S.size===0) return null;
+    admissibles[key] = S;
+  }
+  const contraintes = Array.from({length:6}, ()=>[]);
+  for(const key in admissibles){
+    const [i,j] = key.split(',').map(Number);
+    contraintes[i].push([j, admissibles[key], false]);
+    contraintes[j].push([i, admissibles[key], true]);
+  }
+  const choix = new Array(6).fill(null);
+  function pose(face){
+    if(face===6) return true;
+    for(let k=0;k<8;k++){
+      let ok=true;
+      for(const [autre,S,inverse] of contraintes[face]){
+        if(autre<face && choix[autre]!==null){
+          const paire = inverse ? (k+'_'+choix[autre]) : (choix[autre]+'_'+k);
+          if(!S.has(paire)){ ok=false; break; }
+        }
+      }
+      if(ok){
+        choix[face]=k;
+        if(pose(face+1)) return true;
+        choix[face]=null;
+      }
+    }
+    return false;
+  }
+  return pose(0) ? choix.slice() : null;
+}
+
+// Exemple non fermant, précalculé une fois pour toutes (voir docstring
+// ci-dessus) : {yang-mut, yin} × (yang, yang mutant), hexagramme n°21 — le
+// même que la Figure 4b du papier. meilleur_habillage() (maximise les
+// arêtes satisfaites) n'a pas d'équivalent ici : ce n'est pas une décision.
+const CUBE_EXEMPLE_NON_FERMANT = {
+  grid: [["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","M","O","O","M","V","M","V","O","O","V","M"],["M","V","O","O","V","M","V","M","O","O","M","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","M","O","O","M","V","M","V","O","O","V","M"],["M","V","O","O","V","M","V","M","O","O","M","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],
+  pi: {O:'O', V:'M', M:'V'},
+  ks: [0,0,0,1,1,0],
+  famille: 'Yin + Yang mutant', natures: 'Yang / Yang mutant', n: 21,
+};
+
+function projCube(){
+  const VUE = [1,-1,1];
+  const norme = v => Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
+  const d = VUE.map(v=> v/Math.sqrt(3));
+  const e1 = [1/Math.sqrt(2), 1/Math.sqrt(2), 0];
+  const z = [0,0,1];
+  const zd = z[0]*d[0]+z[1]*d[1]+z[2]*d[2];
+  let e2 = [z[0]-zd*d[0], z[1]-zd*d[1], z[2]-zd*d[2]];
+  const n = norme(e2);
+  e2 = e2.map(v=> v/n);
+  return p => [p[0]*e1[0]+p[1]*e1[1]+p[2]*e1[2], -(p[0]*e2[0]+p[1]*e2[1]+p[2]*e2[2])];
+}
+const CUBE_VISIBLES = ['top','front','right'];
+function cubeSvg(g, ks, pi, echelle, marge){
+  echelle = echelle || 22; marge = marge || 30;
+  const P = projCube();
+  const R = variantesCube(g);
+  const faces = {};
+  NOMS_FACES_CUBE.forEach((f,i)=> faces[f] = R[ks[i]]);
+  const polys=[], xs=[], ys=[];
+  for(const f of CUBE_VISIBLES){
+    for(let r=0;r<12;r++) for(let c=0;c<12;c++){
+      const pts = sommetsCube(f,r,c).map(P);
+      polys.push([pts, PALETTE[faces[f][r][c]]]);
+      pts.forEach(p=>{ xs.push(p[0]); ys.push(p[1]); });
+    }
+  }
+  const defauts = [];
+  for(const key in ARETES_CUBE){
+    const [i,j] = key.split(',').map(Number);
+    const fi = NOMS_FACES_CUBE[i], fj = NOMS_FACES_CUBE[j];
+    if(CUBE_VISIBLES.includes(fi) && CUBE_VISIBLES.includes(fj)){
+      for(const [[r1,c1],[r2,c2]] of ARETES_CUBE[key]){
+        if(faces[fj][r2][c2] !== pi[faces[fi][r1][c1]]) defauts.push([fi,r1,c1],[fj,r2,c2]);
+      }
+    }
+  }
+  const x0=Math.min(...xs), y0=Math.min(...ys);
+  const T = p => [marge+(p[0]-x0)*echelle, marge+(p[1]-y0)*echelle];
+  const corps=[];
+  for(const [pts,colr] of polys){
+    const q = pts.map(T).map(([a,b])=> a.toFixed(2)+','+b.toFixed(2)).join(' ');
+    corps.push(`<polygon points="${q}" fill="${colr}" stroke="${colr}" stroke-width=".4"/>`);
+  }
+  for(const [f,r,c] of defauts){
+    const q = sommetsCube(f,r,c).map(P).map(T).map(([a,b])=> a.toFixed(2)+','+b.toFixed(2)).join(' ');
+    corps.push(`<polygon points="${q}" fill="none" stroke="#111" stroke-width="2.2"/>`);
+  }
+  const A = [[0,0,12],[12,0,12],[12,12,12],[0,12,12],[12,0,0],[0,0,0],[12,12,0]];
+  for(const [a,b] of [[0,1],[1,2],[2,3],[3,0],[0,5],[1,4],[5,4],[4,6],[2,6]]){
+    const [xa,ya]=T(P(A[a])), [xb,yb]=T(P(A[b]));
+    corps.push(`<line x1="${xa.toFixed(2)}" y1="${ya.toFixed(2)}" x2="${xb.toFixed(2)}" y2="${yb.toFixed(2)}" stroke="#333" stroke-width="1.2"/>`);
+  }
+  const w = marge*2 + (Math.max(...xs)-x0)*echelle, h = marge*2 + (Math.max(...ys)-y0)*echelle;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${Math.round(w)} ${Math.round(h)}" width="${Math.round(w)}" height="${Math.round(h)}" style="background:#050505">${corps.join('')}</svg>`;
+}
+function cubePreviewHtml(cell){
+  if(cell.ferme){
+    const pi = extraitPiCube(cell.grid);
+    const ks = pi ? habillageQuiFerme(cell.grid, pi) : null;
+    if(pi && ks){
+      return `<div class="lbl">Aperçu du cube — Théorème 3/4</div>
+        <div class="cube-preview-svg">${cubeSvg(cell.grid, ks, pi)}</div>
+        <div class="txt">Cette grille ferme sur le cube (les 144 contraintes d'arête sont satisfaites) —
+        habillage calculé à la volée pour cet hexagramme précis, pas préparé à l'avance.</div>`;
+    }
+  }
+  const ex = CUBE_EXEMPLE_NON_FERMANT;
+  return `<div class="lbl">Aperçu du cube — Théorème 3/4</div>
+    <div class="cube-preview-svg">${cubeSvg(ex.grid, ex.ks, ex.pi)}</div>
+    <div class="txt">Cet hexagramme-ci ne ferme pas sur le cube (ou son statut n'est pas déterminé) ;
+    l'image montre à la place un exemple de référence qui ne ferme pas non plus — ${ex.famille},
+    ${ex.natures}, hexagramme N°${ex.n}. Meilleur habillage possible : 8 arêtes satisfaites sur 12
+    (les cases en défaut sont encadrées) — précalculé, car trouver le MEILLEUR habillage (et non
+    simplement décider s'il en existe un parfait) demande d'énumérer les 262 144 possibilités.</div>`;
+}
+
 function traitsFromChrono(chrono){
   const r = Math.floor(chrono/8), c = chrono%8;
   return [c&1,(c>>1)&1,(c>>2)&1, r&1,(r>>1)&1,(r>>2)&1]; // trait1(bas)..trait6(haut)
@@ -1188,6 +1413,7 @@ function buildResultArea(){
   cells.forEach(cell=>{
     const el = document.createElement('div');
     const ferme = fermeture === 'ALL' || (Array.isArray(fermeture) && fermeture.includes(cell.chrono));
+    cell.ferme = ferme;   // repris par showDetail() pour l'aperçu de cube
     el.className = 'ech-cell' + (ferme ? ' ferme' : '');
     if(ferme) el.title = 'Ferme sur le cube (Théorème 3/4)';
     const canvas = document.createElement('canvas');
@@ -1469,6 +1695,9 @@ function showDetail(cell){
         <div class="lbl">Jugement</div>
         <div class="txt">${hex.jugement_text}</div>
       </div>`}
+      <div class="detail-block">
+        ${cubePreviewHtml(cell)}
+      </div>
       ${pairHtml}
     </div>
   `;
