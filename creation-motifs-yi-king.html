@@ -326,6 +326,9 @@
   .echiquier-head .pair-imgs .lbl{ font-size:calc(8.5px + var(--fs-bump)); font-weight:400; color:var(--dim); margin-top:4px; letter-spacing:.04em; }
   .echiquier-head .count{ font-size:calc(11px + var(--fs-bump)); color:var(--dim); letter-spacing:.05em; }
   .echiquier-head .count b{ color:var(--gold); font-weight:400; }
+  .pavage-statut.pavage-complete{ color:var(--gold); }
+  .pavage-statut.pavage-nul{ color:rgba(255,255,255,.35); }
+  .pavage-statut .badge-ferme{ color:var(--gold); }
 
   .echiquier{
     display:grid; grid-template-columns:repeat(8, 1fr); gap:3px; max-width:560px; margin:0 auto;
@@ -335,6 +338,12 @@
     transition:border-color .12s ease, transform .12s ease;
   }
   .ech-cell:hover{ border-color:var(--red); transform:scale(1.08); z-index:2; }
+  .ech-cell.ferme{ border-color:var(--gold); box-shadow:inset 0 0 0 1px var(--gold); }
+  .ech-cell.ferme:hover{ border-color:var(--red); box-shadow:none; }
+  .ech-cell.ferme::before{
+    content:''; position:absolute; top:2px; left:2px; width:6px; height:6px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 2px 1px rgba(0,0,0,.8); pointer-events:none;
+  }
   .ech-cell canvas{ width:100%; height:100%; display:block; }
   .ech-cell .kw{
     position:absolute; bottom:1px; right:2px; font-size:calc(7px + var(--fs-bump)); color:rgba(255,255,255,.55);
@@ -659,6 +668,42 @@ function drawPavageSquare(canvas, traits, movingSet){
 }
 
 const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+
+// Table des 1770 paires (tools/generate_table_pavage.py, data/paires_1770_v1.json) :
+// pour chaque paire non ordonnée des 60 natures, combien de ses 64 grilles pavent
+// simplement (0, 1, 2 ou 64) ; et pour les 8 familles admissibles (Théorème 2), leur
+// type yang/yang-mut. Le statut de fermeture sur le cube pour une paire à 64/64 n'est
+// PAS stocké ici : c'est une formule fermée (Théorèmes 3 et 4), voir closingSet().
+const PAIRES_1770 = {"format":"paires-1770-v1","cles":["bases:yang:yang","bases:yang:yang_mut","bases:yang:yin","bases:yang:yin_mut","bases:yang_mut:yang","bases:yang_mut:yang_mut","bases:yang_mut:yin","bases:yang_mut:yin_mut","bases:yin:yang","bases:yin:yang_mut","bases:yin:yin","bases:yin:yin_mut","bases:yin_mut:yang","bases:yin_mut:yang_mut","bases:yin_mut:yin","bases:yin_mut:yin_mut","par2:yang+yang_mut:yang","par2:yang+yang_mut:yang_mut","par2:yang+yang_mut:yin","par2:yang+yang_mut:yin_mut","par2:yang+yin_mut:yang","par2:yang+yin_mut:yang_mut","par2:yang+yin_mut:yin","par2:yang+yin_mut:yin_mut","par2:yin+yang:yang","par2:yin+yang:yang_mut","par2:yin+yang:yin","par2:yin+yang:yin_mut","par2:yin+yang_mut:yang","par2:yin+yang_mut:yang_mut","par2:yin+yang_mut:yin","par2:yin+yang_mut:yin_mut","par2:yin+yin_mut:yang","par2:yin+yin_mut:yang_mut","par2:yin+yin_mut:yin","par2:yin+yin_mut:yin_mut","par2:yin_mut+yang_mut:yang","par2:yin_mut+yang_mut:yang_mut","par2:yin_mut+yang_mut:yin","par2:yin_mut+yang_mut:yin_mut","par3:sans_yang:yang","par3:sans_yang:yang_mut","par3:sans_yang:yin","par3:sans_yang:yin_mut","par3:sans_yang_mut:yang","par3:sans_yang_mut:yang_mut","par3:sans_yang_mut:yin","par3:sans_yang_mut:yin_mut","par3:sans_yin:yang","par3:sans_yin:yang_mut","par3:sans_yin:yin","par3:sans_yin:yin_mut","par3:sans_yin_mut:yang","par3:sans_yin_mut:yang_mut","par3:sans_yin_mut:yin","par3:sans_yin_mut:yin_mut","par4::yang","par4::yang_mut","par4::yin","par4::yin_mut"],"paires":[64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,64,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,64,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,2,2,64,64,1,1,1,1,1,1,1,1,1,1,1,1,64,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,64,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"familles":{"bases:yang":"yang","bases:yang_mut":"yang-mut","bases:yin":null,"bases:yin_mut":null,"par2:yang+yang_mut":null,"par2:yang+yin_mut":"yang","par2:yin+yang":"yang","par2:yin+yang_mut":"yang-mut","par2:yin+yin_mut":null,"par2:yin_mut+yang_mut":"yang-mut","par3:sans_yang":"yang-mut","par3:sans_yang_mut":"yang","par3:sans_yin":null,"par3:sans_yin_mut":null,"par4:":null}};
+const PAIRES_INDEX = {};
+PAIRES_1770.cles.forEach((k,i)=>{ PAIRES_INDEX[k]=i; });
+// index triangulaire d'une paire non ordonnée (i,j), i<j, dans l'ordre
+// itertools.combinations(range(60), 2) — doit rester synchrone avec
+// tools/generate_table_pavage.py.
+function pairTriIndex(i,j){
+  const n = PAIRES_1770.cles.length;
+  if(i>j){ const t=i; i=j; j=t; }
+  return i*(2*n-i-1)/2 + (j-i-1);
+}
+function pairStatus(keyA, keyB){
+  const i = PAIRES_INDEX[keyA], j = PAIRES_INDEX[keyB];
+  if(i===undefined || j===undefined || i===j) return null;
+  return PAIRES_1770.paires[pairTriIndex(i,j)];
+}
+// Groupe de famille d'une nature (layerKey sans son dernier segment ":nature")
+// et son type (Théorème 2) — propriété de la FAMILLE, pas de la nature choisie ;
+// à ne pas confondre avec yangScore() ci-dessous, qui note l'image elle-même et
+// peut désigner comme "plus yang" une image d'une famille de type yang-mut.
+function familyGroupOf(layerKey){ return layerKey.slice(0, layerKey.lastIndexOf(':')); }
+function familyTypeOf(layerKey){ return PAIRES_1770.familles[familyGroupOf(layerKey)] ?? null; }
+// Théorèmes 3 et 4 : formule fermée, pas une table. 'ALL'/'NONE' pour les paires
+// de même type ; un tableau de 4 indices pour les types opposés, selon le type de
+// la couche qui joue le rôle de A (celle qui reçoit trait=1, ici gridYang/Créateur).
+function closingSet(typeA, typeB){
+  if(!typeA || !typeB) return null;
+  if(typeA === typeB) return typeA === 'yang' ? 'ALL' : 'NONE';
+  return typeA === 'yang-mut' ? [0,2,16,18] : [45,47,61,63];
+}
 function traitsFromChrono(chrono){
   const r = Math.floor(chrono/8), c = chrono%8;
   return [c&1,(c>>1)&1,(c>>2)&1, r&1,(r>>1)&1,(r>>2)&1]; // trait1(bas)..trait6(haut)
@@ -722,8 +767,11 @@ function yangScore(item){
 // ---------- grille couleur 12x12 réelle, pour TOUTE catégorie ----------
 // Bases : les 4 images pures (YANG/YIN fixe/mutant appliquée aux 12x12) via CALQUE_COLORS.
 // Par2/Par3/Par4 : grille extraite directement des vrais calques SVG (LAYER_COLORS), pixel-perfect.
+function layerKeyOf(item){
+  return item.layerKey || (item.__cat==='bases' ? `bases:${item.axis1}:${item.axis2}` : null);
+}
 function colorGridForItem(item){
-  const key = item.layerKey || (item.__cat==='bases' ? `bases:${item.axis1}:${item.axis2}` : null);
+  const key = layerKeyOf(item);
   if(key && LAYER_COLORS[key]) return LAYER_COLORS[key];
   return null;
 }
@@ -1052,6 +1100,19 @@ function buildResultArea(){
   const gridYang = colorGridForItem(yangItem), gridYin = colorGridForItem(yinItem);
   const tie = (sA === sB);
 
+  // Statut de la paire (table des 1770, tools/generate_table_pavage.py) et,
+  // si elle est complète, l'ensemble des hexagrammes qui ferment sur le cube
+  // (Théorèmes 3 et 4 — formule fermée, pas une table : voir closingSet()).
+  // Le type utilisé ici est celui de la FAMILLE de chaque image, pas le rôle
+  // Créateur/Réceptif de yangScore() ci-dessus : les deux peuvent diverger
+  // (une image d'une famille de type yang-mut peut être notée "plus yang"
+  // par yangScore selon la nature choisie) — d'où le recalcul depuis
+  // familyTypeOf(), indépendant du rôle déjà attribué.
+  const keyYang = layerKeyOf(yangItem), keyYin = layerKeyOf(yinItem);
+  const statutPaire = pairStatus(keyYang, keyYin);
+  const fermeture = (statutPaire === 64)
+    ? closingSet(familyTypeOf(keyYang), familyTypeOf(keyYin)) : null;
+
   // Échiquier 8x8 — exactement le même positionnement que l'app Tirage :
   // colonne = trigramme inférieur (traits 1-3), ligne = trigramme supérieur (traits 4-6).
   const cells = [];
@@ -1083,6 +1144,20 @@ function buildResultArea(){
   const distinctVisuals = bySignature.size;
   const nTwinGroups = [...bySignature.values()].filter(g=>g.length>1).length;
 
+  let statutTxt, statutClass = '';
+  if(statutPaire === 64){
+    statutClass = ' pavage-complete';
+    if(fermeture === 'ALL') statutTxt = 'Paire complète — les 64 grilles pavent, et les 64 hexagrammes ferment sur le cube.';
+    else if(fermeture === 'NONE') statutTxt = 'Paire complète — les 64 grilles pavent ; aucune ne ferme sur le cube.';
+    else statutTxt = 'Paire complète — les 64 grilles pavent ; 4 hexagrammes ferment sur le cube, repérés ci-dessous d\'un <span class="badge-ferme">liseré doré</span>.';
+  } else if(statutPaire === 0){
+    statutClass = ' pavage-nul';
+    statutTxt = 'Paire nulle — aucune de ses 64 grilles ne satisfait le critère de pavage simple (la fermeture sur le cube n\'est pas définie pour cette paire).';
+  } else {
+    statutClass = ' pavage-partiel';
+    statutTxt = `Paire partielle — seulement ${statutPaire}/64 grilles satisfont le critère de pavage simple (la fermeture sur le cube n'est pas définie pour cette paire).`;
+  }
+
   const head = document.createElement('div');
   head.className = 'echiquier-head';
   head.innerHTML = `
@@ -1091,6 +1166,7 @@ function buildResultArea(){
       <div class="one"><canvas aria-label="${yinItem.label}"></canvas><div class="lbl">${yinItem.label} — rôle Réceptif (yin)</div></div>
     </div>
     <div class="count">64 croisements · <b>${distinctVisuals}</b> motif${distinctVisuals>1?'s':''} visuellement distinct${distinctVisuals>1?'s':''}${tie ? ' · (égalité de score yang — attribution arbitraire)' : ''}</div>
+    <div class="count pavage-statut${statutClass}" style="margin-top:4px;">${statutTxt}</div>
     ${nTwinGroups>0 ? `<div class="count" style="margin-top:4px;">${nTwinGroups} motif${nTwinGroups>1?'s':''} de cet échiquier ${nTwinGroups>1?'apparaissent':'apparaît'} deux fois (couleurs échangées entre le Créateur et le Réceptif) —
     chaque case concernée le signale et indique l'hexagramme jumeau.</div>` : ''}
     <div class="stats-line">Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — clique une case pour la numérotation King Wen traditionnelle · <b>${TOTAL_ECHIQUIERS.toLocaleString('fr-FR')}</b> échiquiers différents possibles au total avec les 60 natures (C(60,2))</div>
@@ -1111,7 +1187,9 @@ function buildResultArea(){
   grid.className = 'echiquier';
   cells.forEach(cell=>{
     const el = document.createElement('div');
-    el.className = 'ech-cell';
+    const ferme = fermeture === 'ALL' || (Array.isArray(fermeture) && fermeture.includes(cell.chrono));
+    el.className = 'ech-cell' + (ferme ? ' ferme' : '');
+    if(ferme) el.title = 'Ferme sur le cube (Théorème 3/4)';
     const canvas = document.createElement('canvas');
     el.appendChild(canvas);
     const kwSpan = document.createElement('span');
