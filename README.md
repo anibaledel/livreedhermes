@@ -78,10 +78,10 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `extract-hexagram-data.js` | extrait les tables d'hexagrammes depuis `index.html` |
 | `generate-hexagram-assets.js` | un PNG de carré/pavage par hexagramme → `assets/hexagrammes/` |
 | `generate-hexagram-pages.js` | les 64 pages `hexagrammes/<n>-<pinyin>-<nom>.html` |
-| `export-galerie-884.js` | SVG + JPEG Pinterest + métadonnées + archive ZIP |
-| `export-galerie-884-hires.js` | PNG 4096×4096 (Pinterest, Adobe Stock) |
-| `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
-| `export-galerie-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
+| `export-galerie-batch.js` | SVG + JPEG Pinterest + métadonnées + archive ZIP |
+| `export-galerie-hires.js` | PNG 4096×4096 (Pinterest, Adobe Stock) |
+| `export-galerie-pinterest.js` | PNG au format Pinterest, pour publication programmée |
+| `export-galerie-vector.js` | 1024 SVG par combinaison (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
