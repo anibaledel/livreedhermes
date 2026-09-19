@@ -99,6 +99,10 @@
   .tile canvas{ width:64px; height:64px; display:block; }
   .tile:hover{ border-color:var(--gold); }
   .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .tile.ferme::before{
+    content:''; position:absolute; top:2px; left:2px; width:6px; height:6px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 2px 1px rgba(0,0,0,.8); pointer-events:none; z-index:1;
+  }
 
   /* ---------- pavage du motif sélectionné ---------- */
   .paved-section{ margin-top:32px; }
@@ -437,6 +441,47 @@ let colorMode = 'multi'; // 'multi' = palette d'origine à 3 teintes (défaut, i
 const DEFAULT_MONO_HUE = '#db694c';
 const LAYER_OF = DATA.layerOf;
 
+// Fermeture sur le cube (Théorèmes 3 et 4 de la note « A Half-Shift
+// Criterion on Three-Colour 12×12 Grids... »), calculée à l'affichage — rien
+// n'est stocké par motif. TYPE_DE_FAMILLE est le type (yang/yang-mut) de
+// chacune des familles utilisées par cette galerie ; null = famille non
+// admissible (Théorème 2), pas de badge. Mêmes valeurs, mêmes clés que
+// data/paires_1770_v1.json (tools/generate_table_pavage.py), reformatées
+// dans la convention fam de cette page (sans le découpage par nature : les
+// deux couches d'une entrée de cette galerie viennent toujours de la même
+// famille, donc le type se lit une fois, pas par couche).
+const TYPE_DE_FAMILLE = {
+  'bases': null,                    // regroupe les 4 axes, pas une famille (voir note) — non utilisé par entries actuellement
+  'par2:yang+yang_mut': null,
+  'par2:yang+yin_mut': 'yang',
+  'par2:yin+yang': 'yang',
+  'par2:yin+yang_mut': 'yang-mut',
+  'par2:yin+yin_mut': null,
+  'par2:yin_mut+yang_mut': 'yang-mut',
+  'par3:sans_yang': 'yang-mut',
+  'par3:sans_yang_mut': 'yang',
+  'par3:sans_yin': null,
+  'par3:sans_yin_mut': null,
+  'par4': null,
+};
+function closingSet(typeA, typeB){
+  if(!typeA || !typeB) return null;
+  if(typeA === typeB) return typeA === 'yang' ? 'ALL' : 'NONE';
+  return typeA === 'yang-mut' ? [0,2,16,18] : [45,47,61,63];
+}
+function fermetureDe(fam, n){
+  // Les deux couches d'une entrée de cette galerie viennent toujours de la
+  // même famille : typeA = typeB = type(fam), donc le Théorème 3 s'applique
+  // (fermeture constante sur les 64 indices) — closingSet() est cependant la
+  // même fonction que pour la page de création (Théorème 4) ; si des entrées
+  // inter-familles s'ajoutent un jour à cette galerie, seul l'appel change.
+  const s = closingSet(TYPE_DE_FAMILLE[fam], TYPE_DE_FAMILLE[fam]);
+  if(s === null) return null;       // non défini : pas de badge, pas une absence de fermeture
+  if(s === 'ALL') return true;
+  if(s === 'NONE') return false;
+  return s.includes(n);
+}
+
 // ---------- dérivation des teintes (identique à fonds-ecran.html) ----------
 function hexToRgb(hex){
   hex = hex.replace('#','');
@@ -613,7 +658,11 @@ function selectEntry(idx){
   const gridB = DATA.families[fam][subB];
   const grid = hexagramGrid(n, gridA, gridB);
   drawPaved(pavedCanvas, grid);
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n;
+  const ferme = fermetureDe(fam, n);
+  const badge = ferme === null ? '' :
+    ferme ? ' — <span style="color:var(--gold);">ferme sur le cube</span>'
+          : ' — <span style="color:var(--dim);">ne ferme pas sur le cube</span>';
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge;
 }
 
 // Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
@@ -636,10 +685,11 @@ function render(filterCat){
     const gridA = DATA.families[fam][subA];
     const gridB = DATA.families[fam][subB];
     const grid = hexagramGrid(n, gridA, gridB);
+    const ferme = fermetureDe(fam, n);
     const tile = document.createElement('div');
-    tile.className = 'tile';
+    tile.className = 'tile' + (ferme ? ' ferme' : '');
     tile.dataset.idx = idx;
-    tile.title = entryLabel(fam, subA, subB, n);
+    tile.title = entryLabel(fam, subA, subB, n) + (ferme === null ? '' : ferme ? ' — ferme sur le cube' : ' — ne ferme pas sur le cube');
     const canvas = document.createElement('canvas');
     drawTile(canvas, grid, 64);
     tile.appendChild(canvas);
