@@ -3,10 +3,9 @@
    PNG 4096x4096 pour usage Pinterest / Adobe Stock, en 4 combinaisons
    possibles : cellule/pavage x multicolore/niveaux de gris.
 
-   Réutilise directement la même source de données que export-galerie-884.js
-   (le bloc `const DATA = {...}` embarqué dans galerie-patterns-unifies.html)
-   et le même repeats=4 que la fonction drawPaved() de cette page pour la
-   notion de "pavage".
+   Réutilise directement la même source de données que export-galerie-batch.js
+   (data/fonds_ecran_v1.json) et le même repeats=4 que la fonction
+   drawPaved() de galerie-patterns-unifies.html pour la notion de "pavage".
 
    La palette de gris n'est pas un seuillage noir/blanc : elle convertit
    chaque couleur (violet/magenta/orange) en son niveau de gris perceptif
@@ -15,12 +14,12 @@
 
    Usage :
      cd scripts
-     node export-galerie-884-hires.js --mode cells --palette color --out DIR [--limit N] [--size 4096]
-     node export-galerie-884-hires.js --mode cells --palette gray  --out DIR
-     node export-galerie-884-hires.js --mode pavage --palette color --out DIR
-     node export-galerie-884-hires.js --mode pavage --palette gray  --out DIR
+     node export-galerie-hires.js --mode cells --palette color --out DIR [--limit N] [--size 4096]
+     node export-galerie-hires.js --mode cells --palette gray  --out DIR
+     node export-galerie-hires.js --mode pavage --palette color --out DIR
+     node export-galerie-hires.js --mode pavage --palette gray  --out DIR
 
-   Sortie : <out>/*.png (768 fichiers) + <out>/metadata.csv, puis <out>.zip
+   Sortie : <out>/*.png (1024 fichiers) + <out>/metadata.csv, puis <out>.zip
    ============================================================ */
 
 const fs = require('fs');
@@ -41,18 +40,20 @@ const MODE = argVal('--mode', 'cells'); // 'cells' (repeats=1) | 'pavage' (repea
 const PALETTE_MODE = argVal('--palette', 'color'); // 'color' | 'gray'
 const LIMIT = argVal('--limit', null) ? parseInt(argVal('--limit', null), 10) : null;
 const OFFSET = argVal('--offset', null) ? parseInt(argVal('--offset', null), 10) : 0;
-const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-884-hires-${MODE}-${PALETTE_MODE}`));
+const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-hires-${MODE}-${PALETTE_MODE}`));
 const SIZE = argVal('--size', null) ? parseInt(argVal('--size', null), 10) : 4096;
 const REPEATS = MODE === 'pavage' ? 4 : 1;
 const NO_ZIP = args.includes('--no-zip');
 const ZIP_ONLY = args.includes('--zip-only');
 
-// ---------- extraction des données depuis la page (source de vérité unique) ----------
+// ---------- extraction des données (source de vérité unique) ----------
+// DATA vient directement de data/fonds_ecran_v1.json — la page elle-même le
+// charge par fetch() depuis le 2026-09-19 (avant cette date, la page et ce
+// script lisaient chacun leur propre copie, l'une intégrée en dur dans le
+// HTML, l'autre ici scrapée de ce HTML : elles avaient divergé en silence).
 function loadData() {
+  const DATA = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
-  if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
-  const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
   if (!pm) throw new Error('DEFAULT_PALETTE introuvable');
   const DEFAULT_PALETTE = Function('"use strict"; return (' + pm[1] + ')')();
@@ -119,7 +120,7 @@ function renderHighResPng(grid, repeats, palette, size) {
   return canvas.toBuffer('image/png');
 }
 
-// ---------- libellés / mots-clés (mêmes conventions que export-galerie-884.js) ----------
+// ---------- libellés / mots-clés (mêmes conventions que export-galerie-batch.js) ----------
 const catLabel = { bases: 'Bases', par2: 'Par 2', par3: 'Par 3', par4: 'Par 4' };
 const subLabel = { yang: 'Yang', yang_mut: 'Yang mutant', yin: 'Yin', yin_mut: 'Yin mutant' };
 const colorName = { V: 'violet', M: 'magenta', O: 'orange' };

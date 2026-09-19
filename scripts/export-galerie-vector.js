@@ -1,22 +1,22 @@
 /* ============================================================
    Export vectoriel de la Galerie (motifs unifiés) — pour chacune des
    4 catégories (cellules/pavages x Tricolore YPM/Monochrome Black) :
-     - 768 fichiers SVG individuels (usage communication / Pinterest,
+     - 1024 fichiers SVG individuels (usage communication / Pinterest,
        chemin technique non listé)
-     - 1 ZIP des 768 SVG de la catégorie (livrable palier Pro)
-     - 1 PDF multi-pages (768 pages, une par motif, ordre = numérotation
+     - 1 ZIP des 1024 SVG de la catégorie (livrable palier Pro)
+     - 1 PDF multi-pages (1024 pages, une par motif, ordre = numérotation
        continue), 100% vectoriel — pas de rasterisation (livrable palier Pro)
 
-   Réutilise la même source de données que export-galerie-884-hires.js (le
-   bloc `const DATA = {...}` de galerie-patterns-unifies.html), la même
-   notion de "pavage" (repeats=4, comme drawPaved()) et la même conversion
-   niveaux de gris par luminance perceptive.
+   Réutilise la même source de données que export-galerie-hires.js
+   (data/fonds_ecran_v1.json), la même notion de "pavage" (repeats=4,
+   comme drawPaved()) et la même conversion niveaux de gris par luminance
+   perceptive.
 
-   Numérotation : idx (0 à 883) est déjà continu à travers les familles
+   Numérotation : idx (0 à 1023) est déjà continu à travers les familles
    Base/X2/X3 dans DATA.entries (vérifié) :
-     Base (bases) : idx   0 -  67 (68 motifs)
-     X2   (par2)  : idx  68 - 611 (544 motifs)
-     X3   (par3)  : idx 612 - 883 (272 motifs)
+     Base (bases) : idx    0 -  255 (256 motifs)
+     X2   (par2)  : idx  256 -  767 (512 motifs)
+     X3   (par3)  : idx  768 - 1023 (256 motifs)
 
    PDF : généré avec pdfkit (pur JS, sans dépendance native) — chaque motif
    est dessiné directement comme des rectangles vectoriels (doc.rect().fill()),
@@ -54,11 +54,13 @@ const SVG_ONLY = args.includes('--svg-only');
 const PDF_ONLY = args.includes('--pdf-only'); // reconstruit le PDF depuis les SVG déjà générés, sans les régénérer
 
 // ---------- extraction des données (source de vérité unique) ----------
+// DATA vient directement de data/fonds_ecran_v1.json — la page elle-même le
+// charge par fetch() depuis le 2026-09-19 (avant cette date, la page et ce
+// script lisaient chacun leur propre copie, l'une intégrée en dur dans le
+// HTML, l'autre ici scrapée de ce HTML : elles avaient divergé en silence).
 function loadData() {
+  const DATA = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
-  if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
-  const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
   if (!pm) throw new Error('DEFAULT_PALETTE introuvable');
   const DEFAULT_PALETTE = Function('"use strict"; return (' + pm[1] + ')')();
@@ -99,13 +101,13 @@ function hexagramGrid(n, gridA, gridB, LAYER_OF) {
   return grid;
 }
 
-// ---------- adapté de motifSvgMarkup() (galerie-patterns-unifies.html / export-galerie-884.js) ----------
+// ---------- adapté de motifSvgMarkup() (galerie-patterns-unifies.html / export-galerie-batch.js) ----------
 // Pour un pavage (repeats>1), la tuile de base (144 rects) est déclarée une
 // seule fois dans <defs> et référencée via <use> à chaque répétition, plutôt
 // que dupliquée à plat : même rendu vectoriel exact, mais un fichier ~16x
 // plus léger pour repeats=4 (170 Ko -> ~11 Ko), important vu le volume
 // (3536 fichiers). Pour une cellule seule (repeats=1) rien à optimiser :
-// sortie inchangée par rapport à export-galerie-884.js.
+// sortie inchangée par rapport à export-galerie-batch.js.
 function motifSvgMarkup(grid, repeats, PALETTE) {
   const cell = 12, tile = cell * 12, size = tile * repeats;
   let tileRects = '';
