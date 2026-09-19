@@ -40,7 +40,13 @@ Ce que fait ce script
    yin_mut}, chaque arête l'est mais aucun assemblage n'existe
    (obstruction globale). Le script le signale.
 
-4. Vérifie le Lemme 2 : les 8 familles admissibles vont par paires
+4. Vérifie (F1)–(F5) et les hypothèses des Corollaires 4 et 5 sur les
+   données, compte les orbites de Γ (128 sur le corpus, 64 sur les
+   retenues), et vérifie que les 16 formes de la Section 7 sont, à un
+   renommage de teintes près, des grilles du corpus — toutes dans la
+   famille {yang_mut} (et sa jumelle), aucune n'admettant d'habillage.
+
+5. Vérifie le Lemme 2 : les 8 familles admissibles vont par paires
    (F, F ∪ {β}) avec β une base de type yin, et les grilles de la seconde
    sont celles de la première avec n ↔ n ⊕ 7 (trigramme inférieur) ou
    n ↔ n ⊕ 56 (trigramme supérieur).
@@ -284,6 +290,29 @@ def main():
     if demi_decalage(layer_of) != layer_of:
         sys.exit("la matrice des niveaux n'est pas invariante par σ — hypothèse (F1) en défaut")
 
+    # (F2)–(F4) : symétries de L et des couches, composition
+    rho = lambda g: [[g[N - 1 - r][N - 1 - c] for c in range(N)] for r in range(N)]
+    kappa = lambda g: [[g[c][N - 1 - r] for c in range(N)] for r in range(N)]
+    toutes = [(f, k, g) for f in familles for k, g in familles[f].items()]
+    if rho(layer_of) != layer_of or kappa(layer_of) != layer_of:
+        sys.exit("L n'est pas invariante par ρ ou κ — hypothèses (F2)/(F3) en défaut")
+    if any(rho(A) != A for _, _, A in toutes):
+        sys.exit("une couche n'est pas centralement symétrique — hypothèse (F2) en défaut")
+    def tau_de(A):
+        m, K = {}, kappa(A)
+        for r in range(N):
+            for c in range(N):
+                if m.setdefault(A[r][c], K[r][c]) != K[r][c]:
+                    return None
+        return m
+    taus = {(f, k): tau_de(A) for f, k, A in toutes}
+    if any(t is None for t in taus.values()):
+        sys.exit("une couche n'est pas κ-symétrique à permutation près — hypothèse (F3) en défaut")
+    if Counter(x for row in layer_of for x in row) != {l: 24 for l in range(1, NIVEAUX + 1)} or \
+       any(sorted(Counter(x for row in A for x in row).values()) != [48, 48, 48] for _, _, A in toutes):
+        sys.exit("composition 24 par niveau / 48 par teinte en défaut — hypothèse (F4)")
+    print("hypothèses (F1)–(F4) : ✓")
+
     couples = couples_unifies(familles, layer_of)
     familles_unifiees = sorted({f for f, _, _ in couples})
     print(f"couples unifiés : {len(couples)} dans {len(familles_unifiees)} familles")
@@ -297,6 +326,11 @@ def main():
         pi = involution(A, B)
         if pi is None:
             sys.exit(f"{f} ({a}, {b}) : B n'est pas π ∘ A — hypothèse (F5) en défaut")
+        if taus[(f, a)] != taus[(f, b)] or not (all(k == v for k, v in taus[(f, a)].items()) or taus[(f, a)] == pi):
+            sys.exit(f"{f} ({a}, {b}) : τ_A ≠ τ_B ou τ_A ∉ {{id, π}} — hypothèse du Corollaire 4 en défaut")
+        diag = [(0, 0), (0, N - 1), (N - 1, 0), (N - 1, N - 1)] + [(i, i) for i in range(N)] + [(i, N - 1 - i) for i in range(N)]
+        if any(A[r][c] != B[r][c] or pi[A[r][c]] != A[r][c] for r, c in diag):
+            sys.exit(f"{f} ({a}, {b}) : coins/diagonales — hypothèse du Corollaire 5 en défaut")
         for n in range(64):
             g = phi(n, A, B, layer_of)
             ks, aretes_ok = habillage(g, pi, arg.rotations_only)
@@ -360,6 +394,54 @@ def main():
     print("Duplication (Lemme 2)")
     print(f"    grilles en double : {len(doublons)}/{len(par_grille)} (chaque grille exactement deux fois) ; correspondance n ↔ n⊕7 ou n⊕56 : {'✓' if xor7 else '✗'}")
     print()
+
+    # ── orbites de Γ = <σ, D4, S3> ────────────────────────────────────
+    def orbites(S):
+        vus, k = set(), 0
+        for g in S:
+            if g in vus:
+                continue
+            k += 1
+            for h in variantes([list(r) for r in g]):
+                for s in (h, demi_decalage(h)):
+                    teintes = sorted({x for row in s for x in row})
+                    for perm in itertools.permutations(teintes):
+                        m = dict(zip(teintes, perm))
+                        vus.add(tuple(tuple(m[x] for x in row) for row in s))
+        return k
+    print("Orbites de Γ (Section 4, Remarque)")
+    print(f"    corpus  : {orbites(set(grilles))}")
+    print(f"    retenues : {orbites({t['grille'] for t in ok})}")
+    print()
+
+    # ── Section 7 : les 16 premières formes unifiées dans le corpus ──
+    try:
+        import selection_ordre6 as so
+        doc6 = json.load(open(so.DATA, encoding='utf-8'))
+        formes6 = {(f['row'], f['col']): f for f in doc6['forms']}
+        ordre12 = {(R, C): so.assemble(formes6, R, C) for R in range(8) for C in range(8)}
+        retenues = {k: G for k, G in ordre12.items() if so.unifiee(G)}
+        index = {}
+        for t in triplets:
+            index.setdefault(t['grille'], []).append(t)
+        renommage = {'RB': 'V', 'vert': 'M', 'jaune': 'O'}
+        trouvees = Counter(); cube = 0
+        for k, G in retenues.items():
+            g = tuple(tuple(renommage[x] for x in row) for row in G)
+            if g in index:
+                for t in index[g]:
+                    trouvees[t['famille']] += 1
+                    cube += t['habillage'] is not None
+        print("Section 7 : formes d'ordre 6 dans le corpus (renommage RB→V, vert→M, jaune→O)")
+        print(f"    formes retenues : {len(retenues)} ; présentes dans le corpus : "
+              f"{sum(1 for G in retenues.values() if tuple(tuple(renommage[x] for x in row) for row in G) in index)}/{len(retenues)}")
+        for f, k in sorted(trouvees.items()):
+            print(f"        {f} : {k} triplets")
+        print(f"    admettant un habillage du cube : {cube}")
+        print()
+    except (ImportError, FileNotFoundError):
+        print("Section 7 : selection_ordre6.py ou referent_256_v3.json absents — étape sautée")
+        print()
 
     if arg.rotations_only:
         print("note : --rotations-only donne un résultat dépendant de la convention")
