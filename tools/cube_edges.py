@@ -12,8 +12,10 @@ Ce que fait ce script
 ---------------------
 1. Reconstruit le corpus : les grilles Φ(n, A, B) telles que
    B = A ∘ σ, où σ est le décalage d'une demi-période (6, 6) modulo 12.
-   → 768 triplets (famille, couple, n), 512 grilles distinctes,
-     256 pavages (une grille et son décalé donnent le même pavage).
+   → 1024 triplets (famille, couple, n) dans 8 familles — celles qui
+     contiennent exactement une base de type yang —, 512 grilles
+     distinctes (chaque grille apparaît exactement deux fois), 256
+     pavages (une grille et son décalé donnent le même pavage).
 
 2. Vérifie que les quatre cases d'angle portent la teinte fixée par
    l'involution π (Corollaire 5), donc que la condition de sommet de la
@@ -30,8 +32,24 @@ Ce que fait ce script
    de D4 × D4. On les calcule (12 × 64 tests de 12 cases), puis on
    résout le problème de satisfaction sur les six variables.
 
-   → 384 triplets, 256 grilles distinctes, 128 pavages, dans exactement
-     trois familles : celles qui contiennent la base « yang ».
+   → 512 triplets, 256 grilles distinctes, 128 pavages, dans exactement
+     quatre familles : celles qui contiennent la base « yang ».
+   Les familles exclues le sont pour deux raisons distinctes : pour
+   {yang_mut} et {yang_mut, yin_mut} aucune arête n'est satisfaisable
+   seule (obstruction locale) ; pour {yang_mut, yin} et {yang_mut, yin,
+   yin_mut}, chaque arête l'est mais aucun assemblage n'existe
+   (obstruction globale). Le script le signale.
+
+4. Vérifie (F1)–(F5) et les hypothèses des Corollaires 4 et 5 sur les
+   données, compte les orbites de Γ (128 sur le corpus, 64 sur les
+   retenues), et vérifie que les 16 formes de la Section 7 sont, à un
+   renommage de teintes près, des grilles du corpus — toutes dans la
+   famille {yang_mut} (et sa jumelle), aucune n'admettant d'habillage.
+
+5. Vérifie le Lemme 2 : les 8 familles admissibles vont par paires
+   (F, F ∪ {β}) avec β une base de type yin, et les grilles de la seconde
+   sont celles de la première avec n ↔ n ⊕ 7 (trigramme inférieur) ou
+   n ↔ n ⊕ 56 (trigramme supérieur).
 
 Usage
 -----
@@ -47,7 +65,8 @@ diédral complet, lui, absorbe tout changement de convention.
 
 Données lues
 ------------
-    data/fonds_ecran_v1.json  — clés : layerOf, families
+    data/referent_360_v3.json — les 360 cartes (15 familles × 4 natures × 6 niveaux)
+    data/fonds_ecran_v1.json  — seulement pour contrôler que layer_of coïncide
 """
 
 import argparse
@@ -58,7 +77,8 @@ import sys
 from collections import Counter, defaultdict
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json')
+DATA = os.path.join(REPO_ROOT, 'data', 'referent_360_v3.json')
+DATA_FE = os.path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json')   # ancien format, 48 couches
 
 N = 12                      # côté de la grille
 HALF = N // 2               # décalage d'une demi-période
@@ -105,6 +125,33 @@ def involution(A, B):
     if any(m.get(m[k]) != k for k in m):      # π doit être une involution
         return None
     return m
+
+
+def familles_depuis_referent_360(doc):
+    """Les 15 familles et leurs 60 couches, depuis referent_360_v3.json.
+
+    Le fichier range les quatre familles à une base sous l'étiquette BASES,
+    avec une teinte « BASE-NATURE » ; on les sépare en quatre familles.
+    (L'ancien fonds_ecran_v1.json ne gardait que les quatre couches
+    « diagonales » BASE-BASE, soit 48 couches sur 60 : les familles à une
+    base y étaient absentes, et le Théorème 2 y était incomplet.)"""
+    lettre = {'violet': 'V', 'magenta': 'M', 'orange': 'O'}
+    couches = defaultdict(lambda: [[None] * N for _ in range(N)])
+    for c in doc['calques']:
+        for col, l in lettre.items():
+            for r, cc in c[col + '_positions']:
+                couches[(c['famille'], c['teinte'])][r][cc] = l
+    familles = defaultdict(dict)
+    for (f, t), g in couches.items():
+        assert all(x is not None for row in g for x in row), (f, t)
+        if f == 'BASES':
+            for b in ('YANG-MUT', 'YIN-MUT', 'YANG', 'YIN'):     # ordre : préfixes longs d'abord
+                if t.startswith(b + '-'):
+                    familles['BASE-' + b][t[len(b) + 1:].lower().replace('-', '_')] = g
+                    break
+        else:
+            familles[f][t.lower().replace('-', '_')] = g
+    return doc['layer_of'], dict(familles)
 
 
 def couples_unifies(familles, layer_of):
@@ -202,14 +249,15 @@ def habillage(g, pi, rotations_seules=False):
     for (i, j), cellules in ARETES.items():
         S = {(k1, k2) for k1 in range(d) for k2 in range(d)
              if all(R[k2][r2][c2] == pi[R[k1][r1][c1]] for (r1, c1), (r2, c2) in cellules)}
-        if not S:
-            return None                      # arête impossible : inutile de chercher
         admissibles[(i, j)] = S
+    aretes_ok = sum(1 for S in admissibles.values() if S)
+    if aretes_ok < len(admissibles):
+        return None, aretes_ok               # au moins une arête impossible : obstruction locale
 
     for ks in itertools.product(range(d), repeat=6):
         if all((ks[i], ks[j]) in admissibles[(i, j)] for (i, j) in admissibles):
-            return ks
-    return None
+            return ks, aretes_ok
+    return None, aretes_ok                    # toutes les arêtes possibles, aucun assemblage : obstruction globale
 
 
 def angles_fixes(g, pi):
@@ -231,11 +279,39 @@ def main():
     if not os.path.exists(DATA):
         sys.exit(f"données introuvables : {DATA}")
     doc = json.load(open(DATA, encoding='utf-8'))
-    layer_of, familles = doc['layerOf'], doc['families']
+    layer_of, familles = familles_depuis_referent_360(doc)
+    print(f"familles : {len(familles)} ; couches : {sum(len(v) for v in familles.values())}")
+    if os.path.exists(DATA_FE):
+        fe = json.load(open(DATA_FE, encoding='utf-8'))
+        if fe['layerOf'] != layer_of:
+            sys.exit("layer_of diffère entre referent_360_v3.json et fonds_ecran_v1.json")
 
     # (F1) : sans l'invariance de L par σ, le Théorème 1 tombe
     if demi_decalage(layer_of) != layer_of:
         sys.exit("la matrice des niveaux n'est pas invariante par σ — hypothèse (F1) en défaut")
+
+    # (F2)–(F4) : symétries de L et des couches, composition
+    rho = lambda g: [[g[N - 1 - r][N - 1 - c] for c in range(N)] for r in range(N)]
+    kappa = lambda g: [[g[c][N - 1 - r] for c in range(N)] for r in range(N)]
+    toutes = [(f, k, g) for f in familles for k, g in familles[f].items()]
+    if rho(layer_of) != layer_of or kappa(layer_of) != layer_of:
+        sys.exit("L n'est pas invariante par ρ ou κ — hypothèses (F2)/(F3) en défaut")
+    if any(rho(A) != A for _, _, A in toutes):
+        sys.exit("une couche n'est pas centralement symétrique — hypothèse (F2) en défaut")
+    def tau_de(A):
+        m, K = {}, kappa(A)
+        for r in range(N):
+            for c in range(N):
+                if m.setdefault(A[r][c], K[r][c]) != K[r][c]:
+                    return None
+        return m
+    taus = {(f, k): tau_de(A) for f, k, A in toutes}
+    if any(t is None for t in taus.values()):
+        sys.exit("une couche n'est pas κ-symétrique à permutation près — hypothèse (F3) en défaut")
+    if Counter(x for row in layer_of for x in row) != {l: 24 for l in range(1, NIVEAUX + 1)} or \
+       any(sorted(Counter(x for row in A for x in row).values()) != [48, 48, 48] for _, _, A in toutes):
+        sys.exit("composition 24 par niveau / 48 par teinte en défaut — hypothèse (F4)")
+    print("hypothèses (F1)–(F4) : ✓")
 
     couples = couples_unifies(familles, layer_of)
     familles_unifiees = sorted({f for f, _, _ in couples})
@@ -250,14 +326,20 @@ def main():
         pi = involution(A, B)
         if pi is None:
             sys.exit(f"{f} ({a}, {b}) : B n'est pas π ∘ A — hypothèse (F5) en défaut")
+        if taus[(f, a)] != taus[(f, b)] or not (all(k == v for k, v in taus[(f, a)].items()) or taus[(f, a)] == pi):
+            sys.exit(f"{f} ({a}, {b}) : τ_A ≠ τ_B ou τ_A ∉ {{id, π}} — hypothèse du Corollaire 4 en défaut")
+        diag = [(0, 0), (0, N - 1), (N - 1, 0), (N - 1, N - 1)] + [(i, i) for i in range(N)] + [(i, N - 1 - i) for i in range(N)]
+        if any(A[r][c] != B[r][c] or pi[A[r][c]] != A[r][c] for r, c in diag):
+            sys.exit(f"{f} ({a}, {b}) : coins/diagonales — hypothèse du Corollaire 5 en défaut")
         for n in range(64):
             g = phi(n, A, B, layer_of)
-            ks = habillage(g, pi, arg.rotations_only)
+            ks, aretes_ok = habillage(g, pi, arg.rotations_only)
             triplets.append({
                 'famille': f, 'teintes': [a, b], 'hexagramme': n,
                 'grille': tuple(tuple(r) for r in g),
                 'angles_fixes': angles_fixes(g, pi),
                 'habillage': list(ks) if ks else None,
+                'aretes_satisfaisables': aretes_ok,
             })
 
     def pavage(cle):
@@ -291,6 +373,75 @@ def main():
         k = sum(1 for t in ok if t['famille'] == f)
         print(f"        {f}  ({k} triplets)")
     print()
+
+    # ── nature de l'obstruction pour les exclus ──────────────────────
+    exclus = [t for t in triplets if t['habillage'] is None]
+    if exclus:
+        print("Familles exclues : arêtes individuellement satisfaisables (sur 12)")
+        for f in sorted({t['famille'] for t in exclus}):
+            vals = sorted({t['aretes_satisfaisables'] for t in exclus if t['famille'] == f})
+            nature = 'locale (aucune arête ne passe)' if vals == [0] else \
+                     'globale (chaque arête passe, pas d\'assemblage)' if vals == [12] else 'mixte'
+            print(f"        {f}: {vals}  → obstruction {nature}")
+        print()
+
+    # ── lemme de duplication (troisième base) ────────────────────────
+    par_grille = defaultdict(list)
+    for t in triplets:
+        par_grille[t['grille']].append((t['famille'], t['teintes'][0], t['hexagramme']))
+    doublons = [v for v in par_grille.values() if len(v) == 2]
+    xor7 = all((v[0][2] ^ v[1][2]) in (7, 56) for v in doublons) and len(doublons) * 2 == len(triplets)
+    print("Duplication (Lemme 2)")
+    print(f"    grilles en double : {len(doublons)}/{len(par_grille)} (chaque grille exactement deux fois) ; correspondance n ↔ n⊕7 ou n⊕56 : {'✓' if xor7 else '✗'}")
+    print()
+
+    # ── orbites de Γ = <σ, D4, S3> ────────────────────────────────────
+    def orbites(S):
+        vus, k = set(), 0
+        for g in S:
+            if g in vus:
+                continue
+            k += 1
+            for h in variantes([list(r) for r in g]):
+                for s in (h, demi_decalage(h)):
+                    teintes = sorted({x for row in s for x in row})
+                    for perm in itertools.permutations(teintes):
+                        m = dict(zip(teintes, perm))
+                        vus.add(tuple(tuple(m[x] for x in row) for row in s))
+        return k
+    print("Orbites de Γ (Section 4, Remarque)")
+    print(f"    corpus  : {orbites(set(grilles))}")
+    print(f"    retenues : {orbites({t['grille'] for t in ok})}")
+    print()
+
+    # ── Section 7 : les 16 premières formes unifiées dans le corpus ──
+    try:
+        import selection_ordre6 as so
+        doc6 = json.load(open(so.DATA, encoding='utf-8'))
+        formes6 = {(f['row'], f['col']): f for f in doc6['forms']}
+        ordre12 = {(R, C): so.assemble(formes6, R, C) for R in range(8) for C in range(8)}
+        retenues = {k: G for k, G in ordre12.items() if so.unifiee(G)}
+        index = {}
+        for t in triplets:
+            index.setdefault(t['grille'], []).append(t)
+        renommage = {'RB': 'V', 'vert': 'M', 'jaune': 'O'}
+        trouvees = Counter(); cube = 0
+        for k, G in retenues.items():
+            g = tuple(tuple(renommage[x] for x in row) for row in G)
+            if g in index:
+                for t in index[g]:
+                    trouvees[t['famille']] += 1
+                    cube += t['habillage'] is not None
+        print("Section 7 : formes d'ordre 6 dans le corpus (renommage RB→V, vert→M, jaune→O)")
+        print(f"    formes retenues : {len(retenues)} ; présentes dans le corpus : "
+              f"{sum(1 for G in retenues.values() if tuple(tuple(renommage[x] for x in row) for row in G) in index)}/{len(retenues)}")
+        for f, k in sorted(trouvees.items()):
+            print(f"        {f} : {k} triplets")
+        print(f"    admettant un habillage du cube : {cube}")
+        print()
+    except (ImportError, FileNotFoundError):
+        print("Section 7 : selection_ordre6.py ou referent_256_v3.json absents — étape sautée")
+        print()
 
     if arg.rotations_only:
         print("note : --rotations-only donne un résultat dépendant de la convention")
