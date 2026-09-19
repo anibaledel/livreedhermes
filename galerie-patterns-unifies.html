@@ -3,56 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>La Livrée d'Hermès — Fonds d'écran</title>
-<meta name="description" content="Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
-<meta property="og:title" content="La Livrée d'Hermès — Fonds d'écran">
-<meta property="og:description" content="Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
+<title>La Livrée d'Hermès — Galerie des Patterns Unifiés</title>
+<meta name="description" content="Galerie des patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.">
+<meta property="og:title" content="La Livrée d'Hermès — Galerie des Patterns Unifiés">
+<meta property="og:description" content="Galerie des patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
-<meta property="og:url" content="https://anibal-amiot.com/fonds-ecran.html">
+<meta property="og:url" content="https://anibal-amiot.com/galerie-patterns-unifies.html">
 <meta property="og:type" content="website">
-<link rel="canonical" href="https://anibal-amiot.com/fonds-ecran.html">
+<link rel="canonical" href="https://anibal-amiot.com/galerie-patterns-unifies.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="La Livrée d'Hermès — Fonds d'écran">
-<meta name="twitter:description" content="Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.">
+<meta name="twitter:title" content="La Livrée d'Hermès — Galerie des Patterns Unifiés">
+<meta name="twitter:description" content="Galerie des patterns unifiés de La Livrée d'Hermès, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Fonds d'écran — La Livrée d'Hermès",
-  "description": "Fonds d'écran textiles plein écran, réactifs au son (micro ou fichier audio) ou en mode méditatif à rythme réglable, avec personnalisation de couleur.",
-  "url": "https://anibal-amiot.com/fonds-ecran.html",
-  "applicationCategory": "MultimediaApplication",
-  "operatingSystem": "Any (navigateur web)",
-  "isAccessibleForFree": true,
-  "author": {
-    "@type": "Person",
-    "name": "Anibal Edelberto Amiot",
-    "alternateName": ["Anibal Amiot", "Edelberto Amiot"]
-  }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
-    { "@type": "ListItem", "position": 2, "name": "Outils", "item": "https://anibal-amiot.com/outils.html" },
-    { "@type": "ListItem", "position": 3, "name": "Fond d'écran", "item": "https://anibal-amiot.com/fonds-ecran.html" }
-  ]
-}
-</script>
 <style>
   :root{
     --fs-bump:2px;
-    --bg:#000; --panel:#0a0a0a; --line:#242424;
-    --V:#662d91; --M:#ee2a7b; --O:#fbb040;
-    --gold:#c9a15a; --red:#e0261b; --text:#f2f2f0; --dim:#f2f2f0;
+    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
+    --red:#e0261b; --red-dim:#5a120e; --gold:#c9a15a; --line:#242424;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
-  body{margin:0; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden;}
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
   img, canvas, svg{ max-width:100%; }
   .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
@@ -89,26 +60,60 @@
   .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
 
-  /* --- écran de sélection (intégré au flux normal de la page, header/pied compris) --- */
-  #selectScreen p.fondecran-intro{font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); color:var(--dim); max-width:56ch; text-align:center; margin:0 auto 28px; line-height:1.7;}
-  .mod-options{
-    max-width:560px; margin:32px auto 0; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump));
-    color:var(--dim); line-height:1.8; text-align:center; padding:20px 20px 0; border-top:1px solid var(--line);
+  .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
+  .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
+  .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
+
+  .controls{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:24px 0 16px; font-family:Helvetica,Arial,sans-serif; }
+  .controls button{
+    background:transparent; color:var(--dim); border:1px solid var(--line);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
   }
-  .mod-options strong{ color:var(--gold); display:block; margin-bottom:8px; font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; font-weight:400; }
-  .mod-options b{ color:var(--text); font-weight:400; }
-  .cat-grid{display:flex; gap:18px; flex-wrap:wrap; justify-content:center;}
-  .cat-card{
-    width:150px; height:150px; border:1px solid var(--line);
-    background:var(--panel); display:flex; flex-direction:column; align-items:center; justify-content:center;
-    cursor:pointer; font-family:Helvetica,Arial,sans-serif; transition:transform .15s, border-color .15s;
-    position:relative; overflow:hidden;
+  .controls button.active{ border-color:var(--red); color:var(--red); }
+  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
+  .mode-hint{
+    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    margin:24px 0 0;
   }
-  .cat-card:hover{transform:translateY(-4px); border-color:var(--gold);}
-  .cat-card canvas{position:absolute; inset:0; width:100%; height:100%; opacity:.5;}
-  .cat-card .label{position:relative; z-index:2; background:rgba(0,0,0,.55); padding:6px 12px; font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase;}
-  .cat-card .count{position:relative; z-index:2; font-size:calc(11px + var(--fs-bump)); color:var(--dim); margin-top:6px; background:rgba(0,0,0,.55); padding:2px 8px;}
-  .cat-card.disabled{opacity:.35; cursor:not-allowed;}
+  #modeControls{ padding:10px 0 4px; }
+  #controls{ padding-top:8px; }
+  #tintPicker{
+    width:28px; height:28px; border:1px solid var(--line); border-radius:50%;
+    padding:0; background:none; cursor:pointer; overflow:hidden;
+  }
+  #tintPicker::-webkit-color-swatch-wrapper{ padding:0; }
+  #tintPicker::-webkit-color-swatch{ border:none; border-radius:50%; }
+
+  /* ---------- barre horizontale défilante ---------- */
+  .gallery-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; }
+  .gallery-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  #gallery{
+    display:flex; gap:3px; overflow-x:auto; padding-bottom:10px;
+    scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  }
+  #gallery::-webkit-scrollbar{ height:6px; }
+  #gallery::-webkit-scrollbar-thumb{ background:var(--line); }
+  #gallery::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
+  .tile{ position:relative; cursor:pointer; background:#000; flex:0 0 auto; border:1px solid transparent; }
+  .tile canvas{ width:64px; height:64px; display:block; }
+  .tile:hover{ border-color:var(--gold); }
+  .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+
+  /* ---------- pavage du motif sélectionné ---------- */
+  .paved-section{ margin-top:32px; }
+  .paved-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info b{ color:var(--white); font-weight:400; }
+  .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
+  .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-actions button{
+    background:transparent; color:var(--dim); border:1px solid var(--line);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .paved-actions button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .note{
     margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
@@ -174,72 +179,26 @@
   .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
-  /* --- écran plein écran (overlay indépendant du chrome du site) --- */
-  #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
-  #stage canvas{width:100%; height:100%; display:block;}
-  #pauseInfo{
-    position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-    font-family:Arial,sans-serif; color:#fff; text-align:center; z-index:15;
-    background:rgba(0,0,0,.78); padding:22px 30px; border-radius:10px;
-    opacity:0; pointer-events:none; transition:opacity .35s;
-    max-width:min(90vw, 520px);
-  }
-  #pauseInfo.visible{opacity:1;}
-  #pauseInfo .hex{font-size:calc(13px + var(--fs-bump)); color:var(--dim); margin-bottom:6px;}
-  #pauseInfo .keyword{font-size:calc(19px + var(--fs-bump)); color:var(--gold); margin-bottom:10px; letter-spacing:.03em;}
-  #pauseInfo .text{font-size:calc(13px + var(--fs-bump)); color:#ddd; line-height:1.6; text-align:center;}
-  #hud{
-    position:fixed; top:0; left:0; right:0; display:flex; flex-wrap:wrap; row-gap:8px;
-    justify-content:space-between; align-items:center;
-    padding:16px 20px; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); color:rgba(255,255,255,.55);
-    z-index:10; opacity:0; transition:opacity .3s; pointer-events:none;
-  }
-  #stage:hover #hud{opacity:1; pointer-events:auto;}
-  #hud button{
-    background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
-    padding:7px 14px; font-size:calc(11px + var(--fs-bump)); cursor:pointer; margin-left:8px;
-  }
-  #hud button:hover{border-color:var(--gold); color:var(--gold);}
-  #hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
-  #hud select{
-    background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
-    padding:6px 4px; font-size:calc(10.5px + var(--fs-bump)); cursor:pointer;
-  }
-  #hud .left{display:flex; flex-wrap:wrap; row-gap:8px; align-items:center; gap:10px;}
-  #levelBar{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
-  #levelFill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
-  #fileInput{display:none;}
-  #tintPicker{width:28px; height:28px; border:1px solid rgba(255,255,255,.3); border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;}
-  #tintPicker::-webkit-color-swatch-wrapper{padding:0;}
-  #tintPicker::-webkit-color-swatch{border:none; border-radius:50%;}
-  #stageNotice{
-    position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:20;
-    background:rgba(0,0,0,.8); color:#fff; border:1px solid rgba(255,255,255,.25);
-    padding:10px 18px; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); max-width:80vw; text-align:center;
-    opacity:0; pointer-events:none; transition:opacity .3s;
-  }
-  #stageNotice.visible{ opacity:1; }
-
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; }
     header{ margin-bottom:20px; padding-bottom:16px; }
     header h1{ font-size:calc(22px + var(--fs-bump)); }
     .site-nav-btn{ padding:11px 16px; }
     .book-bar .flag-btn{ width:36px; height:32px; }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
 
-    /* pas de survol tactile fiable : le HUD reste visible en permanence sur mobile */
-    #hud{ opacity:1; pointer-events:auto; padding:10px 12px; font-size:calc(11px + var(--fs-bump)); }
-    #hud button{ padding:8px 10px; font-size:calc(10.5px + var(--fs-bump)); margin-left:6px; }
-    #rhythmSlider, #sizeSlider{ width:60px !important; }
-    #levelBar{ width:50px; }
-  }
-  @media (max-width:480px){
-    .cat-grid{ flex-direction:column; align-items:center; }
-    .cat-card{ width:100%; max-width:280px; height:130px; }
-    #hud .left{ gap:6px; }
-    #hud button{ padding:7px 8px; font-size:calc(10px + var(--fs-bump)); margin-left:4px; }
-    #levelBar{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
-  }
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -247,23 +206,80 @@
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que les Unified Patterns ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Les Unified Patterns sont des cellules de tessellation où les coins font écho au centre, afin de générer la fréquence d'un seul motif."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelles sont les contraintes de création des Unified Patterns ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment ces matrices sont-elles classifiées ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La classification utilise le système Jacquard pour générer et organiser les matrices équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces matrices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sur quelle harmonie ce système a-t-il été vérifié ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments)."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Outils", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Galerie", "item": "https://anibal-amiot.com/galerie-patterns-unifies.html" }
+  ]
+}
+</script>
 </head>
 <body>
-
-<div id="selectScreen">
 <div class="wrap">
 
-  <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-33-fonds-ecran.avif);">
+  <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-23-galerie.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
     <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
-      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Fond d'écran</span>
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Galerie</span>
     </nav>
     <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
-    <h1>Fonds d'écran</h1>
-    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">Choisissez une catégorie de motifs unifiés, en plein écran, réactifs au son ou en mode méditatif.</p>
+    <h1>Galerie des Patterns Unifiés</h1>
+    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">Engendrés par mélange de teintes sur les familles de calques — sélectionnez un motif pour voir son pavage.</p>
     <p class="book-intro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
 
     <div class="book-bar">
@@ -301,23 +317,63 @@
         </span>
       </span>
     </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">1024</span><span class="l">Constructions</span></div>
+      <div class="stat"><span class="n">512</span><span class="l">Grilles distinctes</span></div>
+      <div class="stat"><span class="n">256</span><span class="l">Pavages</span></div>
+    </div>
+    <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 compte les constructions (famille × couple de teintes × hexagramme), pas les formes : plusieurs constructions peuvent dessiner la même grille, ou une grille et son décalé d'une demi-période le même pavage — d'où 512 grilles distinctes et 256 pavages.</p>
   </header>
   </div>
 
     <div id="google_translate_element" class="gtranslate-slot"></div>
 
-  <p class="fondecran-intro">Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes.</p>
-  <div class="cat-grid" id="catGrid"></div>
+  <div class="faq-block">
+    <p class="faq-block-title">Questions fréquentes</p>
+    <details class="faq-item">
+      <summary>Qu'est-ce que les Unified Patterns ?<span class="q-mark">＋</span></summary>
+      <p>Les Unified Patterns sont des cellules de tessellation où les coins font écho au centre, afin de générer la fréquence d'un seul motif.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Quelles sont les contraintes de création des Unified Patterns ?<span class="q-mark">＋</span></summary>
+      <p>Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?<span class="q-mark">＋</span></summary>
+      <p>La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Comment ces matrices sont-elles classifiées ?<span class="q-mark">＋</span></summary>
+      <p>La classification utilise le système Jacquard pour générer et organiser les matrices équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces matrices.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Sur quelle harmonie ce système a-t-il été vérifié ?<span class="q-mark">＋</span></summary>
+      <p>Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments).</p>
+    </details>
+  </div>
 
-  <div class="mod-options">
-    <strong>Options de modulation, une fois la catégorie choisie :</strong>
-    <div>🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.</div>
-    <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que tu proposes toi-même.</div>
-    <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
-    <div>🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.</div>
-    <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
-    <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie.</div>
-    <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
+  <p class="mode-hint">Choisis le mode d'affichage et sa coloration</p>
+  <div class="controls" id="modeControls">
+    <button id="btnColorMode" type="button">Monochrome</button>
+    <input type="color" id="tintPicker" value="#db694c" title="Choisir une teinte">
+  </div>
+
+  <div class="controls" id="controls"></div>
+
+  <div class="gallery-panel">
+    <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
+    <div id="gallery"></div>
+  </div>
+
+  <div class="paved-section" id="pavedSection">
+    <div class="paved-label">Pavage du motif sélectionné</div>
+    <div class="paved-info" id="pavedInfo"></div>
+    <div class="paved-box"><canvas id="pavedCanvas"></canvas></div>
+    <div class="paved-actions">
+      <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
+      <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
+    </div>
   </div>
 
   <div class="note">
@@ -333,7 +389,6 @@
       <a class="nav-tile" href="/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/tirage.png); --hover-icon:url(assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
       <a class="nav-tile" href="hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/hexagrammes.png); --hover-icon:url(assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Hexagrammes</span><span class="nav-tile-excerpt">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
       <a class="nav-tile" href="unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/unified-patterns.png); --hover-icon:url(assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Unified Patterns</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
-      <a class="nav-tile" href="galerie-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/galerie.png); --hover-icon:url(assets/nav-icons/galerie-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie</span><span class="nav-tile-excerpt">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
       <a class="nav-tile" href="telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/motifs-svg.png); --hover-icon:url(assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
       <a class="nav-tile" href="contact.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/contact.png); --hover-icon:url(assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
       <a class="nav-tile" href="a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/a-propos.png); --hover-icon:url(assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
@@ -344,6 +399,7 @@
     </div>
 
         <div class="nav-tiles">
+      <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
       <a class="nav-tile" href="creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/creation-motifs.png); --hover-icon:url(assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
       <a class="nav-tile" href="bicolore.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/bicolore.png); --hover-icon:url(assets/nav-icons/bicolore-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs bicolores</span><span class="nav-tile-excerpt">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></span></a>
       <a class="nav-tile" href="encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/encodeur.png); --hover-icon:url(assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
@@ -369,73 +425,19 @@
   </div>
 
 </div>
-</div>
-
-<div id="stage">
-  <canvas id="canvas"></canvas>
-  <div id="pauseInfo"><div class="hex"></div><div class="keyword"></div><div class="text"></div></div>
-  <div id="hud">
-    <div class="left">
-      <button id="btnMic">🎤 Micro</button>
-      <button id="btnFile">📁 Fichier audio</button>
-      <button id="btnMeditative">🧘 Méditatif</button>
-      <span id="rhythmWrap" style="display:none; align-items:center; gap:6px;">
-        <input type="range" id="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;">
-        <span id="rhythmLabel" style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">8 s</span>
-      </span>
-      <button id="btnMode">Multicolore</button>
-      <input type="color" id="tintPicker" value="#db694c" title="Choisir une teinte">
-      <span id="sizeWrap" style="display:inline-flex; align-items:center; gap:6px;">
-        <span style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Densité</span>
-        <input type="range" id="sizeSlider" min="4" max="32" step="1" value="4" style="width:90px;">
-      </span>
-      <button id="btnReset">↺ Réinitialiser</button>
-      <button id="btnFullReactive" title="Basses→teinte, médiums→motif">🌈 Full Réactif</button>
-      <button id="btnPause">⏸ Pause</button>
-      <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
-        <select id="recordRatio" title="Ratio d'export vidéo">
-          <option value="916">9:16 (vertical)</option>
-          <option value="11">1:1 (carré)</option>
-          <option value="native">Natif (écran)</option>
-        </select>
-        <select id="recordDuration" title="Durée d'enregistrement">
-          <option value="manual">Manuel</option>
-          <option value="15">15 s</option>
-          <option value="30">30 s</option>
-          <option value="60">60 s</option>
-        </select>
-        <button id="btnRecord" title="Enregistre le pavage animé et le son en cours en vidéo">🎬 Enregistrer</button>
-      </span>
-      <div id="levelBar"><div id="levelFill"></div></div>
-    </div>
-    <button id="btnExit">✕ Quitter</button>
-  </div>
-  <input type="file" id="fileInput" accept="audio/*">
-  <audio id="audioEl" loop></audio>
-  <div id="stageNotice"></div>
-</div>
 
 <script>
-const PAIRS32 = {"1":{"chronoA":1,"infoA":"Kun, Le Réceptif, KW2","chronoB":64,"infoB":"Qian, Le Créateur, KW1","keyword":"Fondation","text":"Avant toute chose formée, il y a la matrice et l'élan : l'une reçoit sans exiger, portée par la docilité de la jument fidèle ; l'autre s'élance sans encore savoir ce qu'il deviendra, porté par la seule persévérance. Les deux jugements promettent la même « sublime réussite » — non par ce qu'ils accomplissent déjà, mais par la pureté de la disposition qu'ils inaugurent."},"2":{"chronoA":2,"infoA":"Fu, Le Retour, KW24","chronoB":63,"infoB":"Gou, Venir à la rencontre, KW44","keyword":"Bascule","text":"Un seul trait suffit à faire pivoter tout l'édifice : le trait yang qui revient au plus bas de l'hiver « sans erreur », et le trait yin qui surgit sans prévenir à la rencontre des cinq autres. Les deux jugements avertissent de la même chose — un commencement discret, presque invisible, porte déjà en germe tout ce qui va suivre, pour le meilleur ou pour le pire."},"3":{"chronoA":3,"infoA":"Shi, L'Armée, KW7","chronoB":62,"infoB":"Tong Ren, La Communauté avec les hommes, KW13","keyword":"Cohésion","text":"Une troupe qui tient par la discipline silencieuse d'un chef ferme, une communauté qui tient par son ouverture même au grand large : les deux jugements promettent la réussite à condition que l'union dépasse l'intérêt du petit nombre. Ce qui rassemble vraiment ne se referme jamais sur soi — il se prouve dans l'épreuve commune ou dans la traversée des grandes eaux."},"4":{"chronoA":4,"infoA":"Lin, L'Approche, KW19","chronoB":61,"infoB":"Dun, La Retraite, KW33","keyword":"Saison","text":"L'approche qui grandit avertit elle-même qu'au huitième mois viendra le malheur ; la retraite qui se retire encore petite promet la réussite par cela seul. Les deux jugements enseignent qu'il existe une saison propre à chaque mouvement — avancer tant que la faveur dure, se retirer tant qu'il en reste la force."},"5":{"chronoA":5,"infoA":"Qian, La Modestie, KW15","chronoB":60,"infoB":"Lu, La Marche, KW10","keyword":"Tenue","text":"Marcher sur la queue du tigre sans qu'il morde, ou pratiquer la modestie jusqu'à ce qu'elle porte l'homme de bien jusqu'au bout : dans les deux jugements, ce n'est jamais la situation qui protège, mais la justesse du maintien. Le danger comme l'excès ne se déjouent pas en les évitant, mais en s'y tenant avec une conduite qui ne dévie pas."},"6":{"chronoA":6,"infoA":"Ming Yi, L'Obscurcissement de la lumière, KW36","chronoB":59,"infoB":"Song, Le Conflit, KW6","keyword":"Discrétion","text":"Quand la lumière doit s'obscurcir pour survivre, et quand le conflit doit s'arrêter avant d'être poussé jusqu'au bout, le jugement dit la même prudence : la persévérance intérieure vaut mieux que l'éclat ou l'affrontement menés à leur terme. Ce qui reste juste au fond de soi n'a pas besoin de se montrer pour agir."},"7":{"chronoA":7,"infoA":"Sheng, La Poussée vers le haut, KW46","chronoB":58,"infoB":"Wu Wang, L'Innocence, KW25","keyword":"Naturel","text":"La poussée qui monte comme une plante vers le sud, et l'innocence qui n'agit jamais que selon ce qu'elle est vraiment : les deux jugements promettent la réussite sublime à ce qui grandit ou agit sans artifice. Dès qu'on s'écarte de sa propre nature, le malheur survient — dans un cas comme dans l'autre."},"8":{"chronoA":8,"infoA":"Tai, La Paix, KW11","chronoB":57,"infoB":"Pi, La Stagnation, KW12","keyword":"Circulation","text":"Le ciel et la terre s'unissent, ou ne s'unissent pas : dans un cas le petit s'en va et le grand approche, dans l'autre c'est l'inverse, et rien ne circule plus entre le haut et le bas. La paix et la stagnation ne sont pas deux forces distinctes mais le même axe observé à ses deux extrémités."},"9":{"chronoA":9,"infoA":"Yu, L'Enthousiasme, KW16","chronoB":56,"infoB":"Xiao Chu, La Force apprivoisée du petit, KW9","keyword":"Accumulation","text":"L'enthousiasme qui mobilise des armées entières, et la petite force qui ne retient encore que des nuages sans pluie : les deux jugements décrivent une énergie qui se rassemble avant de se libérer, que ce soit dans l'éclat du mouvement commun ou dans la patience de ce qui n'a pas encore assez grandi pour agir."},"10":{"chronoA":10,"infoA":"Zhen, L'Ébranlement, KW51","chronoB":55,"infoB":"Xun, Le Doux, le Vent, KW57","keyword":"Sang-froid","text":"Le choc qui terrifie sur cent lieues sans faire tomber la coupe du sacrifice, et le vent qui pénètre partout par petites touches continues : les deux jugements demandent la même chose face à une force qui les dépasse — garder le geste sûr, que l'influence soit brutale et soudaine ou douce et continue."},"11":{"chronoA":11,"infoA":"Jie, La Délivrance, KW40","chronoB":54,"infoB":"Jia Ren, Les Gens de la maison, KW37","keyword":"Rétablissement","text":"Ce qui se dénoue retourne au repos dès que rien n'exige plus qu'on parte ; ce qui s'ordonne dans la maison retourne à la droiture par la persévérance de la femme au foyer. Délivrance et famille disent la même chose : l'ordre juste se rétablit toujours par un retour au lieu propre, jamais par la fuite en avant."},"12":{"chronoA":12,"infoA":"Gui Mei, L'Épousée, KW54","chronoB":53,"infoB":"Jian, Le Développement, KW53","keyword":"Noces","text":"Une union précipitée, où rien ne favorise l'entreprise, et une union mûrie degré par degré, où la persévérance porte chance : les deux jugements parlent du même événement — le mariage — mais l'un met en garde contre la hâte quand l'autre récompense la patience du juste développement."},"13":{"chronoA":13,"infoA":"Xiao Guo, La Prépondérance du petit, KW62","chronoB":52,"infoB":"Zhong Fu, La Vérité intérieure, KW61","keyword":"Mesure","text":"Il ne faut viser que les petites choses, dit l'un ; même les cochons et les poissons répondent à la sincérité, dit l'autre. Les deux jugements placent leur réussite dans l'économie du geste — rester en bas plutôt que de s'élever, offrir peu mais avec un cœur entièrement vrai."},"14":{"chronoA":14,"infoA":"Feng, L'Abondance, KW55","chronoB":51,"infoB":"Huan, La Dissolution, KW59","keyword":"Zénith","text":"Le roi atteint l'abondance et doit être « comme le soleil à son midi », sans tristesse ; le roi s'approche de son temple pour que se rassemble ce qui était dispersé. Plénitude et dissolution sont les deux moments d'un même sommet : l'un vient tout juste de l'atteindre, l'autre s'apprête déjà à recomposer ce qu'il en reste."},"15":{"chronoA":15,"infoA":"Heng, La Durée, KW32","chronoB":50,"infoB":"Yi, L'Augmentation, KW42","keyword":"Renouvellement","text":"La durée qui persévère « en ayant quelque part où aller », et l'augmentation qui appelle à entreprendre et à traverser les grandes eaux : aucune des deux ne promet la réussite à l'immobilité. Ce qui dure et ce qui s'accroît vraiment ne le font qu'en se renouvelant sans cesse."},"16":{"chronoA":16,"infoA":"Da Zhuang, La Puissance du grand, KW34","chronoB":49,"infoB":"Guan, La Contemplation, KW20","keyword":"Prestance","text":"La grande puissance qui ne doit jamais fouler les chemins contraires à l'ordre établi, et la contemplation qui inspire confiance par sa seule dignité immobile, avant même l'offrande : les deux jugements enseignent que la vraie autorité se retient d'agir plus qu'elle ne se démontre."},"17":{"chronoA":17,"infoA":"Bi, La Solidarité, KW8","chronoB":48,"infoB":"Da You, La Possession de grande envergure, KW14","keyword":"Fidélité","text":"Il faut interroger encore l'oracle pour savoir si l'on possède vraiment la sublimité et la constance, dit l'un ; la possession en grande mesure obtient d'elle-même la réussite suprême, dit l'autre. Ce qui tient un groupe ou une fortune ensemble n'est jamais leur taille, mais la loyauté sincère et éprouvée qui les fonde."},"18":{"chronoA":18,"infoA":"Zhun, La Difficulté initiale, KW3","chronoB":47,"infoB":"Ding, Le Chaudron, KW50","keyword":"Gestation","text":"Rien ne doit encore être entrepris à la difficulté du début, sinon nommer des aides ; et le chaudron promet la bonne fortune suprême à ce qui s'y transforme lentement. Le germe encore informe et la matière encore crue partagent le même besoin : un contenant, un soutien, le temps de prendre forme."},"19":{"chronoA":19,"infoA":"Kan, L'Insondable, KW29","chronoB":46,"infoB":"Li, Ce qui s'attache, le Feu, KW30","keyword":"Ancrage","text":"Seule la sincérité du cœur traverse l'insondable ; seul le soin apporté à la vache — la docilité — permet au feu de s'attacher et de rayonner. Devant l'eau qui engloutit comme devant le feu qui a besoin d'un appui pour brûler, c'est une qualité intérieure, jamais la situation elle-même, qui rend le passage sûr."},"20":{"chronoA":20,"infoA":"Jie, La Limitation, KW60","chronoB":45,"infoB":"Lu, Le Voyageur, KW56","keyword":"Sobriété","text":"Une limitation trop dure ne doit pas être maintenue par persévérance, avertit l'une ; le voyageur n'obtient la réussite que « par ce qui est petit », avertit l'autre. Vivre dans la contrainte ou vivre sans feu ni lieu demandent la même sobriété — ni excès de rigueur, ni excès de besoin."},"21":{"chronoA":21,"infoA":"Jian, L'Obstacle, KW39","chronoB":44,"infoB":"Kui, L'Opposition, KW38","keyword":"Détour","text":"Le sud-ouest favorise, le nord-est ne favorise pas, dit l'obstacle ; dans les petites affaires seulement, dit l'opposition. Devant ce qui résiste ou ce qui divise, les deux jugements recommandent le même chemin de traverse — chercher le grand homme, ménager le désaccord, plutôt que de forcer le passage."},"22":{"chronoA":22,"infoA":"Ji Ji, Après l'accomplissement, KW63","chronoB":43,"infoB":"Wei Ji, Avant l'accomplissement, KW64","keyword":"Vigilance","text":"Bonne fortune au commencement, désordre à la fin, dit l'accomplissement déjà atteint ; le petit renard mouille sa queue juste avant d'achever la traversée, dit l'accomplissement qui approche. Les deux bords du même seuil enseignent que l'instant le plus délicat n'est ni avant ni après, mais celui, toujours proche, où l'on croit déjà être arrivé."},"23":{"chronoA":23,"infoA":"Jing, Le Puits, KW48","chronoB":42,"infoB":"Shi He, Mordre au travers, KW21","keyword":"Dégagement","text":"Le puits ne change ni ne diminue, mais il faut sans cesse y puiser pour qu'il serve encore ; mordre au travers dégage ce qui bloquait le passage de la justice. Ressource constante ou obstacle ponctuel, l'un comme l'autre n'ont de valeur que dans le geste qui les maintient dégagés."},"24":{"chronoA":24,"infoA":"Xu, L'Attente, KW5","chronoB":41,"infoB":"Jin, Le Progrès, KW35","keyword":"Confiance","text":"Attendre avec sincérité porte en soi sa propre lumière ; le prince honoré de chevaux nombreux reçoit trois audiences en un seul jour. L'attente qui ne s'inquiète pas et la reconnaissance qui vient enfin sont les deux temps d'une même confiance placée dans le moment juste."},"25":{"chronoA":25,"infoA":"Cui, Le Rassemblement, KW45","chronoB":40,"infoB":"Da Chu, La Force apprivoisée du grand, KW26","keyword":"Vocation","text":"Le roi s'approche de son temple pour que le peuple se rassemble ; celui qui a beaucoup accumulé trouve la bonne fortune en ne mangeant plus chez lui, en traversant les grandes eaux. Ce qui se rassemble et ce qui s'accumule ne trouvent leur juste emploi qu'en se tournant vers plus grand que soi."},"26":{"chronoA":26,"infoA":"Sui, La Suite, KW17","chronoB":39,"infoB":"Gu, Le Travail sur ce qui est gâté, KW18","keyword":"Héritage","text":"Suivre son temps sans faute exige de savoir lâcher sa position ; réparer ce qui est gâté exige trois jours avant, trois jours après le point de départ. Ce qu'on hérite du passé — le mouvement des choses ou leurs dégâts accumulés — ne se traite jamais dans la précipitation."},"27":{"chronoA":27,"infoA":"Kun, L'Accablement, KW47","chronoB":38,"infoB":"Bi, La Grâce, KW22","keyword":"Dépouillement","text":"Dans l'accablement, ce qu'on dit n'est plus cru, et pourtant le grand homme y trouve la bonne fortune par sa seule fermeté intérieure ; la grâce, elle, ne convient qu'aux petites affaires. Épuisement et ornement enseignent la même chose à l'envers l'un de l'autre — ce qui reste quand la forme s'est dépouillée est ce qui compte vraiment."},"28":{"chronoA":28,"infoA":"Dui, Le Joyeux, KW58","chronoB":37,"infoB":"Gen, L'Immobilisation, KW52","keyword":"Quiétude","text":"La joie du lac réussit par la persévérance qui ne se dissipe pas ; l'immobilisation de la montagne va jusqu'à ne plus sentir son propre corps. Joie et arrêt sont les deux faces d'une même présence à soi, ni dispersée dans l'agitation ni figée dans l'isolement."},"29":{"chronoA":29,"infoA":"Xian, L'Influence, KW31","chronoB":36,"infoB":"Sun, La Diminution, KW41","keyword":"Réciprocité","text":"Prendre femme, dit l'influence, apporte la bonne fortune par la seule résonance mutuelle ; savoir appliquer les deux petites coupes du sacrifice, dit la diminution, suffit à la sincérité. Ce qui s'attire l'un l'autre et ce qui accepte de se réduire pour un autre décrivent le même échange entre deux pôles."},"30":{"chronoA":30,"infoA":"Ge, La Révolution, KW49","chronoB":35,"infoB":"Meng, La Folie juvénile, KW4","keyword":"Maturation","text":"Ce n'est qu'en son propre jour qu'on croit à la révolution ; ce n'est que si le jeune ignorant cherche le maître, et non l'inverse, que l'enseignement porte. Le changement radical et le savoir encore informe partagent la même exigence : ils ne sont crus, ni l'un ni l'autre, avant d'avoir été éprouvés par le temps."},"31":{"chronoA":31,"infoA":"Da Guo, La Prépondérance du grand, KW28","chronoB":34,"infoB":"Yi, La Nourriture, KW27","keyword":"Charge","text":"La poutre faîtière plie sous son propre poids dans la prépondérance du grand ; veiller à ce qu'on cherche à se mettre dans la bouche est tout le jugement de la nourriture. Ce qu'une structure peut porter et ce qu'un être absorbe pour se nourrir relèvent de la même question — jusqu'où peut-on charger, avant la rupture ou l'excès ?"},"32":{"chronoA":32,"infoA":"Guai, La Percée, KW43","chronoB":33,"infoB":"Bo, L'Éclatement, KW23","keyword":"Usure","text":"Il faut annoncer la vérité à la cour du roi sans recourir aux armes, dit la percée ; il ne sert à rien d'aller nulle part, dit l'éclatement déjà consommé. Retirer ce qui est corrompu tant qu'il en est encore temps, ou laisser l'usure aller jusqu'à son terme : les deux jugements disent comment l'ancien cède sa place, par décision ou par épuisement."}};
 const DATA = {"layerOf":[[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]],"families":{"bases":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","M","M","O","M","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","V","V","O","M","M","O","V","V","O","V"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["V","O","V","V","O","M","M","O","V","V","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","M","O","M","M","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","M","M","M","M","O","O","M","M","M","M","O"],["M","O","M","M","O","V","V","O","M","M","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","V","O","V","V","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","V","V","O","V","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","M","M","O","V","V","O","M","M","O","M"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","O","V","M","V","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","O","M","O","V","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","V","O","M","O","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","V","M","V","O","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","V","V","M","V","O","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","V","O","M","O","O","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","O","O","M","O","V","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","O","V","M","V","V","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yang+yang_mut":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"]]},"par2:yang+yin_mut":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yin+yang":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par2:yin+yang_mut":{"yang":[["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yang_mut":[["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"]]},"par2:yin+yin_mut":{"yang":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]]},"par2:yin_mut+yang_mut":{"yang":[["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"]]},"par3:sans_yang":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yang_mut":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yin":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par3:sans_yin_mut":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par4":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]}},"entries":[["par2:yang+yin_mut","yang","yang_mut",0],["par2:yang+yin_mut","yang","yang_mut",1],["par2:yang+yin_mut","yang","yang_mut",2],["par2:yang+yin_mut","yang","yang_mut",3],["par2:yang+yin_mut","yang","yang_mut",4],["par2:yang+yin_mut","yang","yang_mut",5],["par2:yang+yin_mut","yang","yang_mut",6],["par2:yang+yin_mut","yang","yang_mut",7],["par2:yang+yin_mut","yang","yang_mut",8],["par2:yang+yin_mut","yang","yang_mut",9],["par2:yang+yin_mut","yang","yang_mut",10],["par2:yang+yin_mut","yang","yang_mut",11],["par2:yang+yin_mut","yang","yang_mut",12],["par2:yang+yin_mut","yang","yang_mut",13],["par2:yang+yin_mut","yang","yang_mut",14],["par2:yang+yin_mut","yang","yang_mut",15],["par2:yang+yin_mut","yang","yang_mut",16],["par2:yang+yin_mut","yang","yang_mut",17],["par2:yang+yin_mut","yang","yang_mut",18],["par2:yang+yin_mut","yang","yang_mut",19],["par2:yang+yin_mut","yang","yang_mut",20],["par2:yang+yin_mut","yang","yang_mut",21],["par2:yang+yin_mut","yang","yang_mut",22],["par2:yang+yin_mut","yang","yang_mut",23],["par2:yang+yin_mut","yang","yang_mut",24],["par2:yang+yin_mut","yang","yang_mut",25],["par2:yang+yin_mut","yang","yang_mut",26],["par2:yang+yin_mut","yang","yang_mut",27],["par2:yang+yin_mut","yang","yang_mut",28],["par2:yang+yin_mut","yang","yang_mut",29],["par2:yang+yin_mut","yang","yang_mut",30],["par2:yang+yin_mut","yang","yang_mut",31],["par2:yang+yin_mut","yang","yang_mut",32],["par2:yang+yin_mut","yang","yang_mut",33],["par2:yang+yin_mut","yang","yang_mut",34],["par2:yang+yin_mut","yang","yang_mut",35],["par2:yang+yin_mut","yang","yang_mut",36],["par2:yang+yin_mut","yang","yang_mut",37],["par2:yang+yin_mut","yang","yang_mut",38],["par2:yang+yin_mut","yang","yang_mut",39],["par2:yang+yin_mut","yang","yang_mut",40],["par2:yang+yin_mut","yang","yang_mut",41],["par2:yang+yin_mut","yang","yang_mut",42],["par2:yang+yin_mut","yang","yang_mut",43],["par2:yang+yin_mut","yang","yang_mut",44],["par2:yang+yin_mut","yang","yang_mut",45],["par2:yang+yin_mut","yang","yang_mut",46],["par2:yang+yin_mut","yang","yang_mut",47],["par2:yang+yin_mut","yang","yang_mut",48],["par2:yang+yin_mut","yang","yang_mut",49],["par2:yang+yin_mut","yang","yang_mut",50],["par2:yang+yin_mut","yang","yang_mut",51],["par2:yang+yin_mut","yang","yang_mut",52],["par2:yang+yin_mut","yang","yang_mut",53],["par2:yang+yin_mut","yang","yang_mut",54],["par2:yang+yin_mut","yang","yang_mut",55],["par2:yang+yin_mut","yang","yang_mut",56],["par2:yang+yin_mut","yang","yang_mut",57],["par2:yang+yin_mut","yang","yang_mut",58],["par2:yang+yin_mut","yang","yang_mut",59],["par2:yang+yin_mut","yang","yang_mut",60],["par2:yang+yin_mut","yang","yang_mut",61],["par2:yang+yin_mut","yang","yang_mut",62],["par2:yang+yin_mut","yang","yang_mut",63],["par2:yang+yin_mut","yin","yin_mut",0],["par2:yang+yin_mut","yin","yin_mut",1],["par2:yang+yin_mut","yin","yin_mut",2],["par2:yang+yin_mut","yin","yin_mut",3],["par2:yang+yin_mut","yin","yin_mut",4],["par2:yang+yin_mut","yin","yin_mut",5],["par2:yang+yin_mut","yin","yin_mut",6],["par2:yang+yin_mut","yin","yin_mut",7],["par2:yang+yin_mut","yin","yin_mut",8],["par2:yang+yin_mut","yin","yin_mut",9],["par2:yang+yin_mut","yin","yin_mut",10],["par2:yang+yin_mut","yin","yin_mut",11],["par2:yang+yin_mut","yin","yin_mut",12],["par2:yang+yin_mut","yin","yin_mut",13],["par2:yang+yin_mut","yin","yin_mut",14],["par2:yang+yin_mut","yin","yin_mut",15],["par2:yang+yin_mut","yin","yin_mut",16],["par2:yang+yin_mut","yin","yin_mut",17],["par2:yang+yin_mut","yin","yin_mut",18],["par2:yang+yin_mut","yin","yin_mut",19],["par2:yang+yin_mut","yin","yin_mut",20],["par2:yang+yin_mut","yin","yin_mut",21],["par2:yang+yin_mut","yin","yin_mut",22],["par2:yang+yin_mut","yin","yin_mut",23],["par2:yang+yin_mut","yin","yin_mut",24],["par2:yang+yin_mut","yin","yin_mut",25],["par2:yang+yin_mut","yin","yin_mut",26],["par2:yang+yin_mut","yin","yin_mut",27],["par2:yang+yin_mut","yin","yin_mut",28],["par2:yang+yin_mut","yin","yin_mut",29],["par2:yang+yin_mut","yin","yin_mut",30],["par2:yang+yin_mut","yin","yin_mut",31],["par2:yang+yin_mut","yin","yin_mut",32],["par2:yang+yin_mut","yin","yin_mut",33],["par2:yang+yin_mut","yin","yin_mut",34],["par2:yang+yin_mut","yin","yin_mut",35],["par2:yang+yin_mut","yin","yin_mut",36],["par2:yang+yin_mut","yin","yin_mut",37],["par2:yang+yin_mut","yin","yin_mut",38],["par2:yang+yin_mut","yin","yin_mut",39],["par2:yang+yin_mut","yin","yin_mut",40],["par2:yang+yin_mut","yin","yin_mut",41],["par2:yang+yin_mut","yin","yin_mut",42],["par2:yang+yin_mut","yin","yin_mut",43],["par2:yang+yin_mut","yin","yin_mut",44],["par2:yang+yin_mut","yin","yin_mut",45],["par2:yang+yin_mut","yin","yin_mut",46],["par2:yang+yin_mut","yin","yin_mut",47],["par2:yang+yin_mut","yin","yin_mut",48],["par2:yang+yin_mut","yin","yin_mut",49],["par2:yang+yin_mut","yin","yin_mut",50],["par2:yang+yin_mut","yin","yin_mut",51],["par2:yang+yin_mut","yin","yin_mut",52],["par2:yang+yin_mut","yin","yin_mut",53],["par2:yang+yin_mut","yin","yin_mut",54],["par2:yang+yin_mut","yin","yin_mut",55],["par2:yang+yin_mut","yin","yin_mut",56],["par2:yang+yin_mut","yin","yin_mut",57],["par2:yang+yin_mut","yin","yin_mut",58],["par2:yang+yin_mut","yin","yin_mut",59],["par2:yang+yin_mut","yin","yin_mut",60],["par2:yang+yin_mut","yin","yin_mut",61],["par2:yang+yin_mut","yin","yin_mut",62],["par2:yang+yin_mut","yin","yin_mut",63],["par2:yin+yang","yang","yang_mut",0],["par2:yin+yang","yang","yang_mut",1],["par2:yin+yang","yang","yang_mut",2],["par2:yin+yang","yang","yang_mut",3],["par2:yin+yang","yang","yang_mut",4],["par2:yin+yang","yang","yang_mut",5],["par2:yin+yang","yang","yang_mut",6],["par2:yin+yang","yang","yang_mut",7],["par2:yin+yang","yang","yang_mut",8],["par2:yin+yang","yang","yang_mut",9],["par2:yin+yang","yang","yang_mut",10],["par2:yin+yang","yang","yang_mut",11],["par2:yin+yang","yang","yang_mut",12],["par2:yin+yang","yang","yang_mut",13],["par2:yin+yang","yang","yang_mut",14],["par2:yin+yang","yang","yang_mut",15],["par2:yin+yang","yang","yang_mut",16],["par2:yin+yang","yang","yang_mut",17],["par2:yin+yang","yang","yang_mut",18],["par2:yin+yang","yang","yang_mut",19],["par2:yin+yang","yang","yang_mut",20],["par2:yin+yang","yang","yang_mut",21],["par2:yin+yang","yang","yang_mut",22],["par2:yin+yang","yang","yang_mut",23],["par2:yin+yang","yang","yang_mut",24],["par2:yin+yang","yang","yang_mut",25],["par2:yin+yang","yang","yang_mut",26],["par2:yin+yang","yang","yang_mut",27],["par2:yin+yang","yang","yang_mut",28],["par2:yin+yang","yang","yang_mut",29],["par2:yin+yang","yang","yang_mut",30],["par2:yin+yang","yang","yang_mut",31],["par2:yin+yang","yang","yang_mut",32],["par2:yin+yang","yang","yang_mut",33],["par2:yin+yang","yang","yang_mut",34],["par2:yin+yang","yang","yang_mut",35],["par2:yin+yang","yang","yang_mut",36],["par2:yin+yang","yang","yang_mut",37],["par2:yin+yang","yang","yang_mut",38],["par2:yin+yang","yang","yang_mut",39],["par2:yin+yang","yang","yang_mut",40],["par2:yin+yang","yang","yang_mut",41],["par2:yin+yang","yang","yang_mut",42],["par2:yin+yang","yang","yang_mut",43],["par2:yin+yang","yang","yang_mut",44],["par2:yin+yang","yang","yang_mut",45],["par2:yin+yang","yang","yang_mut",46],["par2:yin+yang","yang","yang_mut",47],["par2:yin+yang","yang","yang_mut",48],["par2:yin+yang","yang","yang_mut",49],["par2:yin+yang","yang","yang_mut",50],["par2:yin+yang","yang","yang_mut",51],["par2:yin+yang","yang","yang_mut",52],["par2:yin+yang","yang","yang_mut",53],["par2:yin+yang","yang","yang_mut",54],["par2:yin+yang","yang","yang_mut",55],["par2:yin+yang","yang","yang_mut",56],["par2:yin+yang","yang","yang_mut",57],["par2:yin+yang","yang","yang_mut",58],["par2:yin+yang","yang","yang_mut",59],["par2:yin+yang","yang","yang_mut",60],["par2:yin+yang","yang","yang_mut",61],["par2:yin+yang","yang","yang_mut",62],["par2:yin+yang","yang","yang_mut",63],["par2:yin+yang","yin","yin_mut",0],["par2:yin+yang","yin","yin_mut",1],["par2:yin+yang","yin","yin_mut",2],["par2:yin+yang","yin","yin_mut",3],["par2:yin+yang","yin","yin_mut",4],["par2:yin+yang","yin","yin_mut",5],["par2:yin+yang","yin","yin_mut",6],["par2:yin+yang","yin","yin_mut",7],["par2:yin+yang","yin","yin_mut",8],["par2:yin+yang","yin","yin_mut",9],["par2:yin+yang","yin","yin_mut",10],["par2:yin+yang","yin","yin_mut",11],["par2:yin+yang","yin","yin_mut",12],["par2:yin+yang","yin","yin_mut",13],["par2:yin+yang","yin","yin_mut",14],["par2:yin+yang","yin","yin_mut",15],["par2:yin+yang","yin","yin_mut",16],["par2:yin+yang","yin","yin_mut",17],["par2:yin+yang","yin","yin_mut",18],["par2:yin+yang","yin","yin_mut",19],["par2:yin+yang","yin","yin_mut",20],["par2:yin+yang","yin","yin_mut",21],["par2:yin+yang","yin","yin_mut",22],["par2:yin+yang","yin","yin_mut",23],["par2:yin+yang","yin","yin_mut",24],["par2:yin+yang","yin","yin_mut",25],["par2:yin+yang","yin","yin_mut",26],["par2:yin+yang","yin","yin_mut",27],["par2:yin+yang","yin","yin_mut",28],["par2:yin+yang","yin","yin_mut",29],["par2:yin+yang","yin","yin_mut",30],["par2:yin+yang","yin","yin_mut",31],["par2:yin+yang","yin","yin_mut",32],["par2:yin+yang","yin","yin_mut",33],["par2:yin+yang","yin","yin_mut",34],["par2:yin+yang","yin","yin_mut",35],["par2:yin+yang","yin","yin_mut",36],["par2:yin+yang","yin","yin_mut",37],["par2:yin+yang","yin","yin_mut",38],["par2:yin+yang","yin","yin_mut",39],["par2:yin+yang","yin","yin_mut",40],["par2:yin+yang","yin","yin_mut",41],["par2:yin+yang","yin","yin_mut",42],["par2:yin+yang","yin","yin_mut",43],["par2:yin+yang","yin","yin_mut",44],["par2:yin+yang","yin","yin_mut",45],["par2:yin+yang","yin","yin_mut",46],["par2:yin+yang","yin","yin_mut",47],["par2:yin+yang","yin","yin_mut",48],["par2:yin+yang","yin","yin_mut",49],["par2:yin+yang","yin","yin_mut",50],["par2:yin+yang","yin","yin_mut",51],["par2:yin+yang","yin","yin_mut",52],["par2:yin+yang","yin","yin_mut",53],["par2:yin+yang","yin","yin_mut",54],["par2:yin+yang","yin","yin_mut",55],["par2:yin+yang","yin","yin_mut",56],["par2:yin+yang","yin","yin_mut",57],["par2:yin+yang","yin","yin_mut",58],["par2:yin+yang","yin","yin_mut",59],["par2:yin+yang","yin","yin_mut",60],["par2:yin+yang","yin","yin_mut",61],["par2:yin+yang","yin","yin_mut",62],["par2:yin+yang","yin","yin_mut",63],["par2:yin+yang_mut","yang","yang_mut",0],["par2:yin+yang_mut","yang","yang_mut",1],["par2:yin+yang_mut","yang","yang_mut",2],["par2:yin+yang_mut","yang","yang_mut",3],["par2:yin+yang_mut","yang","yang_mut",4],["par2:yin+yang_mut","yang","yang_mut",5],["par2:yin+yang_mut","yang","yang_mut",6],["par2:yin+yang_mut","yang","yang_mut",7],["par2:yin+yang_mut","yang","yang_mut",8],["par2:yin+yang_mut","yang","yang_mut",9],["par2:yin+yang_mut","yang","yang_mut",10],["par2:yin+yang_mut","yang","yang_mut",11],["par2:yin+yang_mut","yang","yang_mut",12],["par2:yin+yang_mut","yang","yang_mut",13],["par2:yin+yang_mut","yang","yang_mut",14],["par2:yin+yang_mut","yang","yang_mut",15],["par2:yin+yang_mut","yang","yang_mut",16],["par2:yin+yang_mut","yang","yang_mut",17],["par2:yin+yang_mut","yang","yang_mut",18],["par2:yin+yang_mut","yang","yang_mut",19],["par2:yin+yang_mut","yang","yang_mut",20],["par2:yin+yang_mut","yang","yang_mut",21],["par2:yin+yang_mut","yang","yang_mut",22],["par2:yin+yang_mut","yang","yang_mut",23],["par2:yin+yang_mut","yang","yang_mut",24],["par2:yin+yang_mut","yang","yang_mut",25],["par2:yin+yang_mut","yang","yang_mut",26],["par2:yin+yang_mut","yang","yang_mut",27],["par2:yin+yang_mut","yang","yang_mut",28],["par2:yin+yang_mut","yang","yang_mut",29],["par2:yin+yang_mut","yang","yang_mut",30],["par2:yin+yang_mut","yang","yang_mut",31],["par2:yin+yang_mut","yang","yang_mut",32],["par2:yin+yang_mut","yang","yang_mut",33],["par2:yin+yang_mut","yang","yang_mut",34],["par2:yin+yang_mut","yang","yang_mut",35],["par2:yin+yang_mut","yang","yang_mut",36],["par2:yin+yang_mut","yang","yang_mut",37],["par2:yin+yang_mut","yang","yang_mut",38],["par2:yin+yang_mut","yang","yang_mut",39],["par2:yin+yang_mut","yang","yang_mut",40],["par2:yin+yang_mut","yang","yang_mut",41],["par2:yin+yang_mut","yang","yang_mut",42],["par2:yin+yang_mut","yang","yang_mut",43],["par2:yin+yang_mut","yang","yang_mut",44],["par2:yin+yang_mut","yang","yang_mut",45],["par2:yin+yang_mut","yang","yang_mut",46],["par2:yin+yang_mut","yang","yang_mut",47],["par2:yin+yang_mut","yang","yang_mut",48],["par2:yin+yang_mut","yang","yang_mut",49],["par2:yin+yang_mut","yang","yang_mut",50],["par2:yin+yang_mut","yang","yang_mut",51],["par2:yin+yang_mut","yang","yang_mut",52],["par2:yin+yang_mut","yang","yang_mut",53],["par2:yin+yang_mut","yang","yang_mut",54],["par2:yin+yang_mut","yang","yang_mut",55],["par2:yin+yang_mut","yang","yang_mut",56],["par2:yin+yang_mut","yang","yang_mut",57],["par2:yin+yang_mut","yang","yang_mut",58],["par2:yin+yang_mut","yang","yang_mut",59],["par2:yin+yang_mut","yang","yang_mut",60],["par2:yin+yang_mut","yang","yang_mut",61],["par2:yin+yang_mut","yang","yang_mut",62],["par2:yin+yang_mut","yang","yang_mut",63],["par2:yin+yang_mut","yin","yin_mut",0],["par2:yin+yang_mut","yin","yin_mut",1],["par2:yin+yang_mut","yin","yin_mut",2],["par2:yin+yang_mut","yin","yin_mut",3],["par2:yin+yang_mut","yin","yin_mut",4],["par2:yin+yang_mut","yin","yin_mut",5],["par2:yin+yang_mut","yin","yin_mut",6],["par2:yin+yang_mut","yin","yin_mut",7],["par2:yin+yang_mut","yin","yin_mut",8],["par2:yin+yang_mut","yin","yin_mut",9],["par2:yin+yang_mut","yin","yin_mut",10],["par2:yin+yang_mut","yin","yin_mut",11],["par2:yin+yang_mut","yin","yin_mut",12],["par2:yin+yang_mut","yin","yin_mut",13],["par2:yin+yang_mut","yin","yin_mut",14],["par2:yin+yang_mut","yin","yin_mut",15],["par2:yin+yang_mut","yin","yin_mut",16],["par2:yin+yang_mut","yin","yin_mut",17],["par2:yin+yang_mut","yin","yin_mut",18],["par2:yin+yang_mut","yin","yin_mut",19],["par2:yin+yang_mut","yin","yin_mut",20],["par2:yin+yang_mut","yin","yin_mut",21],["par2:yin+yang_mut","yin","yin_mut",22],["par2:yin+yang_mut","yin","yin_mut",23],["par2:yin+yang_mut","yin","yin_mut",24],["par2:yin+yang_mut","yin","yin_mut",25],["par2:yin+yang_mut","yin","yin_mut",26],["par2:yin+yang_mut","yin","yin_mut",27],["par2:yin+yang_mut","yin","yin_mut",28],["par2:yin+yang_mut","yin","yin_mut",29],["par2:yin+yang_mut","yin","yin_mut",30],["par2:yin+yang_mut","yin","yin_mut",31],["par2:yin+yang_mut","yin","yin_mut",32],["par2:yin+yang_mut","yin","yin_mut",33],["par2:yin+yang_mut","yin","yin_mut",34],["par2:yin+yang_mut","yin","yin_mut",35],["par2:yin+yang_mut","yin","yin_mut",36],["par2:yin+yang_mut","yin","yin_mut",37],["par2:yin+yang_mut","yin","yin_mut",38],["par2:yin+yang_mut","yin","yin_mut",39],["par2:yin+yang_mut","yin","yin_mut",40],["par2:yin+yang_mut","yin","yin_mut",41],["par2:yin+yang_mut","yin","yin_mut",42],["par2:yin+yang_mut","yin","yin_mut",43],["par2:yin+yang_mut","yin","yin_mut",44],["par2:yin+yang_mut","yin","yin_mut",45],["par2:yin+yang_mut","yin","yin_mut",46],["par2:yin+yang_mut","yin","yin_mut",47],["par2:yin+yang_mut","yin","yin_mut",48],["par2:yin+yang_mut","yin","yin_mut",49],["par2:yin+yang_mut","yin","yin_mut",50],["par2:yin+yang_mut","yin","yin_mut",51],["par2:yin+yang_mut","yin","yin_mut",52],["par2:yin+yang_mut","yin","yin_mut",53],["par2:yin+yang_mut","yin","yin_mut",54],["par2:yin+yang_mut","yin","yin_mut",55],["par2:yin+yang_mut","yin","yin_mut",56],["par2:yin+yang_mut","yin","yin_mut",57],["par2:yin+yang_mut","yin","yin_mut",58],["par2:yin+yang_mut","yin","yin_mut",59],["par2:yin+yang_mut","yin","yin_mut",60],["par2:yin+yang_mut","yin","yin_mut",61],["par2:yin+yang_mut","yin","yin_mut",62],["par2:yin+yang_mut","yin","yin_mut",63],["par2:yin_mut+yang_mut","yang","yang_mut",0],["par2:yin_mut+yang_mut","yang","yang_mut",1],["par2:yin_mut+yang_mut","yang","yang_mut",2],["par2:yin_mut+yang_mut","yang","yang_mut",3],["par2:yin_mut+yang_mut","yang","yang_mut",4],["par2:yin_mut+yang_mut","yang","yang_mut",5],["par2:yin_mut+yang_mut","yang","yang_mut",6],["par2:yin_mut+yang_mut","yang","yang_mut",7],["par2:yin_mut+yang_mut","yang","yang_mut",8],["par2:yin_mut+yang_mut","yang","yang_mut",9],["par2:yin_mut+yang_mut","yang","yang_mut",10],["par2:yin_mut+yang_mut","yang","yang_mut",11],["par2:yin_mut+yang_mut","yang","yang_mut",12],["par2:yin_mut+yang_mut","yang","yang_mut",13],["par2:yin_mut+yang_mut","yang","yang_mut",14],["par2:yin_mut+yang_mut","yang","yang_mut",15],["par2:yin_mut+yang_mut","yang","yang_mut",16],["par2:yin_mut+yang_mut","yang","yang_mut",17],["par2:yin_mut+yang_mut","yang","yang_mut",18],["par2:yin_mut+yang_mut","yang","yang_mut",19],["par2:yin_mut+yang_mut","yang","yang_mut",20],["par2:yin_mut+yang_mut","yang","yang_mut",21],["par2:yin_mut+yang_mut","yang","yang_mut",22],["par2:yin_mut+yang_mut","yang","yang_mut",23],["par2:yin_mut+yang_mut","yang","yang_mut",24],["par2:yin_mut+yang_mut","yang","yang_mut",25],["par2:yin_mut+yang_mut","yang","yang_mut",26],["par2:yin_mut+yang_mut","yang","yang_mut",27],["par2:yin_mut+yang_mut","yang","yang_mut",28],["par2:yin_mut+yang_mut","yang","yang_mut",29],["par2:yin_mut+yang_mut","yang","yang_mut",30],["par2:yin_mut+yang_mut","yang","yang_mut",31],["par2:yin_mut+yang_mut","yang","yang_mut",32],["par2:yin_mut+yang_mut","yang","yang_mut",33],["par2:yin_mut+yang_mut","yang","yang_mut",34],["par2:yin_mut+yang_mut","yang","yang_mut",35],["par2:yin_mut+yang_mut","yang","yang_mut",36],["par2:yin_mut+yang_mut","yang","yang_mut",37],["par2:yin_mut+yang_mut","yang","yang_mut",38],["par2:yin_mut+yang_mut","yang","yang_mut",39],["par2:yin_mut+yang_mut","yang","yang_mut",40],["par2:yin_mut+yang_mut","yang","yang_mut",41],["par2:yin_mut+yang_mut","yang","yang_mut",42],["par2:yin_mut+yang_mut","yang","yang_mut",43],["par2:yin_mut+yang_mut","yang","yang_mut",44],["par2:yin_mut+yang_mut","yang","yang_mut",45],["par2:yin_mut+yang_mut","yang","yang_mut",46],["par2:yin_mut+yang_mut","yang","yang_mut",47],["par2:yin_mut+yang_mut","yang","yang_mut",48],["par2:yin_mut+yang_mut","yang","yang_mut",49],["par2:yin_mut+yang_mut","yang","yang_mut",50],["par2:yin_mut+yang_mut","yang","yang_mut",51],["par2:yin_mut+yang_mut","yang","yang_mut",52],["par2:yin_mut+yang_mut","yang","yang_mut",53],["par2:yin_mut+yang_mut","yang","yang_mut",54],["par2:yin_mut+yang_mut","yang","yang_mut",55],["par2:yin_mut+yang_mut","yang","yang_mut",56],["par2:yin_mut+yang_mut","yang","yang_mut",57],["par2:yin_mut+yang_mut","yang","yang_mut",58],["par2:yin_mut+yang_mut","yang","yang_mut",59],["par2:yin_mut+yang_mut","yang","yang_mut",60],["par2:yin_mut+yang_mut","yang","yang_mut",61],["par2:yin_mut+yang_mut","yang","yang_mut",62],["par2:yin_mut+yang_mut","yang","yang_mut",63],["par2:yin_mut+yang_mut","yin","yin_mut",0],["par2:yin_mut+yang_mut","yin","yin_mut",1],["par2:yin_mut+yang_mut","yin","yin_mut",2],["par2:yin_mut+yang_mut","yin","yin_mut",3],["par2:yin_mut+yang_mut","yin","yin_mut",4],["par2:yin_mut+yang_mut","yin","yin_mut",5],["par2:yin_mut+yang_mut","yin","yin_mut",6],["par2:yin_mut+yang_mut","yin","yin_mut",7],["par2:yin_mut+yang_mut","yin","yin_mut",8],["par2:yin_mut+yang_mut","yin","yin_mut",9],["par2:yin_mut+yang_mut","yin","yin_mut",10],["par2:yin_mut+yang_mut","yin","yin_mut",11],["par2:yin_mut+yang_mut","yin","yin_mut",12],["par2:yin_mut+yang_mut","yin","yin_mut",13],["par2:yin_mut+yang_mut","yin","yin_mut",14],["par2:yin_mut+yang_mut","yin","yin_mut",15],["par2:yin_mut+yang_mut","yin","yin_mut",16],["par2:yin_mut+yang_mut","yin","yin_mut",17],["par2:yin_mut+yang_mut","yin","yin_mut",18],["par2:yin_mut+yang_mut","yin","yin_mut",19],["par2:yin_mut+yang_mut","yin","yin_mut",20],["par2:yin_mut+yang_mut","yin","yin_mut",21],["par2:yin_mut+yang_mut","yin","yin_mut",22],["par2:yin_mut+yang_mut","yin","yin_mut",23],["par2:yin_mut+yang_mut","yin","yin_mut",24],["par2:yin_mut+yang_mut","yin","yin_mut",25],["par2:yin_mut+yang_mut","yin","yin_mut",26],["par2:yin_mut+yang_mut","yin","yin_mut",27],["par2:yin_mut+yang_mut","yin","yin_mut",28],["par2:yin_mut+yang_mut","yin","yin_mut",29],["par2:yin_mut+yang_mut","yin","yin_mut",30],["par2:yin_mut+yang_mut","yin","yin_mut",31],["par2:yin_mut+yang_mut","yin","yin_mut",32],["par2:yin_mut+yang_mut","yin","yin_mut",33],["par2:yin_mut+yang_mut","yin","yin_mut",34],["par2:yin_mut+yang_mut","yin","yin_mut",35],["par2:yin_mut+yang_mut","yin","yin_mut",36],["par2:yin_mut+yang_mut","yin","yin_mut",37],["par2:yin_mut+yang_mut","yin","yin_mut",38],["par2:yin_mut+yang_mut","yin","yin_mut",39],["par2:yin_mut+yang_mut","yin","yin_mut",40],["par2:yin_mut+yang_mut","yin","yin_mut",41],["par2:yin_mut+yang_mut","yin","yin_mut",42],["par2:yin_mut+yang_mut","yin","yin_mut",43],["par2:yin_mut+yang_mut","yin","yin_mut",44],["par2:yin_mut+yang_mut","yin","yin_mut",45],["par2:yin_mut+yang_mut","yin","yin_mut",46],["par2:yin_mut+yang_mut","yin","yin_mut",47],["par2:yin_mut+yang_mut","yin","yin_mut",48],["par2:yin_mut+yang_mut","yin","yin_mut",49],["par2:yin_mut+yang_mut","yin","yin_mut",50],["par2:yin_mut+yang_mut","yin","yin_mut",51],["par2:yin_mut+yang_mut","yin","yin_mut",52],["par2:yin_mut+yang_mut","yin","yin_mut",53],["par2:yin_mut+yang_mut","yin","yin_mut",54],["par2:yin_mut+yang_mut","yin","yin_mut",55],["par2:yin_mut+yang_mut","yin","yin_mut",56],["par2:yin_mut+yang_mut","yin","yin_mut",57],["par2:yin_mut+yang_mut","yin","yin_mut",58],["par2:yin_mut+yang_mut","yin","yin_mut",59],["par2:yin_mut+yang_mut","yin","yin_mut",60],["par2:yin_mut+yang_mut","yin","yin_mut",61],["par2:yin_mut+yang_mut","yin","yin_mut",62],["par2:yin_mut+yang_mut","yin","yin_mut",63],["par3:sans_yang","yang","yang_mut",0],["par3:sans_yang","yang","yang_mut",1],["par3:sans_yang","yang","yang_mut",2],["par3:sans_yang","yang","yang_mut",3],["par3:sans_yang","yang","yang_mut",4],["par3:sans_yang","yang","yang_mut",5],["par3:sans_yang","yang","yang_mut",6],["par3:sans_yang","yang","yang_mut",7],["par3:sans_yang","yang","yang_mut",8],["par3:sans_yang","yang","yang_mut",9],["par3:sans_yang","yang","yang_mut",10],["par3:sans_yang","yang","yang_mut",11],["par3:sans_yang","yang","yang_mut",12],["par3:sans_yang","yang","yang_mut",13],["par3:sans_yang","yang","yang_mut",14],["par3:sans_yang","yang","yang_mut",15],["par3:sans_yang","yang","yang_mut",16],["par3:sans_yang","yang","yang_mut",17],["par3:sans_yang","yang","yang_mut",18],["par3:sans_yang","yang","yang_mut",19],["par3:sans_yang","yang","yang_mut",20],["par3:sans_yang","yang","yang_mut",21],["par3:sans_yang","yang","yang_mut",22],["par3:sans_yang","yang","yang_mut",23],["par3:sans_yang","yang","yang_mut",24],["par3:sans_yang","yang","yang_mut",25],["par3:sans_yang","yang","yang_mut",26],["par3:sans_yang","yang","yang_mut",27],["par3:sans_yang","yang","yang_mut",28],["par3:sans_yang","yang","yang_mut",29],["par3:sans_yang","yang","yang_mut",30],["par3:sans_yang","yang","yang_mut",31],["par3:sans_yang","yang","yang_mut",32],["par3:sans_yang","yang","yang_mut",33],["par3:sans_yang","yang","yang_mut",34],["par3:sans_yang","yang","yang_mut",35],["par3:sans_yang","yang","yang_mut",36],["par3:sans_yang","yang","yang_mut",37],["par3:sans_yang","yang","yang_mut",38],["par3:sans_yang","yang","yang_mut",39],["par3:sans_yang","yang","yang_mut",40],["par3:sans_yang","yang","yang_mut",41],["par3:sans_yang","yang","yang_mut",42],["par3:sans_yang","yang","yang_mut",43],["par3:sans_yang","yang","yang_mut",44],["par3:sans_yang","yang","yang_mut",45],["par3:sans_yang","yang","yang_mut",46],["par3:sans_yang","yang","yang_mut",47],["par3:sans_yang","yang","yang_mut",48],["par3:sans_yang","yang","yang_mut",49],["par3:sans_yang","yang","yang_mut",50],["par3:sans_yang","yang","yang_mut",51],["par3:sans_yang","yang","yang_mut",52],["par3:sans_yang","yang","yang_mut",53],["par3:sans_yang","yang","yang_mut",54],["par3:sans_yang","yang","yang_mut",55],["par3:sans_yang","yang","yang_mut",56],["par3:sans_yang","yang","yang_mut",57],["par3:sans_yang","yang","yang_mut",58],["par3:sans_yang","yang","yang_mut",59],["par3:sans_yang","yang","yang_mut",60],["par3:sans_yang","yang","yang_mut",61],["par3:sans_yang","yang","yang_mut",62],["par3:sans_yang","yang","yang_mut",63],["par3:sans_yang","yin","yin_mut",0],["par3:sans_yang","yin","yin_mut",1],["par3:sans_yang","yin","yin_mut",2],["par3:sans_yang","yin","yin_mut",3],["par3:sans_yang","yin","yin_mut",4],["par3:sans_yang","yin","yin_mut",5],["par3:sans_yang","yin","yin_mut",6],["par3:sans_yang","yin","yin_mut",7],["par3:sans_yang","yin","yin_mut",8],["par3:sans_yang","yin","yin_mut",9],["par3:sans_yang","yin","yin_mut",10],["par3:sans_yang","yin","yin_mut",11],["par3:sans_yang","yin","yin_mut",12],["par3:sans_yang","yin","yin_mut",13],["par3:sans_yang","yin","yin_mut",14],["par3:sans_yang","yin","yin_mut",15],["par3:sans_yang","yin","yin_mut",16],["par3:sans_yang","yin","yin_mut",17],["par3:sans_yang","yin","yin_mut",18],["par3:sans_yang","yin","yin_mut",19],["par3:sans_yang","yin","yin_mut",20],["par3:sans_yang","yin","yin_mut",21],["par3:sans_yang","yin","yin_mut",22],["par3:sans_yang","yin","yin_mut",23],["par3:sans_yang","yin","yin_mut",24],["par3:sans_yang","yin","yin_mut",25],["par3:sans_yang","yin","yin_mut",26],["par3:sans_yang","yin","yin_mut",27],["par3:sans_yang","yin","yin_mut",28],["par3:sans_yang","yin","yin_mut",29],["par3:sans_yang","yin","yin_mut",30],["par3:sans_yang","yin","yin_mut",31],["par3:sans_yang","yin","yin_mut",32],["par3:sans_yang","yin","yin_mut",33],["par3:sans_yang","yin","yin_mut",34],["par3:sans_yang","yin","yin_mut",35],["par3:sans_yang","yin","yin_mut",36],["par3:sans_yang","yin","yin_mut",37],["par3:sans_yang","yin","yin_mut",38],["par3:sans_yang","yin","yin_mut",39],["par3:sans_yang","yin","yin_mut",40],["par3:sans_yang","yin","yin_mut",41],["par3:sans_yang","yin","yin_mut",42],["par3:sans_yang","yin","yin_mut",43],["par3:sans_yang","yin","yin_mut",44],["par3:sans_yang","yin","yin_mut",45],["par3:sans_yang","yin","yin_mut",46],["par3:sans_yang","yin","yin_mut",47],["par3:sans_yang","yin","yin_mut",48],["par3:sans_yang","yin","yin_mut",49],["par3:sans_yang","yin","yin_mut",50],["par3:sans_yang","yin","yin_mut",51],["par3:sans_yang","yin","yin_mut",52],["par3:sans_yang","yin","yin_mut",53],["par3:sans_yang","yin","yin_mut",54],["par3:sans_yang","yin","yin_mut",55],["par3:sans_yang","yin","yin_mut",56],["par3:sans_yang","yin","yin_mut",57],["par3:sans_yang","yin","yin_mut",58],["par3:sans_yang","yin","yin_mut",59],["par3:sans_yang","yin","yin_mut",60],["par3:sans_yang","yin","yin_mut",61],["par3:sans_yang","yin","yin_mut",62],["par3:sans_yang","yin","yin_mut",63],["par3:sans_yang_mut","yang","yang_mut",0],["par3:sans_yang_mut","yang","yang_mut",1],["par3:sans_yang_mut","yang","yang_mut",2],["par3:sans_yang_mut","yang","yang_mut",3],["par3:sans_yang_mut","yang","yang_mut",4],["par3:sans_yang_mut","yang","yang_mut",5],["par3:sans_yang_mut","yang","yang_mut",6],["par3:sans_yang_mut","yang","yang_mut",7],["par3:sans_yang_mut","yang","yang_mut",8],["par3:sans_yang_mut","yang","yang_mut",9],["par3:sans_yang_mut","yang","yang_mut",10],["par3:sans_yang_mut","yang","yang_mut",11],["par3:sans_yang_mut","yang","yang_mut",12],["par3:sans_yang_mut","yang","yang_mut",13],["par3:sans_yang_mut","yang","yang_mut",14],["par3:sans_yang_mut","yang","yang_mut",15],["par3:sans_yang_mut","yang","yang_mut",16],["par3:sans_yang_mut","yang","yang_mut",17],["par3:sans_yang_mut","yang","yang_mut",18],["par3:sans_yang_mut","yang","yang_mut",19],["par3:sans_yang_mut","yang","yang_mut",20],["par3:sans_yang_mut","yang","yang_mut",21],["par3:sans_yang_mut","yang","yang_mut",22],["par3:sans_yang_mut","yang","yang_mut",23],["par3:sans_yang_mut","yang","yang_mut",24],["par3:sans_yang_mut","yang","yang_mut",25],["par3:sans_yang_mut","yang","yang_mut",26],["par3:sans_yang_mut","yang","yang_mut",27],["par3:sans_yang_mut","yang","yang_mut",28],["par3:sans_yang_mut","yang","yang_mut",29],["par3:sans_yang_mut","yang","yang_mut",30],["par3:sans_yang_mut","yang","yang_mut",31],["par3:sans_yang_mut","yang","yang_mut",32],["par3:sans_yang_mut","yang","yang_mut",33],["par3:sans_yang_mut","yang","yang_mut",34],["par3:sans_yang_mut","yang","yang_mut",35],["par3:sans_yang_mut","yang","yang_mut",36],["par3:sans_yang_mut","yang","yang_mut",37],["par3:sans_yang_mut","yang","yang_mut",38],["par3:sans_yang_mut","yang","yang_mut",39],["par3:sans_yang_mut","yang","yang_mut",40],["par3:sans_yang_mut","yang","yang_mut",41],["par3:sans_yang_mut","yang","yang_mut",42],["par3:sans_yang_mut","yang","yang_mut",43],["par3:sans_yang_mut","yang","yang_mut",44],["par3:sans_yang_mut","yang","yang_mut",45],["par3:sans_yang_mut","yang","yang_mut",46],["par3:sans_yang_mut","yang","yang_mut",47],["par3:sans_yang_mut","yang","yang_mut",48],["par3:sans_yang_mut","yang","yang_mut",49],["par3:sans_yang_mut","yang","yang_mut",50],["par3:sans_yang_mut","yang","yang_mut",51],["par3:sans_yang_mut","yang","yang_mut",52],["par3:sans_yang_mut","yang","yang_mut",53],["par3:sans_yang_mut","yang","yang_mut",54],["par3:sans_yang_mut","yang","yang_mut",55],["par3:sans_yang_mut","yang","yang_mut",56],["par3:sans_yang_mut","yang","yang_mut",57],["par3:sans_yang_mut","yang","yang_mut",58],["par3:sans_yang_mut","yang","yang_mut",59],["par3:sans_yang_mut","yang","yang_mut",60],["par3:sans_yang_mut","yang","yang_mut",61],["par3:sans_yang_mut","yang","yang_mut",62],["par3:sans_yang_mut","yang","yang_mut",63],["par3:sans_yang_mut","yin","yin_mut",0],["par3:sans_yang_mut","yin","yin_mut",1],["par3:sans_yang_mut","yin","yin_mut",2],["par3:sans_yang_mut","yin","yin_mut",3],["par3:sans_yang_mut","yin","yin_mut",4],["par3:sans_yang_mut","yin","yin_mut",5],["par3:sans_yang_mut","yin","yin_mut",6],["par3:sans_yang_mut","yin","yin_mut",7],["par3:sans_yang_mut","yin","yin_mut",8],["par3:sans_yang_mut","yin","yin_mut",9],["par3:sans_yang_mut","yin","yin_mut",10],["par3:sans_yang_mut","yin","yin_mut",11],["par3:sans_yang_mut","yin","yin_mut",12],["par3:sans_yang_mut","yin","yin_mut",13],["par3:sans_yang_mut","yin","yin_mut",14],["par3:sans_yang_mut","yin","yin_mut",15],["par3:sans_yang_mut","yin","yin_mut",16],["par3:sans_yang_mut","yin","yin_mut",17],["par3:sans_yang_mut","yin","yin_mut",18],["par3:sans_yang_mut","yin","yin_mut",19],["par3:sans_yang_mut","yin","yin_mut",20],["par3:sans_yang_mut","yin","yin_mut",21],["par3:sans_yang_mut","yin","yin_mut",22],["par3:sans_yang_mut","yin","yin_mut",23],["par3:sans_yang_mut","yin","yin_mut",24],["par3:sans_yang_mut","yin","yin_mut",25],["par3:sans_yang_mut","yin","yin_mut",26],["par3:sans_yang_mut","yin","yin_mut",27],["par3:sans_yang_mut","yin","yin_mut",28],["par3:sans_yang_mut","yin","yin_mut",29],["par3:sans_yang_mut","yin","yin_mut",30],["par3:sans_yang_mut","yin","yin_mut",31],["par3:sans_yang_mut","yin","yin_mut",32],["par3:sans_yang_mut","yin","yin_mut",33],["par3:sans_yang_mut","yin","yin_mut",34],["par3:sans_yang_mut","yin","yin_mut",35],["par3:sans_yang_mut","yin","yin_mut",36],["par3:sans_yang_mut","yin","yin_mut",37],["par3:sans_yang_mut","yin","yin_mut",38],["par3:sans_yang_mut","yin","yin_mut",39],["par3:sans_yang_mut","yin","yin_mut",40],["par3:sans_yang_mut","yin","yin_mut",41],["par3:sans_yang_mut","yin","yin_mut",42],["par3:sans_yang_mut","yin","yin_mut",43],["par3:sans_yang_mut","yin","yin_mut",44],["par3:sans_yang_mut","yin","yin_mut",45],["par3:sans_yang_mut","yin","yin_mut",46],["par3:sans_yang_mut","yin","yin_mut",47],["par3:sans_yang_mut","yin","yin_mut",48],["par3:sans_yang_mut","yin","yin_mut",49],["par3:sans_yang_mut","yin","yin_mut",50],["par3:sans_yang_mut","yin","yin_mut",51],["par3:sans_yang_mut","yin","yin_mut",52],["par3:sans_yang_mut","yin","yin_mut",53],["par3:sans_yang_mut","yin","yin_mut",54],["par3:sans_yang_mut","yin","yin_mut",55],["par3:sans_yang_mut","yin","yin_mut",56],["par3:sans_yang_mut","yin","yin_mut",57],["par3:sans_yang_mut","yin","yin_mut",58],["par3:sans_yang_mut","yin","yin_mut",59],["par3:sans_yang_mut","yin","yin_mut",60],["par3:sans_yang_mut","yin","yin_mut",61],["par3:sans_yang_mut","yin","yin_mut",62],["par3:sans_yang_mut","yin","yin_mut",63]]};
 const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
-// Teinte médiane par défaut du mode Monochrome, calibrée sur mesure réelle des images
-// sources de la charte Unified Patterns (moyenne cohérente sur 6 échantillons) —
-// distincte de DEFAULT_PALETTE.O, qui reste la teinte "O" du mode Multicolore d'origine.
-const DEFAULT_MONO_HUE = '#db694c';
 let PALETTE = Object.assign({}, DEFAULT_PALETTE);
-let colorMode = 'mono'; // 'mono' = teinte dérivée (défaut), 'multi' = rotation de la palette à 3 teintes
+let colorMode = 'multi'; // 'multi' = palette d'origine à 3 teintes (défaut, inchangé) ; 'mono' = teinte médiane dérivée
+// Teinte médiane par défaut du mode Monochrome, calibrée sur mesure réelle des images
+// sources de la charte Unified Patterns (identique à fonds-ecran.html) — distincte de
+// DEFAULT_PALETTE.O, qui reste la teinte "O" du mode Multicolore d'origine.
+const DEFAULT_MONO_HUE = '#db694c';
 const LAYER_OF = DATA.layerOf;
-const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
-function famLabel(fam){
-  const parts = fam.split(':');
-  if(parts.length===1) return catLabel[parts[0]] || parts[0];
-  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sans ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
-}
-function subLabel(s){
-  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
-}
 
+// ---------- dérivation des teintes (identique à fonds-ecran.html) ----------
 function hexToRgb(hex){
   hex = hex.replace('#','');
   return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)];
@@ -496,6 +498,11 @@ function rotateHue(hex, deltaHue){
   const [r2,g2,b2] = hslToRgb(h,s,l);
   return rgbToHex(r2,g2,b2);
 }
+function applySingleHue(pickedHex){
+  const mauve = adjustLightness(pickedHex, +0.20);
+  const rose  = adjustLightness(pickedHex, -0.20);
+  PALETTE = { V: mauve, M: rose, O: pickedHex };
+}
 function applyTintRotation(pickedHex){
   const deltaHue = hueOf(pickedHex) - hueOf(DEFAULT_PALETTE.O);
   PALETTE = {
@@ -504,16 +511,10 @@ function applyTintRotation(pickedHex){
     O: rotateHue(DEFAULT_PALETTE.O, deltaHue),
   };
 }
-function applySingleHue(pickedHex){
-  const mauve = adjustLightness(pickedHex, +0.20);
-  const rose  = adjustLightness(pickedHex, -0.20);
-  PALETTE = { V: mauve, M: rose, O: pickedHex };
-}
 function refreshPalette(){
   const picked = document.getElementById('tintPicker').value;
   if(colorMode==='multi') applyTintRotation(picked);
   else applySingleHue(picked);
-  if(currentGrid) drawTessellation(currentGrid);
 }
 
 function hexagramGrid(n, gridA, gridB){
@@ -534,604 +535,181 @@ function hexagramGrid(n, gridA, gridB){
   return grid;
 }
 
-// Exclu des animations : motifs où les deux diagonales du carré 12x12 sont
-// entièrement dans la teinte la plus sombre des trois (M, en mode Monochrome
-// par défaut) — un effet visuel binaire propre à environ la moitié des 768
-// motifs (0 ou 12 cases "M" sur chaque diagonale, jamais entre les deux).
-// Esthétiquement, cette diagonale pleine écrase l'effet miroir/écho entre
-// les formes qui fait l'intérêt des autres motifs.
-function hasDarkDiagonal(grid){
-  for(let i=0;i<12;i++){
-    if(grid[i][i] !== 'M' || grid[i][11-i] !== 'M') return false;
-  }
-  return true;
-}
-
-function buildGridsFor(cat){
-  // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
-  // pas une sous-catégorie séparée : aucune entrée DATA n'a fam="par4".
-  const entries = cat==='par4' ? DATA.entries : DATA.entries.filter(e => e[0].split(':')[0]===cat);
-  return entries
-    .map(([fam, subA, subB, n]) => ({
-      grid: hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]),
-      fam, subA, subB, n
-    }))
-    .filter(({grid}) => !hasDarkDiagonal(grid));
-}
-
-// --- écran de sélection : mini-aperçu par catégorie ---
-const catGrid = document.getElementById('catGrid');
-const cats = ['bases','par2','par3','par4'];
-const catGridsCache = {};
-cats.forEach(cat=>{
-  const grids = buildGridsFor(cat);
-  catGridsCache[cat] = grids;
-  const card = document.createElement('div');
-  card.className = 'cat-card' + (grids.length===0 ? ' disabled' : '');
-  const preview = document.createElement('canvas');
-  card.appendChild(preview);
-  const label = document.createElement('div'); label.className='label'; label.textContent = catLabel[cat];
-  const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
-  card.appendChild(label); card.appendChild(count);
-  if(grids.length>0){
-    drawStaticTile(preview, grids[0].grid, 150);
-    card.onclick = ()=> launch(cat, grids);
-  }
-  catGrid.appendChild(card);
-});
-
-function drawStaticTile(canvas, grid, size){
-  canvas.width = size; canvas.height = size;
+function drawTile(canvas, grid, size){
+  size = size || 96;
   const ctx = canvas.getContext('2d');
+  canvas.width = size; canvas.height = size;
   const cell = size/12;
-  for(let r=0;r<12;r++) for(let c=0;c<12;c++){
-    ctx.fillStyle = PALETTE[grid[r][c]];
-    ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
-  }
-}
-
-// --- scène plein écran ---
-const stage = document.getElementById('stage');
-const selectScreen = document.getElementById('selectScreen');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const audioEl = document.getElementById('audioEl');
-let currentGrids = [];
-let currentGrid = null;
-let currentIndex = -1;
-let visited = new Set();
-let audioCtx, analyser, dataArray, sourceNode;
-let runningAvgBass = 0;
-let runningAvgTreble = 0;
-let lastBeat = 0;
-let fullReactive = false;
-let baseTintForReactive = '#fbb040';
-let runningAvgMid = 0;
-let smoothedTrebleBalance = 0;
-let meditativeTimer = null;
-let meditativeActive = false;
-let paused = false;
-// diviseur du plus petit côté de l'écran (voir drawTessellationOn) : 4 = taille d'origine,
-// jusqu'à ~19 = tuiles resserrées au format de la page Tirage (58px CSS / 116px canvas) sur
-// un écran courant. Contrôlé par le curseur "Densité" du HUD.
-let tileDivisor = 4;
-
-function stopMeditative(){
-  if(meditativeTimer){ clearInterval(meditativeTimer); meditativeTimer = null; }
-  meditativeActive = false;
-  document.getElementById('btnMeditative').classList.remove('active');
-  document.getElementById('rhythmWrap').style.display = 'none';
-}
-
-function startMeditative(){
-  stopAudio();
-  meditativeActive = true;
-  document.getElementById('btnMeditative').classList.add('active');
-  document.getElementById('rhythmWrap').style.display = 'inline-flex';
-  restartMeditativeTimer();
-}
-
-function restartMeditativeTimer(){
-  if(meditativeTimer) clearInterval(meditativeTimer);
-  const seconds = parseFloat(document.getElementById('rhythmSlider').value);
-  // à un rythme rapide (jusqu'à 0,5s), un fondu de 1400ms chevaucherait le battement
-  // suivant — le fondu est plafonné et réduit proportionnellement au rythme choisi.
-  const fadeMs = Math.min(1400, seconds*1000*0.6);
-  meditativeTimer = setInterval(()=>{ if(!paused) showNextGrid(fadeMs); }, seconds*1000);
-}
-
-function gridDistance(a, b){
-  let d = 0;
-  for(let r=0;r<12;r++) for(let c=0;c<12;c++) if(a[r][c]!==b[r][c]) d++;
-  return d;
-}
-
-// choisit, parmi les motifs pas encore vus dans ce cycle, celui qui est
-// visuellement le plus proche du motif actuel (le moins de cellules qui changent)
-function pickNextByProximity(){
-  if(currentIndex === -1){
-    currentIndex = Math.floor(Math.random()*currentGrids.length);
-    visited = new Set([currentIndex]);
-    currentGrid = currentGrids[currentIndex].grid;
-    return;
-  }
-  let candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
-  if(candidates.length===0){
-    // cycle complet : on repart, en gardant uniquement l'actuel comme "vu"
-    visited = new Set([currentIndex]);
-    candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
-  }
-  let best = candidates[0], bestDist = Infinity;
-  for(const i of candidates){
-    const d = gridDistance(currentGrid, currentGrids[i].grid);
-    if(d < bestDist){ bestDist = d; best = i; }
-  }
-  currentIndex = best;
-  visited.add(best);
-  currentGrid = currentGrids[best].grid;
-}
-
-function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  if(currentGrid) drawTessellation(currentGrid); // redessiner après tout redimensionnement (ex: passage en plein écran)
-}
-window.addEventListener('resize', resizeCanvas);
-
-function drawTessellation(grid){
-  drawTessellationOn(ctx, grid);
-}
-// tuile mise en cache : dessinée une seule fois par appel puis reproduite par drawImage
-// (au lieu de refaire les 144 fillRect par répétition) — à densité max, l'ancienne
-// approche cellule par cellule pouvait dépasser 40 000 fillRect et geler le thread
-// principal 80-140ms à chaque cycle du mode méditatif rapide, cassant le fondu.
-const tileBuffer = document.createElement('canvas');
-const tileBufferCtx = tileBuffer.getContext('2d');
-function drawTessellationOn(targetCtx, grid){
-  const w = canvas.width, h = canvas.height;
-  const tileCells = 12;
-  // basé sur le plus PETIT côté (pas le plus grand) pour garantir un nombre minimum de
-  // répétitions même sur les ratios extrêmes (téléphone très allongé, écran ultra-large) —
-  // sur un écran 16:9 classique ça reste visuellement proche de la densité d'origine.
-  const tileSize = Math.min(w,h) / tileDivisor;
-  const cell = tileSize/tileCells;
-  const cols = Math.ceil(w/tileSize)+1;
-  const rows = Math.ceil(h/tileSize)+1;
-  const tilePx = Math.max(1, Math.ceil(tileSize));
-  tileBuffer.width = tilePx; tileBuffer.height = tilePx;
-  const scale = tilePx/tileSize;
-  for(let r=0;r<tileCells;r++){
-    for(let c=0;c<tileCells;c++){
-      tileBufferCtx.fillStyle = PALETTE[grid[r][c]];
-      tileBufferCtx.fillRect(c*cell*scale, r*cell*scale, (cell+0.7)*scale, (cell+0.7)*scale);
-    }
-  }
-  for(let ty=0; ty<rows; ty++){
-    for(let tx=0; tx<cols; tx++){
-      targetCtx.drawImage(tileBuffer, tx*tileSize, ty*tileSize, tileSize, tileSize);
+  for(let r=0;r<12;r++){
+    for(let c=0;c<12;c++){
+      ctx.fillStyle = PALETTE[grid[r][c]];
+      ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
     }
   }
 }
 
-function showNextGrid(fadeMs){
-  pickNextByProximity();
-  crossfadeTo(currentGrid, fadeMs);
-}
-
-// --- fondu doux entre deux motifs (utilisé en mode méditatif, et réutilisable ailleurs) ---
-const offscreen = document.createElement('canvas');
-const offCtx = offscreen.getContext('2d');
-let fadeRAF = null;
-
-function crossfadeTo(grid, durationMs){
-  if(!durationMs){ drawTessellation(grid); return; }
-  offscreen.width = canvas.width; offscreen.height = canvas.height;
-  // snapshot de l'état actuel
-  const prevSnapshot = document.createElement('canvas');
-  prevSnapshot.width = canvas.width; prevSnapshot.height = canvas.height;
-  prevSnapshot.getContext('2d').drawImage(canvas, 0, 0);
-  // dessine le nouveau motif hors écran
-  const savedCtx = ctx;
-  offCtx.clearRect(0,0,offscreen.width, offscreen.height);
-  drawTessellationOn(offCtx, grid);
-
-  if(fadeRAF) cancelAnimationFrame(fadeRAF);
-  const start = performance.now();
-  function step(now){
-    const t = Math.min(1, (now-start)/durationMs);
-    ctx.drawImage(prevSnapshot, 0, 0);
-    ctx.globalAlpha = t;
-    ctx.drawImage(offscreen, 0, 0);
-    ctx.globalAlpha = 1;
-    if(t < 1){ fadeRAF = requestAnimationFrame(step); }
-  }
-  fadeRAF = requestAnimationFrame(step);
-}
-
-const stageNotice = document.getElementById('stageNotice');
-let stageNoticeTimer = null;
-function showStageNotice(msg, ms){
-  stageNotice.textContent = msg;
-  stageNotice.classList.add('visible');
-  if(stageNoticeTimer) clearTimeout(stageNoticeTimer);
-  stageNoticeTimer = setTimeout(()=> stageNotice.classList.remove('visible'), ms || 4000);
-}
-
-function requestStageFullscreen(){
-  // Safari (desktop et iOS) expose une méthode préfixée ; certains navigateurs mobiles
-  // (Safari < 16.4 notamment) ne supportent tout simplement pas le plein écran sur un
-  // élément quelconque — dans ce cas le pavage reste en plein viewport (position:fixed;
-  // inset:0), donc l'expérience reste fonctionnelle, seule la barre du navigateur reste visible.
-  const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
-  if(!req){
-    showStageNotice("Plein écran non disponible sur ce navigateur — le pavage reste affiché dans la fenêtre.");
-    return;
-  }
-  req.call(stage).catch(()=>{
-    showStageNotice("Plein écran refusé ou indisponible — le pavage reste affiché dans la fenêtre.");
-  });
-}
-
-function launch(cat, grids){
-  currentGrids = grids;
-  currentIndex = -1;
-  visited = new Set();
-  paused = false;
-  document.getElementById('btnPause').textContent = '⏸ Pause';
-  document.getElementById('btnPause').classList.remove('active');
-  document.getElementById('pauseInfo').classList.remove('visible');
-  fullReactive = false;
-  document.getElementById('btnFullReactive').classList.remove('active');
-  selectScreen.style.display = 'none';
-  stage.style.display = 'block';
-  resizeCanvas();
-  refreshPalette(); // applique le mode monochrome par défaut dès le lancement
-  showNextGrid();
-  requestStageFullscreen();
-  requestAnimationFrame(loop);
-}
-
-document.getElementById('btnExit').onclick = ()=>{
-  if(document.fullscreenElement) document.exitFullscreen();
-  stopAudio();
-  stopMeditative();
-  paused = false;
-  document.getElementById('pauseInfo').classList.remove('visible');
-  stage.style.display='none';
-  selectScreen.style.display='block';
-};
-
-function ensureAudioContext(){
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    dataArray = new Uint8Array(analyser.frequencyBinCount);
-  }
-}
-
-function stopAudio(){
-  if(sourceNode){ try{sourceNode.disconnect();}catch(e){} sourceNode=null; }
-  audioEl.pause();
-}
-
-document.getElementById('btnMic').onclick = async ()=>{
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    showStageNotice("Le microphone n'est pas accessible sur ce navigateur (souvent le cas hors HTTPS, ou sur certains navigateurs mobiles). Utilisez plutôt un fichier audio ou le mode méditatif.", 6000);
-    return;
-  }
-  stopMeditative();
-  ensureAudioContext();
-  stopAudio();
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    sourceNode = audioCtx.createMediaStreamSource(stream);
-    sourceNode.connect(analyser);
-  }catch(e){ showStageNotice("Micro indisponible : " + e.message, 5000); }
-};
-
-document.getElementById('btnFile').onclick = ()=>{ stopMeditative(); document.getElementById('fileInput').click(); };
-document.getElementById('btnMeditative').onclick = ()=>{
-  if(meditativeActive) stopMeditative();
-  else startMeditative();
-};
-document.getElementById('rhythmSlider').oninput = (e)=>{
-  document.getElementById('rhythmLabel').textContent = e.target.value + ' s';
-  if(meditativeActive) restartMeditativeTimer();
-};
-document.getElementById('fileInput').onchange = (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  ensureAudioContext();
-  stopAudio();
-  audioEl.src = URL.createObjectURL(file);
-  audioEl.play();
-  sourceNode = audioCtx.createMediaElementSource(audioEl);
-  sourceNode.connect(analyser);
-  analyser.connect(audioCtx.destination);
-};
-
-// ---------- export vidéo (MediaRecorder natif + canvas.captureStream) ----------
-// Aucune dépendance externe : le canevas visible sert de source vidéo, et l'audio
-// en cours (micro ou fichier) est routé vers une seconde sortie silencieuse
-// (AudioContext.createMediaStreamDestination) qui n'affecte ni les haut-parleurs
-// ni le graphe audio existant — juste une capture parallèle pour l'enregistreur.
-let mediaStreamDest = null;
-let analyserRoutedToRecorder = false;
-let mediaRecorder = null;
-let recordedChunks = [];
-let exportCanvas = null, exportCtx = null;
-let recordCompositeRAF = null;
-let recordAutoStopTimer = null;
-
-function getMediaStreamDest(){
-  ensureAudioContext();
-  if(!mediaStreamDest) mediaStreamDest = audioCtx.createMediaStreamDestination();
-  return mediaStreamDest;
-}
-
-// connecte la sortie de l'analyseur (commune au micro et au fichier) vers la
-// capture d'export — une seule fois pour la durée de la page, peu importe
-// combien de fois on démarre/arrête l'enregistrement ou change de source audio.
-function connectCurrentAudioToRecorder(){
-  if(!analyser || !sourceNode) return false;
-  const dest = getMediaStreamDest();
-  if(!analyserRoutedToRecorder){
-    try{ analyser.connect(dest); analyserRoutedToRecorder = true; }catch(e){}
-  }
-  return analyserRoutedToRecorder;
-}
-
-function pickRecorderMimeType(hasAudio){
-  const withAudio = [
-    'video/mp4;codecs=avc1.42E01E,mp4a.40.2',
-    'video/mp4;codecs=h264,aac',
-    'video/webm;codecs=vp9,opus',
-    'video/webm;codecs=vp8,opus',
-  ];
-  const videoOnly = [
-    'video/mp4;codecs=avc1.42E01E',
-    'video/mp4',
-    'video/webm;codecs=vp9',
-    'video/webm;codecs=vp8',
-    'video/webm',
-  ];
-  const candidates = hasAudio ? withAudio.concat(videoOnly) : videoOnly.concat(withAudio);
-  for(const type of candidates){
-    if(window.MediaRecorder && MediaRecorder.isTypeSupported(type)) return type;
-  }
-  return '';
-}
-
-// recadrage "cover" (comme background-size:cover) : remplit toute la cible sans
-// déformer le pavage, en rognant l'excédent plutôt qu'en étirant.
-function coverDraw(destCtx, destW, destH, source){
-  const sw = source.width, sh = source.height;
-  if(!sw || !sh) return;
-  const srcRatio = sw/sh, destRatio = destW/destH;
-  let cropW, cropH, cropX, cropY;
-  if(srcRatio > destRatio){ cropH = sh; cropW = sh*destRatio; cropX = (sw-cropW)/2; cropY = 0; }
-  else { cropW = sw; cropH = sw/destRatio; cropX = 0; cropY = (sh-cropH)/2; }
-  destCtx.drawImage(source, cropX, cropY, cropW, cropH, 0, 0, destW, destH);
-}
-
-function stopCompositeLoop(){
-  if(recordCompositeRAF){ cancelAnimationFrame(recordCompositeRAF); recordCompositeRAF = null; }
-}
-
-function setRecordingUI(isRecording){
-  const btn = document.getElementById('btnRecord');
-  btn.textContent = isRecording ? '⏹ Arrêter' : '🎬 Enregistrer';
-  btn.classList.toggle('active', isRecording);
-  document.getElementById('recordRatio').disabled = isRecording;
-  document.getElementById('recordDuration').disabled = isRecording;
-}
-
-function startRecording(){
-  if(!currentGrid){ showStageNotice("Choisis d'abord une catégorie de motifs.", 4000); return; }
-  if(!window.MediaRecorder || !canvas.captureStream){
-    showStageNotice("L'enregistrement vidéo n'est pas supporté par ce navigateur.", 5000);
-    return;
-  }
-
-  const ratio = document.getElementById('recordRatio').value;
-  let captureSource;
-  if(ratio === 'native'){
-    captureSource = canvas;
-  } else {
-    const targetW = 1080, targetH = ratio === '916' ? 1920 : 1080;
-    exportCanvas = document.createElement('canvas');
-    exportCanvas.width = targetW; exportCanvas.height = targetH;
-    exportCtx = exportCanvas.getContext('2d');
-    captureSource = exportCanvas;
-    const drawFrame = ()=>{
-      coverDraw(exportCtx, targetW, targetH, canvas);
-      recordCompositeRAF = requestAnimationFrame(drawFrame);
-    };
-    drawFrame();
-  }
-
-  const videoStream = captureSource.captureStream(30);
-  const combined = new MediaStream();
-  videoStream.getVideoTracks().forEach(t=>combined.addTrack(t));
-
-  const hasAudio = connectCurrentAudioToRecorder();
-  if(hasAudio){ mediaStreamDest.stream.getAudioTracks().forEach(t=>combined.addTrack(t)); }
-
-  const mimeType = pickRecorderMimeType(hasAudio);
-  recordedChunks = [];
-  try{
-    mediaRecorder = mimeType ? new MediaRecorder(combined, {mimeType}) : new MediaRecorder(combined);
-  }catch(e){
-    showStageNotice("Impossible de démarrer l'enregistrement : " + e.message, 5000);
-    stopCompositeLoop();
-    return;
-  }
-  mediaRecorder.ondataavailable = (e)=>{ if(e.data && e.data.size>0) recordedChunks.push(e.data); };
-  mediaRecorder.onstop = ()=>{
-    stopCompositeLoop();
-    videoStream.getTracks().forEach(t=>t.stop());
-    const usedType = mediaRecorder.mimeType || mimeType || 'video/webm';
-    const ext = usedType.indexOf('mp4') !== -1 ? 'mp4' : 'webm';
-    const blob = new Blob(recordedChunks, {type: usedType});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `fond-ecran-${Date.now()}.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
-    showStageNotice(`Vidéo enregistrée au format ${ext.toUpperCase()}.`, 5000);
-    setRecordingUI(false);
-  };
-  mediaRecorder.start();
-  setRecordingUI(true);
-  showStageNotice('Enregistrement en cours...', 3000);
-
-  const durationVal = document.getElementById('recordDuration').value;
-  if(durationVal !== 'manual'){
-    recordAutoStopTimer = setTimeout(stopRecording, parseInt(durationVal,10)*1000);
-  }
-}
-
-function stopRecording(){
-  if(recordAutoStopTimer){ clearTimeout(recordAutoStopTimer); recordAutoStopTimer = null; }
-  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-}
-
-document.getElementById('btnRecord').onclick = ()=>{
-  if(mediaRecorder && mediaRecorder.state === 'recording') stopRecording();
-  else startRecording();
-};
-
-// --- mode couleur, teinte, réinitialisation ---
-const btnMode = document.getElementById('btnMode');
-const tintPicker = document.getElementById('tintPicker');
-btnMode.onclick = ()=>{
-  colorMode = colorMode==='mono' ? 'multi' : 'mono';
-  btnMode.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';
-  btnMode.classList.toggle('active', colorMode==='multi');
-  refreshPalette();
-};
-tintPicker.oninput = refreshPalette;
-document.getElementById('sizeSlider').oninput = (e)=>{
-  tileDivisor = parseInt(e.target.value, 10);
-  if(currentGrid) drawTessellation(currentGrid);
-};
-
-document.getElementById('btnFullReactive').onclick = (e)=>{
-  fullReactive = !fullReactive;
-  e.target.classList.toggle('active', fullReactive);
-  if(fullReactive){
-    baseTintForReactive = document.getElementById('tintPicker').value;
-  } else {
-    // remettre la teinte de base propre au sortir du mode
-    refreshPalette();
-    if(currentGrid) drawTessellation(currentGrid);
-  }
-};
-
-function paireNumberFor(n){
-  return n < 32 ? n+1 : 64-n;
-}
-const pauseInfo = document.getElementById('pauseInfo');
-document.getElementById('btnPause').onclick = (e)=>{
-  paused = !paused;
-  e.target.textContent = paused ? '▶ Reprendre' : '⏸ Pause';
-  e.target.classList.toggle('active', paused);
-  if(paused && currentIndex !== -1){
-    const entry = currentGrids[currentIndex];
-    const pn = paireNumberFor(entry.n);
-    const pair = PAIRS32[pn];
-    pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n + ' — Paire ' + pn;
-    pauseInfo.querySelector('.keyword').textContent = pair.keyword;
-    pauseInfo.querySelector('.text').textContent = pair.text;
-    pauseInfo.classList.add('visible');
-  } else {
-    pauseInfo.classList.remove('visible');
-  }
-};
-
-document.getElementById('btnReset').onclick = ()=>{
-  colorMode = 'mono';
-  btnMode.textContent = 'Multicolore';
-  btnMode.classList.remove('active');
-  tintPicker.value = DEFAULT_MONO_HUE;
-  refreshPalette();
-  tileDivisor = 4;
-  document.getElementById('sizeSlider').value = 4;
-  if(currentGrid) drawTessellation(currentGrid);
-};
-
-const levelFill = document.getElementById('levelFill');
-
-function loop(){
-  try{
-  if(analyser && !paused){
-    analyser.getByteFrequencyData(dataArray);
-    const n = dataArray.length;
-    const bassEnd = Math.floor(n*0.25);
-    const midEnd = Math.floor(n*0.65);
-
-    let bassSum=0;
-    for(let i=0;i<bassEnd;i++) bassSum += dataArray[i];
-    const bassLevel = bassSum/bassEnd/255;
-
-    let midSum=0;
-    for(let i=bassEnd;i<midEnd;i++) midSum += dataArray[i];
-    const midLevel = midSum/(midEnd-bassEnd)/255;
-
-    const trebleStart = midEnd;
-    let trebleSum=0;
-    for(let i=trebleStart;i<n;i++) trebleSum += dataArray[i];
-    const trebleLevel = trebleSum/(n-trebleStart)/255;
-
-    const level = Math.max(bassLevel, midLevel, trebleLevel);
-    levelFill.style.width = (level*100).toFixed(0)+'%';
-
-    if(fullReactive){
-      // --- BASSES -> teinte (équilibre grave/aigu DANS la bande des basses, de part et d'autre de la teinte fixe) ---
-      const bassMid = Math.floor(bassEnd/2);
-      let lowBass=0, highBass=0;
-      for(let i=0;i<bassMid;i++) lowBass += dataArray[i];
-      for(let i=bassMid;i<bassEnd;i++) highBass += dataArray[i];
-      const totalBass = lowBass+highBass;
-      const balance = totalBass>0 ? (highBass-lowBass)/totalBass : 0; // -1 (grave) .. +1 (moins grave)
-      smoothedTrebleBalance = smoothedTrebleBalance*0.8 + balance*0.2;
-      const hueOffset = smoothedTrebleBalance*0.15; // rotation de teinte autour de la teinte fixe
-      const shiftedTint = rotateHue(baseTintForReactive, hueOffset);
-      if(colorMode==='multi') applyTintRotation(shiftedTint); else applySingleHue(shiftedTint);
-
-      // --- MÉDIUMS -> changement de motif ---
-      runningAvgMid = runningAvgMid*0.88 + midLevel*0.12;
-      const now = performance.now();
-      if(midLevel > runningAvgMid*1.15 && midLevel > 0.05 && now-lastBeat > 140){
-        lastBeat = now;
-        pickNextByProximity();
-      }
-      if(currentGrid) drawTessellation(currentGrid);
-
-    } else {
-      runningAvgBass = runningAvgBass*0.82 + bassLevel*0.18;
-      runningAvgTreble = runningAvgTreble*0.65 + trebleLevel*0.35;
-
-      const now = performance.now();
-      const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
-      const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
-
-      if(bassHit || trebleHit){
-        if(now-lastBeat > 90){
-          lastBeat = now;
-          showNextGrid();
+// Pavage : répète le motif (sans marge) plusieurs fois pour montrer l'effet tissé continu,
+// comme la tessellation de la page Unified Patterns.
+function drawPaved(canvas, grid, repeats){
+  repeats = repeats || 4;
+  const tileSize = 144;
+  const size = tileSize * repeats;
+  const ctx = canvas.getContext('2d');
+  canvas.width = size; canvas.height = size;
+  const cell = tileSize/12;
+  for(let ty=0; ty<repeats; ty++){
+    for(let tx=0; tx<repeats; tx++){
+      const ox = tx*tileSize, oy = ty*tileSize;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          ctx.fillStyle = PALETTE[grid[r][c]];
+          ctx.fillRect(ox+c*cell, oy+r*cell, cell+0.6, cell+0.6);
         }
       }
     }
   }
-  }catch(err){
-    console.error('Erreur dans loop() audio-réactif :', err);
-  }
-  requestAnimationFrame(loop);
 }
+
+const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
+function famLabel(fam){
+  const parts = fam.split(':');
+  if(parts.length===1) return catLabel[parts[0]] || parts[0];
+  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sans ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
+}
+function subLabel(s){
+  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
+}
+
+const cats = ['all','bases','par2','par3'];
+const controls = document.getElementById('controls');
+cats.forEach(cat=>{
+  const btn = document.createElement('button');
+  btn.textContent = cat==='all' ? 'Toutes (' + DATA.entries.length + ')' : catLabel[cat] + ' (' + DATA.entries.filter(e=>e[0].split(':')[0]===cat).length + ')';
+  btn.dataset.cat = cat;
+  if(cat==='all') btn.classList.add('active');
+  btn.onclick = ()=>{
+    document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    render(cat);
+  };
+  controls.appendChild(btn);
+});
+
+const galleryEl = document.getElementById('gallery');
+const pavedCanvas = document.getElementById('pavedCanvas');
+const pavedInfo = document.getElementById('pavedInfo');
+let currentEntries = [];
+
+function entryLabel(fam, subA, subB, n){
+  return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
+}
+
+let selectedIdx = 0;
+function selectEntry(idx){
+  selectedIdx = idx;
+  document.querySelectorAll('.tile').forEach(t=> t.classList.toggle('selected', +t.dataset.idx===idx));
+  const [fam, subA, subB, n] = currentEntries[idx];
+  const gridA = DATA.families[fam][subA];
+  const gridB = DATA.families[fam][subB];
+  const grid = hexagramGrid(n, gridA, gridB);
+  drawPaved(pavedCanvas, grid);
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n;
+}
+
+// Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
+// ni perdre la sélection (contrairement à render(), qui reconstruit tout depuis zéro).
+function redrawAll(){
+  document.querySelectorAll('#gallery .tile').forEach(tile=>{
+    const idx = +tile.dataset.idx;
+    const [fam, subA, subB, n] = currentEntries[idx];
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    drawTile(tile.querySelector('canvas'), grid, 64);
+  });
+  if(currentEntries.length) selectEntry(selectedIdx);
+}
+
+function render(filterCat){
+  galleryEl.innerHTML = '';
+  currentEntries = DATA.entries.filter(([fam])=> filterCat==='all' || fam.split(':')[0]===filterCat);
+  const frag = document.createDocumentFragment();
+  currentEntries.forEach(([fam, subA, subB, n], idx)=>{
+    const gridA = DATA.families[fam][subA];
+    const gridB = DATA.families[fam][subB];
+    const grid = hexagramGrid(n, gridA, gridB);
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.dataset.idx = idx;
+    tile.title = entryLabel(fam, subA, subB, n);
+    const canvas = document.createElement('canvas');
+    drawTile(canvas, grid, 64);
+    tile.appendChild(canvas);
+    tile.addEventListener('click', ()=> selectEntry(idx));
+    frag.appendChild(tile);
+  });
+  galleryEl.appendChild(frag);
+  if(currentEntries.length) selectEntry(0);
+}
+const btnColorMode = document.getElementById('btnColorMode');
+const tintPicker = document.getElementById('tintPicker');
+btnColorMode.onclick = ()=>{
+  colorMode = colorMode==='mono' ? 'multi' : 'mono';
+  btnColorMode.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';
+  btnColorMode.classList.toggle('active', colorMode==='mono');
+  refreshPalette();
+  redrawAll();
+};
+tintPicker.oninput = ()=>{ refreshPalette(); redrawAll(); };
+
+// ---------- export SVG (cellule seule / pavage complet), compatible Inkscape ----------
+// Contrairement aux motifs "ligne" d'unified-patterns.html, les patterns de cette galerie
+// sont de simples grilles 12x12 de couleurs (DATA.families) : le SVG le plus fidèle et le
+// plus propre à éditer sous Inkscape est donc généré directement depuis cette grille
+// (un <rect> par cellule), plutôt qu'en réutilisant l'extraction de tracés d'impression.html
+// (utile pour des motifs vectoriels complexes, pas pour une grille de couleurs plates).
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+
+function motifSvgMarkup(grid, repeats){
+  repeats = repeats || 1;
+  const cell = 12, tile = cell*12, size = tile*repeats;
+  let rects = '';
+  for(let ty=0; ty<repeats; ty++){
+    for(let tx=0; tx<repeats; tx++){
+      const ox = tx*tile, oy = ty*tile;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          rects += `<rect x="${(ox+c*cell).toFixed(2)}" y="${(oy+r*cell).toFixed(2)}" width="${(cell+0.5).toFixed(2)}" height="${(cell+0.5).toFixed(2)}" fill="${PALETTE[grid[r][c]]}"/>\n`;
+        }
+      }
+    }
+  }
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" version="1.1">\n${rects}</svg>\n`;
+}
+
+function downloadSvgString(svgString, filename){
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function currentSelection(){
+  const [fam, subA, subB, n] = currentEntries[selectedIdx];
+  const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+  return { grid, fam, subA, subB, n };
+}
+
+document.getElementById('btnDlCellSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 1), `motif-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.svg`);
+});
+document.getElementById('btnDlPavedSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 4), `pavage-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}-x4.svg`);
+});
+
+render('all');
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script src="assets/soutien-gate.js"></script>
