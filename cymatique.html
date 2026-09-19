@@ -101,6 +101,17 @@
   .app-lang-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .app-lang-btn.active{ border-color:var(--red); color:var(--red); }
 
+  .echelle-row{ display:flex; justify-content:center; align-items:center; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .echelle-label{ font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); opacity:.75; }
+  .echelle-btn{
+    border:1px solid var(--line); background:transparent; color:var(--dim);
+    font-size:11px; letter-spacing:.04em; padding:7px 14px;
+    cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .echelle-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .echelle-btn.active{ border-color:var(--red); color:var(--red); }
+  .echelle-help{ color:var(--dim); font-size:11.5px; opacity:.7; text-align:center; margin:8px auto 0; max-width:52ch; }
+
   main{ display:grid; grid-template-columns:1fr 360px; gap:24px; margin-top:28px; }
   .pane-controls{ order:2; }
   .pane-render{ order:1; }
@@ -177,12 +188,18 @@
     <h1 data-i18n="pageTitle">Cymatique — gammes et fréquences</h1>
     <p class="framing" data-i18n="framing">
       La correspondance ci-dessous est construite, pas physique : elle repose sur la
-      fréquence spatiale dominante de chaque gamme, étalée sur une octave — pas sur une
-      loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure
-      de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension
-      superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines
-      fréquences, c'est une observation à noter, pas une preuve.
+      fréquence spatiale dominante de chaque gamme, mesurée par transformée de Fourier —
+      pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître.
+      Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la
+      tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à
+      certaines fréquences, c'est une observation à noter, pas une preuve.
     </p>
+    <div class="echelle-row" id="echelleRow">
+      <span class="echelle-label" data-i18n="echelleLabel">Échelle</span>
+      <button type="button" class="echelle-btn" data-echelle="proportionnelle" data-i18n="echelleProportionnelle">Proportionnelle</button>
+      <button type="button" class="echelle-btn" data-echelle="ordinale" data-i18n="echelleOrdinale">Ordinale</button>
+    </div>
+    <p class="echelle-help" id="echelleHelp"></p>
     <div class="lang-row" id="langRow">
       <button type="button" class="app-lang-btn" data-lang="fr">FR</button>
       <button type="button" class="app-lang-btn" data-lang="en">EN</button>
@@ -215,7 +232,7 @@
         <p class="render-caption" data-i18n="toneHelp">Pour tester sans micro ni matériel — la fréquence choisie pilote directement le pavage.</p>
         <div class="tone-row">
           <button type="button" id="btnTone" data-i18n="tonePlay">Jouer</button>
-          <input type="range" id="toneFreq" min="200" max="900" step="1" value="440">
+          <input type="range" id="toneFreq" min="128" max="256" step="1" value="128">
           <span class="tone-freq"><span id="toneFreqVal">440</span> Hz</span>
         </div>
         <div class="match-line" id="toneMatchLine"></div>
@@ -223,6 +240,19 @@
 
       <div class="panel">
         <h2 data-i18n="gammesHeading">Les quinze gammes</h2>
+        <p class="framing" data-i18n="diapasonNote">
+          Le diapason retenu ici, pour les deux échelles, prend pour repère le do à
+          128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713
+          devant l'Académie royale des sciences, pour une raison simple : doubler 1
+          plusieurs fois de suite place toutes les octaves sur des nombres entiers. On
+          l'a appelé le diapason philosophique. Les musiciens de son temps l'ont
+          refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris
+          ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale
+          des quinze gammes — sont elles-mêmes des entiers : dans l'échelle
+          proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier,
+          sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la
+          structure lisible.
+        </p>
         <div class="gamme-list" id="list"></div>
       </div>
     </div>
@@ -270,7 +300,7 @@ import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
 const UI = {
   fr: {
     pageTitle: "Cymatique — gammes et fréquences",
-    framing: "La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, étalée sur une octave — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.",
+    framing: "La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, mesurée par transformée de Fourier — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.",
     listeningHeading: "Écoute",
     micIdle: "Activer le micro",
     micActive: "Micro actif",
@@ -287,6 +317,12 @@ const UI = {
     tonePlay: "Jouer",
     toneStop: "Arrêter",
     gammesHeading: "Les quinze gammes",
+    diapasonNote: "Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Les musiciens de son temps l'ont refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale des quinze gammes — sont elles-mêmes des entiers : dans l'échelle proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.",
+    echelleLabel: "Échelle",
+    echelleProportionnelle: "Proportionnelle",
+    echelleOrdinale: "Ordinale",
+    echelleProportionnelleHelp: "f = 128 × k² — de do 128 Hz à do 2560 Hz, rapports exacts entre motifs.",
+    echelleOrdinaleHelp: "les neuf valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.",
     paletteLabel: "Palette",
     paletteReset: "Réinitialiser",
     soutenir: "Soutenir",
@@ -297,7 +333,7 @@ const UI = {
   },
   en: {
     pageTitle: "Cymatics — scales and frequencies",
-    framing: "The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, spread across one octave — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.",
+    framing: "The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, measured by Fourier transform — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.",
     listeningHeading: "Listening",
     micIdle: "Enable microphone",
     micActive: "Microphone active",
@@ -314,6 +350,12 @@ const UI = {
     tonePlay: "Play",
     toneStop: "Stop",
     gammesHeading: "The fifteen scales",
+    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. The musicians of his day rejected it; physicists kept it as a measurement standard. It is used here because the nine measured values — the squared spatial frequencies of the fifteen scales — are themselves whole numbers: on the proportional scale, each scale then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.",
+    echelleLabel: "Scale",
+    echelleProportionnelle: "Proportional",
+    echelleOrdinale: "Ordinal",
+    echelleProportionnelleHelp: "f = 128 × k² — from C 128 Hz to C 2560 Hz, exact ratios between patterns.",
+    echelleOrdinaleHelp: "the nine values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.",
     paletteLabel: "Palette",
     paletteReset: "Reset",
     soutenir: "Support",
@@ -324,7 +366,7 @@ const UI = {
   },
   es: {
     pageTitle: "Cimática — escalas y frecuencias",
-    framing: "La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, extendida sobre una octava — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.",
+    framing: "La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, medida por transformada de Fourier — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.",
     listeningHeading: "Escucha",
     micIdle: "Activar el micrófono",
     micActive: "Micrófono activo",
@@ -351,7 +393,7 @@ const UI = {
   },
   th: {
     pageTitle: "ไซแมติกส์ — บันไดเสียงและความถี่",
-    framing: "ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง กระจายตลอดหนึ่งช่วงคู่แปด มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์",
+    framing: "ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง วัดด้วยการแปลงฟูริเยร์ มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์",
     listeningHeading: "การฟัง",
     micIdle: "เปิดไมโครโฟน",
     micActive: "ไมโครโฟนทำงานอยู่",
@@ -409,6 +451,7 @@ function applyUILang() {
   document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === LANG);
   });
+  syncEchelleControls();
   document.title = t('pageTitle') + " — La Livrée d'Hermès";
   refreshMatchTexts();
 }
@@ -417,6 +460,30 @@ document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
     LANG = b.dataset.lang;
     try { localStorage.setItem(LANG_STORAGE_KEY, LANG); } catch (e) {}
     applyUILang();
+    setShareURL(currentShareParams());
+  });
+});
+
+function syncEchelleControls() {
+  document.querySelectorAll('.echelle-btn[data-echelle]').forEach(b => {
+    b.classList.toggle('active', b.dataset.echelle === ECHELLE);
+  });
+  const helpKey = ECHELLE === 'proportionnelle' ? 'echelleProportionnelleHelp' : 'echelleOrdinaleHelp';
+  document.getElementById('echelleHelp').textContent = t(helpKey);
+  const [lo, hi] = FOLD_RANGE[ECHELLE];
+  toneFreqEl.min = lo; toneFreqEl.max = hi;
+  if (Number(toneFreqEl.value) < lo || Number(toneFreqEl.value) > hi) toneFreqEl.value = lo;
+}
+document.querySelectorAll('.echelle-btn[data-echelle]').forEach(b => {
+  b.addEventListener('click', () => {
+    ECHELLE = b.dataset.echelle;
+    try { localStorage.setItem(ECHELLE_STORAGE_KEY, ECHELLE); } catch (e) {}
+    syncEchelleControls();
+    if (DATA) {
+      buildList();
+      if (current) show(current);
+      toneShow(Number(toneFreqEl.value));
+    }
     setShareURL(currentShareParams());
   });
 });
@@ -461,10 +528,24 @@ function setShareURL(params) {
   history.replaceState(null, '', '?' + usp.toString());
 }
 function currentShareParams() {
-  const p = { lang: LANG, gamme: current, pal: palette.join(',') };
+  const p = { lang: LANG, gamme: current, pal: palette.join(','), echelle: ECHELLE };
   if (toneActive) p.freq = String(Math.round(toneFreqEl.value));
   return p;
 }
+
+// ── échelle (proportionnelle f=128×k², ordinale 9 valeurs par rang) ────────
+const ECHELLE_STORAGE_KEY = 'lldh-cymatique-echelle';
+const ECHELLES = ['proportionnelle', 'ordinale'];
+const FOLD_RANGE = { proportionnelle: [128, 2560], ordinale: [128, 256] };
+function initialEchelle() {
+  const params = new URLSearchParams(location.search);
+  if (params.has('echelle') && ECHELLES.includes(params.get('echelle'))) return params.get('echelle');
+  let stored = null;
+  try { stored = localStorage.getItem(ECHELLE_STORAGE_KEY); } catch (e) {}
+  return ECHELLES.includes(stored) ? stored : 'ordinale';
+}
+let ECHELLE = initialEchelle();
+function echelleDe(g) { return g.echelles[ECHELLE]; }
 
 // ── données ──────────────────────────────────────────────────────────────
 let DATA = null;
@@ -482,16 +563,17 @@ function show(name) {
   if (!DATA || !DATA.gammes[name]) return;
   current = name;
   const g = DATA.gammes[name];
+  const e = echelleDe(g);
   document.getElementById('gammeName').textContent = name;
   document.getElementById('gammeMeta').textContent =
-    `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — ${g.note} · ${g.f_hz.toFixed(0)} Hz`;
+    `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — ${e.note} · ${e.f_hz.toFixed(0)} Hz`;
   render(name);
   document.querySelectorAll('.gamme-row').forEach(el => el.classList.toggle('on', el.dataset.n === name));
 }
 
 function buildList() {
   TABLE = Object.entries(DATA.gammes)
-    .map(([n, g]) => ({ n, f: g.f_hz, note: g.note }))
+    .map(([n, g]) => ({ n, f: echelleDe(g).f_hz, note: echelleDe(g).note }))
     .sort((a, b) => a.f - b.f);
   const list = document.getElementById('list');
   list.innerHTML = '';
@@ -504,11 +586,12 @@ function buildList() {
   });
 }
 
-// Repli d'octave dans [220, 440[, puis plus proche voisin en cents.
+// Repli dans la borne de l'échelle active, puis plus proche voisin en cents.
 function nearest(f) {
+  const [lo, hi] = FOLD_RANGE[ECHELLE];
   let x = f;
-  while (x >= 440) x /= 2;
-  while (x < 220) x *= 2;
+  while (x >= hi) x /= 2;
+  while (x < lo) x *= 2;
   let best = TABLE[0], cents = 1e9;
   for (const g of TABLE) {
     const c = 1200 * Math.log2(x / g.f);
@@ -638,6 +721,7 @@ fetch('data/referent_bandes_v1.json')
   .then(r => r.json())
   .then(data => {
     DATA = data;
+    syncEchelleControls();
     buildList();
     applyUILang();
 
@@ -653,7 +737,8 @@ fetch('data/referent_bandes_v1.json')
     show(startGamme);
     if (params.has('freq')) {
       const f = Number(params.get('freq'));
-      if (Number.isFinite(f) && f >= 200 && f <= 900) {
+      const [lo, hi] = FOLD_RANGE[ECHELLE];
+      if (Number.isFinite(f) && f >= lo && f <= hi) {
         toneFreqEl.value = f;
         toneShow(f);
       }
