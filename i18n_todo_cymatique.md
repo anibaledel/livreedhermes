@@ -1,14 +1,21 @@
 # Traductions manquantes — page Cymatique (`cymatique.html`)
 
 Chaque clé ci-dessous existe dans `UI.fr` et `UI.en` du fichier
-`cymatique.html` (objet `UI`, juste après `<script type="module">`). Elle
-est actuellement en repli sur le texte FR pour `es` et `th`.
-**Colonnes ES et TH remplies — 29 clés.** L'intégration consiste à
-recopier chaque valeur dans `UI.es[clé]` / `UI.th[clé]`.
+`cymatique.html` (objet `UI`, juste après `<script type="module">`).
 
-Pas encore intégrée en FR/EN non plus : `diapasonNote` (ci-dessous) est
-un texte nouveau, en attente de l'implémentation du changement de
-diapason avant d'être placé dans la page.
+**Les 29 clés d'origine sont intégrées en FR/EN/ES/TH.** Ce qui reste :
+les cinq clés du sélecteur d'échelle (`echelleLabel`,
+`echelleProportionnelle`, `echelleOrdinale`, `echelleProportionnelleHelp`,
+`echelleOrdinaleHelp`) et `diapasonNote` — intégrées en FR/EN le
+2026-09-19 (deux échelles, k_pic mesuré), en repli sur le texte FR pour
+ES et TH en attendant leur traduction ci-dessous.
+
+`diapasonNote` a changé de contenu depuis la première version de ce
+fichier : l'ancienne formule (do 256 Hz, f = 2,56 × k_pic²) est
+abandonnée, remplacée par deux échelles (proportionnelle f = 128 × k²,
+ordinale par rang) sur un k_pic désormais mesuré, pas supposé. Toute
+traduction ES/TH faite sur l'ancienne version du texte est à refaire, pas
+à corriger.
 
 Terminologie alignée sur celle déjà en place dans `es/libro/` et
 `th/book/` : Inicio / Crear un motivo / Impresión ; หน้าแรก / สร้างลวดลาย /
@@ -19,6 +26,35 @@ position en début ou fin de chaîne.
 
 ---
 
+## echelleLabel
+- FR : Échelle
+- EN : Scale
+
+## echelleProportionnelle
+- FR : Proportionnelle
+- EN : Proportional
+
+## echelleOrdinale
+- FR : Ordinale
+- EN : Ordinal
+
+## echelleProportionnelleHelp
+- FR : f = 128 × k² — de do 128 Hz à do 2560 Hz, rapports exacts entre motifs.
+- EN : f = 128 × k² — from C 128 Hz to C 2560 Hz, exact ratios between patterns.
+
+## echelleOrdinaleHelp
+- FR : les neuf valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.
+- EN : the nine values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.
+
+## diapasonNote (nouveau contenu, remplace la version 2026-09-18)
+(texte de cadrage, placé près du sélecteur de gamme — même ton que `framing`)
+- FR : Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Les musiciens de son temps l'ont refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale des quinze gammes — sont elles-mêmes des entiers : dans l'échelle proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.
+- EN : The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. The musicians of his day rejected it; physicists kept it as a measurement standard. It is used here because the nine measured values — the squared spatial frequencies of the fifteen scales — are themselves whole numbers: on the proportional scale, each scale then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.
+- ES : à traduire (contenu nouveau, voir remarque en tête de fichier)
+- TH : à traduire (contenu nouveau, voir remarque en tête de fichier)
+
+---
+
 ## pageTitle
 - FR : Cymatique — gammes et fréquences
 - EN : Cymatics — scales and frequencies
@@ -26,10 +62,14 @@ position en début ou fin de chaîne.
 - TH : ไซแมติกส์ — บันไดเสียงและความถี่
 
 ## framing
-- FR : La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, étalée sur une octave — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.
-- EN : The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, spread across one octave — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.
-- ES : La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, extendida sobre una octava — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.
-- TH : ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง กระจายตลอดหนึ่งช่วงคู่แปด มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์
+(mis à jour le 2026-09-19 : "étalée sur une octave" n'est plus vrai pour
+les deux échelles depuis l'ajout de l'échelle proportionnelle — remplacé
+par une formulation neutre. ES/TH corrigés directement, changement
+ponctuel d'un segment technique, pas une nouvelle traduction complète.)
+- FR : La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, mesurée par transformée de Fourier — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.
+- EN : The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, measured by Fourier transform — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.
+- ES : La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, medida por transformada de Fourier — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.
+- TH : ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง วัดด้วยการแปลงฟูริเยร์ มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์
 
 ## listeningHeading
 - FR : Écoute
@@ -226,14 +266,16 @@ technique, où l'usage thaï les admet.
 thaï. Une relecture par un locuteur natif serait utile, surtout sur
 `framing`.
 
-**`diapasonNote`** — « diapason philosophique » n'a pas d'équivalent
-figé en ES/TH ; rendu littéralement (*diapasón filosófico*, เสียงมาตรฐานเชิงปรัชญา).
-« Académie royale des sciences » traduit en ES par l'usage courant
-(*Academia Real de Ciencias*) ; en TH par une périphrase descriptive
-(ราชบัณฑิตยสภาวิทยาศาสตร์แห่งฝรั่งเศส), faute de nom consacré — comme pour
-`framing`, une relecture par un locuteur natif serait utile ici en
-particulier, le paragraphe mêlant vocabulaire musical (« intervalles
-justes »), historique et mathématique.
+**`diapasonNote`** — contenu remplacé le 2026-09-19 (voir plus haut) ;
+ES/TH restent à traduire pour la nouvelle version. Pour mémoire, sur la
+version précédente : « diapason philosophique » n'a pas d'équivalent figé
+en ES/TH (rendu littéralement, *diapasón filosófico*,
+เสียงมาตรฐานเชิงปรัชญา) ; « Académie royale des sciences » se traduit en ES
+par l'usage courant (*Academia Real de Ciencias*), en TH par une
+périphrase faute de nom consacré (ราชบัณฑิตยสภาวิทยาศาสตร์แห่งฝรั่งเศส) — ces
+choix restent valables pour la nouvelle version, qui reprend la même
+référence historique. Une relecture par un locuteur natif reste utile,
+le paragraphe mêlant vocabulaire historique et mathématique.
 
 ## Deux points repérés hors de ce fichier
 
