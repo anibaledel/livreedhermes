@@ -1,5 +1,5 @@
 /* ============================================================
-   Export PNG au format Pinterest de la Galerie 768 — pour l'automatisation
+   Export PNG au format Pinterest de la Galerie — pour l'automatisation
    de publication programmée (Metricool). Réutilise le même système de
    génération que l'export PNG carré haute résolution
    (export-galerie-884-hires.js) : mêmes données, mêmes palettes (Tricolore
@@ -29,7 +29,7 @@ const path = require('path');
 const { createCanvas } = require('@napi-rs/canvas');
 
 const REPO_ROOT = path.join(__dirname, '..');
-const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-768-patterns-unifies.html');
+const GALLERY_HTML = path.join(REPO_ROOT, 'galerie-patterns-unifies.html');
 
 // ---------- CLI args ----------
 const args = process.argv.slice(2);
