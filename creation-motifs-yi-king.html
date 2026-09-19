@@ -1693,10 +1693,12 @@ function render(){
   buildResultArea();
   updateSideBands();
 }
-document.getElementById('btnReset').addEventListener('click', ()=>{
+const btnResetEl = document.getElementById('btnReset');
+if(btnResetEl) btnResetEl.addEventListener('click', ()=>{
   picked = []; currentCat = 'bases'; render(); window.scrollTo({top:0, behavior:'smooth'});
 });
-document.getElementById('btnPrint').addEventListener('click', ()=> window.print());
+const btnPrintEl = document.getElementById('btnPrint');
+if(btnPrintEl) btnPrintEl.addEventListener('click', ()=> window.print());
 render();
 </script>
 <script type="text/javascript">
