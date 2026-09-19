@@ -42,14 +42,25 @@ Ce que fait ce script
 
 4. Vérifie (F1)–(F5) et les hypothèses des Corollaires 4 et 5 sur les
    données, compte les orbites de Γ (128 sur le corpus, 64 sur les
-   retenues), et vérifie que les 16 formes de la Section 7 sont, à un
+   retenues, chacune rencontrant le corpus en exactement 4 grilles, aucune
+   orbite mêlant retenues et exclues), et vérifie que les 16 formes de la Section 7 sont, à un
    renommage de teintes près, des grilles du corpus — toutes dans la
-   famille {yang_mut} (et sa jumelle), aucune n'admettant d'habillage.
+   famille {yang_mut} (et sa jumelle), 8 par couple, en 8 classes à
+   permutation de teinte près, aucune n'admettant d'habillage. Il vérifie
+   enfin que les 64 formes d'ordre 12 forment 32 classes sous Γ, dont
+   aucune ne rencontre les 256 grilles retenues par le cube : les deux
+   ensembles de 64 sont disjoints.
 
 5. Vérifie le Lemme 2 : les 8 familles admissibles vont par paires
    (F, F ∪ {β}) avec β une base de type yin, et les grilles de la seconde
    sont celles de la première avec n ↔ n ⊕ 7 (trigramme inférieur) ou
-   n ↔ n ⊕ 56 (trigramme supérieur).
+   n ↔ n ⊕ 56 (trigramme supérieur) ; il affiche les quatre paires et
+   leur m, et vérifie que le couple de natures est le même des deux côtés.
+
+6. Contrôle d'implémentation du Théorème 2 : les six couples non ordonnés
+   sont testés dans chaque famille, et le critère est aussi évalué
+   directement sur les 64 indices pour les 12 couples ordonnés des 15
+   familles — il vaut pour tous ou pour aucun, jamais en partie.
 
 Usage
 -----
@@ -66,7 +77,8 @@ diédral complet, lui, absorbe tout changement de convention.
 Données lues
 ------------
     data/referent_360_v3.json — les 360 cartes (15 familles × 4 natures × 6 niveaux)
-    data/fonds_ecran_v1.json  — seulement pour contrôler que layer_of coïncide
+    data/fonds_ecran_v1.json  — contrôle : layer_of, et, depuis que le fichier
+                                porte les 60 couches, l'identité des couches
 """
 
 import argparse
@@ -154,14 +166,34 @@ def familles_depuis_referent_360(doc):
     return doc['layer_of'], dict(familles)
 
 
+NATURES = ('yang', 'yang_mut', 'yin', 'yin_mut')
+
+
 def couples_unifies(familles, layer_of):
-    """Couples (famille, a, b) avec B = A ∘ σ, dans le sens du catalogue."""
+    """Couples (famille, a, b) avec B = A ∘ σ.
+
+    Les six couples non ordonnés de natures sont testés dans chaque famille
+    (σ étant une involution, B = A ∘ σ équivaut à A = B ∘ σ : cela couvre les
+    douze couples ordonnés de la preuve du Théorème 2)."""
     out = []
     for f, teintes in familles.items():
-        for a, b in (('yang', 'yang_mut'), ('yin', 'yin_mut')):
+        for a, b in itertools.combinations(NATURES, 2):
             if a in teintes and b in teintes and demi_decalage(teintes[a]) == teintes[b]:
                 out.append((f, a, b))
     return out
+
+
+def controle_64_indices(familles, layer_of):
+    """Contrôle d'implémentation (preuve du Théorème 2) : le critère testé
+    directement sur les 64 indices, pour les 12 couples ordonnés de chaque
+    famille. Rend (nb tout-vrai, nb tout-faux, nb mixtes)."""
+    tout, rien, mixte = 0, 0, 0
+    for teintes in familles.values():
+        for a, b in itertools.permutations(NATURES, 2):
+            A, B = teintes[a], teintes[b]
+            k = sum(demi_decalage(phi(n, A, B, layer_of)) == phi(n, B, A, layer_of) for n in range(64))
+            tout += k == 64; rien += k == 0; mixte += 0 < k < 64
+    return tout, rien, mixte
 
 
 # ── Géométrie du cube ──────────────────────────────────────────────────
@@ -270,6 +302,8 @@ def angles_fixes(g, pi):
 # ── Programme principal ────────────────────────────────────────────────
 
 def main():
+    import time
+    t0 = time.time()
     p = argparse.ArgumentParser(description="Vérifie la règle d'arête sur le cube.")
     p.add_argument('--json', metavar='FICHIER', help='écrit un rapport détaillé')
     p.add_argument('--rotations-only', action='store_true',
@@ -285,6 +319,18 @@ def main():
         fe = json.load(open(DATA_FE, encoding='utf-8'))
         if fe['layerOf'] != layer_of:
             sys.exit("layer_of diffère entre referent_360_v3.json et fonds_ecran_v1.json")
+        def cle(s):
+            s = s.upper().replace(':', '-').replace('+', '-').replace('_', '-').replace('BASES-', 'BASE-')
+            return 'YINYANG' if s == 'PAR4' else s
+        fams_fe = {cle(f): v for f, v in fe['families'].items()}
+        n_fe = sum(len(v) for v in fams_fe.values())
+        if n_fe == 60:
+            ecarts = [(f, k) for f in familles for k in familles[f]
+                      if fams_fe.get(f, {}).get(k) != familles[f][k]]
+            print(f"fonds_ecran_v1.json : 60 couches, identiques au référent 360 : "
+                  + ("✓" if not ecarts else f"✗ {ecarts[:4]}"))
+        else:
+            print(f"fonds_ecran_v1.json : {n_fe} couches (format incomplet) — seul layer_of est contrôlé")
 
     # (F1) : sans l'invariance de L par σ, le Théorème 1 tombe
     if demi_decalage(layer_of) != layer_of:
@@ -315,9 +361,12 @@ def main():
 
     couples = couples_unifies(familles, layer_of)
     familles_unifiees = sorted({f for f, _, _ in couples})
-    print(f"couples unifiés : {len(couples)} dans {len(familles_unifiees)} familles")
+    print(f"couples unifiés (6 couples testés par famille) : {len(couples)} dans {len(familles_unifiees)} familles")
     for f in familles_unifiees:
-        print(f"    {f}")
+        print(f"    {f} : {[(a, b) for g, a, b in couples if g == f]}")
+    tout, rien, mixte = controle_64_indices(familles, layer_of)
+    print(f"contrôle direct sur les 64 indices (15 familles × 12 couples ordonnés) : "
+          f"{tout} tout-vrai, {rien} tout-faux, {mixte} mixte" + ("  ✓" if mixte == 0 else "  ✗"))
     print()
 
     triplets = []          # (famille, a, b, n, angles_ok, habillage)
@@ -389,29 +438,39 @@ def main():
     par_grille = defaultdict(list)
     for t in triplets:
         par_grille[t['grille']].append((t['famille'], t['teintes'][0], t['hexagramme']))
-    doublons = [v for v in par_grille.values() if len(v) == 2]
+    doublons = [sorted(v) for v in par_grille.values() if len(v) == 2]
     xor7 = all((v[0][2] ^ v[1][2]) in (7, 56) for v in doublons) and len(doublons) * 2 == len(triplets)
     print("Duplication (Lemme 2)")
     print(f"    grilles en double : {len(doublons)}/{len(par_grille)} (chaque grille exactement deux fois) ; correspondance n ↔ n⊕7 ou n⊕56 : {'✓' if xor7 else '✗'}")
+    jumelles = Counter((v[0][0], v[1][0], v[0][2] ^ v[1][2]) for v in doublons)
+    for (f1, f2, m), k in sorted(jumelles.items()):
+        print(f"        {f1} ↔ {f2} : m = {m}  ({k} grilles)")
+    meme_couple = all(v[0][1] == v[1][1] for v in doublons)
+    print(f"    même couple de natures dans les deux familles : {'✓' if meme_couple else '✗'}")
     print()
 
     # ── orbites de Γ = <σ, D4, S3> ────────────────────────────────────
-    def orbites(S):
-        vus, k = set(), 0
-        for g in S:
-            if g in vus:
-                continue
-            k += 1
-            for h in variantes([list(r) for r in g]):
-                for s in (h, demi_decalage(h)):
-                    teintes = sorted({x for row in s for x in row})
-                    for perm in itertools.permutations(teintes):
-                        m = dict(zip(teintes, perm))
-                        vus.add(tuple(tuple(m[x] for x in row) for row in s))
-        return k
-    print("Orbites de Γ (Section 4, Remarque)")
-    print(f"    corpus  : {orbites(set(grilles))}")
-    print(f"    retenues : {orbites({t['grille'] for t in ok})}")
+    # σ commute avec D4 sur le tore Z12 × Z12 (le conjugué de la translation
+    # (6, 6) par un quart de tour est (6, −6) = (6, 6)) ; Γ est donc le
+    # produit D4 × <σ> × S3, d'ordre 96, et ses éléments sont les h, σh.
+    def orbite(g):
+        out = set()
+        for h in variantes([list(r) for r in g]):
+            for s_ in (h, demi_decalage(h)):
+                for perm in itertools.permutations('VMO'):
+                    m = dict(zip('VMO', perm))
+                    out.add(tuple(tuple(m[x] for x in row) for row in s_))
+        return frozenset(out)
+    corpus = set(grilles)
+    retenues_g = {t['grille'] for t in ok}
+    O_corpus = {orbite(g) for g in corpus}
+    O_ret = {orbite(g) for g in retenues_g}
+    O_exc = {orbite(g) for g in corpus - retenues_g}
+    traces = Counter(len(o & corpus) for o in O_corpus)
+    print("Orbites de Γ (Section 4 et Remarque de la Section 6)")
+    print(f"    corpus   : {len(O_corpus)} orbites ; grilles du corpus par orbite : {dict(traces)}")
+    print(f"    retenues : {len(O_ret)} ; exclues : {len(O_exc)} ; orbites mixtes : {len(O_ret & O_exc)}"
+          + ("  ✓ (l'habillabilité est constante sur les orbites)" if not O_ret & O_exc else "  ✗"))
     print()
 
     # ── Section 7 : les 16 premières formes unifiées dans le corpus ──
@@ -438,11 +497,27 @@ def main():
         for f, k in sorted(trouvees.items()):
             print(f"        {f} : {k} triplets")
         print(f"    admettant un habillage du cube : {cube}")
+        # détail de la Proposition 2
+        couples7 = Counter(t['teintes'][0] for G in retenues.values()
+                           for t in index.get(tuple(tuple(renommage[x] for x in row) for row in G), [])
+                           if t['famille'] == 'BASE-YANG-MUT')
+        print(f"    couples dans {{yang_mut}} : {dict(couples7)}")
+        def canon(g):
+            return min(tuple(tuple(dict(zip('VMO', p))[x] for x in row) for row in g)
+                       for p in itertools.permutations('VMO'))
+        g16 = [tuple(tuple(renommage[x] for x in row) for row in G) for G in retenues.values()]
+        print(f"    classes à permutation de teinte près : {len({canon(g) for g in g16})}")
+        print(f"    à symétrie centrale : {sum(g == tuple(tuple(row[::-1]) for row in g[::-1]) for g in g16)}/16")
+        # les deux ensembles de 64 : relation effective
+        O64 = {orbite(tuple(tuple(renommage[x] for x in row) for row in G)) for G in ordre12.values()}
+        print(f"    les 64 formes d'ordre 12 : {len(O64)} classes sous Γ ; "
+              f"rencontrant le corpus : {len(O64 & O_corpus)} ; rencontrant les retenues du cube : {len(O64 & O_ret)}")
         print()
     except (ImportError, FileNotFoundError):
         print("Section 7 : selection_ordre6.py ou referent_256_v3.json absents — étape sautée")
         print()
 
+    print(f"durée totale : {time.time() - t0:.0f} s")
     if arg.rotations_only:
         print("note : --rotations-only donne un résultat dépendant de la convention")
         print("       de repérage des faces ; il ne figure pas dans la note.")
