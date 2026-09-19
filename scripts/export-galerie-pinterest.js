@@ -2,7 +2,7 @@
    Export PNG au format Pinterest de la Galerie — pour l'automatisation
    de publication programmée (Metricool). Réutilise le même système de
    génération que l'export PNG carré haute résolution
-   (export-galerie-884-hires.js) : mêmes données, mêmes palettes (Tricolore
+   (export-galerie-hires.js) : mêmes données, mêmes palettes (Tricolore
    YPM / Monochrome Black), fond du site (var(--bg):#000).
 
    Deux gabarits selon la catégorie, sans marge ni fond visible dans les
@@ -16,12 +16,12 @@
 
    Nommage : identique au fichier SVG correspondant (assets/motifs-svg/),
    seule l'extension change (.svg -> .png), pour permettre de reconstruire
-   les URLs directement depuis motifs-884-index.csv. Noms de fichiers et
+   les URLs directement depuis motifs-index.csv. Noms de fichiers et
    chemins inchangés par rapport à la version précédente de ce script.
 
    Usage :
      cd scripts
-     node export-galerie-884-pinterest.js --mode cells|pavage --palette color|gray --out DIR [--limit N] [--offset N]
+     node export-galerie-pinterest.js --mode cells|pavage --palette color|gray --out DIR [--limit N] [--offset N]
    ============================================================ */
 
 const fs = require('fs');
@@ -41,7 +41,7 @@ const MODE = argVal('--mode', 'cells'); // 'cells' (repeats=1) | 'pavage' (repea
 const PALETTE_MODE = argVal('--palette', 'color'); // 'color' | 'gray'
 const LIMIT = argVal('--limit', null) ? parseInt(argVal('--limit', null), 10) : null;
 const OFFSET = argVal('--offset', null) ? parseInt(argVal('--offset', null), 10) : 0;
-const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-884-pinterest-${MODE}-${PALETTE_MODE}`));
+const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), `galerie-pinterest-${MODE}-${PALETTE_MODE}`));
 
 // Cellules : carré 1500x1500, une seule tuile 12x12 qui remplit tout le
 // canevas (pas de portrait, pas de marge — un motif unitaire n'a pas de
@@ -57,11 +57,13 @@ const REPEATS_Y = MODE === 'pavage' ? 9 : 1;
 const BG_COLOR = '#000'; // var(--bg) du site — filet de sécurité anti-crénelage sur les bords, non visible en pratique (couverture bord à bord)
 
 // ---------- extraction des données (source de vérité unique) ----------
+// DATA vient directement de data/fonds_ecran_v1.json — la page elle-même le
+// charge par fetch() depuis le 2026-09-19 (avant cette date, la page et ce
+// script lisaient chacun leur propre copie, l'une intégrée en dur dans le
+// HTML, l'autre ici scrapée de ce HTML : elles avaient divergé en silence).
 function loadData() {
+  const DATA = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
-  if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
-  const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
   if (!pm) throw new Error('DEFAULT_PALETTE introuvable');
   const DEFAULT_PALETTE = Function('"use strict"; return (' + pm[1] + ')')();
