@@ -39,7 +39,7 @@ window.ARTICLES = [
     dateISO: "2026-09-16",
     dateDisplay: "Publié le 16 septembre 2026",
     categories: ["Géométrie", "Philosophie", "Livrée"],
-    excerpt: "De la plaque de Chladni au pavage : les quinze gammes du traité ont des fréquences spatiales dont les carrés sont entiers — la forme même que prennent les modes d'une plaque carrée.",
+    excerpt: "De la plaque de Chladni au pavage : ce que l'analyse spectrale des quinze gammes montre réellement — et pourquoi les valeurs qui figuraient ici auparavant ne décrivaient pas les motifs.",
     cover: "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg",
     coverAlt: "Bandeau des quinze motifs Yin et Yang du traité, en noir et blanc, côte à côte"
   },
