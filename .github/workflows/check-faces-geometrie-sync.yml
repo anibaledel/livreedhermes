@@ -1,0 +1,26 @@
+name: Géométrie FACES identique sur les trois copies
+
+# tools/cube_edges.py, tools/generate_table_pavage.py et
+# tools/spectre_et_cube.py portent chacun une copie de FACES (géométrie du
+# cube) -- le paquet de soumission qui tire cube_edges.py interdit
+# d'importer entre scripts, donc pas de source commune possible. Ce
+# workflow échoue si les trois copies divergent -- voir
+# tools/check_faces_geometrie_sync.py.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/check_faces_geometrie_sync.py
