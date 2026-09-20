@@ -1011,7 +1011,7 @@ class TestCPub(unittest.TestCase):
         repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         sys.path.insert(0, os.path.join(repo_root, 'tools'))
         import recalibrate_carter_v3 as RC
-        wired = {variant_key for variant_key, _, _ in RC.VARIANTS} | {'carter18'}
+        wired = {variant_key for variant_key, _, _, _ in RC.VARIANTS} | {'carter18'}
         self.assertEqual(set(C.C_PUB.keys()), wired)
 
 

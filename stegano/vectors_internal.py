@@ -135,18 +135,27 @@ def _count_redraw_attempts(module, search_fn):
 # ── Carter-256 ───────────────────────────────────────────────────────────────
 
 def gen_carter256_vector(vec_id, description, master_key, message, ref256,
-                          nonce, y, leftover, noise_seed, include_grid_csv=False):
+                          nonce1, nonce2, y, leftover, noise_seed, include_grid_csv=False):
+    """Câblage cascade (2026-09-21, voir carter.py::encode_carter) : le
+    payload message de Carter-256 est désormais encrypt_cascade (AES-256-
+    GCM(XChaCha20-Poly1305)), pas _encrypt seul -- nonce1 (24o, couche
+    intérieure) et nonce2 (12o, couche extérieure) remplacent l'unique
+    `nonce` d'avant le câblage. k1/k2 (dérivées de xchacha_key, jamais
+    l'une de l'autre) sont capturées pour vérification indépendante côté
+    JS sans avoir à rejouer HKDF pour le confirmer."""
     xchacha_key, grammar_key = CT._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
+    k1, k2 = CC._cascade_keys(xchacha_key)
 
     (gk_ctr, grammar, n_pos), attempts = _count_redraw_attempts(
         CT, lambda: CT._find_grammar_with_c_pub(
             grammar_key, 'carter256',
             lambda gk: CT._carter_grammar(gk, ref256),
-            lambda g: CT._carter_message_positions(g, ref256)))
+            lambda g: CT._carter_message_positions(g, ref256),
+            capacity_fn=CC.max_message_for_cascade))
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC.encrypt_cascade(message, xchacha_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    hchacha_subkey = CC.hchacha20(k1, nonce1[:16])
     k = CC._capacity_k(n_pos)
     m = CC._smallest_m(k + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
@@ -173,12 +182,15 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
         "id": vec_id, "instantiation": "carter256", "description": description,
         "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": CT.CARTER_GRID},
         "injected": {
-            "nonce_hex": _hex(nonce), "y": str(y), "leftover": list(leftover) if leftover else [],
+            "nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2),
+            "y": str(y), "leftover": list(leftover) if leftover else [],
             "noise_seed_hex": _hex(noise_seed),
         },
         "derivation": {
             "commit_key_hex": _hex(ck),
             "xchacha_key_hex": _hex(xchacha_key),
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
@@ -222,13 +234,14 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
 
 def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
                                     master_key, message, ref256,
-                                    nonce, y, leftover, noise_seed):
+                                    nonce1, nonce2, y, leftover, noise_seed):
     xchacha_key, grammar_key = CT._carter_split(master_key)
     gk_ctr, grammar, n_pos = CT._find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: CT._carter_grammar(gk, ref256),
-        lambda g: CT._carter_message_positions(g, ref256))
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
+        lambda g: CT._carter_message_positions(g, ref256),
+        capacity_fn=CC.max_message_for_cascade)
+    payload = CC.encrypt_cascade(message, xchacha_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -326,9 +339,10 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
                    "original_payload_byte0_hex": f"{payload[0]:02x}",
                    "tampered_payload_byte0_hex": f"{tampered_payload[0]:02x}",
                    "note": "seul l'octet 0 du commitment (32 premiers octets de payload) "
-                           "est modifié ; inner (payload[32:]) est rechiffré identique, "
-                           "voir crypto_core._encrypt — la falsification porte uniquement "
-                           "sur le tag, jamais sur le texte chiffré qu'il protège."},
+                           "est modifié ; le reste (alg‖N2‖AES-GCM(inner)‖T2) est "
+                           "rechiffré identique, voir crypto_core.encrypt_cascade — la "
+                           "falsification porte uniquement sur le tag, jamais sur le "
+                           "texte chiffré qu'il protège."},
         "grid_sha256": _grid_sha256(grid_commit), "expected_result": "rejet",
         "expected_error": err_commit,
     }
@@ -920,10 +934,10 @@ def gen_deniable_vector(vec_id, description, real_message, duress_message,
 # de succès, pas des rejets.
 
 def gen_carter256_boundary_vectors(vec_id_prefix, master_key, ref256,
-                                    nonce, y, leftover, noise_seed):
+                                    nonce1, nonce2, y, leftover, noise_seed):
     empty_v, empty_g = gen_carter256_vector(
         f"{vec_id_prefix}-message-vide", "Message vide (longueur 0).",
-        master_key, "", ref256, nonce, y, leftover, noise_seed)
+        master_key, "", ref256, nonce1, nonce2, y, leftover, noise_seed)
 
     alphabet_no_space = CC.ALPHABET[1:]  # sans l'espace, pour un pavage simple
     boundary_msg = (alphabet_no_space * (CC.C_PUB['carter256'] // len(alphabet_no_space) + 1)
@@ -935,7 +949,7 @@ def gen_carter256_boundary_vectors(vec_id_prefix, master_key, ref256,
     assert len(boundary_msg.encode('utf-8')) == CC.C_PUB['carter256']
     boundary_v, boundary_g = gen_carter256_vector(
         f"{vec_id_prefix}-c-pub-exact", f"Message de longueur EXACTE C_PUB={CC.C_PUB['carter256']} octets.",
-        master_key, boundary_msg, ref256, nonce, y, leftover, noise_seed)
+        master_key, boundary_msg, ref256, nonce1, nonce2, y, leftover, noise_seed)
 
     return [empty_v, boundary_v], [empty_g, boundary_g]
 
@@ -976,6 +990,40 @@ _Y_DENIABLE_DURESS      = 107035887119794623319
 _Y_CARTER256_NEG        = 45247765638722506571
 _Y_CARTER256_UTF8       = 21248635146541447373
 _Y_CARTER256_BOUNDARY   = 18442373562533863684
+_Y_CASCADE_BASIC        = 58845875393133137865
+
+
+# ── Cascade v1 (crypto_core.encrypt_cascade/decrypt_cascade) ────────────────
+# Primitive au niveau crypto_core seule -- pas de grammaire, pas de grille,
+# pas de masques (contrairement à toutes les variantes ci-dessus) : n_pos
+# est un nombre de positions message abstrait, pas dérivé d'un référent.
+# k1/k2 dérivées de steg_key sont capturées pour vérification indépendante
+# côté JS (LH-5) sans avoir à rejouer la dérivation HKDF pour le confirmer.
+
+def gen_cascade_vector(vec_id, description, steg_key, message, n_pos,
+                        nonce1, nonce2, y):
+    k1, k2 = CC._cascade_keys(steg_key)
+    payload = CC.encrypt_cascade(message, steg_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    k = CC._capacity_k(n_pos)
+    m = CC._smallest_m(k + CC._LAMBDA_S)
+    symbols = CC.payload_to_symbols(payload, n_pos, _y=y)
+
+    decoded_from_payload = CC.decrypt_cascade(CC.payload_to_symbols(payload, n_pos, _y=y), steg_key, n_pos)
+    assert decoded_from_payload == message, f"auto-verification cascade a echoue pour {vec_id}"
+
+    return {
+        "id": vec_id, "instantiation": "cascade-v1", "description": description,
+        "inputs": {"steg_key_hex": _hex(steg_key), "message": message, "n_pos": n_pos},
+        "injected": {"nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2), "y": str(y)},
+        "derivation": {
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
+            "payload_hex": _hex(payload),
+            "pts_m": m, "pts_y": str(y),
+            "symbols": symbols,
+        },
+        "expected_decode": message,
+    }
 
 
 def generate_all(include_grid_csv_showcase=True):
@@ -984,6 +1032,12 @@ def generate_all(include_grid_csv_showcase=True):
     ref256_v3 = load_referent_256_v3()
     ref360_v3 = load_referent_360_v3()
     nonce = bytes(range(24))
+    # nonce2 (câblage cascade, 2026-09-21) : 12 octets, couche extérieure
+    # AES-GCM -- distinct de `nonce` (24 octets, couche intérieure
+    # XChaCha20, INCHANGÉ pour les variantes qui n'utilisent pas encore la
+    # cascade). Utilisé par Carter-256 (seule variante câblée à ce jour)
+    # et par le vecteur cascade-v1-basic-01 autonome.
+    nonce2 = nonce[::-1][:12]
     noise_seed = bytes(reversed(range(32)))
     vectors = []
     grids = {}
@@ -995,7 +1049,7 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_carter256_vector(
         "carter256-basic-01", "Vecteur de base Carter-256.",
         bytes(range(32)), "HELLO WORLD", ref256_v3,
-        nonce, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
+        nonce, nonce2, 0, [], noise_seed, include_grid_csv=include_grid_csv_showcase)
     add(v, g)
 
     # TODO v3-format (etape 10) : _MK_REDRAW_CARTER256 a ete trouvee par
@@ -1009,7 +1063,7 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_carter256_vector(
         "carter256-redraw-01", "Clé déclenchant un redraw (ctr>=1) pour Carter-256.",
         _MK_REDRAW_CARTER256, "REDRAW TRIGGERED", ref256_v3,
-        nonce, 0, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CARTER360_BASIC calculee pour l'ancien
@@ -1102,7 +1156,7 @@ def generate_all(include_grid_csv_showcase=True):
     # a l'etape 10 (comme carter256-basic-01, deja a y=0).
     neg_vecs, neg_grids = gen_carter256_negative_vectors(
         "carter256-neg", "Vecteurs négatifs Carter-256",
-        bytes(range(32)), "HELLO WORLD", ref256_v3, nonce, 0, [], noise_seed)
+        bytes(range(32)), "HELLO WORLD", ref256_v3, nonce, nonce2, 0, [], noise_seed)
     for vv, gg in zip(neg_vecs, neg_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg
@@ -1110,14 +1164,20 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_carter256_vector(
         "carter256-utf8-01", "Message UTF-8 non-ASCII (« déjà vu ») — cas de succès ordinaire.",
         bytes((i * 23 + 9) % 256 for i in range(32)), "déjà vu", ref256_v3,
-        nonce, 0, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     boundary_vecs, boundary_grids = gen_carter256_boundary_vectors(
-        "carter256-boundary", bytes(range(32)), ref256_v3, nonce, 0, [], noise_seed)
+        "carter256-boundary", bytes(range(32)), ref256_v3, nonce, nonce2, 0, [], noise_seed)
     for vv, gg in zip(boundary_vecs, boundary_grids):
         vectors.append(vv)
         grids[vv["id"]] = gg
+
+    vectors.append(gen_cascade_vector(
+        "cascade-v1-basic-01", "Vecteur de base Cascade v1 (AES-256-GCM(XChaCha20-Poly1305)).",
+        bytes((i * 29 + 11) % 256 for i in range(32)),
+        "La cascade protège contre un bug dans le ChaCha20 écrit à la main.",
+        500, nonce, nonce2, _Y_CASCADE_BASIC))
 
     document = {
         "format_version": "carter-v3",

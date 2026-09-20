@@ -17,7 +17,7 @@ import fs from 'node:fs';
 import {
   hexToBytes, bytesToHex, redraw_grammar_key,
   carter256_split, carter256_grammar, carter256_positions,
-  encode_carter, decode_carter, encrypt, payload_to_symbols, derive_masks,
+  encode_carter, decode_carter, encrypt_cascade, payload_to_symbols, derive_masks,
   LABELS, ALPHA_LEN,
 } from '../carter-core.js';
 
@@ -67,7 +67,8 @@ test('carter256-basic-01 : n_pos (positions message, somme sur tous les blocs ME
 test('carter256-basic-01 : encode_carter() reproduit la grille entière bit à bit', async () => {
   const masterKey = hexToBytes(v0.inputs.master_key_hex);
   const grid = await encode_carter(v0.inputs.message, masterKey, ref256, {
-    _nonce: hexToBytes(v0.injected.nonce_hex),
+    _nonce1: hexToBytes(v0.injected.nonce1_hex),
+    _nonce2: hexToBytes(v0.injected.nonce2_hex),
     _y: BigInt(v0.injected.y),
     _leftover: v0.injected.leftover,
     _noiseSeed: hexToBytes(v0.injected.noise_seed_hex),
@@ -88,7 +89,8 @@ test('carter256-basic-01 : encode_carter() reproduit la grille entière bit à b
 test('carter256-basic-01 : decode_carter() retrouve le message (grille recalculée)', async () => {
   const masterKey = hexToBytes(v0.inputs.master_key_hex);
   const grid = await encode_carter(v0.inputs.message, masterKey, ref256, {
-    _nonce: hexToBytes(v0.injected.nonce_hex),
+    _nonce1: hexToBytes(v0.injected.nonce1_hex),
+    _nonce2: hexToBytes(v0.injected.nonce2_hex),
     _y: BigInt(v0.injected.y),
     _leftover: v0.injected.leftover,
     _noiseSeed: hexToBytes(v0.injected.noise_seed_hex),
@@ -143,7 +145,8 @@ async function encodeAndCheck(id) {
   const v = vectors.vectors.find(x => x.id === id);
   const masterKey = hexToBytes(v.inputs.master_key_hex);
   const grid = await encode_carter(v.inputs.message, masterKey, ref256, {
-    _nonce: hexToBytes(v.injected.nonce_hex),
+    _nonce1: hexToBytes(v.injected.nonce1_hex),
+    _nonce2: hexToBytes(v.injected.nonce2_hex),
     _y: BigInt(v.injected.y),
     _leftover: v.injected.leftover,
     _noiseSeed: hexToBytes(v.injected.noise_seed_hex),
@@ -212,7 +215,8 @@ test('carter256-neg-commitment-altere : rejet, octet 0 du commitment falsifié',
   const v = vectors.vectors.find(x => x.id === 'carter256-neg-commitment-altere');
   const masterKey = hexToBytes(v0.inputs.master_key_hex); // mêmes inputs que basic-01
   const { xchacha_key, grammar_key } = await carter256_split(masterKey);
-  const nonce = hexToBytes(v0.injected.nonce_hex);
+  const nonce1 = hexToBytes(v0.injected.nonce1_hex);
+  const nonce2 = hexToBytes(v0.injected.nonce2_hex);
 
   // Reproduit encode_carter() à la main jusqu'au payload, falsifie l'octet 0
   // (le commitment, PAS inner — voir la note du vecteur), puis ré-utilise
@@ -221,7 +225,7 @@ test('carter256-neg-commitment-altere : rejet, octet 0 du commitment falsifié',
   const gkCtr = await redraw_grammar_key(grammar_key, 'carter256', v0.derivation.redraw.ctr_used);
   const grammar = await carter256_grammar(gkCtr, ref256);
   const nPos = v0.derivation.n_pos;
-  const payload = await encrypt(v0.inputs.message, xchacha_key, nPos, nonce);
+  const payload = await encrypt_cascade(v0.inputs.message, xchacha_key, nPos, { _nonce1: nonce1, _nonce2: nonce2 });
   assert.equal(bytesToHex(payload.subarray(0, 1)), v.tamper.original_payload_byte0_hex, 'octet 0 du payload = commitment[0]');
   const tampered = Uint8Array.from(payload);
   tampered[0] = hexToBytes(v.tamper.tampered_payload_byte0_hex)[0];

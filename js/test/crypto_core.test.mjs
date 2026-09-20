@@ -16,7 +16,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
   LABELS, hkdf_sha256, hexToBytes, bytesToHex,
-  encrypt, payload_to_symbols, derive_masks, redraw_grammar_key,
+  encrypt_cascade, payload_to_symbols, derive_masks, redraw_grammar_key,
 } from '../carter-core.js';
 
 const vectors = JSON.parse(fs.readFileSync(new URL('../../vectors/carter_v3.json', import.meta.url), 'utf8'));
@@ -43,21 +43,34 @@ test('carter256-basic-01 : commit_key', async () => {
   assert.equal(bytesToHex(ck), v0.derivation.commit_key_hex);
 });
 
-test('carter256-basic-01 : encrypt() reproduit payload_hex exactement (nonce injecté)', async () => {
+test('carter256-basic-01 : k1/k2 (cascade) dérivées indépendamment de xchacha_key', async () => {
   const masterKey = hexToBytes(v0.inputs.master_key_hex);
   const { xchacha_key } = await carter256Split(masterKey);
-  const nonce = hexToBytes(v0.injected.nonce_hex);
+  const L = LABELS.cascade;
+  const k1 = await hkdf_sha256(xchacha_key, L.salt, L.inner_info, 32);
+  const k2 = await hkdf_sha256(xchacha_key, L.salt, L.outer_info, 32);
+  assert.equal(bytesToHex(k1), v0.derivation.k1_hex);
+  assert.equal(bytesToHex(k2), v0.derivation.k2_hex);
+  assert.notEqual(bytesToHex(k1), bytesToHex(k2));
+});
+
+test('carter256-basic-01 : encrypt_cascade() reproduit payload_hex exactement (nonces injectés)', async () => {
+  const masterKey = hexToBytes(v0.inputs.master_key_hex);
+  const { xchacha_key } = await carter256Split(masterKey);
+  const nonce1 = hexToBytes(v0.injected.nonce1_hex);
+  const nonce2 = hexToBytes(v0.injected.nonce2_hex);
   const L = v0.derivation.n_pos;
-  const payload = await encrypt(v0.inputs.message, xchacha_key, L, nonce);
+  const payload = await encrypt_cascade(v0.inputs.message, xchacha_key, L, { _nonce1: nonce1, _nonce2: nonce2 });
   assert.equal(bytesToHex(payload), v0.derivation.payload_hex);
 });
 
 test('carter256-basic-01 : payload_to_symbols() reproduit symbols exactement (y/leftover injectés)', async () => {
   const masterKey = hexToBytes(v0.inputs.master_key_hex);
   const { xchacha_key } = await carter256Split(masterKey);
-  const nonce = hexToBytes(v0.injected.nonce_hex);
+  const nonce1 = hexToBytes(v0.injected.nonce1_hex);
+  const nonce2 = hexToBytes(v0.injected.nonce2_hex);
   const L = v0.derivation.n_pos;
-  const payload = await encrypt(v0.inputs.message, xchacha_key, L, nonce);
+  const payload = await encrypt_cascade(v0.inputs.message, xchacha_key, L, { _nonce1: nonce1, _nonce2: nonce2 });
   const syms = payload_to_symbols(payload, L, {
     _y: BigInt(v0.injected.y),
     _leftover: v0.injected.leftover,

@@ -705,15 +705,24 @@ def decrypt_cascade(vals: List[int], steg_key: bytes, L: int) -> str:
     nonce2      = payload[33:45]
     outer       = payload[45:]
 
-    if aad != bytes([ALG_CASCADE_V1]):
-        raise ValueError(
-            f"Algorithme non supporté : {aad!r} — attendu ALG_CASCADE_V1="
-            f"{ALG_CASCADE_V1} (aucun repli sur un autre algorithme)")
-
+    # Commitment vérifié AVANT alg (docs/CASCADE_V1.md : « vérifier cm, lire
+    # alg... ») — pas seulement l'ordre décrit, une propriété : le
+    # commitment ne couvre PAS alg (voir encrypt_cascade), donc les deux
+    # contrôles sont indépendants, mais vérifier cm en premier fait qu'une
+    # clé incorrecte échoue TOUJOURS au commitment (la grammaire dérivée
+    # d'une mauvaise clé lit des symboles non alignés sur la grille — un
+    # octet alg qui vaudrait par coïncidence ALG_CASCADE_V1 n'y changerait
+    # rien), plutôt que de dépendre d'un octet non-authentifié par cm pour
+    # décider quelle erreur remonter en premier.
     ck = _commit_key(steg_key)
     commit_calc = _hmac_mod.new(ck, nonce2 + outer, hashlib.sha256).digest()
     if not _hmac_mod.compare_digest(commit_recv, commit_calc):
         raise ValueError("Key commitment invalide (cascade) — clé incorrecte ou données altérées")
+
+    if aad != bytes([ALG_CASCADE_V1]):
+        raise ValueError(
+            f"Algorithme non supporté : {aad!r} — attendu ALG_CASCADE_V1="
+            f"{ALG_CASCADE_V1} (aucun repli sur un autre algorithme)")
 
     k1, k2 = _cascade_keys(steg_key)
     try:
