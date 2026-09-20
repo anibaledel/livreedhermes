@@ -6,16 +6,19 @@ Chaque clé ci-dessous existe dans `UI.fr` et `UI.en` du fichier
 **Les 29 clés d'origine sont intégrées en FR/EN/ES/TH.** Ce qui reste :
 les cinq clés du sélecteur d'échelle (`echelleLabel`,
 `echelleProportionnelle`, `echelleOrdinale`, `echelleProportionnelleHelp`,
-`echelleOrdinaleHelp`) et `diapasonNote` — intégrées en FR/EN le
-2026-09-19 (deux échelles, k_pic mesuré), en repli sur le texte FR pour
-ES et TH en attendant leur traduction ci-dessous.
+`echelleOrdinaleHelp`), `diapasonNote`, et deux clés nouvelles au
+2026-09-21 (`genT1`, `genBandes`, les étiquettes des deux générations
+affichées côte à côte pour chaque gamme) — intégrées en FR/EN, en repli
+sur le texte FR pour ES et TH en attendant leur traduction ci-dessous.
 
-`diapasonNote` a changé de contenu depuis la première version de ce
-fichier : l'ancienne formule (do 256 Hz, f = 2,56 × k_pic²) est
-abandonnée, remplacée par deux échelles (proportionnelle f = 128 × k²,
-ordinale par rang) sur un k_pic désormais mesuré, pas supposé. Toute
-traduction ES/TH faite sur l'ancienne version du texte est à refaire, pas
-à corriger.
+`diapasonNote` et les deux `echelle*Help` ont changé de contenu une
+troisième fois, au 2026-09-21 : chaque gamme porte désormais deux
+mesures — T1 et bandes, mesurées séparément sur les SVG sources plutôt
+que sur un seul jeu de masques — et l'ancrage proportionnel est recalé
+sur la vraie étendue mesurée (128 Hz à 9216 Hz, seize valeurs distinctes
+au lieu de neuf). Toute traduction ES/TH faite sur une version antérieure
+du texte (do 256 Hz/f=2,56×k_pic², ou même la version do 128 Hz à neuf
+valeurs du 2026-09-19) est à refaire, pas à corriger.
 
 Terminologie alignée sur celle déjà en place dans `es/libro/` et
 `th/book/` : Inicio / Crear un motivo / Impresión ; หน้าแรก / สร้างลวดลาย /
@@ -39,19 +42,37 @@ position en début ou fin de chaîne.
 - EN : Ordinal
 
 ## echelleProportionnelleHelp
-- FR : f = 128 × k² — de do 128 Hz à do 2560 Hz, rapports exacts entre motifs.
-- EN : f = 128 × k² — from C 128 Hz to C 2560 Hz, exact ratios between patterns.
+- FR : f = 128 × k² — de do 128 Hz à ré9 9216 Hz, rapports exacts entre motifs.
+- EN : f = 128 × k² — from C 128 Hz to D 9216 Hz, exact ratios between patterns.
+- ES : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
+- TH : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
 
 ## echelleOrdinaleHelp
-- FR : les neuf valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.
-- EN : the nine values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.
+- FR : les seize valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.
+- EN : the sixteen values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.
+- ES : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
+- TH : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
 
-## diapasonNote (nouveau contenu, remplace la version 2026-09-18)
+## genT1
+(étiquette devant la valeur T1 de chaque gamme, dans la liste et le détail — nouveau au 2026-09-21)
+- FR : T1 :
+- EN : T1:
+- ES : à traduire
+- TH : à traduire
+
+## genBandes
+(étiquette devant la valeur bandes de chaque gamme — nouveau au 2026-09-21)
+- FR : bandes :
+- EN : bandes:
+- ES : à traduire
+- TH : à traduire
+
+## diapasonNote (nouveau contenu, remplace la version 2026-09-19)
 (texte de cadrage, placé près du sélecteur de gamme — même ton que `framing`)
-- FR : Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Les musiciens de son temps l'ont refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale des quinze gammes — sont elles-mêmes des entiers : dans l'échelle proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.
-- EN : The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. The musicians of his day rejected it; physicists kept it as a measurement standard. It is used here because the nine measured values — the squared spatial frequencies of the fifteen scales — are themselves whole numbers: on the proportional scale, each scale then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.
-- ES : à traduire (contenu nouveau, voir remarque en tête de fichier)
-- TH : à traduire (contenu nouveau, voir remarque en tête de fichier)
+- FR : Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Chaque gamme porte deux valeurs, mesurées séparément sur ses deux générations — T1 et bandes — dont les fréquences spatiales dominantes se chevauchent largement plutôt que de former deux registres distincts : les seize valeurs mesurées (les carrés de fréquence spatiale, réunies des deux générations) sont elles-mêmes des entiers, et dans l'échelle proportionnelle, chaque valeur tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.
+- EN : The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers: the sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, and on the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.
+- ES : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
+- TH : à traduire (contenu changé au 2026-09-21, voir remarque en tête de fichier)
 
 ---
 
@@ -266,8 +287,9 @@ technique, où l'usage thaï les admet.
 thaï. Une relecture par un locuteur natif serait utile, surtout sur
 `framing`.
 
-**`diapasonNote`** — contenu remplacé le 2026-09-19 (voir plus haut) ;
-ES/TH restent à traduire pour la nouvelle version. Pour mémoire, sur la
+**`diapasonNote`** — contenu remplacé le 2026-09-19, puis à nouveau le
+2026-09-21 (voir plus haut) ; ES/TH restent à traduire pour la version
+courante. Pour mémoire, sur la version d'origine (2026-09-18) et la
 version précédente : « diapason philosophique » n'a pas d'équivalent figé
 en ES/TH (rendu littéralement, *diapasón filosófico*,
 เสียงมาตรฐานเชิงปรัชญา) ; « Académie royale des sciences » se traduit en ES
