@@ -1,0 +1,27 @@
+name: Pas de données en dur dans tools/
+
+# Une table de mesures (fréquences, comptes, k_pic...) codée en dur dans un
+# script de tools/, parallèle à ce qui existe déjà dans data/, est le
+# mécanisme qui a produit les faux k_pic de generate_referent_bandes.py
+# (table ACOUSTIQUE, corrigée le 2026-09-21) et, avant elle, la divergence
+# entre referent_bandes_v1.json et referent_bicolore_v1.json -- une copie
+# oubliée qui l'emporte au prochain passage. Voir
+# tools/check_no_donnees_en_dur.py.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/check_no_donnees_en_dur.py
