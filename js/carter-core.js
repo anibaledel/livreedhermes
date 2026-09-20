@@ -148,6 +148,14 @@ export function xchacha20poly1305_decrypt(key, data, aad = new Uint8Array(0)) {
 // ::labels_used pour la vérification croisée) ──────────────────────────────
 export const LABELS = {
   commit: { salt: utf8('commit-v3'), info: utf8('key-commitment') },
+  cascade: {
+    // Cascade v1 (docs/CASCADE_V1.md), repris tel quel de crypto_core.py::
+    // LABELS['cascade'] — k1 (XChaCha20-Poly1305) et k2 (AES-256-GCM)
+    // dérivées indépendamment de stegKey, jamais l'une de l'autre.
+    salt: utf8('Carter-cascade-v1'),
+    inner_info: utf8('cascade-inner-v1'),
+    outer_info: utf8('cascade-outer-v1'),
+  },
   carter256: {
     split_salt: utf8('Carter-256-v3'), encrypt_info: utf8('encrypt'), grammar_info: utf8('grammar'),
     grammar_content_salt: utf8('Carter-256-grammar-v3'), grammar_content_info: utf8('block-roles-and-forms'),
@@ -211,6 +219,12 @@ export const ALPHABET = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-';
 export const ALPHA_LEN = ALPHABET.length; // 44
 const LAMBDA_S = 64n;
 const AEAD_OVERHEAD = 32 + 24 + 16; // commitment HMAC + nonce XChaCha20 + tag Poly1305
+
+// Cascade v1 (docs/CASCADE_V1.md, crypto_core.py::ALG_CASCADE_V1) : 1 et 2
+// sont des repères rétrospectifs pour la documentation (jamais sérialisés
+// avant la cascade) — voir le commentaire équivalent côté Python.
+export const ALG_CASCADE_V1 = 3;
+const AEAD_OVERHEAD_CASCADE = 32 + 1 + 12 + 24 + 16 + 16; // commit + alg + N2 + N1 + T1 + T2 = 101 (+29 vs AEAD_OVERHEAD)
 
 // ── Base-44 exacte, BigInt (Python : entiers arbitraires — un Number JS
 // perdrait la précision dès que ALPHA_LEN**m dépasse 2**53) ────────────────
@@ -300,6 +314,15 @@ export function symbols_needed(L) { return L; }
 export function max_payload_for(L) { return cleartextCapacity(L).payloadBytes; }
 export function max_message_for(L) { return Math.max(0, cleartextCapacity(L).cleartextLen - 4); }
 
+function cleartextCapacityCascade(L) {
+  const payloadBytes = capacityK(L) >> 3;
+  const cleartextLen = payloadBytes - AEAD_OVERHEAD_CASCADE;
+  if (cleartextLen < 4) return { payloadBytes: 0, cleartextLen: 0 };
+  return { payloadBytes, cleartextLen };
+}
+export function max_payload_for_cascade(L) { return cleartextCapacityCascade(L).payloadBytes; }
+export function max_message_for_cascade(L) { return Math.max(0, cleartextCapacityCascade(L).cleartextLen - 4); }
+
 /**
  * payload_to_symbols(payload, L, {_y, _leftover}) — Définition 3.6.
  * m symboles portent le payload ; s'il reste une marge (m < L), un symbole
@@ -383,6 +406,109 @@ export async function decrypt(vals, stegKey, L) {
     return new TextDecoder('utf-8', { fatal: true }).decode(msgB);
   } catch (e) {
     throw new Error("Texte déchiffré n'est pas de l'UTF-8 valide — données corrompues malgré une authentification AEAD valide");
+  }
+}
+
+// ── Cascade v1 — AES-256-GCM(XChaCha20-Poly1305(plaintext)) ────────────────
+// docs/CASCADE_V1.md, crypto_core.py::encrypt_cascade/decrypt_cascade. La
+// couche extérieure AES-GCM est WebCrypto NATIF (crypto.subtle) — pas de
+// réimplémentation JS, contrairement à XChaCha20-Poly1305 (chacha20.js/
+// xchacha20poly1305.js), qui n'a pas d'équivalent natif dans l'API Web
+// Cryptography. C'est exactement ce que la cascade est censée protéger :
+// si le XChaCha20 écrit à la main a un bug, AES-GCM natif (audité, temps
+// constant) tient quand même.
+
+async function cascadeKeys(stegKey) {
+  const L = LABELS.cascade;
+  const k1 = await hkdf_sha256(stegKey, L.salt, L.inner_info, 32);
+  const k2 = await hkdf_sha256(stegKey, L.salt, L.outer_info, 32);
+  return [k1, k2];
+}
+
+async function aesGcmEncrypt(key, nonce, plaintext, aad) {
+  const k = await crypto.subtle.importKey('raw', key, { name: 'AES-GCM' }, false, ['encrypt']);
+  const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv: nonce, additionalData: aad, tagLength: 128 }, k, plaintext);
+  return new Uint8Array(ct); // ciphertext ‖ tag(16), même convention que AESGCM.encrypt() côté Python
+}
+
+async function aesGcmDecrypt(key, nonce, ctAndTag, aad) {
+  const k = await crypto.subtle.importKey('raw', key, { name: 'AES-GCM' }, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: nonce, additionalData: aad, tagLength: 128 }, k, ctAndTag);
+  return new Uint8Array(pt);
+}
+
+/**
+ * encrypt_cascade(message, stegKey, L) -> payload = cm(32) ‖ alg(1) ‖ N2(12)
+ * ‖ AES-GCM(N1(24)‖C‖T1(16)) ‖ T2(16). alg = ALG_CASCADE_V1, en AAD des
+ * deux couches. Voir crypto_core.py::encrypt_cascade pour le détail.
+ */
+export async function encrypt_cascade(message, stegKey, L, { _nonce1 = null, _nonce2 = null } = {}) {
+  const msgB = messageToBytes(message);
+  const { payloadBytes, cleartextLen } = cleartextCapacityCascade(L);
+  if (cleartextLen === 0) throw new Error(`Grammaire trop petite (${L} positions) pour porter un message en cascade, même vide.`);
+  const maxMsg = cleartextLen - 4;
+  if (msgB.length > maxMsg) throw new Error(`Message trop long pour la grammaire dérivée (cascade) : ${msgB.length} octets > ${maxMsg} disponibles (${L} positions).`);
+  const cleartext = concatBytes(u32be(msgB.length), msgB, new Uint8Array(cleartextLen - 4 - msgB.length));
+
+  const [k1, k2] = await cascadeKeys(stegKey);
+  const aad = new Uint8Array([ALG_CASCADE_V1]);
+  const inner = await xchacha20poly1305_encrypt(k1, cleartext, aad, _nonce1);   // N1(24) ‖ C ‖ T1(16)
+  const nonce2 = _nonce2 ?? crypto.getRandomValues(new Uint8Array(12));
+  const outer = await aesGcmEncrypt(k2, nonce2, inner, aad);                     // AES-GCM(inner) ‖ T2(16)
+
+  const ck = await commitKey(stegKey);
+  const commitVal = await hmac_sha256(ck, concatBytes(nonce2, outer));
+  const payload = concatBytes(commitVal, aad, nonce2, outer);
+  if (payload.length !== payloadBytes) throw new Error('invariant PayloadToSymbols (cascade) rompu');
+  return payload;
+}
+
+/** decrypt_cascade(vals, stegKey, L) -> message. Voir crypto_core.py::decrypt_cascade. */
+export async function decrypt_cascade(vals, stegKey, L) {
+  const { payloadBytes, cleartextLen } = cleartextCapacityCascade(L);
+  if (cleartextLen === 0) throw new Error(`Grammaire trop petite (${L} positions) pour un message en cascade`);
+  const m = smallestM(capacityK(L) + Number(LAMBDA_S));
+  if (vals.length < m) throw new Error(`Positions insuffisantes : ${vals.length} < ${m}`);
+  const payload = symsToBytes(vals.slice(0, m), payloadBytes);
+
+  const commitRecv = payload.subarray(0, 32);
+  const aad = payload.subarray(32, 33);
+  const nonce2 = payload.subarray(33, 45);
+  const outer = payload.subarray(45);
+
+  // Commitment vérifié AVANT alg (docs/CASCADE_V1.md, crypto_core.py::
+  // decrypt_cascade) : le commitment ne couvre pas alg, donc une mauvaise
+  // clé échoue toujours ici plutôt que de dépendre d'un octet non
+  // authentifié par cm pour décider quelle erreur remonter en premier.
+  const ck = await commitKey(stegKey);
+  const commitCalc = await hmac_sha256(ck, concatBytes(nonce2, outer));
+  if (!constantTimeEqual(commitRecv, commitCalc)) throw new Error('Key commitment invalide (cascade) — clé incorrecte ou données altérées');
+
+  if (!(aad.length === 1 && aad[0] === ALG_CASCADE_V1)) {
+    throw new Error(`Algorithme non supporté : ${bytesToHex(aad)} — attendu ALG_CASCADE_V1=${ALG_CASCADE_V1} (aucun repli sur un autre algorithme)`);
+  }
+
+  const [k1, k2] = await cascadeKeys(stegKey);
+  let inner;
+  try {
+    inner = await aesGcmDecrypt(k2, nonce2, outer, aad);
+  } catch (e) {
+    throw new Error('Tag AES-GCM invalide (couche extérieure) — clé incorrecte ou données altérées');
+  }
+  let cleartext;
+  try {
+    cleartext = xchacha20poly1305_decrypt(k1, inner, aad);
+  } catch (e) {
+    throw new Error('Tag Poly1305 invalide (couche intérieure) — clé incorrecte ou données altérées');
+  }
+
+  const msgLen = new DataView(cleartext.buffer, cleartext.byteOffset, cleartext.byteLength).getUint32(0, false);
+  if (msgLen > cleartext.length - 4) throw new Error('Longueur de message invalide (cascade) — clé incorrecte ou données altérées');
+  const msgB = cleartext.subarray(4, 4 + msgLen);
+  try {
+    return new TextDecoder('utf-8', { fatal: true }).decode(msgB);
+  } catch (e) {
+    throw new Error("Texte déchiffré n'est pas de l'UTF-8 valide (cascade) — données corrompues malgré une authentification AEAD valide");
   }
 }
 
@@ -554,7 +680,8 @@ export function carter256_positions(br, bc, g, ref256, sweepOfColor) {
 export async function carter256_find_grammar(grammarKey, ref256) {
   return findGrammarWithCPub(grammarKey, 'carter256',
     gk => carter256_grammar(gk, ref256),
-    g => carter256MessagePositions(g, ref256));
+    g => carter256MessagePositions(g, ref256),
+    max_message_for_cascade);
 }
 
 function carter256MessagePositions(grammar, ref256) {
@@ -568,17 +695,23 @@ function carter256MessagePositions(grammar, ref256) {
 }
 
 /**
- * find_grammar_with_c_pub(grammarKey, variant, grammarFn, messagePositionsFn)
+ * find_grammar_with_c_pub(grammarKey, variant, grammarFn, messagePositionsFn, capacityFn)
  * -> {gkCtr, grammar, nPos}. Recherche déterministe : essaie ctr=0..MAX_REDRAWS-1
- * jusqu'à ce que max_message_for(nPos) >= C_PUB[variant]. Jamais de grille
+ * jusqu'à ce que capacityFn(nPos) >= C_PUB[variant]. Jamais de grille
  * construite, même partielle, en cas d'échec.
+ *
+ * capacityFn (câblage cascade, 2026-09-21, voir carter.py::_find_grammar_with_c_pub) :
+ * max_message_for par défaut (format simple) ; Carter-256 passe
+ * max_message_for_cascade — la cascade consomme 29 octets de plus par
+ * grammaire (docs/CASCADE_V1.md), donc atteindre le même C_PUB exige une
+ * grammaire un peu plus grande, pas un C_PUB plus petit.
  */
-async function findGrammarWithCPub(grammarKey, variant, grammarFn, messagePositionsFn) {
+async function findGrammarWithCPub(grammarKey, variant, grammarFn, messagePositionsFn, capacityFn = max_message_for) {
   for (let ctr = 0; ctr < MAX_REDRAWS; ctr++) {
     const gkCtr = await redraw_grammar_key(grammarKey, variant, ctr);
     const grammar = await grammarFn(gkCtr);
     const nPos = messagePositionsFn(grammar);
-    if (max_message_for(nPos) >= C_PUB[variant]) return { gkCtr, grammar, nPos };
+    if (capacityFn(nPos) >= C_PUB[variant]) return { gkCtr, grammar, nPos };
   }
   throw new Error(
     `Échec de dérivation de grammaire après ${MAX_REDRAWS} tentatives : régénérer la clé maître ` +
@@ -587,11 +720,14 @@ async function findGrammarWithCPub(grammarKey, variant, grammarFn, messagePositi
 
 /**
  * encode_carter(message, masterKey, ref256, opts) -> grille 90×90.
- * opts : {_nonce, _y, _leftover, _noiseSeed} — injection pour le mode
- * vecteurs, None/absent préserve le comportement aléatoire normal.
+ * opts : {_nonce1, _nonce2, _y, _leftover, _noiseSeed} — injection pour le
+ * mode vecteurs, None/absent préserve le comportement aléatoire normal.
+ * Câblage cascade (2026-09-21) : le payload message est désormais
+ * encrypt_cascade (AES-256-GCM(XChaCha20-Poly1305)), pas encrypt() seul —
+ * _nonce1 (24o)/_nonce2 (12o) remplacent l'unique _nonce d'avant le câblage.
  */
 export async function encode_carter(message, masterKey, ref256, opts = {}) {
-  const { _nonce = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
+  const { _nonce1 = null, _nonce2 = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
   const { xchacha_key, grammar_key } = await carter256_split(masterKey);
   const msgBytes = utf8(message).length;
   if (msgBytes > C_PUB.carter256) {
@@ -600,8 +736,9 @@ export async function encode_carter(message, masterKey, ref256, opts = {}) {
   }
   const { gkCtr, grammar, nPos } = await findGrammarWithCPub(grammar_key, 'carter256',
     gk => carter256_grammar(gk, ref256),
-    g => carter256MessagePositions(g, ref256));
-  const payload = await encrypt(message, xchacha_key, nPos, _nonce);
+    g => carter256MessagePositions(g, ref256),
+    max_message_for_cascade);
+  const payload = await encrypt_cascade(message, xchacha_key, nPos, { _nonce1, _nonce2 });
   const symbols = payload_to_symbols(payload, nPos, { _y, _leftover });
   const masks = await derive_masks(gkCtr, symbols.length, LABELS.mask_seed.info_carter256);
   const grid = random_grid(CARTER_GRID, CARTER_GRID, _noiseSeed);
@@ -625,7 +762,8 @@ export async function decode_carter(grid, masterKey, ref256) {
   const { xchacha_key, grammar_key } = await carter256_split(masterKey);
   const { gkCtr, grammar, nPos } = await findGrammarWithCPub(grammar_key, 'carter256',
     gk => carter256_grammar(gk, ref256),
-    g => carter256MessagePositions(g, ref256));
+    g => carter256MessagePositions(g, ref256),
+    max_message_for_cascade);
   const masks = await derive_masks(gkCtr, nPos, LABELS.mask_seed.info_carter256);
   const sweepOfColor = grammar.sweep_of_color;
   const vals = [];
@@ -639,7 +777,7 @@ export async function decode_carter(grid, masterKey, ref256) {
       vals.push(((grid[gr][gc] - masks[vals.length]) % ALPHA_LEN + ALPHA_LEN) % ALPHA_LEN);
     }
   }
-  return decrypt(vals, xchacha_key, vals.length);
+  return decrypt_cascade(vals, xchacha_key, vals.length);
 }
 
 // ═══════════════════════════════════════════════════════════════════════

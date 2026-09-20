@@ -34,6 +34,7 @@ from crypto_core import (
     ALPHA_LEN, LABELS, C_PUB, MAX_REDRAWS, _redraw_grammar_key,
     _encrypt, _decrypt, payload_to_symbols,
     max_payload_for, max_message_for, random_grid, _derive_masks,
+    encrypt_cascade, decrypt_cascade, max_payload_for_cascade, max_message_for_cascade,
 )
 from stegano_classic import apply_orientation, load_referent_360_v3
 from sweep import derive_sweep_index, crypto_reading_order
@@ -47,23 +48,33 @@ CARTER_N     = CARTER_SIDE ** 2               # 225 blocs
 _PURE, _STRUCTURED, _MESSAGE = 0, 1, 2
 
 def _find_grammar_with_c_pub(grammar_key: bytes, variant: str,
-                              grammar_fn, message_positions_fn):
+                              grammar_fn, message_positions_fn,
+                              capacity_fn=max_message_for):
     """
     Recherche déterministe (tâche 4, format v3) : essaie grammar_key_ctr pour
     ctr=0..MAX_REDRAWS-1 (voir crypto_core._redraw_grammar_key pour l'ordre
     exact de la dérivation complète) jusqu'à trouver une grammaire dont la
-    capacité (max_message_for) est >= C_PUB[variant]. Retourne (grammar_key_ctr,
+    capacité (capacity_fn) est >= C_PUB[variant]. Retourne (grammar_key_ctr,
     grammar, n_pos) du premier succès — grammar_key_ctr est aussi la clé de
     dérivation des masques de position (voir encode_carter() ci-dessous) :
     un redraw retire seed/grammaire/masques ENSEMBLE, jamais l'un sans les
     autres (même invariant que Random/18/Hybrid, tâche 4). Lève ValueError
     après MAX_REDRAWS échecs — jamais de grille construite, même partielle.
+
+    capacity_fn (câblage cascade, 2026-09-21) : max_message_for par défaut
+    (format simple, variantes 360/mix/random/18/hybrid, inchangées) ;
+    Carter-256 passe max_message_for_cascade — la cascade consomme 29
+    octets de plus par grammaire (voir docs/CASCADE_V1.md), donc atteindre
+    le même C_PUB exige une grammaire un peu plus grande, pas un C_PUB plus
+    petit. Un paramètre, pas une réimplémentation : le reste de la
+    recherche (l'ordre des tentatives, l'invariant seed/grammaire/masques)
+    est strictement identique.
     """
     for ctr in range(MAX_REDRAWS):
         gk_ctr = _redraw_grammar_key(grammar_key, variant, ctr)
         grammar = grammar_fn(gk_ctr)
         n_pos = message_positions_fn(grammar)
-        if max_message_for(n_pos) >= C_PUB[variant]:
+        if capacity_fn(n_pos) >= C_PUB[variant]:
             return gk_ctr, grammar, n_pos
     raise ValueError(
         f"Échec de dérivation de grammaire après {MAX_REDRAWS} tentatives : "
@@ -153,7 +164,7 @@ def _carter_message_positions(grammar: Dict, ref256: Dict) -> int:
 
 def encode_carter(message: str, master_key: bytes,
                   ref256: Dict,
-                  _nonce: bytes = None, _y: int = None,
+                  _nonce1: bytes = None, _nonce2: bytes = None, _y: int = None,
                   _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter 90×90.
@@ -162,17 +173,20 @@ def encode_carter(message: str, master_key: bytes,
       - La grammaire (rôles des 225 blocs : pur / structuré / message)
       - La forme géométrique de chaque bloc non-pur
 
-    Blocs 'message'    → positions = nibbles du message chiffré (ChaCha20-HKDF)
+    Blocs 'message'    → positions = nibbles du message chiffré (cascade v1,
+                          AES-256-GCM(XChaCha20-Poly1305) — docs/CASCADE_V1.md,
+                          câblage 2026-09-21 : remplace le XChaCha20-Poly1305
+                          seul d'origine)
     Blocs 'structuré'  → positions = valeurs aléatoires (indiscernables)
     Blocs 'pur'        → tout aléatoire, aucune structure appliquée
 
     grid_to_csv() pour sérialiser, csv_to_grid() pour désérialiser.
 
-    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
-    interne pour le mode vecteurs — transmis tels quels à _encrypt/
-    payload_to_symbols/random_grid, None (défaut) préserve exactement le
-    comportement actuel. Aucun appelant public ne les renseigne ; voir
-    stegano/vectors_internal.py.
+    _nonce1/_nonce2/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) :
+    injection interne pour le mode vecteurs — transmis tels quels à
+    encrypt_cascade/payload_to_symbols/random_grid, None (défaut) préserve
+    exactement le comportement actuel. Aucun appelant public ne les
+    renseigne ; voir stegano/vectors_internal.py.
     """
     xchacha_key, grammar_key = _carter_split(master_key)
     # C_PUB (tâche 4) : seuil public, indépendant de la clé — un message
@@ -189,8 +203,9 @@ def encode_carter(message: str, master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
-        lambda g: _carter_message_positions(g, ref256))
-    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
+        lambda g: _carter_message_positions(g, ref256),
+        capacity_fn=max_message_for_cascade)
+    payload = encrypt_cascade(message, xchacha_key, n_pos, _nonce1=_nonce1, _nonce2=_nonce2)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
@@ -225,7 +240,8 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
-        lambda g: _carter_message_positions(g, ref256))
+        lambda g: _carter_message_positions(g, ref256),
+        capacity_fn=max_message_for_cascade)
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter256'])
     sweep_of_color = grammar['sweep_of_color']
     vals, ni = [], 0
@@ -234,7 +250,7 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
         for gr, gc in _carter_positions(br, bc, g, ref256, sweep_of_color):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return decrypt_cascade(vals, xchacha_key, len(vals))
 
 def carter_capacity(master_key: bytes, ref256: Dict) -> Dict:
     """Retourne les statistiques de capacité de la grammaire dérivée
@@ -244,7 +260,8 @@ def carter_capacity(master_key: bytes, ref256: Dict) -> Dict:
     _, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
-        lambda g: _carter_message_positions(g, ref256))
+        lambda g: _carter_message_positions(g, ref256),
+        capacity_fn=max_message_for_cascade)
     blocks = grammar['blocks']
     n_msg = sum(1 for g in blocks if g['role'] == _MESSAGE)
     n_str = sum(1 for g in blocks if g['role'] == _STRUCTURED)
@@ -254,9 +271,9 @@ def carter_capacity(master_key: bytes, ref256: Dict) -> Dict:
         'blocs_structure':  n_str,
         'blocs_purs':       n_pur,
         'nibbles':          n_pos,
-        'bytes_bruts':      max_payload_for(n_pos),
-        'bytes_utiles':     max_message_for(n_pos),
-        'chars_max':        max_message_for(n_pos),
+        'bytes_bruts':      max_payload_for_cascade(n_pos),
+        'bytes_utiles':     max_message_for_cascade(n_pos),
+        'chars_max':        max_message_for_cascade(n_pos),
         'ambiguite':        f"1 message parmi {n_msg + n_str} blocs structurés",
     }
 

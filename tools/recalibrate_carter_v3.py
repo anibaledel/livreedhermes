@@ -21,8 +21,16 @@ restauré après chaque mesure). Le nombre de tentatives réellement
 effectuées est compté via vectors_internal._count_redraw_attempts (déjà
 utilisée par le mode vecteurs, aucune duplication).
 
+Câblage cascade (2026-09-21) : chaque variante porte désormais son propre
+capacity_fn (VARIANTS ci-dessous) — CC.max_message_for par défaut, ou
+CC.max_message_for_cascade pour Carter-256, seule variante migrée vers la
+cascade à cette date (voir carter.py::encode_carter, docs/CASCADE_V1.md).
+--variants restreint la campagne à une liste de variantes (ex.
+--variants carter256) : recalibrer une seule variante n'écrit et ne
+mesure QUE celle-là, les autres restent inchangées.
+
 Usage :
-    python tools/recalibrate_carter_v3.py [--n-keys 10000] [--apply]
+    python tools/recalibrate_carter_v3.py [--n-keys 10000] [--apply] [--variants carter256]
 
 Sans --apply : affiche seulement les valeurs recalibrées (dry-run).
 Avec --apply : écrit les nouvelles valeurs dans crypto_core.py C_PUB.
@@ -46,10 +54,18 @@ REF256_V3 = SC.load_referent_256_v3()
 REF360_V3 = SC.load_referent_360_v3()
 
 
-def _measure(module, variant_key, search_fn_for_key, candidate, n_keys):
+def _measure(module, variant_key, search_fn_for_key, candidate, n_keys,
+             capacity_fn=None):
     """search_fn_for_key(master_key) -> callable() qui appelle la fonction
     de recherche de PRODUCTION et renvoie un tuple dont le DERNIER élément
-    est n_pos. Retourne (redraw_pct, fail_pct, mean_cap)."""
+    est n_pos. Retourne (redraw_pct, fail_pct, mean_cap).
+
+    capacity_fn (câblage cascade, 2026-09-21) : CC.max_message_for par
+    défaut (None) -- Carter-256 passe CC.max_message_for_cascade, pour que
+    la mesure reflète la capacité RÉELLEMENT utilisée par
+    carter._find_grammar_with_c_pub (son propre capacity_fn, voir
+    carter.py) plutôt que celle du format simple."""
+    capacity_fn = capacity_fn or CC.max_message_for
     original = CC.C_PUB[variant_key]
     CC.C_PUB[variant_key] = candidate
     try:
@@ -61,7 +77,7 @@ def _measure(module, variant_key, search_fn_for_key, candidate, n_keys):
             try:
                 result, attempts = _count_redraw_attempts(module, search_fn_for_key(key))
                 n_pos = result[-1]
-                caps.append(CC.max_message_for(n_pos))
+                caps.append(capacity_fn(n_pos))
                 if attempts > 1:
                     redraws += 1
             except ValueError:
@@ -72,21 +88,23 @@ def _measure(module, variant_key, search_fn_for_key, candidate, n_keys):
         CC.C_PUB[variant_key] = original
 
 
-def _calibrate(module, variant_key, search_fn_for_key, n_keys, target_redraw_pct=1.0):
+def _calibrate(module, variant_key, search_fn_for_key, n_keys, target_redraw_pct=1.0,
+                capacity_fn=None):
     """Recherche par dichotomie le plus grand candidat tel que
     redraw < target_redraw_pct% et fail == 0%, en bornant la recherche par
     la distribution brute (ctr=0 implicite, via une mesure au candidat
     p1 estimé) -- même méthodologie que tools/calibrate_referent.py."""
     # Bornage initial : mesure à un candidat bas (garanti sans redraw) pour
     # obtenir mean_cap, puis élargit la fenêtre de recherche autour.
-    _, _, mean_cap = _measure(module, variant_key, search_fn_for_key, 1, min(n_keys, 500))
+    _, _, mean_cap = _measure(module, variant_key, search_fn_for_key, 1, min(n_keys, 500),
+                               capacity_fn=capacity_fn)
     hi = int(mean_cap * 1.5) if mean_cap else 2000
     lo, best = 1, None
     print(f"  [{variant_key}] fenetre de recherche initiale : [1, {hi}]")
     while lo <= hi:
         mid = (lo + hi) // 2
         redraw_pct, fail_pct, mean_cap = _measure(
-            module, variant_key, search_fn_for_key, mid, n_keys)
+            module, variant_key, search_fn_for_key, mid, n_keys, capacity_fn=capacity_fn)
         print(f"  [{variant_key}] c_pub={mid} -> redraw={redraw_pct:.2f}% "
               f"fail={fail_pct:.3f}% mean_cap={mean_cap:.1f}")
         if redraw_pct < target_redraw_pct and fail_pct == 0.0:
@@ -133,13 +151,19 @@ def _sf_carterhybrid(master_key):
     return lambda: CR._find_hybrid_grammar_with_c_pub(gk, CR.GRID_SIZE)
 
 
+# capacity_fn : None = CC.max_message_for (format simple). Carter-256 est
+# câblé sur la cascade (2026-09-21, voir carter.py::encode_carter) -- sa
+# recherche de grammaire utilise CC.max_message_for_cascade en production,
+# donc sa recalibration doit mesurer la MÊME fonction, pas le format
+# simple. Les cinq autres variantes n'ont pas encore migré : capacity_fn
+# reste None (CC.max_message_for) pour elles, jusqu'à leur propre câblage.
 VARIANTS = [
-    ('carter256',       CT, _sf_carter256),
-    ('carter360',       CT, _sf_carter360),
-    ('cartermix',       CT, _sf_cartermix),
-    ('carterrandom90',  CR, _sf_carterrandom90),
-    ('carterrandom360', CR, _sf_carterrandom360),
-    ('carterhybrid',    CR, _sf_carterhybrid),
+    ('carter256',       CT, _sf_carter256, CC.max_message_for_cascade),
+    ('carter360',       CT, _sf_carter360, None),
+    ('cartermix',       CT, _sf_cartermix, None),
+    ('carterrandom90',  CR, _sf_carterrandom90, None),
+    ('carterrandom360', CR, _sf_carterrandom360, None),
+    ('carterhybrid',    CR, _sf_carterhybrid, None),
 ]
 
 
@@ -148,12 +172,24 @@ def main():
     p.add_argument('--n-keys', type=int, default=10000)
     p.add_argument('--apply', action='store_true',
                     help='ecrit les nouvelles valeurs dans crypto_core.py')
+    p.add_argument('--variants', type=str, default=None,
+                    help='liste separee par des virgules (ex. carter256) -- '
+                         'toutes par defaut. Recalibrer une seule variante '
+                         'ne touche pas C_PUB des autres.')
     a = p.parse_args()
 
+    selected = VARIANTS
+    if a.variants:
+        wanted = set(a.variants.split(','))
+        selected = [v for v in VARIANTS if v[0] in wanted]
+        unknown = wanted - {v[0] for v in VARIANTS}
+        if unknown:
+            raise SystemExit(f"variante(s) inconnue(s) : {sorted(unknown)}")
+
     results = {}
-    for variant_key, module, sf in VARIANTS:
+    for variant_key, module, sf, capacity_fn in selected:
         print(f"\n=== {variant_key} (actuel C_PUB={CC.C_PUB[variant_key]}) ===")
-        new_c_pub = _calibrate(module, variant_key, sf, a.n_keys)
+        new_c_pub = _calibrate(module, variant_key, sf, a.n_keys, capacity_fn=capacity_fn)
         results[variant_key] = new_c_pub
         print(f"  -> C_PUB retenu : {new_c_pub} (etait {CC.C_PUB[variant_key]})")
 
