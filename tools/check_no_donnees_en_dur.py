@@ -61,9 +61,9 @@ ALLOWLIST = {
         "géométrie du cube (origine + deux vecteurs d'arête par face, coordonnées "
         "12x12x12) — une définition, pas une mesure ; rien dans data/ ne la porte. "
         "Dupliquée à l'identique dans generate_table_pavage.py et spectre_et_cube.py : "
-        "les trois copies devraient converger vers une source unique, mais c'est une "
-        "duplication de CODE entre scripts, pas de données entre code et data/ — hors "
-        "du périmètre de ce garde-fou."),
+        "une duplication de CODE entre scripts, pas de données entre code et data/ — "
+        "hors du périmètre de CE garde-fou. La dérive entre les trois copies est "
+        "couverte séparément par tools/check_faces_geometrie_sync.py."),
     ('generate_table_pavage.py', 'FACES'): "même géométrie que ('cube_edges.py', 'FACES') ci-dessus, voir cette entrée.",
     ('spectre_et_cube.py', 'FACES'): "même géométrie que ('cube_edges.py', 'FACES') ci-dessus, voir cette entrée.",
     ('generate_referent_360.py', 'LAYER_OF'): (

@@ -70,9 +70,25 @@ LAYER_OF = [
     [4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],
     [1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1],
 ]
-XS = [110.58,141.74,172.89,204.05,235.21,266.36,297.52,328.68,359.83,390.99,422.15,453.31]
-YS = [234.1,265.25,296.41,327.57,358.72,389.88,421.04,452.19,483.35,514.51,545.66,576.82]
+# Grille de calage pixel du SVG source (0 KRE-360/...) : origine (coin de la
+# cellule (0,0)) et pas de cellule, mesurés une fois par l'auteur sur le
+# matériel brut. CORRIGÉ le 2026-09-21 : XS/YS étaient transcrits comme 24
+# coordonnées indépendantes plutôt que dérivées de cette origine + ce pas —
+# même famille que le bug du centroïde de tools/measure_k_pic.py, une
+# mesure figée dans le code plutôt qu'exprimée pour ce qu'elle est. Vérifié :
+# les 24 valeurs d'origine s'écartent de la grille uniforme ainsi dérivée
+# de 0,04 unité au plus (bruit d'arrondi à 2 décimales de la transcription
+# manuelle) — bien en deçà de la tolérance de correspondance déjà utilisée
+# plus bas (0,5). Régénéré data/referent_360_v3.json depuis
+# data/referent_360_src/ (360 SVG committés) avec cette grille dérivée :
+# les 360 calques (famille/teinte/niveau/positions violet/magenta/orange)
+# sont identiques à ce que produisaient les 24 valeurs d'origine — seul
+# source_sha256 diffère sur les 360, à cause d'un écart de fin de ligne
+# (CRLF/LF) au checkout, préexistant et sans rapport avec ce changement.
+_ORIGIN_X, _ORIGIN_Y = 110.58, 234.1
 CELL_W = 31.16
+XS = [round(_ORIGIN_X + i * CELL_W, 2) for i in range(12)]
+YS = [round(_ORIGIN_Y + i * CELL_W, 2) for i in range(12)]
 
 REF_HUES = {
     'V': colorsys.rgb_to_hsv(0x66/255, 0x2d/255, 0x91/255)[0],   # #662d91 violet
