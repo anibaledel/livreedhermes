@@ -31,7 +31,7 @@ import hashlib
 import hmac as _hmac_mod
 import os, secrets, struct
 from typing import List
-from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305, AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF as _HKDF
 from cryptography.hazmat.primitives import hashes as _hashes
 
@@ -108,6 +108,18 @@ def _xchacha20_dec(key: bytes, data: bytes, aad: bytes = b'') -> bytes:
 ALPHABET  = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;:!?-'
 ALPHA_LEN = len(ALPHABET)   # 44
 _AEAD_OVERHEAD = 32 + 24 + 16   # commitment HMAC + nonce XChaCha20 + tag Poly1305
+
+# Octet de version d'algorithme (docs/CASCADE_V1.md) : n'existait pas comme
+# octet de format avant la cascade — 1 et 2 sont des repères RÉTROSPECTIFS
+# pour la documentation (1 = construction à sous-clé HKDF, LH-5, jamais
+# interopérable ; 2 = XChaCha20-Poly1305 natif, _xchacha20_enc/_xchacha20_dec
+# ci-dessus, le format en production avant la cascade), ni l'un ni l'autre
+# n'a jamais été sérialisé explicitement dans le payload. ALG_CASCADE_V1 est
+# le premier à l'être : inclus dans les données authentifiées (AAD) des deux
+# couches de encrypt_cascade/decrypt_cascade, pour qu'il ne puisse pas être
+# modifié sans casser l'authentification (pas de négociation, pas de repli).
+ALG_CASCADE_V1 = 3
+_AEAD_OVERHEAD_CASCADE = 32 + 1 + 12 + 24 + 16 + 16  # commit + alg + N2 + N1 + T1 + T2 = 101 (+29 vs _AEAD_OVERHEAD)
 
 # ── Encodage base-44 — PayloadToSymbols (Définition 3.6, format v3) ──────────
 # CORRECTIF AUDIT (historique) : l'encodage en nibbles plaçait les octets du
@@ -233,6 +245,25 @@ def max_message_for(L: int) -> int:
     _, cleartext_len = _cleartext_capacity(L)
     return max(0, cleartext_len - 4)
 
+def _cleartext_capacity_cascade(L: int):
+    """Comme _cleartext_capacity, pour le format cascade (_AEAD_OVERHEAD_CASCADE,
+    +29 octets : alg + N2 + T2 par rapport au format simple)."""
+    payload_bytes = _capacity_k(L) // 8
+    cleartext_len = payload_bytes - _AEAD_OVERHEAD_CASCADE
+    if cleartext_len < 4:
+        return 0, 0
+    return payload_bytes, cleartext_len
+
+def max_payload_for_cascade(L: int) -> int:
+    """Comme max_payload_for, pour le format cascade."""
+    payload_bytes, _ = _cleartext_capacity_cascade(L)
+    return payload_bytes
+
+def max_message_for_cascade(L: int) -> int:
+    """Comme max_message_for, pour le format cascade."""
+    _, cleartext_len = _cleartext_capacity_cascade(L)
+    return max(0, cleartext_len - 4)
+
 # ── Labels HKDF centralisés (format v3, tâche 3) ──────────────────────────────
 # Tous les labels HKDF (salt, info) de la couche Carter et du key commitment,
 # centralisés ici pour que LH-5 (spécification d'interopérabilité) les
@@ -257,6 +288,16 @@ LABELS = {
     'commit': {
         'salt': b'commit-v3',
         'info': b'key-commitment',
+    },
+    'cascade': {
+        # Cascade v1 (docs/CASCADE_V1.md) : k1 (XChaCha20-Poly1305, couche
+        # intérieure) et k2 (AES-256-GCM, couche extérieure) dérivées
+        # INDÉPENDAMMENT de steg_key par HKDF, jamais l'une de l'autre — même
+        # salt, `info` distinct pour chaque couche (séparation de domaine
+        # HKDF standard). Voir _cascade_keys().
+        'salt':       b'Carter-cascade-v1',
+        'inner_info': b'cascade-inner-v1',
+        'outer_info': b'cascade-outer-v1',
     },
     'carter256': {
         'split_salt':           b'Carter-256-v3',
@@ -578,6 +619,121 @@ def _decrypt(vals: List[int], steg_key: bytes, L: int) -> str:
     except UnicodeDecodeError:
         raise ValueError(
             "Texte déchiffré n'est pas de l'UTF-8 valide — données "
+            "corrompues malgré une authentification AEAD valide")
+
+# ── Cascade v1 — AES-256-GCM(XChaCha20-Poly1305(plaintext)) ──────────────────
+# docs/CASCADE_V1.md : cascade FIXE, publique, toujours appliquée — ce n'est
+# pas un choix d'algorithme (rien à négocier, donc rien à downgrader). Une
+# cascade à clés indépendantes est au moins aussi solide que la plus solide
+# des deux couches : casser XChaCha20 (le composant le moins audité — pur
+# Python, voir hchacha20 ci-dessus) laisse le texte sous AES-GCM natif du
+# navigateur (audité, temps constant) ; casser AES-GCM un jour laisse le
+# texte sous XChaCha20. N'AUGMENTE PAS la sécurité contre qui n'a aucune
+# clé — pour lui c'était déjà illisible ; jamais présenté comme un gain de
+# bits (« 512 bits », « deux fois plus sûr »), ni comparé à quoi que ce soit.
+
+def _cascade_keys(steg_key: bytes):
+    """k1 (XChaCha20-Poly1305, couche intérieure), k2 (AES-256-GCM, couche
+    extérieure) — voir LABELS['cascade']. Dérivées indépendamment de
+    steg_key : jamais l'une à partir de l'autre."""
+    L = LABELS['cascade']
+    k1 = _HKDF(_hashes.SHA256(), 32, salt=L['salt'], info=L['inner_info']).derive(steg_key)
+    k2 = _HKDF(_hashes.SHA256(), 32, salt=L['salt'], info=L['outer_info']).derive(steg_key)
+    return k1, k2
+
+def encrypt_cascade(message: str, steg_key: bytes, L: int,
+                     _nonce1: bytes = None, _nonce2: bytes = None) -> bytes:
+    """
+    Chiffre message avec la cascade v1 : AES-256-GCM_{k2}(XChaCha20-Poly1305_{k1}(plaintext)).
+
+    Même charge utile à longueur fixe que _encrypt (longueur 4B + message +
+    rembourrage zéro, taille déterminée par L), même key commitment HMAC —
+    mais calculé sur la sortie EXTÉRIEURE (N2 ‖ AES-GCM(inner)), pas sur
+    `inner` seul, puisque c'est elle qui voyage en clair sur la grille.
+
+    Enveloppe : cm(32) ‖ alg(1) ‖ N2(12) ‖ [AES-GCM(N1(24) ‖ C ‖ T1(16))](+16
+    tag) — alg = ALG_CASCADE_V1, inclus en AAD des deux couches (XChaCha20-
+    Poly1305 ET AES-GCM) : le modifier casse l'authentification des deux,
+    aucun repli sur un autre algorithme n'est possible.
+
+    _nonce1/_nonce2 (préfixés `_`, mode vecteurs — voir _xchacha20_enc) :
+    None (défaut) préserve os.urandom(24)/os.urandom(12).
+    """
+    msg_b = _message_to_bytes(message)
+    payload_bytes, cleartext_len = _cleartext_capacity_cascade(L)
+    if cleartext_len == 0:
+        raise ValueError(
+            f"Grammaire trop petite ({L} positions) pour porter un message "
+            f"en cascade, même vide.")
+    max_msg = cleartext_len - 4
+    if len(msg_b) > max_msg:
+        raise ValueError(
+            f"Message trop long pour la grammaire dérivée (cascade) : "
+            f"{len(msg_b)} octets > {max_msg} disponibles ({L} positions). "
+            f"Changer la clé ou réduire le message.")
+    cleartext = (struct.pack('>I', len(msg_b)) + msg_b +
+                 b'\x00' * (cleartext_len - 4 - len(msg_b)))
+
+    k1, k2 = _cascade_keys(steg_key)
+    aad = bytes([ALG_CASCADE_V1])
+    inner = _xchacha20_enc(k1, cleartext, aad=aad, _nonce=_nonce1)   # N1(24) ‖ C ‖ T1(16)
+    nonce2 = _nonce2 if _nonce2 is not None else os.urandom(12)
+    outer = AESGCM(k2).encrypt(nonce2, inner, aad)                   # AES-GCM(inner) ‖ T2(16)
+
+    ck = _commit_key(steg_key)
+    commit = _hmac_mod.new(ck, nonce2 + outer, hashlib.sha256).digest()
+    payload = commit + aad + nonce2 + outer
+    assert len(payload) == payload_bytes, "invariant PayloadToSymbols (cascade) rompu"
+    return payload
+
+def decrypt_cascade(vals: List[int], steg_key: bytes, L: int) -> str:
+    """
+    Vérifie le key commitment PUIS déchiffre la cascade v1 (couche extérieure
+    AES-GCM d'abord, puis intérieure XChaCha20-Poly1305) — voir encrypt_cascade.
+    Refuse tout `alg` différent de ALG_CASCADE_V1 (pas de repli).
+    """
+    payload_bytes, cleartext_len = _cleartext_capacity_cascade(L)
+    if cleartext_len == 0:
+        raise ValueError(f"Grammaire trop petite ({L} positions) pour un message en cascade")
+    m = _smallest_m(_capacity_k(L) + _LAMBDA_S)
+    if len(vals) < m:
+        raise ValueError(f"Positions insuffisantes : {len(vals)} < {m}")
+    payload = _syms_to_bytes(vals[:m], payload_bytes)
+
+    commit_recv = payload[:32]
+    aad         = payload[32:33]
+    nonce2      = payload[33:45]
+    outer       = payload[45:]
+
+    if aad != bytes([ALG_CASCADE_V1]):
+        raise ValueError(
+            f"Algorithme non supporté : {aad!r} — attendu ALG_CASCADE_V1="
+            f"{ALG_CASCADE_V1} (aucun repli sur un autre algorithme)")
+
+    ck = _commit_key(steg_key)
+    commit_calc = _hmac_mod.new(ck, nonce2 + outer, hashlib.sha256).digest()
+    if not _hmac_mod.compare_digest(commit_recv, commit_calc):
+        raise ValueError("Key commitment invalide (cascade) — clé incorrecte ou données altérées")
+
+    k1, k2 = _cascade_keys(steg_key)
+    try:
+        inner = AESGCM(k2).decrypt(nonce2, outer, aad)
+    except Exception:
+        raise ValueError("Tag AES-GCM invalide (couche extérieure) — clé incorrecte ou données altérées")
+    try:
+        cleartext = _xchacha20_dec(k1, inner, aad=aad)
+    except Exception:
+        raise ValueError("Tag Poly1305 invalide (couche intérieure) — clé incorrecte ou données altérées")
+
+    msg_len = struct.unpack('>I', cleartext[:4])[0]
+    if msg_len > len(cleartext) - 4:
+        raise ValueError("Longueur de message invalide (cascade) — clé incorrecte ou données altérées")
+    msg_b = cleartext[4:4+msg_len]
+    try:
+        return msg_b.decode('utf-8', errors='strict')
+    except UnicodeDecodeError:
+        raise ValueError(
+            "Texte déchiffré n'est pas de l'UTF-8 valide (cascade) — données "
             "corrompues malgré une authentification AEAD valide")
 
 # ── Flux de symboles — API pour carter.py, carter_random.py, grid_90.py ──────

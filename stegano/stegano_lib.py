@@ -28,6 +28,8 @@ from crypto_core import (
     payload_to_symbols, symbols_needed,
     max_payload_for, max_message_for,
     random_grid, _derive_masks,
+    ALG_CASCADE_V1, _cascade_keys, encrypt_cascade, decrypt_cascade,
+    max_payload_for_cascade, max_message_for_cascade,
 )
 
 from stegano_classic import (

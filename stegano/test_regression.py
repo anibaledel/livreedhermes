@@ -57,8 +57,10 @@ from stegano_lib import (
     grid_to_csv, csv_to_grid,
     payload_to_symbols, symbols_needed, max_message_for,
     hchacha20, _xchacha20_enc, _xchacha20_dec,
+    ALG_CASCADE_V1, _cascade_keys, encrypt_cascade, decrypt_cascade,
+    max_message_for_cascade,
 )
-from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305, AESGCM
 
 # ── Clés fixes pour les tests ─────────────────────────────────────────────────
 KEY_ZERO   = bytes(32)                           # 00...00
@@ -183,6 +185,158 @@ class TestXChaCha20Vectors(unittest.TestCase):
         self.assertEqual(_xchacha20_dec(key, ct, aad=b'aad'), msg)
         with self.assertRaises(Exception):
             _xchacha20_dec(os.urandom(32), ct, aad=b'aad')
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# Classe Cascade v1 — AES-256-GCM(XChaCha20-Poly1305(plaintext)), docs/CASCADE_V1.md
+# ══════════════════════════════════════════════════════════════════════════════
+class TestCascadeV1(unittest.TestCase):
+    """
+    encrypt_cascade/decrypt_cascade (tâche cascade, format v3). Pas de
+    vecteur AES-GCM externe (NIST/RFC) recopié ici : contrairement à
+    HChaCha20 (TestXChaCha20Vectors ci-dessus, pur Python, écrit à la main
+    dans ce dépôt), AES-256-GCM n'est PAS réimplémenté — il vient tel quel
+    de `cryptography` (AESGCM), une bibliothèque déjà validée contre les
+    vecteurs NIST CAVP dans sa propre suite de tests amont ; un vecteur
+    recopié ici de mémoire, sans pouvoir le vérifier contre le texte source,
+    risquerait précisément ce que ce dépôt évite ailleurs (« vecteurs
+    officiels, pas inventés »). Ce qui EST testé ici, et qui ne l'est nulle
+    part en amont : la composition cascade elle-même — clés indépendantes,
+    ordre des couches, alg en AAD, format, et qu'une seule couche compromise
+    ne suffit pas à passer le round-trip.
+    """
+
+    def test_cascade_keys_independent_and_deterministic(self):
+        key = os.urandom(32)
+        k1a, k2a = _cascade_keys(key)
+        k1b, k2b = _cascade_keys(key)
+        self.assertEqual(k1a, k1b, "k1 non déterministe")
+        self.assertEqual(k2a, k2b, "k2 non déterministe")
+        self.assertNotEqual(k1a, k2a, "k1 et k2 identiques — pas de séparation de domaine")
+        self.assertEqual(len(k1a), 32)
+        self.assertEqual(len(k2a), 32)
+
+    def test_aesgcm_layer_matches_cryptography_directly(self):
+        """encrypt_cascade appelle bien AESGCM(k2) pour la couche extérieure :
+        déchiffre la couche extérieure du payload avec AESGCM directement
+        (indépendamment de decrypt_cascade), vérifie qu'elle redonne un flux
+        XChaCha20-Poly1305 valide, pas en supposant que decrypt_cascade a raison."""
+        key = os.urandom(32)
+        L = 400
+        nonce1, nonce2 = os.urandom(24), os.urandom(12)
+        payload = encrypt_cascade("SEL", key, L, _nonce1=nonce1, _nonce2=nonce2)
+        k1, k2 = _cascade_keys(key)
+
+        commit, aad_p, n2_p, outer_p = payload[:32], payload[32:33], payload[33:45], payload[45:]
+        self.assertEqual(aad_p, bytes([ALG_CASCADE_V1]))
+        self.assertEqual(n2_p, nonce2)
+        inner_direct = AESGCM(k2).decrypt(n2_p, outer_p, aad_p)
+        self.assertEqual(inner_direct[:24], nonce1)   # N1 en tête de l'intérieur
+        pt = _xchacha20_dec(k1, inner_direct, aad=aad_p)
+        self.assertEqual(struct.unpack('>I', pt[:4])[0], len("SEL".encode('utf-8')))
+
+    def test_roundtrip_various_lengths(self):
+        key = os.urandom(32)
+        for L, msg in ((200, ""), (300, "A"), (500, MSG_SHORT), (2000, MSG_LONG), (5000, "é中🎉 mixte UTF-8")):
+            with self.subTest(L=L, msg=msg):
+                payload = encrypt_cascade(msg, key, L)
+                vals = payload_to_symbols(payload, L)
+                self.assertEqual(decrypt_cascade(vals, key, L), msg)
+
+    def test_capacity_29_bytes_less_than_simple(self):
+        """payload_bytes ne dépend que de L (même budget pour les deux formats) :
+        les +29 octets de surcoût cascade (alg + N2 + T2) se lisent donc comme
+        29 octets de MESSAGE UTILE en moins pour un même L, pas comme un
+        payload plus long — max_message_for_cascade(L) == max_message_for(L) - 29."""
+        for L in (200, 400, 1000, 2000):
+            with self.subTest(L=L):
+                self.assertEqual(max_message_for_cascade(L), max_message_for(L) - 29)
+
+    def test_wrong_full_key_rejected(self):
+        key, other = os.urandom(32), os.urandom(32)
+        L = 400
+        payload = encrypt_cascade(MSG_SHORT, key, L)
+        vals = payload_to_symbols(payload, L)
+        with self.assertRaises(ValueError):
+            decrypt_cascade(vals, other, L)
+
+    def test_tampered_alg_byte_rejected(self):
+        key = os.urandom(32)
+        L = 400
+        payload = bytearray(encrypt_cascade(MSG_SHORT, key, L))
+        payload[32] ^= 0xFF   # alg
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(bytes(payload), L), key, L)
+
+    def test_tampered_outer_nonce_rejected(self):
+        key = os.urandom(32)
+        L = 400
+        payload = bytearray(encrypt_cascade(MSG_SHORT, key, L))
+        payload[33] ^= 0xFF   # premier octet de N2
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(bytes(payload), L), key, L)
+
+    def test_tampered_outer_ciphertext_rejected(self):
+        """Altère un octet à l'intérieur de AES-GCM(inner) — la couche extérieure
+        doit rejeter, sans même atteindre XChaCha20-Poly1305."""
+        key = os.urandom(32)
+        L = 400
+        payload = bytearray(encrypt_cascade(MSG_SHORT, key, L))
+        payload[50] ^= 0xFF   # à l'intérieur du bloc AES-GCM(inner)
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(bytes(payload), L), key, L)
+
+    def test_tampered_outer_tag_rejected(self):
+        key = os.urandom(32)
+        L = 400
+        payload = bytearray(encrypt_cascade(MSG_SHORT, key, L))
+        payload[-1] ^= 0xFF   # dernier octet = T2
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(bytes(payload), L), key, L)
+
+    def test_wrong_k1_alone_rejected(self):
+        """Construit un payload où k2/commit viennent de la vraie clé mais où
+        l'intérieur a été chiffré avec un k1 différent — la couche extérieure
+        (AES-GCM, bonne clé) passe, la couche intérieure (XChaCha20, mauvaise
+        clé) doit être ce qui échoue : preuve que les deux couches sont
+        vérifiées, pas seulement l'extérieure."""
+        key = os.urandom(32)
+        wrong_k1 = os.urandom(32)
+        L = 400
+        msg_b = MSG_SHORT.encode('utf-8')
+        cleartext_len = max_message_for_cascade(L) + 4
+        cleartext = struct.pack('>I', len(msg_b)) + msg_b + b'\x00' * (cleartext_len - 4 - len(msg_b))
+        _, k2 = _cascade_keys(key)
+        aad = bytes([ALG_CASCADE_V1])
+        inner = _xchacha20_enc(wrong_k1, cleartext, aad=aad)   # mauvais k1
+        nonce2 = os.urandom(12)
+        outer = AESGCM(k2).encrypt(nonce2, inner, aad)          # bon k2
+        ck = _commit_key(key)
+        commit = hmac.new(ck, nonce2 + outer, hashlib.sha256).digest()
+        payload = commit + aad + nonce2 + outer
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(payload, L), key, L)
+
+    def test_wrong_k2_alone_rejected(self):
+        """Symétrique du précédent : k1 correct, k2 différent pour la couche
+        extérieure. Le commitment (calculé sur N2‖outer, avec le VRAI k2 côté
+        décodage) doit déjà rejeter ceci avant même AES-GCM."""
+        key = os.urandom(32)
+        wrong_k2 = os.urandom(32)
+        L = 400
+        msg_b = MSG_SHORT.encode('utf-8')
+        cleartext_len = max_message_for_cascade(L) + 4
+        cleartext = struct.pack('>I', len(msg_b)) + msg_b + b'\x00' * (cleartext_len - 4 - len(msg_b))
+        k1, _ = _cascade_keys(key)
+        aad = bytes([ALG_CASCADE_V1])
+        inner = _xchacha20_enc(k1, cleartext, aad=aad)           # bon k1
+        nonce2 = os.urandom(12)
+        outer = AESGCM(wrong_k2).encrypt(nonce2, inner, aad)     # mauvais k2
+        ck = _commit_key(key)
+        commit = hmac.new(ck, nonce2 + outer, hashlib.sha256).digest()
+        payload = commit + aad + nonce2 + outer
+        with self.assertRaises(ValueError):
+            decrypt_cascade(payload_to_symbols(payload, L), key, L)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
