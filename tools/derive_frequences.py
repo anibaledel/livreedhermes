@@ -4,6 +4,16 @@
 """
 derive_frequences.py — Dérive f_hz/note/cents d'un k_pic DONNÉ, dans referent_bandes_v1.json
 
+SUPPLANTÉ le 2026-09-21 : depuis que data/referent_bandes_v1.json porte deux
+générations par gamme (generations.T1/generations.bandes, voir
+tools/measure_k_pic.py), ce script — qui suppose une seule paire k_pic/f_hz
+à plat par gamme (g['k_pic']) — échoue par KeyError s'il est lancé tel
+quel. C'est un échec net, pas une corruption silencieuse, mais mieux vaut
+ne pas le relancer sans le réécrire pour la nouvelle structure ;
+tools/measure_k_pic.py --apply fait déjà tout ce que celui-ci faisait
+(mesure ET conversion d'échelle), pour les deux générations à la fois.
+Conservé pour mémoire, pas comme outil à relancer en l'état.
+
 Ce script ne calcule PAS k_pic (aucune FFT ici) — il part d'un k_pic déjà
 présent dans le fichier et n'en dérive que f_hz/note/cents selon une
 échelle de conversion choisie. Renommé le 2026-09-19 : sous son ancien nom

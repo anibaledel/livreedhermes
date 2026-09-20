@@ -29,11 +29,24 @@ géométrie sous son vrai nom, le garder en double n'apportait rien.
 Ce que ce fichier garde en propre, que le bicolore n'a pas :
   - le vocabulaire des 15 gammes ("yang pur yin mut", "yin yang fix", ...),
     vs les noms de combinaison du bicolore ("YIN-MUT+YANG+YANG-MUT") ;
-  - la couche acoustique (f_hz, note, cents, k_pic) — NON FIABLE pour
-    l'instant (voir echelle.avertissement dans le JSON produit), en attente
-    d'une méthode de calcul établie. `categorie` n'est PAS dans ce cas :
-    elle se déduit entièrement du nombre de bases de la combinaison
-    (1..4 bases), donc dérivée ici, pas stockée en dur.
+  - `categorie`, dérivée ici (pas stockée en dur) du nombre de bases de la
+    combinaison (1..4 bases).
+
+SÉPARATION DES RESPONSABILITÉS (2026-09-21) : ce script ne touche plus à la
+couche acoustique (k_pic/k2/echelles, sous 'generations' dans chaque gamme,
+et le champ top-level 'echelle'). Il y a eu ici, jusqu'à cette date, une
+table ACOUSTIQUE et un dict ECHELLE codés en dur, portant encore les valeurs
+fiable=False d'avant le 2026-09-19 (échelle 220/440 Hz sur un k_pic
+7.07-10, provenance inconnue) — alors même que le fichier réellement en
+production avait déjà été mis à jour par un autre chemin (mesure directe,
+voir tools/measure_k_pic.py) avec une échelle et des k_pic différents.
+Personne ne l'avait remarqué : relancer ce script sans --compare-only
+aurait silencieusement écrasé les bonnes valeurs par les fausses. C'est
+la même classe d'erreur que la confusion T1/T3 sur les sources SVG — deux
+générateurs qui écrivent le même champ sans se coordonner. build() lit
+maintenant le fichier existant et RECOPIE tel quel tout ce qui est sous
+'generations' (par gamme) et 'echelle' (top-level) : ce script ne les
+écrit jamais, seulement tools/measure_k_pic.py --apply le fait.
 
 Table de correspondance nom -> (combinaison bicolore, polarité)
 -----------------------------------------------------------------
@@ -102,45 +115,6 @@ NAME_TABLE = {
     'yin pur yang':      ('YIN+YIN-MUT+YANG', 'yang'),
 }
 
-# Couche acoustique : NON FIABLE (voir docstring et echelle.avertissement
-# ci-dessous) — préservée telle quelle, identique à ce qui tourne en
-# production, en attente d'une méthode de calcul établie sur la bonne
-# géométrie. Ne pas recalculer sans revoir ce commentaire.
-ACOUSTIQUE = {
-    'yang pur yin pur':  {'f_hz': 440.0, 'note': 'la4',  'cents': 1200, 'k_pic': 10.0},
-    'yang mut':          {'f_hz': 262.1, 'note': 'do4',  'cents': 303,  'k_pic': 7.81},
-    'yang':              {'f_hz': 262.1, 'note': 'do4',  'cents': 303,  'k_pic': 7.81},
-    'yin mut':           {'f_hz': 220.0, 'note': 'la3',  'cents': 0,    'k_pic': 7.07},
-    'yin':               {'f_hz': 220.0, 'note': 'la3',  'cents': 0,    'k_pic': 7.07},
-    'yang mut yin mut':  {'f_hz': 278.2, 'note': 'do#4', 'cents': 406,  'k_pic': 8.06},
-    'yang pur':          {'f_hz': 227.4, 'note': 'la#3', 'cents': 57,   'k_pic': 7.21},
-    'yang yin mut':      {'f_hz': 278.2, 'note': 'do#4', 'cents': 406,  'k_pic': 8.06},
-    'yin pur':           {'f_hz': 440.0, 'note': 'la4',  'cents': 1200, 'k_pic': 10.0},
-    'yin yang fix':      {'f_hz': 365.8, 'note': 'fa#4', 'cents': 880,  'k_pic': 9.22},
-    'yin yang mut':      {'f_hz': 365.8, 'note': 'fa#4', 'cents': 880,  'k_pic': 9.22},
-    'yang pur yin mut':  {'f_hz': 316.1, 'note': 'ré#4', 'cents': 627,  'k_pic': 8.6},
-    'yang pur yin':      {'f_hz': 316.1, 'note': 'ré#4', 'cents': 627,  'k_pic': 8.6},
-    'yin pur yang mut':  {'f_hz': 384.8, 'note': 'sol4', 'cents': 968,  'k_pic': 9.43},
-    'yin pur yang':      {'f_hz': 384.8, 'note': 'sol4', 'cents': 968,  'k_pic': 9.43},
-}
-
-ECHELLE = {
-    'methode': 'frequence spatiale dominante (FFT 2D), etalee sur une octave',
-    'reference': 'k=7.07 -> 220 Hz (la3), k=10.00 -> 440 Hz (la4)',
-    'fiable': False,
-    'provenance': 'inconnue',
-    'avertissement': (
-        "k_pic/f_hz/note/cents datent des MASQUES INCORRECTS remplaces le "
-        "2026-09-19 (voir tools/generate_referent_bandes.py) et ne decrivent "
-        "pas la geometrie des masques yang/yin actuels. Ne pas reutiliser "
-        "sans recalcul. Preuve que la methode d'origine est inconnue (pas "
-        "une FFT 2D sur grille 12x12) : 4 des 8 valeurs de k_pic (k^2=74, "
-        "85, 89, 100) depassent le maximum possible d'une telle FFT, ou les "
-        "indices de frequence centres vont de -6 a 6 et k^2 <= 72."
-    ),
-}
-
-
 def parse_gamme_name(name):
     """'yang pur yin mut' -> frozenset{('yang','pur'), ('yin','mut')} ; le
     qualificatif pur/mut/fix s'attache à l'axe qui le précède immédiatement."""
@@ -174,8 +148,13 @@ def combination_of(name):
 def build():
     bicolore = json.load(open(BICOLORE_JSON, encoding='utf-8'))
 
-    if set(NAME_TABLE) != set(ACOUSTIQUE):
-        raise SystemExit("NAME_TABLE et ACOUSTIQUE ne portent pas les mêmes 15 noms")
+    # Couche acoustique existante (si le fichier a déjà été écrit par
+    # tools/measure_k_pic.py --apply) : recopiée telle quelle, jamais
+    # recalculée ici — voir la note de séparation des responsabilités
+    # dans la docstring du module.
+    old_doc = json.load(open(OUT_JSON, encoding='utf-8')) if os.path.exists(OUT_JSON) else {}
+    old_gammes = old_doc.get('gammes', {})
+    old_echelle = old_doc.get('echelle')
 
     used_families = {}
     gammes_out = {}
@@ -201,8 +180,9 @@ def build():
             'categorie': categorie,
             'yang': fam[polarity],
             'yin': fam[other],
-            **ACOUSTIQUE[name],
         }
+        if name in old_gammes and 'generations' in old_gammes[name]:
+            gammes_out[name]['generations'] = old_gammes[name]['generations']
 
     if len(used_families) != 15:
         raise SystemExit(f"bijection incomplète : {len(used_families)}/15 familles bicolore couvertes")
@@ -215,10 +195,11 @@ def build():
         'per_cell': bicolore['per_cell'],
         'per_layer': bicolore['per_layer'],
         'source': 'vue generee de data/referent_bicolore_v1.json — voir tools/generate_referent_bandes.py',
-        'echelle': ECHELLE,
         'layers': bicolore['layers'],
         'gammes': gammes_out,
     }
+    if old_echelle is not None:
+        doc['echelle'] = old_echelle
     return doc
 
 

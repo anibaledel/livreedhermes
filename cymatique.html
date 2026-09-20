@@ -317,12 +317,14 @@ const UI = {
     tonePlay: "Jouer",
     toneStop: "Arrêter",
     gammesHeading: "Les quinze gammes",
-    diapasonNote: "Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Les musiciens de son temps l'ont refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale des quinze gammes — sont elles-mêmes des entiers : dans l'échelle proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.",
+    genT1: "T1 :",
+    genBandes: "bandes :",
+    diapasonNote: "Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Chaque gamme porte deux valeurs, mesurées séparément sur ses deux générations — T1 et bandes — dont les fréquences spatiales dominantes se chevauchent largement plutôt que de former deux registres distincts : les seize valeurs mesurées (les carrés de fréquence spatiale, réunies des deux générations) sont elles-mêmes des entiers, et dans l'échelle proportionnelle, chaque valeur tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.",
     echelleLabel: "Échelle",
     echelleProportionnelle: "Proportionnelle",
     echelleOrdinale: "Ordinale",
-    echelleProportionnelleHelp: "f = 128 × k² — de do 128 Hz à do 2560 Hz, rapports exacts entre motifs.",
-    echelleOrdinaleHelp: "les neuf valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.",
+    echelleProportionnelleHelp: "f = 128 × k² — de do 128 Hz à ré9 9216 Hz, rapports exacts entre motifs.",
+    echelleOrdinaleHelp: "les seize valeurs étalées par rang, de do 128 Hz à do 256 Hz — comparaison immédiate.",
     paletteLabel: "Palette",
     paletteReset: "Réinitialiser",
     soutenir: "Soutenir",
@@ -350,12 +352,14 @@ const UI = {
     tonePlay: "Play",
     toneStop: "Stop",
     gammesHeading: "The fifteen scales",
-    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. The musicians of his day rejected it; physicists kept it as a measurement standard. It is used here because the nine measured values — the squared spatial frequencies of the fifteen scales — are themselves whole numbers: on the proportional scale, each scale then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.",
+    genT1: "T1:",
+    genBandes: "bandes:",
+    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers: the sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, and on the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.",
     echelleLabel: "Scale",
     echelleProportionnelle: "Proportional",
     echelleOrdinale: "Ordinal",
-    echelleProportionnelleHelp: "f = 128 × k² — from C 128 Hz to C 2560 Hz, exact ratios between patterns.",
-    echelleOrdinaleHelp: "the nine values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.",
+    echelleProportionnelleHelp: "f = 128 × k² — from C 128 Hz to D 9216 Hz, exact ratios between patterns.",
+    echelleOrdinaleHelp: "the sixteen values spread by rank, from C 128 Hz to C 256 Hz — immediate comparison.",
     paletteLabel: "Palette",
     paletteReset: "Reset",
     soutenir: "Support",
@@ -533,10 +537,14 @@ function currentShareParams() {
   return p;
 }
 
-// ── échelle (proportionnelle f=128×k², ordinale 9 valeurs par rang) ────────
+// ── échelle (proportionnelle f=128×k², ordinale 16 valeurs par rang) ───────
+// Deux générations par gamme depuis le 2026-09-21 (T1 et bandes, mesurées
+// séparément — voir tools/measure_k_pic.py) : bornes recalées sur la vraie
+// étendue mesurée (k²=1..72), plus le seul octave 128-256 Hz d'avant.
 const ECHELLE_STORAGE_KEY = 'lldh-cymatique-echelle';
 const ECHELLES = ['proportionnelle', 'ordinale'];
-const FOLD_RANGE = { proportionnelle: [128, 2560], ordinale: [128, 256] };
+const FOLD_RANGE = { proportionnelle: [128, 9216], ordinale: [128, 256] };
+const GENERATIONS = ['T1', 'bandes'];
 function initialEchelle() {
   const params = new URLSearchParams(location.search);
   if (params.has('echelle') && ECHELLES.includes(params.get('echelle'))) return params.get('echelle');
@@ -545,11 +553,12 @@ function initialEchelle() {
   return ECHELLES.includes(stored) ? stored : 'ordinale';
 }
 let ECHELLE = initialEchelle();
-function echelleDe(g) { return g.echelles[ECHELLE]; }
+function echelleDe(g, gen) { return g.generations[gen].echelles[ECHELLE]; }
 
 // ── données ──────────────────────────────────────────────────────────────
 let DATA = null;
-let TABLE = [];
+let TABLE = [];       // affichage : une ligne par gamme, les deux générations
+let MATCH_TABLE = [];  // appariement mic/générateur : une entrée par (gamme, génération)
 let current = null;
 
 function render(name) {
@@ -563,47 +572,57 @@ function show(name) {
   if (!DATA || !DATA.gammes[name]) return;
   current = name;
   const g = DATA.gammes[name];
-  const e = echelleDe(g);
+  const eT1 = echelleDe(g, 'T1'), eBandes = echelleDe(g, 'bandes');
   document.getElementById('gammeName').textContent = name;
   document.getElementById('gammeMeta').textContent =
-    `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — ${e.note} · ${e.f_hz.toFixed(0)} Hz`;
+    `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — `
+    + `${t('genT1')} ${eT1.note} · ${eT1.f_hz.toFixed(0)} Hz — `
+    + `${t('genBandes')} ${eBandes.note} · ${eBandes.f_hz.toFixed(0)} Hz`;
   render(name);
   document.querySelectorAll('.gamme-row').forEach(el => el.classList.toggle('on', el.dataset.n === name));
 }
 
 function buildList() {
   TABLE = Object.entries(DATA.gammes)
-    .map(([n, g]) => ({ n, f: echelleDe(g).f_hz, note: echelleDe(g).note }))
-    .sort((a, b) => a.f - b.f);
+    .map(([n, g]) => ({ n, t1: echelleDe(g, 'T1'), bandes: echelleDe(g, 'bandes') }))
+    .sort((a, b) => a.t1.f_hz - b.t1.f_hz);
+  MATCH_TABLE = [];
+  for (const [n, g] of Object.entries(DATA.gammes)) {
+    for (const gen of GENERATIONS) MATCH_TABLE.push({ n, gen, ...echelleDe(g, gen) });
+  }
   const list = document.getElementById('list');
   list.innerHTML = '';
   TABLE.forEach(g => {
     const d = document.createElement('div');
     d.className = 'gamme-row'; d.dataset.n = g.n;
-    d.innerHTML = `<span>${g.n}</span><span class="g-meta">${g.note} · ${g.f.toFixed(0)} Hz</span>`;
+    d.innerHTML = `<span>${g.n}</span><span class="g-meta">`
+      + `${t('genT1')} ${g.t1.note} · ${g.t1.f_hz.toFixed(0)} Hz — `
+      + `${t('genBandes')} ${g.bandes.note} · ${g.bandes.f_hz.toFixed(0)} Hz</span>`;
     d.onclick = () => { show(g.n); setShareURL(currentShareParams()); };
     list.appendChild(d);
   });
 }
 
-// Repli dans la borne de l'échelle active, puis plus proche voisin en cents.
+// Repli dans la borne de l'échelle active, puis plus proche voisin en cents,
+// parmi les deux générations de chaque gamme.
 function nearest(f) {
   const [lo, hi] = FOLD_RANGE[ECHELLE];
   let x = f;
   while (x >= hi) x /= 2;
   while (x < lo) x *= 2;
-  let best = TABLE[0], cents = 1e9;
-  for (const g of TABLE) {
-    const c = 1200 * Math.log2(x / g.f);
+  let best = MATCH_TABLE[0], cents = 1e9;
+  for (const g of MATCH_TABLE) {
+    const c = 1200 * Math.log2(x / g.f_hz);
     if (Math.abs(c) < Math.abs(cents)) { cents = c; best = g; }
   }
-  return { gamme: best, cents, folded: x };
+  return { gamme: { n: best.n, note: best.note, f: best.f_hz, gen: best.gen }, cents, folded: x };
 }
 
 let lastMatch = null; // {gamme, cents} du dernier calcul mic ou générateur, pour retraduire au changement de langue
 function matchLineText(m) {
   const sign = m.cents >= 0 ? '+' : '';
-  return `${t('nearestPrefix')}${m.gamme.note} (${sign}${m.cents.toFixed(0)}¢)`;
+  const gen = (m.gamme.gen === 'T1' ? t('genT1') : t('genBandes')).replace(/\s*:\s*$/, '');
+  return `${t('nearestPrefix')}${m.gamme.note} (${gen}, ${sign}${m.cents.toFixed(0)}¢)`;
 }
 function refreshMatchTexts() {
   if (lastMatch) document.getElementById('matchLine').textContent = matchLineText(lastMatch);
