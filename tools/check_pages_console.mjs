@@ -105,6 +105,14 @@ const MIN_BODY_TEXT = 40;
 
 // Pages déjà traduites à la main : l'en-tête y est complet sans l'emplacement
 // du widget. Même liste que SANS_TRADUCTEUR dans scripts/build-header.js.
+// Pages traduites à la main : elles gardent leur propre pied, le pied
+// partagé étant rédigé en français. Même liste que SANS_PIED dans
+// scripts/build-header.js.
+const SANS_PIED = new Set([
+  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
+  'th/book/index.html', 'book-viewer/index.html',
+]);
+
 const SANS_TRADUCTEUR = new Set([
   'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
   'th/book/index.html', 'book-viewer/index.html',
@@ -193,6 +201,14 @@ async function checkPage(browser, page_def) {
           logoDimensionne: !!img && img.hasAttribute('width') && img.hasAttribute('height'),
           traducteur: !!h.querySelector('#google_translate_element'),
           titre: !!document.querySelector('h1'),
+          // Le contenu propre à la page doit être dans un <main>, et le pied
+          // partagé doit porter le lien vers le profil documentaire — c'est
+          // la page qui dit qui est l'auteur, et elle n'avait que deux liens
+          // entrants sur tout le site.
+          main: document.querySelectorAll('main').length,
+          pied: !!document.querySelector('footer.site-footer'),
+          piedLiens: [...document.querySelectorAll('footer.site-footer a')]
+            .map((a) => a.getAttribute('href') || ''),
         };
       });
     }
@@ -234,6 +250,14 @@ async function checkPage(browser, page_def) {
         problems.push("en-tête incomplet : emplacement du traducteur absent de l'en-tête");
       }
       if (!enTete.titre) problems.push('en-tête incomplet : aucun <h1> sur la page');
+      if (enTete.main === 0) problems.push('structure : aucun <main> autour du contenu');
+      else if (enTete.main > 1) problems.push(`structure : ${enTete.main} <main> sur la page, un seul est permis`);
+      if (!SANS_PIED.has(page_def.path)) {
+        if (!enTete.pied) problems.push('pied de page absent : pas de <footer class="site-footer">');
+        else if (!enTete.piedLiens.some((h) => h.includes('profil.html'))) {
+          problems.push('pied de page incomplet : pas de lien vers profil.html');
+        }
+      }
     }
   }
   if (page_def.zone && !loadError) {
