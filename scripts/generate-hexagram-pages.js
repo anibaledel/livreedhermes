@@ -113,8 +113,8 @@ const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href
 // bouton modal #btnSoutienFooter a été retiré (doublon avec ce lien direct).
 const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
 const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
-const FOOTER_CTA_SCRIPT = `<script src="https://anibal-amiot.com/assets/share-widget.js"></script>
-<script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>`;
+const FOOTER_CTA_SCRIPT = `<script src="../assets/share-widget.js"></script>
+<script src="../assets/soutien-gate.js"></script>`;
 
 const pages = [];
 
@@ -320,7 +320,7 @@ ${ICONES}
 ${EN_TETE}
 
   <div class="article-body">
-    <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
+    <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
     <div class="atalanta-block" style="padding:28px 24px;">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
@@ -342,7 +342,7 @@ ${EN_TETE}
 ${hexColumn}
         </div>
         <figure class="hex-square">
-          <img src="https://anibal-amiot.com/assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (${escapeHtml(nameFr)})">
+          <img src="../assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (${escapeHtml(nameFr)})">
           <figcaption>Pavage du carré magique associé à cet hexagramme, La Livrée d'Hermès.</figcaption>
         </figure>
       </div>
@@ -623,7 +623,7 @@ ${ICONES}
 <div class="wrap">
 ${EN_TETE}
 
-  <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
