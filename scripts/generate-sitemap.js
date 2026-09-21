@@ -22,7 +22,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
-const { SITE, BOOK_LANGS, BOOK_HREFLANG } = require('./book-langs.js');
+const { SITE, PAGES_TRADUITES } = require('./langues.js');
 
 function lastmod(relPath) {
   try {
@@ -74,17 +74,15 @@ const STATIC_PAGES = [
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
 ];
 
-// Pages livre multilingues, avec liens alternates réciproques. La liste vit
-// dans scripts/book-langs.js : scripts/build-header.js écrit les mêmes
-// alternates dans le <head> des quatre pages, et les deux doivent dire la
-// même chose.
-const BOOK_PAGES = BOOK_LANGS.map(([lang, loc, file]) => ({
-  loc,
-  file,
-  changefreq: 'monthly',
-  priority: '0.8',
-  hreflang: BOOK_HREFLANG,
-}));
+// Pages traduites, avec liens alternates réciproques. La liste vit dans
+// scripts/langues.js : scripts/build-header.js écrit les mêmes alternates
+// dans le <head> de ces pages, et les deux doivent dire la même chose — y
+// compris le x-default, qui vient de LANGUE_PAR_DEFAUT et d'elle seule.
+//
+// Ces pages ne doivent PAS figurer aussi dans STATIC_PAGES : deux <url> pour
+// la même adresse est une erreur que Google signale. Le contrôle des <loc> en
+// double, plus bas, le rend impossible.
+const BOOK_PAGES = PAGES_TRADUITES;
 
 // Articles : tous les fichiers présents dans articles/, découverts automatiquement.
 const articlesDir = path.join(ROOT, 'articles');
@@ -113,6 +111,22 @@ const HEXAGRAM_PAGES = fs
   }));
 
 const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES];
+
+// Aucune adresse deux fois : deux <url> pour le même <loc> est une erreur que
+// Google signale. Le cas concret qui l'a motivé : lexique.html figure dans
+// STATIC_PAGES ; l'ajouter à un groupe de traduction sans l'en retirer le
+// ferait sortir deux fois. Ce contrôle rend l'oubli impossible plutôt que de
+// compter sur la relecture.
+const vus = new Map();
+const doublons = [];
+for (const page of ALL_PAGES) {
+  if (vus.has(page.loc)) doublons.push(`${page.loc}  (${vus.get(page.loc)} et ${page.file})`);
+  else vus.set(page.loc, page.file);
+}
+if (doublons.length) {
+  console.error(`Adresse(s) déclarée(s) deux fois dans le sitemap :\n  ${doublons.join('\n  ')}`);
+  process.exit(1);
+}
 
 let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
