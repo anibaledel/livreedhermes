@@ -152,9 +152,8 @@ def _carter256_message_positions(key: bytes, ref256) -> List[Tuple[int, int]]:
         grammar_key, 'carter256',
         lambda gk: _carter_grammar(gk, ref256),
         lambda g: _carter_message_positions(g, ref256))
-    sweep_of_color = grammar['sweep_of_color']
     return [pos for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE
-            for pos in _carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256, sweep_of_color)]
+            for pos in _carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256)]
 
 def _carter360_message_positions_list(key: bytes, ref360) -> List[Tuple[int, int]]:
     from carter import _find_grammar_with_c_pub
@@ -632,7 +631,7 @@ class TestTwoGridDifference(unittest.TestCase):
                 if gcell['role'] != _MESSAGE:
                     continue
                 br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-                for gr, gc in _carter_positions(br, bc, gcell, self.ref256, grammar['sweep_of_color']):
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
                     diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
         if not diffs:
             self.skipTest("Aucune paire de cles valide")
@@ -692,7 +691,7 @@ class TestMaskedLength(unittest.TestCase):
                 if gcell['role'] != _MESSAGE:
                     continue
                 br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-                for gr, gc in _carter_positions(br, bc, gcell, self.ref256, grammar['sweep_of_color']):
+                for gr, gc in _carter_positions(br, bc, gcell, self.ref256):
                     diffs.append((g1[gr][gc] - g2[gr][gc]) % ALPHA)
         if not diffs:
             self.skipTest("Aucune paire de cles valide")

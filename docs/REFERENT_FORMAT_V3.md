@@ -152,6 +152,29 @@ décodage, à partir de la clé, par `stegano/sweep.py` (balayages) combiné
 à `stegano_colors`/`crypto_color_order` (couleurs). Deux modes de lecture
 coexistent, mutuellement exclusifs par consommateur :
 
+> **Exception, référent 256 seulement (chantier 2, 2026-09-21).**
+> `carter.py::encode_carter/decode_carter` (Carter-256, `referent_256_v3.json`
+> — pas Carter-Random, dont les référents 6×6 sont générés dynamiquement et
+> restent au balayage) ne suit PAS la règle ci-dessous. Les 12 positions
+> stégano d'un bloc `message` sont triées par ORDRE CROISSANT du numéro que
+> leur assigne le protocole couleur → nombre du carré magique (bleu=i,
+> rouge=37−i, vert=j, jaune=37−j sur le bloc 6×6, `i=6·row+col+1`,
+> `j=6·row+(5−col)+1`) — voir `carter.py::_magic_number`/`_carter_positions`,
+> vérifié 256/256 carrés magiques complets par `tools/verif_protocole.py`.
+> Cet ordre ne dépend que de la forme choisie (publique dans le référent),
+> plus de `sweep.py` : la clé continue de choisir QUELLE forme (`form_id`,
+> dérivé de la grammaire), mais l'ordre DE LECTURE à l'intérieur de la
+> forme choisie devient public. Les ~3 bits qu'apportait le choix parmi 8
+> balayages disparaissent pour Carter-256 — négligeables devant une clé de
+> 256 bits, à ne jamais présenter comme un ordre secret. Le théorème
+> d'indiscernabilité message/bruit vaut pour toute règle de lecture
+> publique et n'est pas affecté ; c'est la cascade (`docs/CASCADE_V1.md`)
+> qui protège le contenu. Carter-360, Carter-Mix (côté 256 compris) et
+> `stegano_classic` gardent le balayage, inchangés par ce chantier ;
+> Carter-Random n'a jamais utilisé le référent 256 et garde ses huit
+> balayages sans exception (voir
+> `stegano/test_regression.py::TestCarterRandomWitness`).
+
 ### 4.1 Mode stégano (Carter-256/360/Mix/Random/18/Hybrid, `stegano_classic`)
 
 Seules les couleurs de `stegano_colors` portent l'information, et

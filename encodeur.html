@@ -693,11 +693,10 @@ import {
       const { grammar_key } = await carter256_split(masterKey);
       const { gkCtr, grammar } = await carter256_find_grammar(grammar_key, REF256_V3);
       const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
-      const sweepOfColor = grammar.sweep_of_color;
       grammar.blocks.forEach((g, i) => {
         if(g.role === ROLE_PURE) return;
         const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
-        for(const [gr, gc] of carter256_positions(br, bc, g, REF256_V3, sweepOfColor)) roles[gr*CARTER_GRID+gc] = g.role;
+        for(const [gr, gc] of carter256_positions(br, bc, g, REF256_V3)) roles[gr*CARTER_GRID+gc] = g.role;
       });
       return roles;
     }

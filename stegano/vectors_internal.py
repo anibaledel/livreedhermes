@@ -166,12 +166,11 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
     grid = CC.random_grid(CT.CARTER_GRID, CT.CARTER_GRID, _noise_seed=noise_seed)
-    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
     for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
-        for gr, gc in CT._carter_positions(br, bc, g, ref256, sweep_of_color):
+        for gr, gc in CT._carter_positions(br, bc, g, ref256):
             if nib_i >= len(symbols): break
             grid[gr][gc] = (symbols[nib_i] + masks[nib_i]) % CC.ALPHA_LEN; nib_i += 1
 
@@ -195,12 +194,11 @@ def gen_carter256_vector(vec_id, description, master_key, message, ref256,
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
             "n_pos": n_pos,
-            # TODO v3-format (etape 10) : plus de color/orient (regle 6x6 --
-            # rouge+bleu ensemble, aucun tirage de couleur/orientation) ;
-            # sweep_of_color ajoute a la place, cle par couleur stegano.
+            # Chantier 2 (2026-09-21) : plus de sweep_of_color -- l'ordre de
+            # lecture des positions stégano vient du protocole couleur ->
+            # nombre du carré magique (carter._magic_number), pas de la clé.
             "grammar": [{"i": i, "role": g['role'], "form_id": g['form_id']}
                         for i, g in enumerate(grammar['blocks'])],
-            "sweep_of_color": sweep_of_color,
             "hchacha20_subkey_hex": _hex(hchacha_subkey),
             "payload_hex": _hex(payload),
             "pts_m": m, "pts_y": str(y),
@@ -248,12 +246,11 @@ def gen_carter256_negative_vectors(vec_id_prefix, description_prefix,
     domain = CC.LABELS['mask_seed']['info_carter256']
     masks = CC._derive_masks(gk_ctr, len(symbols), domain)
 
-    sweep_of_color = grammar['sweep_of_color']
     message_positions = []
     for i, g in enumerate(grammar['blocks']):
         if g['role'] != CT._MESSAGE: continue
         br, bc = i // CT.CARTER_SIDE, i % CT.CARTER_SIDE
-        message_positions.extend(CT._carter_positions(br, bc, g, ref256, sweep_of_color))
+        message_positions.extend(CT._carter_positions(br, bc, g, ref256))
 
     # Positions couvertes par des blocs 'pure' (bruit CSPRNG du remplissage
     # initial, JAMAIS écrites par la boucle de placement ci-dessus) — sert
