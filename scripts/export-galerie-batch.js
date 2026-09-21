@@ -5,23 +5,23 @@
    Réutilise directement les fonctions de rendu déjà présentes dans
    galerie-patterns-unifies.html (hexagramGrid, motifSvgMarkup) :
    ce sont des fonctions pures (aucune dépendance DOM), extraites ici
-   telles quelles plutôt que réécrites. Les données (768 entrées,
+   telles quelles plutôt que réécrites. Les données (1024 entrées,
    grilles de familles, table layerOf) sont lues directement depuis
-   le bloc `const DATA = {...}` embarqué dans cette même page, pour
-   que cet export ne puisse jamais diverger de ce qui s'affiche à
-   l'écran.
+   data/fonds_ecran_v1.json — la même source que la page elle-même
+   charge par fetch(), pour que cet export ne puisse jamais diverger de
+   ce qui s'affiche à l'écran.
 
    Usage :
      cd scripts
-     node export-galerie-884.js [--limit N] [--out DIR]
+     node export-galerie-batch.js [--limit N] [--out DIR]
 
    Sortie (par défaut, hors du dépôt git) :
-     <scratchpad>/galerie-884-export/
-       svg/*.svg   (768 fichiers, motif seul, repeats=1)
-       jpg/*.jpg   (768 fichiers, aperçu 1000x1500)
+     <scratchpad>/galerie-export/
+       svg/*.svg   (1024 fichiers, motif seul, repeats=1)
+       jpg/*.jpg   (1024 fichiers, aperçu 1000x1500)
        metadata.json
        metadata.csv
-     <scratchpad>/galerie-884-export.zip
+     <scratchpad>/galerie-export.zip
    ============================================================ */
 
 const fs = require('fs');
@@ -39,14 +39,16 @@ function argVal(name, def) {
   return i >= 0 ? args[i + 1] : def;
 }
 const LIMIT = argVal('--limit', null) ? parseInt(argVal('--limit', null), 10) : null;
-const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), 'galerie-884-export'));
+const OUT_DIR = argVal('--out', path.join(require('os').tmpdir(), 'galerie-export'));
 
-// ---------- extraction des données depuis la page (source de vérité unique) ----------
+// ---------- extraction des données (source de vérité unique) ----------
+// DATA vient directement de data/fonds_ecran_v1.json — la page elle-même le
+// charge par fetch() depuis le 2026-09-19 (avant cette date, la page et ce
+// script lisaient chacun leur propre copie, l'une intégrée en dur dans le
+// HTML, l'autre ici scrapée de ce HTML : elles avaient divergé en silence).
 function loadData() {
+  const DATA = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
   const html = fs.readFileSync(GALLERY_HTML, 'utf8');
-  const m = html.match(/const DATA = (\{[\s\S]*?\});\r?\n/);
-  if (!m) throw new Error('Impossible de trouver `const DATA = {...}` dans ' + GALLERY_HTML);
-  const DATA = JSON.parse(m[1]);
   const pm = html.match(/const DEFAULT_PALETTE = (\{[^}]*\});/);
   if (!pm) throw new Error('DEFAULT_PALETTE introuvable');
   // DEFAULT_PALETTE est un objet littéral JS (clés non quotées) : eval sûr ici
