@@ -315,27 +315,30 @@ avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
 
     <section class="profile-section">
       <h2>Les 360 calques</h2>
-      <p class="profile-text">Le vocabulaire de motifs : 15 familles d'axes × 4 natures font 60 couches, chacune tracée sur six niveaux — d'où 360 calques. Le nombre est porté par le fichier de données lui-même, pas par un commentaire.</p>
+      <p class="profile-text">Le vocabulaire de motifs : 15 familles d'axes × 4 natures font 60 images, chacune tracée sur six niveaux — d'où 360 calques. Le nombre est porté par le fichier de données lui-même, pas par un commentaire.</p>
     </section>
     <p class="commande">python -c "import json; print(len(json.load(open('data/referent_360_v3.json'))['calques']))"</p>
     <pre class="sortie"><b>360</b></pre>
 
     <section class="profile-section">
       <h2>Le critère de demi-décalage et le cube</h2>
-      <p class="profile-text">Un motif est unifié si le translater d'une demi-période revient à échanger ses deux couches. Le critère ne retient que 8 familles sur 15 — celles qui comptent exactement une base diagonale, yang ou yang mutant — et la moitié exacte des grilles obtenues se referme sur les six faces d'un cube.</p>
+      <p class="profile-text">Un motif est unifié si le translater d'une demi-période revient à échanger ses deux images. Le critère ne retient que 8 familles sur 15 — celles qui comptent exactement une base diagonale, yang ou yang mutant — et la moitié exacte des grilles obtenues se referme sur les six faces d'un cube.</p>
     </section>
-    <p class="commande">python tools/cube_edges.py</p>
-    <pre class="sortie">familles : 15 ; couches : 60
-couples unifiés : 16 dans <b>8</b> familles
+    <p class="commande">python tools/cube_edges.py<span class="commande-note">— extrait des lignes qui portent les chiffres</span></p>
+    <pre class="sortie">familles : 15 ; <b>images : 60</b>
+couples unifiés (6 couples testés par famille) : 16 dans <b>8</b> familles
 
-  grilles distinctes : <b>512</b>
-  pavages distincts  : <b>256</b>
-  corpus : <b>128</b> orbites
+Corpus (Théorème 2)
+    grilles distinctes : <b>512</b>
+    pavages distincts  : <b>256</b>
 
-  (refermées sur le cube)
-  grilles distinctes : <b>256</b>
-  pavages distincts  : <b>128</b>
-  retenues           : <b>64</b> orbites</pre>
+Règle d'arête (Théorème 3)
+    grilles distinctes   : <b>256</b>
+    pavages distincts    : <b>128</b>
+
+Orbites de Γ (Section 4 et Remarque de la Section 6)
+    corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
     <p class="duree">environ quarante-cinq secondes</p>
 
     <section class="profile-section">

@@ -314,7 +314,7 @@ def main():
         sys.exit(f"données introuvables : {DATA}")
     doc = json.load(open(DATA, encoding='utf-8'))
     layer_of, familles = familles_depuis_referent_360(doc)
-    print(f"familles : {len(familles)} ; couches : {sum(len(v) for v in familles.values())}")
+    print(f"familles : {len(familles)} ; images : {sum(len(v) for v in familles.values())}")
     if os.path.exists(DATA_FE):
         fe = json.load(open(DATA_FE, encoding='utf-8'))
         if fe['layerOf'] != layer_of:
@@ -327,10 +327,10 @@ def main():
         if n_fe == 60:
             ecarts = [(f, k) for f in familles for k in familles[f]
                       if fams_fe.get(f, {}).get(k) != familles[f][k]]
-            print(f"fonds_ecran_v1.json : 60 couches, identiques au référent 360 : "
+            print(f"fonds_ecran_v1.json : 60 images, identiques au référent 360 : "
                   + ("✓" if not ecarts else f"✗ {ecarts[:4]}"))
         else:
-            print(f"fonds_ecran_v1.json : {n_fe} couches (format incomplet) — seul layer_of est contrôlé")
+            print(f"fonds_ecran_v1.json : {n_fe} images (format incomplet) — seul layer_of est contrôlé")
 
     # (F1) : sans l'invariance de L par σ, le Théorème 1 tombe
     if demi_decalage(layer_of) != layer_of:
@@ -343,7 +343,7 @@ def main():
     if rho(layer_of) != layer_of or kappa(layer_of) != layer_of:
         sys.exit("L n'est pas invariante par ρ ou κ — hypothèses (F2)/(F3) en défaut")
     if any(rho(A) != A for _, _, A in toutes):
-        sys.exit("une couche n'est pas centralement symétrique — hypothèse (F2) en défaut")
+        sys.exit("une image n'est pas centralement symétrique — hypothèse (F2) en défaut")
     def tau_de(A):
         m, K = {}, kappa(A)
         for r in range(N):
@@ -353,7 +353,7 @@ def main():
         return m
     taus = {(f, k): tau_de(A) for f, k, A in toutes}
     if any(t is None for t in taus.values()):
-        sys.exit("une couche n'est pas κ-symétrique à permutation près — hypothèse (F3) en défaut")
+        sys.exit("une image n'est pas κ-symétrique à permutation près — hypothèse (F3) en défaut")
     if Counter(x for row in layer_of for x in row) != {l: 24 for l in range(1, NIVEAUX + 1)} or \
        any(sorted(Counter(x for row in A for x in row).values()) != [48, 48, 48] for _, _, A in toutes):
         sys.exit("composition 24 par niveau / 48 par teinte en défaut — hypothèse (F4)")
