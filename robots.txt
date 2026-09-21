@@ -2,6 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /assets/motifs-svg/
 Disallow: /assets/motifs-pinterest/
+Disallow: /includes/
 
 Sitemap: https://anibal-amiot.com/sitemap.xml
 Sitemap: https://anibal-amiot.com/sitemap-pdf.xml

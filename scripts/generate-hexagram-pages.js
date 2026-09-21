@@ -9,6 +9,16 @@ const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
 
+// L'en-tête, les icônes et le chargement du traducteur viennent des fragments
+// de includes/, exactement comme pour les 98 autres pages : voir
+// scripts/build-header.js et includes/README.md. Le gabarit ci-dessous n'en
+// porte donc aucune copie — c'est ce qui avait produit trois formes d'en-tête
+// différentes sur le site.
+const { rendre } = require('./build-header.js');
+const ICONES = rendre('head-icons', '../', true);
+const EN_TETE = rendre('header', '../', true);
+const TRADUCTEUR = rendre('translate', '../', true);
+
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(REPO_ROOT, 'hexagrammes');
 fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -291,13 +301,11 @@ for(let chrono = 0; chrono < 64; chrono++){
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
+${ICONES}
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
-  </header>
+${EN_TETE}
 
   <div class="article-body">
     <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
@@ -397,12 +405,7 @@ ${linesHtml}
     ${SOUTIEN_LINK_HTML}
   </div>
 </div>
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
@@ -585,13 +588,11 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
+${ICONES}
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
-  </header>
+${EN_TETE}
 
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
@@ -656,12 +657,7 @@ ${gridItems}
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>

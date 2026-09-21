@@ -1,0 +1,33 @@
+name: En-tête conforme aux fragments partagés
+
+# L'en-tête était recopié à la main dans chaque page et avait divergé en trois
+# formes : logo hors du cadre puis traducteur (73 pages), logo DANS le cadre et
+# traducteur après (14), logo seul sans traducteur (7). Trois pages portaient un
+# emplacement de traduction que le script n'alimentait jamais — un widget
+# invisible, sans erreur, pendant des semaines — et encodeur.html un <div> stylé
+# en ligne au lieu de la classe commune. Même mécanisme que le bug de btnReset et
+# que la triple copie de FACES : une copie oubliée qui l'emporte au prochain
+# passage.
+#
+# Depuis, includes/ porte la source unique et scripts/build-header.js la recopie
+# entre marqueurs. Ce workflow échoue si une page ne correspond plus à ce que les
+# fragments produiraient — édition à la main dans la zone balisée, marqueurs
+# retirés, page ajoutée sans passer par le script. Voir includes/README.md.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-header.js --verifie
