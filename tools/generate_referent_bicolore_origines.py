@@ -25,20 +25,40 @@ Le nom de fichier encode la famille par tokens, ordre indifférent :
 {PÔLE, PÔLE-MUT}. PÔLE ∈ {YIN, YANG}.
 
 Polarité pour un jeu de planches sans référent JSON propre (ex. ORIGINES
-T2 pour C8·B2) : reprise de la polarité que la planche ORIGINES (C8·B3)
-utilise pour la même famille, sur l'hypothèse que les deux jeux suivent la
-même convention. C'est une hypothèse, pas une mesure — à vérifier à l'œil
-sur la page une fois le fichier chargé (--polarity-check l'annonce dans la
-sortie pour qu'elle ne passe pas inaperçue).
+T2 pour C8·B2) : reprise par défaut de la polarité que la planche
+ORIGINES (C8·B3) utilise pour la même famille — une hypothèse, pas une
+mesure, puisque chaque jeu de planches est tracé indépendamment.
+
+Un contrôle structurel, lui, EST une mesure et ne dépend d'aucune
+convention : pour toute famille combinée A+B présente dans le jeu, le
+bit sombre extrait de la planche A+B doit être, à une inversion globale
+près, le XOR des bits sombres extraits des planches A et B seules — la
+combinaison est construite ainsi (tools/familles.py:combine).
+measure_pair_parities() mesure les 6 triplets (les 4 bases prises deux à
+deux) ; build() compare cette mesure à ce que prédit la polarité
+choisie (ORIGINES + --flip) et avertit en cas d'écart — un signal
+qu'une planche a sa polarité propre, indépendante de celle d'ORIGINES,
+sans dire laquelle des deux membres du triplet est en cause (la mesure
+ne contraint que des polarités relatives, pas une polarité absolue,
+faute de référent mathématique indépendant côté ORIGINES T2 — voir la
+discussion dans la session qui a ajouté ce contrôle).
+
+Vérifié pour ORIGINES T2 (mesure ci-dessus + confirmation d'Anibal par
+lecture directe des planches) : la polarité s'inverse pour YIN et
+YIN-MUT prises seules, mais pas pour YIN+YIN-MUT (« YIN pur ») — d'où
+--flip. Les familles YANG/YANG-MUT montrent un écart similaire qui
+n'est PAS couvert par --flip : reste à vérifier à l'œil, comme pour le
+triplet YIN.
 
 Usage :
     python3 generate_referent_bicolore_origines.py \\
-        --src "data/ORIGINES T2" --trame C8B2 \\
+        --src "data/ORIGINES T2" --trame C8B2 --flip YIN,YIN-MUT \\
         --out data/referent_bicolore_c8b2_v1.json
 """
 
 import argparse
 import glob
+import itertools
 import json
 import os
 import sys
@@ -111,6 +131,32 @@ def extract_dark_hex(path):
     return G._bits_to_hex(bit_str), index_of
 
 
+def measure_pair_parities(dark_by_key):
+    """Pour chaque paire de bases A,B dont la combinaison A+B est aussi
+    présente : mesure si dark(A) xor dark(B) égale dark(A+B) (parité 0)
+    ou son inverse bit à bit (parité 1) — doit être l'un ou l'autre,
+    constant sur les 1152 bits, jamais un mélange, puisque la
+    combinaison est construite comme un XOR (familles.py:combine).
+    Retourne {(a, b, combo): parité_mesurée}."""
+    out = {}
+    for a, b in itertools.combinations(F.BASES, 2):
+        combo = '+'.join(x for x in F.BASES if x in (a, b))
+        if a not in dark_by_key or b not in dark_by_key or combo not in dark_by_key:
+            continue
+        xor_bits = ''.join('1' if x != y else '0' for x, y in zip(dark_by_key[a], dark_by_key[b]))
+        if xor_bits == dark_by_key[combo]:
+            out[(a, b, combo)] = 0
+        elif xor_bits == ''.join('1' if c == '0' else '0' for c in dark_by_key[combo]):
+            out[(a, b, combo)] = 1
+        else:
+            raise SystemExit(
+                f'{a}/{b}/{combo} : dark(A) xor dark(B) ne correspond ni à dark(A+B) '
+                'ni à son inverse — planches incohérentes entre elles (pas seulement '
+                'une question de polarité).'
+            )
+    return out
+
+
 def compute_layers(index_of, x0, y0, cell_w):
     layers = {n: [] for n in range(1, 7)}
     for key, gi in index_of.items():
@@ -126,17 +172,21 @@ def compute_layers(index_of, x0, y0, cell_w):
     return layers
 
 
-def build(src_dir, trame_label):
+def build(src_dir, trame_label, flip=frozenset()):
     files = sorted(glob.glob(os.path.join(src_dir, 'bandes*.svg')))
     if len(files) != 15:
         raise SystemExit(f'{src_dir} : {len(files)} planches au lieu de 15')
 
     polarity_ref = json.load(open(POLARITY_REF, encoding='utf-8'))['familles']
+    unknown_flip = flip - set(polarity_ref)
+    if unknown_flip:
+        raise SystemExit(f'--flip : famille(s) inconnue(s) {unknown_flip}')
 
     familles_out = {}
+    dark_hex_by_key = {}
+    dark_bits_by_key = {}
     layers = None
     used_keys = set()
-    yin_polarity_count = 0
 
     for path in files:
         fname = os.path.basename(path)
@@ -149,10 +199,16 @@ def build(src_dir, trame_label):
 
         dark_hex, index_of = extract_dark_hex(path)
         dark_bits = ''.join(format(int(c, 16), '04b') for c in dark_hex)
+        dark_hex_by_key[key] = dark_hex
+        dark_bits_by_key[key] = dark_bits
         light_bits = ''.join('1' if b == '0' else '0' for b in dark_bits)
         light_hex = G._bits_to_hex(light_bits)
 
-        if key in YIN_POLARITY_KEYS:
+        # c=1 : la planche trace en sombre le côté "yin" du champ. Reprise
+        # de la convention ORIGINES (YIN_POLARITY_KEYS), inversée pour les
+        # familles listées dans --flip.
+        c = (key in YIN_POLARITY_KEYS) ^ (key in flip)
+        if c:
             familles_out[key] = {'yang': light_hex, 'yin': dark_hex}
         else:
             familles_out[key] = {'yang': dark_hex, 'yin': light_hex}
@@ -168,6 +224,16 @@ def build(src_dir, trame_label):
     if used_keys != set(polarity_ref):
         raise SystemExit(f'familles manquantes : {set(polarity_ref) - used_keys}')
 
+    measured = measure_pair_parities(dark_bits_by_key)
+    warnings = []
+    for (a, b, combo), measured_parity in measured.items():
+        c_a = (a in YIN_POLARITY_KEYS) ^ (a in flip)
+        c_b = (b in YIN_POLARITY_KEYS) ^ (b in flip)
+        c_combo = (combo in YIN_POLARITY_KEYS) ^ (combo in flip)
+        predicted_parity = int(c_a) ^ int(c_b) ^ int(c_combo)
+        if predicted_parity != measured_parity:
+            warnings.append((a, b, combo))
+
     doc = {
         'format': 'referent-bicolore-v1',
         'trame': trame_label,
@@ -180,7 +246,7 @@ def build(src_dir, trame_label):
         'layers': {str(n): layers[n] for n in range(1, 7)},
         'familles': familles_out,
     }
-    return doc
+    return doc, warnings
 
 
 def main():
@@ -188,16 +254,27 @@ def main():
     ap.add_argument('--src', required=True, help='dossier des 15 planches "bandes*.svg"')
     ap.add_argument('--trame', required=True, help='étiquette de la trame, ex. C8B2')
     ap.add_argument('--out', required=True, help='fichier JSON de sortie')
+    ap.add_argument('--flip', default='', help='familles (séparées par des virgules) dont la '
+                     'polarité ORIGINES doit être inversée pour ce jeu de planches, ex. YIN,YIN-MUT')
     args = ap.parse_args()
 
-    doc = build(args.src, args.trame)
+    flip = {k.strip() for k in args.flip.split(',') if k.strip()}
+    doc, warnings = build(args.src, args.trame, flip=flip)
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
     with open(args.out, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
     size_kb = os.path.getsize(args.out) / 1024
     print(f'{args.out} : trame {args.trame}, {len(doc["familles"])} familles, {size_kb:.1f} Ko')
-    print('Polarité (yang/yin par famille) reprise de la convention ORIGINES (C8·B3) — '
-          'à vérifier à l\'œil sur la page avant diffusion.')
+    if flip:
+        print(f'Polarité ORIGINES inversée pour : {sorted(flip)}.')
+    if warnings:
+        print(f'\n{len(warnings)} paire(s) où la parité mesurée sur les planches ne '
+              'correspond pas à celle prédite par la polarité choisie (ORIGINES + --flip) '
+              '— polarité incertaine pour au moins un des trois, à vérifier à l\'œil :')
+        for a, b, combo in warnings:
+            print(f'  - {a} / {b} / {combo}')
+    print('\nPolarité (yang/yin par famille) : reprise de la convention ORIGINES (C8·B3), '
+          'ajustée par --flip — à vérifier à l\'œil sur la page avant diffusion.')
 
 
 if __name__ == '__main__':
