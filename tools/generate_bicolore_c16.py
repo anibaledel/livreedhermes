@@ -3,45 +3,83 @@
 # AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
 """
 generate_bicolore_c16.py — trame C16·B1, dérivée de C8·B2 (converti en
-C16 sans perte — voir cellule_c16.py), pour les quatre bases :
+C16 sans perte — voir cellule_c16.py). C16·B1 n'a pas de planche tracée :
+c'est la première trame de ce référent entièrement calculée, pas lue.
 
-  Orthogonales (YIN, YIN-MUT) : homothétie inverse — même opération que
-  derive_bicolore_homothety.py, rejouée en C16 : pour chaque triangle de
-  la trame d'arrivée, un point intérieur (x,y) en coordonnées de case,
-  lu dans la trame de départ au point (2x,2y) modulo 12.
+LOI DE LECTURE DES BASES (rappel, voir aussi generate_referent_bicolore_
+origines.py) : les quatre bases (YIN, YIN-MUT, YANG, YANG-MUT) se lisent
+par la couleur de remplissage d'une planche tracée — #808285 = yang —
+jamais par le nom de classe SVG. Les onze combinaisons ne se lisent
+JAMAIS sur leur propre planche : elles se calculent par ou-exclusif des
+bases (familles.py:combine), parce que l'algèbre fait foi sur le dessin
+(tranché par Anibal, session du 21 septembre 2026). C16·B1 pousse cette
+même loi un cran plus loin : ici, les BASES elles-mêmes n'ont pas de
+planche non plus, et se dérivent d'une trame plus grossière — mais
+suivant deux règles différentes selon la famille de base, jamais la même
+règle pour les deux :
 
-  Diagonales (YANG, YANG-MUT) : B_départ XOR losanges (règle du gnomon).
-  Un losange de rayon r centré sur un nœud (nr,nc) est l'ensemble des
-  points à distance L1 (pavée, modulo 12) <= r de ce nœud. Un nœud du
-  réseau de pas `pitch` est "libre" si les quatre cases qui le touchent
-  par leur coin portent la même teinte à ce coin précis — sinon la
-  frontière de la trame de départ passe par ce nœud (_node_is_free).
+  RÈGLE 1 — bases orthogonales (YIN, YIN-MUT), homothétie par
+  application inverse. Le passage d'un bloc au suivant plus fin
+  (rapport toujours ½, quels que soient les deux blocs en cause — 3→2 ou
+  2→1) N'EST PAS un échantillonnage (garder une case sur deux) : garder
+  une case ignore ce qui se passe dans les cases non retenues, justement
+  là où une frontière diagonale peut passer, et reconstruit une case
+  plate quand la vraie planche est scindée (erreur faite une fois en
+  session, avec YIN-MUT). La bonne opération est une application
+  inverse, point par point, sans rastérisation intermédiaire : pour
+  chaque triangle de la trame d'arrivée, un point intérieur (x,y) en
+  coordonnées de case, lu dans la trame de départ au point (2x,2y)
+  modulo la taille de la grille.
 
-  Les DEUX paramètres (pas, rayon) changent selon la transition — ce
-  n'est PAS le même couple pour les deux étapes, erreur commise une fois
-  en session et corrigée par Anibal :
-    B3 -> B2 : pas 6, rayon 3, nœuds EXPLICITES (pas de réseau plus
-               grossier pour les calculer ; B3 est la planche la plus
-               grossière qui existe) :
-                 YANG     : (0,6), (6,0)
-                 YANG-MUT : (0,0), (6,6)
-               (après réduction modulo 12 des doublons de bord — voir
-               validate_b3_to_b2()).
-    B2 -> B1 : pas 3, rayon 1,5, nœuds trouvés par _node_is_free sur B2
-               (aucune réponse connue pour B1 : le critère doit d'abord
-               être validé sur la transition B3->B2, qui EST connue).
+  RÈGLE 2 — bases diagonales (YANG, YANG-MUT), ou-exclusif avec des
+  losanges sur les nœuds libres (la règle du gnomon). B_arrivée =
+  B_départ XOR losanges. Un losange de rayon r centré sur un nœud
+  (nr,nc) est l'ensemble des points à distance L1 (pavée, modulo la
+  grille) <= r de ce nœud. Un nœud d'un réseau de pas donné est "libre"
+  si les quatre cases qui le touchent par leur coin portent la même
+  teinte à ce coin précis — sinon la frontière de B_départ passe par ce
+  nœud (_node_is_free). CONTRAIREMENT À LA RÈGLE 1, le couple (pas du
+  réseau, rayon du losange) N'EST PAS fixe d'une transition à l'autre —
+  il doit être établi (ou re-vérifié) à chaque fois, jamais réutilisé
+  tel quel (erreur faite une fois en session : le couple de B2->B1
+  appliqué par erreur à B3->B2). Les deux couples connus à ce jour :
+    B3 -> B2 : pas 6, rayon 3, nœuds EXPLICITES (B3 est la planche la
+               plus grossière qui existe : pas de réseau plus grossier
+               pour les calculer) — YANG : (0,6),(6,0) ; YANG-MUT :
+               (0,0),(6,6), une fois réduits modulo la grille.
+    B2 -> B1 : pas 3, rayon 1,5, nœuds trouvés par _node_is_free sur B2.
 
-Validation avant génération (voir validate_b3_to_b2()) :
-  1. Les nœuds explicites B3->B2 ci-dessus, avec pas 6 et rayon 3,
-     reproduisent B2 depuis B3 à l'écart nul (0/2304).
-  2. _node_is_free, appliqué à B3 sur le réseau de pas 6, retrouve
-     EXACTEMENT ces mêmes nœuds pour chacune des deux bases — c'est ce
-     test, et lui seul, qui autorise à faire confiance au critère pour
-     B2 (où la réponse n'est pas connue d'avance).
+  VALIDATION AVANT D'ÉTENDRE LA RÈGLE 2 (voir validate_b3_to_b2()) :
+  puisqu'aucune planche n'existe pour vérifier B2->B1 directement, on
+  vérifie le critère de nœud libre LUI-MÊME sur la transition B3->B2,
+  qui, elle, a une réponse connue : (a) les nœuds explicites, avec le
+  bon (pas, rayon), reproduisent B2 depuis B3 à l'écart nul ; (b)
+  _node_is_free, appliqué à B3 sur le réseau de pas 6, retrouve
+  EXACTEMENT ces mêmes nœuds. C'est (b), et seulement (b), qui autorise
+  à faire confiance à _node_is_free une fois appliqué à B2, où la
+  réponse n'est pas connue d'avance. Toute règle 2 future (C4->C4·B2,
+  etc.) doit repasser par cette même validation à deux temps avant
+  d'être crue sur une transition sans planche.
 
-11 combinaisons : ou-exclusif des quatre bases, comme partout ailleurs.
+  POURQUOI LE BLOC DE 1 EXIGE LA CELLULE C16 (et pas C8) : les losanges
+  de la règle 2, à B2->B1 (rayon 1,5, pas 3), ont des bords à 45° qui,
+  en C8, coupent 192 des 1152 triangles en deux — un triangle ne peut
+  pas porter deux teintes. En C16, ces mêmes bords tombent exactement
+  sur les diagonales des sous-carrés : 0 triangle coupé sur 2304, parce
+  que les diagonales des sous-carrés C16 sont elles-mêmes des droites à
+  45° passant par des points à coordonnées demi-entières — la même
+  famille de droites que les bords des losanges. Toute trame future dont
+  la construction (règle 1 ou 2, ou une nouvelle) produit des frontières
+  à 45° à une densité de nœuds plus fine que celle de la cellule en
+  cours devra, par le même raisonnement, passer à une cellule plus fine
+  encore (voir cellule_c16.py pour le contrat de cellule et comment y
+  brancher une nouvelle définition — cellule ronde ou C4 y compris).
+
+Les onze combinaisons : ou-exclusif des quatre bases dérivées ci-dessus,
+jamais lues (aucune planche n'existe de toute façon pour C16·B1).
 """
 
+import itertools
 import json
 import os
 import sys
@@ -50,13 +88,19 @@ TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(TOOLS_DIR)
 sys.path.insert(0, TOOLS_DIR)
 
+import familles as F  # noqa: E402  (BASES)
 from cellule_c16 import (  # noqa: E402
     GRID, PER_CELL_C16, PARTS_C16, c16_interior_point, c16_sector_of, convert_c8_to_c16,
 )
+from generate_referent_360 import LAYER_OF  # noqa: E402  source unique, non dupliquée
+from generate_referent_bicolore import PER_LAYER as PER_LAYER_C8  # noqa: E402
 
 DATA_DIR = os.path.join(REPO_ROOT, 'data')
 B3_PATH = os.path.join(DATA_DIR, 'referent_bicolore_v1.json')
 B2_PATH = os.path.join(DATA_DIR, 'referent_bicolore_c8b2_v1.json')
+OUT_PATH = os.path.join(DATA_DIR, 'referent_bicolore_c16b1_v1.json')
+
+PER_LAYER_C16 = PER_LAYER_C8 * (PER_CELL_C16 // 8)  # 384 (24 cellules/niveau x 16)
 
 # Nœuds explicites de la transition B3->B2 (pas 6, rayon 3), vérifiés par
 # Anibal côté C8 (0/1152) avant transmission — voir docstring du module.
@@ -89,7 +133,7 @@ def load_c16_yang(path, key):
     return convert_c8_to_c16(hex_to_bits(doc['familles'][key]['yang']))
 
 
-# --- homothétie inverse, en C16 (bases orthogonales) ---
+# --- règle 1 : homothétie inverse (bases orthogonales) ---
 
 def inverse_homothety_c16(src_bits, ratio=2):
     out = [None] * PARTS_C16
@@ -107,7 +151,7 @@ def inverse_homothety_c16(src_bits, ratio=2):
     return out
 
 
-# --- losanges (bases diagonales) ---
+# --- règle 2 : ou-exclusif avec des losanges (bases diagonales) ---
 
 def _node_is_free(bits, node_row, node_col):
     """Un nœud (coordonnées de case) est libre si les quatre cases qui
@@ -188,41 +232,98 @@ def validate_b3_to_b2():
     return ok
 
 
-def build_c16b1():
+def build_bases():
     """Les quatre bases de C16·B1, dérivées de C8·B2 — seulement après
     validate_b3_to_b2()."""
-    familles = {}
+    bases = {}
     for key in ('YIN', 'YIN-MUT'):
         src = load_c16_yang(B2_PATH, key)
-        yang = inverse_homothety_c16(src, ratio=2)
-        familles[key] = {'yang': bits_to_hex(yang), 'yin': bits_to_hex([1 - b for b in yang])}
+        bases[key] = inverse_homothety_c16(src, ratio=2)
     for key in ('YANG', 'YANG-MUT'):
         src = load_c16_yang(B2_PATH, key)
         nodes = free_nodes_of(src, pitch=3)
-        yang = gnomon(src, nodes, radius=1.5)
-        familles[key] = {'yang': bits_to_hex(yang), 'yin': bits_to_hex([1 - b for b in yang])}
+        bases[key] = gnomon(src, nodes, radius=1.5)
         print(f'{key} : nœuds libres (pas 3, sur B2) = {sorted(nodes)}')
-    return familles
+    return bases
 
 
-if __name__ == '__main__':
+def build_layers():
+    layers = {n: [] for n in range(1, 7)}
+    for row in range(GRID):
+        for col in range(GRID):
+            n = LAYER_OF[row][col]
+            cell = row * GRID + col
+            layers[n].extend(range(cell * PER_CELL_C16, (cell + 1) * PER_CELL_C16))
+    for n in range(1, 7):
+        layers[n].sort()
+        assert len(layers[n]) == PER_LAYER_C16, (n, len(layers[n]))
+    seen = set(gi for ks in layers.values() for gi in ks)
+    assert seen == set(range(PARTS_C16))
+    return layers
+
+
+def measure_pair_parities(dark_by_key):
+    """Même contrôle que generate_referent_bicolore_origines.py : pour
+    toute paire de bases A,B, dark(A) xor dark(B) doit égaler dark(A+B)
+    — ici toujours vrai par construction puisque les combinaisons SONT
+    ce calcul, jamais lues sur une planche (voir docstring du module) ;
+    le contrôle reste exécuté pour détecter une erreur de code, pas une
+    ambiguïté de polarité comme côté ORIGINES."""
+    problems = []
+    for a, b in itertools.combinations(F.BASES, 2):
+        combo = '+'.join(x for x in F.BASES if x in (a, b))
+        xor_bits = [x ^ y for x, y in zip(dark_by_key[a], dark_by_key[b])]
+        if xor_bits != dark_by_key[combo]:
+            problems.append((a, b, combo))
+    return problems
+
+
+def build_c16b1():
     validate_b3_to_b2()
-    familles = build_c16b1()
+    bases = build_bases()
+
+    familles_bits = dict(bases)
+    for size in range(2, 5):
+        for combo in itertools.combinations(F.BASES, size):
+            key = '+'.join(combo)
+            bits = familles_bits[combo[0]]
+            for b in combo[1:]:
+                bits = [x ^ y for x, y in zip(bits, familles_bits[b])]
+            familles_bits[key] = bits
+    assert len(familles_bits) == 15, len(familles_bits)
+
+    mixed = measure_pair_parities(familles_bits)
+    if mixed:
+        raise SystemExit(f'mélange détecté (ne devrait jamais arriver, combinaisons calculées) : {mixed}')
+    print(f'contrôle de parité : {len(familles_bits) - 4} combinaison(s) vérifiée(s), aucun mélange.')
+
+    familles_out = {}
+    for key, bits in familles_bits.items():
+        familles_out[key] = {'yang': bits_to_hex(bits), 'yin': bits_to_hex([1 - b for b in bits])}
+
+    layers = build_layers()
+
     doc = {
-        'format': 'referent-bicolore-v1-partiel',
+        'format': 'referent-bicolore-v1',
         'trame': 'C16B1',
-        'note': 'Quatre bases seulement (YIN, YIN-MUT, YANG, YANG-MUT) — les onze '
-                'combinaisons manquent encore, calculables par ou-exclusif une fois '
-                'ces bases confirmées à l\'œil par Anibal.',
+        'decoupe': '16 triangles par cellule (4 sous-carrés x 4), voir tools/cellule_c16.py',
+        'source': 'dérivée de data/referent_bicolore_c8b2_v1.json — aucune planche tracée',
         'grid': GRID,
         'parts': PARTS_C16,
         'per_cell': PER_CELL_C16,
-        'familles': familles,
+        'per_layer': PER_LAYER_C16,
+        'layers': {str(n): layers[n] for n in range(1, 7)},
+        'familles': familles_out,
     }
-    out_path = os.path.join(DATA_DIR, 'referent_bicolore_c16b1_bases_v1.json')
-    with open(out_path, 'w', encoding='utf-8') as f:
+    return doc
+
+
+if __name__ == '__main__':
+    doc = build_c16b1()
+    with open(OUT_PATH, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
-    for key, fam in familles.items():
+    for key, fam in doc['familles'].items():
         dark = sum(hex_to_bits(fam['yang']))
-        print(f'{key} : {dark}/{PARTS_C16} sombres')
-    print(f'\n{out_path} : trame C16B1 (partielle), {len(familles)} base(s)')
+        print(f'{key:28s} : {dark}/{PARTS_C16} sombres')
+    size_kb = os.path.getsize(OUT_PATH) / 1024
+    print(f'\n{OUT_PATH} : trame C16B1, {len(doc["familles"])} familles, {size_kb:.1f} Ko')

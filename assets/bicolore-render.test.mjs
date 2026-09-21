@@ -10,7 +10,7 @@
 // pavage au lieu de chacune leur case.
 
 import assert from 'node:assert/strict';
-import { PARTS, maskToSvg, maskToPavageSvg } from './bicolore-render.js';
+import { GRID, PARTS, maskToSvg, maskToPavageSvg, cellTrianglesC16, triangleGeometry } from './bicolore-render.js';
 
 const mask = new Uint8Array(PARTS); // tout à 0, suffisant pour tester la structure du SVG
 const palette = ['#f2ece1', '#2b2b2b'];
@@ -53,6 +53,25 @@ test('maskToSvg (tuile unique) : pas de <symbol>/<use>, non affectée par le bug
   assert.doesNotMatch(svg, /<use/, 'maskToSvg ne devrait pas utiliser <use>');
   const polygons = [...svg.matchAll(/<polygon\b/g)];
   assert.equal(polygons.length, PARTS, `attendu ${PARTS} polygones dessinés directement`);
+});
+
+test('cellTrianglesC16 : 16 triangles, chacun un triplet de points', () => {
+  const tris = cellTrianglesC16(0, 0, 10);
+  assert.equal(tris.length, 16, 'attendu 16 triangles');
+  for (const t of tris) assert.equal(t.length, 3, 'chaque triangle a 3 sommets');
+});
+
+test('maskToSvg (perCell: 16) : 2304 polygones pour une grille 12×12', () => {
+  const maskC16 = new Uint8Array(GRID * GRID * 16);
+  const svg = maskToSvg(maskC16, palette, { size: 320, perCell: 16 });
+  const polygons = [...svg.matchAll(/<polygon\b/g)];
+  assert.equal(polygons.length, GRID * GRID * 16, 'attendu 2304 polygones en C16');
+});
+
+test('triangleGeometry (perCell: 16) : index dans la dernière cellule reste valide', () => {
+  const lastIndex = GRID * GRID * 16 - 1;
+  const tri = triangleGeometry(lastIndex, 30, 16);
+  assert.equal(tri.length, 3, 'triangle valide (3 sommets)');
 });
 
 if (process.exitCode) {
