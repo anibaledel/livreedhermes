@@ -125,3 +125,39 @@
 }
 .site-footer-licence a { color: var(--dim); }
 .site-footer-licence a:hover { color: var(--gold); }
+
+/* ============================================================
+   TITRES DE SECTION BALISÉS SANS CHANGER L'APPARENCE
+   Un <h2> apporte ses propres valeurs par défaut — gras et marges — qui
+   feraient bouger la page alors qu'on ne veut que nommer une section déjà
+   nommée à l'écran. Cette classe les neutralise ; la classe d'origine de
+   l'intitulé (.label, .paved-label…) continue de décider du reste.
+   Elle porte aussi l'apparence des intitulés discrets du site — capitales
+   espacées, corps réduit, encre secondaire — parce que .label n'existe qu'en
+   version scopée dans les pages (.grid-head .label, .legend .label) et ne
+   s'applique donc pas ailleurs. Là où une classe d'origine existe, elle passe
+   devant : déclarée plus loin dans la cascade, elle l'emporte.
+   Inutile là où la classe fixe déjà font-weight et margin — c'est le cas de
+   .faq-block-title, qui passe de <p> à <h2> sans un pixel de différence.
+   ============================================================ */
+/* Un intitulé qui porte DÉJÀ sa classe : on neutralise seulement les défauts
+   du <h2>, sans rien imposer. :where() met la règle à spécificité nulle, donc
+   la classe d'origine l'emporte quel que soit l'ordre des feuilles. */
+:where(h2.h2-neutre) {
+  font-weight: inherit;
+  margin: 0;
+}
+
+/* Un titre de section AUTONOME, qui n'existait pas à l'écran : il prend
+   l'apparence des intitulés du site — capitales espacées, corps réduit, encre
+   secondaire — et l'espacement qui le détache de ce qui précède. Sans marge,
+   il vient se coller à la grille qui le surplombe (constaté à l'écran). */
+.section-h2 {
+  font-weight: inherit;
+  font-size: calc(10px + var(--fs-bump));
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-align: center;
+  margin: 24px 0 10px;
+}

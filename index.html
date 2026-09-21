@@ -533,6 +533,7 @@
 
   <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
        écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
+    <h2 class="section-h2" id="txt-bookTitle">Le livre</h2>
     <div class="book-bar">
       <span class="dl-group">
         <a class="dl-label" id="txt-readBook" href="fr/livre/" target="_blank" rel="noopener">Lire le livre</a>
@@ -572,12 +573,13 @@
   <div class="layout">
     <div class="grid-panel">
       <div class="grid-head" id="gridHead">
-        <span class="label" id="txt-grid">Échiquier</span>
+        <h2 class="label h2-neutre" id="txt-grid">L'échiquier</h2>
         <span class="label">00 → 63</span>
       </div>
       <div class="axis-note" id="txt-axisNote">Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne</div>
       <div class="hexgrid" id="hexgrid"></div>
-      <div class="tirage-guide" id="txt-tirageGuide">
+      <h2 class="section-h2" id="txt-oracleTitle">L'oracle</h2>
+        <div class="tirage-guide" id="txt-tirageGuide">
         <p>Le Yi King est un livre de sagesse qui peut s'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>
         <p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, sélectionnez directement une case de l'échiquier. Pour plus d'informations sur les images, n'hésitez pas à lire le livre.</p>
       </div>
@@ -619,6 +621,7 @@
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
     </div>
 
+    <h2 class="section-h2" id="txt-toolsTitle">Les outils</h2>
     <div class="nav-tiles">
       <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navWallpaper">Fond d'écran</span><span class="nav-tile-excerpt" id="txt-navWallpaperDesc">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
       <a class="nav-tile" href="creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/creation-motifs.png); --hover-icon:url(assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label" id="txt-navMotif">Créer un motif</span><span class="nav-tile-excerpt" id="txt-navMotifDesc">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
@@ -1211,7 +1214,7 @@ const UI = {
     eyebrow:"La Livrée d'Hermès", title:"Tirage — Ordre chronologique des 64 mutations",
     readBook:"Lire le livre", dlPdf:"Télécharger le PDF", langBookTitle:"Langue du livre",
     dlYiKing:"Télécharger la traduction du Yi-King", dl360:"Archive 360 motifs",
-    grid:"Échiquier", drawBtn:"Tirer aux pièces (6 traits)",
+    grid:"L'échiquier", oracleTitle:"L'oracle", bookTitle:"Le livre", toolsTitle:"Les outils", drawBtn:"Tirer aux pièces (6 traits)",
     legendLabel:"Traits — symbolique traditionnelle",
     legendYangFixe:"Yang fixe", legendYangMut:"Yang mutant — va se briser",
     legendYinFixe:"Yin fixe", legendYinMut:"Yin mutant — va se remplir",
@@ -1264,7 +1267,7 @@ const UI = {
     eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
     readBook:"Read the book", dlPdf:"Download the PDF", langBookTitle:"Book language",
     dlYiKing:"Download the Yi-King translation", dl360:"360-motifs archive",
-    grid:"Chessboard", drawBtn:"Cast the coins (6 lines)",
+    grid:"Chessboard", oracleTitle:"The oracle", bookTitle:"The book", toolsTitle:"The tools", drawBtn:"Cast the coins (6 lines)",
     legendLabel:"Lines — traditional symbolism",
     legendYangFixe:"Fixed yang", legendYangMut:"Moving yang — about to break",
     legendYinFixe:"Fixed yin", legendYinMut:"Moving yin — about to fill",
@@ -1867,6 +1870,9 @@ function applyUILang(){
   document.getElementById('txt-navLexiqueDesc').textContent = t('navLexiqueDesc');
   document.getElementById('txt-navArticlesDesc').textContent = t('navArticlesDesc');
   document.getElementById('txt-grid').textContent = t('grid');
+  document.getElementById('txt-oracleTitle').textContent = t('oracleTitle');
+  document.getElementById('txt-bookTitle').textContent = t('bookTitle');
+  document.getElementById('txt-toolsTitle').textContent = t('toolsTitle');
   document.getElementById('txt-axisNote').innerHTML = t('axisNote');
   document.getElementById('drawBtn').textContent = t('drawBtn');
   document.getElementById('txt-legendLabel').textContent = t('legendLabel');
