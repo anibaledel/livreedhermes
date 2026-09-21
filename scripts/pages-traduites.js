@@ -31,6 +31,7 @@ const TRADUITES_A_LA_MAIN = new Set([
   'book-viewer/index.html',
   'en/lexicon/index.html',
   'es/lexico/index.html',
+  'th/lexicon/index.html',
 ]);
 
 module.exports = { TRADUITES_A_LA_MAIN };

@@ -60,12 +60,7 @@ const GROUPES = [
       ['fr', `${SITE}/lexique.html`, 'lexique.html'],
       ['en', `${SITE}/en/lexicon/`, 'en/lexicon/index.html'],
       ['es', `${SITE}/es/lexico/`, 'es/lexico/index.html'],
-      // Le thaï s'ajoutera ici quand th/lexicon/ existera. Déclarer une page
-      // avant de l'avoir écrite fait échouer build-header.js --verifie, qui
-      // vérifie que chaque fichier déclaré existe : c'est ce qui permet
-      // d'ajouter les traductions une par une sans publier un hreflang
-      // mensonger. Un groupe n'a pas à couvrir toutes les langues du site —
-      // seulement à dire vrai sur celles qu'il déclare.
+      ['th', `${SITE}/th/lexicon/`, 'th/lexicon/index.html'],
     ],
   },
 ];

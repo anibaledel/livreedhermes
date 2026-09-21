@@ -173,6 +173,7 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
@@ -183,6 +184,7 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
@@ -193,6 +195,18 @@
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/lexicon/</loc>
+    <lastmod>2026-09-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
