@@ -75,6 +75,13 @@ const PAGES = [
   { path: 'telechargements.html' },
   { path: 'tirage-livree-hermes.html', horsEnTete: true },
   { path: 'unified-patterns.html' },
+  // ── la page d'erreur, demandée EN PROFONDEUR ─────────────────────────
+  // Pas /404.html : à la racine, la page marche avec n'importe quel préfixe et
+  // le contrôle ne prouverait rien. GitHub Pages — et http-server — servent ce
+  // fichier pour toute adresse inconnue, à n'importe quelle profondeur, et
+  // c'est là que ses chemins doivent tenir. Voir l'exception 404.html dans
+  // scripts/build-header.js.
+  { path: 'articles/adresse-qui-n-existe-pas', page404: true },
   // ── 8 articles ───────────────────────────────────────────────────────
   { path: 'articles/arlequin-trismegiste.html' },
   { path: 'articles/cymatique-spectre-d-un-motif.html' },
@@ -121,7 +128,17 @@ async function checkPage(browser, page_def) {
     // même-origine. Un message sans URL est conservé, par prudence.
     const src = msg.location()?.url;
     if (src && !src.startsWith(BASE_URL)) return;
+    // Une page d'erreur DOIT répondre 404, et le navigateur émet une erreur de
+    // console pour le document lui-même. C'est le comportement attendu, pas un
+    // défaut : seules les ressources de la page comptent ici.
+    if (page_def.page404 && src === url) return;
     errors.push(`console.error : ${msg.text()}`);
+  });
+  const reponsesEnEchec = [];
+  page.on('response', (r) => {
+    if (r.status() >= 400 && r.url().startsWith(BASE_URL) && r.url() !== url) {
+      reponsesEnEchec.push(`${r.status()} ${r.url()}`);
+    }
   });
   page.on('requestfailed', (req) => {
     // ignore les échecs de tiers (polices Google, traduction) — on contrôle
@@ -134,6 +151,7 @@ async function checkPage(browser, page_def) {
   let bodyText = '';
   let zoneText = null;
   let enTete = null;
+  let verif404 = null;
   let loadError = null;
   try {
     // 'domcontentloaded', pas 'load' : on veut savoir si le script inline a
@@ -148,6 +166,20 @@ async function checkPage(browser, page_def) {
         const el = document.querySelector(sel);
         return el ? el.innerHTML.trim() : null;
       }, page_def.zone);
+    }
+    if (page_def.page404) {
+      verif404 = await page.evaluate(() => {
+        const logo = document.querySelector('header.site-header img');
+        return {
+          // Un token résolu prouve que style.css a été chargé ET appliqué :
+          // un <link> présent mais en 404 laisserait la valeur vide.
+          tokenCSS: getComputedStyle(document.documentElement).getPropertyValue('--bg').trim(),
+          logoSrc: logo ? logo.getAttribute('src') : null,
+          logoCharge: !!logo && logo.complete && logo.naturalWidth > 0,
+          icones: [...document.querySelectorAll('link[rel~="icon"], link[rel="apple-touch-icon"]')]
+            .map((l) => l.getAttribute('href')),
+        };
+      });
     }
     if (!page_def.horsEnTete) {
       enTete = await page.evaluate(() => {
@@ -175,6 +207,19 @@ async function checkPage(browser, page_def) {
   if (errors.length) problems.push(...errors);
   if (!loadError && bodyText.length < MIN_BODY_TEXT) {
     problems.push(`page quasi vide : ${bodyText.length} caractères de texte (seuil ${MIN_BODY_TEXT})`);
+  }
+  if (verif404 && !loadError) {
+    // Servie à une adresse imbriquée, la page d'erreur doit charger ses
+    // ressources comme à la racine. Un chemin relatif y pointerait vers
+    // /articles/assets/… et tout tomberait en silence.
+    if (!verif404.tokenCSS) problems.push("404 en profondeur : style.css n'a pas été appliqué (--bg non résolu)");
+    if (!verif404.logoSrc) problems.push('404 en profondeur : pas de logo dans l\'en-tête');
+    else if (!verif404.logoSrc.startsWith('/')) problems.push(`404 en profondeur : chemin du logo non absolu (${verif404.logoSrc})`);
+    else if (!verif404.logoCharge) problems.push(`404 en profondeur : le logo n'a pas chargé (${verif404.logoSrc})`);
+    const relatives = verif404.icones.filter((h) => h && !h.startsWith('/') && !h.startsWith('http'));
+    if (relatives.length) problems.push(`404 en profondeur : icône(s) en chemin relatif : ${relatives.join(', ')}`);
+    if (!verif404.icones.length) problems.push('404 en profondeur : aucune icône déclarée');
+    for (const e of reponsesEnEchec) problems.push(`404 en profondeur : ressource en échec — ${e}`);
   }
   if (enTete && !loadError) {
     // L'en-tête est une zone attendue sur toute page de contenu : logo,
