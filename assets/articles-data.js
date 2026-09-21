@@ -40,7 +40,7 @@ window.ARTICLES = [
     dateDisplay: "Publié le 16 septembre 2026",
     categories: ["Géométrie", "Philosophie", "Livrée"],
     excerpt: "De la plaque de Chladni au pavage : les quinze gammes du traité ont des fréquences spatiales dont les carrés sont entiers — la forme même que prennent les modes d'une plaque carrée.",
-    cover: "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg",
+    cover: "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.avif",
     coverAlt: "Bandeau des quinze motifs Yin et Yang du traité, en noir et blanc, côte à côte"
   },
   {
@@ -62,7 +62,7 @@ window.ARTICLES = [
     dateDisplay: "Publié le 3 septembre 2026",
     categories: ["Livrée", "Philosophie", "Divination"],
     excerpt: "Pourquoi Apollinaire referme un poème sur \"l'arlequin trismégiste\" ? La naissance d'Hermès, le témoignage de Niklaus et Crowley, et le geste que Baphomet partage avec le Bateleur.",
-    cover: "https://anibal-amiot.com/assets/articles/arlequin-trismegiste-cover.jpg",
+    cover: "https://anibal-amiot.com/assets/articles/arlequin-trismegiste-cover.avif",
     coverAlt: "Arlequin : les deux croix ansées en costume de losanges"
   },
   {
@@ -84,7 +84,7 @@ window.ARTICLES = [
     dateDisplay: "Publié le 2 septembre 2026",
     categories: ["Sagesse", "Divination", "Livrée"],
     excerpt: "Avant d'être une carte à jouer, le Fou est un dieu mineur banni de l'Olympe pour ses railleries. De Mômos aux bouffons de cour de la Renaissance, une traversée de la fonction de miroir grotesque que le fou tend au prince.",
-    cover: "https://anibal-amiot.com/assets/articles/visconti-sforza-fou.jpg",
+    cover: "https://anibal-amiot.com/assets/articles/visconti-sforza-fou.avif",
     coverAlt: "Le Mat (le Fou), tarot Visconti-Sforza"
   },
   {
@@ -95,7 +95,7 @@ window.ARTICLES = [
     dateDisplay: "Publié le 2 septembre 2026",
     categories: ["Livrée", "Géométrie"],
     excerpt: "Dans le livre de l'Exode, deux détails du vêtement du grand prêtre — la tunique « en damier » et le carré du pectoral — dessinent, bien avant tout carré magique, la même intuition qui traverse La Livrée d'Hermès.",
-    cover: "https://anibal-amiot.com/assets/articles/grand-pretre-tashbetz-1874.jpg",
+    cover: "https://anibal-amiot.com/assets/articles/grand-pretre-tashbetz-1874.avif",
     coverAlt: "Le grand prêtre en habits sacerdotaux, l'éphod et le pectoral sur la poitrine"
   },
   {
@@ -106,7 +106,7 @@ window.ARTICLES = [
     dateDisplay: "Publié le 31 août 2026",
     categories: ["Livrée", "Philosophie"],
     excerpt: "Deux traditions théâtrales indépendantes, deux figures bariolées porteuses d'un bâton — le rapprochement entre le fidèle compagnon du Ramayana et l'Arlequin de la commedia dell'arte n'est pas qu'une coïncidence visuelle.",
-    cover: "https://anibal-amiot.com/assets/articles/hanuman-mouth-075.jpg",
+    cover: "https://anibal-amiot.com/assets/articles/hanuman-mouth-075.avif",
     coverAlt: "Fresque du Ramakien représentant Phra Ram et Nang Sida cachés dans la bouche géante de Hanuman"
   }
 ];
