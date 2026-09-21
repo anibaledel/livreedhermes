@@ -105,6 +105,32 @@ fragments.
 l'en-tête est présent et complet : logo effectivement chargé et dimensionné,
 emplacement du traducteur, `<h1>`.
 
+## Date de modification des pages d'hexagrammes
+
+`dateModified` ne suit pas le jour de régénération mais le **texte éditorial**.
+Chaque page porte en tête de `<head>` l'empreinte SHA-256 des champs qui font
+son contenu — jugement, image, commentaires des six traits, trigrammes, nom,
+pinyin, hanzi, lien d'article, source citée. Si l'empreinte recalculée est
+identique, la date est conservée.
+
+L'en-tête, les icônes, le CSS et la mise en page n'entrent pas dans
+l'empreinte : un changement de gabarit ne déplace aucune date. Seule une
+modification du texte en déplace une, et seulement celle de la page concernée —
+sauf pour une donnée partagée comme la source citée, qui les déplace toutes,
+ce qui est le comportement voulu.
+
+Le fichier de sortie sert de registre : aucun état à committer à côté, rien à
+resynchroniser. Une page sans empreinte est adoptée — sa date en place est
+conservée et l'empreinte enregistrée.
+
+Ajouter un champ à l'empreinte, c'est décider qu'en changer la valeur redate la
+page ; la liste est en commentaire dans `scripts/generate-hexagram-pages.js`.
+
+`<lastmod>` du sitemap reste calculé depuis la date du dernier commit Git : les
+deux champs ne disent pas la même chose. `<lastmod>` parle de la fraîcheur du
+**fichier** pour le crawl, `dateModified` d'une affirmation sur le **contenu**,
+reprise telle quelle par les moteurs et les assistants.
+
 ## Sitemap
 
 `sitemap.xml` n'est pas maintenu à la main. `scripts/generate-sitemap.js` liste
