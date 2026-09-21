@@ -32,7 +32,13 @@
     { "@type": "DefinedTerm", "name": "Livrée", "description": "Habit distinctif porté en signe d'appartenance, dont chaque couleur et motif ont une signification précise plutôt que purement décorative.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
     { "@type": "DefinedTerm", "name": "Verticalité", "description": "Notion philosophique d'élévation par paliers, chaque forme géométrique se déployant à partir de la précédente, dans la continuité de l'enseignement pythagoricien.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
     { "@type": "DefinedTerm", "name": "Maïeutique", "description": "Méthode socratique par laquelle le livre fait émerger une compréhension chez le lecteur plutôt que d'exposer une démonstration achevée.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
-    { "@type": "DefinedTerm", "name": "Unified Patterns", "description": "Cellules de tessellation où les coins font écho au centre, afin de générer la fréquence d'un seul motif ; identifiées parmi les grilles équilibrées en 3×12 par l'association d'une seule et même couleur aux deux matrices de 6 éléments.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" }
+    { "@type": "DefinedTerm", "name": "Unified Patterns", "description": "Cellules de tessellation où les coins font écho au centre, afin de générer la fréquence d'un seul motif ; identifiées parmi les grilles équilibrées en 3×12 par l'association d'une seule et même couleur aux deux matrices de 6 éléments.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "La Livrée d'Hermès", "description": "La Livrée d'Hermès est un traité d'arithmogéométrie en 111 planches, développé de 2009 à 2019, qui présente une méthode de construction de carrés magiques d'ordre 6 et un système de motifs pour métier Jacquard fondé sur 360 calques. Il est publié en quatre langues (français, anglais, espagnol, thaï) sous licence CC BY-NC 4.0, déposé sur Zenodo (DOI 10.5281/zenodo.22722486) et diffusé en prix libre sur anibal-amiot.com.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "L'arithmogéométrie", "description": "L'arithmogéométrie est l'étude des nombres par leur disposition dans l'espace : un nombre est un arrangement de points, une somme est une figure. La Livrée d'Hermès l'applique aux carrés magiques — où la disposition des nombres est contrainte par les sommes — et aux motifs tissés, où la même disposition devient une image. Le terme désigne ici une pratique constructive, pas une numérologie : chaque figure du livre est vérifiable par un calcul.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "Le carré solaire et la croix ansée", "description": "Un carré solaire est un carré magique d'ordre 6 construit directement à partir d'un coloriage de ses 36 cases en quatre couleurs, sans carré auxiliaire. Le coloriage suit une figure appelée croix ansée — une configuration de traits à symétrie centrale dont il n'existe exactement que deux formes pour l'ordre 6 — et quatre critères. Il existe exactement 256 coloriages admissibles, 128 pour chaque croix, et chacun donne un carré magique complet, lignes, colonnes et diagonales. Le calcul est reproductible : code de vérification sur Zenodo.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "Le système des 360 calques", "description": "Le système des 360 calques est le vocabulaire de motifs de La Livrée d'Hermès : un carré de 12 × 12 cases est partagé en six couches de 24 cases, et chaque couche reçoit l'un de 60 calques (15 familles d'axes × 4 natures), soit 360 calques en tout. Choisir un calque par couche compose un motif ; les six choix, chacun en deux états, transcrivent les 64 hexagrammes du Yi King. Le système est conçu pour la mise en carte Jacquard : chaque calque est une carte perforée.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "Le critère de demi-décalage (motifs unifiés)", "description": "Un motif de 12 × 12 est dit unifié si le translater d'une demi-période — six cases dans les deux directions — revient à échanger ses deux couches génératrices. Sur les 360 calques, ce critère retient exactement 8 familles sur 15, celles qui contiennent exactement un axe diagonal, et produit 512 grilles distinctes, soit 256 pavages du plan et 128 orbites de symétrie. La moitié exacte de ces grilles se referme aussi sur les six faces d'un cube ; ce sont celles dont l'axe diagonal est de type yang. Résultat démontré et vérifié par script.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" },
+    { "@type": "DefinedTerm", "name": "Carter, l'encodeur", "description": "Carter est un encodage stéganographique qui écrit un message chiffré dans une grille de symboles, aux positions désignées par un référent public — les carrés solaires ou les 360 calques. La confidentialité vient du chiffrement (XChaCha20-Poly1305, clé de 256 bits) et non de la géométrie : les preuves tiennent même si la disposition est connue. Le référent est un paramètre remplaçable ; le code est libre (AGPL v3) et fourni avec des vecteurs de référence vérifiables pas à pas.", "inDefinedTermSet": "https://anibal-amiot.com/lexique.html" }
   ]
 }
 </script>
@@ -82,6 +88,86 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Ce sont les deux grandes formes de symétrie reconnues en biologie : la symétrie axiale (bilatérale), la plus répandue chez les animaux mobiles, et la symétrie centrale (radiale), présente chez certains organismes marins et chez les plantes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'un carré solaire ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un carré magique d'ordre 6 obtenu directement à partir d'un coloriage de ses cases en quatre couleurs, selon la croix ansée et quatre critères. Il en existe exactement 256, tous magiques sur les lignes, les colonnes et les deux diagonales."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien de carrés magiques la méthode produit-elle ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "256 à l'ordre 6 — et ce sont tous les coloriages admissibles, pas un échantillon. Assemblés par quatre, ils donnent 64 carrés magiques d'ordre 12, constante 870."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que la croix ansée, précisément ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Une figure de traits à symétrie centrale sur la grille 6 × 6, qui relie deux à deux les cases complémentaires d'un carré magique d'ordre 6. Sous les critères du livre il en existe exactement deux, l'une image de l'autre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le livre est-il gratuit ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Il est en prix libre : on le lit et on le télécharge sans payer, et on contribue si l'on veut. Licence CC BY-NC 4.0 — copie et partage libres avec attribution, usage commercial interdit sans accord de l'auteur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Où trouver le livre et le code ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le livre sur Zenodo (DOI 10.5281/zenodo.22722486) et sur anibal-amiot.com, en quatre langues. Le code sur GitHub (anibaledel/livreedhermes), sous AGPL v3, avec les scripts de vérification de chaque résultat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quel est le lien avec le Yi King ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le système des 360 calques compose un motif par six choix binaires, un par couche : la structure des 64 hexagrammes. Le site propose un tirage qui rend chaque hexagramme comme un motif. Le lien est structurel — six traits, six couches — et ne prétend à rien d'autre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'un motif unifié ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un motif de 12 × 12 dont la translation d'une demi-période équivaut à l'échange de ses deux couches : le pavage porte alors un seul motif au lieu de deux alternés. Il en existe 512, en 128 orbites ; la moitié se referme sur un cube."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Peut-on tisser ces motifs ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui : le système a été conçu pour la mise en carte Jacquard, chaque calque étant une carte. Les fichiers vectoriels des 360 calques et des 256 carrés sont dans le dépôt, sous CC BY-NC 4.0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Carter est-il un chiffrement ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carter utilise un chiffrement standard (XChaCha20-Poly1305) et dispose le résultat dans une grille selon un référent public. La sécurité est celle du chiffrement, pas de la géométrie ; les preuves du papier tiennent même si la disposition est connue. Ce n'est pas un chiffrement nouveau, et il ne prétend pas l'être."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Comment vérifier les résultats ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque chiffre du site et des notes sort d'un script du dépôt : les deux croix, les 256 carrés, les 64 d'ordre 12, les 512 grilles et les 128 orbites, le cube. Les scripts lisent les données publiées et tournent en quelques minutes."
       }
     }
   ]
@@ -360,6 +446,92 @@
     <div class="profile-section">
       <h2>Maïeutique</h2>
       <p class="profile-text">La méthode socratique par laquelle le livre transmet son savoir : plutôt que d'exposer une démonstration achevée, il fait émerger une compréhension chez le lecteur par l'observation progressive d'une suite de formes qui se déploient les unes à partir des autres.</p>
+    </div>
+
+    <p class="faq-block-title" style="max-width:64ch;margin:46px auto 26px;padding-top:34px;border-top:1px solid var(--line);">Définitions de référence</p>
+
+    <section class="profile-section answer">
+      <h2>La Livrée d'Hermès</h2>
+      <p class="profile-text"><i>La Livrée d'Hermès</i> est un traité d'arithmogéométrie en 111 planches, développé de 2009 à 2019, qui présente une méthode de construction de carrés magiques d'ordre 6 et un système de motifs pour métier Jacquard fondé sur 360 calques. Il est publié en quatre langues (français, anglais, espagnol, thaï) sous licence CC BY-NC 4.0, déposé sur Zenodo (DOI 10.5281/zenodo.22722486) et diffusé en prix libre sur anibal-amiot.com.</p>
+    </section>
+
+    <section class="profile-section answer">
+      <h2>L'arithmogéométrie</h2>
+      <p class="profile-text">L'arithmogéométrie est l'étude des nombres par leur disposition dans l'espace : un nombre est un arrangement de points, une somme est une figure. <i>La Livrée d'Hermès</i> l'applique aux carrés magiques — où la disposition des nombres est contrainte par les sommes — et aux motifs tissés, où la même disposition devient une image. Le terme désigne ici une pratique constructive, pas une numérologie : chaque figure du livre est vérifiable par un calcul.</p>
+    </section>
+
+    <section class="profile-section answer">
+      <h2>Le carré solaire et la croix ansée</h2>
+      <p class="profile-text">Un carré solaire est un carré magique d'ordre 6 construit directement à partir d'un coloriage de ses 36 cases en quatre couleurs, sans carré auxiliaire. Le coloriage suit une figure appelée croix ansée — une configuration de traits à symétrie centrale dont il n'existe exactement que deux formes pour l'ordre 6 — et quatre critères. Il existe exactement 256 coloriages admissibles, 128 pour chaque croix, et chacun donne un carré magique complet, lignes, colonnes et diagonales. Le calcul est reproductible : code de vérification sur Zenodo.</p>
+    </section>
+
+    <section class="profile-section answer">
+      <h2>Le système des 360 calques</h2>
+      <p class="profile-text">Le système des 360 calques est le vocabulaire de motifs de <i>La Livrée d'Hermès</i> : un carré de 12 × 12 cases est partagé en six couches de 24 cases, et chaque couche reçoit l'un de 60 calques (15 familles d'axes × 4 natures), soit 360 calques en tout. Choisir un calque par couche compose un motif ; les six choix, chacun en deux états, transcrivent les 64 hexagrammes du Yi King. Le système est conçu pour la mise en carte Jacquard : chaque calque est une carte perforée.</p>
+    </section>
+
+    <section class="profile-section answer">
+      <h2>Le critère de demi-décalage (motifs unifiés)</h2>
+      <p class="profile-text">Un motif de 12 × 12 est dit unifié si le translater d'une demi-période — six cases dans les deux directions — revient à échanger ses deux couches génératrices. Sur les 360 calques, ce critère retient exactement 8 familles sur 15, celles qui contiennent exactement un axe diagonal, et produit 512 grilles distinctes, soit 256 pavages du plan et 128 orbites de symétrie. La moitié exacte de ces grilles se referme aussi sur les six faces d'un cube ; ce sont celles dont l'axe diagonal est de type yang. Résultat démontré et vérifié par script.</p>
+    </section>
+
+    <section class="profile-section answer">
+      <h2>Carter, l'encodeur</h2>
+      <p class="profile-text">Carter est un encodage stéganographique qui écrit un message chiffré dans une grille de symboles, aux positions désignées par un référent public — les carrés solaires ou les 360 calques. La confidentialité vient du chiffrement (XChaCha20-Poly1305, clé de 256 bits) et non de la géométrie : les preuves tiennent même si la disposition est connue. Le référent est un paramètre remplaçable ; le code est libre (AGPL v3) et fourni avec des vecteurs de référence vérifiables pas à pas.</p>
+    </section>
+
+    <div class="faq-block">
+      <p class="faq-block-title">Questions fréquentes — les chiffres et leurs sources</p>
+
+      <details class="faq-item">
+        <summary>Qu'est-ce qu'un carré solaire ?<span class="q-mark">＋</span></summary>
+        <p>Un carré magique d'ordre 6 obtenu directement à partir d'un coloriage de ses cases en quatre couleurs, selon la croix ansée et quatre critères. Il en existe exactement 256, tous magiques sur les lignes, les colonnes et les deux diagonales.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Combien de carrés magiques la méthode produit-elle ?<span class="q-mark">＋</span></summary>
+        <p>256 à l'ordre 6 — et ce sont tous les coloriages admissibles, pas un échantillon. Assemblés par quatre, ils donnent 64 carrés magiques d'ordre 12, constante 870.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Qu'est-ce que la croix ansée, précisément ?<span class="q-mark">＋</span></summary>
+        <p>Une figure de traits à symétrie centrale sur la grille 6 × 6, qui relie deux à deux les cases complémentaires d'un carré magique d'ordre 6. Sous les critères du livre il en existe exactement deux, l'une image de l'autre.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Le livre est-il gratuit ?<span class="q-mark">＋</span></summary>
+        <p>Il est en prix libre : on le lit et on le télécharge sans payer, et on contribue si l'on veut. Licence CC BY-NC 4.0 — copie et partage libres avec attribution, usage commercial interdit sans accord de l'auteur.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Où trouver le livre et le code ?<span class="q-mark">＋</span></summary>
+        <p>Le livre sur Zenodo (DOI 10.5281/zenodo.22722486) et sur anibal-amiot.com, en quatre langues. Le code sur GitHub (anibaledel/livreedhermes), sous AGPL v3, avec les scripts de vérification de chaque résultat.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quel est le lien avec le Yi King ?<span class="q-mark">＋</span></summary>
+        <p>Le système des 360 calques compose un motif par six choix binaires, un par couche : la structure des 64 hexagrammes. Le site propose un tirage qui rend chaque hexagramme comme un motif. Le lien est structurel — six traits, six couches — et ne prétend à rien d'autre.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Qu'est-ce qu'un motif unifié ?<span class="q-mark">＋</span></summary>
+        <p>Un motif de 12 × 12 dont la translation d'une demi-période équivaut à l'échange de ses deux couches : le pavage porte alors un seul motif au lieu de deux alternés. Il en existe 512, en 128 orbites ; la moitié se referme sur un cube.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Peut-on tisser ces motifs ?<span class="q-mark">＋</span></summary>
+        <p>Oui : le système a été conçu pour la mise en carte Jacquard, chaque calque étant une carte. Les fichiers vectoriels des 360 calques et des 256 carrés sont dans le dépôt, sous CC BY-NC 4.0.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Carter est-il un chiffrement ?<span class="q-mark">＋</span></summary>
+        <p>Carter utilise un chiffrement standard (XChaCha20-Poly1305) et dispose le résultat dans une grille selon un référent public. La sécurité est celle du chiffrement, pas de la géométrie ; les preuves du papier tiennent même si la disposition est connue. Ce n'est pas un chiffrement nouveau, et il ne prétend pas l'être.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Comment vérifier les résultats ?<span class="q-mark">＋</span></summary>
+        <p>Chaque chiffre du site et des notes sort d'un script du dépôt : les deux croix, les 256 carrés, les 64 d'ordre 12, les 512 grilles et les 128 orbites, le cube. Les scripts lisent les données publiées et tournent en quelques minutes.</p>
+      </details>
     </div>
 
     <p class="profile-sources">Pour aller plus loin : <a href="book-viewer/index.html">lire le livre en ligne</a>, découvrir les <a href="unified-patterns.html">motifs et Unified Patterns</a>, ou consulter le <a href="profil.html">profil documentaire</a> pour les brevets et publications qui fondent cette démarche.</p>
