@@ -1,0 +1,30 @@
+name: FAQPage lisible sur la page
+
+# Une FAQPage ecrit le meme texte deux fois : une fois pour le moteur dans le
+# <script type="application/ld+json">, une fois pour le lecteur dans le corps.
+# C'est la forme exacte de duplication qui a deja diverge dans ce depot (les
+# gabarits recopies d'une page a l'autre, les trois copies de FACES, les deux
+# dessins du referent des bandes). Ici la divergence coute cher : Google
+# declasse une FAQPage dont les reponses ne sont pas visibles, et un assistant
+# qui cite une reponse absente de la page cite une page qui ne le dit pas.
+# Ce workflow echoue si une Question ou une reponse declaree en JSON-LD ne se
+# retrouve pas dans le corps, si un nom est declare deux fois dans un meme jeu,
+# ou si un bloc JSON-LD est invalide -- voir tools/check_jsonld_visible.py.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python tools/check_jsonld_visible.py
