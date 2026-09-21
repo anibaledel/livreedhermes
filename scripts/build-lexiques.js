@@ -183,6 +183,9 @@ ${json({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
   </header>
   </div>
 
+<!-- @langues:start -->
+<!-- @langues:end -->
+
   <div class="lex-body">
     <p class="lex-intro">${italiques(L.intro)}</p>
 
@@ -233,7 +236,9 @@ function main() {
     const actuel = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
     // build-header.js pose ensuite ses régions : on ne compare que hors régions.
     const sansRegions = (s) => s === null ? null
-      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header):start[\s\S]*?<!-- @\1:end -->\n?/g, '');
+      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header):start[\s\S]*?<!-- @\1:end -->\n?/g, '')
+          .replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/g,
+                   '<!-- @langues:start -->\n<!-- @langues:end -->');
     if (sansRegions(actuel) === neuf) continue;
     ecarts.push(rel);
     if (!verifie) {
@@ -248,6 +253,8 @@ function main() {
         }
         const mh = actuel.match(/[ \t]*<!-- @header:start[\s\S]*?<!-- @header:end -->/);
         if (mh) sortie = sortie.replace('<main>', `${mh[0]}\n<main>`);
+        const ml = actuel.match(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/);
+        if (ml) sortie = sortie.replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/, ml[0]);
       }
       fs.writeFileSync(abs, sortie, 'utf8');
       ecrites++;
