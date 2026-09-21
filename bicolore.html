@@ -94,6 +94,11 @@
     </div>
 
     <div class="controls">
+      <h2>Trame</h2>
+      <div class="ctl-level" style="margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line);">
+        <label for="trameSelect">Cellule · Bloc</label>
+        <select id="trameSelect"></select>
+      </div>
       <h2>Couleurs</h2>
       <div class="ctl-colors">
         <label>Teinte A <input type="color" id="colorA" value="#e0261b"></label>
@@ -123,6 +128,15 @@ import { composeNiveauxMask, maskToPavageSvg } from './assets/bicolore-render.js
 
 const N_LEVELS = 6;
 
+// Une trame = un fichier de données au même format (grid/parts/per_cell/
+// layers/familles) ; le rendu (composeNiveauxMask, maskToPavageSvg) ne
+// change pas d'une trame à l'autre, seule la source chargée change.
+const TRAMES = {
+  C8B3: { file: 'data/referent_bicolore_v1.json', label: 'C8·B3 — Origines' },
+  C8B2: { file: 'data/referent_bicolore_c8b2_v1.json', label: 'C8·B2 — Origines T2' },
+};
+const DEFAULT_TRAME = 'C8B3';
+
 function familleLabel(key) {
   const terms = key.split('+');
   const used = new Set();
@@ -147,15 +161,30 @@ function familleLabel(key) {
 }
 
 async function main() {
-  const res = await fetch('data/referent_bicolore_v1.json');
+  const params = new URLSearchParams(location.search);
+  const trame = TRAMES[params.get('t')] ? params.get('t') : DEFAULT_TRAME;
+
+  const trameSelect = document.getElementById('trameSelect');
+  Object.entries(TRAMES).forEach(([key, { label }]) => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = label;
+    trameSelect.appendChild(opt);
+  });
+  trameSelect.value = trame;
+  trameSelect.addEventListener('change', () => {
+    const p = new URLSearchParams(location.search);
+    p.set('t', trameSelect.value);
+    location.href = '?' + p.toString();
+  });
+
+  const res = await fetch(TRAMES[trame].file);
   const data = await res.json();
 
   const familleKeys = Object.keys(data.familles).sort((a, b) => {
     const na = a.split('+').length, nb = b.split('+').length;
     return na - nb || a.localeCompare(b);
   });
-
-  const params = new URLSearchParams(location.search);
 
   const levels = [];
   for (let n = 1; n <= N_LEVELS; n++) {
@@ -219,6 +248,7 @@ async function main() {
 
   function updateUrl() {
     const p = new URLSearchParams();
+    p.set('t', trame);
     levels.forEach((lvl, i) => p.set('l' + (i + 1), lvl.name + '.' + lvl.teinte));
     p.set('c0', document.getElementById('colorA').value.replace('#', ''));
     p.set('c1', document.getElementById('colorB').value.replace('#', ''));
