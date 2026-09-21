@@ -1,3 +1,22 @@
+# © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
+# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+#
+# enum_criteres.py — §4.3 de la note « The Ansate Cross » : dénombrement
+# exhaustif des coloriages d'ordre 6 satisfaisant les critères I–IV, puis de
+# ceux qui satisfont en plus la structure de ligne de la croix ansée.
+#
+# Provenance : copie du dépôt Zenodo 10.5281/zenodo.22866062. Cette copie-ci
+# ajoute UNIQUEMENT le bloc de sortie « Lecture des trois nombres » en fin de
+# fichier ; le calcul est celui de Zenodo, inchangé. Zenodo est figé : une
+# correction du calcul y serait une nouvelle version du dépôt, pas une
+# modification de celle-ci.
+#
+# Pourquoi ce bloc existe : le script imprime d'abord 1 492 352, qui est
+# l'ensemble sous les quatre critères SEULS. Lu vite, ce nombre semble
+# contredire les 256 carrés solaires annoncés par le livre et par le site. Il
+# ne les contredit pas — les 256 viennent des quatre critères ET de la
+# structure de la croix — mais rien dans la sortie ne le disait.
+
 import itertools, numpy as np, time
 n=6; t0=time.time(); MC=n*(n*n+1)//2
 cells=[(r,c) for r in range(n) for c in range(n)]
@@ -64,3 +83,19 @@ for S,T in blues:
     stat_b[0]+=nb; stat_b[1]+=nbm
 print(f'colorations I–IV : {cnt} ; magiques complètes : {magic} ; temps {time.time()-t0:.0f}s')
 print(f'avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : {stat_b[0]} ; magiques : {stat_b[1]}')
+
+# Les nombres ci-dessous sont ceux qui viennent d'être calculés, jamais des
+# constantes : la lecture ne peut pas diverger du calcul qu'elle commente.
+print()
+print('Lecture des trois nombres ci-dessus')
+print(f"  {cnt} est l'ensemble COMPLET des coloriages sous les critères I–IV SEULS,")
+print('  sans la structure de la croix ansée.')
+print('  Imposer en plus cette structure — la condition (b) — laisse exactement')
+if stat_b[0] == stat_b[1]:
+    print(f'  {stat_b[0]} coloriages, et tous sont magiques.')
+else:
+    print(f'  {stat_b[0]} coloriages, dont {stat_b[1]} magiques.')
+print(f"  Les quatre critères seuls ne produisent donc pas les {stat_b[0]} : c'est la croix")
+print('  qui les produit. Ces coloriages sont ceux d\'UNE croix ; la seconde croix,')
+print(f"  image miroir de la première, donne les {stat_b[0]} autres — soit les 256 carrés")
+print('  solaires de data/referent_256_v3.json, vérifiés par verif_protocole.py.')
