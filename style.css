@@ -20,6 +20,14 @@
    restent dans le <style> de chaque page tant qu'elles n'ont pas été
    sorties une par une, délibérément.
 
+   CE FICHIER PORTE AUSSI LES RÈGLES DES FRAGMENTS PARTAGÉS (includes/).
+   Le CSS d'un fragment a la même exigence de source unique que le fragment
+   lui-même : le recopier dans chaque page rouvrirait le problème qu'on vient
+   de fermer. Ces règles sont nommées d'après la classe du fragment
+   (.site-footer…) et ne peuvent donc toucher que lui. La prudence énoncée
+   plus haut visait les déclarations de PAGE — body, reset — qui, elles,
+   entrent en collision avec le <style> inline de chaque page.
+
    Exception assumée : carter-demo.html porte sa propre palette
    (--bg:#0a0e14, --gold:#c8aa6e), qui est un thème distinct et non une
    copie divergente. Cette page ne charge pas ce fichier.
@@ -79,3 +87,41 @@
                            dans les valeurs elles-mêmes — voir l'échelle
                            typographique du design system. */
 }
+
+
+/* ============================================================
+   PIED DE PAGE PARTAGÉ — fragment includes/footer.html
+   Posé par scripts/build-header.js entre marqueurs @footer.
+   ============================================================ */
+.site-footer {
+  max-width: 840px;
+  margin: 40px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.site-footer-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+}
+.site-footer-nav a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: calc(10.5px + var(--fs-bump));
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: color .12s ease;
+}
+.site-footer-nav a:hover,
+.site-footer-nav a:focus-visible { color: var(--gold); }
+.site-footer-licence {
+  margin: 16px auto 0;
+  max-width: 64ch;
+  color: var(--dim);
+  font-size: calc(10px + var(--fs-bump));
+  line-height: 1.7;
+}
+.site-footer-licence a { color: var(--dim); }
+.site-footer-licence a:hover { color: var(--gold); }

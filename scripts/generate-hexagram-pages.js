@@ -17,6 +17,7 @@ const DATA = require('./extract-hexagram-data.js');
 // différentes sur le site.
 const { rendre } = require('./build-header.js');
 const ICONES = rendre('head-icons', '../', true);
+const PIED = rendre('footer', '../', true);
 const EN_TETE = rendre('header', '../', true);
 const TRADUCTEUR = rendre('translate', '../', true);
 
@@ -318,7 +319,8 @@ ${ICONES}
 <body>
 <div class="wrap">
 ${EN_TETE}
-
+<!-- @main:start -->
+<main>
   <div class="article-body">
     <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
     <div class="atalanta-block" style="padding:28px 24px;">
@@ -342,7 +344,7 @@ ${EN_TETE}
 ${hexColumn}
         </div>
         <figure class="hex-square">
-          <img src="../assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (${escapeHtml(nameFr)})">
+          <img src="../assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (${escapeHtml(nameFr)})" width="480" height="480">
           <figcaption>Pavage du carré magique associé à cet hexagramme, La Livrée d'Hermès.</figcaption>
         </figure>
       </div>
@@ -396,6 +398,8 @@ ${linesHtml}
     <a class="article-back-bottom" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
   </div>
 
+</main>
+<!-- @main:end -->
   <div class="note">
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
@@ -412,10 +416,11 @@ ${linesHtml}
       <span>Créé en collaboration avec Claude</span>
     </div>
     <div class="footer-title-logo">
-      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
     </div>
     ${SOUTIEN_LINK_HTML}
   </div>
+${PIED}
 </div>
 ${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
@@ -622,7 +627,8 @@ ${ICONES}
 <body>
 <div class="wrap">
 ${EN_TETE}
-
+<!-- @main:start -->
+<main>
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -640,12 +646,14 @@ ${EN_TETE}
 ${gridItems}
   </div>
 
+</main>
+<!-- @main:end -->
   <div class="note">
     <div class="center-logo-slot">
-      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
     </div>
     <div class="footer-caduceus">
-      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès">
+      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
     </div>
 
     <div class="nav-tiles nav-tiles-group-2">
@@ -672,7 +680,7 @@ ${gridItems}
     ${SOUTIEN_LINK_HTML}
 
     <div class="center-logo-slot center-logo-slot-bottom">
-      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
     </div>
 
     <div class="credit-line">
@@ -682,9 +690,10 @@ ${gridItems}
     </div>
 
     <div class="footer-title-logo">
-      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
     </div>
   </div>
+${PIED}
 </div>
 ${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}

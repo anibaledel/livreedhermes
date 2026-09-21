@@ -45,6 +45,14 @@ const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
 
 // Déjà traduites à la main : une traduction automatique par-dessus n'a pas
 // de sens. Elles gardent l'en-tête, sans l'emplacement du widget.
+// Le pied partagé est rédigé en français, et sa ligne de crédit l'est aussi.
+// Les pages traduites à la main gardent le leur : leur imposer un pied
+// français serait une régression pour leurs lecteurs.
+const SANS_PIED = new Set([
+  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
+  'th/book/index.html', 'book-viewer/index.html',
+]);
+
 const SANS_TRADUCTEUR = new Set([
   'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
   'th/book/index.html', 'book-viewer/index.html',
@@ -65,10 +73,13 @@ const HREFLANG_HTML = BOOK_HREFLANG
   .map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`)
   .join('\n');
 
+const FIN_ENTETE = '<!-- @header:end -->';
+
 const lire = (n) => fs.readFileSync(path.join(INCLUDES, n), 'utf8');
 const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
   header: lire('header.html'),
+  footer: lire('footer.html'),
   translate: lire('translate-script.html'),
 };
 const SLOT = lire('translate-slot.html');
@@ -145,6 +156,36 @@ function traiter(rel, src) {
   if (traducteur) {
     s = poser(s, 'translate', rendre('translate', prefixe, traducteur),
       (t, c) => t.replace(/<\/body>/, `${c}\n</body>`));
+  }
+
+  if (!SANS_PIED.has(rel)) {
+    // Le pied ferme le contenu : à la toute fin de .wrap, après la zone de
+    // navigation .note quand elle existe.
+    s = poser(s, 'footer', rendre('footer', prefixe, traducteur), (t, c) => {
+      const i = t.lastIndexOf('</div>\n</body>');
+      if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
+      return t.replace(/<\/body>/, `${c}\n</body>`);
+    });
+
+    // <main> encadre le contenu propre à la page : il ouvre après l'en-tête
+    // partagé et ferme avant la navigation de bas de page, qui n'en fait pas
+    // partie. Les marqueurs le rendent relançable sans effet.
+    // Garde-fou : une page qui porte déjà un <main> n'en reçoit pas un second.
+    // Le cas s'est produit sur cymatique.html, où <main> servait de conteneur
+    // de grille — deux <main> sur une page sont invalides, et le contrôle de
+    // chargement le signale désormais.
+    if (!s.includes('<!-- @main:start') && !/<main[\s>]/.test(s)) {
+      const apresEntete = s.indexOf(FIN_ENTETE);
+      if (apresEntete !== -1) {
+        const debut = apresEntete + FIN_ENTETE.length;
+        let fin = s.indexOf('<div class="note"', debut);
+        if (fin === -1) fin = s.indexOf('<!-- @footer:start', debut);
+        if (fin !== -1) {
+          s = s.slice(0, debut) + '\n<!-- @main:start -->\n<main>'
+            + s.slice(debut, fin) + '</main>\n<!-- @main:end -->\n' + s.slice(fin);
+        }
+      }
+    }
   }
   return s;
 }
