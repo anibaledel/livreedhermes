@@ -1,4 +1,94 @@
+# robots.txt — anibal-amiot.com
+#
+# Choix explicite sur les robots d'IA (2026-09-21) : la recherche ET
+# l'entraînement sont autorisés. Ils l'étaient déjà de fait, par le groupe
+# « User-agent: * » ci-dessous — mais un fichier muet ne distingue pas une
+# décision d'un oubli. Nommer chaque robot rend le choix lisible par un
+# humain qui ouvre ce fichier comme par l'exploitant qui le lit.
+#
+# Autoriser l'entraînement n'efface pas la licence : les contenus restent
+# sous CC BY-NC 4.0 et le code sous AGPL v3 (usage non commercial ;
+# licence commerciale sur demande). Voir /llms.txt, LICENSE et NOTICE.
+#
+# ATTENTION AU FONCTIONNEMENT DES GROUPES — un robot nommé ci-dessous lit
+# SON groupe et ignore entièrement « User-agent: * ». Les deux Disallow des
+# dossiers de motifs doivent donc être répétés dans chaque groupe, sinon les
+# robots nommés y auraient accès alors que tous les autres ne l'ont pas.
+# Toute règle ajoutée au groupe « * » est à reporter partout ici.
+
+# ── Tous les robots ────────────────────────────────────────────────────
 User-agent: *
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+# ── Indexation pour la recherche générative ────────────────────────────
+# Ces robots construisent l'index derrière les réponses des assistants.
+# C'est par eux que le site peut être cité.
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+# ── Consultation à la demande d'un utilisateur ─────────────────────────
+# Ceux-ci ne moissonnent pas : ils vont chercher une page précise parce
+# qu'une personne a posé une question qui l'exige. Perplexity considère
+# Perplexity-User comme un agent et non un robot, et ne s'estime donc pas
+# tenu par ce fichier ; il est nommé ici pour que le choix soit complet.
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+# ── Collecte pour l'entraînement de modèles ────────────────────────────
+# Google-Extended et Applebot-Extended ne sont pas des robots : ce sont des
+# jetons d'autorisation que Googlebot et Applebot consultent avant de
+# réutiliser le contenu qu'ils ont déjà récupéré pour la recherche. Les
+# nommer avec Allow vaut accord explicite.
+
+User-agent: GPTBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: CCBot
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /assets/motifs-svg/
+Disallow: /assets/motifs-pinterest/
+
+User-agent: Applebot-Extended
 Allow: /
 Disallow: /assets/motifs-svg/
 Disallow: /assets/motifs-pinterest/
