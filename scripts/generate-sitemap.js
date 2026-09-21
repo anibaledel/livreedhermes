@@ -65,6 +65,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/outils.html`, file: 'outils.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/lexique.html`, file: 'lexique.html', changefreq: 'monthly', priority: '0.6' },
+  { loc: `${SITE}/chiffres-et-sources.html`, file: 'chiffres-et-sources.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/a-propos.html`, file: 'a-propos.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },

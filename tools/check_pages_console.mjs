@@ -64,6 +64,7 @@ const PAGES = [
   { path: 'index.html' },
   { path: 'la-livree-d-hermes.html' },
   { path: 'lexique.html' },
+  { path: 'chiffres-et-sources.html' },
   { path: 'motifs%20(4).html', horsEnTete: true },
   { path: 'outils.html' },
   { path: 'pages.html', horsEnTete: true },
