@@ -58,11 +58,6 @@
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
@@ -98,7 +93,7 @@
   .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
   .credit-line .credit-sep{ opacity:.5; }
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
@@ -111,15 +106,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-  </header>
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
 
   <div class="pro-body">
     <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-06-telechargements.avif);">
@@ -207,5 +211,13 @@
   if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
 })();
 </script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>

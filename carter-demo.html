@@ -299,8 +299,19 @@
 
 
 </style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
 
 <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-13-carter-demo.avif);">
 <header class="atalanta-block" style="padding:32px 24px;">
@@ -578,5 +589,13 @@ document.getElementById('btn-random-key').addEventListener('click', () => {
 // même si rien de sensible n'est protégé ici).
 renderGrid(random_grid(GRID_SIZE, GRID_SIZE), null);
 </script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>

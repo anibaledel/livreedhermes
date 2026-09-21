@@ -83,11 +83,6 @@
   }catch(e){}
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
@@ -117,7 +112,7 @@
   /* ---------- interface encodeur ---------- */
   .enc-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 0 24px; border-bottom:1px solid var(--line); padding-bottom:16px; }
   .enc-nav button{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px;
     cursor:pointer; font-family:inherit; transition:border-color .12s ease, color .12s ease; min-height:44px;
   }
@@ -129,7 +124,7 @@
   .enc-label{ display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); opacity:.85; margin:16px 0 6px; }
   .enc-label:first-of-type{ margin-top:0; }
   .enc-input, .enc-textarea, .enc-select{
-    width:100%; padding:11px 12px; border:1px solid var(--line); background:var(--panel);
+    width:100%; padding:11px 12px; border:1px solid var(--line-strong); background:var(--panel);
     color:var(--white); font-family:inherit; font-size:13.5px;
   }
   .enc-textarea{ min-height:110px; resize:vertical; font-family:monospace; font-size:12px; }
@@ -142,7 +137,7 @@
     min-height:44px; font-family:inherit;
   }
   .enc-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .enc-btn.secondary{ border-color:var(--line); color:var(--dim); }
+  .enc-btn.secondary{ border-color:var(--line-strong); color:var(--dim); }
   .enc-btn.secondary:hover{ border-color:var(--gold); color:var(--gold); }
   .enc-info-box{ border-left:3px solid var(--gold); background:var(--panel); padding:12px 16px; font-size:12.5px; line-height:1.7; margin-top:16px; color:var(--dim); }
   .enc-info-box b{ color:var(--gold); font-weight:400; }
@@ -194,7 +189,7 @@
   .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
   .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
@@ -211,17 +206,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-44-encodeur.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Encodeur</span>
     </nav>
@@ -231,7 +237,6 @@
   </header>
   </div>
 
-    <div id="google_translate_element" style="display:flex;justify-content:center;margin:10px 0 0;"></div>
 
   <div class="pro-body">
     <div id="encProOnly">
@@ -606,12 +611,6 @@
 })();
 </script>
 
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- ============================================================
      Encodeur stéganographique — la stéganographie Carter (js/carter-core.js)
@@ -2143,5 +2142,13 @@ import {
     tryInit();
   });
 </script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>

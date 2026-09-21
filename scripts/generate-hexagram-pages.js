@@ -9,6 +9,16 @@ const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
 
+// L'en-tête, les icônes et le chargement du traducteur viennent des fragments
+// de includes/, exactement comme pour les 98 autres pages : voir
+// scripts/build-header.js et includes/README.md. Le gabarit ci-dessous n'en
+// porte donc aucune copie — c'est ce qui avait produit trois formes d'en-tête
+// différentes sur le site.
+const { rendre } = require('./build-header.js');
+const ICONES = rendre('head-icons', '../', true);
+const EN_TETE = rendre('header', '../', true);
+const TRADUCTEUR = rendre('translate', '../', true);
+
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(REPO_ROOT, 'hexagrammes');
 fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -49,12 +59,34 @@ const ARTICLE_LINKS_BY_KW = {
   10: { href: 'https://anibal-amiot.com/articles/verticalite-damier-mosaique-echiquier.html', label: "Cet hexagramme est cité dans l'article « Verticalité, damier, mosaïque et échiquier »" },
 };
 
-// Les 64 pages ont été créées le même jour (voir git log) ; dateModified suit
-// le jour de régénération, pour rester cohérent avec le <lastmod> calculé
-// par scripts/generate-sitemap.js (lui aussi basé sur la date du dernier
-// commit qui touche chaque fichier).
+// Les 64 pages ont été créées le même jour (voir git log).
+//
+// dateModified DÉPEND DU CONTENU, pas du jour de régénération. Chaque page
+// est rendue une première fois avec la date que porte déjà le fichier sur
+// disque ; si le résultat est identique octet pour octet, rien n'a changé et
+// la date est conservée. Sinon, et seulement dans ce cas, la page prend la
+// date du jour. Une page réécrite à l'identique garde donc sa date, et une
+// régénération sans changement ne produit aucune différence.
+//
+// Le fichier de sortie EST le registre : pas d'état à committer à côté, pas
+// de fichier à resynchroniser. Une retouche à la main d'une page est
+// détectée au même titre qu'un changement du générateur.
+//
+// La version précédente utilisait new Date() à chaque passage. Elle datait
+// les 64 pages du jour même quand seul le CSS avait bougé : un faux signal
+// de fraîcheur envoyé aux moteurs qui s'en servent pour sélectionner ce
+// qu'ils citent, et 64 différences sans rapport avec le contenu à chaque
+// régénération, qui noyaient les vrais changements.
+//
+// dateModified diverge désormais du <lastmod> de scripts/generate-sitemap.js,
+// qui suit la date du dernier commit touchant le fichier. C'est voulu : les
+// deux champs ne disent pas la même chose. <lastmod> est une indication de
+// fraîcheur du FICHIER pour le crawl ; dateModified est une affirmation sur
+// le CONTENU, reprise telle quelle par les moteurs et les assistants.
 const DATE_PUBLISHED = '2026-09-04';
-const DATE_MODIFIED = new Date().toISOString().slice(0, 10);
+const TODAY = new Date().toISOString().slice(0, 10);
+const DATE_ISO_PLACEHOLDER = '@@DATE_MODIFIED_ISO@@';
+const DATE_FR_PLACEHOLDER = '@@DATE_MODIFIED_FR@@';
 
 const MONTHS_FR = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 function formatDateFr(iso){
@@ -149,7 +181,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   "inDefinedTermSet": "https://anibal-amiot.com/lexique.html",
   "url": "${url}",
   "datePublished": "${DATE_PUBLISHED}",
-  "dateModified": "${DATE_MODIFIED}",
+  "dateModified": "${DATE_ISO_PLACEHOLDER}",
   "author": {
     "@type": "Person",
     "name": "Anibal Edelberto Amiot",
@@ -170,11 +202,6 @@ for(let chrono = 0; chrono < 64; chrono++){
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{
@@ -190,7 +217,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
@@ -250,7 +277,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .hexline-body p{ margin:0; font-size:calc(14px + var(--fs-bump)); line-height:1.65; }
 
   .cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:32px 0 8px; }
-  .cta-btn{ border:1px solid var(--line); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .cta-btn{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
   .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; }
@@ -260,7 +287,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px; }
   .credit-line .credit-sep{ opacity:.5; }
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
@@ -268,18 +295,17 @@ for(let chrono = 0; chrono < 64; chrono++){
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
   @media (max-width:480px){ .article-title{ font-size:calc(21px + var(--fs-bump)); } .article-content{ font-size:calc(14.5px + var(--fs-bump)); } .hex-square img{ width:170px; height:170px; } }
 </style>
+<link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
+${ICONES}
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
-  </header>
+${EN_TETE}
 
   <div class="article-body">
     <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
@@ -294,7 +320,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 
       <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
       <p class="article-sub">N° chronologique <b>${chrono}</b> (ordre par poids binaires) · n° King Wen (traditionnel) ${kwNum} · ${escapeHtml(hanzi || '')}</p>
-      <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${formatDateFr(DATE_MODIFIED)}</p>
+      <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${DATE_FR_PLACEHOLDER}</p>
     </div>
     </div>
 
@@ -379,18 +405,24 @@ ${linesHtml}
     ${SOUTIEN_LINK_HTML}
   </div>
 </div>
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
 `;
 
-  fs.writeFileSync(path.join(OUT_DIR, slug), html, 'utf8');
+  // Date dépendante du contenu : on rend la page avec la date déjà présente
+  // sur disque ; si c'est identique, le contenu n'a pas bougé et la date est
+  // conservée. Voir le commentaire de DATE_PUBLISHED plus haut.
+  const outPath = path.join(OUT_DIR, slug);
+  const rendre = (iso) => html
+    .split(DATE_ISO_PLACEHOLDER).join(iso)
+    .split(DATE_FR_PLACEHOLDER).join(formatDateFr(iso));
+  const ancien = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : null;
+  const dateAncienne = ancien && (ancien.match(/"dateModified":\s*"(\d{4}-\d{2}-\d{2})"/) || [])[1];
+  const dateModified = (dateAncienne && rendre(dateAncienne) === ancien) ? dateAncienne : TODAY;
+
+  fs.writeFileSync(outPath, rendre(dateModified), 'utf8');
   pages.push({ chrono, kwNum, slug, url });
 }
 
@@ -448,11 +480,6 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
@@ -463,7 +490,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
@@ -500,7 +527,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
     margin-top:6px; }
   .site-nav-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
@@ -515,7 +542,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   }
   .nav-tile{
     display:flex; flex-direction:row; align-items:center; gap:10px;
-    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
     transition:border-color .12s ease, color .12s ease;
   }
   .nav-tile:hover{ border-color:var(--gold); }
@@ -555,18 +582,17 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
 </style>
+<link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
+${ICONES}
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-    <div id="google_translate_element" class="gtranslate-slot"></div>
-  </header>
+${EN_TETE}
 
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
@@ -631,12 +657,7 @@ ${gridItems}
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>

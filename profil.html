@@ -80,11 +80,6 @@
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{
@@ -99,7 +94,7 @@
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
@@ -152,7 +147,7 @@
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
     margin-top:6px; }
   .site-nav-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
@@ -199,19 +194,30 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="side-band left visible"></div>
 <div class="side-band right visible"></div>
 <div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-37-profil.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Profil documentaire</span>
     </nav>
@@ -220,7 +226,6 @@
   </header>
   </div>
 
-    <div id="google_translate_element" class="gtranslate-slot"></div>
 
   <div class="profile-body">
     <div class="profile-photo-wrap">
@@ -295,13 +300,15 @@
   </div>
 </div>
 
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/share-widget.js"></script>
 <script src="https://anibal-amiot.com/assets/soutien-gate.js"></script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>

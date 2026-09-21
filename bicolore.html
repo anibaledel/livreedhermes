@@ -8,14 +8,10 @@
 <meta name="author" content="Anibal Edelberto Amiot">
 <link rel="canonical" href="https://anibal-amiot.com/bicolore.html">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
@@ -27,7 +23,7 @@
 
   .composer{ display:flex; gap:28px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
 
-  .hexselect{ display:flex; flex-direction:column-reverse; gap:8px; padding:16px 10px; border:1px solid var(--line); background:var(--panel); }
+  .hexselect{ display:flex; flex-direction:column-reverse; gap:8px; padding:16px 10px; border:1px solid var(--line-strong); background:var(--panel); }
   .hexselect button{
     all:unset; cursor:pointer; width:88px; height:22px; display:flex; align-items:center; justify-content:center;
     position:relative;
@@ -49,15 +45,15 @@
   .controls h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; }
   .ctl-colors{ display:flex; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line); }
   .ctl-colors label{ display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--dim); flex:1; }
-  .ctl-colors input[type="color"]{ width:100%; height:32px; border:1px solid var(--line); background:none; padding:2px; }
+  .ctl-colors input[type="color"]{ width:100%; height:32px; border:1px solid var(--line-strong); background:none; padding:2px; }
   .ctl-level label{ display:block; font-size:12px; color:var(--dim); margin:12px 0 4px; }
   .ctl-level select{
-    width:100%; padding:8px; background:var(--bg); color:var(--white); border:1px solid var(--line); font-family:inherit; font-size:13px;
+    width:100%; padding:8px; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); font-family:inherit; font-size:13px;
   }
 
   .share{ max-width:1120px; margin:32px auto 0; padding:0 24px; }
   .share label{ display:block; font-size:12px; color:var(--dim); opacity:.7; margin-bottom:6px; }
-  .share input{ width:100%; padding:10px; background:var(--panel); color:var(--white); border:1px solid var(--line); font-family:inherit; font-size:12px; }
+  .share input{ width:100%; padding:10px; background:var(--panel); color:var(--white); border:1px solid var(--line-strong); font-family:inherit; font-size:12px; }
 
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); }
@@ -65,11 +61,21 @@
     .hexselect{ flex-direction:row; }
   }
 </style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
   <header>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Motifs bicolores</span>
     </nav>
@@ -248,5 +254,13 @@ main().catch(err => {
   document.querySelector('.composer').innerHTML = `<p style="color:var(--red);">Erreur de chargement : ${err.message}</p>`;
 });
 </script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>

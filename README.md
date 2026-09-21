@@ -83,9 +83,27 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
 | `export-galerie-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
+| `build-header.js` | recopie l'en-tête partagé de `includes/` dans les 98 pages de contenu |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
 d'abord, puis les images, puis les pages qui les référencent.
+
+## En-tête partagé
+
+L'en-tête — logo, emplacement du traducteur — et les icônes du site ne sont
+recopiés dans aucune page : ils viennent des fragments de
+[`includes/`](includes/README.md), posés entre marqueurs par
+`scripts/build-header.js`. Le générateur des pages d'hexagrammes lit les mêmes
+fragments.
+
+- **Manuel** : `node scripts/build-header.js` depuis la racine.
+- **Vérification** : `node scripts/build-header.js --verifie` n'écrit rien et
+  liste les pages qui ont divergé. C'est ce que lance la CI
+  (`.github/workflows/check-header-sync.yml`).
+
+`tools/check_pages_console.mjs` vérifie en plus, sur chaque page chargée, que
+l'en-tête est présent et complet : logo effectivement chargé et dimensionné,
+emplacement du traducteur, `<h1>`.
 
 ## Sitemap
 

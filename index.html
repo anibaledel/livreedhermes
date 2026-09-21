@@ -59,17 +59,6 @@
 }
 </script>
 <style>
-  :root{
-    --bg:#000;
-    --panel:#0a0a0a;
-    --white:#f2f2f0;
-    --dim:#f2f2f0;
-    --red:#e0261b;
-    --red-dim:#5a120e;
-    --gold:#c9a15a;
-    --line:#242424;
-    --fs-bump:2px; /* +2px sur tous les font-size du fichier (calc(Npx + var(--fs-bump))) — mettre à 0px pour annuler */
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{
@@ -91,7 +80,7 @@
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
@@ -116,7 +105,7 @@
     }
   .app-lang-row{ display:none; }
   .app-lang-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:5px 11px;
     cursor:pointer; transition:border-color .12s ease, color .12s ease;
   }
@@ -129,7 +118,7 @@
   .book-bar .read-btn:hover{ background:var(--red); color:#000; }
   .book-bar .flags{ display:flex; gap:6px; align-items:center; }
   .book-bar .flag-btn{
-    border:1px solid var(--line); background:transparent; border-radius:3px;
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
     font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
     transition:opacity .12s ease, border-color .12s ease;
@@ -138,7 +127,7 @@
   .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
   .book-bar .flag-btn:not(.ready){ cursor:default; }
   .book-bar .dl-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
@@ -190,7 +179,7 @@
     transition:background .15s ease, color .15s ease;
   }
   .draw-btn:hover{ background:var(--red); color:#000; }
-  .draw-btn.secondary{ border-color:var(--line); color:var(--dim); margin-top:8px; }
+  .draw-btn.secondary{ border-color:var(--line-strong); color:var(--dim); margin-top:8px; }
   .draw-btn.secondary:hover{ border-color:var(--dim); background:transparent; color:var(--white); }
 
   .legend{ margin-top:16px; padding-top:14px; border-top:1px solid var(--line); }
@@ -271,7 +260,7 @@
     display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 4px;
     }
   .xref-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:6px 10px;
     cursor:pointer; transition:border-color .12s ease, color .12s ease;
   }
@@ -317,11 +306,11 @@
     font-size:calc(10px + var(--fs-bump)); color:var(--dim);
   }
   .share-row input{
-    flex:1; background:#050505; border:1px solid var(--line); color:var(--dim);
+    flex:1; background:#050505; border:1px solid var(--line-strong); color:var(--dim);
     font-size:calc(10px + var(--fs-bump)); padding:6px 8px;
   }
   .share-row button{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:6px 10px; cursor:pointer;
   }
   .share-row button:hover{ border-color:var(--gold); color:var(--gold); }
@@ -370,7 +359,7 @@
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
     margin-top:6px; }
   .site-nav-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
@@ -387,7 +376,7 @@
   }
   .nav-tile{
     display:flex; flex-direction:row; align-items:center; gap:10px;
-    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
     transition:border-color .12s ease, color .12s ease;
   }
   .nav-tile:hover{ border-color:var(--gold); }
@@ -512,16 +501,27 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-18-index.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
     <h1 id="txt-title">Tirage — Ordre chronologique des 64 mutations</h1>
     <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
@@ -531,7 +531,6 @@
 
   <!-- Traduction automatique de la page (Google Translate, gratuit) — complète les langues
        écrites à la main (FR/EN) pour tout le reste, à la volée, côté visiteur. -->
-  <div id="google_translate_element" class="gtranslate-slot"></div>
     <div class="book-bar">
       <span class="dl-group">
         <a class="dl-label" id="txt-readBook" href="fr/livre/" target="_blank" rel="noopener">Lire le livre</a>
@@ -2092,13 +2091,15 @@ setTimeout(syncEmptyCaduceusHeight, 0);
 })();
 </script>
 
+<script src="assets/soutien-gate.js"></script>
+<script src="assets/share-widget.js"></script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <script type="text/javascript">
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
 }
 </script>
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script src="assets/soutien-gate.js"></script>
-<script src="assets/share-widget.js"></script>
+<!-- @translate:end -->
 </body>
 </html>

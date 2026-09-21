@@ -36,13 +36,18 @@ const args = process.argv.slice(2);
 const baseUrlIdx = args.indexOf('--base-url');
 const BASE_URL = baseUrlIdx >= 0 ? args[baseUrlIdx + 1] : 'http://localhost:8123';
 
+// horsEnTete: page sans en-tête de site — redirections (meta refresh, aucun
+// contenu propre) et aperçu interne. Même périmètre que
+// scripts/build-header.js ; toutes les autres pages doivent porter l'en-tête
+// complet, c'est désormais une zone attendue au même titre qu'une zone JS.
+//
 // zone: sélecteur CSS dont le contenu texte doit être non vide après
 // chargement — connu seulement pour les pages où une zone JS précise a un
 // sens (outils interactifs). Les autres pages n'ont que le contrôle
 // générique (texte du <body> non vide) et l'absence d'exception.
 const PAGES = [
   // ── 28 pages racine ──────────────────────────────────────────────────
-  { path: '_preview.html' },
+  { path: '_preview.html', horsEnTete: true },
   { path: 'a-propos.html' },
   { path: 'articles.html' },
   { path: 'bicolore.html' },
@@ -52,23 +57,23 @@ const PAGES = [
   { path: 'cymatique.html' },
   { path: 'encodeur.html' },
   { path: 'fonds-ecran.html' },
-  { path: 'galerie-768-patterns-unifies.html' },
-  { path: 'galerie-884-patterns-unifies.html' },
+  { path: 'galerie-768-patterns-unifies.html', horsEnTete: true },
+  { path: 'galerie-884-patterns-unifies.html', horsEnTete: true },
   { path: 'galerie-patterns-unifies.html', zone: '#gallery' },
   { path: 'impression.html' },
   { path: 'index.html' },
   { path: 'la-livree-d-hermes.html' },
   { path: 'lexique.html' },
-  { path: 'motifs%20(4).html' },
+  { path: 'motifs%20(4).html', horsEnTete: true },
   { path: 'outils.html' },
-  { path: 'pages.html' },
-  { path: 'pro-contenu.html' },
-  { path: 'pro.html' },
+  { path: 'pages.html', horsEnTete: true },
+  { path: 'pro-contenu.html', horsEnTete: true },
+  { path: 'pro.html', horsEnTete: true },
   { path: 'profil.html' },
   { path: 'soutenir.html' },
   { path: 'soutien-succes.html' },
   { path: 'telechargements.html' },
-  { path: 'tirage-livree-hermes.html' },
+  { path: 'tirage-livree-hermes.html', horsEnTete: true },
   { path: 'unified-patterns.html' },
   // ── 8 articles ───────────────────────────────────────────────────────
   { path: 'articles/arlequin-trismegiste.html' },
@@ -91,13 +96,32 @@ const PAGES = [
 // l'exception JS et, où on la connaît, la zone attendue — voir docstring.
 const MIN_BODY_TEXT = 40;
 
+// Pages déjà traduites à la main : l'en-tête y est complet sans l'emplacement
+// du widget. Même liste que SANS_TRADUCTEUR dans scripts/build-header.js.
+const SANS_TRADUCTEUR = new Set([
+  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
+  'th/book/index.html', 'book-viewer/index.html',
+]);
+
 async function checkPage(browser, page_def) {
   const url = `${BASE_URL}/${page_def.path}`;
   const page = await browser.newPage();
   const errors = [];
   page.on('pageerror', (err) => errors.push(`exception : ${err.message}`));
   page.on('console', (msg) => {
-    if (msg.type() === 'error') errors.push(`console.error : ${msg.text()}`);
+    if (msg.type() !== 'error') return;
+    // Même filtre par origine que requestfailed ci-dessous, et pour la même
+    // raison : une ressource tierce qui tombe (police Google, widget de
+    // traduction, image sur un autre domaine) émet un « Failed to load
+    // resource » dans la console, et sans ce filtre elle ferait échouer une
+    // page qui n'y est pour rien — un réseau capricieux, un proxy, une
+    // coupure chez le tiers suffisent. msg.location().url donne l'URL à
+    // l'origine du message : pour un échec de chargement c'est la ressource
+    // elle-même, pour une vraie exception c'est le script fautif, donc
+    // même-origine. Un message sans URL est conservé, par prudence.
+    const src = msg.location()?.url;
+    if (src && !src.startsWith(BASE_URL)) return;
+    errors.push(`console.error : ${msg.text()}`);
   });
   page.on('requestfailed', (req) => {
     // ignore les échecs de tiers (polices Google, traduction) — on contrôle
@@ -109,6 +133,7 @@ async function checkPage(browser, page_def) {
 
   let bodyText = '';
   let zoneText = null;
+  let enTete = null;
   let loadError = null;
   try {
     // 'domcontentloaded', pas 'load' : on veut savoir si le script inline a
@@ -124,6 +149,21 @@ async function checkPage(browser, page_def) {
         return el ? el.innerHTML.trim() : null;
       }, page_def.zone);
     }
+    if (!page_def.horsEnTete) {
+      enTete = await page.evaluate(() => {
+        const h = document.querySelector('header.site-header');
+        if (!h) return { absent: true };
+        const img = h.querySelector('img[src*="title-logo-footer"]');
+        return {
+          absent: false,
+          logo: !!img,
+          logoCharge: !!img && img.complete && img.naturalWidth > 0,
+          logoDimensionne: !!img && img.hasAttribute('width') && img.hasAttribute('height'),
+          traducteur: !!h.querySelector('#google_translate_element'),
+          titre: !!document.querySelector('h1'),
+        };
+      });
+    }
   } catch (e) {
     loadError = e.message;
   } finally {
@@ -135,6 +175,21 @@ async function checkPage(browser, page_def) {
   if (errors.length) problems.push(...errors);
   if (!loadError && bodyText.length < MIN_BODY_TEXT) {
     problems.push(`page quasi vide : ${bodyText.length} caractères de texte (seuil ${MIN_BODY_TEXT})`);
+  }
+  if (enTete && !loadError) {
+    // L'en-tête est une zone attendue sur toute page de contenu : logo,
+    // emplacement du traducteur, bloc titre. Il vient d'une source unique
+    // (includes/), donc un manque ici signale une page sortie du circuit.
+    if (enTete.absent) problems.push("en-tête absent : pas de <header class=\"site-header\">");
+    else {
+      if (!enTete.logo) problems.push('en-tête incomplet : logo absent');
+      else if (!enTete.logoCharge) problems.push("en-tête incomplet : le logo n'a pas chargé");
+      else if (!enTete.logoDimensionne) problems.push('en-tête incomplet : logo sans width/height');
+      if (!enTete.traducteur && !SANS_TRADUCTEUR.has(page_def.path)) {
+        problems.push("en-tête incomplet : emplacement du traducteur absent de l'en-tête");
+      }
+      if (!enTete.titre) problems.push('en-tête incomplet : aucun <h1> sur la page');
+    }
   }
   if (page_def.zone && !loadError) {
     if (zoneText === null) problems.push(`zone attendue absente du DOM : ${page_def.zone}`);

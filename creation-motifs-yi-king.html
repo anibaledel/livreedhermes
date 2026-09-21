@@ -69,10 +69,10 @@
 </script>
 <style>
   :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-    --v:#662d91; --m:#ee2a7b; --o:#fbb040;
+    /* propres à cette page — les tokens communs viennent de style.css */
+    --v:#662d91;
+    --m:#ee2a7b;
+    --o:#fbb040;
   }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -88,7 +88,7 @@
   .gtranslate-slot:hover{ opacity:1; }
   .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
   .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line) !important; border-radius:0 !important;
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
     padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
   }
   .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
@@ -121,7 +121,7 @@
     display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
     margin-top:6px; }
   .site-nav-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
@@ -136,7 +136,7 @@
   }
   .nav-tile{
     display:flex; flex-direction:row; align-items:center; gap:10px;
-    padding:6px 10px; border:1px solid var(--line); text-decoration:none; color:var(--dim);
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
     transition:border-color .12s ease, color .12s ease;
   }
   .nav-tile:hover{ border-color:var(--gold); }
@@ -173,7 +173,7 @@
   }
   .book-bar .flags{ display:flex; gap:6px; align-items:center; }
   .book-bar .flag-btn{
-    border:1px solid var(--line); background:transparent; border-radius:3px;
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
     font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
     transition:opacity .12s ease, border-color .12s ease;
@@ -182,13 +182,13 @@
   .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
   .book-bar .flag-btn:not(.ready){ cursor:default; }
   .book-bar .dl-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .book-bar .dl-btn.disabled{ opacity:.35; cursor:default; }
-  .book-bar .dl-btn.disabled:hover{ border-color:var(--line); color:var(--dim); }
+  .book-bar .dl-btn.disabled:hover{ border-color:var(--line-strong); color:var(--dim); }
   .book-bar .dl-group{
     display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
   }
@@ -209,7 +209,7 @@
     border:0; padding:0; cursor:pointer; background:none;
   }
   #monoPicker{
-    width:26px; height:26px; border-radius:50%; border:1px solid var(--line);
+    width:26px; height:26px; border-radius:50%; border:1px solid var(--line-strong);
     padding:0; background:none; cursor:pointer; overflow:hidden;
   }
   #monoPicker::-webkit-color-swatch-wrapper{ padding:0; }
@@ -240,7 +240,7 @@
     display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:28px 0;
     }
   .cat-btn{
-    border:1px solid var(--line); background:var(--panel); color:var(--dim);
+    border:1px solid var(--line-strong); background:var(--panel); color:var(--dim);
     font-size:calc(12px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; padding:14px 22px;
     cursor:pointer; transition:border-color .15s ease, color .15s ease; text-align:left;
     min-width:170px;
@@ -300,7 +300,7 @@
 
   .reset-row{ text-align:center; margin:18px 0 6px; }
   .reset-btn{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:calc(10px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase;
     padding:8px 16px; cursor:pointer;
   }
@@ -370,7 +370,7 @@
   }
   .detail-pavage .tick.on{ border-color:var(--red); color:var(--red); }
   .btn-create-svg{
-    display:block; width:170px; margin-top:10px; border:1px solid var(--line); background:transparent;
+    display:block; width:170px; margin-top:10px; border:1px solid var(--line-strong); background:transparent;
     color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:9px 0;
     cursor:pointer; transition:border-color .12s ease, color .12s ease;
   }
@@ -482,17 +482,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
 </head>
 <body>
 <div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
   <div class="atalanta-zone" style="--atalanta-plate:url(https://anibal-amiot.com/assets/atalanta/plate-21-creation-motifs.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-    <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" style="width:280px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Créer un motif</span>
     </nav>
@@ -538,7 +549,6 @@
   </header>
   </div>
 
-    <div id="google_translate_element" class="gtranslate-slot"></div>
 
   <div class="cat-row" id="catRow"></div>
   <div class="cat-intro" id="catIntro"></div>
@@ -1930,13 +1940,15 @@ const btnPrintEl = document.getElementById('btnPrint');
 if(btnPrintEl) btnPrintEl.addEventListener('click', ()=> window.print());
 render();
 </script>
-<script type="text/javascript">
-  function googleTranslateElementInit(){
-    new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
 </body>
 </html>
