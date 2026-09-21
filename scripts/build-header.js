@@ -43,20 +43,13 @@ const HORS_PERIMETRE = new Set([
 ]);
 const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
 
-// Déjà traduites à la main : une traduction automatique par-dessus n'a pas
-// de sens. Elles gardent l'en-tête, sans l'emplacement du widget.
-// Le pied partagé est rédigé en français, et sa ligne de crédit l'est aussi.
-// Les pages traduites à la main gardent le leur : leur imposer un pied
-// français serait une régression pour leurs lecteurs.
-const SANS_PIED = new Set([
-  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
-  'th/book/index.html', 'book-viewer/index.html',
-]);
-
-const SANS_TRADUCTEUR = new Set([
-  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
-  'th/book/index.html', 'book-viewer/index.html',
-]);
+// Les pages traduites à la main n'ont ni emplacement du traducteur ni pied
+// partagé : la liste et ses raisons vivent dans scripts/pages-traduites.js,
+// que tools/check_pages_console.mjs lit aussi. Elle a vécu en double des
+// années — la sortir d'ici est ce qui rend la divergence impossible.
+const { TRADUITES_A_LA_MAIN } = require('./pages-traduites.js');
+const SANS_PIED = TRADUITES_A_LA_MAIN;
+const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 
 // Les pages d'un même groupe de traduction portent le même bloc hreflang — il
 // liste TOUS les équivalents, y compris la page elle-même — engendré depuis
