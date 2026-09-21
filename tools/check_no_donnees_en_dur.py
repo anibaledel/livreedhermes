@@ -89,6 +89,11 @@ ALLOWLIST = {
         "vérification qui compte (256/256 carrés magiques) porte sur "
         "data/referent_256_v3.json, jamais sur cette table."),
     ('verif_protocole.py', 'COULEURS_REFERENCE'): "même raison que ('verif_protocole.py', 'CARRE_REFERENCE') ci-dessus, voir cette entrée.",
+    ('cellule_c16.py', '_E8'): (
+        "géométrie du triangle-éventail à 8 branches d'une case unitaire (C8), reprise "
+        "ici pour calculer la correspondance C8->C16 — une définition, pas une mesure ; "
+        "rien dans data/ ne la porte. Même géométrie, à l'échelle près, que "
+        "cellTriangles() dans assets/bicolore-render.js."),
 }
 
 

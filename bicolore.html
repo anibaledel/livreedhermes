@@ -134,6 +134,7 @@ const N_LEVELS = 6;
 const TRAMES = {
   C8B3: { file: 'data/referent_bicolore_v1.json', label: 'C8·B3 — Origines' },
   C8B2: { file: 'data/referent_bicolore_c8b2_v1.json', label: 'C8·B2 — Origines T2' },
+  C16B1: { file: 'data/referent_bicolore_c16b1_v1.json', label: 'C16·B1 — dérivée (homothétie + gnomon)' },
 };
 const DEFAULT_TRAME = 'C8B3';
 
@@ -259,8 +260,9 @@ async function main() {
 
   function render() {
     const palette = [document.getElementById('colorA').value, document.getElementById('colorB').value];
-    const mask = composeNiveauxMask(data.familles, data.layers, levels);
-    document.getElementById('paneMotif').innerHTML = maskToPavageSvg(mask, palette, 1, 1, { size: 500 });
+    const perCell = data.per_cell;
+    const mask = composeNiveauxMask(data.familles, data.layers, levels, { perCell });
+    document.getElementById('paneMotif').innerHTML = maskToPavageSvg(mask, palette, 1, 1, { size: 500, perCell });
     updateUrl();
   }
 
