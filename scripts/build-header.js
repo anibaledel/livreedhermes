@@ -29,6 +29,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
+const { BOOK_LANGS, BOOK_HREFLANG } = require('./book-langs.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
@@ -49,6 +50,21 @@ const SANS_TRADUCTEUR = new Set([
   'th/book/index.html', 'book-viewer/index.html',
 ]);
 
+// Le livre est la seule partie du site qui existe en plusieurs langues. Les
+// quatre pages portent le même bloc hreflang — il liste TOUS les équivalents,
+// y compris la page elle-même — engendré depuis scripts/book-langs.js, que
+// scripts/generate-sitemap.js lit aussi. Pas de fragment séparé : ce serait
+// une seconde copie de la même liste, et un sitemap qui contredit un <head>
+// sur les alternates est une erreur que Google signale.
+//
+// Aucune autre page n'en reçoit : déclarer un équivalent qui n'existe pas est
+// une affirmation fausse. La réponse pour le reste du site est un corpus
+// traduit, pas une balise.
+const AVEC_HREFLANG = new Map(BOOK_LANGS.map(([lang, , fichier]) => [fichier, lang]));
+const HREFLANG_HTML = BOOK_HREFLANG
+  .map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`)
+  .join('\n');
+
 const lire = (n) => fs.readFileSync(path.join(INCLUDES, n), 'utf8');
 const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
@@ -57,8 +73,8 @@ const FRAGMENTS = {
 };
 const SLOT = lire('translate-slot.html');
 
-function zone(nom, corps) {
-  return `<!-- @${nom}:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->\n`
+function zone(nom, corps, source = 'includes/') {
+  return `<!-- @${nom}:start — engendré depuis ${source}, ne pas éditer ici (voir scripts/build-header.js) -->\n`
        + corps.replace(/\n+$/, '') + `\n<!-- @${nom}:end -->`;
 }
 
@@ -80,7 +96,13 @@ function adopter(src) {
   // 3. Le logo d'en-tête — reconnu à son style en ligne, qui le distingue du
   //    logo de pied de page (même fichier, sans attribut style).
   s = s.replace(/[ \t]*<img src="[^"]*title-logo-footer\.png" alt="La Livrée d'Hermès" style="width:2\d\dpx[^"]*"[^>]*>\n?/g, '');
-  // 4. Un <header> nu devenu vide n'a plus de raison d'être.
+  // 4. Les alternates écrits à la main. Les quatre pages du livre les
+  //    portaient déjà, corrects — ils passent simplement sous la même source
+  //    que le sitemap pour ne plus pouvoir en diverger. Retirer ceux qui sont
+  //    dans la zone balisée est sans effet : poser() la réécrit entière juste
+  //    après, ce qui garde le script relançable sans effet.
+  s = s.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n?/g, '');
+  // 5. Un <header> nu devenu vide n'a plus de raison d'être.
   s = s.replace(/[ \t]*<header>\s*<\/header>\n?/g, '');
   return s;
 }
@@ -98,6 +120,11 @@ function traiter(rel, src) {
 
   s = poser(s, 'head-icons', rendre('head-icons', prefixe, traducteur),
     (t, c) => t.replace('</head>', `${c}\n</head>`));
+
+  if (AVEC_HREFLANG.has(rel)) {
+    s = poser(s, 'hreflang', zone('hreflang', HREFLANG_HTML, 'scripts/book-langs.js'),
+      (t, c) => t.replace('</head>', `${c}\n</head>`));
+  }
 
   // L'en-tête ouvre le contenu : dans .wrap s'il existe, sinon juste après <body>.
   s = poser(s, 'header', rendre('header', prefixe, traducteur), (t, c) => {
@@ -147,12 +174,12 @@ for (const rel of parcourir(REPO_ROOT).sort()) {
 
 if (verifie) {
   if (ecarts.length) {
-    console.error(`${ecarts.length} page(s) ne correspondent pas aux fragments de includes/ :`);
+    console.error(`${ecarts.length} page(s) ne correspondent pas à leur source (includes/, scripts/book-langs.js) :`);
     for (const e of ecarts) console.error(`   ${e}`);
     console.error("\nRelancer : node scripts/build-header.js");
     process.exit(1);
   }
-  console.log(`En-tête conforme aux fragments sur les ${parcourir(REPO_ROOT).length} pages du périmètre.`);
+  console.log(`En-tête et alternates conformes à leur source sur les ${parcourir(REPO_ROOT).length} pages du périmètre.`);
 } else {
   console.log(`${touchees} page(s) mises à jour sur ${parcourir(REPO_ROOT).length} du périmètre.`);
 }

@@ -22,7 +22,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const ROOT = path.join(__dirname, '..');
-const SITE = 'https://anibal-amiot.com';
+const { SITE, BOOK_LANGS, BOOK_HREFLANG } = require('./book-langs.js');
 
 function lastmod(relPath) {
   try {
@@ -74,20 +74,16 @@ const STATIC_PAGES = [
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
 ];
 
-// Pages livre multilingues, avec liens alternates réciproques.
-const BOOK_LANGS = [
-  ['fr', `${SITE}/fr/livre/`, 'fr/livre/index.html'],
-  ['en', `${SITE}/en/book/`, 'en/book/index.html'],
-  ['es', `${SITE}/es/libro/`, 'es/libro/index.html'],
-  ['th', `${SITE}/th/book/`, 'th/book/index.html'],
-];
-const bookHreflang = BOOK_LANGS.map(([lang, href]) => [lang, href]).concat([['x-default', BOOK_LANGS[0][1]]]);
+// Pages livre multilingues, avec liens alternates réciproques. La liste vit
+// dans scripts/book-langs.js : scripts/build-header.js écrit les mêmes
+// alternates dans le <head> des quatre pages, et les deux doivent dire la
+// même chose.
 const BOOK_PAGES = BOOK_LANGS.map(([lang, loc, file]) => ({
   loc,
   file,
   changefreq: 'monthly',
   priority: '0.8',
-  hreflang: bookHreflang,
+  hreflang: BOOK_HREFLANG,
 }));
 
 // Articles : tous les fichiers présents dans articles/, découverts automatiquement.

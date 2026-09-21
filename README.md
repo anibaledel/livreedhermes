@@ -83,7 +83,7 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
 | `export-galerie-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
-| `build-header.js` | recopie l'en-tête partagé de `includes/` dans les 98 pages de contenu |
+| `build-header.js` | recopie l'en-tête partagé de `includes/` et les alternates de `book-langs.js` |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
 d'abord, puis les images, puis les pages qui les référencent.
@@ -104,6 +104,27 @@ fragments.
 `tools/check_pages_console.mjs` vérifie en plus, sur chaque page chargée, que
 l'en-tête est présent et complet : logo effectivement chargé et dimensionné,
 emplacement du traducteur, `<h1>`.
+
+## Versions linguistiques du livre
+
+Le livre est la seule partie du site qui existe en plusieurs langues :
+`fr/livre/`, `en/book/`, `es/libro/` et `th/book/` sont quatre traductions
+mutuelles. Les autres pages n'existent qu'en français et ne portent donc aucun
+`hreflang` — déclarer un équivalent qui n'existe pas est une affirmation
+fausse.
+
+La liste vit dans [`scripts/book-langs.js`](scripts/book-langs.js), lue par
+deux consommateurs qui n'en gardent aucune copie :
+
+| Consommateur | Produit |
+|---|---|
+| `scripts/generate-sitemap.js` | les `<xhtml:link rel="alternate">` du sitemap |
+| `scripts/build-header.js` | les `<link rel="alternate">` du `<head>` des quatre pages |
+
+Les deux doivent dire la même chose : un sitemap et un `<head>` qui se
+contredisent sur les alternates, c'est une erreur que Google signale. Une seule
+liste rend la contradiction impossible — changer l'ordre des langues déplace
+`x-default` des deux côtés à la fois.
 
 ## Date de modification des pages d'hexagrammes
 
