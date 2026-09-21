@@ -151,16 +151,17 @@ def _sf_carterhybrid(master_key):
     return lambda: CR._find_hybrid_grammar_with_c_pub(gk, CR.GRID_SIZE)
 
 
-# capacity_fn : None = CC.max_message_for (format simple). Carter-256 est
-# câblé sur la cascade (2026-09-21, voir carter.py::encode_carter) -- sa
+# capacity_fn : None = CC.max_message_for (format simple). Carter-256,
+# Carter-360 et Carter-Mix sont câblés sur la cascade (2026-09-21, voir
+# carter.py::encode_carter/encode_carter_360/encode_carter_mix) -- leur
 # recherche de grammaire utilise CC.max_message_for_cascade en production,
-# donc sa recalibration doit mesurer la MÊME fonction, pas le format
-# simple. Les cinq autres variantes n'ont pas encore migré : capacity_fn
+# donc leur recalibration doit mesurer la MÊME fonction, pas le format
+# simple. Les trois variantes restantes n'ont pas encore migré : capacity_fn
 # reste None (CC.max_message_for) pour elles, jusqu'à leur propre câblage.
 VARIANTS = [
     ('carter256',       CT, _sf_carter256, CC.max_message_for_cascade),
-    ('carter360',       CT, _sf_carter360, None),
-    ('cartermix',       CT, _sf_cartermix, None),
+    ('carter360',       CT, _sf_carter360, CC.max_message_for_cascade),
+    ('cartermix',       CT, _sf_cartermix, CC.max_message_for_cascade),
     ('carterrandom90',  CR, _sf_carterrandom90, None),
     ('carterrandom360', CR, _sf_carterrandom360, None),
     ('carterhybrid',    CR, _sf_carterhybrid, None),

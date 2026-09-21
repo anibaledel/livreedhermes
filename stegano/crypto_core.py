@@ -458,8 +458,8 @@ LABELS = {
 # géométries, deux distributions de capacité mesurées séparément.
 C_PUB = {
     'carter256':        399,
-    'carter360':       1861,
-    'cartermix':       1872,
+    'carter360':       1848,
+    'cartermix':       1852,
     'carterrandom90':   409,
     'carterrandom360': 2147,
     'carter18':         350,

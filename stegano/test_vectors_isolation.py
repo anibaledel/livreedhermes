@@ -174,17 +174,18 @@ class TestSingleRef360Loader(unittest.TestCase):
         # chargeur unique du Referent 360 -- compare contre ce meme chargeur.
         ref360_v = VI.load_referent_360_v3()
         key = os.urandom(32)
-        nonce = os.urandom(24)
+        nonce1 = os.urandom(24)
+        nonce2 = os.urandom(12)
         noise_seed = os.urandom(32)
         # Grille via le référent EXPLICITE du mode vecteurs...
         g_explicit = encode_carter_360(
             "HELLO", key, ref360_v,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            _nonce1=nonce1, _nonce2=nonce2, _y=0, _leftover=[0], _noise_seed=noise_seed)
         # ...contre la grille via le chargement PAR DÉFAUT de production
         # (ref360=None -> load_referent_360_v3() interne à carter.py).
         g_default = encode_carter_360(
             "HELLO", key,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            _nonce1=nonce1, _nonce2=nonce2, _y=0, _leftover=[0], _noise_seed=noise_seed)
         self.assertEqual(g_explicit, g_default,
             "vectors_internal.load_referent_360_v3() et le chargement par "
             "défaut d'encode_carter_360() ne chargent pas le même référent "
@@ -199,14 +200,15 @@ class TestSingleRef360Loader(unittest.TestCase):
         ref256_v3 = VI.load_referent_256_v3()
         ref360_v3 = VI.load_referent_360_v3()
         key = os.urandom(32)
-        nonce = os.urandom(24)
+        nonce1 = os.urandom(24)
+        nonce2 = os.urandom(12)
         noise_seed = os.urandom(32)
         g_explicit = encode_carter_mix(
             "HELLO", key, ref256_v3, ref360_v3,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            _nonce1=nonce1, _nonce2=nonce2, _y=0, _leftover=[0], _noise_seed=noise_seed)
         g_default = encode_carter_mix(
             "HELLO", key, ref256_v3,
-            _nonce=nonce, _y=0, _leftover=[0], _noise_seed=noise_seed)
+            _nonce1=nonce1, _nonce2=nonce2, _y=0, _leftover=[0], _noise_seed=noise_seed)
         self.assertEqual(g_explicit, g_default,
             "load_referent_360_v3() et le chargement par défaut "
             "d'encode_carter_mix() ne chargent pas le même référent 360.")
