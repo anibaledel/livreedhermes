@@ -68,6 +68,7 @@ const PAGES = [
   { path: 'chiffres-et-sources.html' },
   { path: 'en/lexicon/' },
   { path: 'es/lexico/' },
+  { path: 'th/lexicon/' },
   { path: 'motifs%20(4).html', horsEnTete: true },
   { path: 'outils.html' },
   { path: 'pages.html', horsEnTete: true },
