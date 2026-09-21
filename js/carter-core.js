@@ -638,11 +638,17 @@ export async function carter256_split(masterKey) {
 }
 
 /**
- * carter256_grammar(gkCtr, ref256) -> {blocks, sweep_of_color}. `gkCtr` :
- * la clé post-redraw (grammar_key_ctr) — malgré le nom du paramètre Python
+ * carter256_grammar(gkCtr, ref256) -> {blocks}. `gkCtr` : la clé
+ * post-redraw (grammar_key_ctr) — malgré le nom du paramètre Python
  * correspondant (`master_key`, trompeur : _carter_grammar est en réalité
  * TOUJOURS appelée avec gk_ctr, jamais la vraie clé maître — voir le site
  * d'appel dans _find_grammar_with_c_pub).
+ *
+ * Chantier 2 (2026-09-21, référent 256 SEULEMENT) : ne dérive plus de
+ * sweep_of_color — l'ordre de lecture des 12 positions stégano d'un bloc
+ * vient désormais du protocole couleur -> nombre du carré magique
+ * (magicNumber/carter256_positions), pas du balayage. Voir
+ * docs/CASCADE_V1.md et stegano/carter.py::_magic_number.
  */
 export async function carter256_grammar(gkCtr, ref256) {
   const L = LABELS.carter256;
@@ -653,22 +659,53 @@ export async function carter256_grammar(gkCtr, ref256) {
     const role = rb < 85 ? ROLE_PURE : (rb < 170 ? ROLE_STRUCTURED : ROLE_MESSAGE);
     blocks.push({ role, form_id: fb }); // 256 formes exactement, fb tel quel
   }
-  const sweep_of_color = {};
-  for (const c of ref256.stegano_colors) sweep_of_color[c] = await derive_sweep_index(gkCtr, c);
-  return { blocks, sweep_of_color };
+  return { blocks };
 }
 
-/** carter256_positions(br, bc, g, ref256, sweepOfColor) -> [[gr,gc], ...] positions globales du bloc. */
-export function carter256_positions(br, bc, g, ref256, sweepOfColor) {
+/**
+ * carter256_magic_number(row, col, color, n=CARTER_BLOCK) -> 1..n². Protocole couleur
+ * -> nombre du carré magique (chantier 2, 2026-09-21) — reprise exacte de
+ * tools/verif_protocole.py, vérifié 256/256 carrés magiques complets sur
+ * referent_256_v3.json. TOUJOURS n=CARTER_BLOCK=6 (la taille de la FORME),
+ * jamais la taille de la grille globale — voir stegano/carter.py::_magic_number.
+ */
+export function carter256_magic_number(row, col, color, n = CARTER_BLOCK) {
+  const i = n * row + col + 1;
+  const j = n * row + (n - 1 - col) + 1;
+  if (color === 'bleu') return i;
+  if (color === 'rouge') return n * n + 1 - i;
+  if (color === 'vert') return j;
+  if (color === 'jaune') return n * n + 1 - j;
+  throw new Error(`couleur inconnue du protocole magique : ${color}`);
+}
+
+/**
+ * carter256_positions(br, bc, g, ref256) -> [[gr,gc], ...] positions
+ * globales du bloc, triées par ordre croissant de leur numéro dans le
+ * protocole couleur -> nombre du carré magique (chantier 2, 2026-09-21 —
+ * remplace le tri par balayage). Voir stegano/carter.py::_carter_positions
+ * pour la justification complète (ce qui change/ne change pas côté
+ * sécurité — la clé choisit toujours la forme, l'ordre dans la forme
+ * devient public).
+ */
+export function carter256_positions(br, bc, g, ref256) {
   const form = ref256.forms[g.form_id];
-  const steganoColors = ref256.stegano_colors;
-  const gridSize = ref256.grid_size;
-  const cellsByNiveau = { 0: {} };
-  for (const c of steganoColors) cellsByNiveau[0][c] = form[c + '_positions'];
-  const localOrder = cryptoReadingOrder(cellsByNiveau, steganoColors, gridSize, sweepOfColor);
+  const steganoColors = ref256.stegano_colors;   // ['rouge', 'bleu']
+  const cells = [];
+  for (const color of steganoColors) {
+    for (const [r, c] of form[color + '_positions']) cells.push([r, c, color]);
+  }
+  const numbered = cells.map(([r, c, color]) => [carter256_magic_number(r, c, color), r, c]);
+  const numbers = numbered.map(([num]) => num);
+  if (new Set(numbers).size !== numbers.length) {
+    throw new Error(
+      `numéros du protocole magique non distincts pour la forme ${g.form_id} ` +
+      `(${numbers.join(',')}) — référent corrompu ou forme hors carré magique`);
+  }
+  numbered.sort((a, b) => a[0] - b[0]);
   const r0 = br * CARTER_BLOCK, c0 = bc * CARTER_BLOCK;
   const out = [];
-  for (const [r, c] of localOrder) {
+  for (const [, r, c] of numbered) {
     const gr = r0 + r, gc = c0 + c;
     if (gr >= 0 && gr < CARTER_GRID && gc >= 0 && gc < CARTER_GRID) out.push([gr, gc]);
   }
@@ -689,11 +726,10 @@ export async function carter256_find_grammar(grammarKey, ref256) {
 }
 
 function carter256MessagePositions(grammar, ref256) {
-  const sweepOfColor = grammar.sweep_of_color;
   let total = 0;
   grammar.blocks.forEach((g, i) => {
     if (g.role !== ROLE_MESSAGE) return;
-    total += carter256_positions(Math.floor(i / CARTER_SIDE), i % CARTER_SIDE, g, ref256, sweepOfColor).length;
+    total += carter256_positions(Math.floor(i / CARTER_SIDE), i % CARTER_SIDE, g, ref256).length;
   });
   return total;
 }
@@ -746,13 +782,12 @@ export async function encode_carter(message, masterKey, ref256, opts = {}) {
   const symbols = payload_to_symbols(payload, nPos, { _y, _leftover });
   const masks = await derive_masks(gkCtr, symbols.length, LABELS.mask_seed.info_carter256);
   const grid = random_grid(CARTER_GRID, CARTER_GRID, _noiseSeed);
-  const sweepOfColor = grammar.sweep_of_color;
   let ni = 0;
   for (let i = 0; i < grammar.blocks.length; i++) {
     const g = grammar.blocks[i];
     if (g.role !== ROLE_MESSAGE) continue;
     const br = Math.floor(i / CARTER_SIDE), bc = i % CARTER_SIDE;
-    for (const [gr, gc] of carter256_positions(br, bc, g, ref256, sweepOfColor)) {
+    for (const [gr, gc] of carter256_positions(br, bc, g, ref256)) {
       if (ni >= symbols.length) break;
       grid[gr][gc] = (symbols[ni] + masks[ni]) % ALPHA_LEN;
       ni++;
@@ -769,13 +804,12 @@ export async function decode_carter(grid, masterKey, ref256) {
     g => carter256MessagePositions(g, ref256),
     max_message_for_cascade);
   const masks = await derive_masks(gkCtr, nPos, LABELS.mask_seed.info_carter256);
-  const sweepOfColor = grammar.sweep_of_color;
   const vals = [];
   for (let i = 0; i < grammar.blocks.length; i++) {
     const g = grammar.blocks[i];
     if (g.role !== ROLE_MESSAGE) continue;
     const br = Math.floor(i / CARTER_SIDE), bc = i % CARTER_SIDE;
-    for (const [gr, gc] of carter256_positions(br, bc, g, ref256, sweepOfColor)) {
+    for (const [gr, gc] of carter256_positions(br, bc, g, ref256)) {
       // Modulo Python-compatible : (a - b) peut être négatif, le % JS garde
       // le signe du dividende (contrairement à Python) — d'où +ALPHA_LEN.
       vals.push(((grid[gr][gc] - masks[vals.length]) % ALPHA_LEN + ALPHA_LEN) % ALPHA_LEN);

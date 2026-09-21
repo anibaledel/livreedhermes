@@ -48,11 +48,10 @@ def _modes(ref256_v3, ref360_v3):
     def cellules_256(cle, grille):
         _, gk = S._carter_split(cle)
         gram = S._carter_grammar(gk, ref256_v3)
-        sweep_of_color = gram['sweep_of_color']
         return [grille[r][c]
                 for i, g in enumerate(gram['blocks']) if g['role'] == S._MESSAGE
                 for r, c in S._carter_positions(i // S.CARTER_SIDE,
-                                                i % S.CARTER_SIDE, g, ref256_v3, sweep_of_color)]
+                                                i % S.CARTER_SIDE, g, ref256_v3)]
 
     def cellules_360(cle, grille):
         _, gk = S._carter360_split(cle)
@@ -111,7 +110,7 @@ def geometrie(ref256_v3, ref360_v3, cles):
     _carter256_grammaire, _carter256_positions = _dict_grammar_geom_fns(
         lambda gk: S._carter_grammar(gk, ref256_v3),
         lambda i, g, gram: S._carter_positions(i // S.CARTER_SIDE, i % S.CARTER_SIDE,
-                                                g, ref256_v3, gram['sweep_of_color']))
+                                                g, ref256_v3))
     _carter360_grammaire, _carter360_positions = _dict_grammar_geom_fns(
         lambda gk: S._carter360_grammar(gk, ref360_v3),
         lambda i, g, gram: S._carter360_positions(i // S.CARTER360_SIDE, i % S.CARTER360_SIDE,

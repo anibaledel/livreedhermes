@@ -116,9 +116,9 @@ def _carter_grammar(master_key: bytes, ref256: Dict) -> Dict:
     CSPRNG non structuré, EXACTEMENT comme avant (décision de l'auteur :
     le papier ne prévoit aucun changement hors des positions stégano).
 
-    Retourne {'blocks': [{'role','form_id'}, ...], 'sweep_of_color':
-    {couleur: 0..7}} -- le balayage (stegano.py) est dérivé UNE FOIS par
-    couleur stégano pour toute la grammaire, jamais retiré par bloc.
+    Ordre de lecture par valeur magique (chantier 2, 2026-09-21, référent
+    256 SEULEMENT) : plus de balayage ici — voir _carter_positions/
+    _magic_number. Retourne seulement {'blocks': [{'role','form_id'}, ...]}.
     """
     from cryptography.hazmat.primitives.kdf.hkdf import HKDF
     from cryptography.hazmat.primitives import hashes as _hh
@@ -133,33 +133,84 @@ def _carter_grammar(master_key: bytes, ref256: Dict) -> Dict:
         # 256 formes exactement (referent_256_v3.json) : fb utilisé tel
         # quel comme form_id, aucune mise à l'échelle ni rejet nécessaire.
         blocks.append({'role': role, 'form_id': fb})
-    sweep_of_color = {c: derive_sweep_index(master_key, c)
-                       for c in ref256['stegano_colors']}
-    return {'blocks': blocks, 'sweep_of_color': sweep_of_color}
+    return {'blocks': blocks}
 
-def _carter_positions(br: int, bc: int, g: Dict, ref256: Dict,
-                       sweep_of_color: Dict) -> List[Tuple]:
-    """Positions stégano de lecture du bloc (br, bc) selon la grammaire g :
+def _magic_number(row: int, col: int, color: str, n: int = CARTER_BLOCK) -> int:
+    """
+    Numéro (1..n²) que le protocole couleur → nombre du carré magique
+    assigne à la case (row, col) de couleur `color` — protocole confirmé
+    à 100 % (256/256 carrés magiques complets, référent_256_v3.json) par
+    tools/verif_protocole.py, dont ce calcul est la reprise exacte.
+
+    TOUJOURS n=CARTER_BLOCK=6, la taille de la FORME (bloc), jamais celle
+    de la grille globale (90) : le protocole numérote chaque bloc de 1 à
+    36 indépendamment des autres — appliqué à une autre taille, il donnerait
+    d'autres numéros et l'ordre ne serait plus celui de la forme.
+
+    bleu  : i = n·row + col + 1              (ligne par ligne, haut→bas, gauche→droite)
+    vert  : j = n·row + (n−1−col) + 1        (même sens, miroir horizontal)
+    rouge : n²+1−i                            (inverse de bleu)
+    jaune : n²+1−j                            (inverse de vert)
+    ("vert" est appelé "gris" dans le texte du protocole ; même couleur du référent.)
+    """
+    i = n * row + col + 1
+    j = n * row + (n - 1 - col) + 1
+    if color == 'bleu':  return i
+    if color == 'rouge': return n * n + 1 - i
+    if color == 'vert':  return j
+    if color == 'jaune': return n * n + 1 - j
+    raise ValueError(f"couleur inconnue du protocole magique : {color!r}")
+
+def _carter_positions(br: int, bc: int, g: Dict, ref256: Dict) -> List[Tuple]:
+    """
+    Positions stégano de lecture du bloc (br, bc) selon la grammaire g :
     les cases des couleurs stégano du référent (rouge+bleu, 12 pour le
-    référent 256 v3), ensemble, dans l'ordre de lecture (chaque couleur
-    triée par son balayage, voir crypto_reading_order). `sweep_of_color`
-    vient de _carter_grammar() (une seule dérivation pour toute la
-    grammaire, jamais retirée par bloc)."""
+    référent 256 v3), triées par ORDRE CROISSANT de leur numéro dans le
+    protocole couleur → nombre du carré magique (chantier 2, 2026-09-21 —
+    voir _magic_number, tools/verif_protocole.py).
+
+    Cet ordre ne dépend que de la forme choisie (publique dans le
+    référent), plus de la clé : contrairement au balayage qu'il remplace
+    (dérivé de la clé, 8 valeurs possibles par couleur — voir
+    stegano/sweep.py), le numéro de chaque case se déduit uniquement de
+    sa coloration. La clé continue de choisir QUELLE forme parmi les 256
+    (via form_id, dérivé de la grammaire) ; c'est seulement l'ordre DE
+    LECTURE À L'INTÉRIEUR de la forme choisie qui devient public. Le
+    théorème 1 (indiscernabilité message/bruit) vaut pour toute règle de
+    lecture publique et n'est pas affecté ; c'est la cascade qui protège
+    le contenu. Ce qui disparaît : les ~3 bits qu'apportait le choix
+    parmi 8 balayages — négligeables devant une clé de 256 bits, mais à
+    ne jamais présenter comme un ordre secret.
+
+    Ne s'applique qu'au référent 256 : Carter-360, Carter-Mix (côté 256
+    compris) et la stéganographie classique gardent le balayage actuel,
+    inchangés par ce chantier. Carter-Random n'a jamais utilisé le
+    référent 256 et garde ses huit balayages — voir
+    test_regression.py::TestCarterRandomWitness.
+    """
     form = ref256['forms'][g['form_id']]
-    stegano_colors = ref256['stegano_colors']
-    grid_size = ref256['grid_size']
-    cells_by_niveau = {0: {c: [tuple(p) for p in form[f'{c}_positions']]
-                            for c in stegano_colors}}
-    local_order = crypto_reading_order(cells_by_niveau, stegano_colors,
-                                        grid_size, sweep_of_color)
+    stegano_colors = ref256['stegano_colors']   # ['rouge', 'bleu']
+    cells = [(r, c, color) for color in stegano_colors
+             for r, c in form[f'{color}_positions']]
+    numbered = [(_magic_number(r, c, color), r, c) for r, c, color in cells]
+    numbers = [num for num, _, _ in numbered]
+    # Un carré magique d'ordre 6 porte les nombres 1..36 une seule fois
+    # chacun : les 12 cases stégano ont donc 12 numéros distincts, et le
+    # tri est bien défini. Si ce n'est pas le cas, le référent est corrompu
+    # (forme hors carré magique) — mieux vaut échouer bruyamment ici que
+    # produire un ordre de lecture silencieusement ambigu.
+    assert len(set(numbers)) == len(numbers), (
+        f"numéros du protocole magique non distincts pour la forme "
+        f"{g['form_id']} ({numbers}) — référent corrompu ou forme hors "
+        f"carré magique")
+    local_order = [(r, c) for _, r, c in sorted(numbered)]
     r0, c0 = br * CARTER_BLOCK, bc * CARTER_BLOCK
     return [(r0+r, c0+c) for r, c in local_order
             if 0 <= r0+r < CARTER_GRID and 0 <= c0+c < CARTER_GRID]
 
 def _carter_message_positions(grammar: Dict, ref256: Dict) -> int:
     """Nombre de positions rendues par les blocs message de cette grammaire."""
-    sweep_of_color = grammar['sweep_of_color']
-    return sum(len(_carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256, sweep_of_color))
+    return sum(len(_carter_positions(i // CARTER_SIDE, i % CARTER_SIDE, g, ref256))
                for i, g in enumerate(grammar['blocks']) if g['role'] == _MESSAGE)
 
 def encode_carter(message: str, master_key: bytes,
@@ -219,12 +270,11 @@ def encode_carter(message: str, master_key: bytes,
     # plus rapide que CARTER_GRID² appels à secrets.randbelow() (audit
     # G. Kerma, §4.8 ; voir aussi BENCHMARKS_ARM64.md), même garantie de sécurité.
     grid  = random_grid(CARTER_GRID, CARTER_GRID, _noise_seed=_noise_seed)
-    sweep_of_color = grammar['sweep_of_color']
     nib_i = 0
     for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-        for gr, gc in _carter_positions(br, bc, g, ref256, sweep_of_color):
+        for gr, gc in _carter_positions(br, bc, g, ref256):
             if nib_i >= len(nibbles): break
             grid[gr][gc] = (nibbles[nib_i] + masks[nib_i]) % ALPHA_LEN; nib_i += 1
     return grid
@@ -243,12 +293,11 @@ def decode_carter(grid: List[List[int]], master_key: bytes,
         lambda g: _carter_message_positions(g, ref256),
         capacity_fn=max_message_for_cascade)
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter256'])
-    sweep_of_color = grammar['sweep_of_color']
     vals, ni = [], 0
     for i, g in enumerate(grammar['blocks']):
         if g['role'] != _MESSAGE: continue
         br, bc = i // CARTER_SIDE, i % CARTER_SIDE
-        for gr, gc in _carter_positions(br, bc, g, ref256, sweep_of_color):
+        for gr, gc in _carter_positions(br, bc, g, ref256):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
     return decrypt_cascade(vals, xchacha_key, len(vals))
 

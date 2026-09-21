@@ -82,6 +82,13 @@ ALLOWLIST = {
         "l'exemple de référence ('carré 666') vérifié à la main en conversation, "
         "documenté comme tel dans le docstring du module — un exemple d'usage sous "
         "if __name__ == '__main__', jamais lu par un pipeline de génération."),
+    ('verif_protocole.py', 'CARRE_REFERENCE'): (
+        "même raison que ('verif_carre_magique.py', 'CARRE_REFERENCE') ci-dessus : "
+        "l'exemple de référence ('carré 666', p.040 du livre), utilisé uniquement "
+        "sous if __name__ == '__main__' pour une sanity-check optionnelle — la "
+        "vérification qui compte (256/256 carrés magiques) porte sur "
+        "data/referent_256_v3.json, jamais sur cette table."),
+    ('verif_protocole.py', 'COULEURS_REFERENCE'): "même raison que ('verif_protocole.py', 'CARRE_REFERENCE') ci-dessus, voir cette entrée.",
 }
 
 

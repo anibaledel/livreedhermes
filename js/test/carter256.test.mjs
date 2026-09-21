@@ -1,13 +1,13 @@
 /**
  * carter256.test.mjs — Vérifie Carter-256 (carter.py, referent_256_v3.json)
  * étape par étape contre vectors/carter_v3.json::carter256-basic-01 :
- * rôles/formes, sens de lecture (sweep_of_color), positions, masques,
- * symboles (déjà couverts par crypto_core.test.mjs), PUIS la grille
- * entière bit à bit, PUIS le décodage — dans cet ordre, chaque étape
- * bloquant la suivante en cas d'échec (node:test s'arrête sur la première
- * assertion qui échoue dans un test donné, mais chaque test ci-dessous
- * est indépendant pour voir immédiatement LAQUELLE des couches est en
- * cause si une seule casse).
+ * rôles/formes, sens de lecture (ordre par valeur magique — chantier 2,
+ * 2026-09-21, remplace le balayage), positions, masques, symboles (déjà
+ * couverts par crypto_core.test.mjs), PUIS la grille entière bit à bit,
+ * PUIS le décodage — dans cet ordre, chaque étape bloquant la suivante en
+ * cas d'échec (node:test s'arrête sur la première assertion qui échoue
+ * dans un test donné, mais chaque test ci-dessous est indépendant pour
+ * voir immédiatement LAQUELLE des couches est en cause si une seule casse).
  *
  * La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
  */
@@ -16,7 +16,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {
   hexToBytes, bytesToHex, redraw_grammar_key,
-  carter256_split, carter256_grammar, carter256_positions,
+  carter256_split, carter256_grammar, carter256_positions, carter256_magic_number,
   encode_carter, decode_carter, encrypt_cascade, payload_to_symbols, derive_masks,
   LABELS, ALPHA_LEN,
 } from '../carter-core.js';
@@ -47,10 +47,27 @@ test('carter256-basic-01 : rôles et form_id des 225 blocs', async () => {
   }
 });
 
-test('carter256-basic-01 : sens de lecture (sweep_of_color)', async () => {
+test('carter256-basic-01 : sens de lecture — ordre croissant par valeur magique', async () => {
+  // Chantier 2 (2026-09-21) : plus de sweep_of_color -- vérifie directement
+  // que carter256_positions() trie les 12 positions stégano d'un bloc par
+  // numéro croissant du protocole couleur -> nombre (carter256_magic_number),
+  // en reconstruisant l'ordre attendu depuis la forme du référent, comme
+  // stegano/test_regression.py::TestCarterMagicOrder côté Python.
   const gkCtr = await deriveGkCtr();
-  const { sweep_of_color } = await carter256_grammar(gkCtr, ref256);
-  assert.deepEqual(sweep_of_color, v0.derivation.sweep_of_color);
+  const { blocks } = await carter256_grammar(gkCtr, ref256);
+  const g = blocks.find(b => b.role === 2); // ROLE_MESSAGE
+  assert.ok(g, 'aucun bloc MESSAGE dans cette grammaire — vecteur à revoir');
+  const form = ref256.forms[g.form_id];
+  const cells = [];
+  for (const color of ref256.stegano_colors) {
+    for (const [r, c] of form[color + '_positions']) cells.push([r, c, color]);
+  }
+  const expectedLocalOrder = cells
+    .map(([r, c, color]) => [carter256_magic_number(r, c, color), r, c])
+    .sort((a, b) => a[0] - b[0])
+    .map(([, r, c]) => [r, c]);
+  const positions = carter256_positions(0, 0, g, ref256); // br=bc=0 -> positions == ordre local
+  assert.deepEqual(positions, expectedLocalOrder);
 });
 
 test('carter256-basic-01 : n_pos (positions message, somme sur tous les blocs MESSAGE)', async () => {
@@ -59,7 +76,7 @@ test('carter256-basic-01 : n_pos (positions message, somme sur tous les blocs ME
   let total = 0;
   grammar.blocks.forEach((g, i) => {
     if (g.role !== 2) return; // ROLE_MESSAGE
-    total += carter256_positions(Math.floor(i / 15), i % 15, g, ref256, grammar.sweep_of_color).length;
+    total += carter256_positions(Math.floor(i / 15), i % 15, g, ref256).length;
   });
   assert.equal(total, v0.derivation.n_pos);
 });
@@ -117,7 +134,7 @@ test('carter256-basic-01 : decode_carter() lève sur une cellule altérée (posi
   const firstMessageBlock = grammar.blocks.findIndex(b => b.role === 2);
   const positions = carter256_positions(
     Math.floor(firstMessageBlock / 15), firstMessageBlock % 15,
-    grammar.blocks[firstMessageBlock], ref256, grammar.sweep_of_color);
+    grammar.blocks[firstMessageBlock], ref256);
   assert.ok(positions.length > 0, 'le premier bloc MESSAGE doit avoir au moins une position stégano');
 
   const grid = parseGridCsv(v0.grid_csv);
@@ -171,7 +188,7 @@ test('carter256-redraw-01 : clé déclenchant un redraw (ctr>=1)', async () => {
   let n0 = 0;
   grammar0.blocks.forEach((g, i) => {
     if (g.role !== 2) return;
-    n0 += carter256_positions(Math.floor(i / 15), i % 15, g, ref256, grammar0.sweep_of_color).length;
+    n0 += carter256_positions(Math.floor(i / 15), i % 15, g, ref256).length;
   });
   assert.ok(n0 < 399 * 3, 'sanity : n0 mesuré (pas une assertion forte sur le redraw lui-même)');
   await encodeAndCheck('carter256-redraw-01');
@@ -233,13 +250,12 @@ test('carter256-neg-commitment-altere : rejet, octet 0 du commitment falsifié',
   const symbols = payload_to_symbols(tampered, nPos, { _y: BigInt(v0.injected.y), _leftover: v0.injected.leftover });
   const masks = await derive_masks(gkCtr, symbols.length, LABELS.mask_seed.info_carter256);
   const grid = parseGridCsv(v0.grid_csv); // repart de la grille correcte : seules les positions MESSAGE seront réécrites
-  const sweepOfColor = grammar.sweep_of_color;
   let ni = 0;
   for (let i = 0; i < grammar.blocks.length; i++) {
     const g = grammar.blocks[i];
     if (g.role !== 2) continue;
     const br = Math.floor(i / 15), bc = i % 15;
-    for (const [gr, gc] of carter256_positions(br, bc, g, ref256, sweepOfColor)) {
+    for (const [gr, gc] of carter256_positions(br, bc, g, ref256)) {
       if (ni >= symbols.length) break;
       grid[gr][gc] = (symbols[ni] + masks[ni]) % ALPHA_LEN;
       ni++;

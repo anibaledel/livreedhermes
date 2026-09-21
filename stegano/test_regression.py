@@ -427,10 +427,16 @@ class TestCarterGrammar(unittest.TestCase):
     """La grammaire Carter doit être identique d'une version à l'autre.
 
     Réécrite pour la forme v3 (câblage production, étape 2, 2026-09-12) :
-    _carter_grammar() renvoie {'blocks':[{role,form_id}, ...],
-    'sweep_of_color':{...}} -- plus de couleur/orientation tirées par bloc
-    (le référent v3 encode déjà des positions absolues, lues rouge+bleu
-    ensemble ; voir carter._carter_positions)."""
+    _carter_grammar() renvoie {'blocks':[{role,form_id}, ...]} -- plus de
+    couleur/orientation tirées par bloc (le référent v3 encode déjà des
+    positions absolues, lues rouge+bleu ensemble ; voir
+    carter._carter_positions).
+
+    Chantier 2 (2026-09-21) : _carter_grammar() ne dérive plus de
+    sweep_of_color -- l'ordre de lecture des 12 positions stégano d'un
+    bloc vient désormais du protocole couleur -> nombre du carré magique
+    (voir carter._magic_number/_carter_positions), pas du balayage. La clé
+    choisit toujours QUELLE forme (form_id), plus l'ordre DANS la forme."""
 
     GRAMMAR_VECTOR = None
 
@@ -442,7 +448,6 @@ class TestCarterGrammar(unittest.TestCase):
             {'role': g['role'], 'form_id': g['form_id']}
             for g in grammar['blocks'][:10]
         ]
-        cls.SWEEP_VECTOR = dict(grammar['sweep_of_color'])
         cls.ROLE_COUNTS = {
             0: sum(1 for g in grammar['blocks'] if g['role'] == 0),  # PURE
             1: sum(1 for g in grammar['blocks'] if g['role'] == 1),  # STRUCTURED
@@ -456,7 +461,6 @@ class TestCarterGrammar(unittest.TestCase):
         self.assertEqual(
             [(g['role'], g['form_id']) for g in g1['blocks']],
             [(g['role'], g['form_id']) for g in g2['blocks']])
-        self.assertEqual(g1['sweep_of_color'], g2['sweep_of_color'])
 
     def test_grammar_key_sensitive(self):
         ref256_v3 = get_ref256_v3()
@@ -476,8 +480,6 @@ class TestCarterGrammar(unittest.TestCase):
         ]
         self.assertEqual(current, self.GRAMMAR_VECTOR,
                          "Grammaire modifiée — rupture de compatibilité !")
-        self.assertEqual(dict(grammar['sweep_of_color']), self.SWEEP_VECTOR,
-                         "Balayage modifié — rupture de compatibilité !")
 
     def test_grammar_covers_225_blocks(self):
         ref256_v3 = get_ref256_v3()
@@ -487,13 +489,136 @@ class TestCarterGrammar(unittest.TestCase):
     def test_grammar_total_consistent(self):
         self.assertEqual(sum(self.ROLE_COUNTS.values()), 225)
 
-    def test_sweep_of_color_covers_stegano_colors(self):
-        ref256_v3 = get_ref256_v3()
-        grammar = _carter_grammar(KEY_KNOWN, ref256_v3)
-        self.assertEqual(set(grammar['sweep_of_color']), set(ref256_v3['stegano_colors']))
-        for idx in grammar['sweep_of_color'].values():
-            self.assertGreaterEqual(idx, 0)
-            self.assertLessEqual(idx, 7)
+
+class TestCarterMagicOrder(unittest.TestCase):
+    """Ordre de lecture par valeur magique (chantier 2, 2026-09-21,
+    référent 256 SEULEMENT) : les 12 positions stégano d'un bloc sont
+    lues dans l'ordre croissant du numéro que leur assigne le protocole
+    couleur -> nombre du carré magique (carter._magic_number), à la place
+    du balayage. Voir tools/verif_protocole.py pour la vérification
+    indépendante sur les 256 formes (256/256 carrés magiques complets)."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.ref256_v3 = get_ref256_v3()
+
+    def test_magic_number_matches_protocol(self):
+        """_magic_number reproduit exactement le calcul de
+        tools/verif_protocole.py (bleu=i, rouge=37-i, vert=j, jaune=37-j)."""
+        from carter import _magic_number
+        n = 6
+        for row in range(n):
+            for col in range(n):
+                i = n * row + col + 1
+                j = n * row + (n - 1 - col) + 1
+                self.assertEqual(_magic_number(row, col, 'bleu'), i)
+                self.assertEqual(_magic_number(row, col, 'rouge'), n * n + 1 - i)
+                self.assertEqual(_magic_number(row, col, 'vert'), j)
+                self.assertEqual(_magic_number(row, col, 'jaune'), n * n + 1 - j)
+
+    def test_magic_number_rejects_unknown_color(self):
+        from carter import _magic_number
+        with self.assertRaises(ValueError):
+            _magic_number(0, 0, 'orange')
+
+    def test_all_256_forms_have_distinct_magic_numbers_on_stegano_cells(self):
+        """Précaution explicitement demandée : le tri par numéro n'est
+        bien défini que si les 12 positions rouge+bleu d'une forme ont 12
+        numéros distincts (garanti par construction pour un vrai carré
+        magique d'ordre 6, où 1..36 apparaissent une seule fois chacun —
+        vérifié ici sur les 256 formes réelles, pas seulement affirmé)."""
+        from carter import _magic_number
+        colors = self.ref256_v3['stegano_colors']
+        for f in self.ref256_v3['forms']:
+            numbers = [_magic_number(r, c, color)
+                       for color in colors for r, c in f[f'{color}_positions']]
+            self.assertEqual(len(set(numbers)), len(numbers),
+                f"forme {f['id']} : numéros non distincts sur les positions stégano")
+
+    def test_carter_positions_sorted_by_ascending_magic_number(self):
+        from carter import _carter_grammar, _carter_positions, _MESSAGE, _magic_number, CARTER_BLOCK
+        grammar = _carter_grammar(KEY_KNOWN, self.ref256_v3)
+        checked_a_message_block = False
+        for i, g in enumerate(grammar['blocks']):
+            if g['role'] != _MESSAGE:
+                continue
+            checked_a_message_block = True
+            br, bc = i // 15, i % 15
+            positions = _carter_positions(br, bc, g, self.ref256_v3)
+            form = self.ref256_v3['forms'][g['form_id']]
+            colors = self.ref256_v3['stegano_colors']
+            local_cells = [(r, c, color) for color in colors for r, c in form[f'{color}_positions']]
+            expected_local_order = [
+                (r, c) for _, r, c in sorted(
+                    (_magic_number(r, c, color), r, c) for r, c, color in local_cells)
+            ]
+            r0, c0 = br * CARTER_BLOCK, bc * CARTER_BLOCK
+            expected = [(r0 + r, c0 + c) for r, c in expected_local_order]
+            self.assertEqual(positions, expected)
+            break
+        self.assertTrue(checked_a_message_block, "aucun bloc message dans la grammaire de test — clé à changer")
+
+    def test_carter_positions_determinism(self):
+        """Même clé, même référent -> même ordre à chaque appel (l'ordre
+        ne dépend que de la forme, publique, pas d'un tirage)."""
+        from carter import _carter_grammar, _carter_positions, _MESSAGE
+        grammar = _carter_grammar(KEY_KNOWN, self.ref256_v3)
+        for i, g in enumerate(grammar['blocks']):
+            if g['role'] != _MESSAGE:
+                continue
+            br, bc = i // 15, i % 15
+            p1 = _carter_positions(br, bc, g, self.ref256_v3)
+            p2 = _carter_positions(br, bc, g, self.ref256_v3)
+            self.assertEqual(p1, p2)
+            break
+
+    def test_carter_positions_same_form_same_order_regardless_of_key(self):
+        """L'ordre de lecture d'UNE forme donnée ne dépend que de la forme
+        (publique) : _carter_positions ne prend même pas de clé en
+        argument -- deux blocs assignés au même form_id, que ce soit sous
+        la même clé ou sous des clés différentes, lisent leurs 12
+        positions dans le même ordre. C'est la clé qui choisit QUELLE
+        forme (grammaire) ; l'ordre à l'intérieur de la forme choisie est
+        public (chantier 2)."""
+        from carter import _carter_positions
+        g = {'form_id': 0, 'role': 2}
+        p_from_block_a = _carter_positions(0, 0, g, self.ref256_v3)
+        p_from_block_b = _carter_positions(3, 7, g, self.ref256_v3)   # même form_id, bloc différent
+        local_a = [(r - 0, c - 0) for r, c in p_from_block_a]
+        local_b = [(r - 3 * 6, c - 7 * 6) for r, c in p_from_block_b]
+        self.assertEqual(local_a, local_b)
+
+    def test_carter_positions_uses_block_size_not_grid_size(self):
+        """Précaution explicitement demandée : le protocole numérote
+        TOUJOURS le bloc à n=6 (CARTER_BLOCK), jamais la grille globale
+        (90) -- sinon les numéros et donc l'ordre changeraient. On le
+        vérifie en reproduisant _magic_number avec n=90 : le résultat
+        diffère de celui utilisé en production dès que row>0."""
+        from carter import _magic_number
+        # row=1 donne des numéros différents entre n=6 (bloc) et n=90 (grille).
+        self.assertNotEqual(_magic_number(1, 0, 'bleu', n=6),
+                             _magic_number(1, 0, 'bleu', n=90))
+
+    def test_corrupted_form_with_duplicate_magic_numbers_raises(self):
+        """La distinction des 12 numéros est ASSERTÉE, pas seulement
+        supposée : une forme corrompue (positions dupliquées, donnant deux
+        cases la même couleur sur la même case) doit lever, pas produire
+        silencieusement un ordre ambigu."""
+        from carter import _carter_positions
+        ref = self.ref256_v3
+        good_form = ref['forms'][0]
+        corrupted = dict(good_form)
+        # Duplique une position rouge existante dans sa propre liste :
+        # même case, même couleur, deux fois -> même numéro deux fois
+        # (rouge et bleu ne peuvent jamais entrer en collision entre eux,
+        # leurs formules sont l'inverse l'une de l'autre sur 1..36 --
+        # c'est une VRAIE duplication de case qu'il faut simuler ici).
+        corrupted['rouge_positions'] = list(good_form['rouge_positions']) + [good_form['rouge_positions'][0]]
+        corrupted_ref = dict(ref)
+        corrupted_ref['forms'] = [corrupted] + list(ref['forms'][1:])
+        g = {'form_id': 0, 'role': 2}
+        with self.assertRaises(AssertionError):
+            _carter_positions(0, 0, g, corrupted_ref)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1118,6 +1243,7 @@ if __name__ == '__main__':
     loader = unittest.TestLoader()
     suite  = unittest.TestSuite()
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
+                TestCarterMagicOrder,
                 TestPayloadFormat, TestFixedPayloadUniformity, TestPtSPrimitive,
                 TestFixtures, TestEndToEnd,
                 TestClassicVariants, TestCarterRandomWitness, TestCPub]:
