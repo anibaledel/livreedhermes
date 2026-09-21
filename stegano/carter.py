@@ -403,13 +403,18 @@ def _carter360_message_positions(grammar: Dict, ref360: Dict) -> int:
 
 def encode_carter_360(message: str, master_key: bytes,
                        ref360: Optional[Dict] = None,
-                       _nonce: bytes = None, _y: int = None,
+                       _nonce1: bytes = None, _nonce2: bytes = None, _y: int = None,
                        _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter 180×180 (Référent 360, format
     v3 -- data/referent_360_v3.json par défaut).
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
+    Chiffrement : cascade v1, AES-256-GCM(XChaCha20-Poly1305) —
+    docs/CASCADE_V1.md, câblage 2026-09-21 (voir encode_carter() pour la
+    justification complète ; même câblage, second couple de variantes
+    après Carter-256).
+
+    _nonce1/_nonce2/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
 
     Grammaire dérivée de master_key :
       'pur'       → bruit aléatoire, aucune structure 12×12
@@ -440,8 +445,9 @@ def encode_carter_360(message: str, master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
-        lambda g: _carter360_message_positions(g, ref360))
-    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
+        lambda g: _carter360_message_positions(g, ref360),
+        capacity_fn=max_message_for_cascade)
+    payload = encrypt_cascade(message, xchacha_key, n_pos, _nonce1=_nonce1, _nonce2=_nonce2)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
@@ -470,7 +476,8 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
-        lambda g: _carter360_message_positions(g, ref360))
+        lambda g: _carter360_message_positions(g, ref360),
+        capacity_fn=max_message_for_cascade)
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_carter360'])
     by_niveau = grammar['by_niveau']
     sweep_of_color = grammar['sweep_of_color']
@@ -480,7 +487,7 @@ def decode_carter_360(grid: List[List[int]], master_key: bytes,
         br, bc = i // CARTER360_SIDE, i % CARTER360_SIDE
         for gr, gc in _carter360_positions(br, bc, g, ref360, by_niveau, sweep_of_color):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return decrypt_cascade(vals, xchacha_key, len(vals))
 
 def carter360_capacity(master_key: bytes,
                         ref360: Optional[Dict] = None) -> Dict:
@@ -492,7 +499,8 @@ def carter360_capacity(master_key: bytes,
     _, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'carter360',
         lambda gk: _carter360_grammar(gk, ref360),
-        lambda g: _carter360_message_positions(g, ref360))
+        lambda g: _carter360_message_positions(g, ref360),
+        capacity_fn=max_message_for_cascade)
     blocks = grammar['blocks']
     n_msg = sum(1 for g in blocks if g['role'] == _MESSAGE)
     n_str = sum(1 for g in blocks if g['role'] == _STRUCTURED)
@@ -508,8 +516,8 @@ def carter360_capacity(master_key: bytes,
         # identites MUT) -- voir _carter360_grammar/_carter360_positions.
         'positions_bloc':   (n_pos / n_msg) if n_msg else 0,
         'nibbles':          n_pos,
-        'bytes_utiles':     max_message_for(n_pos),
-        'chars_max':        max_message_for(n_pos),
+        'bytes_utiles':     max_message_for_cascade(n_pos),
+        'chars_max':        max_message_for_cascade(n_pos),
         'ambiguite':        f"1 message parmi {n_msg + n_str} blocs structurés",
     }
 
@@ -635,7 +643,7 @@ def _mix_message_positions(grammar: Dict, ref256: Dict, ref360: Dict) -> int:
 def encode_carter_mix(message: str, master_key: bytes,
                        ref256: Dict,
                        ref360: Optional[Dict] = None,
-                       _nonce: bytes = None, _y: int = None,
+                       _nonce1: bytes = None, _nonce2: bytes = None, _y: int = None,
                        _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Encode un message dans une grille Carter mixte 180×180 (format v3).
@@ -649,7 +657,9 @@ def encode_carter_mix(message: str, master_key: bytes,
 
     La capacité totale est elle-même dérivée de la clé (obscurcissement).
 
-    _nonce/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
+    Chiffrement : cascade v1 — voir encode_carter_360().
+
+    _nonce1/_nonce2/_y/_leftover/_noise_seed (tâche 7) : voir encode_carter().
     """
     if ref360 is None:
         ref360 = load_referent_360_v3()
@@ -668,9 +678,10 @@ def encode_carter_mix(message: str, master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
-        lambda g: _mix_message_positions(g, ref256, ref360))
+        lambda g: _mix_message_positions(g, ref256, ref360),
+        capacity_fn=max_message_for_cascade)
 
-    payload = _encrypt(message, xchacha_key, n_pos, _nonce=_nonce)
+    payload = encrypt_cascade(message, xchacha_key, n_pos, _nonce1=_nonce1, _nonce2=_nonce2)
     # Même flux de symboles base-44 que les autres encodeurs — toutes les
     # positions message portent un symbole de charge utile, aucun en-tête.
     nibbles = payload_to_symbols(payload, n_pos, _y=_y, _leftover=_leftover)
@@ -700,7 +711,8 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
     gk_ctr, grammar, n_pos = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
-        lambda g: _mix_message_positions(g, ref256, ref360))
+        lambda g: _mix_message_positions(g, ref256, ref360),
+        capacity_fn=max_message_for_cascade)
     masks = _derive_masks(gk_ctr, n_pos, LABELS['mask_seed']['info_cartermix'])
     by_niveau = grammar['by_niveau']
     sweep_256, sweep_360 = grammar['sweep_256'], grammar['sweep_360']
@@ -710,7 +722,7 @@ def decode_carter_mix(grid: List[List[int]], master_key: bytes,
         mbr, mbc = i // CARTER_MIX_SIDE, i % CARTER_MIX_SIDE
         for gr, gc in _mix_positions(mbr, mbc, g, ref256, ref360, by_niveau, sweep_256, sweep_360):
             vals.append((grid[gr][gc] - masks[ni]) % ALPHA_LEN); ni += 1
-    return _decrypt(vals, xchacha_key, len(vals))
+    return decrypt_cascade(vals, xchacha_key, len(vals))
 
 def carter_mix_capacity(master_key: bytes,
                          ref256: Dict,
@@ -723,7 +735,8 @@ def carter_mix_capacity(master_key: bytes,
     _, grammar, nibs = _find_grammar_with_c_pub(
         grammar_key, 'cartermix',
         lambda gk: _carter_mix_grammar(gk, ref256, ref360),
-        lambda g: _mix_message_positions(g, ref256, ref360))
+        lambda g: _mix_message_positions(g, ref256, ref360),
+        capacity_fn=max_message_for_cascade)
     blocks = grammar['blocks']
     n256m = sum(1 for g in blocks if g['role']==_MESSAGE and g['ref']==_REF256)
     n360m = sum(1 for g in blocks if g['role']==_MESSAGE and g['ref']==_REF360)
