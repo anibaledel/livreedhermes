@@ -1,0 +1,268 @@
+{
+  "en": {
+    "code": "en",
+    "dossier": "en/lexicon",
+    "url": "https://anibal-amiot.com/en/lexicon/",
+    "titre": "Lexicon — The Livery of Hermes",
+    "h1": "Lexicon",
+    "sous_titre": "Six reference definitions and ten questions",
+    "description": "Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.",
+    "intro": "Six definitions written to be quoted as they stand, and ten questions with their answers. Every figure comes from a script in the repository; the French page of figures and sources gives the command for each one.",
+    "faq_titre": "Frequently asked questions",
+    "sources": "Further: read the book online, the figures and their sources, or the documentary profile. Contents under CC BY-NC 4.0, code under AGPL v3.",
+    "fil": [
+      [
+        "Home",
+        "https://anibal-amiot.com/"
+      ],
+      [
+        "La Livrée d'Hermès",
+        "https://anibal-amiot.com/la-livree-d-hermes.html"
+      ],
+      [
+        "Lexicon",
+        null
+      ]
+    ],
+    "definitions": [
+      {
+        "terme": "La Livrée d'Hermès",
+        "texte": "*La Livrée d'Hermès* (The Livery of Hermes) is a treatise in arithmogeometry in 111 plates, developed from 2009 to 2019, presenting a construction method for order-6 magic squares and a pattern system for Jacquard looms based on 360 layers. It is published in four languages (French, English, Spanish, Thai) under a CC BY-NC 4.0 licence, deposited on Zenodo (DOI 10.5281/zenodo.22722486) and distributed on a pay-what-you-want basis at anibal-amiot.com."
+      },
+      {
+        "terme": "Arithmogeometry",
+        "texte": "Arithmogeometry is the study of numbers through their arrangement in space: a number is a configuration of points, a sum is a figure. *La Livrée d'Hermès* applies it to magic squares — where the arrangement of the numbers is constrained by the sums — and to woven patterns, where the same arrangement becomes an image. The term denotes here a constructive practice, not numerology: every figure in the book can be checked by a computation."
+      },
+      {
+        "terme": "The solar square and the ansate cross",
+        "texte": "A solar square is an order-6 magic square built directly from a colouring of its 36 cells in four colours, without an auxiliary square. The colouring follows a figure called the ansate cross — a centrally symmetric configuration of strokes of which exactly two forms exist for order 6 — and four criteria. There are exactly 256 admissible colourings, 128 for each cross, and every one of them yields a complete magic square: rows, columns and both diagonals. The computation is reproducible: verification code on Zenodo."
+      },
+      {
+        "terme": "The 360-layer system",
+        "texte": "The 360-layer system is the pattern vocabulary of *La Livrée d'Hermès*: a 12 × 12 grid is divided into six levels of 24 cells, and each level takes one of 60 images (15 axis families × 4 natures), 360 layers in all. Choosing one layer per level composes a pattern; the six choices, each in two states, transcribe the 64 hexagrams of the Yi King. The system is designed for Jacquard card-cutting: each layer is a punched card."
+      },
+      {
+        "terme": "The half-shift criterion (unified patterns)",
+        "texte": "A 12 × 12 pattern is called unified when translating it by half its period — six cells in both directions — is the same as exchanging its two generating images. On the 360 layers this criterion retains exactly 8 of the 15 families, those with exactly one diagonal base, yang or yang-mutant, and produces 512 distinct grids, that is 256 tilings of the plane and 128 symmetry orbits. Exactly half of these grids also close on the six faces of a cube: those whose diagonal axis is of yang type. Proved, and verified by script."
+      },
+      {
+        "terme": "Carter, the encoder",
+        "texte": "Carter is a steganographic encoding that writes an encrypted message into a grid of symbols, at positions designated by a public referent — the solar squares or the 360 layers. Confidentiality comes from the encryption (XChaCha20-Poly1305, 256-bit key), not from the geometry: the proofs hold even when the layout is known. The referent is a replaceable parameter; the code is free software (AGPL v3) and ships with reference vectors that can be checked step by step."
+      }
+    ],
+    "questions": [
+      {
+        "question": "What is a solar square?",
+        "reponse": "An order-6 magic square obtained directly from a four-colour colouring of its cells, following the ansate cross and four criteria. There are exactly 256 of them, all magic on rows, columns and both diagonals."
+      },
+      {
+        "question": "How many magic squares does the method produce?",
+        "reponse": "256 at order 6 — and these are all the admissible colourings, not a sample. Assembled four at a time they give 64 order-12 magic squares, constant 870."
+      },
+      {
+        "question": "What is the ansate cross?",
+        "reponse": "A centrally symmetric figure of strokes on the 6 × 6 grid, joining pairwise the complementary cells of an order-6 magic square. Under the book's criteria exactly two exist, each the image of the other."
+      },
+      {
+        "question": "Is the book free?",
+        "reponse": "It is pay-what-you-want: it can be read and downloaded without paying, and supported if one wishes. Licence CC BY-NC 4.0 — free to copy and share with attribution, no commercial use without the author's agreement."
+      },
+      {
+        "question": "Where are the book and the code?",
+        "reponse": "The book on Zenodo (DOI 10.5281/zenodo.22722486) and at anibal-amiot.com, in four languages. The code on GitHub (anibaledel/livreedhermes), under AGPL v3, with verification scripts for every result."
+      },
+      {
+        "question": "What is the link with the Yi King?",
+        "reponse": "The 360-layer system composes a pattern by six binary choices, one per level: the structure of the 64 hexagrams. The site offers a drawing that renders each hexagram as a pattern. The link is structural — six lines, six levels — and claims nothing beyond that."
+      },
+      {
+        "question": "What is a unified pattern?",
+        "reponse": "A 12 × 12 pattern whose half-period translation equals the exchange of its two images: the tiling then carries one motif instead of two alternating ones. There are 512 of them, in 128 orbits; half of them close on a cube."
+      },
+      {
+        "question": "Can these patterns be woven?",
+        "reponse": "Yes: the system was designed for Jacquard card-cutting, each layer being a card. The vector files of the 360 layers and the 256 squares are in the repository, under CC BY-NC 4.0."
+      },
+      {
+        "question": "Is Carter an encryption scheme?",
+        "reponse": "Carter uses a standard cipher (XChaCha20-Poly1305) and lays out the result in a grid according to a public referent. Its security is that of the cipher, not of the geometry; the paper's proofs hold even when the layout is known. It is not a new cipher, and does not claim to be."
+      },
+      {
+        "question": "How can the results be checked?",
+        "reponse": "Every figure on the site and in the notes comes out of a script in the repository: the two crosses, the 256 squares, the 64 of order 12, the 512 grids and the 128 orbits, the cube. The scripts read the published data and run in a few minutes."
+      }
+    ],
+    "nav": [
+      [
+        "Home",
+        "https://anibal-amiot.com/"
+      ],
+      [
+        "Read the book",
+        "https://anibal-amiot.com/en/book/"
+      ],
+      [
+        "Hexagrams",
+        "https://anibal-amiot.com/hexagrammes/"
+      ],
+      [
+        "Unified Patterns",
+        "https://anibal-amiot.com/unified-patterns.html"
+      ],
+      [
+        "Gallery",
+        "https://anibal-amiot.com/galerie-patterns-unifies.html"
+      ],
+      [
+        "Figures and sources",
+        "https://anibal-amiot.com/chiffres-et-sources.html"
+      ],
+      [
+        "Glossaire (FR)",
+        "https://anibal-amiot.com/lexique.html"
+      ],
+      [
+        "About",
+        "https://anibal-amiot.com/a-propos.html"
+      ],
+      [
+        "Contact",
+        "https://anibal-amiot.com/contact.html"
+      ]
+    ],
+    "credit": "© 2026 Anibal Edelberto Amiot — All rights reserved · Created in collaboration with Claude"
+  },
+  "es": {
+    "code": "es",
+    "dossier": "es/lexico",
+    "url": "https://anibal-amiot.com/es/lexico/",
+    "titre": "Léxico — La Livrée d'Hermès",
+    "h1": "Léxico",
+    "sous_titre": "Seis definiciones de referencia y diez preguntas",
+    "description": "Definiciones de referencia y preguntas frecuentes sobre La Livrée d'Hermès: cuadrados solares, la cruz ansada, el sistema de las 360 capas, Carter.",
+    "intro": "Seis definiciones escritas para ser citadas tal cual, y diez preguntas con sus respuestas. Cada cifra sale de un script del repositorio; la página francesa de cifras y fuentes da la orden que reproduce cada una.",
+    "faq_titre": "Preguntas frecuentes",
+    "sources": "Para saber más: leer el libro en línea, las cifras y sus fuentes, o el perfil documental. Contenidos bajo CC BY-NC 4.0, código bajo AGPL v3.",
+    "fil": [
+      [
+        "Inicio",
+        "https://anibal-amiot.com/"
+      ],
+      [
+        "La Livrée d'Hermès",
+        "https://anibal-amiot.com/la-livree-d-hermes.html"
+      ],
+      [
+        "Léxico",
+        null
+      ]
+    ],
+    "definitions": [
+      {
+        "terme": "La Livrée d'Hermès",
+        "texte": "*La Livrée d'Hermès* (La Librea de Hermes) es un tratado de aritmogeometría en 111 láminas, desarrollado de 2009 a 2019, que presenta un método de construcción de cuadrados mágicos de orden 6 y un sistema de motivos para telar Jacquard basado en 360 capas. Está publicado en cuatro lenguas (francés, inglés, español, tailandés) bajo licencia CC BY-NC 4.0, depositado en Zenodo (DOI 10.5281/zenodo.22722486) y difundido a precio libre en anibal-amiot.com."
+      },
+      {
+        "terme": "La aritmogeometría",
+        "texte": "La aritmogeometría es el estudio de los números por su disposición en el espacio: un número es una configuración de puntos, una suma es una figura. *La Livrée d'Hermès* la aplica a los cuadrados mágicos —donde la disposición de los números está condicionada por las sumas— y a los motivos tejidos, donde la misma disposición se convierte en imagen. El término designa aquí una práctica constructiva, no una numerología: cada figura del libro puede comprobarse con un cálculo."
+      },
+      {
+        "terme": "El cuadrado solar y la cruz ansada",
+        "texte": "Un cuadrado solar es un cuadrado mágico de orden 6 construido directamente a partir de un coloreado de sus 36 casillas en cuatro colores, sin cuadrado auxiliar. El coloreado sigue una figura llamada cruz ansada —una configuración de trazos con simetría central de la que existen exactamente dos formas para el orden 6— y cuatro criterios. Existen exactamente 256 coloreados admisibles, 128 por cada cruz, y cada uno de ellos da un cuadrado mágico completo: filas, columnas y ambas diagonales. El cálculo es reproducible: código de verificación en Zenodo."
+      },
+      {
+        "terme": "El sistema de las 360 capas",
+        "texte": "El sistema de las 360 capas es el vocabulario de motivos de *La Livrée d'Hermès*: un cuadrado de 12 × 12 casillas se divide en seis niveles de 24 casillas, y cada nivel recibe una de las 60 imágenes (15 familias de ejes × 4 naturalezas), 360 capas en total. Elegir una capa por nivel compone un motivo; las seis elecciones, cada una en dos estados, transcriben los 64 hexagramas del Yi King. El sistema está concebido para la puesta en tarjeta Jacquard: cada capa es una tarjeta perforada."
+      },
+      {
+        "terme": "El criterio del semidesplazamiento (motivos unificados)",
+        "texte": "Un motivo de 12 × 12 se llama unificado si trasladarlo medio periodo —seis casillas en ambas direcciones— equivale a intercambiar sus dos imágenes generadoras. Sobre las 360 capas, este criterio retiene exactamente 8 familias de 15, las que cuentan exactamente con una base diagonal, yang o yang mutante, y produce 512 retículas distintas, es decir 256 teselados del plano y 128 órbitas de simetría. Exactamente la mitad de estas retículas se cierra también sobre las seis caras de un cubo: aquellas cuyo eje diagonal es de tipo yang. Resultado demostrado y verificado por script."
+      },
+      {
+        "terme": "Carter, el codificador",
+        "texte": "Carter es una codificación esteganográfica que escribe un mensaje cifrado en una retícula de símbolos, en las posiciones designadas por un referente público: los cuadrados solares o las 360 capas. La confidencialidad procede del cifrado (XChaCha20-Poly1305, clave de 256 bits) y no de la geometría: las demostraciones se sostienen aunque la disposición sea conocida. El referente es un parámetro sustituible; el código es libre (AGPL v3) y se entrega con vectores de referencia comprobables paso a paso."
+      }
+    ],
+    "questions": [
+      {
+        "question": "¿Qué es un cuadrado solar?",
+        "reponse": "Un cuadrado mágico de orden 6 obtenido directamente de un coloreado de sus casillas en cuatro colores, según la cruz ansada y cuatro criterios. Existen exactamente 256, todos mágicos en filas, columnas y ambas diagonales."
+      },
+      {
+        "question": "¿Cuántos cuadrados mágicos produce el método?",
+        "reponse": "256 en orden 6 —y son todos los coloreados admisibles, no una muestra—. Ensamblados de cuatro en cuatro dan 64 cuadrados mágicos de orden 12, constante 870."
+      },
+      {
+        "question": "¿Qué es la cruz ansada?",
+        "reponse": "Una figura de trazos con simetría central sobre la retícula 6 × 6, que une por parejas las casillas complementarias de un cuadrado mágico de orden 6. Bajo los criterios del libro existen exactamente dos, una imagen de la otra."
+      },
+      {
+        "question": "¿El libro es gratuito?",
+        "reponse": "Es a precio libre: se lee y se descarga sin pagar, y se contribuye si se desea. Licencia CC BY-NC 4.0: copia y difusión libres con atribución, uso comercial prohibido sin acuerdo del autor."
+      },
+      {
+        "question": "¿Dónde encontrar el libro y el código?",
+        "reponse": "El libro en Zenodo (DOI 10.5281/zenodo.22722486) y en anibal-amiot.com, en cuatro lenguas. El código en GitHub (anibaledel/livreedhermes), bajo AGPL v3, con los scripts de verificación de cada resultado."
+      },
+      {
+        "question": "¿Cuál es la relación con el Yi King?",
+        "reponse": "El sistema de las 360 capas compone un motivo con seis elecciones binarias, una por nivel: la estructura de los 64 hexagramas. El sitio ofrece una tirada que representa cada hexagrama como un motivo. La relación es estructural —seis trazos, seis niveles— y no pretende nada más."
+      },
+      {
+        "question": "¿Qué es un motivo unificado?",
+        "reponse": "Un motivo de 12 × 12 cuya traslación de medio periodo equivale al intercambio de sus dos imágenes: el teselado lleva entonces un solo motivo en lugar de dos alternados. Existen 512, en 128 órbitas; la mitad se cierra sobre un cubo."
+      },
+      {
+        "question": "¿Se pueden tejer estos motivos?",
+        "reponse": "Sí: el sistema fue concebido para la puesta en tarjeta Jacquard, siendo cada capa una tarjeta. Los archivos vectoriales de las 360 capas y de los 256 cuadrados están en el repositorio, bajo CC BY-NC 4.0."
+      },
+      {
+        "question": "¿Carter es un cifrado?",
+        "reponse": "Carter utiliza un cifrado estándar (XChaCha20-Poly1305) y dispone el resultado en una retícula según un referente público. La seguridad es la del cifrado, no la de la geometría; las demostraciones del artículo se sostienen aunque la disposición sea conocida. No es un cifrado nuevo, y no pretende serlo."
+      },
+      {
+        "question": "¿Cómo verificar los resultados?",
+        "reponse": "Cada cifra del sitio y de las notas sale de un script del repositorio: las dos cruces, los 256 cuadrados, los 64 de orden 12, las 512 retículas y las 128 órbitas, el cubo. Los scripts leen los datos publicados y se ejecutan en pocos minutos."
+      }
+    ],
+    "nav": [
+      [
+        "Inicio",
+        "https://anibal-amiot.com/"
+      ],
+      [
+        "Leer el libro",
+        "https://anibal-amiot.com/es/libro/"
+      ],
+      [
+        "Hexagramas",
+        "https://anibal-amiot.com/hexagrammes/"
+      ],
+      [
+        "Unified Patterns",
+        "https://anibal-amiot.com/unified-patterns.html"
+      ],
+      [
+        "Galería",
+        "https://anibal-amiot.com/galerie-patterns-unifies.html"
+      ],
+      [
+        "Cifras y fuentes",
+        "https://anibal-amiot.com/chiffres-et-sources.html"
+      ],
+      [
+        "Léxico (FR)",
+        "https://anibal-amiot.com/lexique.html"
+      ],
+      [
+        "Acerca de",
+        "https://anibal-amiot.com/a-propos.html"
+      ],
+      [
+        "Contacto",
+        "https://anibal-amiot.com/contact.html"
+      ]
+    ],
+    "credit": "© 2026 Anibal Edelberto Amiot — Todos los derechos reservados · Creado en colaboración con Claude"
+  }
+}

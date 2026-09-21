@@ -1,0 +1,25 @@
+name: Lexiques traduits en phase avec leurs donnees
+
+# en/lexicon/ et es/lexico/ sont engendres depuis data/lexiques_traduits.json
+# par scripts/build-lexiques.js. Deux pages de meme structure ecrites a la main
+# auraient diverge a la premiere correction -- c'est ce que ce depot a deja paye
+# trois fois (les gabarits recopies, les trois copies de FACES, les deux dessins
+# du referent des bandes). Ce workflow echoue si une page ne correspond plus a
+# ce que le generateur produirait : une correction se porte dans les donnees,
+# pas dans le HTML.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: node scripts/build-lexiques.js --verifie

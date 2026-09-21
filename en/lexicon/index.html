@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lexicon — The Livery of Hermes</title>
+<meta name="description" content="Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/en/lexicon/">
+<meta property="og:title" content="Lexicon — The Livery of Hermes">
+<meta property="og:description" content="Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/en/lexicon/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lexicon — The Livery of Hermes">
+<meta name="twitter:description" content="Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "Lexicon — The Livery of Hermes",
+  "url": "https://anibal-amiot.com/en/lexicon/",
+  "inLanguage": "en",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "La Livrée d'Hermès",
+      "description": "La Livrée d'Hermès (The Livery of Hermes) is a treatise in arithmogeometry in 111 plates, developed from 2009 to 2019, presenting a construction method for order-6 magic squares and a pattern system for Jacquard looms based on 360 layers. It is published in four languages (French, English, Spanish, Thai) under a CC BY-NC 4.0 licence, deposited on Zenodo (DOI 10.5281/zenodo.22722486) and distributed on a pay-what-you-want basis at anibal-amiot.com.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Arithmogeometry",
+      "description": "Arithmogeometry is the study of numbers through their arrangement in space: a number is a configuration of points, a sum is a figure. La Livrée d'Hermès applies it to magic squares — where the arrangement of the numbers is constrained by the sums — and to woven patterns, where the same arrangement becomes an image. The term denotes here a constructive practice, not numerology: every figure in the book can be checked by a computation.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "The solar square and the ansate cross",
+      "description": "A solar square is an order-6 magic square built directly from a colouring of its 36 cells in four colours, without an auxiliary square. The colouring follows a figure called the ansate cross — a centrally symmetric configuration of strokes of which exactly two forms exist for order 6 — and four criteria. There are exactly 256 admissible colourings, 128 for each cross, and every one of them yields a complete magic square: rows, columns and both diagonals. The computation is reproducible: verification code on Zenodo.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "The 360-layer system",
+      "description": "The 360-layer system is the pattern vocabulary of La Livrée d'Hermès: a 12 × 12 grid is divided into six levels of 24 cells, and each level takes one of 60 images (15 axis families × 4 natures), 360 layers in all. Choosing one layer per level composes a pattern; the six choices, each in two states, transcribe the 64 hexagrams of the Yi King. The system is designed for Jacquard card-cutting: each layer is a punched card.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "The half-shift criterion (unified patterns)",
+      "description": "A 12 × 12 pattern is called unified when translating it by half its period — six cells in both directions — is the same as exchanging its two generating images. On the 360 layers this criterion retains exactly 8 of the 15 families, those with exactly one diagonal base, yang or yang-mutant, and produces 512 distinct grids, that is 256 tilings of the plane and 128 symmetry orbits. Exactly half of these grids also close on the six faces of a cube: those whose diagonal axis is of yang type. Proved, and verified by script.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "Carter, the encoder",
+      "description": "Carter is a steganographic encoding that writes an encrypted message into a grid of symbols, at positions designated by a public referent — the solar squares or the 360 layers. Confidentiality comes from the encryption (XChaCha20-Poly1305, 256-bit key), not from the geometry: the proofs hold even when the layout is known. The referent is a replaceable parameter; the code is free software (AGPL v3) and ships with reference vectors that can be checked step by step.",
+      "inDefinedTermSet": "https://anibal-amiot.com/en/lexicon/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "en",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a solar square?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An order-6 magic square obtained directly from a four-colour colouring of its cells, following the ansate cross and four criteria. There are exactly 256 of them, all magic on rows, columns and both diagonals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many magic squares does the method produce?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "256 at order 6 — and these are all the admissible colourings, not a sample. Assembled four at a time they give 64 order-12 magic squares, constant 870."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the ansate cross?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A centrally symmetric figure of strokes on the 6 × 6 grid, joining pairwise the complementary cells of an order-6 magic square. Under the book's criteria exactly two exist, each the image of the other."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the book free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is pay-what-you-want: it can be read and downloaded without paying, and supported if one wishes. Licence CC BY-NC 4.0 — free to copy and share with attribution, no commercial use without the author's agreement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where are the book and the code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The book on Zenodo (DOI 10.5281/zenodo.22722486) and at anibal-amiot.com, in four languages. The code on GitHub (anibaledel/livreedhermes), under AGPL v3, with verification scripts for every result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the link with the Yi King?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The 360-layer system composes a pattern by six binary choices, one per level: the structure of the 64 hexagrams. The site offers a drawing that renders each hexagram as a pattern. The link is structural — six lines, six levels — and claims nothing beyond that."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is a unified pattern?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 12 × 12 pattern whose half-period translation equals the exchange of its two images: the tiling then carries one motif instead of two alternating ones. There are 512 of them, in 128 orbits; half of them close on a cube."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can these patterns be woven?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes: the system was designed for Jacquard card-cutting, each layer being a card. The vector files of the 360 layers and the 256 squares are in the repository, under CC BY-NC 4.0."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Carter an encryption scheme?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carter uses a standard cipher (XChaCha20-Poly1305) and lays out the result in a grid according to a public referent. Its security is that of the cipher, not of the geometry; the paper's proofs hold even when the layout is known. It is not a new cipher, and does not claim to be."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can the results be checked?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every figure on the site and in the notes comes out of a script in the repository: the two crosses, the 256 squares, the 64 of order 12, the 512 grids and the 128 orbits, the cube. The scripts read the published data and run in a few minutes."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "La Livrée d'Hermès",
+      "item": "https://anibal-amiot.com/la-livree-d-hermes.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Lexicon",
+      "item": "https://anibal-amiot.com/en/lexicon/"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(15px + var(--fs-bump)); margin:0; }
+  @media (max-width:768px){ header h1{ font-size:calc(22px + var(--fs-bump)); } }
+  @media (max-width:480px){ header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; } }
+
+  .lex-body{ padding:24px 0 8px; }
+  .lex-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.8;
+  }
+  .lex-section{ max-width:64ch; margin:0 auto 34px; text-align:center; }
+  .lex-section h2{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 12px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;
+  }
+  .lex-section p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:0; }
+  .lex-section i{ color:var(--white); font-style:italic; }
+
+  .faq-block{ max-width:64ch; margin:46px auto 40px; text-align:left; padding-top:34px; border-top:1px solid var(--line); }
+  .faq-block-title{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 16px; text-align:center;
+  }
+  .faq-item{ border-top:1px solid var(--line); padding:14px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer; color:var(--white); font-size:calc(14.5px + var(--fs-bump));
+    list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:12px 0 0; }
+
+  .lex-sources{
+    max-width:64ch; margin:0 auto; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.7;
+  }
+  .lex-sources a, .lex-intro a{ color:var(--gold); text-decoration:none; }
+  .lex-sources a:hover, .lex-intro a:hover{ text-decoration:underline; }
+
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .site-nav-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px auto 0; max-width:900px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase;
+    padding:9px 16px; cursor:pointer; text-decoration:none;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:18px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    .lex-intro, .lex-section p, .lex-sources{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<main>
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-26-lexique.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Lexicon">
+      <a href="https://anibal-amiot.com/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">La Livrée d'Hermès</a><span class="sep">/</span><span aria-current="page">Lexicon</span>
+    </nav>
+    <h1>Lexicon</h1>
+    <p>Six reference definitions and ten questions</p>
+  </header>
+  </div>
+
+  <div class="lex-body">
+    <p class="lex-intro">Six definitions written to be quoted as they stand, and ten questions with their answers. Every figure comes from a script in the repository; the French page of figures and sources gives the command for each one.</p>
+
+    <section class="lex-section">
+      <h2>La Livrée d'Hermès</h2>
+      <p><i>La Livrée d'Hermès</i> (The Livery of Hermes) is a treatise in arithmogeometry in 111 plates, developed from 2009 to 2019, presenting a construction method for order-6 magic squares and a pattern system for Jacquard looms based on 360 layers. It is published in four languages (French, English, Spanish, Thai) under a CC BY-NC 4.0 licence, deposited on Zenodo (DOI 10.5281/zenodo.22722486) and distributed on a pay-what-you-want basis at anibal-amiot.com.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Arithmogeometry</h2>
+      <p>Arithmogeometry is the study of numbers through their arrangement in space: a number is a configuration of points, a sum is a figure. <i>La Livrée d'Hermès</i> applies it to magic squares — where the arrangement of the numbers is constrained by the sums — and to woven patterns, where the same arrangement becomes an image. The term denotes here a constructive practice, not numerology: every figure in the book can be checked by a computation.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>The solar square and the ansate cross</h2>
+      <p>A solar square is an order-6 magic square built directly from a colouring of its 36 cells in four colours, without an auxiliary square. The colouring follows a figure called the ansate cross — a centrally symmetric configuration of strokes of which exactly two forms exist for order 6 — and four criteria. There are exactly 256 admissible colourings, 128 for each cross, and every one of them yields a complete magic square: rows, columns and both diagonals. The computation is reproducible: verification code on Zenodo.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>The 360-layer system</h2>
+      <p>The 360-layer system is the pattern vocabulary of <i>La Livrée d'Hermès</i>: a 12 × 12 grid is divided into six levels of 24 cells, and each level takes one of 60 images (15 axis families × 4 natures), 360 layers in all. Choosing one layer per level composes a pattern; the six choices, each in two states, transcribe the 64 hexagrams of the Yi King. The system is designed for Jacquard card-cutting: each layer is a punched card.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>The half-shift criterion (unified patterns)</h2>
+      <p>A 12 × 12 pattern is called unified when translating it by half its period — six cells in both directions — is the same as exchanging its two generating images. On the 360 layers this criterion retains exactly 8 of the 15 families, those with exactly one diagonal base, yang or yang-mutant, and produces 512 distinct grids, that is 256 tilings of the plane and 128 symmetry orbits. Exactly half of these grids also close on the six faces of a cube: those whose diagonal axis is of yang type. Proved, and verified by script.</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>Carter, the encoder</h2>
+      <p>Carter is a steganographic encoding that writes an encrypted message into a grid of symbols, at positions designated by a public referent — the solar squares or the 360 layers. Confidentiality comes from the encryption (XChaCha20-Poly1305, 256-bit key), not from the geometry: the proofs hold even when the layout is known. The referent is a replaceable parameter; the code is free software (AGPL v3) and ships with reference vectors that can be checked step by step.</p>
+    </section>
+
+    <div class="faq-block">
+      <p class="faq-block-title">Frequently asked questions</p>
+
+      <details class="faq-item">
+        <summary>What is a solar square?<span class="q-mark">＋</span></summary>
+        <p>An order-6 magic square obtained directly from a four-colour colouring of its cells, following the ansate cross and four criteria. There are exactly 256 of them, all magic on rows, columns and both diagonals.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How many magic squares does the method produce?<span class="q-mark">＋</span></summary>
+        <p>256 at order 6 — and these are all the admissible colourings, not a sample. Assembled four at a time they give 64 order-12 magic squares, constant 870.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is the ansate cross?<span class="q-mark">＋</span></summary>
+        <p>A centrally symmetric figure of strokes on the 6 × 6 grid, joining pairwise the complementary cells of an order-6 magic square. Under the book's criteria exactly two exist, each the image of the other.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is the book free?<span class="q-mark">＋</span></summary>
+        <p>It is pay-what-you-want: it can be read and downloaded without paying, and supported if one wishes. Licence CC BY-NC 4.0 — free to copy and share with attribution, no commercial use without the author's agreement.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Where are the book and the code?<span class="q-mark">＋</span></summary>
+        <p>The book on Zenodo (DOI 10.5281/zenodo.22722486) and at anibal-amiot.com, in four languages. The code on GitHub (anibaledel/livreedhermes), under AGPL v3, with verification scripts for every result.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is the link with the Yi King?<span class="q-mark">＋</span></summary>
+        <p>The 360-layer system composes a pattern by six binary choices, one per level: the structure of the 64 hexagrams. The site offers a drawing that renders each hexagram as a pattern. The link is structural — six lines, six levels — and claims nothing beyond that.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is a unified pattern?<span class="q-mark">＋</span></summary>
+        <p>A 12 × 12 pattern whose half-period translation equals the exchange of its two images: the tiling then carries one motif instead of two alternating ones. There are 512 of them, in 128 orbits; half of them close on a cube.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can these patterns be woven?<span class="q-mark">＋</span></summary>
+        <p>Yes: the system was designed for Jacquard card-cutting, each layer being a card. The vector files of the 360 layers and the 256 squares are in the repository, under CC BY-NC 4.0.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Is Carter an encryption scheme?<span class="q-mark">＋</span></summary>
+        <p>Carter uses a standard cipher (XChaCha20-Poly1305) and lays out the result in a grid according to a public referent. Its security is that of the cipher, not of the geometry; the paper's proofs hold even when the layout is known. It is not a new cipher, and does not claim to be.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How can the results be checked?<span class="q-mark">＋</span></summary>
+        <p>Every figure on the site and in the notes comes out of a script in the repository: the two crosses, the 256 squares, the 64 of order 12, the 512 grids and the 128 orbits, the cube. The scripts read the published data and run in a few minutes.</p>
+      </details>
+    </div>
+
+    <p class="lex-sources">Further: read the book online, the figures and their sources, or the documentary profile. Contents under CC BY-NC 4.0, code under AGPL v3.</p>
+  </div>
+</main>
+
+<div class="note">
+  <div class="site-nav-row">
+    <a class="site-nav-btn" href="https://anibal-amiot.com/">Home</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/en/book/">Read the book</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/hexagrammes/">Hexagrams</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/unified-patterns.html">Unified Patterns</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/galerie-patterns-unifies.html">Gallery</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/chiffres-et-sources.html">Figures and sources</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Glossaire (FR)</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/a-propos.html">About</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/contact.html">Contact</a>
+  </div>
+  <div class="credit-line">
+    <span>© 2026 Anibal Edelberto Amiot — All rights reserved · Created in collaboration with Claude</span>
+  </div>
+  <div class="footer-title-logo">
+    <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+  </div>
+</div>
+</div>
+</body>
+</html>

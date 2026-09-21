@@ -52,12 +52,22 @@ const GROUPES = [
       ['th', `${SITE}/th/book/`, 'th/book/index.html'],
     ],
   },
-  // Le groupe « lexique » s'ajoutera ici quand ses pages existeront :
-  // /lexique.html, /en/lexicon/, /es/lexico/, /th/lexicon/. Déclarer une page
-  // avant de l'avoir écrite fait échouer le contrôle de build-header.js
-  // --verifie, qui vérifie que chaque fichier déclaré existe — c'est ce qui
-  // permet d'écrire les traductions une par une sans jamais publier un
-  // hreflang mensonger.
+  {
+    nom: 'lexique',
+    changefreq: 'monthly',
+    priority: '0.6',
+    pages: [
+      ['fr', `${SITE}/lexique.html`, 'lexique.html'],
+      ['en', `${SITE}/en/lexicon/`, 'en/lexicon/index.html'],
+      ['es', `${SITE}/es/lexico/`, 'es/lexico/index.html'],
+      // Le thaï s'ajoutera ici quand th/lexicon/ existera. Déclarer une page
+      // avant de l'avoir écrite fait échouer build-header.js --verifie, qui
+      // vérifie que chaque fichier déclaré existe : c'est ce qui permet
+      // d'ajouter les traductions une par une sans publier un hreflang
+      // mensonger. Un groupe n'a pas à couvrir toutes les langues du site —
+      // seulement à dire vrai sur celles qu'il déclare.
+    ],
+  },
 ];
 
 // Un bloc liste TOUS les équivalents, y compris la page elle-même : les pages

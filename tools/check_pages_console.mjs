@@ -31,6 +31,7 @@
 // voir .github/workflows/check-pages-console.yml pour l'invocation complète.
 
 import { chromium } from 'playwright';
+import { createRequire } from 'node:module';
 
 const args = process.argv.slice(2);
 const baseUrlIdx = args.indexOf('--base-url');
@@ -65,6 +66,8 @@ const PAGES = [
   { path: 'la-livree-d-hermes.html' },
   { path: 'lexique.html' },
   { path: 'chiffres-et-sources.html' },
+  { path: 'en/lexicon/' },
+  { path: 'es/lexico/' },
   { path: 'motifs%20(4).html', horsEnTete: true },
   { path: 'outils.html' },
   { path: 'pages.html', horsEnTete: true },
@@ -104,20 +107,18 @@ const PAGES = [
 // l'exception JS et, où on la connaît, la zone attendue — voir docstring.
 const MIN_BODY_TEXT = 40;
 
-// Pages déjà traduites à la main : l'en-tête y est complet sans l'emplacement
-// du widget. Même liste que SANS_TRADUCTEUR dans scripts/build-header.js.
-// Pages traduites à la main : elles gardent leur propre pied, le pied
-// partagé étant rédigé en français. Même liste que SANS_PIED dans
-// scripts/build-header.js.
-const SANS_PIED = new Set([
-  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
-  'th/book/index.html', 'book-viewer/index.html',
-]);
-
-const SANS_TRADUCTEUR = new Set([
-  'fr/livre/index.html', 'en/book/index.html', 'es/libro/index.html',
-  'th/book/index.html', 'book-viewer/index.html',
-]);
+// Les pages traduites à la main : ni emplacement du traducteur, ni pied
+// partagé. La liste vient de scripts/pages-traduites.js, que
+// scripts/build-header.js lit aussi — elle a vécu en double ici, avec un
+// commentaire qui disait « même liste que build-header.js » et ne l'imposait
+// à personne.
+//
+// Ce fichier liste certaines pages par leur adresse (« en/lexicon/ ») et la
+// liste par leur fichier : d'où la normalisation.
+const { TRADUITES_A_LA_MAIN } = createRequire(import.meta.url)('../scripts/pages-traduites.js');
+const fichierDe = (p) => (p.endsWith('/') ? `${p}index.html` : p);
+const SANS_PIED = TRADUITES_A_LA_MAIN;
+const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 
 async function checkPage(browser, page_def) {
   const url = `${BASE_URL}/${page_def.path}`;
@@ -247,13 +248,13 @@ async function checkPage(browser, page_def) {
       if (!enTete.logo) problems.push('en-tête incomplet : logo absent');
       else if (!enTete.logoCharge) problems.push("en-tête incomplet : le logo n'a pas chargé");
       else if (!enTete.logoDimensionne) problems.push('en-tête incomplet : logo sans width/height');
-      if (!enTete.traducteur && !SANS_TRADUCTEUR.has(page_def.path)) {
+      if (!enTete.traducteur && !SANS_TRADUCTEUR.has(fichierDe(page_def.path))) {
         problems.push("en-tête incomplet : emplacement du traducteur absent de l'en-tête");
       }
       if (!enTete.titre) problems.push('en-tête incomplet : aucun <h1> sur la page');
       if (enTete.main === 0) problems.push('structure : aucun <main> autour du contenu');
       else if (enTete.main > 1) problems.push(`structure : ${enTete.main} <main> sur la page, un seul est permis`);
-      if (!SANS_PIED.has(page_def.path)) {
+      if (!SANS_PIED.has(fichierDe(page_def.path))) {
         if (!enTete.pied) problems.push('pied de page absent : pas de <footer class="site-footer">');
         else if (!enTete.piedLiens.some((h) => h.includes('profil.html'))) {
           problems.push('pied de page incomplet : pas de lien vers profil.html');
