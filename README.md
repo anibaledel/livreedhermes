@@ -83,7 +83,7 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `export-galerie-884-pinterest.js` | PNG au format Pinterest, pour publication programmée |
 | `export-galerie-vector.js` | 768 SVG par catégorie (cellules/pavages × tricolore/monochrome) |
 | `generate-sitemap.js` | `sitemap.xml` |
-| `build-header.js` | recopie l'en-tête partagé de `includes/` et les alternates de `book-langs.js` |
+| `build-header.js` | recopie l'en-tête partagé de `includes/` et les alternates de `langues.js` |
 
 La chaîne des hexagrammes s'exécute dans l'ordre du tableau : les données
 d'abord, puis les images, puis les pages qui les référencent.
@@ -124,26 +124,58 @@ cas où elle ne peut pas échouer. Il vérifie que `style.css` est appliqué (un
 token résolu le prouve), que le logo a chargé, et qu'aucune icône n'est en
 chemin relatif.
 
-## Versions linguistiques du livre
+## Groupes de traduction
 
-Le livre est la seule partie du site qui existe en plusieurs langues :
-`fr/livre/`, `en/book/`, `es/libro/` et `th/book/` sont quatre traductions
-mutuelles. Les autres pages n'existent qu'en français et ne portent donc aucun
-`hreflang` — déclarer un équivalent qui n'existe pas est une affirmation
-fausse.
+Un **groupe** réunit des pages qui se traduisent mutuellement : une entrée par
+langue, jamais deux. C'est la règle du un-pour-un d'un bloc `hreflang` écrite
+dans la forme des données — une page française ne peut pas avoir deux
+équivalents anglais, parce qu'un groupe ne peut pas porter deux fois `en`.
 
-La liste vit dans [`scripts/book-langs.js`](scripts/book-langs.js), lue par
-deux consommateurs qui n'en gardent aucune copie :
+Un seul groupe existe aujourd'hui, le livre : `fr/livre/`, `en/book/`,
+`es/libro/`, `th/book/`. Les pages hors groupe n'existent qu'en français et ne
+portent aucun `hreflang` — déclarer un équivalent qui n'existe pas est une
+affirmation fausse. Ce n'est pas une consigne mais une propriété du
+générateur : `build-header.js` retire tout `hreflang` de chaque page du
+périmètre avant d'en reposer sur les seules pages déclarées.
+
+La liste vit dans [`scripts/langues.js`](scripts/langues.js), lue par deux
+consommateurs qui n'en gardent aucune copie :
 
 | Consommateur | Produit |
 |---|---|
 | `scripts/generate-sitemap.js` | les `<xhtml:link rel="alternate">` du sitemap |
-| `scripts/build-header.js` | les `<link rel="alternate">` du `<head>` des quatre pages |
+| `scripts/build-header.js` | les `<link rel="alternate">` du `<head>` |
 
 Les deux doivent dire la même chose : un sitemap et un `<head>` qui se
 contredisent sur les alternates, c'est une erreur que Google signale. Une seule
-liste rend la contradiction impossible — changer l'ordre des langues déplace
-`x-default` des deux côtés à la fois.
+liste rend la contradiction impossible.
+
+### La langue par défaut
+
+`x-default` désigne la version servie au visiteur dont la langue n'est aucune
+des nôtres. C'est **l'anglais**, déclaré une fois dans `LANGUE_PAR_DEFAUT` et
+nulle part ailleurs, et le même pour tous les groupes — sinon un visiteur
+étranger atterrirait en anglais sur une page et en français sur une autre.
+
+Il n'est **pas** déduit de l'ordre des listes. La version précédente prenait la
+première entrée : le couplage se vérifiait bien, mais quelqu'un qui réordonne
+un groupe pour une raison sans rapport aurait changé la langue par défaut du
+site sans le vouloir.
+
+### Quatre garde-fous
+
+| Ce qui est vérifié | Où | Quand |
+|---|---|---|
+| aucune langue deux fois dans un groupe | `langues.js` | au chargement |
+| chaque groupe a une entrée pour la langue par défaut | `langues.js` | au chargement |
+| aucune page dans deux groupes | `langues.js` | au chargement |
+| chaque fichier déclaré existe | `build-header.js --verifie` | CI |
+| aucune adresse deux fois dans le sitemap | `generate-sitemap.js` | à la génération |
+
+Les trois premiers empêchent le module de se charger plutôt que de laisser
+passer un groupe malformé. Le quatrième est ce qui permet d'ajouter les
+traductions **une par une** : déclarer une page avant de l'avoir écrite fait
+échouer la CI, pas la production.
 
 ## Date de modification des pages d'hexagrammes
 

@@ -29,7 +29,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BOOK_LANGS, BOOK_HREFLANG } = require('./book-langs.js');
+const { BLOC_PAR_FICHIER } = require('./langues.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
@@ -58,18 +58,18 @@ const SANS_TRADUCTEUR = new Set([
   'th/book/index.html', 'book-viewer/index.html',
 ]);
 
-// Le livre est la seule partie du site qui existe en plusieurs langues. Les
-// quatre pages portent le même bloc hreflang — il liste TOUS les équivalents,
-// y compris la page elle-même — engendré depuis scripts/book-langs.js, que
-// scripts/generate-sitemap.js lit aussi. Pas de fragment séparé : ce serait
-// une seconde copie de la même liste, et un sitemap qui contredit un <head>
-// sur les alternates est une erreur que Google signale.
+// Les pages d'un même groupe de traduction portent le même bloc hreflang — il
+// liste TOUS les équivalents, y compris la page elle-même — engendré depuis
+// scripts/langues.js, que scripts/generate-sitemap.js lit aussi. Pas de
+// fragment séparé : ce serait une seconde copie de la même liste, et un
+// sitemap qui contredit un <head> sur les alternates est une erreur que Google
+// signale.
 //
-// Aucune autre page n'en reçoit : déclarer un équivalent qui n'existe pas est
-// une affirmation fausse. La réponse pour le reste du site est un corpus
-// traduit, pas une balise.
-const AVEC_HREFLANG = new Map(BOOK_LANGS.map(([lang, , fichier]) => [fichier, lang]));
-const HREFLANG_HTML = BOOK_HREFLANG
+// Le bloc se lit PAR FICHIER, et non plus globalement : deux groupes ont deux
+// blocs différents. Aucune page hors groupe n'en reçoit — déclarer un
+// équivalent qui n'existe pas est une affirmation fausse. La réponse pour le
+// reste du site est un corpus traduit, pas une balise.
+const htmlHreflang = (bloc) => bloc
   .map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`)
   .join('\n');
 
@@ -141,8 +141,9 @@ function traiter(rel, src) {
   s = poser(s, 'head-icons', rendre('head-icons', prefixe, traducteur),
     (t, c) => t.replace('</head>', `${c}\n</head>`));
 
-  if (AVEC_HREFLANG.has(rel)) {
-    s = poser(s, 'hreflang', zone('hreflang', HREFLANG_HTML, 'scripts/book-langs.js'),
+  if (BLOC_PAR_FICHIER.has(rel)) {
+    const html = htmlHreflang(BLOC_PAR_FICHIER.get(rel));
+    s = poser(s, 'hreflang', zone('hreflang', html, 'scripts/langues.js'),
       (t, c) => t.replace('</head>', `${c}\n</head>`));
   }
 
@@ -211,6 +212,23 @@ module.exports = { rendre, zone, SANS_TRADUCTEUR };
 if (require.main !== module) return;
 
 const verifie = process.argv.includes('--verifie');
+// Chaque page déclarée dans un groupe de traduction doit exister. Un groupe
+// qui nomme un fichier pas encore écrit produirait un hreflang qui ment — et
+// c'est précisément ce que scripts/langues.js dit vouloir empêcher. Ce
+// contrôle est ce qui permet d'ajouter les traductions une par une : déclarer
+// la page avant de l'avoir écrite fait échouer la CI, pas la production.
+const fantomes = [...BLOC_PAR_FICHIER.keys()]
+  .filter((f) => !fs.existsSync(path.join(REPO_ROOT, f)));
+if (fantomes.length) {
+  console.error(
+    `scripts/langues.js déclare ${fantomes.length} page(s) qui n'existent pas :`);
+  for (const f of fantomes) console.error(`   ${f}`);
+  console.error(
+    "\nUn hreflang vers une page absente est une affirmation fausse."
+    + " Écrire la page, ou retirer son entrée du groupe.");
+  process.exit(1);
+}
+
 const ecarts = [];
 let touchees = 0;
 for (const rel of parcourir(REPO_ROOT).sort()) {
@@ -224,7 +242,7 @@ for (const rel of parcourir(REPO_ROOT).sort()) {
 
 if (verifie) {
   if (ecarts.length) {
-    console.error(`${ecarts.length} page(s) ne correspondent pas à leur source (includes/, scripts/book-langs.js) :`);
+    console.error(`${ecarts.length} page(s) ne correspondent pas à leur source (includes/, scripts/langues.js) :`);
     for (const e of ecarts) console.error(`   ${e}`);
     console.error("\nRelancer : node scripts/build-header.js");
     process.exit(1);
