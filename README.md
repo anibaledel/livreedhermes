@@ -105,6 +105,25 @@ fragments.
 l'en-tête est présent et complet : logo effectivement chargé et dimensionné,
 emplacement du traducteur, `<h1>`.
 
+## Page 404
+
+`404.html` est servie par GitHub Pages pour toute adresse inconnue, **à
+n'importe quelle profondeur**. Sur `/articles/inexistant`, le navigateur
+résout les chemins relatifs contre `/articles/` — un chemin `assets/…` y
+pointerait vers `/articles/assets/…` et ne chargerait pas.
+
+Tous ses chemins sont donc **absolus depuis la racine**, et
+`scripts/build-header.js` lui donne le préfixe `/` au lieu du préfixe relatif
+calculé pour les autres pages. C'est la seule exception du script, et elle est
+commentée sur place.
+
+`tools/check_pages_console.mjs` la vérifie **à une adresse imbriquée**
+(`articles/adresse-qui-n-existe-pas`) et non à `/404.html` : à la racine, la
+page fonctionne avec n'importe quel préfixe, et le contrôle validerait le seul
+cas où elle ne peut pas échouer. Il vérifie que `style.css` est appliqué (un
+token résolu le prouve), que le logo a chargé, et qu'aucune icône n'est en
+chemin relatif.
+
 ## Versions linguistiques du livre
 
 Le livre est la seule partie du site qui existe en plusieurs langues :

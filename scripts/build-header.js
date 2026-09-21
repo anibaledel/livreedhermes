@@ -114,7 +114,16 @@ function poser(s, nom, contenu, placer) {
 }
 
 function traiter(rel, src) {
-  const prefixe = '../'.repeat(rel.split('/').length - 1);
+  // 404.html est la seule page dont les chemins sont ABSOLUS depuis la racine.
+  // GitHub Pages la sert pour n'importe quelle adresse inconnue, à n'importe
+  // quelle profondeur : sur /articles/inexistant, le navigateur résout les
+  // chemins relatifs contre /articles/, et un préfixe vide y ferait pointer
+  // « assets/… » vers /articles/assets/… — logo, icônes et feuille de style ne
+  // chargeraient pas. Une page d'erreur cassée est pire qu'une page d'erreur
+  // générique. Le contrôle de chargement le vérifie À UNE ADRESSE IMBRIQUÉE et
+  // non à /404.html, où le défaut ne peut pas apparaître : voir
+  // tools/check_pages_console.mjs.
+  const prefixe = rel === '404.html' ? '/' : '../'.repeat(rel.split('/').length - 1);
   const traducteur = !SANS_TRADUCTEUR.has(rel);
   let s = adopter(src);
 
