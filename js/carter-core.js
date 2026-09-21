@@ -3,21 +3,25 @@
  * Python (stegano/crypto_core.py, carter.py, carter_random.py).
  * La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
  *
- * Port JS v3 — Étape 2.1 (couche crypto_core.py-équivalente : HKDF/HMAC,
- * commit, encrypt/decrypt, PayloadToSymbols/SymbolsToPayload en base-44
- * BigInt, derive_masks/random_grid) + Étape 2.2 (Carter-256 SEUL : sweep.py
- * porté, grammaire/positions/encode/decode contre referent_256_v3.json).
+ * Port JS v3 — couche crypto_core.py-équivalente (HKDF/HMAC, commit,
+ * encrypt/decrypt/encrypt_cascade/decrypt_cascade, PayloadToSymbols/
+ * SymbolsToPayload en base-44 BigInt, derive_masks/random_grid) +
+ * grammaire/positions/encode/decode portées pour Carter-256, Carter-Random
+ * (90/360, mode individuel — voir note plus bas) et le mode déniable,
+ * chacune validée étape par étape contre vectors/carter_v3.json (voir
+ * js/test/*.test.mjs).
  *
- * Carter-256 validé étape par étape contre vectors/carter_v3.json::
- * carter256-basic-01 (rôles, formes, sens de lecture, positions, masques,
- * symboles, PUIS grille entière bit à bit, PUIS décodage) — voir
- * js/test/carter256.test.mjs.
+ * Câblage cascade (2026-09-21) : Carter-256 et Carter-Random utilisent
+ * désormais encrypt_cascade/decrypt_cascade (AES-256-GCM(XChaCha20-
+ * Poly1305)) à la place de encrypt/decrypt seuls — voir docs/CASCADE_V1.md.
  *
- * NE couvre PAS encore les 7 autres instanciations (carter360/mix/random/
- * random360/18/hybrid/classic/deniable) — Carter-Random est la prochaine
- * étape (même construction, référent différent), demandée explicitement
- * avant les six restantes, chacune dans sa propre passe contre son propre
- * vecteur.
+ * NE couvre PAS Carter-360, Carter-Mix, Carter-18, Carter-Hybrid ni la
+ * stéganographie classique (stegano_classic.py) : ni grammaire, ni
+ * positions, ni encode/decode pour ces cinq-là — voir l'issue #85 (port
+ * JS restant). Ces variantes sont câblées sur la cascade côté PYTHON
+ * SEULEMENT (carter.py/carter_random.py/stegano_classic.py) ; le câbler en
+ * JS aurait mélangé le port de géométrie et le changement de chiffrement
+ * sur les mêmes vecteurs, décision explicite de les traiter séparément.
  *
  * Toutes les fonctions HKDF/HMAC sont asynchrones (crypto.subtle) —
  * différence structurelle avec le Python synchrone : toute fonction qui en
@@ -947,7 +951,7 @@ async function deriveRandomParams(gkCtr, gridSize = CR_GRID_SIZE) {
   return { refIdx, metaMode: capMeta >= capInd };
 }
 
-async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE) {
+async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE, capacityFn = max_message_for) {
   const cPubKey = randomCPubKey(gridSize);
   const nSideG = Math.floor(gridSize / CR_CELL_SIZE);
   const nMetaG = Math.floor(nSideG / CR_META);
@@ -963,7 +967,7 @@ async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE) {
       grammar = await carterRandomGrammarMeta(gkCtr, nMetaTotG, nMetaG);
       nPos = grammar.filter(g => g.role === ROLE_MESSAGE).length * CR_META * CR_META * 12;
     }
-    if (max_message_for(nPos) >= C_PUB[cPubKey]) return { gkCtr, refIdx, metaMode, grammar, nPos };
+    if (capacityFn(nPos) >= C_PUB[cPubKey]) return { gkCtr, refIdx, metaMode, grammar, nPos };
   }
   throw new Error(
     `Échec de dérivation de grammaire après ${MAX_REDRAWS} tentatives : régénérer la clé maître ` +
@@ -977,12 +981,20 @@ async function findRandomGrammarWithCPub(grammarKey, gridSize = CR_GRID_SIZE) {
  * même fonction, aucune logique dupliquée.
  */
 export async function carter_random_find_grammar(grammarKey, gridSize = CR_GRID_SIZE) {
-  return findRandomGrammarWithCPub(grammarKey, gridSize);
+  return findRandomGrammarWithCPub(grammarKey, gridSize, max_message_for_cascade);
 }
 
-/** encode_carter_random(message, masterKey, opts) -> {grid, info}. Mode individuel uniquement (voir note ci-dessus). */
+/**
+ * encode_carter_random(message, masterKey, opts) -> {grid, info}. Mode
+ * individuel uniquement (voir note ci-dessus).
+ * Câblage cascade (2026-09-21) : le payload message est désormais
+ * encrypt_cascade (AES-256-GCM(XChaCha20-Poly1305)), pas encrypt() seul —
+ * opts._nonce1 (24o)/opts._nonce2 (12o) remplacent l'unique _nonce d'avant
+ * le câblage. Ne touche que le chiffrement du payload : référent, mode
+ * (CR-1), grammaire et balayages restent dérivés exactement comme avant.
+ */
 export async function encode_carter_random(message, masterKey, opts = {}) {
-  const { gridSize = CR_GRID_SIZE, _nonce = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
+  const { gridSize = CR_GRID_SIZE, _nonce1 = null, _nonce2 = null, _y = null, _leftover = null, _noiseSeed = null } = opts;
   const { xchacha_key, grammar_key } = await carter256_split(masterKey);
   const cPubKey = randomCPubKey(gridSize);
   const msgBytes = utf8(message).length;
@@ -990,14 +1002,14 @@ export async function encode_carter_random(message, masterKey, opts = {}) {
     throw new Error(`Message trop long : ${msgBytes} > C_PUB=${C_PUB[cPubKey]} octets (capacité publique garantie, indépendante de la clé).`);
   }
   const nSideG = Math.floor(gridSize / CR_CELL_SIZE);
-  const { gkCtr, refIdx, metaMode, grammar, nPos } = await findRandomGrammarWithCPub(grammar_key, gridSize);
+  const { gkCtr, refIdx, metaMode, grammar, nPos } = await findRandomGrammarWithCPub(grammar_key, gridSize, max_message_for_cascade);
   if (metaMode) throw new Error('encode_carter_random : mode méta pas encore porté en JS (aucun vecteur ne le requiert actuellement).');
 
   const sweepOfColor = {};
   for (const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
   const ref = await get_referent6x6(refIdx);
 
-  const payload = await encrypt(message, xchacha_key, nPos, _nonce);
+  const payload = await encrypt_cascade(message, xchacha_key, nPos, { _nonce1, _nonce2 });
   const symbols = payload_to_symbols(payload, nPos, { _y, _leftover });
   const grid = random_grid(gridSize, gridSize, _noiseSeed);
   const masks = await derive_masks(gkCtr, symbols.length + 128, LABELS.mask_seed.info_random);
@@ -1017,14 +1029,14 @@ export async function encode_carter_random(message, masterKey, opts = {}) {
     }
   }
   const nMsgOut = grammar.filter(g => g.role === ROLE_MESSAGE).length;
-  return { grid, info: { referent_index: refIdx, mode: 'individual', meta_mode: false, n_msg_blocks: nMsgOut, capacity_chars: max_message_for(nPos) } };
+  return { grid, info: { referent_index: refIdx, mode: 'individual', meta_mode: false, n_msg_blocks: nMsgOut, capacity_chars: max_message_for_cascade(nPos) } };
 }
 
 /** decode_carter_random(grid, masterKey, opts) -> message. Mode individuel uniquement. */
 export async function decode_carter_random(grid, masterKey, opts = {}) {
   const { gridSize = CR_GRID_SIZE } = opts;
   const { xchacha_key, grammar_key } = await carter256_split(masterKey);
-  const { gkCtr, metaMode, grammar, refIdx } = await findRandomGrammarWithCPub(grammar_key, gridSize);
+  const { gkCtr, metaMode, grammar, refIdx } = await findRandomGrammarWithCPub(grammar_key, gridSize, max_message_for_cascade);
   if (metaMode) throw new Error('decode_carter_random : mode méta pas encore porté en JS (aucun vecteur ne le requiert actuellement).');
 
   const sweepOfColor = {};
@@ -1049,7 +1061,7 @@ export async function decode_carter_random(grid, masterKey, opts = {}) {
       ni++;
     }
   }
-  return decrypt(vals, xchacha_key, vals.length);
+  return decrypt_cascade(vals, xchacha_key, vals.length);
 }
 
 // ═══════════════════════════════════════════════════════════════════════

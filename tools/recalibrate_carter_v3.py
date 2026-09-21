@@ -5,11 +5,14 @@
 recalibrate_carter_v3.py — Campagne de recalibration C_PUB (câblage v3)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)
 
-Recalibre C_PUB pour les SIX variantes migrées vers la nouvelle règle de
-lecture (12 positions stégano/bloc au lieu de 6, ou 12/sous-bloc pour
-Hybrid MODE_6) : carter256, carter360, cartermix, carterrandom90,
-carterrandom360, carterhybrid. Carter-18 n'est PAS recalibré : hors
-périmètre du câblage, sa géométrie n'a pas changé.
+Recalibre C_PUB pour les SEPT variantes câblées : carter256, carter360,
+cartermix, carterrandom90, carterrandom360, carter18, carterhybrid.
+(Historique : lors du câblage de la règle de lecture v3, 12 positions
+stégano/bloc au lieu de 6, Carter-18 n'avait pas eu besoin d'être
+recalibré -- sa géométrie n'avait pas changé. Le câblage de la cascade
+(2026-09-21) change en revanche le seuil de capacité pour TOUTES les
+variantes migrées, Carter-18 compris : voir carter_random.py::
+_find_carter18_grammar_with_c_pub.)
 
 Méthode IDENTIQUE à celle déjà en place dans crypto_core.py (règle de la
 tâche 4) : plus grand C_PUB tel que le taux de REDRAW (pas le taux
@@ -140,31 +143,38 @@ def _sf_cartermix(master_key):
 
 def _sf_carterrandom90(master_key):
     _, gk = CR._carter_split(master_key)
-    return lambda: CR._find_random_grammar_with_c_pub(gk, 90)
+    return lambda: CR._find_random_grammar_with_c_pub(gk, 90, capacity_fn=CC.max_message_for_cascade)
 
 def _sf_carterrandom360(master_key):
     _, gk = CR._carter_split(master_key)
-    return lambda: CR._find_random_grammar_with_c_pub(gk, 180)
+    return lambda: CR._find_random_grammar_with_c_pub(gk, 180, capacity_fn=CC.max_message_for_cascade)
+
+def _sf_carter18(master_key):
+    _, gk = CR._carter_split(master_key)
+    return lambda: CR._find_carter18_grammar_with_c_pub(gk, CR.GRID_SIZE, capacity_fn=CC.max_message_for_cascade)
 
 def _sf_carterhybrid(master_key):
     _, gk = CR._carter_split(master_key)
-    return lambda: CR._find_hybrid_grammar_with_c_pub(gk, CR.GRID_SIZE)
+    return lambda: CR._find_hybrid_grammar_with_c_pub(gk, CR.GRID_SIZE, capacity_fn=CC.max_message_for_cascade)
 
 
-# capacity_fn : None = CC.max_message_for (format simple). Carter-256,
-# Carter-360 et Carter-Mix sont câblés sur la cascade (2026-09-21, voir
-# carter.py::encode_carter/encode_carter_360/encode_carter_mix) -- leur
-# recherche de grammaire utilise CC.max_message_for_cascade en production,
-# donc leur recalibration doit mesurer la MÊME fonction, pas le format
-# simple. Les trois variantes restantes n'ont pas encore migré : capacity_fn
-# reste None (CC.max_message_for) pour elles, jusqu'à leur propre câblage.
+# capacity_fn : None = CC.max_message_for (format simple). Toutes les
+# variantes ci-dessous sont désormais câblées sur la cascade (2026-09-21,
+# voir carter.py/carter_random.py) -- leur recherche de grammaire utilise
+# CC.max_message_for_cascade en production, donc leur recalibration doit
+# mesurer la MÊME fonction, pas le format simple. capacity_fn est déjà
+# appliqué DANS chaque search_fn ci-dessus (elles passent capacity_fn=
+# CC.max_message_for_cascade à leur fonction de recherche de production) ;
+# il est répété ici pour que _measure() mesure la même capacité côté
+# rapport (mean_cap affiché).
 VARIANTS = [
     ('carter256',       CT, _sf_carter256, CC.max_message_for_cascade),
     ('carter360',       CT, _sf_carter360, CC.max_message_for_cascade),
     ('cartermix',       CT, _sf_cartermix, CC.max_message_for_cascade),
-    ('carterrandom90',  CR, _sf_carterrandom90, None),
-    ('carterrandom360', CR, _sf_carterrandom360, None),
-    ('carterhybrid',    CR, _sf_carterhybrid, None),
+    ('carterrandom90',  CR, _sf_carterrandom90, CC.max_message_for_cascade),
+    ('carterrandom360', CR, _sf_carterrandom360, CC.max_message_for_cascade),
+    ('carter18',        CR, _sf_carter18, CC.max_message_for_cascade),
+    ('carterhybrid',    CR, _sf_carterhybrid, CC.max_message_for_cascade),
 ]
 
 

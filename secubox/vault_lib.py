@@ -23,11 +23,31 @@ Format du vault (.sbvault) :
 
 KDF : Argon2id — time=3, memory=64MB, parallelism=4
   Résistance GPU : facteur ×1000 vs PBKDF2-SHA256 (memory-hard)
+
+Cascade v1 (câblage 2026-09-21, voir docs/CASCADE_V1.md) : l'octet algo,
+écrit depuis toujours mais jamais LU avant ce câblage, distingue désormais
+sans ambiguïté à la lecture le chiffrement historique par entrée
+(ALG_CHACHA20_HKDF, ChaCha20-Poly1305 seul) de la cascade
+(ALG_CASCADE_V1, AES-256-GCM(ChaCha20-Poly1305) — même principe que
+crypto_core.py::encrypt_cascade, dupliqué ici plutôt qu'importé : aucun
+chemin d'import établi entre secubox/ et stegano/ pour du code partagé
+[seuls le CLI et les tests y insèrent stegano/ dans sys.path localement],
+et le coffre n'a aucun consommateur JS — l'interopérabilité byte-à-byte
+avec le cœur JS de la cascade Carter n'a pas de rôle à jouer ici. Couche
+intérieure : la construction ChaCha20-Poly1305 à nonce étendu par HKDF
+déjà en place dans ce fichier [_enc/_dec], pas HChaCha20 standard —
+choix délibéré de rester auto-suffisant, même raisonnement déjà posé pour
+secu_box.py::_chacha20_hkdf_enc2). Un vault écrit en ALG_CHACHA20_HKDF
+reste lisible tel quel, sans conversion : l'octet algo lu détermine le
+chemin de déchiffrement, il n'y a rien à deviner ni à essayer dans les
+deux sens. Passer un vault existant en cascade est une migration
+EXPLICITE (voir migrate_to_cascade ci-dessous) : jamais un effet de bord
+silencieux de save().
 """
 
 import os, json, hashlib, struct, secrets, hmac as _hmac
-from typing import Dict, List
-from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305
+from typing import Dict, List, Optional
+from cryptography.hazmat.primitives.ciphers.aead import ChaCha20Poly1305, AESGCM
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 from cryptography.hazmat.primitives import hashes as _h
 from argon2.low_level import hash_secret_raw, Type as Argon2Type
@@ -35,6 +55,7 @@ from argon2.low_level import hash_secret_raw, Type as Argon2Type
 MAGIC            = b'SBVT'
 VERSION          = 2               # v1.2 : Argon2id
 ALG_CHACHA20_HKDF = 1   # LH-5 : renomme depuis ALG_XCHACHA20, valeur inchangee (format sur disque)
+ALG_CASCADE_V1   = 2    # cascade v1 (2026-09-21) : AES-256-GCM(ChaCha20-Poly1305), voir docs/CASCADE_V1.md
 SALT_SIZE        = 32
 MAC_SIZE         = 32
 HEADER_SIZE      = 4 + 1 + 1 + 2 + SALT_SIZE   # 40 bytes
@@ -150,6 +171,38 @@ def _dec(data: bytes, key: bytes, aad: bytes = b'') -> bytes:
     sk, cn = _chacha20_hkdf_subkey(key, nonce)
     return ChaCha20Poly1305(sk).decrypt(cn, ct, aad or None)
 
+# ── Cascade v1 — AES-256-GCM(ChaCha20-Poly1305(plaintext)) ───────────────────
+# Même principe que crypto_core.py::encrypt_cascade/decrypt_cascade (voir
+# docs/CASCADE_V1.md) : deux algorithmes, deux clés dérivées indépendamment
+# (jamais l'une de l'autre), toujours les deux, rien à négocier. Couche
+# intérieure = _enc/_dec ci-dessus (déjà en place dans ce fichier), couche
+# extérieure = AES-256-GCM avec une clé indépendante k2. `aad` (le nom de
+# l'entrée, ou b'manifest') authentifie les DEUX couches, comme dans
+# crypto_core.py.
+_CASCADE_SPLIT_SALT = b'SecuBox-Vault-cascade-v1'
+_CASCADE_INNER_INFO = b'SecuBox-Vault-cascade-inner-v1'
+_CASCADE_OUTER_INFO = b'SecuBox-Vault-cascade-outer-v1'
+
+def _cascade_split(key: bytes):
+    """k1 (couche intérieure), k2 (couche extérieure) — dérivées
+    indépendamment de `key`, jamais l'une à partir de l'autre."""
+    k1 = HKDF(_h.SHA256(), 32, salt=_CASCADE_SPLIT_SALT, info=_CASCADE_INNER_INFO).derive(key)
+    k2 = HKDF(_h.SHA256(), 32, salt=_CASCADE_SPLIT_SALT, info=_CASCADE_OUTER_INFO).derive(key)
+    return k1, k2
+
+def _enc_cascade(data: bytes, key: bytes, aad: bytes = b'') -> bytes:
+    k1, k2 = _cascade_split(key)
+    inner  = _enc(data, k1, aad)     # N1(24) ‖ C ‖ T1(16)
+    nonce2 = os.urandom(12)
+    outer  = AESGCM(k2).encrypt(nonce2, inner, aad or None)
+    return nonce2 + outer
+
+def _dec_cascade(data: bytes, key: bytes, aad: bytes = b'') -> bytes:
+    k1, k2 = _cascade_split(key)
+    nonce2, outer = data[:12], data[12:]
+    inner = AESGCM(k2).decrypt(nonce2, outer, aad or None)
+    return _dec(inner, k1, aad)
+
 # ── Vault ─────────────────────────────────────────────────────────────────────
 class Vault:
     """
@@ -160,16 +213,22 @@ class Vault:
     """
 
     def __init__(self, path: str, master_key: bytes,
-                 salt: bytes, entries: Dict):
+                 salt: bytes, entries: Dict, algo: int = ALG_CHACHA20_HKDF):
         self.path       = path
         self.master_key = master_key
         self.salt       = salt
         self._entries   = entries
+        self.algo       = algo
 
     @classmethod
-    def create(cls, path: str, master_key: bytes) -> 'Vault':
+    def create(cls, path: str, master_key: bytes, algo: int = ALG_CASCADE_V1) -> 'Vault':
+        """Nouveau vault vide. algo=ALG_CASCADE_V1 par défaut (cascade
+        toujours appliquée pour un vault créé aujourd'hui, sans négociation
+        — même principe que le reste du câblage cascade). Passer
+        algo=ALG_CHACHA20_HKDF n'a de sens que pour construire délibérément
+        un vault à l'ancien format (tests, comparaison)."""
         salt = os.urandom(SALT_SIZE)
-        return cls(path, master_key, salt, {})
+        return cls(path, master_key, salt, {}, algo=algo)
 
     @classmethod
     def open(cls, path: str, master_key: bytes) -> 'Vault':
@@ -184,6 +243,14 @@ class Vault:
         version = raw[4]
         if version not in (1, 2):
             raise ValueError(f"Version {version} non supportée")
+
+        # Câblage cascade (2026-09-21) : l'octet algo, écrit depuis toujours
+        # mais jamais lu avant ce câblage, lève désormais l'ambiguïté à la
+        # lecture -- un coffre dit lui-même s'il est en cascade ou non, rien
+        # à deviner ni à essayer dans les deux sens.
+        algo = raw[5]
+        if algo not in (ALG_CHACHA20_HKDF, ALG_CASCADE_V1):
+            raise ValueError(f"Algorithme {algo} non supporté (format v{version})")
 
         salt = raw[8:8+SALT_SIZE]
 
@@ -205,7 +272,8 @@ class Vault:
             raise ValueError("Manifest tronqué")
 
         mkey         = keys['manifest']
-        manifest_raw = _dec(rest[4:4+manifest_size], mkey, b'manifest')
+        manifest_dec = _dec_cascade if algo == ALG_CASCADE_V1 else _dec
+        manifest_raw = manifest_dec(rest[4:4+manifest_size], mkey, b'manifest')
         manifest     = json.loads(manifest_raw)
 
         if len(manifest) > MAX_ENTRIES:
@@ -213,6 +281,7 @@ class Vault:
 
         cursor  = 4 + manifest_size
         entries = {}
+        entry_dec = _dec_cascade if algo == ALG_CASCADE_V1 else _dec
         for name, meta in manifest.items():
             if cursor + 4 > len(rest):
                 raise ValueError(f"Entrée '{name}' tronquée")
@@ -223,7 +292,7 @@ class Vault:
                 raise ValueError(f"Entrée '{name}' tronquée (données)")
             cursor += 4
             ekey = _entry_key(keys['km'], name, salt, version)
-            data = _dec(rest[cursor:cursor+entry_size], ekey, name.encode())
+            data = entry_dec(rest[cursor:cursor+entry_size], ekey, name.encode())
             if hashlib.sha256(data).hexdigest() != meta['sha256']:
                 raise ValueError(f"Hash invalide pour '{name}'")
             entries[name] = {'data': data,
@@ -231,7 +300,7 @@ class Vault:
                              'size': len(data)}
             cursor += entry_size
 
-        return cls(path, master_key, salt, entries)
+        return cls(path, master_key, salt, entries, algo=algo)
 
     def add(self, name: str, data: bytes) -> None:
         h = hashlib.sha256(data).hexdigest()
@@ -271,23 +340,32 @@ class Vault:
                 for n, m in self._entries.items()]
 
     def save(self) -> None:
-        # Toujours écrit en v2 : un vault v1 ouvert puis enregistré est
-        # migré vers Argon2id, sans changer ni sa passphrase ni son sel.
+        # Toujours écrit en v2 (KDF) : un vault v1 ouvert puis enregistré
+        # est migré vers Argon2id, sans changer ni sa passphrase ni son
+        # sel. L'ALGORITHME de chiffrement (self.algo), lui, n'est JAMAIS
+        # changé implicitement ici : passer d'ALG_CHACHA20_HKDF à
+        # ALG_CASCADE_V1 est une migration explicite (migrate_to_cascade
+        # ci-dessous), qui garde l'original tant que la relecture du
+        # nouveau format n'est pas vérifiée -- un save() ordinaire ne doit
+        # jamais faire courir ce risque en silence. save() écrit ici avec
+        # l'algo que ce Vault porte déjà (celui lu par open(), ou celui
+        # choisi à create()).
         keys     = _derive_keys(self.master_key, self.salt, VERSION)
         mkey     = keys['manifest']
         mac_key  = keys['mac']
+        enc      = _enc_cascade if self.algo == ALG_CASCADE_V1 else _enc
 
         manifest = {n: {'sha256': m['sha256'], 'size': m['size']}
                     for n, m in self._entries.items()}
-        manifest_enc = _enc(json.dumps(manifest).encode(), mkey, b'manifest')
+        manifest_enc = enc(json.dumps(manifest).encode(), mkey, b'manifest')
 
         entries_blob = bytearray()
         for name, meta in self._entries.items():
             ekey      = _entry_key(keys['km'], name, self.salt, VERSION)
-            entry_enc = _enc(meta['data'], ekey, name.encode())
+            entry_enc = enc(meta['data'], ekey, name.encode())
             entries_blob += struct.pack('>I', len(entry_enc)) + entry_enc
 
-        header  = MAGIC + bytes([VERSION, ALG_CHACHA20_HKDF, 0, 0]) + self.salt
+        header  = MAGIC + bytes([VERSION, self.algo, 0, 0]) + self.salt
         payload = (header
                    + struct.pack('>I', len(manifest_enc))
                    + manifest_enc
@@ -328,6 +406,82 @@ class Vault:
             return True
         except Exception:
             return False
+
+    @staticmethod
+    def migrate_to_cascade(old_path: str, new_path: str, master_key: bytes) -> 'Vault':
+        """
+        Migre un coffre existant (n'importe quelle version/algo lisible par
+        open(), y compris un ALG_CHACHA20_HKDF déjà migré v1→v2) vers la
+        cascade v1, dans NEW_PATH — JAMAIS dans old_path.
+
+        C'est le seul endroit du dépôt où une erreur peut rendre des
+        données irrécupérables : une réécriture en place qui échoue à
+        mi-chemin détruirait ce qu'elle voulait protéger. La discipline ici
+        est donc :
+          1. old_path n'est JAMAIS ouvert en écriture par cette fonction —
+             seulement lu, via Vault.open(). Un crash à n'importe quel
+             instant de la migration laisse old_path bit pour bit
+             identique à avant l'appel.
+          2. new_path est écrit (Vault.save(), déjà atomique par
+             tmp+os.replace — voir save()), PUIS relu depuis le disque
+             (pas depuis l'objet en mémoire : une vraie relecture, clé
+             comprise) et comparé entrée par entrée, au bit près, au
+             contenu d'origine.
+          3. Si l'écriture, la relecture ou la comparaison échoue, new_path
+             (et son .tmp éventuel) est supprimé et une exception est
+             levée — old_path n'a jamais bougé.
+          4. En cas de succès, old_path est laissé TEL QUEL : cette
+             fonction ne le supprime JAMAIS. C'est à l'appelant de décider,
+             une fois satisfait de la relecture, quand s'en défaire (voir
+             Vault.secure_delete côté appelant) — jamais une décision
+             prise ici en silence.
+
+        Lève ValueError si new_path == old_path (la garantie n°1 perdrait
+        son sens), ou si la relecture/comparaison échoue.
+        """
+        if os.path.abspath(old_path) == os.path.abspath(new_path):
+            raise ValueError(
+                "migrate_to_cascade : new_path doit différer de old_path — "
+                "l'original doit rester intact pendant toute la migration.")
+
+        old = Vault.open(old_path, master_key)
+        original = {name: bytes(meta['data']) for name, meta in old._entries.items()}
+
+        def _cleanup_new():
+            for p in (new_path, new_path + '.tmp'):
+                if os.path.exists(p):
+                    os.unlink(p)
+
+        new = Vault(new_path, master_key, old.salt, dict(old._entries), algo=ALG_CASCADE_V1)
+        try:
+            new.save()
+        except Exception as e:
+            _cleanup_new()
+            raise ValueError(
+                f"Migration : échec de l'écriture du nouveau format — "
+                f"original conservé intact ({e})") from e
+
+        try:
+            reread = Vault.open(new_path, master_key)
+        except Exception as e:
+            _cleanup_new()
+            raise ValueError(
+                f"Migration : le nouveau fichier ne se relit pas — "
+                f"original conservé intact ({e})") from e
+
+        if set(reread._entries) != set(original):
+            _cleanup_new()
+            raise ValueError(
+                "Migration : l'ensemble des entrées diffère après relecture "
+                "— original conservé intact.")
+        for name, data in original.items():
+            if reread._entries[name]['data'] != data:
+                _cleanup_new()
+                raise ValueError(
+                    f"Migration : le contenu de '{name}' diffère après "
+                    f"relecture (comparaison bit à bit) — original conservé intact.")
+
+        return reread
 
 def demo():
     import tempfile, time
