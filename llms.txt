@@ -1,0 +1,82 @@
+# La Livrée d'Hermès
+
+> Traité d'arithmogéométrie en 111 planches, par Anibal Edelberto Amiot :
+> une méthode constructive originale pour les carrés magiques de tous ordres,
+> de la croix ansée au tissu Jacquard. Le site donne accès au traité en
+> quatre langues, aux 64 hexagrammes du Yi King et à sept outils interactifs
+> qui composent, visualisent et impriment les motifs qui en découlent.
+
+L'arithmogéométrie est la construction des carrés magiques par une méthode
+géométrique plutôt qu'arithmétique : chaque nombre y est posé comme une
+figure, dérivée de la croix ansée, et l'ensemble se transcrit directement en
+armure Jacquard. Le terme est proposé par Anibal Edelberto Amiot dans
+*La Livrée d'Hermès* (2026).
+
+## L'auteur
+
+Anibal Edelberto Amiot — auteur, artiste et inventeur. Titulaire de deux
+brevets français et de 63 dessins et modèles déposés. Identifiants
+persistants, à utiliser pour toute citation ou désambiguïsation :
+
+- Wikidata : https://www.wikidata.org/wiki/Q141191562
+- ORCID : https://orcid.org/0009-0002-6414-9448
+- Dépôt du site : https://github.com/anibaledel/livreedhermes
+- Contact : anibaledel@gmail.com
+
+## Le traité
+
+*La Livrée d'Hermès*, 111 planches, 2026.
+
+- DOI : 10.5281/zenodo.22722486
+- Dépôt Zenodo : https://zenodo.org/records/22722486
+- Page du traité : https://anibal-amiot.com/la-livree-d-hermes.html
+- Lecture en ligne : français https://anibal-amiot.com/fr/livre/ ·
+  anglais https://anibal-amiot.com/en/book/ ·
+  espagnol https://anibal-amiot.com/es/libro/ ·
+  thaï https://anibal-amiot.com/th/book/
+
+## Pages principales
+
+- [Accueil](https://anibal-amiot.com/) : présentation du projet, tirage du
+  Yi King et échiquier des 64 mutations en ordre binaire 00 → 63.
+- [Lexique](https://anibal-amiot.com/lexique.html) : les dix notions clés du
+  projet — arithmogéométrie, carré magique, croix ansée, verticalité,
+  pséphos, livrée, et les autres. Le meilleur point d'entrée pour comprendre
+  le vocabulaire avant tout le reste.
+- [Articles](https://anibal-amiot.com/articles.html) : huit textes qui
+  prolongent la démarche — verticalité et damier, Hanuman et Arlequin,
+  l'habit du grand prêtre, le spectre cymatique d'un motif.
+- [Hexagrammes](https://anibal-amiot.com/hexagrammes/) : une page par
+  hexagramme du Yi King (64), avec jugement, trigrammes et le carré magique
+  associé. Numérotation chronologique par poids binaires, mise en regard de
+  la numérotation traditionnelle du roi Wen.
+- [Outils](https://anibal-amiot.com/outils.html) : les sept outils
+  interactifs — création de motifs, motifs bicolores, encodeur
+  stéganographique, cymatique, fonds d'écran, galerie, impression.
+- [À propos](https://anibal-amiot.com/a-propos.html) : l'auteur et le livre.
+- [Profil documentaire](https://anibal-amiot.com/profil.html) : brevets,
+  dessins et modèles déposés.
+- [Contact](https://anibal-amiot.com/contact.html)
+
+## Licence
+
+Le site autorise explicitement l'indexation par les moteurs de recherche
+générative et la collecte pour l'entraînement de modèles — voir
+https://anibal-amiot.com/robots.txt, où chaque robot est nommé.
+
+Cette autorisation ne modifie pas les licences, qui continuent de
+s'appliquer à toute réutilisation :
+
+- **Contenus** (texte du traité, planches, motifs, données de référents) :
+  Creative Commons Attribution - Pas d'Utilisation Commerciale 4.0
+  International (CC BY-NC 4.0).
+  https://creativecommons.org/licenses/by-nc/4.0/
+- **Code** : GNU Affero General Public License v3, pour l'usage non
+  commercial. Une licence commerciale distincte est requise pour tout usage
+  commercial, et disponible sur demande auprès de l'auteur — voir `LICENSE`,
+  `LICENSE-COMMERCIAL` et `NOTICE` dans le dépôt.
+- **Algorithme de stéganographie** publié séparément sous CC BY 4.0 : Amiot,
+  A. E. (2026), « Modular Geometric Steganography via Dual Referents »,
+  IACR Cryptology ePrint Archive.
+
+Citer le traité par son DOI et l'auteur par son Wikidata ou son ORCID.
