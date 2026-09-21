@@ -1,217 +1,74 @@
 /* ============================================================
-   ANIBAL AMIOT — tokens de design
-   Palette inspirée des teintures textiles : indigo, curcuma, garance
-   sur un fond coton écru légèrement grisé (volontairement différent
-   du "cream + terracotta" par défaut).
+   ANIBAL AMIOT — LA LIVRÉE D'HERMÈS
+   Source unique des tokens de design.
+
+   Ce fichier est la SEULE déclaration des couleurs du site. Il est
+   chargé par toutes les pages de contenu. Aucune page ne doit
+   redéclarer ces variables dans un :root inline — c'est précisément ce
+   qu'on vient de défaire : elles étaient recopiées dans 101 fichiers,
+   en 9 variantes qui avaient commencé à diverger (voir la PR qui
+   introduit ce fichier, et tools/check_tokens_uniques.mjs, qui échoue
+   si une page les redéclare).
+
+   VOLONTAIREMENT LIMITÉ AUX VARIABLES. Pas de reset, pas de règle sur
+   body, pas de composant. Une feuille de variables ne peut modifier
+   l'apparence d'une page que par la valeur de ces variables ; une
+   feuille qui porterait aussi `body{...}` ou `*{box-sizing}` — comme
+   c'était le cas de la version précédente de ce fichier, jamais
+   chargée par personne — changerait des mises en page au gré de
+   l'ordre des déclarations de chaque page. Les règles de composants
+   restent dans le <style> de chaque page tant qu'elles n'ont pas été
+   sorties une par une, délibérément.
+
+   Exception assumée : carter-demo.html porte sa propre palette
+   (--bg:#0a0e14, --gold:#c8aa6e), qui est un thème distinct et non une
+   copie divergente. Cette page ne charge pas ce fichier.
    ============================================================ */
 
 :root {
-  --color-ground:      #E7E1D2; /* coton écru */
-  --color-ground-warm: #DED5BE; /* écru plus chaud, pour cartes */
-  --color-ink:         #201B14; /* texte principal */
-  --color-ink-soft:    #4A4234; /* texte secondaire */
-  --color-indigo:      #29365A; /* accent primaire — cuve d'indigo */
-  --color-indigo-deep: #171F35;
-  --color-curcuma:     #C4841E; /* accent secondaire — teinture curcuma */
-  --color-garance:     #93283A; /* accent tertiaire — teinture garance */
-  --color-line:        #B9AF97; /* lisière / filets */
+  /* ---------- fonds ---------- */
+  --bg:       #000000;  /* fond de page */
+  --panel:    #0a0a0a;  /* panneaux et grilles posés sur la page — à
+                           1.06:1 du fond : un panneau se lit par sa
+                           bordure, jamais par son fond */
 
-  --font-display: 'Fraunces', 'Georgia', serif;
-  --font-body:    'Work Sans', 'Helvetica Neue', sans-serif;
-  --font-mono:    'IBM Plex Mono', ui-monospace, monospace;
+  /* ---------- encres ---------- */
+  --white:    #f2f2f0;  /* texte principal et titres — 18.73:1 sur --bg */
+  --dim:      #a9a9a6;  /* texte secondaire : chapôs, excerpts de tuiles,
+                           fil d'Ariane, légendes — 8.91:1 sur --bg.
+                           CORRIGÉ : valait #f2f2f0, exactement --white,
+                           dans les 101 copies. Le site n'avait donc aucun
+                           second niveau de texte, alors que ce token est
+                           employé partout où il en faut un. */
 
-  --radius: 2px;
-  --max-width: 1080px;
-}
+  /* ---------- accents ---------- */
+  --red:      #e0261b;  /* rouge de marque : surtitres, boutons primaires,
+                           traits mutants. 4.46:1 sur --bg — sous le seuil
+                           AA de 4.5:1 pour du texte courant. Valeur
+                           d'origine conservée ; à réserver aux aplats,
+                           bordures et textes de 24px et plus. */
+  --red-dim:  #5a120e;  /* rouge profond, décor seul — 1.53:1 : jamais de
+                           texte ni de bordure d'élément interactif */
+  --gold:     #c9a15a;  /* état :hover et :focus de toute la navigation,
+                           équerres du cadre Atalanta, page courante du fil
+                           d'Ariane — 8.73:1. Le seul or au repos est celui
+                           des équerres. */
 
-* { box-sizing: border-box; }
+  /* ---------- traits ---------- */
+  --line:     #5c5c5c;  /* bordures et filets — 3.14:1 sur --bg.
+                           CORRIGÉ : valait #242424, soit 1.35:1, très en
+                           dessous du 3:1 exigé pour la frontière d'un
+                           composant. Ce token borde .nav-tile, .dl-btn,
+                           .site-nav-btn, .app-lang-btn, .xref-btn et
+                           .flag-btn : la grille de l'accueil n'avait
+                           pratiquement pas de cases visibles au repos.
+                           Il sert aussi aux filets de séparation, qui
+                           deviennent donc plus nets eux aussi. */
 
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background: var(--color-ground);
-  color: var(--color-ink);
-  font-family: var(--font-body);
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-}
-
-a { color: inherit; }
-
-/* ---------- en-tête / lisière tissée ---------- */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: var(--color-ground);
-  border-bottom: 1px solid var(--color-line);
-}
-
-.selvage {
-  height: 6px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-indigo) 0 10px,
-    var(--color-curcuma) 10px 14px,
-    var(--color-garance) 14px 16px,
-    var(--color-indigo) 16px 26px
-  );
-}
-
-.header-inner {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 1.1rem 1.5rem;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.brand {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  color: var(--color-ink);
-}
-
-.brand-tagline {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-ink-soft);
-  display: block;
-  margin-top: 0.15rem;
-}
-
-/* ---------- navigation en "échantillons de tissu" ---------- */
-
-.swatch-nav {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem 1.1rem;
-  display: flex;
-  gap: 0.6rem;
-  flex-wrap: wrap;
-}
-
-.swatch-btn {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: var(--color-ground-warm);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius);
-  padding: 0.5rem 0.85rem;
-  cursor: pointer;
-  color: var(--color-ink-soft);
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.swatch-btn:hover {
-  border-color: var(--color-indigo);
-  color: var(--color-indigo);
-}
-
-.swatch-btn:focus-visible {
-  outline: 2px solid var(--color-indigo);
-  outline-offset: 2px;
-}
-
-.swatch-btn[aria-current="page"] {
-  background: var(--color-indigo);
-  border-color: var(--color-indigo);
-  color: var(--color-ground);
-}
-
-/* ---------- contenu principal ---------- */
-
-main {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 3.5rem 1.5rem 5rem;
-}
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--color-garance);
-  margin: 0 0 0.9rem;
-}
-
-h1.page-title {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
-  line-height: 1.08;
-  margin: 0 0 1.3rem;
-  max-width: 18ch;
-}
-
-.intro {
-  font-size: 1.1rem;
-  color: var(--color-ink-soft);
-  max-width: 58ch;
-  margin: 0 0 2rem;
-}
-
-.placeholder-note {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--color-garance);
-  background: rgba(147, 40, 58, 0.07);
-  border-left: 2px solid var(--color-garance);
-  padding: 0.7rem 1rem;
-  max-width: 58ch;
-}
-
-.cta-button {
-  display: inline-block;
-  margin-top: 1.5rem;
-  background: var(--color-indigo);
-  color: var(--color-ground);
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  padding: 0.85rem 1.5rem;
-  border-radius: var(--radius);
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.15s ease;
-}
-
-.cta-button:hover { background: var(--color-indigo-deep); }
-
-/* ---------- pied de page ---------- */
-
-.site-footer {
-  border-top: 1px solid var(--color-line);
-  padding: 1.5rem;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--color-ink-soft);
-}
-
-/* ---------- accessibilité / mouvement réduit ---------- */
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .swatch-btn { transition: none; }
-}
-
-@media (max-width: 560px) {
-  .header-inner { flex-direction: column; align-items: flex-start; }
-  main { padding: 2.2rem 1.2rem 3.5rem; }
+  /* ---------- typographie ---------- */
+  --fs-bump:  2px;      /* ajouté à chaque font-size via
+                           calc(Npx + var(--fs-bump)). Mettre à 0px annule
+                           le décalage sur tout le site. À terme, absorbé
+                           dans les valeurs elles-mêmes — voir l'échelle
+                           typographique du design system. */
 }

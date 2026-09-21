@@ -170,11 +170,6 @@ for(let chrono = 0; chrono < 64; chrono++){
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{
@@ -268,6 +263,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
   @media (max-width:480px){ .article-title{ font-size:calc(21px + var(--fs-bump)); } .article-content{ font-size:calc(14.5px + var(--fs-bump)); } .hex-square img{ width:170px; height:170px; } }
 </style>
+<link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
@@ -448,11 +444,6 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 }
 </script>
 <style>
-  :root{
-    --bg:#000; --panel:#0a0a0a; --white:#f2f2f0; --dim:#f2f2f0;
-    --red:#e0261b; --gold:#c9a15a; --line:#242424;
-    --fs-bump:2px;
-  }
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
   body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
@@ -555,6 +546,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
 
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
 </style>
+<link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
