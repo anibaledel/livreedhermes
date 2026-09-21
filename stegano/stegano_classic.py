@@ -22,7 +22,8 @@ import json, os, secrets, math
 from typing import List, Dict, Tuple
 
 from crypto_core import (
-    ALPHA_LEN, _encrypt, _decrypt, payload_to_symbols, max_message_for, random_grid,
+    ALPHA_LEN, payload_to_symbols, random_grid,
+    encrypt_cascade, decrypt_cascade, max_message_for_cascade,
 )
 from sweep import derive_sweep_index, crypto_reading_order
 
@@ -121,17 +122,17 @@ def max_message_len(key_b: List[int], grid_size: int = 60) -> int:
     """
     Longueur max du message en clair, en OCTETS UTF-8 (pas en caractères —
     voir crypto_core._message_to_bytes). Charge utile à longueur fixe
-    (format v3, tâche 2) : max_message_for() calcule directement la réponse
-    exacte depuis le nombre de positions, plus besoin de recherche binaire
-    locale.
+    (format v3, tâche 2) : max_message_for_cascade() calcule directement la
+    réponse exacte depuis le nombre de positions, plus besoin de recherche
+    binaire locale.
     """
-    return max_message_for(_classic_n_pos(key_b, grid_size))
+    return max_message_for_cascade(_classic_n_pos(key_b, grid_size))
 
 # ── Encodeur ─────────────────────────────────────────────────────────────────
 def encode(message: str, steg_key: bytes,
            key_b: List[int], key_2: List[Dict],
            ref256: Dict, grid_size: int = 60,
-           _nonce: bytes = None, _y: int = None,
+           _nonce1: bytes = None, _nonce2: bytes = None, _y: int = None,
            _leftover: List[int] = None, _noise_seed: bytes = None) -> List[List[int]]:
     """
     Câblage production étape 6 (2026-09-12) : positions stégano = rouge+
@@ -145,21 +146,26 @@ def encode(message: str, steg_key: bytes,
     Un même form_id (Clé 2) est appliqué IDENTIQUEMENT à chacun des k²
     sous-blocs d'un bloc k×k (comme avant ce commit).
 
-    _nonce/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) : injection
-    interne pour le mode vecteurs — voir carter.encode_carter(). None
-    (défaut) préserve exactement le comportement actuel.
+    Chiffrement : cascade v1, AES-256-GCM(XChaCha20-Poly1305) —
+    docs/CASCADE_V1.md, câblage 2026-09-21. Pas de recherche C_PUB/redraw
+    ici (key_b/key_2 sont explicites, pas dérivées d'une master_key) : la
+    cascade ne change que le payload chiffré et la capacité en octets.
+
+    _nonce1/_nonce2/_y/_leftover/_noise_seed (préfixés `_`, tâche 7) :
+    injection interne pour le mode vecteurs — voir carter.encode_carter().
+    None (défaut) préserve exactement le comportement actuel.
     """
     for k in key_b: _chk_k(k)
     N = grid_size; B = N // 6
     if N % 6 != 0:
         raise ValueError(f"grid_size {N} doit être multiple de 6")
     n_pos = _classic_n_pos(key_b, grid_size)
-    max_len = max_message_for(n_pos)   # en octets UTF-8, voir crypto_core._message_to_bytes
+    max_len = max_message_for_cascade(n_pos)   # en octets UTF-8, voir crypto_core._message_to_bytes
     msg_bytes_len = len(message.encode('utf-8'))
     if msg_bytes_len > max_len:
         raise ValueError(f"Message trop long : {msg_bytes_len} > {max_len} octets")
 
-    payload = _encrypt(message, steg_key, n_pos, _nonce=_nonce)
+    payload = encrypt_cascade(message, steg_key, n_pos, _nonce1=_nonce1, _nonce2=_nonce2)
     # Charge utile à longueur fixe (format v3, tâche 2) : toutes les
     # positions message portent un symbole de charge utile, en symboles
     # base-44 uniformes — aucun en-tête distinct.
@@ -223,7 +229,7 @@ def decode(grid: List[List[int]], steg_key: bytes,
                     vals.append(grid[gr][gc])
             pos_i += 1
         block_i += 1
-    return _decrypt(vals, steg_key, len(vals))
+    return decrypt_cascade(vals, steg_key, len(vals))
 
 # ── Clés ─────────────────────────────────────────────────────────────────────
 def make_keys(msg_len: int, ref256: Dict,

@@ -917,6 +917,98 @@ class TestClassicVariants(unittest.TestCase):
 
 
 # ══════════════════════════════════════════════════════════════════════════════
+# Classe G-bis — Carter-Random : invariants de témoin (câblage cascade, 2026-09-21)
+#
+# Point de conception explicite (chantier Carter) : les critères I à IV ne
+# s'appliquent PAS au générateur aléatoire. Carter-Random reste sans
+# structure -- composition 6/6/12/12 seulement, pas de critères, pas de
+# valeurs magiques, et par conséquent ses huit balayages conservés. Le
+# câblage de la cascade porte sur le chiffrement du payload, jamais sur
+# l'ordre de lecture ; ces tests échouent si un futur câblage (ici ou
+# ailleurs) fait déborder la cascade sur la géométrie.
+# ══════════════════════════════════════════════════════════════════════════════
+class TestCarterRandomWitness(unittest.TestCase):
+    """Carter-Random sert de témoin statistique dans le papier : aucune
+    structure imposée aux référents (pas de critères I-IV, pas de valeur
+    magique), lecture par balayage dérivé de la clé (huit balayages
+    possibles, jamais un ordre canonique fixé). Ces tests garantissent que
+    le câblage de la cascade v1 (encrypt_cascade/decrypt_cascade à la
+    place de _encrypt/_decrypt, voir carter_random.py) n'a changé QUE le
+    chiffrement du payload -- rien à la sélection du référent, au mode
+    (CR-1), aux rôles de grammaire, ni aux balayages."""
+
+    def test_eight_sweeps_no_canonical_order(self):
+        """8 balayages possibles (4 coins × 2 axes), tous distincts. Un
+        câblage qui figerait un ordre de lecture canonique (au lieu de le
+        dériver de la clé, un par couleur) romprait cet invariant en
+        réduisant ou en collisionnant cet ensemble."""
+        import sweep as SW
+        self.assertEqual(SW.N_SWEEPS, 8)
+        self.assertEqual(len(SW.SWEEPS), 8)
+        self.assertEqual(len(set(SW.SWEEPS)), 8, "balayages non distincts")
+
+    def test_geometry_unchanged_by_cascade_wiring(self):
+        """Valeurs figées sur le code de production JUSTE AVANT le câblage
+        cascade (2026-09-21, capturées sur _encrypt/_encode_carter_random
+        avant la migration vers encrypt_cascade) pour une clé fixe :
+        référent, mode (CR-1), nombre de positions ET grammaire (rôles par
+        bloc, résumés par SHA-256) doivent rester identiques après le
+        câblage. Toute différence signale que la cascade a débordé sur la
+        lecture plutôt que de se limiter au chiffrement du payload."""
+        import carter_random as CR
+        import sweep as SW
+        import hashlib
+        key = bytes(range(32))
+        _, gk = CR._carter_split(key)
+        # (ref_idx, meta_mode, n_pos, sweep_of_color, sha256 des rôles de grammaire)
+        expected = {
+            90:  (41, False, 864, {'blue': 0, 'orange': 0},
+                  '520700b34ccfa859ec00e3f063440234741e4aaefccf804be1e07377c187e829'),
+            180: (41, False, 3720, {'blue': 0, 'orange': 0},
+                  '0d49a60e61feb364d9f9621a220ff61ce40693ad1c4e21e904707cc067c7c298'),
+        }
+        for grid_size, (exp_ref, exp_meta, exp_npos, exp_sweep, exp_roles_sha) in expected.items():
+            with self.subTest(grid_size=grid_size):
+                gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos = CR._find_random_grammar_with_c_pub(
+                    gk, grid_size, capacity_fn=CR.max_message_for_cascade)
+                sweep_of_color = {c: SW.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
+                roles_sha = hashlib.sha256(bytes(g['role'] for g in grammar)).hexdigest()
+                self.assertEqual(ref_idx, exp_ref, "référent sélectionné modifié par le câblage")
+                self.assertEqual(meta_mode, exp_meta, "bascule CR-1 modifiée par le câblage")
+                self.assertEqual(n_pos, exp_npos, "nombre de positions modifié par le câblage")
+                self.assertEqual(sweep_of_color, exp_sweep, "balayage modifié par le câblage")
+                self.assertEqual(roles_sha, exp_roles_sha,
+                    "grammaire (rôles par bloc) modifiée -- la cascade a débordé sur "
+                    "autre chose que le chiffrement du payload")
+
+    def test_no_referent_filtering_all_256_reachable(self):
+        """Carter-Random n'applique aucun critère de sélection/validation
+        aux référents : select_referent_index doit pouvoir retourner
+        n'importe laquelle des 256 valeurs, sans filtrage ni repli. Un
+        échantillon de 512 clés aléatoires doit couvrir un large éventail
+        de référents distincts -- un sous-ensemble restreint trahirait un
+        filtre caché (les critères I-IV du papier, par exemple)."""
+        import referent6x6_gen as R6
+        seen = {R6.select_referent_index(os.urandom(32)) for _ in range(512)}
+        self.assertGreater(len(seen), 200,
+            f"seulement {len(seen)} référents distincts sur 512 tirages -- "
+            f"un filtre/critère aurait réduit l'espace atteignable")
+
+    def test_role_composition_not_fixed_pattern(self):
+        """Les rôles de grammaire (pur/structuré/message) sont dérivés de
+        la clé, pas d'un motif fixe : deux clés différentes doivent
+        produire des listes de rôles différentes pour le même référent."""
+        import carter_random as CR
+        _, gk1 = CR._carter_split(b'\x01' * 32)
+        _, gk2 = CR._carter_split(b'\x02' * 32)
+        ref = CR.get_referent(0)
+        roles1 = [b['role'] for b in CR._grammar_individual(gk1, ref)]
+        roles2 = [b['role'] for b in CR._grammar_individual(gk2, ref)]
+        self.assertNotEqual(roles1, roles2,
+            "mêmes rôles pour deux clés différentes -- suggère un motif fixe")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
 # Classe H — C_PUB (capacité minimale publique, tâche 4)
 #
 # Validation complète sur 10 000 clés par variante effectuée hors suite
@@ -999,19 +1091,20 @@ class TestCPub(unittest.TestCase):
                         f"{variant} : capacité sous C_PUB malgré le redraw")
 
     def test_c_pub_keys_match_wired_variants(self):
-        """Recoupe deux sources indépendantes : la liste des variantes
-        migrées de tools/recalibrate_carter_v3.VARIANTS + carter18 (hors
-        périmètre de ce script, câblé séparément -- voir crypto_core.py),
-        contre les clés de crypto_core.C_PUB. Doit rester égal : ni
-        variante câblée sans entrée C_PUB (oubli), ni entrée C_PUB
-        orpheline (typo, variante retirée). C_PUB n'est PAS un champ du
-        référent (décision de l'auteur, 2026-09-12) -- voir
-        docs/REFERENT_FORMAT_V3.md."""
+        """Recoupe deux sources indépendantes : la liste des variantes de
+        tools/recalibrate_carter_v3.VARIANTS (carter18 y a rejoint les six
+        autres avec le câblage cascade, 2026-09-21 -- avant cela, sa
+        géométrie n'avait pas changé lors du précédent passage de
+        recalibration et il n'y figurait pas), contre les clés de
+        crypto_core.C_PUB. Doit rester égal : ni variante câblée sans
+        entrée C_PUB (oubli), ni entrée C_PUB orpheline (typo, variante
+        retirée). C_PUB n'est PAS un champ du référent (décision de
+        l'auteur, 2026-09-12) -- voir docs/REFERENT_FORMAT_V3.md."""
         import crypto_core as C
         repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         sys.path.insert(0, os.path.join(repo_root, 'tools'))
         import recalibrate_carter_v3 as RC
-        wired = {variant_key for variant_key, _, _, _ in RC.VARIANTS} | {'carter18'}
+        wired = {variant_key for variant_key, _, _, _ in RC.VARIANTS}
         self.assertEqual(set(C.C_PUB.keys()), wired)
 
 
@@ -1027,7 +1120,7 @@ if __name__ == '__main__':
     for cls in [TestXChaCha20Vectors, TestKeyDerivation, TestCarterGrammar,
                 TestPayloadFormat, TestFixedPayloadUniformity, TestPtSPrimitive,
                 TestFixtures, TestEndToEnd,
-                TestClassicVariants, TestCPub]:
+                TestClassicVariants, TestCarterRandomWitness, TestCPub]:
         suite.addTests(loader.loadTestsFromTestCase(cls))
     runner = unittest.TextTestRunner(verbosity=2)
     result = runner.run(suite)
