@@ -4,55 +4,56 @@
 """
 generate_referent_bicolore_origines.py — variante C8·Bn du référent
 bicolore, depuis un dossier de 15 planches tracées "bandes<FAMILLE>.svg"
-(une par famille, déjà combinée) — à la différence de
-generate_referent_bicolore.py, qui recompose les 15 familles par parité à
-partir de 4 fonds de base.
+(une par famille) — à la différence de generate_referent_bicolore.py, qui
+lit ses 4 fonds de base dans data/referent_bicolore_src/BASES/.
 
-Même géométrie (grille 12×12, 8 triangles par cellule, 1152 parts) et même
+RÈGLE DE LECTURE — à respecter pour toute trame future (C4, cellule
+ronde, etc.) : les quatre bases (YIN, YIN-MUT, YANG, YANG-MUT) SEULES se
+lisent dans le dessin, par la couleur de remplissage — #808285 (sombre)
+= yang, #a7a9ac (clair) = yang=0 — jamais par le nom de classe SVG, qui
+varie d'une planche à l'autre sans rapport avec la couleur qu'il porte.
+Mesuré sur les 15 planches ORIGINES (C8·B3) : les 4 bases sont uniformes,
+sombre = yang, 4 sur 4, sans exception.
+
+Les ONZE COMBINAISONS ne sont PAS lues dans leur planche : « peindre en
+sombre le ou-exclusif de ses bases » n'est pas la seule route qui plaisait
+au pinceau, et huit des onze planches combinées d'ORIGINES peignent en
+sombre l'inverse de ce ou-exclusif plutôt que le ou-exclusif lui-même —
+mesuré, pas supposé (mêmes 15 planches, comparées à
+data/referent_bicolore_v1.json avant que cette règle ne soit fixée). Une
+planche combinée reste une trace utile — pour vérifier que le tracé est
+géométriquement cohérent avec ses deux bases (measure_pair_parities), pas
+pour lire une teinte — mais la teinte qui fait foi est celle que calcule
+l'algèbre : bit(A+B+...) = bit(A) xor bit(B) xor ... (familles.py:combine,
+même définition, même ordre F.BASES). C'est un choix délibéré tranché
+par Anibal : « c'est de l'arithmogéométrie que l'on souhaite » — la
+combinaison est une opération sur les CHAMPS, pas une chose qu'on peint
+puis relit.
+
+Géométrie (grille 12×12, 8 triangles par cellule, 1152 parts) et
 algorithme d'indexation — bbox, cellule, secteur trié par angle — repris
 tels quels de generate_referent_bicolore.py (_triangle_bbox,
-_global_index_map, _bits_to_hex) : "le même extracteur", appliqué
-directement à chaque planche de famille au lieu de recomposer par parité.
+_global_index_map, _bits_to_hex).
 
-Vérifié bit-exact : les 15 fichiers de data/ORIGINES/, passés par cet
-algorithme, reproduisent exactement les 15 familles de
-data/referent_bicolore_v1.json (C8·B3) — 8 sur le champ "yang", 7 sur le
-champ "yin" (la polarité, sombre = yang ou sombre = yin, est un choix par
-planche, pas une règle déductible).
+Vérifié bit-exact : appliquée aux 15 planches ORIGINES, cette règle (4
+bases lues par couleur + 11 combinaisons calculées) reproduit exactement
+data/referent_bicolore_v1.json (C8·B3) — la preuve que C8·B3 et C8·B2
+suivent une seule et même convention, aucune polarité par planche à
+retenir nulle part.
 
-Le nom de fichier encode la famille par tokens, ordre indifférent :
-"<PÔLE>" seul → {PÔLE} ; "<PÔLE> MUT" → {PÔLE-MUT} ; "<PÔLE> PUR" →
-{PÔLE, PÔLE-MUT}. PÔLE ∈ {YIN, YANG}.
-
-Polarité pour un jeu de planches sans référent JSON propre (ex. ORIGINES
-T2 pour C8·B2) : reprise par défaut de la polarité que la planche
-ORIGINES (C8·B3) utilise pour la même famille — une hypothèse, pas une
-mesure, puisque chaque jeu de planches est tracé indépendamment.
-
-Un contrôle structurel, lui, EST une mesure et ne dépend d'aucune
-convention : pour toute famille combinée A+B présente dans le jeu, le
-bit sombre extrait de la planche A+B doit être, à une inversion globale
-près, le XOR des bits sombres extraits des planches A et B seules — la
-combinaison est construite ainsi (tools/familles.py:combine).
-measure_pair_parities() mesure les 6 triplets (les 4 bases prises deux à
-deux) ; build() compare cette mesure à ce que prédit la polarité
-choisie (ORIGINES + --flip) et avertit en cas d'écart — un signal
-qu'une planche a sa polarité propre, indépendante de celle d'ORIGINES,
-sans dire laquelle des deux membres du triplet est en cause (la mesure
-ne contraint que des polarités relatives, pas une polarité absolue,
-faute de référent mathématique indépendant côté ORIGINES T2 — voir la
-discussion dans la session qui a ajouté ce contrôle).
-
-Vérifié pour ORIGINES T2 (mesure ci-dessus + confirmation d'Anibal par
-lecture directe des planches) : la polarité s'inverse pour YIN et
-YIN-MUT prises seules, mais pas pour YIN+YIN-MUT (« YIN pur ») — d'où
---flip. Les familles YANG/YANG-MUT montrent un écart similaire qui
-n'est PAS couvert par --flip : reste à vérifier à l'œil, comme pour le
-triplet YIN.
+Contrôle structurel (measure_pair_parities) : pour toute paire de bases
+A,B dont la planche combinée A+B est aussi présente, dark(A) xor dark(B)
+doit égaler dark(A+B) TELLE QUE TRACÉE, ou son inverse bit à bit, jamais
+un mélange des deux — sinon la planche combinée n'est géométriquement
+pas cohérente avec ses deux bases (une planche mal recalée, par exemple),
+ce qui serait un vrai défaut à signaler. Un inverse exact, en revanche,
+est normal et attendu (voir ci-dessus : huit des onze le sont) : il ne
+signale rien à corriger, puisque la planche combinée ne sert plus qu'au
+contrôle, pas à la donnée.
 
 Usage :
     python3 generate_referent_bicolore_origines.py \\
-        --src "data/ORIGINES T2" --trame C8B2 --flip YIN,YIN-MUT \\
+        --src "data/ORIGINES T2" --trame C8B2 \\
         --out data/referent_bicolore_c8b2_v1.json
 """
 
@@ -73,17 +74,6 @@ from generate_referent_360 import LAYER_OF  # noqa: E402  source unique, non dup
 
 POLARITY_REF = os.path.join(REPO_ROOT, 'data', 'referent_bicolore_v1.json')
 POLE_WORDS = {'YIN', 'YANG'}
-
-# Familles où la planche ORIGINES (C8·B3) trace en sombre le côté "yin" du
-# champ, et non le côté "yang" — mesuré une fois par comparaison bit à bit
-# contre data/referent_bicolore_v1.json (les 8 autres familles tracent en
-# sombre le côté "yang"). Pas une règle déductible du nom : une propriété
-# de chaque planche, reprise ici pour l'appliquer aux jeux sans référent
-# JSON propre (ex. ORIGINES T2). Voir docstring du module.
-YIN_POLARITY_KEYS = {
-    'YIN+YIN-MUT', 'YIN+YIN-MUT+YANG-MUT', 'YIN+YANG', 'YIN+YANG-MUT',
-    'YIN-MUT+YANG', 'YIN+YANG+YANG-MUT', 'YIN-MUT+YANG+YANG-MUT',
-}
 
 
 def parse_family_key(fname):
@@ -115,9 +105,11 @@ def parse_family_key(fname):
     return '+'.join(ordered)
 
 
-def extract_dark_hex(path):
-    """Bits sombres (1) d'une planche, en hex, index global 0..1151 —
-    même algorithme que generate_referent_bicolore.build()."""
+def extract_dark_bits(path):
+    """Bits sombres (1 = #808285) d'une planche, en chaîne '0'/'1', index
+    global 0..1151 — même algorithme que generate_referent_bicolore.build().
+    Le sens de ce bit (yang, pour les 4 bases) est décidé par l'appelant,
+    pas ici : cette fonction ne fait que lire la couleur."""
     tri = F.read_base(path)
     if len(tri) != G.PARTS:
         raise SystemExit(f'{path} : {len(tri)} triangles au lieu de {G.PARTS}')
@@ -127,32 +119,35 @@ def extract_dark_hex(path):
     bits = [None] * G.PARTS
     for key, (_, bit) in tri.items():
         bits[index_of[key]] = bit
-    bit_str = ''.join(str(b) for b in bits)
-    return G._bits_to_hex(bit_str), index_of
+    return ''.join(str(b) for b in bits), index_of
 
 
-def measure_pair_parities(dark_by_key):
-    """Pour chaque paire de bases A,B dont la combinaison A+B est aussi
-    présente : mesure si dark(A) xor dark(B) égale dark(A+B) (parité 0)
-    ou son inverse bit à bit (parité 1) — doit être l'un ou l'autre,
-    constant sur les 1152 bits, jamais un mélange, puisque la
-    combinaison est construite comme un XOR (familles.py:combine).
-    Retourne {(a, b, combo): parité_mesurée}."""
+def measure_pair_parities(dark_bits_by_key):
+    """Pour chaque paire de bases A,B dont la planche combinée A+B est
+    aussi présente : mesure si dark(A) xor dark(B) égale dark(A+B) TELLE
+    QUE TRACÉE (parité 0, « même sens ») ou son inverse bit à bit (parité
+    1, « inverse exact » — normal, voir docstring du module). Lève une
+    erreur seulement si c'est NI L'UN NI L'AUTRE (un mélange, signe d'une
+    planche géométriquement incohérente avec ses bases). Retourne
+    {(a, b, combo): parité_mesurée}, pour information seulement — ne pèse
+    plus sur la teinte écrite en sortie, qui est calculée, pas lue."""
     out = {}
     for a, b in itertools.combinations(F.BASES, 2):
         combo = '+'.join(x for x in F.BASES if x in (a, b))
-        if a not in dark_by_key or b not in dark_by_key or combo not in dark_by_key:
+        if a not in dark_bits_by_key or b not in dark_bits_by_key or combo not in dark_bits_by_key:
             continue
-        xor_bits = ''.join('1' if x != y else '0' for x, y in zip(dark_by_key[a], dark_by_key[b]))
-        if xor_bits == dark_by_key[combo]:
+        xor_bits = ''.join('1' if x != y else '0'
+                            for x, y in zip(dark_bits_by_key[a], dark_bits_by_key[b]))
+        if xor_bits == dark_bits_by_key[combo]:
             out[(a, b, combo)] = 0
-        elif xor_bits == ''.join('1' if c == '0' else '0' for c in dark_by_key[combo]):
+        elif xor_bits == ''.join('1' if c == '0' else '0' for c in dark_bits_by_key[combo]):
             out[(a, b, combo)] = 1
         else:
             raise SystemExit(
-                f'{a}/{b}/{combo} : dark(A) xor dark(B) ne correspond ni à dark(A+B) '
-                'ni à son inverse — planches incohérentes entre elles (pas seulement '
-                'une question de polarité).'
+                f'{a}/{b}/{combo} : dark(A) xor dark(B) ne correspond ni à dark(A+B) tracée '
+                'ni à son inverse — un mélange, signe que la planche combinée n\'est pas '
+                'géométriquement cohérente avec ses deux bases (mauvais recalage, grille '
+                'différente...). À examiner avant de continuer.'
             )
     return out
 
@@ -172,20 +167,15 @@ def compute_layers(index_of, x0, y0, cell_w):
     return layers
 
 
-def build(src_dir, trame_label, flip=frozenset()):
+def build(src_dir, trame_label):
     files = sorted(glob.glob(os.path.join(src_dir, 'bandes*.svg')))
     if len(files) != 15:
         raise SystemExit(f'{src_dir} : {len(files)} planches au lieu de 15')
 
     polarity_ref = json.load(open(POLARITY_REF, encoding='utf-8'))['familles']
-    unknown_flip = flip - set(polarity_ref)
-    if unknown_flip:
-        raise SystemExit(f'--flip : famille(s) inconnue(s) {unknown_flip}')
 
-    familles_out = {}
-    dark_hex_by_key = {}
     dark_bits_by_key = {}
-    layers = None
+    index_of_by_key = {}
     used_keys = set()
 
     for path in files:
@@ -196,43 +186,54 @@ def build(src_dir, trame_label, flip=frozenset()):
         if key not in polarity_ref:
             raise SystemExit(f'{fname} : famille "{key}" absente de {POLARITY_REF}')
         used_keys.add(key)
-
-        dark_hex, index_of = extract_dark_hex(path)
-        dark_bits = ''.join(format(int(c, 16), '04b') for c in dark_hex)
-        dark_hex_by_key[key] = dark_hex
+        dark_bits, index_of = extract_dark_bits(path)
         dark_bits_by_key[key] = dark_bits
-        light_bits = ''.join('1' if b == '0' else '0' for b in dark_bits)
-        light_hex = G._bits_to_hex(light_bits)
+        index_of_by_key[key] = index_of
 
-        # c=1 : la planche trace en sombre le côté "yin" du champ. Reprise
-        # de la convention ORIGINES (YIN_POLARITY_KEYS), inversée pour les
-        # familles listées dans --flip.
-        c = (key in YIN_POLARITY_KEYS) ^ (key in flip)
-        if c:
-            familles_out[key] = {'yang': light_hex, 'yin': dark_hex}
-        else:
-            familles_out[key] = {'yang': dark_hex, 'yin': light_hex}
+    if used_keys != set(polarity_ref):
+        raise SystemExit(f'familles manquantes : {set(polarity_ref) - used_keys}')
 
+    missing_bases = set(F.BASES) - set(dark_bits_by_key)
+    if missing_bases:
+        raise SystemExit(f'planches de base manquantes : {missing_bases}')
+
+    # Géométrie canonique de la trame : celle des 4 bases, qui doivent
+    # être identiques entre elles (même grille, mêmes axes).
+    layers = None
+    for base in F.BASES:
+        index_of = index_of_by_key[base]
+        # x0/y0/cell_w ne sont pas conservés par extract_dark_bits ; on
+        # les recalcule depuis le même fichier pour compute_layers.
+        path = next(p for p in files if parse_family_key(os.path.basename(p)) == base)
         x0, x1, y0, y1 = G._triangle_bbox(path)
         cell_w = (x1 - x0) / G.GRID
         this_layers = compute_layers(index_of, x0, y0, cell_w)
         if layers is None:
             layers = this_layers
         elif layers != this_layers:
-            raise SystemExit(f'{fname} : niveaux incohérents avec les planches précédentes')
+            raise SystemExit(f'{base} : niveaux incohérents avec les autres bases — '
+                              'les 4 planches de base ne partagent pas la même grille.')
 
-    if used_keys != set(polarity_ref):
-        raise SystemExit(f'familles manquantes : {set(polarity_ref) - used_keys}')
+    # Teinte : les 4 bases sont lues (sombre = yang) ; les 11 combinaisons
+    # sont CALCULÉES par ou-exclusif des bases, jamais lues sur leur
+    # propre planche — voir docstring du module.
+    familles_out = {}
+    for key in sorted(polarity_ref):
+        bases_in_key = key.split('+')
+        yang_bits = dark_bits_by_key[bases_in_key[0]]
+        for b in bases_in_key[1:]:
+            yang_bits = ''.join('1' if x != y else '0'
+                                 for x, y in zip(yang_bits, dark_bits_by_key[b]))
+        yin_bits = ''.join('1' if c == '0' else '0' for c in yang_bits)
+        familles_out[key] = {
+            'yang': G._bits_to_hex(yang_bits),
+            'yin': G._bits_to_hex(yin_bits),
+        }
 
-    measured = measure_pair_parities(dark_bits_by_key)
-    warnings = []
-    for (a, b, combo), measured_parity in measured.items():
-        c_a = (a in YIN_POLARITY_KEYS) ^ (a in flip)
-        c_b = (b in YIN_POLARITY_KEYS) ^ (b in flip)
-        c_combo = (combo in YIN_POLARITY_KEYS) ^ (combo in flip)
-        predicted_parity = int(c_a) ^ int(c_b) ^ int(c_combo)
-        if predicted_parity != measured_parity:
-            warnings.append((a, b, combo))
+    # Contrôle structurel sur les planches TELLES QUE TRACÉES (y compris
+    # les 11 combinées, lues ici uniquement pour ce contrôle) : aucune ne
+    # doit être un mélange par rapport au ou-exclusif de ses bases.
+    parities = measure_pair_parities(dark_bits_by_key)
 
     doc = {
         'format': 'referent-bicolore-v1',
@@ -246,7 +247,7 @@ def build(src_dir, trame_label, flip=frozenset()):
         'layers': {str(n): layers[n] for n in range(1, 7)},
         'familles': familles_out,
     }
-    return doc, warnings
+    return doc, parities
 
 
 def main():
@@ -254,27 +255,21 @@ def main():
     ap.add_argument('--src', required=True, help='dossier des 15 planches "bandes*.svg"')
     ap.add_argument('--trame', required=True, help='étiquette de la trame, ex. C8B2')
     ap.add_argument('--out', required=True, help='fichier JSON de sortie')
-    ap.add_argument('--flip', default='', help='familles (séparées par des virgules) dont la '
-                     'polarité ORIGINES doit être inversée pour ce jeu de planches, ex. YIN,YIN-MUT')
     args = ap.parse_args()
 
-    flip = {k.strip() for k in args.flip.split(',') if k.strip()}
-    doc, warnings = build(args.src, args.trame, flip=flip)
+    doc, parities = build(args.src, args.trame)
     os.makedirs(os.path.dirname(args.out) or '.', exist_ok=True)
     with open(args.out, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, separators=(',', ':'))
     size_kb = os.path.getsize(args.out) / 1024
     print(f'{args.out} : trame {args.trame}, {len(doc["familles"])} familles, {size_kb:.1f} Ko')
-    if flip:
-        print(f'Polarité ORIGINES inversée pour : {sorted(flip)}.')
-    if warnings:
-        print(f'\n{len(warnings)} paire(s) où la parité mesurée sur les planches ne '
-              'correspond pas à celle prédite par la polarité choisie (ORIGINES + --flip) '
-              '— polarité incertaine pour au moins un des trois, à vérifier à l\'œil :')
-        for a, b, combo in warnings:
-            print(f'  - {a} / {b} / {combo}')
-    print('\nPolarité (yang/yin par famille) : reprise de la convention ORIGINES (C8·B3), '
-          'ajustée par --flip — à vérifier à l\'œil sur la page avant diffusion.')
+
+    n_same = sum(1 for v in parities.values() if v == 0)
+    n_opp = sum(1 for v in parities.values() if v == 1)
+    print(f'\nContrôle de parité sur les {len(parities)} paires : {n_same} planche(s) combinée(s) '
+          f'peignent en sombre le même sens que le ou-exclusif de leurs bases, {n_opp} peignent '
+          'l\'inverse exact — aucun mélange (sinon le script aurait déjà arrêté). '
+          'La teinte écrite en sortie est calculée, pas lue : ces deux cas sont normaux.')
 
 
 if __name__ == '__main__':
