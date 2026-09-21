@@ -6,7 +6,14 @@
    (0 = image d'origine, 1 = noir total) — .72 retenu par défaut : la
    scène doit rester reconnaissable, pas juste une texture (.85 la
    noyait entièrement — vérifié, ça ne se voyait pas).
-   Suppose --bg déjà déclarée dans le :root de la page. */
+   Suppose --bg déjà déclarée dans le :root de la page.
+
+   --atalanta-plate PORTE UNE URL RELATIVE-RACINE (/assets/atalanta/...), et
+   c'est nécessaire : la variable est déclarée dans l'attribut style de la
+   page, mais l'url() est consommée ICI. Le navigateur la résout contre CETTE
+   feuille, donc contre /assets/ — un chemin relatif au document y deviendrait
+   /assets/assets/atalanta/... et ne chargerait pas. Le relatif-racine se
+   résout contre l'origine quel que soit le contexte. */
 .atalanta-zone{
   --atalanta-veil: .72;
   position:relative; overflow:hidden;
