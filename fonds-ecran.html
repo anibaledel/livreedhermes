@@ -81,6 +81,10 @@
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
     font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
     transition:opacity .12s ease, border-color .12s ease;
+    color:var(--dim); /* sans ceci, un <a> sans couleur explicite hérite du bleu de lien
+                          par défaut du navigateur (#0000EE, 2.23:1 sur --bg) quand
+                          l'emoji drapeau se replie sur son glyphe texte (FR/GB/ES/TH) —
+                          quasi illisible. --dim (8.91:1), comme le .dl-label voisin. */
   }
   .book-bar .flag-btn.ready{ opacity:1; filter:none; }
   .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
