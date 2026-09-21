@@ -95,6 +95,8 @@
     font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size:calc(11.5px + var(--fs-bump)); text-align:center;
   }
+  .commande-note{ font-family:inherit; color:var(--dim); font-style:italic;
+    font-size:calc(11px + var(--fs-bump)); margin-left:.6em; }
   .duree{ max-width:64ch; margin:0 auto 26px; text-align:center;
     font-size:calc(11px + var(--fs-bump)); color:var(--dim); font-style:italic; }
   @media (max-width:640px){
@@ -262,7 +264,7 @@
 
 
   <div class="profile-body">
-    <p class="profile-intro">Les chiffres avancés sur ce site ne sont pas des affirmations à croire sur parole. Chacun sort d'un script du dépôt, qui lit les données publiées et se relance en quelques minutes. Cette page les réunit : l'énoncé, la commande, et la sortie exacte — celle que vous devez obtenir si vous la lancez vous-même. Le code est sous <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a>, dans <a href="https://github.com/anibaledel/livreedhermes">le dépôt GitHub</a>.</p>
+    <p class="profile-intro">Les chiffres avancés sur ce site ne sont pas des affirmations à croire sur parole. Chacun sort d'un script du dépôt, qui lit les données publiées et se relance en quelques minutes. Cette page les réunit : l'énoncé, la commande, et ce qu'elle imprime — les lignes qui portent le chiffre, telles que vous les obtiendrez en la lançant vous-même. Seul le temps d'exécution varie d'une machine à l'autre. Le code est sous <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a>, dans <a href="https://github.com/anibaledel/livreedhermes">le dépôt GitHub</a>.</p>
 
     <table class="chiffres">
       <thead><tr><th>Chiffre</th><th>Ce qu'il énonce</th><th>Où il se vérifie</th></tr></thead>
@@ -271,11 +273,11 @@
         <tr><td>2</td><td>croix ansées d'ordre 6</td><td><code>croix_ansee.py</code></td></tr>
         <tr><td>256</td><td>carrés solaires d'ordre 6, 128 par croix, ensemble complet</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
         <tr><td>64</td><td>carrés magiques d'ordre 12 par assemblage, constante 870</td><td><code>verif_protocole.py</code></td></tr>
-        <tr><td>360</td><td>calques : 15 familles d'axes × 4 natures × 6 couches</td><td><code>referent_360_v3.json</code></td></tr>
+        <tr><td>360</td><td>calques : 15 familles d'axes × 4 natures × 6 niveaux</td><td><code>referent_360_v3.json</code></td></tr>
         <tr><td>8 sur 15</td><td>familles admises par le critère de demi-décalage</td><td><code>cube_edges.py</code></td></tr>
         <tr><td>512 / 256 / 128</td><td>grilles unifiées, pavages du plan, orbites de symétrie</td><td><code>cube_edges.py</code></td></tr>
         <tr><td>256 / 128 / 64</td><td>parmi elles, celles qui se referment sur le cube</td><td><code>cube_edges.py</code></td></tr>
-        <tr><td>256 bits</td><td>taille de clé de Carter ; la géométrie n'ajoute rien</td><td>norme XChaCha20-Poly1305</td></tr>
+        <tr><td>256 bits</td><td>taille de clé de Carter ; la géométrie n'ajoute rien</td><td>normes AES-256-GCM et XChaCha20-Poly1305</td></tr>
       </tbody>
     </table>
 
@@ -301,11 +303,11 @@ critères II–III sur lignes et colonnes    : <b>2</b></pre>
     <pre class="sortie">jeux R/B : 48384
 colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
 avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
-    <p class="duree">environ trois minutes</p>
+    <p class="duree">environ trois minutes ; le temps affiché varie selon la machine</p>
     <div class="profile-section">
       <p class="profile-text">Le million et demi est l'ensemble sous les quatre critères <i>seuls</i>. Les 128 n'apparaissent qu'en imposant en plus la structure de ligne de la croix. Ces 128 sont ceux d'<i>une</i> croix ; la seconde, image miroir de la première, donne les 128 autres — d'où 256.</p>
     </div>
-    <p class="commande">python tools/verif_protocole.py</p>
+    <p class="commande">python tools/verif_protocole.py<span class="commande-note">— extrait des lignes qui portent les chiffres</span></p>
     <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
 §2    cellules diagonales complémentaires par symétrie centrale    : 256/256
 §5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
@@ -313,14 +315,14 @@ avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
 
     <section class="profile-section">
       <h2>Les 360 calques</h2>
-      <p class="profile-text">Le vocabulaire de motifs : 15 familles d'axes × 4 natures font 60 calques par couche, et six couches font 360. Le nombre est porté par le fichier de données lui-même, pas par un commentaire.</p>
+      <p class="profile-text">Le vocabulaire de motifs : 15 familles d'axes × 4 natures font 60 couches, chacune tracée sur six niveaux — d'où 360 calques. Le nombre est porté par le fichier de données lui-même, pas par un commentaire.</p>
     </section>
     <p class="commande">python -c "import json; print(len(json.load(open('data/referent_360_v3.json'))['calques']))"</p>
     <pre class="sortie"><b>360</b></pre>
 
     <section class="profile-section">
       <h2>Le critère de demi-décalage et le cube</h2>
-      <p class="profile-text">Un motif est unifié si le translater d'une demi-période revient à échanger ses deux couches. Le critère ne retient que 8 familles sur 15 — celles à un seul axe diagonal — et la moitié exacte des grilles obtenues se referme sur les six faces d'un cube.</p>
+      <p class="profile-text">Un motif est unifié si le translater d'une demi-période revient à échanger ses deux couches. Le critère ne retient que 8 familles sur 15 — celles qui comptent exactement une base diagonale, yang ou yang mutant — et la moitié exacte des grilles obtenues se referme sur les six faces d'un cube.</p>
     </section>
     <p class="commande">python tools/cube_edges.py</p>
     <pre class="sortie">familles : 15 ; couches : 60
@@ -338,7 +340,7 @@ couples unifiés : 16 dans <b>8</b> familles
 
     <section class="profile-section">
       <h2>Les deux chiffres sans script</h2>
-      <p class="profile-text">Les <b>111 planches</b> se comptent dans le livre lui-même : les quatre PDF publiés portent 111 pages chacun. Les <b>256 bits</b> sont la taille de clé de XChaCha20-Poly1305, un chiffrement standard que Carter emploie sans le modifier — la géométrie n'ajoute rien à la sécurité, et les preuves tiennent même si la disposition est connue.</p>
+      <p class="profile-text">Les <b>111 planches</b> se comptent dans le livre lui-même : les quatre PDF publiés portent 111 pages chacun. Les <b>256 bits</b> sont la taille de clé des deux chiffrements standard que Carter emploie en cascade, sans les modifier : AES-256-GCM par-dessus XChaCha20-Poly1305, sous des clés indépendantes. La géométrie n'ajoute rien à la sécurité, et les preuves tiennent même si la disposition est connue.</p>
     </section>
 
     <p class="profile-sources">Pour aller plus loin : le <a href="lexique.html">lexique</a> pour les notions, <a href="book-viewer/index.html">le livre en ligne</a>, ou le <a href="profil.html">profil documentaire</a> pour les brevets et publications. Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>, code sous <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a>.</p>
