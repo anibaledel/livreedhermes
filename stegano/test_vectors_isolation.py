@@ -71,7 +71,11 @@ class TestNoPublicPathReachesInjection(unittest.TestCase):
     fichiers qui APPELLENT ces fonctions (pas dans leur propre définition).
     """
 
-    _INJECTED_KWARGS = ('_nonce=', '_y=', '_leftover=', '_noise_seed=',
+    # _nonce1=/_nonce2= (câblage cascade, 2026-09-21) : remplacent l'unique
+    # _nonce= pour les variantes migrées vers encrypt_cascade/decrypt_cascade
+    # -- '_nonce=' seul ne matche pas '_nonce1='/'_nonce2=' (substring exacte),
+    # d'où l'ajout explicite plutôt qu'une extension implicite du motif.
+    _INJECTED_KWARGS = ('_nonce=', '_nonce1=', '_nonce2=', '_y=', '_leftover=', '_noise_seed=',
                         '_pi=', '_rsk=', '_dsk=',
                         '_real_inject=', '_duress_inject=')
 

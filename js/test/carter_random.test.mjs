@@ -44,7 +44,8 @@ async function checkVector(id) {
   assert.equal(refIdx, v.derivation.params.referent_index, `${id} : referent_index`);
 
   const { grid, info } = await encode_carter_random(v.inputs.message, masterKey, {
-    _nonce: hexToBytes(v.injected.nonce_hex),
+    _nonce1: hexToBytes(v.injected.nonce1_hex),
+    _nonce2: hexToBytes(v.injected.nonce2_hex),
     _y: BigInt(v.injected.y),
     _leftover: v.injected.leftover,
     _noiseSeed: hexToBytes(v.injected.noise_seed_hex),

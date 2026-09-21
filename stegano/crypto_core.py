@@ -460,10 +460,10 @@ C_PUB = {
     'carter256':        399,
     'carter360':       1848,
     'cartermix':       1852,
-    'carterrandom90':   409,
-    'carterrandom360': 2147,
+    'carterrandom90':   384,
+    'carterrandom360': 2114,
     'carter18':         350,
-    'carterhybrid':     235,
+    'carterhybrid':     205,
 }
 
 MAX_REDRAWS = 10   # tentatives ctr=0..9 ; échec au-delà (voir _redraw_grammar_key)

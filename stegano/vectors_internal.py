@@ -529,16 +529,24 @@ def gen_cartermix_vector(vec_id, description, master_key, message, ref256, ref36
 # ── Carter-Random ──────────────────────────────────────────────────────────
 
 def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
-                             nonce, y, leftover, noise_seed, include_grid_csv=False):
+                             nonce1, nonce2, y, leftover, noise_seed, include_grid_csv=False):
+    """Câblage cascade (2026-09-21, voir carter_random.py::encode_carter_random) :
+    même traitement que gen_carter256_vector -- nonce1/nonce2 remplacent
+    l'unique `nonce`, k1/k2 capturées, capacity_fn=max_message_for_cascade.
+    Ne change QUE le payload chiffré : référent, mode (CR-1), grammaire et
+    balayages restent dérivés exactement comme avant (voir docs/CASCADE_V1.md
+    et carter_random.py::_find_random_grammar_with_c_pub)."""
     xchacha_key, grammar_key = CR._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
+    k1, k2 = CC._cascade_keys(xchacha_key)
 
     (gk_ctr, ref_idx, meta_mode, ref, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_random_grammar_with_c_pub(grammar_key, grid_size))
+        CR, lambda: CR._find_random_grammar_with_c_pub(
+            grammar_key, grid_size, capacity_fn=CC.max_message_for_cascade))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC.encrypt_cascade(message, xchacha_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    hchacha_subkey = CC.hchacha20(k1, nonce1[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -588,10 +596,15 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
     vector = {
         "id": vec_id, "instantiation": "carterrandom", "description": description,
         "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
-        "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
-                     "noise_seed_hex": _hex(noise_seed)},
+        "injected": {
+            "nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2),
+            "y": str(y), "leftover": leftover,
+            "noise_seed_hex": _hex(noise_seed),
+        },
         "derivation": {
             "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
@@ -615,15 +628,19 @@ def gen_carterrandom_vector(vec_id, description, master_key, message, grid_size,
 # ── Carter-18 ────────────────────────────────────────────────────────────────
 
 def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
-                         nonce, y, leftover, noise_seed, include_grid_csv=False):
+                         nonce1, nonce2, y, leftover, noise_seed, include_grid_csv=False):
+    """Câblage cascade (2026-09-21, voir carter_random.py::encode_carter_18) :
+    même traitement que gen_carter256_vector."""
     xchacha_key, grammar_key = CR._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
+    k1, k2 = CC._cascade_keys(xchacha_key)
 
     (gk_ctr, seed, ref18, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_carter18_grammar_with_c_pub(grammar_key, grid_size))
+        CR, lambda: CR._find_carter18_grammar_with_c_pub(
+            grammar_key, grid_size, capacity_fn=CC.max_message_for_cascade))
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC.encrypt_cascade(message, xchacha_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    hchacha_subkey = CC.hchacha20(k1, nonce1[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -652,10 +669,15 @@ def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
     vector = {
         "id": vec_id, "instantiation": "carter18", "description": description,
         "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
-        "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
-                     "noise_seed_hex": _hex(noise_seed)},
+        "injected": {
+            "nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2),
+            "y": str(y), "leftover": leftover,
+            "noise_seed_hex": _hex(noise_seed),
+        },
         "derivation": {
             "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
@@ -679,16 +701,20 @@ def gen_carter18_vector(vec_id, description, master_key, message, grid_size,
 # ── Carter-Hybrid ────────────────────────────────────────────────────────────
 
 def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
-                             nonce, y, leftover, noise_seed, include_grid_csv=False):
+                             nonce1, nonce2, y, leftover, noise_seed, include_grid_csv=False):
+    """Câblage cascade (2026-09-21, voir carter_random.py::encode_carter_hybrid) :
+    même traitement que gen_carter256_vector."""
     xchacha_key, grammar_key = CR._carter_split(master_key)
     ck = CC._commit_key(xchacha_key)
+    k1, k2 = CC._cascade_keys(xchacha_key)
 
     (gk_ctr, seed18, ref_idx6, ref18, ref6, grammar, n_pos), attempts = _count_redraw_attempts(
-        CR, lambda: CR._find_hybrid_grammar_with_c_pub(grammar_key, grid_size))
+        CR, lambda: CR._find_hybrid_grammar_with_c_pub(
+            grammar_key, grid_size, capacity_fn=CC.max_message_for_cascade))
     sweep_of_color = {c: CR.derive_sweep_index(gk_ctr, c) for c in CR._RANDOM_STEGANO_COLORS}
 
-    payload = CC._encrypt(message, xchacha_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(xchacha_key, nonce[:16])
+    payload = CC.encrypt_cascade(message, xchacha_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    hchacha_subkey = CC.hchacha20(k1, nonce1[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
@@ -725,10 +751,15 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
     vector = {
         "id": vec_id, "instantiation": "carterhybrid", "description": description,
         "inputs": {"master_key_hex": _hex(master_key), "message": message, "grid_size": grid_size},
-        "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
-                     "noise_seed_hex": _hex(noise_seed)},
+        "injected": {
+            "nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2),
+            "y": str(y), "leftover": leftover,
+            "noise_seed_hex": _hex(noise_seed),
+        },
         "derivation": {
             "commit_key_hex": _hex(ck), "xchacha_key_hex": _hex(xchacha_key),
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
             "grammar_key_hex": _hex(grammar_key),
             "redraw": {"attempts_tried": attempts, "ctr_used": attempts - 1,
                        "grammar_key_ctr_hex": _hex(gk_ctr)},
@@ -759,20 +790,26 @@ def gen_carterhybrid_vector(vec_id, description, master_key, message, grid_size,
 # explicites plutôt que de rechercher un cas particulier.
 
 def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_2,
-                        ref256, grid_size, nonce, y, leftover, noise_seed,
+                        ref256, grid_size, nonce1, nonce2, y, leftover, noise_seed,
                         include_grid_csv=False):
     """ref256 : référent v3 (câblage production, étape 6, 2026-09-12) --
     plus de Clé C (orientations D4, sans rôle sur positions absolues) ni
-    de tirage de couleur dans Clé 2 (rouge+bleu ensemble)."""
+    de tirage de couleur dans Clé 2 (rouge+bleu ensemble).
+
+    Câblage cascade (2026-09-21, voir stegano_classic.py::encode) : même
+    traitement que gen_carter256_vector -- nonce1/nonce2 remplacent
+    l'unique `nonce`, k1/k2 capturées. Pas de redraw/capacity_fn ici :
+    key_b/key_2 sont explicites, pas dérivées (voir stegano_classic.encode)."""
     n_pos = SC._classic_n_pos(key_b, grid_size)
-    payload = CC._encrypt(message, steg_key, n_pos, _nonce=nonce)
-    hchacha_subkey = CC.hchacha20(steg_key, nonce[:16])
+    k1, k2 = CC._cascade_keys(steg_key)
+    payload = CC.encrypt_cascade(message, steg_key, n_pos, _nonce1=nonce1, _nonce2=nonce2)
+    hchacha_subkey = CC.hchacha20(k1, nonce1[:16])
     m = CC._smallest_m(CC._capacity_k(n_pos) + CC._LAMBDA_S)
     leftover = _normalize_leftover(n_pos, leftover)
     symbols = CC.payload_to_symbols(payload, n_pos, _y=y, _leftover=leftover)
 
     grid = SC.encode(message, steg_key, key_b, key_2, ref256, grid_size,
-                      _nonce=nonce, _y=y, _leftover=leftover, _noise_seed=noise_seed)
+                      _nonce1=nonce1, _nonce2=nonce2, _y=y, _leftover=leftover, _noise_seed=noise_seed)
 
     decoded = SC.decode(grid, steg_key, key_b, key_2, ref256, grid_size)
     assert decoded == message, f"auto-verification decode a echoue pour {vec_id}"
@@ -784,9 +821,14 @@ def gen_classic_vector(vec_id, description, steg_key, message, key_b, key_2,
             "key_b": list(key_b),
             "key_2": [{"form_id": d['form_id']} for d in key_2],
         },
-        "injected": {"nonce_hex": _hex(nonce), "y": str(y), "leftover": leftover,
-                     "noise_seed_hex": _hex(noise_seed)},
+        "injected": {
+            "nonce1_hex": _hex(nonce1), "nonce2_hex": _hex(nonce2),
+            "y": str(y), "leftover": leftover,
+            "noise_seed_hex": _hex(noise_seed),
+        },
         "derivation": {
+            "k1_hex": _hex(k1), "k2_hex": _hex(k2),
+            "alg": CC.ALG_CASCADE_V1,
             "n_pos": n_pos,
             "hchacha20_subkey_hex": _hex(hchacha_subkey), "payload_hex": _hex(payload),
             "pts_m": m, "pts_y": str(y), "symbols": symbols,
@@ -1115,25 +1157,31 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_carterrandom_vector(
         "carterrandom-basic-01", "Vecteur de base Carter-Random (90×90).",
         bytes((i * 3 + 1) % 256 for i in range(32)), "CARTER RANDOM TEST", 90,
-        nonce, 0, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carterrandom_vector(
         "carterrandom-cr1-01", "Clé déclenchant le repli CR-1 (méta→individuel).",
         _MK_CR1_CARTERRANDOM, "CR1 FALLBACK TEST", 90,
-        nonce, 0, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
+    # Câblage cascade (2026-09-21) : _Y_CARTER18_BASIC/_Y_CARTERHYBRID_BASIC
+    # ont été calculées pour l'ancien capacity_fn (max_message_for) -- le
+    # nouveau seuil (max_message_for_cascade, 29 octets de moins) peut
+    # changer n_pos si un redraw se déclenche désormais là où il ne se
+    # déclenchait pas. y=0 le temps de vérifier/recalculer une valeur
+    # sous cascade (même précédent que carter256-basic-01).
     v, g = gen_carter18_vector(
         "carter18-basic-01", "Vecteur de base Carter-18.",
         bytes((i * 5 + 2) % 256 for i in range(32)), "CARTER 18 TEST", 90,
-        nonce, _Y_CARTER18_BASIC, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     v, g = gen_carterhybrid_vector(
         "carterhybrid-basic-01", "Vecteur de base Carter-Hybrid.",
         bytes((i * 11 + 4) % 256 for i in range(32)), "CARTER HYBRID TEST", 90,
-        nonce, _Y_CARTERHYBRID_BASIC, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     # TODO v3-format (etape 10) : _Y_CLASSIC_BASIC calculee pour l'ancien
@@ -1146,7 +1194,7 @@ def generate_all(include_grid_csv_showcase=True):
     v, g = gen_classic_vector(
         "classic-basic-01", "Vecteur de base stegano_classic.",
         steg_key, "BONJOUR ANIBAL", key_b, key_2, ref256_v3, grid_size,
-        nonce, 0, [], noise_seed)
+        nonce, nonce2, 0, [], noise_seed)
     add(v, g)
 
     rsk = bytes((i * 17 + 6) % 256 for i in range(32))
