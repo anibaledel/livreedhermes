@@ -164,9 +164,11 @@ coexistent, mutuellement exclusifs par consommateur :
 > Cet ordre ne dépend que de la forme choisie (publique dans le référent),
 > plus de `sweep.py` : la clé continue de choisir QUELLE forme (`form_id`,
 > dérivé de la grammaire), mais l'ordre DE LECTURE à l'intérieur de la
-> forme choisie devient public. Les ~3 bits qu'apportait le choix parmi 8
-> balayages disparaissent pour Carter-256 — négligeables devant une clé de
-> 256 bits, à ne jamais présenter comme un ordre secret. Le théorème
+> forme choisie devient public. Les six bits qu'apportaient les deux
+> balayages indépendants (un par couleur stéganographique, rouge et bleu,
+> chacun 1 octet parmi 8 valeurs, soit 2×log2(8)=6) disparaissent pour
+> Carter-256 — négligeables devant une clé de 256 bits, à ne jamais
+> présenter comme un ordre secret. Le théorème
 > d'indiscernabilité message/bruit vaut pour toute règle de lecture
 > publique et n'est pas affecté ; c'est la cascade (`docs/CASCADE_V1.md`)
 > qui protège le contenu. Carter-360, Carter-Mix (côté 256 compris) et

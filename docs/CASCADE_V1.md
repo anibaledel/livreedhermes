@@ -25,7 +25,7 @@ Ce n'est pas un choix d'algorithme : les deux sont toujours utilisés, dans cet 
 
 - Octet de version d'algorithme `ALG_CASCADE_V1 = 3` (après `1` = legacy HKDF, `2` = XChaCha natif), inclus dans les données authentifiées (AAD) des deux couches, pour qu'il ne puisse pas être modifié sans casser l'authentification.
 - Enveloppe : `cm ‖ alg ‖ N2(12) ‖ N1(24) ‖ C ‖ T1(16) ‖ T2(16)` — ordre exact figé dans `crypto_core.py` et à reproduire dans le JS ; les vecteurs font foi.
-- Surcoût : 28 octets par message. Capacités (`C_PUB`) recalibrées en conséquence par `tools/`.
+- Surcoût : 29 octets par message (`alg` 1 + `N2` 12 + `T2` 16 — vérifié directement sur `crypto_core._AEAD_OVERHEAD_CASCADE - _AEAD_OVERHEAD = 101 - 72 = 29`, et sur `max_message_for_cascade(L) == max_message_for(L) - 29` pour tout `L`). Capacités (`C_PUB`) recalibrées en conséquence par `tools/`.
 - Décodage : vérifier `cm`, lire `alg`, refuser tout `alg` inconnu, ne jamais « essayer » un autre algorithme en repli.
 
 ## Ce qu'il ne faut pas faire
