@@ -178,9 +178,10 @@ def _carter_positions(br: int, bc: int, g: Dict, ref256: Dict) -> List[Tuple]:
     LECTURE À L'INTÉRIEUR de la forme choisie qui devient public. Le
     théorème 1 (indiscernabilité message/bruit) vaut pour toute règle de
     lecture publique et n'est pas affecté ; c'est la cascade qui protège
-    le contenu. Ce qui disparaît : les ~3 bits qu'apportait le choix
-    parmi 8 balayages — négligeables devant une clé de 256 bits, mais à
-    ne jamais présenter comme un ordre secret.
+    le contenu. Ce qui disparaît : les six bits qu'apportaient les deux
+    balayages indépendants (un par couleur stéganographique, rouge et
+    bleu, chacun 1 octet parmi 8 valeurs) — négligeables devant une clé
+    de 256 bits, mais à ne jamais présenter comme un ordre secret.
 
     Ne s'applique qu'au référent 256 : Carter-360, Carter-Mix (côté 256
     compris) et la stéganographie classique gardent le balayage actuel,
