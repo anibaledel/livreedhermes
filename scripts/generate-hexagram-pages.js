@@ -5,6 +5,7 @@
    Usage : node generate-hexagram-pages.js
    ============================================================ */
 const fs = require('fs');
+const crypto = require('crypto');
 const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
@@ -61,16 +62,27 @@ const ARTICLE_LINKS_BY_KW = {
 
 // Les 64 pages ont été créées le même jour (voir git log).
 //
-// dateModified DÉPEND DU CONTENU, pas du jour de régénération. Chaque page
-// est rendue une première fois avec la date que porte déjà le fichier sur
-// disque ; si le résultat est identique octet pour octet, rien n'a changé et
-// la date est conservée. Sinon, et seulement dans ce cas, la page prend la
-// date du jour. Une page réécrite à l'identique garde donc sa date, et une
-// régénération sans changement ne produit aucune différence.
+// dateModified DÉPEND DU TEXTE ÉDITORIAL, et de lui seul. Chaque page porte
+// en tête de <head> l'empreinte SHA-256 des champs qui font son contenu :
+// jugement, image, commentaires des six traits, trigrammes, nom, pinyin,
+// hanzi, lien d'article, source citée. Si l'empreinte recalculée est
+// identique à celle du fichier, la date est conservée.
+//
+// Ce qui n'entre PAS dans l'empreinte : l'en-tête, les icônes, le CSS, les
+// scripts, la mise en page — tout ce qui habille le texte sans le changer.
+// Un changement de gabarit ne déplace donc plus aucune date.
+//
+// La version antérieure comparait le fichier rendu ENTIER. Elle empêchait
+// la dérive accidentelle, mais ne savait pas séparer le décor du fond : une
+// refonte d'en-tête redatait les 64 pages, et il fallait à chaque fois
+// décider à la main de remettre la date d'avant. La règle est désormais
+// exacte au lieu d'approchée, et ce jugement disparaît.
 //
 // Le fichier de sortie EST le registre : pas d'état à committer à côté, pas
-// de fichier à resynchroniser. Une retouche à la main d'une page est
-// détectée au même titre qu'un changement du générateur.
+// de fichier à resynchroniser. Une page sans empreinte — à la première
+// génération après ce changement — est ADOPTÉE : sa date en place est
+// conservée telle quelle et l'empreinte est enregistrée, sans rien dater
+// de neuf.
 //
 // La version précédente utilisait new Date() à chaque passage. Elle datait
 // les 64 pages du jour même quand seul le CSS avait bougé : un faux signal
@@ -411,18 +423,35 @@ ${FOOTER_CTA_SCRIPT}
 </html>
 `;
 
-  // Date dépendante du contenu : on rend la page avec la date déjà présente
-  // sur disque ; si c'est identique, le contenu n'a pas bougé et la date est
-  // conservée. Voir le commentaire de DATE_PUBLISHED plus haut.
-  const outPath = path.join(OUT_DIR, slug);
-  const rendre = (iso) => html
-    .split(DATE_ISO_PLACEHOLDER).join(iso)
-    .split(DATE_FR_PLACEHOLDER).join(formatDateFr(iso));
-  const ancien = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : null;
-  const dateAncienne = ancien && (ancien.match(/"dateModified":\s*"(\d{4}-\d{2}-\d{2})"/) || [])[1];
-  const dateModified = (dateAncienne && rendre(dateAncienne) === ancien) ? dateAncienne : TODAY;
+  // L'empreinte ne porte que sur le texte : ajouter un champ ici, c'est
+  // décider qu'en changer la valeur redate la page. Voir le commentaire de
+  // DATE_PUBLISHED plus haut.
+  const contenuEditorial = JSON.stringify({
+    chrono, kwNum, pinyin, nameFr, hanzi,
+    jugementTitle, jugementText, imageText,
+    traits: traits.map((bit, i) => DATA.LINE_COMMENT[i + 1][bit]),
+    trigrammeBas: lower, trigrammeHaut: upper,
+    article: ARTICLE_LINKS_BY_KW[kwNum] || null,
+    source: BOOK_SOURCE_HTML,
+  });
+  const empreinte = crypto.createHash('sha256').update(contenuEditorial).digest('hex');
 
-  fs.writeFileSync(outPath, rendre(dateModified), 'utf8');
+  const outPath = path.join(OUT_DIR, slug);
+  const ancien = fs.existsSync(outPath) ? fs.readFileSync(outPath, 'utf8') : null;
+  const empreinteAncienne = ancien && (ancien.match(/<!-- @contenu sha256:([0-9a-f]{64})/) || [])[1];
+  const dateAncienne = ancien && (ancien.match(/"dateModified":\s*"(\d{4}-\d{2}-\d{2})"/) || [])[1];
+
+  let dateModified;
+  if (!dateAncienne) dateModified = TODAY;                        // page neuve
+  else if (!empreinteAncienne) dateModified = dateAncienne;       // adoption
+  else dateModified = (empreinteAncienne === empreinte) ? dateAncienne : TODAY;
+
+  const rendu = html
+    .split(DATE_ISO_PLACEHOLDER).join(dateModified)
+    .split(DATE_FR_PLACEHOLDER).join(formatDateFr(dateModified))
+    .replace('<head>', `<head>\n<!-- @contenu sha256:${empreinte} — empreinte du texte éditorial seul ; voir scripts/generate-hexagram-pages.js -->`);
+
+  fs.writeFileSync(outPath, rendu, 'utf8');
   pages.push({ chrono, kwNum, slug, url });
 }
 
