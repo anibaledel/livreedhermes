@@ -97,7 +97,26 @@ async function checkPage(browser, page_def) {
   const errors = [];
   page.on('pageerror', (err) => errors.push(`exception : ${err.message}`));
   page.on('console', (msg) => {
-    if (msg.type() === 'error') errors.push(`console.error : ${msg.text()}`);
+    if (msg.type() !== 'error') return;
+    // Même filtre par origine que requestfailed ci-dessous, et pour la même
+    // raison : une ressource tierce qui tombe (police Google, widget de
+    // traduction, image sur un autre domaine) émet un « Failed to load
+    // resource » dans la console, et sans ce filtre elle ferait échouer une
+    // page qui n'y est pour rien — un réseau capricieux, un proxy, une
+    // coupure chez le tiers suffisent. msg.location().url donne l'URL à
+    // l'origine du message : pour un échec de chargement c'est la ressource
+    // elle-même, pour une vraie exception c'est le script fautif, donc
+    // même-origine. Un message sans URL est conservé, par prudence.
+    const src = msg.location()?.url;
+    if (src && !src.startsWith(BASE_URL)) return;
+    // /favicon.ico est demandé par le navigateur de sa propre initiative, pas
+    // par la page : aucune page du site n'en déclare. Il n'apparaît qu'au
+    // premier chargement d'un contexte neuf, donc sur une page différente
+    // selon l'ordre d'exécution — un échec intermittent qui n'apprend rien
+    // sur la page accusée. (Le jour où le site déclarera une icône, cette
+    // exclusion pourra tomber.)
+    if (src && new URL(src).pathname === '/favicon.ico') return;
+    errors.push(`console.error : ${msg.text()}`);
   });
   page.on('requestfailed', (req) => {
     // ignore les échecs de tiers (polices Google, traduction) — on contrôle

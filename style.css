@@ -55,15 +55,22 @@
                            des équerres. */
 
   /* ---------- traits ---------- */
-  --line:     #5c5c5c;  /* bordures et filets — 3.14:1 sur --bg.
-                           CORRIGÉ : valait #242424, soit 1.35:1, très en
-                           dessous du 3:1 exigé pour la frontière d'un
-                           composant. Ce token borde .nav-tile, .dl-btn,
-                           .site-nav-btn, .app-lang-btn, .xref-btn et
-                           .flag-btn : la grille de l'accueil n'avait
-                           pratiquement pas de cases visibles au repos.
-                           Il sert aussi aux filets de séparation, qui
-                           deviennent donc plus nets eux aussi. */
+  --line:       #242424;  /* FILETS DÉCORATIFS — séparateurs, bordure basse
+                             des en-têtes, trait au-dessus de la barre livre,
+                             cadres d'images et de canevas. 1.35:1 : WCAG
+                             1.4.11 ne porte que sur les composants
+                             d'interface et exempte explicitement le
+                             décoratif. Valeur d'origine, volontairement
+                             discrète. */
+  --line-strong: #5c5c5c; /* BORDURES DE CONTRÔLES — boutons, champs de
+                             saisie, tuiles de navigation, sélecteur du
+                             widget de traduction. 3.14:1 sur --bg, le
+                             minimum WCAG pour la frontière d'un composant.
+                             Ces éléments prenaient --line (1.35:1) : la
+                             grille de tuiles de l'accueil n'avait
+                             pratiquement pas de cases visibles au repos.
+                             40 sélecteurs, tous boutons, champs ou tuiles ;
+                             un sélecteur douteux reste sur --line. */
 
   /* ---------- typographie ---------- */
   --fs-bump:  2px;      /* ajouté à chaque font-size via

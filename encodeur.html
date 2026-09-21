@@ -112,7 +112,7 @@
   /* ---------- interface encodeur ---------- */
   .enc-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 0 24px; border-bottom:1px solid var(--line); padding-bottom:16px; }
   .enc-nav button{
-    border:1px solid var(--line); background:transparent; color:var(--dim);
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
     font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px;
     cursor:pointer; font-family:inherit; transition:border-color .12s ease, color .12s ease; min-height:44px;
   }
@@ -124,7 +124,7 @@
   .enc-label{ display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); opacity:.85; margin:16px 0 6px; }
   .enc-label:first-of-type{ margin-top:0; }
   .enc-input, .enc-textarea, .enc-select{
-    width:100%; padding:11px 12px; border:1px solid var(--line); background:var(--panel);
+    width:100%; padding:11px 12px; border:1px solid var(--line-strong); background:var(--panel);
     color:var(--white); font-family:inherit; font-size:13.5px;
   }
   .enc-textarea{ min-height:110px; resize:vertical; font-family:monospace; font-size:12px; }
@@ -137,7 +137,7 @@
     min-height:44px; font-family:inherit;
   }
   .enc-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .enc-btn.secondary{ border-color:var(--line); color:var(--dim); }
+  .enc-btn.secondary{ border-color:var(--line-strong); color:var(--dim); }
   .enc-btn.secondary:hover{ border-color:var(--gold); color:var(--gold); }
   .enc-info-box{ border-left:3px solid var(--gold); background:var(--panel); padding:12px 16px; font-size:12.5px; line-height:1.7; margin-top:16px; color:var(--dim); }
   .enc-info-box b{ color:var(--gold); font-weight:400; }
@@ -189,7 +189,7 @@
   .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
   .credit-line-secondary a:hover{ color:var(--gold); }
   .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
-  .site-nav-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
   .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
   .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
