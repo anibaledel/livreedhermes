@@ -510,7 +510,7 @@
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Créer un motif</span>
     </nav>
     <h1>Création de motifs</h1>
-    <p>60 natures, 6 niveaux de traits, un échiquier d'images à chaque croisement</p>
+    <p id="txt-headerCounts">60 images, 6 niveaux, 360 calques</p>
     <div class="book-bar">
       <span class="dl-group">
         <a class="dl-label" href="fr/livre/" target="_blank" rel="noopener">Lire le livre</a>
@@ -1067,6 +1067,14 @@ const CATEGORIES = [
   { id:'par4',  label:'Par 4', n:4,  sub:'combinaison des 4 axes' },
   { id:'les60', label:'Les 60', n:60, sub:'toutes les natures' },
 ];
+
+// B4 : les trois nombres du chapeau (images, niveaux, calques) viennent de
+// data/referent_360_v3.json, pas écrits en dur — n_identities/niveaux distincts/n_calques.
+fetch('data/referent_360_v3.json').then(r=>r.json()).then(d=>{
+  const nNiveaux = new Set(d.calques.map(c=>c.niveau)).size;
+  const el = document.getElementById('txt-headerCounts');
+  if(el) el.textContent = `${d.n_identities} images, ${nNiveaux} niveaux, ${d.n_calques} calques`;
+}).catch(err=> console.error('Chapeau : échec de lecture de referent_360_v3.json', err));
 
 // Ordre fixe des colonnes (teintes), imposé pour toutes les catégories.
 const AXIS_ORDER = ['yang','yang_mut','yin_mut','yin'];
