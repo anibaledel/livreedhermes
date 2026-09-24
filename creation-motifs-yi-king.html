@@ -1782,7 +1782,73 @@ function showDetail(cell){
     document.getElementById('btnPairGridPngB').addEventListener('click', ()=> downloadGridPNG(pairCell.grid, pairCell.kw));
     document.getElementById('btnPairGridJsonB').addEventListener('click', ()=> downloadGridJSON(pairCell.grid, pairCell.chrono, pairCell.kw, pairCell.traits));
   }
+  updateMotifURL(cell);
   area.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// B1 : lien permanent d'une composition — les six choix (niveau -> image, position 1=bas
+// .. 6=haut, comme cell.traits) et la palette active tiennent dans l'URL. Recalcule
+// yangItem/yinItem depuis `picked` par yangScore, exactement comme buildResultArea, plutôt
+// que de les faire transiter en paramètre — showDetail() n'a besoin de rien changer d'autre.
+function updateMotifURL(cell){
+  if(picked.length < 2) return;
+  const [A,B] = picked;
+  const sA = yangScore(A), sB = yangScore(B);
+  const yangItem = (sA>=sB) ? A : B, yinItem = (sA>=sB) ? B : A;
+  const params = new URLSearchParams();
+  cell.traits.forEach((bit,i) => params.set('n'+(i+1), bit ? yangItem.file : yinItem.file));
+  params.set('palette', PALETTE_KEYS.map(k=>PALETTE[k]).join(','));
+  history.replaceState(null, '', `${location.pathname}?${params.toString()}`);
+}
+
+// Rejeu exact depuis ?n1=...&n6=...&palette=... : retrouve les 2 images par leur `file`
+// (uniques sur les 60), reconstruit le rôle Créateur/Réceptif par yangScore (comme
+// buildResultArea), en déduit les traits puis le chrono, et ouvre la même case qu'un clic
+// réel — sans repasser par le hasard, qui n'existe d'ailleurs pas ici (le choix est manuel).
+function replayMotifFromURL(){
+  const params = new URLSearchParams(location.search);
+  const files = [];
+  for(let i=1;i<=6;i++){
+    const v = params.get('n'+i);
+    if(!v) return false;
+    files.push(v);
+  }
+  const uniqueFiles = [...new Set(files)];
+  if(uniqueFiles.length !== 2) return false;
+  const all = itemsForCat('les60');
+  const itemA = all.find(it=>it.file===uniqueFiles[0]);
+  const itemB = all.find(it=>it.file===uniqueFiles[1]);
+  if(!itemA || !itemB) return false;
+
+  // PALETTE est un const (ligne ~642) : c'est paletteState (source persistée en
+  // localStorage) qu'il faut réécrire, puis rejouer le même chemin qu'un choix manuel de
+  // couleur (applyPaletteToSite recopie paletteState.colors dans PALETTE et repeint). Si le
+  // mode Monochrome est actif (défaut au chargement), un vrai clic sur btnColorMode bascule
+  // en Multicolore avec tous ses effets de bord (affichage des blocs, CSS) avant d'écrire
+  // les couleurs demandées, sinon applyMonoHue() les écraserait aussitôt après.
+  const paletteParam = params.get('palette');
+  if(paletteParam){
+    const parts = paletteParam.split(',');
+    if(parts.length===3 && parts.every(p => /^#[0-9a-f]{6}$/i.test(p))){
+      if(colorMode==='mono' && btnColorModeEl) btnColorModeEl.click();
+      paletteState = { colors: { V:parts[0], M:parts[1], O:parts[2] }, master: paletteState.master };
+      paletteFrozenDeltas = computeFrozenDeltas(paletteState.master);
+      applyPaletteToSite();
+      renderPaletteSwatches();
+      savePaletteState();
+    }
+  }
+
+  currentCat = 'les60';
+  picked = [itemA, itemB];
+  render();
+
+  const sA = yangScore(itemA), sB = yangScore(itemB);
+  const yangItem = (sA>=sB) ? itemA : itemB;
+  const traits = files.map(f => f===yangItem.file ? 1 : 0);
+  const cell = lastEchiquierCells.find(c => c.chrono === chronoFromTraits(traits));
+  if(cell) showDetail(cell);
+  return true;
 }
 
 // ---------- palette liée (3 couleurs, persistante via localStorage) ----------
@@ -1982,7 +2048,7 @@ if(btnResetEl) btnResetEl.addEventListener('click', ()=>{
 });
 const btnPrintEl = document.getElementById('btnPrint');
 if(btnPrintEl) btnPrintEl.addEventListener('click', ()=> window.print());
-render();
+if(!replayMotifFromURL()) render();
 </script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
