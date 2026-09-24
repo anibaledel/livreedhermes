@@ -434,6 +434,8 @@
         <div class="book-bar" style="justify-content:flex-start;border-top:none;padding-top:0;margin-top:0;">
           <span class="dl-btn" id="dlSvg" style="cursor:pointer;">Télécharger SVG</span>
           <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
+          <span class="dl-btn" id="dlGridPng" style="cursor:pointer;">Télécharger grille.png</span>
+          <span class="dl-btn" id="dlGridJson" style="cursor:pointer;">Télécharger grille.json</span>
         </div>
       </div>
     </div>
@@ -509,6 +511,7 @@
 
 </div>
 
+<script src="assets/calque-engine.js"></script>
 <script>
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 
@@ -527,6 +530,7 @@ const UI = {
     randomCatBtn:"Choisir la catégorie au hasard", randomFamilleBtn:"Choisir la famille au hasard", randomTeinteBtn:"Choisir la teinte au hasard",
     resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
+    dlGridPngBtn:"Télécharger grille.png", dlGridJsonBtn:"Télécharger grille.json",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
@@ -547,6 +551,7 @@ const UI = {
     randomCatBtn:"Pick a random category", randomFamilleBtn:"Pick a random family", randomTeinteBtn:"Pick a random tint",
     resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
+    dlGridPngBtn:"Download grid.png", dlGridJsonBtn:"Download grid.json",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
@@ -568,6 +573,7 @@ const UI = {
     randomCatBtn:"Elegir la categoría al azar", randomFamilleBtn:"Elegir la familia al azar", randomTeinteBtn:"Elegir el matiz al azar",
     resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
+    dlGridPngBtn:"Descargar grille.png", dlGridJsonBtn:"Descargar grille.json",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
@@ -587,6 +593,7 @@ const UI = {
     randomCatBtn:"สุ่มเลือกหมวดหมู่", randomFamilleBtn:"สุ่มเลือกตระกูล", randomTeinteBtn:"สุ่มเลือกโทนสี",
     resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
+    dlGridPngBtn:"ดาวน์โหลด grille.png", dlGridJsonBtn:"ดาวน์โหลด grille.json",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
@@ -620,6 +627,8 @@ function applyUILang(){
   if(!state.chrono) document.getElementById('resultIdea').textContent = t('resultPlaceholder');
   document.getElementById('dlSvg').textContent = t('dlSvgBtn');
   document.getElementById('dlPdf').textContent = t('dlPdfBtn');
+  document.getElementById('dlGridPng').textContent = t('dlGridPngBtn');
+  document.getElementById('dlGridJson').textContent = t('dlGridJsonBtn');
   document.getElementById('txt-navHome').textContent = t('navHome');
   document.getElementById('txt-navHomeDesc').textContent = t('navHomeDesc');
   document.getElementById('txt-navTirage').textContent = t('navTirage');
@@ -1376,6 +1385,7 @@ async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
 async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
   let block = '';
   let template = templateText;
+  const grid = Array.from({length:12}, () => Array(12).fill(null));
   for(let pos=1; pos<=6; pos++){
     const axisSlug = drawnSlugs[pos-1];
     const posText = await loadAxisPositionText(spaceKey, baseDir, axisSlug, pos);
@@ -1389,13 +1399,13 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
       if(row < 0 || col < 0) continue;
       if(LAYER_OF[row][col] !== pos) continue; // seulement les 24 cellules propres à cette position
       const fill = fillMap[mm[1]];
-      if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
+      if(fill){ block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`; grid[row][col] = fill; }
     }
     block += extraMarksVsBase(templateText, posText);
     block += renderOwnStrokeShapes(posText);
     if(pos === 1) template = stripMarksUniqueToBase(templateText, posText);
   }
-  return { block, template };
+  return { block, template, grid };
 }
 
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le bloc déjà calculé
@@ -1474,14 +1484,14 @@ async function drawCategorie2(){
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     familyName: `Combinaison bases ${NATURE_LABELS[axisA]} et ${NATURE_LABELS[axisB]}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir, templateText,
+    drawnSlugs, spaceKey, baseDir, templateText, grid,
   };
 }
 
@@ -1497,14 +1507,14 @@ async function drawCategorie1Or3(cat){
   const posDir = baseDir + teinteSlug + '/';
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     familyName: cat === 1 ? `Famille ${NATURE_LABELS[teinteSlug]}` : `Famille sans ${NATURE_LABELS[teinteSlug]}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir: posDir, templateText,
+    drawnSlugs, spaceKey, baseDir: posDir, templateText, grid,
   };
 }
 
@@ -1516,14 +1526,14 @@ async function drawCategorie4(){
   const baseDir = 'assets/trait-cartes/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
   const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: drawnSlugs.join('-'),
     familyName: `Combinaison des 4`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir, templateText,
+    drawnSlugs, spaceKey, baseDir, templateText, grid,
   };
 }
 
@@ -1627,6 +1637,30 @@ document.getElementById('dlSvg').addEventListener('click', async ()=>{
 });
 document.getElementById('dlPdf').addEventListener('click', ()=>{
   alert(t('pdfAlert'));
+});
+
+// A4 : export grille.png/grille.json depuis state.item.grid — déjà reconstruite par
+// buildCompositeBlock (couleur hex par case), jamais une relecture du SVG final.
+document.getElementById('dlGridPng').addEventListener('click', async ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  const blob = await CalqueEngine.gridToPNG(state.item.grid);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `grille_${state.item.id}.png`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById('dlGridJson').addEventListener('click', ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  const cases = state.item.grid.map(row => row.map(hex => hex ? (CalqueEngine.HEX_TO_LABEL[hex] || null) : null));
+  const hex = state.item.hex;
+  const hexagramme = {
+    chrono: hex.chrono, kingwen: hex.kw, movingIdx: hex.movingIdx,
+    arrivee: hex.arrivee ? { chrono: hex.arrivee.chrono, kingwen: hex.arrivee.kw } : null,
+  };
+  const json = CalqueEngine.gridToJSON({ ordre: cases.length, niveaux: state.item.drawnSlugs, hexagramme, cases });
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `grille_${state.item.id}.json`; a.click();
+  URL.revokeObjectURL(url);
 });
 
 /* ===== init ===== */
