@@ -53,33 +53,70 @@ doivent pas servir de source.
 Établi par reconstitution algébrique sur les exemples : `Yin` y porte les écarts
 0 et 3, `Yin mutant` les écarts 1,5 et 4,5 — valeurs cumulées.
 
-### 1.4 Les trois lectures — le point neuf
+### 1.4 La lecture — un seul opérateur suffit
 
-Un même jeu d'axes engendre trois familles de formes selon l'opérateur qu'on lui
-applique. Ce ne sont pas des variantes esthétiques mais trois constructions
-distinctes.
+Une seule construction est nécessaire : la **frontière**. Une case est sombre si
+elle se trouve d'un côté impair, c'est-à-dire si le nombre de frontières
+franchies est impair — non pas seulement les droites, mais **toute** frontière,
+y compris le losange inscrit (voir §1.2 et §1.5). Engendre des **damiers**, des
+**treillis** et des **claustras** selon ce qu'on compte.
 
-**Frontière.** Une case est sombre si elle se trouve d'un côté impair, c'est-à-dire
-si le nombre d'axes franchis depuis un coin est impair. Engendre des **damiers**.
+Vérifié exact, au triangle près :
+- bases orthogonales de la première génération — `YIN`, `YIN MUT`, `YANG`,
+  0 écart sur 1 152 ;
+- `YANG` de la deuxième génération (voir §1.5), 0 écart sur 1 152, en comptant
+  le losange inscrit avec les droites et les gnomons.
 
-Vérifié exact, au triangle près, sur les bases orthogonales : `YIN`, `YIN MUT` et
-`YANG` de la première génération, 0 écart sur 1 152.
+**Il n'y a pas de lecture « bande » séparée.** Ce qui ressemblait à un ruban sur
+les images diagonales — aucune case pleinement sombre — est l'effet visuel des
+petits losanges du gnomon (§1.5), pas un opérateur distinct. Deux lectures
+suffisent à tout le système : la frontière, établie, et le miroir, hypothétique
+(§1.4bis) — pas trois.
 
-**Miroir.** Les axes sont les droites d'un groupe de réflexions. On pose une
-figure dans une région fondamentale et on la réfléchit de proche en proche.
-Engendre des **rosaces** et des entrelacs, avec la symétrie complète du carré.
+### 1.4bis Le miroir — hypothétique, non établi
 
-À établir : la région fondamentale et son contenu ne sont pas encore définis.
+Les axes sont les droites d'un groupe de réflexions. On pose une figure dans une
+région fondamentale et on la réfléchit de proche en proche. Engendrerait des
+**rosaces** et des entrelacs, avec la symétrie complète du carré.
 
-**Bande.** La droite s'épaissit et devient ruban ; seul son voisinage s'assombrit.
-Engendre des **treillis** et des claustras.
+À établir seulement si elle sert un jour : la région fondamentale et son contenu
+ne sont pas définis, et rien dans les planches examinées jusqu'ici n'en réclame
+l'usage.
 
-À établir. C'est vers cette lecture que pointent les images diagonales, où aucune
-case n'est pleinement sombre.
+### 1.5 Le gnomon — le losange inscrit compte dans la parité
 
-**Hypothèse de travail** : les orthogonales emploient la frontière, les
-diagonales la bande. Non par incohérence, mais parce qu'une droite traversant les
-sommets ne sépare pas comme une droite traversant les côtés.
+**Découverte sur `YANG` T2.** La frontière des deux diagonales seules ne
+reproduit pas la planche : l'écart n'est nul qu'à l'intérieur du losange inscrit
+(§1.2), inversé à l'extérieur. Il manquait un axe — le losange inscrit
+lui-même, compté comme une frontière de plus dans la parité.
+
+**Ce que cela corrige.** L'écart 6 (le losange inscrit) n'est pas exclu du
+système (§1.2) : il est exclu des **droites** — il n'en est pas une — mais il
+intervient comme **losange** dans la parité. C'est cohérent avec sa nature déjà
+connue : une frontière sépare, donc elle compte, qu'elle soit droite ou non.
+
+**La règle complète, vérifiée sur `YANG` T2, 0 écart sur 1 152** (parité de
+quatre contributions, coordonnées 0..12, polarité inversée) :
+
+```
+sombre  ⟺  [ x − y > 0 ]
+         + [ x + y > 12 ]
+         + [ |x − 6| + |y − 6| < 6 ]          ← le losange inscrit
+         + Σ [ |x − a| + |y − b| < 1 ]        ← les 12 losanges, nœuds mixtes
+         ≡ 1  (mod 2)
+```
+
+Les douze nœuds sont la classe **mixte** du réseau de pas 3 (25 nœuds sur le
+carré, aux coordonnées multiples de 3) : une coordonnée dans {3, 9}, l'autre
+dans {0, 6, 12} — `(6,3) (9,6) (6,9) (3,6) (3,0) (9,0) (0,3) (0,9) (12,3) (12,9)
+(3,12) (9,12)`. Le rayon 1 est exact : 0,5 et 1,5 donnent chacun 128 écarts sur
+1152, 2 en donne 384 — seul 1 ferme à zéro.
+
+Les vingt-cinq nœuds du réseau de pas 3 se partagent en quatre classes : 4
+milieux de côtés, 5 coins et centre, 12 mixtes, 4 centres de quadrants. `YANG`
+T2 emploie la classe mixte ; les autres bases diagonales emploient
+vraisemblablement les autres classes — **à vérifier pour chacune**, pas
+présumé.
 
 ---
 

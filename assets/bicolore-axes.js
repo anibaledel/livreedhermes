@@ -24,20 +24,25 @@
 //
 // FRONTIÈRE DE LA VÉRIFICATION — À LIRE AVANT DE TOUCHER À CE FICHIER :
 //
-//   La règle est VÉRIFIÉE AU BIT PRÈS UNIQUEMENT SUR T0, contre
-//   data/ORIGINES (via tools/verify_bicolore_axes_t0.mjs) : écart nul
-//   sur les 1152 triangles de C8, pour YIN (polarité directe), YIN
-//   mutant et YANG (polarité inversée). C'est le seul point où une
-//   planche coloriée de référence existe.
+//   Vérifié au bit près, contre des planches coloriées réelles :
+//   - T0, les quatre bases (YIN direct, YIN-MUT et YANG inverse) contre
+//     data/ORIGINES — tools/verify_bicolore_axes_t0.mjs.
+//   - YANG T2 contre data/EXEMPLES/T2 (bandesYANG T2.svg), par la règle
+//     du gnomon (voir GNOMON_YANG_T2 ci-dessous et docs/PROTOCOLE_AXES.md
+//     §1.5) : 0 écart sur 1152, avec le losange inscrit compté dans la
+//     parité — la simple frontière à deux droites NE SUFFISAIT PAS.
 //
-//   T1 à T3 (et T4) sont ENGENDRÉS PAR CONSTRUCTION à partir de la même
-//   règle et de la même table d'écarts (voir RAW_ECARTS ci-dessous),
-//   SANS vérification bit à bit possible : les tracés de data/AXES/ pour
-//   ces générations ne portent que les axes sur une grille de repère,
-//   aucun motif colorié n'existe pour eux. La polarité par famille est
-//   supposée CONSTANTE d'une génération à l'autre (hypothèse non
-//   vérifiée au-delà de T0, la plus simple qui ne demande rien
-//   d'inventé en plus).
+//   NON VÉRIFIÉ, et à considérer FAUX jusqu'à preuve du contraire pour
+//   toute base diagonale au-delà de T0 : la découverte du gnomon sur
+//   YANG T2 montre que la formule diagAxes ci-dessous (parité des
+//   droites non réduites seules, sans losanges) NE REPRODUIT PAS les
+//   planches dès T2. Elle reste ici comme la meilleure hypothèse
+//   disponible pour YIN/YIN-MUT (orthogonales, non testées au-delà de
+//   T0 non plus) et pour YANG-MUT T2 (dont une relation exacte —
+//   décalage de 3 cases par rapport à YANG T2, voir data/EXEMPLES — a
+//   été vérifiée mais pas encore réduite à une formule d'axes propre).
+//   La polarité par famille est supposée CONSTANTE d'une génération à
+//   l'autre ; ce n'est pas vérifié non plus au-delà de T0.
 //
 import { triangleGeometry, GRID, PER_CELL } from './bicolore-render.js';
 
@@ -79,6 +84,41 @@ function diagAxes(list, polarity) {
   return { type: 'diag', s: [...s], d: [...d], polarity };
 }
 
+// ---------------------------------------------------------------------------
+// Le gnomon (docs/PROTOCOLE_AXES.md §1.5) : une figure de base combinée par
+// parité avec des losanges L1 centrés sur les nœuds libres d'un réseau. Le
+// réseau de pas 3 (25 nœuds aux coordonnées multiples de 3 sur le carré
+// 12×12) se partage en quatre classes ; YANG T2 emploie la classe mixte.
+export const GNOMON_NODE_CLASSES = {
+  milieux: [[6, 0], [0, 6], [6, 12], [12, 6]],
+  coinsEtCentre: [[0, 0], [12, 0], [0, 12], [12, 12], [6, 6]],
+  mixtes: [[6, 3], [9, 6], [6, 9], [3, 6], [3, 0], [9, 0], [0, 3], [0, 9], [12, 3], [12, 9], [3, 12], [9, 12]],
+  quadrants: [[3, 3], [9, 3], [3, 9], [9, 9]],
+};
+
+function inscribedDiamondBit(x, y) {
+  return (Math.abs(x - 6) + Math.abs(y - 6) < 6) ? 1 : 0;
+}
+function gnomonBit(nodes, radius, x, y) {
+  let n = 0;
+  for (const [a, b] of nodes) if (Math.abs(x - a) + Math.abs(y - b) < radius) n++;
+  return n;
+}
+
+// YANG T2, vérifiée au bit près contre data/EXEMPLES/T2 15 images/bandesYANG T2.svg
+// (0 écart / 1152) : les deux diagonales pleines, PLUS le losange inscrit,
+// PLUS un losange de rayon 1 sur chacun des douze nœuds mixtes du réseau de
+// pas 3 — quatre contributions, parité, polarité inversée.
+export const GNOMON_YANG_T2 = {
+  type: 'gnomon',
+  s: [12], d: [0],       // les deux diagonales pleines (écart 0)
+  inscribed: true,        // le losange inscrit compte dans la parité (§1.5)
+  nodes: GNOMON_NODE_CLASSES.mixtes,
+  radius: 1,
+  polarity: 'inverse',
+};
+// ---------------------------------------------------------------------------
+
 // AXES[base][génération] -> { type, t|s+d, polarity }. Yang mutant T0
 // n'a pas d'entrée (liste vide -> aucun axe -> la règle ne s'applique
 // pas, voir la note dans tools/verify_bicolore_axes_t0.mjs).
@@ -90,6 +130,9 @@ for (const [name, byGen] of Object.entries(RAW_ECARTS)) {
     AXES[name][gen] = ORTHO.has(name) ? orthoAxes(list, POLARITY[name]) : diagAxes(list, POLARITY[name]);
   }
 }
+// Remplace la formule diagAxes (non vérifiée, fausse pour YANG T2 comme
+// démontré — voir l'en-tête) par le gnomon, vérifié au bit près.
+AXES.YANG.T2 = GNOMON_YANG_T2;
 
 // Alias historique : les axes de T0 seuls, pour tools/verify_bicolore_axes_t0.mjs.
 export const AXES_T0 = Object.fromEntries(
@@ -100,6 +143,11 @@ export function parityBit(axes, x, y) {
   let n = 0;
   if (axes.type === 'ortho') {
     for (const t of axes.t) { n += (x > t) ? 1 : 0; n += (y > t) ? 1 : 0; }
+  } else if (axes.type === 'gnomon') {
+    for (const s of axes.s || []) n += ((x + y) > s) ? 1 : 0;
+    for (const d of axes.d || []) n += ((x - y) > d) ? 1 : 0;
+    if (axes.inscribed) n += inscribedDiamondBit(x, y);
+    n += gnomonBit(axes.nodes, axes.radius, x, y);
   } else {
     for (const s of axes.s || []) n += ((x + y) > s) ? 1 : 0;
     for (const d of axes.d || []) n += ((x - y) > d) ? 1 : 0;
