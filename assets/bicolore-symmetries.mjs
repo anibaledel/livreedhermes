@@ -65,9 +65,18 @@ export const D4 = [];
   for (let k = 0; k < 4; k++) { D4.push(m); m = compose(PERM_QUART_TOUR, m); }
 }
 
+// perm[gi] = index où le point gi ATTERRIT sous la transformation (construit
+// ainsi dans buildPermutation). Appliquer la transformation au masque est
+// donc une DIFFUSION (scatter), out[perm[i]] = mask[i], pas une lecture
+// (gather) out[i] = mask[perm[i]] — cette dernière applique en réalité la
+// transformation INVERSE. Sans effet sur miroir et demi-décalage (des
+// involutions, où les deux formulations coïncident), mais faux pour la
+// rotation d'un quart de tour (ordre 4) : c'est le défaut qui faisait
+// gonfler artificiellement le compte d'orbites (signalé par Anibal,
+// vérifié en tournant un masque quatre fois).
 export function applyPerm(perm, mask) {
   const out = new Uint8Array(PARTS);
-  for (let i = 0; i < PARTS; i++) out[i] = mask[perm[i]];
+  for (let i = 0; i < PARTS; i++) out[perm[i]] = mask[i];
   return out;
 }
 export function shiftHalfPeriod(mask) { return applyPerm(PERM_DEMI_DECALAGE, mask); }

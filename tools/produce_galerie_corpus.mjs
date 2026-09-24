@@ -16,7 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GRID, PER_CELL } from '../assets/bicolore-render.js';
 import { AXES, sectorPoint, parityBit } from '../assets/bicolore-axes.js';
-import { D4, applyPerm, shiftHalfPeriod, invertMask, serialize, orbit } from '../assets/bicolore-symmetries.mjs';
+import { shiftHalfPeriod, invertMask, serialize } from '../assets/bicolore-symmetries.mjs';
 import { habillage } from '../assets/bicolore-cube.mjs';
 import { k2Of } from '../assets/bicolore-k2.mjs';
 
@@ -148,37 +148,41 @@ console.log(`Ferment sur le cube        : ${retenues.length} / ${totalConstructi
 const grillesRetenuesDistinctes = new Set(retenues.map(t => t.canon));
 console.log(`Grilles distinctes (retenues) : ${grillesRetenuesDistinctes.size}`);
 
-// ---------- orbites sous le groupe (D4 x demi-decalage x inversion) ----------
-console.log('\nCalcul des orbites (peut prendre un moment)...');
-function orbitesDistinctes(canonSet, maskByCanon) {
-  const vues = new Set();
-  let n = 0;
-  for (const c of canonSet) {
-    if (vues.has(c)) continue;
-    const o = orbit(maskByCanon.get(c));
-    for (const x of o) vues.add(x);
-    n++;
-  }
-  return n;
-}
-const maskByCanonAll = new Map();
-for (const [a, b] of pairs) { /* rebuild map on the fly below instead */ }
-// on reconstruit une correspondance canon -> masque a partir des retenues et d'un echantillon des distinctes
-const canonToMask = new Map();
-for (const [a, b] of pairs) {
-  const maskA = IMAGES[a], maskB = IMAGES[b];
-  for (let n = 0; n < 64; n++) {
-    const g = hexagramMask(n, maskA, maskB);
-    const c = canonGrid(g);
-    if (!canonToMask.has(c)) canonToMask.set(c, g);
-  }
-}
-const orbitesTotal = orbitesDistinctes(grillesDistinctes, canonToMask);
-const orbitesRetenues = orbitesDistinctes(grillesRetenuesDistinctes, canonToMask);
-console.log(`Orbites (grilles distinctes)     : ${orbitesTotal}`);
-console.log(`Orbites (retenues sur le cube)   : ${orbitesRetenues}`);
+// Pas d'orbites : diagnostiqué par Anibal comme structurel, pas un défaut —
+// les quinze images sont individuellement invariantes par le demi-décalage
+// (15/15) et par la rotation d'un quart de tour (15/15, 7 à l'identique et
+// 8 à l'inverse). Le compte d'orbites vaut alors toujours le nombre de
+// grilles et n'apprend rien ; retiré des chiffres annoncés sur instruction
+// explicite.
 
 console.log(`\ndurée totale : ${Math.round((Date.now() - t0) / 1000)} s`);
+
+// ---------- data/referent_bicolore_axes_g2_v1.json : les 15 images, format ----------
+// établi (voir data/referent_bicolore_v1.json) — 'yang'/'yin' sont les deux
+// teintes interchangeables (l'une le complément exact de l'autre), pas deux
+// générations ; réutilisable tel quel par assets/bicolore-render.js
+// (composeNiveauxMask, hexToBits) côté client.
+function toHex(mask) {
+  let s = '';
+  for (let i = 0; i < mask.length; i += 4) {
+    const v = (mask[i] << 3) | (mask[i + 1] << 2) | (mask[i + 2] << 1) | mask[i + 3];
+    s += v.toString(16);
+  }
+  return s;
+}
+const familles = {};
+for (const n of NAMES) {
+  const yang = IMAGES[n];
+  familles[n] = { yang: toHex(yang), yin: toHex(invertMask(yang)) };
+}
+fs.writeFileSync(path.join(ROOT, 'data', 'referent_bicolore_axes_g2_v1.json'), JSON.stringify({
+  format: 'referent-bicolore-v1',
+  decoupe: '8 triangles par cellule, sens horaire depuis le haut',
+  grid: GRID, parts: PARTS, per_cell: PER_CELL, per_layer: PARTS / 6,
+  layers: LAYERS,
+  familles,
+}));
+console.log(`\nÉcrit : data/referent_bicolore_axes_g2_v1.json`);
 
 // ---------- ecrit un rapport JSON + les references pour la planche de contact ----------
 const outDir = path.join(ROOT, 'tools', '_out');
@@ -194,8 +198,10 @@ fs.writeFileSync(path.join(outDir, 'galerie_comptes.json'), JSON.stringify({
   pavagesDistincts: pavagesDistincts.size,
   fermentSurLeCube: retenues.length,
   grillesRetenuesDistinctes: grillesRetenuesDistinctes.size,
-  orbitesTotal, orbitesRetenues,
 }, null, 2));
+fs.writeFileSync(path.join(outDir, 'retenues_full.json'), JSON.stringify(
+  retenues.map(t => [t.a, t.b, t.n])
+));
 // un representant par paire (a,b) qui a au moins une construction retenue —
 // pour la diversite de la planche de contact, pas un tirage brut.
 const parPaireRepresentant = new Map();

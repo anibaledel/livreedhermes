@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie bicolore par les axes — La Livrée d'Hermès</title>
+<meta name="description" content="Les motifs bicolores engendrés par les axes de symétrie, filtrés par la fermeture sur le cube — génération reconstituée par l'algèbre, en rouge et blanc, teintes modulables.">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:32px 24px 64px; }
+  header.page{ text-align:center; margin-bottom:24px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header.page h1{ font-weight:400; font-size:calc(26px + var(--fs-bump)); letter-spacing:.04em; margin:8px 0 6px; }
+  header.page p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 auto; max-width:64ch; line-height:1.6; }
+
+  .counts{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); margin:24px 0; }
+  .count{ background:var(--panel); padding:14px 16px; text-align:center; }
+  .count .n{ font-size:22px; font-variant-numeric:tabular-nums; color:var(--gold); }
+  .count .l{ font-size:10.5px; color:var(--dim); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
+
+  .panel-note{ border:1px solid var(--line); background:var(--panel); padding:16px 18px; font-size:12.5px; color:var(--dim); line-height:1.7; margin-bottom:24px; }
+  .panel-note b{ color:var(--white); }
+
+  .toolbar{ display:flex; gap:20px; align-items:flex-end; flex-wrap:wrap; margin-bottom:20px; padding:14px 16px; border:1px solid var(--line-strong); background:var(--panel); }
+  .toolbar label{ display:flex; flex-direction:column; gap:6px; font-size:11.5px; color:var(--dim); }
+  .toolbar input[type="color"]{ width:64px; height:30px; border:1px solid var(--line-strong); background:none; padding:2px; }
+  .toolbar select, .toolbar button{ padding:7px 10px; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); font-family:inherit; font-size:12.5px; }
+  .toolbar button{ cursor:pointer; }
+  .toolbar button:hover{ border-color:var(--gold); }
+  .toolbar .spacer{ flex:1; }
+  .toolbar .pageinfo{ font-size:12px; color:var(--dim); align-self:center; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:2px; }
+  .tile{ background:var(--panel); border:1px solid var(--line); padding:8px; }
+  .tile svg{ display:block; width:100%; height:auto; }
+  .tile .lbl{ font-size:9.5px; color:var(--dim); margin-top:6px; text-align:center; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .tile.marquee{ outline:1px solid var(--gold); }
+  .tile .tag{ font-size:8.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.05em; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; } header.page h1{ font-size:calc(20px + var(--fs-bump)); }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <a href="/">Accueil</a><span class="sep">/</span><a href="/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Galerie bicolore par les axes</span>
+</nav>
+
+<header class="page">
+  <h1>Le bicolore par les axes</h1>
+  <p>Une génération complète, reconstituée par l'algèbre à travers deux dossiers dépareillés — Yin et Yin&nbsp;mutant aux écarts {0, 3} et {1,5&nbsp;; 4,5}, Yang et Yang&nbsp;mutant par le gnomon (docs/PROTOCOLE_AXES.md). Seuls les motifs qui ferment sur le cube — la règle de continuité, une teinte constante de part et d'autre de chaque arête — figurent ici.</p>
+</header>
+
+<div class="counts">
+  <div class="count"><div class="n" id="cConstr">—</div><div class="l">constructions</div></div>
+  <div class="count"><div class="n" id="cGrilles">—</div><div class="l">grilles distinctes</div></div>
+  <div class="count"><div class="n" id="cPavages">—</div><div class="l">pavages distincts</div></div>
+  <div class="count"><div class="n" id="cRetenues">—</div><div class="l">retenues (fermeture cube)</div></div>
+</div>
+
+<div class="panel-note">
+  Une construction n'est pas une forme : plusieurs constructions peuvent dessiner la même grille — d'où <b>grilles distinctes</b> ≤ constructions. Grilles distinctes = pavages distincts ici : les quinze images sont toutes invariantes par le demi-décalage, donc chaque grille l'est aussi. Quatre paires d'images sont liées par la translation de 3 — la sélection remarquable d'Anibal — marquées <span style="color:var(--gold)">en or</span> ci-dessous ; elles restent indicatives, pas un filtre.
+</div>
+
+<div class="toolbar">
+  <label>Teinte A <input type="color" id="colorA" value="#e0261b"></label>
+  <label>Teinte B <input type="color" id="colorB" value="#f2f2f0"></label>
+  <label>Paire de bases
+    <select id="pairFilter"><option value="">toutes</option></select>
+  </label>
+  <div class="spacer"></div>
+  <span class="pageinfo" id="pageInfo"></span>
+  <button id="prevPage">◂ précédent</button>
+  <button id="nextPage">suivant ▸</button>
+</div>
+
+<div class="grid" id="grid"></div>
+
+</div>
+<script type="module">
+import { composeNiveauxMask, maskToSvg } from './assets/bicolore-render.js';
+
+const PAGE_SIZE = 60;
+let page = 0;
+let retenues = [];
+let filtered = [];
+let data = null;
+
+async function load() {
+  const [refRes, retRes] = await Promise.all([
+    fetch('data/referent_bicolore_axes_g2_v1.json'),
+    fetch('data/referent_bicolore_axes_g2_retenues_v1.json'),
+  ]);
+  data = await refRes.json();
+  retenues = await retRes.json(); // [[a,b,n], ...]
+
+  document.getElementById('cConstr').textContent = '13 440';
+  document.getElementById('cGrilles').textContent = '6 525';
+  document.getElementById('cPavages').textContent = '6 525';
+  document.getElementById('cRetenues').textContent = retenues.length.toLocaleString('fr-FR');
+
+  const TRANSLATE_PAIRS = [
+    ['YANG', 'YANG-MUT'], ['YIN+YANG', 'YIN+YANG-MUT'],
+    ['YIN-MUT+YANG', 'YIN-MUT+YANG-MUT'], ['YIN+YIN-MUT+YANG', 'YIN+YIN-MUT+YANG-MUT'],
+  ];
+  const marquee = new Set(TRANSLATE_PAIRS.flat());
+
+  const pairsSeen = new Set();
+  for (const [a, b] of retenues) pairsSeen.add(a + ' + ' + b);
+  const sel = document.getElementById('pairFilter');
+  [...pairsSeen].sort().forEach(p => {
+    const opt = document.createElement('option'); opt.value = p; opt.textContent = p;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', () => { page = 0; applyFilter(marquee); });
+
+  applyFilter(marquee);
+  document.getElementById('colorA').addEventListener('input', render);
+  document.getElementById('colorB').addEventListener('input', render);
+  document.getElementById('prevPage').addEventListener('click', () => { if (page > 0) { page--; render(); } });
+  document.getElementById('nextPage').addEventListener('click', () => { if ((page + 1) * PAGE_SIZE < filtered.length) { page++; render(); } });
+}
+
+let currentMarquee = new Set();
+function applyFilter(marquee) {
+  currentMarquee = marquee;
+  const sel = document.getElementById('pairFilter').value;
+  filtered = sel ? retenues.filter(([a, b]) => (a + ' + ' + b) === sel) : retenues;
+  render();
+}
+
+function hexagramBits(n) {
+  const col = n % 8, row = Math.floor(n / 8);
+  return [col & 1, (col >> 1) & 1, (col >> 2) & 1, row & 1, (row >> 1) & 1, (row >> 2) & 1];
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  const c0 = document.getElementById('colorB').value, c1 = document.getElementById('colorA').value;
+  const start = page * PAGE_SIZE, slice = filtered.slice(start, start + PAGE_SIZE);
+  document.getElementById('pageInfo').textContent = filtered.length
+    ? `${start + 1}–${Math.min(start + PAGE_SIZE, filtered.length)} / ${filtered.length.toLocaleString('fr-FR')}`
+    : 'aucun motif';
+  for (const [a, b, n] of slice) {
+    const traits = hexagramBits(n);
+    const niveaux = [1, 2, 3, 4, 5, 6].map(niv => ({ name: traits[niv - 1] ? a : b, teinte: 'yang' }));
+    const mask = composeNiveauxMask(data.familles, data.layers, niveaux);
+    const svg = maskToSvg(mask, [c0, c1], { size: 132 });
+    const tile = document.createElement('div');
+    tile.className = 'tile' + (currentMarquee.has(a) || currentMarquee.has(b) ? ' marquee' : '');
+    tile.innerHTML = svg + `<div class="lbl">${a} + ${b} · n${n}</div>`;
+    grid.appendChild(tile);
+  }
+}
+
+load();
+</script>
+</body>
+</html>
