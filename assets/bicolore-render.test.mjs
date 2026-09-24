@@ -10,7 +10,7 @@
 // pavage au lieu de chacune leur case.
 
 import assert from 'node:assert/strict';
-import { GRID, PARTS, maskToSvg, maskToPavageSvg, cellTrianglesC16, triangleGeometry } from './bicolore-render.js';
+import { GRID, PARTS, maskToSvg, maskToPavageSvg, cellTrianglesC16, triangleGeometry, combineMasks } from './bicolore-render.js';
 
 const mask = new Uint8Array(PARTS); // tout à 0, suffisant pour tester la structure du SVG
 const palette = ['#f2ece1', '#2b2b2b'];
@@ -72,6 +72,18 @@ test('triangleGeometry (perCell: 16) : index dans la dernière cellule reste val
   const lastIndex = GRID * GRID * 16 - 1;
   const tri = triangleGeometry(lastIndex, 30, 16);
   assert.equal(tri.length, 3, 'triangle valide (3 sommets)');
+});
+
+test('combineMasks : calque = OU logique', () => {
+  const a = Uint8Array.from([1, 0, 1, 0]);
+  const b = Uint8Array.from([1, 1, 0, 0]);
+  assert.deepEqual([...combineMasks(a, b, 'calque')], [1, 1, 1, 0]);
+});
+
+test('combineMasks : ou-exclusif = sombre dans les deux redevient clair', () => {
+  const a = Uint8Array.from([1, 0, 1, 0]);
+  const b = Uint8Array.from([1, 1, 0, 0]);
+  assert.deepEqual([...combineMasks(a, b, 'xor')], [0, 1, 1, 0]);
 });
 
 if (process.exitCode) {

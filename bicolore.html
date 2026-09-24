@@ -42,6 +42,20 @@
   }
   .hexselect button.all-toggle[aria-pressed="true"]{ color:var(--gold); }
 
+  .hextabs{ display:flex; gap:6px; margin-bottom:10px; }
+  .hextabs button{
+    all:unset; cursor:pointer; flex:1; text-align:center; padding:6px 4px; font-size:11px;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--dim); border:1px solid var(--line-strong);
+  }
+  .hextabs button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
+
+  .ctl-toggle{ display:flex; gap:8px; }
+  .ctl-toggle button{
+    all:unset; cursor:pointer; flex:1; text-align:center; padding:8px 4px; font-size:12px;
+    color:var(--dim); border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .ctl-toggle button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
+
   .preview{ border:1px solid var(--line); padding:18px; text-align:center; }
   .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); }
   .preview p{ margin:10px 0 0; font-size:12px; color:var(--dim); opacity:.7; }
@@ -87,11 +101,14 @@
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Motifs bicolores</span>
     </nav>
     <h1>Motifs bicolores</h1>
-    <p>Six niveaux, chacun sa famille et sa teinte — cliquez un trait pour le régler.</p>
+    <p>Deux hexagrammes superposés, six niveaux chacun — choisissez l'hexagramme, cliquez un trait pour le régler.</p>
   </header>
 
   <div class="composer">
-    <div class="hexselect" id="hexSelect" role="group" aria-label="Sélecteur de niveau (trait 1 en bas, trait 6 en haut)"></div>
+    <div>
+      <div class="hextabs" id="hexTabs" role="group" aria-label="Hexagramme en cours d'édition"></div>
+      <div class="hexselect" id="hexSelect" role="group" aria-label="Sélecteur de niveau (trait 1 en bas, trait 6 en haut)"></div>
+    </div>
 
     <div class="preview">
       <div id="paneMotif"></div>
@@ -103,6 +120,13 @@
       <div class="ctl-level" style="margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line);">
         <label for="trameSelect">Cellule · Bloc</label>
         <select id="trameSelect"></select>
+      </div>
+      <h2>Combinaison</h2>
+      <div class="ctl-level" style="margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line);">
+        <div class="ctl-toggle" id="combineToggle" role="group" aria-label="Comment les deux hexagrammes se combinent">
+          <button type="button" data-mode="calque">Calque</button>
+          <button type="button" data-mode="xor">Ou-exclusif</button>
+        </div>
       </div>
       <h2>Couleurs</h2>
       <div class="ctl-colors">
@@ -129,7 +153,7 @@
 </div>
 
 <script type="module">
-import { composeNiveauxMask, maskToPavageSvg } from './assets/bicolore-render.js';
+import { composeNiveauxMask, maskToPavageSvg, combineMasks } from './assets/bicolore-render.js';
 
 const N_LEVELS = 6;
 
@@ -192,21 +216,68 @@ async function main() {
     return na - nb || a.localeCompare(b);
   });
 
-  const levels = [];
-  for (let n = 1; n <= N_LEVELS; n++) {
-    const raw = params.get('l' + n);
-    let name = familleKeys[0], teinte = 'yang';
-    if (raw) {
-      const [rn, rt] = raw.split('.');
-      if (data.familles[rn] && (rt === 'yang' || rt === 'yin')) { name = rn; teinte = rt; }
+  // Deux hexagrammes indépendants, superposés — le droit (2) au-dessus.
+  // Un seul jeu de contrôles (hexSelect, familleSelect, etatSelect) : la
+  // sélection de trait (`selected`) est partagée, seul `activeHex` dit
+  // vers lequel des deux tableaux `hexagrams[1]`/`hexagrams[2]` les
+  // clics et les changements sont dirigés.
+  function readLevels(prefix, fallbackKey) {
+    const levels = [];
+    for (let n = 1; n <= N_LEVELS; n++) {
+      const raw = params.get(prefix + n);
+      let name = fallbackKey, teinte = 'yang';
+      if (raw) {
+        const [rn, rt] = raw.split('.');
+        if (data.familles[rn] && (rt === 'yang' || rt === 'yin')) { name = rn; teinte = rt; }
+      }
+      levels.push({ name, teinte });
     }
-    levels.push({ name, teinte });
+    return levels;
   }
+  const hexagrams = {
+    1: readLevels('l', familleKeys[0]),
+    2: readLevels('r', familleKeys[1] || familleKeys[0]),
+  };
+  let activeHex = 1;
+
+  const combineMode = (params.get('m') === 'xor') ? 'xor' : 'calque';
 
   const colorA = /^#[0-9a-f]{6}$/i.test(params.get('c0') || '') ? '#' + params.get('c0').replace('#', '') : '#e0261b';
   const colorB = /^#[0-9a-f]{6}$/i.test(params.get('c1') || '') ? '#' + params.get('c1').replace('#', '') : '#f2f2f0';
   document.getElementById('colorA').value = colorA;
   document.getElementById('colorB').value = colorB;
+
+  const combineToggle = document.getElementById('combineToggle');
+  const combineBtns = [...combineToggle.querySelectorAll('button')];
+  function renderCombineToggle() {
+    combineBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === state.combineMode ? 'true' : 'false'));
+  }
+  const state = { combineMode };
+  combineBtns.forEach(b => b.addEventListener('click', () => {
+    state.combineMode = b.dataset.mode;
+    renderCombineToggle();
+    render();
+  }));
+  renderCombineToggle();
+
+  const hexTabs = document.getElementById('hexTabs');
+  const tabBtns = [1, 2].map(h => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = 'Hexagramme ' + h;
+    b.addEventListener('click', () => {
+      activeHex = h;
+      renderTabs();
+      syncControls();
+      renderBars();
+    });
+    hexTabs.appendChild(b);
+    return b;
+  });
+  function renderTabs() {
+    tabBtns.forEach((b, i) => b.setAttribute('aria-pressed', (i + 1) === activeHex ? 'true' : 'false'));
+  }
+  renderTabs();
 
   let selected = new Set([1]);
 
@@ -244,6 +315,7 @@ async function main() {
   }
 
   function renderBars() {
+    const levels = hexagrams[activeHex];
     bars.forEach((btn, i) => {
       const n = i + 1;
       const lvl = levels[n - 1];
@@ -258,24 +330,26 @@ async function main() {
   function syncControls() {
     const heading = document.getElementById('levelHeading');
     const previewNum = document.getElementById('previewLevelNum');
+    const prefix = 'Hexagramme ' + activeHex + ' — ';
     if (selected.size === 0) {
       familleSelect.disabled = true;
       etatSelect.disabled = true;
-      heading.textContent = 'Aucun niveau sélectionné';
+      heading.textContent = prefix + 'aucun niveau sélectionné';
       previewNum.textContent = 'aucun niveau sélectionné';
       return;
     }
     familleSelect.disabled = false;
     etatSelect.disabled = false;
+    const levels = hexagrams[activeHex];
     const nums = [...selected].sort((a, b) => a - b);
     const lvl = levels[nums[0] - 1];
     familleSelect.value = lvl.name;
     etatSelect.value = lvl.teinte;
     if (nums.length === 1) {
-      heading.textContent = 'Niveau ' + nums[0];
+      heading.textContent = prefix + 'niveau ' + nums[0];
       previewNum.textContent = 'niveau ' + nums[0] + ' sélectionné';
     } else {
-      heading.textContent = nums.length + ' niveaux';
+      heading.textContent = prefix + nums.length + ' niveaux';
       previewNum.textContent = 'niveaux ' + nums.join(', ') + ' sélectionnés';
     }
   }
@@ -295,7 +369,9 @@ async function main() {
   function updateUrl() {
     const p = new URLSearchParams();
     p.set('t', trame);
-    levels.forEach((lvl, i) => p.set('l' + (i + 1), lvl.name + '.' + lvl.teinte));
+    hexagrams[1].forEach((lvl, i) => p.set('l' + (i + 1), lvl.name + '.' + lvl.teinte));
+    hexagrams[2].forEach((lvl, i) => p.set('r' + (i + 1), lvl.name + '.' + lvl.teinte));
+    p.set('m', state.combineMode);
     p.set('c0', document.getElementById('colorA').value.replace('#', ''));
     p.set('c1', document.getElementById('colorB').value.replace('#', ''));
     const url = location.origin + location.pathname + '?' + p.toString();
@@ -306,17 +382,24 @@ async function main() {
   function render() {
     const palette = [document.getElementById('colorA').value, document.getElementById('colorB').value];
     const perCell = data.per_cell;
-    const mask = composeNiveauxMask(data.familles, data.layers, levels, { perCell });
+    // La combinaison s'applique aux deux masques une fois produits,
+    // jamais avant : composeNiveauxMask ne sait rien de calque/xor, et
+    // combineMasks ne sait rien de la cellule ni du bloc.
+    const mask1 = composeNiveauxMask(data.familles, data.layers, hexagrams[1], { perCell });
+    const mask2 = composeNiveauxMask(data.familles, data.layers, hexagrams[2], { perCell });
+    const mask = combineMasks(mask1, mask2, state.combineMode);
     document.getElementById('paneMotif').innerHTML = maskToPavageSvg(mask, palette, 1, 1, { size: 500, perCell });
     updateUrl();
   }
 
   familleSelect.addEventListener('change', () => {
+    const levels = hexagrams[activeHex];
     for (const n of selected) levels[n - 1].name = familleSelect.value;
     renderBars();
     render();
   });
   etatSelect.addEventListener('change', () => {
+    const levels = hexagrams[activeHex];
     for (const n of selected) levels[n - 1].teinte = etatSelect.value;
     renderBars();
     render();
