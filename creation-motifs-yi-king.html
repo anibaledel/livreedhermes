@@ -1577,6 +1577,34 @@ function downloadGridSVG(grid, kwLabel){
   a.remove();
   setTimeout(()=> URL.revokeObjectURL(url), 1000);
 }
+
+// Export grille.png/grille.json (B2, même moteur qu'impression.html A4) — grid est déjà
+// la grille 12x12 de lettres de teinte (V/M/O) reconstruite par colorGridForItem/LAYER_COLORS,
+// jamais une relecture du SVG. Le PNG reprend la palette active (PALETTE, modulable par
+// l'utilisateur), pas les hex fixes de CalqueEngine.HEX_TO_LABEL.
+function downloadGrid(name, blob){
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=> URL.revokeObjectURL(url), 1000);
+}
+async function downloadGridPNG(grid, kwLabel){
+  if(!grid) return;
+  const hexGrid = grid.map(row => row.map(letter => PALETTE[letter] || null));
+  const blob = await CalqueEngine.gridToPNG(hexGrid);
+  downloadGrid(`grille-${kwLabel || 'hexagramme'}.png`, blob);
+}
+function downloadGridJSON(grid, chrono, kwLabel, traits){
+  if(!grid) return;
+  const json = CalqueEngine.gridToJSON({
+    ordre: grid.length,
+    niveaux: traits.map(bit => bit ? 'yang' : 'yin'),
+    hexagramme: { chrono, kingwen: kwLabel },
+    cases: grid,
+  });
+  downloadGrid(`grille-${kwLabel || 'hexagramme'}.json`, new Blob([json], {type:'application/json'}));
+}
 function downloadMotifSVG(){
   if(!lastShownCell || !lastShownCell.grid) return;
   downloadGridSVG(lastShownCell.grid, lastShownCell.kw);
@@ -1643,6 +1671,8 @@ function showDetail(cell){
             <div class="tessellation-label">Pavage — N° ${kw}</div>
             <div class="liseret"><div class="motif-tess-box" id="pairPavageA"></div></div>
             <button type="button" class="btn-create-svg" id="btnPairSvgA">Créer le SVG</button>
+            <button type="button" class="btn-create-svg" id="btnPairGridPngA">grille.png</button>
+            <button type="button" class="btn-create-svg" id="btnPairGridJsonA">grille.json</button>
           </div>
           ${hexagramGlyphSVG(kw)}
           <div class="pair-compare">
@@ -1663,6 +1693,8 @@ function showDetail(cell){
             <div class="tessellation-label">Pavage — N° ${pairCell.kw}</div>
             <div class="liseret"><div class="motif-tess-box" id="pairPavageB"></div></div>
             <button type="button" class="btn-create-svg" id="btnPairSvgB">Créer le SVG</button>
+            <button type="button" class="btn-create-svg" id="btnPairGridPngB">grille.png</button>
+            <button type="button" class="btn-create-svg" id="btnPairGridJsonB">grille.json</button>
           </div>
         </div>
         <div class="txt">${bookPair
@@ -1684,6 +1716,8 @@ function showDetail(cell){
           <canvas id="detailCanvas"></canvas>
           <div class="ticks">${[1,2,3,4,5,6].map(n=>`<span class="tick" data-n="${n}">${n}</span>`).join('')}</div>
           <button type="button" class="btn-create-svg" id="btnCreateSVG">Créer le SVG</button>
+          <button type="button" class="btn-create-svg" id="btnGridPng">Télécharger grille.png</button>
+          <button type="button" class="btn-create-svg" id="btnGridJson">Télécharger grille.json</button>
         </div>
         <div class="detail-info">
           <div class="num-big">N° ${kw} / 64 — TRADITION KING WEN</div>
@@ -1717,6 +1751,8 @@ function showDetail(cell){
   `;
   area.querySelector('.detail-back').addEventListener('click', ()=>{ area.innerHTML=''; });
   area.querySelector('#btnCreateSVG').addEventListener('click', downloadMotifSVG);
+  area.querySelector('#btnGridPng').addEventListener('click', ()=> downloadGridPNG(cell.grid, kw));
+  area.querySelector('#btnGridJson').addEventListener('click', ()=> downloadGridJSON(cell.grid, cell.chrono, kw, cell.traits));
 
   // Reconstruction trait par trait, en partant du bas (position 1) vers le haut (position 6)
   const canvas = document.getElementById('detailCanvas');
@@ -1741,6 +1777,10 @@ function showDetail(cell){
     const btnPairSvgA = document.getElementById('btnPairSvgA'), btnPairSvgB = document.getElementById('btnPairSvgB');
     if(btnPairSvgA) btnPairSvgA.addEventListener('click', ()=> downloadGridSVG(cell.grid, kw));
     if(btnPairSvgB) btnPairSvgB.addEventListener('click', ()=> downloadGridSVG(pairCell.grid, pairCell.kw));
+    document.getElementById('btnPairGridPngA').addEventListener('click', ()=> downloadGridPNG(cell.grid, kw));
+    document.getElementById('btnPairGridJsonA').addEventListener('click', ()=> downloadGridJSON(cell.grid, cell.chrono, kw, cell.traits));
+    document.getElementById('btnPairGridPngB').addEventListener('click', ()=> downloadGridPNG(pairCell.grid, pairCell.kw));
+    document.getElementById('btnPairGridJsonB').addEventListener('click', ()=> downloadGridJSON(pairCell.grid, pairCell.chrono, pairCell.kw, pairCell.traits));
   }
   area.scrollIntoView({behavior:'smooth', block:'start'});
 }
