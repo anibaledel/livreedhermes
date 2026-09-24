@@ -109,12 +109,15 @@ function gnomonBit(nodes, radius, x, y) {
 // (0 écart / 1152) : les deux diagonales pleines, PLUS le losange inscrit,
 // PLUS un losange de rayon 1 sur chacun des douze nœuds mixtes du réseau de
 // pas 3 — quatre contributions, parité, polarité inversée.
+//
+// `layers` généralise à plusieurs rayons sur le même (ou un autre) jeu de
+// nœuds — nécessaire pour YANG T3 (§1.6), qui empile rayon 1 ET rayon 2 sur
+// les mêmes douze nœuds mixtes.
 export const GNOMON_YANG_T2 = {
   type: 'gnomon',
   s: [12], d: [0],       // les deux diagonales pleines (écart 0)
   inscribed: true,        // le losange inscrit compte dans la parité (§1.5)
-  nodes: GNOMON_NODE_CLASSES.mixtes,
-  radius: 1,
+  layers: [{ nodes: GNOMON_NODE_CLASSES.mixtes, radius: 1 }],
   polarity: 'inverse',
 };
 // YANG-MUT T2 — pas une formule d'axes propre, mais une TRANSLATION de
@@ -125,6 +128,37 @@ export const GNOMON_YANG_T2 = {
 // classe de nœuds du gnomon (hypothèse écartée après vérification : aucune
 // des quatre classes, à aucun rayon, ne reproduit la planche).
 export const GNOMON_YANG_MUT_T2 = { type: 'translate', base: GNOMON_YANG_T2, dx: 0, dy: 3 };
+
+// YANG T3, vérifiée au bit près contre data/EXEMPLES/T3 15 images/
+// bandesYANG T3 ECHOES.svg (0 écart / 1152) — même méthode que T2 : relevé
+// géométrique direct des objets tracés dans data/AXES/T3/bandesYANG T3
+// ECHOES.svg (droites, losanges, leurs centres et rayons), pas de formule
+// cherchée à l'aveugle. Les pistes essayées et écartées (courbes de niveau
+// d'un cosinus, seuil sur cos(mπx/12)·cos(mπy/12), losanges sur un réseau
+// régulier) plafonnaient à 52-58 % — le niveau du hasard.
+//
+// Ce que le tracé montre : les mêmes deux diagonales et le même losange
+// inscrit que T2, PLUS un second losange de rayon 2 empilé sur CHACUN des
+// douze mêmes nœuds mixtes (en plus du rayon 1 déjà là) — pas une nouvelle
+// classe de nœuds, un rayon de plus sur la même. Polarité directe (sans
+// inversion) une fois les deux rayons comptés ensemble.
+export const GNOMON_YANG_T3 = {
+  type: 'gnomon',
+  s: [12], d: [0],
+  inscribed: true,
+  layers: [
+    { nodes: GNOMON_NODE_CLASSES.mixtes, radius: 1 },
+    { nodes: GNOMON_NODE_CLASSES.mixtes, radius: 2 },
+  ],
+  polarity: 'direct',
+};
+// YANG-MUT T3 : NON ÉTABLIE. Sa planche colorée (data/EXEMPLES/T3 15 images/
+// bandesYANG MUT T3 ECHOES.svg) porte 2304 formes (C16, 16 par case) alors
+// que celle de YANG T3 en porte 1152 (C8, 8 par case) — les deux planches ne
+// sont PAS à la même cellule. La règle du décalage de 3 qui a donné YANG-MUT
+// T2 depuis YANG T2 n'a pas pu être vérifiée ici tant que cette incohérence
+// de cellule n'est pas résolue (voir docs/PROTOCOLE_AXES.md §1.7 — chantier
+// ouvert, signalé, pas deviné).
 // ---------------------------------------------------------------------------
 
 // AXES[base][génération] -> { type, t|s+d, polarity }. Yang mutant T0
@@ -142,6 +176,9 @@ for (const [name, byGen] of Object.entries(RAW_ECARTS)) {
 // démontré — voir l'en-tête) par le gnomon, vérifié au bit près.
 AXES.YANG.T2 = GNOMON_YANG_T2;
 AXES['YANG-MUT'].T2 = GNOMON_YANG_MUT_T2;
+AXES.YANG.T3 = GNOMON_YANG_T3;
+// AXES['YANG-MUT'].T3 : non établie, voir la note sur GNOMON_YANG_T3 —
+// laissée à la formule diagAxes (non vérifiée) plutôt qu'une valeur devinée.
 
 // Alias historique : les axes de T0 seuls, pour tools/verify_bicolore_axes_t0.mjs.
 export const AXES_T0 = Object.fromEntries(
@@ -161,7 +198,7 @@ export function parityBit(axes, x, y) {
     for (const s of axes.s || []) n += ((x + y) > s) ? 1 : 0;
     for (const d of axes.d || []) n += ((x - y) > d) ? 1 : 0;
     if (axes.inscribed) n += inscribedDiamondBit(x, y);
-    n += gnomonBit(axes.nodes, axes.radius, x, y);
+    for (const layer of axes.layers || []) n += gnomonBit(layer.nodes, layer.radius, x, y);
   } else {
     for (const s of axes.s || []) n += ((x + y) > s) ? 1 : 0;
     for (const d of axes.d || []) n += ((x - y) > d) ? 1 : 0;

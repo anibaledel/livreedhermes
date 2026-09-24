@@ -114,9 +114,72 @@ dans {0, 6, 12} — `(6,3) (9,6) (6,9) (3,6) (3,0) (9,0) (0,3) (0,9) (12,3) (12,
 
 Les vingt-cinq nœuds du réseau de pas 3 se partagent en quatre classes : 4
 milieux de côtés, 5 coins et centre, 12 mixtes, 4 centres de quadrants. `YANG`
-T2 emploie la classe mixte ; les autres bases diagonales emploient
-vraisemblablement les autres classes — **à vérifier pour chacune**, pas
-présumé.
+T2 emploie la classe mixte.
+
+**Correction sur les classes.** L'hypothèse ci-dessus (les autres bases
+emploient les autres classes de nœuds) est écartée, vérifiée fausse deux
+fois : ni `YANG-MUT` T2 ni `YANG-MUT` T3 (au moment où ils ont pu être testés)
+ne se sont résolus par un changement de classe, à aucun rayon. Voir §1.6bis et
+§1.7 : la mutation se joue par translation de la figure entière, la
+génération suivante par empilement de rayons sur la MÊME classe.
+
+### 1.6bis YANG-MUT T2 — une translation, pas un changement de nœuds
+
+Vérifié par recherche exhaustive de décalage torique (assets/
+bicolore-symmetries.mjs) : `YANG-MUT T2(x,y) = YANG T2(x, y−3 mod 12)`, 0
+écart sur 1152, sans inversion. La loi du décalage de 3 (§1.2) s'incarne ici
+comme une translation spatiale de la figure entière — pas un changement de
+classe de nœuds du gnomon (les quatre classes, à tout rayon testé, ont
+échoué).
+
+### 1.7 YANG T3 — le même gnomon, un rayon de plus empilé
+
+**Vérifié au bit près, 0 écart sur 1152**, contre `data/EXEMPLES/T3 15
+images/bandesYANG T3 ECHOES.svg` — méthode : relevé géométrique direct des
+objets tracés dans `data/AXES/T3/bandesYANG T3 ECHOES.svg` (droites,
+losanges, leurs centres et rayons), puis composition par parité et
+vérification au triangle près. **Pas de formule cherchée à l'aveugle** :
+plusieurs pistes plausibles ont été essayées et ont plafonné entre 52 % et
+58 % (le niveau du hasard) avant d'y renoncer — courbes de niveau d'un
+cosinus sur les coordonnées diagonales, seuil sur le mode
+`cos(mπx/12)·cos(mπy/12)`, losanges sur un réseau régulier. Elles ne
+marchent pas et il est inutile de les ressayer.
+
+La règle :
+
+```
+sombre  ⟺  [ x − y > 0 ] + [ x + y > 12 ] + [ |x−6|+|y−6| < 6 ]
+         + Σ [ |x−a|+|y−b| < 1 ]      ← les 12 losanges, rayon 1 (comme T2)
+         + Σ [ |x−a|+|y−b| < 2 ]      ← les MÊMES 12 nœuds, rayon 2 en plus
+         ≡ 1  (mod 2)      — polarité directe, sans inversion
+```
+
+Pas une nouvelle classe de nœuds : un second rayon empilé sur la classe
+mixte déjà en place pour T2. Généralisation naturelle à vérifier pour les
+générations suivantes : un rayon de plus par génération, sur la même classe.
+
+### 1.8 YANG-MUT T3 — chantier ouvert, incohérence de cellule
+
+**Non établie.** La planche colorée `bandesYANG MUT T3 ECHOES.svg` porte
+2304 formes (144 × 16 : cellule C16), alors que celle de `bandesYANG T3
+ECHOES.svg` (résolue, §1.7) en porte 1152 (144 × 8 : cellule C8) — **les deux
+planches d'une même génération ne sont pas à la même cellule.** C'est la
+première confirmation que la génération fine emploie réellement C16 (le
+demi-pas des coordonnées relevées dans le fichier d'axes correspond
+exactement à sa grille), mais elle bloque la vérification directe de
+YANG-MUT T3 tant que l'extracteur ne sait lire que C8. À reprendre avec un
+extracteur C16 avant de tester l'hypothèse de translation (§1.6bis) sur T3.
+
+### 1.9 Le système Yin — entièrement unifié, une seule fonction
+
+**Acquis, à ne pas redémontrer.** Toutes les générations Yin sont les
+courbes de niveau d'une seule fonction, `cos(πx/3)`, coupées aux cosinus des
+angles de 0° à 180° par pas de 30°. Les sept niveaux (7 angles) donnent les
+sept jeux d'écarts des générations Yin ; la mutation est la réflexion de
+l'angle autour de 90°. Établi par Anibal, à intégrer dans le générateur
+quand les générations Yin au-delà de T0 seront engendrées (actuellement
+seuls T0-T3 utilisent la formule `orthoAxes`, non encore reliée à cette
+fonction unifiée).
 
 ---
 
