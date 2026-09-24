@@ -299,6 +299,50 @@ choix restent valables pour la nouvelle version, qui reprend la même
 référence historique. Une relecture par un locuteur natif reste utile,
 le paragraphe mêlant vocabulaire historique et mathématique.
 
+## Changements du 2026-09-24 : la correspondance devient une loi
+
+`framing` a changé de contenu une quatrième fois — plus une clé isolée,
+mais trois : `framing`, `framingScope` (nouvelle), `framingReserves`
+(nouvelle), `framingLink` (nouvelle, le texte du lien vers l'article
+`articles/axes-lignes-nodales.html`). `diapasonNote` a aussi changé une
+quatrième fois (une phrase ajoutée en fin de paragraphe). FR et EN sont
+intégrées ; ES et TH sont en repli FR pour les quatre clés (le système
+bascule automatiquement dessus, `t()` retombe sur `UI.fr[key]` si
+`UI[lang][key]` est absent — rien à corriger dans le code pour ça).
+
+Le changement de fond : la page annonçait la correspondance
+motif/fréquence comme une convention. Elle est établie, pour trois
+motifs précis du système d'axes, comme une loi de fréquence de plaque
+vibrante (vérifiée triangle par triangle, voir l'article lié) — la
+distinction avec les quinze gammes, dont la correspondance reste une
+observation spectrale non vérifiée de la même façon, est explicite dans
+`framingScope` et ne doit pas se perdre à la traduction : ne pas laisser
+croire que la loi couvre les quinze gammes.
+
+## framing
+- FR : La formule f = 128 × k² n'est pas un choix : pour une plaque carrée simplement appuyée, les fréquences propres sont proportionnelles à m² + n², c'est-à-dire à k². C'est cette loi que la formule mesure, et sa constante place le mode fondamental (2, 2) à 256 Hz — le do de l'accord scientifique.
+- EN : The formula f = 128 × k² is not a choice: for a simply supported square plate, the natural frequencies are proportional to m² + n², that is, to k². That is the law the formula measures, and its constant places the fundamental mode (2, 2) at 256 Hz — C in scientific pitch.
+- ES : à traduire (contenu changé au 2026-09-24, remplace entièrement la version antérieure)
+- TH : à traduire (contenu changé au 2026-09-24, remplace entièrement la version antérieure ; voir la remarque sur la relecture native ci-dessus, elle s'applique encore plus à ce texte, qui mêle vocabulaire physique — plaque, mode propre, fréquence propre — et le nom du do dans l'accord scientifique)
+
+## framingScope (nouvelle clé)
+- FR : Vérifiée triangle par triangle pour trois motifs précis du système d'axes — écart 0, écarts 0 et 3, écarts 1,5 et 4,5 — dont le tracé coïncide exactement avec la ligne nodale d'un mode de plaque. Pour les quinze gammes ci-dessous, la correspondance reste ce qu'elle a toujours été : une fréquence spatiale dominante mesurée, sans qu'on ait vérifié qu'elle dessine la même figure qu'une plaque vibrante.
+- EN : Verified triangle by triangle for three specific motifs of the axes system — écart 0, écarts 0 and 3, écarts 1.5 and 4.5 — whose trace matches exactly the nodal line of a plate mode. For the fifteen scales below, the correspondence remains what it has always been: a measured dominant spatial frequency, without any verification that it draws the same figure as a vibrating plate.
+- ES : à traduire — garder « écart » tel quel ou l'expliciter (distance au centre) selon ce qui se lit le mieux ; ne pas traduire par un terme qui suggérerait une note de musique.
+- TH : à traduire — même remarque sur « écart ».
+
+## framingReserves (nouvelle clé)
+- FR : Trois réserves, sur ce qui est vérifié. Le rapprochement n'est pas mathématiquement profond — un damier est nécessairement le motif nodal d'un mode. Les familles diagonales du système suivent une autre architecture, non encore reliée aux figures de Chladni. Et aucune mesure physique n'a été conduite : c'est une correspondance géométrique, pas une expérience.
+- EN : Three reservations, on what is verified. The correspondence is not mathematically deep — a checkerboard is necessarily the nodal pattern of some mode. The diagonal families of the system follow a different architecture, not yet connected to Chladni figures. And no physical measurement has been carried out: this is a geometric correspondence, not an experiment.
+- ES : à traduire
+- TH : à traduire
+
+## framingLink (nouvelle clé)
+- FR : Le détail, avec la vérification →
+- EN : The detail, with the verification →
+- ES : à traduire
+- TH : à traduire
+
 ## Deux points repérés hors de ce fichier
 
 1. Sur `es/libro/index.html` et `th/book/index.html`, les liens de
