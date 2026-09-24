@@ -384,6 +384,8 @@
     <div class="paved-actions">
       <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
       <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
+      <button type="button" id="btnDlGridPng">Télécharger grille.png</button>
+      <button type="button" id="btnDlGridJson">Télécharger grille.json</button>
     </div>
   </div>
 
@@ -439,6 +441,7 @@
 
 </div>
 
+<script src="assets/calque-engine.js"></script>
 <script>
 let DATA = null;
 const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
@@ -571,11 +574,14 @@ function refreshPalette(){
   else applySingleHue(picked);
 }
 
-function hexagramGrid(n, gridA, gridB){
+function traitsFromChrono(n){
   const col = n % 8, row = Math.floor(n/8);
   const bitsCol = [col&1,(col>>1)&1,(col>>2)&1];
   const bitsRow = [row&1,(row>>1)&1,(row>>2)&1];
-  const traits = bitsCol.concat(bitsRow);
+  return bitsCol.concat(bitsRow);
+}
+function hexagramGrid(n, gridA, gridB){
+  const traits = traitsFromChrono(n);
   const grid = [];
   for(let r=0;r<12;r++){
     const rowArr=[];
@@ -768,6 +774,35 @@ document.getElementById('btnDlCellSvg').addEventListener('click', ()=>{
 document.getElementById('btnDlPavedSvg').addEventListener('click', ()=>{
   const { grid, fam, subA, subB, n } = currentSelection();
   downloadSvgString(motifSvgMarkup(grid, 4), `pavage-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}-x4.svg`);
+});
+
+// C4 : export grille.png/grille.json, même moteur qu'impression.html (A4) — grid est déjà
+// la grille 12x12 de lettres de teinte (V/M/O) reconstruite par hexagramGrid, jamais une
+// relecture du SVG.
+document.getElementById('btnDlGridPng').addEventListener('click', async ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const hexGrid = grid.map(row => row.map(letter => PALETTE[letter] || null));
+  const blob = await CalqueEngine.gridToPNG(hexGrid);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.png`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+document.getElementById('btnDlGridJson').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const json = CalqueEngine.gridToJSON({
+    ordre: grid.length,
+    niveaux: traitsFromChrono(n).map(bit => bit ? 'yang' : 'yin'),
+    hexagramme: { chrono: n, famille: fam, natureA: subA, natureB: subB },
+    cases: grid,
+  });
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 });
 
 fetch('data/fonds_ecran_v1.json')
