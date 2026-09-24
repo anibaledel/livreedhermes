@@ -36,6 +36,11 @@
   .hexselect button .num{
     position:absolute; left:-22px; font-size:11px; color:var(--dim); opacity:.6;
   }
+  .hexselect button.all-toggle{
+    margin-top:8px; padding-top:10px; border-top:1px solid var(--line-strong);
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); height:auto;
+  }
+  .hexselect button.all-toggle[aria-pressed="true"]{ color:var(--gold); }
 
   .preview{ border:1px solid var(--line); padding:18px; text-align:center; }
   .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); }
@@ -90,7 +95,7 @@
 
     <div class="preview">
       <div id="paneMotif"></div>
-      <p>Cellule 12×12 — niveau <span id="previewLevelNum">1</span> sélectionné</p>
+      <p>Cellule 12×12 — <span id="previewLevelNum">niveau 1 sélectionné</span></p>
     </div>
 
     <div class="controls">
@@ -203,7 +208,7 @@ async function main() {
   document.getElementById('colorA').value = colorA;
   document.getElementById('colorB').value = colorB;
 
-  let selected = 1;
+  let selected = new Set([1]);
 
   const familleSelect = document.getElementById('familleSelect');
   familleKeys.forEach(k => {
@@ -216,6 +221,18 @@ async function main() {
 
   const hexSelect = document.getElementById('hexSelect');
   const bars = [];
+
+  // Placé en premier dans le DOM : comme .hexselect est en
+  // column-reverse (trait 1 en bas, trait 6 en haut), le premier enfant
+  // du DOM est celui qui s'affiche le plus bas — donc sous le trait 1,
+  // sous tout l'hexagramme.
+  const allBtn = document.createElement('button');
+  allBtn.type = 'button';
+  allBtn.className = 'all-toggle';
+  allBtn.textContent = 'Tous';
+  allBtn.addEventListener('click', toggleAll);
+  hexSelect.appendChild(allBtn);
+
   for (let n = 1; n <= N_LEVELS; n++) {
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -233,17 +250,45 @@ async function main() {
       const bar = btn.querySelector('.bar');
       btn.classList.toggle('gap', lvl.teinte === 'yin');
       bar.innerHTML = lvl.teinte === 'yin' ? '<span></span><span></span>' : '<span></span>';
-      btn.setAttribute('aria-pressed', n === selected ? 'true' : 'false');
+      btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
     });
+    allBtn.setAttribute('aria-pressed', selected.size === N_LEVELS ? 'true' : 'false');
+  }
+
+  function syncControls() {
+    const heading = document.getElementById('levelHeading');
+    const previewNum = document.getElementById('previewLevelNum');
+    if (selected.size === 0) {
+      familleSelect.disabled = true;
+      etatSelect.disabled = true;
+      heading.textContent = 'Aucun niveau sélectionné';
+      previewNum.textContent = 'aucun niveau sélectionné';
+      return;
+    }
+    familleSelect.disabled = false;
+    etatSelect.disabled = false;
+    const nums = [...selected].sort((a, b) => a - b);
+    const lvl = levels[nums[0] - 1];
+    familleSelect.value = lvl.name;
+    etatSelect.value = lvl.teinte;
+    if (nums.length === 1) {
+      heading.textContent = 'Niveau ' + nums[0];
+      previewNum.textContent = 'niveau ' + nums[0] + ' sélectionné';
+    } else {
+      heading.textContent = nums.length + ' niveaux';
+      previewNum.textContent = 'niveaux ' + nums.join(', ') + ' sélectionnés';
+    }
   }
 
   function selectLevel(n) {
-    selected = n;
-    const lvl = levels[n - 1];
-    familleSelect.value = lvl.name;
-    etatSelect.value = lvl.teinte;
-    document.getElementById('levelHeading').textContent = 'Niveau ' + n;
-    document.getElementById('previewLevelNum').textContent = n;
+    selected = new Set([n]);
+    syncControls();
+    renderBars();
+  }
+
+  function toggleAll() {
+    selected = selected.size === N_LEVELS ? new Set() : new Set([1, 2, 3, 4, 5, 6]);
+    syncControls();
     renderBars();
   }
 
@@ -267,12 +312,12 @@ async function main() {
   }
 
   familleSelect.addEventListener('change', () => {
-    levels[selected - 1].name = familleSelect.value;
+    for (const n of selected) levels[n - 1].name = familleSelect.value;
     renderBars();
     render();
   });
   etatSelect.addEventListener('change', () => {
-    levels[selected - 1].teinte = etatSelect.value;
+    for (const n of selected) levels[n - 1].teinte = etatSelect.value;
     renderBars();
     render();
   });
