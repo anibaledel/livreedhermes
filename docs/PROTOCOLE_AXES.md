@@ -155,20 +155,51 @@ sombre  ⟺  [ x − y > 0 ] + [ x + y > 12 ] + [ |x−6|+|y−6| < 6 ]
 ```
 
 Pas une nouvelle classe de nœuds : un second rayon empilé sur la classe
-mixte déjà en place pour T2. Généralisation naturelle à vérifier pour les
-générations suivantes : un rayon de plus par génération, sur la même classe.
+mixte déjà en place pour T2.
 
-### 1.8 YANG-MUT T3 — chantier ouvert, incohérence de cellule
+**Le principe est cumulatif, comme pour les écarts.** Les rayons
+s'accumulent d'une génération à l'autre sur la même classe de nœuds :
+rayon 1 en T2, rayons 1 et 2 en T3. Prédiction pour T4 : rayons 1, 2 et 3
+— à vérifier quand T4 sera attaquée, pas présumée avant.
 
-**Non établie.** La planche colorée `bandesYANG MUT T3 ECHOES.svg` porte
-2304 formes (144 × 16 : cellule C16), alors que celle de `bandesYANG T3
-ECHOES.svg` (résolue, §1.7) en porte 1152 (144 × 8 : cellule C8) — **les deux
-planches d'une même génération ne sont pas à la même cellule.** C'est la
-première confirmation que la génération fine emploie réellement C16 (le
-demi-pas des coordonnées relevées dans le fichier d'axes correspond
-exactement à sa grille), mais elle bloque la vérification directe de
-YANG-MUT T3 tant que l'extracteur ne sait lire que C8. À reprendre avec un
-extracteur C16 avant de tester l'hypothèse de translation (§1.6bis) sur T3.
+### 1.8 YANG-MUT T3 — chantier ouvert, la planche ne se résout pas en C16 propre
+
+**Non établie.** L'extracteur C16 est construit et validé (§1.8bis) mais la
+planche colorée `bandesYANG MUT T3 ECHOES.svg` ne s'y résout pas
+proprement : ses 2304 formes mesurent TOUTES environ 0,125 unité² — deux
+fois l'aire d'un vrai triangle C16 (0,0625), la taille d'un secteur C8 — et
+l'aire sombre comme l'aire claire totalisent chacune environ 144, l'aire de
+la grille entière. Le fichier superpose donc **deux pavages complets et
+indépendants de tout le carré, un par teinte**, plutôt que de porter un
+unique pavage C16 à 2304 triangles distincts. Une lecture "dernier tracé
+gagne" (l'ordre du document, comme l'ordre de peinture SVG) à la granularité
+C8 laisse encore 184/1152 non résolus — pas une simple affaire d'ordre de
+calque. Ni la loi du décalage de 3 (§1.6bis) ni la règle directe (diagonales
++ losange inscrit + rayons 1 et 2, translatés) n'ont pu être testées contre
+une vérité de terrain fiable pour cette raison.
+
+### 1.8bis L'extracteur C16 — construit et validé
+
+Nécessaire dès qu'une planche se lit en cellule C16 (16 triangles par case,
+2304 par planche — la case se partage en quatre sous-carrés de côté ½, NO/NE/
+SE/SO, chacun coupé par ses deux diagonales en quatre triangles). Le
+raccourci par appariement à un point canonique (la méthode qui a servi pour
+C8) échoue en C16 : les centroïdes se confondent et des formes se perdent.
+
+**La méthode qui marche** (assets/bicolore-c16-classify.mjs) : pour chaque
+forme dessinée, son centroïde (x,y) en coordonnées de case (0..1) donne
+directement le sous-carré (ouest si x<½, est sinon ; nord si y<½, sud
+sinon), puis, depuis le centre local du sous-carré (à un quart de case de
+chaque bord), l'angle donne le secteur — quatre à partir du haut, sens
+horaire, comme C8.
+
+**Validée par deux contrôles** (tools/verify_c16_roundtrip.mjs), avant tout
+usage sur une vraie planche : l'auto-cohérence (le centroïde géométrique réel
+de chaque triangle C16 se classifie vers son propre index, 2304/2304), et le
+round-trip — une planche C8 connue (YANG T2), étendue en C16 puis
+recontractée, retrouve l'original au bit près (0 écart/1152). C16 contient
+bien C8, chaque secteur C8 étant l'union de deux triangles C16, confirmé
+programmatiquement.
 
 ### 1.9 Le système Yin — entièrement unifié, une seule fonction
 
