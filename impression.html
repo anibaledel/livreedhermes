@@ -457,6 +457,11 @@
       </div>
       <div class="hex-text-block" id="hexTextPost"></div>
     </div>
+
+    <div class="data-source-line" style="margin-top:24px;font-size:0.85em;opacity:0.7;">
+      <span id="txt-dataSourceLabel">Données</span> : <span id="txt-dataSourceDesc">les 60 images</span>
+      (<code>data/referent_360_v3.json</code>) · <a href="chiffres-et-sources.html" id="txt-dataSourceLink">Chiffres et sources</a>
+    </div>
   </div>
 
   <!-- ===== Pied de page ===== -->
@@ -535,6 +540,7 @@ const UI = {
     dlGridPngBtn:"Télécharger grille.png", dlGridJsonBtn:"Télécharger grille.json",
     copyLinkBtn:"Copier le lien de ce tirage", linkCopiedBtn:"Lien copié !",
     copyLinkHelp:"Collez ce lien dans le formulaire de la page Contact pour commander ce motif.",
+    dataSourceLabel:"Données", dataSourceDesc:"les 60 images", dataSourceLink:"Chiffres et sources",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
@@ -558,6 +564,7 @@ const UI = {
     dlGridPngBtn:"Download grid.png", dlGridJsonBtn:"Download grid.json",
     copyLinkBtn:"Copy this draw's link", linkCopiedBtn:"Link copied!",
     copyLinkHelp:"Paste this link into the Contact page form to order this motif.",
+    dataSourceLabel:"Data", dataSourceDesc:"the 60 images", dataSourceLink:"Figures and sources",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
@@ -582,6 +589,7 @@ const UI = {
     dlGridPngBtn:"Descargar grille.png", dlGridJsonBtn:"Descargar grille.json",
     copyLinkBtn:"Copiar el enlace de esta tirada", linkCopiedBtn:"¡Enlace copiado!",
     copyLinkHelp:"Pegue este enlace en el formulario de la página Contacto para encargar este motivo.",
+    dataSourceLabel:"Datos", dataSourceDesc:"las 60 imágenes", dataSourceLink:"Cifras y fuentes",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
@@ -604,6 +612,7 @@ const UI = {
     dlGridPngBtn:"ดาวน์โหลด grille.png", dlGridJsonBtn:"ดาวน์โหลด grille.json",
     copyLinkBtn:"Copy this draw's link" /* TH: à relire */, linkCopiedBtn:"Link copied!" /* TH: à relire */,
     copyLinkHelp:"Paste this link into the Contact page form to order this motif." /* TH: à relire */,
+    dataSourceLabel:"ข้อมูล" /* TH: à relire */, dataSourceDesc:"60 ภาพ" /* TH: à relire */, dataSourceLink:"ตัวเลขและแหล่งที่มา (FR)",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
@@ -641,6 +650,9 @@ function applyUILang(){
   document.getElementById('dlGridJson').textContent = t('dlGridJsonBtn');
   document.getElementById('copyTirageLink').textContent = t('copyLinkBtn');
   document.getElementById('txt-copyLinkHelp').textContent = t('copyLinkHelp');
+  document.getElementById('txt-dataSourceLabel').textContent = t('dataSourceLabel');
+  document.getElementById('txt-dataSourceDesc').textContent = t('dataSourceDesc');
+  document.getElementById('txt-dataSourceLink').textContent = t('dataSourceLink');
   document.getElementById('txt-navHome').textContent = t('navHome');
   document.getElementById('txt-navHomeDesc').textContent = t('navHomeDesc');
   document.getElementById('txt-navTirage').textContent = t('navTirage');
