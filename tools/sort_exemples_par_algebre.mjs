@@ -35,6 +35,17 @@ function toBigInt(colorOf) {
   return v;
 }
 
+// Normalisation de polarité (Anibal) : le rang 5 au lieu de 4 venait du
+// vecteur "tout sombre" — certaines planches sont peintes teintes
+// inversées, et chaque inversion ajoute cette dimension constante à
+// l'espace engendré. On force donc le premier triangle de chaque image à
+// clair (bit 0 = 0) : l'ensemble des vecteurs à bit 0 nul est LUI-MÊME
+// fermé par ou-exclusif (0 xor 0 = 0), donc cette normalisation ne casse
+// aucune relation d'algèbre — elle élimine seulement le degré de liberté
+// de polarité qui la perturbait. A⊕B=C et A⊕B=¬C comptent alors pareil.
+const ONE = (1n << 1152n) - 1n; // vecteur "tout sombre"
+function canon(v) { return (v & 1n) ? (v ^ ONE) : v; }
+
 // Écartés : structure de classes radicalement différente des autres fichiers
 // du même dossier (ex. bandesYIN T3.svg porte 1296 formes cls-1/cls-6 contre
 // 576 partout ailleurs) — extraction non fiable avec le modèle C8 actuel,
@@ -56,7 +67,7 @@ for (const folder of FOLDERS) {
     const out = execFileSync('node', [extractorPath, svgPath], { encoding: 'utf8', maxBuffer: 1024 * 1024 * 16 });
     const { colorOf, unresolved } = JSON.parse(out);
     if (unresolved > 0) { console.error(`${folder}/${file} : ${unresolved} non résolu(s), ignoré`); continue; }
-    entries.push({ folder, file, vec: toBigInt(colorOf) });
+    entries.push({ folder, file, vec: canon(toBigInt(colorOf)) });
   }
 }
 console.log(`Extrait : ${entries.length} fichiers sur ${FOLDERS.length} dossiers.`);
