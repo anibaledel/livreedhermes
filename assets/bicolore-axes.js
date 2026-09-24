@@ -117,6 +117,14 @@ export const GNOMON_YANG_T2 = {
   radius: 1,
   polarity: 'inverse',
 };
+// YANG-MUT T2 — pas une formule d'axes propre, mais une TRANSLATION de
+// GNOMON_YANG_T2 : vérifié par recherche exhaustive de décalage torique que
+// YANG-MUT T2(x,y) = YANG T2(x, y−3 mod 12), 0 écart / 1152, sans inversion.
+// C'est la loi du décalage de 3 (§1.2) qui s'incarne ici comme une
+// translation spatiale de la figure entière, pas comme un changement de
+// classe de nœuds du gnomon (hypothèse écartée après vérification : aucune
+// des quatre classes, à aucun rayon, ne reproduit la planche).
+export const GNOMON_YANG_MUT_T2 = { type: 'translate', base: GNOMON_YANG_T2, dx: 0, dy: 3 };
 // ---------------------------------------------------------------------------
 
 // AXES[base][génération] -> { type, t|s+d, polarity }. Yang mutant T0
@@ -133,6 +141,7 @@ for (const [name, byGen] of Object.entries(RAW_ECARTS)) {
 // Remplace la formule diagAxes (non vérifiée, fausse pour YANG T2 comme
 // démontré — voir l'en-tête) par le gnomon, vérifié au bit près.
 AXES.YANG.T2 = GNOMON_YANG_T2;
+AXES['YANG-MUT'].T2 = GNOMON_YANG_MUT_T2;
 
 // Alias historique : les axes de T0 seuls, pour tools/verify_bicolore_axes_t0.mjs.
 export const AXES_T0 = Object.fromEntries(
@@ -140,6 +149,11 @@ export const AXES_T0 = Object.fromEntries(
 );
 
 export function parityBit(axes, x, y) {
+  if (axes.type === 'translate') {
+    let tx = x - axes.dx, ty = y - axes.dy;
+    tx = ((tx % 12) + 12) % 12; ty = ((ty % 12) + 12) % 12;
+    return parityBit(axes.base, tx, ty);
+  }
   let n = 0;
   if (axes.type === 'ortho') {
     for (const t of axes.t) { n += (x > t) ? 1 : 0; n += (y > t) ? 1 : 0; }
