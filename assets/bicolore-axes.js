@@ -6,9 +6,7 @@
 // de référence, seul point de vérité : "seul T0 correspond aux
 // ORIGINES", le reste de la série est renumérotée).
 //
-// LA RÈGLE, ÉTABLIE ET VÉRIFIÉE SUR T0 (écart nul, bit à bit, sur les
-// 1152 triangles de C8, pour les trois bases qui portent des axes en
-// T0) :
+// LA RÈGLE :
 //
 //   Un point (x,y) du carré 12×12 est sombre si le nombre d'axes qu'il
 //   laisse d'un côté (compté depuis l'origine, sans référence à un
@@ -21,29 +19,82 @@
 //   case, dans la direction du secteur — voir sectorPoint().
 //
 //   La polarité (sombre = bit direct ou inversé du résultat ci-dessus)
-//   se règle base par base contre la lecture couleur #808285 de
-//   data/ORIGINES — ce n'est pas déductible de la géométrie seule.
-//   Vérifiée sur T0 : YIN directe, YANG et YIN mutant inversées.
+//   se règle par FAMILLE (Yin, Yin mutant, Yang, Yang mutant), pas par
+//   génération.
 //
-// Seul T0 est défini ici pour l'instant. T1-T4 attendent la levée
-// d'une divergence entre les deux tables sources (prompt-bicolore-axes
-// et specification-axes.md ne s'accordent pas sur les écarts au-delà
-// de T0) — ne pas deviner, demander confirmation avant d'étendre.
-
+// FRONTIÈRE DE LA VÉRIFICATION — À LIRE AVANT DE TOUCHER À CE FICHIER :
+//
+//   La règle est VÉRIFIÉE AU BIT PRÈS UNIQUEMENT SUR T0, contre
+//   data/ORIGINES (via tools/verify_bicolore_axes_t0.mjs) : écart nul
+//   sur les 1152 triangles de C8, pour YIN (polarité directe), YIN
+//   mutant et YANG (polarité inversée). C'est le seul point où une
+//   planche coloriée de référence existe.
+//
+//   T1 à T3 (et T4) sont ENGENDRÉS PAR CONSTRUCTION à partir de la même
+//   règle et de la même table d'écarts (voir RAW_ECARTS ci-dessous),
+//   SANS vérification bit à bit possible : les tracés de data/AXES/ pour
+//   ces générations ne portent que les axes sur une grille de repère,
+//   aucun motif colorié n'existe pour eux. La polarité par famille est
+//   supposée CONSTANTE d'une génération à l'autre (hypothèse non
+//   vérifiée au-delà de T0, la plus simple qui ne demande rien
+//   d'inventé en plus).
+//
 import { triangleGeometry, GRID, PER_CELL } from './bicolore-render.js';
 
-// Axes de T0 — confirmés par lecture directe des tracés
-// (data/AXES/T YANG/bandesYANG T0.svg, T YIN/bandesT0 YIN[ MUT].svg),
-// pas depuis les tables transcrites : les deux tables s'accordent sur
-// T0 mais divergent au-delà, ce qui a motivé cette vérification directe.
-export const AXES_T0 = {
-  YIN: { type: 'ortho', t: [6], polarity: 'direct' },
-  'YIN-MUT': { type: 'ortho', t: [3, 9], polarity: 'inverse' },
-  YANG: { type: 'diag', s: [12], d: [0], polarity: 'inverse' },
-  // Yang mutant T0 : aucun axe (l'alternance du début est voulue — voir
-  // specification-axes.md §2). La règle de parité ne s'applique donc
-  // pas : ce cas n'est pas couvert ici.
+// Table des écarts au centre, telle que donnée par Anibal (table
+// définitive de prompt-bicolore-axes.md — À NE PAS confondre avec la
+// table de specification-axes.md, qui porte sur un regroupement de
+// fichiers différent — AXES/ cumule les générations, T YIN/T YANG
+// donnent les écarts propres à chacune ; c'est cette dernière lecture
+// qui fait foi).
+export const RAW_ECARTS = {
+  YIN: { T0: [0], T1: [1.5], T2: [1, 5], T3: [0.5, 5.5] },
+  'YIN-MUT': { T0: [3], T1: [4.5], T2: [2, 4], T3: [2.5, 3.5] },
+  YANG: { T0: [0], T1: [0], T2: [2, 4], T3: [1, 5] },
+  'YANG-MUT': { T0: [], T1: [3], T2: [1, 5], T3: [2, 4] },
 };
+
+// Polarité par famille — établie contre ORIGINES pour T0 uniquement
+// (voir tools/verify_bicolore_axes_t0.mjs), supposée constante au-delà.
+const POLARITY = { YIN: 'direct', 'YIN-MUT': 'inverse', YANG: 'inverse', 'YANG-MUT': 'inverse' };
+
+const ORTHO = new Set(['YIN', 'YIN-MUT']);
+
+// x=6±e et y=6±e pour chaque écart e de la liste (e=0 -> une seule
+// droite, 6-0 et 6+0 coïncident).
+function orthoAxes(list, polarity) {
+  const t = new Set();
+  for (const e of list) { t.add(6 - e); t.add(6 + e); }
+  return { type: 'ortho', t: [...t], polarity };
+}
+
+// x+y=12±v et x−y=±v pour chaque écart NON RÉDUIT v = e ou e+6 (e+6
+// exclu quand il vaut 6 — "l'écart 6 est exclu partout").
+function diagAxes(list, polarity) {
+  const nonReduced = new Set();
+  for (const e of list) { nonReduced.add(e); nonReduced.add(e + 6); }
+  nonReduced.delete(6);
+  const s = new Set(), d = new Set();
+  for (const v of nonReduced) { s.add(12 - v); s.add(12 + v); d.add(v); d.add(-v); }
+  return { type: 'diag', s: [...s], d: [...d], polarity };
+}
+
+// AXES[base][génération] -> { type, t|s+d, polarity }. Yang mutant T0
+// n'a pas d'entrée (liste vide -> aucun axe -> la règle ne s'applique
+// pas, voir la note dans tools/verify_bicolore_axes_t0.mjs).
+export const AXES = {};
+for (const [name, byGen] of Object.entries(RAW_ECARTS)) {
+  AXES[name] = {};
+  for (const [gen, list] of Object.entries(byGen)) {
+    if (list.length === 0) continue;
+    AXES[name][gen] = ORTHO.has(name) ? orthoAxes(list, POLARITY[name]) : diagAxes(list, POLARITY[name]);
+  }
+}
+
+// Alias historique : les axes de T0 seuls, pour tools/verify_bicolore_axes_t0.mjs.
+export const AXES_T0 = Object.fromEntries(
+  Object.entries(AXES).filter(([, byGen]) => byGen.T0).map(([name, byGen]) => [name, byGen.T0])
+);
 
 export function parityBit(axes, x, y) {
   let n = 0;
