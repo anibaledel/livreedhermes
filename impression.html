@@ -436,7 +436,9 @@
           <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
           <span class="dl-btn" id="dlGridPng" style="cursor:pointer;">Télécharger grille.png</span>
           <span class="dl-btn" id="dlGridJson" style="cursor:pointer;">Télécharger grille.json</span>
+          <span class="dl-btn" id="copyTirageLink" style="cursor:pointer;">Copier le lien de ce tirage</span>
         </div>
+        <div id="txt-copyLinkHelp" style="font-size:0.85em;opacity:0.7;margin-top:4px;">Collez ce lien dans le formulaire de la page Contact pour commander ce motif.</div>
       </div>
     </div>
 
@@ -531,6 +533,8 @@ const UI = {
     resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
     dlGridPngBtn:"Télécharger grille.png", dlGridJsonBtn:"Télécharger grille.json",
+    copyLinkBtn:"Copier le lien de ce tirage", linkCopiedBtn:"Lien copié !",
+    copyLinkHelp:"Collez ce lien dans le formulaire de la page Contact pour commander ce motif.",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
@@ -552,6 +556,8 @@ const UI = {
     resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
     dlGridPngBtn:"Download grid.png", dlGridJsonBtn:"Download grid.json",
+    copyLinkBtn:"Copy this draw's link", linkCopiedBtn:"Link copied!",
+    copyLinkHelp:"Paste this link into the Contact page form to order this motif.",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
@@ -574,6 +580,8 @@ const UI = {
     resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
     dlGridPngBtn:"Descargar grille.png", dlGridJsonBtn:"Descargar grille.json",
+    copyLinkBtn:"Copiar el enlace de esta tirada", linkCopiedBtn:"¡Enlace copiado!",
+    copyLinkHelp:"Pegue este enlace en el formulario de la página Contacto para encargar este motivo.",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
@@ -594,6 +602,8 @@ const UI = {
     resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
     dlGridPngBtn:"ดาวน์โหลด grille.png", dlGridJsonBtn:"ดาวน์โหลด grille.json",
+    copyLinkBtn:"Copy this draw's link" /* TH: à relire */, linkCopiedBtn:"Link copied!" /* TH: à relire */,
+    copyLinkHelp:"Paste this link into the Contact page form to order this motif." /* TH: à relire */,
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
@@ -629,6 +639,8 @@ function applyUILang(){
   document.getElementById('dlPdf').textContent = t('dlPdfBtn');
   document.getElementById('dlGridPng').textContent = t('dlGridPngBtn');
   document.getElementById('dlGridJson').textContent = t('dlGridJsonBtn');
+  document.getElementById('copyTirageLink').textContent = t('copyLinkBtn');
+  document.getElementById('txt-copyLinkHelp').textContent = t('copyLinkHelp');
   document.getElementById('txt-navHome').textContent = t('navHome');
   document.getElementById('txt-navHomeDesc').textContent = t('navHomeDesc');
   document.getElementById('txt-navTirage').textContent = t('navTirage');
@@ -770,6 +782,22 @@ function splitFamilyId(familyId){
     rest = rest.slice(hit.length).replace(/^-/, '');
   }
   return out;
+}
+
+// A3 : même ambiguïté que splitFamilyId ci-dessus — 'yang-mut' et 'yin-mut' portent déjà un
+// tiret, donc le paramètre ?tirage=<slug1>-…-<slug6> ne peut pas se relire par un simple
+// split('-') (il rendrait 8 segments au lieu de 6). Même remède : appariement le plus long
+// d'abord, jusqu'à épuiser la chaîne ou obtenir 6 slugs.
+function splitTirageParam(tirage){
+  const ordered = ['yang-mut','yin-mut','yang','yin'];
+  let rest = tirage, out = [];
+  while(rest.length && out.length < 6){
+    const hit = ordered.find(s => rest.startsWith(s));
+    if(!hit) return null;
+    out.push(hit);
+    rest = rest.slice(hit.length).replace(/^-/, '');
+  }
+  return (out.length === 6 && rest === '') ? out : null;
 }
 
 /* ===== Hexagramme départ/arrivée pour Catégories I et III — un tirage à 6 positions
@@ -1477,13 +1505,18 @@ function renderPavageBox(svgText){
   box.style.backgroundImage = `url("${svgDataUri(cropSvgToPavage(svgText))}")`;
 }
 
-async function drawCategorie2(){
+// A3 : forcedSlugs (6 slugs déjà tirés) rejoue un tirage depuis l'URL, sans repasser par
+// le hasard — sinon un tirage neuf est effectué normalement.
+function randomOrForced(forcedSlugs){
+  return forcedSlugs || Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+}
+async function drawCategorie2(forcedSlugs){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   const [axisA, axisB] = splitFamilyId(familyId);
   const spaceKey = 'par2:'+familyId;
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+  const drawnSlugs = randomOrForced(forcedSlugs);
   const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
@@ -1500,13 +1533,13 @@ async function drawCategorie2(){
 // (axis1) — validé cellule par cellule et visuellement contre les vrais fichiers : pour une
 // teinte fixée, les 4 valeurs d'axis1 ne sont qu'une permutation de couleur cohérente de la
 // même forme, donc un tirage indépendant par position reste visuellement cohérent.
-async function drawCategorie1Or3(cat){
+async function drawCategorie1Or3(cat, forcedSlugs){
   const teinteSlug = NATURE_SLUGS[(state.teinte||1)-1];
   const baseDir = cat === 1 ? 'assets/bases-cartes/' : 'assets/par3-cartes/';
   const spaceKey = (cat === 1 ? 'bases:' : 'par3:') + teinteSlug;
   const posDir = baseDir + teinteSlug + '/';
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+  const drawnSlugs = randomOrForced(forcedSlugs);
   const { block, template, grid } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
@@ -1521,11 +1554,11 @@ async function drawCategorie1Or3(cat){
 // Catégorie IV : le vrai tirage Yi-King (mêmes 24 fichiers assets/trait-cartes/ que la
 // page d'accueil), sans teinte à fixer au préalable puisque trait-cartes n'a pas de
 // sous-dossier teinte — chacune des 6 positions tire librement parmi les 4 natures.
-async function drawCategorie4(){
+async function drawCategorie4(forcedSlugs){
   const spaceKey = 'hexagram';
   const baseDir = 'assets/trait-cartes/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+  const drawnSlugs = randomOrForced(forcedSlugs);
   const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
@@ -1611,14 +1644,16 @@ async function renderMutationZone(item){
   zone.classList.add('visible');
 }
 
-document.getElementById('rollBtn').addEventListener('click', async ()=>{
-  if(state.cat === 2 && !state.famille){ return; }
-  if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
+// A3 : lien permanent d'un tirage — ?cat=<1-4>&famille=<slug>&teinte=<slug>&tirage=<6 slugs>.
+// performDraw() sert à la fois au tirage normal (rollBtn, forcedSlugs absent) et au rejeu
+// exact d'un lien (initFromURL, forcedSlugs = les 6 slugs de l'URL) : même rendu, même mise
+// à jour d'URL dans les deux cas, pour que "rejouer" et "tirer" restent indiscernables une
+// fois le résultat affiché.
+async function performDraw(forcedSlugs){
   if(!MANIFEST) await loadManifest();
-
-  const item = state.cat === 2 ? await drawCategorie2()
-    : (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat)
-    : await drawCategorie4();
+  const item = state.cat === 2 ? await drawCategorie2(forcedSlugs)
+    : (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat, forcedSlugs)
+    : await drawCategorie4(forcedSlugs);
   state.item = item;
   state.chrono = item.id;
   document.getElementById('previewBox').innerHTML = item.svgText;
@@ -1626,6 +1661,31 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
   document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.familyName}`;
   document.getElementById('resultIdea').innerHTML = resultIdeaHtml(item.hex.kw);
   await renderMutationZone(item);
+  updateTirageURL(item);
+}
+function updateTirageURL(item){
+  const params = new URLSearchParams();
+  params.set('cat', state.cat);
+  if(state.cat === 2) params.set('famille', MANIFEST.cat2Families[(state.famille||1)-1]);
+  if(state.cat === 1 || state.cat === 3) params.set('teinte', NATURE_SLUGS[(state.teinte||1)-1]);
+  params.set('tirage', item.drawnSlugs.join('-'));
+  history.replaceState(null, '', `${location.pathname}?${params.toString()}`);
+}
+document.getElementById('rollBtn').addEventListener('click', async ()=>{
+  if(state.cat === 2 && !state.famille){ return; }
+  if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
+  await performDraw();
+});
+
+document.getElementById('copyTirageLink').addEventListener('click', async ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  try {
+    await navigator.clipboard.writeText(location.href);
+    const btn = document.getElementById('copyTirageLink');
+    const original = btn.textContent;
+    btn.textContent = t('linkCopiedBtn');
+    setTimeout(()=>{ btn.textContent = original; }, 1500);
+  } catch(err){ prompt(t('copyLinkBtn'), location.href); }
 });
 
 document.getElementById('dlSvg').addEventListener('click', async ()=>{
@@ -1664,11 +1724,36 @@ document.getElementById('dlGridJson').addEventListener('click', ()=>{
 });
 
 /* ===== init ===== */
-(function initFromURL(){
+// A3 : une URL portant cat/tirage (et famille ou teinte selon la catégorie) rejoue
+// exactement ce tirage, sans repasser par le hasard — en simulant de vrais clics sur la
+// carte de catégorie puis le dé concerné, pour retomber sur les mêmes gestionnaires
+// (et le même affichage) qu'une sélection manuelle.
+(async function initFromURL(){
   const params = new URLSearchParams(location.search);
   if(params.has('lang') && UI[params.get('lang')]) LANG = params.get('lang');
   applyUILang();
-  loadManifest();
+
+  const catParam = parseInt(params.get('cat'));
+  const tirageSlugs = params.has('tirage') ? splitTirageParam(params.get('tirage')) : null;
+
+  if(catParam >= 1 && catParam <= 4 && tirageSlugs){
+    await loadManifest();
+    document.querySelector(`.cat-card[data-cat="${catParam}"]`).click();
+    if(catParam === 2){
+      const idx = MANIFEST.cat2Families.indexOf(params.get('famille'));
+      const btn = document.querySelectorAll('#familleRow .dice-btn')[idx];
+      if(btn) btn.click();
+    }
+    if(catParam === 1 || catParam === 3){
+      const idx = NATURE_SLUGS.indexOf(params.get('teinte'));
+      const btn = document.querySelectorAll('#teinteRow .dice-btn')[idx];
+      if(btn) btn.click();
+    }
+    const ready = catParam === 2 ? !!state.famille : (catParam === 1 || catParam === 3) ? !!state.teinte : true;
+    if(ready) await performDraw(tirageSlugs);
+  } else {
+    loadManifest();
+  }
 })();
 </script>
 
