@@ -23,9 +23,9 @@ pas les nombres.
 ---
 
 ## framing1
-(contient `<strong>` autour de « engendrés » / « generated » — le conserver)
-- FR : Les axes de ce système ne sont pas choisis : ils sont **engendrés**. On pose deux droites — les médianes et les bords du carré — et une seule opération, le doublement de l'écart au centre. Le vocabulaire est le plus petit ensemble stable par l'inverse de ce doublement, et il se referme de lui-même après quatre étapes sur vingt-quatre écarts. Il n'y a rien à régler dans cette définition, donc rien qui aurait pu être réglé.
-- EN : The axes of this system are not chosen: they are **generated**. Two lines are set down — the square's medians and its edges — and a single operation, doubling the gap from the centre. The vocabulary is the smallest set closed under the inverse of that doubling, and it closes on itself after four steps, over twenty-four gaps. There is nothing to tune in this definition, so nothing that could have been tuned.
+(contient `<strong>` autour de « engendré » / « generated » — le conserver)
+- FR : Le vocabulaire n'est pas choisi, il est **engendré**. Une seule opération suffit — doubler l'écart d'une droite par rapport au centre du carré — et l'origine n'est pas libre non plus : un niveau que le doublement laisse en place n'a pas d'antécédent ailleurs qu'en lui-même, donc il ne peut pas être engendré et doit être posé. Il y en a exactement deux, 0° et 120°, le second existant parce que 3 divise 12. En partant de ces deux-là et en remontant le doublement, les écarts orthogonaux se referment en deux étapes sur les 24 possibles, et les diagonaux en trois — losange inscrit compris, qui appartient au vocabulaire sans être tracé.
+- EN : The vocabulary is not chosen, it is **generated**. One operation suffices — doubling a line's offset about the centre of the square — and the origin is not free either: a level the doubling leaves in place has no preimage outside itself, so it cannot be generated and must be posited. There are exactly two, 0° and 120°, the second existing because 3 divides 12. Starting from those two and running the doubling backwards, the orthogonal offsets close in two steps on all 24, and the diagonal ones in three — including the inscribed diamond, which belongs to the vocabulary without being drawn.
 
 ## framing2
 - FR : Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une fonction propre exacte — pas une approximation — de deux systèmes physiques différents. La correspondance n'est donc plus une ressemblance mesurée par transformée de Fourier.
@@ -79,8 +79,8 @@ pas les nombres.
 - EN : the rectangular acoustic cavity with rigid walls, Helmholtz equation with Neumann condition, whose spectrum gives f ∝ √(m² + n²).
 
 ## section2P2
-- FR : La condition aux limites est satisfaite identiquement dans les deux cas. La première plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe quelle boîte rectangulaire.
-- EN : The boundary condition is satisfied identically in both cases. The first plate has never been built in a laboratory; the second cavity is any rectangular box.
+- FR : La condition aux limites est satisfaite identiquement dans les deux cas. La première plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe quelle boîte rectangulaire. Le résultat de cavité suppose un indice vertical nul : une boîte plate, ou une excitation sous la première coupure verticale — au-delà, un troisième terme s'ajoute au spectre.
+- EN : The boundary condition is satisfied identically in both cases. The first plate has never been built in a laboratory; the second cavity is any rectangular box. The cavity result assumes a zero vertical index: a flat box, or excitation below the first vertical cutoff — beyond that, a third term enters the spectrum.
 
 ## section2P3
 - FR : Les deux problèmes partagent leurs fonctions propres et pas leurs spectres, ce qui donne un test à un seul chiffre :
@@ -114,8 +114,8 @@ pas les nombres.
 
 ## sectionCaveatsP1
 (contient `<strong>` et `<em>` — les conserver)
-- FR : **Une seule des sept coupes est une ligne nodale** — celle de 90°. Les six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne sont pas invisibles pour autant : l'interférométrie holographique en moyenne temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface *est* le mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière rasante.
-- EN : **Only one of the seven cuts is a nodal line** — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation *is* the mode: the seven levels are iso-elevation lines there, visible under raking light.
+- FR : **Une seule des sept coupes est une ligne nodale** — celle de 90°. Les six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne sont pas invisibles pour autant : l'interférométrie holographique en moyenne temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface *est* le mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière rasante. Un bassin d'eau ajoute un troisième système, mais pas un troisième test : le clapotis y est dispersif, ω² = g·k·tanh(k·h), et les trois systèmes partagent la figure, pas le spectre — le rapport qui départage plaque et cavité ne s'y transporte pas.
+- EN : **Only one of the seven cuts is a nodal line** — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation *is* the mode: the seven levels are iso-elevation lines there, visible under raking light. A water basin adds a third system, but not a third test: sloshing there is dispersive, ω² = g·k·tanh(k·h), and all three systems share the figure but not the spectrum — the ratio that discriminates plate from cavity does not carry over to it.
 
 ## sectionCaveatsP2
 (contient `<strong>` — le conserver)

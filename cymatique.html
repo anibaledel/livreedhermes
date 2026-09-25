@@ -211,12 +211,14 @@
     <div class="kicker">La Livrée d'Hermès</div>
     <h1 data-i18n="pageTitle">Cymatique — gammes et fréquences</h1>
     <p class="framing" data-i18n-html="framing1">
-      Les axes de ce système ne sont pas choisis : ils sont <strong>engendrés</strong>. On
-      pose deux droites — les médianes et les bords du carré — et une seule opération, le
-      doublement de l'écart au centre. Le vocabulaire est le plus petit ensemble stable par
-      l'inverse de ce doublement, et il se referme de lui-même après quatre étapes sur
-      vingt-quatre écarts. Il n'y a rien à régler dans cette définition, donc rien qui
-      aurait pu être réglé.
+      Le vocabulaire n'est pas choisi, il est <strong>engendré</strong>. Une seule opération
+      suffit — doubler l'écart d'une droite par rapport au centre du carré — et l'origine
+      n'est pas libre non plus : un niveau que le doublement laisse en place n'a pas
+      d'antécédent ailleurs qu'en lui-même, donc il ne peut pas être engendré et doit être
+      posé. Il y en a exactement deux, 0° et 120°, le second existant parce que 3 divise 12.
+      En partant de ces deux-là et en remontant le doublement, les écarts orthogonaux se
+      referment en deux étapes sur les 24 possibles, et les diagonaux en trois — losange
+      inscrit compris, qui appartient au vocabulaire sans être tracé.
     </p>
     <p class="framing" data-i18n="framing2">
       Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau
@@ -273,7 +275,9 @@
     <p data-i18n="section2P2">
       La condition aux limites est satisfaite identiquement dans les deux cas. La première
       plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe
-      quelle boîte rectangulaire.
+      quelle boîte rectangulaire. Le résultat de cavité suppose un indice vertical nul :
+      une boîte plate, ou une excitation sous la première coupure verticale — au-delà, un
+      troisième terme s'ajoute au spectre.
     </p>
     <p data-i18n="section2P3">
       Les deux problèmes partagent leurs fonctions propres et pas leurs spectres, ce qui
@@ -383,7 +387,10 @@
       temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes
       d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface <em>est</em> le
       mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière
-      rasante.
+      rasante. Un bassin d'eau ajoute un troisième système, mais pas un troisième test : le
+      clapotis y est dispersif, ω² = g·k·tanh(k·h), et les trois systèmes partagent la
+      figure, pas le spectre — le rapport qui départage plaque et cavité ne s'y transporte
+      pas.
     </p>
     <p data-i18n-html="sectionCaveatsP2">
       <strong>Les familles diagonales ne relèvent pas d'un mode guidé.</strong> Seul leur
@@ -432,7 +439,7 @@ const UI = {
   fr: {
     pageTitle: "Cymatique — gammes et fréquences",
     framingLink: "Le détail, avec la vérification →",
-    framing1: "Les axes de ce système ne sont pas choisis : ils sont <strong>engendrés</strong>. On pose deux droites — les médianes et les bords du carré — et une seule opération, le doublement de l'écart au centre. Le vocabulaire est le plus petit ensemble stable par l'inverse de ce doublement, et il se referme de lui-même après quatre étapes sur vingt-quatre écarts. Il n'y a rien à régler dans cette définition, donc rien qui aurait pu être réglé.",
+    framing1: "Le vocabulaire n'est pas choisi, il est <strong>engendré</strong>. Une seule opération suffit — doubler l'écart d'une droite par rapport au centre du carré — et l'origine n'est pas libre non plus : un niveau que le doublement laisse en place n'a pas d'antécédent ailleurs qu'en lui-même, donc il ne peut pas être engendré et doit être posé. Il y en a exactement deux, 0° et 120°, le second existant parce que 3 divise 12. En partant de ces deux-là et en remontant le doublement, les écarts orthogonaux se referment en deux étapes sur les 24 possibles, et les diagonaux en trois — losange inscrit compris, qui appartient au vocabulaire sans être tracé.",
     framing2: "Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une fonction propre exacte — pas une approximation — de deux systèmes physiques différents. La correspondance n'est donc plus une ressemblance mesurée par transformée de Fourier.",
     framing3: "Ce qui reste hors de portée est dit plus bas, et il faut le lire : aucune mesure n'a été faite, et sur les sept niveaux un seul est une ligne nodale.",
     sectionOndeHeading: "Une seule onde, sept coupes",
@@ -444,7 +451,7 @@ const UI = {
     section2P1: "Le produit cos(πx/3)·cos(πy/3) est une fonction propre exacte de deux problèmes différents :",
     section2Li1: "la plaque de Kirchhoff à bords guidés, équation biharmonique, dont le spectre donne f ∝ m² + n² ;",
     section2Li2: "la cavité acoustique rectangulaire à parois rigides, équation de Helmholtz avec condition de Neumann, dont le spectre donne f ∝ √(m² + n²).",
-    section2P2: "La condition aux limites est satisfaite identiquement dans les deux cas. La première plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe quelle boîte rectangulaire.",
+    section2P2: "La condition aux limites est satisfaite identiquement dans les deux cas. La première plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe quelle boîte rectangulaire. Le résultat de cavité suppose un indice vertical nul : une boîte plate, ou une excitation sous la première coupure verticale — au-delà, un troisième terme s'ajoute au spectre.",
     section2P3: "Les deux problèmes partagent leurs fonctions propres et pas leurs spectres, ce qui donne un test à un seul chiffre :",
     section2ColK2: "k² mesuré", section2ColPlaque: "loi plaque, f = 128·k²", section2ColCavite: "loi cavité, f = 128·k",
     section2P4: "Sur les trois valeurs qui sont des carrés parfaits, la loi de plaque donne 128, 512, 1152 — rapports 1 : 4 : 9. La loi de cavité donne <strong>128, 256, 384</strong>, c'est-à-dire do, son octave, et la quinte au-dessus : rapports <strong>1 : 2 : 3</strong>, la série harmonique.",
@@ -452,7 +459,7 @@ const UI = {
     section2P6: "Cette page compte les périodes entières sur les douze cases de la grille, ce qui donne k² = 8 pour la figure d'écarts 0 et 3. La convention des plaques compte les demi-longueurs d'onde sur le côté, ce qui donne pour la même figure le mode (4,4) et k² = 32. Les deux sont liés par k²(grille) = (m² + n²) ⁄ 4.",
     section2P7: "Deux modes sont en jeu et ne sont pas à la même fréquence : la porteuse (4,0), qui est la flexion à une dimension et porte les sept niveaux, et la figure (4,4), dont l'ensemble nodal est le niveau zéro et que du sable dessinerait. Sous la loi de plaque leur rapport vaut 2, sous la loi de cavité √2. C'est un second test discriminant.",
     sectionCaveatsHeading: "Ce qui n'est pas établi",
-    sectionCaveatsP1: "<strong>Une seule des sept coupes est une ligne nodale</strong> — celle de 90°. Les six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne sont pas invisibles pour autant : l'interférométrie holographique en moyenne temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface <em>est</em> le mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière rasante.",
+    sectionCaveatsP1: "<strong>Une seule des sept coupes est une ligne nodale</strong> — celle de 90°. Les six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne sont pas invisibles pour autant : l'interférométrie holographique en moyenne temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface <em>est</em> le mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière rasante. Un bassin d'eau ajoute un troisième système, mais pas un troisième test : le clapotis y est dispersif, ω² = g·k·tanh(k·h), et les trois systèmes partagent la figure, pas le spectre — le rapport qui départage plaque et cavité ne s'y transporte pas.",
     sectionCaveatsP2: "<strong>Les familles diagonales ne relèvent pas d'un mode guidé.</strong> Seul leur niveau zéro en relève, comme ensemble nodal des combinaisons dégénérées cos(4πx/a) ± cos(4πy/a) — le mécanisme que Colwell a décrit en 1933. Les six autres niveaux diagonaux n'ont aucun mode de plaque derrière eux.",
     sectionCaveatsP3: "<strong>Aucune mesure physique n'a été faite.</strong> Tout ce qui est avancé ici est du calcul sur les planches publiées et de la vérification symbolique. L'expérience la moins coûteuse est un bac rectangulaire, un haut-parleur dessous et une lampe rasante ; elle départage les deux lois de fréquence. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace.",
     listeningHeading: "Écoute",
@@ -490,7 +497,7 @@ const UI = {
   en: {
     pageTitle: "Cymatics — scales and frequencies",
     framingLink: "The detail, with the verification →",
-    framing1: "The axes of this system are not chosen: they are <strong>generated</strong>. Two lines are set down — the square's medians and its edges — and a single operation, doubling the gap from the centre. The vocabulary is the smallest set closed under the inverse of that doubling, and it closes on itself after four steps, over twenty-four gaps. There is nothing to tune in this definition, so nothing that could have been tuned.",
+    framing1: "The vocabulary is not chosen, it is <strong>generated</strong>. One operation suffices — doubling a line's offset about the centre of the square — and the origin is not free either: a level the doubling leaves in place has no preimage outside itself, so it cannot be generated and must be posited. There are exactly two, 0° and 120°, the second existing because 3 divides 12. Starting from those two and running the doubling backwards, the orthogonal offsets close in two steps on all 24, and the diagonal ones in three — including the inscribed diamond, which belongs to the vocabulary without being drawn.",
     framing2: "And this generated vocabulary coincides, line for line, with the level curves of a single function: cos(πx/3), cut at seven heights. That function is an exact eigenfunction — not an approximation — of two different physical systems. The correspondence is therefore no longer a resemblance measured by Fourier transform.",
     framing3: "What remains out of reach is stated further down, and it should be read: no measurement has been made, and of the seven levels only one is a nodal line.",
     sectionOndeHeading: "One wave, seven cuts",
@@ -502,7 +509,7 @@ const UI = {
     section2P1: "The product cos(πx/3)·cos(πy/3) is an exact eigenfunction of two different problems:",
     section2Li1: "the Kirchhoff plate with guided edges, biharmonic equation, whose spectrum gives f ∝ m² + n²;",
     section2Li2: "the rectangular acoustic cavity with rigid walls, Helmholtz equation with Neumann condition, whose spectrum gives f ∝ √(m² + n²).",
-    section2P2: "The boundary condition is satisfied identically in both cases. The first plate has never been built in a laboratory; the second cavity is any rectangular box.",
+    section2P2: "The boundary condition is satisfied identically in both cases. The first plate has never been built in a laboratory; the second cavity is any rectangular box. The cavity result assumes a zero vertical index: a flat box, or excitation below the first vertical cutoff — beyond that, a third term enters the spectrum.",
     section2P3: "The two problems share their eigenfunctions but not their spectra, which gives a test on a single figure:",
     section2ColK2: "measured k²", section2ColPlaque: "plate law, f = 128·k²", section2ColCavite: "cavity law, f = 128·k",
     section2P4: "On the three values that are perfect squares, the plate law gives 128, 512, 1152 — ratios 1 : 4 : 9. The cavity law gives <strong>128, 256, 384</strong>, that is, C, its octave, and the fifth above: ratios <strong>1 : 2 : 3</strong>, the harmonic series.",
@@ -510,7 +517,7 @@ const UI = {
     section2P6: "This page counts whole periods over the grid's twelve cells, which gives k² = 8 for the pattern with gaps 0 and 3. The plate convention counts half-wavelengths along the side, which gives mode (4,4) and k² = 32 for the same pattern. The two are related by k²(grid) = (m² + n²) ⁄ 4.",
     section2P7: "Two modes are at play, and they are not at the same frequency: the carrier (4,0), which is one-dimensional bending and carries the seven levels, and the figure (4,4), whose nodal set is the zero level and which sand would draw. Under the plate law their ratio is 2, under the cavity law √2. That is a second discriminating test.",
     sectionCaveatsHeading: "What is not established",
-    sectionCaveatsP1: "<strong>Only one of the seven cuts is a nodal line</strong> — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation <em>is</em> the mode: the seven levels are iso-elevation lines there, visible under raking light.",
+    sectionCaveatsP1: "<strong>Only one of the seven cuts is a nodal line</strong> — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation <em>is</em> the mode: the seven levels are iso-elevation lines there, visible under raking light. A water basin adds a third system, but not a third test: sloshing there is dispersive, ω² = g·k·tanh(k·h), and all three systems share the figure but not the spectrum — the ratio that discriminates plate from cavity does not carry over to it.",
     sectionCaveatsP2: "<strong>The diagonal families do not come from a guided mode.</strong> Only their zero level does, as the nodal set of the degenerate combinations cos(4πx/a) ± cos(4πy/a) — the mechanism Colwell described in 1933. The other six diagonal levels have no plate mode behind them.",
     sectionCaveatsP3: "<strong>No physical measurement has been made.</strong> Everything advanced here is calculation on the published plates and symbolic verification. The cheapest experiment is a rectangular tank, a loudspeaker underneath, and raking light; it discriminates between the two frequency laws. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that.",
     listeningHeading: "Listening",
