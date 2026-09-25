@@ -10,12 +10,7 @@
         fill: #808285;
       }
 
-      .cls-3 {
-        fill: none;
-        stroke: #37499f;
-        stroke-miterlimit: 10;
-        stroke-width: 2px;
-      }
+          .axe { fill: none; stroke: #00a651; stroke-miterlimit: 10; stroke-width: 2px; }
     </style>
   </defs>
   <g id="ORIGINES_T2_BASES" data-name="ORIGINES T2 BASES">
@@ -1212,31 +1207,22 @@
       </g>
       <g>
         <g>
-          
-          
-          <rect class="cls-3" x="1.52" y="1.41" width="373.99" height="373.88"/>
         </g>
         <g>
-          <rect class="cls-3" x="95.01" y="94.91" width="187.05" height="186.94"/>
           <g>
-            <polyline class="cls-3" points="281.94 1.41 282.06 94.91 375.41 94.88"/>
-            <polyline class="cls-3" points="375.41 281.83 282.06 281.85 281.94 375.3"/>
-            <polyline class="cls-3" points="95 375.3 95.01 281.85 1.52 281.83"/>
-            <polyline class="cls-3" points="95 1.41 95.01 94.91 1.52 94.88"/>
           </g>
         </g>
       </g>
     </g>
   </g>
-
   <g id="AXES">
-    <line class="cls-3" x1="375.35" y1="48.15" x2="1.52" y2="48.15"/>
-    <line class="cls-3" x1="375.35" y1="328.56" x2="1.52" y2="328.56"/>
-    <line class="cls-3" x1="48.26" y1="1.41" x2="48.26" y2="375.3"/>
-    <line class="cls-3" x1="328.62" y1="1.41" x2="328.62" y2="375.3"/>
-    <line class="cls-3" x1="141.73" y1="1.41" x2="141.73" y2="375.3"/>
-    <line class="cls-3" x1="235.15" y1="375.3" x2="235.15" y2="1.41"/>
-    <line class="cls-3" x1="375.35" y1="141.62" x2="1.52" y2="141.62"/>
-    <line class="cls-3" x1="375.35" y1="235.09" x2="1.52" y2="235.09"/>
+    <line class="axe" x1="375.35" y1="48.15" x2="1.52" y2="48.15"/>
+    <line class="axe" x1="375.35" y1="328.56" x2="1.52" y2="328.56"/>
+    <line class="axe" x1="48.26" y1="1.41" x2="48.26" y2="375.3"/>
+    <line class="axe" x1="328.62" y1="1.41" x2="328.62" y2="375.3"/>
+    <line class="axe" x1="141.73" y1="1.41" x2="141.73" y2="375.3"/>
+    <line class="axe" x1="235.15" y1="375.3" x2="235.15" y2="1.41"/>
+    <line class="axe" x1="375.35" y1="141.62" x2="1.52" y2="141.62"/>
+    <line class="axe" x1="375.35" y1="235.09" x2="1.52" y2="235.09"/>
   </g>
 </svg>
