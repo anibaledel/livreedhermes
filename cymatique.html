@@ -87,6 +87,21 @@
   header .kicker{ letter-spacing:.35em; font-size:11px; color:var(--red); text-transform:uppercase; }
   header h1{ font-size:22px; font-weight:400; margin:10px 0 12px; }
   .framing{ color:var(--dim); font-size:13px; line-height:1.7; max-width:66ch; margin:0 auto; opacity:.9; }
+  .framing + .framing{ margin-top:12px; }
+  .framing strong{ color:var(--white); font-weight:600; }
+
+  .cym-note{ max-width:900px; margin:32px auto 0; padding-top:28px; border-top:1px solid var(--line); font-family:Helvetica,Arial,sans-serif; }
+  .cym-note h2{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .cym-note p{ color:var(--dim); font-size:13px; line-height:1.75; max-width:66ch; margin:0 auto 12px; }
+  .cym-note p:last-child{ margin-bottom:0; }
+  .cym-note strong{ color:var(--white); font-weight:600; }
+  .cym-note ul{ color:var(--dim); font-size:13px; line-height:1.75; max-width:66ch; margin:0 auto 12px; padding-left:1.2em; }
+  .cym-table-wrap{ overflow-x:auto; margin:16px auto; max-width:66ch; }
+  .cym-table{ width:100%; border-collapse:collapse; font-size:12px; }
+  .cym-table th, .cym-table td{ padding:6px 10px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap; }
+  .cym-table th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
+  .cym-table td{ color:var(--dim); }
+  .cym-table td:last-child, .cym-table th:last-child{ white-space:normal; }
 
   .lang-row{ display:flex; justify-content:center; gap:8px; margin-top:16px; flex-wrap:wrap; }
   .app-lang-btn{
@@ -195,26 +210,24 @@
     </nav>
     <div class="kicker">La Livrée d'Hermès</div>
     <h1 data-i18n="pageTitle">Cymatique — gammes et fréquences</h1>
-    <p class="framing" data-i18n="framing">
-      La formule f = 128 × k² n'est pas un choix : pour une plaque carrée simplement
-      appuyée, les fréquences propres sont proportionnelles à m² + n², c'est-à-dire à
-      k². C'est cette loi que la formule mesure, et sa constante place le mode
-      fondamental (2, 2) à 256 Hz — le do de l'accord scientifique.
+    <p class="framing" data-i18n-html="framing1">
+      Les axes de ce système ne sont pas choisis : ils sont <strong>engendrés</strong>. On
+      pose deux droites — les médianes et les bords du carré — et une seule opération, le
+      doublement de l'écart au centre. Le vocabulaire est le plus petit ensemble stable par
+      l'inverse de ce doublement, et il se referme de lui-même après quatre étapes sur
+      vingt-quatre écarts. Il n'y a rien à régler dans cette définition, donc rien qui
+      aurait pu être réglé.
     </p>
-    <p class="framing" data-i18n="framingScope">
-      Vérifiée triangle par triangle pour trois motifs précis du système d'axes —
-      écart 0, écarts 0 et 3, écarts 1,5 et 4,5 — dont le tracé coïncide exactement
-      avec la ligne nodale d'un mode de plaque. Pour les quinze gammes ci-dessous, la
-      correspondance reste ce qu'elle a toujours été : une fréquence spatiale
-      dominante mesurée, sans qu'on ait vérifié qu'elle dessine la même figure qu'une
-      plaque vibrante.
+    <p class="framing" data-i18n="framing2">
+      Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau
+      d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une
+      fonction propre exacte — pas une approximation — de deux systèmes physiques
+      différents. La correspondance n'est donc plus une ressemblance mesurée par
+      transformée de Fourier.
     </p>
-    <p class="framing" data-i18n="framingReserves">
-      Trois réserves, sur ce qui est vérifié. Le rapprochement n'est pas
-      mathématiquement profond — un damier est nécessairement le motif nodal d'un
-      mode. Les familles diagonales du système suivent une autre architecture, non
-      encore reliée aux figures de Chladni. Et aucune mesure physique n'a été
-      conduite : c'est une correspondance géométrique, pas une expérience.
+    <p class="framing" data-i18n="framing3">
+      Ce qui reste hors de portée est dit plus bas, et il faut le lire : aucune mesure n'a
+      été faite, et sur les sept niveaux un seul est une ligne nodale.
     </p>
     <p class="framing"><a href="articles/axes-lignes-nodales.html" data-i18n="framingLink">Le détail, avec la vérification →</a></p>
     <div class="echelle-row" id="echelleRow">
@@ -230,6 +243,67 @@
       <button type="button" class="app-lang-btn" data-lang="th">TH</button>
     </div>
   </header>
+  </div>
+
+  <div class="cym-note" id="sectionOnde">
+    <h2 data-i18n="sectionOndeHeading">Une seule onde, sept coupes</h2>
+    <p data-i18n="sectionOndeP1">
+      Les huit familles orthogonales sont les lignes où cos(πx/3) vaut cos&nbsp;θ, pour θ
+      multiple de 30° :
+    </p>
+    <div class="cym-table-wrap"><table class="cym-table" id="sectionOndeTable"></table></div>
+    <p data-i18n="sectionOndeP2">
+      La mutation est la réflexion de l'angle autour de 90°, c'est-à-dire l'échange des
+      deux phases de l'onde. Elle n'est pas une convention de nommage : le doublement étant
+      deux-à-un, tout antécédent vient par paires, et base et mutante sont les deux
+      branches de l'inverse.
+    </p>
+  </div>
+
+  <div class="cym-note" id="section2">
+    <h2 data-i18n="section2Heading">Deux systèmes exacts, deux lois</h2>
+    <p data-i18n="section2P1">
+      Le produit cos(πx/3)·cos(πy/3) est une fonction propre exacte de deux problèmes
+      différents :
+    </p>
+    <ul>
+      <li data-i18n="section2Li1">la plaque de Kirchhoff à bords guidés, équation biharmonique, dont le spectre donne f ∝ m² + n² ;</li>
+      <li data-i18n="section2Li2">la cavité acoustique rectangulaire à parois rigides, équation de Helmholtz avec condition de Neumann, dont le spectre donne f ∝ √(m² + n²).</li>
+    </ul>
+    <p data-i18n="section2P2">
+      La condition aux limites est satisfaite identiquement dans les deux cas. La première
+      plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe
+      quelle boîte rectangulaire.
+    </p>
+    <p data-i18n="section2P3">
+      Les deux problèmes partagent leurs fonctions propres et pas leurs spectres, ce qui
+      donne un test à un seul chiffre :
+    </p>
+    <div class="cym-table-wrap"><table class="cym-table" id="section2Table"></table></div>
+    <p data-i18n-html="section2P4">
+      Sur les trois valeurs qui sont des carrés parfaits, la loi de plaque donne 128, 512,
+      1152 — rapports 1&nbsp;:&nbsp;4&nbsp;:&nbsp;9. La loi de cavité donne <strong>128,
+      256, 384</strong>, c'est-à-dire do, son octave, et la quinte au-dessus : rapports
+      <strong>1&nbsp;:&nbsp;2&nbsp;:&nbsp;3</strong>, la série harmonique.
+    </p>
+    <p data-i18n="section2P5">
+      Le diapason à 128 Hz est une calibration dans les deux cas : il fixe la taille du
+      système, pas la géométrie. Ce qui n'est pas une calibration, c'est le choix entre les
+      deux lois — et il se mesure.
+    </p>
+    <p data-i18n="section2P6">
+      Cette page compte les périodes entières sur les douze cases de la grille, ce qui
+      donne k² = 8 pour la figure d'écarts 0 et 3. La convention des plaques compte les
+      demi-longueurs d'onde sur le côté, ce qui donne pour la même figure le mode (4,4) et
+      k² = 32. Les deux sont liés par k²(grille) = (m² + n²) ⁄ 4.
+    </p>
+    <p data-i18n="section2P7">
+      Deux modes sont en jeu et ne sont pas à la même fréquence : la porteuse (4,0), qui
+      est la flexion à une dimension et porte les sept niveaux, et la figure (4,4), dont
+      l'ensemble nodal est le niveau zéro et que du sable dessinerait. Sous la loi de
+      plaque leur rapport vaut 2, sous la loi de cavité √2. C'est un second test
+      discriminant.
+    </p>
   </div>
 
   <div class="cym-workspace">
@@ -268,16 +342,18 @@
           128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713
           devant l'Académie royale des sciences, pour une raison simple : doubler 1
           plusieurs fois de suite place toutes les octaves sur des nombres entiers. On
-          l'a appelé le diapason philosophique. Les musiciens de son temps l'ont
-          refusé ; les physiciens l'ont gardé comme référence de mesure. Il est repris
-          ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale
-          des quinze gammes — sont elles-mêmes des entiers : dans l'échelle
-          proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier,
-          sans reste. Pour ces quinze gammes, un autre diapason conviendrait aussi
-          bien ; celui-ci rend la structure lisible. Il ne l'est plus pour les trois
-          motifs du système d'axes cités plus haut : là, 128 est la constante qui
-          place le mode fondamental (2,2) à 256 Hz, le do de l'accord scientifique —
-          pas un choix de lisibilité, la loi de fréquence d'une plaque carrée.
+          l'a appelé le diapason philosophique. Chaque gamme porte deux valeurs,
+          mesurées séparément sur ses deux générations — T1 et bandes — dont les
+          fréquences spatiales dominantes se chevauchent largement plutôt que de
+          former deux registres distincts. Les seize valeurs mesurées (les carrés de
+          fréquence spatiale, réunies des deux générations) sont elles-mêmes des
+          entiers, mais c'est une propriété de la mesure et non du motif : une
+          transformée de Fourier sur une grille de douze cases ne peut rendre que des
+          entiers. Ce qui n'est pas vide, en revanche, est que ces entiers sont les
+          m² + n² d'un mode propre exact — et cette coïncidence-là se vérifie ligne
+          par ligne, pas par une transformée. Dans l'échelle proportionnelle, chaque
+          valeur tombe alors exactement à 128 fois un entier, sans reste. Un autre
+          diapason conviendrait aussi bien ; celui-ci rend la structure lisible.
         </p>
         <div class="gamme-list" id="list"></div>
       </div>
@@ -296,6 +372,33 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="cym-note" id="sectionCaveats">
+    <h2 data-i18n="sectionCaveatsHeading">Ce qui n'est pas établi</h2>
+    <p data-i18n-html="sectionCaveatsP1">
+      <strong>Une seule des sept coupes est une ligne nodale</strong> — celle de 90°. Les
+      six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne
+      sont pas invisibles pour autant : l'interférométrie holographique en moyenne
+      temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes
+      d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface <em>est</em> le
+      mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière
+      rasante.
+    </p>
+    <p data-i18n-html="sectionCaveatsP2">
+      <strong>Les familles diagonales ne relèvent pas d'un mode guidé.</strong> Seul leur
+      niveau zéro en relève, comme ensemble nodal des combinaisons dégénérées
+      cos(4πx/a) ± cos(4πy/a) — le mécanisme que Colwell a décrit en 1933. Les six autres
+      niveaux diagonaux n'ont aucun mode de plaque derrière eux.
+    </p>
+    <p data-i18n-html="sectionCaveatsP3">
+      <strong>Aucune mesure physique n'a été faite.</strong> Tout ce qui est avancé ici est
+      du calcul sur les planches publiées et de la vérification symbolique. L'expérience la
+      moins coûteuse est un bac rectangulaire, un haut-parleur dessous et une lampe
+      rasante ; elle départage les deux lois de fréquence. Une figure de Chladni dépend de
+      la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici
+      ne le remplace.
+    </p>
   </div>
 
   </main>
@@ -328,10 +431,30 @@ import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
 const UI = {
   fr: {
     pageTitle: "Cymatique — gammes et fréquences",
-    framing: "La formule f = 128 × k² n'est pas un choix : pour une plaque carrée simplement appuyée, les fréquences propres sont proportionnelles à m² + n², c'est-à-dire à k². C'est cette loi que la formule mesure, et sa constante place le mode fondamental (2, 2) à 256 Hz — le do de l'accord scientifique.",
-    framingScope: "Vérifiée triangle par triangle pour trois motifs précis du système d'axes — écart 0, écarts 0 et 3, écarts 1,5 et 4,5 — dont le tracé coïncide exactement avec la ligne nodale d'un mode de plaque. Pour les quinze gammes ci-dessous, la correspondance reste ce qu'elle a toujours été : une fréquence spatiale dominante mesurée, sans qu'on ait vérifié qu'elle dessine la même figure qu'une plaque vibrante.",
-    framingReserves: "Trois réserves, sur ce qui est vérifié. Le rapprochement n'est pas mathématiquement profond — un damier est nécessairement le motif nodal d'un mode. Les familles diagonales du système suivent une autre architecture, non encore reliée aux figures de Chladni. Et aucune mesure physique n'a été conduite : c'est une correspondance géométrique, pas une expérience.",
     framingLink: "Le détail, avec la vérification →",
+    framing1: "Les axes de ce système ne sont pas choisis : ils sont <strong>engendrés</strong>. On pose deux droites — les médianes et les bords du carré — et une seule opération, le doublement de l'écart au centre. Le vocabulaire est le plus petit ensemble stable par l'inverse de ce doublement, et il se referme de lui-même après quatre étapes sur vingt-quatre écarts. Il n'y a rien à régler dans cette définition, donc rien qui aurait pu être réglé.",
+    framing2: "Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une fonction propre exacte — pas une approximation — de deux systèmes physiques différents. La correspondance n'est donc plus une ressemblance mesurée par transformée de Fourier.",
+    framing3: "Ce qui reste hors de portée est dit plus bas, et il faut le lire : aucune mesure n'a été faite, et sur les sept niveaux un seul est une ligne nodale.",
+    sectionOndeHeading: "Une seule onde, sept coupes",
+    sectionOndeP1: "Les huit familles orthogonales sont les lignes où cos(πx/3) vaut cos θ, pour θ multiple de 30° :",
+    sectionOndeColAngle: "angle", sectionOndeColNiveau: "niveau", sectionOndeColPositions: "positions (en cases)", sectionOndeColFamille: "famille",
+    sectionOndeFam1: "T0 YIN", sectionOndeFam2: "T3 YIN", sectionOndeFam3: "T2 YIN", sectionOndeFam4: "T1 YIN et son mutant", sectionOndeFam5: "T2 YIN mutant", sectionOndeFam6: "T3 YIN mutant", sectionOndeFam7: "T0 YIN mutant",
+    sectionOndeP2: "La mutation est la réflexion de l'angle autour de 90°, c'est-à-dire l'échange des deux phases de l'onde. Elle n'est pas une convention de nommage : le doublement étant deux-à-un, tout antécédent vient par paires, et base et mutante sont les deux branches de l'inverse.",
+    section2Heading: "Deux systèmes exacts, deux lois",
+    section2P1: "Le produit cos(πx/3)·cos(πy/3) est une fonction propre exacte de deux problèmes différents :",
+    section2Li1: "la plaque de Kirchhoff à bords guidés, équation biharmonique, dont le spectre donne f ∝ m² + n² ;",
+    section2Li2: "la cavité acoustique rectangulaire à parois rigides, équation de Helmholtz avec condition de Neumann, dont le spectre donne f ∝ √(m² + n²).",
+    section2P2: "La condition aux limites est satisfaite identiquement dans les deux cas. La première plaque n'a jamais été réalisée en laboratoire ; la seconde cavité est n'importe quelle boîte rectangulaire.",
+    section2P3: "Les deux problèmes partagent leurs fonctions propres et pas leurs spectres, ce qui donne un test à un seul chiffre :",
+    section2ColK2: "k² mesuré", section2ColPlaque: "loi plaque, f = 128·k²", section2ColCavite: "loi cavité, f = 128·k",
+    section2P4: "Sur les trois valeurs qui sont des carrés parfaits, la loi de plaque donne 128, 512, 1152 — rapports 1 : 4 : 9. La loi de cavité donne <strong>128, 256, 384</strong>, c'est-à-dire do, son octave, et la quinte au-dessus : rapports <strong>1 : 2 : 3</strong>, la série harmonique.",
+    section2P5: "Le diapason à 128 Hz est une calibration dans les deux cas : il fixe la taille du système, pas la géométrie. Ce qui n'est pas une calibration, c'est le choix entre les deux lois — et il se mesure.",
+    section2P6: "Cette page compte les périodes entières sur les douze cases de la grille, ce qui donne k² = 8 pour la figure d'écarts 0 et 3. La convention des plaques compte les demi-longueurs d'onde sur le côté, ce qui donne pour la même figure le mode (4,4) et k² = 32. Les deux sont liés par k²(grille) = (m² + n²) ⁄ 4.",
+    section2P7: "Deux modes sont en jeu et ne sont pas à la même fréquence : la porteuse (4,0), qui est la flexion à une dimension et porte les sept niveaux, et la figure (4,4), dont l'ensemble nodal est le niveau zéro et que du sable dessinerait. Sous la loi de plaque leur rapport vaut 2, sous la loi de cavité √2. C'est un second test discriminant.",
+    sectionCaveatsHeading: "Ce qui n'est pas établi",
+    sectionCaveatsP1: "<strong>Une seule des sept coupes est une ligne nodale</strong> — celle de 90°. Les six autres sont des lignes d'iso-amplitude : du sable ne les montrerait pas. Elles ne sont pas invisibles pour autant : l'interférométrie holographique en moyenne temporelle, et l'ESPI, produisent des franges qui sont précisément des courbes d'iso-amplitude. Et dans un bassin d'eau, l'élévation de surface <em>est</em> le mode : les sept niveaux y sont des lignes d'iso-élévation, visibles sous une lumière rasante.",
+    sectionCaveatsP2: "<strong>Les familles diagonales ne relèvent pas d'un mode guidé.</strong> Seul leur niveau zéro en relève, comme ensemble nodal des combinaisons dégénérées cos(4πx/a) ± cos(4πy/a) — le mécanisme que Colwell a décrit en 1933. Les six autres niveaux diagonaux n'ont aucun mode de plaque derrière eux.",
+    sectionCaveatsP3: "<strong>Aucune mesure physique n'a été faite.</strong> Tout ce qui est avancé ici est du calcul sur les planches publiées et de la vérification symbolique. L'expérience la moins coûteuse est un bac rectangulaire, un haut-parleur dessous et une lampe rasante ; elle départage les deux lois de fréquence. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace.",
     listeningHeading: "Écoute",
     micIdle: "Activer le micro",
     micActive: "Micro actif",
@@ -350,7 +473,7 @@ const UI = {
     gammesHeading: "Les quinze gammes",
     genT1: "T1 :",
     genBandes: "bandes :",
-    diapasonNote: "Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Chaque gamme porte deux valeurs, mesurées séparément sur ses deux générations — T1 et bandes — dont les fréquences spatiales dominantes se chevauchent largement plutôt que de former deux registres distincts : les seize valeurs mesurées (les carrés de fréquence spatiale, réunies des deux générations) sont elles-mêmes des entiers, et dans l'échelle proportionnelle, chaque valeur tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.",
+    diapasonNote: "Le diapason retenu ici, pour les deux échelles, prend pour repère le do à 128 Hz — une octave sous le do à 256 Hz que Joseph Sauveur propose en 1713 devant l'Académie royale des sciences, pour une raison simple : doubler 1 plusieurs fois de suite place toutes les octaves sur des nombres entiers. On l'a appelé le diapason philosophique. Chaque gamme porte deux valeurs, mesurées séparément sur ses deux générations — T1 et bandes — dont les fréquences spatiales dominantes se chevauchent largement plutôt que de former deux registres distincts. Les seize valeurs mesurées (les carrés de fréquence spatiale, réunies des deux générations) sont elles-mêmes des entiers, mais c'est une propriété de la mesure et non du motif : une transformée de Fourier sur une grille de douze cases ne peut rendre que des entiers. Ce qui n'est pas vide, en revanche, est que ces entiers sont les m² + n² d'un mode propre exact — et cette coïncidence-là se vérifie ligne par ligne, pas par une transformée. Dans l'échelle proportionnelle, chaque valeur tombe alors exactement à 128 fois un entier, sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la structure lisible.",
     echelleLabel: "Échelle",
     echelleProportionnelle: "Proportionnelle",
     echelleOrdinale: "Ordinale",
@@ -366,10 +489,30 @@ const UI = {
   },
   en: {
     pageTitle: "Cymatics — scales and frequencies",
-    framing: "The formula f = 128 × k² is not a choice: for a simply supported square plate, the natural frequencies are proportional to m² + n², that is, to k². That is the law the formula measures, and its constant places the fundamental mode (2, 2) at 256 Hz — C in scientific pitch.",
-    framingScope: "Verified triangle by triangle for three specific motifs of the axes system — écart 0, écarts 0 and 3, écarts 1.5 and 4.5 — whose trace matches exactly the nodal line of a plate mode. For the fifteen scales below, the correspondence remains what it has always been: a measured dominant spatial frequency, without any verification that it draws the same figure as a vibrating plate.",
-    framingReserves: "Three reservations, on what is verified. The correspondence is not mathematically deep — a checkerboard is necessarily the nodal pattern of some mode. The diagonal families of the system follow a different architecture, not yet connected to Chladni figures. And no physical measurement has been carried out: this is a geometric correspondence, not an experiment.",
     framingLink: "The detail, with the verification →",
+    framing1: "The axes of this system are not chosen: they are <strong>generated</strong>. Two lines are set down — the square's medians and its edges — and a single operation, doubling the gap from the centre. The vocabulary is the smallest set closed under the inverse of that doubling, and it closes on itself after four steps, over twenty-four gaps. There is nothing to tune in this definition, so nothing that could have been tuned.",
+    framing2: "And this generated vocabulary coincides, line for line, with the level curves of a single function: cos(πx/3), cut at seven heights. That function is an exact eigenfunction — not an approximation — of two different physical systems. The correspondence is therefore no longer a resemblance measured by Fourier transform.",
+    framing3: "What remains out of reach is stated further down, and it should be read: no measurement has been made, and of the seven levels only one is a nodal line.",
+    sectionOndeHeading: "One wave, seven cuts",
+    sectionOndeP1: "The eight orthogonal families are the lines where cos(πx/3) equals cos θ, for θ a multiple of 30°:",
+    sectionOndeColAngle: "angle", sectionOndeColNiveau: "level", sectionOndeColPositions: "positions (in cells)", sectionOndeColFamille: "family",
+    sectionOndeFam1: "T0 YIN", sectionOndeFam2: "T3 YIN", sectionOndeFam3: "T2 YIN", sectionOndeFam4: "T1 YIN and its mutant", sectionOndeFam5: "T2 YIN mutant", sectionOndeFam6: "T3 YIN mutant", sectionOndeFam7: "T0 YIN mutant",
+    sectionOndeP2: "Mutation is the reflection of the angle about 90°, that is, the exchange of the wave's two phases. It is not a naming convention: since the doubling is two-to-one, every antecedent comes in pairs, and the base and its mutant are the two branches of the inverse.",
+    section2Heading: "Two exact systems, two laws",
+    section2P1: "The product cos(πx/3)·cos(πy/3) is an exact eigenfunction of two different problems:",
+    section2Li1: "the Kirchhoff plate with guided edges, biharmonic equation, whose spectrum gives f ∝ m² + n²;",
+    section2Li2: "the rectangular acoustic cavity with rigid walls, Helmholtz equation with Neumann condition, whose spectrum gives f ∝ √(m² + n²).",
+    section2P2: "The boundary condition is satisfied identically in both cases. The first plate has never been built in a laboratory; the second cavity is any rectangular box.",
+    section2P3: "The two problems share their eigenfunctions but not their spectra, which gives a test on a single figure:",
+    section2ColK2: "measured k²", section2ColPlaque: "plate law, f = 128·k²", section2ColCavite: "cavity law, f = 128·k",
+    section2P4: "On the three values that are perfect squares, the plate law gives 128, 512, 1152 — ratios 1 : 4 : 9. The cavity law gives <strong>128, 256, 384</strong>, that is, C, its octave, and the fifth above: ratios <strong>1 : 2 : 3</strong>, the harmonic series.",
+    section2P5: "The 128 Hz reference pitch is a calibration in both cases: it fixes the size of the system, not its geometry. What is not a calibration is the choice between the two laws — and that is measurable.",
+    section2P6: "This page counts whole periods over the grid's twelve cells, which gives k² = 8 for the pattern with gaps 0 and 3. The plate convention counts half-wavelengths along the side, which gives mode (4,4) and k² = 32 for the same pattern. The two are related by k²(grid) = (m² + n²) ⁄ 4.",
+    section2P7: "Two modes are at play, and they are not at the same frequency: the carrier (4,0), which is one-dimensional bending and carries the seven levels, and the figure (4,4), whose nodal set is the zero level and which sand would draw. Under the plate law their ratio is 2, under the cavity law √2. That is a second discriminating test.",
+    sectionCaveatsHeading: "What is not established",
+    sectionCaveatsP1: "<strong>Only one of the seven cuts is a nodal line</strong> — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation <em>is</em> the mode: the seven levels are iso-elevation lines there, visible under raking light.",
+    sectionCaveatsP2: "<strong>The diagonal families do not come from a guided mode.</strong> Only their zero level does, as the nodal set of the degenerate combinations cos(4πx/a) ± cos(4πy/a) — the mechanism Colwell described in 1933. The other six diagonal levels have no plate mode behind them.",
+    sectionCaveatsP3: "<strong>No physical measurement has been made.</strong> Everything advanced here is calculation on the published plates and symbolic verification. The cheapest experiment is a rectangular tank, a loudspeaker underneath, and raking light; it discriminates between the two frequency laws. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that.",
     listeningHeading: "Listening",
     micIdle: "Enable microphone",
     micActive: "Microphone active",
@@ -388,7 +531,7 @@ const UI = {
     gammesHeading: "The fifteen scales",
     genT1: "T1:",
     genBandes: "bandes:",
-    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers: the sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, and on the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. For these fifteen scales, another reference pitch would work just as well; this one makes the structure legible. It no longer is for the three axes-system motifs named above: there, 128 is the constant that places the fundamental mode (2,2) at 256 Hz, C in scientific pitch — not a choice made for legibility, the frequency law of a square plate.",
+    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers. The sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, but that is a property of the measurement, not of the pattern: a Fourier transform on a twelve-cell grid can only return whole numbers. What is not empty, however, is that these whole numbers are the m² + n² of an exact eigenmode — and that coincidence is checked line by line, not by a transform. On the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.",
     echelleLabel: "Scale",
     echelleProportionnelle: "Proportional",
     echelleOrdinale: "Ordinal",
@@ -405,6 +548,7 @@ const UI = {
   es: {
     pageTitle: "Cimática — escalas y frecuencias",
     framing: "La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, medida por transformada de Fourier — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.",
+    framingLink: "El detalle, con la verificación →",
     listeningHeading: "Escucha",
     micIdle: "Activar el micrófono",
     micActive: "Micrófono activo",
@@ -432,6 +576,7 @@ const UI = {
   th: {
     pageTitle: "ไซแมติกส์ — บันไดเสียงและความถี่",
     framing: "ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง วัดด้วยการแปลงฟูริเยร์ มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์",
+    framingLink: "รายละเอียด พร้อมการตรวจสอบ →",
     listeningHeading: "การฟัง",
     micIdle: "เปิดไมโครโฟน",
     micActive: "ไมโครโฟนทำงานอยู่",
@@ -481,15 +626,63 @@ function initialLang() {
 }
 let LANG = initialLang();
 function t(key) { return (UI[LANG] && UI[LANG][key] !== undefined) ? UI[LANG][key] : UI.fr[key]; }
+// Tables des deux nouvelles sections (§ "une seule onde, sept coupes" et
+// § "deux systèmes, deux lois") : données FIXES (angles/niveaux/k² ne
+// dépendent pas de la langue), construites en JS comme le reste des listes
+// de cette page (voir buildList()) plutôt qu'en HTML statique dupliqué par
+// langue. Chaînes en virgule décimale FR d'origine ; fmtLocale() les rend en
+// point pour les autres langues, sans toucher aux virgules de séparation de
+// liste (voir la garde \d,\d — jamais précédée d'un espace dans ces chaînes).
+const ONDE_ROWS = [
+  ['0°', '1', '0, 6', 'sectionOndeFam1'],
+  ['30°', '√3⁄2', '0,5 · 5,5 · 6,5 · 11,5', 'sectionOndeFam2'],
+  ['60°', '1⁄2', '1 · 5 · 7 · 11', 'sectionOndeFam3'],
+  ['90°', '0', '1,5 · 4,5 · 7,5 · 10,5', 'sectionOndeFam4'],
+  ['120°', '−1⁄2', '2 · 4 · 8 · 10', 'sectionOndeFam5'],
+  ['150°', '−√3⁄2', '2,5 · 3,5 · 8,5 · 9,5', 'sectionOndeFam6'],
+  ['180°', '−1', '3, 9', 'sectionOndeFam7'],
+];
+const K2_ROWS = [
+  ['1', '128', '128'],
+  ['2', '256', '181,0'],
+  ['4', '512', '256'],
+  ['5', '640', '286,2'],
+  ['8', '1024', '362,0'],
+  ['9', '1152', '384'],
+  ['10', '1280', '404,8'],
+  ['13', '1664', '461,5'],
+  ['20', '2560', '572,4'],
+];
+function fmtLocale(s) { return LANG === 'fr' ? s : s.replace(/(\d),(\d)/g, '$1.$2'); }
+function renderCymTables() {
+  const ondeTable = document.getElementById('sectionOndeTable');
+  if (ondeTable) {
+    ondeTable.innerHTML = `<thead><tr><th>${t('sectionOndeColAngle')}</th><th>${t('sectionOndeColNiveau')}</th><th>${t('sectionOndeColPositions')}</th><th>${t('sectionOndeColFamille')}</th></tr></thead><tbody>` +
+      ONDE_ROWS.map(([angle, niveau, pos, famKey]) => `<tr><td>${angle}</td><td>${niveau}</td><td>${fmtLocale(pos)}</td><td>${t(famKey)}</td></tr>`).join('') +
+      '</tbody>';
+  }
+  const k2Table = document.getElementById('section2Table');
+  if (k2Table) {
+    k2Table.innerHTML = `<thead><tr><th>${t('section2ColK2')}</th><th>${t('section2ColPlaque')}</th><th>${t('section2ColCavite')}</th></tr></thead><tbody>` +
+      K2_ROWS.map(([k2, plaque, cavite]) => `<tr><td>${k2}</td><td>${plaque}</td><td>${fmtLocale(cavite)}</td></tr>`).join('') +
+      '</tbody>';
+  }
+}
+
 function applyUILang() {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     if (UI.fr[key] !== undefined) el.textContent = t(key);
   });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (UI.fr[key] !== undefined) el.innerHTML = t(key);
+  });
   document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === LANG);
   });
   syncEchelleControls();
+  renderCymTables();
   document.title = t('pageTitle') + " — La Livrée d'Hermès";
   refreshMatchTexts();
 }
