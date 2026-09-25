@@ -215,6 +215,14 @@
 <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!-- @head-icons:end -->
+<!-- D6 : appli installable, propre à cette page (pas dans le bloc @head-icons généré) -->
+<link rel="manifest" href="encodeur.webmanifest">
+<meta name="theme-color" content="#0a0a0a">
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js').catch(()=>{}); });
+}
+</script>
 </head>
 <body>
 <div class="wrap">
