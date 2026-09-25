@@ -30,6 +30,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GRID, PER_CELL } from '../assets/bicolore-render.js';
 import { buildAxes, generateAxesMask } from '../assets/bicolore-axes.js';
+import { fermeSurLeCube } from '../assets/bicolore-cube-c1.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -112,6 +113,8 @@ function recensement(grain) {
   const figuresParTaille = new Map(); // taille -> Set(figure hex)
   const toutesFigures = new Set();
   const figureFor = new Map(); // clé "nature gen" -> figure d'une instance seule (pour §"même figure")
+  const figureMasks = new Map(); // clé hex -> masque (Uint8Array), pour la fermeture sur le cube (C1)
+  const tailleMinParFigure = new Map(); // clé hex -> plus petite taille d'accord donnant cette figure
   let accordsVersNul = 0; // accords (taille >= 2) dont la figure est nulle — pas un motif, écarté
 
   for (const combo of sousEnsemblesNonVides(16)) {
@@ -126,15 +129,18 @@ function recensement(grain) {
       if (!figuresParTaille.has(taille)) figuresParTaille.set(taille, new Set());
       figuresParTaille.get(taille).add(key);
     }
+    if (!figureMasks.has(key)) figureMasks.set(key, fig);
+    const tailleActuelle = tailleMinParFigure.get(key);
+    if (tailleActuelle === undefined || taille < tailleActuelle) tailleMinParFigure.set(key, taille);
     if (taille === 1) figureFor.set(`${INSTANCES[combo[0]][0]} ${INSTANCES[combo[0]][1]}`, key);
   }
 
-  return { rang, toutesFigures, figuresParTaille, figureFor, parts, accordsVersNul };
+  return { rang, toutesFigures, figuresParTaille, figureFor, parts, accordsVersNul, figureMasks, tailleMinParFigure, cleNulle };
 }
 
 for (const grain of ['C8', 'C1']) {
   console.log(`\n=== Grain ${grain} ===`);
-  const { rang, toutesFigures, figuresParTaille, figureFor, accordsVersNul } = recensement(grain);
+  const { rang, toutesFigures, figuresParTaille, figureFor, accordsVersNul, figureMasks, tailleMinParFigure, cleNulle, parts } = recensement(grain);
   console.log(`  rang GF(2) des 16 instances : ${rang}  (garde-fou : figures non nulles = 2^${rang} - 1 = ${2 ** rang - 1})`);
   console.log(`  figures distinctes non nulles (65 535 accords) : ${toutesFigures.size}` +
     (accordsVersNul ? `  (+ ${accordsVersNul} accord(s) donnant la figure nulle, écartée — pas un motif)` : ''));
@@ -153,5 +159,49 @@ for (const grain of ['C8', 'C1']) {
   console.log('  Instances seules donnant la même figure :');
   for (const [, noms] of parFigure) {
     if (noms.length > 1) console.log(`    ${noms.join(' === ')}`);
+  }
+
+  // Fermeture sur le cube (grain C1 seulement — condition existentielle, non
+  // linéaire, PAS de garde-fou puissance-de-deux ici, voir prompt-cc-pages-v2).
+  if (grain === 'C1') {
+    const toutesAvecNulle = new Map(figureMasks);
+    toutesAvecNulle.set(cleNulle, ZERO(parts));
+    let fermees = 0;
+    const distribBySombre = new Map();
+    const closedKeys = new Set();
+    for (const [key, mask] of toutesAvecNulle) {
+      if (fermeSurLeCube(mask)) {
+        fermees++;
+        closedKeys.add(key);
+        const sombre = mask.reduce((a, b) => a + b, 0);
+        distribBySombre.set(sombre, (distribBySombre.get(sombre) || 0) + 1);
+      }
+    }
+    const distribStr = [...distribBySombre.entries()].sort((a, b) => a[0] - b[0]).map(([s, n]) => `${s}:${n}`).join(' ');
+    console.log(`  fermeture sur le cube (π = identité, continuité) : ${fermees} figures fermées / ${toutesAvecNulle.size} distinctes (uni clair + uni sombre inclus)`);
+    console.log(`  répartition par nombre de cases sombres : ${distribStr}`);
+
+    // Taille minimale d'accord pour chacune des figures fermées. La figure
+    // nulle (uni clair) n'a pas de taille minimale via un accord NON VIDE
+    // dans tailleMinParFigure que si un accord (taille >= 2) la reproduit —
+    // sinon elle reste hors table, signalé tel quel plutôt que forcé à 0.
+    const parTailleMin = new Map();
+    let sansTailleMin = [];
+    for (const key of closedKeys) {
+      const t = tailleMinParFigure.get(key);
+      if (t === undefined) { sansTailleMin.push(key); continue; }
+      parTailleMin.set(t, (parTailleMin.get(t) || 0) + 1);
+    }
+    const tailles = [...parTailleMin.keys()].sort((a, b) => a - b);
+    const parTailleMinStr = tailles.map(t => `${t}:${parTailleMin.get(t)}`).join(' ');
+    console.log(`  taille minimale d'accord (parmi les ${fermees} fermées) : ${parTailleMinStr}` +
+      (sansTailleMin.length ? `  (+ ${sansTailleMin.length} sans accord non vide connu, dont l'uni clair si aucun accord de taille>=2 ne le reproduit)` : ''));
+
+    // Les instances SEULES (taille 1) qui se referment sur le cube.
+    const seulesFermees = [];
+    for (const [nom, key] of figureFor) {
+      if (closedKeys.has(key)) seulesFermees.push(nom);
+    }
+    console.log(`  instances seules qui se referment sur le cube (${seulesFermees.length}) : ${seulesFermees.join(', ')}`);
   }
 }
