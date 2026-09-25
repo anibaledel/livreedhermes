@@ -141,11 +141,47 @@ def read_plaque(path):
     }
 
 
+DOSSIERS_CORPUS = ['data/ORIGINES', 'data/ORIGINES T2']
+
+
+def controle_corpus(dossiers=DOSSIERS_CORPUS):
+    """Lance le contrôle de collisions sur TOUT le corpus (les 30 planches
+    d'ORIGINES + ORIGINES T2, pas seulement à l'entrée d'un fichier isolé) :
+    c'est ce balayage complet, pas une vérification au cas par cas, qui a
+    trouvé le vrai défaut d'ORIGINES T2/bandesYIN MUT.svg (232 emplacements
+    en collision, un défaut géométrique — pas les « 50 triangles clairs à
+    corriger » d'une première description, fausse ; le fichier a depuis été
+    remplacé, pas retouché). Rend (total_ok, total) et imprime le tableau."""
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..')
+    total_ok, total = 0, 0
+    for dossier in dossiers:
+        chemin = os.path.join(root, dossier)
+        paths = sorted(glob.glob(os.path.join(chemin, '*.svg')))
+        print(f"--- {dossier} ({len(paths)} planches) ---")
+        for path in paths:
+            total += 1
+            try:
+                r = read_plaque(path)
+            except PlaqueError as e:
+                print(f"{os.path.basename(path):40s} ERREUR — {e}")
+                continue
+            sain = (r['collisions'] == 0 and r['vides'] == 0)
+            statut = 'sain' if sain else f"HORS TRAME (collisions={r['collisions']} vides={r['vides']})"
+            print(f"{os.path.basename(path):40s} sombre={r['sombre']:4d}/1152  {statut}")
+            if sain and r['sombre'] == 576:
+                total_ok += 1
+    print(f"\n{total_ok}/{total} planches saines à 576/1152, sur tout le corpus.")
+    return total_ok, total
+
+
 def main():
     args = sys.argv[1:]
     if not args:
         print(__doc__)
         sys.exit(1)
+    if args[0] == '--corpus':
+        controle_corpus()
+        return
     if args[0] == '--dir':
         paths = sorted(glob.glob(os.path.join(args[1], '*.svg')))
     else:
