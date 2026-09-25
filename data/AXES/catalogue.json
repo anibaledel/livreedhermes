@@ -1201,6 +1201,612 @@
    "T2 YIN MUT",
    "T2 YANG"
   ],
-  "critere_fuite": "contient T0 YANG MUT ou T1 YANG — 0 contre-exemple sur 65535"
+  "critere_fuite": "contient T0 YANG MUT ou T1 YANG — 0 contre-exemple sur 65535",
+  "fichier_casse_T1_15_IMAGES_YIN_MUT": {
+   "collisions": 230,
+   "sombres": 527,
+   "lecture": "ne lire que les polygones de remplissage #808285 et #a7a9ac ; ignorer le fond #939598 (144 formes)"
+  },
+  "ORIGINES_T2_YIN_MUT": {
+   "axes": "T1 YIN u T1 YIN MUT",
+   "fichier": 114,
+   "corrige": 0
+  }
+ },
+ "axes_partages_nature": {
+  "total": 30,
+  "D+": 15,
+  "D-": 15,
+  "orthogonaux": 0,
+  "note": "tous diagonaux ; la mention de 2 partages orthogonaux dans une version anterieure du document etait fausse"
+ },
+ "echos": {
+  "relation": "sigma(A) INCLUS DANS B, et B est la plus petite famille qui contient sigma(A) ; ce n'est une egalite que pour T1 YIN -> T0 YIN MUT",
+  "images": {
+   "T0 YIN": [
+    {
+     "nature": "H",
+     "ecart": 0.0
+    },
+    {
+     "nature": "V",
+     "ecart": 0.0
+    }
+   ],
+   "T0 YIN MUT": [
+    {
+     "nature": "H",
+     "ecart": -6.0
+    },
+    {
+     "nature": "V",
+     "ecart": -6.0
+    }
+   ],
+   "T0 YANG": [
+    {
+     "nature": "D+",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 0.0
+    }
+   ],
+   "T0 YANG MUT": [
+    {
+     "nature": "D+",
+     "ecart": -6.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -6.0
+    }
+   ],
+   "T1 YIN": [
+    {
+     "nature": "H",
+     "ecart": -3.0
+    },
+    {
+     "nature": "H",
+     "ecart": 3.0
+    },
+    {
+     "nature": "V",
+     "ecart": -3.0
+    },
+    {
+     "nature": "V",
+     "ecart": 3.0
+    }
+   ],
+   "T1 YIN MUT": [
+    {
+     "nature": "H",
+     "ecart": -3.0
+    },
+    {
+     "nature": "H",
+     "ecart": 3.0
+    },
+    {
+     "nature": "V",
+     "ecart": -3.0
+    },
+    {
+     "nature": "V",
+     "ecart": 3.0
+    }
+   ],
+   "T1 YANG": [
+    {
+     "nature": "D+",
+     "ecart": -6.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -6.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 0.0
+    }
+   ],
+   "T1 YANG MUT": [
+    {
+     "nature": "D+",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 3.0
+    }
+   ],
+   "T2 YIN": [
+    {
+     "nature": "H",
+     "ecart": -2.0
+    },
+    {
+     "nature": "H",
+     "ecart": 2.0
+    },
+    {
+     "nature": "V",
+     "ecart": -2.0
+    },
+    {
+     "nature": "V",
+     "ecart": 2.0
+    }
+   ],
+   "T2 YIN MUT": [
+    {
+     "nature": "H",
+     "ecart": -4.0
+    },
+    {
+     "nature": "H",
+     "ecart": 4.0
+    },
+    {
+     "nature": "V",
+     "ecart": -4.0
+    },
+    {
+     "nature": "V",
+     "ecart": 4.0
+    }
+   ],
+   "T2 YANG": [
+    {
+     "nature": "D+",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 4.0
+    }
+   ],
+   "T2 YANG MUT": [
+    {
+     "nature": "D+",
+     "ecart": -5.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 5.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -5.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 5.0
+    }
+   ],
+   "T3 YIN": [
+    {
+     "nature": "H",
+     "ecart": -1.0
+    },
+    {
+     "nature": "H",
+     "ecart": 1.0
+    },
+    {
+     "nature": "V",
+     "ecart": -1.0
+    },
+    {
+     "nature": "V",
+     "ecart": 1.0
+    }
+   ],
+   "T3 YIN MUT": [
+    {
+     "nature": "H",
+     "ecart": -5.0
+    },
+    {
+     "nature": "H",
+     "ecart": 5.0
+    },
+    {
+     "nature": "V",
+     "ecart": -5.0
+    },
+    {
+     "nature": "V",
+     "ecart": 5.0
+    }
+   ],
+   "T3 YANG": [
+    {
+     "nature": "D+",
+     "ecart": -5.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 5.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -5.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 5.0
+    }
+   ],
+   "T3 YANG MUT": [
+    {
+     "nature": "D+",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 4.0
+    }
+   ]
+  }
+ },
+ "accords_de_reference": {
+  "ORIGINES T2 / YANG": {
+   "axes": [
+    {
+     "nature": "D+",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 3.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 4.0
+    }
+   ],
+   "source": "bandesyang fait de t1 et t2.pdf",
+   "attendu": {
+    "C8": 288,
+    "C1": 0
+   },
+   "note": "union de familles du catalogue ; lecture au grain C1",
+   "accord": "T1 YANG + T2 YANG"
+  },
+  "ORIGINES T2 / YANG MUT": {
+   "axes": [
+    {
+     "nature": "D+",
+     "ecart": -5.5
+    },
+    {
+     "nature": "D+",
+     "ecart": -4.5
+    },
+    {
+     "nature": "D+",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -3.5
+    },
+    {
+     "nature": "D+",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -2.5
+    },
+    {
+     "nature": "D+",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -1.5
+    },
+    {
+     "nature": "D+",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": -0.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 0.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 1.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 2.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 3.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 3.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 4.0
+    },
+    {
+     "nature": "D+",
+     "ecart": 4.5
+    },
+    {
+     "nature": "D+",
+     "ecart": 5.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -5.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -4.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -3.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -2.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -1.5
+    },
+    {
+     "nature": "D-",
+     "ecart": -1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": -0.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 0.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 0.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 1.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 1.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 2.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 2.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 3.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 3.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 4.0
+    },
+    {
+     "nature": "D-",
+     "ecart": 4.5
+    },
+    {
+     "nature": "D-",
+     "ecart": 5.5
+    }
+   ],
+   "source": "bandesyang mut fait de t1 et t2.pdf",
+   "attendu": {
+    "C8": 480,
+    "C1": 0
+   },
+   "note": "union de familles du catalogue ; lecture au grain C1",
+   "accord": "T1 YANG + T1 YANG MUT + T2 YANG + T2 YANG MUT"
+  }
  }
 }
