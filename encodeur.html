@@ -638,18 +638,14 @@ import {
   let REF256 = null, REF360 = null, REF256_V3 = null;
 
   // Variantes Carter exposées dans l'interface — seules carter256 et
-  // carterrandom sont portées en JS pour l'instant (voir js/carter-core.js).
-  // Les six autres apparaissent dans le sélecteur mais lèvent une exception
-  // claire : elles viendront dans des passes séparées, chacune contre son
-  // propre vecteur (voir tools/ et vectors/carter_v3.json côté Python).
+  // carterrandom sont portées en JS (voir js/carter-core.js). Les six autres
+  // (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté
+  // Python mais ne sont pas portées dans le navigateur (D4) : retirées d'ici,
+  // mentionnées une seule fois dans l'onglet À propos plutôt que rappelées à
+  // chaque entrée du sélecteur.
   const CARTER_VARIANTS = [
     { id: 'carter256',    label: 'Carter-256 — référent croix ansée (par défaut)' },
     { id: 'carterrandom', label: 'Carter-Random — référent aléatoire dérivé de la clé' },
-    { id: 'deniable',     label: 'Deniable (pas encore disponible dans le navigateur)' },
-    { id: 'carter360',    label: 'Carter-360 (pas encore disponible dans le navigateur)' },
-    { id: 'cartermix',    label: 'Carter-Mix (pas encore disponible dans le navigateur)' },
-    { id: 'carter18',     label: 'Carter-18 (pas encore disponible dans le navigateur)' },
-    { id: 'carterhybrid', label: 'Carter-Hybrid (pas encore disponible dans le navigateur)' },
   ];
 
   async function carterEncodeByVariant(variant, message, masterKey){
