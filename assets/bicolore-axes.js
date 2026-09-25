@@ -35,14 +35,20 @@
 //
 import { triangleGeometry, GRID, PER_CELL } from './bicolore-render.js';
 
-// Repolarisée empiriquement contre data/ORIGINES lors du passage au
-// catalogue vérifié : YANG/YANG-MUT (diagonales) sont 'direct' ici, pas
-// 'inverse' comme dans l'ancienne table — le système de coordonnées de
-// bicolore-render.js et celui du corpus axes-loi-parite (tools/axes/
-// parite.py, formule D- = y-x) diffèrent d'une orientation sur les
-// diagonales (pas sur les orthogonales, où YIN/YIN-MUT restent inchangés) ;
-// vérifié à 0 écart/1152 sur les 4 planches T0 avant ce choix, pas déduit.
-export const POLARITY = { YIN: 'direct', 'YIN-MUT': 'inverse', YANG: 'direct', 'YANG-MUT': 'direct' };
+// PAS de polarité ici. La figure de parité est entièrement déterminée par
+// les axes — floor((u − c)/12) mod 2, voir parityBit plus bas — sans degré
+// de liberté par famille ni par génération à choisir. Une tentative
+// antérieure de « polarité par famille », calibrée à la main pour faire
+// coïncider chaque figure calculée avec data/ORIGINES, cassait le calcul :
+// ajouter le vecteur tout-à-un à une figure pour la faire coller à une
+// relation du noyau EST l'ajustement que ce chantier interdit, et ça a
+// produit une relation parasite (voir l'historique de ce fichier). Ce que
+// « 7 planches sur 11 sont peintes en polarité inverse » décrit est un fait
+// sur la COULEUR DES FICHIERS SOURCES d'ORIGINES (une convention de
+// coloriage documentée), pas un paramètre de cette règle de génération —
+// voir tools/verify_bicolore_axes_t0.mjs, qui compare à ORIGINES en
+// tolérant explicitement cette inversion connue PAR FICHIER, sans jamais la
+// injecter ici.
 
 // Nom de famille bicolore ('YIN', 'YIN-MUT', 'YANG', 'YANG-MUT') -> nom de
 // famille du catalogue ('YIN', 'YIN MUT', 'YANG', 'YANG MUT').
@@ -75,24 +81,62 @@ export function axesT0(axes) {
     Object.entries(axes).filter(([, byGen]) => byGen.T0).map(([name, byGen]) => [name, byGen.T0]));
 }
 
-function coteEtPosition(nature, ecart, x, y) {
-  if (nature === 'H') return [y, ecart + 6];
-  if (nature === 'V') return [x, ecart + 6];
-  if (nature === 'D+') return [x + y, 2 * ecart + 12];
-  if (nature === 'D-') return [y - x, 2 * ecart];
+// Catalogue et parité sont DEUX objets, pas un — voir regle_parite.py
+// (donnée par Anibal, porté ici tel quel, pas réinventé) :
+//
+//   CATALOGUE — les droites TRACÉES, écart dans (-6,6], aucun repliement.
+//               T2 YANG garde ses 6 axes D+ : {-4,-2,-1,1,2,4}, chacun une
+//               droite RÉELLEMENT dessinée, toutes distinctes.
+//
+//   PARITÉ    — les SYSTÈMES DE BANDES. Chaque droite tracée devient une clé
+//               (nature, u mod 12), u étant la coordonnée perpendiculaire
+//               NON ramenée en cases (u = 6+écart pour H/V ; u = 12+2·écart
+//               pour D+ ; u = 2·écart pour D-). Le XOR porte sur l'ENSEMBLE
+//               des clés — un dédoublonnage par PRÉSENCE (un set), jamais
+//               par parité de compte : deux droites de la même famille au
+//               même système de bandes (ex. T2 YANG D+ écart -4 et écart +2,
+//               tous deux réellement tracés, u mod 12 = 4 pour les deux)
+//               comptent pour UNE seule bande, pas zéro — leur XOR-annulation
+//               aurait fait tomber T2 YANG de 6 à 2 axes D+ effectifs, une
+//               première tentative fausse, trouvée en testant contre T2 YANG
+//               vs T3 YANG MUT (qui a de vrais 8 axes D+ dont 4 nouveaux —
+//               pas des doublons à ignorer).
+function u_de(nature, x, y) {
+  if (nature === 'H') return y;
+  if (nature === 'V') return x;
+  if (nature === 'D+') return x + y;
+  if (nature === 'D-') return y - x;
   throw new Error(`nature d'axe inconnue : ${nature}`);
 }
 
-// axesList : [{nature, ecart}, ...] (la liste d'une famille/génération, ou
-// une union de plusieurs — voir tools/bicolore_galerie_comptes.mjs). Rend le
-// bit de parité BRUT (avant polarité), à appliquer séparément.
-export function parityBit(axesList, x, y) {
+function cle(nature, ecart) {
+  let u;
+  if (nature === 'H' || nature === 'V') u = 6 + ecart;
+  else if (nature === 'D+') u = 12 + 2 * ecart;
+  else u = 2 * ecart; // D-
+  const m = ((u % 12) + 12) % 12;
+  return `${nature}|${Math.round(m * 1e6) / 1e6}`;
+}
+
+// Les systèmes de bandes DISTINCTS d'une liste d'axes — un Set, donc un
+// dédoublonnage par présence (voir la note ci-dessus), pas par compte.
+export function systemes(axesList) {
+  const s = new Set();
+  for (const a of axesList) s.add(cle(a.nature, a.ecart));
+  return [...s].map(k => { const [nature, c] = k.split('|'); return { nature, c: Number(c) }; });
+}
+
+// systemesList : [{nature, c}, ...] DÉJÀ réduite aux systèmes de bandes
+// (voir systemes()) — pas recalculée ici : appelé une fois par point (1152
+// ou 144 fois par masque), le dédoublonnage se fait une seule fois avant la
+// boucle, dans generateAxesMask. Rend le bit de parité BRUT (avant
+// polarité), à appliquer séparément.
+export function parityBit(systemesList, x, y) {
   let n = 0;
-  for (const a of axesList) {
-    const [coord, pos] = coteEtPosition(a.nature, a.ecart, x, y);
-    n += (coord > pos) ? 1 : 0;
+  for (const { nature, c } of systemesList) {
+    n ^= Math.floor((u_de(nature, x, y) - c) / 12.0) & 1;
   }
-  return n % 2;
+  return n;
 }
 
 // Point-test d'un triangle C8, à 0,30 du centre de la case dans la
@@ -110,20 +154,35 @@ export function sectorPoint(globalIndex, perCell = PER_CELL) {
   return [cx + 0.30 * (dx / len), cy + 0.30 * (dy / len)];
 }
 
-// Motif complet d'une liste d'axes (Uint8Array de grid*grid*perCell bits).
-// `polarity` est appliquée séparément du calcul de parité brut, pour que
-// generateAxesMask serve aussi aux UNIONS d'axes de plusieurs familles (la
-// polarité n'a alors plus de sens unique par famille — voir
-// tools/bicolore_galerie_comptes.mjs, qui appelle avec polarity='direct' et
-// gère l'inversion lui-même si besoin).
-export function generateAxesMask(axesList, polarity = 'direct', { perCell = PER_CELL } = {}) {
+// Point-test d'une CASE entière (grain C1, tools/axes/parite.py) : son
+// centre, en coordonnées globales.
+export function casePoint(cellIdx) {
+  const row = Math.floor(cellIdx / GRID), col = cellIdx % GRID;
+  return [col + 0.5, row + 0.5];
+}
+
+// Motif complet d'une liste d'axes (Uint8Array de grid*grid*perCell bits,
+// grain='C8') ou de grid*grid bits (grain='C1', un bit par case entière —
+// les 8 triangles d'une case portent alors la même teinte, comme tools/
+// axes/parite.py::parite). `polarity` est appliquée séparément du calcul de
+// parité brut, pour que generateAxesMask serve aussi aux UNIONS d'axes de
+// plusieurs familles (la polarité n'a alors plus de sens unique par famille
+// — voir tools/bicolore_galerie_comptes.mjs).
+export function generateAxesMask(axesListBrute, { perCell = PER_CELL, grain = 'C8' } = {}) {
+  const systemesList = systemes(axesListBrute);
+  if (grain === 'C1') {
+    const mask = new Uint8Array(GRID * GRID);
+    for (let cellIdx = 0; cellIdx < GRID * GRID; cellIdx++) {
+      const [x, y] = casePoint(cellIdx);
+      mask[cellIdx] = parityBit(systemesList, x, y);
+    }
+    return mask;
+  }
   const parts = GRID * GRID * perCell;
   const mask = new Uint8Array(parts);
   for (let gi = 0; gi < parts; gi++) {
     const [x, y] = sectorPoint(gi, perCell);
-    let bit = parityBit(axesList, x, y);
-    if (polarity === 'inverse') bit = 1 - bit;
-    mask[gi] = bit;
+    mask[gi] = parityBit(systemesList, x, y);
   }
   return mask;
 }
