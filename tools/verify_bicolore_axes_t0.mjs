@@ -12,24 +12,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { hexToBits, GRID, PER_CELL } from '../assets/bicolore-render.js';
-import { AXES_T0, generateAxesMask } from '../assets/bicolore-axes.js';
+import { buildAxes, axesT0, generateAxesMask, POLARITY } from '../assets/bicolore-axes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const PARTS = GRID * GRID * PER_CELL;
 
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'referent_bicolore_v1.json'), 'utf8'));
+const catalogue = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'AXES', 'catalogue.json'), 'utf8'));
+const T0 = axesT0(buildAxes(catalogue));
 
 let ok = true;
-for (const [name, axes] of Object.entries(AXES_T0)) {
+for (const [name, axesList] of Object.entries(T0)) {
   const fam = data.familles[name];
   if (!fam) { console.error(`${name} absent de referent_bicolore_v1.json`); ok = false; continue; }
   const truth = hexToBits(fam.yang, PARTS); // lecture brute couleur #808285
-  const rule = generateAxesMask(axes);
+  const rule = generateAxesMask(axesList, POLARITY[name]);
   let mismatches = 0;
   for (let i = 0; i < PARTS; i++) if (rule[i] !== truth[i]) mismatches++;
   const status = mismatches === 0 ? 'OK' : 'ÉCART';
-  console.log(`${name.padEnd(10)} ${status}  ${mismatches} écart(s) / ${PARTS}  (polarité ${axes.polarity})`);
+  console.log(`${name.padEnd(10)} ${status}  ${mismatches} écart(s) / ${PARTS}  (polarité ${POLARITY[name]})`);
   if (mismatches !== 0) ok = false;
 }
 
