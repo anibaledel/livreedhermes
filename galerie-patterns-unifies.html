@@ -596,6 +596,43 @@ function hexagramGrid(n, gridA, gridB){
   return grid;
 }
 
+// C2 : orbites sous Γ = D4 (8 rotations/réflexions) × σ (demi-décalage, 2) × S3
+// (permutation des 3 teintes, 6) = 96 transformations. σ est le même demi-décalage que
+// celui de la note sous les stats ("grille et son décalé d'une demi-période") : sur les 512
+// grilles distinctes, il apparie chaque grille à une autre (512/2=256 pavages, déjà annoncé)
+// — ni D4 seul ni D4×S3 ne suffisent à retomber sur 128, il fallait bien σ en plus. Vérifié
+// hors-ligne sur les 512 grilles distinctes avant d'écrire ce code : exactement 128 orbites.
+function rot90(g){ const n=g.length, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[c][n-1-r]=g[r][c]; return out; }
+function flipH(g){ return g.map(row=>[...row].reverse()); }
+function shiftHalf(g){ const n=g.length, h=n/2, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[r][c]=g[(r+h)%n][(c+h)%n]; return out; }
+function permTint(g, perm){ return g.map(row=>row.map(v=>perm[v])); }
+const TINT_PERMS = [
+  {V:'V',M:'M',O:'O'}, {V:'V',M:'O',O:'M'}, {V:'M',M:'V',O:'O'},
+  {V:'M',M:'O',O:'V'}, {V:'O',M:'V',O:'M'}, {V:'O',M:'M',O:'V'},
+];
+function gridKey(g){ return g.map(r=>r.join('')).join(''); }
+function orbitTransforms(g){
+  const out = [];
+  for(const base of [g, shiftHalf(g)]){
+    let cur = base;
+    for(let i=0;i<4;i++){
+      out.push(cur, flipH(cur));
+      cur = rot90(cur);
+    }
+  }
+  const withTints = [];
+  for(const d of out) for(const p of TINT_PERMS) withTints.push(permTint(d, p));
+  return withTints; // 2*8*6 = 96
+}
+function canonicalKey(g){
+  let best = null;
+  for(const t of orbitTransforms(g)){
+    const k = gridKey(t);
+    if(best===null || k<best) best = k;
+  }
+  return best;
+}
+
 function drawTile(canvas, grid, size){
   size = size || 96;
   const ctx = canvas.getContext('2d');
@@ -695,8 +732,10 @@ const pavedInfo = document.getElementById('pavedInfo');
 let currentEntries = [];
 let currentEntriesOrigIdx = []; // même longueur que currentEntries : index d'origine dans DATA.entries, pour retrouver son k² dans ENTRY_K2 après filtrage
 let ENTRY_K2 = []; // C3 : k² par entrée de DATA.entries (même index), calculé une fois DATA chargé
+let ENTRY_ORBIT = []; // C2 : numéro d'orbite (1..128) par entrée de DATA.entries, même index
 let filterK2 = 'all';
 function k2AtPos(idx){ return ENTRY_K2[currentEntriesOrigIdx[idx]]; }
+function orbitAtPos(idx){ return ENTRY_ORBIT[currentEntriesOrigIdx[idx]]; }
 
 function entryLabel(fam, subA, subB, n){
   return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
@@ -717,7 +756,9 @@ function selectEntry(idx){
           : ' — <span style="color:var(--dim);">ne ferme pas sur le cube</span>';
   const k2 = k2AtPos(idx);
   const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge + k2Badge;
+  const orbit = orbitAtPos(idx);
+  const orbitBadge = orbit === undefined ? '' : ' — orbite n°' + orbit + '/128';
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge + k2Badge + orbitBadge;
 }
 
 // Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
@@ -859,6 +900,21 @@ Promise.all([
   LAYER_OF = DATA.layerOf;
   ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) =>
     k2OfLetterGrid(hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB])));
+
+  // C2 : numéro d'orbite (1..128) par entrée, par la clé canonique (forme minimale en
+  // ordre lexicographique parmi les 96 transformées). Autocontrôle : le nombre d'orbites
+  // distinctes doit valoir 128 (échiquier vérifié — voir chiffres-et-sources.html).
+  const orbitIdOfKey = new Map();
+  ENTRY_ORBIT = DATA.entries.map(([fam, subA, subB, n]) => {
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    const key = canonicalKey(grid);
+    if(!orbitIdOfKey.has(key)) orbitIdOfKey.set(key, orbitIdOfKey.size + 1);
+    return orbitIdOfKey.get(key);
+  });
+  if(orbitIdOfKey.size !== 128){
+    console.error('Orbites sous Γ : ' + orbitIdOfKey.size + ' trouvées, 128 attendues.');
+  }
+
   buildControls();
   buildK2Filter();
   render('all');
