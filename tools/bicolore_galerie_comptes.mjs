@@ -194,14 +194,40 @@ for (const grain of ['C8', 'C1']) {
     }
     const tailles = [...parTailleMin.keys()].sort((a, b) => a - b);
     const parTailleMinStr = tailles.map(t => `${t}:${parTailleMin.get(t)}`).join(' ');
-    console.log(`  taille minimale d'accord (parmi les ${fermees} fermées) : ${parTailleMinStr}` +
+    console.log(`  taille minimale d'accord, sur les ${fermees} FERMÉES (uni clair + uni sombre inclus) : ${parTailleMinStr}` +
       (sansTailleMin.length ? `  (+ ${sansTailleMin.length} sans accord non vide connu, dont l'uni clair si aucun accord de taille>=2 ne le reproduit)` : ''));
 
-    // Les instances SEULES (taille 1) qui se referment sur le cube.
+    // Même répartition sur les 142 motifs PUBLIÉS (galerie-bicolore.html,
+    // tools/bicolore_galerie_data.mjs) : diffère de la ligne ci-dessus sur
+    // exactement deux tranches, pas par erreur — les deux figures triviales
+    // ont chacune un accord minimal non trivial, confirmé indépendamment
+    // (implémentation distincte, géométrie du cube reconstruite séparément) :
+    //   uni clair  (mask nul)      <- T2 YANG MUT + T3 YANG (taille 2, un mot du noyau)
+    //   uni sombre (mask tout-1)   <- T1 YANG + T1 YANG MUT + T2 YANG + T2 YANG MUT (taille 4)
+    // Retirer ces deux figures déplace donc exactement un compte de la
+    // tranche 2 vers rien et un de la tranche 4 vers rien — d'où l'écart de
+    // 1 sur ces deux tranches seulement entre les deux lignes, et nulle
+    // part ailleurs. Ce n'est pas un chiffre périmé : les deux lignes sont
+    // justes, chacune pour sa propre population.
+    const parTailleMin142 = new Map(parTailleMin);
+    for (const trivialKey of [cleNulle, serialize(new Uint8Array(parts).fill(1))]) {
+      const t = tailleMinParFigure.get(trivialKey);
+      if (t !== undefined) parTailleMin142.set(t, parTailleMin142.get(t) - 1);
+    }
+    const tailles142 = [...parTailleMin142.keys()].sort((a, b) => a - b);
+    const parTailleMin142Str = tailles142.map(t => `${t}:${parTailleMin142.get(t)}`).join(' ');
+    console.log(`  taille minimale d'accord, sur les ${fermees - 2} PUBLIÉS (galerie-bicolore.html) : ${parTailleMin142Str}`);
+
+    // Les instances SEULES (taille 1) qui se referment sur le cube — un
+    // "sept" NE PAS CONFONDRE avec tout autre "sept" du dépôt (par exemple
+    // le compte, côté chantier axes-loi-parite, des familles diagonales
+    // dont l'inventaire de droites tracées dépasse le nombre de systèmes de
+    // bandes après réduction mod 12 : une propriété différente, sur des
+    // familles différentes — YANG/YANG-MUT plutôt que YIN/YIN-MUT ici).
     const seulesFermees = [];
     for (const [nom, key] of figureFor) {
       if (closedKeys.has(key)) seulesFermees.push(nom);
     }
-    console.log(`  instances seules qui se referment sur le cube (${seulesFermees.length}) : ${seulesFermees.join(', ')}`);
+    console.log(`  instances seules qui se referment sur le cube (${seulesFermees.length}, accord minimal = 1 instance) : ${seulesFermees.join(', ')}`);
   }
 }

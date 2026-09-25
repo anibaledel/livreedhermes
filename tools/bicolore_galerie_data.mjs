@@ -154,4 +154,9 @@ fs.writeFileSync(OUT_PATH, JSON.stringify(out, null, 1));
 console.log(`${entries.length} motifs écrits dans data/bicolore_galerie_v1.json`);
 const parTailleMin = new Map();
 for (const e of entries) parTailleMin.set(e.tailleMin, (parTailleMin.get(e.tailleMin) || 0) + 1);
-console.log('  par taille minimale : ' + [...parTailleMin.entries()].sort((a, b) => a[0] - b[0]).map(([t, n]) => `${t}:${n}`).join(' '));
+// Sur les 142 PUBLIÉS (uni clair et uni sombre déjà écartés ci-dessus) —
+// diffère de la ligne "144 fermées" de tools/bicolore_galerie_comptes.mjs
+// sur exactement les tranches 2 et 4, pas par erreur : voir le commentaire
+// de ce script-là pour le mécanisme exact (les deux figures triviales ont
+// justement un accord minimal de taille 2 et 4, vérifié indépendamment).
+console.log('  par taille minimale, sur les 142 PUBLIÉS : ' + [...parTailleMin.entries()].sort((a, b) => a[0] - b[0]).map(([t, n]) => `${t}:${n}`).join(' '));
