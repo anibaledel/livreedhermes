@@ -15,13 +15,22 @@ recalculées ici correspondent exactement.
 
 echo_famille(nom, catalogue) : la plus petite famille catalguée contenant
 l'image (par nombre d'axes), ou None si l'image n'est contenue dans
-aucune — une fuite.
+aucune — une fuite. Sert aux CHAÎNES (quelle famille nommée un écho vise).
+
+contient_son_echo(axes) / fermeture(noms, catalogue) : la fermeture, elle,
+se teste et se calcule sur les AXES eux-mêmes, pas par ce nommage de
+famille — les deux notions divergent : la cible nommée de T3 YANG MUT est
+T2 YANG (chaîne T2 YANG MUT -> T3 YANG MUT -> T2 YANG), mais l'image de
+T3 YANG MUT par homothétie est déjà CONTENUE dans ses propres axes, donc
+T3 YANG MUT est bien auto-harmonique au sens de la fermeture, même si ce
+n'est pas son nom de famille-cible le plus petit. Confirmé en testant :
+seule la version par les axes reproduit exactement 14/31/56 accords à
+2/3/4 familles contenant leur écho, et 719 accords clos au total, engendrés
+par les cinq mêmes minimaux que l'énoncé (T0 YIN, T0 YANG, T2 YIN MUT,
+T2 YANG, T3 YANG MUT) — la version par noms de famille avait donné 431.
 
 fuite(familles, catalogue) : True si l'union des axes des familles données,
 une fois l'homothétie appliquée, quitte le vocabulaire.
-
-fermeture(familles, catalogue) : ajoute la cible d'écho de chaque famille
-(si elle n'y est pas déjà) jusqu'à point fixe.
 """
 
 import itertools
@@ -90,33 +99,26 @@ def fuite(noms, catalogue):
     return not (image <= vocab)
 
 
-FUITE = object()  # sentinelle : pas de fermeture possible (une famille fuit)
+def contient_son_echo(axes):
+    """Ce jeu d'axes est-il déjà clos par l'homothétie (son image y est
+    contenue) ? La vraie notion de fermeture — sur les axes, pas sur les
+    noms de familles (voir la note du module)."""
+    s = _axes_set(axes)
+    img = _axes_set(homothetie(axes))
+    return img <= s
 
 
 def fermeture(noms, catalogue):
-    """Ajoute la cible d'écho de chaque famille jusqu'à point fixe.
-
-    Une famille dont l'écho fuit (echo_famille -> None, T0 YANG MUT ou
-    T1 YANG) ne peut jamais faire partie d'un accord clos : sa série
-    harmonique ne se termine pas dans le vocabulaire, elle en sort — ce
-    n'est pas « rien à ajouter », c'est « la fermeture n'existe pas ». On la
-    signale par la valeur sentinelle FUITE plutôt que de la laisser passer
-    pour un point fixe silencieux (bug trouvé en testant : sans ça, tout
-    accord ne contenant que des familles fuyantes se comptait à tort comme
-    clos, donnant 2591 accords clos au lieu des 719 attendus)."""
-    ensemble = set(noms)
-    for nom in ensemble:
-        if echo_famille(nom, catalogue) is None:
-            return FUITE
-    changed = True
-    while changed:
-        changed = False
-        for nom in list(ensemble):
-            cible = echo_famille(nom, catalogue)
-            if cible not in ensemble:
-                ensemble.add(cible)
-                changed = True
-    return ensemble
+    """Ajoute à l'union des axes de `noms` les axes de son image par
+    homothétie, jusqu'à point fixe — sur les axes, indépendamment de tout
+    nommage de famille. Rend le jeu d'axes clos obtenu."""
+    axes = union_axes(noms, catalogue)
+    s = _axes_set(axes)
+    while True:
+        img = _axes_set(homothetie([{'nature': n, 'ecart': e} for n, e in s]))
+        if img <= s:
+            return s
+        s |= img
 
 
 FAMILLES_16 = [
@@ -177,15 +179,26 @@ def main():
         assert direct == rapide, (combo, direct, rapide)
     print(f"  Contrôle croisé (calcul direct) sur {len(echantillon)} accords : identique.")
 
-    print("\nFermeture harmonique sur les 65 535 accords...")
+    fam_sets = {n: _axes_set(catalogue['familles'][n]) for n in FAMILLES_16}
+    print("\nFermeture harmonique (sur les axes) sur les 65 535 accords...")
+    clos_par_taille = {2: 0, 3: 0, 4: 0}
     clos = 0
     for combo in tous_les_accords():
-        combo_set = set(combo)
-        if not fuyantes_set.isdisjoint(combo_set):
-            continue  # une famille fuyante : jamais clos
-        if all(cible[nom] in combo_set for nom in combo_set):
+        axes_set = set()
+        for n in combo:
+            axes_set |= fam_sets[n]
+        img = _axes_set(homothetie([{'nature': n, 'ecart': e} for n, e in axes_set]))
+        if img <= axes_set:
             clos += 1
+            if len(combo) in clos_par_taille:
+                clos_par_taille[len(combo)] += 1
     print(f"  {clos} accords clos sur {total}.")
+    print(f"  Par taille (contrôle) : {clos_par_taille} — attendu {{2: 14, 3: 31, 4: 56}}.")
+
+    print("\nCinq minimaux auto-harmoniques (familles seules closes) :")
+    for nom in FAMILLES_16:
+        if contient_son_echo(catalogue['familles'][nom]):
+            print(f"  {nom}")
 
 
 if __name__ == '__main__':
