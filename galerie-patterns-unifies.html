@@ -371,6 +371,7 @@
   </div>
 
   <div class="controls" id="controls"></div>
+  <div class="controls" id="k2Controls"></div>
 
   <div class="gallery-panel">
     <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
@@ -642,6 +643,7 @@ function subLabel(s){
 
 const cats = ['all','bases','par2','par3'];
 const controls = document.getElementById('controls');
+let currentFilterCat = 'all';
 function buildControls(){
   cats.forEach(cat=>{
     const btn = document.createElement('button');
@@ -649,11 +651,41 @@ function buildControls(){
     btn.dataset.cat = cat;
     if(cat==='all') btn.classList.add('active');
     btn.onclick = ()=>{
-      document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('#controls button').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
+      currentFilterCat = cat;
       render(cat);
     };
     controls.appendChild(btn);
+  });
+}
+
+// C3 : filtre par k² (fréquence spatiale dominante), à côté du filtre par famille —
+// combinés (ET logique) dans render(). Les boutons sont construits une fois ENTRY_K2 connu.
+const k2Controls = document.getElementById('k2Controls');
+function buildK2Filter(){
+  const distinct = [...new Set(ENTRY_K2)].sort((a,b)=>a-b);
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'k² : tous';
+  allBtn.classList.add('active');
+  allBtn.onclick = ()=>{
+    document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+    allBtn.classList.add('active');
+    filterK2 = 'all';
+    render(currentFilterCat);
+  };
+  k2Controls.appendChild(allBtn);
+  distinct.forEach(k2=>{
+    const count = ENTRY_K2.filter(v=>v===k2).length;
+    const btn = document.createElement('button');
+    btn.textContent = 'k²=' + k2 + ' (' + count + ')';
+    btn.onclick = ()=>{
+      document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      filterK2 = k2;
+      render(currentFilterCat);
+    };
+    k2Controls.appendChild(btn);
   });
 }
 
@@ -661,6 +693,10 @@ const galleryEl = document.getElementById('gallery');
 const pavedCanvas = document.getElementById('pavedCanvas');
 const pavedInfo = document.getElementById('pavedInfo');
 let currentEntries = [];
+let currentEntriesOrigIdx = []; // même longueur que currentEntries : index d'origine dans DATA.entries, pour retrouver son k² dans ENTRY_K2 après filtrage
+let ENTRY_K2 = []; // C3 : k² par entrée de DATA.entries (même index), calculé une fois DATA chargé
+let filterK2 = 'all';
+function k2AtPos(idx){ return ENTRY_K2[currentEntriesOrigIdx[idx]]; }
 
 function entryLabel(fam, subA, subB, n){
   return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
@@ -679,7 +715,9 @@ function selectEntry(idx){
   const badge = ferme === null ? '' :
     ferme ? ' — <span style="color:var(--gold);">ferme sur le cube</span>'
           : ' — <span style="color:var(--dim);">ne ferme pas sur le cube</span>';
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge;
+  const k2 = k2AtPos(idx);
+  const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge + k2Badge;
 }
 
 // Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
@@ -696,7 +734,15 @@ function redrawAll(){
 
 function render(filterCat){
   galleryEl.innerHTML = '';
-  currentEntries = DATA.entries.filter(([fam])=> filterCat==='all' || fam.split(':')[0]===filterCat);
+  currentEntries = [];
+  currentEntriesOrigIdx = [];
+  DATA.entries.forEach((entry, origIdx)=>{
+    const [fam] = entry;
+    if(filterCat!=='all' && fam.split(':')[0]!==filterCat) return;
+    if(filterK2!=='all' && ENTRY_K2[origIdx]!==filterK2) return;
+    currentEntries.push(entry);
+    currentEntriesOrigIdx.push(origIdx);
+  });
   const frag = document.createDocumentFragment();
   currentEntries.forEach(([fam, subA, subB, n], idx)=>{
     const gridA = DATA.families[fam][subA];
@@ -805,14 +851,18 @@ document.getElementById('btnDlGridJson').addEventListener('click', ()=>{
   URL.revokeObjectURL(url);
 });
 
-fetch('data/fonds_ecran_v1.json')
-  .then(r => r.json())
-  .then(data => {
-    DATA = data;
-    LAYER_OF = DATA.layerOf;
-    buildControls();
-    render('all');
-  });
+Promise.all([
+  fetch('data/fonds_ecran_v1.json').then(r => r.json()),
+  import('./assets/spatial-k2.mjs'),
+]).then(([data, { k2OfLetterGrid }]) => {
+  DATA = data;
+  LAYER_OF = DATA.layerOf;
+  ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) =>
+    k2OfLetterGrid(hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB])));
+  buildControls();
+  buildK2Filter();
+  render('all');
+});
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script src="assets/soutien-gate.js"></script>
