@@ -206,7 +206,18 @@ function parcourir(dir, acc = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (DOSSIERS_IGNORES.has(e.name)) continue;
     const abs = path.join(dir, e.name);
-    const rel = path.relative(REPO_ROOT, abs);
+    // path.relative() rend des antislashes sous Windows ; tout le reste du
+    // script (rel.split('/'), BLOC_PAR_FICHIER.has(rel), les clés de
+    // scripts/langues.js) suppose des slashes. Sans cette normalisation,
+    // rel.split('/').length vaut 1 pour toute page imbriquée — préfixe vide,
+    // chemins relatifs cassés (favicon, assets) — et BLOC_PAR_FICHIER.has(rel)
+    // échoue silencieusement, hreflang vide, sans qu'aucune erreur ne le
+    // signale : c'est l'échec silencieux qu'il faut empêcher, pas seulement
+    // le mauvais séparateur.
+    const rel = path.relative(REPO_ROOT, abs).split(path.sep).join('/');
+    if (rel.includes('\\')) {
+      throw new Error(`Chemin relatif mal normalisé (antislash résiduel) : ${rel}`);
+    }
     if (e.isDirectory()) { parcourir(abs, acc); continue; }
     if (!e.name.endsWith('.html')) continue;
     if (HORS_PERIMETRE.has(rel) || HORS_PERIMETRE.has(e.name)) continue;
