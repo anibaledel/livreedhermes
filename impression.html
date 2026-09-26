@@ -382,22 +382,22 @@
       <div class="cat-card active" data-cat="1">
         <div class="cat-num" id="txt-catNum1">Catégorie I</div>
         <div class="cat-title" id="txt-catTitle1">Bases</div>
-        <div class="cat-meta" id="txt-catMeta1">16 motifs · tirage direct</div>
+        <div class="cat-meta" id="txt-catMeta1">64 hexagrammes · 4 096 calques · teinte fixe (d4), tirage par position</div>
       </div>
       <div class="cat-card" data-cat="2">
         <div class="cat-num" id="txt-catNum2">Catégorie II</div>
         <div class="cat-title" id="txt-catTitle2">Comb. par 2 axes</div>
-        <div class="cat-meta" id="txt-catMeta2">24 motifs · 6 familles × 4 teintes</div>
+        <div class="cat-meta" id="txt-catMeta2">6 familles × 4 teintes · 64 hexagrammes · 4 096 calques</div>
       </div>
       <div class="cat-card" data-cat="3">
         <div class="cat-num" id="txt-catNum3">Catégorie III</div>
         <div class="cat-title" id="txt-catTitle3">Comb. par 3 axes</div>
-        <div class="cat-meta" id="txt-catMeta3">16 motifs · tirage direct</div>
+        <div class="cat-meta" id="txt-catMeta3">64 hexagrammes · 4 096 calques · teinte fixe (d4), tirage par position</div>
       </div>
       <div class="cat-card" data-cat="4">
         <div class="cat-num" id="txt-catNum4">Catégorie IV</div>
         <div class="cat-title" id="txt-catTitle4">Comb. par 4 axes</div>
-        <div class="cat-meta" id="txt-catMeta4">64 motifs · tirage par position</div>
+        <div class="cat-meta" id="txt-catMeta4">64 hexagrammes · 4 096 calques · tirage par position</div>
       </div>
     </div>
 
@@ -434,7 +434,11 @@
         <div class="book-bar" style="justify-content:flex-start;border-top:none;padding-top:0;margin-top:0;">
           <span class="dl-btn" id="dlSvg" style="cursor:pointer;">Télécharger SVG</span>
           <span class="dl-btn" id="dlPdf" style="cursor:pointer;">Télécharger PDF</span>
+          <span class="dl-btn" id="dlGridPng" style="cursor:pointer;">Télécharger grille.png</span>
+          <span class="dl-btn" id="dlGridJson" style="cursor:pointer;">Télécharger grille.json</span>
+          <span class="dl-btn" id="copyTirageLink" style="cursor:pointer;">Copier le lien de ce tirage</span>
         </div>
+        <div id="txt-copyLinkHelp" style="font-size:0.85em;opacity:0.7;margin-top:4px;">Collez ce lien dans le formulaire de la page Contact pour commander ce motif.</div>
       </div>
     </div>
 
@@ -452,6 +456,11 @@
         </div>
       </div>
       <div class="hex-text-block" id="hexTextPost"></div>
+    </div>
+
+    <div class="data-source-line" style="margin-top:24px;font-size:0.85em;opacity:0.7;">
+      <span id="txt-dataSourceLabel">Données</span> : <span id="txt-dataSourceDesc">les 60 images</span>
+      (<code>data/referent_360_v3.json</code>) · <a href="chiffres-et-sources.html" id="txt-dataSourceLink">Chiffres et sources</a>
     </div>
   </div>
 
@@ -509,6 +518,7 @@
 
 </div>
 
+<script src="assets/calque-engine.js"></script>
 <script>
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 
@@ -519,14 +529,18 @@ const UI = {
     subtitle:"Choisissez une catégorie, effectuez le tirage, téléchargez le calque prêt à découper ou imprimer.",
     bookIntro:"La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
     readBook:"Lire le livre", dlPdfBook:"Télécharger le PDF du livre", dlYiKing:"Télécharger la traduction du Yi-King",
-    catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"64 motifs · teinte fixe (d4), tirage par position",
-    catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"24 motifs · 6 familles × 4 teintes",
-    catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"64 motifs · teinte fixe (d4), tirage par position",
-    catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"64 motifs · tirage par position",
+    catNum1:"Catégorie I", catTitle1:"Bases", catMeta1:"{{HEX}} hexagrammes · {{CALQUES}} calques · teinte fixe (d4), tirage par position",
+    catNum2:"Catégorie II", catTitle2:"Comb. par 2 axes", catMeta2:"{{FAM2}} familles × {{TEINTES}} teintes · {{HEX}} hexagrammes · {{CALQUES}} calques",
+    catNum3:"Catégorie III", catTitle3:"Comb. par 3 axes", catMeta3:"{{HEX}} hexagrammes · {{CALQUES}} calques · teinte fixe (d4), tirage par position",
+    catNum4:"Catégorie IV", catTitle4:"Comb. par 4 axes", catMeta4:"{{HEX}} hexagrammes · {{CALQUES}} calques · tirage par position",
     familleLabel:"Famille (d6)", teinteLabel:"Teinte (d4)", rollBtn:"Effectuer le tirage",
     randomCatBtn:"Choisir la catégorie au hasard", randomFamilleBtn:"Choisir la famille au hasard", randomTeinteBtn:"Choisir la teinte au hasard",
     resultLabel:"Résultat", pavageLabel:"Pavage", resultPlaceholder:"Effectuez un tirage pour voir apparaître le motif et son interprétation.",
     resultTitle:"Motif", dlSvgBtn:"Télécharger SVG", dlPdfBtn:"Télécharger PDF",
+    dlGridPngBtn:"Télécharger grille.png", dlGridJsonBtn:"Télécharger grille.json",
+    copyLinkBtn:"Copier le lien de ce tirage", linkCopiedBtn:"Lien copié !",
+    copyLinkHelp:"Collez ce lien dans le formulaire de la page Contact pour commander ce motif.",
+    dataSourceLabel:"Données", dataSourceDesc:"les 60 images", dataSourceLink:"Chiffres et sources",
     noResultAlert:"Effectuez un tirage d'abord.", pdfAlert:"Export PDF : à brancher une fois les vrais calques intégrés.",
     hexDepart:"Hexagramme de départ", hexArrivee:"Hexagramme d'arrivée",
     imageLabel:"Image", judgementLabel:"Jugement", traitMutantLabel:"Trait mutant",
@@ -539,14 +553,18 @@ const UI = {
     subtitle:"Choose a category, cast, then download the layer ready to cut or print.",
     bookIntro:"La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
     readBook:"Read the book", dlPdfBook:"Download the book's PDF", dlYiKing:"Download the Yi-King translation",
-    catNum1:"Category I", catTitle1:"Bases", catMeta1:"64 motifs · fixed tint (d4), draw per position",
-    catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"24 motifs · 6 families × 4 tints",
-    catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"64 motifs · fixed tint (d4), draw per position",
-    catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"64 motifs · draw per position",
+    catNum1:"Category I", catTitle1:"Bases", catMeta1:"{{HEX}} hexagrams · {{CALQUES}} layers · fixed tint (d4), draw per position",
+    catNum2:"Category II", catTitle2:"2-axis combinations", catMeta2:"{{FAM2}} families × {{TEINTES}} tints · {{HEX}} hexagrams · {{CALQUES}} layers",
+    catNum3:"Category III", catTitle3:"3-axis combinations", catMeta3:"{{HEX}} hexagrams · {{CALQUES}} layers · fixed tint (d4), draw per position",
+    catNum4:"Category IV", catTitle4:"4-axis combinations", catMeta4:"{{HEX}} hexagrams · {{CALQUES}} layers · draw per position",
     familleLabel:"Family (d6)", teinteLabel:"Tint (d4)", rollBtn:"Cast",
     randomCatBtn:"Pick a random category", randomFamilleBtn:"Pick a random family", randomTeinteBtn:"Pick a random tint",
     resultLabel:"Result", pavageLabel:"Tiling", resultPlaceholder:"Cast to reveal the motif and its interpretation.",
     resultTitle:"Motif", dlSvgBtn:"Download SVG", dlPdfBtn:"Download PDF",
+    dlGridPngBtn:"Download grid.png", dlGridJsonBtn:"Download grid.json",
+    copyLinkBtn:"Copy this draw's link", linkCopiedBtn:"Link copied!",
+    copyLinkHelp:"Paste this link into the Contact page form to order this motif.",
+    dataSourceLabel:"Data", dataSourceDesc:"the 60 images", dataSourceLink:"Figures and sources",
     noResultAlert:"Cast first.", pdfAlert:"PDF export: to be wired once the final layers are integrated.",
     hexDepart:"Starting hexagram", hexArrivee:"Resulting hexagram",
     imageLabel:"Image", judgementLabel:"Judgement", traitMutantLabel:"Moving line",
@@ -560,14 +578,18 @@ const UI = {
     subtitle:"Elija una categoría, realice la tirada y descargue la capa lista para cortar o imprimir.",
     bookIntro:"La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
     readBook:"Leer el libro", dlPdfBook:"Descargar el PDF del libro", dlYiKing:"Descargar la traducción del Yi-King",
-    catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"64 motivos · matiz fijo (d4), tirada por posición",
-    catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"24 motivos · 6 familias × 4 tonos",
-    catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"64 motivos · matiz fijo (d4), tirada por posición",
-    catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"64 motivos · tirada por posición",
+    catNum1:"Categoría I", catTitle1:"Bases", catMeta1:"{{HEX}} hexagramas · {{CALQUES}} capas · matiz fijo (d4), tirada por posición",
+    catNum2:"Categoría II", catTitle2:"Comb. de 2 ejes", catMeta2:"{{FAM2}} familias × {{TEINTES}} tonos · {{HEX}} hexagramas · {{CALQUES}} capas",
+    catNum3:"Categoría III", catTitle3:"Comb. de 3 ejes", catMeta3:"{{HEX}} hexagramas · {{CALQUES}} capas · matiz fijo (d4), tirada por posición",
+    catNum4:"Categoría IV", catTitle4:"Comb. de 4 ejes", catMeta4:"{{HEX}} hexagramas · {{CALQUES}} capas · tirada por posición",
     familleLabel:"Familia (d6)", teinteLabel:"Matiz (d4)", rollBtn:"Realizar la tirada",
     randomCatBtn:"Elegir la categoría al azar", randomFamilleBtn:"Elegir la familia al azar", randomTeinteBtn:"Elegir el matiz al azar",
     resultLabel:"Resultado", pavageLabel:"Pavimentación", resultPlaceholder:"Realice una tirada para ver aparecer el motivo y su interpretación.",
     resultTitle:"Motivo", dlSvgBtn:"Descargar SVG", dlPdfBtn:"Descargar PDF",
+    dlGridPngBtn:"Descargar grille.png", dlGridJsonBtn:"Descargar grille.json",
+    copyLinkBtn:"Copiar el enlace de esta tirada", linkCopiedBtn:"¡Enlace copiado!",
+    copyLinkHelp:"Pegue este enlace en el formulario de la página Contacto para encargar este motivo.",
+    dataSourceLabel:"Datos", dataSourceDesc:"las 60 imágenes", dataSourceLink:"Cifras y fuentes",
     noResultAlert:"Realice primero una tirada.", pdfAlert:"Exportación PDF: se conectará una vez integradas las capas definitivas.",
     hexDepart:"Hexagrama de partida", hexArrivee:"Hexagrama de llegada",
     imageLabel:"Imagen", judgementLabel:"Juicio", traitMutantLabel:"Línea mutante",
@@ -579,14 +601,18 @@ const UI = {
     subtitle:"เลือกหมวดหมู่ ทำการทำนาย แล้วดาวน์โหลดชั้นลายที่พร้อมตัดหรือพิมพ์",
     bookIntro:"La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสมหัศจรรย์และการถ่ายทอดสู่การทอผ้าแบบแจ็คการ์ด",
     readBook:"อ่านหนังสือ", dlPdfBook:"ดาวน์โหลด PDF ของหนังสือ", dlYiKing:"ดาวน์โหลดคำแปลอี้จิง",
-    catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
-    catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"24 ลวดลาย · 6 ตระกูล × 4 เฉดสี",
-    catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"64 ลวดลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
-    catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"64 ลวดลาย · สุ่มตามตำแหน่ง",
+    catNum1:"หมวดที่ 1", catTitle1:"พื้นฐาน", catMeta1:"{{HEX}} เฮกซะแกรม · {{CALQUES}} ชั้นลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
+    catNum2:"หมวดที่ 2", catTitle2:"ผสม 2 แกน", catMeta2:"{{FAM2}} ตระกูล × {{TEINTES}} เฉดสี · {{HEX}} เฮกซะแกรม · {{CALQUES}} ชั้นลาย",
+    catNum3:"หมวดที่ 3", catTitle3:"ผสม 3 แกน", catMeta3:"{{HEX}} เฮกซะแกรม · {{CALQUES}} ชั้นลาย · กำหนดโทนสี (ลูกเต๋า 4 หน้า) แล้วสุ่มตามตำแหน่ง",
+    catNum4:"หมวดที่ 4", catTitle4:"ผสม 4 แกน", catMeta4:"{{HEX}} เฮกซะแกรม · {{CALQUES}} ชั้นลาย · สุ่มตามตำแหน่ง",
     familleLabel:"ตระกูล (ลูกเต๋า 6 หน้า)", teinteLabel:"โทนสี (ลูกเต๋า 4 หน้า)", rollBtn:"ทำการทำนาย",
     randomCatBtn:"สุ่มเลือกหมวดหมู่", randomFamilleBtn:"สุ่มเลือกตระกูล", randomTeinteBtn:"สุ่มเลือกโทนสี",
     resultLabel:"ผลลัพธ์", pavageLabel:"ลายปูพื้น", resultPlaceholder:"ทำการทำนายเพื่อดูลวดลายและคำตีความ",
     resultTitle:"ลวดลาย", dlSvgBtn:"ดาวน์โหลด SVG", dlPdfBtn:"ดาวน์โหลด PDF",
+    dlGridPngBtn:"ดาวน์โหลด grille.png", dlGridJsonBtn:"ดาวน์โหลด grille.json",
+    copyLinkBtn:"Copy this draw's link" /* TH: à relire */, linkCopiedBtn:"Link copied!" /* TH: à relire */,
+    copyLinkHelp:"Paste this link into the Contact page form to order this motif." /* TH: à relire */,
+    dataSourceLabel:"ข้อมูล" /* TH: à relire */, dataSourceDesc:"60 ภาพ" /* TH: à relire */, dataSourceLink:"ตัวเลขและแหล่งที่มา (FR)",
     noResultAlert:"กรุณาทำการทำนายก่อน", pdfAlert:"การส่งออก PDF: จะเชื่อมต่อเมื่อรวมชั้นลายจริงแล้ว",
     hexDepart:"เฮกซะแกรมเริ่มต้น", hexArrivee:"เฮกซะแกรมผลลัพธ์",
     imageLabel:"ภาพ", judgementLabel:"คำพิพากษา", traitMutantLabel:"เส้นแปรเปลี่ยน",
@@ -620,6 +646,13 @@ function applyUILang(){
   if(!state.chrono) document.getElementById('resultIdea').textContent = t('resultPlaceholder');
   document.getElementById('dlSvg').textContent = t('dlSvgBtn');
   document.getElementById('dlPdf').textContent = t('dlPdfBtn');
+  document.getElementById('dlGridPng').textContent = t('dlGridPngBtn');
+  document.getElementById('dlGridJson').textContent = t('dlGridJsonBtn');
+  document.getElementById('copyTirageLink').textContent = t('copyLinkBtn');
+  document.getElementById('txt-copyLinkHelp').textContent = t('copyLinkHelp');
+  document.getElementById('txt-dataSourceLabel').textContent = t('dataSourceLabel');
+  document.getElementById('txt-dataSourceDesc').textContent = t('dataSourceDesc');
+  document.getElementById('txt-dataSourceLink').textContent = t('dataSourceLink');
   document.getElementById('txt-navHome').textContent = t('navHome');
   document.getElementById('txt-navHomeDesc').textContent = t('navHomeDesc');
   document.getElementById('txt-navTirage').textContent = t('navTirage');
@@ -763,11 +796,54 @@ function splitFamilyId(familyId){
   return out;
 }
 
+// A3 : même ambiguïté que splitFamilyId ci-dessus — 'yang-mut' et 'yin-mut' portent déjà un
+// tiret, donc le paramètre ?tirage=<slug1>-…-<slug6> ne peut pas se relire par un simple
+// split('-') (il rendrait 8 segments au lieu de 6). Même remède : appariement le plus long
+// d'abord, jusqu'à épuiser la chaîne ou obtenir 6 slugs.
+function splitTirageParam(tirage){
+  const ordered = ['yang-mut','yin-mut','yang','yin'];
+  let rest = tirage, out = [];
+  while(rest.length && out.length < 6){
+    const hit = ordered.find(s => rest.startsWith(s));
+    if(!hit) return null;
+    out.push(hit);
+    rest = rest.slice(hit.length).replace(/^-/, '');
+  }
+  return (out.length === 6 && rest === '') ? out : null;
+}
+
 /* ===== Hexagramme départ/arrivée pour Catégories I et III — un tirage à 6 positions
    (chacune Yang/Yang mutant/Yin/Yin mutant) se convertit mécaniquement en un vrai
    hexagramme via le même système chrono que tirage-livree-hermes.html (poids trigramme
    supérieur 32·16·8 / inférieur 4·2·1 — page 067 du livre). ===== */
 const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+
+/* ===== Comptes du tirage (catégories I-IV), calculés, pas écrits en dur (A2) : un tirage
+   à 6 positions indépendantes parmi les 4 natures fait 4^6 calques possibles, qui se
+   replient sur 64 hexagrammes réels (KINGWEN_BY_CHRONO, la table de correspondance déjà
+   en usage) — voir chiffres-et-sources.html. Catégorie II tire de la même façon (voir
+   drawCategorie2) sur l'une des 6 familles de 2 axes parmi 4 (C(4,2)) × 4 teintes. Les
+   textes du dictionnaire portent des jetons {{HEX}}/{{CALQUES}}/{{FAM2}}/{{TEINTES}},
+   remplacés ici une fois les deux constantes réelles disponibles. ===== */
+const CALQUES_TIRAGE_TOTAL = Math.pow(NATURE_SLUGS.length, 6);
+const HEXAGRAMMES_TOTAL = KINGWEN_BY_CHRONO.length;
+const FAMILLES_CAT2_TOTAL = NATURE_SLUGS.length * (NATURE_SLUGS.length - 1) / 2;
+function formatMillier(n){ return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' '); }
+(function substituerComptesTirage(){
+  const jetons = {
+    '{{HEX}}': formatMillier(HEXAGRAMMES_TOTAL),
+    '{{CALQUES}}': formatMillier(CALQUES_TIRAGE_TOTAL),
+    '{{FAM2}}': formatMillier(FAMILLES_CAT2_TOTAL),
+    '{{TEINTES}}': formatMillier(NATURE_SLUGS.length),
+  };
+  Object.values(UI).forEach(dict => {
+    for(const k of Object.keys(dict)){
+      if(typeof dict[k] !== 'string' || !dict[k].includes('{{')) continue;
+      dict[k] = Object.entries(jetons).reduce((s,[tok,val]) => s.split(tok).join(val), dict[k]);
+    }
+  });
+})();
+
 const HEX_KW = {
 1:["Qian","Le Créateur","Amorce","Le trait plein s'élance seul, sans encore de vêtement. Au tout premier degré de la figure, la puissance existe déjà tout entière, mais elle n'a encore pris aucune forme reconnaissable — elle n'est vêtue d'aucune fonction, d'aucun rôle. C'est la force à l'état pur, avant qu'elle ne se donne un nom. Ce trait annonce ce que seront les cinq suivants : une progression où le pouvoir d'agir se façonne peu à peu un habit, jusqu'à ce que la figure entière, au sommet, découvre que même la plus grande force doit apprendre à se retenir."],
 2:["Kun","Le Réceptif","Assise","Le sol reçoit, la forme se pose. Rien encore n'est advenu, et pourtant tout est déjà rendu possible : la terre du premier trait n'exige rien, elle attend. Ce n'est pas la passivité de qui renonce, mais la patience de qui sait que la docilité bien comprise porte en elle toute la fécondité à venir. La figure entière se déploiera à partir de cette seule qualité : accueillir avant de vouloir imposer, se poser avant de prétendre bâtir."],
@@ -1349,6 +1425,7 @@ async function loadAxisPositionText(spaceKey, baseDir, axisSlug, pos){
 async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
   let block = '';
   let template = templateText;
+  const grid = Array.from({length:12}, () => Array(12).fill(null));
   for(let pos=1; pos<=6; pos++){
     const axisSlug = drawnSlugs[pos-1];
     const posText = await loadAxisPositionText(spaceKey, baseDir, axisSlug, pos);
@@ -1362,13 +1439,13 @@ async function buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs){
       if(row < 0 || col < 0) continue;
       if(LAYER_OF[row][col] !== pos) continue; // seulement les 24 cellules propres à cette position
       const fill = fillMap[mm[1]];
-      if(fill) block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`;
+      if(fill){ block += `<rect x="${mm[2]}" y="${mm[3]}" width="31.16" height="31.16" fill="${fill}"/>`; grid[row][col] = fill; }
     }
     block += extraMarksVsBase(templateText, posText);
     block += renderOwnStrokeShapes(posText);
     if(pos === 1) template = stripMarksUniqueToBase(templateText, posText);
   }
-  return { block, template };
+  return { block, template, grid };
 }
 
 // Remplace, dans le gabarit réel, les 144 cellules de la grille par le bloc déjà calculé
@@ -1440,21 +1517,26 @@ function renderPavageBox(svgText){
   box.style.backgroundImage = `url("${svgDataUri(cropSvgToPavage(svgText))}")`;
 }
 
-async function drawCategorie2(){
+// A3 : forcedSlugs (6 slugs déjà tirés) rejoue un tirage depuis l'URL, sans repasser par
+// le hasard — sinon un tirage neuf est effectué normalement.
+function randomOrForced(forcedSlugs){
+  return forcedSlugs || Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
+}
+async function drawCategorie2(forcedSlugs){
   const familyId = MANIFEST.cat2Families[(state.famille||1)-1];
   const [axisA, axisB] = splitFamilyId(familyId);
   const spaceKey = 'par2:'+familyId;
   const baseDir = 'assets/par2-cartes/'+familyId+'/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const drawnSlugs = randomOrForced(forcedSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: familyId + '_' + drawnSlugs.join('-'),
     familyName: `Combinaison bases ${NATURE_LABELS[axisA]} et ${NATURE_LABELS[axisB]}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir, templateText,
+    drawnSlugs, spaceKey, baseDir, templateText, grid,
   };
 }
 
@@ -1463,40 +1545,40 @@ async function drawCategorie2(){
 // (axis1) — validé cellule par cellule et visuellement contre les vrais fichiers : pour une
 // teinte fixée, les 4 valeurs d'axis1 ne sont qu'une permutation de couleur cohérente de la
 // même forme, donc un tirage indépendant par position reste visuellement cohérent.
-async function drawCategorie1Or3(cat){
+async function drawCategorie1Or3(cat, forcedSlugs){
   const teinteSlug = NATURE_SLUGS[(state.teinte||1)-1];
   const baseDir = cat === 1 ? 'assets/bases-cartes/' : 'assets/par3-cartes/';
   const spaceKey = (cat === 1 ? 'bases:' : 'par3:') + teinteSlug;
   const posDir = baseDir + teinteSlug + '/';
   const templateText = await loadSpaceTemplate(spaceKey, posDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
+  const drawnSlugs = randomOrForced(forcedSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, posDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: teinteSlug + '_' + drawnSlugs.join('-'),
     familyName: cat === 1 ? `Famille ${NATURE_LABELS[teinteSlug]}` : `Famille sans ${NATURE_LABELS[teinteSlug]}`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir: posDir, templateText,
+    drawnSlugs, spaceKey, baseDir: posDir, templateText, grid,
   };
 }
 
 // Catégorie IV : le vrai tirage Yi-King (mêmes 24 fichiers assets/trait-cartes/ que la
 // page d'accueil), sans teinte à fixer au préalable puisque trait-cartes n'a pas de
 // sous-dossier teinte — chacune des 6 positions tire librement parmi les 4 natures.
-async function drawCategorie4(){
+async function drawCategorie4(forcedSlugs){
   const spaceKey = 'hexagram';
   const baseDir = 'assets/trait-cartes/';
   const templateText = await loadSpaceTemplate(spaceKey, baseDir, 'yang');
-  const drawnSlugs = Array.from({length:6}, () => NATURE_SLUGS[Math.floor(Math.random()*4)]);
-  const { block, template } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
+  const drawnSlugs = randomOrForced(forcedSlugs);
+  const { block, template, grid } = await buildCompositeBlock(spaceKey, baseDir, templateText, drawnSlugs);
   const svg = insertBlockIntoTemplate(template, block);
   return {
     id: drawnSlugs.join('-'),
     familyName: `Combinaison des 4`,
     svgText: svg,
     hex: hexFromDrawnSlugs(drawnSlugs),
-    drawnSlugs, spaceKey, baseDir, templateText,
+    drawnSlugs, spaceKey, baseDir, templateText, grid,
   };
 }
 
@@ -1574,14 +1656,16 @@ async function renderMutationZone(item){
   zone.classList.add('visible');
 }
 
-document.getElementById('rollBtn').addEventListener('click', async ()=>{
-  if(state.cat === 2 && !state.famille){ return; }
-  if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
+// A3 : lien permanent d'un tirage — ?cat=<1-4>&famille=<slug>&teinte=<slug>&tirage=<6 slugs>.
+// performDraw() sert à la fois au tirage normal (rollBtn, forcedSlugs absent) et au rejeu
+// exact d'un lien (initFromURL, forcedSlugs = les 6 slugs de l'URL) : même rendu, même mise
+// à jour d'URL dans les deux cas, pour que "rejouer" et "tirer" restent indiscernables une
+// fois le résultat affiché.
+async function performDraw(forcedSlugs){
   if(!MANIFEST) await loadManifest();
-
-  const item = state.cat === 2 ? await drawCategorie2()
-    : (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat)
-    : await drawCategorie4();
+  const item = state.cat === 2 ? await drawCategorie2(forcedSlugs)
+    : (state.cat === 1 || state.cat === 3) ? await drawCategorie1Or3(state.cat, forcedSlugs)
+    : await drawCategorie4(forcedSlugs);
   state.item = item;
   state.chrono = item.id;
   document.getElementById('previewBox').innerHTML = item.svgText;
@@ -1589,6 +1673,31 @@ document.getElementById('rollBtn').addEventListener('click', async ()=>{
   document.getElementById('resultValue').textContent = `${t('resultTitle')} — ${item.familyName}`;
   document.getElementById('resultIdea').innerHTML = resultIdeaHtml(item.hex.kw);
   await renderMutationZone(item);
+  updateTirageURL(item);
+}
+function updateTirageURL(item){
+  const params = new URLSearchParams();
+  params.set('cat', state.cat);
+  if(state.cat === 2) params.set('famille', MANIFEST.cat2Families[(state.famille||1)-1]);
+  if(state.cat === 1 || state.cat === 3) params.set('teinte', NATURE_SLUGS[(state.teinte||1)-1]);
+  params.set('tirage', item.drawnSlugs.join('-'));
+  history.replaceState(null, '', `${location.pathname}?${params.toString()}`);
+}
+document.getElementById('rollBtn').addEventListener('click', async ()=>{
+  if(state.cat === 2 && !state.famille){ return; }
+  if((state.cat === 1 || state.cat === 3) && !state.teinte){ return; }
+  await performDraw();
+});
+
+document.getElementById('copyTirageLink').addEventListener('click', async ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  try {
+    await navigator.clipboard.writeText(location.href);
+    const btn = document.getElementById('copyTirageLink');
+    const original = btn.textContent;
+    btn.textContent = t('linkCopiedBtn');
+    setTimeout(()=>{ btn.textContent = original; }, 1500);
+  } catch(err){ prompt(t('copyLinkBtn'), location.href); }
 });
 
 document.getElementById('dlSvg').addEventListener('click', async ()=>{
@@ -1602,12 +1711,61 @@ document.getElementById('dlPdf').addEventListener('click', ()=>{
   alert(t('pdfAlert'));
 });
 
+// A4 : export grille.png/grille.json depuis state.item.grid — déjà reconstruite par
+// buildCompositeBlock (couleur hex par case), jamais une relecture du SVG final.
+document.getElementById('dlGridPng').addEventListener('click', async ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  const blob = await CalqueEngine.gridToPNG(state.item.grid);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `grille_${state.item.id}.png`; a.click();
+  URL.revokeObjectURL(url);
+});
+document.getElementById('dlGridJson').addEventListener('click', ()=>{
+  if(!state.item){ alert(t('noResultAlert')); return; }
+  const cases = state.item.grid.map(row => row.map(hex => hex ? (CalqueEngine.HEX_TO_LABEL[hex] || null) : null));
+  const hex = state.item.hex;
+  const hexagramme = {
+    chrono: hex.chrono, kingwen: hex.kw, movingIdx: hex.movingIdx,
+    arrivee: hex.arrivee ? { chrono: hex.arrivee.chrono, kingwen: hex.arrivee.kw } : null,
+  };
+  const json = CalqueEngine.gridToJSON({ ordre: cases.length, niveaux: state.item.drawnSlugs, hexagramme, cases });
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = `grille_${state.item.id}.json`; a.click();
+  URL.revokeObjectURL(url);
+});
+
 /* ===== init ===== */
-(function initFromURL(){
+// A3 : une URL portant cat/tirage (et famille ou teinte selon la catégorie) rejoue
+// exactement ce tirage, sans repasser par le hasard — en simulant de vrais clics sur la
+// carte de catégorie puis le dé concerné, pour retomber sur les mêmes gestionnaires
+// (et le même affichage) qu'une sélection manuelle.
+(async function initFromURL(){
   const params = new URLSearchParams(location.search);
   if(params.has('lang') && UI[params.get('lang')]) LANG = params.get('lang');
   applyUILang();
-  loadManifest();
+
+  const catParam = parseInt(params.get('cat'));
+  const tirageSlugs = params.has('tirage') ? splitTirageParam(params.get('tirage')) : null;
+
+  if(catParam >= 1 && catParam <= 4 && tirageSlugs){
+    await loadManifest();
+    document.querySelector(`.cat-card[data-cat="${catParam}"]`).click();
+    if(catParam === 2){
+      const idx = MANIFEST.cat2Families.indexOf(params.get('famille'));
+      const btn = document.querySelectorAll('#familleRow .dice-btn')[idx];
+      if(btn) btn.click();
+    }
+    if(catParam === 1 || catParam === 3){
+      const idx = NATURE_SLUGS.indexOf(params.get('teinte'));
+      const btn = document.querySelectorAll('#teinteRow .dice-btn')[idx];
+      if(btn) btn.click();
+    }
+    const ready = catParam === 2 ? !!state.famille : (catParam === 1 || catParam === 3) ? !!state.teinte : true;
+    if(ready) await performDraw(tirageSlugs);
+  } else {
+    loadManifest();
+  }
 })();
 </script>
 

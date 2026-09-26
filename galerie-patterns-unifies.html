@@ -224,7 +224,7 @@
       "name": "Quelles sont les contraintes de création des Unified Patterns ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre."
+        "text": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée. La seconde : les bords de la grille doivent faire écho au centre."
       }
     },
     {
@@ -232,15 +232,15 @@
       "name": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns."
+        "text": "La première contrainte (teinte unique sur les deux moitiés de 6 niveaux) isole 8 des 15 familles comme Unified Patterns, au sein des 512 grilles distinctes que le système engendre. C'est ce qui permet de distinguer, parmi toutes les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns."
       }
     },
     {
       "@type": "Question",
-      "name": "Comment ces matrices sont-elles classifiées ?",
+      "name": "Comment ces familles sont-elles classifiées ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "La classification utilise le système Jacquard pour générer et organiser les matrices équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces matrices."
+        "text": "La classification utilise le système Jacquard pour engendrer et organiser les familles équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces familles."
       }
     },
     {
@@ -248,7 +248,7 @@
       "name": "Sur quelle harmonie ce système a-t-il été vérifié ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments)."
+        "text": "Par deux voies indépendantes. La fermeture sur le cube (règle d'arête) : les grilles dont l'habillage respecte la continuité d'une arête à l'autre closent le cube. Et le compte d'orbites sous le groupe complet de symétrie (rotations, miroir, demi-décalage) : les 512 grilles distinctes se répartissent en 128 orbites — le demi-décalage d'une grille (translation d'une demi-période) laisse toujours son pavage inchangé."
       }
     }
   ]
@@ -348,19 +348,19 @@
     </details>
     <details class="faq-item">
       <summary>Quelles sont les contraintes de création des Unified Patterns ?<span class="q-mark">＋</span></summary>
-      <p>Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre.</p>
+      <p>Deux contraintes définissent un Unified Pattern. La première : associer une seule et même teinte aux deux moitiés de 6 niveaux d'une famille produit une grille équilibrée. La seconde : les bords de la grille doivent faire écho au centre.</p>
     </details>
     <details class="faq-item">
       <summary>Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?<span class="q-mark">＋</span></summary>
-      <p>La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.</p>
+      <p>La première contrainte (teinte unique sur les deux moitiés de 6 niveaux) isole 8 des 15 familles comme Unified Patterns, au sein des 512 grilles distinctes que le système engendre. C'est ce qui permet de distinguer, parmi toutes les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.</p>
     </details>
     <details class="faq-item">
-      <summary>Comment ces matrices sont-elles classifiées ?<span class="q-mark">＋</span></summary>
-      <p>La classification utilise le système Jacquard pour générer et organiser les matrices équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces matrices.</p>
+      <summary>Comment ces familles sont-elles classifiées ?<span class="q-mark">＋</span></summary>
+      <p>La classification utilise le système Jacquard pour engendrer et organiser les familles équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces familles.</p>
     </details>
     <details class="faq-item">
       <summary>Sur quelle harmonie ce système a-t-il été vérifié ?<span class="q-mark">＋</span></summary>
-      <p>Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments).</p>
+      <p>Par deux voies indépendantes. La fermeture sur le cube (règle d'arête) : les grilles dont l'habillage respecte la continuité d'une arête à l'autre closent le cube. Et le compte d'orbites sous le groupe complet de symétrie (rotations, miroir, demi-décalage) : les 512 grilles distinctes se répartissent en 128 orbites — le demi-décalage d'une grille (translation d'une demi-période) laisse toujours son pavage inchangé.</p>
     </details>
   </div>
 
@@ -371,6 +371,7 @@
   </div>
 
   <div class="controls" id="controls"></div>
+  <div class="controls" id="k2Controls"></div>
 
   <div class="gallery-panel">
     <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
@@ -384,6 +385,8 @@
     <div class="paved-actions">
       <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
       <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
+      <button type="button" id="btnDlGridPng">Télécharger grille.png</button>
+      <button type="button" id="btnDlGridJson">Télécharger grille.json</button>
     </div>
   </div>
 
@@ -440,6 +443,7 @@
 
 </div>
 
+<script src="assets/calque-engine.js"></script>
 <script>
 let DATA = null;
 const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
@@ -572,11 +576,14 @@ function refreshPalette(){
   else applySingleHue(picked);
 }
 
-function hexagramGrid(n, gridA, gridB){
+function traitsFromChrono(n){
   const col = n % 8, row = Math.floor(n/8);
   const bitsCol = [col&1,(col>>1)&1,(col>>2)&1];
   const bitsRow = [row&1,(row>>1)&1,(row>>2)&1];
-  const traits = bitsCol.concat(bitsRow);
+  return bitsCol.concat(bitsRow);
+}
+function hexagramGrid(n, gridA, gridB){
+  const traits = traitsFromChrono(n);
   const grid = [];
   for(let r=0;r<12;r++){
     const rowArr=[];
@@ -588,6 +595,43 @@ function hexagramGrid(n, gridA, gridB){
     grid.push(rowArr);
   }
   return grid;
+}
+
+// C2 : orbites sous Γ = D4 (8 rotations/réflexions) × σ (demi-décalage, 2) × S3
+// (permutation des 3 teintes, 6) = 96 transformations. σ est le même demi-décalage que
+// celui de la note sous les stats ("grille et son décalé d'une demi-période") : sur les 512
+// grilles distinctes, il apparie chaque grille à une autre (512/2=256 pavages, déjà annoncé)
+// — ni D4 seul ni D4×S3 ne suffisent à retomber sur 128, il fallait bien σ en plus. Vérifié
+// hors-ligne sur les 512 grilles distinctes avant d'écrire ce code : exactement 128 orbites.
+function rot90(g){ const n=g.length, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[c][n-1-r]=g[r][c]; return out; }
+function flipH(g){ return g.map(row=>[...row].reverse()); }
+function shiftHalf(g){ const n=g.length, h=n/2, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[r][c]=g[(r+h)%n][(c+h)%n]; return out; }
+function permTint(g, perm){ return g.map(row=>row.map(v=>perm[v])); }
+const TINT_PERMS = [
+  {V:'V',M:'M',O:'O'}, {V:'V',M:'O',O:'M'}, {V:'M',M:'V',O:'O'},
+  {V:'M',M:'O',O:'V'}, {V:'O',M:'V',O:'M'}, {V:'O',M:'M',O:'V'},
+];
+function gridKey(g){ return g.map(r=>r.join('')).join(''); }
+function orbitTransforms(g){
+  const out = [];
+  for(const base of [g, shiftHalf(g)]){
+    let cur = base;
+    for(let i=0;i<4;i++){
+      out.push(cur, flipH(cur));
+      cur = rot90(cur);
+    }
+  }
+  const withTints = [];
+  for(const d of out) for(const p of TINT_PERMS) withTints.push(permTint(d, p));
+  return withTints; // 2*8*6 = 96
+}
+function canonicalKey(g){
+  let best = null;
+  for(const t of orbitTransforms(g)){
+    const k = gridKey(t);
+    if(best===null || k<best) best = k;
+  }
+  return best;
 }
 
 function drawTile(canvas, grid, size){
@@ -637,6 +681,7 @@ function subLabel(s){
 
 const cats = ['all','bases','par2','par3'];
 const controls = document.getElementById('controls');
+let currentFilterCat = 'all';
 function buildControls(){
   cats.forEach(cat=>{
     const btn = document.createElement('button');
@@ -644,11 +689,41 @@ function buildControls(){
     btn.dataset.cat = cat;
     if(cat==='all') btn.classList.add('active');
     btn.onclick = ()=>{
-      document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+      document.querySelectorAll('#controls button').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
+      currentFilterCat = cat;
       render(cat);
     };
     controls.appendChild(btn);
+  });
+}
+
+// C3 : filtre par k² (fréquence spatiale dominante), à côté du filtre par famille —
+// combinés (ET logique) dans render(). Les boutons sont construits une fois ENTRY_K2 connu.
+const k2Controls = document.getElementById('k2Controls');
+function buildK2Filter(){
+  const distinct = [...new Set(ENTRY_K2)].sort((a,b)=>a-b);
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'k² : tous';
+  allBtn.classList.add('active');
+  allBtn.onclick = ()=>{
+    document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+    allBtn.classList.add('active');
+    filterK2 = 'all';
+    render(currentFilterCat);
+  };
+  k2Controls.appendChild(allBtn);
+  distinct.forEach(k2=>{
+    const count = ENTRY_K2.filter(v=>v===k2).length;
+    const btn = document.createElement('button');
+    btn.textContent = 'k²=' + k2 + ' (' + count + ')';
+    btn.onclick = ()=>{
+      document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      filterK2 = k2;
+      render(currentFilterCat);
+    };
+    k2Controls.appendChild(btn);
   });
 }
 
@@ -656,6 +731,12 @@ const galleryEl = document.getElementById('gallery');
 const pavedCanvas = document.getElementById('pavedCanvas');
 const pavedInfo = document.getElementById('pavedInfo');
 let currentEntries = [];
+let currentEntriesOrigIdx = []; // même longueur que currentEntries : index d'origine dans DATA.entries, pour retrouver son k² dans ENTRY_K2 après filtrage
+let ENTRY_K2 = []; // C3 : k² par entrée de DATA.entries (même index), calculé une fois DATA chargé
+let ENTRY_ORBIT = []; // C2 : numéro d'orbite (1..128) par entrée de DATA.entries, même index
+let filterK2 = 'all';
+function k2AtPos(idx){ return ENTRY_K2[currentEntriesOrigIdx[idx]]; }
+function orbitAtPos(idx){ return ENTRY_ORBIT[currentEntriesOrigIdx[idx]]; }
 
 function entryLabel(fam, subA, subB, n){
   return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
@@ -674,7 +755,11 @@ function selectEntry(idx){
   const badge = ferme === null ? '' :
     ferme ? ' — <span style="color:var(--gold);">ferme sur le cube</span>'
           : ' — <span style="color:var(--dim);">ne ferme pas sur le cube</span>';
-  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge;
+  const k2 = k2AtPos(idx);
+  const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
+  const orbit = orbitAtPos(idx);
+  const orbitBadge = orbit === undefined ? '' : ' — orbite n°' + orbit + '/128';
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagramme N°' + n + badge + k2Badge + orbitBadge;
 }
 
 // Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
@@ -691,7 +776,15 @@ function redrawAll(){
 
 function render(filterCat){
   galleryEl.innerHTML = '';
-  currentEntries = DATA.entries.filter(([fam])=> filterCat==='all' || fam.split(':')[0]===filterCat);
+  currentEntries = [];
+  currentEntriesOrigIdx = [];
+  DATA.entries.forEach((entry, origIdx)=>{
+    const [fam] = entry;
+    if(filterCat!=='all' && fam.split(':')[0]!==filterCat) return;
+    if(filterK2!=='all' && ENTRY_K2[origIdx]!==filterK2) return;
+    currentEntries.push(entry);
+    currentEntriesOrigIdx.push(origIdx);
+  });
   const frag = document.createDocumentFragment();
   currentEntries.forEach(([fam, subA, subB, n], idx)=>{
     const gridA = DATA.families[fam][subA];
@@ -771,14 +864,62 @@ document.getElementById('btnDlPavedSvg').addEventListener('click', ()=>{
   downloadSvgString(motifSvgMarkup(grid, 4), `pavage-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}-x4.svg`);
 });
 
-fetch('data/fonds_ecran_v1.json')
-  .then(r => r.json())
-  .then(data => {
-    DATA = data;
-    LAYER_OF = DATA.layerOf;
-    buildControls();
-    render('all');
+// C4 : export grille.png/grille.json, même moteur qu'impression.html (A4) — grid est déjà
+// la grille 12x12 de lettres de teinte (V/M/O) reconstruite par hexagramGrid, jamais une
+// relecture du SVG.
+document.getElementById('btnDlGridPng').addEventListener('click', async ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const hexGrid = grid.map(row => row.map(letter => PALETTE[letter] || null));
+  const blob = await CalqueEngine.gridToPNG(hexGrid);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.png`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+document.getElementById('btnDlGridJson').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const json = CalqueEngine.gridToJSON({
+    ordre: grid.length,
+    niveaux: traitsFromChrono(n).map(bit => bit ? 'yang' : 'yin'),
+    hexagramme: { chrono: n, famille: fam, natureA: subA, natureB: subB },
+    cases: grid,
   });
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+Promise.all([
+  fetch('data/fonds_ecran_v1.json').then(r => r.json()),
+  import('./assets/spatial-k2.mjs'),
+]).then(([data, { k2OfLetterGrid }]) => {
+  DATA = data;
+  LAYER_OF = DATA.layerOf;
+  ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) =>
+    k2OfLetterGrid(hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB])));
+
+  // C2 : numéro d'orbite (1..128) par entrée, par la clé canonique (forme minimale en
+  // ordre lexicographique parmi les 96 transformées). Autocontrôle : le nombre d'orbites
+  // distinctes doit valoir 128 (échiquier vérifié — voir chiffres-et-sources.html).
+  const orbitIdOfKey = new Map();
+  ENTRY_ORBIT = DATA.entries.map(([fam, subA, subB, n]) => {
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    const key = canonicalKey(grid);
+    if(!orbitIdOfKey.has(key)) orbitIdOfKey.set(key, orbitIdOfKey.size + 1);
+    return orbitIdOfKey.get(key);
+  });
+  if(orbitIdOfKey.size !== 128){
+    console.error('Orbites sous Γ : ' + orbitIdOfKey.size + ' trouvées, 128 attendues.');
+  }
+
+  buildControls();
+  buildK2Filter();
+  render('all');
+});
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script src="assets/soutien-gate.js"></script>

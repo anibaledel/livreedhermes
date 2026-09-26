@@ -95,6 +95,38 @@ window.CalqueEngine = (function(){
   function loadAll(){ return loadSpace('hexagram', 'assets/trait-cartes/'); }
   function colorAt(nature, row, col){ return spaceColorAt('hexagram', nature, row, col); }
 
+  // ===== Export « grille » (impression.html catégorie A4, creation-motifs-yi-king.html
+  // B2) — un pixel/case en PNG, une lettre de teinte par case en JSON. Prend en entrée
+  // une grille déjà reconstruite par l'appelant (buildCompositeBlock côté impression,
+  // spaceColorAt côté création) : ce module ne relit jamais le SVG lui-même, il se
+  // contente de sérialiser ce qui a déjà été extrait.
+
+  // grid[row][col] = couleur hex ('#rrggbb') ou null (case vide, transparente). Un pixel
+  // par case, sans lissage : le fichier PNG produit fait exactement grid.length de large,
+  // chaque pixel une couleur plate — aucune interpolation possible à cette résolution.
+  function gridToPNG(grid){
+    const n = grid.length;
+    const canvas = document.createElement('canvas');
+    canvas.width = n; canvas.height = n;
+    const ctx = canvas.getContext('2d');
+    for(let r = 0; r < n; r++){
+      for(let c = 0; c < grid[r].length; c++){
+        const color = grid[r][c];
+        if(!color) continue; // fond transparent : rien à peindre
+        ctx.fillStyle = color;
+        ctx.fillRect(c, r, 1, 1);
+      }
+    }
+    return new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+  }
+
+  // cases[row][col] = lettre de teinte ('V'|'M'|'O') ou null — déjà convertie par
+  // l'appelant via HEX_TO_LABEL, pour que ce module reste indépendant du support (SVG
+  // parsé, grille CalqueEngine...) qui a produit la couleur d'origine.
+  function gridToJSON({ ordre, niveaux, hexagramme, cases }){
+    return JSON.stringify({ ordre, niveaux, hexagramme, cases }, null, 2);
+  }
+
   loadAll();
-  return { loadAll, colorAt, loadSpace, spaceColorAt };
+  return { loadAll, colorAt, loadSpace, spaceColorAt, HEX_TO_LABEL, gridToPNG, gridToJSON };
 })();
