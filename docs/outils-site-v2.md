@@ -93,20 +93,34 @@ JSON-LD FAQPage et le bloc visible. Page français seul, pas de traduction.
 exports SVG existants.
 
 **C3 — Fréquence spatiale k².** Fait fonctionnellement (affichage + filtre),
-module partagé `assets/spatial-k2.mjs`. **Réserve non résolue** : le jeu de
-valeurs obtenu, {1, 5, 8, 9, 13, 17, 25, 29, 37, 41, 45, 61} (12 valeurs),
-ne correspond pas aux neuf valeurs annoncées {1, 2, 4, 5, 8, 9, 10, 13, 20}.
-Essayé sans succès avant de m'arrêter : DFT sur la grille 3-teintes
-complète ; DFT sur le masque binaire structurel (position gouvernée par
-yang/yin, indépendant des teintes — 7 valeurs sur les 64 hexagrammes,
-partiellement recoupantes) ; DFT sur « teinte X vs reste » pour chacune des
-3 teintes (même résultat que la grille complète). `cymatique.html` n'a pas
-cette fonction sur `main` au moment de cette branche (elle vit dans une
-branche cymatique distincte, non fusionnée) — je n'ai donc pas pu comparer
-à son implémentation réelle pour trouver l'écart. À trancher par l'auteur :
-soit il connaît la méthode exacte qui donne les neuf valeurs, soit le
-nombre annoncé vient de cette autre branche et les deux devront être
-réconciliés à la fusion.
+module partagé `assets/spatial-k2.mjs`. **Réserve résolue — elle tombe.**
+Reprise à la demande de `prompt-cc-suites.md` (lot 3), avec `cymatique.html`
+désormais disponible (branche `cymatique-texte-v2`, PR #126) pour comparer.
+`assets/spatial-k2.mjs` gagne `dominantK2WithCoords`/`k2WithCoordsOfLetterGrid`,
+qui exposent le couple (kx,ky) du mode dominant, pas seulement k². Relancé sur
+les 1024 entrées du corpus :
+
+```
+1024 entrées, 13 couples (kx,ky) distincts
+  (m,n)=(1,0) k2=1 (56)  (2,1) k2=5 (24)  (2,2) k2=8 (512)  (3,0) k2=9 (64)
+  (3,2) k2=13 (48)  (4,1) k2=17 (24)  (4,3) k2=25 (48)  (5,0) k2=25 (40)
+  (5,2) k2=29 (24)  (6,1) k2=37 (56)  (5,4) k2=41 (24)  (6,3) k2=45 (64)
+  (6,5) k2=61 (40)
+k2 distincts : 1, 5, 8, 9, 13, 17, 25, 29, 37, 41, 45, 61
+```
+
+Reproduit exactement le jeu A du lot 3 (12 valeurs, y compris que k²=25 vient
+de deux couples différents, (4,3) et (5,0) — un même k² peut avoir plusieurs
+origines, ce que k² seul ne distingue pas). Le tableau de `cymatique.html` §3
+« deux systèmes, deux lois » (jeu B, 9 valeurs {1,2,4,5,8,9,10,13,20}) n'a
+**aucune colonne (m,n)** dans son code source ni dans le texte fourni pour
+cette section (`cymatique-a-relire-v2.md`) : c'est une table composée à la
+main pour illustrer les deux lois de fréquence sur des k² choisis, pas un
+calcul sur un corpus de grilles réelles. A mesure une fréquence spatiale
+DFT sur des grilles tricolores effectivement dessinées ; B énumère des k²
+entiers pour deux formules physiques. Ce sont deux objets différents,
+aucun n'étant une troncature de l'autre (commun : 1,5,8,9,13 ; A seul :
+17,25,29,37,41,45,61 ; B seul : 2,4,10,20) — il n'y a rien à réconcilier.
 
 **C2 — Théorèmes exposés.** Fait. Orbites sous Γ = D4 (8) × σ (demi-décalage,
 2) × S3 (permutation des 3 teintes, 6) = 96, calculées côté client.
@@ -170,8 +184,8 @@ fichiers), vérifiés en direct dans le navigateur.
 
 ## Ce qui reste à faire avant fusion
 
-1. **C3** — réconcilier le jeu de valeurs k² avec celui annoncé, ou avec
-   l'implémentation de la branche cymatique une fois fusionnée.
+1. ~~**C3**~~ — résolu, voir ci-dessus : les deux jeux de k² sont deux objets
+   différents, rien à réconcilier.
 2. **B3** — confirmer si la mention « export pour broderie numérique »
    existe quelque part que je n'ai pas vu, sinon rien à faire (déjà
    correct : la fonctionnalité existe et n'est pas mal promise).
