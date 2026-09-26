@@ -9,14 +9,22 @@
 // l'appelant.
 //
 // CONTRAT DE CELLULE : une trame déclare sa cellule par son champ
-// `per_cell` (8 ou 16 à ce jour). CELLS[per_cell] fournit la géométrie
-// correspondante ; les fonctions de rendu ci-dessous prennent `perCell`
-// en option (8 par défaut, pour ne rien casser chez les appelants
-// existants qui ne connaissent que C8) et branchent la bonne cellule
-// sans autre changement. Ajouter une cellule future (ronde, C4...) se
-// fait en ajoutant une entrée à CELLS — voir tools/cellule_c16.py côté
-// génération pour le même contrat en Python, et pour la règle qui
-// impose une cellule plus fine à mesure que le bloc se resserre.
+// `per_cell` (4, 8 ou 16 à ce jour). CELLS[per_cell] fournit la
+// géométrie correspondante ; les fonctions de rendu ci-dessous prennent
+// `perCell` en option (8 par défaut, pour ne rien casser chez les
+// appelants existants qui ne connaissent que C8) et branchent la bonne
+// cellule sans autre changement. Ajouter une cellule future (ronde...)
+// se fait en ajoutant une entrée à CELLS — voir tools/cellule_c4.py et
+// tools/cellule_c16.py côté génération pour le même contrat en Python,
+// et pour la règle qui impose une cellule plus fine à mesure que le
+// bloc se resserre (une cellule plus grossière peut au contraire
+// suffire — voir C4, plus petite que C8, pour data/ORIGINES 6/).
+//
+// Cellule C4 — la case coupée par SES DEUX diagonales, apex commun au
+// centre, sens horaire depuis le haut : N (base = arête haute), E
+// (arête droite), S (arête basse), W (arête gauche). 4 triangles par
+// case. C4 ⊂ C8 (chaque triangle C4 est l'union de deux triangles C8
+// voisins) — voir tools/cellule_c4.py.
 //
 // Cellule C8 (par défaut) — 8 triangles, sens horaire depuis le haut (N,
 // NE, E, SE, S, SW, W, NW), centre commun. Géométrie confirmée par
@@ -34,6 +42,8 @@
 // triangles C16) ; nécessaire dès qu'une frontière tracée à 45° tombe à
 // une densité de nœuds trop fine pour que C8 la porte sans couper de
 // triangle en deux (voir la trame C16·B1).
+//
+// Hiérarchie des trois : C4 ⊂ C8 ⊂ C16.
 //
 // Pour une cellule quelconque, l'index global d'un triangle est cellule
 // en ordre ligne-major (row*12+col) × per_cell + index local.
@@ -93,8 +103,22 @@ export function cellTrianglesC16(x, y, w) {
   return out;
 }
 
+// Les 4 triangles d'une cellule C4 de coin (x,y) et de côté w — coupée
+// par ses deux diagonales, apex commun au centre, sens horaire depuis
+// le haut (N, E, S, W). Retourne 4 triplets de points [[x,y]×3]. Voir
+// tools/cellule_c4.py : C4 ⊂ C8 ⊂ C16 (chaque triangle C4 est l'union
+// de deux triangles C8).
+export function cellTrianglesC4(x, y, w) {
+  const cx = x + w / 2, cy = y + w / 2;
+  const corners = [[x, y], [x + w, y], [x + w, y + w], [x, y + w]]; // NO, NE, SE, SO
+  const out = [];
+  for (let i = 0; i < 4; i++) out.push([[cx, cy], corners[i], corners[(i + 1) % 4]]);
+  return out;
+}
+
 // Registre du contrat de cellule : per_cell -> { perCell, triangles(x,y,w) }.
 export const CELLS = {
+  4: { perCell: 4, triangles: cellTrianglesC4 },
   8: { perCell: 8, triangles: cellTriangles },
   16: { perCell: 16, triangles: cellTrianglesC16 },
 };

@@ -215,6 +215,14 @@
 <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!-- @head-icons:end -->
+<!-- D6 : appli installable, propre à cette page (pas dans le bloc @head-icons généré) -->
+<link rel="manifest" href="encodeur.webmanifest">
+<meta name="theme-color" content="#0a0a0a">
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js').catch(()=>{}); });
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -346,6 +354,13 @@
                   <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
                 </div>
               </div>
+              <!-- Hors soutien-gate.js, volontairement (voir la même note sur
+                   btnVaultExport plus bas) : cette grille encode le message
+                   que LE VISITEUR a saisi ci-dessus, pas un motif que le site
+                   fabrique pour lui — la règle du soutien porte sur les
+                   sorties du système (SVG, broderie...), pas sur ce que le
+                   visiteur y dépose. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction. -->
               <button type="button" class="enc-btn" id="btnDownloadGrid">⬇ Télécharger la grille CSV</button>
             </div>
           </div>
@@ -445,6 +460,14 @@
             </div>
             <div class="enc-card">
               <h2>Exporter</h2>
+              <!-- Hors soutien-gate.js, volontairement : ce fichier est le
+                   coffre chiffré du visiteur, avec SON mot de passe et SON
+                   contenu — pas une sortie que le système génère pour lui. La
+                   règle posée par Anibal : le soutien porte sur ce que
+                   l'outil fabrique (SVG, broderie...), pas sur ce que le
+                   visiteur y a déposé. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction —
+                   même note sur btnDownloadGrid plus haut. -->
               <button type="button" class="enc-btn" id="btnVaultExport">⬇ Télécharger vault.sbvault</button>
             </div>
           </div>
@@ -454,12 +477,12 @@
         <div id="tab-referents" class="enc-tab">
           <div class="enc-card">
             <h2>Référent 256 — Table des formes de la croix ansée</h2>
-            <p class="ref-note">256 configurations géométriques distinctes issues des rotations (0°/90°/180°/270°) de la croix ansée d'ordre 6. Survolez une cellule pour voir ses positions. ×2 couleurs = 512 formes utilisables.</p>
+            <p class="ref-note">256 configurations géométriques distinctes : non des rotations, mais toutes les colorations qui satisfont les critères I à IV de la croix ansée (dénombrement exhaustif, 128 par chiralité EGO/ALTER — voir l'article <i>The Ansate Cross</i>). Survolez une cellule pour voir ses positions. ×2 couleurs = 512 formes utilisables.</p>
             <div class="ref-grid ref256-grid" id="ref256-display"></div>
           </div>
           <div class="enc-card">
             <h2>Référent 360 — Calques Jacquard</h2>
-            <p class="ref-note">360 formes issues du métier Jacquard à 360 calques. Structure : 15 harmonies × 24 cartes. Chaque calque sélectionne 8 positions de lecture dans un bloc 12×12. (<span id="ref360-count">—</span> formes extraites des fichiers SVG sources.)</p>
+            <p class="ref-note">60 images × 6 niveaux = 360 calques (15 familles × 4 natures). Chaque calque sélectionne 8 positions de lecture dans un bloc 12×12. (<span id="ref360-count">—</span> formes extraites des fichiers SVG sources.)</p>
             <div id="ref360-groups"></div>
           </div>
         </div>
@@ -638,18 +661,14 @@ import {
   let REF256 = null, REF360 = null, REF256_V3 = null;
 
   // Variantes Carter exposées dans l'interface — seules carter256 et
-  // carterrandom sont portées en JS pour l'instant (voir js/carter-core.js).
-  // Les six autres apparaissent dans le sélecteur mais lèvent une exception
-  // claire : elles viendront dans des passes séparées, chacune contre son
-  // propre vecteur (voir tools/ et vectors/carter_v3.json côté Python).
+  // carterrandom sont portées en JS (voir js/carter-core.js). Les six autres
+  // (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté
+  // Python mais ne sont pas portées dans le navigateur (D4) : retirées d'ici,
+  // mentionnées une seule fois dans l'onglet À propos plutôt que rappelées à
+  // chaque entrée du sélecteur.
   const CARTER_VARIANTS = [
     { id: 'carter256',    label: 'Carter-256 — référent croix ansée (par défaut)' },
     { id: 'carterrandom', label: 'Carter-Random — référent aléatoire dérivé de la clé' },
-    { id: 'deniable',     label: 'Deniable (pas encore disponible dans le navigateur)' },
-    { id: 'carter360',    label: 'Carter-360 (pas encore disponible dans le navigateur)' },
-    { id: 'cartermix',    label: 'Carter-Mix (pas encore disponible dans le navigateur)' },
-    { id: 'carter18',     label: 'Carter-18 (pas encore disponible dans le navigateur)' },
-    { id: 'carterhybrid', label: 'Carter-Hybrid (pas encore disponible dans le navigateur)' },
   ];
 
   async function carterEncodeByVariant(variant, message, masterKey){
@@ -1551,20 +1570,23 @@ import {
   }
 
   function renderReferents(){
-    if(!REF256||!REF360) return;
+    if(!REF256_V3||!REF360) return;
     const g256=document.getElementById('ref256-display');
     if(g256.childElementCount===0){
-      REF256.forEach(f=>{
+      // D3 : affiche REF256_V3 (celui que l'encodage emploie réellement), pas REF256 (l'ancien
+      // fichier, encore chargé pour diskBuildTables mais plus pour cet affichage) — les
+      // positions survolées ici sont désormais celles qui gouvernent l'encodage.
+      REF256_V3.forms.forEach(f=>{
         const cell=document.createElement('div');
         cell.className='ref-cell';
-        cell.title=`Forme #${f.id} (${f.row},${f.col})\nBleu : ${JSON.stringify(f.blue)}\nOrange : ${JSON.stringify(f.orange)}`;
+        cell.title=`Forme #${f.id} (${f.row},${f.col}) — ${f.chiralite}\nBleu : ${JSON.stringify(f.bleu_positions)}\nRouge : ${JSON.stringify(f.rouge_positions)}`;
         const cv=document.createElement('canvas');
         cv.width=cv.height=30;
         const ctx=cv.getContext('2d');
         ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,30,30);
         const cs=4;
-        f.blue.forEach(([r,c])=>{ ctx.fillStyle='#c9a15a'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
-        f.orange.forEach(([r,c])=>{ ctx.fillStyle='#e0261b'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        f.bleu_positions.forEach(([r,c])=>{ ctx.fillStyle='#c9a15a'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        f.rouge_positions.forEach(([r,c])=>{ ctx.fillStyle='#e0261b'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
         cell.appendChild(cv);
         g256.appendChild(cell);
       });
@@ -2164,6 +2186,7 @@ function googleTranslateElementInit() {
     <a href="outils.html">Outils</a>
     <a href="a-propos.html">À propos</a>
     <a href="profil.html">Profil documentaire</a>
+    <a href="travaux.html">Travaux</a>
     <a href="contact.html">Contact</a>
     <a href="soutenir.html">Soutenir</a>
   </nav>

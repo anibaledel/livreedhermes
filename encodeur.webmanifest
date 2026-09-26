@@ -1,0 +1,15 @@
+{
+  "name": "Encodeur — La Livrée d'Hermès",
+  "short_name": "Encodeur",
+  "description": "Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.",
+  "start_url": "encodeur.html",
+  "scope": "encodeur.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "fr",
+  "icons": [
+    { "src": "assets/nav-icons/encodeur.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "assets/nav-icons/encodeur-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}

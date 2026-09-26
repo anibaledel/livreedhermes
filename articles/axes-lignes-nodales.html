@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les axes sont des lignes nodales — La Livrée d'Hermès</title>
+<meta name="description" content="Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la formule qui leur associe une fréquence est une loi, pas une convention.">
+<meta property="og:title" content="Les axes sont des lignes nodales">
+<meta property="og:description" content="Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la formule qui leur associe une fréquence est une loi, pas une convention.">
+<meta property="og:url" content="https://anibal-amiot.com/articles/axes-lignes-nodales.html">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-24">
+<link rel="canonical" href="https://anibal-amiot.com/articles/axes-lignes-nodales.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Les axes sont des lignes nodales">
+<meta name="twitter:description" content="Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la formule qui leur associe une fréquence est une loi, pas une convention.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722486" },
+      "sameAs": "https://zenodo.org/records/22722486",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/articles/axes-lignes-nodales.html",
+      "headline": "Les axes sont des lignes nodales",
+      "description": "Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la formule qui leur associe une fréquence est une loi, pas une convention.",
+      "datePublished": "2026-09-24",
+      "dateModified": "2026-09-24",
+      "inLanguage": "fr",
+      "keywords": ["cymatique", "figures de Chladni", "modes propres", "plaque carrée", "lignes nodales", "bicolore", "arithmogéométrie", "Yin Yang"],
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Livrée d'Hermès",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://anibal-amiot.com/assets/title-logo-footer.png"
+        }
+      },
+      "url": "https://anibal-amiot.com/articles/axes-lignes-nodales.html",
+      "mainEntityOfPage": "https://anibal-amiot.com/articles/axes-lignes-nodales.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "Articles — La Livrée d'Hermès",
+        "url": "https://anibal-amiot.com/articles.html"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://anibal-amiot.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Les axes sont des lignes nodales",
+      "item": "https://anibal-amiot.com/articles/axes-lignes-nodales.html"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  /* ---------- article ---------- */
+  .article-body{ padding:24px 0 8px; }
+  .article-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:calc(15px + var(--fs-bump)); line-height:1.8; }
+  .article-content h2{
+    color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em;
+    margin:34px 0 14px; text-align:center;
+  }
+  .article-content h3{
+    color:var(--dim); font-size:calc(13px + var(--fs-bump)); font-weight:400; font-style:italic;
+    margin:26px 0 12px; text-align:center;
+  }
+  .article-content p{ margin:0 0 18px; }
+  .article-content p:last-child{ margin-bottom:0; }
+  .article-content b{ color:var(--white); font-weight:400; }
+  .article-content i{ color:var(--white); font-style:italic; }
+  .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .article-content table{
+    width:100%; margin:0 0 22px; border-collapse:collapse; text-align:left;
+    font-size:calc(12.5px + var(--fs-bump));
+  }
+  .article-content th, .article-content td{ padding:7px 10px; border-bottom:1px solid var(--line); }
+  .article-content th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
+  .article-content figure{ margin:0 0 22px; }
+  .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); background:#000; }
+  .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:none; }
+  .article-content figcaption a:hover{ text-decoration:underline; }
+  .article-epigraph{ font-size:calc(14.5px + var(--fs-bump)); font-style:italic; color:var(--gold); margin:0 0 22px; }
+  .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
+
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-back-bottom:hover{ color:var(--gold); }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:calc(9.5px + var(--fs-bump)); text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .article-title{ font-size:calc(21px + var(--fs-bump)); }
+    .article-content{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main>
+
+  <div class="article-body">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/articles.html">Articles</a><span class="sep">/</span><span aria-current="page">Les axes sont des lignes nodales</span>
+      </nav>
+
+      <h1 class="article-title">Les axes sont des lignes nodales</h1>
+      <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Publié le 24 septembre 2026</p>
+      <div class="article-badges" id="articleBadges"></div>
+    </div>
+
+    <div class="article-content">
+      <p class="article-epigraph">Une correspondance entre le système de motifs bicolores de La Livrée d'Hermès et les modes propres d'une plaque carrée.</p>
+
+      <h2>Ce que cet article établit</h2>
+      <p>Le système de motifs bicolores repose sur des <b>axes</b> : des droites tracées sur une grille de douze cases de côté, dont la position est donnée par un écart au centre. Une case est sombre si le nombre d'axes franchis depuis un coin est impair.</p>
+
+      <p>Ces axes ne sont pas un choix graphique. Trois d'entre eux sont, vérifié triangle par triangle sur les 1 152 que compte la grille, les <b>lignes nodales de modes propres d'une plaque carrée</b> — les lignes où une plaque vibrante reste immobile, celles que Chladni a rendues visibles en saupoudrant du sable.</p>
+
+      <table>
+        <thead><tr><th>motif</th><th>mode de plaque</th><th>k²</th><th>fréquence</th></tr></thead>
+        <tbody>
+          <tr><td>écart 0</td><td>mode (2,2), bords fixes</td><td>2</td><td>256 Hz</td></tr>
+          <tr><td>écarts 0 et 3</td><td>mode (4,4), bords fixes</td><td>8</td><td>1024 Hz</td></tr>
+          <tr><td>écarts 1,5 et 4,5</td><td>mode (4,4), bords libres</td><td>8</td><td>1024 Hz</td></tr>
+        </tbody>
+      </table>
+
+      <p>Le troisième cas est le plus intéressant, et il donne son sens à la suite.</p>
+
+      <h2>La mutation est une condition au bord</h2>
+      <p>Le système distingue chaque famille d'axes de sa <b>mutante</b> : une même figure décalée d'un quart de période, soit trois unités sur douze.</p>
+
+      <p>Cette mutation, inventée comme une opération de dessin, se révèle être le changement de <b>condition au bord</b> d'une plaque vibrante.</p>
+
+      <p>Une plaque <b>encastrée</b> ne peut pas bouger à ses bords : ils sont des nœuds. Une plaque <b>libre</b> y vibre au maximum : ils sont des ventres. Les deux plaques ont les mêmes modes, mais leurs lignes nodales sont décalées d'un quart de période — exactement le décalage de trois unités du système.</p>
+
+      <p>Il en découle une lecture immédiate. <b>La présence de l'écart 0 signale une ligne nodale passant par le centre.</b> La base la porte, la mutante non ; donc le centre est un nœud dans l'une, un ventre dans l'autre.</p>
+
+      <p>La distinction entre base et mutante, qui semblait conventionnelle, revient donc à demander si le centre de la plaque vibre ou reste immobile.</p>
+
+      <h2>La fréquence n'est pas une convention</h2>
+      <p>Le projet associe à chaque motif une fréquence par la formule f = 128 × k², où k² est le carré du mode spatial dominant, mesuré par transformée de Fourier.</p>
+
+      <p>Cette formule était présentée comme un choix. Elle est une loi.</p>
+
+      <p>Pour une plaque simplement appuyée, les fréquences propres sont proportionnelles à m² + n², où m et n indexent le mode. La formule f = 128 k² est donc la loi de fréquence d'une telle plaque, à une constante près.</p>
+
+      <p>Et cette constante place le mode fondamental (2,2), pour lequel k² vaut 2, à <b>256 hertz</b> — le do de l'accord scientifique, celui où les octaves du do sont des puissances de deux. Vérifié par le script cité plus bas : 128 × 2 = 256.</p>
+
+      <h2>Ce que cet article n'établit pas</h2>
+      <p><b>La correspondance n'est pas mathématiquement profonde.</b> Le signe d'un produit de sinus est un damier ; un damier d'un pas donné est donc nécessairement le motif nodal d'un mode. Ce qui mérite d'être relevé n'est pas le théorème — il n'y en a pas — mais le fait qu'un système construit pour d'autres raisons, à la main et sans référence à l'acoustique, tombe exactement dessus.</p>
+
+      <p><b>Les familles diagonales suivent une autre architecture.</b> Les motifs bâtis sur les diagonales du carré ne sont pas des courbes de niveau. Ils se construisent par ou-exclusif avec des losanges centrés sur les nœuds d'un réseau, dont les rayons s'accumulent d'une génération à l'autre. Cette architecture est établie et vérifiée, mais sa correspondance avec les figures de Chladni — qui produisent elles aussi des figures diagonales, par combinaison de modes dégénérés — reste à faire.</p>
+
+      <p><b>Aucune mesure physique n'a été conduite.</b> Tout ce qui précède est une correspondance géométrique entre des motifs et des solutions d'équation. Rien n'a été vibré, ni mesuré, ni entendu. La correspondance est exacte ; son interprétation physique reste à valider par l'expérience.</p>
+
+      <h2>Vérification</h2>
+      <p>Chaque correspondance annoncée se reproduit par <code>tools/verify_cymatique_plate_modes.mjs</code>, un script du dépôt qui compare le motif engendré au mode de plaque calculé et rend l'écart en nombre de triangles différents sur 1 152. Les trois donnent 0.</p>
+
+      <p>Le code est sous licence AGPL v3, dans le dépôt GitHub du projet. Les données des axes — écarts, générations, familles — sont publiées avec lui.</p>
+
+      <h2>Ce que cela ouvre</h2>
+      <p>Une trame conductrice portant un motif périodique se comporte comme un filtre électromagnétique, dont la fréquence de résonance dépend de la période. Si la fréquence spatiale d'un motif se calcule depuis ses axes, alors un agencement peut être <b>choisi pour sa résonance</b> au lieu d'être mesuré après coup.</p>
+
+      <p>C'est la piste ouverte par cette correspondance, et elle demande une simulation ou une mesure pour devenir un résultat.</p>
+
+      <p><i>Voir la correspondance → <a href="https://anibal-amiot.com/cymatique.html" style="color:var(--gold);">Ouvrir la page Cymatique</a>.</i></p>
+    </div>
+
+    <a class="article-back-bottom" href="https://anibal-amiot.com/articles.html">← Retour aux articles</a>
+    <div class="article-nav-links" id="articleNavLinks"></div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+<div class="note">
+    <div class="center-logo-slot">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+    <div class="footer-caduceus">
+      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+    </div>
+
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="https://anibal-amiot.com/index.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/accueil.png); --hover-icon:url(../assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/tirage.png); --hover-icon:url(../assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/hexagrammes.png); --hover-icon:url(../assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Hexagrammes</span><span class="nav-tile-excerpt">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/unified-patterns.png); --hover-icon:url(../assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Unified Patterns</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/galerie-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/galerie.png); --hover-icon:url(../assets/nav-icons/galerie-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie</span><span class="nav-tile-excerpt">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/motifs-svg.png); --hover-icon:url(../assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/contact.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/contact.png); --hover-icon:url(../assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/a-propos.png); --hover-icon:url(../assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/lexique.png); --hover-icon:url(../assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Lexique</span><span class="nav-tile-excerpt">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/articles.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/articles.png); --hover-icon:url(../assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+        <div class="nav-tiles">
+      <a class="nav-tile" href="https://anibal-amiot.com/fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/fond-ecran.png); --hover-icon:url(../assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/creation-motifs.png); --hover-icon:url(../assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/bicolore.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/bicolore.png); --hover-icon:url(../assets/nav-icons/bicolore-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs bicolores</span><span class="nav-tile-excerpt">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/encodeur.png); --hover-icon:url(../assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/impression.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/impression.png); --hover-icon:url(../assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/cymatique.png); --hover-icon:url(../assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+    </div>
+
+      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<script src="../assets/share-widget.js" data-label="Partager cet article"></script>
+<script src="../assets/articles-data.js"></script>
+<script>
+(function(){
+  var CURRENT_SLUG = "axes-lignes-nodales";
+  var articles = (window.ARTICLES || []).slice().sort(function(a, b){ return b.dateISO.localeCompare(a.dateISO); });
+  var current = articles.find(function(a){ return a.slug === CURRENT_SLUG; });
+  if(!current) return;
+
+  var badgesEl = document.getElementById('articleBadges');
+  if(badgesEl){
+    badgesEl.innerHTML = current.categories.map(function(c){ return '<span class="article-badge">' + c + '</span>'; }).join('');
+  }
+
+  var primaryCategory = current.categories[0];
+  var sameCategory = articles.filter(function(a){ return a.categories.indexOf(primaryCategory) !== -1; });
+  var pos = sameCategory.findIndex(function(a){ return a.slug === CURRENT_SLUG; });
+  var next = pos > 0 ? sameCategory[pos - 1] : null;
+  var prev = pos < sameCategory.length - 1 ? sameCategory[pos + 1] : null;
+
+  var navEl = document.getElementById('articleNavLinks');
+  if(navEl && (prev || next)){
+    var html = '';
+    html += prev ? '<a class="nav-prev" href="' + prev.url + '"><span class="nav-label">← Précédent · ' + primaryCategory + '</span>' + prev.title + '</a>' : '<span></span>';
+    if(next){
+      html += '<a class="nav-next" href="' + next.url + '"><span class="nav-label">Suivant · ' + primaryCategory + ' →</span>' + next.title + '</a>';
+    }
+    navEl.innerHTML = html;
+  }
+})();
+</script>
+
+<script src="../assets/soutien-gate.js"></script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="../">Accueil</a>
+    <a href="../la-livree-d-hermes.html">Le traité</a>
+    <a href="../hexagrammes/">Hexagrammes</a>
+    <a href="../lexique.html">Lexique</a>
+    <a href="../articles.html">Articles</a>
+    <a href="../outils.html">Outils</a>
+    <a href="../a-propos.html">À propos</a>
+    <a href="../profil.html">Profil documentaire</a>
+    <a href="../travaux.html">Travaux</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../soutenir.html">Soutenir</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722486" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722486</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</body>
+</html>

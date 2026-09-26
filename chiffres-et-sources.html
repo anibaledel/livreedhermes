@@ -278,6 +278,11 @@
         <tr><td>512 / 256 / 128</td><td>grilles unifiées, pavages du plan, orbites de symétrie</td><td><code>cube_edges.py</code></td></tr>
         <tr><td>256 / 128 / 64</td><td>parmi elles, celles qui se referment sur le cube</td><td><code>cube_edges.py</code></td></tr>
         <tr><td>256 bits</td><td>taille de clé de Carter ; la géométrie n'ajoute rien</td><td>normes AES-256-GCM et XChaCha20-Poly1305</td></tr>
+        <tr><td>8191 / 4095</td><td>figures bicolores distinctes par XOR de 16 instances d'axes, grain triangle / grain case</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
+        <tr><td>13 / 12</td><td>rang GF(2) des 16 instances, grain triangle / grain case — sur C1, 12 si les figures gardent la polarité que la règle leur donne (11 si une région de référence est imposée claire, [A] §5.4) ; sur C8 rien ne dépend de la convention</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
+        <tr><td>144</td><td>figures bicolores qui ferment sur le cube au grain case (π = identité)</td><td><code>assets/bicolore-cube-c1.mjs</code></td></tr>
+        <tr><td>142</td><td>motifs de la galerie bicolore : les 144 fermées, moins l'uni clair et l'uni sombre</td><td><code>tools/bicolore_galerie_data.mjs</code>, <code>data/bicolore_galerie_v1.json</code></td></tr>
+        <tr><td>7</td><td>familles bicolores (YIN/YIN mutant) qui ferment seules sur le cube, accord minimal = 1 instance — à ne pas confondre avec un autre « 7 » du dépôt portant sur des familles YANG/YANG mutant et une tout autre propriété (droites tracées vs. systèmes de bandes)</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
       </tbody>
     </table>
 
@@ -421,6 +426,7 @@ function googleTranslateElementInit() {
     <a href="outils.html">Outils</a>
     <a href="a-propos.html">À propos</a>
     <a href="profil.html">Profil documentaire</a>
+    <a href="travaux.html">Travaux</a>
     <a href="contact.html">Contact</a>
     <a href="soutenir.html">Soutenir</a>
   </nav>

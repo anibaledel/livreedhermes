@@ -29,7 +29,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BLOC_PAR_FICHIER } = require('./langues.js');
+const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER } = require('./langues.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
@@ -65,6 +65,15 @@ const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 const htmlHreflang = (bloc) => bloc
   .map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`)
   .join('\n');
+
+// La rangée de langues visible, sur le modèle des pages du livre. Elle sort de
+// la MÊME liste que le hreflang : une page ne peut plus proposer une version
+// que les moteurs ignorent, ni l'inverse. C'était le dernier endroit où les
+// deux pouvaient diverger — le hreflang parlait aux moteurs depuis #105, et
+// personne ne parlait aux lecteurs.
+const htmlRangee = (r) => `<p class="other-langs">${r.libelle} `
+  + r.liens.map((l) => `<a href="${l.href}">${l.nom}</a>`).join(' · ')
+  + '</p>';
 
 const FIN_ENTETE = '<!-- @header:end -->';
 
@@ -140,6 +149,15 @@ function traiter(rel, src) {
       (t, c) => t.replace('</head>', `${c}\n</head>`));
   }
 
+  // La rangée visible ne se pose QUE si la page porte déjà ses marqueurs : on
+  // ne devine pas où l'insérer dans une page rédigée à la main. Les quatre
+  // pages du lexique les portent ; celles du livre gardent leur rangée écrite
+  // à la main, et ne reçoivent rien.
+  if (RANGEE_PAR_FICHIER.has(rel) && s.includes('<!-- @langues:start')) {
+    const html = htmlRangee(RANGEE_PAR_FICHIER.get(rel));
+    s = poser(s, 'langues', zone('langues', html, 'scripts/langues.js'), (t) => t);
+  }
+
   // L'en-tête ouvre le contenu : dans .wrap s'il existe, sinon juste après <body>.
   s = poser(s, 'header', rendre('header', prefixe, traducteur), (t, c) => {
     const wrap = t.match(/<div class="wrap"[^>]*>\n?/);
@@ -188,7 +206,18 @@ function parcourir(dir, acc = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (DOSSIERS_IGNORES.has(e.name)) continue;
     const abs = path.join(dir, e.name);
-    const rel = path.relative(REPO_ROOT, abs);
+    // path.relative() rend des antislashes sous Windows ; tout le reste du
+    // script (rel.split('/'), BLOC_PAR_FICHIER.has(rel), les clés de
+    // scripts/langues.js) suppose des slashes. Sans cette normalisation,
+    // rel.split('/').length vaut 1 pour toute page imbriquée — préfixe vide,
+    // chemins relatifs cassés (favicon, assets) — et BLOC_PAR_FICHIER.has(rel)
+    // échoue silencieusement, hreflang vide, sans qu'aucune erreur ne le
+    // signale : c'est l'échec silencieux qu'il faut empêcher, pas seulement
+    // le mauvais séparateur.
+    const rel = path.relative(REPO_ROOT, abs).split(path.sep).join('/');
+    if (rel.includes('\\')) {
+      throw new Error(`Chemin relatif mal normalisé (antislash résiduel) : ${rel}`);
+    }
     if (e.isDirectory()) { parcourir(abs, acc); continue; }
     if (!e.name.endsWith('.html')) continue;
     if (HORS_PERIMETRE.has(rel) || HORS_PERIMETRE.has(e.name)) continue;

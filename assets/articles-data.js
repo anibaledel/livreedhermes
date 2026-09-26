@@ -22,6 +22,17 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "axes-lignes-nodales",
+    url: "https://anibal-amiot.com/articles/axes-lignes-nodales.html",
+    title: "Les axes sont des lignes nodales",
+    dateISO: "2026-09-24",
+    dateDisplay: "Publié le 24 septembre 2026",
+    categories: ["Géométrie", "Philosophie", "Livrée"],
+    excerpt: "Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la mutation se lit comme un changement de condition au bord.",
+    cover: null,
+    coverAlt: ""
+  },
+  {
     slug: "encodeur-cacher-n-est-pas-proteger",
     url: "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html",
     title: "L'encodeur : cacher n'est pas protéger",
