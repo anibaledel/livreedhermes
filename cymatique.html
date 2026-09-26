@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cymatique — La Livrée d'Hermès</title>
-<meta name="description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez — une correspondance construite, pas physique, à comparer avec la cymatique de l'eau ou de la plaque.">
+<meta name="description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.">
 <meta name="author" content="Anibal Edelberto Amiot">
 <link rel="canonical" href="https://anibal-amiot.com/cymatique.html">
 <meta property="og:title" content="Cymatique — La Livrée d'Hermès">
-<meta property="og:description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez — une correspondance construite, pas physique, à comparer avec la cymatique de l'eau ou de la plaque.">
+<meta property="og:description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cymatique — La Livrée d'Hermès">
-<meta name="twitter:description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez — une correspondance construite, pas physique, à comparer avec la cymatique de l'eau ou de la plaque.">
+<meta name="twitter:description" content="Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -55,7 +55,7 @@
       "@id": "https://anibal-amiot.com/cymatique.html#app",
       "name": "Cymatique",
       "url": "https://anibal-amiot.com/cymatique.html",
-      "description": "Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez — une correspondance construite, pas physique, à comparer avec la cymatique de l'eau ou de la plaque.",
+      "description": "Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.",
       "applicationCategory": "MultimediaApplication",
       "isAccessibleForFree": true,
       "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
@@ -196,13 +196,27 @@
     <div class="kicker">La Livrée d'Hermès</div>
     <h1 data-i18n="pageTitle">Cymatique — gammes et fréquences</h1>
     <p class="framing" data-i18n="framing">
-      La correspondance ci-dessous est construite, pas physique : elle repose sur la
-      fréquence spatiale dominante de chaque gamme, mesurée par transformée de Fourier —
-      pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître.
-      Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la
-      tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à
-      certaines fréquences, c'est une observation à noter, pas une preuve.
+      La formule f = 128 × k² n'est pas un choix : pour une plaque carrée simplement
+      appuyée, les fréquences propres sont proportionnelles à m² + n², c'est-à-dire à
+      k². C'est cette loi que la formule mesure, et sa constante place le mode
+      fondamental (2, 2) à 256 Hz — le do de l'accord scientifique.
     </p>
+    <p class="framing" data-i18n="framingScope">
+      Vérifiée triangle par triangle pour trois motifs précis du système d'axes —
+      écart 0, écarts 0 et 3, écarts 1,5 et 4,5 — dont le tracé coïncide exactement
+      avec la ligne nodale d'un mode de plaque. Pour les quinze gammes ci-dessous, la
+      correspondance reste ce qu'elle a toujours été : une fréquence spatiale
+      dominante mesurée, sans qu'on ait vérifié qu'elle dessine la même figure qu'une
+      plaque vibrante.
+    </p>
+    <p class="framing" data-i18n="framingReserves">
+      Trois réserves, sur ce qui est vérifié. Le rapprochement n'est pas
+      mathématiquement profond — un damier est nécessairement le motif nodal d'un
+      mode. Les familles diagonales du système suivent une autre architecture, non
+      encore reliée aux figures de Chladni. Et aucune mesure physique n'a été
+      conduite : c'est une correspondance géométrique, pas une expérience.
+    </p>
+    <p class="framing"><a href="articles/axes-lignes-nodales.html" data-i18n="framingLink">Le détail, avec la vérification →</a></p>
     <div class="echelle-row" id="echelleRow">
       <span class="echelle-label" data-i18n="echelleLabel">Échelle</span>
       <button type="button" class="echelle-btn" data-echelle="proportionnelle" data-i18n="echelleProportionnelle">Proportionnelle</button>
@@ -259,8 +273,11 @@
           ici parce que les neuf valeurs mesurées — les carrés de fréquence spatiale
           des quinze gammes — sont elles-mêmes des entiers : dans l'échelle
           proportionnelle, chaque gamme tombe alors exactement à 128 fois un entier,
-          sans reste. Un autre diapason conviendrait aussi bien ; celui-ci rend la
-          structure lisible.
+          sans reste. Pour ces quinze gammes, un autre diapason conviendrait aussi
+          bien ; celui-ci rend la structure lisible. Il ne l'est plus pour les trois
+          motifs du système d'axes cités plus haut : là, 128 est la constante qui
+          place le mode fondamental (2,2) à 256 Hz, le do de l'accord scientifique —
+          pas un choix de lisibilité, la loi de fréquence d'une plaque carrée.
         </p>
         <div class="gamme-list" id="list"></div>
       </div>
@@ -311,7 +328,10 @@ import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
 const UI = {
   fr: {
     pageTitle: "Cymatique — gammes et fréquences",
-    framing: "La correspondance ci-dessous est construite, pas physique : elle repose sur la fréquence spatiale dominante de chaque gamme, mesurée par transformée de Fourier — pas sur une loi qui prédirait ce qu'une plaque ou une eau vibrante ferait apparaître. Une figure de Chladni dépend de la géométrie du récipient, de la profondeur, de la tension superficielle ; rien ici ne le remplace. Si une ressemblance apparaît à certaines fréquences, c'est une observation à noter, pas une preuve.",
+    framing: "La formule f = 128 × k² n'est pas un choix : pour une plaque carrée simplement appuyée, les fréquences propres sont proportionnelles à m² + n², c'est-à-dire à k². C'est cette loi que la formule mesure, et sa constante place le mode fondamental (2, 2) à 256 Hz — le do de l'accord scientifique.",
+    framingScope: "Vérifiée triangle par triangle pour trois motifs précis du système d'axes — écart 0, écarts 0 et 3, écarts 1,5 et 4,5 — dont le tracé coïncide exactement avec la ligne nodale d'un mode de plaque. Pour les quinze gammes ci-dessous, la correspondance reste ce qu'elle a toujours été : une fréquence spatiale dominante mesurée, sans qu'on ait vérifié qu'elle dessine la même figure qu'une plaque vibrante.",
+    framingReserves: "Trois réserves, sur ce qui est vérifié. Le rapprochement n'est pas mathématiquement profond — un damier est nécessairement le motif nodal d'un mode. Les familles diagonales du système suivent une autre architecture, non encore reliée aux figures de Chladni. Et aucune mesure physique n'a été conduite : c'est une correspondance géométrique, pas une expérience.",
+    framingLink: "Le détail, avec la vérification →",
     listeningHeading: "Écoute",
     micIdle: "Activer le micro",
     micActive: "Micro actif",
@@ -346,7 +366,10 @@ const UI = {
   },
   en: {
     pageTitle: "Cymatics — scales and frequencies",
-    framing: "The correspondence below is constructed, not physical: it rests on the dominant spatial frequency of each scale, measured by Fourier transform — not on a law that would predict what a vibrating plate or water would show. A Chladni figure depends on the vessel's geometry, its depth, surface tension; nothing here replaces that. If a resemblance appears at certain frequencies, it is an observation worth noting, not a proof.",
+    framing: "The formula f = 128 × k² is not a choice: for a simply supported square plate, the natural frequencies are proportional to m² + n², that is, to k². That is the law the formula measures, and its constant places the fundamental mode (2, 2) at 256 Hz — C in scientific pitch.",
+    framingScope: "Verified triangle by triangle for three specific motifs of the axes system — écart 0, écarts 0 and 3, écarts 1.5 and 4.5 — whose trace matches exactly the nodal line of a plate mode. For the fifteen scales below, the correspondence remains what it has always been: a measured dominant spatial frequency, without any verification that it draws the same figure as a vibrating plate.",
+    framingReserves: "Three reservations, on what is verified. The correspondence is not mathematically deep — a checkerboard is necessarily the nodal pattern of some mode. The diagonal families of the system follow a different architecture, not yet connected to Chladni figures. And no physical measurement has been carried out: this is a geometric correspondence, not an experiment.",
+    framingLink: "The detail, with the verification →",
     listeningHeading: "Listening",
     micIdle: "Enable microphone",
     micActive: "Microphone active",
@@ -365,7 +388,7 @@ const UI = {
     gammesHeading: "The fifteen scales",
     genT1: "T1:",
     genBandes: "bandes:",
-    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers: the sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, and on the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. Another reference pitch would work just as well; this one makes the structure legible.",
+    diapasonNote: "The reference pitch used here, for both scales, is C at 128 Hz — one octave below the C at 256 Hz that Joseph Sauveur proposed in 1713 before the Royal Academy of Sciences, for a simple reason: doubling 1 repeatedly places every octave on a whole number. It became known as the philosophical pitch. Each scale carries two values, measured separately on its two generations — T1 and bandes — whose dominant spatial frequencies overlap substantially rather than forming two separate registers: the sixteen measured values (the squared spatial frequencies, combined from both generations) are themselves whole numbers, and on the proportional scale, each value then lands exactly on 128 times a whole number, with no remainder. For these fifteen scales, another reference pitch would work just as well; this one makes the structure legible. It no longer is for the three axes-system motifs named above: there, 128 is the constant that places the fundamental mode (2,2) at 256 Hz, C in scientific pitch — not a choice made for legibility, the frequency law of a square plate.",
     echelleLabel: "Scale",
     echelleProportionnelle: "Proportional",
     echelleOrdinale: "Ordinal",
