@@ -354,6 +354,13 @@ if('serviceWorker' in navigator){
                   <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
                 </div>
               </div>
+              <!-- Hors soutien-gate.js, volontairement (voir la même note sur
+                   btnVaultExport plus bas) : cette grille encode le message
+                   que LE VISITEUR a saisi ci-dessus, pas un motif que le site
+                   fabrique pour lui — la règle du soutien porte sur les
+                   sorties du système (SVG, broderie...), pas sur ce que le
+                   visiteur y dépose. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction. -->
               <button type="button" class="enc-btn" id="btnDownloadGrid">⬇ Télécharger la grille CSV</button>
             </div>
           </div>
@@ -453,6 +460,14 @@ if('serviceWorker' in navigator){
             </div>
             <div class="enc-card">
               <h2>Exporter</h2>
+              <!-- Hors soutien-gate.js, volontairement : ce fichier est le
+                   coffre chiffré du visiteur, avec SON mot de passe et SON
+                   contenu — pas une sortie que le système génère pour lui. La
+                   règle posée par Anibal : le soutien porte sur ce que
+                   l'outil fabrique (SVG, broderie...), pas sur ce que le
+                   visiteur y a déposé. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction —
+                   même note sur btnDownloadGrid plus haut. -->
               <button type="button" class="enc-btn" id="btnVaultExport">⬇ Télécharger vault.sbvault</button>
             </div>
           </div>
