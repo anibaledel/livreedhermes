@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+message: >-
+  Si vous utilisez ce dépôt, citez le traité et, le cas échéant, la note
+  dont provient le script que vous relancez.
+title: Scripts de vérification de La Livrée d'Hermès
+abstract: >-
+  Scripts qui reproduisent, sur les données publiées, chaque nombre avancé
+  dans le traité La Livrée d'Hermès et dans les notes qui l'accompagnent :
+  construction des carrés magiques auto-construits, critère de demi-décalage
+  sur les grilles 12 × 12, croix ansée d'ordre 6, vocabulaire d'axes et
+  construction par parité, identification aux lignes de niveau d'un mode
+  propre de plaque carrée.
+type: software
+license: AGPL-3.0-or-later
+repository-code: https://github.com/anibaledel/livreedhermes
+url: https://anibal-amiot.com/
+authors:
+  - family-names: Amiot
+    given-names: Anibal Edelberto
+    orcid: https://orcid.org/0009-0002-6414-9448
+keywords:
+  - arithmogéométrie
+  - carrés magiques
+  - tissage Jacquard
+  - figures de Chladni
+  - géométrie finie
+  - codes linéaires
+preferred-citation:
+  type: book
+  title: La Livrée d'Hermès
+  authors:
+    - family-names: Amiot
+      given-names: Anibal Edelberto
+      orcid: https://orcid.org/0009-0002-6414-9448
+  year: 2026
+  doi: 10.5281/zenodo.22722486
+references:
+  - type: article
+    title: >-
+      Axes and Level Sets of a Jacquard Pattern System — two companion notes
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22965031
+  - type: article
+    title: >-
+      One Object, Three Descriptions: Axes, Images and Grids of a Jacquard
+      Pattern System
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22966839
+  - type: article
+    title: "Parity Figures as Moiré: What Is Exact and What Is Not"
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22967585
+  - type: report
+    title: La Livrée d'Hermès — Progress report, September 2026
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22945021
