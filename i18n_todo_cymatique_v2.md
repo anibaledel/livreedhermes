@@ -1,12 +1,24 @@
-# Traductions manquantes — page Cymatique, texte v2 (`cymatique.html`)
+# Traductions — page Cymatique, texte v2 (`cymatique.html`)
 
-Complète `i18n_todo_cymatique.md` (les 28 clés déjà traduites en ES/TH) : ce
-fichier ne couvre que les clés **nouvelles ou modifiées** par la version 2 du
-texte (`cymatique-a-relire-v2.md`), pas encore relue par l'auteur et donc pas
-encore publiée. Toutes sont actuellement en repli FR pour `es` et `th`
-(comme `diapasonNote`, `genT1`, `genBandes` et les clés `echelle*`, qui
-étaient déjà dans ce cas avant cette version — voir la note en fin de
-fichier).
+**Traduit et en ligne** (`prompt-cc-fusion.md` §6, une fois le FR/EN validé
+par Anibal) : les 42 clés ci-dessous (34 nouvelles de cette version + les 8
+déjà en repli avant elle : `diapasonNote`, `genT1`, `genBandes`,
+`echelleLabel`, `echelleProportionnelle`, `echelleOrdinale`,
+`echelleProportionnelleHelp`, `echelleOrdinaleHelp`) sont maintenant dans
+`UI.es`/`UI.th` de `cymatique.html`. Le vocabulaire est fixé dans
+`docs/terminologie-fr-en-es-th.md`, à tenir à jour et à réutiliser pour toute
+traduction future plutôt qu'à redécider.
+
+La page porte une mention de relecture (`UI.es.i18nReviewNote` /
+`UI.th.i18nReviewNote`, affichée sous le sélecteur de langue) : la
+traduction n'a pas encore été relue par un locuteur natif — voir
+`prompt-cc-fusion.md` §6, « une version imparfaite en ligne vaut mieux qu'un
+repli français ». À retirer ces deux clés une fois la relecture faite pour
+chaque langue (indépendamment l'une de l'autre).
+
+Ce fichier garde, ci-dessous, le texte source FR/EN utilisé pour traduire —
+utile pour vérifier une traduction contre son origine, pas une liste
+d'attente.
 
 L'intégration consiste à recopier chaque valeur dans `UI.es[clé]` /
 `UI.th[clé]` du fichier `cymatique.html` (objet `UI`, dans
@@ -140,6 +152,6 @@ contenu de `diapasonNote` ; elle ne crée pas cette lacune, qui préexistait.
 
 ## Portée de ce fichier
 
-Ce texte n'a pas encore été relu par Anibal (voir `cymatique-a-relire-v2.md` :
-« Rien ne part sans ta relecture »). Ne pas lancer de traduction ES/TH avant
-cette relecture — le texte FR/EN source pourrait encore changer.
+Le texte FR/EN a été relu et approuvé par Anibal (`#126`, fusionnée), et la
+traduction ES/TH est faite et en ligne (voir plus haut). Ce fichier reste
+comme référence du texte source utilisé pour traduire.

@@ -104,6 +104,7 @@
   .cym-table td{ color:var(--dim); }
   .cym-table td:last-child, .cym-table th:last-child{ white-space:normal; }
 
+  .i18n-review-note{ text-align:center; font-size:11px; color:var(--dim); opacity:.65; margin:8px 0 0; font-style:italic; }
   .lang-row{ display:flex; justify-content:center; gap:8px; margin-top:16px; flex-wrap:wrap; }
   .app-lang-btn{
     border:1px solid var(--line-strong); background:transparent; color:var(--dim);
@@ -245,6 +246,7 @@
       <button type="button" class="app-lang-btn" data-lang="es">ES</button>
       <button type="button" class="app-lang-btn" data-lang="th">TH</button>
     </div>
+    <p class="i18n-review-note" id="i18nReviewNote" hidden></p>
   </header>
   </div>
 
@@ -580,6 +582,35 @@ const UI = {
     navMotifs: "Crear un motivo",
     navImpression: "Impresión",
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
+    i18nReviewNote: "Traducción en revisión — si detectas un error, indícalo.",
+    framing1: "El vocabulario no se elige, se <strong>engendra</strong>. Basta una sola operación — duplicar el desplazamiento de una recta respecto al centro del cuadrado — y el origen tampoco es libre: un nivel que el duplicado deja fijo no tiene antecedente fuera de sí mismo, así que no puede engendrarse y debe postularse. Hay exactamente dos, 0° y 120°, el segundo existe porque 3 divide a 12. Partiendo de esos dos y deshaciendo el duplicado, los desplazamientos ortogonales se cierran en dos pasos sobre los 24 posibles, y los diagonales en tres — rombo inscrito incluido, que pertenece al vocabulario sin estar trazado.",
+    framing2: "Y este vocabulario engendrado coincide, recta por recta, con las curvas de nivel de una sola función: cos(πx/3), cortada a siete alturas. Esa función es una función propia exacta — no una aproximación — de dos sistemas físicos distintos. La correspondencia deja entonces de ser un parecido medido por transformada de Fourier.",
+    framing3: "Lo que queda fuera de alcance se dice más abajo, y conviene leerlo: no se ha hecho ninguna medición, y de los siete niveles solo uno es una línea nodal.",
+    sectionOndeHeading: "Una sola onda, siete cortes",
+    sectionOndeP1: "Las ocho familias ortogonales son las líneas donde cos(πx/3) vale cos θ, para θ múltiplo de 30°:",
+    sectionOndeColAngle: "ángulo", sectionOndeColNiveau: "nivel", sectionOndeColPositions: "posiciones (en casillas)", sectionOndeColFamille: "familia",
+    sectionOndeFam1: "T0 YIN", sectionOndeFam2: "T3 YIN", sectionOndeFam3: "T2 YIN", sectionOndeFam4: "T1 YIN y su mutante", sectionOndeFam5: "T2 YIN mutante", sectionOndeFam6: "T3 YIN mutante", sectionOndeFam7: "T0 YIN mutante",
+    sectionOndeP2: "La mutación es la reflexión del ángulo alrededor de 90°, es decir, el intercambio de las dos fases de la onda. No es una convención de nomenclatura: como el duplicado es dos a uno, todo antecedente llega por pares, y la base y su mutante son las dos ramas del inverso.",
+    section2Heading: "Dos sistemas exactos, dos leyes",
+    section2P1: "El producto cos(πx/3)·cos(πy/3) es una función propia exacta de dos problemas distintos:",
+    section2Li1: "la placa de Kirchhoff con bordes guiados, ecuación biarmónica, cuyo espectro da f ∝ m² + n²;",
+    section2Li2: "la cavidad acústica rectangular de paredes rígidas, ecuación de Helmholtz con condición de Neumann, cuyo espectro da f ∝ √(m² + n²).",
+    section2P2: "La condición de contorno se satisface idénticamente en ambos casos. La primera placa nunca se ha construido en laboratorio; la segunda cavidad es cualquier caja rectangular. El resultado de cavidad supone un índice vertical nulo: una caja plana, o una excitación por debajo del primer corte vertical — más allá, un tercer término se añade al espectro.",
+    section2P3: "Los dos problemas comparten sus funciones propias pero no sus espectros, lo que da una prueba en una sola cifra:",
+    section2ColK2: "k² medido", section2ColPlaque: "ley de placa, f = 128·k²", section2ColCavite: "ley de cavidad, f = 128·k",
+    section2P4: "En los tres valores que son cuadrados perfectos, la ley de placa da 128, 512, 1152 — razones 1 : 4 : 9. La ley de cavidad da <strong>128, 256, 384</strong>, es decir, do, su octava, y la quinta por encima: razones <strong>1 : 2 : 3</strong>, la serie armónica.",
+    section2P5: "El diapasón a 128 Hz es una calibración en ambos casos: fija el tamaño del sistema, no la geometría. Lo que no es una calibración es la elección entre las dos leyes — y esa se mide.",
+    section2P6: "Esta página cuenta los periodos enteros sobre las doce casillas de la cuadrícula, lo que da k² = 8 para la figura de desplazamientos 0 y 3. La convención de las placas cuenta las semilongitudes de onda sobre el lado, lo que da para la misma figura el modo (4,4) y k² = 32. Ambas están ligadas por k²(cuadrícula) = (m² + n²) ⁄ 4.",
+    section2P7: "Hay dos modos en juego y no están a la misma frecuencia: la portadora (4,0), que es la flexión a una dimensión y porta los siete niveles, y la figura (4,4), cuyo conjunto nodal es el nivel cero y que la arena dibujaría. Bajo la ley de placa su razón vale 2, bajo la ley de cavidad √2. Es una segunda prueba discriminante.",
+    sectionCaveatsHeading: "Lo que no está establecido",
+    sectionCaveatsP1: "<strong>Solo uno de los siete cortes es una línea nodal</strong> — el de 90°. Los otros seis son líneas de isoamplitud: la arena no las mostraría. No por ello son invisibles: la interferometría holográfica de promedio temporal, y la ESPI, producen franjas que son precisamente curvas de isoamplitud. Y en un estanque de agua, la elevación de la superficie <em>es</em> el modo: los siete niveles son allí líneas de isoelevación, visibles bajo luz rasante. Un estanque de agua añade un tercer sistema, pero no una tercera prueba: el oleaje allí es dispersivo, ω² = g·k·tanh(k·h), y los tres sistemas comparten la figura, no el espectro — la razón que distingue placa de cavidad no se traslada a él.",
+    sectionCaveatsP2: "<strong>Las familias diagonales no provienen de un modo guiado.</strong> Solo su nivel cero sí, como conjunto nodal de las combinaciones degeneradas cos(4πx/a) ± cos(4πy/a) — el mecanismo que Colwell describió en 1933. Los otros seis niveles diagonales no tienen ningún modo de placa detrás.",
+    sectionCaveatsP3: "<strong>No se ha hecho ninguna medición física.</strong> Todo lo aquí planteado es cálculo sobre las láminas publicadas y verificación simbólica. El experimento más económico es una cubeta rectangular, un altavoz debajo y una luz rasante; distingue entre las dos leyes de frecuencia. Una figura de Chladni depende de la geometría del recipiente, de la profundidad, de la tensión superficial; nada aquí lo sustituye.",
+    genT1: "T1:", genBandes: "bandas:",
+    diapasonNote: "El diapasón elegido aquí, para las dos escalas, toma como referencia el do a 128 Hz — una octava por debajo del do a 256 Hz que Joseph Sauveur propuso en 1713 ante la Academia Real de Ciencias, por una razón sencilla: duplicar 1 varias veces seguidas coloca todas las octavas en números enteros. Se lo llamó el diapasón filosófico. Cada escala lleva dos valores, medidos por separado en sus dos generaciones — T1 y bandas — cuyas frecuencias espaciales dominantes se solapan ampliamente en lugar de formar dos registros distintos. Los dieciséis valores medidos (los cuadrados de frecuencia espacial, reunidos de las dos generaciones) son en sí mismos enteros, pero eso es una propiedad de la medición y no del motivo: una transformada de Fourier sobre una cuadrícula de doce casillas solo puede devolver enteros. Lo que no está vacío, en cambio, es que esos enteros son los m² + n² de un modo propio exacto — y esa coincidencia se verifica línea por línea, no mediante una transformada. En la escala proporcional, cada valor cae entonces exactamente en 128 veces un entero, sin resto. Otro diapasón funcionaría igual de bien; este hace legible la estructura.",
+    echelleLabel: "Escala", echelleProportionnelle: "Proporcional", echelleOrdinale: "Ordinal",
+    echelleProportionnelleHelp: "f = 128 × k² — de do 128 Hz a re9 9216 Hz, razones exactas entre motivos.",
+    echelleOrdinaleHelp: "los dieciséis valores repartidos por rango, de do 128 Hz a do 256 Hz — comparación inmediata.",
   },
   th: {
     pageTitle: "ไซแมติกส์ — บันไดเสียงและความถี่",
@@ -608,6 +639,35 @@ const UI = {
     navMotifs: "สร้างลวดลาย",
     navImpression: "การพิมพ์",
     cat1: "1 ฐาน", cat2: "2 ฐาน", cat3: "3 ฐาน", cat4: "4 ฐาน",
+    i18nReviewNote: "การแปลอยู่ระหว่างการตรวจทาน — หากพบข้อผิดพลาด กรุณาแจ้งให้ทราบ",
+    framing1: "คำศัพท์ของระบบนี้ไม่ได้ถูกเลือก แต่ถูก<strong>สร้างขึ้น</strong> เพียงหนึ่งกระบวนการก็เพียงพอ — การเพิ่มระยะเยื้องของเส้นตรงจากจุดศูนย์กลางของสี่เหลี่ยมจัตุรัสเป็นสองเท่า — และจุดเริ่มต้นก็ไม่ได้เป็นอิสระเช่นกัน ระดับที่การเพิ่มเป็นสองเท่านั้นคงที่ไม่มีจุดกำเนิดอื่นนอกจากตัวมันเอง จึงไม่สามารถถูกสร้างขึ้นได้ ต้องถูกกำหนดขึ้นเอง มีอยู่สองระดับเช่นนี้พอดี คือ 0° และ 120° ระดับที่สองมีอยู่เพราะ 3 หาร 12 ลงตัว เริ่มจากสองระดับนี้แล้วย้อนกลับการเพิ่มเป็นสองเท่า ระยะเยื้องแนวตั้งฉากจะปิดวงจรครบทั้ง 24 ค่าภายในสองขั้นตอน ส่วนแนวทแยงปิดวงจรภายในสามขั้นตอน — รวมถึงรูปสี่เหลี่ยมขนมเปียกปูนที่แนบใน ซึ่งเป็นส่วนหนึ่งของคำศัพท์นี้โดยไม่ต้องถูกลากเส้น",
+    framing2: "และคำศัพท์ที่ถูกสร้างขึ้นนี้ตรงกัน เส้นต่อเส้น กับเส้นระดับของฟังก์ชันเดียว คือ cos(πx/3) ที่ถูกตัดที่ความสูงเจ็ดระดับ ฟังก์ชันนี้เป็นฟังก์ชันไอเกนที่แม่นตรง — ไม่ใช่การประมาณ — ของระบบทางฟิสิกส์สองระบบที่ต่างกัน ความสอดคล้องนี้จึงไม่ใช่ความคล้ายคลึงที่วัดได้ด้วยการแปลงฟูริเยร์อีกต่อไป",
+    framing3: "สิ่งที่ยังอยู่นอกเหนือขอบเขตจะกล่าวถึงด้านล่าง และควรอ่าน คือ ยังไม่มีการวัดใด ๆ เกิดขึ้น และในเจ็ดระดับมีเพียงหนึ่งเดียวที่เป็นเส้นโหนด",
+    sectionOndeHeading: "คลื่นเดียว เจ็ดภาคตัด",
+    sectionOndeP1: "แปดตระกูลตั้งฉากคือเส้นที่ cos(πx/3) มีค่าเท่ากับ cos θ เมื่อ θ เป็นจำนวนเท่าของ 30° ดังนี้:",
+    sectionOndeColAngle: "มุม", sectionOndeColNiveau: "ระดับ", sectionOndeColPositions: "ตำแหน่ง (หน่วยช่อง)", sectionOndeColFamille: "ตระกูล",
+    sectionOndeFam1: "T0 YIN", sectionOndeFam2: "T3 YIN", sectionOndeFam3: "T2 YIN", sectionOndeFam4: "T1 YIN และตระกูลกลายพันธุ์ของมัน", sectionOndeFam5: "T2 YIN กลายพันธุ์", sectionOndeFam6: "T3 YIN กลายพันธุ์", sectionOndeFam7: "T0 YIN กลายพันธุ์",
+    sectionOndeP2: "การกลายพันธุ์คือการสะท้อนมุมรอบ 90° กล่าวคือการสลับเฟสทั้งสองของคลื่น มันไม่ใช่แค่ข้อตกลงในการตั้งชื่อ เพราะการเพิ่มเป็นสองเท่านั้นเป็นแบบสองต่อหนึ่ง จุดกำเนิดทุกจุดจึงมาเป็นคู่เสมอ และตระกูลต้นแบบกับตระกูลกลายพันธุ์คือสองแขนงของผลผกผันนั้น",
+    section2Heading: "สองระบบที่แม่นตรง สองกฎ",
+    section2P1: "ผลคูณ cos(πx/3)·cos(πy/3) เป็นฟังก์ชันไอเกนที่แม่นตรงของปัญหาสองแบบที่ต่างกัน:",
+    section2Li1: "แผ่นเพลตของเคียร์ชอฟฟ์ที่มีขอบแบบนำทาง สมการไบฮาร์มอนิก ซึ่งสเปกตรัมให้ f ∝ m² + n² ;",
+    section2Li2: "โพรงเสียงทรงสี่เหลี่ยมผืนผ้าที่มีผนังแข็ง สมการเฮล์มโฮลทซ์พร้อมเงื่อนไขนอยมันน์ ซึ่งสเปกตรัมให้ f ∝ √(m² + n²)",
+    section2P2: "เงื่อนไขขอบเขตเป็นจริงเหมือนกันทั้งสองกรณี แผ่นเพลตแรกไม่เคยถูกสร้างขึ้นจริงในห้องปฏิบัติการ ส่วนโพรงเสียงที่สองคือกล่องสี่เหลี่ยมผืนผ้าใด ๆ ก็ได้ ผลลัพธ์ของโพรงเสียงตั้งอยู่บนสมมุติฐานว่าดัชนีแนวตั้งเป็นศูนย์ คือกล่องแบนราบ หรือการกระตุ้นที่ต่ำกว่าความถี่ตัดแนวตั้งแรก — เกินกว่านั้น จะมีพจน์ที่สามเพิ่มเข้าไปในสเปกตรัม",
+    section2P3: "ปัญหาทั้งสองมีฟังก์ชันไอเกนร่วมกันแต่ไม่มีสเปกตรัมร่วมกัน ซึ่งให้การทดสอบด้วยตัวเลขเพียงตัวเดียว:",
+    section2ColK2: "k² ที่วัดได้", section2ColPlaque: "กฎแผ่นเพลต, f = 128·k²", section2ColCavite: "กฎโพรงเสียง, f = 128·k",
+    section2P4: "ในสามค่าที่เป็นจำนวนกำลังสองสมบูรณ์ กฎแผ่นเพลตให้ 128, 512, 1152 — อัตราส่วน 1 : 4 : 9 ส่วนกฎโพรงเสียงให้ <strong>128, 256, 384</strong> นั่นคือโด อ็อกเทฟของมัน และคู่ห้าที่อยู่เหนือขึ้นไป — อัตราส่วน <strong>1 : 2 : 3</strong> อนุกรมฮาร์มอนิก",
+    section2P5: "ส้อมเสียงที่ 128 Hz เป็นการสอบเทียบในทั้งสองกรณี มันกำหนดขนาดของระบบ ไม่ใช่รูปทรงเรขาคณิต สิ่งที่ไม่ใช่การสอบเทียบคือการเลือกระหว่างสองกฎนี้ — และสิ่งนั้นวัดได้",
+    section2P6: "หน้านี้นับคาบเต็มบนสิบสองช่องของกริด ซึ่งให้ k² = 8 สำหรับรูปที่มีระยะเยื้อง 0 และ 3 ข้อตกลงของแผ่นเพลตนับครึ่งความยาวคลื่นตามด้าน ซึ่งให้โหมด (4,4) และ k² = 32 สำหรับรูปเดียวกัน ทั้งสองเชื่อมโยงกันด้วย k²(กริด) = (m² + n²) ⁄ 4",
+    section2P7: "มีสองโหมดที่เกี่ยวข้องและไม่ได้อยู่ที่ความถี่เดียวกัน คือ คลื่นพาหะ (4,0) ซึ่งเป็นการโค้งงอมิติเดียวและถือระดับทั้งเจ็ด กับรูป (4,4) ซึ่งเซตโหนดของมันคือระดับศูนย์และเป็นรูปที่ทรายจะวาดออกมา ภายใต้กฎแผ่นเพลตอัตราส่วนของทั้งสองเท่ากับ 2 ภายใต้กฎโพรงเสียงเท่ากับ √2 นี่คือการทดสอบแยกแยะที่สอง",
+    sectionCaveatsHeading: "สิ่งที่ยังไม่ได้รับการพิสูจน์",
+    sectionCaveatsP1: "<strong>มีเพียงหนึ่งในเจ็ดภาคตัดเท่านั้นที่เป็นเส้นโหนด</strong> — คือภาคตัดที่ 90° อีกหกภาคตัดที่เหลือเป็นเส้นแอมพลิจูดเท่ากัน ซึ่งทรายจะไม่แสดงให้เห็น แต่นั่นไม่ได้หมายความว่ามองไม่เห็นเลย อินเตอร์เฟอโรเมทรีแบบโฮโลกราฟิกค่าเฉลี่ยตามเวลา และ ESPI ให้แถบลายที่เป็นเส้นแอมพลิจูดเท่ากันโดยตรง และในบ่อน้ำ การยกตัวของผิวน้ำ<em>คือ</em>โหมดนั้นเอง เจ็ดระดับที่นั่นเป็นเส้นระดับความสูงเท่ากัน มองเห็นได้ภายใต้แสงเฉียง บ่อน้ำเพิ่มระบบที่สามเข้ามา แต่ไม่ได้เพิ่มการทดสอบที่สาม เพราะการกระเพื่อมของน้ำมีลักษณะกระจายความถี่ ω² = g·k·tanh(k·h) ทั้งสามระบบมีรูปร่วมกัน แต่ไม่มีสเปกตรัมร่วมกัน — อัตราส่วนที่แยกแผ่นเพลตจากโพรงเสียงจึงไม่สามารถนำไปใช้กับบ่อน้ำได้",
+    sectionCaveatsP2: "<strong>ตระกูลแนวทแยงไม่ได้มาจากโหมดแบบนำทาง</strong> มีเพียงระดับศูนย์ของตระกูลเหล่านี้เท่านั้นที่มา ในฐานะเซตโหนดของผลรวมเสื่อมสภาพ cos(4πx/a) ± cos(4πy/a) — กลไกที่โคลเวลล์อธิบายไว้ในปี 1933 ส่วนอีกหกระดับแนวทแยงที่เหลือไม่มีโหมดแผ่นเพลตใด ๆ อยู่เบื้องหลัง",
+    sectionCaveatsP3: "<strong>ยังไม่มีการวัดทางกายภาพใด ๆ เกิดขึ้น</strong> ทุกสิ่งที่นำเสนอในที่นี้เป็นการคำนวณจากแผ่นภาพที่เผยแพร่แล้วและการพิสูจน์เชิงสัญลักษณ์เท่านั้น การทดลองที่ประหยัดที่สุดคือถาดสี่เหลี่ยมผืนผ้า ลำโพงด้านล่าง และแสงเฉียง ซึ่งจะแยกแยะระหว่างสองกฎความถี่ได้ รูปแบบคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว ไม่มีสิ่งใดในที่นี้ทดแทนสิ่งนั้นได้",
+    genT1: "T1:", genBandes: "แถบ:",
+    diapasonNote: "ส้อมเสียงที่เลือกใช้ที่นี่ สำหรับทั้งสองมาตราส่วน ใช้โดที่ 128 Hz เป็นจุดอ้างอิง — ต่ำกว่าโดที่ 256 Hz ที่โจเซฟ โซเวอร์เสนอในปี 1713 ต่อราชบัณฑิตยสภาวิทยาศาสตร์หนึ่งอ็อกเทฟ ด้วยเหตุผลง่าย ๆ คือ การเพิ่ม 1 เป็นสองเท่าซ้ำหลายครั้งจะวางทุกอ็อกเทฟไว้บนจำนวนเต็ม เรียกกันว่าส้อมเสียงเชิงปรัชญา แต่ละบันไดเสียงมีสองค่า วัดแยกกันจากสองรุ่นของมัน คือ T1 และแถบ ซึ่งความถี่เชิงพื้นที่เด่นของทั้งสองซ้อนทับกันอย่างมาก แทนที่จะแยกเป็นสองช่วงต่างหาก สิบหกค่าที่วัดได้ (กำลังสองของความถี่เชิงพื้นที่ รวมจากทั้งสองรุ่น) ล้วนเป็นจำนวนเต็มในตัวเอง แต่นั่นเป็นคุณสมบัติของการวัด ไม่ใช่ของลวดลาย เพราะการแปลงฟูริเยร์บนกริดสิบสองช่องให้ผลลัพธ์เป็นจำนวนเต็มเท่านั้น สิ่งที่ไม่ธรรมดาคือจำนวนเต็มเหล่านี้คือค่า m² + n² ของโหมดไอเกนที่แม่นตรง — และความสอดคล้องนี้ตรวจสอบได้ทีละเส้น ไม่ใช่ด้วยการแปลง ในมาตราส่วนตามสัดส่วน แต่ละค่าจึงตกลงพอดีที่ 128 คูณจำนวนเต็ม โดยไม่มีเศษเหลือ ส้อมเสียงอื่นก็ใช้ได้ดีเช่นกัน แต่ส้อมเสียงนี้ทำให้โครงสร้างอ่านได้ชัดเจน",
+    echelleLabel: "มาตราส่วน", echelleProportionnelle: "ตามสัดส่วน", echelleOrdinale: "ตามลำดับ",
+    echelleProportionnelleHelp: "f = 128 × k² — จากโด 128 Hz ถึงเร9 9216 Hz อัตราส่วนแม่นตรงระหว่างลวดลาย",
+    echelleOrdinaleHelp: "สิบหกค่ากระจายตามลำดับ จากโด 128 Hz ถึงโด 256 Hz — เปรียบเทียบได้ทันที",
   },
 };
 for (const k of Object.keys(UI.fr)) {
@@ -661,7 +721,8 @@ const K2_ROWS = [
   ['13', '1664', '461,5'],
   ['20', '2560', '572,4'],
 ];
-function fmtLocale(s) { return LANG === 'fr' ? s : s.replace(/(\d),(\d)/g, '$1.$2'); }
+// Virgule décimale : FR et ES (convention partagée) ; point pour EN et TH.
+function fmtLocale(s) { return (LANG === 'fr' || LANG === 'es') ? s : s.replace(/(\d),(\d)/g, '$1.$2'); }
 function renderCymTables() {
   const ondeTable = document.getElementById('sectionOndeTable');
   if (ondeTable) {
@@ -693,6 +754,17 @@ function applyUILang() {
   renderCymTables();
   document.title = t('pageTitle') + " — La Livrée d'Hermès";
   refreshMatchTexts();
+
+  // Mention de relecture — seulement pour les langues dont la traduction
+  // n'a pas encore été relue par un locuteur natif (voir docs/
+  // terminologie-fr-en-es-th.md). Pas de repli sur le FR ici : cette clé
+  // n'existe QUE sur les langues concernées, et son absence signifie
+  // "relue" plutôt que "à traduire" — à retirer de UI.es/UI.th une fois
+  // la relecture faite.
+  const reviewNoteEl = document.getElementById('i18nReviewNote');
+  const reviewNote = UI[LANG] && UI[LANG].i18nReviewNote;
+  reviewNoteEl.hidden = !reviewNote;
+  reviewNoteEl.textContent = reviewNote || '';
 }
 document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b => {
   b.addEventListener('click', () => {
