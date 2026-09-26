@@ -77,6 +77,16 @@ un export logiciel). Rien retiré ni ajouté sur une promesse que je ne
 retrouve pas : à confirmer avec l'auteur si le texte existe ailleurs (autre
 branche, autre session) que je n'ai pas sous les yeux.
 
+**Réserve résolue.** Re-cherché sur `main` après la fusion de #124/#125
+(`prompt-cc-fusion.md` §5) : `index.html` et `a-propos.html` ne mentionnent
+toujours pas la broderie — ce n'est pas une fausse promesse, c'est un
+silence, et rien ne pousse à l'écrire là. Mais `galerie-bicolore.html`
+(#125) en parle désormais dans sa description et ses balises `og:`/
+`twitter:` (« export SVG et broderie », « broderie numérique ») — un
+texte exact, qui décrit le vrai bouton « Télécharger pour Ink/Stitch (C1) »
+de cette page. La réserve portait sur une promesse SANS fonctionnalité ;
+il y a maintenant une page qui a les deux. Rien à corriger.
+
 Cette page n'a pas de dictionnaire multilingue (`UI`/`LANG`) — contrairement
 à `impression.html`. B1/B2/B4 restent donc en français seul, comme le reste
 de la page (Google Translate assure la traduction à la volée, comportement
@@ -173,25 +183,29 @@ branch number, dénombrement de configurations) à la couche géométrique.
 **D6 — Application installable.** Fait. `encodeur.webmanifest` +
 `encodeur-sw.js` (cache-first minimal : la page, les 6 `js/*.js`
 réellement importés — `carter-core.js` et sa fermeture de dépendances —,
-les deux référents v3). Rien touché au code de chiffrement. **Réserve** :
-la seule icône disponible dans `assets/nav-icons/` pour cette page fait
-128×128 (`encodeur.png`), sous le 192×192 que Lighthouse préfère pour
-l'installabilité stricte — pas de nouvelle image fabriquée, la consigne
-demandait les icônes existantes ; Lighthouse n'a pas été exécuté dans cet
-environnement (pas d'outil disponible), la vérification s'est arrêtée à
-l'enregistrement effectif du service worker et au peuplement du cache (9
-fichiers), vérifiés en direct dans le navigateur.
+les deux référents v3). Rien touché au code de chiffrement. **Icône 192×192
+ajoutée** (demandée par `prompt-cc-fusion.md` §5) : `assets/nav-icons/
+encodeur-192.png`, produite par agrandissement de `encodeur.png` (128×128,
+seule source disponible pour cette icône — `encodeur-sprite.png` est une
+planche de sprites 1024×128, pas une image unique à recadrer), filtre
+Lanczos, sans retoucher le dessin ; déclarée en second dans
+`encodeur.webmanifest`. **Reste : Lighthouse toujours non exécuté** (pas
+d'outil disponible dans cet environnement) — non simulé, à faire une fois
+un environnement adapté disponible.
 
 ## Ce qui reste à faire avant fusion
 
 1. ~~**C3**~~ — résolu, voir ci-dessus : les deux jeux de k² sont deux objets
    différents, rien à réconcilier.
-2. **B3** — confirmer si la mention « export pour broderie numérique »
-   existe quelque part que je n'ai pas vu, sinon rien à faire (déjà
-   correct : la fonctionnalité existe et n'est pas mal promise).
-3. **D6** — passer Lighthouse une fois un environnement adapté disponible ;
-   fournir une icône 192×192+ si l'auteur veut la stricte conformité PWA.
+2. ~~**B3**~~ — résolu, voir ci-dessus : la mention existe maintenant sur
+   `galerie-bicolore.html`, exacte, rien à corriger.
+3. ~~**D6**~~ — icône 192×192 ajoutée. Seul point restant : Lighthouse,
+   toujours non exécuté faute d'environnement, non bloquant pour la fusion.
 4. Captures avant/après par tâche, si l'auteur les veut jointes après coup.
+
+**`#123` est fusionnable** : les trois réserves (C3, B3, D6) sont résolues
+ou documentées comme non bloquantes (Lighthouse). Seul le point 4
+(captures, facultatif) reste ouvert, à la discrétion de l'auteur.
 
 ## Pull request
 
