@@ -43,13 +43,14 @@ const HORS_PERIMETRE = new Set([
 ]);
 const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
 
-// Les pages traduites à la main n'ont ni emplacement du traducteur ni pied
-// partagé : la liste et ses raisons vivent dans scripts/pages-traduites.js,
-// que tools/check_pages_console.mjs lit aussi. Elle a vécu en double des
-// années — la sortir d'ici est ce qui rend la divergence impossible.
+// Les pages traduites à la main n'ont pas de pied partagé : il est rédigé
+// en français, ligne de crédit comprise, et l'imposer à ces lecteurs serait
+// une régression — elles gardent le leur. La liste et sa raison vivent dans
+// scripts/pages-traduites.js, que tools/check_pages_console.mjs lit aussi.
+// Elle a vécu en double des années — la sortir d'ici est ce qui rend la
+// divergence impossible.
 const { TRADUITES_A_LA_MAIN } = require('./pages-traduites.js');
 const SANS_PIED = TRADUITES_A_LA_MAIN;
-const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 
 // Les pages d'un même groupe de traduction portent le même bloc hreflang — il
 // liste TOUS les équivalents, y compris la page elle-même — engendré depuis
@@ -82,26 +83,32 @@ const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
   header: lire('header.html'),
   footer: lire('footer.html'),
-  translate: lire('translate-script.html'),
 };
-const SLOT = lire('translate-slot.html');
 
 function zone(nom, corps, source = 'includes/') {
   return `<!-- @${nom}:start — engendré depuis ${source}, ne pas éditer ici (voir scripts/build-header.js) -->\n`
        + corps.replace(/\n+$/, '') + `\n<!-- @${nom}:end -->`;
 }
 
-function rendre(nom, prefixe, traducteur) {
-  let corps = FRAGMENTS[nom].split('{{BASE}}').join(prefixe);
-  if (nom === 'header') {
-    corps = corps.split('{{TRADUCTEUR}}').join(traducteur ? SLOT : '');
-  }
+function rendre(nom, prefixe) {
+  const corps = FRAGMENTS[nom].split('{{BASE}}').join(prefixe);
   return zone(nom, corps);
 }
 
-/* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes ---- */
+/* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
+   et le traducteur Google Translate — retiré du site (décision de l'auteur,
+   2026-09-27) : la traduction automatique par-dessus une traduction humaine
+   rendait les fautes d'Anibal et celles de Google indistinguables, ce qui
+   annulait la relecture par des lecteurs natifs, et les navigateurs
+   proposent nativement une traduction. Ces deux remplacements restent ici
+   pour nettoyer toute page qui porterait encore l'ancien widget. ---- */
 function adopter(src) {
   let s = src;
+  // 0. La zone balisée du traducteur, posée par une exécution précédente du
+  //    script avant son retrait — sans ce nettoyage, elle resterait figée,
+  //    puisque traiter() ne la pose plus et poser() ne peut retirer que ce
+  //    qu'il pose lui-même.
+  s = s.replace(/[ \t]*<!-- @translate:start[\s\S]*?<!-- @translate:end -->\n?/g, '');
   // 1. Le script du traducteur, où qu'il soit.
   s = s.replace(/[ \t]*<script type="text\/javascript">\s*\n?\s*function googleTranslateElementInit\(\)[\s\S]*?<\/script>\s*\n?[ \t]*<script type="text\/javascript" src="https:\/\/translate\.google\.com\/translate_a\/element\.js\?cb=googleTranslateElementInit"><\/script>\n?/g, '');
   // 2. L'emplacement du widget, classe commune ou variante stylée en ligne.
@@ -137,10 +144,9 @@ function traiter(rel, src) {
   // non à /404.html, où le défaut ne peut pas apparaître : voir
   // tools/check_pages_console.mjs.
   const prefixe = rel === '404.html' ? '/' : '../'.repeat(rel.split('/').length - 1);
-  const traducteur = !SANS_TRADUCTEUR.has(rel);
   let s = adopter(src);
 
-  s = poser(s, 'head-icons', rendre('head-icons', prefixe, traducteur),
+  s = poser(s, 'head-icons', rendre('head-icons', prefixe),
     (t, c) => t.replace('</head>', `${c}\n</head>`));
 
   if (BLOC_PAR_FICHIER.has(rel)) {
@@ -159,21 +165,16 @@ function traiter(rel, src) {
   }
 
   // L'en-tête ouvre le contenu : dans .wrap s'il existe, sinon juste après <body>.
-  s = poser(s, 'header', rendre('header', prefixe, traducteur), (t, c) => {
+  s = poser(s, 'header', rendre('header', prefixe), (t, c) => {
     const wrap = t.match(/<div class="wrap"[^>]*>\n?/);
     if (wrap) return t.replace(wrap[0], wrap[0] + c + '\n');
     return t.replace(/<body[^>]*>\n?/, (m) => m + c + '\n');
   });
 
-  if (traducteur) {
-    s = poser(s, 'translate', rendre('translate', prefixe, traducteur),
-      (t, c) => t.replace(/<\/body>/, `${c}\n</body>`));
-  }
-
   if (!SANS_PIED.has(rel)) {
     // Le pied ferme le contenu : à la toute fin de .wrap, après la zone de
     // navigation .note quand elle existe.
-    s = poser(s, 'footer', rendre('footer', prefixe, traducteur), (t, c) => {
+    s = poser(s, 'footer', rendre('footer', prefixe), (t, c) => {
       const i = t.lastIndexOf('</div>\n</body>');
       if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
       return t.replace(/<\/body>/, `${c}\n</body>`);
@@ -229,7 +230,7 @@ function parcourir(dir, acc = []) {
 /* Exposé pour scripts/generate-hexagram-pages.js : les 64 pages engendrées
    portent le même en-tête que les autres, depuis les mêmes fragments, et non
    une quatrième copie écrite dans le gabarit. */
-module.exports = { rendre, zone, SANS_TRADUCTEUR };
+module.exports = { rendre, zone };
 
 if (require.main !== module) return;
 
