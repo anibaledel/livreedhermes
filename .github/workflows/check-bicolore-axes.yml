@@ -1,0 +1,36 @@
+name: Axes bicolores conformes au catalogue
+
+# assets/bicolore-axes.js (buildAxes + systemes + parityBit) engendre les
+# seize familles depuis data/AXES/catalogue.json. Ce workflow relance les
+# contrôles qui existaient déjà comme scripts autonomes mais n'étaient
+# branchés dans aucun workflow :
+#   - verify_bicolore_axes_t0.mjs : les quatre bases T0 contre data/ORIGINES.
+#   - verify_bicolore_axes_cles.mjs : les quatre invariants publiés
+#     (72 clés, rang 70, rang 13, distance minimale 288) — indépendant de
+#     toute image, ne peut jamais être ignoré faute de fichier externe.
+#   - verify_bicolore_axes_catalogue.mjs : les seize planches contre les 19
+#     PDF « axes seul sur gris median » (data/AXES/catalogue.json, champ
+#     source) — une source externe, jamais déposée ici (voir
+#     docs/ETAT_AXES.md §2 et §8). Sans AXES_PDF_DIR, ce contrôle s'auto-
+#     ignore (sortie 0) plutôt que de faire échouer la CI pour un fichier
+#     qu'elle ne peut pas avoir.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/verify_bicolore_axes_t0.mjs
+      - run: node tools/verify_bicolore_axes_cles.mjs
+      - run: node tools/verify_bicolore_axes_catalogue.mjs

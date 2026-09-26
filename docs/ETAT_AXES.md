@@ -202,6 +202,26 @@ n'a pas été « corrigée ».
 
 ---
 
+## §8 — EXEMPLES T2/T3 diagonaux (branche #121, fermée)
+
+Les planches `data/EXEMPLES/T2 15 images/bandesYANG T2.svg` et `bandesYANG
+MUT T2.svg` (idem T3) montrent le losange inscrit compté comme frontière,
+plus des petits losanges de rayon 1 sur les nœuds mixtes d'un réseau de pas
+3 — le « gnomon » de `docs/PROTOCOLE_AXES.md` §1.5 de cette branche.
+Ce ne sont **pas** des figures de parité du système des axes : vérifié
+qu'elles ne sont dans l'espace GF(2) engendré par aucune combinaison des 72
+systèmes de bandes de `assets/bicolore-axes.js`, ni leur complément
+(`tools/verify_bicolore_axes_yang_t2.mjs`/`_t3.mjs` de la branche, adaptés à
+`buildAxes`, donnent 576/1152 — le niveau du hasard — quelle que soit la
+polarité essayée). `bandesYIN.svg` de la même série EXEMPLES T2, en
+revanche, est exactement T2 YIN canonique — l'extracteur point-dans-polygone
+de cette branche est donc juste, seules les deux planches diagonales
+YANG/YANG MUT dessinent autre chose que la règle des axes. La branche #121
+a été fermée sans fusion pour cette raison ; `data/EXEMPLES/` reste en
+place, ce sont des données, pas une conclusion fausse à supprimer.
+
+---
+
 ## Réserves
 
 - Le contrôle de collisions du fichier `T1 15 IMAGES/bandesYIN MUT.svg`
