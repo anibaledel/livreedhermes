@@ -1,0 +1,3605 @@
+{
+ "source": "data/AXES/catalogue.json (chantier axes-loi-parite) via tools/bicolore_galerie_data.mjs",
+ "grain_calcul": "C1",
+ "note": "Chaque entrée porte un ACCORD (sous-ensemble des 16 instances de base) de taille minimale, pas un masque figé : le motif se recalcule au grain choisi par buildAxes()+generateAxesMask(), les mêmes fonctions qu'ici.",
+ "instances": [
+  "T0 YIN",
+  "T1 YIN",
+  "T2 YIN",
+  "T3 YIN",
+  "T0 YIN-MUT",
+  "T1 YIN-MUT",
+  "T2 YIN-MUT",
+  "T3 YIN-MUT",
+  "T0 YANG",
+  "T1 YANG",
+  "T2 YANG",
+  "T3 YANG",
+  "T0 YANG-MUT",
+  "T1 YANG-MUT",
+  "T2 YANG-MUT",
+  "T3 YANG-MUT"
+ ],
+ "total": 142,
+ "fermeture_totale_c1": 144,
+ "stats": {
+  "C8": {
+   "rang": 13,
+   "total": 8191,
+   "parTaille1a4": [
+    14,
+    91,
+    377,
+    1091
+   ]
+  },
+  "C1": {
+   "rang": 12,
+   "total": 4095,
+   "parTaille1a4": [
+    14,
+    91,
+    377,
+    1056
+   ]
+  }
+ },
+ "entries": [
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 40
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 40
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 40
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 40
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 54
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 64
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 70
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 1,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 2,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ]
+   ],
+   "tailleMin": 3,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ]
+   ],
+   "tailleMin": 4,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 72
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 74
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 80
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T0"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T0"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN",
+     "T3"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 8,
+   "sombre": 90
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 5,
+   "sombre": 104
+  },
+  {
+   "accord": [
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T3"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 6,
+   "sombre": 104
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN",
+     "T2"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 104
+  },
+  {
+   "accord": [
+    [
+     "YIN",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T1"
+    ],
+    [
+     "YIN-MUT",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T1"
+    ],
+    [
+     "YANG",
+     "T2"
+    ],
+    [
+     "YANG",
+     "T3"
+    ],
+    [
+     "YANG-MUT",
+     "T1"
+    ]
+   ],
+   "tailleMin": 7,
+   "sombre": 104
+  }
+ ]
+}

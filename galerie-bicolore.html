@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie bicolore — La Livrée d'Hermès</title>
+<meta name="description" content="142 motifs bicolores engendrés par les seize familles d'axes et fermés sur le cube. Maille en triangles ou en cases, pavage, export SVG et broderie.">
+<meta property="og:title" content="Galerie bicolore — 142 motifs fermés sur le cube">
+<meta property="og:description" content="Les 142 motifs bicolores que la règle de parité engendre et qui habillent les six faces d'un cube. Changez de maille, pavez, exportez en SVG ou en broderie numérique.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anibal-amiot.com/galerie-bicolore.html">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:site_name" content="La Livrée d'Hermès">
+<link rel="canonical" href="https://anibal-amiot.com/galerie-bicolore.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Galerie bicolore — 142 motifs fermés sur le cube">
+<meta name="twitter:description" content="Les 142 motifs que la règle de parité engendre et qui habillent les six faces d'un cube. Maille, pavage, export SVG et broderie.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .gtranslate-slot{ display:flex; justify-content:center; margin:16px 0 16px; opacity:.75; }
+  .gtranslate-slot:hover{ opacity:1; }
+  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
+  .gtranslate-slot .goog-te-gadget-simple{
+    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
+    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
+  }
+  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
+    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
+  }
+  .gtranslate-slot img{ vertical-align:middle !important; }
+  header .eyebrow{ letter-spacing:.35em; font-size:calc(11px + var(--fs-bump)); color:var(--red); text-transform:uppercase; font-family:Helvetica,Arial,sans-serif; }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{ max-width:60ch; margin:16px auto 0; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7; }
+
+  .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
+  .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
+  .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
+
+  .controls{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:24px 0 16px; font-family:Helvetica,Arial,sans-serif; }
+  .controls button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .controls button.active{ border-color:var(--red); color:var(--red); }
+  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
+  .grain-hint{
+    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    margin:24px 0 0;
+  }
+  #grainControls{ padding:10px 0 4px; }
+  #tintClair, #tintSombre{
+    width:28px; height:28px; border:1px solid var(--line-strong); border-radius:50%;
+    padding:0; background:none; cursor:pointer; overflow:hidden; vertical-align:middle; margin-left:6px;
+  }
+  #tintClair::-webkit-color-swatch-wrapper, #tintSombre::-webkit-color-swatch-wrapper{ padding:0; }
+  #tintClair::-webkit-color-swatch, #tintSombre::-webkit-color-swatch{ border:none; border-radius:50%; }
+  .tint-label{ font-size:calc(10.5px + var(--fs-bump)); color:var(--dim); letter-spacing:.06em; text-transform:uppercase; margin-left:14px; }
+
+  /* ---------- barre horizontale défilante ---------- */
+  .gallery-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; }
+  .gallery-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  #gallery{
+    display:flex; gap:3px; overflow-x:auto; padding-bottom:10px;
+    scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  }
+  #gallery::-webkit-scrollbar{ height:6px; }
+  #gallery::-webkit-scrollbar-thumb{ background:var(--line); }
+  #gallery::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
+  .tile{ position:relative; cursor:pointer; background:#000; flex:0 0 auto; border:1px solid transparent; }
+  .tile canvas{ width:64px; height:64px; display:block; }
+  .tile:hover{ border-color:var(--gold); }
+  .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+
+  /* ---------- pavage du motif sélectionné ---------- */
+  .paved-section{ margin-top:32px; }
+  .paved-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info b{ color:var(--white); font-weight:400; }
+  .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
+  .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-actions button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .paved-actions button:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+  .paved-actions button:disabled{ opacity:.35; cursor:default; }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<link rel="stylesheet" href="assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce qu'un motif bicolore de cette galerie ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Chaque motif est le XOR d'un sous-ensemble non vide (un accord) des 16 masques de base — les 4 familles bicolores (Yin, Yin mutant, Yang, Yang mutant) à leurs 4 générations (T0 à T3), chacune engendrée par ses propres axes tracés."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pourquoi 142 motifs et pas 144 ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "144 figures ferment sur le cube au grain case (un habillage existe parmi les 8⁶ combinaisons de symétries des 6 faces qui rend la teinte continue d'une face à l'autre). Deux d'entre elles — l'uni clair et l'uni sombre — ferment trivialement et sont écartées de la galerie : il reste 142 motifs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que change le grain de lecture ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le grain C8 lit la teinte triangle par triangle (8 par case, 1152 au total) ; le grain C1 lit la teinte case par case (144 au total, un seul bit par case). Le même accord d'axes engendre une figure différente selon le grain choisi — la fermeture sur le cube, elle, est vérifiée au grain case."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "D'où viennent les axes ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Du catalogue vérifié du chantier sur la loi des axes, de la parité et des échos : chaque famille et chaque génération y est une liste de droites tracées (nature et écart), reproduite depuis les planches sources."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Outils", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Galerie bicolore", "item": "https://anibal-amiot.com/galerie-bicolore.html" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+  <div id="google_translate_element" class="gtranslate-slot"></div>
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main>
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-23-galerie.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Galerie bicolore</span>
+    </nav>
+    <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1>Galerie des Motifs Bicolores</h1>
+    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">Engendrés par les axes des 16 familles/générations, fermés sur le cube — sélectionnez un motif pour voir son pavage.</p>
+    <p class="book-intro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre. Cette galerie est construite depuis le catalogue vérifié des axes tracés, par XOR d'accords, avec fermeture géométrique sur le cube pour seul critère de sélection.</p>
+
+    <div class="stats" id="stats">
+      <div class="stat"><span class="n" id="statTotal">—</span><span class="l">Motifs de la galerie</span></div>
+      <div class="stat"><span class="n" id="statFermes">—</span><span class="l">Ferment sur le cube (C1)</span></div>
+      <div class="stat"><span class="n" id="statRang">—</span><span class="l">Rang GF(2), grain courant</span></div>
+      <div class="stat"><span class="n" id="statFigures">—</span><span class="l">Figures distinctes, grain courant</span></div>
+    </div>
+    <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;" id="statsNote">
+      Chargement des chiffres depuis data/bicolore_galerie_v1.json…
+    </p>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <h2 class="faq-block-title">Questions fréquentes</h2>
+    <details class="faq-item">
+      <summary>Qu'est-ce qu'un motif bicolore de cette galerie ?<span class="q-mark">＋</span></summary>
+      <p>Chaque motif est le XOR d'un sous-ensemble non vide (un accord) des 16 masques de base — les 4 familles bicolores (Yin, Yin mutant, Yang, Yang mutant) à leurs 4 générations (T0 à T3), chacune engendrée par ses propres axes tracés.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Pourquoi 142 motifs et pas 144 ?<span class="q-mark">＋</span></summary>
+      <p>144 figures ferment sur le cube au grain case (un habillage existe parmi les 8⁶ combinaisons de symétries des 6 faces qui rend la teinte continue d'une face à l'autre). Deux d'entre elles — l'uni clair et l'uni sombre — ferment trivialement et sont écartées de la galerie : il reste 142 motifs.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Que change le grain de lecture ?<span class="q-mark">＋</span></summary>
+      <p>Le grain C8 lit la teinte triangle par triangle (8 par case, 1152 au total) ; le grain C1 lit la teinte case par case (144 au total, un seul bit par case). Le même accord d'axes engendre une figure différente selon le grain choisi — la fermeture sur le cube, elle, est vérifiée au grain case.</p>
+    </details>
+    <details class="faq-item">
+      <summary>D'où viennent les axes ?<span class="q-mark">＋</span></summary>
+      <p>Du catalogue vérifié du chantier sur la loi des axes, de la parité et des échos : chaque famille et chaque génération y est une liste de droites tracées (nature et écart), reproduite depuis les planches sources.</p>
+    </details>
+  </div>
+
+  <p class="grain-hint">Choisis le grain de lecture et la coloration</p>
+  <div class="controls" id="grainControls">
+    <button id="btnGrainC8" type="button" data-grain="C8">Grain C8 — triangle</button>
+    <button id="btnGrainC1" type="button" data-grain="C1">Grain C1 — case</button>
+    <span class="tint-label">Clair<input type="color" id="tintClair" value="#f2f2f0" title="Teinte claire"></span>
+    <span class="tint-label">Sombre<input type="color" id="tintSombre" value="#e0261b" title="Teinte sombre"></span>
+  </div>
+
+  <div class="gallery-panel">
+    <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
+    <div id="gallery"></div>
+  </div>
+
+  <div class="paved-section" id="pavedSection">
+    <h2 class="paved-label h2-neutre">Pavage du motif sélectionné</h2>
+    <div class="paved-info" id="pavedInfo"></div>
+    <div class="paved-box"><canvas id="pavedCanvas"></canvas></div>
+    <div class="paved-actions">
+      <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
+      <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
+      <button type="button" id="btnDlInkstitch" title="Traçage en un seul chemin par teinte, disponible au grain C1 seulement">Télécharger pour Ink/Stitch (C1)</button>
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+<div class="note">
+    <div class="center-logo-slot">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+    <div class="footer-caduceus">
+      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+    </div>
+
+    <div class="nav-tiles nav-tiles-group-2">
+      <a class="nav-tile" href="index.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/accueil.png); --hover-icon:url(assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/tirage.png); --hover-icon:url(assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="hexagrammes/"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/hexagrammes.png); --hover-icon:url(assets/nav-icons/hexagrammes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Hexagrammes</span><span class="nav-tile-excerpt">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+      <a class="nav-tile" href="bicolore.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/bicolore.png); --hover-icon:url(assets/nav-icons/bicolore-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs bicolores</span><span class="nav-tile-excerpt">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></span></a>
+      <a class="nav-tile" href="telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/motifs-svg.png); --hover-icon:url(assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      <a class="nav-tile" href="contact.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/contact.png); --hover-icon:url(assets/nav-icons/contact-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+      <a class="nav-tile" href="a-propos.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/a-propos.png); --hover-icon:url(assets/nav-icons/a-propos-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+      <a class="nav-tile" href="lexique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/lexique.png); --hover-icon:url(assets/nav-icons/lexique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Lexique</span><span class="nav-tile-excerpt">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="articles.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/articles.png); --hover-icon:url(assets/nav-icons/articles-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+      <a class="nav-tile" href="outils.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/outils.png); --hover-icon:url(assets/nav-icons/outils-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Outils</span><span class="nav-tile-excerpt">Tous les outils interactifs du site, réunis en un seul endroit.</span></span></a>
+      <a class="nav-tile" href="la-livree-d-hermes.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/la-livree-d-hermes.png); --hover-icon:url(assets/nav-icons/la-livree-d-hermes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">La Livrée d'Hermès</span><span class="nav-tile-excerpt">Le traité en quatre langues, les hexagrammes et le lexique.</span></span></a>
+    </div>
+
+        <div class="nav-tiles">
+      <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+      <a class="nav-tile" href="galerie-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/galerie.png); --hover-icon:url(assets/nav-icons/galerie-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie unifiée</span><span class="nav-tile-excerpt">Patterns unifiés tricolores, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+      <a class="nav-tile" href="creation-motifs-yi-king.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/creation-motifs.png); --hover-icon:url(assets/nav-icons/creation-motifs-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+      <a class="nav-tile" href="encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/encodeur.png); --hover-icon:url(assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+      <a class="nav-tile" href="impression.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/impression.png); --hover-icon:url(assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/cymatique.png); --hover-icon:url(assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+    </div>
+
+      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from './assets/bicolore-render.js';
+import { buildAxes, generateAxesMask } from './assets/bicolore-axes.js';
+import { fermeSurLeCube } from './assets/bicolore-cube-c1.mjs';
+
+let DATA = null;
+let AXES = null;
+let grain = 'C8';
+let PALETTE = ['#f2f2f0', '#e0261b']; // [clair, sombre]
+let selectedIdx = 0;
+const galleryEl = document.getElementById('gallery');
+const pavedCanvas = document.getElementById('pavedCanvas');
+const pavedInfo = document.getElementById('pavedInfo');
+
+// ---------- masques : recalculés depuis les axes à chaque grain, jamais figés ----------
+const instanceMaskCache = new Map(); // "nature|gen|grain" -> Uint8Array
+function instanceMask(nature, gen, g) {
+  const key = `${nature}|${gen}|${g}`;
+  let m = instanceMaskCache.get(key);
+  if (!m) {
+    m = generateAxesMask(AXES[nature][gen] || [], { grain: g });
+    instanceMaskCache.set(key, m);
+  }
+  return m;
+}
+function xor(a, b) {
+  const out = new Uint8Array(a.length);
+  for (let i = 0; i < a.length; i++) out[i] = a[i] ^ b[i];
+  return out;
+}
+function accordMask(accord, g) {
+  const parts = g === 'C1' ? GRID * GRID : GRID * GRID * PER_CELL;
+  let m = new Uint8Array(parts);
+  for (const [nature, gen] of accord) m = xor(m, instanceMask(nature, gen, g));
+  return m;
+}
+// Étend un masque C1 (144 bits, un par case) en 1152 bits (8 triangles par
+// case, même teinte) pour le rendu — même ordre d'index que triangleGeometry
+// (cellIdx = row*12+col, sector = 0..7) et que casePoint() de bicolore-axes.js.
+function expandC1To1152(mask144) {
+  const out = new Uint8Array(144 * 8);
+  for (let i = 0; i < 144; i++) { const b = mask144[i]; for (let k = 0; k < 8; k++) out[i * 8 + k] = b; }
+  return out;
+}
+function mask1152For(accord, g) {
+  const m = accordMask(accord, g);
+  return g === 'C1' ? expandC1To1152(m) : m;
+}
+
+// ---------- rendu canvas (triangles C8, huit par case) ----------
+function drawMask(canvas, mask1152, sizePx) {
+  canvas.width = sizePx; canvas.height = sizePx;
+  const ctx = canvas.getContext('2d');
+  const cellPx = sizePx / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  for (let i = 0; i < parts; i++) {
+    const pts = triangleGeometry(i, cellPx, PER_CELL);
+    ctx.fillStyle = mask1152[i] ? PALETTE[1] : PALETTE[0];
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    ctx.lineTo(pts[1][0], pts[1][1]);
+    ctx.lineTo(pts[2][0], pts[2][1]);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+function drawMaskTiled(canvas, mask1152, tileSizePx, repeats) {
+  const size = tileSizePx * repeats;
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const cellPx = tileSizePx / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  const tris = [];
+  for (let i = 0; i < parts; i++) tris.push([triangleGeometry(i, cellPx, PER_CELL), mask1152[i]]);
+  for (let ty = 0; ty < repeats; ty++) for (let tx = 0; tx < repeats; tx++) {
+    const ox = tx * tileSizePx, oy = ty * tileSizePx;
+    for (const [pts, bit] of tris) {
+      ctx.fillStyle = bit ? PALETTE[1] : PALETTE[0];
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] + ox, pts[0][1] + oy);
+      ctx.lineTo(pts[1][0] + ox, pts[1][1] + oy);
+      ctx.lineTo(pts[2][0] + ox, pts[2][1] + oy);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+}
+
+function accordLabel(accord) {
+  return accord.map(([nature, gen]) => `${gen} ${nature}`).join(' + ');
+}
+
+// ---------- galerie ----------
+function renderGallery() {
+  galleryEl.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  DATA.entries.forEach((entry, idx) => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.dataset.idx = idx;
+    tile.title = `${accordLabel(entry.accord)} — taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres`;
+    const canvas = document.createElement('canvas');
+    drawMask(canvas, mask1152For(entry.accord, grain), 64);
+    tile.appendChild(canvas);
+    tile.addEventListener('click', () => selectEntry(idx));
+    frag.appendChild(tile);
+  });
+  galleryEl.appendChild(frag);
+  selectEntry(selectedIdx);
+}
+function redrawAll() {
+  document.querySelectorAll('#gallery .tile').forEach(tile => {
+    const idx = +tile.dataset.idx;
+    drawMask(tile.querySelector('canvas'), mask1152For(DATA.entries[idx].accord, grain), 64);
+  });
+  selectEntry(selectedIdx);
+}
+
+function selectEntry(idx) {
+  selectedIdx = idx;
+  document.querySelectorAll('.tile').forEach(t => t.classList.toggle('selected', +t.dataset.idx === idx));
+  const entry = DATA.entries[idx];
+  const mask1152 = mask1152For(entry.accord, grain);
+  drawMaskTiled(pavedCanvas, mask1152, 144, 4);
+  pavedInfo.innerHTML = `<b>${accordLabel(entry.accord)}</b> — accord de taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres au grain C1 — ferme sur le cube`;
+}
+
+// ---------- contrôles ----------
+document.getElementById('btnGrainC8').addEventListener('click', () => setGrain('C8'));
+document.getElementById('btnGrainC1').addEventListener('click', () => setGrain('C1'));
+function setGrain(g) {
+  grain = g;
+  document.getElementById('btnGrainC8').classList.toggle('active', g === 'C8');
+  document.getElementById('btnGrainC1').classList.toggle('active', g === 'C1');
+  document.getElementById('btnDlInkstitch').disabled = g !== 'C1';
+  updateStatsForGrain();
+  redrawAll();
+}
+document.getElementById('tintClair').addEventListener('input', e => { PALETTE[0] = e.target.value; redrawAll(); });
+document.getElementById('tintSombre').addEventListener('input', e => { PALETTE[1] = e.target.value; redrawAll(); });
+
+function updateStatsForGrain() {
+  const s = DATA.stats[grain];
+  document.getElementById('statRang').textContent = s.rang;
+  document.getElementById('statFigures').textContent = s.total.toLocaleString('fr-FR');
+}
+
+// ---------- export SVG ----------
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+function downloadSvgString(svgString, filename) {
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function cellSvgMarkup(mask1152, size) {
+  const cellPx = size / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  const body = [];
+  for (let i = 0; i < parts; i++) {
+    const pts = triangleGeometry(i, cellPx, PER_CELL);
+    const bit = mask1152[i];
+    body.push(`<polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="${bit ? PALETTE[1] : PALETTE[0]}"/>`);
+  }
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" version="1.1">\n${body.join('\n')}\n</svg>\n`;
+}
+
+// Traçage par arêtes de grille, réutilisé tel quel depuis
+// creation-motifs-yi-king.html::traceColorPath — un seul chemin fermé par
+// teinte, propre à éditer sous Inkscape/Ink-Stitch. Fonctionne sur une
+// grille RECTANGULAIRE (grain C1, une valeur par case) ; le grain C8
+// (triangles) n'a pas d'équivalent Ink/Stitch sur cette page.
+function traceColorPath(grid, targetColor, cellSize) {
+  const R = grid.length, C = grid[0].length;
+  const at = (r, c) => (r >= 0 && r < R && c >= 0 && c < C) ? grid[r][c] : null;
+  const outgoing = new Map();
+  function addEdge(x1, y1, x2, y2, dir) {
+    const k = x1 + ',' + y1;
+    if (!outgoing.has(k)) outgoing.set(k, []);
+    outgoing.get(k).push({ dir, to: x2 + ',' + y2 });
+  }
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+    if (at(r, c) !== targetColor) continue;
+    const x0 = c * cellSize, y0 = r * cellSize, x1 = (c + 1) * cellSize, y1 = (r + 1) * cellSize;
+    if (at(r - 1, c) !== targetColor) addEdge(x0, y0, x1, y0, 'E');
+    if (at(r, c + 1) !== targetColor) addEdge(x1, y0, x1, y1, 'S');
+    if (at(r + 1, c) !== targetColor) addEdge(x1, y1, x0, y1, 'W');
+    if (at(r, c - 1) !== targetColor) addEdge(x0, y1, x0, y0, 'N');
+  }
+  const RIGHT_OF = { E: 'S', S: 'W', W: 'N', N: 'E' };
+  const LEFT_OF = { E: 'N', S: 'E', W: 'S', N: 'W' };
+  const OPPOSITE = { E: 'W', S: 'N', W: 'E', N: 'S' };
+  function pickNext(vertexKey, arriveDir, used) {
+    const all = outgoing.get(vertexKey) || [];
+    const pref = [RIGHT_OF[arriveDir], arriveDir, LEFT_OF[arriveDir], OPPOSITE[arriveDir]];
+    for (const dir of pref) for (let i = 0; i < all.length; i++) {
+      const key = vertexKey + '|' + i;
+      if (all[i].dir === dir && !used.has(key)) return { edge: all[i], usedKey: key };
+    }
+    return null;
+  }
+  const usedEdges = new Set();
+  const subpaths = [];
+  for (const [startKey, edges] of outgoing) {
+    for (let i = 0; i < edges.length; i++) {
+      const usedKey = startKey + '|' + i;
+      if (usedEdges.has(usedKey)) continue;
+      const loopPts = [startKey];
+      usedEdges.add(usedKey);
+      let dir = edges[i].dir;
+      let curKey = edges[i].to;
+      let guard = 0;
+      while (curKey !== startKey && guard < 100000) {
+        guard++;
+        loopPts.push(curKey);
+        const next = pickNext(curKey, dir, usedEdges);
+        if (!next) break;
+        usedEdges.add(next.usedKey);
+        dir = next.edge.dir;
+        curKey = next.edge.to;
+      }
+      subpaths.push(loopPts);
+    }
+  }
+  return subpaths.map(pts => {
+    let s = '';
+    pts.forEach((p, i) => {
+      const [x, y] = p.split(',').map(Number);
+      s += (i === 0 ? `M ${x.toFixed(2)},${y.toFixed(2)}` : ` L ${x.toFixed(2)},${y.toFixed(2)}`);
+    });
+    return s + ' Z';
+  }).join(' ');
+}
+function generateInkstitchSVG(grid, palette) {
+  const cellSize = 10; // même échelle que bases-yang-inkstitch.svg (120mm / 12 cellules)
+  const total = grid.length * cellSize;
+  let paths = '';
+  [0, 1].forEach(bit => {
+    const hex = palette[bit];
+    if (!grid.some(row => row.includes(bit))) return;
+    const d = traceColorPath(grid, bit, cellSize);
+    paths += `<path fill="${hex}" fill-rule="evenodd" d="${d}"/>`;
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${total}mm" height="${total}mm" viewBox="0 0 ${total} ${total}">${paths}</svg>`;
+}
+function maskC1ToGrid(mask144) {
+  const grid = [];
+  for (let r = 0; r < GRID; r++) grid.push(Array.from({ length: GRID }, (_, c) => mask144[r * GRID + c]));
+  return grid;
+}
+
+document.getElementById('btnDlCellSvg').addEventListener('click', () => {
+  const entry = DATA.entries[selectedIdx];
+  const svg = cellSvgMarkup(mask1152For(entry.accord, grain), 144);
+  downloadSvgString(svg, `bicolore-${slug(accordLabel(entry.accord))}-${grain}.svg`);
+});
+document.getElementById('btnDlPavedSvg').addEventListener('click', () => {
+  const entry = DATA.entries[selectedIdx];
+  const mask1152 = mask1152For(entry.accord, grain);
+  const svg = maskToPavageSvg(mask1152, PALETTE, 4, 4, { size: 144, perCell: PER_CELL });
+  downloadSvgString(svg, `pavage-${slug(accordLabel(entry.accord))}-${grain}-x4.svg`);
+});
+document.getElementById('btnDlInkstitch').addEventListener('click', () => {
+  if (grain !== 'C1') return;
+  const entry = DATA.entries[selectedIdx];
+  const mask144 = accordMask(entry.accord, 'C1');
+  const grid = maskC1ToGrid(mask144);
+  const svg = generateInkstitchSVG(grid, PALETTE);
+  downloadSvgString(svg, `bicolore-${slug(accordLabel(entry.accord))}-inkstitch.svg`);
+});
+
+// ---------- chargement ----------
+Promise.all([
+  fetch('data/AXES/catalogue.json').then(r => r.json()),
+  fetch('data/bicolore_galerie_v1.json').then(r => r.json()),
+]).then(([catalogue, data]) => {
+  AXES = buildAxes(catalogue);
+  DATA = data;
+  document.getElementById('statTotal').textContent = data.total;
+  document.getElementById('statFermes').textContent = data.fermeture_totale_c1;
+  document.getElementById('statsNote').textContent =
+    `${data.fermeture_totale_c1} figures ferment sur le cube au grain case (π = identité) ; ` +
+    `l'uni clair et l'uni sombre en sont écartés, ${data.total} motifs restent. ` +
+    `Rang GF(2) des 16 instances : ${data.stats.C8.rang} au grain C8 (${data.stats.C8.total.toLocaleString('fr-FR')} figures distinctes), ` +
+    `${data.stats.C1.rang} au grain C1 (${data.stats.C1.total.toLocaleString('fr-FR')} figures distinctes).`;
+  document.getElementById('btnGrainC8').classList.add('active');
+  updateStatsForGrain();
+  renderGallery();
+}).catch(err => {
+  document.getElementById('statsNote').textContent = 'Erreur de chargement des données : ' + err.message;
+  console.error(err);
+});
+
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<script src="assets/soutien-gate.js"></script>
+<script src="assets/share-widget.js"></script>
+<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- @translate:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="">Accueil</a>
+    <a href="la-livree-d-hermes.html">Le traité</a>
+    <a href="hexagrammes/">Hexagrammes</a>
+    <a href="lexique.html">Lexique</a>
+    <a href="articles.html">Articles</a>
+    <a href="outils.html">Outils</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="profil.html">Profil documentaire</a>
+    <a href="contact.html">Contact</a>
+    <a href="soutenir.html">Soutenir</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722486" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722486</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</body>
+</html>

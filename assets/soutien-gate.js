@@ -30,7 +30,7 @@
   const DEFAULT_AMOUNT_EUR = 5;
   const MIN_AMOUNT_EUR = 1;
 
-  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng'];
+  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng', 'btnDlInkstitch'];
 
   let isUnlocked = false;
   let verifyDone = false;
