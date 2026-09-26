@@ -183,3 +183,19 @@ export function composeNiveauxMask(entries, layers, niveaux, { perCell = PER_CEL
   }
   return mask;
 }
+
+// Combine deux masques déjà produits (par ex. deux composeNiveauxMask,
+// un par hexagramme superposé) — ne regarde que les bits, ignore tout
+// le reste (cellule, bloc, nombre de parts : les deux masques doivent
+// juste avoir la même longueur). mode "calque" : une case sombre dans
+// l'un OU l'autre reste sombre (OU logique). mode "xor" : une case
+// sombre dans les DEUX redevient claire (ou-exclusif).
+export function combineMasks(maskA, maskB, mode = 'calque') {
+  const out = new Uint8Array(maskA.length);
+  for (let i = 0; i < maskA.length; i++) {
+    const a = maskA[i] === 1 || maskA[i] === '1';
+    const b = maskB[i] === 1 || maskB[i] === '1';
+    out[i] = (mode === 'xor' ? (a !== b) : (a || b)) ? 1 : 0;
+  }
+  return out;
+}
