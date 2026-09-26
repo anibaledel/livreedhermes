@@ -29,7 +29,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BLOC_PAR_FICHIER } = require('./langues.js');
+const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER } = require('./langues.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
@@ -65,6 +65,15 @@ const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 const htmlHreflang = (bloc) => bloc
   .map(([lang, href]) => `<link rel="alternate" hreflang="${lang}" href="${href}">`)
   .join('\n');
+
+// La rangée de langues visible, sur le modèle des pages du livre. Elle sort de
+// la MÊME liste que le hreflang : une page ne peut plus proposer une version
+// que les moteurs ignorent, ni l'inverse. C'était le dernier endroit où les
+// deux pouvaient diverger — le hreflang parlait aux moteurs depuis #105, et
+// personne ne parlait aux lecteurs.
+const htmlRangee = (r) => `<p class="other-langs">${r.libelle} `
+  + r.liens.map((l) => `<a href="${l.href}">${l.nom}</a>`).join(' · ')
+  + '</p>';
 
 const FIN_ENTETE = '<!-- @header:end -->';
 
@@ -138,6 +147,15 @@ function traiter(rel, src) {
     const html = htmlHreflang(BLOC_PAR_FICHIER.get(rel));
     s = poser(s, 'hreflang', zone('hreflang', html, 'scripts/langues.js'),
       (t, c) => t.replace('</head>', `${c}\n</head>`));
+  }
+
+  // La rangée visible ne se pose QUE si la page porte déjà ses marqueurs : on
+  // ne devine pas où l'insérer dans une page rédigée à la main. Les quatre
+  // pages du lexique les portent ; celles du livre gardent leur rangée écrite
+  // à la main, et ne reçoivent rien.
+  if (RANGEE_PAR_FICHIER.has(rel) && s.includes('<!-- @langues:start')) {
+    const html = htmlRangee(RANGEE_PAR_FICHIER.get(rel));
+    s = poser(s, 'langues', zone('langues', html, 'scripts/langues.js'), (t) => t);
   }
 
   // L'en-tête ouvre le contenu : dans .wrap s'il existe, sinon juste après <body>.

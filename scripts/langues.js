@@ -39,12 +39,32 @@ const SITE = 'https://anibal-amiot.com';
 // anglais sur une page et en français sur une autre.
 const LANGUE_PAR_DEFAUT = 'en';
 
+// Nom de chaque langue dans sa propre langue, et l'intitulé qui précède la
+// rangée de liens. Les deux sont repris MOT POUR MOT des pages du livre, dont
+// les traducteurs les ont écrits — « Autres langues : » avec l'espace insécable
+// du français, « ภาษาอื่น: » sans. Rien n'est inventé ici.
+const LANGUES = {
+  fr: { nom: 'Français', autres: 'Autres langues :' },
+  en: { nom: 'English', autres: 'Other languages:' },
+  es: { nom: 'Español', autres: 'Otros idiomas:' },
+  th: { nom: 'ไทย', autres: 'ภาษาอื่น:' },
+};
+
 // Un groupe : [code de langue, URL absolue, chemin du fichier dans le dépôt].
+// « rangee » dit si ses pages portent une rangée de langues VISIBLE, engendrée
+// depuis cette liste. Le hreflang parle aux moteurs ; la rangée parle aux gens,
+// et rien ne garantissait jusqu'ici qu'ils disent la même chose.
 const GROUPES = [
   {
     nom: 'livre',
     changefreq: 'monthly',
     priority: '0.8',
+    // Les quatre pages du livre portent déjà une rangée écrite à la main.
+    // Les unifier est un chantier à part : leur rangée vit dans leur corps,
+    // pas dans une région, et y toucher demande de reprendre quatre pages
+    // traduites. En attendant, elles ne reçoivent rien d'engendré — mieux
+    // vaut une copie assumée qu'une région posée à moitié.
+    rangee: false,
     pages: [
       ['fr', `${SITE}/fr/livre/`, 'fr/livre/index.html'],
       ['en', `${SITE}/en/book/`, 'en/book/index.html'],
@@ -56,6 +76,7 @@ const GROUPES = [
     nom: 'lexique',
     changefreq: 'monthly',
     priority: '0.6',
+    rangee: true,
     pages: [
       ['fr', `${SITE}/lexique.html`, 'lexique.html'],
       ['en', `${SITE}/en/lexicon/`, 'en/lexicon/index.html'],
@@ -97,6 +118,14 @@ for (const g of GROUPES) {
       `la langue par défaut. Son x-default pointerait vers une page inexistante.`);
   }
 
+  for (const [lang] of g.pages) {
+    if (!LANGUES[lang]) {
+      throw new Error(
+        `langues.js : le groupe « ${g.nom} » déclare la langue « ${lang} », ` +
+        `qui n'a ni nom ni intitulé dans LANGUES. La rangée visible afficherait un trou.`);
+    }
+  }
+
   for (const [, , fichier] of g.pages) {
     if (vus.has(fichier)) {
       throw new Error(
@@ -111,6 +140,21 @@ for (const g of GROUPES) {
 const BLOC_PAR_FICHIER = new Map(
   GROUPES.flatMap((g) => g.pages.map(([, , fichier]) => [fichier, hreflangDe(g)])));
 
+// Vue pour build-header.js : fichier -> la rangée visible à poser, ou rien.
+// Elle liste les AUTRES langues, comme les pages du livre : une page ne se
+// propose pas elle-même. Le hreflang, lui, liste tout y compris la page —
+// les deux règles diffèrent, et c'est voulu.
+const RANGEE_PAR_FICHIER = new Map(
+  GROUPES.filter((g) => g.rangee).flatMap((g) => g.pages.map(([lang, , fichier]) => [
+    fichier,
+    {
+      libelle: LANGUES[lang].autres,
+      liens: g.pages
+        .filter(([autre]) => autre !== lang)
+        .map(([autre, href]) => ({ href, nom: LANGUES[autre].nom })),
+    },
+  ])));
+
 // Vue pour generate-sitemap.js : une entrée de sitemap par page traduite.
 const PAGES_TRADUITES = GROUPES.flatMap((g) =>
   g.pages.map(([, loc, file]) => ({
@@ -121,4 +165,7 @@ const PAGES_TRADUITES = GROUPES.flatMap((g) =>
     hreflang: hreflangDe(g),
   })));
 
-module.exports = { SITE, LANGUE_PAR_DEFAUT, GROUPES, BLOC_PAR_FICHIER, PAGES_TRADUITES };
+module.exports = {
+  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES,
+  BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES,
+};

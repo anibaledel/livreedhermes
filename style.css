@@ -90,6 +90,19 @@
 
 
 /* ============================================================
+   RANGÉE DE LANGUES VISIBLE — posée par scripts/build-header.js
+   entre marqueurs @langues, depuis scripts/langues.js.
+   Le hreflang et cette rangée sortent de la MÊME liste : une page ne peut
+   plus proposer aux lecteurs une version que les moteurs ignorent, ni
+   l'inverse. Mêmes valeurs que la rangée écrite à la main des pages du
+   livre, dont elle reprend le modèle.
+   ============================================================ */
+.other-langs{ font-size:calc(11px + var(--fs-bump)); color:var(--dim); text-align:center; margin:0 0 26px; }
+.other-langs a{ color:var(--gold); text-decoration:none; margin:0 6px; }
+.other-langs a:hover{ text-decoration:underline; }
+
+
+/* ============================================================
    PIED DE PAGE PARTAGÉ — fragment includes/footer.html
    Posé par scripts/build-header.js entre marqueurs @footer.
    ============================================================ */
