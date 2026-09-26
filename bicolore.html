@@ -56,6 +56,20 @@
   }
   .ctl-toggle button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
 
+  .famille-picker{ display:flex; gap:10px; margin-top:8px; }
+  .famille-list{
+    flex:1; max-height:160px; overflow-y:auto; border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .famille-list button{
+    all:unset; cursor:pointer; display:block; width:100%; padding:5px 8px; font-size:11.5px; color:var(--white);
+    box-sizing:border-box;
+  }
+  .famille-list button:hover, .famille-list button:focus-visible{ background:var(--panel); color:var(--gold); }
+  .famille-list button[aria-selected="true"]{ color:var(--gold); }
+  .famille-preview{
+    flex:0 0 70px; width:70px; height:70px; border:1px solid var(--line-strong); background:var(--bg);
+  }
+
   .preview{ border:1px solid var(--line); padding:18px; text-align:center; }
   .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); }
   .preview p{ margin:10px 0 0; font-size:12px; color:var(--dim); opacity:.7; }
@@ -137,6 +151,10 @@
       <div class="ctl-level">
         <label for="familleSelect">Famille</label>
         <select id="familleSelect"></select>
+        <div class="famille-picker">
+          <div class="famille-list" id="familleList" role="listbox" aria-label="Aperçu au survol — cliquez pour choisir"></div>
+          <canvas class="famille-preview" id="famillePreview" width="70" height="70" aria-hidden="true"></canvas>
+        </div>
         <label for="etatSelect">État</label>
         <select id="etatSelect">
           <option value="yang">Teinte Yang</option>
@@ -153,7 +171,7 @@
 </div>
 
 <script type="module">
-import { composeNiveauxMask, maskToPavageSvg, combineMasks } from './assets/bicolore-render.js';
+import { composeNiveauxMask, maskToPavageSvg, combineMasks, hexToBits } from './assets/bicolore-render.js';
 
 const N_LEVELS = 6;
 
@@ -290,6 +308,57 @@ async function main() {
   });
   const etatSelect = document.getElementById('etatSelect');
 
+  // Aperçu au survol : un select natif ne déclenche pas d'événement de
+  // survol fiable sur ses <option> (rendues par le système, hors DOM) —
+  // la liste ci-dessous est donc un second contrôle, cliquable comme le
+  // select (même valeur, même événement), qui existe pour le survol.
+  // Rendu réduit exprès : mesuré, le rendu triangle par triangle coûte
+  // ~22ms en C8 et ~55ms en C16 par aperçu (trop pour rester fluide sous
+  // un survol rapide) contre <1ms pour 144 cases pleines au pixel près —
+  // un aperçu par case, pas par triangle.
+  const GRID = 12;
+  const famillePreviewCanvas = document.getElementById('famillePreview');
+  const previewCtx = famillePreviewCanvas.getContext('2d');
+  function drawCoarsePreview(name, teinte) {
+    const perCellNow = data.per_cell;
+    const bitArr = hexToBits(data.familles[name][teinte], GRID * GRID * perCellNow);
+    const size = famillePreviewCanvas.width;
+    const cellPx = size / GRID;
+    const colorA = document.getElementById('colorA').value;
+    const colorB = document.getElementById('colorB').value;
+    for (let row = 0; row < GRID; row++) {
+      for (let col = 0; col < GRID; col++) {
+        const cell = row * GRID + col;
+        let dark = 0;
+        for (let s = 0; s < perCellNow; s++) dark += bitArr[cell * perCellNow + s];
+        previewCtx.fillStyle = (dark >= perCellNow / 2) ? colorA : colorB;
+        previewCtx.fillRect(col * cellPx, row * cellPx, cellPx + 0.5, cellPx + 0.5);
+      }
+    }
+  }
+
+  const familleList = document.getElementById('familleList');
+  const familleItems = familleKeys.map(k => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.role = 'option';
+    b.dataset.key = k;
+    b.textContent = familleLabel(k);
+    b.addEventListener('mouseenter', () => drawCoarsePreview(k, etatSelect.value));
+    b.addEventListener('focus', () => drawCoarsePreview(k, etatSelect.value));
+    b.addEventListener('click', () => {
+      familleSelect.value = k;
+      familleSelect.dispatchEvent(new Event('change'));
+    });
+    familleList.appendChild(b);
+    return b;
+  });
+  familleList.addEventListener('mouseleave', () => drawCoarsePreview(familleSelect.value, etatSelect.value));
+  function renderFamilleList() {
+    familleItems.forEach(b => b.setAttribute('aria-selected', b.dataset.key === familleSelect.value ? 'true' : 'false'));
+    drawCoarsePreview(familleSelect.value, etatSelect.value);
+  }
+
   const hexSelect = document.getElementById('hexSelect');
   const bars = [];
 
@@ -336,6 +405,7 @@ async function main() {
       etatSelect.disabled = true;
       heading.textContent = prefix + 'aucun niveau sélectionné';
       previewNum.textContent = 'aucun niveau sélectionné';
+      renderFamilleList();
       return;
     }
     familleSelect.disabled = false;
@@ -352,6 +422,7 @@ async function main() {
       heading.textContent = prefix + nums.length + ' niveaux';
       previewNum.textContent = 'niveaux ' + nums.join(', ') + ' sélectionnés';
     }
+    renderFamilleList();
   }
 
   function selectLevel(n) {
@@ -396,16 +467,18 @@ async function main() {
     const levels = hexagrams[activeHex];
     for (const n of selected) levels[n - 1].name = familleSelect.value;
     renderBars();
+    renderFamilleList();
     render();
   });
   etatSelect.addEventListener('change', () => {
     const levels = hexagrams[activeHex];
     for (const n of selected) levels[n - 1].teinte = etatSelect.value;
     renderBars();
+    renderFamilleList();
     render();
   });
-  document.getElementById('colorA').addEventListener('input', render);
-  document.getElementById('colorB').addEventListener('input', render);
+  document.getElementById('colorA').addEventListener('input', () => { renderFamilleList(); render(); });
+  document.getElementById('colorB').addEventListener('input', () => { renderFamilleList(); render(); });
 
   selectLevel(1);
   render();
