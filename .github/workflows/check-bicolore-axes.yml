@@ -16,6 +16,9 @@ name: Axes bicolores conformes au catalogue
 #     contre les 19 PDF « axes seul sur gris median » (ceux-là ne servent
 #     qu'au relevé du catalogue, tools/axes/releve.py — voir
 #     docs/ETAT_AXES.md §2 et §8).
+#   - verify_bicolore_images.mjs : la vérité de terrain réelle, les 60
+#     images de data/referent_360_v3.json — port de verif_images_axes.py
+#     (Zenodo « One Object », 10.5281/zenodo.22986530).
 
 on:
   push:
@@ -36,3 +39,4 @@ jobs:
       - run: node tools/verify_bicolore_axes_t0.mjs
       - run: node tools/verify_bicolore_axes_cles.mjs
       - run: node tools/verify_bicolore_axes_catalogue.mjs
+      - run: node tools/verify_bicolore_images.mjs
