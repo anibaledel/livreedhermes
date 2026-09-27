@@ -235,11 +235,26 @@ bit à bit à `generateAxesMask(...)` du moteur de `main`
 (70) restent calculés par le moteur seul, non publiés dans la référence.
 Les deux scripts sont à 0/1152 et exacts sur tous les nombres publiés.
 
-**Reste à porter** : le contrôle contre les 60 images du métier
-(`data/referent_360_v3.json`), le Théorème 1 du dépôt « One Object »
-(10.5281/zenodo.22966839) — la seule vérité de terrain sur des images
-réelles, plus forte qu'une planche isolée. Non fait faute du script de
-référence (`verif_images_axes.py`).
+**`tools/verify_bicolore_images.mjs`** — la vérité de terrain réelle, plus
+forte qu'une planche isolée : les 60 images de `data/referent_360_v3.json`,
+port du Théorème 1 du dépôt Zenodo « One Object » (10.5281/zenodo.22986530,
+`verif_images_axes.py`). Chaque image = les 48 cases dont le centre est
+exactement sur un axe de T1 YANG (une seule teinte, « les lignes ») + la
+figure de parité (grain C1) de la réunion des axes T0 des familles que le
+nom de l'image désigne, sur les 96 cases restantes, les deux polarités
+admises. La nature de l'image (YANG/YANG MUT/YIN/YIN MUT) permute les trois
+teintes violet/magenta/orange par rapport à l'image YANG de la même
+réunion : YANG MUT = YANG∘(V↔M), YIN = YANG∘(V→O,M→V,O→M),
+YIN MUT = YIN∘(V↔O). Sortie :
+
+```
+images = lignes(T1 YANG) + parité(accord T0) : 60/60
+YANG MUT = YANG∘(V↔M) : 15/15 ; YIN MUT = YIN∘(V↔O) : 15/15 ; YIN = YANG∘(V→O,M→V,O→M) : 15/15
+```
+
+Les 19 PDF « axes seul sur gris median » (§2) ne sont une vérité de terrain
+pour aucun de ces contrôles : ce sont des dessins d'axes pour le relevé du
+catalogue, pas des figures à comparer à un masque.
 
 ---
 
