@@ -21,6 +21,7 @@ name: Update sitemap
 on:
   push:
     branches: [main]
+  workflow_dispatch: {}
 
 permissions:
   contents: read
