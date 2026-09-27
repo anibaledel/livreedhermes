@@ -30,7 +30,15 @@
   const DEFAULT_AMOUNT_EUR = 5;
   const MIN_AMOUNT_EUR = 1;
 
-  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng', 'btnDlInkstitch'];
+  // Ce que le SYSTÈME fabrique pour le visiteur — pas ce qu'il lui rend. Voir
+  // encodeur.html (btnDownloadGrid, btnVaultExport) : ces deux boutons rendent
+  // au visiteur ce qu'il a lui-même saisi (grille CSV de son propre encodage,
+  // coffre chiffré avec son propre mot de passe), et restent volontairement
+  // hors de cette liste — la règle du soutien porte sur ce que l'outil
+  // produit, pas sur ce que l'utilisateur y a déposé. Une future page d'export
+  // ne doit pas y entrer par automatisme : se demander d'abord de quel côté
+  // de cette ligne elle se trouve.
+  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng', 'btnDlInkstitch', 'btnRecord'];
 
   let isUnlocked = false;
   let verifyDone = false;

@@ -202,6 +202,62 @@ n'a pas été « corrigée ».
 
 ---
 
+## §8 — EXEMPLES T2/T3 diagonaux (branche #121, fermée)
+
+Les planches `data/EXEMPLES/T2 15 images/bandesYANG T2.svg` et `bandesYANG
+MUT T2.svg` (idem T3) montrent le losange inscrit compté comme frontière,
+plus des petits losanges de rayon 1 sur les nœuds mixtes d'un réseau de pas
+3 — le « gnomon » de `docs/PROTOCOLE_AXES.md` §1.5 de cette branche.
+Ce ne sont **pas** des figures de parité du système des axes : vérifié
+qu'elles ne sont dans l'espace GF(2) engendré par aucune combinaison des 72
+systèmes de bandes de `assets/bicolore-axes.js`, ni leur complément
+(`tools/verify_bicolore_axes_yang_t2.mjs`/`_t3.mjs` de la branche, adaptés à
+`buildAxes`, donnent 576/1152 — le niveau du hasard — quelle que soit la
+polarité essayée). `bandesYIN.svg` de la même série EXEMPLES T2, en
+revanche, est exactement T2 YIN canonique — l'extracteur point-dans-polygone
+de cette branche est donc juste, seules les deux planches diagonales
+YANG/YANG MUT dessinent autre chose que la règle des axes. La branche #121
+a été fermée sans fusion pour cette raison ; `data/EXEMPLES/` reste en
+place, ce sont des données, pas une conclusion fausse à supprimer.
+
+---
+
+## §9 — Vérification inter-implémentation (`data/AXES/figures_C8_reference.json`)
+
+Les seize figures de familles, produites indépendamment par
+`codes_cles.py`/`common.py` (Zenodo 10.5281/zenodo.22965836), comparées
+bit à bit à `generateAxesMask(...)` du moteur de `main`
+(`tools/verify_bicolore_axes_catalogue.mjs`) : 0/1152 sur les seize.
+`tools/verify_bicolore_axes_cles.mjs` lit dans ce même fichier (champ
+`invariants`), plutôt que de les coder en dur, le rang des seize figures
+(13), la distance minimale (288) et le mot minimal le plus court
+(`T0 YANG MUT + T1 YIN`, unique) — les clés distinctes (72) et leur rang
+(70) restent calculés par le moteur seul, non publiés dans la référence.
+Les deux scripts sont à 0/1152 et exacts sur tous les nombres publiés.
+
+**`tools/verify_bicolore_images.mjs`** — la vérité de terrain réelle, plus
+forte qu'une planche isolée : les 60 images de `data/referent_360_v3.json`,
+port du Théorème 1 du dépôt Zenodo « One Object » (10.5281/zenodo.22986530,
+`verif_images_axes.py`). Chaque image = les 48 cases dont le centre est
+exactement sur un axe de T1 YANG (une seule teinte, « les lignes ») + la
+figure de parité (grain C1) de la réunion des axes T0 des familles que le
+nom de l'image désigne, sur les 96 cases restantes, les deux polarités
+admises. La nature de l'image (YANG/YANG MUT/YIN/YIN MUT) permute les trois
+teintes violet/magenta/orange par rapport à l'image YANG de la même
+réunion : YANG MUT = YANG∘(V↔M), YIN = YANG∘(V→O,M→V,O→M),
+YIN MUT = YIN∘(V↔O). Sortie :
+
+```
+images = lignes(T1 YANG) + parité(accord T0) : 60/60
+YANG MUT = YANG∘(V↔M) : 15/15 ; YIN MUT = YIN∘(V↔O) : 15/15 ; YIN = YANG∘(V→O,M→V,O→M) : 15/15
+```
+
+Les 19 PDF « axes seul sur gris median » (§2) ne sont une vérité de terrain
+pour aucun de ces contrôles : ce sont des dessins d'axes pour le relevé du
+catalogue, pas des figures à comparer à un masque.
+
+---
+
 ## Réserves
 
 - Le contrôle de collisions du fichier `T1 15 IMAGES/bandesYIN MUT.svg`

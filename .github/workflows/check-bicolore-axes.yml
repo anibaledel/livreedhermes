@@ -1,0 +1,42 @@
+name: Axes bicolores conformes au catalogue
+
+# assets/bicolore-axes.js (buildAxes + systemes + parityBit) engendre les
+# seize familles depuis data/AXES/catalogue.json. Ce workflow relance les
+# contrôles qui existaient déjà comme scripts autonomes mais n'étaient
+# branchés dans aucun workflow, plus deux nouveaux, tous auto-suffisants
+# (aucune source externe, rien ne peut s'auto-ignorer ici) :
+#   - verify_bicolore_axes_t0.mjs : les quatre bases T0 contre data/ORIGINES.
+#   - verify_bicolore_axes_cles.mjs : les invariants (rang des familles,
+#     distance minimale, mot minimal) lus dans
+#     data/AXES/figures_C8_reference.json, pas codés en dur.
+#   - verify_bicolore_axes_catalogue.mjs : les seize figures de familles
+#     comparées à data/AXES/figures_C8_reference.json (produit
+#     indépendamment par codes_cles.py/common.py, Zenodo
+#     10.5281/zenodo.22965836) — un contrôle inter-implémentation, pas
+#     contre les 19 PDF « axes seul sur gris median » (ceux-là ne servent
+#     qu'au relevé du catalogue, tools/axes/releve.py — voir
+#     docs/ETAT_AXES.md §2 et §8).
+#   - verify_bicolore_images.mjs : la vérité de terrain réelle, les 60
+#     images de data/referent_360_v3.json — port de verif_images_axes.py
+#     (Zenodo « One Object », 10.5281/zenodo.22986530).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/verify_bicolore_axes_t0.mjs
+      - run: node tools/verify_bicolore_axes_cles.mjs
+      - run: node tools/verify_bicolore_axes_catalogue.mjs
+      - run: node tools/verify_bicolore_images.mjs
