@@ -202,6 +202,47 @@ n'a pas été « corrigée ».
 
 ---
 
+## §8 — EXEMPLES T2/T3 diagonaux (branche #121, fermée)
+
+Les planches `data/EXEMPLES/T2 15 images/bandesYANG T2.svg` et `bandesYANG
+MUT T2.svg` (idem T3) montrent le losange inscrit compté comme frontière,
+plus des petits losanges de rayon 1 sur les nœuds mixtes d'un réseau de pas
+3 — le « gnomon » de `docs/PROTOCOLE_AXES.md` §1.5 de cette branche.
+Ce ne sont **pas** des figures de parité du système des axes : vérifié
+qu'elles ne sont dans l'espace GF(2) engendré par aucune combinaison des 72
+systèmes de bandes de `assets/bicolore-axes.js`, ni leur complément
+(`tools/verify_bicolore_axes_yang_t2.mjs`/`_t3.mjs` de la branche, adaptés à
+`buildAxes`, donnent 576/1152 — le niveau du hasard — quelle que soit la
+polarité essayée). `bandesYIN.svg` de la même série EXEMPLES T2, en
+revanche, est exactement T2 YIN canonique — l'extracteur point-dans-polygone
+de cette branche est donc juste, seules les deux planches diagonales
+YANG/YANG MUT dessinent autre chose que la règle des axes. La branche #121
+a été fermée sans fusion pour cette raison ; `data/EXEMPLES/` reste en
+place, ce sont des données, pas une conclusion fausse à supprimer.
+
+---
+
+## §9 — Vérification inter-implémentation (`data/AXES/figures_C8_reference.json`)
+
+Les seize figures de familles, produites indépendamment par
+`codes_cles.py`/`common.py` (Zenodo 10.5281/zenodo.22965836), comparées
+bit à bit à `generateAxesMask(...)` du moteur de `main`
+(`tools/verify_bicolore_axes_catalogue.mjs`) : 0/1152 sur les seize.
+`tools/verify_bicolore_axes_cles.mjs` lit dans ce même fichier (champ
+`invariants`), plutôt que de les coder en dur, le rang des seize figures
+(13), la distance minimale (288) et le mot minimal le plus court
+(`T0 YANG MUT + T1 YIN`, unique) — les clés distinctes (72) et leur rang
+(70) restent calculés par le moteur seul, non publiés dans la référence.
+Les deux scripts sont à 0/1152 et exacts sur tous les nombres publiés.
+
+**Reste à porter** : le contrôle contre les 60 images du métier
+(`data/referent_360_v3.json`), le Théorème 1 du dépôt « One Object »
+(10.5281/zenodo.22966839) — la seule vérité de terrain sur des images
+réelles, plus forte qu'une planche isolée. Non fait faute du script de
+référence (`verif_images_axes.py`).
+
+---
+
 ## Réserves
 
 - Le contrôle de collisions du fichier `T1 15 IMAGES/bandesYIN MUT.svg`
