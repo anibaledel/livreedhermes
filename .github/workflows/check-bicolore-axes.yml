@@ -3,17 +3,19 @@ name: Axes bicolores conformes au catalogue
 # assets/bicolore-axes.js (buildAxes + systemes + parityBit) engendre les
 # seize familles depuis data/AXES/catalogue.json. Ce workflow relance les
 # contrôles qui existaient déjà comme scripts autonomes mais n'étaient
-# branchés dans aucun workflow :
+# branchés dans aucun workflow, plus deux nouveaux, tous auto-suffisants
+# (aucune source externe, rien ne peut s'auto-ignorer ici) :
 #   - verify_bicolore_axes_t0.mjs : les quatre bases T0 contre data/ORIGINES.
-#   - verify_bicolore_axes_cles.mjs : les quatre invariants publiés
-#     (72 clés, rang 70, rang 13, distance minimale 288) — indépendant de
-#     toute image, ne peut jamais être ignoré faute de fichier externe.
-#   - verify_bicolore_axes_catalogue.mjs : les seize planches contre les 19
-#     PDF « axes seul sur gris median » (data/AXES/catalogue.json, champ
-#     source) — une source externe, jamais déposée ici (voir
-#     docs/ETAT_AXES.md §2 et §8). Sans AXES_PDF_DIR, ce contrôle s'auto-
-#     ignore (sortie 0) plutôt que de faire échouer la CI pour un fichier
-#     qu'elle ne peut pas avoir.
+#   - verify_bicolore_axes_cles.mjs : les invariants (rang des familles,
+#     distance minimale, mot minimal) lus dans
+#     data/AXES/figures_C8_reference.json, pas codés en dur.
+#   - verify_bicolore_axes_catalogue.mjs : les seize figures de familles
+#     comparées à data/AXES/figures_C8_reference.json (produit
+#     indépendamment par codes_cles.py/common.py, Zenodo
+#     10.5281/zenodo.22965836) — un contrôle inter-implémentation, pas
+#     contre les 19 PDF « axes seul sur gris median » (ceux-là ne servent
+#     qu'au relevé du catalogue, tools/axes/releve.py — voir
+#     docs/ETAT_AXES.md §2 et §8).
 
 on:
   push:

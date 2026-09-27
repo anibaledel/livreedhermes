@@ -222,6 +222,27 @@ place, ce sont des données, pas une conclusion fausse à supprimer.
 
 ---
 
+## §9 — Vérification inter-implémentation (`data/AXES/figures_C8_reference.json`)
+
+Les seize figures de familles, produites indépendamment par
+`codes_cles.py`/`common.py` (Zenodo 10.5281/zenodo.22965836), comparées
+bit à bit à `generateAxesMask(...)` du moteur de `main`
+(`tools/verify_bicolore_axes_catalogue.mjs`) : 0/1152 sur les seize.
+`tools/verify_bicolore_axes_cles.mjs` lit dans ce même fichier (champ
+`invariants`), plutôt que de les coder en dur, le rang des seize figures
+(13), la distance minimale (288) et le mot minimal le plus court
+(`T0 YANG MUT + T1 YIN`, unique) — les clés distinctes (72) et leur rang
+(70) restent calculés par le moteur seul, non publiés dans la référence.
+Les deux scripts sont à 0/1152 et exacts sur tous les nombres publiés.
+
+**Reste à porter** : le contrôle contre les 60 images du métier
+(`data/referent_360_v3.json`), le Théorème 1 du dépôt « One Object »
+(10.5281/zenodo.22966839) — la seule vérité de terrain sur des images
+réelles, plus forte qu'une planche isolée. Non fait faute du script de
+référence (`verif_images_axes.py`).
+
+---
+
 ## Réserves
 
 - Le contrôle de collisions du fichier `T1 15 IMAGES/bandesYIN MUT.svg`

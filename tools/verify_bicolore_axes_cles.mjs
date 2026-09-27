@@ -1,16 +1,19 @@
 /* ============================================================
-   Contrôle indépendant de toute image : recalcule, depuis systemes() et
-   parityBit() (assets/bicolore-axes.js) sur la subdivision C8 (grille
-   12×12, 1152 triangles), les quatre invariants du dépôt Zenodo
-   10.5281/zenodo.22965836 (codes_cles.log) :
+   Contrôle indépendant de toute image de planche : recalcule, depuis
+   systemes() et parityBit() (assets/bicolore-axes.js) sur la subdivision
+   C8 (grille 12×12, 1152 triangles), quatre invariants du dépôt Zenodo
+   10.5281/zenodo.22965836 (codes_cles.py/common.py) :
 
-     - 72 clés (systèmes de bandes) distinctes sur les seize familles ;
-     - rang 70 de ces 72 clés, en éliminant sur GF(2) ;
-     - rang 13 des seize figures de familles (chacune un vecteur de
-       1152 bits) ;
-     - distance minimale 288 parmi les 2^16 - 1 combinaisons non vides
-       des seize figures, atteinte par un mot minimal UNIQUE :
-       T0 YANG MUT ⊕ T1 YIN.
+     - les clés (systèmes de bandes) distinctes sur les seize familles,
+       et leur rang GF(2) — comparés au nombre de clés distinctes que
+       data/AXES/figures_C8_reference.json porte lui-même (`familles[F].cles`),
+       produit indépendamment ; le rang n'y est pas publié, seul le compte
+       de clés est une vérification croisée directe ;
+     - le rang des seize figures de familles, la distance minimale parmi
+       les 2^16-1 combinaisons non vides, et le mot minimal le plus court —
+       lus dans figures_C8_reference.json (`invariants`), pas codés en dur
+       ici : `mots_de_poids_minimal` doit valoir 1, et le mot le plus court
+       de `accords_de_poids_minimal` est la référence à égaler exactement.
 
    La polarité de chaque figure de famille est fixée par le point de
    référence (0,01 ; 0,01) — voir assets/bicolore-axes.js et
@@ -20,7 +23,7 @@
    une fois, pas sur 2^16 choix de signe en plus des combinaisons.
 
    Usage : node tools/verify_bicolore_axes_cles.mjs
-   Sort avec un code non nul si un des quatre nombres diffère.
+   Sort avec un code non nul si un des nombres lus dans la référence diffère.
    ============================================================ */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -33,7 +36,15 @@ const ROOT = path.resolve(__dirname, '..');
 const PARTS = GRID * GRID * PER_CELL; // 1152
 
 const catalogue = JSON.parse(readFileSync(path.join(ROOT, 'data', 'AXES', 'catalogue.json'), 'utf8'));
+const reference = JSON.parse(readFileSync(path.join(ROOT, 'data', 'AXES', 'figures_C8_reference.json'), 'utf8'));
 const axes = buildAxes(catalogue);
+
+// Clés distinctes que la référence porte elle-même (familles[F].cles),
+// pour une comparaison indépendante du compte — pas du rang, non publié.
+const CLES_REFERENCE = new Set();
+for (const f of Object.values(reference.familles)) {
+  for (const [nature, e] of f.cles) CLES_REFERENCE.add(`${nature}|${e}`);
+}
 
 const FAMILIES = [];
 for (const nom of ['YIN', 'YIN-MUT', 'YANG', 'YANG-MUT']) {
@@ -131,35 +142,40 @@ for (let mask = 1; mask < (1 << N); mask++) {
   else if (p === DIST_MIN) { MOTS_MIN.push(noms); }
 }
 
-// ---------- rapport ----------
-console.log(`Clés distinctes (systèmes de bandes, seize familles) : ${N_CLES}  (attendu 72)`);
-console.log(`Rang GF(2) de ces ${N_CLES} clés : ${RANG_CLES}  (attendu 70)`);
-console.log(`Rang GF(2) des seize figures de familles : ${RANG_FAMILLES}  (attendu 13)`);
-// Le noyau de rang 16-13=3 donne 2^3=8 combinaisons de familles distinctes
-// pour CHAQUE mot du code (s'ajouter n'importe quel élément du noyau ne
-// change pas le résultat XOR) : les 8 mots trouvés à distance 288 sont donc
-// attendus, pas un écart. Ce qui doit être unique, c'est la représentation
-// la PLUS COURTE (le moins de familles) parmi ces 8 — un mot minimal au
-// sens du poids ET au sens du nombre de termes.
+// Le noyau de rang 16-RANG_FAMILLES donne 2^(16-RANG_FAMILLES) combinaisons
+// de familles distinctes pour CHAQUE mot du code (s'ajouter n'importe quel
+// élément du noyau ne change pas le résultat XOR). Ce qui doit être unique,
+// c'est la représentation la PLUS COURTE (le moins de familles) parmi elles.
 const plusCourt = Math.min(...MOTS_MIN.map(m => m.length));
 const motsLesPlusCourts = MOTS_MIN.filter(m => m.length === plusCourt);
-console.log(`Distance minimale (poids XOR non nul minimal, mot nul exclu) : ${DIST_MIN}  (attendu 288)`);
-console.log(`Mots à cette distance : ${MOTS_MIN.length} (attendu 8 = 2^(16-13), le noyau de rang 3 rend chacun équivalent aux 7 autres)`);
-console.log(`Représentation la plus courte (${plusCourt} terme(s)) : ${motsLesPlusCourts.map(m => m.join(' ⊕ ')).join('  |  ')}`);
 
-const attendu = { cles: 72, rangCles: 70, rangFamilles: 13, distMin: 288 };
+// ---------- lu dans data/AXES/figures_C8_reference.json, pas codé en dur ----------
+const inv = reference.invariants;
+const motReferenceCourt = inv.accords_de_poids_minimal
+  .map(s => s.split(' + '))
+  .reduce((a, b) => (a.length <= b.length ? a : b)); // le plus court des accords publiés
+
+// ---------- rapport ----------
+console.log(`Clés distinctes (moteur) : ${N_CLES}  |  clés distinctes (référence) : ${CLES_REFERENCE.size}`);
+console.log(`Rang GF(2) de ces ${N_CLES} clés (moteur, non publié dans la référence) : ${RANG_CLES}`);
+console.log(`Rang GF(2) des seize figures de familles : ${RANG_FAMILLES}  (référence : ${inv.rang_familles})`);
+console.log(`Distance minimale (poids XOR non nul minimal, mot nul exclu) : ${DIST_MIN}  (référence : ${inv.distance_minimale})`);
+console.log(`Mots à cette distance : ${MOTS_MIN.length}`);
+console.log(`Représentation la plus courte (${plusCourt} terme(s)) : ${motsLesPlusCourts.map(m => m.join(' ⊕ ')).join('  |  ')}`);
+console.log(`Mot minimal le plus court publié par la référence : ${motReferenceCourt.join(' ⊕ ')}`);
+
 let ok = true;
-if (N_CLES !== attendu.cles) { console.error(`ÉCART : clés distinctes ${N_CLES} ≠ ${attendu.cles}`); ok = false; }
-if (RANG_CLES !== attendu.rangCles) { console.error(`ÉCART : rang des clés ${RANG_CLES} ≠ ${attendu.rangCles}`); ok = false; }
-if (RANG_FAMILLES !== attendu.rangFamilles) { console.error(`ÉCART : rang des familles ${RANG_FAMILLES} ≠ ${attendu.rangFamilles}`); ok = false; }
-if (DIST_MIN !== attendu.distMin) { console.error(`ÉCART : distance minimale ${DIST_MIN} ≠ ${attendu.distMin}`); ok = false; }
+if (N_CLES !== CLES_REFERENCE.size) { console.error(`ÉCART : clés distinctes ${N_CLES} (moteur) ≠ ${CLES_REFERENCE.size} (référence)`); ok = false; }
+if (RANG_FAMILLES !== inv.rang_familles) { console.error(`ÉCART : rang des familles ${RANG_FAMILLES} ≠ ${inv.rang_familles} (référence)`); ok = false; }
+if (DIST_MIN !== inv.distance_minimale) { console.error(`ÉCART : distance minimale ${DIST_MIN} ≠ ${inv.distance_minimale} (référence)`); ok = false; }
+if (inv.mots_de_poids_minimal !== 1) { console.error(`ÉCART : la référence elle-même annonce ${inv.mots_de_poids_minimal} mot(s) de poids minimal, pas 1 — vérifier figures_C8_reference.json.`); ok = false; }
 if (motsLesPlusCourts.length !== 1) {
-  console.error(`ÉCART : la représentation la plus courte du mot minimal n'est pas unique (${motsLesPlusCourts.length} à ${plusCourt} terme(s)).`);
+  console.error(`ÉCART : la représentation la plus courte du mot minimal (moteur) n'est pas unique (${motsLesPlusCourts.length} à ${plusCourt} terme(s)).`);
   ok = false;
 } else {
-  const attenduMot = new Set(['T0 YANG MUT', 'T1 YIN']);
+  const attenduMot = new Set(motReferenceCourt);
   const obtenuMot = new Set(motsLesPlusCourts[0]);
   const memeMot = attenduMot.size === obtenuMot.size && [...attenduMot].every(x => obtenuMot.has(x));
-  if (!memeMot) { console.error(`ÉCART : mot minimal ${[...obtenuMot].join(' ⊕ ')} ≠ T0 YANG MUT ⊕ T1 YIN`); ok = false; }
+  if (!memeMot) { console.error(`ÉCART : mot minimal (moteur) ${[...obtenuMot].join(' ⊕ ')} ≠ ${motReferenceCourt.join(' ⊕ ')} (référence)`); ok = false; }
 }
 process.exit(ok ? 0 : 1);
