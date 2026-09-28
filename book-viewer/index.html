@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Livrée d'Hermès — Le Livre</title>
 <meta name="description" content="Lisez La Livrée d'Hermès en ligne, le livre d'arithmogéométrie d'Anibal Amiot, page par page en français, anglais, espagnol et thaï, avec téléchargement du PDF.">
 <meta property="og:title" content="La Livrée d'Hermès — Le Livre | Anibal Amiot">
@@ -67,7 +68,7 @@
   html,body{ height:100%; }
   body{
     margin:0; background:var(--bg); color:var(--white);
-    height:100vh;
+    height:100vh; height:100dvh;
     display:flex; flex-direction:column; overflow:hidden;
   }
   header{
@@ -119,6 +120,16 @@
   .nav-btn:hover{ border-color:var(--red); color:var(--red); }
   .nav-btn.prev{ left:10px; } .nav-btn.next{ right:10px; }
   .nav-btn:disabled{ opacity:.25; cursor:default; }
+  @media (max-width:600px){
+    /* Sur un écran de téléphone, .page-frame prend presque toute la largeur
+       (max-width:94vw) : des boutons à 44px pleine opacité posés sur ses
+       deux bords couvrent une part réelle de l'image. Le balayage devient
+       la commande principale sur tactile (voir le script) ; ces boutons
+       restent comme repli, plus petits et semi-transparents, pas au-dessus
+       du contenu qu'on regarde. */
+    .nav-btn{ width:36px; height:36px; font-size:15px; opacity:.55; background:rgba(5,5,5,.55); }
+    .nav-btn:active{ opacity:.9; }
+  }
 
   footer{
     border-top:1px solid var(--line); padding:14px 24px 18px;
@@ -138,9 +149,12 @@
   .jump-form button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .hint{
-    position:fixed; bottom:14px; left:50%; transform:translateX(-50%);
-    font-size:9.5px; color:var(--dim);
-    letter-spacing:.06em; opacity:.7; pointer-events:none;
+    /* Ni position:fixed ni superposition au pied de page : les deux se
+       disputaient déjà la même bande en bas d'écran, et un fixed par-dessus
+       le contenu est exactement le défaut signalé sur mobile. Flux normal,
+       après le pied de page. */
+    text-align:center; padding:0 24px 14px;
+    font-size:9.5px; color:var(--dim); letter-spacing:.06em; opacity:.7;
   }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -184,7 +198,7 @@
   </form>
 </footer>
 
-<div class="hint">← → pour naviguer · clic sur la page pour zoomer</div>
+<div class="hint" id="hintText">← → pour naviguer · clic sur la page pour zoomer</div>
 
 <script>
 // ---------- pages disponibles (même pagination pour les 4 langues prêtes : FR/EN/ES/TH) ----------
@@ -229,8 +243,14 @@ function render(){
   document.getElementById('pageLabel').textContent = `Page ${code} — ${currentIndex+1} / ${list.length}`;
   document.getElementById('prevBtn').disabled = currentIndex === 0;
   document.getElementById('nextBtn').disabled = currentIndex === list.length-1;
+  // ?read=<lang>, pas ?lang= : c'est la forme que initFromURL() accepte SANS
+  // rediriger (voir plus bas — ?lang= seul est l'ancien paramètre, traité
+  // comme un lien externe et renvoyé vers la page canonique par langue).
+  // Écrire ?lang= ici referait exactement la boucle que ce correctif retire :
+  // rechargement, retour, ou lien partagé après avoir tourné une page
+  // éjectait le lecteur vers fr/livre/ au lieu de rouvrir la page courante.
   const usp = new URLSearchParams();
-  usp.set('lang', currentLang); usp.set('page', code);
+  usp.set('read', currentLang); usp.set('page', code);
   history.replaceState(null, '', '?' + usp.toString());
 }
 
@@ -251,6 +271,35 @@ window.addEventListener('keydown', (e)=>{
   if(e.key === 'ArrowRight') document.getElementById('nextBtn').click();
   if(e.key === 'Escape') document.getElementById('pageImg').classList.remove('zoomed');
 });
+
+// ---------- balayage (tactile) — pas de clavier sur téléphone, c'était la
+// seule commande absente ; l'aide en bas dit ce qui marche sur l'appareil
+// où elle s'affiche, pas un texte fixe qui suppose un clavier. ----------
+const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+document.getElementById('hintText').textContent = isTouchDevice
+  ? 'Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer'
+  : '← → pour naviguer · clic sur la page pour zoomer';
+
+(function initSwipe(){
+  const viewer = document.querySelector('.viewer');
+  let startX = null, startY = null;
+  const SWIPE_THRESHOLD = 40; // px — au-delà, un balayage plutôt qu'un tapoter
+  viewer.addEventListener('touchstart', (e)=>{
+    if(e.touches.length !== 1) return;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  }, { passive:true });
+  viewer.addEventListener('touchend', (e)=>{
+    if(startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    startX = null; startY = null;
+    // Horizontal net, pas un geste vertical (défilement, même si la page
+    // ne défile pas ici) ni un simple tapoter (qui doit encore zoomer).
+    if(Math.abs(dx) < SWIPE_THRESHOLD || Math.abs(dx) < Math.abs(dy)) return;
+    if(dx < 0) document.getElementById('nextBtn').click();
+    else document.getElementById('prevBtn').click();
+  }, { passive:true });
+})();
 
 // ---------- P0-4 : redirection de l'ancien paramètre ?lang= vers l'URL
 // canonique par langue, sauf quand on arrive via ?read= (lien "Lire le
