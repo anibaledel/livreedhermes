@@ -111,7 +111,32 @@ const HEXAGRAM_PAGES = fs
     priority: '0.5',
   }));
 
-const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES];
+// Motifs : les 512 pages engendrées par scripts/generate-motif-pages.js
+// (motifs/*.html en, fr/motifs/*.html fr), découvertes automatiquement —
+// même mécanisme que ARTICLE_PAGES/HEXAGRAM_PAGES ci-dessus. hreflang
+// réciproque (en/fr + x-default=en) calculé depuis le même slug que la page
+// elle-même déclare dans son <head> — voir scripts/generate-motif-pages.js,
+// pas une seconde source qui pourrait diverger.
+const motifsDir = path.join(ROOT, 'motifs');
+const motifsFrDir = path.join(ROOT, 'fr', 'motifs');
+const motifSlugsEn = fs.readdirSync(motifsDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).sort();
+const motifSlugsFr = fs.readdirSync(motifsFrDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).sort();
+const slugsManquants = motifSlugsEn.filter((s) => !motifSlugsFr.includes(s))
+  .concat(motifSlugsFr.filter((s) => !motifSlugsEn.includes(s)));
+if (slugsManquants.length) {
+  console.error(`motifs/ et fr/motifs/ n'ont pas les mêmes slugs : ${slugsManquants.join(', ')}`);
+  process.exit(1);
+}
+const MOTIF_PAGES = [];
+for (const slug of motifSlugsEn) {
+  const enLoc = `${SITE}/motifs/${slug}.html`;
+  const frLoc = `${SITE}/fr/motifs/${slug}.html`;
+  const hreflang = [['en', enLoc], ['fr', frLoc], ['x-default', enLoc]];
+  MOTIF_PAGES.push({ loc: enLoc, file: `motifs/${slug}.html`, changefreq: 'yearly', priority: '0.5', hreflang });
+  MOTIF_PAGES.push({ loc: frLoc, file: `fr/motifs/${slug}.html`, changefreq: 'yearly', priority: '0.5', hreflang });
+}
+
+const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES, ...MOTIF_PAGES];
 
 // Aucune adresse deux fois : deux <url> pour le même <loc> est une erreur que
 // Google signale. Le cas concret qui l'a motivé : lexique.html figure dans
@@ -147,4 +172,4 @@ if (urlOpen !== urlClose || urlOpen !== locCount || urlOpen !== ALL_PAGES.length
 }
 
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
-console.log(`sitemap.xml généré avec ${ALL_PAGES.length} URLs (${ARTICLE_PAGES.length} articles, ${HEXAGRAM_PAGES.length} hexagrammes).`);
+console.log(`sitemap.xml généré avec ${ALL_PAGES.length} URLs (${ARTICLE_PAGES.length} articles, ${HEXAGRAM_PAGES.length} hexagrammes, ${MOTIF_PAGES.length} motifs).`);
