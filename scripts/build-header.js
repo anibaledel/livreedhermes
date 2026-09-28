@@ -30,6 +30,7 @@
 const fs = require('fs');
 const path = require('path');
 const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER } = require('./langues.js');
+const { htmlNavTiles } = require('./nav-tiles.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
@@ -51,6 +52,17 @@ const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
 // divergence impossible.
 const { TRADUITES_A_LA_MAIN } = require('./pages-traduites.js');
 const SANS_PIED = TRADUITES_A_LA_MAIN;
+
+// Pages qui gardent le petit pied de page partagé (@footer) mais N'ONT PAS le
+// bloc de tuiles (@navtiles) — liste explicite plutôt qu'exception implicite,
+// avec la raison de chacune :
+const SANS_TUILES = new Set([
+  // carter-demo.html porte sa palette propre (--bg:#0a0e14, --gold:#c8aa6e) et
+  // ne charge pas style.css (voir ce fichier) : lui donner une copie locale du
+  // CSS des tuiles recréerait la divergence qu'on vient de supprimer. Elle
+  // garde son petit pied universel, pas le bloc de tuiles.
+  'carter-demo.html',
+]);
 
 // Les pages d'un même groupe de traduction portent le même bloc hreflang — il
 // liste TOUS les équivalents, y compris la page elle-même — engendré depuis
@@ -95,6 +107,26 @@ function rendre(nom, prefixe) {
   return zone(nom, corps);
 }
 
+/* Même principe que rendre(), mais le corps vient de scripts/nav-tiles.js
+   (calculé par page, pas un fichier statique à substitution) : voir ce
+   fichier pour l'auto-exclusion et l'assertion bruyante sur les adresses. */
+function rendreNavTiles(rel, prefixe, lang = 'fr') {
+  return zone('navtiles', htmlNavTiles(rel, prefixe, lang), 'scripts/nav-tiles.js');
+}
+
+/* Langue du bloc de tuiles (labels, groupes, bouton Soutien, crédit) —
+   PAS celle des adresses de destination, qui restent françaises quelle que
+   soit la page d'où l'on part (voir scripts/nav-tiles.js, en-tête). Tout le
+   site est en français, à l'exception des 256 pages motifs/*.html (anglais,
+   x-default — décision d'origine, prompt-cc-pages-motifs.md) et de leur
+   jumelle fr/motifs/*.html : la détection se fait donc par chemin, pas par
+   une liste à tenir à jour à chaque page ajoutée. */
+function langDePage(rel) {
+  if (rel.startsWith('fr/motifs/')) return 'fr';
+  if (rel.startsWith('motifs/')) return 'en';
+  return 'fr';
+}
+
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
    et le traducteur Google Translate — retiré du site (décision de l'auteur,
    2026-09-27) : la traduction automatique par-dessus une traduction humaine
@@ -102,7 +134,7 @@ function rendre(nom, prefixe) {
    annulait la relecture par des lecteurs natifs, et les navigateurs
    proposent nativement une traduction. Ces deux remplacements restent ici
    pour nettoyer toute page qui porterait encore l'ancien widget. ---- */
-function adopter(src) {
+function adopter(src, rel) {
   let s = src;
   // 0. La zone balisée du traducteur, posée par une exécution précédente du
   //    script avant son retrait — sans ce nettoyage, elle resterait figée,
@@ -121,10 +153,62 @@ function adopter(src) {
   //    que le sitemap pour ne plus pouvoir en diverger. Retirer ceux qui sont
   //    dans la zone balisée est sans effet : poser() la réécrit entière juste
   //    après, ce qui garde le script relançable sans effet.
-  s = s.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n?/g, '');
+  //    Exception : motifs/*.html et fr/motifs/*.html ne sont dans aucun
+  //    groupe de scripts/langues.js (512 pages engendrées, pas une liste à
+  //    tenir à la main) — leur hreflang réciproque est calculé et écrit par
+  //    scripts/generate-motif-pages.js lui-même, jamais par ce mécanisme ;
+  //    le retirer ici l'effacerait sans que rien ne le repose.
+  const estPageMotif = rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/');
+  if (!estPageMotif) {
+    s = s.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n?/g, '');
+  }
   // 5. Un <header> nu devenu vide n'a plus de raison d'être.
   s = s.replace(/[ \t]*<header>\s*<\/header>\n?/g, '');
   return s;
+}
+
+/* Position [debut, fin) d'un <div ...>...</div> équilibré (respecte les
+   <div> imbriqués) commençant à needle. null si needle est absent. */
+function spanDivEquilibre(s, needle, apartirDe = 0) {
+  const debut = s.indexOf(needle, apartirDe);
+  if (debut === -1) return null;
+  let i = debut + needle.length;
+  let profondeur = 1;
+  while (profondeur > 0 && i < s.length) {
+    if (s.startsWith('<div', i) && /[\s>]/.test(s[i + 4] || '')) { profondeur++; i += 4; }
+    else if (s.startsWith('</div>', i)) { profondeur--; i += 6; }
+    else { i++; }
+  }
+  return { debut, fin: i };
+}
+
+function retirerSpan(s, span) {
+  if (!span) return s;
+  let fin = span.fin;
+  if (s[fin] === '\n') fin++;
+  return s.slice(0, span.debut) + s.slice(fin);
+}
+
+/* Adoption du bloc de navigation en tuiles (GIF + tuiles + logo), jusque-là
+   recopié à la main sous trois formes :
+   - un <div class="note">...</div> (22 pages secondaires, hexagrammes/index.html) ;
+   - un bloc nu sans wrapper, entre @main:end et @footer:start (l'accueil) ;
+   - un <div class="nav-tiles">...</div> nu à l'intérieur de <main> (404.html,
+     seule page à chemins absolus, seule à ne montrer que 6 tuiles ciblées). */
+function adopterNavTiles(s, rel) {
+  if (s.includes('<div class="note">')) {
+    return retirerSpan(s, spanDivEquilibre(s, '<div class="note">'));
+  }
+  if (rel === '404.html') {
+    return retirerSpan(s, spanDivEquilibre(s, '<div class="nav-tiles">'));
+  }
+  // L'accueil : bloc nu, du premier <div class="nav-tiles"> au </div> du logo
+  // de pied (footer-title-logo), sans wrapper commun à retirer d'un coup.
+  const debutBloc = s.indexOf('<div class="nav-tiles">');
+  if (debutBloc === -1) return s;
+  const logo = spanDivEquilibre(s, '<div class="footer-title-logo">', debutBloc);
+  if (!logo) return s;
+  return retirerSpan(s, { debut: debutBloc, fin: logo.fin });
 }
 
 function poser(s, nom, contenu, placer) {
@@ -144,7 +228,14 @@ function traiter(rel, src) {
   // non à /404.html, où le défaut ne peut pas apparaître : voir
   // tools/check_pages_console.mjs.
   const prefixe = rel === '404.html' ? '/' : '../'.repeat(rel.split('/').length - 1);
-  let s = adopter(src);
+  let s = adopter(src, rel);
+  if (!SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
+    s = adopterNavTiles(s, rel);
+  } else {
+    // Retire une zone @navtiles déjà posée par un tour précédent, pour les
+    // pages qui viennent d'entrer dans SANS_TUILES (carter-demo.html).
+    s = s.replace(/[ \t]*<!-- @navtiles:start[\s\S]*?<!-- @navtiles:end -->\n?/, '');
+  }
 
   s = poser(s, 'head-icons', rendre('head-icons', prefixe),
     (t, c) => t.replace('</head>', `${c}\n</head>`));
@@ -172,6 +263,21 @@ function traiter(rel, src) {
   });
 
   if (!SANS_PIED.has(rel)) {
+    // Le bloc de tuiles se pose juste avant le petit pied partagé. Le marqueur
+    // @footer existe déjà (posé par un tour précédent) à un endroit FIXE :
+    // s'ancrer sur lui plutôt que sur la fin de .wrap, sans quoi le nouveau
+    // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
+    // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
+    if (!SANS_TUILES.has(rel)) {
+      s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
+        const i = t.indexOf('<!-- @footer:start');
+        if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
+        const j = t.lastIndexOf('</div>\n</body>');
+        if (j !== -1) return t.slice(0, j) + c + '\n' + t.slice(j);
+        return t.replace(/<\/body>/, `${c}\n</body>`);
+      });
+    }
+
     // Le pied ferme le contenu : à la toute fin de .wrap, après la zone de
     // navigation .note quand elle existe.
     s = poser(s, 'footer', rendre('footer', prefixe), (t, c) => {
@@ -230,7 +336,7 @@ function parcourir(dir, acc = []) {
 /* Exposé pour scripts/generate-hexagram-pages.js : les 64 pages engendrées
    portent le même en-tête que les autres, depuis les mêmes fragments, et non
    une quatrième copie écrite dans le gabarit. */
-module.exports = { rendre, zone };
+module.exports = { rendre, zone, rendreNavTiles };
 
 if (require.main !== module) return;
 

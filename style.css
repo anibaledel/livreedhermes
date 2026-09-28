@@ -140,6 +140,80 @@
 .site-footer-licence a:hover { color: var(--gold); }
 
 /* ============================================================
+   BAS DE PAGE EN TUILES — fragment scripts/nav-tiles.js
+   Posé par scripts/build-header.js entre marqueurs @navtiles. Remplace le
+   bloc jusque-là recopié à la main, en 24 versions divergentes, dans
+   chaque page qui le portait (GIF rouge et blanc, deux groupes de tuiles
+   nommés, logo de pied — voir prompt-cc-bas-de-page*.md).
+
+   Le survol est purement CSS (léger soulèvement + ombre), pas un échange
+   d'image : ça marche au clavier et au tactile, et ça ne dépend d'aucun
+   GIF. Seules les icônes listées dans ICONES_TOUJOURS_ANIMEES
+   (scripts/nav-tiles.js) restent des GIF actifs en permanence, au même
+   titre que le logo de tête — ce sont alors de simples <img>, sans
+   traitement de survol particulier, la source pointant déjà sur le GIF.
+   ============================================================ */
+.note{
+  margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.tile-group{ width:100%; max-width:840px; margin:14px auto 0; }
+.tile-group-heading{
+  font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 10px; text-align:center; font-weight:400;
+}
+.nav-tiles{
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+  max-width:840px; margin:0 auto;
+}
+.nav-tiles > .nav-tile:last-child:nth-child(odd){
+  grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+}
+.nav-tile{
+  display:flex; flex-direction:row; align-items:center; gap:10px;
+  padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+  transition:border-color .12s ease, color .12s ease, transform .12s ease, box-shadow .12s ease;
+}
+.nav-tile:hover, .nav-tile:focus-visible{
+  border-color:var(--gold); color:var(--gold);
+  transform:translateY(-2px);
+  box-shadow:0 6px 14px rgba(0,0,0,.35);
+}
+@media (prefers-reduced-motion: reduce){
+  .nav-tile:hover, .nav-tile:focus-visible{ transform:none; }
+}
+.nav-tile-icon{
+  width:72px; height:72px; flex-shrink:0; display:block; object-fit:cover;
+  image-rendering:pixelated;
+}
+.nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+.nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+.nav-tile:hover .nav-tile-label, .nav-tile:focus-visible .nav-tile-label{ color:var(--gold); }
+.nav-tile-excerpt{
+  font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+.footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+@media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+.center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+.center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+.footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+.footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+.credit-line{
+  display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+  font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+}
+.credit-line .credit-sep{ opacity:.5; }
+.site-nav-btn{
+  border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+  font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+  cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+}
+.site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+.site-nav-btn.disabled{ opacity:.35; cursor:default; }
+
+/* ============================================================
    TITRES DE SECTION BALISÉS SANS CHANGER L'APPARENCE
    Un <h2> apporte ses propres valeurs par défaut — gras et marges — qui
    feraient bouger la page alors qu'on ne veut que nommer une section déjà
