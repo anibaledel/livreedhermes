@@ -134,9 +134,15 @@ const STR = {
     descriptionOf: (familyLabel, n, hexName) => `A 12×12 Jacquard pattern generated from ${familyLabel.toLowerCase()} and hexagram ${n} (${hexName}) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.`,
     articleSub: (hexHref, hexName) => `One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Family <strong>${escapeHtml(familyLabel)}</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="${lexiqueHref}">lexicon</a> for how families are built and admitted.`,
-    btnMonochrome: 'Monochrome', btnMulticolour: 'Multicolour', tintTitle: 'Choose a tint',
     cell: 'Cell', tiling: 'Tiling',
-    dlCell: 'Download cell PNG', dlTiling: 'Download tiling PNG',
+    triHeading: 'Tricolour — three independent colours',
+    triCaption: "The pattern's three colour classes, set independently — change one, the other two stay put.",
+    monoHeading: 'Monochrome — one tint',
+    monoCaption: 'One tint, read in light and dark — a luminance reading, not three colours with two greyed out.',
+    colourLabel: (i) => `Colour ${i}`,
+    tintLabel: 'Tint',
+    resetLabel: 'Reset',
+    dl: 'Download PNG',
     equivHeading: 'Same shape, other colourings',
     equivPara: (n, comp) => `Two involutions leave this motif's shape unchanged and only permute its three tints — verified across every family and every hexagram in the corpus, not just this one: swapping the pairing used to read the hexagram (YANG/YANG-mutant ↔ YIN/YIN-mutant), and taking the hexagram's binary complement (63 − ${n} = ${comp}). Toggle them below; the tiling never changes, only the colours do.`,
     btnOriginal: 'Original', btnPolarity: 'Polarity swap', btnComplement: (comp) => `Binary complement (h${comp})`,
@@ -158,9 +164,15 @@ const STR = {
     descriptionOf: (familyLabel, n, hexName) => `Un motif Jacquard 12×12 engendré depuis ${familyLabel.toLowerCase()} et l'hexagramme ${n} (${hexName}) de La Livrée d'Hermès — cellule, pavage, deux recoloriages équivalents et les données sous-jacentes.`,
     articleSub: (hexHref, hexName) => `Un des 256 patterns unifiés distincts — une construction Jacquard 12×12 où la couleur de chaque cellule se lit sur un seul hexagramme du <em>Yi King</em>, l'hexagramme <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Famille <strong>${escapeHtml(familyLabel)}</strong>, une des 8 familles admissibles (sur 15) dans la classification du système — voir le <a href="${lexiqueHref}">lexique</a> pour la construction et l'admission des familles.`,
-    btnMonochrome: 'Monochrome', btnMulticolour: 'Multicolore', tintTitle: 'Choisir une teinte',
     cell: 'Cellule', tiling: 'Pavage',
-    dlCell: 'Télécharger la cellule PNG', dlTiling: 'Télécharger le pavage PNG',
+    triHeading: 'Tricolore — trois couleurs indépendantes',
+    triCaption: "Les trois classes de couleur du motif, réglées indépendamment — changer l'une ne déplace pas les deux autres.",
+    monoHeading: 'Monochrome — une teinte',
+    monoCaption: "Une teinte, lue en clair et en foncé — un nivellement de luminance, pas trois couleurs dont deux grisées.",
+    colourLabel: (i) => `Couleur ${i}`,
+    tintLabel: 'Teinte',
+    resetLabel: 'Réinitialiser',
+    dl: 'Télécharger le PNG',
     equivHeading: 'Même forme, autres coloriages',
     equivPara: (n, comp) => `Deux involutions laissent la forme de ce motif inchangée et ne permutent que ses trois teintes — vérifié sur toutes les familles et tous les hexagrammes du corpus, pas seulement celui-ci : l'échange de la paire qui lit l'hexagramme (YANG/YANG mutant ↔ YIN/YIN mutant), et le complément binaire de l'hexagramme (63 − ${n} = ${comp}). Bascule-les ci-dessous ; le pavage ne change jamais, seules les couleurs changent.`,
     btnOriginal: 'Original', btnPolarity: 'Échange de polarité', btnComplement: (comp) => `Complément binaire (h${comp})`,
@@ -271,11 +283,15 @@ ${ICONES[lang]}
   .article-sub a{ color:var(--gold); text-decoration:none; }
   .article-sub a:hover{ text-decoration:underline; }
 
-  .controls{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:0 0 24px; }
-  .controls button, .controls input[type=color]{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 16px; cursor:pointer; }
-  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
-  .controls button.active{ border-color:var(--gold); color:var(--gold); }
-  .controls input[type=color]{ padding:4px; width:44px; height:40px; }
+  .views-block{ margin:0 0 32px; }
+  .color-tool{ text-align:center; margin:0 0 16px; }
+  .color-tool-heading{ color:var(--gold); font-size:calc(13px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 6px; }
+  .color-tool-caption{ max-width:56ch; margin:0 auto 12px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; }
+  .color-tool-inputs{ display:flex; justify-content:center; align-items:center; gap:14px; flex-wrap:wrap; }
+  .color-tool-inputs label{ display:flex; flex-direction:column; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .color-tool-inputs input[type=color]{ border:1px solid var(--line-strong); background:transparent; padding:4px; width:44px; height:40px; cursor:pointer; }
+  .color-tool-inputs button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:9px 14px; cursor:pointer; align-self:flex-end; }
+  .color-tool-inputs button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .renders{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:0 0 28px; }
   @media (max-width:600px){ .renders{ grid-template-columns:1fr; } }
@@ -331,21 +347,51 @@ ${EN_TETE[lang]}
   ${s.classification(familyLabel, `${prefixe}lexique.html`)}
 </p>
 
-<div class="controls" id="modeControls">
-  <button id="btnColorMode" type="button">${s.btnMonochrome}</button>
-  <input type="color" id="tintPicker" value="#db694c" title="${s.tintTitle}">
+<div class="views-block">
+  <div class="color-tool" id="triTool">
+    <div class="color-tool-heading">${s.triHeading}</div>
+    <p class="color-tool-caption">${s.triCaption}</p>
+    <div class="color-tool-inputs">
+      <label>${s.colourLabel(1)}<input type="color" id="triColor1" value="#662d91"></label>
+      <label>${s.colourLabel(2)}<input type="color" id="triColor2" value="#ee2a7b"></label>
+      <label>${s.colourLabel(3)}<input type="color" id="triColor3" value="#fbb040"></label>
+      <button type="button" id="btnResetTri">${s.resetLabel}</button>
+    </div>
+  </div>
+  <div class="renders">
+    <div class="render-box">
+      <div class="render-label">${s.cell}</div>
+      <canvas id="cellTriCanvas" width="320" height="320" aria-label="${s.cell} — ${s.triHeading}"></canvas>
+      <button type="button" id="btnDlCellTri" class="cta-like">${s.dl}</button>
+    </div>
+    <div class="render-box">
+      <div class="render-label">${s.tiling}</div>
+      <canvas id="pavedTriCanvas" width="320" height="480" aria-label="${s.tiling} — ${s.triHeading}"></canvas>
+      <button type="button" id="btnDlPavedTri" class="cta-like">${s.dl}</button>
+    </div>
+  </div>
 </div>
 
-<div class="renders">
-  <div class="render-box">
-    <div class="render-label">${s.cell}</div>
-    <canvas id="cellCanvas" width="360" height="360" aria-label="${s.cell}"></canvas>
-    <button type="button" id="btnDlMotifCellPng" class="cta-like">${s.dlCell}</button>
+<div class="views-block">
+  <div class="color-tool" id="monoTool">
+    <div class="color-tool-heading">${s.monoHeading}</div>
+    <p class="color-tool-caption">${s.monoCaption}</p>
+    <div class="color-tool-inputs">
+      <label>${s.tintLabel}<input type="color" id="monoTint" value="#db694c"></label>
+      <button type="button" id="btnResetMono">${s.resetLabel}</button>
+    </div>
   </div>
-  <div class="render-box">
-    <div class="render-label">${s.tiling}</div>
-    <canvas id="pavedCanvas" width="360" height="360" aria-label="${s.tiling}"></canvas>
-    <button type="button" id="btnDlMotifPavedPng" class="cta-like">${s.dlTiling}</button>
+  <div class="renders">
+    <div class="render-box">
+      <div class="render-label">${s.cell}</div>
+      <canvas id="cellMonoCanvas" width="320" height="320" aria-label="${s.cell} — ${s.monoHeading}"></canvas>
+      <button type="button" id="btnDlCellMono" class="cta-like">${s.dl}</button>
+    </div>
+    <div class="render-box">
+      <div class="render-label">${s.tiling}</div>
+      <canvas id="pavedMonoCanvas" width="320" height="480" aria-label="${s.tiling} — ${s.monoHeading}"></canvas>
+      <button type="button" id="btnDlPavedMono" class="cta-like">${s.dl}</button>
+    </div>
   </div>
 </div>
 
@@ -382,10 +428,14 @@ ${PIED[lang]}
 <script>
 (function(){
   const DATA = JSON.parse(document.getElementById('motifDataJSON').textContent);
-  const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+  const DEFAULT_TRI = ['#662d91', '#ee2a7b', '#fbb040'];
   const DEFAULT_MONO_HUE = '#db694c';
-  let PALETTE = Object.assign({}, DEFAULT_PALETTE);
-  let colorMode = 'multi';
+  // Deux outils distincts, pas deux réglages du même outil : le tricolore
+  // règle les trois classes séparément (trois entrées indépendantes, aucune
+  // relation imposée entre elles) ; le monochrome dérive trois niveaux de
+  // luminance d'UNE seule teinte (clair/moyen/foncé), pas trois couleurs.
+  let PALETTE_TRI = { V: DEFAULT_TRI[0], M: DEFAULT_TRI[1], O: DEFAULT_TRI[2] };
+  let PALETTE_MONO = {};
 
   function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
   function rgbToHex(r,g,b){ const c=v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0'); return '#'+c(r)+c(g)+c(b); }
@@ -398,50 +448,61 @@ ${PIED[lang]}
       const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q; r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3); }
     return [r*255,g*255,b*255]; }
   function adjustLightness(hex,delta){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); l=Math.max(0,Math.min(1,l+delta)); const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
-  function hueOf(hex){ const [r,g,b]=hexToRgb(hex); return rgbToHsl(r,g,b)[0]; }
-  function rotateHue(hex,deltaHue){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); h=(h+deltaHue+1)%1; const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
-  function applySingleHue(pickedHex){ PALETTE = { V:adjustLightness(pickedHex,+0.20), M:adjustLightness(pickedHex,-0.20), O:pickedHex }; }
-  function applyTintRotation(pickedHex){ const d=hueOf(pickedHex)-hueOf(DEFAULT_PALETTE.O);
-    PALETTE = { V:rotateHue(DEFAULT_PALETTE.V,d), M:rotateHue(DEFAULT_PALETTE.M,d), O:rotateHue(DEFAULT_PALETTE.O,d) }; }
-  function refreshPalette(){ const picked = document.getElementById('tintPicker').value;
-    if(colorMode==='multi') applyTintRotation(picked); else applySingleHue(picked); }
+  function refreshMonoPalette(){ const picked = document.getElementById('monoTint').value;
+    PALETTE_MONO = { V:adjustLightness(picked,+0.20), M:adjustLightness(picked,-0.20), O:picked }; }
 
-  function drawTile(canvas, grid){
-    const ctx = canvas.getContext('2d'); const size = canvas.width; const cell = size/12;
-    for(let r=0;r<12;r++) for(let c=0;c<12;c++){ ctx.fillStyle = PALETTE[grid[r][c]]; ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6); }
+  function drawTile(canvas, grid, palette){
+    const ctx = canvas.getContext('2d'); const w = canvas.width, h = canvas.height; const cell = w/12;
+    for(let r=0;r<12;r++) for(let c=0;c<12;c++){ ctx.fillStyle = palette[grid[r][c]]; ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6); }
   }
-  function drawPaved(canvas, grid, repeats){
-    repeats = repeats || 3; const size = canvas.width; const tile = size/repeats; const cell = tile/12;
+  function drawPaved(canvas, grid, palette, repeatsX, repeatsY){
+    const w = canvas.width, h = canvas.height;
+    const cellX = w/(12*repeatsX), cellY = h/(12*repeatsY);
     const ctx = canvas.getContext('2d');
-    for(let ty=0; ty<repeats; ty++) for(let tx=0; tx<repeats; tx++)
+    for(let ty=0; ty<repeatsY; ty++) for(let tx=0; tx<repeatsX; tx++)
       for(let r=0;r<12;r++) for(let c=0;c<12;c++){
-        ctx.fillStyle = PALETTE[grid[r][c]];
-        ctx.fillRect(tx*tile + c*cell, ty*tile + r*cell, cell+0.6, cell+0.6);
+        ctx.fillStyle = palette[grid[r][c]];
+        ctx.fillRect((tx*12+c)*cellX, (ty*12+r)*cellY, cellX+0.6, cellY+0.6);
       }
   }
 
-  const cellCanvas = document.getElementById('cellCanvas');
-  const pavedCanvas = document.getElementById('pavedCanvas');
-  function redraw(){
-    drawTile(cellCanvas, DATA.grille_polarite_yang);
-    drawPaved(pavedCanvas, DATA.grille_polarite_yang);
+  const cellTriCanvas = document.getElementById('cellTriCanvas');
+  const pavedTriCanvas = document.getElementById('pavedTriCanvas');
+  const cellMonoCanvas = document.getElementById('cellMonoCanvas');
+  const pavedMonoCanvas = document.getElementById('pavedMonoCanvas');
+
+  function redrawTri(){
+    drawTile(cellTriCanvas, DATA.grille_polarite_yang, PALETTE_TRI);
+    drawPaved(pavedTriCanvas, DATA.grille_polarite_yang, PALETTE_TRI, 2, 3);
     drawEquiv();
   }
+  function redrawMono(){
+    drawTile(cellMonoCanvas, DATA.grille_polarite_yang, PALETTE_MONO);
+    drawPaved(pavedMonoCanvas, DATA.grille_polarite_yang, PALETTE_MONO, 2, 3);
+  }
 
-  document.getElementById('tintPicker').addEventListener('input', ()=>{ refreshPalette(); redraw(); });
-  const btnColorMode = document.getElementById('btnColorMode');
-  btnColorMode.addEventListener('click', ()=>{
-    colorMode = colorMode==='mono' ? 'multi' : 'mono';
-    btnColorMode.textContent = colorMode==='mono' ? ${JSON.stringify(s.btnMulticolour)} : ${JSON.stringify(s.btnMonochrome)};
-    btnColorMode.classList.toggle('active', colorMode==='mono');
-    document.getElementById('tintPicker').value = colorMode==='mono' ? DEFAULT_MONO_HUE : '#fbb040';
-    refreshPalette(); redraw();
+  const triColor1 = document.getElementById('triColor1');
+  const triColor2 = document.getElementById('triColor2');
+  const triColor3 = document.getElementById('triColor3');
+  function refreshTriPalette(){ PALETTE_TRI = { V: triColor1.value, M: triColor2.value, O: triColor3.value }; }
+  [triColor1, triColor2, triColor3].forEach((input) => {
+    input.addEventListener('input', () => { refreshTriPalette(); redrawTri(); });
+  });
+  document.getElementById('btnResetTri').addEventListener('click', () => {
+    triColor1.value = DEFAULT_TRI[0]; triColor2.value = DEFAULT_TRI[1]; triColor3.value = DEFAULT_TRI[2];
+    refreshTriPalette(); redrawTri();
   });
 
-  // ---------- equivalences ----------
+  const monoTint = document.getElementById('monoTint');
+  monoTint.addEventListener('input', () => { refreshMonoPalette(); redrawMono(); });
+  document.getElementById('btnResetMono').addEventListener('click', () => {
+    monoTint.value = DEFAULT_MONO_HUE; refreshMonoPalette(); redrawMono();
+  });
+
+  // ---------- equivalences (tricolore, suit PALETTE_TRI) ----------
   const equivCanvas = document.getElementById('equivCanvas');
   let equivGrid = DATA.grille_polarite_yang;
-  function drawEquiv(){ drawTile(equivCanvas, equivGrid); }
+  function drawEquiv(){ drawTile(equivCanvas, equivGrid, PALETTE_TRI); }
   function setEquiv(which, btn){
     [btnEquivBase, btnEquivPolarity, btnEquivComplement].forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
@@ -455,18 +516,21 @@ ${PIED[lang]}
   btnEquivPolarity.addEventListener('click', ()=>setEquiv(DATA.grille_polarite_yin, btnEquivPolarity));
   btnEquivComplement.addEventListener('click', ()=>setEquiv(DATA.grille_complement, btnEquivComplement));
 
-  // ---------- downloads (gated — soutien-gate.js intercepts these two ids) ----------
+  // ---------- downloads ----------
   function downloadCanvas(canvas, filename){
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
     a.download = filename;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }
-  document.getElementById('btnDlMotifCellPng').addEventListener('click', ()=>downloadCanvas(cellCanvas, '${slug}-cell.png'));
-  document.getElementById('btnDlMotifPavedPng').addEventListener('click', ()=>downloadCanvas(pavedCanvas, '${slug}-tiling.png'));
+  document.getElementById('btnDlCellTri').addEventListener('click', ()=>downloadCanvas(cellTriCanvas, '${slug}-cellule-tricolore.png'));
+  document.getElementById('btnDlPavedTri').addEventListener('click', ()=>downloadCanvas(pavedTriCanvas, '${slug}-pavage-tricolore.png'));
+  document.getElementById('btnDlCellMono').addEventListener('click', ()=>downloadCanvas(cellMonoCanvas, '${slug}-cellule-monochrome.png'));
+  document.getElementById('btnDlPavedMono').addEventListener('click', ()=>downloadCanvas(pavedMonoCanvas, '${slug}-pavage-monochrome.png'));
 
-  refreshPalette();
-  redraw();
+  refreshMonoPalette();
+  redrawTri();
+  redrawMono();
 })();
 </script>
 ${FOOTER_CTA_SCRIPT[lang]}
