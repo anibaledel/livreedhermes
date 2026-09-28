@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<title>Unified Pattern — Pair of two — YANG + YIN mutant, hexagram 11 (Gui Mei, L'Épousée)</title>
+<meta name="description" content="A 12×12 Jacquard pattern generated from pair of two — yang + yin mutant and hexagram 11 (Gui Mei, L'Épousée) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.">
+<meta property="og:title" content="Unified Pattern — Pair of two — YANG + YIN mutant, hexagram 11 (Gui Mei, L'Épousée)">
+<meta property="og:description" content="A 12×12 Jacquard pattern generated from pair of two — yang + yin mutant and hexagram 11 (Gui Mei, L'Épousée) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h11.png">
+<meta property="og:url" content="https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unified Pattern — Pair of two — YANG + YIN mutant, hexagram 11 (Gui Mei, L'Épousée)">
+<meta name="twitter:description" content="A 12×12 Jacquard pattern generated from pair of two — yang + yin mutant and hexagram 11 (Gui Mei, L'Épousée) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h11.png">
+<!-- FR/EN réciproque — l'anglais reste x-default (langue d'origine de cette
+     page, décision d'Anibal, prompt-cc-pages-motifs.md), même adresse
+     qu'avant l'ajout du français. -->
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html">
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/motifs/par2-yang-yin-mut-h11.html">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "name": "Unified Pattern — Pair of two — YANG + YIN mutant, hexagram 11 (Gui Mei, L'Épousée)",
+  "description": "A 12×12 Jacquard pattern generated from pair of two — yang + yin mutant and hexagram 11 (Gui Mei, L'Épousée) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.",
+  "url": "https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html",
+  "image": "https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h11.png",
+  "inLanguage": "en",
+  "author": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "https://anibal-amiot.com/a-propos.html" },
+  "isPartOf": { "@type": "CreativeWorkSeries", "name": "Unified Patterns", "url": "https://anibal-amiot.com/galerie-patterns-unifies.html" },
+  "license": "https://creativecommons.org/licenses/by/4.0/"
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .article-title{ max-width:64ch; margin:0 auto 4px; font-size:calc(24px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-sub{ max-width:64ch; margin:12px auto 26px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); text-align:center; line-height:1.7; }
+  .article-sub a{ color:var(--gold); text-decoration:none; }
+  .article-sub a:hover{ text-decoration:underline; }
+
+  .controls{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:0 0 24px; }
+  .controls button, .controls input[type=color]{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 16px; cursor:pointer; }
+  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
+  .controls button.active{ border-color:var(--gold); color:var(--gold); }
+  .controls input[type=color]{ padding:4px; width:44px; height:40px; }
+
+  .renders{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:0 0 28px; }
+  @media (max-width:600px){ .renders{ grid-template-columns:1fr; } }
+  .render-box{ border:1px solid var(--line); padding:16px; text-align:center; }
+  .render-box canvas{ width:100%; height:auto; display:block; margin:0 auto 10px; background:#000; }
+  .render-box .render-label{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin-bottom:10px; }
+  .render-box .dl-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:6px; }
+
+  .equiv-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
+  .equiv-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
+  .equiv-section p{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(13.5px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .equiv-controls{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+  .equiv-controls button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 16px; cursor:pointer; }
+  .equiv-controls button:hover, .equiv-controls button.active{ border-color:var(--gold); color:var(--gold); }
+  .equiv-canvas-wrap{ text-align:center; }
+  .equiv-canvas-wrap canvas{ width:280px; height:280px; background:#000; border:1px solid var(--line); }
+
+  .data-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
+  .data-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
+  .data-section p{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .data-section details{ max-width:760px; margin:0 auto; }
+  .data-section summary{ cursor:pointer; color:var(--dim); font-size:calc(12px + var(--fs-bump)); letter-spacing:.04em; text-align:center; padding:8px 0; }
+  .data-section summary:hover{ color:var(--gold); }
+  .data-section pre{ overflow-x:auto; font-size:11px; line-height:1.5; color:var(--dim); background:#050505; border:1px solid var(--line); padding:14px; max-height:320px; }
+
+  .classification{ max-width:64ch; margin:0 auto 28px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .classification a{ color:var(--gold); text-decoration:none; }
+  .classification a:hover{ text-decoration:underline; }
+
+  .soutien-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:4px; text-align:center; }
+</style>
+<link rel="stylesheet" href="../style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="../index.html">Home</a><span class="sep">/</span>
+  <a href="../galerie-patterns-unifies.html">Unified Patterns</a><span class="sep">/</span>
+  <span aria-current="page">Pair of two — YANG + YIN mutant, h11</span>
+</nav>
+<h1 class="article-title">Unified Pattern — Pair of two — YANG + YIN mutant, hexagram 11 (Gui Mei, L'Épousée)</h1>
+<p class="article-sub">
+  One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="../hexagrammes/11-gui-mei-l-epousee.html">Gui Mei, L'Épousée</a>.
+</p>
+
+<p class="classification">
+  Family <strong>Pair of two — YANG + YIN mutant</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="../lexique.html">lexicon</a> for how families are built and admitted.
+</p>
+
+<div class="controls" id="modeControls">
+  <button id="btnColorMode" type="button">Monochrome</button>
+  <input type="color" id="tintPicker" value="#db694c" title="Choose a tint">
+</div>
+
+<div class="renders">
+  <div class="render-box">
+    <div class="render-label">Cell</div>
+    <canvas id="cellCanvas" width="360" height="360" aria-label="Cell"></canvas>
+    <button type="button" id="btnDlMotifCellPng" class="cta-like">Download cell PNG</button>
+  </div>
+  <div class="render-box">
+    <div class="render-label">Tiling</div>
+    <canvas id="pavedCanvas" width="360" height="360" aria-label="Tiling"></canvas>
+    <button type="button" id="btnDlMotifPavedPng" class="cta-like">Download tiling PNG</button>
+  </div>
+</div>
+
+<section class="equiv-section">
+  <h2>Same shape, other colourings</h2>
+  <p>
+    Two involutions leave this motif's shape unchanged and only permute its three tints — verified across every family and every hexagram in the corpus, not just this one: swapping the pairing used to read the hexagram (YANG/YANG-mutant ↔ YIN/YIN-mutant), and taking the hexagram's binary complement (63 − 11 = 52). Toggle them below; the tiling never changes, only the colours do.
+  </p>
+  <div class="equiv-controls">
+    <button type="button" id="btnEquivBase" class="active">Original</button>
+    <button type="button" id="btnEquivPolarity">Polarity swap</button>
+    <button type="button" id="btnEquivComplement">Binary complement (h52)</button>
+  </div>
+  <div class="equiv-canvas-wrap">
+    <canvas id="equivCanvas" width="280" height="280" aria-label="Same shape, other colourings"></canvas>
+  </div>
+</section>
+
+<section class="data-section">
+  <h2>The grid itself</h2>
+  <p>The 12×12 layer map and the three colour grids above, in the raw data — human-readable, and machine-readable as JSON.</p>
+  <details>
+    <summary>Show the data</summary>
+    <pre id="motifDataBlock">{
+ &quot;famille&quot;: &quot;par2:yang+yin_mut&quot;,
+ &quot;hexagramme&quot;: 11,
+ &quot;complement_binaire&quot;: 52,
+ &quot;layer_of&quot;: [
+  [
+   1,
+   1,
+   3,
+   4,
+   6,
+   6,
+   6,
+   6,
+   4,
+   3,
+   1,
+   1
+  ],
+  [
+   1,
+   2,
+   2,
+   5,
+   5,
+   6,
+   6,
+   5,
+   5,
+   2,
+   2,
+   1
+  ],
+  [
+   3,
+   2,
+   3,
+   4,
+   5,
+   4,
+   4,
+   5,
+   4,
+   3,
+   2,
+   3
+  ],
+  [
+   4,
+   5,
+   4,
+   3,
+   2,
+   3,
+   3,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  [
+   6,
+   5,
+   5,
+   2,
+   2,
+   1,
+   1,
+   2,
+   2,
+   5,
+   5,
+   6
+  ],
+  [
+   6,
+   6,
+   4,
+   3,
+   1,
+   1,
+   1,
+   1,
+   3,
+   4,
+   6,
+   6
+  ],
+  [
+   6,
+   6,
+   4,
+   3,
+   1,
+   1,
+   1,
+   1,
+   3,
+   4,
+   6,
+   6
+  ],
+  [
+   6,
+   5,
+   5,
+   2,
+   2,
+   1,
+   1,
+   2,
+   2,
+   5,
+   5,
+   6
+  ],
+  [
+   4,
+   5,
+   4,
+   3,
+   2,
+   3,
+   3,
+   2,
+   3,
+   4,
+   5,
+   4
+  ],
+  [
+   3,
+   2,
+   3,
+   4,
+   5,
+   4,
+   4,
+   5,
+   4,
+   3,
+   2,
+   3
+  ],
+  [
+   1,
+   2,
+   2,
+   5,
+   5,
+   6,
+   6,
+   5,
+   5,
+   2,
+   2,
+   1
+  ],
+  [
+   1,
+   1,
+   3,
+   4,
+   6,
+   6,
+   6,
+   6,
+   4,
+   3,
+   1,
+   1
+  ]
+ ],
+ &quot;grille_polarite_yang&quot;: [
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ]
+ ],
+ &quot;grille_polarite_yin&quot;: [
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;
+  ]
+ ],
+ &quot;grille_complement&quot;: [
+  [
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;
+  ],
+  [
+   &quot;M&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;M&quot;
+  ],
+  [
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;,
+   &quot;O&quot;,
+   &quot;V&quot;,
+   &quot;M&quot;,
+   &quot;M&quot;,
+   &quot;V&quot;,
+   &quot;O&quot;
+  ]
+ ]
+}</pre>
+  </details>
+</section>
+
+</main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil">
+      <a class="nav-tile" href="../index.html"><img class="nav-tile-icon" src="../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Become a Supporter of La Livrée d'Hermès — contribute at a price you choose and permanently unlock the book's SVG/PDF downloads.">Become a Supporter</a>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Create</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../fonds-ecran.html"><img class="nav-tile-icon" src="../assets/nav-icons/fond-ecran.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Wallpapers</span><span class="nav-tile-excerpt">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></span></a>
+        <a class="nav-tile" href="../creation-motifs-yi-king.html"><img class="nav-tile-icon" src="../assets/nav-icons/creation-motifs.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Create a pattern</span><span class="nav-tile-excerpt">Compose your own textile patterns from the 60 natures of the Yi King.</span></span></a>
+        <a class="nav-tile" href="../bicolore.html"><img class="nav-tile-icon" src="../assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Two-colour patterns</span><span class="nav-tile-excerpt">Compose a 12×12 cell, six levels, each with its own family and tint.</span></span></a>
+        <a class="nav-tile" href="../encodeur.html"><img class="nav-tile-icon" src="../assets/nav-icons/encodeur.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Encoder</span><span class="nav-tile-excerpt">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></span></a>
+        <a class="nav-tile" href="../impression.html"><img class="nav-tile-icon" src="../assets/nav-icons/impression.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Printing</span><span class="nav-tile-excerpt">Draw and download print-ready layers.</span></span></a>
+        <a class="nav-tile" href="../cymatique.html"><img class="nav-tile-icon" src="../assets/nav-icons/cymatique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Cymatics</span><span class="nav-tile-excerpt">The tiling whose spatial frequency comes closest to the sound you make.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Explore</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../hexagrammes/"><img class="nav-tile-icon" src="../assets/nav-icons/hexagrammes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Hexagrams</span><span class="nav-tile-excerpt">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></span></a>
+        <a class="nav-tile" href="../unified-patterns.html"><img class="nav-tile-icon" src="../assets/nav-icons/unified-patterns.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Magic quadricolore</span><span class="nav-tile-excerpt">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></span></a>
+        <a class="nav-tile" href="../galerie-patterns-unifies.html"><img class="nav-tile-icon" src="../assets/nav-icons/galerie.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Three-colour gallery</span><span class="nav-tile-excerpt">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></span></a>
+        <a class="nav-tile" href="../galerie-bicolore.html"><img class="nav-tile-icon" src="../assets/nav-icons/galerie-bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Two-colour gallery</span><span class="nav-tile-excerpt">142 two-colour patterns generated by the axes and closed on the cube — mesh, tiling, export.</span></span></a>
+        <a class="nav-tile" href="../telechargements.html"><img class="nav-tile-icon" src="../assets/nav-icons/motifs-svg.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">SVG patterns</span><span class="nav-tile-excerpt">Download the print layers in 4 categories of trait combinations, as SVG.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Read</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../la-livree-d-hermes.html"><img class="nav-tile-icon" src="../assets/nav-icons/la-livree-d-hermes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">The treatise</span><span class="nav-tile-excerpt">The treatise in four languages, the hexagrams and the lexicon.</span></span></a>
+        <a class="nav-tile" href="../lexique.html"><img class="nav-tile-icon" src="../assets/nav-icons/lexique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Lexicon</span><span class="nav-tile-excerpt">Ten key notions for understanding La Livrée d'Hermès.</span></span></a>
+        <a class="nav-tile" href="../articles.html"><img class="nav-tile-icon" src="../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">The project</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../contact.html"><img class="nav-tile-icon" src="../assets/nav-icons/contact.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contact the author for a project or a commission of patterns and textile prints.</span></span></a>
+        <a class="nav-tile" href="../a-propos.html"><img class="nav-tile-icon" src="../assets/nav-icons/a-propos.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">About</span><span class="nav-tile-excerpt">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></span></a>
+        <a class="nav-tile" href="../outils.html"><img class="nav-tile-icon" src="../assets/nav-icons/outils.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Tools</span><span class="nav-tile-excerpt">All the site's interactive tools, gathered in one place.</span></span></a>
+      </div>
+    </div>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — All rights reserved</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="../">Accueil</a>
+    <a href="../la-livree-d-hermes.html">Le traité</a>
+    <a href="../hexagrammes/">Hexagrammes</a>
+    <a href="../lexique.html">Lexique</a>
+    <a href="../articles.html">Articles</a>
+    <a href="../outils.html">Outils</a>
+    <a href="../a-propos.html">À propos</a>
+    <a href="../profil.html">Profil documentaire</a>
+    <a href="../travaux.html">Travaux</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../soutenir.html">Soutenir</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank">CC BY 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</div>
+<script id="motifDataJSON" type="application/json">{"famille":"par2:yang+yin_mut","hexagramme":11,"complement_binaire":52,"layer_of":[[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]],"grille_polarite_yang":[["O","M","V","V","M","O","O","M","V","V","M","O"],["V","O","M","M","O","M","M","O","M","M","O","V"],["M","V","O","O","M","V","V","M","O","O","V","M"],["M","V","O","O","M","V","V","M","O","O","V","M"],["V","O","V","V","O","M","M","O","V","V","O","V"],["O","V","M","M","V","O","O","V","M","M","V","O"],["O","V","M","M","V","O","O","V","M","M","V","O"],["V","O","V","V","O","M","M","O","V","V","O","V"],["M","V","O","O","M","V","V","M","O","O","V","M"],["M","V","O","O","M","V","V","M","O","O","V","M"],["V","O","M","M","O","M","M","O","M","M","O","V"],["O","M","V","V","M","O","O","M","V","V","M","O"]],"grille_polarite_yin":[["M","V","O","O","V","M","M","V","O","O","V","M"],["O","M","V","V","M","V","V","M","V","V","M","O"],["V","O","M","M","V","O","O","V","M","M","O","V"],["V","O","M","M","V","O","O","V","M","M","O","V"],["O","M","O","O","M","V","V","M","O","O","M","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","M","O","O","M","V","V","M","O","O","M","O"],["V","O","M","M","V","O","O","V","M","M","O","V"],["V","O","M","M","V","O","O","V","M","M","O","V"],["O","M","V","V","M","V","V","M","V","V","M","O"],["M","V","O","O","V","M","M","V","O","O","V","M"]],"grille_complement":[["O","V","M","M","V","O","O","V","M","M","V","O"],["M","O","V","V","O","V","V","O","V","V","O","M"],["V","M","O","O","V","M","M","V","O","O","M","V"],["V","M","O","O","V","M","M","V","O","O","M","V"],["M","O","M","M","O","V","V","O","M","M","O","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","O","M","M","O","V","V","O","M","M","O","M"],["V","M","O","O","V","M","M","V","O","O","M","V"],["V","M","O","O","V","M","M","V","O","O","M","V"],["M","O","V","V","O","V","V","O","V","V","O","M"],["O","V","M","M","V","O","O","V","M","M","V","O"]]}</script>
+<script>
+(function(){
+  const DATA = JSON.parse(document.getElementById('motifDataJSON').textContent);
+  const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+  const DEFAULT_MONO_HUE = '#db694c';
+  let PALETTE = Object.assign({}, DEFAULT_PALETTE);
+  let colorMode = 'multi';
+
+  function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
+  function rgbToHex(r,g,b){ const c=v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0'); return '#'+c(r)+c(g)+c(b); }
+  function rgbToHsl(r,g,b){ r/=255;g/=255;b/=255; const mx=Math.max(r,g,b),mn=Math.min(r,g,b); let h,s,l=(mx+mn)/2;
+    if(mx===mn){h=s=0;} else{ const d=mx-mn; s=l>0.5?d/(2-mx-mn):d/(mx+mn);
+      switch(mx){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; case b: h=(r-g)/d+4; break; } h/=6; }
+    return [h,s,l]; }
+  function hslToRgb(h,s,l){ let r,g,b; if(s===0){r=g=b=l;} else{
+      const hue2rgb=(p,q,t)=>{ if(t<0)t+=1; if(t>1)t-=1; if(t<1/6)return p+(q-p)*6*t; if(t<1/2)return q; if(t<2/3)return p+(q-p)*(2/3-t)*6; return p; };
+      const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q; r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3); }
+    return [r*255,g*255,b*255]; }
+  function adjustLightness(hex,delta){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); l=Math.max(0,Math.min(1,l+delta)); const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
+  function hueOf(hex){ const [r,g,b]=hexToRgb(hex); return rgbToHsl(r,g,b)[0]; }
+  function rotateHue(hex,deltaHue){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); h=(h+deltaHue+1)%1; const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
+  function applySingleHue(pickedHex){ PALETTE = { V:adjustLightness(pickedHex,+0.20), M:adjustLightness(pickedHex,-0.20), O:pickedHex }; }
+  function applyTintRotation(pickedHex){ const d=hueOf(pickedHex)-hueOf(DEFAULT_PALETTE.O);
+    PALETTE = { V:rotateHue(DEFAULT_PALETTE.V,d), M:rotateHue(DEFAULT_PALETTE.M,d), O:rotateHue(DEFAULT_PALETTE.O,d) }; }
+  function refreshPalette(){ const picked = document.getElementById('tintPicker').value;
+    if(colorMode==='multi') applyTintRotation(picked); else applySingleHue(picked); }
+
+  function drawTile(canvas, grid){
+    const ctx = canvas.getContext('2d'); const size = canvas.width; const cell = size/12;
+    for(let r=0;r<12;r++) for(let c=0;c<12;c++){ ctx.fillStyle = PALETTE[grid[r][c]]; ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6); }
+  }
+  function drawPaved(canvas, grid, repeats){
+    repeats = repeats || 3; const size = canvas.width; const tile = size/repeats; const cell = tile/12;
+    const ctx = canvas.getContext('2d');
+    for(let ty=0; ty<repeats; ty++) for(let tx=0; tx<repeats; tx++)
+      for(let r=0;r<12;r++) for(let c=0;c<12;c++){
+        ctx.fillStyle = PALETTE[grid[r][c]];
+        ctx.fillRect(tx*tile + c*cell, ty*tile + r*cell, cell+0.6, cell+0.6);
+      }
+  }
+
+  const cellCanvas = document.getElementById('cellCanvas');
+  const pavedCanvas = document.getElementById('pavedCanvas');
+  function redraw(){
+    drawTile(cellCanvas, DATA.grille_polarite_yang);
+    drawPaved(pavedCanvas, DATA.grille_polarite_yang);
+    drawEquiv();
+  }
+
+  document.getElementById('tintPicker').addEventListener('input', ()=>{ refreshPalette(); redraw(); });
+  const btnColorMode = document.getElementById('btnColorMode');
+  btnColorMode.addEventListener('click', ()=>{
+    colorMode = colorMode==='mono' ? 'multi' : 'mono';
+    btnColorMode.textContent = colorMode==='mono' ? "Multicolour" : "Monochrome";
+    btnColorMode.classList.toggle('active', colorMode==='mono');
+    document.getElementById('tintPicker').value = colorMode==='mono' ? DEFAULT_MONO_HUE : '#fbb040';
+    refreshPalette(); redraw();
+  });
+
+  // ---------- equivalences ----------
+  const equivCanvas = document.getElementById('equivCanvas');
+  let equivGrid = DATA.grille_polarite_yang;
+  function drawEquiv(){ drawTile(equivCanvas, equivGrid); }
+  function setEquiv(which, btn){
+    [btnEquivBase, btnEquivPolarity, btnEquivComplement].forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    equivGrid = which;
+    drawEquiv();
+  }
+  const btnEquivBase = document.getElementById('btnEquivBase');
+  const btnEquivPolarity = document.getElementById('btnEquivPolarity');
+  const btnEquivComplement = document.getElementById('btnEquivComplement');
+  btnEquivBase.addEventListener('click', ()=>setEquiv(DATA.grille_polarite_yang, btnEquivBase));
+  btnEquivPolarity.addEventListener('click', ()=>setEquiv(DATA.grille_polarite_yin, btnEquivPolarity));
+  btnEquivComplement.addEventListener('click', ()=>setEquiv(DATA.grille_complement, btnEquivComplement));
+
+  // ---------- downloads (gated — soutien-gate.js intercepts these two ids) ----------
+  function downloadCanvas(canvas, filename){
+    const a = document.createElement('a');
+    a.href = canvas.toDataURL('image/png');
+    a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  }
+  document.getElementById('btnDlMotifCellPng').addEventListener('click', ()=>downloadCanvas(cellCanvas, 'par2-yang-yin-mut-h11-cell.png'));
+  document.getElementById('btnDlMotifPavedPng').addEventListener('click', ()=>downloadCanvas(pavedCanvas, 'par2-yang-yin-mut-h11-tiling.png'));
+
+  refreshPalette();
+  redraw();
+})();
+</script>
+<script src="../assets/share-widget.js"></script>
+<script src="../assets/soutien-gate.js"></script>
+</body>
+</html>
