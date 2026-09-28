@@ -87,17 +87,6 @@
   img, canvas, svg{ max-width:100%; }
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
-  .gtranslate-slot{ display:flex; justify-content:center; margin:2px 0 10px; opacity:.75; }
-  .gtranslate-slot:hover{ opacity:1; }
-  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
-  .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
-    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
-  }
-  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
-  }
-  .gtranslate-slot img{ vertical-align:middle !important; }
   header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
   header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
 
@@ -219,7 +208,6 @@
     .wrap{ padding:20px 16px 48px; }
     header{ margin-bottom:20px; padding-bottom:16px; }
     header h1{ font-size:calc(22px + var(--fs-bump)); }
-    .gtranslate-slot, .gtranslate-slot *{ max-width:100%; }
     .site-nav-btn{ padding:11px 16px; }
   }
   @media (max-width:480px){
@@ -246,7 +234,6 @@
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <header class="site-header">
   <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
-  <div id="google_translate_element" class="gtranslate-slot"></div>
 </header>
 <!-- @header:end -->
 <!-- @main:start -->
@@ -400,14 +387,7 @@
 </script>
 
 <script src="../assets/soutien-gate.js"></script>
-<!-- @translate:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({pageLanguage: 'fr', autoDisplay: false}, 'google_translate_element');
-}
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<!-- @translate:end -->
+
 <!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <footer class="site-footer">
   <nav class="site-footer-nav" aria-label="Pied de page">

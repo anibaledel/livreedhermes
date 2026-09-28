@@ -108,18 +108,16 @@ const PAGES = [
 // l'exception JS et, où on la connaît, la zone attendue — voir docstring.
 const MIN_BODY_TEXT = 40;
 
-// Les pages traduites à la main : ni emplacement du traducteur, ni pied
-// partagé. La liste vient de scripts/pages-traduites.js, que
-// scripts/build-header.js lit aussi — elle a vécu en double ici, avec un
-// commentaire qui disait « même liste que build-header.js » et ne l'imposait
-// à personne.
+// Les pages traduites à la main n'ont pas de pied partagé. La liste vient de
+// scripts/pages-traduites.js, que scripts/build-header.js lit aussi — elle a
+// vécu en double ici, avec un commentaire qui disait « même liste que
+// build-header.js » et ne l'imposait à personne.
 //
 // Ce fichier liste certaines pages par leur adresse (« en/lexicon/ ») et la
 // liste par leur fichier : d'où la normalisation.
 const { TRADUITES_A_LA_MAIN } = createRequire(import.meta.url)('../scripts/pages-traduites.js');
 const fichierDe = (p) => (p.endsWith('/') ? `${p}index.html` : p);
 const SANS_PIED = TRADUITES_A_LA_MAIN;
-const SANS_TRADUCTEUR = TRADUITES_A_LA_MAIN;
 
 async function checkPage(browser, page_def) {
   const url = `${BASE_URL}/${page_def.path}`;
@@ -202,7 +200,6 @@ async function checkPage(browser, page_def) {
           logo: !!img,
           logoCharge: !!img && img.complete && img.naturalWidth > 0,
           logoDimensionne: !!img && img.hasAttribute('width') && img.hasAttribute('height'),
-          traducteur: !!h.querySelector('#google_translate_element'),
           titre: !!document.querySelector('h1'),
           // Le contenu propre à la page doit être dans un <main>, et le pied
           // partagé doit porter le lien vers le profil documentaire — c'est
@@ -241,17 +238,14 @@ async function checkPage(browser, page_def) {
     for (const e of reponsesEnEchec) problems.push(`404 en profondeur : ressource en échec — ${e}`);
   }
   if (enTete && !loadError) {
-    // L'en-tête est une zone attendue sur toute page de contenu : logo,
-    // emplacement du traducteur, bloc titre. Il vient d'une source unique
-    // (includes/), donc un manque ici signale une page sortie du circuit.
+    // L'en-tête est une zone attendue sur toute page de contenu : logo, bloc
+    // titre. Il vient d'une source unique (includes/), donc un manque ici
+    // signale une page sortie du circuit.
     if (enTete.absent) problems.push("en-tête absent : pas de <header class=\"site-header\">");
     else {
       if (!enTete.logo) problems.push('en-tête incomplet : logo absent');
       else if (!enTete.logoCharge) problems.push("en-tête incomplet : le logo n'a pas chargé");
       else if (!enTete.logoDimensionne) problems.push('en-tête incomplet : logo sans width/height');
-      if (!enTete.traducteur && !SANS_TRADUCTEUR.has(fichierDe(page_def.path))) {
-        problems.push("en-tête incomplet : emplacement du traducteur absent de l'en-tête");
-      }
       if (!enTete.titre) problems.push('en-tête incomplet : aucun <h1> sur la page');
       if (enTete.main === 0) problems.push('structure : aucun <main> autour du contenu');
       else if (enTete.main > 1) problems.push(`structure : ${enTete.main} <main> sur la page, un seul est permis`);

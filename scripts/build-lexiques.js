@@ -16,8 +16,8 @@
 
    Les régions @head-icons, @hreflang et @header sont laissées à
    scripts/build-header.js, qui les pose ensuite depuis includes/ et
-   scripts/langues.js. Ces pages n'ont ni traducteur ni pied partagé : elles
-   sont traduites à la main, et leur imposer un pied français serait une
+   scripts/langues.js. Ces pages n'ont pas de pied partagé : elles sont
+   traduites à la main, et leur imposer un pied français serait une
    régression pour leurs lecteurs (voir SANS_PIED dans build-header.js).
 
    Usage :

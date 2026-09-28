@@ -10,16 +10,14 @@ const path = require('path');
 const { execSync } = require('child_process');
 const DATA = require('./extract-hexagram-data.js');
 
-// L'en-tête, les icônes et le chargement du traducteur viennent des fragments
-// de includes/, exactement comme pour les 98 autres pages : voir
-// scripts/build-header.js et includes/README.md. Le gabarit ci-dessous n'en
-// porte donc aucune copie — c'est ce qui avait produit trois formes d'en-tête
-// différentes sur le site.
+// L'en-tête et les icônes viennent des fragments de includes/, exactement
+// comme pour les 98 autres pages : voir scripts/build-header.js et
+// includes/README.md. Le gabarit ci-dessous n'en porte donc aucune copie —
+// c'est ce qui avait produit trois formes d'en-tête différentes sur le site.
 const { rendre } = require('./build-header.js');
-const ICONES = rendre('head-icons', '../', true);
-const PIED = rendre('footer', '../', true);
-const EN_TETE = rendre('header', '../', true);
-const TRADUCTEUR = rendre('translate', '../', true);
+const ICONES = rendre('head-icons', '../');
+const PIED = rendre('footer', '../');
+const EN_TETE = rendre('header', '../');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
 const OUT_DIR = path.join(REPO_ROOT, 'hexagrammes');
@@ -226,17 +224,6 @@ for(let chrono = 0; chrono < 64; chrono++){
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
   header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
-  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
-  .gtranslate-slot:hover{ opacity:1; }
-  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
-  .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
-    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
-  }
-  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
-  }
-  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -305,7 +292,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
   .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); } }
   @media (max-width:480px){ .article-title{ font-size:calc(21px + var(--fs-bump)); } .article-content{ font-size:calc(14.5px + var(--fs-bump)); } .hex-square img{ width:170px; height:170px; } }
 </style>
 <link rel="stylesheet" href="../style.css">
@@ -422,7 +409,6 @@ ${linesHtml}
   </div>
 ${PIED}
 </div>
-${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
@@ -520,17 +506,6 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   img{ max-width:100%; }
   .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
   header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
-  .gtranslate-slot{ display:flex; justify-content:center; margin:10px 0 0; opacity:.75; }
-  .gtranslate-slot:hover{ opacity:1; }
-  .gtranslate-slot .goog-te-gadget{ font-family:Helvetica,Arial,sans-serif !important; font-size:0 !important; color:transparent !important; }
-  .gtranslate-slot .goog-te-gadget-simple{
-    background:transparent !important; border:1px solid var(--line-strong) !important; border-radius:0 !important;
-    padding:4px 10px !important; display:inline-flex !important; align-items:center !important;
-  }
-  .gtranslate-slot .goog-te-gadget-simple .goog-te-menu-value span{
-    color:var(--dim) !important; font-size:calc(10px + var(--fs-bump)) !important; letter-spacing:.08em !important; text-transform:uppercase !important;
-  }
-  .gtranslate-slot img{ vertical-align:middle !important; }
 
   .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
   .breadcrumb a{ color:var(--dim); text-decoration:none; }
@@ -614,7 +589,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .gtranslate-slot, .gtranslate-slot *{ max-width:100%; } }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
 </style>
 <link rel="stylesheet" href="../style.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -695,7 +670,6 @@ ${gridItems}
   </div>
 ${PIED}
 </div>
-${TRADUCTEUR}
 ${FOOTER_CTA_SCRIPT}
 </body>
 </html>
