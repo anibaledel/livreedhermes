@@ -56,11 +56,15 @@
   .article-sub a{ color:var(--gold); text-decoration:none; }
   .article-sub a:hover{ text-decoration:underline; }
 
-  .controls{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:0 0 24px; }
-  .controls button, .controls input[type=color]{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 16px; cursor:pointer; }
-  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
-  .controls button.active{ border-color:var(--gold); color:var(--gold); }
-  .controls input[type=color]{ padding:4px; width:44px; height:40px; }
+  .views-block{ margin:0 0 32px; }
+  .color-tool{ text-align:center; margin:0 0 16px; }
+  .color-tool-heading{ color:var(--gold); font-size:calc(13px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 6px; }
+  .color-tool-caption{ max-width:56ch; margin:0 auto 12px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; }
+  .color-tool-inputs{ display:flex; justify-content:center; align-items:center; gap:14px; flex-wrap:wrap; }
+  .color-tool-inputs label{ display:flex; flex-direction:column; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .color-tool-inputs input[type=color]{ border:1px solid var(--line-strong); background:transparent; padding:4px; width:44px; height:40px; cursor:pointer; }
+  .color-tool-inputs button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:9px 14px; cursor:pointer; align-self:flex-end; }
+  .color-tool-inputs button:hover{ border-color:var(--gold); color:var(--gold); }
 
   .renders{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:0 0 28px; }
   @media (max-width:600px){ .renders{ grid-template-columns:1fr; } }
@@ -120,21 +124,51 @@
   Family <strong>Bases — YANG mutant</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="../lexique.html">lexicon</a> for how families are built and admitted.
 </p>
 
-<div class="controls" id="modeControls">
-  <button id="btnColorMode" type="button">Monochrome</button>
-  <input type="color" id="tintPicker" value="#db694c" title="Choose a tint">
+<div class="views-block">
+  <div class="color-tool" id="triTool">
+    <div class="color-tool-heading">Tricolour — three independent colours</div>
+    <p class="color-tool-caption">The pattern's three colour classes, set independently — change one, the other two stay put.</p>
+    <div class="color-tool-inputs">
+      <label>Colour 1<input type="color" id="triColor1" value="#662d91"></label>
+      <label>Colour 2<input type="color" id="triColor2" value="#ee2a7b"></label>
+      <label>Colour 3<input type="color" id="triColor3" value="#fbb040"></label>
+      <button type="button" id="btnResetTri">Reset</button>
+    </div>
+  </div>
+  <div class="renders">
+    <div class="render-box">
+      <div class="render-label">Cell</div>
+      <canvas id="cellTriCanvas" width="320" height="320" aria-label="Cell — Tricolour — three independent colours"></canvas>
+      <button type="button" id="btnDlCellTri" class="cta-like">Download PNG</button>
+    </div>
+    <div class="render-box">
+      <div class="render-label">Tiling</div>
+      <canvas id="pavedTriCanvas" width="320" height="480" aria-label="Tiling — Tricolour — three independent colours"></canvas>
+      <button type="button" id="btnDlPavedTri" class="cta-like">Download PNG</button>
+    </div>
+  </div>
 </div>
 
-<div class="renders">
-  <div class="render-box">
-    <div class="render-label">Cell</div>
-    <canvas id="cellCanvas" width="360" height="360" aria-label="Cell"></canvas>
-    <button type="button" id="btnDlMotifCellPng" class="cta-like">Download cell PNG</button>
+<div class="views-block">
+  <div class="color-tool" id="monoTool">
+    <div class="color-tool-heading">Monochrome — one tint</div>
+    <p class="color-tool-caption">One tint, read in light and dark — a luminance reading, not three colours with two greyed out.</p>
+    <div class="color-tool-inputs">
+      <label>Tint<input type="color" id="monoTint" value="#db694c"></label>
+      <button type="button" id="btnResetMono">Reset</button>
+    </div>
   </div>
-  <div class="render-box">
-    <div class="render-label">Tiling</div>
-    <canvas id="pavedCanvas" width="360" height="360" aria-label="Tiling"></canvas>
-    <button type="button" id="btnDlMotifPavedPng" class="cta-like">Download tiling PNG</button>
+  <div class="renders">
+    <div class="render-box">
+      <div class="render-label">Cell</div>
+      <canvas id="cellMonoCanvas" width="320" height="320" aria-label="Cell — Monochrome — one tint"></canvas>
+      <button type="button" id="btnDlCellMono" class="cta-like">Download PNG</button>
+    </div>
+    <div class="render-box">
+      <div class="render-label">Tiling</div>
+      <canvas id="pavedMonoCanvas" width="320" height="480" aria-label="Tiling — Monochrome — one tint"></canvas>
+      <button type="button" id="btnDlPavedMono" class="cta-like">Download PNG</button>
+    </div>
   </div>
 </div>
 
@@ -942,10 +976,14 @@
 <script>
 (function(){
   const DATA = JSON.parse(document.getElementById('motifDataJSON').textContent);
-  const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+  const DEFAULT_TRI = ['#662d91', '#ee2a7b', '#fbb040'];
   const DEFAULT_MONO_HUE = '#db694c';
-  let PALETTE = Object.assign({}, DEFAULT_PALETTE);
-  let colorMode = 'multi';
+  // Deux outils distincts, pas deux réglages du même outil : le tricolore
+  // règle les trois classes séparément (trois entrées indépendantes, aucune
+  // relation imposée entre elles) ; le monochrome dérive trois niveaux de
+  // luminance d'UNE seule teinte (clair/moyen/foncé), pas trois couleurs.
+  let PALETTE_TRI = { V: DEFAULT_TRI[0], M: DEFAULT_TRI[1], O: DEFAULT_TRI[2] };
+  let PALETTE_MONO = {};
 
   function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
   function rgbToHex(r,g,b){ const c=v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0'); return '#'+c(r)+c(g)+c(b); }
@@ -958,50 +996,61 @@
       const q=l<0.5?l*(1+s):l+s-l*s, p=2*l-q; r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3); }
     return [r*255,g*255,b*255]; }
   function adjustLightness(hex,delta){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); l=Math.max(0,Math.min(1,l+delta)); const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
-  function hueOf(hex){ const [r,g,b]=hexToRgb(hex); return rgbToHsl(r,g,b)[0]; }
-  function rotateHue(hex,deltaHue){ const [r,g,b]=hexToRgb(hex); let [h,s,l]=rgbToHsl(r,g,b); h=(h+deltaHue+1)%1; const [r2,g2,b2]=hslToRgb(h,s,l); return rgbToHex(r2,g2,b2); }
-  function applySingleHue(pickedHex){ PALETTE = { V:adjustLightness(pickedHex,+0.20), M:adjustLightness(pickedHex,-0.20), O:pickedHex }; }
-  function applyTintRotation(pickedHex){ const d=hueOf(pickedHex)-hueOf(DEFAULT_PALETTE.O);
-    PALETTE = { V:rotateHue(DEFAULT_PALETTE.V,d), M:rotateHue(DEFAULT_PALETTE.M,d), O:rotateHue(DEFAULT_PALETTE.O,d) }; }
-  function refreshPalette(){ const picked = document.getElementById('tintPicker').value;
-    if(colorMode==='multi') applyTintRotation(picked); else applySingleHue(picked); }
+  function refreshMonoPalette(){ const picked = document.getElementById('monoTint').value;
+    PALETTE_MONO = { V:adjustLightness(picked,+0.20), M:adjustLightness(picked,-0.20), O:picked }; }
 
-  function drawTile(canvas, grid){
-    const ctx = canvas.getContext('2d'); const size = canvas.width; const cell = size/12;
-    for(let r=0;r<12;r++) for(let c=0;c<12;c++){ ctx.fillStyle = PALETTE[grid[r][c]]; ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6); }
+  function drawTile(canvas, grid, palette){
+    const ctx = canvas.getContext('2d'); const w = canvas.width, h = canvas.height; const cell = w/12;
+    for(let r=0;r<12;r++) for(let c=0;c<12;c++){ ctx.fillStyle = palette[grid[r][c]]; ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6); }
   }
-  function drawPaved(canvas, grid, repeats){
-    repeats = repeats || 3; const size = canvas.width; const tile = size/repeats; const cell = tile/12;
+  function drawPaved(canvas, grid, palette, repeatsX, repeatsY){
+    const w = canvas.width, h = canvas.height;
+    const cellX = w/(12*repeatsX), cellY = h/(12*repeatsY);
     const ctx = canvas.getContext('2d');
-    for(let ty=0; ty<repeats; ty++) for(let tx=0; tx<repeats; tx++)
+    for(let ty=0; ty<repeatsY; ty++) for(let tx=0; tx<repeatsX; tx++)
       for(let r=0;r<12;r++) for(let c=0;c<12;c++){
-        ctx.fillStyle = PALETTE[grid[r][c]];
-        ctx.fillRect(tx*tile + c*cell, ty*tile + r*cell, cell+0.6, cell+0.6);
+        ctx.fillStyle = palette[grid[r][c]];
+        ctx.fillRect((tx*12+c)*cellX, (ty*12+r)*cellY, cellX+0.6, cellY+0.6);
       }
   }
 
-  const cellCanvas = document.getElementById('cellCanvas');
-  const pavedCanvas = document.getElementById('pavedCanvas');
-  function redraw(){
-    drawTile(cellCanvas, DATA.grille_polarite_yang);
-    drawPaved(pavedCanvas, DATA.grille_polarite_yang);
+  const cellTriCanvas = document.getElementById('cellTriCanvas');
+  const pavedTriCanvas = document.getElementById('pavedTriCanvas');
+  const cellMonoCanvas = document.getElementById('cellMonoCanvas');
+  const pavedMonoCanvas = document.getElementById('pavedMonoCanvas');
+
+  function redrawTri(){
+    drawTile(cellTriCanvas, DATA.grille_polarite_yang, PALETTE_TRI);
+    drawPaved(pavedTriCanvas, DATA.grille_polarite_yang, PALETTE_TRI, 2, 3);
     drawEquiv();
   }
+  function redrawMono(){
+    drawTile(cellMonoCanvas, DATA.grille_polarite_yang, PALETTE_MONO);
+    drawPaved(pavedMonoCanvas, DATA.grille_polarite_yang, PALETTE_MONO, 2, 3);
+  }
 
-  document.getElementById('tintPicker').addEventListener('input', ()=>{ refreshPalette(); redraw(); });
-  const btnColorMode = document.getElementById('btnColorMode');
-  btnColorMode.addEventListener('click', ()=>{
-    colorMode = colorMode==='mono' ? 'multi' : 'mono';
-    btnColorMode.textContent = colorMode==='mono' ? "Multicolour" : "Monochrome";
-    btnColorMode.classList.toggle('active', colorMode==='mono');
-    document.getElementById('tintPicker').value = colorMode==='mono' ? DEFAULT_MONO_HUE : '#fbb040';
-    refreshPalette(); redraw();
+  const triColor1 = document.getElementById('triColor1');
+  const triColor2 = document.getElementById('triColor2');
+  const triColor3 = document.getElementById('triColor3');
+  function refreshTriPalette(){ PALETTE_TRI = { V: triColor1.value, M: triColor2.value, O: triColor3.value }; }
+  [triColor1, triColor2, triColor3].forEach((input) => {
+    input.addEventListener('input', () => { refreshTriPalette(); redrawTri(); });
+  });
+  document.getElementById('btnResetTri').addEventListener('click', () => {
+    triColor1.value = DEFAULT_TRI[0]; triColor2.value = DEFAULT_TRI[1]; triColor3.value = DEFAULT_TRI[2];
+    refreshTriPalette(); redrawTri();
   });
 
-  // ---------- equivalences ----------
+  const monoTint = document.getElementById('monoTint');
+  monoTint.addEventListener('input', () => { refreshMonoPalette(); redrawMono(); });
+  document.getElementById('btnResetMono').addEventListener('click', () => {
+    monoTint.value = DEFAULT_MONO_HUE; refreshMonoPalette(); redrawMono();
+  });
+
+  // ---------- equivalences (tricolore, suit PALETTE_TRI) ----------
   const equivCanvas = document.getElementById('equivCanvas');
   let equivGrid = DATA.grille_polarite_yang;
-  function drawEquiv(){ drawTile(equivCanvas, equivGrid); }
+  function drawEquiv(){ drawTile(equivCanvas, equivGrid, PALETTE_TRI); }
   function setEquiv(which, btn){
     [btnEquivBase, btnEquivPolarity, btnEquivComplement].forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
@@ -1015,18 +1064,21 @@
   btnEquivPolarity.addEventListener('click', ()=>setEquiv(DATA.grille_polarite_yin, btnEquivPolarity));
   btnEquivComplement.addEventListener('click', ()=>setEquiv(DATA.grille_complement, btnEquivComplement));
 
-  // ---------- downloads (gated — soutien-gate.js intercepts these two ids) ----------
+  // ---------- downloads ----------
   function downloadCanvas(canvas, filename){
     const a = document.createElement('a');
     a.href = canvas.toDataURL('image/png');
     a.download = filename;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
   }
-  document.getElementById('btnDlMotifCellPng').addEventListener('click', ()=>downloadCanvas(cellCanvas, 'bases-yang-mut-h9-cell.png'));
-  document.getElementById('btnDlMotifPavedPng').addEventListener('click', ()=>downloadCanvas(pavedCanvas, 'bases-yang-mut-h9-tiling.png'));
+  document.getElementById('btnDlCellTri').addEventListener('click', ()=>downloadCanvas(cellTriCanvas, 'bases-yang-mut-h9-cellule-tricolore.png'));
+  document.getElementById('btnDlPavedTri').addEventListener('click', ()=>downloadCanvas(pavedTriCanvas, 'bases-yang-mut-h9-pavage-tricolore.png'));
+  document.getElementById('btnDlCellMono').addEventListener('click', ()=>downloadCanvas(cellMonoCanvas, 'bases-yang-mut-h9-cellule-monochrome.png'));
+  document.getElementById('btnDlPavedMono').addEventListener('click', ()=>downloadCanvas(pavedMonoCanvas, 'bases-yang-mut-h9-pavage-monochrome.png'));
 
-  refreshPalette();
-  redraw();
+  refreshMonoPalette();
+  redrawTri();
+  redrawMono();
 })();
 </script>
 <script src="../assets/share-widget.js"></script>
