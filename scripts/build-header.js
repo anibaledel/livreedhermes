@@ -127,6 +127,12 @@ function langDePage(rel) {
   return 'fr';
 }
 
+/* Les 512 pages motifs/*.html et fr/motifs/*.html seules — voir adopter()
+   plus bas pour la même distinction sur le hreflang. */
+function estPageMotif(rel) {
+  return rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/');
+}
+
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
    et le traducteur Google Translate — retiré du site (décision de l'auteur,
    2026-09-27) : la traduction automatique par-dessus une traduction humaine
@@ -158,8 +164,7 @@ function adopter(src, rel) {
   //    tenir à la main) — leur hreflang réciproque est calculé et écrit par
   //    scripts/generate-motif-pages.js lui-même, jamais par ce mécanisme ;
   //    le retirer ici l'effacerait sans que rien ne le repose.
-  const estPageMotif = rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/');
-  if (!estPageMotif) {
+  if (!estPageMotif(rel)) {
     s = s.replace(/[ \t]*<link rel="alternate" hreflang="[^"]*" href="[^"]*">\n?/g, '');
   }
   // 5. Un <header> nu devenu vide n'a plus de raison d'être.
@@ -229,11 +234,22 @@ function traiter(rel, src) {
   // tools/check_pages_console.mjs.
   const prefixe = rel === '404.html' ? '/' : '../'.repeat(rel.split('/').length - 1);
   let s = adopter(src, rel);
-  if (!SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
+  // Le bloc de tuiles (@navtiles) n'est adopté que sur les pages motifs —
+  // c'est leur propre chantier qui l'a introduit (voir scripts/nav-tiles.js).
+  // Le reste du site (618 pages) porte encore ses propres formes de bas de
+  // page, y compris des formes qu'adopterNavTiles() ne sait pas distinguer
+  // d'un bloc générique — index.html par exemple mêle un sélecteur de
+  // palette (#palettePicker) et une répartition de tuiles qui n'est pas
+  // celle du corpus canonique dans le MÊME <div class="note">, qu'un passage
+  // générique effacerait avec le reste. Étendre l'adoption aux 618 autres
+  // pages est un chantier séparé, à faire une page à la fois, pas une
+  // extrapolation automatique depuis les pages motifs.
+  if (estPageMotif(rel) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
     s = adopterNavTiles(s, rel);
   } else {
     // Retire une zone @navtiles déjà posée par un tour précédent, pour les
-    // pages qui viennent d'entrer dans SANS_TUILES (carter-demo.html).
+    // pages qui viennent d'entrer dans SANS_TUILES (carter-demo.html) ou qui
+    // ne sont plus des pages motifs.
     s = s.replace(/[ \t]*<!-- @navtiles:start[\s\S]*?<!-- @navtiles:end -->\n?/, '');
   }
 
@@ -268,7 +284,8 @@ function traiter(rel, src) {
     // s'ancrer sur lui plutôt que sur la fin de .wrap, sans quoi le nouveau
     // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
     // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
-    if (!SANS_TUILES.has(rel)) {
+    // Comme pour l'adoption ci-dessus : seules les pages motifs le reçoivent.
+    if (estPageMotif(rel) && !SANS_TUILES.has(rel)) {
       s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
         const i = t.indexOf('<!-- @footer:start');
         if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
