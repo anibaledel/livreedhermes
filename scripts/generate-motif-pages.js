@@ -97,6 +97,12 @@ const FAMILY_LABEL = {
   },
 };
 
+// Ordre stable des 8 familles — celui de FAMILY_LABEL ci-dessus, réutilisé
+// pour l'index (une section par famille) et pour rien d'autre : la
+// navigation précédent/suivant reste À L'INTÉRIEUR d'une même famille
+// (n et n+1 mod 32), elle ne dépend pas de cet ordre entre familles.
+const ORDERED_FAMILIES = Object.keys(FAMILY_LABEL.en);
+
 function hexagramSlug(n) {
   const kw = HEXDATA.KINGWEN_BY_CHRONO[n];
   const [pinyin, nameFr] = HEXDATA.HEX_KW[kw];
@@ -154,6 +160,16 @@ const STR = {
     lexicon: 'Lexicon',
     copyright: '© Anibal Edelberto Amiot',
     collab: 'Created in collaboration with Claude',
+    neighboursHeading: 'Neighbouring motifs',
+    neighboursPara: (familyLabel) => `The previous and next hexagram within the same family, <strong>${escapeHtml(familyLabel)}</strong>.`,
+    prevLabel: (slugLabel) => `← Previous (${slugLabel})`,
+    nextLabel: (slugLabel) => `Next (${slugLabel}) →`,
+    backToIndexLabel: 'All 256 motifs →',
+    indexTitle: 'All Unified Patterns — the 256 motif pages',
+    indexDescription: 'The 256 motif pages of La Livrée d\'Hermès, organised by the 8 admissible families — 32 hexagrams each.',
+    indexH1: 'All 256 motif pages',
+    indexIntro: 'The 256 motifs of the retained corpus, one page each, organised by the 8 admissible families (out of 15) in the system\'s classification — 32 hexagrams each.',
+    indexFamilyCount: (n) => `${n} pages`,
   },
   fr: {
     htmlLang: 'fr',
@@ -184,6 +200,16 @@ const STR = {
     lexicon: 'Lexique',
     copyright: '© Anibal Edelberto Amiot',
     collab: 'Créé en collaboration avec Claude',
+    neighboursHeading: 'Motifs voisins',
+    neighboursPara: (familyLabel) => `L'hexagramme précédent et le suivant dans la même famille, <strong>${escapeHtml(familyLabel)}</strong>.`,
+    prevLabel: (slugLabel) => `← Précédent (${slugLabel})`,
+    nextLabel: (slugLabel) => `Suivant (${slugLabel}) →`,
+    backToIndexLabel: 'Les 256 motifs →',
+    indexTitle: 'Tous les patterns unifiés — les 256 pages de motifs',
+    indexDescription: "Les 256 pages de motifs de La Livrée d'Hermès, organisées par les 8 familles admissibles — 32 hexagrammes chacune.",
+    indexH1: 'Les 256 pages de motifs',
+    indexIntro: "Les 256 motifs du corpus retenu, une page chacun, organisés par les 8 familles admissibles (sur 15) de la classification du système — 32 hexagrammes chacune.",
+    indexFamilyCount: (n) => `${n} pages`,
   },
 };
 
@@ -205,6 +231,14 @@ function renderPage(fam, n, lang) {
   const gridYinPair = hexagramGrid(n, DATA.families[fam].yin, DATA.families[fam].yin_mut);
   const gridComplement = hexagramGrid(63 - n, DATA.families[fam].yang, DATA.families[fam].yang_mut);
   const slug = motifSlug(fam, n);
+  // Voisins : précédent/suivant DANS LA MÊME FAMILLE (n-1/n+1 mod 32, la
+  // famille a 32 hexagrammes canoniques, 0..31) — même dossier que la page
+  // courante, donc un nom de fichier nu suffit, pas de prefixe. Modèle : la
+  // section « Hexagrammes voisins » de generate-hexagram-pages.js.
+  const prevN = (n + 31) % 32;
+  const nextN = (n + 1) % 32;
+  const prevSlug = motifSlug(fam, prevN);
+  const nextSlug = motifSlug(fam, nextN);
   const familyLabel = FAMILY_LABEL[lang][fam] || fam;
   const hexSlug = hexagramSlug(n);
   const hexName = hexagramName(n);
@@ -321,6 +355,14 @@ ${ICONES[lang]}
   .classification a{ color:var(--gold); text-decoration:none; }
   .classification a:hover{ text-decoration:underline; }
 
+  .neighbours-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .neighbours-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; }
+  .neighbours-section p{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; }
+  .neighbours-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .neighbours-row a{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.04em; padding:10px 16px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .neighbours-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .neighbours-row a.index-link{ color:var(--gold); }
+
   .soutien-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:4px; text-align:center; }
 </style>
 <link rel="stylesheet" href="${prefixe}style.css">
@@ -417,6 +459,16 @@ ${EN_TETE[lang]}
     <summary>${s.showData}</summary>
     <pre id="motifDataBlock">${escapeHtml(JSON.stringify(motifData, null, 1))}</pre>
   </details>
+</section>
+
+<section class="neighbours-section">
+  <h2>${s.neighboursHeading}</h2>
+  <p>${s.neighboursPara(familyLabel)}</p>
+  <div class="neighbours-row">
+    <a href="${prevSlug}.html">${s.prevLabel('h' + prevN)}</a>
+    <a href="index.html" class="index-link">${s.backToIndexLabel}</a>
+    <a href="${nextSlug}.html">${s.nextLabel('h' + nextN)}</a>
+  </div>
 </section>
 
 </main>
@@ -539,6 +591,122 @@ ${FOOTER_CTA_SCRIPT[lang]}
 `;
 }
 
+// ---------- page d'index : motifs/index.html, fr/motifs/index.html ----------
+// Modèle : hexagrammes/index.html (generate-hexagram-pages.js) — un point
+// d'entrée depuis le site, les 256 motifs organisés (8 familles, 32
+// hexagrammes chacune), pas une liste à plat. C'est ce qui manquait :
+// prompt-cc-acces-512.md.
+function renderIndexPage(lang) {
+  const other = lang === 'fr' ? 'en' : 'fr';
+  const s = STR[lang];
+  const rel = lang === 'fr' ? 'fr/motifs/index.html' : 'motifs/index.html';
+  const prefixe = prefixFor(lang);
+  // Adresse du dossier, pas du fichier — même convention que hexagrammes/
+  // (canonical https://anibal-amiot.com/hexagrammes/, pas .../index.html).
+  const canonical = `${BASE_URL}/${lang === 'fr' ? 'fr/motifs/' : 'motifs/'}`;
+  const canonicalOther = `${BASE_URL}/${lang === 'fr' ? 'motifs/' : 'fr/motifs/'}`;
+  const canonicalEn = lang === 'en' ? canonical : canonicalOther;
+  const repFamily = ORDERED_FAMILIES[0];
+  const ogImage = `${BASE_URL}/assets/motifs-preview/${motifSlug(repFamily, 0)}.png`;
+  const navtiles = rendreNavTiles(rel, prefixe, lang);
+
+  const familySections = ORDERED_FAMILIES.map((fam) => {
+    const familyLabel = FAMILY_LABEL[lang][fam] || fam;
+    const items = [];
+    for (let n = 0; n < 32; n++) {
+      items.push(`        <a class="motif-grid-item" href="${motifSlug(fam, n)}.html">h${n}</a>`);
+    }
+    return `  <section class="family-block">
+    <h2>${escapeHtml(familyLabel)} <span class="family-count">(${s.indexFamilyCount(32)})</span></h2>
+    <div class="motif-grid">
+${items.join('\n')}
+    </div>
+  </section>`;
+  }).join('\n\n');
+
+  return `<!DOCTYPE html>
+<html lang="${s.htmlLang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+${ICONES[lang]}
+<title>${escapeHtml(s.indexTitle)}</title>
+<meta name="description" content="${escapeHtml(s.indexDescription)}">
+<meta property="og:title" content="${escapeHtml(s.indexTitle)}">
+<meta property="og:description" content="${escapeHtml(s.indexDescription)}">
+<meta property="og:image" content="${ogImage}">
+<meta property="og:url" content="${canonical}">
+<meta property="og:type" content="website">
+<link rel="canonical" href="${canonical}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${escapeHtml(s.indexTitle)}">
+<meta name="twitter:description" content="${escapeHtml(s.indexDescription)}">
+<meta name="twitter:image" content="${ogImage}">
+<link rel="alternate" hreflang="en" href="${canonicalEn}">
+<link rel="alternate" hreflang="fr" href="${lang === 'fr' ? canonical : canonicalOther}">
+<link rel="alternate" hreflang="x-default" href="${canonicalEn}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": ${JSON.stringify(s.indexTitle)},
+  "description": ${JSON.stringify(s.indexDescription)},
+  "url": "${canonical}",
+  "inLanguage": "${s.htmlLang}"
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .page-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .page-sub{ max-width:64ch; margin:0 auto 30px; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .family-block{ margin:0 0 34px; }
+  .family-block h2{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 14px; text-align:center; }
+  .family-block .family-count{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); font-weight:400; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(64px, 1fr)); gap:8px; }
+  .motif-grid-item{ border:1px solid var(--line); color:var(--dim); font-size:calc(12px + var(--fs-bump)); text-align:center; padding:10px 6px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid-item:hover{ border-color:var(--gold); color:var(--gold); }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
+</style>
+<link rel="stylesheet" href="${prefixe}style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+${EN_TETE[lang]}
+<!-- @main:start -->
+<main>
+<nav class="breadcrumb" aria-label="${s.breadcrumbLabel}">
+  <a href="${prefixe}index.html">${s.home}</a><span class="sep">/</span>
+  <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
+  <span aria-current="page">${escapeHtml(s.indexH1)}</span>
+</nav>
+<h1 class="page-title">${escapeHtml(s.indexH1)}</h1>
+<p class="page-sub">${escapeHtml(s.indexIntro)}</p>
+
+${familySections}
+
+</main>
+<!-- @main:end -->
+${navtiles}
+${PIED[lang]}
+</div>
+${FOOTER_CTA_SCRIPT[lang]}
+</body>
+</html>
+`;
+}
+
 // ---------- CLI ----------
 const args = process.argv.slice(2);
 const onlyArg = args.indexOf('--only');
@@ -554,6 +722,11 @@ function writeOne(fam, n) {
     fs.writeFileSync(path.join(outDir, `${slug}.html`), html, 'utf8');
   }
   return slug;
+}
+
+function writeIndex() {
+  fs.writeFileSync(path.join(OUT_DIR_EN, 'index.html'), renderIndexPage('en'), 'utf8');
+  fs.writeFileSync(path.join(OUT_DIR_FR, 'index.html'), renderIndexPage('fr'), 'utf8');
 }
 
 // Les 256 entrées canoniques : subA/subB fixés (yang, yang_mut), n < 32 —
@@ -578,7 +751,8 @@ if (onlyArg !== -1) {
     writeOne(fam, hexN);
     n += 1;
   }
-  console.log(`Écrit : ${n} motifs × 2 langues = ${n * 2} pages, dans motifs/ et fr/motifs/.`);
+  writeIndex();
+  console.log(`Écrit : ${n} motifs × 2 langues = ${n * 2} pages, + motifs/index.html + fr/motifs/index.html, dans motifs/ et fr/motifs/.`);
 } else {
   console.error('Usage : node scripts/generate-motif-pages.js --only INDEX | --all');
   process.exit(1);

@@ -654,6 +654,24 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://anibal-amiot.com/motifs/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/motifs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/motifs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/motifs/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/fr/motifs/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/motifs/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/motifs/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/motifs/"/>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h0.html</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>yearly</changefreq>

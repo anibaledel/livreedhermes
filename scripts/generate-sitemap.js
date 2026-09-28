@@ -119,8 +119,11 @@ const HEXAGRAM_PAGES = fs
 // pas une seconde source qui pourrait diverger.
 const motifsDir = path.join(ROOT, 'motifs');
 const motifsFrDir = path.join(ROOT, 'fr', 'motifs');
-const motifSlugsEn = fs.readdirSync(motifsDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).sort();
-const motifSlugsFr = fs.readdirSync(motifsFrDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).sort();
+// « index » à part : ce n'est pas un motif, c'est le point d'entrée
+// (motifs/index.html, fr/motifs/index.html — prompt-cc-acces-512.md), listé
+// comme hexagrammes/ l'est déjà dans STATIC_PAGES, à l'adresse du dossier.
+const motifSlugsEn = fs.readdirSync(motifsDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).filter((s) => s !== 'index').sort();
+const motifSlugsFr = fs.readdirSync(motifsFrDir).filter((f) => f.endsWith('.html')).map((f) => f.replace(/\.html$/, '')).filter((s) => s !== 'index').sort();
 const slugsManquants = motifSlugsEn.filter((s) => !motifSlugsFr.includes(s))
   .concat(motifSlugsFr.filter((s) => !motifSlugsEn.includes(s)));
 if (slugsManquants.length) {
@@ -128,6 +131,13 @@ if (slugsManquants.length) {
   process.exit(1);
 }
 const MOTIF_PAGES = [];
+{
+  const enLoc = `${SITE}/motifs/`;
+  const frLoc = `${SITE}/fr/motifs/`;
+  const hreflang = [['en', enLoc], ['fr', frLoc], ['x-default', enLoc]];
+  MOTIF_PAGES.push({ loc: enLoc, file: 'motifs/index.html', changefreq: 'monthly', priority: '0.6', hreflang });
+  MOTIF_PAGES.push({ loc: frLoc, file: 'fr/motifs/index.html', changefreq: 'monthly', priority: '0.6', hreflang });
+}
 for (const slug of motifSlugsEn) {
   const enLoc = `${SITE}/motifs/${slug}.html`;
   const frLoc = `${SITE}/fr/motifs/${slug}.html`;

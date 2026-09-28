@@ -94,6 +94,14 @@
   .classification a{ color:var(--gold); text-decoration:none; }
   .classification a:hover{ text-decoration:underline; }
 
+  .neighbours-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .neighbours-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; }
+  .neighbours-section p{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; }
+  .neighbours-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
+  .neighbours-row a{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.04em; padding:10px 16px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .neighbours-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .neighbours-row a.index-link{ color:var(--gold); }
+
   .soutien-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:4px; text-align:center; }
 </style>
 <link rel="stylesheet" href="../../style.css">
@@ -880,6 +888,16 @@
   </details>
 </section>
 
+<section class="neighbours-section">
+  <h2>Motifs voisins</h2>
+  <p>L'hexagramme précédent et le suivant dans la même famille, <strong>Par 3 — Sans Yang</strong>.</p>
+  <div class="neighbours-row">
+    <a href="par3-sans-yang-h14.html">← Précédent (h14)</a>
+    <a href="index.html" class="index-link">Les 256 motifs →</a>
+    <a href="par3-sans-yang-h16.html">Suivant (h16) →</a>
+  </div>
+</section>
+
 </main>
 <!-- @main:end -->
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
@@ -955,6 +973,7 @@
     <a href="../../">Accueil</a>
     <a href="../../la-livree-d-hermes.html">Le traité</a>
     <a href="../../hexagrammes/">Hexagrammes</a>
+    <a href="../../motifs/">Motifs</a>
     <a href="../../lexique.html">Lexique</a>
     <a href="../../articles.html">Articles</a>
     <a href="../../outils.html">Outils</a>
