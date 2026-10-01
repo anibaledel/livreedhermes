@@ -218,3 +218,71 @@ export function demiDecalageStatus(axesListBrute, axes) {
   if (hasYin !== hasYinMut) return { status: 'echange', epsilon };
   return { status: epsilon ? 'inverse' : 'invariant', epsilon };
 }
+
+// ---------- nommage (prompt-cc-renommage-site.md) ----------
+// Un élément : YA_k / AY_k / YI_k / IY_k, k = 1..6. Angle : 180 − 30k pour
+// YA_k et YI_k, 30k pour AY_k et IY_k. Un accord se nomme en groupant ses
+// éléments par lettre (ordre YA, AY, YI, IY), indices croissants :
+// {YA2,YA4,AY2,AY4} -> "YA24 AY24".
+export function angleDeElement(id) {
+  const m = /^(YA|AY|YI|IY)(\d)$/.exec(id);
+  if (!m) throw new Error(`élément inconnu : ${id}`);
+  const [, lettre, kStr] = m;
+  const k = Number(kStr);
+  return (lettre === 'YA' || lettre === 'YI') ? 180 - 30 * k : 30 * k;
+}
+export function nomAccord(elements) {
+  const groupes = {};
+  for (const e of elements) {
+    const m = /^(YA|AY|YI|IY)(\d)$/.exec(e);
+    if (!m) throw new Error(`élément inconnu : ${e}`);
+    (groupes[m[1]] || (groupes[m[1]] = [])).push(Number(m[2]));
+  }
+  const ordre = ['YA', 'AY', 'YI', 'IY'];
+  const parties = [];
+  const angles = new Set();
+  for (const lettre of ordre) {
+    if (!groupes[lettre]) continue;
+    const ks = [...new Set(groupes[lettre])].sort((a, b) => a - b);
+    parties.push(lettre + ks.join(''));
+    for (const k of ks) angles.add(lettre === 'YA' || lettre === 'YI' ? 180 - 30 * k : 30 * k);
+  }
+  return { nom: parties.join(' '), niveau: elements.length, angles: [...angles].sort((a, b) => a - b) };
+}
+
+// Correspondance avec l'ancienne découpe (T0–T3 × YIN/YIN MUT/YANG/YANG MUT),
+// dérivée et vérifiée programmatiquement contre axes-v2.json et le catalogue
+// (voir docs/sources/.../verify_renommage.mjs), pas tapée à la main : pour
+// chaque ancienne famille, quels ANGLES diagonaux (ou quel générateur
+// orthogonal direct) reproduisent exactement son ensemble de clés, avec
+// expansion de chaque angle non terminal (≠ 0°, 180°) en ses deux éléments
+// YA_k / AY_(6−k) — ils portent la même clé, donc la même figure, mais la
+// couche de tracé en a besoin des deux (loi 2 du générateur v2).
+export const ANCIENNE_FAMILLE_VERS_ELEMENTS = {
+  'T0 YIN': ['YI6'], 'T0 YIN MUT': ['IY6'],
+  'T0 YANG': ['YA6'], 'T0 YANG MUT': ['AY6'],
+  'T1 YIN': ['YI3'], 'T1 YIN MUT': ['IY3'],
+  'T1 YANG': ['YA6', 'AY6'], 'T1 YANG MUT': ['YA3', 'AY3'],
+  'T2 YIN': ['YI4'], 'T2 YIN MUT': ['IY4'],
+  'T2 YANG': ['YA2', 'YA4', 'AY2', 'AY4'], 'T2 YANG MUT': ['YA1', 'YA5', 'AY1', 'AY5'],
+  'T3 YIN': ['YI5'], 'T3 YIN MUT': ['IY5'],
+  'T3 YANG': ['YA1', 'YA5', 'AY1', 'AY5'], 'T3 YANG MUT': ['YA2', 'YA4', 'AY2', 'AY4'],
+};
+export function nomAncienneFamille(nomCatalogue) {
+  const els = ANCIENNE_FAMILLE_VERS_ELEMENTS[nomCatalogue];
+  if (!els) throw new Error(`famille de catalogue inconnue : ${nomCatalogue}`);
+  return nomAccord(els);
+}
+// Accord ancien : liste de noms de familles du catalogue (ex. une entrée de
+// la galerie bicolore) -> réunion de leurs éléments (sans doublon), puis
+// nommage par la même fonction.
+export function nomAccordAncien(nomsCatalogue) {
+  const vus = new Set();
+  const els = [];
+  for (const n of nomsCatalogue) {
+    for (const e of (ANCIENNE_FAMILLE_VERS_ELEMENTS[n] || [])) {
+      if (!vus.has(e)) { vus.add(e); els.push(e); }
+    }
+  }
+  return nomAccord(els);
+}
