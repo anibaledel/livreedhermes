@@ -29,6 +29,9 @@ modeFamilles | FR: "Familles" | contexte: bouton de mode, restreint aux 4 bases 
 grainHeading | FR: "Grain" | contexte: titre de section, sélecteur C8/C1/C4 | glossaire: —
 generatorsHeading | FR: "Éléments" | contexte: titre de section au-dessus de la grille de boutons | glossaire: élément
 btnMuter | FR: "Muter" | contexte: bouton, remplace chaque générateur sélectionné par son mutant (θ ↦ 180°−θ) | glossaire: —
+btnDescendre | FR: "Descendre" | contexte: bouton, remplace chaque générateur sélectionné par son image sous θ ↦ 2θ (dédoublonnée), recalcule la parité | glossaire: —
+fusionNote | FR: " — fusion (des éléments distincts sont tombés au même endroit)" | contexte: ajouté à la ligne d'info juste après un "Descendre" qui a fait perdre des éléments distincts (images confondues) | glossaire: —
+racineFixeTitle | FR: "Racine fixe du dédoublement (θ ↦ 2θ)" | contexte: infobulle sur les 4 boutons marqués comme racines fixes (L0, L120, YI6, IY4) | glossaire: —
 btnEffacer | FR: "Effacer" | contexte: bouton, vide la sélection courante | glossaire: —
 btnTelecharger | FR: "Télécharger le SVG" | contexte: bouton d'export, soumis au soutien (id réutilisé : btnDlCellSvg) | glossaire: —
 niveau | FR: "niveau" | contexte: ligne d'info sous l'aperçu, "niveau N" | glossaire: niveau
