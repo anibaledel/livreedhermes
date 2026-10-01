@@ -96,6 +96,23 @@ const GROUPES = [
   },
 ];
 
+// Articles traduits en anglais (en/articles/), un groupe par article.
+const ARTICLES_TRADUITS = [
+  ['hanuman-et-arlequin', 'hanuman-and-harlequin'],
+];
+for (const [fr, en] of ARTICLES_TRADUITS) {
+  GROUPES.push({
+    nom: `article-${fr}`,
+    changefreq: 'monthly',
+    priority: '0.6',
+    rangee: true,
+    pages: [
+      ['fr', `${SITE}/articles/${fr}.html`, `articles/${fr}.html`],
+      ['en', `${SITE}/en/articles/${en}.html`, `en/articles/${en}.html`],
+    ],
+  });
+}
+
 // Les 64 hexagrammes et leur index, en français et en anglais : 65 paires
 // calculées depuis scripts/hexagrammes-adresses.js — la même source que les
 // deux générateurs de pages — plutôt qu'une liste de 65 entrées à la main.
@@ -106,7 +123,7 @@ for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
     changefreq: chrono === null ? 'monthly' : 'yearly',
     priority: chrono === null ? '0.6' : '0.5',
     rangee: true,
-    pages: ['fr', 'en'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
+    pages: ['fr', 'en', 'es', 'th'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
   });
 }
 

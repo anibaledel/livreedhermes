@@ -84,11 +84,13 @@ const STATIC_PAGES = [
 // double, plus bas, le rend impossible.
 const BOOK_PAGES = PAGES_TRADUITES;
 
+// Articles traduits : déjà dans BOOK_PAGES, avec leurs alternates.
+const FICHIERS_TRADUITS_ARTICLES = new Set(PAGES_TRADUITES.map((p) => p.file));
 // Articles : tous les fichiers présents dans articles/, découverts automatiquement.
 const articlesDir = path.join(ROOT, 'articles');
 const ARTICLE_PAGES = fs
   .readdirSync(articlesDir)
-  .filter((f) => f.endsWith('.html'))
+  .filter((f) => f.endsWith('.html') && !FICHIERS_TRADUITS_ARTICLES.has(`articles/${f}`))
   .sort()
   .map((f) => ({
     loc: `${SITE}/articles/${f}`,

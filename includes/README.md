@@ -12,6 +12,7 @@ correspond plus à ce que les fragments produiraient.
 | `header.html` | l'en-tête visible : le logo | `@header:start` / `:end` |
 | `footer.html` | le pied partagé : navigation du site et licences, à la fin de `.wrap` | `@footer:start` / `:end` |
 | `footer-en.html` | le même pied en anglais, posé sur les pages `<html lang="en">` | `@footer:start` / `:end` |
+| `footer-es.html`, `footer-th.html` | le même pied en espagnol et en thaï (pages `lang="es"` / `"th"`) | `@footer:start` / `:end` |
 
 `{{BASE}}` est remplacé par le préfixe de remontée de chaque page (`""` à la
 racine, `"../"` dans `articles/`, `"../../"` dans `en/book/`).
@@ -52,3 +53,12 @@ fragment a la même exigence de source unique que le fragment lui-même.
 Les pages traduites à la main (`fr/livre/`, `en/book/`, `es/libro/`,
 `th/book/`, `book-viewer/`) gardent leur propre pied — le pied partagé est
 rédigé en français.
+
+## Mesure d'audience (`analytics.json`)
+
+`analytics.json` porte le jeton Cloudflare Web Analytics du site. Vide, rien
+n'est posé. Renseigné, `scripts/build-header.js` pose la balise de mesure
+(zone `@analytics`, juste avant `</body>`) sur toutes les pages du périmètre,
+sauf celles qui déclarent une CSP (encodeur, paiement). Cloudflare Web
+Analytics ne dépose aucun cookie et ne suit pas les visiteurs d'un site à
+l'autre : pas de bandeau de consentement à ajouter.

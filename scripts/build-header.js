@@ -92,6 +92,11 @@ const htmlRangee = (r) => `<p class="other-langs">${r.libelle} `
 const FIN_ENTETE = '<!-- @header:end -->';
 
 const lire = (n) => fs.readFileSync(path.join(INCLUDES, n), 'utf8');
+// Jeton Cloudflare Web Analytics (vide : pas de mesure d'audience).
+const JETON_AUDIENCE = (JSON.parse(fs.readFileSync(path.join(INCLUDES, 'analytics.json'), 'utf8')).cloudflareToken || '').trim();
+if (JETON_AUDIENCE && !/^[0-9a-f]{32}$/i.test(JETON_AUDIENCE)) {
+  throw new Error(`includes/analytics.json : jeton inattendu « ${JETON_AUDIENCE} » (32 caractères hexadécimaux attendus).`);
+}
 const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
   header: lire('header.html'),
@@ -99,6 +104,9 @@ const FRAGMENTS = {
   // Le même pied en anglais, pour les pages <html lang="en"> : rendre('footer',
   // …, 'en') le choisit. Liens vers les versions anglaises quand elles existent.
   'footer-en': lire('footer-en.html'),
+  // Espagnol et thaï : pages hexagrammes traduites (es/hexagramas/, th/hexagrams/).
+  'footer-es': lire('footer-es.html'),
+  'footer-th': lire('footer-th.html'),
 };
 
 function zone(nom, corps, source = 'includes/') {
@@ -117,7 +125,7 @@ function langHtml(s) {
 
 function rendre(nom, prefixe, lang = 'fr') {
   // La zone garde son nom (@footer) ; seul le fragment change avec la langue.
-  const fragment = nom === 'footer' && lang === 'en' ? 'footer-en' : nom;
+  const fragment = nom === 'footer' && FRAGMENTS[`footer-${lang}`] ? `footer-${lang}` : nom;
   const corps = FRAGMENTS[fragment].split('{{BASE}}').join(prefixe)
     .split('{{SKIP}}').join(TEXTE_EVITEMENT[lang]);
   return zone(nom, corps);
@@ -280,7 +288,7 @@ function traiter(rel, src) {
   // générique effacerait avec le reste. Étendre l'adoption aux 618 autres
   // pages est un chantier séparé, à faire une page à la fois, pas une
   // extrapolation automatique depuis les pages motifs.
-  if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
+  if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
     s = adopterNavTiles(s, rel);
   } else {
     // Retire une zone @navtiles déjà posée par un tour précédent, pour les
@@ -296,6 +304,16 @@ function traiter(rel, src) {
     const html = htmlHreflang(BLOC_PAR_FICHIER.get(rel));
     s = poser(s, 'hreflang', zone('hreflang', html, 'scripts/langues.js'),
       (t, c) => t.replace('</head>', `${c}\n</head>`));
+  }
+
+  // Mesure d'audience (Cloudflare Web Analytics, sans cookie) : posée avant
+  // </body> quand includes/analytics.json porte un jeton, retirée sinon. Pas
+  // sur les pages à CSP stricte (encodeur, paiement) : leur politique
+  // n'autorise que les scripts du site, et ce sont des pages sensibles.
+  s = s.replace(/[ \t]*<!-- @analytics:start[\s\S]*?<!-- @analytics:end -->\n?/, '');
+  if (JETON_AUDIENCE && !/http-equiv="Content-Security-Policy"/.test(s)) {
+    const balise = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${JETON_AUDIENCE}"}'></script>`;
+    s = s.replace(/<\/body>/, `${zone('analytics', balise, 'includes/analytics.json')}\n</body>`);
   }
 
   // La rangée visible ne se pose QUE si la page porte déjà ses marqueurs : on
@@ -321,7 +339,7 @@ function traiter(rel, src) {
     // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
     // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
     // Comme pour l'adoption ci-dessus : pages motifs + AVEC_TUILES_EN_PLUS.
-    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_TUILES.has(rel)) {
+    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) && !SANS_TUILES.has(rel)) {
       s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
         const i = t.indexOf('<!-- @footer:start');
         if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);

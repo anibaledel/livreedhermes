@@ -2,14 +2,20 @@
    Adresses des pages hexagrammes, en français et en anglais.
 
    Source unique pour les deux générateurs (generate-hexagram-pages.js,
-   generate-hexagram-pages-en.js), les paires de traduction de
+   generate-hexagram-pages-traduites.js), les paires de traduction de
    scripts/langues.js et les liens des pages motifs : une adresse calculée à
    un seul endroit ne peut pas diverger d'un fichier à l'autre.
 
      FR  hexagrammes/<chrono>-<pinyin>-<nom français>.html
      EN  en/hexagrams/<chrono>-<pinyin>-<english name>.html
+     ES  es/hexagramas/<chrono>-<pinyin>-<nombre>.html
+     TH  th/hexagrams/<chrono>-<pinyin>.html   (le nom thaï ne donne pas d'adresse lisible)
    ============================================================ */
+const fs = require('fs');
+const path = require('path');
 const DATA = require('./extract-hexagram-data.js');
+// Noms espagnols et thaïs : data/hexagrammes_traduits.json.
+const TRADUITS = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'hexagrammes_traduits.json'), 'utf8'));
 
 const SITE = 'https://anibal-amiot.com';
 
@@ -20,11 +26,14 @@ function slugify(str) {
 
 function slug(chrono, lang) {
   const kw = DATA.KINGWEN_BY_CHRONO[chrono];
-  const [pinyin, nom] = (lang === 'en' ? DATA.HEX_KW_EN : DATA.HEX_KW)[kw];
+  const pinyin = DATA.HEX_KW[kw][0];
+  if (lang === 'th') return `${chrono}-${slugify(pinyin)}.html`;
+  const nom = lang === 'es' ? TRADUITS.es.hexagrams[kw].name
+    : (lang === 'en' ? DATA.HEX_KW_EN : DATA.HEX_KW)[kw][1];
   return `${chrono}-${slugify(pinyin)}-${slugify(nom)}.html`;
 }
 
-const DOSSIER = { fr: 'hexagrammes', en: 'en/hexagrams' };
+const DOSSIER = { fr: 'hexagrammes', en: 'en/hexagrams', es: 'es/hexagramas', th: 'th/hexagrams' };
 
 // Fichier dans le dépôt et adresse publique d'une page (chrono) ou de l'index (null).
 function fichier(chrono, lang) {
@@ -34,4 +43,4 @@ function url(chrono, lang) {
   return chrono === null ? `${SITE}/${DOSSIER[lang]}/` : `${SITE}/${DOSSIER[lang]}/${slug(chrono, lang)}`;
 }
 
-module.exports = { slug, fichier, url, DOSSIER };
+module.exports = { slug, fichier, url, DOSSIER, TRADUITS };
