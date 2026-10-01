@@ -1,0 +1,24 @@
+name: Liens internes
+
+# Chaque lien interne des pages (href, src, srcset, poster) doit mener a un
+# fichier du depot. Le site compte plus de 600 pages, la plupart engendrees,
+# et les menages du depot suppriment des fichiers : un lien casse ne se voit
+# qu'en cliquant dessus. Voir la docstring de tools/check_liens.mjs.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_liens.mjs

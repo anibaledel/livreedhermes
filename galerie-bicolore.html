@@ -317,8 +317,8 @@
   </div>
 
   <div class="gallery-panel">
-    <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
-    <div id="gallery"></div>
+    <div class="gallery-label" id="galerie-label">Faites défiler et cliquez un motif pour le sélectionner</div>
+    <div id="gallery" data-liste-clavier=".tile" data-choisi="selected" aria-labelledby="galerie-label" aria-orientation="horizontal"></div>
   </div>
 
   <div class="paved-section" id="pavedSection">
@@ -743,6 +743,7 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
+<script src="assets/liste-clavier.js"></script>
 
 <!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <footer class="site-footer">

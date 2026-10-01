@@ -61,8 +61,8 @@
   }
   /* Le doré du site : sans cette règle, les liens hors .profile-sources
      tombent sur le bleu par défaut du navigateur, illisible sur fond noir. */
-  .profile-intro a, .profile-text a, .chiffres a{ color:var(--gold); text-decoration:none; }
-  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover{ text-decoration:underline; }
+  .profile-intro a, .profile-text a, .chiffres a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover{ text-decoration-color:currentColor; }
   .chiffres th, .chiffres td{ padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
@@ -93,8 +93,8 @@
     .chiffres th, .chiffres td{ padding:7px 6px; }
   }
   .profile-sources{ max-width:64ch; margin:0 auto; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; text-align:center; }
-  .profile-sources a{ color:var(--gold); text-decoration:none; }
-  .profile-sources a:hover{ text-decoration:underline; }
+  .profile-sources a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-sources a:hover{ text-decoration-color:currentColor; }
 
   /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
   .faq-block{ max-width:64ch; margin:0 auto 40px; text-align:left; }
