@@ -14,7 +14,21 @@ id = "045fad05c15a42d59fc56a7b0bf72ac8"
 [vars]
 STRIPE_MIN_AMOUNT_CENTS = 100
 ALLOWED_ORIGIN = "https://anibal-amiot.com"
-# Prix fixe du palier Pro, en centimes (9900 = 99,00 €). Changer cette valeur
-# suffit pour ajuster le prix — aucun montant n'est jamais lu depuis le client
-# pour ce palier (contrairement au soutien à prix libre).
-STRIPE_PRO_PRICE_CENTS = 9900
+
+# Limites de débit par adresse IP (liaisons « ratelimit » de Cloudflare ; la
+# période ne peut valoir que 10 ou 60 secondes). namespace_id : un entier
+# propre à chaque limite, choisi librement, unique dans le compte Cloudflare.
+#   LIMITE_PAIEMENT : création de sessions Stripe — 5 par minute et par IP.
+#   LIMITE_LECTURE  : /claim-token et /verify-access — 30 par minute et par IP
+#                     (la page de retour de paiement réessaie jusqu'à 9 fois).
+[[unsafe.bindings]]
+name = "LIMITE_PAIEMENT"
+type = "ratelimit"
+namespace_id = "1701"
+simple = { limit = 5, period = 60 }
+
+[[unsafe.bindings]]
+name = "LIMITE_LECTURE"
+type = "ratelimit"
+namespace_id = "1702"
+simple = { limit = 30, period = 60 }
