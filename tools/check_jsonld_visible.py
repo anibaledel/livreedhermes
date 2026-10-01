@@ -39,7 +39,7 @@ REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HORS_PERIMETRE = {
     'pages.html', 'motifs (4).html', 'galerie-768-patterns-unifies.html',
     'galerie-884-patterns-unifies.html', 'fonds-ecrans.html',
-    'unified-patterns-768.html', 'unified-patterns-884.html', '_preview.html',
+    'unified-patterns-768.html', 'unified-patterns-884.html',
 }
 
 BLOC_JSONLD = re.compile(

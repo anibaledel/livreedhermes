@@ -366,9 +366,7 @@ ${ICONES[lang]}
   .soutien-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:4px; text-align:center; }
 </style>
 <link rel="stylesheet" href="${prefixe}style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${prefixe}assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 </head>
 <body>
 <div class="wrap">
@@ -677,9 +675,7 @@ ${ICONES[lang]}
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
 </style>
 <link rel="stylesheet" href="${prefixe}style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${prefixe}assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 </head>
 <body>
 <div class="wrap">

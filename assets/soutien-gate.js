@@ -22,7 +22,7 @@
        « Soutenir » des pages.
 
    Textes en FR, EN, ES, TH, choisis d'après <html lang>. Le thaï doit être
-   relu par un lecteur natif (voir i18n_todo_soutien.md).
+   relu par un lecteur natif (voir docs/i18n/i18n_todo_soutien.md).
    ============================================================ */
 
 (function(){

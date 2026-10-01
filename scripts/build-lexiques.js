@@ -160,9 +160,7 @@ ${json({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
     .lex-intro, .lex-section p, .lex-sources{ font-size:calc(14.5px + var(--fs-bump)); }
   }
 </style>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="${prof}assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="${prof}style.css">
 <link rel="stylesheet" href="${prof}assets/fonts.css">
 <link rel="stylesheet" href="${prof}assets/breadcrumb.css">

@@ -20,15 +20,15 @@ JavaScript en ligne. Ce qui est partagé entre plusieurs pages vit dans
 ├── galerie-768-patterns-unifies.html galerie des 768 motifs unifiés
 ├── unified-patterns.html            présentation des motifs unifiés
 ├── fonds-ecran.html                 fonds d'écran
-├── articles.html + articles/        six articles de fond
+├── articles.html + articles/        neuf articles de fond
 ├── hexagrammes/                     index + 64 pages, une par hexagramme (générées)
 ├── lexique.html, a-propos.html, profil.html, contact.html
-├── pro.html, pro-contenu.html, pro-succes.html    palier Pro (99 €)
-├── soutien-succes.html              retour de paiement du soutien
+├── soutenir.html, soutien-succes.html   soutien à prix libre (un don) et retour de paiement
+├── pro.html, pro-contenu.html        redirections conservées (l'ancien palier Pro n'existe plus)
 ├── encodeur.html                    SecuBox : stéganographie et chiffrement
 ├── book-viewer/                     liseuse du livre + PDF (fr, en, es, th)
 ├── fr/livre/, en/book/, es/libro/, th/book/       pages de vente du livre
-├── assets/                          images, motifs, JS partagé (~7 700 fichiers)
+├── assets/                          images, motifs, polices (assets/fonts/), JS partagé
 ├── data/                            référents géométriques 256 et 360
 ├── scripts/                         génération hors ligne (Node)
 ├── worker/                          backend Cloudflare Worker (Stripe)
@@ -45,13 +45,16 @@ les anciens liens.
 |---|---|
 | `calque-engine.js` | moteur de composition des motifs : reconstruit la grille de calques pour chaque nature de trait (Yang, Yang mutant, Yin, Yin mutant) |
 | `articles-data.js` | source unique des métadonnées d'articles, lue par `articles.html` et par chaque page d'article |
-| `soutien-gate.js` | soutien à prix libre — verrouille les téléchargements SVG et PDF |
-| `pro-gate.js` | palier Pro à prix fixe, jeton distinct de celui du soutien |
+| `soutien-gate.js` | soutien à prix libre : fenêtre de paiement, et bandeau de licence après le premier téléchargement de la session — ne verrouille rien |
 | `share-widget.js` | bloc « Partager cette page » |
 
-Les deux paliers sont indépendants : posséder l'un ne donne pas accès à l'autre.
-Les jetons vivent sous deux clés `localStorage` distinctes (`soutien_token`,
-`pro_token`) et sont vérifiés auprès du Worker.
+Tout est en libre téléchargement sous licence CC BY-NC 4.0 (décision du
+2026-10-01) : le traité, les motifs (SVG, PDF, Pinterest) et les exports des
+outils. Le soutien à prix libre est un don, il ne débloque rien ; l'usage
+commercial passe par une licence commerciale demandée par courriel.
+
+Les polices (Barlow Semi Condensed, et IBM Plex pour `carter-demo.html`) sont
+hébergées dans `assets/fonts/`, sans appel à Google Fonts.
 
 ## Modifier le contenu
 
@@ -220,8 +223,10 @@ depuis la date du dernier commit Git du fichier.
 
 ## Backend (`worker/`)
 
-Cloudflare Worker qui gère les paiements Stripe des deux paliers et délivre les
-jetons d'accès. Le site statique n'est pas modifié par ce Worker : il est
+Cloudflare Worker qui gère les paiements Stripe du soutien à prix libre. Ses
+routes de jeton (`/claim-token`, `/verify-access`) ne servent plus à débloquer
+quoi que ce soit ; seule la page de retour de paiement s'en sert encore pour
+confirmer le paiement. Le site statique n'est pas modifié par ce Worker : il est
 seulement appelé en `fetch()` depuis le navigateur, à
 `livreedhermes-soutien.anibalamiot.workers.dev`.
 

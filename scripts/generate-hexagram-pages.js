@@ -296,9 +296,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   @media (max-width:480px){ .article-title{ font-size:calc(21px + var(--fs-bump)); } .article-content{ font-size:calc(14.5px + var(--fs-bump)); } .hex-square img{ width:170px; height:170px; } }
 </style>
 <link rel="stylesheet" href="../style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
 ${ICONES}
@@ -592,9 +590,7 @@ ${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
 </style>
 <link rel="stylesheet" href="../style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="../assets/fonts.css">
 <link rel="stylesheet" href="../assets/atalanta-bg.css">
 ${ICONES}
