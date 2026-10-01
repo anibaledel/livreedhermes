@@ -347,8 +347,20 @@ function traiter(rel, src) {
       }
     }
   }
-  // Cible du lien d'évitement de l'en-tête : le <main> de la page.
+  // Cible du lien d'évitement de l'en-tête : le <main> de la page, ou, à
+  // défaut (pages du livre, liseuse), le premier élément après l'en-tête.
   s = s.replace(/<main>/, '<main id="contenu">');
+  if (!s.includes('id="contenu"')) {
+    const i = s.indexOf(FIN_ENTETE);
+    if (i !== -1) {
+      const reste = s.slice(i + FIN_ENTETE.length);
+      const m = /<([a-z][a-z0-9]*)(\s[^>]*)?>/i.exec(reste);
+      if (m && !/\sid=/.test(m[2] || '')) {
+        const j = i + FIN_ENTETE.length + m.index + 1 + m[1].length;
+        s = s.slice(0, j) + ' id="contenu"' + s.slice(j);
+      }
+    }
+  }
   return s;
 }
 
