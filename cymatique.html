@@ -713,20 +713,17 @@ for (const k of Object.keys(UI.fr)) {
 
 const LANG_STORAGE_KEY = 'lldh-lang';
 const LANGS = ['fr', 'en', 'es', 'th'];
-function detectBrowserLang() {
-  const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'fr'];
-  for (const raw of langs) {
-    const code = (raw || '').slice(0, 2).toLowerCase();
-    if (LANGS.includes(code)) return code;
-  }
-  return 'fr';
-}
 function initialLang() {
   const params = new URLSearchParams(location.search);
   if (params.has('lang') && LANGS.includes(params.get('lang'))) return params.get('lang');
   let stored = null;
   try { stored = localStorage.getItem(LANG_STORAGE_KEY); } catch (e) {}
-  return LANGS.includes(stored) ? stored : detectBrowserLang();
+  // Français par défaut, quelle que soit la langue du navigateur — comme
+  // l'accueil (voir initialLang() dans index.html) : une seule adresse ne
+  // doit pas changer de langue selon le visiteur, sans quoi Googlebot, en
+  // anglais, indexe une page déclarée française affichée en anglais. Les
+  // autres langues restent à un clic (boutons, mémorisés) ou par ?lang=.
+  return LANGS.includes(stored) ? stored : 'fr';
 }
 let LANG = initialLang();
 function t(key) { return (UI[LANG] && UI[LANG][key] !== undefined) ? UI[LANG][key] : UI.fr[key]; }
@@ -789,6 +786,8 @@ function applyUILang() {
   syncEchelleControls();
   renderCymTables();
   document.title = t('pageTitle') + " — La Livrée d'Hermès";
+  // Langue déclarée du document = langue affichée (lecteurs d'écran, traducteurs).
+  document.documentElement.lang = LANG;
   refreshMatchTexts();
 
   // Mention de relecture — seulement pour les langues dont la traduction
