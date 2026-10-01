@@ -37,6 +37,7 @@ function extractLiteral(varName){
 
 module.exports = {
   HEX_KW: extractLiteral('HEX_KW'),
+  HEX_KW_EN: extractLiteral('HEX_KW_EN'),
   IMAGE_FR: extractLiteral('IMAGE_FR'),
   KINGWEN_BY_CHRONO: extractLiteral('KINGWEN_BY_CHRONO'),
   HANZI_BY_KW: extractLiteral('HANZI_BY_KW'),
