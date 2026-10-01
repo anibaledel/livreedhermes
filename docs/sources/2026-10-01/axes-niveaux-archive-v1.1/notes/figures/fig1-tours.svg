@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 352" width="760" height="352" font-family="Georgia, serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#111"/></marker></defs>
+<rect x="110" y="250" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="2"/>
+<text x="185.0" y="267" text-anchor="middle" font-size="13">T₀ YIN</text>
+<text x="185.0" y="282" text-anchor="middle" font-size="11" fill="#666">{0, 6}</text>
+<rect x="110" y="150" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="185.0" y="167" text-anchor="middle" font-size="13">T₀ YIN MUT</text>
+<text x="185.0" y="182" text-anchor="middle" font-size="11" fill="#666">{±3}</text>
+<rect x="30" y="50" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="105.0" y="67" text-anchor="middle" font-size="13">T₁ YIN</text>
+<text x="105.0" y="82" text-anchor="middle" font-size="11" fill="#666">{±1.5}</text>
+<rect x="190" y="50" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="265.0" y="67" text-anchor="middle" font-size="13">T₁ YIN MUT</text>
+<text x="265.0" y="82" text-anchor="middle" font-size="11" fill="#666">{±4.5}</text>
+<line x1="185" y1="248" x2="185" y2="192" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<line x1="180" y1="148" x2="125" y2="92" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<line x1="190" y1="148" x2="245" y2="92" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<path d="M260 270 q 34 0 34 -20 q 0 -20 -34 -20" fill="none" stroke="#111" stroke-width="2" marker-end="url(#a)"/>
+<text x="302" y="255" font-size="11" fill="#666">σ⁻¹</text>
+<rect x="500" y="250" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="2"/>
+<text x="575.0" y="267" text-anchor="middle" font-size="13">T₂ YIN MUT</text>
+<text x="575.0" y="282" text-anchor="middle" font-size="11" fill="#666">{±2, ±4}</text>
+<rect x="500" y="150" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="575.0" y="167" text-anchor="middle" font-size="13">T₂ YIN</text>
+<text x="575.0" y="182" text-anchor="middle" font-size="11" fill="#666">{±1, ±5}</text>
+<rect x="420" y="50" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="495.0" y="67" text-anchor="middle" font-size="13">T₃ YIN</text>
+<text x="495.0" y="82" text-anchor="middle" font-size="11" fill="#666">{±0.5, ±5.5}</text>
+<rect x="580" y="50" width="150" height="40" rx="3" fill="none" stroke="#111" stroke-width="1"/>
+<text x="655.0" y="67" text-anchor="middle" font-size="13">T₃ YIN MUT</text>
+<text x="655.0" y="82" text-anchor="middle" font-size="11" fill="#666">{±2.5, ±3.5}</text>
+<line x1="575" y1="248" x2="575" y2="192" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<line x1="570" y1="148" x2="515" y2="92" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<line x1="580" y1="148" x2="635" y2="92" stroke="#111" stroke-width="1" marker-end="url(#a)"/>
+<path d="M650 270 q 34 0 34 -20 q 0 -20 -34 -20" fill="none" stroke="#111" stroke-width="2" marker-end="url(#a)"/>
+<text x="692" y="255" font-size="11" fill="#666">σ⁻¹</text>
+<text x="30" y="20" font-size="12" fill="#666">arrows run in the direction of σ⁻¹; the descent σ runs against them</text>
+<text x="185" y="312" text-anchor="middle" font-size="12">first tower, root 0°</text>
+<text x="185" y="331" text-anchor="middle" font-size="10.5" fill="#666">the two branches of σ⁻¹ separate base from mutant</text>
+<text x="575" y="312" text-anchor="middle" font-size="12">second tower, root 120°</text>
+<text x="575" y="331" text-anchor="middle" font-size="10.5" fill="#666">here each pair of branches lands in a single family</text>
+<text x="110" y="110" font-size="11" fill="#666">base</text>
+<text x="262" y="110" font-size="11" fill="#666">mutant</text>
+</svg>

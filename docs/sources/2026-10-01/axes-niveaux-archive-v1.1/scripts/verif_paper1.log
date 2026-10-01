@@ -1,0 +1,98 @@
+
+Theoremes 1 et 2 — cloture par sigma^-1 des niveaux fixes
+---------------------------------------------------------
+  niveaux fixes orthogonaux : T0 YIN [0.0, 6.0] | T2 YIN MUT [-4.0, -2.0, 2.0, 4.0]
+  niveaux fixes diagonaux   : T0 YANG [0.0] | T2 YANG [-4.0, -2.0, -1.0, 1.0, 2.0, 4.0]
+  orthogonal : tailles [6, 12, 24] -> 24 ecarts
+  diagonal   : tailles [7, 14, 20, 24] -> 24 ecarts, losange 6 present : True
+  orthogonal = reunion des huit familles YIN : True
+  diagonal   = reunion des huit familles YANG + {6} : True
+  seul, 0deg orthogonal   : tailles [2, 4, 8] -> 8
+  seul, 0deg diagonal     : tailles [1, 2, 4, 8] -> 8
+  seul, 120deg orthogonal : tailles [4, 8, 16] -> 16
+  seul, 120deg diagonal   : tailles [6, 12, 16] -> 16
+  sans le 6, orthogonal: 17 ecarts ; perdus [-4.5, -3.0, -1.5, 1.5, 3.0, 4.5, 6.0]
+  sans le 6, diagonal  : 17 ecarts ; perdus [-4.5, -3.0, -1.5, 1.5, 3.0, 4.5, 6.0]
+
+§3 — preimages, deux tours, Proposition 1
+-----------------------------------------
+  sigma^-1(T0 YIN        ) = T0 YIN U T0 YIN MUT
+  sigma^-1(T0 YIN MUT    ) = T1 YIN U T1 YIN MUT
+  sigma^-1(T1 YIN        ) = vide
+  sigma^-1(T1 YIN MUT    ) = vide
+  sigma^-1(T2 YIN        ) = T3 YIN U T3 YIN MUT
+  sigma^-1(T2 YIN MUT    ) = T2 YIN U T2 YIN MUT
+  sigma^-1(T3 YIN        ) = vide
+  sigma^-1(T3 YIN MUT    ) = vide
+  Proposition 1 (e -> e+3 mod 6) sur les quatre niveaux orthogonaux : True
+
+Theoreme 3 — images, egalites, familles fixes
+---------------------------------------------
+  T0 YIN         -> T0 YIN         
+  T0 YIN MUT     -> T0 YIN         
+  T0 YANG        -> T0 YANG        (egalite)
+  T0 YANG MUT    -> HORS DU VOCABULAIRE [6.0]
+  T1 YIN         -> T0 YIN MUT     (egalite)
+  T1 YIN MUT     -> T0 YIN MUT     (egalite)
+  T1 YANG        -> HORS DU VOCABULAIRE [0.0, 6.0]
+  T1 YANG MUT    -> T0 YANG MUT    (egalite)
+  T2 YIN         -> T2 YIN MUT     
+  T2 YIN MUT     -> T2 YIN MUT     
+  T2 YANG        -> T2 YANG        
+  T2 YANG MUT    -> T3 YANG MUT    
+  T3 YIN         -> T2 YIN         
+  T3 YIN MUT     -> T2 YIN         
+  T3 YANG        -> T3 YANG MUT    
+  T3 YANG MUT    -> T2 YANG        
+  familles fixes : ['T0 YIN', 'T0 YANG', 'T2 YIN MUT', 'T2 YANG']
+  egalites       : ['T0 YANG = T0 YANG', 'T1 YIN = T0 YIN MUT', 'T1 YIN MUT = T0 YIN MUT', 'T1 YANG MUT = T0 YANG MUT']
+
+Theoreme 4 — ou la descente sort du vocabulaire
+-----------------------------------------------
+  accords dont l image sort : 49152
+  accord sort  <=>  contient T0 YANG MUT ou T1 YANG : 65535/65535
+  accords harmoniquement clos (sigma(A) inclus dans A) : 719
+
+§5.1 — droites tracees et systemes de bandes
+--------------------------------------------
+  segments tracés distincts : 94 ; partages par deux familles : 30
+  systemes de bandes (cles) : 72
+    T0 YANG MUT     4 droites -> 2 systemes
+    T1 YANG         6 droites -> 4 systemes
+    T1 YANG MUT     8 droites -> 4 systemes
+    T2 YANG        12 droites -> 8 systemes
+    T2 YANG MUT    16 droites -> 8 systemes
+    T3 YANG        12 droites -> 8 systemes
+    T3 YANG MUT    16 droites -> 8 systemes
+
+Theoremes 6 et 7 — parametres du code
+-------------------------------------
+  C8 : cles 72, nulles 2, rang des cles 70
+       rang des familles 13 ; [1152, 13] dmin 288 ; mots de poids min 1
+       mot minimal = T0 YANG MUT + T1 YIN
+       mots non nuls 8191 ; noyau : 7 mots, tailles [2, 2, 3, 4, 5, 5, 7]
+  C1 : cles 72, nulles 4, rang des cles 43
+       rang des familles 11 ; [144, 11] dmin 36 ; mots de poids min 1
+       mot minimal = T0 YANG MUT + T1 YIN
+       mots non nuls 2047 ; noyau : 31 mots, tailles [2, 2, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 7, 8, 10, 10, 11, 12, 12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 15]
+       relation supplementaire : T0 YIN + T0 YIN MUT + T1 YIN + T1 YIN MUT + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT
+       tout-sombre dans l espace engendre : False
+       sans ancrage (polarite de la regle) : rang 12
+       avec ancrage (region de reference claire) : rang 11
+       la dimension perdue est l inversion globale : T1 YANG + T1 YANG MUT + T2 YANG + T2 YANG MUT
+
+Theoreme 8 — quelles periodes
+-----------------------------
+   N   sans cycle   niveaux fixes non nuls   profondeur   M impair
+    6   True         [2]                          1        3
+    8   True         []                           3        1
+   10   False        []                           1        5
+   12   True         [4]                          2        3
+   16   True         []                           4        1
+   18   False        [6]                          1        9
+   24   True         [8]                          3        3
+   48   True         [16]                         4        3
+  sans cycle, N <= 48 : [2, 4, 6, 8, 12, 16, 24, 32, 48]
+  = {2^a} U {3.2^a}, N pair : True
+
+fin.

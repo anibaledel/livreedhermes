@@ -1,0 +1,18 @@
+1. sizes [8, 16, 24, 32, 40, 24, 8, 16, 24, 32, 40, 24]; disjoint True; union = the 288 cell diagonals: True
+   distinct drawings over the 4095 non-empty subsets: 4095
+2. levels: {'YA1': 150, 'YA2': 120, 'YA3': 90, 'YA4': 60, 'YA5': 30, 'YA6': 0, 'AY1': 30, 'AY2': 60, 'AY3': 90, 'AY4': 120, 'AY5': 150, 'AY6': 180}
+3. YA_k and AY_(6-k) same keys: True ; distinct key sets: 7
+4. each level tiled exactly by its elements: [(0, 'YA6', True), (30, 'YA5+AY1', True), (60, 'YA4+AY2', True), (90, 'YA3+AY3', True), (120, 'YA2+AY4', True), (150, 'YA1+AY5', True), (180, 'AY6', True)]
+5. lines(YA_k) shifted by 6 in c == lines(AY_k), with levels theta, 180-theta: [(1, True, 150, 30), (2, True, 120, 60), (3, True, 90, 90), (4, True, 60, 120), (5, True, 30, 150), (6, True, 0, 180)]
+6. doubling on levels: {0: 0, 30: 60, 60: 120, 90: 180, 120: 120, 150: 60, 180: 0}
+   T0 YANG      = levels [0]  exact union: True
+   T0 YANG MUT  = levels [180]  exact union: True
+   T1 YANG      = levels [0, 180]  exact union: True
+   T1 YANG MUT  = levels [90]  exact union: True
+   T2 YANG      = levels [60, 120]  exact union: True
+   T2 YANG MUT  = levels [30, 150]  exact union: True
+   T3 YANG      = levels [30, 150]  exact union: True
+   T3 YANG MUT  = levels [60, 120]  exact union: True
+7. C8: [1152, 15, 288]  (diagonal 7 + orthogonal 8); non-zero words 32767; relations []; minimum-weight words 1: ['L180 + T1 YIN']; all-dark not in span; old code contained: True
+7. C1: [144, 14, 36]  (diagonal 7 + orthogonal 7); non-zero words 16383; relations ['T0 YIN + T0 YIN MUT + T1 YIN + T1 YIN MUT + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT']; minimum-weight words 2: ['L180 + T1 YIN', 'L0 + L30 + L60 + L90 + L120 + L150 + T1 YIN MUT']; all-dark = L0 + L30 + L60 + L90 + L120 + L150 + L180; old code contained: True
+8. segment chords that are unions of complete level sets: 127 (2^7 - 1 = 127)
