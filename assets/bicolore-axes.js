@@ -186,3 +186,35 @@ export function generateAxesMask(axesListBrute, { perCell = PER_CELL, grain = 'C
   }
   return mask;
 }
+
+// Loi du demi-décalage (6,6), pour un ACCORD QUELCONQUE — pas seulement les
+// 15 familles de 𝔽₂⁴ (voir prompt-cc-generateur-bicolore-v2, loi 5b).
+// Vérifiée sur les 142 entrées de la galerie bicolore et 300 accords
+// aléatoires, grains C8 et C1, 0 exception (comparée à la translation (6,6)
+// réelle de la figure C1, voir tools/verify_demi_decalage_galerie.mjs).
+//
+//   epsilon(A) = [clés de T0 YANG ⊆ clés(A)] + [clés de T0 YANG MUT ⊆ clés(A)], mod 2
+//   si A contient les clés de UNE SEULE des deux moitiés T1 YIN / T1 YIN MUT
+//     -> "echange" (la translation (6,6) envoie la figure sur celle de
+//        l'accord où cette moitié est remplacée par l'autre, inversée si
+//        epsilon = 1) ;
+//   sinon -> "invariant" (epsilon = 0) ou "inverse" (epsilon = 1).
+function keySet(axesListBrute) {
+  return new Set(systemes(axesListBrute).map(({ nature, c }) => `${nature}|${c}`));
+}
+function isKeySubset(small, big) {
+  for (const k of small) if (!big.has(k)) return false;
+  return true;
+}
+// `axes` : le résultat de buildAxes(catalogue) — fournit les quatre
+// générateurs de référence (T0 YANG, T0 YANG MUT, T1 YIN, T1 YIN MUT).
+export function demiDecalageStatus(axesListBrute, axes) {
+  const ks = keySet(axesListBrute);
+  const t0Yang = isKeySubset(keySet(axes['YANG']['T0']), ks) ? 1 : 0;
+  const t0YangMut = isKeySubset(keySet(axes['YANG-MUT']['T0']), ks) ? 1 : 0;
+  const epsilon = t0Yang ^ t0YangMut;
+  const hasYin = isKeySubset(keySet(axes['YIN']['T1']), ks);
+  const hasYinMut = isKeySubset(keySet(axes['YIN-MUT']['T1']), ks);
+  if (hasYin !== hasYinMut) return { status: 'echange', epsilon };
+  return { status: epsilon ? 'inverse' : 'invariant', epsilon };
+}
