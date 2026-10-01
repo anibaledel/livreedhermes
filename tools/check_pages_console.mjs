@@ -48,7 +48,6 @@ const BASE_URL = baseUrlIdx >= 0 ? args[baseUrlIdx + 1] : 'http://localhost:8123
 // générique (texte du <body> non vide) et l'absence d'exception.
 const PAGES = [
   // ── 28 pages racine ──────────────────────────────────────────────────
-  { path: '_preview.html', horsEnTete: true },
   { path: 'a-propos.html' },
   { path: 'articles.html' },
   { path: 'bicolore.html' },

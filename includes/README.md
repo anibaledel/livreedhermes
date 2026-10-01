@@ -2,7 +2,8 @@
 
 Chaque fichier ici est la **source unique** d'une zone présente sur toutes les
 pages. Aucune page ne porte de copie : `scripts/build-header.js` les recopie
-entre des marqueurs, et `tools/check_header_sync.mjs` échoue si une page ne
+entre des marqueurs, et `node scripts/build-header.js --verifie` (workflow
+`check-header-sync.yml`) échoue si une page ne
 correspond plus à ce que les fragments produiraient.
 
 | Fragment | Zone | Marqueurs |

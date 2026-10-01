@@ -15,7 +15,7 @@
 // l'activation. Ne pas l'éditer à la main : `node tools/check_encodeur_sw.mjs --ecrit`
 // la recalcule, et le même script sans option fait échouer la CI si elle est périmée.
 
-const CACHE_VERSION = '1a4a92698ad8';
+const CACHE_VERSION = 'c1cb37ba96fe';
 const CACHE_PREFIX = 'encodeur-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 const CACHED_URLS = [

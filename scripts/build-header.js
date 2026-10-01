@@ -16,7 +16,8 @@
    FACES : une copie oubliée qui l'emporte au prochain passage. La parade
    est la même que pour referent_bandes : une source unique, un script qui
    recopie, et un contrôle qui échoue si une page diverge — voir
-   tools/check_header_sync.mjs et includes/README.md.
+   `node scripts/build-header.js --verifie` (workflow check-header-sync.yml)
+   et includes/README.md.
 
    Usage
    -----
@@ -36,11 +37,11 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 const INCLUDES = path.join(REPO_ROOT, 'includes');
 
 // Hors périmètre : redirections (meta refresh, aucun contenu propre), pages
-// de test cryptographiques, et l'aperçu interne des icônes de navigation.
+// et pages de test cryptographiques.
 const HORS_PERIMETRE = new Set([
   'pages.html', 'pro.html', 'pro-contenu.html', 'tirage-livree-hermes.html',
   'galerie-768-patterns-unifies.html', 'galerie-884-patterns-unifies.html',
-  'motifs (4).html', '_preview.html',
+  'motifs (4).html',
 ]);
 const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
 
