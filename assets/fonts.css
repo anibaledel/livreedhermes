@@ -1,5 +1,5 @@
-/* Police unique du site — chargée depuis Google Fonts via les <link> de <head>
-   sur chaque page ; cette règle est la seule déclaration de font-family/weight,
+/* Police unique du site — hébergée sur le site (assets/fonts/barlow-semi-condensed/,
+   chargée par un <link> dans le <head> de chaque page) ; cette règle est la seule déclaration de font-family/weight,
    partagée par toutes les pages qui l'incluent (pas de duplication par fichier). */
 :root, body {
   font-family: 'Barlow Semi Condensed', 'Bahnschrift', -apple-system, 'Helvetica Neue', Arial, sans-serif;
