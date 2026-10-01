@@ -290,3 +290,41 @@ picture{ display:contents; }
 /* Listes de choix au clavier (assets/liste-clavier.js) : la zone qui a le
    focus se signale comme les autres éléments interactifs. */
 [data-liste-clavier]:focus-visible{ outline:1px solid var(--gold); outline-offset:3px; }
+
+/* ============================================================
+   IMPRESSION — texte noir sur blanc, sans la navigation du site.
+   Les navigateurs n'impriment pas les fonds par défaut : sans ces règles,
+   le texte gris clair et les titres presque blancs du thème sombre
+   sortaient pâles sur le papier. Les jetons de couleur sont redéfinis
+   (:root:root l'emporte sur les :root inline des pages) ; les images, les
+   canevas et les motifs gardent leurs couleurs.
+   ============================================================ */
+@media print{
+  :root:root{
+    --bg:#fff; --panel:#fff; --white:#000; --dim:#333; --gold:#000;
+    --red:#b3221a; --line:#bbb; --line-strong:#888;
+  }
+  html, body{ background:#fff !important; color:#000 !important; }
+  body *{ color:#000 !important; text-shadow:none !important; box-shadow:none !important; }
+  .atalanta-zone, .atalanta-block{ background:none !important; }
+  .atalanta-zone::before, .atalanta-zone::after{ display:none !important; }
+
+  /* Navigation, partage, soutien : rien à faire sur papier. */
+  .skip-link, .breadcrumb, .other-langs, .home-menu, .site-nav-row, .site-nav-btn,
+  .nav-tiles, .tile-group, .footer-caduceus, .center-logo-slot, .footer-title-logo,
+  .site-footer-nav, .share-buttons, .share-row, .article-nav-links,
+  .corner, .corner2, #soutienBandeau, #soutienOverlay{ display:none !important; }
+
+  /* Liens : soulignés, et l'adresse des liens externes du texte en clair. */
+  a{ text-decoration:underline !important; }
+  .article-content a[href^="http"]::after{ content:" (" attr(href) ")"; font-size:.85em; word-break:break-all; }
+
+  /* Questions repliées (<details>) : la réponse s'imprime avec la question. */
+  details::details-content{ content-visibility:visible !important; display:block !important; height:auto !important; }
+  details > summary::after, details > summary::before, summary .q-mark{ display:none !important; }
+
+  img, svg, canvas, figure, pre, table{ break-inside:avoid; max-width:100% !important; }
+  h1, h2, h3, h4{ break-after:avoid; }
+  p, li{ orphans:3; widows:3; }
+  .site-footer{ border-top:1px solid #bbb; margin-top:24px; }
+}

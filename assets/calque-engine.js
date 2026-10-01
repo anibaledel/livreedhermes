@@ -61,9 +61,31 @@ window.CalqueEngine = (function(){
     return sp;
   }
 
+  // Les grilles d'un espace sont précalculées dans <dossier>/grilles.json
+  // (scripts/build-grilles-calques.js, contrôlé en CI) : un fichier de 2 Ko au
+  // lieu des 24 SVG (1,3 Mo bruts). Les SVG restent la source — le JSON en est
+  // extrait par ce même moteur — et le repli si le JSON manque ou est invalide.
   function loadSpace(name, dir){
     const sp = ensureSpace(name);
     if(sp.loadPromise) return sp.loadPromise;
+    sp.loadPromise = fetch(dir + 'grilles.json')
+      .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(data => {
+        const keys = Object.values(NATURE_KEY);
+        const valide = keys.every(k => Array.isArray(data[k]) && data[k].length === 12
+          && data[k].every(row => Array.isArray(row) && row.length === 12
+            && row.every(v => v === null || v === 'V' || v === 'M' || v === 'O')));
+        if(!valide) throw new Error('grilles.json invalide');
+        keys.forEach(k => data[k].forEach((row, r) => row.forEach((v, c) => { sp.grids[k][r][c] = v; })));
+      })
+      .catch(() => loadSpaceFromSvg(sp, dir))
+      .then(() => {
+        if(typeof window.repaintAllPavage === 'function') window.repaintAllPavage();
+      });
+    return sp.loadPromise;
+  }
+
+  function loadSpaceFromSvg(sp, dir){
     const tasks = [];
     Object.keys(NATURE_KEY).forEach(slug => {
       for(let pos = 1; pos <= 6; pos++){
@@ -77,10 +99,7 @@ window.CalqueEngine = (function(){
         );
       }
     });
-    sp.loadPromise = Promise.all(tasks).then(() => {
-      if(typeof window.repaintAllPavage === 'function') window.repaintAllPavage();
-    });
-    return sp.loadPromise;
+    return Promise.all(tasks);
   }
 
   function spaceColorAt(name, nature, row, col){

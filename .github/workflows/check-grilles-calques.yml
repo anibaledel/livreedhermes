@@ -1,0 +1,24 @@
+name: Grilles des calques en phase avec les SVG
+
+# assets/trait-cartes/grilles.json est extrait des 24 cartes SVG par le code
+# meme de CalqueEngine (scripts/build-grilles-calques.js) : le moteur le
+# charge a la place des SVG. Ce controle echoue si une carte change sans que
+# le JSON soit regenere.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-grilles-calques.js --verifie
