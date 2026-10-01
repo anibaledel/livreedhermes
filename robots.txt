@@ -11,16 +11,16 @@
 # licence commerciale sur demande). Voir /llms.txt, LICENSE et NOTICE.
 #
 # ATTENTION AU FONCTIONNEMENT DES GROUPES — un robot nommé ci-dessous lit
-# SON groupe et ignore entièrement « User-agent: * ». Les deux Disallow des
-# dossiers de motifs doivent donc être répétés dans chaque groupe, sinon les
-# robots nommés y auraient accès alors que tous les autres ne l'ont pas.
+# SON groupe et ignore entièrement « User-agent: * ». Les Disallow doivent
+# donc être répétés dans chaque groupe, sinon les robots nommés y auraient
+# accès alors que tous les autres ne l'ont pas. Les dossiers de motifs
+# (motifs-svg, motifs-pinterest, pro-downloads) ne sont plus interdits
+# depuis le 2026-10-01 : tout y est en libre téléchargement, rien à cacher.
 # Toute règle ajoutée au groupe « * » est à reporter partout ici.
 
 # ── Tous les robots ────────────────────────────────────────────────────
 User-agent: *
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
@@ -30,22 +30,16 @@ Disallow: /assets/articles/originaux/
 
 User-agent: OAI-SearchBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: Claude-SearchBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: PerplexityBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
@@ -57,22 +51,16 @@ Disallow: /assets/articles/originaux/
 
 User-agent: ChatGPT-User
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: Claude-User
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: Perplexity-User
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
@@ -84,36 +72,26 @@ Disallow: /assets/articles/originaux/
 
 User-agent: GPTBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: ClaudeBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: CCBot
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: Google-Extended
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 
 User-agent: Applebot-Extended
 Allow: /
-Disallow: /assets/motifs-svg/
-Disallow: /assets/motifs-pinterest/
 Disallow: /includes/
 Disallow: /assets/articles/originaux/
 

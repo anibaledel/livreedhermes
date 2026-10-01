@@ -1,79 +1,153 @@
 /* ============================================================
-   Soutien à prix libre — verrouillage des téléchargements de fichiers
-   finis (SVG/PNG haute résolution des motifs, SVG/PDF du tirage, les 8
-   fichiers ZIP/PDF de telechargements.html/pro-downloads/). Chargé sur de
-   nombreuses pages mais n'intercepte QUE les boutons/liens listés ci-dessous
-   (GATED_BUTTON_IDS + href*="pro-downloads/") — la lecture des motifs à
-   l'écran, le tirage, les articles, et les PDF du livre (voir plus bas)
-   ne passent jamais par ce script.
+   Soutien à prix libre — un don, plus un verrou.
 
-   Verrou de type UX (le clic est intercepté), pas un DRM : les fichiers
-   restent statiques et servis normalement, seule l'action de clic est
-   redirigée vers soutenir.html tant qu'aucun jeton valide n'est présent.
+   Décision de l'auteur (option A de l'audit, 2026-10-01) : plus aucun
+   fichier n'est verrouillé. Le traité, les motifs (SVG, PDF, Pinterest) et
+   les exports des outils (SVG, broderie, calques d'impression) se
+   téléchargent directement, sans condition, sous licence CC BY-NC 4.0.
+   Le soutien à prix libre reste, mais il ne débloque plus rien : c'est un
+   don. L'usage commercial (impression, tissage, revente) passe par une
+   licence commerciale demandée par courriel. Cette règle remplace celle du
+   26 septembre (exports conditionnés au soutien).
 
-   Les PDF du livre ne sont PLUS verrouillés ici (décision de l'auteur,
-   correction de l'audit du 2026-09-16) : ils sont publiés en accès libre sur
-   Zenodo sous licence CC BY-NC 4.0 — un verrou ici contredirait cette
-   licence. L'accès aux PAGES (telechargements.html, encodeur.html, la
-   galerie, l'impression) reste entièrement libre dans tous les cas ; seul
-   le TÉLÉCHARGEMENT d'un fichier fini est conditionné à une participation
-   à prix libre (1€ minimum, cf. worker/).
+   Ce script n'intercepte donc plus aucun clic et ne vérifie plus aucun
+   jeton. Il fait deux choses :
+     - après le PREMIER téléchargement de la session, un bandeau non
+       bloquant rappelle la licence et propose de soutenir le projet. Il se
+       ferme d'un clic et ne revient pas dans la session (sessionStorage,
+       dans un try/catch : sans stockage, la page marche, le bandeau peut
+       seulement revenir au rechargement) ;
+     - window.SoutienGate.showModal() ouvre la fenêtre de paiement à prix
+       libre (Stripe, via le Worker — inchangé), utilisée par les boutons
+       « Soutenir » des pages.
+
+   Textes en FR, EN, ES, TH, choisis d'après <html lang>. Le thaï doit être
+   relu par un lecteur natif (voir i18n_todo_soutien.md).
    ============================================================ */
 
 (function(){
-  // À REMPLACER par l'URL du Worker une fois déployé (voir worker/README.md).
   const WORKER_BASE_URL = 'https://livreedhermes-soutien.anibalamiot.workers.dev';
-
-  const TOKEN_KEY = 'soutien_token';
-  const SHORT_TEXT = 'Fichier réservé aux soutiens — prix libre';
-  const LONG_TEXT = "Ce site et son contenu restent entièrement gratuits, et le resteront. Le téléchargement des fichiers finis — SVG modifiables et PDF haute résolution — est réservé à celles et ceux qui choisissent de soutenir le projet, à prix libre : c'est vous qui fixez le montant. Ce soutien finance le temps de recherche, de développement et de traduction que demande ce travail, et vous donne accès aux fichiers eux-mêmes plutôt qu'à leur seul aperçu.";
+  const SESSION_KEY = 'soutien_bandeau_vu';
+  const CONTACT = 'anibaledel@gmail.com';
   const DEFAULT_AMOUNT_EUR = 5;
   const MIN_AMOUNT_EUR = 1;
 
-  // Ce que le SYSTÈME fabrique pour le visiteur — pas ce qu'il lui rend. Voir
-  // encodeur.html (btnDownloadGrid, btnVaultExport) : ces deux boutons rendent
-  // au visiteur ce qu'il a lui-même saisi (grille CSV de son propre encodage,
-  // coffre chiffré avec son propre mot de passe), et restent volontairement
-  // hors de cette liste — la règle du soutien porte sur ce que l'outil
-  // produit, pas sur ce que l'utilisateur y a déposé. Une future page d'export
-  // ne doit pas y entrer par automatisme : se demander d'abord de quel côté
-  // de cette ligne elle se trouve.
-  const GATED_BUTTON_IDS = ['dlSvg', 'dlPdf', 'btnCreateSVG', 'btnPairSvgA', 'btnPairSvgB', 'btnDlCellSvg', 'btnDlPavedSvg', 'dlMotifPng', 'btnDlInkstitch', 'btnRecord'];
+  const TEXTES = {
+    fr: {
+      bandeau: "Ce fichier est libre, sous licence CC BY-NC 4.0 : vous pouvez l'utiliser, le partager et le modifier, hors usage commercial. Si ce travail vous est utile, vous pouvez le soutenir à prix libre.",
+      soutenir: 'Soutenir',
+      commercial: "Pour un usage commercial (impression, tissage, revente), écrivez-moi :",
+      fermer: 'Fermer',
+      modaleTitre: 'Soutenir le projet',
+      modaleTexte: "Tout est libre. Le traité, les motifs et les fichiers produits par les outils se téléchargent sans condition, sous licence CC BY-NC 4.0. Votre soutien, à prix libre, finance la suite du projet : de nouveaux motifs, de nouveaux outils, le volet textile.",
+      montant: 'Montant (EUR)',
+      annuler: 'Annuler',
+      redirection: 'Redirection…',
+      minimum: `Montant minimum : ${MIN_AMOUNT_EUR} €`,
+      erreur: 'Erreur inattendue, veuillez réessayer plus tard.',
+      injoignable: 'Impossible de contacter le service de paiement.',
+    },
+    en: {
+      bandeau: 'This file is free, under the CC BY-NC 4.0 licence: you may use, share and adapt it for non-commercial purposes. If this work is useful to you, you can support it at a price of your choice.',
+      soutenir: 'Support',
+      commercial: 'For commercial use (printing, weaving, resale), write to me:',
+      fermer: 'Close',
+      modaleTitre: 'Support the project',
+      modaleTexte: 'Everything is free. The treatise, the patterns and the files the tools produce download without conditions, under the CC BY-NC 4.0 licence. Your support, at a price you choose, funds what comes next: new patterns, new tools, the textile work.',
+      montant: 'Amount (EUR)',
+      annuler: 'Cancel',
+      redirection: 'Redirecting…',
+      minimum: `Minimum amount: €${MIN_AMOUNT_EUR}`,
+      erreur: 'Unexpected error, please try again later.',
+      injoignable: 'Unable to reach the payment service.',
+    },
+    es: {
+      bandeau: 'Este archivo es libre, bajo licencia CC BY-NC 4.0: puede usarlo, compartirlo y modificarlo, sin fines comerciales. Si este trabajo le resulta útil, puede apoyarlo con la cantidad que quiera.',
+      soutenir: 'Apoyar',
+      commercial: 'Para un uso comercial (impresión, tejido, reventa), escríbame:',
+      fermer: 'Cerrar',
+      modaleTitre: 'Apoyar el proyecto',
+      modaleTexte: 'Todo es libre. El tratado, los motivos y los archivos que producen las herramientas se descargan sin condiciones, bajo licencia CC BY-NC 4.0. Su apoyo, con la cantidad que usted elija, financia la continuación del proyecto: nuevos motivos, nuevas herramientas, la parte textil.',
+      montant: 'Importe (EUR)',
+      annuler: 'Cancelar',
+      redirection: 'Redirigiendo…',
+      minimum: `Importe mínimo: ${MIN_AMOUNT_EUR} €`,
+      erreur: 'Error inesperado, inténtelo de nuevo más tarde.',
+      injoignable: 'No se puede contactar con el servicio de pago.',
+    },
+    th: {
+      bandeau: 'ไฟล์นี้ใช้ได้ฟรี ภายใต้สัญญาอนุญาต CC BY-NC 4.0 คุณสามารถใช้ แบ่งปัน และดัดแปลงได้ โดยไม่ใช้เพื่อการค้า หากงานนี้มีประโยชน์กับคุณ คุณสามารถสนับสนุนได้ตามจำนวนที่คุณต้องการ',
+      soutenir: 'สนับสนุน',
+      commercial: 'หากต้องการใช้เพื่อการค้า (พิมพ์ ทอ หรือจำหน่ายต่อ) โปรดติดต่อ',
+      fermer: 'ปิด',
+      modaleTitre: 'สนับสนุนโครงการ',
+      modaleTexte: 'ทุกอย่างเปิดให้ใช้ฟรี ตำรา ลวดลาย และไฟล์ที่สร้างจากเครื่องมือต่างๆ ดาวน์โหลดได้โดยไม่มีเงื่อนไข ภายใต้สัญญาอนุญาต CC BY-NC 4.0 การสนับสนุนของคุณในจำนวนที่คุณกำหนดเอง ช่วยให้โครงการเดินหน้าต่อไป ทั้งลวดลายใหม่ เครื่องมือใหม่ และงานด้านสิ่งทอ',
+      montant: 'จำนวนเงิน (EUR)',
+      annuler: 'ยกเลิก',
+      redirection: 'กำลังเปลี่ยนหน้า…',
+      minimum: `จำนวนขั้นต่ำ: ${MIN_AMOUNT_EUR} €`,
+      erreur: 'เกิดข้อผิดพลาดที่ไม่คาดคิด โปรดลองอีกครั้งภายหลัง',
+      injoignable: 'ไม่สามารถติดต่อบริการชำระเงินได้',
+    },
+  };
+  const langue = (document.documentElement.lang || 'fr').slice(0, 2).toLowerCase();
+  const T = TEXTES[langue] || TEXTES.fr;
 
-  let isUnlocked = false;
-  let verifyDone = false;
-  const pendingCaptions = [];
-
-  async function checkAccess(){
-    const token = localStorage.getItem(TOKEN_KEY);
-    if(!token){ verifyDone = true; refreshUI(); return; }
-    try{
-      const res = await fetch(`${WORKER_BASE_URL}/verify-access?token=${encodeURIComponent(token)}&type=soutien`);
-      const data = await res.json();
-      isUnlocked = !!data.valid;
-    }catch(e){
-      isUnlocked = false;
-    }
-    verifyDone = true;
-    refreshUI();
+  // ---------- bandeau après le premier téléchargement de la session ----------
+  let bandeauVuIci = false; // repli si sessionStorage est indisponible
+  function bandeauDejaVu(){
+    if(bandeauVuIci) return true;
+    try{ return sessionStorage.getItem(SESSION_KEY) === '1'; }catch(e){ return false; }
+  }
+  function marquerBandeauVu(){
+    bandeauVuIci = true;
+    try{ sessionStorage.setItem(SESSION_KEY, '1'); }catch(e){ /* page utilisable sans stockage */ }
   }
 
-  function refreshUI(){
-    pendingCaptions.forEach(el => { el.style.display = isUnlocked ? 'none' : ''; });
+  function afficherBandeau(){
+    if(bandeauDejaVu() || document.getElementById('soutienBandeau')) return;
+    marquerBandeauVu();
+    const el = document.createElement('div');
+    el.id = 'soutienBandeau';
+    el.setAttribute('role', 'status');
+    el.style.cssText = 'position:fixed;left:16px;right:16px;bottom:16px;margin:0 auto;max-width:620px;z-index:9998;'
+      + 'background:var(--bg,#000);border:1px solid var(--line-strong,#3a3a3a);color:var(--dim,#f2f2f0);'
+      + 'padding:16px 44px 16px 18px;font-size:13px;line-height:1.6;box-shadow:0 8px 24px rgba(0,0,0,.5);';
+    el.innerHTML = `
+      <p style="margin:0 0 10px;"></p>
+      <p style="margin:0;font-size:12px;opacity:.85;"><span></span> <a href="mailto:${CONTACT}" style="color:var(--gold,#c9a15a);">${CONTACT}</a></p>
+      <button type="button" data-soutien-ouvrir style="margin-top:12px;border:1px solid var(--gold,#c9a15a);background:transparent;color:var(--gold,#c9a15a);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:8px 14px;cursor:pointer;"></button>
+      <button type="button" data-soutien-fermer style="position:absolute;top:8px;right:8px;border:0;background:transparent;color:var(--dim,#f2f2f0);font-size:20px;line-height:1;padding:4px 8px;cursor:pointer;">×</button>
+    `;
+    const [texte, ligneCommerciale] = el.querySelectorAll('p');
+    texte.textContent = T.bandeau;
+    ligneCommerciale.querySelector('span').textContent = T.commercial;
+    const ouvrir = el.querySelector('[data-soutien-ouvrir]');
+    ouvrir.textContent = T.soutenir;
+    const fermer = el.querySelector('[data-soutien-fermer]');
+    fermer.setAttribute('aria-label', T.fermer);
+    fermer.title = T.fermer;
+    ouvrir.addEventListener('click', () => { el.remove(); showModal(); });
+    fermer.addEventListener('click', () => el.remove());
+    document.body.appendChild(el);
   }
 
-  function addCaption(afterEl){
-    const cap = document.createElement('div');
-    cap.className = 'soutien-caption';
-    cap.textContent = SHORT_TEXT;
-    cap.style.cssText = 'font-size:10px;letter-spacing:.04em;color:var(--dim,#f2f2f0);opacity:.75;margin-top:4px;text-align:center;';
-    afterEl.insertAdjacentElement('afterend', cap);
-    pendingCaptions.push(cap);
-    if(verifyDone) refreshUI();
-    return cap;
+  // Un téléchargement, c'est un lien `download` ou vers un fichier (y compris
+  // les liens blob: que les outils créent puis cliquent pour leurs exports) —
+  // repéré en phase de bouillonnement, sans jamais l'empêcher ni le retarder.
+  const EXTENSION_FICHIER = /\.(pdf|svg|zip|png|jpe?g|webp|docx?|pes|dst|exp|lldh|csv|json)(?:[?#]|$)/i;
+  function estTelechargement(a){
+    if(!a || !a.getAttribute) return false;
+    if(a.hasAttribute('download')) return true;
+    const href = a.getAttribute('href') || '';
+    return EXTENSION_FICHIER.test(href);
   }
+  document.addEventListener('click', (e) => {
+    const a = e.target && e.target.closest ? e.target.closest('a') : null;
+    if(estTelechargement(a)) setTimeout(afficherBandeau, 0);
+  });
 
-  // ---------- modale ----------
+  // ---------- fenêtre de soutien (paiement à prix libre) ----------
   let modalEl = null;
   function buildModal(){
     if(modalEl) return modalEl;
@@ -81,18 +155,23 @@
     overlay.id = 'soutienOverlay';
     overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.82);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;';
     overlay.innerHTML = `
-      <div style="background:var(--bg,#000);border:1px solid var(--line,#242424);max-width:460px;width:100%;padding:28px 26px;color:var(--dim,#f2f2f0);font-family:Helvetica,Arial,sans-serif;">
-        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold,#c9a15a);margin-bottom:14px;">Soutenir le projet</div>
-        <p style="font-size:13.5px;line-height:1.7;margin:0 0 20px;">${LONG_TEXT}</p>
-        <label style="display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">Montant (EUR)</label>
+      <div role="dialog" aria-modal="true" aria-labelledby="soutienTitre" style="background:var(--bg,#000);border:1px solid var(--line,#242424);max-width:460px;width:100%;padding:28px 26px;color:var(--dim,#f2f2f0);font-family:Helvetica,Arial,sans-serif;">
+        <div id="soutienTitre" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold,#c9a15a);margin-bottom:14px;"></div>
+        <p id="soutienTexte" style="font-size:13.5px;line-height:1.7;margin:0 0 20px;"></p>
+        <label for="soutienAmount" id="soutienMontantLabel" style="display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;"></label>
         <input type="number" id="soutienAmount" min="${MIN_AMOUNT_EUR}" step="1" value="${DEFAULT_AMOUNT_EUR}" style="width:100%;background:#050505;border:1px solid var(--line,#242424);color:var(--white,#f2f2f0);font-size:16px;padding:10px 12px;margin-bottom:8px;box-sizing:border-box;">
         <div id="soutienError" style="color:var(--red,#e0261b);font-size:12px;min-height:16px;margin-bottom:12px;"></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button type="button" id="soutienPayBtn" style="flex:1;border:1px solid var(--red,#e0261b);background:transparent;color:var(--red,#e0261b);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;">Soutenir et débloquer</button>
-          <button type="button" id="soutienCloseBtn" style="border:1px solid var(--line,#242424);background:transparent;color:var(--dim,#f2f2f0);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;">Annuler</button>
+          <button type="button" id="soutienPayBtn" style="flex:1;border:1px solid var(--red,#e0261b);background:transparent;color:var(--red,#e0261b);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;"></button>
+          <button type="button" id="soutienCloseBtn" style="border:1px solid var(--line,#242424);background:transparent;color:var(--dim,#f2f2f0);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;"></button>
         </div>
       </div>
     `;
+    overlay.querySelector('#soutienTitre').textContent = T.modaleTitre;
+    overlay.querySelector('#soutienTexte').textContent = T.modaleTexte;
+    overlay.querySelector('#soutienMontantLabel').textContent = T.montant;
+    overlay.querySelector('#soutienPayBtn').textContent = T.soutenir;
+    overlay.querySelector('#soutienCloseBtn').textContent = T.annuler;
     document.body.appendChild(overlay);
     modalEl = overlay;
 
@@ -105,29 +184,18 @@
   function showModal(){ buildModal().style.display = 'flex'; }
   function hideModal(){ if(modalEl) modalEl.style.display = 'none'; }
 
-  // Le VERROU (clics interceptés sur les fichiers réservés) redirige vers
-  // soutenir.html plutôt que d'ouvrir la modale — showModal() reste la
-  // modale réelle, toujours utilisée par le bouton "Soutenir" de
-  // soutenir.html lui-même (window.SoutienGate.showModal(), voir son
-  // <script> inline) : la remplacer par une redirection casserait ce
-  // bouton (redirection vers sa propre page). Seuls les points
-  // d'interception ci-dessous changent de comportement.
-  function redirectToSoutenir(){
-    window.location.href = 'https://anibal-amiot.com/soutenir.html';
-  }
-
   async function startCheckout(){
     const input = document.getElementById('soutienAmount');
     const errorEl = document.getElementById('soutienError');
     const amountEur = parseFloat(input.value);
     errorEl.textContent = '';
     if(!Number.isFinite(amountEur) || amountEur < MIN_AMOUNT_EUR){
-      errorEl.textContent = `Montant minimum : ${MIN_AMOUNT_EUR} €`;
+      errorEl.textContent = T.minimum;
       return;
     }
     const payBtn = document.getElementById('soutienPayBtn');
     payBtn.disabled = true;
-    payBtn.textContent = 'Redirection...';
+    payBtn.textContent = T.redirection;
     try{
       const res = await fetch(`${WORKER_BASE_URL}/create-checkout-session`, {
         method: 'POST',
@@ -138,92 +206,23 @@
       if(data.url){
         window.location.href = data.url;
       } else {
-        errorEl.textContent = data.error || 'Erreur inattendue, réessaie plus tard.';
+        errorEl.textContent = data.error || T.erreur;
         payBtn.disabled = false;
-        payBtn.textContent = 'Soutenir et débloquer';
+        payBtn.textContent = T.soutenir;
       }
     }catch(e){
-      errorEl.textContent = 'Impossible de contacter le service de paiement.';
+      errorEl.textContent = T.injoignable;
       payBtn.disabled = false;
-      payBtn.textContent = 'Soutenir et débloquer';
+      payBtn.textContent = T.soutenir;
     }
   }
 
   // ---------- API publique ----------
+  // isUnlocked et guard() sont gardés pour ne casser aucun appelant : plus
+  // rien n'est verrouillé, guard() exécute directement l'action.
   window.SoutienGate = {
-    get isUnlocked(){ return isUnlocked; },
-    guard(triggerFn){
-      if(isUnlocked){ triggerFn(); } else { showModal(); }
-    },
+    get isUnlocked(){ return true; },
+    guard(triggerFn){ triggerFn(); },
     showModal,
   };
-
-  // ---------- câblage automatique ----------
-  // Les PDF du livre (a.flag-btn[href*="la-livree-d-hermes-anibal-amiot-"])
-  // ne sont PLUS verrouillés ici (décision de l'auteur) : ils sont publiés
-  // en accès libre sur Zenodo sous CC BY-NC 4.0 — les verrouiller sur ce
-  // site contredirait cette licence. wireBookPdfLinks() a été retirée.
-
-  // Fichiers "pro" (assets/pro-downloads/*.zip, *.pdf, sur telechargements.html) :
-  // liens bruts sans id, repérés par motif d'URL comme les anciens PDF du
-  // livre l'étaient — même mécanique, cible différente.
-  function wireProDownloadLinks(){
-    const links = document.querySelectorAll('a[href*="pro-downloads/"]');
-    if(!links.length) return;
-    links.forEach(a=>{
-      a.addEventListener('click', function(e){
-        if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); redirectToSoutenir(); }
-      }, true); // capture : passe avant tout autre listener existant
-    });
-    // Une légende par ligne (chaque .pro-download-row a 2 liens — ZIP+PDF —
-    // qui partagent le même verrou), pas une par lien.
-    const rows = new Set();
-    links.forEach(a => { const row = a.closest('.pro-download-row'); if(row) rows.add(row); });
-    rows.forEach(row => addCaption(row));
-  }
-
-  // Délégation sur `document`, en phase de capture : se déclenche AVANT le
-  // gestionnaire de clic propre à chaque bouton, même si celui-ci a été
-  // enregistré avant nous (le placement du <script> dans la page ne
-  // garantit pas l'ordre pour les listeners portés par le même élément) —
-  // et fonctionne aussi pour les boutons créés dynamiquement après une
-  // interaction utilisateur (comparaison par paire, cellule de galerie
-  // sélectionnée, export PNG haute résolution), qui n'existent pas encore
-  // au chargement de la page.
-  function wireGatedButtonsDelegated(){
-    document.addEventListener('click', function(e){
-      const el = e.target.closest(GATED_BUTTON_IDS.map(id=>'#'+id).join(','));
-      if(!el) return;
-      if(!isUnlocked){ e.preventDefault(); e.stopImmediatePropagation(); redirectToSoutenir(); }
-    }, true);
-  }
-
-  // Ajoute la légende sous chaque bouton dès qu'il apparaît dans le DOM
-  // (certains sont créés dynamiquement après une interaction utilisateur).
-  const captionedIds = new Set();
-  function tryCaptionAll(){
-    GATED_BUTTON_IDS.forEach(id=>{
-      if(captionedIds.has(id)) return;
-      const el = document.getElementById(id);
-      if(el){ addCaption(el); captionedIds.add(id); }
-    });
-  }
-  function watchForDynamicButtons(){
-    tryCaptionAll();
-    const observer = new MutationObserver(tryCaptionAll);
-    observer.observe(document.body, { childList: true, subtree: true });
-  }
-
-  function init(){
-    wireProDownloadLinks();
-    wireGatedButtonsDelegated();
-    watchForDynamicButtons();
-    checkAccess();
-  }
-
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
 })();
