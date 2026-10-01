@@ -96,7 +96,7 @@ commentaires de traits — n'est pas reprise ici : elle vit dans `index.html`
 - « Devenir Partenaire »
 
 ### Bloc copyright
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ---
@@ -165,7 +165,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 - « Devenir Partenaire »
 
 ### Bloc copyright
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ---
@@ -202,7 +202,7 @@ aujourd'hui un fichier HTML autonome.
 - « Devenir Soutien »
 
 ### Pied de page du site
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ### Barre du livre

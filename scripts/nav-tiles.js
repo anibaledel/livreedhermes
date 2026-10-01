@@ -167,7 +167,7 @@ const SOUTIEN_BTN = {
   en: { label: 'Become a Supporter', title: "Become a Supporter of La Livrée d'Hermès — contribute at a price you choose and permanently unlock the book's SVG/PDF downloads." },
 };
 const CREDIT_COLLAB = { fr: 'Créé en collaboration avec Claude', en: 'Created in collaboration with Claude' };
-const COPYRIGHT_SUFFIX = { fr: 'Tous droits réservés', en: 'All rights reserved' };
+const COPYRIGHT_SUFFIX = { fr: 'CC BY-NC 4.0', en: 'CC BY-NC 4.0' };
 
 /* Rend le bloc <div class="note">...</div> complet pour une page : Accueil
    seule au-dessus, hors des quatre groupes nommés, du côté du bouton

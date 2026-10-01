@@ -398,7 +398,7 @@ ${linesHtml}
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
     </div>
     <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
     </div>
@@ -659,7 +659,7 @@ ${gridItems}
     </div>
 
     <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
     </div>
