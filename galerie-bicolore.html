@@ -68,6 +68,14 @@
   .tile canvas{ width:64px; height:64px; display:block; }
   .tile:hover{ border-color:var(--gold); }
   .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .statut-badge{
+    position:absolute; bottom:2px; left:2px; right:2px; text-align:center;
+    font-family:Helvetica,Arial,sans-serif; font-size:8px; letter-spacing:.04em; text-transform:uppercase;
+    padding:1px 0; color:#fff; background:rgba(0,0,0,.55); pointer-events:none;
+  }
+  .statut-invariant{ border-top:2px solid var(--line-strong); }
+  .statut-inverse{ border-top:2px solid var(--gold); }
+  .statut-echange{ border-top:2px solid var(--red); }
 
   /* ---------- pavage du motif sélectionné ---------- */
   .paved-section{ margin-top:32px; }
@@ -293,6 +301,14 @@
     <span class="tint-label">Sombre<input type="color" id="tintSombre" value="#e0261b" title="Teinte sombre"></span>
   </div>
 
+  <p class="grain-hint">Filtre par statut au demi-décalage (6, 6)</p>
+  <div class="controls" id="statutControls">
+    <button type="button" data-statut="tous" class="active">Tous</button>
+    <button type="button" data-statut="invariant">Invariant</button>
+    <button type="button" data-statut="inverse">Inversé</button>
+    <button type="button" data-statut="echange">Échangé</button>
+  </div>
+
   <div class="gallery-panel">
     <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
     <div id="gallery"></div>
@@ -363,7 +379,7 @@
 
 <script type="module">
 import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from './assets/bicolore-render.js';
-import { buildAxes, generateAxesMask } from './assets/bicolore-axes.js';
+import { buildAxes, generateAxesMask, demiDecalageStatus } from './assets/bicolore-axes.js';
 import { fermeSurLeCube } from './assets/bicolore-cube-c1.mjs';
 
 let DATA = null;
@@ -397,6 +413,18 @@ function accordMask(accord, g) {
   for (const [nature, gen] of accord) m = xor(m, instanceMask(nature, gen, g));
   return m;
 }
+function accordAxesBrute(accord) {
+  let out = [];
+  for (const [nature, gen] of accord) out = out.concat(AXES[nature][gen] || []);
+  return out;
+}
+
+// ---------- statut au demi-décalage (6, 6) : invariant / inversé / échangé ----------
+// Voir assets/bicolore-axes.js::demiDecalageStatus — loi vérifiée sur les 142
+// entrées (0 exception) avant tout affichage, pas seulement calculée.
+const STATUT_LABEL = { invariant: 'Invariant', inverse: 'Inversé', echange: 'Échangé' };
+let entryStatuses = []; // index-aligné sur DATA.entries
+let statutFiltre = 'tous';
 // Étend un masque C1 (144 bits, un par case) en 1152 bits (8 triangles par
 // case, même teinte) pour le rendu — même ordre d'index que triangleGeometry
 // (cellIdx = row*12+col, sector = 0..7) et que casePoint() de bicolore-axes.js.
@@ -454,22 +482,32 @@ function accordLabel(accord) {
 }
 
 // ---------- galerie ----------
+function visibleIndices() {
+  return DATA.entries.map((_, idx) => idx).filter(idx => statutFiltre === 'tous' || entryStatuses[idx] === statutFiltre);
+}
 function renderGallery() {
   galleryEl.innerHTML = '';
   const frag = document.createDocumentFragment();
-  DATA.entries.forEach((entry, idx) => {
+  visibleIndices().forEach(idx => {
+    const entry = DATA.entries[idx];
+    const statut = entryStatuses[idx];
     const tile = document.createElement('div');
     tile.className = 'tile';
     tile.dataset.idx = idx;
-    tile.title = `${accordLabel(entry.accord)} — taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres`;
+    tile.title = `${accordLabel(entry.accord)} — taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres — ${STATUT_LABEL[statut]} au demi-décalage`;
     const canvas = document.createElement('canvas');
     drawMask(canvas, mask1152For(entry.accord, grain), 64);
     tile.appendChild(canvas);
+    const badge = document.createElement('span');
+    badge.className = `statut-badge statut-${statut}`;
+    badge.textContent = STATUT_LABEL[statut];
+    tile.appendChild(badge);
     tile.addEventListener('click', () => selectEntry(idx));
     frag.appendChild(tile);
   });
   galleryEl.appendChild(frag);
-  selectEntry(selectedIdx);
+  const idxs = visibleIndices();
+  selectEntry(idxs.includes(selectedIdx) ? selectedIdx : (idxs[0] ?? 0));
 }
 function redrawAll() {
   document.querySelectorAll('#gallery .tile').forEach(tile => {
@@ -483,9 +521,10 @@ function selectEntry(idx) {
   selectedIdx = idx;
   document.querySelectorAll('.tile').forEach(t => t.classList.toggle('selected', +t.dataset.idx === idx));
   const entry = DATA.entries[idx];
+  const statut = entryStatuses[idx];
   const mask1152 = mask1152For(entry.accord, grain);
   drawMaskTiled(pavedCanvas, mask1152, 144, 4);
-  pavedInfo.innerHTML = `<b>${accordLabel(entry.accord)}</b> — accord de taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres au grain C1 — ferme sur le cube`;
+  pavedInfo.innerHTML = `<b>${accordLabel(entry.accord)}</b> — accord de taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres au grain C1 — ferme sur le cube — <b>${STATUT_LABEL[statut]}</b> au demi-décalage (6, 6)`;
 }
 
 // ---------- contrôles ----------
@@ -501,6 +540,14 @@ function setGrain(g) {
 }
 document.getElementById('tintClair').addEventListener('input', e => { PALETTE[0] = e.target.value; redrawAll(); });
 document.getElementById('tintSombre').addEventListener('input', e => { PALETTE[1] = e.target.value; redrawAll(); });
+
+document.querySelectorAll('#statutControls button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    statutFiltre = btn.dataset.statut;
+    document.querySelectorAll('#statutControls button').forEach(b => b.classList.toggle('active', b === btn));
+    renderGallery();
+  });
+});
 
 function updateStatsForGrain() {
   const s = DATA.stats[grain];
@@ -641,6 +688,7 @@ Promise.all([
 ]).then(([catalogue, data]) => {
   AXES = buildAxes(catalogue);
   DATA = data;
+  entryStatuses = DATA.entries.map(entry => demiDecalageStatus(accordAxesBrute(entry.accord), AXES).status);
   document.getElementById('statTotal').textContent = data.total;
   document.getElementById('statFermes').textContent = data.fermeture_totale_c1;
   document.getElementById('statsNote').textContent =
