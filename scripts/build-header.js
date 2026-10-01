@@ -144,6 +144,7 @@ const AVEC_TUILES_EN_PLUS = new Set([
   'bicolore.html',
   'cymatique.html',
   'soutien-succes.html',
+  'creation-bicolore-v2.html',
 ]);
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
