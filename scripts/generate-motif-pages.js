@@ -61,6 +61,36 @@ function hexagramGrid(n, gridA, gridB) {
   return grid;
 }
 
+// ---------- lecture d'un motif, calculée depuis la grille (texte propre à chaque page) ----------
+// Couleur de chaque classe, dans l'ordre des sélecteurs de la page (Couleur 1, 2, 3).
+const CLASSES = ['V', 'M', 'O'];
+// Symétries de la cellule 12×12, en comparant la grille à ses images exactes.
+const TRANSFORMATIONS = {
+  axeVertical: (g) => g.map((r) => r.slice().reverse()),
+  axeHorizontal: (g) => g.slice().reverse(),
+  diagonale: (g) => g.map((_, r) => g.map((row) => row[r])),
+  quartDeTour: (g) => g[0].map((_, c) => g.map((row) => row[c]).reverse()),
+  demiTour: (g) => g.slice().reverse().map((r) => r.slice().reverse()),
+};
+function symetries(grid) {
+  const cle = JSON.stringify(grid);
+  return Object.keys(TRANSFORMATIONS).filter((t) => JSON.stringify(TRANSFORMATIONS[t](grid)) === cle);
+}
+function compter(cases) {
+  const c = { V: 0, M: 0, O: 0 };
+  for (const v of cases) c[v] = (c[v] || 0) + 1;
+  return c;
+}
+// Les six niveaux de la carte LAYER_OF : un par trait de l'hexagramme, 24 cases chacun.
+function lectureParTrait(n, grid) {
+  const traits = traitsFromChrono(n);
+  return traits.map((bit, i) => {
+    const cases = [];
+    for (let r = 0; r < 12; r++) for (let c = 0; c < 12; c++) if (LAYER_OF[r][c] === i + 1) cases.push(grid[r][c]);
+    return { position: i + 1, plein: bit === 1, nbCases: cases.length, comptes: compter(cases) };
+  });
+}
+
 function slugify(str) {
   return String(str).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
     .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
@@ -151,6 +181,22 @@ function canonicalUrl(lang, slug) {
 // ---------- chaînes d'interface, les deux langues ----------
 const STR = {
   en: {
+    lectureHeading: 'Reading the cell, line by line',
+    lecturePara: (nbParNiveau) => `The 144 cells of the 12×12 cell fall into six levels of ${nbParNiveau} cells, one per line of the hexagram. Where the line is solid (yang), the level takes its colours from the family's YANG grid; where it is broken (yin), from its YANG mutant grid. Count of each colour, level by level:`,
+    lectureCols: ['Level', 'Line', 'Grid read', 'Colour 1 (violet)', 'Colour 2 (magenta)', 'Colour 3 (orange)'],
+    lectureTrait: (plein) => (plein ? 'solid' : 'broken'),
+    lectureGrille: (plein) => (plein ? 'YANG' : 'YANG mutant'),
+    lectureTotal: 'Whole cell',
+    equilibre: 'The three colours are exactly balanced: 48 cells each.',
+    desequilibre: (c) => `The colours are not balanced: ${c.V} violet, ${c.M} magenta, ${c.O} orange.`,
+    symetrie: (liste) => liste.length === 5
+      ? 'The cell has every symmetry of the square: both axes, the diagonal, the quarter turn and the half turn.'
+      : `The cell is unchanged by ${liste.map((t) => ({ axeVertical: 'reflection in the vertical axis', axeHorizontal: 'reflection in the horizontal axis', diagonale: 'reflection in the diagonal', quartDeTour: 'a quarter turn', demiTour: 'a half turn' })[t]).join(', ')}.`,
+    hexHeading: (n, nom) => `Hexagram ${n} — ${nom}`,
+    hexPara: (haut, bas) => `Upper trigram ${haut.symbol} ${haut.name} (${haut.nature}, ${haut.image}); lower trigram ${bas.symbol} ${bas.name} (${bas.nature}, ${bas.image}).`,
+    imageLabel: 'Image',
+    judgementLabel: 'Judgement',
+    hexMore: (href) => `<a href="${href}">The full hexagram page</a>: the six lines, its magic square and the other patterns built on it.`,
     htmlLang: 'en',
     breadcrumbLabel: 'Breadcrumb',
     home: 'Home',
@@ -194,6 +240,22 @@ const STR = {
     indexFamilyCount: (n) => `${n} pages`,
   },
   fr: {
+    lectureHeading: 'La cellule, trait par trait',
+    lecturePara: (nbParNiveau) => `Les 144 cases de la cellule 12×12 se répartissent en six niveaux de ${nbParNiveau} cases, un par trait de l'hexagramme. Là où le trait est plein (yang), le niveau prend ses couleurs dans la grille YANG de la famille ; là où il est brisé (yin), dans sa grille YANG mutant. Nombre de cases de chaque couleur, niveau par niveau :`,
+    lectureCols: ['Niveau', 'Trait', 'Grille lue', 'Couleur 1 (violet)', 'Couleur 2 (magenta)', 'Couleur 3 (orange)'],
+    lectureTrait: (plein) => (plein ? 'plein' : 'brisé'),
+    lectureGrille: (plein) => (plein ? 'YANG' : 'YANG mutant'),
+    lectureTotal: 'Cellule entière',
+    equilibre: 'Les trois couleurs sont exactement équilibrées : 48 cases chacune.',
+    desequilibre: (c) => `Les couleurs ne sont pas équilibrées : ${c.V} violettes, ${c.M} magenta, ${c.O} orange.`,
+    symetrie: (liste) => liste.length === 5
+      ? 'La cellule a toutes les symétries du carré : les deux axes, la diagonale, le quart de tour et le demi-tour.'
+      : `La cellule est invariante par ${liste.map((t) => ({ axeVertical: "symétrie d'axe vertical", axeHorizontal: "symétrie d'axe horizontal", diagonale: 'symétrie par rapport à la diagonale', quartDeTour: 'rotation d\'un quart de tour', demiTour: 'rotation d\'un demi-tour' })[t]).join(', ')}.`,
+    hexHeading: (n, nom) => `L'hexagramme ${n} — ${nom}`,
+    hexPara: (haut, bas) => `Trigramme supérieur ${haut.symbol} ${haut.name} (${haut.nature}, ${haut.image}) ; trigramme inférieur ${bas.symbol} ${bas.name} (${bas.nature}, ${bas.image}).`,
+    imageLabel: 'Image',
+    judgementLabel: 'Jugement',
+    hexMore: (href) => `<a href="${href}">La page complète de l'hexagramme</a> : les six traits, son carré magique et les autres motifs construits sur lui.`,
     htmlLang: 'fr',
     breadcrumbLabel: "Fil d'Ariane",
     home: 'Accueil',
@@ -292,6 +354,42 @@ function renderPage(fam, n, lang) {
 
   const navtiles = rendreNavTiles(rel, prefixe, lang);
 
+  // Texte propre à la page : la lecture trait par trait de SA cellule
+  // (comptes par niveau, symétries) et le texte de SON hexagramme (image,
+  // jugement, trigrammes — les mêmes données que les pages hexagrammes).
+  const lecture = lectureParTrait(n, gridYangPair);
+  const total = compter(gridYangPair.flat());
+  const ligneComptes = (c) => CLASSES.map((k) => `<td>${c[k]}</td>`).join('');
+  const lectureHtml = `<section class="lecture-section">
+  <h2>${s.lectureHeading}</h2>
+  <p>${s.lecturePara(lecture[0].nbCases)}</p>
+  <div class="lecture-wrap"><table class="lecture-table">
+    <thead><tr>${s.lectureCols.map((c) => `<th scope="col">${c}</th>`).join('')}</tr></thead>
+    <tbody>
+${lecture.map((l) => `      <tr><th scope="row">${l.position}</th><td>${s.lectureTrait(l.plein)}</td><td>${s.lectureGrille(l.plein)}</td>${ligneComptes(l.comptes)}</tr>`).join('\n')}
+      <tr class="lecture-total"><th scope="row" colspan="3">${s.lectureTotal}</th>${ligneComptes(total)}</tr>
+    </tbody>
+  </table></div>
+  <p>${total.V === 48 && total.M === 48 && total.O === 48 ? s.equilibre : s.desequilibre(total)} ${s.symetrie(symetries(gridYangPair))}</p>
+</section>`;
+  const kw = HEXDATA.KINGWEN_BY_CHRONO[n];
+  const [, hexNom, jugeTitre, jugeTexte] = (lang === 'en' ? HEXDATA.HEX_KW_EN : HEXDATA.HEX_KW)[kw];
+  const imageTexte = (lang === 'en' ? HEXDATA.IMAGE_EN : HEXDATA.IMAGE_FR)[kw];
+  const trigrammes = lang === 'en' ? HEXDATA.TRIGRAMS_EN : HEXDATA.TRIGRAMS;
+  const traitsHex = traitsFromChrono(n);
+  const valeurTrigramme = (b) => b[0] + b[1] * 2 + b[2] * 4;
+  const haut = trigrammes[valeurTrigramme(traitsHex.slice(3, 6))];
+  const bas = trigrammes[valeurTrigramme(traitsHex.slice(0, 3))];
+  const hexagrammeHtml = `<section class="hexagramme-section">
+  <h2>${escapeHtml(s.hexHeading(n, hexNom))}</h2>
+  <p>${escapeHtml(s.hexPara(haut, bas))}</p>
+  <h3>${s.imageLabel}</h3>
+  <p>${escapeHtml(imageTexte)}</p>
+  <h3>${s.judgementLabel} — ${escapeHtml(jugeTitre)}</h3>
+  <p>${escapeHtml(jugeTexte)}</p>
+  <p>${s.hexMore(hexHref)}</p>
+</section>`;
+
   return `<!DOCTYPE html>
 <html lang="${s.htmlLang}">
 <head>
@@ -373,6 +471,16 @@ ${ICONES[lang]}
   .equiv-canvas-wrap canvas{ width:280px; height:280px; background:#000; border:1px solid var(--line); }
 
   .data-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
+  .lecture-section, .hexagramme-section{ margin:36px auto; padding-top:24px; border-top:1px solid var(--line); max-width:72ch; }
+  .lecture-section p, .hexagramme-section p{ color:var(--dim); line-height:1.7; }
+  .hexagramme-section h3{ font-weight:400; font-size:calc(13px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--gold); margin:20px 0 6px; }
+  .lecture-section a, .hexagramme-section a{ color:var(--gold); text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .lecture-section a:hover, .hexagramme-section a:hover{ text-decoration-color:currentColor; }
+  .lecture-wrap{ overflow-x:auto; }
+  .lecture-table{ border-collapse:collapse; margin:14px auto; font-size:calc(12.5px + var(--fs-bump)); color:var(--white); }
+  .lecture-table th, .lecture-table td{ border:1px solid var(--line); padding:6px 10px; text-align:center; font-weight:400; }
+  .lecture-table thead th{ color:var(--dim); }
+  .lecture-table .lecture-total th, .lecture-table .lecture-total td{ color:var(--gold); }
   .data-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
   .data-section p{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; text-align:center; }
   .data-section details{ max-width:760px; margin:0 auto; }
@@ -396,6 +504,7 @@ ${ICONES[lang]}
 </style>
 <link rel="stylesheet" href="${prefixe}style.css">
 <link rel="stylesheet" href="${prefixe}assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="${prefixe}assets/fonts.css">
 </head>
 <body>
 <div class="wrap">
@@ -464,6 +573,10 @@ ${EN_TETE[lang]}
     </div>
   </div>
 </div>
+
+${lectureHtml}
+
+${hexagrammeHtml}
 
 <section class="equiv-section">
   <h2>${s.equivHeading}</h2>
@@ -706,6 +819,7 @@ ${ICONES[lang]}
 </style>
 <link rel="stylesheet" href="${prefixe}style.css">
 <link rel="stylesheet" href="${prefixe}assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="${prefixe}assets/fonts.css">
 </head>
 <body>
 <div class="wrap">
