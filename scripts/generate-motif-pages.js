@@ -97,6 +97,23 @@ const FAMILY_LABEL = {
   },
 };
 
+// Libellé court de la famille, pour le <title> : le nom de l'hexagramme passe
+// en tête et le titre reste lisible dans un résultat de recherche (~65 car.).
+const FAMILY_SHORT = {
+  en: {
+    'bases:yang_mut': 'Yang mutant', 'bases:yang': 'Yang',
+    'par2:yang+yin_mut': 'Yang + Yin mutant', 'par2:yin_mut+yang_mut': 'Yin mut. + Yang mut.',
+    'par2:yin+yang': 'Yin + Yang', 'par2:yin+yang_mut': 'Yin + Yang mutant',
+    'par3:sans_yang': 'without Yang', 'par3:sans_yang_mut': 'without Yang mutant',
+  },
+  fr: {
+    'bases:yang_mut': 'Yang mut', 'bases:yang': 'Yang',
+    'par2:yang+yin_mut': 'Yang + Yin mut', 'par2:yin_mut+yang_mut': 'Yin mut + Yang mut',
+    'par2:yin+yang': 'Yin + Yang', 'par2:yin+yang_mut': 'Yin + Yang mut',
+    'par3:sans_yang': 'sans Yang', 'par3:sans_yang_mut': 'sans Yang mut',
+  },
+};
+
 // Ordre stable des 8 familles — celui de FAMILY_LABEL ci-dessus, réutilisé
 // pour l'index (une section par famille) et pour rien d'autre : la
 // navigation précédent/suivant reste À L'INTÉRIEUR d'une même famille
@@ -108,10 +125,11 @@ function hexagramSlug(n) {
   const [pinyin, nameFr] = HEXDATA.HEX_KW[kw];
   return `${n}-${slugify(pinyin)}-${slugify(nameFr)}.html`;
 }
-function hexagramName(n) {
+// Nom de l'hexagramme dans la langue de la page (HEX_KW / HEX_KW_EN d'index.html).
+function hexagramName(n, lang = 'fr') {
   const kw = HEXDATA.KINGWEN_BY_CHRONO[n];
-  const [pinyin, nameFr] = HEXDATA.HEX_KW[kw];
-  return `${pinyin}, ${nameFr}`;
+  const [pinyin, nom] = (lang === 'en' ? HEXDATA.HEX_KW_EN : HEXDATA.HEX_KW)[kw];
+  return `${pinyin}, ${nom}`;
 }
 
 function motifSlug(fam, n) {
@@ -136,7 +154,9 @@ const STR = {
     breadcrumbLabel: 'Breadcrumb',
     home: 'Home',
     unifiedPatterns: 'Unified Patterns',
-    titleOf: (familyLabel, n, hexName) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName})`,
+    titleOf: (familyShort, hexName) => `${hexName} — ${familyShort}`,
+    headingOf: (familyLabel, n, hexName) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName})`,
+    lexiconHref: (prefixe) => `${prefixe}en/lexicon/`,
     descriptionOf: (familyLabel, n, hexName) => `A 12×12 Jacquard pattern generated from ${familyLabel.toLowerCase()} and hexagram ${n} (${hexName}) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.`,
     articleSub: (hexHref, hexName) => `One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Family <strong>${escapeHtml(familyLabel)}</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="${lexiqueHref}">lexicon</a> for how families are built and admitted.`,
@@ -176,7 +196,9 @@ const STR = {
     breadcrumbLabel: "Fil d'Ariane",
     home: 'Accueil',
     unifiedPatterns: 'Patterns unifiés',
-    titleOf: (familyLabel, n, hexName) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName})`,
+    titleOf: (familyShort, hexName) => `${hexName} — motif ${familyShort}`,
+    headingOf: (familyLabel, n, hexName) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName})`,
+    lexiconHref: (prefixe) => `${prefixe}lexique.html`,
     descriptionOf: (familyLabel, n, hexName) => `Un motif Jacquard 12×12 engendré depuis ${familyLabel.toLowerCase()} et l'hexagramme ${n} (${hexName}) de La Livrée d'Hermès — cellule, pavage, deux recoloriages équivalents et les données sous-jacentes.`,
     articleSub: (hexHref, hexName) => `Un des 256 patterns unifiés distincts — une construction Jacquard 12×12 où la couleur de chaque cellule se lit sur un seul hexagramme du <em>Yi King</em>, l'hexagramme <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Famille <strong>${escapeHtml(familyLabel)}</strong>, une des 8 familles admissibles (sur 15) dans la classification du système — voir le <a href="${lexiqueHref}">lexique</a> pour la construction et l'admission des familles.`,
@@ -190,7 +212,7 @@ const STR = {
     resetLabel: 'Réinitialiser',
     dl: 'Télécharger le PNG',
     equivHeading: 'Même forme, autres coloriages',
-    equivPara: (n, comp) => `Deux involutions laissent la forme de ce motif inchangée et ne permutent que ses trois teintes — vérifié sur toutes les familles et tous les hexagrammes du corpus, pas seulement celui-ci : l'échange de la paire qui lit l'hexagramme (YANG/YANG mutant ↔ YIN/YIN mutant), et le complément binaire de l'hexagramme (63 − ${n} = ${comp}). Bascule-les ci-dessous ; le pavage ne change jamais, seules les couleurs changent.`,
+    equivPara: (n, comp) => `Deux involutions laissent la forme de ce motif inchangée et ne permutent que ses trois teintes — vérifié sur toutes les familles et tous les hexagrammes du corpus, pas seulement celui-ci : l'échange de la paire qui lit l'hexagramme (YANG/YANG mutant ↔ YIN/YIN mutant), et le complément binaire de l'hexagramme (63 − ${n} = ${comp}). Basculez-les ci-dessous ; le pavage ne change jamais, seules les couleurs changent.`,
     btnOriginal: 'Original', btnPolarity: 'Échange de polarité', btnComplement: (comp) => `Complément binaire (h${comp})`,
     dataHeading: 'La grille elle-même',
     dataPara: 'La carte des niveaux 12×12 et les trois grilles de couleur ci-dessus, en données brutes — lisibles par un humain, et lisibles par une machine en JSON.',
@@ -241,8 +263,8 @@ function renderPage(fam, n, lang) {
   const nextSlug = motifSlug(fam, nextN);
   const familyLabel = FAMILY_LABEL[lang][fam] || fam;
   const hexSlug = hexagramSlug(n);
-  const hexName = hexagramName(n);
-  const title = s.titleOf(familyLabel, n, hexName);
+  const hexName = hexagramName(n, lang);
+  const title = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexName);
   const description = s.descriptionOf(familyLabel, n, hexName);
   const canonical = canonicalUrl(lang, slug);
   const canonicalOther = canonicalUrl(other, slug);
@@ -378,13 +400,13 @@ ${EN_TETE[lang]}
   <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
   <span aria-current="page">${escapeHtml(familyLabel)}, h${n}</span>
 </nav>
-<h1 class="article-title">${escapeHtml(title)}</h1>
+<h1 class="article-title">${escapeHtml(s.headingOf(familyLabel, n, hexName))}</h1>
 <p class="article-sub">
   ${s.articleSub(`${prefixe}hexagrammes/${hexSlug}`, hexName)}
 </p>
 
 <p class="classification">
-  ${s.classification(familyLabel, `${prefixe}lexique.html`)}
+  ${s.classification(familyLabel, s.lexiconHref(prefixe))}
 </p>
 
 <div class="views-block">
