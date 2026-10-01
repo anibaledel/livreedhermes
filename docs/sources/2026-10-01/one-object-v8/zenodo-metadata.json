@@ -1,0 +1,68 @@
+{
+  "metadata": {
+    "upload_type": "publication",
+    "publication_type": "preprint",
+    "title": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+    "creators": [
+      {
+        "name": "Amiot, Anibal Edelberto",
+        "orcid": "0009-0002-6414-9448"
+      }
+    ],
+    "description": "<p>A Jacquard pattern system has been described in three separate ways: as sixteen families of straight axes on a 12 × 12 square combined by a parity rule (note [A], doi:10.5281/zenodo.22965031); as sixty three-tint images from which 512 grids are built by a six-bit selection (paper [G], data doi:10.5281/zenodo.22862110); and as level sets of a square-plate eigenmode (note [P], same deposit as [A]). This paper shows, by exhaustive check on the published data, that the three descriptions present one finite structure (the sense is made precise in §1).</p><p><strong>Theorem 1 (finite-corpus identification).</strong> Every one of the sixty images is a parity figure of axes: forty-eight cells of lines, the same for all sixty and equal to the nodal set of the degenerate guided plate mode cos(4πx/a) − cos(4πy/a); ninety-six cells carrying the parity of a union of the four families of level T0; and one of four tint permutations, which are the four natures of the system. The fifteen families of the loom are the fifteen non-empty subsets of the four T0 families (60/60 verified). <strong>Corollary.</strong> The half-shift theorem of [G] — exactly eight families of fifteen admit unified pairs, those with exactly one base of yang type — follows in two lines. <strong>Theorem 2.</strong> The parity map is injective on the 70 band systems visible on the triangle subdivision, and the sixteen family figures span a [1152, 13] binary code of minimum distance 288 with a unique minimum-weight word, T0 YANG MUT ⊕ T1 YIN (parity counted from the origin corner); on the cell reading the code is [144, 12] of distance 36. <strong>Theorem 3.</strong> On levels, the doubling homothety terminates without cycles if and only if the period is 2^a or 3·2^a, has a non-trivial fixed level (120°) if and only if 3 divides the period, and 12 is the smallest period with both and depth at least two.</p><p>Nothing is measured on a plate; the plate reading is exact for guided edges and approximate for free ones. Every number is printed by one of five scripts from <code>catalogue-axes.json</code> and <code>referent_360_v3.json</code>, both included, together with the six figures (SVG) and the script that draws them.</p><p><strong>Licences.</strong> Text, figures and data: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p><p><strong>Version 1.2.0.</strong> Revised after reading: (1) what \"one object\" means is defined in §1, and the independence of the corpora is stated there ([G] was generated and classified before the axes were formalised); (2) Theorem 1 is labelled a finite-corpus identification and Theorem 2 a finite computation; (3) new Proposition 1: the four T0 families are a basis of F_2^4, embedded injectively by the parity map (rank 4, rank 5 with the all-dark figure; new script <code>espace_F2_4.py</code>), and the half-shift acts through a linear form, so the eight unified families are the complement of a hyperplane, 2^4 − 2^3; (4) the plate section is shortened and separates \"exact in the guided model\" from \"predicted, not measured\"; (5) new §6 on the two referents (256 and 360) used by the Carter encoding, as a use of the structure and not its origin; (6) §7 retitled \"Why 12 is the smallest admissible period\", with its three criteria stated; (7) §8 is a table sorting every statement by status. (8) §5: the dimension 13 is derived from the levels (5 diagonal + 8 orthogonal); the C1 reading now states its rule for axes through cell centres (continuous closure on the side of increasing coordinate, as in regle_parite.py of [A]), on which every C1 number depends — the previous text wrongly said only two keys were affected. No number changed.</p>",
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "keywords": [
+      "Jacquard weaving",
+      "parity figures",
+      "linear codes",
+      "level sets",
+      "square plate eigenmodes",
+      "Chladni figures",
+      "half-shift criterion",
+      "doubling map",
+      "arithmogeometry"
+    ],
+    "language": "eng",
+    "publication_date": "2026-10-01",
+    "version": "1.2.0",
+    "notes": "Code under AGPL v3. Commercial licence: anibaledel@gmail.com",
+    "related_identifiers": [
+      {
+        "identifier": "10.5281/zenodo.22965031",
+        "relation": "references",
+        "resource_type": "publication-preprint"
+      },
+      {
+        "identifier": "10.5281/zenodo.22862110",
+        "relation": "references",
+        "resource_type": "software"
+      },
+      {
+        "identifier": "10.5281/zenodo.22866061",
+        "relation": "references",
+        "resource_type": "software"
+      },
+      {
+        "identifier": "10.5281/zenodo.22945021",
+        "relation": "isDocumentedBy",
+        "resource_type": "publication-report"
+      },
+      {
+        "identifier": "10.5281/zenodo.22722485",
+        "relation": "references",
+        "resource_type": "publication-book"
+      },
+      {
+        "identifier": "10.5281/zenodo.22967585",
+        "relation": "isReferencedBy",
+        "resource_type": "publication-preprint"
+      },
+      {
+        "identifier": "https://github.com/anibaledel/livreedhermes",
+        "relation": "isSupplementTo",
+        "resource_type": "software"
+      }
+    ]
+  }
+}

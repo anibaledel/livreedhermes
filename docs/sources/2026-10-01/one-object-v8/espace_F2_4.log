@@ -1,0 +1,7 @@
+rank of the four T0 figures on the 96 cells off L : 4 (expected 4)
+rank with the all-dark figure added               : 5 (expected 5)
+epsilon(T0 YANG     ) = 1   (Pi o sigma = complement)
+epsilon(T0 YANG MUT ) = 1   (Pi o sigma = complement)
+epsilon(T0 YIN      ) = 0   (Pi o sigma = Pi)
+epsilon(T0 YIN MUT  ) = 0   (Pi o sigma = Pi)
+Pi(F) o sigma = Pi(F) + epsilon(F)*1 on all 15 F ; epsilon = 1 on 8/15 (expected 8), 0 on 7/15 (expected 7)

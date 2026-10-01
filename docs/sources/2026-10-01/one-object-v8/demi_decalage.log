@@ -1,0 +1,16 @@
+PAR2-YANG-YANG-MUT       bases de type yang : 2  →  invariante
+PAR2-YANG-YIN-MUT        bases de type yang : 1  →  paire unifiée
+PAR2-YIN-MUT-YANG-MUT    bases de type yang : 1  →  paire unifiée
+PAR2-YIN-YANG            bases de type yang : 1  →  paire unifiée
+PAR2-YIN-YANG-MUT        bases de type yang : 1  →  paire unifiée
+PAR2-YIN-YIN-MUT         bases de type yang : 0  →  invariante
+PAR3-SANS-YANG           bases de type yang : 1  →  paire unifiée
+PAR3-SANS-YANG-MUT       bases de type yang : 1  →  paire unifiée
+PAR3-SANS-YIN            bases de type yang : 2  →  invariante
+PAR3-SANS-YIN-MUT        bases de type yang : 2  →  invariante
+YANG                     bases de type yang : 1  →  paire unifiée
+YANG-MUT                 bases de type yang : 1  →  paire unifiée
+YIN                      bases de type yang : 0  →  invariante
+YIN-MUT                  bases de type yang : 0  →  invariante
+YINYANG                  bases de type yang : 2  →  invariante
+unifiées 8/15 (attendu 8), invariantes 7/15 (attendu 7)
