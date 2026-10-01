@@ -83,6 +83,16 @@
   .equiv-canvas-wrap canvas{ width:280px; height:280px; background:#000; border:1px solid var(--line); }
 
   .data-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
+  .lecture-section, .hexagramme-section{ margin:36px auto; padding-top:24px; border-top:1px solid var(--line); max-width:72ch; }
+  .lecture-section p, .hexagramme-section p{ color:var(--dim); line-height:1.7; }
+  .hexagramme-section h3{ font-weight:400; font-size:calc(13px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--gold); margin:20px 0 6px; }
+  .lecture-section a, .hexagramme-section a{ color:var(--gold); text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .lecture-section a:hover, .hexagramme-section a:hover{ text-decoration-color:currentColor; }
+  .lecture-wrap{ overflow-x:auto; }
+  .lecture-table{ border-collapse:collapse; margin:14px auto; font-size:calc(12.5px + var(--fs-bump)); color:var(--white); }
+  .lecture-table th, .lecture-table td{ border:1px solid var(--line); padding:6px 10px; text-align:center; font-weight:400; }
+  .lecture-table thead th{ color:var(--dim); }
+  .lecture-table .lecture-total th, .lecture-table .lecture-total td{ color:var(--gold); }
   .data-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
   .data-section p{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; text-align:center; }
   .data-section details{ max-width:760px; margin:0 auto; }
@@ -106,6 +116,7 @@
 </style>
 <link rel="stylesheet" href="../style.css">
 <link rel="stylesheet" href="../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../assets/fonts.css">
 </head>
 <body>
 <div class="wrap">
@@ -179,6 +190,34 @@
     </div>
   </div>
 </div>
+
+<section class="lecture-section">
+  <h2>Reading the cell, line by line</h2>
+  <p>The 144 cells of the 12×12 cell fall into six levels of 24 cells, one per line of the hexagram. Where the line is solid (yang), the level takes its colours from the family's YANG grid; where it is broken (yin), from its YANG mutant grid. Count of each colour, level by level:</p>
+  <div class="lecture-wrap"><table class="lecture-table">
+    <thead><tr><th scope="col">Level</th><th scope="col">Line</th><th scope="col">Grid read</th><th scope="col">Colour 1 (violet)</th><th scope="col">Colour 2 (magenta)</th><th scope="col">Colour 3 (orange)</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">1</th><td>solid</td><td>YANG</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr><th scope="row">2</th><td>broken</td><td>YANG mutant</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr><th scope="row">3</th><td>broken</td><td>YANG mutant</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr><th scope="row">4</th><td>solid</td><td>YANG</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr><th scope="row">5</th><td>broken</td><td>YANG mutant</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr><th scope="row">6</th><td>broken</td><td>YANG mutant</td><td>8</td><td>8</td><td>8</td></tr>
+      <tr class="lecture-total"><th scope="row" colspan="3">Whole cell</th><td>48</td><td>48</td><td>48</td></tr>
+    </tbody>
+  </table></div>
+  <p>The three colours are exactly balanced: 48 cells each. The cell has every symmetry of the square: both axes, the diagonal, the quarter turn and the half turn.</p>
+</section>
+
+<section class="hexagramme-section">
+  <h2>Hexagram 9 — The Arousing</h2>
+  <p>Upper trigram ☳ Zhen (The Arousing, Thunder); lower trigram ☳ Zhen (The Arousing, Thunder).</p>
+  <h3>Image</h3>
+  <p>Thunder doubled: the image of shock. The blow strikes twice, one echoing the other, and what remains standing after such a jolt finally reveals its true solidity. This is the figure of trial that tests without destroying what is truly well-founded. Thus the noble one, in fear and trembling, examines and cultivates his own conduct: the outer shock, however brutal, can become the occasion for a salutary inner reckoning.</p>
+  <h3>Judgement — Jolt</h3>
+  <p>What remains standing after the shock is what was truly possessed. The shock creates nothing, it reveals: what collapses at the first tremor was never as solid as it seemed. This line says trial is always, in some way, a revealer of truth.</p>
+  <p><a href="../en/hexagrams/9-zhen-the-arousing.html">The full hexagram page</a>: the six lines, its magic square and the other patterns built on it.</p>
+</section>
 
 <section class="equiv-section">
   <h2>Same shape, other colourings</h2>
