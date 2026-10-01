@@ -42,8 +42,8 @@
 <main id="contenu">
   <div class="box">
     <h1>Merci pour votre soutien</h1>
-    <p id="status">Validation de votre accès en cours...</p>
-    <p id="doneMsg" style="display:none;">Votre accès aux téléchargements est débloqué sur cet appareil. Revenez sur la page qui vous intéresse et téléchargez librement les fichiers SVG et PDF.</p>
+    <p id="status">Confirmation de votre paiement en cours…</p>
+    <p id="doneMsg" style="display:none;">Merci pour votre soutien : il finance la suite du projet. Tous les fichiers restent librement téléchargeables sous CC BY-NC 4.0.</p>
     <a class="btn" href="index.html">Retour au site</a>
   </div>
 
@@ -74,10 +74,10 @@
       statusEl.style.display = 'none';
       doneEl.style.display = 'block';
     } else {
-      statusEl.textContent = "Impossible de valider cette session pour l'instant — réessayez dans quelques instants, ou contactez-nous si le problème persiste.";
+      statusEl.textContent = "Impossible de confirmer ce paiement pour l'instant — réessayez dans quelques instants, ou contactez-nous si le problème persiste.";
     }
   }catch(e){
-    statusEl.textContent = "Impossible de contacter le service de validation.";
+    statusEl.textContent = "Impossible de contacter le service de paiement.";
   }
 })();
 </script>
