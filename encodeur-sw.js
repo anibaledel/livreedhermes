@@ -15,9 +15,11 @@
 // l'activation. Ne pas l'éditer à la main : `node tools/check_encodeur_sw.mjs --ecrit`
 // la recalcule, et le même script sans option fait échouer la CI si elle est périmée.
 
-const CACHE_VERSION = 'ed86d673d78a';
+const CACHE_VERSION = '96bc9a034d61';
 const CACHE_PREFIX = 'encodeur-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
+// Avec les trois référents que loadReferents() charge : sans eux,
+// l'encodeur ne démarre pas hors connexion.
 const CACHED_URLS = [
   'encodeur.html',
   'js/carter-core.js',
@@ -26,8 +28,9 @@ const CACHED_URLS = [
   'js/hchacha20.js',
   'js/poly1305.js',
   'js/xchacha20poly1305.js',
+  'data/referent_256.json',
+  'data/referent_360.json',
   'data/referent_256_v3.json',
-  'data/referent_360_v3.json',
 ];
 
 // Une registration dont la portée est la racine du site vient d'une version antérieure :
