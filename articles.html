@@ -364,9 +364,14 @@
   }
 
   function cardHtml(a){
-    var cover = a.cover
-      ? '<img class="article-cover" src="' + escapeHtml(a.cover) + '" alt="' + escapeHtml(a.coverAlt || '') + '" loading="lazy">'
+    // Couverture AVIF : le JPEG de même nom sert de repli aux navigateurs qui ne lisent pas l'AVIF.
+    var avif = a.cover && /\.avif$/i.test(a.cover);
+    var img = a.cover
+      ? '<img class="article-cover" src="' + escapeHtml(avif ? a.cover.replace(/\.avif$/i, '.jpg') : a.cover) + '" alt="' + escapeHtml(a.coverAlt || '') + '" loading="lazy">'
       : '';
+    var cover = avif
+      ? '<picture><source srcset="' + escapeHtml(a.cover) + '" type="image/avif">' + img + '</picture>'
+      : img;
     var badges = a.categories.map(function(c){ return '<span class="article-badge">' + escapeHtml(c) + '</span>'; }).join('');
     return '<a class="article-card" href="' + escapeHtml(a.url) + '">' +
       cover +

@@ -16,6 +16,7 @@
      categories tableau non vide, valeurs parmi ARTICLE_CATEGORIES
      excerpt    2-3 lignes, tronqué visuellement par CSS (line-clamp)
      cover      URL absolue de l'image de couverture, ou null si aucune
+                (si AVIF, un JPEG de même nom doit exister à côté : repli)
      coverAlt   texte alternatif de l'image (ignoré si cover est null)
    ============================================================ */
 window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométrie", "Philosophie", "Sagesse"];
