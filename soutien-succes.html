@@ -66,19 +66,41 @@
     doneEl.style.display = 'block';
     return;
   }
-  try{
-    const res = await fetch(`${WORKER_BASE_URL}/claim-token?session_id=${encodeURIComponent(sessionId)}`);
-    const data = await res.json();
-    if(data.token){
-      localStorage.setItem('soutien_token', data.token);
-      statusEl.style.display = 'none';
-      doneEl.style.display = 'block';
-    } else {
-      statusEl.textContent = "Impossible de confirmer ce paiement pour l'instant — réessayez dans quelques instants, ou contactez-nous si le problème persiste.";
+  // Stripe peut rediriger ici avant que le webhook ait confirmé le paiement :
+  // le Worker répond alors 404. On réessaie environ 30 s (1, 2, 3, 4, 5, 5,
+  // 5, 5 s) avant d'afficher l'erreur, sans que la personne ait à recharger.
+  const ATTENTES_MS = [0, 1000, 2000, 3000, 4000, 5000, 5000, 5000, 5000];
+  const attendre = (ms) => new Promise(r => setTimeout(r, ms));
+  // Une fois la réponse obtenue (ou l'attente épuisée), l'identifiant de
+  // session sort de l'adresse : il ne reste ni dans l'historique, ni dans un
+  // lien copié.
+  const nettoyerAdresse = () => {
+    try{ history.replaceState(null, '', location.pathname); }catch(e){}
+  };
+  let joignable = false;
+  for(const ms of ATTENTES_MS){
+    if(ms) await attendre(ms);
+    try{
+      const res = await fetch(`${WORKER_BASE_URL}/claim-token?session_id=${encodeURIComponent(sessionId)}`);
+      joignable = true;
+      if(res.status === 404) continue; // paiement pas encore confirmé
+      const data = await res.json();
+      if(data.token){
+        localStorage.setItem('soutien_token', data.token);
+        statusEl.style.display = 'none';
+        doneEl.style.display = 'block';
+        nettoyerAdresse();
+        return;
+      }
+      break; // autre réponse : inutile d'insister
+    }catch(e){
+      // réseau indisponible : on retente au tour suivant
     }
-  }catch(e){
-    statusEl.textContent = "Impossible de contacter le service de paiement.";
   }
+  nettoyerAdresse();
+  statusEl.textContent = joignable
+    ? "Impossible de confirmer ce paiement pour l'instant — réessayez dans quelques instants, ou contactez-nous si le problème persiste."
+    : "Impossible de contacter le service de paiement.";
 })();
 </script>
 
