@@ -82,6 +82,11 @@
   .paved-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
   .paved-info{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
   .paved-info b{ color:var(--white); font-weight:400; }
+  .paved-info .ancien-nom{ color:var(--dim); font-size:.9em; }
+  #niveauSelect{
+    background:var(--bg); color:var(--dim); border:1px solid var(--line-strong);
+    font-size:calc(10.5px + var(--fs-bump)); padding:4px 8px; margin-left:8px; cursor:pointer;
+  }
   .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
   .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
   .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
@@ -308,6 +313,9 @@
     <button type="button" data-statut="inverse">Inversé</button>
     <button type="button" data-statut="echange">Échangé</button>
   </div>
+  <div class="controls" id="niveauControls">
+    <label class="tint-label" for="niveauSelect">Niveau<select id="niveauSelect"><option value="tous">Tous</option></select></label>
+  </div>
 
   <div class="gallery-panel">
     <div class="gallery-label">Faites défiler et cliquez un motif pour le sélectionner</div>
@@ -379,7 +387,7 @@
 
 <script type="module">
 import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from './assets/bicolore-render.js';
-import { buildAxes, generateAxesMask, demiDecalageStatus } from './assets/bicolore-axes.js';
+import { buildAxes, generateAxesMask, demiDecalageStatus, nomAccordAncien } from './assets/bicolore-axes.js';
 import { fermeSurLeCube } from './assets/bicolore-cube-c1.mjs';
 
 let DATA = null;
@@ -425,6 +433,15 @@ function accordAxesBrute(accord) {
 const STATUT_LABEL = { invariant: 'Invariant', inverse: 'Inversé', echange: 'Échangé' };
 let entryStatuses = []; // index-aligné sur DATA.entries
 let statutFiltre = 'tous';
+
+// ---------- nommage (prompt-cc-renommage-site.md) ----------
+// nomAccordAncien attend des noms de catalogue ("T2 YIN MUT"), pas le format
+// court de entry.accord (["YIN-MUT","T2"]) — conversion identique à accordLabel.
+function catalogueNamesOf(accord) {
+  return accord.map(([nature, gen]) => `${gen} ${nature.replace('-MUT', ' MUT')}`);
+}
+let entryNoms = []; // index-aligné sur DATA.entries : {nom, niveau, angles}
+let niveauFiltre = 'tous';
 // Étend un masque C1 (144 bits, un par case) en 1152 bits (8 triangles par
 // case, même teinte) pour le rendu — même ordre d'index que triangleGeometry
 // (cellIdx = row*12+col, sector = 0..7) et que casePoint() de bicolore-axes.js.
@@ -483,7 +500,9 @@ function accordLabel(accord) {
 
 // ---------- galerie ----------
 function visibleIndices() {
-  return DATA.entries.map((_, idx) => idx).filter(idx => statutFiltre === 'tous' || entryStatuses[idx] === statutFiltre);
+  return DATA.entries.map((_, idx) => idx).filter(idx =>
+    (statutFiltre === 'tous' || entryStatuses[idx] === statutFiltre) &&
+    (niveauFiltre === 'tous' || entryNoms[idx].niveau === niveauFiltre));
 }
 function renderGallery() {
   galleryEl.innerHTML = '';
@@ -491,16 +510,17 @@ function renderGallery() {
   visibleIndices().forEach(idx => {
     const entry = DATA.entries[idx];
     const statut = entryStatuses[idx];
+    const { nom, niveau, angles } = entryNoms[idx];
     const tile = document.createElement('div');
     tile.className = 'tile';
     tile.dataset.idx = idx;
-    tile.title = `${accordLabel(entry.accord)} — taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres — ${STATUT_LABEL[statut]} au demi-décalage`;
+    tile.title = `${nom} (ex-${accordLabel(entry.accord)}) — niveau ${niveau}, angle${angles.length > 1 ? 's' : ''} ${angles.join('°, ')}° — ${entry.sombre}/144 cases sombres — ${STATUT_LABEL[statut]} au demi-décalage`;
     const canvas = document.createElement('canvas');
     drawMask(canvas, mask1152For(entry.accord, grain), 64);
     tile.appendChild(canvas);
     const badge = document.createElement('span');
     badge.className = `statut-badge statut-${statut}`;
-    badge.textContent = STATUT_LABEL[statut];
+    badge.textContent = nom;
     tile.appendChild(badge);
     tile.addEventListener('click', () => selectEntry(idx));
     frag.appendChild(tile);
@@ -522,9 +542,10 @@ function selectEntry(idx) {
   document.querySelectorAll('.tile').forEach(t => t.classList.toggle('selected', +t.dataset.idx === idx));
   const entry = DATA.entries[idx];
   const statut = entryStatuses[idx];
+  const { nom, niveau, angles } = entryNoms[idx];
   const mask1152 = mask1152For(entry.accord, grain);
   drawMaskTiled(pavedCanvas, mask1152, 144, 4);
-  pavedInfo.innerHTML = `<b>${accordLabel(entry.accord)}</b> — accord de taille ${entry.tailleMin}, ${entry.sombre}/144 cases sombres au grain C1 — ferme sur le cube — <b>${STATUT_LABEL[statut]}</b> au demi-décalage (6, 6)`;
+  pavedInfo.innerHTML = `<b>${nom}</b> <span class="ancien-nom">(ex-${accordLabel(entry.accord)})</span> — niveau ${niveau}, angle${angles.length > 1 ? 's' : ''} ${angles.join('°, ')}° — ${entry.sombre}/144 cases sombres au grain C1 — ferme sur le cube — <b>${STATUT_LABEL[statut]}</b> au demi-décalage (6, 6)`;
 }
 
 // ---------- contrôles ----------
@@ -547,6 +568,10 @@ document.querySelectorAll('#statutControls button').forEach(btn => {
     document.querySelectorAll('#statutControls button').forEach(b => b.classList.toggle('active', b === btn));
     renderGallery();
   });
+});
+document.getElementById('niveauSelect').addEventListener('change', e => {
+  niveauFiltre = e.target.value === 'tous' ? 'tous' : Number(e.target.value);
+  renderGallery();
 });
 
 function updateStatsForGrain() {
@@ -689,6 +714,15 @@ Promise.all([
   AXES = buildAxes(catalogue);
   DATA = data;
   entryStatuses = DATA.entries.map(entry => demiDecalageStatus(accordAxesBrute(entry.accord), AXES).status);
+  entryNoms = DATA.entries.map(entry => nomAccordAncien(catalogueNamesOf(entry.accord)));
+  const niveaux = [...new Set(entryNoms.map(n => n.niveau))].sort((a, b) => a - b);
+  const niveauSelect = document.getElementById('niveauSelect');
+  for (const n of niveaux) {
+    const opt = document.createElement('option');
+    opt.value = String(n);
+    opt.textContent = String(n);
+    niveauSelect.appendChild(opt);
+  }
   document.getElementById('statTotal').textContent = data.total;
   document.getElementById('statFermes').textContent = data.fermeture_totale_c1;
   document.getElementById('statsNote').textContent =
