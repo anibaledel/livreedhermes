@@ -756,7 +756,13 @@ function canonicalEntries() {
   return DATA.entries.filter(([, subA, subB, n]) => subA === 'yang' && subB === 'yang_mut' && n < 32);
 }
 
-if (onlyArg !== -1) {
+// Réutilisé par generate-hexagram-pages.js (les motifs de chaque hexagramme) :
+// mêmes noms de familles et mêmes adresses, pas de seconde copie.
+module.exports = { FAMILY_LABEL, ORDERED_FAMILIES, motifSlug };
+
+if (require.main !== module) {
+  // Chargé comme module : pas de génération.
+} else if (onlyArg !== -1) {
   const idx = parseInt(args[onlyArg + 1], 10);
   const [fam, , , n] = DATA.entries[idx];
   const slug = writeOne(fam, n);

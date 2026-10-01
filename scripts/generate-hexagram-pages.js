@@ -15,6 +15,8 @@ const DATA = require('./extract-hexagram-data.js');
 // includes/README.md. Le gabarit ci-dessous n'en porte donc aucune copie —
 // c'est ce qui avait produit trois formes d'en-tête différentes sur le site.
 const { rendre } = require('./build-header.js');
+// Familles et adresses des motifs : celles du générateur de motifs lui-même.
+const MOTIFS = require('./generate-motif-pages.js');
 const ICONES = rendre('head-icons', '../');
 const PIED = rendre('footer', '../');
 const EN_TETE = rendre('header', '../');
@@ -132,6 +134,29 @@ for(let chrono = 0; chrono < 64; chrono++){
 
 function hexLinkHtml(info){
   return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
+}
+
+// Les motifs d'un hexagramme : les 256 motifs unifiés portent sur les
+// hexagrammes 0 à 31, huit familles chacun. Un hexagramme 32–63 est le
+// complément binaire (63 − n) d'un de ceux-là : ses motifs ont la même forme,
+// seules les couleurs sont permutées (vérifié sur tout le corpus, voir la
+// section « Même forme, autres coloriages » des pages motifs).
+function motifsHtml(chrono){
+  const base = chrono < 32 ? chrono : 63 - chrono;
+  const baseInfo = allInfo[base];
+  const intro = chrono < 32
+    ? `Huit motifs Jacquard 12×12 sont engendrés à partir de cet hexagramme, un par famille admissible du système. Chacun a sa page : cellule, pavage, recoloriages et données.`
+    : `Cet hexagramme est le complément binaire de l'hexagramme ${hexLinkHtml(baseInfo)} (63 − ${chrono} = ${base}) : ses motifs ont exactement la même forme, seules leurs couleurs sont permutées. Voici les huit motifs de l'hexagramme ${base}, un par famille admissible.`;
+  const cartes = MOTIFS.ORDERED_FAMILIES.map(fam => {
+    const slug = MOTIFS.motifSlug(fam, base);
+    const label = MOTIFS.FAMILY_LABEL.fr[fam];
+    return `        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/${slug}.html"><img src="../assets/motifs-preview/${slug}.png" alt="" width="96" height="96" loading="lazy"><span>${escapeHtml(label)}</span></a>`;
+  }).join('\n');
+  return `<h2>Les motifs de cet hexagramme</h2>
+      <p>${intro}</p>
+      <div class="motif-grid">
+${cartes}
+      </div>`;
 }
 
 for(let chrono = 0; chrono < 64; chrono++){
@@ -277,6 +302,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   .hexline-body p{ margin:0; font-size:calc(14px + var(--fs-bump)); line-height:1.65; }
 
   .cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:32px 0 8px; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(118px, 1fr)); gap:14px; margin:16px 0 8px; }
+  .motif-grid a.motif-card{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 6px; border:1px solid var(--line); color:var(--dim); text-decoration:none !important; font-size:calc(11px + var(--fs-bump)); line-height:1.35; text-align:center; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid a.motif-card img{ width:96px; height:96px; image-rendering:pixelated; }
+  .motif-grid a.motif-card:hover, .motif-grid a.motif-card:focus-visible{ border-color:var(--gold); color:var(--gold); }
   .cta-btn{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
@@ -371,6 +400,8 @@ ${linesHtml}
       <hr>
       ${sourcesHtml}
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consultez le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
+
+      ${motifsHtml(chrono)}
 
       <h2>Hexagrammes voisins</h2>
       <p>${hexLinkHtml(prevInfo)} · ${hexLinkHtml(nextInfo)}</p>

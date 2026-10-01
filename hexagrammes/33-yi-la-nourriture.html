@@ -110,6 +110,10 @@
   .hexline-body p{ margin:0; font-size:calc(14px + var(--fs-bump)); line-height:1.65; }
 
   .cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:32px 0 8px; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(118px, 1fr)); gap:14px; margin:16px 0 8px; }
+  .motif-grid a.motif-card{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 6px; border:1px solid var(--line); color:var(--dim); text-decoration:none !important; font-size:calc(11px + var(--fs-bump)); line-height:1.35; text-align:center; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid a.motif-card img{ width:96px; height:96px; image-rendering:pixelated; }
+  .motif-grid a.motif-card:hover, .motif-grid a.motif-card:focus-visible{ border-color:var(--gold); color:var(--gold); }
   .cta-btn{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
@@ -235,6 +239,19 @@
       <hr>
       <p class="article-sources"><b>Sources</b> : <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>.</p>
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consultez le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
+
+      <h2>Les motifs de cet hexagramme</h2>
+      <p>Cet hexagramme est le complément binaire de l'hexagramme <a href="https://anibal-amiot.com/hexagrammes/30-da-guo-la-preponderance-du-grand.html">30 — Da Guo, La Prépondérance du grand</a> (63 − 33 = 30) : ses motifs ont exactement la même forme, seules leurs couleurs sont permutées. Voici les huit motifs de l'hexagramme 30, un par famille admissible.</p>
+      <div class="motif-grid">
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/bases-yang-mut-h30.html"><img src="../assets/motifs-preview/bases-yang-mut-h30.png" alt="" width="96" height="96" loading="lazy"><span>Bases — Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/bases-yang-h30.html"><img src="../assets/motifs-preview/bases-yang-h30.png" alt="" width="96" height="96" loading="lazy"><span>Bases — Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yang-yin-mut-h30.html"><img src="../assets/motifs-preview/par2-yang-yin-mut-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yang + Yin mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-mut-yang-mut-h30.html"><img src="../assets/motifs-preview/par2-yin-mut-yang-mut-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin mut + Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-yang-h30.html"><img src="../assets/motifs-preview/par2-yin-yang-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin + Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-yang-mut-h30.html"><img src="../assets/motifs-preview/par2-yin-yang-mut-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin + Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par3-sans-yang-h30.html"><img src="../assets/motifs-preview/par3-sans-yang-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 3 — Sans Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par3-sans-yang-mut-h30.html"><img src="../assets/motifs-preview/par3-sans-yang-mut-h30.png" alt="" width="96" height="96" loading="lazy"><span>Par 3 — Sans Yang mut</span></a>
+      </div>
 
       <h2>Hexagrammes voisins</h2>
       <p><a href="https://anibal-amiot.com/hexagrammes/32-bo-l-eclatement.html">32 — Bo, L'Éclatement</a> · <a href="https://anibal-amiot.com/hexagrammes/34-meng-la-folie-juvenile.html">34 — Meng, La Folie juvénile</a></p>
