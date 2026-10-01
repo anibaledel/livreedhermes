@@ -621,10 +621,10 @@ ${gridItems}
 <!-- @main:end -->
   <div class="note">
     <div class="center-logo-slot">
-      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
     <div class="footer-caduceus">
-      <img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+      <picture><source srcset="../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
     </div>
 
     <div class="nav-tiles nav-tiles-group-2">
@@ -651,7 +651,7 @@ ${gridItems}
     ${SOUTIEN_LINK_HTML}
 
     <div class="center-logo-slot center-logo-slot-bottom">
-      <img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
 
     <div class="credit-line">

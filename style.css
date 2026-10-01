@@ -187,8 +187,23 @@
   transform:translateY(-2px);
   box-shadow:0 6px 14px rgba(0,0,0,.35);
 }
+/* Les GIF animés sont servis dans un <picture> (image fixe si le visiteur
+   demande moins de mouvement) : le <picture> s'efface de la mise en page,
+   l'<img> reste l'enfant direct du bloc qui le dimensionne. */
+picture{ display:contents; }
+
+/* Moins de mouvement demandé par le système : ni déplacement au survol,
+   ni transitions ou animations, ni défilement animé. Les couleurs changent
+   toujours au survol, instantanément. */
 @media (prefers-reduced-motion: reduce){
-  .nav-tile:hover, .nav-tile:focus-visible{ transform:none; }
+  *, *::before, *::after{
+    animation-duration:.01ms !important; animation-iteration-count:1 !important;
+    transition-duration:.01ms !important; transition-delay:0s !important;
+    scroll-behavior:auto !important;
+  }
+  .nav-tile:hover, .nav-tile:focus-visible,
+  .cell:hover, .sel-card:hover, .ech-cell:hover, .cat-card:hover{ transform:none !important; }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon) !important; }
 }
 .nav-tile-icon{
   width:72px; height:72px; flex-shrink:0; display:block; object-fit:cover;
