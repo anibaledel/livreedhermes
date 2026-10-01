@@ -1,0 +1,25 @@
+name: Version du cache de l'encodeur
+
+# encodeur-sw.js sert l'encodeur et son code de chiffrement depuis un cache
+# nommé d'après l'empreinte de ces fichiers (CACHE_VERSION). Si un fichier
+# change sans que l'empreinte suive, les visiteurs réguliers gardent l'ancien
+# code. Échoue tant que CACHE_VERSION n'est pas recalculée
+# (node tools/check_encodeur_sw.mjs --ecrit).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_encodeur_sw.mjs

@@ -220,19 +220,20 @@
 <meta name="theme-color" content="#0a0a0a">
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js').catch(()=>{}); });
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js', { scope: './encodeur' }).catch(()=>{}); });
 }
 </script>
 </head>
 <body>
 <div class="wrap">
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
 <header class="site-header">
   <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
 </header>
 <!-- @header:end -->
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-44-encodeur.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -272,7 +273,7 @@ if('serviceWorker' in navigator){
             <div id="demo-result" hidden>
               <div class="enc-result-box" id="demo-msg"></div>
               <div class="enc-info-box" id="demo-ks"></div>
-              <div id="grid-canvas-wrap"><canvas id="demo-canvas"></canvas></div>
+              <div id="grid-canvas-wrap"><canvas id="demo-canvas" role="img" aria-label="Grille d'encodage"></canvas></div>
             </div>
           </div>
         </div>

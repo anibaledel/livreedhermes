@@ -246,12 +246,13 @@
 <body>
 <div class="wrap">
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
 <header class="site-header">
   <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
 </header>
 <!-- @header:end -->
 <!-- @main:start -->
-<main>
+<main id="contenu">
 
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-23-galerie.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
@@ -325,7 +326,7 @@
   <div class="paved-section" id="pavedSection">
     <h2 class="paved-label h2-neutre">Pavage du motif sélectionné</h2>
     <div class="paved-info" id="pavedInfo"></div>
-    <div class="paved-box"><canvas id="pavedCanvas"></canvas></div>
+    <div class="paved-box"><canvas id="pavedCanvas" role="img" aria-label="Pavage du motif sélectionné"></canvas></div>
     <div class="paved-actions">
       <button type="button" id="btnDlCellSvg">Télécharger le SVG de la cellule</button>
       <button type="button" id="btnDlPavedSvg">Télécharger le SVG du pavage</button>
@@ -516,6 +517,8 @@ function renderGallery() {
     tile.dataset.idx = idx;
     tile.title = `${nom} (ex-${accordLabel(entry.accord)}) — niveau ${niveau}, angle${angles.length > 1 ? 's' : ''} ${angles.join('°, ')}° — ${entry.sombre}/144 cases sombres — ${STATUT_LABEL[statut]} au demi-décalage`;
     const canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', nom);
     drawMask(canvas, mask1152For(entry.accord, grain), 64);
     tile.appendChild(canvas);
     const badge = document.createElement('span');

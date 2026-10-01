@@ -170,7 +170,7 @@ ${json({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
 </head>
 <body>
 <div class="wrap">
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-26-lexique.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -252,7 +252,7 @@ function main() {
           if (m) sortie = sortie.replace('</head>', `${m[0]}\n</head>`);
         }
         const mh = actuel.match(/[ \t]*<!-- @header:start[\s\S]*?<!-- @header:end -->/);
-        if (mh) sortie = sortie.replace('<main>', `${mh[0]}\n<main>`);
+        if (mh) sortie = sortie.replace('<main id="contenu">', `${mh[0]}\n<main id="contenu">`);
         const ml = actuel.match(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/);
         if (ml) sortie = sortie.replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/, ml[0]);
       }

@@ -56,10 +56,12 @@ function resolveOrigin(request, env) {
 }
 
 function corsHeaders(request, env) {
-  const liste = allowedOrigins(env);
-  // Aucune liste configurée : on conserve le comportement d'avant plutôt que
-  // de couper le site en silence. Une liste renseignée restreint réellement.
-  const origine = liste.length === 0 ? '*' : resolveOrigin(request, env);
+  // Aucune liste configurée : on refuse (pas d'en-tête Allow-Origin, le
+  // navigateur bloque la réponse) plutôt que d'ouvrir le Worker à toute
+  // origine avec « * ». Une variable ALLOWED_ORIGIN oubliée se voit alors
+  // tout de suite, au lieu de passer inaperçue.
+  const origine = resolveOrigin(request, env);
+  if (!origine) return { 'Vary': 'Origin' };
   return {
     'Access-Control-Allow-Origin': origine,
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
@@ -200,6 +202,17 @@ async function handleWebhook(request, env) {
     return new Response('Signature webhook invalide', { status: 400 });
   }
 
+  // Idempotence : Stripe peut livrer plusieurs fois le même événement. Un
+  // event.id déjà traité est acquitté sans rien refaire (pas de second jeton).
+  // Marqué APRÈS traitement, pour qu'un échec en cours de route soit rejoué.
+  const cleEvenement = `event:${event.id}`;
+  if (await env.SOUTIEN_KV.get(cleEvenement)) {
+    return new Response(JSON.stringify({ received: true, duplicate: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
     const session = event.data.object;
     if (session.payment_status !== 'unpaid') {
@@ -220,6 +233,9 @@ async function handleWebhook(request, env) {
     const obj = event.data.object;
     await revokeAccessForPaymentIntent(env, obj && obj.payment_intent);
   }
+
+  // 30 jours : bien au-delà de la fenêtre de nouvelles tentatives de Stripe (3 jours).
+  await env.SOUTIEN_KV.put(cleEvenement, '1', { expirationTtl: 60 * 60 * 24 * 30 });
 
   return new Response(JSON.stringify({ received: true }), {
     status: 200,

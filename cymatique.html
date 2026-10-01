@@ -206,12 +206,13 @@
 <body>
 <div class="wrap">
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
 <header class="site-header">
   <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
 </header>
 <!-- @header:end -->
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-40-cymatique.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -336,7 +337,7 @@
         <button type="button" id="btnMic" data-i18n="micIdle">Activer le micro</button>
         <div class="freq"><span id="f">—</span> <span class="unit">Hz</span></div>
         <div class="match-line" id="matchLine" data-i18n="waiting">en attente</div>
-        <canvas id="spec" width="600" height="56"></canvas>
+        <canvas id="spec" width="600" height="56" role="img" aria-label="Spectre du son capté"></canvas>
         <div class="ctl-row">
           <label><span data-i18n="smoothing">lissage</span> <input type="range" id="sm" min="0" max="95" value="70"></label>
           <label><span data-i18n="threshold">seuil</span> <input type="range" id="th" min="0" max="60" value="18"></label>
@@ -352,7 +353,7 @@
         <p class="render-caption" data-i18n="toneHelp">Pour tester sans micro ni matériel — la fréquence choisie pilote directement le pavage.</p>
         <div class="tone-row">
           <button type="button" id="btnTone" data-i18n="tonePlay">Jouer</button>
-          <input type="range" id="toneFreq" min="128" max="256" step="1" value="128">
+          <input type="range" id="toneFreq" min="128" max="256" step="1" value="128" aria-label="Fréquence du son pur (Hz)">
           <span class="tone-freq"><span id="toneFreqVal">440</span> Hz</span>
         </div>
         <div class="match-line" id="toneMatchLine"></div>

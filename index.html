@@ -110,6 +110,17 @@
     font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
   }
 
+  /* ---- proposition accueil (audit lot 2) : menu compact, titre, deux boutons ---- */
+  .home-menu{ display:flex; flex-wrap:wrap; justify-content:center; gap:4px 18px; margin:0 0 18px; padding:0; list-style:none; }
+  .home-menu a{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); text-decoration:none; padding:6px 0; display:inline-block; }
+  .home-menu a:hover, .home-menu a:focus-visible{ color:var(--gold); }
+  .home-menu a.home-menu-soutien{ color:var(--red); border:1px solid var(--red); padding:5px 10px; }
+  .home-menu a.home-menu-soutien:hover, .home-menu a.home-menu-soutien:focus-visible{ color:var(--gold); border-color:var(--gold); }
+  .home-cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:18px 0 4px; }
+  .home-cta a{ font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; padding:11px 18px; border:1px solid var(--red); color:var(--red); transition:background .15s ease, color .15s ease; }
+  .home-cta a:hover, .home-cta a:focus-visible{ background:var(--red); color:#000; }
+  .home-cta a.secondaire{ border-color:var(--gold); color:var(--gold); }
+  .home-cta a.secondaire:hover, .home-cta a.secondaire:focus-visible{ background:var(--gold); color:#000; }
   .book-bar{
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
@@ -178,7 +189,12 @@
     cursor:pointer; display:flex; flex-direction:column; align-items:center;
     justify-content:center; gap:1.5px; padding:4px; position:relative;
     transition:border-color .12s ease, transform .12s ease;
+    /* <button> : neutralise les styles par défaut du navigateur, rien d'autre */
+    font:inherit; color:inherit; text-align:start; margin:0; -webkit-appearance:none; appearance:none;
   }
+  .cell:focus{ outline:none; }
+  .cell:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
   .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
   .cell.changing{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
@@ -527,19 +543,34 @@
 <body>
 <div class="wrap">
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
 <header class="site-header">
   <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
 </header>
 <!-- @header:end -->
+<nav aria-label="Menu principal" id="homeMenuNav">
+  <ul class="home-menu">
+    <li><a href="la-livree-d-hermes.html" id="txt-menuTraite">Le traité</a></li>
+    <li><a href="outils.html" id="txt-menuOutils">Outils</a></li>
+    <li><a href="articles.html" id="txt-menuArticles">Articles</a></li>
+    <li><a href="lexique.html" id="txt-menuLexique">Lexique</a></li>
+    <li><a href="a-propos.html" id="txt-menuAPropos">À propos</a></li>
+    <li><a href="soutenir.html" class="home-menu-soutien" id="txt-menuSoutenir">Soutenir</a></li>
+  </ul>
+</nav>
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-18-index.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
-    <h1 id="txt-title">Tirage — Ordre chronologique des 64 mutations</h1>
+    <h1 id="txt-title">La Livrée d'Hermès — traité en 111 planches</h1>
     <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
+    <div class="home-cta">
+      <a href="book-viewer/?read=fr" id="txt-ctaLire">Lire en ligne</a>
+      <a href="book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download class="secondaire" id="txt-ctaPdf">Télécharger le PDF (FR, 12 Mo)</a>
+    </div>
     <p class="book-intro">Nouveau sur le site : découvrez les notions clés du projet dans le <a href="lexique.html" style="color:var(--gold);">lexique</a>, ou lisez les <a href="articles.html" style="color:var(--gold);">articles</a> qui prolongent la démarche. Retrouvez aussi tous les <a href="outils.html" style="color:var(--gold);">outils</a> du site et <a href="la-livree-d-hermes.html" style="color:var(--gold);">le traité</a> en un seul endroit.</p>
   </header>
   </div>
@@ -590,7 +621,8 @@
         <span class="label">00 → 63</span>
       </div>
       <div class="axis-note" id="txt-axisNote">Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne</div>
-      <div class="hexgrid" id="hexgrid"></div>
+      <div class="hexgrid" id="hexgrid" role="group" aria-label="L'échiquier : 64 hexagrammes, flèches pour se déplacer"></div>
+      <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">L'oracle</h2>
         <div class="tirage-guide" id="txt-tirageGuide">
         <p>Le Yi King est un livre de sagesse qui peut s'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>
@@ -1224,7 +1256,9 @@ const TRIGRAMS_EN = [
 // UI strings: static interface text per language
 const UI = {
   fr: {
-    eyebrow:"La Livrée d'Hermès", title:"Tirage — Ordre chronologique des 64 mutations",
+    eyebrow:"La Livrée d'Hermès", title:"La Livrée d'Hermès — traité en 111 planches",
+    ctaLire:"Lire en ligne", ctaPdf:"Télécharger le PDF (FR, 12 Mo)", ctaLireHref:"book-viewer/?read=fr", ctaPdfHref:"book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf",
+    menuNav:"Menu principal", menuTraite:"Le traité", menuOutils:"Outils", menuArticles:"Articles", menuLexique:"Lexique", menuAPropos:"À propos", menuSoutenir:"Soutenir",
     readBook:"Lire le livre", dlPdf:"Télécharger le PDF", langBookTitle:"Langue du livre",
     dlYiKing:"Télécharger la traduction du Yi-King", dl360:"Archive 360 motifs",
     grid:"L'échiquier", oracleTitle:"L'oracle", bookTitle:"Le livre", toolsTitle:"Les outils", drawBtn:"Tirer aux pièces (6 traits)",
@@ -1277,7 +1311,9 @@ const UI = {
       + '<p>Si vous souhaitez simplement explorer la signification des hexagrammes et des images en corrélation, sélectionnez directement une case de l\'échiquier. Pour plus d\'informations sur les images, n\'hésitez pas à lire le livre.</p>'
   },
   en: {
-    eyebrow:"The Livery of Hermes", title:"Casting — Chronological Order of the 64 Mutations",
+    eyebrow:"The Livery of Hermes", title:"La Livrée d'Hermès — a treatise in 111 plates",
+    ctaLire:"Read online", ctaPdf:"Download the PDF (EN, 16 MB)", ctaLireHref:"book-viewer/?read=en", ctaPdfHref:"book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf",
+    menuNav:"Main menu", menuTraite:"The treatise", menuOutils:"Tools", menuArticles:"Articles", menuLexique:"Lexicon", menuAPropos:"About", menuSoutenir:"Support",
     readBook:"Read the book", dlPdf:"Download the PDF", langBookTitle:"Book language",
     dlYiKing:"Download the Yi-King translation", dl360:"360-motifs archive",
     grid:"The grid", oracleTitle:"The oracle", bookTitle:"The book", toolsTitle:"The tools", drawBtn:"Cast the coins (6 lines)",
@@ -1618,24 +1654,72 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
 }
 
 function makeCell(chrono){
-  const kwNum = KINGWEN_BY_CHRONO[chrono];
   const traits = traitsFromChrono(chrono);
-  const cell=document.createElement('div');
+  // <button> : atteignable au clavier, activé par Entrée et Espace, annoncé
+  // par son aria-label (numéro et nom, voir labelCells). Un seul bouton de la
+  // grille est dans l'ordre de tabulation (tabindex roulant) : les flèches
+  // déplacent le focus d'une case à l'autre, Tab sort de la grille.
+  const cell=document.createElement('button');
+  cell.type='button';
   cell.className='cell';
   cell.dataset.chrono = chrono;
-  const label=document.createElement('div');
+  cell.tabIndex = chrono===0 ? 0 : -1;
+  const label=document.createElement('span');
   label.className='num';
+  label.setAttribute('aria-hidden','true');
   label.textContent = chrono;
   cell.appendChild(label);
   cell.insertAdjacentHTML('beforeend', makeCellSVG(traits));
+  const svg = cell.querySelector('svg');
+  if(svg) svg.setAttribute('aria-hidden','true');
   cell.addEventListener('click', ()=>{ showDetail(chrono); clearMutation(); });
+  cell.addEventListener('keydown', onCellKeydown);
   return cell;
+}
+
+function cellLabel(chrono){
+  const [pinyin, nom] = curHexKW()[KINGWEN_BY_CHRONO[chrono]];
+  return `${LANG==='en' ? 'Hexagram' : 'Hexagramme'} ${chrono} — ${pinyin}, ${nom}`;
+}
+function labelCells(){
+  const grid = document.getElementById('hexgrid');
+  if(grid) grid.setAttribute('aria-label', LANG==='en'
+    ? 'The board: 64 hexagrams, arrow keys to move'
+    : "L'échiquier : 64 hexagrammes, flèches pour se déplacer");
+  document.querySelectorAll('#hexgrid .cell').forEach(cell=>{
+    cell.setAttribute('aria-label', cellLabel(+cell.dataset.chrono));
+  });
+}
+function focusCell(chrono){
+  const cells = document.querySelectorAll('#hexgrid .cell');
+  cells.forEach(c=>{ c.tabIndex = (+c.dataset.chrono===chrono) ? 0 : -1; });
+  const cible = document.querySelector(`#hexgrid .cell[data-chrono="${chrono}"]`);
+  if(cible) cible.focus();
+}
+function onCellKeydown(e){
+  const chrono = +e.currentTarget.dataset.chrono;
+  const r = Math.floor(chrono/8), c = chrono%8;
+  let cible = null;
+  if(e.key==='ArrowRight') cible = r*8 + Math.min(7, c+1);
+  else if(e.key==='ArrowLeft') cible = r*8 + Math.max(0, c-1);
+  else if(e.key==='ArrowDown') cible = Math.min(7, r+1)*8 + c;
+  else if(e.key==='ArrowUp') cible = Math.max(0, r-1)*8 + c;
+  else if(e.key==='Home') cible = r*8;
+  else if(e.key==='End') cible = r*8 + 7;
+  if(cible===null) return;
+  e.preventDefault();
+  focusCell(cible);
 }
 
 function showDetail(chrono){
   document.querySelectorAll('.cell').forEach(cell=>{
-    cell.classList.toggle('active', +cell.dataset.chrono===chrono);
+    const actif = +cell.dataset.chrono===chrono;
+    cell.classList.toggle('active', actif);
+    if(actif) cell.setAttribute('aria-current','true'); else cell.removeAttribute('aria-current');
+    cell.tabIndex = actif ? 0 : -1;
   });
+  const annonce = document.getElementById('hexgridAnnonce');
+  if(annonce) annonce.textContent = cellLabel(chrono);
   const kwNum = KINGWEN_BY_CHRONO[chrono];
   const traits = traitsFromChrono(chrono);
   lastShown = { chrono, traits };
@@ -1848,8 +1932,15 @@ function buildLegend(){
 
 // ---------- application de la langue à l'interface statique ----------
 function applyUILang(){
+  labelCells();
   document.getElementById('txt-eyebrow').textContent = t('eyebrow');
   document.getElementById('txt-title').textContent = t('title');
+  const ctaLire = document.getElementById('txt-ctaLire'), ctaPdf = document.getElementById('txt-ctaPdf');
+  ctaLire.textContent = t('ctaLire'); ctaLire.href = t('ctaLireHref');
+  ctaPdf.textContent = t('ctaPdf'); ctaPdf.href = t('ctaPdfHref');
+  document.getElementById('homeMenuNav').setAttribute('aria-label', t('menuNav'));
+  for (const k of ['menuTraite','menuOutils','menuArticles','menuLexique','menuAPropos','menuSoutenir'])
+    document.getElementById('txt-' + k).textContent = t(k);
   document.getElementById('txt-bookIntro').textContent = t('bookIntro');
   document.getElementById('txt-tirageGuide').innerHTML = t('tirageGuide');
   document.getElementById('txt-readBook').textContent = t('readBook');
@@ -2054,6 +2145,7 @@ document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b=>{
 // ---------- init ----------
 const gridEl = document.getElementById('hexgrid');
 for(let chrono=0; chrono<64; chrono++){ gridEl.appendChild(makeCell(chrono)); }
+labelCells();
 buildLegend();
 applyUILang();
 
