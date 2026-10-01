@@ -220,7 +220,7 @@
 <meta name="theme-color" content="#0a0a0a">
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js').catch(()=>{}); });
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js', { scope: './encodeur' }).catch(()=>{}); });
 }
 </script>
 </head>
