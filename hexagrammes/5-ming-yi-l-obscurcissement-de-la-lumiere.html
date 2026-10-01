@@ -110,6 +110,10 @@
   .hexline-body p{ margin:0; font-size:calc(14px + var(--fs-bump)); line-height:1.65; }
 
   .cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:32px 0 8px; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(118px, 1fr)); gap:14px; margin:16px 0 8px; }
+  .motif-grid a.motif-card{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 6px; border:1px solid var(--line); color:var(--dim); text-decoration:none !important; font-size:calc(11px + var(--fs-bump)); line-height:1.35; text-align:center; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid a.motif-card img{ width:96px; height:96px; image-rendering:pixelated; }
+  .motif-grid a.motif-card:hover, .motif-grid a.motif-card:focus-visible{ border-color:var(--gold); color:var(--gold); }
   .cta-btn{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
@@ -137,6 +141,11 @@
 <link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/5-ming-yi-l-obscurcissement-de-la-lumiere.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html">
+<!-- @hreflang:end -->
 </head>
 <body>
 <div class="wrap">
@@ -156,6 +165,9 @@
       <nav class="breadcrumb" aria-label="Fil d'Ariane">
         <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme 5 — L'Obscurcissement de la lumière</span>
       </nav>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Autres langues : <a href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html">English</a></p>
+<!-- @langues:end -->
 
       <a class="article-back" href="https://anibal-amiot.com/?chrono=5">← Voir cet hexagramme sur l'échiquier</a>
 
@@ -236,6 +248,19 @@
       <p class="article-sources"><b>Sources</b> : <i>La Livrée d'Hermès</i>, Anibal Amiot — <a href="https://anibal-amiot.com/book-viewer/index.html?read=fr&page=063">chapitre 7.1 « Trame » (p. 63 à 68)</a>.</p>
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consultez le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
 
+      <h2>Les motifs de cet hexagramme</h2>
+      <p>Huit motifs Jacquard 12×12 sont engendrés à partir de cet hexagramme, un par famille admissible du système. Chacun a sa page : cellule, pavage, recoloriages et données.</p>
+      <div class="motif-grid">
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/bases-yang-mut-h5.html"><img src="../assets/motifs-preview/bases-yang-mut-h5.png" alt="" width="96" height="96" loading="lazy"><span>Bases — Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/bases-yang-h5.html"><img src="../assets/motifs-preview/bases-yang-h5.png" alt="" width="96" height="96" loading="lazy"><span>Bases — Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yang-yin-mut-h5.html"><img src="../assets/motifs-preview/par2-yang-yin-mut-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yang + Yin mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-mut-yang-mut-h5.html"><img src="../assets/motifs-preview/par2-yin-mut-yang-mut-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin mut + Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-yang-h5.html"><img src="../assets/motifs-preview/par2-yin-yang-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin + Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par2-yin-yang-mut-h5.html"><img src="../assets/motifs-preview/par2-yin-yang-mut-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 2 — Yin + Yang mut</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par3-sans-yang-h5.html"><img src="../assets/motifs-preview/par3-sans-yang-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 3 — Sans Yang</span></a>
+        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/par3-sans-yang-mut-h5.html"><img src="../assets/motifs-preview/par3-sans-yang-mut-h5.png" alt="" width="96" height="96" loading="lazy"><span>Par 3 — Sans Yang mut</span></a>
+      </div>
+
       <h2>Hexagrammes voisins</h2>
       <p><a href="https://anibal-amiot.com/hexagrammes/4-qian-la-modestie.html">4 — Qian, La Modestie</a> · <a href="https://anibal-amiot.com/hexagrammes/6-sheng-la-poussee-vers-le-haut.html">6 — Sheng, La Poussée vers le haut</a></p>
 
@@ -284,6 +309,7 @@
     <a href="../travaux.html">Travaux</a>
     <a href="../contact.html">Contact</a>
     <a href="../soutenir.html">Soutenir</a>
+    <a href="../recherche.html">Rechercher</a>
   </nav>
   <p class="site-footer-licence">
     Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>

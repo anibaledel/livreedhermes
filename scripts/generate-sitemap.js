@@ -70,7 +70,6 @@ const STATIC_PAGES = [
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
   { loc: `${SITE}/travaux.html`, file: 'travaux.html', changefreq: 'monthly', priority: '0.5' },
-  { loc: `${SITE}/hexagrammes/`, file: 'hexagrammes/index.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
@@ -101,9 +100,12 @@ const ARTICLE_PAGES = fs
 
 // Hexagrammes : tous les fichiers présents dans hexagrammes/, triés par numéro.
 const hexagrammesDir = path.join(ROOT, 'hexagrammes');
+// Les pages qui ont une traduction (FR/EN, scripts/langues.js) sont déjà dans
+// BOOK_PAGES, avec leurs alternates : ne pas les lister une seconde fois.
+const FICHIERS_TRADUITS = new Set(PAGES_TRADUITES.map((p) => p.file));
 const HEXAGRAM_PAGES = fs
   .readdirSync(hexagrammesDir)
-  .filter((f) => f.endsWith('.html') && f !== 'index.html')
+  .filter((f) => f.endsWith('.html') && f !== 'index.html' && !FICHIERS_TRADUITS.has(`hexagrammes/${f}`))
   .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
   .map((f) => ({
     loc: `${SITE}/hexagrammes/${f}`,

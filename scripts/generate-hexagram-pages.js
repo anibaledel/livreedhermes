@@ -15,6 +15,8 @@ const DATA = require('./extract-hexagram-data.js');
 // includes/README.md. Le gabarit ci-dessous n'en porte donc aucune copie —
 // c'est ce qui avait produit trois formes d'en-tête différentes sur le site.
 const { rendre } = require('./build-header.js');
+// Familles et adresses des motifs : celles du générateur de motifs lui-même.
+const MOTIFS = require('./generate-motif-pages.js');
 const ICONES = rendre('head-icons', '../');
 const PIED = rendre('footer', '../');
 const EN_TETE = rendre('header', '../');
@@ -117,6 +119,19 @@ const FOOTER_CTA_SCRIPT = `<script src="../assets/share-widget.js"></script>
 
 const pages = [];
 
+// build-header.js pose ensuite, d'après scripts/langues.js, le hreflang et la
+// rangée de langues de ces pages : les reprendre du fichier en place évite de
+// les effacer à chaque régénération, avant son passage.
+function garderZonesLangues(rendu, ancien){
+  if(!ancien) return rendu;
+  for(const zone of ['hreflang', 'langues']){
+    const re = new RegExp(`[ \\t]*<!-- @${zone}:start[\\s\\S]*?<!-- @${zone}:end -->`);
+    const m = ancien.match(re);
+    if(m) rendu = re.test(rendu) ? rendu.replace(re, m[0]) : rendu.replace('</head>', `${m[0]}\n</head>`);
+  }
+  return rendu;
+}
+
 // Pré-calcul pour toutes les figures : nécessaire pour les liens croisés
 // (précédent/suivant, trigrammes partagés) construits dans la boucle principale.
 const allInfo = [];
@@ -132,6 +147,29 @@ for(let chrono = 0; chrono < 64; chrono++){
 
 function hexLinkHtml(info){
   return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
+}
+
+// Les motifs d'un hexagramme : les 256 motifs unifiés portent sur les
+// hexagrammes 0 à 31, huit familles chacun. Un hexagramme 32–63 est le
+// complément binaire (63 − n) d'un de ceux-là : ses motifs ont la même forme,
+// seules les couleurs sont permutées (vérifié sur tout le corpus, voir la
+// section « Même forme, autres coloriages » des pages motifs).
+function motifsHtml(chrono){
+  const base = chrono < 32 ? chrono : 63 - chrono;
+  const baseInfo = allInfo[base];
+  const intro = chrono < 32
+    ? `Huit motifs Jacquard 12×12 sont engendrés à partir de cet hexagramme, un par famille admissible du système. Chacun a sa page : cellule, pavage, recoloriages et données.`
+    : `Cet hexagramme est le complément binaire de l'hexagramme ${hexLinkHtml(baseInfo)} (63 − ${chrono} = ${base}) : ses motifs ont exactement la même forme, seules leurs couleurs sont permutées. Voici les huit motifs de l'hexagramme ${base}, un par famille admissible.`;
+  const cartes = MOTIFS.ORDERED_FAMILIES.map(fam => {
+    const slug = MOTIFS.motifSlug(fam, base);
+    const label = MOTIFS.FAMILY_LABEL.fr[fam];
+    return `        <a class="motif-card" href="https://anibal-amiot.com/fr/motifs/${slug}.html"><img src="../assets/motifs-preview/${slug}.png" alt="" width="96" height="96" loading="lazy"><span>${escapeHtml(label)}</span></a>`;
+  }).join('\n');
+  return `<h2>Les motifs de cet hexagramme</h2>
+      <p>${intro}</p>
+      <div class="motif-grid">
+${cartes}
+      </div>`;
 }
 
 for(let chrono = 0; chrono < 64; chrono++){
@@ -277,6 +315,10 @@ for(let chrono = 0; chrono < 64; chrono++){
   .hexline-body p{ margin:0; font-size:calc(14px + var(--fs-bump)); line-height:1.65; }
 
   .cta-row{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:32px 0 8px; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(118px, 1fr)); gap:14px; margin:16px 0 8px; }
+  .motif-grid a.motif-card{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:10px 6px; border:1px solid var(--line); color:var(--dim); text-decoration:none !important; font-size:calc(11px + var(--fs-bump)); line-height:1.35; text-align:center; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid a.motif-card img{ width:96px; height:96px; image-rendering:pixelated; }
+  .motif-grid a.motif-card:hover, .motif-grid a.motif-card:focus-visible{ border-color:var(--gold); color:var(--gold); }
   .cta-btn{ border:1px solid var(--line-strong); color:var(--dim); font-size:calc(11px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:10px 18px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
   .cta-btn:hover{ border-color:var(--gold); color:var(--gold); }
 
@@ -314,6 +356,7 @@ ${EN_TETE}
       <nav class="breadcrumb" aria-label="Fil d'Ariane">
         <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
       </nav>
+      <!-- @langues:start --><!-- @langues:end -->
 
       <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
@@ -371,6 +414,8 @@ ${linesHtml}
       <hr>
       ${sourcesHtml}
       <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consultez le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
+
+      ${motifsHtml(chrono)}
 
       <h2>Hexagrammes voisins</h2>
       <p>${hexLinkHtml(prevInfo)} · ${hexLinkHtml(nextInfo)}</p>
@@ -440,7 +485,7 @@ ${FOOTER_CTA_SCRIPT}
     .split(DATE_FR_PLACEHOLDER).join(formatDateFr(dateModified))
     .replace('<head>', `<head>\n<!-- @contenu sha256:${empreinte} — empreinte du texte éditorial seul ; voir scripts/generate-hexagram-pages.js -->`);
 
-  fs.writeFileSync(outPath, rendu, 'utf8');
+  fs.writeFileSync(outPath, garderZonesLangues(rendu, ancien), 'utf8');
   pages.push({ chrono, kwNum, slug, url });
 }
 
@@ -607,6 +652,7 @@ ${EN_TETE}
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><span aria-current="page">Hexagrammes</span>
     </nav>
+    <!-- @langues:start --><!-- @langues:end -->
 
     <h1 class="page-title">Les 64 hexagrammes</h1>
     <p class="page-sub">Chaque hexagramme du Yi-King, dans l'ordre chronologique (poids binaires) utilisé sur ce site, avec son jugement, ses trigrammes et le carré magique associé.</p>
@@ -672,7 +718,8 @@ ${FOOTER_CTA_SCRIPT}
 `;
 
 const listingDir = path.join(OUT_DIR);
-fs.writeFileSync(path.join(listingDir, 'index.html'), listingHtml, 'utf8');
+const listingPath = path.join(listingDir, 'index.html');
+fs.writeFileSync(listingPath, garderZonesLangues(listingHtml, fs.existsSync(listingPath) ? fs.readFileSync(listingPath, 'utf8') : null), 'utf8');
 
 console.log('Généré', pages.length, 'pages dans', OUT_DIR, '+ la page de listing hexagrammes/index.html');
 

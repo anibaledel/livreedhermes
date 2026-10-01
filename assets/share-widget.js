@@ -60,10 +60,24 @@
         '<a class="share-btn" href="https://api.whatsapp.com/send?text=' + t + '%20' + u + '" target="_blank" rel="noopener">WhatsApp</a>' +
         '<a class="share-btn" href="https://t.me/share/url?url=' + u + '&text=' + t + '" target="_blank" rel="noopener">Telegram</a>' +
         '<a class="share-btn" href="' + REDDIT_URL + '" target="_blank" rel="noopener">Reddit</a>' +
-        '<button type="button" class="share-btn" id="btnCopyLink">Copier le lien</button>' +
+        '<button type="button" class="share-btn" id="btnCopyLink">' + TEXTES.copier + '</button>' +
       '</div>';
     return block;
   }
+
+  // Libellés dans la langue de la page (<html lang>), français par défaut :
+  // les pages anglaises (motifs, hexagrammes) l'affichaient en français.
+  var TEXTES_PAR_LANGUE = {
+    fr: { partager: 'Partager cette page', copier: 'Copier le lien', copie: 'Lien copié !',
+          echec: "Impossible de copier le lien automatiquement — copiez-le depuis la barre d'adresse." },
+    en: { partager: 'Share this page', copier: 'Copy link', copie: 'Link copied!',
+          echec: 'Could not copy the link automatically — copy it from the address bar.' },
+    es: { partager: 'Compartir esta página', copier: 'Copiar el enlace', copie: '¡Enlace copiado!',
+          echec: 'No se pudo copiar el enlace automáticamente: cópielo desde la barra de direcciones.' },
+    th: { partager: 'แชร์หน้านี้', copier: 'คัดลอกลิงก์', copie: 'คัดลอกลิงก์แล้ว!',
+          echec: 'ไม่สามารถคัดลอกลิงก์โดยอัตโนมัติ — โปรดคัดลอกจากแถบที่อยู่' },
+  };
+  var TEXTES = TEXTES_PAR_LANGUE[(document.documentElement.lang || 'fr').slice(0, 2).toLowerCase()] || TEXTES_PAR_LANGUE.fr;
 
   function wireCopyButton(block, url){
     var btn = block.querySelector('#btnCopyLink');
@@ -71,17 +85,17 @@
     btn.addEventListener('click', function(){
       navigator.clipboard.writeText(url).then(function(){
         var original = btn.textContent;
-        btn.textContent = 'Lien copié !';
+        btn.textContent = TEXTES.copie;
         btn.classList.add('copied');
         setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 2000);
       }).catch(function(){
-        alert("Impossible de copier le lien automatiquement — copiez-le depuis la barre d'adresse.");
+        alert(TEXTES.echec);
       });
     });
   }
 
   function init(){
-    var label = (thisScript && thisScript.getAttribute('data-label')) || 'Partager cette page';
+    var label = (thisScript && thisScript.getAttribute('data-label')) || TEXTES.partager;
     var url = pageUrl();
     var title = pageTitle();
 

@@ -43,6 +43,11 @@ module.exports = {
   HANZI_BY_KW: extractLiteral('HANZI_BY_KW'),
   TRIGRAMS: extractLiteral('TRIGRAMS'),
   LINE_COMMENT: extractLiteral('LINE_COMMENT'),
+  // Versions anglaises, déjà affichées par l'échiquier d'index.html en anglais :
+  // les pages hexagrammes anglaises (generate-hexagram-pages-en.js) les reprennent.
+  IMAGE_EN: extractLiteral('IMAGE_EN'),
+  LINE_COMMENT_EN: extractLiteral('LINE_COMMENT_EN'),
+  TRIGRAMS_EN: extractLiteral('TRIGRAMS_EN'),
 };
 
 if(require.main === module){

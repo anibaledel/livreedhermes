@@ -1,7 +1,8 @@
 name: Update sitemap
 
-# Régénère sitemap.xml à chaque push sur main (voir scripts/generate-sitemap.js)
-# et commite directement sur main s'il a changé. Le token vient d'une GitHub
+# Régénère sitemap.xml (voir scripts/generate-sitemap.js) et l'index de la
+# recherche interne (scripts/build-recherche.mjs) à chaque push sur main, et
+# commite directement sur main ce qui a changé. Le token vient d'une GitHub
 # App dédiée (SITEMAP_APP_ID/SITEMAP_APP_PRIVATE_KEY), seule ajoutée aux
 # bypass_actors du ruleset de main — voir docs/SITEMAP_APP.md pour la
 # procédure d'installation, hors de portée d'un commit (réglages GitHub,
@@ -50,12 +51,22 @@ jobs:
       - name: Générer sitemap.xml
         run: node scripts/generate-sitemap.js
 
-      - name: Committer directement sur main si le sitemap a changé
+      # Index de la recherche interne (Pagefind, scripts/build-recherche.mjs) :
+      # même déclencheur, même App, même commit que le sitemap. L'index est
+      # déterministe — un push qui ne change aucun texte ne produit rien.
+      - name: Générer l'index de recherche
+        run: |
+          npm install --no-save --no-package-lock pagefind@1
+          node scripts/build-recherche.mjs
+
+      - name: Committer directement sur main si le sitemap ou l'index a changé
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          if git diff --quiet -- sitemap.xml; then
-            echo "sitemap.xml déjà à jour."
+          INDEX_CHANGE=""
+          if [ -n "$(git status --porcelain -- pagefind)" ]; then INDEX_CHANGE=1; fi
+          if git diff --quiet -- sitemap.xml && [ -z "$INDEX_CHANGE" ]; then
+            echo "sitemap.xml et index de recherche déjà à jour."
             exit 0
           fi
 
@@ -70,9 +81,13 @@ jobs:
           N_REMOVED=$(printf '%s' "$REMOVED" | grep -c . || true)
 
           {
-            echo "chore: sitemap.xml — +${N_ADDED:-0} / -${N_REMOVED:-0} URL"
+            if git diff --quiet -- sitemap.xml; then
+              echo "chore: index de recherche régénéré"
+            else
+              echo "chore: sitemap.xml — +${N_ADDED:-0} / -${N_REMOVED:-0} URL"
+            fi
             echo ""
-            echo "Régénéré par scripts/generate-sitemap.js suite à ${{ github.sha }}."
+            echo "Régénéré par scripts/generate-sitemap.js et scripts/build-recherche.mjs suite à ${{ github.sha }}."
             if [ -n "$ADDED" ]; then
               echo ""
               echo "Ajoutées ($N_ADDED) :"
@@ -87,6 +102,6 @@ jobs:
 
           git config user.name "sitemap-app[bot]"
           git config user.email "sitemap-app[bot]@users.noreply.github.com"
-          git add sitemap.xml
+          git add sitemap.xml pagefind
           git commit -F /tmp/commit_msg.txt
           git push origin HEAD:main

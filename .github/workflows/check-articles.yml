@@ -1,0 +1,25 @@
+name: Liens d'articles en HTML statique
+
+# Les cartes de articles.html et les liens precedent / suivant des articles
+# sont ecrits en HTML par scripts/build-articles.js depuis
+# assets/articles-data.js : sans eux, ces liens n'existent qu'en JavaScript
+# et les moteurs de recherche les decouvrent mal. Ce controle echoue si les
+# donnees changent sans que les pages soient regenerees.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-articles.js --verifie

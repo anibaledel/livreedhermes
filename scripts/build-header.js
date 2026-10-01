@@ -135,6 +135,7 @@ function rendreNavTiles(rel, prefixe, lang = 'fr') {
 function langDePage(rel) {
   if (rel.startsWith('fr/motifs/')) return 'fr';
   if (rel.startsWith('motifs/')) return 'en';
+  if (rel.startsWith('en/')) return 'en';
   return 'fr';
 }
 
@@ -156,6 +157,9 @@ const AVEC_TUILES_EN_PLUS = new Set([
   'cymatique.html',
   'soutien-succes.html',
   'creation-bicolore-v2.html',
+  // Pages de recherche (scripts/build-recherche.mjs), créées avec le bloc.
+  'recherche.html',
+  'en/search/index.html',
 ]);
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
