@@ -52,7 +52,6 @@ function urlEntry({ loc, file, changefreq, priority, hreflang }) {
 
 // Pages fixes du site (hors articles / hexagrammes, gérés automatiquement plus bas).
 const STATIC_PAGES = [
-  { loc: `${SITE}/`, file: 'index.html', changefreq: 'monthly', priority: '1.0' },
   { loc: `${SITE}/creation-motifs-yi-king.html`, file: 'creation-motifs-yi-king.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/bicolore.html`, file: 'bicolore.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },

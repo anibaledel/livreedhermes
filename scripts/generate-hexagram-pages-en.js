@@ -40,7 +40,7 @@ const PREFIXE = '../../';
 const SITE = 'https://anibal-amiot.com';
 
 const ICONES = rendre('head-icons', PREFIXE);
-const PIED = rendre('footer', PREFIXE);
+const PIED = rendre('footer', PREFIXE, 'en');
 const EN_TETE = rendre('header', PREFIXE, 'en');
 
 const DATE_PUBLISHED = '2026-10-01';

@@ -537,6 +537,11 @@
 <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/">
+<!-- @hreflang:end -->
 </head>
 <body>
 <div class="wrap">
@@ -563,6 +568,9 @@
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
     <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
     <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Autres langues : <a href="https://anibal-amiot.com/en/">English</a></p>
+<!-- @langues:end -->
     <h1 id="txt-title">La Livrée d'Hermès — traité en 111 planches</h1>
     <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.</p>
     <div class="home-cta">
@@ -1369,19 +1377,17 @@ const UI = {
 };
 
 const LANG_STORAGE_KEY = 'lldh-lang';
-function detectBrowserLang(){
-  const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || 'fr'];
-  for(const raw of langs){
-    const code = (raw || '').slice(0,2).toLowerCase();
-    if(code === 'en') return 'en';
-    if(code === 'fr') return 'fr';
-  }
-  return 'fr'; // langue détectée non gérée nativement ici (es/th/zh/ru...) -> repli français
-}
 function initialLang(){
   let stored = null;
   try{ stored = localStorage.getItem(LANG_STORAGE_KEY); }catch(e){}
-  return (stored === 'fr' || stored === 'en') ? stored : detectBrowserLang();
+  // Français par défaut, quelle que soit la langue du navigateur : l'adresse /
+  // est la page française, sa jumelle anglaise est /en/ (hreflang, voir
+  // scripts/langues.js). L'ancienne détection par navigator.languages servait
+  // l'anglais aux robots anglophones — Googlebot compris — sous une page
+  // déclarée française, titre et description en français : une seule adresse
+  // pour deux langues, et des signaux contradictoires. L'anglais reste à un
+  // clic (boutons FR/EN, mémorisés) ou par /?lang=en, lien donné par /en/.
+  return (stored === 'fr' || stored === 'en') ? stored : 'fr';
 }
 let LANG = initialLang();
 function t(key){ return (UI[LANG] && UI[LANG][key]!==undefined) ? UI[LANG][key] : UI.fr[key]; }
