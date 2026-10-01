@@ -110,7 +110,7 @@ const BOOK_SOURCE_HTML = '<i>La Livrée d\'Hermès</i>, Anibal Amiot — <a href
 // vacant par l'ancien bouton "Devenir Partenaire" (palier pro retiré,
 // voir espace-libre), après .footer-title-logo. Contrôle unique : l'ancien
 // bouton modal #btnSoutienFooter a été retiré (doublon avec ce lien direct).
-const SOUTIEN_TITLE = "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.";
+const SOUTIEN_TITLE = "Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.";
 const SOUTIEN_LINK_HTML = `<a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${escapeHtml(SOUTIEN_TITLE)}">Devenir Soutien</a>`;
 const FOOTER_CTA_SCRIPT = `<script src="../assets/share-widget.js"></script>
 <script src="../assets/soutien-gate.js"></script>`;
@@ -307,7 +307,7 @@ ${ICONES}
 <div class="wrap">
 ${EN_TETE}
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="article-body">
     <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
     <div class="atalanta-block" style="padding:28px 24px;">
@@ -372,7 +372,7 @@ ${linesHtml}
 
       <hr>
       ${sourcesHtml}
-      <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consulte le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
+      <p><i>Pour comprendre les notions évoquées ici — carré magique, calque et tirage, Yi-King — consultez le <a href="https://anibal-amiot.com/lexique.html">lexique du projet</a>.</i></p>
 
       <h2>Hexagrammes voisins</h2>
       <p>${hexLinkHtml(prevInfo)} · ${hexLinkHtml(nextInfo)}</p>
@@ -398,7 +398,7 @@ ${linesHtml}
       <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
     </div>
     <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
     </div>
@@ -603,7 +603,7 @@ ${ICONES}
 <div class="wrap">
 ${EN_TETE}
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-4-hexagrammes.avif);">
   <div class="atalanta-block" style="padding:28px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -659,7 +659,7 @@ ${gridItems}
     </div>
 
     <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
       <span class="credit-sep">·</span>
       <span>Créé en collaboration avec Claude</span>
     </div>

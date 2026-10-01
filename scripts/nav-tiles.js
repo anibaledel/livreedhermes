@@ -163,11 +163,11 @@ const GROUPE_LABEL = { fr: {}, en: {} };
 for (const g of GROUPES) { GROUPE_LABEL.fr[g.id] = g.fr; GROUPE_LABEL.en[g.id] = g.en; }
 
 const SOUTIEN_BTN = {
-  fr: { label: 'Devenir Soutien', title: "Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre." },
-  en: { label: 'Become a Supporter', title: "Become a Supporter of La Livrée d'Hermès — contribute at a price you choose and permanently unlock the book's SVG/PDF downloads." },
+  fr: { label: 'Devenir Soutien', title: "Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet." },
+  en: { label: 'Become a Supporter', title: "Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future." },
 };
 const CREDIT_COLLAB = { fr: 'Créé en collaboration avec Claude', en: 'Created in collaboration with Claude' };
-const COPYRIGHT_SUFFIX = { fr: 'Tous droits réservés', en: 'All rights reserved' };
+const COPYRIGHT_SUFFIX = { fr: 'CC BY-NC 4.0', en: 'CC BY-NC 4.0' };
 
 /* Rend le bloc <div class="note">...</div> complet pour une page : Accueil
    seule au-dessus, hors des quatre groupes nommés, du côté du bouton

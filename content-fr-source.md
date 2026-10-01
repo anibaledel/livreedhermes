@@ -96,7 +96,7 @@ commentaires de traits — n'est pas reprise ici : elle vit dans `index.html`
 - « Devenir Partenaire »
 
 ### Bloc copyright
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ---
@@ -117,7 +117,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 (« 16 images · 4 axes de base » et suivants) ont disparu de la page.
 
 ### Textes d'introduction par catégorie
-- « Les 60 natures » : « Les 60 natures réunies, toutes catégories confondues. Choisis 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage. »
+- « Les 60 natures » : « Les 60 natures réunies, toutes catégories confondues. Choisissez 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage. »
 - Autres catégories (gabarit) : « Catégorie « {label} » ({sous-titre}) — choisis 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image. »
 
 ### Grille de sélection
@@ -137,7 +137,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 - « 64 croisements · {n} motif(s) visuellement distinct(s) »
 - « (égalité de score yang — attribution arbitraire) »
 - « {n} motif(s) de cet échiquier apparaissent/apparaît deux fois (couleurs échangées entre le Créateur et le Réceptif) — chaque case concernée le signale et indique l'hexagramme jumeau. »
-- « Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — clique une case pour la numérotation King Wen traditionnelle · {n} échiquiers différents possibles au total avec les 60 natures (C(60,2)) »
+- « Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — cliquez sur une case pour la numérotation King Wen traditionnelle · {n} échiquiers différents possibles au total avec les 60 natures (C(60,2)) »
 
 ### Panneau détail d'une case
 - « ← Retour à l'échiquier »
@@ -165,7 +165,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 - « Devenir Partenaire »
 
 ### Bloc copyright
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ---
@@ -202,7 +202,7 @@ aujourd'hui un fichier HTML autonome.
 - « Devenir Soutien »
 
 ### Pied de page du site
-- « © 2026 Anibal Edelberto Amiot — Tous droits réservés »
+- « © 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 »
 - « Créé en collaboration avec Claude »
 
 ### Barre du livre
@@ -242,10 +242,10 @@ Présente sur `impression.html`, `fonds-ecran.html`,
 - Sous-titre : « Choisissez une catégorie de motifs unifiés, en plein écran, réactifs au son ou en mode méditatif. »
 
 ### Instructions
-- « Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes. »
+- « Choisissez une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez. »
 - « Options de modulation, une fois la catégorie choisie : »
 - « 🎤 Micro » — « le pavage change au rythme du son ambiant réellement entendu. »
-- « 📁 Fichier audio » — « même principe, avec un morceau que tu proposes toi-même. »
+- « 📁 Fichier audio » — « même principe, avec un morceau que vous proposez vous-même. »
 
 ---
 
