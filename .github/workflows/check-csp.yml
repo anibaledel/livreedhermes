@@ -1,0 +1,25 @@
+name: CSP des pages sensibles
+
+# encodeur.html, soutenir.html et soutien-succes.html portent une politique
+# de sécurité du contenu qui n'autorise leurs scripts en ligne que par
+# empreinte SHA-256. Si un script en ligne change sans que l'empreinte suive,
+# le navigateur le bloque. Échoue tant que les balises ne sont pas
+# recalculées (node tools/check_csp.mjs --ecrit).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_csp.mjs

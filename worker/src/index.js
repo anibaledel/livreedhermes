@@ -285,12 +285,41 @@ async function handleVerifyAccess(request, env) {
   return json({ valid: tokenTier === type }, 200, request, env);
 }
 
+// Limite de débit, par adresse IP, via les liaisons Cloudflare déclarées dans
+// wrangler.toml (LIMITE_PAIEMENT, LIMITE_LECTURE). Sans liaison (wrangler dev
+// sans configuration) ou si le service de limitation échoue, la requête passe :
+// la limite protège contre l'abus, elle ne doit jamais bloquer un vrai don.
+// Le webhook n'est pas limité : il vient des serveurs de Stripe, déjà signé.
+async function limiteDepassee(limiteur, request) {
+  if (!limiteur) return false;
+  const cle = request.headers.get('CF-Connecting-IP') || 'inconnue';
+  try {
+    const { success } = await limiteur.limit({ key: cle });
+    return !success;
+  } catch (e) {
+    return false;
+  }
+}
+
+function tropDeRequetes(request, env) {
+  return new Response(JSON.stringify({ error: 'Trop de requêtes, réessayez dans une minute.' }), {
+    status: 429,
+    headers: { 'Content-Type': 'application/json', 'Retry-After': '60', ...corsHeaders(request, env) },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders(request, env) });
+    }
+
+    if (url.pathname === '/create-checkout-session') {
+      if (await limiteDepassee(env.LIMITE_PAIEMENT, request)) return tropDeRequetes(request, env);
+    } else if (url.pathname === '/claim-token' || url.pathname === '/verify-access') {
+      if (await limiteDepassee(env.LIMITE_LECTURE, request)) return tropDeRequetes(request, env);
     }
 
     try {
