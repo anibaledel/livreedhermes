@@ -157,6 +157,7 @@ const STR = {
     titleOf: (familyShort, hexName) => `${hexName} — ${familyShort}`,
     headingOf: (familyLabel, n, hexName) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName})`,
     lexiconHref: (prefixe) => `${prefixe}en/lexicon/`,
+    otherLangLink: (href) => `<a href="${href}" hreflang="fr" lang="fr">Version française</a>`,
     descriptionOf: (familyLabel, n, hexName) => `A 12×12 Jacquard pattern generated from ${familyLabel.toLowerCase()} and hexagram ${n} (${hexName}) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.`,
     articleSub: (hexHref, hexName) => `One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Family <strong>${escapeHtml(familyLabel)}</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="${lexiqueHref}">lexicon</a> for how families are built and admitted.`,
@@ -199,6 +200,7 @@ const STR = {
     titleOf: (familyShort, hexName) => `${hexName} — motif ${familyShort}`,
     headingOf: (familyLabel, n, hexName) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName})`,
     lexiconHref: (prefixe) => `${prefixe}lexique.html`,
+    otherLangLink: (href) => `<a href="${href}" hreflang="en" lang="en">English version</a>`,
     descriptionOf: (familyLabel, n, hexName) => `Un motif Jacquard 12×12 engendré depuis ${familyLabel.toLowerCase()} et l'hexagramme ${n} (${hexName}) de La Livrée d'Hermès — cellule, pavage, deux recoloriages équivalents et les données sous-jacentes.`,
     articleSub: (hexHref, hexName) => `Un des 256 patterns unifiés distincts — une construction Jacquard 12×12 où la couleur de chaque cellule se lit sur un seul hexagramme du <em>Yi King</em>, l'hexagramme <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
     classification: (familyLabel, lexiqueHref) => `Famille <strong>${escapeHtml(familyLabel)}</strong>, une des 8 familles admissibles (sur 15) dans la classification du système — voir le <a href="${lexiqueHref}">lexique</a> pour la construction et l'admission des familles.`,
@@ -400,6 +402,7 @@ ${EN_TETE[lang]}
   <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
   <span aria-current="page">${escapeHtml(familyLabel)}, h${n}</span>
 </nav>
+<p class="other-langs">${s.otherLangLink(canonicalUrl(lang === 'fr' ? 'en' : 'fr', slug))}</p>
 <h1 class="article-title">${escapeHtml(s.headingOf(familyLabel, n, hexName))}</h1>
 <p class="article-sub">
   ${s.articleSub(`${prefixe}hexagrammes/${hexSlug}`, hexName)}
