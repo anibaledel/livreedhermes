@@ -52,3 +52,12 @@ fragment a la même exigence de source unique que le fragment lui-même.
 Les pages traduites à la main (`fr/livre/`, `en/book/`, `es/libro/`,
 `th/book/`, `book-viewer/`) gardent leur propre pied — le pied partagé est
 rédigé en français.
+
+## Mesure d'audience (`analytics.json`)
+
+`analytics.json` porte le jeton Cloudflare Web Analytics du site. Vide, rien
+n'est posé. Renseigné, `scripts/build-header.js` pose la balise de mesure
+(zone `@analytics`, juste avant `</body>`) sur toutes les pages du périmètre,
+sauf celles qui déclarent une CSP (encodeur, paiement). Cloudflare Web
+Analytics ne dépose aucun cookie et ne suit pas les visiteurs d'un site à
+l'autre : pas de bandeau de consentement à ajouter.

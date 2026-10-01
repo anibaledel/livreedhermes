@@ -92,6 +92,11 @@ const htmlRangee = (r) => `<p class="other-langs">${r.libelle} `
 const FIN_ENTETE = '<!-- @header:end -->';
 
 const lire = (n) => fs.readFileSync(path.join(INCLUDES, n), 'utf8');
+// Jeton Cloudflare Web Analytics (vide : pas de mesure d'audience).
+const JETON_AUDIENCE = (JSON.parse(fs.readFileSync(path.join(INCLUDES, 'analytics.json'), 'utf8')).cloudflareToken || '').trim();
+if (JETON_AUDIENCE && !/^[0-9a-f]{32}$/i.test(JETON_AUDIENCE)) {
+  throw new Error(`includes/analytics.json : jeton inattendu « ${JETON_AUDIENCE} » (32 caractères hexadécimaux attendus).`);
+}
 const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
   header: lire('header.html'),
@@ -296,6 +301,16 @@ function traiter(rel, src) {
     const html = htmlHreflang(BLOC_PAR_FICHIER.get(rel));
     s = poser(s, 'hreflang', zone('hreflang', html, 'scripts/langues.js'),
       (t, c) => t.replace('</head>', `${c}\n</head>`));
+  }
+
+  // Mesure d'audience (Cloudflare Web Analytics, sans cookie) : posée avant
+  // </body> quand includes/analytics.json porte un jeton, retirée sinon. Pas
+  // sur les pages à CSP stricte (encodeur, paiement) : leur politique
+  // n'autorise que les scripts du site, et ce sont des pages sensibles.
+  s = s.replace(/[ \t]*<!-- @analytics:start[\s\S]*?<!-- @analytics:end -->\n?/, '');
+  if (JETON_AUDIENCE && !/http-equiv="Content-Security-Policy"/.test(s)) {
+    const balise = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "${JETON_AUDIENCE}"}'></script>`;
+    s = s.replace(/<\/body>/, `${zone('analytics', balise, 'includes/analytics.json')}\n</body>`);
   }
 
   // La rangée visible ne se pose QUE si la page porte déjà ses marqueurs : on
