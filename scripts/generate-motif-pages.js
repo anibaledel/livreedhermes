@@ -373,7 +373,7 @@ ${ICONES[lang]}
   .data-section details{ max-width:760px; margin:0 auto; }
   .data-section summary{ cursor:pointer; color:var(--dim); font-size:calc(12px + var(--fs-bump)); letter-spacing:.04em; text-align:center; padding:8px 0; }
   .data-section summary:hover{ color:var(--gold); }
-  .data-section pre{ overflow-x:auto; font-size:11px; line-height:1.5; color:var(--dim); background:#050505; border:1px solid var(--line); padding:14px; max-height:320px; }
+  .data-section pre{ overflow-x:auto; font-size:12px; line-height:1.5; color:var(--dim); background:#050505; border:1px solid var(--line); padding:14px; max-height:320px; }
 
   .classification{ max-width:64ch; margin:0 auto 28px; color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.7; text-align:center; }
   .classification a{ color:var(--gold); text-decoration:none; }

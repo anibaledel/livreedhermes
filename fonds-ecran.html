@@ -78,7 +78,7 @@
   .book-bar .flag-btn.ready{ opacity:1; filter:none; }
   .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
   .book-bar .flag-btn:not(.ready){ cursor:default; }
-  .book-bar .dl-group{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px; }
+  .book-bar .dl-group{ display:flex; flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px; }
   .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
   .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }

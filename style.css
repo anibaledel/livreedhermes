@@ -83,7 +83,7 @@
                              un sélecteur douteux reste sur --line. */
 
   /* ---------- typographie ---------- */
-  --fs-bump:  2px;      /* ajouté à chaque font-size via
+  --fs-bump:  3px;      /* ajouté à chaque font-size via
                            calc(Npx + var(--fs-bump)). Mettre à 0px annule
                            le décalage sur tout le site. À terme, absorbé
                            dans les valeurs elles-mêmes — voir l'échelle

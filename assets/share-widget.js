@@ -38,9 +38,9 @@
     style.id = 'share-widget-style';
     style.textContent =
       '.share-buttons{ max-width:640px; margin:32px auto 0; text-align:center; }' +
-      '.share-label{ font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:0 0 12px; }' +
+      '.share-label{ font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); margin:0 0 12px; }' +
       '.share-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }' +
-      '.share-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:9px 15px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; font-family:Helvetica,Arial,sans-serif; }' +
+      '.share-btn{ border:1px solid var(--line); background:transparent; color:var(--dim); font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:9px 15px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; font-family:Helvetica,Arial,sans-serif; }' +
       '.share-btn:hover{ border-color:var(--gold); color:var(--gold); }' +
       '.share-btn.copied{ border-color:var(--gold); color:var(--gold); }';
     document.head.appendChild(style);
