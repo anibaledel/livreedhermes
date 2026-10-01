@@ -228,6 +228,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
+    <loc>https://anibal-amiot.com/articles/hanuman-et-arlequin.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/articles/hanuman-et-arlequin.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/articles/hanuman-et-arlequin.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html"/>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/hexagrammes/</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -1429,12 +1447,6 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/articles/habit-du-grand-pretre.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://anibal-amiot.com/articles/hanuman-et-arlequin.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

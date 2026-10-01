@@ -59,6 +59,7 @@ const PAGES = [
   'hexagrammes/0-kun-le-receptif.html',
   'hexagrammes/63-qian-le-createur.html',
   'en/',
+  'en/articles/hanuman-and-harlequin.html',
   'en/hexagrams/',
   'en/hexagrams/0-kun-the-receptive.html',
   'en/hexagrams/63-qian-the-creative.html',

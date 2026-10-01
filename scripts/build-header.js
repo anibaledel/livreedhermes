@@ -285,7 +285,7 @@ function traiter(rel, src) {
   // générique effacerait avec le reste. Étendre l'adoption aux 618 autres
   // pages est un chantier séparé, à faire une page à la fois, pas une
   // extrapolation automatique depuis les pages motifs.
-  if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
+  if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
     s = adopterNavTiles(s, rel);
   } else {
     // Retire une zone @navtiles déjà posée par un tour précédent, pour les
@@ -336,7 +336,7 @@ function traiter(rel, src) {
     // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
     // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
     // Comme pour l'adoption ci-dessus : pages motifs + AVEC_TUILES_EN_PLUS.
-    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_TUILES.has(rel)) {
+    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) && !SANS_TUILES.has(rel)) {
       s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
         const i = t.indexOf('<!-- @footer:start');
         if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
