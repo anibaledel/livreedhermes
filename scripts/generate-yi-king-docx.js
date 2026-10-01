@@ -6,8 +6,9 @@
    traits (LINE_COMMENT / LINE_COMMENT_EN). Même ordre que l'échiquier du
    site : chronologique, 0 à 63 (poids binaires), n° King Wen indiqué.
 
-   Les autres langues proposées par l'accueil (ES, TH, ZH, RU) n'ont pas de
-   texte source sur le site : elles ne sont pas engendrées ici.
+   ES, ZH, RU, TH : traductions depuis le français, à relire par des
+   lecteurs natifs, dans data/yi-king/{es,zh,ru,th}.json (mêmes champs que
+   les tables d'index.html : ui, hexagrammes, traits, trigrammes).
 
    Usage : npm i docx (une fois), puis node scripts/generate-yi-king-docx.js
 */
@@ -83,6 +84,28 @@ const LANGUES = {
   },
 };
 
+// Langues traduites : un fichier JSON par langue, mêmes champs qu'en français.
+const POLICES = {
+  zh: { ascii: 'Georgia', hAnsi: 'Georgia', eastAsia: 'Microsoft YaHei', cs: 'Microsoft YaHei' },
+  th: { ascii: 'Georgia', hAnsi: 'Georgia', cs: 'Leelawadee UI', eastAsia: 'Leelawadee UI' },
+};
+for (const code of ['es', 'zh', 'ru', 'th']) {
+  const f = path.join(ROOT, 'data', 'yi-king', `${code}.json`);
+  if (!fs.existsSync(f)) continue;
+  const d = JSON.parse(fs.readFileSync(f, 'utf8'));
+  const HEX_KW = {}, IMAGE = {};
+  for (const [kw, h] of Object.entries(d.hexagrammes)) {
+    HEX_KW[kw] = [h.pinyin, h.nom, h.jugement_titre, h.jugement];
+    IMAGE[kw] = h.image;
+  }
+  LANGUES[code] = {
+    fichier: `Le-Yi-King-64-hexagrammes-${code.toUpperCase()}.docx`,
+    HEX_KW, IMAGE, TRIGRAMS: d.trigrammes, LINE_COMMENT: d.traits,
+    auteur: 'Anibal Edelberto Amiot', police: POLICES[code],
+    ...d.ui,
+  };
+}
+
 function traitsFromChrono(chrono) {
   const r = Math.floor(chrono / 8), c = chrono % 8;
   return [c & 1, (c >> 1) & 1, (c >> 2) & 1, r & 1, (r >> 1) & 1, (r >> 2) & 1]; // bas → haut
@@ -101,6 +124,7 @@ function document(L) {
     para(L.source, { alignment: AlignmentType.CENTER, run: { size: 20 } }),
     para(L.licence, { alignment: AlignmentType.CENTER, run: { size: 20 } }),
   ];
+  if (L.traduction) enfants.push(para(L.traduction, { alignment: AlignmentType.CENTER, run: { size: 20, italics: true } }));
   for (let chrono = 0; chrono < 64; chrono++) {
     const kw = KINGWEN_BY_CHRONO[chrono];
     const [pinyin, nom, jugementTitre, jugementTexte] = L.HEX_KW[kw];
@@ -131,7 +155,7 @@ function document(L) {
   return new Document({
     creator: L.auteur, title: L.titre, description: L.source,
     styles: {
-      default: { document: { run: { font: 'Georgia', size: 22 } } },
+      default: { document: { run: { font: L.police || 'Georgia', size: 22 } } },
       paragraphStyles: [
         { id: 'Title', name: 'Title', basedOn: 'Normal', run: { size: 48, color: '8B1A12' }, paragraph: { spacing: { before: 2400, after: 240 } } },
         { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { size: 32, color: '8B1A12' }, paragraph: { spacing: { after: 120 }, outlineLevel: 0 } },
