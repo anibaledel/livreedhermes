@@ -133,6 +133,19 @@ function estPageMotif(rel) {
   return rel?.startsWith('motifs/') || rel?.startsWith('fr/motifs/');
 }
 
+// Pages hors motifs qui reçoivent quand même le bloc de tuiles (@navtiles,
+// logo de pied compris) — simple oubli lors du chantier qui l'a introduit,
+// pas une exception structurelle comme SANS_TUILES : elles ont déjà le
+// petit pied partagé (@footer) et aucune structure particulière en bas de
+// page, juste jamais migrées. Liste explicite, pas une règle implicite, sur
+// le même principe que SANS_TUILES ci-dessus — voir prompt du 2026-10-01
+// (audit logo haut/bas sur les 620 pages).
+const AVEC_TUILES_EN_PLUS = new Set([
+  'bicolore.html',
+  'cymatique.html',
+  'soutien-succes.html',
+]);
+
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
    et le traducteur Google Translate — retiré du site (décision de l'auteur,
    2026-09-27) : la traduction automatique par-dessus une traduction humaine
@@ -244,7 +257,7 @@ function traiter(rel, src) {
   // générique effacerait avec le reste. Étendre l'adoption aux 618 autres
   // pages est un chantier séparé, à faire une page à la fois, pas une
   // extrapolation automatique depuis les pages motifs.
-  if (estPageMotif(rel) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
+  if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_PIED.has(rel) && !SANS_TUILES.has(rel)) {
     s = adopterNavTiles(s, rel);
   } else {
     // Retire une zone @navtiles déjà posée par un tour précédent, pour les
@@ -284,8 +297,8 @@ function traiter(rel, src) {
     // s'ancrer sur lui plutôt que sur la fin de .wrap, sans quoi le nouveau
     // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
     // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
-    // Comme pour l'adoption ci-dessus : seules les pages motifs le reçoivent.
-    if (estPageMotif(rel) && !SANS_TUILES.has(rel)) {
+    // Comme pour l'adoption ci-dessus : pages motifs + AVEC_TUILES_EN_PLUS.
+    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel)) && !SANS_TUILES.has(rel)) {
       s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
         const i = t.indexOf('<!-- @footer:start');
         if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
