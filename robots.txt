@@ -22,7 +22,6 @@
 User-agent: *
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 # ── Indexation pour la recherche générative ────────────────────────────
 # Ces robots construisent l'index derrière les réponses des assistants.
@@ -31,17 +30,14 @@ Disallow: /assets/articles/originaux/
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 # ── Consultation à la demande d'un utilisateur ─────────────────────────
 # Ceux-ci ne moissonnent pas : ils vont chercher une page précise parce
@@ -52,17 +48,14 @@ Disallow: /assets/articles/originaux/
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: Claude-User
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: Perplexity-User
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 # ── Collecte pour l'entraînement de modèles ────────────────────────────
 # Google-Extended et Applebot-Extended ne sont pas des robots : ce sont des
@@ -73,27 +66,22 @@ Disallow: /assets/articles/originaux/
 User-agent: GPTBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: CCBot
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /includes/
-Disallow: /assets/articles/originaux/
 
 Sitemap: https://anibal-amiot.com/sitemap.xml
 Sitemap: https://anibal-amiot.com/sitemap-pdf.xml
