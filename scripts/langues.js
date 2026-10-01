@@ -7,7 +7,7 @@
    page française ne peut pas avoir deux équivalents anglais, parce qu'un
    groupe ne peut pas porter deux fois 'en'.
 
-   Les pages hors groupe — accueil, articles, outils — n'existent
+   Les pages hors groupe — articles, outils — n'existent
    qu'en français et ne portent AUCUN hreflang : déclarer un équivalent qui
    n'existe pas est une affirmation fausse, que les moteurs traitent comme
    telle. Ce n'est pas une consigne mais une propriété du générateur :
@@ -70,6 +70,16 @@ const GROUPES = [
       ['en', `${SITE}/en/book/`, 'en/book/index.html'],
       ['es', `${SITE}/es/libro/`, 'es/libro/index.html'],
       ['th', `${SITE}/th/book/`, 'th/book/index.html'],
+    ],
+  },
+  {
+    nom: 'accueil',
+    changefreq: 'monthly',
+    priority: '1.0',
+    rangee: true,
+    pages: [
+      ['fr', `${SITE}/`, 'index.html'],
+      ['en', `${SITE}/en/`, 'en/index.html'],
     ],
   },
   {

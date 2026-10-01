@@ -165,6 +165,8 @@ const AVEC_TUILES_EN_PLUS = new Set([
   // Pages de recherche (scripts/build-recherche.mjs), créées avec le bloc.
   'recherche.html',
   'en/search/index.html',
+  // Accueil anglais (/en/), jumelle de index.html (scripts/langues.js).
+  'en/index.html',
 ]);
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,

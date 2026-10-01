@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://anibal-amiot.com/</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/creation-motifs-yi-king.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -170,6 +164,24 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/lexique.html</loc>
