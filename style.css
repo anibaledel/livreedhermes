@@ -50,13 +50,16 @@
                            employé partout où il en faut un. */
 
   /* ---------- accents ---------- */
-  --red:      #e2261b;  /* rouge de marque : surtitres, boutons primaires,
-                           traits mutants. 4.53:1 sur --bg : passe le seuil
-                           AA de 4.5:1 pour du texte courant. Ajusté au plus
-                           juste depuis #e0261b (4.46:1), même teinte : +2
-                           sur le rouge seulement. Les palettes des motifs
-                           (#e0261b dans les outils et les exports) ne
-                           changent pas : ce sont des œuvres, pas du texte. */
+  --red:      #e63b31;  /* rouge de marque : surtitres, boutons primaires,
+                           traits mutants. 5.03:1 sur --bg, 4.53:1 sur #111
+                           (cartes au survol) et 4.5:1 sur le voile rouge
+                           des boutons actifs : passe le seuil AA de 4.5:1
+                           pour du texte courant sur tous les fonds sombres
+                           du site. Même teinte que #e2261b, un peu plus
+                           claire (#e2261b ne faisait que 4.27:1 sur
+                           --panel). Les palettes des motifs (#e0261b dans
+                           les outils et les exports) ne changent pas : ce
+                           sont des œuvres, pas du texte. */
   --red-dim:  #5a120e;  /* rouge profond, décor seul — 1.53:1 : jamais de
                            texte ni de bordure d'élément interactif */
   --gold:     #c9a15a;  /* état :hover et :focus de toute la navigation,
@@ -100,8 +103,8 @@
    livre, dont elle reprend le modèle.
    ============================================================ */
 .other-langs{ font-size:calc(11px + var(--fs-bump)); color:var(--dim); text-align:center; margin:0 0 26px; }
-.other-langs a{ color:var(--gold); text-decoration:none; margin:0 6px; }
-.other-langs a:hover{ text-decoration:underline; }
+.other-langs a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; margin:0 6px; }
+.other-langs a:hover{ text-decoration-color:currentColor; }
 
 
 /* ============================================================
@@ -283,3 +286,7 @@ picture{ display:contents; }
   background:var(--bg); color:var(--gold); border:1px solid var(--gold);
   padding:8px 14px; font-size:calc(12px + var(--fs-bump)); text-decoration:none;
 }
+
+/* Listes de choix au clavier (assets/liste-clavier.js) : la zone qui a le
+   focus se signale comme les autres éléments interactifs. */
+[data-liste-clavier]:focus-visible{ outline:1px solid var(--gold); outline-offset:3px; }

@@ -115,10 +115,10 @@
   .article-content figure{ margin:0 0 22px; }
   .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); }
   .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
-  .article-content figcaption a{ color:var(--gold); text-decoration:none; }
-  .article-content figcaption a:hover{ text-decoration:underline; }
-  .article-content a{ color:var(--gold); text-decoration:none; }
-  .article-content a:hover{ text-decoration:underline; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content figcaption a:hover{ text-decoration-color:currentColor; }
+  .article-content a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content a:hover{ text-decoration-color:currentColor; }
   .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
 
   .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }

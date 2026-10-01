@@ -298,6 +298,16 @@
   }
 
 
+  /* Pied de page partagé (includes/footer.html) : cette page ne charge pas
+     style.css (thème à part), elle en reprend donc les règles ici, sur
+     sa propre palette. */
+  .site-footer{ max-width:840px; margin:40px auto 0; padding-top:20px; border-top:1px solid var(--border); text-align:center; }
+  .site-footer-nav{ display:flex; justify-content:center; flex-wrap:wrap; gap:6px 18px; }
+  .site-footer-nav a{ color:var(--dim); text-decoration:none; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; }
+  .site-footer-nav a:hover, .site-footer-nav a:focus-visible{ color:var(--gold); }
+  .site-footer-licence{ margin:16px auto 0; max-width:64ch; color:var(--dim); font-size:calc(10px + var(--fs-bump)); line-height:1.7; }
+  .site-footer-licence a{ color:var(--dim); }
+  .site-footer-licence a:hover{ color:var(--gold); }
 </style>
 <!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <link rel="icon" href="favicon.ico" sizes="32x32">
@@ -333,12 +343,12 @@
   <div class="panel">
 
     <div>
-      <label>Message (alphabet A–Z, 0–9, espace et .,;:!?-)</label>
+      <label for="message">Message (alphabet A–Z, 0–9, espace et .,;:!?-)</label>
       <textarea id="message" placeholder="LACROIXANSEE" spellcheck="false">LACROIXANSEE</textarea>
     </div>
 
     <div>
-      <label>Clé maître (hex 64 car.)</label>
+      <label for="key">Clé maître (hex 64 car.)</label>
       <div class="key-row">
         <input type="text" id="key" spellcheck="false"
           value="0000000000000000000000000000000000000000000000000000000000000000">
@@ -383,7 +393,7 @@
 
     <p style="font-size:0.68rem; color:var(--muted); line-height:1.6;">
       Démo du port JS de <code>carter_random.py</code> — voir
-      <a href="encodeur.html" style="color:var(--gold-dim)">encodeur.html</a>
+      <a href="encodeur.html" style="color:var(--gold)">encodeur.html</a>
       pour l'outil de chiffrement principal du site. Tout se passe dans le
       navigateur : rien n'est transmis au serveur. XChaCha20-Poly1305 (le
       même chiffrement que côté Python, en JS pur — voir
