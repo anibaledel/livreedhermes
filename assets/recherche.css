@@ -1,0 +1,17 @@
+/* Interface Pagefind aux couleurs du site (recherche.html, en/search/). */
+#recherche{
+  --pagefind-ui-scale:.95;
+  --pagefind-ui-primary:var(--gold);
+  --pagefind-ui-text:var(--white);
+  --pagefind-ui-background:var(--bg);
+  --pagefind-ui-border:var(--line-strong);
+  --pagefind-ui-tag:var(--panel);
+  --pagefind-ui-border-width:1px;
+  --pagefind-ui-border-radius:0;
+  --pagefind-ui-font:inherit;
+  max-width:760px; margin:0 auto; text-align:left;
+}
+#recherche .pagefind-ui__result-link{ color:var(--gold); }
+#recherche .pagefind-ui__result-excerpt, #recherche .pagefind-ui__message{ color:var(--dim); }
+#recherche mark{ background:transparent; color:var(--white); font-weight:600; text-decoration:underline; text-decoration-color:var(--gold); }
+#recherche .pagefind-ui, #recherche .pagefind-ui *{ font-family:inherit; }

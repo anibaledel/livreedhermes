@@ -17,11 +17,15 @@
 # (motifs-svg, motifs-pinterest, pro-downloads) ne sont plus interdits
 # depuis le 2026-10-01 : tout y est en libre téléchargement, rien à cacher.
 # Toute règle ajoutée au groupe « * » est à reporter partout ici.
+#
+# /pagefind/ : l'index de la recherche interne (fragments binaires lus par
+# recherche.html dans le navigateur) — rien à explorer pour un robot.
 
 # ── Tous les robots ────────────────────────────────────────────────────
 User-agent: *
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 # ── Indexation pour la recherche générative ────────────────────────────
 # Ces robots construisent l'index derrière les réponses des assistants.
@@ -30,14 +34,17 @@ Disallow: /includes/
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 # ── Consultation à la demande d'un utilisateur ─────────────────────────
 # Ceux-ci ne moissonnent pas : ils vont chercher une page précise parce
@@ -48,14 +55,17 @@ Disallow: /includes/
 User-agent: ChatGPT-User
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: Claude-User
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: Perplexity-User
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 # ── Collecte pour l'entraînement de modèles ────────────────────────────
 # Google-Extended et Applebot-Extended ne sont pas des robots : ce sont des
@@ -66,22 +76,27 @@ Disallow: /includes/
 User-agent: GPTBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: CCBot
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: Google-Extended
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 User-agent: Applebot-Extended
 Allow: /
 Disallow: /includes/
+Disallow: /pagefind/
 
 Sitemap: https://anibal-amiot.com/sitemap.xml
 Sitemap: https://anibal-amiot.com/sitemap-pdf.xml
