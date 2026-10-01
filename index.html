@@ -178,7 +178,12 @@
     cursor:pointer; display:flex; flex-direction:column; align-items:center;
     justify-content:center; gap:1.5px; padding:4px; position:relative;
     transition:border-color .12s ease, transform .12s ease;
+    /* <button> : neutralise les styles par défaut du navigateur, rien d'autre */
+    font:inherit; color:inherit; text-align:start; margin:0; -webkit-appearance:none; appearance:none;
   }
+  .cell:focus{ outline:none; }
+  .cell:focus-visible{ outline:2px solid var(--gold); outline-offset:1px; }
+  .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
   .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
   .cell.changing{ border-color:var(--gold); box-shadow:0 0 0 1px var(--gold); }
@@ -527,12 +532,13 @@
 <body>
 <div class="wrap">
 <!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
 <header class="site-header">
   <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
 </header>
 <!-- @header:end -->
 <!-- @main:start -->
-<main>
+<main id="contenu">
   <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-18-index.avif);">
   <header class="atalanta-block" style="padding:32px 24px;">
     <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
@@ -590,7 +596,8 @@
         <span class="label">00 → 63</span>
       </div>
       <div class="axis-note" id="txt-axisNote">Lignes = trigramme <b>supérieur</b> (0 à 7, haut en bas) · Colonnes = trigramme <b>inférieur</b> (0 à 7, gauche à droite) · N° = ligne×8 + colonne</div>
-      <div class="hexgrid" id="hexgrid"></div>
+      <div class="hexgrid" id="hexgrid" role="group" aria-label="L'échiquier : 64 hexagrammes, flèches pour se déplacer"></div>
+      <div class="sr-only" id="hexgridAnnonce" aria-live="polite"></div>
       <h2 class="section-h2" id="txt-oracleTitle">L'oracle</h2>
         <div class="tirage-guide" id="txt-tirageGuide">
         <p>Le Yi King est un livre de sagesse qui peut s'utiliser comme un oracle. Si vous avez une question précise, intériorisez-la avant d'appuyer sur Tirage. Sans question particulière, le tirage indique la situation du moment. Vous pouvez enchaîner plusieurs tirages pour plusieurs questions — mais un seul tirage se suffit déjà à lui-même pour le message qui correspond à votre consultation.</p>
@@ -1618,24 +1625,72 @@ function buildHexBlock(traits, kwNum, chrono, movingSet, caption){
 }
 
 function makeCell(chrono){
-  const kwNum = KINGWEN_BY_CHRONO[chrono];
   const traits = traitsFromChrono(chrono);
-  const cell=document.createElement('div');
+  // <button> : atteignable au clavier, activé par Entrée et Espace, annoncé
+  // par son aria-label (numéro et nom, voir labelCells). Un seul bouton de la
+  // grille est dans l'ordre de tabulation (tabindex roulant) : les flèches
+  // déplacent le focus d'une case à l'autre, Tab sort de la grille.
+  const cell=document.createElement('button');
+  cell.type='button';
   cell.className='cell';
   cell.dataset.chrono = chrono;
-  const label=document.createElement('div');
+  cell.tabIndex = chrono===0 ? 0 : -1;
+  const label=document.createElement('span');
   label.className='num';
+  label.setAttribute('aria-hidden','true');
   label.textContent = chrono;
   cell.appendChild(label);
   cell.insertAdjacentHTML('beforeend', makeCellSVG(traits));
+  const svg = cell.querySelector('svg');
+  if(svg) svg.setAttribute('aria-hidden','true');
   cell.addEventListener('click', ()=>{ showDetail(chrono); clearMutation(); });
+  cell.addEventListener('keydown', onCellKeydown);
   return cell;
+}
+
+function cellLabel(chrono){
+  const [pinyin, nom] = curHexKW()[KINGWEN_BY_CHRONO[chrono]];
+  return `${LANG==='en' ? 'Hexagram' : 'Hexagramme'} ${chrono} — ${pinyin}, ${nom}`;
+}
+function labelCells(){
+  const grid = document.getElementById('hexgrid');
+  if(grid) grid.setAttribute('aria-label', LANG==='en'
+    ? 'The board: 64 hexagrams, arrow keys to move'
+    : "L'échiquier : 64 hexagrammes, flèches pour se déplacer");
+  document.querySelectorAll('#hexgrid .cell').forEach(cell=>{
+    cell.setAttribute('aria-label', cellLabel(+cell.dataset.chrono));
+  });
+}
+function focusCell(chrono){
+  const cells = document.querySelectorAll('#hexgrid .cell');
+  cells.forEach(c=>{ c.tabIndex = (+c.dataset.chrono===chrono) ? 0 : -1; });
+  const cible = document.querySelector(`#hexgrid .cell[data-chrono="${chrono}"]`);
+  if(cible) cible.focus();
+}
+function onCellKeydown(e){
+  const chrono = +e.currentTarget.dataset.chrono;
+  const r = Math.floor(chrono/8), c = chrono%8;
+  let cible = null;
+  if(e.key==='ArrowRight') cible = r*8 + Math.min(7, c+1);
+  else if(e.key==='ArrowLeft') cible = r*8 + Math.max(0, c-1);
+  else if(e.key==='ArrowDown') cible = Math.min(7, r+1)*8 + c;
+  else if(e.key==='ArrowUp') cible = Math.max(0, r-1)*8 + c;
+  else if(e.key==='Home') cible = r*8;
+  else if(e.key==='End') cible = r*8 + 7;
+  if(cible===null) return;
+  e.preventDefault();
+  focusCell(cible);
 }
 
 function showDetail(chrono){
   document.querySelectorAll('.cell').forEach(cell=>{
-    cell.classList.toggle('active', +cell.dataset.chrono===chrono);
+    const actif = +cell.dataset.chrono===chrono;
+    cell.classList.toggle('active', actif);
+    if(actif) cell.setAttribute('aria-current','true'); else cell.removeAttribute('aria-current');
+    cell.tabIndex = actif ? 0 : -1;
   });
+  const annonce = document.getElementById('hexgridAnnonce');
+  if(annonce) annonce.textContent = cellLabel(chrono);
   const kwNum = KINGWEN_BY_CHRONO[chrono];
   const traits = traitsFromChrono(chrono);
   lastShown = { chrono, traits };
@@ -1848,6 +1903,7 @@ function buildLegend(){
 
 // ---------- application de la langue à l'interface statique ----------
 function applyUILang(){
+  labelCells();
   document.getElementById('txt-eyebrow').textContent = t('eyebrow');
   document.getElementById('txt-title').textContent = t('title');
   document.getElementById('txt-bookIntro').textContent = t('bookIntro');
@@ -2054,6 +2110,7 @@ document.querySelectorAll('.app-lang-btn[data-lang]').forEach(b=>{
 // ---------- init ----------
 const gridEl = document.getElementById('hexgrid');
 for(let chrono=0; chrono<64; chrono++){ gridEl.appendChild(makeCell(chrono)); }
+labelCells();
 buildLegend();
 applyUILang();
 

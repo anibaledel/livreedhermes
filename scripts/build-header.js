@@ -102,8 +102,18 @@ function zone(nom, corps, source = 'includes/') {
        + corps.replace(/\n+$/, '') + `\n<!-- @${nom}:end -->`;
 }
 
-function rendre(nom, prefixe) {
-  const corps = FRAGMENTS[nom].split('{{BASE}}').join(prefixe);
+// Lien d'évitement de l'en-tête, dans la langue de la page (<html lang>).
+const TEXTE_EVITEMENT = {
+  fr: 'Aller au contenu', en: 'Skip to content', es: 'Ir al contenido', th: 'ข้ามไปยังเนื้อหา',
+};
+function langHtml(s) {
+  const m = /<html[^>]*\slang="([a-z]{2})/i.exec(s);
+  return m && TEXTE_EVITEMENT[m[1].toLowerCase()] ? m[1].toLowerCase() : 'fr';
+}
+
+function rendre(nom, prefixe, lang = 'fr') {
+  const corps = FRAGMENTS[nom].split('{{BASE}}').join(prefixe)
+    .split('{{SKIP}}').join(TEXTE_EVITEMENT[lang]);
   return zone(nom, corps);
 }
 
@@ -286,7 +296,7 @@ function traiter(rel, src) {
   }
 
   // L'en-tête ouvre le contenu : dans .wrap s'il existe, sinon juste après <body>.
-  s = poser(s, 'header', rendre('header', prefixe), (t, c) => {
+  s = poser(s, 'header', rendre('header', prefixe, langHtml(s)), (t, c) => {
     const wrap = t.match(/<div class="wrap"[^>]*>\n?/);
     if (wrap) return t.replace(wrap[0], wrap[0] + c + '\n');
     return t.replace(/<body[^>]*>\n?/, (m) => m + c + '\n');
@@ -331,12 +341,14 @@ function traiter(rel, src) {
         let fin = s.indexOf('<div class="note"', debut);
         if (fin === -1) fin = s.indexOf('<!-- @footer:start', debut);
         if (fin !== -1) {
-          s = s.slice(0, debut) + '\n<!-- @main:start -->\n<main>'
+          s = s.slice(0, debut) + '\n<!-- @main:start -->\n<main id="contenu">'
             + s.slice(debut, fin) + '</main>\n<!-- @main:end -->\n' + s.slice(fin);
         }
       }
     }
   }
+  // Cible du lien d'évitement de l'en-tête : le <main> de la page.
+  s = s.replace(/<main>/, '<main id="contenu">');
   return s;
 }
 

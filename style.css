@@ -50,11 +50,13 @@
                            employé partout où il en faut un. */
 
   /* ---------- accents ---------- */
-  --red:      #e0261b;  /* rouge de marque : surtitres, boutons primaires,
-                           traits mutants. 4.46:1 sur --bg — sous le seuil
-                           AA de 4.5:1 pour du texte courant. Valeur
-                           d'origine conservée ; à réserver aux aplats,
-                           bordures et textes de 24px et plus. */
+  --red:      #e2261b;  /* rouge de marque : surtitres, boutons primaires,
+                           traits mutants. 4.53:1 sur --bg : passe le seuil
+                           AA de 4.5:1 pour du texte courant. Ajusté au plus
+                           juste depuis #e0261b (4.46:1), même teinte : +2
+                           sur le rouge seulement. Les palettes des motifs
+                           (#e0261b dans les outils et les exports) ne
+                           changent pas : ce sont des œuvres, pas du texte. */
   --red-dim:  #5a120e;  /* rouge profond, décor seul — 1.53:1 : jamais de
                            texte ni de bordure d'élément interactif */
   --gold:     #c9a15a;  /* état :hover et :focus de toute la navigation,
@@ -253,4 +255,16 @@
   color: var(--dim);
   text-align: center;
   margin: 24px 0 10px;
+}
+
+/* ============================================================
+   LIEN D'ÉVITEMENT — includes/header.html, posé par build-header.js.
+   Hors écran (style inline, pour qu'il reste caché même sur une page
+   sans cette feuille) ; il n'apparaît qu'au clavier, quand il prend le
+   focus, et mène au <main id="contenu"> de la page.
+   ============================================================ */
+.skip-link:focus{
+  left:16px !important; top:12px; z-index:10000;
+  background:var(--bg); color:var(--gold); border:1px solid var(--gold);
+  padding:8px 14px; font-size:calc(12px + var(--fs-bump)); text-decoration:none;
 }
