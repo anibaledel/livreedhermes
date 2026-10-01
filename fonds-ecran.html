@@ -312,13 +312,13 @@
   </div>
 
 
-  <p class="fondecran-intro">Choisis une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le tien (micro) ou un fichier que tu proposes.</p>
+  <p class="fondecran-intro">Choisissez une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.</p>
   <div class="cat-grid" id="catGrid"></div>
 
   <div class="mod-options">
     <strong>Options de modulation, une fois la catégorie choisie :</strong>
     <div>🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.</div>
-    <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que tu proposes toi-même.</div>
+    <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.</div>
     <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
     <div>🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.</div>
     <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
@@ -359,7 +359,7 @@
       <a class="nav-tile" href="cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/cymatique.png); --hover-icon:url(assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
     </div>
 
-      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
 
     <div class="center-logo-slot center-logo-slot-bottom">
       <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
@@ -937,7 +937,7 @@ function setRecordingUI(isRecording){
 }
 
 function startRecording(){
-  if(!currentGrid){ showStageNotice("Choisis d'abord une catégorie de motifs.", 4000); return; }
+  if(!currentGrid){ showStageNotice("Choisissez d'abord une catégorie de motifs.", 4000); return; }
   if(!window.MediaRecorder || !canvas.captureStream){
     showStageNotice("L'enregistrement vidéo n'est pas supporté par ce navigateur.", 5000);
     return;

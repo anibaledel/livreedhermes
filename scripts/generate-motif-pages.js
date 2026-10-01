@@ -219,7 +219,7 @@ const STR = {
 // du site (décision de l'auteur, 2026-09-27, voir scripts/build-header.js).
 const ICONES = { en: rendre('head-icons', prefixFor('en')), fr: rendre('head-icons', prefixFor('fr')) };
 const PIED = { en: rendre('footer', prefixFor('en')), fr: rendre('footer', prefixFor('fr')) };
-const EN_TETE = { en: rendre('header', prefixFor('en')), fr: rendre('header', prefixFor('fr')) };
+const EN_TETE = { en: rendre('header', prefixFor('en'), 'en'), fr: rendre('header', prefixFor('fr'), 'fr') };
 const FOOTER_CTA_SCRIPT = { en: `<script src="${prefixFor('en')}assets/share-widget.js"></script>\n<script src="${prefixFor('en')}assets/soutien-gate.js"></script>`,
   fr: `<script src="${prefixFor('fr')}assets/share-widget.js"></script>\n<script src="${prefixFor('fr')}assets/soutien-gate.js"></script>` };
 
@@ -374,7 +374,7 @@ ${ICONES[lang]}
 <div class="wrap">
 ${EN_TETE[lang]}
 <!-- @main:start -->
-<main>
+<main id="contenu">
 <nav class="breadcrumb" aria-label="${s.breadcrumbLabel}">
   <a href="${prefixe}index.html">${s.home}</a><span class="sep">/</span>
   <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
@@ -685,7 +685,7 @@ ${ICONES[lang]}
 <div class="wrap">
 ${EN_TETE[lang]}
 <!-- @main:start -->
-<main>
+<main id="contenu">
 <nav class="breadcrumb" aria-label="${s.breadcrumbLabel}">
   <a href="${prefixe}index.html">${s.home}</a><span class="sep">/</span>
   <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
