@@ -81,6 +81,7 @@ utilisation (dépendances : `@napi-rs/canvas`, `pdfkit`, `archiver`).
 | `extract-hexagram-data.js` | extrait les tables d'hexagrammes depuis `index.html` |
 | `generate-hexagram-assets.js` | un PNG de carré/pavage par hexagramme → `assets/hexagrammes/` |
 | `generate-hexagram-pages.js` | les 64 pages `hexagrammes/<n>-<pinyin>-<nom>.html` |
+| `generate-hexagram-pages-traduites.js` | leurs jumelles `en/hexagrams/`, `es/hexagramas/`, `th/hexagrams/` (textes ES/TH : `data/hexagrammes_traduits.json`) |
 | `export-galerie-batch.js` | SVG + JPEG Pinterest + métadonnées + archive ZIP |
 | `export-galerie-hires.js` | PNG 4096×4096 (Pinterest, Adobe Stock) |
 | `export-galerie-pinterest.js` | PNG au format Pinterest, pour publication programmée |

@@ -12,6 +12,7 @@ correspond plus à ce que les fragments produiraient.
 | `header.html` | l'en-tête visible : le logo | `@header:start` / `:end` |
 | `footer.html` | le pied partagé : navigation du site et licences, à la fin de `.wrap` | `@footer:start` / `:end` |
 | `footer-en.html` | le même pied en anglais, posé sur les pages `<html lang="en">` | `@footer:start` / `:end` |
+| `footer-es.html`, `footer-th.html` | le même pied en espagnol et en thaï (pages `lang="es"` / `"th"`) | `@footer:start` / `:end` |
 
 `{{BASE}}` est remplacé par le préfixe de remontée de chaque page (`""` à la
 racine, `"../"` dans `articles/`, `"../../"` dans `en/book/`).

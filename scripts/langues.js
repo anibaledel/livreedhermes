@@ -123,7 +123,7 @@ for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
     changefreq: chrono === null ? 'monthly' : 'yearly',
     priority: chrono === null ? '0.6' : '0.5',
     rangee: true,
-    pages: ['fr', 'en'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
+    pages: ['fr', 'en', 'es', 'th'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
   });
 }
 

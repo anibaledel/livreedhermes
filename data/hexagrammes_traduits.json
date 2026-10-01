@@ -1,0 +1,1075 @@
+{
+ "_doc": "Traductions espagnole et thaïe des textes des 64 hexagrammes (nom, jugement, image), des commentaires des six traits et des huit trigrammes. Traduites depuis le français (IMAGE_FR, HEX_KW, LINE_COMMENT, TRIGRAMS d'index.html), l'anglais servant d'appui. En cours de relecture par des lecteurs natifs. Lues par scripts/generate-hexagram-pages-traduites.js et scripts/hexagrammes-adresses.js.",
+ "es": {
+  "hexagrams": {
+   "1": {
+    "pinyin": "Qian",
+    "name": "Lo Creativo",
+    "judgementTitle": "Arranque",
+    "judgement": "El rasgo lleno se lanza solo, todavía sin vestidura. En el primerísimo grado de la figura, la potencia existe ya por entero, pero aún no ha tomado ninguna forma reconocible: no está vestida de ninguna función, de ningún papel. Es la fuerza en estado puro, antes de darse un nombre. Este rasgo anuncia lo que serán los cinco siguientes: una progresión en la que el poder de actuar se va confeccionando poco a poco un hábito, hasta que la figura entera, en la cima, descubre que incluso la mayor fuerza debe aprender a contenerse.",
+    "image": "El Cielo se mueve sin descanso por encima del Cielo: dos veces el rasgo lleno, dos veces la misma fuerza, la una sosteniendo a la otra sin flaquear jamás. Nada viene aquí a limitar el movimiento; nada viene a detenerlo. Es la imagen del vigor puro, aquel que no conoce reposo porque aún no ha encontrado lo que podría resistirle. El sabio que contempla esta figura no ve en ella una invitación a la agitación, sino un modelo: así como el Cielo gira sin interrupción, el hombre noble no cesa de fortalecerse a sí mismo, no mediante un esfuerzo puntual, sino mediante una disciplina tan continua como el movimiento de los astros."
+   },
+   "2": {
+    "pinyin": "Kun",
+    "name": "Lo Receptivo",
+    "judgementTitle": "Asiento",
+    "judgement": "El suelo recibe, la forma se posa. Nada ha acontecido todavía y, sin embargo, todo se ha vuelto ya posible: la tierra del primer rasgo no exige nada, espera. No es la pasividad de quien renuncia, sino la paciencia de quien sabe que la docilidad bien entendida lleva en sí toda la fecundidad por venir. La figura entera se desplegará a partir de esta sola cualidad: acoger antes de querer imponer, posarse antes de pretender construir.",
+    "image": "La Tierra sostiene y nutre sin distinción: no elige lo que sostiene, lo sostiene todo. Dos veces el rasgo quebrado, dos veces la misma abertura, la una acogiendo a la otra sin cerrarse jamás. Es la imagen de la capacidad pura: no la que actúa primero, sino la que hace posible la acción de todo cuanto viene a ella. El sabio que contempla esta figura comprende que la generosidad no necesita brillo: así el hombre noble acoge a los seres con una virtud generosa, amplia como el suelo que no rechaza ninguna semilla."
+   },
+   "3": {
+    "pinyin": "Zhun",
+    "name": "La Dificultad Inicial",
+    "judgementTitle": "Germinación",
+    "judgement": "El germen se esfuerza bajo la tierra del cuadrado. Todo nacimiento comienza en la oscuridad y la resistencia: la semilla ignora aún la forma que tomará, solo sabe crecer. Este rasgo dice la dificultad que no es un fracaso, sino la condición misma de todo comienzo verdadero: nada grande ha surgido jamás sin haber tenido antes que desprenderse de lo que lo retenía.",
+    "image": "La Nube y el Trueno: la imagen de la dificultad primera. Arriba, el agua que aún no es lluvia; abajo, la conmoción que busca su camino sin encontrarlo todavía. Nada fluye libremente, todo se busca, todo vacila al borde de su propio nacimiento. Es la figura del comienzo entorpecido, el que debe abrirse paso antes incluso de saber adónde conduce. Así el hombre noble, ante el desorden inicial, no fuerza nada: pone orden tejiendo pacientemente sus hilos, hebra tras hebra, sin ceder a la impaciencia del resultado."
+   },
+   "4": {
+    "pinyin": "Meng",
+    "name": "La Necedad Juvenil",
+    "judgementTitle": "Aprendizaje",
+    "judgement": "La ignorancia del discípulo llama al maestro. Ignorar no es una debilidad, es una apertura: quien todavía no sabe es precisamente quien puede aprender. La figura entera gira en torno a este encuentro necesario entre la inexperiencia que busca y la experiencia que responde; sin esa humildad primera, ninguna enseñanza puede hacer mella.",
+    "image": "Al pie de la montaña brota un manantial: la imagen de la necedad juvenil. El agua está ahí, viva, pero aún no sabe hacia dónde correr; tiene la fuerza sin la dirección. Es el retrato de la inexperiencia, que no es un defecto sino un estado: el de antes del aprendizaje, cuando la energía desborda sin discernimiento. Así el hombre noble, al reconocer esta figura en sí mismo o en otro, no desprecia la ignorancia: nutre su carácter mediante una acción resuelta, sabiendo que el manantial, bien guiado, llegará a ser río."
+   },
+   "5": {
+    "pinyin": "Xu",
+    "name": "La Espera",
+    "judgementTitle": "Templanza",
+    "judgement": "El agua espera bajo el cielo su justa hora. Esperar no es no hacer nada: es mantener la propia posición con constancia mientras las condiciones se forman en otra parte, fuera del alcance de la voluntad. Este rasgo enseña que la precipitación destruye lo que solo la paciencia puede llevar a cabo: la lluvia vendrá cuando el cielo y la tierra estén dispuestos a encontrarse, no antes.",
+    "image": "Las nubes suben por encima del Cielo: la imagen de la espera. Todo está dispuesto para que caiga la lluvia y, sin embargo, aún no cae: el momento no está maduro. Es la figura de la preparación silenciosa, la que no fuerza la hora sino que la deja venir. Así el hombre noble come y bebe, alegre y sereno, mientras aguarda su hora: no se agota queriendo precipitar lo que tiene su propio ritmo, nutre su fuerza para el momento en que será requerida."
+   },
+   "6": {
+    "pinyin": "Song",
+    "name": "El Conflicto",
+    "judgementTitle": "Desenlace",
+    "judgement": "La discordia de las fuerzas opuestas busca su salida. El conflicto no se evita ni se busca: se reconoce por lo que es, una tensión entre dos movimientos que, por naturaleza, no pueden coexistir sin fricción. La sabiduría aquí no consiste en ganar a toda costa, sino en saber cuándo una disputa merece llevarse hasta el final y cuándo merece abandonarse a tiempo.",
+    "image": "El Cielo y el Agua se alejan en sentidos contrarios: la imagen del conflicto. Uno sube, la otra desciende; sus naturalezas mismas los separan, y ningún compromiso superficial puede reunirlos. Es la figura de la oposición fundamental, la que no se resuelve con la sola buena voluntad. Así el hombre noble, desde el comienzo de todo asunto, sopesa su final: no se embarca en una disputa sin haber medido, de antemano, hasta dónde puede llevarlo ese camino."
+   },
+   "7": {
+    "pinyin": "Shi",
+    "name": "El Ejército",
+    "judgementTitle": "Cadencia",
+    "judgement": "La disciplina colectiva se regula como la marcha de una tropa. Ninguna fuerza dispersa vale lo que una fuerza organizada: este rasgo dice que el verdadero poder nunca es el de un solo gesto deslumbrante, sino el de un orden pacientemente mantenido, donde cada cual conoce su lugar y el movimiento de conjunto prevalece sobre el impulso individual.",
+    "image": "En medio de la Tierra se oculta el Agua: la imagen del ejército. La fuerza existe, pero no se expone: se mantiene preparada, invisible, disciplinada bajo la superficie en calma. Es la figura del poder contenido, el que no necesita mostrarse para ser real. Así el hombre noble acrecienta su pueblo mediante una generosidad tolerante: la verdadera autoridad no se impone por la fuerza exhibida, sino que se construye en la constancia y la mesura."
+   },
+   "8": {
+    "pinyin": "Bi",
+    "name": "La Solidaridad",
+    "judgementTitle": "Tejido",
+    "judgement": "La unión de los clanes se anuda por debajo, como el hilo de la urdimbre. Lo que se mantiene unido de forma duradera se teje en la discreción, rasgo tras rasgo, antes incluso de que la estructura sea visible desde fuera. La verdadera solidaridad no se decreta desde arriba: se construye desde la base, hilo tras hilo, hasta formar una trama que ya nada puede deshacer.",
+    "image": "Sobre la Tierra, el Agua: la imagen de la solidaridad. El agua se amolda a la forma del suelo, se acurruca en él, se derrama sin combatirlo jamás: unión sin fricción, apoyo mutuo. Es la figura de la alianza natural, la que no se fuerza sino que se reconoce. Así los reyes antiguos reunían a los reinos lejanos y honraban a sus príncipes: la solidaridad duradera no nace de la coacción, sino del reconocimiento mutuo de lo que cada uno aporta al otro."
+   },
+   "9": {
+    "pinyin": "Xiao Chu",
+    "name": "La Fuerza Domesticadora de lo Pequeño",
+    "judgementTitle": "Itinerancia",
+    "judgement": "El freno ligero puesto sobre el gran designio. Todo gran proyecto conoce momentos en que solo es posible una contención menor, en que no se puede más que inflexionar ligeramente el curso de las cosas sin cambiarlo radicalmente. Este rasgo enseña la virtud del gesto modesto: todavía no es la hora de actuar en grande, es la hora de ajustar, con paciencia, lo que puede ajustarse.",
+    "image": "El Viento se desplaza por encima del Cielo: la imagen de la fuerza domesticadora de lo pequeño. El viento no tiene la potencia del trueno ni la masa de la montaña: actúa por insistencia ligera, por caricia repetida más que por choque. Es la figura de la influencia discreta, la que retiene sin forzar. Así el hombre noble afina los rasgos de su cultura interior: cuando la gran fuerza aún no tiene cabida, es mediante el refinamiento paciente del detalle como se prepara lo que vendrá."
+   },
+   "10": {
+    "pinyin": "Lu",
+    "name": "El Porte",
+    "judgementTitle": "Plenitud",
+    "judgement": "Cada paso puesto sobre la cola del tigre sin desviarse. El peligro no siempre ha de evitarse: a veces debe atravesarse, siempre que se camine por él con una atención total, sin un gesto de más. Este rasgo dice que la prudencia no es el miedo: es esa concentración exacta que permite avanzar allí donde la desatención sería fatal.",
+    "image": "Arriba el Cielo, abajo el Lago: la imagen del porte. Cada cosa guarda su propio lugar —el cielo permanece arriba, el lago debajo— y es ese orden respetado el que hace posible la marcha sin peligro. Es la figura de la justa distancia, la que permite avanzar incluso junto a lo que podría morder. Así el hombre noble distingue lo alto y lo bajo, y afianza la voluntad del pueblo: cada paso dado con discernimiento, sobre la cola misma del tigre, se convierte en un paso seguro."
+   },
+   "11": {
+    "pinyin": "Tai",
+    "name": "La Paz",
+    "judgementTitle": "Alianza",
+    "judgement": "El Cielo y la Tierra se encuentran y se intercambian libremente. Cuando lo alto consiente en descender y lo bajo consiente en subir, la comunicación se vuelve total y fecunda. Este rasgo enseña que la prosperidad duradera nace siempre de este intercambio recíproco: nunca de una sola dirección impuesta, siempre de un encuentro en el que cada uno da y recibe a la vez.",
+    "image": "El Cielo y la Tierra se unen: la imagen de la paz. Lo que por naturaleza debería permanecer separado —lo alto y lo bajo— se encuentra aquí y se comunica libremente, sin obstáculo entre ellos. Es la figura de la armonía cumplida, en la que cada fuerza encuentra su complemento antes que su adversario. Así el soberano modela el camino del Cielo y de la Tierra y acude en ayuda de todos los seres: la paz no es la ausencia de movimiento, sino el intercambio vuelto fluido entre fuerzas que se responden."
+   },
+   "12": {
+    "pinyin": "Pi",
+    "name": "El Estancamiento",
+    "judgementTitle": "Lentitud",
+    "judgement": "Cuando la comunicación queda cortada por el rechazo del sistema. No es un accidente pasajero, sino un bloqueo estructural: las fuerzas que deberían responderse se han petrificado cada una en su propio rechazo. Este rasgo dice que hay momentos en que de nada sirve forzar el paso: hay que esperar a que las condiciones mismas se desplacen, o retirarse sin perder la propia virtud en una lucha vana.",
+    "image": "El Cielo y la Tierra no se comunican: la imagen del estancamiento. Lo alto permanece arriba, lo bajo permanece abajo, y ya nada circula entre ellos: cada uno se cierra sobre su propia naturaleza. Es la figura de la ruptura estéril, en la que incluso las fuerzas más poderosas se agotan por falta de intercambio. Así el hombre noble se retira en su virtud para escapar del peligro: cuando el tiempo ya no permite la acción fecunda, la sabiduría consiste en preservar lo esencial antes que agotarse contra un muro."
+   },
+   "13": {
+    "pinyin": "Tong Ren",
+    "name": "La Comunidad con los Hombres",
+    "judgementTitle": "Estabilidad",
+    "judgement": "La fraternidad que se abre al mundo encuentra su zócalo. Una comunidad solo es sólida si no se encierra en sí misma: es abriéndose a los demás, buscando lo que une antes que lo que divide, como encuentra un asiento duradero. Este rasgo enseña que la pertenencia más fuerte nace a menudo del contacto con el exterior, no del repliegue.",
+    "image": "El Cielo y el Fuego se asocian: la imagen de la comunidad con los hombres. La llama sube hacia el cielo, buscando su propia naturaleza, y en ese movimiento compartido se dibuja un parentesco entre cosas que, sin embargo, siguen siendo distintas. Es la figura de la fraternidad fundada en una dirección común más que en la uniformidad. Así el hombre noble distingue las especies y clasifica las categorías: la verdadera comunidad no niega las diferencias, las reconoce para armonizarlas mejor."
+   },
+   "14": {
+    "pinyin": "Da You",
+    "name": "La Posesión de lo Grande",
+    "judgementTitle": "Sobresalto",
+    "judgement": "La riqueza acumulada se mide por su capacidad de atravesar el choque. No cuenta la cantidad poseída, sino la solidez de lo que se ha construido: una posesión verdadera resiste la prueba, mientras que una abundancia mal fundada se derrumba al primer golpe. Este rasgo invita a no confundir nunca la acumulación con la verdadera riqueza, que se demuestra en la duración.",
+    "image": "El Fuego en lo alto del Cielo: la imagen de la gran posesión. La luz, llevada a lo más alto, ilumina todas las cosas sin excepción: nada permanece en la sombra bajo semejante resplandor. Es la figura de la abundancia visible, la que irradia hasta el punto de obligar a la responsabilidad. Así el hombre noble reprime el mal y exalta el bien, obedeciendo al favor celeste: poseer mucho nunca es neutral, obliga a discernir lo que se nutre y lo que se cercena."
+   },
+   "15": {
+    "pinyin": "Qian",
+    "name": "La Modestia",
+    "judgementTitle": "Alquimia",
+    "judgement": "El borrarse a sí mismo nutre la transmutación en el crisol. Nada se transforma de verdad sin que una parte de uno mismo consienta en desaparecer en el proceso. Este rasgo dice que la humildad no es una virtud pasiva: es la condición activa de toda transformación profunda, el crisol donde lo antiguo se disuelve para que lo nuevo pueda tomar forma.",
+    "image": "En el seno de la Tierra se alza la montaña: la imagen de la modestia. Lo más alto se deja aquí contener por lo que lo rodea, sin buscar jamás dominar el paisaje con la sola altura. Es la figura de la grandeza que se borra voluntariamente. Así el hombre noble reduce lo que sobra y aumenta lo que falta, sopesando las cosas con ecuanimidad: la modestia no es pequeñez, es la fuerza lo bastante segura de sí misma como para no necesitar mostrarse."
+   },
+   "16": {
+    "pinyin": "Yu",
+    "name": "El Entusiasmo",
+    "judgementTitle": "Impulso",
+    "judgement": "El trueno sale de la tierra y pone los cuerpos en movimiento. Existe una energía que no se ordena, que brota y arrastra por sí misma, sin necesidad de forzarla. Este rasgo enseña que el verdadero poder de reunir nunca viene de la coacción, sino de esa vibración común que solo un entusiasmo sincero puede despertar.",
+    "image": "El Trueno sale de la Tierra con fuerza: la imagen del entusiasmo. La energía contenida se libera de pronto, y ese surgimiento pone en marcha todo lo que la rodea: nada permanece inmóvil ante semejante estallido. Es la figura del impulso contagioso, el que arrastra sin necesidad de forzar. Así los reyes antiguos honraban el mérito con la música y la virtud: el entusiasmo bien dirigido se convierte en la fuerza más suave y más poderosa para reunir las voluntades."
+   },
+   "17": {
+    "pinyin": "Sui",
+    "name": "El Seguimiento",
+    "judgementTitle": "Profundidad",
+    "judgement": "Seguir el movimiento del tiempo obliga a volver a bajar para cavar la fuente. No se puede seguir de forma duradera sin regresar, de vez en cuando, a lo que nutre el movimiento mismo. Este rasgo enseña que la adaptación más justa no es la más móvil, sino la que sabe volver a su propio origen antes de ponerse de nuevo en marcha.",
+    "image": "En medio del Lago, el Trueno: la imagen del seguimiento. El movimiento que retumba en lo profundo se deja llevar por lo que lo rodea en lugar de forzar su propia trayectoria: sigue el contorno del lago en vez de quebrarlo. Es la figura de la adaptación al ritmo ajeno. Así el hombre noble, al caer el crepúsculo, vuelve a su casa para descansar: seguir no es someterse, es reconocer el momento en que la acción debe ceder su lugar al reposo, como el día cede ante la noche."
+   },
+   "18": {
+    "pinyin": "Gu",
+    "name": "El Trabajo en lo Echado a Perder",
+    "judgementTitle": "Reparación",
+    "judgement": "Enderezar la corrupción de una herencia gastada. Lo que se ha descuidado durante demasiado tiempo acaba exigiendo un trabajo arduo, pero ese trabajo no es una maldición: es la ocasión de refundar sobre bases más sanas. Este rasgo dice que la herencia dañada solo está perdida si uno se niega a ocuparse de ella.",
+    "image": "Bajo la montaña, el Viento: la imagen del trabajo en lo echado a perder. El viento se cuela por las grietas de la montaña y revela lo que, con el tiempo, se ha corrompido y espera ser enderezado. Es la figura de la reparación necesaria, la que ya no puede aplazarse. Así el hombre noble estimula al pueblo y nutre su virtud: ante lo echado a perder, no se trata de condenar el pasado, sino de arremangarse para restaurar lo que aún puede restaurarse."
+   },
+   "19": {
+    "pinyin": "Lin",
+    "name": "El Acercamiento",
+    "judgementTitle": "Crecimiento",
+    "judgement": "El acercamiento benévolo de las fuerzas vivas estimula el ascenso paciente. Nada grande se conquista de un golpe; todo lo que crece de verdad lo hace por acercamientos sucesivos, cada uno de los cuales prepara el siguiente. Este rasgo enseña que el crecimiento auténtico se mide en pasos, no en saltos.",
+    "image": "Por encima del Lago, la Tierra: la imagen del acercamiento. La tierra se inclina hacia el agua, se le acerca sin dominarla jamás por completo: un movimiento de aproximación progresiva, nunca brusca. Es la figura de la benevolencia que avanza paso a paso. Así el hombre noble enseña sin cansancio y abraza al pueblo sin límite: acercarse de verdad a alguien exige esa paciencia que nunca fuerza el encuentro."
+   },
+   "20": {
+    "pinyin": "Guan",
+    "name": "La Contemplación",
+    "judgementTitle": "Convergencia",
+    "judgement": "Mirar a lo lejos desde la torre federa lo que estaba disperso. Una visión amplia no dispersa la atención, la reúne: es tomando altura como se descubren los lazos invisibles entre cosas que, de cerca, parecían no tener relación. Este rasgo dice que comprender precede siempre al poder de actuar con acierto.",
+    "image": "El Viento recorre la Tierra: la imagen de la contemplación. El viento toca cada rincón del suelo sin detenerse mucho tiempo en ninguna parte: una mirada que abarca a lo ancho más que un gesto que se demora. Es la figura de la observación que precede a la acción. Así los reyes antiguos visitaban las regiones, observaban al pueblo e instituían la enseñanza: antes de actuar sobre el mundo, hay que aprender primero a verlo tal como es, sin prisa ni prejuicio."
+   },
+   "21": {
+    "pinyin": "Shi He",
+    "name": "La Mordedura Tajante",
+    "judgementTitle": "Filo",
+    "judgement": "Cortar lo falso para soldar lo justo. Hay obstáculos que no se rodean: deben atravesarse, morderse, superarse mediante una decisión neta. Este rasgo enseña que la claridad necesita a veces dureza para imponerse, y que esa dureza, empleada con acierto, no es violencia sino justicia.",
+    "image": "El Trueno y el Relámpago se unen: la imagen de la mordedura tajante. El choque y la luz golpean juntos, el uno revelando lo que el otro quiebra: nada puede ocultarse mucho tiempo bajo semejante unión de fuerza y claridad. Es la figura de la decisión tajante iluminada por la verdad. Así los antiguos reyes hacían claras las penas y vigilantes las leyes: zanjar con justicia exige primero ver con justeza."
+   },
+   "22": {
+    "pinyin": "Bi",
+    "name": "La Gracia",
+    "judgementTitle": "Depuración",
+    "judgement": "El ornamento y la belleza de la forma ceden, en el extremo, su lugar a la decisión. Toda belleza tiene su límite útil: pasado cierto punto, el ornamento debe borrarse ante la necesidad de actuar. Este rasgo recuerda que la forma sirve al fondo, y no a la inversa: en cuanto una invade el terreno del otro, hay que saber simplificar.",
+    "image": "Bajo la montaña, el Fuego: la imagen de la gracia. La llama ilumina las laderas de la montaña sin pretender jamás igualarla en altura: un embellecimiento que respeta lo que revela en lugar de dominarlo. Es la figura del ornamento al servicio del fondo. Así el hombre noble ilumina los múltiples asuntos, sin pretender jamás zanjar los litigios a la sola luz de las apariencias: la gracia sirve para revelar, nunca para juzgar."
+   },
+   "23": {
+    "pinyin": "Bo",
+    "name": "La Desintegración",
+    "judgementTitle": "Mutación",
+    "judgement": "El derrumbe del antiguo edificio libera la energía de un crecimiento nuevo. Lo que se desmorona no se lo lleva todo consigo: la ruina de una forma agotada despeja el espacio y la energía necesarios para lo que ha de seguir. Este rasgo enseña a no temer el estallido de las estructuras que se han vuelto huecas: precede siempre a una renovación.",
+    "image": "La montaña reposa sobre la Tierra: la imagen de la desintegración. Lo que parecía más sólido —la masa misma de la montaña— solo está sostenido, en realidad, por una base que puede ceder. Es la figura del derrumbe que acecha a lo que descuida sus cimientos. Así los grandes afianzan lo que está abajo para dar reposo a su morada: antes de construir más alto, siempre hay que consolidar lo que sostiene."
+   },
+   "24": {
+    "pinyin": "Fu",
+    "name": "El Retorno",
+    "judgementTitle": "Renacimiento",
+    "judgement": "El principio vital regresa en el corazón de la noche más densa. Nada está nunca definitivamente perdido mientras subsista, en alguna parte, ese germen minúsculo que vuelve a empezar. Este rasgo dice que el punto más bajo contiene ya, en germen, el movimiento del retorno: es precisamente en la oscuridad más completa donde la luz vuelve a crecer.",
+    "image": "El Trueno en el seno de la Tierra: la imagen del retorno. La fuerza vital, sepultada en lo más hondo del invierno, no ha desaparecido: espera, invisible, el momento de resurgir. Es la figura de la renovación oculta en la aparente inmovilidad. Así los antiguos reyes, en el solsticio, cerraban los pasos, y mercaderes y viajeros dejaban de circular: hay momentos en que el gesto más grande consiste en no precipitar nada, para dejar que el retorno se cumpla por sí mismo."
+   },
+   "25": {
+    "pinyin": "Wu Wang",
+    "name": "La Inocencia",
+    "judgementTitle": "Desenlace",
+    "judgement": "Actuar sin artificio disuelve por sí mismo los nudos del obstáculo. La complicación nace casi siempre del cálculo; la verdadera sencillez, en cambio, desactiva los obstáculos antes incluso de afrontarlos. Este rasgo enseña que la rectitud espontánea resuelve a menudo lo que la astucia más hábil no hace sino enredar aún más.",
+    "image": "Bajo el Cielo, el Trueno avanza: la imagen de la inocencia. El movimiento sigue su curso bajo la vasta extensión celeste, sin cálculo ni rodeo, con la sencillez de lo que nada tiene que ocultar. Es la figura de la acción recta, espontánea, no fingida. Así los antiguos reyes, ricos en virtud y acordes con el tiempo, nutrían a los diez mil seres: la inocencia no es ingenuidad, es la alineación perfecta entre la intención y el gesto."
+   },
+   "26": {
+    "pinyin": "Da Chu",
+    "name": "La Fuerza Domesticadora de lo Grande",
+    "judgementTitle": "Contención",
+    "judgement": "La acumulación interior de la potencia hace frente a la dureza del relieve. Lo que crece en el interior, invisible, termina siempre por encontrar una resistencia exterior, y es ese mismo encuentro el que revela y afina la fuerza acumulada. Este rasgo dice que el obstáculo no es el enemigo de la potencia, sino su prueba necesaria.",
+    "image": "En el seno del Cielo, la montaña: la imagen de la fuerza domesticadora de lo grande. Una potencia considerable se mantiene contenida, retenida por algo que, sin igualarla en tamaño, sabe sin embargo frenarla. Es la figura de la gran fuerza que acepta ser disciplinada. Así el hombre noble retiene en su memoria las palabras y los actos antiguos: la verdadera grandeza no se demuestra solo por lo que despliega, sino por lo que acepta contener."
+   },
+   "27": {
+    "pinyin": "Yi",
+    "name": "La Nutrición",
+    "judgementTitle": "Distinción",
+    "judgement": "Lo que nutre el espíritu se opone a lo que divide las miradas. No todo alimento eleva por igual: ciertas palabras, ciertos pensamientos fortalecen; otros dispersan y debilitan. Este rasgo invita a elegir con el mismo cuidado aquello con lo que se nutre el espíritu que aquello con lo que se nutre el cuerpo.",
+    "image": "Bajo la montaña, el Trueno: la imagen de la nutrición. El movimiento se agita en la base de lo que es estable, como la mandíbula se agita bajo el rostro inmóvil: un recordatorio de que incluso la mayor estabilidad depende de lo que se nutre por debajo. Así el hombre noble vela por sus palabras y mide su beber y su comer: lo que entra en nosotros, por la boca o por las palabras, modela aquello en lo que nos convertimos."
+   },
+   "28": {
+    "pinyin": "Da Guo",
+    "name": "La Preponderancia de lo Grande",
+    "judgementTitle": "Estructura",
+    "judgement": "La viga maestra que se comba bajo su propio peso. Una estructura llevada al extremo de su capacidad anuncia, con su misma flexión, el momento en que deberá o bien romperse o bien ser descargada. Este rasgo enseña a reconocer los signos precursores de la ruptura antes de que sobrevenga.",
+    "image": "El Lago sumerge la madera: la imagen de la preponderancia de lo grande. El agua sube por encima de lo que normalmente debería contenerla: una carga demasiado pesada para la estructura que la sostiene, a punto de ceder bajo su propio peso. Es la figura del fardo extremo. Así el hombre noble, solo y sin temor, deja el mundo sin amargura: hay momentos en que la carga sobrepasa lo que ningún apoyo puede sostener, y en que la única dignidad posible es hacerle frente sin queja."
+   },
+   "29": {
+    "pinyin": "Kan",
+    "name": "Lo Insondable",
+    "judgementTitle": "Prueba",
+    "judgement": "Navegar en el agua que no se deja sondear. Ciertas profundidades nunca se miden por completo de antemano: solo se puede aprender a moverse en ellas con los medios a mano, sin pretender jamás dominarlas del todo. Este rasgo dice que la verdadera competencia ante el peligro no es eliminarlo, sino aprender a nadar en él.",
+    "image": "El Agua viene y vuelve: la imagen de lo insondable redoblado. El peligro se repite, ola tras ola, sin ofrecer nunca un respiro completo; pero el agua misma, en su movimiento constante, encuentra siempre su nivel. Es la figura de la prueba repetida que forja la constancia. Así el hombre noble practica constantemente la virtud y enseña los asuntos: ante el peligro que regresa, solo la práctica repetida, también ella, construye la maestría."
+   },
+   "30": {
+    "pinyin": "Li",
+    "name": "Lo Adherente, el Fuego",
+    "judgementTitle": "Irradiación",
+    "judgement": "La claridad del fuego se adhiere a lo que vive para propagar su resplandor. Nada brilla en el vacío: toda claridad verdadera necesita un anclaje, una materia a la que unirse para desplegarse. Este rasgo enseña que la independencia total no es un ideal: incluso la luz más pura necesita aquello que ilumina.",
+    "image": "Claridad y de nuevo Claridad: la imagen del Fuego que se adhiere. La luz nunca brilla sola: necesita aquello a lo que se aferra para seguir irradiando, igual que la llama necesita la madera. Es la figura del resplandor que depende de un soporte. Así el gran hombre, con su resplandor continuo, ilumina los cuatro horizontes: irradiar de forma duradera supone permanecer unido a lo que nutre la propia luz."
+   },
+   "31": {
+    "pinyin": "Xian",
+    "name": "El Influjo",
+    "judgementTitle": "Resonancia",
+    "judgement": "La emoción sutil del influjo mutuo, apenas perceptible. Los lazos más profundos entre los seres se anudan a menudo antes incluso de que se pronuncie una palabra, en ese registro discreto del sentir compartido. Este rasgo dice que el influjo más duradero nunca es el que se impone ruidosamente, sino el que se desliza, casi imperceptible, entre dos presencias abiertas la una a la otra.",
+    "image": "Sobre la montaña, un Lago: la imagen del influjo. El agua reposa sobre la altura, se acurruca en ella sin forzarla, y es esa receptividad mutua la que permite que el influjo circule entre ambas. Es la figura de la sensibilidad compartida, antes incluso de que intervengan las palabras. Así el hombre noble acoge en sí mismo la vacuidad para recibir a los hombres: influir comienza siempre por saber dejarse tocar."
+   },
+   "32": {
+    "pinyin": "Heng",
+    "name": "La Duración",
+    "judgementTitle": "Permanencia",
+    "judgement": "La constancia en el tiempo atraviesa la prueba del repliegue. Lo que dura de verdad no es lo que rechaza todo cambio, sino lo que sabe, cuando es preciso, retirarse por un tiempo sin perder su propia dirección. Este rasgo enseña que la verdadera duración incluye sus propias pausas.",
+    "image": "El Trueno y el Viento: la imagen de la duración. Dos movimientos de naturaleza distinta se asocian aquí sin contradecirse, cada uno reforzando al otro en una constancia compartida. Es la figura de la perseverancia que no se desgasta. Así el hombre noble se mantiene en pie sin cambiar de dirección: durar no es resistir a lo inmóvil, es encontrar el movimiento que puede repetirse indefinidamente sin traicionarse."
+   },
+   "33": {
+    "pinyin": "Dun",
+    "name": "La Retirada",
+    "judgementTitle": "Permanencia",
+    "judgement": "La duración se afirma sabiendo apartarse para durar mejor. Paradójicamente, lo que más tiempo perdura es a menudo aquello que supo, en el momento oportuno, desaparecer de la escena. Este rasgo enseña que la retirada estratégica no interrumpe la continuidad: la protege.",
+    "image": "Bajo el Cielo, la montaña: la imagen de la retirada. El cielo se aleja poco a poco de la montaña, tomando distancia sin hostilidad, simplemente por la necesidad de preservar su propio movimiento. Es la figura del repliegue digno, nunca huida vergonzosa. Así el hombre noble mantiene a distancia a los hombres vulgares, no por odio, sino por dignidad: retirarse a tiempo no es una debilidad, es la sabiduría de quien sabe reconocer el momento en que quedarse costaría más que partir."
+   },
+   "34": {
+    "pinyin": "Da Zhuang",
+    "name": "El Poder de lo Grande",
+    "judgementTitle": "Resonancia",
+    "judgement": "La influencia se amplifica hasta convertirse en una fuerza que ya no se contiene. Lo que comienza como una simple resonancia puede, si nada viene a encauzarlo, crecer hasta escapar a todo control. Este rasgo advierte que el poder sin disciplina se vuelve, tarde o temprano, contra quien lo despliega.",
+    "image": "El Trueno por encima del Cielo: la imagen del poder de lo grande. Una fuerza considerable se eleva a lo más alto, visible para todos, capaz de sacudir lo que encuentra a su paso. Es la figura del poder en su apogeo, aquel que debe aprender a dominarse precisamente porque puede arrastrarlo todo. Así el hombre noble solo camina por los senderos conformes al rito: la gran fuerza sin la justa medida se convierte en su propia ruina."
+   },
+   "35": {
+    "pinyin": "Jin",
+    "name": "El Progreso",
+    "judgementTitle": "Resplandor",
+    "judgement": "El resplandor asciende, como el sol, hacia el reconocimiento del mediodía. Todo ascenso verdadero sigue su propio ritmo, como el sol, que nunca salta directamente a su cenit. Este rasgo dice que el reconocimiento merecido llega siempre a su tiempo, nunca antes, nunca después.",
+    "image": "El Sol se eleva sobre la Tierra: la imagen del progreso. La luz gana terreno, grado tras grado, sin un solo salto brusco: un movimiento ascendente tan seguro como natural. Es la figura del avance merecido. Así el hombre noble, por sí mismo, hace brillar su clara virtud: el verdadero progreso no se reclama, se manifiesta por sí mismo a quien sabe esperar hasta el amanecer."
+   },
+   "36": {
+    "pinyin": "Ming Yi",
+    "name": "El Oscurecimiento de la Luz",
+    "judgementTitle": "Prueba",
+    "judgement": "Avanzar bajo una luz voluntariamente velada. No se trata de apagar la propia claridad, sino de saber contenerla cuando las circunstancias vuelven peligroso su pleno resplandor. Este rasgo enseña la disciplina de quien sigue obrando con justicia, aun cuando nadie pueda verlo todavía.",
+    "image": "La luz desciende al seno de la Tierra: la imagen del oscurecimiento. Lo que debería brillar se encuentra sepultado, obligado a velar su propio resplandor para seguir existiendo sin ser destruido. Es la figura de la claridad que debe, por un tiempo, ocultarse para sobrevivir. Así el hombre noble conduce a las multitudes velando su claridad, sin dejar de ser lúcido: hay épocas en que mostrar la plena luz sería un error; la sabiduría consiste entonces en permanecer justo, en silencio."
+   },
+   "37": {
+    "pinyin": "Jia Ren",
+    "name": "El Clan",
+    "judgementTitle": "Estructura",
+    "judgement": "El rigor ordenado de la célula familiar. Ninguna estructura más amplia se sostiene sin que su célula más íntima, la del hogar, esté ella misma ordenada y sea justa. Este rasgo dice que el orden del mundo comienza siempre por el orden de la casa.",
+    "image": "El Viento nace del Fuego: la imagen del clan. El calor interior engendra un movimiento que se propaga hacia fuera: lo que comienza en el hogar acaba siempre irradiando hacia el exterior. Es la figura de la influencia doméstica que modela el mundo. Así el hombre noble arraiga sus palabras en la sustancia y su conducta en la constancia: lo que se vive en la intimidad de la casa se convierte, tarde o temprano, en lo que uno lleva a todas partes."
+   },
+   "38": {
+    "pinyin": "Kui",
+    "name": "La Oposición",
+    "judgementTitle": "Distinción",
+    "judgement": "Se opera la criba entre las palabras que elevan y las que separan. No toda divergencia es una ruptura: ciertas oposiciones, bien comprendidas, afinan el pensamiento en lugar de quebrarlo. Este rasgo enseña a distinguir el desacuerdo fecundo del conflicto estéril.",
+    "image": "Arriba el Fuego, abajo el Lago: la imagen de la oposición. El fuego sube, el agua baja: dos naturalezas que se rozan sin confundirse jamás, cada una fiel a su propia dirección. Es la figura de la diferencia asumida sin ruptura total. Así el hombre noble, en la unidad, distingue lo que difiere: reconocer una oposición no obliga a destruirla; se puede coexistir con lo que nos contradice sin pretender borrarlo."
+   },
+   "39": {
+    "pinyin": "Jian",
+    "name": "El Obstáculo",
+    "judgementTitle": "Contención",
+    "judgement": "La paciencia se convierte ella misma en escudo frente al relieve. Ante lo que no puede franquearse de frente, la paciencia no es resignación sino protección activa: preserva la energía para el momento en que el paso se abra. Este rasgo dice que todo obstáculo contiene, en hueco, la indicación del rodeo justo.",
+    "image": "Sobre la montaña, el Agua: la imagen del obstáculo. El agua encuentra la pendiente y no puede avanzar directamente: debe rodear, buscar otro camino, aminorar su curso natural. Es la figura de la dificultad que impone un rodeo. Así el hombre noble se vuelve hacia sí mismo y modela su propia virtud: el obstáculo exterior, cuando no puede ser forzado, se convierte en la ocasión de trabajar lo que, en uno mismo, todavía puede crecer."
+   },
+   "40": {
+    "pinyin": "Jie",
+    "name": "La Liberación",
+    "judgementTitle": "Desenlace",
+    "judgement": "Los nudos del obstáculo se sueltan, el paso se abre. Lo que parecía inextricable acaba, con el tiempo y con la tensión adecuada aflojada en el momento oportuno, por desatarse por sí solo. Este rasgo enseña que la liberación rara vez llega por la fuerza: viene cuando la presión encuentra por fin su justa salida.",
+    "image": "El Trueno y la Lluvia se elevan: la imagen de la liberación. La tensión acumulada en el aire se libera por fin, la tormenta estalla y purifica lo que atraviesa: un desenlace que apacigua en lugar de destruir. Es la figura del alivio tras la constricción. Así el hombre noble perdona las faltas y se muestra clemente con los agravios: la liberación verdadera no se detiene en uno mismo, se extiende también a aquellos a quienes aún podríamos mantener cautivos de sus errores."
+   },
+   "41": {
+    "pinyin": "Sun",
+    "name": "La Merma",
+    "judgementTitle": "Renuncia",
+    "judgement": "Volver al centro exige consentir en perder lo que estorbaba. Solo se regresa a lo esencial aceptando dejar ir lo que, con el tiempo, se ha revelado superfluo. Este rasgo dice que no toda pérdida es un empobrecimiento: ciertas mermas son la condición misma del regreso a lo que verdaderamente importa.",
+    "image": "Bajo la montaña, el Lago: la imagen de la merma. El agua de abajo se evapora hacia la altura, pareciendo empobrecerse para nutrir lo que la domina: una pérdida que, en realidad, sirve a un equilibrio más vasto. Es la figura de la renuncia que beneficia a un conjunto más grande que uno mismo. Así el hombre noble refrena su cólera y contiene sus deseos: mermar lo que sobra en uno mismo es a menudo la condición para que otra cosa pueda crecer."
+   },
+   "42": {
+    "pinyin": "Yi",
+    "name": "El Aumento",
+    "judgementTitle": "Mutación",
+    "judgement": "Se libera la energía de un acrecentamiento nuevo. Lo que crece verdaderamente nunca lo hace solo: el crecimiento auténtico libera una energía que beneficia a algo más amplio que quien la porta. Este rasgo enseña que el verdadero acrecentamiento se reconoce por lo que comparte, no por lo que acumula.",
+    "image": "El Viento y el Trueno: la imagen del aumento. Dos fuerzas se refuerzan mutuamente, el viento amplificando el trueno y el trueno dando al viento su plena medida: un crecimiento que se nutre del encuentro más que del aislamiento. Así el hombre noble, cuando ve el bien, se encamina hacia él; cuando tiene una falta, la corrige: el aumento verdadero no se limita a acumular, consiste en corregirse y crecer juntos."
+   },
+   "43": {
+    "pinyin": "Guai",
+    "name": "La Irrupción",
+    "judgementTitle": "Depuración",
+    "judgement": "La decisión que corta en seco y elimina lo superfluo. Llega un momento en que la vacilación misma se vuelve más peligrosa que el filo de la decisión. Este rasgo dice que la irrupción verdadera no consiste en destruirlo todo, sino en retirar con precisión lo que, en exceso, amenazaba al conjunto.",
+    "image": "El Lago se eleva por encima del Cielo: la imagen de la irrupción. El agua, llevada más alto de lo que normalmente debería contenerla, amenaza con desbordarse: una tensión extrema que reclama una decisión clara y sin vuelta atrás. Es la figura de la resolución que ya no puede esperar. Así el hombre noble derrama sus dádivas hasta abajo, sin descansar en su sola virtud: cortar con fuerza debe ir siempre acompañado de generosidad hacia aquellos a quienes la decisión afecta."
+   },
+   "44": {
+    "pinyin": "Gou",
+    "name": "Ir al Encuentro",
+    "judgementTitle": "Filo",
+    "judgement": "El encuentro imprevisto expone al riesgo tanto como a la unión. Todo lo que se presenta sin avisar lleva en sí una ambigüedad: promesa de vínculo o germen de peligro, nunca se sabe de entrada. Este rasgo enseña la vigilancia que no es desconfianza, sino discernimiento en el momento mismo del encuentro.",
+    "image": "Bajo el Cielo, el Viento: la imagen de ir al encuentro. El viento recorre el espacio sin que nadie lo haya convocado, tocándolo todo a su paso: un encuentro que se impone más que planificarse. Es la figura de lo imprevisto que hay que saber acoger con discernimiento. Así el soberano, mediante sus decretos, instruye a los cuatro horizontes: lo que viene a nuestro encuentro sin ser invitado merece ser examinado antes de ser aceptado o rechazado."
+   },
+   "45": {
+    "pinyin": "Cui",
+    "name": "La Reunión",
+    "judgementTitle": "Convergencia",
+    "judgement": "La contemplación es ya una reunión silenciosa. Aun antes de que los cuerpos se reúnan, los espíritus que comparten una misma mirada están ya, en cierto sentido, reunidos. Este rasgo dice que la verdadera unión comienza siempre en lo invisible, mucho antes de hacerse visible.",
+    "image": "El Lago sube por encima de la Tierra: la imagen de la reunión. El agua se acumula y forma una extensión común, reuniendo en un solo lugar lo que, disperso, no habría tenido ni fuerza ni rostro. Es la figura de la convergencia que da consistencia a lo múltiple. Así el hombre noble repara sus armas para hacer frente a lo imprevisto: reunir no basta, también hay que prepararse para proteger lo que se ha reunido."
+   },
+   "46": {
+    "pinyin": "Sheng",
+    "name": "El Empuje hacia Arriba",
+    "judgementTitle": "Crecimiento",
+    "judgement": "Acercarse y crecer son un solo gesto vertical. No existe separación verdadera entre aproximarse a la propia meta y crecer hacia ella: ambos movimientos son uno solo, como el tallo que brota es ya, en germen, el árbol venidero. Este rasgo enseña la continuidad entre el pequeño gesto presente y el gran resultado futuro.",
+    "image": "En el seno de la Tierra crece la madera: la imagen del empuje hacia arriba. La semilla, invisible bajo la superficie, empuja pacientemente hacia la luz sin saltarse nunca las etapas: un crecimiento lento pero inexorable. Es la figura del ascenso merecido por la constancia. Así el hombre noble, dócil a la virtud, acumula lo pequeño para alcanzar lo alto y lo grande: nada de lo que crece de verdad se salta una etapa, todo se construye capa tras capa."
+   },
+   "47": {
+    "pinyin": "Kun",
+    "name": "La Desazón",
+    "judgementTitle": "Reparación",
+    "judgement": "Nada se restaura sin consentir primero en carecer. No hay renacimiento verdadero sin haber pasado antes por la experiencia real de la indigencia. Este rasgo dice que la desazón, bien atravesada, no es solo una prueba que padecer sino una purificación que prepara el regreso de la abundancia.",
+    "image": "El Lago está sin agua: la imagen de la desazón. Lo que debería nutrir y sostener se ha secado, dejando tras de sí una carencia flagrante allí donde se esperaba la abundancia. Es la figura del agotamiento que pone a prueba la verdadera naturaleza de quien lo atraviesa. Así el hombre noble empeña su vida para cumplir su designio: es precisamente en la carencia donde se revela aquello a lo que uno verdaderamente se aferra, hasta el punto de estar dispuesto a arriesgarlo todo por ello."
+   },
+   "48": {
+    "pinyin": "Jing",
+    "name": "El Pozo",
+    "judgementTitle": "Profundidad",
+    "judgement": "Solo se sigue bien lo que primero se ha sacado del fondo. Ningún recurso aprovecha a quien permanece en la superficie: hay que descender, buscar, sacar de veras para que el pozo entregue lo que contiene. Este rasgo enseña que la profundidad es la condición misma de la utilidad.",
+    "image": "Sobre la madera, el Agua: la imagen del pozo. El agua permanece al alcance de todos los que vienen a sacarla, inagotable mientras se sepa bajar el cubo al lugar adecuado: un recurso común que el uso nunca agota del todo. Es la figura del bien compartido que perdura. Así el hombre noble conforta al pueblo y lo exhorta a la ayuda mutua: lo que nutre de verdad a una comunidad no pertenece a nadie en propiedad, solo pasa por las manos de quienes saben sacar de él."
+   },
+   "49": {
+    "pinyin": "Ge",
+    "name": "La Revolución",
+    "judgementTitle": "Impulso",
+    "judgement": "El fuego bajo el lago disuelve la vieja piel. Todo cambio profundo exige primero que la forma antigua se disuelva, por incómodo que sea ese momento de transición. Este rasgo dice que la revolución más justa nunca es gratuita: responde a una necesidad que la forma antigua ya no podía contener.",
+    "image": "En el seno del Lago, el Fuego: la imagen de la revolución. La llama arde bajo la superficie del agua, dos naturalezas que no pueden coexistir sin que una acabe transformando a la otra: un enfrentamiento que desemboca necesariamente en un cambio de estado. Así el hombre noble ordena el calendario y esclarece los tiempos: la revolución verdadera no destruye por destruir, reordena lo que el tiempo antiguo había dejado confuso."
+   },
+   "50": {
+    "pinyin": "Ding",
+    "name": "El Caldero",
+    "judgementTitle": "Alquimia",
+    "judgement": "La forma más discreta es la que mejor recoge la esencia. No es el brillo exterior lo que define el valor de un recipiente, sino su capacidad de preservar y transformar lo que recibe. Este rasgo enseña que el verdadero valor se aloja a menudo en lo que parece más modesto en apariencia.",
+    "image": "Sobre la madera, el Fuego: la imagen del caldero. La llama transforma la materia bruta en algo nutritivo, refinado, utilizable: un recipiente que contiene la transformación sin dejarse consumir él mismo. Es la figura de la cultura que afina sin destruir. Así el hombre noble afianza su destino haciéndolo recto: como el caldero da forma a lo que recibe, cada uno modela su propio destino por lo que elige cocer en él."
+   },
+   "51": {
+    "pinyin": "Zhen",
+    "name": "La Conmoción",
+    "judgementTitle": "Sobresalto",
+    "judgement": "Lo que queda en pie tras el choque es lo que verdaderamente se poseía. El choque no crea nada, revela: lo que se derrumba a la primera sacudida nunca fue tan sólido como parecía. Este rasgo dice que la prueba es siempre, de algún modo, un revelador de verdad.",
+    "image": "El Trueno redoblado: la imagen de la conmoción. El choque golpea dos veces, uno repitiendo al otro, y lo que queda en pie tras semejante sacudida revela por fin su verdadera solidez. Es la figura de la prueba que examina sin destruir lo que está realmente fundado. Así el hombre noble, con temor y temblor, cultiva y examina su propia conducta: el choque exterior, por brutal que sea, puede convertirse en la ocasión de un examen interior saludable."
+   },
+   "52": {
+    "pinyin": "Gen",
+    "name": "El Aquietamiento",
+    "judgementTitle": "Estabilidad",
+    "judgement": "El movimiento se detiene para que lo esencial se vea. Solo en la inmovilidad ciertas cosas, ocultas por la agitación permanente, se vuelven por fin visibles. Este rasgo enseña que saber detenerse no es renunciar a actuar, es darse los medios de ver dónde actuar de verdad.",
+    "image": "Montañas unidas: la imagen del aquietamiento. Dos masas estables se superponen, una reforzando la inmovilidad de la otra: una detención que no es parálisis sino fundamento. Es la figura del reposo que hace posible la claridad. Así el hombre noble no deja que sus pensamientos vayan más allá del lugar que ocupa: detenerse en el lugar justo, sin dejar que el espíritu se extravíe más allá de su tarea presente, es la condición de toda visión justa."
+   },
+   "53": {
+    "pinyin": "Jian",
+    "name": "El Desarrollo",
+    "judgementTitle": "Lentitud",
+    "judgement": "Raíz, tronco, rama: un paso tras otro endereza el eje. Ningún crecimiento auténtico se salta una etapa: cada grado prepara el siguiente, en un orden que nada puede invertir sin comprometerlo todo. Este rasgo dice que la paciencia del desarrollo gradual es en sí misma una forma de fuerza.",
+    "image": "Sobre la montaña, un árbol: la imagen del desarrollo gradual. El árbol crece lentamente, raíz tras raíz, anillo tras anillo, sin saltarse jamás una sola etapa de su crecimiento: una paciencia inscrita en la madera misma. Así el hombre noble se establece en la virtud digna y mejora las costumbres: el desarrollo verdadero, como el del árbol en la pendiente, se mide en años, no en días."
+   },
+   "54": {
+    "pinyin": "Gui Mei",
+    "name": "La Desposada",
+    "judgementTitle": "Alianza",
+    "judgement": "La unión sellada compromete dos órdenes desiguales en una misma trama. No toda unión nace en la igualdad perfecta; algunas comienzan en el desequilibrio y deben encontrar, con el tiempo, su propia justicia. Este rasgo enseña que la lealtad en la duración puede reparar lo que las condiciones iniciales no habían hecho justo.",
+    "image": "Arriba el Trueno, abajo el Lago: la imagen de la desposada. El movimiento de arriba arrastra lo que reposa debajo a una unión que no siempre es elegida por igual por ambas partes: un vínculo que compromete pese al desequilibrio inicial. Así el hombre noble, atento a lo que perdura, discierne lo que corrompe esa unión: toda alianza merece ser examinada en su duración, no juzgada solo por su comienzo."
+   },
+   "55": {
+    "pinyin": "Feng",
+    "name": "La Abundancia",
+    "judgementTitle": "Plenitud",
+    "judgement": "La hora del pleno mediodía, en que la luz ya no proyecta sombra. Existe un instante, en la cima de toda plenitud, en que ya nada queda oculto; pero ese instante, por naturaleza, no puede sino declinar después. Este rasgo enseña a saborear la abundancia sin olvidar que lleva en sí su propio límite.",
+    "image": "El Trueno y el Relámpago se cumplen juntos: la imagen de la abundancia. El movimiento y la luz alcanzan simultáneamente su pleno despliegue: un instante de plenitud total, raro y necesariamente pasajero. Es la figura del apogeo que nunca dura eternamente. Así el hombre noble dirime los litigios y aplica los castigos: en la cima de la abundancia, la claridad del juicio se vuelve más necesaria que nunca, porque es también allí donde todo puede derrumbarse."
+   },
+   "56": {
+    "pinyin": "Lu",
+    "name": "El Andariego",
+    "judgementTitle": "Itinerancia",
+    "judgement": "Sin hogar ni lugar, la librea reemplaza a la casa. Cuando falta la morada, son el hábito, la postura, la conducta los que deben ocupar su lugar: una dignidad que ya no depende del lugar sino de la manera de ser. Este rasgo dice que la identidad más sólida es la que uno lleva consigo, independiente de todo anclaje exterior.",
+    "image": "Sobre la montaña, el Fuego: la imagen del andariego. La llama se desplaza a lo largo de la pendiente, sin detenerse en ninguna parte, consumiendo lo que se le presenta sin arraigar jamás en un solo lugar. Es la figura de quien no tiene hogar ni lugar fijo. Así el hombre noble aplica la pena con claridad y prudencia, sin dejar que un proceso se prolongue: sin ataduras duraderas, hace falta tanto más rigor para no perderse en el camino."
+   },
+   "57": {
+    "pinyin": "Xun",
+    "name": "Lo Suave, el Viento",
+    "judgementTitle": "Tejido",
+    "judgement": "El viento penetra en todas partes sin ruido, como la trama. La fuerza más discreta es a veces la más eficaz: no encuentra resistencia frontal porque nunca se anuncia como fuerza. Este rasgo enseña el poder de la influencia continua y silenciosa.",
+    "image": "Vientos que se suceden: la imagen de lo suave redoblado. El viento sopla, y vuelve a soplar, insistiendo sin golpear jamás: una influencia que penetra por la repetición más que por la fuerza. Así el hombre noble propaga sus órdenes y lleva a cabo sus asuntos: lo que no puede imponerse de golpe acaba a menudo por instalarse gracias a la constancia suave de una insistencia paciente."
+   },
+   "58": {
+    "pinyin": "Dui",
+    "name": "Lo Alegre",
+    "judgementTitle": "Cadencia",
+    "judgement": "La claridad del lago que reúne y pone en común. Lo que reúne sin coacción, por la sola atracción natural de lo que ofrece, crea los vínculos más duraderos. Este rasgo dice que la verdadera comunidad se reconoce por la ligereza con que se forma.",
+    "image": "Lagos que se unen: la imagen de lo alegre redoblado. Dos extensiones de agua se comunican, nutriéndose la una a la otra, cada una amplificando la alegría de la otra por su simple proximidad. Es la figura del compartir que multiplica en lugar de dividir. Así el hombre noble, con sus amigos, conversa y se ejercita: la alegría verdadera, como el agua de los lagos unidos, nunca se agota por ser compartida; al contrario, sale de ello reforzada."
+   },
+   "59": {
+    "pinyin": "Huan",
+    "name": "La Disolución",
+    "judgementTitle": "Desenlace",
+    "judgement": "Lo que se enfrentaba se dispersa y vuelve a ser fluido. Los bloqueos más rígidos acaban, con el tiempo y el movimiento justo, por dispersarse por sí solos. Este rasgo enseña que la disolución no es una pérdida sino un regreso al estado fluido, previo a toda forma nueva.",
+    "image": "El Viento se mueve sobre el Agua: la imagen de la disolución. El viento agita la superficie, dispersando lo que se había congelado, rompiendo el hielo en movimiento fluido: una disolución que libera en lugar de destruir. Así los antiguos reyes ofrecían sacrificios al Soberano de lo alto y erigían templos: cuando lo que separaba a los seres empieza a disolverse, es el momento de reconstruir un vínculo común, un centro compartido."
+   },
+   "60": {
+    "pinyin": "Jie",
+    "name": "La Limitación",
+    "judgementTitle": "Contención",
+    "judgement": "El bambú forma sus nudos para que la savia no se disperse. Sin los límites que la jalonan, el crecimiento mismo perdería su fuerza dispersándose sin dirección. Este rasgo dice que la limitación bien establecida no es un freno a la vida, sino la condición de su vigor.",
+    "image": "Sobre el Lago, el Agua: la imagen de la limitación. El agua del lago permanece contenida por sus orillas, y es ese límite mismo lo que le permite existir como lago en lugar de perderse en ciénaga informe. Es la figura de la restricción que estructura en lugar de asfixiar. Así el hombre noble establece el número y la medida, y reflexiona sobre la virtud y la conducta: la limitación elegida con acierto es lo que da forma a todas las cosas, incluido uno mismo."
+   },
+   "61": {
+    "pinyin": "Zhong Fu",
+    "name": "La Verdad Interior",
+    "judgementTitle": "Aprendizaje",
+    "judgement": "El centro vacío del corazón se convierte en el lugar donde se aloja la confianza. Precisamente porque el corazón no se cierra sobre sí mismo, porque sigue siendo un espacio abierto, la confianza auténtica puede establecerse en él. Este rasgo enseña que la sinceridad más profunda nace de un vacío acogedor, no de una certeza cerrada.",
+    "image": "Sobre el Lago, el Viento: la imagen de la verdad interior. El viento roza la superficie del agua y la hace vibrar hasta su centro: una resonancia que parte de fuera pero toca lo interior más profundo. Es la figura de la sinceridad que se transmite sin artificio. Así el hombre noble delibera sobre los procesos y aplaza las penas de muerte: la verdad interior exige tomarse el tiempo necesario antes de decidir sobre lo que atañe a lo esencial."
+   },
+   "62": {
+    "pinyin": "Xiao Guo",
+    "name": "La Preponderancia de lo Pequeño",
+    "judgementTitle": "Germinación",
+    "judgement": "El pequeño rasgo desborda su marco. Hay momentos en que solo el detalle, el gesto mesurado, puede aún actuar; querer entonces la gran acción sería un error de juicio. Este rasgo dice que el acierto, en ciertas circunstancias, se encuentra precisamente en la pequeñez asumida.",
+    "image": "Sobre la montaña, el Trueno: la imagen de la preponderancia de lo pequeño. El movimiento se agita en la cima, contenido por la masa que lo sostiene, obligado a permanecer modesto en su amplitud aunque intenso en su energía. Así el hombre noble, en su conducta, se inclina hacia el exceso de respeto; en el duelo, hacia el exceso de pena; en sus gastos, hacia el exceso de economía: cuando las circunstancias imponen la contención, más vale pecar por exceso de modestia que por exceso de ambición."
+   },
+   "63": {
+    "pinyin": "Ji Ji",
+    "name": "Después de la Consumación",
+    "judgementTitle": "Asiento",
+    "judgement": "La costura está cerrada, la malla está anudada. Lo acabado lleva siempre en sí el germen de lo que vendrá a deshacerlo: nada concluido está eternamente concluido. Este rasgo enseña que la consumación verdadera incluye la conciencia de su propia fragilidad.",
+    "image": "El Agua por encima del Fuego: la imagen de la consumación. Cada elemento ocupa exactamente el lugar que le corresponde, el agua dominando el fuego sin apagarlo por completo: un equilibrio tan perfecto que ya reclama, en germen, su propio desequilibrio venidero. Así el hombre noble piensa en la desgracia y se previene de antemano: la consumación más completa nunca es un punto de llegada definitivo, es el momento preciso en que la vigilancia debe redoblarse."
+   },
+   "64": {
+    "pinyin": "Wei Ji",
+    "name": "Antes de la Consumación",
+    "judgementTitle": "Inicio",
+    "judgement": "El paso está abierto, pero la trama aún no está tejida. Nada está todavía consumado, pero tampoco nada es imposible: la puerta sigue abierta a lo que, pacientemente, queda por construir. Este rasgo dice que lo inacabado no es un fracaso: es la condición misma de todo lo que está por venir, el punto desde donde recomienza, incansablemente, el ciclo entero de las 64 figuras.",
+    "image": "El Fuego por encima del Agua: la imagen de lo inconcluso. Cada elemento se encuentra en el lugar inverso al que permitiría su pleno encuentro: el fuego no puede calentar el agua que se le escapa por arriba. Es la figura del desorden que aún precede al orden venidero. Así el hombre noble distingue con cuidado los seres y coloca a cada uno en su lugar: antes de que todo encuentre su justo lugar, hay que aceptar primero la lucidez del desorden presente, sin desesperar del orden por nacer."
+   }
+  },
+  "lineComments": {
+   "1": {
+    "0": "En la base de la tierra, el vacío se cierra: lo que aún no era más que una abertura comienza a llenarse.",
+    "1": "En la base de la tierra, lo lleno se estremece: el impulso yang que sostenía la figura entera consiente en ceder su lugar."
+   },
+   "2": {
+    "0": "La tierra receptiva alcanza su colmo: la acogida silenciosa que sostenía la parte baja de la figura va a afirmarse.",
+    "1": "La tierra afianzada toca su límite: la solidez que sostenía el edificio se dispone a cambiar de naturaleza."
+   },
+   "3": {
+    "0": "En el umbral entre la tierra y el hombre, la flexibilidad se carga: lo que por naturaleza cedía se dispone a endurecerse.",
+    "1": "En el umbral entre la tierra y el hombre, la fuerza vacila: lo que actuaba con firmeza titubea antes de darse la vuelta."
+   },
+   "4": {
+    "0": "En la escucha del hombre, el hueco se colma: la disponibilidad que recibía pronto va a afirmarse.",
+    "1": "En la acción del hombre, lo lleno encuentra su límite: la iniciativa que guiaba la figura se repliega sobre sí misma."
+   },
+   "5": {
+    "0": "En el lugar del sabio, el vacío se llena: la flexibilidad que gobernaba con discreción se carga de una fuerza nueva.",
+    "1": "En el lugar del sabio, lo lleno se ahueca: la fuerza que gobernaba la figura desde el centro se dispone a invertirse."
+   },
+   "6": {
+    "0": "En la cima, el vacío alcanza su colmo y se cierra: la abertura más extrema se vuelca hacia su contrario.",
+    "1": "En la cima, lo lleno termina su carrera y se quiebra: lo que culminaba no puede ir más lejos sin darse la vuelta."
+   }
+  },
+  "trigrams": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Lo Receptivo",
+    "image": "la Tierra",
+    "role": "la madre"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "Lo Suscitativo",
+    "image": "el Trueno",
+    "role": "el hijo mayor"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "Lo Insondable",
+    "image": "el Agua",
+    "role": "el hijo mediano"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Lo Alegre",
+    "image": "el Lago",
+    "role": "la hija menor"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "La Inmovilización",
+    "image": "la Montaña",
+    "role": "el hijo menor"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "Lo Adherente",
+    "image": "el Fuego",
+    "role": "la hija mediana"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Lo Suave",
+    "image": "el Viento",
+    "role": "la hija mayor"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Lo Creativo",
+    "image": "el Cielo",
+    "role": "el padre"
+   }
+  ]
+ },
+ "th": {
+  "hexagrams": {
+   "1": {
+    "pinyin": "Qian",
+    "name": "ผู้สร้างสรรค์",
+    "judgementTitle": "ปฐมการณ์",
+    "judgement": "เส้นทึบพุ่งทะยานขึ้นเพียงลำพัง ยังไร้อาภรณ์ห่อหุ้ม ณ ขั้นแรกสุดของฉักลักษณ์ พลังมีอยู่แล้วอย่างครบถ้วน หากแต่ยังมิได้ก่อเป็นรูปใดที่จะจำแนกได้ — ยังมิได้สวมใส่หน้าที่ใด บทบาทใด นี่คือพลังในสภาวะบริสุทธิ์ ก่อนที่มันจะตั้งนามให้แก่ตน เส้นนี้บอกล่วงหน้าถึงสิ่งที่อีกห้าเส้นถัดไปจะเป็น: ความคืบหน้าซึ่งอำนาจแห่งการกระทำค่อย ๆ ตัดเย็บอาภรณ์ให้ตนเอง จนกระทั่งฉักลักษณ์ทั้งรูป ณ จุดสูงสุด ได้ค้นพบว่าแม้พลังที่ยิ่งใหญ่ที่สุดก็ต้องเรียนรู้ที่จะยับยั้งตน",
+    "image": "ฟ้าเคลื่อนไปไม่หยุดหย่อนเหนือฟ้า: เส้นทึบสองครา พลังเดียวกันสองครา หนึ่งค้ำชูอีกหนึ่งโดยไม่เคยอ่อนแรง ณ ที่นี้ไม่มีสิ่งใดมาจำกัดการเคลื่อนไหว ไม่มีสิ่งใดมาหยุดยั้ง นี่คือภาพแห่งความแข็งแกร่งอันบริสุทธิ์ ซึ่งไม่รู้จักการพักเพราะยังไม่เคยพบสิ่งใดที่อาจต้านทานมันได้ ปราชญ์ผู้เพ่งพินิจฉักลักษณ์นี้มิได้เห็นมันเป็นคำเชื้อเชิญสู่ความกระวนกระวาย หากเป็นแบบอย่าง: ดุจฟ้าที่หมุนเวียนไม่ขาดสาย วิญญูชนย่อมไม่หยุดยั้งที่จะเสริมความมั่นคงแก่ตนเอง — มิใช่ด้วยความพยายามเป็นครั้งคราว แต่ด้วยวินัยที่ต่อเนื่องดุจการโคจรของดวงดาว"
+   },
+   "2": {
+    "pinyin": "Kun",
+    "name": "ผู้รับ",
+    "judgementTitle": "ฐานที่ตั้ง",
+    "judgement": "ผืนดินรองรับ รูปทรงวางลง ยังไม่มีสิ่งใดบังเกิด ทว่าทุกสิ่งก็เป็นไปได้แล้ว: แผ่นดินแห่งเส้นแรกมิได้เรียกร้องสิ่งใด มันรอคอย นี่มิใช่ความเฉื่อยชาของผู้ละทิ้ง หากเป็นความอดทนของผู้ที่รู้ว่าความนอบน้อมที่เข้าใจอย่างถ่องแท้ย่อมบรรจุความอุดมสมบูรณ์ทั้งปวงที่จะมาถึง ฉักลักษณ์ทั้งรูปจะคลี่ขยายออกจากคุณสมบัติเพียงประการเดียวนี้: โอบรับก่อนจะปรารถนาบงการ วางตนลงก่อนจะอ้างว่าสร้าง",
+    "image": "แผ่นดินแบกรับและหล่อเลี้ยงโดยไม่แบ่งแยก: มันมิได้เลือกสิ่งที่มันค้ำจุน มันค้ำจุนทุกสิ่ง เส้นขาดสองครา ความเปิดกว้างเดียวกันสองครา หนึ่งโอบรับอีกหนึ่งโดยไม่เคยปิดลง นี่คือภาพแห่งความสามารถอันบริสุทธิ์ — มิใช่ความสามารถที่ลงมือก่อน แต่เป็นความสามารถที่ทำให้การกระทำของทุกสิ่งที่มาหามันเป็นไปได้ ปราชญ์ผู้เพ่งพินิจฉักลักษณ์นี้ย่อมเข้าใจว่าความเอื้ออารีไม่จำเป็นต้องเจิดจ้า: ดังนั้นวิญญูชนจึงโอบรับสรรพสัตว์ด้วยคุณธรรมอันเผื่อแผ่ กว้างขวางดุจผืนดินที่ไม่ปฏิเสธเมล็ดพันธุ์ใด"
+   },
+   "3": {
+    "pinyin": "Zhun",
+    "name": "ความยากลำบากในปฐมกาล",
+    "judgementTitle": "การงอก",
+    "judgement": "หน่ออ่อนดิ้นรนอยู่ใต้ดินของจัตุรัส การเกิดทุกครั้งเริ่มต้นในความมืดและแรงต้าน: เมล็ดยังไม่รู้ว่าตนจะมีรูปทรงเช่นไร มันรู้เพียงว่าต้องงอกขึ้น เส้นนี้กล่าวถึงความยากลำบากที่มิใช่ความล้มเหลว หากเป็นเงื่อนไขแท้ของการเริ่มต้นที่แท้จริงทุกครั้ง — ไม่เคยมีสิ่งยิ่งใหญ่ใดผุดขึ้นมาได้โดยไม่ต้องดิ้นหลุดจากสิ่งที่ยึดรั้งมันไว้ก่อน",
+    "image": "เมฆและอสนี: ภาพแห่งความยากลำบากในปฐมกาล เบื้องบนคือน้ำที่ยังมิได้กลายเป็นฝน เบื้องล่างคือแรงสั่นสะเทือนที่แสวงหาทางของตนแต่ยังหาไม่พบ ไม่มีสิ่งใดไหลไปได้อย่างอิสระ ทุกสิ่งต่างแสวงหา ทุกสิ่งลังเลอยู่ที่ขอบแห่งการกำเนิดของตน นี่คือภาพแห่งการเริ่มต้นที่ติดขัด ซึ่งต้องบุกเบิกทางก่อนจะรู้เสียด้วยซ้ำว่าทางนั้นนำไปสู่ที่ใด ดังนั้นวิญญูชน เมื่อเผชิญความสับสนในเบื้องต้น จึงไม่ฝืนสิ่งใด: เขาจัดระเบียบด้วยการทอเส้นด้ายของตนอย่างอดทน ทีละเส้น ทีละเส้น โดยไม่ยอมจำนนต่อความใจร้อนอยากเห็นผล"
+   },
+   "4": {
+    "pinyin": "Meng",
+    "name": "ความเขลาแห่งวัยเยาว์",
+    "judgementTitle": "การฝึกเรียน",
+    "judgement": "ความไม่รู้ของศิษย์เรียกหาครู การไม่รู้มิใช่ความอ่อนแอ หากเป็นการเปิดรับ: ผู้ที่ยังไม่รู้คือผู้ที่สามารถเรียนรู้ได้ ฉักลักษณ์ทั้งรูปหมุนรอบการพบกันอันจำเป็นนี้ ระหว่างความอ่อนประสบการณ์ที่แสวงหา กับประสบการณ์ที่ตอบรับ — หากปราศจากความถ่อมตนในเบื้องแรกนี้ ไม่มีคำสอนใดจะหยั่งรากได้",
+    "image": "ณ เชิงภูเขามีตาน้ำพุ่งขึ้น: ภาพแห่งความเขลาแห่งวัยเยาว์ น้ำอยู่ตรงนั้น สดใสมีชีวิต แต่ยังไม่รู้ว่าจะไหลไปทางใด มันมีพลังแต่ไร้ทิศทาง นี่คือภาพของความอ่อนประสบการณ์ที่มิใช่ข้อบกพร่องแต่เป็นสภาวะหนึ่ง — สภาวะก่อนการเรียนรู้ เมื่อพลังล้นทะลักโดยปราศจากวิจารณญาณ ดังนั้นวิญญูชน เมื่อรู้จักภาพนี้ในตนเองหรือในผู้อื่น จึงไม่ดูแคลนความไม่รู้: เขาหล่อเลี้ยงอุปนิสัยของตนด้วยการกระทำที่เด็ดเดี่ยว โดยรู้ว่าตาน้ำนั้น หากได้รับการนำทางที่ดี จะกลายเป็นแม่น้ำ"
+   },
+   "5": {
+    "pinyin": "Xu",
+    "name": "การรอคอย",
+    "judgementTitle": "ความสงบสำรวม",
+    "judgement": "น้ำรอคอยเวลาอันเหมาะควรของตนอยู่ใต้ฟ้า การรอคอยมิใช่การไม่ทำสิ่งใด: มันคือการยืนหยัดในตำแหน่งของตนอย่างมั่นคง ขณะที่เงื่อนไขทั้งหลายก่อตัวขึ้นในที่อื่น พ้นเอื้อมของเจตจำนง เส้นนี้สอนว่าความรีบร้อนย่อมทำลายสิ่งที่มีเพียงความอดทนเท่านั้นจะทำให้สำเร็จได้ — ฝนจะมาเมื่อฟ้าและดินพร้อมจะพบกัน หาใช่ก่อนนั้นไม่",
+    "image": "เมฆลอยขึ้นเหนือฟ้า: ภาพแห่งการรอคอย ทุกสิ่งพร้อมแล้วสำหรับฝนที่จะตก ทว่าฝนก็ยังไม่ตก — เวลายังไม่สุกงอม นี่คือภาพแห่งการตระเตรียมอย่างเงียบงัน ซึ่งไม่เร่งรัดเวลาแต่ปล่อยให้มันมาถึงเอง ดังนั้นวิญญูชนจึงกินและดื่ม รื่นรมย์และสงบ ระหว่างรอคอยเวลาของตน: เขาไม่ทำให้ตนเหนื่อยล้าด้วยการเร่งรัดสิ่งที่มีจังหวะของมันเอง เขาหล่อเลี้ยงพลังของตนไว้สำหรับวาระที่มันจะเป็นที่ต้องการ"
+   },
+   "6": {
+    "pinyin": "Song",
+    "name": "ความขัดแย้ง",
+    "judgementTitle": "การคลี่คลาย",
+    "judgement": "ความบาดหมางของพลังที่ตรงข้ามกันแสวงหาทางออกของตน ความขัดแย้งมิได้ถูกหลีกเลี่ยงหรือถูกแสวงหา: มันได้รับการยอมรับตามที่มันเป็น คือแรงตึงระหว่างการเคลื่อนไหวสองกระแสที่โดยธรรมชาติแล้วไม่อาจดำรงอยู่ร่วมกันได้โดยปราศจากการเสียดสี ปัญญา ณ ที่นี้มิใช่การเอาชนะไม่ว่าด้วยราคาใด หากคือการรู้ว่าเมื่อใดการวิวาทควรได้รับการดำเนินไปจนถึงที่สุด และเมื่อใดควรละจากมันไปทันเวลา",
+    "image": "ฟ้าและน้ำแยกห่างจากกันไปในทิศทางตรงข้าม: ภาพแห่งความขัดแย้ง สิ่งหนึ่งขึ้น อีกสิ่งหนึ่งลง ธรรมชาติของมันเองแยกมันออกจากกัน และไม่มีการประนีประนอมเพียงผิวเผินใดจะรวมมันเข้าด้วยกันได้ นี่คือภาพแห่งการต่อต้านขั้นมูลฐาน ซึ่งไม่อาจคลี่คลายได้ด้วยเจตนาดีเพียงอย่างเดียว ดังนั้นวิญญูชน ตั้งแต่เริ่มต้นกิจการใด ๆ จึงชั่งตรองถึงปลายทางของมัน: เขาไม่ก้าวเข้าสู่ข้อพิพาทโดยมิได้ประเมินไว้ล่วงหน้าว่าเส้นทางนี้อาจนำเขาไปไกลเพียงใด"
+   },
+   "7": {
+    "pinyin": "Shi",
+    "name": "กองทัพ",
+    "judgementTitle": "จังหวะก้าว",
+    "judgement": "วินัยของหมู่คณะถูกกำกับดุจการเดินแถวของกองทหาร ไม่มีพลังที่กระจัดกระจายใดเทียบได้กับพลังที่มีระเบียบ: เส้นนี้กล่าวว่าอำนาจที่แท้จริงไม่เคยเป็นอำนาจของการกระทำอันเจิดจ้าเพียงครั้งเดียว หากเป็นอำนาจของระเบียบที่ธำรงไว้อย่างอดทน ซึ่งแต่ละคนรู้ที่ทางของตน และการเคลื่อนไหวของส่วนรวมอยู่เหนือแรงผลักดันของปัจเจก",
+    "image": "ท่ามกลางแผ่นดินมีน้ำซ่อนอยู่: ภาพแห่งกองทัพ พลังมีอยู่ แต่ไม่เปิดเผยตน — มันตั้งมั่นพร้อมสรรพ ไร้ร่องรอย มีวินัยอยู่ใต้ผิวหน้าอันสงบ นี่คือภาพแห่งอำนาจที่ถูกเก็บงำ ซึ่งไม่จำเป็นต้องแสดงตนเพื่อจะเป็นจริง ดังนั้นวิญญูชนจึงเพิ่มพูนประชาชนของตนด้วยความเอื้ออารีที่อดกลั้น: อำนาจที่แท้จริงมิได้สถาปนาตนด้วยกำลังที่โอ้อวด หากก่อร่างขึ้นในความมั่นคงและการยับยั้งชั่งใจ"
+   },
+   "8": {
+    "pinyin": "Bi",
+    "name": "ความสามัคคี",
+    "judgementTitle": "การทอ",
+    "judgement": "การรวมกันของเผ่าตระกูลถูกผูกจากเบื้องล่าง ดุจเส้นด้ายยืน สิ่งที่ยึดโยงกันไว้อย่างยั่งยืนย่อมถูกทอขึ้นอย่างเงียบเชียบ ทีละเส้น ก่อนที่โครงสร้างจะปรากฏให้เห็นจากภายนอกเสียอีก ความสามัคคีที่แท้จริงมิอาจประกาศสั่งการลงมาจากเบื้องบน: มันถูกสร้างขึ้นจากฐาน ทีละเส้นด้าย จนก่อเป็นผืนทอที่ไม่มีสิ่งใดจะรื้อทำลายได้อีก",
+    "image": "บนแผ่นดินมีน้ำ: ภาพแห่งความสามัคคี น้ำโอบตามรูปของผืนดิน ขดตัวอยู่ในนั้น แผ่ซ่านไปโดยไม่เคยต่อสู้กับมัน — การรวมกันที่ปราศจากการเสียดสี การเกื้อหนุนซึ่งกันและกัน นี่คือภาพแห่งพันธมิตรตามธรรมชาติ ซึ่งมิได้ถูกบังคับแต่เกิดจากการรู้จักกัน ดังนั้นกษัตริย์ในโบราณกาลจึงรวบรวมแว่นแคว้นที่ห่างไกล และให้เกียรติแก่เจ้าผู้ครองของแคว้นเหล่านั้น: ความสามัคคีที่ยั่งยืนมิได้เกิดจากการบีบบังคับ หากเกิดจากการยอมรับซึ่งกันและกันในสิ่งที่แต่ละฝ่ายมอบให้แก่อีกฝ่าย"
+   },
+   "9": {
+    "pinyin": "Xiao Chu",
+    "name": "พลังกล่อมเกลาของสิ่งเล็ก",
+    "judgementTitle": "การจาริก",
+    "judgement": "ห้ามล้อเบา ๆ ที่วางลงบนปณิธานอันยิ่งใหญ่ โครงการใหญ่ทุกโครงการย่อมมีช่วงเวลาที่ทำได้เพียงการยับยั้งเล็กน้อย ที่ทำได้เพียงเบนกระแสของสิ่งต่าง ๆ ไปเล็กน้อยโดยไม่เปลี่ยนแปลงมันอย่างถึงราก เส้นนี้สอนคุณค่าของการกระทำที่เจียมตน: ยังมิใช่เวลาที่จะทำการใหญ่ หากเป็นเวลาที่จะปรับแต่งสิ่งที่ปรับได้อย่างอดทน",
+    "image": "ลมพัดผ่านไปเหนือฟ้า: ภาพแห่งพลังกล่อมเกลาของสิ่งเล็ก ลมไม่มีพลังของอสนีหรือมวลของภูเขา — มันกระทำด้วยการย้ำเตือนอย่างแผ่วเบา ด้วยการลูบไล้ซ้ำแล้วซ้ำเล่ามากกว่าการกระแทก นี่คือภาพแห่งอิทธิพลอันแนบเนียน ซึ่งยับยั้งโดยไม่บีบบังคับ ดังนั้นวิญญูชนจึงขัดเกลาลักษณะแห่งอารยะภายในของตน: เมื่อพลังอันยิ่งใหญ่ยังไม่ถึงคราวใช้ ก็ด้วยการประณีตในรายละเอียดอย่างอดทนนี่เองที่เราเตรียมสิ่งซึ่งจะมาถึง"
+   },
+   "10": {
+    "pinyin": "Lu",
+    "name": "การก้าวเดิน",
+    "judgementTitle": "ความบริบูรณ์",
+    "judgement": "ทุกก้าวที่วางลงบนหางเสือโดยไม่เบี่ยงเบน อันตรายมิใช่สิ่งที่ต้องหลีกเลี่ยงเสมอไป — บางครั้งต้องฝ่าข้ามมันไป โดยมีเงื่อนไขว่าต้องเดินด้วยความใส่ใจอย่างเต็มที่ ไม่มีการเคลื่อนไหวใดเกินจำเป็น เส้นนี้กล่าวว่าความรอบคอบมิใช่ความกลัว: มันคือสมาธิอันแม่นยำซึ่งทำให้ก้าวไปได้ในที่ซึ่งความประมาทจะนำมาซึ่งหายนะ",
+    "image": "เบื้องบนคือฟ้า เบื้องล่างคือบึง: ภาพแห่งการก้าวเดิน ทุกสิ่งดำรงที่ทางของตน — ฟ้ายังคงอยู่เบื้องบน บึงอยู่เบื้องล่าง — และระเบียบที่ได้รับการเคารพนี้เองที่ทำให้การก้าวเดินเป็นไปได้โดยปลอดภัย นี่คือภาพแห่งระยะห่างอันพอเหมาะ ซึ่งทำให้ก้าวไปได้แม้อยู่ใกล้สิ่งที่อาจขบกัด ดังนั้นวิญญูชนจึงแยกแยะสูงและต่ำ และทำให้เจตจำนงของประชาชนมั่นคง: ทุกก้าวที่วางลงด้วยวิจารณญาณ แม้บนหางเสือเอง ย่อมกลายเป็นก้าวที่มั่นคงปลอดภัย"
+   },
+   "11": {
+    "pinyin": "Tai",
+    "name": "สันติ",
+    "judgementTitle": "พันธไมตรี",
+    "judgement": "ฟ้าและดินพบกันและแลกเปลี่ยนกันอย่างอิสระ เมื่อเบื้องบนยอมลงมา และเบื้องล่างยอมขึ้นไป การสื่อถึงกันย่อมสมบูรณ์และอุดมผล เส้นนี้สอนว่าความรุ่งเรืองที่ยั่งยืนย่อมเกิดจากการแลกเปลี่ยนซึ่งกันและกันเช่นนี้เสมอ — ไม่เคยเกิดจากทิศทางเดียวที่ถูกบังคับ หากเกิดจากการพบกันซึ่งแต่ละฝ่ายต่างให้และรับในคราวเดียวกันเสมอ",
+    "image": "ฟ้าและดินผสานกัน: ภาพแห่งสันติ สิ่งที่โดยธรรมชาติแล้วควรแยกจากกัน — เบื้องบนและเบื้องล่าง — ได้มาพบกัน ณ ที่นี้ และสื่อถึงกันอย่างอิสระโดยไร้สิ่งกีดขวาง นี่คือภาพแห่งความกลมกลืนที่บรรลุแล้ว ซึ่งแต่ละพลังพบส่วนเติมเต็มของตนแทนที่จะพบศัตรู ดังนั้นองค์อธิปัตย์จึงหล่อหลอมวิถีแห่งฟ้าและดิน และเกื้อกูลสรรพสัตว์: สันติมิใช่การปราศจากความเคลื่อนไหว หากคือการแลกเปลี่ยนที่ไหลลื่นระหว่างพลังที่ขานรับกันและกัน"
+   },
+   "12": {
+    "pinyin": "Pi",
+    "name": "ความชะงักงัน",
+    "judgementTitle": "ความเชื่องช้า",
+    "judgement": "เมื่อการสื่อถึงกันถูกตัดขาดด้วยการปฏิเสธของระบบ นี่มิใช่อุบัติเหตุชั่วครู่ หากเป็นการติดขัดเชิงโครงสร้าง: พลังที่ควรขานรับกันต่างแข็งตัวอยู่ในการปฏิเสธของตน เส้นนี้กล่าวว่ามีบางวาระที่การฝืนเปิดทางไม่มีประโยชน์ — ต้องรอจนเงื่อนไขทั้งหลายเคลื่อนเปลี่ยนเอง หรือถอยออกมาโดยไม่สูญเสียคุณธรรมของตนไปในการต่อสู้ที่ไร้ผล",
+    "image": "ฟ้าและดินไม่สื่อถึงกัน: ภาพแห่งความชะงักงัน เบื้องบนยังคงอยู่เบื้องบน เบื้องล่างยังคงอยู่เบื้องล่าง และไม่มีสิ่งใดไหลเวียนระหว่างกันอีก — ต่างฝ่ายต่างปิดตนอยู่ในธรรมชาติของตน นี่คือภาพแห่งการแตกแยกที่ไร้ผล ซึ่งแม้พลังที่ทรงอำนาจที่สุดก็หมดสิ้นไปเพราะขาดการแลกเปลี่ยน ดังนั้นวิญญูชนจึงถอยกลับเข้าสู่คุณธรรมของตนเพื่อหลีกพ้นภยันตราย: เมื่อกาลเวลาไม่เอื้อต่อการกระทำที่อุดมผลอีกต่อไป ปัญญาคือการรักษาสิ่งที่เป็นแก่นสารไว้ แทนที่จะทำให้ตนอ่อนล้าด้วยการปะทะกำแพง"
+   },
+   "13": {
+    "pinyin": "Tong Ren",
+    "name": "ความร่วมใจกับเพื่อนมนุษย์",
+    "judgementTitle": "ความมั่นคง",
+    "judgement": "ภราดรภาพที่เปิดรับโลกพบฐานรากของตน หมู่คณะจะมั่นคงได้ก็ต่อเมื่อไม่ปิดตนเอง: ด้วยการเปิดรับผู้อื่น ด้วยการแสวงหาสิ่งที่เชื่อมโยงมากกว่าสิ่งที่แบ่งแยก มันจึงพบรากฐานที่ยั่งยืน เส้นนี้สอนว่าความเป็นพวกพ้องที่แข็งแกร่งที่สุดมักเกิดขึ้นจากการสัมผัสกับภายนอก หาใช่จากการเก็บตัวไม่",
+    "image": "ฟ้าและไฟร่วมกัน: ภาพแห่งความร่วมใจกับเพื่อนมนุษย์ เปลวไฟพุ่งขึ้นสู่ฟ้า แสวงหาธรรมชาติของตน และในการเคลื่อนไหวร่วมกันนี้ ความเป็นญาติก็ปรากฏขึ้นระหว่างสิ่งทั้งหลายที่ยังคงแตกต่างกันอยู่ นี่คือภาพแห่งภราดรภาพที่ตั้งอยู่บนทิศทางร่วมกันมากกว่าความเหมือนกันทุกประการ ดังนั้นวิญญูชนจึงจำแนกเผ่าพันธุ์และจัดหมวดหมู่ประเภท: หมู่คณะที่แท้จริงไม่ปฏิเสธความแตกต่าง หากยอมรับมันเพื่อประสานมันให้กลมกลืนยิ่งขึ้น"
+   },
+   "14": {
+    "pinyin": "Da You",
+    "name": "การครอบครองอันไพศาล",
+    "judgementTitle": "แรงฮึด",
+    "judgement": "ความมั่งคั่งที่สั่งสมไว้วัดได้จากความสามารถที่จะฝ่าแรงกระแทก สิ่งสำคัญมิใช่ปริมาณที่ครอบครอง หากเป็นความมั่นคงของสิ่งที่สร้างขึ้น: การครอบครองที่แท้จริงย่อมต้านทานบททดสอบ ขณะที่ความอุดมที่ตั้งอยู่บนรากฐานอันผิดพลาดย่อมพังทลายเมื่อปะทะครั้งแรก เส้นนี้เชื้อชวนให้อย่าได้สับสนการสะสมกับความมั่งคั่งที่แท้จริง ซึ่งพิสูจน์ตนในกาลเวลา",
+    "image": "ไฟอยู่บนยอดฟ้า: ภาพแห่งการครอบครองอันยิ่งใหญ่ แสงสว่างที่ถูกยกขึ้นสู่ที่สูงสุดส่องสว่างทุกสิ่งโดยไม่มีข้อยกเว้น — ไม่มีสิ่งใดคงอยู่ในเงามืดภายใต้การลุกโชนเช่นนี้ นี่คือภาพแห่งความอุดมที่ปรากฏแก่สายตา ซึ่งเปล่งรัศมีจนก่อให้เกิดพันธะแห่งความรับผิดชอบ ดังนั้นวิญญูชนจึงกดข่มความชั่วและเชิดชูความดี โดยน้อมรับความโปรดปรานแห่งฟ้า: การครอบครองมากมายไม่เคยเป็นกลาง มันบังคับให้ต้องแยกแยะว่าเราหล่อเลี้ยงสิ่งใดและตัดทอนสิ่งใด"
+   },
+   "15": {
+    "pinyin": "Qian",
+    "name": "ความถ่อมตน",
+    "judgementTitle": "การแปรธาตุ",
+    "judgement": "การลบเลือนตนหล่อเลี้ยงการแปรสภาพในเบ้าหลอม ไม่มีสิ่งใดแปรเปลี่ยนได้อย่างแท้จริง หากไม่มีส่วนหนึ่งของตนยินยอมสลายหายไปในกระบวนการ เส้นนี้กล่าวว่าความถ่อมตนมิใช่คุณธรรมที่เฉื่อยชา: มันคือเงื่อนไขเชิงรุกของการแปรเปลี่ยนอันลึกซึ้งทุกครั้ง คือเบ้าหลอมที่สิ่งเก่าละลายไปเพื่อให้สิ่งใหม่ได้ก่อรูปขึ้น",
+    "image": "ภายในแผ่นดินมีภูเขาตั้งอยู่: ภาพแห่งความถ่อมตน สิ่งที่สูงที่สุด ณ ที่นี้ยอมให้สิ่งที่ล้อมรอบโอบเก็บไว้ โดยไม่เคยแสวงหาที่จะครอบงำภูมิทัศน์ด้วยความสูงเพียงอย่างเดียว นี่คือภาพแห่งความยิ่งใหญ่ที่ลบเลือนตนเองโดยสมัครใจ ดังนั้นวิญญูชนจึงลดสิ่งที่มากเกิน และเพิ่มสิ่งที่ขาดพร่อง ชั่งน้ำหนักสิ่งทั้งหลายอย่างเสมอภาค: ความถ่อมตนมิใช่ความต่ำต้อย หากคือพลังที่มั่นใจในตนเองพอจะไม่จำเป็นต้องแสดงตน"
+   },
+   "16": {
+    "pinyin": "Yu",
+    "name": "ความกระตือรือร้น",
+    "judgementTitle": "แรงทะยาน",
+    "judgement": "อสนีผุดออกจากแผ่นดินและทำให้ร่างทั้งหลายเคลื่อนไหว มีพลังงานชนิดหนึ่งซึ่งไม่อาจสั่งการได้ มันพลุ่งขึ้นและพาสิ่งต่าง ๆ ไปด้วยตัวมันเอง โดยไม่จำเป็นต้องบังคับ เส้นนี้สอนว่าอำนาจที่แท้จริงในการรวมผู้คนไม่เคยมาจากการบีบบังคับ หากมาจากการสั่นสะเทือนร่วมกันซึ่งมีเพียงความกระตือรือร้นอันจริงใจเท่านั้นที่ปลุกขึ้นได้",
+    "image": "อสนีผุดออกจากแผ่นดินอย่างทรงพลัง: ภาพแห่งความกระตือรือร้น พลังงานที่ถูกกักเก็บไว้ปลดปล่อยออกมาอย่างฉับพลัน และการปะทุนี้ทำให้ทุกสิ่งรอบข้างเคลื่อนไหว — ไม่มีสิ่งใดคงนิ่งอยู่ได้ต่อหน้าประกายเจิดจ้าเช่นนี้ นี่คือภาพแห่งแรงทะยานที่ติดต่อถึงกัน ซึ่งพาไปโดยไม่จำเป็นต้องบีบบังคับ ดังนั้นกษัตริย์ในโบราณกาลจึงยกย่องความดีงามด้วยดนตรีและคุณธรรม: ความกระตือรือร้นที่ได้รับการนำทางอย่างดีย่อมกลายเป็นพลังที่อ่อนโยนที่สุดและทรงพลังที่สุดในการรวมเจตจำนงทั้งหลายเข้าด้วยกัน"
+   },
+   "17": {
+    "pinyin": "Sui",
+    "name": "การติดตาม",
+    "judgementTitle": "ความลึก",
+    "judgement": "การติดตามความเคลื่อนไหวของกาลเวลาบังคับให้ต้องลงไปขุดหาต้นธารอีกครั้ง เราไม่อาจติดตามได้อย่างยั่งยืนหากไม่หวนกลับไปเป็นครั้งคราวยังสิ่งที่หล่อเลี้ยงความเคลื่อนไหวนั้นเอง เส้นนี้สอนว่าการปรับตัวที่ถูกต้องที่สุดมิใช่การปรับตัวที่เคลื่อนไหวมากที่สุด หากเป็นการปรับตัวที่รู้จักหวนคืนสู่ต้นกำเนิดของตนก่อนจะออกเดินทางอีกครั้ง",
+    "image": "ท่ามกลางบึงมีอสนี: ภาพแห่งการติดตาม ความเคลื่อนไหวที่คำรามอยู่ในส่วนลึกยอมให้สิ่งรอบข้างพาไป แทนที่จะฝืนวิถีของตน — มันเคลื่อนตามขอบของบึงแทนที่จะทำลายมัน นี่คือภาพแห่งการปรับตัวเข้ากับจังหวะของผู้อื่น ดังนั้นวิญญูชน ยามสนธยา จึงกลับเรือนเพื่อพักผ่อน: การติดตามมิใช่การยอมสยบ หากคือการรู้จักวาระที่การกระทำต้องหลีกทางให้แก่การพัก ดุจกลางวันที่หลีกทางให้แก่กลางคืน"
+   },
+   "18": {
+    "pinyin": "Gu",
+    "name": "การแก้ไขสิ่งที่เสื่อมเสีย",
+    "judgementTitle": "การซ่อมแซม",
+    "judgement": "การแก้ไขความเสื่อมทรามของมรดกที่ทรุดโทรม สิ่งที่ถูกละเลยมานานเกินไปย่อมเรียกร้องการงานอันหนักหน่วงในที่สุด แต่การงานนี้มิใช่คำสาป — มันคือโอกาสที่จะวางรากฐานใหม่บนฐานที่สมบูรณ์กว่า เส้นนี้กล่าวว่ามรดกที่ชำรุดจะสูญสิ้นก็ต่อเมื่อเราปฏิเสธที่จะดูแลมันเท่านั้น",
+    "image": "ใต้ภูเขามีลม: ภาพแห่งการแก้ไขสิ่งที่เสื่อมเสีย ลมพัดกรูเข้าไปในรอยแยกของภูเขา เผยให้เห็นสิ่งที่เสื่อมทรามลงตามกาลเวลาและรอคอยการแก้ไข นี่คือภาพแห่งการซ่อมแซมอันจำเป็น ซึ่งไม่อาจผัดผ่อนได้อีกต่อไป ดังนั้นวิญญูชนจึงปลุกเร้าประชาชนและหล่อเลี้ยงคุณธรรมของตน: เมื่อเผชิญสิ่งที่เสื่อมเสีย สิ่งที่ต้องทำมิใช่การประณามอดีต หากคือการพับแขนเสื้อขึ้นเพื่อฟื้นฟูสิ่งที่ยังฟื้นฟูได้"
+   },
+   "19": {
+    "pinyin": "Lin",
+    "name": "การเข้าใกล้",
+    "judgementTitle": "การเติบโต",
+    "judgement": "การเข้าใกล้อย่างเมตตาของพลังแห่งชีวิตกระตุ้นการไต่ขึ้นอย่างอดทน ไม่มีสิ่งยิ่งใหญ่ใดพิชิตได้ในคราวเดียว ทุกสิ่งที่เติบโตอย่างแท้จริงย่อมเติบโตด้วยการเข้าใกล้ทีละขั้น แต่ละขั้นเตรียมทางให้แก่ขั้นถัดไป เส้นนี้สอนว่าการเติบโตที่แท้วัดกันเป็นก้าว หาใช่เป็นการกระโดดไม่",
+    "image": "เหนือบึงมีแผ่นดิน: ภาพแห่งการเข้าใกล้ แผ่นดินโน้มลงหาน้ำ เข้าใกล้มันโดยไม่เคยครอบงำมันจนสิ้น — ความเคลื่อนไหวแห่งการขยับเข้าหาทีละน้อย ไม่เคยหักหาญ นี่คือภาพแห่งความเมตตาที่ก้าวไปทีละก้าว ดังนั้นวิญญูชนจึงสั่งสอนโดยไม่รู้เหนื่อยหน่าย และโอบรับประชาชนโดยไร้ขอบเขต: การเข้าใกล้ใครสักคนอย่างแท้จริงเรียกร้องความอดทนที่ไม่เคยเร่งรัดการพบกัน"
+   },
+   "20": {
+    "pinyin": "Guan",
+    "name": "การเพ่งพินิจ",
+    "judgementTitle": "การบรรจบ",
+    "judgement": "การทอดสายตาไปไกลจากหอสูงรวบรวมสิ่งที่เคยกระจัดกระจายเข้าด้วยกัน ทัศนะที่กว้างไกลไม่ทำให้ความใส่ใจกระจาย หากรวบรวมมันไว้: ด้วยการขึ้นสู่ที่สูงนี่เองที่เราค้นพบสายสัมพันธ์อันมองไม่เห็นระหว่างสิ่งทั้งหลายซึ่งเมื่อมองใกล้ ๆ ดูเหมือนไม่เกี่ยวข้องกัน เส้นนี้กล่าวว่าความเข้าใจย่อมมาก่อนอำนาจที่จะกระทำอย่างถูกต้องเสมอ",
+    "image": "ลมพัดผ่านทั่วแผ่นดิน: ภาพแห่งการเพ่งพินิจ ลมสัมผัสทุกซอกมุมของผืนดินโดยไม่หยุดอยู่ที่ใดนาน — สายตาที่โอบกว้าง มากกว่าการกระทำที่รั้งรออยู่ นี่คือภาพแห่งการสังเกตที่มาก่อนการกระทำ ดังนั้นกษัตริย์ในโบราณกาลจึงเสด็จเยือนแว่นแคว้น สังเกตประชาชน และสถาปนาคำสอน: ก่อนจะกระทำต่อโลก ต้องเรียนรู้ที่จะมองเห็นโลกตามที่มันเป็นเสียก่อน โดยไม่รีบร้อนและไม่ลำเอียง"
+   },
+   "21": {
+    "pinyin": "Shi He",
+    "name": "การกัดทะลุ",
+    "judgementTitle": "ความคมกริบ",
+    "judgement": "ตัดสิ่งเท็จออกเพื่อเชื่อมสิ่งที่ถูกต้องเข้าด้วยกัน มีอุปสรรคบางอย่างที่ไม่อาจอ้อมผ่าน — ต้องฝ่าข้าม ต้องกัดทะลุ ต้องก้าวพ้นด้วยการตัดสินใจที่เด็ดขาด เส้นนี้สอนว่าความกระจ่างบางครั้งต้องอาศัยความแข็งกร้าวเพื่อสถาปนาตน และความแข็งกร้าวนั้น หากใช้อย่างถูกที่ถูกทาง มิใช่ความรุนแรง หากคือความยุติธรรม",
+    "image": "อสนีและสายฟ้าแลบผสานกัน: ภาพแห่งการกัดทะลุ แรงกระแทกและแสงสว่างฟาดลงพร้อมกัน หนึ่งเผยให้เห็นสิ่งที่อีกหนึ่งทำลาย — ไม่มีสิ่งใดซ่อนอยู่ได้นานภายใต้การผสานกันของพลังและความกระจ่างเช่นนี้ นี่คือภาพแห่งการตัดสินที่เด็ดขาดซึ่งความจริงส่องทาง ดังนั้นกษัตริย์ในโบราณกาลจึงทำให้บทลงโทษชัดแจ้ง และทำให้กฎหมายตื่นตัวเฝ้าระวัง: การตัดสินอย่างเที่ยงตรงเรียกร้องการมองเห็นอย่างเที่ยงตรงเสียก่อน"
+   },
+   "22": {
+    "pinyin": "Bi",
+    "name": "ความงามสง่า",
+    "judgementTitle": "ความเรียบบริสุทธิ์",
+    "judgement": "เครื่องประดับและความงามของรูปทรง ณ จุดสุดขีด ย่อมหลีกทางให้แก่การตัดสินใจ ความงามทุกอย่างมีขีดจำกัดแห่งประโยชน์ของมัน: เมื่อเลยจุดหนึ่งไป เครื่องประดับต้องถอยหลบต่อหน้าความจำเป็นที่จะต้องลงมือ เส้นนี้เตือนว่ารูปแบบรับใช้เนื้อหา หาใช่ในทางกลับกันไม่ — ทันทีที่สิ่งหนึ่งล้ำเข้าไปในอีกสิ่งหนึ่ง ต้องรู้จักทำให้เรียบง่าย",
+    "image": "ใต้ภูเขามีไฟ: ภาพแห่งความงามสง่า เปลวไฟส่องสว่างเชิงเขาโดยไม่เคยอ้างว่าเทียบเท่าความสูงของมัน — การประดับประดาที่เคารพสิ่งที่มันเผยให้เห็น แทนที่จะครอบงำ นี่คือภาพแห่งเครื่องประดับที่รับใช้เนื้อหา ดังนั้นวิญญูชนจึงส่องสว่างกิจการอันหลากหลาย โดยไม่เคยบังอาจตัดสินคดีความด้วยแสงแห่งรูปลักษณ์ภายนอกเพียงอย่างเดียว: ความงามสง่ามีไว้เพื่อเผยให้เห็น หาใช่เพื่อพิพากษาไม่"
+   },
+   "23": {
+    "pinyin": "Bo",
+    "name": "การแตกสลาย",
+    "judgementTitle": "การกลายพันธุ์",
+    "judgement": "การพังทลายของสิ่งก่อสร้างเก่าปลดปล่อยพลังแห่งการเพิ่มพูนใหม่ สิ่งที่ล่มสลายมิได้พาทุกสิ่งไปด้วย: ซากปรักของรูปทรงที่หมดแรงแล้วเปิดพื้นที่และปลดปล่อยพลังที่จำเป็นต่อสิ่งที่จะตามมา เส้นนี้สอนไม่ให้หวาดกลัวการแตกสลายของโครงสร้างที่กลายเป็นเปลือกกลวง — มันย่อมมาก่อนการฟื้นคืนใหม่เสมอ",
+    "image": "ภูเขาตั้งอยู่บนแผ่นดิน: ภาพแห่งการแตกสลาย สิ่งที่ดูมั่นคงที่สุด — มวลของภูเขาเอง — แท้จริงแล้วถูกค้ำไว้ด้วยฐานที่อาจทรุดลงได้เท่านั้น นี่คือภาพแห่งการพังทลายที่รอคอยสิ่งซึ่งละเลยรากฐานของตน ดังนั้นผู้ยิ่งใหญ่จึงเสริมความมั่นคงแก่สิ่งที่อยู่เบื้องล่าง เพื่อให้เรือนของตนสงบมั่น: ก่อนจะสร้างให้สูงขึ้น ต้องเสริมความแข็งแรงแก่สิ่งที่แบกรับไว้เสมอ"
+   },
+   "24": {
+    "pinyin": "Fu",
+    "name": "การหวนคืน",
+    "judgementTitle": "การเกิดใหม่",
+    "judgement": "หลักแห่งชีวิตหวนคืนมา ณ ใจกลางของราตรีที่มืดทึบที่สุด ไม่มีสิ่งใดสูญสิ้นไปโดยเด็ดขาด ตราบที่ยังมีหน่อพันธุ์จิ๋วที่เริ่มต้นใหม่หลงเหลืออยู่ที่ใดที่หนึ่ง เส้นนี้กล่าวว่าจุดต่ำสุดย่อมบรรจุความเคลื่อนไหวแห่งการหวนคืนไว้แล้วในฐานะหน่อพันธุ์ — ในความมืดมิดที่สมบูรณ์ที่สุดนั่นเองที่แสงสว่างเริ่มเติบโตขึ้นอีกครั้ง",
+    "image": "อสนีภายในแผ่นดิน: ภาพแห่งการหวนคืน พลังชีวิตที่ถูกฝังอยู่ในส่วนลึกที่สุดของฤดูหนาวมิได้หายไป — มันรอคอยอย่างไร้ร่องรอยให้ถึงวาระที่จะผุดขึ้นอีกครั้ง นี่คือภาพแห่งการฟื้นคืนใหม่ที่ซ่อนอยู่ในความนิ่งงันที่ปรากฏ ดังนั้นกษัตริย์ในโบราณกาล ณ วันอายัน จึงปิดช่องทางสัญจร พ่อค้าและนักเดินทางไม่ไปมาอีก: มีบางวาระที่การกระทำอันยิ่งใหญ่ที่สุดคือการไม่เร่งรัดสิ่งใด เพื่อปล่อยให้การหวนคืนบรรลุผลด้วยตัวมันเอง"
+   },
+   "25": {
+    "pinyin": "Wu Wang",
+    "name": "ความไร้มลทิน",
+    "judgementTitle": "การคลี่คลาย",
+    "judgement": "การกระทำโดยปราศจากเล่ห์กลย่อมคลายปมแห่งอุปสรรคได้เอง ความยุ่งยากซับซ้อนเกือบทุกครั้งเกิดจากการคิดคำนวณ ส่วนความเรียบง่ายที่แท้จริงนั้นปลดชนวนอุปสรรคได้ก่อนจะต้องเผชิญหน้ากับมันเสียอีก เส้นนี้สอนว่าความเที่ยงตรงที่เกิดขึ้นเองมักคลี่คลายสิ่งที่แม้เล่ห์อุบายที่แยบยลที่สุดก็ทำได้เพียงพันให้ยุ่งเหยิงยิ่งขึ้น",
+    "image": "ใต้ฟ้ามีอสนีเคลื่อนไป: ภาพแห่งความไร้มลทิน ความเคลื่อนไหวดำเนินไปตามวิถีของมันภายใต้ผืนฟ้าอันกว้างใหญ่ โดยไม่คิดคำนวณ ไม่อ้อมค้อม ด้วยความเรียบง่ายของสิ่งที่ไม่มีอะไรต้องปิดบัง นี่คือภาพแห่งการกระทำที่เที่ยงตรง เกิดขึ้นเอง ไม่เสแสร้ง ดังนั้นกษัตริย์ในโบราณกาล ผู้มั่งคั่งด้วยคุณธรรมและสอดคล้องกับกาลเวลา จึงหล่อเลี้ยงสรรพสิ่งนับหมื่น: ความไร้มลทินมิใช่ความไร้เดียงสา หากคือความสอดประสานอย่างสมบูรณ์ระหว่างเจตนากับการกระทำ"
+   },
+   "26": {
+    "pinyin": "Da Chu",
+    "name": "พลังกล่อมเกลาของสิ่งใหญ่",
+    "judgementTitle": "การยับยั้ง",
+    "judgement": "การสั่งสมพลังอำนาจภายในเผชิญหน้ากับความแข็งกระด้างของภูมิประเทศ สิ่งที่เติบโตอยู่ภายในอย่างไร้ร่องรอย ย่อมได้พบกับแรงต้านจากภายนอกในที่สุดเสมอ — และการพบกันนี้เองที่เผยและขัดเกลาพลังที่สั่งสมไว้ เส้นนี้กล่าวว่าอุปสรรคมิใช่ศัตรูของพลังอำนาจ หากเป็นบททดสอบอันจำเป็นของมัน",
+    "image": "ภายในฟ้ามีภูเขา: ภาพแห่งพลังกล่อมเกลาของสิ่งใหญ่ พลังอำนาจมหาศาลถูกเก็บงำไว้ ถูกยับยั้งด้วยสิ่งที่แม้จะไม่ใหญ่เทียบเท่า ก็ยังรู้จักห้ามมันไว้ได้ นี่คือภาพแห่งพลังอันยิ่งใหญ่ที่ยอมรับการถูกกำกับด้วยวินัย ดังนั้นวิญญูชนจึงจดจำถ้อยคำและการกระทำของคนโบราณไว้ในความทรงจำ: ความยิ่งใหญ่ที่แท้จริงมิได้พิสูจน์ตนด้วยสิ่งที่มันแผ่ขยายออกไปเท่านั้น หากด้วยสิ่งที่มันยอมเก็บงำไว้ด้วย"
+   },
+   "27": {
+    "pinyin": "Yi",
+    "name": "การหล่อเลี้ยง",
+    "judgementTitle": "การจำแนก",
+    "judgement": "สิ่งที่หล่อเลี้ยงจิตใจตั้งตรงข้ามกับสิ่งที่แบ่งแยกทัศนะ อาหารทุกอย่างมิได้ยกระดับเสมอกัน: ถ้อยคำบางอย่าง ความคิดบางอย่างเสริมกำลัง อีกบางอย่างทำให้กระจัดกระจายและอ่อนแอ เส้นนี้เชื้อชวนให้เลือกสิ่งที่ใช้หล่อเลี้ยงจิตใจด้วยความพิถีพิถันเช่นเดียวกับสิ่งที่ใช้หล่อเลี้ยงร่างกาย",
+    "image": "ใต้ภูเขามีอสนี: ภาพแห่งการหล่อเลี้ยง ความเคลื่อนไหวกระเพื่อมอยู่ที่ฐานของสิ่งที่มั่นคง ดุจขากรรไกรที่ขยับอยู่ใต้ใบหน้าอันนิ่งสงบ — เครื่องเตือนใจว่าแม้ความมั่นคงที่ยิ่งใหญ่ที่สุดก็ขึ้นอยู่กับสิ่งที่ได้รับการหล่อเลี้ยงอยู่เบื้องล่าง ดังนั้นวิญญูชนจึงระวังถ้อยคำของตน และประมาณการกินการดื่มของตน: สิ่งที่เข้าสู่ตัวเรา ไม่ว่าทางปากหรือทางถ้อยคำ ย่อมหล่อหลอมสิ่งที่เราจะกลายเป็น"
+   },
+   "28": {
+    "pinyin": "Da Guo",
+    "name": "ความหนักเกินของสิ่งใหญ่",
+    "judgementTitle": "โครงสร้าง",
+    "judgement": "คานอกไก่ที่โค้งงอลงภายใต้น้ำหนักของตนเอง โครงสร้างที่ถูกผลักจนถึงขีดสุดแห่งความสามารถของมัน ย่อมบอกล่วงหน้าด้วยการโค้งงอนั้นเองถึงวาระที่มันจะต้องหักลง หรือต้องได้รับการปลดภาระ เส้นนี้สอนให้รู้จักสัญญาณบอกเหตุของการแตกหักก่อนที่มันจะเกิดขึ้น",
+    "image": "บึงท่วมท้นไม้: ภาพแห่งความหนักเกินของสิ่งใหญ่ น้ำขึ้นสูงเหนือสิ่งที่ตามปกติควรกักมันไว้ — ภาระที่หนักเกินไปสำหรับโครงสร้างที่แบกรับมัน พร้อมจะทรุดลงภายใต้น้ำหนักของตนเอง นี่คือภาพแห่งภาระอันถึงขีดสุด ดังนั้นวิญญูชน แม้ลำพังและไร้ความหวาดกลัว จึงละจากโลกไปโดยไม่ขมขื่น: มีบางวาระที่ภาระเกินกว่าที่สิ่งค้ำจุนใดจะแบกรับไหว และศักดิ์ศรีเดียวที่เป็นไปได้คือการเผชิญหน้ากับมันโดยไม่ร้องคร่ำครวญ"
+   },
+   "29": {
+    "pinyin": "Kan",
+    "name": "ห้วงลึกสุดหยั่ง",
+    "judgementTitle": "บททดสอบ",
+    "judgement": "การล่องไปในน้ำที่ไม่ยอมให้หยั่งวัด ความลึกบางอย่างไม่อาจวัดได้ครบถ้วนล่วงหน้า — เราทำได้เพียงเรียนรู้ที่จะเคลื่อนไหวในนั้นด้วยสิ่งที่มีอยู่ในมือ โดยไม่เคยอ้างว่าจะควบคุมมันได้ทั้งหมด เส้นนี้กล่าวว่าความสามารถที่แท้จริงเมื่อเผชิญอันตรายมิใช่การขจัดมัน หากคือการเรียนรู้ที่จะว่ายอยู่ในมัน",
+    "image": "น้ำไหลมาแล้วไหลมาอีก: ภาพแห่งห้วงลึกสุดหยั่งที่ซ้อนทบ อันตรายวนซ้ำ ระลอกแล้วระลอกเล่า โดยไม่เคยให้ช่วงพักที่สมบูรณ์ — ทว่าน้ำเองในความเคลื่อนไหวที่ไม่หยุดยั้งย่อมหาระดับของมันพบเสมอ นี่คือภาพแห่งบททดสอบที่วนซ้ำซึ่งหล่อหลอมความมั่นคง ดังนั้นวิญญูชนจึงประพฤติคุณธรรมอย่างสม่ำเสมอ และสั่งสอนกิจการทั้งหลาย: เมื่อเผชิญอันตรายที่หวนกลับมา มีเพียงการฝึกฝนที่วนซ้ำเช่นกันเท่านั้นที่จะสร้างความเชี่ยวชาญ"
+   },
+   "30": {
+    "pinyin": "Li",
+    "name": "สิ่งที่ยึดเกาะ ไฟ",
+    "judgementTitle": "การเปล่งรัศมี",
+    "judgement": "ความสว่างของไฟยึดเกาะสิ่งที่มีชีวิตเพื่อแผ่ประกายของตน ไม่มีสิ่งใดส่องแสงได้ในความว่างเปล่า: ความสว่างที่แท้จริงทุกอย่างต้องการจุดยึด ต้องการวัตถุที่จะผูกพันเพื่อคลี่ขยายตน เส้นนี้สอนว่าความเป็นอิสระโดยสมบูรณ์มิใช่อุดมคติ — แม้แสงที่บริสุทธิ์ที่สุดก็ยังต้องการสิ่งที่มันส่องสว่าง",
+    "image": "ความสว่างและความสว่างอีกครา: ภาพแห่งไฟที่ยึดเกาะ แสงไม่เคยส่องสว่างอยู่เพียงลำพัง — มันต้องการสิ่งที่มันเกาะเกี่ยวเพื่อเปล่งรัศมีต่อไป ดุจเปลวไฟที่ต้องการไม้ฟืน นี่คือภาพแห่งประกายที่พึ่งพาสิ่งรองรับ ดังนั้นมหาบุรุษ ด้วยประกายอันต่อเนื่องของตน จึงส่องสว่างไปทั่วทั้งสี่ทิศ: การเปล่งรัศมีอย่างยั่งยืนย่อมต้องยึดเกาะอยู่กับสิ่งที่หล่อเลี้ยงแสงสว่างของตน"
+   },
+   "31": {
+    "pinyin": "Xian",
+    "name": "อิทธิพล",
+    "judgementTitle": "การสั่นพ้อง",
+    "judgement": "ความรู้สึกอันละเอียดอ่อนของอิทธิพลซึ่งกันและกัน แทบไม่อาจรับรู้ได้ สายสัมพันธ์ที่ลึกซึ้งที่สุดระหว่างสรรพชีวิตมักถูกผูกขึ้นก่อนที่ถ้อยคำใดจะเอ่ยออกมาเสียอีก ในแดนอันแผ่วเบาแห่งความรู้สึกที่มีร่วมกัน เส้นนี้กล่าวว่าอิทธิพลที่ยั่งยืนที่สุดไม่เคยเป็นสิ่งที่บังคับตนอย่างอึกทึก หากเป็นสิ่งที่แทรกซึม แทบไม่อาจรับรู้ได้ ระหว่างสองการดำรงอยู่ที่เปิดรับซึ่งกันและกัน",
+    "image": "บนภูเขามีบึง: ภาพแห่งอิทธิพล น้ำพักอยู่บนที่สูง โอบตัวอยู่ที่นั่นโดยไม่ฝืนบังคับ และความเปิดรับซึ่งกันและกันนี้เองที่ทำให้อิทธิพลไหลเวียนระหว่างทั้งสองได้ นี่คือภาพแห่งความรู้สึกไวที่มีร่วมกัน ก่อนที่ถ้อยคำจะเข้ามาเกี่ยวข้องเสียอีก ดังนั้นวิญญูชนจึงเปิดรับความว่างไว้ในตนเพื่อต้อนรับผู้คน: การมีอิทธิพลย่อมเริ่มต้นด้วยการรู้จักยอมให้ตนถูกสัมผัสเสมอ"
+   },
+   "32": {
+    "pinyin": "Heng",
+    "name": "ความยืนยง",
+    "judgementTitle": "ความคงอยู่",
+    "judgement": "ความมั่นคงตลอดกาลเวลาฝ่าข้ามบททดสอบแห่งการถอยกลับ สิ่งที่ยืนยงอย่างแท้จริงมิใช่สิ่งที่ปฏิเสธความเปลี่ยนแปลงทุกอย่าง หากเป็นสิ่งที่รู้จักถอยออกไปชั่วคราวเมื่อจำเป็น โดยไม่สูญเสียทิศทางของตน เส้นนี้สอนว่าความยืนยงที่แท้จริงย่อมรวมเอาช่วงหยุดพักของมันไว้ด้วย",
+    "image": "อสนีและลม: ภาพแห่งความยืนยง ความเคลื่อนไหวสองอย่างที่ต่างกันโดยธรรมชาติร่วมกัน ณ ที่นี้โดยไม่ขัดแย้งกัน ต่างเสริมกำลังแก่กันในความมั่นคงที่มีร่วมกัน นี่คือภาพแห่งความเพียรที่ไม่สึกกร่อน ดังนั้นวิญญูชนจึงยืนหยัดโดยไม่เปลี่ยนทิศทาง: การยืนยงมิใช่การต้านทานอย่างนิ่งงัน หากคือการค้นพบความเคลื่อนไหวที่วนซ้ำได้ไม่สิ้นสุดโดยไม่ทรยศต่อตนเอง"
+   },
+   "33": {
+    "pinyin": "Dun",
+    "name": "การถอยห่าง",
+    "judgementTitle": "ความคงอยู่",
+    "judgement": "ความยั่งยืนยืนยันตนด้วยการรู้จักถอยออกมา เพื่อจะดำรงอยู่ได้ยาวนานยิ่งขึ้น ในทางกลับกัน สิ่งที่คงอยู่ได้นานที่สุดมักเป็นสิ่งที่รู้จักหายไปจากเวทีในจังหวะที่เหมาะสม เส้นนี้สอนว่าการถอยอย่างมีกลยุทธ์มิได้ตัดขาดความต่อเนื่อง หากแต่ปกป้องมันไว้",
+    "image": "ใต้ฟ้ามีภูเขา: ภาพแห่งการถอยห่าง ฟ้าค่อย ๆ เคลื่อนห่างจากภูเขา ถอยระยะออกไปโดยไร้ความเป็นปฏิปักษ์ เพียงเพราะจำต้องรักษาการเคลื่อนไหวของตนไว้ นี่คือภาพของการถอยอย่างมีศักดิ์ศรี มิใช่การหนีอย่างน่าละอาย ดังนั้นวิญญูชนจึงเว้นระยะจากคนพาล มิใช่ด้วยความเกลียดชัง แต่ด้วยศักดิ์ศรี: การถอยทันเวลามิใช่ความอ่อนแอ หากเป็นปัญญาของผู้ที่รู้ว่าเมื่อใดการอยู่ต่อจะมีราคาสูงกว่าการจากไป"
+   },
+   "34": {
+    "pinyin": "Da Zhuang",
+    "name": "พลังแห่งความยิ่งใหญ่",
+    "judgementTitle": "การสั่นพ้อง",
+    "judgement": "อิทธิพลขยายตัวจนกลายเป็นพลังที่ไม่อาจยับยั้งได้อีก สิ่งที่เริ่มต้นเป็นเพียงการสั่นพ้องเล็ก ๆ อาจเติบโตจนหลุดพ้นจากการควบคุมทั้งปวง หากไม่มีสิ่งใดมากำกับไว้ เส้นนี้เตือนว่าอำนาจที่ไร้วินัย ไม่ช้าก็เร็วจะย้อนกลับมาทำร้ายผู้ที่ใช้มัน",
+    "image": "ฟ้าร้องเหนือฟ้า: ภาพแห่งพลังของความยิ่งใหญ่ พลังมหาศาลพุ่งขึ้นสู่จุดสูงสุด ทุกคนมองเห็น และสามารถสั่นคลอนทุกสิ่งที่ขวางทาง นี่คือภาพของอำนาจ ณ จุดสูงสุด อำนาจที่ต้องเรียนรู้จะควบคุมตนเอง ก็เพราะมันสามารถพัดพาทุกสิ่งไปได้นั่นเอง ดังนั้นวิญญูชนจึงเดินเฉพาะบนวิถีที่ต้องตามจารีต: พลังอันยิ่งใหญ่ที่ปราศจากความพอดีย่อมกลายเป็นความพินาศของตนเอง"
+   },
+   "35": {
+    "pinyin": "Jin",
+    "name": "ความก้าวหน้า",
+    "judgementTitle": "การเปล่งรัศมี",
+    "judgement": "ความรุ่งโรจน์ไต่ขึ้นดุจดวงอาทิตย์ สู่การได้รับการยอมรับยามเที่ยงวัน การขึ้นสู่ที่สูงอย่างแท้จริงย่อมเป็นไปตามจังหวะของตน ดั่งดวงอาทิตย์ที่ไม่เคยกระโดดขึ้นสู่จุดสุดยอดในทันที เส้นนี้กล่าวว่าการยอมรับที่สมควรได้ย่อมมาถึงในเวลาของมันเสมอ ไม่เร็วกว่า ไม่ช้ากว่า",
+    "image": "ดวงอาทิตย์ขึ้นเหนือแผ่นดิน: ภาพแห่งความก้าวหน้า แสงสว่างแผ่ขยายทีละขั้น โดยไม่มีการกระโจนอย่างฉับพลันแม้แต่ครั้งเดียว เป็นการเคลื่อนขึ้นที่มั่นคงและเป็นธรรมชาติ นี่คือภาพของความก้าวหน้าที่สมควรได้รับ ดังนั้นวิญญูชนจึงทำให้คุณธรรมอันแจ่มใสของตนสว่างไสวขึ้นด้วยตนเอง: ความก้าวหน้าที่แท้มิได้ร้องขอ หากปรากฏขึ้นเองต่อผู้ที่รู้จักอดทนรอจนรุ่งอรุณ"
+   },
+   "36": {
+    "pinyin": "Ming Yi",
+    "name": "การมืดมัวของแสงสว่าง",
+    "judgementTitle": "บททดสอบ",
+    "judgement": "ก้าวไปข้างหน้าภายใต้แสงที่จงใจอำพรางไว้ มิใช่การดับความแจ่มใสของตน แต่คือการรู้จักเก็บงำมันไว้ เมื่อสถานการณ์ทำให้ความเจิดจ้าเต็มที่กลายเป็นอันตราย เส้นนี้สอนวินัยของผู้ที่ยังคงกระทำอย่างเที่ยงธรรมต่อไป แม้ในยามที่ยังไม่มีผู้ใดมองเห็น",
+    "image": "แสงสว่างลงสู่ใจกลางแผ่นดิน: ภาพแห่งความมืดมัว สิ่งที่ควรส่องสว่างกลับถูกฝังกลบ จำต้องอำพรางประกายของตนเพื่อดำรงอยู่ต่อไปโดยไม่ถูกทำลาย นี่คือภาพของความแจ่มใสที่ต้องซ่อนตัวชั่วคราวเพื่อให้รอด ดังนั้นวิญญูชนจึงนำมหาชนด้วยการอำพรางความแจ่มใสของตน ขณะที่ยังคงตื่นรู้: มีบางยุคสมัยที่การเผยแสงสว่างทั้งหมดของตนจะเป็นความผิดพลาด ปัญญาในยามนั้นคือการดำรงความเที่ยงธรรมไว้อย่างเงียบงัน"
+   },
+   "37": {
+    "pinyin": "Jia Ren",
+    "name": "คนในครอบครัว",
+    "judgementTitle": "โครงสร้าง",
+    "judgement": "ความเคร่งครัดอันเป็นระเบียบของหน่วยครอบครัว ไม่มีโครงสร้างใดที่ใหญ่กว่าจะตั้งมั่นอยู่ได้ หากหน่วยที่ใกล้ชิดที่สุดของมัน คือบ้านเรือน มิได้มีระเบียบและความเที่ยงธรรมในตัวเอง เส้นนี้กล่าวว่าระเบียบของโลกเริ่มต้นจากระเบียบในบ้านเสมอ",
+    "image": "ลมเกิดจากไฟ: ภาพแห่งคนในครอบครัว ความอบอุ่นภายในก่อให้เกิดการเคลื่อนไหวที่แผ่ออกสู่ภายนอก สิ่งที่เริ่มต้นที่เตาไฟในบ้านย่อมแผ่รัศมีออกไปข้างนอกในที่สุดเสมอ นี่คือภาพของอิทธิพลภายในบ้านที่หล่อหลอมโลก ดังนั้นวิญญูชนจึงหยั่งถ้อยคำของตนไว้ในเนื้อแท้ และหยั่งความประพฤติไว้ในความมั่นคงสม่ำเสมอ: สิ่งที่ดำเนินไปในความใกล้ชิดของบ้าน ไม่ช้าก็เร็วจะกลายเป็นสิ่งที่เราพกพาไปทุกหนแห่ง"
+   },
+   "38": {
+    "pinyin": "Kui",
+    "name": "ความขัดแย้ง",
+    "judgementTitle": "การแยกแยะ",
+    "judgement": "การคัดสรรเกิดขึ้นระหว่างถ้อยคำที่ยกระดับกับถ้อยคำที่แบ่งแยก ความเห็นต่างมิใช่การแตกหักเสมอไป ความขัดแย้งบางอย่าง หากเข้าใจอย่างถ่องแท้ กลับขัดเกลาความคิดให้ประณีตขึ้นแทนที่จะทำลายมัน เส้นนี้สอนให้แยกแยะความเห็นต่างที่ให้ผลงอกงามออกจากความขัดแย้งที่ไร้ผล",
+    "image": "ไฟอยู่เบื้องบน บึงอยู่เบื้องล่าง: ภาพแห่งความขัดแย้ง ไฟลอยขึ้น น้ำไหลลง สองธรรมชาติที่อยู่เคียงกันโดยไม่เคยหลอมรวมกัน ต่างซื่อตรงต่อทิศทางของตน นี่คือภาพของความแตกต่างที่ยอมรับได้โดยไม่แตกหักสิ้นเชิง ดังนั้นวิญญูชน ภายในความเป็นหนึ่งเดียว จึงแยกแยะสิ่งที่แตกต่าง: การยอมรับว่ามีความขัดแย้งมิได้บังคับให้ต้องทำลายมัน เราอยู่ร่วมกับสิ่งที่ค้านเราได้ โดยไม่ต้องอ้างว่าจะลบมันทิ้ง"
+   },
+   "39": {
+    "pinyin": "Jian",
+    "name": "อุปสรรค",
+    "judgementTitle": "การยับยั้ง",
+    "judgement": "ความอดทนกลายเป็นโล่กำบังเมื่อเผชิญกับภูมิประเทศอันสูงชัน ต่อหน้าสิ่งที่ไม่อาจข้ามผ่านได้ตรง ๆ ความอดทนมิใช่การยอมจำนน หากเป็นการปกป้องอย่างตื่นตัว มันสงวนพลังไว้สำหรับวาระที่ทางผ่านจะเปิดออก เส้นนี้กล่าวว่าอุปสรรคทุกอย่างแฝงเครื่องชี้ทางอ้อมที่ถูกต้องไว้ในตัวมันเอง",
+    "image": "บนภูเขามีน้ำ: ภาพแห่งอุปสรรค น้ำพบกับลาดชันและไม่อาจไหลตรงไปได้ จำต้องอ้อม หาเส้นทางอื่น และชะลอการไหลตามธรรมชาติของตน นี่คือภาพของความยากลำบากที่บังคับให้ต้องเลี่ยงอ้อม ดังนั้นวิญญูชนจึงหันกลับมาพิจารณาตนเองและบ่มเพาะคุณธรรมของตน: อุปสรรคภายนอก เมื่อไม่อาจฝ่าด้วยกำลัง ย่อมกลายเป็นโอกาสที่จะขัดเกลาสิ่งที่ในตัวเรายังเติบโตได้อีก"
+   },
+   "40": {
+    "pinyin": "Jie",
+    "name": "การปลดปล่อย",
+    "judgementTitle": "การคลี่คลาย",
+    "judgement": "ปมแห่งอุปสรรคคลายออก ทางผ่านเปิดกว้าง สิ่งที่ดูเหมือนพันกันจนแก้ไม่ออก ในที่สุดก็คลี่คลายไปเอง ด้วยกาลเวลาและด้วยการผ่อนแรงตึงอย่างถูกต้องในจังหวะที่เหมาะสม เส้นนี้สอนว่าการปลดปล่อยไม่ค่อยมาด้วยกำลัง มันมาถึงเมื่อแรงกดดันได้พบทางออกที่เหมาะสมของมันในที่สุด",
+    "image": "ฟ้าร้องและฝนลอยขึ้น: ภาพแห่งการปลดปล่อย ความตึงเครียดที่สะสมอยู่ในอากาศได้ปลดปล่อยออกในที่สุด พายุโหมกระหน่ำและชำระล้างทุกสิ่งที่ผ่าน เป็นการคลี่คลายที่ทำให้สงบมากกว่าทำลาย นี่คือภาพของความโล่งใจหลังการถูกบีบรัด ดังนั้นวิญญูชนจึงให้อภัยความผิดพลาดและมีเมตตาต่อความผิด: การปลดปล่อยที่แท้มิได้หยุดอยู่ที่ตนเอง หากแผ่ไปถึงผู้ที่เรายังอาจกักขังไว้กับความผิดพลาดของพวกเขา"
+   },
+   "41": {
+    "pinyin": "Sun",
+    "name": "การลดทอน",
+    "judgementTitle": "การสละ",
+    "judgement": "การกลับคืนสู่ศูนย์กลางเรียกร้องให้ยอมสูญเสียสิ่งที่เคยรกรุงรัง เราจะกลับสู่แก่นแท้ได้ก็ต่อเมื่อยอมปล่อยสิ่งที่กาลเวลาเผยให้เห็นว่าเกินจำเป็นออกไป เส้นนี้กล่าวว่าการสูญเสียมิใช่ความยากจนลงเสมอไป การลดทอนบางอย่างคือเงื่อนไขของการกลับคืนสู่สิ่งที่สำคัญอย่างแท้จริง",
+    "image": "ใต้ภูเขามีบึง: ภาพแห่งการลดทอน น้ำเบื้องล่างระเหยขึ้นสู่ที่สูง ดูเหมือนยอมพร่องตนเองเพื่อหล่อเลี้ยงสิ่งที่อยู่เหนือมัน เป็นการสูญเสียที่แท้จริงแล้วรับใช้ดุลยภาพที่กว้างใหญ่กว่า นี่คือภาพของการสละที่เป็นประโยชน์แก่องค์รวมซึ่งใหญ่กว่าตน ดังนั้นวิญญูชนจึงระงับโทสะและข่มความปรารถนา: การลดสิ่งที่เกินในตนเองมักเป็นเงื่อนไขให้สิ่งอื่นได้เติบโต"
+   },
+   "42": {
+    "pinyin": "Yi",
+    "name": "การเพิ่มพูน",
+    "judgementTitle": "การแปรเปลี่ยน",
+    "judgement": "พลังแห่งการเพิ่มพูนครั้งใหม่ถูกปลดปล่อยออกมา สิ่งที่เติบโตอย่างแท้จริงไม่เคยเติบโตเพียงลำพัง การเติบโตที่แท้ปลดปล่อยพลังที่เป็นประโยชน์กว้างไกลกว่าผู้ที่แบกรับมันไว้ เส้นนี้สอนว่าการเพิ่มพูนที่แท้จริงดูได้จากสิ่งที่มันแบ่งปัน มิใช่จากสิ่งที่มันสะสม",
+    "image": "ลมและฟ้าร้อง: ภาพแห่งการเพิ่มพูน สองพลังเสริมกำลังซึ่งกันและกัน ลมขยายเสียงฟ้าร้อง และฟ้าร้องมอบความเต็มเปี่ยมแก่ลม เป็นการเติบโตที่หล่อเลี้ยงด้วยการพบกันมากกว่าการแยกตัวโดดเดี่ยว ดังนั้นวิญญูชน เมื่อเห็นความดีก็เคลื่อนเข้าหา เมื่อมีความผิดก็แก้ไข: การเพิ่มพูนที่แท้มิได้จำกัดอยู่ที่การสะสม หากคือการแก้ไขตนเองและเติบโตไปด้วยกัน"
+   },
+   "43": {
+    "pinyin": "Guai",
+    "name": "การฝ่าทะลุ",
+    "judgementTitle": "การขัดเกลาให้บริสุทธิ์",
+    "judgement": "การตัดสินใจที่เฉือนขาดอย่างเด็ดขาดและขจัดสิ่งเกินจำเป็น มีวาระหนึ่งที่ความลังเลเองกลับอันตรายยิ่งกว่าความคมของการตัดสินใจ เส้นนี้กล่าวว่าการฝ่าทะลุที่แท้มิใช่การทำลายทุกสิ่ง แต่คือการขจัดสิ่งที่เกินพอดีจนคุกคามองค์รวมออกไปอย่างแม่นยำ",
+    "image": "บึงลอยขึ้นเหนือฟ้า: ภาพแห่งการฝ่าทะลุ น้ำที่ถูกยกขึ้นสูงกว่าสิ่งที่ตามปกติควรรองรับมันไว้ คุกคามว่าจะล้นทะลัก เป็นความตึงเครียดถึงขีดสุดที่เรียกร้องการตัดสินใจอันชัดเจนและไม่หวนกลับ นี่คือภาพของความแน่วแน่ที่ไม่อาจรอได้อีกต่อไป ดังนั้นวิญญูชนจึงแจกจ่ายความเอื้อเฟื้อลงไปถึงเบื้องล่าง โดยไม่พึ่งพิงเพียงคุณธรรมของตน: การตัดสินอย่างเด็ดขาดต้องควบคู่ไปกับความเอื้ออารีต่อผู้ที่ได้รับผลจากการตัดสินใจนั้นเสมอ"
+   },
+   "44": {
+    "pinyin": "Gou",
+    "name": "การมาพบ",
+    "judgementTitle": "ความคม",
+    "judgement": "การพบพานโดยไม่คาดคิดเปิดทางให้ทั้งความเสี่ยงและการรวมเป็นหนึ่ง ทุกสิ่งที่ปรากฏขึ้นโดยไม่บอกกล่าวล้วนแฝงความกำกวมไว้ในตัว จะเป็นคำมั่นแห่งสายสัมพันธ์หรือเชื้อแห่งอันตราย เราไม่อาจรู้ได้ในทันที เส้นนี้สอนความระแวดระวังที่มิใช่ความหวาดระแวง หากคือการพินิจแยกแยะในขณะแห่งการพบพานนั้นเอง",
+    "image": "ใต้ฟ้ามีลม: ภาพแห่งการมาพบ ลมพัดผ่านห้วงอวกาศโดยไม่มีผู้ใดเรียกหา สัมผัสทุกสิ่งที่ผ่านไป เป็นการพบพานที่บังเกิดขึ้นเองมากกว่าที่จะถูกวางแผนไว้ นี่คือภาพของสิ่งไม่คาดฝันที่ต้องรู้จักต้อนรับด้วยวิจารณญาณ ดังนั้นองค์ประมุขจึงอบรมสั่งสอนทั้งสี่ทิศด้วยพระราชโองการ: สิ่งที่มาพบเราโดยไม่ได้รับเชิญ สมควรได้รับการพิจารณาก่อนจะยอมรับหรือปัดทิ้ง"
+   },
+   "45": {
+    "pinyin": "Cui",
+    "name": "การรวมตัว",
+    "judgementTitle": "การบรรจบ",
+    "judgement": "การเพ่งพินิจก็คือการรวมตัวอันเงียบงันอยู่แล้ว แม้ก่อนที่ร่างกายจะมาชุมนุมกัน จิตใจที่มองไปในทางเดียวกันก็ได้รวมตัวกันแล้วในแง่หนึ่ง เส้นนี้กล่าวว่าความเป็นหนึ่งเดียวที่แท้เริ่มต้นในสิ่งที่มองไม่เห็นเสมอ นานก่อนที่จะปรากฏให้เห็น",
+    "image": "บึงยกตัวขึ้นเหนือแผ่นดิน: ภาพแห่งการรวมตัว น้ำสะสมจนกลายเป็นผืนน้ำร่วมกัน รวบรวมสิ่งที่หากกระจัดกระจายก็จะไร้ทั้งพลังและรูปโฉมไว้ในที่แห่งเดียว นี่คือภาพของการบรรจบที่ให้ความหนักแน่นแก่ความหลากหลาย ดังนั้นวิญญูชนจึงซ่อมแซมอาวุธเพื่อรับมือกับสิ่งไม่คาดฝัน: การรวมตัวเพียงอย่างเดียวยังไม่พอ ต้องเตรียมพร้อมปกป้องสิ่งที่รวบรวมไว้ด้วย"
+   },
+   "46": {
+    "pinyin": "Sheng",
+    "name": "การผลักดันขึ้นสู่เบื้องบน",
+    "judgementTitle": "การเติบโต",
+    "judgement": "การเข้าใกล้และการเติบโตคือท่วงท่าแนวดิ่งเดียวกัน ไม่มีการแบ่งแยกที่แท้จริงระหว่างการเข้าใกล้เป้าหมายกับการเติบโตไปสู่มัน การเคลื่อนไหวทั้งสองเป็นหนึ่งเดียว ดั่งลำต้นอ่อนที่งอกขึ้นก็คือเชื้อของต้นไม้ในวันหน้าอยู่แล้ว เส้นนี้สอนความต่อเนื่องระหว่างท่วงท่าเล็ก ๆ ในปัจจุบันกับผลอันยิ่งใหญ่ในอนาคต",
+    "image": "ภายในแผ่นดินมีไม้งอกงาม: ภาพแห่งการผลักดันขึ้นสู่เบื้องบน เมล็ดพันธุ์ที่มองไม่เห็นใต้ผิวดินค่อย ๆ งอกสู่แสงสว่างอย่างอดทน โดยไม่เคยข้ามขั้นตอน เป็นการเติบโตที่เชื่องช้าแต่ไม่อาจหยุดยั้ง นี่คือภาพของการขึ้นสู่ที่สูงที่ได้มาด้วยความมั่นคงสม่ำเสมอ ดังนั้นวิญญูชน ผู้คล้อยตามคุณธรรม จึงสั่งสมสิ่งเล็กเพื่อบรรลุสิ่งสูงและยิ่งใหญ่: ไม่มีสิ่งใดที่เติบโตอย่างแท้จริงจะข้ามขั้นได้ ทุกสิ่งถูกสร้างขึ้นทีละชั้น"
+   },
+   "47": {
+    "pinyin": "Kun",
+    "name": "ความอับจน",
+    "judgementTitle": "การซ่อมแซม",
+    "judgement": "เราไม่อาจฟื้นฟูสิ่งใดได้หากไม่ยอมขาดแคลนเสียก่อน ไม่มีการเกิดใหม่ที่แท้จริงหากไม่เคยผ่านประสบการณ์แห่งความขัดสนจริง ๆ มาก่อน เส้นนี้กล่าวว่าความอับจนที่ข้ามผ่านอย่างถูกต้อง มิใช่เพียงบททดสอบที่ต้องอดทนรับ หากเป็นการชำระล้างที่เตรียมทางให้ความอุดมสมบูรณ์หวนคืนมา",
+    "image": "บึงไร้น้ำ: ภาพแห่งความอับจน สิ่งที่ควรหล่อเลี้ยงและค้ำจุนได้เหือดแห้งไป ทิ้งความขาดแคลนอันประจักษ์ชัดไว้ในที่ซึ่งเราคาดหวังความอุดมสมบูรณ์ นี่คือภาพของความอ่อนล้าที่ทดสอบธรรมชาติแท้ของผู้ที่ข้ามผ่านมัน ดังนั้นวิญญูชนจึงอุทิศชีวิตเพื่อทำให้เจตจำนงของตนสำเร็จ: ในความขาดแคลนนี่เองที่สิ่งซึ่งเรายึดมั่นอย่างแท้จริงได้เผยตัวออกมา จนเราพร้อมจะเสี่ยงทุกสิ่งเพื่อมัน"
+   },
+   "48": {
+    "pinyin": "Jing",
+    "name": "บ่อน้ำ",
+    "judgementTitle": "ความลึก",
+    "judgement": "เราจะเดินตามสิ่งใดได้ดีก็ต่อเมื่อได้ตักมันขึ้นมาจากก้นบึ้งเสียก่อน ไม่มีทรัพยากรใดเป็นประโยชน์แก่ผู้ที่อยู่แต่บนผิวหน้า ต้องหย่อนลงไป แสวงหา และตักขึ้นมาอย่างแท้จริง บ่อน้ำจึงจะมอบสิ่งที่มันบรรจุไว้ เส้นนี้สอนว่าความลึกคือเงื่อนไขของความเป็นประโยชน์",
+    "image": "เหนือไม้มีน้ำ: ภาพแห่งบ่อน้ำ น้ำยังคงเข้าถึงได้สำหรับทุกคนที่มาตัก ไม่มีวันหมดสิ้นตราบที่เรารู้จักหย่อนถังลงไปในที่ที่ถูกต้อง เป็นทรัพยากรส่วนรวมที่การใช้สอยไม่เคยทำให้เหือดแห้งอย่างแท้จริง นี่คือภาพของสมบัติร่วมที่ยั่งยืน ดังนั้นวิญญูชนจึงปลอบประโลมประชาชนและเกื้อหนุนให้ช่วยเหลือกัน: สิ่งที่หล่อเลี้ยงชุมชนอย่างแท้จริงมิได้เป็นของผู้ใดโดยเฉพาะ มันเพียงผ่านมือของผู้ที่รู้จักตักมันขึ้นมา"
+   },
+   "49": {
+    "pinyin": "Ge",
+    "name": "การปฏิวัติ",
+    "judgementTitle": "แรงผลักดัน",
+    "judgement": "ไฟใต้บึงละลายผิวเก่าให้สลายไป ความเปลี่ยนแปลงอันลึกซึ้งทุกครั้งเรียกร้องให้รูปแบบเดิมสลายตัวเสียก่อน ไม่ว่าช่วงเปลี่ยนผ่านนั้นจะอึดอัดเพียงใด เส้นนี้กล่าวว่าการปฏิวัติที่ชอบธรรมที่สุดไม่เคยเกิดขึ้นอย่างไร้เหตุ มันตอบสนองความจำเป็นที่รูปแบบเดิมไม่อาจรองรับได้อีกต่อไป",
+    "image": "ภายในบึงมีไฟ: ภาพแห่งการปฏิวัติ เปลวไฟลุกไหม้อยู่ใต้ผิวน้ำ สองธรรมชาติที่ไม่อาจอยู่ร่วมกันได้โดยที่ฝ่ายหนึ่งไม่แปรเปลี่ยนอีกฝ่ายในที่สุด เป็นการปะทะที่ย่อมนำไปสู่การเปลี่ยนสภาวะ ดังนั้นวิญญูชนจึงจัดระเบียบปฏิทินและทำให้กาลเวลาแจ่มชัด: การปฏิวัติที่แท้มิได้ทำลายเพื่อทำลาย หากจัดระเบียบใหม่ให้แก่สิ่งที่ยุคเก่าปล่อยให้สับสนไว้"
+   },
+   "50": {
+    "pinyin": "Ding",
+    "name": "กระถางสามขา",
+    "judgementTitle": "รสายนเวท",
+    "judgement": "รูปทรงที่ถ่อมตนที่สุดคือรูปทรงที่รองรับแก่นสารไว้ได้ดีที่สุด มิใช่ความงามภายนอกที่กำหนดคุณค่าของภาชนะ หากเป็นความสามารถที่จะรักษาและแปรเปลี่ยนสิ่งที่มันได้รับ เส้นนี้สอนว่าคุณค่าที่แท้มักแฝงอยู่ในสิ่งที่ดูต่ำต้อยที่สุดในเปลือกนอก",
+    "image": "เหนือไม้มีไฟ: ภาพแห่งกระถางสามขา เปลวไฟแปรวัตถุดิบให้กลายเป็นสิ่งที่หล่อเลี้ยงได้ ประณีต และใช้สอยได้ เป็นภาชนะที่บรรจุการแปรเปลี่ยนไว้โดยตัวมันเองไม่ถูกเผาผลาญ นี่คือภาพของการบ่มเพาะที่ขัดเกลาโดยไม่ทำลาย ดังนั้นวิญญูชนจึงทำให้ชะตาของตนมั่นคงด้วยการทำให้มันเที่ยงตรง: ดั่งกระถางที่ให้รูปแก่สิ่งที่มันรับไว้ แต่ละคนย่อมปั้นแต่งชะตาของตนด้วยสิ่งที่เลือกจะเคี่ยวปรุงในนั้น"
+   },
+   "51": {
+    "pinyin": "Zhen",
+    "name": "การสั่นสะเทือน",
+    "judgementTitle": "การสะดุ้งตื่น",
+    "judgement": "สิ่งที่ยังยืนหยัดอยู่ได้หลังแรงกระแทก คือสิ่งที่เราครอบครองไว้อย่างแท้จริง แรงกระแทกมิได้สร้างสิ่งใด มันเพียงเปิดเผย สิ่งที่พังทลายลงตั้งแต่แรงสั่นครั้งแรกไม่เคยมั่นคงอย่างที่มันดูเลย เส้นนี้กล่าวว่าบททดสอบย่อมเป็นเครื่องเปิดเผยความจริงเสมอ ไม่ทางใดก็ทางหนึ่ง",
+    "image": "ฟ้าร้องซ้อนทวี: ภาพแห่งการสั่นสะเทือน แรงกระแทกฟาดลงสองครั้ง ครั้งหนึ่งซ้ำอีกครั้ง และสิ่งที่ยังยืนอยู่หลังแรงสั่นเช่นนั้นก็เผยความมั่นคงที่แท้ของมันออกมาในที่สุด นี่คือภาพของบททดสอบที่ทดลองโดยไม่ทำลายสิ่งที่มีรากฐานอย่างแท้จริง ดังนั้นวิญญูชน ด้วยความยำเกรงและหวั่นไหว จึงบ่มเพาะและพินิจความประพฤติของตน: แรงกระแทกจากภายนอก ไม่ว่าจะรุนแรงเพียงใด อาจกลายเป็นโอกาสแห่งการพินิจภายในที่เกื้อกูล"
+   },
+   "52": {
+    "pinyin": "Gen",
+    "name": "การหยุดนิ่ง",
+    "judgementTitle": "ความมั่นคง",
+    "judgement": "การเคลื่อนไหวหยุดลงเพื่อให้แก่นแท้ปรากฏ เฉพาะในความนิ่งเท่านั้นที่บางสิ่งซึ่งถูกบดบังด้วยความวุ่นวายไม่หยุดหย่อนจะปรากฏให้เห็นในที่สุด เส้นนี้สอนว่าการรู้จักหยุดมิใช่การละทิ้งการกระทำ หากคือการให้โอกาสตนเองได้เห็นว่าควรกระทำ ณ ที่ใดอย่างแท้จริง",
+    "image": "ภูเขาซ้อนภูเขา: ภาพแห่งการหยุดนิ่ง มวลอันมั่นคงสองก้อนซ้อนทับกัน ต่างเสริมความนิ่งให้แก่กัน เป็นการหยุดที่มิใช่ความชะงักงัน หากเป็นรากฐาน นี่คือภาพของความสงบที่ทำให้ความแจ่มชัดเป็นไปได้ ดังนั้นวิญญูชนจึงไม่ปล่อยให้ความคิดล่วงเลยฐานะที่ตนดำรงอยู่: การหยุด ณ ที่อันควร โดยไม่ปล่อยให้จิตใจเตลิดเกินภารกิจตรงหน้า คือเงื่อนไขของการมองเห็นที่ถูกต้องทั้งปวง"
+   },
+   "53": {
+    "pinyin": "Jian",
+    "name": "การพัฒนาทีละขั้น",
+    "judgementTitle": "ความเชื่องช้า",
+    "judgement": "ราก ลำต้น กิ่งก้าน ทีละก้าวทีละขั้นที่ทำให้แกนกลางตั้งตรง ไม่มีการเติบโตที่แท้จริงใดข้ามขั้นได้ แต่ละขั้นเตรียมทางให้ขั้นถัดไป ในลำดับที่ไม่มีสิ่งใดพลิกกลับได้โดยไม่ทำให้ทุกอย่างเสียหาย เส้นนี้กล่าวว่าความอดทนของการพัฒนาอย่างค่อยเป็นค่อยไปนั้นเองก็เป็นพลังรูปแบบหนึ่ง",
+    "image": "บนภูเขามีต้นไม้: ภาพแห่งการพัฒนาทีละขั้น ต้นไม้เติบโตอย่างเชื่องช้า รากแล้วรากเล่า วงปีแล้ววงปีเล่า ไม่เคยข้ามขั้นแห่งการเติบโตแม้แต่ขั้นเดียว เป็นความอดทนที่จารึกอยู่ในเนื้อไม้นั้นเอง ดังนั้นวิญญูชนจึงตั้งมั่นในคุณธรรมอันทรงเกียรติและยกระดับขนบประเพณี: การพัฒนาที่แท้ เช่นเดียวกับต้นไม้บนลาดเขา วัดกันเป็นปี มิใช่เป็นวัน"
+   },
+   "54": {
+    "pinyin": "Gui Mei",
+    "name": "เจ้าสาว",
+    "judgementTitle": "พันธมิตร",
+    "judgement": "การรวมกันที่ผนึกแน่นแล้ว ผูกสองระเบียบที่ไม่เท่าเทียมกันไว้ในผืนผ้าเดียวกัน การรวมกันมิได้เกิดในความเท่าเทียมสมบูรณ์เสมอไป บางครั้งเริ่มต้นในความไม่สมดุล และต้องค้นพบความเที่ยงธรรมของตนเองเมื่อกาลเวลาผ่านไป เส้นนี้สอนว่าความซื่อสัตย์ที่ยืนยาวสามารถซ่อมแซมสิ่งที่เงื่อนไขในตอนเริ่มต้นมิได้ทำให้เที่ยงธรรม",
+    "image": "ฟ้าร้องอยู่เบื้องบน บึงอยู่เบื้องล่าง: ภาพแห่งเจ้าสาว การเคลื่อนไหวเบื้องบนชักนำสิ่งที่สงบอยู่เบื้องล่างเข้าสู่การรวมกันซึ่งทั้งสองฝ่ายมิได้เลือกอย่างเท่าเทียมกันเสมอไป เป็นสายสัมพันธ์ที่ผูกมัดแม้จะไม่สมดุลแต่แรกเริ่ม ดังนั้นวิญญูชน ผู้ใส่ใจในสิ่งที่ยั่งยืน จึงแยกแยะสิ่งที่บ่อนทำลายการรวมกันนี้: พันธมิตรทุกแบบสมควรได้รับการพิจารณาตลอดระยะเวลาของมัน มิใช่ถูกตัดสินจากจุดเริ่มต้นเพียงอย่างเดียว"
+   },
+   "55": {
+    "pinyin": "Feng",
+    "name": "ความอุดมสมบูรณ์",
+    "judgementTitle": "ความเต็มเปี่ยม",
+    "judgement": "ยามเที่ยงวันเต็มที่ เมื่อแสงสว่างไม่ทอดเงาอีกต่อไป มีชั่วขณะหนึ่ง ณ จุดสูงสุดของความเต็มเปี่ยมทั้งปวง ที่ไม่มีสิ่งใดหลงเหลือซ่อนเร้น แต่ชั่วขณะนั้น โดยธรรมชาติของมัน ย่อมทำได้เพียงเสื่อมถอยลงหลังจากนั้น เส้นนี้สอนให้ลิ้มรสความอุดมสมบูรณ์โดยไม่ลืมว่ามันแฝงขีดจำกัดของตนเองไว้ในตัว",
+    "image": "ฟ้าร้องและฟ้าแลบบรรลุผลพร้อมกัน: ภาพแห่งความอุดมสมบูรณ์ การเคลื่อนไหวและแสงสว่างแผ่ขยายถึงขีดสุดในคราวเดียวกัน เป็นชั่วขณะแห่งความเต็มเปี่ยมโดยสมบูรณ์ ซึ่งหาได้ยากและย่อมผ่านพ้นไป นี่คือภาพของจุดสุดยอดที่ไม่เคยคงอยู่ชั่วนิรันดร์ ดังนั้นวิญญูชนจึงตัดสินข้อพิพาทและลงทัณฑ์: ณ จุดสูงสุดของความอุดมสมบูรณ์ ความแจ่มชัดแห่งการวินิจฉัยยิ่งจำเป็นกว่าที่เคย เพราะที่นั่นเองคือที่ซึ่งทุกสิ่งอาจพลิกผันได้"
+   },
+   "56": {
+    "pinyin": "Lu",
+    "name": "ผู้เดินทาง",
+    "judgementTitle": "การร่อนเร่",
+    "judgement": "ไร้บ้านไร้ถิ่นฐาน อาภรณ์จึงเข้าแทนที่บ้านเรือน เมื่อไม่มีที่พำนัก เครื่องนุ่งห่ม ท่วงท่า และความประพฤติจะต้องทำหน้าที่แทน เป็นศักดิ์ศรีที่มิได้ขึ้นอยู่กับสถานที่อีกต่อไป หากขึ้นอยู่กับวิถีแห่งการเป็น เส้นนี้กล่าวว่าอัตลักษณ์ที่มั่นคงที่สุดคืออัตลักษณ์ที่เราพกพาไปกับตน โดยไม่ขึ้นกับหลักยึดภายนอกใด ๆ",
+    "image": "บนภูเขามีไฟ: ภาพแห่งผู้เดินทาง เปลวไฟเคลื่อนไปตามลาดเขา ไม่หยุดพักที่ใด เผาผลาญสิ่งที่ปรากฏตรงหน้าโดยไม่เคยหยั่งรากลง ณ ที่แห่งใด นี่คือภาพของผู้ที่ไร้บ้านไร้ถิ่นฐานที่แน่นอน ดังนั้นวิญญูชนจึงลงโทษด้วยความแจ่มชัดและรอบคอบ โดยไม่ปล่อยให้คดีความยืดเยื้อ: เมื่อไร้สิ่งผูกพันที่ยั่งยืน ก็ยิ่งต้องเคร่งครัดเพื่อไม่ให้หลงทางระหว่างการเดินทาง"
+   },
+   "57": {
+    "pinyin": "Xun",
+    "name": "ความอ่อนโยน, ลม",
+    "judgementTitle": "การถักทอ",
+    "judgement": "ลมแทรกซึมไปทุกหนแห่งอย่างไร้เสียง ดุจเส้นด้ายพุ่งในผืนผ้า พลังที่แนบเนียนที่สุดบางครั้งกลับได้ผลที่สุด มันไม่พบการต้านทานซึ่งหน้า เพราะมันไม่เคยประกาศตนว่าเป็นพลัง เส้นนี้สอนถึงอานุภาพของอิทธิพลที่ต่อเนื่องและเงียบงัน",
+    "image": "ลมที่พัดตามกันมา: ภาพแห่งความอ่อนโยนซ้อนทวี ลมพัด แล้วพัดอีก ย้ำเตือนโดยไม่เคยกระแทก เป็นอิทธิพลที่แทรกซึมด้วยการทำซ้ำมากกว่าด้วยกำลัง ดังนั้นวิญญูชนจึงเผยแผ่คำบัญชาและลงมือดำเนินกิจการของตน: สิ่งที่ไม่อาจบังคับให้เกิดได้ในคราวเดียว มักลงหลักปักฐานได้ในที่สุดด้วยความสม่ำเสมออันอ่อนโยนของการย้ำเตือนอย่างอดทน"
+   },
+   "58": {
+    "pinyin": "Dui",
+    "name": "ความรื่นรมย์",
+    "judgementTitle": "จังหวะ",
+    "judgement": "ความใสกระจ่างของบึงที่รวบรวมและแบ่งปันร่วมกัน สิ่งที่รวบรวมโดยไม่บีบบังคับ ด้วยแรงดึงดูดตามธรรมชาติของสิ่งที่มันมอบให้เท่านั้น ย่อมก่อสายสัมพันธ์ที่ยั่งยืนที่สุด เส้นนี้กล่าวว่าประชาคมที่แท้ดูได้จากความเบาสบายที่มันก่อตัวขึ้น",
+    "image": "บึงที่บรรจบกัน: ภาพแห่งความรื่นรมย์ซ้อนทวี ผืนน้ำสองผืนเชื่อมถึงกัน หล่อเลี้ยงซึ่งกันและกัน ต่างขยายความรื่นรมย์ของอีกฝ่ายเพียงด้วยความใกล้ชิด นี่คือภาพของการแบ่งปันที่ทวีคูณมากกว่าแบ่งแยก ดังนั้นวิญญูชนจึงสนทนาและฝึกฝนร่วมกับมิตรสหาย: ความรื่นรมย์ที่แท้ ดุจน้ำในบึงที่บรรจบกัน ไม่เคยหมดสิ้นเพราะการแบ่งปัน ตรงกันข้าม มันกลับยิ่งแข็งแกร่งขึ้น"
+   },
+   "59": {
+    "pinyin": "Huan",
+    "name": "การสลายตัว",
+    "judgementTitle": "การคลี่คลาย",
+    "judgement": "สิ่งที่เคยปะทะกันกระจายตัวออกและกลับลื่นไหลอีกครั้ง การติดขัดที่แข็งทื่อที่สุด ในที่สุดก็กระจายไปเอง ด้วยกาลเวลาและการเคลื่อนไหวที่ถูกต้อง เส้นนี้สอนว่าการสลายตัวมิใช่การสูญเสีย หากเป็นการกลับคืนสู่สภาวะลื่นไหล อันเป็นเบื้องต้นของรูปแบบใหม่ทั้งปวง",
+    "image": "ลมเคลื่อนเหนือน้ำ: ภาพแห่งการสลายตัว ลมกวนผิวน้ำ กระจายสิ่งที่แข็งตัวอยู่ ทลายน้ำแข็งให้กลายเป็นการเคลื่อนไหวที่ลื่นไหล เป็นการสลายที่ปลดปล่อยมากกว่าทำลาย ดังนั้นกษัตริย์ในโบราณกาลจึงถวายเครื่องบูชาแด่องค์อธิราชเบื้องบนและสร้างศาลเจ้า: เมื่อสิ่งที่แบ่งแยกสรรพชีวิตเริ่มสลายตัว นั่นคือวาระที่จะสร้างสายสัมพันธ์ร่วมกันขึ้นใหม่ เป็นศูนย์กลางที่แบ่งปันร่วมกัน"
+   },
+   "60": {
+    "pinyin": "Jie",
+    "name": "การจำกัด",
+    "judgementTitle": "การรู้จักประมาณ",
+    "judgement": "ไผ่สร้างข้อปล้องไว้เพื่อไม่ให้น้ำเลี้ยงกระจัดกระจาย หากปราศจากขอบเขตที่คั่นจังหวะ การเติบโตเองก็จะสูญเสียพลังไปกับการกระจายตัวอย่างไร้ทิศทาง เส้นนี้กล่าวว่าการจำกัดที่วางไว้อย่างเหมาะสมมิใช่เครื่องห้ามล้อชีวิต หากเป็นเงื่อนไขแห่งความแข็งแกร่งของมัน",
+    "image": "เหนือบึงมีน้ำ: ภาพแห่งการจำกัด น้ำในบึงถูกโอบไว้ด้วยตลิ่ง และขอบเขตนี้เองที่ทำให้มันดำรงอยู่ในฐานะบึง แทนที่จะสูญหายไปเป็นหนองน้ำไร้รูปทรง นี่คือภาพของข้อจำกัดที่สร้างโครงสร้างมากกว่าบีบรัด ดังนั้นวิญญูชนจึงกำหนดจำนวนและมาตรวัด และใคร่ครวญถึงคุณธรรมและความประพฤติ: การจำกัดที่เลือกอย่างถูกต้องคือสิ่งที่ให้รูปแก่ทุกสิ่ง รวมทั้งแก่ตัวเราเอง"
+   },
+   "61": {
+    "pinyin": "Zhong Fu",
+    "name": "สัจจะภายใน",
+    "judgementTitle": "การเรียนรู้",
+    "judgement": "ศูนย์กลางอันว่างเปล่าของหัวใจกลายเป็นที่สถิตของความไว้วางใจ ก็เพราะหัวใจไม่ปิดตัวเองลง เพราะมันยังคงเป็นพื้นที่เปิดกว้างนี่เอง ความไว้วางใจที่แท้จึงตั้งมั่นอยู่ในนั้นได้ เส้นนี้สอนว่าความจริงใจที่ลึกซึ้งที่สุดเกิดจากความว่างที่พร้อมต้อนรับ มิใช่จากความแน่ใจที่ปิดตาย",
+    "image": "เหนือบึงมีลม: ภาพแห่งสัจจะภายใน ลมแตะผิวน้ำแผ่วเบาและทำให้มันสั่นไหวไปจนถึงใจกลาง เป็นการสั่นพ้องที่เริ่มจากภายนอกแต่สัมผัสถึงส่วนในที่ลึกที่สุด นี่คือภาพของความจริงใจที่ถ่ายทอดโดยไร้การเสแสร้ง ดังนั้นวิญญูชนจึงไตร่ตรองคดีความและชะลอโทษประหาร: สัจจะภายในเรียกร้องให้ใช้เวลาเท่าที่จำเป็นก่อนจะตัดสินในสิ่งที่เกี่ยวพันกับแก่นแท้"
+   },
+   "62": {
+    "pinyin": "Xiao Guo",
+    "name": "ความเหนือกว่าของสิ่งเล็ก",
+    "judgementTitle": "การงอกงาม",
+    "judgement": "เส้นเล็กล้นเกินกรอบของมัน มีบางวาระที่มีเพียงรายละเอียด ท่วงท่าที่พอประมาณ เท่านั้นที่ยังกระทำการได้ การปรารถนากระทำการใหญ่ในยามนั้นจะเป็นความผิดพลาดในการวินิจฉัย เส้นนี้กล่าวว่าในบางสถานการณ์ ความถูกต้องอยู่ในความเล็กที่ยอมรับอย่างเต็มใจนั่นเอง",
+    "image": "บนภูเขามีฟ้าร้อง: ภาพแห่งความเหนือกว่าของสิ่งเล็ก การเคลื่อนไหวปั่นป่วนอยู่บนยอด ถูกตรึงไว้ด้วยมวลที่แบกมันไว้ จำต้องคงความถ่อมตนในขอบเขต แม้จะเข้มข้นในพลัง ดังนั้นวิญญูชน ในความประพฤติ จึงโน้มไปทางเคารพเกินพอดี ในการไว้ทุกข์ โน้มไปทางโศกเศร้าเกินพอดี ในการใช้จ่าย โน้มไปทางประหยัดเกินพอดี: เมื่อสถานการณ์บังคับให้ต้องยับยั้ง พลาดเพราะถ่อมตนเกินไปย่อมดีกว่าพลาดเพราะทะเยอทะยานเกินไป"
+   },
+   "63": {
+    "pinyin": "Ji Ji",
+    "name": "หลังความสำเร็จ",
+    "judgementTitle": "ฐานที่ตั้ง",
+    "judgement": "ตะเข็บถูกเย็บปิด ห่วงถักถูกผูกไว้แล้ว สิ่งที่สำเร็จลงย่อมแฝงเชื้อของสิ่งที่จะมาคลายมันออกไว้ในตัวเสมอ ไม่มีสิ่งใดที่จบสิ้นแล้วจะจบสิ้นไปชั่วนิรันดร์ เส้นนี้สอนว่าความสำเร็จที่แท้รวมถึงการตระหนักถึงความเปราะบางของตนเองด้วย",
+    "image": "น้ำอยู่เหนือไฟ: ภาพแห่งความสำเร็จ แต่ละธาตุครองตำแหน่งที่เป็นของตนอย่างพอดี น้ำควบคุมไฟโดยไม่ดับมันจนสิ้น เป็นดุลยภาพที่สมบูรณ์ถึงเพียงนั้น จนเรียกหาเชื้อแห่งความไม่สมดุลที่จะมาถึงของตนเองไว้แล้ว ดังนั้นวิญญูชนจึงคำนึงถึงเคราะห์ร้ายและป้องกันไว้แต่เนิ่น ๆ: ความสำเร็จที่สมบูรณ์ที่สุดไม่เคยเป็นปลายทางสุดท้าย หากเป็นชั่วขณะที่ความระแวดระวังต้องทวีขึ้นเป็นสองเท่า"
+   },
+   "64": {
+    "pinyin": "Wei Ji",
+    "name": "ก่อนความสำเร็จ",
+    "judgementTitle": "การเริ่มต้น",
+    "judgement": "ทางผ่านเปิดออกแล้ว แต่ผืนผ้ายังมิได้ถูกถักทอ ยังไม่มีสิ่งใดสำเร็จ แต่ก็ไม่มีสิ่งใดเป็นไปไม่ได้ ประตูยังคงเปิดรับสิ่งที่ยังต้องสร้างขึ้นอย่างอดทน เส้นนี้กล่าวว่าความไม่สมบูรณ์มิใช่ความล้มเหลว หากคือเงื่อนไขของทุกสิ่งที่ยังจะมาถึง เป็นจุดที่วัฏจักรทั้งหมดของรูปทั้ง 64 เริ่มต้นใหม่อย่างไม่รู้จบ",
+    "image": "ไฟอยู่เหนือน้ำ: ภาพแห่งสิ่งที่ยังไม่สำเร็จ แต่ละธาตุอยู่ในตำแหน่งที่กลับกันกับตำแหน่งซึ่งจะทำให้มันพบกันได้อย่างเต็มที่ ไฟไม่อาจทำให้น้ำอุ่นได้ เพราะน้ำหลุดพ้นจากมันไปทางเบื้องบน นี่คือภาพของความยุ่งเหยิงที่ยังมาก่อนระเบียบที่จะมาถึง ดังนั้นวิญญูชนจึงแยกแยะสรรพสิ่งอย่างรอบคอบ และจัดวางแต่ละสิ่งไว้ในที่ของมัน: ก่อนที่ทุกสิ่งจะได้ที่อันเหมาะสม ต้องยอมรับความยุ่งเหยิงในปัจจุบันอย่างตื่นรู้เสียก่อน โดยไม่สิ้นหวังต่อระเบียบที่กำลังจะถือกำเนิด"
+   }
+  },
+  "lineComments": {
+   "1": {
+    "0": "ที่ฐานของแผ่นดิน ความว่างปิดตัวลง: สิ่งที่เคยเป็นเพียงช่องเปิดเริ่มถูกเติมเต็ม",
+    "1": "ที่ฐานของแผ่นดิน ความเต็มสั่นไหว: จุดเริ่มต้นแห่งหยางที่เคยแบกรับฉักลักษณ์ทั้งรูปยินยอมสละที่ทางของตน"
+   },
+   "2": {
+    "0": "แผ่นดินผู้รับถึงขีดสุดของตน: การต้อนรับอันเงียบงันที่เคยแบกรับส่วนล่างของฉักลักษณ์กำลังจะยืนยันตน",
+    "1": "แผ่นดินที่มั่นคงแล้วแตะขีดจำกัดของตน: ความแข็งแกร่งที่เคยค้ำจุนสิ่งก่อสร้างกำลังจะเปลี่ยนธรรมชาติของมัน"
+   },
+   "3": {
+    "0": "ที่ธรณีประตูระหว่างแผ่นดินกับมนุษย์ ความอ่อนหยุ่นเพิ่มน้ำหนัก: สิ่งที่เคยยอมโอนอ่อนโดยธรรมชาติกำลังจะแข็งตัว",
+    "1": "ที่ธรณีประตูระหว่างแผ่นดินกับมนุษย์ พลังสั่นคลอน: สิ่งที่เคยกระทำด้วยความแข็งแกร่งลังเลก่อนจะพลิกกลับ"
+   },
+   "4": {
+    "0": "ในการสดับฟังของมนุษย์ ความกลวงถูกเติมเต็ม: ความพร้อมเปิดรับที่เคยรองรับกำลังจะยืนยันตนในไม่ช้า",
+    "1": "ในการกระทำของมนุษย์ ความเต็มพบขอบเขตของตน: ความริเริ่มที่เคยนำฉักลักษณ์ม้วนพับกลับเข้าหาตนเอง"
+   },
+   "5": {
+    "0": "ณ ที่นั่งของปราชญ์ ความว่างถูกเติมเต็ม: ความอ่อนหยุ่นที่เคยปกครองอย่างแนบเนียนได้รับพลังใหม่",
+    "1": "ณ ที่นั่งของปราชญ์ ความเต็มกลายเป็นโพรง: พลังที่เคยปกครองฉักลักษณ์จากศูนย์กลางกำลังจะพลิกกลับ"
+   },
+   "6": {
+    "0": "ที่ยอดสุด ความว่างถึงขีดสุดและปิดตัวลง: ช่องเปิดที่สุดขั้วที่สุดพลิกไปสู่ขั้วตรงข้ามของตน",
+    "1": "ที่ยอดสุด ความเต็มสิ้นสุดวิถีของตนและแตกหัก: สิ่งที่เคยถึงจุดสูงสุดไม่อาจไปไกลกว่านี้ได้โดยไม่หวนกลับ"
+   }
+  },
+  "trigrams": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "ผู้รับ",
+    "image": "แผ่นดิน",
+    "role": "มารดา"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "ผู้ปลุก",
+    "image": "อสนี",
+    "role": "บุตรชายคนโต"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "ห้วงลึกสุดหยั่ง",
+    "image": "น้ำ",
+    "role": "บุตรชายคนกลาง"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "ผู้รื่นรมย์",
+    "image": "บึง",
+    "role": "บุตรสาวคนสุดท้อง"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "ความหยุดนิ่ง",
+    "image": "ภูเขา",
+    "role": "บุตรชายคนสุดท้อง"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "สิ่งที่ยึดเกาะ",
+    "image": "ไฟ",
+    "role": "บุตรสาวคนกลาง"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "ผู้อ่อนโยน",
+    "image": "ลม",
+    "role": "บุตรสาวคนโต"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "ผู้สร้างสรรค์",
+    "image": "ฟ้า",
+    "role": "บิดา"
+   }
+  ]
+ }
+}

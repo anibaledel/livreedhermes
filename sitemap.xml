@@ -252,6 +252,8 @@
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/"/>
   </url>
   <url>
@@ -261,6 +263,30 @@
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/"/>
   </url>
   <url>
@@ -270,6 +296,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/0-kun-le-receptif.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/0-kun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
   </url>
   <url>
@@ -279,6 +307,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/0-kun-le-receptif.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/0-kun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/0-kun-le-receptif.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/0-kun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/0-kun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/0-kun-le-receptif.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/0-kun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html"/>
   </url>
   <url>
@@ -288,6 +340,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/1-fu-le-retour.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/1-fu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
   </url>
   <url>
@@ -297,6 +351,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/1-fu-le-retour.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/1-fu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/1-fu-le-retour.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/1-fu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/1-fu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/1-fu-le-retour.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/1-fu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/1-fu-return.html"/>
   </url>
   <url>
@@ -306,6 +384,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/2-shi-l-armee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/2-shi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
   </url>
   <url>
@@ -315,6 +395,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/2-shi-l-armee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/2-shi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/2-shi-l-armee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/2-shi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/2-shi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/2-shi-l-armee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/2-shi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html"/>
   </url>
   <url>
@@ -324,6 +428,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/3-lin-l-approche.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/3-lin.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
   </url>
   <url>
@@ -333,6 +439,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/3-lin-l-approche.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/3-lin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/3-lin-l-approche.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/3-lin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/3-lin.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/3-lin-l-approche.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/3-lin.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/3-lin-approach.html"/>
   </url>
   <url>
@@ -342,6 +472,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/4-qian-la-modestie.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/4-qian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
   </url>
   <url>
@@ -351,6 +483,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/4-qian-la-modestie.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/4-qian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/4-qian-la-modestie.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/4-qian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/4-qian.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/4-qian-la-modestie.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/4-qian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html"/>
   </url>
   <url>
@@ -360,6 +516,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/5-ming-yi-l-obscurcissement-de-la-lumiere.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/5-ming-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
   </url>
   <url>
@@ -369,6 +527,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/5-ming-yi-l-obscurcissement-de-la-lumiere.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/5-ming-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/5-ming-yi-l-obscurcissement-de-la-lumiere.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/5-ming-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/5-ming-yi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/5-ming-yi-l-obscurcissement-de-la-lumiere.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/5-ming-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html"/>
   </url>
   <url>
@@ -378,6 +560,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/6-sheng-la-poussee-vers-le-haut.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/6-sheng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
   </url>
   <url>
@@ -387,6 +571,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/6-sheng-la-poussee-vers-le-haut.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/6-sheng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/6-sheng-la-poussee-vers-le-haut.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/6-sheng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/6-sheng.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/6-sheng-la-poussee-vers-le-haut.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/6-sheng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html"/>
   </url>
   <url>
@@ -396,6 +604,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/7-tai-la-paix.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/7-tai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
   </url>
   <url>
@@ -405,6 +615,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/7-tai-la-paix.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/7-tai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/7-tai-la-paix.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/7-tai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/7-tai.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/7-tai-la-paix.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/7-tai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/7-tai-peace.html"/>
   </url>
   <url>
@@ -414,6 +648,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/8-yu-l-enthousiasme.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/8-yu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
   </url>
   <url>
@@ -423,6 +659,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/8-yu-l-enthousiasme.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/8-yu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/8-yu-l-enthousiasme.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/8-yu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/8-yu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/8-yu-l-enthousiasme.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/8-yu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html"/>
   </url>
   <url>
@@ -432,6 +692,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/9-zhen-l-ebranlement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/9-zhen.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
   </url>
   <url>
@@ -441,6 +703,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/9-zhen-l-ebranlement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/9-zhen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/9-zhen-l-ebranlement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/9-zhen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/9-zhen.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/9-zhen-l-ebranlement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/9-zhen.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html"/>
   </url>
   <url>
@@ -450,6 +736,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/10-jie-la-delivrance.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/10-jie.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
   </url>
   <url>
@@ -459,6 +747,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/10-jie-la-delivrance.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/10-jie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/10-jie-la-delivrance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/10-jie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/10-jie.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/10-jie-la-delivrance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/10-jie.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html"/>
   </url>
   <url>
@@ -468,6 +780,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/11-gui-mei-l-epousee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/11-gui-mei.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
   </url>
   <url>
@@ -477,6 +791,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/11-gui-mei-l-epousee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/11-gui-mei.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/11-gui-mei-l-epousee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/11-gui-mei.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/11-gui-mei.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/11-gui-mei-l-epousee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/11-gui-mei.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html"/>
   </url>
   <url>
@@ -486,6 +824,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/12-xiao-guo-la-preponderance-du-petit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
   </url>
   <url>
@@ -495,6 +835,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/12-xiao-guo-la-preponderance-du-petit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/12-xiao-guo-la-preponderance-du-petit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/12-xiao-guo-la-preponderance-du-petit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html"/>
   </url>
   <url>
@@ -504,6 +868,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/13-feng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
   </url>
   <url>
@@ -513,6 +879,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/13-feng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/13-feng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/13-feng.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/13-feng-l-abondance.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/13-feng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html"/>
   </url>
   <url>
@@ -522,6 +912,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/14-heng-la-duree.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/14-heng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
   </url>
   <url>
@@ -531,6 +923,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/14-heng-la-duree.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/14-heng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/14-heng-la-duree.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/14-heng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/14-heng.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/14-heng-la-duree.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/14-heng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/14-heng-duration.html"/>
   </url>
   <url>
@@ -540,6 +956,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/15-da-zhuang-la-puissance-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
   </url>
   <url>
@@ -549,6 +967,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/15-da-zhuang-la-puissance-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/15-da-zhuang-la-puissance-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/15-da-zhuang-la-puissance-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html"/>
   </url>
   <url>
@@ -558,6 +1000,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/16-bi-la-solidarite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/16-bi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
   </url>
   <url>
@@ -567,6 +1011,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/16-bi-la-solidarite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/16-bi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/16-bi-la-solidarite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/16-bi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/16-bi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/16-bi-la-solidarite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/16-bi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html"/>
   </url>
   <url>
@@ -576,6 +1044,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/17-zhun-la-difficulte-initiale.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/17-zhun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
   </url>
   <url>
@@ -585,6 +1055,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/17-zhun-la-difficulte-initiale.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/17-zhun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/17-zhun-la-difficulte-initiale.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/17-zhun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/17-zhun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/17-zhun-la-difficulte-initiale.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/17-zhun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html"/>
   </url>
   <url>
@@ -594,6 +1088,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/18-kan-l-insondable.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/18-kan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
   </url>
   <url>
@@ -603,6 +1099,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/18-kan-l-insondable.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/18-kan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/18-kan-l-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/18-kan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/18-kan.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/18-kan-l-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/18-kan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html"/>
   </url>
   <url>
@@ -612,6 +1132,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/19-jie-la-limitation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/19-jie.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
   </url>
   <url>
@@ -621,6 +1143,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/19-jie-la-limitation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/19-jie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/19-jie-la-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/19-jie.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/19-jie.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/19-jie-la-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/19-jie.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html"/>
   </url>
   <url>
@@ -630,6 +1176,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/20-jian-l-obstacle.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/20-jian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
   </url>
   <url>
@@ -639,6 +1187,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/20-jian-l-obstacle.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/20-jian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/20-jian-l-obstacle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/20-jian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/20-jian.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/20-jian-l-obstacle.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/20-jian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html"/>
   </url>
   <url>
@@ -648,6 +1220,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/21-ji-ji-apres-l-accomplissement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/21-ji-ji.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
   </url>
   <url>
@@ -657,6 +1231,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/21-ji-ji-apres-l-accomplissement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/21-ji-ji.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/21-ji-ji-apres-l-accomplissement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/21-ji-ji.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/21-ji-ji.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/21-ji-ji-apres-l-accomplissement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/21-ji-ji.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html"/>
   </url>
   <url>
@@ -666,6 +1264,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/22-jing-le-puits.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/22-jing.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
   </url>
   <url>
@@ -675,6 +1275,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/22-jing-le-puits.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/22-jing.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/22-jing-le-puits.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/22-jing.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/22-jing.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/22-jing-le-puits.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/22-jing.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html"/>
   </url>
   <url>
@@ -684,6 +1308,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/23-xu-l-attente.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/23-xu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
   </url>
   <url>
@@ -693,6 +1319,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/23-xu-l-attente.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/23-xu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/23-xu-l-attente.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/23-xu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/23-xu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/23-xu-l-attente.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/23-xu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html"/>
   </url>
   <url>
@@ -702,6 +1352,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/24-cui-le-rassemblement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/24-cui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
   </url>
   <url>
@@ -711,6 +1363,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/24-cui-le-rassemblement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/24-cui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/24-cui-le-rassemblement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/24-cui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/24-cui.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/24-cui-le-rassemblement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/24-cui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html"/>
   </url>
   <url>
@@ -720,6 +1396,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/25-sui-la-suite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/25-sui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
   </url>
   <url>
@@ -729,6 +1407,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/25-sui-la-suite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/25-sui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/25-sui-la-suite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/25-sui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/25-sui.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/25-sui-la-suite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/25-sui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/25-sui-following.html"/>
   </url>
   <url>
@@ -738,6 +1440,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/26-kun-l-accablement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/26-kun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
   </url>
   <url>
@@ -747,6 +1451,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/26-kun-l-accablement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/26-kun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/26-kun-l-accablement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/26-kun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/26-kun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/26-kun-l-accablement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/26-kun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html"/>
   </url>
   <url>
@@ -756,6 +1484,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/27-dui-le-joyeux.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/27-dui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
   </url>
   <url>
@@ -765,6 +1495,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/27-dui-le-joyeux.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/27-dui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/27-dui-le-joyeux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/27-dui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/27-dui.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/27-dui-le-joyeux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/27-dui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html"/>
   </url>
   <url>
@@ -774,6 +1528,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/28-xian-l-influence.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/28-xian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
   </url>
   <url>
@@ -783,6 +1539,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/28-xian-l-influence.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/28-xian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/28-xian-l-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/28-xian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/28-xian.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/28-xian-l-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/28-xian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/28-xian-influence.html"/>
   </url>
   <url>
@@ -792,6 +1572,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/29-ge-la-revolution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/29-ge.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
   </url>
   <url>
@@ -801,6 +1583,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/29-ge-la-revolution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/29-ge.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/29-ge-la-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/29-ge.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/29-ge.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/29-ge-la-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/29-ge.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html"/>
   </url>
   <url>
@@ -810,6 +1616,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/30-da-guo-la-preponderance-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/30-da-guo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
   </url>
   <url>
@@ -819,6 +1627,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/30-da-guo-la-preponderance-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/30-da-guo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/30-da-guo-la-preponderance-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/30-da-guo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/30-da-guo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/30-da-guo-la-preponderance-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/30-da-guo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html"/>
   </url>
   <url>
@@ -828,6 +1660,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/31-guai-la-percee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/31-guai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
   </url>
   <url>
@@ -837,6 +1671,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/31-guai-la-percee.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/31-guai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/31-guai-la-percee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/31-guai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/31-guai.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/31-guai-la-percee.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/31-guai.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html"/>
   </url>
   <url>
@@ -846,6 +1704,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/32-bo-l-eclatement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/32-bo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
   </url>
   <url>
@@ -855,6 +1715,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/32-bo-l-eclatement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/32-bo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/32-bo-l-eclatement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/32-bo.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/32-bo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/32-bo-l-eclatement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/32-bo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html"/>
   </url>
   <url>
@@ -864,6 +1748,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/33-yi-la-nourriture.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/33-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
   </url>
   <url>
@@ -873,6 +1759,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/33-yi-la-nourriture.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/33-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/33-yi-la-nourriture.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/33-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/33-yi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/33-yi-la-nourriture.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/33-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html"/>
   </url>
   <url>
@@ -882,6 +1792,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/34-meng-la-folie-juvenile.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/34-meng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
   </url>
   <url>
@@ -891,6 +1803,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/34-meng-la-folie-juvenile.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/34-meng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/34-meng-la-folie-juvenile.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/34-meng.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/34-meng.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/34-meng-la-folie-juvenile.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/34-meng.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html"/>
   </url>
   <url>
@@ -900,6 +1836,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/35-sun-la-diminution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/35-sun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
   </url>
   <url>
@@ -909,6 +1847,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/35-sun-la-diminution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/35-sun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/35-sun-la-diminution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/35-sun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/35-sun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/35-sun-la-diminution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/35-sun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html"/>
   </url>
   <url>
@@ -918,6 +1880,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/36-gen-l-immobilisation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/36-gen.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
   </url>
   <url>
@@ -927,6 +1891,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/36-gen-l-immobilisation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/36-gen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/36-gen-l-immobilisation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/36-gen.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/36-gen.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/36-gen-l-immobilisation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/36-gen.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html"/>
   </url>
   <url>
@@ -936,6 +1924,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/37-bi-la-grace.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/37-bi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
   </url>
   <url>
@@ -945,6 +1935,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/37-bi-la-grace.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/37-bi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/37-bi-la-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/37-bi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/37-bi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/37-bi-la-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/37-bi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/37-bi-grace.html"/>
   </url>
   <url>
@@ -954,6 +1968,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/38-gu-le-travail-sur-ce-qui-est-gate.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/38-gu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
   </url>
   <url>
@@ -963,6 +1979,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/38-gu-le-travail-sur-ce-qui-est-gate.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/38-gu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/38-gu-le-travail-sur-ce-qui-est-gate.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/38-gu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/38-gu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/38-gu-le-travail-sur-ce-qui-est-gate.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/38-gu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html"/>
   </url>
   <url>
@@ -972,6 +2012,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/39-da-chu-la-force-apprivoisee-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/39-da-chu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
   </url>
   <url>
@@ -981,6 +2023,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/39-da-chu-la-force-apprivoisee-du-grand.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/39-da-chu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/39-da-chu-la-force-apprivoisee-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/39-da-chu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/39-da-chu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/39-da-chu-la-force-apprivoisee-du-grand.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/39-da-chu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html"/>
   </url>
   <url>
@@ -990,6 +2056,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/40-jin-le-progres.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/40-jin.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
   </url>
   <url>
@@ -999,6 +2067,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/40-jin-le-progres.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/40-jin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/40-jin-le-progres.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/40-jin.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/40-jin.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/40-jin-le-progres.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/40-jin.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/40-jin-progress.html"/>
   </url>
   <url>
@@ -1008,6 +2100,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/41-shi-he-mordre-au-travers.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/41-shi-he.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
   </url>
   <url>
@@ -1017,6 +2111,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/41-shi-he-mordre-au-travers.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/41-shi-he.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/41-shi-he-mordre-au-travers.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/41-shi-he.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/41-shi-he.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/41-shi-he-mordre-au-travers.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/41-shi-he.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html"/>
   </url>
   <url>
@@ -1026,6 +2144,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/42-wei-ji-avant-l-accomplissement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/42-wei-ji.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
   </url>
   <url>
@@ -1035,6 +2155,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/42-wei-ji-avant-l-accomplissement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/42-wei-ji.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/42-wei-ji-avant-l-accomplissement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/42-wei-ji.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/42-wei-ji.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/42-wei-ji-avant-l-accomplissement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/42-wei-ji.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html"/>
   </url>
   <url>
@@ -1044,6 +2188,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/43-kui-l-opposition.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/43-kui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
   </url>
   <url>
@@ -1053,6 +2199,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/43-kui-l-opposition.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/43-kui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/43-kui-l-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/43-kui.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/43-kui.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/43-kui-l-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/43-kui.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html"/>
   </url>
   <url>
@@ -1062,6 +2232,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/44-lu-le-voyageur.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/44-lu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
   </url>
   <url>
@@ -1071,6 +2243,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/44-lu-le-voyageur.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/44-lu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/44-lu-le-voyageur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/44-lu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/44-lu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/44-lu-le-voyageur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/44-lu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html"/>
   </url>
   <url>
@@ -1080,6 +2276,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/45-li-ce-qui-s-attache-le-feu.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/45-li.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
   </url>
   <url>
@@ -1089,6 +2287,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/45-li-ce-qui-s-attache-le-feu.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/45-li.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/45-li-ce-qui-s-attache-le-feu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/45-li.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/45-li.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/45-li-ce-qui-s-attache-le-feu.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/45-li.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html"/>
   </url>
   <url>
@@ -1098,6 +2320,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/46-ding-le-chaudron.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/46-ding.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
   </url>
   <url>
@@ -1107,6 +2331,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/46-ding-le-chaudron.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/46-ding.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/46-ding-le-chaudron.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/46-ding.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/46-ding.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/46-ding-le-chaudron.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/46-ding.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html"/>
   </url>
   <url>
@@ -1116,6 +2364,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/47-da-you-la-possession-de-grande-envergure.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/47-da-you.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
   </url>
   <url>
@@ -1125,6 +2375,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/47-da-you-la-possession-de-grande-envergure.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/47-da-you.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/47-da-you-la-possession-de-grande-envergure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/47-da-you.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/47-da-you.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/47-da-you-la-possession-de-grande-envergure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/47-da-you.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html"/>
   </url>
   <url>
@@ -1134,6 +2408,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/48-guan-la-contemplation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/48-guan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
   </url>
   <url>
@@ -1143,6 +2419,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/48-guan-la-contemplation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/48-guan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/48-guan-la-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/48-guan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/48-guan.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/48-guan-la-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/48-guan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html"/>
   </url>
   <url>
@@ -1152,6 +2452,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/49-yi-l-augmentation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/49-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
   </url>
   <url>
@@ -1161,6 +2463,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/49-yi-l-augmentation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/49-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/49-yi-l-augmentation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/49-yi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/49-yi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/49-yi-l-augmentation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/49-yi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/49-yi-increase.html"/>
   </url>
   <url>
@@ -1170,6 +2496,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/50-huan-la-dissolution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/50-huan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
   </url>
   <url>
@@ -1179,6 +2507,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/50-huan-la-dissolution.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/50-huan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/50-huan-la-dissolution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/50-huan.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/50-huan.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/50-huan-la-dissolution.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/50-huan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html"/>
   </url>
   <url>
@@ -1188,6 +2540,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/51-zhong-fu-la-verite-interieure.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
   </url>
   <url>
@@ -1197,6 +2551,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/51-zhong-fu-la-verite-interieure.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/51-zhong-fu-la-verite-interieure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/51-zhong-fu-la-verite-interieure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html"/>
   </url>
   <url>
@@ -1206,6 +2584,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/52-jian-le-developpement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/52-jian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
   </url>
   <url>
@@ -1215,6 +2595,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/52-jian-le-developpement.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/52-jian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/52-jian-le-developpement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/52-jian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/52-jian.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/52-jian-le-developpement.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/52-jian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/52-jian-development.html"/>
   </url>
   <url>
@@ -1224,6 +2628,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/53-jia-ren-les-gens-de-la-maison.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/53-jia-ren.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
   </url>
   <url>
@@ -1233,6 +2639,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/53-jia-ren-les-gens-de-la-maison.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/53-jia-ren.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/53-jia-ren-les-gens-de-la-maison.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/53-jia-ren.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/53-jia-ren.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/53-jia-ren-les-gens-de-la-maison.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/53-jia-ren.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html"/>
   </url>
   <url>
@@ -1242,6 +2672,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/54-xun-le-doux-le-vent.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/54-xun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
   </url>
   <url>
@@ -1251,6 +2683,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/54-xun-le-doux-le-vent.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/54-xun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/54-xun-le-doux-le-vent.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/54-xun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/54-xun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/54-xun-le-doux-le-vent.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/54-xun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html"/>
   </url>
   <url>
@@ -1260,6 +2716,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/55-xiao-chu-la-force-apprivoisee-du-petit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
   </url>
   <url>
@@ -1269,6 +2727,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/55-xiao-chu-la-force-apprivoisee-du-petit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/55-xiao-chu-la-force-apprivoisee-du-petit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/55-xiao-chu-la-force-apprivoisee-du-petit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html"/>
   </url>
   <url>
@@ -1278,6 +2760,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/56-pi-la-stagnation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/56-pi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
   </url>
   <url>
@@ -1287,6 +2771,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/56-pi-la-stagnation.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/56-pi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/56-pi-la-stagnation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/56-pi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/56-pi.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/56-pi-la-stagnation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/56-pi.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html"/>
   </url>
   <url>
@@ -1296,6 +2804,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/57-wu-wang-l-innocence.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/57-wu-wang.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
   </url>
   <url>
@@ -1305,6 +2815,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/57-wu-wang-l-innocence.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/57-wu-wang.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/57-wu-wang-l-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/57-wu-wang.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/57-wu-wang.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/57-wu-wang-l-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/57-wu-wang.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html"/>
   </url>
   <url>
@@ -1314,6 +2848,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/58-song-le-conflit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/58-song.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
   </url>
   <url>
@@ -1323,6 +2859,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/58-song-le-conflit.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/58-song.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/58-song-le-conflit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/58-song.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/58-song.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/58-song-le-conflit.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/58-song.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/58-song-conflict.html"/>
   </url>
   <url>
@@ -1332,6 +2892,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/59-lu-la-marche.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/59-lu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
   </url>
   <url>
@@ -1341,6 +2903,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/59-lu-la-marche.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/59-lu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/59-lu-la-marche.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/59-lu.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/59-lu.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/59-lu-la-marche.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/59-lu.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/59-lu-treading.html"/>
   </url>
   <url>
@@ -1350,6 +2936,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/60-dun-la-retraite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/60-dun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
   </url>
   <url>
@@ -1359,6 +2947,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/60-dun-la-retraite.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/60-dun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/60-dun-la-retraite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/60-dun.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/60-dun.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/60-dun-la-retraite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/60-dun.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html"/>
   </url>
   <url>
@@ -1368,6 +2980,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/61-tong-ren-la-communaute-avec-les-hommes.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/61-tong-ren.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
   </url>
   <url>
@@ -1377,6 +2991,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/61-tong-ren-la-communaute-avec-les-hommes.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/61-tong-ren.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/61-tong-ren-la-communaute-avec-les-hommes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/61-tong-ren.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/61-tong-ren.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/61-tong-ren-la-communaute-avec-les-hommes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/61-tong-ren.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html"/>
   </url>
   <url>
@@ -1386,6 +3024,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/62-gou-venir-a-la-rencontre.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/62-gou.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
   </url>
   <url>
@@ -1395,6 +3035,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/62-gou-venir-a-la-rencontre.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/62-gou.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/62-gou-venir-a-la-rencontre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/62-gou.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/62-gou.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/62-gou-venir-a-la-rencontre.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/62-gou.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html"/>
   </url>
   <url>
@@ -1404,6 +3068,8 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/63-qian-le-createur.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/63-qian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
   </url>
   <url>
@@ -1413,6 +3079,30 @@
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/63-qian-le-createur.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/63-qian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/63-qian-le-createur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/63-qian.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/hexagrams/63-qian.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/hexagrammes/63-qian-le-createur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/63-qian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
   </url>
   <url>

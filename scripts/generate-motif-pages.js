@@ -328,7 +328,7 @@ function renderPage(fam, n, lang) {
   const nextSlug = motifSlug(fam, nextN);
   const familyLabel = FAMILY_LABEL[lang][fam] || fam;
   // Lien vers l'hexagramme, dans la langue de la page : les pages anglaises
-  // ont désormais leur jumelle en/hexagrams/ (generate-hexagram-pages-en.js).
+  // ont désormais leur jumelle en/hexagrams/ (generate-hexagram-pages-traduites.js).
   const hexHref = lang === 'en'
     ? `${prefixFor(lang)}${ADRESSES_HEXAGRAMMES.fichier(n, 'en')}`
     : `${prefixFor(lang)}hexagrammes/${hexagramSlug(n)}`;

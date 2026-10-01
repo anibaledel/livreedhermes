@@ -104,6 +104,9 @@ const FRAGMENTS = {
   // Le même pied en anglais, pour les pages <html lang="en"> : rendre('footer',
   // …, 'en') le choisit. Liens vers les versions anglaises quand elles existent.
   'footer-en': lire('footer-en.html'),
+  // Espagnol et thaï : pages hexagrammes traduites (es/hexagramas/, th/hexagrams/).
+  'footer-es': lire('footer-es.html'),
+  'footer-th': lire('footer-th.html'),
 };
 
 function zone(nom, corps, source = 'includes/') {
@@ -122,7 +125,7 @@ function langHtml(s) {
 
 function rendre(nom, prefixe, lang = 'fr') {
   // La zone garde son nom (@footer) ; seul le fragment change avec la langue.
-  const fragment = nom === 'footer' && lang === 'en' ? 'footer-en' : nom;
+  const fragment = nom === 'footer' && FRAGMENTS[`footer-${lang}`] ? `footer-${lang}` : nom;
   const corps = FRAGMENTS[fragment].split('{{BASE}}').join(prefixe)
     .split('{{SKIP}}').join(TEXTE_EVITEMENT[lang]);
   return zone(nom, corps);
