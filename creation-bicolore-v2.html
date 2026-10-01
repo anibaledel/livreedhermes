@@ -43,6 +43,8 @@
   .gen-btn .angle{ display:block; font-size:10px; color:var(--dim); margin-top:2px; }
   .gen-btn[aria-pressed="true"]{ border-color:var(--red); color:var(--red); background:rgba(224,38,27,.08); }
   .gen-btn:disabled{ opacity:.3; cursor:not-allowed; }
+  .gen-btn.racine-fixe{ box-shadow:inset 0 0 0 1px var(--gold); }
+  .gen-btn.racine-fixe .angle{ color:var(--gold); }
   .gen-sep{ grid-column:1/-1; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); opacity:.6; margin:6px 0 0; }
 
   .preview{ border:1px solid var(--line); padding:18px; text-align:center; background:var(--panel); }
@@ -110,6 +112,7 @@
       <div class="gen-grid" id="genGrid" role="group" aria-label="Générateurs de l'accord"></div>
       <div class="actions">
         <button type="button" id="btnMuter" data-i18n="btnMuter">Muter</button>
+        <button type="button" id="btnDescendre" data-i18n="btnDescendre">Descendre</button>
         <button type="button" id="btnEffacer" data-i18n="btnEffacer">Effacer</button>
       </div>
     </div>
@@ -133,7 +136,7 @@ import { GRID, PER_CELL, triangleGeometry, maskToSvg } from './assets/bicolore-r
 import {
   buildAxes, buildGenerateursV2, generateAxesMask, generateAxesMaskC4,
   nomAccord, demiDecalageStatus, mutantDe, disponiblePourGrain,
-  ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX,
+  ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX, doubleAccord, RACINES_FIXES,
 } from './assets/bicolore-axes.js';
 
 // ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir i18n_todo_creation-bicolore-v2.md) ----------
@@ -145,7 +148,9 @@ const UI = {
     v1LinkHtml: "L'outil d'origine (T0–T3, hexagrammes) reste disponible : <a href=\"bicolore.html\">Motifs bicolores v1</a>.",
     modeHeading: "Mode", modeLibre: "Accord libre", modeFamilles: "Familles",
     grainHeading: "Grain", generatorsHeading: "Éléments",
-    btnMuter: "Muter", btnEffacer: "Effacer", btnTelecharger: "Télécharger le SVG",
+    btnMuter: "Muter", btnDescendre: "Descendre", btnEffacer: "Effacer", btnTelecharger: "Télécharger le SVG",
+    fusionNote: " — fusion (des éléments distincts sont tombés au même endroit)",
+    racineFixeTitle: "Racine fixe du dédoublement (θ ↦ 2θ)",
     niveau: "niveau", angle: "angle", angles: "angles", accordVide: "Aucun élément sélectionné.",
     vecteur: "vecteur", invariante: "invariante", inversee: "inversée", echangee: "échangée",
     visiblePlaque: "visible sur une plaque",
@@ -157,7 +162,9 @@ const UI = {
     v1LinkHtml: "The original tool (T0–T3, hexagrams) is still available: <a href=\"bicolore.html\">Two-colour patterns v1</a>.",
     modeHeading: "Mode", modeLibre: "Free chord", modeFamilles: "Families",
     grainHeading: "Grain", generatorsHeading: "Elements",
-    btnMuter: "Mutate", btnEffacer: "Clear", btnTelecharger: "Download SVG",
+    btnMuter: "Mutate", btnDescendre: "Double", btnEffacer: "Clear", btnTelecharger: "Download SVG",
+    fusionNote: " — merged (distinct elements landed on the same spot)",
+    racineFixeTitle: "Fixed root of the doubling (θ ↦ 2θ)",
     niveau: "level", angle: "angle", angles: "angles", accordVide: "No element selected.",
     vecteur: "vector", invariante: "invariant", inversee: "inverted", echangee: "exchanged",
     visiblePlaque: "visible on a plate",
@@ -180,6 +187,7 @@ const BASES = new Set(['L0', 'L180', 'YI6', 'IY6']); // ya, ay, yi, iy
 let mode = 'libre'; // 'libre' | 'familles'
 let grain = 'C8';   // 'C8' | 'C1' | 'C4'
 let selection = new Set();
+let derniereFusion = false; // true juste apres un "Descendre" qui a fusionne des elements
 let AXES_V1 = null, GENV2 = null, GENV2_JSON = null;
 
 function angleDe(id) {
@@ -204,13 +212,14 @@ function renderGenGrid() {
     const visible = mode === 'libre' || BASES.has(id);
     if (!visible) continue;
     const btn = document.createElement('button');
-    btn.type = 'button'; btn.className = 'gen-btn'; btn.dataset.id = id;
+    btn.type = 'button'; btn.className = 'gen-btn' + (RACINES_FIXES.has(id) ? ' racine-fixe' : ''); btn.dataset.id = id;
     btn.innerHTML = `${id}<span class="angle">${angleDe(id)}°</span>`;
     const dispo = disponiblePourGrain(id, grain);
     btn.disabled = !dispo;
-    btn.title = dispo ? '' : t('c4Indisponible');
+    btn.title = dispo ? (RACINES_FIXES.has(id) ? t('racineFixeTitle') : '') : t('c4Indisponible');
     btn.setAttribute('aria-pressed', selection.has(id) ? 'true' : 'false');
     btn.addEventListener('click', () => {
+      derniereFusion = false;
       if (selection.has(id)) selection.delete(id); else selection.add(id);
       renderGenGrid(); renderAll();
     });
@@ -277,8 +286,6 @@ function renderAll() {
     const vec = [selection.has('L0') ? 1 : 0, selection.has('L180') ? 1 : 0, selection.has('YI6') ? 1 : 0, selection.has('IY6') ? 1 : 0];
     html += ` <span class="badge">${t('vecteur')} (${vec.join(', ')})</span>`;
   }
-  // visible sur une plaque : reunion d'angles complets -- YI3/IY3 ensemble
-  // ou pas du tout (90 deg n'est complet que si les deux moities y sont).
   // visible sur une plaque : reunion d'angles COMPLETS. L'orthogonal 90°
   // (YI3/IY3) et chacun des cinq angles diagonaux non terminaux (30,60,90,
   // 120,150, dont les deux elements YA_k/AY_(6-k) sont ici independamment
@@ -290,6 +297,7 @@ function renderAll() {
     if (selection.has(e1) !== selection.has(e2)) { anglesComplets = false; break; }
   }
   if (anglesComplets && selection.size) html += ` <span class="badge plaque">${t('visiblePlaque')}</span>`;
+  if (derniereFusion) html += t('fusionNote');
   infoLine.innerHTML = html;
 }
 
@@ -297,6 +305,7 @@ function renderAll() {
 document.querySelectorAll('#modeToggle button').forEach(btn => {
   btn.addEventListener('click', () => {
     mode = btn.dataset.mode;
+    derniereFusion = false;
     document.querySelectorAll('#modeToggle button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
     if (mode === 'familles') selection = new Set([...selection].filter(id => BASES.has(id)));
     renderGenGrid(); renderAll();
@@ -305,16 +314,25 @@ document.querySelectorAll('#modeToggle button').forEach(btn => {
 document.querySelectorAll('#grainToggle button').forEach(btn => {
   btn.addEventListener('click', () => {
     grain = btn.dataset.grain;
+    derniereFusion = false;
     document.querySelectorAll('#grainToggle button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
     if (grain === 'C4') selection = new Set([...selection].filter(id => disponiblePourGrain(id, 'C4')));
     renderGenGrid(); renderAll();
   });
 });
 document.getElementById('btnMuter').addEventListener('click', () => {
+  derniereFusion = false;
   selection = new Set([...selection].map(id => mutantDe(id)));
   renderGenGrid(); renderAll();
 });
+document.getElementById('btnDescendre').addEventListener('click', () => {
+  const { images, fusion } = doubleAccord(selection);
+  selection = images;
+  derniereFusion = fusion;
+  renderGenGrid(); renderAll();
+});
 document.getElementById('btnEffacer').addEventListener('click', () => {
+  derniereFusion = false;
   selection = new Set();
   renderGenGrid(); renderAll();
 });

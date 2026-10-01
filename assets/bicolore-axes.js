@@ -320,6 +320,34 @@ export function mutantDe(id) {
   return (m[1] === 'YI' ? 'IY' : 'YI') + m[2];
 }
 
+// Dedoublement : theta -> 2*theta (au signe pres), element par element --
+// donne par Anibal, pas rederive (les lettres suivent l'angle d'arrivee et
+// peuvent se croiser : YI4 -> IY4, IY5 -> YI4, IY6 -> YI6, etc.).
+// Diagonal (angle -> angle d'arrivee) :
+export const DOUBLEMENT_ANGLE = { 0: 0, 30: 60, 60: 120, 90: 180, 120: 120, 150: 60, 180: 0 };
+// Orthogonal (id -> id d'arrivee), table explicite :
+export const DOUBLEMENT_ORTHO = {
+  YI6: 'YI6', YI5: 'YI4', YI4: 'IY4', YI3: 'IY6',
+  IY3: 'IY6', IY4: 'IY4', IY5: 'YI4', IY6: 'YI6',
+};
+// Les deux racines fixes du dedoublement, 0° et 120° -- marquees dans
+// l'interface. A 0°, YA6/YI6 ; a 120°, YA2+AY4 (generateur L120)/IY4.
+export const RACINES_FIXES = new Set(['L0', 'YI6', 'L120', 'IY4']);
+export function doubleDe(id) {
+  if (id.startsWith('L')) return 'L' + DOUBLEMENT_ANGLE[Number(id.slice(1))];
+  const dest = DOUBLEMENT_ORTHO[id];
+  if (dest === undefined) throw new Error(`generateur inconnu : ${id}`);
+  return dest;
+}
+// Un accord descend par reunion des images, dedoublonnee (un Set). `fusion`
+// est vrai si au moins deux elements distincts de depart tombent au meme
+// endroit (la selection perd strictement des elements).
+export function doubleAccord(selectionIds) {
+  const images = new Set();
+  for (const id of selectionIds) images.add(doubleDe(id));
+  return { images, fusion: images.size < selectionIds.size };
+}
+
 // C4 regroupe les triangles de C8 par paires de part et d'autre des
 // medianes : seuls passent les generateurs sans droite sur une mediane --
 // les 7 angles L (toujours diagonaux, jamais sur une mediane), et YI6/YI4/
