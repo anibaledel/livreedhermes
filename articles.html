@@ -303,10 +303,10 @@
 <!-- @main:end -->
 <div class="note">
     <div class="center-logo-slot">
-      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
     <div class="footer-caduceus">
-      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+      <picture><source srcset="assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
     </div>
 
     <div class="nav-tiles nav-tiles-group-2">
@@ -333,7 +333,7 @@
       <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
 
     <div class="center-logo-slot center-logo-slot-bottom">
-      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
 
     <div class="credit-line">
@@ -364,9 +364,14 @@
   }
 
   function cardHtml(a){
-    var cover = a.cover
-      ? '<img class="article-cover" src="' + escapeHtml(a.cover) + '" alt="' + escapeHtml(a.coverAlt || '') + '" loading="lazy">'
+    // Couverture AVIF : le JPEG de même nom sert de repli aux navigateurs qui ne lisent pas l'AVIF.
+    var avif = a.cover && /\.avif$/i.test(a.cover);
+    var img = a.cover
+      ? '<img class="article-cover" src="' + escapeHtml(avif ? a.cover.replace(/\.avif$/i, '.jpg') : a.cover) + '" alt="' + escapeHtml(a.coverAlt || '') + '" loading="lazy">'
       : '';
+    var cover = avif
+      ? '<picture><source srcset="' + escapeHtml(a.cover) + '" type="image/avif">' + img + '</picture>'
+      : img;
     var badges = a.categories.map(function(c){ return '<span class="article-badge">' + escapeHtml(c) + '</span>'; }).join('');
     return '<a class="article-card" href="' + escapeHtml(a.url) + '">' +
       cover +

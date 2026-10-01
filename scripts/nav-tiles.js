@@ -153,10 +153,11 @@ const ICONES_TOUJOURS_ANIMEES = new Set(['bicolore', 'galerie-bicolore']);
 
 function htmlTuile(item, prefixe, lang) {
   const texte = item[lang] || item.fr;
-  const src = ICONES_TOUJOURS_ANIMEES.has(item.icon)
-    ? `${prefixe}assets/nav-icons/${item.icon}-hover.gif`
-    : `${prefixe}assets/nav-icons/${item.icon}.png`;
-  return `<a class="nav-tile" href="${item.finalHref}"><img class="nav-tile-icon" src="${src}" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">${texte.label}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
+  // GIF animé : première image fixe si le visiteur demande moins de mouvement.
+  const img = ICONES_TOUJOURS_ANIMEES.has(item.icon)
+    ? `<picture><source srcset="${prefixe}assets/nav-icons/${item.icon}-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}-hover.gif" alt="" width="72" height="72" loading="lazy"></picture>`
+    : `<img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}.png" alt="" width="72" height="72" loading="lazy">`;
+  return `<a class="nav-tile" href="${item.finalHref}">${img}<span class="nav-tile-body"><span class="nav-tile-label">${texte.label}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
 }
 
 const GROUPE_LABEL = { fr: {}, en: {} };
@@ -197,7 +198,7 @@ function htmlNavTiles(rel, prefixe, lang = 'fr') {
 
   return `<div class="note">
     ${blocAccueil}<div class="footer-caduceus">
-      <img src="${prefixe}assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+      <picture><source srcset="${prefixe}assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="${prefixe}assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
     </div>
     <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="${soutien.title}">${soutien.label}</a>
 
@@ -210,7 +211,7 @@ function htmlNavTiles(rel, prefixe, lang = 'fr') {
     ${blocGroupe('le-projet')}
 
     <div class="center-logo-slot center-logo-slot-bottom">
-      <img src="${prefixe}assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="${prefixe}assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="${prefixe}assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
 
     <div class="credit-line">

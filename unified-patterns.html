@@ -72,7 +72,7 @@
     cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
   }
   .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
-  .book-bar .dl-group{
+  .book-bar .dl-group{ flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box;
     display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
   }
   .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
@@ -417,7 +417,7 @@
 
     <div class="detail-outer">
       <div id="detail">
-        <div class="empty-state"><img src="assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès" width="420" height="594">Cliquez une case de l'échiquier pour afficher son motif, choisir sa couleur et voir sa tessellation.</div>
+        <div class="empty-state"><picture><source srcset="assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès" width="420" height="594"></picture>Cliquez une case de l'échiquier pour afficher son motif, choisir sa couleur et voir sa tessellation.</div>
       </div>
     </div>
   </div>
@@ -427,10 +427,10 @@
 <!-- @main:end -->
 <div class="note">
     <div class="center-logo-slot">
-      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
     <div class="footer-caduceus">
-      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594">
+      <picture><source srcset="assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594"></picture>
     </div>
 
     <div class="nav-tiles nav-tiles-group-2">
@@ -459,7 +459,7 @@
       <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
 
     <div class="center-logo-slot center-logo-slot-bottom">
-      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
     </div>
 
     <div class="credit-line">
