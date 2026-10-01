@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="/assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="/assets/fonts.css">
 <link rel="stylesheet" href="/assets/atalanta-bg.css">
+<link rel="stylesheet" href="/pagefind/pagefind-ui.css">
+<link rel="stylesheet" href="/assets/recherche.css">
 <style>
   *{box-sizing:border-box;}
   html{ overflow-x:hidden; }
@@ -65,6 +67,9 @@
     h1{ font-size:calc(22px + var(--fs-bump)); }
     .nav-tiles{ grid-template-columns:1fr; gap:8px; }
   }
+  .erreur-recherche{ max-width:760px; margin:36px auto 8px; padding:0 4px; text-align:center; }
+  .erreur-recherche h2{ font-weight:400; font-size:calc(18px + var(--fs-bump)); color:var(--gold); margin:0 0 6px; }
+  .erreur-recherche p{ color:var(--dim); font-size:calc(13px + var(--fs-bump)); line-height:1.6; margin:0 0 16px; }
 </style>
 <!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <link rel="icon" href="/favicon.ico" sizes="32x32">
@@ -93,6 +98,11 @@
     <a class="retour" href="/">Retour à l'accueil</a>
   </div>
   </div>
+  <section class="erreur-recherche" aria-labelledby="erreur-recherche-titre">
+    <h2 id="erreur-recherche-titre">Chercher dans le site</h2>
+    <p>La recherche est lancée avec les mots de l'adresse demandée : la page cherchée est peut-être juste là.</p>
+    <div id="recherche"></div>
+  </section>
 
   <div class="nav-tiles">
     <a class="nav-tile" href="/la-livree-d-hermes.html"><span class="nav-tile-icon" style="--rest-icon:url(/assets/nav-icons/la-livree-d-hermes.png); --hover-icon:url(/assets/nav-icons/la-livree-d-hermes-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Le traité</span><span class="nav-tile-excerpt">Le livre en quatre langues, les hexagrammes et le lexique.</span></span></a>
@@ -135,5 +145,20 @@
   </p>
 </footer>
 <!-- @footer:end -->
+<script src="/pagefind/pagefind-ui.js"></script>
+<script>
+  // Recherche lancée avec les mots de l'adresse introuvable (/hexagrammes/12-pi-x.html
+  // → « hexagrammes 12 pi x »). Sous /en/ ou /motifs/, dans l'index anglais :
+  // Pagefind choisit l'index d'après <html lang>, lu à l'initialisation.
+  (function () {
+    var chemin = decodeURIComponent(location.pathname);
+    if (/^\/(en|motifs)\//.test(chemin)) document.documentElement.lang = 'en';
+    var mots = chemin.replace(/\.html?$/i, '').split(/[\/\-_.]+/).filter(function (m) {
+      return m && !/^(en|fr|index)$/i.test(m);
+    }).join(' ');
+    var ui = new PagefindUI({ element: '#recherche', showSubResults: true, showImages: false, resetStyles: false });
+    if (mots) ui.triggerSearch(mots);
+  })();
+</script>
 </body>
 </html>
