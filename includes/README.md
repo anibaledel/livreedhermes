@@ -11,6 +11,7 @@ correspond plus à ce que les fragments produiraient.
 | `head-icons.html` | les icônes du site, dans `<head>` | `@head-icons:start` / `:end` |
 | `header.html` | l'en-tête visible : le logo | `@header:start` / `:end` |
 | `footer.html` | le pied partagé : navigation du site et licences, à la fin de `.wrap` | `@footer:start` / `:end` |
+| `footer-en.html` | le même pied en anglais, posé sur les pages `<html lang="en">` | `@footer:start` / `:end` |
 
 `{{BASE}}` est remplacé par le préfixe de remontée de chaque page (`""` à la
 racine, `"../"` dans `articles/`, `"../../"` dans `en/book/`).

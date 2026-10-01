@@ -96,6 +96,9 @@ const FRAGMENTS = {
   'head-icons': lire('head-icons.html'),
   header: lire('header.html'),
   footer: lire('footer.html'),
+  // Le même pied en anglais, pour les pages <html lang="en"> : rendre('footer',
+  // …, 'en') le choisit. Liens vers les versions anglaises quand elles existent.
+  'footer-en': lire('footer-en.html'),
 };
 
 function zone(nom, corps, source = 'includes/') {
@@ -113,7 +116,9 @@ function langHtml(s) {
 }
 
 function rendre(nom, prefixe, lang = 'fr') {
-  const corps = FRAGMENTS[nom].split('{{BASE}}').join(prefixe)
+  // La zone garde son nom (@footer) ; seul le fragment change avec la langue.
+  const fragment = nom === 'footer' && lang === 'en' ? 'footer-en' : nom;
+  const corps = FRAGMENTS[fragment].split('{{BASE}}').join(prefixe)
     .split('{{SKIP}}').join(TEXTE_EVITEMENT[lang]);
   return zone(nom, corps);
 }
@@ -326,7 +331,7 @@ function traiter(rel, src) {
 
     // Le pied ferme le contenu : à la toute fin de .wrap, après la zone de
     // navigation .note quand elle existe.
-    s = poser(s, 'footer', rendre('footer', prefixe), (t, c) => {
+    s = poser(s, 'footer', rendre('footer', prefixe, langHtml(s)), (t, c) => {
       const i = t.lastIndexOf('</div>\n</body>');
       if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
       return t.replace(/<\/body>/, `${c}\n</body>`);

@@ -305,7 +305,7 @@ const STR = {
 // mécanisme que generate-hexagram-pages.js. Pas de traducteur Google : retiré
 // du site (décision de l'auteur, 2026-09-27, voir scripts/build-header.js).
 const ICONES = { en: rendre('head-icons', prefixFor('en')), fr: rendre('head-icons', prefixFor('fr')) };
-const PIED = { en: rendre('footer', prefixFor('en')), fr: rendre('footer', prefixFor('fr')) };
+const PIED = { en: rendre('footer', prefixFor('en'), 'en'), fr: rendre('footer', prefixFor('fr')) };
 const EN_TETE = { en: rendre('header', prefixFor('en'), 'en'), fr: rendre('header', prefixFor('fr'), 'fr') };
 const FOOTER_CTA_SCRIPT = { en: `<script src="${prefixFor('en')}assets/share-widget.js"></script>\n<script src="${prefixFor('en')}assets/soutien-gate.js"></script>`,
   fr: `<script src="${prefixFor('fr')}assets/share-widget.js"></script>\n<script src="${prefixFor('fr')}assets/soutien-gate.js"></script>` };
