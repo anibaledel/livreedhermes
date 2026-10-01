@@ -89,6 +89,16 @@
   header h1{ font-size:22px; font-weight:400; margin:10px 0 12px; }
   .framing{ color:var(--dim); font-size:13px; line-height:1.7; max-width:66ch; margin:0 auto; opacity:.9; }
   .framing + .framing{ margin-top:12px; }
+  .encadre-gamme-modes{
+    max-width:66ch; margin:16px auto 0; padding:12px 16px; font-size:12.5px; line-height:1.6;
+    color:var(--dim); border:1px solid var(--line, #333); background:rgba(255,255,255,.03);
+  }
+  .gamme-ancien-nom{ color:var(--dim); font-size:.82em; opacity:.75; margin-left:6px; }
+  .mode-badge{
+    display:inline-block; margin-top:4px; padding:2px 8px; font-size:11px; line-height:1.5;
+    border:1px solid var(--line, #333); color:var(--dim); cursor:default;
+  }
+  .mode-badge.no-mode{ opacity:.7; font-style:italic; }
   .framing strong{ color:var(--white); font-weight:600; }
 
   .cym-note{ max-width:900px; margin:32px auto 0; padding-top:28px; border-top:1px solid var(--line); font-family:Helvetica,Arial,sans-serif; }
@@ -233,6 +243,12 @@
       été faite, et sur les sept niveaux un seul est une ligne nodale.
     </p>
     <p class="framing"><a href="articles/axes-lignes-nodales.html" data-i18n="framingLink">Le détail, avec la vérification →</a></p>
+    <div class="encadre-gamme-modes" data-i18n-html="encadreGammeModes">
+      Une gamme est une combinaison de quatre bases. Pour onze des quinze, la fréquence
+      affichée est celle d'un mode de plaque qui dessine exactement la même figure ; pour
+      les quatre autres, c'est seulement la fréquence dominante de la figure. Le passage
+      d'un son entendu à une gamme reste une convention de la page.
+    </div>
     <div class="echelle-row" id="echelleRow">
       <span class="echelle-label" data-i18n="echelleLabel">Échelle</span>
       <button type="button" class="echelle-btn" data-echelle="proportionnelle" data-i18n="echelleProportionnelle">Proportionnelle</button>
@@ -434,8 +450,14 @@ const UI = {
     pageTitle: "Cymatique — gammes et fréquences",
     framingLink: "Le détail, avec la vérification →",
     framing1: "Le vocabulaire n'est pas choisi, il est <strong>engendré</strong>. Une seule opération suffit — doubler l'écart d'une droite par rapport au centre du carré — et l'origine n'est pas libre non plus : un niveau que le doublement laisse en place n'a pas d'antécédent ailleurs qu'en lui-même, donc il ne peut pas être engendré et doit être posé. Il y en a exactement deux, 0° et 120°, le second existant parce que 3 divise 12. En partant de ces deux-là et en remontant le doublement, les écarts orthogonaux se referment en deux étapes sur les 24 possibles, et les diagonaux en trois — losange inscrit compris, qui appartient au vocabulaire sans être tracé.",
-    framing2: "Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une fonction propre exacte — pas une approximation — de deux systèmes physiques différents. La correspondance n'est donc plus une ressemblance mesurée par transformée de Fourier.",
+    framing2: "Et ce vocabulaire engendré coïncide, droite par droite, avec les lignes de niveau d'une seule fonction : cos(πx/3), coupée à sept hauteurs. Cette fonction est une fonction propre exacte — pas une approximation — d'une plaque carrée à bords guidés : exacte telle quelle pour les familles orthogonales, et par paire dégénérée (somme ou différence des modes (m, n) et (n, m), au sens de Colwell) pour les familles diagonales. La correspondance n'est donc plus une ressemblance mesurée par transformée de Fourier.",
     framing3: "Ce qui reste hors de portée est dit plus bas, et il faut le lire : aucune mesure n'a été faite, et sur les sept niveaux un seul est une ligne nodale.",
+    encadreGammeModes: "Une gamme est une combinaison de quatre bases. Pour onze des quinze, la fréquence affichée est celle d'un mode de plaque qui dessine exactement la même figure ; pour les quatre autres, c'est seulement la fréquence dominante de la figure. Le passage d'un son entendu à une gamme reste une convention de la page.",
+    memeFigureQueMode: "même figure que le mode (%m, %n), plaque à bords %bords — f = 32 × (m² + n²) = %f Hz à l'étalonnage de la page",
+    autreModeTooltip: "aussi : (%m, %n), f = %f Hz",
+    bordsGuides: "guidés", bordsAppuyes: "appuyés",
+    freqDominanteFigureNoMode: "fréquence dominante de la figure (pic de Fourier) ; cette figure n'est celle d'aucun mode dans la recherche (indices ≤ 24)",
+    freqDominanteTrameBandes: "fréquence dominante de la trame bandes (pic de Fourier)",
     sectionOndeHeading: "Une seule onde, sept coupes",
     sectionOndeP1: "Les huit familles orthogonales sont les lignes où cos(πx/3) vaut cos θ, pour θ multiple de 30° :",
     sectionOndeColAngle: "angle", sectionOndeColNiveau: "niveau", sectionOndeColPositions: "positions (en cases)", sectionOndeColFamille: "famille",
@@ -492,8 +514,14 @@ const UI = {
     pageTitle: "Cymatics — scales and frequencies",
     framingLink: "The detail, with the verification →",
     framing1: "The vocabulary is not chosen, it is <strong>generated</strong>. One operation suffices — doubling a line's offset about the centre of the square — and the origin is not free either: a level the doubling leaves in place has no preimage outside itself, so it cannot be generated and must be posited. There are exactly two, 0° and 120°, the second existing because 3 divides 12. Starting from those two and running the doubling backwards, the orthogonal offsets close in two steps on all 24, and the diagonal ones in three — including the inscribed diamond, which belongs to the vocabulary without being drawn.",
-    framing2: "And this generated vocabulary coincides, line for line, with the level curves of a single function: cos(πx/3), cut at seven heights. That function is an exact eigenfunction — not an approximation — of two different physical systems. The correspondence is therefore no longer a resemblance measured by Fourier transform.",
+    framing2: "And this generated vocabulary coincides, line for line, with the level curves of a single function: cos(πx/3), cut at seven heights. That function is an exact eigenfunction — not an approximation — of a square plate with guided edges: exact as such for the orthogonal families, and by degenerate pair (sum or difference of modes (m, n) and (n, m), in Colwell's sense) for the diagonal families. The correspondence is therefore no longer a resemblance measured by Fourier transform.",
     framing3: "What remains out of reach is stated further down, and it should be read: no measurement has been made, and of the seven levels only one is a nodal line.",
+    encadreGammeModes: "A scale is a combination of four bases. For eleven of the fifteen, the frequency shown is that of a plate mode that draws exactly the same figure; for the other four, it is only the dominant frequency of the figure. Going from a heard sound to a scale remains a convention of this page.",
+    memeFigureQueMode: "same figure as mode (%m, %n), %bords-edge plate — f = 32 × (m² + n²) = %f Hz at this page's calibration",
+    autreModeTooltip: "also: (%m, %n), f = %f Hz",
+    bordsGuides: "guided", bordsAppuyes: "supported",
+    freqDominanteFigureNoMode: "dominant frequency of the figure (Fourier peak); this figure is not that of any mode in the search (indices ≤ 24)",
+    freqDominanteTrameBandes: "dominant frequency of the bandes layer (Fourier peak)",
     sectionOndeHeading: "One wave, seven cuts",
     sectionOndeP1: "The eight orthogonal families are the lines where cos(πx/3) equals cos θ, for θ a multiple of 30°:",
     sectionOndeColAngle: "angle", sectionOndeColNiveau: "level", sectionOndeColPositions: "positions (in cells)", sectionOndeColFamille: "family",
@@ -575,8 +603,14 @@ const UI = {
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
     i18nReviewNote: "Traducción en revisión — si detectas un error, indícalo.",
     framing1: "El vocabulario no se elige, se <strong>engendra</strong>. Basta una sola operación — duplicar el desplazamiento de una recta respecto al centro del cuadrado — y el origen tampoco es libre: un nivel que el duplicado deja fijo no tiene antecedente fuera de sí mismo, así que no puede engendrarse y debe postularse. Hay exactamente dos, 0° y 120°, el segundo existe porque 3 divide a 12. Partiendo de esos dos y deshaciendo el duplicado, los desplazamientos ortogonales se cierran en dos pasos sobre los 24 posibles, y los diagonales en tres — rombo inscrito incluido, que pertenece al vocabulario sin estar trazado.",
-    framing2: "Y este vocabulario engendrado coincide, recta por recta, con las curvas de nivel de una sola función: cos(πx/3), cortada a siete alturas. Esa función es una función propia exacta — no una aproximación — de dos sistemas físicos distintos. La correspondencia deja entonces de ser un parecido medido por transformada de Fourier.",
+    framing2: "Y este vocabulario engendrado coincide, recta por recta, con las curvas de nivel de una sola función: cos(πx/3), cortada a siete alturas. Esa función es una función propia exacta — no una aproximación — de una placa cuadrada de bordes guiados: exacta tal cual para las familias ortogonales, y por par degenerado (suma o diferencia de los modos (m, n) y (n, m), en el sentido de Colwell) para las familias diagonales. La correspondencia deja entonces de ser un parecido medido por transformada de Fourier.",
     framing3: "Lo que queda fuera de alcance se dice más abajo, y conviene leerlo: no se ha hecho ninguna medición, y de los siete niveles solo uno es una línea nodal.",
+    encadreGammeModes: "Una escala es una combinación de cuatro bases. En once de las quince, la frecuencia mostrada es la de un modo de placa que dibuja exactamente la misma figura; en las otras cuatro, es solo la frecuencia dominante de la figura. Pasar de un sonido oído a una escala sigue siendo una convención de la página.",
+    memeFigureQueMode: "misma figura que el modo (%m, %n), placa de bordes %bords — f = 32 × (m² + n²) = %f Hz según el calibrado de la página",
+    autreModeTooltip: "también: (%m, %n), f = %f Hz",
+    bordsGuides: "guiados", bordsAppuyes: "apoyados",
+    freqDominanteFigureNoMode: "frecuencia dominante de la figura (pico de Fourier); esta figura no es la de ningún modo en la búsqueda (índices ≤ 24)",
+    freqDominanteTrameBandes: "frecuencia dominante de la trama bandes (pico de Fourier)",
     sectionOndeHeading: "Una sola onda, siete cortes",
     sectionOndeP1: "Las ocho familias ortogonales son las líneas donde cos(πx/3) vale cos θ, para θ múltiplo de 30°:",
     sectionOndeColAngle: "ángulo", sectionOndeColNiveau: "nivel", sectionOndeColPositions: "posiciones (en casillas)", sectionOndeColFamille: "familia",
@@ -632,8 +666,14 @@ const UI = {
     cat1: "1 ฐาน", cat2: "2 ฐาน", cat3: "3 ฐาน", cat4: "4 ฐาน",
     i18nReviewNote: "การแปลอยู่ระหว่างการตรวจทาน — หากพบข้อผิดพลาด กรุณาแจ้งให้ทราบ",
     framing1: "คำศัพท์ของระบบนี้ไม่ได้ถูกเลือก แต่ถูก<strong>สร้างขึ้น</strong> เพียงหนึ่งกระบวนการก็เพียงพอ — การเพิ่มระยะเยื้องของเส้นตรงจากจุดศูนย์กลางของสี่เหลี่ยมจัตุรัสเป็นสองเท่า — และจุดเริ่มต้นก็ไม่ได้เป็นอิสระเช่นกัน ระดับที่การเพิ่มเป็นสองเท่านั้นคงที่ไม่มีจุดกำเนิดอื่นนอกจากตัวมันเอง จึงไม่สามารถถูกสร้างขึ้นได้ ต้องถูกกำหนดขึ้นเอง มีอยู่สองระดับเช่นนี้พอดี คือ 0° และ 120° ระดับที่สองมีอยู่เพราะ 3 หาร 12 ลงตัว เริ่มจากสองระดับนี้แล้วย้อนกลับการเพิ่มเป็นสองเท่า ระยะเยื้องแนวตั้งฉากจะปิดวงจรครบทั้ง 24 ค่าภายในสองขั้นตอน ส่วนแนวทแยงปิดวงจรภายในสามขั้นตอน — รวมถึงรูปสี่เหลี่ยมขนมเปียกปูนที่แนบใน ซึ่งเป็นส่วนหนึ่งของคำศัพท์นี้โดยไม่ต้องถูกลากเส้น",
-    framing2: "และคำศัพท์ที่ถูกสร้างขึ้นนี้ตรงกัน เส้นต่อเส้น กับเส้นระดับของฟังก์ชันเดียว คือ cos(πx/3) ที่ถูกตัดที่ความสูงเจ็ดระดับ ฟังก์ชันนี้เป็นฟังก์ชันไอเกนที่แม่นตรง — ไม่ใช่การประมาณ — ของระบบทางฟิสิกส์สองระบบที่ต่างกัน ความสอดคล้องนี้จึงไม่ใช่ความคล้ายคลึงที่วัดได้ด้วยการแปลงฟูริเยร์อีกต่อไป",
+    framing2: "และคำศัพท์ที่ถูกสร้างขึ้นนี้ตรงกัน เส้นต่อเส้น กับเส้นระดับของฟังก์ชันเดียว คือ cos(πx/3) ที่ถูกตัดที่ความสูงเจ็ดระดับ ฟังก์ชันนี้เป็นฟังก์ชันไอเกนที่แม่นตรง — ไม่ใช่การประมาณ — ของแผ่นเพลตสี่เหลี่ยมขอบนำ: แม่นตรงโดยตรงสำหรับตระกูลตั้งฉาก และโดยคู่เสื่อมถอย (ผลรวมหรือผลต่างของโหมด (m, n) และ (n, m) ตามแนวคิดของ Colwell) สำหรับตระกูลทแยงมุม ความสอดคล้องนี้จึงไม่ใช่ความคล้ายคลึงที่วัดได้ด้วยการแปลงฟูริเยร์อีกต่อไป",
     framing3: "สิ่งที่ยังอยู่นอกเหนือขอบเขตจะกล่าวถึงด้านล่าง และควรอ่าน คือ ยังไม่มีการวัดใด ๆ เกิดขึ้น และในเจ็ดระดับมีเพียงหนึ่งเดียวที่เป็นเส้นโหนด",
+    encadreGammeModes: "บันไดเสียงหนึ่งคือการผสมกันของสี่ฐาน สำหรับสิบเอ็ดจากสิบห้า ความถี่ที่แสดงคือความถี่ของโหมดแผ่นเพลตที่วาดรูปเดียวกันทุกประการ ส่วนอีกสี่ที่เหลือเป็นเพียงความถี่เด่นของรูปนั้นเท่านั้น การเปลี่ยนจากเสียงที่ได้ยินไปเป็นบันไดเสียงยังคงเป็นข้อตกลงของหน้านี้",
+    memeFigureQueMode: "รูปเดียวกับโหมด (%m, %n) แผ่นเพลตขอบ%bords — f = 32 × (m² + n²) = %f Hz ตามการสอบเทียบของหน้านี้",
+    autreModeTooltip: "เช่นกัน: (%m, %n), f = %f Hz",
+    bordsGuides: "นำ", bordsAppuyes: "รอง",
+    freqDominanteFigureNoMode: "ความถี่เด่นของรูป (จุดสูงสุดฟูริเยร์) รูปนี้ไม่ตรงกับโหมดใดในการค้นหา (ดัชนี ≤ 24)",
+    freqDominanteTrameBandes: "ความถี่เด่นของชั้นแถบ (จุดสูงสุดฟูริเยร์)",
     sectionOndeHeading: "คลื่นเดียว เจ็ดภาคตัด",
     sectionOndeP1: "แปดตระกูลตั้งฉากคือเส้นที่ cos(πx/3) มีค่าเท่ากับ cos θ เมื่อ θ เป็นจำนวนเท่าของ 30° ดังนี้:",
     sectionOndeColAngle: "มุม", sectionOndeColNiveau: "ระดับ", sectionOndeColPositions: "ตำแหน่ง (หน่วยช่อง)", sectionOndeColFamille: "ตระกูล",
@@ -866,16 +906,74 @@ function render(name) {
     maskToPavageSvg(bits, palette, 2, 2, { size: 320 });
 }
 
+// Correspondance gamme (nom affiche jusqu'ici) -> nouveau nom (une des 15
+// familles ya/ay/yi/iy) -- chaque gamme EST exactement une des 15
+// combinaisons des 4 bases, verifie bit a bit contre families15 de
+// generateurs_v2.json (direct ou complement) avant tout affichage.
+const GAMME_NOUVEAU_NOM = {
+  'yang': 'ya', 'yang mut': 'ay', 'yin': 'yi', 'yin mut': 'iy',
+  'yang pur': 'yaay', 'yin yang fix': 'yayi', 'yang yin mut': 'yaiy',
+  'yin yang mut': 'ayyi', 'yang mut yin mut': 'ayiy', 'yin pur': 'yiiy',
+  'yang pur yin': 'yaayyi', 'yang pur yin mut': 'yaayiy',
+  'yin pur yang': 'yayiiy', 'yin pur yang mut': 'ayyiiy',
+  'yang pur yin pur': 'yaayyiiy',
+};
+// Mode(s) de plaque dont la figure de signes (lue aux centroides C8) est
+// exactement celle de la famille -- signatures_chladni.py, confirme par
+// modes_vs_masques.py sur masques_T1.json (calibration exacte : ces onze
+// familles, pas une de plus ni de moins). Quand une famille a deux modes,
+// le pic de Fourier mesure par tools/measure_k_pic.py retient toujours
+// celui aux DEUX INDICES PAIRS (periode divisant 12) : c'est celui-la
+// qu'on affiche en badge, l'autre reste en info-bulle.
+const MODES_DE_FAMILLE = {
+  ya: { kind: 'guide', m: 0, n: 2, k2: 4, autre: { kind: 'appuye', m: 1, n: 3, k2: 10 } },
+  ay: { kind: 'guide', m: 0, n: 2, k2: 4, autre: null },
+  yi: { kind: 'appuye', m: 2, n: 2, k2: 8, autre: { kind: 'guide', m: 1, n: 1, k2: 2 } },
+  iy: { kind: 'guide', m: 2, n: 2, k2: 8, autre: null },
+  yaay: { kind: 'guide', m: 0, n: 4, k2: 16, autre: null },
+  yayi: { kind: 'appuye', m: 2, n: 4, k2: 20, autre: { kind: 'guide', m: 1, n: 3, k2: 10 } },
+  ayyi: { kind: 'appuye', m: 2, n: 4, k2: 20, autre: null },
+  yiiy: { kind: 'appuye', m: 4, n: 4, k2: 32, autre: null },
+  yaayyi: { kind: 'appuye', m: 2, n: 6, k2: 40, autre: null },
+  yaayiy: { kind: 'guide', m: 2, n: 6, k2: 40, autre: null },
+  yaayyiiy: { kind: 'appuye', m: 4, n: 8, k2: 80, autre: null },
+  yaiy: null, ayiy: null, yayiiy: null, ayyiiy: null,
+};
+function fillTemplate(key, vals) {
+  let s = t(key);
+  for (const [k, v] of Object.entries(vals)) s = s.replaceAll('%' + k, v);
+  return s;
+}
+// Badge pour la generation T1 : le mode trouve, ou la mention "aucun mode
+// dans la recherche" -- jamais "aucun mode" tout court (il peut en exister
+// un hors des indices testes, <= 24 ici).
+function badgeT1(nomGamme) {
+  const mode = MODES_DE_FAMILLE[GAMME_NOUVEAU_NOM[nomGamme]];
+  if (!mode) return `<span class="mode-badge no-mode">${t('freqDominanteFigureNoMode')}</span>`;
+  const bords = mode.kind === 'guide' ? t('bordsGuides') : t('bordsAppuyes');
+  const txt = fillTemplate('memeFigureQueMode', { m: mode.m, n: mode.n, bords, f: 32 * mode.k2 });
+  const title = mode.autre
+    ? fillTemplate('autreModeTooltip', { m: mode.autre.m, n: mode.autre.n, f: 32 * mode.autre.k2 }) : '';
+  return `<span class="mode-badge"${title ? ` title="${title.replace(/"/g, '&quot;')}"` : ''}>${txt}</span>`;
+}
+// Badge pour la generation bandes : jamais de mode (modes_vs_masques.py,
+// verifie sur les 15 gammes, 0 exception -- voir le rapport du 2026-10-02).
+function badgeBandes() {
+  return `<span class="mode-badge no-mode">${t('freqDominanteTrameBandes')}</span>`;
+}
+
 function show(name) {
   if (!DATA || !DATA.gammes[name]) return;
   current = name;
   const g = DATA.gammes[name];
   const eT1 = echelleDe(g, 'T1'), eBandes = echelleDe(g, 'bandes');
-  document.getElementById('gammeName').textContent = name;
-  document.getElementById('gammeMeta').textContent =
+  const nouveauNom = GAMME_NOUVEAU_NOM[name];
+  document.getElementById('gammeName').innerHTML =
+    `${nouveauNom} <span class="gamme-ancien-nom">(ex-${name})</span>`;
+  document.getElementById('gammeMeta').innerHTML =
     `${t('cat' + (g.categorie.match(/\d/) || ['1'])[0])} — `
-    + `${t('genT1')} ${eT1.note} · ${eT1.f_hz.toFixed(0)} Hz — `
-    + `${t('genBandes')} ${eBandes.note} · ${eBandes.f_hz.toFixed(0)} Hz`;
+    + `${t('genT1')} ${eT1.note} · ${eT1.f_hz.toFixed(0)} Hz ${badgeT1(name)}<br>`
+    + `${t('genBandes')} ${eBandes.note} · ${eBandes.f_hz.toFixed(0)} Hz ${badgeBandes()}`;
   render(name);
   document.querySelectorAll('.gamme-row').forEach(el => el.classList.toggle('on', el.dataset.n === name));
 }
@@ -893,7 +991,8 @@ function buildList() {
   TABLE.forEach(g => {
     const d = document.createElement('div');
     d.className = 'gamme-row'; d.dataset.n = g.n;
-    d.innerHTML = `<span>${g.n}</span><span class="g-meta">`
+    const nouveauNom = GAMME_NOUVEAU_NOM[g.n];
+    d.innerHTML = `<span>${nouveauNom} <span class="gamme-ancien-nom">(ex-${g.n})</span></span><span class="g-meta">`
       + `${t('genT1')} ${g.t1.note} · ${g.t1.f_hz.toFixed(0)} Hz — `
       + `${t('genBandes')} ${g.bandes.note} · ${g.bandes.f_hz.toFixed(0)} Hz</span>`;
     d.onclick = () => { show(g.n); setShareURL(currentShareParams()); };
