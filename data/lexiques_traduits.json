@@ -9,7 +9,7 @@
     "description": "Reference definitions and frequently asked questions about La Livrée d'Hermès: solar squares, the ansate cross, the 360-layer system, Carter.",
     "intro": "Six definitions written to be quoted as they stand, and ten questions with their answers. Every figure comes from a script in the repository; the French page of figures and sources gives the command for each one.",
     "faq_titre": "Frequently asked questions",
-    "sources": "Further: read the book online, the figures and their sources, or the documentary profile. Contents under CC BY 4.0, code under AGPL v3.",
+    "sources": "Further: read the book online, the figures and their sources, or the documentary profile. Contents under CC BY-NC 4.0, code under AGPL v3.",
     "fil": [
       [
         "Home",
@@ -27,7 +27,7 @@
     "definitions": [
       {
         "terme": "La Livrée d'Hermès",
-        "texte": "*La Livrée d'Hermès* (The Livery of Hermes) is a treatise in arithmogeometry in 111 plates, developed from 2009 to 2019, presenting a construction method for order-6 magic squares and a pattern system for Jacquard looms based on 360 layers. It is published in four languages (French, English, Spanish, Thai) under a CC BY 4.0 licence, deposited on Zenodo (DOI 10.5281/zenodo.22722485) and distributed on a pay-what-you-want basis at anibal-amiot.com."
+        "texte": "*La Livrée d'Hermès* (The Livery of Hermes) is a treatise in arithmogeometry in 111 plates, developed from 2009 to 2019, presenting a construction method for order-6 magic squares and a pattern system for Jacquard looms based on 360 layers. It is published in four languages (French, English, Spanish, Thai) under a CC BY-NC 4.0 licence, deposited on Zenodo (DOI 10.5281/zenodo.22722485) and distributed on a pay-what-you-want basis at anibal-amiot.com."
       },
       {
         "terme": "Arithmogeometry",
@@ -65,7 +65,7 @@
       },
       {
         "question": "Is the book free?",
-        "reponse": "It is pay-what-you-want: it can be read and downloaded without paying, and supported if one wishes. Licence CC BY 4.0 — free to copy, share and reuse, including commercially, with attribution."
+        "reponse": "It is pay-what-you-want: it can be read and downloaded without paying, and supported if one wishes. Licence CC BY-NC 4.0 — free to copy, share and reuse for non-commercial purposes, with attribution."
       },
       {
         "question": "Where are the book and the code?",
@@ -81,7 +81,7 @@
       },
       {
         "question": "Can these patterns be woven?",
-        "reponse": "Yes: the system was designed for Jacquard card-cutting, each layer being a card. The vector files of the 360 layers and the 256 squares are in the repository, under CC BY 4.0."
+        "reponse": "Yes: the system was designed for Jacquard card-cutting, each layer being a card. The vector files of the 360 layers and the 256 squares are in the repository, under CC BY-NC 4.0."
       },
       {
         "question": "Is Carter an encryption scheme?",
@@ -142,7 +142,7 @@
     "description": "Definiciones de referencia y preguntas frecuentes sobre La Livrée d'Hermès: cuadrados solares, la cruz ansada, el sistema de las 360 capas, Carter.",
     "intro": "Seis definiciones escritas para ser citadas tal cual, y diez preguntas con sus respuestas. Cada cifra sale de un script del repositorio; la página francesa de cifras y fuentes da la orden que reproduce cada una.",
     "faq_titre": "Preguntas frecuentes",
-    "sources": "Para saber más: leer el libro en línea, las cifras y sus fuentes, o el perfil documental. Contenidos bajo CC BY 4.0, código bajo AGPL v3.",
+    "sources": "Para saber más: leer el libro en línea, las cifras y sus fuentes, o el perfil documental. Contenidos bajo CC BY-NC 4.0, código bajo AGPL v3.",
     "fil": [
       [
         "Inicio",
@@ -160,7 +160,7 @@
     "definitions": [
       {
         "terme": "La Livrée d'Hermès",
-        "texte": "*La Livrée d'Hermès* (La Librea de Hermes) es un tratado de aritmogeometría en 111 láminas, desarrollado de 2009 a 2019, que presenta un método de construcción de cuadrados mágicos de orden 6 y un sistema de motivos para telar Jacquard basado en 360 capas. Está publicado en cuatro lenguas (francés, inglés, español, tailandés) bajo licencia CC BY 4.0, depositado en Zenodo (DOI 10.5281/zenodo.22722485) y difundido a precio libre en anibal-amiot.com."
+        "texte": "*La Livrée d'Hermès* (La Librea de Hermes) es un tratado de aritmogeometría en 111 láminas, desarrollado de 2009 a 2019, que presenta un método de construcción de cuadrados mágicos de orden 6 y un sistema de motivos para telar Jacquard basado en 360 capas. Está publicado en cuatro lenguas (francés, inglés, español, tailandés) bajo licencia CC BY-NC 4.0, depositado en Zenodo (DOI 10.5281/zenodo.22722485) y difundido a precio libre en anibal-amiot.com."
       },
       {
         "terme": "La aritmogeometría",
@@ -198,7 +198,7 @@
       },
       {
         "question": "¿El libro es gratuito?",
-        "reponse": "Es a precio libre: se lee y se descarga sin pagar, y se contribuye si se desea. Licencia CC BY 4.0: copia, difusión y reutilización libres, incluido el uso comercial, con atribución."
+        "reponse": "Es a precio libre: se lee y se descarga sin pagar, y se contribuye si se desea. Licencia CC BY-NC 4.0: copia, difusión y reutilización libres para uso no comercial, con atribución."
       },
       {
         "question": "¿Dónde encontrar el libro y el código?",
@@ -214,7 +214,7 @@
       },
       {
         "question": "¿Se pueden tejer estos motivos?",
-        "reponse": "Sí: el sistema fue concebido para la puesta en tarjeta Jacquard, siendo cada capa una tarjeta. Los archivos vectoriales de las 360 capas y de los 256 cuadrados están en el repositorio, bajo CC BY 4.0."
+        "reponse": "Sí: el sistema fue concebido para la puesta en tarjeta Jacquard, siendo cada capa una tarjeta. Los archivos vectoriales de las 360 capas y de los 256 cuadrados están en el repositorio, bajo CC BY-NC 4.0."
       },
       {
         "question": "¿Carter es un cifrado?",
@@ -275,7 +275,7 @@
     "description": "นิยามอ้างอิงและคำถามที่พบบ่อยเกี่ยวกับ La Livrée d'Hermès: จัตุรัสสุริยะ กางเขนหูหิ้ว ระบบแผ่นลาย 360 แผ่น คาร์เตอร์",
     "intro": "นิยามหกข้อที่เขียนขึ้นเพื่อให้อ้างอิงได้ตามที่เป็น และคำถามสิบข้อพร้อมคำตอบ ตัวเลขทุกตัวมาจากสคริปต์ในคลังโค้ด หน้าภาษาฝรั่งเศสว่าด้วยตัวเลขและแหล่งที่มาให้คำสั่งที่ทำซ้ำได้สำหรับแต่ละตัว",
     "faq_titre": "คำถามที่พบบ่อย",
-    "sources": "อ่านเพิ่มเติม: อ่านหนังสือออนไลน์ ตัวเลขและแหล่งที่มา หรือประวัติเอกสาร เนื้อหาภายใต้ CC BY 4.0 โค้ดภายใต้ AGPL v3",
+    "sources": "อ่านเพิ่มเติม: อ่านหนังสือออนไลน์ ตัวเลขและแหล่งที่มา หรือประวัติเอกสาร เนื้อหาภายใต้ CC BY-NC 4.0 โค้ดภายใต้ AGPL v3",
     "fil": [
       [
         "หน้าแรก",
@@ -332,7 +332,7 @@
     "definitions": [
       {
         "terme": "La Livrée d'Hermès",
-        "texte": "*La Livrée d'Hermès* (เครื่องแต่งกายของเฮอร์มีส) เป็นตำราเลขาคณิตศาสตร์ 111 แผ่น พัฒนาขึ้นระหว่างปี 2009 ถึง 2019 นำเสนอวิธีสร้างตารางกลอันดับ 6 และระบบลวดลายสำหรับกี่ทอแจ็คการ์ดที่มีพื้นฐานจากแผ่นลาย 360 แผ่น ตีพิมพ์ในสี่ภาษา (ฝรั่งเศส อังกฤษ สเปน ไทย) ภายใต้สัญญาอนุญาต CC BY 4.0 ฝากไว้ที่ Zenodo (DOI 10.5281/zenodo.22722485) และเผยแพร่ในราคาตามใจผู้อ่านที่ anibal-amiot.com"
+        "texte": "*La Livrée d'Hermès* (เครื่องแต่งกายของเฮอร์มีส) เป็นตำราเลขาคณิตศาสตร์ 111 แผ่น พัฒนาขึ้นระหว่างปี 2009 ถึง 2019 นำเสนอวิธีสร้างตารางกลอันดับ 6 และระบบลวดลายสำหรับกี่ทอแจ็คการ์ดที่มีพื้นฐานจากแผ่นลาย 360 แผ่น ตีพิมพ์ในสี่ภาษา (ฝรั่งเศส อังกฤษ สเปน ไทย) ภายใต้สัญญาอนุญาต CC BY-NC 4.0 ฝากไว้ที่ Zenodo (DOI 10.5281/zenodo.22722485) และเผยแพร่ในราคาตามใจผู้อ่านที่ anibal-amiot.com"
       },
       {
         "terme": "เลขาคณิตศาสตร์",
@@ -370,7 +370,7 @@
       },
       {
         "question": "หนังสือฟรีหรือไม่",
-        "reponse": "เป็นราคาตามใจผู้อ่าน: อ่านและดาวน์โหลดได้โดยไม่ต้องจ่าย และสนับสนุนได้หากต้องการ สัญญาอนุญาต CC BY 4.0 — คัดลอก แบ่งปัน และนำไปใช้ซ้ำได้อย่างเสรี รวมถึงการใช้เชิงพาณิชย์ โดยระบุที่มา"
+        "reponse": "เป็นราคาตามใจผู้อ่าน: อ่านและดาวน์โหลดได้โดยไม่ต้องจ่าย และสนับสนุนได้หากต้องการ สัญญาอนุญาต CC BY-NC 4.0 — คัดลอก แบ่งปัน และนำไปใช้ซ้ำได้อย่างเสรี เพื่อวัตถุประสงค์ที่ไม่ใช่เชิงพาณิชย์ โดยระบุที่มา"
       },
       {
         "question": "หาหนังสือและโค้ดได้ที่ไหน",
@@ -386,7 +386,7 @@
       },
       {
         "question": "ลวดลายเหล่านี้ทอได้จริงหรือไม่",
-        "reponse": "ได้: ระบบนี้ออกแบบมาเพื่อการเจาะบัตรแจ็คการ์ด โดยแผ่นลายแต่ละแผ่นคือบัตรหนึ่งใบ ไฟล์เวกเตอร์ของแผ่นลาย 360 แผ่นและจัตุรัส 256 ตารางอยู่ในคลังโค้ด ภายใต้ CC BY 4.0"
+        "reponse": "ได้: ระบบนี้ออกแบบมาเพื่อการเจาะบัตรแจ็คการ์ด โดยแผ่นลายแต่ละแผ่นคือบัตรหนึ่งใบ ไฟล์เวกเตอร์ของแผ่นลาย 360 แผ่นและจัตุรัส 256 ตารางอยู่ในคลังโค้ด ภายใต้ CC BY-NC 4.0"
       },
       {
         "question": "คาร์เตอร์เป็นระบบเข้ารหัสลับหรือไม่",

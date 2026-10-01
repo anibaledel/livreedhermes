@@ -298,7 +298,7 @@ ${ICONES[lang]}
   "inLanguage": "${s.htmlLang}",
   "author": { "@type": "Person", "name": "Anibal Edelberto Amiot", "url": "${BASE_URL}/a-propos.html" },
   "isPartOf": { "@type": "CreativeWorkSeries", "name": "Unified Patterns", "url": "${BASE_URL}/galerie-patterns-unifies.html" },
-  "license": "https://creativecommons.org/licenses/by/4.0/"
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/"
 }
 </script>
 <style>
