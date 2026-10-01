@@ -119,6 +119,19 @@ const FOOTER_CTA_SCRIPT = `<script src="../assets/share-widget.js"></script>
 
 const pages = [];
 
+// build-header.js pose ensuite, d'après scripts/langues.js, le hreflang et la
+// rangée de langues de ces pages : les reprendre du fichier en place évite de
+// les effacer à chaque régénération, avant son passage.
+function garderZonesLangues(rendu, ancien){
+  if(!ancien) return rendu;
+  for(const zone of ['hreflang', 'langues']){
+    const re = new RegExp(`[ \\t]*<!-- @${zone}:start[\\s\\S]*?<!-- @${zone}:end -->`);
+    const m = ancien.match(re);
+    if(m) rendu = re.test(rendu) ? rendu.replace(re, m[0]) : rendu.replace('</head>', `${m[0]}\n</head>`);
+  }
+  return rendu;
+}
+
 // Pré-calcul pour toutes les figures : nécessaire pour les liens croisés
 // (précédent/suivant, trigrammes partagés) construits dans la boucle principale.
 const allInfo = [];
@@ -343,6 +356,7 @@ ${EN_TETE}
       <nav class="breadcrumb" aria-label="Fil d'Ariane">
         <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
       </nav>
+      <!-- @langues:start --><!-- @langues:end -->
 
       <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
@@ -471,7 +485,7 @@ ${FOOTER_CTA_SCRIPT}
     .split(DATE_FR_PLACEHOLDER).join(formatDateFr(dateModified))
     .replace('<head>', `<head>\n<!-- @contenu sha256:${empreinte} — empreinte du texte éditorial seul ; voir scripts/generate-hexagram-pages.js -->`);
 
-  fs.writeFileSync(outPath, rendu, 'utf8');
+  fs.writeFileSync(outPath, garderZonesLangues(rendu, ancien), 'utf8');
   pages.push({ chrono, kwNum, slug, url });
 }
 
@@ -638,6 +652,7 @@ ${EN_TETE}
     <nav class="breadcrumb" aria-label="Fil d'Ariane">
       <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><span aria-current="page">Hexagrammes</span>
     </nav>
+    <!-- @langues:start --><!-- @langues:end -->
 
     <h1 class="page-title">Les 64 hexagrammes</h1>
     <p class="page-sub">Chaque hexagramme du Yi-King, dans l'ordre chronologique (poids binaires) utilisé sur ce site, avec son jugement, ses trigrammes et le carré magique associé.</p>
@@ -703,7 +718,8 @@ ${FOOTER_CTA_SCRIPT}
 `;
 
 const listingDir = path.join(OUT_DIR);
-fs.writeFileSync(path.join(listingDir, 'index.html'), listingHtml, 'utf8');
+const listingPath = path.join(listingDir, 'index.html');
+fs.writeFileSync(listingPath, garderZonesLangues(listingHtml, fs.existsSync(listingPath) ? fs.readFileSync(listingPath, 'utf8') : null), 'utf8');
 
 console.log('Généré', pages.length, 'pages dans', OUT_DIR, '+ la page de listing hexagrammes/index.html');
 

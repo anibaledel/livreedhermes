@@ -260,7 +260,7 @@ ${htmlNavTiles(A.fichier(chrono, 'en'), PREFIXE, 'en')}
 ${PIED}
 </div>
 <script>document.getElementById('credit-year').textContent = new Date().getFullYear();</script>
-<script src="${PREFIXE}assets/share-widget.js" data-label="Share this page"></script>
+<script src="${PREFIXE}assets/share-widget.js"></script>
 <script src="${PREFIXE}assets/soutien-gate.js"></script>
 </body>
 </html>
@@ -377,7 +377,7 @@ ${htmlNavTiles(A.fichier(null, 'en'), PREFIXE, 'en')}
 ${PIED}
 </div>
 <script>document.getElementById('credit-year').textContent = new Date().getFullYear();</script>
-<script src="${PREFIXE}assets/share-widget.js" data-label="Share this page"></script>
+<script src="${PREFIXE}assets/share-widget.js"></script>
 <script src="${PREFIXE}assets/soutien-gate.js"></script>
 </body>
 </html>

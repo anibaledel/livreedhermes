@@ -31,6 +31,7 @@
 const fs = require('fs');
 const path = require('path');
 const { rendre, rendreNavTiles } = require('./build-header.js');
+const ADRESSES_HEXAGRAMMES = require('./hexagrammes-adresses.js');
 
 const REPO_ROOT = path.join(__dirname, '..');
 const OUT_DIR_EN = path.join(REPO_ROOT, 'motifs');
@@ -264,7 +265,11 @@ function renderPage(fam, n, lang) {
   const prevSlug = motifSlug(fam, prevN);
   const nextSlug = motifSlug(fam, nextN);
   const familyLabel = FAMILY_LABEL[lang][fam] || fam;
-  const hexSlug = hexagramSlug(n);
+  // Lien vers l'hexagramme, dans la langue de la page : les pages anglaises
+  // ont désormais leur jumelle en/hexagrams/ (generate-hexagram-pages-en.js).
+  const hexHref = lang === 'en'
+    ? `${prefixFor(lang)}${ADRESSES_HEXAGRAMMES.fichier(n, 'en')}`
+    : `${prefixFor(lang)}hexagrammes/${hexagramSlug(n)}`;
   const hexName = hexagramName(n, lang);
   const title = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexName);
   const description = s.descriptionOf(familyLabel, n, hexName);
@@ -405,7 +410,7 @@ ${EN_TETE[lang]}
 <p class="other-langs">${s.otherLangLink(canonicalUrl(lang === 'fr' ? 'en' : 'fr', slug))}</p>
 <h1 class="article-title">${escapeHtml(s.headingOf(familyLabel, n, hexName))}</h1>
 <p class="article-sub">
-  ${s.articleSub(`${prefixe}hexagrammes/${hexSlug}`, hexName)}
+  ${s.articleSub(hexHref, hexName)}
 </p>
 
 <p class="classification">

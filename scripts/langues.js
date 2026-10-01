@@ -7,7 +7,7 @@
    page française ne peut pas avoir deux équivalents anglais, parce qu'un
    groupe ne peut pas porter deux fois 'en'.
 
-   Les pages hors groupe — accueil, articles, hexagrammes, outils — n'existent
+   Les pages hors groupe — accueil, articles, outils — n'existent
    qu'en français et ne portent AUCUN hreflang : déclarer un équivalent qui
    n'existe pas est une affirmation fausse, que les moteurs traitent comme
    telle. Ce n'est pas une consigne mais une propriété du générateur :
@@ -85,6 +85,20 @@ const GROUPES = [
     ],
   },
 ];
+
+// Les 64 hexagrammes et leur index, en français et en anglais : 65 paires
+// calculées depuis scripts/hexagrammes-adresses.js — la même source que les
+// deux générateurs de pages — plutôt qu'une liste de 65 entrées à la main.
+const ADRESSES_HEXAGRAMMES = require('./hexagrammes-adresses.js');
+for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
+  GROUPES.push({
+    nom: chrono === null ? 'hexagrammes' : `hexagramme-${chrono}`,
+    changefreq: chrono === null ? 'monthly' : 'yearly',
+    priority: chrono === null ? '0.6' : '0.5',
+    rangee: true,
+    pages: ['fr', 'en'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
+  });
+}
 
 // Un bloc liste TOUS les équivalents, y compris la page elle-même : les pages
 // d'un même groupe portent donc exactement les mêmes lignes.
