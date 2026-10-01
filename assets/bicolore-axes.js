@@ -286,3 +286,67 @@ export function nomAccordAncien(nomsCatalogue) {
   }
   return nomAccord(els);
 }
+
+// ---------- generateur v2 (prompt-cc-generateur-bicolore-v2) ----------
+// Les 15 generateurs (7 angles diagonaux L0..L180, 8 elements orthogonaux
+// YI3..IY6) : les droites de chacun viennent de data/AXES/generateurs_v2.json
+// ("ce fichier fait foi", pas rederivees ici). `generateursV2Json` est le
+// JSON tel que charge par l'appelant.
+export function buildGenerateursV2(generateursV2Json) {
+  const out = {};
+  for (const g of generateursV2Json.generators) {
+    out[g.id] = g.lines.map(([nature, ecart]) => ({ nature, ecart }));
+  }
+  return out;
+}
+
+export const ANGLES_DIAGONAUX = [0, 30, 60, 90, 120, 150, 180];
+
+// Un angle diagonal (sauf 0 et 180) se dessine par deux elements, YA_k et
+// AY_(6-k) -- la parite ne voit que l'angle (loi 2), mais le nom et la
+// couche de tracé ont besoin des deux. Table verifiee contre
+// ANCIENNE_FAMILLE_VERS_ELEMENTS (meme correspondance que T2 YANG -> YA24 AY24, etc.).
+export const ELEMENTS_DE_ANGLE = {
+  0: ['YA6'], 30: ['YA5', 'AY1'], 60: ['YA4', 'AY2'], 90: ['YA3', 'AY3'],
+  120: ['YA2', 'AY4'], 150: ['YA1', 'AY5'], 180: ['AY6'],
+};
+
+// Mutation : theta -> 180-theta. Sur les ids : L_a <-> L_(180-a) ;
+// YI_k <-> IY_k (meme k, les deux moities du meme angle orthogonal).
+export function mutantDe(id) {
+  if (id.startsWith('L')) return 'L' + (180 - Number(id.slice(1)));
+  const m = /^(YI|IY)(\d)$/.exec(id);
+  if (!m) throw new Error(`generateur inconnu : ${id}`);
+  return (m[1] === 'YI' ? 'IY' : 'YI') + m[2];
+}
+
+// C4 regroupe les triangles de C8 par paires de part et d'autre des
+// medianes : seuls passent les generateurs sans droite sur une mediane --
+// les 7 angles L (toujours diagonaux, jamais sur une mediane), et YI6/YI4/
+// IY4/IY6 (ecarts entiers). YI5/IY5/YI3/IY3 sont aux demi-ecarts et s'y
+// grisent : pas de lecture C4 pour eux.
+export const GENERATEURS_GRISES_EN_C4 = new Set(['YI5', 'IY5', 'YI3', 'IY3']);
+export function disponiblePourGrain(id, grain) {
+  return grain !== 'C4' || !GENERATEURS_GRISES_EN_C4.has(id);
+}
+
+// C4 (4 triangles/case, coupee par ses deux diagonales) : chaque triangle
+// C4 est l'union de deux triangles C8 adjacents de part et d'autre d'une
+// mediane (tools/cellule_c4.py::C4_TO_C8_PAIRS) -- calcule donc depuis le
+// masque C8, jamais redefini depuis zero. N'appeler qu'avec des generateurs
+// disponiblePourGrain(id,'C4') : une droite sur mediane romprait l'egalite
+// de la paire (voir cellule_c4.py::convert_c8_to_c4).
+const C4_TO_C8_PAIRS = [[7, 0], [1, 2], [3, 4], [5, 6]];
+export function generateAxesMaskC4(axesListBrute) {
+  const c8 = generateAxesMask(axesListBrute, { grain: 'C8' });
+  const out = new Uint8Array(GRID * GRID * 4);
+  for (let cell = 0; cell < GRID * GRID; cell++) {
+    for (let s = 0; s < 4; s++) {
+      const [a, b] = C4_TO_C8_PAIRS[s];
+      const va = c8[cell * PER_CELL + a], vb = c8[cell * PER_CELL + b];
+      if (va !== vb) throw new Error(`case ${cell} secteur C4 ${s} : C8 ${a}=${va} et ${b}=${vb} different — generateur non disponible en C4`);
+      out[cell * 4 + s] = va;
+    }
+  }
+  return out;
+}

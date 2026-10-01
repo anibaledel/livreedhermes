@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Générateur bicolore v2 — La Livrée d'Hermès</title>
+<meta name="description" content="La seconde découpe des diagonales (YA/AY) et les huit familles orthogonales, renommées selon une même règle — angles, éléments, statuts du demi-décalage, grain C4.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/creation-bicolore-v2.html">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1180px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:24px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(26px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 8px; max-width:70ch; margin-left:auto; margin-right:auto; }
+  .v1-link{ font-size:12px; color:var(--dim); }
+  .v1-link a{ color:var(--gold); }
+
+  .composer{ display:flex; gap:24px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
+
+  .panel{ border:1px solid var(--line); background:var(--panel); padding:16px; }
+  .panel h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 12px; }
+
+  .ctl-toggle{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .ctl-toggle button{
+    all:unset; cursor:pointer; text-align:center; padding:7px 12px; font-size:12px;
+    color:var(--dim); border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .ctl-toggle button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
+
+  .gen-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(78px, 1fr)); gap:6px; width:340px; max-width:80vw; }
+  .gen-btn{
+    all:unset; cursor:pointer; text-align:center; padding:8px 4px; font-size:12px; line-height:1.3;
+    color:var(--white); border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .gen-btn .angle{ display:block; font-size:10px; color:var(--dim); margin-top:2px; }
+  .gen-btn[aria-pressed="true"]{ border-color:var(--red); color:var(--red); background:rgba(224,38,27,.08); }
+  .gen-btn:disabled{ opacity:.3; cursor:not-allowed; }
+  .gen-sep{ grid-column:1/-1; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--dim); opacity:.6; margin:6px 0 0; }
+
+  .preview{ border:1px solid var(--line); padding:18px; text-align:center; background:var(--panel); }
+  .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); margin:0 auto; }
+  .info-line{ margin-top:14px; font-size:12.5px; color:var(--dim); line-height:1.7; text-align:left; max-width:340px; }
+  .info-line b{ color:var(--white); font-weight:400; }
+  .info-line .badge{
+    display:inline-block; margin-top:4px; padding:2px 8px; font-size:11px; border:1px solid var(--line-strong); color:var(--dim);
+  }
+  .info-line .badge.inverse{ border-color:var(--red); color:var(--red); }
+  .info-line .badge.echange{ border-color:var(--gold); color:var(--gold); }
+  .info-line .badge.invariante{ border-color:var(--line-strong); }
+  .info-line .badge.plaque{ border-color:var(--gold); color:var(--gold); }
+
+  .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+  .actions button{
+    all:unset; cursor:pointer; padding:8px 14px; font-size:12px; color:var(--dim);
+    border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .actions button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(20px + var(--fs-bump)); }
+    .composer{ flex-direction:column; align-items:center; }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main>
+  <header>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Motifs bicolores v2</span>
+    </nav>
+    <h1 data-i18n="pageH1">Générateur bicolore v2</h1>
+    <p data-i18n="pageIntro">La seconde découpe des diagonales (YA/AY) et les huit familles orthogonales, renommées selon la même règle. Composez un accord d'éléments, changez de grain, mutez-le, et lisez son statut au demi-décalage.</p>
+    <p class="v1-link" data-i18n-html="v1LinkHtml">L'outil d'origine (T0–T3, hexagrammes) reste disponible : <a href="bicolore.html">Motifs bicolores v1</a>.</p>
+  </header>
+
+  <div class="composer">
+    <div class="panel">
+      <h2 data-i18n="modeHeading">Mode</h2>
+      <div class="ctl-toggle" id="modeToggle" role="group" aria-label="Mode de composition">
+        <button type="button" data-mode="libre" aria-pressed="true" data-i18n="modeLibre">Accord libre</button>
+        <button type="button" data-mode="familles" data-i18n="modeFamilles">Familles</button>
+      </div>
+      <h2 data-i18n="grainHeading">Grain</h2>
+      <div class="ctl-toggle" id="grainToggle" role="group" aria-label="Grain de lecture">
+        <button type="button" data-grain="C8" aria-pressed="true">C8</button>
+        <button type="button" data-grain="C1">C1</button>
+        <button type="button" data-grain="C4">C4</button>
+      </div>
+      <h2 data-i18n="generatorsHeading">Éléments</h2>
+      <div class="gen-grid" id="genGrid" role="group" aria-label="Générateurs de l'accord"></div>
+      <div class="actions">
+        <button type="button" id="btnMuter" data-i18n="btnMuter">Muter</button>
+        <button type="button" id="btnEffacer" data-i18n="btnEffacer">Effacer</button>
+      </div>
+    </div>
+
+    <div class="preview">
+      <div id="renderTarget"></div>
+      <div class="info-line" id="infoLine"></div>
+      <div class="actions">
+        <button type="button" id="btnDlCellSvg" data-i18n="btnTelecharger">Télécharger le SVG</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+<!-- @main:end -->
+
+</div>
+
+<script type="module">
+import { GRID, PER_CELL, triangleGeometry, maskToSvg } from './assets/bicolore-render.js';
+import {
+  buildAxes, buildGenerateursV2, generateAxesMask, generateAxesMaskC4,
+  nomAccord, demiDecalageStatus, mutantDe, disponiblePourGrain,
+  ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX,
+} from './assets/bicolore-axes.js';
+
+// ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir i18n_todo_creation-bicolore-v2.md) ----------
+const LANGS = ['fr', 'en', 'es', 'th'];
+const UI = {
+  fr: {
+    pageH1: "Générateur bicolore v2",
+    pageIntro: "La seconde découpe des diagonales (YA/AY) et les huit familles orthogonales, renommées selon la même règle. Composez un accord d'éléments, changez de grain, mutez-le, et lisez son statut au demi-décalage.",
+    v1LinkHtml: "L'outil d'origine (T0–T3, hexagrammes) reste disponible : <a href=\"bicolore.html\">Motifs bicolores v1</a>.",
+    modeHeading: "Mode", modeLibre: "Accord libre", modeFamilles: "Familles",
+    grainHeading: "Grain", generatorsHeading: "Éléments",
+    btnMuter: "Muter", btnEffacer: "Effacer", btnTelecharger: "Télécharger le SVG",
+    niveau: "niveau", angle: "angle", angles: "angles", accordVide: "Aucun élément sélectionné.",
+    vecteur: "vecteur", invariante: "invariante", inversee: "inversée", echangee: "échangée",
+    visiblePlaque: "visible sur une plaque",
+    c4Indisponible: "indisponible en C4 (demi-écart)",
+  },
+  en: {
+    pageH1: "Two-colour generator v2",
+    pageIntro: "The second diagonal split (YA/AY) and the eight orthogonal families, renamed under the same rule. Build a chord of elements, change grain, mutate it, and read its half-shift status.",
+    v1LinkHtml: "The original tool (T0–T3, hexagrams) is still available: <a href=\"bicolore.html\">Two-colour patterns v1</a>.",
+    modeHeading: "Mode", modeLibre: "Free chord", modeFamilles: "Families",
+    grainHeading: "Grain", generatorsHeading: "Elements",
+    btnMuter: "Mutate", btnEffacer: "Clear", btnTelecharger: "Download SVG",
+    niveau: "level", angle: "angle", angles: "angles", accordVide: "No element selected.",
+    vecteur: "vector", invariante: "invariant", inversee: "inverted", echangee: "exchanged",
+    visiblePlaque: "visible on a plate",
+    c4Indisponible: "unavailable at C4 (half-offset)",
+  },
+};
+function initialLang() {
+  const params = new URLSearchParams(location.search);
+  if (params.has('lang') && LANGS.includes(params.get('lang'))) return params.get('lang');
+  return 'fr';
+}
+const LANG = initialLang();
+function t(key) { return (UI[LANG] && UI[LANG][key] !== undefined) ? UI[LANG][key] : UI.fr[key]; }
+document.querySelectorAll('[data-i18n]').forEach(el => { const k = el.dataset.i18n; if (UI.fr[k] !== undefined) el.textContent = t(k); });
+document.querySelectorAll('[data-i18n-html]').forEach(el => { const k = el.dataset.i18nHtml; if (UI.fr[k] !== undefined) el.innerHTML = t(k); });
+
+// ---------- état ----------
+const ORDRE_GENERATEURS = [...ANGLES_DIAGONAUX.map(a => 'L' + a), 'YI6', 'YI5', 'YI4', 'YI3', 'IY3', 'IY4', 'IY5', 'IY6'];
+const BASES = new Set(['L0', 'L180', 'YI6', 'IY6']); // ya, ay, yi, iy
+let mode = 'libre'; // 'libre' | 'familles'
+let grain = 'C8';   // 'C8' | 'C1' | 'C4'
+let selection = new Set();
+let AXES_V1 = null, GENV2 = null, GENV2_JSON = null;
+
+function angleDe(id) {
+  if (id.startsWith('L')) return Number(id.slice(1));
+  const m = /^(YI|IY)(\d)$/.exec(id);
+  const k = Number(m[2]);
+  return m[1] === 'YI' ? 180 - 30 * k : 30 * k;
+}
+
+// ---------- rendu des boutons generateurs ----------
+const genGrid = document.getElementById('genGrid');
+function renderGenGrid() {
+  genGrid.innerHTML = '';
+  const addSep = (label) => {
+    const s = document.createElement('div');
+    s.className = 'gen-sep'; s.textContent = label;
+    genGrid.appendChild(s);
+  };
+  addSep('L0…L180');
+  for (const id of ORDRE_GENERATEURS) {
+    if (id === 'YI6') addSep('YI / IY');
+    const visible = mode === 'libre' || BASES.has(id);
+    if (!visible) continue;
+    const btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'gen-btn'; btn.dataset.id = id;
+    btn.innerHTML = `${id}<span class="angle">${angleDe(id)}°</span>`;
+    const dispo = disponiblePourGrain(id, grain);
+    btn.disabled = !dispo;
+    btn.title = dispo ? '' : t('c4Indisponible');
+    btn.setAttribute('aria-pressed', selection.has(id) ? 'true' : 'false');
+    btn.addEventListener('click', () => {
+      if (selection.has(id)) selection.delete(id); else selection.add(id);
+      renderGenGrid(); renderAll();
+    });
+    genGrid.appendChild(btn);
+  }
+}
+
+// ---------- accord courant : generateurs selectionnes -> axes bruts ----------
+function accordAxesBrute() {
+  let out = [];
+  for (const id of selection) if (disponiblePourGrain(id, grain)) out = out.concat(GENV2[id] || []);
+  return out;
+}
+// nom/niveau/angles : chaque angle diagonal selectionne s'ecrit par ses
+// DEUX elements (YA_k et AY_(6-k), sauf 0/180) -- la parite ne voit que
+// l'angle (loi 2), mais le nom en a besoin des deux.
+function elementsPourNom() {
+  const els = [];
+  for (const id of selection) {
+    if (id.startsWith('L')) els.push(...ELEMENTS_DE_ANGLE[angleDe(id)]);
+    else els.push(id);
+  }
+  return els;
+}
+
+function renderAll() {
+  const grainReel = grain === 'C4' ? 'C4' : grain;
+  const axes = accordAxesBrute();
+  const renderTarget = document.getElementById('renderTarget');
+  const infoLine = document.getElementById('infoLine');
+  if (!selection.size) {
+    renderTarget.innerHTML = '';
+    infoLine.textContent = t('accordVide');
+    return;
+  }
+  let maskForRender, perCellForRender;
+  if (grain === 'C4') {
+    const c4 = generateAxesMaskC4(axes);
+    // expansion exacte C4 -> C8 pour le rendu (chaque bit C4 copie sur ses
+    // deux moities C8 -- exact, pas une approximation, puisque seuls des
+    // generateurs disponibles en C4 sont ici selectionnes).
+    const PAIRS = [[7, 0], [1, 2], [3, 4], [5, 6]];
+    const out = new Uint8Array(GRID * GRID * 8);
+    for (let cell = 0; cell < GRID * GRID; cell++)
+      for (let s = 0; s < 4; s++) { const [a, b] = PAIRS[s]; out[cell * 8 + a] = c4[cell * 4 + s]; out[cell * 8 + b] = c4[cell * 4 + s]; }
+    maskForRender = out; perCellForRender = 8;
+  } else if (grain === 'C1') {
+    const c1 = generateAxesMask(axes, { grain: 'C1' });
+    const out = new Uint8Array(GRID * GRID * 8);
+    for (let cell = 0; cell < GRID * GRID; cell++) for (let s = 0; s < 8; s++) out[cell * 8 + s] = c1[cell];
+    maskForRender = out; perCellForRender = 8;
+  } else {
+    maskForRender = generateAxesMask(axes, { grain: 'C8' }); perCellForRender = 8;
+  }
+  renderTarget.innerHTML = maskToSvg(maskForRender, ['#f2f2f0', '#e0261b'], { size: 320, perCell: perCellForRender });
+
+  // ---------- ligne d'information ----------
+  const { nom, niveau, angles } = nomAccord(elementsPourNom());
+  let html = `<b>${nom}</b> — ${t('niveau')} ${niveau}, ${angles.length > 1 ? t('angles') : t('angle')} ${angles.map(a => a + '°').join(', ')}`;
+  const { status } = demiDecalageStatus(axes, AXES_V1);
+  const statusLabel = { invariant: t('invariante'), inverse: t('inversee'), echange: t('echangee') }[status];
+  html += `<br><span class="badge ${status}">${statusLabel}</span>`;
+  if (mode === 'familles') {
+    const vec = [selection.has('L0') ? 1 : 0, selection.has('L180') ? 1 : 0, selection.has('YI6') ? 1 : 0, selection.has('IY6') ? 1 : 0];
+    html += ` <span class="badge">${t('vecteur')} (${vec.join(', ')})</span>`;
+  }
+  // visible sur une plaque : reunion d'angles complets -- YI3/IY3 ensemble
+  // ou pas du tout (90 deg n'est complet que si les deux moities y sont).
+  // visible sur une plaque : reunion d'angles COMPLETS. L'orthogonal 90°
+  // (YI3/IY3) et chacun des cinq angles diagonaux non terminaux (30,60,90,
+  // 120,150, dont les deux elements YA_k/AY_(6-k) sont ici independamment
+  // toggleables) doivent etre pris ensemble ou pas du tout.
+  const yi3 = selection.has('YI3'), iy3 = selection.has('IY3');
+  let anglesComplets = (yi3 === iy3);
+  for (const a of [30, 60, 90, 120, 150]) {
+    const [e1, e2] = ELEMENTS_DE_ANGLE[a];
+    if (selection.has(e1) !== selection.has(e2)) { anglesComplets = false; break; }
+  }
+  if (anglesComplets && selection.size) html += ` <span class="badge plaque">${t('visiblePlaque')}</span>`;
+  infoLine.innerHTML = html;
+}
+
+// ---------- controles ----------
+document.querySelectorAll('#modeToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    mode = btn.dataset.mode;
+    document.querySelectorAll('#modeToggle button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    if (mode === 'familles') selection = new Set([...selection].filter(id => BASES.has(id)));
+    renderGenGrid(); renderAll();
+  });
+});
+document.querySelectorAll('#grainToggle button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    grain = btn.dataset.grain;
+    document.querySelectorAll('#grainToggle button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+    if (grain === 'C4') selection = new Set([...selection].filter(id => disponiblePourGrain(id, 'C4')));
+    renderGenGrid(); renderAll();
+  });
+});
+document.getElementById('btnMuter').addEventListener('click', () => {
+  selection = new Set([...selection].map(id => mutantDe(id)));
+  renderGenGrid(); renderAll();
+});
+document.getElementById('btnEffacer').addEventListener('click', () => {
+  selection = new Set();
+  renderGenGrid(); renderAll();
+});
+document.getElementById('btnDlCellSvg').addEventListener('click', () => {
+  if (!selection.size) return;
+  const axes = accordAxesBrute();
+  const mask = generateAxesMask(axes, { grain: grain === 'C1' ? 'C1' : 'C8' });
+  const perCell = grain === 'C1' ? 1 : 8;
+  const parts = perCell === 1 ? GRID * GRID : GRID * GRID * 8;
+  const expanded = perCell === 1 ? (() => { const o = new Uint8Array(GRID * GRID * 8); for (let c = 0; c < GRID * GRID; c++) for (let s = 0; s < 8; s++) o[c * 8 + s] = mask[c]; return o; })() : mask;
+  const svg = maskToSvg(expanded, ['#f2f2f0', '#e0261b'], { size: 900, perCell: 8 });
+  const blob = new Blob([svg], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `bicolore-v2.svg`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+// ---------- chargement ----------
+Promise.all([
+  fetch('data/AXES/catalogue.json').then(r => r.json()),
+  fetch('data/AXES/generateurs_v2.json').then(r => r.json()),
+]).then(([catalogue, generateursV2]) => {
+  AXES_V1 = buildAxes(catalogue);
+  GENV2_JSON = generateursV2;
+  GENV2 = buildGenerateursV2(generateursV2);
+  // depart : la base ya (L0), pour un rendu non vide
+  selection = new Set(['L0']);
+  renderGenGrid();
+  renderAll();
+}).catch(err => {
+  document.getElementById('infoLine').textContent = 'Erreur de chargement : ' + err.message;
+  console.error(err);
+});
+</script>
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil">
+      <a class="nav-tile" href="index.html"><img class="nav-tile-icon" src="assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy">
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Deviens Soutien de la Livrée d'Hermès — contribue à prix libre et débloque, de façon permanente, le téléchargement des fichiers SVG/PDF du livre.">Devenir Soutien</a>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Créer</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="fonds-ecran.html"><img class="nav-tile-icon" src="assets/nav-icons/fond-ecran.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
+        <a class="nav-tile" href="creation-motifs-yi-king.html"><img class="nav-tile-icon" src="assets/nav-icons/creation-motifs.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Créer un motif</span><span class="nav-tile-excerpt">Composez vos propres motifs textiles à partir des 60 natures du Yi King.</span></span></a>
+        <a class="nav-tile" href="bicolore.html"><img class="nav-tile-icon" src="assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Motifs bicolores</span><span class="nav-tile-excerpt">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></span></a>
+        <a class="nav-tile" href="encodeur.html"><img class="nav-tile-icon" src="assets/nav-icons/encodeur.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
+        <a class="nav-tile" href="impression.html"><img class="nav-tile-icon" src="assets/nav-icons/impression.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+        <a class="nav-tile" href="cymatique.html"><img class="nav-tile-icon" src="assets/nav-icons/cymatique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Explorer</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="hexagrammes/"><img class="nav-tile-icon" src="assets/nav-icons/hexagrammes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Hexagrammes</span><span class="nav-tile-excerpt">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></span></a>
+        <a class="nav-tile" href="unified-patterns.html"><img class="nav-tile-icon" src="assets/nav-icons/unified-patterns.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Magic quadricolore</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
+        <a class="nav-tile" href="galerie-patterns-unifies.html"><img class="nav-tile-icon" src="assets/nav-icons/galerie.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Galerie tricolore</span><span class="nav-tile-excerpt">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
+        <a class="nav-tile" href="galerie-bicolore.html"><img class="nav-tile-icon" src="assets/nav-icons/galerie-bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Galerie bicolore</span><span class="nav-tile-excerpt">142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.</span></span></a>
+        <a class="nav-tile" href="telechargements.html"><img class="nav-tile-icon" src="assets/nav-icons/motifs-svg.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Lire</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="la-livree-d-hermes.html"><img class="nav-tile-icon" src="assets/nav-icons/la-livree-d-hermes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Le traité</span><span class="nav-tile-excerpt">Le traité en quatre langues, les hexagrammes et le lexique.</span></span></a>
+        <a class="nav-tile" href="lexique.html"><img class="nav-tile-icon" src="assets/nav-icons/lexique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Lexique</span><span class="nav-tile-excerpt">Dix notions clés pour comprendre La Livrée d'Hermès.</span></span></a>
+        <a class="nav-tile" href="articles.html"><img class="nav-tile-icon" src="assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Le projet</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="contact.html"><img class="nav-tile-icon" src="assets/nav-icons/contact.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></span></a>
+        <a class="nav-tile" href="a-propos.html"><img class="nav-tile-icon" src="assets/nav-icons/a-propos.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">À propos</span><span class="nav-tile-excerpt">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></span></a>
+        <a class="nav-tile" href="outils.html"><img class="nav-tile-icon" src="assets/nav-icons/outils.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Outils</span><span class="nav-tile-excerpt">Tous les outils interactifs du site, réunis en un seul endroit.</span></span></a>
+      </div>
+    </div>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy">
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — Tous droits réservés</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="">Accueil</a>
+    <a href="la-livree-d-hermes.html">Le traité</a>
+    <a href="hexagrammes/">Hexagrammes</a>
+    <a href="motifs/">Motifs</a>
+    <a href="lexique.html">Lexique</a>
+    <a href="articles.html">Articles</a>
+    <a href="outils.html">Outils</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="profil.html">Profil documentaire</a>
+    <a href="travaux.html">Travaux</a>
+    <a href="contact.html">Contact</a>
+    <a href="soutenir.html">Soutenir</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</body>
+</html>

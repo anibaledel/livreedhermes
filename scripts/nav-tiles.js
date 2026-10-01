@@ -28,7 +28,7 @@ const GROUPES = [
   { id: 'le-projet', fr: 'Le projet', en: 'The project' },
 ];
 
-// Les 17 destinations canoniques (référence : le bas de page de l'accueil,
+// Les 18 destinations canoniques (référence : le bas de page de l'accueil,
 // + Galerie bicolore — décidé, voir prompt-cc-bas-de-page-decisions.md §3).
 // Libellés « Galerie tricolore » / « Magic quadricolore » / « Le traité » :
 // voir prompt-cc-nommage-galeries.md et prompt-cc-renommage-quadricolore.md.
@@ -45,6 +45,9 @@ const TUILES = [
   { id: 'bicolore', href: 'bicolore.html', icon: 'bicolore', groupe: 'creer',
     fr: { label: 'Motifs bicolores', excerpt: 'Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.' },
     en: { label: 'Two-colour patterns', excerpt: 'Compose a 12×12 cell, six levels, each with its own family and tint.' } },
+  { id: 'bicolore-v2', href: 'creation-bicolore-v2.html', icon: 'bicolore', groupe: 'creer',
+    fr: { label: 'Motifs bicolores v2', excerpt: 'La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.' },
+    en: { label: 'Two-colour patterns v2', excerpt: 'The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.' } },
   { id: 'encodeur', href: 'encodeur.html', icon: 'encodeur', groupe: 'creer',
     fr: { label: 'Encodeur', excerpt: 'Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.' },
     en: { label: 'Encoder', excerpt: 'Geometric steganographic encoding by double referent, ansate cross and Jacquard.' } },
@@ -104,8 +107,8 @@ const ACCUEIL = {
 if (new Set(TUILES.map((t) => t.id)).size !== TUILES.length) {
   throw new Error('nav-tiles.js : id de tuile en double.');
 }
-if (TUILES.length !== 17) {
-  throw new Error(`nav-tiles.js : ${TUILES.length} tuiles canoniques au lieu de 17 attendues.`);
+if (TUILES.length !== 18) {
+  throw new Error(`nav-tiles.js : ${TUILES.length} tuiles canoniques au lieu de 18 attendues.`);
 }
 
 /* rel : chemin du fichier courant depuis la racine du dépôt, séparateurs `/`
@@ -131,11 +134,11 @@ function tuilesPourPage(rel, prefixe) {
   if (new Set(hrefs).size !== hrefs.length) {
     throw new Error(`nav-tiles.js : adresses de tuiles en double pour ${rel} : ${hrefs.join(', ')}`);
   }
-  if (items.length < 17 || items.length > 18) {
-    throw new Error(`nav-tiles.js : ${items.length} tuiles pour ${rel}, attendu 17 ou 18.`);
+  if (items.length < 18 || items.length > 19) {
+    throw new Error(`nav-tiles.js : ${items.length} tuiles pour ${rel}, attendu 18 ou 19.`);
   }
-  if (rel === 'index.html' && items.length !== 17) {
-    throw new Error(`nav-tiles.js : l'accueil doit porter exactement 17 tuiles (auto-exclues), en a ${items.length}.`);
+  if (rel === 'index.html' && items.length !== 18) {
+    throw new Error(`nav-tiles.js : l'accueil doit porter exactement 18 tuiles (auto-exclues), en a ${items.length}.`);
   }
 
   return items;
