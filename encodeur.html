@@ -299,7 +299,7 @@ if('serviceWorker' in navigator){
             <h2>Étape 1 — Votre offer</h2>
             <button type="button" class="enc-btn" id="btnScGenerate">Générer mon offer</button>
             <div id="sc-my-key" hidden style="margin-top:12px">
-              <label class="enc-label">Mon offer — identité ‖ éphémère, 128 caractères hex (à envoyer à votre correspondant)</label>
+              <label class="enc-label" for="sc-my-pub">Mon offer — identité ‖ éphémère, 128 caractères hex (à envoyer à votre correspondant)</label>
               <textarea class="enc-textarea" id="sc-my-pub" readonly style="min-height:50px"></textarea>
               <button type="button" class="enc-btn secondary" id="btnScCopyPub">Copier</button>
             </div>
@@ -307,7 +307,7 @@ if('serviceWorker' in navigator){
 
           <div class="enc-card">
             <h2>Étape 2 — Offer de votre correspondant</h2>
-            <label class="enc-label">Offer reçue (128 caractères hex)</label>
+            <label class="enc-label" for="sc-their-pub">Offer reçue (128 caractères hex)</label>
             <input type="text" class="enc-input" id="sc-their-pub" placeholder="Coller l'offer du correspondant">
             <button type="button" class="enc-btn" id="btnScDerive">Dériver la session</button>
             <div id="sc-session-result" hidden style="margin-top:14px">
@@ -328,7 +328,7 @@ if('serviceWorker' in navigator){
           <div class="enc-card">
             <h2>Envoyer avec la session active</h2>
             <div id="enc-session-status" class="enc-info-box">Aucune session active (onglet Exchange) — encode ci-dessous avec des clés générées librement.</div>
-            <label class="enc-label">Message à envoyer</label>
+            <label class="enc-label" for="enc-session-message">Message à envoyer</label>
             <input type="text" class="enc-input" id="enc-session-message" placeholder="VOTRE MESSAGE ICI" maxlength="200">
             <button type="button" class="enc-btn" id="btnEncodeSession">Encoder et télécharger la grille</button>
             <div id="enc-session-result" hidden>
@@ -337,20 +337,20 @@ if('serviceWorker' in navigator){
           </div>
           <div class="enc-card">
             <h2>Encoder un message (clé libre)</h2>
-            <label class="enc-label">Message à encoder</label>
+            <label class="enc-label" for="enc-message">Message à encoder</label>
             <input type="text" class="enc-input" id="enc-message" placeholder="VOTRE MESSAGE ICI" maxlength="200">
-            <label class="enc-label">Variante</label>
+            <label class="enc-label" for="enc-variant">Variante</label>
             <select class="enc-select" id="enc-variant"></select>
             <button type="button" class="enc-btn" id="btnEncode">Encoder</button>
             <div id="enc-result" hidden>
               <div class="enc-info-box" id="enc-info"></div>
               <div class="enc-row" style="margin-top:14px">
                 <div>
-                  <label class="enc-label">Clé maître Carter</label>
+                  <label class="enc-label" for="enc-key1">Clé maître Carter</label>
                   <textarea class="enc-textarea" id="enc-key1" readonly></textarea>
                 </div>
                 <div>
-                  <label class="enc-label">Grille encodée (CSV, aperçu)</label>
+                  <label class="enc-label" for="enc-grid-out">Grille encodée (CSV, aperçu)</label>
                   <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
                 </div>
               </div>
@@ -368,11 +368,11 @@ if('serviceWorker' in navigator){
           <div class="enc-card">
             <h2>Grille Carter (grammaire dérivée de la clé)</h2>
             <p class="ref-note">Une seule passphrase dérive, par HKDF-SHA256, la clé de chiffrement et la grammaire de la grille (rôle — pur / structuré / message — et forme de chacun de ses blocs) — aucun placement n'est stocké en dehors de la clé. Les blocs « structurés » et « message » sont statistiquement indiscernables sans elle. Chaque encodage tire un <b>sel</b> aléatoire, affiché après coup : le transmettre avec la passphrase. Il n'est pas secret et ne figure pas dans le CSV, mais sans lui la grille reste close — et c'est lui qui empêche qu'une table précalculée sur des passphrases courantes n'ouvre les grilles de tous les utilisateurs à la fois.</p>
-            <label class="enc-label">Passphrase Carter</label>
+            <label class="enc-label" for="carter-passphrase">Passphrase Carter</label>
             <input type="password" class="enc-input" id="carter-passphrase" placeholder="Passphrase Carter" autocomplete="off">
-            <label class="enc-label">Message à encoder</label>
+            <label class="enc-label" for="carter-message">Message à encoder</label>
             <input type="text" class="enc-input" id="carter-message" placeholder="VOTRE MESSAGE ICI" maxlength="200">
-            <label class="enc-label">Variante</label>
+            <label class="enc-label" for="carter-variant">Variante</label>
             <select class="enc-select" id="carter-variant"></select>
             <button type="button" class="enc-btn" id="btnCarterEncode">Encoder et télécharger grille_carter.csv</button>
             <div id="carter-encode-result" hidden>
@@ -386,9 +386,9 @@ if('serviceWorker' in navigator){
           <div class="enc-card">
             <h2>Déchiffrer avec la session active</h2>
             <div id="dec-session-status" class="enc-info-box">Aucune session active (onglet Exchange).</div>
-            <label class="enc-label">Grille CSV (coller ou charger)</label>
+            <label class="enc-label" for="dec-session-grid">Grille CSV (coller ou charger)</label>
             <textarea class="enc-textarea" id="dec-session-grid" placeholder="1,23,5,14,2,..."></textarea>
-            <input type="file" class="enc-input" id="dec-session-file-grid" accept=".csv">
+            <input type="file" class="enc-input" id="dec-session-file-grid" aria-label="Charger une grille CSV depuis un fichier" accept=".csv">
             <button type="button" class="enc-btn" id="btnDecodeSession">Déchiffrer</button>
             <div id="dec-session-result" hidden>
               <div class="enc-result-box" id="dec-session-msg"></div>
@@ -396,11 +396,11 @@ if('serviceWorker' in navigator){
           </div>
           <div class="enc-card">
             <h2>Décoder avec une clé manuelle</h2>
-            <label class="enc-label">Grille CSV (coller ou charger)</label>
+            <label class="enc-label" for="dec-grid">Grille CSV (coller ou charger)</label>
             <textarea class="enc-textarea" id="dec-grid" placeholder="1,23,5,14,2,..."></textarea>
-            <label class="enc-label">Clé maître Carter (hex)</label>
+            <label class="enc-label" for="dec-masterkey">Clé maître Carter (hex)</label>
             <input type="text" class="enc-input" id="dec-masterkey" placeholder="Clé maître (hex 64 caractères)" autocomplete="off">
-            <label class="enc-label">Variante</label>
+            <label class="enc-label" for="dec-variant">Variante</label>
             <select class="enc-select" id="dec-variant"></select>
             <button type="button" class="enc-btn" id="btnDecode">Décoder</button>
             <div id="dec-result" hidden>
@@ -409,20 +409,20 @@ if('serviceWorker' in navigator){
           </div>
           <div class="enc-card">
             <h2>Charger depuis un fichier</h2>
-            <label class="enc-label">Fichier grille CSV</label>
+            <label class="enc-label" for="dec-file-grid">Fichier grille CSV</label>
             <input type="file" class="enc-input" id="dec-file-grid" accept=".csv">
           </div>
 
           <div class="enc-card">
             <h2>Décoder une grille Carter</h2>
-            <label class="enc-label">Passphrase Carter</label>
+            <label class="enc-label" for="carter-dec-passphrase">Passphrase Carter</label>
             <input type="password" class="enc-input" id="carter-dec-passphrase" placeholder="Passphrase Carter" autocomplete="off">
-            <label class="enc-label">Sel de la grille (32 caractères hex, transmis avec la passphrase)</label>
+            <label class="enc-label" for="carter-dec-salt">Sel de la grille (32 caractères hex, transmis avec la passphrase)</label>
             <input type="text" class="enc-input" id="carter-dec-salt" placeholder="laisser vide pour une grille produite avant septembre 2026" autocomplete="off">
-            <label class="enc-label">Grille CSV (coller ou charger)</label>
+            <label class="enc-label" for="carter-dec-grid">Grille CSV (coller ou charger)</label>
             <textarea class="enc-textarea" id="carter-dec-grid" placeholder="1,23,5,14,2,..."></textarea>
-            <input type="file" class="enc-input" id="carter-dec-file-grid" accept=".csv">
-            <label class="enc-label">Variante</label>
+            <input type="file" class="enc-input" id="carter-dec-file-grid" aria-label="Charger une grille CSV depuis un fichier" accept=".csv">
+            <label class="enc-label" for="carter-dec-variant">Variante</label>
             <select class="enc-select" id="carter-dec-variant"></select>
             <button type="button" class="enc-btn" id="btnCarterDecode">Décoder</button>
             <div id="carter-dec-result" hidden>
@@ -437,20 +437,20 @@ if('serviceWorker' in navigator){
             <h2>Vault chiffré — fichiers</h2>
             <p class="ref-note">Chiffre vos fichiers dans le navigateur (AES-256-GCM par entrée, manifest chiffré, HMAC-SHA256 global — format inspiré de <code>vault_lib.py</code>). Aucun fichier ni passphrase n'est transmis au serveur.</p>
             <div class="enc-info-box"><b>Avertissement :</b> vos fichiers sont chiffrés localement. Conservez votre passphrase — sans elle, les fichiers sont irrécupérables. Dérivation de clé : PBKDF2-SHA256 (300 000 itérations), moins résistante au brute-force GPU/ASIC que l'Argon2id de la CLI Python — pour une utilisation sensible en production, préférer <code>secu-box vault</code> (voir À propos).</div>
-            <label class="enc-label">Passphrase du vault</label>
+            <label class="enc-label" for="vault-passphrase">Passphrase du vault</label>
             <input type="password" class="enc-input" id="vault-passphrase" placeholder="Passphrase du vault" autocomplete="off">
             <div class="enc-row">
               <button type="button" class="enc-btn" id="btnVaultNew">Créer un nouveau vault</button>
               <button type="button" class="enc-btn secondary" id="btnVaultOpenPrompt">Ouvrir un fichier .sbvault</button>
             </div>
-            <input type="file" class="enc-input" id="vault-file-open" accept=".sbvault" hidden>
+            <input type="file" class="enc-input" id="vault-file-open" aria-label="Fichier .sbvault à ouvrir" accept=".sbvault" hidden>
             <div id="vault-status" class="enc-info-box" style="margin-top:12px">Aucun vault ouvert.</div>
           </div>
 
           <div id="vault-app" hidden>
             <div class="enc-card">
               <h2>Ajouter un fichier</h2>
-              <input type="file" class="enc-input" id="vault-file-add">
+              <input type="file" class="enc-input" id="vault-file-add" aria-label="Fichier à ajouter au vault">
               <button type="button" class="enc-btn" id="btnVaultAdd">Chiffrer et ajouter</button>
               <div class="disk-file-info" id="vault-add-info"></div>
             </div>
@@ -537,14 +537,14 @@ if('serviceWorker' in navigator){
             <div class="enc-card">
               <h2>Chiffrement hybride — géométrique + AES-256-GCM</h2>
               <p class="ref-note">Architecture à deux couches, suite à un audit cryptologique externe : une couche géométrique (SPN Ref256+Ref360, S-box GF(2⁸), 4 tours) dérive une clé de session unique par secteur — diversification de clé, pas le chiffrement lui-même — puis AES-256-GCM chiffre et authentifie chaque secteur individuellement, avec une authentification HMAC-SHA256 globale par-dessus. Une passphrase incorrecte ou un fichier altéré sont détectés, jamais rendus en bruit silencieux. Distinct de l'outil de stéganographie ci-dessus. Entièrement côté client : la passphrase et les fichiers ne quittent jamais le navigateur.</p>
-              <label class="enc-label">Passphrase</label>
+              <label class="enc-label" for="disk-passphrase">Passphrase</label>
               <input type="password" class="enc-input" id="disk-passphrase" placeholder="Votre passphrase" autocomplete="off">
               <p class="ref-note" style="margin-top:8px">Saisie une seule fois, utilisée directement par les boutons Chiffrer et Déchiffrer ci-dessous.</p>
             </div>
 
             <div class="enc-card">
               <h2>Chiffrer un fichier</h2>
-              <label class="enc-label">Fichier à chiffrer</label>
+              <label class="enc-label" for="disk-file-encrypt">Fichier à chiffrer</label>
               <input type="file" class="enc-input" id="disk-file-encrypt">
               <div class="disk-file-info" id="disk-encrypt-info"></div>
               <button type="button" class="enc-btn" id="btnDiskEncrypt">Chiffrer →</button>
@@ -553,7 +553,7 @@ if('serviceWorker' in navigator){
 
             <div class="enc-card">
               <h2>Déchiffrer un fichier</h2>
-              <label class="enc-label">Fichier .lldh à déchiffrer</label>
+              <label class="enc-label" for="disk-file-decrypt">Fichier .lldh à déchiffrer</label>
               <input type="file" class="enc-input" id="disk-file-decrypt" accept=".lldh">
               <div class="disk-file-info" id="disk-decrypt-info"></div>
               <button type="button" class="enc-btn" id="btnDiskDecrypt">Déchiffrer →</button>
