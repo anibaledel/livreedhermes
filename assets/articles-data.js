@@ -30,8 +30,8 @@ window.ARTICLES = [
     dateDisplay: "Publié le 24 septembre 2026",
     categories: ["Géométrie", "Philosophie", "Livrée"],
     excerpt: "Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la mutation se lit comme un changement de condition au bord.",
-    cover: null,
-    coverAlt: ""
+    cover: "https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg",
+    coverAlt: "Trois damiers 12×12 en or et noir : les motifs nodaux des modes (2,2) et (4,4) d'une plaque carrée, bords fixes et bords libres"
   },
   {
     slug: "encodeur-cacher-n-est-pas-proteger",

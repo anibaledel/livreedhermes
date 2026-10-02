@@ -1,4 +1,4 @@
-/* Interface Pagefind aux couleurs du site (recherche.html, en/search/). */
+/* Interface Pagefind aux couleurs du site (recherche.html, en/search/, es/buscar/, th/search/). */
 #recherche{
   --pagefind-ui-scale:.95;
   --pagefind-ui-primary:var(--gold);
