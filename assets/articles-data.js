@@ -18,6 +18,9 @@
      cover      URL absolue de l'image de couverture, ou null si aucune
                 (si AVIF, un JPEG de même nom doit exister à côté : repli)
      coverAlt   texte alternatif de l'image (ignoré si cover est null)
+     coverAltEn facultatif : le même en anglais, pour la liste en/articles/,
+                quand l'image n'apparaît pas dans l'article anglais (sinon
+                scripts/build-articles.js reprend l'alt de l'article)
    ============================================================ */
 window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométrie", "Philosophie", "Sagesse"];
 
@@ -31,7 +34,8 @@ window.ARTICLES = [
     categories: ["Géométrie", "Philosophie", "Livrée"],
     excerpt: "Trois motifs bicolores, vérifiés triangle par triangle, coïncident exactement avec des modes propres d'une plaque carrée — et la mutation se lit comme un changement de condition au bord.",
     cover: "https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg",
-    coverAlt: "Trois damiers 12×12 en or et noir : les motifs nodaux des modes (2,2) et (4,4) d'une plaque carrée, bords fixes et bords libres"
+    coverAlt: "Trois damiers 12×12 en or et noir : les motifs nodaux des modes (2,2) et (4,4) d'une plaque carrée, bords fixes et bords libres",
+    coverAltEn: "Three 12×12 chequerboards in gold and black: the nodal patterns of the (2,2) and (4,4) modes of a square plate, fixed and free edges"
   },
   {
     slug: "encodeur-cacher-n-est-pas-proteger",
@@ -42,7 +46,8 @@ window.ARTICLES = [
     categories: ["Géométrie", "Philosophie", "Livrée"],
     excerpt: "Un message chiffré dissimulé dans une grille de symboles, aux positions désignées par la croix ansée et le métier Jacquard — et pourquoi la géométrie n'y protège rien.",
     cover: "https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg",
-    coverAlt: "Détail d'une rangée de carrés du Référent 256, issus de la croix ansée, en quatre couleurs"
+    coverAlt: "Détail d'une rangée de carrés du Référent 256, issus de la croix ansée, en quatre couleurs",
+    coverAltEn: "Detail of a row of squares from the Referent 256, derived from the ansate cross, in four colours"
   },
   {
     slug: "cymatique-spectre-d-un-motif",
@@ -53,7 +58,8 @@ window.ARTICLES = [
     categories: ["Géométrie", "Philosophie", "Livrée"],
     excerpt: "De la plaque de Chladni au pavage : les quinze gammes du traité ont des fréquences spatiales dont les carrés sont entiers — la forme même que prennent les modes d'une plaque carrée.",
     cover: "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.avif",
-    coverAlt: "Bandeau des quinze motifs Yin et Yang du traité, en noir et blanc, côte à côte"
+    coverAlt: "Bandeau des quinze motifs Yin et Yang du traité, en noir et blanc, côte à côte",
+    coverAltEn: "Strip of the treatise's fifteen Yin and Yang patterns, in black and white, side by side"
   },
   {
     slug: "reminiscence-caillou-carre",
@@ -97,7 +103,8 @@ window.ARTICLES = [
     categories: ["Sagesse", "Divination", "Livrée"],
     excerpt: "Avant d'être une carte à jouer, le Fou est un dieu mineur banni de l'Olympe pour ses railleries. De Mômos aux bouffons de cour de la Renaissance, une traversée de la fonction de miroir grotesque que le fou tend au prince.",
     cover: "https://anibal-amiot.com/assets/articles/visconti-sforza-fou.avif",
-    coverAlt: "Le Mat (le Fou), tarot Visconti-Sforza"
+    coverAlt: "Le Mat (le Fou), tarot Visconti-Sforza",
+    coverAltEn: "The Fool (le Mat), Visconti-Sforza tarot"
   },
   {
     slug: "habit-du-grand-pretre",

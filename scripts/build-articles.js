@@ -13,7 +13,12 @@
    et avec le même gabarit que le JavaScript de ces pages (qui reste en place
    pour les filtres et produit exactement le même résultat) :
      - articles.html : les cartes, entre <!-- @articles:start/end --> ;
-     - articles/<slug>.html : #articleBadges et #articleNavLinks.
+     - articles/<slug>.html : #articleBadges et #articleNavLinks ;
+     - en/articles/index.html : la liste des articles traduits en anglais
+       (scripts/langues.js, ARTICLES_TRADUITS), cartes et JSON-LD, d'après
+       les pages anglaises elles-mêmes (titre og:title, extrait = meta
+       description, texte alternatif de l'image de couverture) et les
+       données françaises (date, catégories, image).
 
    Usage : node scripts/build-articles.js            écrit les pages
            node scripts/build-articles.js --verifie  échoue si une page est périmée
@@ -100,6 +105,63 @@ for (const a of ARTICLES) {
   if (!BADGES.test(avant)) throw new Error(`${rel} : #articleBadges introuvable`);
   if (!NAV.test(avant)) throw new Error(`${rel} : #articleNavLinks introuvable`);
   const apres = avant.replace(BADGES, (m, o, c) => o + badges + c).replace(NAV, (m, o, c) => o + nav + c);
+  ecrire(rel, avant, apres);
+}
+
+// ---- Liste anglaise : en/articles/index.html ----
+const { ARTICLES_TRADUITS } = require('./langues.js');
+const CATEGORIES_EN = { 'Livrée': 'Livery', 'Verticalité': 'Verticality', 'Divination': 'Divination',
+  'Géométrie': 'Geometry', 'Philosophie': 'Philosophy', 'Sagesse': 'Wisdom' };
+const MOIS_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+  'September', 'October', 'November', 'December'];
+const decode = (s) => s.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+{
+  const rel = 'en/articles/index.html';
+  const avant = fs.readFileSync(path.join(ROOT, rel), 'utf8');
+  const enAnglais = ARTICLES.filter((a) => ARTICLES_TRADUITS.some(([fr]) => fr === a.slug)).map((a) => {
+    const slugEn = ARTICLES_TRADUITS.find(([fr]) => fr === a.slug)[1];
+    const page = fs.readFileSync(path.join(ROOT, `en/articles/${slugEn}.html`), 'utf8');
+    const meta = (re, quoi) => {
+      const m = page.match(re);
+      if (!m) throw new Error(`en/articles/${slugEn}.html : ${quoi} introuvable`);
+      return decode(m[1]);
+    };
+    const [an, mois, jour] = a.dateISO.split('-').map(Number);
+    let coverAlt = a.coverAltEn || '';
+    if (a.cover && !coverAlt) {
+      const base = path.basename(a.cover).replace(/\.\w+$/, '');
+      const img = page.match(new RegExp(`<img[^>]*src="[^"]*${base.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\.\\w+"[^>]*>`));
+      const alt = img && img[0].match(/\salt="([^"]*)"/);
+      if (alt) coverAlt = decode(alt[1]);
+    }
+    return {
+      url: `https://anibal-amiot.com/en/articles/${slugEn}.html`,
+      title: meta(/<meta property="og:title" content="([^"]*)"/, 'og:title'),
+      excerpt: meta(/<meta name="description" content="([^"]*)"/, 'meta description'),
+      dateISO: a.dateISO,
+      dateDisplay: `Published ${MOIS_EN[mois - 1]} ${jour}, ${an}`,
+      categories: a.categories.map((c) => CATEGORIES_EN[c] || c),
+      cover: a.cover,
+      coverAlt,
+    };
+  });
+  const nl = '\n';
+  const cartes = `<!-- @articles:start — engendré depuis scripts/langues.js et les pages en/articles/ (scripts/build-articles.js) -->${nl}`
+    + enAnglais.map((a) => `      ${carte(a)}`).join(nl) + `${nl}      <!-- @articles:end -->`;
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: "Articles in English — La Livrée d'Hermès",
+    url: 'https://anibal-amiot.com/en/articles/',
+    inLanguage: 'en',
+    author: { '@type': 'Person', name: 'Anibal Edelberto Amiot' },
+    blogPost: enAnglais.map((a) => ({ '@type': 'BlogPosting', headline: a.title, url: a.url, datePublished: a.dateISO, inLanguage: 'en' })),
+  };
+  const zoneLd = `<!-- @articles-ld:start — engendré par scripts/build-articles.js -->${nl}<script type="application/ld+json">${nl}`
+    + JSON.stringify(ld, null, 2) + `${nl}</script>${nl}<!-- @articles-ld:end -->`;
+  let apres = avant.replace(/<!-- @articles:start[\s\S]*?<!-- @articles:end -->/, () => cartes)
+    .replace(/<!-- @articles-ld:start[\s\S]*?<!-- @articles-ld:end -->/, () => zoneLd);
+  if (!/@articles:start/.test(avant) || !/@articles-ld:start/.test(avant)) throw new Error(`${rel} : zones @articles / @articles-ld introuvables`);
   ecrire(rel, avant, apres);
 }
 
