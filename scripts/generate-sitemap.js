@@ -38,9 +38,40 @@ function lastmod(relPath) {
   return stat.mtime.toISOString().slice(0, 10);
 }
 
+// Images de la page, pour Google Images (extension image du sitemap) :
+// l'image de partage (og:image) et les <img> de contenu, en adresse absolue
+// sur le site. Sont exclus les éléments de décor communs à toutes les pages
+// — icônes de navigation, logos, GIF animés, planches de fond — qui
+// n'apprennent rien sur la page et noieraient les vraies images.
+const DECOR = /\/assets\/(nav-icons|atalanta)\/|\/(title-)?logo[^/]*$|favicon|apple-touch-icon|\.gif$/i;
+function imagesDe(file, loc) {
+  let html;
+  try { html = fs.readFileSync(path.join(ROOT, file), 'utf8'); } catch { return []; }
+  const urls = [];
+  const og = html.match(/<meta property="og:image" content="([^"]+)"/);
+  if (og) urls.push(og[1]);
+  for (const m of html.matchAll(/<img\b[^>]*\ssrc="([^"]+)"/g)) {
+    if (!/\$\{|'\s*\+|\+\s*'/.test(m[1])) urls.push(m[1]); // pas les gabarits JavaScript
+  }
+  const vues = new Set();
+  return urls
+    .map((u) => { try { return new URL(u, loc).href; } catch { return null; } })
+    .filter((u) => u && u.startsWith(`${SITE}/`) && !DECOR.test(new URL(u).pathname))
+    // seulement une image présente dans le dépôt : une entrée en 404 serait signalée
+    .filter((u) => fs.existsSync(path.join(ROOT, decodeURIComponent(new URL(u).pathname))))
+    .filter((u) => (vues.has(u) ? false : vues.add(u)))
+    .slice(0, 1000);
+}
+const echapperXml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+let nbImages = 0;
+
 function urlEntry({ loc, file, changefreq, priority, hreflang }) {
   const lm = lastmod(file);
   let xml = `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n`;
+  for (const img of imagesDe(file, loc)) {
+    xml += `    <image:image><image:loc>${echapperXml(img)}</image:loc></image:image>\n`;
+    nbImages++;
+  }
   if (hreflang) {
     for (const [lang, href] of hreflang) {
       xml += `    <xhtml:link rel="alternate" hreflang="${lang}" href="${href}"/>\n`;
@@ -64,7 +95,6 @@ const STATIC_PAGES = [
   { loc: `${SITE}/outils.html`, file: 'outils.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/chiffres-et-sources.html`, file: 'chiffres-et-sources.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/a-propos.html`, file: 'a-propos.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
   { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
@@ -168,7 +198,8 @@ if (doublons.length) {
 
 let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
 xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n';
-xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n';
+xml += '        xmlns:xhtml="http://www.w3.org/1999/xhtml"\n';
+xml += '        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n';
 for (const page of ALL_PAGES) {
   xml += urlEntry(page);
 }
@@ -184,4 +215,4 @@ if (urlOpen !== urlClose || urlOpen !== locCount || urlOpen !== ALL_PAGES.length
 }
 
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml, 'utf8');
-console.log(`sitemap.xml généré avec ${ALL_PAGES.length} URLs (${ARTICLE_PAGES.length} articles, ${HEXAGRAM_PAGES.length} hexagrammes, ${MOTIF_PAGES.length} motifs).`);
+console.log(`sitemap.xml généré avec ${ALL_PAGES.length} URLs et ${nbImages} images (${ARTICLE_PAGES.length} articles, ${HEXAGRAM_PAGES.length} hexagrammes, ${MOTIF_PAGES.length} motifs).`);
