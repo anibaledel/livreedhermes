@@ -34,7 +34,7 @@ const TEXTES = {
     groupes: ['Aplat', 'Bandes orthogonales', 'Bandes diagonales', 'Polygones — orientation', 'Fonds de quantité', 'Superpositions'],
     orientation: 'orientation', quantite: 'quantité', raccord: 'raccord',
     modes: { rotation: 'rotation', miroir: 'miroir', echange: 'échange', nature: 'nature' },
-    contraste: 'contraste à distance', avert: 'plus de contraste à distance', direction: 'se lit par la direction',
+    identique: 'identique à', contraste: 'contraste à distance', avert: 'plus de contraste à distance', direction: 'se lit par la direction',
     echelle: 'échelle', sans: 'sans glyphe', sansNom: 'aucune superposition', fraction: 'fraction',
     glyphes: { carre: 'carré', rond: 'rond', losange: 'losange', croix: 'croix', etoile: 'étoile' },
     nombres: ['', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'],
@@ -47,7 +47,7 @@ const TEXTES = {
     groupes: ['Solid', 'Orthogonal bands', 'Diagonal bands', 'Polygons — orientation', 'Quantity grounds', 'Overlays'],
     orientation: 'orientation', quantite: 'quantity', raccord: 'join',
     modes: { rotation: 'rotation', miroir: 'mirror', echange: 'exchange', nature: 'nature' },
-    contraste: 'contrast at a distance', avert: 'no more contrast at a distance', direction: 'reads by direction',
+    identique: 'identical to', contraste: 'contrast at a distance', avert: 'no more contrast at a distance', direction: 'reads by direction',
     echelle: 'scale', sans: 'none', sansNom: 'no overlay', fraction: 'fraction',
     glyphes: { carre: 'square', rond: 'circle', losange: 'lozenge', croix: 'cross', etoile: 'star' },
     nombres: ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
@@ -83,13 +83,14 @@ export function nomDuFond(f, lang = 'fr') {
 // La ligne de métadonnées d'un fond : ce qui est vrai pour sa famille.
 export function metaDuFond(f, lang = 'fr') {
   const T = textes(lang);
+  const identite = f.calcul.identique && f.calcul.identique.length ? ` · ${T.identique} ${f.calcul.identique.join(', ')}` : '';
   if (f.calcul.famille === 'orientation') {
     const m = [T.orientation, T.modes[f.mode]];
     if (f.calcul.raccord) m.push(`${T.raccord} ${RACCORDS[lang] ? RACCORDS[lang][f.calcul.raccord] : f.calcul.raccord}`);
-    return { texte: m.join(' · '), avertissement: null };
+    return { texte: m.join(' · ') + identite, avertissement: null };
   }
   const l = lecture(f);
-  return { texte: `${T.quantite} · ${T.contraste} : ${pct(l.contraste)}`, avertissement: l.avertissement ? T.avert : null };
+  return { texte: `${T.quantite} · ${T.contraste} : ${pct(l.contraste)}${identite}`, avertissement: l.avertissement ? T.avert : null };
 }
 
 // Une superposition à l'échelle s : sa couverture et son contraste sur
@@ -198,13 +199,14 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
     </div>
     <label class="sf-echelle"><span>${esc(T.echelle)}</span><input type="range" min="0.10" max="0.99" step="0.01"><output></output></label>
     <p class="sf-note" hidden></p>
-    <svg class="sf-defs" aria-hidden="true" focusable="false"><defs></defs></svg>`;
+    <svg class="sf-defs" aria-hidden="true" focusable="false"><defs class="sf-defs-fonds"></defs><defs class="sf-defs-glyphes"></defs></svg>`;
   const bouton = racine.querySelector('.sf-bouton');
   const liste = racine.querySelector('.sf-liste');
   const curseur = racine.querySelector('.sf-echelle input');
   const sortie = racine.querySelector('.sf-echelle output');
   const note = racine.querySelector('.sf-note');
-  const defs = racine.querySelector('.sf-defs defs');
+  const defsFonds = racine.querySelector('.sf-defs-fonds');
+  const defsGlyphes = racine.querySelector('.sf-defs-glyphes');
   const lignes = new Map(options.map((o) => [idOption(o), { o, el: racine.querySelector(`#${CSS.escape(idOption(o))}`) }]));
   let actifId = null;
 
@@ -238,28 +240,36 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   }
   const ligneHtml = (code, nom, meta, ech) => `${ech}<span class="sf-code">${esc(code)}</span><span class="sf-nom">${esc(nom)}</span><span class="sf-meta">${esc(meta.texte)}${meta.avertissement ? ` · <span class="sf-av">${esc(meta.avertissement)}</span>` : ''}</span>`;
 
-  // Les symboles : deux par fond (sans glyphe), deux par glyphe (sur le
-  // fond courant, à l'échelle courante). Reconstruits quand la palette, le
-  // fond ou l'échelle changent — pas quand le motif change.
+  // Les symboles : deux par fond (sans glyphe) — ils ne dépendent que de la
+  // palette ; deux par glyphe (sur le fond courant, à l'échelle courante) et
+  // ceux de l'état choisi — reconstruits quand le fond ou l'échelle
+  // changent. Deux <defs> séparés : changer les glyphes ne réinstancie pas
+  // les <use> des fonds. Rien ne se reconstruit quand le motif change.
   const refs = new Map();
-  function symboles() {
+  function symbolesFonds() {
     let d = '';
-    for (const f of fonds) { const { ref, defs: s } = symbolesDe(f, pal, { prefixe: `${uid}-` }); refs.set(`f-${f.id}`, ref); d += s; }
-    for (const g of Object.values(GLYPHES)) {
-      const { ref, defs: s } = symbolesDe(fondCourant(), pal, { prefixe: `${uid}-`, superposition: superposition(g, echelle, col) });
-      refs.set(`g-${g}`, ref); d += s;
-    }
-    const sup = supCourante();
-    const cour = symbolesDe(fondCourant(), pal, { prefixe: `${uid}-cour-`, superposition: sup });
-    refs.set('courant', cour.ref); d += cour.defs;
-    defs.innerHTML = d;
+    for (const f of fonds) { const { ref, defs: x } = symbolesDe(f, pal, { prefixe: `${uid}-` }); refs.set(`f-${f.id}`, ref); d += x; }
+    defsFonds.innerHTML = d;
   }
+  function symbolesGlyphes() {
+    let d = '';
+    for (const g of Object.values(GLYPHES)) {
+      const { ref, defs: x } = symbolesDe(fondCourant(), pal, { prefixe: `${uid}-`, superposition: superposition(g, echelle, col) });
+      refs.set(`g-${g}`, ref); d += x;
+    }
+    const cour = symbolesDe(fondCourant(), pal, { prefixe: `${uid}-cour-`, superposition: supCourante() });
+    refs.set('courant', cour.ref); d += cour.defs;
+    defsGlyphes.innerHTML = d;
+  }
+  const symboles = () => { symbolesFonds(); symbolesGlyphes(); };
 
-  function redessiner() {
+  // Les lignes : `toutes` (palette, motif d'origine) ou seulement ce qui
+  // dépend du fond et de l'échelle (la sélection, les lignes de glyphes).
+  function redessiner(toutes = true) {
     const t0 = performance.now();
     for (const { o, el } of lignes.values()) {
       if (o.type === 'fond') {
-        el.innerHTML = ligneHtml(o.f.id, nomDuFond(o.f, lang), metaDuFond(o.f, lang), echantillon(refs.get(`f-${o.f.id}`)));
+        if (toutes) el.innerHTML = ligneHtml(o.f.id, nomDuFond(o.f, lang), metaDuFond(o.f, lang), echantillon(refs.get(`f-${o.f.id}`)));
         el.setAttribute('aria-selected', o.f.id === fondId ? 'true' : 'false');
       } else if (o.forme) {
         const sup = superposition(o.forme, echelle, col);
@@ -281,8 +291,8 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   }
 
   function changer() {
-    symboles();
-    redessiner();
+    symbolesGlyphes();
+    redessiner(false);
     onChange(api.etat());
   }
 
@@ -336,7 +346,7 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   const api = {
     // Le motif en cours (144 bits, lecture C1) : les échantillons le montrent.
     setMasque(m) { mask = m; fen = fenetreEquilibree(mask); return redessinerEchantillons(); },
-    setPalette(p) { pal = p.slice(); symboles(); return redessiner(); },
+    setPalette(p) { pal = p.slice(); symboles(); return redessiner(true); },
     setActif(oui) {
       actif = oui; bouton.disabled = !oui; note.hidden = oui; note.textContent = oui ? '' : T.inactif;
       if (!oui) fermer(false);

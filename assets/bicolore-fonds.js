@@ -264,6 +264,25 @@ export function familleDe(fond, m = 251) {
   return { famille: 'quantite', isometrie: null };
 }
 
+// ---------- identité : deux fonds qui dessinent la même chose ----------
+//
+// Deux codes peuvent décrire le même dessin (B3x et BA33 : trois bandes,
+// la centrale dans la couleur inverse). Rien ne se supprime : l'identité
+// s'enregistre (`identique`) et s'affiche, et le test vérifie qu'elle vaut
+// le calcul — les deux rendus, v = 0 et v = 1, égaux à 0,5 % de pixels près.
+export function identiques(fonds, m = 251) {
+  const rendus = new Map(fonds.map((f) => [f.id, [rasteriser(f, 0, m), rasteriser(f, 1, m)]]));
+  const tol = 0.005 * m * m;
+  const out = new Map(fonds.map((f) => [f.id, []]));
+  for (let i = 0; i < fonds.length; i++) for (let j = i + 1; j < fonds.length; j++) {
+    const a = rendus.get(fonds[i].id), b = rendus.get(fonds[j].id);
+    let d = 0;
+    for (const v of [0, 1]) for (let k = 0; k < a[v].length && d <= tol; k++) if (a[v][k] !== b[v][k]) d++;
+    if (d <= tol) { out.get(fonds[i].id).push(fonds[j].id); out.get(fonds[j].id).push(fonds[i].id); }
+  }
+  return out;
+}
+
 // Fraction inversée : la part de la case qui ne prend pas la couleur de son
 // bit (famille quantité) ; pour la famille orientation, la part de la
 // seconde couleur dans le rendu v = 0. Calculée, jamais saisie. Chaque
@@ -588,11 +607,12 @@ export const couvertureA = (u, s) => u * s * s;
 // Les valeurs que la page reçoit toutes faites (voir chargerCollection).
 export function calculsDe(json) {
   const col = chargerCollection(json);
+  const ident = identiques([...col.fonds.values()]);
   const arrondi = (x) => Math.round(x * 1e6) / 1e6;
   const fonds = {};
   for (const f of col.fonds.values()) {
     const { famille, isometrie, fraction: fr, nonCouvert: nc, raccord: rac } = f.calcul;
-    fonds[f.id] = { famille, isometrie, fraction: arrondi(fr), nonCouvert: arrondi(nc), raccord: rac };
+    fonds[f.id] = { famille, isometrie, fraction: arrondi(fr), nonCouvert: arrondi(nc), raccord: rac, identique: ident.get(f.id) };
     if (famille === 'quantite') fonds[f.id].contraste = arrondi(lecture(f).contraste);
   }
   const glyphes = {};
@@ -631,11 +651,12 @@ export function symbolesDe(fond, palette, { prefixe = '', superposition = null }
   return { ref, defs };
 }
 
-// Une case COUPÉE (lecture binaire d'un motif tricolore : deux triangles
-// de valeurs différentes) ne reçoit pas de fond : ses deux triangles sont
+// Une case COUPÉE (lecture binaire d'un motif tricolore : deux triangles,
+// ou quatre à une selle, de valeurs différentes) ne reçoit pas de fond : ses deux triangles sont
 // rendus tels quels, quel que soit le fond choisi. Clé du symbole : la
-// diagonale (d = « \ », m = « / ») puis les bits des deux triangles.
-const cleCoupe = (k) => `${k.diagonale === '/' ? 'm' : 'd'}${k.triangles[0].bit}${k.triangles[1].bit}`;
+// diagonale (d = « \ », m = « / », q = les quatre) puis les bits des
+// triangles.
+const cleCoupe = (k) => (k.type === 'quatre' ? 'q' : k.diagonale === '/' ? 'm' : 'd') + k.triangles.map((t) => t.bit).join('');
 function symboleCoupe(id, k, palette) {
   const corps = k.triangles.map((t) => `<polygon fill="${palette[t.bit]}" points="${t.points.map(([x, y]) => `${x},${y}`).join(' ')}"/>`).join('');
   return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps}</symbol>`;
@@ -658,7 +679,7 @@ export function motifSvg(mask, palette, fond, { size = 864, prefixe = '', superp
     let href;
     if (k !== null && typeof k === 'object') {
       if (k.type === 'pleine') href = `${ref}-${k.bit ? 1 : 0}`;
-      else if (k.type === 'coupee') {
+      else if (k.type === 'coupee' || k.type === 'quatre') {
         href = `${prefixe}coupe-${cleCoupe(k)}`.replace(/[^A-Za-z0-9_-]/g, '_');
         if (!coupes.has(href)) coupes.set(href, symboleCoupe(href, k, palette));
       } else throw new Error(`case ${i} : « ${k.type} » ne se rend pas (lecture indéfinie)`);

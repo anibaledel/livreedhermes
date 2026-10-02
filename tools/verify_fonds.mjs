@@ -18,7 +18,8 @@
 //      symbole par valeur, deux symboles en tout) ;
 //   4. la fraction calculée est stable : à 256, 512 et 1024, même valeur à
 //      0,5 % près ;
-//   5. l'attribut `raccord` d'un fond de bandes vaut ce que donne le calcul
+//   5. l'attribut `raccord` (et `identique`, deux codes pour un même
+//      dessin) d'un fond de bandes vaut ce que donne le calcul
 //      du désaccord au bord (franc, inversé, aucun — les trois présents dans
 //      la collection) ; un fond sans bandes n'en porte pas ;
 //   6. la famille se calcule (isométrie entre les deux rendus) ; le
@@ -47,7 +48,7 @@ import { GRID, PER_CELL } from '../assets/bicolore-render.js';
 import { buildAxes, generateAxesMask, systemes, parityBit } from '../assets/bicolore-axes.js';
 import {
   chargerCollection, motifSvg, bitsDuSvg, nonCouvert, fraction, desaccordAuBord, lecture, lectureSuperposition,
-  contrasteDe, contrasteMesure, pourcent, decomposer, rasteriser, APLAT,
+  contrasteDe, contrasteMesure, pourcent, decomposer, rasteriser, identiques, APLAT,
 } from '../assets/bicolore-fonds.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -152,6 +153,15 @@ for (const fond of collection.fonds.values()) {
     }
   }
   console.log(`${echecs.length === avant ? 'OK    ' : '      '}${fond.id.padEnd(9)} ${fond.calcul.famille.padEnd(11)} ${(fond.mode || '').padEnd(8)} ${(fond.calcul.isometrie || '').padEnd(22)} masque ${motifs.length}/${motifs.length} · couverture ${vide === 0 ? 'totale' : 'INCOMPLÈTE'} · fraction ${pc(fr[2])} (écart ${(relatif * 100).toFixed(2)} %)${detailRaccord} · ${detailLecture}`);
+}
+// 5 bis. l'attribut `identique` vaut le calcul (deux fonds, même dessin).
+{
+  const calcule = identiques([...collection.fonds.values()]);
+  for (const f of collection.fonds.values()) {
+    const declare = [...(f.identique || [])].sort().join(', '), vrai = [...calcule.get(f.id)].sort().join(', ');
+    if (declare !== vrai) echec(`${f.id} : identique déclaré [${declare}], le calcul dit [${vrai}]`);
+    else if (vrai) console.log(`OK    ${f.id.padEnd(9)} identique à ${vrai} (calculé)`);
+  }
 }
 for (const r of ['franc', 'inversé', 'aucun']) if (!raccordsVus.has(r)) echec(`raccord « ${r} » absent de la collection : le test 5 ne couvre pas les trois valeurs`);
 

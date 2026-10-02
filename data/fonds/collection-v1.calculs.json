@@ -7,6 +7,7 @@
    "fraction": 0,
    "nonCouvert": 0,
    "raccord": null,
+   "identique": [],
    "contraste": 1
   },
   "B2": {
@@ -14,70 +15,80 @@
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B3": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.333008,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B4": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B121": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B2D": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.500244,
    "nonCouvert": 0,
-   "raccord": "inversé"
+   "raccord": "inversé",
+   "identique": []
   },
   "B3D": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.555447,
    "nonCouvert": 0,
-   "raccord": "aucun"
+   "raccord": "aucun",
+   "identique": []
   },
   "B4D": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B121D": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.75,
    "nonCouvert": 0,
-   "raccord": "inversé"
+   "raccord": "inversé",
+   "identique": []
   },
   "B11211D": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.333496,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B12m": {
    "famille": "orientation",
    "isometrie": "symétrie verticale",
    "fraction": 0.666504,
    "nonCouvert": 0,
-   "raccord": "franc"
+   "raccord": "franc",
+   "identique": []
   },
   "B3x": {
    "famille": "quantite",
@@ -85,6 +96,9 @@
    "fraction": 0.333008,
    "nonCouvert": 0,
    "raccord": "franc",
+   "identique": [
+    "BA33"
+   ],
    "contraste": 0.333984
   },
   "B3n": {
@@ -93,6 +107,7 @@
    "fraction": 0.333008,
    "nonCouvert": 0,
    "raccord": "franc",
+   "identique": [],
    "contraste": 0.166016
   },
   "BA33": {
@@ -101,6 +116,9 @@
    "fraction": 0.333008,
    "nonCouvert": 0,
    "raccord": "franc",
+   "identique": [
+    "B3x"
+   ],
    "contraste": 0.333984
   },
   "BA50": {
@@ -109,6 +127,7 @@
    "fraction": 0.5,
    "nonCouvert": 0,
    "raccord": "franc",
+   "identique": [],
    "contraste": 0
   },
   "CCE": {
@@ -116,35 +135,40 @@
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": null
+   "raccord": null,
+   "identique": []
   },
   "QT": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.5,
    "nonCouvert": 0,
-   "raccord": null
+   "raccord": null,
+   "identique": []
   },
   "TRC": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.179912,
    "nonCouvert": 0,
-   "raccord": null
+   "raccord": null,
+   "identique": []
   },
   "QRT": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.25,
    "nonCouvert": 0,
-   "raccord": null
+   "raccord": null,
+   "identique": []
   },
   "ESC": {
    "famille": "orientation",
    "isometrie": "rotation 90°",
    "fraction": 0.36002,
    "nonCouvert": 0,
-   "raccord": null
+   "raccord": null,
+   "identique": []
   },
   "PCA12": {
    "famille": "quantite",
@@ -152,6 +176,7 @@
    "fraction": 0.122227,
    "nonCouvert": 0,
    "raccord": null,
+   "identique": [],
    "contraste": 0.755547
   },
   "SEC13": {
@@ -160,6 +185,7 @@
    "fraction": 0.124878,
    "nonCouvert": 0,
    "raccord": null,
+   "identique": [],
    "contraste": 0.750244
   },
   "LOS25": {
@@ -168,6 +194,7 @@
    "fraction": 0.244795,
    "nonCouvert": 0,
    "raccord": null,
+   "identique": [],
    "contraste": 0.51041
   },
   "CAD36": {
@@ -176,6 +203,7 @@
    "fraction": 0.360312,
    "nonCouvert": 0,
    "raccord": null,
+   "identique": [],
    "contraste": 0.279375
   }
  },
