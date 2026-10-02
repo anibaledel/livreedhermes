@@ -14,7 +14,7 @@
    visible, ce qui rend impossible qu'une FAQPage annonce une réponse absente
    de la page — l'écart que tools/check_jsonld_visible.py sanctionne.
 
-   Les régions @head-icons, @hreflang et @header sont laissées à
+   Les régions @head-icons, @hreflang, @header et @analytics sont laissées à
    scripts/build-header.js, qui les pose ensuite depuis includes/ et
    scripts/langues.js. Ces pages n'ont pas de pied partagé : elles sont
    traduites à la main, et leur imposer un pied français serait une
@@ -234,7 +234,7 @@ function main() {
     const actuel = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
     // build-header.js pose ensuite ses régions : on ne compare que hors régions.
     const sansRegions = (s) => s === null ? null
-      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header):start[\s\S]*?<!-- @\1:end -->\n?/g, '')
+      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header|analytics):start[\s\S]*?<!-- @\1:end -->\n?/g, '')
           .replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/g,
                    '<!-- @langues:start -->\n<!-- @langues:end -->');
     if (sansRegions(actuel) === neuf) continue;
@@ -251,6 +251,8 @@ function main() {
         }
         const mh = actuel.match(/[ \t]*<!-- @header:start[\s\S]*?<!-- @header:end -->/);
         if (mh) sortie = sortie.replace('<main id="contenu">', `${mh[0]}\n<main id="contenu">`);
+        const ma = actuel.match(/<!-- @analytics:start[\s\S]*?<!-- @analytics:end -->/);
+        if (ma) sortie = sortie.replace('</body>', `${ma[0]}\n</body>`);
         const ml = actuel.match(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/);
         if (ml) sortie = sortie.replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/, ml[0]);
       }
