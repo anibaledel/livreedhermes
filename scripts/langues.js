@@ -99,9 +99,30 @@ const GROUPES = [
 ];
 
 // Articles traduits en anglais (en/articles/), un groupe par article.
+// La liste anglaise (en/articles/) est engendrée depuis cette même liste
+// par scripts/build-articles.js.
 const ARTICLES_TRADUITS = [
+  ['arlequin-trismegiste', 'thrice-great-harlequin'],
+  ['axes-lignes-nodales', 'axes-are-nodal-lines'],
+  ['cymatique-spectre-d-un-motif', 'cymatics-spectrum-of-a-pattern'],
+  ['encodeur-cacher-n-est-pas-proteger', 'encoder-hiding-is-not-protecting'],
+  ['foliage-bouffons-de-cour', 'foliage-court-jesters'],
+  ['habit-du-grand-pretre', 'high-priests-garment'],
   ['hanuman-et-arlequin', 'hanuman-and-harlequin'],
+  ['reminiscence-caillou-carre', 'reminiscence-pebble-square'],
+  ['verticalite-damier-mosaique-echiquier', 'verticality-chequer-mosaic-chessboard'],
 ];
+// La liste des articles elle-même : articles.html et sa jumelle anglaise.
+GROUPES.push({
+  nom: 'articles',
+  changefreq: 'weekly',
+  priority: '0.7',
+  rangee: true,
+  pages: [
+    ['fr', `${SITE}/articles.html`, 'articles.html'],
+    ['en', `${SITE}/en/articles/`, 'en/articles/index.html'],
+  ],
+});
 for (const [fr, en] of ARTICLES_TRADUITS) {
   GROUPES.push({
     nom: `article-${fr}`,
@@ -210,5 +231,5 @@ const PAGES_TRADUITES = GROUPES.flatMap((g) =>
 
 module.exports = {
   SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES,
-  BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES,
+  BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
 };

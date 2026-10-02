@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cymatics: what the spectrum of a pattern reveals</title>
+<meta name="description" content="From the Chladni plate to the tiling: what the spectral analysis of the fifteen scales really shows — and why the values that appeared here before did not describe the patterns.">
+<meta property="og:title" content="Cymatics: what the spectrum of a pattern reveals">
+<meta property="og:description" content="From the Chladni plate to the tiling: what the spectral analysis of the fifteen scales really shows — and why the values that appeared here before did not describe the patterns.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg">
+<meta property="og:url" content="https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-16">
+<link rel="canonical" href="https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cymatics: what the spectrum of a pattern reveals">
+<meta name="twitter:description" content="From the Chladni plate to the tiling: what the spectral analysis of the fifteen scales really shows — and why the values that appeared here before did not describe the patterns.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html",
+      "headline": "Cymatics: what the spectrum of a pattern reveals",
+      "description": "From the Chladni plate to the tiling: what the spectral analysis of the fifteen scales really shows — and why the values that appeared here before did not describe the patterns.",
+      "image": "https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-19",
+      "inLanguage": "en",
+      "translationOfWork": { "@type": "Article", "url": "https://anibal-amiot.com/articles/cymatique-spectre-d-un-motif.html", "inLanguage": "fr" },
+      "keywords": ["cymatics", "Chladni figures", "Fourier transform", "spatial spectrum", "ansate cross", "Yin Yang", "arithmogeometry", "eigenmodes"],
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Livrée d'Hermès",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://anibal-amiot.com/assets/title-logo-footer.png"
+        }
+      },
+      "url": "https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html",
+      "mainEntityOfPage": "https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "Articles — La Livrée d'Hermès",
+        "url": "https://anibal-amiot.com/en/articles/"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://anibal-amiot.com/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://anibal-amiot.com/en/articles/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cymatics: what the spectrum of a pattern reveals",
+      "item": "https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  /* ---------- article ---------- */
+  .article-body{ padding:24px 0 8px; }
+  .article-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:calc(15px + var(--fs-bump)); line-height:1.8; }
+  .article-content h2{
+    color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em;
+    margin:34px 0 14px; text-align:center;
+  }
+  .article-content h3{
+    color:var(--dim); font-size:calc(13px + var(--fs-bump)); font-weight:400; font-style:italic;
+    margin:26px 0 12px; text-align:center;
+  }
+  .article-content p{ margin:0 0 18px; }
+  .article-content p:last-child{ margin-bottom:0; }
+  .article-content b{ color:var(--white); font-weight:400; }
+  .article-content i{ color:var(--white); font-style:italic; }
+  .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .article-content table{
+    width:100%; margin:0 0 22px; border-collapse:collapse; text-align:left;
+    font-size:calc(12.5px + var(--fs-bump));
+  }
+  .article-content th, .article-content td{ padding:7px 10px; border-bottom:1px solid var(--line); }
+  .article-content th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
+  .article-content figure{ margin:0 0 22px; }
+  .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); background:#000; }
+  .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content figcaption a:hover{ text-decoration-color:currentColor; }
+  .article-epigraph{ font-size:calc(14.5px + var(--fs-bump)); font-style:italic; color:var(--gold); margin:0 0 22px; }
+  .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
+
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-back-bottom:hover{ color:var(--gold); }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:calc(9.5px + var(--fs-bump)); text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .article-title{ font-size:calc(21px + var(--fs-bump)); }
+    .article-content{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+  .article-content a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content a:hover{ text-decoration-color:currentColor; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/articles/cymatique-spectre-d-un-motif.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="article-body">
+    <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-32-cymatique-spectre.avif);">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/en/articles/">Articles</a><span class="sep">/</span><span aria-current="page">Cymatics: what the spectrum of a pattern reveals</span>
+      </nav>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Other languages: <a href="https://anibal-amiot.com/articles/cymatique-spectre-d-un-motif.html">Français</a></p>
+<!-- @langues:end -->
+
+      <h1 class="article-title">Cymatics: what the spectrum of a pattern reveals</h1>
+      <p class="article-date">By <a href="https://anibal-amiot.com/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Published September 16, 2026 · translated from the French</p>
+      <div class="article-badges"><span class="article-badge">Geometry</span><span class="article-badge">Philosophy</span><span class="article-badge">Livery</span></div>
+    </div>
+    </div>
+
+    <div class="article-content">
+      <p class="article-epigraph">“A resemblance is not a cause. It is an invitation to look for why it appears.”</p>
+
+      <h2>The sand and the plate</h2>
+      <p>In 1787, Ernst Chladni published a small book on the figures he obtained by sprinkling sand on a metal plate and rubbing its edge with a bow. The sand flees the areas that vibrate and gathers on those that stay still — the nodal lines. Each pitch produces its own figure, and the figure changes when the pitch changes.</p>
+
+      <p>The experiment has come down the centuries for a simple reason: it makes visible something that was not. Sound, which has no shape, draws a shape. And this translation is stable, reproducible, independent of whoever is looking.</p>
+
+      <p>It is this last point that matters. The sand does not draw what we expect of it. It draws what the plate imposes.</p>
+
+      <h2>What the plate imposes</h2>
+      <p>A Chladni figure is not the shape of the sound. It is the shape of the plate <i>when</i> that sound passes through it. Change the thickness of the metal, the cut of its outline, the point of support, and the same note will give another figure. Replace the plate with water in a vessel, and the depth of the liquid, its surface tension, the diameter of the circle that holds it will enter into the result as much as the frequency.</p>
+
+      <p>The figure is born of an encounter. The sound brings a periodicity, the medium brings a geometry, and what appears belongs to both.</p>
+
+      <p>This precision has a consequence that is seldom spoken of. Cymatics, as it circulates today, often promises more — that sound <i>creates</i> form, that certain frequencies give rise to privileged figures, that matter obeys a hidden harmony. Physics does not say that. It says that precise boundary conditions, excited at a given frequency, select certain eigenmodes. That is already remarkable. It is not a metaphysics.</p>
+
+      <h2>A constructed correspondence</h2>
+      <p>The Cymatics page of this site claims nothing of the kind, and that is what sets it apart.</p>
+
+      <p>What it does: it listens, it estimates the dominant frequency of what it hears, and it displays the tiling whose spatial frequency comes closest to it. The fifteen scales of the treatise are ranked by the density of their weave — how many times the pattern repeats as it crosses the square. The page offers two ways of spreading this density across frequencies: over several octaves, in exact proportion to the square of the density, or brought back to a single octave, for immediate comparison.</p>
+
+      <p>The correspondence is therefore <b>constructed</b>. It rests on a decision: to associate a spatial periodicity with a temporal periodicity. Nothing in nature imposes this association. That does not make it false — it is conventional, in the sense that a tuning fork is conventional. No one reproaches the A 440 for not being written into the order of the world.</p>
+
+      <p>But a convention can be applied to an arbitrary object or to a structured object, and that is not the same thing. The question deserved to be asked: what is there to measure, in these fifteen patterns, even before a note is assigned to them?</p>
+
+      <h2>What the spectrum answers</h2>
+      <p>The analysis is direct. Take each pattern, compute its two-dimensional spatial spectrum, and look at how the energy is distributed across frequencies. Three things appear, one of which no construction decision foresaw.</p>
+
+      <p><b>The spectra carry the symmetry of the axes, and they carry it the opposite way from what one might think.</b> A Yang scale concentrates its energy on the horizontal and vertical axes — 77.8% for Yang and mutant Yang, and strictly zero on the diagonals. A Yin scale does exactly the opposite: 70.4% on the diagonals, nothing on the axes. The separation is total in both cases, and the analysis thus recovers the founding axis of each family without being told — the only input is the pattern's binary mask.</p>
+      <p><i>Measured on the four basic scales, by 2D Fourier transform of the grid of per-cell averages.</i></p>
+
+      <p><b>The scales come in pairs, and the pairs are spectral twins.</b> <i>Yin</i> and <i>yin mut</i>, <i>yang</i> and <i>yang mut</i>, <i>yin pur yang</i> and <i>yin pur yang mut</i>: each time, two visually distinct images but with the same dominant frequency. Mutation shifts the drawing; it does not change its frequency content. Across the fifteen scales, these pairs leave only nine distinct pitches — three patterns, <i>yang pur</i>, <i>yin pur</i> and <i>yang pur yin pur</i>, remain without a twin: each already combines the two states of one and the same axis, so there is nothing in it to mutate.</p>
+
+      <p><b>The energy curves are peaked, not spread out.</b> Each scale has a clearly dominant spatial frequency. This was not a given: an arbitrary pattern produces a diffuse spectrum, in which no frequency prevails. One may say, with the caution that the analogy requires, that each scale has something like an eigenmode — with the difference that a plate's eigenmode comes from physical boundary conditions, whereas this one comes from the pattern's rule of construction.</p>
+
+      <figure>
+        <picture><source srcset="../../assets/articles/cymatique-quinze-gammes-analyse-spectrale.avif" type="image/avif"><img src="../../assets/articles/cymatique-quinze-gammes-analyse-spectrale.jpg" alt="The fifteen scales ordered by increasing frequency: for each, the black-and-white pattern, its 2D spatial spectrum, and the energy-by-frequency curve with its dominant peak marked" width="1600" height="382" loading="lazy"></picture>
+        <figcaption>The fifteen scales, in order of their dominant spatial frequency: pattern, 2D spatial spectrum, energy by frequency. The peak marked in pink on each curve is the frequency retained.</figcaption>
+      </figure>
+
+      <h3>Nine values, in pairs</h3>
+      <p>It is by looking more closely at these nine pitches that the analysis stops being a mere check — and that an earlier version of this page went wrong, on a point that must be corrected here without disguising it.</p>
+
+      <p>The measured spatial frequencies, as squares of integer frequency indices (k² = fx² + fy², where (fx, fy) is the dominant peak of the 2D spectrum), are: 1 · 2 · 4 · 5 · 8 · 9 · 10 · 13 · 20.</p>
+
+      <table>
+        <thead><tr><th>Scale(s)</th><th>k²</th></tr></thead>
+        <tbody>
+          <tr><td><i>yang mut</i>, <i>yang</i></td><td>1</td></tr>
+          <tr><td><i>yin mut</i>, <i>yin</i></td><td>2</td></tr>
+          <tr><td><i>yang pur</i></td><td>4</td></tr>
+          <tr><td><i>yin yang fix</i>, <i>yin yang mut</i></td><td>5</td></tr>
+          <tr><td><i>yin pur</i></td><td>8</td></tr>
+          <tr><td><i>yang mut yin mut</i>, <i>yang yin mut</i></td><td>9</td></tr>
+          <tr><td><i>yang pur yin mut</i>, <i>yang pur yin</i></td><td>10</td></tr>
+          <tr><td><i>yin pur yang mut</i>, <i>yin pur yang</i></td><td>13</td></tr>
+          <tr><td><i>yang pur yin pur</i></td><td>20</td></tr>
+        </tbody>
+      </table>
+
+      <p>Whole numbers, all of them — but there is nothing remarkable in that, and an earlier version of this page presented this whole-number character as a discovery, likening it to the vibration modes of a square plate (f proportional to √(m² + n²)). The comparison was misleading: fx and fy are bin indices of a discrete Fourier transform, whole numbers by construction, whatever the grid analysed. k² = fx² + fy² is therefore automatically a whole number, always, for any pattern — it is not a property of the fifteen scales, it is a property of the measurement itself. Nothing to do with the nodal lines of a Chladni plate.</p>
+
+      <p>What really is a property of the fifteen scales, on the other hand, is how they are distributed over these nine values: twelve scales group into six pairs of equal k², and in each pair the two members differ only by the mutant state of one axis. The three remaining scales — <i>yang pur</i>, <i>yin pur</i>, <i>yang pur yin pur</i> — already combine the two states of one and the same axis and therefore have no twin: there is nothing in them to mutate.</p>
+
+      <p>An earlier version of this page gave a ratio of √2 between the extreme frequencies, and saw in it the ratio of the square to its diagonal. That ratio does not exist in the measured values: they span a factor of twenty, that is, four octaves and a third. The announced ratio came from values that did not describe the patterns.</p>
+
+      <p><b>A point of caution, which holds for everything above.</b> The frequency anchor chosen by the Cymatics page — C 128 Hz, whatever scale is then chosen, proportional or ordinal — is an arbitrary decision, not a property of the system. What belongs to the system are the nine values themselves, whole numbers by construction of the measurement, and their distribution into six pairs plus three singletons.</p>
+
+      <h2>What the nomenclature says, and does not say</h2>
+      <p>The nomenclature of the fifteen scales — Yin and Yang, pure and mutant, combined by one, two, three or four bases — was established to describe combinations in a binary language. It comes from the Yi King and the logic of the lines, not from acoustics. It was never designed to predict anything about a frequency.</p>
+
+      <figure>
+        <img src="../../assets/articles/cymatique-quinze-gammes-frequences-octave.png" alt="The fifteen scales ranked by dominant spatial frequency, from A3 to A4, coloured by number of bases (1 to 4)" width="1320" height="715" loading="lazy">
+        <figcaption>The fifteen scales ordered by dominant spatial frequency, spread over one octave (A3 → A4). The colour codes the number of bases (1 to 4) — without corresponding to it strictly, as what follows shows.</figcaption>
+      </figure>
+
+      <p>On one point, however, it meets the measurement exactly. Mutation, which in the vocabulary changes not the nature of a line but its state, does not change the frequency either: that is what every spectrally twin pair says, without exception. The vocabulary was therefore right to treat mutation as a variation of state rather than of nature.</p>
+
+      <p>On a second point, the correspondence does not merely exist: it is exact, and an earlier version of this page wrongly presented it as loose — on values that, already, did not describe the patterns.</p>
+
+      <p>What organises pitch is indeed the number of axes combined. The one-base scales occupy the values 1 and 2, the two-base ones 4, 5, 8 and 9, the three-base ones 10 and 13, and the scale that brings all four bases together stands alone at the top, at 20. The density of the weave grows with the number of axes, without anyone asking it to. And the scales come in pairs of equal value: in each pair, the two members differ only by the mutant state of one axis. Mutation shifts the drawing; it does not change its frequency content.</p>
+
+      <p>This is where the comparison with a musical scale remains apt, but otherwise than one would expect. A scale names intervals, and these names cover precise geometric ratios: when one says “fifth”, one says three to two. The nomenclature of the fifteen scales also covers a structure — but a structure of symmetries, not of numbers. And it is this structure, not the vocabulary that designates it, that is found again in the measurements.</p>
+
+      <h2>Why sound and weave can be brought together</h2>
+      <p>There remains the underlying reason, and it is mathematical rather than mystical.</p>
+
+      <p>The ear breaks a sound down into frequencies. The eye, faced with a repeated pattern, perceives a periodicity, a cadence of space. Both operations belong to the same family of tools — Fourier analysis, which treats a variation in time and a variation in space alike. A textile weave has a spatial frequency in the strict sense, measurable in cycles per unit of length, exactly as a sound has a frequency in cycles per second.</p>
+
+      <p>What passes from one domain to the other is not a substance. It is a structure. And weaving, which counts threads and repeats them, is perhaps the place where this structure shows itself best: a Jacquard loom literally performs a score, line after line.</p>
+
+      <h2>What to expect from it</h2>
+      <p>Try it. Whistle, sing, play a note. Watch the weave change; go up or down to see it transform.</p>
+
+      <p>If a resemblance strikes you at certain frequencies — if the pattern displayed recalls a figure you have already seen on a plate or in a bowl of water —, note it down. It will prove nothing, and it must not be asked to prove anything. But a resemblance that persists is the beginning of a question, and questions are worth more than borrowed certainties.</p>
+
+      <p>That is the only promise this page can honestly keep, and it is already a great deal: to show a correspondence acknowledged as such, backed by a measurable structure, rather than to believe in a correspondence disguised as a law.</p>
+
+      <p><i>Try the page → <a href="https://anibal-amiot.com/cymatique.html?lang=en">Open the Cymatics page</a>.</i></p>
+
+      <p><i>This article was first published in French: <a href="https://anibal-amiot.com/articles/cymatique-spectre-d-un-motif.html" hreflang="fr">Cymatique : ce que le spectre d'un motif laisse voir</a>.</i></p>
+    </div>
+
+    <a class="article-back-bottom" href="https://anibal-amiot.com/en/articles/">← Back to the articles</a>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/share-widget.js" data-label="Share this article"></script>
+
+
+<script src="../../assets/soutien-gate.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil">
+      <a class="nav-tile" href="../../index.html"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter</a>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Create</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../fonds-ecran.html"><img class="nav-tile-icon" src="../../assets/nav-icons/fond-ecran.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Wallpapers</span><span class="nav-tile-excerpt">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></span></a>
+        <a class="nav-tile" href="../../creation-motifs-yi-king.html"><img class="nav-tile-icon" src="../../assets/nav-icons/creation-motifs.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Create a pattern</span><span class="nav-tile-excerpt">Compose your own textile patterns from the 60 natures of the Yi King.</span></span></a>
+        <a class="nav-tile" href="../../bicolore.html"><picture><source srcset="../../assets/nav-icons/bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour patterns</span><span class="nav-tile-excerpt">Compose a 12×12 cell, six levels, each with its own family and tint.</span></span></a>
+        <a class="nav-tile" href="../../creation-bicolore-v2.html"><picture><source srcset="../../assets/nav-icons/bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour patterns v2</span><span class="nav-tile-excerpt">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></span></a>
+        <a class="nav-tile" href="../../encodeur.html"><img class="nav-tile-icon" src="../../assets/nav-icons/encodeur.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Encoder</span><span class="nav-tile-excerpt">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></span></a>
+        <a class="nav-tile" href="../../impression.html"><img class="nav-tile-icon" src="../../assets/nav-icons/impression.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Printing</span><span class="nav-tile-excerpt">Draw and download print-ready layers.</span></span></a>
+        <a class="nav-tile" href="../../cymatique.html"><img class="nav-tile-icon" src="../../assets/nav-icons/cymatique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Cymatics</span><span class="nav-tile-excerpt">The tiling whose spatial frequency comes closest to the sound you make.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Explore</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../hexagrammes/"><img class="nav-tile-icon" src="../../assets/nav-icons/hexagrammes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Hexagrams</span><span class="nav-tile-excerpt">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></span></a>
+        <a class="nav-tile" href="../../unified-patterns.html"><img class="nav-tile-icon" src="../../assets/nav-icons/unified-patterns.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Magic quadricolore</span><span class="nav-tile-excerpt">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></span></a>
+        <a class="nav-tile" href="../../galerie-patterns-unifies.html"><img class="nav-tile-icon" src="../../assets/nav-icons/galerie.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Three-colour gallery</span><span class="nav-tile-excerpt">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></span></a>
+        <a class="nav-tile" href="../../galerie-bicolore.html"><picture><source srcset="../../assets/nav-icons/galerie-bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/galerie-bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour gallery</span><span class="nav-tile-excerpt">142 two-colour patterns generated by the axes and closed on the cube — mesh, tiling, export.</span></span></a>
+        <a class="nav-tile" href="../../telechargements.html"><img class="nav-tile-icon" src="../../assets/nav-icons/motifs-svg.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">SVG patterns</span><span class="nav-tile-excerpt">Download the print layers in 4 categories of trait combinations, as SVG.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Read</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../la-livree-d-hermes.html"><img class="nav-tile-icon" src="../../assets/nav-icons/la-livree-d-hermes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">The treatise</span><span class="nav-tile-excerpt">The treatise in four languages, the hexagrams and the lexicon.</span></span></a>
+        <a class="nav-tile" href="../../lexique.html"><img class="nav-tile-icon" src="../../assets/nav-icons/lexique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Lexicon</span><span class="nav-tile-excerpt">Ten key notions for understanding La Livrée d'Hermès.</span></span></a>
+        <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">The project</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../contact.html"><img class="nav-tile-icon" src="../../assets/nav-icons/contact.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contact the author for a project or a commission of patterns and textile prints.</span></span></a>
+        <a class="nav-tile" href="../../a-propos.html"><img class="nav-tile-icon" src="../../assets/nav-icons/a-propos.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">About</span><span class="nav-tile-excerpt">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></span></a>
+        <a class="nav-tile" href="../../outils.html"><img class="nav-tile-icon" src="../../assets/nav-icons/outils.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Tools</span><span class="nav-tile-excerpt">All the site's interactive tools, gathered in one place.</span></span></a>
+      </div>
+    </div>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../a-propos.html" hreflang="fr">About (French)</a>
+    <a href="../../profil.html" hreflang="fr">Author profile (French)</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Support</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

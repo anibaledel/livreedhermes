@@ -70,6 +70,7 @@ const PAGES = [
   { path: 'th/lexicon/' },
   // ── accueils traduits et pages de recherche (zone : l'interface Pagefind) ──
   { path: 'en/' },
+  { path: 'en/articles/' },
   { path: 'es/' },
   { path: 'th/' },
   { path: 'recherche.html', zone: '#recherche' },

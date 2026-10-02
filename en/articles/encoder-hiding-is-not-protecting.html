@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The encoder: hiding is not protecting — La Livrée d'Hermès</title>
+<meta name="description" content="An encrypted message concealed in a grid of symbols, at positions designated by the ansate cross and the Jacquard loom — and why the geometry protects nothing in it.">
+<meta property="og:title" content="The encoder: hiding is not protecting">
+<meta property="og:description" content="An encrypted message concealed in a grid of symbols, at positions designated by the ansate cross and the Jacquard loom — and why the geometry protects nothing in it.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg">
+<meta property="og:url" content="https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-09-16">
+<link rel="canonical" href="https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The encoder: hiding is not protecting">
+<meta name="twitter:description" content="An encrypted message concealed in a grid of symbols, at positions designated by the ansate cross and the Jacquard loom — and why the geometry protects nothing in it.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html",
+      "headline": "The encoder: hiding is not protecting",
+      "description": "An encrypted message concealed in a grid of symbols, at positions designated by the ansate cross and the Jacquard loom — and why the geometry protects nothing in it.",
+      "image": "https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg",
+      "datePublished": "2026-09-16",
+      "dateModified": "2026-09-16",
+      "inLanguage": "en",
+      "translationOfWork": { "@type": "Article", "url": "https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html", "inLanguage": "fr" },
+      "keywords": ["steganography", "Kerckhoffs", "XChaCha20-Poly1305", "ansate cross", "Referent 256", "Referent 360", "cryptography", "arithmogeometry"],
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Livrée d'Hermès",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://anibal-amiot.com/assets/title-logo-footer.png"
+        }
+      },
+      "url": "https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html",
+      "mainEntityOfPage": "https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "Articles — La Livrée d'Hermès",
+        "url": "https://anibal-amiot.com/en/articles/"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://anibal-amiot.com/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://anibal-amiot.com/en/articles/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "The encoder: hiding is not protecting",
+      "item": "https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  /* ---------- article ---------- */
+  .article-body{ padding:24px 0 8px; }
+  .article-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:calc(15px + var(--fs-bump)); line-height:1.8; }
+  .article-content h2{
+    color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em;
+    margin:34px 0 14px; text-align:center;
+  }
+  .article-content p{ margin:0 0 18px; }
+  .article-content p:last-child{ margin-bottom:0; }
+  .article-content b{ color:var(--white); font-weight:400; }
+  .article-content i{ color:var(--white); font-style:italic; }
+  .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .article-content figure{ margin:0 0 22px; }
+  .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); background:#000; }
+  .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content figcaption a:hover{ text-decoration-color:currentColor; }
+  .article-epigraph{ font-size:calc(14.5px + var(--fs-bump)); font-style:italic; color:var(--gold); margin:0 0 22px; }
+  .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
+
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-back-bottom:hover{ color:var(--gold); }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:calc(9.5px + var(--fs-bump)); text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .article-title{ font-size:calc(21px + var(--fs-bump)); }
+    .article-content{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+  .article-content a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content a:hover{ text-decoration-color:currentColor; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="article-body">
+    <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-14-encodeur-cacher.avif);">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/en/articles/">Articles</a><span class="sep">/</span><span aria-current="page">The encoder: hiding is not protecting</span>
+      </nav>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Other languages: <a href="https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html">Français</a></p>
+<!-- @langues:end -->
+
+      <h1 class="article-title">The encoder: hiding is not protecting</h1>
+      <p class="article-date">By <a href="https://anibal-amiot.com/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Published September 16, 2026 · translated from the French</p>
+      <div class="article-badges"><span class="article-badge">Geometry</span><span class="article-badge">Philosophy</span><span class="article-badge">Livery</span></div>
+    </div>
+    </div>
+
+    <div class="article-content">
+      <p class="article-epigraph">“The secret of a message must never be the secret of the method that writes it.”</p>
+
+      <h2>An admission at the top of the page</h2>
+      <p>In the encoder's explanation tab there is a sentence worth pausing over: <i>confidentiality comes from the encryption, not from the geometry</i>.</p>
+
+      <p>It is there to defuse what a tool like this one naturally suggests. A message concealed in a grid of numbers, at positions designated by squares drawn from an ansate cross and by the layers of a Jacquard loom — the imagination runs quickly, and it runs to the wrong place. It imagines that the complexity of the device is what makes it strong.</p>
+
+      <p>It is not. The geometry chooses <i>where</i> to write. What is written is already encrypted before the geometry comes in. If the encryption falls, no subtlety of placement will save the message; if the encryption holds, the placement adds nothing to its strength. These are two layers that do two different things, and confusing them is the mistake this page refuses to let anyone make.</p>
+
+      <h2>Kerckhoffs, 1883</h2>
+      <p>The principle the encoder invokes by name dates from 1883. Auguste Kerckhoffs, a Dutch linguist settled in France, then set out what would become the golden rule of modern cryptography: a system must remain secure even if everything about how it works is known, except the key.</p>
+
+      <p>The idea is counter-intuitive. It goes against the reflex of protecting one's method as much as one's message. But the reasoning is relentless: a method always ends up being known — through indiscretion, through the capture of a device, through analysis. Security that relied on its being unknown is security whose expiry date is unknown to whoever trusts it.</p>
+
+      <p>This puts steganography in a delicate position, and it must be named. To conceal the existence of a message is to bet on the adversary's inattention, not on their ignorance of the method. An observer who knows that a grid of numbers contains a message, and who knows the algorithm down to the arrangement of the cells, has gained nothing by it: what they find at the designated positions is ciphertext, uniform, offering no purchase. The concealment cost them nothing, and it gave them nothing.</p>
+
+      <p>Hence the order of operations. Encrypt first, conceal afterwards. The first layer resists whoever knows; the second avoids drawing the attention of whoever does not yet know. One protects, the other makes discreet. Confusing them is believing that a locked door and a door painted in trompe-l'œil offer the same service.</p>
+
+      <h2>An audit, and zero bits</h2>
+      <p>The most instructive passage of the page is the one where it reports the result of an audit.</p>
+
+      <p>A first version of the system included one more key — a secret shuffling of the referent's shapes — whose apparent space was counted in thousands of bits. A number beyond comprehension, far beyond the number of atoms in the observable universe. One might have thought this key decisive.</p>
+
+      <p>The audit found that it contributed <b>zero bits of security</b>. It was entirely redundant with another key of the system: everything it made it possible to express, the other already expressed. An adversary searching for one had no additional work to do for the other.</p>
+
+      <p>It is worth weighing what this gap means. Between thousands of apparent bits and zero real bits there is not a miscalculation — there is the difference between counting the possible configurations and counting those that are <i>distinguishable</i>. This is the most common trap of amateur cryptography: building a system whose key space is immense and whose space of effects is narrow. The same lesson holds for the geometry itself: 256 squares, 360 layers, eight reading directions — that makes a great many arrangements, and not one bit of key. The security lies in the 256 bits of the encryption key, and nowhere else.</p>
+
+      <p>That this discovery appears on the page rather than having been quietly corrected says something about the method. The redundant key was removed. The system lost an impressive number and lost nothing of its security, since it drew none from it.</p>
+
+      <h2>Two referents</h2>
+      <p>What remains is what the geometry really does, which is something other than protection: it provides a vocabulary of positions.</p>
+
+      <p>The <b>Referent 256</b> comes from the ansate cross of order 6: the two hundred and fifty-six magic squares that the book's construction generates, one hundred and twenty-eight of each chirality. Each square colours its thirty-six cells in four colours — six, six, twelve and twelve — and it is the two small colours, twelve cells, that carry the writing. The rest of the square is the background.</p>
+
+      <p>The <b>Referent 360</b> comes from the Jacquard loom with three hundred and sixty layers: six levels of twenty-four cells, and sixty layers available at each level. A shape is a choice of one layer per level; the writing colour designates eight cells per level, forty-eight per twelve-by-twelve block.</p>
+
+      <p>These two systems were not invented for encryption. They existed as grammars of patterns — one born of a figure, the other of a weaving technique. Their use here does not divert them: a Jacquard loom <i>is</i> a machine for reading positions, card after card, and it is as such that it is counted among the ancestors of computing. Having it designate the cells of a message is not a metaphor; it is its proper use applied to other content.</p>
+
+      <p>And it can be changed. The referent is a parameter of the encoder, not a part of its mechanism: the squares of the ansate cross can be replaced by randomly drawn shapes — this is what the tool's Carter-Random variant does — or the two can be mixed on one grid, without anything changing in what protects the message. That is the result the page claims, and it is the only one.</p>
+
+      <figure>
+        <picture><source srcset="../../assets/articles/encodeur-referent-256-planche-page47.avif" type="image/avif"><img src="../../assets/articles/encodeur-referent-256-planche-page47.jpg" alt="Plate of the Referent 256: the 256 magic squares of order 6 drawn from the ansate cross, in four colours, arranged in a grid" loading="lazy" width="880" height="840"></picture>
+        <figcaption>The Referent 256 — plate taken from <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026), p. 47: the 256 magic squares of order 6 that the ansate cross generates, each coloured in four colours.</figcaption>
+      </figure>
+
+      <h2>Noise and grain</h2>
+      <p>In concrete terms, the encrypted message is written into a ninety-by-ninety grid filled with random symbols. A geometry key governs the reading: the role of each block, the shape of the referent it takes, the direction in which its cells are traversed. The designated cells carry the ciphertext; all the others carry noise.</p>
+
+      <p>The expression the page uses is apt — <i>the rest is indistinguishable noise</i>. Indistinguishable, not absent: that is what holds the whole together. A grid in which the useful cells stood out from the others by any statistical property whatsoever would betray its content without anyone needing a key. That is why the ciphertext is masked again before being laid down, and converted into the same alphabet as the noise, symbol for symbol: in the end, a written cell and an empty cell look exactly alike.</p>
+
+      <p>There is a requirement here that meets, without seeking to, that of weaving. A successful weave is one in which you cannot see the starting point, nor the join, nor the place where the pattern changed. The regularity of a surface is what allows an irregularity to disappear into it.</p>
+
+      <figure>
+        <img src="../../assets/articles/encodeur-demo-grille-90x90-roles.png" alt="90×90 grid of symbols generated by the encoder, with the reading cells highlighted in red and the structured cells in gold" loading="lazy" width="720" height="720">
+        <figcaption>A demonstration grid from the encoder (90×90), with its “message” cells highlighted in red and its “structured” cells in gold — a highlighting that is possible here only because we hold the demonstration key. Without it, these cells are indistinguishable from the noise around them.</figcaption>
+      </figure>
+
+      <h2>What the tool offers</h2>
+      <p>The page is not a fixed demonstration. It opens onto a message, a decryption, an X25519 key exchange, an encrypted vault, file encryption, the ninety-by-ninety Carter grid, and the complete table of the two referents, which can be browsed shape by shape.</p>
+
+      <p>The underlying encryption has nothing special about it, and that is deliberate: XChaCha20-Poly1305 for the message itself — the same implementation, in pure JavaScript, on both sides of the site, checked byte for byte against the reference Python code — AES-256-GCM for the vault and file encryption, X25519 for the key exchange. Standard, public primitives, studied for years by people whose job it is. The original part of the system is the part that places, not the part that protects — and it is better that way. Inventing one's own encryption is the mistake every cryptography handbook teaches you not to make.</p>
+
+      <h2>What to expect from it</h2>
+      <p>Try the demonstration tab. Watch the grid fill up, and look for where the cells carrying the message are. You will not find them — but that is not the point.</p>
+
+      <p>The point is to see a grammar of patterns, born to adorn fabric, turn out to be capable of designating positions in a grid precisely enough for a text to lodge there and be extracted from it. What passes from one domain to the other is not a secret. It is a way of counting and ordering, which does not care what it is asked to count.</p>
+
+      <p>And if there is one thing to remember from this page, let it be its most sober sentence: hiding is not protecting. Both gestures have their use. They do not replace each other.</p>
+
+      <p><i>Try the tool → <a href="https://anibal-amiot.com/encodeur.html" hreflang="fr">Open the encoder</a> (in French).</i></p>
+
+      <p><i>This article was first published in French: <a href="https://anibal-amiot.com/articles/encodeur-cacher-n-est-pas-proteger.html" hreflang="fr">L'encodeur : cacher n'est pas protéger</a>.</i></p>
+    </div>
+
+    <a class="article-back-bottom" href="https://anibal-amiot.com/en/articles/">← Back to the articles</a>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/share-widget.js" data-label="Share this article"></script>
+
+
+<script src="../../assets/soutien-gate.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil">
+      <a class="nav-tile" href="../../index.html"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter</a>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Create</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../fonds-ecran.html"><img class="nav-tile-icon" src="../../assets/nav-icons/fond-ecran.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Wallpapers</span><span class="nav-tile-excerpt">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></span></a>
+        <a class="nav-tile" href="../../creation-motifs-yi-king.html"><img class="nav-tile-icon" src="../../assets/nav-icons/creation-motifs.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Create a pattern</span><span class="nav-tile-excerpt">Compose your own textile patterns from the 60 natures of the Yi King.</span></span></a>
+        <a class="nav-tile" href="../../bicolore.html"><picture><source srcset="../../assets/nav-icons/bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour patterns</span><span class="nav-tile-excerpt">Compose a 12×12 cell, six levels, each with its own family and tint.</span></span></a>
+        <a class="nav-tile" href="../../creation-bicolore-v2.html"><picture><source srcset="../../assets/nav-icons/bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour patterns v2</span><span class="nav-tile-excerpt">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></span></a>
+        <a class="nav-tile" href="../../encodeur.html"><img class="nav-tile-icon" src="../../assets/nav-icons/encodeur.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Encoder</span><span class="nav-tile-excerpt">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></span></a>
+        <a class="nav-tile" href="../../impression.html"><img class="nav-tile-icon" src="../../assets/nav-icons/impression.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Printing</span><span class="nav-tile-excerpt">Draw and download print-ready layers.</span></span></a>
+        <a class="nav-tile" href="../../cymatique.html"><img class="nav-tile-icon" src="../../assets/nav-icons/cymatique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Cymatics</span><span class="nav-tile-excerpt">The tiling whose spatial frequency comes closest to the sound you make.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Explore</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../hexagrammes/"><img class="nav-tile-icon" src="../../assets/nav-icons/hexagrammes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Hexagrams</span><span class="nav-tile-excerpt">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></span></a>
+        <a class="nav-tile" href="../../unified-patterns.html"><img class="nav-tile-icon" src="../../assets/nav-icons/unified-patterns.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Magic quadricolore</span><span class="nav-tile-excerpt">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></span></a>
+        <a class="nav-tile" href="../../galerie-patterns-unifies.html"><img class="nav-tile-icon" src="../../assets/nav-icons/galerie.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Three-colour gallery</span><span class="nav-tile-excerpt">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></span></a>
+        <a class="nav-tile" href="../../galerie-bicolore.html"><picture><source srcset="../../assets/nav-icons/galerie-bicolore-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="../../assets/nav-icons/galerie-bicolore-hover.gif" alt="" width="72" height="72" loading="lazy"></picture><span class="nav-tile-body"><span class="nav-tile-label">Two-colour gallery</span><span class="nav-tile-excerpt">142 two-colour patterns generated by the axes and closed on the cube — mesh, tiling, export.</span></span></a>
+        <a class="nav-tile" href="../../telechargements.html"><img class="nav-tile-icon" src="../../assets/nav-icons/motifs-svg.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">SVG patterns</span><span class="nav-tile-excerpt">Download the print layers in 4 categories of trait combinations, as SVG.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">Read</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../la-livree-d-hermes.html"><img class="nav-tile-icon" src="../../assets/nav-icons/la-livree-d-hermes.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">The treatise</span><span class="nav-tile-excerpt">The treatise in four languages, the hexagrams and the lexicon.</span></span></a>
+        <a class="nav-tile" href="../../lexique.html"><img class="nav-tile-icon" src="../../assets/nav-icons/lexique.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Lexicon</span><span class="nav-tile-excerpt">Ten key notions for understanding La Livrée d'Hermès.</span></span></a>
+        <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+      </div>
+    </div>
+
+    <div class="tile-group">
+      <h2 class="tile-group-heading">The project</h2>
+      <div class="nav-tiles">
+        <a class="nav-tile" href="../../contact.html"><img class="nav-tile-icon" src="../../assets/nav-icons/contact.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Contact</span><span class="nav-tile-excerpt">Contact the author for a project or a commission of patterns and textile prints.</span></span></a>
+        <a class="nav-tile" href="../../a-propos.html"><img class="nav-tile-icon" src="../../assets/nav-icons/a-propos.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">About</span><span class="nav-tile-excerpt">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></span></a>
+        <a class="nav-tile" href="../../outils.html"><img class="nav-tile-icon" src="../../assets/nav-icons/outils.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Tools</span><span class="nav-tile-excerpt">All the site's interactive tools, gathered in one place.</span></span></a>
+      </div>
+    </div>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../a-propos.html" hreflang="fr">About (French)</a>
+    <a href="../../profil.html" hreflang="fr">Author profile (French)</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Support</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
