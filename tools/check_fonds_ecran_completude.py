@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 check_fonds_ecran_completude.py — Garde-fou : data/fonds_ecran_v1.json
 porte bien les 15 familles × 4 natures (60 couches) et le corpus qui en

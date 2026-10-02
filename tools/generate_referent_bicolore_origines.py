@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 generate_referent_bicolore_origines.py — variante C8·Bn du référent
 bicolore, depuis un dossier de 15 planches tracées "bandes<FAMILLE>.svg"

@@ -9,10 +9,14 @@ PREAMBLE
 
 The open-source version of this software (referent_256.json, referent_360.json,
 stegano_lib.py, encode.py, decode.py, index.html, serve.py) is released under
-the GNU Affero General Public License v3 (AGPL v3) for non-commercial use.
+the GNU Affero General Public License v3 (AGPL v3). The AGPL v3 permits any
+use, commercial use included, provided its obligations are met — in
+particular, making the complete corresponding source code of any modified
+version available under the AGPL v3, including to users who interact with it
+over a network.
 
 If you intend to use this software or any derivative work in a commercial
-context — including but not limited to:
+context without meeting those obligations — including but not limited to:
 
   • Integration into a commercial product or service
   • Use in a paid application or platform

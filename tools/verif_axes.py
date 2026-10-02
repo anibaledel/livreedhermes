@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 verif_axes.py — Point d'entrée unique de la loi des axes, de la parité et
 des échos (voir docs/ETAT_AXES.md). Relance tout ce que les modules de

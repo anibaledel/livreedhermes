@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 parite.py — Des axes à la planche : la couleur d'un triangle (ou d'une case)
 est la parité du nombre d'axes qui le séparent d'une origine de référence.

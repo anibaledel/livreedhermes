@@ -2,7 +2,7 @@
    Contrôle (a) — inter-implémentation. Compare generateAxesMask(...)
    (assets/bicolore-axes.js, le moteur de main) aux seize figures de
    data/AXES/figures_C8_reference.json, produites indépendamment par
-   codes_cles.py/common.py (dépôt Zenodo 10.5281/zenodo.22965836).
+   codes_cles.py/common.py (dépôt Zenodo 10.5281/zenodo.22965031, version v2).
 
    Les 19 PDF « axes seul sur gris median » ne servent pas ici : ce sont des
    dessins d'axes pour le relevé du catalogue (tools/axes/releve.py), pas des

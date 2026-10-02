@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 render_bicolore_c16.py — rendu SVG autonome d'une famille au format C16
 (voir cellule_c16.py), pour vérification visuelle. bicolore-render.js ne

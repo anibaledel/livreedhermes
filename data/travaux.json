@@ -28,8 +28,7 @@
       "type": "book",
       "titre": "La Livrée d'Hermès",
       "doi": "10.5281/zenodo.22722485",
-      "versionDoi": "10.5281/zenodo.22722486",
-      "date": "2026-09-12",
+      "versionDoi": "10.5281/zenodo.22786146",
       "langues": [
         "fr",
         "en",
@@ -38,7 +37,9 @@
       ],
       "licence": "CC BY-NC 4.0",
       "fr": "Traité d'arithmogéométrie en 111 planches, en quatre langues : la construction des carrés magiques par la loi du gnomon et leur transcription en motifs pour le métier Jacquard.",
-      "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom."
+      "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom.",
+      "version": "v2",
+      "premiere": "2026-09-12"
     },
     {
       "section": "prepublications",
@@ -95,11 +96,6 @@
         "10.5281/zenodo.22862110",
         "10.5281/zenodo.23088601"
       ],
-      "anterieur": {
-        "doi": "10.5281/zenodo.22966839",
-        "fr": "première fiche, isolée, du 26 septembre",
-        "en": "first, standalone record of September 26"
-      },
       "fr": "Les trois descriptions du système de motifs (axes, images du métier, lignes de niveau d'un mode propre de plaque carrée) présentent une seule structure finie, vérifiée exhaustivement sur les soixante images publiées.",
       "en": "The three descriptions of the pattern system (axes, loom images, level sets of a square-plate eigenmode) present one finite structure, checked exhaustively on the sixty published images."
     },
@@ -123,7 +119,7 @@
       "section": "prepublications",
       "type": "preprint",
       "titre": "Parity Figures as Moiré: What Is Exact and What Is Not",
-      "doi": "10.5281/zenodo.22967585",
+      "doi": "10.5281/zenodo.22967584",
       "version": "1.0.1",
       "date": "2026-09-27",
       "premiere": "2026-09-25",
@@ -135,7 +131,8 @@
         "10.5281/zenodo.22965031"
       ],
       "fr": "Où la règle de parité se place dans la théorie du moiré, et ce qui y est faux quand on le dit vite.",
-      "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly."
+      "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly.",
+      "versionDoi": "10.5281/zenodo.22986645"
     },
     {
       "section": "donnees",
@@ -154,8 +151,7 @@
         "10.5281/zenodo.22965031"
       ],
       "fr": "Les termes P_n(1) pour n = 1 à 200 et le programme qui les calcule : le nombre de sous-ensembles de Z/nZ stables par négation et par doublement.",
-      "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling.",
-      "titreZenodo": "OEIS A400466 — number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program"
+      "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling."
     },
     {
       "section": "donnees",
@@ -170,7 +166,8 @@
       ],
       "fr": "Données et scripts de l'article sur les grilles 12 × 12, soumis au Journal of Mathematics and the Arts.",
       "en": "Data and scripts of the paper on 12 × 12 grids, submitted to the Journal of Mathematics and the Arts.",
-      "titreZenodo": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids"
+      "titreZenodo": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids",
+      "licence": "AGPL v3"
     },
     {
       "section": "donnees",
@@ -184,7 +181,8 @@
         "fr"
       ],
       "fr": "Scripts et données de l'article sur la croix ansée, soumis à Mathematics Magazine : les 256 carrés magiques d'ordre 6, les 64 assemblages d'ordre 12 et l'énumération exhaustive des colorations admissibles.",
-      "en": "Scripts and data of the paper on the ansate cross, submitted to Mathematics Magazine: the 256 order-6 magic squares, the 64 order-12 assemblies and the exhaustive enumeration of admissible colourings."
+      "en": "Scripts and data of the paper on the ansate cross, submitted to Mathematics Magazine: the 256 order-6 magic squares, the 64 order-12 assemblies and the exhaustive enumeration of admissible colourings.",
+      "licence": "AGPL v3"
     },
     {
       "section": "donnees",
@@ -207,7 +205,8 @@
         "fr"
       ],
       "fr": "État des travaux, en anglais avec une version française : deux articles en évaluation, les notes déposées, douze théorèmes énoncés simplement.",
-      "en": "State of the work, in English with a French version: two papers under review, the deposited notes, twelve theorems stated plainly."
+      "en": "State of the work, in English with a French version: two papers under review, the deposited notes, twelve theorems stated plainly.",
+      "licence": "CC BY 4.0"
     }
   ]
 }

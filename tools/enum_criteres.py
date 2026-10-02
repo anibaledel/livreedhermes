@@ -1,11 +1,11 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 #
 # enum_criteres.py — §4.3 de la note « The Ansate Cross » : dénombrement
 # exhaustif des coloriages d'ordre 6 satisfaisant les critères I–IV, puis de
 # ceux qui satisfont en plus la structure de ligne de la croix ansée.
 #
-# Provenance : copie du dépôt Zenodo 10.5281/zenodo.22866062. Cette copie-ci
+# Provenance : copie du dépôt Zenodo 10.5281/zenodo.22866061, première version. Cette copie-ci
 # ajoute UNIQUEMENT le bloc de sortie « Lecture des trois nombres » en fin de
 # fichier ; le calcul est celui de Zenodo, inchangé. Zenodo est figé : une
 # correction du calcul y serait une nouvelle version du dépôt, pas une

@@ -1,5 +1,5 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 stegano_lib.py — Point d'entrée unifié (compatibilité)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

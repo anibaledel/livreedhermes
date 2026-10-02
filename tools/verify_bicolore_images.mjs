@@ -2,7 +2,7 @@
    Contrôle (b) — vérité de terrain réelle : les 60 images du métier
    (data/referent_360_v3.json) sont des figures de parité du système des
    axes. Port en JS de verif_images_axes.py (dépôt Zenodo « One Object »,
-   10.5281/zenodo.22986530). Théorème 1 :
+   10.5281/zenodo.22986529, version 1.1.0). Théorème 1 :
 
      - L, les 48 cases dont le CENTRE (pas le centroïde d'un triangle C8 :
        le centre de la case entière, grain C1) est exactement SUR un axe de

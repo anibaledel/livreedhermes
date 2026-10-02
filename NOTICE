@@ -10,12 +10,13 @@ COPYRIGHT
   Wikidata: Q141191562
 
 ===============================================================================
-LICENSE SUMMARY
+LICENSE SUMMARY — trois cas
 
-  Non-commercial use : GNU Affero General Public License v3 (AGPL v3)
-                       See LICENSE
-  Commercial use     : Separate commercial license required
-                       See LICENSE-COMMERCIAL
+  - Articles et notes déposés sur Zenodo : CC BY 4.0.
+  - Le site, le livre, les motifs et les fichiers produits par les outils :
+    CC BY-NC 4.0. Usage commercial sur demande : anibaledel@gmail.com.
+  - Le code : AGPL v3 ; licence commerciale sur demande.
+                       See LICENSE (AGPL v3) and LICENSE-COMMERCIAL
 
 ===============================================================================
 TECHNICAL PRECEDENT
@@ -40,8 +41,8 @@ PUBLISHED ALGORITHM
 
   The algorithm (principle, key architecture, security levels) is freely
   usable with attribution under CC BY 4.0.
-  This software (code + reference data) is separately licensed under AGPL v3
-  for non-commercial use / commercial license on request.
+  This software (code + reference data) is separately licensed under AGPL v3;
+  a commercial license is available on request.
 
 ===============================================================================
 SOURCE MATERIAL

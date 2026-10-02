@@ -1,5 +1,5 @@
 # (c) Anibal Edelberto Amiot 2026 - La Livree d'Hermes
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 carter_random.py  v3 — Encodage Carter avec référents aléatoires 6×6
 

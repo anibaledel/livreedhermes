@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-// AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+// AGPL v3 / Commercial license on request: anibaledel@gmail.com
 //
 // check_pages_console.mjs — Contrôle automatique : charge chaque page listée
 // ci-dessous dans un navigateur headless et échoue si l'une d'elles lève une

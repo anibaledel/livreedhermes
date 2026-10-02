@@ -22,3 +22,4 @@ jobs:
         with:
           node-version: '20'
       - run: node scripts/build-travaux.js --verifie
+      - run: node tools/check_doi_perimes.mjs

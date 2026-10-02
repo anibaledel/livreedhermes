@@ -12,13 +12,13 @@ name: Axes bicolores conformes au catalogue
 #   - verify_bicolore_axes_catalogue.mjs : les seize figures de familles
 #     comparées à data/AXES/figures_C8_reference.json (produit
 #     indépendamment par codes_cles.py/common.py, Zenodo
-#     10.5281/zenodo.22965836) — un contrôle inter-implémentation, pas
+#     10.5281/zenodo.22965031, version v2) — un contrôle inter-implémentation, pas
 #     contre les 19 PDF « axes seul sur gris median » (ceux-là ne servent
 #     qu'au relevé du catalogue, tools/axes/releve.py — voir
 #     docs/ETAT_AXES.md §2 et §8).
 #   - verify_bicolore_images.mjs : la vérité de terrain réelle, les 60
 #     images de data/referent_360_v3.json — port de verif_images_axes.py
-#     (Zenodo « One Object », 10.5281/zenodo.22986530).
+#     (Zenodo « One Object », 10.5281/zenodo.22986529, version 1.1.0).
 
 on:
   push:

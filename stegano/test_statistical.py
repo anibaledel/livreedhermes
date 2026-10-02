@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # (c) Anibal Edelberto Amiot 2026 - La Livree d'Hermes
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 test_statistical.py — Tests statistiques de sortie Carter
 La Livree d'Hermes — Anibal Edelberto Amiot (2026)

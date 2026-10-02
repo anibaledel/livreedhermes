@@ -1,5 +1,5 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 carter.py — Grille Carter, Grammaire à 3 catégories dérivées de la clé
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

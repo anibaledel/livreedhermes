@@ -1,5 +1,5 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 # Geometric constructions: IACR ePrint 2026 (CC BY) — Patent: FR2865054
 """
 Chiffrement de disque — Architecture hybride géométrique + ChaCha20-Poly1305

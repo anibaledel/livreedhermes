@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 make_figures.py — Figures vectorielles (SVG) de la note « A Half-Shift
 Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».
