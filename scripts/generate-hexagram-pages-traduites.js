@@ -90,7 +90,7 @@ const L = {
   en: {
     locale: 'en_US', datePublished: '2026-10-01',
     date: (y, m, d) => `${MOIS.en[m - 1]} ${d}, ${y}`,
-    home: 'Home', homeUrl: `${SITE}/`, book: 'The book', bookUrl: `${SITE}/en/book/`, lexiconUrl: `${SITE}/en/lexicon/`,
+    home: 'Home', homeUrl: `${SITE}/en/`, book: 'The book', bookUrl: `${SITE}/en/book/`, lexiconUrl: `${SITE}/en/lexicon/`,
     hexagrams: 'Hexagrams', breadcrumb: 'Breadcrumb',
     hexName: (c, n) => `Hexagram ${c} — ${n}`,
     title: (c, p, n) => `Hexagram ${c} — ${p}, ${n}`,
@@ -119,7 +119,7 @@ const L = {
   es: {
     locale: 'es_ES', datePublished: '2026-10-01',
     date: (y, m, d) => `${d} de ${MOIS.es[m - 1]} de ${y}`,
-    home: 'Inicio', homeUrl: `${SITE}/`, book: 'El libro', bookUrl: `${SITE}/es/libro/`, lexiconUrl: `${SITE}/es/lexico/`,
+    home: 'Inicio', homeUrl: `${SITE}/es/`, book: 'El libro', bookUrl: `${SITE}/es/libro/`, lexiconUrl: `${SITE}/es/lexico/`,
     hexagrams: 'Hexagramas', breadcrumb: 'Ruta de navegación',
     hexName: (c, n) => `Hexagrama ${c} — ${n}`,
     title: (c, p, n) => `Hexagrama ${c} — ${p}, ${n}`,
@@ -149,7 +149,7 @@ const L = {
   th: {
     locale: 'th_TH', datePublished: '2026-10-01',
     date: (y, m, d) => `${d} ${MOIS.th[m - 1]} ${y}`,
-    home: 'หน้าแรก', homeUrl: `${SITE}/`, book: 'หนังสือ', bookUrl: `${SITE}/th/book/`, lexiconUrl: `${SITE}/th/lexicon/`,
+    home: 'หน้าแรก', homeUrl: `${SITE}/th/`, book: 'หนังสือ', bookUrl: `${SITE}/th/book/`, lexiconUrl: `${SITE}/th/lexicon/`,
     hexagrams: 'ฉักลักษณ์', breadcrumb: 'เส้นทางนำทาง',
     hexName: (c, n) => `ฉักลักษณ์ที่ ${c} — ${n}`,
     title: (c, p, n) => `ฉักลักษณ์ที่ ${c} — ${p}, ${n}`,

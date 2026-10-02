@@ -5,7 +5,8 @@
    Le site est statique : la recherche tourne entièrement dans le navigateur,
    sur un index précalculé ici (fragments compressés, chargés à la demande —
    une recherche télécharge quelques dizaines de Ko, pas l'index entier).
-   Pages de recherche : recherche.html (français), en/search/ (anglais) ;
+   Pages de recherche : recherche.html (français), en/search/ (anglais),
+   es/buscar/ (espagnol), th/search/ (thaï) ;
    Pagefind sépare l'index par langue d'après <html lang>.
 
    Pages indexées : toutes les pages HTML suivies par git, sauf

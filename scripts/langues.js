@@ -80,6 +80,8 @@ const GROUPES = [
     pages: [
       ['fr', `${SITE}/`, 'index.html'],
       ['en', `${SITE}/en/`, 'en/index.html'],
+      ['es', `${SITE}/es/`, 'es/index.html'],
+      ['th', `${SITE}/th/`, 'th/index.html'],
     ],
   },
   {

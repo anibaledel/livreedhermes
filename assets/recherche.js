@@ -1,4 +1,4 @@
-/* Page de recherche (recherche.html, en/search/) : interface Pagefind sur
+/* Page de recherche (recherche.html, en/search/, es/buscar/, th/search/) : interface Pagefind sur
    l'index de pagefind/ (scripts/build-recherche.mjs). La langue de l'index
    et des libellés suit <html lang>. Une adresse ?q=… lance la recherche. */
 (function () {
