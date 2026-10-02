@@ -6,27 +6,28 @@
 // Le bit d'une case (lecture C1 : un bit par case, generateAxesMask(...,
 // { grain: 'C1' }) de bicolore-axes.js) n'est ni lu autrement ni modifié
 // ici : ce module reçoit le masque tout fait et choisit, pour chaque case,
-// l'un des DEUX rendus du fond (v = 0, v = 1). L'aplat carré reste le fond
-// par défaut et le rendu de référence.
+// l'un des DEUX rendus du fond (v = 0, v = 1). L'aplat P reste le fond par
+// défaut et le rendu de référence.
 //
 // Deux couleurs, jamais trois : chaque part d'un fond prend l'une des deux
 // couleurs de la palette. Un fond couvre la case entière (vérifié par
-// rastérisation, couverture()).
+// rastérisation, nonCouvert()).
 //
 // DEUX FAMILLES, qui n'obéissent pas aux mêmes règles :
 //
 //   « orientation » — la partition et l'attribution (`ton` 0/1 = première
-//   ou seconde couleur) sont fixes ; le bit choisit une TRANSFORMATION :
-//     rotation : v = 1 tourne la partition de 90° (sens horaire) ;
-//     miroir   : v = 1 la retourne (gauche ↔ droite) ;
-//     echange  : v = 1 permute les deux couleurs ;
-//     nature   : deux partitions, `v0` et `v1`, une par valeur du bit.
-//   L'information est portée par la direction, pas par la quantité : ces
-//   fonds se lisent quelle que soit la part de chaque couleur (damassé).
+//   ou seconde couleur) sont fixes ; le bit choisit une TRANSFORMATION,
+//   que le code dit par un suffixe en minuscule :
+//     rotation (rien) : v = 1 tourne la partition de 90° (sens horaire) ;
+//     miroir   (m)    : v = 1 la retourne (gauche ↔ droite) ;
+//     echange  (x)    : v = 1 permute les deux couleurs ;
+//     nature   (n)    : deux partitions, `v0` et `v1`, une par valeur du bit.
+//   Les deux états ont la même moyenne : aucun contraste à distance, et
+//   pourtant ils se lisent — par la direction (le damassé).
 //
 //   « quantite » — la case prend la couleur de son bit, et les parts de
-//   `ton` 1 la couleur inverse. La FRACTION INVERSÉE commande : 0 % figure
-//   intacte, 50 % figure annulée, au-delà figure en négatif.
+//   `ton` 1 la couleur inverse. La fraction inversée f fait partie du code ;
+//   le contraste à distance vaut |1 − 2f| (lecture()).
 //
 // La fraction n'est jamais saisie : elle se calcule par rastérisation de
 // la partition (fraction()), et doit être stable d'une résolution à
@@ -38,16 +39,21 @@
 //               verticales, coordonnée x, portée 1) ou 45° (coordonnée x+y,
 //               portée 2 : la diagonale entière). Tons alternés 0,1,0,… sauf
 //               `tons` explicite. Les triangles sont le cas nombre = 2 à 45°.
+//               Raccord calculé : franc, inversé ou aucun (raccord()).
 //   polygones — `parts` : [{ points: [[x,y],…], ton }], peintes dans l'ordre
 //               (une part posée après recouvre les précédentes).
 //   aplat     — aucune part : la case entière dans la couleur de son bit.
 //
+// SUPERPOSITIONS : un glyphe centré (carré, rond, losange, croix, étoile)
+// posé APRÈS le fond, dans la couleur inverse de la case ; il ne s'écrit
+// jamais seul (P+E95).
+//
 // Coordonnées en cellule unité, y vers le bas.
 //
 // Rendu SVG : un fond n'a que deux rendus ; ils sont construits une fois en
-// <symbol> (#fond-<id>-0, #fond-<id>-1) et placés par 144 <use>, chacun avec width et
-// height (sans eux un <use> de symbole prend la taille du viewport entier —
-// voir bicolore-render.test.mjs).
+// <symbol> (#fond-<code>-0, #fond-<code>-1) et placés par 144 <use>, chacun
+// avec width et height (sans eux un <use> de symbole prend la taille du
+// viewport entier — voir bicolore-render.test.mjs).
 
 export const GRID = 12;
 
@@ -193,9 +199,18 @@ function ligne(r, y, m, out) {
   return out;
 }
 
-// Grille m×m des couleurs du rendu v (255 = non couvert).
-export function rasteriser(fond, v, m) {
+// Le rendu v d'un fond portant une superposition : le glyphe, dans la
+// couleur inverse de la case, posé après les parts du fond.
+export function renduAssemble(fond, sup, v) {
   const r = rendu(fond, v);
+  if (!sup) return r;
+  return { ...r, parts: [...r.parts, { points: glyphe(sup), couleur: 1 - v }] };
+}
+
+// Grille m×m des couleurs du rendu v (255 = non couvert), superposition
+// facultative.
+export function rasteriser(fond, v, m, sup = null) {
+  const r = renduAssemble(fond, sup, v);
   const g = new Uint8Array(m * m);
   const l = new Uint8Array(m);
   for (let j = 0; j < m; j++) g.set(ligne(r, (j + 0.5) / m, m, l), j * m);
@@ -223,90 +238,255 @@ export function fraction(fond, n = 512) {
   return un / (m * m);
 }
 
-// Positions (0..1) où la couleur change le long d'un bord du rendu v.
-function changementsLeLong(r, bord, n) {
-  const pos = [];
-  let prec = null;
+// ---------- raccord : franc, inversé, aucun ----------
+//
+// Deux cases voisines de même valeur ont le même rendu ; elles se touchent
+// par le bord droit de l'une et le bord gauche de l'autre (et bas / haut).
+// Le DÉSACCORD AU BORD est la part des points de ce bord où les deux côtés
+// n'ont pas la même couleur, mesurée sur les bords que les bandes
+// traversent (les deux paires à 45° ; à 0°, la paire perpendiculaire aux
+// bandes du rendu considéré). Trois valeurs :
+//   franc   — 0 % : la bande continue, couleur comprise (B4D) ;
+//   inversé — 100 % : la bande continue en place mais la couleur bascule
+//             (B2D, B121D : le chevron) ;
+//   aucun   — entre les deux : les limites ne se rejoignent pas (B3D).
+// C'est une propriété de (largeurs, angle) : aucun moteur ne la produit si
+// elle n'y est pas. Seuls les fonds de bandes ont un raccord.
+
+function couleursLeLong(r, bord, n) {
+  const out = new Array(n);
+  const e = 0.5 / n;
   for (let k = 0; k < n; k++) {
-    const t = (k + 0.5) / n, e = 0.5 / n;
+    const t = (k + 0.5) / n;
     const [x, y] = { gauche: [e, t], droite: [1 - e, t], haut: [t, e], bas: [t, 1 - e] }[bord];
-    const c = couleurAu(r, x, y);
-    if (prec !== null && c !== prec) pos.push(k / n);
-    prec = c;
+    out[k] = couleurAu(r, x, y);
   }
-  // Un changement au ras d'un coin n'est pas une limite qui traverse le
-  // bord : c'est la diagonale qui aboutit au sommet (à l'échantillonnage près).
-  return pos.filter((p) => p > 2 / n && p < 1 - 2 / n);
+  return out;
 }
 
-// Raccord : deux cases voisines de même valeur (même rendu) se touchent par
-// le bord droit de l'une et le bord gauche de l'autre (et bas / haut). Les
-// limites de bandes s'y prolongent sans décalage si les changements de
-// couleur tombent aux mêmes positions des deux côtés. Rend la liste des
-// défauts (vide = raccord).
-export function defautsDeRaccord(fond, n = 1024) {
-  const defauts = [];
-  const tol = 2 / n;
+// Les paires de bords que les bandes du rendu v traversent.
+function pairesTraversees(fond, v) {
+  const def = fond.mode === 'nature' ? (v ? fond.v1 : fond.v0) : fond;
+  if (def.angle === 45) return [['droite', 'gauche'], ['bas', 'haut']];
+  const tournees = fond.mode === 'rotation' && v === 1;
+  return [tournees ? ['droite', 'gauche'] : ['bas', 'haut']];
+}
+
+export function desaccordAuBord(fond, n = 1024) {
+  let diff = 0, total = 0;
+  const marge = Math.ceil(n * 0.002); // les coins, où une limite aboutit au sommet
   for (const v of [0, 1]) {
     const r = rendu(fond, v);
-    for (const [a, b] of [['droite', 'gauche'], ['bas', 'haut']]) {
-      const pa = changementsLeLong(r, a, n), pb = changementsLeLong(r, b, n);
-      const ok = pa.length === pb.length && pa.every((p, i) => Math.abs(p - pb[i]) <= tol);
-      if (!ok) defauts.push({ v, bords: `${a}/${b}`, [a]: pa.map((p) => +p.toFixed(3)), [b]: pb.map((p) => +p.toFixed(3)) });
+    for (const [a, b] of pairesTraversees(fond, v)) {
+      const ca = couleursLeLong(r, a, n), cb = couleursLeLong(r, b, n);
+      for (let k = marge; k < n - marge; k++) { total++; if (ca[k] !== cb[k]) diff++; }
     }
   }
-  return defauts;
+  return diff / total;
+}
+
+export function raccord(fond) {
+  const type = fond.mode === 'nature' ? fond.v0.type : fond.type;
+  if (type !== 'bandes') return null;
+  const d = desaccordAuBord(fond);
+  return d <= 0.005 ? 'franc' : d >= 0.995 ? 'inversé' : 'aucun';
+}
+
+// ---------- lecture : contraste à distance ou direction ----------
+//
+// Famille quantité (et superposition) : une case de valeur 0 a pour valeur
+// moyenne f, une case de valeur 1 a pour moyenne 1 − f ; le contraste entre
+// les deux états, vu de loin, vaut |1 − 2f|. À f = ½ il est nul — le motif
+// reste entier et se lit de près, c'est la grande forme à distance qui
+// disparaît. Avertissement sous 15 % : « plus de contraste à distance ».
+//
+// Famille orientation : les deux états sont la même partition transformée,
+// leur moyenne est la même, le contraste toujours nul — et pourtant ils se
+// lisent, par la direction (le damassé). Aucun contraste n'est affiché.
+
+export const SEUIL_CONTRASTE = 0.15;
+export const contrasteDe = (f) => Math.abs(1 - 2 * f);
+
+export function lecture(fond) {
+  if (fond.famille === 'orientation') return { mode: 'direction', texte: 'se lit par la direction' };
+  const f = fond.calcul ? fond.calcul.fraction : fraction(fond);
+  return lectureContraste(f);
+}
+
+function lectureContraste(f) {
+  const c = contrasteDe(f);
+  return { mode: 'contraste', contraste: c, texte: `contraste à distance : ${Math.round(c * 100)} %`, avertissement: c < SEUIL_CONTRASTE ? 'plus de contraste à distance' : null };
+}
+
+// Superposition (sur l'aplat) : même loi, f = la couverture du glyphe.
+export function lectureSuperposition(sup) {
+  return lectureContraste(sup.calcul ? sup.calcul.couverture : couverture(sup));
+}
+
+// Le contraste à distance MESURÉ : l'écart entre les moyennes des deux
+// rendus (part de la seconde couleur), rastérisés. Il vaut |1 − 2f| pour la
+// famille quantité et 0 pour la famille orientation — le test le vérifie —
+// et c'est lui qui vaut pour un assemblage fond + superposition.
+export function contrasteMesure(fond, sup = null, n = 256) {
+  const m = n * 4;
+  const moy = [0, 1].map((v) => { let un = 0; for (const c of rasteriser(fond, v, m, sup)) if (c === 1) un++; return un / (m * m); });
+  return Math.abs(moy[1] - moy[0]);
+}
+
+// Lecture d'un assemblage : la direction du fond (famille orientation) et,
+// s'il y a un glyphe, le contraste à distance mesuré sur les deux rendus.
+export function lectureAssemblage(fond, sup) {
+  if (!sup) return lecture(fond);
+  const c = contrasteMesure(fond, sup);
+  const r = { mode: 'contraste', contraste: c, texte: `contraste à distance : ${Math.round(c * 100)} %`, avertissement: c < SEUIL_CONTRASTE ? 'plus de contraste à distance' : null };
+  if (fond.famille === 'orientation') r.direction = 'se lit par la direction';
+  return r;
+}
+
+// ---------- superpositions ----------
+//
+// Un glyphe centré dans la case, à l'échelle s (1 = inscrit dans la case),
+// dans la couleur inverse de la case, posé APRÈS le fond. Géométries :
+//   C carré   — côté s ;
+//   R rond    — diamètre s (polygone à 96 côtés) ;
+//   L losange — sommets aux milieux des côtés du carré de côté s ;
+//   X croix   — croix grecque de bras s, d'épaisseur e·s (e : `epaisseur`,
+//               1/3 par défaut, la croix du carré 3 × 3) ;
+//   E étoile  — étoile à cinq branches inscrite dans le cercle de diamètre s,
+//               rayon intérieur / extérieur = `rapport` (par défaut celui du
+//               pentagramme, (3 − √5)/2 ≈ 0,382), pointe en haut.
+// La couverture se calcule par rastérisation, jamais saisie.
+
+export const GLYPHES = { C: 'carre', R: 'rond', L: 'losange', X: 'croix', E: 'etoile' };
+
+export function glyphe(sup) {
+  const s = sup.echelle, h = s / 2, c = 0.5;
+  switch (sup.forme) {
+    case 'carre': return [[c - h, c - h], [c + h, c - h], [c + h, c + h], [c - h, c + h]];
+    case 'losange': return [[c, c - h], [c + h, c], [c, c + h], [c - h, c]];
+    case 'rond': return Array.from({ length: 96 }, (_, k) => [c + h * Math.cos((2 * Math.PI * k) / 96), c + h * Math.sin((2 * Math.PI * k) / 96)]);
+    case 'croix': {
+      const e = ((sup.epaisseur ?? 1 / 3) * s) / 2;
+      return [[c - e, c - h], [c + e, c - h], [c + e, c - e], [c + h, c - e], [c + h, c + e], [c + e, c + e],
+        [c + e, c + h], [c - e, c + h], [c - e, c + e], [c - h, c + e], [c - h, c - e], [c - e, c - e]];
+    }
+    case 'etoile': {
+      const k = sup.rapport ?? (3 - Math.sqrt(5)) / 2;
+      return Array.from({ length: 10 }, (_, i) => {
+        const a = -Math.PI / 2 + (i * Math.PI) / 5, r = i % 2 ? h * k : h;
+        return [c + r * Math.cos(a), c + r * Math.sin(a)];
+      });
+    }
+    default: throw new Error(`superposition ${sup.id} : forme « ${sup.forme} » inconnue`);
+  }
+}
+
+// Couverture du glyphe dans la case (sur l'aplat), calculée.
+export function couverture(sup, n = 512) {
+  return fraction({ id: sup.id, famille: 'quantite', type: 'polygones', parts: [{ points: glyphe(sup), ton: 1 }] }, n);
+}
+
+// L'échelle à laquelle le glyphe couvre la moitié de la case, s'il le peut
+// sans sortir de la case (échelle ≤ 1) — null sinon (l'étoile).
+export function echelleMoitie(sup) {
+  const c1 = couverture({ ...sup, echelle: 1 }, 256);
+  if (c1 < 0.5) return null;
+  return Math.sqrt(0.5 / c1); // la couverture croît comme s², tant que le glyphe reste dans la case
 }
 
 // ---------- nomenclature (arrêtée le 3 octobre 2026) ----------
 //
-// Un code dit ce que le fond fait. P : l'aplat. Bandes de la famille
-// orientation : B + le nombre de bandes égales (un chiffre, ≤ 9) ou leurs
-// largeurs réduites (deux chiffres ou plus), + D à 45° — B2D, ce sont les
-// triangles. Fond de la famille quantité : deux ou trois lettres + sa
-// fraction inversée en pour-cent, sur deux chiffres. Polygones de la famille
-// orientation : deux ou trois lettres. La superposition (une lettre + deux
-// chiffres) s'écrit après un « + », jamais seule.
+// Un code dit ce que le fond fait. P : l'aplat. Bandes : B + le nombre de
+// bandes égales (un chiffre, ≤ 9) ou leurs largeurs réduites (deux chiffres
+// ou plus), + D à 45° — B2D, ce sont les triangles. Fond en polygones de la
+// famille orientation : deux ou trois majuscules. Suffixe de mode en
+// minuscule (rien = rotation, m miroir, x échange, n nature). Famille
+// quantité : deux ou trois majuscules + la fraction inversée en pour-cent,
+// sur deux chiffres. Superposition : UNE majuscule + l'échelle en
+// centièmes, toujours après un « + », jamais seule (sur l'aplat : P+E95).
 
 const pgcd = (a, b) => (b ? pgcd(b, a % b) : a);
+const SUFFIXE_MODE = { rotation: '', miroir: 'm', echange: 'x', nature: 'n' };
 
-// Le code qu'un fond de bandes en rotation doit porter, d'après son dessin.
+// Le code que doit porter un fond de bandes, d'après son dessin (pour le
+// mode nature, la partition du rendu v = 0).
 export function codeDeBandes(f) {
-  const d = f.largeurs.reduce(pgcd);
-  const reduites = f.largeurs.map((w) => w / d);
+  const def = f.mode === 'nature' ? f.v0 : f;
+  const d = def.largeurs.reduce(pgcd);
+  const reduites = def.largeurs.map((w) => w / d);
   const egales = reduites.every((w) => w === 1);
-  if (egales && f.nombre > 9) throw new Error(`fond ${f.id} : plus de neuf bandes égales n'ont pas de code`);
+  if (egales && def.nombre > 9) throw new Error(`fond ${f.id} : plus de neuf bandes égales n'ont pas de code`);
   if (!egales && reduites.some((w) => w > 9 || !Number.isInteger(w))) throw new Error(`fond ${f.id} : largeurs sans code à un chiffre`);
-  return `B${egales ? f.nombre : reduites.join('')}${f.angle === 45 ? 'D' : ''}`;
+  return `B${egales ? def.nombre : reduites.join('')}${def.angle === 45 ? 'D' : ''}${SUFFIXE_MODE[f.mode] ?? '?'}`;
 }
+
+// La fraction en pour-cent qu'un code porte : arrondie au dixième (la
+// précision de la mesure), puis à l'unité, demi vers le haut — 12,5 % → 13.
+export const pourcent = (f) => Math.round(Math.round(f * 1000) / 10);
 
 // Vérifie que l'identifiant d'un fond dit bien ce qu'il fait ; rend la
 // liste des écarts (vide = conforme).
 export function ecartsDeCode(f) {
   const e = [];
   if (f.type === 'aplat') { if (f.id !== 'P') e.push(`l'aplat s'appelle P, pas ${f.id}`); return e; }
+  const type = f.mode === 'nature' ? f.v0.type : f.type;
   if (f.famille === 'orientation') {
-    if (f.type === 'bandes') {
-      if (f.mode !== 'rotation') e.push(`le code B ne dit pas le mode « ${f.mode} » : il suppose la rotation`);
+    if (type === 'bandes') {
       const attendu = codeDeBandes(f);
       if (f.id !== attendu) e.push(`code ${f.id}, le dessin dit ${attendu}`);
-    } else if (!/^[A-Z]{2,3}$/.test(f.id) || /^[BS]\d/.test(f.id)) {
-      e.push(`code ${f.id} : deux ou trois majuscules attendues`);
+    } else {
+      const m = /^([A-Z]{2,3})([mxn]?)$/.exec(f.id);
+      if (!m || /^[BS]\d/.test(f.id)) e.push(`code ${f.id} : deux ou trois majuscules, suffixe de mode en minuscule`);
+      else if (m[2] !== SUFFIXE_MODE[f.mode]) e.push(`code ${f.id} : le mode ${f.mode} s'écrit « ${SUFFIXE_MODE[f.mode] || '(rien)'} »`);
     }
   } else {
     const m = /^([A-Z]{2,3})(\d{2})$/.exec(f.id);
-    const pct = Math.round(fraction(f) * 100);
-    if (!m) e.push(`code ${f.id} : lettres + fraction sur deux chiffres attendues (famille quantité)`);
+    const pct = pourcent(fraction(f));
+    if (!m) e.push(`code ${f.id} : deux ou trois majuscules + fraction sur deux chiffres (famille quantité)`);
     else if (Number(m[2]) !== pct) e.push(`code ${f.id} : la fraction calculée est ${pct} %`);
   }
   return e;
 }
 
+export function ecartsDeCodeSuperposition(sup) {
+  const e = [];
+  const m = /^([A-Z])(\d{2})$/.exec(sup.id);
+  if (!m) e.push(`code ${sup.id} : une majuscule + l'échelle en centièmes sur deux chiffres`);
+  else {
+    if (GLYPHES[m[1]] !== sup.forme) e.push(`code ${sup.id} : ${m[1]} désigne ${GLYPHES[m[1]] || 'rien'}, pas ${sup.forme}`);
+    if (Number(m[2]) !== Math.round(sup.echelle * 100)) e.push(`code ${sup.id} : l'échelle est ${sup.echelle}`);
+  }
+  return e;
+}
+
+// Décompose un identifiant complet « <fond> » ou « <fond>+<superposition> »
+// sans ambiguïté : une superposition a une seule lettre, un fond au moins
+// deux (ou P, ou B + chiffres) ; le suffixe de mode est en minuscule.
+const RE_FOND = /^(?:(P)|(B)(\d+)(D?)([mxn]?)|([A-Z]{2,3})([mxn]?)|([A-Z]{2,3})(\d{2}))$/;
+const RE_SUP = /^([A-Z])(\d{2})$/;
+const MODE_DU_SUFFIXE = { '': 'rotation', m: 'miroir', x: 'echange', n: 'nature' };
+export function decomposer(identifiant) {
+  const morceaux = identifiant.split('+');
+  if (morceaux.length > 2) throw new Error(`« ${identifiant} » : un seul « + »`);
+  const [fond, sup] = morceaux;
+  if (RE_SUP.test(fond) && !/^B\d/.test(fond)) throw new Error(`« ${identifiant} » : une superposition ne s'écrit jamais seule (sur l'aplat : P+${fond})`);
+  const m = RE_FOND.exec(fond);
+  if (!m) throw new Error(`« ${identifiant} » : fond « ${fond} » illisible`);
+  if (sup !== undefined && !RE_SUP.test(sup)) throw new Error(`« ${identifiant} » : superposition « ${sup} » illisible (une lettre, deux chiffres)`);
+  const genre = m[1] ? 'aplat' : m[2] ? 'bandes' : m[6] ? 'orientation' : 'quantite';
+  const suffixe = m[5] ?? m[7] ?? '';
+  const out = { fond, superposition: sup ?? null, genre, mode: genre === 'aplat' || genre === 'quantite' ? null : MODE_DU_SUFFIXE[suffixe] };
+  if (genre === 'bandes') out.diagonale = m[4] === 'D';
+  if (genre === 'quantite') out.pourcent = Number(m[9]);
+  if (sup) { const s = RE_SUP.exec(sup); out.glyphe = GLYPHES[s[1]] || null; out.echelle = Number(s[2]) / 100; }
+  return out;
+}
+
 // ---------- collection ----------
 
 // Charge une collection (data/fonds/collection-v1.json) : valide chaque
-// fond et lui ajoute ses valeurs calculées (`calcul`), sans toucher aux
-// valeurs saisies. Rend une Map id -> fond.
+// fond et chaque superposition, vérifie leurs codes, et leur ajoute leurs
+// valeurs calculées (`calcul`). Rend { fonds, superpositions, assemblages }.
 export function chargerCollection(json) {
   const fonds = new Map();
   for (const f of json.fonds || []) {
@@ -314,23 +494,30 @@ export function chargerCollection(json) {
     rendu(f, 0); rendu(f, 1); // valide
     const ecarts = ecartsDeCode(f);
     if (ecarts.length) throw new Error(`fond ${f.id} : ${ecarts.join(' ; ')}`);
-    fonds.set(f.id, { ...f, calcul: { fraction: fraction(f), nonCouvert: nonCouvert(f) } });
+    fonds.set(f.id, { ...f, calcul: { fraction: fraction(f), nonCouvert: nonCouvert(f), raccord: raccord(f) } });
   }
-  return fonds;
-}
-
-// Fourchette où un fond de la famille quantité efface la figure.
-export const ZONE_EFFACEMENT = [0.43, 0.57];
-export function effaceLaFigure(fond) {
-  const fr = fond.calcul ? fond.calcul.fraction : fraction(fond);
-  return fond.famille === 'quantite' && fr >= ZONE_EFFACEMENT[0] && fr <= ZONE_EFFACEMENT[1];
+  const superpositions = new Map();
+  for (const s of json.superpositions || []) {
+    if (superpositions.has(s.id)) throw new Error(`superposition ${s.id} en double`);
+    const ecarts = ecartsDeCodeSuperposition(s);
+    if (ecarts.length) throw new Error(`superposition ${s.id} : ${ecarts.join(' ; ')}`);
+    const c = couverture(s);
+    superpositions.set(s.id, { ...s, calcul: { couverture: c, couvertureUnite: couverture({ ...s, echelle: 1 }), echelleMoitie: echelleMoitie(s) } });
+  }
+  const assemblages = (json.assemblages || []).map((id) => {
+    const { fond, superposition } = decomposer(id);
+    if (!fonds.has(fond)) throw new Error(`assemblage ${id} : fond ${fond} absent de la collection`);
+    if (superposition && !superpositions.has(superposition)) throw new Error(`assemblage ${id} : superposition ${superposition} absente`);
+    return { id, fond: fonds.get(fond), superposition: superposition ? superpositions.get(superposition) : null };
+  });
+  return { fonds, superpositions, assemblages };
 }
 
 // ---------- SVG ----------
 
 const nombre = (x) => +x.toFixed(6);
 
-function symbole(id, r, palette) {
+function symbole(id, r, palette, sup, v) {
   const corps = [];
   // Le dessous, dans l'une des deux couleurs : en quantité c'est la couleur
   // de la case ; en orientation il ne couvre que le fondu entre parts.
@@ -338,20 +525,25 @@ function symbole(id, r, palette) {
   for (const p of r.parts) {
     corps.push(`<polygon fill="${palette[p.couleur]}" points="${p.points.map(([x, y]) => `${nombre(x)},${nombre(y)}`).join(' ')}"/>`);
   }
+  // La superposition après le fond, jamais l'inverse, dans la couleur
+  // inverse de la case.
+  if (sup) corps.push(`<polygon fill="${palette[1 - v]}" points="${glyphe(sup).map(([x, y]) => `${nombre(x)},${nombre(y)}`).join(' ')}"/>`);
   return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps.join('')}</symbol>`;
 }
 
 // mask : 144 bits (lecture C1), Uint8Array|Array|string. palette : deux
-// couleurs [bit 0, bit 1]. Rend le SVG du motif dans ce fond.
-// Les identifiants des deux symboles portent l'id du fond (et `prefixe` si
-// donné) : plusieurs SVG insérés dans une même page HTML partagent un seul
-// espace d'identifiants, et deux #fond-0 y désigneraient le même symbole.
-export function motifSvg(mask, palette, fond, { size = 864, prefixe = '' } = {}) {
+// couleurs [bit 0, bit 1]. Rend le SVG du motif dans ce fond, avec une
+// superposition facultative. Les identifiants des deux symboles portent le
+// code complet (et `prefixe` si donné) : plusieurs SVG insérés dans une même
+// page HTML partagent un seul espace d'identifiants, et deux #fond-0 y
+// désigneraient le même symbole.
+export function motifSvg(mask, palette, fond, { size = 864, prefixe = '', superposition = null } = {}) {
   if (!Array.isArray(palette) || palette.length !== 2) throw new Error('palette : deux couleurs, jamais trois');
   const n = GRID * GRID;
   if (mask.length !== n) throw new Error(`masque de ${mask.length} bits, ${n} attendus (lecture C1)`);
   const c = size / GRID;
-  const ref = `${prefixe}fond-${fond.id}`.replace(/[^A-Za-z0-9_-]/g, '_');
+  const code = superposition ? `${fond.id}+${superposition.id}` : fond.id;
+  const ref = `${prefixe}fond-${code}`.replace(/[^A-Za-z0-9_-]/g, '_');
   const uses = [];
   for (let i = 0; i < n; i++) {
     const v = mask[i] === 1 || mask[i] === '1' ? 1 : 0;
@@ -359,7 +551,7 @@ export function motifSvg(mask, palette, fond, { size = 864, prefixe = '' } = {})
     uses.push(`<use href="#${ref}-${v}" x="${nombre(x)}" y="${nombre(y)}" width="${nombre(c)}" height="${nombre(c)}"/>`);
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n`
-    + `<defs>${symbole(`${ref}-0`, rendu(fond, 0), palette)}${symbole(`${ref}-1`, rendu(fond, 1), palette)}</defs>\n`
+    + `<defs>${symbole(`${ref}-0`, rendu(fond, 0), palette, superposition, 0)}${symbole(`${ref}-1`, rendu(fond, 1), palette, superposition, 1)}</defs>\n`
     + uses.join('\n') + '\n</svg>\n';
 }
 
@@ -370,5 +562,5 @@ export function bitsDuSvg(svg) {
   return [...svg.matchAll(/<use href="#[A-Za-z0-9_-]*-([01])"/g)].map((m) => Number(m[1]));
 }
 
-// L'aplat carré : le rendu de référence.
+// L'aplat carré : le rendu de référence, et le défaut.
 export const APLAT = Object.freeze({ id: 'P', famille: 'quantite', type: 'aplat' });

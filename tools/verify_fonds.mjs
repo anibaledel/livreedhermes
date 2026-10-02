@@ -15,10 +15,24 @@
 //   2. la case est entièrement couverte par le fond (rastérisation des deux
 //      rendus, v = 0 et v = 1 : aucun échantillon non couvert) ;
 //   3. deux cases voisines de même valeur ont le même rendu (un seul
-//      symbole par valeur, deux symboles en tout), et les limites de bandes
-//      se raccordent d'une case à l'autre (bords droit/gauche, bas/haut) ;
+//      symbole par valeur, deux symboles en tout) ;
 //   4. la fraction calculée est stable : à 256, 512 et 1024, même valeur à
-//      0,5 % près.
+//      0,5 % près ;
+//   5. l'attribut `raccord` d'un fond de bandes vaut ce que donne le calcul
+//      du désaccord au bord (franc, inversé, aucun — les trois présents dans
+//      la collection) ; un fond sans bandes n'en porte pas ;
+//   6. le contraste affiché vaut |1 − 2f| avec la fraction calculée (et la
+//      couverture du glyphe pour une superposition), il est égal au
+//      contraste mesuré sur les deux rendus, et aucun contraste n'est
+//      affiché pour la famille orientation ;
+//   7. le code de chaque fond de la famille quantité porte sa vraie fraction
+//      arrondie (recalculée ici à une autre résolution) ;
+//   8. tout identifiant complet se décompose sans ambiguïté : une
+//      superposition a une seule lettre, un fond en polygones au moins
+//      deux, le suffixe de mode est en minuscule ; une superposition seule
+//      est refusée.
+//
+// Les tests 1 à 3 portent aussi sur les assemblages fond + superposition.
 //
 // Puis le contrôle habituel, recalculé ici sur les seize figures de
 // familles : C8 reste [1152, 13, 288], C1 reste [144, 12, 36].
@@ -30,7 +44,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { GRID, PER_CELL } from '../assets/bicolore-render.js';
 import { buildAxes, generateAxesMask, systemes, parityBit } from '../assets/bicolore-axes.js';
-import { chargerCollection, motifSvg, bitsDuSvg, nonCouvert, fraction, defautsDeRaccord, APLAT } from '../assets/bicolore-fonds.js';
+import {
+  chargerCollection, motifSvg, bitsDuSvg, nonCouvert, fraction, desaccordAuBord, lecture, lectureSuperposition,
+  contrasteDe, contrasteMesure, pourcent, decomposer, rasteriser, APLAT,
+} from '../assets/bicolore-fonds.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const catalogue = JSON.parse(readFileSync(path.join(ROOT, 'data/AXES/catalogue.json'), 'utf8'));
@@ -63,35 +80,135 @@ const palette = ['#efe6d2', '#1f1b16'];
 const echecs = [];
 const echec = (m) => { echecs.push(m); console.error(`ÉCHEC ${m}`); };
 
-for (const fond of collection.values()) {
-  // 1. le bit de chaque case, relu dans le rendu
-  let identiques = 0;
+// 1 et 3 : le bit de chaque case relu dans le rendu, deux symboles.
+function masqueEtSymboles(code, fond, superposition) {
   for (const m of motifs) {
     const attendu = Array.from(m.mask);
     const aplat = bitsDuSvg(motifSvg(m.mask, palette, APLAT));
-    const svg = motifSvg(m.mask, palette, fond);
+    const svg = motifSvg(m.mask, palette, fond, { superposition });
     const relu = bitsDuSvg(svg);
     if (relu.length !== GRID * GRID || relu.some((b, i) => b !== attendu[i] || b !== aplat[i])) {
-      echec(`${fond.id} : masque changé par le rendu sur « ${m.nom} »`);
-      break;
+      echec(`${code} : masque changé par le rendu sur « ${m.nom} »`);
+      return false;
     }
-    // 3a. deux symboles en tout, un par valeur
-    if ((svg.match(/<symbol /g) || []).length !== 2) echec(`${fond.id} : ${(svg.match(/<symbol /g) || []).length} symboles au lieu de 2`);
-    identiques++;
+    const symboles = (svg.match(/<symbol /g) || []).length;
+    if (symboles !== 2) { echec(`${code} : ${symboles} symboles au lieu de 2`); return false; }
   }
+  return true;
+}
+
+const pc = (x) => `${(x * 100).toFixed(2)} %`;
+const raccordsVus = new Set();
+
+for (const fond of collection.fonds.values()) {
+  const avant = echecs.length;
+  // 1, 3
+  masqueEtSymboles(fond.id, fond, null);
   // 2. couverture
   const vide = nonCouvert(fond, 256);
   if (vide !== 0) echec(`${fond.id} : ${(vide * 100).toFixed(3)} % de la case non couverte`);
-  // 3b. raccord
-  const defauts = defautsDeRaccord(fond);
-  for (const d of defauts) echec(`${fond.id} : limites non raccordées (v = ${d.v}, bords ${d.bords}) ${JSON.stringify(d)}`);
   // 4. stabilité de la fraction
   const fr = [256, 512, 1024].map((n) => fraction(fond, n));
   const ecart = Math.max(...fr) - Math.min(...fr);
   const relatif = fr[2] > 0 ? ecart / fr[2] : ecart;
   if (relatif > 0.005) echec(`${fond.id} : fraction instable ${fr.map((x) => x.toFixed(4)).join(' / ')}`);
-  console.log(`${defauts.length || vide || relatif > 0.005 ? '      ' : 'OK    '}${fond.id.padEnd(26)} masque ${identiques}/${motifs.length} · couverture ${vide === 0 ? 'totale' : 'INCOMPLÈTE'} · raccord ${defauts.length ? 'NON' : 'oui'} · fraction ${(fr[2] * 100).toFixed(2)} % (écart ${(relatif * 100).toFixed(2)} %)`);
+  // 5. raccord : l'attribut déclaré vaut le calcul
+  const calcule = fond.calcul.raccord;
+  let detailRaccord = '';
+  if (calcule === null) {
+    if (fond.raccord !== undefined) echec(`${fond.id} : attribut raccord « ${fond.raccord} » sur un fond sans bandes`);
+  } else {
+    const d = desaccordAuBord(fond);
+    raccordsVus.add(calcule);
+    if (fond.raccord !== calcule) echec(`${fond.id} : raccord déclaré « ${fond.raccord} », le calcul dit « ${calcule} » (désaccord au bord ${pc(d)})`);
+    detailRaccord = ` · raccord ${calcule} (désaccord ${pc(d)})`;
+  }
+  // 6. lecture : contraste |1 − 2f| (quantité), direction (orientation)
+  const l = lecture(fond);
+  let detailLecture;
+  if (fond.famille === 'orientation') {
+    if (l.mode !== 'direction' || 'contraste' in l || l.texte !== 'se lit par la direction') echec(`${fond.id} : la famille orientation n'affiche pas de contraste`);
+    // La moyenne des deux états est la même quand v = 1 transforme la
+    // partition sans en changer les couleurs (rotation, miroir).
+    if (fond.mode === 'rotation' || fond.mode === 'miroir') {
+      const cm = contrasteMesure(fond);
+      if (cm > 0.005) echec(`${fond.id} : contraste mesuré ${pc(cm)}, 0 attendu (${fond.mode})`);
+    }
+    detailLecture = l.texte;
+  } else {
+    const attendu = contrasteDe(fond.calcul.fraction);
+    const cm = contrasteMesure(fond);
+    if (l.mode !== 'contraste' || Math.abs(l.contraste - attendu) > 1e-12) echec(`${fond.id} : contraste affiché ${l.contraste}, |1 − 2f| = ${attendu}`);
+    if (Math.abs(cm - attendu) > 0.005) echec(`${fond.id} : contraste mesuré ${pc(cm)} ≠ |1 − 2f| = ${pc(attendu)}`);
+    if (/efface/i.test(JSON.stringify(l))) echec(`${fond.id} : « efface » ne s'écrit pas`);
+    if ((attendu < 0.15) !== (l.avertissement === 'plus de contraste à distance')) echec(`${fond.id} : avertissement mal posé`);
+    detailLecture = `${l.texte}${l.avertissement ? ` — ${l.avertissement}` : ''}`;
+    // 7. le code porte la vraie fraction arrondie
+    if (fond.type !== 'aplat') {
+      const vrai = pourcent(fraction(fond, 1024));
+      const porte = Number(/(\d{2})$/.exec(fond.id)[1]);
+      if (porte !== vrai) echec(`${fond.id} : le code porte ${porte} %, la fraction calculée arrondit à ${vrai} %`);
+    }
+  }
+  console.log(`${echecs.length === avant ? 'OK    ' : '      '}${fond.id.padEnd(9)} ${fond.famille.padEnd(11)} ${(fond.mode || '').padEnd(8)} masque ${motifs.length}/${motifs.length} · couverture ${vide === 0 ? 'totale' : 'INCOMPLÈTE'} · fraction ${pc(fr[2])} (écart ${(relatif * 100).toFixed(2)} %)${detailRaccord} · ${detailLecture}`);
 }
+for (const r of ['franc', 'inversé', 'aucun']) if (!raccordsVus.has(r)) echec(`raccord « ${r} » absent de la collection : le test 5 ne couvre pas les trois valeurs`);
+
+// Superpositions : 6 (contraste |1 − 2f|, f = couverture du glyphe).
+for (const s of collection.superpositions.values()) {
+  const l = lectureSuperposition(s);
+  const attendu = contrasteDe(s.calcul.couverture);
+  const cm = contrasteMesure(APLAT, s);
+  const avant = echecs.length;
+  if (Math.abs(l.contraste - attendu) > 1e-12) echec(`${s.id} : contraste affiché ${l.contraste}, |1 − 2f| = ${attendu}`);
+  if (Math.abs(cm - attendu) > 0.005) echec(`${s.id} : contraste mesuré ${pc(cm)} ≠ |1 − 2f| = ${pc(attendu)}`);
+  if ((attendu < 0.15) !== (l.avertissement === 'plus de contraste à distance')) echec(`${s.id} : avertissement mal posé`);
+  console.log(`${echecs.length === avant ? 'OK    ' : '      '}${s.id.padEnd(9)} ${s.forme.padEnd(8)} échelle ${s.echelle.toFixed(2)} · couverture ${pc(s.calcul.couverture)} (à l'échelle 1 : ${pc(s.calcul.couvertureUnite)}) · échelle à 50 % ${s.calcul.echelleMoitie === null ? 'inatteignable' : s.calcul.echelleMoitie.toFixed(3)} · ${l.texte}${l.avertissement ? ` — ${l.avertissement}` : ''}`);
+}
+
+// Assemblages : 1 à 3.
+for (const a of collection.assemblages) {
+  const avant = echecs.length;
+  masqueEtSymboles(a.id, a.fond, a.superposition);
+  if ([0, 1].some((v) => rasteriser(a.fond, v, 256, a.superposition).includes(255))) echec(`${a.id} : case non couverte`);
+  console.log(`${echecs.length === avant ? 'OK    ' : '      '}${a.id.padEnd(9)} assemblage · masque ${motifs.length}/${motifs.length} · deux symboles · couverture totale`);
+}
+
+// 8. décomposition sans ambiguïté.
+const identifiants = [...collection.fonds.keys(), ...collection.assemblages.map((a) => a.id)];
+for (const id of identifiants) {
+  let d;
+  try { d = decomposer(id); } catch (e) { echec(`${id} : ${e.message}`); continue; }
+  const fond = collection.fonds.get(d.fond);
+  const genreAttendu = fond.type === 'aplat' ? 'aplat' : fond.type === 'bandes' || fond.v0?.type === 'bandes' ? 'bandes' : fond.famille === 'orientation' ? 'orientation' : 'quantite';
+  if (fond.famille === 'quantite' && fond.type === 'bandes') {
+    if (d.genre !== 'quantite') echec(`${id} : lu comme ${d.genre}, c'est un fond quantité`);
+  } else if (d.genre !== genreAttendu) echec(`${id} : lu comme ${d.genre}, c'est ${genreAttendu}`);
+  if (d.mode !== null && d.mode !== fond.mode) echec(`${id} : le suffixe dit ${d.mode}, le fond est en ${fond.mode}`);
+  if (d.genre === 'orientation' || d.genre === 'quantite') {
+    const lettres = /^[A-Z]+/.exec(d.fond)[0];
+    if (lettres.length < 2) echec(`${id} : un fond en polygones a au moins deux lettres`);
+  }
+  if (d.superposition) {
+    if (!/^[A-Z]\d{2}$/.test(d.superposition)) echec(`${id} : une superposition a une seule lettre`);
+    if (d.glyphe !== collection.superpositions.get(d.superposition).forme) echec(`${id} : glyphe mal lu`);
+  }
+  if (/[MXN]$/.test(d.fond.replace(/^P$/, ''))) echec(`${id} : suffixe de mode en majuscule`);
+}
+// Ce qui doit être refusé.
+for (const faux of ['E95', 'R45', 'P+E95+R45', 'B3DX', 'B3+E5', 'CCEM', 'P+EE95', 'B3D+e95']) {
+  let refuse = false;
+  try { decomposer(faux); } catch { refuse = true; }
+  if (!refuse) echec(`« ${faux} » accepté, il devait être refusé`);
+}
+// Ce qui doit être lu, et comment.
+for (const [id, attendu] of [['B3m', { genre: 'bandes', mode: 'miroir' }], ['B3Dx', { genre: 'bandes', mode: 'echange', diagonale: true }],
+  ['B121Dn', { genre: 'bandes', mode: 'nature' }], ['P+E95', { genre: 'aplat', glyphe: 'etoile', echelle: 0.95 }],
+  ['CCE', { genre: 'orientation', mode: 'rotation' }], ['PCA12+R45', { genre: 'quantite', pourcent: 12, glyphe: 'rond' }]]) {
+  const d = decomposer(id);
+  for (const [k, v] of Object.entries(attendu)) if (d[k] !== v) echec(`« ${id} » : ${k} = ${d[k]}, attendu ${v}`);
+}
+console.log(`${identifiants.length} identifiants décomposés sans ambiguïté ; superpositions seules et suffixes en majuscule refusés.`);
 
 // ---------- C8 et C1 : rang et distance minimale des seize figures ----------
 function figure(f, grain) {
@@ -135,4 +252,4 @@ if (echecs.length) {
   console.error(`\n${echecs.length} échec(s).`);
   process.exit(1);
 }
-console.log(`\n${collection.size} fonds × ${motifs.length} motifs : masque inchangé, couverture totale, raccord, fraction stable ; codes C8 et C1 inchangés.`);
+console.log(`\n${collection.fonds.size} fonds, ${collection.superpositions.size} superpositions, ${collection.assemblages.length} assemblages × ${motifs.length} motifs : masque inchangé, couverture totale, fraction stable, raccord conforme au calcul, contraste |1 − 2f|, codes justes ; codes C8 et C1 inchangés.`);
