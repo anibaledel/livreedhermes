@@ -7,8 +7,9 @@ name: Fonds des cases conformes au calcul
 #     codes C8 / C1 inchangés ;
 #   - calculs_fonds.mjs : data/fonds/collection-v1.calculs.json (les valeurs
 #     que les pages reçoivent toutes faites) est à jour.
-# La lecture binaire du tricolore (verify_lecture_binaire.mjs) n'est pas
-# branchée tant que sa règle laisse des cas indéfinis.
+#   - verify_lecture_binaire.mjs : la lecture binaire des 256 motifs
+#     tricolores (tests 12 à 15 : formule unique, zéro cas indéfini, aire
+#     72 / 72, selles sans voisin jaune, cases coupées hors fond).
 
 on:
   push:
@@ -28,3 +29,4 @@ jobs:
           node-version: '20'
       - run: node tools/verify_fonds.mjs
       - run: node tools/calculs_fonds.mjs
+      - run: node tools/verify_lecture_binaire.mjs
