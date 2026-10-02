@@ -83,6 +83,10 @@ const browser = await chromium.launch({ executablePath });
 // bypassCSP : axe est injecté en script en ligne, que la CSP des pages de
 // paiement et de l'encodeur refuserait — à juste titre.
 const context = await browser.newContext({ bypassCSP: true, viewport: { width: 1280, height: 900 } });
+// Mesure d'audience : script vide, pour que le contrôle ne compte pas comme
+// une visite (voir check_pages_console.mjs).
+await context.route('https://static.cloudflareinsights.com/**',
+  (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
 let echecs = 0;
 for (const page of PAGES) {
   const p = await context.newPage();
