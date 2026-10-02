@@ -72,6 +72,7 @@ const PAGES = [
   { path: 'en/' },
   { path: 'en/articles/' },
   { path: 'en/works/' },
+  { path: 'en/about/' },
   { path: 'es/' },
   { path: 'th/' },
   { path: 'recherche.html', zone: '#recherche' },

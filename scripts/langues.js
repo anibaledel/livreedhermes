@@ -112,6 +112,18 @@ const ARTICLES_TRADUITS = [
   ['reminiscence-caillou-carre', 'reminiscence-pebble-square'],
   ['verticalite-damier-mosaique-echiquier', 'verticality-chequer-mosaic-chessboard'],
 ];
+// La page sur l'auteur : à propos (français), about (anglais, qui reprend
+// aussi brevets et dessins et modèles de profil.html).
+GROUPES.push({
+  nom: 'a-propos',
+  changefreq: 'monthly',
+  priority: '0.6',
+  rangee: true,
+  pages: [
+    ['fr', `${SITE}/a-propos.html`, 'a-propos.html'],
+    ['en', `${SITE}/en/about/`, 'en/about/index.html'],
+  ],
+});
 // La liste des dépôts (data/travaux.json, scripts/build-travaux.js).
 GROUPES.push({
   nom: 'travaux',
