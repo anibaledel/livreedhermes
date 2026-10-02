@@ -26,7 +26,7 @@
 // superpositions. Clavier : flèches pour parcourir, Entrée pour choisir,
 // Échap pour fermer.
 
-import { symbolesDe, lecture, contrasteDe, couvertureA, GLYPHES, SEUIL_CONTRASTE, APLAT, GRID } from './bicolore-fonds.js';
+import { symbolesDe, symbolesCoupesDe, hrefDeCase, lecture, contrasteDe, couvertureA, decomposer, GLYPHES, SEUIL_CONTRASTE, APLAT, GRID } from './bicolore-fonds.js';
 
 const TEXTES = {
   fr: {
@@ -34,7 +34,7 @@ const TEXTES = {
     groupes: ['Aplat', 'Bandes orthogonales', 'Bandes diagonales', 'Polygones — orientation', 'Fonds de quantité', 'Superpositions'],
     orientation: 'orientation', quantite: 'quantité', raccord: 'raccord',
     modes: { rotation: 'rotation', miroir: 'miroir', echange: 'échange', nature: 'nature' },
-    identique: 'identique à', contraste: 'contraste à distance', avert: 'plus de contraste à distance', direction: 'se lit par la direction',
+    dp: ' : ', identique: 'identique à', contraste: 'contraste à distance', avert: 'plus de contraste à distance', direction: 'se lit par la direction',
     echelle: 'échelle', sans: 'sans glyphe', sansNom: 'aucune superposition', fraction: 'fraction',
     glyphes: { carre: 'carré', rond: 'rond', losange: 'losange', croix: 'croix', etoile: 'étoile' },
     nombres: ['', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf'],
@@ -47,7 +47,7 @@ const TEXTES = {
     groupes: ['Solid', 'Orthogonal bands', 'Diagonal bands', 'Polygons — orientation', 'Quantity grounds', 'Overlays'],
     orientation: 'orientation', quantite: 'quantity', raccord: 'join',
     modes: { rotation: 'rotation', miroir: 'mirror', echange: 'exchange', nature: 'nature' },
-    identique: 'identical to', contraste: 'contrast at a distance', avert: 'no more contrast at a distance', direction: 'reads by direction',
+    dp: ': ', identique: 'identical to', contraste: 'contrast at a distance', avert: 'no more contrast at a distance', direction: 'reads by direction',
     echelle: 'scale', sans: 'none', sansNom: 'no overlay', fraction: 'fraction',
     glyphes: { carre: 'square', rond: 'circle', losange: 'lozenge', croix: 'cross', etoile: 'star' },
     nombres: ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'],
@@ -90,7 +90,7 @@ export function metaDuFond(f, lang = 'fr') {
     return { texte: m.join(' · ') + identite, avertissement: null };
   }
   const l = lecture(f);
-  return { texte: `${T.quantite} · ${T.contraste} : ${pct(l.contraste)}${identite}`, avertissement: l.avertissement ? T.avert : null };
+  return { texte: `${T.quantite} · ${T.contraste}${T.dp}${pct(l.contraste)}${identite}`, avertissement: l.avertissement ? T.avert : null };
 }
 
 // Une superposition à l'échelle s : sa couverture et son contraste sur
@@ -106,22 +106,47 @@ export function superposition(forme, echelle, collection) {
 export function metaDeSuperposition(sup, lang = 'fr') {
   const T = textes(lang);
   const c = sup.calcul.contraste;
-  return { texte: `${T.glyphes[sup.forme]} · ${T.echelle} ${echelleTexte(sup.echelle, lang)} · ${T.contraste} : ${pct(c)}`, avertissement: c < SEUIL_CONTRASTE ? T.avert : null };
+  return { texte: `${T.glyphes[sup.forme]} · ${T.echelle} ${echelleTexte(sup.echelle, lang)} · ${T.contraste}${T.dp}${pct(c)}`, avertissement: c < SEUIL_CONTRASTE ? T.avert : null };
 }
 
+// La valeur d'une case pour l'équilibre de la fenêtre : son bit, ou la
+// part de bit 1 d'une case coupée (lecture binaire d'un motif tricolore).
+const valeurDe = (k) => (k !== null && typeof k === 'object'
+  ? (k.type === 'pleine' ? k.bit : k.triangles.reduce((a, t) => a + t.bit, 0) / k.triangles.length)
+  : (k === 1 || k === '1' ? 1 : 0));
+
 // La fenêtre de 4 × 4 cases (sur le tore : le motif se pave) dont la part
-// de bits 1 est la plus proche de la moitié ; à égalité, la première dans
+// de bit 1 est la plus proche de la moitié ; à égalité, la première dans
 // l'ordre de lecture. La même pour toutes les lignes.
 export function fenetreEquilibree(mask) {
-  const bit = (r, c) => (mask[((r + GRID) % GRID) * GRID + ((c + GRID) % GRID)] === 1 || mask[((r + GRID) % GRID) * GRID + ((c + GRID) % GRID)] === '1' ? 1 : 0);
+  const val = (r, c) => valeurDe(mask[((r + GRID) % GRID) * GRID + ((c + GRID) % GRID)]);
   let mieux = null;
   for (let r = 0; r < GRID; r++) for (let c = 0; c < GRID; c++) {
     let un = 0;
-    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) un += bit(r + i, c + j);
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) un += val(r + i, c + j);
     const ecart = Math.abs(un - 8);
-    if (!mieux || ecart < mieux.ecart) mieux = { r, c, ecart, un };
+    if (!mieux || ecart < mieux.ecart - 1e-9) mieux = { r, c, ecart, un };
   }
   return mieux;
+}
+
+// L'état du sélecteur dans l'URL, le même sur toutes les pages :
+// ?fond=B3D&sup=E95 (l'aplat et l'absence de glyphe ne s'écrivent pas).
+export function etatDeLUrl(fondsConnus = null) {
+  const p = new URLSearchParams(location.search);
+  const etat = { fond: 'P', glyphe: null, echelle: 0.95 };
+  try { if (p.get('fond')) etat.fond = decomposer(p.get('fond')).fond; } catch { /* code illisible : l'aplat */ }
+  if (fondsConnus && !fondsConnus.has(etat.fond)) etat.fond = 'P';
+  const m = /^([A-Z])(\d{2})$/.exec(p.get('sup') || '');
+  if (m && GLYPHES[m[1]]) { etat.glyphe = GLYPHES[m[1]]; etat.echelle = Number(m[2]) / 100; }
+  return etat;
+}
+export function etatDansLUrl(etat) {
+  const p = new URLSearchParams(location.search);
+  if (etat.fond && etat.fond !== 'P') p.set('fond', etat.fond); else p.delete('fond');
+  if (etat.superposition) p.set('sup', etat.superposition); else p.delete('sup');
+  const q = p.toString();
+  history.replaceState(null, '', (q ? '?' + q : location.pathname) + location.hash);
 }
 
 const STYLE = `
@@ -199,7 +224,7 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
     </div>
     <label class="sf-echelle"><span>${esc(T.echelle)}</span><input type="range" min="0.10" max="0.99" step="0.01"><output></output></label>
     <p class="sf-note" hidden></p>
-    <svg class="sf-defs" aria-hidden="true" focusable="false"><defs class="sf-defs-fonds"></defs><defs class="sf-defs-glyphes"></defs></svg>`;
+    <svg class="sf-defs" aria-hidden="true" focusable="false"><defs class="sf-defs-fonds"></defs><defs class="sf-defs-glyphes"></defs><defs class="sf-defs-coupes"></defs></svg>`;
   const bouton = racine.querySelector('.sf-bouton');
   const liste = racine.querySelector('.sf-liste');
   const curseur = racine.querySelector('.sf-echelle input');
@@ -207,6 +232,8 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   const note = racine.querySelector('.sf-note');
   const defsFonds = racine.querySelector('.sf-defs-fonds');
   const defsGlyphes = racine.querySelector('.sf-defs-glyphes');
+  const defsCoupes = racine.querySelector('.sf-defs-coupes');
+  const symbolesCoupes = () => { defsCoupes.innerHTML = symbolesCoupesDe(mask, pal, `${uid}-`); };
   const lignes = new Map(options.map((o) => [idOption(o), { o, el: racine.querySelector(`#${CSS.escape(idOption(o))}`) }]));
   let actifId = null;
 
@@ -214,12 +241,12 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   const fondCourant = () => collection.fonds.get(fondId);
 
   // Les seize <use> d'une fenêtre, pour un fond déjà en symboles.
+  // (une case coupée de la lecture binaire garde ses triangles, sans fond)
   const usesFenetre = (ref) => {
     let u = '';
     for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) {
       const r = (fen.r + i) % GRID, c = (fen.c + j) % GRID;
-      const v = mask[r * GRID + c] === 1 || mask[r * GRID + c] === '1' ? 1 : 0;
-      u += `<use href="#${ref}-${v}" x="${j}" y="${i}" width="1" height="1"/>`;
+      u += `<use href="#${hrefDeCase(mask[r * GRID + c], ref, `${uid}-`)}" x="${j}" y="${i}" width="1" height="1"/>`;
     }
     return u;
   };
@@ -344,9 +371,11 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
   curseur.addEventListener('input', () => { echelle = Number(curseur.value); changer(); });
 
   const api = {
-    // Le motif en cours (144 bits, lecture C1) : les échantillons le montrent.
-    setMasque(m) { mask = m; fen = fenetreEquilibree(mask); return redessinerEchantillons(); },
-    setPalette(p) { pal = p.slice(); symboles(); return redessiner(true); },
+    // Le motif en cours : 144 bits (lecture C1), ou les 144 cases de la
+    // lecture binaire d'un motif tricolore (pleines, coupées). Les
+    // échantillons le montrent.
+    setMasque(m) { mask = m; fen = fenetreEquilibree(mask); symbolesCoupes(); return redessinerEchantillons(); },
+    setPalette(p) { pal = p.slice(); symboles(); symbolesCoupes(); return redessiner(true); },
     setActif(oui) {
       actif = oui; bouton.disabled = !oui; note.hidden = oui; note.textContent = oui ? '' : T.inactif;
       if (!oui) fermer(false);
@@ -358,6 +387,7 @@ export function creerSelecteurFonds(racine, { collection, glyphes, palette, lang
       return { fond: fondId, glyphe: forme, echelle, superposition: sup ? sup.id : null, code: sup ? `${fondId}+${sup.id}` : fondId, objetFond: fondCourant(), objetSuperposition: sup };
     },
     fenetre() { return { ligne: fen.r, colonne: fen.c, uns: fen.un }; },
+    masque() { return mask; },
     // Le redessin complet (symboles compris), mesuré : racine.dataset.redessinMs.
     redessinComplet() { const t0 = performance.now(); symboles(); redessiner(); return mesure(t0, 'redessinMs'); },
   };
@@ -378,7 +408,7 @@ export function descriptionEtat(etat, lang = 'fr') {
   morceaux.push(`${fam} · ${T.modes[f.mode] || f.mode}`);
   morceaux.push(`${T.fraction} ${pct1(f.calcul.fraction, lang)}`);
   if (f.calcul.famille === 'orientation') morceaux.push(T.direction);
-  else { const l = lecture(f); morceaux.push(`${T.contraste} : ${pct(l.contraste)}${l.avertissement ? ` · <span class="sf-av">${esc(T.avert)}</span>` : ''}`); }
+  else { const l = lecture(f); morceaux.push(`${T.contraste}${T.dp}${pct(l.contraste)}${l.avertissement ? ` · <span class="sf-av">${esc(T.avert)}</span>` : ''}`); }
   if (f.calcul.raccord) morceaux.push(`${T.raccord} ${RACCORDS[lang] ? RACCORDS[lang][f.calcul.raccord] : f.calcul.raccord}`);
   if (sup) { const m = metaDeSuperposition(sup, lang); morceaux.push(`+ ${esc(m.texte)}${m.avertissement ? ` · <span class="sf-av">${esc(m.avertissement)}</span>` : ''}`); }
   return morceaux.join(' — ');

@@ -146,8 +146,8 @@ import {
   nomAccord, demiDecalageStatus, mutantDe, disponiblePourGrain,
   ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX, doubleAccord, RACINES_FIXES,
 } from './assets/bicolore-axes.js';
-import { chargerCollection, motifSvg, decomposer, GLYPHES } from './assets/bicolore-fonds.js';
-import { creerSelecteurFonds, descriptionEtat } from './assets/selecteur-fonds.js';
+import { chargerCollection, motifSvg } from './assets/bicolore-fonds.js';
+import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './assets/selecteur-fonds.js';
 
 // ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir docs/i18n/i18n_todo_creation-bicolore-v2.md) ----------
 const LANGS = ['fr', 'en', 'es', 'th'];
@@ -206,21 +206,6 @@ const PALETTE = ['#f2f2f0', '#e0261b'];
 // L'aplat P reste le défaut et le rendu de référence ; les fonds se posent
 // sur la lecture C1 (un bit par case). L'état part dans l'URL : ?fond=B3D&sup=E95.
 let SELECTEUR = null;
-function etatFondDeLUrl() {
-  const p = new URLSearchParams(location.search);
-  const etat = { fond: 'P', glyphe: null, echelle: 0.95 };
-  try { if (p.get('fond')) etat.fond = decomposer(p.get('fond')).fond; } catch { /* code illisible : l'aplat */ }
-  const m = /^([A-Z])(\d{2})$/.exec(p.get('sup') || '');
-  if (m && GLYPHES[m[1]]) { etat.glyphe = GLYPHES[m[1]]; etat.echelle = Number(m[2]) / 100; }
-  return etat;
-}
-function etatFondDansLUrl(etat) {
-  const p = new URLSearchParams(location.search);
-  if (etat.fond && etat.fond !== 'P') p.set('fond', etat.fond); else p.delete('fond');
-  if (etat.superposition) p.set('sup', etat.superposition); else p.delete('sup');
-  const q = p.toString();
-  history.replaceState(null, '', q ? '?' + q : location.pathname);
-}
 
 function angleDe(id) {
   if (id.startsWith('L')) return Number(id.slice(1));
@@ -405,7 +390,7 @@ Promise.all([
   fetch('data/fonds/collection-v1.calculs.json').then(r => r.json()),
 ]).then(([catalogue, generateursV2, collectionJson, calculs]) => {
   const collection = chargerCollection(collectionJson, { calculs });
-  const etatInitial = etatFondDeLUrl();
+  const etatInitial = etatDeLUrl(collection.fonds);
   // Un fond dans l'URL se pose en C1 : la page s'ouvre sur ce grain.
   if (etatInitial.fond !== 'P' || etatInitial.glyphe) {
     grain = 'C1';
@@ -413,7 +398,7 @@ Promise.all([
   }
   SELECTEUR = creerSelecteurFonds(document.getElementById('selecteurFonds'), {
     collection, glyphes: calculs.glyphes, palette: PALETTE, lang: LANG === 'en' ? 'en' : 'fr', etat: etatInitial,
-    onChange: (etat) => { etatFondDansLUrl(etat); renderAll(); },
+    onChange: (etat) => { etatDansLUrl(etat); renderAll(); },
   });
   SELECTEUR.setActif(grain === 'C1');
   window.selecteurFonds = SELECTEUR; // pour la vérification sur le site (redessinComplet(), fenetre())

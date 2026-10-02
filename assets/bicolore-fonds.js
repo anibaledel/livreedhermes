@@ -635,8 +635,19 @@ function symbole(id, r, palette, sup, v) {
   // La superposition après le fond, jamais l'inverse, dans la couleur
   // inverse de la case.
   if (sup) corps.push(`<polygon fill="${palette[1 - v]}" points="${glyphe(sup).map(([x, y]) => `${nombre(x)},${nombre(y)}`).join(' ')}"/>`);
-  return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps.join('')}</symbol>`;
+  return enveloppe(id, corps.join(''));
 }
+
+// Le symbole d'une case, qui DÉBORDE de 1,5 % sur chaque bord : deux cases
+// voisines se recouvrent d'un trait, et le fond de la page ne passe jamais
+// entre elles (sans ce recouvrement, l'anticrénelage de deux bords communs
+// laisse un liseré dès que la case ne tombe pas sur un nombre entier de
+// pixels — à l'écran, presque toujours). La case posée ensuite recouvre le
+// débord de la précédente ; le dessin n'en est déplacé que de 1,5 % d'une
+// case au plus, au bord.
+const DEBORD = 0.015;
+const enveloppe = (id, corps) => `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none" overflow="visible">`
+  + `<g transform="matrix(${1 + 2 * DEBORD} 0 0 ${1 + 2 * DEBORD} ${-DEBORD} ${-DEBORD})">${corps}</g></symbol>`;
 
 // Les deux symboles d'un fond (avec sa superposition facultative) :
 // { ref, defs }. Le symbole de valeur v s'appelle `${ref}-${v}`. Les
@@ -658,8 +669,9 @@ export function symbolesDe(fond, palette, { prefixe = '', superposition = null }
 // triangles.
 const cleCoupe = (k) => (k.type === 'quatre' ? 'q' : k.diagonale === '/' ? 'm' : 'd') + k.triangles.map((t) => t.bit).join('');
 function symboleCoupe(id, k, palette) {
-  const corps = k.triangles.map((t) => `<polygon fill="${palette[t.bit]}" points="${t.points.map(([x, y]) => `${x},${y}`).join(' ')}"/>`).join('');
-  return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps}</symbol>`;
+  const corps = `<rect width="1" height="1" fill="${palette[k.triangles[0].bit]}"/>`
+    + k.triangles.slice(1).map((t) => `<polygon fill="${palette[t.bit]}" points="${t.points.map(([x, y]) => `${x},${y}`).join(' ')}"/>`).join('');
+  return enveloppe(id, corps);
 }
 
 // mask : 144 cases (lecture C1), Uint8Array|Array|string de bits — ou, pour
@@ -668,28 +680,103 @@ function symboleCoupe(id, k, palette) {
 // couleurs [bit 0, bit 1]. Rend le SVG du motif dans ce fond, avec une
 // superposition facultative (posée sur les cases pleines seulement).
 export function motifSvg(mask, palette, fond, { size = 864, prefixe = '', superposition = null } = {}) {
+  const { ref, defs } = symbolesDe(fond, palette, { prefixe, superposition });
+  const { uses, coupes } = casesEnUses(mask, ref, palette, prefixe, size / GRID);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n`
+    + `<defs>${defs}${coupes}</defs>\n`
+    + uses.join('\n') + '\n</svg>\n';
+}
+
+// Le symbole qu'une case utilise : `${ref}-0|1` pour une case pleine (ou un
+// bit), un symbole de coupe (sans fond) pour une case coupée.
+export function hrefDeCase(k, ref, prefixe = '') {
+  if (k !== null && typeof k === 'object') {
+    if (k.type === 'pleine') return `${ref}-${k.bit ? 1 : 0}`;
+    if (k.type === 'coupee' || k.type === 'quatre') return `${prefixe}coupe-${cleCoupe(k)}`.replace(/[^A-Za-z0-9_-]/g, '_');
+    throw new Error(`case « ${k.type} » : elle ne se rend pas (lecture indéfinie)`);
+  }
+  return `${ref}-${k === 1 || k === '1' ? 1 : 0}`;
+}
+
+// Les symboles de coupe dont un masque a besoin (ne dépendent que de la
+// palette, jamais du fond).
+export function symbolesCoupesDe(mask, palette, prefixe = '') {
+  const coupes = new Map();
+  for (const k of mask) {
+    if (k !== null && typeof k === 'object' && (k.type === 'coupee' || k.type === 'quatre')) {
+      const href = hrefDeCase(k, '', prefixe);
+      if (!coupes.has(href)) coupes.set(href, symboleCoupe(href, k, palette));
+    }
+  }
+  return [...coupes.values()].join('');
+}
+
+// Les 144 <use> d'une cellule, cases de côté c.
+function casesEnUses(mask, ref, palette, prefixe, c) {
   const n = GRID * GRID;
   if (mask.length !== n) throw new Error(`masque de ${mask.length} bits, ${n} attendus (lecture C1)`);
-  const c = size / GRID;
-  const { ref, defs } = symbolesDe(fond, palette, { prefixe, superposition });
-  const coupes = new Map();
   const uses = [];
   for (let i = 0; i < n; i++) {
-    const k = mask[i];
-    let href;
-    if (k !== null && typeof k === 'object') {
-      if (k.type === 'pleine') href = `${ref}-${k.bit ? 1 : 0}`;
-      else if (k.type === 'coupee' || k.type === 'quatre') {
-        href = `${prefixe}coupe-${cleCoupe(k)}`.replace(/[^A-Za-z0-9_-]/g, '_');
-        if (!coupes.has(href)) coupes.set(href, symboleCoupe(href, k, palette));
-      } else throw new Error(`case ${i} : « ${k.type} » ne se rend pas (lecture indéfinie)`);
-    } else href = `${ref}-${k === 1 || k === '1' ? 1 : 0}`;
     const x = (i % GRID) * c, y = Math.floor(i / GRID) * c;
-    uses.push(`<use href="#${href}" x="${nombre(x)}" y="${nombre(y)}" width="${nombre(c)}" height="${nombre(c)}"/>`);
+    uses.push(`<use href="#${hrefDeCase(mask[i], ref, prefixe)}" x="${nombre(x)}" y="${nombre(y)}" width="${nombre(c)}" height="${nombre(c)}"/>`);
   }
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n`
-    + `<defs>${defs}${[...coupes.values()].join('')}</defs>\n`
-    + uses.join('\n') + '\n</svg>\n';
+  return { uses, coupes: symbolesCoupesDe(mask, palette, prefixe) };
+}
+
+// ---------- pavage : une sortie, toutes les tailles ----------
+//
+// Le pavage du motif : la cellule (144 <use>) devient elle-même un symbole,
+// posé `colonnes` × `lignes` fois. Une seule fonction pour la page de motif,
+// l'image Pinterest et le fond d'écran : une seule sortie, aucun second
+// pipeline. Le SVG n'a pas de résolution ; `largeur` × `hauteur` ne fixent
+// que sa taille d'affichage (ou de rastérisation). `cadre` [l, h] recadre la
+// vue (le fond d'écran 16:9 dans un pavage plus haut) ; le recadrage garde
+// le coin haut-gauche, et `slice` couvre toute autre proportion d'écran.
+//
+// `pxParCase` (avec largeur × hauteur) : chaque case fait un nombre ENTIER
+// de pixels, les limites de cases tombent sur des limites de pixels, et deux
+// cases voisines ne laissent aucun liseré d'anticrénelage entre elles. Le
+// pavage compte alors assez de cellules pour couvrir l'image, recadrée en
+// haut à gauche.
+export function pavageSvg(mask, palette, fond, { colonnes = 2, lignes = 3, largeur = null, hauteur = null, pxParCase = null, cadre = null, prefixe = '', superposition = null } = {}) {
+  if (pxParCase) {
+    if (!largeur || !hauteur || !Number.isInteger(pxParCase)) throw new Error('pxParCase : un entier, avec largeur et hauteur');
+    cadre = [largeur / pxParCase, hauteur / pxParCase];
+    colonnes = Math.ceil(cadre[0] / GRID - 1e-9); lignes = Math.ceil(cadre[1] / GRID - 1e-9);
+  }
+  const { ref, defs } = symbolesDe(fond, palette, { prefixe, superposition });
+  const { uses, coupes } = casesEnUses(mask, ref, palette, prefixe, 1);
+  const L = GRID * colonnes, H = GRID * lignes;
+  const [vl, vh] = cadre || [L, H];
+  const tuiles = [];
+  for (let r = 0; r < lignes; r++) for (let c = 0; c < colonnes; c++) tuiles.push(`<use href="#${ref}-cellule" x="${c * GRID}" y="${r * GRID}" width="${GRID}" height="${GRID}"/>`);
+  const taille = largeur && hauteur ? ` width="${largeur}" height="${hauteur}"` : ' width="100%" height="100%"';
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${nombre(vl)} ${nombre(vh)}"${taille} preserveAspectRatio="xMidYMid slice">\n`
+    + `<defs>${defs}${coupes}<symbol id="${ref}-cellule" viewBox="0 0 ${GRID} ${GRID}" overflow="visible">${uses.join('')}</symbol></defs>\n`
+    + tuiles.join('\n') + '\n</svg>\n';
+}
+
+// L'image d'une collection Pinterest : portrait 1000 × 1500 (le 2:3 de
+// Pinterest), environ 6 × 9 cellules comme l'export du corpus
+// (scripts/export-motifs-corpus-256.js) — mais 14 pixels pleins par case
+// (6 × 12 × 14 = 1008 ≥ 1000), pour qu'aucun liseré ne sépare deux cases.
+export const FORMAT_PINTEREST = Object.freeze({ largeur: 1000, hauteur: 1500, pxParCase: 14 });
+export function imagePinterestSvg(mask, palette, fond, { prefixe = '', superposition = null } = {}) {
+  return pavageSvg(mask, palette, fond, { ...FORMAT_PINTEREST, prefixe, superposition });
+}
+
+// Le fond d'écran : `colonnes` cellules en largeur, au rapport `rapport`
+// (16:9 par défaut) ; un seul SVG, sans résolution, pour 1920 × 1080,
+// 2560 × 1440 et 4K (preserveAspectRatio slice : il couvre aussi tout
+// autre écran). Rastérisé à une taille donnée, la case prend un nombre
+// entier de pixels (le plus proche de la densité demandée).
+export function fondEcranSvg(mask, palette, fond, { colonnes = 8, rapport = [16, 9], largeur = null, hauteur = null, prefixe = '', superposition = null } = {}) {
+  if (largeur && hauteur) {
+    const pxParCase = Math.max(1, Math.round(largeur / (GRID * colonnes)));
+    return pavageSvg(mask, palette, fond, { largeur, hauteur, pxParCase, prefixe, superposition });
+  }
+  const vl = GRID * colonnes, vh = (vl * rapport[1]) / rapport[0];
+  return pavageSvg(mask, palette, fond, { colonnes, lignes: Math.ceil(vh / GRID), cadre: [vl, vh], prefixe, superposition });
 }
 
 // Relit dans un SVG produit par motifSvg le bit que chaque case a reçu

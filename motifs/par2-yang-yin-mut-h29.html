@@ -73,6 +73,13 @@
   .render-box .render-label{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); margin-bottom:10px; }
   .render-box .dl-caption{ font-size:10px; letter-spacing:.04em; color:var(--dim); opacity:.75; margin-top:6px; }
 
+  .vue-fond{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
+  .vue-fond h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
+  .vue-fond .vf-intro, .vue-fond .vf-description{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .vue-fond .vf-selecteur{ max-width:470px; margin:0 auto 20px; }
+  .vue-fond .vf-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
+  .vue-fond .render-box > div > svg{ width:100%; height:auto; display:block; margin:0 auto 10px; }
+  .vue-fond .sf-av{ color:var(--red); }
   .equiv-section{ margin:36px 0; padding-top:24px; border-top:1px solid var(--line); }
   .equiv-section h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
   .equiv-section p{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(13.5px + var(--fs-bump)); line-height:1.7; text-align:center; }
@@ -190,6 +197,8 @@
     </div>
   </div>
 </div>
+
+<section class="views-block vue-fond" id="vueFond"></section>
 
 <section class="lecture-section">
   <h2>Reading the cell, line by line</h2>
@@ -1140,6 +1149,20 @@
   redrawTri();
   redrawMono();
 })();
+</script>
+<script type="module">
+// La vue « fond de case » : lecture binaire du motif de cette page, sélecteur
+// de fond (le composant commun, assets/selecteur-fonds.js) et rendus du
+// moteur — voir assets/vue-fond-motif.js. Couleurs : celles du tricolore
+// (bit 1 = couleur 1, bit 0 = couleur 2).
+import { monterVueFond } from '../assets/vue-fond-motif.js';
+const DATA = JSON.parse(document.getElementById('motifDataJSON').textContent);
+const c1 = document.getElementById('triColor1'), c2 = document.getElementById('triColor2');
+const vue = await monterVueFond(document.getElementById('vueFond'), { grille: DATA.grille_polarite_yang, nom: 'par2-yang-yin-mut-h29', slug: 'par2-yang-yin-mut-h29', lang: 'en', palette: () => [c2.value, c1.value] });
+if (vue) {
+  for (const el of [c1, c2]) el.addEventListener('input', () => vue.setPalette());
+  document.getElementById('btnResetTri').addEventListener('click', () => vue.setPalette());
+}
 </script>
 <script src="../assets/share-widget.js"></script>
 <script src="../assets/soutien-gate.js"></script>
