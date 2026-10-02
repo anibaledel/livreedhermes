@@ -64,6 +64,7 @@ const PAGES = [
   'es/buscar/',
   'th/search/',
   'en/articles/',
+  'en/works/',
   'en/articles/hanuman-and-harlequin.html',
   'en/articles/axes-are-nodal-lines.html',
   'en/articles/verticality-chequer-mosaic-chessboard.html',

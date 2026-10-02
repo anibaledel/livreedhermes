@@ -92,12 +92,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/travaux.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/soutenir.html</loc>
     <lastmod>2026-10-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -246,6 +240,24 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/travaux.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/works/</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/articles.html</loc>

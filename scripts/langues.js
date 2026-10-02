@@ -112,6 +112,17 @@ const ARTICLES_TRADUITS = [
   ['reminiscence-caillou-carre', 'reminiscence-pebble-square'],
   ['verticalite-damier-mosaique-echiquier', 'verticality-chequer-mosaic-chessboard'],
 ];
+// La liste des dépôts (data/travaux.json, scripts/build-travaux.js).
+GROUPES.push({
+  nom: 'travaux',
+  changefreq: 'weekly',
+  priority: '0.6',
+  rangee: true,
+  pages: [
+    ['fr', `${SITE}/travaux.html`, 'travaux.html'],
+    ['en', `${SITE}/en/works/`, 'en/works/index.html'],
+  ],
+});
 // La liste des articles elle-même : articles.html et sa jumelle anglaise.
 GROUPES.push({
   nom: 'articles',

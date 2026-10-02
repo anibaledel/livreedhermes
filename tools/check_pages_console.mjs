@@ -71,6 +71,7 @@ const PAGES = [
   // ── accueils traduits et pages de recherche (zone : l'interface Pagefind) ──
   { path: 'en/' },
   { path: 'en/articles/' },
+  { path: 'en/works/' },
   { path: 'es/' },
   { path: 'th/' },
   { path: 'recherche.html', zone: '#recherche' },

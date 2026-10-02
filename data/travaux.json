@@ -1,0 +1,213 @@
+{
+  "_doc": "Source unique des dépôts d'Anibal Amiot (Zenodo). scripts/build-travaux.js en engendre la liste et le JSON-LD de travaux.html et de en/works/, les références de CITATION.cff et la section des dépôts de llms.txt ; la CI (check-travaux.yml) échoue si ces fichiers ne correspondent plus à ces données. Titres : recopiés tels quels des fiches Zenodo, sauf quand titreZenodo garde la forme exacte de la fiche (titre à corriger sur Zenodo). doi = DOI « toutes versions » (concept), à citer ; versionDoi = DOI de la dernière version connue ; premiere = date de la première version quand elle est connue. Pour ajouter un dépôt : une entrée ici, puis node scripts/build-travaux.js.",
+  "sections": [
+    {
+      "id": "livre",
+      "fr": "Le livre",
+      "en": "The book"
+    },
+    {
+      "id": "prepublications",
+      "fr": "Prépublications et notes",
+      "en": "Preprints and notes"
+    },
+    {
+      "id": "donnees",
+      "fr": "Données et code",
+      "en": "Data and code"
+    },
+    {
+      "id": "rapports",
+      "fr": "Comptes rendus",
+      "en": "Reports"
+    }
+  ],
+  "depots": [
+    {
+      "section": "livre",
+      "type": "book",
+      "titre": "La Livrée d'Hermès",
+      "doi": "10.5281/zenodo.22722485",
+      "versionDoi": "10.5281/zenodo.22722486",
+      "date": "2026-09-12",
+      "langues": [
+        "fr",
+        "en",
+        "es",
+        "th"
+      ],
+      "licence": "CC BY-NC 4.0",
+      "fr": "Traité d'arithmogéométrie en 111 planches, en quatre langues : la construction des carrés magiques par la loi du gnomon et leur transcription en motifs pour le métier Jacquard.",
+      "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom."
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
+      "doi": "10.5281/zenodo.23102264",
+      "version": "1.0.0",
+      "versionDoi": "10.5281/zenodo.23102265",
+      "date": "2026-10-02",
+      "premiere": "2026-10-02",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "cite": [
+        "10.5281/zenodo.23088601"
+      ],
+      "fr": "Prépublication de travail : pour toute hauteur h assez grande, la colonne des coefficients qui comptent les arbres binaires plans de hauteur exacte h est strictement log-concave sur tout son intérieur. Confirmé par calcul exact jusqu'à h = 16 ; pas encore relu par un spécialiste.",
+      "en": "Working preprint: for every sufficiently large height h, the coefficient column counting plane binary trees of exact height h is strictly log-concave on its whole interior. Confirmed by exact computation up to h = 16; not yet read by a specialist."
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
+      "doi": "10.5281/zenodo.23088601",
+      "version": "1.1.1",
+      "versionDoi": "10.5281/zenodo.23102045",
+      "date": "2026-10-02",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "cite": [
+        "10.5281/zenodo.22991226",
+        "10.5281/zenodo.22965031"
+      ],
+      "fr": "Quatre papiers de travail sur la multiplication par 2 dans Z/nZ, x identifié à −x, pour tout n : structure des cycles, synchronisation 2-adique, relèvement 2-adique, et dénombrement des sous-ensembles stables par doublement. C'est le doublement qui engendre le vocabulaire d'axes du livre (n = 12).",
+      "en": "Four working papers on multiplication by 2 in Z/nZ after identifying x with −x, for every n: cycle structure, 2-adic synchronization, 2-adic lifting, and the enumeration of subsets closed under doubling. This doubling generates the vocabulary of axes of the book (n = 12)."
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+      "doi": "10.5281/zenodo.22986529",
+      "version": "1.2.1",
+      "versionDoi": "10.5281/zenodo.23101928",
+      "date": "2026-10-02",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "cite": [
+        "10.5281/zenodo.22965031",
+        "10.5281/zenodo.22862110",
+        "10.5281/zenodo.23088601"
+      ],
+      "anterieur": {
+        "doi": "10.5281/zenodo.22966839",
+        "fr": "première fiche, isolée, du 26 septembre",
+        "en": "first, standalone record of September 26"
+      },
+      "fr": "Les trois descriptions du système de motifs (axes, images du métier, lignes de niveau d'un mode propre de plaque carrée) présentent une seule structure finie, vérifiée exhaustivement sur les soixante images publiées.",
+      "en": "The three descriptions of the pattern system (axes, loom images, level sets of a square-plate eigenmode) present one finite structure, checked exhaustively on the sixty published images."
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+      "doi": "10.5281/zenodo.22965031",
+      "version": "V.3",
+      "versionDoi": "10.5281/zenodo.23101285",
+      "date": "2026-10-02",
+      "premiere": "2026-09-25",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "fr": "Le vocabulaire d'axes engendré par un doublement inverse (note [A]), et son identification aux lignes de niveau d'un mode propre de plaque carrée (note [P]).",
+      "en": "The vocabulary of axes generated by an inverse doubling (note [A]), and its identification with the level sets of a square-plate eigenmode (note [P])."
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "Parity Figures as Moiré: What Is Exact and What Is Not",
+      "doi": "10.5281/zenodo.22967585",
+      "version": "1.0.1",
+      "date": "2026-09-27",
+      "premiere": "2026-09-25",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "cite": [
+        "10.5281/zenodo.22965031"
+      ],
+      "fr": "Où la règle de parité se place dans la théorie du moiré, et ce qui y est faux quand on le dit vite.",
+      "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly."
+    },
+    {
+      "section": "donnees",
+      "type": "dataset",
+      "titre": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
+      "doi": "10.5281/zenodo.22991226",
+      "version": "1.0",
+      "versionDoi": "10.5281/zenodo.22991227",
+      "date": "2026-09-27",
+      "premiere": "2026-09-27",
+      "langues": [
+        "en"
+      ],
+      "licence": "CC BY 4.0",
+      "cite": [
+        "10.5281/zenodo.22965031"
+      ],
+      "fr": "Les termes P_n(1) pour n = 1 à 200 et le programme qui les calcule : le nombre de sous-ensembles de Z/nZ stables par négation et par doublement.",
+      "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling.",
+      "titreZenodo": "OEIS A400466 — number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program"
+    },
+    {
+      "section": "donnees",
+      "type": "software",
+      "titre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
+      "doi": "10.5281/zenodo.22862110",
+      "version": "v2",
+      "versionDoi": "10.5281/zenodo.22967302",
+      "date": "2026-09-25",
+      "langues": [
+        "fr"
+      ],
+      "fr": "Données et scripts de l'article sur les grilles 12 × 12, soumis au Journal of Mathematics and the Arts.",
+      "en": "Data and scripts of the paper on 12 × 12 grids, submitted to the Journal of Mathematics and the Arts.",
+      "titreZenodo": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids"
+    },
+    {
+      "section": "donnees",
+      "type": "software",
+      "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
+      "doi": "10.5281/zenodo.22866061",
+      "version": "3.0",
+      "versionDoi": "10.5281/zenodo.22978066",
+      "date": "2026-09-26",
+      "langues": [
+        "fr"
+      ],
+      "fr": "Scripts et données de l'article sur la croix ansée, soumis à Mathematics Magazine : les 256 carrés magiques d'ordre 6, les 64 assemblages d'ordre 12 et l'énumération exhaustive des colorations admissibles.",
+      "en": "Scripts and data of the paper on the ansate cross, submitted to Mathematics Magazine: the 256 order-6 magic squares, the 64 order-12 assemblies and the exhaustive enumeration of admissible colourings."
+    },
+    {
+      "section": "donnees",
+      "type": "repository",
+      "titre": "Scripts de vérification de La Livrée d'Hermès",
+      "url": "https://github.com/anibaledel/livreedhermes",
+      "licence": "AGPL v3",
+      "fr": "Le dépôt courant du site et de ses scripts de vérification.",
+      "en": "The live repository of the site and its verification scripts."
+    },
+    {
+      "section": "rapports",
+      "type": "report",
+      "titre": "La Livrée d'Hermès — Progress report, September 2026",
+      "doi": "10.5281/zenodo.22945021",
+      "version": "2.3",
+      "date": "2026-09-27",
+      "langues": [
+        "en",
+        "fr"
+      ],
+      "fr": "État des travaux, en anglais avec une version française : deux articles en évaluation, les notes déposées, douze théorèmes énoncés simplement.",
+      "en": "State of the work, in English with a French version: two papers under review, the deposited notes, twelve theorems stated plainly."
+    }
+  ]
+}

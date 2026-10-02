@@ -37,6 +37,36 @@ preferred-citation:
 references:
   - type: article
     title: >-
+      Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.23102264
+    version: "1.0.0"
+  - type: article
+    title: >-
+      Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.23088601
+    version: "1.1.1"
+  - type: article
+    title: >-
+      One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22986529
+    version: "1.2.1"
+  - type: article
+    title: >-
       Axes and Level Sets of a Jacquard Pattern System — two companion notes
     authors:
       - family-names: Amiot
@@ -44,29 +74,54 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22965031
+    version: "V.3"
   - type: article
     title: >-
-      One Object, Three Descriptions: Axes, Images and Grids of a Jacquard
-      Pattern System
-    authors:
-      - family-names: Amiot
-        given-names: Anibal Edelberto
-        orcid: https://orcid.org/0009-0002-6414-9448
-    year: 2026
-    doi: 10.5281/zenodo.22966839
-  - type: article
-    title: "Parity Figures as Moiré: What Is Exact and What Is Not"
+      Parity Figures as Moiré: What Is Exact and What Is Not
     authors:
       - family-names: Amiot
         given-names: Anibal Edelberto
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22967585
+    version: "1.0.1"
+  - type: data
+    title: >-
+      Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22991226
+    version: "1.0"
+  - type: software
+    title: >-
+      Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22862110
+    version: "v2"
+  - type: software
+    title: >-
+      The Ansate Cross — verification code for a self-constructing method of order-6 magic squares
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.22866061
+    version: "3.0"
   - type: report
-    title: La Livrée d'Hermès — Progress report, September 2026
+    title: >-
+      La Livrée d'Hermès — Progress report, September 2026
     authors:
       - family-names: Amiot
         given-names: Anibal Edelberto
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22945021
+    version: "2.3"
