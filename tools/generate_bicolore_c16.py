@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 generate_bicolore_c16.py — trame C16·B1, dérivée de C8·B2 (converti en
 C16 sans perte — voir cellule_c16.py). C16·B1 n'a pas de planche tracée :

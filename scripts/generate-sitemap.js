@@ -67,7 +67,6 @@ const STATIC_PAGES = [
   { loc: `${SITE}/a-propos.html`, file: 'a-propos.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
-  { loc: `${SITE}/travaux.html`, file: 'travaux.html', changefreq: 'monthly', priority: '0.5' },
   { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 measure_k_pic.py — Mesure k_pic (fréquence spatiale dominante) des quinze
 gammes, pour les DEUX générations T1 et bandes, depuis les SVG sources.

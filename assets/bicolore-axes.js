@@ -1,5 +1,5 @@
 // bicolore-axes.js — La Livrée d'Hermès
-// © Anibal Edelberto Amiot 2026 — AGPL v3 (non-commercial) / licence commerciale : anibaledel@gmail.com
+// © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
 // La loi d'engendrement des motifs bicolores PAR LES AXES — source des axes :
 // data/AXES/catalogue.json, le catalogue vérifié du chantier axes-loi-parite

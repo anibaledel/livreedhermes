@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 check_faces_geometrie_sync.py — Garde-fou : la géométrie du cube (FACES —
 origine et deux vecteurs d'arête par face) est copiée à l'identique dans

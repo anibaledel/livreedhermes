@@ -310,8 +310,8 @@ de fichier `CNAME`.
 
 ## Licences
 
-Double licence : AGPL v3 pour l'usage non commercial (`LICENSE`), licence
-commerciale sur demande (`LICENSE-COMMERCIAL`). Voir `NOTICE` pour les
+Code : AGPL v3 (`LICENSE`) ; licence commerciale sur demande
+(`LICENSE-COMMERCIAL`), pour qui ne veut pas des obligations de l'AGPL. Voir `NOTICE` pour les
 attributions et le brevet FR2865054.
 
 **Exception — sources du livre.** Les planches et fichiers sources de

@@ -225,7 +225,7 @@ place, ce sont des données, pas une conclusion fausse à supprimer.
 ## §9 — Vérification inter-implémentation (`data/AXES/figures_C8_reference.json`)
 
 Les seize figures de familles, produites indépendamment par
-`codes_cles.py`/`common.py` (Zenodo 10.5281/zenodo.22965836), comparées
+`codes_cles.py`/`common.py` (Zenodo 10.5281/zenodo.22965031, version v2), comparées
 bit à bit à `generateAxesMask(...)` du moteur de `main`
 (`tools/verify_bicolore_axes_catalogue.mjs`) : 0/1152 sur les seize.
 `tools/verify_bicolore_axes_cles.mjs` lit dans ce même fichier (champ
@@ -237,7 +237,7 @@ Les deux scripts sont à 0/1152 et exacts sur tous les nombres publiés.
 
 **`tools/verify_bicolore_images.mjs`** — la vérité de terrain réelle, plus
 forte qu'une planche isolée : les 60 images de `data/referent_360_v3.json`,
-port du Théorème 1 du dépôt Zenodo « One Object » (10.5281/zenodo.22986530,
+port du Théorème 1 du dépôt Zenodo « One Object » (10.5281/zenodo.22986529, version 1.1.0,
 `verif_images_axes.py`). Chaque image = les 48 cases dont le centre est
 exactement sur un axe de T1 YANG (une seule teinte, « les lignes ») + la
 figure de parité (grain C1) de la réunion des axes T0 des familles que le

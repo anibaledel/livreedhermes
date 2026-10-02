@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 generate_referent_256.py — Générateur de data/referent_256_v3.json
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

@@ -2,7 +2,7 @@
    Contrôle indépendant de toute image de planche : recalcule, depuis
    systemes() et parityBit() (assets/bicolore-axes.js) sur la subdivision
    C8 (grille 12×12, 1152 triangles), quatre invariants du dépôt Zenodo
-   10.5281/zenodo.22965836 (codes_cles.py/common.py) :
+   10.5281/zenodo.22965031, version v2 (codes_cles.py/common.py) :
 
      - les clés (systèmes de bandes) distinctes sur les seize familles,
        et leur rang GF(2) — comparés au nombre de clés distinctes que

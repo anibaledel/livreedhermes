@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 check_referent_bandes_sync.py — Garde-fou : data/referent_bandes_v1.json est
 une vue générée de data/referent_bicolore_v1.json (tools/generate_referent_bandes.py) ;

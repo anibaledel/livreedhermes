@@ -1,0 +1,25 @@
+name: Liste des dépôts (data/travaux.json)
+
+# travaux.html, en/works/, CITATION.cff et llms.txt listent les dépôts
+# Zenodo de l'auteur ; scripts/build-travaux.js les écrit tous depuis
+# data/travaux.json. Ce contrôle échoue si les données changent sans que
+# ces fichiers soient régénérés — ou l'inverse, une retouche à la main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node scripts/build-travaux.js --verifie
+      - run: node tools/check_doi_perimes.mjs

@@ -1,5 +1,5 @@
 // bicolore-render.js — La Livrée d'Hermès
-// © Anibal Edelberto Amiot 2026 — AGPL v3 (non-commercial) / licence commerciale : anibaledel@gmail.com
+// © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
 // Rendu SVG des motifs bicolores — module SANS DOM ni accès disque, pour
 // être IMPORTÉ TEL QUEL à la fois par une page (navigateur) et par un

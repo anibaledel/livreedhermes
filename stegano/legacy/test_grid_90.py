@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 test_grid_90.py — grid_90.py (LEGACY, hors chemin de production)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

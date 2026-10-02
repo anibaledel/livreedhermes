@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-// AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+// AGPL v3 / Commercial license on request: anibaledel@gmail.com
 //
 // check_accessibilite.mjs — Contrôle automatique : passe axe-core (règles
 // WCAG 2 A et AA) sur les pages listées ci-dessous et échoue à la première
@@ -64,6 +64,7 @@ const PAGES = [
   'es/buscar/',
   'th/search/',
   'en/articles/',
+  'en/works/',
   'en/articles/hanuman-and-harlequin.html',
   'en/articles/axes-are-nodal-lines.html',
   'en/articles/verticality-chequer-mosaic-chessboard.html',

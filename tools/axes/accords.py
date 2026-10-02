@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 accords.py — Le recensement : une planche n'a pas de niveau, elle joue un
 accord (un sous-ensemble des 16 familles). Compte les constructions

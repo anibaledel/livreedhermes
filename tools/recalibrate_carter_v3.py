@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 recalibrate_carter_v3.py — Campagne de recalibration C_PUB (câblage v3)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

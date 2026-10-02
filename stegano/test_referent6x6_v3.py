@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 Tests des 256 référents 6×6 aléatoires (ChaCha20, format v3, tâche 2026-09-12)
 La Livrée d'Hermès — Anibal Edelberto Amiot (2026)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
-# AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """
 cellule_c16.py — définition de la cellule C16 (16 triangles), contrat de
 cellule pour le bloc de 1 : à cette finesse de trame, les frontières
