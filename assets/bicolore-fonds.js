@@ -353,7 +353,7 @@ export const contrasteDe = (f) => Math.abs(1 - 2 * f);
 export function lecture(fond) {
   if (familleDe(fond).famille === 'orientation') return { mode: 'direction', texte: 'se lit par la direction' };
   if (fond.mode === 'echange' || fond.type === 'aplat') return lectureContraste(fond.calcul ? fond.calcul.fraction : fraction(fond));
-  const c = contrasteMesure(fond);
+  const c = fond.calcul && fond.calcul.contraste !== undefined ? fond.calcul.contraste : contrasteMesure(fond);
   return { mode: 'contraste', contraste: c, texte: `contraste à distance : ${Math.round(c * 100)} %`, avertissement: c < SEUIL_CONTRASTE ? 'plus de contraste à distance' : null };
 }
 
@@ -535,12 +535,23 @@ export function decomposer(identifiant) {
 // Charge une collection (data/fonds/collection-v1.json) : valide chaque
 // fond et chaque superposition, vérifie leurs codes, et leur ajoute leurs
 // valeurs calculées (`calcul`). Rend { fonds, superpositions, assemblages }.
-export function chargerCollection(json) {
+//
+// Le calcul complet prend deux secondes : une page le reçoit tout fait,
+// `calculs` (data/fonds/collection-v1.calculs.json, écrit par
+// tools/calculs_fonds.mjs, qui vérifie qu'il est à jour — le chiffre
+// affiché sort toujours d'un calcul, fait une fois).
+export function chargerCollection(json, { calculs = null } = {}) {
   const fonds = new Map();
   for (const f of json.fonds || []) {
     if (fonds.has(f.id)) throw new Error(`fond ${f.id} en double`);
     if ('famille' in f) throw new Error(`fond ${f.id} : la famille se calcule, elle ne se déclare pas`);
     rendu(f, 0); rendu(f, 1); // valide
+    if (calculs) {
+      const c = calculs.fonds && calculs.fonds[f.id];
+      if (!c) throw new Error(`fond ${f.id} : absent des calculs (node tools/calculs_fonds.mjs --ecrit)`);
+      fonds.set(f.id, { ...f, calcul: { ...c } });
+      continue;
+    }
     const { famille, isometrie } = familleDe(f);
     const ecarts = ecartsDeCode(f);
     if (ecarts.length) throw new Error(`fond ${f.id} : ${ecarts.join(' ; ')}`);
@@ -551,6 +562,12 @@ export function chargerCollection(json) {
     if (superpositions.has(s.id)) throw new Error(`superposition ${s.id} en double`);
     const ecarts = ecartsDeCodeSuperposition(s);
     if (ecarts.length) throw new Error(`superposition ${s.id} : ${ecarts.join(' ; ')}`);
+    if (calculs) {
+      const u = calculs.glyphes && calculs.glyphes[s.forme];
+      if (u === undefined) throw new Error(`glyphe ${s.forme} : absent des calculs`);
+      superpositions.set(s.id, { ...s, calcul: { couvertureUnite: u, couverture: couvertureA(u, s.echelle), echelleMoitie: u >= 0.5 ? Math.sqrt(0.5 / u) : null } });
+      continue;
+    }
     const c = couverture(s);
     superpositions.set(s.id, { ...s, calcul: { couverture: c, couvertureUnite: couverture({ ...s, echelle: 1 }), echelleMoitie: echelleMoitie(s) } });
   }
@@ -561,6 +578,26 @@ export function chargerCollection(json) {
     return { id, fond: fonds.get(fond), superposition: superposition ? superpositions.get(superposition) : null };
   });
   return { fonds, superpositions, assemblages };
+}
+
+// Couverture d'un glyphe à l'échelle s, connaissant sa couverture à
+// l'échelle 1 : l'aire croît comme s², tant que le glyphe reste dans la
+// case (s ≤ 1, toujours le cas ici).
+export const couvertureA = (u, s) => u * s * s;
+
+// Les valeurs que la page reçoit toutes faites (voir chargerCollection).
+export function calculsDe(json) {
+  const col = chargerCollection(json);
+  const arrondi = (x) => Math.round(x * 1e6) / 1e6;
+  const fonds = {};
+  for (const f of col.fonds.values()) {
+    const { famille, isometrie, fraction: fr, nonCouvert: nc, raccord: rac } = f.calcul;
+    fonds[f.id] = { famille, isometrie, fraction: arrondi(fr), nonCouvert: arrondi(nc), raccord: rac };
+    if (famille === 'quantite') fonds[f.id].contraste = arrondi(lecture(f).contraste);
+  }
+  const glyphes = {};
+  for (const forme of Object.values(GLYPHES)) glyphes[forme] = arrondi(couverture({ id: forme, forme, echelle: 1 }));
+  return { _doc: 'Engendré par tools/calculs_fonds.mjs depuis data/fonds/collection-v1.json et assets/bicolore-fonds.js — ne pas éditer.', fonds, glyphes };
 }
 
 // ---------- SVG ----------
@@ -581,27 +618,56 @@ function symbole(id, r, palette, sup, v) {
   return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps.join('')}</symbol>`;
 }
 
-// mask : 144 bits (lecture C1), Uint8Array|Array|string. palette : deux
-// couleurs [bit 0, bit 1]. Rend le SVG du motif dans ce fond, avec une
-// superposition facultative. Les identifiants des deux symboles portent le
-// code complet (et `prefixe` si donné) : plusieurs SVG insérés dans une même
-// page HTML partagent un seul espace d'identifiants, et deux #fond-0 y
-// désigneraient le même symbole.
-export function motifSvg(mask, palette, fond, { size = 864, prefixe = '', superposition = null } = {}) {
+// Les deux symboles d'un fond (avec sa superposition facultative) :
+// { ref, defs }. Le symbole de valeur v s'appelle `${ref}-${v}`. Les
+// identifiants portent le code complet (et `prefixe` si donné) : plusieurs
+// SVG insérés dans une même page HTML partagent un seul espace
+// d'identifiants, et deux #fond-0 y désigneraient le même symbole.
+export function symbolesDe(fond, palette, { prefixe = '', superposition = null } = {}) {
   if (!Array.isArray(palette) || palette.length !== 2) throw new Error('palette : deux couleurs, jamais trois');
+  const code = superposition ? `${fond.id}+${superposition.id}` : fond.id;
+  const ref = `${prefixe}fond-${code}`.replace(/[^A-Za-z0-9_-]/g, '_');
+  const defs = symbole(`${ref}-0`, rendu(fond, 0), palette, superposition, 0) + symbole(`${ref}-1`, rendu(fond, 1), palette, superposition, 1);
+  return { ref, defs };
+}
+
+// Une case COUPÉE (lecture binaire d'un motif tricolore : deux triangles
+// de valeurs différentes) ne reçoit pas de fond : ses deux triangles sont
+// rendus tels quels, quel que soit le fond choisi. Clé du symbole : la
+// diagonale (d = « \ », m = « / ») puis les bits des deux triangles.
+const cleCoupe = (k) => `${k.diagonale === '/' ? 'm' : 'd'}${k.triangles[0].bit}${k.triangles[1].bit}`;
+function symboleCoupe(id, k, palette) {
+  const corps = k.triangles.map((t) => `<polygon fill="${palette[t.bit]}" points="${t.points.map(([x, y]) => `${x},${y}`).join(' ')}"/>`).join('');
+  return `<symbol id="${id}" viewBox="0 0 1 1" preserveAspectRatio="none">${corps}</symbol>`;
+}
+
+// mask : 144 cases (lecture C1), Uint8Array|Array|string de bits — ou, pour
+// la lecture binaire d'un motif tricolore (lecture-binaire.js), le tableau
+// `cases` : { type: 'pleine', bit } | { type: 'coupee', … }. palette : deux
+// couleurs [bit 0, bit 1]. Rend le SVG du motif dans ce fond, avec une
+// superposition facultative (posée sur les cases pleines seulement).
+export function motifSvg(mask, palette, fond, { size = 864, prefixe = '', superposition = null } = {}) {
   const n = GRID * GRID;
   if (mask.length !== n) throw new Error(`masque de ${mask.length} bits, ${n} attendus (lecture C1)`);
   const c = size / GRID;
-  const code = superposition ? `${fond.id}+${superposition.id}` : fond.id;
-  const ref = `${prefixe}fond-${code}`.replace(/[^A-Za-z0-9_-]/g, '_');
+  const { ref, defs } = symbolesDe(fond, palette, { prefixe, superposition });
+  const coupes = new Map();
   const uses = [];
   for (let i = 0; i < n; i++) {
-    const v = mask[i] === 1 || mask[i] === '1' ? 1 : 0;
+    const k = mask[i];
+    let href;
+    if (k !== null && typeof k === 'object') {
+      if (k.type === 'pleine') href = `${ref}-${k.bit ? 1 : 0}`;
+      else if (k.type === 'coupee') {
+        href = `${prefixe}coupe-${cleCoupe(k)}`.replace(/[^A-Za-z0-9_-]/g, '_');
+        if (!coupes.has(href)) coupes.set(href, symboleCoupe(href, k, palette));
+      } else throw new Error(`case ${i} : « ${k.type} » ne se rend pas (lecture indéfinie)`);
+    } else href = `${ref}-${k === 1 || k === '1' ? 1 : 0}`;
     const x = (i % GRID) * c, y = Math.floor(i / GRID) * c;
-    uses.push(`<use href="#${ref}-${v}" x="${nombre(x)}" y="${nombre(y)}" width="${nombre(c)}" height="${nombre(c)}"/>`);
+    uses.push(`<use href="#${href}" x="${nombre(x)}" y="${nombre(y)}" width="${nombre(c)}" height="${nombre(c)}"/>`);
   }
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n`
-    + `<defs>${symbole(`${ref}-0`, rendu(fond, 0), palette, superposition, 0)}${symbole(`${ref}-1`, rendu(fond, 1), palette, superposition, 1)}</defs>\n`
+    + `<defs>${defs}${[...coupes.values()].join('')}</defs>\n`
     + uses.join('\n') + '\n</svg>\n';
 }
 

@@ -1,0 +1,189 @@
+{
+ "_doc": "Engendré par tools/calculs_fonds.mjs depuis data/fonds/collection-v1.json et assets/bicolore-fonds.js — ne pas éditer.",
+ "fonds": {
+  "P": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0,
+   "nonCouvert": 0,
+   "raccord": null,
+   "contraste": 1
+  },
+  "B2": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B3": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.333008,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B4": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B121": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B2D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.500244,
+   "nonCouvert": 0,
+   "raccord": "inversé"
+  },
+  "B3D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.555447,
+   "nonCouvert": 0,
+   "raccord": "aucun"
+  },
+  "B4D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B121D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.75,
+   "nonCouvert": 0,
+   "raccord": "inversé"
+  },
+  "B11211D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.333496,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B12m": {
+   "famille": "orientation",
+   "isometrie": "symétrie verticale",
+   "fraction": 0.666504,
+   "nonCouvert": 0,
+   "raccord": "franc"
+  },
+  "B3x": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.333008,
+   "nonCouvert": 0,
+   "raccord": "franc",
+   "contraste": 0.333984
+  },
+  "B3n": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.333008,
+   "nonCouvert": 0,
+   "raccord": "franc",
+   "contraste": 0.166016
+  },
+  "BA33": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.333008,
+   "nonCouvert": 0,
+   "raccord": "franc",
+   "contraste": 0.333984
+  },
+  "BA50": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": "franc",
+   "contraste": 0
+  },
+  "CCE": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": null
+  },
+  "QT": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.5,
+   "nonCouvert": 0,
+   "raccord": null
+  },
+  "TRC": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.179912,
+   "nonCouvert": 0,
+   "raccord": null
+  },
+  "QRT": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.25,
+   "nonCouvert": 0,
+   "raccord": null
+  },
+  "ESC": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.36002,
+   "nonCouvert": 0,
+   "raccord": null
+  },
+  "PCA12": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.122227,
+   "nonCouvert": 0,
+   "raccord": null,
+   "contraste": 0.755547
+  },
+  "SEC13": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.124878,
+   "nonCouvert": 0,
+   "raccord": null,
+   "contraste": 0.750244
+  },
+  "LOS25": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.244795,
+   "nonCouvert": 0,
+   "raccord": null,
+   "contraste": 0.51041
+  },
+  "CAD36": {
+   "famille": "quantite",
+   "isometrie": null,
+   "fraction": 0.360312,
+   "nonCouvert": 0,
+   "raccord": null,
+   "contraste": 0.279375
+  }
+ },
+ "glyphes": {
+  "carre": 1,
+  "rond": 0.784836,
+  "losange": 0.5,
+  "croix": 0.555121,
+  "etoile": 0.317024
+ }
+}

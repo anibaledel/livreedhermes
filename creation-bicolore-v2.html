@@ -59,6 +59,9 @@
   .info-line .badge.invariante{ border-color:var(--line-strong); }
   .info-line .badge.plaque{ border-color:var(--gold); color:var(--gold); }
 
+  .fond-bloc{ text-align:left; margin:0 auto 14px; max-width:470px; }
+  .fond-titre{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 8px; }
+  .info-line .sf-av{ color:var(--red); }
   .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
   .actions button{
     all:unset; cursor:pointer; padding:8px 14px; font-size:12px; color:var(--dim);
@@ -119,6 +122,10 @@
     </div>
 
     <div class="preview">
+      <div class="fond-bloc">
+        <h2 class="fond-titre" data-i18n="fondHeading">Fond</h2>
+        <div id="selecteurFonds"></div>
+      </div>
       <div id="renderTarget"></div>
       <div class="info-line" id="infoLine"></div>
       <div class="actions">
@@ -139,6 +146,8 @@ import {
   nomAccord, demiDecalageStatus, mutantDe, disponiblePourGrain,
   ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX, doubleAccord, RACINES_FIXES,
 } from './assets/bicolore-axes.js';
+import { chargerCollection, motifSvg, decomposer, GLYPHES } from './assets/bicolore-fonds.js';
+import { creerSelecteurFonds, descriptionEtat } from './assets/selecteur-fonds.js';
 
 // ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir docs/i18n/i18n_todo_creation-bicolore-v2.md) ----------
 const LANGS = ['fr', 'en', 'es', 'th'];
@@ -156,6 +165,7 @@ const UI = {
     vecteur: "vecteur", invariante: "invariante", inversee: "inversée", echangee: "échangée",
     visiblePlaque: "visible sur une plaque",
     c4Indisponible: "indisponible en C4 (demi-écart)",
+    fondHeading: "Fond",
   },
   en: {
     pageH1: "Two-colour generator v2",
@@ -170,6 +180,7 @@ const UI = {
     vecteur: "vector", invariante: "invariant", inversee: "inverted", echangee: "exchanged",
     visiblePlaque: "visible on a plate",
     c4Indisponible: "unavailable at C4 (half-offset)",
+    fondHeading: "Ground",
   },
 };
 function initialLang() {
@@ -190,6 +201,26 @@ let grain = 'C8';   // 'C8' | 'C1' | 'C4'
 let selection = new Set();
 let derniereFusion = false; // true juste apres un "Descendre" qui a fusionne des elements
 let AXES_V1 = null, GENV2 = null, GENV2_JSON = null;
+const PALETTE = ['#f2f2f0', '#e0261b'];
+// Le fond (et sa superposition) : un seul composant, assets/selecteur-fonds.js.
+// L'aplat P reste le défaut et le rendu de référence ; les fonds se posent
+// sur la lecture C1 (un bit par case). L'état part dans l'URL : ?fond=B3D&sup=E95.
+let SELECTEUR = null;
+function etatFondDeLUrl() {
+  const p = new URLSearchParams(location.search);
+  const etat = { fond: 'P', glyphe: null, echelle: 0.95 };
+  try { if (p.get('fond')) etat.fond = decomposer(p.get('fond')).fond; } catch { /* code illisible : l'aplat */ }
+  const m = /^([A-Z])(\d{2})$/.exec(p.get('sup') || '');
+  if (m && GLYPHES[m[1]]) { etat.glyphe = GLYPHES[m[1]]; etat.echelle = Number(m[2]) / 100; }
+  return etat;
+}
+function etatFondDansLUrl(etat) {
+  const p = new URLSearchParams(location.search);
+  if (etat.fond && etat.fond !== 'P') p.set('fond', etat.fond); else p.delete('fond');
+  if (etat.superposition) p.set('sup', etat.superposition); else p.delete('sup');
+  const q = p.toString();
+  history.replaceState(null, '', q ? '?' + q : location.pathname);
+}
 
 function angleDe(id) {
   if (id.startsWith('L')) return Number(id.slice(1));
@@ -272,10 +303,16 @@ function renderAll() {
     const out = new Uint8Array(GRID * GRID * 8);
     for (let cell = 0; cell < GRID * GRID; cell++) for (let s = 0; s < 8; s++) out[cell * 8 + s] = c1[cell];
     maskForRender = out; perCellForRender = 8;
+    if (SELECTEUR) SELECTEUR.setMasque(c1);
   } else {
     maskForRender = generateAxesMask(axes, { grain: 'C8' }); perCellForRender = 8;
   }
-  renderTarget.innerHTML = maskToSvg(maskForRender, ['#f2f2f0', '#e0261b'], { size: 320, perCell: perCellForRender });
+  const etatFond = SELECTEUR && grain === 'C1' ? SELECTEUR.etat() : null;
+  if (etatFond && (etatFond.fond !== 'P' || etatFond.objetSuperposition)) {
+    renderTarget.innerHTML = motifSvg(generateAxesMask(axes, { grain: 'C1' }), PALETTE, etatFond.objetFond, { size: 320, prefixe: 'vue-', superposition: etatFond.objetSuperposition });
+  } else {
+    renderTarget.innerHTML = maskToSvg(maskForRender, PALETTE, { size: 320, perCell: perCellForRender });
+  }
 
   // ---------- ligne d'information ----------
   const { nom, niveau, angles } = nomAccord(elementsPourNom());
@@ -299,6 +336,7 @@ function renderAll() {
   }
   if (anglesComplets && selection.size) html += ` <span class="badge plaque">${t('visiblePlaque')}</span>`;
   if (derniereFusion) html += t('fusionNote');
+  if (etatFond) html += `<br>${descriptionEtat(etatFond, LANG === 'en' ? 'en' : 'fr')}`;
   infoLine.innerHTML = html;
 }
 
@@ -318,6 +356,7 @@ document.querySelectorAll('#grainToggle button').forEach(btn => {
     derniereFusion = false;
     document.querySelectorAll('#grainToggle button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
     if (grain === 'C4') selection = new Set([...selection].filter(id => disponiblePourGrain(id, 'C4')));
+    if (SELECTEUR) SELECTEUR.setActif(grain === 'C1');
     renderGenGrid(); renderAll();
   });
 });
@@ -344,11 +383,14 @@ document.getElementById('btnDlCellSvg').addEventListener('click', () => {
   const perCell = grain === 'C1' ? 1 : 8;
   const parts = perCell === 1 ? GRID * GRID : GRID * GRID * 8;
   const expanded = perCell === 1 ? (() => { const o = new Uint8Array(GRID * GRID * 8); for (let c = 0; c < GRID * GRID; c++) for (let s = 0; s < 8; s++) o[c * 8 + s] = mask[c]; return o; })() : mask;
-  const svg = maskToSvg(expanded, ['#f2f2f0', '#e0261b'], { size: 900, perCell: 8 });
+  const etatFond = SELECTEUR && grain === 'C1' ? SELECTEUR.etat() : null;
+  const svg = etatFond && (etatFond.fond !== 'P' || etatFond.objetSuperposition)
+    ? motifSvg(mask, PALETTE, etatFond.objetFond, { size: 900, superposition: etatFond.objetSuperposition })
+    : maskToSvg(expanded, PALETTE, { size: 900, perCell: 8 });
   const blob = new Blob([svg], { type: 'image/svg+xml' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.href = url; a.download = `bicolore-v2.svg`;
+  a.href = url; a.download = etatFond && etatFond.code !== 'P' ? `bicolore-v2-${etatFond.code.replace('+', '-')}.svg` : `bicolore-v2.svg`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
 });
@@ -359,7 +401,22 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
 Promise.all([
   fetch('data/AXES/catalogue.json').then(r => r.json()),
   fetch('data/AXES/generateurs_v2.json').then(r => r.json()),
-]).then(([catalogue, generateursV2]) => {
+  fetch('data/fonds/collection-v1.json').then(r => r.json()),
+  fetch('data/fonds/collection-v1.calculs.json').then(r => r.json()),
+]).then(([catalogue, generateursV2, collectionJson, calculs]) => {
+  const collection = chargerCollection(collectionJson, { calculs });
+  const etatInitial = etatFondDeLUrl();
+  // Un fond dans l'URL se pose en C1 : la page s'ouvre sur ce grain.
+  if (etatInitial.fond !== 'P' || etatInitial.glyphe) {
+    grain = 'C1';
+    document.querySelectorAll('#grainToggle button').forEach(b => b.setAttribute('aria-pressed', b.dataset.grain === 'C1' ? 'true' : 'false'));
+  }
+  SELECTEUR = creerSelecteurFonds(document.getElementById('selecteurFonds'), {
+    collection, glyphes: calculs.glyphes, palette: PALETTE, lang: LANG === 'en' ? 'en' : 'fr', etat: etatInitial,
+    onChange: (etat) => { etatFondDansLUrl(etat); renderAll(); },
+  });
+  SELECTEUR.setActif(grain === 'C1');
+  window.selecteurFonds = SELECTEUR; // pour la vérification sur le site (redessinComplet(), fenetre())
   AXES_V1 = buildAxes(catalogue);
   GENV2_JSON = generateursV2;
   GENV2 = buildGenerateursV2(generateursV2);
