@@ -13,21 +13,24 @@
 // couleurs de la palette. Un fond couvre la case entière (vérifié par
 // rastérisation, nonCouvert()).
 //
-// DEUX FAMILLES, qui n'obéissent pas aux mêmes règles :
+// LE MODE (déclaré) dit comment le bit choisit entre les deux rendus, et
+// le code le porte en suffixe minuscule :
+//   rotation (rien) : v = 1 tourne la partition de 90° (sens horaire) ;
+//   miroir   (m)    : v = 1 la retourne (gauche ↔ droite) ;
+//   echange  (x)    : la case prend la couleur de son bit, les parts de
+//                     `ton` 1 la couleur inverse (v = 1 permute les deux) ;
+//   nature   (n)    : deux partitions, `v0` et `v1`, une par valeur du bit.
+// En rotation, miroir et nature, `ton` 0/1 = première/seconde couleur.
 //
-//   « orientation » — la partition et l'attribution (`ton` 0/1 = première
-//   ou seconde couleur) sont fixes ; le bit choisit une TRANSFORMATION,
-//   que le code dit par un suffixe en minuscule :
-//     rotation (rien) : v = 1 tourne la partition de 90° (sens horaire) ;
-//     miroir   (m)    : v = 1 la retourne (gauche ↔ droite) ;
-//     echange  (x)    : v = 1 permute les deux couleurs ;
-//     nature   (n)    : deux partitions, `v0` et `v1`, une par valeur du bit.
-//   Les deux états ont la même moyenne : aucun contraste à distance, et
-//   pourtant ils se lisent — par la direction (le damassé).
-//
-//   « quantite » — la case prend la couleur de son bit, et les parts de
-//   `ton` 1 la couleur inverse. La fraction inversée f fait partie du code ;
-//   le contraste à distance vaut |1 − 2f| (lecture()).
+// LA FAMILLE (calculée, jamais déclarée : familleDe()) se lit sur les deux
+// rendus :
+//   « orientation » — le rendu v = 1 est l'image du rendu v = 0 par une
+//   isométrie du carré (rotation ou symétrie). Même moyenne, aucun
+//   contraste à distance, et pourtant les deux états se lisent — par la
+//   direction (le damassé) ;
+//   « quantite » — sinon. Le contraste à distance vaut |m1 − m0|, l'écart
+//   des parts sombres des deux rendus : |1 − 2f| en échange, f la fraction
+//   inversée, qui fait alors partie du code (PCA12).
 //
 // La fraction n'est jamais saisie : elle se calcule par rastérisation de
 // la partition (fraction()), et doit être stable d'une résolution à
@@ -131,11 +134,10 @@ const retourner = ([x, y]) => [1 - x, y];
 // Les parts du rendu v (0 ou 1), avec pour chacune l'indice de couleur de
 // palette (0 ou 1) qu'elle prend, et la couleur du dessous de case.
 export function rendu(fond, v) {
-  if (fond.famille === 'quantite') {
+  if (fond.mode === 'echange') {
     const parts = partsDe(fond).map((p) => ({ points: p.points, couleur: v ^ p.ton }));
     return { dessous: v, parts };
   }
-  if (fond.famille !== 'orientation') throw new Error(`fond ${fond.id} : famille « ${fond.famille} » inconnue`);
   let parts;
   if (fond.mode === 'nature') {
     const variante = v ? fond.v1 : fond.v0;
@@ -146,11 +148,10 @@ export function rendu(fond, v) {
     if (v === 1) {
       if (fond.mode === 'rotation') parts = parts.map((p) => ({ ...p, points: p.points.map(tourner) }));
       else if (fond.mode === 'miroir') parts = parts.map((p) => ({ ...p, points: p.points.map(retourner) }));
-      else if (fond.mode === 'echange') parts = parts.map((p) => ({ ...p, couleur: 1 - p.couleur }));
       else throw new Error(`fond ${fond.id} : mode « ${fond.mode} » inconnu`);
     }
   }
-  // Pas de couleur « du dessous » propre à la famille orientation : ses
+  // Pas de couleur « du dessous » en rotation, miroir, nature : les
   // parts doivent couvrir la case à elles seules (couverture()). Le dessous
   // ne sert qu'à masquer le fondu d'antialiasing entre deux parts voisines,
   // dans une des deux couleurs — jamais une troisième.
@@ -224,6 +225,45 @@ export function nonCouvert(fond, n = 256) {
   return vides / (2 * n * n);
 }
 
+// ---------- famille : calculée sur les deux rendus ----------
+//
+// Les huit isométries du carré, sur une grille m×m (indices de pixels).
+const ISOMETRIES = [
+  ['rotation 90°', (i, j, m) => [m - 1 - j, i]],
+  ['rotation 180°', (i, j, m) => [m - 1 - i, m - 1 - j]],
+  ['rotation 270°', (i, j, m) => [j, m - 1 - i]],
+  ['symétrie verticale', (i, j, m) => [m - 1 - i, j]],
+  ['symétrie horizontale', (i, j, m) => [i, m - 1 - j]],
+  ['symétrie diagonale', (i, j, m) => [j, i]],
+  ['symétrie antidiagonale', (i, j, m) => [m - 1 - j, m - 1 - i]],
+];
+
+// Orientation si le rendu v = 1 est l'image du rendu v = 0 par une
+// isométrie du carré (à 0,5 % de pixels près : les limites tombent entre
+// les centres ; m impair, pour qu'aucun centre ne tombe sur une limite à
+// 45° ou au milieu) ; quantité sinon. Deux rendus identiques sont refusés : le
+// bit ne se verrait pas.
+export function familleDe(fond, m = 251) {
+  if (fond.calcul && fond.calcul.famille) return { famille: fond.calcul.famille, isometrie: fond.calcul.isometrie };
+  const r0 = rasteriser(fond, 0, m), r1 = rasteriser(fond, 1, m);
+  const tol = 0.005 * m * m;
+  let diff = 0;
+  for (let k = 0; k < r0.length; k++) if (r0[k] !== r1[k]) diff++;
+  if (diff <= tol) throw new Error(`fond ${fond.id} : les deux rendus sont identiques, le bit ne se voit pas`);
+  // la transformation que le mode annonce d'abord, les autres ensuite
+  const annoncee = { rotation: 'rotation 90°', miroir: 'symétrie verticale' }[fond.mode];
+  const ordre = [...ISOMETRIES].sort(([n1], [n2]) => (n2 === annoncee) - (n1 === annoncee));
+  for (const [nom, g] of ordre) {
+    let d = 0;
+    for (let j = 0; j < m && d <= tol; j++) for (let i = 0; i < m; i++) {
+      const [x, y] = g(i, j, m);
+      if (r1[y * m + x] !== r0[j * m + i]) d++;
+    }
+    if (d <= tol) return { famille: 'orientation', isometrie: nom };
+  }
+  return { famille: 'quantite', isometrie: null };
+}
+
 // Fraction inversée : la part de la case qui ne prend pas la couleur de son
 // bit (famille quantité) ; pour la famille orientation, la part de la
 // seconde couleur dans le rendu v = 0. Calculée, jamais saisie. Chaque
@@ -294,23 +334,27 @@ export function raccord(fond) {
 
 // ---------- lecture : contraste à distance ou direction ----------
 //
-// Famille quantité (et superposition) : une case de valeur 0 a pour valeur
-// moyenne f, une case de valeur 1 a pour moyenne 1 − f ; le contraste entre
-// les deux états, vu de loin, vaut |1 − 2f|. À f = ½ il est nul — le motif
-// reste entier et se lit de près, c'est la grande forme à distance qui
-// disparaît. Avertissement sous 15 % : « plus de contraste à distance ».
+// Famille quantité (et superposition) : le contraste entre les deux états,
+// vu de loin, est l'écart de leurs parts sombres, |m1 − m0| ; en échange une
+// case de valeur 0 a pour moyenne f, une case de valeur 1 a 1 − f, d'où
+// |1 − 2f|. Nul, le motif reste entier et se lit de près : c'est la grande
+// forme à distance qui disparaît. Avertissement sous 15 % : « plus de
+// contraste à distance ». Jamais « efface ».
 //
-// Famille orientation : les deux états sont la même partition transformée,
-// leur moyenne est la même, le contraste toujours nul — et pourtant ils se
-// lisent, par la direction (le damassé). Aucun contraste n'est affiché.
+// Famille orientation : les deux états sont la même partition transformée
+// par une isométrie, leur moyenne est la même, le contraste nul — et
+// pourtant ils se lisent, par la direction (le damassé). Aucun contraste
+// n'est affiché. (Un contraste nul ne suffit pas à faire une orientation :
+// BA50 en échange a un contraste nul, sans isométrie entre ses états.)
 
 export const SEUIL_CONTRASTE = 0.15;
 export const contrasteDe = (f) => Math.abs(1 - 2 * f);
 
 export function lecture(fond) {
-  if (fond.famille === 'orientation') return { mode: 'direction', texte: 'se lit par la direction' };
-  const f = fond.calcul ? fond.calcul.fraction : fraction(fond);
-  return lectureContraste(f);
+  if (familleDe(fond).famille === 'orientation') return { mode: 'direction', texte: 'se lit par la direction' };
+  if (fond.mode === 'echange' || fond.type === 'aplat') return lectureContraste(fond.calcul ? fond.calcul.fraction : fraction(fond));
+  const c = contrasteMesure(fond);
+  return { mode: 'contraste', contraste: c, texte: `contraste à distance : ${Math.round(c * 100)} %`, avertissement: c < SEUIL_CONTRASTE ? 'plus de contraste à distance' : null };
 }
 
 function lectureContraste(f) {
@@ -339,7 +383,7 @@ export function lectureAssemblage(fond, sup) {
   if (!sup) return lecture(fond);
   const c = contrasteMesure(fond, sup);
   const r = { mode: 'contraste', contraste: c, texte: `contraste à distance : ${Math.round(c * 100)} %`, avertissement: c < SEUIL_CONTRASTE ? 'plus de contraste à distance' : null };
-  if (fond.famille === 'orientation') r.direction = 'se lit par la direction';
+  if (familleDe(fond).famille === 'orientation') r.direction = 'se lit par la direction';
   return r;
 }
 
@@ -350,11 +394,13 @@ export function lectureAssemblage(fond, sup) {
 //   C carré   — côté s ;
 //   R rond    — diamètre s (polygone à 96 côtés) ;
 //   L losange — sommets aux milieux des côtés du carré de côté s ;
-//   X croix   — croix grecque de bras s, d'épaisseur e·s (e : `epaisseur`,
-//               1/3 par défaut, la croix du carré 3 × 3) ;
-//   E étoile  — étoile à cinq branches inscrite dans le cercle de diamètre s,
-//               rayon intérieur / extérieur = `rapport` (par défaut celui du
-//               pentagramme, (3 − √5)/2 ≈ 0,382), pointe en haut.
+//   X croix   — croix grecque de bras s, d'épaisseur s/3 (la croix de la
+//               grille 3 × 3) ;
+//   E étoile  — octogramme {8/3} : huit branches inscrites dans le cercle de
+//               diamètre s, rayon intérieur / extérieur = √2 − 1 (à ce
+//               rapport les côtés des pointes sont alignés), pointe en haut.
+// Paramètres de forme fixés par la nomenclature du 3 octobre 2026 : croix
+// d'épaisseur 1/3 (couverture 5/9 à l'échelle 1), étoile {8/3}.
 // La couverture se calcule par rastérisation, jamais saisie.
 
 export const GLYPHES = { C: 'carre', R: 'rond', L: 'losange', X: 'croix', E: 'etoile' };
@@ -366,14 +412,14 @@ export function glyphe(sup) {
     case 'losange': return [[c, c - h], [c + h, c], [c, c + h], [c - h, c]];
     case 'rond': return Array.from({ length: 96 }, (_, k) => [c + h * Math.cos((2 * Math.PI * k) / 96), c + h * Math.sin((2 * Math.PI * k) / 96)]);
     case 'croix': {
-      const e = ((sup.epaisseur ?? 1 / 3) * s) / 2;
+      const e = s / 6; // épaisseur 1/3
       return [[c - e, c - h], [c + e, c - h], [c + e, c - e], [c + h, c - e], [c + h, c + e], [c + e, c + e],
         [c + e, c + h], [c - e, c + h], [c - e, c + e], [c - h, c + e], [c - h, c - e], [c - e, c - e]];
     }
     case 'etoile': {
-      const k = sup.rapport ?? (3 - Math.sqrt(5)) / 2;
-      return Array.from({ length: 10 }, (_, i) => {
-        const a = -Math.PI / 2 + (i * Math.PI) / 5, r = i % 2 ? h * k : h;
+      const k = Math.SQRT2 - 1;
+      return Array.from({ length: 16 }, (_, i) => {
+        const a = -Math.PI / 2 + (i * Math.PI) / 8, r = i % 2 ? h * k : h;
         return [c + r * Math.cos(a), c + r * Math.sin(a)];
       });
     }
@@ -383,7 +429,7 @@ export function glyphe(sup) {
 
 // Couverture du glyphe dans la case (sur l'aplat), calculée.
 export function couverture(sup, n = 512) {
-  return fraction({ id: sup.id, famille: 'quantite', type: 'polygones', parts: [{ points: glyphe(sup), ton: 1 }] }, n);
+  return fraction({ id: sup.id, mode: 'echange', type: 'polygones', parts: [{ points: glyphe(sup), ton: 1 }] }, n);
 }
 
 // L'échelle à laquelle le glyphe couvre la moitié de la case, s'il le peut
@@ -430,20 +476,22 @@ export function ecartsDeCode(f) {
   const e = [];
   if (f.type === 'aplat') { if (f.id !== 'P') e.push(`l'aplat s'appelle P, pas ${f.id}`); return e; }
   const type = f.mode === 'nature' ? f.v0.type : f.type;
-  if (f.famille === 'orientation') {
-    if (type === 'bandes') {
-      const attendu = codeDeBandes(f);
-      if (f.id !== attendu) e.push(`code ${f.id}, le dessin dit ${attendu}`);
-    } else {
-      const m = /^([A-Z]{2,3})([mxn]?)$/.exec(f.id);
-      if (!m || /^[BS]\d/.test(f.id)) e.push(`code ${f.id} : deux ou trois majuscules, suffixe de mode en minuscule`);
-      else if (m[2] !== SUFFIXE_MODE[f.mode]) e.push(`code ${f.id} : le mode ${f.mode} s'écrit « ${SUFFIXE_MODE[f.mode] || '(rien)'} »`);
-    }
-  } else {
-    const m = /^([A-Z]{2,3})(\d{2})$/.exec(f.id);
+  const { famille } = familleDe(f);
+  const q = /^([A-Z]{2,3})(\d{2})$/.exec(f.id);
+  if (famille === 'quantite' && q) {
+    // lettres + la fraction inversée calculée
+    if (f.mode !== 'echange') e.push(`code ${f.id} : la fraction dans le code suppose le mode échange`);
     const pct = pourcent(fraction(f));
-    if (!m) e.push(`code ${f.id} : deux ou trois majuscules + fraction sur deux chiffres (famille quantité)`);
-    else if (Number(m[2]) !== pct) e.push(`code ${f.id} : la fraction calculée est ${pct} %`);
+    if (Number(q[2]) !== pct) e.push(`code ${f.id} : la fraction calculée est ${pct} %`);
+  } else if (type === 'bandes') {
+    const attendu = codeDeBandes(f);
+    if (f.id !== attendu) e.push(`code ${f.id}, le dessin dit ${attendu}`);
+  } else if (famille === 'quantite') {
+    e.push(`code ${f.id} : un fond en polygones de la famille quantité porte sa fraction (deux ou trois majuscules + deux chiffres)`);
+  } else {
+    const m = /^([A-Z]{2,3})([mxn]?)$/.exec(f.id);
+    if (!m || /^[BS]\d/.test(f.id)) e.push(`code ${f.id} : deux ou trois majuscules, suffixe de mode en minuscule`);
+    else if (m[2] !== SUFFIXE_MODE[f.mode]) e.push(`code ${f.id} : le mode ${f.mode} s'écrit « ${SUFFIXE_MODE[f.mode] || '(rien)'} »`);
   }
   return e;
 }
@@ -491,10 +539,12 @@ export function chargerCollection(json) {
   const fonds = new Map();
   for (const f of json.fonds || []) {
     if (fonds.has(f.id)) throw new Error(`fond ${f.id} en double`);
+    if ('famille' in f) throw new Error(`fond ${f.id} : la famille se calcule, elle ne se déclare pas`);
     rendu(f, 0); rendu(f, 1); // valide
+    const { famille, isometrie } = familleDe(f);
     const ecarts = ecartsDeCode(f);
     if (ecarts.length) throw new Error(`fond ${f.id} : ${ecarts.join(' ; ')}`);
-    fonds.set(f.id, { ...f, calcul: { fraction: fraction(f), nonCouvert: nonCouvert(f), raccord: raccord(f) } });
+    fonds.set(f.id, { ...f, calcul: { famille, isometrie, fraction: fraction(f), nonCouvert: nonCouvert(f), raccord: raccord(f) } });
   }
   const superpositions = new Map();
   for (const s of json.superpositions || []) {
@@ -563,4 +613,4 @@ export function bitsDuSvg(svg) {
 }
 
 // L'aplat carré : le rendu de référence, et le défaut.
-export const APLAT = Object.freeze({ id: 'P', famille: 'quantite', type: 'aplat' });
+export const APLAT = Object.freeze({ id: 'P', mode: 'echange', type: 'aplat' });

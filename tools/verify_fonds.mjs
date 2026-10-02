@@ -21,7 +21,8 @@
 //   5. l'attribut `raccord` d'un fond de bandes vaut ce que donne le calcul
 //      du désaccord au bord (franc, inversé, aucun — les trois présents dans
 //      la collection) ; un fond sans bandes n'en porte pas ;
-//   6. le contraste affiché vaut |1 − 2f| avec la fraction calculée (et la
+//   6. la famille se calcule (isométrie entre les deux rendus) ; le
+//      contraste affiché vaut |1 − 2f| avec la fraction calculée (et la
 //      couverture du glyphe pour une superposition), il est égal au
 //      contraste mesuré sur les deux rendus, et aucun contraste n'est
 //      affiché pour la famille orientation ;
@@ -126,31 +127,31 @@ for (const fond of collection.fonds.values()) {
   // 6. lecture : contraste |1 − 2f| (quantité), direction (orientation)
   const l = lecture(fond);
   let detailLecture;
-  if (fond.famille === 'orientation') {
+  if (fond.calcul.famille === 'orientation') {
     if (l.mode !== 'direction' || 'contraste' in l || l.texte !== 'se lit par la direction') echec(`${fond.id} : la famille orientation n'affiche pas de contraste`);
-    // La moyenne des deux états est la même quand v = 1 transforme la
-    // partition sans en changer les couleurs (rotation, miroir).
-    if (fond.mode === 'rotation' || fond.mode === 'miroir') {
-      const cm = contrasteMesure(fond);
-      if (cm > 0.005) echec(`${fond.id} : contraste mesuré ${pc(cm)}, 0 attendu (${fond.mode})`);
-    }
+    // L'isométrie entre les deux états fait la même moyenne : contraste nul.
+    const cm = contrasteMesure(fond);
+    if (cm > 0.005) echec(`${fond.id} : contraste mesuré ${pc(cm)}, 0 attendu (${fond.calcul.isometrie})`);
     detailLecture = l.texte;
   } else {
-    const attendu = contrasteDe(fond.calcul.fraction);
+    // |1 − 2f| en échange (et l'aplat), l'écart mesuré des deux rendus sinon.
     const cm = contrasteMesure(fond);
-    if (l.mode !== 'contraste' || Math.abs(l.contraste - attendu) > 1e-12) echec(`${fond.id} : contraste affiché ${l.contraste}, |1 − 2f| = ${attendu}`);
+    const echange = fond.mode === 'echange';
+    const attendu = echange ? contrasteDe(fond.calcul.fraction) : cm;
+    if (l.mode !== 'contraste' || Math.abs(l.contraste - attendu) > (echange ? 1e-12 : 0.005)) echec(`${fond.id} : contraste affiché ${l.contraste}, attendu ${attendu}`);
     if (Math.abs(cm - attendu) > 0.005) echec(`${fond.id} : contraste mesuré ${pc(cm)} ≠ |1 − 2f| = ${pc(attendu)}`);
     if (/efface/i.test(JSON.stringify(l))) echec(`${fond.id} : « efface » ne s'écrit pas`);
     if ((attendu < 0.15) !== (l.avertissement === 'plus de contraste à distance')) echec(`${fond.id} : avertissement mal posé`);
     detailLecture = `${l.texte}${l.avertissement ? ` — ${l.avertissement}` : ''}`;
     // 7. le code porte la vraie fraction arrondie
-    if (fond.type !== 'aplat') {
+    const q = /^[A-Z]{2,3}(\d{2})$/.exec(fond.id);
+    if (q) {
       const vrai = pourcent(fraction(fond, 1024));
-      const porte = Number(/(\d{2})$/.exec(fond.id)[1]);
+      const porte = Number(q[1]);
       if (porte !== vrai) echec(`${fond.id} : le code porte ${porte} %, la fraction calculée arrondit à ${vrai} %`);
     }
   }
-  console.log(`${echecs.length === avant ? 'OK    ' : '      '}${fond.id.padEnd(9)} ${fond.famille.padEnd(11)} ${(fond.mode || '').padEnd(8)} masque ${motifs.length}/${motifs.length} · couverture ${vide === 0 ? 'totale' : 'INCOMPLÈTE'} · fraction ${pc(fr[2])} (écart ${(relatif * 100).toFixed(2)} %)${detailRaccord} · ${detailLecture}`);
+  console.log(`${echecs.length === avant ? 'OK    ' : '      '}${fond.id.padEnd(9)} ${fond.calcul.famille.padEnd(11)} ${(fond.mode || '').padEnd(8)} ${(fond.calcul.isometrie || '').padEnd(22)} masque ${motifs.length}/${motifs.length} · couverture ${vide === 0 ? 'totale' : 'INCOMPLÈTE'} · fraction ${pc(fr[2])} (écart ${(relatif * 100).toFixed(2)} %)${detailRaccord} · ${detailLecture}`);
 }
 for (const r of ['franc', 'inversé', 'aucun']) if (!raccordsVus.has(r)) echec(`raccord « ${r} » absent de la collection : le test 5 ne couvre pas les trois valeurs`);
 
@@ -180,10 +181,8 @@ for (const id of identifiants) {
   let d;
   try { d = decomposer(id); } catch (e) { echec(`${id} : ${e.message}`); continue; }
   const fond = collection.fonds.get(d.fond);
-  const genreAttendu = fond.type === 'aplat' ? 'aplat' : fond.type === 'bandes' || fond.v0?.type === 'bandes' ? 'bandes' : fond.famille === 'orientation' ? 'orientation' : 'quantite';
-  if (fond.famille === 'quantite' && fond.type === 'bandes') {
-    if (d.genre !== 'quantite') echec(`${id} : lu comme ${d.genre}, c'est un fond quantité`);
-  } else if (d.genre !== genreAttendu) echec(`${id} : lu comme ${d.genre}, c'est ${genreAttendu}`);
+  const genreAttendu = fond.type === 'aplat' ? 'aplat' : /^[A-Z]{2,3}\d{2}$/.test(fond.id) ? 'quantite' : fond.type === 'bandes' || fond.v0?.type === 'bandes' ? 'bandes' : 'orientation';
+  if (d.genre !== genreAttendu) echec(`${id} : lu comme ${d.genre}, c'est ${genreAttendu}`);
   if (d.mode !== null && d.mode !== fond.mode) echec(`${id} : le suffixe dit ${d.mode}, le fond est en ${fond.mode}`);
   if (d.genre === 'orientation' || d.genre === 'quantite') {
     const lettres = /^[A-Z]+/.exec(d.fond)[0];

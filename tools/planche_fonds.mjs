@@ -39,7 +39,7 @@ function vignettes(fond, sup) {
 }
 const texteLecture = (l) => (l.mode === 'direction' ? l.texte : `${l.texte}${l.avertissement ? ` · <span class="av">${l.avertissement}</span>` : ''}`);
 function legendeFond(f) {
-  const lignes = [`<b>${f.id}</b>`, f.famille === 'quantite' ? 'quantité' : `orientation · ${MODES[f.mode]}`, `fraction ${pc(f.calcul.fraction)}`, texteLecture(lecture(f))];
+  const lignes = [`<b>${f.id}</b>`, f.calcul.famille === 'quantite' ? `quantité · ${MODES[f.mode]}` : `orientation · ${MODES[f.mode]} (${f.calcul.isometrie})`, `fraction ${pc(f.calcul.fraction)}`, texteLecture(lecture(f))];
   if (f.calcul.raccord) lignes.push(`raccord <b>${f.calcul.raccord}</b> (désaccord au bord ${pc(desaccordAuBord(f))})`);
   return lignes.join('<br>');
 }
@@ -47,8 +47,8 @@ const figure = (corps, legende) => `<figure>${corps}<figcaption>${legende}</figc
 
 const fonds = [...col.fonds.values()];
 const bandes = fonds.filter((f) => f.type === 'bandes' || f.type === 'aplat' || f.v0?.type === 'bandes');
-const orient = fonds.filter((f) => f.type === 'polygones' && f.famille === 'orientation');
-const quant = fonds.filter((f) => f.type === 'polygones' && f.famille === 'quantite');
+const orient = fonds.filter((f) => f.type === 'polygones' && f.calcul.famille === 'orientation');
+const quant = fonds.filter((f) => f.type === 'polygones' && f.calcul.famille === 'quantite');
 const section = (liste) => liste.map((f) => figure(vignettes(f, null), legendeFond(f))).join('');
 
 const sups = [...col.superpositions.values()].map((s) => {
@@ -59,7 +59,7 @@ const sups = [...col.superpositions.values()].map((s) => {
 });
 const asm = col.assemblages.filter((a) => a.fond.id !== 'P').map((a) => {
   const l = lectureAssemblage(a.fond, a.superposition);
-  return figure(vignettes(a.fond, a.superposition), [`<b>${a.id}</b>`, `fond ${a.fond.famille === 'quantite' ? 'quantité' : `orientation · ${MODES[a.fond.mode]}`}`,
+  return figure(vignettes(a.fond, a.superposition), [`<b>${a.id}</b>`, `fond ${a.fond.calcul.famille === 'quantite' ? 'quantité' : `orientation · ${MODES[a.fond.mode]}`}`,
     l.direction ? l.direction : '', `${texteLecture(l)} (mesuré)`].filter(Boolean).join('<br>'));
 });
 
