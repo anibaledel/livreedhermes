@@ -1,0 +1,32 @@
+name: Fonds des cases conformes au calcul
+
+# assets/bicolore-fonds.js pose un fond sur chaque case sans toucher au
+# masque ; data/fonds/collection-v1.json décrit la collection. Contrôles :
+#   - verify_fonds.mjs : tests 1 à 8 (masque inchangé, couverture, symboles,
+#     fraction stable, raccord, contraste, codes, décomposition) et les
+#     codes C8 / C1 inchangés ;
+#   - calculs_fonds.mjs : data/fonds/collection-v1.calculs.json (les valeurs
+#     que les pages reçoivent toutes faites) est à jour.
+#   - verify_lecture_binaire.mjs : la lecture binaire des 256 motifs
+#     tricolores (tests 12 à 15 : formule unique, zéro cas indéfini, aire
+#     72 / 72, selles sans voisin jaune, cases coupées hors fond).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/verify_fonds.mjs
+      - run: node tools/calculs_fonds.mjs
+      - run: node tools/verify_lecture_binaire.mjs
