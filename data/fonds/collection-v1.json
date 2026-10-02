@@ -1,0 +1,30 @@
+{
+  "_doc": "Fonds des cases (rendu seulement : le masque de parité ne change pas). Lus par assets/bicolore-fonds.js, qui calcule la fraction inversée et la couverture — elles ne se saisissent pas ici — et vérifie que chaque code dit ce que le fond fait (nomenclature du 3 octobre 2026) : P l'aplat ; B + nombre de bandes égales (≤ 9) ou largeurs réduites, + D à 45° ; fond de la famille quantité : lettres + sa fraction inversée en pour-cent, calculée. Coordonnées en cellule unité, y vers le bas ; ton 0/1 = première/seconde couleur (orientation) ou couleur de la case / couleur inverse (quantite). Bandes : angle 0 = verticales sur x ; angle 45 = sur x+y, la diagonale entière ; phase en fraction de la portée. B2D, ce sont les triangles.",
+  "fonds": [
+    { "id": "P", "famille": "quantite", "type": "aplat" },
+
+    { "id": "B2", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 2, "largeurs": [1, 1], "phase": 0, "angle": 0 },
+    { "id": "B3", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 1, 1], "phase": 0, "angle": 0 },
+    { "id": "B4", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 4, "largeurs": [1, 1, 1, 1], "phase": 0, "angle": 0 },
+    { "id": "B121", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 2, 1], "phase": 0, "angle": 0 },
+
+    { "id": "B2D", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 2, "largeurs": [1, 1], "phase": 0, "angle": 45 },
+    { "id": "B3D", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 1, 1], "phase": 0, "angle": 45 },
+    { "id": "B4D", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 4, "largeurs": [1, 1, 1, 1], "phase": 0, "angle": 45 },
+    { "id": "B121D", "famille": "orientation", "mode": "rotation",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 2, 1], "phase": 0, "angle": 45 },
+
+    { "id": "BA33", "famille": "quantite",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 1, 1], "tons": [0, 1, 0], "phase": 0, "angle": 0 },
+    { "id": "BA50", "famille": "quantite",
+      "type": "bandes", "nombre": 3, "largeurs": [1, 2, 1], "tons": [0, 1, 0], "phase": 0, "angle": 0 }
+  ],
+  "superpositions": []
+}
