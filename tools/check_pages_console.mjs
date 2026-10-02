@@ -121,6 +121,12 @@ const SANS_PIED = TRADUITES_A_LA_MAIN;
 async function checkPage(browser, page_def) {
   const url = `${BASE_URL}/${page_def.path}`;
   const page = await browser.newPage();
+  // Mesure d'audience (Cloudflare Web Analytics) : remplacée par un script
+  // vide. Servie depuis localhost, la balise verrait son envoi refusé par
+  // CORS (erreur de console sans rapport avec la page) — et chaque passage
+  // du contrôle compterait sinon comme une visite.
+  await page.route('https://static.cloudflareinsights.com/**',
+    (r) => r.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
   const errors = [];
   page.on('pageerror', (err) => errors.push(`exception : ${err.message}`));
   page.on('console', (msg) => {
