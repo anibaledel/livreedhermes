@@ -25,7 +25,9 @@
 // Un triangle qui regarde un voisin JAUNE prend la couleur du triangle
 // adjacent qui, lui, regarde un voisin coloré (dans le corpus, les voisins
 // jaunes vont toujours par deux, adjacents : chaque triangle concerné a
-// exactement un tel voisin de triangle). C'est la règle des voisins jaunes
+// exactement un tel voisin de triangle). GARDE-FOU : si ce triangle n'est
+// pas unique (un voisin jaune isolé, deux opposés, trois), la lecture
+// échoue en nommant la case et le motif — jamais un choix silencieux. C'est la règle des voisins jaunes
 // telle qu'elle était, écrite dans la même formule : les voisins jaunes sont
 // ignorés, la diagonale sépare les couleurs présentes. Quatre voisins jaunes
 // → le voisinage à huit (aucun M → V, aucun V → M). Tout autre cas ÉCHOUE en
@@ -104,10 +106,13 @@ export function lectureBinaire(grille, nom = 'motif', { collecter = false } = {}
         const tri = t.map((b, i) => {
           if (b !== null) return b;
           const voisins = [t[(i + 3) % 4], t[(i + 1) % 4]].filter((x) => x !== null);
-          if (voisins.length !== 1 && !(voisins.length === 2 && voisins[0] === voisins[1])) { ambigu = true; return null; }
+          // garde-fou : le triangle adjacent coloré doit être UNIQUE (vrai sur
+          // les 256 motifs, où les voisins jaunes vont par paires adjacentes —
+          // un fait du corpus, pas un théorème). Sinon : échec, jamais un choix.
+          if (voisins.length !== 1) { ambigu = true; return null; }
           return voisins[0];
         });
-        if (ambigu) { indefini(r, c, nom4, `${nom} : case (ligne ${r}, colonne ${c}) — voisins ${nom4} : un triangle face au jaune n'a pas de couleur unique : cas indéfini`); continue; }
+        if (ambigu) { indefini(r, c, nom4, `${nom} : case (ligne ${r}, colonne ${c}) — voisins ${nom4} : un triangle face au jaune n'a pas un triangle adjacent coloré unique : cas indéfini (garde-fou)`); continue; }
         case_ = fusion(tri);
         if (case_.type === 'quatre') {
           const selle = tri[0] === tri[2] && tri[1] === tri[3] && tri[0] !== tri[1];

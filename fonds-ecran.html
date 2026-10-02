@@ -234,6 +234,21 @@
     #hud button{ padding:7px 8px; font-size:calc(10px + var(--fs-bump)); margin-left:4px; }
     #levelBar{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
   }
+  .fond-fixe{ max-width:900px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .fond-fixe h2{ color:var(--gold); font-weight:400; font-size:calc(16px + var(--fs-bump)); letter-spacing:.02em; margin:0 0 10px; }
+  .ff-intro, .ff-description, .ff-erreur{ max-width:64ch; margin:0 auto 16px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; }
+  .ff-description .sf-av, .ff-erreur{ color:var(--red); }
+  .ff-choix{ display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; align-items:center; margin:0 0 16px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
+  .ff-choix label{ display:flex; align-items:center; gap:6px; }
+  .ff-choix select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:5px 6px; font:inherit; }
+  .ff-choix input[type=color]{ width:36px; height:30px; border:1px solid var(--line-strong); background:transparent; padding:2px; }
+  .ff-selecteur{ max-width:470px; margin:0 auto 16px; text-align:left; }
+  .ff-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
+  .ff-apercu{ width:100%; aspect-ratio:16 / 9; border:1px solid var(--line); margin:0 auto 12px; overflow:hidden; }
+  .ff-apercu svg{ display:block; width:100%; height:100%; }
+  .ff-actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .ff-actions button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:9px 14px; cursor:pointer; }
+  .ff-actions button:hover{ border-color:var(--gold); color:var(--gold); }
 </style>
 <link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="style.css">
@@ -322,7 +337,30 @@
     <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
     <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie.</div>
     <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
+    <div>🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe ci-dessous.</div>
   </div>
+
+  <section class="fond-fixe" id="fondFixe" aria-labelledby="ffTitre">
+    <h2 id="ffTitre">Fond d'écran fixe, en vecteur</h2>
+    <p class="ff-intro">Un motif du corpus, lu en deux couleurs (les cases jaunes deviennent les triangles qui complètent la couleur la plus proche), et un fond posé sur chaque case. Une seule image SVG, sans résolution : elle couvre le 1920 × 1080, le 2560 × 1440, la 4K et tout autre écran, pour quelques kilo-octets.</p>
+    <div class="ff-choix">
+      <label>Famille <select id="ffFamille"></select></label>
+      <label>Hexagramme <select id="ffHex"></select></label>
+      <label>Couleur 1 <input type="color" id="ffCouleur1" value="#662d91"></label>
+      <label>Couleur 2 <input type="color" id="ffCouleur2" value="#ee2a7b"></label>
+      <label>Densité <input type="range" id="ffDensite" min="3" max="16" step="1" value="6"> <span id="ffDensiteVal">6</span></label>
+    </div>
+    <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
+    <p class="ff-erreur" id="ffErreur" hidden></p>
+    <div class="ff-apercu" id="ffApercu" role="img" aria-label="Aperçu du fond d'écran fixe, au format 16:9"></div>
+    <p class="ff-description" id="ffDescription"></p>
+    <div class="ff-actions">
+      <button type="button" id="ffSvg">Télécharger le SVG (toutes résolutions)</button>
+      <button type="button" id="ffPng1920">PNG 1920 × 1080</button>
+      <button type="button" id="ffPng2560">PNG 2560 × 1440</button>
+      <button type="button" id="ffPng3840">PNG 3840 × 2160 (4K)</button>
+    </div>
+  </section>
 
   </main>
 <!-- @main:end -->
@@ -398,6 +436,7 @@
       <button id="btnReset">↺ Réinitialiser</button>
       <button id="btnFullReactive" title="Basses→teinte, médiums→motif">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
+      <button id="btnFiger" title="Reprendre ce motif dans le fond d'écran fixe, en vecteur">🖼 Figer</button>
       <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
         <select id="recordRatio" title="Ratio d'export vidéo">
           <option value="916">9:16 (vertical)</option>
@@ -798,6 +837,14 @@ function launch(cat, grids){
   requestAnimationFrame(loop);
 }
 
+// « Figer » : le motif à l'écran passe au fond d'écran fixe (assets/vue-fond-ecran.js).
+document.getElementById('btnFiger').onclick = ()=>{
+  if(currentIndex < 0 || !currentGrids[currentIndex]) return;
+  const m = currentGrids[currentIndex];
+  document.getElementById('btnExit').onclick();
+  window.dispatchEvent(new CustomEvent('figer-motif', { detail: { grid: m.grid, fam: m.fam, subA: m.subA, subB: m.subB, n: m.n } }));
+};
+
 document.getElementById('btnExit').onclick = ()=>{
   if(document.fullscreenElement) document.exitFullscreen();
   stopAudio();
@@ -1140,6 +1187,15 @@ function loop(){
   requestAnimationFrame(loop);
 }
 document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<script type="module">
+// Le fond d'écran fixe : le sélecteur de fond commun (assets/selecteur-fonds.js)
+// et la sortie vectorielle du moteur — voir assets/vue-fond-ecran.js.
+import { monterFondEcran } from './assets/vue-fond-ecran.js';
+monterFondEcran(document.getElementById('fondFixe')).catch((e) => {
+  document.getElementById('ffErreur').hidden = false;
+  document.getElementById('ffErreur').textContent = 'Erreur de chargement : ' + e.message;
+});
 </script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>

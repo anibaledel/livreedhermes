@@ -16,6 +16,12 @@
 //       motif ;
 //   14. une selle n'a jamais de voisin jaune (relu dans la grille, pas dans
 //       la lecture) — sinon la détection est fausse ;
+//   16. le garde-fou : un triangle face au jaune dont le triangle adjacent
+//       coloré n'est pas unique fait échouer la lecture (grilles d'essai :
+//       un voisin jaune isolé, deux voisins jaunes opposés) ;
+//   17. le fond d'écran lit la même grille que la page : grilleDuMotif
+//       (assets/vue-fond-ecran.js) redonne, pour les 256, la grille de
+//       motifs/<slug>.html, et slugDe son adresse ;
 //   15. (10 et 11) la découpe est déterministe, et les cases coupées sont
 //       rendues à l'identique quel que soit le fond (les cases pleines
 //       gardent leur bit).
@@ -29,6 +35,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import { chargerCollection, motifSvg, bitsDuSvg, APLAT } from '../assets/bicolore-fonds.js';
+import { grilleDuMotif, slugDe, FAMILLES } from '../assets/vue-fond-ecran.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = path.join(ROOT, 'motifs');
@@ -119,13 +126,41 @@ for (const f of fichiers) {
   }
   const [, famille, n] = f.match(/^(.*)-h(\d+)\.html$/);
   if (!parFamille.has(famille)) parFamille.set(famille, []);
-  parFamille.get(famille).push({ n: Number(n), selles: s.selles > 0 });
+  parFamille.get(famille).push({ n: Number(n), selles: s.selles > 0, pleins16: s.jaunesPleins === 16 });
+}
+
+// 17. la grille du fond d'écran est celle de la page.
+{
+  const data = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds_ecran_v1.json'), 'utf8'));
+  let n17 = 0;
+  for (const fam of FAMILLES) for (let n = 0; n < 32; n++) {
+    const f = `${slugDe(fam, n)}.html`;
+    if (!fichiers.includes(f)) { echecs.push(`fond d'écran : ${f} n'existe pas (slugDe)`); continue; }
+    if (JSON.stringify(grilleDuMotif(data, fam, n)) !== JSON.stringify(grilleDe(f))) echecs.push(`fond d'écran : la grille de ${f} diffère de grilleDuMotif`);
+    n17++;
+  }
+  if (n17 !== 256) echecs.push(`fond d'écran : ${n17} motifs couverts, 256 attendus`);
+}
+
+// 16. le garde-fou, sur des grilles d'essai (pas dans le corpus).
+{
+  const essai = (voisins) => {
+    const g = Array.from({ length: 12 }, (_, r) => Array.from({ length: 12 }, (_, c) => ((r + c) % 2 ? 'V' : 'M')));
+    g[5][5] = 'O';
+    [[4, 5], [5, 6], [6, 5], [5, 4]].forEach(([r, c], i) => { g[r][c] = voisins[i]; });
+    try { lectureBinaire(g, 'essai'); return false; } catch (e) { return /garde-fou/.test(e.message); }
+  };
+  for (const v of [['O', 'V', 'M', 'V'], ['O', 'V', 'O', 'M'], ['O', 'O', 'O', 'V']]) {
+    if (!essai(v)) echecs.push(`garde-fou : voisins N${v[0]} E${v[1]} S${v[2]} O${v[3]} acceptés sans échec`);
+  }
 }
 
 console.log(`${fichiers.length} motifs lus (grille affichée, motifs/*.html) : zéro cas indéfini, aire 72 / 72, classes 48 / 48 / 48.`);
 for (const [forme, n] of [...formes].sort((x, y) => y[1] - x[1])) console.log(`  ${String(n).padStart(3)} × ${forme}`);
 console.log('Test 12 : la formule unique (quatre triangles, fusion) redonne bit à bit les trois branches, sur les 256 motifs.');
 console.log('Test 14 : aucune selle n\'a de voisin jaune.');
+console.log('Test 17 : le fond d\'écran lit la grille même des 256 pages (grilleDuMotif, slugDe).');
+console.log('Test 16 : le garde-fou échoue sur un voisin jaune isolé, deux opposés, trois.');
 console.log('Test 15 : découpe déterministe ; cases coupées identiques sous les ' + collection.fonds.size + ' fonds.');
 const sans = sellesParMotif.get(0) || 0;
 console.log(`\nMotifs sans selle : ${sans} ; avec selles : ${fichiers.length - sans} (${[...sellesParMotif].filter(([k]) => k).map(([k, v]) => `${v} motifs à ${k} selles`).join(', ')}).`);
@@ -135,14 +170,14 @@ console.log(`\nMotifs sans selle : ${sans} ; avec selles : ${fichiers.length - s
 const predicats = [];
 for (let i = 0; i < 6; i++) predicats.push([`trait ${i + 1} plein`, (t) => t[i] === 1]);
 for (let i = 0; i < 6; i++) for (let j = i + 1; j < 6; j++) predicats.push([`traits ${i + 1} et ${j + 1} différents`, (t) => t[i] !== t[j]]);
-console.log('Ce qui décide les selles (sur les 32 hexagrammes de chaque famille) :');
+console.log('Ce qui décide le profil (sur les 32 hexagrammes de chaque famille) — deux bits, chacun lu sur une paire de traits d\'extrémité :');
+const decide = (liste, cle) => predicats.filter(([, p]) => liste.every((x) => p(traits(x.n)) === x[cle])).map(([nom]) => nom).join(' ; ') || 'aucun prédicat simple';
 for (const [famille, liste] of parFamille) {
-  const justes = predicats.filter(([, p]) => liste.every(({ n, selles }) => p(traits(n)) === selles)).map(([nom]) => nom);
-  console.log(`  ${famille.padEnd(22)} ${liste.filter((x) => x.selles).length}/32 — ${justes.length ? justes.join(' ; ') : 'aucun prédicat simple'}`);
+  console.log(`  ${famille.padEnd(22)} selles (${liste.filter((x) => x.selles).length}/32) ⇔ ${decide(liste, 'selles')}  ·  16 jaunes pleins (${liste.filter((x) => x.pleins16).length}/32) ⇔ ${decide(liste, 'pleins16')}`);
 }
 
 if (echecs.length) {
   console.error(`\n${echecs.length} échec(s) :\n  ${echecs.slice(0, 40).join('\n  ')}`);
   process.exit(1);
 }
-console.log('\nTests 12 à 15 : OK.');
+console.log('\nTests 12 à 17 : OK.');
