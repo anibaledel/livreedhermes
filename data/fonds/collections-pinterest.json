@@ -89,8 +89,8 @@
   },
   "B2": {
    "palette": [
-    "#efeae0",
-    "#23232b"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -161,7 +161,17 @@
      "bases-yang-mut-h19",
      "bases-yang-mut-h27"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b"
+    }
+   ]
   },
   "B6D": {
    "palette": [
