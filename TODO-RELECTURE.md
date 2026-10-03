@@ -24,6 +24,21 @@ directement dans `zh/` et `ru/`. Après toute correction chinoise, relancer
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
 
+## En premier : la phrase des licences (texte juridique)
+
+En tête de chaque liste des dépôts, engendrée par `scripts/build-travaux.js`
+(comptes calculés depuis `data/travaux.json`). C'est ce qu'un relecteur natif
+doit voir avant tout le reste :
+
+- **zh** (zh/works/) : 本网站采用 CC BY-NC 4.0 许可。以下每个存档保留其发布时的许可，并在各条目中注明：7 个为 CC BY 4.0，3 个为 AGPL v3，1 个为 CC BY-NC 4.0。
+- **ru** (ru/works/) : Этот сайт распространяется по лицензии CC BY-NC 4.0. Каждая публикация ниже сохраняет лицензию, под которой она была опубликована; лицензия указана у каждой: CC BY 4.0 — 7, AGPL v3 — 3, CC BY-NC 4.0 — 1.
+
+Le sens à garder (français) : « Ce site est sous licence CC BY-NC 4.0. Chaque
+dépôt ci-dessous garde la licence sous laquelle il a été publié, indiquée pour
+chacun : CC BY 4.0 pour 7, AGPL v3 pour 3 et CC BY-NC 4.0 pour 1. » Les noms
+de licence ne se traduisent pas. En russe, les dépôts s'appellent
+« публикации » (glossaire) ; « депозит » est refusé.
+
 ## Commun aux deux langues
 
 - **Les termes du glossaire choisis pour ZH et RU** n'ont été validés par aucun

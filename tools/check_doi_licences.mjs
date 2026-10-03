@@ -10,6 +10,18 @@
 //   - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html
 //     et ses traductions, engendrées par scripts/build-travaux.js) : c'est la
 //     licence de certains DÉPÔTS, pas celle du site ;
+//
+//     NE PAS « NORMALISER » CES PAGES EN BY-NC. Décision d'Anibal (2026-10-03,
+//     lot « six langues ») : ces listes n'affichent pas LEUR licence, elles
+//     affichent celle des dépôts qu'elles listent. Les dépôts Zenodo sont
+//     figés, publiés sous leurs licences, et une licence CC BY 4.0 déjà
+//     distribuée ne se reprend pas : écrire BY-NC à cet endroit ne changerait
+//     pas la licence des fichiers, ça rendrait seulement la page fausse. Le
+//     site, lui, est en CC BY-NC 4.0, et chaque liste le dit en tête (la
+//     phrase des licences de build-travaux.js). L'invariant est donc : CC BY
+//     4.0 sur les listes de dépôts et nulle part ailleurs — 4 pages à ce jour
+//     (travaux.html, en/works/, zh/works/, ru/works/). Une liste traduite de
+//     plus reprend la licence des dépôts, comme son équivalent français ;
 //   - chaque page d'une langue ajoutée (zh/, ru/) porte le DOI du livre
 //     (10.5281/zenodo.22722485) et la licence CC BY-NC 4.0, comme son
 //     équivalent français ;

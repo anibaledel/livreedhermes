@@ -97,6 +97,29 @@ function itemHtml(d, lang) {
   return lignes.join('\n');
 }
 
+// La phrase des licences, en tête de chaque liste : la licence du SITE et
+// celles des DÉPÔTS se lisent ensemble. Ces pages affichent CC BY 4.0 parce
+// que des dépôts listés ont été publiés sous cette licence sur Zenodo — pas
+// parce que le site l'est (voir tools/check_doi_licences.mjs). Les comptes
+// sortent de data/travaux.json : tous les dépôts ne sont pas en CC BY 4.0
+// (le livre est en CC BY-NC 4.0, le code en AGPL v3), et une phrase qui le
+// dirait de tous serait fausse sur une page de licences.
+// Chinois et russe : à relire (TODO-RELECTURE.md, en tête).
+const LICENCE_SITE = 'CC BY-NC 4.0';
+const PHRASE_LICENCES = {
+  fr: (l) => `Ce site est sous licence ${LICENCE_SITE}. Chaque dépôt ci-dessous garde la licence sous laquelle il a été publié, indiquée pour chacun : ${et(l.map(([n, k]) => `${n} pour ${k}`), 'et')}.`,
+  en: (l) => `This site is licensed under ${LICENCE_SITE}. Each deposit below keeps the licence under which it was published, shown with it: ${et(l.map(([n, k]) => `${n} for ${k}`), 'and')}.`,
+  zh: (l) => `本网站采用 ${LICENCE_SITE} 许可。以下每个存档保留其发布时的许可，并在各条目中注明：${l.map(([n, k]) => `${k} 个为 ${n}`).join('，')}。`,
+  ru: (l) => `Этот сайт распространяется по лицензии ${LICENCE_SITE}. Каждая публикация ниже сохраняет лицензию, под которой она была опубликована; лицензия указана у каждой: ${l.map(([n, k]) => `${n} — ${k}`).join(', ')}.`,
+};
+function et(xs, mot) { return xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} ${mot} ${xs[xs.length - 1]}`; }
+function phraseLicences(lang) {
+  const n = new Map();
+  for (const d of DONNEES.depots) if (d.licence) n.set(d.licence, (n.get(d.licence) || 0) + 1);
+  const l = [...n].sort((a, b) => b[1] - a[1]);
+  return PHRASE_LICENCES[lang](l);
+}
+
 function listeHtml(lang) {
   const blocs = DONNEES.sections.map((s) => {
     const items = DONNEES.depots.filter((d) => d.section === s.id);
@@ -105,6 +128,7 @@ function listeHtml(lang) {
       + items.map((d) => itemHtml(d, lang)).join('\n') + `\n      </ul>\n    </div>`;
   }).filter(Boolean);
   return `<!-- @travaux:start — engendré depuis data/travaux.json (scripts/build-travaux.js) -->\n`
+    + `    <p class="profile-intro travaux-licences">${escapeHtml(phraseLicences(lang))}</p>\n\n`
     + blocs.join('\n\n') + `\n    <!-- @travaux:end -->`;
 }
 

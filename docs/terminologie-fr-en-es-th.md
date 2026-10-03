@@ -76,6 +76,8 @@ les variantes refusées plus bas) ; ZH et RU sont fixés ici, avant les pages.
 | gnomon | gnomon | gnomon | โนมอน | 磬折形 | гномон | TH absent des pages, translittéré |
 | Yi King | Yi King | Yi King | อี้จิง | 易经 | И цзин | — |
 | Carter (l'encodeur) | Carter | Carter | คาร์เตอร์ | Carter | Carter | nom propre : ZH et RU gardent le latin |
+| dépôt (Zenodo) | deposit | depósito | — | 存档 | публикация | une entrée de data/travaux.json ; ES et TH : aucune page ne l'emploie encore |
+| licence | licence | licencia | สัญญาอนุญาต | 许可 | лицензия | la licence d'une page ou d'un dépôt ; ses noms (CC BY-NC 4.0, CC BY 4.0, AGPL v3) ne se traduisent pas |
 
 ## Variantes refusées
 
@@ -110,6 +112,8 @@ casse et en mots entiers.
 | ru | calque (des 360) | кальк* |
 | ru | métier Jacquard | станк* Жаккара ; станок Жаккара |
 | ru | Yi King | И-цзин ; Ицзин ; Йи Кинг |
+| ru | dépôt (Zenodo) | депозит* |
+| zh-Hans | licence | 许可证 ; 授权协议 ; 许可协议 |
 | en | La Livrée d'Hermès (titre) | Livery of Hermes |
 | es | La Livrée d'Hermès (titre) | Librea de Hermes |
 | th | La Livrée d'Hermès (titre) | เสื้อคลุมของเฮอร์เมส |
