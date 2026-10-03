@@ -262,3 +262,46 @@ Traduction faite sans relecteur natif. Points à vérifier, page par page.
 - « 2-адический подъём » pour « lifting » (terme standard « подъём Гензеля » ; « подъём » seul paraît correct).
 - « замкнутых относительно смены знака и удвоения » pour « closed under negation and doubling ».
 - « anterieurs » laissé vide : travaux-a-traduire.json n'en contient aucun.
+
+## Thaï — pages existantes modifiées par ce lot
+
+Ce lot a touché du texte thaï déjà publié. Rien n'y a été traduit : ce sont des
+**restaurations** (le titre et le nom ne se traduisent pas) et deux
+**alignements** de terme. Un lecteur thaï tranche chacun en quelques secondes.
+
+### Le nom de l'auteur (3 occurrences, th/book/index.html)
+
+La translittération « อนิบัล อามิโอต์ » a été remplacée par le nom original,
+dans les trois méta-descriptions (description, og:description,
+twitter:description) — même phrase aux trois endroits :
+
+- **avant** : `อ่านหนังสือ เสื้อคลุมของเฮอร์เมส โดยอนิบัล อามิโอต์ ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี`
+- **après** : `อ่านหนังสือ La Livrée d'Hermès โดย Anibal Edelberto Amiot ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี`
+
+À vérifier : l'espace entre « โดย » et le nom latin (choisi pour suivre
+th/index.html, qui écrit déjà « โดย Anibal Edelberto Amiot »).
+
+### Le titre (22 occurrences thaïes)
+
+« เสื้อคลุมของเฮอร์เมส » → « La Livrée d'Hermès » : th/index.html (10),
+th/book/index.html (9), th/search/index.html (1), impression.html (1, le
+dictionnaire d'interface thaï), la-livree-d-hermes.html (1, carte de l'édition
+thaïe : « อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี »).
+L'`alternateName` « เสื้อคลุมของเฮอร์เมส » du JSON-LD de th/index.html est
+gardé : il dit ce que le titre veut dire sans remplacer le titre.
+
+À vérifier : les espaces posées autour du titre latin dans la phrase thaïe.
+
+### Deux termes alignés sur la forme majoritaire
+
+« Majoritaire » est un argument de fréquence, pas de justesse :
+
+- **carré magique** : « ตารางเวทมนตร์ » (2 pages : th/index.html, 4 fois dont
+  3 méta-descriptions ; th/book/index.html, 1 fois) → « จัตุรัสกล », la forme
+  des 66 autres pages thaïes ;
+- **hexagramme** : « เฮกซะแกรม » (1 bouton de navigation, th/book/index.html) →
+  « ฉักลักษณ์ », la forme des 68 autres pages.
+
+Si le lecteur natif préfère l'autre forme, la changer **dans le glossaire
+d'abord** (docs/terminologie-fr-en-es-th.md) et déplacer l'ancienne vers les
+variantes refusées : tools/check_glossaire.mjs fera le reste.
