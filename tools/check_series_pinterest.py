@@ -18,7 +18,11 @@
 #   4. empreinte de pixels (sha256 du RGB décodé) : 224 images distinctes
 #      par série, et chaque doublon est exactement une paire
 #      par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7) — les grilles
-#      identiques de tools/verify_six_formes.mjs, rien d'autre.
+#      identiques de tools/verify_six_formes.mjs, rien d'autre ;
+#   5. la campagne (registre, « campagne ») : parmi les images de ses 256
+#      épingles et celles déjà publiées sur le même tableau hors campagne
+#      (« deja_sur_le_tableau »), AUCUNE image identique deux fois, par
+#      empreinte de pixels.
 # Usage : python3 tools/check_series_pinterest.py
 import csv, hashlib, json, os, re, sys
 import numpy as np
@@ -26,7 +30,9 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CREME = (0xef, 0xea, 0xe0)
-reg = json.load(open(os.path.join(ROOT, 'data/fonds/collections-pinterest.json'), encoding='utf-8'))['series']
+registre = json.load(open(os.path.join(ROOT, 'data/fonds/collections-pinterest.json'), encoding='utf-8'))
+reg = registre['series']
+empreinte_de = {}
 pages = {}
 with open(os.path.join(ROOT, 'data/motifs-index.csv'), encoding='utf-8') as f:
     for l in csv.DictReader(f):
@@ -52,7 +58,9 @@ for nom, s in reg.items():
         if im.size != (l, h):
             echecs.append(f"{nom}/{f} : {im.size[0]} × {im.size[1]}, attendu {s['format']}")
         a = np.asarray(im)
-        empreintes.setdefault(hashlib.sha256(a.tobytes()).hexdigest(), []).append(f)
+        e = hashlib.sha256(a.tobytes()).hexdigest()
+        empreintes.setdefault(e, []).append(f)
+        empreinte_de[(nom, f)] = e
         p = paquet(a).ravel()
         dans = np.isin(p, pal)
         part = dans.mean()
@@ -83,6 +91,23 @@ for nom, s in reg.items():
           f"{len(empreintes)} distinctes, {conformes} paires hN = h(N XOR 7)")
     if len(empreintes) != 224 or conformes != 32:
         echecs.append(f"{nom} : {len(empreintes)} images distinctes et {conformes} paires, attendu 224 et 32")
+
+# 5. la campagne : aucune image identique deux fois sur le tableau
+camp = registre.get('campagne')
+if camp:
+    fichier_de = {v: k for k, v in pages.items()}
+    vues = {}
+    for a in camp['attribution']:
+        vues.setdefault(empreinte_de[(a['serie'], fichier_de[a['page']])], []).append(f"{a['serie']}/{a['page']}")
+    for d in camp.get('deja_sur_le_tableau', []):
+        im = np.asarray(Image.open(os.path.join(ROOT, d['fichier'])).convert('RGB'))
+        vues.setdefault(hashlib.sha256(im.tobytes()).hexdigest(), []).append(d['fichier'])
+    deux = [v for v in vues.values() if len(v) > 1]
+    for v in deux:
+        echecs.append(f"campagne : image identique programmée {len(v)} fois sur le tableau — {' = '.join(v)}")
+    n = len(camp['attribution']) + len(camp.get('deja_sur_le_tableau', []))
+    print(f"campagne, tableau {camp['tableau']} : {n} images ({len(camp['attribution'])} épingles + {len(camp.get('deja_sur_le_tableau', []))} hors campagne), "
+          f"{len(vues)} empreintes distinctes, {len(deux)} en double")
 
 if echecs:
     print('\n' + '\n'.join(echecs[:50]), file=sys.stderr)

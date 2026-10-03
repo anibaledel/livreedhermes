@@ -7,7 +7,11 @@ name: Séries Pinterest conformes au registre
 #     fixe (docs/six-formes-independantes.md) ;
 #   - check_series_pinterest.py : noms, formats, palette de chaque série
 #     (assets/couleurs.js), pas de crème, et les seuls doublons au pixel près
-#     sont ces 32 paires.
+#     sont ces 32 paires ; et la campagne : aucune image identique deux fois
+#     sur le tableau, par empreinte de pixels ;
+#   - epingles_pinterest.mjs --verifie : l'attribution page → série du
+#     registre (jumelles dans deux séries différentes, publiées inchangées)
+#     et la liste data/fonds/epingles-pinterest.csv à jour.
 
 on:
   push:
@@ -30,4 +34,5 @@ jobs:
           python-version: '3.x'
       - run: pip install pillow numpy
       - run: node tools/verify_six_formes.mjs
+      - run: node tools/epingles_pinterest.mjs --verifie
       - run: python tools/check_series_pinterest.py
