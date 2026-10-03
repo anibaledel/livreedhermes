@@ -52,7 +52,7 @@
    "rang": 3
   }
  },
- "_doc_series": "« series » : les quatre séries du corpus Pinterest, 256 images chacune, sous les MÊMES 256 noms de fichier (un par page de motif, 8 formes × h0…h31 ; le nom est le même en français et en anglais, la page anglaise sert de référence). Les noms de dossier sont gardés tels quels — des épingles portent ces adresses — même quand ils sont inexacts : « monochrome » désigne TROIS niveaux de gris. La palette de chaque série recopie assets/couleurs.js (check_couleurs.mjs) ; check_series_pinterest.mjs vérifie que chaque image l'emploie. Mesures du 2026-10-03 : dans chaque série, 224 images distinctes pour 256 fichiers — les 32 paires de grilles identiques de par2-yin-yang et par3-sans-yang-mut (hN ↔ h(N XOR 7)) ; voir docs/six-formes-independantes.md.",
+ "_doc_series": "« series » : les quatre séries du corpus Pinterest, 256 images chacune, sous les MÊMES 256 noms de fichier (un par page de motif, 8 formes × h0…h31 ; le nom est le même en français et en anglais, la page anglaise sert de référence). Les noms de dossier sont gardés tels quels — des épingles portent ces adresses — même quand ils sont inexacts : « monochrome » désigne TROIS niveaux de gris. La palette de chaque série recopie assets/couleurs.js (check_couleurs.mjs) ; check_series_pinterest.py vérifie que chaque image l'emploie. Mesures du 2026-10-03 : dans chaque série, 224 images distinctes pour 256 fichiers — les 32 paires de grilles identiques de par2-yin-yang et par3-sans-yang-mut (hN ↔ h(N XOR 7)) ; voir docs/six-formes-independantes.md.",
  "series": {
   "corpus-1024": {
    "grain": "pavage",
