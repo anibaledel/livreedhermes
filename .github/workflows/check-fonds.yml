@@ -16,12 +16,16 @@ name: Fonds des cases conformes au calcul
 #     pages (création bicolore, une page de motif EN et FR, fond d'écran),
 #     le motif de la page, 390 px, le redessin, les 512 pages et leurs
 #     hreflang ;
-#   - check_export_pinterest.mjs local : les images des collections P et B2D
+#   - check_fond_ecran_animation.mjs local : l'animation bicolore (état en
+#     URL, comptes par catégorie, densité, tuile du moteur, vidéo 1080 × 1920) ;
+#   - check_export_pinterest.mjs local : les images des collections
 #     sont identiques, pixel par pixel, au rendu des pages (dans les couleurs
 #     de chaque collection, data/fonds/collections-pinterest.json).
 # Et, sans navigateur : check_couleurs.mjs (un seul jeu de couleurs par
 # défaut, assets/couleurs.js, et le contraste gris / crème) ;
-# correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json).
+# correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json) ;
+# check_fonds_ecran_source.mjs (fonds-ecran.html : une source, la copie
+# intégrée périmée jamais relue).
 
 on:
   push:
@@ -44,6 +48,7 @@ jobs:
       - run: node tools/verify_lecture_binaire.mjs
       - run: node tools/check_couleurs.mjs
       - run: node tools/correspondance_motifs.mjs
+      - run: node tools/check_fonds_ecran_source.mjs
 
   rendu:
     runs-on: ubuntu-latest
@@ -57,3 +62,7 @@ jobs:
       - run: node tools/check_selecteur_fonds.mjs local
       - run: node tools/check_export_pinterest.mjs local --code P --echantillon 8
       - run: node tools/check_export_pinterest.mjs local --code B2D --echantillon 8
+      - run: node tools/check_export_pinterest.mjs local --code B2 --echantillon 8
+      - run: node tools/check_export_pinterest.mjs local --code B121 --echantillon 8
+      - run: node tools/check_export_pinterest.mjs local --code B6D --echantillon 8
+      - run: node tools/check_fond_ecran_animation.mjs local

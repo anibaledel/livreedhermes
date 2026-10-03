@@ -393,8 +393,8 @@
         <div class="render-caption" id="gammeMeta"></div>
         <div class="palette-picker">
           <span class="palette-label" data-i18n="paletteLabel">Palette</span>
-          <input type="color" id="pal0" value="#808285" title="Couleur 1">
-          <input type="color" id="pal1" value="#a7a9ac" title="Couleur 2">
+          <input type="color" id="pal0" title="Couleur 1">
+          <input type="color" id="pal1" title="Couleur 2">
           <button type="button" id="btnResetPalette" data-i18n="paletteReset">Réinitialiser</button>
         </div>
       </div>
@@ -443,6 +443,7 @@
 <script src="assets/soutien-gate.js"></script>
 <script type="module">
 import { hexToBits, maskToPavageSvg } from './assets/bicolore-render.js';
+import { PALETTE_DEFAUT } from './assets/couleurs.js';
 
 // ── i18n ─────────────────────────────────────────────────────────────────
 // Dictionnaire à quatre langues, même motif que index.html (UI[lang][key],
@@ -836,7 +837,10 @@ document.querySelectorAll('.echelle-btn[data-echelle]').forEach(b => {
 
 // ── palette (2 teintes, persistance localStorage) ───────────────────────
 const PALETTE_STORAGE_KEY = 'lldh-palette-bicolore';
-const PALETTE_DEFAULT = ['#808285', '#a7a9ac'];
+// Le défaut : crème et encre, le jeu de constantes unique (assets/couleurs.js).
+// L'ancien défaut gris (#808285, #a7a9ac) reste choisissable ; une palette
+// déjà enregistrée par un visiteur (localStorage) est gardée.
+const PALETTE_DEFAULT = [...PALETTE_DEFAUT];
 function loadPalette() {
   try {
     const raw = localStorage.getItem(PALETTE_STORAGE_KEY);
@@ -1258,6 +1262,7 @@ fetch('data/referent_bandes_v1.json')
   </p>
 </footer>
 <!-- @footer:end -->
+
 <!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
 <!-- @analytics:end -->

@@ -2,29 +2,33 @@
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
 // Les couleurs par défaut des rendus à deux valeurs — UN SEUL jeu de
-// constantes, lu par les pages (vue-fond-motif.js, vue-fond-ecran.js,
-// creation-bicolore-v2.html) et par l'export (tools/export_pinterest_fonds.mjs).
-// Aucune n'est inventée : chacune est une couleur que le site emploie déjà,
-// et tools/check_couleurs.mjs vérifie qu'elle n'a pas divergé de sa source.
+// constantes, lu par TOUT rendu bicolore de motif : creation-bicolore-v2.html,
+// bicolore.html, galerie-bicolore.html, cymatique.html, les vues de fond
+// (vue-fond-motif.js, vue-fond-ecran.js), l'animation de fonds-ecran.html et
+// l'export (tools/export_pinterest_fonds.mjs). tools/check_couleurs.mjs
+// vérifie qu'aucun ne recopie ces valeurs.
 //
-//   CREME — #f2f2f0, le --white de style.css (texte principal du site), la
-//           teinte claire la plus employée du site (16 occurrences, contre 3
-//           pour #f2ece1, le clair des icônes de navigation) ;
-//   NOIR  — #000000, le --bg de style.css (fond de page) ;
-//   GRIS  — #808285, le gris par défaut de cymatique.html (PALETTE_DEFAULT,
-//           son rendu bicolore) : 3,44:1 contre le crème, au-dessus du seuil
-//           de 3:1 sous lequel un niveau ne se lit plus à distance.
+//   CREME — #efeae0, le crème des cases de la planche de bandes, mesuré sur
+//           l'image (relevé d'Anibal, 3 octobre 2026 ; la planche avait été
+//           dessinée en #efe6d2, la mesure fait foi) — plus juste qu'un
+//           blanc trop pur ;
+//   ENCRE — #23232b, le sombre des bandes de la même planche : une encre,
+//           pas un noir pur (13,0:1 contre le crème) ;
+//   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : 3,21:1
+//           contre le crème, au-dessus du seuil de 3:1 sous lequel un niveau
+//           ne se lit plus à distance.
 //
-// Ce sont des défauts, pas des contraintes : les sélecteurs de couleur des
-// pages les remplacent, et l'état part dans l'URL (?c0=…&c1=…).
+// Ce sont des défauts, pas des contraintes : toute autre teinte (le rouge
+// #e0261b de l'ancien défaut du générateur compris) reste choisissable dans
+// les sélecteurs de couleur, et l'état part dans l'URL.
 
-export const CREME = '#f2f2f0';
-export const NOIR = '#000000';
+export const CREME = '#efeae0';
+export const ENCRE = '#23232b';
 export const GRIS = '#808285';
 
 // [bit 0, bit 1] : le crème est le fond, le bit 1 porte la figure.
 export const PALETTES = Object.freeze({
-  bicolore: Object.freeze([CREME, NOIR]),
+  bicolore: Object.freeze([CREME, ENCRE]),
   monochrome: Object.freeze([CREME, GRIS]),
 });
 export const PALETTE_DEFAUT = PALETTES.bicolore;

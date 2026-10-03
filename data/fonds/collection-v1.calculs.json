@@ -82,6 +82,14 @@
    "raccord": "franc",
    "identique": []
   },
+  "B6D": {
+   "famille": "orientation",
+   "isometrie": "rotation 90°",
+   "fraction": 0.500244,
+   "nonCouvert": 0,
+   "raccord": "inversé",
+   "identique": []
+  },
   "B12m": {
    "famille": "orientation",
    "isometrie": "symétrie verticale",

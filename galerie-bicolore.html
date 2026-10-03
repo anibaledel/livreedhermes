@@ -301,8 +301,8 @@
   <div class="controls" id="grainControls">
     <button id="btnGrainC8" type="button" data-grain="C8">Grain C8 — triangle</button>
     <button id="btnGrainC1" type="button" data-grain="C1">Grain C1 — case</button>
-    <span class="tint-label">Clair<input type="color" id="tintClair" value="#f2f2f0" title="Teinte claire"></span>
-    <span class="tint-label">Sombre<input type="color" id="tintSombre" value="#e0261b" title="Teinte sombre"></span>
+    <span class="tint-label">Clair<input type="color" id="tintClair" title="Teinte claire"></span>
+    <span class="tint-label">Sombre<input type="color" id="tintSombre" title="Teinte sombre"></span>
   </div>
 
   <p class="grain-hint">Filtre par statut au demi-décalage (6, 6)</p>
@@ -388,11 +388,16 @@
 import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from './assets/bicolore-render.js';
 import { buildAxes, generateAxesMask, demiDecalageStatus, nomAccordAncien } from './assets/bicolore-axes.js';
 import { fermeSurLeCube } from './assets/bicolore-cube-c1.mjs';
+import { paletteDeLUrl, paletteDansLUrl } from './assets/couleurs.js';
 
 let DATA = null;
 let AXES = null;
 let grain = 'C8';
-let PALETTE = ['#f2f2f0', '#e0261b']; // [clair, sombre]
+// [clair, sombre] : crème et encre par défaut (assets/couleurs.js, le jeu
+// unique), ou les couleurs de l'URL (?c0=…&c1=…).
+let PALETTE = paletteDeLUrl();
+document.getElementById('tintClair').value = PALETTE[0];
+document.getElementById('tintSombre').value = PALETTE[1];
 let selectedIdx = 0;
 const galleryEl = document.getElementById('gallery');
 const pavedCanvas = document.getElementById('pavedCanvas');
@@ -560,8 +565,8 @@ function setGrain(g) {
   updateStatsForGrain();
   redrawAll();
 }
-document.getElementById('tintClair').addEventListener('input', e => { PALETTE[0] = e.target.value; redrawAll(); });
-document.getElementById('tintSombre').addEventListener('input', e => { PALETTE[1] = e.target.value; redrawAll(); });
+document.getElementById('tintClair').addEventListener('input', e => { PALETTE[0] = e.target.value; paletteDansLUrl(PALETTE); redrawAll(); });
+document.getElementById('tintSombre').addEventListener('input', e => { PALETTE[1] = e.target.value; paletteDansLUrl(PALETTE); redrawAll(); });
 
 document.querySelectorAll('#statutControls button').forEach(btn => {
   btn.addEventListener('click', () => {
