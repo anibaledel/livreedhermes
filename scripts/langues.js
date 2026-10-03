@@ -164,6 +164,28 @@ GROUPES.push({
 // donc PAS de x-default (voir hreflangDe) — le x-default du site est
 // l'anglais, et le déclarer vers une autre langue sur deux pages seulement
 // ferait atterrir un visiteur étranger dans deux langues selon la page.
+// Les quatre pages de recherche (scripts/build-recherche.mjs). Elles
+// existaient en quatre langues sans aucun hreflang : rien ne vérifiait
+// qu'une page traduite figure dans un groupe — tools/compte_hreflang.mjs le
+// vérifie désormais. Ni chinois ni russe : il n'existe pas de page de
+// recherche dans ces langues, et un hreflang vers une page absente promet
+// une traduction pour livrer un 404.
+GROUPES.push({
+  nom: 'recherche',
+  changefreq: 'monthly',
+  priority: '0.4',
+  rangee: true,
+  // noindex : ces pages portent leurs hreflang mais n'entrent PAS au sitemap
+  // — une URL soumise et marquée noindex est un signal contradictoire que
+  // Search Console signale.
+  sitemap: false,
+  pages: [
+    ['fr', `${SITE}/recherche.html`, 'recherche.html'],
+    ['en', `${SITE}/en/search/`, 'en/search/index.html'],
+    ['es', `${SITE}/es/buscar/`, 'es/buscar/index.html'],
+    ['th', `${SITE}/th/search/`, 'th/search/index.html'],
+  ],
+});
 GROUPES.push({
   nom: 'outils',
   changefreq: 'monthly',
@@ -299,7 +321,7 @@ const RANGEE_PAR_FICHIER = new Map(
   ])));
 
 // Vue pour generate-sitemap.js : une entrée de sitemap par page traduite.
-const PAGES_TRADUITES = GROUPES.flatMap((g) =>
+const PAGES_TRADUITES = GROUPES.filter((g) => g.sitemap !== false).flatMap((g) =>
   g.pages.map(([, loc, file]) => ({
     loc,
     file,

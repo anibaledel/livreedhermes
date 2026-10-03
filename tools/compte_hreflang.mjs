@@ -66,6 +66,19 @@ for (const [rel, p] of info) {
     if (cible.lang !== l) erreurs.push(`${rel} → ${l} ${u} : la cible porte <html lang="${cible.lang}">`);
   }
 }
+// L'absence aussi se surveille. Une page rangée sous un dossier de langue
+// (en/, es/, th/, zh/, ru/, fr/) n'existe QUE comme traduction : elle a donc
+// des équivalents, et doit les déclarer. C'est ce qui manquait quand les
+// quatre pages de recherche (recherche.html, en/search/, es/buscar/,
+// th/search/) existaient sans aucun hreflang : rien ne vérifiait qu'une page
+// traduite figure dans un groupe de scripts/langues.js.
+const DOSSIERS_DE_LANGUE = /^(en|es|th|zh|ru|fr)\//;
+for (const [rel, p] of info) {
+  if (DOSSIERS_DE_LANGUE.test(rel) && !p.alt.size) {
+    erreurs.push(`${rel} : page traduite sans aucun hreflang — l'ajouter à un groupe de scripts/langues.js`);
+  }
+}
+
 const ordre = ['fr', 'en', 'es', 'th', 'zh-Hans', 'ru', 'x-default'];
 const autres = Object.keys(parValeur).filter((k) => !ordre.includes(k));
 console.log(`Pages portant des hreflang : ${avec.length}`);
@@ -73,8 +86,8 @@ console.log(`Par valeur : ${[...ordre, ...autres].filter((k) => parValeur[k]).ma
 console.log(`Liens hreflang (hors x-default) : ${liens}`);
 if (parValeur.zh) erreurs.push(`${parValeur.zh} page(s) déclarent « zh » seul : le simplifié s'écrit zh-Hans`);
 if (erreurs.length) {
-  for (const e of erreurs.slice(0, 40)) console.error(`NON RÉCIPROQUE ${e}`);
-  console.error(`\n${erreurs.length} écart(s) de réciprocité.`);
+  for (const e of erreurs.slice(0, 40)) console.error(`ÉCART ${e}`);
+  console.error(`\n${erreurs.length} écart(s) : hreflang non rendu, cible absente ou page traduite hors groupe.`);
   process.exit(1);
 }
 console.log('Réciprocité : chaque lien est rendu, et chaque cible porte la langue annoncée.');
