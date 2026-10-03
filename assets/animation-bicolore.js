@@ -4,28 +4,42 @@
 // Le rendu BICOLORE de l'animation de fonds-ecran.html. L'animation reste
 // celle de la page — même canevas, mêmes paramètres (rythme, fondu,
 // densité, ordre de parcours, bouclage, micro, fichier audio, Full Réactif,
-// pause, enregistrement 9:16 / 1:1 / natif, 15 / 30 / 60 s) : ce module ne
-// fournit que la TUILE de chaque motif, et la page la pave.
+// pause, enregistrement 9:16 / 1:1 / natif, 15 / 30 / 60 s) : ce module
+// fournit la TUILE de chaque motif, et la page la pave.
 //
 // La tuile sort du moteur des pages et de l'export d'images : la lecture
 // binaire du motif (lecture-binaire.js), motifSvg (bicolore-fonds.js) dans
-// la collection et les couleurs choisies — l'état partagé de la page, tenu
-// par la section « fond d'écran fixe » (vue-fond-ecran.js, window.fondEcran)
-// —, rastérisée par svgEnPixels (vue-fond-motif.js), la fonction même de
-// l'export Pinterest. Un moteur, trois sorties : la page, le PNG, la vidéo.
+// la collection et les couleurs choisies, rastérisée par svgEnPixels
+// (vue-fond-motif.js), la fonction même de l'export Pinterest. Un moteur,
+// trois sorties : la page, le PNG, la vidéo.
+//
+// La collection et les couleurs viennent de l'état partagé (etat-fond-ecran.js),
+// importé — pas d'une variable globale —, dont le sélecteur de la page est le
+// seul écrivain. Changer les couleurs depuis l'écran d'animation est une
+// DEMANDE à cet écrivain (demanderPalette).
 //
 // Un motif dont la lecture binaire n'est pas définie (garde-fou) n'entre pas
 // dans l'animation bicolore. Le filtre « diagonale sombre » de l'animation
-// tricolore ne s'applique pas ici.
+// tricolore ne s'applique pas ici : il porte sur la plus sombre des trois
+// couleurs, qui n'existe plus après la lecture binaire.
 //
-// État dans l'URL : ?rendu=bicolore (et fond, sup, c0, c1, partagés).
+// Le parcours (« le motif suivant est le plus proche ») mesure la proximité
+// sur la lecture binaire, ce que le visiteur voit (proximite-binaire.js), et
+// non sur la grille à trois couleurs.
+//
+// État dans l'URL : ?rendu=bicolore (et fond, sup, c0, c1, tenus par le sélecteur).
 
 import { motifSvg } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { svgEnPixels } from './vue-fond-motif.js';
+import { abonner, demanderPalette, etatFondEcran } from './etat-fond-ecran.js';
+import { distanceBinaire, signatureBinaire } from './proximite-binaire.js';
+import { PALETTE_DEFAUT } from './couleurs.js';
 
 const lectures = new WeakMap(); // grille -> cases | null
+const signatures = new WeakMap(); // grille -> Uint8Array
 const tuiles = new Map(); // px -> WeakMap(grille -> { toile, pret })
+const dernieres = new WeakMap(); // grille -> dernière tuile prête, à toute taille
 let generation = 0; // change avec la collection ou les couleurs : les tuiles en cours sont périmées
 
 function lire(grille) {
@@ -36,21 +50,26 @@ function lire(grille) {
   }
   return lectures.get(grille);
 }
+function signature(grille) {
+  if (!signatures.has(grille)) signatures.set(grille, signatureBinaire(lire(grille)));
+  return signatures.get(grille);
+}
 
 export function monterAnimationBicolore({ bascule, onTuile }) {
   const p = new URLSearchParams(location.search);
   let actif = p.get('rendu') === 'bicolore';
-  const etat = () => window.fondEcran.selecteur.etat();
+  const etat = () => etatFondEcran();
 
   async function rendre(grille, px, entree, gen) {
     const e = etat();
-    const svg = motifSvg(lire(grille), window.fondEcran.palette(), e.objetFond, { size: px, prefixe: 'anim-', superposition: e.objetSuperposition });
+    const svg = motifSvg(lire(grille), e.palette, e.objetFond, { size: px, prefixe: 'anim-', superposition: e.objetSuperposition });
     const pixels = await svgEnPixels(svg, px, px);
     if (gen !== generation) return;
     const toile = document.createElement('canvas');
     toile.width = px; toile.height = px;
     toile.getContext('2d').putImageData(pixels, 0, 0);
     entree.toile = toile; entree.pret = true;
+    dernieres.set(grille, toile);
     onTuile(grille);
   }
 
@@ -58,20 +77,30 @@ export function monterAnimationBicolore({ bascule, onTuile }) {
     get actif() { return actif; },
     // ce motif entre-t-il dans l'animation bicolore ?
     lisible: (grille) => lire(grille) !== null,
-    // la tuile du motif, à px pixels — null tant qu'elle se prépare
+    // la tuile du motif, à px pixels. Tant qu'elle se prépare (densité changée),
+    // la dernière tuile prête de ce motif, à une autre taille — la page l'étire
+    // à la case : pas de fond vide pendant le recalcul. null si aucune n'existe.
     tuile(grille, px) {
       if (!lire(grille)) return null;
       if (!tuiles.has(px)) tuiles.set(px, new WeakMap());
       const t = tuiles.get(px);
       let entree = t.get(grille);
       if (!entree) { entree = { pret: false }; t.set(grille, entree); rendre(grille, px, entree, generation); }
-      return entree.pret ? entree.toile : null;
+      return entree.pret ? entree.toile : (dernieres.get(grille) || null);
     },
     // prépare d'avance les tuiles d'une suite de motifs
     preparer(grilles, px) { for (const g of grilles) api.tuile(g, px); },
-    // le code de la collection, pour le nom de la vidéo
+    // distance entre deux motifs, sur leur lecture binaire (quarts de case)
+    distance: (a, b) => distanceBinaire(signature(a), signature(b)),
+    // le code de la collection, pour le nom de la vidéo ; sa description, pour la pause
     code: () => etat().code,
-    couleurFond: () => window.fondEcran.palette()[0],
+    description: () => etat().description,
+    palette: () => etat().palette.slice(),
+    couleurFond: () => etat().palette[0],
+    // les couleurs réglées depuis l'écran d'animation : demandées au sélecteur
+    definirPalette: (palette) => demanderPalette(palette),
+    // « Réinitialiser » : crème et encre, le défaut de tout rendu bicolore
+    reinitialiserCouleurs: () => demanderPalette([...PALETTE_DEFAUT]),
     invalider() { generation++; tuiles.clear(); },
     basculer(oui) {
       actif = oui;
@@ -81,6 +110,10 @@ export function monterAnimationBicolore({ bascule, onTuile }) {
       bascule(oui);
     },
   };
-  window.addEventListener('fond-ecran-etat', () => { api.invalider(); bascule(actif); });
+  // à chaque changement de collection ou de couleurs : tuiles périmées, cartes refaites.
+  // Les « dernières tuiles » restent : elles évitent le vide, et sont remplacées dès
+  // que la nouvelle est prête.
+  let premier = true;
+  abonner(() => { if (premier) { premier = false; return; } api.invalider(); bascule(actif); });
   return api;
 }
