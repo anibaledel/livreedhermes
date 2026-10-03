@@ -195,13 +195,14 @@ function coverDraw(destCtx, destW, destH, source) {
  * Monte un outil d'animation dans `section`.
  * @param {HTMLElement} section
  * @param {{ rendu: 'tricolore'|'bicolore', source: Promise<object>, paires: object,
- *           bicolore?: object, palettes?: object, page?: HTMLElement }} options
+ *           bicolore?: object, palettes?: object, page?: HTMLElement, figer?: Function }} options
  *   source : data/fonds_ecran_v1.json (promesse) ; paires : les 32 paires (texte de la pause) ;
  *   bicolore : l'API de assets/animation-bicolore.js (rendu bicolore) ;
  *   palettes : PALETTES de assets/couleurs.js (boutons de la barre bicolore) ;
- *   page : l'élément masqué pendant le plein écran.
+ *   page : l'élément masqué pendant le plein écran ;
+ *   figer : fonction appelée par « Figer » avec le motif à l'écran (sans elle, pas de bouton).
  */
-export function monterOutilFondEcran(section, { rendu, source, paires, bicolore = null, palettes = {}, page = null }) {
+export function monterOutilFondEcran(section, { rendu, source, paires, bicolore = null, palettes = {}, page = null, figer = null }) {
   const BI = rendu === 'bicolore';
   const bico = bicolore;
   section.insertAdjacentHTML('beforeend', gabarit(rendu));
@@ -447,17 +448,15 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   }
   $s('btnExit').onclick = quitter;
 
-  // « Figer » : le motif à l'écran passe au fond d'écran fixe, sur la galerie bicolore.
-  // Un motif du corpus part par son adresse (?motif=…) ; une grille hors corpus, par sessionStorage.
+  // « Figer » : le motif à l'écran part ailleurs — où, c'est la page qui le dit
+  // (option `figer`, qui reçoit le motif : { grid, fam, subA, subB, n }).
+  // Sans `figer`, le bouton n'est pas proposé.
+  if (!figer) $s('btnFiger').hidden = true;
   $s('btnFiger').onclick = () => {
-    if (currentIndex < 0 || !currentGrids[currentIndex]) return;
+    if (!figer || currentIndex < 0 || !currentGrids[currentIndex]) return;
     const m = currentGrids[currentIndex];
-    const q = new URLSearchParams(location.search);
-    for (const k of ['rendu', 'teinte', 'densite', 'rythme', 'bdensite', 'brythme']) q.delete(k);
-    if (m.subA === 'yang' && m.subB === 'yang_mut' && m.n < 32) q.set('motif', m.fam.replace(/[:+_]/g, '-') + '-h' + m.n);
-    else { q.delete('motif'); try { sessionStorage.setItem('motif-fige', JSON.stringify(m.grid)); } catch { /* sans stockage */ } }
     quitter();
-    location.href = 'galerie-bicolore.html' + (q.toString() ? '?' + q : '') + '#fondFixe';
+    figer(m);
   };
 
   // --- audio ---

@@ -449,7 +449,16 @@ import { PALETTES } from './assets/couleurs.js';
 }
 const source = fetch('data/fonds_ecran_v1.json').then((r) => r.json());
 const page = document.getElementById('selectScreen');
-const tricolore = monterOutilFondEcran(document.getElementById('outilTricolore'), { rendu: 'tricolore', source, paires: PAIRS32, page });
+// « Figer » : le motif passe au fond d'écran fixe, sur la galerie bicolore. Un motif
+// du corpus part par son adresse (?motif=…) ; une grille hors corpus, par sessionStorage.
+const figer = (m) => {
+  const q = new URLSearchParams(location.search);
+  for (const k of ['rendu', 'teinte', 'densite', 'rythme', 'bdensite', 'brythme']) q.delete(k);
+  if (m.subA === 'yang' && m.subB === 'yang_mut' && m.n < 32) q.set('motif', m.fam.replace(/[:+_]/g, '-') + '-h' + m.n);
+  else { q.delete('motif'); try { sessionStorage.setItem('motif-fige', JSON.stringify(m.grid)); } catch { /* sans stockage */ } }
+  location.href = 'galerie-bicolore.html' + (q.toString() ? '?' + q : '') + '#fondFixe';
+};
+const tricolore = monterOutilFondEcran(document.getElementById('outilTricolore'), { rendu: 'tricolore', source, paires: PAIRS32, page, figer });
 window.outilsFondEcran = { tricolore };
 
 monterPiloteBicolore(document.getElementById('fondFixe')).then(() => {
@@ -458,7 +467,7 @@ monterPiloteBicolore(document.getElementById('fondFixe')).then(() => {
     bascule: () => bicolore && bicolore.construireCartes(),
     onTuile: (grille) => bicolore && bicolore.tuilePrete(grille),
   });
-  bicolore = monterOutilFondEcran(document.getElementById('outilBicolorePlace'), { rendu: 'bicolore', source, paires: PAIRS32, bicolore: api, palettes: PALETTES, page });
+  bicolore = monterOutilFondEcran(document.getElementById('outilBicolorePlace'), { rendu: 'bicolore', source, paires: PAIRS32, bicolore: api, palettes: PALETTES, page, figer });
   window.outilsFondEcran.bicolore = bicolore;
   if (location.hash === '#outilBicolore') document.getElementById('outilBicolore').scrollIntoView();
   // les couleurs de la barre suivent l'état ; le lien vers le fond fixe porte la collection et les couleurs
