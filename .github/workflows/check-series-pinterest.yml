@@ -1,0 +1,38 @@
+name: Séries Pinterest conformes au registre
+
+# Les quatre séries du corpus Pinterest (data/fonds/collections-pinterest.json,
+# « series ») contre leurs 1024 images, sans rien produire ni renommer :
+#   - verify_six_formes.mjs : 224 grilles pour 256 motifs, les 32 paires
+#     par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7), involution sans point
+#     fixe (docs/six-formes-independantes.md) ;
+#   - check_series_pinterest.py : noms, formats, palette de chaque série
+#     (assets/couleurs.js), pas de crème, et les seuls doublons au pixel près
+#     sont ces 32 paires ; et la campagne : aucune image identique deux fois
+#     sur le tableau, par empreinte de pixels ;
+#   - epingles_pinterest.mjs --verifie : l'attribution page → série du
+#     registre (jumelles dans deux séries différentes, publiées inchangées)
+#     et la liste data/fonds/epingles-pinterest.csv à jour.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: pip install pillow numpy
+      - run: node tools/verify_six_formes.mjs
+      - run: node tools/epingles_pinterest.mjs --verifie
+      - run: python tools/check_series_pinterest.py
