@@ -9,9 +9,17 @@
 // grille : il voit sa lecture binaire (lecture-binaire.js), où une case jaune
 // devient des triangles. Deux grilles peuvent différer sur une case jaune et
 // donner la même image, ou l'inverse. La distance se mesure donc sur ce qu'on
-// voit : chaque case en quatre quarts (N, E, S, O), chacun d'un bit, et la
-// distance est le nombre de quarts qui changent de couleur — l'aire qui
-// change, au quart de case près.
+// voit.
+//
+// C'est la DISTANCE DE HAMMING SUR 576 QUARTS (144 cases × 4), et elle est
+// EXACTE, pas approchée. Les quarts N, E, S, O sont le raffinement commun des
+// trois cas de la lecture binaire — le partage même de la découpe :
+//   case pleine          ses quatre quarts d'une seule couleur ;
+//   case coupée « \ »    {N, E} | {S, O} ;   case coupée « / »  {N, O} | {S, E} ;
+//   selle (quatre)       un quart par triangle.
+// Deux lectures binaires sont donc égales si et seulement si leurs 576 quarts
+// le sont : la distance ne perd aucune information. Elle compte l'aire qui
+// change de couleur, au quart de case — exactement.
 //
 // Module pur (ni DOM ni réseau) : l'animation et l'outil des recettes
 // (tools/recettes_animations.mjs) l'importent tous les deux.
@@ -35,7 +43,9 @@ export function signatureBinaire(cases) {
   return s;
 }
 
-// Nombre de quarts de case qui changent de couleur entre deux signatures.
+// Distance de Hamming entre deux signatures de 576 quarts : le nombre de
+// quarts de case qui changent de couleur. 0 si et seulement si les deux
+// lectures binaires sont identiques.
 export function distanceBinaire(a, b) {
   let d = 0;
   for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) d++;

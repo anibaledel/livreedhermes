@@ -32,6 +32,10 @@ name: Fonds des cases conformes au calcul
 # vidéo) ; check_galerie_animations.mjs local (rien ne se charge avant un clic,
 # une animation à la fois, niveau 1 : les images identiques sur deux rendus ;
 # le niveau 2, le fichier identique, demande un navigateur qui encode le H.264).
+# check_redirections.mjs (toutes les redirections : ni boucle ni chaîne, les
+# 512 pages de motifs hors de toute redirection) ; check_ecrivain_unique.mjs
+# local (l'état bicolore et ?fond, ?sup, ?c0, ?c1 : un seul écrivain, mesuré
+# à l'exécution, pile d'appels à l'appui).
 
 on:
   push:
@@ -56,6 +60,7 @@ jobs:
       - run: node tools/correspondance_motifs.mjs
       - run: node tools/check_fonds_ecran_source.mjs
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - run: node tools/check_redirections.mjs
       - run: node tools/recettes_animations.mjs --verifie
       - run: node tools/check_mp4_sans_date.mjs
       - run: node tools/affiches_animations.mjs --essai
@@ -78,3 +83,4 @@ jobs:
       - run: node tools/check_export_pinterest.mjs local --code B6D --echantillon 8
       - run: node tools/check_fond_ecran_animation.mjs local
       - run: node tools/check_galerie_animations.mjs local
+      - run: node tools/check_ecrivain_unique.mjs local
