@@ -27,7 +27,7 @@ import { contraste } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BLANC = '#f2f2f0';
-const fichiers = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8' }).split('\n')
+const fichiers = execFileSync('git', ['ls-files'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }).split('\n')
   .filter((f) => /\.(html|css|js|mjs)$/.test(f) && !/(^|\/)vendor\/|^pagefind\/|\.min\.js$/.test(f));
 
 const hex2 = (h) => (h.length === 4 ? `#${[...h.slice(1)].map((c) => c + c).join('')}` : h).toLowerCase();
