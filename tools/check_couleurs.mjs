@@ -8,7 +8,7 @@
 //      ROUGE #e0261b sur BLANC #f2f2f0, la charte du site (décision du
 //      3 octobre 2026) ; CREME #efeae0 et ENCRE #23232b, choisissables ;
 //      GRIS #808285 ;
-//   2. le contraste rouge / blanc, encre / crème et gris / crème est mesuré,
+//   2. le contraste rouge / blanc, gris / blanc et encre / crème est mesuré,
 //      au-dessus de 3:1 ; le défaut bicolore ne contient aucun noir ;
 //   3. aucun rendu bicolore de motif ne recopie ces valeurs ni ne part
 //      d'une autre : chacun importe assets/couleurs.js — la liste des
@@ -16,7 +16,7 @@
 //   4. aucun de ces rendus ne garde un défaut en dur (le noir #000000,
 //      l'ancien gris de cymatique) comme valeur de départ ;
 //   5. les deux « monochromes » sont deux objets distincts : MONOCHROME_SITE
-//      (gris sur crème, le rendu du site) et PINTEREST_NIVEAUX_DE_GRIS (trois
+//      (gris sur blanc, le rendu du site) et PINTEREST_NIVEAUX_DE_GRIS (trois
 //      gris, les séries Pinterest dites « monochrome ») ; la palette de chaque
 //      série du registre (data/fonds/collections-pinterest.json, « series »)
 //      est celle de la constante qu'elle nomme, et le crème n'est dans aucune.
@@ -35,8 +35,8 @@ const ARRETEES = { ROUGE: '#e0261b', BLANC: '#f2f2f0', CREME: '#efeae0', ENCRE: 
 for (const [nom, v] of Object.entries({ ROUGE, BLANC, CREME, ENCRE, GRIS })) if (v !== ARRETEES[nom]) echecs.push(`${nom} ${v}, arrêtée à ${ARRETEES[nom]}`);
 console.log(`bicolore par défaut : ROUGE ${ROUGE} sur BLANC ${BLANC} · choisissables : CREME ${CREME}, ENCRE ${ENCRE} · GRIS ${GRIS}`);
 // 2
-const cr = contraste(ROUGE, BLANC), ce = contraste(ENCRE, CREME), cg = contraste(GRIS, CREME);
-console.log(`contraste rouge / blanc ${cr.toFixed(2)}:1 · encre / crème ${ce.toFixed(2)}:1 · gris / crème ${cg.toFixed(2)}:1 (seuil ${SEUIL_LISIBLE}:1)`);
+const cr = contraste(ROUGE, BLANC), ce = contraste(ENCRE, CREME), cg = contraste(GRIS, BLANC);
+console.log(`contraste rouge / blanc ${cr.toFixed(2)}:1 · encre / crème ${ce.toFixed(2)}:1 · gris / blanc ${cg.toFixed(2)}:1 (seuil ${SEUIL_LISIBLE}:1)`);
 for (const [n, c] of [['rouge / blanc', cr], ['encre', ce], ['gris', cg]]) if (c < SEUIL_LISIBLE) echecs.push(`${n} / crème ${c.toFixed(2)}:1, sous ${SEUIL_LISIBLE}:1 : illisible à distance`);
 const NOIRS = ['#000000', ENCRE];
 if (PALETTE_DEFAUT_.some((c) => NOIRS.includes(c))) echecs.push(`le bicolore par défaut contient du noir : ${PALETTE_DEFAUT_.join(', ')}`);
@@ -65,7 +65,8 @@ for (const f of FICHIERS) {
   for (const [n, l] of refs) console.log(`  ${f}:${n}  ${l.trim()}`);
 }
 // 5
-if (MONOCHROME_SITE[0] !== CREME || MONOCHROME_SITE[1] !== GRIS) echecs.push('MONOCHROME_SITE n\'est plus le gris sur crème');
+if (MONOCHROME_SITE[0] !== BLANC || MONOCHROME_SITE[1] !== GRIS) echecs.push('MONOCHROME_SITE n\'est plus le gris sur blanc');
+if (PALETTES.monochrome.includes(CREME) || PALETTES.bicolore.includes(CREME)) echecs.push('le crème est encore un défaut : il ne reste que choisissable');
 if (PINTEREST_NIVEAUX_DE_GRIS.some((c) => MONOCHROME_SITE.includes(c) || c === CREME)) echecs.push('PINTEREST_NIVEAUX_DE_GRIS se confond avec MONOCHROME_SITE ou porte le crème');
 const series = JSON.parse(lire('data/fonds/collections-pinterest.json')).series || {};
 for (const [nom, s] of Object.entries(series)) {

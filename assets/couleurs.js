@@ -29,8 +29,12 @@
 //   CREME — #efeae0, le crème des cases de la planche de bandes, mesuré sur
 //           l'image (relevé d'Anibal, 3 octobre 2026) ;
 //   ENCRE — #23232b, le sombre des bandes de la même planche ;
-//   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : 3,21:1
-//           contre le crème — le rendu monochrome du site (MONOCHROME_SITE).
+//   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : le rendu
+//           monochrome du site (MONOCHROME_SITE), gris sur BLANC — 3,44:1
+//           (mesuré par check_couleurs.mjs), au-dessus du seuil de 3:1. Pas
+//           sur crème : le crème cesse d'être une couleur de charte, et le
+//           garder au seul rendu monochrome en ferait une couleur isolée
+//           (correction du 3 octobre 2026). Le crème reste choisissable.
 //
 // Ce sont des défauts, pas des contraintes : toute autre teinte reste
 // choisissable dans les sélecteurs de couleur, et l'état part dans l'URL.
@@ -44,7 +48,7 @@ export const BLANC = '#f2f2f0';
 // [bit 0, bit 1] : le clair est le fond, le bit 1 porte la figure.
 export const PALETTES = Object.freeze({
   bicolore: Object.freeze([BLANC, ROUGE]),
-  monochrome: Object.freeze([CREME, GRIS]),
+  monochrome: Object.freeze([BLANC, GRIS]),
   // l'ancien défaut, gardé choisissable (un bouton dans chaque sélecteur)
   creme: Object.freeze([CREME, ENCRE]),
 });
@@ -54,7 +58,7 @@ export const PALETTE_DEFAUT = PALETTES.bicolore;
 // 2026-10-03) — deux objets, deux noms :
 //
 //   MONOCHROME_SITE            le rendu monochrome du site : un gris (GRIS,
-//                              #808285) sur crème. Rendus bicolores du site.
+//                              #808285) sur blanc (BLANC, #f2f2f0).
 //   PINTEREST_NIVEAUX_DE_GRIS  la palette des séries Pinterest dites
 //                              « monochrome » (dossiers corpus-1024-monochrome
 //                              et corpus-1024-cellule-monochrome, noms gardés :

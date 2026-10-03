@@ -1,5 +1,10 @@
 # Six formes indépendantes, pas huit
 
+> **Pour les papiers.** C'est un résultat, pas une note d'implémentation : une relation
+> démontrée du système, de la même famille que les complémentations rencontrées sur C₁. Il a
+> sa place dans le matériel des papiers ; ce fichier en garde l'énoncé, la preuve et le test
+> qui le recalcule.
+
 *Résultat mesuré le 2026-10-03. Recalculé à chaque contrôle par
 `tools/verify_six_formes.mjs` (grilles) et `tools/check_series_pinterest.py` (images).*
 
