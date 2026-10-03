@@ -7,14 +7,16 @@
 // vidéo de 30 s ne prend pas 30 s à produire ; aucune image ne saute quand la
 // machine rame ; et la même recette donne les mêmes images.
 //
-// Le fichier, lui, doit être identique octet pour octet sur une MÊME machine
-// (même navigateur, même version) : l'encodeur logiciel est demandé
-// (hardwareAcceleration « prefer-software »), la quantification est fixée
-// image par image quand le navigateur le permet (bitrateMode « quantizer » :
-// pas de régulation de débit, qui peut dépendre du temps de calcul), et le
-// MP4 est écrit sans date de création (sansDate). La CI le mesure
-// (tools/check_galerie_animations.mjs, niveau 2) : une première mesure, en
-// débit variable, a donné deux fichiers différents. Entre deux machines, la rastérisation et l'encodeur
+// Le FICHIER, lui, n'est PAS reproductible avec cet encodeur — c'est mesuré,
+// pas supposé (CI, Chromium de Playwright, 2026-10-03, niveau 2 de
+// tools/check_galerie_animations.mjs) : à images d'entrée identiques
+// (vérifié image par image), deux encodages diffèrent dès la deuxième image,
+// en débit variable, constant ou très élevé, en latence « realtime », et même
+// quand chaque image est encodée seule (toutes clés). Le premier morceau est
+// identique, les suivants non : l'encodeur H.264 de WebCodecs n'est pas
+// déterministe (parallélisme interne, que WebCodecs ne permet pas de régler),
+// et le mode « quantizer » n'y est pas pris en charge. Ce qui reste vrai :
+// l'encodeur logiciel est demandé, et le MP4 est écrit sans date (sansDate). Entre deux machines, la rastérisation et l'encodeur
 // changent avec la version du navigateur et le matériel : c'est l'IMAGE qui
 // est l'invariant de la recette, pas l'octet du fichier.
 //
@@ -69,7 +71,7 @@ export async function h264Disponible(largeur = 1080, hauteur = 1920, cadence = 3
 // `reglage` (diagnostic) : remplace des champs de la configuration retenue —
 // { bitrateMode, bitrate, latencyMode } — et toutesCles : chaque image en
 // image clé, indépendante des précédentes.
-export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES, reglage = null, source = 'pixels', diagnostic = false }) {
+export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES, reglage = null, source = 'toile', diagnostic = false }) {
   const { width: largeur, height: hauteur } = toile;
   const ctx2d = toile.getContext('2d', { willReadFrequently: true });
   const entrees = diagnostic ? [] : null;
@@ -102,11 +104,10 @@ export async function encoder({ toile, images, cadence, dessiner, progression = 
     if (erreur) throw erreur;
     await dessiner(k);
     const quand = { timestamp: Math.round(k * pas), duration: Math.round((k + 1) * pas) - Math.round(k * pas) };
-    // L'image remise à l'encodeur : par défaut, les PIXELS lus du canevas
-    // (getImageData), copiés en mémoire — une image déterministe par
-    // construction. new VideoFrame(canevas) prend un instantané du canevas
-    // accéléré, que la CI a mesuré non reproductible d'une génération à
-    // l'autre (images d'entrée différentes dès la deuxième).
+    // L'image remise à l'encodeur : l'instantané du canevas (« toile »), ou
+    // ses pixels lus et copiés en mémoire (« pixels »). La CI a mesuré les
+    // deux (2026-10-03) : les entrées sont IDENTIQUES d'une génération à
+    // l'autre dans les deux cas — ce n'est pas l'entrée qui varie.
     const image = source === 'toile'
       ? new VideoFrame(toile, quand)
       : new VideoFrame(ctx2d.getImageData(0, 0, largeur, hauteur).data, { ...quand, format: 'RGBA', codedWidth: largeur, codedHeight: hauteur });
