@@ -66,9 +66,19 @@ export async function h264Disponible(largeur = 1080, hauteur = 1920, cadence = 3
 // Le résultat porte aussi, pour le diagnostic de la reproductibilité, la
 // liste des morceaux encodés (type, horodatage, taille, empreinte FNV-1a) :
 // deux générations qui diffèrent se comparent morceau par morceau.
-export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES }) {
+// `reglage` (diagnostic) : remplace des champs de la configuration retenue —
+// { bitrateMode, bitrate, latencyMode } — et toutesCles : chaque image en
+// image clé, indépendante des précédentes.
+export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES, reglage = null }) {
   const { width: largeur, height: hauteur } = toile;
-  const config = await configH264(largeur, hauteur, cadence, modes);
+  let config = await configH264(largeur, hauteur, cadence, modes);
+  if (config && reglage) {
+    const { toutesCles, ...champs } = reglage;
+    config = { ...config, ...champs };
+    if (config.bitrateMode === 'quantizer') delete config.bitrate;
+    if (!(await VideoEncoder.isConfigSupported(config)).supported) throw new Error(`réglage non pris en charge : ${JSON.stringify(reglage)}`);
+  }
+  const toutesCles = !!(reglage && reglage.toutesCles);
   if (!config) throw new Error('MP4 H.264 indisponible sur ce navigateur : aucune vidéo produite. Utilisez Google Chrome (126 ou plus) ou Safari.');
   const muxer = new Muxer({ target: new ArrayBufferTarget(), video: { codec: 'avc', width: largeur, height: hauteur, frameRate: cadence }, fastStart: 'in-memory' });
   let erreur = null;
@@ -91,8 +101,8 @@ export async function encoder({ toile, images, cadence, dessiner, progression = 
     await dessiner(k);
     const image = new VideoFrame(toile, { timestamp: Math.round(k * pas), duration: Math.round((k + 1) * pas) - Math.round(k * pas) });
     enc.encode(image, config.bitrateMode === 'quantizer'
-      ? { keyFrame: k % (cadence * 2) === 0, avc: { quantizer: QUANTIFICATION } }
-      : { keyFrame: k % (cadence * 2) === 0 });
+      ? { keyFrame: toutesCles || k % (cadence * 2) === 0, avc: { quantizer: QUANTIFICATION } }
+      : { keyFrame: toutesCles || k % (cadence * 2) === 0 });
     image.close();
     // l'encodeur garde la main : pas plus de quelques images en attente
     while (enc.encodeQueueSize > 4) await new Promise((r) => setTimeout(r, 0));

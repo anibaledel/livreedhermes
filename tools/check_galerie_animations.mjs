@@ -148,26 +148,37 @@ if (h264) {
   // le diagnostic par mode : la même séquence (B2, 120 images, 540 × 960) encodée deux fois dans chaque mode
   const parMode = await pv.evaluate(async () => {
     const { creerRendu } = await import('/assets/animation-collection.js');
-    const { encoder, MODES } = await import('/assets/encodeur-mp4.js');
+    const { encoder } = await import('/assets/encodeur-mp4.js');
     const out = {};
-    for (const mode of MODES) {
+    // chaque réglage, deux fois : lequel donne deux fois les mêmes octets ?
+    const REGLAGES = {
+      'quantizer': { bitrateMode: 'quantizer' },
+      'variable 10 Mb/s': { bitrateMode: 'variable', bitrate: 10_000_000 },
+      'constant 10 Mb/s': { bitrateMode: 'constant', bitrate: 10_000_000 },
+      'variable 80 Mb/s': { bitrateMode: 'variable', bitrate: 80_000_000 },
+      'variable, toutes clés': { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true },
+      'constant, toutes clés': { bitrateMode: 'constant', bitrate: 10_000_000, toutesCles: true },
+      'variable, realtime': { bitrateMode: 'variable', bitrate: 10_000_000, latencyMode: 'realtime' },
+    };
+    for (const [mode, reglage] of Object.entries(REGLAGES)) {
       const runs = [];
       for (let r = 0; r < 2; r++) {
         const toile = document.createElement('canvas'); toile.width = 540; toile.height = 960;
         const rendu = await creerRendu({ code: 'B2', vue: { vitesse: 1, palette: ['#efeae0', '#23232b'] }, largeur: 540, hauteur: 960 });
         const ctx = toile.getContext('2d');
         try {
-          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: [mode] });
+          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: ['variable'], reglage });
           const h = new Uint8Array(await crypto.subtle.digest('SHA-256', res.octets));
           runs.push({ sha: [...h].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join(''), mode: res.mode, morceaux: res.morceaux.map((m) => m.h) });
         } catch (e) { runs.push({ erreur: e.message }); }
       }
       const [a, b] = runs;
-      out[mode] = a.erreur ? { indisponible: a.erreur } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]) };
+      out[mode] = a.erreur ? { indisponible: a.erreur.slice(0, 80) } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]) };
     }
     return out;
   });
-  console.log(`niveau 2, diagnostic par mode (120 images, 540 × 960, deux fois chacun) : ${JSON.stringify(parMode)}`);
+  console.log('niveau 2, diagnostic par réglage (B2, 120 images, 540 × 960, deux fois chacun) :');
+  for (const [mode, r] of Object.entries(parMode)) console.log(`   ${mode.padEnd(24)} ${JSON.stringify(r)}`);
   if (sorties[0].nomTelecharge !== 'animation-B2-1080x1920.mp4') echec(`nom du fichier généré : ${sorties[0].nomTelecharge}`);
   console.log(`niveau 2 (${h264}, mode ${sorties[0].mode}) : ${sorties[0].nom}, ${sorties[0].octets} octets, ${sorties[0].morceaux.length} morceaux, deux générations ${sorties[0].sha256 === sorties[1].sha256 ? 'IDENTIQUES' : 'DIFFÉRENTES'} (SHA-256 ${sorties[0].sha256.slice(0, 16)}…)`);
 } else {
