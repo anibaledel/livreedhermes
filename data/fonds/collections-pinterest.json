@@ -42,7 +42,16 @@
      "exportee": "2026-10-02",
      "dossier": "assets/motifs-pinterest/anciennes/P-ee2a7b-662d91"
     }
-   ]
+   ],
+   "video": {
+    "fichier": "assets/animations/P-1080x1920.mp4",
+    "affiche": "assets/animations/P-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "image": 38,
+    "images": 960,
+    "sha256": "dc210cc6a963d15d6b2899a05448e713dcbf7c76c18dcd8258d381bab2b27600",
+    "sha256Affiche": "0582b1d6e216b12b91e273cadbf53f821ac7ed877ec196a20193ea64b9c321ba"
+   }
   },
   "B2D": {
    "palette": [
@@ -85,7 +94,16 @@
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B2D-f2f2f0-000000"
     }
-   ]
+   ],
+   "video": {
+    "fichier": "assets/animations/B2D-1080x1920.mp4",
+    "affiche": "assets/animations/B2D-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "image": 38,
+    "images": 960,
+    "sha256": "05b82fd5074a4a1899b32badd9404299fd769572c2380b1f2eecf62150284e7a",
+    "sha256Affiche": "64d8b2aa84e2b11cb87e56cbb2e6e2a5e19de3aef5a4e07621062bccb14ea2ec"
+   }
   },
   "B2": {
    "palette": [
@@ -128,7 +146,16 @@
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b"
     }
-   ]
+   ],
+   "video": {
+    "fichier": "assets/animations/B2-1080x1920.mp4",
+    "affiche": "assets/animations/B2-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "image": 38,
+    "images": 960,
+    "sha256": "3010ccf57bc2e3888891ac31c85ecb3a667ae05f50ab2b4174bb0a9ee54dd290",
+    "sha256Affiche": "8ac38aa19085e47dbf3b20aa95017c51e5bd8e6c5aa9a4b49a970b9a9e062f38"
+   }
   },
   "B121": {
    "palette": [
@@ -171,7 +198,16 @@
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b"
     }
-   ]
+   ],
+   "video": {
+    "fichier": "assets/animations/B121-1080x1920.mp4",
+    "affiche": "assets/animations/B121-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "image": 38,
+    "images": 960,
+    "sha256": "4cfb5da5dc671d8bd32e364ce6143c9d73656559c2286ddc8687f6ec981c88a5",
+    "sha256Affiche": "a7cce80dd731d904e9eba7daf03611b7f297c2de03340d4c509eb87e6a9e3482"
+   }
   },
   "B6D": {
    "palette": [
@@ -214,7 +250,16 @@
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B6D-efeae0-23232b"
     }
-   ]
+   ],
+   "video": {
+    "fichier": "assets/animations/B6D-1080x1920.mp4",
+    "affiche": "assets/animations/B6D-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "image": 38,
+    "images": 960,
+    "sha256": "acac05064ada6aa00d0841814b53df9a6db0077f8c42a8e70dcfbf1a4d99ba7c",
+    "sha256Affiche": "df9a7445accdc62408286152f2e256c0050e47264822a8db12dcd99230348ae1"
+   }
   }
  },
  "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",
@@ -300,262 +345,1042 @@
    }
   ],
   "attribution": [
-   {"page": "bases-yang-mut-h0", "serie": "corpus-1024", "publiee": "2026-10-01T08:00"},
-   {"page": "bases-yang-mut-h1", "serie": "corpus-1024", "publiee": "2026-10-01T11:00"},
-   {"page": "bases-yang-mut-h2", "serie": "corpus-1024", "publiee": "2026-10-01T14:00"},
-   {"page": "bases-yang-mut-h3", "serie": "corpus-1024", "publiee": "2026-10-01T17:00"},
-   {"page": "bases-yang-h0", "serie": "corpus-1024", "publiee": "2026-10-02T08:00"},
-   {"page": "par2-yin-yang-h0", "serie": "corpus-1024", "publiee": "2026-10-02T11:00"},
-   {"page": "par2-yang-yin-mut-h0", "serie": "corpus-1024", "publiee": "2026-10-02T14:00"},
-   {"page": "par2-yin-yang-mut-h0", "serie": "corpus-1024", "publiee": "2026-10-02T17:00"},
-   {"page": "par2-yin-mut-yang-mut-h0", "serie": "corpus-1024", "publiee": "2026-10-03T08:00"},
-   {"page": "par3-sans-yang-h0", "serie": "corpus-1024", "publiee": "2026-10-03T11:00"},
-   {"page": "par3-sans-yang-mut-h0", "serie": "corpus-1024", "publiee": "2026-10-03T14:00"},
-   {"page": "bases-yang-h1", "serie": "corpus-1024", "publiee": "2026-10-03T17:00"},
-   {"page": "par2-yin-yang-h1", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yang-yin-mut-h1", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-mut-h1", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yin-mut-yang-mut-h1", "serie": "corpus-1024"},
-   {"page": "par3-sans-yang-h1", "serie": "corpus-1024-cellule"},
-   {"page": "par3-sans-yang-mut-h1", "serie": "corpus-1024-monochrome"},
-   {"page": "bases-yang-h2", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yin-yang-h2", "serie": "corpus-1024"},
-   {"page": "par2-yang-yin-mut-h2", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-yang-mut-h2", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-mut-yang-mut-h2", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-h2", "serie": "corpus-1024"},
-   {"page": "par3-sans-yang-mut-h2", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-h3", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h3", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h3", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h3", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h3", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h3", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h3", "serie": "corpus-1024"},
-   {"page": "bases-yang-h4", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h4", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h4", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h4", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h4", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h4", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h4", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h4", "serie": "corpus-1024"},
-   {"page": "bases-yang-h5", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h5", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h5", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h5", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h5", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h5", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h5", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h5", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-h6", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h6", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h6", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h6", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h6", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h6", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h6", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h6", "serie": "corpus-1024"},
-   {"page": "bases-yang-h7", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h7", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h7", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h7", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h7", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h7", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h7", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h7", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-h8", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h8", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h8", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h8", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h8", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h8", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h8", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h8", "serie": "corpus-1024"},
-   {"page": "bases-yang-h9", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h9", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h9", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h9", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h9", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h9", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h9", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h9", "serie": "corpus-1024"},
-   {"page": "bases-yang-h10", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h10", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h10", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h10", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h10", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h10", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h10", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h10", "serie": "corpus-1024"},
-   {"page": "bases-yang-h11", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h11", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h11", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h11", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h11", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h11", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h11", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h11", "serie": "corpus-1024"},
-   {"page": "bases-yang-h12", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h12", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h12", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h12", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h12", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h12", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h12", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h12", "serie": "corpus-1024"},
-   {"page": "bases-yang-h13", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h13", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h13", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h13", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h13", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h13", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h13", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h13", "serie": "corpus-1024"},
-   {"page": "bases-yang-h14", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h14", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h14", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h14", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h14", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h14", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h14", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h14", "serie": "corpus-1024"},
-   {"page": "bases-yang-h15", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h15", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h15", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h15", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h15", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h15", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h15", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h15", "serie": "corpus-1024"},
-   {"page": "bases-yang-h16", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h16", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h16", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h16", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h16", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h16", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h16", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h16", "serie": "corpus-1024"},
-   {"page": "bases-yang-h17", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h17", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h17", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h17", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h17", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h17", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h17", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h17", "serie": "corpus-1024"},
-   {"page": "bases-yang-h18", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h18", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h18", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h18", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h18", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h18", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h18", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h18", "serie": "corpus-1024"},
-   {"page": "bases-yang-h19", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h19", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h19", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h19", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h19", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h19", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h19", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h19", "serie": "corpus-1024"},
-   {"page": "bases-yang-h20", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h20", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h20", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h20", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h20", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h20", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h20", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h20", "serie": "corpus-1024"},
-   {"page": "bases-yang-h21", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h21", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h21", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h21", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h21", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h21", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h21", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h21", "serie": "corpus-1024"},
-   {"page": "bases-yang-h22", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h22", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h22", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h22", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h22", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h22", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h22", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h22", "serie": "corpus-1024"},
-   {"page": "bases-yang-h23", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h23", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h23", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h23", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h23", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h23", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h23", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h23", "serie": "corpus-1024"},
-   {"page": "bases-yang-h24", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h24", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h24", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h24", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h24", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h24", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h24", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h24", "serie": "corpus-1024"},
-   {"page": "bases-yang-h25", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h25", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h25", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h25", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h25", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h25", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h25", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h25", "serie": "corpus-1024"},
-   {"page": "bases-yang-h26", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h26", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h26", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h26", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h26", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h26", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h26", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h26", "serie": "corpus-1024"},
-   {"page": "bases-yang-h27", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h27", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h27", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h27", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h27", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h27", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h27", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h27", "serie": "corpus-1024"},
-   {"page": "bases-yang-h28", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h28", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h28", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h28", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h28", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h28", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h28", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h28", "serie": "corpus-1024"},
-   {"page": "bases-yang-h29", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h29", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h29", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h29", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h29", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h29", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h29", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h29", "serie": "corpus-1024"},
-   {"page": "bases-yang-h30", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h30", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h30", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h30", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h30", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h30", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h30", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h30", "serie": "corpus-1024"},
-   {"page": "bases-yang-h31", "serie": "corpus-1024-cellule"},
-   {"page": "bases-yang-mut-h31", "serie": "corpus-1024-monochrome"},
-   {"page": "par2-yin-yang-h31", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par2-yang-yin-mut-h31", "serie": "corpus-1024"},
-   {"page": "par2-yin-yang-mut-h31", "serie": "corpus-1024-cellule"},
-   {"page": "par2-yin-mut-yang-mut-h31", "serie": "corpus-1024-monochrome"},
-   {"page": "par3-sans-yang-h31", "serie": "corpus-1024-cellule-monochrome"},
-   {"page": "par3-sans-yang-mut-h31", "serie": "corpus-1024"}
+   {
+    "page": "bases-yang-mut-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-01T08:00"
+   },
+   {
+    "page": "bases-yang-mut-h1",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-01T11:00"
+   },
+   {
+    "page": "bases-yang-mut-h2",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-01T14:00"
+   },
+   {
+    "page": "bases-yang-mut-h3",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-01T17:00"
+   },
+   {
+    "page": "bases-yang-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-02T08:00"
+   },
+   {
+    "page": "par2-yin-yang-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-02T11:00"
+   },
+   {
+    "page": "par2-yang-yin-mut-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-02T14:00"
+   },
+   {
+    "page": "par2-yin-yang-mut-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-02T17:00"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-03T08:00"
+   },
+   {
+    "page": "par3-sans-yang-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-03T11:00"
+   },
+   {
+    "page": "par3-sans-yang-mut-h0",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-03T14:00"
+   },
+   {
+    "page": "bases-yang-h1",
+    "serie": "corpus-1024",
+    "publiee": "2026-10-03T17:00"
+   },
+   {
+    "page": "par2-yin-yang-h1",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yang-yin-mut-h1",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-mut-h1",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h1",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par3-sans-yang-h1",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par3-sans-yang-mut-h1",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "bases-yang-h2",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h2",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yang-yin-mut-h2",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-yang-mut-h2",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h2",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h2",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par3-sans-yang-mut-h2",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-h3",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h3",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h3",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h3",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h3",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h3",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h3",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h4",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h4",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h4",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h4",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h4",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h4",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h4",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h4",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h5",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h5",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h5",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h5",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h5",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h5",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h5",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h5",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-h6",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h6",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h6",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h6",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h6",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h6",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h6",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h6",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h7",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h7",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h7",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h7",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h7",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h7",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h7",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h7",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-h8",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h8",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h8",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h8",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h8",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h8",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h8",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h8",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h9",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h9",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h9",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h9",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h9",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h9",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h9",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h9",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h10",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h10",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h10",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h10",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h10",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h10",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h10",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h10",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h11",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h11",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h11",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h11",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h11",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h11",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h11",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h11",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h12",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h12",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h12",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h12",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h12",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h12",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h12",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h12",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h13",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h13",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h13",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h13",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h13",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h13",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h13",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h13",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h14",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h14",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h14",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h14",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h14",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h14",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h14",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h14",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h15",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h15",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h15",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h15",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h15",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h15",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h15",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h15",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h16",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h16",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h16",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h16",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h16",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h16",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h16",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h16",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h17",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h17",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h17",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h17",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h17",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h17",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h17",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h17",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h18",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h18",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h18",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h18",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h18",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h18",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h18",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h18",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h19",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h19",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h19",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h19",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h19",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h19",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h19",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h19",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h20",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h20",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h20",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h20",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h20",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h20",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h20",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h20",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h21",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h21",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h21",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h21",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h21",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h21",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h21",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h21",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h22",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h22",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h22",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h22",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h22",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h22",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h22",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h22",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h23",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h23",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h23",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h23",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h23",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h23",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h23",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h23",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h24",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h24",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h24",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h24",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h24",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h24",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h24",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h24",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h25",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h25",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h25",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h25",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h25",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h25",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h25",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h25",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h26",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h26",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h26",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h26",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h26",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h26",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h26",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h26",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h27",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h27",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h27",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h27",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h27",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h27",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h27",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h27",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h28",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h28",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h28",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h28",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h28",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h28",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h28",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h28",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h29",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h29",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h29",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h29",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h29",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h29",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h29",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h29",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h30",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h30",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h30",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h30",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h30",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h30",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h30",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h30",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "bases-yang-h31",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "bases-yang-mut-h31",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par2-yin-yang-h31",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par2-yang-yin-mut-h31",
+    "serie": "corpus-1024"
+   },
+   {
+    "page": "par2-yin-yang-mut-h31",
+    "serie": "corpus-1024-cellule"
+   },
+   {
+    "page": "par2-yin-mut-yang-mut-h31",
+    "serie": "corpus-1024-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-h31",
+    "serie": "corpus-1024-cellule-monochrome"
+   },
+   {
+    "page": "par3-sans-yang-mut-h31",
+    "serie": "corpus-1024"
+   }
   ]
  }
 }

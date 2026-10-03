@@ -111,7 +111,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       // un dossier temporaire avec le registre, une vidéo synthétique conforme à la recette de B2
       const tmp = mkdtempSync(path.join(tmpdir(), 'affiches-'));
       mkdirSync(path.join(tmp, 'data/fonds'), { recursive: true });
-      cpSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), path.join(tmp, 'data/fonds/collections-pinterest.json'));
+      // le registre, sans les vidéos déjà déposées : l'essai ne vérifie que la sienne
+      const copie = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
+      for (const c of Object.values(copie.collections)) delete c.video;
+      writeFileSync(path.join(tmp, 'data/fonds/collections-pinterest.json'), JSON.stringify(copie, null, 1) + '\n');
       const rec = JSON.parse(readFileSync(path.join(tmp, 'data/fonds/collections-pinterest.json'), 'utf8')).collections.B2.recette;
       const images = Math.round((rec.motifs.length * rec.dureeMotif + rec.fin) * rec.imagesParSeconde);
       const synth = path.join(tmp, 'synthetique.mp4');
