@@ -38,7 +38,9 @@ name: Fonds des cases conformes au calcul
 # check_redirections.mjs (toutes les redirections : ni boucle ni chaîne, les
 # 512 pages de motifs hors de toute redirection) ; check_ecrivain_unique.mjs
 # local (l'état bicolore et ?fond, ?sup, ?c0, ?c1 : un seul écrivain, mesuré
-# à l'exécution, pile d'appels à l'appui).
+# à l'exécution, pile d'appels à l'appui) ; check_bicolore_defaut.mjs local
+# (le bicolore part en rouge et blanc sur chaque page de rendu, sans noir ;
+# le crème et l'encre restent choisissables).
 
 on:
   push:
@@ -89,3 +91,4 @@ jobs:
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/video_reference.mjs --verifie B2
       - run: node tools/check_ecrivain_unique.mjs local
+      - run: node tools/check_bicolore_defaut.mjs local

@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { createCanvas } from '@napi-rs/canvas';
 import gifenc from 'gifenc';
 import { hexToBits, triangleGeometry, composeNiveauxMask, GRID, PER_CELL } from '../assets/bicolore-render.js';
+import { ROUGE, BLANC } from '../assets/couleurs.js';
 
 const { GIFEncoder, quantize, applyPalette } = gifenc;
 
@@ -31,8 +32,8 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const SIZE = 144;       // rendu net, réduit ensuite par le CSS si besoin
 const FRAME_DELAY = 900; // ms — assez lent pour lire chaque motif, pas un défilement
-const RED = '#e0261b';
-const WHITE = '#f2f2f0';
+const RED = ROUGE;   // la charte : assets/couleurs.js
+const WHITE = BLANC;
 
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'referent_bicolore_v1.json'), 'utf8'));
 

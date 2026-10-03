@@ -23,10 +23,15 @@
 //   --palette : [bit 0, bit 1], par défaut le bicolore d'assets/couleurs.js.
 // La palette d'une collection exportée s'enregistre dans
 // data/fonds/collections-pinterest.json : tools/check_export_pinterest.mjs
-// ouvre la page dans ces couleurs (?c0=…&c1=…) pour la comparer.
+// ouvre la page dans ces couleurs (?c0=…&c1=…) pour la comparer. L'entrée
+// est complétée, jamais remplacée (la recette et le rang restent).
+// RIEN NE SE SUPPRIME : quand une collection déjà exportée l'est de nouveau
+// dans une AUTRE palette, l'ancienne exportation est d'abord copiée à côté,
+// dans assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/, et inscrite au
+// registre (« anciennes » : palette, date, dossier).
 //   <code> : un fond de data/fonds/collection-v1.json, ou fond+superposition
 //            (B3D+E95). Exemple : node tools/export_pinterest_fonds.mjs P
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, cpSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
@@ -43,6 +48,21 @@ const palette = args.includes('--palette') ? args[args.indexOf('--palette') + 1]
 if (palette.length !== 2 || palette.some((c) => !/^#[0-9a-f]{6}$/.test(c))) { console.error('--palette : deux couleurs rrggbb, fond puis figure'); process.exit(2); }
 const manifeste = path.join(ROOT, 'data/fonds/collections-pinterest.json');
 
+// le registre, écrit avec une épingle de la campagne par ligne (comme il l'est)
+const ecrireRegistre = (m) => writeFileSync(manifeste, JSON.stringify(m, null, 1)
+  .replace(/\{\n\s+"page": ("[^"]+"),\n\s+"serie": ("[^"]+")(?:,\n\s+"publiee": ("[^"]+"))?\n\s+\}/g, (_, p, se, d) => `{"page": ${p}, "serie": ${se}${d ? `, "publiee": ${d}` : ''}}`) + '\n');
+const complet = !args.includes('--sortie') && limite === Infinity;
+if (complet) {
+  const m = JSON.parse(readFileSync(manifeste, 'utf8'));
+  const avant = m.collections[code];
+  if (avant && avant.palette && avant.palette.join() !== palette.join() && existsSync(sortie)) {
+    const dossier = `assets/motifs-pinterest/anciennes/${code}-${avant.palette.map((c) => c.slice(1)).join('-')}`;
+    if (!existsSync(path.join(ROOT, dossier))) cpSync(sortie, path.join(ROOT, dossier), { recursive: true });
+    avant.anciennes = [...(avant.anciennes || []).filter((a) => a.dossier !== dossier), { palette: avant.palette, exportee: avant.exportee, dossier }];
+    ecrireRegistre(m);
+    console.log(`ancienne exportation (${avant.palette.join(' / ')}) gardée : ${dossier}/`);
+  }
+}
 const lignes = lignesCanoniques(ROOT).slice(0, limite);
 const serveur = await servirDepot(ROOT);
 const navigateur = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
@@ -79,7 +99,7 @@ serveur.fermer();
 // la palette de la collection, enregistrée (export complet dans le dépôt seulement)
 if (!args.includes('--sortie') && n === 256) {
   const m = JSON.parse(readFileSync(manifeste, 'utf8'));
-  m.collections[code] = { palette, images: n, format: '1000 × 1500', exportee: new Date().toISOString().slice(0, 10) };
-  writeFileSync(manifeste, JSON.stringify(m, null, 1) + '\n');
+  m.collections[code] = { ...m.collections[code], palette, images: n, format: '1000 × 1500', exportee: new Date().toISOString().slice(0, 10) };
+  ecrireRegistre(m);
 }
 console.log(`Écrit : ${n} images dans ${path.relative(ROOT, sortie)}/ (code ${code}, 1000 × 1500).`);

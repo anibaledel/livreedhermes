@@ -19,14 +19,14 @@ const TEXTES = {
   fr: {
     titre: 'Fond de case — lecture binaire',
     intro: (s) => `Les cases jaunes deviennent des triangles qui complètent la couleur la plus proche : ${s.jaunesPleins} cases jaunes pleines, ${s.coupees} coupées en deux, ${s.selles} coupées en quatre aux croisements. Le fond choisi se pose sur les cases pleines ; les cases coupées gardent leurs triangles.`,
-    fond: 'Fond', cellule: 'Cellule', pavage: 'Pavage', c0: 'Couleur du fond', c1: 'Couleur de la figure', bicolore: 'Bicolore', monochrome: 'Monochrome',
+    fond: 'Fond', cellule: 'Cellule', pavage: 'Pavage', c0: 'Couleur du fond', c1: 'Couleur de la figure', bicolore: 'Rouge / blanc', creme: 'Crème / encre', monochrome: 'Monochrome',
     dlSvg: 'Télécharger le pavage (SVG)', dlPng: 'Image Pinterest (PNG 1000 × 1500)',
     indefini: (m) => `La lecture binaire n'est pas définie pour ce motif : ${m}`,
   },
   en: {
     titre: 'Cell ground — binary reading',
     intro: (s) => `Yellow cells become triangles that complete the nearest colour: ${s.jaunesPleins} solid yellow cells, ${s.coupees} split in two, ${s.selles} split in four at the crossings. The chosen ground sits on the solid cells; split cells keep their triangles.`,
-    fond: 'Ground', cellule: 'Cell', pavage: 'Tiling', c0: 'Ground colour', c1: 'Figure colour', bicolore: 'Two-colour', monochrome: 'Monochrome',
+    fond: 'Ground', cellule: 'Cell', pavage: 'Tiling', c0: 'Ground colour', c1: 'Figure colour', bicolore: 'Red / white', creme: 'Cream / ink', monochrome: 'Monochrome',
     dlSvg: 'Download the tiling (SVG)', dlPng: 'Pinterest image (PNG 1000 × 1500)',
     indefini: (m) => `The binary reading is not defined for this motif: ${m}`,
   },
@@ -140,6 +140,7 @@ export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr' }) 
       <label>${T.c0} <input type="color" class="vf-c0"></label>
       <label>${T.c1} <input type="color" class="vf-c1"></label>
       <button type="button" class="vf-preset" data-palette="bicolore">${T.bicolore}</button>
+      <button type="button" class="vf-preset" data-palette="creme">${T.creme}</button>
       <button type="button" class="vf-preset" data-palette="monochrome">${T.monochrome}</button>
     </div>
     <div class="vf-selecteur"><div class="vf-libelle">${T.fond}</div><div class="vf-sf"></div></div>

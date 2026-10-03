@@ -4,16 +4,17 @@
 //
 // check_couleurs.mjs — Les couleurs par défaut viennent d'UN SEUL jeu de
 // constantes, assets/couleurs.js :
-//   1. les valeurs sont celles qui ont été arrêtées (CREME #efeae0 et ENCRE
-//      #23232b, mesurées sur la planche de bandes ; GRIS #808285) ;
-//   2. le contraste encre / crème et gris / crème est mesuré, au-dessus de
-//      3:1 ;
+//   1. les valeurs sont celles qui ont été arrêtées : le bicolore par défaut
+//      ROUGE #e0261b sur BLANC #f2f2f0, la charte du site (décision du
+//      3 octobre 2026) ; CREME #efeae0 et ENCRE #23232b, choisissables ;
+//      GRIS #808285 ;
+//   2. le contraste rouge / blanc, encre / crème et gris / crème est mesuré,
+//      au-dessus de 3:1 ; le défaut bicolore ne contient aucun noir ;
 //   3. aucun rendu bicolore de motif ne recopie ces valeurs ni ne part
 //      d'une autre : chacun importe assets/couleurs.js — la liste des
 //      références est affichée ;
-//   4. aucun de ces rendus ne garde un défaut en dur (l'ancien rouge
-//      #e0261b, l'ancien blanc #f2f2f0, l'ancien gris de cymatique) comme
-//      valeur de départ ;
+//   4. aucun de ces rendus ne garde un défaut en dur (le noir #000000,
+//      l'ancien gris de cymatique) comme valeur de départ ;
 //   5. les deux « monochromes » sont deux objets distincts : MONOCHROME_SITE
 //      (gris sur crème, le rendu du site) et PINTEREST_NIVEAUX_DE_GRIS (trois
 //      gris, les séries Pinterest dites « monochrome ») ; la palette de chaque
@@ -24,27 +25,29 @@ import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as COULEURS from '../assets/couleurs.js';
-const { CREME, ENCRE, GRIS, PALETTES, contraste, SEUIL_LISIBLE, MONOCHROME_SITE, PINTEREST_NIVEAUX_DE_GRIS } = COULEURS;
+const { CREME, ENCRE, GRIS, ROUGE, BLANC, PALETTES, PALETTE_DEFAUT: PALETTE_DEFAUT_, contraste, SEUIL_LISIBLE, MONOCHROME_SITE, PINTEREST_NIVEAUX_DE_GRIS } = COULEURS;
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => readFileSync(path.join(ROOT, f), 'utf8');
 const echecs = [];
 // 1
-const ARRETEES = { CREME: '#efeae0', ENCRE: '#23232b', GRIS: '#808285' };
-for (const [nom, v] of Object.entries({ CREME, ENCRE, GRIS })) if (v !== ARRETEES[nom]) echecs.push(`${nom} ${v}, arrêtée à ${ARRETEES[nom]}`);
-console.log(`CREME ${CREME} · ENCRE ${ENCRE} · GRIS ${GRIS}`);
+const ARRETEES = { ROUGE: '#e0261b', BLANC: '#f2f2f0', CREME: '#efeae0', ENCRE: '#23232b', GRIS: '#808285' };
+for (const [nom, v] of Object.entries({ ROUGE, BLANC, CREME, ENCRE, GRIS })) if (v !== ARRETEES[nom]) echecs.push(`${nom} ${v}, arrêtée à ${ARRETEES[nom]}`);
+console.log(`bicolore par défaut : ROUGE ${ROUGE} sur BLANC ${BLANC} · choisissables : CREME ${CREME}, ENCRE ${ENCRE} · GRIS ${GRIS}`);
 // 2
-const ce = contraste(ENCRE, CREME), cg = contraste(GRIS, CREME);
-console.log(`contraste encre / crème ${ce.toFixed(2)}:1 · gris / crème ${cg.toFixed(2)}:1 (seuil ${SEUIL_LISIBLE}:1)`);
-for (const [n, c] of [['encre', ce], ['gris', cg]]) if (c < SEUIL_LISIBLE) echecs.push(`${n} / crème ${c.toFixed(2)}:1, sous ${SEUIL_LISIBLE}:1 : illisible à distance`);
-if (PALETTES.bicolore[0] !== CREME || PALETTES.bicolore[1] !== ENCRE || PALETTES.monochrome[1] !== GRIS) echecs.push('PALETTES mal composées');
+const cr = contraste(ROUGE, BLANC), ce = contraste(ENCRE, CREME), cg = contraste(GRIS, CREME);
+console.log(`contraste rouge / blanc ${cr.toFixed(2)}:1 · encre / crème ${ce.toFixed(2)}:1 · gris / crème ${cg.toFixed(2)}:1 (seuil ${SEUIL_LISIBLE}:1)`);
+for (const [n, c] of [['rouge / blanc', cr], ['encre', ce], ['gris', cg]]) if (c < SEUIL_LISIBLE) echecs.push(`${n} / crème ${c.toFixed(2)}:1, sous ${SEUIL_LISIBLE}:1 : illisible à distance`);
+const NOIRS = ['#000000', ENCRE];
+if (PALETTE_DEFAUT_.some((c) => NOIRS.includes(c))) echecs.push(`le bicolore par défaut contient du noir : ${PALETTE_DEFAUT_.join(', ')}`);
+if (PALETTES.bicolore[0] !== BLANC || PALETTES.bicolore[1] !== ROUGE || PALETTES.monochrome[1] !== GRIS) echecs.push('PALETTES mal composées');
 // 3
 // les rendus bicolores de motif, et ceux qui doivent importer le jeu
 const RENDUS = ['creation-bicolore-v2.html', 'bicolore.html', 'galerie-bicolore.html', 'cymatique.html', 'fonds-ecran.html', 'assets/vue-fond-motif.js', 'assets/vue-fond-ecran.js', 'tools/export_pinterest_fonds.mjs'];
 const AUTRES = ['assets/selecteur-fonds.js', 'assets/bicolore-fonds.js', 'scripts/generate-motif-pages.js', 'tools/verify_lecture_binaire.mjs'];
 const FICHIERS = [...RENDUS, ...AUTRES];
-const valeurs = [CREME, ENCRE, GRIS];
-const ANCIENS = ['#e0261b', '#f2f2f0', '#a7a9ac'];
+const valeurs = [ROUGE, BLANC, CREME, ENCRE, GRIS];
+const ANCIENS = ['#000000', '#a7a9ac'];
 for (const f of FICHIERS) {
   const t = lire(f);
   for (const v of valeurs) if (t.toLowerCase().includes(`'${v}'`) || t.toLowerCase().includes(`"${v}"`)) echecs.push(`${f} recopie ${v} au lieu d'importer assets/couleurs.js`);

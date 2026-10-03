@@ -173,7 +173,7 @@
 <script type="module">
 import { composeNiveauxMask, maskToPavageSvg, combineMasks, hexToBits } from './assets/bicolore-render.js';
 // Couleurs par défaut : le jeu de constantes unique (crème et encre).
-import { CREME, ENCRE } from './assets/couleurs.js';
+import { PALETTE_DEFAUT } from './assets/couleurs.js';
 
 const N_LEVELS = 6;
 
@@ -263,8 +263,8 @@ async function main() {
 
   const combineMode = (params.get('m') === 'xor') ? 'xor' : 'calque';
 
-  const colorA = /^#[0-9a-f]{6}$/i.test(params.get('c0') || '') ? '#' + params.get('c0').replace('#', '') : ENCRE;
-  const colorB = /^#[0-9a-f]{6}$/i.test(params.get('c1') || '') ? '#' + params.get('c1').replace('#', '') : CREME;
+  const colorA = /^#[0-9a-f]{6}$/i.test(params.get('c0') || '') ? '#' + params.get('c0').replace('#', '') : PALETTE_DEFAUT[1];
+  const colorB = /^#[0-9a-f]{6}$/i.test(params.get('c1') || '') ? '#' + params.get('c1').replace('#', '') : PALETTE_DEFAUT[0];
   document.getElementById('colorA').value = colorA;
   document.getElementById('colorB').value = colorB;
 
