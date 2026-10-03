@@ -17,10 +17,15 @@
 //   4. la vue dans l'URL : relue au chargement, écrite au changement ; le nom
 //      du fichier porte la collection, le format, et la vitesse et les
 //      couleurs quand elles s'écartent du défaut ;
-//   5. NIVEAU 2, la chaîne d'encodage : si le navigateur encode le H.264
-//      (Google Chrome : CHROME_CHANNEL=chrome), le générateur produit deux
-//      fois le même fichier, octet pour octet ; sinon le bouton est désactivé
-//      et dit pourquoi, et EXIGER_H264=1 fait échouer ;
+//   5. le téléchargement d'une variante, chemin NAVIGATEUR (WebCodecs) : si le
+//      navigateur encode le H.264, le générateur produit un MP4 H.264 sous le
+//      nom attendu ; sinon le bouton est désactivé et dit pourquoi, et
+//      EXIGER_H264=1 fait échouer. Ce chemin garantit les IMAGES (point 3),
+//      pas l'octet : le NIVEAU 2 NE S'APPLIQUE PAS ici — l'encodeur H.264 de
+//      WebCodecs n'est pas déterministe (mesuré, assets/encodeur-mp4.js).
+//      Le niveau 2, fichier identique octet pour octet, est celui de la
+//      VIDÉO DE RÉFÉRENCE, encodée hors navigateur par ffmpeg / libx264 :
+//      tools/video_reference.mjs --verifie ;
 //   6. une vidéo déposée : l'affiche est l'image extraite (registre), la vidéo
 //      ne se charge qu'au clic.
 //
@@ -122,67 +127,22 @@ const nomsAttendus = ['animation-B2-1080x1920.mp4', 'animation-B2-1080x1920-v1_5
 if (noms.join() !== nomsAttendus.join()) echec(`noms de fichier : ${noms.join(' ; ')}`);
 console.log(`vue : ?collection=B6D&vitesse=1.5&c0=c8102e relue ; vitesse 2 sur B2 → ${url} ; noms : ${noms.join(' · ')}`);
 
-// 5. niveau 2 : la chaîne d'encodage
+// 5. chemin navigateur : la variante d'un visiteur (le niveau 2 ne s'applique pas ici)
 const h264 = await pv.evaluate(async () => (await import('/assets/encodeur-mp4.js')).h264Disponible(1080, 1920, 30));
 if (h264) {
-  const sorties = [];
-  for (let i = 0; i < 2; i++) {
-    const d = pv.waitForEvent('download', { timeout: 600000 });
-    await pv.click('#B2 .v-vitesse'); await pv.selectOption('#B2 .v-vitesse', '1');
-    await pv.click('#B2 .g-generer');
-    const fichier = await d;
-    await pv.waitForFunction(() => window.derniereGeneration, null, { timeout: 600000 });
-    sorties.push(await pv.evaluate(() => { const g = window.derniereGeneration; window.derniereGeneration = null; return g; }));
-    sorties[i].nomTelecharge = fichier.suggestedFilename();
-  }
-  const comparer = (a, b) => {
-    const n = Math.max(a.length, b.length);
-    const diff = [];
-    for (let i = 0; i < n; i++) if (!a[i] || !b[i] || a[i].h !== b[i].h || a[i].taille !== b[i].taille) diff.push(i);
-    return { a: a.length, b: b.length, differents: diff.length, premier: diff.length ? { i: diff[0], ...(a[diff[0]] || {}), tailleB: b[diff[0]] && b[diff[0]].taille } : null };
-  };
-  const cmp = comparer(sorties[0].morceaux, sorties[1].morceaux);
-  if (sorties[0].sha256 !== sorties[1].sha256) {
-    echec(`niveau 2 : deux générations de la même recette et de la même vue diffèrent (${sorties[0].sha256.slice(0, 16)} / ${sorties[1].sha256.slice(0, 16)}) — mode ${sorties[0].mode} ; morceaux encodés ${cmp.a} / ${cmp.b}, ${cmp.differents} différents${cmp.premier ? `, le premier n° ${cmp.premier.i} (${cmp.premier.type}, ${cmp.premier.taille} / ${cmp.premier.tailleB} octets)` : ' — tous identiques : la différence est dans le conteneur'}`);
-  }
-  // le diagnostic par mode : la même séquence (B2, 120 images, 540 × 960) encodée deux fois dans chaque mode
-  const parMode = await pv.evaluate(async () => {
-    const { creerRendu } = await import('/assets/animation-collection.js');
-    const { encoder } = await import('/assets/encodeur-mp4.js');
-    const out = {};
-    // chaque réglage, deux fois : lequel donne deux fois les mêmes octets ?
-    const REGLAGES = {
-      'toile, variable': { source: 'toile', reglage: null },
-      'toile, toutes clés': { source: 'toile', reglage: { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true } },
-      'pixels, variable': { source: 'pixels', reglage: null },
-      'pixels, toutes clés': { source: 'pixels', reglage: { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true } },
-      'pixels, constant': { source: 'pixels', reglage: { bitrateMode: 'constant', bitrate: 10_000_000 } },
-    };
-    for (const [mode, { source, reglage }] of Object.entries(REGLAGES)) {
-      const runs = [];
-      for (let r = 0; r < 2; r++) {
-        const toile = document.createElement('canvas'); toile.width = 540; toile.height = 960;
-        const rendu = await creerRendu({ code: 'B2', vue: { vitesse: 1, palette: ['#efeae0', '#23232b'] }, largeur: 540, hauteur: 960 });
-        const ctx = toile.getContext('2d');
-        try {
-          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: ['variable'], reglage, source, diagnostic: true });
-          const h = new Uint8Array(await crypto.subtle.digest('SHA-256', res.octets));
-          runs.push({ sha: [...h].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join(''), mode: res.mode, morceaux: res.morceaux.map((m) => m.h), entrees: res.entrees });
-        } catch (e) { runs.push({ erreur: e.message }); }
-      }
-      const [a, b] = runs;
-      out[mode] = a.erreur ? { indisponible: a.erreur.slice(0, 80) } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]), entreesDifferentes: a.entrees.filter((h, i) => h !== b.entrees[i]).length, premiereEntree: a.entrees.findIndex((h, i) => h !== b.entrees[i]) };
-    }
-    return out;
-  });
-  console.log('niveau 2, diagnostic par réglage (B2, 120 images, 540 × 960, deux fois chacun) :');
-  for (const [mode, r] of Object.entries(parMode)) console.log(`   ${mode.padEnd(24)} ${JSON.stringify(r)}`);
-  if (sorties[0].nomTelecharge !== 'animation-B2-1080x1920.mp4') echec(`nom du fichier généré : ${sorties[0].nomTelecharge}`);
-  console.log(`niveau 2 (${h264}, mode ${sorties[0].mode}) : ${sorties[0].nom}, ${sorties[0].octets} octets, ${sorties[0].morceaux.length} morceaux, deux générations ${sorties[0].sha256 === sorties[1].sha256 ? 'IDENTIQUES' : 'DIFFÉRENTES'} (SHA-256 ${sorties[0].sha256.slice(0, 16)}…)`);
+  const d = pv.waitForEvent('download', { timeout: 600000 });
+  await pv.selectOption('#B2 .v-vitesse', '1');
+  await pv.click('#B2 .g-generer');
+  const fichier = await d;
+  await pv.waitForFunction(() => window.derniereGeneration, null, { timeout: 600000 });
+  const g = await pv.evaluate(() => window.derniereGeneration);
+  if (fichier.suggestedFilename() !== 'animation-B2-1080x1920.mp4') echec(`nom du fichier généré : ${fichier.suggestedFilename()}`);
+  if (!g.octets || !g.morceaux.length) echec(`génération vide : ${JSON.stringify({ octets: g.octets, morceaux: g.morceaux.length })}`);
+  console.log(`variante (navigateur, ${h264}, mode ${g.mode}) : ${fichier.suggestedFilename()}, ${g.octets} octets, ${g.morceaux.length} morceaux. Niveau 2 sans objet sur ce chemin (WebCodecs n'est pas déterministe) : il est tenu par la vidéo de référence, tools/video_reference.mjs --verifie.`);
 } else {
   const g = await pv.evaluate(() => ({ desactive: document.querySelector('#B2 .g-generer').disabled, etat: document.querySelector('#B2 .g-etat').textContent }));
   if (!g.desactive || !/indisponible/.test(g.etat)) echec(`sans H.264, le générateur devait être désactivé et le dire : ${JSON.stringify(g)}`);
-  console.log(`niveau 2 : ce navigateur n'encode pas le H.264 — générateur désactivé, « ${g.etat.slice(0, 60)}… ». À vérifier dans Google Chrome : CHROME_CHANNEL=chrome node tools/check_galerie_animations.mjs local`);
+  console.log(`variante (navigateur) : ce navigateur n'encode pas le H.264 — générateur désactivé, « ${g.etat.slice(0, 60)}… » (refus explicite). Le niveau 2 est tenu par la vidéo de référence : tools/video_reference.mjs --verifie.`);
   if (process.env.EXIGER_H264) echec('H.264 exigé (EXIGER_H264) et absent de ce navigateur');
 }
 

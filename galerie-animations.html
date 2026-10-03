@@ -96,9 +96,12 @@
 // (vitesse, couleurs) est au visiteur, dans l'URL.
 //
 // Trois usages, une ligne de partage nette :
-//   l'animation de référence  un MP4 déposé, lu comme une vidéo (tout visiteur) ;
+//   l'animation de référence  un MP4 déposé, lu comme une vidéo (tout visiteur) — encodé
+//                             HORS navigateur par ffmpeg / libx264 (tools/video_reference.mjs),
+//                             fichier reproductible octet pour octet ;
 //   une variante              rendue en direct sur le canevas, sans encodeur (tout visiteur) ;
-//   le MP4 d'une variante     l'encodeur, si le navigateur a le H.264 — sinon il le dit.
+//   le MP4 d'une variante     l'encodeur DU NAVIGATEUR, si le navigateur a le H.264 — sinon
+//                             il le dit ; images identiques garanties, pas l'octet.
 import { chargerAnimations, collectionsAnimees, creerRendu, dureeTotale, nomFichier, FORMATS, VITESSES } from './assets/animation-collection.js';
 import { encoder, h264Disponible } from './assets/encodeur-mp4.js';
 import { nomDuFond } from './assets/selecteur-fonds.js';

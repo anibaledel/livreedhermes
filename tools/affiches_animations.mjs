@@ -5,9 +5,9 @@
 // affiches_animations.mjs — la vidéo de référence d'une collection, déposée,
 // et son affiche EXTRAITE du fichier (pas un rendu refait).
 //
-// La vidéo de référence est produite par Anibal dans Google Chrome
-// (galerie-animations.html, « Générer », vue d'origine) : ce navigateur-ci ne
-// sait pas encoder le H.264. Ce script la dépose :
+// La vidéo de référence est produite hors navigateur par ffmpeg / libx264
+// (tools/video_reference.mjs, reproductible octet pour octet, en CI comme
+// ici) — plus par l'encodeur d'un navigateur. Ce script la dépose :
 //
 //   node tools/affiches_animations.mjs depose <CODE> <fichier.mp4>
 //     - vérifie que c'est bien la RÉFÉRENCE : H.264, un format de la galerie

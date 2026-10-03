@@ -1,6 +1,15 @@
 // encodeur-mp4.js — La Livrée d'Hermès
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
+// CHEMIN NAVIGATEUR : le téléchargement d'une VARIANTE par un visiteur
+// (galerie-animations.html, « Générer »). Ce n'est PAS le chemin de la vidéo
+// de référence d'une collection, qui est encodée hors navigateur par
+// ffmpeg / libx264 (tools/video_reference.mjs). Deux chemins, deux garanties :
+//   - référence, ffmpeg / libx264 : images identiques ET fichier identique,
+//     octet pour octet (niveau 2, testé en CI) ;
+//   - variante, ici, WebCodecs : images identiques seulement ; le niveau 2
+//     ne s'applique pas (raison mesurée ci-dessous).
+//
 // L'encodage HORS TEMPS RÉEL d'une animation en MP4 H.264. On ne filme pas
 // l'écran : une horloge virtuelle avance image par image (k / cadence),
 // chaque image est dessinée, puis encodée. Trois effets, mesurables : une
