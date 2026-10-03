@@ -60,6 +60,9 @@
   .info-line .badge.plaque{ border-color:var(--gold); color:var(--gold); }
 
   .fond-bloc{ text-align:left; margin:0 auto 14px; max-width:470px; }
+  .couleurs-bloc{ display:flex; gap:16px; justify-content:center; align-items:center; margin:0 auto 12px; font-size:12px; color:var(--dim); }
+  .couleurs-bloc label{ display:flex; align-items:center; gap:6px; }
+  .couleurs-bloc input[type=color]{ width:38px; height:30px; border:1px solid var(--line-strong); background:transparent; padding:2px; cursor:pointer; }
   .fond-titre{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 8px; }
   .info-line .sf-av{ color:var(--red); }
   .actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
@@ -122,6 +125,10 @@
     </div>
 
     <div class="preview">
+      <div class="couleurs-bloc">
+        <label><span data-i18n="couleurFond">Fond</span> <input type="color" id="couleur0"></label>
+        <label><span data-i18n="couleurFigure">Figure</span> <input type="color" id="couleur1"></label>
+      </div>
       <div class="fond-bloc">
         <h2 class="fond-titre" data-i18n="fondHeading">Fond</h2>
         <div id="selecteurFonds"></div>
@@ -147,7 +154,7 @@ import {
   ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX, doubleAccord, RACINES_FIXES,
 } from './assets/bicolore-axes.js';
 import { chargerCollection, motifSvg } from './assets/bicolore-fonds.js';
-import { PALETTE_DEFAUT } from './assets/couleurs.js';
+import { paletteDeLUrl, paletteDansLUrl } from './assets/couleurs.js';
 import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './assets/selecteur-fonds.js';
 
 // ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir docs/i18n/i18n_todo_creation-bicolore-v2.md) ----------
@@ -159,7 +166,7 @@ const UI = {
     v1LinkHtml: "L'outil d'origine (T0–T3, hexagrammes) reste disponible : <a href=\"bicolore.html\">Motifs bicolores v1</a>.",
     modeHeading: "Mode", modeLibre: "Accord libre", modeFamilles: "Familles",
     grainHeading: "Grain", generatorsHeading: "Éléments",
-    btnMuter: "Muter", btnDescendre: "Descendre", btnEffacer: "Effacer", btnTelecharger: "Télécharger le SVG",
+    btnMuter: "Muter", btnDescendre: "Descendre", btnEffacer: "Effacer", btnTelecharger: "Télécharger le SVG", couleurFond: "Fond", couleurFigure: "Figure",
     fusionNote: " — fusion (des éléments distincts sont tombés au même endroit)",
     racineFixeTitle: "Racine fixe du dédoublement (θ ↦ 2θ)",
     niveau: "niveau", angle: "angle", angles: "angles", accordVide: "Aucun élément sélectionné.",
@@ -174,7 +181,7 @@ const UI = {
     v1LinkHtml: "The original tool (T0–T3, hexagrams) is still available: <a href=\"bicolore.html\">Two-colour patterns v1</a>.",
     modeHeading: "Mode", modeLibre: "Free chord", modeFamilles: "Families",
     grainHeading: "Grain", generatorsHeading: "Elements",
-    btnMuter: "Mutate", btnDescendre: "Double", btnEffacer: "Clear", btnTelecharger: "Download SVG",
+    btnMuter: "Mutate", btnDescendre: "Double", btnEffacer: "Clear", btnTelecharger: "Download SVG", couleurFond: "Ground", couleurFigure: "Figure",
     fusionNote: " — merged (distinct elements landed on the same spot)",
     racineFixeTitle: "Fixed root of the doubling (θ ↦ 2θ)",
     niveau: "level", angle: "angle", angles: "angles", accordVide: "No element selected.",
@@ -202,8 +209,18 @@ let grain = 'C8';   // 'C8' | 'C1' | 'C4'
 let selection = new Set();
 let derniereFusion = false; // true juste apres un "Descendre" qui a fusionne des elements
 let AXES_V1 = null, GENV2 = null, GENV2_JSON = null;
-// Les couleurs par défaut du bicolore : le jeu de constantes unique, assets/couleurs.js.
-const PALETTE = [...PALETTE_DEFAUT];
+// Les couleurs : crème et encre par défaut (le jeu de constantes unique,
+// assets/couleurs.js) ; toute autre teinte — l'ancien rouge #e0261b compris —
+// se choisit au sélecteur, et part dans l'URL (?c0=…&c1=…).
+const PALETTE = paletteDeLUrl();
+const couleur0 = document.getElementById('couleur0'), couleur1 = document.getElementById('couleur1');
+[couleur0.value, couleur1.value] = PALETTE;
+for (const [i, el] of [[0, couleur0], [1, couleur1]]) el.addEventListener('input', () => {
+  PALETTE[i] = el.value;
+  paletteDansLUrl(PALETTE);
+  if (SELECTEUR) SELECTEUR.setPalette(PALETTE);
+  renderAll();
+});
 // Le fond (et sa superposition) : un seul composant, assets/selecteur-fonds.js.
 // L'aplat P reste le défaut et le rendu de référence ; les fonds se posent
 // sur la lecture C1 (un bit par case). L'état part dans l'URL : ?fond=B3D&sup=E95.

@@ -246,6 +246,10 @@
   .ff-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
   .ff-apercu{ width:100%; aspect-ratio:16 / 9; border:1px solid var(--line); margin:0 auto 12px; overflow:hidden; }
   .ff-apercu svg{ display:block; width:100%; height:100%; }
+  .rendu-toggle{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:0 0 18px; }
+  .rendu-toggle button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:8px 14px; cursor:pointer; }
+  .rendu-toggle button[aria-pressed="true"]{ border-color:var(--gold); color:var(--gold); }
+  .rendu-lien{ font-size:calc(11px + var(--fs-bump)); color:var(--gold); }
   .ff-preset{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:7px 11px; cursor:pointer; }
   .ff-preset:hover{ border-color:var(--gold); color:var(--gold); }
   .ff-actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
@@ -328,6 +332,11 @@
 
 
   <p class="fondecran-intro">Choisissez une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.</p>
+  <div class="rendu-toggle" id="renduToggle" role="group" aria-label="Rendu de l'animation">
+    <button type="button" data-rendu="tricolore" aria-pressed="true">Tricolore</button>
+    <button type="button" data-rendu="bicolore" aria-pressed="false">Bicolore — une collection</button>
+    <a href="#fondFixe" class="rendu-lien">collection et couleurs : ci-dessous</a>
+  </div>
   <div class="cat-grid" id="catGrid"></div>
 
   <div class="mod-options">
@@ -599,36 +608,66 @@ function hasDarkDiagonal(grid){
 function buildGridsFor(cat){
   // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
   // pas une sous-catégorie séparée : aucune entrée DATA n'a fam="par4".
-  const entries = cat==='par4' ? DATA.entries : DATA.entries.filter(e => e[0].split(':')[0]===cat);
+  // Rendu bicolore : les données de data/fonds_ecran_v1.json (1024 entrées,
+  // Bases comprises), chargées par la section « fond d'écran fixe » — la copie
+  // intégrée ci-dessus (DATA, 768 entrées) n'a aucune entrée Bases.
+  const D = bicoloreActif() && window.fondEcran ? window.fondEcran.data : DATA;
+  const entries = cat==='par4' ? D.entries : D.entries.filter(e => e[0].split(':')[0]===cat);
   return entries
     .map(([fam, subA, subB, n]) => ({
-      grid: hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]),
+      grid: hexagramGrid(n, D.families[fam][subA], D.families[fam][subB]),
       fam, subA, subB, n
     }))
-    .filter(({grid}) => !hasDarkDiagonal(grid));
+    // rendu bicolore (assets/animation-bicolore.js) : les motifs dont la lecture
+    // binaire est définie, sans le filtre « diagonale sombre » du tricolore
+    .filter(({grid}) => bicoloreActif() ? window.animationBicolore.lisible(grid) : !hasDarkDiagonal(grid));
 }
+function bicoloreActif(){ return !!(window.animationBicolore && window.animationBicolore.actif); }
 
 // --- écran de sélection : mini-aperçu par catégorie ---
 const catGrid = document.getElementById('catGrid');
 const cats = ['bases','par2','par3','par4'];
 const catGridsCache = {};
-cats.forEach(cat=>{
-  const grids = buildGridsFor(cat);
-  catGridsCache[cat] = grids;
-  const card = document.createElement('div');
-  card.className = 'cat-card' + (grids.length===0 ? ' disabled' : '');
-  const preview = document.createElement('canvas');
-  preview.setAttribute('aria-hidden', 'true'); // la carte porte son libellé en texte
-  card.appendChild(preview);
-  const label = document.createElement('div'); label.className='label'; label.textContent = catLabel[cat];
-  const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
-  card.appendChild(label); card.appendChild(count);
-  if(grids.length>0){
-    drawStaticTile(preview, grids[0].grid, 150);
-    card.onclick = ()=> launch(cat, grids);
-  }
-  catGrid.appendChild(card);
-});
+let apercus = []; // [canevas, grille] des cartes, redessinés quand une tuile bicolore est prête
+// Les cartes de catégorie, refaites quand le rendu (tricolore / bicolore), la
+// collection ou les couleurs changent.
+function construireCartes(){
+  catGrid.innerHTML = '';
+  apercus = [];
+  cats.forEach(cat=>{
+    const grids = buildGridsFor(cat);
+    catGridsCache[cat] = grids;
+    const card = document.createElement('div');
+    card.className = 'cat-card' + (grids.length===0 ? ' disabled' : '');
+    const preview = document.createElement('canvas');
+    preview.setAttribute('aria-hidden', 'true'); // la carte porte son libellé en texte
+    card.appendChild(preview);
+    const label = document.createElement('div'); label.className='label'; label.textContent = catLabel[cat];
+    const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
+    card.appendChild(label); card.appendChild(count);
+    if(grids.length>0){
+      apercus.push([preview, grids[0].grid]);
+      drawApercu(preview, grids[0].grid);
+      card.onclick = ()=> launch(cat, grids);
+    }
+    catGrid.appendChild(card);
+  });
+}
+function drawApercu(preview, grid){
+  if(!bicoloreActif()) { drawStaticTile(preview, grid, 150); return; }
+  preview.width = 150; preview.height = 150;
+  const c = preview.getContext('2d');
+  const t = window.animationBicolore.tuile(grid, 150);
+  if(t) c.drawImage(t, 0, 0, 150, 150);
+  else { c.fillStyle = window.animationBicolore.couleurFond(); c.fillRect(0, 0, 150, 150); }
+}
+window.construireCartes = construireCartes;
+// une tuile bicolore vient d'être prête : la redessiner là où elle sert
+window.tuileBicolorePrete = (grid)=>{
+  for(const [cv, g] of apercus) if(g === grid) drawApercu(cv, g);
+  if(grid === currentGrid && stage.style.display === 'block') drawTessellation(currentGrid);
+};
+construireCartes();
 
 function drawStaticTile(canvas, grid, size){
   canvas.width = size; canvas.height = size;
@@ -722,8 +761,10 @@ function pickNextByProximity(){
 }
 
 function resizeCanvas(){
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // à la densité réelle de l'affichage : net sur un écran à forte densité
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+  canvas.width = Math.round(window.innerWidth * dpr);
+  canvas.height = Math.round(window.innerHeight * dpr);
   if(currentGrid) drawTessellation(currentGrid); // redessiner après tout redimensionnement (ex: passage en plein écran)
 }
 window.addEventListener('resize', resizeCanvas);
@@ -748,6 +789,19 @@ function drawTessellationOn(targetCtx, grid){
   const cols = Math.ceil(w/tileSize)+1;
   const rows = Math.ceil(h/tileSize)+1;
   const tilePx = Math.max(1, Math.ceil(tileSize));
+  if(bicoloreActif()){
+    // la tuile du moteur (lecture binaire, fond, couleurs), pavée bord à bord ;
+    // positions arrondies et un pixel de recouvrement : pas de liseré
+    const t = window.animationBicolore.tuile(grid, tilePx);
+    targetCtx.fillStyle = window.animationBicolore.couleurFond();
+    targetCtx.fillRect(0, 0, w, h);
+    if(!t) return;
+    for(let ty=0; ty<rows; ty++) for(let tx=0; tx<cols; tx++){
+      const x = Math.floor(tx*tileSize), y = Math.floor(ty*tileSize);
+      targetCtx.drawImage(t, x, y, Math.floor((tx+1)*tileSize) - x + 1, Math.floor((ty+1)*tileSize) - y + 1);
+    }
+    return;
+  }
   tileBuffer.width = tilePx; tileBuffer.height = tilePx;
   const scale = tilePx/tileSize;
   for(let r=0;r<tileCells;r++){
@@ -835,6 +889,11 @@ function launch(cat, grids){
   selectScreen.style.display = 'none';
   stage.style.display = 'block';
   resizeCanvas();
+  if(bicoloreActif()){
+    // les tuiles de toute la suite, préparées d'avance
+    const px = Math.max(1, Math.ceil(Math.min(canvas.width, canvas.height) / tileDivisor));
+    window.animationBicolore.preparer(grids.map(g=>g.grid), px);
+  }
   refreshPalette(); // applique le mode monochrome par défaut dès le lancement
   showNextGrid();
   requestStageFullscreen();
@@ -1034,7 +1093,9 @@ function startRecording(){
     const blob = new Blob(recordedChunks, {type: usedType});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = `fond-ecran-${Date.now()}.${ext}`;
+    // le code de la collection dans le nom : une vidéo ne se confond pas avec une autre
+    const nomRendu = bicoloreActif() ? window.animationBicolore.code().replace('+', '-') : 'tricolore';
+    a.download = `fond-ecran-${nomRendu}-${ratio === 'native' ? 'natif' : ratio === '916' ? '1080x1920' : '1080x1080'}-${Date.now()}.${ext}`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1065,10 +1126,21 @@ document.getElementById('btnRecord').onclick = ()=>{
 // --- mode couleur, teinte, réinitialisation ---
 const btnMode = document.getElementById('btnMode');
 const tintPicker = document.getElementById('tintPicker');
-btnMode.onclick = ()=>{
-  colorMode = colorMode==='mono' ? 'multi' : 'mono';
+// le mode de teinte part dans l'URL (?teinte=multi), comme le rendu, la collection et les couleurs
+function teinteDansLUrl(){
+  const q = new URLSearchParams(location.search);
+  if(colorMode==='multi') q.set('teinte', 'multi'); else q.delete('teinte');
+  history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + location.hash);
+}
+function appliquerTeinte(){
   btnMode.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';
   btnMode.classList.toggle('active', colorMode==='multi');
+}
+if(new URLSearchParams(location.search).get('teinte')==='multi'){ colorMode = 'multi'; appliquerTeinte(); }
+btnMode.onclick = ()=>{
+  colorMode = colorMode==='mono' ? 'multi' : 'mono';
+  appliquerTeinte();
+  teinteDansLUrl();
   refreshPalette();
 };
 tintPicker.oninput = refreshPalette;
@@ -1112,6 +1184,7 @@ document.getElementById('btnPause').onclick = (e)=>{
 
 document.getElementById('btnReset').onclick = ()=>{
   colorMode = 'mono';
+  teinteDansLUrl();
   btnMode.textContent = 'Multicolore';
   btnMode.classList.remove('active');
   tintPicker.value = DEFAULT_MONO_HUE;
@@ -1196,7 +1269,19 @@ document.getElementById('credit-year').textContent = new Date().getFullYear();
 // Le fond d'écran fixe : le sélecteur de fond commun (assets/selecteur-fonds.js)
 // et la sortie vectorielle du moteur — voir assets/vue-fond-ecran.js.
 import { monterFondEcran } from './assets/vue-fond-ecran.js';
-monterFondEcran(document.getElementById('fondFixe')).catch((e) => {
+import { monterAnimationBicolore } from './assets/animation-bicolore.js';
+monterFondEcran(document.getElementById('fondFixe')).then(() => {
+  // l'animation bicolore : la même animation, la tuile du moteur
+  const boutons = [...document.querySelectorAll('#renduToggle button')];
+  const marquer = (oui) => boutons.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.rendu === 'bicolore') === oui)));
+  window.animationBicolore = monterAnimationBicolore({
+    bascule: (oui) => { marquer(oui); window.construireCartes(); },
+    onTuile: (grille) => window.tuileBicolorePrete(grille),
+  });
+  boutons.forEach((b) => b.addEventListener('click', () => window.animationBicolore.basculer(b.dataset.rendu === 'bicolore')));
+  marquer(window.animationBicolore.actif);
+  if (window.animationBicolore.actif) window.construireCartes();
+}).catch((e) => {
   document.getElementById('ffErreur').hidden = false;
   document.getElementById('ffErreur').textContent = 'Erreur de chargement : ' + e.message;
 });

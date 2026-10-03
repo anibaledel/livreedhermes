@@ -63,9 +63,10 @@ export async function monterFondEcran(racine) {
   const densite = () => Number($('#ffDensite').value);
 
   let cases = null;
+  const annoncer = () => window.dispatchEvent(new CustomEvent('fond-ecran-etat'));
   const sel = creerSelecteurFonds($('#ffSelecteur'), {
     collection, glyphes: calculs.glyphes, palette: palette(), lang: 'fr', etat: etatDeLUrl(collection.fonds),
-    onChange: (e) => { etatDansLUrl(e); dessiner(); },
+    onChange: (e) => { etatDansLUrl(e); dessiner(); annoncer(); },
   });
   window.selecteurFonds = sel;
 
@@ -97,7 +98,7 @@ export async function monterFondEcran(racine) {
   $('#ffFamille').addEventListener('change', () => { fam = $('#ffFamille').value; libre = null; lire(); dessiner(); });
   $('#ffHex').addEventListener('change', () => { n = Number($('#ffHex').value); libre = null; lire(); dessiner(); });
   $('#ffDensite').addEventListener('input', () => { $('#ffDensiteVal').textContent = String(densite()); dessiner(); });
-  const changerCouleurs = () => { paletteDansLUrl(palette()); sel.setPalette(palette()); dessiner(); };
+  const changerCouleurs = () => { paletteDansLUrl(palette()); sel.setPalette(palette()); dessiner(); annoncer(); };
   for (const c of ['#ffCouleur1', '#ffCouleur2']) $(c).addEventListener('input', changerCouleurs);
   for (const b of racine.querySelectorAll('.ff-preset')) b.addEventListener('click', () => { [$('#ffCouleur2').value, $('#ffCouleur1').value] = PALETTES[b.dataset.palette]; changerCouleurs(); });
   $('#ffSvg').addEventListener('click', () => {
@@ -123,5 +124,10 @@ export async function monterFondEcran(racine) {
   });
   lire();
   dessiner();
-  return { selecteur: sel, etat: () => ({ fam, n, libre: !!libre, cases }) };
+  // L'état partagé de la page (collection, couleurs) : l'animation bicolore
+  // (assets/animation-bicolore.js) le lit, et l'écoute (fond-ecran-etat).
+  const api = { selecteur: sel, palette, etat: () => ({ fam, n, libre: !!libre, cases }), data, collection };
+  window.fondEcran = api;
+  window.dispatchEvent(new CustomEvent('fond-ecran-pret'));
+  return api;
 }

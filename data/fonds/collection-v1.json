@@ -11,6 +11,7 @@
     {"id": "B4D", "mode": "rotation", "type": "bandes", "nombre": 4, "largeurs": [1, 1, 1, 1], "phase": 0, "angle": 45, "raccord": "franc"},
     {"id": "B121D", "mode": "rotation", "type": "bandes", "nombre": 3, "largeurs": [1, 2, 1], "phase": 0, "angle": 45, "raccord": "inversé"},
     {"id": "B11211D", "mode": "rotation", "type": "bandes", "nombre": 5, "largeurs": [1, 1, 2, 1, 1], "phase": 0, "angle": 45, "raccord": "franc"},
+    {"id": "B6D", "mode": "rotation", "type": "bandes", "nombre": 6, "largeurs": [1, 1, 1, 1, 1, 1], "phase": 0, "angle": 45, "raccord": "inversé"},
     {"id": "B12m", "mode": "miroir", "type": "bandes", "nombre": 2, "largeurs": [1, 2], "phase": 0, "angle": 0, "raccord": "franc"},
     {"id": "B3x", "identique": ["BA33"], "mode": "echange", "type": "bandes", "nombre": 3, "largeurs": [1, 1, 1], "phase": 0, "angle": 0, "raccord": "franc"},
     {"id": "B3n", "mode": "nature", "v0": {"type": "bandes", "nombre": 3, "largeurs": [1, 1, 1], "phase": 0, "angle": 0}, "v1": {"type": "bandes", "nombre": 4, "largeurs": [1, 1, 1, 1], "phase": 0, "angle": 45}, "raccord": "franc"},

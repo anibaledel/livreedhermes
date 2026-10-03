@@ -1,5 +1,5 @@
 {
- "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json.",
+ "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json. « rang » : l'ordre de publication arrêté le 3 octobre 2026 — B2 (2 égales), B121 (1-2-1), B6D (6 diagonales) ; P et B2D restent, sans rang. B2D a été exportée en #f2f2f0 / #000000, le défaut d'alors ; B2, B121 et B6D en crème #efeae0 et encre #23232b (assets/couleurs.js).",
  "collections": {
   "P": {
    "palette": [
@@ -8,7 +8,8 @@
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-02"
+   "exportee": "2026-10-02",
+   "rang": null
   },
   "B2D": {
    "palette": [
@@ -17,7 +18,38 @@
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-03"
+   "exportee": "2026-10-03",
+   "rang": null
+  },
+  "B2": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "images": 256,
+   "format": "1000 × 1500",
+   "exportee": "2026-10-03",
+   "rang": 1
+  },
+  "B121": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "images": 256,
+   "format": "1000 × 1500",
+   "exportee": "2026-10-03",
+   "rang": 2
+  },
+  "B6D": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "images": 256,
+   "format": "1000 × 1500",
+   "exportee": "2026-10-03",
+   "rang": 3
   }
  }
 }
