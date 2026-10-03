@@ -40,8 +40,9 @@ const PAGES = [
   ['galerie-bicolore.html', ['#tintClair', '#tintSombre'], null, { canevas: '#pavedCanvas' }],
   ['galerie-bicolore.html#fondFixe', ['#ffCouleur2', '#ffCouleur1'], '.ff-preset[data-palette=creme]'],
   ['cymatique.html', ['#pal0', '#pal1']],
-  ['fonds-ecran.html?rendu=bicolore', ['#animC0', '#animC1'], '.anim-preset[data-palette=creme]', { canevas: '#canvas', lancer: '.cat-card', attendre: 2500 }],
-  ['fonds-ecran.html?rendu=bicolore#fondFixe', ['#ffCouleur2', '#ffCouleur1'], '.ff-preset[data-palette=creme]'],
+  // l'outil bicolore de fonds-ecran.html (le second montage du moteur : son écran a les champs c0 / c1)
+  ['fonds-ecran.html#outilBicolore', ['[data-r=c0]', '[data-r=c1]'], '.anim-preset[data-palette=creme]', { canevas: '.fe-stage:has([data-r=c0]) canvas', lancer: '#outilBicolore .cat-card', attendre: 2500 }],
+  ['fonds-ecran.html#fondFixe', ['#ffCouleur2', '#ffCouleur1'], '.ff-preset[data-palette=creme]'],
   ['motifs/bases-yang-h0.html', ['.vf-c0', '.vf-c1'], '.vf-preset[data-palette=creme]', { svg: '.vf-pavage svg' }],
   ['fr/motifs/par2-yin-yang-h5.html', ['.vf-c0', '.vf-c1'], '.vf-preset[data-palette=creme]', { svg: '.vf-pavage svg' }],
 ];

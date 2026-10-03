@@ -6,7 +6,7 @@
 // 2026-10-03. Une adresse qui le visait (elle porte ?motif=…, sans paramètre
 // de l'animation) y mène encore, avec la même chaîne de paramètres.
 (function(){ var q = new URLSearchParams(location.search);
-  if(q.has('motif') && !q.has('rendu') && !q.has('teinte') && !q.has('densite') && !q.has('rythme'))
+  if(q.has('motif') && !q.has('rendu') && !q.has('teinte') && !q.has('densite') && !q.has('rythme') && !q.has('bdensite') && !q.has('brythme'))
     location.replace('galerie-bicolore.html' + location.search + '#fondFixe'); })();
 </script>
 <meta charset="UTF-8">
@@ -177,50 +177,50 @@
   @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
 
   /* --- écran plein écran (overlay indépendant du chrome du site) --- */
-  #stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
-  #stage canvas{width:100%; height:100%; display:block;}
-  #pauseInfo{
+  .fe-stage{display:none; position:fixed; inset:0; background:#000; z-index:100;}
+  .fe-stage canvas{width:100%; height:100%; display:block;}
+  .fe-pause{
     position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
     font-family:Arial,sans-serif; color:#fff; text-align:center; z-index:15;
     background:rgba(0,0,0,.78); padding:22px 30px; border-radius:10px;
     opacity:0; pointer-events:none; transition:opacity .35s;
     max-width:min(90vw, 520px);
   }
-  #pauseInfo.visible{opacity:1;}
-  #pauseInfo .hex{font-size:calc(13px + var(--fs-bump)); color:var(--dim); margin-bottom:6px;}
-  #pauseInfo .keyword{font-size:calc(19px + var(--fs-bump)); color:var(--gold); margin-bottom:10px; letter-spacing:.03em;}
-  #pauseInfo .text{font-size:calc(13px + var(--fs-bump)); color:#ddd; line-height:1.6; text-align:center;}
-  #hud{
+  .fe-pause.visible{opacity:1;}
+  .fe-pause .hex{font-size:calc(13px + var(--fs-bump)); color:var(--dim); margin-bottom:6px;}
+  .fe-pause .keyword{font-size:calc(19px + var(--fs-bump)); color:var(--gold); margin-bottom:10px; letter-spacing:.03em;}
+  .fe-pause .text{font-size:calc(13px + var(--fs-bump)); color:#ddd; line-height:1.6; text-align:center;}
+  .fe-hud{
     position:fixed; top:0; left:0; right:0; display:flex; flex-wrap:wrap; row-gap:8px;
     justify-content:space-between; align-items:center;
     padding:16px 20px; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); color:rgba(255,255,255,.55);
     z-index:10; opacity:0; transition:opacity .3s; pointer-events:none;
   }
-  #stage:hover #hud{opacity:1; pointer-events:auto;}
-  #hud button{
+  .fe-stage:hover .fe-hud{opacity:1; pointer-events:auto;}
+  .fe-hud button{
     background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
     padding:7px 14px; font-size:calc(11px + var(--fs-bump)); cursor:pointer; margin-left:8px;
   }
-  #hud button:hover{border-color:var(--gold); color:var(--gold);}
-  #hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
-  #hud select{
+  .fe-hud button:hover{border-color:var(--gold); color:var(--gold);}
+  .fe-hud button.active{background:var(--gold); color:#100; border-color:var(--gold);}
+  .fe-hud select{
     background:rgba(0,0,0,.5); color:#fff; border:1px solid rgba(255,255,255,.25);
     padding:6px 4px; font-size:calc(10.5px + var(--fs-bump)); cursor:pointer;
   }
-  #hud .left{display:flex; flex-wrap:wrap; row-gap:8px; align-items:center; gap:10px;}
-  #levelBar{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
-  #levelFill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
-  #fileInput{display:none;}
-  #tintPicker{width:28px; height:28px; border:1px solid rgba(255,255,255,.3); border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;}
-  #tintPicker::-webkit-color-swatch-wrapper{padding:0;}
-  #tintPicker::-webkit-color-swatch{border:none; border-radius:50%;}
-  #stageNotice{
+  .fe-hud .left{display:flex; flex-wrap:wrap; row-gap:8px; align-items:center; gap:10px;}
+  .fe-level{width:80px; height:4px; background:rgba(255,255,255,.15); border-radius:2px; overflow:hidden;}
+  .fe-level-fill{height:100%; width:0%; background:var(--gold); transition:width .05s;}
+  .fe-file{display:none;}
+  .fe-hud [data-r=tintPicker]{width:28px; height:28px; border:1px solid rgba(255,255,255,.3); border-radius:50%; padding:0; background:none; cursor:pointer; overflow:hidden;}
+  .fe-hud [data-r=tintPicker]::-webkit-color-swatch-wrapper{padding:0;}
+  .fe-hud [data-r=tintPicker]::-webkit-color-swatch{border:none; border-radius:50%;}
+  .fe-notice{
     position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:20;
     background:rgba(0,0,0,.8); color:#fff; border:1px solid rgba(255,255,255,.25);
     padding:10px 18px; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); max-width:80vw; text-align:center;
     opacity:0; pointer-events:none; transition:opacity .3s;
   }
-  #stageNotice.visible{ opacity:1; }
+  .fe-notice.visible{ opacity:1; }
 
   @media (max-width:768px){
     .wrap{ padding:20px 16px 48px; }
@@ -230,27 +230,32 @@
     .book-bar .flag-btn{ width:36px; height:32px; }
 
     /* pas de survol tactile fiable : le HUD reste visible en permanence sur mobile */
-    #hud{ opacity:1; pointer-events:auto; padding:10px 12px; font-size:calc(11px + var(--fs-bump)); }
-    #hud button{ padding:8px 10px; font-size:calc(10.5px + var(--fs-bump)); margin-left:6px; }
-    #rhythmSlider, #sizeSlider{ width:60px !important; }
-    #levelBar{ width:50px; }
+    .fe-hud{ opacity:1; pointer-events:auto; padding:10px 12px; font-size:calc(11px + var(--fs-bump)); }
+    .fe-hud button{ padding:8px 10px; font-size:calc(10.5px + var(--fs-bump)); margin-left:6px; }
+    .fe-hud input[type=range]{ width:60px !important; }
+    .fe-level{ width:50px; }
   }
   @media (max-width:480px){
     .cat-grid{ flex-direction:column; align-items:center; }
     .cat-card{ width:100%; max-width:280px; height:130px; }
-    #hud .left{ gap:6px; }
-    #hud button{ padding:7px 8px; font-size:calc(10px + var(--fs-bump)); margin-left:4px; }
-    #levelBar{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
+    .fe-hud .left{ gap:6px; }
+    .fe-hud button{ padding:7px 8px; font-size:calc(10px + var(--fs-bump)); margin-left:4px; }
+    .fe-level{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
   }
   .format-video{ font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.7); }
   .format-video.indisponible{ color:#ff8a80; }
-  .rendu-toggle{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:0 0 18px; }
-  .rendu-toggle button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:8px 14px; cursor:pointer; }
-  .rendu-toggle button[aria-pressed="true"]{ border-color:var(--gold); color:var(--gold); }
   .anim-preset{ border:1px solid rgba(255,255,255,.35); background:transparent; color:rgba(255,255,255,.75); font-size:calc(10px + var(--fs-bump)); padding:5px 8px; cursor:pointer; }
-  #hud input[type=color]{ width:28px; height:24px; border:1px solid rgba(255,255,255,.35); background:transparent; padding:1px; }
-  .rendu-lien{ font-size:calc(11px + var(--fs-bump)); color:var(--gold); }
-</style>
+  .fe-hud input[type=color]{ width:28px; height:24px; border:1px solid rgba(255,255,255,.35); background:transparent; padding:1px; }
+  /* les deux outils, l'un sous l'autre */
+  .outil{ margin:0 auto 48px; }
+  .outil + .outil{ padding-top:32px; border-top:1px solid var(--line); }
+  .outil > h2{ text-align:center; color:var(--gold); font-weight:400; font-size:calc(18px + var(--fs-bump)); letter-spacing:.04em; margin:0 0 10px; }
+  .outil > .outil-intro{ font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); color:var(--dim); max-width:56ch; text-align:center; margin:0 auto 22px; line-height:1.7; }
+  .outil .fond-fixe{ margin:0 auto 22px; padding-top:0; border-top:0; }
+  .outil .fond-fixe h3{ color:var(--gold); font-weight:400; font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; margin:0 0 10px; }
+  .lien-fixe{ text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); margin:22px auto 0; }
+  .lien-fixe a{ color:var(--gold); }
+  .hud-label{ display:inline-flex; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6); }</style>
 <link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
@@ -296,8 +301,8 @@
           <a class="flag-btn ready" href="en/book/" target="_blank" rel="noopener" title="English">🇬🇧</a>
           <a class="flag-btn ready" href="es/libro/" target="_blank" rel="noopener" title="Español">🇪🇸</a>
           <a class="flag-btn ready" href="th/book/" target="_blank" rel="noopener" title="ไทย">🇹🇭</a>
-          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
-          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+          <a class="flag-btn ready" href="zh/book/" target="_blank" rel="noopener" title="中文">🇨🇳</a>
+          <a class="flag-btn ready" href="ru/book/" target="_blank" rel="noopener" title="Русский">🇷🇺</a>
         </span>
       </span>
       <span class="dl-group">
@@ -307,8 +312,8 @@
           <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf" download title="English (EN)">🇬🇧</a>
           <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf" download title="Español (ES)">🇪🇸</a>
           <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf" download title="ไทย (TH)">🇹🇭</a>
-          <span class="flag-btn" title="中文 — bientôt">🇨🇳</span>
-          <span class="flag-btn" title="Русский — bientôt">🇷🇺</span>
+          <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf" download title="中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf" download title="Русский (RU)">🇷🇺</a>
         </span>
       </span>
       <span class="dl-group">
@@ -327,44 +332,36 @@
   </div>
 
 
-  <p class="fondecran-intro">Choisissez une catégorie de motifs unifiés. Une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.</p>
-  <div class="rendu-toggle" id="renduToggle" role="group" aria-label="Rendu de l'animation">
-    <button type="button" data-rendu="tricolore" aria-pressed="true">Tricolore</button>
-    <button type="button" data-rendu="bicolore" aria-pressed="false">Bicolore — une collection</button>
-    <a href="#fondFixe" class="rendu-lien">collection et couleurs : ci-dessous</a>
-    <a href="galerie-animations.html" class="rendu-lien">l'animation fixe de chaque collection : la galerie</a>
-  </div>
-  <div class="cat-grid" id="catGrid"></div>
 
-  <div class="mod-options">
-    <strong>Options de modulation, une fois la catégorie choisie :</strong>
-    <div>🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.</div>
-    <div>📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.</div>
-    <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
-    <div>🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.</div>
-    <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
-    <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie. En rendu bicolore, la barre propose à la place les deux couleurs du rendu, fond et figure.</div>
-    <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
-    <div>🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe, en vecteur, sur la galerie bicolore.</div>
-    <div>🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l'écran ; le nom du fichier porte le code de la collection en rendu bicolore. Le format est annoncé dans la barre avant l'enregistrement : si le navigateur n'encode pas le H.264 (Firefox, Chromium), l'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari.</div>
-  </div>
+  <p class="fondecran-intro">Deux outils, l'un sous l'autre : le tricolore, puis le bicolore. Choisissez une catégorie de motifs unifiés ; une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.</p>
 
-  <section class="fond-fixe" id="fondFixe" aria-labelledby="ffTitre">
-    <h2 id="ffTitre">Collection et couleurs du rendu bicolore</h2>
-    <p class="ff-intro">Le fond posé sur chaque case et les deux couleurs de l'animation bicolore et de ses vidéos. Les couleurs se règlent aussi dans la barre de l'animation.</p>
-    <div class="ff-choix">
-      <label>Figure <input type="color" id="ffCouleur1"></label>
-      <label>Fond <input type="color" id="ffCouleur2"></label>
-      <button type="button" class="ff-preset" data-palette="bicolore">Rouge / blanc</button>
-      <button type="button" class="ff-preset" data-palette="creme">Crème / encre</button>
-      <button type="button" class="ff-preset" data-palette="monochrome">Monochrome</button>
+  <!-- Un seul moteur, monté deux fois : assets/outil-fond-ecran.js. Chaque
+       section reçoit ses cartes, son aide et son écran plein ; leurs états sont
+       séparés. -->
+  <section class="outil" id="outilTricolore" aria-labelledby="titreTricolore">
+    <h2 id="titreTricolore">Tricolore</h2>
+    <p class="outil-intro">Trois couleurs, dérivées d'une teinte. L'animation fixe de chaque collection est dans <a href="galerie-animations.html" style="color:var(--gold);">la galerie d'animations</a>.</p>
+  </section>
+
+  <section class="outil" id="outilBicolore" aria-labelledby="titreBicolore">
+    <h2 id="titreBicolore">Bicolore</h2>
+    <p class="outil-intro">Deux couleurs, rouge et blanc par défaut : la figure et le fond de chaque motif, lu en binaire, avec la collection choisie ici.</p>
+    <!-- le sélecteur de collection et de couleurs : seul écrivain de l'état
+         partagé (assets/vue-fond-ecran.js, assets/etat-fond-ecran.js) -->
+    <div class="fond-fixe" id="fondFixe" role="group" aria-labelledby="ffTitre">
+      <h3 id="ffTitre">Collection et couleurs</h3>
+      <div class="ff-choix">
+        <label>Figure <input type="color" id="ffCouleur1"></label>
+        <label>Fond <input type="color" id="ffCouleur2"></label>
+        <button type="button" class="ff-preset" data-palette="bicolore">Rouge / blanc</button>
+        <button type="button" class="ff-preset" data-palette="creme">Crème / encre</button>
+        <button type="button" class="ff-preset" data-palette="monochrome">Monochrome</button>
+      </div>
+      <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
+      <p class="ff-erreur" id="ffErreur" hidden></p>
     </div>
-    <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
-    <p class="ff-erreur" id="ffErreur" hidden></p>
-    <!-- L'outil « fond d'écran fixe, en vecteur » était ici ; il est sur la galerie
-         bicolore depuis le 2026-10-03 (même module, assets/vue-fond-ecran.js). Le
-         lien reste à sa place : une adresse qui y menait y mène encore. -->
-    <p class="ff-deplace" id="ffDeplace"><b>Fond d'écran fixe, en vecteur</b> — un motif en SVG et en PNG jusqu'à la 4K : l'outil est maintenant sur la galerie bicolore. <a id="lienFondFixe" href="galerie-bicolore.html#fondFixe">Ouvrir le fond d'écran fixe</a>, avec la collection et les couleurs choisies ici.</p>
+    <div id="outilBicolorePlace"></div>
+    <p class="lien-fixe"><a id="lienFondFixe" href="galerie-bicolore.html#fondFixe">Fond d'écran fixe, en vecteur — galerie bicolore</a></p>
   </section>
 
   </main>
@@ -420,64 +417,6 @@
 </div>
 </div>
 
-<div id="stage">
-  <canvas id="canvas" role="img" aria-label="Fond d'écran textile animé"></canvas>
-  <div id="pauseInfo"><div class="hex"></div><div class="keyword"></div><div class="text"></div></div>
-  <div id="hud">
-    <div class="left">
-      <button id="btnMic">🎤 Micro</button>
-      <button id="btnFile">📁 Fichier audio</button>
-      <button id="btnMeditative">🧘 Méditatif</button>
-      <span id="rhythmWrap" style="display:none; align-items:center; gap:6px;">
-        <input type="range" id="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;" aria-label="Rythme du mode méditatif (secondes)">
-        <span id="rhythmLabel" style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">8 s</span>
-      </span>
-      <!-- teinte : tricolore seulement (la palette à trois couleurs) -->
-      <span class="hud-tricolore" style="display:inline-flex; align-items:center; gap:6px;">
-        <button id="btnMode">Multicolore</button>
-        <input type="color" id="tintPicker" value="#db694c" title="Choisir une teinte">
-      </span>
-      <!-- couleurs : bicolore seulement — les deux couleurs du rendu (c0 fond, c1 figure),
-           demandées au sélecteur de la page, seul à tenir l'état (etat-fond-ecran.js) -->
-      <span class="hud-bicolore" style="display:none; align-items:center; gap:6px;">
-        <label style="display:inline-flex; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Fond <input type="color" id="animC0" title="Couleur du fond (bit 0)"></label>
-        <label style="display:inline-flex; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Figure <input type="color" id="animC1" title="Couleur de la figure (bit 1)"></label>
-        <button type="button" class="anim-preset" data-palette="bicolore">Rouge / blanc</button>
-        <button type="button" class="anim-preset" data-palette="creme">Crème / encre</button>
-        <button type="button" class="anim-preset" data-palette="monochrome">Monochrome</button>
-      </span>
-      <span id="sizeWrap" style="display:inline-flex; align-items:center; gap:6px;">
-        <span id="sizeSliderLabel" style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Densité</span>
-        <input type="range" id="sizeSlider" aria-labelledby="sizeSliderLabel" min="4" max="32" step="1" value="4" style="width:90px;">
-      </span>
-      <button id="btnReset">↺ Réinitialiser</button>
-      <button id="btnFullReactive" title="Basses→teinte, médiums→motif">🌈 Full Réactif</button>
-      <button id="btnPause">⏸ Pause</button>
-      <button id="btnFiger" title="Reprendre ce motif dans le fond d'écran fixe, en vecteur — sur la galerie bicolore">🖼 Figer</button>
-      <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
-        <select id="recordRatio" title="Ratio d'export vidéo">
-          <option value="916">9:16 (vertical)</option>
-          <option value="11">1:1 (carré)</option>
-          <option value="native">Natif (écran)</option>
-        </select>
-        <select id="recordDuration" title="Durée d'enregistrement">
-          <option value="manual">Manuel</option>
-          <option value="15">15 s</option>
-          <option value="30">30 s</option>
-          <option value="60">60 s</option>
-        </select>
-        <button id="btnRecord" title="Enregistre le pavage animé et le son en cours en vidéo">🎬 Enregistrer</button>
-        <span id="formatVideo" class="format-video" aria-live="polite"></span>
-      </span>
-      <div id="levelBar"><div id="levelFill"></div></div>
-    </div>
-    <button id="btnExit">✕ Quitter</button>
-  </div>
-  <input type="file" id="fileInput" accept="audio/*">
-  <audio id="audioEl" loop></audio>
-  <div id="stageNotice"></div>
-</div>
-
 <script>
 const PAIRS32 = {"1":{"chronoA":1,"infoA":"Kun, Le Réceptif, KW2","chronoB":64,"infoB":"Qian, Le Créateur, KW1","keyword":"Fondation","text":"Avant toute chose formée, il y a la matrice et l'élan : l'une reçoit sans exiger, portée par la docilité de la jument fidèle ; l'autre s'élance sans encore savoir ce qu'il deviendra, porté par la seule persévérance. Les deux jugements promettent la même « sublime réussite » — non par ce qu'ils accomplissent déjà, mais par la pureté de la disposition qu'ils inaugurent."},"2":{"chronoA":2,"infoA":"Fu, Le Retour, KW24","chronoB":63,"infoB":"Gou, Venir à la rencontre, KW44","keyword":"Bascule","text":"Un seul trait suffit à faire pivoter tout l'édifice : le trait yang qui revient au plus bas de l'hiver « sans erreur », et le trait yin qui surgit sans prévenir à la rencontre des cinq autres. Les deux jugements avertissent de la même chose — un commencement discret, presque invisible, porte déjà en germe tout ce qui va suivre, pour le meilleur ou pour le pire."},"3":{"chronoA":3,"infoA":"Shi, L'Armée, KW7","chronoB":62,"infoB":"Tong Ren, La Communauté avec les hommes, KW13","keyword":"Cohésion","text":"Une troupe qui tient par la discipline silencieuse d'un chef ferme, une communauté qui tient par son ouverture même au grand large : les deux jugements promettent la réussite à condition que l'union dépasse l'intérêt du petit nombre. Ce qui rassemble vraiment ne se referme jamais sur soi — il se prouve dans l'épreuve commune ou dans la traversée des grandes eaux."},"4":{"chronoA":4,"infoA":"Lin, L'Approche, KW19","chronoB":61,"infoB":"Dun, La Retraite, KW33","keyword":"Saison","text":"L'approche qui grandit avertit elle-même qu'au huitième mois viendra le malheur ; la retraite qui se retire encore petite promet la réussite par cela seul. Les deux jugements enseignent qu'il existe une saison propre à chaque mouvement — avancer tant que la faveur dure, se retirer tant qu'il en reste la force."},"5":{"chronoA":5,"infoA":"Qian, La Modestie, KW15","chronoB":60,"infoB":"Lu, La Marche, KW10","keyword":"Tenue","text":"Marcher sur la queue du tigre sans qu'il morde, ou pratiquer la modestie jusqu'à ce qu'elle porte l'homme de bien jusqu'au bout : dans les deux jugements, ce n'est jamais la situation qui protège, mais la justesse du maintien. Le danger comme l'excès ne se déjouent pas en les évitant, mais en s'y tenant avec une conduite qui ne dévie pas."},"6":{"chronoA":6,"infoA":"Ming Yi, L'Obscurcissement de la lumière, KW36","chronoB":59,"infoB":"Song, Le Conflit, KW6","keyword":"Discrétion","text":"Quand la lumière doit s'obscurcir pour survivre, et quand le conflit doit s'arrêter avant d'être poussé jusqu'au bout, le jugement dit la même prudence : la persévérance intérieure vaut mieux que l'éclat ou l'affrontement menés à leur terme. Ce qui reste juste au fond de soi n'a pas besoin de se montrer pour agir."},"7":{"chronoA":7,"infoA":"Sheng, La Poussée vers le haut, KW46","chronoB":58,"infoB":"Wu Wang, L'Innocence, KW25","keyword":"Naturel","text":"La poussée qui monte comme une plante vers le sud, et l'innocence qui n'agit jamais que selon ce qu'elle est vraiment : les deux jugements promettent la réussite sublime à ce qui grandit ou agit sans artifice. Dès qu'on s'écarte de sa propre nature, le malheur survient — dans un cas comme dans l'autre."},"8":{"chronoA":8,"infoA":"Tai, La Paix, KW11","chronoB":57,"infoB":"Pi, La Stagnation, KW12","keyword":"Circulation","text":"Le ciel et la terre s'unissent, ou ne s'unissent pas : dans un cas le petit s'en va et le grand approche, dans l'autre c'est l'inverse, et rien ne circule plus entre le haut et le bas. La paix et la stagnation ne sont pas deux forces distinctes mais le même axe observé à ses deux extrémités."},"9":{"chronoA":9,"infoA":"Yu, L'Enthousiasme, KW16","chronoB":56,"infoB":"Xiao Chu, La Force apprivoisée du petit, KW9","keyword":"Accumulation","text":"L'enthousiasme qui mobilise des armées entières, et la petite force qui ne retient encore que des nuages sans pluie : les deux jugements décrivent une énergie qui se rassemble avant de se libérer, que ce soit dans l'éclat du mouvement commun ou dans la patience de ce qui n'a pas encore assez grandi pour agir."},"10":{"chronoA":10,"infoA":"Zhen, L'Ébranlement, KW51","chronoB":55,"infoB":"Xun, Le Doux, le Vent, KW57","keyword":"Sang-froid","text":"Le choc qui terrifie sur cent lieues sans faire tomber la coupe du sacrifice, et le vent qui pénètre partout par petites touches continues : les deux jugements demandent la même chose face à une force qui les dépasse — garder le geste sûr, que l'influence soit brutale et soudaine ou douce et continue."},"11":{"chronoA":11,"infoA":"Jie, La Délivrance, KW40","chronoB":54,"infoB":"Jia Ren, Les Gens de la maison, KW37","keyword":"Rétablissement","text":"Ce qui se dénoue retourne au repos dès que rien n'exige plus qu'on parte ; ce qui s'ordonne dans la maison retourne à la droiture par la persévérance de la femme au foyer. Délivrance et famille disent la même chose : l'ordre juste se rétablit toujours par un retour au lieu propre, jamais par la fuite en avant."},"12":{"chronoA":12,"infoA":"Gui Mei, L'Épousée, KW54","chronoB":53,"infoB":"Jian, Le Développement, KW53","keyword":"Noces","text":"Une union précipitée, où rien ne favorise l'entreprise, et une union mûrie degré par degré, où la persévérance porte chance : les deux jugements parlent du même événement — le mariage — mais l'un met en garde contre la hâte quand l'autre récompense la patience du juste développement."},"13":{"chronoA":13,"infoA":"Xiao Guo, La Prépondérance du petit, KW62","chronoB":52,"infoB":"Zhong Fu, La Vérité intérieure, KW61","keyword":"Mesure","text":"Il ne faut viser que les petites choses, dit l'un ; même les cochons et les poissons répondent à la sincérité, dit l'autre. Les deux jugements placent leur réussite dans l'économie du geste — rester en bas plutôt que de s'élever, offrir peu mais avec un cœur entièrement vrai."},"14":{"chronoA":14,"infoA":"Feng, L'Abondance, KW55","chronoB":51,"infoB":"Huan, La Dissolution, KW59","keyword":"Zénith","text":"Le roi atteint l'abondance et doit être « comme le soleil à son midi », sans tristesse ; le roi s'approche de son temple pour que se rassemble ce qui était dispersé. Plénitude et dissolution sont les deux moments d'un même sommet : l'un vient tout juste de l'atteindre, l'autre s'apprête déjà à recomposer ce qu'il en reste."},"15":{"chronoA":15,"infoA":"Heng, La Durée, KW32","chronoB":50,"infoB":"Yi, L'Augmentation, KW42","keyword":"Renouvellement","text":"La durée qui persévère « en ayant quelque part où aller », et l'augmentation qui appelle à entreprendre et à traverser les grandes eaux : aucune des deux ne promet la réussite à l'immobilité. Ce qui dure et ce qui s'accroît vraiment ne le font qu'en se renouvelant sans cesse."},"16":{"chronoA":16,"infoA":"Da Zhuang, La Puissance du grand, KW34","chronoB":49,"infoB":"Guan, La Contemplation, KW20","keyword":"Prestance","text":"La grande puissance qui ne doit jamais fouler les chemins contraires à l'ordre établi, et la contemplation qui inspire confiance par sa seule dignité immobile, avant même l'offrande : les deux jugements enseignent que la vraie autorité se retient d'agir plus qu'elle ne se démontre."},"17":{"chronoA":17,"infoA":"Bi, La Solidarité, KW8","chronoB":48,"infoB":"Da You, La Possession de grande envergure, KW14","keyword":"Fidélité","text":"Il faut interroger encore l'oracle pour savoir si l'on possède vraiment la sublimité et la constance, dit l'un ; la possession en grande mesure obtient d'elle-même la réussite suprême, dit l'autre. Ce qui tient un groupe ou une fortune ensemble n'est jamais leur taille, mais la loyauté sincère et éprouvée qui les fonde."},"18":{"chronoA":18,"infoA":"Zhun, La Difficulté initiale, KW3","chronoB":47,"infoB":"Ding, Le Chaudron, KW50","keyword":"Gestation","text":"Rien ne doit encore être entrepris à la difficulté du début, sinon nommer des aides ; et le chaudron promet la bonne fortune suprême à ce qui s'y transforme lentement. Le germe encore informe et la matière encore crue partagent le même besoin : un contenant, un soutien, le temps de prendre forme."},"19":{"chronoA":19,"infoA":"Kan, L'Insondable, KW29","chronoB":46,"infoB":"Li, Ce qui s'attache, le Feu, KW30","keyword":"Ancrage","text":"Seule la sincérité du cœur traverse l'insondable ; seul le soin apporté à la vache — la docilité — permet au feu de s'attacher et de rayonner. Devant l'eau qui engloutit comme devant le feu qui a besoin d'un appui pour brûler, c'est une qualité intérieure, jamais la situation elle-même, qui rend le passage sûr."},"20":{"chronoA":20,"infoA":"Jie, La Limitation, KW60","chronoB":45,"infoB":"Lu, Le Voyageur, KW56","keyword":"Sobriété","text":"Une limitation trop dure ne doit pas être maintenue par persévérance, avertit l'une ; le voyageur n'obtient la réussite que « par ce qui est petit », avertit l'autre. Vivre dans la contrainte ou vivre sans feu ni lieu demandent la même sobriété — ni excès de rigueur, ni excès de besoin."},"21":{"chronoA":21,"infoA":"Jian, L'Obstacle, KW39","chronoB":44,"infoB":"Kui, L'Opposition, KW38","keyword":"Détour","text":"Le sud-ouest favorise, le nord-est ne favorise pas, dit l'obstacle ; dans les petites affaires seulement, dit l'opposition. Devant ce qui résiste ou ce qui divise, les deux jugements recommandent le même chemin de traverse — chercher le grand homme, ménager le désaccord, plutôt que de forcer le passage."},"22":{"chronoA":22,"infoA":"Ji Ji, Après l'accomplissement, KW63","chronoB":43,"infoB":"Wei Ji, Avant l'accomplissement, KW64","keyword":"Vigilance","text":"Bonne fortune au commencement, désordre à la fin, dit l'accomplissement déjà atteint ; le petit renard mouille sa queue juste avant d'achever la traversée, dit l'accomplissement qui approche. Les deux bords du même seuil enseignent que l'instant le plus délicat n'est ni avant ni après, mais celui, toujours proche, où l'on croit déjà être arrivé."},"23":{"chronoA":23,"infoA":"Jing, Le Puits, KW48","chronoB":42,"infoB":"Shi He, Mordre au travers, KW21","keyword":"Dégagement","text":"Le puits ne change ni ne diminue, mais il faut sans cesse y puiser pour qu'il serve encore ; mordre au travers dégage ce qui bloquait le passage de la justice. Ressource constante ou obstacle ponctuel, l'un comme l'autre n'ont de valeur que dans le geste qui les maintient dégagés."},"24":{"chronoA":24,"infoA":"Xu, L'Attente, KW5","chronoB":41,"infoB":"Jin, Le Progrès, KW35","keyword":"Confiance","text":"Attendre avec sincérité porte en soi sa propre lumière ; le prince honoré de chevaux nombreux reçoit trois audiences en un seul jour. L'attente qui ne s'inquiète pas et la reconnaissance qui vient enfin sont les deux temps d'une même confiance placée dans le moment juste."},"25":{"chronoA":25,"infoA":"Cui, Le Rassemblement, KW45","chronoB":40,"infoB":"Da Chu, La Force apprivoisée du grand, KW26","keyword":"Vocation","text":"Le roi s'approche de son temple pour que le peuple se rassemble ; celui qui a beaucoup accumulé trouve la bonne fortune en ne mangeant plus chez lui, en traversant les grandes eaux. Ce qui se rassemble et ce qui s'accumule ne trouvent leur juste emploi qu'en se tournant vers plus grand que soi."},"26":{"chronoA":26,"infoA":"Sui, La Suite, KW17","chronoB":39,"infoB":"Gu, Le Travail sur ce qui est gâté, KW18","keyword":"Héritage","text":"Suivre son temps sans faute exige de savoir lâcher sa position ; réparer ce qui est gâté exige trois jours avant, trois jours après le point de départ. Ce qu'on hérite du passé — le mouvement des choses ou leurs dégâts accumulés — ne se traite jamais dans la précipitation."},"27":{"chronoA":27,"infoA":"Kun, L'Accablement, KW47","chronoB":38,"infoB":"Bi, La Grâce, KW22","keyword":"Dépouillement","text":"Dans l'accablement, ce qu'on dit n'est plus cru, et pourtant le grand homme y trouve la bonne fortune par sa seule fermeté intérieure ; la grâce, elle, ne convient qu'aux petites affaires. Épuisement et ornement enseignent la même chose à l'envers l'un de l'autre — ce qui reste quand la forme s'est dépouillée est ce qui compte vraiment."},"28":{"chronoA":28,"infoA":"Dui, Le Joyeux, KW58","chronoB":37,"infoB":"Gen, L'Immobilisation, KW52","keyword":"Quiétude","text":"La joie du lac réussit par la persévérance qui ne se dissipe pas ; l'immobilisation de la montagne va jusqu'à ne plus sentir son propre corps. Joie et arrêt sont les deux faces d'une même présence à soi, ni dispersée dans l'agitation ni figée dans l'isolement."},"29":{"chronoA":29,"infoA":"Xian, L'Influence, KW31","chronoB":36,"infoB":"Sun, La Diminution, KW41","keyword":"Réciprocité","text":"Prendre femme, dit l'influence, apporte la bonne fortune par la seule résonance mutuelle ; savoir appliquer les deux petites coupes du sacrifice, dit la diminution, suffit à la sincérité. Ce qui s'attire l'un l'autre et ce qui accepte de se réduire pour un autre décrivent le même échange entre deux pôles."},"30":{"chronoA":30,"infoA":"Ge, La Révolution, KW49","chronoB":35,"infoB":"Meng, La Folie juvénile, KW4","keyword":"Maturation","text":"Ce n'est qu'en son propre jour qu'on croit à la révolution ; ce n'est que si le jeune ignorant cherche le maître, et non l'inverse, que l'enseignement porte. Le changement radical et le savoir encore informe partagent la même exigence : ils ne sont crus, ni l'un ni l'autre, avant d'avoir été éprouvés par le temps."},"31":{"chronoA":31,"infoA":"Da Guo, La Prépondérance du grand, KW28","chronoB":34,"infoB":"Yi, La Nourriture, KW27","keyword":"Charge","text":"La poutre faîtière plie sous son propre poids dans la prépondérance du grand ; veiller à ce qu'on cherche à se mettre dans la bouche est tout le jugement de la nourriture. Ce qu'une structure peut porter et ce qu'un être absorbe pour se nourrir relèvent de la même question — jusqu'où peut-on charger, avant la rupture ou l'excès ?"},"32":{"chronoA":32,"infoA":"Guai, La Percée, KW43","chronoB":33,"infoB":"Bo, L'Éclatement, KW23","keyword":"Usure","text":"Il faut annoncer la vérité à la cour du roi sans recourir aux armes, dit la percée ; il ne sert à rien d'aller nulle part, dit l'éclatement déjà consommé. Retirer ce qui est corrompu tant qu'il en est encore temps, ou laisser l'usure aller jusqu'à son terme : les deux jugements disent comment l'ancien cède sa place, par décision ou par épuisement."}};
 // Copie intégrée PÉRIMÉE des données de motifs (768 entrées, aucune Bases) —
@@ -485,905 +424,46 @@ const PAIRS32 = {"1":{"chronoA":1,"infoA":"Kun, Le Réceptif, KW2","chronoB":64,
 // l'animation lisent data/fonds_ecran_v1.json (SOURCE, ci-dessous).
 // tools/check_fonds_ecran_source.mjs échoue si un rendu revient la lire.
 const DONNEES_INTEGREES_PERIMEES = {"layerOf":[[1,1,3,4,6,6,6,6,4,3,1,1],[1,2,2,5,5,6,6,5,5,2,2,1],[3,2,3,4,5,4,4,5,4,3,2,3],[4,5,4,3,2,3,3,2,3,4,5,4],[6,5,5,2,2,1,1,2,2,5,5,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,6,4,3,1,1,1,1,3,4,6,6],[6,5,5,2,2,1,1,2,2,5,5,6],[4,5,4,3,2,3,3,2,3,4,5,4],[3,2,3,4,5,4,4,5,4,3,2,3],[1,2,2,5,5,6,6,5,5,2,2,1],[1,1,3,4,6,6,6,6,4,3,1,1]],"families":{"bases":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","M","M","O","M","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","V","V","O","M","M","O","V","V","O","V"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["V","O","V","V","O","M","M","O","V","V","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","M","O","M","M","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","M","M","M","M","O","O","M","M","M","M","O"],["M","O","M","M","O","V","V","O","M","M","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","V","O","V","V","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","V","V","O","V","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","M","M","O","V","V","O","M","M","O","M"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","O","V","M","V","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","O","M","O","V","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","V","O","M","O","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","V","M","V","O","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","V","V","M","V","O","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","V","O","M","O","O","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","O","O","M","O","V","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","O","V","M","V","V","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yang+yang_mut":{"yang":[["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","M","M","M","M","O"],["V","O","M","M","O","V","V","O","M","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","M","O","V","V","O","M","M","O","V"],["O","M","M","M","M","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","V","V","V","V","O"],["M","O","V","V","O","M","M","O","V","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","V","O","M","M","O","V","V","O","M"],["O","V","V","V","V","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","V","V","V","V","M"],["O","M","V","V","M","O","O","M","V","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","V","M","O","O","M","V","V","M","O"],["M","V","V","V","V","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","O","O","O","O","M"],["V","M","O","O","M","V","V","M","O","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","O","M","V","V","M","O","O","M","V"],["M","O","O","O","O","M","M","O","O","O","O","M"]]},"par2:yang+yin_mut":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par2:yin+yang":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par2:yin+yang_mut":{"yang":[["O","V","V","V","V","O","O","M","M","M","M","O"],["V","O","V","V","O","M","V","O","M","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","M","O","M","V","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","V","M","O","M","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","M","O","V","M","O","V","V","O","V"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yang_mut":[["O","M","M","M","M","O","O","V","V","V","V","O"],["M","O","M","M","O","V","M","O","V","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","V","O","V","M","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","M","V","O","V","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","V","O","M","V","O","M","M","O","M"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yin":[["M","O","O","O","O","M","M","V","V","V","V","M"],["O","M","O","O","M","V","O","M","V","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","V","M","V","O","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","O","V","M","V","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","V","M","O","V","M","O","O","M","O"],["M","V","V","V","V","M","M","O","O","O","O","M"]],"yin_mut":[["M","V","V","V","V","M","M","O","O","O","O","M"],["V","M","V","V","M","O","V","M","O","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","O","M","O","V","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","V","O","M","O","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","O","M","V","O","M","V","V","M","V"],["M","O","O","O","O","M","M","V","V","V","V","M"]]},"par2:yin+yin_mut":{"yang":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","V","M","O","M","V","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","V","M","O","M","V","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","M","V","O","V","M","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","M","V","O","V","M","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","O","V","M","V","O","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","O","V","M","V","O","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","V","O","M","O","V","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","V","O","M","O","V","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]]},"par2:yin_mut+yang_mut":{"yang":[["O","V","V","M","M","O","O","M","M","V","V","O"],["V","O","V","M","O","V","V","O","M","V","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","V","M","O","M","M","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","M","M","O","M","V","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","V","M","O","V","V","O","M","V","O","V"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","V","V","M","M","O"],["M","O","M","V","O","M","M","O","V","M","O","M"],["M","M","O","O","M","M","M","M","O","O","M","M"],["V","V","O","O","V","V","V","V","O","O","V","V"],["V","O","M","V","O","V","V","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","V","V","O","V","M","O","V"],["V","V","O","O","V","V","V","V","O","O","V","V"],["M","M","O","O","M","M","M","M","O","O","M","M"],["M","O","M","V","O","M","M","O","V","M","O","M"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","V","V","O","O","M"],["O","M","O","V","M","O","O","M","V","O","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","O","V","M","V","V","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","V","V","M","V","O","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","O","V","M","O","O","M","V","O","M","O"],["M","O","O","V","V","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","O","O","V","V","M"],["V","M","V","O","M","V","V","M","O","V","M","V"],["V","V","M","M","V","V","V","V","M","M","V","V"],["O","O","M","M","O","O","O","O","M","M","O","O"],["O","M","V","O","M","O","O","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","O","O","M","O","V","M","O"],["O","O","M","M","O","O","O","O","M","M","O","O"],["V","V","M","M","V","V","V","V","M","M","V","V"],["V","M","V","O","M","V","V","M","O","V","M","V"],["M","V","V","O","O","M","M","O","O","V","V","M"]]},"par3:sans_yang":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yang_mut":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","M","V","O","V","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","V","M","O","V","M","O","V","M","O","M"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["M","O","M","V","O","M","V","O","M","V","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","V","O","V","M","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","V","M","O","M","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","M","V","O","M","V","O","M","V","O","V"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["V","O","V","M","O","V","M","O","V","M","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","M","O","M","V","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","V","O","M","O","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","O","V","M","O","V","M","O","V","M","V"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["V","M","V","O","M","V","O","M","V","O","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","O","M","O","V","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","O","V","M","V","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","V","O","M","V","O","M","V","O","M","O"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["O","M","O","V","M","O","V","M","O","V","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","V","M","V","O","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]},"par3:sans_yin":{"yang":[["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"]],"yang_mut":[["O","V","V","M","M","O","O","M","M","V","V","O"],["M","O","V","M","O","V","V","O","M","V","O","M"],["M","M","O","O","V","V","V","V","O","O","M","M"],["V","V","O","O","M","M","M","M","O","O","V","V"],["V","O","M","V","O","M","M","O","V","M","O","V"],["O","M","M","V","V","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","V","V","M","M","O"],["V","O","M","V","O","M","M","O","V","M","O","V"],["V","V","O","O","M","M","M","M","O","O","V","V"],["M","M","O","O","V","V","V","V","O","O","M","M"],["M","O","V","M","O","V","V","O","M","V","O","M"],["O","V","V","M","M","O","O","M","M","V","V","O"]],"yin":[["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"]],"yin_mut":[["M","O","O","V","V","M","M","V","V","O","O","M"],["V","M","O","V","M","O","O","M","V","O","M","V"],["V","V","M","M","O","O","O","O","M","M","V","V"],["O","O","M","M","V","V","V","V","M","M","O","O"],["O","M","V","O","M","V","V","M","O","V","M","O"],["M","V","V","O","O","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","O","O","V","V","M"],["O","M","V","O","M","V","V","M","O","V","M","O"],["O","O","M","M","V","V","V","V","M","M","O","O"],["V","V","M","M","O","O","O","O","M","M","V","V"],["V","M","O","V","M","O","O","M","V","O","M","V"],["M","O","O","V","V","M","M","V","V","O","O","M"]]},"par3:sans_yin_mut":{"yang":[["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"],["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"]],"yang_mut":[["O","V","V","V","V","O","O","M","M","M","M","O"],["M","O","V","V","O","M","V","O","M","M","O","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","M","O","O","M","M","V","V","O","O","V","V"],["M","O","V","V","O","M","V","O","M","M","O","V"],["O","V","V","V","V","O","O","M","M","M","M","O"],["O","M","M","M","M","O","O","V","V","V","V","O"],["V","O","M","M","O","V","M","O","V","V","O","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","V","O","O","V","V","M","M","O","O","M","M"],["V","O","M","M","O","V","M","O","V","V","O","M"],["O","M","M","M","M","O","O","V","V","V","V","O"]],"yin":[["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"],["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"]],"yin_mut":[["M","O","O","O","O","M","M","V","V","V","V","M"],["V","M","O","O","M","V","O","M","V","V","M","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","V","M","M","V","V","O","O","M","M","O","O"],["V","M","O","O","M","V","O","M","V","V","M","O"],["M","O","O","O","O","M","M","V","V","V","V","M"],["M","V","V","V","V","M","M","O","O","O","O","M"],["O","M","V","V","M","O","V","M","O","O","M","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","O","M","M","O","O","V","V","M","M","V","V"],["O","M","V","V","M","O","V","M","O","O","M","V"],["M","V","V","V","V","M","M","O","O","O","O","M"]]},"par4":{"yang":[["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"],["O","V","V","M","M","O","O","V","V","M","M","O"],["M","O","V","M","O","V","M","O","V","M","O","V"],["M","M","O","O","V","V","M","M","O","O","V","V"],["V","V","O","O","M","M","V","V","O","O","M","M"],["V","O","M","V","O","M","V","O","M","V","O","M"],["O","M","M","V","V","O","O","M","M","V","V","O"]],"yang_mut":[["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"],["O","M","M","V","V","O","O","M","M","V","V","O"],["V","O","M","V","O","M","V","O","M","V","O","M"],["V","V","O","O","M","M","V","V","O","O","M","M"],["M","M","O","O","V","V","M","M","O","O","V","V"],["M","O","V","M","O","V","M","O","V","M","O","V"],["O","V","V","M","M","O","O","V","V","M","M","O"]],"yin":[["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"],["M","O","O","V","V","M","M","O","O","V","V","M"],["V","M","O","V","M","O","V","M","O","V","M","O"],["V","V","M","M","O","O","V","V","M","M","O","O"],["O","O","M","M","V","V","O","O","M","M","V","V"],["O","M","V","O","M","V","O","M","V","O","M","V"],["M","V","V","O","O","M","M","V","V","O","O","M"]],"yin_mut":[["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"],["M","V","V","O","O","M","M","V","V","O","O","M"],["O","M","V","O","M","V","O","M","V","O","M","V"],["O","O","M","M","V","V","O","O","M","M","V","V"],["V","V","M","M","O","O","V","V","M","M","O","O"],["V","M","O","V","M","O","V","M","O","V","M","O"],["M","O","O","V","V","M","M","O","O","V","V","M"]]}},"entries":[["par2:yang+yin_mut","yang","yang_mut",0],["par2:yang+yin_mut","yang","yang_mut",1],["par2:yang+yin_mut","yang","yang_mut",2],["par2:yang+yin_mut","yang","yang_mut",3],["par2:yang+yin_mut","yang","yang_mut",4],["par2:yang+yin_mut","yang","yang_mut",5],["par2:yang+yin_mut","yang","yang_mut",6],["par2:yang+yin_mut","yang","yang_mut",7],["par2:yang+yin_mut","yang","yang_mut",8],["par2:yang+yin_mut","yang","yang_mut",9],["par2:yang+yin_mut","yang","yang_mut",10],["par2:yang+yin_mut","yang","yang_mut",11],["par2:yang+yin_mut","yang","yang_mut",12],["par2:yang+yin_mut","yang","yang_mut",13],["par2:yang+yin_mut","yang","yang_mut",14],["par2:yang+yin_mut","yang","yang_mut",15],["par2:yang+yin_mut","yang","yang_mut",16],["par2:yang+yin_mut","yang","yang_mut",17],["par2:yang+yin_mut","yang","yang_mut",18],["par2:yang+yin_mut","yang","yang_mut",19],["par2:yang+yin_mut","yang","yang_mut",20],["par2:yang+yin_mut","yang","yang_mut",21],["par2:yang+yin_mut","yang","yang_mut",22],["par2:yang+yin_mut","yang","yang_mut",23],["par2:yang+yin_mut","yang","yang_mut",24],["par2:yang+yin_mut","yang","yang_mut",25],["par2:yang+yin_mut","yang","yang_mut",26],["par2:yang+yin_mut","yang","yang_mut",27],["par2:yang+yin_mut","yang","yang_mut",28],["par2:yang+yin_mut","yang","yang_mut",29],["par2:yang+yin_mut","yang","yang_mut",30],["par2:yang+yin_mut","yang","yang_mut",31],["par2:yang+yin_mut","yang","yang_mut",32],["par2:yang+yin_mut","yang","yang_mut",33],["par2:yang+yin_mut","yang","yang_mut",34],["par2:yang+yin_mut","yang","yang_mut",35],["par2:yang+yin_mut","yang","yang_mut",36],["par2:yang+yin_mut","yang","yang_mut",37],["par2:yang+yin_mut","yang","yang_mut",38],["par2:yang+yin_mut","yang","yang_mut",39],["par2:yang+yin_mut","yang","yang_mut",40],["par2:yang+yin_mut","yang","yang_mut",41],["par2:yang+yin_mut","yang","yang_mut",42],["par2:yang+yin_mut","yang","yang_mut",43],["par2:yang+yin_mut","yang","yang_mut",44],["par2:yang+yin_mut","yang","yang_mut",45],["par2:yang+yin_mut","yang","yang_mut",46],["par2:yang+yin_mut","yang","yang_mut",47],["par2:yang+yin_mut","yang","yang_mut",48],["par2:yang+yin_mut","yang","yang_mut",49],["par2:yang+yin_mut","yang","yang_mut",50],["par2:yang+yin_mut","yang","yang_mut",51],["par2:yang+yin_mut","yang","yang_mut",52],["par2:yang+yin_mut","yang","yang_mut",53],["par2:yang+yin_mut","yang","yang_mut",54],["par2:yang+yin_mut","yang","yang_mut",55],["par2:yang+yin_mut","yang","yang_mut",56],["par2:yang+yin_mut","yang","yang_mut",57],["par2:yang+yin_mut","yang","yang_mut",58],["par2:yang+yin_mut","yang","yang_mut",59],["par2:yang+yin_mut","yang","yang_mut",60],["par2:yang+yin_mut","yang","yang_mut",61],["par2:yang+yin_mut","yang","yang_mut",62],["par2:yang+yin_mut","yang","yang_mut",63],["par2:yang+yin_mut","yin","yin_mut",0],["par2:yang+yin_mut","yin","yin_mut",1],["par2:yang+yin_mut","yin","yin_mut",2],["par2:yang+yin_mut","yin","yin_mut",3],["par2:yang+yin_mut","yin","yin_mut",4],["par2:yang+yin_mut","yin","yin_mut",5],["par2:yang+yin_mut","yin","yin_mut",6],["par2:yang+yin_mut","yin","yin_mut",7],["par2:yang+yin_mut","yin","yin_mut",8],["par2:yang+yin_mut","yin","yin_mut",9],["par2:yang+yin_mut","yin","yin_mut",10],["par2:yang+yin_mut","yin","yin_mut",11],["par2:yang+yin_mut","yin","yin_mut",12],["par2:yang+yin_mut","yin","yin_mut",13],["par2:yang+yin_mut","yin","yin_mut",14],["par2:yang+yin_mut","yin","yin_mut",15],["par2:yang+yin_mut","yin","yin_mut",16],["par2:yang+yin_mut","yin","yin_mut",17],["par2:yang+yin_mut","yin","yin_mut",18],["par2:yang+yin_mut","yin","yin_mut",19],["par2:yang+yin_mut","yin","yin_mut",20],["par2:yang+yin_mut","yin","yin_mut",21],["par2:yang+yin_mut","yin","yin_mut",22],["par2:yang+yin_mut","yin","yin_mut",23],["par2:yang+yin_mut","yin","yin_mut",24],["par2:yang+yin_mut","yin","yin_mut",25],["par2:yang+yin_mut","yin","yin_mut",26],["par2:yang+yin_mut","yin","yin_mut",27],["par2:yang+yin_mut","yin","yin_mut",28],["par2:yang+yin_mut","yin","yin_mut",29],["par2:yang+yin_mut","yin","yin_mut",30],["par2:yang+yin_mut","yin","yin_mut",31],["par2:yang+yin_mut","yin","yin_mut",32],["par2:yang+yin_mut","yin","yin_mut",33],["par2:yang+yin_mut","yin","yin_mut",34],["par2:yang+yin_mut","yin","yin_mut",35],["par2:yang+yin_mut","yin","yin_mut",36],["par2:yang+yin_mut","yin","yin_mut",37],["par2:yang+yin_mut","yin","yin_mut",38],["par2:yang+yin_mut","yin","yin_mut",39],["par2:yang+yin_mut","yin","yin_mut",40],["par2:yang+yin_mut","yin","yin_mut",41],["par2:yang+yin_mut","yin","yin_mut",42],["par2:yang+yin_mut","yin","yin_mut",43],["par2:yang+yin_mut","yin","yin_mut",44],["par2:yang+yin_mut","yin","yin_mut",45],["par2:yang+yin_mut","yin","yin_mut",46],["par2:yang+yin_mut","yin","yin_mut",47],["par2:yang+yin_mut","yin","yin_mut",48],["par2:yang+yin_mut","yin","yin_mut",49],["par2:yang+yin_mut","yin","yin_mut",50],["par2:yang+yin_mut","yin","yin_mut",51],["par2:yang+yin_mut","yin","yin_mut",52],["par2:yang+yin_mut","yin","yin_mut",53],["par2:yang+yin_mut","yin","yin_mut",54],["par2:yang+yin_mut","yin","yin_mut",55],["par2:yang+yin_mut","yin","yin_mut",56],["par2:yang+yin_mut","yin","yin_mut",57],["par2:yang+yin_mut","yin","yin_mut",58],["par2:yang+yin_mut","yin","yin_mut",59],["par2:yang+yin_mut","yin","yin_mut",60],["par2:yang+yin_mut","yin","yin_mut",61],["par2:yang+yin_mut","yin","yin_mut",62],["par2:yang+yin_mut","yin","yin_mut",63],["par2:yin+yang","yang","yang_mut",0],["par2:yin+yang","yang","yang_mut",1],["par2:yin+yang","yang","yang_mut",2],["par2:yin+yang","yang","yang_mut",3],["par2:yin+yang","yang","yang_mut",4],["par2:yin+yang","yang","yang_mut",5],["par2:yin+yang","yang","yang_mut",6],["par2:yin+yang","yang","yang_mut",7],["par2:yin+yang","yang","yang_mut",8],["par2:yin+yang","yang","yang_mut",9],["par2:yin+yang","yang","yang_mut",10],["par2:yin+yang","yang","yang_mut",11],["par2:yin+yang","yang","yang_mut",12],["par2:yin+yang","yang","yang_mut",13],["par2:yin+yang","yang","yang_mut",14],["par2:yin+yang","yang","yang_mut",15],["par2:yin+yang","yang","yang_mut",16],["par2:yin+yang","yang","yang_mut",17],["par2:yin+yang","yang","yang_mut",18],["par2:yin+yang","yang","yang_mut",19],["par2:yin+yang","yang","yang_mut",20],["par2:yin+yang","yang","yang_mut",21],["par2:yin+yang","yang","yang_mut",22],["par2:yin+yang","yang","yang_mut",23],["par2:yin+yang","yang","yang_mut",24],["par2:yin+yang","yang","yang_mut",25],["par2:yin+yang","yang","yang_mut",26],["par2:yin+yang","yang","yang_mut",27],["par2:yin+yang","yang","yang_mut",28],["par2:yin+yang","yang","yang_mut",29],["par2:yin+yang","yang","yang_mut",30],["par2:yin+yang","yang","yang_mut",31],["par2:yin+yang","yang","yang_mut",32],["par2:yin+yang","yang","yang_mut",33],["par2:yin+yang","yang","yang_mut",34],["par2:yin+yang","yang","yang_mut",35],["par2:yin+yang","yang","yang_mut",36],["par2:yin+yang","yang","yang_mut",37],["par2:yin+yang","yang","yang_mut",38],["par2:yin+yang","yang","yang_mut",39],["par2:yin+yang","yang","yang_mut",40],["par2:yin+yang","yang","yang_mut",41],["par2:yin+yang","yang","yang_mut",42],["par2:yin+yang","yang","yang_mut",43],["par2:yin+yang","yang","yang_mut",44],["par2:yin+yang","yang","yang_mut",45],["par2:yin+yang","yang","yang_mut",46],["par2:yin+yang","yang","yang_mut",47],["par2:yin+yang","yang","yang_mut",48],["par2:yin+yang","yang","yang_mut",49],["par2:yin+yang","yang","yang_mut",50],["par2:yin+yang","yang","yang_mut",51],["par2:yin+yang","yang","yang_mut",52],["par2:yin+yang","yang","yang_mut",53],["par2:yin+yang","yang","yang_mut",54],["par2:yin+yang","yang","yang_mut",55],["par2:yin+yang","yang","yang_mut",56],["par2:yin+yang","yang","yang_mut",57],["par2:yin+yang","yang","yang_mut",58],["par2:yin+yang","yang","yang_mut",59],["par2:yin+yang","yang","yang_mut",60],["par2:yin+yang","yang","yang_mut",61],["par2:yin+yang","yang","yang_mut",62],["par2:yin+yang","yang","yang_mut",63],["par2:yin+yang","yin","yin_mut",0],["par2:yin+yang","yin","yin_mut",1],["par2:yin+yang","yin","yin_mut",2],["par2:yin+yang","yin","yin_mut",3],["par2:yin+yang","yin","yin_mut",4],["par2:yin+yang","yin","yin_mut",5],["par2:yin+yang","yin","yin_mut",6],["par2:yin+yang","yin","yin_mut",7],["par2:yin+yang","yin","yin_mut",8],["par2:yin+yang","yin","yin_mut",9],["par2:yin+yang","yin","yin_mut",10],["par2:yin+yang","yin","yin_mut",11],["par2:yin+yang","yin","yin_mut",12],["par2:yin+yang","yin","yin_mut",13],["par2:yin+yang","yin","yin_mut",14],["par2:yin+yang","yin","yin_mut",15],["par2:yin+yang","yin","yin_mut",16],["par2:yin+yang","yin","yin_mut",17],["par2:yin+yang","yin","yin_mut",18],["par2:yin+yang","yin","yin_mut",19],["par2:yin+yang","yin","yin_mut",20],["par2:yin+yang","yin","yin_mut",21],["par2:yin+yang","yin","yin_mut",22],["par2:yin+yang","yin","yin_mut",23],["par2:yin+yang","yin","yin_mut",24],["par2:yin+yang","yin","yin_mut",25],["par2:yin+yang","yin","yin_mut",26],["par2:yin+yang","yin","yin_mut",27],["par2:yin+yang","yin","yin_mut",28],["par2:yin+yang","yin","yin_mut",29],["par2:yin+yang","yin","yin_mut",30],["par2:yin+yang","yin","yin_mut",31],["par2:yin+yang","yin","yin_mut",32],["par2:yin+yang","yin","yin_mut",33],["par2:yin+yang","yin","yin_mut",34],["par2:yin+yang","yin","yin_mut",35],["par2:yin+yang","yin","yin_mut",36],["par2:yin+yang","yin","yin_mut",37],["par2:yin+yang","yin","yin_mut",38],["par2:yin+yang","yin","yin_mut",39],["par2:yin+yang","yin","yin_mut",40],["par2:yin+yang","yin","yin_mut",41],["par2:yin+yang","yin","yin_mut",42],["par2:yin+yang","yin","yin_mut",43],["par2:yin+yang","yin","yin_mut",44],["par2:yin+yang","yin","yin_mut",45],["par2:yin+yang","yin","yin_mut",46],["par2:yin+yang","yin","yin_mut",47],["par2:yin+yang","yin","yin_mut",48],["par2:yin+yang","yin","yin_mut",49],["par2:yin+yang","yin","yin_mut",50],["par2:yin+yang","yin","yin_mut",51],["par2:yin+yang","yin","yin_mut",52],["par2:yin+yang","yin","yin_mut",53],["par2:yin+yang","yin","yin_mut",54],["par2:yin+yang","yin","yin_mut",55],["par2:yin+yang","yin","yin_mut",56],["par2:yin+yang","yin","yin_mut",57],["par2:yin+yang","yin","yin_mut",58],["par2:yin+yang","yin","yin_mut",59],["par2:yin+yang","yin","yin_mut",60],["par2:yin+yang","yin","yin_mut",61],["par2:yin+yang","yin","yin_mut",62],["par2:yin+yang","yin","yin_mut",63],["par2:yin+yang_mut","yang","yang_mut",0],["par2:yin+yang_mut","yang","yang_mut",1],["par2:yin+yang_mut","yang","yang_mut",2],["par2:yin+yang_mut","yang","yang_mut",3],["par2:yin+yang_mut","yang","yang_mut",4],["par2:yin+yang_mut","yang","yang_mut",5],["par2:yin+yang_mut","yang","yang_mut",6],["par2:yin+yang_mut","yang","yang_mut",7],["par2:yin+yang_mut","yang","yang_mut",8],["par2:yin+yang_mut","yang","yang_mut",9],["par2:yin+yang_mut","yang","yang_mut",10],["par2:yin+yang_mut","yang","yang_mut",11],["par2:yin+yang_mut","yang","yang_mut",12],["par2:yin+yang_mut","yang","yang_mut",13],["par2:yin+yang_mut","yang","yang_mut",14],["par2:yin+yang_mut","yang","yang_mut",15],["par2:yin+yang_mut","yang","yang_mut",16],["par2:yin+yang_mut","yang","yang_mut",17],["par2:yin+yang_mut","yang","yang_mut",18],["par2:yin+yang_mut","yang","yang_mut",19],["par2:yin+yang_mut","yang","yang_mut",20],["par2:yin+yang_mut","yang","yang_mut",21],["par2:yin+yang_mut","yang","yang_mut",22],["par2:yin+yang_mut","yang","yang_mut",23],["par2:yin+yang_mut","yang","yang_mut",24],["par2:yin+yang_mut","yang","yang_mut",25],["par2:yin+yang_mut","yang","yang_mut",26],["par2:yin+yang_mut","yang","yang_mut",27],["par2:yin+yang_mut","yang","yang_mut",28],["par2:yin+yang_mut","yang","yang_mut",29],["par2:yin+yang_mut","yang","yang_mut",30],["par2:yin+yang_mut","yang","yang_mut",31],["par2:yin+yang_mut","yang","yang_mut",32],["par2:yin+yang_mut","yang","yang_mut",33],["par2:yin+yang_mut","yang","yang_mut",34],["par2:yin+yang_mut","yang","yang_mut",35],["par2:yin+yang_mut","yang","yang_mut",36],["par2:yin+yang_mut","yang","yang_mut",37],["par2:yin+yang_mut","yang","yang_mut",38],["par2:yin+yang_mut","yang","yang_mut",39],["par2:yin+yang_mut","yang","yang_mut",40],["par2:yin+yang_mut","yang","yang_mut",41],["par2:yin+yang_mut","yang","yang_mut",42],["par2:yin+yang_mut","yang","yang_mut",43],["par2:yin+yang_mut","yang","yang_mut",44],["par2:yin+yang_mut","yang","yang_mut",45],["par2:yin+yang_mut","yang","yang_mut",46],["par2:yin+yang_mut","yang","yang_mut",47],["par2:yin+yang_mut","yang","yang_mut",48],["par2:yin+yang_mut","yang","yang_mut",49],["par2:yin+yang_mut","yang","yang_mut",50],["par2:yin+yang_mut","yang","yang_mut",51],["par2:yin+yang_mut","yang","yang_mut",52],["par2:yin+yang_mut","yang","yang_mut",53],["par2:yin+yang_mut","yang","yang_mut",54],["par2:yin+yang_mut","yang","yang_mut",55],["par2:yin+yang_mut","yang","yang_mut",56],["par2:yin+yang_mut","yang","yang_mut",57],["par2:yin+yang_mut","yang","yang_mut",58],["par2:yin+yang_mut","yang","yang_mut",59],["par2:yin+yang_mut","yang","yang_mut",60],["par2:yin+yang_mut","yang","yang_mut",61],["par2:yin+yang_mut","yang","yang_mut",62],["par2:yin+yang_mut","yang","yang_mut",63],["par2:yin+yang_mut","yin","yin_mut",0],["par2:yin+yang_mut","yin","yin_mut",1],["par2:yin+yang_mut","yin","yin_mut",2],["par2:yin+yang_mut","yin","yin_mut",3],["par2:yin+yang_mut","yin","yin_mut",4],["par2:yin+yang_mut","yin","yin_mut",5],["par2:yin+yang_mut","yin","yin_mut",6],["par2:yin+yang_mut","yin","yin_mut",7],["par2:yin+yang_mut","yin","yin_mut",8],["par2:yin+yang_mut","yin","yin_mut",9],["par2:yin+yang_mut","yin","yin_mut",10],["par2:yin+yang_mut","yin","yin_mut",11],["par2:yin+yang_mut","yin","yin_mut",12],["par2:yin+yang_mut","yin","yin_mut",13],["par2:yin+yang_mut","yin","yin_mut",14],["par2:yin+yang_mut","yin","yin_mut",15],["par2:yin+yang_mut","yin","yin_mut",16],["par2:yin+yang_mut","yin","yin_mut",17],["par2:yin+yang_mut","yin","yin_mut",18],["par2:yin+yang_mut","yin","yin_mut",19],["par2:yin+yang_mut","yin","yin_mut",20],["par2:yin+yang_mut","yin","yin_mut",21],["par2:yin+yang_mut","yin","yin_mut",22],["par2:yin+yang_mut","yin","yin_mut",23],["par2:yin+yang_mut","yin","yin_mut",24],["par2:yin+yang_mut","yin","yin_mut",25],["par2:yin+yang_mut","yin","yin_mut",26],["par2:yin+yang_mut","yin","yin_mut",27],["par2:yin+yang_mut","yin","yin_mut",28],["par2:yin+yang_mut","yin","yin_mut",29],["par2:yin+yang_mut","yin","yin_mut",30],["par2:yin+yang_mut","yin","yin_mut",31],["par2:yin+yang_mut","yin","yin_mut",32],["par2:yin+yang_mut","yin","yin_mut",33],["par2:yin+yang_mut","yin","yin_mut",34],["par2:yin+yang_mut","yin","yin_mut",35],["par2:yin+yang_mut","yin","yin_mut",36],["par2:yin+yang_mut","yin","yin_mut",37],["par2:yin+yang_mut","yin","yin_mut",38],["par2:yin+yang_mut","yin","yin_mut",39],["par2:yin+yang_mut","yin","yin_mut",40],["par2:yin+yang_mut","yin","yin_mut",41],["par2:yin+yang_mut","yin","yin_mut",42],["par2:yin+yang_mut","yin","yin_mut",43],["par2:yin+yang_mut","yin","yin_mut",44],["par2:yin+yang_mut","yin","yin_mut",45],["par2:yin+yang_mut","yin","yin_mut",46],["par2:yin+yang_mut","yin","yin_mut",47],["par2:yin+yang_mut","yin","yin_mut",48],["par2:yin+yang_mut","yin","yin_mut",49],["par2:yin+yang_mut","yin","yin_mut",50],["par2:yin+yang_mut","yin","yin_mut",51],["par2:yin+yang_mut","yin","yin_mut",52],["par2:yin+yang_mut","yin","yin_mut",53],["par2:yin+yang_mut","yin","yin_mut",54],["par2:yin+yang_mut","yin","yin_mut",55],["par2:yin+yang_mut","yin","yin_mut",56],["par2:yin+yang_mut","yin","yin_mut",57],["par2:yin+yang_mut","yin","yin_mut",58],["par2:yin+yang_mut","yin","yin_mut",59],["par2:yin+yang_mut","yin","yin_mut",60],["par2:yin+yang_mut","yin","yin_mut",61],["par2:yin+yang_mut","yin","yin_mut",62],["par2:yin+yang_mut","yin","yin_mut",63],["par2:yin_mut+yang_mut","yang","yang_mut",0],["par2:yin_mut+yang_mut","yang","yang_mut",1],["par2:yin_mut+yang_mut","yang","yang_mut",2],["par2:yin_mut+yang_mut","yang","yang_mut",3],["par2:yin_mut+yang_mut","yang","yang_mut",4],["par2:yin_mut+yang_mut","yang","yang_mut",5],["par2:yin_mut+yang_mut","yang","yang_mut",6],["par2:yin_mut+yang_mut","yang","yang_mut",7],["par2:yin_mut+yang_mut","yang","yang_mut",8],["par2:yin_mut+yang_mut","yang","yang_mut",9],["par2:yin_mut+yang_mut","yang","yang_mut",10],["par2:yin_mut+yang_mut","yang","yang_mut",11],["par2:yin_mut+yang_mut","yang","yang_mut",12],["par2:yin_mut+yang_mut","yang","yang_mut",13],["par2:yin_mut+yang_mut","yang","yang_mut",14],["par2:yin_mut+yang_mut","yang","yang_mut",15],["par2:yin_mut+yang_mut","yang","yang_mut",16],["par2:yin_mut+yang_mut","yang","yang_mut",17],["par2:yin_mut+yang_mut","yang","yang_mut",18],["par2:yin_mut+yang_mut","yang","yang_mut",19],["par2:yin_mut+yang_mut","yang","yang_mut",20],["par2:yin_mut+yang_mut","yang","yang_mut",21],["par2:yin_mut+yang_mut","yang","yang_mut",22],["par2:yin_mut+yang_mut","yang","yang_mut",23],["par2:yin_mut+yang_mut","yang","yang_mut",24],["par2:yin_mut+yang_mut","yang","yang_mut",25],["par2:yin_mut+yang_mut","yang","yang_mut",26],["par2:yin_mut+yang_mut","yang","yang_mut",27],["par2:yin_mut+yang_mut","yang","yang_mut",28],["par2:yin_mut+yang_mut","yang","yang_mut",29],["par2:yin_mut+yang_mut","yang","yang_mut",30],["par2:yin_mut+yang_mut","yang","yang_mut",31],["par2:yin_mut+yang_mut","yang","yang_mut",32],["par2:yin_mut+yang_mut","yang","yang_mut",33],["par2:yin_mut+yang_mut","yang","yang_mut",34],["par2:yin_mut+yang_mut","yang","yang_mut",35],["par2:yin_mut+yang_mut","yang","yang_mut",36],["par2:yin_mut+yang_mut","yang","yang_mut",37],["par2:yin_mut+yang_mut","yang","yang_mut",38],["par2:yin_mut+yang_mut","yang","yang_mut",39],["par2:yin_mut+yang_mut","yang","yang_mut",40],["par2:yin_mut+yang_mut","yang","yang_mut",41],["par2:yin_mut+yang_mut","yang","yang_mut",42],["par2:yin_mut+yang_mut","yang","yang_mut",43],["par2:yin_mut+yang_mut","yang","yang_mut",44],["par2:yin_mut+yang_mut","yang","yang_mut",45],["par2:yin_mut+yang_mut","yang","yang_mut",46],["par2:yin_mut+yang_mut","yang","yang_mut",47],["par2:yin_mut+yang_mut","yang","yang_mut",48],["par2:yin_mut+yang_mut","yang","yang_mut",49],["par2:yin_mut+yang_mut","yang","yang_mut",50],["par2:yin_mut+yang_mut","yang","yang_mut",51],["par2:yin_mut+yang_mut","yang","yang_mut",52],["par2:yin_mut+yang_mut","yang","yang_mut",53],["par2:yin_mut+yang_mut","yang","yang_mut",54],["par2:yin_mut+yang_mut","yang","yang_mut",55],["par2:yin_mut+yang_mut","yang","yang_mut",56],["par2:yin_mut+yang_mut","yang","yang_mut",57],["par2:yin_mut+yang_mut","yang","yang_mut",58],["par2:yin_mut+yang_mut","yang","yang_mut",59],["par2:yin_mut+yang_mut","yang","yang_mut",60],["par2:yin_mut+yang_mut","yang","yang_mut",61],["par2:yin_mut+yang_mut","yang","yang_mut",62],["par2:yin_mut+yang_mut","yang","yang_mut",63],["par2:yin_mut+yang_mut","yin","yin_mut",0],["par2:yin_mut+yang_mut","yin","yin_mut",1],["par2:yin_mut+yang_mut","yin","yin_mut",2],["par2:yin_mut+yang_mut","yin","yin_mut",3],["par2:yin_mut+yang_mut","yin","yin_mut",4],["par2:yin_mut+yang_mut","yin","yin_mut",5],["par2:yin_mut+yang_mut","yin","yin_mut",6],["par2:yin_mut+yang_mut","yin","yin_mut",7],["par2:yin_mut+yang_mut","yin","yin_mut",8],["par2:yin_mut+yang_mut","yin","yin_mut",9],["par2:yin_mut+yang_mut","yin","yin_mut",10],["par2:yin_mut+yang_mut","yin","yin_mut",11],["par2:yin_mut+yang_mut","yin","yin_mut",12],["par2:yin_mut+yang_mut","yin","yin_mut",13],["par2:yin_mut+yang_mut","yin","yin_mut",14],["par2:yin_mut+yang_mut","yin","yin_mut",15],["par2:yin_mut+yang_mut","yin","yin_mut",16],["par2:yin_mut+yang_mut","yin","yin_mut",17],["par2:yin_mut+yang_mut","yin","yin_mut",18],["par2:yin_mut+yang_mut","yin","yin_mut",19],["par2:yin_mut+yang_mut","yin","yin_mut",20],["par2:yin_mut+yang_mut","yin","yin_mut",21],["par2:yin_mut+yang_mut","yin","yin_mut",22],["par2:yin_mut+yang_mut","yin","yin_mut",23],["par2:yin_mut+yang_mut","yin","yin_mut",24],["par2:yin_mut+yang_mut","yin","yin_mut",25],["par2:yin_mut+yang_mut","yin","yin_mut",26],["par2:yin_mut+yang_mut","yin","yin_mut",27],["par2:yin_mut+yang_mut","yin","yin_mut",28],["par2:yin_mut+yang_mut","yin","yin_mut",29],["par2:yin_mut+yang_mut","yin","yin_mut",30],["par2:yin_mut+yang_mut","yin","yin_mut",31],["par2:yin_mut+yang_mut","yin","yin_mut",32],["par2:yin_mut+yang_mut","yin","yin_mut",33],["par2:yin_mut+yang_mut","yin","yin_mut",34],["par2:yin_mut+yang_mut","yin","yin_mut",35],["par2:yin_mut+yang_mut","yin","yin_mut",36],["par2:yin_mut+yang_mut","yin","yin_mut",37],["par2:yin_mut+yang_mut","yin","yin_mut",38],["par2:yin_mut+yang_mut","yin","yin_mut",39],["par2:yin_mut+yang_mut","yin","yin_mut",40],["par2:yin_mut+yang_mut","yin","yin_mut",41],["par2:yin_mut+yang_mut","yin","yin_mut",42],["par2:yin_mut+yang_mut","yin","yin_mut",43],["par2:yin_mut+yang_mut","yin","yin_mut",44],["par2:yin_mut+yang_mut","yin","yin_mut",45],["par2:yin_mut+yang_mut","yin","yin_mut",46],["par2:yin_mut+yang_mut","yin","yin_mut",47],["par2:yin_mut+yang_mut","yin","yin_mut",48],["par2:yin_mut+yang_mut","yin","yin_mut",49],["par2:yin_mut+yang_mut","yin","yin_mut",50],["par2:yin_mut+yang_mut","yin","yin_mut",51],["par2:yin_mut+yang_mut","yin","yin_mut",52],["par2:yin_mut+yang_mut","yin","yin_mut",53],["par2:yin_mut+yang_mut","yin","yin_mut",54],["par2:yin_mut+yang_mut","yin","yin_mut",55],["par2:yin_mut+yang_mut","yin","yin_mut",56],["par2:yin_mut+yang_mut","yin","yin_mut",57],["par2:yin_mut+yang_mut","yin","yin_mut",58],["par2:yin_mut+yang_mut","yin","yin_mut",59],["par2:yin_mut+yang_mut","yin","yin_mut",60],["par2:yin_mut+yang_mut","yin","yin_mut",61],["par2:yin_mut+yang_mut","yin","yin_mut",62],["par2:yin_mut+yang_mut","yin","yin_mut",63],["par3:sans_yang","yang","yang_mut",0],["par3:sans_yang","yang","yang_mut",1],["par3:sans_yang","yang","yang_mut",2],["par3:sans_yang","yang","yang_mut",3],["par3:sans_yang","yang","yang_mut",4],["par3:sans_yang","yang","yang_mut",5],["par3:sans_yang","yang","yang_mut",6],["par3:sans_yang","yang","yang_mut",7],["par3:sans_yang","yang","yang_mut",8],["par3:sans_yang","yang","yang_mut",9],["par3:sans_yang","yang","yang_mut",10],["par3:sans_yang","yang","yang_mut",11],["par3:sans_yang","yang","yang_mut",12],["par3:sans_yang","yang","yang_mut",13],["par3:sans_yang","yang","yang_mut",14],["par3:sans_yang","yang","yang_mut",15],["par3:sans_yang","yang","yang_mut",16],["par3:sans_yang","yang","yang_mut",17],["par3:sans_yang","yang","yang_mut",18],["par3:sans_yang","yang","yang_mut",19],["par3:sans_yang","yang","yang_mut",20],["par3:sans_yang","yang","yang_mut",21],["par3:sans_yang","yang","yang_mut",22],["par3:sans_yang","yang","yang_mut",23],["par3:sans_yang","yang","yang_mut",24],["par3:sans_yang","yang","yang_mut",25],["par3:sans_yang","yang","yang_mut",26],["par3:sans_yang","yang","yang_mut",27],["par3:sans_yang","yang","yang_mut",28],["par3:sans_yang","yang","yang_mut",29],["par3:sans_yang","yang","yang_mut",30],["par3:sans_yang","yang","yang_mut",31],["par3:sans_yang","yang","yang_mut",32],["par3:sans_yang","yang","yang_mut",33],["par3:sans_yang","yang","yang_mut",34],["par3:sans_yang","yang","yang_mut",35],["par3:sans_yang","yang","yang_mut",36],["par3:sans_yang","yang","yang_mut",37],["par3:sans_yang","yang","yang_mut",38],["par3:sans_yang","yang","yang_mut",39],["par3:sans_yang","yang","yang_mut",40],["par3:sans_yang","yang","yang_mut",41],["par3:sans_yang","yang","yang_mut",42],["par3:sans_yang","yang","yang_mut",43],["par3:sans_yang","yang","yang_mut",44],["par3:sans_yang","yang","yang_mut",45],["par3:sans_yang","yang","yang_mut",46],["par3:sans_yang","yang","yang_mut",47],["par3:sans_yang","yang","yang_mut",48],["par3:sans_yang","yang","yang_mut",49],["par3:sans_yang","yang","yang_mut",50],["par3:sans_yang","yang","yang_mut",51],["par3:sans_yang","yang","yang_mut",52],["par3:sans_yang","yang","yang_mut",53],["par3:sans_yang","yang","yang_mut",54],["par3:sans_yang","yang","yang_mut",55],["par3:sans_yang","yang","yang_mut",56],["par3:sans_yang","yang","yang_mut",57],["par3:sans_yang","yang","yang_mut",58],["par3:sans_yang","yang","yang_mut",59],["par3:sans_yang","yang","yang_mut",60],["par3:sans_yang","yang","yang_mut",61],["par3:sans_yang","yang","yang_mut",62],["par3:sans_yang","yang","yang_mut",63],["par3:sans_yang","yin","yin_mut",0],["par3:sans_yang","yin","yin_mut",1],["par3:sans_yang","yin","yin_mut",2],["par3:sans_yang","yin","yin_mut",3],["par3:sans_yang","yin","yin_mut",4],["par3:sans_yang","yin","yin_mut",5],["par3:sans_yang","yin","yin_mut",6],["par3:sans_yang","yin","yin_mut",7],["par3:sans_yang","yin","yin_mut",8],["par3:sans_yang","yin","yin_mut",9],["par3:sans_yang","yin","yin_mut",10],["par3:sans_yang","yin","yin_mut",11],["par3:sans_yang","yin","yin_mut",12],["par3:sans_yang","yin","yin_mut",13],["par3:sans_yang","yin","yin_mut",14],["par3:sans_yang","yin","yin_mut",15],["par3:sans_yang","yin","yin_mut",16],["par3:sans_yang","yin","yin_mut",17],["par3:sans_yang","yin","yin_mut",18],["par3:sans_yang","yin","yin_mut",19],["par3:sans_yang","yin","yin_mut",20],["par3:sans_yang","yin","yin_mut",21],["par3:sans_yang","yin","yin_mut",22],["par3:sans_yang","yin","yin_mut",23],["par3:sans_yang","yin","yin_mut",24],["par3:sans_yang","yin","yin_mut",25],["par3:sans_yang","yin","yin_mut",26],["par3:sans_yang","yin","yin_mut",27],["par3:sans_yang","yin","yin_mut",28],["par3:sans_yang","yin","yin_mut",29],["par3:sans_yang","yin","yin_mut",30],["par3:sans_yang","yin","yin_mut",31],["par3:sans_yang","yin","yin_mut",32],["par3:sans_yang","yin","yin_mut",33],["par3:sans_yang","yin","yin_mut",34],["par3:sans_yang","yin","yin_mut",35],["par3:sans_yang","yin","yin_mut",36],["par3:sans_yang","yin","yin_mut",37],["par3:sans_yang","yin","yin_mut",38],["par3:sans_yang","yin","yin_mut",39],["par3:sans_yang","yin","yin_mut",40],["par3:sans_yang","yin","yin_mut",41],["par3:sans_yang","yin","yin_mut",42],["par3:sans_yang","yin","yin_mut",43],["par3:sans_yang","yin","yin_mut",44],["par3:sans_yang","yin","yin_mut",45],["par3:sans_yang","yin","yin_mut",46],["par3:sans_yang","yin","yin_mut",47],["par3:sans_yang","yin","yin_mut",48],["par3:sans_yang","yin","yin_mut",49],["par3:sans_yang","yin","yin_mut",50],["par3:sans_yang","yin","yin_mut",51],["par3:sans_yang","yin","yin_mut",52],["par3:sans_yang","yin","yin_mut",53],["par3:sans_yang","yin","yin_mut",54],["par3:sans_yang","yin","yin_mut",55],["par3:sans_yang","yin","yin_mut",56],["par3:sans_yang","yin","yin_mut",57],["par3:sans_yang","yin","yin_mut",58],["par3:sans_yang","yin","yin_mut",59],["par3:sans_yang","yin","yin_mut",60],["par3:sans_yang","yin","yin_mut",61],["par3:sans_yang","yin","yin_mut",62],["par3:sans_yang","yin","yin_mut",63],["par3:sans_yang_mut","yang","yang_mut",0],["par3:sans_yang_mut","yang","yang_mut",1],["par3:sans_yang_mut","yang","yang_mut",2],["par3:sans_yang_mut","yang","yang_mut",3],["par3:sans_yang_mut","yang","yang_mut",4],["par3:sans_yang_mut","yang","yang_mut",5],["par3:sans_yang_mut","yang","yang_mut",6],["par3:sans_yang_mut","yang","yang_mut",7],["par3:sans_yang_mut","yang","yang_mut",8],["par3:sans_yang_mut","yang","yang_mut",9],["par3:sans_yang_mut","yang","yang_mut",10],["par3:sans_yang_mut","yang","yang_mut",11],["par3:sans_yang_mut","yang","yang_mut",12],["par3:sans_yang_mut","yang","yang_mut",13],["par3:sans_yang_mut","yang","yang_mut",14],["par3:sans_yang_mut","yang","yang_mut",15],["par3:sans_yang_mut","yang","yang_mut",16],["par3:sans_yang_mut","yang","yang_mut",17],["par3:sans_yang_mut","yang","yang_mut",18],["par3:sans_yang_mut","yang","yang_mut",19],["par3:sans_yang_mut","yang","yang_mut",20],["par3:sans_yang_mut","yang","yang_mut",21],["par3:sans_yang_mut","yang","yang_mut",22],["par3:sans_yang_mut","yang","yang_mut",23],["par3:sans_yang_mut","yang","yang_mut",24],["par3:sans_yang_mut","yang","yang_mut",25],["par3:sans_yang_mut","yang","yang_mut",26],["par3:sans_yang_mut","yang","yang_mut",27],["par3:sans_yang_mut","yang","yang_mut",28],["par3:sans_yang_mut","yang","yang_mut",29],["par3:sans_yang_mut","yang","yang_mut",30],["par3:sans_yang_mut","yang","yang_mut",31],["par3:sans_yang_mut","yang","yang_mut",32],["par3:sans_yang_mut","yang","yang_mut",33],["par3:sans_yang_mut","yang","yang_mut",34],["par3:sans_yang_mut","yang","yang_mut",35],["par3:sans_yang_mut","yang","yang_mut",36],["par3:sans_yang_mut","yang","yang_mut",37],["par3:sans_yang_mut","yang","yang_mut",38],["par3:sans_yang_mut","yang","yang_mut",39],["par3:sans_yang_mut","yang","yang_mut",40],["par3:sans_yang_mut","yang","yang_mut",41],["par3:sans_yang_mut","yang","yang_mut",42],["par3:sans_yang_mut","yang","yang_mut",43],["par3:sans_yang_mut","yang","yang_mut",44],["par3:sans_yang_mut","yang","yang_mut",45],["par3:sans_yang_mut","yang","yang_mut",46],["par3:sans_yang_mut","yang","yang_mut",47],["par3:sans_yang_mut","yang","yang_mut",48],["par3:sans_yang_mut","yang","yang_mut",49],["par3:sans_yang_mut","yang","yang_mut",50],["par3:sans_yang_mut","yang","yang_mut",51],["par3:sans_yang_mut","yang","yang_mut",52],["par3:sans_yang_mut","yang","yang_mut",53],["par3:sans_yang_mut","yang","yang_mut",54],["par3:sans_yang_mut","yang","yang_mut",55],["par3:sans_yang_mut","yang","yang_mut",56],["par3:sans_yang_mut","yang","yang_mut",57],["par3:sans_yang_mut","yang","yang_mut",58],["par3:sans_yang_mut","yang","yang_mut",59],["par3:sans_yang_mut","yang","yang_mut",60],["par3:sans_yang_mut","yang","yang_mut",61],["par3:sans_yang_mut","yang","yang_mut",62],["par3:sans_yang_mut","yang","yang_mut",63],["par3:sans_yang_mut","yin","yin_mut",0],["par3:sans_yang_mut","yin","yin_mut",1],["par3:sans_yang_mut","yin","yin_mut",2],["par3:sans_yang_mut","yin","yin_mut",3],["par3:sans_yang_mut","yin","yin_mut",4],["par3:sans_yang_mut","yin","yin_mut",5],["par3:sans_yang_mut","yin","yin_mut",6],["par3:sans_yang_mut","yin","yin_mut",7],["par3:sans_yang_mut","yin","yin_mut",8],["par3:sans_yang_mut","yin","yin_mut",9],["par3:sans_yang_mut","yin","yin_mut",10],["par3:sans_yang_mut","yin","yin_mut",11],["par3:sans_yang_mut","yin","yin_mut",12],["par3:sans_yang_mut","yin","yin_mut",13],["par3:sans_yang_mut","yin","yin_mut",14],["par3:sans_yang_mut","yin","yin_mut",15],["par3:sans_yang_mut","yin","yin_mut",16],["par3:sans_yang_mut","yin","yin_mut",17],["par3:sans_yang_mut","yin","yin_mut",18],["par3:sans_yang_mut","yin","yin_mut",19],["par3:sans_yang_mut","yin","yin_mut",20],["par3:sans_yang_mut","yin","yin_mut",21],["par3:sans_yang_mut","yin","yin_mut",22],["par3:sans_yang_mut","yin","yin_mut",23],["par3:sans_yang_mut","yin","yin_mut",24],["par3:sans_yang_mut","yin","yin_mut",25],["par3:sans_yang_mut","yin","yin_mut",26],["par3:sans_yang_mut","yin","yin_mut",27],["par3:sans_yang_mut","yin","yin_mut",28],["par3:sans_yang_mut","yin","yin_mut",29],["par3:sans_yang_mut","yin","yin_mut",30],["par3:sans_yang_mut","yin","yin_mut",31],["par3:sans_yang_mut","yin","yin_mut",32],["par3:sans_yang_mut","yin","yin_mut",33],["par3:sans_yang_mut","yin","yin_mut",34],["par3:sans_yang_mut","yin","yin_mut",35],["par3:sans_yang_mut","yin","yin_mut",36],["par3:sans_yang_mut","yin","yin_mut",37],["par3:sans_yang_mut","yin","yin_mut",38],["par3:sans_yang_mut","yin","yin_mut",39],["par3:sans_yang_mut","yin","yin_mut",40],["par3:sans_yang_mut","yin","yin_mut",41],["par3:sans_yang_mut","yin","yin_mut",42],["par3:sans_yang_mut","yin","yin_mut",43],["par3:sans_yang_mut","yin","yin_mut",44],["par3:sans_yang_mut","yin","yin_mut",45],["par3:sans_yang_mut","yin","yin_mut",46],["par3:sans_yang_mut","yin","yin_mut",47],["par3:sans_yang_mut","yin","yin_mut",48],["par3:sans_yang_mut","yin","yin_mut",49],["par3:sans_yang_mut","yin","yin_mut",50],["par3:sans_yang_mut","yin","yin_mut",51],["par3:sans_yang_mut","yin","yin_mut",52],["par3:sans_yang_mut","yin","yin_mut",53],["par3:sans_yang_mut","yin","yin_mut",54],["par3:sans_yang_mut","yin","yin_mut",55],["par3:sans_yang_mut","yin","yin_mut",56],["par3:sans_yang_mut","yin","yin_mut",57],["par3:sans_yang_mut","yin","yin_mut",58],["par3:sans_yang_mut","yin","yin_mut",59],["par3:sans_yang_mut","yin","yin_mut",60],["par3:sans_yang_mut","yin","yin_mut",61],["par3:sans_yang_mut","yin","yin_mut",62],["par3:sans_yang_mut","yin","yin_mut",63]]};
-const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
-// Teinte médiane par défaut du mode Monochrome, calibrée sur mesure réelle des images
-// sources de la charte Unified Patterns (moyenne cohérente sur 6 échantillons) —
-// distincte de DEFAULT_PALETTE.O, qui reste la teinte "O" du mode Multicolore d'origine.
-const DEFAULT_MONO_HUE = '#db694c';
-let PALETTE = Object.assign({}, DEFAULT_PALETTE);
-let colorMode = 'mono'; // 'mono' = teinte dérivée (défaut), 'multi' = rotation de la palette à 3 teintes
-// La source unique des motifs de la page : data/fonds_ecran_v1.json (1024
-// entrées), la même que la section « fond d'écran fixe » et les pages de
-// motifs. Les cartes de catégorie se construisent une fois chargée.
-let SOURCE = null;
-let LAYER_OF = null;
-const sourceChargee = fetch('data/fonds_ecran_v1.json').then(r => r.json()).then(j => { SOURCE = j; LAYER_OF = j.layerOf; return j; });
-const catLabel = {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'};
-function famLabel(fam){
-  const parts = fam.split(':');
-  if(parts.length===1) return catLabel[parts[0]] || parts[0];
-  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sans ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
-}
-function subLabel(s){
-  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
-}
-
-function hexToRgb(hex){
-  hex = hex.replace('#','');
-  return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)];
-}
-function rgbToHex(r,g,b){
-  const c = v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0');
-  return '#'+c(r)+c(g)+c(b);
-}
-function rgbToHsl(r,g,b){
-  r/=255; g/=255; b/=255;
-  const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
-  let h,s,l=(mx+mn)/2;
-  if(mx===mn){ h=s=0; }
-  else{
-    const d=mx-mn;
-    s = l>0.5 ? d/(2-mx-mn) : d/(mx+mn);
-    switch(mx){
-      case r: h=(g-b)/d+(g<b?6:0); break;
-      case g: h=(b-r)/d+2; break;
-      case b: h=(r-g)/d+4; break;
-    }
-    h/=6;
-  }
-  return [h,s,l];
-}
-function hslToRgb(h,s,l){
-  let r,g,b;
-  if(s===0){ r=g=b=l; }
-  else{
-    const hue2rgb=(p,q,t)=>{
-      if(t<0) t+=1; if(t>1) t-=1;
-      if(t<1/6) return p+(q-p)*6*t;
-      if(t<1/2) return q;
-      if(t<2/3) return p+(q-p)*(2/3-t)*6;
-      return p;
-    };
-    const q = l<0.5 ? l*(1+s) : l+s-l*s;
-    const p = 2*l-q;
-    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
-  }
-  return [r*255,g*255,b*255];
-}
-function adjustLightness(hex, delta){
-  const [r,g,b] = hexToRgb(hex);
-  let [h,s,l] = rgbToHsl(r,g,b);
-  l = Math.max(0, Math.min(1, l+delta));
-  const [r2,g2,b2] = hslToRgb(h,s,l);
-  return rgbToHex(r2,g2,b2);
-}
-function hueOf(hex){
-  const [r,g,b] = hexToRgb(hex);
-  return rgbToHsl(r,g,b)[0];
-}
-function rotateHue(hex, deltaHue){
-  const [r,g,b] = hexToRgb(hex);
-  let [h,s,l] = rgbToHsl(r,g,b);
-  h = (h + deltaHue + 1) % 1;
-  const [r2,g2,b2] = hslToRgb(h,s,l);
-  return rgbToHex(r2,g2,b2);
-}
-function applyTintRotation(pickedHex){
-  const deltaHue = hueOf(pickedHex) - hueOf(DEFAULT_PALETTE.O);
-  PALETTE = {
-    V: rotateHue(DEFAULT_PALETTE.V, deltaHue),
-    M: rotateHue(DEFAULT_PALETTE.M, deltaHue),
-    O: rotateHue(DEFAULT_PALETTE.O, deltaHue),
-  };
-}
-function applySingleHue(pickedHex){
-  const mauve = adjustLightness(pickedHex, +0.20);
-  const rose  = adjustLightness(pickedHex, -0.20);
-  PALETTE = { V: mauve, M: rose, O: pickedHex };
-}
-function refreshPalette(){
-  const picked = document.getElementById('tintPicker').value;
-  if(colorMode==='multi') applyTintRotation(picked);
-  else applySingleHue(picked);
-  if(currentGrid) drawTessellation(currentGrid);
-}
-
-function hexagramGrid(n, gridA, gridB){
-  const col = n % 8, row = Math.floor(n/8);
-  const bitsCol = [col&1,(col>>1)&1,(col>>2)&1];
-  const bitsRow = [row&1,(row>>1)&1,(row>>2)&1];
-  const traits = bitsCol.concat(bitsRow);
-  const grid = [];
-  for(let r=0;r<12;r++){
-    const rowArr=[];
-    for(let c=0;c<12;c++){
-      const pos = LAYER_OF[r][c];
-      const bit = traits[pos-1];
-      rowArr.push(bit===1 ? gridA[r][c] : gridB[r][c]);
-    }
-    grid.push(rowArr);
-  }
-  return grid;
-}
-
-// Exclu des animations : motifs où les deux diagonales du carré 12x12 sont
-// entièrement dans la teinte la plus sombre des trois (M, en mode Monochrome
-// par défaut) — un effet visuel binaire propre à environ la moitié des 768
-// motifs (0 ou 12 cases "M" sur chaque diagonale, jamais entre les deux).
-// Esthétiquement, cette diagonale pleine écrase l'effet miroir/écho entre
-// les formes qui fait l'intérêt des autres motifs.
-function hasDarkDiagonal(grid){
-  for(let i=0;i<12;i++){
-    if(grid[i][i] !== 'M' || grid[i][11-i] !== 'M') return false;
-  }
-  return true;
-}
-
-function buildGridsFor(cat){
-  // "par4" = combinaison des 4 axes = l'ensemble complet (bases + par2 + par3 réunis),
-  // pas une sous-catégorie séparée : aucune entrée n'a fam="par4".
-  // Source unique, pour les deux rendus : data/fonds_ecran_v1.json (SOURCE).
-  const D = SOURCE;
-  if(!D) return [];
-  const entries = cat==='par4' ? D.entries : D.entries.filter(e => e[0].split(':')[0]===cat);
-  // une même grille revient sous deux identifiants (par exemple bases:yang_mut h0
-  // et par2:yin_mut+yang_mut h56) : en Par 4, réunion des catégories, elle
-  // compterait deux fois et l'animation la montrerait deux fois de suite (distance 0)
-  const vues = new Set();
-  return entries
-    .map(([fam, subA, subB, n]) => ({
-      grid: hexagramGrid(n, D.families[fam][subA], D.families[fam][subB]),
-      fam, subA, subB, n
-    }))
-    // rendu bicolore (assets/animation-bicolore.js) : les motifs dont la lecture
-    // binaire est définie, sans le filtre « diagonale sombre » du tricolore
-    .filter(({grid}) => { const k = JSON.stringify(grid); if(vues.has(k)) return false; vues.add(k); return true; })
-    .filter(({grid}) => bicoloreActif() ? window.animationBicolore.lisible(grid) : !hasDarkDiagonal(grid));
-}
-function bicoloreActif(){ return !!(window.animationBicolore && window.animationBicolore.actif); }
-// La barre de l'animation selon le rendu : la teinte en tricolore, les deux
-// couleurs en bicolore — jamais un bouton affiché qui ne répond pas.
-function hudSelonRendu(){
-  const bi = bicoloreActif();
-  document.querySelector('.hud-tricolore').style.display = bi ? 'none' : 'inline-flex';
-  document.querySelector('.hud-bicolore').style.display = bi ? 'inline-flex' : 'none';
-  document.getElementById('btnFullReactive').title = bi
-    ? 'Médiums→motif. En bicolore, les basses ne pilotent pas la teinte : crème et encre sont presque neutres, une rotation ne se verrait pas.'
-    : 'Basses→teinte, médiums→motif';
-}
-
-// --- écran de sélection : mini-aperçu par catégorie ---
-const catGrid = document.getElementById('catGrid');
-const cats = ['bases','par2','par3','par4'];
-const catGridsCache = {};
-let apercus = []; // [canevas, grille] des cartes, redessinés quand une tuile bicolore est prête
-// Les cartes de catégorie, refaites quand le rendu (tricolore / bicolore), la
-// collection ou les couleurs changent.
-function construireCartes(){
-  catGrid.innerHTML = '';
-  apercus = [];
-  cats.forEach(cat=>{
-    const grids = buildGridsFor(cat);
-    catGridsCache[cat] = grids;
-    const card = document.createElement('div');
-    card.className = 'cat-card' + (grids.length===0 ? ' disabled' : '');
-    const preview = document.createElement('canvas');
-    preview.setAttribute('aria-hidden', 'true'); // la carte porte son libellé en texte
-    card.appendChild(preview);
-    const label = document.createElement('div'); label.className='label'; label.textContent = catLabel[cat];
-    const count = document.createElement('div'); count.className='count'; count.textContent = grids.length + ' motifs';
-    card.appendChild(label); card.appendChild(count);
-    if(grids.length>0){
-      apercus.push([preview, grids[0].grid]);
-      drawApercu(preview, grids[0].grid);
-      card.onclick = ()=> launch(cat, grids);
-    }
-    catGrid.appendChild(card);
-  });
-}
-function drawApercu(preview, grid){
-  if(!bicoloreActif()) { drawStaticTile(preview, grid, 150); return; }
-  preview.width = 150; preview.height = 150;
-  const c = preview.getContext('2d');
-  const t = window.animationBicolore.tuile(grid, 150);
-  if(t) c.drawImage(t, 0, 0, 150, 150);
-  else { c.fillStyle = window.animationBicolore.couleurFond(); c.fillRect(0, 0, 150, 150); }
-}
-window.construireCartes = construireCartes;
-sourceChargee.then(() => construireCartes()); // une fois la source chargée
-// une tuile bicolore vient d'être prête : la redessiner là où elle sert
-window.tuileBicolorePrete = (grid)=>{
-  for(const [cv, g] of apercus) if(g === grid) drawApercu(cv, g);
-  if(grid === currentGrid && stage.style.display === 'block') drawTessellation(currentGrid);
-};
-
-function drawStaticTile(canvas, grid, size){
-  canvas.width = size; canvas.height = size;
-  const ctx = canvas.getContext('2d');
-  const cell = size/12;
-  for(let r=0;r<12;r++) for(let c=0;c<12;c++){
-    ctx.fillStyle = PALETTE[grid[r][c]];
-    ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
-  }
-}
-
-// --- scène plein écran ---
-const stage = document.getElementById('stage');
-const selectScreen = document.getElementById('selectScreen');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-const audioEl = document.getElementById('audioEl');
-let currentGrids = [];
-let currentGrid = null;
-let currentIndex = -1;
-let visited = new Set();
-let audioCtx, analyser, dataArray, sourceNode;
-let runningAvgBass = 0;
-let runningAvgTreble = 0;
-let lastBeat = 0;
-let fullReactive = false;
-let baseTintForReactive = '#fbb040';
-let runningAvgMid = 0;
-let smoothedTrebleBalance = 0;
-let meditativeTimer = null;
-let meditativeActive = false;
-let paused = false;
-// diviseur du plus petit côté de l'écran (voir drawTessellationOn) : 4 = taille d'origine,
-// jusqu'à ~19 = tuiles resserrées au format de la page Tirage (58px CSS / 116px canvas) sur
-// un écran courant. Contrôlé par le curseur "Densité" du HUD.
-let tileDivisor = 4;
-// La vue de l'animation dans l'URL, pour les deux rendus : ?densite=… (diviseur,
-// 4 par défaut) et ?rythme=… (secondes du mode méditatif, 8 par défaut). Les
-// défauts ne s'écrivent pas. C'est ce qui rend une animation partageable par lien.
-const DENSITE_DEFAUT = 4, RYTHME_DEFAUT = 8;
-function vueDeLUrl(){
-  const q = new URLSearchParams(location.search);
-  const d = parseInt(q.get('densite'), 10), r = parseFloat(q.get('rythme'));
-  return {
-    densite: d >= 4 && d <= 32 ? d : DENSITE_DEFAUT,
-    rythme: r >= 0.5 && r <= 30 && Math.round(r * 2) === r * 2 ? r : RYTHME_DEFAUT,
-  };
-}
-function vueDansLUrl(){
-  const q = new URLSearchParams(location.search);
-  if(tileDivisor !== DENSITE_DEFAUT) q.set('densite', String(tileDivisor)); else q.delete('densite');
-  const r = parseFloat(document.getElementById('rhythmSlider').value);
-  if(r !== RYTHME_DEFAUT) q.set('rythme', String(r)); else q.delete('rythme');
-  history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + location.hash);
-}
-(function appliquerVue(){
-  const v = vueDeLUrl();
-  tileDivisor = v.densite;
-  document.getElementById('sizeSlider').value = String(v.densite);
-  document.getElementById('rhythmSlider').value = String(v.rythme);
-  document.getElementById('rhythmLabel').textContent = v.rythme + ' s';
-})();
-
-function stopMeditative(){
-  if(meditativeTimer){ clearInterval(meditativeTimer); meditativeTimer = null; }
-  meditativeActive = false;
-  document.getElementById('btnMeditative').classList.remove('active');
-  document.getElementById('rhythmWrap').style.display = 'none';
-}
-
-function startMeditative(){
-  stopAudio();
-  meditativeActive = true;
-  document.getElementById('btnMeditative').classList.add('active');
-  document.getElementById('rhythmWrap').style.display = 'inline-flex';
-  restartMeditativeTimer();
-}
-
-function restartMeditativeTimer(){
-  if(meditativeTimer) clearInterval(meditativeTimer);
-  const seconds = parseFloat(document.getElementById('rhythmSlider').value);
-  // à un rythme rapide (jusqu'à 0,5s), un fondu de 1400ms chevaucherait le battement
-  // suivant — le fondu est plafonné et réduit proportionnellement au rythme choisi.
-  const fadeMs = Math.min(1400, seconds*1000*0.6);
-  meditativeTimer = setInterval(()=>{ if(!paused) showNextGrid(fadeMs); }, seconds*1000);
-}
-
-function gridDistance(a, b){
-  let d = 0;
-  for(let r=0;r<12;r++) for(let c=0;c<12;c++) if(a[r][c]!==b[r][c]) d++;
-  return d;
-}
-
-// choisit, parmi les motifs pas encore vus dans ce cycle, celui qui est
-// visuellement le plus proche du motif actuel (le moins de cellules qui changent)
-function pickNextByProximity(){
-  if(currentIndex === -1){
-    currentIndex = Math.floor(Math.random()*currentGrids.length);
-    visited = new Set([currentIndex]);
-    currentGrid = currentGrids[currentIndex].grid;
-    return;
-  }
-  let candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
-  if(candidates.length===0){
-    // cycle complet : on repart, en gardant uniquement l'actuel comme "vu"
-    visited = new Set([currentIndex]);
-    candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
-  }
-  // la distance se mesure sur ce qu'on voit : la grille à trois couleurs en
-  // tricolore, la lecture binaire en bicolore (assets/proximite-binaire.js)
-  const distance = bicoloreActif() ? window.animationBicolore.distance : gridDistance;
-  let best = candidates[0], bestDist = Infinity;
-  for(const i of candidates){
-    const d = distance(currentGrid, currentGrids[i].grid);
-    if(d < bestDist){ bestDist = d; best = i; }
-  }
-  currentIndex = best;
-  visited.add(best);
-  currentGrid = currentGrids[best].grid;
-}
-
-function resizeCanvas(){
-  // à la densité réelle de l'affichage : net sur un écran à forte densité
-  const dpr = Math.max(1, window.devicePixelRatio || 1);
-  canvas.width = Math.round(window.innerWidth * dpr);
-  canvas.height = Math.round(window.innerHeight * dpr);
-  if(currentGrid) drawTessellation(currentGrid); // redessiner après tout redimensionnement (ex: passage en plein écran)
-}
-window.addEventListener('resize', resizeCanvas);
-
-function drawTessellation(grid){
-  drawTessellationOn(ctx, grid);
-}
-// tuile mise en cache : dessinée une seule fois par appel puis reproduite par drawImage
-// (au lieu de refaire les 144 fillRect par répétition) — à densité max, l'ancienne
-// approche cellule par cellule pouvait dépasser 40 000 fillRect et geler le thread
-// principal 80-140ms à chaque cycle du mode méditatif rapide, cassant le fondu.
-const tileBuffer = document.createElement('canvas');
-const tileBufferCtx = tileBuffer.getContext('2d');
-function drawTessellationOn(targetCtx, grid){
-  const w = canvas.width, h = canvas.height;
-  const tileCells = 12;
-  // basé sur le plus PETIT côté (pas le plus grand) pour garantir un nombre minimum de
-  // répétitions même sur les ratios extrêmes (téléphone très allongé, écran ultra-large) —
-  // sur un écran 16:9 classique ça reste visuellement proche de la densité d'origine.
-  const tileSize = Math.min(w,h) / tileDivisor;
-  const cell = tileSize/tileCells;
-  const cols = Math.ceil(w/tileSize)+1;
-  const rows = Math.ceil(h/tileSize)+1;
-  const tilePx = Math.max(1, Math.ceil(tileSize));
-  if(bicoloreActif()){
-    // la tuile du moteur (lecture binaire, fond, couleurs), pavée bord à bord ;
-    // positions arrondies et un pixel de recouvrement : pas de liseré
-    const t = window.animationBicolore.tuile(grid, tilePx);
-    targetCtx.fillStyle = window.animationBicolore.couleurFond();
-    targetCtx.fillRect(0, 0, w, h);
-    if(!t) return;
-    for(let ty=0; ty<rows; ty++) for(let tx=0; tx<cols; tx++){
-      const x = Math.floor(tx*tileSize), y = Math.floor(ty*tileSize);
-      targetCtx.drawImage(t, x, y, Math.floor((tx+1)*tileSize) - x + 1, Math.floor((ty+1)*tileSize) - y + 1);
-    }
-    return;
-  }
-  tileBuffer.width = tilePx; tileBuffer.height = tilePx;
-  const scale = tilePx/tileSize;
-  for(let r=0;r<tileCells;r++){
-    for(let c=0;c<tileCells;c++){
-      tileBufferCtx.fillStyle = PALETTE[grid[r][c]];
-      tileBufferCtx.fillRect(c*cell*scale, r*cell*scale, (cell+0.7)*scale, (cell+0.7)*scale);
-    }
-  }
-  for(let ty=0; ty<rows; ty++){
-    for(let tx=0; tx<cols; tx++){
-      targetCtx.drawImage(tileBuffer, tx*tileSize, ty*tileSize, tileSize, tileSize);
-    }
-  }
-}
-
-function showNextGrid(fadeMs){
-  pickNextByProximity();
-  crossfadeTo(currentGrid, fadeMs);
-}
-
-// --- fondu doux entre deux motifs (utilisé en mode méditatif, et réutilisable ailleurs) ---
-const offscreen = document.createElement('canvas');
-const offCtx = offscreen.getContext('2d');
-let fadeRAF = null;
-
-function crossfadeTo(grid, durationMs){
-  if(!durationMs){ drawTessellation(grid); return; }
-  offscreen.width = canvas.width; offscreen.height = canvas.height;
-  // snapshot de l'état actuel
-  const prevSnapshot = document.createElement('canvas');
-  prevSnapshot.width = canvas.width; prevSnapshot.height = canvas.height;
-  prevSnapshot.getContext('2d').drawImage(canvas, 0, 0);
-  // dessine le nouveau motif hors écran
-  const savedCtx = ctx;
-  offCtx.clearRect(0,0,offscreen.width, offscreen.height);
-  drawTessellationOn(offCtx, grid);
-
-  if(fadeRAF) cancelAnimationFrame(fadeRAF);
-  const start = performance.now();
-  function step(now){
-    const t = Math.min(1, (now-start)/durationMs);
-    ctx.drawImage(prevSnapshot, 0, 0);
-    ctx.globalAlpha = t;
-    ctx.drawImage(offscreen, 0, 0);
-    ctx.globalAlpha = 1;
-    if(t < 1){ fadeRAF = requestAnimationFrame(step); }
-  }
-  fadeRAF = requestAnimationFrame(step);
-}
-
-const stageNotice = document.getElementById('stageNotice');
-let stageNoticeTimer = null;
-function showStageNotice(msg, ms){
-  stageNotice.textContent = msg;
-  stageNotice.classList.add('visible');
-  if(stageNoticeTimer) clearTimeout(stageNoticeTimer);
-  stageNoticeTimer = setTimeout(()=> stageNotice.classList.remove('visible'), ms || 4000);
-}
-
-function requestStageFullscreen(){
-  // Safari (desktop et iOS) expose une méthode préfixée ; certains navigateurs mobiles
-  // (Safari < 16.4 notamment) ne supportent tout simplement pas le plein écran sur un
-  // élément quelconque — dans ce cas le pavage reste en plein viewport (position:fixed;
-  // inset:0), donc l'expérience reste fonctionnelle, seule la barre du navigateur reste visible.
-  const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
-  if(!req){
-    showStageNotice("Plein écran non disponible sur ce navigateur — le pavage reste affiché dans la fenêtre.");
-    return;
-  }
-  req.call(stage).catch(()=>{
-    showStageNotice("Plein écran refusé ou indisponible — le pavage reste affiché dans la fenêtre.");
-  });
-}
-
-function launch(cat, grids){
-  currentGrids = grids;
-  currentIndex = -1;
-  visited = new Set();
-  paused = false;
-  document.getElementById('btnPause').textContent = '⏸ Pause';
-  document.getElementById('btnPause').classList.remove('active');
-  document.getElementById('pauseInfo').classList.remove('visible');
-  fullReactive = false;
-  document.getElementById('btnFullReactive').classList.remove('active');
-  selectScreen.style.display = 'none';
-  stage.style.display = 'block';
-  hudSelonRendu();
-  resizeCanvas();
-  if(bicoloreActif()){
-    // les tuiles de toute la suite, préparées d'avance
-    const px = Math.max(1, Math.ceil(Math.min(canvas.width, canvas.height) / tileDivisor));
-    window.animationBicolore.preparer(grids.map(g=>g.grid), px);
-  }
-  refreshPalette(); // applique le mode monochrome par défaut dès le lancement
-  showNextGrid();
-  requestStageFullscreen();
-  requestAnimationFrame(loop);
-}
-
-// « Figer » : le motif à l'écran passe au fond d'écran fixe, en vecteur — sur la
-// galerie bicolore depuis le déplacement de l'outil (assets/vue-fond-ecran.js).
-// Un motif du corpus part par son adresse (?motif=…), avec le fond et les
-// couleurs ; une grille hors corpus, qui n'a pas d'adresse, par sessionStorage.
-document.getElementById('btnFiger').onclick = ()=>{
-  if(currentIndex < 0 || !currentGrids[currentIndex]) return;
-  const m = currentGrids[currentIndex];
-  const q = new URLSearchParams(location.search);
-  for(const k of ['rendu', 'teinte', 'densite', 'rythme']) q.delete(k);
-  if(m.subA === 'yang' && m.subB === 'yang_mut' && m.n < 32){
-    q.set('motif', m.fam.replace(/[:+_]/g, '-') + '-h' + m.n);
-  } else {
-    q.delete('motif');
-    try { sessionStorage.setItem('motif-fige', JSON.stringify(m.grid)); } catch(e) { /* sans stockage : le motif de l'URL */ }
-  }
-  document.getElementById('btnExit').onclick();
-  location.href = 'galerie-bicolore.html' + (q.toString() ? '?' + q : '') + '#fondFixe';
-};
-
-document.getElementById('btnExit').onclick = ()=>{
-  if(document.fullscreenElement) document.exitFullscreen();
-  stopAudio();
-  stopMeditative();
-  paused = false;
-  document.getElementById('pauseInfo').classList.remove('visible');
-  stage.style.display='none';
-  selectScreen.style.display='block';
-};
-
-function ensureAudioContext(){
-  if(!audioCtx){
-    audioCtx = new (window.AudioContext||window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 256;
-    dataArray = new Uint8Array(analyser.frequencyBinCount);
-  }
-}
-
-function stopAudio(){
-  if(sourceNode){ try{sourceNode.disconnect();}catch(e){} sourceNode=null; }
-  audioEl.pause();
-}
-
-document.getElementById('btnMic').onclick = async ()=>{
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    showStageNotice("Le microphone n'est pas accessible sur ce navigateur (souvent le cas hors HTTPS, ou sur certains navigateurs mobiles). Utilisez plutôt un fichier audio ou le mode méditatif.", 6000);
-    return;
-  }
-  stopMeditative();
-  ensureAudioContext();
-  stopAudio();
-  try{
-    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
-    sourceNode = audioCtx.createMediaStreamSource(stream);
-    sourceNode.connect(analyser);
-  }catch(e){ showStageNotice("Micro indisponible : " + e.message, 5000); }
-};
-
-document.getElementById('btnFile').onclick = ()=>{ stopMeditative(); document.getElementById('fileInput').click(); };
-document.getElementById('btnMeditative').onclick = ()=>{
-  if(meditativeActive) stopMeditative();
-  else startMeditative();
-};
-document.getElementById('rhythmSlider').oninput = (e)=>{
-  document.getElementById('rhythmLabel').textContent = e.target.value + ' s';
-  vueDansLUrl();
-  if(meditativeActive) restartMeditativeTimer();
-};
-document.getElementById('fileInput').onchange = (e)=>{
-  const file = e.target.files[0];
-  if(!file) return;
-  ensureAudioContext();
-  stopAudio();
-  audioEl.src = URL.createObjectURL(file);
-  audioEl.play();
-  sourceNode = audioCtx.createMediaElementSource(audioEl);
-  sourceNode.connect(analyser);
-  analyser.connect(audioCtx.destination);
-};
-
-// ---------- export vidéo (MediaRecorder natif + canvas.captureStream) ----------
-// Aucune dépendance externe : le canevas visible sert de source vidéo, et l'audio
-// en cours (micro ou fichier) est routé vers une seconde sortie silencieuse
-// (AudioContext.createMediaStreamDestination) qui n'affecte ni les haut-parleurs
-// ni le graphe audio existant — juste une capture parallèle pour l'enregistreur.
-let mediaStreamDest = null;
-let analyserRoutedToRecorder = false;
-let mediaRecorder = null;
-let recordedChunks = [];
-let exportCanvas = null, exportCtx = null;
-let recordCompositeRAF = null;
-let recordAutoStopTimer = null;
-
-function getMediaStreamDest(){
-  ensureAudioContext();
-  if(!mediaStreamDest) mediaStreamDest = audioCtx.createMediaStreamDestination();
-  return mediaStreamDest;
-}
-
-// connecte la sortie de l'analyseur (commune au micro et au fichier) vers la
-// capture d'export — une seule fois pour la durée de la page, peu importe
-// combien de fois on démarre/arrête l'enregistrement ou change de source audio.
-function connectCurrentAudioToRecorder(){
-  if(!analyser || !sourceNode) return false;
-  const dest = getMediaStreamDest();
-  if(!analyserRoutedToRecorder){
-    try{ analyser.connect(dest); analyserRoutedToRecorder = true; }catch(e){}
-  }
-  return analyserRoutedToRecorder;
-}
-
-// Le format des vidéos : MP4 en H.264, lisible sur tous les téléphones et
-// accepté par tous les réseaux sociaux — et rien d'autre. Annoncé AVANT
-// l'enregistrement (#formatVideo, dans la barre) ; s'il manque au navigateur,
-// l'enregistrement est refusé avec un message, plutôt que de produire
-// silencieusement un WebM ou un MP4 en VP9 que les réseaux lisent mal.
-// Mesuré le 3 octobre 2026 : Chromium (sans codecs propriétaires) n'encode
-// pas le H.264 ; Google Chrome (≥ 126) et Safari, oui.
-const FORMATS_VIDEO = {
-  avecSon: ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,opus"'],
-  sansSon: ['video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1'],
-};
-function pickRecorderMimeType(hasAudio){
-  const candidates = hasAudio ? FORMATS_VIDEO.avecSon.concat(FORMATS_VIDEO.sansSon) : FORMATS_VIDEO.sansSon;
-  for(const type of candidates){
-    if(window.MediaRecorder && MediaRecorder.isTypeSupported(type)) return type;
-  }
-  return '';
-}
-function formatVideoDisponible(){ return !!(window.MediaRecorder && pickRecorderMimeType(false)); }
-(function annoncerFormat(){
-  const el = document.getElementById('formatVideo');
-  if(!el) return;
-  if(formatVideoDisponible()){ el.textContent = 'MP4 · H.264'; el.classList.remove('indisponible'); }
-  else { el.textContent = 'MP4 H.264 indisponible sur ce navigateur'; el.classList.add('indisponible'); el.title = "Ce navigateur n'encode pas le H.264 : utilisez Google Chrome (version 126 ou plus) ou Safari."; }
-})();
-
-// recadrage "cover" (comme background-size:cover) : remplit toute la cible sans
-// déformer le pavage, en rognant l'excédent plutôt qu'en étirant.
-function coverDraw(destCtx, destW, destH, source){
-  const sw = source.width, sh = source.height;
-  if(!sw || !sh) return;
-  const srcRatio = sw/sh, destRatio = destW/destH;
-  let cropW, cropH, cropX, cropY;
-  if(srcRatio > destRatio){ cropH = sh; cropW = sh*destRatio; cropX = (sw-cropW)/2; cropY = 0; }
-  else { cropW = sw; cropH = sw/destRatio; cropX = 0; cropY = (sh-cropH)/2; }
-  destCtx.drawImage(source, cropX, cropY, cropW, cropH, 0, 0, destW, destH);
-}
-
-function stopCompositeLoop(){
-  if(recordCompositeRAF){ cancelAnimationFrame(recordCompositeRAF); recordCompositeRAF = null; }
-}
-
-function setRecordingUI(isRecording){
-  const btn = document.getElementById('btnRecord');
-  btn.textContent = isRecording ? '⏹ Arrêter' : '🎬 Enregistrer';
-  btn.classList.toggle('active', isRecording);
-  document.getElementById('recordRatio').disabled = isRecording;
-  document.getElementById('recordDuration').disabled = isRecording;
-}
-
-function startRecording(){
-  if(!currentGrid){ showStageNotice("Choisissez d'abord une catégorie de motifs.", 4000); return; }
-  if(!window.MediaRecorder || !canvas.captureStream){
-    showStageNotice("L'enregistrement vidéo n'est pas supporté par ce navigateur.", 5000);
-    return;
-  }
-
-  if(!formatVideoDisponible()){
-    showStageNotice("Enregistrement refusé : ce navigateur n'encode pas la vidéo en MP4 H.264, le seul format que les réseaux lisent partout. Utilisez Google Chrome (version 126 ou plus) ou Safari.", 7000);
-    return;
-  }
-  const ratio = document.getElementById('recordRatio').value;
-  let captureSource;
-  if(ratio === 'native'){
-    captureSource = canvas;
-  } else {
-    const targetW = 1080, targetH = ratio === '916' ? 1920 : 1080;
-    exportCanvas = document.createElement('canvas');
-    exportCanvas.width = targetW; exportCanvas.height = targetH;
-    exportCtx = exportCanvas.getContext('2d');
-    captureSource = exportCanvas;
-    const drawFrame = ()=>{
-      coverDraw(exportCtx, targetW, targetH, canvas);
-      recordCompositeRAF = requestAnimationFrame(drawFrame);
-    };
-    drawFrame();
-  }
-
-  const videoStream = captureSource.captureStream(30);
-  const combined = new MediaStream();
-  videoStream.getVideoTracks().forEach(t=>combined.addTrack(t));
-
-  const hasAudio = connectCurrentAudioToRecorder();
-  if(hasAudio){ mediaStreamDest.stream.getAudioTracks().forEach(t=>combined.addTrack(t)); }
-
-  const mimeType = pickRecorderMimeType(hasAudio);
-  recordedChunks = [];
-  try{
-    mediaRecorder = mimeType ? new MediaRecorder(combined, {mimeType}) : new MediaRecorder(combined);
-  }catch(e){
-    showStageNotice("Impossible de démarrer l'enregistrement : " + e.message, 5000);
-    stopCompositeLoop();
-    return;
-  }
-  mediaRecorder.ondataavailable = (e)=>{ if(e.data && e.data.size>0) recordedChunks.push(e.data); };
-  mediaRecorder.onstop = ()=>{
-    stopCompositeLoop();
-    videoStream.getTracks().forEach(t=>t.stop());
-    const usedType = mediaRecorder.mimeType || mimeType;
-    const ext = 'mp4';
-    window.derniereVideo = { mimeType: usedType };
-    const blob = new Blob(recordedChunks, {type: usedType});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    // le code de la collection dans le nom : une vidéo ne se confond pas avec une autre
-    const nomRendu = bicoloreActif() ? window.animationBicolore.code().replace('+', '-') : 'tricolore';
-    a.download = `fond-ecran-${nomRendu}-${ratio === 'native' ? 'natif' : ratio === '916' ? '1080x1920' : '1080x1080'}-${Date.now()}.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
-    showStageNotice(`Vidéo enregistrée au format ${ext.toUpperCase()}.`, 5000);
-    setRecordingUI(false);
-  };
-  mediaRecorder.start();
-  setRecordingUI(true);
-  showStageNotice('Enregistrement en cours...', 3000);
-
-  const durationVal = document.getElementById('recordDuration').value;
-  if(durationVal !== 'manual'){
-    recordAutoStopTimer = setTimeout(stopRecording, parseInt(durationVal,10)*1000);
-  }
-}
-
-function stopRecording(){
-  if(recordAutoStopTimer){ clearTimeout(recordAutoStopTimer); recordAutoStopTimer = null; }
-  if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-}
-
-document.getElementById('btnRecord').onclick = ()=>{
-  if(mediaRecorder && mediaRecorder.state === 'recording') stopRecording();
-  else startRecording();
-};
-
-// --- mode couleur, teinte, réinitialisation ---
-const btnMode = document.getElementById('btnMode');
-const tintPicker = document.getElementById('tintPicker');
-// le mode de teinte part dans l'URL (?teinte=multi), comme le rendu, la collection et les couleurs
-function teinteDansLUrl(){
-  const q = new URLSearchParams(location.search);
-  if(colorMode==='multi') q.set('teinte', 'multi'); else q.delete('teinte');
-  history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + location.hash);
-}
-function appliquerTeinte(){
-  btnMode.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';
-  btnMode.classList.toggle('active', colorMode==='multi');
-}
-if(new URLSearchParams(location.search).get('teinte')==='multi'){ colorMode = 'multi'; appliquerTeinte(); }
-btnMode.onclick = ()=>{
-  colorMode = colorMode==='mono' ? 'multi' : 'mono';
-  appliquerTeinte();
-  teinteDansLUrl();
-  refreshPalette();
-};
-tintPicker.oninput = refreshPalette;
-document.getElementById('sizeSlider').oninput = (e)=>{
-  tileDivisor = parseInt(e.target.value, 10);
-  vueDansLUrl();
-  if(currentGrid) drawTessellation(currentGrid);
-};
-
-document.getElementById('btnFullReactive').onclick = (e)=>{
-  fullReactive = !fullReactive;
-  e.target.classList.toggle('active', fullReactive);
-  if(fullReactive){
-    baseTintForReactive = document.getElementById('tintPicker').value;
-  } else {
-    // remettre la teinte de base propre au sortir du mode
-    refreshPalette();
-    if(currentGrid) drawTessellation(currentGrid);
-  }
-};
-
-function paireNumberFor(n){
-  return n < 32 ? n+1 : 64-n;
-}
-const pauseInfo = document.getElementById('pauseInfo');
-document.getElementById('btnPause').onclick = (e)=>{
-  paused = !paused;
-  e.target.textContent = paused ? '▶ Reprendre' : '⏸ Pause';
-  e.target.classList.toggle('active', paused);
-  if(paused && currentIndex !== -1){
-    const entry = currentGrids[currentIndex];
-    const pn = paireNumberFor(entry.n);
-    const pair = PAIRS32[pn];
-    // en bicolore, la collection et le fond affichés : c'est aussi ce qu'on regarde
-    pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n + ' — Paire ' + pn
-      + (bicoloreActif() ? ' · Collection ' + window.animationBicolore.code() : '');
-    pauseInfo.querySelector('.keyword').textContent = pair.keyword;
-    pauseInfo.querySelector('.text').textContent = pair.text;
-    pauseInfo.classList.add('visible');
-  } else {
-    pauseInfo.classList.remove('visible');
-  }
-};
-
-document.getElementById('btnReset').onclick = ()=>{
-  colorMode = 'mono';
-  teinteDansLUrl();
-  btnMode.textContent = 'Multicolore';
-  btnMode.classList.remove('active');
-  tintPicker.value = DEFAULT_MONO_HUE;
-  refreshPalette();
-  tileDivisor = DENSITE_DEFAUT;
-  document.getElementById('sizeSlider').value = DENSITE_DEFAUT;
-  document.getElementById('rhythmSlider').value = RYTHME_DEFAUT;
-  document.getElementById('rhythmLabel').textContent = RYTHME_DEFAUT + ' s';
-  if(meditativeActive) restartMeditativeTimer();
-  vueDansLUrl();
-  // bicolore : retour à crème et encre (assets/couleurs.js), demandé au sélecteur
-  if(bicoloreActif()) window.animationBicolore.reinitialiserCouleurs();
-  if(currentGrid) drawTessellation(currentGrid);
-};
-
-const levelFill = document.getElementById('levelFill');
-
-function loop(){
-  try{
-  if(analyser && !paused){
-    analyser.getByteFrequencyData(dataArray);
-    const n = dataArray.length;
-    const bassEnd = Math.floor(n*0.25);
-    const midEnd = Math.floor(n*0.65);
-
-    let bassSum=0;
-    for(let i=0;i<bassEnd;i++) bassSum += dataArray[i];
-    const bassLevel = bassSum/bassEnd/255;
-
-    let midSum=0;
-    for(let i=bassEnd;i<midEnd;i++) midSum += dataArray[i];
-    const midLevel = midSum/(midEnd-bassEnd)/255;
-
-    const trebleStart = midEnd;
-    let trebleSum=0;
-    for(let i=trebleStart;i<n;i++) trebleSum += dataArray[i];
-    const trebleLevel = trebleSum/(n-trebleStart)/255;
-
-    const level = Math.max(bassLevel, midLevel, trebleLevel);
-    levelFill.style.width = (level*100).toFixed(0)+'%';
-
-    if(fullReactive){
-      // --- BASSES -> teinte (équilibre grave/aigu DANS la bande des basses, de part et d'autre de la teinte fixe) ---
-      const bassMid = Math.floor(bassEnd/2);
-      let lowBass=0, highBass=0;
-      for(let i=0;i<bassMid;i++) lowBass += dataArray[i];
-      for(let i=bassMid;i<bassEnd;i++) highBass += dataArray[i];
-      const totalBass = lowBass+highBass;
-      const balance = totalBass>0 ? (highBass-lowBass)/totalBass : 0; // -1 (grave) .. +1 (moins grave)
-      smoothedTrebleBalance = smoothedTrebleBalance*0.8 + balance*0.2;
-      const hueOffset = smoothedTrebleBalance*0.15; // rotation de teinte autour de la teinte fixe
-      const shiftedTint = rotateHue(baseTintForReactive, hueOffset);
-      if(colorMode==='multi') applyTintRotation(shiftedTint); else applySingleHue(shiftedTint);
-
-      // --- MÉDIUMS -> changement de motif ---
-      runningAvgMid = runningAvgMid*0.88 + midLevel*0.12;
-      const now = performance.now();
-      if(midLevel > runningAvgMid*1.15 && midLevel > 0.05 && now-lastBeat > 140){
-        lastBeat = now;
-        pickNextByProximity();
-      }
-      if(currentGrid) drawTessellation(currentGrid);
-
-    } else {
-      runningAvgBass = runningAvgBass*0.82 + bassLevel*0.18;
-      runningAvgTreble = runningAvgTreble*0.65 + trebleLevel*0.35;
-
-      const now = performance.now();
-      const bassHit = bassLevel > runningAvgBass*1.10 && bassLevel > 0.045;
-      const trebleHit = trebleLevel > runningAvgTreble*1.08 && trebleLevel > 0.018;
-
-      if(bassHit || trebleHit){
-        if(now-lastBeat > 90){
-          lastBeat = now;
-          showNextGrid();
-        }
-      }
-    }
-  }
-  }catch(err){
-    console.error('Erreur dans loop() audio-réactif :', err);
-  }
-  requestAnimationFrame(loop);
-}
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script type="module">
-// Le pilote du rendu bicolore : le sélecteur de collection et de couleurs
-// (assets/vue-fond-ecran.js, le module de l'outil « fond d'écran fixe », monté
-// ici sans l'outil), seul écrivain de l'état partagé (assets/etat-fond-ecran.js),
-// et l'animation bicolore, qui le lit par import.
+// Les deux outils de la page : UN moteur (assets/outil-fond-ecran.js), monté
+// deux fois, sur UNE source (data/fonds_ecran_v1.json). Le bicolore lit la
+// collection et les couleurs dans l'état partagé, dont le sélecteur #fondFixe
+// est le seul écrivain.
+import { monterOutilFondEcran } from './assets/outil-fond-ecran.js';
 import { monterPiloteBicolore } from './assets/vue-fond-ecran.js';
 import { monterAnimationBicolore } from './assets/animation-bicolore.js';
 import { abonner } from './assets/etat-fond-ecran.js';
 import { PALETTES } from './assets/couleurs.js';
-monterPiloteBicolore(document.getElementById('fondFixe')).then(() => {
-  // l'animation bicolore : la même animation, la tuile du moteur
-  const boutons = [...document.querySelectorAll('#renduToggle button')];
-  const marquer = (oui) => boutons.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.rendu === 'bicolore') === oui)));
-  window.animationBicolore = monterAnimationBicolore({
-    bascule: (oui) => { marquer(oui); window.construireCartes(); },
-    onTuile: (grille) => window.tuileBicolorePrete(grille),
-  });
-  boutons.forEach((b) => b.addEventListener('click', () => window.animationBicolore.basculer(b.dataset.rendu === 'bicolore')));
-  marquer(window.animationBicolore.actif);
-  if (window.animationBicolore.actif) window.construireCartes();
 
-  // les deux couleurs dans la barre de l'animation : elles suivent l'état, et
-  // le changent en le demandant au sélecteur
-  const c0 = document.getElementById('animC0'), c1 = document.getElementById('animC1');
-  const demander = () => window.animationBicolore.definirPalette([c0.value, c1.value]);
-  c0.addEventListener('input', demander);
-  c1.addEventListener('input', demander);
-  for (const b of document.querySelectorAll('.anim-preset')) b.addEventListener('click', () => window.animationBicolore.definirPalette([...PALETTES[b.dataset.palette]]));
-  // le lien vers l'outil déplacé porte la collection et les couleurs du moment
+// une ancienne adresse de l'animation bicolore (?rendu=bicolore&densite=…&rythme=…)
+// mène à l'outil bicolore, avec ses réglages
+{
+  const q = new URLSearchParams(location.search);
+  if (q.get('rendu') === 'bicolore') {
+    for (const [a, b] of [['densite', 'bdensite'], ['rythme', 'brythme']]) if (q.has(a)) { q.set(b, q.get(a)); q.delete(a); }
+    q.delete('rendu');
+    history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + (location.hash || '#outilBicolore'));
+  }
+}
+const source = fetch('data/fonds_ecran_v1.json').then((r) => r.json());
+const page = document.getElementById('selectScreen');
+const tricolore = monterOutilFondEcran(document.getElementById('outilTricolore'), { rendu: 'tricolore', source, paires: PAIRS32, page });
+window.outilsFondEcran = { tricolore };
+
+monterPiloteBicolore(document.getElementById('fondFixe')).then(() => {
+  let bicolore = null;
+  const api = monterAnimationBicolore({
+    bascule: () => bicolore && bicolore.construireCartes(),
+    onTuile: (grille) => bicolore && bicolore.tuilePrete(grille),
+  });
+  bicolore = monterOutilFondEcran(document.getElementById('outilBicolorePlace'), { rendu: 'bicolore', source, paires: PAIRS32, bicolore: api, palettes: PALETTES, page });
+  window.outilsFondEcran.bicolore = bicolore;
+  if (location.hash === '#outilBicolore') document.getElementById('outilBicolore').scrollIntoView();
+  // les couleurs de la barre suivent l'état ; le lien vers le fond fixe porte la collection et les couleurs
   const lien = document.getElementById('lienFondFixe');
+  const c0 = bicolore.stage.querySelector('[data-r="c0"]'), c1 = bicolore.stage.querySelector('[data-r="c1"]');
   abonner((e) => {
     [c0.value, c1.value] = e.palette;
     const q = new URLSearchParams(location.search);

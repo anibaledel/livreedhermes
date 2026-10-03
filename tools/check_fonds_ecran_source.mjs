@@ -4,8 +4,8 @@
 //
 // check_fonds_ecran_source.mjs — fonds-ecran.html n'a qu'UNE source de
 // motifs : data/fonds_ecran_v1.json.
-//   1. la page charge data/fonds_ecran_v1.json, et ses deux rendus
-//      (tricolore, bicolore) lisent SOURCE ;
+//   1. la page charge data/fonds_ecran_v1.json et la passe aux deux
+//      montages du moteur (assets/outil-fond-ecran.js), qui lisent SOURCE ;
 //   2. la copie intégrée périmée (DONNEES_INTEGREES_PERIMEES, 768 entrées,
 //      aucune Bases) est gardée — rien ne se supprime — mais plus aucun code
 //      ne la lit : son nom n'apparaît qu'à sa déclaration, et l'ancien nom
@@ -19,12 +19,16 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(path.join(ROOT, 'fonds-ecran.html'), 'utf8');
+const moteur = readFileSync(path.join(ROOT, 'assets/outil-fond-ecran.js'), 'utf8');
 const source = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds_ecran_v1.json'), 'utf8'));
 const echecs = [];
 const script = html.replace(/const DONNEES_INTEGREES_PERIMEES = \{.*?\};\r?\n/s, 'const DONNEES_INTEGREES_PERIMEES = {…};\n');
 // 1
 if (!/fetch\('data\/fonds_ecran_v1\.json'\)/.test(script)) echecs.push("la page ne charge pas data/fonds_ecran_v1.json");
-if (!/const D = SOURCE;/.test(script)) echecs.push('buildGridsFor ne lit pas SOURCE');
+if (!/const D = SOURCE;/.test(moteur)) echecs.push('buildGridsFor (assets/outil-fond-ecran.js) ne lit pas SOURCE');
+const montages = script.match(/monterOutilFondEcran\(.*?\{ rendu: '(tricolore|bicolore)', source,/g) || [];
+if (montages.length !== 2) echecs.push(`les deux montages ne reçoivent pas tous deux la source : ${montages.length}`);
+if (/DONNEES_INTEGREES_PERIMEES/.test(moteur)) echecs.push('le moteur nomme la copie intégrée');
 // 2
 const n = (script.match(/\bDONNEES_INTEGREES_PERIMEES\b/g) || []).length;
 const lectures = script.split('\n').filter((l) => /\bDONNEES_INTEGREES_PERIMEES\b/.test(l) && !/^\s*(\/\/|const DONNEES_INTEGREES_PERIMEES = )/.test(l));

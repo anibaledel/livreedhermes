@@ -65,17 +65,24 @@ const regler = (p, sel, v) => p.evaluate(({ sel, v }) => { const e = document.qu
 const cliquer = (p, sel, n = 0) => p.evaluate(({ sel, n }) => { const e = document.querySelectorAll(sel)[n]; if (!e) throw new Error(`absent : ${sel} [${n}]`); e.click(); }, { sel, n });
 
 const PAGES = [
-  ['fonds-ecran.html?rendu=bicolore', async (p) => {
-    await p.waitForFunction(() => window.animationBicolore && document.querySelectorAll('.cat-card:not(.disabled)').length);
+  ['fonds-ecran.html', async (p) => {
+    await p.waitForFunction(() => window.outilsFondEcran?.bicolore && document.querySelectorAll('#outilBicolore .cat-card:not(.disabled)').length);
     await regler(p, '#ffCouleur1', '#112233');
     await cliquer(p, '.ff-preset[data-palette=monochrome]');
     await cliquer(p, '#ffSelecteur .sf-bouton'); await cliquer(p, '#ffSelecteur [role=option]', 5);
-    await cliquer(p, '.cat-card');
+    // l'outil bicolore : sa barre (champs c0, c1, préréglages, réinitialiser)
+    await cliquer(p, '#outilBicolore .cat-card');
     await p.waitForTimeout(400);
-    await regler(p, '#animC0', '#c8102e');
+    await regler(p, '[data-r=c0]', '#c8102e');
     await cliquer(p, '.anim-preset[data-palette=bicolore]');
-    await regler(p, '#animC1', '#334455');
-    await cliquer(p, '#btnReset');
+    await regler(p, '[data-r=c1]', '#334455');
+    await cliquer(p, '.fe-stage:has([data-r=c0]) [data-r=btnReset]');
+    await p.evaluate(() => window.outilsFondEcran.bicolore.quitter());
+    // l'outil tricolore n'écrit ni la collection ni les couleurs bicolores
+    await cliquer(p, '#outilTricolore .cat-card');
+    await p.waitForTimeout(200);
+    await cliquer(p, '.fe-stage:has([data-r=btnMode]) [data-r=btnMode]');
+    await cliquer(p, '.fe-stage:has([data-r=btnMode]) [data-r=btnReset]');
   }],
   ['galerie-bicolore.html', async (p) => {
     await p.waitForFunction(() => document.querySelector('#ffApercu svg') && document.querySelector('#gallery .tile'));

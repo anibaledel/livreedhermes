@@ -16,8 +16,14 @@ name: Fonds des cases conformes au calcul
 #     pages (création bicolore, une page de motif EN et FR, fond d'écran),
 #     le motif de la page, 390 px, le redessin, les 512 pages et leurs
 #     hreflang ;
-#   - check_fond_ecran_animation.mjs local : l'animation bicolore (état en
+#   - check_fond_ecran_animation.mjs local : l'outil bicolore (état en
 #     URL, comptes par catégorie, densité, tuile du moteur, vidéo 1080 × 1920) ;
+#   - check_fond_ecran_deux_outils.mjs local : fonds-ecran.html porte deux
+#     outils, tricolore puis bicolore, un seul moteur monté deux fois ; mêmes
+#     commandes ; le fichier audio et le micro pilotent le bicolore ; états
+#     indépendants ; plus de bandeau, le lien vers la galerie bicolore.
+#     Le même contrôle tourne sur le SITE DÉPLOYÉ (job « site ») après chaque
+#     déploiement de main, et à la demande.
 #   - check_export_pinterest.mjs local : les images des collections
 #     sont identiques, pixel par pixel, au rendu des pages (dans les couleurs
 #     de chaque collection, data/fonds/collections-pinterest.json).
@@ -46,6 +52,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -87,8 +94,30 @@ jobs:
       - run: node tools/check_export_pinterest.mjs local --code B121 --echantillon 8
       - run: node tools/check_export_pinterest.mjs local --code B6D --echantillon 8
       - run: node tools/check_fond_ecran_animation.mjs local
+      - run: node tools/check_fond_ecran_deux_outils.mjs local
       - run: node tools/check_galerie_animations.mjs local
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/video_reference.mjs --verifie B2
       - run: node tools/check_ecrivain_unique.mjs local
       - run: node tools/check_bicolore_defaut.mjs local
+
+  # le site déployé : après la publication de main par GitHub Pages
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      # laisser à GitHub Pages le temps de publier, puis réessayer jusqu'à 10 min
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_fond_ecran_deux_outils.mjs https://anibal-amiot.com && exit 0
+            echo "essai $i : le site n'a pas encore la page attendue ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
