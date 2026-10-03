@@ -23,7 +23,9 @@ name: Fonds des cases conformes au calcul
 #     de chaque collection, data/fonds/collections-pinterest.json).
 # Et, sans navigateur : check_couleurs.mjs (un seul jeu de couleurs par
 # défaut, assets/couleurs.js, et le contraste gris / crème) ;
-# correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json).
+# correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json) ;
+# check_fonds_ecran_source.mjs (fonds-ecran.html : une source, la copie
+# intégrée périmée jamais relue).
 
 on:
   push:
@@ -46,6 +48,7 @@ jobs:
       - run: node tools/verify_lecture_binaire.mjs
       - run: node tools/check_couleurs.mjs
       - run: node tools/correspondance_motifs.mjs
+      - run: node tools/check_fonds_ecran_source.mjs
 
   rendu:
     runs-on: ubuntu-latest
