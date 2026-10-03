@@ -35,6 +35,7 @@ import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, writeFi
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ecrireRegistre } from './registre.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FORMATS = { '1080x1920': [1080, 1920], '1080x1080': [1080, 1080] };
@@ -76,7 +77,7 @@ export function deposer(racine, code, source) {
   ff(['-i', video, '-vf', `select=eq(n\\,${k})`, '-frames:v', '1', '-sws_flags', 'accurate_rnd+bitexact+full_chroma_int', '-pix_fmt', 'rgb24', '-flags', '+bitexact', affiche]);
   const rel = (f) => path.relative(racine, f).split(path.sep).join('/');
   col.video = { fichier: rel(video), affiche: rel(affiche), format, image: k, images: s.images, sha256: sha(video), sha256Affiche: sha(affiche) };
-  writeFileSync(registre, JSON.stringify(reg, null, 1) + '\n');
+  ecrireRegistre(registre, reg);
   return col.video;
 }
 
@@ -114,7 +115,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       // le registre, sans les vidéos déjà déposées : l'essai ne vérifie que la sienne
       const copie = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
       for (const c of Object.values(copie.collections)) delete c.video;
-      writeFileSync(path.join(tmp, 'data/fonds/collections-pinterest.json'), JSON.stringify(copie, null, 1) + '\n');
+      ecrireRegistre(path.join(tmp, 'data/fonds/collections-pinterest.json'), copie);
       const rec = JSON.parse(readFileSync(path.join(tmp, 'data/fonds/collections-pinterest.json'), 'utf8')).collections.B2.recette;
       const images = Math.round((rec.motifs.length * rec.dureeMotif + rec.fin) * rec.imagesParSeconde);
       const synth = path.join(tmp, 'synthetique.mp4');
