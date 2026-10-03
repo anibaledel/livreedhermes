@@ -9,7 +9,30 @@
    "images": 256,
    "format": "1000 × 1500",
    "exportee": "2026-10-02",
-   "rang": null
+   "rang": null,
+   "recette": {
+    "algorithme": "proche-binaire-v1",
+    "dureeMotif": 2.5,
+    "fondu": 0.8,
+    "fin": 2,
+    "imagesParSeconde": 30,
+    "densite": 4,
+    "graine": 3574337935,
+    "motifs": [
+     "par2-yin-mut-yang-mut-h19",
+     "par2-yin-mut-yang-mut-h23",
+     "par2-yin-mut-yang-mut-h31",
+     "par2-yin-mut-yang-mut-h27",
+     "par2-yin-mut-yang-mut-h11",
+     "par2-yin-mut-yang-mut-h15",
+     "par2-yin-mut-yang-mut-h7",
+     "par2-yin-mut-yang-mut-h3",
+     "par2-yin-mut-yang-mut-h2",
+     "par2-yin-mut-yang-mut-h6",
+     "par2-yin-mut-yang-mut-h14",
+     "par2-yin-mut-yang-mut-h10"
+    ]
+   }
   },
   "B2D": {
    "palette": [
@@ -19,7 +42,30 @@
    "images": 256,
    "format": "1000 × 1500",
    "exportee": "2026-10-03",
-   "rang": null
+   "rang": null,
+   "recette": {
+    "algorithme": "proche-binaire-v1",
+    "dureeMotif": 2.5,
+    "fondu": 0.8,
+    "fin": 2,
+    "imagesParSeconde": 30,
+    "densite": 4,
+    "graine": 3075330691,
+    "motifs": [
+     "par2-yin-yang-mut-h17",
+     "par2-yin-yang-mut-h25",
+     "par2-yin-yang-mut-h29",
+     "par2-yin-yang-mut-h21",
+     "par2-yin-yang-mut-h5",
+     "par2-yin-yang-mut-h1",
+     "par2-yin-yang-mut-h9",
+     "par2-yin-yang-mut-h13",
+     "par3-sans-yang-h21",
+     "par3-sans-yang-h29",
+     "par3-sans-yang-h25",
+     "par3-sans-yang-h17"
+    ]
+   }
   },
   "B2": {
    "palette": [
@@ -29,7 +75,30 @@
    "images": 256,
    "format": "1000 × 1500",
    "exportee": "2026-10-03",
-   "rang": 1
+   "rang": 1,
+   "recette": {
+    "algorithme": "proche-binaire-v1",
+    "dureeMotif": 2.5,
+    "fondu": 0.8,
+    "fin": 2,
+    "imagesParSeconde": 30,
+    "densite": 4,
+    "graine": 249381141,
+    "motifs": [
+     "bases-yang-mut-h21",
+     "bases-yang-mut-h17",
+     "bases-yang-mut-h25",
+     "bases-yang-mut-h29",
+     "par2-yin-mut-yang-mut-h5",
+     "par2-yin-mut-yang-mut-h1",
+     "par2-yin-mut-yang-mut-h9",
+     "par2-yin-mut-yang-mut-h13",
+     "par2-yin-mut-yang-mut-h29",
+     "par2-yin-mut-yang-mut-h25",
+     "par2-yin-mut-yang-mut-h17",
+     "par2-yin-mut-yang-mut-h21"
+    ]
+   }
   },
   "B121": {
    "palette": [
@@ -39,7 +108,30 @@
    "images": 256,
    "format": "1000 × 1500",
    "exportee": "2026-10-03",
-   "rang": 2
+   "rang": 2,
+   "recette": {
+    "algorithme": "proche-binaire-v1",
+    "dureeMotif": 2.5,
+    "fondu": 0.8,
+    "fin": 2,
+    "imagesParSeconde": 30,
+    "densite": 4,
+    "graine": 174464385,
+    "motifs": [
+     "par2-yin-mut-yang-mut-h6",
+     "par2-yin-mut-yang-mut-h2",
+     "par2-yin-mut-yang-mut-h10",
+     "par2-yin-mut-yang-mut-h14",
+     "par2-yin-mut-yang-mut-h15",
+     "par2-yin-mut-yang-mut-h11",
+     "par2-yin-mut-yang-mut-h3",
+     "par2-yin-mut-yang-mut-h7",
+     "bases-yang-mut-h31",
+     "bases-yang-mut-h23",
+     "bases-yang-mut-h19",
+     "bases-yang-mut-h27"
+    ]
+   }
   },
   "B6D": {
    "palette": [
@@ -49,7 +141,31 @@
    "images": 256,
    "format": "1000 × 1500",
    "exportee": "2026-10-03",
-   "rang": 3
+   "rang": 3,
+   "recette": {
+    "algorithme": "proche-binaire-v1",
+    "dureeMotif": 2.5,
+    "fondu": 0.8,
+    "fin": 2,
+    "imagesParSeconde": 30,
+    "densite": 4,
+    "graine": 2806197239,
+    "motifs": [
+     "par2-yang-yin-mut-h23",
+     "par2-yang-yin-mut-h19",
+     "par2-yang-yin-mut-h27",
+     "par2-yang-yin-mut-h31",
+     "bases-yang-h7",
+     "bases-yang-h15",
+     "bases-yang-h11",
+     "bases-yang-h3",
+     "bases-yang-h19",
+     "bases-yang-h27",
+     "bases-yang-h31",
+     "bases-yang-h23"
+    ]
+   }
   }
- }
+ },
+ "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite par Anibal dans Chrome et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs)."
 }

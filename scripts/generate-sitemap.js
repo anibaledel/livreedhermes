@@ -87,6 +87,7 @@ const STATIC_PAGES = [
   { loc: `${SITE}/bicolore.html`, file: 'bicolore.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
+  { loc: `${SITE}/galerie-animations.html`, file: 'galerie-animations.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/impression.html`, file: 'impression.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/galerie-patterns-unifies.html`, file: 'galerie-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/galerie-bicolore.html`, file: 'galerie-bicolore.html', changefreq: 'monthly', priority: '0.7' },

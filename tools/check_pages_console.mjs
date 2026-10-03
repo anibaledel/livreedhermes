@@ -60,6 +60,7 @@ const PAGES = [
   { path: 'galerie-768-patterns-unifies.html', horsEnTete: true },
   { path: 'galerie-884-patterns-unifies.html', horsEnTete: true },
   { path: 'galerie-patterns-unifies.html', zone: '#gallery' },
+  { path: 'galerie-animations.html' },
   { path: 'impression.html' },
   { path: 'index.html' },
   { path: 'la-livree-d-hermes.html' },
