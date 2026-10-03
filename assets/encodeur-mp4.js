@@ -69,8 +69,10 @@ export async function h264Disponible(largeur = 1080, hauteur = 1920, cadence = 3
 // `reglage` (diagnostic) : remplace des champs de la configuration retenue —
 // { bitrateMode, bitrate, latencyMode } — et toutesCles : chaque image en
 // image clé, indépendante des précédentes.
-export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES, reglage = null }) {
+export async function encoder({ toile, images, cadence, dessiner, progression = () => {}, modes = MODES, reglage = null, source = 'pixels', diagnostic = false }) {
   const { width: largeur, height: hauteur } = toile;
+  const ctx2d = toile.getContext('2d', { willReadFrequently: true });
+  const entrees = diagnostic ? [] : null;
   let config = await configH264(largeur, hauteur, cadence, modes);
   if (config && reglage) {
     const { toutesCles, ...champs } = reglage;
@@ -99,7 +101,22 @@ export async function encoder({ toile, images, cadence, dessiner, progression = 
   for (let k = 0; k < images; k++) {
     if (erreur) throw erreur;
     await dessiner(k);
-    const image = new VideoFrame(toile, { timestamp: Math.round(k * pas), duration: Math.round((k + 1) * pas) - Math.round(k * pas) });
+    const quand = { timestamp: Math.round(k * pas), duration: Math.round((k + 1) * pas) - Math.round(k * pas) };
+    // L'image remise à l'encodeur : par défaut, les PIXELS lus du canevas
+    // (getImageData), copiés en mémoire — une image déterministe par
+    // construction. new VideoFrame(canevas) prend un instantané du canevas
+    // accéléré, que la CI a mesuré non reproductible d'une génération à
+    // l'autre (images d'entrée différentes dès la deuxième).
+    const image = source === 'toile'
+      ? new VideoFrame(toile, quand)
+      : new VideoFrame(ctx2d.getImageData(0, 0, largeur, hauteur).data, { ...quand, format: 'RGBA', codedWidth: largeur, codedHeight: hauteur });
+    if (entrees) {
+      const t = new Uint8Array(image.allocationSize());
+      await image.copyTo(t);
+      let h = 0x811c9dc5;
+      for (let i = 0; i < t.length; i += 7) { h ^= t[i]; h = Math.imul(h, 0x01000193) >>> 0; }
+      entrees.push(h);
+    }
     enc.encode(image, config.bitrateMode === 'quantizer'
       ? { keyFrame: toutesCles || k % (cadence * 2) === 0, avc: { quantizer: QUANTIFICATION } }
       : { keyFrame: toutesCles || k % (cadence * 2) === 0 });
@@ -112,7 +129,7 @@ export async function encoder({ toile, images, cadence, dessiner, progression = 
   if (erreur) throw erreur;
   enc.close();
   muxer.finalize();
-  return { octets: sansDate(new Uint8Array(muxer.target.buffer)), codec: config.codec, mode: config.bitrateMode, morceaux };
+  return { octets: sansDate(new Uint8Array(muxer.target.buffer)), codec: config.codec, mode: config.bitrateMode, morceaux, entrees };
 }
 
 // Le MP4 sans date : mp4-muxer écrit l'heure de création (Date.now) dans

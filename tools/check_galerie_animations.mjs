@@ -152,28 +152,26 @@ if (h264) {
     const out = {};
     // chaque réglage, deux fois : lequel donne deux fois les mêmes octets ?
     const REGLAGES = {
-      'quantizer': { bitrateMode: 'quantizer' },
-      'variable 10 Mb/s': { bitrateMode: 'variable', bitrate: 10_000_000 },
-      'constant 10 Mb/s': { bitrateMode: 'constant', bitrate: 10_000_000 },
-      'variable 80 Mb/s': { bitrateMode: 'variable', bitrate: 80_000_000 },
-      'variable, toutes clés': { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true },
-      'constant, toutes clés': { bitrateMode: 'constant', bitrate: 10_000_000, toutesCles: true },
-      'variable, realtime': { bitrateMode: 'variable', bitrate: 10_000_000, latencyMode: 'realtime' },
+      'toile, variable': { source: 'toile', reglage: null },
+      'toile, toutes clés': { source: 'toile', reglage: { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true } },
+      'pixels, variable': { source: 'pixels', reglage: null },
+      'pixels, toutes clés': { source: 'pixels', reglage: { bitrateMode: 'variable', bitrate: 10_000_000, toutesCles: true } },
+      'pixels, constant': { source: 'pixels', reglage: { bitrateMode: 'constant', bitrate: 10_000_000 } },
     };
-    for (const [mode, reglage] of Object.entries(REGLAGES)) {
+    for (const [mode, { source, reglage }] of Object.entries(REGLAGES)) {
       const runs = [];
       for (let r = 0; r < 2; r++) {
         const toile = document.createElement('canvas'); toile.width = 540; toile.height = 960;
         const rendu = await creerRendu({ code: 'B2', vue: { vitesse: 1, palette: ['#efeae0', '#23232b'] }, largeur: 540, hauteur: 960 });
         const ctx = toile.getContext('2d');
         try {
-          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: ['variable'], reglage });
+          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: ['variable'], reglage, source, diagnostic: true });
           const h = new Uint8Array(await crypto.subtle.digest('SHA-256', res.octets));
-          runs.push({ sha: [...h].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join(''), mode: res.mode, morceaux: res.morceaux.map((m) => m.h) });
+          runs.push({ sha: [...h].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join(''), mode: res.mode, morceaux: res.morceaux.map((m) => m.h), entrees: res.entrees });
         } catch (e) { runs.push({ erreur: e.message }); }
       }
       const [a, b] = runs;
-      out[mode] = a.erreur ? { indisponible: a.erreur.slice(0, 80) } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]) };
+      out[mode] = a.erreur ? { indisponible: a.erreur.slice(0, 80) } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]), entreesDifferentes: a.entrees.filter((h, i) => h !== b.entrees[i]).length, premiereEntree: a.entrees.findIndex((h, i) => h !== b.entrees[i]) };
     }
     return out;
   });
