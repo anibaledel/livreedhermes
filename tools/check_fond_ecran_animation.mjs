@@ -32,6 +32,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { servirDepot } from './lib_fonds_site.mjs';
+import { PALETTE_DEFAUT } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 let BASE = process.argv[2] || 'https://anibal-amiot.com';
@@ -166,7 +167,7 @@ const prox = await p.evaluate(() => {
 });
 if (prox.choisi !== prox.min) echec(`proximité : distance binaire du motif choisi ${prox.choisi}, minimum ${prox.min}`);
 console.log(`   proximité : motif suivant à ${prox.choisi} quarts de case (le minimum binaire ; ${prox.tri} cases sur la grille à trois couleurs)`);
-// la pause dit la collection ; la réinitialisation revient à crème et encre, densité 4, rythme 8
+// la pause dit la collection ; la réinitialisation revient au défaut d'assets/couleurs.js (rouge et blanc), densité 4, rythme 8
 await p.evaluate(() => document.getElementById('btnPause').click());
 const pause = await p.$eval('#pauseInfo .hex', (el) => el.textContent);
 if (!/Collection B121\+E95/.test(pause)) echec(`pause : « ${pause} »`);
@@ -177,7 +178,7 @@ if (new URLSearchParams(vue).get('densite') !== '7' || new URLSearchParams(vue).
 await p.evaluate(() => document.getElementById('btnReset').click());
 await p.waitForTimeout(200);
 const reinit = await p.evaluate(async () => ({ palette: (await import('/assets/etat-fond-ecran.js')).etatFondEcran().palette.join(','), q: location.search, d: tileDivisor, r: document.getElementById('rhythmSlider').value }));
-if (reinit.palette !== '#efeae0,#23232b' || reinit.d !== 4 || reinit.r !== '8' || /densite|rythme|c0=|c1=/.test(reinit.q)) echec(`réinitialiser : ${JSON.stringify(reinit)}`);
+if (reinit.palette !== PALETTE_DEFAUT.join(',') || reinit.d !== 4 || reinit.r !== '8' || /densite|rythme|c0=|c1=/.test(reinit.q)) echec(`réinitialiser : ${JSON.stringify(reinit)}`);
 console.log(`   pause « ${pause} » ; densité 7 et rythme 2,5 s dans l'URL (${vue}) ; réinitialiser → ${reinit.palette}, densité ${reinit.d}, rythme ${reinit.r} s`);
 // la vue relue depuis l'URL, dans les deux rendus
 for (const rendu of ['tricolore', 'bicolore']) {

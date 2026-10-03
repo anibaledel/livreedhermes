@@ -39,6 +39,7 @@ import { fileURLToPath } from 'node:url';
 import { createCanvas } from '@napi-rs/canvas';
 import gifenc from 'gifenc';
 import { hexToBits, triangleGeometry, PARTS } from '../assets/bicolore-render.js';
+import { ROUGE } from '../assets/couleurs.js';
 
 const { GIFEncoder, quantize, applyPalette } = gifenc;
 
@@ -49,7 +50,7 @@ const OUT_DIR = path.join(ROOT, 'assets', 'nav-icons');
 const TILE_SIZE = 36;   // = background-size en CSS (pavage 2x2 dans un carré de 72px)
 const FRAME_DELAY = 200; // ms/image — proche du rythme "rapide" du mode méditatif
 const NAV_LIGHT = '#f2ece1';
-const NAV_DARK = '#e0261b'; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
+const NAV_DARK = ROUGE; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
 
 // ---------- palette neutre (identique à generate-nav-icons.mjs) ----------
 function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
@@ -100,7 +101,7 @@ function applySingleHue(pickedHex){
   const rose  = adjustLightness(pickedHex, -0.20);
   return { V: mauve, M: rose, O: pickedHex };
 }
-const RED_ANCHOR = '#e0261b';
+const RED_ANCHOR = ROUGE; // assets/couleurs.js
 const PALETTE = applySingleHue(RED_ANCHOR);
 
 // ---------- moteur fonds-ecran (hexagramGrid + pool + marche par proximité) ----------

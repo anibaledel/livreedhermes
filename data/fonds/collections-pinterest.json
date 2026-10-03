@@ -1,14 +1,14 @@
 {
- "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json. « rang » : l'ordre de publication arrêté le 3 octobre 2026 — B2 (2 égales), B121 (1-2-1), B6D (6 diagonales) ; P et B2D restent, sans rang. B2D a été exportée en #f2f2f0 / #000000, le défaut d'alors ; B2, B121 et B6D en crème #efeae0 et encre #23232b (assets/couleurs.js).",
+ "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json. « rang » : l'ordre de publication arrêté le 3 octobre 2026 — B2 (2 égales), B121 (1-2-1), B6D (6 diagonales) ; P et B2D restent, sans rang. B2D a été exportée en #f2f2f0 / #000000, le défaut d'alors ; B2, B121 et B6D en crème #efeae0 et encre #23232b. Le 3 octobre 2026, le bicolore passe au rouge #e0261b sur blanc #f2f2f0, la charte du site (assets/couleurs.js) : B6D est ré-exportée la première (la trame la plus serrée, jugée à l'œil en vignette avant les autres), puis P, B2D, B2 et B121 : les cinq collections sont en rouge et blanc. « anciennes » : les exportations remplacées, gardées à côté (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), avec leur palette et leur date.",
  "collections": {
   "P": {
    "palette": [
-    "#ee2a7b",
-    "#662d91"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-02",
+   "exportee": "2026-10-03",
    "rang": null,
    "recette": {
     "algorithme": "proche-binaire-v1",
@@ -32,12 +32,22 @@
      "par2-yin-mut-yang-mut-h14",
      "par2-yin-mut-yang-mut-h10"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#ee2a7b",
+      "#662d91"
+     ],
+     "exportee": "2026-10-02",
+     "dossier": "assets/motifs-pinterest/anciennes/P-ee2a7b-662d91"
+    }
+   ]
   },
   "B2D": {
    "palette": [
     "#f2f2f0",
-    "#000000"
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -65,12 +75,22 @@
      "par3-sans-yang-h25",
      "par3-sans-yang-h17"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#f2f2f0",
+      "#000000"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2D-f2f2f0-000000"
+    }
+   ]
   },
   "B2": {
    "palette": [
-    "#efeae0",
-    "#23232b"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -98,12 +118,22 @@
      "par2-yin-mut-yang-mut-h17",
      "par2-yin-mut-yang-mut-h21"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b"
+    }
+   ]
   },
   "B121": {
    "palette": [
-    "#efeae0",
-    "#23232b"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -131,12 +161,22 @@
      "bases-yang-mut-h19",
      "bases-yang-mut-h27"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b"
+    }
+   ]
   },
   "B6D": {
    "palette": [
-    "#efeae0",
-    "#23232b"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -164,10 +204,20 @@
      "bases-yang-h31",
      "bases-yang-h23"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B6D-efeae0-23232b"
+    }
+   ]
   }
  },
- "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs).",
+ "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",
  "_doc_series": "« series » : les quatre séries du corpus Pinterest, 256 images chacune, sous les MÊMES 256 noms de fichier (un par page de motif, 8 formes × h0…h31 ; le nom est le même en français et en anglais, la page anglaise sert de référence). Les noms de dossier sont gardés tels quels — des épingles portent ces adresses — même quand ils sont inexacts : « monochrome » désigne TROIS niveaux de gris. La palette de chaque série recopie assets/couleurs.js (check_couleurs.mjs) ; check_series_pinterest.py vérifie que chaque image l'emploie. Mesures du 2026-10-03 : dans chaque série, 224 images distinctes pour 256 fichiers — les 32 paires de grilles identiques de par2-yin-yang et par3-sans-yang-mut (hN ↔ h(N XOR 7)) ; voir docs/six-formes-independantes.md.",
  "series": {
   "corpus-1024": {

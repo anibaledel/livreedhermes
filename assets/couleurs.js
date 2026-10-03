@@ -4,32 +4,53 @@
 // Les couleurs par défaut des rendus à deux valeurs — UN SEUL jeu de
 // constantes, lu par TOUT rendu bicolore de motif : creation-bicolore-v2.html,
 // bicolore.html, galerie-bicolore.html, cymatique.html, les vues de fond
-// (vue-fond-motif.js, vue-fond-ecran.js), l'animation de fonds-ecran.html et
-// l'export (tools/export_pinterest_fonds.mjs). tools/check_couleurs.mjs
-// vérifie qu'aucun ne recopie ces valeurs.
+// (vue-fond-motif.js, vue-fond-ecran.js), l'animation de fonds-ecran.html,
+// la galerie d'animations et l'export (tools/export_pinterest_fonds.mjs).
+// tools/check_couleurs.mjs vérifie qu'aucun ne recopie ces valeurs.
 //
+// LE BICOLORE EST ROUGE ET BLANC, les couleurs de la charte du site
+// (décision d'Anibal, 3 octobre 2026, qui remplace le crème et l'encre) :
+// UNE SEULE CHARTE GRAPHIQUE AU LIEU DE DEUX. Le crème obligeait à adapter
+// le site autour des motifs ; le rouge et le blanc sont déjà ceux du site,
+// et ils donnent une identité reconnaissable en vignette.
+//
+//   ROUGE — #e0261b, le rouge du générateur bicolore v2 : la part SOMBRE du
+//           motif, le bit 1, celle que l'encre occupait ;
+//   BLANC — #f2f2f0, le --white de style.css : la part CLAIRE, le bit 0,
+//           celle que le crème occupait. Rouge sur blanc : 4,2:1 (mesuré par
+//           check_couleurs.mjs), au-dessus du seuil de 3:1 — trois fois moins
+//           que l'encre sur le crème (13,0:1) : les trames fines lisent plus
+//           doux en petit format.
+//   Il n'y a plus de noir dans le bicolore : ni #000000, ni l'encre par
+//   défaut.
+//
+// Le crème et l'encre ne disparaissent pas : ils restent des couleurs
+// choisissables dans les sélecteurs, comme le rouge l'était.
 //   CREME — #efeae0, le crème des cases de la planche de bandes, mesuré sur
-//           l'image (relevé d'Anibal, 3 octobre 2026 ; la planche avait été
-//           dessinée en #efe6d2, la mesure fait foi) — plus juste qu'un
-//           blanc trop pur ;
-//   ENCRE — #23232b, le sombre des bandes de la même planche : une encre,
-//           pas un noir pur (13,0:1 contre le crème) ;
-//   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : 3,21:1
-//           contre le crème, au-dessus du seuil de 3:1 sous lequel un niveau
-//           ne se lit plus à distance.
+//           l'image (relevé d'Anibal, 3 octobre 2026) ;
+//   ENCRE — #23232b, le sombre des bandes de la même planche ;
+//   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : le rendu
+//           monochrome du site (MONOCHROME_SITE), gris sur BLANC — 3,44:1
+//           (mesuré par check_couleurs.mjs), au-dessus du seuil de 3:1. Pas
+//           sur crème : le crème cesse d'être une couleur de charte, et le
+//           garder au seul rendu monochrome en ferait une couleur isolée
+//           (correction du 3 octobre 2026). Le crème reste choisissable.
 //
-// Ce sont des défauts, pas des contraintes : toute autre teinte (le rouge
-// #e0261b de l'ancien défaut du générateur compris) reste choisissable dans
-// les sélecteurs de couleur, et l'état part dans l'URL.
+// Ce sont des défauts, pas des contraintes : toute autre teinte reste
+// choisissable dans les sélecteurs de couleur, et l'état part dans l'URL.
 
 export const CREME = '#efeae0';
 export const ENCRE = '#23232b';
 export const GRIS = '#808285';
+export const ROUGE = '#e0261b';
+export const BLANC = '#f2f2f0';
 
-// [bit 0, bit 1] : le crème est le fond, le bit 1 porte la figure.
+// [bit 0, bit 1] : le clair est le fond, le bit 1 porte la figure.
 export const PALETTES = Object.freeze({
-  bicolore: Object.freeze([CREME, ENCRE]),
-  monochrome: Object.freeze([CREME, GRIS]),
+  bicolore: Object.freeze([BLANC, ROUGE]),
+  monochrome: Object.freeze([BLANC, GRIS]),
+  // l'ancien défaut, gardé choisissable (un bouton dans chaque sélecteur)
+  creme: Object.freeze([CREME, ENCRE]),
 });
 export const PALETTE_DEFAUT = PALETTES.bicolore;
 
@@ -37,7 +58,7 @@ export const PALETTE_DEFAUT = PALETTES.bicolore;
 // 2026-10-03) — deux objets, deux noms :
 //
 //   MONOCHROME_SITE            le rendu monochrome du site : un gris (GRIS,
-//                              #808285) sur crème. Rendus bicolores du site.
+//                              #808285) sur blanc (BLANC, #f2f2f0).
 //   PINTEREST_NIVEAUX_DE_GRIS  la palette des séries Pinterest dites
 //                              « monochrome » (dossiers corpus-1024-monochrome
 //                              et corpus-1024-cellule-monochrome, noms gardés :
@@ -50,11 +71,11 @@ export const PALETTE_DEFAUT = PALETTES.bicolore;
 //                              magenta, orange (V, M, O) — la même que les
 //                              pages de motifs.
 //
-// Le crème reste réservé au bicolore (collections B2, B121, B6D…) : aucune
-// des quatre séries ne le porte. Le registre des séries
+// Aucune des quatre séries ne porte le crème ni le rouge et blanc du
+// bicolore : elles ne sont pas bicolores et ne changent pas. Le registre des séries
 // (data/fonds/collections-pinterest.json, « series ») recopie ces valeurs ;
 // tools/check_couleurs.mjs vérifie qu'elles concordent, et
-// tools/check_series_pinterest.mjs que chaque image emploie la palette de sa série.
+// tools/check_series_pinterest.py que chaque image emploie la palette de sa série.
 export const MONOCHROME_SITE = PALETTES.monochrome;
 export const PINTEREST_NIVEAUX_DE_GRIS = Object.freeze(['#494949', '#6e6e6e', '#bababa']);
 export const PINTEREST_TRICOLORE = Object.freeze(['#662d91', '#ee2a7b', '#fbb040']);

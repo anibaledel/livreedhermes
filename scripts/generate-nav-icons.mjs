@@ -56,6 +56,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createCanvas } from '@napi-rs/canvas';
 import { hexToBits, triangleGeometry, PARTS } from '../assets/bicolore-render.js';
+import { ROUGE } from '../assets/couleurs.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -64,7 +65,7 @@ fs.mkdirSync(OUT_DIR, { recursive: true });
 
 const ICON_SIZE = 128;
 const NAV_LIGHT = '#f2ece1';
-const NAV_DARK = '#e0261b'; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
+const NAV_DARK = ROUGE; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
 
 // ---------- Dérivation de palette (portée de applySingleHue, fonds-ecran.html) ----------
 function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
@@ -119,7 +120,7 @@ function applySingleHue(pickedHex){
 // Ancre rouge : --red:#e0261b de la charte du site, passé tel quel à
 // applySingleHue (pas de désaturation — à revoir si le rendu vibre trop
 // en petit format sur fond noir, cf. tête de session).
-const RED_ANCHOR = '#e0261b';
+const RED_ANCHOR = ROUGE; // assets/couleurs.js
 const PALETTE = applySingleHue(RED_ANCHOR);
 
 // ---------- Moteur fonds-ecran.html, porté (hexagramGrid + drawStaticTile) ----------
