@@ -1,0 +1,26 @@
+/* fond-ecran-fixe.css — La Livrée d'Hermès
+   Les styles de l'outil « fond d'écran fixe, en vecteur » (assets/vue-fond-ecran.js)
+   et de son pilote : UNE feuille, chargée par les deux pages qui montent le
+   module — galerie-bicolore.html (l'outil complet) et fonds-ecran.html (le
+   sélecteur de collection et de couleurs de l'animation). Sortie de
+   fonds-ecran.html au déplacement de l'outil (2026-10-03) : une copie de ces
+   règles dans chaque page aurait divergé à la première retouche. */
+.fond-fixe{ max-width:900px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+.fond-fixe h2{ color:var(--gold); font-weight:400; font-size:calc(16px + var(--fs-bump)); letter-spacing:.02em; margin:0 0 10px; }
+.ff-intro, .ff-description, .ff-erreur{ max-width:64ch; margin:0 auto 16px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; }
+.ff-description .sf-av, .ff-erreur{ color:var(--red); }
+.ff-choix{ display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; align-items:center; margin:0 0 16px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
+.ff-choix label{ display:flex; align-items:center; gap:6px; }
+.ff-choix select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:5px 6px; font:inherit; }
+.ff-choix input[type=color]{ width:36px; height:30px; border:1px solid var(--line-strong); background:transparent; padding:2px; }
+.ff-selecteur{ max-width:470px; margin:0 auto 16px; text-align:left; }
+.ff-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
+.ff-apercu{ width:100%; aspect-ratio:16 / 9; border:1px solid var(--line); margin:0 auto 12px; overflow:hidden; }
+.ff-apercu svg{ display:block; width:100%; height:100%; }
+.ff-preset{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:7px 11px; cursor:pointer; }
+.ff-preset:hover{ border-color:var(--gold); color:var(--gold); }
+.ff-actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.ff-actions button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:9px 14px; cursor:pointer; }
+.ff-actions button:hover{ border-color:var(--gold); color:var(--gold); }
+.ff-deplace{ max-width:64ch; margin:6px auto 0; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; }
+.ff-deplace a{ color:var(--gold); }

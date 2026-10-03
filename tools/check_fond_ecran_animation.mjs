@@ -48,20 +48,21 @@ const p = await contexte.newPage();
 const erreurs = [];
 p.on('pageerror', (e) => erreurs.push(String(e)));
 await p.route('**/beacon.min.js', (r) => r.fulfill({ body: '', contentType: 'text/javascript' }));
-const lireEtat = () => p.evaluate(() => {
-  const e = window.fondEcran.selecteur.etat();
+// l'état partagé se lit par son module (assets/etat-fond-ecran.js), comme la page
+const lireEtat = () => p.evaluate(async () => {
+  const e = (await import('/assets/etat-fond-ecran.js')).etatFondEcran();
   return {
-    rendu: window.animationBicolore.actif ? 'bicolore' : 'tricolore', code: e.code, palette: window.fondEcran.palette().join(','),
+    rendu: window.animationBicolore.actif ? 'bicolore' : 'tricolore', code: e.code, palette: e.palette.join(','),
     teinte: document.getElementById('btnMode').textContent.trim() === 'Monochrome' ? 'multi' : 'mono', url: location.search,
   };
 });
 
 // 1. l'état dans l'URL, et le rechargement
 await p.goto(`${BASE}/fonds-ecran.html?${new URLSearchParams(ETAT)}`, { waitUntil: 'networkidle' });
-await p.waitForFunction(() => window.animationBicolore && window.fondEcran && document.querySelectorAll('.cat-card:not(.disabled)').length);
+await p.waitForFunction(() => window.animationBicolore && document.querySelectorAll('.cat-card:not(.disabled)').length);
 const e1 = await lireEtat();
 await p.reload({ waitUntil: 'networkidle' });
-await p.waitForFunction(() => window.animationBicolore && window.fondEcran && document.querySelectorAll('.cat-card:not(.disabled)').length);
+await p.waitForFunction(() => window.animationBicolore && document.querySelectorAll('.cat-card:not(.disabled)').length);
 const e2 = await lireEtat();
 const attendu = { rendu: 'bicolore', code: 'B121+E95', palette: '#efeae0,#23232b', teinte: 'multi' };
 for (const [k, v] of Object.entries(attendu)) if (e1[k] !== v || e2[k] !== v) echec(`état ${k} : lu ${e1[k]}, rechargé ${e2[k]}, attendu ${v}`);
@@ -97,8 +98,8 @@ const r = await p.evaluate(async () => {
   const px = Math.max(1, Math.ceil(Math.min(c.width, c.height) / 4));
   const grille = currentGrid;
   const tuile = window.animationBicolore.tuile(grille, px);
-  const e = window.fondEcran.selecteur.etat();
-  const attendu = await svgEnPixels(motifSvg(lectureBinaire(grille, 'x').cases, window.fondEcran.palette(), e.objetFond, { size: px, prefixe: 'anim-', superposition: e.objetSuperposition }), px, px);
+  const e = (await import('/assets/etat-fond-ecran.js')).etatFondEcran();
+  const attendu = await svgEnPixels(motifSvg(lectureBinaire(grille, 'x').cases, e.palette, e.objetFond, { size: px, prefixe: 'anim-', superposition: e.objetSuperposition }), px, px);
   const lu = tuile.getContext('2d').getImageData(0, 0, px, px).data;
   let diff = 0;
   for (let i = 0; i < lu.length; i++) if (lu[i] !== attendu.data[i]) diff++;
@@ -145,6 +146,79 @@ if (h264) {
   console.log(`5. ce navigateur n'encode pas le H.264 : annoncé « ${annonce} », enregistrement refusé, aucun fichier — la vidéo elle-même se vérifie avec Google Chrome (CHROME_CHANNEL=chrome).`);
   if (process.env.EXIGER_H264) echec('H.264 exigé (EXIGER_H264) et absent de ce navigateur');
 }
+// 6. parité tricolore / bicolore (les écarts mesurés le 2026-10-03)
+await p.evaluate(() => { if (mediaRecorder && mediaRecorder.state === 'recording') document.getElementById('btnRecord').click(); });
+const hud = await p.evaluate(() => [getComputedStyle(document.querySelector('.hud-tricolore')).display, getComputedStyle(document.querySelector('.hud-bicolore')).display]);
+if (hud[0] !== 'none' || hud[1] === 'none') echec(`barre bicolore : teinte ${hud[0]}, couleurs ${hud[1]} — la teinte, inerte en bicolore, ne doit pas s'afficher`);
+await p.evaluate(() => { const c = document.getElementById('animC0'); c.value = '#c8102e'; c.dispatchEvent(new Event('input')); });
+await p.waitForTimeout(200);
+const apresCouleur = await p.evaluate(async () => ({ etat: (await import('/assets/etat-fond-ecran.js')).etatFondEcran().palette.join(','), url: new URLSearchParams(location.search).get('c0'), pilote: document.getElementById('ffCouleur2').value }));
+if (apresCouleur.etat !== '#c8102e,#23232b' || apresCouleur.url !== 'c8102e' || apresCouleur.pilote !== '#c8102e') echec(`couleur réglée dans la barre : ${JSON.stringify(apresCouleur)}`);
+console.log(`6. barre bicolore : teinte masquée, couleurs affichées ; fond réglé dans la barre → état ${apresCouleur.etat}, URL c0=${apresCouleur.url}, sélecteur ${apresCouleur.pilote}`);
+// la proximité : le motif suivant minimise la distance binaire
+const prox = await p.evaluate(() => {
+  const avant = currentGrid, vus = new Set(visited);
+  const cand = currentGrids.map((g, i) => i).filter((i) => !vus.has(i));
+  const d = cand.map((i) => window.animationBicolore.distance(avant, currentGrids[i].grid));
+  const min = Math.min(...d);
+  pickNextByProximity();
+  return { choisi: window.animationBicolore.distance(avant, currentGrid), min, tri: gridDistance(avant, currentGrid) };
+});
+if (prox.choisi !== prox.min) echec(`proximité : distance binaire du motif choisi ${prox.choisi}, minimum ${prox.min}`);
+console.log(`   proximité : motif suivant à ${prox.choisi} quarts de case (le minimum binaire ; ${prox.tri} cases sur la grille à trois couleurs)`);
+// la pause dit la collection ; la réinitialisation revient à crème et encre, densité 4, rythme 8
+await p.evaluate(() => document.getElementById('btnPause').click());
+const pause = await p.$eval('#pauseInfo .hex', (el) => el.textContent);
+if (!/Collection B121\+E95/.test(pause)) echec(`pause : « ${pause} »`);
+await p.evaluate(() => document.getElementById('btnPause').click());
+await p.evaluate(() => { const s = document.getElementById('sizeSlider'); s.value = '7'; s.dispatchEvent(new Event('input')); const r = document.getElementById('rhythmSlider'); r.value = '2.5'; r.dispatchEvent(new Event('input')); });
+const vue = await p.evaluate(() => location.search);
+if (new URLSearchParams(vue).get('densite') !== '7' || new URLSearchParams(vue).get('rythme') !== '2.5') echec(`densite / rythme absents de l'URL : ${vue}`);
+await p.evaluate(() => document.getElementById('btnReset').click());
+await p.waitForTimeout(200);
+const reinit = await p.evaluate(async () => ({ palette: (await import('/assets/etat-fond-ecran.js')).etatFondEcran().palette.join(','), q: location.search, d: tileDivisor, r: document.getElementById('rhythmSlider').value }));
+if (reinit.palette !== '#efeae0,#23232b' || reinit.d !== 4 || reinit.r !== '8' || /densite|rythme|c0=|c1=/.test(reinit.q)) echec(`réinitialiser : ${JSON.stringify(reinit)}`);
+console.log(`   pause « ${pause} » ; densité 7 et rythme 2,5 s dans l'URL (${vue}) ; réinitialiser → ${reinit.palette}, densité ${reinit.d}, rythme ${reinit.r} s`);
+// la vue relue depuis l'URL, dans les deux rendus
+for (const rendu of ['tricolore', 'bicolore']) {
+  await p.goto(`${BASE}/fonds-ecran.html?${rendu === 'bicolore' ? 'rendu=bicolore&' : ''}densite=9&rythme=3.5`, { waitUntil: 'networkidle' });
+  const lu = await p.evaluate(() => [tileDivisor, document.getElementById('sizeSlider').value, document.getElementById('rhythmSlider').value, document.getElementById('rhythmLabel').textContent]);
+  if (lu[0] !== 9 || lu[1] !== '9' || lu[2] !== '3.5' || lu[3] !== '3.5 s') echec(`${rendu} : vue relue ${lu.join(' / ')}`);
+}
+console.log('   densite=9 et rythme=3.5 relus de l\'URL en tricolore et en bicolore');
+// la barre en tricolore : la teinte, pas les couleurs
+await p.goto(`${BASE}/fonds-ecran.html`, { waitUntil: 'networkidle' });
+await p.waitForFunction(() => window.animationBicolore && document.querySelectorAll('.cat-card:not(.disabled)').length);
+await p.evaluate(() => document.querySelectorAll('.cat-card')[0].click());
+const hudTri = await p.evaluate(() => [getComputedStyle(document.querySelector('.hud-tricolore')).display, getComputedStyle(document.querySelector('.hud-bicolore')).display]);
+if (hudTri[0] === 'none' || hudTri[1] !== 'none') echec(`barre tricolore : teinte ${hudTri[0]}, couleurs ${hudTri[1]}`);
+await p.evaluate(() => document.getElementById('btnExit').click());
+
+// 7. l'ancienne adresse du fond d'écran fixe mène au même rendu, sur la galerie bicolore
+const ancienne = 'motif=par2-yin-yang-h5&fond=B2&sup=E95&c0=c8102e&c1=23232b';
+await p.goto(`${BASE}/fonds-ecran.html?${ancienne}`, { waitUntil: 'networkidle' });
+await p.waitForFunction(() => document.querySelector('#ffApercu svg'));
+const arrivee = new URL(p.url());
+const rendu7 = await p.evaluate(async () => {
+  const { fondEcranSvg } = await import('/assets/bicolore-fonds.js');
+  const { lectureBinaire } = await import('/assets/lecture-binaire.js');
+  const { chargerDonneesFond, grilleDuMotif } = await import('/assets/vue-fond-ecran.js');
+  const { etatFondEcran } = await import('/assets/etat-fond-ecran.js');
+  const { data } = await chargerDonneesFond();
+  const e = etatFondEcran();
+  const attendu = fondEcranSvg(lectureBinaire(grilleDuMotif(data, 'par2:yin+yang', 5), 'x').cases, ['#c8102e', '#23232b'], e.objetFond, { colonnes: 6, prefixe: 'ff-', superposition: e.objetSuperposition });
+  // comparé après la même sérialisation par le navigateur (innerHTML normalise les attributs)
+  const tampon = document.createElement('div');
+  tampon.innerHTML = attendu;
+  const lu = document.getElementById('ffApercu').innerHTML;
+  let i = 0; while (i < lu.length && lu[i] === tampon.innerHTML[i]) i++;
+  return { egal: lu === tampon.innerHTML, ecart: lu === tampon.innerHTML ? null : [lu.slice(i - 40, i + 60), tampon.innerHTML.slice(i - 40, i + 60)], code: e.code, galerie: document.getElementById('tintClair').value };
+});
+if (!arrivee.pathname.endsWith('/galerie-bicolore.html') || arrivee.hash !== '#fondFixe') echec(`redirection : ${p.url()}`);
+for (const [k, v] of new URLSearchParams(ancienne)) if (arrivee.searchParams.get(k) !== v) echec(`redirection : ${k} = ${arrivee.searchParams.get(k)}, attendu ${v}`);
+if (!rendu7.egal || rendu7.code !== 'B2+E95' || rendu7.galerie !== '#c8102e') echec(`rendu après redirection : ${JSON.stringify(rendu7)}`);
+console.log(`7. fonds-ecran.html?${ancienne} → ${arrivee.pathname}${arrivee.search}${arrivee.hash} ; aperçu ${rendu7.egal ? 'identique' : 'DIFFÉRENT'} à fondEcranSvg(par2:yin+yang h5, B2+E95, #c8102e/#23232b) ; couleurs de la galerie suivies`);
+
 if (erreurs.length) echec(`erreurs : ${erreurs.join(' | ')}`);
 await navigateur.close();
 if (serveur) serveur.fermer();

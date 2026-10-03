@@ -26,6 +26,19 @@ name: Fonds des cases conformes au calcul
 # correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json) ;
 # check_fonds_ecran_source.mjs (fonds-ecran.html : une source, la copie
 # intégrée périmée jamais relue).
+# Galerie d'animations : recettes_animations.mjs --verifie (chaque liste sort
+# de sa graine) ; check_mp4_sans_date.mjs (le MP4 ne porte pas l'heure) ;
+# affiches_animations.mjs --essai et --verifie (l'affiche est extraite de la
+# vidéo) ; check_galerie_animations.mjs local (rien ne se charge avant un clic,
+# une animation à la fois, niveau 1 : les images identiques sur deux rendus ;
+# la variante d'un visiteur passe par l'encodeur du navigateur, niveau 2 sans
+# objet) ; video_reference.mjs --verifie (NIVEAU 2 : la vidéo de référence,
+# ffmpeg / libx264 hors navigateur, produite deux fois, même fichier octet
+# pour octet).
+# check_redirections.mjs (toutes les redirections : ni boucle ni chaîne, les
+# 512 pages de motifs hors de toute redirection) ; check_ecrivain_unique.mjs
+# local (l'état bicolore et ?fond, ?sup, ?c0, ?c1 : un seul écrivain, mesuré
+# à l'exécution, pile d'appels à l'appui).
 
 on:
   push:
@@ -49,6 +62,12 @@ jobs:
       - run: node tools/check_couleurs.mjs
       - run: node tools/correspondance_motifs.mjs
       - run: node tools/check_fonds_ecran_source.mjs
+      - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - run: node tools/check_redirections.mjs
+      - run: node tools/recettes_animations.mjs --verifie
+      - run: node tools/check_mp4_sans_date.mjs
+      - run: node tools/affiches_animations.mjs --essai
+      - run: node tools/affiches_animations.mjs --verifie
 
   rendu:
     runs-on: ubuntu-latest
@@ -66,3 +85,7 @@ jobs:
       - run: node tools/check_export_pinterest.mjs local --code B121 --echantillon 8
       - run: node tools/check_export_pinterest.mjs local --code B6D --echantillon 8
       - run: node tools/check_fond_ecran_animation.mjs local
+      - run: node tools/check_galerie_animations.mjs local
+      - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
+      - run: node tools/video_reference.mjs --verifie B2
+      - run: node tools/check_ecrivain_unique.mjs local
