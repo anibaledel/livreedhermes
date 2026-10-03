@@ -28,7 +28,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/impression.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -59,14 +59,8 @@
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/outils.html</loc>
-    <lastmod>2026-10-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/la-livree-d-hermes.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -90,12 +84,6 @@
     <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/soutenir.html</loc>
-    <lastmod>2026-10-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/encodeur.html</loc>
     <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
@@ -111,51 +99,85 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/fr/livre/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/libro/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/book/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/book/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/book/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/libro/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/book/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/book/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/book/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -163,83 +185,151 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/lexique.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/lexicon/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/lexico/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/lexicon/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/lexicon/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/lexicon/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/"/>
   </url>
   <url>
@@ -264,23 +354,103 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/travaux.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/works/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/works/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/works/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/works/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/works/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/works/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/works/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/works/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/travaux.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/works/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/works/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/works/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/outils.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/tools/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/tools/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/soutenir.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/support/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/support/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/soutenir.html"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/support/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/support/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/articles.html</loc>
