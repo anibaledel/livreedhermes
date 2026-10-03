@@ -183,6 +183,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
+<link rel="stylesheet" href="assets/fond-ecran-fixe.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
 <script type="application/ld+json">
 {
@@ -332,6 +333,35 @@
     </div>
   </div>
 
+  <!-- L'outil « fond d'écran fixe, en vecteur », déplacé de fonds-ecran.html le
+       2026-10-03 : le même module (assets/vue-fond-ecran.js, monterFondEcran),
+       pas une copie. Les adresses de l'ancienne page (?motif=…&fond=…&sup=…
+       &c0=…&c1=…) y sont redirigées et mènent au même rendu. -->
+  <section class="fond-fixe" id="fondFixe" aria-labelledby="ffTitre">
+    <h2 id="ffTitre">Fond d'écran fixe, en vecteur</h2>
+    <p class="ff-intro">Un motif du corpus, lu en deux couleurs (les cases jaunes deviennent les triangles qui complètent la couleur la plus proche), et un fond posé sur chaque case. Une seule image SVG, sans résolution : elle couvre le 1920 × 1080, le 2560 × 1440, la 4K et tout autre écran, pour quelques kilo-octets. Ses deux couleurs sont celles de la galerie ci-dessus.</p>
+    <div class="ff-choix">
+      <label>Famille <select id="ffFamille"></select></label>
+      <label>Hexagramme <select id="ffHex"></select></label>
+      <label>Figure <input type="color" id="ffCouleur1"></label>
+      <label>Fond <input type="color" id="ffCouleur2"></label>
+      <button type="button" class="ff-preset" data-palette="bicolore">Bicolore</button>
+      <button type="button" class="ff-preset" data-palette="monochrome">Monochrome</button>
+      <label>Densité <input type="range" id="ffDensite" min="3" max="16" step="1" value="6"> <span id="ffDensiteVal">6</span></label>
+    </div>
+    <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
+    <p class="ff-erreur" id="ffErreur" hidden></p>
+    <div class="ff-apercu" id="ffApercu" role="img" aria-label="Aperçu du fond d'écran fixe, au format 16:9"></div>
+    <p class="ff-description" id="ffDescription"></p>
+    <div class="ff-actions">
+      <button type="button" id="ffSvg">Télécharger le SVG (toutes résolutions)</button>
+      <button type="button" id="ffPng1920">PNG 1920 × 1080</button>
+      <button type="button" id="ffPng2560">PNG 2560 × 1440</button>
+      <button type="button" id="ffPng3840">PNG 3840 × 2160 (4K)</button>
+    </div>
+    <p class="ff-deplace">L'animation, en tricolore ou dans cette collection en bicolore, est sur la page <a href="fonds-ecran.html">Fonds d'écran</a>.</p>
+  </section>
+
   </main>
 <!-- @main:end -->
 <div class="note">
@@ -388,7 +418,12 @@
 import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from './assets/bicolore-render.js';
 import { buildAxes, generateAxesMask, demiDecalageStatus, nomAccordAncien } from './assets/bicolore-axes.js';
 import { fermeSurLeCube } from './assets/bicolore-cube-c1.mjs';
-import { paletteDeLUrl, paletteDansLUrl } from './assets/couleurs.js';
+import { paletteDeLUrl } from './assets/couleurs.js';
+// Les deux couleurs de la page ont un seul écrivain : le sélecteur de l'outil
+// « fond d'écran fixe » (assets/vue-fond-ecran.js), qui tient ?c0 et ?c1. Les
+// champs de la galerie suivent l'état partagé et le changent en le demandant.
+import { monterFondEcran } from './assets/vue-fond-ecran.js';
+import { abonner, demanderPalette } from './assets/etat-fond-ecran.js';
 
 let DATA = null;
 let AXES = null;
@@ -565,8 +600,20 @@ function setGrain(g) {
   updateStatsForGrain();
   redrawAll();
 }
-document.getElementById('tintClair').addEventListener('input', e => { PALETTE[0] = e.target.value; paletteDansLUrl(PALETTE); redrawAll(); });
-document.getElementById('tintSombre').addEventListener('input', e => { PALETTE[1] = e.target.value; paletteDansLUrl(PALETTE); redrawAll(); });
+document.getElementById('tintClair').addEventListener('input', e => demanderPalette([e.target.value, PALETTE[1]]));
+document.getElementById('tintSombre').addEventListener('input', e => demanderPalette([PALETTE[0], e.target.value]));
+abonner((e) => {
+  PALETTE = [...e.palette];
+  document.getElementById('tintClair').value = PALETTE[0];
+  document.getElementById('tintSombre').value = PALETTE[1];
+  if (DATA && AXES) redrawAll();
+});
+monterFondEcran(document.getElementById('fondFixe')).then(() => {
+  if (location.hash === '#fondFixe') document.getElementById('fondFixe').scrollIntoView();
+}).catch((e) => {
+  document.getElementById('ffErreur').hidden = false;
+  document.getElementById('ffErreur').textContent = 'Erreur de chargement : ' + e.message;
+});
 
 document.querySelectorAll('#statutControls button').forEach(btn => {
   btn.addEventListener('click', () => {

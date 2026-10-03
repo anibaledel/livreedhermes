@@ -46,7 +46,10 @@ const PAGES = [
   { nom: 'creation-bicolore-v2.html', url: 'creation-bicolore-v2.html?fond=CCE&sup=E95', racine: '#selecteurFonds', motif: 'bits' },
   { nom: tiree, url: `${tiree}?fond=B3D&sup=E95`, racine: '#vueFond', motif: 'page' },
   { nom: `fr/${tiree}`, url: `fr/${tiree}?fond=QT`, racine: '#vueFond', motif: 'page' },
-  { nom: 'fonds-ecran.html', url: 'fonds-ecran.html?motif=bases-yang-h1&fond=B4D', racine: '#fondFixe', motif: 'ecran' },
+  // l'outil « fond d'écran fixe » est sur la galerie bicolore depuis le 2026-10-03 ;
+  // fonds-ecran.html garde le même sélecteur, monté seul, pour l'animation
+  { nom: 'galerie-bicolore.html', url: 'galerie-bicolore.html?motif=bases-yang-h1&fond=B4D', racine: '#fondFixe', motif: 'ecran' },
+  { nom: 'fonds-ecran.html', url: 'fonds-ecran.html?fond=B4D', racine: '#fondFixe', motif: 'ecran' },
 ];
 const navigateur = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 

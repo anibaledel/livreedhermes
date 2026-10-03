@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script>
+// L'outil « fond d'écran fixe » est sur galerie-bicolore.html depuis le
+// 2026-10-03. Une adresse qui le visait (elle porte ?motif=…, sans paramètre
+// de l'animation) y mène encore, avec la même chaîne de paramètres.
+(function(){ var q = new URLSearchParams(location.search);
+  if(q.has('motif') && !q.has('rendu') && !q.has('teinte') && !q.has('densite') && !q.has('rythme'))
+    location.replace('galerie-bicolore.html' + location.search + '#fondFixe'); })();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Livrée d'Hermès — Fonds d'écran</title>
@@ -234,34 +242,20 @@
     #hud button{ padding:7px 8px; font-size:calc(10px + var(--fs-bump)); margin-left:4px; }
     #levelBar{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
   }
-  .fond-fixe{ max-width:900px; margin:40px auto 0; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
-  .fond-fixe h2{ color:var(--gold); font-weight:400; font-size:calc(16px + var(--fs-bump)); letter-spacing:.02em; margin:0 0 10px; }
-  .ff-intro, .ff-description, .ff-erreur{ max-width:64ch; margin:0 auto 16px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; }
-  .ff-description .sf-av, .ff-erreur{ color:var(--red); }
-  .ff-choix{ display:flex; flex-wrap:wrap; gap:12px 18px; justify-content:center; align-items:center; margin:0 0 16px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
-  .ff-choix label{ display:flex; align-items:center; gap:6px; }
-  .ff-choix select{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:5px 6px; font:inherit; }
-  .ff-choix input[type=color]{ width:36px; height:30px; border:1px solid var(--line-strong); background:transparent; padding:2px; }
-  .ff-selecteur{ max-width:470px; margin:0 auto 16px; text-align:left; }
-  .ff-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
-  .ff-apercu{ width:100%; aspect-ratio:16 / 9; border:1px solid var(--line); margin:0 auto 12px; overflow:hidden; }
-  .ff-apercu svg{ display:block; width:100%; height:100%; }
   .format-video{ font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.7); }
   .format-video.indisponible{ color:#ff8a80; }
   .rendu-toggle{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin:0 0 18px; }
   .rendu-toggle button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:8px 14px; cursor:pointer; }
   .rendu-toggle button[aria-pressed="true"]{ border-color:var(--gold); color:var(--gold); }
+  .anim-preset{ border:1px solid rgba(255,255,255,.35); background:transparent; color:rgba(255,255,255,.75); font-size:calc(10px + var(--fs-bump)); padding:5px 8px; cursor:pointer; }
+  #hud input[type=color]{ width:28px; height:24px; border:1px solid rgba(255,255,255,.35); background:transparent; padding:1px; }
   .rendu-lien{ font-size:calc(11px + var(--fs-bump)); color:var(--gold); }
-  .ff-preset{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:7px 11px; cursor:pointer; }
-  .ff-preset:hover{ border-color:var(--gold); color:var(--gold); }
-  .ff-actions{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-  .ff-actions button{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(11px + var(--fs-bump)); padding:9px 14px; cursor:pointer; }
-  .ff-actions button:hover{ border-color:var(--gold); color:var(--gold); }
 </style>
 <link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
+<link rel="stylesheet" href="assets/fond-ecran-fixe.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
 <!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <link rel="icon" href="favicon.ico" sizes="32x32">
@@ -338,6 +332,7 @@
     <button type="button" data-rendu="tricolore" aria-pressed="true">Tricolore</button>
     <button type="button" data-rendu="bicolore" aria-pressed="false">Bicolore — une collection</button>
     <a href="#fondFixe" class="rendu-lien">collection et couleurs : ci-dessous</a>
+    <a href="galerie-animations.html" class="rendu-lien">l'animation fixe de chaque collection : la galerie</a>
   </div>
   <div class="cat-grid" id="catGrid"></div>
 
@@ -348,34 +343,27 @@
     <div>🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.</div>
     <div>🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.</div>
     <div>⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.</div>
-    <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie.</div>
+    <div>🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie. En rendu bicolore, la barre propose à la place les deux couleurs du rendu, fond et figure.</div>
     <div>▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.</div>
-    <div>🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe ci-dessous.</div>
+    <div>🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe, en vecteur, sur la galerie bicolore.</div>
     <div>🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l'écran ; le nom du fichier porte le code de la collection en rendu bicolore. Le format est annoncé dans la barre avant l'enregistrement : si le navigateur n'encode pas le H.264 (Firefox, Chromium), l'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari.</div>
   </div>
 
   <section class="fond-fixe" id="fondFixe" aria-labelledby="ffTitre">
-    <h2 id="ffTitre">Fond d'écran fixe, en vecteur</h2>
-    <p class="ff-intro">Un motif du corpus, lu en deux couleurs (les cases jaunes deviennent les triangles qui complètent la couleur la plus proche), et un fond posé sur chaque case. Une seule image SVG, sans résolution : elle couvre le 1920 × 1080, le 2560 × 1440, la 4K et tout autre écran, pour quelques kilo-octets.</p>
+    <h2 id="ffTitre">Collection et couleurs du rendu bicolore</h2>
+    <p class="ff-intro">Le fond posé sur chaque case et les deux couleurs de l'animation bicolore et de ses vidéos. Les couleurs se règlent aussi dans la barre de l'animation.</p>
     <div class="ff-choix">
-      <label>Famille <select id="ffFamille"></select></label>
-      <label>Hexagramme <select id="ffHex"></select></label>
       <label>Figure <input type="color" id="ffCouleur1"></label>
       <label>Fond <input type="color" id="ffCouleur2"></label>
       <button type="button" class="ff-preset" data-palette="bicolore">Bicolore</button>
       <button type="button" class="ff-preset" data-palette="monochrome">Monochrome</button>
-      <label>Densité <input type="range" id="ffDensite" min="3" max="16" step="1" value="6"> <span id="ffDensiteVal">6</span></label>
     </div>
     <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
     <p class="ff-erreur" id="ffErreur" hidden></p>
-    <div class="ff-apercu" id="ffApercu" role="img" aria-label="Aperçu du fond d'écran fixe, au format 16:9"></div>
-    <p class="ff-description" id="ffDescription"></p>
-    <div class="ff-actions">
-      <button type="button" id="ffSvg">Télécharger le SVG (toutes résolutions)</button>
-      <button type="button" id="ffPng1920">PNG 1920 × 1080</button>
-      <button type="button" id="ffPng2560">PNG 2560 × 1440</button>
-      <button type="button" id="ffPng3840">PNG 3840 × 2160 (4K)</button>
-    </div>
+    <!-- L'outil « fond d'écran fixe, en vecteur » était ici ; il est sur la galerie
+         bicolore depuis le 2026-10-03 (même module, assets/vue-fond-ecran.js). Le
+         lien reste à sa place : une adresse qui y menait y mène encore. -->
+    <p class="ff-deplace" id="ffDeplace"><b>Fond d'écran fixe, en vecteur</b> — un motif en SVG et en PNG jusqu'à la 4K : l'outil est maintenant sur la galerie bicolore. <a id="lienFondFixe" href="galerie-bicolore.html#fondFixe">Ouvrir le fond d'écran fixe</a>, avec la collection et les couleurs choisies ici.</p>
   </section>
 
   </main>
@@ -443,8 +431,19 @@
         <input type="range" id="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;" aria-label="Rythme du mode méditatif (secondes)">
         <span id="rhythmLabel" style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">8 s</span>
       </span>
-      <button id="btnMode">Multicolore</button>
-      <input type="color" id="tintPicker" value="#db694c" title="Choisir une teinte">
+      <!-- teinte : tricolore seulement (la palette à trois couleurs) -->
+      <span class="hud-tricolore" style="display:inline-flex; align-items:center; gap:6px;">
+        <button id="btnMode">Multicolore</button>
+        <input type="color" id="tintPicker" value="#db694c" title="Choisir une teinte">
+      </span>
+      <!-- couleurs : bicolore seulement — les deux couleurs du rendu (c0 fond, c1 figure),
+           demandées au sélecteur de la page, seul à tenir l'état (etat-fond-ecran.js) -->
+      <span class="hud-bicolore" style="display:none; align-items:center; gap:6px;">
+        <label style="display:inline-flex; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Fond <input type="color" id="animC0" title="Couleur du fond (bit 0)"></label>
+        <label style="display:inline-flex; align-items:center; gap:4px; font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Figure <input type="color" id="animC1" title="Couleur de la figure (bit 1)"></label>
+        <button type="button" class="anim-preset" data-palette="bicolore">Crème / encre</button>
+        <button type="button" class="anim-preset" data-palette="monochrome">Monochrome</button>
+      </span>
       <span id="sizeWrap" style="display:inline-flex; align-items:center; gap:6px;">
         <span id="sizeSliderLabel" style="font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.6);">Densité</span>
         <input type="range" id="sizeSlider" aria-labelledby="sizeSliderLabel" min="4" max="32" step="1" value="4" style="width:90px;">
@@ -452,7 +451,7 @@
       <button id="btnReset">↺ Réinitialiser</button>
       <button id="btnFullReactive" title="Basses→teinte, médiums→motif">🌈 Full Réactif</button>
       <button id="btnPause">⏸ Pause</button>
-      <button id="btnFiger" title="Reprendre ce motif dans le fond d'écran fixe, en vecteur">🖼 Figer</button>
+      <button id="btnFiger" title="Reprendre ce motif dans le fond d'écran fixe, en vecteur — sur la galerie bicolore">🖼 Figer</button>
       <span id="recordWrap" style="display:inline-flex; align-items:center; gap:6px;">
         <select id="recordRatio" title="Ratio d'export vidéo">
           <option value="916">9:16 (vertical)</option>
@@ -640,6 +639,16 @@ function buildGridsFor(cat){
     .filter(({grid}) => bicoloreActif() ? window.animationBicolore.lisible(grid) : !hasDarkDiagonal(grid));
 }
 function bicoloreActif(){ return !!(window.animationBicolore && window.animationBicolore.actif); }
+// La barre de l'animation selon le rendu : la teinte en tricolore, les deux
+// couleurs en bicolore — jamais un bouton affiché qui ne répond pas.
+function hudSelonRendu(){
+  const bi = bicoloreActif();
+  document.querySelector('.hud-tricolore').style.display = bi ? 'none' : 'inline-flex';
+  document.querySelector('.hud-bicolore').style.display = bi ? 'inline-flex' : 'none';
+  document.getElementById('btnFullReactive').title = bi
+    ? 'Médiums→motif. En bicolore, les basses ne pilotent pas la teinte : crème et encre sont presque neutres, une rotation ne se verrait pas.'
+    : 'Basses→teinte, médiums→motif';
+}
 
 // --- écran de sélection : mini-aperçu par catégorie ---
 const catGrid = document.getElementById('catGrid');
@@ -721,6 +730,32 @@ let paused = false;
 // jusqu'à ~19 = tuiles resserrées au format de la page Tirage (58px CSS / 116px canvas) sur
 // un écran courant. Contrôlé par le curseur "Densité" du HUD.
 let tileDivisor = 4;
+// La vue de l'animation dans l'URL, pour les deux rendus : ?densite=… (diviseur,
+// 4 par défaut) et ?rythme=… (secondes du mode méditatif, 8 par défaut). Les
+// défauts ne s'écrivent pas. C'est ce qui rend une animation partageable par lien.
+const DENSITE_DEFAUT = 4, RYTHME_DEFAUT = 8;
+function vueDeLUrl(){
+  const q = new URLSearchParams(location.search);
+  const d = parseInt(q.get('densite'), 10), r = parseFloat(q.get('rythme'));
+  return {
+    densite: d >= 4 && d <= 32 ? d : DENSITE_DEFAUT,
+    rythme: r >= 0.5 && r <= 30 && Math.round(r * 2) === r * 2 ? r : RYTHME_DEFAUT,
+  };
+}
+function vueDansLUrl(){
+  const q = new URLSearchParams(location.search);
+  if(tileDivisor !== DENSITE_DEFAUT) q.set('densite', String(tileDivisor)); else q.delete('densite');
+  const r = parseFloat(document.getElementById('rhythmSlider').value);
+  if(r !== RYTHME_DEFAUT) q.set('rythme', String(r)); else q.delete('rythme');
+  history.replaceState(null, '', (q.toString() ? '?' + q : location.pathname) + location.hash);
+}
+(function appliquerVue(){
+  const v = vueDeLUrl();
+  tileDivisor = v.densite;
+  document.getElementById('sizeSlider').value = String(v.densite);
+  document.getElementById('rhythmSlider').value = String(v.rythme);
+  document.getElementById('rhythmLabel').textContent = v.rythme + ' s';
+})();
 
 function stopMeditative(){
   if(meditativeTimer){ clearInterval(meditativeTimer); meditativeTimer = null; }
@@ -767,9 +802,12 @@ function pickNextByProximity(){
     visited = new Set([currentIndex]);
     candidates = currentGrids.map((g,i)=>i).filter(i=>!visited.has(i));
   }
+  // la distance se mesure sur ce qu'on voit : la grille à trois couleurs en
+  // tricolore, la lecture binaire en bicolore (assets/proximite-binaire.js)
+  const distance = bicoloreActif() ? window.animationBicolore.distance : gridDistance;
   let best = candidates[0], bestDist = Infinity;
   for(const i of candidates){
-    const d = gridDistance(currentGrid, currentGrids[i].grid);
+    const d = distance(currentGrid, currentGrids[i].grid);
     if(d < bestDist){ bestDist = d; best = i; }
   }
   currentIndex = best;
@@ -905,6 +943,7 @@ function launch(cat, grids){
   document.getElementById('btnFullReactive').classList.remove('active');
   selectScreen.style.display = 'none';
   stage.style.display = 'block';
+  hudSelonRendu();
   resizeCanvas();
   if(bicoloreActif()){
     // les tuiles de toute la suite, préparées d'avance
@@ -917,12 +956,23 @@ function launch(cat, grids){
   requestAnimationFrame(loop);
 }
 
-// « Figer » : le motif à l'écran passe au fond d'écran fixe (assets/vue-fond-ecran.js).
+// « Figer » : le motif à l'écran passe au fond d'écran fixe, en vecteur — sur la
+// galerie bicolore depuis le déplacement de l'outil (assets/vue-fond-ecran.js).
+// Un motif du corpus part par son adresse (?motif=…), avec le fond et les
+// couleurs ; une grille hors corpus, qui n'a pas d'adresse, par sessionStorage.
 document.getElementById('btnFiger').onclick = ()=>{
   if(currentIndex < 0 || !currentGrids[currentIndex]) return;
   const m = currentGrids[currentIndex];
+  const q = new URLSearchParams(location.search);
+  for(const k of ['rendu', 'teinte', 'densite', 'rythme']) q.delete(k);
+  if(m.subA === 'yang' && m.subB === 'yang_mut' && m.n < 32){
+    q.set('motif', m.fam.replace(/[:+_]/g, '-') + '-h' + m.n);
+  } else {
+    q.delete('motif');
+    try { sessionStorage.setItem('motif-fige', JSON.stringify(m.grid)); } catch(e) { /* sans stockage : le motif de l'URL */ }
+  }
   document.getElementById('btnExit').onclick();
-  window.dispatchEvent(new CustomEvent('figer-motif', { detail: { grid: m.grid, fam: m.fam, subA: m.subA, subB: m.subB, n: m.n } }));
+  location.href = 'galerie-bicolore.html' + (q.toString() ? '?' + q : '') + '#fondFixe';
 };
 
 document.getElementById('btnExit').onclick = ()=>{
@@ -971,6 +1021,7 @@ document.getElementById('btnMeditative').onclick = ()=>{
 };
 document.getElementById('rhythmSlider').oninput = (e)=>{
   document.getElementById('rhythmLabel').textContent = e.target.value + ' s';
+  vueDansLUrl();
   if(meditativeActive) restartMeditativeTimer();
 };
 document.getElementById('fileInput').onchange = (e)=>{
@@ -1173,6 +1224,7 @@ btnMode.onclick = ()=>{
 tintPicker.oninput = refreshPalette;
 document.getElementById('sizeSlider').oninput = (e)=>{
   tileDivisor = parseInt(e.target.value, 10);
+  vueDansLUrl();
   if(currentGrid) drawTessellation(currentGrid);
 };
 
@@ -1200,7 +1252,9 @@ document.getElementById('btnPause').onclick = (e)=>{
     const entry = currentGrids[currentIndex];
     const pn = paireNumberFor(entry.n);
     const pair = PAIRS32[pn];
-    pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n + ' — Paire ' + pn;
+    // en bicolore, la collection et le fond affichés : c'est aussi ce qu'on regarde
+    pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n + ' — Paire ' + pn
+      + (bicoloreActif() ? ' · Collection ' + window.animationBicolore.code() : '');
     pauseInfo.querySelector('.keyword').textContent = pair.keyword;
     pauseInfo.querySelector('.text').textContent = pair.text;
     pauseInfo.classList.add('visible');
@@ -1216,8 +1270,14 @@ document.getElementById('btnReset').onclick = ()=>{
   btnMode.classList.remove('active');
   tintPicker.value = DEFAULT_MONO_HUE;
   refreshPalette();
-  tileDivisor = 4;
-  document.getElementById('sizeSlider').value = 4;
+  tileDivisor = DENSITE_DEFAUT;
+  document.getElementById('sizeSlider').value = DENSITE_DEFAUT;
+  document.getElementById('rhythmSlider').value = RYTHME_DEFAUT;
+  document.getElementById('rhythmLabel').textContent = RYTHME_DEFAUT + ' s';
+  if(meditativeActive) restartMeditativeTimer();
+  vueDansLUrl();
+  // bicolore : retour à crème et encre (assets/couleurs.js), demandé au sélecteur
+  if(bicoloreActif()) window.animationBicolore.reinitialiserCouleurs();
   if(currentGrid) drawTessellation(currentGrid);
 };
 
@@ -1293,11 +1353,15 @@ function loop(){
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
 <script type="module">
-// Le fond d'écran fixe : le sélecteur de fond commun (assets/selecteur-fonds.js)
-// et la sortie vectorielle du moteur — voir assets/vue-fond-ecran.js.
-import { monterFondEcran } from './assets/vue-fond-ecran.js';
+// Le pilote du rendu bicolore : le sélecteur de collection et de couleurs
+// (assets/vue-fond-ecran.js, le module de l'outil « fond d'écran fixe », monté
+// ici sans l'outil), seul écrivain de l'état partagé (assets/etat-fond-ecran.js),
+// et l'animation bicolore, qui le lit par import.
+import { monterPiloteBicolore } from './assets/vue-fond-ecran.js';
 import { monterAnimationBicolore } from './assets/animation-bicolore.js';
-monterFondEcran(document.getElementById('fondFixe')).then(() => {
+import { abonner } from './assets/etat-fond-ecran.js';
+import { PALETTES } from './assets/couleurs.js';
+monterPiloteBicolore(document.getElementById('fondFixe')).then(() => {
   // l'animation bicolore : la même animation, la tuile du moteur
   const boutons = [...document.querySelectorAll('#renduToggle button')];
   const marquer = (oui) => boutons.forEach((b) => b.setAttribute('aria-pressed', String((b.dataset.rendu === 'bicolore') === oui)));
@@ -1308,6 +1372,23 @@ monterFondEcran(document.getElementById('fondFixe')).then(() => {
   boutons.forEach((b) => b.addEventListener('click', () => window.animationBicolore.basculer(b.dataset.rendu === 'bicolore')));
   marquer(window.animationBicolore.actif);
   if (window.animationBicolore.actif) window.construireCartes();
+
+  // les deux couleurs dans la barre de l'animation : elles suivent l'état, et
+  // le changent en le demandant au sélecteur
+  const c0 = document.getElementById('animC0'), c1 = document.getElementById('animC1');
+  const demander = () => window.animationBicolore.definirPalette([c0.value, c1.value]);
+  c0.addEventListener('input', demander);
+  c1.addEventListener('input', demander);
+  for (const b of document.querySelectorAll('.anim-preset')) b.addEventListener('click', () => window.animationBicolore.definirPalette([...PALETTES[b.dataset.palette]]));
+  // le lien vers l'outil déplacé porte la collection et les couleurs du moment
+  const lien = document.getElementById('lienFondFixe');
+  abonner((e) => {
+    [c0.value, c1.value] = e.palette;
+    const q = new URLSearchParams(location.search);
+    const garde = new URLSearchParams();
+    for (const k of ['fond', 'sup', 'c0', 'c1']) if (q.has(k)) garde.set(k, q.get(k));
+    lien.href = 'galerie-bicolore.html' + (garde.toString() ? '?' + garde : '') + '#fondFixe';
+  });
 }).catch((e) => {
   document.getElementById('ffErreur').hidden = false;
   document.getElementById('ffErreur').textContent = 'Erreur de chargement : ' + e.message;
