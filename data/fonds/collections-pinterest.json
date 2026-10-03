@@ -3,12 +3,12 @@
  "collections": {
   "P": {
    "palette": [
-    "#ee2a7b",
-    "#662d91"
+    "#f2f2f0",
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-02",
+   "exportee": "2026-10-03",
    "rang": null,
    "recette": {
     "algorithme": "proche-binaire-v1",
@@ -32,7 +32,17 @@
      "par2-yin-mut-yang-mut-h14",
      "par2-yin-mut-yang-mut-h10"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#ee2a7b",
+      "#662d91"
+     ],
+     "exportee": "2026-10-02",
+     "dossier": "assets/motifs-pinterest/anciennes/P-ee2a7b-662d91"
+    }
+   ]
   },
   "B2D": {
    "palette": [
@@ -65,7 +75,17 @@
      "par3-sans-yang-h25",
      "par3-sans-yang-h17"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#f2f2f0",
+      "#000000"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2D-f2f2f0-000000"
+    }
+   ]
   },
   "B2": {
    "palette": [
