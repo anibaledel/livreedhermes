@@ -19,7 +19,11 @@
 // d'une collection à l'autre — seul le segment <code> change.
 //
 // Usage :
-//   CHROMIUM_PATH=… node tools/export_pinterest_fonds.mjs <code> [--limite N] [--sortie DIR]
+//   CHROMIUM_PATH=… node tools/export_pinterest_fonds.mjs <code> [--palette c0,c1] [--limite N] [--sortie DIR]
+//   --palette : [bit 0, bit 1], par défaut le bicolore d'assets/couleurs.js.
+// La palette d'une collection exportée s'enregistre dans
+// data/fonds/collections-pinterest.json : tools/check_export_pinterest.mjs
+// ouvre la page dans ces couleurs (?c0=…&c1=…) pour la comparer.
 //   <code> : un fond de data/fonds/collection-v1.json, ou fond+superposition
 //            (B3D+E95). Exemple : node tools/export_pinterest_fonds.mjs P
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
@@ -27,6 +31,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { servirDepot, lignesCanoniques, grilleDeLaPage } from './lib_fonds_site.mjs';
+import { PALETTE_DEFAUT } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -34,6 +39,9 @@ const code = args[0];
 if (!code || code.startsWith('--')) { console.error('Usage : node tools/export_pinterest_fonds.mjs <code> [--limite N] [--sortie DIR]'); process.exit(2); }
 const limite = args.includes('--limite') ? Number(args[args.indexOf('--limite') + 1]) : Infinity;
 const sortie = args.includes('--sortie') ? args[args.indexOf('--sortie') + 1] : path.join(ROOT, 'assets/motifs-pinterest', code);
+const palette = args.includes('--palette') ? args[args.indexOf('--palette') + 1].split(',').map((c) => `#${c.replace('#', '').toLowerCase()}`) : [...PALETTE_DEFAUT];
+if (palette.length !== 2 || palette.some((c) => !/^#[0-9a-f]{6}$/.test(c))) { console.error('--palette : deux couleurs rrggbb, fond puis figure'); process.exit(2); }
+const manifeste = path.join(ROOT, 'data/fonds/collections-pinterest.json');
 
 const lignes = lignesCanoniques(ROOT).slice(0, limite);
 const serveur = await servirDepot(ROOT);
@@ -44,7 +52,7 @@ mkdirSync(sortie, { recursive: true });
 let n = 0;
 for (const l of lignes) {
   const grille = grilleDeLaPage(ROOT, l.page);
-  const b64 = await page.evaluate(async ({ grille, code, nom }) => {
+  const b64 = await page.evaluate(async ({ grille, code, nom, palette }) => {
     const { chargerCollection, imagePinterestSvg, decomposer, FORMAT_PINTEREST } = await import('/assets/bicolore-fonds.js');
     const { lectureBinaire } = await import('/assets/lecture-binaire.js');
     const { superposition } = await import('/assets/selecteur-fonds.js');
@@ -56,17 +64,22 @@ for (const l of lignes) {
     if (!fond) throw new Error(`fond ${d.fond} absent de la collection`);
     const sup = d.superposition ? superposition(d.glyphe, d.echelle, { ...col, glyphes: calculs.glyphes }) : null;
     const { cases } = lectureBinaire(grille, nom);
-    // les couleurs par défaut des pages de motifs : bit 0 = couleur 2, bit 1 = couleur 1
-    const svg = imagePinterestSvg(cases, ['#ee2a7b', '#662d91'], fond, { superposition: sup });
+    const svg = imagePinterestSvg(cases, palette, fond, { superposition: sup });
     const blob = await svgEnPng(svg, FORMAT_PINTEREST.largeur, FORMAT_PINTEREST.hauteur);
     const octets = new Uint8Array(await blob.arrayBuffer());
     let s = '';
     for (let i = 0; i < octets.length; i += 0x8000) s += String.fromCharCode(...octets.subarray(i, i + 0x8000));
     return btoa(s);
-  }, { grille, code, nom: l.page });
+  }, { grille, code, nom: l.page, palette });
   writeFileSync(path.join(sortie, l.fichier), Buffer.from(b64, 'base64'));
   if (++n % 32 === 0) console.log(`${n} / ${lignes.length}`);
 }
 await navigateur.close();
 serveur.fermer();
+// la palette de la collection, enregistrée (export complet dans le dépôt seulement)
+if (!args.includes('--sortie') && n === 256) {
+  const m = JSON.parse(readFileSync(manifeste, 'utf8'));
+  m.collections[code] = { palette, images: n, format: '1000 × 1500', exportee: new Date().toISOString().slice(0, 10) };
+  writeFileSync(manifeste, JSON.stringify(m, null, 1) + '\n');
+}
 console.log(`Écrit : ${n} images dans ${path.relative(ROOT, sortie)}/ (code ${code}, 1000 × 1500).`);

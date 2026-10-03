@@ -16,6 +16,7 @@ import { chargerCollection, fondEcranSvg } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './selecteur-fonds.js';
 import { svgEnPng, telecharger } from './vue-fond-motif.js';
+import { PALETTES, paletteDeLUrl, paletteDansLUrl } from './couleurs.js';
 
 // Les huit familles du corpus (pages de motifs), dans leur ordre, et leur
 // adresse — la même que scripts/generate-motif-pages.js (motifSlug).
@@ -55,6 +56,9 @@ export async function monterFondEcran(racine) {
   $('#ffFamille').innerHTML = FAMILLES.map((f) => `<option value="${f}">${libelleFamille(f)}</option>`).join('');
   $('#ffHex').innerHTML = Array.from({ length: 32 }, (_, i) => `<option value="${i}">h${i}</option>`).join('');
   $('#ffFamille').value = fam; $('#ffHex').value = String(n);
+  // couleurs : le bicolore noir sur crème d'assets/couleurs.js par défaut ;
+  // ffCouleur2 = le fond (bit 0), ffCouleur1 = la figure (bit 1)
+  [$('#ffCouleur2').value, $('#ffCouleur1').value] = paletteDeLUrl();
   const palette = () => [$('#ffCouleur2').value, $('#ffCouleur1').value];
   const densite = () => Number($('#ffDensite').value);
 
@@ -93,7 +97,9 @@ export async function monterFondEcran(racine) {
   $('#ffFamille').addEventListener('change', () => { fam = $('#ffFamille').value; libre = null; lire(); dessiner(); });
   $('#ffHex').addEventListener('change', () => { n = Number($('#ffHex').value); libre = null; lire(); dessiner(); });
   $('#ffDensite').addEventListener('input', () => { $('#ffDensiteVal').textContent = String(densite()); dessiner(); });
-  for (const c of ['#ffCouleur1', '#ffCouleur2']) $(c).addEventListener('input', () => { sel.setPalette(palette()); dessiner(); });
+  const changerCouleurs = () => { paletteDansLUrl(palette()); sel.setPalette(palette()); dessiner(); };
+  for (const c of ['#ffCouleur1', '#ffCouleur2']) $(c).addEventListener('input', changerCouleurs);
+  for (const b of racine.querySelectorAll('.ff-preset')) b.addEventListener('click', () => { [$('#ffCouleur2').value, $('#ffCouleur1').value] = PALETTES[b.dataset.palette]; changerCouleurs(); });
   $('#ffSvg').addEventListener('click', () => {
     if (!cases) return;
     const e = sel.etat();

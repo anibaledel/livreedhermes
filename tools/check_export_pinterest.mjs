@@ -13,6 +13,7 @@
 // Usage : CHROMIUM_PATH=… node tools/check_export_pinterest.mjs [base] [--code P] [--echantillon 8]
 //   base : https://anibal-amiot.com par défaut ; « local » sert le dépôt.
 import path from 'node:path';
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { servirDepot, lignesCanoniques } from './lib_fonds_site.mjs';
@@ -37,7 +38,12 @@ while (echantillon.length < Math.min(taille, lignes.length)) {
   if (!echantillon.includes(l)) echantillon.push(l);
 }
 const [fond, sup] = code.split('+');
-const requete = `?fond=${encodeURIComponent(fond)}${sup ? `&sup=${encodeURIComponent(sup)}` : ''}`;
+// les couleurs de la collection, telles qu'exportées
+const manifeste = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
+const collection = manifeste.collections[code];
+if (!collection) { console.error(`collection ${code} absente de data/fonds/collections-pinterest.json`); process.exit(2); }
+const [c0, c1] = collection.palette.map((c) => c.replace('#', ''));
+const requete = `?fond=${encodeURIComponent(fond)}${sup ? `&sup=${encodeURIComponent(sup)}` : ''}&c0=${c0}&c1=${c1}`;
 
 const navigateur = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
 const echecs = [];

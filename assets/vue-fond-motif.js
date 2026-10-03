@@ -13,19 +13,20 @@
 import { chargerCollection, motifSvg, pavageSvg, imagePinterestSvg, FORMAT_PINTEREST } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
 import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './selecteur-fonds.js';
+import { PALETTES, paletteDeLUrl, paletteDansLUrl } from './couleurs.js';
 
 const TEXTES = {
   fr: {
     titre: 'Fond de case — lecture binaire',
     intro: (s) => `Les cases jaunes deviennent des triangles qui complètent la couleur la plus proche : ${s.jaunesPleins} cases jaunes pleines, ${s.coupees} coupées en deux, ${s.selles} coupées en quatre aux croisements. Le fond choisi se pose sur les cases pleines ; les cases coupées gardent leurs triangles.`,
-    fond: 'Fond', cellule: 'Cellule', pavage: 'Pavage',
+    fond: 'Fond', cellule: 'Cellule', pavage: 'Pavage', c0: 'Couleur du fond', c1: 'Couleur de la figure', bicolore: 'Bicolore', monochrome: 'Monochrome',
     dlSvg: 'Télécharger le pavage (SVG)', dlPng: 'Image Pinterest (PNG 1000 × 1500)',
     indefini: (m) => `La lecture binaire n'est pas définie pour ce motif : ${m}`,
   },
   en: {
     titre: 'Cell ground — binary reading',
     intro: (s) => `Yellow cells become triangles that complete the nearest colour: ${s.jaunesPleins} solid yellow cells, ${s.coupees} split in two, ${s.selles} split in four at the crossings. The chosen ground sits on the solid cells; split cells keep their triangles.`,
-    fond: 'Ground', cellule: 'Cell', pavage: 'Tiling',
+    fond: 'Ground', cellule: 'Cell', pavage: 'Tiling', c0: 'Ground colour', c1: 'Figure colour', bicolore: 'Two-colour', monochrome: 'Monochrome',
     dlSvg: 'Download the tiling (SVG)', dlPng: 'Pinterest image (PNG 1000 × 1500)',
     indefini: (m) => `The binary reading is not defined for this motif: ${m}`,
   },
@@ -121,9 +122,10 @@ export function telecharger(blob, nom) {
 }
 
 // racine : l'élément qui reçoit la vue. grille : 12 × 12 classes V/M/O
-// (la grille que la page affiche). palette() : [bit 0, bit 1] — magenta,
-// violet par défaut (couleurs 2 et 1 du tricolore).
-export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr', palette = () => ['#ee2a7b', '#662d91'] }) {
+// (la grille que la page affiche). Couleurs : [bit 0, bit 1], par défaut le
+// bicolore noir sur crème d'assets/couleurs.js (le jeu de constantes
+// unique), réglables, et dans l'URL (?c0=…&c1=…) quand elles en diffèrent.
+export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr' }) {
   const T = TEXTES[lang] || TEXTES.fr;
   let lecture;
   try { lecture = lectureBinaire(grille, nom); } catch (e) {
@@ -134,6 +136,12 @@ export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr', pa
   racine.innerHTML = `
     <h2>${T.titre}</h2>
     <p class="vf-intro">${T.intro(lecture.stats)}</p>
+    <div class="vf-couleurs">
+      <label>${T.c0} <input type="color" class="vf-c0"></label>
+      <label>${T.c1} <input type="color" class="vf-c1"></label>
+      <button type="button" class="vf-preset" data-palette="bicolore">${T.bicolore}</button>
+      <button type="button" class="vf-preset" data-palette="monochrome">${T.monochrome}</button>
+    </div>
     <div class="vf-selecteur"><div class="vf-libelle">${T.fond}</div><div class="vf-sf"></div></div>
     <div class="renders">
       <div class="render-box"><div class="render-label">${T.cellule}</div><div class="vf-cellule"></div></div>
@@ -142,6 +150,9 @@ export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr', pa
         <button type="button" class="cta-like vf-dl-png">${T.dlPng}</button></div>
     </div>
     <p class="vf-description"></p>`;
+  const c0 = racine.querySelector('.vf-c0'), c1 = racine.querySelector('.vf-c1');
+  [c0.value, c1.value] = paletteDeLUrl();
+  const palette = () => [c0.value, c1.value];
   const { collection, glyphes } = await charger();
   let sel = null;
   const etat = () => sel.etat();
@@ -171,8 +182,11 @@ export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr', pa
     // L'image Pinterest de ce motif dans ce fond, telle que l'export la
     // produit (même fonction) — pour la vérification sur le site.
     svgPinterest,
-    setPalette() { sel.setPalette(palette()); dessiner(); },
+    palette,
   };
+  const changerCouleurs = () => { paletteDansLUrl(palette()); sel.setPalette(palette()); dessiner(); };
+  for (const el of [c0, c1]) el.addEventListener('input', changerCouleurs);
+  for (const b of racine.querySelectorAll('.vf-preset')) b.addEventListener('click', () => { [c0.value, c1.value] = PALETTES[b.dataset.palette]; changerCouleurs(); });
   window.selecteurFonds = sel;
   window.fondsMotif = api;
   return api;

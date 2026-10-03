@@ -147,6 +147,7 @@ import {
   ELEMENTS_DE_ANGLE, ANGLES_DIAGONAUX, doubleAccord, RACINES_FIXES,
 } from './assets/bicolore-axes.js';
 import { chargerCollection, motifSvg } from './assets/bicolore-fonds.js';
+import { PALETTE_DEFAUT } from './assets/couleurs.js';
 import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './assets/selecteur-fonds.js';
 
 // ---------- i18n minimal (FR/EN rédigés ; ES/TH en repli FR, voir docs/i18n/i18n_todo_creation-bicolore-v2.md) ----------
@@ -201,7 +202,8 @@ let grain = 'C8';   // 'C8' | 'C1' | 'C4'
 let selection = new Set();
 let derniereFusion = false; // true juste apres un "Descendre" qui a fusionne des elements
 let AXES_V1 = null, GENV2 = null, GENV2_JSON = null;
-const PALETTE = ['#f2f2f0', '#e0261b'];
+// Les couleurs par défaut du bicolore : le jeu de constantes unique, assets/couleurs.js.
+const PALETTE = [...PALETTE_DEFAUT];
 // Le fond (et sa superposition) : un seul composant, assets/selecteur-fonds.js.
 // L'aplat P reste le défaut et le rendu de référence ; les fonds se posent
 // sur la lecture C1 (un bit par case). L'état part dans l'URL : ?fond=B3D&sup=E95.

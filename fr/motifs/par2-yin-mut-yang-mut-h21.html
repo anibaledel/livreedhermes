@@ -77,6 +77,11 @@
   .vue-fond h2{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 12px; text-align:center; }
   .vue-fond .vf-intro, .vue-fond .vf-description{ max-width:64ch; margin:0 auto 18px; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; text-align:center; }
   .vue-fond .vf-selecteur{ max-width:470px; margin:0 auto 20px; }
+  .vue-fond .vf-couleurs{ display:flex; flex-wrap:wrap; gap:10px 16px; justify-content:center; align-items:center; margin:0 auto 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.04em; color:var(--dim); }
+  .vue-fond .vf-couleurs label{ display:flex; align-items:center; gap:6px; }
+  .vue-fond .vf-couleurs input[type=color]{ border:1px solid var(--line-strong); background:transparent; padding:3px; width:40px; height:34px; cursor:pointer; }
+  .vue-fond .vf-preset{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:8px 12px; cursor:pointer; }
+  .vue-fond .vf-preset:hover{ border-color:var(--gold); color:var(--gold); }
   .vue-fond .vf-libelle{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; margin:0 0 8px; }
   .vue-fond .render-box > div > svg{ width:100%; height:auto; display:block; margin:0 auto 10px; }
   .vue-fond .sf-av{ color:var(--red); }
@@ -1152,17 +1157,11 @@
 </script>
 <script type="module">
 // La vue « fond de case » : lecture binaire du motif de cette page, sélecteur
-// de fond (le composant commun, assets/selecteur-fonds.js) et rendus du
-// moteur — voir assets/vue-fond-motif.js. Couleurs : celles du tricolore
-// (bit 1 = couleur 1, bit 0 = couleur 2).
+// de fond (le composant commun, assets/selecteur-fonds.js), couleurs par
+// défaut d'assets/couleurs.js, rendus du moteur — voir assets/vue-fond-motif.js.
 import { monterVueFond } from '../../assets/vue-fond-motif.js';
 const DATA = JSON.parse(document.getElementById('motifDataJSON').textContent);
-const c1 = document.getElementById('triColor1'), c2 = document.getElementById('triColor2');
-const vue = await monterVueFond(document.getElementById('vueFond'), { grille: DATA.grille_polarite_yang, nom: 'par2-yin-mut-yang-mut-h21', slug: 'par2-yin-mut-yang-mut-h21', lang: 'fr', palette: () => [c2.value, c1.value] });
-if (vue) {
-  for (const el of [c1, c2]) el.addEventListener('input', () => vue.setPalette());
-  document.getElementById('btnResetTri').addEventListener('click', () => vue.setPalette());
-}
+await monterVueFond(document.getElementById('vueFond'), { grille: DATA.grille_polarite_yang, nom: 'par2-yin-mut-yang-mut-h21', slug: 'par2-yin-mut-yang-mut-h21', lang: 'fr' });
 </script>
 <script src="../../assets/share-widget.js"></script>
 <script src="../../assets/soutien-gate.js"></script>

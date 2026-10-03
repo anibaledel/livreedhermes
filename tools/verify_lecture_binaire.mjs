@@ -36,13 +36,14 @@ import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import { chargerCollection, motifSvg, bitsDuSvg, APLAT } from '../assets/bicolore-fonds.js';
 import { grilleDuMotif, slugDe, FAMILLES } from '../assets/vue-fond-ecran.js';
+import { PALETTE_DEFAUT } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIR = path.join(ROOT, 'motifs');
 const fichiers = readdirSync(DIR).filter((f) => /-h\d+\.html$/.test(f)).sort();
 const grilleDe = (f) => JSON.parse(readFileSync(path.join(DIR, f), 'utf8').match(/<script id="motifDataJSON" type="application\/json">(.*?)<\/script>/s)[1]).grille_polarite_yang;
 const collection = chargerCollection(JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collection-v1.json'), 'utf8')));
-const palette = ['#ee2a7b', '#662d91']; // bit 0 = magenta, bit 1 = violet
+const palette = [...PALETTE_DEFAUT]; // assets/couleurs.js
 
 // ---------- l'implémentation naïve, à trois branches (test 12) ----------
 function naive(grille) {

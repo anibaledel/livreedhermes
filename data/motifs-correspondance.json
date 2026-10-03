@@ -1,0 +1,1541 @@
+{
+ "_doc": "Le nom d'image (<fichier>, colonne « fichier » de data/motifs-index.csv, source des épingles programmées — ne se renomme pas) et l'adresse de la page d'un même motif. Le fichier nomme la catégorie et la paire de grilles lue (yang / yang mutante) ; la page nomme la famille. Exemple : motif-000-bases-yang-yang-mut-n0 = motifs/bases-yang-mut-h0.html. Engendré et vérifié par tools/correspondance_motifs.mjs.",
+ "motifs": [
+  {
+   "fichier": "motif-000-bases-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h0.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-001-bases-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h1.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-002-bases-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h2.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-003-bases-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h3.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-004-bases-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h4.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-005-bases-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h5.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-006-bases-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h6.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-007-bases-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h7.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-008-bases-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h8.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-009-bases-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h9.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-010-bases-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h10.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-011-bases-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h11.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-012-bases-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h12.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-013-bases-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h13.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-014-bases-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h14.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-015-bases-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h15.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-016-bases-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h16.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-017-bases-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h17.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-018-bases-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h18.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-019-bases-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h19.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-020-bases-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h20.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-021-bases-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h21.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-022-bases-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h22.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-023-bases-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h23.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-024-bases-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h24.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-025-bases-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h25.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-026-bases-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h26.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-027-bases-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h27.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-028-bases-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h28.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-029-bases-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h29.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-030-bases-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h30.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-031-bases-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/bases-yang-mut-h31.html",
+   "famille": "bases:yang_mut",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-128-bases-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/bases-yang-h0.html",
+   "famille": "bases:yang",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-129-bases-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/bases-yang-h1.html",
+   "famille": "bases:yang",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-130-bases-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/bases-yang-h2.html",
+   "famille": "bases:yang",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-131-bases-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/bases-yang-h3.html",
+   "famille": "bases:yang",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-132-bases-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/bases-yang-h4.html",
+   "famille": "bases:yang",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-133-bases-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/bases-yang-h5.html",
+   "famille": "bases:yang",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-134-bases-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/bases-yang-h6.html",
+   "famille": "bases:yang",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-135-bases-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/bases-yang-h7.html",
+   "famille": "bases:yang",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-136-bases-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/bases-yang-h8.html",
+   "famille": "bases:yang",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-137-bases-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/bases-yang-h9.html",
+   "famille": "bases:yang",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-138-bases-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/bases-yang-h10.html",
+   "famille": "bases:yang",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-139-bases-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/bases-yang-h11.html",
+   "famille": "bases:yang",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-140-bases-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/bases-yang-h12.html",
+   "famille": "bases:yang",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-141-bases-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/bases-yang-h13.html",
+   "famille": "bases:yang",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-142-bases-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/bases-yang-h14.html",
+   "famille": "bases:yang",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-143-bases-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/bases-yang-h15.html",
+   "famille": "bases:yang",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-144-bases-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/bases-yang-h16.html",
+   "famille": "bases:yang",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-145-bases-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/bases-yang-h17.html",
+   "famille": "bases:yang",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-146-bases-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/bases-yang-h18.html",
+   "famille": "bases:yang",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-147-bases-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/bases-yang-h19.html",
+   "famille": "bases:yang",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-148-bases-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/bases-yang-h20.html",
+   "famille": "bases:yang",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-149-bases-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/bases-yang-h21.html",
+   "famille": "bases:yang",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-150-bases-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/bases-yang-h22.html",
+   "famille": "bases:yang",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-151-bases-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/bases-yang-h23.html",
+   "famille": "bases:yang",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-152-bases-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/bases-yang-h24.html",
+   "famille": "bases:yang",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-153-bases-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/bases-yang-h25.html",
+   "famille": "bases:yang",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-154-bases-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/bases-yang-h26.html",
+   "famille": "bases:yang",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-155-bases-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/bases-yang-h27.html",
+   "famille": "bases:yang",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-156-bases-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/bases-yang-h28.html",
+   "famille": "bases:yang",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-157-bases-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/bases-yang-h29.html",
+   "famille": "bases:yang",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-158-bases-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/bases-yang-h30.html",
+   "famille": "bases:yang",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-159-bases-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/bases-yang-h31.html",
+   "famille": "bases:yang",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-256-par2-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h0.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-257-par2-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h1.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-258-par2-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h2.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-259-par2-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h3.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-260-par2-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h4.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-261-par2-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h5.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-262-par2-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h6.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-263-par2-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h7.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-264-par2-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h8.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-265-par2-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h9.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-266-par2-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h10.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-267-par2-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h11.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-268-par2-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h12.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-269-par2-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h13.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-270-par2-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h14.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-271-par2-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h15.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-272-par2-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h16.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-273-par2-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h17.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-274-par2-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h18.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-275-par2-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h19.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-276-par2-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h20.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-277-par2-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h21.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-278-par2-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h22.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-279-par2-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h23.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-280-par2-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h24.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-281-par2-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h25.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-282-par2-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h26.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-283-par2-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h27.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-284-par2-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h28.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-285-par2-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h29.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-286-par2-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h30.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-287-par2-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par2-yang-yin-mut-h31.html",
+   "famille": "par2:yang+yin_mut",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-384-par2-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h0.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-385-par2-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h1.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-386-par2-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h2.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-387-par2-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h3.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-388-par2-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h4.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-389-par2-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h5.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-390-par2-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h6.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-391-par2-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h7.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-392-par2-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h8.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-393-par2-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h9.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-394-par2-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h10.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-395-par2-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h11.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-396-par2-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h12.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-397-par2-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h13.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-398-par2-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h14.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-399-par2-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h15.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-400-par2-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h16.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-401-par2-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h17.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-402-par2-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h18.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-403-par2-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h19.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-404-par2-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h20.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-405-par2-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h21.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-406-par2-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h22.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-407-par2-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h23.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-408-par2-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h24.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-409-par2-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h25.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-410-par2-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h26.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-411-par2-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h27.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-412-par2-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h28.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-413-par2-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h29.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-414-par2-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h30.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-415-par2-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par2-yin-mut-yang-mut-h31.html",
+   "famille": "par2:yin_mut+yang_mut",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-512-par2-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h0.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-513-par2-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h1.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-514-par2-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h2.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-515-par2-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h3.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-516-par2-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h4.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-517-par2-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h5.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-518-par2-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h6.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-519-par2-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h7.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-520-par2-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h8.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-521-par2-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h9.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-522-par2-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h10.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-523-par2-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h11.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-524-par2-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h12.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-525-par2-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h13.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-526-par2-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h14.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-527-par2-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h15.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-528-par2-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h16.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-529-par2-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h17.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-530-par2-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h18.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-531-par2-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h19.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-532-par2-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h20.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-533-par2-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h21.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-534-par2-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h22.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-535-par2-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h23.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-536-par2-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h24.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-537-par2-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h25.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-538-par2-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h26.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-539-par2-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h27.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-540-par2-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h28.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-541-par2-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h29.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-542-par2-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h30.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-543-par2-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-h31.html",
+   "famille": "par2:yin+yang",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-640-par2-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h0.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-641-par2-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h1.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-642-par2-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h2.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-643-par2-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h3.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-644-par2-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h4.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-645-par2-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h5.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-646-par2-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h6.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-647-par2-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h7.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-648-par2-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h8.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-649-par2-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h9.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-650-par2-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h10.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-651-par2-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h11.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-652-par2-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h12.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-653-par2-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h13.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-654-par2-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h14.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-655-par2-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h15.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-656-par2-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h16.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-657-par2-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h17.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-658-par2-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h18.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-659-par2-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h19.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-660-par2-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h20.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-661-par2-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h21.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-662-par2-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h22.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-663-par2-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h23.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-664-par2-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h24.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-665-par2-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h25.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-666-par2-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h26.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-667-par2-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h27.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-668-par2-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h28.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-669-par2-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h29.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-670-par2-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h30.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-671-par2-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par2-yin-yang-mut-h31.html",
+   "famille": "par2:yin+yang_mut",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-768-par3-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h0.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-769-par3-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h1.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-770-par3-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h2.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-771-par3-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h3.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-772-par3-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h4.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-773-par3-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h5.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-774-par3-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h6.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-775-par3-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h7.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-776-par3-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h8.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-777-par3-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h9.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-778-par3-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h10.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-779-par3-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h11.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-780-par3-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h12.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-781-par3-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h13.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-782-par3-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h14.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-783-par3-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h15.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-784-par3-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h16.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-785-par3-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h17.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-786-par3-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h18.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-787-par3-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h19.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-788-par3-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h20.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-789-par3-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h21.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-790-par3-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h22.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-791-par3-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h23.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-792-par3-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h24.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-793-par3-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h25.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-794-par3-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h26.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-795-par3-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h27.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-796-par3-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h28.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-797-par3-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h29.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-798-par3-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h30.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-799-par3-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-h31.html",
+   "famille": "par3:sans_yang",
+   "hexagramme": 31
+  },
+  {
+   "fichier": "motif-896-par3-yang-yang-mut-n0-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h0.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 0
+  },
+  {
+   "fichier": "motif-897-par3-yang-yang-mut-n1-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h1.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 1
+  },
+  {
+   "fichier": "motif-898-par3-yang-yang-mut-n2-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h2.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 2
+  },
+  {
+   "fichier": "motif-899-par3-yang-yang-mut-n3-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h3.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 3
+  },
+  {
+   "fichier": "motif-900-par3-yang-yang-mut-n4-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h4.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 4
+  },
+  {
+   "fichier": "motif-901-par3-yang-yang-mut-n5-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h5.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 5
+  },
+  {
+   "fichier": "motif-902-par3-yang-yang-mut-n6-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h6.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 6
+  },
+  {
+   "fichier": "motif-903-par3-yang-yang-mut-n7-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h7.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 7
+  },
+  {
+   "fichier": "motif-904-par3-yang-yang-mut-n8-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h8.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 8
+  },
+  {
+   "fichier": "motif-905-par3-yang-yang-mut-n9-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h9.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 9
+  },
+  {
+   "fichier": "motif-906-par3-yang-yang-mut-n10-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h10.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 10
+  },
+  {
+   "fichier": "motif-907-par3-yang-yang-mut-n11-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h11.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 11
+  },
+  {
+   "fichier": "motif-908-par3-yang-yang-mut-n12-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h12.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 12
+  },
+  {
+   "fichier": "motif-909-par3-yang-yang-mut-n13-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h13.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 13
+  },
+  {
+   "fichier": "motif-910-par3-yang-yang-mut-n14-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h14.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 14
+  },
+  {
+   "fichier": "motif-911-par3-yang-yang-mut-n15-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h15.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 15
+  },
+  {
+   "fichier": "motif-912-par3-yang-yang-mut-n16-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h16.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 16
+  },
+  {
+   "fichier": "motif-913-par3-yang-yang-mut-n17-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h17.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 17
+  },
+  {
+   "fichier": "motif-914-par3-yang-yang-mut-n18-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h18.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 18
+  },
+  {
+   "fichier": "motif-915-par3-yang-yang-mut-n19-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h19.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 19
+  },
+  {
+   "fichier": "motif-916-par3-yang-yang-mut-n20-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h20.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 20
+  },
+  {
+   "fichier": "motif-917-par3-yang-yang-mut-n21-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h21.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 21
+  },
+  {
+   "fichier": "motif-918-par3-yang-yang-mut-n22-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h22.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 22
+  },
+  {
+   "fichier": "motif-919-par3-yang-yang-mut-n23-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h23.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 23
+  },
+  {
+   "fichier": "motif-920-par3-yang-yang-mut-n24-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h24.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 24
+  },
+  {
+   "fichier": "motif-921-par3-yang-yang-mut-n25-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h25.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 25
+  },
+  {
+   "fichier": "motif-922-par3-yang-yang-mut-n26-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h26.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 26
+  },
+  {
+   "fichier": "motif-923-par3-yang-yang-mut-n27-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h27.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 27
+  },
+  {
+   "fichier": "motif-924-par3-yang-yang-mut-n28-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h28.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 28
+  },
+  {
+   "fichier": "motif-925-par3-yang-yang-mut-n29-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h29.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 29
+  },
+  {
+   "fichier": "motif-926-par3-yang-yang-mut-n30-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h30.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 30
+  },
+  {
+   "fichier": "motif-927-par3-yang-yang-mut-n31-violet-magenta.png",
+   "page": "motifs/par3-sans-yang-mut-h31.html",
+   "famille": "par3:sans_yang_mut",
+   "hexagramme": 31
+  }
+ ]
+}
