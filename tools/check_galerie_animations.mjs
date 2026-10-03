@@ -135,9 +135,41 @@ if (h264) {
     sorties.push(await pv.evaluate(() => { const g = window.derniereGeneration; window.derniereGeneration = null; return g; }));
     sorties[i].nomTelecharge = fichier.suggestedFilename();
   }
-  if (sorties[0].sha256 !== sorties[1].sha256) echec(`niveau 2 : deux générations de la même recette et de la même vue diffèrent (${sorties[0].sha256.slice(0, 16)} / ${sorties[1].sha256.slice(0, 16)})`);
+  const comparer = (a, b) => {
+    const n = Math.max(a.length, b.length);
+    const diff = [];
+    for (let i = 0; i < n; i++) if (!a[i] || !b[i] || a[i].h !== b[i].h || a[i].taille !== b[i].taille) diff.push(i);
+    return { a: a.length, b: b.length, differents: diff.length, premier: diff.length ? { i: diff[0], ...(a[diff[0]] || {}), tailleB: b[diff[0]] && b[diff[0]].taille } : null };
+  };
+  const cmp = comparer(sorties[0].morceaux, sorties[1].morceaux);
+  if (sorties[0].sha256 !== sorties[1].sha256) {
+    echec(`niveau 2 : deux générations de la même recette et de la même vue diffèrent (${sorties[0].sha256.slice(0, 16)} / ${sorties[1].sha256.slice(0, 16)}) — mode ${sorties[0].mode} ; morceaux encodés ${cmp.a} / ${cmp.b}, ${cmp.differents} différents${cmp.premier ? `, le premier n° ${cmp.premier.i} (${cmp.premier.type}, ${cmp.premier.taille} / ${cmp.premier.tailleB} octets)` : ' — tous identiques : la différence est dans le conteneur'}`);
+  }
+  // le diagnostic par mode : la même séquence (B2, 120 images, 540 × 960) encodée deux fois dans chaque mode
+  const parMode = await pv.evaluate(async () => {
+    const { creerRendu } = await import('/assets/animation-collection.js');
+    const { encoder, MODES } = await import('/assets/encodeur-mp4.js');
+    const out = {};
+    for (const mode of MODES) {
+      const runs = [];
+      for (let r = 0; r < 2; r++) {
+        const toile = document.createElement('canvas'); toile.width = 540; toile.height = 960;
+        const rendu = await creerRendu({ code: 'B2', vue: { vitesse: 1, palette: ['#efeae0', '#23232b'] }, largeur: 540, hauteur: 960 });
+        const ctx = toile.getContext('2d');
+        try {
+          const res = await encoder({ toile, images: 120, cadence: 30, dessiner: (k) => rendu.dessiner(ctx, k / 30), modes: [mode] });
+          const h = new Uint8Array(await crypto.subtle.digest('SHA-256', res.octets));
+          runs.push({ sha: [...h].slice(0, 8).map((b) => b.toString(16).padStart(2, '0')).join(''), mode: res.mode, morceaux: res.morceaux.map((m) => m.h) });
+        } catch (e) { runs.push({ erreur: e.message }); }
+      }
+      const [a, b] = runs;
+      out[mode] = a.erreur ? { indisponible: a.erreur } : { identiques: a.sha === b.sha, morceauxDifferents: a.morceaux.filter((h, i) => h !== b.morceaux[i]).length, premier: a.morceaux.findIndex((h, i) => h !== b.morceaux[i]) };
+    }
+    return out;
+  });
+  console.log(`niveau 2, diagnostic par mode (120 images, 540 × 960, deux fois chacun) : ${JSON.stringify(parMode)}`);
   if (sorties[0].nomTelecharge !== 'animation-B2-1080x1920.mp4') echec(`nom du fichier généré : ${sorties[0].nomTelecharge}`);
-  console.log(`niveau 2 (${h264}) : ${sorties[0].nom}, ${sorties[0].octets} octets, deux générations ${sorties[0].sha256 === sorties[1].sha256 ? 'IDENTIQUES' : 'DIFFÉRENTES'} (SHA-256 ${sorties[0].sha256.slice(0, 16)}…)`);
+  console.log(`niveau 2 (${h264}, mode ${sorties[0].mode}) : ${sorties[0].nom}, ${sorties[0].octets} octets, ${sorties[0].morceaux.length} morceaux, deux générations ${sorties[0].sha256 === sorties[1].sha256 ? 'IDENTIQUES' : 'DIFFÉRENTES'} (SHA-256 ${sorties[0].sha256.slice(0, 16)}…)`);
 } else {
   const g = await pv.evaluate(() => ({ desactive: document.querySelector('#B2 .g-generer').disabled, etat: document.querySelector('#B2 .g-etat').textContent }));
   if (!g.desactive || !/indisponible/.test(g.etat)) echec(`sans H.264, le générateur devait être désactivé et le dire : ${JSON.stringify(g)}`);

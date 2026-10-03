@@ -298,12 +298,13 @@ for (const col of collectionsAnimees(registre)) {
       const t0 = performance.now();
       const rendu = await creerRendu({ code, vue: v, largeur: format.largeur, hauteur: format.hauteur });
       const ctx = toile.getContext('2d');
-      const { octets, codec } = await encoder({ toile, images: rendu.images, cadence: rec.imagesParSeconde,
+      const { octets, codec, mode, morceaux } = await encoder({ toile, images: rendu.images, cadence: rec.imagesParSeconde,
         dessiner: (k) => rendu.dessiner(ctx, k / rec.imagesParSeconde), progression: (x) => { barre.value = x; } });
       const nom = nomFichier(code, $('.g-format').value, v, defaut);
       telecharger(new Blob([octets], { type: 'video/mp4' }), nom);
-      etat.textContent = `${nom} : ${rendu.images} images, ${(octets.length / 1e6).toFixed(2)} Mo, ${codec}, produit en ${((performance.now() - t0) / 1000).toFixed(1)} s · SHA-256 ${await sha256(octets)}`;
-      window.derniereGeneration = { nom, octets: octets.length, sha256: await sha256(octets) };
+      const empreinte = await sha256(octets);
+      etat.textContent = `${nom} : ${rendu.images} images, ${(octets.length / 1e6).toFixed(2)} Mo, ${codec} (${mode === 'quantizer' ? 'quantification fixe' : 'débit variable'}), produit en ${((performance.now() - t0) / 1000).toFixed(1)} s · SHA-256 ${empreinte}`;
+      window.derniereGeneration = { nom, octets: octets.length, sha256: empreinte, mode, morceaux };
     } catch (e) {
       etat.textContent = e.message; etat.classList.add('refus');
     } finally {
