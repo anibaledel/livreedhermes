@@ -14,6 +14,7 @@ import { chargerCollection, motifSvg, pavageSvg, imagePinterestSvg, FORMAT_PINTE
 import { lectureBinaire } from './lecture-binaire.js';
 import { creerSelecteurFonds, descriptionEtat, etatDeLUrl, etatDansLUrl } from './selecteur-fonds.js';
 import { PALETTES, paletteDeLUrl, paletteDansLUrl } from './couleurs.js';
+import { svgEnPixels } from './svg-en-pixels.js';
 
 const TEXTES = {
   fr: {
@@ -40,23 +41,9 @@ const charger = (() => {
   ]).then(([json, calculs]) => ({ collection: chargerCollection(json, { calculs }), glyphes: calculs.glyphes })));
 })();
 
-// Rastérise un SVG du moteur à sa taille (navigateur) : les pixels.
-export function svgEnPixels(svg, largeur, hauteur) {
-  return new Promise((ok, ko) => {
-    const img = new Image();
-    const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
-    img.onload = () => {
-      const c = document.createElement('canvas');
-      c.width = largeur; c.height = hauteur;
-      const ctx = c.getContext('2d');
-      ctx.drawImage(img, 0, 0, largeur, hauteur);
-      URL.revokeObjectURL(url);
-      ok(ctx.getImageData(0, 0, largeur, hauteur));
-    };
-    img.onerror = () => { URL.revokeObjectURL(url); ko(new Error('SVG illisible')); };
-    img.src = url;
-  });
-}
+// La rastérisation d'un SVG du moteur : assets/svg-en-pixels.js (module portable),
+// réexportée ici pour les appelants de cette vue.
+export { svgEnPixels };
 
 // PNG sans perte, à palette quand l'image a au plus 256 couleurs (deux
 // couleurs et leur anticrénelage : toujours le cas ici) — un fichier dix
