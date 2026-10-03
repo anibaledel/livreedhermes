@@ -11,6 +11,14 @@
    (commit e938274). Ce n'est qu'un nom court pour generer-csv-pinterest.py ;
    il n'entre dans aucun calcul.
 
+   Ce fichier N'EST PLUS LA SOURCE du corpus Pinterest : la source, ce sont
+   les 256 PNG de chaque série (assets/motifs-pinterest/corpus-1024…),
+   décrites dans data/fonds/collections-pinterest.json (« series »). Il est
+   gardé — huit scripts le lisent, son en-tête ne change pas. Sur ses 1024
+   lignes, 256 ont une page (h0 à h31) ; les 768 autres sont les entrées du
+   corpus d'animation fonds_ecran_v1, sans page. Voir
+   data/motifs-index.LISEZMOI.md.
+
    Usage : node tools/make_motifs_index.mjs
    Sortie : data/motifs-index.csv, 1024 lignes.
    ============================================================ */

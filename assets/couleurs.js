@@ -33,6 +33,32 @@ export const PALETTES = Object.freeze({
 });
 export const PALETTE_DEFAUT = PALETTES.bicolore;
 
+// Deux « monochromes » DISTINCTS, à ne pas confondre (décision d'Anibal,
+// 2026-10-03) — deux objets, deux noms :
+//
+//   MONOCHROME_SITE            le rendu monochrome du site : un gris (GRIS,
+//                              #808285) sur crème. Rendus bicolores du site.
+//   PINTEREST_NIVEAUX_DE_GRIS  la palette des séries Pinterest dites
+//                              « monochrome » (dossiers corpus-1024-monochrome
+//                              et corpus-1024-cellule-monochrome, noms gardés :
+//                              des épingles portent ces adresses) : TROIS
+//                              niveaux de gris, sans blanc ni crème — mesurés
+//                              sur les 512 PNG des deux séries (les trois
+//                              couleurs exactes des cellules, 1/3 des pixels
+//                              chacune). Pas #808285 : ces séries sont justes.
+//   PINTEREST_TRICOLORE        la palette des deux séries tricolores, violet,
+//                              magenta, orange (V, M, O) — la même que les
+//                              pages de motifs.
+//
+// Le crème reste réservé au bicolore (collections B2, B121, B6D…) : aucune
+// des quatre séries ne le porte. Le registre des séries
+// (data/fonds/collections-pinterest.json, « series ») recopie ces valeurs ;
+// tools/check_couleurs.mjs vérifie qu'elles concordent, et
+// tools/check_series_pinterest.mjs que chaque image emploie la palette de sa série.
+export const MONOCHROME_SITE = PALETTES.monochrome;
+export const PINTEREST_NIVEAUX_DE_GRIS = Object.freeze(['#494949', '#6e6e6e', '#bababa']);
+export const PINTEREST_TRICOLORE = Object.freeze(['#662d91', '#ee2a7b', '#fbb040']);
+
 // Contraste WCAG 2 entre deux couleurs #rrggbb (luminance relative).
 const luminance = (hex) => {
   const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)

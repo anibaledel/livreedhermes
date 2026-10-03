@@ -13,12 +13,18 @@
 //      références est affichée ;
 //   4. aucun de ces rendus ne garde un défaut en dur (l'ancien rouge
 //      #e0261b, l'ancien blanc #f2f2f0, l'ancien gris de cymatique) comme
-//      valeur de départ.
+//      valeur de départ ;
+//   5. les deux « monochromes » sont deux objets distincts : MONOCHROME_SITE
+//      (gris sur crème, le rendu du site) et PINTEREST_NIVEAUX_DE_GRIS (trois
+//      gris, les séries Pinterest dites « monochrome ») ; la palette de chaque
+//      série du registre (data/fonds/collections-pinterest.json, « series »)
+//      est celle de la constante qu'elle nomme, et le crème n'est dans aucune.
 // Usage : node tools/check_couleurs.mjs
 import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CREME, ENCRE, GRIS, PALETTES, contraste, SEUIL_LISIBLE } from '../assets/couleurs.js';
+import * as COULEURS from '../assets/couleurs.js';
+const { CREME, ENCRE, GRIS, PALETTES, contraste, SEUIL_LISIBLE, MONOCHROME_SITE, PINTEREST_NIVEAUX_DE_GRIS } = COULEURS;
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (f) => readFileSync(path.join(ROOT, f), 'utf8');
@@ -55,5 +61,17 @@ for (const f of FICHIERS) {
   }
   for (const [n, l] of refs) console.log(`  ${f}:${n}  ${l.trim()}`);
 }
+// 5
+if (MONOCHROME_SITE[0] !== CREME || MONOCHROME_SITE[1] !== GRIS) echecs.push('MONOCHROME_SITE n\'est plus le gris sur crème');
+if (PINTEREST_NIVEAUX_DE_GRIS.some((c) => MONOCHROME_SITE.includes(c) || c === CREME)) echecs.push('PINTEREST_NIVEAUX_DE_GRIS se confond avec MONOCHROME_SITE ou porte le crème');
+const series = JSON.parse(lire('data/fonds/collections-pinterest.json')).series || {};
+for (const [nom, s] of Object.entries(series)) {
+  const c = COULEURS[s.constante];
+  if (!Array.isArray(c) || JSON.stringify(s.palette) !== JSON.stringify([...c])) echecs.push(`série ${nom} : palette ${JSON.stringify(s.palette)} ≠ ${s.constante} de assets/couleurs.js`);
+  if (s.palette.includes(CREME)) echecs.push(`série ${nom} : porte le crème, réservé au bicolore`);
+  console.log(`  série ${nom} : ${s.constante} ${s.palette.join(' ')}`);
+}
+if (Object.keys(series).length !== 4) echecs.push(`${Object.keys(series).length} séries Pinterest au registre, attendu 4`);
+console.log(`MONOCHROME_SITE ${MONOCHROME_SITE.join(' ')} · PINTEREST_NIVEAUX_DE_GRIS ${PINTEREST_NIVEAUX_DE_GRIS.join(' ')}`);
 if (echecs.length) { console.error(`\n${echecs.join('\n')}`); process.exit(1); }
 console.log('\nUn seul jeu de constantes, assets/couleurs.js ; contraste lisible.');
