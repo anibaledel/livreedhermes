@@ -13,6 +13,7 @@ correspond plus à ce que les fragments produiraient.
 | `footer.html` | le pied partagé : navigation du site et licences, à la fin de `.wrap` | `@footer:start` / `:end` |
 | `footer-en.html` | le même pied en anglais, posé sur les pages `<html lang="en">` | `@footer:start` / `:end` |
 | `footer-es.html`, `footer-th.html` | le même pied en espagnol et en thaï (pages `lang="es"` / `"th"`) | `@footer:start` / `:end` |
+| `footer-zh.html`, `footer-ru.html` | le même pied en chinois simplifié et en russe (pages `lang="zh-Hans"` / `"ru"`) | `@footer:start` / `:end` |
 
 `{{BASE}}` est remplacé par le préfixe de remontée de chaque page (`""` à la
 racine, `"../"` dans `articles/`, `"../../"` dans `en/book/`).

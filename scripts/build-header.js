@@ -85,7 +85,8 @@ const htmlHreflang = (bloc) => bloc
 // que les moteurs ignorent, ni l'inverse. C'était le dernier endroit où les
 // deux pouvaient diverger — le hreflang parlait aux moteurs depuis #105, et
 // personne ne parlait aux lecteurs.
-const htmlRangee = (r) => `<p class="other-langs">${r.libelle} `
+// Pas d'espace après une ponctuation pleine chasse (« 其他语言： »).
+const htmlRangee = (r) => `<p class="other-langs">${r.libelle}${/[：:]$/.test(r.libelle) && /[\u3000-\u303F\uFF00-\uFFEF]$/.test(r.libelle) ? '' : ' '}`
   + r.liens.map((l) => `<a href="${l.href}">${l.nom}</a>`).join(' · ')
   + '</p>';
 
@@ -107,6 +108,9 @@ const FRAGMENTS = {
   // Espagnol et thaï : pages hexagrammes traduites (es/hexagramas/, th/hexagrams/).
   'footer-es': lire('footer-es.html'),
   'footer-th': lire('footer-th.html'),
+  // Chinois simplifié et russe (lot « six langues ») : pages lang="zh-Hans" / "ru".
+  'footer-zh': lire('footer-zh.html'),
+  'footer-ru': lire('footer-ru.html'),
 };
 
 function zone(nom, corps, source = 'includes/') {
@@ -117,7 +121,9 @@ function zone(nom, corps, source = 'includes/') {
 // Lien d'évitement de l'en-tête, dans la langue de la page (<html lang>).
 const TEXTE_EVITEMENT = {
   fr: 'Aller au contenu', en: 'Skip to content', es: 'Ir al contenido', th: 'ข้ามไปยังเนื้อหา',
+  zh: '跳到正文', ru: 'Перейти к содержанию',
 };
+// <html lang="zh-Hans"> se lit « zh » : la clé des fragments et des textes.
 function langHtml(s) {
   const m = /<html[^>]*\slang="([a-z]{2})/i.exec(s);
   return m && TEXTE_EVITEMENT[m[1].toLowerCase()] ? m[1].toLowerCase() : 'fr';

@@ -33,12 +33,12 @@ const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) =>
 const doiUrl = (doi) => `https://doi.org/${doi}`;
 
 const TYPES = {
-  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book' },
-  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint' },
-  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset' },
-  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data' },
-  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository' },
-  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report' },
+  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга' },
+  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт' },
+  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных' },
+  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные' },
+  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода' },
+  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт' },
 };
 const LICENCES = {
   'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
@@ -55,16 +55,30 @@ for (const d of DONNEES.depots) {
 const MOIS = {
   fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  // le russe date au génitif : « 12 сентября 2026 г. »
+  ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
 };
 function dateLisible(iso, lang) {
   const [a, m, j] = iso.split('-').map(Number);
+  if (lang === 'zh') return `${a}年${m}月${j}日`;
+  if (lang === 'ru') return `${j} ${MOIS.ru[m - 1]} ${a} г.`;
   return lang === 'fr' ? `${j === 1 ? '1er' : j} ${MOIS.fr[m - 1]} ${a}` : `${MOIS.en[m - 1]} ${j}, ${a}`;
 }
 
 const T = {
   fr: { toutes: 'toutes versions, à citer', version: 'version', cetteVersion: 'DOI de cette version', premiere: 'première version le', anterieur: 'voir aussi la' },
   en: { toutes: 'all versions, to cite', version: 'version', cetteVersion: 'DOI of this version', premiere: 'first version', anterieur: 'see also the' },
+  // Chinois et russe (lot « six langues ») : à relire, voir TODO-RELECTURE.md.
+  zh: { toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
+  ru: { toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
+// Chaque texte traduit doit exister : une description manquante afficherait
+// « undefined » sur la page, sans erreur.
+for (const lang of ['zh', 'ru']) {
+  for (const x of [...DONNEES.sections, ...DONNEES.depots, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
+    if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
+  }
+}
 
 function itemHtml(d, lang) {
   const t = T[lang];
@@ -73,7 +87,7 @@ function itemHtml(d, lang) {
   if (d.doi) lignes.push(`          <a href="${doiUrl(d.doi)}">doi:${d.doi}</a>${d.versionDoi ? ` <span class="travaux-toutes">(${t.toutes})</span>` : ''}`);
   else lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
   const meta = [TYPES[d.type][lang]];
-  if (d.version) meta.push(`${t.version} ${escapeHtml(d.version)}${d.date ? `, ${dateLisible(d.date, lang)}` : ''}`);
+  if (d.version) meta.push(`${t.version} ${escapeHtml(d.version)}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
   if (d.versionDoi) meta.push(`<a href="${doiUrl(d.versionDoi)}">${t.cetteVersion}</a>`);
@@ -188,8 +202,11 @@ function zone(s, nom, contenu, rel) {
 for (const [rel, lang, url, nom] of [
   ['travaux.html', 'fr', `${SITE}/travaux.html`, 'Travaux — Anibal Edelberto Amiot'],
   ['en/works/index.html', 'en', `${SITE}/en/works/`, 'Research deposits — Anibal Edelberto Amiot'],
+  ['zh/works/index.html', 'zh-Hans', `${SITE}/zh/works/`, '研究存档 — Anibal Edelberto Amiot'],
+  ['ru/works/index.html', 'ru', `${SITE}/ru/works/`, 'Научные публикации — Anibal Edelberto Amiot'],
 ]) {
-  ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(lang), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));
+  const cle = lang.slice(0, 2); // zh-Hans -> zh : la clé des textes ; inLanguage garde zh-Hans
+  ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(cle), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));
 }
 ecrire('CITATION.cff', (s) => {
   const i = s.indexOf('\nreferences:');

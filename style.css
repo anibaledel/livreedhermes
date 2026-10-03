@@ -328,3 +328,6 @@ picture{ display:contents; }
   p, li{ orphans:3; widows:3; }
   .site-footer{ border-top:1px solid #bbb; margin-top:24px; }
 }
+
+/* La phrase canonique des langues (scripts/build-couverture.js). */
+.couverture-langues{ max-width:64ch; margin:16px auto 0; color:var(--dim); font-size:calc(12px + var(--fs-bump)); line-height:1.7; text-align:center; }

@@ -1,0 +1,38 @@
+name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
+
+# Le lot « six langues » (chinois simplifié et russe) a ajouté quatre
+# contrôles, qui tournent ensemble ici :
+#
+#   - check_glossaire.mjs : un concept du glossaire (docs/terminologie-fr-en-es-th.md)
+#     n'a qu'une traduction par langue ; titre et nom de l'auteur jamais traduits.
+#     C'est ce test qui remplace la relecture préalable qu'on ne fait pas ;
+#   - compte_hreflang.mjs : chaque hreflang est rendu par sa cible, et la cible
+#     porte la langue annoncée (zh-Hans, pas zh) — le piège de #137, mesuré ;
+#   - build-couverture.js --verifie : la phrase qui dit ce qui existe dans quelle
+#     langue est calculée, pas écrite ;
+#   - check_doi_licences.mjs : CC BY 4.0 sur les seules listes de dépôts, DOI et
+#     BY-NC sur chaque page ajoutée ;
+#   - check_police_zh.mjs : la police chinoise hébergée couvre chaque caractère
+#     des pages chinoises.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_glossaire.mjs
+      - run: node tools/compte_hreflang.mjs
+      - run: node scripts/build-couverture.js --verifie
+      - run: node tools/check_doi_licences.mjs
+      - run: node tools/check_police_zh.mjs

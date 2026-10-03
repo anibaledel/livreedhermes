@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Научные публикации — Anibal Amiot</title>
+<meta name="description" content="Депонированные работы, код и поданные в журналы статьи Anibal Edelberto Amiot: каждый депозит датирован, открыт на Zenodo и содержит скрипты, которые выводят приводимые в нём числа.">
+<meta property="og:title" content="Научные публикации — Anibal Amiot">
+<meta property="og:description" content="Депонированные работы, код и поданные в журналы статьи Anibal Edelberto Amiot: каждый депозит датирован, открыт на Zenodo и содержит скрипты, которые выводят приводимые в нём числа.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/ru/works/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<link rel="canonical" href="https://anibal-amiot.com/ru/works/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Научные публикации — Anibal Amiot">
+<meta name="twitter:description" content="Депонированные работы, код и поданные в журналы статьи Anibal Edelberto Amiot: каждый депозит датирован, открыт на Zenodo и содержит скрипты, которые выводят приводимые в нём числа.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<!-- @travaux-ld:start -->
+<!-- @travaux-ld:end -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://anibal-amiot.com/ru/" },
+    { "@type": "ListItem", "position": 2, "name": "Научные публикации", "item": "https://anibal-amiot.com/ru/works/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
+
+  /* ---------- contenu travaux ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .travaux-list{ list-style:none; padding:0; margin:0; }
+  .travaux-list li{ padding:14px 0; border-top:1px solid var(--line); }
+  .travaux-list li:first-child{ border-top:none; }
+  .travaux-list cite{ font-style:normal; color:var(--white); display:block; margin-bottom:4px; font-size:14px; line-height:1.5; }
+  .travaux-list p.travaux-desc{ color:var(--dim); font-size:12.5px; line-height:1.6; margin:0 0 6px; }
+  .travaux-list a{ color:var(--gold); text-decoration:none; font-size:12.5px; }
+  .travaux-list a:hover{ text-decoration:underline; }
+  .travaux-list span.travaux-meta{ display:block; color:var(--dim); font-size:11px; margin-top:4px; letter-spacing:.02em; }
+  .travaux-list span.travaux-toutes{ color:var(--dim); font-size:11px; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; text-align:center; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .profile-intro{ font-size:14.5px; }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+</head>
+<body>
+<div class="wrap">
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-37-profil.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Навигационная цепочка">
+      <a href="https://anibal-amiot.com/ru/">Главная</a><span class="sep">/</span><span aria-current="page">Научные публикации</span>
+    </nav>
+    <h1>Научные публикации</h1>
+    <p>Депозиты, код и статьи, поданные в журналы</p>
+<!-- @langues:start -->
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="profile-body">
+    <p class="profile-intro">Каждый депозит датирован, находится в открытом доступе и содержит скрипты,
+    которые выводят приводимые в нём числа. Статьи, поданные в журналы, отмечены как таковые;
+    никакой результат не объявляется до рецензирования. Цитируйте каждый депозит по его DOI
+    «всех версий» (all versions). Названия депозитов даны на языке оригинала.</p>
+
+    <!-- @travaux:start -->
+    <!-- @travaux:end -->
+
+    <div class="profile-section">
+      <h2>Поданы, на рецензировании</h2>
+      <ul class="travaux-list">
+        <li>
+          <cite lang="en">A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its
+          Restriction on the Cube</cite>
+          <p class="travaux-desc"><em lang="en">Journal of Mathematics and the Arts</em>.</p>
+        </li>
+        <li>
+          <cite lang="en">The Ansate Cross</cite>
+          <p class="travaux-desc"><em lang="en">Mathematics Magazine</em>.</p>
+        </li>
+      </ul>
+    </div>
+
+    <p class="profile-sources">Проверяемые источники: записи Zenodo, ссылки на которые даны выше, и
+    <a href="https://github.com/anibaledel/livreedhermes" style="color:var(--dim);">репозиторий кода</a>.
+    Об авторе: <a href="https://anibal-amiot.com/a-propos.html" hreflang="fr" style="color:var(--dim);">об авторе</a> и
+    <a href="https://anibal-amiot.com/profil.html" hreflang="fr" style="color:var(--dim);">документальный профиль</a> (на французском).</p>
+  </div>
+</main>
+</div>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+</body>
+</html>

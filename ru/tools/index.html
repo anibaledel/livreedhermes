@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Инструменты — La Livrée d'Hermès</title>
+<meta name="description" content="Интерактивные инструменты La Livrée d'Hermès: составлять, смотреть, печатать, шифровать. Сами инструменты работают на французском.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/ru/tools/">
+<meta property="og:title" content="Инструменты — La Livrée d'Hermès">
+<meta property="og:description" content="Интерактивные инструменты La Livrée d'Hermès: составлять, смотреть, печатать, шифровать. Сами инструменты работают на французском.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/ru/tools/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Инструменты — La Livrée d'Hermès">
+<meta name="twitter:description" content="Интерактивные инструменты La Livrée d'Hermès: составлять, смотреть, печатать, шифровать. Сами инструменты работают на французском.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://anibal-amiot.com/ru/tools/#page",
+      "name": "Инструменты — La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/ru/tools/",
+      "inLanguage": "ru",
+      "description": "Интерактивные инструменты La Livrée d'Hermès: составлять, смотреть, печатать, шифровать. Сами инструменты работают на французском.",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "hasPart": [
+        { "@type": "WebApplication", "name": "Создать узор", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-motifs-yi-king.html" },
+        { "@type": "WebApplication", "name": "Unified Patterns", "inLanguage": "fr", "url": "https://anibal-amiot.com/unified-patterns.html" },
+        { "@type": "WebApplication", "name": "Галерея", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-patterns-unifies.html" },
+        { "@type": "WebApplication", "name": "Двухцветная галерея", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-bicolore.html" },
+        { "@type": "WebApplication", "name": "Узоры SVG", "inLanguage": "fr", "url": "https://anibal-amiot.com/telechargements.html" },
+        { "@type": "WebApplication", "name": "Двухцветные узоры", "inLanguage": "fr", "url": "https://anibal-amiot.com/bicolore.html" },
+        { "@type": "WebApplication", "name": "Двухцветные узоры v2", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-bicolore-v2.html" },
+        { "@type": "WebApplication", "name": "Киматика", "inLanguage": "fr", "url": "https://anibal-amiot.com/cymatique.html" },
+        { "@type": "WebApplication", "name": "Обои", "inLanguage": "fr", "url": "https://anibal-amiot.com/fonds-ecran.html" },
+        { "@type": "WebApplication", "name": "Печать", "inLanguage": "fr", "url": "https://anibal-amiot.com/impression.html" },
+        { "@type": "WebApplication", "name": "Кодировщик", "inLanguage": "fr", "url": "https://anibal-amiot.com/encodeur.html" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://anibal-amiot.com/ru/" },
+    { "@type": "ListItem", "position": 2, "name": "Инструменты", "item": "https://anibal-amiot.com/ru/tools/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .tools-body{ padding:24px 0 8px; }
+
+  .article-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .article-card{
+    display:flex; flex-direction:column; height:280px;
+    border:1px solid var(--line); text-decoration:none; color:inherit;
+    overflow:hidden; transition:border-color .12s ease;
+  }
+  .article-card:hover{ border-color:var(--gold); }
+  .article-card:hover h2{ color:var(--gold); }
+  .article-cover{ width:100%; height:100px; object-fit:contain; background:var(--panel); padding:14px; display:block; border-bottom:1px solid var(--line); flex-shrink:0; }
+  .article-card-body{ padding:12px 16px; display:flex; flex-direction:column; flex:1; min-height:0; }
+  .article-card h2{ font-size:calc(15.5px + var(--fs-bump)); font-weight:400; margin:0 0 8px; line-height:1.25; color:var(--white); }
+  .article-excerpt{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.55; margin:0; flex:1; min-height:0; }
+
+  @media (max-width:1099px){ .article-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:699px){
+    .article-grid{ grid-template-columns:1fr; }
+    .article-card{ height:auto; min-height:200px; }
+  }
+
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+  }
+  .tool-lang{ display:block; margin-top:8px; color:var(--gold); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.04em; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+</head>
+<body>
+<div class="wrap">
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-27-outils.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Навигационная цепочка">
+      <a href="https://anibal-amiot.com/ru/">Главная</a><span class="sep">/</span><span aria-current="page">Инструменты</span>
+    </nav>
+    <h1>Инструменты</h1>
+    <p>Интерактивные инструменты <i>La Livrée d'Hermès</i>: составлять, смотреть, печатать, шифровать. Сами инструменты работают на французском языке.</p>
+<!-- @langues:start -->
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="tools-body">
+    <div class="article-grid">
+      <a class="article-card" href="https://anibal-amiot.com/creation-motifs-yi-king.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/creation-motifs.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Создать узор</h2>
+          <p class="article-excerpt">Составляйте собственные текстильные узоры из 60 образов И цзин.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/unified-patterns.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/unified-patterns.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Unified Patterns</h2>
+          <p class="article-excerpt">64 узора гексаграмм: их можно настроить и скачать в высоком разрешении.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-patterns-unifies.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/galerie.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Галерея</h2>
+          <p class="article-excerpt">Унифицированные узоры, порождённые смешением оттенков. Выберите узор, чтобы увидеть его замощение.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Двухцветная галерея</h2>
+          <p class="article-excerpt">142 двухцветных узора, порождённые осями и замыкающиеся на кубе. Выберите узор, чтобы увидеть его замощение.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/telechargements.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/motifs-svg.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Узоры SVG</h2>
+          <p class="article-excerpt">Скачайте слои для печати в формате SVG, в 4 категориях сочетаний черт.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Двухцветные узоры</h2>
+          <p class="article-excerpt">Составьте ячейку 12×12 черта за чертой из 15 двухцветных семейств.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/creation-bicolore-v2.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Двухцветные узоры v2</h2>
+          <p class="article-excerpt">Второе разбиение диагоналей (YA/AY): углы, элементы, статусы полусдвига — рядом с инструментом v1.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/cymatique.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/cymatique.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Киматика</h2>
+          <p class="article-excerpt">Замощение, пространственная частота которого ближе всего к звуку, который вы издаёте.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/fonds-ecran.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/fond-ecran.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Обои</h2>
+          <p class="article-excerpt">Полноэкранные текстильные обои: реагируют на звук или работают в медитативном режиме с настраиваемым ритмом.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/impression.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/impression.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Печать</h2>
+          <p class="article-excerpt">Создавайте и скачивайте слои для печати, готовые к выводу на принтер.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/encodeur.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/encodeur.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Кодировщик</h2>
+          <p class="article-excerpt">Геометрическое стеганографическое кодирование с двойным референтом, крестом с петлёй и жаккардом.</p>
+          <span class="tool-lang">Открыть (на французском) →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</main>
+</div>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+</body>
+</html>

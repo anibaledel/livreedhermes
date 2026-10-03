@@ -43,12 +43,27 @@ const LANGUE_PAR_DEFAUT = 'en';
 // rangée de liens. Les deux sont repris MOT POUR MOT des pages du livre, dont
 // les traducteurs les ont écrits — « Autres langues : » avec l'espace insécable
 // du français, « ภาษาอื่น: » sans. Rien n'est inventé ici.
+//
+// Le chinois et le russe (lot « six langues », 2026-10-03) : leurs intitulés
+// ne viennent pas d'un traducteur du livre — le livre n'est pas encore paru
+// dans ces deux langues — et sont à relire (TODO-RELECTURE.md). Le chinois
+// suit sa typographie : ponctuation pleine chasse, pas d'espace avant.
+//
+// `hreflang` : la valeur posée dans l'attribut, quand elle diffère du code.
+// Le code sert aux URL (/zh/, court comme /en/, /es/, /th/) ; l'attribut dit
+// SIMPLIFIÉ, parce que « zh » seul laisse un moteur hésiter entre simplifié
+// et traditionnel. Si le traditionnel arrive, il prendra zh-Hant sans rien
+// casser. Le même `hreflang` est la valeur de <html lang> sur ces pages.
 const LANGUES = {
   fr: { nom: 'Français', autres: 'Autres langues :' },
   en: { nom: 'English', autres: 'Other languages:' },
   es: { nom: 'Español', autres: 'Otros idiomas:' },
   th: { nom: 'ไทย', autres: 'ภาษาอื่น:' },
+  zh: { nom: '简体中文', autres: '其他语言：', hreflang: 'zh-Hans' },
+  ru: { nom: 'Русский', autres: 'Другие языки:' },
 };
+// La valeur hreflang (et <html lang>) d'un code de langue.
+const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
 
 // Un groupe : [code de langue, URL absolue, chemin du fichier dans le dépôt].
 // « rangee » dit si ses pages portent une rangée de langues VISIBLE, engendrée
@@ -70,6 +85,8 @@ const GROUPES = [
       ['en', `${SITE}/en/book/`, 'en/book/index.html'],
       ['es', `${SITE}/es/libro/`, 'es/libro/index.html'],
       ['th', `${SITE}/th/book/`, 'th/book/index.html'],
+      ['zh', `${SITE}/zh/book/`, 'zh/book/index.html'],
+      ['ru', `${SITE}/ru/book/`, 'ru/book/index.html'],
     ],
   },
   {
@@ -82,6 +99,8 @@ const GROUPES = [
       ['en', `${SITE}/en/`, 'en/index.html'],
       ['es', `${SITE}/es/`, 'es/index.html'],
       ['th', `${SITE}/th/`, 'th/index.html'],
+      ['zh', `${SITE}/zh/`, 'zh/index.html'],
+      ['ru', `${SITE}/ru/`, 'ru/index.html'],
     ],
   },
   {
@@ -94,6 +113,8 @@ const GROUPES = [
       ['en', `${SITE}/en/lexicon/`, 'en/lexicon/index.html'],
       ['es', `${SITE}/es/lexico/`, 'es/lexico/index.html'],
       ['th', `${SITE}/th/lexicon/`, 'th/lexicon/index.html'],
+      ['zh', `${SITE}/zh/lexicon/`, 'zh/lexicon/index.html'],
+      ['ru', `${SITE}/ru/lexicon/`, 'ru/lexicon/index.html'],
     ],
   },
 ];
@@ -133,6 +154,36 @@ GROUPES.push({
   pages: [
     ['fr', `${SITE}/travaux.html`, 'travaux.html'],
     ['en', `${SITE}/en/works/`, 'en/works/index.html'],
+    ['zh', `${SITE}/zh/works/`, 'zh/works/index.html'],
+    ['ru', `${SITE}/ru/works/`, 'ru/works/index.html'],
+  ],
+});
+// Les outils et le soutien (lot « six langues ») : pages d'entrée en chinois
+// et en russe vers les outils et la page de paiement, qui restent en
+// français. Il n'en existe pas de version anglaise : ces deux groupes n'ont
+// donc PAS de x-default (voir hreflangDe) — le x-default du site est
+// l'anglais, et le déclarer vers une autre langue sur deux pages seulement
+// ferait atterrir un visiteur étranger dans deux langues selon la page.
+GROUPES.push({
+  nom: 'outils',
+  changefreq: 'monthly',
+  priority: '0.5',
+  rangee: true,
+  pages: [
+    ['fr', `${SITE}/outils.html`, 'outils.html'],
+    ['zh', `${SITE}/zh/tools/`, 'zh/tools/index.html'],
+    ['ru', `${SITE}/ru/tools/`, 'ru/tools/index.html'],
+  ],
+});
+GROUPES.push({
+  nom: 'soutien',
+  changefreq: 'monthly',
+  priority: '0.5',
+  rangee: true,
+  pages: [
+    ['fr', `${SITE}/soutenir.html`, 'soutenir.html'],
+    ['zh', `${SITE}/zh/support/`, 'zh/support/index.html'],
+    ['ru', `${SITE}/ru/support/`, 'ru/support/index.html'],
   ],
 });
 // La liste des articles elle-même : articles.html et sa jumelle anglaise.
@@ -175,11 +226,13 @@ for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
 
 // Un bloc liste TOUS les équivalents, y compris la page elle-même : les pages
 // d'un même groupe portent donc exactement les mêmes lignes.
+// Le code de langue devient sa valeur hreflang (zh -> zh-Hans). Un groupe
+// sans page anglaise n'a pas de x-default plutôt qu'un autre défaut.
 function hreflangDe(groupe) {
   const defaut = groupe.pages.find(([lang]) => lang === LANGUE_PAR_DEFAUT);
   return groupe.pages
-    .map(([lang, href]) => [lang, href])
-    .concat([['x-default', defaut[1]]]);
+    .map(([lang, href]) => [hreflangDeCode(lang), href])
+    .concat(defaut ? [['x-default', defaut[1]]] : []);
 }
 
 // -------------------------------------------------------------------------
@@ -188,6 +241,7 @@ function hreflangDe(groupe) {
 // les deux consommateurs d'un coup. L'existence des fichiers, elle, est
 // vérifiée par build-header.js --verifie (il a le dépôt sous la main).
 // -------------------------------------------------------------------------
+const SANS_X_DEFAUT = new Set(['outils', 'soutien']);
 const vus = new Map();
 for (const g of GROUPES) {
   const langues = g.pages.map(([lang]) => lang);
@@ -199,7 +253,9 @@ for (const g of GROUPES) {
       `Un bloc hreflang lie une page à UNE page par langue.`);
   }
 
-  if (!langues.includes(LANGUE_PAR_DEFAUT)) {
+  // Seuls les groupes déclarés SANS_X_DEFAUT peuvent manquer d'anglais : un
+  // oubli ailleurs retirerait le x-default sans que rien ne le signale.
+  if (!langues.includes(LANGUE_PAR_DEFAUT) && !SANS_X_DEFAUT.has(g.nom)) {
     throw new Error(
       `langues.js : le groupe « ${g.nom} » n'a pas d'entrée « ${LANGUE_PAR_DEFAUT} », ` +
       `la langue par défaut. Son x-default pointerait vers une page inexistante.`);
@@ -253,6 +309,6 @@ const PAGES_TRADUITES = GROUPES.flatMap((g) =>
   })));
 
 module.exports = {
-  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES,
+  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode,
   BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
 };

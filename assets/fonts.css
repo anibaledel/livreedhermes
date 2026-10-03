@@ -1,7 +1,44 @@
 /* Police unique du site — hébergée sur le site (assets/fonts/barlow-semi-condensed/,
    chargée par un <link> dans le <head> de chaque page) ; cette règle est la seule déclaration de font-family/weight,
-   partagée par toutes les pages qui l'incluent (pas de duplication par fichier). */
+   partagée par toutes les pages qui l'incluent (pas de duplication par fichier).
+
+   Barlow Semi Condensed ne porte que le latin. Les deux écritures ajoutées au
+   lot « six langues » ont donc un repli DÉCLARÉ, hébergé sur le site, plutôt
+   qu'une police système qui change d'un appareil à l'autre :
+     - le russe : Roboto Condensed, sous-ensemble cyrillique (@fontsource
+       5.3.0, SIL OFL 1.1, fonts/roboto-condensed/OFL.txt) — la plus proche
+       de Barlow parmi les condensées libres qui portent le cyrillique ;
+     - le chinois simplifié : Noto Sans SC, réduite aux seuls caractères des
+       pages zh/ (tools/police_zh.py la recalcule, tools/check_police_zh.mjs
+       échoue si une page emploie un caractère absent ; SIL OFL 1.1,
+       fonts/noto-sans-sc/OFL.txt).
+   Les unicode-range font qu'aucune des deux n'est téléchargée par une page
+   qui n'a ni cyrillique ni idéogramme. */
+@font-face {
+  font-family: 'Roboto Condensed LDH';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/roboto-condensed/roboto-condensed-cyrillic-300-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Roboto Condensed LDH';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/roboto-condensed/roboto-condensed-cyrillic-400-normal.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Noto Sans SC LDH';
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-sc/noto-sans-sc-ldh.woff2') format('woff2');
+  unicode-range: U+2E80-2FDF, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
 :root, body {
-  font-family: 'Barlow Semi Condensed', 'Bahnschrift', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Barlow Semi Condensed', 'Roboto Condensed LDH', 'Noto Sans SC LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
 }

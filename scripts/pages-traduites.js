@@ -32,6 +32,8 @@ const TRADUITES_A_LA_MAIN = new Set([
   'en/lexicon/index.html',
   'es/lexico/index.html',
   'th/lexicon/index.html',
+  'zh/lexicon/index.html',
+  'ru/lexicon/index.html',
 ]);
 
 module.exports = { TRADUITES_A_LA_MAIN };
