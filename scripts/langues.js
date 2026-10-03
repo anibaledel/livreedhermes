@@ -189,7 +189,7 @@ GROUPES.push({
 GROUPES.push({
   nom: 'outils',
   changefreq: 'monthly',
-  priority: '0.5',
+  priority: '0.7',
   rangee: true,
   pages: [
     ['fr', `${SITE}/outils.html`, 'outils.html'],
@@ -200,7 +200,7 @@ GROUPES.push({
 GROUPES.push({
   nom: 'soutien',
   changefreq: 'monthly',
-  priority: '0.5',
+  priority: '0.6',
   rangee: true,
   pages: [
     ['fr', `${SITE}/soutenir.html`, 'soutenir.html'],

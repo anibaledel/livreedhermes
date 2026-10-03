@@ -13,7 +13,11 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #   - check_doi_licences.mjs : CC BY 4.0 sur les seules listes de dépôts, DOI et
 #     BY-NC sur chaque page ajoutée ;
 #   - check_police_zh.mjs : la police chinoise hébergée couvre chaque caractère
-#     des pages chinoises.
+#     des pages chinoises ;
+#   - generate-sitemap.js : il refuse une adresse déclarée deux fois. Une page
+#     qui entre dans un groupe de langues doit sortir de STATIC_PAGES — oublié
+#     pour outils.html et soutenir.html, ce que seul update-sitemap.yml, sur
+#     main, aurait vu. Le sitemap engendré ici n'est pas commité.
 
 on:
   push:
@@ -36,3 +40,4 @@ jobs:
       - run: node scripts/build-couverture.js --verifie
       - run: node tools/check_doi_licences.mjs
       - run: node tools/check_police_zh.mjs
+      - run: node scripts/generate-sitemap.js
