@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>工具——La Livrée d'Hermès</title>
+<meta name="description" content="La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/zh/tools/">
+<meta property="og:title" content="工具——La Livrée d'Hermès">
+<meta property="og:description" content="La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/zh/tools/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="工具——La Livrée d'Hermès">
+<meta name="twitter:description" content="La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://anibal-amiot.com/zh/tools/#page",
+      "name": "工具——La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/zh/tools/",
+      "inLanguage": "zh-Hans",
+      "description": "La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。工具界面为法文。",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "hasPart": [
+        { "@type": "WebApplication", "name": "创作图案", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-motifs-yi-king.html" },
+        { "@type": "WebApplication", "name": "Unified Patterns", "inLanguage": "fr", "url": "https://anibal-amiot.com/unified-patterns.html" },
+        { "@type": "WebApplication", "name": "图库", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-patterns-unifies.html" },
+        { "@type": "WebApplication", "name": "双色图库", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-bicolore.html" },
+        { "@type": "WebApplication", "name": "SVG 图案", "inLanguage": "fr", "url": "https://anibal-amiot.com/telechargements.html" },
+        { "@type": "WebApplication", "name": "双色图案", "inLanguage": "fr", "url": "https://anibal-amiot.com/bicolore.html" },
+        { "@type": "WebApplication", "name": "双色图案 v2", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-bicolore-v2.html" },
+        { "@type": "WebApplication", "name": "音流学", "inLanguage": "fr", "url": "https://anibal-amiot.com/cymatique.html" },
+        { "@type": "WebApplication", "name": "壁纸", "inLanguage": "fr", "url": "https://anibal-amiot.com/fonds-ecran.html" },
+        { "@type": "WebApplication", "name": "打印", "inLanguage": "fr", "url": "https://anibal-amiot.com/impression.html" },
+        { "@type": "WebApplication", "name": "编码器", "inLanguage": "fr", "url": "https://anibal-amiot.com/encodeur.html" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://anibal-amiot.com/zh/" },
+    { "@type": "ListItem", "position": 2, "name": "工具", "item": "https://anibal-amiot.com/zh/tools/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .tools-body{ padding:24px 0 8px; }
+
+  .article-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .article-card{
+    display:flex; flex-direction:column; height:280px;
+    border:1px solid var(--line); text-decoration:none; color:inherit;
+    overflow:hidden; transition:border-color .12s ease;
+  }
+  .article-card:hover{ border-color:var(--gold); }
+  .article-card:hover h2{ color:var(--gold); }
+  .article-cover{ width:100%; height:100px; object-fit:contain; background:var(--panel); padding:14px; display:block; border-bottom:1px solid var(--line); flex-shrink:0; }
+  .article-card-body{ padding:12px 16px; display:flex; flex-direction:column; flex:1; min-height:0; }
+  .article-card h2{ font-size:calc(15.5px + var(--fs-bump)); font-weight:400; margin:0 0 8px; line-height:1.25; color:var(--white); }
+  .article-excerpt{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.55; margin:0; flex:1; min-height:0; }
+
+  @media (max-width:1099px){ .article-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:699px){
+    .article-grid{ grid-template-columns:1fr; }
+    .article-card{ height:auto; min-height:200px; }
+  }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">跳到正文</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-27-outils.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="https://anibal-amiot.com/zh/">首页</a><span class="sep">/</span><span aria-current="page">工具</span>
+    </nav>
+    <h1>工具</h1>
+    <p>La Livrée d'Hermès 的交互式工具：创作、可视化、打印、加密。各工具的界面目前只有法文。</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">其他语言：<a href="https://anibal-amiot.com/outils.html">Français</a> · <a href="https://anibal-amiot.com/ru/tools/">Русский</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="tools-body">
+    <div class="article-grid">
+      <a class="article-card" href="https://anibal-amiot.com/creation-motifs-yi-king.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/creation-motifs.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>创作图案</h2>
+          <p class="article-excerpt">以易经的 60 种性质为基础，组合出属于您自己的织物图案。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/unified-patterns.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/unified-patterns.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Unified Patterns</h2>
+          <p class="article-excerpt">64 卦对应的 64 种图案，可自定义，并可下载高分辨率文件。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-patterns-unifies.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/galerie.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>图库</h2>
+          <p class="article-excerpt">由色调混合生成的统一图案——选中一个图案即可查看其铺排效果。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>双色图库</h2>
+          <p class="article-excerpt">由轴生成、能在立方体上闭合的 142 种双色图案——选中一个图案即可查看其铺排效果。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/telechargements.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/motifs-svg.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>SVG 图案</h2>
+          <p class="article-excerpt">下载 SVG 格式的打印图层，按笔画组合分为 4 类。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>双色图案</h2>
+          <p class="article-excerpt">从 15 个双色族出发，逐笔组合一个 12×12 单元。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/creation-bicolore-v2.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>双色图案 v2</h2>
+          <p class="article-excerpt">对角线的第二种切分（YA/AY）：角、元素、半周期平移的各种状态——与 v1 工具并列。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/cymatique.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/cymatique.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>音流学</h2>
+          <p class="article-excerpt">找出空间频率与您发出的声音最接近的那种铺排。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/fonds-ecran.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/fond-ecran.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>壁纸</h2>
+          <p class="article-excerpt">全屏织物壁纸，可随声音变化，也可切换为节奏可调的冥想模式。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/impression.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/impression.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>打印</h2>
+          <p class="article-excerpt">抽取并下载可直接付印的打印图层。（法文页面）</p>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/encodeur.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/encodeur.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>编码器</h2>
+          <p class="article-excerpt">基于双重参照、安卡十字与提花织机的几何隐写编码。（法文页面）</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</main>
+<!-- @main:end -->
+</div>
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="页脚">
+    <a href="../../zh/">首页</a>
+    <a href="../../zh/book/">论著</a>
+    <a href="../../zh/lexicon/">词汇表</a>
+    <a href="../../zh/works/">研究存档</a>
+    <a href="../../zh/tools/">工具</a>
+    <a href="../../en/hexagrams/" hreflang="en">六十四卦（英文）</a>
+    <a href="../../motifs/" hreflang="en">图案（英文）</a>
+    <a href="../../profil.html" hreflang="fr">作者简介（法文）</a>
+    <a href="../../contact.html" hreflang="fr">联系</a>
+    <a href="../../zh/support/">支持本项目</a>
+  </nav>
+  <p class="site-footer-licence">
+    内容采用 <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a> 许可
+    · 代码采用 AGPL v3，商业许可可应要求提供
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

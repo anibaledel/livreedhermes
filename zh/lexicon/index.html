@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>词汇表——La Livrée d'Hermès</title>
+<meta name="description" content="关于 La Livrée d'Hermès 的参考定义与常见问题：太阳方阵、安卡十字、360 个图层的体系、Carter。">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/zh/lexicon/">
+<meta property="og:title" content="词汇表——La Livrée d'Hermès">
+<meta property="og:description" content="关于 La Livrée d'Hermès 的参考定义与常见问题：太阳方阵、安卡十字、360 个图层的体系、Carter。">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/zh/lexicon/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="词汇表——La Livrée d'Hermès">
+<meta name="twitter:description" content="关于 La Livrée d'Hermès 的参考定义与常见问题：太阳方阵、安卡十字、360 个图层的体系、Carter。">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  "name": "词汇表——La Livrée d'Hermès",
+  "url": "https://anibal-amiot.com/zh/lexicon/",
+  "inLanguage": "zh-Hans",
+  "hasDefinedTerm": [
+    {
+      "@type": "DefinedTerm",
+      "name": "La Livrée d'Hermès",
+      "description": "La Livrée d'Hermès（赫尔墨斯的号衣）是一部共 111 幅图版的数形学论著，写作于 2009 年至 2019 年间，提出了一种构造 6 阶幻方的方法，以及一套基于 360 个图层、用于提花织机的图案体系。本书已有法文、英文、西班牙文和泰文版本，中文版与俄文版正在准备中；采用 CC BY-NC 4.0 许可，存档于 Zenodo（DOI 10.5281/zenodo.22722485），并在 anibal-amiot.com 以自定价格的方式发行。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "数形学",
+      "description": "数形学研究数在空间中的排布：一个数是点的一种构形，一个和是一个图形。La Livrée d'Hermès 将其应用于幻方——数的排布受各个和的约束——也应用于织物图案，同一种排布在其中化为图像。这一术语在这里指一种构造性的实践，而非数字命理学：书中的每一个数字都可以通过计算加以验证。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "太阳方阵与安卡十字",
+      "description": "太阳方阵是一种 6 阶幻方，直接由其 36 个格的四色着色构造而成，无需辅助方阵。着色遵循一个称为安卡十字的图形——一种中心对称的笔画构形，在 6 阶时恰好只有两种形式——以及四条判据。可行的着色恰好有 256 种，每个十字各 128 种，而每一种都生成一个完整的幻方：各行、各列以及两条对角线。这一计算可以复现：验证代码见 Zenodo。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "360 个图层的体系",
+      "description": "360 个图层的体系是 La Livrée d'Hermès 的图案词汇：一个 12 × 12 的网格分为六个层级，每个层级 24 个格；每个层级取 60 幅图像之一（15 个轴族 × 4 种性质），共计 360 个图层。每个层级各选一个图层，即组成一个图案；这六次选择各有两种状态，从而转写出易经的 64 卦。该体系是为提花织机的纹板穿孔而设计的：每个图层就是一张纹板。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "半周期平移判据（统一图案）",
+      "description": "若将一个 12 × 12 图案平移半个周期——在两个方向上各平移六格——等同于交换它的两幅生成图像，则称该图案为统一图案。在 360 个图层上，这一判据恰好保留 15 个族中的 8 个，即恰有一个对角基（YANG 或 YANG mutant）的那些族，并产生 512 个互不相同的网格，即 256 种平面铺排和 128 个对称轨道。这些网格中恰好有一半还能在立方体的六个面上闭合：即对角轴属于阳型的那些。已证明，并经脚本验证。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    },
+    {
+      "@type": "DefinedTerm",
+      "name": "编码器 Carter",
+      "description": "Carter 是一种隐写编码：它把一条加密消息写入一个符号网格，写入的位置由一个公开的参照物指定——太阳方阵或 360 个图层。机密性来自加密（XChaCha20-Poly1305，256 位密钥），而不是来自几何结构：即使布局已知，证明依然成立。参照物是可替换的参数；代码为自由软件（AGPL v3），并附有可以逐步核对的参考向量。",
+      "inDefinedTermSet": "https://anibal-amiot.com/zh/lexicon/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "zh-Hans",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "什么是太阳方阵？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一种 6 阶幻方，按照安卡十字和四条判据，直接由其各格的四色着色得到。这样的方阵恰好有 256 个，全部在各行、各列以及两条对角线上满足幻方条件。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "这种方法能产生多少个幻方？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "6 阶共 256 个——这是全部可行的着色，而不是抽样。每四个组合在一起，可得到 64 个 12 阶幻方，幻和为 870。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "什么是安卡十字？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "6 × 6 网格上一种中心对称的笔画图形，把 6 阶幻方中互补的格两两相连。在本书的判据下，这样的十字恰好有两个，彼此互为映像。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "这本书免费吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "本书采用自定价格：无需付费即可阅读和下载，如果愿意，也可以给予支持。许可为 CC BY-NC 4.0——在注明出处的前提下，可以出于非商业目的自由复制、分享和再利用。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "书和代码在哪里？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "书在 Zenodo（DOI 10.5281/zenodo.22722485）和 anibal-amiot.com 上，有法文、英文、西班牙文和泰文版本，中文版与俄文版正在准备中。代码在 GitHub（anibaledel/livreedhermes）上，采用 AGPL v3 许可，每个结果都附有验证脚本。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "它与易经有什么联系？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "360 个图层的体系通过六次二元选择组成一个图案，每个层级一次：这正是 64 卦的结构。本网站提供起卦功能，把每一卦呈现为一个图案。这种联系是结构上的——六爻对应六个层级——除此之外不作任何主张。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "什么是统一图案？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一种 12 × 12 图案，其半周期平移等同于交换它的两幅图像：于是铺排呈现的是同一个图案，而不是两个交替出现的图案。这样的图案共有 512 个，分属 128 个轨道；其中一半能在立方体上闭合。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "这些图案可以织造吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以：这一体系正是为提花织机的纹板穿孔而设计的，每个图层就是一张纹板。360 个图层和 256 个幻方的矢量文件都在代码仓库中，采用 CC BY-NC 4.0 许可。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Carter 是一种加密方案吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Carter 使用一种标准密码（XChaCha20-Poly1305），并按照一个公开的参照物把结果排布在网格中。它的安全性就是该密码的安全性，而不是几何结构的安全性；即使布局已知，论文中的证明依然成立。它不是一种新的密码，也不自称是。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "如何核验这些结果？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "网站和各篇笔记中的每一个数字都出自代码仓库中的某个脚本：两个十字、256 个方阵、64 个 12 阶方阵、512 个网格与 128 个轨道、立方体。这些脚本读取已发布的数据，几分钟内即可运行完毕。"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "首页",
+      "item": "https://anibal-amiot.com/zh/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "La Livrée d'Hermès",
+      "item": "https://anibal-amiot.com/la-livree-d-hermes.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "词汇表",
+      "item": "https://anibal-amiot.com/zh/lexicon/"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(15px + var(--fs-bump)); margin:0; }
+  @media (max-width:768px){ header h1{ font-size:calc(22px + var(--fs-bump)); } }
+  @media (max-width:480px){ header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; } }
+
+  .lex-body{ padding:24px 0 8px; }
+  .lex-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.8;
+  }
+  .lex-section{ max-width:64ch; margin:0 auto 34px; text-align:center; }
+  .lex-section h2{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 12px;
+    border-bottom:1px solid var(--line); padding-bottom:10px;
+  }
+  .lex-section p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:0; }
+  .lex-section i{ color:var(--white); font-style:italic; }
+
+  .faq-block{ max-width:64ch; margin:46px auto 40px; text-align:left; padding-top:34px; border-top:1px solid var(--line); }
+  .faq-block-title{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 16px; text-align:center;
+  }
+  .faq-item{ border-top:1px solid var(--line); padding:14px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{
+    cursor:pointer; color:var(--white); font-size:calc(14.5px + var(--fs-bump));
+    list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:12px 0 0; }
+
+  .lex-sources{
+    max-width:64ch; margin:0 auto; color:var(--dim); text-align:center;
+    font-size:calc(14px + var(--fs-bump)); line-height:1.7;
+  }
+  .lex-sources a, .lex-intro a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .lex-sources a:hover, .lex-intro a:hover{ text-decoration-color:currentColor; }
+
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .site-nav-row{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:18px auto 0; max-width:900px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase;
+    padding:9px 16px; cursor:pointer; text-decoration:none;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:18px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    .lex-intro, .lex-section p, .lex-sources{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/lexicon/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/lexico/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/lexicon/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/lexicon/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/lexicon/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/lexicon/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">跳到正文</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-26-lexique.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="词汇表">
+      <a href="https://anibal-amiot.com/zh/">首页</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">La Livrée d'Hermès</a><span class="sep">/</span><span aria-current="page">词汇表</span>
+    </nav>
+    <h1>词汇表</h1>
+    <p>六条参考定义与十个问题</p>
+  </header>
+  </div>
+
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">其他语言：<a href="https://anibal-amiot.com/lexique.html">Français</a> · <a href="https://anibal-amiot.com/en/lexicon/">English</a> · <a href="https://anibal-amiot.com/es/lexico/">Español</a> · <a href="https://anibal-amiot.com/th/lexicon/">ไทย</a> · <a href="https://anibal-amiot.com/ru/lexicon/">Русский</a></p>
+<!-- @langues:end -->
+
+  <div class="lex-body">
+    <p class="lex-intro">六条定义，写成可以原样引用的形式；另有十个问题及其解答。每一个数字都出自代码仓库中的某个脚本；法文的「数字与来源」页面给出了每个数字对应的命令。</p>
+
+    <section class="lex-section">
+      <h2>La Livrée d'Hermès</h2>
+      <p><i>La Livrée d'Hermès</i>（赫尔墨斯的号衣）是一部共 111 幅图版的数形学论著，写作于 2009 年至 2019 年间，提出了一种构造 6 阶幻方的方法，以及一套基于 360 个图层、用于提花织机的图案体系。本书已有法文、英文、西班牙文和泰文版本，中文版与俄文版正在准备中；采用 CC BY-NC 4.0 许可，存档于 Zenodo（DOI 10.5281/zenodo.22722485），并在 anibal-amiot.com 以自定价格的方式发行。</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>数形学</h2>
+      <p>数形学研究数在空间中的排布：一个数是点的一种构形，一个和是一个图形。<i>La Livrée d'Hermès</i> 将其应用于幻方——数的排布受各个和的约束——也应用于织物图案，同一种排布在其中化为图像。这一术语在这里指一种构造性的实践，而非数字命理学：书中的每一个数字都可以通过计算加以验证。</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>太阳方阵与安卡十字</h2>
+      <p>太阳方阵是一种 6 阶幻方，直接由其 36 个格的四色着色构造而成，无需辅助方阵。着色遵循一个称为安卡十字的图形——一种中心对称的笔画构形，在 6 阶时恰好只有两种形式——以及四条判据。可行的着色恰好有 256 种，每个十字各 128 种，而每一种都生成一个完整的幻方：各行、各列以及两条对角线。这一计算可以复现：验证代码见 Zenodo。</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>360 个图层的体系</h2>
+      <p>360 个图层的体系是 <i>La Livrée d'Hermès</i> 的图案词汇：一个 12 × 12 的网格分为六个层级，每个层级 24 个格；每个层级取 60 幅图像之一（15 个轴族 × 4 种性质），共计 360 个图层。每个层级各选一个图层，即组成一个图案；这六次选择各有两种状态，从而转写出易经的 64 卦。该体系是为提花织机的纹板穿孔而设计的：每个图层就是一张纹板。</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>半周期平移判据（统一图案）</h2>
+      <p>若将一个 12 × 12 图案平移半个周期——在两个方向上各平移六格——等同于交换它的两幅生成图像，则称该图案为统一图案。在 360 个图层上，这一判据恰好保留 15 个族中的 8 个，即恰有一个对角基（YANG 或 YANG mutant）的那些族，并产生 512 个互不相同的网格，即 256 种平面铺排和 128 个对称轨道。这些网格中恰好有一半还能在立方体的六个面上闭合：即对角轴属于阳型的那些。已证明，并经脚本验证。</p>
+    </section>
+
+    <section class="lex-section">
+      <h2>编码器 Carter</h2>
+      <p>Carter 是一种隐写编码：它把一条加密消息写入一个符号网格，写入的位置由一个公开的参照物指定——太阳方阵或 360 个图层。机密性来自加密（XChaCha20-Poly1305，256 位密钥），而不是来自几何结构：即使布局已知，证明依然成立。参照物是可替换的参数；代码为自由软件（AGPL v3），并附有可以逐步核对的参考向量。</p>
+    </section>
+
+    <div class="faq-block">
+      <p class="faq-block-title">常见问题</p>
+
+      <details class="faq-item">
+        <summary>什么是太阳方阵？<span class="q-mark">＋</span></summary>
+        <p>一种 6 阶幻方，按照安卡十字和四条判据，直接由其各格的四色着色得到。这样的方阵恰好有 256 个，全部在各行、各列以及两条对角线上满足幻方条件。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>这种方法能产生多少个幻方？<span class="q-mark">＋</span></summary>
+        <p>6 阶共 256 个——这是全部可行的着色，而不是抽样。每四个组合在一起，可得到 64 个 12 阶幻方，幻和为 870。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>什么是安卡十字？<span class="q-mark">＋</span></summary>
+        <p>6 × 6 网格上一种中心对称的笔画图形，把 6 阶幻方中互补的格两两相连。在本书的判据下，这样的十字恰好有两个，彼此互为映像。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>这本书免费吗？<span class="q-mark">＋</span></summary>
+        <p>本书采用自定价格：无需付费即可阅读和下载，如果愿意，也可以给予支持。许可为 CC BY-NC 4.0——在注明出处的前提下，可以出于非商业目的自由复制、分享和再利用。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>书和代码在哪里？<span class="q-mark">＋</span></summary>
+        <p>书在 Zenodo（DOI 10.5281/zenodo.22722485）和 anibal-amiot.com 上，有法文、英文、西班牙文和泰文版本，中文版与俄文版正在准备中。代码在 GitHub（anibaledel/livreedhermes）上，采用 AGPL v3 许可，每个结果都附有验证脚本。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>它与易经有什么联系？<span class="q-mark">＋</span></summary>
+        <p>360 个图层的体系通过六次二元选择组成一个图案，每个层级一次：这正是 64 卦的结构。本网站提供起卦功能，把每一卦呈现为一个图案。这种联系是结构上的——六爻对应六个层级——除此之外不作任何主张。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>什么是统一图案？<span class="q-mark">＋</span></summary>
+        <p>一种 12 × 12 图案，其半周期平移等同于交换它的两幅图像：于是铺排呈现的是同一个图案，而不是两个交替出现的图案。这样的图案共有 512 个，分属 128 个轨道；其中一半能在立方体上闭合。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>这些图案可以织造吗？<span class="q-mark">＋</span></summary>
+        <p>可以：这一体系正是为提花织机的纹板穿孔而设计的，每个图层就是一张纹板。360 个图层和 256 个幻方的矢量文件都在代码仓库中，采用 CC BY-NC 4.0 许可。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Carter 是一种加密方案吗？<span class="q-mark">＋</span></summary>
+        <p>Carter 使用一种标准密码（XChaCha20-Poly1305），并按照一个公开的参照物把结果排布在网格中。它的安全性就是该密码的安全性，而不是几何结构的安全性；即使布局已知，论文中的证明依然成立。它不是一种新的密码，也不自称是。</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>如何核验这些结果？<span class="q-mark">＋</span></summary>
+        <p>网站和各篇笔记中的每一个数字都出自代码仓库中的某个脚本：两个十字、256 个方阵、64 个 12 阶方阵、512 个网格与 128 个轨道、立方体。这些脚本读取已发布的数据，几分钟内即可运行完毕。</p>
+      </details>
+    </div>
+
+    <p class="lex-sources">延伸阅读：在线阅读本书、数字及其来源（法文），或作者资料页（法文）。内容采用 CC BY-NC 4.0 许可，代码采用 AGPL v3 许可。</p>
+  </div>
+</main>
+
+<div class="note">
+  <div class="site-nav-row">
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/">首页</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/book/">论著</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/works/">研究存档</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/tools/">工具</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/en/hexagrams/">64 卦（英文）</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/motifs/">图案（英文）</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/chiffres-et-sources.html">数字与来源（法文）</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/contact.html">联系（法文）</a>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/zh/support/">支持</a>
+  </div>
+  <div class="credit-line">
+    <span>© 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 · 与 Claude 合作完成</span>
+  </div>
+  <div class="footer-title-logo">
+    <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+  </div>
+</div>
+</div>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

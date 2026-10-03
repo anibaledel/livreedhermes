@@ -92,12 +92,12 @@ const STATIC_PAGES = [
   { loc: `${SITE}/galerie-bicolore.html`, file: 'galerie-bicolore.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/cymatique.html`, file: 'cymatique.html', changefreq: 'monthly', priority: '0.7' },
-  { loc: `${SITE}/outils.html`, file: 'outils.html', changefreq: 'monthly', priority: '0.7' },
+  // 'outils.html' : dans le groupe « outils » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/chiffres-et-sources.html`, file: 'chiffres-et-sources.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
-  { loc: `${SITE}/soutenir.html`, file: 'soutenir.html', changefreq: 'monthly', priority: '0.6' },
+  // 'soutenir.html' : dans le groupe « soutien » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
 ];

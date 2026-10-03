@@ -33,12 +33,12 @@ const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) =>
 const doiUrl = (doi) => `https://doi.org/${doi}`;
 
 const TYPES = {
-  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book' },
-  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint' },
-  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset' },
-  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data' },
-  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository' },
-  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report' },
+  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга' },
+  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт' },
+  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных' },
+  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные' },
+  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода' },
+  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт' },
 };
 const LICENCES = {
   'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
@@ -55,16 +55,30 @@ for (const d of DONNEES.depots) {
 const MOIS = {
   fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  // le russe date au génitif : « 12 сентября 2026 г. »
+  ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
 };
 function dateLisible(iso, lang) {
   const [a, m, j] = iso.split('-').map(Number);
+  if (lang === 'zh') return `${a}年${m}月${j}日`;
+  if (lang === 'ru') return `${j} ${MOIS.ru[m - 1]} ${a} г.`;
   return lang === 'fr' ? `${j === 1 ? '1er' : j} ${MOIS.fr[m - 1]} ${a}` : `${MOIS.en[m - 1]} ${j}, ${a}`;
 }
 
 const T = {
   fr: { toutes: 'toutes versions, à citer', version: 'version', cetteVersion: 'DOI de cette version', premiere: 'première version le', anterieur: 'voir aussi la' },
   en: { toutes: 'all versions, to cite', version: 'version', cetteVersion: 'DOI of this version', premiere: 'first version', anterieur: 'see also the' },
+  // Chinois et russe (lot « six langues ») : à relire, voir TODO-RELECTURE.md.
+  zh: { toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
+  ru: { toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
+// Chaque texte traduit doit exister : une description manquante afficherait
+// « undefined » sur la page, sans erreur.
+for (const lang of ['zh', 'ru']) {
+  for (const x of [...DONNEES.sections, ...DONNEES.depots, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
+    if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
+  }
+}
 
 function itemHtml(d, lang) {
   const t = T[lang];
@@ -73,7 +87,7 @@ function itemHtml(d, lang) {
   if (d.doi) lignes.push(`          <a href="${doiUrl(d.doi)}">doi:${d.doi}</a>${d.versionDoi ? ` <span class="travaux-toutes">(${t.toutes})</span>` : ''}`);
   else lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
   const meta = [TYPES[d.type][lang]];
-  if (d.version) meta.push(`${t.version} ${escapeHtml(d.version)}${d.date ? `, ${dateLisible(d.date, lang)}` : ''}`);
+  if (d.version) meta.push(`${t.version} ${escapeHtml(d.version)}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
   if (d.versionDoi) meta.push(`<a href="${doiUrl(d.versionDoi)}">${t.cetteVersion}</a>`);
@@ -81,6 +95,29 @@ function itemHtml(d, lang) {
   if (d.anterieur) meta.push(`${t.anterieur} <a href="${doiUrl(d.anterieur.doi)}">${escapeHtml(d.anterieur[lang])}</a>`);
   lignes.push(`          <span class="travaux-meta">${meta.join(' · ')}</span>`, `        </li>`);
   return lignes.join('\n');
+}
+
+// La phrase des licences, en tête de chaque liste : la licence du SITE et
+// celles des DÉPÔTS se lisent ensemble. Ces pages affichent CC BY 4.0 parce
+// que des dépôts listés ont été publiés sous cette licence sur Zenodo — pas
+// parce que le site l'est (voir tools/check_doi_licences.mjs). Les comptes
+// sortent de data/travaux.json : tous les dépôts ne sont pas en CC BY 4.0
+// (le livre est en CC BY-NC 4.0, le code en AGPL v3), et une phrase qui le
+// dirait de tous serait fausse sur une page de licences.
+// Chinois et russe : à relire (TODO-RELECTURE.md, en tête).
+const LICENCE_SITE = 'CC BY-NC 4.0';
+const PHRASE_LICENCES = {
+  fr: (l) => `Ce site est sous licence ${LICENCE_SITE}. Chaque dépôt ci-dessous garde la licence sous laquelle il a été publié, indiquée pour chacun : ${et(l.map(([n, k]) => `${n} pour ${k}`), 'et')}.`,
+  en: (l) => `This site is licensed under ${LICENCE_SITE}. Each deposit below keeps the licence under which it was published, shown with it: ${et(l.map(([n, k]) => `${n} for ${k}`), 'and')}.`,
+  zh: (l) => `本网站采用 ${LICENCE_SITE} 许可。以下每个存档保留其发布时的许可，并在各条目中注明：${l.map(([n, k]) => `${k} 个为 ${n}`).join('，')}。`,
+  ru: (l) => `Этот сайт распространяется по лицензии ${LICENCE_SITE}. Каждая публикация ниже сохраняет лицензию, под которой она была опубликована; лицензия указана у каждой: ${l.map(([n, k]) => `${n} — ${k}`).join(', ')}.`,
+};
+function et(xs, mot) { return xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} ${mot} ${xs[xs.length - 1]}`; }
+function phraseLicences(lang) {
+  const n = new Map();
+  for (const d of DONNEES.depots) if (d.licence) n.set(d.licence, (n.get(d.licence) || 0) + 1);
+  const l = [...n].sort((a, b) => b[1] - a[1]);
+  return PHRASE_LICENCES[lang](l);
 }
 
 function listeHtml(lang) {
@@ -91,6 +128,7 @@ function listeHtml(lang) {
       + items.map((d) => itemHtml(d, lang)).join('\n') + `\n      </ul>\n    </div>`;
   }).filter(Boolean);
   return `<!-- @travaux:start — engendré depuis data/travaux.json (scripts/build-travaux.js) -->\n`
+    + `    <p class="profile-intro travaux-licences">${escapeHtml(phraseLicences(lang))}</p>\n\n`
     + blocs.join('\n\n') + `\n    <!-- @travaux:end -->`;
 }
 
@@ -188,8 +226,11 @@ function zone(s, nom, contenu, rel) {
 for (const [rel, lang, url, nom] of [
   ['travaux.html', 'fr', `${SITE}/travaux.html`, 'Travaux — Anibal Edelberto Amiot'],
   ['en/works/index.html', 'en', `${SITE}/en/works/`, 'Research deposits — Anibal Edelberto Amiot'],
+  ['zh/works/index.html', 'zh-Hans', `${SITE}/zh/works/`, '研究存档 — Anibal Edelberto Amiot'],
+  ['ru/works/index.html', 'ru', `${SITE}/ru/works/`, 'Научные публикации — Anibal Edelberto Amiot'],
 ]) {
-  ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(lang), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));
+  const cle = lang.slice(0, 2); // zh-Hans -> zh : la clé des textes ; inLanguage garde zh-Hans
+  ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(cle), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));
 }
 ecrire('CITATION.cff', (s) => {
   const i = s.indexOf('\nreferences:');

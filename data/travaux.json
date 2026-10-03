@@ -4,22 +4,30 @@
     {
       "id": "livre",
       "fr": "Le livre",
-      "en": "The book"
+      "en": "The book",
+      "zh": "本书",
+      "ru": "Книга"
     },
     {
       "id": "prepublications",
       "fr": "Prépublications et notes",
-      "en": "Preprints and notes"
+      "en": "Preprints and notes",
+      "zh": "预印本与笔记",
+      "ru": "Препринты и заметки"
     },
     {
       "id": "donnees",
       "fr": "Données et code",
-      "en": "Data and code"
+      "en": "Data and code",
+      "zh": "数据与代码",
+      "ru": "Данные и код"
     },
     {
       "id": "rapports",
       "fr": "Comptes rendus",
-      "en": "Reports"
+      "en": "Reports",
+      "zh": "进展报告",
+      "ru": "Отчёты"
     }
   ],
   "depots": [
@@ -39,7 +47,9 @@
       "fr": "Traité d'arithmogéométrie en 111 planches, en quatre langues : la construction des carrés magiques par la loi du gnomon et leur transcription en motifs pour le métier Jacquard.",
       "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom.",
       "version": "v2",
-      "premiere": "2026-09-12"
+      "premiere": "2026-09-12",
+      "zh": "一部共 111 幅图版的数形学论著，有法文、英文、西班牙文和泰文版本：依据磬折形法则构造幻方，并将其转写为提花织机的图案。",
+      "ru": "Трактат по арифмогеометрии в 111 таблицах на французском, английском, испанском и тайском: магические квадраты, построенные по закону гномона, и их перевод в узоры для жаккардового станка."
     },
     {
       "section": "prepublications",
@@ -58,7 +68,9 @@
         "10.5281/zenodo.23088601"
       ],
       "fr": "Prépublication de travail : pour toute hauteur h assez grande, la colonne des coefficients qui comptent les arbres binaires plans de hauteur exacte h est strictement log-concave sur tout son intérieur. Confirmé par calcul exact jusqu'à h = 16 ; pas encore relu par un spécialiste.",
-      "en": "Working preprint: for every sufficiently large height h, the coefficient column counting plane binary trees of exact height h is strictly log-concave on its whole interior. Confirmed by exact computation up to h = 16; not yet read by a specialist."
+      "en": "Working preprint: for every sufficiently large height h, the coefficient column counting plane binary trees of exact height h is strictly log-concave on its whole interior. Confirmed by exact computation up to h = 16; not yet read by a specialist.",
+      "zh": "工作预印本：对任意足够大的高度 h，计数恰好高度为 h 的平面二叉树的系数列在其整个内部严格对数凹。已通过精确计算验证至 h = 16；尚未经专家审读。",
+      "ru": "Рабочий препринт: для любой достаточно большой высоты h столбец коэффициентов, считающих плоские бинарные деревья точной высоты h, строго логарифмически вогнут на всей своей внутренности. Подтверждено точным вычислением до h = 16; специалистом ещё не прочитано."
     },
     {
       "section": "prepublications",
@@ -77,7 +89,9 @@
         "10.5281/zenodo.22965031"
       ],
       "fr": "Quatre papiers de travail sur la multiplication par 2 dans Z/nZ, x identifié à −x, pour tout n : structure des cycles, synchronisation 2-adique, relèvement 2-adique, et dénombrement des sous-ensembles stables par doublement. C'est le doublement qui engendre le vocabulaire d'axes du livre (n = 12).",
-      "en": "Four working papers on multiplication by 2 in Z/nZ after identifying x with −x, for every n: cycle structure, 2-adic synchronization, 2-adic lifting, and the enumeration of subsets closed under doubling. This doubling generates the vocabulary of axes of the book (n = 12)."
+      "en": "Four working papers on multiplication by 2 in Z/nZ after identifying x with −x, for every n: cycle structure, 2-adic synchronization, 2-adic lifting, and the enumeration of subsets closed under doubling. This doubling generates the vocabulary of axes of the book (n = 12).",
+      "zh": "四篇工作论文，研究在 Z/nZ 中把 x 与 −x 等同之后乘以 2 的运算，适用于任意 n：循环结构、2 进同步、2 进提升，以及在倍乘下封闭的子集的计数。正是这种倍乘生成了本书的轴词汇（n = 12）。",
+      "ru": "Четыре рабочие статьи об умножении на 2 в Z/nZ после отождествления x с −x, для любого n: структура циклов, 2-адическая синхронизация, 2-адический подъём и перечисление подмножеств, замкнутых относительно удвоения. Именно это удвоение порождает словарь осей книги (n = 12)."
     },
     {
       "section": "prepublications",
@@ -97,7 +111,9 @@
         "10.5281/zenodo.23088601"
       ],
       "fr": "Les trois descriptions du système de motifs (axes, images du métier, lignes de niveau d'un mode propre de plaque carrée) présentent une seule structure finie, vérifiée exhaustivement sur les soixante images publiées.",
-      "en": "The three descriptions of the pattern system (axes, loom images, level sets of a square-plate eigenmode) present one finite structure, checked exhaustively on the sixty published images."
+      "en": "The three descriptions of the pattern system (axes, loom images, level sets of a square-plate eigenmode) present one finite structure, checked exhaustively on the sixty published images.",
+      "zh": "图案体系的三种描述（轴、织机图像、方形板本征模态的等值线）呈现的是同一个有限结构，已在已发布的六十幅图像上穷举验证。",
+      "ru": "Три описания системы узоров (оси, изображения ткацкого станка, линии уровня собственной моды квадратной пластины) представляют одну конечную структуру, исчерпывающе проверенную на шестидесяти опубликованных изображениях."
     },
     {
       "section": "prepublications",
@@ -113,7 +129,9 @@
       ],
       "licence": "CC BY 4.0",
       "fr": "Le vocabulaire d'axes engendré par un doublement inverse (note [A]), et son identification aux lignes de niveau d'un mode propre de plaque carrée (note [P]).",
-      "en": "The vocabulary of axes generated by an inverse doubling (note [A]), and its identification with the level sets of a square-plate eigenmode (note [P])."
+      "en": "The vocabulary of axes generated by an inverse doubling (note [A]), and its identification with the level sets of a square-plate eigenmode (note [P]).",
+      "zh": "由逆倍乘生成的轴词汇（笔记 [A]），以及它与方形板本征模态等值线的等同（笔记 [P]）。",
+      "ru": "Словарь осей, порождённый обратным удвоением (заметка [A]), и его отождествление с линиями уровня собственной моды квадратной пластины (заметка [P])."
     },
     {
       "section": "prepublications",
@@ -132,7 +150,9 @@
       ],
       "fr": "Où la règle de parité se place dans la théorie du moiré, et ce qui y est faux quand on le dit vite.",
       "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly.",
-      "versionDoi": "10.5281/zenodo.22986645"
+      "versionDoi": "10.5281/zenodo.22986645",
+      "zh": "奇偶性规则在莫尔纹理论中处于什么位置，以及说得太快时哪些说法会变得不成立。",
+      "ru": "Где правило чётности располагается в теории муара и что в нём оказывается ложным, если формулировать его слишком поспешно."
     },
     {
       "section": "donnees",
@@ -151,7 +171,9 @@
         "10.5281/zenodo.22965031"
       ],
       "fr": "Les termes P_n(1) pour n = 1 à 200 et le programme qui les calcule : le nombre de sous-ensembles de Z/nZ stables par négation et par doublement.",
-      "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling."
+      "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling.",
+      "zh": "n = 1 至 200 的项 P_n(1) 及计算它们的程序：Z/nZ 中在取负和倍乘下封闭的子集的个数。",
+      "ru": "Члены P_n(1) для n от 1 до 200 и вычисляющая их программа: число подмножеств Z/nZ, замкнутых относительно смены знака и удвоения."
     },
     {
       "section": "donnees",
@@ -167,7 +189,9 @@
       "fr": "Données et scripts de l'article sur les grilles 12 × 12, soumis au Journal of Mathematics and the Arts.",
       "en": "Data and scripts of the paper on 12 × 12 grids, submitted to the Journal of Mathematics and the Arts.",
       "titreZenodo": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids",
-      "licence": "AGPL v3"
+      "licence": "AGPL v3",
+      "zh": "关于 12 × 12 网格那篇论文的数据与脚本，该论文已投稿至 Journal of Mathematics and the Arts。",
+      "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts."
     },
     {
       "section": "donnees",
@@ -182,7 +206,9 @@
       ],
       "fr": "Scripts et données de l'article sur la croix ansée, soumis à Mathematics Magazine : les 256 carrés magiques d'ordre 6, les 64 assemblages d'ordre 12 et l'énumération exhaustive des colorations admissibles.",
       "en": "Scripts and data of the paper on the ansate cross, submitted to Mathematics Magazine: the 256 order-6 magic squares, the 64 order-12 assemblies and the exhaustive enumeration of admissible colourings.",
-      "licence": "AGPL v3"
+      "licence": "AGPL v3",
+      "zh": "关于安卡十字那篇论文的脚本与数据，该论文已投稿至 Mathematics Magazine：256 个 6 阶幻方、64 个 12 阶组合，以及对全部可行着色的穷举。",
+      "ru": "Скрипты и данные статьи о кресте с петлёй, поданной в Mathematics Magazine: 256 магических квадратов порядка 6, 64 сборки порядка 12 и исчерпывающий перебор допустимых раскрасок."
     },
     {
       "section": "donnees",
@@ -191,7 +217,9 @@
       "url": "https://github.com/anibaledel/livreedhermes",
       "licence": "AGPL v3",
       "fr": "Le dépôt courant du site et de ses scripts de vérification.",
-      "en": "The live repository of the site and its verification scripts."
+      "en": "The live repository of the site and its verification scripts.",
+      "zh": "本网站及其验证脚本的现行代码仓库。",
+      "ru": "Действующий репозиторий сайта и его скриптов проверки."
     },
     {
       "section": "rapports",
@@ -206,7 +234,9 @@
       ],
       "fr": "État des travaux, en anglais avec une version française : deux articles en évaluation, les notes déposées, douze théorèmes énoncés simplement.",
       "en": "State of the work, in English with a French version: two papers under review, the deposited notes, twelve theorems stated plainly.",
-      "licence": "CC BY 4.0"
+      "licence": "CC BY 4.0",
+      "zh": "工作进展报告，以英文撰写并附法文版：两篇论文在评审中、已存档的笔记、十二条用平实语言陈述的定理。",
+      "ru": "Состояние работы, на английском с французской версией: две статьи на рецензировании, депонированные заметки, двенадцать теорем, изложенных простыми словами."
     }
   ]
 }
