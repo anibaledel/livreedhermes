@@ -1,0 +1,23 @@
+{
+ "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json.",
+ "collections": {
+  "P": {
+   "palette": [
+    "#ee2a7b",
+    "#662d91"
+   ],
+   "images": 256,
+   "format": "1000 × 1500",
+   "exportee": "2026-10-02"
+  },
+  "B2D": {
+   "palette": [
+    "#f2f2f0",
+    "#000000"
+   ],
+   "images": 256,
+   "format": "1000 × 1500",
+   "exportee": "2026-10-03"
+  }
+ }
+}
