@@ -37,6 +37,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { servirDepot, lignesCanoniques, grilleDeLaPage } from './lib_fonds_site.mjs';
 import { PALETTE_DEFAUT } from '../assets/couleurs.js';
+import { ecrireRegistre as ecrire } from './registre.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -49,8 +50,7 @@ if (palette.length !== 2 || palette.some((c) => !/^#[0-9a-f]{6}$/.test(c))) { co
 const manifeste = path.join(ROOT, 'data/fonds/collections-pinterest.json');
 
 // le registre, écrit avec une épingle de la campagne par ligne (comme il l'est)
-const ecrireRegistre = (m) => writeFileSync(manifeste, JSON.stringify(m, null, 1)
-  .replace(/\{\n\s+"page": ("[^"]+"),\n\s+"serie": ("[^"]+")(?:,\n\s+"publiee": ("[^"]+"))?\n\s+\}/g, (_, p, se, d) => `{"page": ${p}, "serie": ${se}${d ? `, "publiee": ${d}` : ''}}`) + '\n');
+const ecrireRegistre = (m) => ecrire(manifeste, m);
 const complet = !args.includes('--sortie') && limite === Infinity;
 if (complet) {
   const m = JSON.parse(readFileSync(manifeste, 'utf8'));

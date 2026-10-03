@@ -36,6 +36,7 @@ import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
 import { distanceBinaire, signatureBinaire } from '../assets/proximite-binaire.js';
 import { grilleDuMotif, slugDe, FAMILLES } from '../assets/vue-fond-ecran.js';
+import { ecrireRegistre } from './registre.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REGISTRE = path.join(ROOT, 'data/fonds/collections-pinterest.json');
@@ -118,8 +119,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     console.log(`${code.padEnd(5)} graine ${String(r.graine).padEnd(10)} ${r.motifs.length} motifs × ${r.dureeMotif} s (fondu ${r.fondu} s) + ${r.fin} s de fin = ${duree} s à ${r.imagesParSeconde} i/s ; ${r.motifs[0]} → ${r.motifs[r.motifs.length - 1]}`);
   }
   if (ecrites) {
-    reg._doc_recette = "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite par Anibal dans Chrome et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs).";
-    writeFileSync(REGISTRE, JSON.stringify(reg, null, 1) + '\n');
+    reg._doc_recette ??= "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs).";
+    ecrireRegistre(REGISTRE, reg);
     console.log(`${ecrites} recette(s) écrite(s) dans ${path.relative(ROOT, REGISTRE)}.`);
   }
   console.log(`${candidats.length} motifs candidats (lecture binaire définie) sur 256.`);
