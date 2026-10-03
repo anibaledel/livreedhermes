@@ -28,7 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # laisser à GitHub Pages le temps de publier le commit poussé sur main
+      # laisser à GitHub Pages le temps de publier ; le contrôle réessaie ensuite
+      # jusqu'à 10 min un fichier absent ou encore dans son ancienne version
       - if: github.event_name == 'push'
         run: sleep 240
       - run: python3 tools/check_pdf_servis.py https://anibal-amiot.com
