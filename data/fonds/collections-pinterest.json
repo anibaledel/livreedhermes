@@ -47,7 +47,7 @@
   "B2D": {
    "palette": [
     "#f2f2f0",
-    "#000000"
+    "#e0261b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -118,7 +118,17 @@
      "par2-yin-mut-yang-mut-h17",
      "par2-yin-mut-yang-mut-h21"
     ]
-   }
+   },
+   "anciennes": [
+    {
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b"
+    }
+   ]
   },
   "B121": {
    "palette": [
