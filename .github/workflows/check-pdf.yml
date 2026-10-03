@@ -1,0 +1,35 @@
+name: PDF légers, linéarisés, servis en requêtes partielles
+
+# - check_pdf.py : aucun PDF du dépôt au-delà de 25 Mo ; ceux des lecteurs du
+#   livre (book-viewer/) linéarisés (tools/alleger_pdf.py, après chaque
+#   génération de PDF).
+# - check_pdf_servis.py : sur le site DÉPLOYÉ, une requête partielle d'un PDF
+#   répond 206 et Accept-Ranges: bytes, et le fichier servi est linéarisé.
+#   Après chaque déploiement de main, et à la demande ; informatif sur une PR
+#   (le site déployé n'a pas encore les fichiers de la PR).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  depot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y qpdf poppler-utils
+      - run: python3 tools/check_pdf.py
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # laisser à GitHub Pages le temps de publier le commit poussé sur main
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: python3 tools/check_pdf_servis.py https://anibal-amiot.com
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
