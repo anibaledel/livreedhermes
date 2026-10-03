@@ -34,6 +34,8 @@
   .anim-ecran{ position:relative; width:100%; aspect-ratio:9 / 16; border:1px solid var(--line); overflow:hidden; display:flex; align-items:center; justify-content:center; }
   .anim-ecran > img, .anim-ecran > video, .anim-ecran > canvas{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
   .anim-attente{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px; text-align:center; font-size:calc(12.5px + var(--fs-bump)); line-height:1.6; }
+  .anim-pastilles{ display:flex; gap:6px; margin-bottom:12px; }
+  .anim-pastilles i{ width:34px; height:34px; border:1px solid var(--line-strong); display:block; }
   .anim-attente b{ display:block; font-weight:400; font-size:calc(15px + var(--fs-bump)); margin-bottom:6px; }
   .anim-boutons, .anim-vue, .anim-partage{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
   .anim-carte button, .anim-carte .anim-lien{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font:inherit; font-size:calc(11px + var(--fs-bump)); padding:8px 11px; cursor:pointer; text-decoration:none; }
@@ -188,7 +190,9 @@ for (const col of collectionsAnimees(registre)) {
       img.loading = 'lazy'; img.width = 1080; img.height = 1920;
       ecran.appendChild(img);
     } else {
-      ecran.innerHTML = `<div class="anim-attente" style="background:${vue.palette[0]};color:${vue.palette[1]}"><b>Collection ${code}</b>Vidéo de référence à venir — l'aperçu en direct montre déjà l'animation.</div>`;
+      // le texte dans les couleurs du site (lisible quelle que soit la palette :
+      // P est violet sur magenta) ; les deux couleurs de la vue en pastilles
+      ecran.innerHTML = `<div class="anim-attente"><span class="anim-pastilles" aria-hidden="true"><i style="background:${vue.palette[0]}"></i><i style="background:${vue.palette[1]}"></i></span><b>Collection ${code}</b>Vidéo de référence à venir — l'aperçu en direct montre déjà l'animation.</div>`;
     }
   }
   afficherRepos();
