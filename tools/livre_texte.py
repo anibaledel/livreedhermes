@@ -284,6 +284,14 @@ def lignes_page(page):
             ecart = bb[1] - dbb[3]
             proche = (-0.3 * h < ecart < 0.8 * max(h, dbb[3] - dbb[1]) and abs(corps[0] - dcorps[0]) < 0.15 * corps[0]
                       and corps[1] == dcorps[1])
+            if proche and len(b['lignes']) >= 2 and t.split()[:1] == b['lignes'][0][0].split()[:1]:
+                # une étiquette qui recommence par le même mot que le bloc, plus
+                # loin que l'interligne du bloc, est l'étiquette suivante, pas la
+                # suite (« Espace indiquant la Famille avec un Symbole » puis
+                # « Espace indiquant la Situation anterieure », page 075 française)
+                interligne = dbb[1] - b['lignes'][-2][1][3]
+                if ecart > interligne + 0.5 * h:
+                    proche = False
             if proche and min(dbb[2], bb[2]) - max(dbb[0], bb[0]) > 0:
                 dessous += 1
             if proche and _meme_colonne(dbb, bb):

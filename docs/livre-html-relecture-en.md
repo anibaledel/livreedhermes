@@ -153,10 +153,10 @@
 ### Chapter VII — Frame, Molt, Hebdo
 
 - adresse : https://anibal-amiot.com/en/book/chapter-7/
-- pages : 063 à 093 (31 pages)
+- pages : 063 à 092 (30 pages)
 - titre de la page : Chapter VII — Frame, Molt, Hebdo — La Livrée d'Hermès
-- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VII of La Livrée d'Hermès: Frame, Molt and Hebdo. Geomancy and the chronological order of the hexagrams, the axes of symmetry and the Yin and Yang of a motif, the draw, the superpositions of layers, and the number of a man.
-- JSON-LD : `Chapter`, position 7, pagination 063–093, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VII of La Livrée d'Hermès: Frame, Molt and Hebdo. Geomancy and the chronological order of the hexagrams, the axes of symmetry and the Yin and Yang of a motif, the draw and the superpositions of layers.
+- JSON-LD : `Chapter`, position 7, pagination 063–092, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
 
 | page | légende proposée |
 |---|---|
@@ -190,6 +190,17 @@
 | 090 | TRI-III-SANS-YANG-FIX, superposition. |
 | 091 | TRI-III-SANS-YIN-FIX, superposition. |
 | 092 | TRI-III-SANS-YANG-MUT, superposition. |
+
+### Chapter VIII — Measurement
+
+- adresse : https://anibal-amiot.com/en/book/chapter-8/
+- pages : 093 à 093 (1 pages)
+- titre de la page : Chapter VIII — Measurement — La Livrée d'Hermès
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapter VIII of La Livrée d'Hermès: Measurement. Measuring with a reed, or with axes of symmetry (mirror), and the number of a man (Revelation 13:18).
+- JSON-LD : `Chapter`, position 8, pagination 093–093, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
+
+| page | légende proposée |
+|---|---|
 | 093 | Chapter VIII, Measurement: measuring with a reed, or with axes of symmetry. |
 
 ## Ce que l'extraction a relevé

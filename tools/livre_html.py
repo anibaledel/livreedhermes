@@ -39,7 +39,7 @@ T = {
     'fr': {
         'chapitre': 'Chapitre', 'livre': "La Livrée d'Hermès", 'accueil': 'Accueil',
         'edition': 'Édition française', 'ariane': "Fil d'Ariane", 'evitement': 'Aller au contenu',
-        'place': 'Pages {du} à {au} du livre · chapitre {n} sur 7',
+        'place': 'Pages {du} à {au} du livre · chapitre {n} sur {total}',
         'prec': '← Chapitre précédent', 'suiv': 'Chapitre suivant →',
         'lire': 'Lire ces pages dans le lecteur →', 'pdf': 'Télécharger le PDF (FR)',
         'complet': 'Le livre complet', 'ouvrir': 'Ouvrir la page {code} dans le lecteur',
@@ -51,7 +51,7 @@ T = {
     'en': {
         'chapitre': 'Chapter', 'livre': "La Livrée d'Hermès", 'accueil': 'Home',
         'edition': 'English edition', 'ariane': 'Breadcrumb', 'evitement': 'Skip to content',
-        'place': 'Pages {du} to {au} of the book · chapter {n} of 7',
+        'place': 'Pages {du} to {au} of the book · chapter {n} of {total}',
         'prec': '← Previous chapter', 'suiv': 'Next chapter →',
         'lire': 'Read these pages in the viewer →', 'pdf': 'Download the PDF (EN)',
         'complet': 'The whole book', 'ouvrir': 'Open page {code} in the viewer',
@@ -254,7 +254,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 </nav>
 <h1 class="chapitre-titre">{esc(titre)}</h1>
 </div>
-<p class="chapitre-place">{esc(t['place'].format(du=ch['du'], au=ch['au'], n=ch['n']))}</p>
+<p class="chapitre-place">{esc(t['place'].format(du=ch['du'], au=ch['au'], n=ch['n'], total=len(chapitres)))}</p>
 <p class="chapitre-description">{desc}</p>
 <nav class="chapitre-nav" aria-label="{esc(t['nav'])}">{''.join(nav)}</nav>
 </header>
