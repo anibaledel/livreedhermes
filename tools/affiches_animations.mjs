@@ -88,11 +88,20 @@ export function deposer(racine, code, source) {
     if (existsSync(affiche) && !existsSync(a)) copyFileSync(affiche, a);
     col.videosAnciennes = [...(col.videosAnciennes || []).filter((x) => x.fichier !== rel(v)), { ...avant, fichier: rel(v), affiche: rel(a) }];
   }
+  // une vidéo d'une AUTRE recette, au même nom (la recette 32 remplace la
+  // v1 sous la même adresse, pour que les publications programmées n'aient
+  // qu'un segment à changer) : l'ancienne reste dans l'historique git, et le
+  // registre garde sa fiche, avec le commit où la lire
+  if (avant && (avant.recette || 'proche-binaire-v1') !== rec.algorithme && existsSync(video)) {
+    let commit = null;
+    try { commit = execFileSync('git', ['-C', racine, 'log', '-1', '--format=%H', '--', rel(video)], { encoding: 'utf8' }).trim() || null; } catch { /* hors dépôt */ }
+    col.videosAnciennes = [...(col.videosAnciennes || []), { ...avant, recette: avant.recette || 'proche-binaire-v1', remplacee: true, commit }];
+  }
   copyFileSync(source, video);
   // le milieu du premier motif : ni fondu, ni carton
   const k = Math.round((rec.dureeMotif / 2) * rec.imagesParSeconde);
   ff(['-i', video, '-vf', `select=eq(n\\,${k})`, '-frames:v', '1', '-sws_flags', 'accurate_rnd+bitexact+full_chroma_int', '-pix_fmt', 'rgb24', '-flags', '+bitexact', affiche]);
-  col.video = { fichier: rel(video), affiche: rel(affiche), format, palette: [...col.palette], image: k, images: s.images, sha256: sha(video), sha256Affiche: sha(affiche) };
+  col.video = { fichier: rel(video), affiche: rel(affiche), format, palette: [...col.palette], recette: rec.algorithme, image: k, images: s.images, sha256: sha(video), sha256Affiche: sha(affiche) };
   ecrireRegistre(registre, reg);
   return col.video;
 }
@@ -117,6 +126,16 @@ export function verifier(racine) {
     // les vidéos gardées : présentes, et inchangées depuis leur dépôt
     for (const x of col.videosAnciennes || []) {
       const f = path.join(racine, x.fichier);
+      if (x.remplacee) {
+        // remplacée sous le même nom par une autre recette : elle se lit dans
+        // l'historique, au commit noté, et doit y être intacte
+        let octets = null;
+        try { octets = execFileSync('git', ['-C', racine, 'show', `${x.commit}:${x.fichier}`], { maxBuffer: 1 << 28 }); } catch { /* commit absent */ }
+        if (!octets) ecarts.push(`${code} : vidéo remplacée introuvable dans l'historique (${x.commit}:${x.fichier})`);
+        else if (createHash('sha256').update(octets).digest('hex') !== x.sha256) ecarts.push(`${code} : la vidéo remplacée lue au commit ${x.commit} n'est pas celle du registre (SHA-256)`);
+        else console.log(`${code} : vidéo remplacée (${x.recette}) intacte dans l'historique, commit ${x.commit.slice(0, 8)}`);
+        continue;
+      }
       if (!existsSync(f)) ecarts.push(`${code} : vidéo gardée absente (${x.fichier})`);
       else if (sha(f) !== x.sha256) ecarts.push(`${code} : la vidéo gardée ${x.fichier} a changé (SHA-256)`);
       else console.log(`${code} : vidéo gardée ${x.fichier} (${x.palette.join(' / ')}), inchangée`);

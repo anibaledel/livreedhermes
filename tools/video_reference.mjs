@@ -54,7 +54,9 @@ export const CRF = 18;
 // les réglages de l'encodage, fixés une fois : le fichier n'en dépend que d'eux
 export const REGLAGES_X264 = (cadence) => [
   '-c:v', 'libx264', '-preset', 'medium', '-crf', String(CRF), '-tune', 'animation',
-  '-profile:v', 'high', '-level', '4.0', '-g', String(cadence * 2), '-pix_fmt', 'yuv420p',
+  // niveau 4.0 jusqu'à 30 im/s (les vidéos déjà déposées, inchangées) ; 4.2 au-delà :
+  // 1080 × 1920 à 60 im/s dépasse le débit de macroblocs du niveau 4.0
+  '-profile:v', 'high', '-level', cadence > 30 ? '4.2' : '4.0', '-g', String(cadence * 2), '-pix_fmt', 'yuv420p',
   '-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709', '-color_range', 'tv',
   '-flags', '+bitexact', '-fflags', '+bitexact', '-map_metadata', '-1', '-movflags', '+faststart',
 ];

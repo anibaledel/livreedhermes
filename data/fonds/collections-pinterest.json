@@ -12,11 +12,11 @@
    "exportee": "2026-10-04",
    "rang": null,
    "recette": {
-    "algorithme": "proche-binaire-v1",
-    "dureeMotif": 2.5,
-    "fondu": 0.8,
-    "fin": 2,
-    "imagesParSeconde": 30,
+    "algorithme": "proche-binaire-32-v2",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 0,
+    "imagesParSeconde": 60,
     "densite": 4,
     "graine": 3574337935,
     "motifs": [
@@ -31,7 +31,27 @@
      "par2-yin-mut-yang-mut-h2",
      "par2-yin-mut-yang-mut-h6",
      "par2-yin-mut-yang-mut-h14",
-     "par2-yin-mut-yang-mut-h10"
+     "par2-yin-mut-yang-mut-h10",
+     "par2-yin-mut-yang-mut-h8",
+     "par2-yin-mut-yang-mut-h0",
+     "par2-yin-mut-yang-mut-h4",
+     "par2-yin-mut-yang-mut-h12",
+     "bases-yang-mut-h20",
+     "bases-yang-mut-h16",
+     "bases-yang-mut-h24",
+     "bases-yang-mut-h28",
+     "bases-yang-mut-h30",
+     "bases-yang-mut-h26",
+     "bases-yang-mut-h18",
+     "bases-yang-mut-h22",
+     "bases-yang-mut-h21",
+     "bases-yang-mut-h17",
+     "bases-yang-mut-h25",
+     "bases-yang-mut-h29",
+     "bases-yang-mut-h13",
+     "bases-yang-mut-h5",
+     "bases-yang-mut-h1",
+     "bases-yang-mut-h9"
     ]
    },
    "anciennes": [
@@ -60,10 +80,11 @@
      "#efeae0",
      "#23232b"
     ],
-    "image": 38,
-    "images": 960,
-    "sha256": "90241576fdec1b3d2bff3b250c62dccd4d96655e18d1ca81aea1977b85b98405",
-    "sha256Affiche": "23c89cddccd42b3b7d9a72d901b4988c48969d0dba08f7c6d0639ce08b90a874"
+    "recette": "proche-binaire-32-v2",
+    "image": 23,
+    "images": 1440,
+    "sha256": "bf3dffbbff5e4909d6836464c59758a90542580d4a71d24d8b3ea7ff8cff3336",
+    "sha256Affiche": "34f7ca86748899ce9efd306aa044021559214e4c5b9e4ceb19443f2cc8584372"
    },
    "videosAnciennes": [
     {
@@ -77,6 +98,47 @@
      "palette": [
       "#f2f2f0",
       "#e0261b"
+     ]
+    },
+    {
+     "fichier": "assets/animations/P-1080x1920.mp4",
+     "affiche": "assets/animations/P-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "image": 38,
+     "images": 960,
+     "sha256": "90241576fdec1b3d2bff3b250c62dccd4d96655e18d1ca81aea1977b85b98405",
+     "sha256Affiche": "23c89cddccd42b3b7d9a72d901b4988c48969d0dba08f7c6d0639ce08b90a874",
+     "recette": "proche-binaire-v1",
+     "remplacee": true,
+     "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
+    }
+   ],
+   "recettesAnciennes": [
+    {
+     "algorithme": "proche-binaire-v1",
+     "dureeMotif": 2.5,
+     "fondu": 0.8,
+     "fin": 2,
+     "imagesParSeconde": 30,
+     "densite": 4,
+     "graine": 3574337935,
+     "motifs": [
+      "par2-yin-mut-yang-mut-h19",
+      "par2-yin-mut-yang-mut-h23",
+      "par2-yin-mut-yang-mut-h31",
+      "par2-yin-mut-yang-mut-h27",
+      "par2-yin-mut-yang-mut-h11",
+      "par2-yin-mut-yang-mut-h15",
+      "par2-yin-mut-yang-mut-h7",
+      "par2-yin-mut-yang-mut-h3",
+      "par2-yin-mut-yang-mut-h2",
+      "par2-yin-mut-yang-mut-h6",
+      "par2-yin-mut-yang-mut-h14",
+      "par2-yin-mut-yang-mut-h10"
      ]
     }
    ]

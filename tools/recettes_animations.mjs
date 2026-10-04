@@ -21,6 +21,16 @@
 //     une image identique (distance 0) exclue ; à égalité, la graine tranche.
 // C'est le parcours de l'animation du fond d'écran, rendu reproductible.
 //
+// « proche-binaire-32-v2 » (recette arrêtée par Anibal, 2026-10-04) : 32
+// motifs de 0,75 s, soit 24,000 s, sans carton de fin ; les 32 sont les 32
+// HEXAGRAMMES h0…h31, chacun une fois. Les candidats restent les 256 motifs
+// du corpus (8 familles × h0…h31) : chaque suivant est le plus proche du
+// précédent parmi ceux dont l'hexagramme n'est pas encore passé — la
+// famille, elle, est choisie par la proximité. La v1 (12 motifs de 2,5 s,
+// tirés dans les 256 sans contrainte d'hexagramme) laissait revenir un même
+// hexagramme sous deux familles et n'en montrait que 12 : c'était un
+// paramètre (« nombre: 12 »), pas une liste tronquée.
+//
 // La liste est ENREGISTRÉE, pas recalculée à l'affichage : si l'algorithme
 // change un jour, les recettes existantes ne bougent pas. --verifie recalcule
 // chacune depuis sa graine et signale un écart (algorithme modifié, ou liste
@@ -47,6 +57,10 @@ const data = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds_ecran_v1.json')
 // 30 images par seconde, 4 tuiles sur le petit côté (la densité par défaut
 // de l'animation du fond d'écran).
 const DEFAUTS = { algorithme: 'proche-binaire-v1', nombre: 12, dureeMotif: 2.5, fondu: 0.8, fin: 2, imagesParSeconde: 30, densite: 4 };
+// La recette 32 : 0,75 s par motif à 60 im/s, 45 images par motif exactement ;
+// fondu de 0,25 s (15 images), le tiers du motif comme le 0,8 s de 2,5 s.
+export const DEFAUTS_32 = { algorithme: 'proche-binaire-32-v2', nombre: 32, dureeMotif: 0.75, fondu: 0.25, fin: 0, imagesParSeconde: 60, densite: 4 };
+export const hexagrammeDe = (slug) => Number(slug.match(/-h(\d+)$/)[1]);
 
 function mulberry32(a) {
   return () => {
@@ -60,7 +74,7 @@ function mulberry32(a) {
 // sans autre sens que d'être écrit.
 const graineDe = (code) => { let h = 0x811c9dc5; for (const c of code) { h ^= c.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; } return h; };
 
-const candidats = [];
+export const candidats = [];
 for (const fam of FAMILLES) {
   for (let n = 0; n < 32; n++) {
     try {
@@ -70,16 +84,19 @@ for (const fam of FAMILLES) {
   }
 }
 
-export function calculerListe(graine, nombre) {
+export function calculerListe(graine, nombre, unParHexagramme = false) {
   const alea = mulberry32(graine);
   const pris = new Set();
+  const hexPris = new Set();
+  const libre = (c) => !pris.has(c.slug) && !(unParHexagramme && hexPris.has(hexagrammeDe(c.slug)));
   let courant = candidats[Math.floor(alea() * candidats.length)];
   const liste = [courant.slug];
   pris.add(courant.slug);
+  hexPris.add(hexagrammeDe(courant.slug));
   while (liste.length < nombre) {
     let meilleurs = [], min = Infinity;
     for (const c of candidats) {
-      if (pris.has(c.slug)) continue;
+      if (!libre(c)) continue;
       const d = distanceBinaire(courant.sig, c.sig);
       if (d === 0) continue; // la même image : le visiteur ne verrait rien changer
       if (d < min) { min = d; meilleurs = [c]; } else if (d === min) meilleurs.push(c);
@@ -88,16 +105,31 @@ export function calculerListe(graine, nombre) {
     courant = meilleurs[Math.floor(alea() * meilleurs.length)];
     liste.push(courant.slug);
     pris.add(courant.slug);
+    hexPris.add(hexagrammeDe(courant.slug));
   }
   return liste;
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const verifie = process.argv.includes('--verifie');
+  // --refaire CODE… : passe ces collections à la recette 32 ; l'ancienne
+  // recette est gardée (recettesAnciennes), rien ne se supprime.
+  const iRefaire = process.argv.indexOf('--refaire');
+  const aRefaire = iRefaire > -1 ? process.argv.slice(iRefaire + 1).filter((a) => !a.startsWith('--')) : [];
   const reg = JSON.parse(readFileSync(REGISTRE, 'utf8'));
   const slugs = new Set(candidats.map((c) => c.slug));
   let ecrites = 0;
   const ecarts = [];
+  for (const code of aRefaire) {
+    const col = reg.collections[code];
+    if (!col) { ecarts.push(`${code} : collection inconnue du registre`); continue; }
+    if (col.recette?.algorithme === DEFAUTS_32.algorithme) continue;
+    if (col.recette) (col.recettesAnciennes ??= []).push(col.recette);
+    const graine = graineDe(code);
+    col.recette = { ...DEFAUTS_32, graine, motifs: calculerListe(graine, DEFAUTS_32.nombre, true) };
+    delete col.recette.nombre;
+    ecrites++;
+  }
   for (const [code, col] of Object.entries(reg.collections)) {
     const r = col.recette;
     if (!r) {
@@ -111,8 +143,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     for (const s of r.motifs) if (!slugs.has(s)) ecarts.push(`${code} : motif « ${s} » inconnu ou de lecture indéfinie`);
     if (new Set(r.motifs).size !== r.motifs.length) ecarts.push(`${code} : un motif revient deux fois`);
     if (!(r.dureeMotif > r.fondu && r.fondu >= 0 && r.fin >= 0 && r.imagesParSeconde > 0 && r.densite >= 1)) ecarts.push(`${code} : durées ou densité incohérentes`);
-    if (r.algorithme === 'proche-binaire-v1') {
-      const attendu = calculerListe(r.graine, r.motifs.length);
+    if (r.algorithme === 'proche-binaire-v1' || r.algorithme === DEFAUTS_32.algorithme) {
+      const attendu = calculerListe(r.graine, r.motifs.length, r.algorithme === DEFAUTS_32.algorithme);
       if (attendu.join() !== r.motifs.join()) ecarts.push(`${code} : la liste ne sort plus de sa graine ${r.graine} (algorithme modifié, ou liste retouchée sans « algorithme »: « manuel »)`);
     }
     const duree = r.motifs.length * r.dureeMotif + r.fin;
