@@ -67,17 +67,22 @@ colonne. Les fichiers du site s'obtiennent par
 > v3 — huit éditions (quatre de plus : chinois simplifié, russe, portugais,
 > hindi), toutes au format 1920 × 1080 et linéarisées. Dans toutes : nouvelle
 > page 2 (remerciements à Marie-Laure Pannier et Amrouchi Jahi), nouvelle
-> dernière page (« Chapitre VIII — Mesure »). Français, anglais, espagnol et thaï : nouvelle
+> dernière page (« Chapitre VIII — Mesure »), dont l'image annonce les 360
+> calques de la page d'impression. Français, anglais, espagnol et thaï : nouvelle
 > page 1 portant la licence CC BY-NC 4.0. Français : l'ordre des pages est
 > rétabli, et la page 075 restaurée en français. Thaï : repassé au format
 > 1920 × 1080 (il était en 1400 × 788).
 
 Vérifié sur les fichiers : licence en page 1 et remerciements en page 2 (les
-huit), « CHAPITRE VIII » en page 111, ordre du français, format du thaï. **Non
-vérifié** : l'annonce des 360 calques en dernière page, que la consigne
-mentionne — le texte de la page 111 ne contient pas « 360 » dans aucune des huit
-éditions ; elle n'est donc pas dans ces notes. À ajouter si elle figure dans
-l'image de la page.
+huit), « CHAPITRE VIII » en page 111, ordre du français, format du thaï.
+
+L'annonce des 360 calques est portée par l'**image** de la page 111, pas par
+son texte : aucune des huit éditions n'a « 360 » dans le texte de cette page.
+Anibal l'a confirmé le 4 octobre 2026, et le nombre est celui du référent
+(data/referent_360_v3.json : n_calques 360, n_identities 60, grid_size 12,
+tools/generate_referent_360.py). Le texte de la page 073 le dit aussi : un
+tirage « en utilisant les 360 calques (piochez 6 fois parmi les 60 calques
+disponibles par place de traits) », soit 6 × 60 = 360.
 
 ## Après le dépôt : ce qu'il faut vérifier
 
