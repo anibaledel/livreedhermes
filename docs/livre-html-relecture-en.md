@@ -14,8 +14,8 @@
 
 | page | légende proposée |
 |---|---|
-| 000A | Cover: Hermès Livery, by Anibal Edelberto Amiot. |
-| 000B | Definition of the word “livery”, and the page backgrounds: light for geometry, dark for arithmetic or symbolism. |
+| 000A | Title page: The Livery of Hermes, and the Creative Commons CC BY-NC 4.0 licence. |
+| 000B | Definition of the word “livery”, the page backgrounds (light for geometry, dark for arithmetic or symbolism) and the acknowledgements. |
 | 001 | Chapter I, Reed: the golden measuring reed (Revelation 21:15). |
 | 002 | Arithmogeometry: triangular numbers, square numbers, and rectangular or heteromecous numbers. |
 | 003 | Nature of the areas: odd, even even and even odd grids, from order 3 to order 10. |
@@ -190,11 +190,11 @@
 | 090 | TRI-III-SANS-YANG-FIX, superposition. |
 | 091 | TRI-III-SANS-YIN-FIX, superposition. |
 | 092 | TRI-III-SANS-YANG-MUT, superposition. |
-| 093 | The number of a man: measuring with a reed, or with axes of symmetry. |
+| 093 | Chapter VIII, Measurement: measuring with a reed, or with axes of symmetry. |
 
 ## Ce que l'extraction a relevé
 
-- Ordre du PDF anglais : il suit déjà les numéros imprimés (000A, 000B, 001…) ; le test vérifie, page par page, que le numéro imprimé est bien le code de la page.
+- Ordre du PDF anglais : il suit les numéros imprimés (000A, 000B, 001…). Au passage aux PDF v3 (4 octobre 2026), le test d'identité a signalé les trois pages anglaises qui ont changé — 000A, 000B, 093 — et la césure « mea-surement » disparue ; elles sont régénérées. Le v3 anglais titre le livre « The Livery of Hermes » (couverture et page 1).
 - Du français resté dans l'édition anglaise, publié tel quel : « CHAPITRE VI.II » (page 029), « 4. RÉSULTATS » et « 6. REPRÉSENTATIONS » (page 023), « SOMMETS » et « ARÊTES » (page 024C).
 - Page 049 : la page anglaise est titrée « ADROGYNE FOOT », la page française « LES 64 FLEURS ET LEURS 8 FAMILLES ». Les deux éditions diffèrent ici.
 - Page 028C : le fragment espagnol invisible « hermético o la llave maestra, Viena, 1709.� » est aussi dans le PDF anglais. Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode (« Golden ratio ( ) »).
@@ -203,8 +203,8 @@
 - Polices : « ∑ » (page 004C) et « √ » (page 024B) n'ont pas de glyphe dans les polices déclarées du site.
 - Ordre de lecture : sur les planches à plusieurs blocs de texte, les colonnes d'abord, puis les bandes ; les étiquettes des figures restent entre les paragraphes, en petit. Chaque paragraphe est vérifié : il se lit d'un seul tenant chez Poppler (exceptions déclarées dans data/livre/ordre-exceptions.json).
 
-## Césures de fin de ligne (55)
+## Césures de fin de ligne (54)
 
 Un mot coupé en fin de ligne du PDF est recollé ; aucune n'est gardée. Pour garder un trait d'union, mettre `"garde": true` dans `data/livre/cesures-en.json`.
 
-003 cat-egories:, 004B geo-metric, 004C connec-ting, 004C trans-cribing, 008B representa-tion., 008B representa-tion, 008B be-ginning, 008B conti-nuous, 008B repro-ductive, 010 intelli-gibility, 010 exe-cutes, 011 ins-cribed, 012B communica-tion, 012B acous-tics,, 015 arrange-ments,, 016 diffe-rence,, 018A coun-terfeit"., 018A repre-sents, 018B Pythago-ras,, 018B func-tions, 021 hori-zontal, 024B asymme-trical, 024C (Plato-nic, 024C exis-tence, 027 thir-ty-seven,, 027 cha-racteristic, 028B visuali-zing, 028C combi-nations., 028C reco-gnizes, 031 illus-trates, 031 identi-cal, 038B orga-nisms, 038B quali-ties., 038B origina-tor, 038C eve-rything, 038C reco-gnized, 040 symmetri-cal, 044 con-straints,, 046 mirro-ring, 050 homoge-neous, 050 identi-cal, 062B enchan-ters),, 062B d'Al-cools, 062B enclo-sures,, 062C Rou-ault’s, 062C Gnosti-cism, 062C nat-urally, 064 sys-tems—Tarot,, 064 tradi-tion, 065 symmet-rical., 070 accor-ding, 070 superpo-sition, 071 rever-sing, 073 incor-porating, 093 mea-surement
+003 cat-egories:, 004B geo-metric, 004C connec-ting, 004C trans-cribing, 008B representa-tion., 008B representa-tion, 008B be-ginning, 008B conti-nuous, 008B repro-ductive, 010 intelli-gibility, 010 exe-cutes, 011 ins-cribed, 012B communica-tion, 012B acous-tics,, 015 arrange-ments,, 016 diffe-rence,, 018A coun-terfeit"., 018A repre-sents, 018B Pythago-ras,, 018B func-tions, 021 hori-zontal, 024B asymme-trical, 024C (Plato-nic, 024C exis-tence, 027 thir-ty-seven,, 027 cha-racteristic, 028B visuali-zing, 028C combi-nations., 028C reco-gnizes, 031 illus-trates, 031 identi-cal, 038B orga-nisms, 038B quali-ties., 038B origina-tor, 038C eve-rything, 038C reco-gnized, 040 symmetri-cal, 044 con-straints,, 046 mirro-ring, 050 homoge-neous, 050 identi-cal, 062B enchan-ters),, 062B d'Al-cools, 062B enclo-sures,, 062C Rou-ault’s, 062C Gnosti-cism, 062C nat-urally, 064 sys-tems—Tarot,, 064 tradi-tion, 065 symmet-rical., 070 accor-ding, 070 superpo-sition, 071 rever-sing, 073 incor-porating

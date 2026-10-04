@@ -191,11 +191,12 @@
    "061": "Hexagrammes : verticalité, fil à plomb, angle droit et carré, Pythagore, Saturne et le temps, pendule, échiquier.",
    "062A": "Chapitre VI.III, Hexa : « Crépuscule » de Guillaume Apollinaire.",
    "062B": "Naissance de « Crépuscule » ou les tours de Mercure, par Françoise Dininman.",
-   "062C": "L'arlequin trismégiste, Hermès et la commedia dell'arte."
+   "062C": "L'arlequin trismégiste, Hermès et la commedia dell'arte.",
+   "093": null
   },
   "en": {
-   "000A": "Cover: Hermès Livery, by Anibal Edelberto Amiot.",
-   "000B": "Definition of the word “livery”, and the page backgrounds: light for geometry, dark for arithmetic or symbolism.",
+   "000A": "Title page: The Livery of Hermes, and the Creative Commons CC BY-NC 4.0 licence.",
+   "000B": "Definition of the word “livery”, the page backgrounds (light for geometry, dark for arithmetic or symbolism) and the acknowledgements.",
    "001": "Chapter I, Reed: the golden measuring reed (Revelation 21:15).",
    "002": "Arithmogeometry: triangular numbers, square numbers, and rectangular or heteromecous numbers.",
    "003": "Nature of the areas: odd, even even and even odd grids, from order 3 to order 10.",
@@ -304,7 +305,7 @@
    "090": "TRI-III-SANS-YANG-FIX, superposition.",
    "091": "TRI-III-SANS-YIN-FIX, superposition.",
    "092": "TRI-III-SANS-YANG-MUT, superposition.",
-   "093": "The number of a man: measuring with a reed, or with axes of symmetry."
+   "093": "Chapter VIII, Measurement: measuring with a reed, or with axes of symmetry."
   }
  },
  "signalements": {
@@ -320,7 +321,7 @@
    "Coquilles du livre : le texte publié reproduit le PDF sans correction (par exemple « SYMBOLIISME », page 024B ; « UILISÉES », page 015)."
   ],
   "en": [
-   "Ordre du PDF anglais : il suit déjà les numéros imprimés (000A, 000B, 001…) ; le test vérifie, page par page, que le numéro imprimé est bien le code de la page.",
+   "Ordre du PDF anglais : il suit les numéros imprimés (000A, 000B, 001…). Au passage aux PDF v3 (4 octobre 2026), le test d'identité a signalé les trois pages anglaises qui ont changé — 000A, 000B, 093 — et la césure « mea-surement » disparue ; elles sont régénérées. Le v3 anglais titre le livre « The Livery of Hermes » (couverture et page 1).",
    "Du français resté dans l'édition anglaise, publié tel quel : « CHAPITRE VI.II » (page 029), « 4. RÉSULTATS » et « 6. REPRÉSENTATIONS » (page 023), « SOMMETS » et « ARÊTES » (page 024C).",
    "Page 049 : la page anglaise est titrée « ADROGYNE FOOT », la page française « LES 64 FLEURS ET LEURS 8 FAMILLES ». Les deux éditions diffèrent ici.",
    "Page 028C : le fragment espagnol invisible « hermético o la llave maestra, Viena, 1709.� » est aussi dans le PDF anglais. Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode (« Golden ratio ( ) »).",
