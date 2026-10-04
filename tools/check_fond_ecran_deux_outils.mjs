@@ -168,13 +168,27 @@ if (ancien.bi.densite !== 7 || ancien.bi.rythme !== 3.5 || ancien.tri.densite !=
 console.log(`7. ?rendu=bicolore&densite=7&rythme=3.5 → ${ancien.url} (bicolore densité ${ancien.bi.densite}, rythme ${ancien.bi.rythme} ; tricolore densité ${ancien.tri.densite})`);
 
 // 8. « Figer » : l'action vient de la page (le moteur ne connaît aucune adresse du site)
+await p.addInitScript(() => {
+  const effacer = Storage.prototype.removeItem;
+  Storage.prototype.removeItem = function (cle) {
+    if (cle === 'motif-fige') window.__motifFigeLu = this.getItem(cle);
+    return effacer.call(this, cle);
+  };
+});
 await ouvrir();
 await p.click('#outilBicolore .cat-card[data-cat=bases]');
 await p.waitForFunction(() => window.outilsFondEcran.bicolore.etat().motif);
 await Promise.all([p.waitForURL(/galerie-bicolore\.html/), p.evaluate(() => window.outilsFondEcran.bicolore.stage.querySelector('[data-r=btnFiger]').click())]);
+await p.waitForLoadState('load');
 const fige = new URL(p.url());
-// un motif du corpus part par ?motif=… ; une grille hors corpus, par sessionStorage
-const transmis = fige.searchParams.get('motif') || await p.evaluate(() => sessionStorage.getItem('motif-fige') && 'grille en sessionStorage');
+// un motif du corpus part par ?motif=… ; une grille hors corpus, par
+// sessionStorage (clé motif-fige), que la galerie lit UNE fois au chargement
+// puis efface (assets/vue-fond-ecran.js). La relire après coup était une
+// course : selon que la galerie avait déjà chargé, on trouvait la grille ou
+// null (échec intermittent, 1 fois sur 6 en local). Le script d'amorce
+// ci-dessus enregistre ce que la galerie a lu au moment où elle l'efface.
+const transmis = fige.searchParams.get('motif')
+  || await p.evaluate(() => (sessionStorage.getItem('motif-fige') || window.__motifFigeLu) && 'grille en sessionStorage, lue par la galerie');
 if (!fige.pathname.endsWith('/galerie-bicolore.html') || fige.hash !== '#fondFixe' || !transmis) echec(`Figer : ${p.url()}, motif ${transmis}`);
 console.log(`8. Figer (bicolore) → ${fige.pathname}${fige.search}${fige.hash} ; motif transmis : ${transmis}`);
 
