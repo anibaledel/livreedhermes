@@ -117,13 +117,18 @@ def doi_cites():
     return dois, recs
 
 
+FICHES = {}
+
+
 def fiche(recid):
     """La fiche d'une version, en deux formats : l'ancien (license, stats) et
     celui d'InvenioRDM (rights, languages, resource_type) — Zenodo les sert
     tous deux sur la même adresse."""
-    a = get(f'{API}/records/{recid}')
-    b = get(f'{API}/records/{recid}', accept='application/vnd.inveniordm.v1+json')
-    return a, b
+    if str(recid) not in FICHES:
+        a = get(f'{API}/records/{recid}')
+        b = get(f'{API}/records/{recid}', accept='application/vnd.inveniordm.v1+json')
+        FICHES[str(recid)] = (a, b)
+    return FICHES[str(recid)]
 
 
 def resume_version(a, b):
@@ -306,6 +311,104 @@ def site(par_depot):
     return pages
 
 
+# ---- 2 bis. un dépôt que le site ne cite pas est-il cité ailleurs ? -----------
+TEXTE = ('.txt', '.md', '.py', '.mjs', '.js', '.json', '.cff', '.csv', '.tex', '.bib', '.html', '.yml', '.yaml', '.rst')
+
+
+def textes_de_fichier(nom, contenu):
+    """Le texte d'un fichier déposé : tel quel, PDF par pdftotext, archive zip
+    membre par membre."""
+    import io, subprocess, tempfile, zipfile
+    bas = nom.lower()
+    if bas.endswith('.pdf'):
+        with tempfile.NamedTemporaryFile(suffix='.pdf') as f:
+            f.write(contenu); f.flush()
+            try:
+                return [(nom, subprocess.run(['pdftotext', '-q', f.name, '-'], capture_output=True, timeout=120).stdout.decode('utf8', 'ignore'))]
+            except Exception as e:
+                return [(nom, f'<pdftotext indisponible : {e}>')]
+    if bas.endswith('.zip'):
+        out = []
+        try:
+            with zipfile.ZipFile(io.BytesIO(contenu)) as z:
+                for m in z.namelist():
+                    if m.lower().endswith(TEXTE) or m.lower().endswith('.pdf'):
+                        out += textes_de_fichier(f'{nom}/{m}', z.read(m))
+        except Exception:
+            pass
+        return out
+    if bas.endswith(TEXTE):
+        return [(nom, contenu.decode('utf8', 'ignore'))]
+    return []
+
+
+def telecharger(url):
+    for essai in range(3):
+        try:
+            req = urllib.request.Request(url, headers={'User-Agent': UA})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return r.read()
+        except Exception:
+            time.sleep(5 * (essai + 1))
+    return None
+
+
+def references(par_depot, pages):
+    """Pour chaque dépôt que le site ne cite pas : ses identifiants (DOI
+    toutes versions, DOI et numéro de chaque version) cherchés dans les
+    métadonnées de TOUTES les versions des autres dépôts, dans le texte de
+    leurs fichiers (PDF, README, code, archives), et dans ce dépôt git."""
+    orphelins = [c for c in par_depot if not pages.get(c)]
+    motifs = {}
+    for c in orphelins:
+        m = {c, c.split('.')[-1]}
+        for v in par_depot[c]:
+            m |= {v['doi'], v['recid']}
+        motifs[c] = {x for x in m if x}
+    trouve = defaultdict(list)
+    # métadonnées
+    for concept, vs in par_depot.items():
+        for v in vs:
+            a, b = fiche(v['recid'])
+            brut = json.dumps(a or {}) + json.dumps(b or {})
+            for c, ms in motifs.items():
+                if c == concept:
+                    continue
+                for x in ms:
+                    if re.search(rf'(?<!\d){re.escape(x)}(?!\d)', brut):
+                        trouve[c].append(f'métadonnées de {v["doi"]} ({v["titre"][:60]})')
+                        break
+    # fichiers de chaque version
+    for concept, vs in par_depot.items():
+        for v in vs:
+            a, _ = fiche(v['recid'])
+            for f in (a or {}).get('files', []):
+                nom, url, taille = f.get('key'), (f.get('links') or {}).get('self'), f.get('size') or 0
+                if not url or taille > 60_000_000:
+                    continue
+                contenu = telecharger(url)
+                if contenu is None:
+                    continue
+                for (n, texte) in textes_de_fichier(nom, contenu):
+                    for c, ms in motifs.items():
+                        if c == concept:
+                            continue
+                        if any(re.search(rf'(?<!\d){re.escape(x)}(?!\d)', texte) for x in ms):
+                            trouve[c].append(f'fichier « {n} » de {v["doi"]}')
+    # ce dépôt git (hors la liste des DOI périmés et les copies datées)
+    for base, dirs, fichiers in os.walk(RACINE):
+        dirs[:] = [d for d in dirs if d not in IGNORES]
+        for f in fichiers:
+            chemin = os.path.relpath(os.path.join(base, f), RACINE)
+            if chemin == 'tools/check_doi_perimes.mjs' or not f.endswith(TEXTE + ('.cff',)):
+                continue
+            t = open(os.path.join(base, f), encoding='utf8', errors='ignore').read()
+            for c, ms in motifs.items():
+                if any(re.search(rf'(?<!\d){re.escape(x)}(?!\d)', t) for x in ms if len(x) > 6):
+                    trouve[c].append(f'dépôt git : {chemin}')
+    return orphelins, motifs, trouve
+
+
 # ---- 3. le rapport -------------------------------------------------------------
 def main():
     par_depot, introuvables = depots()
@@ -352,6 +455,16 @@ def main():
             if verdict.startswith('ÉCART'):
                 ecarts.append(f'{concept} — {nom} : Zenodo {sorted(enr)}, site {list(aff)} / JSON-LD {list(jl)}')
             lignes.append(f'| {concept} | {", ".join(sorted(enr))} | {nom} | {", ".join(aff) or "—"} | {", ".join(jl) or "—"} | {verdict} |')
+    orphelins, motifs, trouve = references(par_depot, pages)
+    if orphelins:
+        lignes.append('')
+        lignes.append('### Dépôts que le site ne cite pas : cités ailleurs ?')
+        lignes.append('')
+        lignes.append('| DOI (toutes versions) | identifiants cherchés | cité par |')
+        lignes.append('|---|---|---|')
+        for c in orphelins:
+            ou = sorted(set(trouve.get(c, [])))
+            lignes.append(f'| {c} | {", ".join(sorted(motifs[c]))} | {"<br>".join(ou) if ou else "nulle part (métadonnées et fichiers des autres dépôts, dépôt git)"} |')
     if REFUSEES:
         lignes.append('')
         lignes.append('Requêtes refusées par Zenodo (400) : ' + ', '.join(REFUSEES))
