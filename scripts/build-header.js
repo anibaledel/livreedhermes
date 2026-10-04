@@ -58,14 +58,9 @@ const SANS_PIED = TRADUITES_A_LA_MAIN;
 
 // Pages qui gardent le petit pied de page partagé (@footer) mais N'ONT PAS le
 // bloc de tuiles (@navtiles) — liste explicite plutôt qu'exception implicite,
-// avec la raison de chacune :
-const SANS_TUILES = new Set([
-  // carter-demo.html porte sa palette propre (--bg:#0a0e14, --gold:#c8aa6e) et
-  // ne charge pas style.css (voir ce fichier) : lui donner une copie locale du
-  // CSS des tuiles recréerait la divergence qu'on vient de supprimer. Elle
-  // garde son petit pied universel, pas le bloc de tuiles.
-  'carter-demo.html',
-]);
+// avec la raison de chacune, tenue dans scripts/nav-tiles.js (module sans
+// effet de bord) : tools/check_tuiles.mjs lit la même.
+const { SANS_TUILES } = require('./nav-tiles.js');
 
 // Les pages d'un même groupe de traduction portent le même bloc hreflang — il
 // liste TOUS les équivalents, y compris la page elle-même — engendré depuis
@@ -145,23 +140,30 @@ function rendre(nom, prefixe, lang = 'fr') {
 /* Même principe que rendre(), mais le corps vient de scripts/nav-tiles.js
    (calculé par page, pas un fichier statique à substitution) : voir ce
    fichier pour l'auto-exclusion et l'assertion bruyante sur les adresses. */
-function rendreNavTiles(rel, prefixe, lang = 'fr') {
-  return zone('navtiles', htmlNavTiles(rel, prefixe, lang), 'scripts/nav-tiles.js');
+function rendreNavTiles(rel, prefixe, lang = 'fr', seulementTuiles = false) {
+  return zone('navtiles', htmlNavTiles(rel, prefixe, lang, seulementTuiles), 'scripts/nav-tiles.js');
 }
 
-/* Langue du bloc de tuiles (labels, groupes, bouton Soutien, crédit) —
-   PAS celle des adresses de destination, qui restent françaises quelle que
-   soit la page d'où l'on part (voir scripts/nav-tiles.js, en-tête). Tout le
-   site est en français, à l'exception des 256 pages motifs/*.html (anglais,
-   x-default — décision d'origine, prompt-cc-pages-motifs.md) et de leur
-   jumelle fr/motifs/*.html : la détection se fait donc par chemin, pas par
-   une liste à tenir à jour à chaque page ajoutée. */
-function langDePage(rel) {
-  if (rel.startsWith('fr/motifs/')) return 'fr';
-  if (rel.startsWith('motifs/')) return 'en';
-  if (rel.startsWith('en/')) return 'en';
-  return 'fr';
+/* Les tuiles sur TOUTES les pages (décision d'Anibal, 2026-10-04 : 248 pages
+   du sitemap n'en avaient pas — hexagrammes FR/ES/TH, pages des six langues,
+   livre et chapitres, sept pages de la racine). Une page les reçoit si elle
+   est de l'ancienne liste (pages motifs, AVEC_TUILES_EN_PLUS, articles
+   anglais), ou si elle ne porte AUCUNE tuile écrite à la main — celles qui en
+   portent (les pages d'outils, les hexagrammes anglais, dont le générateur
+   pose les siennes) gardent les leurs : les adopter est un chantier page par
+   page (voir traiter()). SANS_TUILES l'emporte toujours. */
+function tuilesALaMain(s) {
+  return s.replace(/<!-- @navtiles:start[\s\S]*?<!-- @navtiles:end -->/, '').includes('class="nav-tile"');
 }
+function recoitTuiles(rel, s) {
+  if (SANS_TUILES.has(rel)) return false;
+  if (estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) return true;
+  return !tuilesALaMain(s);
+}
+
+/* Langue du bloc de tuiles (libellés, groupes, bouton Soutien, crédit ET
+   adresses, depuis le 2026-10-04) : celle que la page déclare (<html lang>),
+   lue par langHtml() comme pour l'en-tête et le pied. */
 
 /* Les 512 pages motifs/*.html et fr/motifs/*.html seules — voir adopter()
    plus bas pour la même distinction sur le hreflang. */
@@ -346,23 +348,28 @@ function traiter(rel, src) {
     return t.replace(/<body[^>]*>\n?/, (m) => m + c + '\n');
   });
 
-  if (!SANS_PIED.has(rel)) {
-    // Le bloc de tuiles se pose juste avant le petit pied partagé. Le marqueur
-    // @footer existe déjà (posé par un tour précédent) à un endroit FIXE :
-    // s'ancrer sur lui plutôt que sur la fin de .wrap, sans quoi le nouveau
-    // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
-    // SANS_TUILES (carter-demo.html) garde le petit pied mais pas ce bloc.
-    // Comme pour l'adoption ci-dessus : pages motifs + AVEC_TUILES_EN_PLUS.
-    if ((estPageMotif(rel) || AVEC_TUILES_EN_PLUS.has(rel) || rel.startsWith('en/articles/')) && !SANS_TUILES.has(rel)) {
-      s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langDePage(rel)), (t, c) => {
-        const i = t.indexOf('<!-- @footer:start');
-        if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
-        const j = t.lastIndexOf('</div>\n</body>');
-        if (j !== -1) return t.slice(0, j) + c + '\n' + t.slice(j);
-        return t.replace(/<\/body>/, `${c}\n</body>`);
-      });
-    }
+  // Le bloc de tuiles se pose juste avant le petit pied partagé. Le marqueur
+  // @footer existe déjà (posé par un tour précédent) à un endroit FIXE :
+  // s'ancrer sur lui plutôt que sur la fin de .wrap, sans quoi le nouveau
+  // bloc @navtiles (jamais posé avant) atterrit APRÈS lui au premier passage.
+  // Une page traduite à la main sans pied partagé reçoit les tuiles seules,
+  // avant son propre pied (<div class="note">).
+  if (recoitTuiles(rel, src)) {
+    const seules = SANS_PIED.has(rel) && !s.includes('<!-- @footer:start');
+    s = poser(s, 'navtiles', rendreNavTiles(rel, prefixe, langHtml(s), seules), (t, c) => {
+      if (seules) {
+        const n = t.lastIndexOf('<div class="note">');
+        if (n !== -1) { const d = t.lastIndexOf('\n', n) + 1; return t.slice(0, d) + c + '\n' + t.slice(d); }
+      }
+      const i = t.indexOf('<!-- @footer:start');
+      if (i !== -1) return t.slice(0, i) + c + '\n' + t.slice(i);
+      const j = t.lastIndexOf('</div>\n</body>');
+      if (j !== -1) return t.slice(0, j) + c + '\n' + t.slice(j);
+      return t.replace(/<\/body>/, `${c}\n</body>`);
+    });
+  }
 
+  if (!SANS_PIED.has(rel)) {
     // Le pied ferme le contenu : à la toute fin de .wrap, après la zone de
     // navigation .note quand elle existe.
     s = poser(s, 'footer', rendre('footer', prefixe, langHtml(s)), (t, c) => {

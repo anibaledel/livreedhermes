@@ -15,8 +15,8 @@
      - la feuille de style, lue dans la page française générée (même mise en
        page) — lancer donc generate-hexagram-pages.js AVANT ce script ;
      - l'en-tête, le pied (dans la langue de la page) et les icônes
-       (includes/, via build-header.js) ; le bloc de tuiles anglais
-       (nav-tiles.js) sur les pages anglaises — il n'existe qu'en fr/en ;
+       (includes/, via build-header.js) ; le bloc de tuiles (nav-tiles.js),
+       dans la langue de la page et vers ses pages traduites (2026-10-04) ;
      - les familles et adresses des motifs (generate-motif-pages.js) : les
        pages espagnoles et thaïes renvoient aux motifs anglais.
 
@@ -200,9 +200,9 @@ function genererLangue(lang) {
   const ICONES = rendre('head-icons', PREFIXE);
   const PIED = rendre('footer', PREFIXE, lang);
   const EN_TETE = rendre('header', PREFIXE, lang);
-  // Le bloc de tuiles n'existe qu'en français et en anglais (nav-tiles.js).
-  const tuiles = (fichier) => (lang === 'en' ? htmlNavTiles(fichier, PREFIXE, 'en') : '');
-  const scriptAnnee = lang === 'en' ? "<script>document.getElementById('credit-year').textContent = new Date().getFullYear();</script>\n" : '';
+  // Le bloc de tuiles, dans la langue de la page (nav-tiles.js, huit langues).
+  const tuiles = (fichier) => htmlNavTiles(fichier, PREFIXE, lang);
+  const scriptAnnee = "<script>document.getElementById('credit-year').textContent = new Date().getFullYear();</script>\n";
   const revue = l.revue ? `\n      <p class="i18n-review-note">${escapeHtml(l.revue)}</p>` : '';
   const revueIndex = l.revue ? `\n    <p class="i18n-review-note">${escapeHtml(l.revue)}</p>` : '';
   const cssRevue = l.revue ? `\n${NOTE_REVUE_CSS}` : '';
