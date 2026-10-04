@@ -36,6 +36,9 @@ UA = 'livreedhermes-inventaire/1.0 (lecture seule; anibal-amiot.com)'
 IGNORES = {'.git', 'node_modules', 'pagefind', 'anciens', 'anciennes'}
 
 
+REFUSEES = []
+
+
 def get(url, accept='application/json'):
     for essai in range(4):
         try:
@@ -44,6 +47,10 @@ def get(url, accept='application/json'):
                 return json.load(r)
         except urllib.error.HTTPError as e:
             if e.code == 404:
+                return None
+            if e.code == 400:
+                REFUSEES.append(url)
+                print(f'::warning title=Requête refusée par Zenodo::400 {url}', file=sys.stderr)
                 return None
             if e.code == 429 or e.code >= 500:
                 time.sleep(5 * (essai + 1)); continue
@@ -83,13 +90,16 @@ def licences_texte(t):
 
 
 # ---- 1. les dépôts ----------------------------------------------------------
+TAILLE = 25  # la page maximale d'une recherche anonyme sur Zenodo
+
+
 def recherche(q):
     out, page = [], 1
     while True:
-        d = get(f'{API}/records?' + urllib.parse.urlencode({'q': q, 'all_versions': 'true', 'size': 100, 'page': page}))
+        d = get(f'{API}/records?' + urllib.parse.urlencode({'q': q, 'allversions': 'true', 'size': TAILLE, 'page': page}))
         hits = (d or {}).get('hits', {}).get('hits', [])
         out += hits
-        if len(hits) < 100:
+        if len(hits) < TAILLE or page >= 40:
             return out
         page += 1
 
@@ -342,6 +352,9 @@ def main():
             if verdict.startswith('ÉCART'):
                 ecarts.append(f'{concept} — {nom} : Zenodo {sorted(enr)}, site {list(aff)} / JSON-LD {list(jl)}')
             lignes.append(f'| {concept} | {", ".join(sorted(enr))} | {nom} | {", ".join(aff) or "—"} | {", ".join(jl) or "—"} | {verdict} |')
+    if REFUSEES:
+        lignes.append('')
+        lignes.append('Requêtes refusées par Zenodo (400) : ' + ', '.join(REFUSEES))
     if introuvables:
         lignes.append('')
         lignes.append('Cités mais introuvables sur Zenodo : ' + ', '.join(f'{r} ({o})' for r, o in introuvables))
