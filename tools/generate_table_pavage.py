@@ -90,7 +90,7 @@ PERMUTATIONS = [dict(zip(TEINTES, p)) for p in itertools.permutations(TEINTES)]
 
 
 def load_tool_data():
-    """LAYER_COLORS (60 natures) et LAYER_OF, extraits tels quels du JS
+    """LAYER_COLORS (60 images) et LAYER_OF, extraits tels quels du JS
     embarqué dans creation-motifs-yi-king.html — lecture seule."""
     html = open(TOOL_HTML, encoding='utf-8').read()
     m = re.search(r'const LAYER_COLORS = (\{.*?\});\n', html)
