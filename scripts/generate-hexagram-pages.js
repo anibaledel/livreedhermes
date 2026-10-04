@@ -433,7 +433,7 @@ ${linesHtml}
   <div class="note">
     <div class="site-nav-row">
       <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/">Tirage</a>
+      <a class="site-nav-btn" href="https://anibal-amiot.com/tirage-livree-hermes.html">Tirage</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
       <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
@@ -675,7 +675,7 @@ ${gridItems}
 
     <div class="nav-tiles nav-tiles-group-2">
       <a class="nav-tile" href="https://anibal-amiot.com/index.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/accueil.png); --hover-icon:url(../assets/nav-icons/accueil-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
-      <a class="nav-tile" href="https://anibal-amiot.com/"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/tirage.png); --hover-icon:url(../assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
+      <a class="nav-tile" href="https://anibal-amiot.com/tirage-livree-hermes.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/tirage.png); --hover-icon:url(../assets/nav-icons/tirage-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Tirage</span><span class="nav-tile-excerpt">Tirez un hexagramme au hasard et découvrez son carré.</span></span></a>
       <a class="nav-tile" href="https://anibal-amiot.com/unified-patterns.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/unified-patterns.png); --hover-icon:url(../assets/nav-icons/unified-patterns-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Unified Patterns</span><span class="nav-tile-excerpt">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></span></a>
       <a class="nav-tile" href="https://anibal-amiot.com/galerie-patterns-unifies.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/galerie.png); --hover-icon:url(../assets/nav-icons/galerie-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Galerie</span><span class="nav-tile-excerpt">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></span></a>
       <a class="nav-tile" href="https://anibal-amiot.com/telechargements.html"><span class="nav-tile-icon" style="--rest-icon:url(../assets/nav-icons/motifs-svg.png); --hover-icon:url(../assets/nav-icons/motifs-svg-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Motifs SVG</span><span class="nav-tile-excerpt">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></span></a>
