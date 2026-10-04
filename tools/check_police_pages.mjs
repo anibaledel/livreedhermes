@@ -94,7 +94,7 @@ const ENTITES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' }
 function texte(html) {
   const corps = html.slice(html.indexOf('<body'));
   return corps
-    .replace(/<(script|style|svg)\b[\s\S]*?<\/\1>/g, ' ')
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ')  // le texte des figures SVG en ligne compte
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&(#x[0-9a-f]+|#\d+|\w+);/gi, (m, e) => (e[0] === '#'

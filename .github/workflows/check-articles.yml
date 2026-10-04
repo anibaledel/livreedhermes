@@ -35,6 +35,7 @@ jobs:
         with:
           node-version: '20'
       - run: node scripts/build-articles.js --verifie
+      - run: node tools/figure_en_ligne.mjs --verifie
       - run: node tools/check_police_pages.mjs
       - run: "! node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'"
 
