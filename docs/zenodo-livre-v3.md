@@ -1,7 +1,8 @@
 # Zenodo — le livre, version 3 : ce qu'il reste à coller
 
 > Préparé pour Anibal, qui dépose depuis son compte. Rien n'est déposé d'ici.
-> Fichiers vérifiés le 4 octobre 2026 (tools/check_livres.py) : 111 pages,
+> Fichiers : les exports v9 d'Anibal (4 octobre 2026), qui remplacent les v3
+> sur le site. Vérifiés le 4 octobre 2026 (tools/check_livres.py) : 111 pages,
 > 1920 × 1080, linéarisés, licence en page 1, remerciements en page 2,
 > aucune page dans une écriture étrangère au livre.
 
@@ -20,14 +21,14 @@ Dans la nouvelle version, retirer les fichiers de la v2 et déposer ceux-ci :
 
 | fichier | langue | octets | MD5 |
 |---|---|---|---|
-| LLDH_FR_complet_111_pages_v3.pdf | français | 18 114 008 | bdeeac129ad2676c3242f1cd72786ff1 |
-| LLDH_EN_complet_111_pages_v3.pdf | anglais | 15 635 463 | 21c3c0eca9c438bc5ed172eea380d02f |
-| LLDH_ES_complet_111_pages_v3.pdf | espagnol | 15 635 423 | e03ea0d8953d33eb95fcdfc4380f6f74 |
-| LLDH_TH_complet_111_pages_v3.pdf | thaï | 15 923 748 | 3853deea3733e52d6b88e0f3b47f53c3 |
-| LLDH_ZH_complet_111_pages_v3.pdf | chinois simplifié | 20 751 921 | 6c529eac8aa2ef83b561f156477bfaad |
-| LLDH_RU_complet_111_pages_v3.pdf | russe | 19 618 221 | 60020582a4c334e102bd32b39535b67b |
-| LLDH_PT_complet_111_pages_v3.pdf | portugais | 21 668 400 | a5ac6e6fa7d1d0863b3769417d89ae10 |
-| LLDH_HI_complet_111_pages_v3.pdf | hindi | 20 455 308 | 34fc8cf2f7c5ba6dea0fd705f77a5190 |
+| LLDH_French_111_pages_v9.pdf | français | 16 418 342 | 521658e21aa19942ae2d69ff534b8837 |
+| LLDH_English_111_pages_v9.pdf | anglais | 15 601 131 | c2d54069f984cb163b4e279cab72c51e |
+| LLDH_Spanish_111_pages_v9.pdf | espagnol | 15 650 765 | 3408a66888adb6680db7af92ca453b1b |
+| LLDH_Thai_111_pages_v9.pdf | thaï | 15 968 156 | 6edb54ca418a6bee2f52c16024230da1 |
+| LLDH_Chinese_111_pages_v9.pdf | chinois simplifié | 18 208 278 | d314eb613ad56d068913ae51a3a6d659 |
+| LLDH_Russian_111_pages_v9.pdf | russe | 17 067 016 | 3f60b58825fd0a95e5315303ec5813b4 |
+| LLDH_Portuguese_111_pages_v9.pdf | portugais | 19 124 134 | 8951d56ec97fd36d2ee9c1afc45acfad |
+| LLDH_Hindi_111_pages_v9.pdf | hindi | 17 910 029 | 2a46f85a5d520dd3c142aad36c43159c |
 
 Zenodo affiche le MD5 de chaque fichier déposé : il doit être celui de la
 colonne. Les fichiers du site s'obtiennent par
@@ -76,7 +77,8 @@ seule glose anglaise admise sur le site.
 > page 2 (remerciements à Marie-Laure Pannier et Amrouchi Jahi), nouvelle
 > dernière page (« Chapitre VIII — Mesure »), dont l'image annonce les 360
 > calques de la page d'impression. Français, anglais, espagnol et thaï : nouvelle
-> page 1 portant la licence CC BY-NC 4.0. Français : l'ordre des pages est
+> page 1 portant la licence CC BY-NC 4.0. Anglais : coquilles corrigées
+> (« MEASURE AND WEIGHT », « NUMBER(S) »). Français : l'ordre des pages est
 > rétabli, et la page 075 restaurée en français. Thaï : repassé au format
 > 1920 × 1080 (il était en 1400 × 788).
 
