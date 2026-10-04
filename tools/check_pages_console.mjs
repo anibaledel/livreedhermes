@@ -96,7 +96,7 @@ const PAGES = [
   { path: 'soutenir.html' },
   { path: 'soutien-succes.html' },
   { path: 'telechargements.html' },
-  { path: 'tirage-livree-hermes.html', horsEnTete: true },
+  { path: 'tirage-livree-hermes.html' },
   { path: 'unified-patterns.html' },
   // ── la page d'erreur, demandée EN PROFONDEUR ─────────────────────────
   // Pas /404.html : à la racine, la page marche avec n'importe quel préfixe et

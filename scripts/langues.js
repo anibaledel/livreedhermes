@@ -88,6 +88,7 @@ const LANGUES = {
   fr: {
     nom: 'Français', autres: 'Autres langues :', drapeau: '🇫🇷', hexagrammes: true,
     pages: { livre: 'fr/livre/', accueil: '', lexique: 'lexique.html', 'a-propos': 'a-propos.html', travaux: 'travaux.html', recherche: 'recherche.html', outils: 'outils.html', soutien: 'soutenir.html', articles: 'articles.html' },
+    accueil: { lire: 'Lire en ligne', pdfPropre: 'Télécharger le PDF (FR, {mo} Mo)', pdfAnglais: 'Télécharger le PDF (EN, {mo} Mo)', carte: 'Le livre', pret: "Lisez La Livrée d'Hermès en ligne, page par page, chapitre par chapitre, avec le PDF gratuit ; les sept autres éditions aussi.", preparation: '' },
     edition: { titre: 'Édition française', lire: "Lisez La Livrée d'Hermès en ligne, page par page, avec téléchargement du PDF gratuit.", boutonLire: 'Lire le livre en ligne →', boutonPdf: 'Télécharger le PDF (FR)' },
     evitement: "Aller au contenu",
     lecteur: { titre: "Le Livre — visualiseur", titreDoc: "La Livrée d'Hermès — Le Livre", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Aller à", exemple: "ex. 042", voir: "Voir", aideClavier: "← → pour naviguer · clic sur la page pour zoomer", aideTactile: "Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer", prec: "Page précédente", suiv: "Page suivante", pdf: "Télécharger le PDF", langues: "Langue du livre" },

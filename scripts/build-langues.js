@@ -62,7 +62,7 @@ function ecrire(fichier, nouveau) {
 const lire = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
 // ---- 1. les barres du livre (pages à la racine, en français) ---------------
-const BARRES = ['index.html', 'fonds-ecran.html', 'impression.html', 'creation-motifs-yi-king.html', 'unified-patterns.html', 'galerie-patterns-unifies.html'];
+const BARRES = ['tirage-livree-hermes.html', 'fonds-ecran.html', 'impression.html', 'creation-motifs-yi-king.html', 'unified-patterns.html', 'galerie-patterns-unifies.html'];
 function drapeaux(groupe, indent) {
   return LIVRES.map((l) => {
     const titre = attr(l.nom);
