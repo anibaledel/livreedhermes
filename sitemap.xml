@@ -3,6 +3,13 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
+    <loc>https://anibal-amiot.com/tirage-livree-hermes.html</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/creation-motifs-yi-king.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>

@@ -39,7 +39,7 @@ const INCLUDES = path.join(REPO_ROOT, 'includes');
 // Hors périmètre : redirections (meta refresh, aucun contenu propre), pages
 // et pages de test cryptographiques.
 const HORS_PERIMETRE = new Set([
-  'pages.html', 'pro.html', 'pro-contenu.html', 'tirage-livree-hermes.html',
+  'pages.html', 'pro.html', 'pro-contenu.html',
   'galerie-768-patterns-unifies.html', 'galerie-884-patterns-unifies.html',
   'motifs (4).html',
 ]);
@@ -184,6 +184,9 @@ const AVEC_TUILES_EN_PLUS = new Set([
   'en/search/index.html',
   // Accueil anglais (/en/), jumelle de index.html (scripts/langues.js).
   'en/index.html',
+  // Accueil français (racine), refait sur le modèle de th/ (A03, 2026-10-04) :
+  // les tuiles qu'il portait à la main viennent désormais de nav-tiles.js.
+  'index.html',
 ]);
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,

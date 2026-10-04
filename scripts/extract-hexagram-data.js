@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
-const indexSrc = fs.readFileSync(path.join(REPO_ROOT, 'index.html'), 'utf8');
+const indexSrc = fs.readFileSync(path.join(REPO_ROOT, 'tirage-livree-hermes.html'), 'utf8');
 
 function extractLiteral(varName){
   const marker = `const ${varName} = `;
