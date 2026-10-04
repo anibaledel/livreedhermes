@@ -77,8 +77,8 @@
  ],
  "legendes": {
   "fr": {
-   "000A": "Couverture : La livrée d'Hermès, par Anibal Edelberto Amiot.",
-   "000B": "Définition du mot « livrée », et les fonds des pages : clairs pour la géométrie, sombres pour l'arithmétique ou le symbolisme.",
+   "000A": "Page de titre : La livrée d'Hermès, et la licence Creative Commons CC BY-NC 4.0.",
+   "000B": "Définition du mot « livrée », les fonds des pages (clairs pour la géométrie, sombres pour l'arithmétique ou le symbolisme) et les remerciements.",
    "001": "Chapitre I, Roseau : la mesure au roseau d'or (Apocalypse 21, 15) et 1 x 1 = 1 = 1 / 1.",
    "002": "Arithmogéométrie : nombres triangulaires, carrés, et rectangulaires ou hétéromèques.",
    "003": "Nature des aires : les quadrillages d'ordre impair, pair pair et pair impair, de l'ordre 3 à l'ordre 10.",
@@ -161,8 +161,8 @@
  },
  "signalements": {
   "fr": [
-   "Ordre du PDF français : il commence à la page 002 et finit sur 000A, 000B, 001. Les chapitres suivent les numéros imprimés (décision d'Anibal, 4 octobre 2026) ; le test vérifie, page par page, que le numéro imprimé est bien le code de la page. Le PDF n'est pas modifié.",
-   "Page 075 (page 90 du PDF français) : elle est en thaï dans le PDF (« มุมบนขวา สัญลักษณ์ประจำตระกูล… »), alors que la planche 075 du lecteur est en français. Le chapitre VII attend le PDF français corrigé (décision d'Anibal).",
+   "Ordre des pages : le PDF français v3 (4 octobre 2026) suit l'ordre du livre (000A, 000B, 001…). L'ancien commençait à la page 002 ; le test d'identité, relancé sur le nouveau fichier avant correction, l'a signalé sur les 80 pages publiées, et le numéro imprimé de 75 d'entre elles.",
+   "Page 075 : la page thaïe de l'ancien PDF est remplacée par sa version française dans le v3. Le chapitre VII peut être publié dès que son découpage est confirmé : la page 093 est désormais titrée « CHAPITRE VIII — MESURE ».",
    "Page 028C : un fragment espagnol, invisible sur la planche, est dans le texte du PDF : « hermético o la llave maestra, Viena, 1709.� » (le dernier caractère est un glyphe du PDF sans caractère Unicode, U+FFFD). Il est publié tel quel, puisque le texte publié est celui du PDF ; à retirer du PDF si c'est un reste de l'édition espagnole.",
    "Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode dans le PDF ; les deux moteurs lisent « Nombre d'or ( ) » et « ( = (1 + √5) / 2) ». Publié tel quel.",
    "Page 028B : le PDF porte « visualisationdu » et « cettecatégorie » sans espace (les deux moteurs le lisent ainsi). Publié tel quel.",

@@ -29,8 +29,7 @@
 #   - les ligatures sont rendues en lettres (ﬁ → fi).
 #
 # L'ordre des pages : celui des numéros imprimés (PAGE_CODES du lecteur,
-# 000A, 000B, 001…). Le PDF français commence à la page 002 et finit sur
-# 000A, 000B, 001 (décision d'Anibal, 4 octobre 2026 : « les pages sont
+# 000A, 000B, 001…), décision d'Anibal du 4 octobre 2026 (« les pages sont
 # numérotées, il faut suivre l'ordre ») ; ORDRE_PDF le déclare, et le test
 # vérifie que le numéro imprimé sur la page du PDF est bien le code attendu.
 #
@@ -40,9 +39,11 @@ import pymupdf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# rang, dans le PDF de la langue, de la page du code n° 0 (000A) : le PDF
-# français est décalé de trois pages (000A, 000B et 001 à la fin)
-ORDRE_PDF = {'fr': 108, 'en': 0}
+# rang, dans le PDF de la langue, de la page du code n° 0 (000A). Les PDF v3
+# (4 octobre 2026) suivent tous l'ordre du livre ; l'ancien PDF français était
+# décalé de trois pages (108), et le test d'identité l'a signalé page par page
+# au remplacement.
+ORDRE_PDF = {'fr': 0, 'en': 0}
 DRAPEAUX = pymupdf.TEXT_INHIBIT_SPACES | pymupdf.TEXT_PRESERVE_WHITESPACE | pymupdf.TEXT_MEDIABOX_CLIP
 LIGATURES = {'ﬀ': 'ff', 'ﬁ': 'fi', 'ﬂ': 'fl', 'ﬃ': 'ffi', 'ﬄ': 'ffl', 'ﬅ': 'st', 'ﬆ': 'st'}
 
