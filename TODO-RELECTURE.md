@@ -314,7 +314,7 @@ th/index.html, qui écrit déjà « โดย Anibal Edelberto Amiot »).
 ### Le titre (22 occurrences thaïes)
 
 « เสื้อคลุมของเฮอร์เมส » → « La Livrée d'Hermès » : th/index.html (10),
-th/book/index.html (9), th/search/index.html (1), impression.html (1, le
+th/book/index.html (9), th/search/index.html (1), 360-calques.html (1, le
 dictionnaire d'interface thaï), la-livree-d-hermes.html (1, carte de l'édition
 thaïe : « อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี »).
 L'`alternateName` « เสื้อคลุมของเฮอร์เมส » du JSON-LD de th/index.html est
@@ -384,3 +384,20 @@ table `T.hi`), la visionneuse (`scripts/langues.js`, `lecteur`), le pied
   पैटर्न, आइगेन-मोड) ;
 - **la phrase des langues** : la tournure « में उपलब्ध हैं » est répétée par
   clause, à vérifier à l'oreille.
+
+## Page des 360 calques — thaï (2026-10-04)
+
+- **Terme refusé par le glossaire, laissé tel quel.** Le dictionnaire thaï de
+  `360-calques.html` (ex-`impression.html`, objet `UI.th`) emploie
+  « เฮกซะแกรม » pour « hexagramme », 5 fois (cartes des quatre catégories et
+  textes de navigation) ; le glossaire impose « ฉักลักษณ์ » et classe
+  « เฮกซะแกรม » en variante refusée. `tools/check_glossaire.mjs` ne le voit
+  pas : il ignore les dictionnaires d'interface des scripts. Décision : un
+  défaut de contenu, consigné ici pour un lecteur natif, **pas** de
+  remplacement automatique. Le même dictionnaire emploie « ชั้นลาย » pour
+  « calque » là où le glossaire dit « แผ่นลาย ».
+- **Textes nouveaux, sans relecture native** (thaï et espagnol) : la phrase
+  qui relie les 360 calques aux tirages (`calquesRelation`) et les cartes des
+  quatre catégories (« ชุด » / « juego » pour un jeu de 24 calques,
+  « การทำนาย » / « tirada » pour un tirage). « ธรรมชาติ » et « naturaleza »
+  pour « nature » n'ont pas de ligne au glossaire.

@@ -604,7 +604,7 @@
         <div class="nav-tiles">
       <a class="nav-tile" href="fonds-ecran.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/fond-ecran.png); --hover-icon:url(assets/nav-icons/fond-ecran-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Fond d'écran</span><span class="nav-tile-excerpt">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></span></a>
       <a class="nav-tile" href="encodeur.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/encodeur.png); --hover-icon:url(assets/nav-icons/encodeur-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Encodeur</span><span class="nav-tile-excerpt">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></span></a>
-      <a class="nav-tile" href="impression.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/impression.png); --hover-icon:url(assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
+      <a class="nav-tile" href="360-calques.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/impression.png); --hover-icon:url(assets/nav-icons/impression-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Impression</span><span class="nav-tile-excerpt">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></span></a>
       <a class="nav-tile" href="cymatique.html"><span class="nav-tile-icon" style="--rest-icon:url(assets/nav-icons/cymatique.png); --hover-icon:url(assets/nav-icons/cymatique-hover.gif)"></span><span class="nav-tile-body"><span class="nav-tile-label">Cymatique</span><span class="nav-tile-excerpt">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></span></a>
     </div>
 
@@ -1615,7 +1615,7 @@ function downloadGridSVG(grid, kwLabel){
   setTimeout(()=> URL.revokeObjectURL(url), 1000);
 }
 
-// Export grille.png/grille.json (B2, même moteur qu'impression.html A4) — grid est déjà
+// Export grille.png/grille.json (B2, même moteur qu'360-calques.html A4) — grid est déjà
 // la grille 12x12 de lettres de teinte (V/M/O) reconstruite par colorGridForItem/LAYER_COLORS,
 // jamais une relecture du SVG. Le PNG reprend la palette active (PALETTE, modulable par
 // l'utilisateur), pas les hex fixes de CalqueEngine.HEX_TO_LABEL.

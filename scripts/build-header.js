@@ -41,6 +41,8 @@ const INCLUDES = path.join(REPO_ROOT, 'includes');
 const HORS_PERIMETRE = new Set([
   'pages.html', 'pro.html', 'pro-contenu.html',
   'galerie-768-patterns-unifies.html', 'galerie-884-patterns-unifies.html',
+  // redirige vers 360-calques.html depuis le renommage de la page (2026-10-04)
+  'impression.html',
   'motifs (4).html',
 ]);
 const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);

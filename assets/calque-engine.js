@@ -1,6 +1,6 @@
 /* ============================================================
    CalqueEngine — moteur de composition partagé (tirage-livree-hermes.html,
-   motifs (4).html, impression.html catégorie II). Reconstruit, pour chaque
+   motifs (4).html, 360-calques.html catégorie II). Reconstruit, pour chaque
    nature de trait (Yang, Yang mutant, Yin, Yin mutant), la grille de
    couleurs 12x12 réelle du pavage à partir des 24 calques individuels
    sources d'un "espace" donné (une carte SVG par position de trait,
@@ -114,7 +114,7 @@ window.CalqueEngine = (function(){
   function loadAll(){ return loadSpace('hexagram', 'assets/trait-cartes/'); }
   function colorAt(nature, row, col){ return spaceColorAt('hexagram', nature, row, col); }
 
-  // ===== Export « grille » (impression.html catégorie A4, creation-motifs-yi-king.html
+  // ===== Export « grille » (360-calques.html catégorie A4, creation-motifs-yi-king.html
   // B2) — un pixel/case en PNG, une lettre de teinte par case en JSON. Prend en entrée
   // une grille déjà reconstruite par l'appelant (buildCompositeBlock côté impression,
   // spaceColorAt côté création) : ce module ne relit jamais le SVG lui-même, il se

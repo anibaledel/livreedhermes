@@ -23,7 +23,7 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const ENGINE = path.join(ROOT, 'assets', 'calque-engine.js');
 // Espaces chargés par le moteur. Les familles de assets/par2-cartes/ ont leur
-// propre chargeur dans impression.html et ne passent pas par loadSpace().
+// propre chargeur dans 360-calques.html et ne passent pas par loadSpace().
 const ESPACES = [{ nom: 'hexagram', dossier: 'assets/trait-cartes/' }];
 
 async function grillesDepuisSvg(dossier) {
