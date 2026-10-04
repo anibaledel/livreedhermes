@@ -206,10 +206,11 @@
 ## Ce que l'extraction a relevé
 
 - Ordre du PDF anglais : il suit les numéros imprimés (000A, 000B, 001…). Au passage aux PDF v3 (4 octobre 2026), le test d'identité a signalé les trois pages anglaises qui ont changé — 000A, 000B, 093 — et la césure « mea-surement » disparue ; elles sont régénérées. Le v3 anglais titre le livre « The Livery of Hermes » (couverture et page 1).
+- PDF v9 (4 octobre 2026) : les coquilles « MEASURE ET WEIGHT » et « NOMBER(S) » (pages 012C, 014, 015, 020, 026, 030, 035) sont corrigées dans le livre, et le titre anglais « The Livery of Hermes » ne figure plus dans le texte des pages 000A, 000B et 093 ; le test d'identité a signalé ces dix pages, régénérées.
 - Du français resté dans l'édition anglaise, publié tel quel : « CHAPITRE VI.II » (page 029), « 4. RÉSULTATS » et « 6. REPRÉSENTATIONS » (page 023), « SOMMETS » et « ARÊTES » (page 024C).
 - Page 049 : la page anglaise est titrée « ADROGYNE FOOT », la page française « LES 64 FLEURS ET LEURS 8 FAMILLES ». Les deux éditions diffèrent ici.
 - Page 028C : le fragment espagnol invisible « hermético o la llave maestra, Viena, 1709.� » est aussi dans le PDF anglais. Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode (« Golden ratio ( ) »).
-- Page 024C : « HEXAHEDRON OR CUBEP- » et « six squares.s. » sont tels quels dans le PDF. Page 012C : « MEASURE ET WEIGHT », « NOMBER ». Les coquilles de l'édition anglaise sont reproduites sans correction (« NOMBERS », « gay » pour gray page 042, « Possential », « INHALOUS »…).
+- Page 024C : « HEXAHEDRON OR CUBEP- » et « six squares.s. » sont tels quels dans le PDF. Les coquilles de l'édition anglaise sont reproduites sans correction (« gay » pour gray page 042, « Possential » page 073, « INHALOUS » pages 059 et 060…).
 - Page 076A : l'édition anglaise titre aussi HEBDO « CHAPTER VII.I », comme la française.
 - Polices : « ∑ » (page 004C) et « √ » (page 024B) n'ont pas de glyphe dans les polices déclarées du site.
 - Ordre de lecture : sur les planches à plusieurs blocs de texte, les colonnes d'abord, puis les bandes ; les étiquettes des figures restent entre les paragraphes, en petit. Chaque paragraphe est vérifié : il se lit d'un seul tenant chez Poppler (exceptions déclarées dans data/livre/ordre-exceptions.json).
