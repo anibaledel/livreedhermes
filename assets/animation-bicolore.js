@@ -99,7 +99,7 @@ export function monterAnimationBicolore({ bascule, onTuile }) {
     couleurFond: () => etat().palette[0],
     // les couleurs réglées depuis l'écran d'animation : demandées au sélecteur
     definirPalette: (palette) => demanderPalette(palette),
-    // « Réinitialiser » : PALETTE_DEFAUT (rouge et blanc), le défaut de tout rendu bicolore
+    // « Réinitialiser » : PALETTE_DEFAUT (encre et crème), le défaut de tout rendu bicolore
     reinitialiserCouleurs: () => demanderPalette([...PALETTE_DEFAUT]),
     invalider() { generation++; tuiles.clear(); },
     basculer(oui) {

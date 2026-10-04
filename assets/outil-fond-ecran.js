@@ -15,7 +15,7 @@
 //
 // Ce qui diffère entre les deux montages, et rien d'autre :
 //   - la couleur : trois couleurs et une teinte (tricolore) ; deux couleurs,
-//     fond et figure, rouge et blanc par défaut, avec « Crème / encre »
+//     fond et figure, encre et crème par défaut, avec « Rouge / blanc »
 //     (bicolore, assets/animation-bicolore.js : la tuile du moteur des pages) ;
 //   - les motifs retenus : le tricolore écarte les motifs à « diagonale
 //     sombre » (la plus sombre des trois couleurs), qui n'existe plus après
@@ -24,7 +24,7 @@
 //     lecture binaire (ce que le visiteur voit) ;
 //   - Full Réactif : en tricolore, les basses font tourner la teinte et les
 //     médiums changent de motif ; en bicolore, les médiums seulement — une
-//     rotation de teinte ne se verrait pas sur du rouge et blanc.
+//     rotation de teinte ne se verrait pas sur deux couleurs.
 // L'état de chaque montage dans l'URL a ses propres clés (densité, rythme,
 // teinte) : ?densite, ?rythme, ?teinte pour le tricolore ; ?bdensite,
 // ?brythme pour le bicolore (la collection et les couleurs : ?fond, ?sup,
@@ -87,8 +87,8 @@ function gabarit(rendu) {
     ? `<span class="hud-couleurs" style="display:inline-flex; align-items:center; gap:6px;">
         <label class="hud-label">Fond <input type="color" data-r="c0" title="Couleur du fond (bit 0)"></label>
         <label class="hud-label">Figure <input type="color" data-r="c1" title="Couleur de la figure (bit 1)"></label>
-        <button type="button" class="anim-preset" data-palette="bicolore">Rouge / blanc</button>
         <button type="button" class="anim-preset" data-palette="creme">Crème / encre</button>
+        <button type="button" class="anim-preset" data-palette="bicolore">Rouge / blanc</button>
         <button type="button" class="anim-preset" data-palette="monochrome">Monochrome</button>
       </span>`
     : `<span class="hud-couleurs" style="display:inline-flex; align-items:center; gap:6px;">
@@ -102,7 +102,7 @@ function gabarit(rendu) {
     '🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.',
     '🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les médiums pilotent le changement de motif, en continu. Pas de teinte sur les basses : deux couleurs n\'ont pas de teinte à faire tourner.',
     '⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l\'hexagramme, le texte de sa paire et la collection.',
-    '🎨 <b>Couleurs</b> — le fond et la figure : rouge et blanc par défaut, « Crème / encre » ou « Monochrome » d\'un clic ; la collection se choisit ci-dessus.',
+    '🎨 <b>Couleurs</b> — le fond et la figure : encre et crème par défaut, « Rouge / blanc » ou « Monochrome » d\'un clic ; la collection se choisit ci-dessus.',
     '▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu\'au format resserré utilisé sur la page Tirage.',
     '🖼 <b>Figer</b> — reprend le motif à l\'écran dans le fond d\'écran fixe, en vecteur, sur la galerie bicolore.',
     '🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l\'écran ; le nom du fichier porte le code de la collection. Si le navigateur n\'encode pas le H.264 (Firefox, Chromium), l\'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari.',
@@ -610,7 +610,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
     $s('rhythmLabel').textContent = RYTHME_DEFAUT + ' s';
     if (meditativeActive) restartMeditativeTimer();
     vueDansLUrl();
-    if (BI) bico.reinitialiserCouleurs(); // rouge et blanc (assets/couleurs.js), demandé au sélecteur
+    if (BI) bico.reinitialiserCouleurs(); // encre et crème (assets/couleurs.js), demandé au sélecteur
     refreshPalette();
   };
 

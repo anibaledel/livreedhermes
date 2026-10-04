@@ -23,7 +23,8 @@ name: Fonds des cases conformes au calcul
 #     commandes ; le fichier audio et le micro pilotent le bicolore ; états
 #     indépendants ; plus de bandeau, le lien vers la galerie bicolore.
 #     Le même contrôle tourne sur le SITE DÉPLOYÉ (job « site ») après chaque
-#     déploiement de main, et à la demande.
+#     déploiement de main, et à la demande — avec check_bicolore_defaut.mjs
+#     et check_export_pinterest.mjs (deux images par collection).
 #   - check_export_pinterest.mjs local : les images des collections
 #     sont identiques, pixel par pixel, au rendu des pages (dans les couleurs
 #     de chaque collection, data/fonds/collections-pinterest.json).
@@ -122,5 +123,17 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11; do
             node tools/check_fond_ecran_deux_outils.mjs https://anibal-amiot.com && exit 0
             echo "essai $i : le site n'a pas encore la page attendue ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
+      # le bicolore par défaut (encre et crème) sur chaque page de rendu, et
+      # deux images tirées au hasard de chaque collection, identiques au rendu
+      # de leur page — sur le site déployé
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            ok=1
+            node tools/check_bicolore_defaut.mjs https://anibal-amiot.com || ok=0
+            for c in P B2D B2 B121 B6D; do node tools/check_export_pinterest.mjs https://anibal-amiot.com --code $c --echantillon 2 || ok=0; done
+            [ $ok = 1 ] && exit 0
+            echo "essai $i : le site n'a pas encore les fichiers attendus ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1

@@ -126,8 +126,8 @@ export async function monterVueFond(racine, { grille, nom, slug, lang = 'fr' }) 
     <div class="vf-couleurs">
       <label>${T.c0} <input type="color" class="vf-c0"></label>
       <label>${T.c1} <input type="color" class="vf-c1"></label>
-      <button type="button" class="vf-preset" data-palette="bicolore">${T.bicolore}</button>
       <button type="button" class="vf-preset" data-palette="creme">${T.creme}</button>
+      <button type="button" class="vf-preset" data-palette="bicolore">${T.bicolore}</button>
       <button type="button" class="vf-preset" data-palette="monochrome">${T.monochrome}</button>
     </div>
     <div class="vf-selecteur"><div class="vf-libelle">${T.fond}</div><div class="vf-sf"></div></div>

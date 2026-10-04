@@ -50,17 +50,19 @@
                            employé partout où il en faut un. */
 
   /* ---------- accents ---------- */
-  --red:      #e63b31;  /* rouge de marque : surtitres, boutons primaires,
-                           traits mutants. 5.03:1 sur --bg, 4.53:1 sur #111
-                           (cartes au survol) et 4.5:1 sur le voile rouge
-                           des boutons actifs : passe le seuil AA de 4.5:1
-                           pour du texte courant sur tous les fonds sombres
-                           du site. Même teinte que #e2261b, un peu plus
-                           claire (#e2261b ne faisait que 4.27:1 sur
-                           --panel). Les palettes des motifs (#e0261b dans
-                           les outils et les exports) ne changent pas : ce
-                           sont des œuvres, pas du texte. */
-  --red-dim:  #5a120e;  /* rouge profond, décor seul — 1.53:1 : jamais de
+  --red:      #e63b31;  /* LE rouge du site, le seul (décision d'Anibal,
+                           4 octobre 2026) : texte, lien, accent — surtitres,
+                           boutons primaires, état courant, traits mutants.
+                           5.03:1 sur --bg, 4.75:1 sur --panel, 4.53:1 sur
+                           #111 (cartes au survol) : passe le seuil AA de
+                           4.5:1 du texte courant sur tous les fonds sombres
+                           du site. Toute autre nuance de rouge en dérive
+                           (--red-dim). Le rouge n'est plus une couleur de
+                           motif par défaut : les motifs bicolores partent
+                           en encre et crème (assets/couleurs.js), où le
+                           rouge du générateur reste choisissable. */
+  --red-dim:  color-mix(in srgb, var(--red) 39%, #000);
+                        /* rouge profond, décor seul — ≈ 1.5:1 : jamais de
                            texte ni de bordure d'élément interactif */
   --gold:     #c9a15a;  /* état :hover et :focus de toute la navigation,
                            équerres du cadre Atalanta, page courante du fil
@@ -302,7 +304,10 @@ picture{ display:contents; }
 @media print{
   :root:root{
     --bg:#fff; --panel:#fff; --white:#000; --dim:#333; --gold:#000;
-    --red:#b3221a; --line:#bbb; --line-strong:#888;
+    --line:#bbb; --line-strong:#888;
+    /* --red reste le rouge du site : à l'impression, tout texte passe en
+       noir (ci-dessous) ; le rouge n'y marque que des bordures et des
+       traits, où #e63b31 tient 3,7:1 sur le papier (seuil 3:1). */
   }
   html, body{ background:#fff !important; color:#000 !important; }
   body *{ color:#000 !important; text-shadow:none !important; box-shadow:none !important; }

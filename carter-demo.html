@@ -87,7 +87,8 @@
     --msg:     #4e9eff;   /* cellule message */
     --struct:  #3a7a5a;   /* cellule structurée */
     --pure:    #1e2a36;   /* cellule pure */
-    --err:     #d64444;
+    --red:     #e63b31;   /* le rouge du site (style.css, que cette page ne charge pas) */
+    --err:     var(--red);
     --fs-bump: 2px;
   }
 
@@ -215,7 +216,7 @@
     display: none;
   }
   .status.ok   { border-color: var(--struct); color: #7ecfa0; background: rgba(62,122,90,0.1); }
-  .status.err  { border-color: var(--err);   color: #f08080; background: rgba(214,68,68,0.1); }
+  .status.err  { border-color: var(--err);   color: var(--red); background: color-mix(in srgb, var(--red) 10%, transparent); }
   .status.info { border-color: var(--gold-dim); color: var(--gold); background: rgba(200,170,110,0.07); }
 
   .legend {

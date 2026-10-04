@@ -243,7 +243,7 @@
     .fe-level{ display:none; } /* pas essentiel, laisse la place aux vrais contrôles */
   }
   .format-video{ font-size:calc(10px + var(--fs-bump)); color:rgba(255,255,255,.7); }
-  .format-video.indisponible{ color:#ff8a80; }
+  .format-video.indisponible{ color:var(--red); }
   .anim-preset{ border:1px solid rgba(255,255,255,.35); background:transparent; color:rgba(255,255,255,.75); font-size:calc(10px + var(--fs-bump)); padding:5px 8px; cursor:pointer; }
   .fe-hud input[type=color]{ width:28px; height:24px; border:1px solid rgba(255,255,255,.35); background:transparent; padding:1px; }
   /* les deux outils, l'un sous l'autre */
@@ -345,7 +345,7 @@
 
   <section class="outil" id="outilBicolore" aria-labelledby="titreBicolore">
     <h2 id="titreBicolore">Bicolore</h2>
-    <p class="outil-intro">Deux couleurs, rouge et blanc par défaut : la figure et le fond de chaque motif, lu en binaire, avec la collection choisie ici.</p>
+    <p class="outil-intro">Deux couleurs, encre et crème par défaut : la figure et le fond de chaque motif, lu en binaire, avec la collection choisie ici.</p>
     <!-- le sélecteur de collection et de couleurs : seul écrivain de l'état
          partagé (assets/vue-fond-ecran.js, assets/etat-fond-ecran.js) -->
     <div class="fond-fixe" id="fondFixe" role="group" aria-labelledby="ffTitre">
@@ -353,8 +353,8 @@
       <div class="ff-choix">
         <label>Figure <input type="color" id="ffCouleur1"></label>
         <label>Fond <input type="color" id="ffCouleur2"></label>
-        <button type="button" class="ff-preset" data-palette="bicolore">Rouge / blanc</button>
         <button type="button" class="ff-preset" data-palette="creme">Crème / encre</button>
+        <button type="button" class="ff-preset" data-palette="bicolore">Rouge / blanc</button>
         <button type="button" class="ff-preset" data-palette="monochrome">Monochrome</button>
       </div>
       <div class="ff-selecteur"><div class="ff-libelle">Fond</div><div id="ffSelecteur"></div></div>
