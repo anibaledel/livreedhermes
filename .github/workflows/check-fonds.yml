@@ -78,6 +78,8 @@ jobs:
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/check_redirections.mjs
       - run: node tools/recettes_animations.mjs --verifie
+      - run: node tools/check_recette_32.mjs
+      - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs
       - run: node tools/affiches_animations.mjs --essai
       - run: node tools/affiches_animations.mjs --verifie
@@ -101,7 +103,7 @@ jobs:
       - run: node tools/check_fond_ecran_deux_outils.mjs local
       - run: node tools/check_galerie_animations.mjs local
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
-      - run: node tools/video_reference.mjs --verifie B2
+      - run: node tools/video_reference.mjs --verifie B2 P
       - run: node tools/check_ecrivain_unique.mjs local
       - run: node tools/check_bicolore_defaut.mjs local
 

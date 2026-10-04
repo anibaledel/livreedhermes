@@ -62,6 +62,9 @@ export function moment(rec, t, vitesse = 1) {
   if (t >= n * d) return { carton: true };
   const i = Math.min(n - 1, Math.floor(t / d));
   const local = t - i * d;
+  // sans carton de fin (recette 32, « fin »: 0), le dernier motif reste plein
+  // jusqu'au bout : rien vers quoi se fondre
+  if (i + 1 >= n && !(rec.fin > 0)) return { i, suivant: 'carton', a: 0 };
   const a = local > d - f ? (local - (d - f)) / f : 0;
   return { i, suivant: i + 1 < n ? i + 1 : 'carton', a };
 }
