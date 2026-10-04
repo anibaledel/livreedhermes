@@ -14,8 +14,8 @@
 
 | page | légende proposée |
 |---|---|
-| 000A | Couverture : La livrée d'Hermès, par Anibal Edelberto Amiot. |
-| 000B | Définition du mot « livrée », et les fonds des pages : clairs pour la géométrie, sombres pour l'arithmétique ou le symbolisme. |
+| 000A | Page de titre : La livrée d'Hermès, et la licence Creative Commons CC BY-NC 4.0. |
+| 000B | Définition du mot « livrée », les fonds des pages (clairs pour la géométrie, sombres pour l'arithmétique ou le symbolisme) et les remerciements. |
 | 001 | Chapitre I, Roseau : la mesure au roseau d'or (Apocalypse 21, 15) et 1 x 1 = 1 = 1 / 1. |
 | 002 | Arithmogéométrie : nombres triangulaires, carrés, et rectangulaires ou hétéromèques. |
 | 003 | Nature des aires : les quadrillages d'ordre impair, pair pair et pair impair, de l'ordre 3 à l'ordre 10. |
@@ -156,8 +156,8 @@
 
 ## Ce que l'extraction a relevé
 
-- Ordre du PDF français : il commence à la page 002 et finit sur 000A, 000B, 001. Les chapitres suivent les numéros imprimés (décision d'Anibal, 4 octobre 2026) ; le test vérifie, page par page, que le numéro imprimé est bien le code de la page. Le PDF n'est pas modifié.
-- Page 075 (page 90 du PDF français) : elle est en thaï dans le PDF (« มุมบนขวา สัญลักษณ์ประจำตระกูล… »), alors que la planche 075 du lecteur est en français. Le chapitre VII attend le PDF français corrigé (décision d'Anibal).
+- Ordre des pages : le PDF français v3 (4 octobre 2026) suit l'ordre du livre (000A, 000B, 001…). L'ancien commençait à la page 002 ; le test d'identité, relancé sur le nouveau fichier avant correction, l'a signalé sur les 80 pages publiées, et le numéro imprimé de 75 d'entre elles.
+- Page 075 : la page thaïe de l'ancien PDF est remplacée par sa version française dans le v3. Le chapitre VII peut être publié dès que son découpage est confirmé : la page 093 est désormais titrée « CHAPITRE VIII — MESURE ».
 - Page 028C : un fragment espagnol, invisible sur la planche, est dans le texte du PDF : « hermético o la llave maestra, Viena, 1709.� » (le dernier caractère est un glyphe du PDF sans caractère Unicode, U+FFFD). Il est publié tel quel, puisque le texte publié est celui du PDF ; à retirer du PDF si c'est un reste de l'édition espagnole.
 - Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode dans le PDF ; les deux moteurs lisent « Nombre d'or ( ) » et « ( = (1 + √5) / 2) ». Publié tel quel.
 - Page 028B : le PDF porte « visualisationdu » et « cettecatégorie » sans espace (les deux moteurs le lisent ainsi). Publié tel quel.
@@ -166,8 +166,8 @@
 - Ordre de lecture : sur les planches à plusieurs blocs de texte, l'ordre est celui des colonnes puis des bandes de la page ; les étiquettes des figures (« Ordre 3 », « 1 », « 6 ») restent entre les paragraphes, en petit, à l'endroit où elles tombent. Deux pages ont demandé une règle explicite : 004C (deux colonnes, dont une en équerre) et 012A (une citation qui continue dans la colonne de droite).
 - Coquilles du livre : le texte publié reproduit le PDF sans correction (par exemple « SYMBOLIISME », page 024B ; « UILISÉES », page 015).
 
-## Césures de fin de ligne (71)
+## Césures de fin de ligne (70)
 
 Un mot coupé en fin de ligne du PDF est recollé ; aucune n'est gardée. Pour garder un trait d'union, mettre `"garde": true` dans `data/livre/cesures-fr.json`.
 
-002 harmo-nieux, 002 troi-sième, 002 triangu-laires, 003 sous-en-sembles, 004A seule-ment, 004B l’arithmé-tique, 004B géomé-triques., 008B d’anti-podes,, 008B l’évoca-tion, 008B com-mencement., 010 l’établisse-ment, 010 sym-bolisme, 010 l’in-telligibilité, 011 s’ins-crivait, 011 cara-paces, 012B com-mencement, 012B commu-nication, 012B con-centration, 015 multi-ples, 018A l’empe-reur, 018A exacte-ment, 018A dissol-vant, 018B l'énonce-ment, 018B d'ins-piration, 018C pèle-rinage., 018C l'ex-térieur, 024B entrela-cés,, 024C polygo-nales, 028B visua-lisationdu, 028C l'exis-tence,, 028C puis-sance, 028C gouver-née, 028C équi-latéraux, 028C har-monieuse, 028C Macro-cosme., 031 utili-sant, 034 remar-quez, 037 naturelle-ment, 038B Apo-calypse, 040 rem-plissage,, 042 interdé-pendants, 046 l'inter-médiaire, 050 trou-verez, 050 diago-nales., 062B atmos-phère, 062B d'Al-cools, 062B «créa-trice, 062B l'éléva-tion, 062C alexan-drine,, 062C connais-sent, 062C l'ar-lequin, 062C Egyp-tiens., 062C naturelle-ment, 063 l'expan-sion., 064 introduc-tion, 064 divina-toires,, 064 géoman-cie., 064 car-actère, 066 posi-tionnement, 067 «chronolo-gique»*, 070 antipode(i-mage, 071 combi-nant, 071 attri-bution, 072 iden-tiques, 072 présen-tée, 072 d’en-gendrer, 072 consti-tuant, 073 catégo-rie, 073 com-prenant, 074 catégo-ries., 093 l'in-telligence
+002 harmo-nieux, 002 troi-sième, 002 triangu-laires, 003 sous-en-sembles, 004A seule-ment, 004B l’arithmé-tique, 004B géomé-triques., 008B d’anti-podes,, 008B l’évoca-tion, 008B com-mencement., 010 l’établisse-ment, 010 sym-bolisme, 010 l’in-telligibilité, 011 s’ins-crivait, 011 cara-paces, 012B com-mencement, 012B commu-nication, 012B con-centration, 015 multi-ples, 018A l’empe-reur, 018A exacte-ment, 018A dissol-vant, 018B l'énonce-ment, 018B d'ins-piration, 018C pèle-rinage., 018C l'ex-térieur, 024B entrela-cés,, 024C polygo-nales, 028B visua-lisationdu, 028C l'exis-tence,, 028C puis-sance, 028C gouver-née, 028C équi-latéraux, 028C har-monieuse, 028C Macro-cosme., 031 utili-sant, 034 remar-quez, 037 naturelle-ment, 038B Apo-calypse, 040 rem-plissage,, 042 interdé-pendants, 046 l'inter-médiaire, 050 trou-verez, 050 diago-nales., 062B atmos-phère, 062B d'Al-cools, 062B «créa-trice, 062B l'éléva-tion, 062C alexan-drine,, 062C connais-sent, 062C l'ar-lequin, 062C Egyp-tiens., 062C naturelle-ment, 063 l'expan-sion., 064 introduc-tion, 064 divina-toires,, 064 géoman-cie., 064 car-actère, 066 posi-tionnement, 067 «chronolo-gique»*, 070 antipode(i-mage, 071 combi-nant, 071 attri-bution, 072 iden-tiques, 072 présen-tée, 072 d’en-gendrer, 072 consti-tuant, 073 catégo-rie, 073 com-prenant, 074 catégo-ries.

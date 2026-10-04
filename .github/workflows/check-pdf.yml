@@ -3,6 +3,8 @@ name: PDF légers, linéarisés, servis en requêtes partielles
 # - check_pdf.py : aucun PDF du dépôt au-delà de 25 Mo ; ceux des lecteurs du
 #   livre (book-viewer/) linéarisés (tools/alleger_pdf.py, après chaque
 #   génération de PDF).
+# - check_livres.py : les huit éditions, et les pages du lecteur qui les
+#   montrent (voir l'en-tête du script).
 # - check_pdf_servis.py : sur le site DÉPLOYÉ, une requête partielle d'un PDF
 #   répond 206 et Accept-Ranges: bytes, et le fichier servi est linéarisé.
 #   Après chaque déploiement de main, et à la demande ; informatif sur une PR
@@ -24,6 +26,12 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y qpdf poppler-utils
       - run: python3 tools/check_pdf.py
+      # les huit éditions : pages, format, licence, remerciements, AUCUNE PAGE
+      # DANS UNE ÉCRITURE ÉTRANGÈRE AU LIVRE, et le lecteur montre les mêmes
+      # pages que les PDF (tools/check_livres.py) ; --essai le fait mordre
+      - run: pip install pymupdf==1.28.2 numpy pillow
+      - run: python3 tools/check_livres.py
+      - run: python3 tools/check_livres.py --essai
   site:
     runs-on: ubuntu-latest
     steps:

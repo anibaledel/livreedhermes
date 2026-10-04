@@ -57,6 +57,9 @@ SEUIL_NUMERIQUE = 0.5  # fraction des valeurs terminales qui doivent être numé
 # Toute entrée ici doit être justifiée en revue de code, pas ajoutée pour
 # faire taire le contrôle.
 ALLOWLIST = {
+    ('check_livres.py', 'PLAGES'): (
+        "les blocs Unicode des écritures (cyrillique U+0400–052F, thaï U+0E00–0E7F…) : "
+        "des constantes de la norme Unicode, pas des mesures ; rien dans data/ ne les porte."),
     ('cube_edges.py', 'FACES'): (
         "géométrie du cube (origine + deux vecteurs d'arête par face, coordonnées "
         "12x12x12) — une définition, pas une mesure ; rien dans data/ ne la porte. "
