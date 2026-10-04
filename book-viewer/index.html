@@ -123,13 +123,25 @@
   .viewer{
     flex:1; display:flex; align-items:center; justify-content:center;
     position:relative; padding:16px 24px; min-height:0;
+    /* les flèches (44 px, à 10 px du bord) ont leur propre bande : l'image
+       ne passe jamais dessous */
+    padding-inline:64px;
   }
   .page-frame{
-    max-width:min(94vw, 1400px); max-height:100%; position:relative;
-    display:flex; align-items:center; justify-content:center; min-height:0;
+    /* A01 (audit du 4 octobre) : le cadre prend toute la place du lecteur,
+       en largeur ET en hauteur. Sans hauteur résolue, le max-height:100% de
+       l'image ne s'appuyait sur rien : elle prenait la largeur du cadre et
+       une hauteur au prorata (722 px à 1363 px de large), débordait au-dessus
+       et recouvrait les sept boutons de langue. Hausser un z-index aurait
+       masqué le symptôme sans régler le dimensionnement. */
+    width:100%; height:100%; min-width:0; min-height:0;
+    max-width:min(94vw, 1400px); position:relative;
+    display:flex; align-items:center; justify-content:center;
   }
   .page-frame img{
-    width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain;
+    /* l'image tient dans le cadre, proportions gardées, bordure au ras */
+    display:block; width:auto; height:auto; min-width:0; min-height:0;
+    max-width:100%; max-height:100%; object-fit:contain;
     border:1px solid var(--line); background:#050505;
     cursor:zoom-in; transition:opacity .25s ease;
   }
@@ -156,7 +168,11 @@
        la commande principale sur tactile (voir le script) ; ces boutons
        restent comme repli, plus petits et semi-transparents, pas au-dessus
        du contenu qu'on regarde. */
-    .nav-btn{ width:36px; height:36px; font-size:15px; opacity:.55; background:rgba(5,5,5,.55); }
+    /* ici, et seulement ici, les flèches se posent volontairement sur les
+       bords de l'image : elles passent donc au-dessus d'elle (empilement
+       voulu, pas un correctif de dimensionnement) */
+    .viewer{ padding-inline:24px; }
+    .nav-btn{ width:36px; height:36px; font-size:15px; opacity:.55; background:rgba(5,5,5,.55); z-index:1; }
     .nav-btn:active{ opacity:.9; }
   }
 
