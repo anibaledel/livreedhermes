@@ -250,3 +250,27 @@ Là, la tuile garde l'adresse française. C'est ce qui manque réellement, par l
 | ru | 15 | fonds-ecran, creation-motifs, bicolore, bicolore-v2, encodeur, impression, cymatique, hexagrammes, quadricolore, galerie-tricolore, galerie-bicolore, motifs-svg, articles, contact, a-propos |
 | pt | 15 | fonds-ecran, creation-motifs, bicolore, bicolore-v2, encodeur, impression, cymatique, hexagrammes, quadricolore, galerie-tricolore, galerie-bicolore, motifs-svg, articles, contact, a-propos |
 | hi | 15 | fonds-ecran, creation-motifs, bicolore, bicolore-v2, encodeur, impression, cymatique, hexagrammes, quadricolore, galerie-tricolore, galerie-bicolore, motifs-svg, articles, contact, a-propos |
+
+## Accueils (A03, 2026-10-04) — cartes ajoutées, sans source
+
+Le modèle absorbe ce que les accueils avaient en plus : chaque accueil mène
+désormais aux seize destinations (tools/check_accueils.mjs). Les cartes
+ajoutées n'avaient pas de texte sur le site dans leur langue ; elles sont
+traduites des cartes anglaises (« The interactive board », « Research
+deposits », « Search ») et posées, à relire :
+
+| accueil | carte | libellé | cible |
+|---|---|---|---|
+| es | tirage | « Tirada » (es/libro) + texte SANS SOURCE | tirage-livree-hermes.html?lang=en |
+| es | travaux | « Depósitos de investigación » SANS SOURCE | travaux.html (français) |
+| th | tirage | « การทำนาย » (th/book) + texte SANS SOURCE | tirage-livree-hermes.html?lang=en |
+| th | travaux | « งานวิจัยที่เผยแพร่ » SANS SOURCE | travaux.html (français) |
+| zh | tirage, recherche | « 起卦 », « 搜索 » SANS SOURCE | tirage (anglais), en/search/ |
+| ru | tirage, recherche | « Гадание », « Поиск » SANS SOURCE | tirage (anglais), en/search/ |
+| pt | tirage, recherche | « Tiragem », « Pesquisa » SANS SOURCE | tirage (anglais), en/search/ |
+| hi | tirage, recherche | « हेक्साग्राम निकालें », « खोज » SANS SOURCE | tirage (anglais), en/search/ |
+
+La ligne « Soutien · Contact » de la section « À propos » reprend les textes
+des tuiles (bouton Soutien, tuile Contact), avec leur provenance ci-dessus.
+Le tirage n'existe qu'en français et en anglais : les six autres accueils y
+mènent en anglais (`?lang=en`).
