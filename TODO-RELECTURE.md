@@ -365,3 +365,22 @@ Points de doute :
 - **zh** : « 阅读器 » pour visionneuse ; « 跳至 » / « 查看 » pour le saut de page ;
 - **ru** : « Книга — просмотр » ; l'aide clavier « ← → — листать » ;
 - **pt** : « visualizador » ; « Descarregar o PDF » (pt-PT, comme les pages du livre).
+
+## Hindi (hi, ajouté le 2026-10-04)
+
+Le livre est celui déposé par Anibal (« हर्मीस की पोशाक »), intact. Les textes
+DU SITE en hindi sont de Claude, à relire par un lecteur natif : `hi/` (accueil,
+livre, outils, soutien, travaux), le lexique (`data/lexiques_traduits.json`,
+entrée `hi`), les descriptions des dépôts (`data/travaux.json`, champ `hi`), la
+colonne HI du glossaire, la phrase des langues (`scripts/build-couverture.js`,
+table `T.hi`), la visionneuse (`scripts/langues.js`, `lecteur`), le pied
+(`includes/footer-hi.html`). Points de doute :
+
+- **termes** : « अंख क्रॉस » (croix ansée), « चित्रफलक » (planche),
+  « अंकज्यामिति » (arithmogéométrie), « अर्ध-विस्थापन » (demi-décalage),
+  « जमा » (dépôt Zenodo), « प्रगति-विवरण » (compte rendu) ;
+- **registre** : un hindi standard, sans ourdou ni anglicismes évitables ; les
+  termes techniques sans équivalent établi sont translittérés (हेक्साग्राम,
+  पैटर्न, आइगेन-मोड) ;
+- **la phrase des langues** : la tournure « में उपलब्ध हैं » est répétée par
+  clause, à vérifier à l'oreille.

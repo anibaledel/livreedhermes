@@ -1,6 +1,6 @@
 # Ajouter une langue
 
-*Établi le 2026-10-04, avec le portugais (`pt`, portugais du Portugal). Le but : qu'une
+*Établi le 2026-10-04, avec le portugais (`pt`, portugais du Portugal), et suivi le même jour pour l'hindi (`hi`). Le but : qu'une
 huitième langue ne coûte plus un lot entier.*
 
 Deux cas, selon ce qui arrive.
@@ -80,7 +80,13 @@ Ce qui se **déclare** (une fois) :
    - `data/travaux.json` : un champ `<code>` par section et par dépôt ;
    - `docs/terminologie-fr-en-es-th.md` : une colonne, dans l'ordre de
      `scripts/langues.js`, que `tools/check_glossaire.mjs` lit dans cet ordre.
-4. **Ses pages rédigées** : `includes/footer-<code>.html` (repris d'office s'il
+4. **Son écriture**, si elle n'est pas latine : une police hébergée et
+   déclarée dans `assets/fonts.css` (repli dans la pile, `unicode-range`), comme
+   le cyrillique (Roboto Condensed), le chinois (Noto Sans SC, réduite par
+   `tools/police_zh.py`) ou la devanagari de l'hindi (Noto Sans Devanagari,
+   tranche hébergée entière, 50 Ko). Ajouter ses pages à
+   `tools/check_police_pages.mjs`, restreint à son écriture.
+5. **Ses pages rédigées** : `includes/footer-<code>.html` (repris d'office s'il
    existe), l'accueil, la page du livre, les outils et le soutien. Le plus simple est
    de partir des pages d'une langue de même forme, `pt/` ou `ru/`. Placer les
    marqueurs `@livre-acces`, `@autres-editions`, `@accueil-livre`, `@carte-livre` et
