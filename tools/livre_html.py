@@ -268,6 +268,8 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 <p class="pdf-licence">{esc(t['licence'])} — <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">creativecommons.org/licenses/by-nc/4.0</a> · <a href="https://doi.org/{DOI_LIVRE}" rel="noopener" target="_blank">DOI {DOI_LIVRE}</a></p>
 </main>
 <!-- @main:end -->
+<!-- @navtiles:start -->
+<!-- @navtiles:end -->
 <!-- @footer:start -->
 <!-- @footer:end -->
 </div>
