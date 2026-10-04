@@ -16,6 +16,13 @@
 # « Barlow Semi Condensed IAST LDH », déclarée dans assets/fonts.css après
 # Barlow, pour ces seuls points de code (unicode-range).
 #
+# Et les flèches ← → ↔ (choix d'Anibal, « option 1 », 2026-10-04) : Barlow
+# n'en a aucune, et le site en emploie environ 3 200 (« ← Retour aux
+# articles », « Suivant → », « ↔ » des pages de motifs). Elles sont tirées de la
+# flèche ↑ d'IBM Plex Sans, déjà hébergée (SIL OFL 1.1, sans nom réservé),
+# tournée d'un quart de tour — même graisse (300, 400) — et posées sur l'axe
+# du « + » de Barlow. ↔ est la réunion de ← et →.
+#
 # Usage : python3 tools/police_iast.py   (fontTools ; écrit les deux graisses)
 import copy, os, sys
 from fontTools.ttLib import TTFont
@@ -86,6 +93,31 @@ def construire(graisse):
         g = Glyph(); g.numberOfContours = -1; g.components = comps
         ajouter(nom, g, hmtx[base])
         cmap_ajouts[ord(car)] = nom
+    # les flèches, dessinées depuis le ↑ d'IBM Plex Sans (même graisse)
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+    from fontTools.pens.transformPen import TransformPen
+    plex = TTFont(os.path.join(RACINE, f'assets/fonts/ibm-plex/ibm-plex-sans-latin-{graisse}-normal.woff2'))
+    pgs = plex.getGlyphSet(); haut = plex.getBestCmap()[0x2191]
+    hg = plex['glyf'][haut]; x0, y0, x1, y1 = hg.xMin, hg.yMin, hg.xMax, hg.yMax
+    plus = glyf[latin.getBestCmap()[ord('+')]]
+    axe = (plus.yMin + plus.yMax) / 2          # l'axe du « + » de Barlow
+    long_, epais = y1 - y0, x1 - x0            # la flèche couchée : longueur, épaisseur
+    marge = 60
+    def couchee(pen, sens):
+        # sens +1 : →, rotation horaire ; -1 : ←, rotation anti-horaire
+        cx = (x0 + x1) / 2
+        if sens > 0:   # (x, y) → (y - y0 + marge, axe - (x - cx))
+            t = (0, -1, 1, 0, marge - y0, axe + cx)
+        else:          # (x, y) → (y1 - y + marge, axe + (x - cx))
+            t = (0, 1, -1, 0, marge + y1, axe - cx)
+        pgs[haut].draw(TransformPen(pen, t))
+    for cp, sens in ((0x2192, (1,)), (0x2190, (-1,)), (0x2194, (1, -1))):
+        pen = TTGlyphPen(None)
+        for sg in sens:
+            couchee(pen, sg)
+        nom = f'uni{cp:04X}'
+        ajouter(nom, pen.glyph(), (round(long_ + 2 * marge), marge))
+        cmap_ajouts[cp] = nom
     latin.setGlyphOrder(ordre); glyf.glyphOrder = ordre
     for t in latin['cmap'].tables:
         if t.isUnicode():
