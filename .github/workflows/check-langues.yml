@@ -9,6 +9,9 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #   - check_tuiles.mjs : les tuiles de navigation sur toutes les adresses du
 #     sitemap, dans la langue de la page, vers ses pages traduites quand elles
 #     existent ; --essai : tuiles retirées / adresse française, il échoue ;
+#   - check_accueils.mjs : les huit accueils suivent le modèle (A03) — trois
+#     sections dans l'ordre, seize destinations, dans leur langue quand la page
+#     existe ; --essai : une carte retirée, un lien français, il échoue ;
 #   - compte_hreflang.mjs : chaque hreflang est rendu par sa cible, et la cible
 #     porte la langue annoncée (zh-Hans, pas zh) — le piège de #137, mesuré ;
 #   - build-couverture.js --verifie : la phrase qui dit ce qui existe dans quelle
@@ -46,6 +49,8 @@ jobs:
       - run: node tools/check_glossaire.mjs
       - run: node tools/check_tuiles.mjs
       - run: node tools/check_tuiles.mjs --essai
+      - run: node tools/check_accueils.mjs
+      - run: node tools/check_accueils.mjs --essai
       - run: node tools/compte_hreflang.mjs
       - run: node scripts/build-couverture.js --verifie
       - run: node scripts/build-langues.js --verifie
