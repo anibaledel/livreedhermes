@@ -14,7 +14,7 @@
 
 | page | légende proposée |
 |---|---|
-| 000A | Title page: The Livery of Hermes, and the Creative Commons CC BY-NC 4.0 licence. |
+| 000A | Title page: La Livrée d'Hermès (The Livery of Hermes), and the Creative Commons CC BY-NC 4.0 licence. |
 | 000B | Definition of the word “livery”, the page backgrounds (light for geometry, dark for arithmetic or symbolism) and the acknowledgements. |
 | 001 | Chapter I, Reed: the golden measuring reed (Revelation 21:15). |
 | 002 | Arithmogeometry: triangular numbers, square numbers, and rectangular or heteromecous numbers. |
