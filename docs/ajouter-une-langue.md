@@ -58,7 +58,13 @@ Ce qui se **déclare** (une fois) :
      `lexique`, `travaux`, `outils`, `soutien`…) ;
    - `edition` : la carte de l'édition (`titre`, `lire`, `preparation`) et les deux
      boutons de la page du livre (`boutonLire`, `boutonPdf`) ;
-   - `accueil` (facultatif) : les boutons et la carte du traité de son accueil.
+   - `accueil` (facultatif) : les boutons et la carte du traité de son accueil ;
+   - `evitement` : le lien d'évitement « Aller au contenu » ;
+   - `lecteur` : l'interface de la visionneuse quand le livre s'y lit dans
+     cette langue (titre, « Page {code} — {i} / {n} », saut de page, aides,
+     noms des flèches et de l'image, lien du PDF). Sans elle, la visionneuse
+     garde le français et affiche « Interface en français ». Un caractère
+     chinois nouveau demande `python3 tools/police_zh.py`.
 
    Les groupes de traduction, le hreflang, le sitemap, les rangées de langues, les
    barres de drapeaux et la visionneuse en sont **tirés** : aucune liste à compléter
@@ -105,6 +111,8 @@ Ils lisent la table `LANGUES`, pas une copie :
   390 px ;
 - `tools/check_accessibilite.mjs` et `tools/check_pages_console.mjs` : les pages des
   langues ajoutées ;
+- `tools/check_parcours_langues.mjs` : accueil → livre → visionneuse → PDF dans
+  chaque langue parue, l'interface de la visionneuse comprise ;
 - `scripts/build-langues.js --verifie` et `scripts/build-couverture.js --verifie` :
   rien d'engendré n'est en retard sur l'état du dépôt.
 

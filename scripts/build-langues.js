@@ -93,7 +93,11 @@ for (const f of BARRES) {
 {
   const f = 'book-viewer/index.html';
   let t = lire(f);
-  const langs = `const LANGS = {\n${LIVRES.map((l) => `  ${l.code}: { label: '${l.nom}', pages: PAGE_CODES, ready: ${l.pret} },`).join('\n')}\n};\n`;
+  // chaque langue : son nom, ses pages, son état (calculé), sa valeur
+  // hreflang (<html lang> pendant la lecture), son PDF, et l'interface de la
+  // visionneuse dans sa langue (scripts/langues.js, « lecteur » ; null : la
+  // visionneuse garde le français et le dit — audit A09)
+  const langs = `const LANGS = {\n${LIVRES.map((l) => `  ${l.code}: { label: ${JSON.stringify(l.nom)}, pages: PAGE_CODES, ready: ${l.pret}, lang: ${JSON.stringify(l.hreflang)}, pdf: ${JSON.stringify(path.basename(l.pdf))}, evitement: ${JSON.stringify(LANGUES[l.code].evitement || null)},\n    ui: ${JSON.stringify(LANGUES[l.code].lecteur || null)} },`).join('\n')}\n};\n`;
   t = region(t, '// @langues:start', '// @langues:end', langs, f);
   const canon = `const CANONICAL_BY_LANG = {\n${LIVRES.map((l) => `  ${l.code}: '${l.url}',`).join('\n')}\n};\n`;
   t = region(t, '// @canoniques:start', '// @canoniques:end', canon, f);

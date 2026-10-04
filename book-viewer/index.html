@@ -182,7 +182,7 @@
     font-size:11px; color:var(--dim);
   }
   footer input{
-    width:52px; background:#050505; border:1px solid var(--line-strong); color:var(--white);
+    width:auto; min-width:52px; background:#050505; border:1px solid var(--line-strong); color:var(--white);
     font-size:12px; padding:5px 6px; text-align:center;
   }
   footer .sep{ color:var(--line); }
@@ -192,6 +192,10 @@
     font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:5px 9px; cursor:pointer;
   }
   .jump-form button:hover{ border-color:var(--gold); color:var(--gold); }
+  .pdf-link{ color:var(--dim); letter-spacing:.06em; text-decoration:underline; text-underline-offset:3px; }
+  .pdf-link:hover{ color:var(--gold); }
+  /* une langue sans interface traduite : le repli français est DIT */
+  .ui-repli{ margin:10px 0 0; font-size:10.5px; color:var(--dim); letter-spacing:.06em; }
 
   .hint{
     /* Ni position:fixed ni superposition au pied de page : les deux se
@@ -220,8 +224,9 @@
 <!-- @header:end -->
 <header id="contenu">
   <div class="eyebrow">La Livrée d'Hermès</div>
-  <h1>Le Livre — visualiseur</h1>
-  <div class="lang-row" id="langRow"></div>
+  <h1 id="titreLecteur">Le Livre — visualiseur</h1>
+  <div class="lang-row" id="langRow" role="group" aria-label="Langue du livre"></div>
+  <p class="ui-repli" id="uiRepli" hidden lang="fr">Interface en français</p>
 </header>
 
 <div class="viewer">
@@ -236,10 +241,12 @@
   <span id="pageLabel">Page — / —</span>
   <span class="sep">|</span>
   <form class="jump-form" id="jumpForm">
-    <span>Aller à</span>
+    <label for="jumpInput" id="allerA">Aller à</label>
     <input type="text" id="jumpInput" placeholder="ex. 042">
-    <button type="submit">Voir</button>
+    <button type="submit" id="voirBtn">Voir</button>
   </form>
+  <span class="sep">|</span>
+  <a class="pdf-link" id="pdfLink" href="la-livree-d-hermes-anibal-amiot-fr.pdf" download>Télécharger le PDF</a>
 </footer>
 
 <div class="hint" id="hintText">← → pour naviguer · clic sur la page pour zoomer</div>
@@ -250,16 +257,24 @@ const PAGE_CODES = ["000A","000B","001","002","003","004A","004B","004C","005","
 
 // @langues:start — engendré par scripts/build-langues.js, ne pas éditer ici
 const LANGS = {
-  fr: { label: 'Français', pages: PAGE_CODES, ready: true },
-  en: { label: 'English', pages: PAGE_CODES, ready: true },
-  es: { label: 'Español', pages: PAGE_CODES, ready: true },
-  th: { label: 'ไทย', pages: PAGE_CODES, ready: true },
-  zh: { label: '简体中文', pages: PAGE_CODES, ready: true },
-  ru: { label: 'Русский', pages: PAGE_CODES, ready: true },
-  pt: { label: 'Português', pages: PAGE_CODES, ready: true },
+  fr: { label: "Français", pages: PAGE_CODES, ready: true, lang: "fr", pdf: "la-livree-d-hermes-anibal-amiot-fr.pdf", evitement: "Aller au contenu",
+    ui: {"titre":"Le Livre — visualiseur","titreDoc":"La Livrée d'Hermès — Le Livre","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Aller à","exemple":"ex. 042","voir":"Voir","aideClavier":"← → pour naviguer · clic sur la page pour zoomer","aideTactile":"Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer","prec":"Page précédente","suiv":"Page suivante","pdf":"Télécharger le PDF","langues":"Langue du livre"} },
+  en: { label: "English", pages: PAGE_CODES, ready: true, lang: "en", pdf: "la-livree-d-hermes-anibal-amiot-en.pdf", evitement: "Skip to content",
+    ui: {"titre":"The Book — viewer","titreDoc":"La Livrée d'Hermès — The Book","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Go to","exemple":"e.g. 042","voir":"Go","aideClavier":"← → to turn pages · click the page to zoom","aideTactile":"Swipe left/right to turn pages · tap the page to zoom","prec":"Previous page","suiv":"Next page","pdf":"Download the PDF","langues":"Language of the book"} },
+  es: { label: "Español", pages: PAGE_CODES, ready: true, lang: "es", pdf: "la-livree-d-hermes-anibal-amiot-es.pdf", evitement: "Ir al contenido",
+    ui: {"titre":"El libro — visor","titreDoc":"La Livrée d'Hermès — El libro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir a","exemple":"p. ej. 042","voir":"Ver","aideClavier":"← → para pasar las páginas · clic en la página para ampliar","aideTactile":"Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar","prec":"Página anterior","suiv":"Página siguiente","pdf":"Descargar el PDF","langues":"Idioma del libro"} },
+  th: { label: "ไทย", pages: PAGE_CODES, ready: true, lang: "th", pdf: "la-livree-d-hermes-anibal-amiot-th.pdf", evitement: "ข้ามไปยังเนื้อหา",
+    ui: {"titre":"หนังสือ — โปรแกรมอ่าน","titreDoc":"ลิเวรีของเฮอร์มีส — หนังสือ","pageLabel":"หน้า {code} — {i} / {n}","alt":"หน้า {code}","allerA":"ไปที่หน้า","exemple":"เช่น 042","voir":"ดู","aideClavier":"← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย","aideTactile":"ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย","prec":"หน้าก่อนหน้า","suiv":"หน้าถัดไป","pdf":"ดาวน์โหลด PDF","langues":"ภาษาของหนังสือ"} },
+  zh: { label: "简体中文", pages: PAGE_CODES, ready: true, lang: "zh-Hans", pdf: "la-livree-d-hermes-anibal-amiot-zh.pdf", evitement: "跳到正文",
+    ui: {"titre":"本书 — 阅读器","titreDoc":"La Livrée d'Hermès — 本书","pageLabel":"第 {code} 页 — {i} / {n}","alt":"第 {code} 页","allerA":"跳至","exemple":"例：042","voir":"查看","aideClavier":"← → 翻页 · 点击页面放大","aideTactile":"左右滑动翻页 · 轻触页面放大","prec":"上一页","suiv":"下一页","pdf":"下载 PDF","langues":"本书语言"} },
+  ru: { label: "Русский", pages: PAGE_CODES, ready: true, lang: "ru", pdf: "la-livree-d-hermes-anibal-amiot-ru.pdf", evitement: "Перейти к содержанию",
+    ui: {"titre":"Книга — просмотр","titreDoc":"La Livrée d'Hermès — Книга","pageLabel":"Страница {code} — {i} / {n}","alt":"Страница {code}","allerA":"Перейти к странице","exemple":"напр. 042","voir":"Открыть","aideClavier":"← → — листать · щелчок по странице — увеличить","aideTactile":"Листайте влево/вправо · коснитесь страницы, чтобы увеличить","prec":"Предыдущая страница","suiv":"Следующая страница","pdf":"Скачать PDF","langues":"Язык книги"} },
+  pt: { label: "Português", pages: PAGE_CODES, ready: true, lang: "pt-PT", pdf: "la-livree-d-hermes-anibal-amiot-pt.pdf", evitement: "Ir para o conteúdo",
+    ui: {"titre":"O livro — visualizador","titreDoc":"La Livrée d'Hermès — O livro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir para a página","exemple":"ex. 042","voir":"Ver","aideClavier":"← → para mudar de página · clique na página para ampliar","aideTactile":"Deslize para a esquerda/direita para mudar de página · toque na página para ampliar","prec":"Página anterior","suiv":"Página seguinte","pdf":"Descarregar o PDF","langues":"Língua do livro"} },
 };
 // @langues:end
 
+const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 let currentLang = 'fr';
 let currentIndex = 0;
 
@@ -270,6 +285,8 @@ function buildLangRow(){
     const btn = document.createElement('button');
     btn.className = 'lang-btn' + (code===currentLang ? ' active' : '');
     btn.textContent = info.label + (info.ready ? '' : ' · bientôt');
+    btn.lang = info.lang;  // le nom de chaque langue se prononce dans sa langue
+    btn.setAttribute('aria-pressed', code===currentLang ? 'true' : 'false');
     btn.disabled = !info.ready;
     btn.addEventListener('click', ()=>{ if(info.ready){ currentLang = code; currentIndex = 0; render(); buildLangRow(); }});
     row.appendChild(btn);
@@ -278,6 +295,34 @@ function buildLangRow(){
 
 function pages(){ return LANGS[currentLang].pages; }
 
+// ---------- l'interface dans la langue du livre (audit A09) ----------
+// Les textes viennent de scripts/langues.js (« lecteur »), écrits dans LANGS
+// par scripts/build-langues.js. Une langue sans textes garde le français, et
+// la visionneuse l'affiche (« Interface en français ») au lieu de laisser
+// croire que tout est traduit.
+function texte(){ return LANGS[currentLang].ui || LANGS.fr.ui; }
+function appliquerUI(){
+  const L = LANGS[currentLang], ui = texte(), repli = !L.ui;
+  // <html lang> : la langue de ce qu'on lit et de ce qu'on entend (lecteur
+  // d'écran) ; le français tant que l'interface est en repli
+  document.documentElement.lang = repli ? 'fr' : L.lang;
+  document.title = ui.titreDoc;
+  document.getElementById('titreLecteur').textContent = ui.titre;
+  document.getElementById('langRow').setAttribute('aria-label', ui.langues);
+  document.getElementById('uiRepli').hidden = !repli;
+  document.getElementById('prevBtn').setAttribute('aria-label', ui.prec);
+  document.getElementById('nextBtn').setAttribute('aria-label', ui.suiv);
+  document.getElementById('allerA').textContent = ui.allerA;
+  const champ = document.getElementById('jumpInput');
+  champ.placeholder = ui.exemple; champ.size = Math.max(4, [...ui.exemple].length + 1);
+  document.getElementById('voirBtn').textContent = ui.voir;
+  const pdf = document.getElementById('pdfLink');
+  pdf.href = L.pdf; pdf.textContent = ui.pdf; pdf.hreflang = L.lang;
+  document.getElementById('hintText').textContent = isTouchDevice ? ui.aideTactile : ui.aideClavier;
+  const ev = repli ? LANGS.fr.evitement : L.evitement;
+  if(ev) document.querySelectorAll('.skip-link').forEach((a)=>{ a.textContent = ev; });
+}
+
 function render(){
   const list = pages();
   if(!list.length) return;
@@ -285,9 +330,11 @@ function render(){
   const code = list[currentIndex];
   const img = document.getElementById('pageImg');
   img.src = `pages/${currentLang}/${code}.webp`;
-  img.alt = 'Page ' + code;
+  const ui = texte();
+  img.alt = ui.alt.replace('{code}', code);
   img.classList.remove('zoomed');
-  document.getElementById('pageLabel').textContent = `Page ${code} — ${currentIndex+1} / ${list.length}`;
+  document.getElementById('pageLabel').textContent = ui.pageLabel.replace('{code}', code).replace('{i}', currentIndex+1).replace('{n}', list.length);
+  appliquerUI();
   document.getElementById('prevBtn').disabled = currentIndex === 0;
   document.getElementById('nextBtn').disabled = currentIndex === list.length-1;
   // ?read=<lang>, pas ?lang= : c'est la forme que initFromURL() accepte SANS
@@ -322,10 +369,7 @@ window.addEventListener('keydown', (e)=>{
 // ---------- balayage (tactile) — pas de clavier sur téléphone, c'était la
 // seule commande absente ; l'aide en bas dit ce qui marche sur l'appareil
 // où elle s'affiche, pas un texte fixe qui suppose un clavier. ----------
-const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-document.getElementById('hintText').textContent = isTouchDevice
-  ? 'Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer'
-  : '← → pour naviguer · clic sur la page pour zoomer';
+// (le texte de l'aide, dans la langue du livre : appliquerUI())
 
 (function initSwipe(){
   const viewer = document.querySelector('.viewer');

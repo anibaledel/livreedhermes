@@ -350,3 +350,18 @@ dans la liste anglaise.
   l'avis d'un sanskritiste (l'article le dit lui-même) : traduire après.
   Les termes sanskrits restent en translittération savante (IAST), sans
   simplification (« Nārāyaṇa Paṇḍita », pas « Narayana Pandita »).
+
+## Visionneuse du livre — interface dans les sept langues (2026-10-04, audit A09)
+
+`scripts/langues.js`, champ `lecteur` de chaque langue : titre (« Le Livre —
+visualiseur »), « Page {code} — {i} / {n} », « Aller à », « ex. 042 », « Voir »,
+les deux aides (clavier, tactile), les noms des flèches et de l'image pour les
+lecteurs d'écran, « Télécharger le PDF », le nom de la rangée de langues.
+Rédigés par Claude, à relire en espagnol, thaï, chinois, russe et portugais.
+Points de doute :
+
+- **th** : « โปรแกรมอ่าน » (visionneuse) — terme courant, mais un relecteur
+  préférera peut-être « ตัวอ่าน » ;
+- **zh** : « 阅读器 » pour visionneuse ; « 跳至 » / « 查看 » pour le saut de page ;
+- **ru** : « Книга — просмотр » ; l'aide clavier « ← → — листать » ;
+- **pt** : « visualizador » ; « Descarregar o PDF » (pt-PT, comme les pages du livre).

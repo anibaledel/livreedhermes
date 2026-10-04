@@ -71,7 +71,14 @@ const LANGUE_PAR_DEFAUT = 'en';
 //            boutons « lire » et « PDF » ({mo} : la taille du PDF, mesurée) et
 //            la carte du traité, selon que l'édition est parue ou non ;
 //   titreLivre  le titre du livre dans cette langue, s'il n'est pas
-//            « La Livrée d'Hermès » (données structurées de la visionneuse).
+//            « La Livrée d'Hermès » (données structurées de la visionneuse) ;
+//   evitement  le lien d'évitement « Aller au contenu » (scripts/build-header.js) ;
+//   lecteur  l'interface de la visionneuse (book-viewer/) quand le livre s'y
+//            lit dans cette langue : titre, « Page {code} — {i} / {n} », saut
+//            de page, aides, noms des flèches et de l'image pour les lecteurs
+//            d'écran, lien du PDF (audit A09). Une langue sans ces textes
+//            garde l'interface française, et la visionneuse l'affiche comme
+//            telle (« Interface en français ») — jamais un faux air traduit.
 // Le portugais (pt) : celui du Portugal (pt-PT), le choix d'Anibal ; ses
 // textes, comme ceux du chinois et du russe, sont à relire (TODO-RELECTURE.md).
 const LANGUES = {
@@ -79,39 +86,53 @@ const LANGUES = {
     nom: 'Français', autres: 'Autres langues :', drapeau: '🇫🇷', hexagrammes: true,
     pages: { livre: 'fr/livre/', accueil: '', lexique: 'lexique.html', 'a-propos': 'a-propos.html', travaux: 'travaux.html', recherche: 'recherche.html', outils: 'outils.html', soutien: 'soutenir.html', articles: 'articles.html' },
     edition: { titre: 'Édition française', lire: "Lisez La Livrée d'Hermès en ligne, page par page, avec téléchargement du PDF gratuit.", boutonLire: 'Lire le livre en ligne →', boutonPdf: 'Télécharger le PDF (FR)' },
+    evitement: "Aller au contenu",
+    lecteur: { titre: "Le Livre — visualiseur", titreDoc: "La Livrée d'Hermès — Le Livre", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Aller à", exemple: "ex. 042", voir: "Voir", aideClavier: "← → pour naviguer · clic sur la page pour zoomer", aideTactile: "Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer", prec: "Page précédente", suiv: "Page suivante", pdf: "Télécharger le PDF", langues: "Langue du livre" },
   },
   en: {
     nom: 'English', autres: 'Other languages:', drapeau: '🇬🇧', hexagrammes: true,
     pages: { livre: 'en/book/', accueil: 'en/', lexique: 'en/lexicon/', 'a-propos': 'en/about/', travaux: 'en/works/', recherche: 'en/search/', articles: 'en/articles/' },
     edition: { titre: 'English edition', lire: "Read La Livrée d'Hermès online, page by page, with free PDF download.", boutonLire: 'Read the book online →', boutonPdf: 'Download the PDF (EN)' },
+    evitement: "Skip to content",
+    lecteur: { titre: "The Book — viewer", titreDoc: "La Livrée d'Hermès — The Book", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Go to", exemple: "e.g. 042", voir: "Go", aideClavier: "← → to turn pages · click the page to zoom", aideTactile: "Swipe left/right to turn pages · tap the page to zoom", prec: "Previous page", suiv: "Next page", pdf: "Download the PDF", langues: "Language of the book" },
   },
   es: {
     nom: 'Español', autres: 'Otros idiomas:', drapeau: '🇪🇸', hexagrammes: true,
     pages: { livre: 'es/libro/', accueil: 'es/', lexique: 'es/lexico/', recherche: 'es/buscar/' },
     edition: { titre: 'Edición española', lire: "Lea La Livrée d'Hermès en línea, página por página, con descarga gratuita en PDF.", boutonLire: 'Leer el libro en línea →', boutonPdf: 'Descargar el PDF (ES)' },
+    evitement: "Ir al contenido",
+    lecteur: { titre: "El libro — visor", titreDoc: "La Livrée d'Hermès — El libro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir a", exemple: "p. ej. 042", voir: "Ver", aideClavier: "← → para pasar las páginas · clic en la página para ampliar", aideTactile: "Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar", prec: "Página anterior", suiv: "Página siguiente", pdf: "Descargar el PDF", langues: "Idioma del libro" },
   },
   th: {
     nom: 'ไทย', autres: 'ภาษาอื่น:', drapeau: '🇹🇭', hexagrammes: true, titreLivre: 'ลิเวรีของเฮอร์มีส',
     pages: { livre: 'th/book/', accueil: 'th/', lexique: 'th/lexicon/', recherche: 'th/search/' },
     edition: { titre: 'ฉบับภาษาไทย', lire: "อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี", boutonLire: 'อ่านหนังสือออนไลน์ →', boutonPdf: 'ดาวน์โหลด PDF (TH)' },
+    evitement: "ข้ามไปยังเนื้อหา",
+    lecteur: { titre: "หนังสือ — โปรแกรมอ่าน", titreDoc: "ลิเวรีของเฮอร์มีส — หนังสือ", pageLabel: "หน้า {code} — {i} / {n}", alt: "หน้า {code}", allerA: "ไปที่หน้า", exemple: "เช่น 042", voir: "ดู", aideClavier: "← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย", aideTactile: "ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย", prec: "หน้าก่อนหน้า", suiv: "หน้าถัดไป", pdf: "ดาวน์โหลด PDF", langues: "ภาษาของหนังสือ" },
   },
   zh: {
     nom: '简体中文', autres: '其他语言：', hreflang: 'zh-Hans', drapeau: '🇨🇳',
     pages: { livre: 'zh/book/', accueil: 'zh/', lexique: 'zh/lexicon/', travaux: 'zh/works/', outils: 'zh/tools/', soutien: 'zh/support/' },
     accueil: { lire: '在线阅读', pdfPropre: '下载简体中文版 PDF（{mo} MB）', pdfAnglais: '下载英文版 PDF（{mo} MB）', carte: '论著', pret: "在线逐页阅读 La Livrée d'Hermès 简体中文版，并可免费下载 PDF；其他语言版本亦可阅读。", preparation: '在线阅读其他语言版本，并可免费下载 PDF。简体中文版正在准备中。' },
     edition: { titre: '简体中文版', lire: "在线逐页阅读 La Livrée d'Hermès，并免费下载 PDF。", preparation: '简体中文版正在准备中。可在线阅读其他语言版本，并免费下载 PDF。', boutonLire: '在线阅读本书 →', boutonPdf: '下载 PDF（简体中文）' },
+    evitement: "跳到正文",
+    lecteur: { titre: "本书 — 阅读器", titreDoc: "La Livrée d'Hermès — 本书", pageLabel: "第 {code} 页 — {i} / {n}", alt: "第 {code} 页", allerA: "跳至", exemple: "例：042", voir: "查看", aideClavier: "← → 翻页 · 点击页面放大", aideTactile: "左右滑动翻页 · 轻触页面放大", prec: "上一页", suiv: "下一页", pdf: "下载 PDF", langues: "本书语言" },
   },
   ru: {
     nom: 'Русский', autres: 'Другие языки:', drapeau: '🇷🇺',
     pages: { livre: 'ru/book/', accueil: 'ru/', lexique: 'ru/lexicon/', travaux: 'ru/works/', outils: 'ru/tools/', soutien: 'ru/support/' },
     accueil: { lire: 'Читать онлайн', pdfPropre: 'PDF на русском ({mo} МБ)', pdfAnglais: 'PDF на английском ({mo} МБ)', carte: 'Трактат', pret: "Книга <i>La Livrée d'Hermès</i> на русском: чтение онлайн по страницам и бесплатный PDF. Доступны и другие языки.", preparation: "Книга <i>La Livrée d'Hermès</i>: чтение онлайн по страницам и PDF на других языках. Русское издание готовится." },
     edition: { titre: 'Русское издание', lire: "Читайте La Livrée d'Hermès онлайн, страница за страницей, с бесплатной загрузкой PDF.", preparation: 'Русское издание готовится. Пока его можно читать онлайн на других языках и бесплатно скачать PDF.', boutonLire: 'Читать книгу онлайн →', boutonPdf: 'Скачать PDF (RU)' },
+    evitement: "Перейти к содержанию",
+    lecteur: { titre: "Книга — просмотр", titreDoc: "La Livrée d'Hermès — Книга", pageLabel: "Страница {code} — {i} / {n}", alt: "Страница {code}", allerA: "Перейти к странице", exemple: "напр. 042", voir: "Открыть", aideClavier: "← → — листать · щелчок по странице — увеличить", aideTactile: "Листайте влево/вправо · коснитесь страницы, чтобы увеличить", prec: "Предыдущая страница", suiv: "Следующая страница", pdf: "Скачать PDF", langues: "Язык книги" },
   },
   pt: {
     nom: 'Português', autres: 'Outras línguas:', hreflang: 'pt-PT', drapeau: '🇵🇹',
     pages: { livre: 'pt/book/', accueil: 'pt/', lexique: 'pt/lexicon/', travaux: 'pt/works/', outils: 'pt/tools/', soutien: 'pt/support/' },
     accueil: { lire: 'Ler online', pdfPropre: 'PDF em português ({mo} MB)', pdfAnglais: 'PDF em inglês ({mo} MB)', carte: 'O tratado', pret: "O livro <i>La Livrée d'Hermès</i> em português: leitura online, página a página, e PDF gratuito. Também disponível noutras línguas.", preparation: "O livro <i>La Livrée d'Hermès</i>: leitura online, página a página, e PDF gratuito noutras línguas. A edição portuguesa está em preparação." },
     edition: { titre: 'Edição portuguesa', lire: "Leia La Livrée d'Hermès online, página a página, com descarga gratuita do PDF.", preparation: 'A edição portuguesa está em preparação. Entretanto, o livro pode ser lido online noutras línguas, com descarga gratuita do PDF.', boutonLire: 'Ler o livro online →', boutonPdf: 'Descarregar o PDF (PT)' },
+    evitement: "Ir para o conteúdo",
+    lecteur: { titre: "O livro — visualizador", titreDoc: "La Livrée d'Hermès — O livro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir para a página", exemple: "ex. 042", voir: "Ver", aideClavier: "← → para mudar de página · clique na página para ampliar", aideTactile: "Deslize para a esquerda/direita para mudar de página · toque na página para ampliar", prec: "Página anterior", suiv: "Página seguinte", pdf: "Descarregar o PDF", langues: "Língua do livro" },
   },
 };
 // La valeur hreflang (et <html lang>) d'un code de langue.
