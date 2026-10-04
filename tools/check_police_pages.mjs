@@ -31,6 +31,11 @@ import { cmapWoff2 } from './lib_woff2.mjs';
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 export const PAGES = [
   'articles/le-fil-et-le-carre.html',
+  // l'hindi : sa DEVANAGARI doit sortir de Noto Sans Devanagari LDH, jamais
+  // d'une police du système. Restreint à cette écriture : ces pages portent
+  // aussi le thaï de la rangée des langues et des flèches, hors des polices
+  // déclarées partout sur le site (les 824 pages ci-dessus).
+  ...['', 'book/', 'lexicon/', 'works/', 'tools/', 'support/'].map((p) => [`hi/${p}index.html`, /[\u0900-\u097F\u1CD0-\u1CF9\uA830-\uA839\uA8E0-\uA8FF]/u]),
 ];
 const FEUILLES = ['assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css', 'assets/fonts.css'];
 const GRAISSES = [300, 400];
@@ -93,8 +98,10 @@ function texte(html) {
 
 const pages = args.filter((a) => a.endsWith('.html'));
 let echecs = 0;
-for (const rel of pages.length ? pages : PAGES) {
-  const car = new Set([...texte(fs.readFileSync(path.join(RACINE, rel), 'utf8'))].filter((c) => !/\s/.test(c) && c.codePointAt(0) >= 0x20));
+for (const entree of pages.length ? pages : PAGES) {
+  // une page, ou [page, écriture] : seuls les caractères de cette écriture
+  const [rel, ecriture] = Array.isArray(entree) ? entree : [entree, null];
+  const car = new Set([...texte(fs.readFileSync(path.join(RACINE, rel), 'utf8'))].filter((c) => !/\s/.test(c) && c.codePointAt(0) >= 0x20 && (!ecriture || ecriture.test(c))));
   const absents = [];
   for (const c of car) {
     for (const g of GRAISSES) {

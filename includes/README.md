@@ -15,6 +15,7 @@ correspond plus à ce que les fragments produiraient.
 | `footer-es.html`, `footer-th.html` | le même pied en espagnol et en thaï (pages `lang="es"` / `"th"`) | `@footer:start` / `:end` |
 | `footer-zh.html`, `footer-ru.html` | le même pied en chinois simplifié et en russe (pages `lang="zh-Hans"` / `"ru"`) | `@footer:start` / `:end` |
 | `footer-pt.html` | le même pied en portugais du Portugal (pages `lang="pt-PT"`). Un pied par langue déclarée dans `scripts/langues.js` est repris s'il existe : ajouter `footer-<code>.html` suffit | `@footer:start` / `:end` |
+| `footer-hi.html` | le même pied en hindi (pages `lang="hi"`), repris d'office comme les autres | `@footer:start` / `:end` |
 
 `{{BASE}}` est remplacé par le préfixe de remontée de chaque page (`""` à la
 racine, `"../"` dans `articles/`, `"../../"` dans `en/book/`).

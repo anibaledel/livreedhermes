@@ -81,6 +81,9 @@ const LANGUE_PAR_DEFAUT = 'en';
 //            telle (« Interface en français ») — jamais un faux air traduit.
 // Le portugais (pt) : celui du Portugal (pt-PT), le choix d'Anibal ; ses
 // textes, comme ceux du chinois et du russe, sont à relire (TODO-RELECTURE.md).
+// L'hindi (hi, 2026-10-04) : le livre déposé par Anibal, « हर्मीस की पोशाक » ;
+// pages comme le portugais ; textes du site à relire (TODO-RELECTURE.md) ;
+// devanagari servie par Noto Sans Devanagari LDH (assets/fonts.css).
 const LANGUES = {
   fr: {
     nom: 'Français', autres: 'Autres langues :', drapeau: '🇫🇷', hexagrammes: true,
@@ -133,6 +136,14 @@ const LANGUES = {
     edition: { titre: 'Edição portuguesa', lire: "Leia La Livrée d'Hermès online, página a página, com descarga gratuita do PDF.", preparation: 'A edição portuguesa está em preparação. Entretanto, o livro pode ser lido online noutras línguas, com descarga gratuita do PDF.', boutonLire: 'Ler o livro online →', boutonPdf: 'Descarregar o PDF (PT)' },
     evitement: "Ir para o conteúdo",
     lecteur: { titre: "O livro — visualizador", titreDoc: "La Livrée d'Hermès — O livro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir para a página", exemple: "ex. 042", voir: "Ver", aideClavier: "← → para mudar de página · clique na página para ampliar", aideTactile: "Deslize para a esquerda/direita para mudar de página · toque na página para ampliar", prec: "Página anterior", suiv: "Página seguinte", pdf: "Descarregar o PDF", langues: "Língua do livro" },
+  },
+  hi: {
+    nom: 'हिन्दी', autres: 'अन्य भाषाएँ:', drapeau: '🇮🇳', titreLivre: 'हर्मीस की पोशाक',
+    pages: { livre: 'hi/book/', accueil: 'hi/', lexique: 'hi/lexicon/', travaux: 'hi/works/', outils: 'hi/tools/', soutien: 'hi/support/' },
+    accueil: { lire: 'ऑनलाइन पढ़ें', pdfPropre: 'हिन्दी में PDF ({mo} MB)', pdfAnglais: 'अंग्रेज़ी में PDF ({mo} MB)', carte: 'ग्रंथ', pret: "<i>La Livrée d'Hermès</i> हिन्दी में: पृष्ठ-दर-पृष्ठ ऑनलाइन पठन और निःशुल्क PDF। अन्य भाषाओं में भी उपलब्ध।", preparation: "<i>La Livrée d'Hermès</i>: अन्य भाषाओं में पृष्ठ-दर-पृष्ठ ऑनलाइन पठन और निःशुल्क PDF। हिन्दी संस्करण तैयार हो रहा है।" },
+    edition: { titre: 'हिन्दी संस्करण', lire: "La Livrée d'Hermès को ऑनलाइन, पृष्ठ-दर-पृष्ठ पढ़ें, और PDF निःशुल्क डाउनलोड करें।", preparation: 'हिन्दी संस्करण तैयार हो रहा है। तब तक पुस्तक अन्य भाषाओं में ऑनलाइन पढ़ी जा सकती है, और PDF निःशुल्क डाउनलोड किया जा सकता है।', boutonLire: 'पुस्तक ऑनलाइन पढ़ें →', boutonPdf: 'PDF डाउनलोड करें (HI)' },
+    evitement: "सामग्री पर जाएँ",
+    lecteur: { titre: "पुस्तक — दर्शक", titreDoc: "La Livrée d'Hermès — पुस्तक", pageLabel: "पृष्ठ {code} — {i} / {n}", alt: "पृष्ठ {code}", allerA: "पृष्ठ पर जाएँ", exemple: "उदा. 042", voir: "देखें", aideClavier: "← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें", aideTactile: "पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें", prec: "पिछला पृष्ठ", suiv: "अगला पृष्ठ", pdf: "PDF डाउनलोड करें", langues: "पुस्तक की भाषा" },
   },
 };
 // La valeur hreflang (et <html lang>) d'un code de langue.

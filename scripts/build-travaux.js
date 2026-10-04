@@ -33,12 +33,12 @@ const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) =>
 const doiUrl = (doi) => `https://doi.org/${doi}`;
 
 const TYPES = {
-  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга', pt: 'Livro' },
-  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт', pt: 'Pré-publicação' },
-  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных', pt: 'Conjunto de dados' },
-  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные', pt: 'Código e dados' },
-  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода', pt: 'Repositório de código' },
-  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт', pt: 'Relatório' },
+  book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга', pt: 'Livro', hi: 'पुस्तक' },
+  preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт', pt: 'Pré-publicação', hi: 'प्रीप्रिंट' },
+  dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных', pt: 'Conjunto de dados', hi: 'डेटासेट' },
+  software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные', pt: 'Código e dados', hi: 'कोड और डेटा' },
+  repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода', pt: 'Repositório de código', hi: 'कोड रिपॉज़िटरी' },
+  report: { schema: 'Report', cff: 'report', fr: 'Compte rendu', en: 'Report', zh: '报告', ru: 'Отчёт', pt: 'Relatório', hi: 'प्रगति-विवरण' },
 };
 const LICENCES = {
   'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
@@ -57,6 +57,7 @@ const MOIS = {
   en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
   // le russe date au génitif : « 12 сентября 2026 г. »
   pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
+  hi: ['जनवरी', 'फ़रवरी', 'मार्च', 'अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर'],
   ru: ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'],
 };
 function dateLisible(iso, lang) {
@@ -64,20 +65,22 @@ function dateLisible(iso, lang) {
   if (lang === 'zh') return `${a}年${m}月${j}日`;
   if (lang === 'ru') return `${j} ${MOIS.ru[m - 1]} ${a} г.`;
   if (lang === 'pt') return `${j} de ${MOIS.pt[m - 1]} de ${a}`;
+  if (lang === 'hi') return `${j} ${MOIS.hi[m - 1]} ${a}`;
   return lang === 'fr' ? `${j === 1 ? '1er' : j} ${MOIS.fr[m - 1]} ${a}` : `${MOIS.en[m - 1]} ${j}, ${a}`;
 }
 
 const T = {
   fr: { toutes: 'toutes versions, à citer', version: 'version', cetteVersion: 'DOI de cette version', premiere: 'première version le', anterieur: 'voir aussi la' },
   en: { toutes: 'all versions, to cite', version: 'version', cetteVersion: 'DOI of this version', premiere: 'first version', anterieur: 'see also the' },
-  // Chinois et russe (lot « six langues »), portugais (2026-10-04) : à relire, voir TODO-RELECTURE.md.
+  // Chinois et russe (lot « six langues »), portugais et hindi (2026-10-04) : à relire, voir TODO-RELECTURE.md.
   zh: { toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
   pt: { toutes: 'todas as versões, a citar', version: 'versão', cetteVersion: 'DOI desta versão', premiere: 'primeira versão em', anterieur: 'ver também a' },
+  hi: { toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
   ru: { toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
 // Chaque texte traduit doit exister : une description manquante afficherait
 // « undefined » sur la page, sans erreur.
-for (const lang of ['zh', 'ru', 'pt']) {
+for (const lang of ['zh', 'ru', 'pt', 'hi']) {
   for (const x of [...DONNEES.sections, ...DONNEES.depots, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
     if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
   }
@@ -114,6 +117,7 @@ const PHRASE_LICENCES = {
   en: (l) => `This site is licensed under ${LICENCE_SITE}. Each deposit below keeps the licence under which it was published, shown with it: ${et(l.map(([n, k]) => `${n} for ${k}`), 'and')}.`,
   zh: (l) => `本网站采用 ${LICENCE_SITE} 许可。以下每个存档保留其发布时的许可，并在各条目中注明：${l.map(([n, k]) => `${k} 个为 ${n}`).join('，')}。`,
   pt: (l) => `Este site está sob licença ${LICENCE_SITE}. Cada depósito abaixo mantém a licença sob a qual foi publicado, indicada em cada um: ${et(l.map(([n, k]) => `${n} para ${k}`), 'e')}.`,
+  hi: (l) => `यह साइट ${LICENCE_SITE} लाइसेंस के अंतर्गत है। नीचे का हर जमा उसी लाइसेंस को बनाए रखता है जिसके अंतर्गत वह प्रकाशित हुआ था, जो हर एक के साथ दिया गया है: ${l.map(([n, k]) => `${k} ${k > 1 ? 'जमाओं' : 'जमा'} के लिए ${n}`).join(', ')}।`,
   ru: (l) => `Этот сайт распространяется по лицензии ${LICENCE_SITE}. Каждая публикация ниже сохраняет лицензию, под которой она была опубликована; лицензия указана у каждой: ${l.map(([n, k]) => `${n} — ${k}`).join(', ')}.`,
 };
 function et(xs, mot) { return xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} ${mot} ${xs[xs.length - 1]}`; }
@@ -233,6 +237,7 @@ for (const [rel, lang, url, nom] of [
   ['zh/works/index.html', 'zh-Hans', `${SITE}/zh/works/`, '研究存档 — Anibal Edelberto Amiot'],
   ['ru/works/index.html', 'ru', `${SITE}/ru/works/`, 'Научные публикации — Anibal Edelberto Amiot'],
   ['pt/works/index.html', 'pt-PT', `${SITE}/pt/works/`, 'Trabalhos de investigação — Anibal Edelberto Amiot'],
+  ['hi/works/index.html', 'hi', `${SITE}/hi/works/`, 'शोध-कृतियाँ — Anibal Edelberto Amiot'],
 ]) {
   const cle = lang.slice(0, 2); // zh-Hans -> zh : la clé des textes ; inLanguage garde zh-Hans
   ecrire(rel, (s) => zone(zone(s, 'travaux', listeHtml(cle), rel), 'travaux-ld', ldHtml(lang, url, nom), rel));
