@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- engendré par tools/livre_html.py depuis le PDF et data/livre/chapitres.json — ne pas éditer ici -->
+<title>Chapter I — Reed, Monad — La Livrée d&#x27;Hermès</title>
+<meta name="description" content="Chapter I of La Livrée d&#x27;Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.">
+<meta property="og:title" content="Chapter I — Reed, Monad — La Livrée d&#x27;Hermès">
+<meta property="og:description" content="Chapter I of La Livrée d&#x27;Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.">
+<meta property="og:image" content="https://anibal-amiot.com/book-viewer/pages/en/000A.webp">
+<meta property="og:url" content="https://anibal-amiot.com/en/book/chapter-1/">
+<meta property="og:type" content="book">
+<link rel="canonical" href="https://anibal-amiot.com/en/book/chapter-1/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Chapter I — Reed, Monad — La Livrée d&#x27;Hermès">
+<meta name="twitter:description" content="Chapter I of La Livrée d&#x27;Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.">
+<meta name="twitter:image" content="https://anibal-amiot.com/book-viewer/pages/en/000A.webp">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Chapter",
+  "name": "Chapter I — Reed, Monad",
+  "description": "Chapter I of La Livrée d'Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.",
+  "inLanguage": "en",
+  "url": "https://anibal-amiot.com/en/book/chapter-1/",
+  "position": 1,
+  "pagination": "000A–004C",
+  "author": {
+    "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+  },
+  "isPartOf": {
+    "@type": "Book",
+    "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+    "name": "La Livrée d'Hermès",
+    "url": "https://anibal-amiot.com/en/book/"
+  },
+  "license": "https://creativecommons.org/licenses/by-nc/4.0/",
+  "isAccessibleForFree": true
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "La Livrée d'Hermès",
+      "item": "https://anibal-amiot.com/la-livree-d-hermes.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "English edition",
+      "item": "https://anibal-amiot.com/en/book/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Chapter I — Reed, Monad",
+      "item": "https://anibal-amiot.com/en/book/chapter-1/"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  .chapitre-tete{ text-align:center; margin:0 auto 28px; max-width:72ch; }
+  .chapitre-titre{ font-size:26px; font-weight:400; margin:0 0 12px; }
+  .chapitre-place{ color:var(--dim); font-size:12.5px; letter-spacing:.06em; text-transform:uppercase; margin:0 0 14px; }
+  .chapitre-description{ color:var(--dim); font-size:15px; line-height:1.7; margin:0 0 18px; }
+  .chapitre-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:0 0 6px; }
+  .chapitre-nav a, .chapitre-acces a{
+    border:1px solid var(--line-strong); color:var(--white); text-decoration:none;
+    font-size:12px; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px; display:inline-block;
+    transition:border-color .12s ease, color .12s ease; }
+  .chapitre-nav a:hover, .chapitre-acces a:hover{ border-color:var(--gold); color:var(--gold); }
+  .chapitre-acces{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin:36px 0 10px; }
+  .chapitre-acces a.primaire{ border-color:var(--red); color:var(--red); }
+  .sommaire-pages{ font-size:12px; color:var(--dim); text-align:center; margin:0 auto 34px; max-width:90ch; line-height:2; }
+  .sommaire-pages a{ color:var(--gold); text-decoration:none; margin:0 4px; white-space:nowrap; }
+  .sommaire-pages a:hover{ text-decoration:underline; }
+  .page-livre{ margin:0 0 56px; scroll-margin-top:16px; }
+  .page-livre figure{ margin:0 0 18px; }
+  .page-livre figure img{ display:block; width:100%; height:auto; border:1px solid var(--line); background:#efeae0; }
+  .page-livre figcaption{ color:var(--dim); font-size:13px; line-height:1.6; margin-top:8px; display:flex; gap:12px; justify-content:space-between; align-items:baseline; flex-wrap:wrap; }
+  .page-livre figcaption a{ color:var(--gold); white-space:nowrap; text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .texte-page{ max-width:68ch; margin:0 auto; font-size:15.5px; line-height:1.75; overflow-wrap:anywhere; }
+  .texte-page p{ margin:0 0 .9em; }
+  .texte-page .tp-capitales{ letter-spacing:.08em; font-size:13.5px; color:var(--gold); margin-top:1.2em; }
+  .texte-page .tp-etiquettes{ font-size:12px; color:var(--dim); display:flex; flex-wrap:wrap; gap:4px 14px; }
+  .pdf-licence{ font-size:12px; color:var(--dim); text-align:center; }
+  .pdf-licence a{ color:var(--gold); }
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } .chapitre-titre{ font-size:22px; } .texte-page{ font-size:15px; } }
+  @media (max-width:480px){ .chapitre-titre{ font-size:20px; } }
+</style>
+<link rel="stylesheet" href="../../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../../style.css">
+<link rel="stylesheet" href="../../../assets/fonts.css">
+<link rel="stylesheet" href="../../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/chapitre-1/">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/book/chapter-1/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/chapter-1/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+<header class="chapitre-tete">
+<div class="atalanta-block" style="padding:28px 24px;">
+<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+<span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+<nav class="breadcrumb" aria-label="Breadcrumb">
+<a href="https://anibal-amiot.com/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">La Livrée d&#x27;Hermès</a><span class="sep">/</span><a href="https://anibal-amiot.com/en/book/">English edition</a><span class="sep">/</span><span aria-current="page">Chapter I — Reed, Monad</span>
+</nav>
+<h1 class="chapitre-titre">Chapter I — Reed, Monad</h1>
+</div>
+<p class="chapitre-place">Pages 000A to 004C of the book · chapter 1 of 7</p>
+<p class="chapitre-description">Chapter I of La Livrée d&#x27;Hermès: Reed and Monad. The arithmogeometry of figurate numbers, the nature of the areas, and the principles of the magic square: n², n² + 1, the internal and external constants.</p>
+<nav class="chapitre-nav" aria-label="Chapters"><a href="https://anibal-amiot.com/en/book/">The whole book</a><a href="https://anibal-amiot.com/en/book/chapter-2/" rel="next">Next chapter →</a></nav>
+</header>
+<nav class="sommaire-pages" aria-label="Pages of the chapter"><a href="#p000A">000A</a> <a href="#p000B">000B</a> <a href="#p001">001</a> <a href="#p002">002</a> <a href="#p003">003</a> <a href="#p004A">004A</a> <a href="#p004B">004B</a> <a href="#p004C">004C</a></nav>
+<section class="page-livre" id="p000A" data-code="000A" aria-label="Text of page 000A">
+<figure>
+<img src="../../../book-viewer/pages/en/000A.webp" width="1920" height="1080" alt="Cover: Hermès Livery, by Anibal Edelberto Amiot." loading="eager" decoding="async">
+<figcaption><span class="legende">Cover: Hermès Livery, by Anibal Edelberto Amiot.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=000A">Open page 000A in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">HERMÈS LIVERY</p>
+<p class="tp-capitales">ANIBAL EDELBERTO AMIOT</p>
+</div>
+</section>
+<section class="page-livre" id="p000B" data-code="000B" aria-label="Text of page 000B">
+<figure>
+<img src="../../../book-viewer/pages/en/000B.webp" width="1920" height="1080" alt="Definition of the word “livery”, and the page backgrounds: light for geometry, dark for arithmetic or symbolism." loading="lazy" decoding="async">
+<figcaption><span class="legende">Definition of the word “livery”, and the page backgrounds: light for geometry, dark for arithmetic or symbolism.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=000B">Open page 000B in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-etiquettes"><span>n</span></p>
+<p class="tp-capitales">ANIBAL</p>
+<p class="tp-capitales">AMIOT</p>
+<p>Livery: 1. Clothing in the colors of a king&#x27;s or lord&#x27;s coat of arms, worn by the men of their retinue.</p>
+<p>2. Uniform of certain servants in the same household. A valet in livery.</p>
+<p>3. Literary: Revealing appearance. &quot;To don the livery of sin.&quot;</p>
+<p>4. Fur, plumage (of an animal).</p>
+<p>The scribe, like the fool, begins their work by seeking a costume to clothe the universe. Both produce it under the authority of Hermes.</p>
+<p>The pages with a light background concern geometry, the pages with a dark background concern arithmetic or symbolism.</p>
+<p>Thanks to my mother and her faith in me.</p>
+<p class="tp-etiquettes"><span>u</span></p>
+</div>
+</section>
+<section class="page-livre" id="p001" data-code="001" aria-label="Text of page 001">
+<figure>
+<img src="../../../book-viewer/pages/en/001.webp" width="1920" height="1080" alt="Chapter I, Reed: the golden measuring reed (Revelation 21:15)." loading="lazy" decoding="async">
+<figcaption><span class="legende">Chapter I, Reed: the golden measuring reed (Revelation 21:15).</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=001">Open page 001 in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">CHAPTER I</p>
+<p class="tp-capitales">REED</p>
+<p>“The one who spoke to me was holding a measure, a golden reed…” Revelation 21:15</p>
+<p>1 x 1 = 1 = 1 / 1</p>
+<p>“With all your heart, with all your strength, with all your soul, and with all your mind.” Matthew 22:37</p>
+<p class="tp-etiquettes"><span>A.A</span> <span>001</span></p>
+</div>
+</section>
+<section class="page-livre" id="p002" data-code="002" aria-label="Text of page 002">
+<figure>
+<img src="../../../book-viewer/pages/en/002.webp" width="1920" height="1080" alt="Arithmogeometry: triangular numbers, square numbers, and rectangular or heteromecous numbers." loading="lazy" decoding="async">
+<figcaption><span class="legende">Arithmogeometry: triangular numbers, square numbers, and rectangular or heteromecous numbers.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=002">Open page 002 in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">ARITHMOGEOMETRY</p>
+<p>“Nature, constituting the World, is a harmonious compound of the unlimited and the finite [...]. Everything that exists has a number, for it is not possible for anything to be known or even imagined without its number.</p>
+<p class="tp-capitales">TRIANGULAR NUMBERS</p>
+<p>Number has two proper species: odd and even, and a third species derived from their mixture: odd even. Each of these species is capable of very numerous forms.” Philolaos</p>
+<p class="tp-etiquettes"><span>1</span> <span>3</span> <span>6</span> <span>10</span> <span>15</span> <span>21</span></p>
+<p class="tp-capitales">SQUARE NUMBERS</p>
+<p>What do you get if you put two identical triangular numbers together?</p>
+<p>The result is a right-angled number, with unequal sides differing by just one unit. The Pythagoreans called it a heteromech. The product of two adjacent numbers, i.e., an even number multiplied by an odd number, a heteromech number is always even, unlike triangular and square numbers, which are sometimes even and sometimes odd. Excerpt from pp. 52 and 53. “The Mystery of Numbers.” Lucien Gérardin</p>
+<p class="tp-etiquettes"><span>1</span> <span>4</span> <span>9</span> <span>16</span> <span>25</span> <span>36</span></p>
+<p class="tp-capitales">RECTANGULAR OR HETEROMECOUS NUMBERS</p>
+<p class="tp-etiquettes"><span>002</span> <span>6</span> <span>12</span> <span>20</span> <span>30</span> <span>42</span></p>
+</div>
+</section>
+<section class="page-livre" id="p003" data-code="003" aria-label="Text of page 003">
+<figure>
+<img src="../../../book-viewer/pages/en/003.webp" width="1920" height="1080" alt="Nature of the areas: odd, even even and even odd grids, from order 3 to order 10." loading="lazy" decoding="async">
+<figcaption><span class="legende">Nature of the areas: odd, even even and even odd grids, from order 3 to order 10.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=003">Open page 003 in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">NATURE OF THE AREAS</p>
+<p>To easily create any order of magic squares, it is necessary to consider them geometrically. Dividing the grids into four allows us to distinguish three categories:</p>
+<p>Even-odd grids that do not have squares in their center, but whose subsets contain one.</p>
+<p>Odd-order grids that all contain a square in their center. See orders 3, 5, 7, 9</p>
+<p class="tp-etiquettes"><span>Order 3</span></p>
+<p>See orders 6, 10...</p>
+<p class="tp-etiquettes"><span>Order 8</span> <span>Order 5</span> <span>Order 4</span> <span>Order 7</span> <span>Order 9</span></p>
+<p>Even-order grids that do not have a square in their center, as do the generated subsets.</p>
+<p>See orders 4, 8...</p>
+<p class="tp-etiquettes"><span>003</span> <span>Order 6</span> <span>Order 10</span></p>
+<p>In this sense there are only three categories of magic squares: odd order squares, even order squares and odd even order squares.</p>
+<p>&quot;Apollo gave Mercury a wand. As soon as he arrived in Arcadia, Mercury saw two serpents devouring each other. He separated them with his wand, and they became one. And that is why the wand (...) has since been a symbol of peace...&quot; G.A. BÖCKLER, Ars Heraldica, Nuremberg, 1688; Graz, 1971)</p>
+</div>
+</section>
+<section class="page-livre" id="p004A" data-code="004A" aria-label="Text of page 004A">
+<figure>
+<img src="../../../book-viewer/pages/en/004A.webp" width="1920" height="1080" alt="Chapter I, Monad: consciousness of unity or first degree." loading="lazy" decoding="async">
+<figcaption><span class="legende">Chapter I, Monad: consciousness of unity or first degree.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=004A">Open page 004A in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">CHAPTER I</p>
+<p class="tp-capitales">MONAD</p>
+<p>1 x 1 = 1 = 1 / 1</p>
+<p class="tp-capitales">ANIBAL</p>
+<p class="tp-capitales">CONSCIOUSNESS OF UNITY OR FIRST DEGREE</p>
+<p>&quot;Infinite unity&quot; is that which encompasses all things. But this is called unity, which unites all things, and unity is not maximal only in the way in which the unity of number encompasses number, but because it encompasses everything within itself.</p>
+<p class="tp-etiquettes"><span>A</span></p>
+<p class="tp-capitales">AMIOT</p>
+<p>And, in the number which is the development of unity, we find only unity, so in all things that are, we find only the maximum... Plurality, or number, has no other being than that which it holds from unity itself. Therefore without unity, there would be no number and number is unity in plurality. Nicolas DE CUES.</p>
+<p class="tp-etiquettes"><span>004</span></p>
+</div>
+</section>
+<section class="page-livre" id="p004B" data-code="004B" aria-label="Text of page 004B">
+<figure>
+<img src="../../../book-viewer/pages/en/004B.webp" width="1920" height="1080" alt="Principles: the order of a square, n², n² + 1, and what a magic square is." loading="lazy" decoding="async">
+<figcaption><span class="legende">Principles: the order of a square, n², n² + 1, and what a magic square is.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=004B">Open page 004B in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">PRINCIPLES</p>
+<p class="tp-capitales">ORDER OF A SQUARE</p>
+<p>In mathematical language, &quot;n&quot; denotes the order of a square. (The order of a square being the number of squares on its sides.)</p>
+<p class="tp-capitales">HOW DO YOU VISUALIZE N²?</p>
+<p class="tp-etiquettes"><span>n</span> <span>n</span></p>
+<p>If you visualize it as you call it, you&#x27;re combining arithmetic with geometric considerations.</p>
+<p>n x n = n2</p>
+<p class="tp-capitales">WHAT IS A MAGIC SQUARE?</p>
+<p class="tp-etiquettes"><span>n</span></p>
+<p>A magic square is therefore a grid arranging in its boxes all the numbers from 1 to n² in such a way as to present the same sum on all of its rows, columns and diagonals.</p>
+<p class="tp-etiquettes"><span>B</span> <span>n</span> <span>n</span></p>
+<p class="tp-capitales">HOW DO YOU VISUALIZE N² + 1?</p>
+<p>Opposite, you will find the three formulas necessary to create a magic square.</p>
+<p>Note that they are all obtained from n² + 1.</p>
+<p>All of these formulas are not necessary to create magic squares, but they allow us to contemplate the mathematical aspect of the result.</p>
+<p>If numbers are the facts, geometry is the law. In the context of the proposed induction research, we will only be interested in the geometric aspects of these considerations.</p>
+<p class="tp-etiquettes"><span>004</span></p>
+</div>
+</section>
+<section class="page-livre" id="p004C" data-code="004C" aria-label="Text of page 004C">
+<figure>
+<img src="../../../book-viewer/pages/en/004C.webp" width="1920" height="1080" alt="Formulas: internal constant, external constant and sum to be harmonized, on squares of order 3 to 9." loading="lazy" decoding="async">
+<figcaption><span class="legende">Formulas: internal constant, external constant and sum to be harmonized, on squares of order 3 to 9.</span><a href="https://anibal-amiot.com/book-viewer/index.html?read=en&amp;page=004C">Open page 004C in the viewer</a></figcaption>
+</figure>
+<div class="texte-page" lang="en">
+<p class="tp-capitales">FORMULAS</p>
+<p class="tp-capitales">ORDER 3</p>
+<p class="tp-capitales">ORDER 4</p>
+<p class="tp-capitales">ORDER 5</p>
+<p class="tp-capitales">INTERNAL CONSTANT = N² + 1</p>
+<p>A square is harmonized by its internal constant. To see this, apply this formula to each of the squares on this page, then observe the shape you obtain by connecting with a line all the squares whose sum equals this value.</p>
+<p class="tp-capitales">EXTERNAL CONSTANT = (N² + 1) N/2</p>
+<p>This is the number that must be found across all the rows, columns, and diagonals of a magic square.</p>
+<p class="tp-capitales">SUM TO BE HARMONIZED = [ (N² + 1) N/2 ] N = ∑ N²</p>
+<p>By multiplying the previous formula by n, you obtain the number to harmonize within the square, which is a triangular number corresponding to the sum of the numbers from 1 to n².</p>
+<p class="tp-capitales">N²+1 OR HOW TO REVEAL A NUMBER</p>
+<p>By placing a number before itself, it loves its neighbor as itself; by adding 1 to it, it becomes possible to observe its way of loving. On a mystical level, this formula can be understood as a mnemonic device for transcribing or applying the great commandment.</p>
+<p>One of the scribes, who had heard them arguing, saw that Jesus had answered the Sadducees well. He approached him and asked, “Which commandment is the first of all?” Jesus answered, “The first is: ‘Hear, O Israel: The Lord our God, the Lord is one. You shall love the Lord your God with all your heart and with all your soul and with all your mind and with all your strength.’ The second is this: ‘You shall love your neighbor as yourself.’ There is no other commandment greater than these.” Mark 12:28-34; or Luke 10:25-28</p>
+<p class="tp-capitales">ORDER 6</p>
+<p class="tp-capitales">ORDER 7</p>
+<p class="tp-etiquettes"><span>C</span></p>
+<p class="tp-capitales">ORDER 8</p>
+<p class="tp-capitales">ORDER 9</p>
+<p class="tp-etiquettes"><span>004</span></p>
+</div>
+</section>
+<div class="chapitre-acces">
+<a class="primaire" href="https://anibal-amiot.com/book-viewer/index.html?read=en&page=000A">Read these pages in the viewer →</a>
+<a href="https://anibal-amiot.com/book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf#page=1" download>Download the PDF (EN)</a>
+</div>
+<nav class="chapitre-nav" aria-label="Chapters"><a href="https://anibal-amiot.com/en/book/">The whole book</a><a href="https://anibal-amiot.com/en/book/chapter-2/" rel="next">Next chapter →</a></nav>
+<p class="pdf-licence">© Anibal Edelberto Amiot. CC BY-NC 4.0 — <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">creativecommons.org/licenses/by-nc/4.0</a> · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a></p>
+</main>
+<!-- @main:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../../en/">Home</a>
+    <a href="../../../en/book/">The book</a>
+    <a href="../../../en/hexagrams/">Hexagrams</a>
+    <a href="../../../motifs/">Patterns</a>
+    <a href="../../../en/lexicon/">Lexicon</a>
+    <a href="../../../en/articles/">Articles</a>
+    <a href="../../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../../en/about/">About</a>
+    <a href="../../../profil.html" hreflang="fr">Author profile (French)</a>
+    <a href="../../../en/works/">Research deposits</a>
+    <a href="../../../contact.html">Contact</a>
+    <a href="../../../soutenir.html">Support</a>
+    <a href="../../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+</div>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

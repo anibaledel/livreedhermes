@@ -24,7 +24,13 @@
 #      moteurs ne rangent pas les blocs de la même façon. Une lettre perdue ou
 #      ajoutée par l'extraction elle-même ne passe donc pas. Seule exception
 #      admise : U+FFFD, un glyphe du PDF sans caractère Unicode, que pdftotext
-#      omet (il est signalé dans docs/livre-html-relecture.md).
+#      omet (il est signalé dans docs/livre-html-relecture-<langue>.md) ;
+#   7. RECOUPEMENT DE L'ORDRE : chaque paragraphe de texte (six mots ou plus)
+#      se retrouve d'un seul tenant, mot pour mot, dans la lecture de Poppler
+#      — un mot déplacé dans une ligne justifiée, une colonne lue de travers,
+#      ne passent pas. Les écarts voulus (deux blocs réunis, une légende
+#      recollée) sont déclarés un par un, avec leur raison, dans
+#      data/livre/ordre-exceptions.json.
 #
 # Le contrôle MORD : --essai retire un mot d'une page, en mémoire, et vérifie
 # que le contrôle échoue alors sur cette page-là.
@@ -98,12 +104,19 @@ def caracteres(s):
     return collections.Counter(c for c in s if not c.isspace() and c not in '-\ufffd')
 
 
-def poppler(langue, rang):
+def poppler(langue, rang, mode='-raw'):
     try:
-        return subprocess.run(['pdftotext', '-f', str(rang), '-l', str(rang), '-raw', LT.pdf(langue), '-'],
+        return subprocess.run(['pdftotext', '-f', str(rang), '-l', str(rang)] + ([mode] if mode else []) + [LT.pdf(langue), '-'],
                               capture_output=True, text=True, check=True).stdout
     except FileNotFoundError:
         raise SystemExit('ÉCHEC pdftotext absent : installer poppler-utils (le recoupement en a besoin)')
+
+
+def serre(s):
+    s = unicodedata.normalize('NFC', s)
+    for k, v in LT.LIGATURES.items():
+        s = s.replace(k, v)
+    return re.sub(r'[\s\-\u00ad\ufffd]', '', s)
 
 
 def lire(rel, base):
@@ -125,6 +138,8 @@ def controle(base=None, essai=False):
     d = json.load(open(os.path.join(ROOT, 'data/livre/chapitres.json'), encoding='utf-8'))
     codes = LT.codes()
     echecs, n_pages, n_car = [], 0, 0
+    exceptions = json.load(open(os.path.join(ROOT, 'data/livre/ordre-exceptions.json'), encoding='utf-8'))
+    mute = essai
     langues = sorted({l for ch in d['chapitres'] for l in ch if l in LT.ORDRE_PDF and ch.get(l)})
     for langue in langues:
         releve = []
@@ -138,7 +153,6 @@ def controle(base=None, essai=False):
         for c in perimees:
             echecs.append(f'{langue} : décision de césure sans césure dans le PDF : {c}')
         legendes = d['legendes'].get(langue, {})
-        mute = essai
         for ch in d['chapitres']:
             m = ch.get(langue)
             if not m:
@@ -173,6 +187,15 @@ def controle(base=None, essai=False):
                 if a != b:
                     echecs.append(f'{langue} page {code} (page {rang} du PDF) : MuPDF et Poppler ne lisent pas les mêmes '
                                   f'caractères — en plus : {dict(a - b)}, en moins : {dict(b - a)}')
+                # 7. l'ordre : chaque paragraphe se lit d'un seul tenant chez Poppler
+                pop = (serre(poppler(langue, rang, None)), serre(poppler(langue, rang)))
+                for para in texte[code]:
+                    if len(para.split()) < 6 or not re.search(r'[A-Za-zÀ-ÿ]{3}', para):
+                        continue
+                    if not any(serre(para) in x for x in pop) and not any(
+                            code == k.split('|')[0] and para.startswith(k.split('|', 1)[1]) for k in exceptions.get(langue, {})):
+                        echecs.append(f'{langue} page {code} : paragraphe que Poppler ne lit pas d\'un seul tenant '
+                                      f'(ordre à vérifier sur la planche) : « {para[:90]}… »')
                 # 3. légende visible = alt = proposition validée
                 leg = legendes.get(code, '')
                 if norme(p['legende']) != norme(leg) or norme(p['alt'] or '') != norme(leg):
