@@ -40,12 +40,19 @@ colonne. Les fichiers du site s'obtiennent par
 |---|---|
 | Resource type | Publication / Book |
 | Title | La Livrée d'Hermès |
+| Additional titles | The Livery of Hermes — type *Translated title*, langue *English* |
 | Creators | Amiot, Anibal Edelberto — ORCID 0009-0002-6414-9448 |
 | Publication date | le jour du dépôt |
 | Version | v3 |
 | Languages | fra, eng, spa, tha, zho, rus, por, hin |
 | License | Creative Commons Attribution Non Commercial 4.0 International (CC BY-NC 4.0) |
 | Related works | « Is documented by » : https://anibal-amiot.com/ (URL) ; « Is supplemented by » : https://github.com/anibaledel/livreedhermes (URL) |
+
+Le titre ne se traduit pas (docs/terminologie-fr-en-es-th.md) : « La Livrée
+d'Hermès » est le titre, « The Livery of Hermes » — titre de la couverture et de
+la page 1 du PDF anglais v3 — n'est déposé que comme titre traduit, typé. Les
+deux ne se contredisent donc pas dans les métadonnées du DOI. C'est aussi la
+seule glose anglaise admise sur le site.
 
 **Description** (reprise des pages du livre du site) :
 
@@ -56,7 +63,7 @@ colonne. Les fichiers du site s'obtiennent par
 > éditions : français, anglais, espagnol, thaï, chinois simplifié, russe,
 > portugais et hindi.
 >
-> *La Livrée d'Hermès is a book of philosophy and mathematics, in open access.
+> *La Livrée d'Hermès (The Livery of Hermes) is a book of philosophy and mathematics, in open access.
 > It centres on the construction of magic squares and their transcription into
 > Jacquard weaving — a treatise on arithmogeometry that leads the reader from the
 > magic square to the loom. 111 plates, in eight editions: French, English,

@@ -99,6 +99,16 @@ function pages(dir, acc = []) {
 }
 const parLangue = Object.fromEntries(LANGUES.map((l) => [l, 0]));
 const TITRE = "La Livrée d'Hermès";
+const GLOSE = new RegExp(`${TITRE.replace(/'/g, "(?:'|&#39;|&#x27;|’)")}(?:</i>|\\*)?\\s*[(（«]([^)）»]{0,80})[)）»]`, 'g');
+// En anglais, une seule glose du titre : celle de la couverture du PDF v3.
+const GLOSE_EN = 'The Livery of Hermes';
+function glosesAnglaises(texte, ou) {
+  for (const g of texte.matchAll(GLOSE)) {
+    const glose = g[1].replace(/[“”"«»]|&quot;/g, '').trim();
+    // une parenthèse qui cite (« Anibal Edelberto Amiot, 2026 ») n'est pas une glose du titre
+    if (/herm|liv/i.test(glose) && glose !== GLOSE_EN) erreurs.push(`${ou} (en) : glose « ${glose} » du titre — seule « ${GLOSE_EN} » est admise en anglais`);
+  }
+}
 for (const abs of pages(RACINE)) {
   const rel = path.relative(RACINE, abs);
   const src = fs.readFileSync(abs, 'utf8');
@@ -111,12 +121,30 @@ for (const abs of pages(RACINE)) {
     .replace(/<div class="texte-page"[^>]*>[\s\S]*?<\/div>/gi, '')
     .replace(/<script(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/script>/gi, '')
     // gloses permises : entre parenthèses ou guillemets, juste après l'original
-    .replace(new RegExp(`${TITRE.replace(/'/g, "(?:'|&#39;|&#x27;|’)")}(?:</i>|\\*)?\\s*[(（«][^)）»]{0,80}[)）»]`, 'g'), TITRE)
+    .replace(GLOSE, TITRE)
     .replace(/"alternateName":\s*"[^"]*"/g, '');
+  if (lang === 'en') glosesAnglaises(src.replace(/<div class="texte-page"[^>]*>[\s\S]*?<\/div>/gi, ''), rel);
   for (const r of refus.filter((x) => x.lang === lang)) {
     for (const v of r.variantes) {
       const trouve = texte.match(expression(v));
       if (trouve) erreurs.push(`${rel} (${lang}) : « ${trouve[0]} » pour « ${r.concept} » — terme du glossaire attendu`);
+    }
+  }
+}
+
+// La partie anglaise de llms.txt : la même règle que les pages anglaises.
+{
+  const llms = fs.readFileSync(path.join(RACINE, 'llms.txt'), 'utf8');
+  const i = llms.indexOf('## In English');
+  if (i === -1) erreurs.push('llms.txt : section « ## In English » introuvable');
+  else {
+    const en = llms.slice(i).split(/\n## /)[0];
+    glosesAnglaises(en, 'llms.txt');
+    for (const r of refus.filter((x) => x.lang === 'en')) {
+      for (const v of r.variantes) {
+        const trouve = en.replace(GLOSE, TITRE).match(expression(v));
+        if (trouve) erreurs.push(`llms.txt (en) : « ${trouve[0]} » pour « ${r.concept} » — terme du glossaire attendu`);
+      }
     }
   }
 }
