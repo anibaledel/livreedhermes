@@ -206,6 +206,7 @@
 ## Ce que l'extraction a relevé
 
 - Ordre des pages : le PDF français v3 (4 octobre 2026) suit l'ordre du livre (000A, 000B, 001…). L'ancien commençait à la page 002 ; le test d'identité, relancé sur le nouveau fichier avant correction, l'a signalé sur les 80 pages publiées, et le numéro imprimé de 75 d'entre elles.
+- PDF v9 (4 octobre 2026) : seule la page 000A change (la mention de licence est en un seul bloc) ; le texte publié reste identique au PDF.
 - Page 075 : la page thaïe de l'ancien PDF est remplacée par sa version française dans le v3. La page 093, titrée « CHAPITRE VIII — MESURE » dans le v3, devient le chapitre VIII, seule (décision d'Anibal, 4 octobre 2026) ; le chapitre VII va de 063 à 092.
 - Page 028C : un fragment espagnol, invisible sur la planche, est dans le texte du PDF : « hermético o la llave maestra, Viena, 1709.� » (le dernier caractère est un glyphe du PDF sans caractère Unicode, U+FFFD). Il est publié tel quel, puisque le texte publié est celui du PDF ; à retirer du PDF si c'est un reste de l'édition espagnole.
 - Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode dans le PDF ; les deux moteurs lisent « Nombre d'or ( ) » et « ( = (1 + √5) / 2) ». Publié tel quel.
