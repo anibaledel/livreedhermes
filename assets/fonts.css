@@ -13,7 +13,15 @@
        échoue si une page emploie un caractère absent ; SIL OFL 1.1,
        fonts/noto-sans-sc/OFL.txt).
    Les unicode-range font qu'aucune des deux n'est téléchargée par une page
-   qui n'a ni cyrillique ni idéogramme. */
+   qui n'a ni cyrillique ni idéogramme.
+
+   La translittération savante du sanskrit (IAST : ḍ ṇ ṣ ṭ ṛ ḥ ṃ ṁ ṅ ḷ ṝ ḹ et
+   leurs capitales), que Barlow ne porte pas, a elle aussi son repli déclaré :
+   « Barlow Semi Condensed IAST LDH », composée dans Barlow même — la lettre
+   de base et le diacritique de Barlow, sans rien redessiner
+   (tools/police_iast.py ; SIL OFL 1.1, Barlow n'a pas de nom réservé).
+   tools/check_police_pages.mjs échoue si une page qu'il surveille emploie un
+   caractère qu'aucune police déclarée ne porte. */
 @font-face {
   font-family: 'Roboto Condensed LDH';
   font-style: normal;
@@ -38,7 +46,23 @@
   src: url('fonts/noto-sans-sc/noto-sans-sc-ldh.woff2') format('woff2');
   unicode-range: U+2E80-2FDF, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
 }
+@font-face {
+  font-family: 'Barlow Semi Condensed IAST LDH';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/barlow-semi-condensed/barlow-semi-condensed-iast-ldh-300-normal.woff2') format('woff2');
+  unicode-range: U+1E0C-1E0D, U+1E24-1E25, U+1E36-1E39, U+1E40-1E47, U+1E5A-1E5D, U+1E62-1E63, U+1E6C-1E6D;
+}
+@font-face {
+  font-family: 'Barlow Semi Condensed IAST LDH';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/barlow-semi-condensed/barlow-semi-condensed-iast-ldh-400-normal.woff2') format('woff2');
+  unicode-range: U+1E0C-1E0D, U+1E24-1E25, U+1E36-1E39, U+1E40-1E47, U+1E5A-1E5D, U+1E62-1E63, U+1E6C-1E6D;
+}
 :root, body {
-  font-family: 'Barlow Semi Condensed', 'Roboto Condensed LDH', 'Noto Sans SC LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans SC LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
 }

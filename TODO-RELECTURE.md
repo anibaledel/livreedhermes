@@ -335,3 +335,18 @@ gardé : il dit ce que le titre veut dire sans remplacer le titre.
 Si le lecteur natif préfère l'autre forme, la changer **dans le glossaire
 d'abord** (docs/terminologie-fr-en-es-th.md) et déplacer l'ancienne vers les
 variantes refusées : tools/check_glossaire.mjs fera le reste.
+
+## Articles en français seulement — traduction anglaise à faire
+
+Les articles existent en français et en anglais (`en/articles/`). Celui-ci n'a
+pas encore sa version anglaise ; il ne porte donc aucun hreflang et n'entre pas
+dans la liste anglaise.
+
+- **`articles/le-fil-et-le-carre.html`** — « Le fil et le carré — ce que la
+  tradition indienne a construit avant nous » (2026-10-04). Traduction anglaise
+  à faire. Quand elle existe : la page dans `en/articles/`, une ligne dans
+  `ARTICLES_TRADUITS` (`scripts/langues.js`), puis `node scripts/build-articles.js`
+  et `node scripts/build-header.js`. La partie terminologique attend d'abord
+  l'avis d'un sanskritiste (l'article le dit lui-même) : traduire après.
+  Les termes sanskrits restent en translittération savante (IAST), sans
+  simplification (« Nārāyaṇa Paṇḍita », pas « Narayana Pandita »).
