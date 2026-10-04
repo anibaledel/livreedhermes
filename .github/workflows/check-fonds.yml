@@ -82,6 +82,13 @@ jobs:
       - run: node tools/check_recette_32.mjs --essai
       - run: node tools/check_mp4_sans_date.mjs
       - run: node tools/affiches_animations.mjs --essai
+      # les vidéos remplacées sous le même nom se relisent dans l'historique,
+      # au commit que le registre note : le clone est superficiel, on va
+      # chercher ces commits-là, et eux seuls
+      - run: |
+          for c in $(node -e "const r=require('./data/fonds/collections-pinterest.json');for(const c of Object.values(r.collections))for(const v of c.videosAnciennes||[])if(v.remplacee&&v.commit)console.log(v.commit)" | sort -u); do
+            git fetch --no-tags --depth=1 origin "$c"
+          done
       - run: node tools/affiches_animations.mjs --verifie
 
   rendu:
