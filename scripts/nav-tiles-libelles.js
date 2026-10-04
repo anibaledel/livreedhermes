@@ -79,15 +79,15 @@ const TUILES_I18N = {
   'creation-motifs': {
     es: {
       label: "Crear un motivo", // es/libro/index.html:174
-      excerpt: "Componga sus propios motivos textiles a partir de las 60 naturalezas del Yi King.", // SANS SOURCE
+      excerpt: "Componga sus propios motivos textiles a partir de las 60 imágenes del Yi King.", // SANS SOURCE ; « imágenes » : décision d'Anibal (2026-10-04), « 60 images » et non « 60 natures »
     },
     th: {
       label: "สร้างลวดลาย", // th/book/index.html:174
-      excerpt: "ประกอบลวดลายผ้าของคุณเองจากธรรมชาติ 60 ประการของอี้จิง", // SANS SOURCE
+      excerpt: "ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง", // SANS SOURCE ; « ภาพ » (images) : décision d'Anibal (2026-10-04)
     },
     zh: {
       label: "创作图案", // zh/tools/index.html:222
-      excerpt: "以易经的 60 种性质为基础，组合出属于您自己的织物图案。", // zh/tools/index.html:223 (sans « （法文页面） »)
+      excerpt: "以易经的 60 幅图像为基础，组合出属于您自己的织物图案。", // adapté de zh/tools/index.html:223 : « 性质 » (natures) → « 幅图像 » (images), décision d'Anibal (2026-10-04)
     },
     ru: {
       label: "Создать узор", // ru/tools/index.html:166

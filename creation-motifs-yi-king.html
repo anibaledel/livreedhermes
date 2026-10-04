@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Créer un motif Yi King — La Livrée d'Hermès | Anibal Amiot</title>
-<meta name="description" content="Composez vos propres motifs textiles à partir des 60 natures du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
+<meta name="description" content="Composez vos propres motifs textiles à partir des 60 images du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
 <meta name="keywords" content="Anibal Amiot, designer motifs textiles, atelier de motifs, création de motifs textiles, motifs répétitifs, pattern design textile, motif sur mesure, design textile digital, motifs pour impression tissu, créateur de motifs textiles sur mesure, designer motifs pour vêtements et accessoires, atelier création motifs textiles Thaïlande, designer textile Thaïlande">
 <meta property="og:title" content="Créer un motif Yi King — La Livrée d'Hermès | Anibal Amiot">
-<meta property="og:description" content="Composez vos propres motifs textiles à partir des 60 natures du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
+<meta property="og:description" content="Composez vos propres motifs textiles à partir des 60 images du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
 <meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
 <meta property="og:url" content="https://anibal-amiot.com/creation-motifs-yi-king.html">
 <meta property="og:type" content="website">
 <link rel="canonical" href="https://anibal-amiot.com/creation-motifs-yi-king.html">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Créer un motif Yi King — La Livrée d'Hermès | Anibal Amiot">
-<meta name="twitter:description" content="Composez vos propres motifs textiles à partir des 60 natures du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
+<meta name="twitter:description" content="Composez vos propres motifs textiles à partir des 60 images du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
 <script type="application/ld+json">
 {
@@ -46,7 +46,7 @@
       "@id": "https://anibal-amiot.com/creation-motifs-yi-king.html#app",
       "name": "Créer un motif Yi King",
       "url": "https://anibal-amiot.com/creation-motifs-yi-king.html",
-      "description": "Composez vos propres motifs textiles à partir des 60 natures du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.",
+      "description": "Composez vos propres motifs textiles à partir des 60 images du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.",
       "applicationCategory": "DesignApplication",
       "isAccessibleForFree": true,
       "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
@@ -693,7 +693,7 @@ function drawPavageSquare(canvas, traits, movingSet){
 const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
 
 // Table des 1770 paires (tools/generate_table_pavage.py, data/paires_1770_v1.json) :
-// pour chaque paire non ordonnée des 60 natures, combien de ses 64 grilles pavent
+// pour chaque paire non ordonnée des 60 images, combien de ses 64 grilles pavent
 // simplement (0, 1, 2 ou 64) ; et pour les 8 familles admissibles (Théorème 2), leur
 // type yang/yang-mut. Le statut de fermeture sur le cube pour une paire à 64/64 n'est
 // PAS stocké ici : c'est une formule fermée (Théorèmes 3 et 4), voir closingSet().
@@ -1125,7 +1125,7 @@ function buildCatRow(){
   });
   const intro = document.getElementById('catIntro');
   if(currentCat==='les60'){
-    intro.textContent = "Les 60 natures réunies, toutes catégories confondues. Choisissez 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage.";
+    intro.textContent = "Les 60 images réunies, toutes catégories confondues. Choisissez 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage.";
   } else if(currentCat==='par2'){
     intro.textContent = "Choisissez 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image.";
   } else {
@@ -1440,7 +1440,7 @@ function buildResultArea(){
     <div class="count pavage-statut${statutClass}" style="margin-top:4px;">${statutTxt}</div>
     ${nTwinGroups>0 ? `<div class="count" style="margin-top:4px;">${nTwinGroups} motif${nTwinGroups>1?'s':''} de cet échiquier ${nTwinGroups>1?'apparaissent':'apparaît'} deux fois (couleurs échangées entre le Créateur et le Réceptif) —
     chaque case concernée le signale et indique l'hexagramme jumeau.</div>` : ''}
-    <div class="stats-line">Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — cliquez sur une case pour la numérotation King Wen traditionnelle · <b>${TOTAL_ECHIQUIERS.toLocaleString('fr-FR')}</b> échiquiers différents possibles au total avec les 60 natures (C(60,2))</div>
+    <div class="stats-line">Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — cliquez sur une case pour la numérotation King Wen traditionnelle · <b>${TOTAL_ECHIQUIERS.toLocaleString('fr-FR')}</b> échiquiers différents possibles au total avec les 60 images (C(60,2))</div>
   `;
   area.appendChild(head);
   const headCv = head.querySelectorAll('.pair-imgs canvas');

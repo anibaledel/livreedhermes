@@ -23,9 +23,11 @@ suivent le glossaire (`docs/terminologie-fr-en-es-th.md`).
   (th/lexicon dit « สร้างขึ้นร่วมกับ Claude »).
 - **Hindi, tuile cymatique** : « उसकी » (« sa ») au lieu de « vous » — une forme
   d'adresse, gardée.
-- **« 60 images » / « 60 natures »** (tuile « Créer un motif ») : ru, pt, hi
-  reprennent « images », comme la page 360 calques ; le français et l'anglais
-  disent « natures ». Le mot juste est en attente de la décision d'Anibal.
+- **« 60 images »** (tuile « Créer un motif ») : décision d'Anibal
+  (2026-10-04). Le référent compte 60 identités (famille × teinte), le livre et
+  le lexique réservent « nature » aux 4 natures. Le français, l'anglais,
+  l'espagnol (« imágenes »), le thaï (« ภาพ ») et le chinois (« 幅图像 ») sont
+  passés à « images » ; ru, pt, hi le disaient déjà.
 
 ## es
 
