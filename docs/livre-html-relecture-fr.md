@@ -150,14 +150,63 @@
 | 062B | Naissance de « Crépuscule » ou les tours de Mercure, par Françoise Dininman. |
 | 062C | L'arlequin trismégiste, Hermès et la commedia dell'arte. |
 
-### Chapitre VII — pages 063 à 093
+### Chapitre VII — Trame, Mue, Hebdo
 
-*Pas encore publié.*
+- adresse : https://anibal-amiot.com/fr/livre/chapitre-7/
+- pages : 063 à 092 (30 pages)
+- titre de la page : Chapitre VII — Trame, Mue, Hebdo — La Livrée d'Hermès
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VII de La Livrée d'Hermès : Trame, Mue et Hebdo. La géomancie et l'ordre chronologique des hexagrammes, les axes de symétrie et le yin et le yang d'un motif, le tirage et les superpositions de calques.
+- JSON-LD : `Chapter`, position 7, pagination 063–092, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
+
+| page | légende proposée |
+|---|---|
+| 063 | Chapitre VII.I, Trame : la durée, un état où le mouvement n'est pas anéanti par les obstacles. |
+| 064 | Cryptologie et correspondances : une introduction à la géomancie et à ses seize figures. |
+| 065 | Observations : les figures géomantiques, fixes, mobiles, communes, entrantes et sortantes. |
+| 066 | Anatomie d'une figure géomantique : tête, cœur, ventre, pied. |
+| 067 | Ordre chronologique des hexagrammes, par trigramme supérieur et inférieur. |
+| 068 | La disposition chronologique et ses quatre sous-ensembles de seize hexagrammes. |
+| 069 | Chapitre VII.II, Mue : le Livre des mutations, ou Yi-King, et le serpent mosaïque. |
+| 070 | Axes de symétrie : les quatre bases, leurs quinze combinaisons et les motifs correspondants. |
+| 071 | Attribution du yin et du yang sur un motif : axes, combinaisons et valeurs antipodales. |
+| 072 | Attribution du yin et du yang sur un motif : les formes Yin, Yang, Yin Mut et Yang Mut. |
+| 073 | Le tirage : un exemple utilisant les 360 calques, situations précédentes et possibles. |
+| 074 | Choisir une catégorie avec un dé à quatre faces, et une famille avec un dé à six faces. |
+| 075 | La lecture d'un calque : symbole de la famille, axes de symétrie, catégorie, tirage, situations précédente et suivante. |
+| 076A | Chapitre VII.I, Hebdo : les sept anges aux sept derniers fléaux. |
+| 077 | BI-IV-YIN-&-YANG, superposition. |
+| 078 | TRI-IV-YIN-&-YANG, superposition. |
+| 079 | TRI-I-YANG-MUT, superposition. |
+| 080 | TRI-I-YIN-MUT, superposition. |
+| 081 | TRI-I-YANG, superposition. |
+| 082 | TRI-I-YIN, superposition. |
+| 083 | TRI-II-YANG-PUR, superposition. |
+| 084 | TRI-II-YIN-PUR, superposition. |
+| 085 | TRI-II-FIX-PUR, superposition. |
+| 086 | TRI-II-MUT-PUR, superposition. |
+| 087 | TRI-II-YANG-FIX/YIN-MUT, superposition. |
+| 088 | TRI-II-YIN-FIX/YANG-MUT, superposition. |
+| 089 | TRI-III-SANS-YIN-MUT, superposition. |
+| 090 | TRI-III-SANS-YANG-FIX, superposition. |
+| 091 | TRI-III-SANS-YIN-FIX, superposition. |
+| 092 | TRI-III-SANS-YANG-MUT, superposition. |
+
+### Chapitre VIII — Mesure
+
+- adresse : https://anibal-amiot.com/fr/livre/chapitre-8/
+- pages : 093 à 093 (1 pages)
+- titre de la page : Chapitre VIII — Mesure — La Livrée d'Hermès
+- description (meta, Open Graph, JSON-LD `Chapter`, et visible en tête du chapitre) : Chapitre VIII de La Livrée d'Hermès : Mesure. Mesurer au roseau, ou avec des axes de symétrie (miroir), et le nombre d'un homme (Apocalypse 13, 18).
+- JSON-LD : `Chapter`, position 8, pagination 093–093, partie du `Book` « La Livrée d'Hermès », licence CC BY-NC 4.0 ; plus le fil d'Ariane (`BreadcrumbList`).
+
+| page | légende proposée |
+|---|---|
+| 093 | Chapitre VIII, Mesure : mesurer au roseau, ou avec des axes de symétrie (miroir). |
 
 ## Ce que l'extraction a relevé
 
 - Ordre des pages : le PDF français v3 (4 octobre 2026) suit l'ordre du livre (000A, 000B, 001…). L'ancien commençait à la page 002 ; le test d'identité, relancé sur le nouveau fichier avant correction, l'a signalé sur les 80 pages publiées, et le numéro imprimé de 75 d'entre elles.
-- Page 075 : la page thaïe de l'ancien PDF est remplacée par sa version française dans le v3. Le chapitre VII peut être publié dès que son découpage est confirmé : la page 093 est désormais titrée « CHAPITRE VIII — MESURE ».
+- Page 075 : la page thaïe de l'ancien PDF est remplacée par sa version française dans le v3. La page 093, titrée « CHAPITRE VIII — MESURE » dans le v3, devient le chapitre VIII, seule (décision d'Anibal, 4 octobre 2026) ; le chapitre VII va de 063 à 092.
 - Page 028C : un fragment espagnol, invisible sur la planche, est dans le texte du PDF : « hermético o la llave maestra, Viena, 1709.� » (le dernier caractère est un glyphe du PDF sans caractère Unicode, U+FFFD). Il est publié tel quel, puisque le texte publié est celui du PDF ; à retirer du PDF si c'est un reste de l'édition espagnole.
 - Page 024B : le symbole du nombre d'or (φ) n'a pas de caractère Unicode dans le PDF ; les deux moteurs lisent « Nombre d'or ( ) » et « ( = (1 + √5) / 2) ». Publié tel quel.
 - Page 028B : le PDF porte « visualisationdu » et « cettecatégorie » sans espace (les deux moteurs le lisent ainsi). Publié tel quel.

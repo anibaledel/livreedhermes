@@ -40,12 +40,19 @@ colonne. Les fichiers du site s'obtiennent par
 |---|---|
 | Resource type | Publication / Book |
 | Title | La Livrée d'Hermès |
+| Additional titles | The Livery of Hermes — type *Translated title*, langue *English* |
 | Creators | Amiot, Anibal Edelberto — ORCID 0009-0002-6414-9448 |
 | Publication date | le jour du dépôt |
 | Version | v3 |
 | Languages | fra, eng, spa, tha, zho, rus, por, hin |
 | License | Creative Commons Attribution Non Commercial 4.0 International (CC BY-NC 4.0) |
 | Related works | « Is documented by » : https://anibal-amiot.com/ (URL) ; « Is supplemented by » : https://github.com/anibaledel/livreedhermes (URL) |
+
+Le titre ne se traduit pas (docs/terminologie-fr-en-es-th.md) : « La Livrée
+d'Hermès » est le titre, « The Livery of Hermes » — titre de la couverture et de
+la page 1 du PDF anglais v3 — n'est déposé que comme titre traduit, typé. Les
+deux ne se contredisent donc pas dans les métadonnées du DOI. C'est aussi la
+seule glose anglaise admise sur le site.
 
 **Description** (reprise des pages du livre du site) :
 
@@ -56,7 +63,7 @@ colonne. Les fichiers du site s'obtiennent par
 > éditions : français, anglais, espagnol, thaï, chinois simplifié, russe,
 > portugais et hindi.
 >
-> *La Livrée d'Hermès is a book of philosophy and mathematics, in open access.
+> *La Livrée d'Hermès (The Livery of Hermes) is a book of philosophy and mathematics, in open access.
 > It centres on the construction of magic squares and their transcription into
 > Jacquard weaving — a treatise on arithmogeometry that leads the reader from the
 > magic square to the loom. 111 plates, in eight editions: French, English,
@@ -67,17 +74,22 @@ colonne. Les fichiers du site s'obtiennent par
 > v3 — huit éditions (quatre de plus : chinois simplifié, russe, portugais,
 > hindi), toutes au format 1920 × 1080 et linéarisées. Dans toutes : nouvelle
 > page 2 (remerciements à Marie-Laure Pannier et Amrouchi Jahi), nouvelle
-> dernière page (« Chapitre VIII — Mesure »). Français, anglais, espagnol et thaï : nouvelle
+> dernière page (« Chapitre VIII — Mesure »), dont l'image annonce les 360
+> calques de la page d'impression. Français, anglais, espagnol et thaï : nouvelle
 > page 1 portant la licence CC BY-NC 4.0. Français : l'ordre des pages est
 > rétabli, et la page 075 restaurée en français. Thaï : repassé au format
 > 1920 × 1080 (il était en 1400 × 788).
 
 Vérifié sur les fichiers : licence en page 1 et remerciements en page 2 (les
-huit), « CHAPITRE VIII » en page 111, ordre du français, format du thaï. **Non
-vérifié** : l'annonce des 360 calques en dernière page, que la consigne
-mentionne — le texte de la page 111 ne contient pas « 360 » dans aucune des huit
-éditions ; elle n'est donc pas dans ces notes. À ajouter si elle figure dans
-l'image de la page.
+huit), « CHAPITRE VIII » en page 111, ordre du français, format du thaï.
+
+L'annonce des 360 calques est portée par l'**image** de la page 111, pas par
+son texte : aucune des huit éditions n'a « 360 » dans le texte de cette page.
+Anibal l'a confirmé le 4 octobre 2026, et le nombre est celui du référent
+(data/referent_360_v3.json : n_calques 360, n_identities 60, grid_size 12,
+tools/generate_referent_360.py). Le texte de la page 073 le dit aussi : un
+tirage « en utilisant les 360 calques (piochez 6 fois parmi les 60 calques
+disponibles par place de traits) », soit 6 × 60 = 360.
 
 ## Après le dépôt : ce qu'il faut vérifier
 

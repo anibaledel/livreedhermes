@@ -30,6 +30,11 @@ Une glose entre parenthèses peut SUIVRE l'original (« *La Livrée d'Hermès*
 (The Livery of Hermes) »), jamais le remplacer. `tools/check_glossaire.mjs`
 échoue sur toute traduction de l'un ou de l'autre hors de ce cas.
 
+En anglais, la glose est **The Livery of Hermes**, et aucune autre : c'est le
+titre de la couverture et de la page 1 du PDF anglais v3 (décision d'Anibal,
+4 octobre 2026). Le contrôle échoue sur toute autre glose anglaise du titre,
+dans les pages anglaises comme dans la partie anglaise de `llms.txt`.
+
 | FR | EN (déjà en usage) | ES | TH | ZH | RU | PT | HI | Note |
 |---|---|---|---|---|---|---|---|---|
 | famille | family | familia | ตระกูล | 族 | семейство | família | परिवार | — |
@@ -116,7 +121,7 @@ casse et en mots entiers.
 | ru | Yi King | И-цзин ; Ицзин ; Йи Кинг |
 | ru | dépôt (Zenodo) | депозит* |
 | zh-Hans | licence | 许可证 ; 授权协议 ; 许可协议 |
-| en | La Livrée d'Hermès (titre) | Livery of Hermes |
+| en | La Livrée d'Hermès (titre) | Herm* Livery ; Herm*' Livery ; Herm*’ Livery ; Herm*'s Livery ; Herm*’s Livery |
 | es | La Livrée d'Hermès (titre) | Librea de Hermes |
 | th | La Livrée d'Hermès (titre) | เสื้อคลุมของเฮอร์เมส |
 | th | Anibal Edelberto Amiot (nom) | อนิบัล ; อามิโอต์ |
