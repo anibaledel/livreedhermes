@@ -1,0 +1,47 @@
+name: Sélection de motifs au clavier
+
+# tools/check_selection_clavier.mjs : creation-motifs-yi-king.html se pilote
+# au clavier seul — deux images, une case de l'échiquier, un export —, les
+# 16 cartes et les 64 cases sont des boutons nommés, le focus est visible et
+# reste sur l'élément choisi (A02, audit du 4 octobre 2026). En local dans la
+# PR, puis sur le SITE DÉPLOYÉ après la publication de main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rendu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/check_selection_clavier.mjs local
+
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_selection_clavier.mjs https://anibal-amiot.com && exit 0
+            echo "essai $i : le site n'a pas encore la correction ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1

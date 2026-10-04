@@ -274,6 +274,10 @@
     display:flex; align-items:center; justify-content:center; font-weight:bold;
     box-shadow:0 0 0 2px #000;
   }
+  /* les cartes et les cases sont des boutons natifs (A02) : on retire le
+     style des boutons, on garde un focus bien visible */
+  button.sel-card, button.ech-cell{ font:inherit; color:inherit; padding:0; margin:0; text-align:inherit; width:100%; display:block; }
+  .sel-card:focus-visible, .ech-cell:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; z-index:4; }
   .sel-card canvas{ width:100%; display:block; aspect-ratio:1; }
   .sel-card .cap{
     font-size:calc(8.5px + var(--fs-bump)); font-weight:400; color:var(--dim); text-align:center;
@@ -1282,16 +1286,31 @@ function updateSideBands(){
   tick();
 }
 
+// Après un render(), l'élément qui avait le focus a été remplacé : le focus
+// retourne à son équivalent, sans quoi un utilisateur du clavier repartirait
+// du haut de la page à chaque choix.
+function rendreFocus(selecteur){
+  const el = document.querySelector(selecteur);
+  if(el) el.focus({ preventScroll: true });
+}
+
 function isPicked(item){
   return picked.findIndex(p=>p.file===item.file) + 1;
 }
 
 function makeCard(item){
-  const card = document.createElement('div');
+  // A02 (audit du 4 octobre) : un bouton natif, pas un div cliquable —
+  // Tab l'atteint, Entrée et Espace le choisissent ; aria-pressed dit s'il
+  // est choisi, et son nom accessible dit lequel des deux.
+  const card = document.createElement('button');
+  card.type = 'button';
   const order = isPicked(item);
   card.className = 'sel-card' + (order?' picked':'');
+  card.dataset.file = item.file;
+  card.setAttribute('aria-pressed', order ? 'true' : 'false');
+  card.setAttribute('aria-label', item.label + (order ? ` — image ${order} choisie` : ''));
   card.innerHTML = `
-    <canvas aria-label="${item.label}"></canvas>
+    <canvas aria-hidden="true"></canvas>
     ${order?`<span class="pick-order">${order}</span>`:''}
     <div class="cap">${item.label}</div>
   `;
@@ -1304,6 +1323,7 @@ function makeCard(item){
       picked.push(item);
     }
     render();
+    rendreFocus(`.sel-card[data-file="${CSS.escape(item.file)}"]`);
   });
   return card;
 }
@@ -1434,10 +1454,14 @@ function buildResultArea(){
   const grid = document.createElement('div');
   grid.className = 'echiquier';
   cells.forEach(cell=>{
-    const el = document.createElement('div');
+    const el = document.createElement('button');
+    el.type = 'button';
     const ferme = fermeture === 'ALL' || (Array.isArray(fermeture) && fermeture.includes(cell.chrono));
     cell.ferme = ferme;   // repris par showDetail() pour l'aperçu de cube
     el.className = 'ech-cell' + (ferme ? ' ferme' : '');
+    el.dataset.chrono = cell.chrono;
+    const hexCase = HEX_FR[cell.kw];
+    el.setAttribute('aria-label', `Case ${cell.chrono+1}${hexCase ? ` — ${hexCase.name}` : ''}${ferme ? ' — ferme sur le cube' : ''}`);
     if(ferme) el.title = 'Ferme sur le cube (Théorème 3/4)';
     const canvas = document.createElement('canvas');
     canvas.setAttribute('aria-hidden', 'true'); // la case porte son numéro en texte
@@ -1759,7 +1783,8 @@ function showDetail(cell){
       ${pairHtml}
     </div>
   `;
-  area.querySelector('.detail-back').addEventListener('click', ()=>{ area.innerHTML=''; });
+  // au retour, le focus revient sur la case d'où l'on venait
+  area.querySelector('.detail-back').addEventListener('click', ()=>{ area.innerHTML=''; rendreFocus(`.ech-cell[data-chrono="${cell.chrono}"]`); });
   area.querySelector('#btnCreateSVG').addEventListener('click', downloadMotifSVG);
   area.querySelector('#btnGridPng').addEventListener('click', ()=> downloadGridPNG(cell.grid, kw));
   area.querySelector('#btnGridJson').addEventListener('click', ()=> downloadGridJSON(cell.grid, cell.chrono, kw, cell.traits));
@@ -1794,6 +1819,8 @@ function showDetail(cell){
   }
   updateMotifURL(cell);
   area.scrollIntoView({behavior:'smooth', block:'start'});
+  // le focus suit la case ouverte : Tab mène ensuite aux exports
+  area.querySelector('.detail-back')?.focus({ preventScroll: true });
 }
 
 // B1 : lien permanent d'une composition — les six choix (niveau -> image, position 1=bas
