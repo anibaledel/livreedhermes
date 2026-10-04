@@ -123,10 +123,9 @@ function zone(nom, corps, source = 'includes/') {
 }
 
 // Lien d'évitement de l'en-tête, dans la langue de la page (<html lang>).
-const TEXTE_EVITEMENT = {
-  fr: 'Aller au contenu', en: 'Skip to content', es: 'Ir al contenido', th: 'ข้ามไปยังเนื้อหา',
-  zh: '跳到正文', ru: 'Перейти к содержанию', pt: 'Ir para o conteúdo',
-};
+// Le lien d'évitement, dans chaque langue : déclaré avec la langue
+// (scripts/langues.js, champ « evitement »), lu ici.
+const TEXTE_EVITEMENT = Object.fromEntries(Object.entries(LANGUES).map(([c, l]) => [c, l.evitement]));
 // <html lang="zh-Hans"> se lit « zh » : la clé des fragments et des textes.
 function langHtml(s) {
   const m = /<html[^>]*\slang="([a-z]{2})/i.exec(s);

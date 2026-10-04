@@ -4,8 +4,10 @@ name: Lecteur du livre — commandes cliquables
 # en portrait et en paysage, et à 200 % de zoom, chaque bouton de langue,
 # Précédent, Suivant et le saut de page restent sous le pointeur (aucune
 # image ni aucun cadre par-dessus), un vrai clic change de langue, et l'image
-# reste dans son cadre (A01, audit du 4 octobre 2026). En local dans la PR,
-# puis sur le SITE DÉPLOYÉ après la publication de main.
+# reste dans son cadre (A01, audit du 4 octobre 2026). Et
+# tools/check_parcours_langues.mjs : accueil → livre → visionneuse → PDF dans
+# chaque langue, l'interface de la visionneuse dans la langue du livre (A09).
+# En local dans la PR, puis sur le SITE DÉPLOYÉ après la publication de main.
 
 on:
   push:
@@ -27,6 +29,7 @@ jobs:
       - run: npm install playwright@1
       - run: npx playwright install --with-deps chromium
       - run: node tools/check_lecteur.mjs local
+      - run: node tools/check_parcours_langues.mjs local
 
   site:
     if: github.event_name != 'pull_request'
@@ -42,7 +45,7 @@ jobs:
         run: sleep 240
       - run: |
           for i in 1 2 3 4 5 6 7 8 9 10 11; do
-            node tools/check_lecteur.mjs https://anibal-amiot.com && exit 0
+            node tools/check_lecteur.mjs https://anibal-amiot.com && node tools/check_parcours_langues.mjs https://anibal-amiot.com && exit 0
             echo "essai $i : le site n'a pas encore la correction ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1
