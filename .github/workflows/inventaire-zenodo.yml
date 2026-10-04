@@ -1,0 +1,32 @@
+name: Inventaire des dépôts Zenodo (lecture seule)
+
+# tools/inventaire_zenodo.py : les dépôts d'Anibal tels que Zenodo les
+# enregistre (titre, type, langue, date, licence de chaque version, vues et
+# téléchargements), et la licence que le site affiche à côté de chaque
+# citation. Lecture seule : des requêtes GET sur l'API publique, sans jeton —
+# aucun dépôt n'est modifié. Les écarts sont signalés dans le résumé du job,
+# pas corrigés : ils demandent l'arbitrage d'Anibal.
+
+on:
+  pull_request:
+    paths:
+      - tools/inventaire_zenodo.py
+      - .github/workflows/inventaire-zenodo.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  inventaire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python tools/inventaire_zenodo.py --json inventaire-zenodo.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: inventaire-zenodo
+          path: inventaire-zenodo.json
