@@ -16,9 +16,9 @@
 //
 // Le périmètre est une liste, parce que le site ne le tient pas encore
 // partout : 824 pages emploient au moins un caractère hors des polices
-// déclarées (les trigrammes ☰, les flèches ← →, du grec, de l'hébreu ; le
-// thaï, sans repli déclaré). Une page s'y ajoute d'une ligne, quand elle
-// tient.
+// déclarées — 805 après les flèches : le thaï (sans repli déclaré, et le lien
+// « ไทย » des rangées de langues), les trigrammes ☰…☷ des pages de motifs, du
+// grec, de l'hébreu. Une page s'y ajoute d'une ligne, quand elle tient.
 //
 // Usage : node tools/check_police_pages.mjs [page.html …]
 //         node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'
@@ -29,12 +29,25 @@ import path from 'node:path';
 import { cmapWoff2 } from './lib_woff2.mjs';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+// Les articles qui attendent un repli, et lequel : ils rentrent dans le
+// contrôle dès que la police qui leur manque est déclarée.
+const ARTICLES_EN_ATTENTE = {
+  'articles/cymatique-spectre-d-un-motif.html': '√ (U+221A)',
+  'en/articles/cymatics-spectrum-of-a-pattern.html': '√ (U+221A)',
+  'articles/verticalite-damier-mosaique-echiquier.html': 'ǚ (U+01DA, pinyin)',
+  'en/articles/verticality-chequer-mosaic-chessboard.html': 'ǚ (U+01DA, pinyin)',
+  'articles/habit-du-grand-pretre.html': 'hébreu (U+05B0–05EA)',
+  'en/articles/high-priests-garment.html': 'hébreu (U+05B0–05EA)',
+};
 export const PAGES = [
-  'articles/le-fil-et-le-carre.html',
+  // les articles, français et anglais, en entier — sauf ceux qui emploient
+  // encore une écriture ou un signe sans repli déclaré (ARTICLES_EN_ATTENTE)
+  ...['articles', 'en/articles'].flatMap((d) => fs.readdirSync(path.join(RACINE, d))
+    .filter((f) => f.endsWith('.html') && !ARTICLES_EN_ATTENTE[`${d}/${f}`]).map((f) => `${d}/${f}`)),
   // l'hindi : sa DEVANAGARI doit sortir de Noto Sans Devanagari LDH, jamais
   // d'une police du système. Restreint à cette écriture : ces pages portent
-  // aussi le thaï de la rangée des langues et des flèches, hors des polices
-  // déclarées partout sur le site (les 824 pages ci-dessus).
+  // aussi le thaï de la rangée des langues, qui n'a pas encore de repli
+  // déclaré.
   ...['', 'book/', 'lexicon/', 'works/', 'tools/', 'support/'].map((p) => [`hi/${p}index.html`, /[\u0900-\u097F\u1CD0-\u1CF9\uA830-\uA839\uA8E0-\uA8FF]/u]),
 ];
 const FEUILLES = ['assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css', 'assets/fonts.css'];
@@ -79,14 +92,12 @@ function rendu(cp, graisse) {
 }
 
 // ---- le texte d'une page ----------------------------------------------------
-// Pour un article : son texte seul, du titre à la fin du corps — le gabarit
-// commun (« ← Retour aux articles », « ← Précédent ») porte une flèche que
-// Barlow hébergée n'a pas, comme les 824 pages hors périmètre : c'est l'autre
-// chantier. Pour une autre page : tout le <body>.
+// Tout le <body> : depuis que le repli porte les flèches ← → ↔ (2026-10-04),
+// le gabarit des articles (« ← Retour aux articles », « Suivant → ») tient
+// aussi.
 const ENTITES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
 function texte(html) {
-  const a = html.indexOf('<h1 class="article-title"'), b = html.indexOf('<a class="article-back-bottom"');
-  const corps = a >= 0 && b > a ? html.slice(a, b) : html.slice(html.indexOf('<body'));
+  const corps = html.slice(html.indexOf('<body'));
   return corps
     .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ')  // le texte des figures SVG en ligne compte
     .replace(/<!--[\s\S]*?-->/g, ' ')
