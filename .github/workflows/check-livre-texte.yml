@@ -1,0 +1,55 @@
+name: Livre en HTML — le texte publié est celui du PDF
+
+# - depot : tools/check_livre_texte.py sur les chapitres du dépôt — le texte
+#   de chaque page HTML est celui du PDF, page par page, dans l'ordre du
+#   livre ; Poppler, second moteur, y lit les mêmes caractères ; légende =
+#   alt ; numéros imprimés ; césures toutes décidées. Puis --essai : un mot
+#   retiré d'une page fait échouer le contrôle. Puis les chapitres, la liste
+#   des chapitres de fr/livre/ et docs/livre-html-relecture-*.md sont à jour
+#   de leurs sources (tools/livre_html.py --verifie).
+# - site : le même test d'identité sur les pages SERVIES par
+#   https://anibal-amiot.com, après chaque déploiement de main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  depot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      # la version de MuPDF fixe l'extraction : la changer, c'est relancer
+      # tools/livre_html.py et relire le diff des chapitres
+      - run: pip install pymupdf==1.28.2
+      - run: python3 tools/check_livre_texte.py
+      - run: python3 tools/check_livre_texte.py --essai
+      - run: python3 tools/livre_html.py fr --verifie
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y poppler-utils
+      - run: pip install pymupdf==1.28.2
+      # laisser à GitHub Pages le temps de publier ; le contrôle réessaie ensuite
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            python3 tools/check_livre_texte.py --base-url https://anibal-amiot.com && exit 0
+            sleep 60
+          done
+          exit 1

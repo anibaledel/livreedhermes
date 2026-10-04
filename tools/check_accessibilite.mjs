@@ -57,9 +57,14 @@ const articles = readdirSync(path.join(ROOT, 'articles'))
   .filter((f) => f.endsWith('.html'))
   .map((f) => `articles/${f}`)
   .sort();
+// Les chapitres du livre en HTML (tools/livre_html.py), toutes langues
+// publiées.
+const CHAPITRES = JSON.parse(readFileSync(path.join(ROOT, 'data/livre/chapitres.json'), 'utf8'))
+  .chapitres.flatMap((ch) => Object.values(ch).filter((m) => m && typeof m === 'object' && m.chemin).map((m) => m.chemin));
 const PAGES = [
   ...racine,
   ...articles,
+  ...CHAPITRES,
   'hexagrammes/',
   'hexagrammes/0-kun-le-receptif.html',
   'hexagrammes/63-qian-le-createur.html',
