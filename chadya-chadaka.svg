@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 996 424" width="996" height="424" role="img" aria-label="Deux trames de periode deux superposees donnant un carre pandiagonal d ordre 4 dont toute droite fait 34">
+<style>
+  text{font-family:Georgia,'Times New Roman',serif;fill:#23232b}
+  .t{font-size:19px;text-anchor:middle;font-style:italic}
+  .s{font-size:13.5px;text-anchor:middle;fill:#5a5a62}
+  .n{font-size:19px;text-anchor:middle}
+  .op{font-size:27px;text-anchor:middle}
+  .f{font-size:16px;text-anchor:middle;font-style:italic}
+</style>
+<rect width="996" height="424" fill="#efeae0"/>
+<text x="162.0" y="62" class="t">chādaka — le couvrant</text>
+<text x="162.0" y="337" class="s">quatre valeurs, période 2</text>
+<rect x="46" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="75.0" y="115.0" class="n">0</text>
+<rect x="104" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="133.0" y="115.0" class="n">3</text>
+<rect x="162" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="191.0" y="115.0" class="n">0</text>
+<rect x="220" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="249.0" y="115.0" class="n">3</text>
+<rect x="46" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="75.0" y="173.0" class="n">1</text>
+<rect x="104" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="133.0" y="173.0" class="n">2</text>
+<rect x="162" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="191.0" y="173.0" class="n">1</text>
+<rect x="220" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="249.0" y="173.0" class="n">2</text>
+<rect x="46" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="75.0" y="231.0" class="n">3</text>
+<rect x="104" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="133.0" y="231.0" class="n">0</text>
+<rect x="162" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="191.0" y="231.0" class="n">3</text>
+<rect x="220" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="249.0" y="231.0" class="n">0</text>
+<rect x="46" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="75.0" y="289.0" class="n">2</text>
+<rect x="104" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="133.0" y="289.0" class="n">1</text>
+<rect x="162" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="191.0" y="289.0" class="n">2</text>
+<rect x="220" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="249.0" y="289.0" class="n">1</text>
+<text x="498.0" y="62" class="t">chādya — le couvert</text>
+<text x="498.0" y="337" class="s">quatre valeurs, période 2</text>
+<rect x="382" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="411.0" y="115.0" class="n">0</text>
+<rect x="440" y="80" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="469.0" y="115.0" class="n">1</text>
+<rect x="498" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="527.0" y="115.0" class="n">3</text>
+<rect x="556" y="80" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="585.0" y="115.0" class="n">2</text>
+<rect x="382" y="138" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="411.0" y="173.0" class="n">3</text>
+<rect x="440" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="469.0" y="173.0" class="n">2</text>
+<rect x="498" y="138" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="527.0" y="173.0" class="n">0</text>
+<rect x="556" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="585.0" y="173.0" class="n">1</text>
+<rect x="382" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="411.0" y="231.0" class="n">0</text>
+<rect x="440" y="196" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="469.0" y="231.0" class="n">1</text>
+<rect x="498" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="527.0" y="231.0" class="n">3</text>
+<rect x="556" y="196" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="585.0" y="231.0" class="n">2</text>
+<rect x="382" y="254" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+<text x="411.0" y="289.0" class="n">3</text>
+<rect x="440" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+<text x="469.0" y="289.0" class="n">2</text>
+<rect x="498" y="254" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+<text x="527.0" y="289.0" class="n">0</text>
+<rect x="556" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+<text x="585.0" y="289.0" class="n">1</text>
+<text x="834.0" y="62" class="t">bhadra</text>
+<text x="834.0" y="337" class="s">1 à 16 — toute droite fait 34</text>
+<rect x="718" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="747.0" y="115.0" class="n">1</text>
+<rect x="776" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="805.0" y="115.0" class="n">14</text>
+<rect x="834" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="863.0" y="115.0" class="n">4</text>
+<rect x="892" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="921.0" y="115.0" class="n">15</text>
+<rect x="718" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="747.0" y="173.0" class="n">8</text>
+<rect x="776" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="805.0" y="173.0" class="n">11</text>
+<rect x="834" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="863.0" y="173.0" class="n">5</text>
+<rect x="892" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="921.0" y="173.0" class="n">10</text>
+<rect x="718" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="747.0" y="231.0" class="n">13</text>
+<rect x="776" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="805.0" y="231.0" class="n">2</text>
+<rect x="834" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="863.0" y="231.0" class="n">16</text>
+<rect x="892" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="921.0" y="231.0" class="n">3</text>
+<rect x="718" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="747.0" y="289.0" class="n">12</text>
+<rect x="776" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="805.0" y="289.0" class="n">7</text>
+<rect x="834" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="863.0" y="289.0" class="n">9</text>
+<rect x="892" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+<text x="921.0" y="289.0" class="n">6</text>
+<text x="330.0" y="205.0" class="op">×4  +</text>
+<text x="666.0" y="205.0" class="op">+1  =</text>
+<text x="498.0" y="384" class="f">bhadra = 4 × chādaka + chādya + 1 — les seize couples sont distincts</text>
+</svg>
