@@ -32,6 +32,11 @@
 
 import { chromium } from 'playwright';
 import { createRequire } from 'node:module';
+// Les pages des langues ajoutées (sans les 64 hexagrammes : zh, ru, pt…),
+// tirées de scripts/langues.js — une langue déclarée là entre ici d'elle-même.
+const { LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
+const PAGES_LANGUES_AJOUTEES = Object.values(DECLAREES).filter((l) => !l.hexagrammes)
+  .flatMap((l) => ['accueil', 'livre', 'lexique', 'travaux', 'outils', 'soutien'].map((g) => l.pages[g]).filter((p) => p !== undefined));
 
 const args = process.argv.slice(2);
 const baseUrlIdx = args.indexOf('--base-url');
@@ -69,8 +74,6 @@ const PAGES = [
   { path: 'en/lexicon/' },
   { path: 'es/lexico/' },
   { path: 'th/lexicon/' },
-  { path: 'zh/lexicon/' },
-  { path: 'ru/lexicon/' },
   // ── accueils traduits et pages de recherche (zone : l'interface Pagefind) ──
   { path: 'en/' },
   { path: 'en/articles/' },
@@ -79,16 +82,7 @@ const PAGES = [
   { path: 'es/' },
   { path: 'th/' },
   // ── chinois simplifié et russe (lot « six langues ») ──
-  { path: 'zh/' },
-  { path: 'zh/book/' },
-  { path: 'zh/works/' },
-  { path: 'zh/tools/' },
-  { path: 'zh/support/' },
-  { path: 'ru/' },
-  { path: 'ru/book/' },
-  { path: 'ru/works/' },
-  { path: 'ru/tools/' },
-  { path: 'ru/support/' },
+  ...PAGES_LANGUES_AJOUTEES.map((path) => ({ path })),
   { path: 'recherche.html', zone: '#recherche' },
   { path: 'en/search/', zone: '#recherche' },
   { path: 'es/buscar/', zone: '#recherche' },

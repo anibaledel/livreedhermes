@@ -6,28 +6,32 @@
       "fr": "Le livre",
       "en": "The book",
       "zh": "本书",
-      "ru": "Книга"
+      "ru": "Книга",
+      "pt": "O livro"
     },
     {
       "id": "prepublications",
       "fr": "Prépublications et notes",
       "en": "Preprints and notes",
       "zh": "预印本与笔记",
-      "ru": "Препринты и заметки"
+      "ru": "Препринты и заметки",
+      "pt": "Pré-publicações e notas"
     },
     {
       "id": "donnees",
       "fr": "Données et code",
       "en": "Data and code",
       "zh": "数据与代码",
-      "ru": "Данные и код"
+      "ru": "Данные и код",
+      "pt": "Dados e código"
     },
     {
       "id": "rapports",
       "fr": "Comptes rendus",
       "en": "Reports",
       "zh": "进展报告",
-      "ru": "Отчёты"
+      "ru": "Отчёты",
+      "pt": "Relatórios"
     }
   ],
   "depots": [
@@ -49,7 +53,8 @@
       "version": "v2",
       "premiere": "2026-09-12",
       "zh": "一部共 111 幅图版的数形学论著，有法文、英文、西班牙文和泰文版本：依据磬折形法则构造幻方，并将其转写为提花织机的图案。",
-      "ru": "Трактат по арифмогеометрии в 111 таблицах на французском, английском, испанском и тайском: магические квадраты, построенные по закону гномона, и их перевод в узоры для жаккардового станка."
+      "ru": "Трактат по арифмогеометрии в 111 таблицах на французском, английском, испанском и тайском: магические квадраты, построенные по закону гномона, и их перевод в узоры для жаккардового станка.",
+      "pt": "Um tratado de aritmogeometria em 111 pranchas, em quatro línguas: os quadrados mágicos construídos pela lei do gnómon, e a sua transcrição em padrões para o tear Jacquard."
     },
     {
       "section": "prepublications",
@@ -70,7 +75,8 @@
       "fr": "Prépublication de travail : pour toute hauteur h assez grande, la colonne des coefficients qui comptent les arbres binaires plans de hauteur exacte h est strictement log-concave sur tout son intérieur. Confirmé par calcul exact jusqu'à h = 16 ; pas encore relu par un spécialiste.",
       "en": "Working preprint: for every sufficiently large height h, the coefficient column counting plane binary trees of exact height h is strictly log-concave on its whole interior. Confirmed by exact computation up to h = 16; not yet read by a specialist.",
       "zh": "工作预印本：对任意足够大的高度 h，计数恰好高度为 h 的平面二叉树的系数列在其整个内部严格对数凹。已通过精确计算验证至 h = 16；尚未经专家审读。",
-      "ru": "Рабочий препринт: для любой достаточно большой высоты h столбец коэффициентов, считающих плоские бинарные деревья точной высоты h, строго логарифмически вогнут на всей своей внутренности. Подтверждено точным вычислением до h = 16; специалистом ещё не прочитано."
+      "ru": "Рабочий препринт: для любой достаточно большой высоты h столбец коэффициентов, считающих плоские бинарные деревья точной высоты h, строго логарифмически вогнут на всей своей внутренности. Подтверждено точным вычислением до h = 16; специалистом ещё не прочитано.",
+      "pt": "Pré-publicação de trabalho: para toda a altura h suficientemente grande, a coluna de coeficientes que conta as árvores binárias planas de altura exata h é estritamente log-côncava em todo o seu interior. Confirmado por cálculo exato até h = 16; ainda não lido por um especialista."
     },
     {
       "section": "prepublications",
@@ -91,7 +97,8 @@
       "fr": "Quatre papiers de travail sur la multiplication par 2 dans Z/nZ, x identifié à −x, pour tout n : structure des cycles, synchronisation 2-adique, relèvement 2-adique, et dénombrement des sous-ensembles stables par doublement. C'est le doublement qui engendre le vocabulaire d'axes du livre (n = 12).",
       "en": "Four working papers on multiplication by 2 in Z/nZ after identifying x with −x, for every n: cycle structure, 2-adic synchronization, 2-adic lifting, and the enumeration of subsets closed under doubling. This doubling generates the vocabulary of axes of the book (n = 12).",
       "zh": "四篇工作论文，研究在 Z/nZ 中把 x 与 −x 等同之后乘以 2 的运算，适用于任意 n：循环结构、2 进同步、2 进提升，以及在倍乘下封闭的子集的计数。正是这种倍乘生成了本书的轴词汇（n = 12）。",
-      "ru": "Четыре рабочие статьи об умножении на 2 в Z/nZ после отождествления x с −x, для любого n: структура циклов, 2-адическая синхронизация, 2-адический подъём и перечисление подмножеств, замкнутых относительно удвоения. Именно это удвоение порождает словарь осей книги (n = 12)."
+      "ru": "Четыре рабочие статьи об умножении на 2 в Z/nZ после отождествления x с −x, для любого n: структура циклов, 2-адическая синхронизация, 2-адический подъём и перечисление подмножеств, замкнутых относительно удвоения. Именно это удвоение порождает словарь осей книги (n = 12).",
+      "pt": "Quatro notas de trabalho sobre a multiplicação por 2 em Z/nZ, após identificar x com −x, para todo o n: estrutura dos ciclos, sincronização 2-ádica, levantamento 2-ádico e a enumeração dos subconjuntos fechados pela duplicação. Esta duplicação gera o vocabulário de eixos do livro (n = 12)."
     },
     {
       "section": "prepublications",
@@ -113,7 +120,8 @@
       "fr": "Les trois descriptions du système de motifs (axes, images du métier, lignes de niveau d'un mode propre de plaque carrée) présentent une seule structure finie, vérifiée exhaustivement sur les soixante images publiées.",
       "en": "The three descriptions of the pattern system (axes, loom images, level sets of a square-plate eigenmode) present one finite structure, checked exhaustively on the sixty published images.",
       "zh": "图案体系的三种描述（轴、织机图像、方形板本征模态的等值线）呈现的是同一个有限结构，已在已发布的六十幅图像上穷举验证。",
-      "ru": "Три описания системы узоров (оси, изображения ткацкого станка, линии уровня собственной моды квадратной пластины) представляют одну конечную структуру, исчерпывающе проверенную на шестидесяти опубликованных изображениях."
+      "ru": "Три описания системы узоров (оси, изображения ткацкого станка, линии уровня собственной моды квадратной пластины) представляют одну конечную структуру, исчерпывающе проверенную на шестидесяти опубликованных изображениях.",
+      "pt": "As três descrições do sistema de padrões (eixos, imagens do tear, conjuntos de nível de um modo próprio da placa quadrada) apresentam uma única estrutura finita, verificada exaustivamente nas sessenta imagens publicadas."
     },
     {
       "section": "prepublications",
@@ -131,7 +139,8 @@
       "fr": "Le vocabulaire d'axes engendré par un doublement inverse (note [A]), et son identification aux lignes de niveau d'un mode propre de plaque carrée (note [P]).",
       "en": "The vocabulary of axes generated by an inverse doubling (note [A]), and its identification with the level sets of a square-plate eigenmode (note [P]).",
       "zh": "由逆倍乘生成的轴词汇（笔记 [A]），以及它与方形板本征模态等值线的等同（笔记 [P]）。",
-      "ru": "Словарь осей, порождённый обратным удвоением (заметка [A]), и его отождествление с линиями уровня собственной моды квадратной пластины (заметка [P])."
+      "ru": "Словарь осей, порождённый обратным удвоением (заметка [A]), и его отождествление с линиями уровня собственной моды квадратной пластины (заметка [P]).",
+      "pt": "O vocabulário de eixos gerado por uma duplicação inversa (nota [A]), e a sua identificação com os conjuntos de nível de um modo próprio da placa quadrada (nota [P])."
     },
     {
       "section": "prepublications",
@@ -152,7 +161,8 @@
       "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly.",
       "versionDoi": "10.5281/zenodo.22986645",
       "zh": "奇偶性规则在莫尔纹理论中处于什么位置，以及说得太快时哪些说法会变得不成立。",
-      "ru": "Где правило чётности располагается в теории муара и что в нём оказывается ложным, если формулировать его слишком поспешно."
+      "ru": "Где правило чётности располагается в теории муара и что в нём оказывается ложным, если формулировать его слишком поспешно.",
+      "pt": "Onde se situa a regra de paridade na teoria do moiré, e o que se torna falso quando é enunciada depressa demais."
     },
     {
       "section": "donnees",
@@ -173,7 +183,8 @@
       "fr": "Les termes P_n(1) pour n = 1 à 200 et le programme qui les calcule : le nombre de sous-ensembles de Z/nZ stables par négation et par doublement.",
       "en": "The terms P_n(1) for n = 1 to 200 and the program that computes them: the number of subsets of Z/nZ closed under negation and doubling.",
       "zh": "n = 1 至 200 的项 P_n(1) 及计算它们的程序：Z/nZ 中在取负和倍乘下封闭的子集的个数。",
-      "ru": "Члены P_n(1) для n от 1 до 200 и вычисляющая их программа: число подмножеств Z/nZ, замкнутых относительно смены знака и удвоения."
+      "ru": "Члены P_n(1) для n от 1 до 200 и вычисляющая их программа: число подмножеств Z/nZ, замкнутых относительно смены знака и удвоения.",
+      "pt": "Os termos P_n(1) para n = 1 a 200 e o programa que os calcula: o número de subconjuntos de Z/nZ fechados pela negação e pela duplicação."
     },
     {
       "section": "donnees",
@@ -191,7 +202,8 @@
       "titreZenodo": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids",
       "licence": "AGPL v3",
       "zh": "关于 12 × 12 网格那篇论文的数据与脚本，该论文已投稿至 Journal of Mathematics and the Arts。",
-      "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts."
+      "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts.",
+      "pt": "Dados e scripts do artigo sobre as grelhas de 12 × 12, submetido ao Journal of Mathematics and the Arts."
     },
     {
       "section": "donnees",
@@ -208,7 +220,8 @@
       "en": "Scripts and data of the paper on the ansate cross, submitted to Mathematics Magazine: the 256 order-6 magic squares, the 64 order-12 assemblies and the exhaustive enumeration of admissible colourings.",
       "licence": "AGPL v3",
       "zh": "关于安卡十字那篇论文的脚本与数据，该论文已投稿至 Mathematics Magazine：256 个 6 阶幻方、64 个 12 阶组合，以及对全部可行着色的穷举。",
-      "ru": "Скрипты и данные статьи о кресте с петлёй, поданной в Mathematics Magazine: 256 магических квадратов порядка 6, 64 сборки порядка 12 и исчерпывающий перебор допустимых раскрасок."
+      "ru": "Скрипты и данные статьи о кресте с петлёй, поданной в Mathematics Magazine: 256 магических квадратов порядка 6, 64 сборки порядка 12 и исчерпывающий перебор допустимых раскрасок.",
+      "pt": "Scripts e dados do artigo sobre a cruz ansada, submetido à Mathematics Magazine: os 256 quadrados mágicos de ordem 6, as 64 montagens de ordem 12 e a enumeração exaustiva das colorações admissíveis."
     },
     {
       "section": "donnees",
@@ -219,7 +232,8 @@
       "fr": "Le dépôt courant du site et de ses scripts de vérification.",
       "en": "The live repository of the site and its verification scripts.",
       "zh": "本网站及其验证脚本的现行代码仓库。",
-      "ru": "Действующий репозиторий сайта и его скриптов проверки."
+      "ru": "Действующий репозиторий сайта и его скриптов проверки.",
+      "pt": "O repositório vivo do site e os seus scripts de verificação."
     },
     {
       "section": "rapports",
@@ -236,7 +250,8 @@
       "en": "State of the work, in English with a French version: two papers under review, the deposited notes, twelve theorems stated plainly.",
       "licence": "CC BY 4.0",
       "zh": "工作进展报告，以英文撰写并附法文版：两篇论文在评审中、已存档的笔记、十二条用平实语言陈述的定理。",
-      "ru": "Состояние работы, на английском с французской версией: две статьи на рецензировании, депонированные заметки, двенадцать теорем, изложенных простыми словами."
+      "ru": "Состояние работы, на английском с французской версией: две статьи на рецензировании, депонированные заметки, двенадцать теорем, изложенных простыми словами.",
+      "pt": "Estado do trabalho, em inglês com uma versão francesa: dois artigos em avaliação, as notas depositadas, doze teoremas enunciados com simplicidade."
     }
   ]
 }

@@ -10,6 +10,11 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #     porte la langue annoncée (zh-Hans, pas zh) — le piège de #137, mesuré ;
 #   - build-couverture.js --verifie : la phrase qui dit ce qui existe dans quelle
 #     langue est calculée, pas écrite ;
+#   - build-langues.js --verifie : les barres de drapeaux, la visionneuse, les
+#     pages du livre, les cartes des éditions, sitemap-pdf.xml et llms.txt sont
+#     engendrés depuis scripts/langues.js et l'état CALCULÉ du livre dans
+#     chaque langue (scripts/livres.js) — déposer un PDF et ses pages suffit à
+#     faire passer une langue de « en préparation » à « parue », partout ;
 #   - check_doi_licences.mjs : CC BY 4.0 sur les seules listes de dépôts, DOI et
 #     BY-NC sur chaque page ajoutée ;
 #   - check_police_zh.mjs : la police chinoise hébergée couvre chaque caractère
@@ -38,6 +43,7 @@ jobs:
       - run: node tools/check_glossaire.mjs
       - run: node tools/compte_hreflang.mjs
       - run: node scripts/build-couverture.js --verifie
+      - run: node scripts/build-langues.js --verifie
       - run: node tools/check_doi_licences.mjs
       - run: node tools/check_police_zh.mjs
       - run: node scripts/generate-sitemap.js

@@ -26,8 +26,8 @@ JavaScript en ligne. Ce qui est partagé entre plusieurs pages vit dans
 ├── soutenir.html, soutien-succes.html   soutien à prix libre (un don) et retour de paiement
 ├── pro.html, pro-contenu.html        redirections conservées (l'ancien palier Pro n'existe plus)
 ├── encodeur.html                    SecuBox : stéganographie et chiffrement
-├── book-viewer/                     liseuse du livre + PDF (fr, en, es, th)
-├── fr/livre/, en/book/, es/libro/, th/book/       pages de vente du livre
+├── book-viewer/                     liseuse du livre + PDF, une édition par langue (scripts/livres.js)
+├── fr/livre/, en/book/, … pt/book/ pages du livre, une par langue (scripts/langues.js ; docs/ajouter-une-langue.md)
 ├── assets/                          images, motifs, polices (assets/fonts/), JS partagé
 ├── data/                            référents géométriques 256 et 360
 ├── scripts/                         génération hors ligne (Node)
@@ -135,8 +135,9 @@ langue, jamais deux. C'est la règle du un-pour-un d'un bloc `hreflang` écrite
 dans la forme des données — une page française ne peut pas avoir deux
 équivalents anglais, parce qu'un groupe ne peut pas porter deux fois `en`.
 
-Un seul groupe existe aujourd'hui, le livre : `fr/livre/`, `en/book/`,
-`es/libro/`, `th/book/`. Les pages hors groupe n'existent qu'en français et ne
+Les groupes (le livre, les accueils, les lexiques…) sont tirés des pages que
+chaque langue déclare dans `scripts/langues.js` ; ajouter une langue :
+`docs/ajouter-une-langue.md`. Les pages hors groupe n'existent qu'en français et ne
 portent aucun `hreflang` — déclarer un équivalent qui n'existe pas est une
 affirmation fausse. Ce n'est pas une consigne mais une propriété du
 générateur : `build-header.js` retire tout `hreflang` de chaque page du

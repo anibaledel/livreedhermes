@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentas — La Livrée d'Hermès</title>
+<meta name="description" content="As ferramentas interativas de La Livrée d'Hermès: compor, ver, imprimir, codificar. As próprias ferramentas funcionam em francês.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/pt/tools/">
+<meta property="og:title" content="Ferramentas — La Livrée d'Hermès">
+<meta property="og:description" content="As ferramentas interativas de La Livrée d'Hermès: compor, ver, imprimir, codificar. As próprias ferramentas funcionam em francês.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/pt/tools/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ferramentas — La Livrée d'Hermès">
+<meta name="twitter:description" content="As ferramentas interativas de La Livrée d'Hermès: compor, ver, imprimir, codificar. As próprias ferramentas funcionam em francês.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://anibal-amiot.com/pt/tools/#page",
+      "name": "Ferramentas — La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/pt/tools/",
+      "inLanguage": "pt-PT",
+      "description": "As ferramentas interativas de La Livrée d'Hermès: compor, ver, imprimir, codificar. As próprias ferramentas funcionam em francês.",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "hasPart": [
+        { "@type": "WebApplication", "name": "Criar um padrão", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-motifs-yi-king.html" },
+        { "@type": "WebApplication", "name": "Unified Patterns", "inLanguage": "fr", "url": "https://anibal-amiot.com/unified-patterns.html" },
+        { "@type": "WebApplication", "name": "Galeria", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-patterns-unifies.html" },
+        { "@type": "WebApplication", "name": "Galeria bicolor", "inLanguage": "fr", "url": "https://anibal-amiot.com/galerie-bicolore.html" },
+        { "@type": "WebApplication", "name": "Padrões SVG", "inLanguage": "fr", "url": "https://anibal-amiot.com/telechargements.html" },
+        { "@type": "WebApplication", "name": "Padrões bicolores", "inLanguage": "fr", "url": "https://anibal-amiot.com/bicolore.html" },
+        { "@type": "WebApplication", "name": "Padrões bicolores v2", "inLanguage": "fr", "url": "https://anibal-amiot.com/creation-bicolore-v2.html" },
+        { "@type": "WebApplication", "name": "Cimática", "inLanguage": "fr", "url": "https://anibal-amiot.com/cymatique.html" },
+        { "@type": "WebApplication", "name": "Fundos de ecrã", "inLanguage": "fr", "url": "https://anibal-amiot.com/fonds-ecran.html" },
+        { "@type": "WebApplication", "name": "Impressão", "inLanguage": "fr", "url": "https://anibal-amiot.com/impression.html" },
+        { "@type": "WebApplication", "name": "Codificador", "inLanguage": "fr", "url": "https://anibal-amiot.com/encodeur.html" }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://anibal-amiot.com/pt/" },
+    { "@type": "ListItem", "position": 2, "name": "Ferramentas", "item": "https://anibal-amiot.com/pt/tools/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .tools-body{ padding:24px 0 8px; }
+
+  .article-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;
+    max-width:1120px; margin:0 auto;
+  }
+  .article-card{
+    display:flex; flex-direction:column; height:280px;
+    border:1px solid var(--line); text-decoration:none; color:inherit;
+    overflow:hidden; transition:border-color .12s ease;
+  }
+  .article-card:hover{ border-color:var(--gold); }
+  .article-card:hover h2{ color:var(--gold); }
+  .article-cover{ width:100%; height:100px; object-fit:contain; background:var(--panel); padding:14px; display:block; border-bottom:1px solid var(--line); flex-shrink:0; }
+  .article-card-body{ padding:12px 16px; display:flex; flex-direction:column; flex:1; min-height:0; }
+  .article-card h2{ font-size:calc(15.5px + var(--fs-bump)); font-weight:400; margin:0 0 8px; line-height:1.25; color:var(--white); }
+  .article-excerpt{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.55; margin:0; flex:1; min-height:0; }
+
+  @media (max-width:1099px){ .article-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:699px){
+    .article-grid{ grid-template-columns:1fr; }
+    .article-card{ height:auto; min-height:200px; }
+  }
+
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+  }
+  .tool-lang{ display:block; margin-top:8px; color:var(--gold); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.04em; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/outils.html">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/tools/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/tools/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/tools/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Ir para o conteúdo</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-27-outils.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Navegação estrutural">
+      <a href="https://anibal-amiot.com/pt/">Início</a><span class="sep">/</span><span aria-current="page">Ferramentas</span>
+    </nav>
+    <h1>Ferramentas</h1>
+    <p>As ferramentas interativas de <i>La Livrée d'Hermès</i>: compor, ver, imprimir, codificar. As próprias ferramentas funcionam em francês.</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Outras línguas: <a href="https://anibal-amiot.com/outils.html">Français</a> · <a href="https://anibal-amiot.com/zh/tools/">简体中文</a> · <a href="https://anibal-amiot.com/ru/tools/">Русский</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="tools-body">
+    <div class="article-grid">
+      <a class="article-card" href="https://anibal-amiot.com/creation-motifs-yi-king.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/creation-motifs.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Criar um padrão</h2>
+          <p class="article-excerpt">Componha os seus próprios padrões têxteis a partir das 60 figuras do I Ching.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/unified-patterns.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/unified-patterns.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Unified Patterns</h2>
+          <p class="article-excerpt">Os 64 padrões dos hexagramas, personalizáveis e descarregáveis em alta resolução.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-patterns-unifies.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/galerie.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Galeria</h2>
+          <p class="article-excerpt">Padrões unificados, gerados pela mistura de tons. Escolha um padrão para ver a sua pavimentação.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/galerie-bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Galeria bicolor</h2>
+          <p class="article-excerpt">142 padrões bicolores gerados pelos eixos e fechados sobre o cubo. Escolha um padrão para ver a sua pavimentação.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/telechargements.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/motifs-svg.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Padrões SVG</h2>
+          <p class="article-excerpt">Descarregue as camadas de impressão em SVG, em 4 categorias de combinações de linhas.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/bicolore.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Padrões bicolores</h2>
+          <p class="article-excerpt">Componha uma célula 12×12, linha a linha, a partir de 15 famílias bicolores.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/creation-bicolore-v2.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/bicolore.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Padrões bicolores v2</h2>
+          <p class="article-excerpt">A segunda divisão das diagonais (YA/AY): ângulos, elementos, estados de meio-deslocamento — ao lado da ferramenta v1.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/cymatique.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/cymatique.png" alt="" width="128" height="128">
+        <div class="article-card-body">
+          <h2>Cimática</h2>
+          <p class="article-excerpt">A pavimentação cuja frequência espacial mais se aproxima do som que emite.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/fonds-ecran.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/fond-ecran.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Fundos de ecrã</h2>
+          <p class="article-excerpt">Fundos de ecrã têxteis em ecrã inteiro: reagem ao som ou funcionam em modo meditativo, com ritmo ajustável.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/impression.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/impression.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Impressão</h2>
+          <p class="article-excerpt">Gere e descarregue as camadas de impressão, prontas a imprimir.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+      <a class="article-card" href="https://anibal-amiot.com/encodeur.html" hreflang="fr">
+        <img class="article-cover" src="../../assets/nav-icons/encodeur.png" alt="" width="128" height="128" loading="lazy">
+        <div class="article-card-body">
+          <h2>Codificador</h2>
+          <p class="article-excerpt">Codificação esteganográfica geométrica por duplo referente, cruz ansada e Jacquard.</p>
+          <span class="tool-lang">Abrir (em francês) →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</main>
+</div>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Rodapé">
+    <a href="../../pt/">Início</a>
+    <a href="../../pt/book/">O tratado</a>
+    <a href="../../pt/lexicon/">Léxico</a>
+    <a href="../../pt/works/">Trabalhos</a>
+    <a href="../../pt/tools/">Ferramentas</a>
+    <a href="../../en/hexagrams/" hreflang="en">Hexagramas (em inglês)</a>
+    <a href="../../motifs/" hreflang="en">Padrões (em inglês)</a>
+    <a href="../../profil.html" hreflang="fr">Sobre o autor (em francês)</a>
+    <a href="../../contact.html" hreflang="fr">Contacto</a>
+    <a href="../../pt/support/">Apoiar o projeto</a>
+  </nav>
+  <p class="site-footer-licence">
+    Conteúdos sob <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · código sob AGPL v3, licença comercial a pedido
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

@@ -17,6 +17,7 @@
      n'est pas désindexée), mais son canonical pointe vers la version FR pour
      éviter le contenu dupliqué détecté par l'audit. -->
 <link rel="canonical" href="https://anibal-amiot.com/fr/livre/">
+<!-- @livre-jsonld:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -77,6 +78,7 @@
   ]
 }
 </script>
+<!-- @livre-jsonld:end -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="La Livrée d'Hermès — Le Livre | Anibal Amiot">
 <meta name="twitter:description" content="Lisez La Livrée d'Hermès en ligne, le livre d'arithmogéométrie d'Anibal Amiot, page par page en français, anglais, espagnol, thaï, chinois et russe, avec téléchargement du PDF.">
@@ -221,14 +223,17 @@
 // ---------- pages disponibles (même pagination pour les 4 langues prêtes : FR/EN/ES/TH) ----------
 const PAGE_CODES = ["000A","000B","001","002","003","004A","004B","004C","005","006","007","008A","008B","008C","009","010","011","012A","012B","012C","013","014","015","016","017","018A","018B","018C","019","020","021","022","023","024A","024B","024C","025","026","027","028A","028B","028C","029","030","031","032","033","034","035","036","037","038A","038B","038C","039","040","041","042","043","044","045","046","047","048","049","050","051","052","053","054","055","056","057","058","059","060","061","062A","062B","062C","063","064","065","066","067","068","069","070","071","072","073","074","075","076A","077","078","079","080","081","082","083","084","085","086","087","088","089","090","091","092","093"];
 
+// @langues:start — engendré par scripts/build-langues.js, ne pas éditer ici
 const LANGS = {
   fr: { label: 'Français', pages: PAGE_CODES, ready: true },
-  en: { label: 'English',  pages: PAGE_CODES, ready: true },
-  es: { label: 'Español',  pages: PAGE_CODES, ready: true },
-  th: { label: 'ไทย',      pages: PAGE_CODES, ready: true },
-  zh: { label: '中文',      pages: PAGE_CODES, ready: true },
-  ru: { label: 'Русский',  pages: PAGE_CODES, ready: true },
+  en: { label: 'English', pages: PAGE_CODES, ready: true },
+  es: { label: 'Español', pages: PAGE_CODES, ready: true },
+  th: { label: 'ไทย', pages: PAGE_CODES, ready: true },
+  zh: { label: '简体中文', pages: PAGE_CODES, ready: true },
+  ru: { label: 'Русский', pages: PAGE_CODES, ready: true },
+  pt: { label: 'Português', pages: PAGE_CODES, ready: false },
 };
+// @langues:end
 
 let currentLang = 'fr';
 let currentIndex = 0;
@@ -322,12 +327,17 @@ document.getElementById('hintText').textContent = isTouchDevice
 // canonique par langue, sauf quand on arrive via ?read= (lien "Lire le
 // livre en ligne" déjà envoyé depuis la page canonique elle-même — ne pas
 // rediriger dans ce cas, sous peine de boucle). ----------
+// @canoniques:start — engendré par scripts/build-langues.js, ne pas éditer ici
 const CANONICAL_BY_LANG = {
   fr: 'https://anibal-amiot.com/fr/livre/',
   en: 'https://anibal-amiot.com/en/book/',
   es: 'https://anibal-amiot.com/es/libro/',
   th: 'https://anibal-amiot.com/th/book/',
+  zh: 'https://anibal-amiot.com/zh/book/',
+  ru: 'https://anibal-amiot.com/ru/book/',
+  pt: 'https://anibal-amiot.com/pt/book/',
 };
+// @canoniques:end
 
 // ---------- init depuis l'URL ----------
 (function initFromURL(){

@@ -5,12 +5,12 @@
 // check_six_langues.mjs — les vérifications du lot « six langues » qui
 // demandent un navigateur, sur un serveur local OU sur le site déployé :
 //
-//   1. le sélecteur de langue : sur chacun des six accueils, les six
-//      destinations (la page elle-même et les cinq de sa rangée) répondent
-//      200 — 36 vérifications, imprimées en tableau ;
+//   1. le sélecteur de langue : sur chacun des accueils (un par langue de
+//      scripts/langues.js), toutes les destinations (la page elle-même et
+//      celles de sa rangée) répondent 200 — N × N vérifications, en tableau ;
 //   3. <html lang> vaut zh-Hans sur les pages chinoises, et leurs hreflang
 //      disent zh-Hans, jamais « zh » seul ;
-//   8. la navigation tient à 390 px dans les six langues : ni défilement
+//   8. la navigation tient à 390 px dans toutes les langues : ni défilement
 //      horizontal de la page, ni lien de navigation (rangée de langues, pied,
 //      fil d'Ariane, boutons) qui déborde de l'écran.
 //
@@ -22,6 +22,7 @@
 // serveur local, elles sont réécrites vers --base-url.
 
 import { chromium } from 'playwright';
+import { createRequire } from 'node:module';
 
 const args = process.argv.slice(2);
 const i = args.indexOf('--base-url');
@@ -29,13 +30,15 @@ const BASE = (i >= 0 ? args[i + 1] : 'http://localhost:8123').replace(/\/$/, '')
 const SITE = 'https://anibal-amiot.com';
 const local = (u) => u.replace(SITE, BASE);
 
-const ACCUEILS = { fr: '/', en: '/en/', es: '/es/', th: '/th/', 'zh-Hans': '/zh/', ru: '/ru/' };
+// Les langues et leurs pages : scripts/langues.js (une langue ajoutée y entre d'elle-même).
+const { GROUPES, hreflangDeCode } = createRequire(import.meta.url)('../scripts/langues.js');
+const chemins = (nom, sauf = []) => GROUPES.find((g) => g.nom === nom).pages.filter(([c]) => !sauf.includes(c)).map(([, url]) => url.replace(SITE, ''));
+const ACCUEILS = Object.fromEntries(GROUPES.find((g) => g.nom === 'accueil').pages.map(([c, url]) => [hreflangDeCode(c), url.replace(SITE, '')]));
 const PAGES_390 = [
-  '/', '/en/', '/es/', '/th/', '/zh/', '/ru/',
-  '/fr/livre/', '/en/book/', '/es/libro/', '/th/book/', '/zh/book/', '/ru/book/',
-  '/lexique.html', '/en/lexicon/', '/es/lexico/', '/th/lexicon/', '/zh/lexicon/', '/ru/lexicon/',
-  '/zh/works/', '/ru/works/', '/zh/tools/', '/ru/tools/', '/zh/support/', '/ru/support/',
+  ...chemins('accueil'), ...chemins('livre'), ...chemins('lexique'),
+  ...chemins('travaux', ['fr', 'en']), ...chemins('outils', ['fr']), ...chemins('soutien', ['fr']),
 ];
+const N = Object.keys(ACCUEILS).length;
 const NAV = '.other-langs a, .site-footer-nav a, nav.breadcrumb a, .site-nav-row a, .home-cta a, .book-actions a';
 
 const navigateur = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
@@ -63,7 +66,7 @@ for (const [lang, chemin] of Object.entries(ACCUEILS)) {
     }
     if (d[2] !== 200) erreurs.push(`${chemin} → ${d[1]} : ${d[2]}`);
   }
-  if (destinations.length !== 6) erreurs.push(`${chemin} : ${destinations.length} destinations, 6 attendues`);
+  if (destinations.length !== N) erreurs.push(`${chemin} : ${destinations.length} destinations, ${N} attendues`);
   tableau.push([lang, destinations]);
 }
 console.log('| accueil | destination | statut |\n|---|---|---|');
@@ -101,4 +104,4 @@ if (erreurs.length) {
   for (const e of erreurs) console.error(`ÉCHEC ${e}`);
   process.exit(1);
 }
-console.log('\nSélecteur : 36 destinations en 200 ; zh-Hans partout ; navigation tenue à 390 px dans les six langues.');
+console.log(`\nSélecteur : ${N * N} destinations en 200 ; zh-Hans partout ; navigation tenue à 390 px dans les ${N} langues.`);
