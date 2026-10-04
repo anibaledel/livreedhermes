@@ -160,9 +160,9 @@
         <p id="soutienTexte" style="font-size:13.5px;line-height:1.7;margin:0 0 20px;"></p>
         <label for="soutienAmount" id="soutienMontantLabel" style="display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;"></label>
         <input type="number" id="soutienAmount" min="${MIN_AMOUNT_EUR}" step="1" value="${DEFAULT_AMOUNT_EUR}" style="width:100%;background:#050505;border:1px solid var(--line,#242424);color:var(--white,#f2f2f0);font-size:16px;padding:10px 12px;margin-bottom:8px;box-sizing:border-box;">
-        <div id="soutienError" style="color:var(--red,#e0261b);font-size:12px;min-height:16px;margin-bottom:12px;"></div>
+        <div id="soutienError" style="color:var(--red);font-size:12px;min-height:16px;margin-bottom:12px;"></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
-          <button type="button" id="soutienPayBtn" style="flex:1;border:1px solid var(--red,#e0261b);background:transparent;color:var(--red,#e0261b);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;"></button>
+          <button type="button" id="soutienPayBtn" style="flex:1;border:1px solid var(--red);background:transparent;color:var(--red);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;"></button>
           <button type="button" id="soutienCloseBtn" style="border:1px solid var(--line,#242424);background:transparent;color:var(--dim,#f2f2f0);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:12px 16px;cursor:pointer;"></button>
         </div>
       </div>

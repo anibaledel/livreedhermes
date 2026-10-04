@@ -9,9 +9,10 @@
 // Pinterest (window.fondsMotif.svgPinterest(), la fonction du bouton de la
 // page) est rastérisée par la page, et comparée pixel par pixel à l'image
 // servie. Les octets sont comparés aussi (même encodeur, pngDePixels).
-// Et AUCUN NOIR : une image dont la palette ne porte ni le noir #000000 ni
-// l'encre #23232b ne doit en contenir aucun pixel (le bicolore est rouge
-// et blanc ; un noir trahirait un rendu qui ne lit pas assets/couleurs.js).
+// Et AUCUN NOIR PUR : une image dont la palette ne porte pas le noir #000000
+// n'en contient aucun pixel (le bicolore est l'encre #23232b sur le crème,
+// pas un noir ; un #000000 trahirait un rendu qui ne lit pas
+// assets/couleurs.js) — ni d'encre, si sa palette ne la porte pas.
 //
 // Usage : CHROMIUM_PATH=… node tools/check_export_pinterest.mjs [base] [--code P] [--echantillon 8]
 //   base : https://anibal-amiot.com par défaut ; « local » sert le dépôt.
@@ -56,7 +57,7 @@ for (const l of echantillon) {
     await p.route('**/beacon.min.js', (r) => r.fulfill({ body: '', contentType: 'text/javascript' }));
     await p.goto(`${base}/${page}${requete}`, { waitUntil: 'networkidle' });
     await p.waitForFunction(() => window.fondsMotif && window.fondsMotif.etat);
-    const r = await p.evaluate(async ({ image, module }) => {
+    const r = await p.evaluate(async ({ image, module, palette }) => {
       const { svgEnPixels, pngDePixels } = await import(module);
       const etat = window.fondsMotif.etat();
       const pixels = await svgEnPixels(window.fondsMotif.svgPinterest(), 1000, 1500);
@@ -75,17 +76,17 @@ for (const l of echantillon) {
       let noirs = 0;
       for (let i = 0; i < servi.data.length; i += 4) {
         const [r, g, b] = [servi.data[i], servi.data[i + 1], servi.data[i + 2]];
-        if ((r === 0 && g === 0 && b === 0) || (r === 0x23 && g === 0x23 && b === 0x2b)) noirs++;
+        if ((r === 0 && g === 0 && b === 0 && !palette.includes('#000000')) || (r === 0x23 && g === 0x23 && b === 0x2b && !palette.includes('#23232b'))) noirs++;
       }
       return { statut: rep.status, code: etat.code, diff, memesOctets, noirs, taille: [servi.width, servi.height] };
-    }, { image: `${base}/assets/motifs-pinterest/${code}/${l.fichier}`, module: `${base}/assets/vue-fond-motif.js` });
+    }, { image: `${base}/assets/motifs-pinterest/${code}/${l.fichier}`, module: `${base}/assets/vue-fond-motif.js`, palette: collection.palette });
     await p.close();
     const ici = `${page} (${code}) ↔ ${code}/${l.fichier}`;
     if (r.statut !== 200) echecs.push(`${ici} : image servie en ${r.statut}`);
     else if (r.code !== code) echecs.push(`${ici} : la page a pris le fond ${r.code}`);
-    else if (r.noirs && !collection.palette.some((c) => ['#000000', '#23232b'].includes(c))) echecs.push(`${ici} : ${r.noirs} pixels noirs ou encre, absents de la palette ${collection.palette.join(' / ')}`);
+    else if (r.noirs) echecs.push(`${ici} : ${r.noirs} pixels noirs purs ou encre, absents de la palette ${collection.palette.join(' / ')}`);
     else if (r.diff !== 0) echecs.push(`${ici} : ${r.diff === -1 ? `taille ${r.taille.join(' × ')}` : `${r.diff} composantes de pixel diffèrent`}`);
-    console.log(`${r.statut === 200 && r.diff === 0 ? 'OK    ' : '      '}${ici} — pixels ${r.diff === 0 ? 'identiques' : 'DIFFÉRENTS'}, octets ${r.memesOctets ? 'identiques' : 'différents'}, ${r.noirs} pixel(s) noir ou encre`);
+    console.log(`${r.statut === 200 && r.diff === 0 ? 'OK    ' : '      '}${ici} — pixels ${r.diff === 0 ? 'identiques' : 'DIFFÉRENTS'}, octets ${r.memesOctets ? 'identiques' : 'différents'}, ${r.noirs} pixel(s) noir ou encre hors palette`);
   }
 }
 await navigateur.close();

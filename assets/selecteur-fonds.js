@@ -168,7 +168,7 @@ const STYLE = `
 .sf-meta{grid-column:2 / -1;font-size:10.5px;line-height:1.2;color:#6b6b6b;margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sf-bouton .sf-meta{grid-column:2}
 .sf-titre{display:flex;gap:10px;align-items:baseline;min-width:0}
-.sf-av{color:#b00020}
+.sf-av{color:var(--red)}
 .sf-echelle{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:12px}
 .sf-echelle input{flex:1;min-width:120px}
 .sf-note{font-size:11px;margin-top:6px;opacity:.8}

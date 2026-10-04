@@ -1,14 +1,15 @@
 {
  "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json. « rang » : l'ordre de publication arrêté le 3 octobre 2026 — B2 (2 égales), B121 (1-2-1), B6D (6 diagonales) ; P et B2D restent, sans rang. B2D a été exportée en #f2f2f0 / #000000, le défaut d'alors ; B2, B121 et B6D en crème #efeae0 et encre #23232b. Le 3 octobre 2026, le bicolore passe au rouge #e0261b sur blanc #f2f2f0, la charte du site (assets/couleurs.js) : B6D est ré-exportée la première (la trame la plus serrée, jugée à l'œil en vignette avant les autres), puis P, B2D, B2 et B121 : les cinq collections sont en rouge et blanc. « anciennes » : les exportations remplacées, gardées à côté (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), avec leur palette et leur date. « pinterest » : false — la collection reste sur le site mais ne part pas sur Pinterest. B6D (décision du 3 octobre 2026) : sa trame, la plus fine, se fond à la taille d'une épingle (236 × 354 px : 4 % de pixels rouge pur contre 26 % pour B2, 90 % de mélange) et sa vidéo pèse 40,7 Mo contre 13,3 pour B2 — même cause, deux mesures.",
+ "_doc_anciennes": "Rien ne se supprime : chaque exportation remplacée (images, puis vidéo) est gardée à côté, sa PALETTE DANS LE NOM — assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/ et assets/animations/anciennes/<code>-<c0>-<c1>-<format>.mp4 — et inscrite ici (« anciennes », « videosAnciennes »). C’est ce qui a rendu possible, le 2026-10-04, le retour à l’encre et au crème sans rien refaire : B2, B121 et B6D ont été restaurées depuis leur dossier gardé (tools/restaurer_collection.mjs), après comparaison octet pour octet avec une exportation fraîche du moteur actuel ; seules P et B2D, sans exportation gardée dans ces couleurs, ont été ré-exportées.",
  "collections": {
   "P": {
    "palette": [
-    "#f2f2f0",
-    "#e0261b"
+    "#efeae0",
+    "#23232b"
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-03",
+   "exportee": "2026-10-04",
    "rang": null,
    "recette": {
     "algorithme": "proche-binaire-v1",
@@ -41,26 +42,53 @@
      ],
      "exportee": "2026-10-02",
      "dossier": "assets/motifs-pinterest/anciennes/P-ee2a7b-662d91"
+    },
+    {
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/P-f2f2f0-e0261b"
     }
    ],
    "video": {
     "fichier": "assets/animations/P-1080x1920.mp4",
     "affiche": "assets/animations/P-1080x1920-affiche.png",
     "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
     "image": 38,
     "images": 960,
-    "sha256": "dc210cc6a963d15d6b2899a05448e713dcbf7c76c18dcd8258d381bab2b27600",
-    "sha256Affiche": "0582b1d6e216b12b91e273cadbf53f821ac7ed877ec196a20193ea64b9c321ba"
-   }
+    "sha256": "90241576fdec1b3d2bff3b250c62dccd4d96655e18d1ca81aea1977b85b98405",
+    "sha256Affiche": "23c89cddccd42b3b7d9a72d901b4988c48969d0dba08f7c6d0639ce08b90a874"
+   },
+   "videosAnciennes": [
+    {
+     "fichier": "assets/animations/anciennes/P-f2f2f0-e0261b-1080x1920.mp4",
+     "affiche": "assets/animations/anciennes/P-f2f2f0-e0261b-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "image": 38,
+     "images": 960,
+     "sha256": "dc210cc6a963d15d6b2899a05448e713dcbf7c76c18dcd8258d381bab2b27600",
+     "sha256Affiche": "0582b1d6e216b12b91e273cadbf53f821ac7ed877ec196a20193ea64b9c321ba",
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ]
+    }
+   ]
   },
   "B2D": {
    "palette": [
-    "#f2f2f0",
-    "#e0261b"
+    "#efeae0",
+    "#23232b"
    ],
    "images": 256,
    "format": "1000 × 1500",
-   "exportee": "2026-10-03",
+   "exportee": "2026-10-04",
    "rang": null,
    "recette": {
     "algorithme": "proche-binaire-v1",
@@ -93,22 +121,49 @@
      ],
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B2D-f2f2f0-000000"
+    },
+    {
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2D-f2f2f0-e0261b"
     }
    ],
    "video": {
     "fichier": "assets/animations/B2D-1080x1920.mp4",
     "affiche": "assets/animations/B2D-1080x1920-affiche.png",
     "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
     "image": 38,
     "images": 960,
-    "sha256": "05b82fd5074a4a1899b32badd9404299fd769572c2380b1f2eecf62150284e7a",
-    "sha256Affiche": "64d8b2aa84e2b11cb87e56cbb2e6e2a5e19de3aef5a4e07621062bccb14ea2ec"
-   }
+    "sha256": "bf3374f5ce19b62c28442072e7d45e9f0a84f968694e35084286f2d88c235f78",
+    "sha256Affiche": "10d860a3bdaaaba649903a748061ee2d183f044743917e191ea8bb7b3c0d66da"
+   },
+   "videosAnciennes": [
+    {
+     "fichier": "assets/animations/anciennes/B2D-f2f2f0-e0261b-1080x1920.mp4",
+     "affiche": "assets/animations/anciennes/B2D-f2f2f0-e0261b-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "image": 38,
+     "images": 960,
+     "sha256": "05b82fd5074a4a1899b32badd9404299fd769572c2380b1f2eecf62150284e7a",
+     "sha256Affiche": "64d8b2aa84e2b11cb87e56cbb2e6e2a5e19de3aef5a4e07621062bccb14ea2ec",
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ]
+    }
+   ]
   },
   "B2": {
    "palette": [
-    "#f2f2f0",
-    "#e0261b"
+    "#efeae0",
+    "#23232b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -145,22 +200,54 @@
      ],
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b"
+    },
+    {
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B2-f2f2f0-e0261b"
     }
    ],
    "video": {
     "fichier": "assets/animations/B2-1080x1920.mp4",
     "affiche": "assets/animations/B2-1080x1920-affiche.png",
     "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
     "image": 38,
     "images": 960,
-    "sha256": "3010ccf57bc2e3888891ac31c85ecb3a667ae05f50ab2b4174bb0a9ee54dd290",
-    "sha256Affiche": "8ac38aa19085e47dbf3b20aa95017c51e5bd8e6c5aa9a4b49a970b9a9e062f38"
-   }
+    "sha256": "cbb96269b5e219696280a669ff25dd49b7f5389b37505428450b92d1cd4aabe2",
+    "sha256Affiche": "74d7cf4f47c9738311a8a8c2d5612b15c37ee6bdeed3b30ed7b9758b6ff51244"
+   },
+   "restauree": {
+    "depuis": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b",
+    "le": "2026-10-04",
+    "identiqueAuMoteur": true
+   },
+   "videosAnciennes": [
+    {
+     "fichier": "assets/animations/anciennes/B2-f2f2f0-e0261b-1080x1920.mp4",
+     "affiche": "assets/animations/anciennes/B2-f2f2f0-e0261b-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "image": 38,
+     "images": 960,
+     "sha256": "3010ccf57bc2e3888891ac31c85ecb3a667ae05f50ab2b4174bb0a9ee54dd290",
+     "sha256Affiche": "8ac38aa19085e47dbf3b20aa95017c51e5bd8e6c5aa9a4b49a970b9a9e062f38",
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ]
+    }
+   ]
   },
   "B121": {
    "palette": [
-    "#f2f2f0",
-    "#e0261b"
+    "#efeae0",
+    "#23232b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -197,22 +284,54 @@
      ],
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b"
+    },
+    {
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B121-f2f2f0-e0261b"
     }
    ],
    "video": {
     "fichier": "assets/animations/B121-1080x1920.mp4",
     "affiche": "assets/animations/B121-1080x1920-affiche.png",
     "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
     "image": 38,
     "images": 960,
-    "sha256": "4cfb5da5dc671d8bd32e364ce6143c9d73656559c2286ddc8687f6ec981c88a5",
-    "sha256Affiche": "a7cce80dd731d904e9eba7daf03611b7f297c2de03340d4c509eb87e6a9e3482"
-   }
+    "sha256": "ad6b156b4bb7f8f16f2d923c2e4de08062e67d8234d27e931fd492b75200baaf",
+    "sha256Affiche": "0da9f41479d23cbe97a57b051203c3bb07740762131ad300d89f104b6e5c7806"
+   },
+   "restauree": {
+    "depuis": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b",
+    "le": "2026-10-04",
+    "identiqueAuMoteur": true
+   },
+   "videosAnciennes": [
+    {
+     "fichier": "assets/animations/anciennes/B121-f2f2f0-e0261b-1080x1920.mp4",
+     "affiche": "assets/animations/anciennes/B121-f2f2f0-e0261b-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "image": 38,
+     "images": 960,
+     "sha256": "4cfb5da5dc671d8bd32e364ce6143c9d73656559c2286ddc8687f6ec981c88a5",
+     "sha256Affiche": "a7cce80dd731d904e9eba7daf03611b7f297c2de03340d4c509eb87e6a9e3482",
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ]
+    }
+   ]
   },
   "B6D": {
    "palette": [
-    "#f2f2f0",
-    "#e0261b"
+    "#efeae0",
+    "#23232b"
    ],
    "images": 256,
    "format": "1000 × 1500",
@@ -249,18 +368,50 @@
      ],
      "exportee": "2026-10-03",
      "dossier": "assets/motifs-pinterest/anciennes/B6D-efeae0-23232b"
+    },
+    {
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ],
+     "exportee": "2026-10-03",
+     "dossier": "assets/motifs-pinterest/anciennes/B6D-f2f2f0-e0261b"
     }
    ],
    "video": {
     "fichier": "assets/animations/B6D-1080x1920.mp4",
     "affiche": "assets/animations/B6D-1080x1920-affiche.png",
     "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
     "image": 38,
     "images": 960,
-    "sha256": "acac05064ada6aa00d0841814b53df9a6db0077f8c42a8e70dcfbf1a4d99ba7c",
-    "sha256Affiche": "df9a7445accdc62408286152f2e256c0050e47264822a8db12dcd99230348ae1"
+    "sha256": "478fb0d30b9b69be7b36dcfc0a2efd0cf65c927979ec7e03cd98fbbe6ee7fbb0",
+    "sha256Affiche": "91fa42c1ce93fd8f3d293a612775185e26f6d352863816db101a551fc79a55d4"
    },
-   "pinterest": false
+   "pinterest": false,
+   "restauree": {
+    "depuis": "assets/motifs-pinterest/anciennes/B6D-efeae0-23232b",
+    "le": "2026-10-04",
+    "identiqueAuMoteur": true
+   },
+   "videosAnciennes": [
+    {
+     "fichier": "assets/animations/anciennes/B6D-f2f2f0-e0261b-1080x1920.mp4",
+     "affiche": "assets/animations/anciennes/B6D-f2f2f0-e0261b-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "image": 38,
+     "images": 960,
+     "sha256": "acac05064ada6aa00d0841814b53df9a6db0077f8c42a8e70dcfbf1a4d99ba7c",
+     "sha256Affiche": "df9a7445accdc62408286152f2e256c0050e47264822a8db12dcd99230348ae1",
+     "palette": [
+      "#f2f2f0",
+      "#e0261b"
+     ]
+    }
+   ]
   }
  },
  "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",

@@ -117,7 +117,7 @@ function applySingleHue(pickedHex){
   return { V: mauve, M: rose, O: pickedHex };
 }
 
-// Ancre rouge : --red:#e0261b de la charte du site, passé tel quel à
+// Ancre rouge : ROUGE d'assets/couleurs.js (le rouge des motifs), passé tel quel à
 // applySingleHue (pas de désaturation — à revoir si le rendu vibre trop
 // en petit format sur fond noir, cf. tête de session).
 const RED_ANCHOR = ROUGE; // assets/couleurs.js

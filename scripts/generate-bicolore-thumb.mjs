@@ -10,8 +10,8 @@
    vient du moteur de fonds-ecran.html, sans rapport avec les données
    bicolores réelles).
 
-   Couleurs : #e0261b / #f2f2f0, les teintes par défaut de bicolore.html
-   lui-même (Teinte A / Teinte B au premier chargement) — rouge et blanc.
+   Couleurs : ROUGE et BLANC d'assets/couleurs.js, choisis pour l'icône
+   (le défaut des rendus bicolores est l'encre et le crème).
 
    Usage : node scripts/generate-bicolore-thumb.mjs <dossier de sortie>
    ============================================================ */

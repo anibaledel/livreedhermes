@@ -17,7 +17,9 @@
 //     - extrait l'affiche avec ffmpeg : l'image du MILIEU DU PREMIER MOTIF (hors
 //       fondu), en PNG — sans perte, pour que la vérification soit exacte ;
 //     - inscrit « video » au registre (data/fonds/collections-pinterest.json) :
-//       fichiers, format, numéro de l'image, empreintes SHA-256.
+//       fichiers, format, palette, numéro de l'image, empreintes SHA-256 ;
+//     - une vidéo déjà déposée dans une autre palette est d'abord gardée
+//       dans assets/animations/anciennes/, sa palette dans le nom.
 //
 //   node tools/affiches_animations.mjs --verifie
 //     pour chaque vidéo inscrite : les fichiers existent, l'empreinte de la
@@ -71,12 +73,26 @@ export function deposer(racine, code, source) {
   mkdirSync(dossier, { recursive: true });
   const video = path.join(dossier, `${code}-${format}.mp4`);
   const affiche = path.join(dossier, `${code}-${format}-affiche.png`);
+  const rel = (f) => path.relative(racine, f).split(path.sep).join('/');
+  // RIEN NE SE SUPPRIME : une vidéo déjà déposée dans une AUTRE palette est
+  // gardée à côté, sa palette dans le nom (assets/animations/anciennes/
+  // <CODE>-<c0>-<c1>-<format>.mp4, et son affiche), et inscrite au registre
+  // (« videosAnciennes »), comme les collections d'images.
+  const avant = col.video;
+  if (avant && avant.palette && avant.palette.join() !== col.palette.join() && existsSync(video)) {
+    const nom = `${code}-${avant.palette.map((c) => c.slice(1)).join('-')}-${avant.format}`;
+    const dossierAnciennes = path.join(dossier, 'anciennes');
+    mkdirSync(dossierAnciennes, { recursive: true });
+    const v = path.join(dossierAnciennes, `${nom}.mp4`), a = path.join(dossierAnciennes, `${nom}-affiche.png`);
+    if (!existsSync(v)) copyFileSync(video, v);
+    if (existsSync(affiche) && !existsSync(a)) copyFileSync(affiche, a);
+    col.videosAnciennes = [...(col.videosAnciennes || []).filter((x) => x.fichier !== rel(v)), { ...avant, fichier: rel(v), affiche: rel(a) }];
+  }
   copyFileSync(source, video);
   // le milieu du premier motif : ni fondu, ni carton
   const k = Math.round((rec.dureeMotif / 2) * rec.imagesParSeconde);
   ff(['-i', video, '-vf', `select=eq(n\\,${k})`, '-frames:v', '1', '-sws_flags', 'accurate_rnd+bitexact+full_chroma_int', '-pix_fmt', 'rgb24', '-flags', '+bitexact', affiche]);
-  const rel = (f) => path.relative(racine, f).split(path.sep).join('/');
-  col.video = { fichier: rel(video), affiche: rel(affiche), format, image: k, images: s.images, sha256: sha(video), sha256Affiche: sha(affiche) };
+  col.video = { fichier: rel(video), affiche: rel(affiche), format, palette: [...col.palette], image: k, images: s.images, sha256: sha(video), sha256Affiche: sha(affiche) };
   ecrireRegistre(registre, reg);
   return col.video;
 }
@@ -98,6 +114,13 @@ export function verifier(racine) {
       for (let i = 0; i < Math.min(a.length, b.length); i++) if (a[i] !== b[i]) diff++;
       ecarts.push(`${code} : l'affiche n'est pas l'image n° ${v.image} de la vidéo (${diff} composantes différentes sur ${a.length})`);
     } else console.log(`${code} : affiche = image n° ${v.image} de ${v.fichier} (${a.length / 3} pixels identiques)`);
+    // les vidéos gardées : présentes, et inchangées depuis leur dépôt
+    for (const x of col.videosAnciennes || []) {
+      const f = path.join(racine, x.fichier);
+      if (!existsSync(f)) ecarts.push(`${code} : vidéo gardée absente (${x.fichier})`);
+      else if (sha(f) !== x.sha256) ecarts.push(`${code} : la vidéo gardée ${x.fichier} a changé (SHA-256)`);
+      else console.log(`${code} : vidéo gardée ${x.fichier} (${x.palette.join(' / ')}), inchangée`);
+    }
   }
   return { n, ecarts };
 }
@@ -114,7 +137,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
       mkdirSync(path.join(tmp, 'data/fonds'), { recursive: true });
       // le registre, sans les vidéos déjà déposées : l'essai ne vérifie que la sienne
       const copie = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
-      for (const c of Object.values(copie.collections)) delete c.video;
+      for (const c of Object.values(copie.collections)) { delete c.video; delete c.videosAnciennes; }
       ecrireRegistre(path.join(tmp, 'data/fonds/collections-pinterest.json'), copie);
       const rec = JSON.parse(readFileSync(path.join(tmp, 'data/fonds/collections-pinterest.json'), 'utf8')).collections.B2.recette;
       const images = Math.round((rec.motifs.length * rec.dureeMotif + rec.fin) * rec.imagesParSeconde);

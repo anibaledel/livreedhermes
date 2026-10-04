@@ -8,33 +8,23 @@
 // la galerie d'animations et l'export (tools/export_pinterest_fonds.mjs).
 // tools/check_couleurs.mjs vérifie qu'aucun ne recopie ces valeurs.
 //
-// LE BICOLORE EST ROUGE ET BLANC, les couleurs de la charte du site
-// (décision d'Anibal, 3 octobre 2026, qui remplace le crème et l'encre) :
-// UNE SEULE CHARTE GRAPHIQUE AU LIEU DE DEUX. Le crème obligeait à adapter
-// le site autour des motifs ; le rouge et le blanc sont déjà ceux du site,
-// et ils donnent une identité reconnaissable en vignette.
+// LE BICOLORE EST ENCRE ET CRÈME (décision d'Anibal, 4 octobre 2026, qui
+// remplace le rouge et blanc du 3 octobre) :
+//   ENCRE — #23232b, la part SOMBRE du motif, le bit 1 : le sombre des bandes
+//           de la planche validée à l'œil, mesuré sur l'image — pas un noir
+//           pur ; un #000000 dans un rendu bicolore est une erreur ;
+//   CREME — #efeae0, la part CLAIRE, le bit 0 : le crème des cases de la
+//           même planche. Encre sur crème : 13,0:1 (check_couleurs.mjs).
+// Le rouge cesse d'être une couleur de motif par défaut : sur le site, il ne
+// sert plus que de texte, de lien et d'accent (--red de style.css).
 //
-//   ROUGE — #e0261b, le rouge du générateur bicolore v2 : la part SOMBRE du
-//           motif, le bit 1, celle que l'encre occupait ;
-//   BLANC — #f2f2f0, le --white de style.css : la part CLAIRE, le bit 0,
-//           celle que le crème occupait. Rouge sur blanc : 4,2:1 (mesuré par
-//           check_couleurs.mjs), au-dessus du seuil de 3:1 — trois fois moins
-//           que l'encre sur le crème (13,0:1) : les trames fines lisent plus
-//           doux en petit format.
-//   Il n'y a plus de noir dans le bicolore : ni #000000, ni l'encre par
-//   défaut.
-//
-// Le crème et l'encre ne disparaissent pas : ils restent des couleurs
-// choisissables dans les sélecteurs, comme le rouge l'était.
-//   CREME — #efeae0, le crème des cases de la planche de bandes, mesuré sur
-//           l'image (relevé d'Anibal, 3 octobre 2026) ;
-//   ENCRE — #23232b, le sombre des bandes de la même planche ;
+// Le rouge et le blanc ne disparaissent pas : ils restent choisissables
+// dans les sélecteurs (bouton « Rouge / blanc »), comme le crème l'était.
+//   ROUGE — #e0261b, le rouge du générateur bicolore v2 ;
+//   BLANC — #f2f2f0, le --white de style.css. Rouge sur blanc : 4,2:1.
 //   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : le rendu
 //           monochrome du site (MONOCHROME_SITE), gris sur BLANC — 3,44:1
-//           (mesuré par check_couleurs.mjs), au-dessus du seuil de 3:1. Pas
-//           sur crème : le crème cesse d'être une couleur de charte, et le
-//           garder au seul rendu monochrome en ferait une couleur isolée
-//           (correction du 3 octobre 2026). Le crème reste choisissable.
+//           (mesuré par check_couleurs.mjs), au-dessus du seuil de 3:1.
 //
 // Ce sont des défauts, pas des contraintes : toute autre teinte reste
 // choisissable dans les sélecteurs de couleur, et l'état part dans l'URL.
@@ -46,13 +36,13 @@ export const ROUGE = '#e0261b';
 export const BLANC = '#f2f2f0';
 
 // [bit 0, bit 1] : le clair est le fond, le bit 1 porte la figure.
+// (« bicolore » : le rouge et blanc, nom gardé — les boutons et les tests le citent)
 export const PALETTES = Object.freeze({
+  creme: Object.freeze([CREME, ENCRE]),
   bicolore: Object.freeze([BLANC, ROUGE]),
   monochrome: Object.freeze([BLANC, GRIS]),
-  // l'ancien défaut, gardé choisissable (un bouton dans chaque sélecteur)
-  creme: Object.freeze([CREME, ENCRE]),
 });
-export const PALETTE_DEFAUT = PALETTES.bicolore;
+export const PALETTE_DEFAUT = PALETTES.creme;
 
 // Deux « monochromes » DISTINCTS, à ne pas confondre (décision d'Anibal,
 // 2026-10-03) — deux objets, deux noms :
@@ -71,7 +61,7 @@ export const PALETTE_DEFAUT = PALETTES.bicolore;
 //                              magenta, orange (V, M, O) — la même que les
 //                              pages de motifs.
 //
-// Aucune des quatre séries ne porte le crème ni le rouge et blanc du
+// Aucune des quatre séries ne porte l'encre et le crème ni le rouge et blanc du
 // bicolore : elles ne sont pas bicolores et ne changent pas. Le registre des séries
 // (data/fonds/collections-pinterest.json, « series ») recopie ces valeurs ;
 // tools/check_couleurs.mjs vérifie qu'elles concordent, et

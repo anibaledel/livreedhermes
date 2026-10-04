@@ -195,3 +195,38 @@ Détail, déclaration par déclaration :
 Les valeurs d'Anibal (8,7 et 31,3) sont des ΔE76 ; en ΔE2000, la formule perceptuelle
 corrigée, l'écart est plus petit, mais reste au-dessus du seuil de visibilité (≈ 2) dans les
 deux cas. `#db694c` est une terre cuite, pas un rouge de la charte : elle reste où elle est.
+
+## Après — l'unification (4 octobre 2026)
+
+*Décision d'Anibal : le bicolore revient à l'encre et au crème. Le rouge cesse d'être
+une couleur de motif par défaut ; il ne sert plus que de texte, de lien et d'accent. La
+contrainte qui bloquait (tenir 4,5:1 sur fond sombre ET 3:1 dans une trame) disparaît :
+le site prend le rouge qui passe pour du texte, `#e63b31`.*
+
+Compté dans les fichiers HTML, CSS et JS **du site** (hors `tools/` et `scripts/`, qui
+ne sont pas servis comme pages ; hors `vendor/`, `pagefind/`), par
+`git grep -i '#<rouge>'` :
+
+| rouge | avant | après | rôle |
+|---|---|---|---|
+| `#e63b31` | 1 | **3** | **le rouge du site** : `--red` de `style.css` (sa définition, et la page `carter-demo.html`, qui ne charge pas `style.css` et le redéclare) |
+| `#e0261b` | 8 | 2 | une couleur de **motif** choisissable : `ROUGE` dans `assets/couleurs.js` (la constante et son commentaire) — plus du texte ni de l'accent |
+| `#db694c` | 1029 | 1029 | une couleur de **motif** (la teinte du tricolore monochrome) — ΔE 31 de `#e0261b` : une autre couleur, inchangée |
+| `#b00020` | 1 | 0 | → `var(--red)` (`assets/selecteur-fonds.js`, `.sf-av`) |
+| `#ff8a80` | 2 | 0 | → `var(--red)` (« H.264 indisponible », `fonds-ecran.html`, `galerie-animations.html`) |
+| `#d64444` (+ `rgba(214,68,68,…)`) | 1 | 0 | → `var(--red)` et `color-mix(… var(--red) …)` (`carter-demo.html`) |
+| `#f08080` | 1 | 0 | → `var(--red)` (`carter-demo.html`) |
+| `#e2261b` | 2 | 0 | cité dans un commentaire de `style.css`, réécrit |
+| `#5a120e` (`--red-dim`) | 1 | 0 | → `color-mix(in srgb, var(--red) 39%, #000)` : dérivé du seul rouge |
+| `#b3221a` (`--red` d'impression) | 1 | 0 | retiré : à l'impression tout texte passe en noir ; le rouge n'y marque que des bordures, où `#e63b31` tient 3,7:1 sur le papier |
+
+**Avant : 10 rouges distincts dans le site. Après : un seul rouge de site, `#e63b31`**,
+dans une seule variable (`--red`), plus deux couleurs de motif, `#e0261b` (choisissable,
+`assets/couleurs.js` seulement) et `#db694c`, qui ne sont ni du texte ni de l'accent.
+
+Hors du site, `tools/` garde les rouges de ses propres essais (`#c8102e`, une couleur
+« choisie » par les contrôles ; `#b00020` dans la planche de `tools/planche_fonds.mjs`).
+
+Reste à noter : `.vue-fond .sf-av`, l'avertissement du sélecteur sur le panneau **blanc**
+des pages de motifs, est à 4,17:1 avec `#e63b31` (il l'était déjà) — le seul texte rouge
+sur fond clair du site.
