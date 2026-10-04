@@ -16,7 +16,7 @@ JavaScript en ligne. Ce qui est partagé entre plusieurs pages vit dans
 ├── index.html                       tirage Yi King (page d'accueil)
 ├── tirage-livree-hermes.html        tirage et numérotation binaire
 ├── creation-motifs-yi-king.html     création de motifs
-├── impression.html                  impression 360
+├── 360-calques.html                  impression 360
 ├── galerie-768-patterns-unifies.html galerie des 768 motifs unifiés
 ├── unified-patterns.html            présentation des motifs unifiés
 ├── fonds-ecran.html                 fonds d'écran

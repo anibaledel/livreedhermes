@@ -1,0 +1,50 @@
+name: Page des 360 calques — nombres calculés
+
+# tools/check_page_360.mjs : les quatre cartes et la phrase de 360-calques.html
+# portent les nombres recomptés depuis les données (référent : 360 calques,
+# 60 identités ; cartes : 15 jeux de 24 ; 4^6 superpositions par jeu ;
+# 61 440 tirages), dans chaque langue du dictionnaire de la page ; plus aucun
+# « 4 096 calques » écrit à la main ; impression.html redirige en gardant ses
+# paramètres. --essai : un jeu de trop en catégorie IV doit le faire échouer.
+# En local dans la PR, puis sur le SITE DÉPLOYÉ après la publication de main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rendu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/check_page_360.mjs
+      - run: node tools/check_page_360.mjs --essai
+
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_page_360.mjs --base-url https://anibal-amiot.com && exit 0
+            echo "essai $i : le site n'a pas encore la correction ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1

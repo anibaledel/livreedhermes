@@ -27,7 +27,7 @@
 // Les légendes, elles, sont du site, et restent contrôlées.
 //
 // Les scripts autres que JSON-LD sont ignorés : les dictionnaires d'interface
-// multilingues (index.html, impression.html) portent les six langues dans une
+// multilingues (index.html, 360-calques.html) portent les six langues dans une
 // page française, et ne se rattachent à aucune langue de page.
 //
 // Usage : node tools/check_glossaire.mjs

@@ -173,7 +173,7 @@ Onglets, sans sous-titre : « Bases », « Par 2 », « Par 3 », « Par 4 »,
 ## Chrome commun (tout le site)
 
 Neuf pages portent la même navigation de pied de page, à l'identique :
-`impression.html`, `fonds-ecran.html`, `contact.html`, `articles.html`,
+`360-calques.html`, `fonds-ecran.html`, `contact.html`, `articles.html`,
 `lexique.html`, `a-propos.html`, `profil.html`,
 `galerie-patterns-unifies.html` et `unified-patterns.html`.
 `creation-motifs-yi-king.html` porte la même, moins sa propre entrée
@@ -206,7 +206,7 @@ aujourd'hui un fichier HTML autonome.
 - « Créé en collaboration avec Claude »
 
 ### Barre du livre
-Présente sur `impression.html`, `fonds-ecran.html`,
+Présente sur `360-calques.html`, `fonds-ecran.html`,
 `galerie-patterns-unifies.html` et `unified-patterns.html`.
 - « La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard. »
 - « Lire le livre »
@@ -216,7 +216,7 @@ Présente sur `impression.html`, `fonds-ecran.html`,
 
 ---
 
-## Page : Impression (`impression.html`)
+## Page : Impression (`360-calques.html`)
 
 ### En-tête
 - Titre du document : « La Livrée d'Hermès — Impression »
