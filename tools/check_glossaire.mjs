@@ -20,6 +20,12 @@
 //      nom « Anibal Edelberto Amiot » compris. Une glose entre parenthèses
 //      qui SUIT l'original est permise, comme l'alternateName du JSON-LD.
 //
+// Le texte des pages du livre (<div class="texte-page">, chapitres en HTML)
+// est ignoré : c'est le texte du PDF, caractère pour caractère, vérifié par
+// tools/check_livre_texte.py ; un défaut du livre se publie tel quel et se
+// signale (data/livre/chapitres.json), il ne se corrige pas dans la page.
+// Les légendes, elles, sont du site, et restent contrôlées.
+//
 // Les scripts autres que JSON-LD sont ignorés : les dictionnaires d'interface
 // multilingues (index.html, impression.html) portent les six langues dans une
 // page française, et ne se rattachent à aucune langue de page.
@@ -102,9 +108,10 @@ for (const abs of pages(RACINE)) {
   parLangue[lang]++;
   const texte = src
     .replace(/<style[\s\S]*?<\/style>/gi, '')
+    .replace(/<div class="texte-page"[^>]*>[\s\S]*?<\/div>/gi, '')
     .replace(/<script(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/script>/gi, '')
     // gloses permises : entre parenthèses ou guillemets, juste après l'original
-    .replace(new RegExp(`${TITRE.replace(/'/g, "(?:'|&#39;|’)")}(?:</i>|\\*)?\\s*[(（«][^)）»]{0,80}[)）»]`, 'g'), TITRE)
+    .replace(new RegExp(`${TITRE.replace(/'/g, "(?:'|&#39;|&#x27;|’)")}(?:</i>|\\*)?\\s*[(（«][^)）»]{0,80}[)）»]`, 'g'), TITRE)
     .replace(/"alternateName":\s*"[^"]*"/g, '');
   for (const r of refus.filter((x) => x.lang === lang)) {
     for (const v of r.variantes) {
