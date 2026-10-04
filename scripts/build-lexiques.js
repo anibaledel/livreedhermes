@@ -234,7 +234,7 @@ function main() {
     const actuel = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
     // build-header.js pose ensuite ses régions : on ne compare que hors régions.
     const sansRegions = (s) => s === null ? null
-      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header|analytics):start[\s\S]*?<!-- @\1:end -->\n?/g, '')
+      : s.replace(/[ \t]*<!-- @(head-icons|hreflang|header|analytics|navtiles):start[\s\S]*?<!-- @\1:end -->\n?/g, '')
           .replace(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/g,
                    '<!-- @langues:start -->\n<!-- @langues:end -->');
     if (sansRegions(actuel) === neuf) continue;
@@ -251,6 +251,9 @@ function main() {
         }
         const mh = actuel.match(/[ \t]*<!-- @header:start[\s\S]*?<!-- @header:end -->/);
         if (mh) sortie = sortie.replace('<main id="contenu">', `${mh[0]}\n<main id="contenu">`);
+        // les tuiles (build-header.js) : avant le pied propre du lexique
+        const mt = actuel.match(/<!-- @navtiles:start[\s\S]*?<!-- @navtiles:end -->/);
+        if (mt) { const n = sortie.lastIndexOf('<div class="note">'); if (n !== -1) sortie = sortie.slice(0, n) + mt[0] + '\n' + sortie.slice(n); }
         const ma = actuel.match(/<!-- @analytics:start[\s\S]*?<!-- @analytics:end -->/);
         if (ma) sortie = sortie.replace('</body>', `${ma[0]}\n</body>`);
         const ml = actuel.match(/[ \t]*<!-- @langues:start[\s\S]*?<!-- @langues:end -->/);
