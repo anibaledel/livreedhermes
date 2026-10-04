@@ -13,7 +13,9 @@
 //   3. chaque glyphe du titre et du corps sort d'une police hébergée et
 //      déclarée, jamais d'une police du système (Chromium le dit, nœud par
 //      nœud : CSS.getPlatformFontsForNode) ;
-//   4. les sources (liens externes du corps) répondent 200 ;
+//   4. les sources (liens externes du corps) répondent 200 — une source qui
+//      ne répond pas est SIGNALÉE (avertissement dans la CI), pas retirée ni
+//      bloquante : elle dépend d'un site tiers (--sources-strictes : bloquante) ;
 //   5. l'article sans traduction ne porte aucun hreflang ;
 //   6. le sitemap le porte une fois.
 //
@@ -29,6 +31,8 @@ const args = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 let BASE = args[0] || 'https://anibal-amiot.com';
 const SLUG = args[1] || 'le-fil-et-le-carre';
 const SOURCES = !process.argv.includes('--sans-sources');
+const STRICTES = process.argv.includes('--sources-strictes');
+const signalees = [];
 let serveur = null;
 if (BASE === 'local') { serveur = await servirDepot(ROOT); BASE = serveur.url; }
 BASE = BASE.replace(/\/$/, '');
@@ -132,7 +136,12 @@ try {
         try { statut = (await fetch(u, { redirect: 'follow', headers: { 'User-Agent': UA, Accept: 'text/html,application/pdf,*/*' }, signal: AbortSignal.timeout(30000) })).status; } catch (e) { statut = e.cause?.code || e.name; }
       }
       if (statut === 200) ok(`source 200 : ${u}`);
-      else echec(`source ${statut} : ${u}`);
+      else if (STRICTES) echec(`source ${statut} : ${u}`);
+      else {
+        signalees.push(`${statut} ${u}`);
+        console.log(`SIGNALÉ source ${statut} : ${u}`);
+        if (process.env.GITHUB_ACTIONS) console.log(`::warning title=Source qui ne répond pas 200::${statut} ${u}`);
+      }
     }
   }
 
@@ -148,5 +157,6 @@ try {
   await navigateur.close();
   serveur?.fermer();
 }
+if (signalees.length) console.log(`\n${signalees.length} source(s) à signaler, laissée(s) en place :\n  ${signalees.join('\n  ')}`);
 if (echecs.length) { console.error(`\n${echecs.length} échec(s).`); process.exit(1); }
 console.log('\nL\'article tient : page, liste, figure vectorielle lisible à 390 px, polices déclarées, sources, hreflang, sitemap.');
