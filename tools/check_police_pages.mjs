@@ -83,7 +83,7 @@ function texte(html) {
   const a = html.indexOf('<h1 class="article-title"'), b = html.indexOf('<a class="article-back-bottom"');
   const corps = a >= 0 && b > a ? html.slice(a, b) : html.slice(html.indexOf('<body'));
   return corps
-    .replace(/<(script|style|svg)\b[\s\S]*?<\/\1>/g, ' ')
+    .replace(/<(script|style)\b[\s\S]*?<\/\1>/g, ' ')  // le texte des figures SVG en ligne compte
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&(#x[0-9a-f]+|#\d+|\w+);/gi, (m, e) => (e[0] === '#'

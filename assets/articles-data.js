@@ -34,7 +34,7 @@ window.ARTICLES = [
     categories: ["Géométrie", "Sagesse", "Livrée"],
     excerpt: "Deux systèmes élaborés dans des langues et des siècles différents arrivent aux mêmes objets. Quand ça se produit, ce n'est généralement pas une coïncidence — c'est que l'objet existait avant les deux.",
     cover: "https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg",
-    coverAlt: "Deux trames de période 2, superposées, donnant un carré pandiagonal d'ordre 4 dont toutes les droites — lignes, colonnes et diagonales brisées — font 34."
+    coverAlt: "Trois grilles de quatre sur quatre. À gauche le chādaka, dont les lignes se répètent de période deux en largeur. Au centre le chādya, sa transposée, de période deux en hauteur. À droite leur combinaison : les entiers de un à seize, dont les quatre lignes, les quatre colonnes et les huit diagonales brisées font toutes trente-quatre."
   },
   {
     slug: "axes-lignes-nodales",

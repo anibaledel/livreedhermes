@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 996 424" role="img" aria-label="Trois grilles de quatre sur quatre. À gauche le chādaka, dont les lignes se répètent de période deux en largeur. Au centre le chādya, sa transposée, de période deux en hauteur. À droite leur combinaison : les entiers de un à seize, dont les quatre lignes, les quatre colonnes et les huit diagonales brisées font toutes trente-quatre.">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 996 424" width="996" height="424" role="img" aria-label="Deux trames de periode deux superposees donnant un carre pandiagonal d ordre 4 dont toute droite fait 34">
 <style>
-  text{font-family:inherit;fill:#23232b}
+  text{font-family:Georgia,'Times New Roman',serif;fill:#23232b}
   .t{font-size:19px;text-anchor:middle;font-style:italic}
   .s{font-size:13.5px;text-anchor:middle;fill:#5a5a62}
   .n{font-size:19px;text-anchor:middle}
@@ -9,7 +9,7 @@
 </style>
 <rect width="996" height="424" fill="#efeae0"/>
 <text x="162.0" y="62" class="t">chādaka — le couvrant</text>
-<text x="162.0" y="337" class="s">période 2 en largeur</text>
+<text x="162.0" y="337" class="s">quatre valeurs, période 2</text>
 <rect x="46" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
 <text x="75.0" y="115.0" class="n">0</text>
 <rect x="104" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
@@ -43,7 +43,7 @@
 <rect x="220" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
 <text x="249.0" y="289.0" class="n">1</text>
 <text x="498.0" y="62" class="t">chādya — le couvert</text>
-<text x="498.0" y="337" class="s">sa transposée, période 2 en hauteur</text>
+<text x="498.0" y="337" class="s">quatre valeurs, période 2</text>
 <rect x="382" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
 <text x="411.0" y="115.0" class="n">0</text>
 <rect x="440" y="80" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>

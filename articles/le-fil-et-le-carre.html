@@ -149,27 +149,19 @@
   .article-content ul{ text-align:left; margin:0 0 18px; padding-left:1.4em; }
   .article-content li{ margin:0 0 6px; }
   .article-content ul.article-sources a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
-  /* La figure est un SVG : vectorielle, son texte se lit à toute taille. En
-     entier sur un écran large ; sous 640 px, ses trois grilles passent l'une
-     sous l'autre plutôt que de rétrécir. Chaque vue est une fenêtre sur le
-     même fichier, non retouché : la fenêtre a les proportions du cadrage
-     (--w × --h, en unités du SVG), le SVG entier y est agrandi et décalé de
-     (--x, --y). */
-  .article-content figure.figure-svg img{ border:none; background:none; }
+  /* La figure est un SVG EN LIGNE (tools/figure_en_ligne.mjs) : vectorielle,
+     son texte prend la police du site (font-family:inherit) et se lit à toute
+     taille. En entier sur un écran large ; sous 640 px, ses trois grilles
+     passent l'une sous l'autre plutôt que de rétrécir : chaque vue est un
+     petit <svg viewBox="cadrage"> qui réutilise la même figure par <use>. */
+  .article-content figure.figure-svg svg{ display:block; width:100%; height:auto; }
   .figure-etroite{ display:none; }
   @media (max-width:640px){
-    .figure-large{ display:none !important; }
+    .article-content figure.figure-svg .figure-large{ display:none; }
     .figure-etroite{ display:flex; flex-direction:column; align-items:center; background:#efeae0; border:1px solid var(--line); padding:8px 0; }
-    .figure-etroite .vue{ display:block; overflow:hidden; aspect-ratio:var(--w) / var(--h); }
-    .article-content .figure-etroite .vue img{
-      display:block; max-width:none; height:auto;
-      width:calc(996 / var(--w) * 100%);
-      margin-left:calc(var(--x) / var(--w) * -100%);
-      margin-top:calc(var(--y) / var(--w) * -100%);
-    }
-    .figure-etroite .vue-grille{ width:min(100%, 300px); }
-    .figure-etroite .vue-operation{ width:72px; }
-    .figure-etroite .vue-formule{ width:100%; }
+    .article-content figure.figure-svg .figure-etroite .vue-grille{ width:min(100%, 300px); }
+    .article-content figure.figure-svg .figure-etroite .vue-operation{ width:72px; }
+    .article-content figure.figure-svg .figure-etroite .vue-formule{ width:100%; }
   }
   /* le code garde la police du site : une police à chasse fixe du système
      n'aurait ni la même allure ni, partout, le ā */
@@ -336,18 +328,139 @@
       <h3>La superposition de deux carrés</h3>
       <p>La méthode qui me parle le plus est celle du recouvrement. Nārāyaṇa construit un carré magique en superposant <b>deux carrés auxiliaires</b>, le <b>chādya</b> (le couvert) et le <b>chādaka</b> (le couvrant). Chacun est simple ; c'est leur composition qui porte la propriété.</p>
       <figure class="figure-svg">
-        <img class="figure-large" src="../assets/articles/chadya-chadaka.svg" alt="Deux trames de période 2, superposées, donnant un carré pandiagonal d&#x27;ordre 4 dont toutes les droites — lignes, colonnes et diagonales brisées — font 34." width="996" height="424" loading="lazy">
-        <div class="figure-etroite" role="img" aria-label="Deux trames de période 2, superposées, donnant un carré pandiagonal d&#x27;ordre 4 dont toutes les droites — lignes, colonnes et diagonales brisées — font 34.">
-          <span class="vue vue-grille" style="--x:36; --y:38; --w:252; --h:308"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-          <span class="vue vue-operation" style="--x:290; --y:172; --w:80; --h:50"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-          <span class="vue vue-grille" style="--x:372; --y:38; --w:252; --h:308"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-          <span class="vue vue-operation" style="--x:626; --y:172; --w:80; --h:50"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-          <span class="vue vue-grille" style="--x:708; --y:38; --w:252; --h:308"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-          <span class="vue vue-formule" style="--x:250; --y:360; --w:496; --h:34"><img src="../assets/articles/chadya-chadaka.svg" alt="" width="996" height="424" loading="lazy"></span>
-        </div>
-        <figcaption>Le couvrant porte quatre valeurs, le couvert aussi ; ni l'un ni l'autre n'est magique. Mais les seize couples qu'ils forment sont tous distincts, et leur combinaison <code>4 × chādaka + chādya + 1</code> donne les entiers de 1 à 16 rangés de telle sorte que les seize droites du carré — quatre lignes, quatre colonnes, huit diagonales brisées — font toutes 34. J'ai vérifié les seize.</figcaption>
+      <!-- @figure:fig-chadya:start — engendré par tools/figure_en_ligne.mjs depuis assets/articles/chadya-chadaka.svg, ne pas éditer ici -->
+  <svg class="figure-large" viewBox="0 0 996 424" role="img" aria-label="Trois grilles de quatre sur quatre. À gauche le chādaka, dont les lignes se répètent de période deux en largeur. Au centre le chādya, sa transposée, de période deux en hauteur. À droite leur combinaison : les entiers de un à seize, dont les quatre lignes, les quatre colonnes et les huit diagonales brisées font toutes trente-quatre.">
+  <g id="fig-chadya">
+  <style>
+    #fig-chadya text{font-family:inherit;fill:#23232b}
+    #fig-chadya .t{font-size:19px;text-anchor:middle;font-style:italic}
+    #fig-chadya .s{font-size:13.5px;text-anchor:middle;fill:#5a5a62}
+    #fig-chadya .n{font-size:19px;text-anchor:middle}
+    #fig-chadya .op{font-size:27px;text-anchor:middle}
+    #fig-chadya .f{font-size:16px;text-anchor:middle;font-style:italic}
+  
+  </style>
+  <rect width="996" height="424" fill="#efeae0"/>
+  <text x="162.0" y="62" class="t">chādaka — le couvrant</text>
+  <text x="162.0" y="337" class="s">période 2 en largeur</text>
+  <rect x="46" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="75.0" y="115.0" class="n">0</text>
+  <rect x="104" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="133.0" y="115.0" class="n">3</text>
+  <rect x="162" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="191.0" y="115.0" class="n">0</text>
+  <rect x="220" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="249.0" y="115.0" class="n">3</text>
+  <rect x="46" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="75.0" y="173.0" class="n">1</text>
+  <rect x="104" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="133.0" y="173.0" class="n">2</text>
+  <rect x="162" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="191.0" y="173.0" class="n">1</text>
+  <rect x="220" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="249.0" y="173.0" class="n">2</text>
+  <rect x="46" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="75.0" y="231.0" class="n">3</text>
+  <rect x="104" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="133.0" y="231.0" class="n">0</text>
+  <rect x="162" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="191.0" y="231.0" class="n">3</text>
+  <rect x="220" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="249.0" y="231.0" class="n">0</text>
+  <rect x="46" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="75.0" y="289.0" class="n">2</text>
+  <rect x="104" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="133.0" y="289.0" class="n">1</text>
+  <rect x="162" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="191.0" y="289.0" class="n">2</text>
+  <rect x="220" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="249.0" y="289.0" class="n">1</text>
+  <text x="498.0" y="62" class="t">chādya — le couvert</text>
+  <text x="498.0" y="337" class="s">sa transposée, période 2 en hauteur</text>
+  <rect x="382" y="80" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="411.0" y="115.0" class="n">0</text>
+  <rect x="440" y="80" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="469.0" y="115.0" class="n">1</text>
+  <rect x="498" y="80" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="527.0" y="115.0" class="n">3</text>
+  <rect x="556" y="80" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="585.0" y="115.0" class="n">2</text>
+  <rect x="382" y="138" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="411.0" y="173.0" class="n">3</text>
+  <rect x="440" y="138" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="469.0" y="173.0" class="n">2</text>
+  <rect x="498" y="138" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="527.0" y="173.0" class="n">0</text>
+  <rect x="556" y="138" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="585.0" y="173.0" class="n">1</text>
+  <rect x="382" y="196" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="411.0" y="231.0" class="n">0</text>
+  <rect x="440" y="196" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="469.0" y="231.0" class="n">1</text>
+  <rect x="498" y="196" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="527.0" y="231.0" class="n">3</text>
+  <rect x="556" y="196" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="585.0" y="231.0" class="n">2</text>
+  <rect x="382" y="254" width="58" height="58" fill="rgba(35,35,43,0.220)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="411.0" y="289.0" class="n">3</text>
+  <rect x="440" y="254" width="58" height="58" fill="rgba(35,35,43,0.167)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="469.0" y="289.0" class="n">2</text>
+  <rect x="498" y="254" width="58" height="58" fill="rgba(35,35,43,0.060)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="527.0" y="289.0" class="n">0</text>
+  <rect x="556" y="254" width="58" height="58" fill="rgba(35,35,43,0.113)" stroke="#23232b" stroke-width="1.1"/>
+  <text x="585.0" y="289.0" class="n">1</text>
+  <text x="834.0" y="62" class="t">bhadra</text>
+  <text x="834.0" y="337" class="s">1 à 16 — toute droite fait 34</text>
+  <rect x="718" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="747.0" y="115.0" class="n">1</text>
+  <rect x="776" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="805.0" y="115.0" class="n">14</text>
+  <rect x="834" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="863.0" y="115.0" class="n">4</text>
+  <rect x="892" y="80" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="921.0" y="115.0" class="n">15</text>
+  <rect x="718" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="747.0" y="173.0" class="n">8</text>
+  <rect x="776" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="805.0" y="173.0" class="n">11</text>
+  <rect x="834" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="863.0" y="173.0" class="n">5</text>
+  <rect x="892" y="138" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="921.0" y="173.0" class="n">10</text>
+  <rect x="718" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="747.0" y="231.0" class="n">13</text>
+  <rect x="776" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="805.0" y="231.0" class="n">2</text>
+  <rect x="834" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="863.0" y="231.0" class="n">16</text>
+  <rect x="892" y="196" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="921.0" y="231.0" class="n">3</text>
+  <rect x="718" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="747.0" y="289.0" class="n">12</text>
+  <rect x="776" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="805.0" y="289.0" class="n">7</text>
+  <rect x="834" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="863.0" y="289.0" class="n">9</text>
+  <rect x="892" y="254" width="58" height="58" fill="#efeae0" stroke="#23232b" stroke-width="1.1"/>
+  <text x="921.0" y="289.0" class="n">6</text>
+  <text x="330.0" y="205.0" class="op">×4  +</text>
+  <text x="666.0" y="205.0" class="op">+1  =</text>
+  <text x="498.0" y="384" class="f">bhadra = 4 × chādaka + chādya + 1 — les seize couples sont distincts</text>
+  </g>
+  </svg>
+  <div class="figure-etroite" role="img" aria-label="Trois grilles de quatre sur quatre. À gauche le chādaka, dont les lignes se répètent de période deux en largeur. Au centre le chādya, sa transposée, de période deux en hauteur. À droite leur combinaison : les entiers de un à seize, dont les quatre lignes, les quatre colonnes et les huit diagonales brisées font toutes trente-quatre.">
+    <svg class="vue vue-grille" viewBox="36 38 252 308" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+    <svg class="vue vue-operation" viewBox="290 172 80 50" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+    <svg class="vue vue-grille" viewBox="372 38 252 308" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+    <svg class="vue vue-operation" viewBox="626 172 80 50" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+    <svg class="vue vue-grille" viewBox="708 38 252 308" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+    <svg class="vue vue-formule" viewBox="250 360 496 34" aria-hidden="true" focusable="false"><use href="#fig-chadya"/></svg>
+  </div>
+<!-- @figure:fig-chadya:end -->
+        <figcaption>Le couvrant est une trame de période 2 en largeur ; le couvert est <b>sa transposée</b>, donc de période 2 en hauteur. Ni l'un ni l'autre n'est magique. Mais les seize couples qu'ils forment sont tous distincts, et leur combinaison <code>4 × chādaka + chādya + 1</code> donne les entiers de 1 à 16 rangés de telle sorte que les seize droites du carré — quatre lignes, quatre colonnes, huit diagonales brisées — font toutes 34. J'ai vérifié les seize.</figcaption>
       </figure>
-      <p>C'est, structurellement, ce que je fais : une figure n'est pas dessinée, elle est le résultat de couches combinées, et la loi vit dans la combinaison plutôt que dans le dessin. Et le point commun le plus net est celui-ci : <b>aucune des deux couches ne porte la propriété.</b> Elle n'apparaît qu'à la superposition — comme une parité qui n'existe dans aucun axe pris seul. Mon système compose des axes par une parité ; le sien compose deux tableaux par une addition. L'opération diffère, le geste est le même — <b>déléguer la propriété à la composition</b>.</p>
+      <p>C'est, structurellement, ce que je fais : une figure n'est pas dessinée, elle est le résultat de couches combinées, et la loi vit dans la combinaison plutôt que dans le dessin. Et le point commun le plus net est celui-ci : <b>aucune des deux couches ne porte la propriété.</b> Elle n'apparaît qu'à la superposition — comme une parité qui n'existe dans aucun axe pris seul.</p>
+      <p>Il y a plus économe encore. Puisque le couvert est la transposée du couvrant, <b>il n'y a pas deux trames mais une seule</b>, posée deux fois, la seconde tournée d'un quart de tour. Toute la construction tient dans un motif et son transposé. C'est le genre de dépouillement que je cherche dans mon propre système, et le trouver là me confirme que la voie est praticable. Mon système compose des axes par une parité ; le sien compose deux tableaux par une addition. L'opération diffère, le geste est le même — <b>déléguer la propriété à la composition</b>.</p>
       <h3>Le pas du cheval</h3>
       <p>Son autre méthode porte un nom qui dit tout : <b>turagagati</b>, la marche du cheval. Les nombres se posent par pas de cavalier, par paires tirées de progressions, selon un ordre (<b>krama</b>) ou son renversement (<b>utkrama</b>).</p>
       <p>Un parcours réglé qui engendre une figure globale : c'est encore un air de famille avec une construction par règle plutôt que par placement.</p>
