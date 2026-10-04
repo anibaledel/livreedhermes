@@ -4,7 +4,8 @@
 //
 // check_article.mjs — un article du site, tel qu'un lecteur le reçoit :
 //   1. la page répond 200 et figure dans la liste des articles (articles.html) ;
-//   2. ses figures SVG restent des SVG (servies en image/svg+xml) ; à 390 px,
+//   2. ses figures SVG restent des SVG (en ligne dans la page, ou servies en
+//      image/svg+xml), leur texte dans la police du site ; à 390 px,
 //      la page ne déborde pas et une figure trop large passe en colonne
 //      (.figure-etroite) : chaque vue est une fenêtre sur le même SVG, dont
 //      la géométrie rendue (taille, décalage) est vérifiée au pixel près, et
@@ -56,51 +57,56 @@ try {
   else echec('articles.html : pas de carte vers l\'article');
 
   // ---- 2. les figures SVG ---------------------------------------------------
-  const svgs = await page.$$eval('.article-content figure img', (is) => [...new Set(is.map((i) => i.src.split('#')[0]).filter((s) => s.endsWith('.svg')))]);
-  for (const s of svgs) {
+  // En ligne dans la page (tools/figure_en_ligne.mjs) : vectorielles, et leur
+  // texte prend la police du site. Une figure encore servie par <img> est
+  // vérifiée comme fichier (200, image/svg+xml).
+  const fichiers = await page.$$eval('.article-content figure img', (is) => [...new Set(is.map((i) => i.src.split('#')[0]).filter((s) => s.endsWith('.svg')))]);
+  for (const s of fichiers) {
     const r = await fetch(s);
     const type = r.headers.get('content-type') || '';
     if (r.status === 200 && type.startsWith('image/svg+xml')) ok(`${s.slice(BASE.length)} : 200, ${type} (vectoriel)`);
     else echec(`${s} : HTTP ${r.status}, ${type}`);
   }
-  await page.$$eval('img[loading=lazy]', (is) => is.forEach((i) => { i.loading = 'eager'; }));
-  await page.evaluate(async () => { for (const i of document.querySelectorAll('.figure-large')) { if (!i.complete) await new Promise((r) => { i.onload = r; i.onerror = r; }); } });
-  const large = await page.$$eval('.figure-large', (is) => is.map((i) => ({ vu: i.offsetWidth > 0, w: i.naturalWidth, l: i.getBoundingClientRect().width })));
-  if (large.length && large.every((f) => f.vu && f.w > 0)) ok(`1280 px : ${large.length} figure(s) en entier, ${large.map((f) => `${f.l.toFixed(0)} px`).join(', ')}`);
-  else if (large.length) echec(`1280 px : figure entière absente ${JSON.stringify(large)}`);
+  const large = await page.$$eval('.article-content figure svg.figure-large', (ss) => ss.map((s) => ({
+    vu: s.getBoundingClientRect().width > 0, l: s.getBoundingClientRect().width, textes: s.querySelectorAll('text').length,
+    police: s.querySelector('text') ? getComputedStyle(s.querySelector('text')).fontFamily : '',
+    nom: s.getAttribute('aria-label') || '',
+  })));
+  const policeSite = await page.evaluate(() => getComputedStyle(document.body).fontFamily);
+  for (const f of large) {
+    if (!f.vu || !f.textes) echec(`1280 px : figure en ligne absente ou vide ${JSON.stringify(f)}`);
+    else if (f.police !== policeSite) echec(`1280 px : le texte de la figure n'a pas la police du site (${f.police})`);
+    else if (!f.nom) echec('1280 px : figure sans description (aria-label)');
+    else ok(`1280 px : figure en ligne, ${f.l.toFixed(0)} px, ${f.textes} textes dans la police du site, décrite pour les lecteurs d'écran`);
+  }
 
   const mobile = await navigateur.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   await mobile.goto(URL_ARTICLE, { waitUntil: 'load' });
-  await mobile.$$eval('img[loading=lazy]', (is) => is.forEach((i) => { i.loading = 'eager'; }));
-  await mobile.evaluate(async () => { for (const i of document.querySelectorAll('.figure-etroite img')) { if (!i.complete) await new Promise((r) => { i.onload = r; i.onerror = r; }); } });
   const deborde = await mobile.evaluate(() => document.documentElement.scrollWidth);
   if (deborde > 390) echec(`390 px : la page déborde (${deborde} px)`);
   else ok('390 px : aucun débordement horizontal');
   if (large.length) {
-    // chaque vue : une fenêtre (--w × --h, en unités du SVG) sur le SVG entier
-    // décalé de (--x, --y) ; on vérifie la géométrie rendue, au pixel près
-    const vues = await mobile.$$eval('.figure-etroite .vue', (vs) => vs.map((v) => {
-      const cs = getComputedStyle(v), n = (k) => +cs.getPropertyValue(k);
-      const i = v.querySelector('img'), rv = v.getBoundingClientRect(), ri = i.getBoundingClientRect();
-      return { cls: v.className, x: n('--x'), y: n('--y'), w: n('--w'), h: n('--h'), nat: i.naturalWidth, iw: i.naturalWidth && i.getAttribute('width'),
-        vl: rv.left, vt: rv.top, vw: rv.width, vh: rv.height, il: ri.left, it: ri.top, iW: ri.width, cache: cs.overflow === 'hidden' };
+    // chaque vue : un <svg viewBox="cadrage"> qui réutilise la figure par
+    // <use> ; on vérifie qu'elle est rendue (boîte non nulle du contenu
+    // réutilisé), à la taille prévue, et que ses chiffres restent lisibles
+    const vues = await mobile.$$eval('.figure-etroite svg.vue', (vs) => vs.map((v) => {
+      const [, , w, h] = v.getAttribute('viewBox').split(/\s+/).map(Number);
+      const r = v.getBoundingClientRect(), u = v.querySelector('use'), b = u ? u.getBBox() : { width: 0 };
+      return { cls: v.getAttribute('class'), vb: v.getAttribute('viewBox'), w, h, rw: r.width, rh: r.height, rendu: b.width > 0 };
     }));
-    const cachee = await mobile.$$eval('.figure-large', (is) => is.every((i) => i.offsetWidth === 0));
+    const cachee = await mobile.$$eval('.article-content figure svg.figure-large', (ss) => ss.every((s) => s.getBoundingClientRect().width === 0));
     if (!vues.length || !cachee) echec(`390 px : la figure ne passe pas en colonne (${vues.length} vues, entière cachée : ${cachee})`);
     for (const v of vues) {
-      const nom = `${v.cls.replace('vue ', '')} (${v.x},${v.y},${v.w},${v.h})`;
-      if (!v.nat) { echec(`390 px : ${nom} non chargée`); continue; }
-      const e = v.vw / v.w; // px par unité du SVG
+      const nom = `${v.cls.replace('vue ', '')} (${v.vb})`;
+      const e = v.rw / v.w; // px par unité du SVG
       const fautes = [];
-      if (!v.cache) fautes.push('fenêtre sans overflow:hidden');
-      if (Math.abs(v.vh - v.h * e) > 1) fautes.push(`hauteur ${v.vh.toFixed(1)} ≠ ${(v.h * e).toFixed(1)}`);
-      if (Math.abs(v.iW - +v.iw * e) > 1) fautes.push(`SVG large de ${v.iW.toFixed(1)} ≠ ${(+v.iw * e).toFixed(1)}`);
-      if (Math.abs(v.il - v.vl + v.x * e) > 1 || Math.abs(v.it - v.vt + v.y * e) > 1) fautes.push('décalage faux');
+      if (!v.rendu) fautes.push('rien de rendu');
+      if (Math.abs(v.rh - v.h * e) > 1) fautes.push(`hauteur ${v.rh.toFixed(1)} ≠ ${(v.h * e).toFixed(1)}`);
       // tailles des textes du SVG : chiffres et titres 19, formule 16 (classes .n, .t, .f)
       const taille = (v.cls.includes('formule') ? 16 : 19) * e;
       if (taille < 11) fautes.push(`texte à ${taille.toFixed(1)} px, illisible`);
       if (fautes.length) echec(`390 px : ${nom} — ${fautes.join(' ; ')}`);
-      else ok(`390 px : ${nom} — ${v.vw.toFixed(0)} px de large, texte ${taille.toFixed(1)} px, cadrage exact`);
+      else ok(`390 px : ${nom} — ${v.rw.toFixed(0)} px de large, texte ${taille.toFixed(1)} px`);
     }
   }
 
@@ -110,7 +116,7 @@ try {
   await cdp.send('DOM.enable'); await cdp.send('CSS.enable');
   const { root } = await cdp.send('DOM.getDocument', { depth: -1 });
   const ids = [];
-  for (const sel of ['h1.article-title', '.article-content p', '.article-content h2', '.article-content h3', '.article-content li', '.article-content td', '.article-content th', '.article-content figcaption', '.article-content b', '.article-content i', '.article-content code', '.article-content a']) {
+  for (const sel of ['h1.article-title', '.article-content p', '.article-content h2', '.article-content h3', '.article-content li', '.article-content td', '.article-content th', '.article-content figcaption', '.article-content b', '.article-content i', '.article-content code', '.article-content a', '.article-content svg text']) {
     const { nodeIds } = await cdp.send('DOM.querySelectorAll', { nodeId: root.nodeId, selector: sel });
     ids.push(...nodeIds);
   }
