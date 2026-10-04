@@ -20,11 +20,21 @@
 #      18 dB : les images viennent de PDFium, ce rendu de MuPDF, et les deux
 #      lissent autrement les planches denses) et le ressemble d'au moins 5 dB
 #      de plus qu'au rendu de toute autre page de l'échantillon — deux chaînes
-#      qui divergent (un PDF remplacé, des images anciennes) ne passent pas.
+#      qui divergent (un PDF remplacé, des images anciennes) ne passent pas ;
+#   5. L'EN-TÊTE (le lettrage « La Livrée d'Hermès ») est sur les 111 pages de
+#      chaque édition. C'est une IMAGE, pas du texte : chercher le titre dans
+#      le texte de la page échouerait, et aurait tort. La référence est lue
+#      dans l'édition française — l'emplacement que le lettrage occupe sur
+#      toutes ses pages, et ses images (bleu sur les pages claires, or sur les
+#      sombres) —, pas recopiée ici : chaque page de chaque édition doit
+#      porter, à cet emplacement, l'une de ces images. L'export v3 des sept
+#      éditions traduites l'avait remplacé par une image de 1 × 1 pixel, sans
+#      que rien ne le voie.
 #
 # Usage : python3 tools/check_livres.py [--essai]
-#   --essai : fait mordre les contrôles 3 et 4 (une page thaïe glissée dans
-#   le français, une image d'une autre page) et vérifie qu'ils échouent.
+#   --essai : fait mordre les contrôles 3, 4 et 5 (une page thaïe glissée
+#   dans le français, une image d'une autre page, l'en-tête effacé d'une page
+#   de l'anglais) et vérifie qu'ils échouent.
 import os, re, sys
 import numpy as np
 import pymupdf
@@ -66,7 +76,31 @@ def psnr(a, b):
     return 99.0 if m == 0 else 10 * np.log10(255 ** 2 / m)
 
 
+def placements(page):
+    """les images posées sur la page : (empreinte, emplacement arrondi)"""
+    return {(i['digest'], tuple(round(v) for v in i['bbox'])) for i in page.get_image_info(hashes=True)}
+
+
+def reference_en_tete():
+    """l'en-tête de l'édition française : l'emplacement qu'une image occupe sur
+    ses 111 pages, dans le haut de la page, et les images posées là"""
+    doc = pymupdf.open(os.path.join(ROOT, 'book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf'))
+    pages = [placements(p) for p in doc]
+    h, w = doc[0].rect.height, doc[0].rect.width
+    communs = set.intersection(*({bb for _, bb in pl if bb[3] < 0.15 * h and bb[2] - bb[0] < 0.5 * w} for pl in pages))
+    if len(communs) != 1:
+        raise SystemExit(f'ÉCHEC en-tête de référence introuvable dans le français : emplacements communs {sorted(communs)}')
+    bb = communs.pop()
+    return bb, {d for pl in pages for d, b in pl if b == bb}
+
+
+EN_TETE = None
+
+
 def controle(langue, essai=None):
+    global EN_TETE
+    if EN_TETE is None:
+        EN_TETE = reference_en_tete()
     echecs = []
     doc = pymupdf.open(os.path.join(ROOT, f'book-viewer/la-livree-d-hermes-anibal-amiot-{langue}.pdf'))
     textes = [p.get_text() for p in doc]
@@ -90,6 +124,15 @@ def controle(langue, essai=None):
         for nom, n in ecritures(t).items():
             if nom != propre and n >= 15:
                 echecs.append(f'{langue} : page {i + 1} du PDF en écriture {nom} ({n} lettres), étrangère à ce livre')
+    # 5. l'en-tête, sur chaque page
+    bb, images = EN_TETE
+    if essai == 'en-tete':
+        page = doc[49]
+        page.add_redact_annot(pymupdf.Rect(*bb))
+        page.apply_redactions(images=pymupdf.PDF_REDACT_IMAGE_REMOVE, graphics=0, text=1)
+    sans = [i + 1 for i, p in enumerate(doc) if not any(d in images and b == bb for d, b in placements(p))]
+    if sans:
+        echecs.append(f'{langue} : pas d\'en-tête (lettrage) sur {len(sans)} page(s) du PDF : {sans[:12]}')
     # 4. la page du lecteur montre la page du PDF
     cs = codes()
     rendus = {p: rendu(doc[p - 1]) for p in ECHANTILLON}
@@ -107,16 +150,19 @@ if __name__ == '__main__':
     if '--essai' in sys.argv:
         e1 = controle('fr', 'ecriture')
         e2 = controle('fr', 'image')
+        e3 = controle('en', 'en-tete')
         ok1 = any('écriture thaï' in e for e in e1)
         ok2 = any('ne montre pas la page 93' in e for e in e2)
+        ok3 = any("pas d'en-tête" in e and '[50]' in e for e in e3)
         print(f'Essai : une page thaïe glissée dans le français → {"détectée" if ok1 else "NON détectée"} ; '
-              f'l\'image d\'une autre page à la place de la 93 → {"détectée" if ok2 else "NON détectée"}')
-        sys.exit(0 if ok1 and ok2 else 1)
+              f'l\'image d\'une autre page à la place de la 93 → {"détectée" if ok2 else "NON détectée"} ; '
+              f'l\'en-tête effacé de la page 50 de l\'anglais → {"détecté" if ok3 else "NON détecté"}')
+        sys.exit(0 if ok1 and ok2 and ok3 else 1)
     tous = []
     for langue in LANGUES:
         e = controle(langue)
         tous += e
-        print(f'OK    {langue} : 111 pages 1920 × 1080, licence, remerciements, aucune écriture étrangère, '
+        print(f'OK    {langue} : 111 pages 1920 × 1080, licence, remerciements, aucune écriture étrangère, en-tête sur les 111, '
               f'lecteur = PDF aux pages {", ".join(map(str, ECHANTILLON))}' if not e else f'…     {langue}')
     for e in tous:
         print(f'ÉCHEC {e}', file=sys.stderr)
