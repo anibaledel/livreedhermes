@@ -13,7 +13,7 @@
 //
 // Il vérifie :
 //   1. le glossaire lui-même : chaque concept a exactement un terme non vide
-//      dans chacune des six langues (pas de « a ; b », pas de cellule vide
+//      dans chacune des langues de scripts/langues.js (pas de « a ; b », pas de cellule vide
 //      hors du « — » assumé) ;
 //   2. les pages : aucune page d'une langue (<html lang>) n'emploie une
 //      variante refusée pour cette langue — titre « La Livrée d'Hermès » et
@@ -28,10 +28,14 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const GLOSSAIRE = path.join(RACINE, 'docs/terminologie-fr-en-es-th.md');
-const LANGUES = ['fr', 'en', 'es', 'th', 'zh-Hans', 'ru'];
+// Les langues du site, dans l'ordre de scripts/langues.js : celui des colonnes
+// du glossaire. Une langue ajoutée là demande sa colonne ici, et rien d'autre.
+const { LANGUES: DECLAREES, hreflangDeCode } = createRequire(import.meta.url)('../scripts/langues.js');
+const LANGUES = Object.keys(DECLAREES).map(hreflangDeCode);
 const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'sources']);
 
 const erreurs = [];
@@ -52,8 +56,8 @@ const lignesTableau = (titre) => {
 };
 const termes = [...lignesTableau('| FR | EN (déjà en usage)'), ...lignesTableau('## Termes du système')];
 for (const cells of termes) {
-  const [fr, ...trad] = cells.slice(0, 6);
-  if (cells.length !== 7) { erreurs.push(`glossaire : « ${fr} » a ${cells.length} colonnes, 7 attendues`); continue; }
+  const [fr, ...trad] = cells.slice(0, LANGUES.length);
+  if (cells.length !== LANGUES.length + 1) { erreurs.push(`glossaire : « ${fr} » a ${cells.length} colonnes, ${LANGUES.length + 1} attendues (une par langue de scripts/langues.js, et la note)`); continue; }
   trad.forEach((t, k) => {
     const lang = LANGUES[k + 1];
     if (!t) erreurs.push(`glossaire : « ${fr} » n'a pas de terme ${lang}`);
@@ -110,7 +114,7 @@ for (const abs of pages(RACINE)) {
   }
 }
 
-console.log(`Glossaire : ${termes.length} concepts × 6 langues, ${refus.reduce((n, r) => n + r.variantes.length, 0)} variantes refusées.`);
+console.log(`Glossaire : ${termes.length} concepts × ${LANGUES.length} langues, ${refus.reduce((n, r) => n + r.variantes.length, 0)} variantes refusées.`);
 console.log(`Pages lues par langue : ${LANGUES.map((l) => `${l} ${parLangue[l]}`).join(' · ')}`);
 if (erreurs.length) {
   for (const e of erreurs) console.error(`ÉCART ${e}`);

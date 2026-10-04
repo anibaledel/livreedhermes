@@ -15,6 +15,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 
 const RACINE = path.resolve(process.argv[2] || path.join(path.dirname(new URL(import.meta.url).pathname), '..'));
 const SITE = 'https://anibal-amiot.com/';
@@ -67,19 +68,20 @@ for (const [rel, p] of info) {
   }
 }
 // L'absence aussi se surveille. Une page rangée sous un dossier de langue
-// (en/, es/, th/, zh/, ru/, fr/) n'existe QUE comme traduction : elle a donc
+// (un par langue de scripts/langues.js : en/, es/, th/, zh/, ru/, pt/, fr/…) n'existe QUE comme traduction : elle a donc
 // des équivalents, et doit les déclarer. C'est ce qui manquait quand les
 // quatre pages de recherche (recherche.html, en/search/, es/buscar/,
 // th/search/) existaient sans aucun hreflang : rien ne vérifiait qu'une page
 // traduite figure dans un groupe de scripts/langues.js.
-const DOSSIERS_DE_LANGUE = /^(en|es|th|zh|ru|fr)\//;
+const { LANGUES: DECLAREES, hreflangDeCode } = createRequire(import.meta.url)('../scripts/langues.js');
+const DOSSIERS_DE_LANGUE = new RegExp(`^(${Object.keys(DECLAREES).join('|')})/`);
 for (const [rel, p] of info) {
   if (DOSSIERS_DE_LANGUE.test(rel) && !p.alt.size) {
     erreurs.push(`${rel} : page traduite sans aucun hreflang — l'ajouter à un groupe de scripts/langues.js`);
   }
 }
 
-const ordre = ['fr', 'en', 'es', 'th', 'zh-Hans', 'ru', 'x-default'];
+const ordre = [...Object.keys(DECLAREES).map(hreflangDeCode), 'x-default'];
 const autres = Object.keys(parValeur).filter((k) => !ordre.includes(k));
 console.log(`Pages portant des hreflang : ${avec.length}`);
 console.log(`Par valeur : ${[...ordre, ...autres].filter((k) => parValeur[k]).map((k) => `${k} ${parValeur[k]}`).join(' · ')}`);

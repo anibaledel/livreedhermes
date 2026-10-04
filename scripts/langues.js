@@ -54,13 +54,65 @@ const LANGUE_PAR_DEFAUT = 'en';
 // SIMPLIFIÉ, parce que « zh » seul laisse un moteur hésiter entre simplifié
 // et traditionnel. Si le traditionnel arrive, il prendra zh-Hant sans rien
 // casser. Le même `hreflang` est la valeur de <html lang> sur ces pages.
+//
+// Ce que chaque langue porte de plus (lot « portugais », 2026-10-04 : une
+// langue s'ajoute ICI, et le reste s'en déduit — voir docs/ajouter-une-langue.md) :
+//   drapeau  le drapeau des barres « Lire / PDF / Yi-King » (scripts/build-langues.js) ;
+//   pages    ses pages, par groupe de traduction : l'adresse relative à la
+//            racine du site ('' pour la racine, '…/' pour un dossier). Les
+//            groupes ci-dessous en sont TIRÉS, dans l'ordre de cette table ;
+//   hexagrammes  les 64 pages d'hexagramme existent dans cette langue ;
+//   edition  la carte de son édition (la-livree-d-hermes.html), dans sa langue :
+//            « lire » quand le livre se lit sur le site (PDF et pages déposés),
+//            « preparation » sinon. Lequel des deux : calculé
+//            (scripts/livres.js), jamais écrit à la main. boutonLire et
+//            boutonPdf : les deux boutons de sa page du livre ;
+//   accueil  pour les accueils qui annoncent le livre (zh, ru, pt) : les
+//            boutons « lire » et « PDF » ({mo} : la taille du PDF, mesurée) et
+//            la carte du traité, selon que l'édition est parue ou non ;
+//   titreLivre  le titre du livre dans cette langue, s'il n'est pas
+//            « La Livrée d'Hermès » (données structurées de la visionneuse).
+// Le portugais (pt) : celui du Portugal (pt-PT), le choix d'Anibal ; ses
+// textes, comme ceux du chinois et du russe, sont à relire (TODO-RELECTURE.md).
 const LANGUES = {
-  fr: { nom: 'Français', autres: 'Autres langues :' },
-  en: { nom: 'English', autres: 'Other languages:' },
-  es: { nom: 'Español', autres: 'Otros idiomas:' },
-  th: { nom: 'ไทย', autres: 'ภาษาอื่น:' },
-  zh: { nom: '简体中文', autres: '其他语言：', hreflang: 'zh-Hans' },
-  ru: { nom: 'Русский', autres: 'Другие языки:' },
+  fr: {
+    nom: 'Français', autres: 'Autres langues :', drapeau: '🇫🇷', hexagrammes: true,
+    pages: { livre: 'fr/livre/', accueil: '', lexique: 'lexique.html', 'a-propos': 'a-propos.html', travaux: 'travaux.html', recherche: 'recherche.html', outils: 'outils.html', soutien: 'soutenir.html', articles: 'articles.html' },
+    edition: { titre: 'Édition française', lire: "Lisez La Livrée d'Hermès en ligne, page par page, avec téléchargement du PDF gratuit.", boutonLire: 'Lire le livre en ligne →', boutonPdf: 'Télécharger le PDF (FR)' },
+  },
+  en: {
+    nom: 'English', autres: 'Other languages:', drapeau: '🇬🇧', hexagrammes: true,
+    pages: { livre: 'en/book/', accueil: 'en/', lexique: 'en/lexicon/', 'a-propos': 'en/about/', travaux: 'en/works/', recherche: 'en/search/', articles: 'en/articles/' },
+    edition: { titre: 'English edition', lire: "Read La Livrée d'Hermès online, page by page, with free PDF download.", boutonLire: 'Read the book online →', boutonPdf: 'Download the PDF (EN)' },
+  },
+  es: {
+    nom: 'Español', autres: 'Otros idiomas:', drapeau: '🇪🇸', hexagrammes: true,
+    pages: { livre: 'es/libro/', accueil: 'es/', lexique: 'es/lexico/', recherche: 'es/buscar/' },
+    edition: { titre: 'Edición española', lire: "Lea La Livrée d'Hermès en línea, página por página, con descarga gratuita en PDF.", boutonLire: 'Leer el libro en línea →', boutonPdf: 'Descargar el PDF (ES)' },
+  },
+  th: {
+    nom: 'ไทย', autres: 'ภาษาอื่น:', drapeau: '🇹🇭', hexagrammes: true, titreLivre: 'ลิเวรีของเฮอร์มีส',
+    pages: { livre: 'th/book/', accueil: 'th/', lexique: 'th/lexicon/', recherche: 'th/search/' },
+    edition: { titre: 'ฉบับภาษาไทย', lire: "อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี", boutonLire: 'อ่านหนังสือออนไลน์ →', boutonPdf: 'ดาวน์โหลด PDF (TH)' },
+  },
+  zh: {
+    nom: '简体中文', autres: '其他语言：', hreflang: 'zh-Hans', drapeau: '🇨🇳',
+    pages: { livre: 'zh/book/', accueil: 'zh/', lexique: 'zh/lexicon/', travaux: 'zh/works/', outils: 'zh/tools/', soutien: 'zh/support/' },
+    accueil: { lire: '在线阅读', pdfPropre: '下载简体中文版 PDF（{mo} MB）', pdfAnglais: '下载英文版 PDF（{mo} MB）', carte: '论著', pret: "在线逐页阅读 La Livrée d'Hermès 简体中文版，并可免费下载 PDF；其他语言版本亦可阅读。", preparation: '在线阅读其他语言版本，并可免费下载 PDF。简体中文版正在准备中。' },
+    edition: { titre: '简体中文版', lire: "在线逐页阅读 La Livrée d'Hermès，并免费下载 PDF。", preparation: '简体中文版正在准备中。可在线阅读其他语言版本，并免费下载 PDF。', boutonLire: '在线阅读本书 →', boutonPdf: '下载 PDF（简体中文）' },
+  },
+  ru: {
+    nom: 'Русский', autres: 'Другие языки:', drapeau: '🇷🇺',
+    pages: { livre: 'ru/book/', accueil: 'ru/', lexique: 'ru/lexicon/', travaux: 'ru/works/', outils: 'ru/tools/', soutien: 'ru/support/' },
+    accueil: { lire: 'Читать онлайн', pdfPropre: 'PDF на русском ({mo} МБ)', pdfAnglais: 'PDF на английском ({mo} МБ)', carte: 'Трактат', pret: "Книга <i>La Livrée d'Hermès</i> на русском: чтение онлайн по страницам и бесплатный PDF. Доступны и другие языки.", preparation: "Книга <i>La Livrée d'Hermès</i>: чтение онлайн по страницам и PDF на других языках. Русское издание готовится." },
+    edition: { titre: 'Русское издание', lire: "Читайте La Livrée d'Hermès онлайн, страница за страницей, с бесплатной загрузкой PDF.", preparation: 'Русское издание готовится. Пока его можно читать онлайн на других языках и бесплатно скачать PDF.', boutonLire: 'Читать книгу онлайн →', boutonPdf: 'Скачать PDF (RU)' },
+  },
+  pt: {
+    nom: 'Português', autres: 'Outras línguas:', hreflang: 'pt-PT', drapeau: '🇵🇹',
+    pages: { livre: 'pt/book/', accueil: 'pt/', lexique: 'pt/lexicon/', travaux: 'pt/works/', outils: 'pt/tools/', soutien: 'pt/support/' },
+    accueil: { lire: 'Ler online', pdfPropre: 'PDF em português ({mo} MB)', pdfAnglais: 'PDF em inglês ({mo} MB)', carte: 'O tratado', pret: "O livro <i>La Livrée d'Hermès</i> em português: leitura online, página a página, e PDF gratuito. Também disponível noutras línguas.", preparation: "O livro <i>La Livrée d'Hermès</i>: leitura online, página a página, e PDF gratuito noutras línguas. A edição portuguesa está em preparação." },
+    edition: { titre: 'Edição portuguesa', lire: "Leia La Livrée d'Hermès online, página a página, com descarga gratuita do PDF.", preparation: 'A edição portuguesa está em preparação. Entretanto, o livro pode ser lido online noutras línguas, com descarga gratuita do PDF.', boutonLire: 'Ler o livro online →', boutonPdf: 'Descarregar o PDF (PT)' },
+  },
 };
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
@@ -69,54 +121,29 @@ const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
 // « rangee » dit si ses pages portent une rangée de langues VISIBLE, engendrée
 // depuis cette liste. Le hreflang parle aux moteurs ; la rangée parle aux gens,
 // et rien ne garantissait jusqu'ici qu'ils disent la même chose.
+// Une page d'une langue pour un groupe : [code, URL absolue, fichier du dépôt].
+function pageDe(lang, groupe) {
+  const p = LANGUES[lang].pages[groupe];
+  if (p === undefined) return null;
+  return [lang, `${SITE}/${p}`, p === '' || p.endsWith('/') ? `${p}index.html` : p];
+}
+// Les pages d'un groupe, tirées de LANGUES, dans l'ordre de la table.
+const pagesDe = (groupe) => Object.keys(LANGUES).map((l) => pageDe(l, groupe)).filter(Boolean);
+
 const GROUPES = [
   {
     nom: 'livre',
     changefreq: 'monthly',
     priority: '0.8',
-    // Les quatre pages du livre portent déjà une rangée écrite à la main.
-    // Les unifier est un chantier à part : leur rangée vit dans leur corps,
-    // pas dans une région, et y toucher demande de reprendre quatre pages
-    // traduites. En attendant, elles ne reçoivent rien d'engendré — mieux
-    // vaut une copie assumée qu'une région posée à moitié.
+    // Les pages du livre portent leur rangée « Autres langues » dans leur
+    // corps (<p class="other-langs">) : elle est engendrée par
+    // scripts/build-langues.js, depuis cette même table — pas par la région
+    // des rangées de build-header.js.
     rangee: false,
-    pages: [
-      ['fr', `${SITE}/fr/livre/`, 'fr/livre/index.html'],
-      ['en', `${SITE}/en/book/`, 'en/book/index.html'],
-      ['es', `${SITE}/es/libro/`, 'es/libro/index.html'],
-      ['th', `${SITE}/th/book/`, 'th/book/index.html'],
-      ['zh', `${SITE}/zh/book/`, 'zh/book/index.html'],
-      ['ru', `${SITE}/ru/book/`, 'ru/book/index.html'],
-    ],
+    pages: pagesDe('livre'),
   },
-  {
-    nom: 'accueil',
-    changefreq: 'monthly',
-    priority: '1.0',
-    rangee: true,
-    pages: [
-      ['fr', `${SITE}/`, 'index.html'],
-      ['en', `${SITE}/en/`, 'en/index.html'],
-      ['es', `${SITE}/es/`, 'es/index.html'],
-      ['th', `${SITE}/th/`, 'th/index.html'],
-      ['zh', `${SITE}/zh/`, 'zh/index.html'],
-      ['ru', `${SITE}/ru/`, 'ru/index.html'],
-    ],
-  },
-  {
-    nom: 'lexique',
-    changefreq: 'monthly',
-    priority: '0.6',
-    rangee: true,
-    pages: [
-      ['fr', `${SITE}/lexique.html`, 'lexique.html'],
-      ['en', `${SITE}/en/lexicon/`, 'en/lexicon/index.html'],
-      ['es', `${SITE}/es/lexico/`, 'es/lexico/index.html'],
-      ['th', `${SITE}/th/lexicon/`, 'th/lexicon/index.html'],
-      ['zh', `${SITE}/zh/lexicon/`, 'zh/lexicon/index.html'],
-      ['ru', `${SITE}/ru/lexicon/`, 'ru/lexicon/index.html'],
-    ],
-  },
+  { nom: 'accueil', changefreq: 'monthly', priority: '1.0', rangee: true, pages: pagesDe('accueil') },
+  { nom: 'lexique', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('lexique') },
 ];
 
 // Articles traduits en anglais (en/articles/), un groupe par article.
@@ -135,29 +162,9 @@ const ARTICLES_TRADUITS = [
 ];
 // La page sur l'auteur : à propos (français), about (anglais, qui reprend
 // aussi brevets et dessins et modèles de profil.html).
-GROUPES.push({
-  nom: 'a-propos',
-  changefreq: 'monthly',
-  priority: '0.6',
-  rangee: true,
-  pages: [
-    ['fr', `${SITE}/a-propos.html`, 'a-propos.html'],
-    ['en', `${SITE}/en/about/`, 'en/about/index.html'],
-  ],
-});
+GROUPES.push({ nom: 'a-propos', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('a-propos') });
 // La liste des dépôts (data/travaux.json, scripts/build-travaux.js).
-GROUPES.push({
-  nom: 'travaux',
-  changefreq: 'weekly',
-  priority: '0.6',
-  rangee: true,
-  pages: [
-    ['fr', `${SITE}/travaux.html`, 'travaux.html'],
-    ['en', `${SITE}/en/works/`, 'en/works/index.html'],
-    ['zh', `${SITE}/zh/works/`, 'zh/works/index.html'],
-    ['ru', `${SITE}/ru/works/`, 'ru/works/index.html'],
-  ],
-});
+GROUPES.push({ nom: 'travaux', changefreq: 'weekly', priority: '0.6', rangee: true, pages: pagesDe('travaux') });
 // Les outils et le soutien (lot « six langues ») : pages d'entrée en chinois
 // et en russe vers les outils et la page de paiement, qui restent en
 // français. Il n'en existe pas de version anglaise : ces deux groupes n'ont
@@ -179,46 +186,12 @@ GROUPES.push({
   // — une URL soumise et marquée noindex est un signal contradictoire que
   // Search Console signale.
   sitemap: false,
-  pages: [
-    ['fr', `${SITE}/recherche.html`, 'recherche.html'],
-    ['en', `${SITE}/en/search/`, 'en/search/index.html'],
-    ['es', `${SITE}/es/buscar/`, 'es/buscar/index.html'],
-    ['th', `${SITE}/th/search/`, 'th/search/index.html'],
-  ],
+  pages: pagesDe('recherche'),
 });
-GROUPES.push({
-  nom: 'outils',
-  changefreq: 'monthly',
-  priority: '0.7',
-  rangee: true,
-  pages: [
-    ['fr', `${SITE}/outils.html`, 'outils.html'],
-    ['zh', `${SITE}/zh/tools/`, 'zh/tools/index.html'],
-    ['ru', `${SITE}/ru/tools/`, 'ru/tools/index.html'],
-  ],
-});
-GROUPES.push({
-  nom: 'soutien',
-  changefreq: 'monthly',
-  priority: '0.6',
-  rangee: true,
-  pages: [
-    ['fr', `${SITE}/soutenir.html`, 'soutenir.html'],
-    ['zh', `${SITE}/zh/support/`, 'zh/support/index.html'],
-    ['ru', `${SITE}/ru/support/`, 'ru/support/index.html'],
-  ],
-});
+GROUPES.push({ nom: 'outils', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('outils') });
+GROUPES.push({ nom: 'soutien', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('soutien') });
 // La liste des articles elle-même : articles.html et sa jumelle anglaise.
-GROUPES.push({
-  nom: 'articles',
-  changefreq: 'weekly',
-  priority: '0.7',
-  rangee: true,
-  pages: [
-    ['fr', `${SITE}/articles.html`, 'articles.html'],
-    ['en', `${SITE}/en/articles/`, 'en/articles/index.html'],
-  ],
-});
+GROUPES.push({ nom: 'articles', changefreq: 'weekly', priority: '0.7', rangee: true, pages: pagesDe('articles') });
 for (const [fr, en] of ARTICLES_TRADUITS) {
   GROUPES.push({
     nom: `article-${fr}`,
@@ -242,7 +215,7 @@ for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
     changefreq: chrono === null ? 'monthly' : 'yearly',
     priority: chrono === null ? '0.6' : '0.5',
     rangee: true,
-    pages: ['fr', 'en', 'es', 'th'].map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
+    pages: Object.keys(LANGUES).filter((l) => LANGUES[l].hexagrammes).map((lang) => [lang, ADRESSES_HEXAGRAMMES.url(chrono, lang), ADRESSES_HEXAGRAMMES.fichier(chrono, lang)]),
   });
 }
 
@@ -331,6 +304,6 @@ const PAGES_TRADUITES = GROUPES.filter((g) => g.sitemap !== false).flatMap((g) =
   })));
 
 module.exports = {
-  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode,
+  SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode, pageDe,
   BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
 };

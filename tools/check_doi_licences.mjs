@@ -22,7 +22,7 @@
 //     4.0 sur les listes de dépôts et nulle part ailleurs — 4 pages à ce jour
 //     (travaux.html, en/works/, zh/works/, ru/works/). Une liste traduite de
 //     plus reprend la licence des dépôts, comme son équivalent français ;
-//   - chaque page d'une langue ajoutée (zh/, ru/) porte le DOI du livre
+//   - chaque page d'une langue ajoutée (zh/, ru/, pt/… : scripts/langues.js) porte le DOI du livre
 //     (10.5281/zenodo.22722485) et la licence CC BY-NC 4.0, comme son
 //     équivalent français ;
 //   - les comptes sont imprimés, pour être comparés avant / après.
@@ -31,11 +31,15 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
 
 const RACINE = path.resolve(process.argv[2] || path.join(path.dirname(new URL(import.meta.url).pathname), '..'));
 const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'docs']);
-const LISTES_ZENODO = new Set(['travaux.html', 'en/works/index.html', 'zh/works/index.html', 'ru/works/index.html']);
-const NOUVELLES = /^(zh|ru)\//;
+// Depuis scripts/langues.js : les listes de dépôts (groupe « travaux ») et les
+// langues AJOUTÉES — celles qui n'ont pas les 64 hexagrammes (zh, ru, pt…).
+const { GROUPES, LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
+const LISTES_ZENODO = new Set(GROUPES.find((g) => g.nom === 'travaux').pages.map(([, , f]) => f));
+const NOUVELLES = new RegExp(`^(${Object.keys(DECLAREES).filter((c) => !DECLAREES[c].hexagrammes).join('|')})/`);
 
 function pages(dir, acc = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {

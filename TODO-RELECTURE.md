@@ -1,4 +1,4 @@
-# À relire — chinois simplifié et russe
+# À relire — chinois simplifié, russe et portugais
 
 La règle d'Anibal : **une version avec des erreurs plutôt que rien.** Aucune page
 n'a été retenue en attendant une relecture. Elles sont publiées, et voici, page
@@ -19,10 +19,25 @@ Où corriger : le lexique et la liste des travaux se corrigent dans les données
 (`data/lexiques_traduits.json`, `data/travaux.json`) puis se régénèrent
 (`node scripts/build-lexiques.js`, `node scripts/build-travaux.js`) ; la phrase
 des langues dans `scripts/build-couverture.js` ; les pieds de page dans
-`includes/footer-zh.html` et `includes/footer-ru.html` ; les autres pages
-directement dans `zh/` et `ru/`. Après toute correction chinoise, relancer
+`includes/footer-zh.html`, `includes/footer-ru.html` et `includes/footer-pt.html` ; les autres pages
+directement dans `zh/`, `ru/` et `pt/`. Après toute correction chinoise, relancer
 `python3 tools/police_zh.py` (la police est réduite aux caractères employés ;
 `tools/check_police_zh.mjs` le rappelle en CI).
+
+## Portugais (pt-PT, ajouté le 2026-10-04)
+
+Portugais du Portugal (choix d'Anibal) : « ecrã », « descarregar »,
+« ficheiro », « registo ». Pages : `pt/`, `pt/book/`, `pt/lexicon/`
+(`data/lexiques_traduits.json`), `pt/works/` (`data/travaux.json`), `pt/tools/`,
+`pt/support/`, `includes/footer-pt.html`, la colonne PT du glossaire, les
+textes `pt` de `scripts/build-couverture.js`, `scripts/build-travaux.js` et de
+`scripts/langues.js` (carte de l'édition, boutons du livre, accueil). Doutes :
+
+- « Libré de Hermes » pour la glose du titre (`livrée` → `libré`, le terme
+  du glossaire) : à confirmer ;
+- « meio-deslocamento » (demi-décalage) et « gnómon » (graphie européenne) ;
+- « picagem de cartões Jacquard » pour le perçage des cartons ;
+- la phrase des licences de `pt/works/`, comme pour le chinois et le russe.
 
 ## En premier : la phrase des licences (texte juridique)
 

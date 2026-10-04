@@ -75,8 +75,8 @@ const TUILES = [
     en: { label: 'SVG patterns', excerpt: 'Download the print layers in 4 categories of trait combinations, as SVG.' } },
 
   { id: 'traite', href: 'la-livree-d-hermes.html', icon: 'la-livree-d-hermes', groupe: 'lire',
-    fr: { label: 'Le traité', excerpt: 'Le traité en quatre langues, les hexagrammes et le lexique.' },
-    en: { label: 'The treatise', excerpt: 'The treatise in four languages, the hexagrams and the lexicon.' } },
+    fr: { label: 'Le traité', excerpt: 'Le traité et ses éditions traduites, les hexagrammes et le lexique.' },
+    en: { label: 'The treatise', excerpt: 'The treatise and its translated editions, the hexagrams and the lexicon.' } },
   { id: 'lexique', href: 'lexique.html', icon: 'lexique', groupe: 'lire',
     fr: { label: 'Lexique', excerpt: "Dix notions clés pour comprendre La Livrée d'Hermès." },
     en: { label: 'Lexicon', excerpt: "Ten key notions for understanding La Livrée d'Hermès." } },

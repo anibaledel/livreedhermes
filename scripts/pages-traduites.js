@@ -23,17 +23,18 @@
    ============================================================ */
 'use strict';
 
+// Les lexiques traduits : un par entrée de data/lexiques_traduits.json
+// (scripts/build-lexiques.js), lus là plutôt que recopiés — une langue
+// ajoutée à ces données y entre d'elle-même.
+const LEXIQUES = Object.values(require('../data/lexiques_traduits.json')).map((l) => `${l.dossier}/index.html`);
+
 const TRADUITES_A_LA_MAIN = new Set([
   'fr/livre/index.html',
   'en/book/index.html',
   'es/libro/index.html',
   'th/book/index.html',
   'book-viewer/index.html',
-  'en/lexicon/index.html',
-  'es/lexico/index.html',
-  'th/lexicon/index.html',
-  'zh/lexicon/index.html',
-  'ru/lexicon/index.html',
+  ...LEXIQUES,
 ]);
 
 module.exports = { TRADUITES_A_LA_MAIN };

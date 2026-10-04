@@ -663,5 +663,138 @@
       ]
     ],
     "credit": "© 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 · Создано в сотрудничестве с Claude"
+  },
+  "pt": {
+    "code": "pt-PT",
+    "dossier": "pt/lexicon",
+    "url": "https://anibal-amiot.com/pt/lexicon/",
+    "titre": "Léxico — La Livrée d'Hermès",
+    "h1": "Léxico",
+    "sous_titre": "Seis definições de referência e dez perguntas",
+    "description": "Definições de referência e perguntas frequentes sobre La Livrée d'Hermès: quadrados solares, a cruz ansada, o sistema de 360 camadas, Carter.",
+    "intro": "Seis definições escritas para serem citadas tal como estão, e dez perguntas com as suas respostas. Cada número sai de um script do repositório; a página francesa «Chiffres et sources» indica o comando de cada um.",
+    "faq_titre": "Perguntas frequentes",
+    "sources": "Para ir mais longe: ler o livro online, os números e as suas fontes, ou o perfil documental do autor (em francês). Conteúdos sob CC BY-NC 4.0, código sob AGPL v3.",
+    "fil": [
+      [
+        "Início",
+        "https://anibal-amiot.com/pt/"
+      ],
+      [
+        "La Livrée d'Hermès",
+        "https://anibal-amiot.com/la-livree-d-hermes.html"
+      ],
+      [
+        "Léxico",
+        null
+      ]
+    ],
+    "definitions": [
+      {
+        "terme": "La Livrée d'Hermès",
+        "texte": "*La Livrée d'Hermès* (A Libré de Hermes) é um tratado de aritmogeometria em 111 pranchas, elaborado de 2009 a 2019, que apresenta um método de construção dos quadrados mágicos de ordem 6 e um sistema de padrões para teares Jacquard assente em 360 camadas. Está publicado sob licença CC BY-NC 4.0, depositado no Zenodo (DOI 10.5281/zenodo.22722485) e distribuído a preço livre em anibal-amiot.com, onde se lê em várias línguas."
+      },
+      {
+        "terme": "Aritmogeometria",
+        "texte": "A aritmogeometria é o estudo dos números através da sua disposição no espaço: um número é uma configuração de pontos, uma soma é uma figura. *La Livrée d'Hermès* aplica-a aos quadrados mágicos — onde a disposição dos números é condicionada pelas somas — e aos padrões tecidos, onde a mesma disposição se torna imagem. O termo designa aqui uma prática construtiva, não uma numerologia: cada figura do livro pode ser verificada por um cálculo."
+      },
+      {
+        "terme": "O quadrado solar e a cruz ansada",
+        "texte": "Um quadrado solar é um quadrado mágico de ordem 6 construído diretamente a partir de uma coloração das suas 36 casas em quatro cores, sem quadrado auxiliar. A coloração segue uma figura chamada cruz ansada — uma configuração de traços com simetria central, da qual existem exatamente duas formas para a ordem 6 — e quatro critérios. Há exatamente 256 colorações admissíveis, 128 por cruz, e cada uma delas dá um quadrado mágico completo: linhas, colunas e as duas diagonais. O cálculo é reprodutível: o código de verificação está no Zenodo."
+      },
+      {
+        "terme": "O sistema de 360 camadas",
+        "texte": "O sistema de 360 camadas é o vocabulário de padrões de *La Livrée d'Hermès*: uma grelha de 12 × 12 divide-se em seis níveis de 24 casas, e cada nível recebe uma de 60 imagens (15 famílias de eixos × 4 naturezas), 360 camadas ao todo. Escolher uma camada por nível compõe um padrão; as seis escolhas, cada uma em dois estados, transcrevem os 64 hexagramas do I Ching. O sistema foi concebido para a picagem de cartões Jacquard: cada camada é um cartão perfurado."
+      },
+      {
+        "terme": "O critério do meio-deslocamento (padrões unificados)",
+        "texte": "Um padrão de 12 × 12 diz-se unificado quando a sua translação de metade do período — seis casas nas duas direções — equivale à troca das suas duas imagens geradoras. Sobre as 360 camadas, este critério retém exatamente 8 das 15 famílias, as que têm exatamente uma base diagonal, yang ou yang mutante, e produz 512 grelhas distintas, ou seja, 256 pavimentações do plano e 128 órbitas de simetria. Exatamente metade destas grelhas fecha também sobre as seis faces de um cubo: aquelas cujo eixo diagonal é do tipo yang. Demonstrado, e verificado por script."
+      },
+      {
+        "terme": "Carter, o codificador",
+        "texte": "Carter é uma codificação esteganográfica que escreve uma mensagem cifrada numa grelha de símbolos, nas posições designadas por um referente público — os quadrados solares ou as 360 camadas. A confidencialidade vem da cifra (XChaCha20-Poly1305, chave de 256 bits), não da geometria: as demonstrações mantêm-se mesmo quando a disposição é conhecida. O referente é um parâmetro substituível; o código é software livre (AGPL v3) e vem com vetores de referência que se podem verificar passo a passo."
+      }
+    ],
+    "questions": [
+      {
+        "question": "O que é um quadrado solar?",
+        "reponse": "Um quadrado mágico de ordem 6 obtido diretamente de uma coloração das suas casas em quatro cores, segundo a cruz ansada e quatro critérios. Há exatamente 256, todos mágicos nas linhas, nas colunas e nas duas diagonais."
+      },
+      {
+        "question": "Quantos quadrados mágicos produz o método?",
+        "reponse": "256 de ordem 6 — e são todas as colorações admissíveis, não uma amostra. Reunidos quatro a quatro, dão 64 quadrados mágicos de ordem 12, de constante 870."
+      },
+      {
+        "question": "O que é a cruz ansada?",
+        "reponse": "Uma figura de traços com simetria central na grelha de 6 × 6, que liga dois a dois as casas complementares de um quadrado mágico de ordem 6. Segundo os critérios do livro, existem exatamente duas, cada uma imagem da outra."
+      },
+      {
+        "question": "O livro é gratuito?",
+        "reponse": "É de preço livre: pode ser lido e descarregado sem pagar, e apoiado se o desejar. Licença CC BY-NC 4.0 — livre de copiar, partilhar e reutilizar para fins não comerciais, com atribuição."
+      },
+      {
+        "question": "Onde estão o livro e o código?",
+        "reponse": "O livro no Zenodo (DOI 10.5281/zenodo.22722485) e em anibal-amiot.com, em várias línguas. O código no GitHub (anibaledel/livreedhermes), sob AGPL v3, com scripts de verificação para cada resultado."
+      },
+      {
+        "question": "Qual é a ligação com o I Ching?",
+        "reponse": "O sistema de 360 camadas compõe um padrão por seis escolhas binárias, uma por nível: a estrutura dos 64 hexagramas. O site propõe uma tiragem que mostra cada hexagrama como um padrão. A ligação é estrutural — seis linhas, seis níveis — e não pretende mais do que isso."
+      },
+      {
+        "question": "O que é um padrão unificado?",
+        "reponse": "Um padrão de 12 × 12 cuja translação de meio período equivale à troca das suas duas imagens: a pavimentação passa então a ter um só motivo, em vez de dois alternados. Há 512, em 128 órbitas; metade fecha sobre um cubo."
+      },
+      {
+        "question": "Estes padrões podem ser tecidos?",
+        "reponse": "Sim: o sistema foi concebido para a picagem de cartões Jacquard, sendo cada camada um cartão. Os ficheiros vetoriais das 360 camadas e dos 256 quadrados estão no repositório, sob CC BY-NC 4.0."
+      },
+      {
+        "question": "Carter é uma cifra?",
+        "reponse": "Carter usa uma cifra corrente (XChaCha20-Poly1305) e dispõe o resultado numa grelha segundo um referente público. A sua segurança é a da cifra, não a da geometria; as demonstrações do artigo mantêm-se mesmo quando a disposição é conhecida. Não é uma cifra nova, nem pretende sê-lo."
+      },
+      {
+        "question": "Como se podem verificar os resultados?",
+        "reponse": "Cada número do site e das notas sai de um script do repositório: as duas cruzes, os 256 quadrados, os 64 de ordem 12, as 512 grelhas e as 128 órbitas, o cubo. Os scripts leem os dados publicados e correm em poucos minutos."
+      }
+    ],
+    "nav": [
+      [
+        "Início",
+        "https://anibal-amiot.com/pt/"
+      ],
+      [
+        "O tratado",
+        "https://anibal-amiot.com/pt/book/"
+      ],
+      [
+        "Trabalhos",
+        "https://anibal-amiot.com/pt/works/"
+      ],
+      [
+        "Ferramentas",
+        "https://anibal-amiot.com/pt/tools/"
+      ],
+      [
+        "Hexagramas (inglês)",
+        "https://anibal-amiot.com/en/hexagrams/"
+      ],
+      [
+        "Padrões (inglês)",
+        "https://anibal-amiot.com/motifs/"
+      ],
+      [
+        "Números e fontes (francês)",
+        "https://anibal-amiot.com/chiffres-et-sources.html"
+      ],
+      [
+        "Contacto (francês)",
+        "https://anibal-amiot.com/contact.html"
+      ],
+      [
+        "Apoiar",
+        "https://anibal-amiot.com/pt/support/"
+      ]
+    ],
+    "credit": "© 2026 Anibal Edelberto Amiot — CC BY-NC 4.0 · Criado em colaboração com Claude"
   }
 }

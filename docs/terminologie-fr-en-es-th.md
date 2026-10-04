@@ -1,4 +1,4 @@
-# Terminologie du système — FR / EN / ES / TH / ZH / RU
+# Terminologie du système — FR / EN / ES / TH / ZH / RU / PT
 
 Vocabulaire fixé une fois, avant de traduire une seule phrase (voir
 `prompt-cc-fusion.md` §6 : « une phrase maladroite se corrige en la lisant,
@@ -8,14 +8,16 @@ propre à `cymatique.html` v2, pour qu'une future page reprenne les mêmes
 choix plutôt que d'en inventer de nouveaux.
 
 Les noms de familles et de générations (YIN, YIN mutant, YANG, YANG mutant,
-T0–T3) ne se traduisent pas : ils restent identiques dans les six
+T0–T3) ne se traduisent pas : ils restent identiques dans toutes les
 langues, comme c'est déjà le cas en anglais sur ce site.
 
 Le nom du fichier date de quatre langues ; il est gardé, deux pages y
 renvoient (`cymatique.html`, `docs/i18n/i18n_todo_cymatique_v2.md`). Les
 colonnes ZH (chinois simplifié, `zh-Hans`) et RU ont été ajoutées au lot
-« six langues » (2026-10-03) ; elles sont **à relire par des lecteurs
-natifs** — voir `TODO-RELECTURE.md`.
+« six langues » (2026-10-03), la colonne PT (portugais du Portugal,
+`pt-PT`) le 2026-10-04 ; elles sont **à relire par des lecteurs natifs** —
+voir `TODO-RELECTURE.md`. Les colonnes suivent l'ordre des langues de
+`scripts/langues.js` : `tools/check_glossaire.mjs` les lit dans cet ordre.
 
 ## Ne se traduisent jamais
 
@@ -28,27 +30,27 @@ Une glose entre parenthèses peut SUIVRE l'original (« *La Livrée d'Hermès*
 (The Livery of Hermes) »), jamais le remplacer. `tools/check_glossaire.mjs`
 échoue sur toute traduction de l'un ou de l'autre hors de ce cas.
 
-| FR | EN (déjà en usage) | ES | TH | ZH | RU | Note |
-|---|---|---|---|---|---|---|
-| famille | family | familia | ตระกูล | 族 | семейство | — |
-| mutant (adj.) | mutant | mutante | กลายพันธุ์ | 变 | мутантный | ex. « T1 YIN et son mutant » |
-| maille, grain (C8/C1) | grain | grano de lectura | เกรนการอ่าน | 读取粒度 | зерно чтения | pas dans les 42 clés de cette version, fixé pour `galerie-bicolore.html` |
-| accord (sous-ensemble XOR) | chord | acorde | คอร์ด | 和弦 | аккорд | emprunt musical, comme en anglais |
-| système de bandes | band system | sistema de bandas | ระบบแถบ | 条带系统 | система полос | — |
-| écart (décalage d'une droite) | offset | desplazamiento | ระยะเยื้อง | 偏移 | смещение | — |
-| parité | parity | paridad | พาริตี | 奇偶性 | чётность | translittéré, usage établi en informatique thaïe |
-| niveau | level | nivel | ระดับ | 层级 | уровень | aussi utilisé pour « case » de grille au sens large |
-| figure (motif de parité) | figure | figura | รูป | 图形 | фигура | distinct de « motif » (ลวดลาย), déjà utilisé ailleurs sur le site pour un motif textile |
-| case (cellule de grille) | cell | casilla | ช่อง | 格 | клетка | — |
-| fonction propre / mode propre | eigenfunction / eigenmode | función propia / modo propio | ฟังก์ชันไอเกน / โหมดไอเกน | 本征函数 / 本征模态 | собственная функция / собственная мода | « ไอเกน » translittéré, sans équivalent thaï établi |
-| plaque | plate | placa | แผ่นเพลต | 板 | пластина | — |
-| cavité (acoustique) | cavity | cavidad | โพรงเสียง | 腔 | полость | — |
-| porteuse | carrier | portadora | คลื่นพาหะ | 载波 | несущая | — |
-| onde | wave | onda | คลื่น | 波 | волна | — |
-| coupe (niveau d'une onde) | cut | corte | ภาคตัด | 截面 | срез | — |
-| ligne nodale | nodal line | línea nodal | เส้นโหนด | 节线 | узловая линия | — |
-| ligne d'iso-amplitude | iso-amplitude line | línea de isoamplitud | เส้นแอมพลิจูดเท่ากัน | 等幅线 | линия равной амплитуды | — |
-| région de référence | reference region | región de referencia | บริเวณอ้างอิง | 参考区域 | опорная область | — |
+| FR | EN (déjà en usage) | ES | TH | ZH | RU | PT | Note |
+|---|---|---|---|---|---|---|---|
+| famille | family | familia | ตระกูล | 族 | семейство | família | — |
+| mutant (adj.) | mutant | mutante | กลายพันธุ์ | 变 | мутантный | mutante | ex. « T1 YIN et son mutant » |
+| maille, grain (C8/C1) | grain | grano de lectura | เกรนการอ่าน | 读取粒度 | зерно чтения | grão de leitura | pas dans les 42 clés de cette version, fixé pour `galerie-bicolore.html` |
+| accord (sous-ensemble XOR) | chord | acorde | คอร์ด | 和弦 | аккорд | acorde | emprunt musical, comme en anglais |
+| système de bandes | band system | sistema de bandas | ระบบแถบ | 条带系统 | система полос | sistema de bandas | — |
+| écart (décalage d'une droite) | offset | desplazamiento | ระยะเยื้อง | 偏移 | смещение | desvio | — |
+| parité | parity | paridad | พาริตี | 奇偶性 | чётность | paridade | translittéré, usage établi en informatique thaïe |
+| niveau | level | nivel | ระดับ | 层级 | уровень | nível | aussi utilisé pour « case » de grille au sens large |
+| figure (motif de parité) | figure | figura | รูป | 图形 | фигура | figura | distinct de « motif » (ลวดลาย), déjà utilisé ailleurs sur le site pour un motif textile |
+| case (cellule de grille) | cell | casilla | ช่อง | 格 | клетка | casa | — |
+| fonction propre / mode propre | eigenfunction / eigenmode | función propia / modo propio | ฟังก์ชันไอเกน / โหมดไอเกน | 本征函数 / 本征模态 | собственная функция / собственная мода | função própria / modo próprio | « ไอเกน » translittéré, sans équivalent thaï établi |
+| plaque | plate | placa | แผ่นเพลต | 板 | пластина | placa | — |
+| cavité (acoustique) | cavity | cavidad | โพรงเสียง | 腔 | полость | cavidade | — |
+| porteuse | carrier | portadora | คลื่นพาหะ | 载波 | несущая | portadora | — |
+| onde | wave | onda | คลื่น | 波 | волна | onda | — |
+| coupe (niveau d'une onde) | cut | corte | ภาคตัด | 截面 | срез | corte | — |
+| ligne nodale | nodal line | línea nodal | เส้นโหนด | 节线 | узловая линия | linha nodal | — |
+| ligne d'iso-amplitude | iso-amplitude line | línea de isoamplitud | เส้นแอมพลิจูดเท่ากัน | 等幅线 | линия равной амплитуды | linha de isoamplitude | — |
+| région de référence | reference region | región de referencia | บริเวณอ้างอิง | 参考区域 | опорная область | região de referência | — |
 
 ## Termes du système
 
@@ -56,28 +58,28 @@ Les termes du traité lui-même. EN, ES et TH reprennent l'usage **mesuré**
 sur les pages du site (le terme majoritaire là où deux coexistaient — voir
 les variantes refusées plus bas) ; ZH et RU sont fixés ici, avant les pages.
 
-| FR | EN | ES | TH | ZH | RU | Note |
-|---|---|---|---|---|---|---|
-| carré magique | magic square | cuadrado mágico | จัตุรัสกล | 幻方 | магический квадрат | ZH : jamais 魔方 (le cube de Rubik) |
-| carré solaire | solar square | cuadrado solar | จัตุรัสสุริยะ | 太阳方阵 | солнечный квадрат | — |
-| croix ansée | ansate cross | cruz ansada | กางเขนหูหิ้ว | 安卡十字 | крест с петлёй | RU descriptif, comme ES et TH ; ZH sur 安卡 (ankh) — à relire |
-| demi-décalage | half-shift | semidesplazamiento | การเลื่อนครึ่งคาบ | 半周期平移 | полусдвиг | translation de six cases, la moitié de la période |
-| livrée | livery | librea | — | 号衣 | ливрея | le nom commun ; le TITRE ne se traduit pas. Aucune page thaïe ne l'emploie. |
-| yang | yang | yang | หยาง | 阳 | ян | trait plein ; les noms de familles (YANG, YANG mutant) restent en latin |
-| yin | yin | yin | ยิน | 阴 | инь | trait brisé ; idem |
-| hexagramme | hexagram | hexagrama | ฉักลักษณ์ | 卦 | гексаграмма | ZH : jamais 六芒星 (l'étoile à six branches) |
-| trigramme | trigram | trigrama | ตรีลักษณ์ | 三爻卦 | триграмма | — |
-| arithmogéométrie | arithmogeometry | aritmogeometría | เลขาคณิตศาสตร์ | 数形学 | арифмогеометрия | ZH : pas 算术几何, qui est la géométrie arithmétique |
-| calque (des 360) | layer | capa | แผ่นลาย | 图层 | слой | — |
-| motif (12 × 12) | pattern | motivo | ลวดลาย | 图案 | узор | — |
-| motif unifié | unified pattern | motivo unificado | ลวดลายรวมเป็นหนึ่ง | 统一图案 | унифицированный узор | — |
-| planche (du livre) | plate | lámina | แผ่นภาพ | 图版 | таблица | RU : sens éditorial (planche illustrée) |
-| métier Jacquard | Jacquard loom | telar Jacquard | เครื่องทอฌักการ์ | 提花织机 | жаккардовый станок | TH non mesuré : les pages disent « ลายทอแบบฌักการ์ » (le tissage) |
-| gnomon | gnomon | gnomon | โนมอน | 磬折形 | гномон | TH absent des pages, translittéré |
-| Yi King | Yi King | Yi King | อี้จิง | 易经 | И цзин | — |
-| Carter (l'encodeur) | Carter | Carter | คาร์เตอร์ | Carter | Carter | nom propre : ZH et RU gardent le latin |
-| dépôt (Zenodo) | deposit | depósito | — | 存档 | публикация | une entrée de data/travaux.json ; ES et TH : aucune page ne l'emploie encore |
-| licence | licence | licencia | สัญญาอนุญาต | 许可 | лицензия | la licence d'une page ou d'un dépôt ; ses noms (CC BY-NC 4.0, CC BY 4.0, AGPL v3) ne se traduisent pas |
+| FR | EN | ES | TH | ZH | RU | PT | Note |
+|---|---|---|---|---|---|---|---|
+| carré magique | magic square | cuadrado mágico | จัตุรัสกล | 幻方 | магический квадрат | quadrado mágico | ZH : jamais 魔方 (le cube de Rubik) |
+| carré solaire | solar square | cuadrado solar | จัตุรัสสุริยะ | 太阳方阵 | солнечный квадрат | quadrado solar | — |
+| croix ansée | ansate cross | cruz ansada | กางเขนหูหิ้ว | 安卡十字 | крест с петлёй | cruz ansada | RU descriptif, comme ES et TH ; ZH sur 安卡 (ankh) — à relire |
+| demi-décalage | half-shift | semidesplazamiento | การเลื่อนครึ่งคาบ | 半周期平移 | полусдвиг | meio-deslocamento | translation de six cases, la moitié de la période |
+| livrée | livery | librea | — | 号衣 | ливрея | libré | le nom commun ; le TITRE ne se traduit pas. Aucune page thaïe ne l'emploie. |
+| yang | yang | yang | หยาง | 阳 | ян | yang | trait plein ; les noms de familles (YANG, YANG mutant) restent en latin |
+| yin | yin | yin | ยิน | 阴 | инь | yin | trait brisé ; idem |
+| hexagramme | hexagram | hexagrama | ฉักลักษณ์ | 卦 | гексаграмма | hexagrama | ZH : jamais 六芒星 (l'étoile à six branches) |
+| trigramme | trigram | trigrama | ตรีลักษณ์ | 三爻卦 | триграмма | trigrama | — |
+| arithmogéométrie | arithmogeometry | aritmogeometría | เลขาคณิตศาสตร์ | 数形学 | арифмогеометрия | aritmogeometria | ZH : pas 算术几何, qui est la géométrie arithmétique |
+| calque (des 360) | layer | capa | แผ่นลาย | 图层 | слой | camada | — |
+| motif (12 × 12) | pattern | motivo | ลวดลาย | 图案 | узор | padrão | — |
+| motif unifié | unified pattern | motivo unificado | ลวดลายรวมเป็นหนึ่ง | 统一图案 | унифицированный узор | padrão unificado | — |
+| planche (du livre) | plate | lámina | แผ่นภาพ | 图版 | таблица | prancha | RU : sens éditorial (planche illustrée) |
+| métier Jacquard | Jacquard loom | telar Jacquard | เครื่องทอฌักการ์ | 提花织机 | жаккардовый станок | tear Jacquard | TH non mesuré : les pages disent « ลายทอแบบฌักการ์ » (le tissage) |
+| gnomon | gnomon | gnomon | โนมอน | 磬折形 | гномон | gnómon | TH absent des pages, translittéré |
+| Yi King | Yi King | Yi King | อี้จิง | 易经 | И цзин | I Ching | — |
+| Carter (l'encodeur) | Carter | Carter | คาร์เตอร์ | Carter | Carter | Carter | nom propre : ZH et RU gardent le latin |
+| dépôt (Zenodo) | deposit | depósito | — | 存档 | публикация | depósito | une entrée de data/travaux.json ; ES et TH : aucune page ne l'emploie encore |
+| licence | licence | licencia | สัญญาอนุญาต | 许可 | лицензия | licença | la licence d'une page ou d'un dépôt ; ses noms (CC BY-NC 4.0, CC BY 4.0, AGPL v3) ne se traduisent pas |
 
 ## Variantes refusées
 

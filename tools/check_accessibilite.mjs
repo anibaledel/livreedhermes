@@ -32,6 +32,11 @@ import { createRequire } from 'node:module';
 import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+// Les pages des langues ajoutées (sans les 64 hexagrammes : zh, ru, pt…),
+// tirées de scripts/langues.js — une langue déclarée là entre ici d'elle-même.
+const { LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
+const PAGES_LANGUES_AJOUTEES = Object.values(DECLAREES).filter((l) => !l.hexagrammes)
+  .flatMap((l) => ['accueil', 'livre', 'lexique', 'travaux', 'outils', 'soutien'].map((g) => l.pages[g]).filter((p) => p !== undefined));
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -61,18 +66,7 @@ const PAGES = [
   'en/',
   'es/',
   'th/',
-  'zh/',
-  'zh/book/',
-  'zh/lexicon/',
-  'zh/works/',
-  'zh/tools/',
-  'zh/support/',
-  'ru/',
-  'ru/book/',
-  'ru/lexicon/',
-  'ru/works/',
-  'ru/tools/',
-  'ru/support/',
+  ...PAGES_LANGUES_AJOUTEES,
   'es/buscar/',
   'th/search/',
   'en/articles/',

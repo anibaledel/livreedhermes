@@ -30,7 +30,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER } = require('./langues.js');
+const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, LANGUES } = require('./langues.js');
 const { htmlNavTiles } = require('./nav-tiles.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -108,9 +108,13 @@ const FRAGMENTS = {
   // Espagnol et thaï : pages hexagrammes traduites (es/hexagramas/, th/hexagrams/).
   'footer-es': lire('footer-es.html'),
   'footer-th': lire('footer-th.html'),
-  // Chinois simplifié et russe (lot « six langues ») : pages lang="zh-Hans" / "ru".
-  'footer-zh': lire('footer-zh.html'),
-  'footer-ru': lire('footer-ru.html'),
+  // Les autres langues (chinois et russe au lot « six langues », portugais
+  // ensuite) : un pied par langue déclarée dans scripts/langues.js, s'il
+  // existe (includes/footer-<code>.html) — ajouter une langue n'oblige pas à
+  // revenir ici.
+  ...Object.fromEntries(Object.keys(LANGUES)
+    .filter((c) => !['fr', 'en', 'es', 'th'].includes(c) && fs.existsSync(path.join(INCLUDES, `footer-${c}.html`)))
+    .map((c) => [`footer-${c}`, lire(`footer-${c}.html`)])),
 };
 
 function zone(nom, corps, source = 'includes/') {
@@ -121,7 +125,7 @@ function zone(nom, corps, source = 'includes/') {
 // Lien d'évitement de l'en-tête, dans la langue de la page (<html lang>).
 const TEXTE_EVITEMENT = {
   fr: 'Aller au contenu', en: 'Skip to content', es: 'Ir al contenido', th: 'ข้ามไปยังเนื้อหา',
-  zh: '跳到正文', ru: 'Перейти к содержанию',
+  zh: '跳到正文', ru: 'Перейти к содержанию', pt: 'Ir para o conteúdo',
 };
 // <html lang="zh-Hans"> se lit « zh » : la clé des fragments et des textes.
 function langHtml(s) {
