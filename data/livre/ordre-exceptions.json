@@ -1,0 +1,13 @@
+{
+ "fr": {
+  "003|Pour réaliser simplement": "deux blocs voisins de même police réunis en un paragraphe ; Poppler les sépare et les range autrement",
+  "003|Les quadrillages d’ordre pair pair": "le paragraphe et son renvoi « Voir ordres 4, 8... » réunis ; Poppler les sépare",
+  "018A|“ Qu’il y est des luminaires": "la citation de la Genèse et la phrase sur le carré d'ordre 4 réunies ; Poppler intercale la citation sur le fou",
+  "024C|“ Le pair est toujours imparfait": "la citation de Gérardin gardée entière ; Poppler la coupe en deux colonnes",
+  "028C|Le philosophe hermétique": "la légende que le numéro de page interrompt, recollée (Poppler la lit en deux morceaux)"
+ },
+ "en": {
+  "011|Benjamin Lake Cadet Fire": "étiquettes du schéma des trigrammes, rangées autrement que par Poppler",
+  "011|Elder Wind Cadet Water": "étiquettes du schéma des trigrammes, rangées autrement que par Poppler"
+ }
+}

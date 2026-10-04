@@ -34,6 +34,7 @@ jobs:
       - run: python3 tools/check_livre_texte.py
       - run: python3 tools/check_livre_texte.py --essai
       - run: python3 tools/livre_html.py fr --verifie
+      - run: python3 tools/livre_html.py en --verifie
   site:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest

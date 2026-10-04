@@ -48,6 +48,18 @@ T = {
         'sommaire': 'Pages du chapitre',
         'chapitres': 'Lire par chapitre', 'pages': 'pages {du} à {au}', 'page_livre': 'fr/livre/index.html',
     },
+    'en': {
+        'chapitre': 'Chapter', 'livre': "La Livrée d'Hermès", 'accueil': 'Home',
+        'edition': 'English edition', 'ariane': 'Breadcrumb', 'evitement': 'Skip to content',
+        'place': 'Pages {du} to {au} of the book · chapter {n} of 7',
+        'prec': '← Previous chapter', 'suiv': 'Next chapter →',
+        'lire': 'Read these pages in the viewer →', 'pdf': 'Download the PDF (EN)',
+        'complet': 'The whole book', 'ouvrir': 'Open page {code} in the viewer',
+        'texte': 'Text of page {code}', 'nav': 'Chapters',
+        'licence': "© Anibal Edelberto Amiot. CC BY-NC 4.0",
+        'sommaire': 'Pages of the chapter',
+        'chapitres': 'Read by chapter', 'pages': 'pages {du} to {au}', 'page_livre': 'en/book/index.html',
+    },
 }
 
 
@@ -358,7 +370,7 @@ if __name__ == '__main__':
     for rel, contenu in sorties.items():
         f = os.path.join(ROOT, rel)
         avant = open(f, encoding='utf-8').read() if os.path.exists(f) else ''
-        apres = adopter(avant, contenu) if avant and '/chapitre-' in rel else contenu
+        apres = adopter(avant, contenu) if avant and rel.endswith('.html') and rel != T[langue]['page_livre'] else contenu
         if apres != avant:
             ecarts.append(rel)
             if not verifie:

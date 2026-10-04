@@ -131,10 +131,18 @@ def _decoupe(blocs, prof=0, largeur=1920):
                 if y is not None:
                     coupes.append((1, y, []))
     for axe, v, forces in coupes:
-        avant = [b for b in blocs if b in forces or (b not in forces and centre(b, axe) < v)]
-        apres = [b for b in blocs if b not in avant]
+        fin = []
+        if axe == 0:
+            # un petit bloc à cheval sur la coupe, sous tous les paragraphes (la
+            # conclusion d'une liste à deux colonnes) vient après les deux
+            bas = max(g['bbox'][3] for g in grands)
+            fin = [b for b in blocs if b not in grands and b not in forces
+                   and b['bbox'][0] < v < b['bbox'][2] and b['bbox'][1] >= bas - 1]
+        reste = [b for b in blocs if b not in fin]
+        avant = [b for b in reste if b in forces or (b not in forces and centre(b, axe) < v)]
+        apres = [b for b in reste if b not in avant]
         if avant and apres:
-            return _decoupe(avant, prof + 1) + _decoupe(apres, prof + 1)
+            return _decoupe(avant, prof + 1) + _decoupe(apres, prof + 1) + _decoupe_tous(fin)
     # plus de coupe entre paragraphes : l'ancienne découpe, sur tous les blocs
     return _decoupe_tous(blocs)
 
@@ -150,8 +158,17 @@ def _decoupe_tous(blocs):
             if tries[k]['bbox'][a] >= fin - 0.5:
                 return _decoupe_tous(tries[:k]) + _decoupe_tous(tries[k:])
             fin = max(fin, tries[k]['bbox'][b])
-    # aucune coupe nette : par bandes de 20 points, puis de gauche à droite
-    return sorted(blocs, key=lambda x: (round(x['bbox'][1] / 20), x['bbox'][0]))
+    # aucune coupe nette : par rangées (des blocs qui commencent à moins de
+    # 12 points l'un de l'autre sont sur la même rangée), puis de gauche à droite
+    rangs, out = [], []
+    for b in sorted(blocs, key=lambda x: x['bbox'][1]):
+        if rangs and b['bbox'][1] - rangs[-1][0]['bbox'][1] < 12:
+            rangs[-1].append(b)
+        else:
+            rangs.append([b])
+    for r in rangs:
+        out += sorted(r, key=lambda x: x['bbox'][0])
+    return out
 
 
 def _texte_ligne(l):
@@ -215,7 +232,32 @@ def _lignes(page):
             u, cc, g = out[j]
             out[j] = (u + t, (cc[0], min(cc[1], bb[1]), bb[2], max(cc[3], bb[3])), g)
             out[k] = ('', bb, f)
-    return [x for x in out if x[0]]
+    # une ligne JUSTIFIÉE que ses grands blancs ont coupée en morceaux : le
+    # morceau de gauche finit par une espace du PDF, celui de droite est sur la
+    # même ligne de base, dans la même police, et tient dans la largeur de la
+    # ligne du paragraphe juste au-dessus (« fertility, ⎵ hermaphrodites, ⎵
+    # sacramental », page 062C anglaise)
+    out = [x for x in out if x[0]]
+    fusion = True
+    while fusion:
+        fusion = False
+        for k, (t, bb, f) in enumerate(out):
+            h = bb[3] - bb[1]
+            gauches = [j for j, (u, cc, g) in enumerate(out) if j != k and g == f and abs(cc[3] - bb[3]) < 2
+                       and cc[2] <= bb[0] + 1 and (u.endswith(' ') or t.startswith(' '))]
+            if not gauches:
+                continue
+            j = max(gauches, key=lambda j: out[j][1][2])
+            u, cc, g = out[j]
+            dessus = [c2 for v, c2, gg in out if gg == f and 0 < cc[1] - c2[1] < 1.6 * h
+                      and c2[0] <= cc[0] + 2 and c2[2] >= bb[2] - 2]
+            if not dessus:
+                continue
+            out[j] = (u + t, (cc[0], min(cc[1], bb[1]), bb[2], max(cc[3], bb[3])), g)
+            del out[k]
+            fusion = True
+            break
+    return out
 
 
 def _meme_colonne(a, b):
@@ -235,13 +277,20 @@ def lignes_page(page):
     blocs = []
     for t, bb, corps in sorted(_lignes(page), key=lambda x: (x[1][1], x[1][0])):
         h = bb[3] - bb[1]
-        cible = None
+        cible, dessous = None, 0
         for b in blocs:
             dt, dbb, dcorps = b['lignes'][-1]
             ecart = bb[1] - dbb[3]
-            if (-0.3 * h < ecart < 0.8 * max(h, dbb[3] - dbb[1]) and abs(corps[0] - dcorps[0]) < 0.15 * corps[0]
-                    and corps[1] == dcorps[1] and _meme_colonne(dbb, bb)):
+            proche = (-0.3 * h < ecart < 0.8 * max(h, dbb[3] - dbb[1]) and abs(corps[0] - dcorps[0]) < 0.15 * corps[0]
+                      and corps[1] == dcorps[1])
+            if proche and min(dbb[2], bb[2]) - max(dbb[0], bb[0]) > 0:
+                dessous += 1
+            if proche and _meme_colonne(dbb, bb):
                 cible = b
+        if dessous >= 2:
+            # posée sous deux blocs à la fois (la conclusion sous une liste à
+            # deux colonnes) : elle n'appartient à aucun des deux
+            cible = None
         if cible is None:
             blocs.append({'lignes': [(t, bb, corps)], 'bbox': list(bb)})
         else:
