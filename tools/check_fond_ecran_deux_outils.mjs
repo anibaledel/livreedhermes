@@ -19,7 +19,9 @@
 //   5. le bandeau « l'outil a changé de place » a disparu ; le lien vers la
 //      galerie bicolore est là ;
 //   6. un seul moteur : la page importe assets/outil-fond-ecran.js et
-//      l'appelle deux fois — aucune autre copie du moteur dans la page.
+//      l'appelle deux fois — aucune autre copie du moteur dans la page ;
+//   7. l'ancienne adresse ?rendu=bicolore mène à l'outil bicolore ;
+//   8. « Figer », action passée par la page, mène à la galerie bicolore.
 //
 // Usage : CHROMIUM_PATH=… node tools/check_fond_ecran_deux_outils.mjs [base|local]
 import path from 'node:path';
@@ -164,6 +166,17 @@ await ouvrir('?rendu=bicolore&densite=7&rythme=3.5');
 const ancien = await p.evaluate(() => ({ url: location.search + location.hash, bi: window.outilsFondEcran.bicolore.etat(), tri: window.outilsFondEcran.tricolore.etat() }));
 if (ancien.bi.densite !== 7 || ancien.bi.rythme !== 3.5 || ancien.tri.densite !== 4 || !ancien.url.endsWith('#outilBicolore')) echec(`ancienne adresse : ${JSON.stringify(ancien)}`);
 console.log(`7. ?rendu=bicolore&densite=7&rythme=3.5 → ${ancien.url} (bicolore densité ${ancien.bi.densite}, rythme ${ancien.bi.rythme} ; tricolore densité ${ancien.tri.densite})`);
+
+// 8. « Figer » : l'action vient de la page (le moteur ne connaît aucune adresse du site)
+await ouvrir();
+await p.click('#outilBicolore .cat-card[data-cat=bases]');
+await p.waitForFunction(() => window.outilsFondEcran.bicolore.etat().motif);
+await Promise.all([p.waitForURL(/galerie-bicolore\.html/), p.evaluate(() => window.outilsFondEcran.bicolore.stage.querySelector('[data-r=btnFiger]').click())]);
+const fige = new URL(p.url());
+// un motif du corpus part par ?motif=… ; une grille hors corpus, par sessionStorage
+const transmis = fige.searchParams.get('motif') || await p.evaluate(() => sessionStorage.getItem('motif-fige') && 'grille en sessionStorage');
+if (!fige.pathname.endsWith('/galerie-bicolore.html') || fige.hash !== '#fondFixe' || !transmis) echec(`Figer : ${p.url()}, motif ${transmis}`);
+console.log(`8. Figer (bicolore) → ${fige.pathname}${fige.search}${fige.hash} ; motif transmis : ${transmis}`);
 
 if (erreurs.length) echec(`erreurs de page : ${erreurs.join(' | ')}`);
 await navigateur.close();

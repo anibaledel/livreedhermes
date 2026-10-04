@@ -31,7 +31,8 @@ name: Fonds des cases conformes au calcul
 # défaut, assets/couleurs.js, et le contraste gris / crème) ;
 # correspondance_motifs.mjs (nom d'image ↔ page, data/motifs-correspondance.json) ;
 # check_fonds_ecran_source.mjs (fonds-ecran.html : une source, la copie
-# intégrée périmée jamais relue).
+# intégrée périmée jamais relue) ; check_modules_portables.mjs (les modules
+# de docs/modules-portables.md sans dépendance au site ; --essai : il mord).
 # Galerie d'animations : recettes_animations.mjs --verifie (chaque liste sort
 # de sa graine) ; check_mp4_sans_date.mjs (le MP4 ne porte pas l'heure) ;
 # affiches_animations.mjs --essai et --verifie (l'affiche est extraite de la
@@ -71,6 +72,8 @@ jobs:
       - run: node tools/check_couleurs.mjs
       - run: node tools/correspondance_motifs.mjs
       - run: node tools/check_fonds_ecran_source.mjs
+      - run: node tools/check_modules_portables.mjs
+      - run: node tools/check_modules_portables.mjs --essai
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/check_redirections.mjs
       - run: node tools/recettes_animations.mjs --verifie

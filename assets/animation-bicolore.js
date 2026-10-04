@@ -10,7 +10,7 @@
 // La tuile sort du moteur des pages et de l'export d'images : la lecture
 // binaire du motif (lecture-binaire.js), motifSvg (bicolore-fonds.js) dans
 // la collection et les couleurs choisies, rastérisée par svgEnPixels
-// (vue-fond-motif.js), la fonction même de l'export Pinterest. Un moteur,
+// (svg-en-pixels.js), la fonction même de l'export Pinterest. Un moteur,
 // trois sorties : la page, le PNG, la vidéo.
 //
 // La collection et les couleurs viennent de l'état partagé (etat-fond-ecran.js),
@@ -31,7 +31,7 @@
 
 import { motifSvg } from './bicolore-fonds.js';
 import { lectureBinaire } from './lecture-binaire.js';
-import { svgEnPixels } from './vue-fond-motif.js';
+import { svgEnPixels } from './svg-en-pixels.js';
 import { abonner, demanderPalette, etatFondEcran } from './etat-fond-ecran.js';
 import { distanceBinaire, signatureBinaire } from './proximite-binaire.js';
 import { PALETTE_DEFAUT } from './couleurs.js';
