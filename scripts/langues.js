@@ -251,6 +251,20 @@ for (const chrono of [null, ...Array.from({ length: 64 }, (_, i) => i)]) {
   });
 }
 
+// Les chapitres du livre en HTML (tools/livre_html.py), un groupe par
+// chapitre, tirés de data/livre/chapitres.json — la même source que le
+// générateur des pages. Un chapitre encore sans page anglaise forme un groupe
+// sans x-default (CHAPITRES_SANS_ANGLAIS), le temps que l'anglais soit publié.
+const CHAPITRES_SANS_ANGLAIS = new Set();
+for (const ch of require('../data/livre/chapitres.json').chapitres) {
+  const pages = Object.keys(LANGUES).filter((l) => ch[l] && ch[l].chemin)
+    .map((l) => [l, `${SITE}/${ch[l].chemin}`, `${ch[l].chemin}index.html`]);
+  if (!pages.length) continue;
+  const nom = `chapitre-${ch.n}`;
+  if (!pages.some(([l]) => l === LANGUE_PAR_DEFAUT)) CHAPITRES_SANS_ANGLAIS.add(nom);
+  GROUPES.push({ nom, changefreq: 'yearly', priority: '0.7', rangee: false, pages });
+}
+
 // Un bloc liste TOUS les équivalents, y compris la page elle-même : les pages
 // d'un même groupe portent donc exactement les mêmes lignes.
 // Le code de langue devient sa valeur hreflang (zh -> zh-Hans). Un groupe
@@ -282,7 +296,7 @@ for (const g of GROUPES) {
 
   // Seuls les groupes déclarés SANS_X_DEFAUT peuvent manquer d'anglais : un
   // oubli ailleurs retirerait le x-default sans que rien ne le signale.
-  if (!langues.includes(LANGUE_PAR_DEFAUT) && !SANS_X_DEFAUT.has(g.nom)) {
+  if (!langues.includes(LANGUE_PAR_DEFAUT) && !SANS_X_DEFAUT.has(g.nom) && !CHAPITRES_SANS_ANGLAIS.has(g.nom)) {
     throw new Error(
       `langues.js : le groupe « ${g.nom} » n'a pas d'entrée « ${LANGUE_PAR_DEFAUT} », ` +
       `la langue par défaut. Son x-default pointerait vers une page inexistante.`);
