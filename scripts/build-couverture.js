@@ -91,50 +91,56 @@ for (const [obj, ls] of OBJETS) {
 clauses.sort((a, b) => b.langues.length - a.langues.length);
 
 // ---- Les textes, langue par langue ---------------------------------------
-// Chinois et russe : à relire (TODO-RELECTURE.md).
+// Chinois, russe, portugais et hindi : à relire (TODO-RELECTURE.md).
 const et = (mot, sep = ', ') => (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(sep)} ${mot} ${xs[xs.length - 1]}`);
 const T = {
   fr: {
-    noms: { fr: 'français', en: 'anglais', es: 'espagnol', th: 'thaï', zh: 'chinois simplifié', ru: 'russe', pt: 'portugais' },
+    noms: { fr: 'français', en: 'anglais', es: 'espagnol', th: 'thaï', zh: 'chinois simplifié', ru: 'russe', pt: 'portugais', hi: 'hindi' },
     objets: { accueil: "l'accueil", livre: 'la présentation du traité', lexique: 'le lexique', travaux: 'la liste des travaux', outils: 'la page des outils', soutien: 'la page de soutien', hexagrammes: `les ${N.hexagrammes} hexagrammes`, articles: 'les articles', motifs: `les ${N.motifs} pages de motifs` },
     liste: et('et'),
     phrase: (pub, site, prep, cl) => `Le traité est publié en ${pub}${site.t ? ` ; il se lit aussi sur ce site en ${site.t}` : ''}${prep.t ? ` ; ${prep.n > 1 ? 'ses éditions' : 'son édition'} en ${prep.t} ${prep.n > 1 ? 'sont' : 'est'} en préparation` : ''}. Sur ce site, ${cl.map((c, i) => `${c.objets}${i === 0 ? ' existent' : ''} en ${c.langues}`).join(' ; ')}.`,
   },
   en: {
-    noms: { fr: 'French', en: 'English', es: 'Spanish', th: 'Thai', zh: 'Simplified Chinese', ru: 'Russian', pt: 'Portuguese' },
+    noms: { fr: 'French', en: 'English', es: 'Spanish', th: 'Thai', zh: 'Simplified Chinese', ru: 'Russian', pt: 'Portuguese', hi: 'Hindi' },
     objets: { accueil: 'the home page', livre: 'the treatise page', lexique: 'the lexicon', travaux: 'the list of works', outils: 'the tools page', soutien: 'the support page', hexagrammes: `the ${N.hexagrammes} hexagrams`, articles: 'the articles', motifs: `the ${N.motifs} pattern pages` },
     liste: et('and'),
     phrase: (pub, site, prep, cl) => `The treatise is published in ${pub}${site.t ? `; it can also be read on this site in ${site.t}` : ''}${prep.t ? `; its ${prep.t} edition${prep.n > 1 ? 's are' : ' is'} in preparation` : ''}. On this site, ${cl.map((c, i) => `${c.objets}${i === 0 ? ' exist' : ''} in ${c.langues}`).join('; ')}.`,
   },
   es: {
-    noms: { fr: 'francés', en: 'inglés', es: 'español', th: 'tailandés', zh: 'chino simplificado', ru: 'ruso', pt: 'portugués' },
+    noms: { fr: 'francés', en: 'inglés', es: 'español', th: 'tailandés', zh: 'chino simplificado', ru: 'ruso', pt: 'portugués', hi: 'hindi' },
     objets: { accueil: 'la portada', livre: 'la página del tratado', lexique: 'el léxico', travaux: 'la lista de trabajos', outils: 'la página de herramientas', soutien: 'la página de apoyo', hexagrammes: `los ${N.hexagrammes} hexagramas`, articles: 'los artículos', motifs: `las ${N.motifs} páginas de motivos` },
     liste: et('y'),
     phrase: (pub, site, prep, cl) => `El tratado está publicado en ${pub}${site.t ? `; también puede leerse aquí en ${site.t}` : ''}${prep.t ? `; ${prep.n > 1 ? 'sus ediciones' : 'su edición'} en ${prep.t} ${prep.n > 1 ? 'están' : 'está'} en preparación` : ''}. En este sitio, ${cl.map((c, i) => `${c.objets}${i === 0 ? ' existen' : ''} en ${c.langues}`).join('; ')}.`,
   },
   th: {
-    noms: { fr: 'ฝรั่งเศส', en: 'อังกฤษ', es: 'สเปน', th: 'ไทย', zh: 'จีนตัวย่อ', ru: 'รัสเซีย', pt: 'โปรตุเกส' },
+    noms: { fr: 'ฝรั่งเศส', en: 'อังกฤษ', es: 'สเปน', th: 'ไทย', zh: 'จีนตัวย่อ', ru: 'รัสเซีย', pt: 'โปรตุเกส', hi: 'ฮินดี' },
     objets: { accueil: 'หน้าแรก', livre: 'หน้าตำรา', lexique: 'อภิธานศัพท์', travaux: 'รายการผลงาน', outils: 'หน้าเครื่องมือ', soutien: 'หน้าสนับสนุน', hexagrammes: `ฉักลักษณ์ทั้ง ${N.hexagrammes}`, articles: 'บทความ', motifs: `หน้าลวดลาย ${N.motifs} หน้า` },
     liste: (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(' ')} และ${xs[xs.length - 1]}`),
     phrase: (pub, site, prep, cl) => `ตำรานี้ตีพิมพ์เป็นภาษา${pub}${site.t ? ` และอ่านได้บนเว็บไซต์นี้เป็นภาษา${site.t}` : ''}${prep.t ? ` ส่วนฉบับภาษา${prep.t} อยู่ระหว่างการจัดทำ` : ''} ในเว็บไซต์นี้ ${cl.map((c) => `${c.objets} มีเป็นภาษา${c.langues}`).join(' ')}`,
   },
   zh: {
-    noms: { fr: '法语', en: '英语', es: '西班牙语', th: '泰语', zh: '简体中文', ru: '俄语', pt: '葡萄牙语' },
+    noms: { fr: '法语', en: '英语', es: '西班牙语', th: '泰语', zh: '简体中文', ru: '俄语', pt: '葡萄牙语', hi: '印地语' },
     objets: { accueil: '首页', livre: '论著页面', lexique: '词汇表', travaux: '研究存档列表', outils: '工具页面', soutien: '支持页面', hexagrammes: `全部 ${N.hexagrammes} 卦`, articles: '文章', motifs: `全部 ${N.motifs} 个图案页面` },
     liste: (xs) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join('、')}和${xs[xs.length - 1]}`),
     phrase: (pub, site, prep, cl) => `本论著已出版${pub}版本${site.t ? `；本网站另提供${site.t}版本在线阅读` : ''}${prep.t ? `；${prep.t}版本正在准备中` : ''}。本网站中，${cl.map((c) => `${c.objets}有${c.langues}版本`).join('；')}。`,
   },
   ru: {
-    noms: { fr: 'французском', en: 'английском', es: 'испанском', th: 'тайском', zh: 'упрощённом китайском', ru: 'русском', pt: 'португальском' },
+    noms: { fr: 'французском', en: 'английском', es: 'испанском', th: 'тайском', zh: 'упрощённом китайском', ru: 'русском', pt: 'португальском', hi: 'хинди' },
     objets: { accueil: 'главная страница', livre: 'страница трактата', lexique: 'глоссарий', travaux: 'список публикаций', outils: 'страница инструментов', soutien: 'страница поддержки', hexagrammes: `${N.hexagrammes} гексаграммы`, articles: 'статьи', motifs: `${N.motifs} страниц узоров` },
     liste: et('и'),
     phrase: (pub, site, prep, cl) => `Трактат издан на ${pub} языках${site.t ? `; на этом сайте его можно прочитать также на ${site.t}` : ''}${prep.t ? `; ${prep.n > 1 ? 'издания' : 'издание'} на ${prep.t} ${prep.n > 1 ? 'готовятся' : 'готовится'}` : ''}. На этом сайте ${cl.map((c, i) => `${c.objets}${i === 0 ? ' есть' : ' —'} на ${c.langues}`).join('; ')}.`,
   },
   pt: {
-    noms: { fr: 'francês', en: 'inglês', es: 'espanhol', th: 'tailandês', zh: 'chinês simplificado', ru: 'russo', pt: 'português' },
+    noms: { fr: 'francês', en: 'inglês', es: 'espanhol', th: 'tailandês', zh: 'chinês simplificado', ru: 'russo', pt: 'português', hi: 'hindi' },
     objets: { accueil: 'a página inicial', livre: 'a página do tratado', lexique: 'o léxico', travaux: 'a lista de trabalhos', outils: 'a página das ferramentas', soutien: 'a página de apoio', hexagrammes: `os ${N.hexagrammes} hexagramas`, articles: 'os artigos', motifs: `as ${N.motifs} páginas de padrões` },
     liste: et('e'),
     phrase: (pub, site, prep, cl) => `O tratado está publicado em ${pub}${site.t ? `; lê-se também neste site em ${site.t}` : ''}${prep.t ? `; ${prep.n > 1 ? 'as suas edições' : 'a sua edição'} em ${prep.t} ${prep.n > 1 ? 'estão' : 'está'} em preparação` : ''}. Neste site, ${cl.map((c, i) => `${c.objets}${i === 0 ? ' existem' : ''} em ${c.langues}`).join('; ')}.`,
+  },
+  hi: {
+    noms: { fr: 'फ़्रेंच', en: 'अंग्रेज़ी', es: 'स्पेनिश', th: 'थाई', zh: 'सरलीकृत चीनी', ru: 'रूसी', pt: 'पुर्तगाली', hi: 'हिन्दी' },
+    objets: { accueil: 'मुखपृष्ठ', livre: 'ग्रंथ का पृष्ठ', lexique: 'शब्दावली', travaux: 'कृतियों की सूची', outils: 'उपकरणों का पृष्ठ', soutien: 'सहयोग का पृष्ठ', hexagrammes: `सभी ${N.hexagrammes} हेक्साग्राम`, articles: 'लेख', motifs: `${N.motifs} पैटर्न-पृष्ठ` },
+    liste: et('और'),
+    phrase: (pub, site, prep, cl) => `यह ग्रंथ ${pub} में प्रकाशित है${site.t ? `; इसे इस साइट पर ${site.t} में भी पढ़ा जा सकता है` : ''}${prep.t ? `; इसके ${prep.t} ${prep.n > 1 ? 'संस्करण' : 'संस्करण'} तैयार हो रहे हैं` : ''}। इस साइट पर ${cl.map((c) => `${c.objets} ${c.langues} में उपलब्ध हैं`).join('; ')}।`,
   },
 };
 // Une langue déclarée sans table de textes, ou sans le nom d'une autre langue :
