@@ -112,6 +112,7 @@ const PAGES = [
   { path: 'articles/foliage-bouffons-de-cour.html' },
   { path: 'articles/habit-du-grand-pretre.html' },
   { path: 'articles/hanuman-et-arlequin.html' },
+  { path: 'articles/le-fil-et-le-carre.html' },
   { path: 'articles/reminiscence-caillou-carre.html' },
   { path: 'articles/verticalite-damier-mosaique-echiquier.html' },
   // ── 3 hexagrammes, en échantillon (les deux extrêmes du gabarit + un milieu) ──

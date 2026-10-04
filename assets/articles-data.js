@@ -26,6 +26,17 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "le-fil-et-le-carre",
+    url: "https://anibal-amiot.com/articles/le-fil-et-le-carre.html",
+    title: "Le fil et le carré — ce que la tradition indienne a construit avant nous",
+    dateISO: "2026-10-04",
+    dateDisplay: "Publié le 4 octobre 2026",
+    categories: ["Géométrie", "Sagesse", "Livrée"],
+    excerpt: "Deux systèmes élaborés dans des langues et des siècles différents arrivent aux mêmes objets. Quand ça se produit, ce n'est généralement pas une coïncidence — c'est que l'objet existait avant les deux.",
+    cover: "https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg",
+    coverAlt: "Deux trames de période 2, superposées, donnant un carré pandiagonal d'ordre 4 dont toutes les droites — lignes, colonnes et diagonales brisées — font 34."
+  },
+  {
     slug: "axes-lignes-nodales",
     url: "https://anibal-amiot.com/articles/axes-lignes-nodales.html",
     title: "Les axes sont des lignes nodales",

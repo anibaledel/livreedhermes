@@ -55,7 +55,8 @@ function imagesDe(file, loc) {
   }
   const vues = new Set();
   return urls
-    .map((u) => { try { return new URL(u, loc).href; } catch { return null; } })
+    // sans fragment : un cadrage d'un même SVG (#svgView) reste la même image
+    .map((u) => { try { const x = new URL(u, loc); x.hash = ''; return x.href; } catch { return null; } })
     .filter((u) => u && u.startsWith(`${SITE}/`) && !DECOR.test(new URL(u).pathname))
     // seulement une image présente dans le dépôt : une entrée en 404 serait signalée
     .filter((u) => fs.existsSync(path.join(ROOT, decodeURIComponent(new URL(u).pathname))))

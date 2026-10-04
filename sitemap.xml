@@ -565,6 +565,7 @@
     <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg</image:loc></image:image>
@@ -5985,6 +5986,14 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/hexagrams/63-qian.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/articles/le-fil-et-le-carre.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/chadya-chadaka.svg</image:loc></image:image>
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/</loc>
