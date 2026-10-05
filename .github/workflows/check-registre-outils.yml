@@ -1,0 +1,44 @@
+name: Registre des outils — tools/registre.json dit le dépôt
+
+# tools/registre_outils.mjs --verifie échoue dès que le registre ment :
+#   [absent]  un fichier de tools/ sans entrée ;
+#   [fantome] une entrée dont le fichier n'existe plus ;
+#   [appel]   un appele_par qu'aucun workflow ne porte (relu dans .github/workflows/) ;
+#   [echoue]  un script actif ou ponctuel qui ne tient pas debout (syntaxe, import
+#             introuvable, nom non exporté, module absent) ;
+#   [relu]    un champ relu (role, lit, ecrit, utilise_par, sait_echouer) qui diverge ;
+#   [etat]    un script marqué en_panne qui tient debout, ou actif sans appel.
+# --essai : quatre registres faussés en mémoire, chacun doit être refusé.
+#
+# L'environnement est celui dans lequel les scripts tournent : tools/requirements.txt,
+# plus les modules que les scripts importent sans que requirements.txt les déclare
+# (pymupdf, pikepdf, pypdfium2, fonttools, cryptography) — la mise à jour de
+# requirements.txt est une PR à part. argon2 est volontairement absent : les deux
+# scripts qui en dépendent sont déclarés en_panne, et leur remise en marche a sa PR.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  registre:
+    runs-on: ubuntu-latest
+    env:
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/requirements.txt pymupdf==1.28.2 pikepdf pypdfium2 fonttools cryptography
+      - run: npm install --no-save playwright@1
+      - run: node tools/registre_outils.mjs --verifie
+      - run: node tools/registre_outils.mjs --essai
