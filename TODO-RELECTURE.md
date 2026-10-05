@@ -401,3 +401,22 @@ table `T.hi`), la visionneuse (`scripts/langues.js`, `lecteur`), le pied
   quatre catégories (« ชุด » / « juego » pour un jeu de 24 calques,
   « การทำนาย » / « tirada » pour un tirage). « ธรรมชาติ » et « naturaleza »
   pour « nature » n'ont pas de ligne au glossaire.
+
+## Galerie d'animations — sept pages dans les huit langues (2026-10-05, lot 7)
+
+Les textes de la galerie (titres, groupes, boutons, messages) sont **sans
+source humaine** dans les sept langues autres que le français, anglais compris :
+écrits pour ce lot, publiés sans attendre (règle d'Anibal). Ils se corrigent
+dans `data/galerie-animations.json` (« textes » et, par groupe, « nom » et
+« texte »), puis `node scripts/build-galerie-animations.js && node scripts/build-header.js`.
+Pages : `galerie-animations.html` et `animations/`, `en/animations/`,
+`es/animaciones/`, `th/`, `zh/`, `ru/`, `pt/`, `hi/animations/`. Doutes :
+
+- le nom des six groupes, surtout « Fonds de quantité » et « Polygones —
+  orientation », repris de l'outil des fonds (`assets/selecteur-fonds.js`,
+  français et anglais seulement) et traduits ici pour les six autres langues ;
+- « témoin » (l'animation qui représente un groupe sur l'entrée) : « sample »,
+  « muestra », « 样例 », « образец », « amostra », « ตัวอย่าง », « उदाहरण » ;
+- le **nom de chaque fond** sur les cartes n'existe qu'en français et en
+  anglais : les six autres langues affichent le nom anglais ;
+- hindi : « पैटर्न » pour motif (le terme du glossaire ; « नमूना » y est refusé).

@@ -204,7 +204,9 @@
     "fr/motifs/bases-yang-h0.html",
     "hexagrammes/0-kun-le-receptif.html",
     "hexagrammes/63-qian-le-createur.html",
+    "hi/animations/assemblies",
     "motifs/bases-yang-h0.html",
+    "th/animations",
     "th/hexagrams",
     "th/hexagrams/0-kun.html",
     "th/lexicon",
@@ -257,6 +259,7 @@
    "role": "Le bicolore part en ENCRE ET CRÈME, page par page (décision du 4 octobre 2026).",
    "lit": [
     "data/fonds/collections-pinterest.json",
+    "data/galerie-animations.json",
     "fr/motifs/par2-yin-yang-h5.html",
     "motifs/bases-yang-h0.html"
    ],
@@ -457,9 +460,10 @@
   },
   {
    "fichier": "tools/check_galerie_animations.mjs",
-   "role": "galerie-animations.html, mesurée.",
+   "role": "la galerie d'animations, mesurée : l'entrée (galerie-animations.html) et ses six pages de groupe, dans les huit langues (scripts/build-galerie-animations.js, data/galerie-animations.json).",
    "lit": [
-    "data/fonds/collections-pinterest.json"
+    "data/fonds/collections-pinterest.json",
+    "data/galerie-animations.json"
    ],
    "ecrit": [],
    "appele_par": [
@@ -617,6 +621,7 @@
     "articles/reminiscence-caillou-carre.html",
     "articles/verticalite-damier-mosaique-echiquier.html",
     "en/about",
+    "en/animations",
     "en/articles",
     "en/lexicon",
     "en/search",
@@ -627,7 +632,8 @@
     "hexagrammes/33-yi-la-nourriture.html",
     "hexagrammes/63-qian-le-createur.html",
     "th/lexicon",
-    "th/search"
+    "th/search",
+    "zh/animations/assemblies"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1687,6 +1693,21 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/vignettes_animations.py",
+   "role": "les vignettes WebP des pages de la galerie d'animations, réduites depuis l'affiche de chaque vidéo de référence (l'image extraite du MP4, data/fonds/collections-pinterest.json, champ video.affiche).",
+   "lit": [
+    "assets/animations/vignettes",
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   }
  ]
 }

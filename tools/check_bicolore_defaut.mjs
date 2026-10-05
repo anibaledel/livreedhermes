@@ -108,18 +108,24 @@ for (const [adresse, [s0, s1], preset, pixels] of PAGES) {
   await p.close();
 }
 
-// la galerie d'animations : chaque collection dans la palette de son export
+// la galerie d'animations : chaque collection dans la palette de son export,
+// sur les six pages de groupe (data/galerie-animations.json) — l'entrée ne porte
+// que des témoins, sans sélecteur de couleurs
 const reg = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8')).collections;
+const galerie = JSON.parse(readFileSync(path.join(ROOT, 'data/galerie-animations.json'), 'utf8'));
 const p = await navigateur.newPage();
 await p.route('**/beacon.min.js', (r) => r.fulfill({ body: '', contentType: 'text/javascript' }));
-await p.goto(`${BASE}/galerie-animations.html`, { waitUntil: 'networkidle' });
-await p.waitForFunction(() => window.galeriePrete);
-const cartes = await p.$$eval('.anim-carte', (cs) => cs.map((c) => [c.id, c.querySelector('.v-c0')?.value, c.querySelector('.v-c1')?.value]));
+const cartes = [];
+for (const g of galerie.groupes) {
+  await p.goto(`${BASE}/${galerie.adresses.fr.groupe.replace('{slug}', g.slugs.fr)}`, { waitUntil: 'networkidle' });
+  await p.waitForFunction(() => window.galeriePrete);
+  cartes.push(...await p.$$eval('.anim-carte[data-code]', (cs) => cs.map((c) => [c.dataset.code, c.querySelector('.v-c0')?.value, c.querySelector('.v-c1')?.value])));
+}
 for (const [code, a, b] of cartes) {
   const pal = reg[code].palette;
-  if (a !== pal[0] || b !== pal[1]) echec(`galerie-animations.html : ${code} en ${a} / ${b}, son export est en ${pal.join(' / ')}`);
+  if (a !== pal[0] || b !== pal[1]) echec(`galerie d'animations : ${code} en ${a} / ${b}, son export est en ${pal.join(' / ')}`);
 }
-console.log(`galerie-animations.html — ${cartes.map(([c, a, b]) => `${c} ${a === D0 && b === D1 ? 'encre et crème' : `${a} / ${b} (export pas encore refait)`}`).join(' ; ')}`);
+console.log(`galerie d'animations (${galerie.groupes.length} pages de groupe) — ${cartes.map(([c, a, b]) => `${c} ${a === D0 && b === D1 ? 'encre et crème' : `${a} / ${b} (export pas encore refait)`}`).join(' ; ')}`);
 verifiees.push('galerie-animations.html');
 await navigateur.close();
 if (serveur) serveur.fermer();

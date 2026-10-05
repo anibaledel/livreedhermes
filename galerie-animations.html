@@ -3,64 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- @galerie-tete:start — engendré par scripts/build-galerie-animations.js depuis data/galerie-animations.json, ne pas éditer ici -->
 <title>Animations des collections — La Livrée d'Hermès</title>
-<meta name="description" content="Les animations des collections de fonds de La Livrée d'Hermès : une recette fixe par collection, à regarder, à prévisualiser à une autre vitesse ou dans d'autres couleurs, à télécharger en MP4.">
+<meta name="description" content="Les animations des collections de fonds de La Livrée d'Hermès, en six groupes : une recette fixe par collection, à regarder, à prévisualiser à une autre vitesse ou dans d'autres couleurs, à télécharger en MP4.">
 <meta name="author" content="Anibal Edelberto Amiot">
 <link rel="canonical" href="https://anibal-amiot.com/galerie-animations.html">
 <meta property="og:title" content="Animations des collections — La Livrée d'Hermès">
-<meta property="og:description" content="Une recette fixe par collection : la même collection donne toujours la même animation.">
-<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:description" content="Les animations des collections de fonds de La Livrée d'Hermès, en six groupes : une recette fixe par collection, à regarder, à prévisualiser à une autre vitesse ou dans d'autres couleurs, à télécharger en MP4.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/animations/vignettes/P-720.webp">
 <meta property="og:url" content="https://anibal-amiot.com/galerie-animations.html">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Animations des collections — La Livrée d'Hermès">
-<meta name="twitter:description" content="Une recette fixe par collection : la même collection donne toujours la même animation.">
-<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
-<style>
-  *{box-sizing:border-box;}
-  html{ overflow-x:hidden; }
-  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
-  img, canvas, video{ max-width:100%; }
-  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
-  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; text-align:center; }
-  header p{ color:var(--dim); font-size:calc(15px + var(--fs-bump)); margin:0; text-align:center; }
-  .anim-intro{ max-width:64ch; margin:24px auto 30px; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.75; text-align:center; }
-  .anim-intro a{ color:var(--gold); }
-  .anim-grille{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:22px; }
-  .anim-carte{ border:1px solid var(--line-strong); padding:14px; display:flex; flex-direction:column; gap:10px; }
-  .anim-carte.active{ border-color:var(--gold); }
-  .anim-carte h2{ font-weight:400; font-size:calc(17px + var(--fs-bump)); margin:0; }
-  .anim-meta{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0; line-height:1.6; }
-  .anim-ecran{ position:relative; width:100%; aspect-ratio:9 / 16; border:1px solid var(--line); overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .anim-ecran > img, .anim-ecran > video, .anim-ecran > canvas{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
-  .anim-attente{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px; text-align:center; font-size:calc(12.5px + var(--fs-bump)); line-height:1.6; }
-  .anim-pastilles{ display:flex; gap:6px; margin-bottom:12px; }
-  .anim-pastilles i{ width:34px; height:34px; border:1px solid var(--line-strong); display:block; }
-  .anim-attente b{ display:block; font-weight:400; font-size:calc(15px + var(--fs-bump)); margin-bottom:6px; }
-  .anim-boutons, .anim-vue, .anim-partage{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
-  .anim-carte button, .anim-carte .anim-lien{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font:inherit; font-size:calc(11px + var(--fs-bump)); padding:8px 11px; cursor:pointer; text-decoration:none; }
-  .anim-carte button:hover, .anim-carte .anim-lien:hover{ border-color:var(--gold); color:var(--gold); }
-  .anim-carte button[disabled]{ opacity:.45; cursor:not-allowed; }
-  .anim-vue label{ display:inline-flex; align-items:center; gap:5px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
-  .anim-vue select, .g-format{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:5px; font:inherit; }
-  .anim-vue input[type=color]{ width:32px; height:28px; border:1px solid var(--line-strong); background:transparent; padding:2px; }
-  .anim-generateur{ border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:8px; }
-  .anim-generateur .anim-titre{ color:var(--gold); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.12em; text-transform:uppercase; }
-  .anim-etat{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; margin:0; word-break:break-word; }
-  .anim-etat.refus{ color:var(--red); }
-  progress{ width:100%; height:6px; }
-  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
-</style>
+<meta name="twitter:description" content="Les animations des collections de fonds de La Livrée d'Hermès, en six groupes : une recette fixe par collection, à regarder, à prévisualiser à une autre vitesse ou dans d'autres couleurs, à télécharger en MP4.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/animations/vignettes/P-720.webp">
 <link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/breadcrumb.css">
 <link rel="stylesheet" href="assets/atalanta-bg.css">
+<link rel="stylesheet" href="assets/galerie-animations.css">
+<script type="module" src="assets/galerie-animations.js"></script>
+<!-- @galerie-tete:end -->
 <!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/">
+<link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/">
+<link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/">
+<link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/">
+<link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/">
+<!-- @hreflang:end -->
 </head>
 <body>
 <div class="wrap">
@@ -71,254 +51,77 @@
 </header>
 <!-- @header:end -->
 <main id="contenu">
-  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-33-fonds-ecran.avif);">
-  <header class="atalanta-block" style="padding:32px 24px;">
-    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-    <nav class="breadcrumb" aria-label="Fil d'Ariane">
-      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Outils</a><span class="sep">/</span><span aria-current="page">Animations</span>
-    </nav>
-    <h1>Animations des collections</h1>
-    <p>Une recette fixe par collection</p>
-  </header>
-  </div>
-
-  <p class="anim-intro">Chaque collection de fonds a son animation : une suite fixe de motifs du corpus, chacun le plus proche du précédent, en fondu. La même collection donne toujours la même animation. Vous pouvez la regarder, la prévisualiser à une autre vitesse ou dans d'autres couleurs — rien ne se charge avant un clic, et une seule animation joue à la fois. Pour composer avec le son, en plein écran, c'est la page <a href="fonds-ecran.html">Fonds d'écran</a>.</p>
-
-  <div class="anim-grille" id="collections" aria-live="polite"></div>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Autres langues : <a href="https://anibal-amiot.com/en/animations/">English</a> · <a href="https://anibal-amiot.com/es/animaciones/">Español</a> · <a href="https://anibal-amiot.com/th/animations/">ไทย</a> · <a href="https://anibal-amiot.com/zh/animations/">简体中文</a> · <a href="https://anibal-amiot.com/ru/animations/">Русский</a> · <a href="https://anibal-amiot.com/pt/animations/">Português</a> · <a href="https://anibal-amiot.com/hi/animations/">हिन्दी</a></p>
+<!-- @langues:end -->
+<!-- @galerie:start — engendré par scripts/build-galerie-animations.js depuis data/galerie-animations.json, ne pas éditer ici -->
+<div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-33-fonds-ecran.avif);">
+<header class="atalanta-block" style="padding:32px 24px;">
+  <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+  <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+  <nav class="breadcrumb" aria-label="Groupes d'animations">
+    <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Animations des collections</span>
+  </nav>
+  <h1>Animations des collections</h1>
+  <p>Une recette fixe par collection</p>
+</header>
+</div>
+<p class="anim-intro">Chaque collection de fonds a son animation : une suite fixe de motifs du corpus, chacun le plus proche du précédent, en fondu. La même collection donne toujours la même animation. Les 34 animations sont rangées en six groupes, et chaque groupe en montre ici une, son témoin. Rien ne se charge avant un clic, et une seule animation joue à la fois. Pour composer avec le son, en plein écran : la page <a href="fonds-ecran.html">Fonds d'écran</a>.</p>
+<div class="anim-grille" id="groupes">
+<article class="anim-carte anim-temoin" id="groupe-aplat-et-bandes" data-code="P" data-affiche="assets/animations/vignettes/P-720.webp">
+  <p class="anim-groupe-place">Groupe 1 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/aplat-et-bandes.html">Aplat et bandes égales</a></h2>
+  <p class="anim-meta">Le fond uni, et les bandes de même largeur : deux, trois ou quatre.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/P-360.webp" srcset="assets/animations/vignettes/P-360.webp 360w, assets/animations/vignettes/P-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection P : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection P · 4 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/aplat-et-bandes.html">Voir les 4 animations →</a>
+</article>
+<article class="anim-carte anim-temoin" id="groupe-bandes-a-largeurs" data-code="B121" data-affiche="assets/animations/vignettes/B121-720.webp">
+  <p class="anim-groupe-place">Groupe 2 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html">Bandes à largeurs</a></h2>
+  <p class="anim-meta">Des bandes de largeurs inégales : le rythme se lit dans la proportion.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/B121-360.webp" srcset="assets/animations/vignettes/B121-360.webp 360w, assets/animations/vignettes/B121-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection B121 : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection B121 · 5 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html">Voir les 5 animations →</a>
+</article>
+<article class="anim-carte anim-temoin" id="groupe-bandes-diagonales" data-code="B6D" data-affiche="assets/animations/vignettes/B6D-720.webp">
+  <p class="anim-groupe-place">Groupe 3 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/bandes-diagonales.html">Bandes diagonales</a></h2>
+  <p class="anim-meta">Les mêmes familles de bandes, posées en diagonale.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/B6D-360.webp" srcset="assets/animations/vignettes/B6D-360.webp 360w, assets/animations/vignettes/B6D-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection B6D : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection B6D · 6 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/bandes-diagonales.html">Voir les 6 animations →</a>
+</article>
+<article class="anim-carte anim-temoin" id="groupe-polygones-orientation" data-code="CCE" data-affiche="assets/animations/vignettes/CCE-720.webp">
+  <p class="anim-groupe-place">Groupe 4 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/polygones-orientation.html">Polygones — orientation</a></h2>
+  <p class="anim-meta">Des polygones qui se lisent par leur direction.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/CCE-360.webp" srcset="assets/animations/vignettes/CCE-360.webp 360w, assets/animations/vignettes/CCE-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection CCE : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection CCE · 5 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/polygones-orientation.html">Voir les 5 animations →</a>
+</article>
+<article class="anim-carte anim-temoin" id="groupe-fonds-de-quantite" data-code="PCA12" data-affiche="assets/animations/vignettes/PCA12-720.webp">
+  <p class="anim-groupe-place">Groupe 5 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/fonds-de-quantite.html">Fonds de quantité</a></h2>
+  <p class="anim-meta">Des polygones qui se lisent par la part de la case qu'ils couvrent.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/PCA12-360.webp" srcset="assets/animations/vignettes/PCA12-360.webp 360w, assets/animations/vignettes/PCA12-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection PCA12 : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection PCA12 · 4 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/fonds-de-quantite.html">Voir les 4 animations →</a>
+</article>
+<article class="anim-carte anim-temoin" id="groupe-assemblages" data-code="P+E95" data-affiche="assets/animations/vignettes/P+E95-720.webp">
+  <p class="anim-groupe-place">Groupe 6 sur 6</p>
+  <h2><a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/assemblages.html">Assemblages</a></h2>
+  <p class="anim-meta">Une figure posée sur un fond : le glyphe et le fond s'animent ensemble.</p>
+  <div class="anim-ecran"><img src="assets/animations/vignettes/P+E95-360.webp" srcset="assets/animations/vignettes/P+E95-360.webp 360w, assets/animations/vignettes/P+E95-720.webp 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="Animation de la collection P+E95 : image extraite de la vidéo"></div>
+  <p class="anim-meta">Témoin : collection P+E95 · 10 animations</p>
+  <a class="anim-lien-groupe" href="https://anibal-amiot.com/animations/assemblages.html">Voir les 10 animations →</a>
+</article>
+</div>
+<p class="anim-synonyme">B3x dessine exactement la même chose que BA33 : il n'a pas d'animation à part.</p>
+<script type="application/json" id="galerie-donnees">{"page":"entree","textes":{"titre":"Animations des collections","sousTitre":"Une recette fixe par collection","accueil":"Accueil","accueilHref":"","description":"Les animations des collections de fonds de La Livrée d'Hermès, en six groupes : une recette fixe par collection, à regarder, à prévisualiser à une autre vitesse ou dans d'autres couleurs, à télécharger en MP4.","descriptionGroupe":"{groupe} : les animations de ce groupe de collections de fonds de La Livrée d'Hermès, à regarder, à prévisualiser ou à télécharger en MP4.","intro":"Chaque collection de fonds a son animation : une suite fixe de motifs du corpus, chacun le plus proche du précédent, en fondu. La même collection donne toujours la même animation. Les {n} animations sont rangées en six groupes, et chaque groupe en montre ici une, son témoin. Rien ne se charge avant un clic, et une seule animation joue à la fois.","introGroupe":"Rien ne se charge avant un clic, et une seule animation joue à la fois. Vous pouvez prévisualiser chaque animation à une autre vitesse ou dans d'autres couleurs.","fondsEcran":"Pour composer avec le son, en plein écran : la page \u003ca href=\"{href}\">Fonds d'écran\u003c/a>.","groupeSur":"Groupe {i} sur {n}","nAnimations":"{n} animations","voir":"Voir les {n} animations →","temoin":"Témoin : collection {code}","precedent":"← {groupe}","suivant":"{groupe} →","toutes":"Toutes les animations","navGroupes":"Groupes d'animations","synonyme":"{a} dessine exactement la même chose que {b} : il n'a pas d'animation à part.","collection":"Collection {code}","motifs":"{n} motifs","duree":"{s} s","rang":"n° {r} de publication","lireVideo":"▶ Lire la vidéo","apercu":"▶ Aperçu en direct","arreter":"■ Arrêter","vitesse":"Vitesse","fond":"Fond","figure":"Figure","couleursOrigine":"Couleurs d'origine","genererTitre":"Générer le MP4 de cette vue","format":"Format","generer":"Générer","telecharger":"⬇ Télécharger la vidéo","copier":"🔗 Copier le lien","copie":"✓ Lien copié","promptLien":"Le lien de cette animation :","partager":"↗ Partager","raisonH264":"MP4 H.264 indisponible sur ce navigateur (Chromium et Firefox ne l'encodent pas) : la prévisualisation marche, la vidéo se génère dans Google Chrome (126 ou plus) ou Safari.","formatAnnonce":"Format annoncé : MP4 · H.264 ({codec}), {ips} images par seconde, hors temps réel.","altVignette":"Animation de la collection {code} : image extraite de la vidéo","ariaApercu":"Aperçu de l'animation de la collection {code}","attente":"Vidéo de référence à venir — l'aperçu en direct montre déjà l'animation.","resultat":"{nom} : {images} images, {mo} Mo, {codec} ({mode}), produit en {s} s · SHA-256 {sha}","quantification":"quantification fixe","debit":"débit variable","decimale":","},"groupeDe":{"P":"/animations/aplat-et-bandes.html","B2":"/animations/aplat-et-bandes.html","B3":"/animations/aplat-et-bandes.html","B4":"/animations/aplat-et-bandes.html","B121":"/animations/bandes-a-largeurs.html","B12m":"/animations/bandes-a-largeurs.html","BA33":"/animations/bandes-a-largeurs.html","B3n":"/animations/bandes-a-largeurs.html","BA50":"/animations/bandes-a-largeurs.html","B2D":"/animations/bandes-diagonales.html","B3D":"/animations/bandes-diagonales.html","B4D":"/animations/bandes-diagonales.html","B6D":"/animations/bandes-diagonales.html","B121D":"/animations/bandes-diagonales.html","B11211D":"/animations/bandes-diagonales.html","CCE":"/animations/polygones-orientation.html","QT":"/animations/polygones-orientation.html","TRC":"/animations/polygones-orientation.html","QRT":"/animations/polygones-orientation.html","ESC":"/animations/polygones-orientation.html","PCA12":"/animations/fonds-de-quantite.html","SEC13":"/animations/fonds-de-quantite.html","LOS25":"/animations/fonds-de-quantite.html","CAD36":"/animations/fonds-de-quantite.html","P+E95":"/animations/assemblages.html","P+R45":"/animations/assemblages.html","P+C70":"/animations/assemblages.html","P+R80":"/animations/assemblages.html","P+X87":"/animations/assemblages.html","P+L95":"/animations/assemblages.html","B3D+E95":"/animations/assemblages.html","CCE+E95":"/animations/assemblages.html","QT+R45":"/animations/assemblages.html","BA50+E95":"/animations/assemblages.html","B3x":"/animations/bandes-a-largeurs.html"}}</script>
+<!-- @galerie:end -->
 </main>
 </div>
-
-<script type="module">
-// La galerie d'animations : elle LIT le registre (data/fonds/collections-pinterest.json)
-// — aucune liste de collections écrite ici — et IMPORTE le moteur
-// (assets/animation-collection.js) : la recette est fixée au registre, la vue
-// (vitesse, couleurs) est au visiteur, dans l'URL.
-//
-// Trois usages, une ligne de partage nette :
-//   l'animation de référence  un MP4 déposé, lu comme une vidéo (tout visiteur) — encodé
-//                             HORS navigateur par ffmpeg / libx264 (tools/video_reference.mjs),
-//                             fichier reproductible octet pour octet ;
-//   une variante              rendue en direct sur le canevas, sans encodeur (tout visiteur) ;
-//   le MP4 d'une variante     l'encodeur DU NAVIGATEUR, si le navigateur a le H.264 — sinon
-//                             il le dit ; images identiques garanties, pas l'octet.
-import { chargerAnimations, collectionsAnimees, creerRendu, dureeTotale, nomFichier, FORMATS, VITESSES } from './assets/animation-collection.js';
-import { encoder, h264Disponible } from './assets/encodeur-mp4.js';
-import { nomDuFond } from './assets/selecteur-fonds.js';
-import { decomposer } from './assets/bicolore-fonds.js';
-
-const grille = document.getElementById('collections');
-const HEX = /^[0-9a-f]{6}$/i;
-
-// ---- une seule animation à la fois ----------------------------------------
-let arreterCourante = null;
-function prendreLaMain(carte, arreter) {
-  if (arreterCourante) arreterCourante();
-  document.querySelectorAll('.anim-carte.active').forEach((c) => c.classList.remove('active'));
-  carte.classList.add('active');
-  arreterCourante = () => { arreter(); carte.classList.remove('active'); arreterCourante = null; };
-}
-
-// ---- la vue dans l'URL : ?collection=…&vitesse=…&c0=…&c1=… -----------------
-function vueDeLUrl(code, defaut) {
-  const q = new URLSearchParams(location.search);
-  if (q.get('collection') !== code) return { vitesse: 1, palette: defaut.slice() };
-  const v = Number(q.get('vitesse'));
-  const c = (k, d) => (HEX.test((q.get(k) || '').replace('#', '')) ? `#${q.get(k).replace('#', '').toLowerCase()}` : d);
-  return { vitesse: VITESSES.includes(v) ? v : 1, palette: [c('c0', defaut[0]), c('c1', defaut[1])] };
-}
-function adresseDe(code, vue, defaut) {
-  const q = new URLSearchParams({ collection: code });
-  if (vue.vitesse !== 1) q.set('vitesse', String(vue.vitesse));
-  if (vue.palette.join() !== defaut.join()) { q.set('c0', vue.palette[0].slice(1)); q.set('c1', vue.palette[1].slice(1)); }
-  return `${location.origin}${location.pathname}?${q}#${code}`;
-}
-
-function telecharger(blob, nom) {
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = nom;
-  document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 10000);
-}
-async function sha256(octets) {
-  const h = new Uint8Array(await crypto.subtle.digest('SHA-256', octets));
-  return [...h].map((b) => b.toString(16).padStart(2, '0')).join('');
-}
-
-const { collection: fondsCollection, registre } = await chargerAnimations();
-const h264 = await h264Disponible(1080, 1920, 30);
-const RAISON_H264 = 'MP4 H.264 indisponible sur ce navigateur (Chromium et Firefox ne l\'encodent pas) : la prévisualisation marche, la vidéo se génère dans Google Chrome (126 ou plus) ou Safari.';
-
-for (const col of collectionsAnimees(registre)) {
-  const { code, recette: rec } = col;
-  const defaut = col.palette.slice();
-  const fond = fondsCollection.fonds.get(decomposer(code).fond);
-  let vue = vueDeLUrl(code, defaut);
-  const carte = document.createElement('article');
-  carte.className = 'anim-carte';
-  carte.id = code;
-  carte.innerHTML = `
-    <h2>Collection ${code}</h2>
-    <p class="anim-meta">${fond ? nomDuFond(fond, 'fr') : ''} · ${rec.motifs.length} motifs · ${dureeTotale(rec)} s${col.rang ? ` · n° ${col.rang} de publication` : ''}</p>
-    <div class="anim-ecran"></div>
-    <div class="anim-boutons"></div>
-    <div class="anim-vue">
-      <label>Vitesse <select class="v-vitesse">${VITESSES.map((v) => `<option value="${v}">${String(v).replace('.', ',')} ×</option>`).join('')}</select></label>
-      <label>Fond <input type="color" class="v-c0"></label>
-      <label>Figure <input type="color" class="v-c1"></label>
-      <button type="button" class="v-defaut">Couleurs d'origine</button>
-    </div>
-    <div class="anim-partage"></div>
-    <div class="anim-generateur">
-      <span class="anim-titre">Générer le MP4 de cette vue</span>
-      <div class="anim-boutons">
-        <label class="anim-meta">Format <select class="g-format">${Object.entries(FORMATS).map(([k, f]) => `<option value="${k}">${f.libelle}</option>`).join('')}</select></label>
-        <button type="button" class="g-generer">Générer</button>
-      </div>
-      <progress class="g-progression" max="1" value="0" hidden></progress>
-      <p class="anim-etat g-etat"></p>
-    </div>`;
-  grille.appendChild(carte);
-  const $ = (s) => carte.querySelector(s);
-  const ecran = $('.anim-ecran');
-  const egale = () => vue.vitesse === 1 && vue.palette.join() === defaut.join();
-
-  // l'affiche fixe, ou l'attente : rien d'autre ne se charge avant un clic
-  function afficherRepos() {
-    ecran.innerHTML = '';
-    if (col.video) {
-      const img = document.createElement('img');
-      img.src = col.video.affiche; img.alt = `Affiche de l'animation de la collection ${code}, extraite de la vidéo`;
-      img.loading = 'lazy'; img.width = 1080; img.height = 1920;
-      ecran.appendChild(img);
-    } else {
-      // le texte dans les couleurs du site (lisible quelle que soit la palette :
-      // P est violet sur magenta) ; les deux couleurs de la vue en pastilles
-      ecran.innerHTML = `<div class="anim-attente"><span class="anim-pastilles" aria-hidden="true"><i style="background:${vue.palette[0]}"></i><i style="background:${vue.palette[1]}"></i></span><b>Collection ${code}</b>Vidéo de référence à venir — l'aperçu en direct montre déjà l'animation.</div>`;
-    }
-  }
-  afficherRepos();
-
-  // la vidéo de référence (déposée) — seulement à la vue d'origine
-  const boutons = $('.anim-boutons');
-  if (col.video) {
-    const lire = document.createElement('button');
-    lire.type = 'button'; lire.className = 'b-video'; lire.textContent = '▶ Lire la vidéo';
-    lire.addEventListener('click', () => {
-      const v = document.createElement('video');
-      v.src = col.video.fichier; v.controls = true; v.playsInline = true; v.autoplay = true; v.poster = col.video.affiche;
-      ecran.innerHTML = ''; ecran.appendChild(v);
-      prendreLaMain(carte, () => { v.pause(); afficherRepos(); });
-    });
-    boutons.appendChild(lire);
-  }
-  // l'aperçu en direct : le canevas, sans encodeur, à la vue choisie
-  const apercu = document.createElement('button');
-  apercu.type = 'button'; apercu.className = 'b-apercu'; apercu.textContent = '▶ Aperçu en direct';
-  apercu.addEventListener('click', async () => {
-    const canevas = document.createElement('canvas');
-    const r = ecran.getBoundingClientRect();
-    const dpr = Math.max(1, devicePixelRatio || 1);
-    canevas.width = Math.round(r.width * dpr); canevas.height = Math.round(r.height * dpr);
-    canevas.setAttribute('role', 'img');
-    canevas.setAttribute('aria-label', `Aperçu de l'animation de la collection ${code}`);
-    let fini = false, raf = 0;
-    prendreLaMain(carte, () => { fini = true; cancelAnimationFrame(raf); afficherRepos(); });
-    const rendu = await creerRendu({ code, vue: { ...vue, palette: vue.palette.slice() }, largeur: canevas.width, hauteur: canevas.height });
-    if (fini) return;
-    ecran.innerHTML = ''; ecran.appendChild(canevas);
-    const ctx = canevas.getContext('2d');
-    let t0 = null;
-    const image = (now) => { if (fini) return; t0 ??= now; rendu.dessiner(ctx, ((now - t0) / 1000) % rendu.duree); raf = requestAnimationFrame(image); };
-    raf = requestAnimationFrame(image);
-  });
-  boutons.appendChild(apercu);
-  const arreter = document.createElement('button');
-  arreter.type = 'button'; arreter.className = 'b-arreter'; arreter.textContent = '■ Arrêter';
-  arreter.addEventListener('click', () => { if (carte.classList.contains('active') && arreterCourante) arreterCourante(); });
-  boutons.appendChild(arreter);
-
-  // la vue : vitesse et couleurs, dans l'URL
-  $('.v-vitesse').value = String(vue.vitesse);
-  [$('.v-c0').value, $('.v-c1').value] = vue.palette;
-  function changerVue() {
-    vue = { vitesse: Number($('.v-vitesse').value), palette: [$('.v-c0').value, $('.v-c1').value] };
-    history.replaceState(null, '', adresseDe(code, vue, defaut).replace(location.origin, ''));
-    majPartage();
-    const enApercu = carte.classList.contains('active') && ecran.querySelector('canvas');
-    if (carte.classList.contains('active') && arreterCourante) arreterCourante();
-    if (enApercu) apercu.click(); else afficherRepos();
-  }
-  $('.v-vitesse').addEventListener('change', changerVue);
-  $('.v-c0').addEventListener('change', changerVue);
-  $('.v-c1').addEventListener('change', changerVue);
-  $('.v-defaut').addEventListener('click', () => { [$('.v-c0').value, $('.v-c1').value] = defaut; changerVue(); });
-
-  // partager, honnêtement : télécharger (le vrai geste), copier le lien, et le
-  // partage natif seulement là où il existe
-  const partage = $('.anim-partage');
-  function majPartage() {
-    partage.innerHTML = '';
-    if (col.video && egale()) {
-      const a = document.createElement('a');
-      a.className = 'anim-lien'; a.href = col.video.fichier; a.download = col.video.fichier.split('/').pop(); a.textContent = '⬇ Télécharger la vidéo';
-      partage.appendChild(a);
-    }
-    const copier = document.createElement('button');
-    copier.type = 'button'; copier.textContent = '🔗 Copier le lien';
-    copier.addEventListener('click', async () => {
-      const url = adresseDe(code, vue, defaut);
-      try { await navigator.clipboard.writeText(url); copier.textContent = '✓ Lien copié'; } catch { prompt('Le lien de cette animation :', url); }
-      setTimeout(() => { copier.textContent = '🔗 Copier le lien'; }, 2000);
-    });
-    partage.appendChild(copier);
-    if (col.video && egale() && navigator.canShare && navigator.canShare({ files: [new File([''], 'x.mp4', { type: 'video/mp4' })] })) {
-      const natif = document.createElement('button');
-      natif.type = 'button'; natif.textContent = '↗ Partager';
-      natif.addEventListener('click', async () => {
-        const blob = await (await fetch(col.video.fichier)).blob();
-        try { await navigator.share({ files: [new File([blob], col.video.fichier.split('/').pop(), { type: 'video/mp4' })], title: `Collection ${code} — La Livrée d'Hermès`, url: adresseDe(code, vue, defaut) }); } catch { /* partage annulé */ }
-      });
-      partage.appendChild(natif);
-    }
-  }
-  majPartage();
-
-  // le générateur : hors temps réel, H.264 ou rien (un outil pour Anibal, sur une page que tout le monde peut voir)
-  const etat = $('.g-etat');
-  if (!h264) { $('.g-generer').disabled = true; etat.textContent = RAISON_H264; etat.classList.add('refus'); }
-  else etat.textContent = `Format annoncé : MP4 · H.264 (${h264}), ${rec.imagesParSeconde} images par seconde, hors temps réel.`;
-  $('.g-generer').addEventListener('click', async () => {
-    const format = FORMATS[$('.g-format').value];
-    const toile = document.createElement('canvas');
-    toile.width = format.largeur; toile.height = format.hauteur;
-    const v = { ...vue, palette: vue.palette.slice() };
-    $('.g-generer').disabled = true;
-    const barre = $('.g-progression'); barre.hidden = false; barre.value = 0;
-    etat.classList.remove('refus');
-    try {
-      const t0 = performance.now();
-      const rendu = await creerRendu({ code, vue: v, largeur: format.largeur, hauteur: format.hauteur });
-      const ctx = toile.getContext('2d');
-      const { octets, codec, mode, morceaux } = await encoder({ toile, images: rendu.images, cadence: rec.imagesParSeconde,
-        dessiner: (k) => rendu.dessiner(ctx, k / rec.imagesParSeconde), progression: (x) => { barre.value = x; } });
-      const nom = nomFichier(code, $('.g-format').value, v, defaut);
-      telecharger(new Blob([octets], { type: 'video/mp4' }), nom);
-      const empreinte = await sha256(octets);
-      etat.textContent = `${nom} : ${rendu.images} images, ${(octets.length / 1e6).toFixed(2)} Mo, ${codec} (${mode === 'quantizer' ? 'quantification fixe' : 'débit variable'}), produit en ${((performance.now() - t0) / 1000).toFixed(1)} s · SHA-256 ${empreinte}`;
-      window.derniereGeneration = { nom, octets: octets.length, sha256: empreinte, mode, morceaux };
-    } catch (e) {
-      etat.textContent = e.message; etat.classList.add('refus');
-    } finally {
-      $('.g-generer').disabled = !h264; barre.hidden = true;
-    }
-  });
-}
-const cible = new URLSearchParams(location.search).get('collection') || location.hash.slice(1);
-if (cible && document.getElementById(cible)) document.getElementById(cible).scrollIntoView();
-window.galeriePrete = true;
-</script>
 <!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
 <div class="note">
     <div class="nav-tiles nav-tiles-accueil">

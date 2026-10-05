@@ -147,6 +147,19 @@ const LANGUES = {
     lecteur: { titre: "पुस्तक — दर्शक", titreDoc: "La Livrée d'Hermès — पुस्तक", pageLabel: "पृष्ठ {code} — {i} / {n}", alt: "पृष्ठ {code}", allerA: "पृष्ठ पर जाएँ", exemple: "उदा. 042", voir: "देखें", aideClavier: "← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें", aideTactile: "पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें", prec: "पिछला पृष्ठ", suiv: "अगला पृष्ठ", pdf: "PDF डाउनलोड करें", langues: "पुस्तक की भाषा" },
   },
 };
+// La galerie d'animations (lot 7, 2026-10-05) : l'entrée et ses six pages de
+// groupe, dans chaque langue. Les adresses sont déclarées dans
+// data/galerie-animations.json — la source que scripts/build-galerie-animations.js
+// lit pour écrire les pages — et versées ici dans les « pages » de chaque
+// langue, d'où les groupes de traduction ci-dessous les tirent comme les autres.
+const GALERIE = require('../data/galerie-animations.json');
+for (const [code, l] of Object.entries(LANGUES)) {
+  const a = GALERIE.adresses[code];
+  if (!a) continue;
+  l.pages['galerie-animations'] = a.entree;
+  for (const g of GALERIE.groupes) l.pages[`galerie-animations-${g.id}`] = a.groupe.replace('{slug}', g.slugs[a.slugs]);
+}
+
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
 
@@ -221,6 +234,10 @@ GROUPES.push({
   sitemap: false,
   pages: pagesDe('recherche'),
 });
+GROUPES.push({ nom: 'galerie-animations', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('galerie-animations') });
+for (const g of GALERIE.groupes) {
+  GROUPES.push({ nom: `galerie-animations-${g.id}`, changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe(`galerie-animations-${g.id}`) });
+}
 GROUPES.push({ nom: 'outils', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('outils') });
 GROUPES.push({ nom: 'soutien', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('soutien') });
 // La liste des articles elle-même : articles.html et sa jumelle anglaise.

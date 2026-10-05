@@ -72,6 +72,11 @@ const PAGES = [
   'es/',
   'th/',
   ...PAGES_LANGUES_AJOUTEES,
+  // la galerie d'animations : une page de groupe, et l'entrée et un groupe
+  // dans une autre écriture (gabarit commun, scripts/build-galerie-animations.js)
+  'animations/bandes-diagonales.html',
+  'th/animations/',
+  'hi/animations/assemblies/',
   'es/buscar/',
   'th/search/',
   'en/articles/',
