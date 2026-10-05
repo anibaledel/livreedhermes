@@ -488,6 +488,16 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_hors_navigation.mjs",
+   "role": "un lot qui touche la navigation du bas de page ne touche RIEN d'autre : chaque page HTML du dépôt, navigation retirée, est identique à l'octet près à ce qu'elle était au commit de référence.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/check_jsonld_visible.py",
    "role": "Garde-fou : le texte d'une FAQPage doit être lisible sur la page.",
    "lit": [],
@@ -571,6 +581,18 @@
   {
    "fichier": "tools/check_mp4_sans_date.mjs",
    "role": "le MP4 de l'encodeur ne porte pas l'heure.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_navigation.mjs",
+   "role": "le bloc de navigation en cinq catégories (scripts/nav-tiles.js, prompt-navigation.md), mesuré dans un navigateur, sur les 26 pages qu'il range, JAVASCRIPT COUPÉ : 1.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -1205,6 +1227,7 @@
     "tools/check_fond_ecran_deux_outils.mjs",
     "tools/check_galerie_animations.mjs",
     "tools/check_lecteur.mjs",
+    "tools/check_navigation.mjs",
     "tools/check_page_360.mjs",
     "tools/check_parcours_langues.mjs",
     "tools/check_selecteur_fonds.mjs",

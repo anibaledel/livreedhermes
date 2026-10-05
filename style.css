@@ -221,6 +221,50 @@ picture{ display:contents; }
   font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
+/* Les cinq catégories (prompt-navigation.md, 2026-10-05) : des <details>
+   natifs — les liens restent dans le HTML et s'ouvrent sans JavaScript, au
+   clavier comme au toucher. Tout est replié, sauf la catégorie de la page
+   courante ; l'entrée de la page est marquée (aria-current). Le nombre de
+   pages s'affiche à droite du titre. */
+.nav-fixes{ width:100%; }
+/* L'ordre du bloc, explicite : c'est celui du HTML engendré, dans la même
+   numérotation que les pages qui ordonnent leur pied par order (contact.html,
+   lexique.html… : .note > .nav-tiles 2, caducée 3, Soutien 4, logo 6, partage
+   7, crédit 8, mot-symbole 9). Sans lui, les catégories — que ces règles ne
+   nomment pas — passeraient en tête. */
+.note > .nav-fixes{ order:2; }
+.note > .footer-caduceus{ order:3; }
+.note > .site-nav-btn{ order:4; }
+.note > .nav-categories{ order:5; }
+.note > .center-logo-slot-bottom{ order:6; }
+.note > .share-buttons{ order:7; }
+.note > .credit-line{ order:8; }
+.note > .footer-title-logo{ order:9; }
+.nav-tile[aria-current="page"]{ border-color:var(--gold); }
+.nav-tile[aria-current="page"] .nav-tile-label{ color:var(--gold); }
+.nav-categories{ width:100%; max-width:840px; margin:14px auto 0; text-align:left; display:flex; flex-direction:column; gap:8px; }
+.nav-cat{ border:1px solid var(--line-strong); }
+.nav-cat[open]{ border-color:var(--gold); }
+.nav-cat > summary{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;
+  padding:12px 14px; list-style:none; color:var(--white);
+  font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase;
+}
+.nav-cat > summary::-webkit-details-marker{ display:none; }
+.nav-cat > summary::before{ content:"+"; color:var(--gold); width:1em; flex-shrink:0; }
+.nav-cat[open] > summary::before{ content:"−"; }
+.nav-cat-titre{ flex:1; min-width:0; }
+.nav-cat-nombre{ color:var(--gold); font-variant-numeric:tabular-nums; letter-spacing:0; }
+.nav-cat > summary:hover, .nav-cat > summary:focus-visible{ color:var(--gold); }
+.nav-cat > summary:focus-visible{ outline:1px solid var(--gold); outline-offset:-1px; }
+.nav-cat ul{ list-style:none; margin:0; padding:0 14px 12px; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:4px 18px; }
+@media (max-width:560px){ .nav-cat ul{ grid-template-columns:minmax(0, 1fr); } }
+.nav-cat li a{ display:block; padding:8px 10px; border-left:2px solid transparent; text-decoration:none; color:var(--dim); }
+.nav-cat li a:hover, .nav-cat li a:focus-visible{ border-left-color:var(--gold); color:var(--gold); }
+.nav-cat li a[aria-current="page"]{ border-left-color:var(--gold); }
+.nav-cat-label{ display:block; font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; color:var(--white); }
+.nav-cat li a:hover .nav-cat-label, .nav-cat li a:focus-visible .nav-cat-label, .nav-cat li a[aria-current="page"] .nav-cat-label{ color:var(--gold); }
+.nav-cat-texte{ display:block; font-size:calc(11.5px + var(--fs-bump)); line-height:1.45; margin-top:2px; overflow-wrap:anywhere; }
 .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
 .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
 @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
@@ -316,7 +360,7 @@ picture{ display:contents; }
 
   /* Navigation, partage, soutien : rien à faire sur papier. */
   .skip-link, .breadcrumb, .other-langs, .home-menu, .site-nav-row, .site-nav-btn,
-  .nav-tiles, .tile-group, .footer-caduceus, .center-logo-slot, .footer-title-logo,
+  .nav-tiles, .tile-group, .nav-categories, .footer-caduceus, .center-logo-slot, .footer-title-logo,
   .site-footer-nav, .share-buttons, .share-row, .article-nav-links,
   .corner, .corner2, #soutienBandeau, #soutienOverlay{ display:none !important; }
 

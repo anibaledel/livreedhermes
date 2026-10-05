@@ -88,6 +88,10 @@ const STATIC_PAGES = [
   { loc: `${SITE}/tirage-livree-hermes.html`, file: 'tirage-livree-hermes.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/creation-motifs-yi-king.html`, file: 'creation-motifs-yi-king.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/bicolore.html`, file: 'bicolore.html', changefreq: 'monthly', priority: '0.8' },
+  // Liée depuis toutes les pages (tuile « Motifs bicolores v2 ») et absente du sitemap jusqu'au
+  // 2026-10-05 : ni noindex ni retrait voulu — une page liée partout et cachée aux moteurs
+  // n'a aucune cohérence (prompt-navigation.md).
+  { loc: `${SITE}/creation-bicolore-v2.html`, file: 'creation-bicolore-v2.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
   // 'galerie-animations.html' : dans le groupe « galerie-animations » de scripts/langues.js (lot 7), avec ses alternates et ses six pages de groupe.

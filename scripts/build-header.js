@@ -191,7 +191,22 @@ const AVEC_TUILES_EN_PLUS = new Set([
   // Accueil français (racine), refait sur le modèle de th/ (A03, 2026-10-04) :
   // les tuiles qu'il portait à la main viennent désormais de nav-tiles.js.
   'index.html',
+  // La navigation en cinq catégories (prompt-navigation.md, 2026-10-05) : les
+  // pages qui portaient encore leurs 15 à 19 tuiles à plat, écrites à la main,
+  // reçoivent le bloc engendré — c'était là que le visiteur les voyait. Leur
+  // <div class="note"> ne contenait que tuiles, caducée, bouton Soutien,
+  // logos et crédit (relevé page par page) : il est remplacé tel quel.
+  'la-livree-d-hermes.html', 'contact.html', 'lexique.html', '360-calques.html',
+  'galerie-patterns-unifies.html', 'chiffres-et-sources.html', 'galerie-bicolore.html',
+  'unified-patterns.html', 'outils.html', 'fonds-ecran.html', 'a-propos.html',
+  'articles.html', 'hexagrammes/index.html',
+  ...fs.readdirSync(path.join(REPO_ROOT, 'articles')).filter((f) => f.endsWith('.html')).map((f) => `articles/${f}`),
+  // Ces deux-là portent leurs réglages de palette DANS le même <div class="note"> :
+  // seuls tuiles et pied en sont retirés (AVEC_REGLAGES, adopterNavTiles()).
+  'tirage-livree-hermes.html', 'creation-motifs-yi-king.html',
 ]);
+const ZONE_VIDE = '<!-- @navtiles:start -->\n<!-- @navtiles:end -->';
+const AVEC_REGLAGES = new Set(['tirage-livree-hermes.html', 'creation-motifs-yi-king.html']);
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
    et le traducteur Google Translate — retiré du site (décision de l'auteur,
@@ -261,8 +276,32 @@ function retirerSpan(s, span) {
    - un <div class="nav-tiles">...</div> nu à l'intérieur de <main> (404.html,
      seule page à chemins absolus, seule à ne montrer que 6 tuiles ciblées). */
 function adopterNavTiles(s, rel) {
+  // Les réglages de palette restent où ils sont ; seuls les tuiles et le pied
+  // (repris par le bloc engendré) quittent leur <div class="note">. Relançable :
+  // un second passage n'y trouve plus rien à retirer.
+  if (AVEC_REGLAGES.has(rel)) {
+    const note = spanDivEquilibre(s, '<div class="note">');
+    if (!note) return s;
+    let bloc = s.slice(note.debut, note.fin);
+    for (const debut of ['<div class="nav-tiles', '<div class="footer-caduceus">', '<div class="center-logo-slot center-logo-slot-bottom">', '<div class="credit-line">', '<div class="footer-title-logo">']) {
+      let span;
+      while ((span = spanDivEquilibre(bloc, debut))) bloc = retirerSpan(bloc, { debut: bloc.lastIndexOf('\n', span.debut) + 1, fin: span.fin });
+    }
+    bloc = bloc.replace(/[ \t]*<h2 class="section-h2" id="txt-toolsTitle">[^<]*<\/h2>\n?/, '')
+      .replace(/[ \t]*<a class="site-nav-btn" href="https:\/\/anibal-amiot\.com\/soutenir\.html"[^>]*>[^<]*<\/a>\n?/, '')
+      .replace(/\n{3,}/g, '\n\n');
+    // le bloc engendré se pose juste après, à la place de ce qui est parti
+    const place = s.includes('<!-- @navtiles:start') ? '' : `\n${ZONE_VIDE}`;
+    return s.slice(0, note.debut) + bloc + place + s.slice(note.fin);
+  }
   if (s.includes('<div class="note">')) {
-    return retirerSpan(s, spanDivEquilibre(s, '<div class="note">'));
+    // Une page adoptée pour la première fois reçoit le bloc À LA PLACE de son
+    // ancien <div class="note"> (zone vide, que poser() remplit) : l'ordre de la
+    // page ne bouge pas — ses scripts, écrits après l'ancien bloc, trouvent le
+    // nouveau déjà là (credit-year). Ensuite, la zone existe et se réécrit.
+    const span = spanDivEquilibre(s, '<div class="note">');
+    if (!s.includes('<!-- @navtiles:start')) return s.slice(0, span.debut) + ZONE_VIDE + s.slice(span.fin);
+    return retirerSpan(s, span);
   }
   if (rel === '404.html') {
     return retirerSpan(s, spanDivEquilibre(s, '<div class="nav-tiles">'));
