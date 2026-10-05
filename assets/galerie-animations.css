@@ -1,0 +1,50 @@
+/* La galerie d'animations : l'entrée et ses six pages de groupe, dans les huit
+   langues (scripts/build-galerie-animations.js). Une seule feuille pour les 56. */
+*{box-sizing:border-box;}
+html{ overflow-x:hidden; }
+body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+img, canvas, video{ max-width:100%; }
+.wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; text-align:center; }
+header p{ color:var(--dim); font-size:calc(15px + var(--fs-bump)); margin:0; text-align:center; }
+.anim-intro{ max-width:64ch; margin:24px auto 30px; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.75; text-align:center; }
+.anim-intro a{ color:var(--gold); }
+.anim-grille{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:22px; }
+.anim-carte{ border:1px solid var(--line-strong); padding:14px; display:flex; flex-direction:column; gap:10px; }
+.anim-carte.active{ border-color:var(--gold); }
+.anim-carte h2, .anim-carte h3{ font-weight:400; font-size:calc(17px + var(--fs-bump)); margin:0; }
+.anim-meta{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0; line-height:1.6; }
+.anim-ecran{ position:relative; width:100%; max-width:360px; margin:0 auto; aspect-ratio:9 / 16; border:1px solid var(--line); overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.anim-ecran > img, .anim-ecran > video, .anim-ecran > canvas{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.anim-attente{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:18px; text-align:center; font-size:calc(12.5px + var(--fs-bump)); line-height:1.6; }
+.anim-pastilles{ display:flex; gap:6px; margin-bottom:12px; }
+.anim-pastilles i{ width:34px; height:34px; border:1px solid var(--line-strong); display:block; }
+.anim-attente b{ display:block; font-weight:400; font-size:calc(15px + var(--fs-bump)); margin-bottom:6px; }
+.anim-outils{ display:flex; flex-direction:column; gap:10px; }
+.anim-boutons, .anim-vue, .anim-partage{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.anim-carte button, .anim-carte .anim-lien{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font:inherit; font-size:calc(11px + var(--fs-bump)); padding:8px 11px; cursor:pointer; text-decoration:none; }
+.anim-carte button:hover, .anim-carte .anim-lien:hover{ border-color:var(--gold); color:var(--gold); }
+.anim-carte button[disabled]{ opacity:.45; cursor:not-allowed; }
+.anim-vue label{ display:inline-flex; align-items:center; gap:5px; font-size:calc(11px + var(--fs-bump)); color:var(--dim); }
+.anim-vue select, .g-format{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); padding:5px; font:inherit; }
+.anim-vue input[type=color]{ width:32px; height:28px; border:1px solid var(--line-strong); background:transparent; padding:2px; }
+.anim-generateur{ border-top:1px solid var(--line); padding-top:10px; display:flex; flex-direction:column; gap:8px; }
+.anim-generateur .anim-titre{ color:var(--gold); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.12em; text-transform:uppercase; }
+.anim-etat{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; margin:0; word-break:break-word; }
+.anim-etat.refus{ color:var(--red); }
+progress{ width:100%; height:6px; }
+/* l'entrée : un groupe par carte, son témoin, le lien vers ses animations */
+.anim-groupe-place{ color:var(--gold); font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.12em; text-transform:uppercase; margin:0; }
+.anim-carte .anim-lien-groupe{ color:var(--gold); text-decoration:none; font-size:calc(13px + var(--fs-bump)); }
+.anim-carte .anim-lien-groupe:hover{ text-decoration:underline; }
+.anim-synonyme{ max-width:64ch; margin:22px auto 0; color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; text-align:center; }
+/* le passage d'un groupe à l'autre */
+.anim-groupes{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 14px; margin:0 auto 26px; padding:0; list-style:none; font-size:calc(12.5px + var(--fs-bump)); }
+.anim-groupes a{ color:var(--dim); text-decoration:none; }
+.anim-groupes a:hover{ color:var(--gold); }
+.anim-groupes a[aria-current="page"]{ color:var(--gold); border-bottom:1px solid var(--gold); }
+.anim-suite{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; margin:34px 0 0; padding-top:16px; border-top:1px solid var(--line); font-size:calc(13px + var(--fs-bump)); }
+.anim-suite a{ color:var(--gold); text-decoration:none; }
+.anim-suite a:hover{ text-decoration:underline; }
+.anim-suite .anim-toutes{ flex-basis:100%; text-align:center; order:3; }
+@media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }

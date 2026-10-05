@@ -34,12 +34,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/galerie-animations.html</loc>
-    <lastmod>2026-10-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/360-calques.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>
@@ -570,6 +564,1222 @@
     <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/works/"/>
     <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/works/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/works/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/galerie-animations.html</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-animations.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/aplat-et-bandes.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/liso-y-bandas/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/solid-and-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/aplat-et-bandes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/liso-y-bandas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/solid-and-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/solid-and-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/bandes-a-largeurs.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/bandas-de-anchos/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/bands-of-widths/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B12m-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA33-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3n-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-a-largeurs.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-de-anchos/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/bands-of-widths/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/bands-of-widths/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/bandes-diagonales.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/bandas-diagonales/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/diagonal-bands/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B2D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B4D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121D-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B11211D-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/bandes-diagonales.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/bandas-diagonales/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/diagonal-bands/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/diagonal-bands/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/polygones-orientation.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/orientation-polygons/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/TRC-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QRT-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/ESC-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/polygones-orientation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/orientation-polygons/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/orientation-polygons/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/fonds-de-quantite.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/quantity-grounds/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/SEC13-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/LOS25-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CAD36-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/fonds-de-quantite.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/quantity-grounds/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/quantity-grounds/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/animations/assemblages.html</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/animaciones/ensamblajes/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/zh/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/ru/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/pt/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/hi/animations/assemblies/</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+C70-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+R80-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+X87-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+L95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B3D+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE+E95-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/QT+R45-360.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/BA50+E95-360.webp</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/animations/assemblages.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/animaciones/ensamblajes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://anibal-amiot.com/zh/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://anibal-amiot.com/ru/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://anibal-amiot.com/pt/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://anibal-amiot.com/hi/animations/assemblies/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/animations/assemblies/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/outils.html</loc>

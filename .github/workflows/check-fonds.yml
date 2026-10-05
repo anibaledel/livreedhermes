@@ -97,6 +97,15 @@ jobs:
             git fetch --no-tags --depth=1 origin "$c"
           done
       - run: node tools/affiches_animations.mjs --verifie
+      # la galerie en sept pages × huit langues : écrite depuis data/galerie-animations.json
+      # (aucune page périmée), et ses vignettes WebP tirées de l'affiche du registre
+      - run: node scripts/build-galerie-animations.js --verifie
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pillow
+      - run: python3 tools/vignettes_animations.py --verifie
+      - run: python3 tools/vignettes_animations.py --essai
 
   rendu:
     runs-on: ubuntu-latest
