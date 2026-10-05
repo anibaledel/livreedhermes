@@ -71,8 +71,8 @@ for (const [l, h] of [[1280, 900], [390, 844]]) {
   if (doc > l) echec(`${l} px : la page défile horizontalement (${doc} px)`);
   const vus = [];
   for (const code of cartes.slice(0, 3)) {
-    await p.click(`#${code} .b-apercu`);
-    await p.waitForFunction((c) => document.querySelector(`#${c} canvas`), code);
+    await p.click(`[id="${code}"] .b-apercu`);
+    await p.waitForFunction((c) => document.querySelector(`[id="${c}"] canvas`), code);
     await p.waitForTimeout(300);
     vus.push(await p.evaluate(() => ({ actives: [...document.querySelectorAll('.anim-carte.active')].map((c) => c.id), canevas: [...document.querySelectorAll('canvas')].map((c) => c.closest('.anim-carte').id) })));
   }
@@ -151,10 +151,10 @@ const deposees = Object.entries(registre.collections).filter(([, c]) => c.video)
 for (const [code, c] of deposees) {
   const req = [];
   const q = await ouvrir(1280, 900, req);
-  const src = await q.$eval(`#${code} .anim-ecran img`, (i) => i.getAttribute('src'));
+  const src = await q.$eval(`[id="${code}"] .anim-ecran img`, (i) => i.getAttribute('src'));
   if (src !== c.video.affiche) echec(`${code} : affiche ${src}, le registre dit ${c.video.affiche}`);
   if (req.some((u) => u.endsWith(c.video.fichier))) echec(`${code} : la vidéo s'est chargée avant le clic`);
-  await q.click(`#${code} .b-video`);
+  await q.click(`[id="${code}"] .b-video`);
   if (await q.$$eval('video', (v) => v.length) !== 1) echec(`${code} : après « Lire », pas exactement une vidéo`);
   await q.close();
 }
