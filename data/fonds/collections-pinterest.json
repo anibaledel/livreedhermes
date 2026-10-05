@@ -2296,6 +2296,321 @@
     "sha256": "3b3dac24f0dbafd0669b69ffea847d362f34efeccddba20ae3f3a27b0b441b57",
     "sha256Affiche": "181ed6f586a2ab6bab01a81fdf415aba32e0d7cbd0132ca52ed37938f71a1110"
    }
+  },
+  "P+L95": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 908048426,
+    "motifs": [
+     "bases-yang-h21",
+     "bases-yang-h29",
+     "bases-yang-h25",
+     "bases-yang-h17",
+     "bases-yang-h16",
+     "bases-yang-h20",
+     "bases-yang-h28",
+     "bases-yang-h24",
+     "bases-yang-h8",
+     "bases-yang-h0",
+     "bases-yang-h4",
+     "bases-yang-h12",
+     "bases-yang-h13",
+     "bases-yang-h5",
+     "bases-yang-h1",
+     "bases-yang-h9",
+     "bases-yang-h11",
+     "bases-yang-h3",
+     "bases-yang-h7",
+     "bases-yang-h15",
+     "bases-yang-h31",
+     "bases-yang-h27",
+     "bases-yang-h19",
+     "bases-yang-h23",
+     "bases-yang-h22",
+     "bases-yang-h18",
+     "bases-yang-h26",
+     "bases-yang-h30",
+     "bases-yang-h14",
+     "bases-yang-h10",
+     "bases-yang-h2",
+     "bases-yang-h6"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/P+L95-1080x1920.mp4",
+    "affiche": "assets/animations/P+L95-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "0f397b2fb30633bf7c30c213dd55f209c3285c618ef26dbfc777f566426265bc",
+    "sha256Affiche": "491543260783b7fcb25cafdaaa8620a7807daca44187e60a8b189e94086c0de4"
+   }
+  },
+  "B3D+E95": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 2173569252,
+    "motifs": [
+     "par2-yang-yin-mut-h10",
+     "par2-yang-yin-mut-h2",
+     "par2-yang-yin-mut-h6",
+     "par2-yang-yin-mut-h14",
+     "par2-yang-yin-mut-h15",
+     "par2-yang-yin-mut-h7",
+     "par2-yang-yin-mut-h3",
+     "par2-yang-yin-mut-h11",
+     "par2-yang-yin-mut-h27",
+     "par2-yang-yin-mut-h31",
+     "par2-yang-yin-mut-h23",
+     "par2-yang-yin-mut-h19",
+     "par2-yang-yin-mut-h17",
+     "par2-yang-yin-mut-h21",
+     "par2-yang-yin-mut-h29",
+     "par2-yang-yin-mut-h25",
+     "par2-yang-yin-mut-h24",
+     "par2-yang-yin-mut-h28",
+     "par2-yang-yin-mut-h20",
+     "par2-yang-yin-mut-h16",
+     "par2-yang-yin-mut-h0",
+     "par2-yang-yin-mut-h8",
+     "par2-yang-yin-mut-h12",
+     "par2-yang-yin-mut-h4",
+     "par2-yang-yin-mut-h5",
+     "par2-yang-yin-mut-h13",
+     "par2-yang-yin-mut-h9",
+     "par2-yang-yin-mut-h1",
+     "par2-yang-yin-mut-h18",
+     "par2-yang-yin-mut-h22",
+     "par2-yang-yin-mut-h30",
+     "par2-yang-yin-mut-h26"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/B3D+E95-1080x1920.mp4",
+    "affiche": "assets/animations/B3D+E95-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "22d591c96f9b60381161c7680f099c07b5b5d814381856702a789ae7bb17dc2c",
+    "sha256Affiche": "b5bf68506325fdb0c715a14ae7b6e516bc00480f409a8c4646f1d43eba094c6c"
+   }
+  },
+  "CCE+E95": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 3880869892,
+    "motifs": [
+     "par2-yang-yin-mut-h0",
+     "par2-yang-yin-mut-h4",
+     "par2-yang-yin-mut-h12",
+     "par2-yang-yin-mut-h8",
+     "par2-yang-yin-mut-h9",
+     "par2-yang-yin-mut-h1",
+     "par2-yang-yin-mut-h5",
+     "par2-yang-yin-mut-h13",
+     "par2-yang-yin-mut-h15",
+     "par2-yang-yin-mut-h11",
+     "par2-yang-yin-mut-h3",
+     "par2-yang-yin-mut-h7",
+     "par2-yang-yin-mut-h23",
+     "par2-yang-yin-mut-h31",
+     "par2-yang-yin-mut-h27",
+     "par2-yang-yin-mut-h19",
+     "par2-yang-yin-mut-h17",
+     "par2-yang-yin-mut-h25",
+     "par2-yang-yin-mut-h29",
+     "par2-yang-yin-mut-h21",
+     "par2-yang-yin-mut-h20",
+     "par2-yang-yin-mut-h16",
+     "par2-yang-yin-mut-h24",
+     "par2-yang-yin-mut-h28",
+     "par2-yang-yin-mut-h30",
+     "par2-yang-yin-mut-h26",
+     "par2-yang-yin-mut-h18",
+     "par2-yang-yin-mut-h22",
+     "par2-yang-yin-mut-h6",
+     "par2-yang-yin-mut-h2",
+     "par2-yang-yin-mut-h10",
+     "par2-yang-yin-mut-h14"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/CCE+E95-1080x1920.mp4",
+    "affiche": "assets/animations/CCE+E95-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "034f277b27da5edd512e8bb360317b5a69030cc651b4f350a2e5b2ba0954aacc",
+    "sha256Affiche": "794284c550904706ca14a673e07630c9d0765134ce2e59225aa99e2df9c9a539"
+   }
+  },
+  "QT+R45": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 4135738446,
+    "motifs": [
+     "par2-yin-yang-h31",
+     "par2-yin-yang-h27",
+     "par2-yin-yang-h19",
+     "par2-yin-yang-h23",
+     "par2-yin-yang-h22",
+     "par2-yin-yang-h18",
+     "par2-yin-yang-h26",
+     "par2-yin-yang-h30",
+     "par2-yin-yang-h14",
+     "par2-yin-yang-h10",
+     "par2-yin-yang-h2",
+     "par2-yin-yang-h6",
+     "par2-yin-yang-h7",
+     "par2-yin-yang-h15",
+     "par2-yin-yang-h11",
+     "par2-yin-yang-h3",
+     "par2-yin-yang-h1",
+     "par2-yin-yang-h9",
+     "par2-yin-yang-h13",
+     "par2-yin-yang-h5",
+     "par2-yin-yang-h21",
+     "par2-yin-yang-h29",
+     "par2-yin-yang-h25",
+     "par2-yin-yang-h17",
+     "par2-yin-yang-h16",
+     "par2-yin-yang-h24",
+     "par2-yin-yang-h28",
+     "par2-yin-yang-h20",
+     "par2-yin-yang-h4",
+     "par2-yin-yang-h12",
+     "par2-yin-yang-h8",
+     "par2-yin-yang-h0"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/QT+R45-1080x1920.mp4",
+    "affiche": "assets/animations/QT+R45-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "5b769b5aa1d843981f26304e875e84032a033998b8e10f621bfdf8f9ba2391e5",
+    "sha256Affiche": "5c8b0837995efd1a0ed79b091da13f0110949292bf35f9e1a8435a7950e8ef35"
+   }
+  },
+  "BA50+E95": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 240449975,
+    "motifs": [
+     "par2-yin-mut-yang-mut-h20",
+     "par2-yin-mut-yang-mut-h16",
+     "par2-yin-mut-yang-mut-h24",
+     "par2-yin-mut-yang-mut-h28",
+     "par2-yin-mut-yang-mut-h30",
+     "par2-yin-mut-yang-mut-h26",
+     "par2-yin-mut-yang-mut-h18",
+     "par2-yin-mut-yang-mut-h22",
+     "par2-yin-mut-yang-mut-h6",
+     "par2-yin-mut-yang-mut-h14",
+     "par2-yin-mut-yang-mut-h10",
+     "par2-yin-mut-yang-mut-h2",
+     "par2-yin-mut-yang-mut-h3",
+     "par2-yin-mut-yang-mut-h7",
+     "par2-yin-mut-yang-mut-h15",
+     "par2-yin-mut-yang-mut-h11",
+     "par2-yin-mut-yang-mut-h27",
+     "par2-yin-mut-yang-mut-h19",
+     "par2-yin-mut-yang-mut-h23",
+     "par2-yin-mut-yang-mut-h31",
+     "par2-yin-mut-yang-mut-h29",
+     "par2-yin-mut-yang-mut-h21",
+     "par2-yin-mut-yang-mut-h17",
+     "par2-yin-mut-yang-mut-h25",
+     "par2-yin-mut-yang-mut-h9",
+     "par2-yin-mut-yang-mut-h1",
+     "par2-yin-mut-yang-mut-h5",
+     "par2-yin-mut-yang-mut-h13",
+     "par2-yin-mut-yang-mut-h12",
+     "par2-yin-mut-yang-mut-h4",
+     "par2-yin-mut-yang-mut-h0",
+     "par2-yin-mut-yang-mut-h8"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/BA50+E95-1080x1920.mp4",
+    "affiche": "assets/animations/BA50+E95-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "c3f0b7b7e0b2aec59814e35da36ec24e653cfced5127d37deb812d00c21efb73",
+    "sha256Affiche": "421e9a10bc21eb82feb611f089599533a6c3d148b5706c09199c927b332fe1db"
+   }
   }
  },
  "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",
