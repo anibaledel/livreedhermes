@@ -1729,6 +1729,258 @@
     "sha256": "4ee15a5f59520877ce18635b556587bfbb93201324a0df46cfb869a5d9fbfe87",
     "sha256Affiche": "18f1e9a8b2f6d73841780250470b2bdb9797c7c025bdfb8c142d429ab020dbe3"
    }
+  },
+  "PCA12": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 3445146344,
+    "motifs": [
+     "par3-sans-yang-mut-h0",
+     "par3-sans-yang-mut-h4",
+     "par3-sans-yang-mut-h12",
+     "par3-sans-yang-mut-h8",
+     "par3-sans-yang-mut-h9",
+     "par3-sans-yang-mut-h13",
+     "par3-sans-yang-mut-h5",
+     "par3-sans-yang-mut-h1",
+     "par3-sans-yang-mut-h17",
+     "par3-sans-yang-mut-h21",
+     "par3-sans-yang-mut-h29",
+     "par3-sans-yang-mut-h25",
+     "par3-sans-yang-mut-h24",
+     "par3-sans-yang-mut-h16",
+     "par3-sans-yang-mut-h20",
+     "par3-sans-yang-mut-h28",
+     "par3-sans-yang-mut-h30",
+     "par3-sans-yang-mut-h22",
+     "par3-sans-yang-mut-h18",
+     "par3-sans-yang-mut-h26",
+     "par3-sans-yang-mut-h27",
+     "par3-sans-yang-mut-h19",
+     "par3-sans-yang-mut-h23",
+     "par3-sans-yang-mut-h31",
+     "par3-sans-yang-mut-h15",
+     "par3-sans-yang-mut-h11",
+     "par3-sans-yang-mut-h3",
+     "par3-sans-yang-mut-h7",
+     "par3-sans-yang-mut-h6",
+     "par3-sans-yang-mut-h14",
+     "par3-sans-yang-mut-h10",
+     "par3-sans-yang-mut-h2"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/PCA12-1080x1920.mp4",
+    "affiche": "assets/animations/PCA12-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "14810703abd806aad9a956b04e51372324f0cfd499ac1639ae727fa543716b04",
+    "sha256Affiche": "612cf052a8a1853f1092fdaeae9dfdbe6af481b43fb877fbe18c48e9986af4ad"
+   }
+  },
+  "SEC13": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 1157981342,
+    "motifs": [
+     "par3-sans-yang-mut-h11",
+     "par3-sans-yang-mut-h15",
+     "par3-sans-yang-mut-h7",
+     "par3-sans-yang-mut-h3",
+     "par3-sans-yang-mut-h2",
+     "par3-sans-yang-mut-h6",
+     "par3-sans-yang-mut-h14",
+     "par3-sans-yang-mut-h10",
+     "par3-sans-yang-mut-h26",
+     "par3-sans-yang-mut-h18",
+     "par3-sans-yang-mut-h22",
+     "par3-sans-yang-mut-h30",
+     "par3-sans-yang-mut-h28",
+     "par3-sans-yang-mut-h20",
+     "par3-sans-yang-mut-h16",
+     "par3-sans-yang-mut-h24",
+     "par3-sans-yang-mut-h25",
+     "par3-sans-yang-mut-h17",
+     "par3-sans-yang-mut-h21",
+     "par3-sans-yang-mut-h29",
+     "par3-sans-yang-mut-h13",
+     "par3-sans-yang-mut-h9",
+     "par3-sans-yang-mut-h1",
+     "par3-sans-yang-mut-h5",
+     "par3-sans-yang-mut-h4",
+     "par3-sans-yang-mut-h12",
+     "par3-sans-yang-mut-h8",
+     "par3-sans-yang-mut-h0",
+     "par3-sans-yang-mut-h19",
+     "par3-sans-yang-mut-h23",
+     "par3-sans-yang-mut-h31",
+     "par3-sans-yang-mut-h27"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/SEC13-1080x1920.mp4",
+    "affiche": "assets/animations/SEC13-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "1a7efada04bd8d9be2baba10d945509df8793dafb3e84f243903d12edf05be6b",
+    "sha256Affiche": "f655d7e9aa6331ad7dc307a18920be613ef16d8831af293f06f04dbc961f0764"
+   }
+  },
+  "LOS25": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 1694897896,
+    "motifs": [
+     "bases-yang-mut-h22",
+     "bases-yang-mut-h30",
+     "bases-yang-mut-h26",
+     "bases-yang-mut-h18",
+     "bases-yang-mut-h16",
+     "bases-yang-mut-h24",
+     "bases-yang-mut-h28",
+     "bases-yang-mut-h20",
+     "bases-yang-mut-h21",
+     "bases-yang-mut-h29",
+     "bases-yang-mut-h25",
+     "bases-yang-mut-h17",
+     "bases-yang-mut-h1",
+     "bases-yang-mut-h5",
+     "bases-yang-mut-h13",
+     "bases-yang-mut-h9",
+     "bases-yang-mut-h11",
+     "bases-yang-mut-h15",
+     "bases-yang-mut-h7",
+     "bases-yang-mut-h3",
+     "bases-yang-mut-h19",
+     "bases-yang-mut-h23",
+     "bases-yang-mut-h31",
+     "bases-yang-mut-h27",
+     "bases-yang-mut-h10",
+     "bases-yang-mut-h14",
+     "bases-yang-mut-h6",
+     "bases-yang-mut-h2",
+     "bases-yang-mut-h0",
+     "bases-yang-mut-h8",
+     "bases-yang-mut-h12",
+     "bases-yang-mut-h4"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/LOS25-1080x1920.mp4",
+    "affiche": "assets/animations/LOS25-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "fc195ea2b17ba6fceea015d65216d7e2a1b9273bfe3e46e4024986ecd4e74ae4",
+    "sha256Affiche": "c2f8381fbcfb70939c6ebd553e82b7c8d9622384caf304973a22fb814326bf58"
+   }
+  },
+  "CAD36": {
+   "palette": [
+    "#efeae0",
+    "#23232b"
+   ],
+   "recette": {
+    "algorithme": "proche-binaire-32-famille-v3",
+    "dureeMotif": 0.75,
+    "fondu": 0.25,
+    "fin": 2,
+    "imagesParSeconde": 60,
+    "densite": 4,
+    "graine": 3513942478,
+    "motifs": [
+     "par3-sans-yang-mut-h3",
+     "par3-sans-yang-mut-h11",
+     "par3-sans-yang-mut-h15",
+     "par3-sans-yang-mut-h7",
+     "par3-sans-yang-mut-h5",
+     "par3-sans-yang-mut-h13",
+     "par3-sans-yang-mut-h9",
+     "par3-sans-yang-mut-h1",
+     "par3-sans-yang-mut-h17",
+     "par3-sans-yang-mut-h21",
+     "par3-sans-yang-mut-h29",
+     "par3-sans-yang-mut-h25",
+     "par3-sans-yang-mut-h24",
+     "par3-sans-yang-mut-h28",
+     "par3-sans-yang-mut-h20",
+     "par3-sans-yang-mut-h16",
+     "par3-sans-yang-mut-h18",
+     "par3-sans-yang-mut-h26",
+     "par3-sans-yang-mut-h30",
+     "par3-sans-yang-mut-h22",
+     "par3-sans-yang-mut-h6",
+     "par3-sans-yang-mut-h2",
+     "par3-sans-yang-mut-h10",
+     "par3-sans-yang-mut-h14",
+     "par3-sans-yang-mut-h12",
+     "par3-sans-yang-mut-h4",
+     "par3-sans-yang-mut-h0",
+     "par3-sans-yang-mut-h8",
+     "par3-sans-yang-mut-h27",
+     "par3-sans-yang-mut-h31",
+     "par3-sans-yang-mut-h23",
+     "par3-sans-yang-mut-h19"
+    ]
+   },
+   "video": {
+    "fichier": "assets/animations/CAD36-1080x1920.mp4",
+    "affiche": "assets/animations/CAD36-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "a5ec85440e7c0da80277632ea4784273d58d1e64761e43e46c4c2e0f1f971b61",
+    "sha256Affiche": "4049102c8fe6b85d3fcaa2f84413987267eb1c988633e7aa0835be402fa292b7"
+   }
   }
  },
  "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",
