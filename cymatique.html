@@ -349,6 +349,7 @@
           <label><input type="checkbox" id="freeze"> <span data-i18n="freeze">Mode figé — n'actualise plus au son</span></label>
         </div>
         <div class="warn" id="warn"></div>
+        <div class="warn" id="micExclusif" hidden></div>
       </div>
 
       <div class="panel">
@@ -360,6 +361,7 @@
           <span class="tone-freq"><span id="toneFreqVal">440</span> Hz</span>
         </div>
         <div class="match-line" id="toneMatchLine"></div>
+        <div class="warn" id="toneExclusif" hidden></div>
       </div>
 
       <div class="panel">
@@ -487,6 +489,10 @@ const UI = {
     listeningHeading: "Écoute",
     micIdle: "Activer le micro",
     micActive: "Micro actif",
+    micStop: "Couper le micro",
+    micBusyTone: "Le micro est coupé pendant le son pur : il capterait le son généré et la correspondance ne vaudrait plus rien. Arrêtez le son pur pour l'activer.",
+    toneBusyMic: "Le son pur est indisponible pendant l'écoute du micro : le micro capterait le son généré. Coupez le micro pour jouer un son pur.",
+    micStopped: "Le micro s'est arrêté (périphérique débranché ou permission retirée). Vous pouvez le réactiver.",
     micUnavailable: "Micro indisponible : ",
     micUnavailableSuffix: " — les gammes restent cliquables.",
     waiting: "en attente",
@@ -551,6 +557,10 @@ const UI = {
     listeningHeading: "Listening",
     micIdle: "Enable microphone",
     micActive: "Microphone active",
+    micStop: "Turn off microphone",
+    micBusyTone: "The microphone is off while the pure tone plays: it would pick up the generated sound and the match would mean nothing. Stop the pure tone to enable it.",
+    toneBusyMic: "The pure tone is unavailable while the microphone is listening: the microphone would pick up the generated sound. Turn off the microphone to play a pure tone.",
+    micStopped: "The microphone stopped (device unplugged or permission withdrawn). You can enable it again.",
     micUnavailable: "Microphone unavailable: ",
     micUnavailableSuffix: " — the scales remain clickable.",
     waiting: "waiting",
@@ -587,6 +597,10 @@ const UI = {
     listeningHeading: "Escucha",
     micIdle: "Activar el micrófono",
     micActive: "Micrófono activo",
+    micStop: "Apagar el micrófono",
+    micBusyTone: "El micrófono está apagado mientras suena el tono puro: captaría el sonido generado y la correspondencia ya no valdría nada. Detenga el tono puro para activarlo.",
+    toneBusyMic: "El tono puro no está disponible mientras el micrófono escucha: el micrófono captaría el sonido generado. Apague el micrófono para reproducir un tono puro.",
+    micStopped: "El micrófono se ha detenido (dispositivo desconectado o permiso retirado). Puede volver a activarlo.",
     micUnavailable: "Micrófono no disponible: ",
     micUnavailableSuffix: " — las escalas siguen siendo clicables.",
     waiting: "en espera",
@@ -650,6 +664,10 @@ const UI = {
     listeningHeading: "การฟัง",
     micIdle: "เปิดไมโครโฟน",
     micActive: "ไมโครโฟนทำงานอยู่",
+    micStop: "ปิดไมโครโฟน",
+    micBusyTone: "ไมโครโฟนถูกปิดระหว่างเล่นเสียงบริสุทธิ์ เพราะจะรับเสียงที่สร้างขึ้นและการจับคู่จะไม่มีความหมาย หยุดเสียงบริสุทธิ์เพื่อเปิดไมโครโฟน",
+    toneBusyMic: "เล่นเสียงบริสุทธิ์ไม่ได้ขณะไมโครโฟนกำลังฟัง เพราะไมโครโฟนจะรับเสียงที่สร้างขึ้น ปิดไมโครโฟนเพื่อเล่นเสียงบริสุทธิ์",
+    micStopped: "ไมโครโฟนหยุดทำงาน (ถอดอุปกรณ์หรือถอนสิทธิ์) เปิดใหม่ได้",
     micUnavailable: "ไมโครโฟนใช้งานไม่ได้:",
     micUnavailableSuffix: " — ยังคลิกเลือกบันไดเสียงได้",
     waiting: "กำลังรอ",
@@ -790,6 +808,7 @@ function applyUILang() {
   // Langue déclarée du document = langue affichée (lecteurs d'écran, traducteurs).
   document.documentElement.lang = LANG;
   refreshMatchTexts();
+  syncOutils();
 
   // Mention de relecture — seulement pour les langues dont la traduction
   // n'a pas encore été relue par un locuteur natif (voir docs/
@@ -828,7 +847,7 @@ document.querySelectorAll('.echelle-btn[data-echelle]').forEach(b => {
     syncEchelleControls();
     if (DATA) {
       buildList();
-      if (current) show(current);
+      if (current) show(current, true);
       toneShow(Number(toneFreqEl.value));
     }
     setShareURL(currentShareParams());
@@ -970,8 +989,15 @@ function badgeBandes() {
   return `<span class="mode-badge no-mode">${t('freqDominanteTrameBandes')}</span>`;
 }
 
-function show(name) {
+// La famille affichée : show() sort aussitôt si on lui redemande la même
+// (le micro l'appelait à chaque image : 1152 polygones reconstruits pour
+// rien). force : la même famille, mais son texte ou son pavage a changé
+// (échelle, langue).
+let shown = null;
+function show(name, force = false) {
   if (!DATA || !DATA.gammes[name]) return;
+  if (name === shown && !force) return;
+  shown = name;
   current = name;
   const g = DATA.gammes[name];
   const eT1 = echelleDe(g, 'T1'), eBandes = echelleDe(g, 'bandes');
@@ -1023,6 +1049,26 @@ function nearest(f) {
   return { gamme: { n: best.n, note: best.note, f: best.f_hz, gen: best.gen }, cents, folded: x };
 }
 
+// 2. La famille détectée ne s'affiche qu'une fois CONFIRMÉE : la même
+// pendant CONFIRMATION_MS d'affilée (la fréquence dominante saute d'un bin à
+// l'autre ; sans ce délai la famille changeait jusqu'à chaque image). Le
+// rendu SVG part ensuite hors de la boucle d'animation (setTimeout 0) : la
+// lecture du spectre n'est jamais en concurrence avec la mise en page.
+const CONFIRMATION_MS = 150;
+let candidat = null, candidatDepuis = 0, rendu = 0;
+function proposer(name, maintenant = performance.now()) {
+  if (name !== candidat) { candidat = name; candidatDepuis = maintenant; }
+  if (name === shown || maintenant - candidatDepuis < CONFIRMATION_MS || rendu) return;
+  rendu = setTimeout(() => { rendu = 0; show(candidat); }, 0);
+}
+// le générateur : le curseur ne bouge pas tout seul — la dernière position
+// s'affiche CONFIRMATION_MS après le dernier mouvement
+let attenteCurseur = 0;
+function proposerApres(name) {
+  clearTimeout(attenteCurseur);
+  attenteCurseur = setTimeout(() => show(name), CONFIRMATION_MS);
+}
+
 let lastMatch = null; // {gamme, cents} du dernier calcul mic ou générateur, pour retraduire au changement de langue
 function matchLineText(m) {
   const sign = m.cents >= 0 ? '+' : '';
@@ -1034,33 +1080,69 @@ function refreshMatchTexts() {
 }
 
 // ── micro + spectre ──────────────────────────────────────────────────────
+// Le micro est un interrupteur : son contexte, son flux et sa boucle sont
+// gardés, pour être réveillés (resume — un contexte né après l'await de
+// getUserMedia peut naître suspendu, et l'analyseur ne rendrait que du
+// silence) puis fermés. Le micro et le générateur s'excluent : l'un capterait
+// l'autre, et la correspondance affichée ne vaudrait plus rien.
 let ana, buf, sampleRate;
+let micCtx = null, micFlux = null, micBoucle = 0, micActif = false;
 const micBtn = document.getElementById('btnMic');
+function syncOutils() {
+  micBtn.textContent = t(micActif ? 'micStop' : 'micIdle');
+  micBtn.disabled = toneActive;
+  toneBtn.textContent = t(toneActive ? 'toneStop' : 'tonePlay');
+  toneBtn.disabled = micActif;
+  const me = document.getElementById('micExclusif'), te = document.getElementById('toneExclusif');
+  me.hidden = !toneActive; me.textContent = toneActive ? t('micBusyTone') : '';
+  te.hidden = !micActif; te.textContent = micActif ? t('toneBusyMic') : '';
+}
+function arreterMicro(message) {
+  micActif = false;
+  cancelAnimationFrame(micBoucle); micBoucle = 0;
+  clearTimeout(rendu); rendu = 0; candidat = null;
+  if (micFlux) micFlux.getTracks().forEach((p) => p.stop());
+  if (micCtx) micCtx.close().catch(() => {});
+  micCtx = null; micFlux = null; ana = null;
+  document.getElementById('f').textContent = '—';
+  document.getElementById('matchLine').textContent = t('waiting');
+  if (message) document.getElementById('warn').textContent = t(message);
+  syncOutils();
+}
 micBtn.addEventListener('click', async () => {
+  if (micActif) { arreterMicro(); return; }
+  if (toneActive) return;
+  micBtn.disabled = true;
   try {
     const st = await navigator.mediaDevices.getUserMedia({ audio: {
       echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
     const ac = new (window.AudioContext || window.webkitAudioContext)();
+    if (ac.state === 'suspended') await ac.resume();
     const src = ac.createMediaStreamSource(st);
     ana = ac.createAnalyser(); ana.fftSize = 8192;
     src.connect(ana);
     buf = new Float32Array(ana.frequencyBinCount);
     sampleRate = ac.sampleRate;
-    micBtn.disabled = true;
-    micBtn.textContent = t('micActive');
+    micCtx = ac; micFlux = st; micActif = true;
+    // flux coupé (périphérique débranché, permission retirée) : tout s'arrête
+    st.getTracks().forEach((p) => p.addEventListener('ended', () => { if (micActif) arreterMicro('micStopped'); }));
+    document.getElementById('warn').textContent = '';
+    syncOutils();
     loop();
   } catch (e) {
+    syncOutils();
     document.getElementById('warn').textContent = t('micUnavailable') + e.message + t('micUnavailableSuffix');
   }
 });
 
 function loop() {
+  if (!micActif || !ana) return;
   ana.smoothingTimeConstant = document.getElementById('sm').value / 100;
   ana.getFloatFrequencyData(buf);
   const th = -100 + Number(document.getElementById('th').value);
   let bi = -1, bv = th;
   const lo = Math.floor(60 / (sampleRate / ana.fftSize)), hi = Math.floor(3000 / (sampleRate / ana.fftSize));
-  for (let i = lo; i < hi && i < buf.length; i++) if (buf[i] > bv) { bv = buf[i]; bi = i; }
+  for (let i = lo; i < hi && i < buf.length - 1; i++) if (buf[i] > bv) { bv = buf[i]; bi = i; }
 
   const sp = document.getElementById('spec'), g = sp.getContext('2d');
   g.clearRect(0, 0, sp.width, sp.height);
@@ -1081,13 +1163,13 @@ function loop() {
       const m = nearest(f);
       lastMatch = m;
       document.getElementById('matchLine').textContent = matchLineText(m);
-      show(m.gamme.n);
+      proposer(m.gamme.n);
     }
   } else if (!frozen) {
     document.getElementById('f').textContent = '—';
     document.getElementById('matchLine').textContent = t('silence');
   }
-  requestAnimationFrame(loop);
+  micBoucle = requestAnimationFrame(loop);
 }
 
 // ── générateur de sons purs ──────────────────────────────────────────────
@@ -1100,20 +1182,21 @@ const toneFreqEl = document.getElementById('toneFreq');
 const toneFreqVal = document.getElementById('toneFreqVal');
 const toneBtn = document.getElementById('btnTone');
 
-function toneShow(f) {
+function toneShow(f, differe = false) {
   toneFreqVal.textContent = Math.round(f);
   const m = nearest(f);
   lastMatch = m;
   document.getElementById('toneMatchLine').textContent = matchLineText(m);
-  show(m.gamme.n);
+  if (differe) proposerApres(m.gamme.n); else show(m.gamme.n);
   if (toneOsc) toneOsc.frequency.setTargetAtTime(f, toneCtx.currentTime, 0.01);
 }
 toneFreqEl.addEventListener('input', () => {
-  toneShow(Number(toneFreqEl.value));
+  toneShow(Number(toneFreqEl.value), true);
   setShareURL(currentShareParams());
 });
 
 function startTone() {
+  if (micActif) return;
   toneCtx = toneCtx || new (window.AudioContext || window.webkitAudioContext)();
   toneOsc = toneCtx.createOscillator();
   toneOsc.type = 'sine';
@@ -1125,6 +1208,7 @@ function startTone() {
   toneOsc.start();
   toneActive = true;
   toneBtn.textContent = t('toneStop');
+  syncOutils();
 }
 function stopTone() {
   if (!toneOsc) return;
@@ -1134,6 +1218,7 @@ function stopTone() {
   toneOsc = null; toneGain = null;
   toneActive = false;
   toneBtn.textContent = t('tonePlay');
+  syncOutils();
 }
 toneBtn.addEventListener('click', () => {
   if (toneActive) stopTone(); else startTone();
