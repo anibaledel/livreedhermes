@@ -1,0 +1,2635 @@
+{
+ "_doc": "Le parcours des épingles encre et crème (décisions d'Anibal, 2026-10-05), écrit par tools/epingles_encre_creme.mjs --parcours. Famille par famille, dans l'ordre de FAMILLES (assets/vue-fond-ecran.js), h0…h31, les 12 publiées sautées ; deux épingles par motif (cellule 1500 × 1500, puis mise en situation 3 × 4½ 1000 × 1500), quatre créneaux par jour à partir du premier créneau à venir du registre. Pas de jumelles : un motif dont la lecture binaire est l'image d'un motif publié ou déjà pris sort du parcours et devient son synonyme ; le bloc par3-sans-yang-mut est retiré entier (sa jumelle par2-yin-yang est gardée). Rien n'est programmé : data/fonds/epingles-pinterest.csv ne change pas.",
+ "publiees": [
+  "bases-yang-mut-h0",
+  "bases-yang-mut-h1",
+  "bases-yang-mut-h2",
+  "bases-yang-mut-h3",
+  "bases-yang-h0",
+  "par2-yin-yang-h0",
+  "par2-yang-yin-mut-h0",
+  "par2-yin-yang-mut-h0",
+  "par2-yin-mut-yang-mut-h0",
+  "par3-sans-yang-h0",
+  "par3-sans-yang-mut-h0",
+  "bases-yang-h1"
+ ],
+ "familles": [
+  {
+   "famille": "bases-yang-mut",
+   "motifs": 28
+  },
+  {
+   "famille": "bases-yang",
+   "motifs": 30
+  },
+  {
+   "famille": "par2-yang-yin-mut",
+   "motifs": 31
+  },
+  {
+   "famille": "par2-yin-mut-yang-mut",
+   "motifs": 31
+  },
+  {
+   "famille": "par2-yin-yang",
+   "motifs": 30
+  },
+  {
+   "famille": "par2-yin-yang-mut",
+   "motifs": 31
+  },
+  {
+   "famille": "par3-sans-yang",
+   "motifs": 31
+  },
+  {
+   "famille": "par3-sans-yang-mut",
+   "motifs": 0
+  }
+ ],
+ "motifs": 212,
+ "epingles": 424,
+ "premier_creneau": "2026-10-04T08:00",
+ "dernier_creneau": "2027-01-17T17:00",
+ "synonymes": {
+  "par2-yin-yang-h7": "par3-sans-yang-mut-h0",
+  "par3-sans-yang-mut-h1": "par2-yin-yang-h6",
+  "par3-sans-yang-mut-h2": "par2-yin-yang-h5",
+  "par3-sans-yang-mut-h3": "par2-yin-yang-h4",
+  "par3-sans-yang-mut-h4": "par2-yin-yang-h3",
+  "par3-sans-yang-mut-h5": "par2-yin-yang-h2",
+  "par3-sans-yang-mut-h6": "par2-yin-yang-h1",
+  "par3-sans-yang-mut-h7": "par2-yin-yang-h0",
+  "par3-sans-yang-mut-h8": "par2-yin-yang-h15",
+  "par3-sans-yang-mut-h9": "par2-yin-yang-h14",
+  "par3-sans-yang-mut-h10": "par2-yin-yang-h13",
+  "par3-sans-yang-mut-h11": "par2-yin-yang-h12",
+  "par3-sans-yang-mut-h12": "par2-yin-yang-h11",
+  "par3-sans-yang-mut-h13": "par2-yin-yang-h10",
+  "par3-sans-yang-mut-h14": "par2-yin-yang-h9",
+  "par3-sans-yang-mut-h15": "par2-yin-yang-h8",
+  "par3-sans-yang-mut-h16": "par2-yin-yang-h23",
+  "par3-sans-yang-mut-h17": "par2-yin-yang-h22",
+  "par3-sans-yang-mut-h18": "par2-yin-yang-h21",
+  "par3-sans-yang-mut-h19": "par2-yin-yang-h20",
+  "par3-sans-yang-mut-h20": "par2-yin-yang-h19",
+  "par3-sans-yang-mut-h21": "par2-yin-yang-h18",
+  "par3-sans-yang-mut-h22": "par2-yin-yang-h17",
+  "par3-sans-yang-mut-h23": "par2-yin-yang-h16",
+  "par3-sans-yang-mut-h24": "par2-yin-yang-h31",
+  "par3-sans-yang-mut-h25": "par2-yin-yang-h30",
+  "par3-sans-yang-mut-h26": "par2-yin-yang-h29",
+  "par3-sans-yang-mut-h27": "par2-yin-yang-h28",
+  "par3-sans-yang-mut-h28": "par2-yin-yang-h27",
+  "par3-sans-yang-mut-h29": "par2-yin-yang-h26",
+  "par3-sans-yang-mut-h30": "par2-yin-yang-h25",
+  "par3-sans-yang-mut-h31": "par2-yin-yang-h24"
+ },
+ "parcours": [
+  {
+   "ordre": 13,
+   "motif": "bases-yang-mut-h4",
+   "format": "cellule",
+   "creneau": "2026-10-04T08:00"
+  },
+  {
+   "ordre": 14,
+   "motif": "bases-yang-mut-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-04T11:00"
+  },
+  {
+   "ordre": 15,
+   "motif": "bases-yang-mut-h5",
+   "format": "cellule",
+   "creneau": "2026-10-04T14:00"
+  },
+  {
+   "ordre": 16,
+   "motif": "bases-yang-mut-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-04T17:00"
+  },
+  {
+   "ordre": 17,
+   "motif": "bases-yang-mut-h6",
+   "format": "cellule",
+   "creneau": "2026-10-05T08:00"
+  },
+  {
+   "ordre": 18,
+   "motif": "bases-yang-mut-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-05T11:00"
+  },
+  {
+   "ordre": 19,
+   "motif": "bases-yang-mut-h7",
+   "format": "cellule",
+   "creneau": "2026-10-05T14:00"
+  },
+  {
+   "ordre": 20,
+   "motif": "bases-yang-mut-h7",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-05T17:00"
+  },
+  {
+   "ordre": 21,
+   "motif": "bases-yang-mut-h8",
+   "format": "cellule",
+   "creneau": "2026-10-06T08:00"
+  },
+  {
+   "ordre": 22,
+   "motif": "bases-yang-mut-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-06T11:00"
+  },
+  {
+   "ordre": 23,
+   "motif": "bases-yang-mut-h9",
+   "format": "cellule",
+   "creneau": "2026-10-06T14:00"
+  },
+  {
+   "ordre": 24,
+   "motif": "bases-yang-mut-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-06T17:00"
+  },
+  {
+   "ordre": 25,
+   "motif": "bases-yang-mut-h10",
+   "format": "cellule",
+   "creneau": "2026-10-07T08:00"
+  },
+  {
+   "ordre": 26,
+   "motif": "bases-yang-mut-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-07T11:00"
+  },
+  {
+   "ordre": 27,
+   "motif": "bases-yang-mut-h11",
+   "format": "cellule",
+   "creneau": "2026-10-07T14:00"
+  },
+  {
+   "ordre": 28,
+   "motif": "bases-yang-mut-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-07T17:00"
+  },
+  {
+   "ordre": 29,
+   "motif": "bases-yang-mut-h12",
+   "format": "cellule",
+   "creneau": "2026-10-08T08:00"
+  },
+  {
+   "ordre": 30,
+   "motif": "bases-yang-mut-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-08T11:00"
+  },
+  {
+   "ordre": 31,
+   "motif": "bases-yang-mut-h13",
+   "format": "cellule",
+   "creneau": "2026-10-08T14:00"
+  },
+  {
+   "ordre": 32,
+   "motif": "bases-yang-mut-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-08T17:00"
+  },
+  {
+   "ordre": 33,
+   "motif": "bases-yang-mut-h14",
+   "format": "cellule",
+   "creneau": "2026-10-09T08:00"
+  },
+  {
+   "ordre": 34,
+   "motif": "bases-yang-mut-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-09T11:00"
+  },
+  {
+   "ordre": 35,
+   "motif": "bases-yang-mut-h15",
+   "format": "cellule",
+   "creneau": "2026-10-09T14:00"
+  },
+  {
+   "ordre": 36,
+   "motif": "bases-yang-mut-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-09T17:00"
+  },
+  {
+   "ordre": 37,
+   "motif": "bases-yang-mut-h16",
+   "format": "cellule",
+   "creneau": "2026-10-10T08:00"
+  },
+  {
+   "ordre": 38,
+   "motif": "bases-yang-mut-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-10T11:00"
+  },
+  {
+   "ordre": 39,
+   "motif": "bases-yang-mut-h17",
+   "format": "cellule",
+   "creneau": "2026-10-10T14:00"
+  },
+  {
+   "ordre": 40,
+   "motif": "bases-yang-mut-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-10T17:00"
+  },
+  {
+   "ordre": 41,
+   "motif": "bases-yang-mut-h18",
+   "format": "cellule",
+   "creneau": "2026-10-11T08:00"
+  },
+  {
+   "ordre": 42,
+   "motif": "bases-yang-mut-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-11T11:00"
+  },
+  {
+   "ordre": 43,
+   "motif": "bases-yang-mut-h19",
+   "format": "cellule",
+   "creneau": "2026-10-11T14:00"
+  },
+  {
+   "ordre": 44,
+   "motif": "bases-yang-mut-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-11T17:00"
+  },
+  {
+   "ordre": 45,
+   "motif": "bases-yang-mut-h20",
+   "format": "cellule",
+   "creneau": "2026-10-12T08:00"
+  },
+  {
+   "ordre": 46,
+   "motif": "bases-yang-mut-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-12T11:00"
+  },
+  {
+   "ordre": 47,
+   "motif": "bases-yang-mut-h21",
+   "format": "cellule",
+   "creneau": "2026-10-12T14:00"
+  },
+  {
+   "ordre": 48,
+   "motif": "bases-yang-mut-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-12T17:00"
+  },
+  {
+   "ordre": 49,
+   "motif": "bases-yang-mut-h22",
+   "format": "cellule",
+   "creneau": "2026-10-13T08:00"
+  },
+  {
+   "ordre": 50,
+   "motif": "bases-yang-mut-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-13T11:00"
+  },
+  {
+   "ordre": 51,
+   "motif": "bases-yang-mut-h23",
+   "format": "cellule",
+   "creneau": "2026-10-13T14:00"
+  },
+  {
+   "ordre": 52,
+   "motif": "bases-yang-mut-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-13T17:00"
+  },
+  {
+   "ordre": 53,
+   "motif": "bases-yang-mut-h24",
+   "format": "cellule",
+   "creneau": "2026-10-14T08:00"
+  },
+  {
+   "ordre": 54,
+   "motif": "bases-yang-mut-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-14T11:00"
+  },
+  {
+   "ordre": 55,
+   "motif": "bases-yang-mut-h25",
+   "format": "cellule",
+   "creneau": "2026-10-14T14:00"
+  },
+  {
+   "ordre": 56,
+   "motif": "bases-yang-mut-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-14T17:00"
+  },
+  {
+   "ordre": 57,
+   "motif": "bases-yang-mut-h26",
+   "format": "cellule",
+   "creneau": "2026-10-15T08:00"
+  },
+  {
+   "ordre": 58,
+   "motif": "bases-yang-mut-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-15T11:00"
+  },
+  {
+   "ordre": 59,
+   "motif": "bases-yang-mut-h27",
+   "format": "cellule",
+   "creneau": "2026-10-15T14:00"
+  },
+  {
+   "ordre": 60,
+   "motif": "bases-yang-mut-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-15T17:00"
+  },
+  {
+   "ordre": 61,
+   "motif": "bases-yang-mut-h28",
+   "format": "cellule",
+   "creneau": "2026-10-16T08:00"
+  },
+  {
+   "ordre": 62,
+   "motif": "bases-yang-mut-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-16T11:00"
+  },
+  {
+   "ordre": 63,
+   "motif": "bases-yang-mut-h29",
+   "format": "cellule",
+   "creneau": "2026-10-16T14:00"
+  },
+  {
+   "ordre": 64,
+   "motif": "bases-yang-mut-h29",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-16T17:00"
+  },
+  {
+   "ordre": 65,
+   "motif": "bases-yang-mut-h30",
+   "format": "cellule",
+   "creneau": "2026-10-17T08:00"
+  },
+  {
+   "ordre": 66,
+   "motif": "bases-yang-mut-h30",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-17T11:00"
+  },
+  {
+   "ordre": 67,
+   "motif": "bases-yang-mut-h31",
+   "format": "cellule",
+   "creneau": "2026-10-17T14:00"
+  },
+  {
+   "ordre": 68,
+   "motif": "bases-yang-mut-h31",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-17T17:00"
+  },
+  {
+   "ordre": 69,
+   "motif": "bases-yang-h2",
+   "format": "cellule",
+   "creneau": "2026-10-18T08:00"
+  },
+  {
+   "ordre": 70,
+   "motif": "bases-yang-h2",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-18T11:00"
+  },
+  {
+   "ordre": 71,
+   "motif": "bases-yang-h3",
+   "format": "cellule",
+   "creneau": "2026-10-18T14:00"
+  },
+  {
+   "ordre": 72,
+   "motif": "bases-yang-h3",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-18T17:00"
+  },
+  {
+   "ordre": 73,
+   "motif": "bases-yang-h4",
+   "format": "cellule",
+   "creneau": "2026-10-19T08:00"
+  },
+  {
+   "ordre": 74,
+   "motif": "bases-yang-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-19T11:00"
+  },
+  {
+   "ordre": 75,
+   "motif": "bases-yang-h5",
+   "format": "cellule",
+   "creneau": "2026-10-19T14:00"
+  },
+  {
+   "ordre": 76,
+   "motif": "bases-yang-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-19T17:00"
+  },
+  {
+   "ordre": 77,
+   "motif": "bases-yang-h6",
+   "format": "cellule",
+   "creneau": "2026-10-20T08:00"
+  },
+  {
+   "ordre": 78,
+   "motif": "bases-yang-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-20T11:00"
+  },
+  {
+   "ordre": 79,
+   "motif": "bases-yang-h7",
+   "format": "cellule",
+   "creneau": "2026-10-20T14:00"
+  },
+  {
+   "ordre": 80,
+   "motif": "bases-yang-h7",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-20T17:00"
+  },
+  {
+   "ordre": 81,
+   "motif": "bases-yang-h8",
+   "format": "cellule",
+   "creneau": "2026-10-21T08:00"
+  },
+  {
+   "ordre": 82,
+   "motif": "bases-yang-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-21T11:00"
+  },
+  {
+   "ordre": 83,
+   "motif": "bases-yang-h9",
+   "format": "cellule",
+   "creneau": "2026-10-21T14:00"
+  },
+  {
+   "ordre": 84,
+   "motif": "bases-yang-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-21T17:00"
+  },
+  {
+   "ordre": 85,
+   "motif": "bases-yang-h10",
+   "format": "cellule",
+   "creneau": "2026-10-22T08:00"
+  },
+  {
+   "ordre": 86,
+   "motif": "bases-yang-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-22T11:00"
+  },
+  {
+   "ordre": 87,
+   "motif": "bases-yang-h11",
+   "format": "cellule",
+   "creneau": "2026-10-22T14:00"
+  },
+  {
+   "ordre": 88,
+   "motif": "bases-yang-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-22T17:00"
+  },
+  {
+   "ordre": 89,
+   "motif": "bases-yang-h12",
+   "format": "cellule",
+   "creneau": "2026-10-23T08:00"
+  },
+  {
+   "ordre": 90,
+   "motif": "bases-yang-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-23T11:00"
+  },
+  {
+   "ordre": 91,
+   "motif": "bases-yang-h13",
+   "format": "cellule",
+   "creneau": "2026-10-23T14:00"
+  },
+  {
+   "ordre": 92,
+   "motif": "bases-yang-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-23T17:00"
+  },
+  {
+   "ordre": 93,
+   "motif": "bases-yang-h14",
+   "format": "cellule",
+   "creneau": "2026-10-24T08:00"
+  },
+  {
+   "ordre": 94,
+   "motif": "bases-yang-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-24T11:00"
+  },
+  {
+   "ordre": 95,
+   "motif": "bases-yang-h15",
+   "format": "cellule",
+   "creneau": "2026-10-24T14:00"
+  },
+  {
+   "ordre": 96,
+   "motif": "bases-yang-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-24T17:00"
+  },
+  {
+   "ordre": 97,
+   "motif": "bases-yang-h16",
+   "format": "cellule",
+   "creneau": "2026-10-25T08:00"
+  },
+  {
+   "ordre": 98,
+   "motif": "bases-yang-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-25T11:00"
+  },
+  {
+   "ordre": 99,
+   "motif": "bases-yang-h17",
+   "format": "cellule",
+   "creneau": "2026-10-25T14:00"
+  },
+  {
+   "ordre": 100,
+   "motif": "bases-yang-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-25T17:00"
+  },
+  {
+   "ordre": 101,
+   "motif": "bases-yang-h18",
+   "format": "cellule",
+   "creneau": "2026-10-26T08:00"
+  },
+  {
+   "ordre": 102,
+   "motif": "bases-yang-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-26T11:00"
+  },
+  {
+   "ordre": 103,
+   "motif": "bases-yang-h19",
+   "format": "cellule",
+   "creneau": "2026-10-26T14:00"
+  },
+  {
+   "ordre": 104,
+   "motif": "bases-yang-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-26T17:00"
+  },
+  {
+   "ordre": 105,
+   "motif": "bases-yang-h20",
+   "format": "cellule",
+   "creneau": "2026-10-27T08:00"
+  },
+  {
+   "ordre": 106,
+   "motif": "bases-yang-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-27T11:00"
+  },
+  {
+   "ordre": 107,
+   "motif": "bases-yang-h21",
+   "format": "cellule",
+   "creneau": "2026-10-27T14:00"
+  },
+  {
+   "ordre": 108,
+   "motif": "bases-yang-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-27T17:00"
+  },
+  {
+   "ordre": 109,
+   "motif": "bases-yang-h22",
+   "format": "cellule",
+   "creneau": "2026-10-28T08:00"
+  },
+  {
+   "ordre": 110,
+   "motif": "bases-yang-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-28T11:00"
+  },
+  {
+   "ordre": 111,
+   "motif": "bases-yang-h23",
+   "format": "cellule",
+   "creneau": "2026-10-28T14:00"
+  },
+  {
+   "ordre": 112,
+   "motif": "bases-yang-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-28T17:00"
+  },
+  {
+   "ordre": 113,
+   "motif": "bases-yang-h24",
+   "format": "cellule",
+   "creneau": "2026-10-29T08:00"
+  },
+  {
+   "ordre": 114,
+   "motif": "bases-yang-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-29T11:00"
+  },
+  {
+   "ordre": 115,
+   "motif": "bases-yang-h25",
+   "format": "cellule",
+   "creneau": "2026-10-29T14:00"
+  },
+  {
+   "ordre": 116,
+   "motif": "bases-yang-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-29T17:00"
+  },
+  {
+   "ordre": 117,
+   "motif": "bases-yang-h26",
+   "format": "cellule",
+   "creneau": "2026-10-30T08:00"
+  },
+  {
+   "ordre": 118,
+   "motif": "bases-yang-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-30T11:00"
+  },
+  {
+   "ordre": 119,
+   "motif": "bases-yang-h27",
+   "format": "cellule",
+   "creneau": "2026-10-30T14:00"
+  },
+  {
+   "ordre": 120,
+   "motif": "bases-yang-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-30T17:00"
+  },
+  {
+   "ordre": 121,
+   "motif": "bases-yang-h28",
+   "format": "cellule",
+   "creneau": "2026-10-31T08:00"
+  },
+  {
+   "ordre": 122,
+   "motif": "bases-yang-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-31T11:00"
+  },
+  {
+   "ordre": 123,
+   "motif": "bases-yang-h29",
+   "format": "cellule",
+   "creneau": "2026-10-31T14:00"
+  },
+  {
+   "ordre": 124,
+   "motif": "bases-yang-h29",
+   "format": "pavage-3x4",
+   "creneau": "2026-10-31T17:00"
+  },
+  {
+   "ordre": 125,
+   "motif": "bases-yang-h30",
+   "format": "cellule",
+   "creneau": "2026-11-01T08:00"
+  },
+  {
+   "ordre": 126,
+   "motif": "bases-yang-h30",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-01T11:00"
+  },
+  {
+   "ordre": 127,
+   "motif": "bases-yang-h31",
+   "format": "cellule",
+   "creneau": "2026-11-01T14:00"
+  },
+  {
+   "ordre": 128,
+   "motif": "bases-yang-h31",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-01T17:00"
+  },
+  {
+   "ordre": 129,
+   "motif": "par2-yang-yin-mut-h1",
+   "format": "cellule",
+   "creneau": "2026-11-02T08:00"
+  },
+  {
+   "ordre": 130,
+   "motif": "par2-yang-yin-mut-h1",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-02T11:00"
+  },
+  {
+   "ordre": 131,
+   "motif": "par2-yang-yin-mut-h2",
+   "format": "cellule",
+   "creneau": "2026-11-02T14:00"
+  },
+  {
+   "ordre": 132,
+   "motif": "par2-yang-yin-mut-h2",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-02T17:00"
+  },
+  {
+   "ordre": 133,
+   "motif": "par2-yang-yin-mut-h3",
+   "format": "cellule",
+   "creneau": "2026-11-03T08:00"
+  },
+  {
+   "ordre": 134,
+   "motif": "par2-yang-yin-mut-h3",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-03T11:00"
+  },
+  {
+   "ordre": 135,
+   "motif": "par2-yang-yin-mut-h4",
+   "format": "cellule",
+   "creneau": "2026-11-03T14:00"
+  },
+  {
+   "ordre": 136,
+   "motif": "par2-yang-yin-mut-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-03T17:00"
+  },
+  {
+   "ordre": 137,
+   "motif": "par2-yang-yin-mut-h5",
+   "format": "cellule",
+   "creneau": "2026-11-04T08:00"
+  },
+  {
+   "ordre": 138,
+   "motif": "par2-yang-yin-mut-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-04T11:00"
+  },
+  {
+   "ordre": 139,
+   "motif": "par2-yang-yin-mut-h6",
+   "format": "cellule",
+   "creneau": "2026-11-04T14:00"
+  },
+  {
+   "ordre": 140,
+   "motif": "par2-yang-yin-mut-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-04T17:00"
+  },
+  {
+   "ordre": 141,
+   "motif": "par2-yang-yin-mut-h7",
+   "format": "cellule",
+   "creneau": "2026-11-05T08:00"
+  },
+  {
+   "ordre": 142,
+   "motif": "par2-yang-yin-mut-h7",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-05T11:00"
+  },
+  {
+   "ordre": 143,
+   "motif": "par2-yang-yin-mut-h8",
+   "format": "cellule",
+   "creneau": "2026-11-05T14:00"
+  },
+  {
+   "ordre": 144,
+   "motif": "par2-yang-yin-mut-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-05T17:00"
+  },
+  {
+   "ordre": 145,
+   "motif": "par2-yang-yin-mut-h9",
+   "format": "cellule",
+   "creneau": "2026-11-06T08:00"
+  },
+  {
+   "ordre": 146,
+   "motif": "par2-yang-yin-mut-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-06T11:00"
+  },
+  {
+   "ordre": 147,
+   "motif": "par2-yang-yin-mut-h10",
+   "format": "cellule",
+   "creneau": "2026-11-06T14:00"
+  },
+  {
+   "ordre": 148,
+   "motif": "par2-yang-yin-mut-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-06T17:00"
+  },
+  {
+   "ordre": 149,
+   "motif": "par2-yang-yin-mut-h11",
+   "format": "cellule",
+   "creneau": "2026-11-07T08:00"
+  },
+  {
+   "ordre": 150,
+   "motif": "par2-yang-yin-mut-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-07T11:00"
+  },
+  {
+   "ordre": 151,
+   "motif": "par2-yang-yin-mut-h12",
+   "format": "cellule",
+   "creneau": "2026-11-07T14:00"
+  },
+  {
+   "ordre": 152,
+   "motif": "par2-yang-yin-mut-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-07T17:00"
+  },
+  {
+   "ordre": 153,
+   "motif": "par2-yang-yin-mut-h13",
+   "format": "cellule",
+   "creneau": "2026-11-08T08:00"
+  },
+  {
+   "ordre": 154,
+   "motif": "par2-yang-yin-mut-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-08T11:00"
+  },
+  {
+   "ordre": 155,
+   "motif": "par2-yang-yin-mut-h14",
+   "format": "cellule",
+   "creneau": "2026-11-08T14:00"
+  },
+  {
+   "ordre": 156,
+   "motif": "par2-yang-yin-mut-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-08T17:00"
+  },
+  {
+   "ordre": 157,
+   "motif": "par2-yang-yin-mut-h15",
+   "format": "cellule",
+   "creneau": "2026-11-09T08:00"
+  },
+  {
+   "ordre": 158,
+   "motif": "par2-yang-yin-mut-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-09T11:00"
+  },
+  {
+   "ordre": 159,
+   "motif": "par2-yang-yin-mut-h16",
+   "format": "cellule",
+   "creneau": "2026-11-09T14:00"
+  },
+  {
+   "ordre": 160,
+   "motif": "par2-yang-yin-mut-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-09T17:00"
+  },
+  {
+   "ordre": 161,
+   "motif": "par2-yang-yin-mut-h17",
+   "format": "cellule",
+   "creneau": "2026-11-10T08:00"
+  },
+  {
+   "ordre": 162,
+   "motif": "par2-yang-yin-mut-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-10T11:00"
+  },
+  {
+   "ordre": 163,
+   "motif": "par2-yang-yin-mut-h18",
+   "format": "cellule",
+   "creneau": "2026-11-10T14:00"
+  },
+  {
+   "ordre": 164,
+   "motif": "par2-yang-yin-mut-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-10T17:00"
+  },
+  {
+   "ordre": 165,
+   "motif": "par2-yang-yin-mut-h19",
+   "format": "cellule",
+   "creneau": "2026-11-11T08:00"
+  },
+  {
+   "ordre": 166,
+   "motif": "par2-yang-yin-mut-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-11T11:00"
+  },
+  {
+   "ordre": 167,
+   "motif": "par2-yang-yin-mut-h20",
+   "format": "cellule",
+   "creneau": "2026-11-11T14:00"
+  },
+  {
+   "ordre": 168,
+   "motif": "par2-yang-yin-mut-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-11T17:00"
+  },
+  {
+   "ordre": 169,
+   "motif": "par2-yang-yin-mut-h21",
+   "format": "cellule",
+   "creneau": "2026-11-12T08:00"
+  },
+  {
+   "ordre": 170,
+   "motif": "par2-yang-yin-mut-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-12T11:00"
+  },
+  {
+   "ordre": 171,
+   "motif": "par2-yang-yin-mut-h22",
+   "format": "cellule",
+   "creneau": "2026-11-12T14:00"
+  },
+  {
+   "ordre": 172,
+   "motif": "par2-yang-yin-mut-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-12T17:00"
+  },
+  {
+   "ordre": 173,
+   "motif": "par2-yang-yin-mut-h23",
+   "format": "cellule",
+   "creneau": "2026-11-13T08:00"
+  },
+  {
+   "ordre": 174,
+   "motif": "par2-yang-yin-mut-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-13T11:00"
+  },
+  {
+   "ordre": 175,
+   "motif": "par2-yang-yin-mut-h24",
+   "format": "cellule",
+   "creneau": "2026-11-13T14:00"
+  },
+  {
+   "ordre": 176,
+   "motif": "par2-yang-yin-mut-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-13T17:00"
+  },
+  {
+   "ordre": 177,
+   "motif": "par2-yang-yin-mut-h25",
+   "format": "cellule",
+   "creneau": "2026-11-14T08:00"
+  },
+  {
+   "ordre": 178,
+   "motif": "par2-yang-yin-mut-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-14T11:00"
+  },
+  {
+   "ordre": 179,
+   "motif": "par2-yang-yin-mut-h26",
+   "format": "cellule",
+   "creneau": "2026-11-14T14:00"
+  },
+  {
+   "ordre": 180,
+   "motif": "par2-yang-yin-mut-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-14T17:00"
+  },
+  {
+   "ordre": 181,
+   "motif": "par2-yang-yin-mut-h27",
+   "format": "cellule",
+   "creneau": "2026-11-15T08:00"
+  },
+  {
+   "ordre": 182,
+   "motif": "par2-yang-yin-mut-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-15T11:00"
+  },
+  {
+   "ordre": 183,
+   "motif": "par2-yang-yin-mut-h28",
+   "format": "cellule",
+   "creneau": "2026-11-15T14:00"
+  },
+  {
+   "ordre": 184,
+   "motif": "par2-yang-yin-mut-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-15T17:00"
+  },
+  {
+   "ordre": 185,
+   "motif": "par2-yang-yin-mut-h29",
+   "format": "cellule",
+   "creneau": "2026-11-16T08:00"
+  },
+  {
+   "ordre": 186,
+   "motif": "par2-yang-yin-mut-h29",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-16T11:00"
+  },
+  {
+   "ordre": 187,
+   "motif": "par2-yang-yin-mut-h30",
+   "format": "cellule",
+   "creneau": "2026-11-16T14:00"
+  },
+  {
+   "ordre": 188,
+   "motif": "par2-yang-yin-mut-h30",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-16T17:00"
+  },
+  {
+   "ordre": 189,
+   "motif": "par2-yang-yin-mut-h31",
+   "format": "cellule",
+   "creneau": "2026-11-17T08:00"
+  },
+  {
+   "ordre": 190,
+   "motif": "par2-yang-yin-mut-h31",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-17T11:00"
+  },
+  {
+   "ordre": 191,
+   "motif": "par2-yin-mut-yang-mut-h1",
+   "format": "cellule",
+   "creneau": "2026-11-17T14:00"
+  },
+  {
+   "ordre": 192,
+   "motif": "par2-yin-mut-yang-mut-h1",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-17T17:00"
+  },
+  {
+   "ordre": 193,
+   "motif": "par2-yin-mut-yang-mut-h2",
+   "format": "cellule",
+   "creneau": "2026-11-18T08:00"
+  },
+  {
+   "ordre": 194,
+   "motif": "par2-yin-mut-yang-mut-h2",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-18T11:00"
+  },
+  {
+   "ordre": 195,
+   "motif": "par2-yin-mut-yang-mut-h3",
+   "format": "cellule",
+   "creneau": "2026-11-18T14:00"
+  },
+  {
+   "ordre": 196,
+   "motif": "par2-yin-mut-yang-mut-h3",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-18T17:00"
+  },
+  {
+   "ordre": 197,
+   "motif": "par2-yin-mut-yang-mut-h4",
+   "format": "cellule",
+   "creneau": "2026-11-19T08:00"
+  },
+  {
+   "ordre": 198,
+   "motif": "par2-yin-mut-yang-mut-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-19T11:00"
+  },
+  {
+   "ordre": 199,
+   "motif": "par2-yin-mut-yang-mut-h5",
+   "format": "cellule",
+   "creneau": "2026-11-19T14:00"
+  },
+  {
+   "ordre": 200,
+   "motif": "par2-yin-mut-yang-mut-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-19T17:00"
+  },
+  {
+   "ordre": 201,
+   "motif": "par2-yin-mut-yang-mut-h6",
+   "format": "cellule",
+   "creneau": "2026-11-20T08:00"
+  },
+  {
+   "ordre": 202,
+   "motif": "par2-yin-mut-yang-mut-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-20T11:00"
+  },
+  {
+   "ordre": 203,
+   "motif": "par2-yin-mut-yang-mut-h7",
+   "format": "cellule",
+   "creneau": "2026-11-20T14:00"
+  },
+  {
+   "ordre": 204,
+   "motif": "par2-yin-mut-yang-mut-h7",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-20T17:00"
+  },
+  {
+   "ordre": 205,
+   "motif": "par2-yin-mut-yang-mut-h8",
+   "format": "cellule",
+   "creneau": "2026-11-21T08:00"
+  },
+  {
+   "ordre": 206,
+   "motif": "par2-yin-mut-yang-mut-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-21T11:00"
+  },
+  {
+   "ordre": 207,
+   "motif": "par2-yin-mut-yang-mut-h9",
+   "format": "cellule",
+   "creneau": "2026-11-21T14:00"
+  },
+  {
+   "ordre": 208,
+   "motif": "par2-yin-mut-yang-mut-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-21T17:00"
+  },
+  {
+   "ordre": 209,
+   "motif": "par2-yin-mut-yang-mut-h10",
+   "format": "cellule",
+   "creneau": "2026-11-22T08:00"
+  },
+  {
+   "ordre": 210,
+   "motif": "par2-yin-mut-yang-mut-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-22T11:00"
+  },
+  {
+   "ordre": 211,
+   "motif": "par2-yin-mut-yang-mut-h11",
+   "format": "cellule",
+   "creneau": "2026-11-22T14:00"
+  },
+  {
+   "ordre": 212,
+   "motif": "par2-yin-mut-yang-mut-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-22T17:00"
+  },
+  {
+   "ordre": 213,
+   "motif": "par2-yin-mut-yang-mut-h12",
+   "format": "cellule",
+   "creneau": "2026-11-23T08:00"
+  },
+  {
+   "ordre": 214,
+   "motif": "par2-yin-mut-yang-mut-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-23T11:00"
+  },
+  {
+   "ordre": 215,
+   "motif": "par2-yin-mut-yang-mut-h13",
+   "format": "cellule",
+   "creneau": "2026-11-23T14:00"
+  },
+  {
+   "ordre": 216,
+   "motif": "par2-yin-mut-yang-mut-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-23T17:00"
+  },
+  {
+   "ordre": 217,
+   "motif": "par2-yin-mut-yang-mut-h14",
+   "format": "cellule",
+   "creneau": "2026-11-24T08:00"
+  },
+  {
+   "ordre": 218,
+   "motif": "par2-yin-mut-yang-mut-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-24T11:00"
+  },
+  {
+   "ordre": 219,
+   "motif": "par2-yin-mut-yang-mut-h15",
+   "format": "cellule",
+   "creneau": "2026-11-24T14:00"
+  },
+  {
+   "ordre": 220,
+   "motif": "par2-yin-mut-yang-mut-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-24T17:00"
+  },
+  {
+   "ordre": 221,
+   "motif": "par2-yin-mut-yang-mut-h16",
+   "format": "cellule",
+   "creneau": "2026-11-25T08:00"
+  },
+  {
+   "ordre": 222,
+   "motif": "par2-yin-mut-yang-mut-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-25T11:00"
+  },
+  {
+   "ordre": 223,
+   "motif": "par2-yin-mut-yang-mut-h17",
+   "format": "cellule",
+   "creneau": "2026-11-25T14:00"
+  },
+  {
+   "ordre": 224,
+   "motif": "par2-yin-mut-yang-mut-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-25T17:00"
+  },
+  {
+   "ordre": 225,
+   "motif": "par2-yin-mut-yang-mut-h18",
+   "format": "cellule",
+   "creneau": "2026-11-26T08:00"
+  },
+  {
+   "ordre": 226,
+   "motif": "par2-yin-mut-yang-mut-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-26T11:00"
+  },
+  {
+   "ordre": 227,
+   "motif": "par2-yin-mut-yang-mut-h19",
+   "format": "cellule",
+   "creneau": "2026-11-26T14:00"
+  },
+  {
+   "ordre": 228,
+   "motif": "par2-yin-mut-yang-mut-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-26T17:00"
+  },
+  {
+   "ordre": 229,
+   "motif": "par2-yin-mut-yang-mut-h20",
+   "format": "cellule",
+   "creneau": "2026-11-27T08:00"
+  },
+  {
+   "ordre": 230,
+   "motif": "par2-yin-mut-yang-mut-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-27T11:00"
+  },
+  {
+   "ordre": 231,
+   "motif": "par2-yin-mut-yang-mut-h21",
+   "format": "cellule",
+   "creneau": "2026-11-27T14:00"
+  },
+  {
+   "ordre": 232,
+   "motif": "par2-yin-mut-yang-mut-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-27T17:00"
+  },
+  {
+   "ordre": 233,
+   "motif": "par2-yin-mut-yang-mut-h22",
+   "format": "cellule",
+   "creneau": "2026-11-28T08:00"
+  },
+  {
+   "ordre": 234,
+   "motif": "par2-yin-mut-yang-mut-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-28T11:00"
+  },
+  {
+   "ordre": 235,
+   "motif": "par2-yin-mut-yang-mut-h23",
+   "format": "cellule",
+   "creneau": "2026-11-28T14:00"
+  },
+  {
+   "ordre": 236,
+   "motif": "par2-yin-mut-yang-mut-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-28T17:00"
+  },
+  {
+   "ordre": 237,
+   "motif": "par2-yin-mut-yang-mut-h24",
+   "format": "cellule",
+   "creneau": "2026-11-29T08:00"
+  },
+  {
+   "ordre": 238,
+   "motif": "par2-yin-mut-yang-mut-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-29T11:00"
+  },
+  {
+   "ordre": 239,
+   "motif": "par2-yin-mut-yang-mut-h25",
+   "format": "cellule",
+   "creneau": "2026-11-29T14:00"
+  },
+  {
+   "ordre": 240,
+   "motif": "par2-yin-mut-yang-mut-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-29T17:00"
+  },
+  {
+   "ordre": 241,
+   "motif": "par2-yin-mut-yang-mut-h26",
+   "format": "cellule",
+   "creneau": "2026-11-30T08:00"
+  },
+  {
+   "ordre": 242,
+   "motif": "par2-yin-mut-yang-mut-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-30T11:00"
+  },
+  {
+   "ordre": 243,
+   "motif": "par2-yin-mut-yang-mut-h27",
+   "format": "cellule",
+   "creneau": "2026-11-30T14:00"
+  },
+  {
+   "ordre": 244,
+   "motif": "par2-yin-mut-yang-mut-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-11-30T17:00"
+  },
+  {
+   "ordre": 245,
+   "motif": "par2-yin-mut-yang-mut-h28",
+   "format": "cellule",
+   "creneau": "2026-12-01T08:00"
+  },
+  {
+   "ordre": 246,
+   "motif": "par2-yin-mut-yang-mut-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-01T11:00"
+  },
+  {
+   "ordre": 247,
+   "motif": "par2-yin-mut-yang-mut-h29",
+   "format": "cellule",
+   "creneau": "2026-12-01T14:00"
+  },
+  {
+   "ordre": 248,
+   "motif": "par2-yin-mut-yang-mut-h29",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-01T17:00"
+  },
+  {
+   "ordre": 249,
+   "motif": "par2-yin-mut-yang-mut-h30",
+   "format": "cellule",
+   "creneau": "2026-12-02T08:00"
+  },
+  {
+   "ordre": 250,
+   "motif": "par2-yin-mut-yang-mut-h30",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-02T11:00"
+  },
+  {
+   "ordre": 251,
+   "motif": "par2-yin-mut-yang-mut-h31",
+   "format": "cellule",
+   "creneau": "2026-12-02T14:00"
+  },
+  {
+   "ordre": 252,
+   "motif": "par2-yin-mut-yang-mut-h31",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-02T17:00"
+  },
+  {
+   "ordre": 253,
+   "motif": "par2-yin-yang-h1",
+   "format": "cellule",
+   "creneau": "2026-12-03T08:00"
+  },
+  {
+   "ordre": 254,
+   "motif": "par2-yin-yang-h1",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-03T11:00"
+  },
+  {
+   "ordre": 255,
+   "motif": "par2-yin-yang-h2",
+   "format": "cellule",
+   "creneau": "2026-12-03T14:00"
+  },
+  {
+   "ordre": 256,
+   "motif": "par2-yin-yang-h2",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-03T17:00"
+  },
+  {
+   "ordre": 257,
+   "motif": "par2-yin-yang-h3",
+   "format": "cellule",
+   "creneau": "2026-12-04T08:00"
+  },
+  {
+   "ordre": 258,
+   "motif": "par2-yin-yang-h3",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-04T11:00"
+  },
+  {
+   "ordre": 259,
+   "motif": "par2-yin-yang-h4",
+   "format": "cellule",
+   "creneau": "2026-12-04T14:00"
+  },
+  {
+   "ordre": 260,
+   "motif": "par2-yin-yang-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-04T17:00"
+  },
+  {
+   "ordre": 261,
+   "motif": "par2-yin-yang-h5",
+   "format": "cellule",
+   "creneau": "2026-12-05T08:00"
+  },
+  {
+   "ordre": 262,
+   "motif": "par2-yin-yang-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-05T11:00"
+  },
+  {
+   "ordre": 263,
+   "motif": "par2-yin-yang-h6",
+   "format": "cellule",
+   "creneau": "2026-12-05T14:00"
+  },
+  {
+   "ordre": 264,
+   "motif": "par2-yin-yang-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-05T17:00"
+  },
+  {
+   "ordre": 265,
+   "motif": "par2-yin-yang-h8",
+   "format": "cellule",
+   "creneau": "2026-12-06T08:00"
+  },
+  {
+   "ordre": 266,
+   "motif": "par2-yin-yang-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-06T11:00"
+  },
+  {
+   "ordre": 267,
+   "motif": "par2-yin-yang-h9",
+   "format": "cellule",
+   "creneau": "2026-12-06T14:00"
+  },
+  {
+   "ordre": 268,
+   "motif": "par2-yin-yang-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-06T17:00"
+  },
+  {
+   "ordre": 269,
+   "motif": "par2-yin-yang-h10",
+   "format": "cellule",
+   "creneau": "2026-12-07T08:00"
+  },
+  {
+   "ordre": 270,
+   "motif": "par2-yin-yang-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-07T11:00"
+  },
+  {
+   "ordre": 271,
+   "motif": "par2-yin-yang-h11",
+   "format": "cellule",
+   "creneau": "2026-12-07T14:00"
+  },
+  {
+   "ordre": 272,
+   "motif": "par2-yin-yang-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-07T17:00"
+  },
+  {
+   "ordre": 273,
+   "motif": "par2-yin-yang-h12",
+   "format": "cellule",
+   "creneau": "2026-12-08T08:00"
+  },
+  {
+   "ordre": 274,
+   "motif": "par2-yin-yang-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-08T11:00"
+  },
+  {
+   "ordre": 275,
+   "motif": "par2-yin-yang-h13",
+   "format": "cellule",
+   "creneau": "2026-12-08T14:00"
+  },
+  {
+   "ordre": 276,
+   "motif": "par2-yin-yang-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-08T17:00"
+  },
+  {
+   "ordre": 277,
+   "motif": "par2-yin-yang-h14",
+   "format": "cellule",
+   "creneau": "2026-12-09T08:00"
+  },
+  {
+   "ordre": 278,
+   "motif": "par2-yin-yang-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-09T11:00"
+  },
+  {
+   "ordre": 279,
+   "motif": "par2-yin-yang-h15",
+   "format": "cellule",
+   "creneau": "2026-12-09T14:00"
+  },
+  {
+   "ordre": 280,
+   "motif": "par2-yin-yang-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-09T17:00"
+  },
+  {
+   "ordre": 281,
+   "motif": "par2-yin-yang-h16",
+   "format": "cellule",
+   "creneau": "2026-12-10T08:00"
+  },
+  {
+   "ordre": 282,
+   "motif": "par2-yin-yang-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-10T11:00"
+  },
+  {
+   "ordre": 283,
+   "motif": "par2-yin-yang-h17",
+   "format": "cellule",
+   "creneau": "2026-12-10T14:00"
+  },
+  {
+   "ordre": 284,
+   "motif": "par2-yin-yang-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-10T17:00"
+  },
+  {
+   "ordre": 285,
+   "motif": "par2-yin-yang-h18",
+   "format": "cellule",
+   "creneau": "2026-12-11T08:00"
+  },
+  {
+   "ordre": 286,
+   "motif": "par2-yin-yang-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-11T11:00"
+  },
+  {
+   "ordre": 287,
+   "motif": "par2-yin-yang-h19",
+   "format": "cellule",
+   "creneau": "2026-12-11T14:00"
+  },
+  {
+   "ordre": 288,
+   "motif": "par2-yin-yang-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-11T17:00"
+  },
+  {
+   "ordre": 289,
+   "motif": "par2-yin-yang-h20",
+   "format": "cellule",
+   "creneau": "2026-12-12T08:00"
+  },
+  {
+   "ordre": 290,
+   "motif": "par2-yin-yang-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-12T11:00"
+  },
+  {
+   "ordre": 291,
+   "motif": "par2-yin-yang-h21",
+   "format": "cellule",
+   "creneau": "2026-12-12T14:00"
+  },
+  {
+   "ordre": 292,
+   "motif": "par2-yin-yang-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-12T17:00"
+  },
+  {
+   "ordre": 293,
+   "motif": "par2-yin-yang-h22",
+   "format": "cellule",
+   "creneau": "2026-12-13T08:00"
+  },
+  {
+   "ordre": 294,
+   "motif": "par2-yin-yang-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-13T11:00"
+  },
+  {
+   "ordre": 295,
+   "motif": "par2-yin-yang-h23",
+   "format": "cellule",
+   "creneau": "2026-12-13T14:00"
+  },
+  {
+   "ordre": 296,
+   "motif": "par2-yin-yang-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-13T17:00"
+  },
+  {
+   "ordre": 297,
+   "motif": "par2-yin-yang-h24",
+   "format": "cellule",
+   "creneau": "2026-12-14T08:00"
+  },
+  {
+   "ordre": 298,
+   "motif": "par2-yin-yang-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-14T11:00"
+  },
+  {
+   "ordre": 299,
+   "motif": "par2-yin-yang-h25",
+   "format": "cellule",
+   "creneau": "2026-12-14T14:00"
+  },
+  {
+   "ordre": 300,
+   "motif": "par2-yin-yang-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-14T17:00"
+  },
+  {
+   "ordre": 301,
+   "motif": "par2-yin-yang-h26",
+   "format": "cellule",
+   "creneau": "2026-12-15T08:00"
+  },
+  {
+   "ordre": 302,
+   "motif": "par2-yin-yang-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-15T11:00"
+  },
+  {
+   "ordre": 303,
+   "motif": "par2-yin-yang-h27",
+   "format": "cellule",
+   "creneau": "2026-12-15T14:00"
+  },
+  {
+   "ordre": 304,
+   "motif": "par2-yin-yang-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-15T17:00"
+  },
+  {
+   "ordre": 305,
+   "motif": "par2-yin-yang-h28",
+   "format": "cellule",
+   "creneau": "2026-12-16T08:00"
+  },
+  {
+   "ordre": 306,
+   "motif": "par2-yin-yang-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-16T11:00"
+  },
+  {
+   "ordre": 307,
+   "motif": "par2-yin-yang-h29",
+   "format": "cellule",
+   "creneau": "2026-12-16T14:00"
+  },
+  {
+   "ordre": 308,
+   "motif": "par2-yin-yang-h29",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-16T17:00"
+  },
+  {
+   "ordre": 309,
+   "motif": "par2-yin-yang-h30",
+   "format": "cellule",
+   "creneau": "2026-12-17T08:00"
+  },
+  {
+   "ordre": 310,
+   "motif": "par2-yin-yang-h30",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-17T11:00"
+  },
+  {
+   "ordre": 311,
+   "motif": "par2-yin-yang-h31",
+   "format": "cellule",
+   "creneau": "2026-12-17T14:00"
+  },
+  {
+   "ordre": 312,
+   "motif": "par2-yin-yang-h31",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-17T17:00"
+  },
+  {
+   "ordre": 313,
+   "motif": "par2-yin-yang-mut-h1",
+   "format": "cellule",
+   "creneau": "2026-12-18T08:00"
+  },
+  {
+   "ordre": 314,
+   "motif": "par2-yin-yang-mut-h1",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-18T11:00"
+  },
+  {
+   "ordre": 315,
+   "motif": "par2-yin-yang-mut-h2",
+   "format": "cellule",
+   "creneau": "2026-12-18T14:00"
+  },
+  {
+   "ordre": 316,
+   "motif": "par2-yin-yang-mut-h2",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-18T17:00"
+  },
+  {
+   "ordre": 317,
+   "motif": "par2-yin-yang-mut-h3",
+   "format": "cellule",
+   "creneau": "2026-12-19T08:00"
+  },
+  {
+   "ordre": 318,
+   "motif": "par2-yin-yang-mut-h3",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-19T11:00"
+  },
+  {
+   "ordre": 319,
+   "motif": "par2-yin-yang-mut-h4",
+   "format": "cellule",
+   "creneau": "2026-12-19T14:00"
+  },
+  {
+   "ordre": 320,
+   "motif": "par2-yin-yang-mut-h4",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-19T17:00"
+  },
+  {
+   "ordre": 321,
+   "motif": "par2-yin-yang-mut-h5",
+   "format": "cellule",
+   "creneau": "2026-12-20T08:00"
+  },
+  {
+   "ordre": 322,
+   "motif": "par2-yin-yang-mut-h5",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-20T11:00"
+  },
+  {
+   "ordre": 323,
+   "motif": "par2-yin-yang-mut-h6",
+   "format": "cellule",
+   "creneau": "2026-12-20T14:00"
+  },
+  {
+   "ordre": 324,
+   "motif": "par2-yin-yang-mut-h6",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-20T17:00"
+  },
+  {
+   "ordre": 325,
+   "motif": "par2-yin-yang-mut-h7",
+   "format": "cellule",
+   "creneau": "2026-12-21T08:00"
+  },
+  {
+   "ordre": 326,
+   "motif": "par2-yin-yang-mut-h7",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-21T11:00"
+  },
+  {
+   "ordre": 327,
+   "motif": "par2-yin-yang-mut-h8",
+   "format": "cellule",
+   "creneau": "2026-12-21T14:00"
+  },
+  {
+   "ordre": 328,
+   "motif": "par2-yin-yang-mut-h8",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-21T17:00"
+  },
+  {
+   "ordre": 329,
+   "motif": "par2-yin-yang-mut-h9",
+   "format": "cellule",
+   "creneau": "2026-12-22T08:00"
+  },
+  {
+   "ordre": 330,
+   "motif": "par2-yin-yang-mut-h9",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-22T11:00"
+  },
+  {
+   "ordre": 331,
+   "motif": "par2-yin-yang-mut-h10",
+   "format": "cellule",
+   "creneau": "2026-12-22T14:00"
+  },
+  {
+   "ordre": 332,
+   "motif": "par2-yin-yang-mut-h10",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-22T17:00"
+  },
+  {
+   "ordre": 333,
+   "motif": "par2-yin-yang-mut-h11",
+   "format": "cellule",
+   "creneau": "2026-12-23T08:00"
+  },
+  {
+   "ordre": 334,
+   "motif": "par2-yin-yang-mut-h11",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-23T11:00"
+  },
+  {
+   "ordre": 335,
+   "motif": "par2-yin-yang-mut-h12",
+   "format": "cellule",
+   "creneau": "2026-12-23T14:00"
+  },
+  {
+   "ordre": 336,
+   "motif": "par2-yin-yang-mut-h12",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-23T17:00"
+  },
+  {
+   "ordre": 337,
+   "motif": "par2-yin-yang-mut-h13",
+   "format": "cellule",
+   "creneau": "2026-12-24T08:00"
+  },
+  {
+   "ordre": 338,
+   "motif": "par2-yin-yang-mut-h13",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-24T11:00"
+  },
+  {
+   "ordre": 339,
+   "motif": "par2-yin-yang-mut-h14",
+   "format": "cellule",
+   "creneau": "2026-12-24T14:00"
+  },
+  {
+   "ordre": 340,
+   "motif": "par2-yin-yang-mut-h14",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-24T17:00"
+  },
+  {
+   "ordre": 341,
+   "motif": "par2-yin-yang-mut-h15",
+   "format": "cellule",
+   "creneau": "2026-12-25T08:00"
+  },
+  {
+   "ordre": 342,
+   "motif": "par2-yin-yang-mut-h15",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-25T11:00"
+  },
+  {
+   "ordre": 343,
+   "motif": "par2-yin-yang-mut-h16",
+   "format": "cellule",
+   "creneau": "2026-12-25T14:00"
+  },
+  {
+   "ordre": 344,
+   "motif": "par2-yin-yang-mut-h16",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-25T17:00"
+  },
+  {
+   "ordre": 345,
+   "motif": "par2-yin-yang-mut-h17",
+   "format": "cellule",
+   "creneau": "2026-12-26T08:00"
+  },
+  {
+   "ordre": 346,
+   "motif": "par2-yin-yang-mut-h17",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-26T11:00"
+  },
+  {
+   "ordre": 347,
+   "motif": "par2-yin-yang-mut-h18",
+   "format": "cellule",
+   "creneau": "2026-12-26T14:00"
+  },
+  {
+   "ordre": 348,
+   "motif": "par2-yin-yang-mut-h18",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-26T17:00"
+  },
+  {
+   "ordre": 349,
+   "motif": "par2-yin-yang-mut-h19",
+   "format": "cellule",
+   "creneau": "2026-12-27T08:00"
+  },
+  {
+   "ordre": 350,
+   "motif": "par2-yin-yang-mut-h19",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-27T11:00"
+  },
+  {
+   "ordre": 351,
+   "motif": "par2-yin-yang-mut-h20",
+   "format": "cellule",
+   "creneau": "2026-12-27T14:00"
+  },
+  {
+   "ordre": 352,
+   "motif": "par2-yin-yang-mut-h20",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-27T17:00"
+  },
+  {
+   "ordre": 353,
+   "motif": "par2-yin-yang-mut-h21",
+   "format": "cellule",
+   "creneau": "2026-12-28T08:00"
+  },
+  {
+   "ordre": 354,
+   "motif": "par2-yin-yang-mut-h21",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-28T11:00"
+  },
+  {
+   "ordre": 355,
+   "motif": "par2-yin-yang-mut-h22",
+   "format": "cellule",
+   "creneau": "2026-12-28T14:00"
+  },
+  {
+   "ordre": 356,
+   "motif": "par2-yin-yang-mut-h22",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-28T17:00"
+  },
+  {
+   "ordre": 357,
+   "motif": "par2-yin-yang-mut-h23",
+   "format": "cellule",
+   "creneau": "2026-12-29T08:00"
+  },
+  {
+   "ordre": 358,
+   "motif": "par2-yin-yang-mut-h23",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-29T11:00"
+  },
+  {
+   "ordre": 359,
+   "motif": "par2-yin-yang-mut-h24",
+   "format": "cellule",
+   "creneau": "2026-12-29T14:00"
+  },
+  {
+   "ordre": 360,
+   "motif": "par2-yin-yang-mut-h24",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-29T17:00"
+  },
+  {
+   "ordre": 361,
+   "motif": "par2-yin-yang-mut-h25",
+   "format": "cellule",
+   "creneau": "2026-12-30T08:00"
+  },
+  {
+   "ordre": 362,
+   "motif": "par2-yin-yang-mut-h25",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-30T11:00"
+  },
+  {
+   "ordre": 363,
+   "motif": "par2-yin-yang-mut-h26",
+   "format": "cellule",
+   "creneau": "2026-12-30T14:00"
+  },
+  {
+   "ordre": 364,
+   "motif": "par2-yin-yang-mut-h26",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-30T17:00"
+  },
+  {
+   "ordre": 365,
+   "motif": "par2-yin-yang-mut-h27",
+   "format": "cellule",
+   "creneau": "2026-12-31T08:00"
+  },
+  {
+   "ordre": 366,
+   "motif": "par2-yin-yang-mut-h27",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-31T11:00"
+  },
+  {
+   "ordre": 367,
+   "motif": "par2-yin-yang-mut-h28",
+   "format": "cellule",
+   "creneau": "2026-12-31T14:00"
+  },
+  {
+   "ordre": 368,
+   "motif": "par2-yin-yang-mut-h28",
+   "format": "pavage-3x4",
+   "creneau": "2026-12-31T17:00"
+  },
+  {
+   "ordre": 369,
+   "motif": "par2-yin-yang-mut-h29",
+   "format": "cellule",
+   "creneau": "2027-01-01T08:00"
+  },
+  {
+   "ordre": 370,
+   "motif": "par2-yin-yang-mut-h29",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-01T11:00"
+  },
+  {
+   "ordre": 371,
+   "motif": "par2-yin-yang-mut-h30",
+   "format": "cellule",
+   "creneau": "2027-01-01T14:00"
+  },
+  {
+   "ordre": 372,
+   "motif": "par2-yin-yang-mut-h30",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-01T17:00"
+  },
+  {
+   "ordre": 373,
+   "motif": "par2-yin-yang-mut-h31",
+   "format": "cellule",
+   "creneau": "2027-01-02T08:00"
+  },
+  {
+   "ordre": 374,
+   "motif": "par2-yin-yang-mut-h31",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-02T11:00"
+  },
+  {
+   "ordre": 375,
+   "motif": "par3-sans-yang-h1",
+   "format": "cellule",
+   "creneau": "2027-01-02T14:00"
+  },
+  {
+   "ordre": 376,
+   "motif": "par3-sans-yang-h1",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-02T17:00"
+  },
+  {
+   "ordre": 377,
+   "motif": "par3-sans-yang-h2",
+   "format": "cellule",
+   "creneau": "2027-01-03T08:00"
+  },
+  {
+   "ordre": 378,
+   "motif": "par3-sans-yang-h2",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-03T11:00"
+  },
+  {
+   "ordre": 379,
+   "motif": "par3-sans-yang-h3",
+   "format": "cellule",
+   "creneau": "2027-01-03T14:00"
+  },
+  {
+   "ordre": 380,
+   "motif": "par3-sans-yang-h3",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-03T17:00"
+  },
+  {
+   "ordre": 381,
+   "motif": "par3-sans-yang-h4",
+   "format": "cellule",
+   "creneau": "2027-01-04T08:00"
+  },
+  {
+   "ordre": 382,
+   "motif": "par3-sans-yang-h4",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-04T11:00"
+  },
+  {
+   "ordre": 383,
+   "motif": "par3-sans-yang-h5",
+   "format": "cellule",
+   "creneau": "2027-01-04T14:00"
+  },
+  {
+   "ordre": 384,
+   "motif": "par3-sans-yang-h5",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-04T17:00"
+  },
+  {
+   "ordre": 385,
+   "motif": "par3-sans-yang-h6",
+   "format": "cellule",
+   "creneau": "2027-01-05T08:00"
+  },
+  {
+   "ordre": 386,
+   "motif": "par3-sans-yang-h6",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-05T11:00"
+  },
+  {
+   "ordre": 387,
+   "motif": "par3-sans-yang-h7",
+   "format": "cellule",
+   "creneau": "2027-01-05T14:00"
+  },
+  {
+   "ordre": 388,
+   "motif": "par3-sans-yang-h7",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-05T17:00"
+  },
+  {
+   "ordre": 389,
+   "motif": "par3-sans-yang-h8",
+   "format": "cellule",
+   "creneau": "2027-01-06T08:00"
+  },
+  {
+   "ordre": 390,
+   "motif": "par3-sans-yang-h8",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-06T11:00"
+  },
+  {
+   "ordre": 391,
+   "motif": "par3-sans-yang-h9",
+   "format": "cellule",
+   "creneau": "2027-01-06T14:00"
+  },
+  {
+   "ordre": 392,
+   "motif": "par3-sans-yang-h9",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-06T17:00"
+  },
+  {
+   "ordre": 393,
+   "motif": "par3-sans-yang-h10",
+   "format": "cellule",
+   "creneau": "2027-01-07T08:00"
+  },
+  {
+   "ordre": 394,
+   "motif": "par3-sans-yang-h10",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-07T11:00"
+  },
+  {
+   "ordre": 395,
+   "motif": "par3-sans-yang-h11",
+   "format": "cellule",
+   "creneau": "2027-01-07T14:00"
+  },
+  {
+   "ordre": 396,
+   "motif": "par3-sans-yang-h11",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-07T17:00"
+  },
+  {
+   "ordre": 397,
+   "motif": "par3-sans-yang-h12",
+   "format": "cellule",
+   "creneau": "2027-01-08T08:00"
+  },
+  {
+   "ordre": 398,
+   "motif": "par3-sans-yang-h12",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-08T11:00"
+  },
+  {
+   "ordre": 399,
+   "motif": "par3-sans-yang-h13",
+   "format": "cellule",
+   "creneau": "2027-01-08T14:00"
+  },
+  {
+   "ordre": 400,
+   "motif": "par3-sans-yang-h13",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-08T17:00"
+  },
+  {
+   "ordre": 401,
+   "motif": "par3-sans-yang-h14",
+   "format": "cellule",
+   "creneau": "2027-01-09T08:00"
+  },
+  {
+   "ordre": 402,
+   "motif": "par3-sans-yang-h14",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-09T11:00"
+  },
+  {
+   "ordre": 403,
+   "motif": "par3-sans-yang-h15",
+   "format": "cellule",
+   "creneau": "2027-01-09T14:00"
+  },
+  {
+   "ordre": 404,
+   "motif": "par3-sans-yang-h15",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-09T17:00"
+  },
+  {
+   "ordre": 405,
+   "motif": "par3-sans-yang-h16",
+   "format": "cellule",
+   "creneau": "2027-01-10T08:00"
+  },
+  {
+   "ordre": 406,
+   "motif": "par3-sans-yang-h16",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-10T11:00"
+  },
+  {
+   "ordre": 407,
+   "motif": "par3-sans-yang-h17",
+   "format": "cellule",
+   "creneau": "2027-01-10T14:00"
+  },
+  {
+   "ordre": 408,
+   "motif": "par3-sans-yang-h17",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-10T17:00"
+  },
+  {
+   "ordre": 409,
+   "motif": "par3-sans-yang-h18",
+   "format": "cellule",
+   "creneau": "2027-01-11T08:00"
+  },
+  {
+   "ordre": 410,
+   "motif": "par3-sans-yang-h18",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-11T11:00"
+  },
+  {
+   "ordre": 411,
+   "motif": "par3-sans-yang-h19",
+   "format": "cellule",
+   "creneau": "2027-01-11T14:00"
+  },
+  {
+   "ordre": 412,
+   "motif": "par3-sans-yang-h19",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-11T17:00"
+  },
+  {
+   "ordre": 413,
+   "motif": "par3-sans-yang-h20",
+   "format": "cellule",
+   "creneau": "2027-01-12T08:00"
+  },
+  {
+   "ordre": 414,
+   "motif": "par3-sans-yang-h20",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-12T11:00"
+  },
+  {
+   "ordre": 415,
+   "motif": "par3-sans-yang-h21",
+   "format": "cellule",
+   "creneau": "2027-01-12T14:00"
+  },
+  {
+   "ordre": 416,
+   "motif": "par3-sans-yang-h21",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-12T17:00"
+  },
+  {
+   "ordre": 417,
+   "motif": "par3-sans-yang-h22",
+   "format": "cellule",
+   "creneau": "2027-01-13T08:00"
+  },
+  {
+   "ordre": 418,
+   "motif": "par3-sans-yang-h22",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-13T11:00"
+  },
+  {
+   "ordre": 419,
+   "motif": "par3-sans-yang-h23",
+   "format": "cellule",
+   "creneau": "2027-01-13T14:00"
+  },
+  {
+   "ordre": 420,
+   "motif": "par3-sans-yang-h23",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-13T17:00"
+  },
+  {
+   "ordre": 421,
+   "motif": "par3-sans-yang-h24",
+   "format": "cellule",
+   "creneau": "2027-01-14T08:00"
+  },
+  {
+   "ordre": 422,
+   "motif": "par3-sans-yang-h24",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-14T11:00"
+  },
+  {
+   "ordre": 423,
+   "motif": "par3-sans-yang-h25",
+   "format": "cellule",
+   "creneau": "2027-01-14T14:00"
+  },
+  {
+   "ordre": 424,
+   "motif": "par3-sans-yang-h25",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-14T17:00"
+  },
+  {
+   "ordre": 425,
+   "motif": "par3-sans-yang-h26",
+   "format": "cellule",
+   "creneau": "2027-01-15T08:00"
+  },
+  {
+   "ordre": 426,
+   "motif": "par3-sans-yang-h26",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-15T11:00"
+  },
+  {
+   "ordre": 427,
+   "motif": "par3-sans-yang-h27",
+   "format": "cellule",
+   "creneau": "2027-01-15T14:00"
+  },
+  {
+   "ordre": 428,
+   "motif": "par3-sans-yang-h27",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-15T17:00"
+  },
+  {
+   "ordre": 429,
+   "motif": "par3-sans-yang-h28",
+   "format": "cellule",
+   "creneau": "2027-01-16T08:00"
+  },
+  {
+   "ordre": 430,
+   "motif": "par3-sans-yang-h28",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-16T11:00"
+  },
+  {
+   "ordre": 431,
+   "motif": "par3-sans-yang-h29",
+   "format": "cellule",
+   "creneau": "2027-01-16T14:00"
+  },
+  {
+   "ordre": 432,
+   "motif": "par3-sans-yang-h29",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-16T17:00"
+  },
+  {
+   "ordre": 433,
+   "motif": "par3-sans-yang-h30",
+   "format": "cellule",
+   "creneau": "2027-01-17T08:00"
+  },
+  {
+   "ordre": 434,
+   "motif": "par3-sans-yang-h30",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-17T11:00"
+  },
+  {
+   "ordre": 435,
+   "motif": "par3-sans-yang-h31",
+   "format": "cellule",
+   "creneau": "2027-01-17T14:00"
+  },
+  {
+   "ordre": 436,
+   "motif": "par3-sans-yang-h31",
+   "format": "pavage-3x4",
+   "creneau": "2027-01-17T17:00"
+  }
+ ]
+}
