@@ -829,6 +829,20 @@
      "par2-yin-yang-mut-h10",
      "par2-yin-yang-mut-h2"
     ]
+   },
+   "video": {
+    "fichier": "assets/animations/B3-1080x1920.mp4",
+    "affiche": "assets/animations/B3-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "c8189d90ce9d62acefcbdce45d28f35c9ae690ae97d44e32463a4e2d8e9a3f6e",
+    "sha256Affiche": "70f5c6579c0695f1a1b2957cd6a180d28fc6fd76ece94b359e7d2d61e6fdf212"
    }
   },
   "B4": {
@@ -878,6 +892,20 @@
      "par2-yin-yang-mut-h30",
      "par2-yin-yang-mut-h26"
     ]
+   },
+   "video": {
+    "fichier": "assets/animations/B4-1080x1920.mp4",
+    "affiche": "assets/animations/B4-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "cfb7a137d00e33aec70c6ec6d9b66207e85af56ad7ac84251a396519a195c091",
+    "sha256Affiche": "3aedad45d37ff8b6ba476cd69af1c231b0507c7a3c67d9aa0c5b029209573f65"
    }
   },
   "B12m": {
@@ -927,6 +955,20 @@
      "par3-sans-yang-mut-h27",
      "par3-sans-yang-mut-h31"
     ]
+   },
+   "video": {
+    "fichier": "assets/animations/B12m-1080x1920.mp4",
+    "affiche": "assets/animations/B12m-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "bbfb5742dec73d9871a636da3a0e69cf2e855692bfad12d77ceda892cb1332e1",
+    "sha256Affiche": "4430aa869f5a5977c713f047dcc2d9545fb3cf545d057d4bdf45f6537bb6bff2"
    }
   },
   "B3n": {
@@ -976,6 +1018,20 @@
      "par2-yin-yang-mut-h18",
      "par2-yin-yang-mut-h26"
     ]
+   },
+   "video": {
+    "fichier": "assets/animations/B3n-1080x1920.mp4",
+    "affiche": "assets/animations/B3n-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "2f98039899293afa9e7baef91b396b4a03150c80ca1b4458f6c916972b948de8",
+    "sha256Affiche": "0d087b4e4604cc44adb0136764656f5972a879f1c61e46128970f92afdcc8a75"
    }
   },
   "BA50": {
@@ -1025,6 +1081,20 @@
      "par2-yin-yang-h26",
      "par2-yin-yang-h30"
     ]
+   },
+   "video": {
+    "fichier": "assets/animations/BA50-1080x1920.mp4",
+    "affiche": "assets/animations/BA50-1080x1920-affiche.png",
+    "format": "1080x1920",
+    "palette": [
+     "#efeae0",
+     "#23232b"
+    ],
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "83a4c1a94f59403764efb335c68d3c8c8e762262fd5e2b71fe21a26e6150c5b0",
+    "sha256Affiche": "9d09c01d730276c6540f56099f7da173a0d0faa62e02698fb4e5fea655949e4b"
    }
   }
  },
