@@ -80,10 +80,10 @@
      "#efeae0",
      "#23232b"
     ],
-    "recette": "proche-binaire-32-v2",
+    "recette": "proche-binaire-32-famille-v3",
     "image": 23,
-    "images": 1440,
-    "sha256": "bf3dffbbff5e4909d6836464c59758a90542580d4a71d24d8b3ea7ff8cff3336",
+    "images": 1560,
+    "sha256": "94cc8107f0ce10184903d8ea7aba525a5ceed8dab6b3fc513fb6b4bfeb64b443",
     "sha256Affiche": "34f7ca86748899ce9efd306aa044021559214e4c5b9e4ceb19443f2cc8584372"
    },
    "videosAnciennes": [
@@ -115,6 +115,22 @@
      "recette": "proche-binaire-v1",
      "remplacee": true,
      "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
+    },
+    {
+     "fichier": "assets/animations/P-1080x1920.mp4",
+     "affiche": "assets/animations/P-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "recette": "proche-binaire-32-v2",
+     "image": 23,
+     "images": 1440,
+     "sha256": "bf3dffbbff5e4909d6836464c59758a90542580d4a71d24d8b3ea7ff8cff3336",
+     "sha256Affiche": "34f7ca86748899ce9efd306aa044021559214e4c5b9e4ceb19443f2cc8584372",
+     "remplacee": true,
+     "commit": "ed35ed709bbaf617128be823a3ee6bdda205b485"
     }
    ],
    "recettesAnciennes": [
@@ -264,10 +280,11 @@
      "#efeae0",
      "#23232b"
     ],
-    "image": 38,
-    "images": 960,
-    "sha256": "bf3374f5ce19b62c28442072e7d45e9f0a84f968694e35084286f2d88c235f78",
-    "sha256Affiche": "10d860a3bdaaaba649903a748061ee2d183f044743917e191ea8bb7b3c0d66da"
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "84411081f26dd31e84483eec331274c061e5015c1e1cd525a5f38dbb20c6df55",
+    "sha256Affiche": "46c25af366ddf503ad90aaa951850a8e63438a525631b2d555c58db1fc345635"
    },
    "videosAnciennes": [
     {
@@ -282,6 +299,22 @@
       "#f2f2f0",
       "#e0261b"
      ]
+    },
+    {
+     "fichier": "assets/animations/B2D-1080x1920.mp4",
+     "affiche": "assets/animations/B2D-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "image": 38,
+     "images": 960,
+     "sha256": "bf3374f5ce19b62c28442072e7d45e9f0a84f968694e35084286f2d88c235f78",
+     "sha256Affiche": "10d860a3bdaaaba649903a748061ee2d183f044743917e191ea8bb7b3c0d66da",
+     "recette": "proche-binaire-v1",
+     "remplacee": true,
+     "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
     }
    ],
    "recettesAnciennes": [
@@ -388,10 +421,11 @@
      "#efeae0",
      "#23232b"
     ],
-    "image": 38,
-    "images": 960,
-    "sha256": "cbb96269b5e219696280a669ff25dd49b7f5389b37505428450b92d1cd4aabe2",
-    "sha256Affiche": "74d7cf4f47c9738311a8a8c2d5612b15c37ee6bdeed3b30ed7b9758b6ff51244"
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "e517897c2004d2abb1d5d7e471c1841512000852e8cd33d93e5641c5988a2ff5",
+    "sha256Affiche": "c986726b60869e38990aeb8b222bc21ae288282211664886b14731eb38d8ce1d"
    },
    "restauree": {
     "depuis": "assets/motifs-pinterest/anciennes/B2-efeae0-23232b",
@@ -411,6 +445,22 @@
       "#f2f2f0",
       "#e0261b"
      ]
+    },
+    {
+     "fichier": "assets/animations/B2-1080x1920.mp4",
+     "affiche": "assets/animations/B2-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "image": 38,
+     "images": 960,
+     "sha256": "cbb96269b5e219696280a669ff25dd49b7f5389b37505428450b92d1cd4aabe2",
+     "sha256Affiche": "74d7cf4f47c9738311a8a8c2d5612b15c37ee6bdeed3b30ed7b9758b6ff51244",
+     "recette": "proche-binaire-v1",
+     "remplacee": true,
+     "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
     }
    ],
    "recettesAnciennes": [
@@ -517,10 +567,11 @@
      "#efeae0",
      "#23232b"
     ],
-    "image": 38,
-    "images": 960,
-    "sha256": "ad6b156b4bb7f8f16f2d923c2e4de08062e67d8234d27e931fd492b75200baaf",
-    "sha256Affiche": "0da9f41479d23cbe97a57b051203c3bb07740762131ad300d89f104b6e5c7806"
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "7c678630f820d75970faf1611d6843dbe02f6095f9d2f7337ece4703ab8681b3",
+    "sha256Affiche": "01400f5d393c81388d246840be311e8f6e123c585d4b1dc2d79179c877c9a82c"
    },
    "restauree": {
     "depuis": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b",
@@ -540,6 +591,22 @@
       "#f2f2f0",
       "#e0261b"
      ]
+    },
+    {
+     "fichier": "assets/animations/B121-1080x1920.mp4",
+     "affiche": "assets/animations/B121-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "image": 38,
+     "images": 960,
+     "sha256": "ad6b156b4bb7f8f16f2d923c2e4de08062e67d8234d27e931fd492b75200baaf",
+     "sha256Affiche": "0da9f41479d23cbe97a57b051203c3bb07740762131ad300d89f104b6e5c7806",
+     "recette": "proche-binaire-v1",
+     "remplacee": true,
+     "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
     }
    ],
    "recettesAnciennes": [
@@ -646,10 +713,11 @@
      "#efeae0",
      "#23232b"
     ],
-    "image": 38,
-    "images": 960,
-    "sha256": "478fb0d30b9b69be7b36dcfc0a2efd0cf65c927979ec7e03cd98fbbe6ee7fbb0",
-    "sha256Affiche": "91fa42c1ce93fd8f3d293a612775185e26f6d352863816db101a551fc79a55d4"
+    "recette": "proche-binaire-32-famille-v3",
+    "image": 23,
+    "images": 1560,
+    "sha256": "6ecc9ad2c0cc9a92e687e607fe87cf58a50786c653fa737d7d49ad1a7f26e285",
+    "sha256Affiche": "c9cd2d2313e213e0139631ff41b85db5b903dd8f18a5b3a77bad7be1547eceb2"
    },
    "pinterest": false,
    "restauree": {
@@ -670,6 +738,22 @@
       "#f2f2f0",
       "#e0261b"
      ]
+    },
+    {
+     "fichier": "assets/animations/B6D-1080x1920.mp4",
+     "affiche": "assets/animations/B6D-1080x1920-affiche.png",
+     "format": "1080x1920",
+     "palette": [
+      "#efeae0",
+      "#23232b"
+     ],
+     "image": 38,
+     "images": 960,
+     "sha256": "478fb0d30b9b69be7b36dcfc0a2efd0cf65c927979ec7e03cd98fbbe6ee7fbb0",
+     "sha256Affiche": "91fa42c1ce93fd8f3d293a612775185e26f6d352863816db101a551fc79a55d4",
+     "recette": "proche-binaire-v1",
+     "remplacee": true,
+     "commit": "b11357295616de8f523f72810eaeba68d2843f6d"
     }
    ],
    "recettesAnciennes": [
