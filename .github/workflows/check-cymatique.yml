@@ -1,0 +1,51 @@
+name: Cymatique — les deux outils ne bloquent plus la page
+
+# tools/check_cymatique_outils.mjs : un vrai signal au micro de Chromium (voix
+# synthétique : cinq harmoniques, vibrato de 5,5 Hz, une note toutes les deux
+# secondes, du bruit). Le pavage se reconstruit au plus 2 fois par seconde,
+# micro actif (avant le correctif : à chaque image, 15 par seconde) ; le micro
+# s'arrête et se relance sans recharger ; micro et générateur s'excluent, et
+# le disent dans chaque langue de la page ; jamais NaN, même à 2 990 Hz.
+# --essai : la page sans le garde-fou doit le faire échouer.
+# En local dans la PR, puis sur le SITE DÉPLOYÉ après la publication de main.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rendu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/check_cymatique_outils.mjs local
+      - run: node tools/check_cymatique_outils.mjs local --essai
+
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6; do
+            node tools/check_cymatique_outils.mjs https://anibal-amiot.com && exit 0
+            echo "essai $i : le site n'a pas encore la correction ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
