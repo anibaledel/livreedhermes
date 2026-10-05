@@ -44,7 +44,14 @@
 // retouchée à la main) — une recette retouchée exprès se marque
 // "algorithme": "manuel".
 //
+// --ajouter CODE… (décision d'Anibal, 2026-10-05 : « tu inscris les 30 fonds
+// manquants au registre — couleurs et recette », par lots de cinq) : inscrit
+// au registre une collection qui n'y est pas encore, à la recette 26 et dans
+// la palette par défaut (encre et crème, assets/couleurs.js). Le code doit
+// être un fond ou un assemblage de data/fonds/collection-v1.json.
+//
 // Usage : node tools/recettes_animations.mjs            écrit les recettes absentes
+//         node tools/recettes_animations.mjs --ajouter CODE…
 //         node tools/recettes_animations.mjs --verifie  vérifie celles qui existent
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -54,6 +61,7 @@ import { lectureBinaire } from '../assets/lecture-binaire.js';
 import { distanceBinaire, signatureBinaire } from '../assets/proximite-binaire.js';
 import { grilleDuMotif, slugDe, FAMILLES } from '../assets/vue-fond-ecran.js';
 import { ecrireRegistre } from './registre.mjs';
+import { PALETTE_DEFAUT } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REGISTRE = path.join(ROOT, 'data/fonds/collections-pinterest.json');
@@ -133,6 +141,19 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const slugs = new Set(candidats.map((c) => c.slug));
   let ecrites = 0;
   const ecarts = [];
+  const iAjouter = process.argv.indexOf('--ajouter');
+  const aAjouter = iAjouter > -1 ? process.argv.slice(iAjouter + 1).filter((a) => !a.startsWith('--')) : [];
+  const collection = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collection-v1.json'), 'utf8'));
+  const codesConnus = new Set([...collection.fonds.map((f) => f.id), ...collection.assemblages]);
+  for (const code of aAjouter) {
+    if (!codesConnus.has(code)) { ecarts.push(`${code} : ni fond ni assemblage de data/fonds/collection-v1.json`); continue; }
+    if (reg.collections[code]) continue;
+    const graine = graineDe(code);
+    const recette = { ...DEFAUTS_26, graine, motifs: calculerListe(graine, DEFAUTS_26.nombre, true, true) };
+    delete recette.nombre;
+    reg.collections[code] = { palette: [...PALETTE_DEFAUT], recette };
+    ecrites++;
+  }
   for (const code of aRefaire) {
     const col = reg.collections[code];
     if (!col) { ecarts.push(`${code} : collection inconnue du registre`); continue; }
