@@ -30,6 +30,7 @@ import { chargerDonneesFond, grilleDuMotif, slugDe, FAMILLES } from './vue-fond-
 export const FORMATS = { '9x16': { largeur: 1080, hauteur: 1920, nom: '1080x1920', libelle: '9:16 (1080 × 1920)' }, '1x1': { largeur: 1080, hauteur: 1080, nom: '1080x1080', libelle: '1:1 (1080 × 1080)' } };
 export const VITESSES = [0.5, 0.75, 1, 1.5, 2];
 export const SITE = 'anibal-amiot.com';
+export const AUTEUR = 'Anibal Edelberto Amiot';
 
 let charge = null;
 // Le registre et les données du moteur, chargés une fois.
@@ -127,10 +128,12 @@ export async function creerRendu({ code, vue, largeur, hauteur }) {
     ctx.textBaseline = 'middle';
     const u = largeur / 1080;
     ctx.font = `400 ${Math.round(76 * u)}px "Barlow Semi Condensed"`;
-    ctx.fillText(`Collection ${code}`, largeur / 2, hauteur / 2 - 70 * u);
+    ctx.fillText(`Collection ${code}`, largeur / 2, hauteur / 2 - 110 * u);
     ctx.font = `300 ${Math.round(40 * u)}px "Barlow Semi Condensed"`;
-    ctx.fillText(nom, largeur / 2, hauteur / 2 + 10 * u);
-    ctx.fillText(SITE, largeur / 2, hauteur / 2 + 90 * u);
+    ctx.fillText(nom, largeur / 2, hauteur / 2 - 30 * u);
+    // le nom de l'auteur (décision d'Anibal, 2026-10-05) : il ne se traduit pas
+    ctx.fillText(AUTEUR, largeur / 2, hauteur / 2 + 50 * u);
+    ctx.fillText(SITE, largeur / 2, hauteur / 2 + 130 * u);
   }
   function couche(ctx, quoi) { if (quoi === 'carton') carton(ctx); else paver(ctx, tuiles[quoi]); }
   return {
