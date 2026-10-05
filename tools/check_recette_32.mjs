@@ -13,13 +13,13 @@
 // Il lit la LISTE que le rendu enchaîne (data/fonds/collections-pinterest.json,
 // « recette »), pas la vidéo : une vidéo mesure le fondu, la liste mesure la
 // recette. Pour chaque collection dont la recette est « proche-binaire-32-v2 » :
-//   1. durée : 32 × 0,75 s, sans carton = 24,000 s, et un nombre ENTIER
+//   1. durée : 32 × 0,75 s + 2 s de carton = 26,000 s, et un nombre ENTIER
 //      d'images par motif à la cadence de la recette ; si la vidéo déposée
-//      vient de cette recette, ffprobe y lit 24,000 s et ce nombre d'images ;
+//      vient de cette recette, ffprobe y lit 26,000 s et ce nombre d'images ;
 //   2. 32 ÉTATS DISTINCTS : 32 motifs, aucun deux fois, et aucune paire dont
 //      les 576 quarts sont identiques (deux motifs qui se ressemblent au point
 //      d'être la même image compteraient pour un) ;
-//   3. LES 32 HEXAGRAMMES h0…h31, chacun une fois — mesurés dans le corpus
+//   3. UNE SEULE FAMILLE, et LES 32 HEXAGRAMMES h0…h31, chacun une fois — mesurés dans le corpus
 //      (les pages motifs/ : 8 familles × 32 hexagrammes = 256 motifs ; le
 //      moteur, lui, en dessinerait 64), pas supposés ;
 //   4. chaque transition va au PLUS PROCHE VOISIN restant : la distance de
@@ -27,9 +27,10 @@
 //      suivant est le minimum sur tous les candidats encore permis (motif non
 //      passé, hexagramme non passé, image différente), recalculée ici.
 //
-// Le contrôle MORD : --essai casse une recette en mémoire de trois façons
-// (deux motifs permutés ; un hexagramme répété sous une autre famille ; un
-// motif retiré) et exige un échec pour chacune.
+// Le contrôle MORD : --essai casse une recette en mémoire de quatre façons
+// (deux motifs permutés ; un hexagramme répété ; un motif retiré ; un motif
+// remplacé par le même hexagramme d'une autre famille) et exige un échec
+// pour chacune.
 //
 // Usage : node tools/check_recette_32.mjs [--essai] [CODE…]
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
@@ -41,7 +42,10 @@ import { signatureBinaire } from '../assets/proximite-binaire.js';
 import { grilleDuMotif, slugDe, FAMILLES } from '../assets/vue-fond-ecran.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const ALGO = 'proche-binaire-32-v2';
+const ALGO = 'proche-binaire-32-famille-v3';
+// 32 × 0,75 s + 2 s de carton (le nom de l'auteur) — décision d'Anibal, 2026-10-05
+const DUREE = 26;
+const familleDe = (slug) => slug.replace(/-h\d+$/, '');
 const reg = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8'));
 const data = JSON.parse(readFileSync(path.join(ROOT, 'data/fonds_ecran_v1.json'), 'utf8'));
 const essai = process.argv.includes('--essai');
@@ -75,15 +79,15 @@ function controler(code, r, video) {
   // 1. durée et images
   const duree = n * r.dureeMotif + r.fin;
   const parMotif = r.dureeMotif * r.imagesParSeconde;
-  if (Math.abs(duree - 24) > 1e-9) e.push(`${code} : durée ${duree} s (${n} × ${r.dureeMotif} s + ${r.fin} s), 24,000 s attendues`);
+  if (Math.abs(duree - DUREE) > 1e-9) e.push(`${code} : durée ${duree} s (${n} × ${r.dureeMotif} s + ${r.fin} s), ${DUREE},000 s attendues`);
   if (Math.abs(parMotif - Math.round(parMotif)) > 1e-9) e.push(`${code} : ${parMotif} images par motif à ${r.imagesParSeconde} im/s, pas un entier`);
   if (video) {
     const p = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-select_streams', 'v:0', '-count_frames', '-show_entries',
       'stream=nb_read_frames,r_frame_rate,width,height:format=duration', '-of', 'json', video]));
     const s = p.streams[0], d = Number(p.format.duration), images = Number(s.nb_read_frames);
-    const attendues = Math.round(24 * r.imagesParSeconde);
-    if (Math.abs(d - 24) > 0.001 || images !== attendues || s.width !== 1080 || s.height !== 1920) {
-      e.push(`${code} : la vidéo ${path.relative(ROOT, video)} dure ${d} s, ${images} images, ${s.width} × ${s.height} ; attendu 24,000 s, ${attendues} images, 1080 × 1920`);
+    const attendues = Math.round(DUREE * r.imagesParSeconde);
+    if (Math.abs(d - DUREE) > 0.001 || images !== attendues || s.width !== 1080 || s.height !== 1920) {
+      e.push(`${code} : la vidéo ${path.relative(ROOT, video)} dure ${d} s, ${images} images, ${s.width} × ${s.height} ; attendu ${DUREE},000 s, ${attendues} images, 1080 × 1920`);
     }
   }
   // 2. 32 états distincts
@@ -94,7 +98,9 @@ function controler(code, r, video) {
   for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
     if (hamming(corpus.get(m[i]).sig, corpus.get(m[j]).sig) === 0) e.push(`${code} : ${m[i]} et ${m[j]} sont la même image (576 quarts identiques)`);
   }
-  // 3. les 32 hexagrammes, chacun une fois
+  // 3. une seule famille, et les 32 hexagrammes, chacun une fois
+  const familles = [...new Set(m.map(familleDe))];
+  if (familles.length !== 1) e.push(`${code} : ${familles.length} familles (${familles.join(', ')}), une seule attendue`);
   const hs = m.map((s) => corpus.get(s).h);
   const manquants = hexagrammes.filter((h) => !hs.includes(h));
   const doubles = [...new Set(hs.filter((h, i) => hs.indexOf(h) !== i))];
@@ -105,7 +111,7 @@ function controler(code, r, video) {
     const passes = new Set(m.slice(0, i + 1)), hPasses = new Set(hs.slice(0, i + 1));
     let min = Infinity;
     for (const [s, c] of corpus) {
-      if (passes.has(s) || hPasses.has(c.h)) continue;
+      if (passes.has(s) || hPasses.has(c.h) || familleDe(s) !== familleDe(m[i])) continue;
       const d = hamming(cour, c.sig);
       if (d > 0 && d < min) min = d;
     }
@@ -129,7 +135,10 @@ if (essai) {
   const autreFamille = [...corpus.keys()].find((s) => corpus.get(s).h === h0 && s !== m[0]);
   const repete = [...m]; repete[20] = autreFamille;
   const court = m.slice(0, 31);
-  const res = [['deux motifs permutés', casse(permute), 'plus proche'], [`h${h0} répété sous une autre famille`, casse(repete), 'répétés'], ['un motif retiré', casse(court), 'motifs, 32 attendus']];
+  // le même hexagramme, pris dans une autre famille : 32 hexagrammes, mais deux familles
+  const h7 = corpus.get(m[7]).h;
+  const intrus = [...m]; intrus[7] = [...corpus.keys()].find((s) => corpus.get(s).h === h7 && s !== m[7]);
+  const res = [['deux motifs permutés', casse(permute), 'plus proche'], [`h${h0} répété sous une autre famille`, casse(repete), 'répétés'], ['un motif retiré', casse(court), 'motifs, 32 attendus'], [`h${h7} pris dans une autre famille`, casse(intrus), 'une seule attendue']];
   let ok = true;
   for (const [quoi, e, signe] of res) {
     const vu = e.some((x) => x.includes(signe));
@@ -149,7 +158,7 @@ for (const code of codes) {
   const v = col.video && col.video.recette === ALGO ? path.join(ROOT, col.video.fichier) : null;
   const e = controler(code, r, v && existsSync(v) ? v : null);
   echecs.push(...e);
-  if (!e.length) console.log(`OK    ${code} : 32 hexagrammes (h0…h31, une fois chacun), 32 images distinctes, chaque transition au plus proche voisin restant (576 quarts) ; ${r.dureeMotif * r.imagesParSeconde} images par motif, 24,000 s${v ? ' ; vidéo : 24,000 s, ' + 24 * r.imagesParSeconde + ' images, 1080 × 1920' : ' (vidéo pas encore déposée à cette recette)'}`);
+  if (!e.length) console.log(`OK    ${code} : une famille (${familleDe(r.motifs[0])}), 32 hexagrammes (h0…h31, une fois chacun), 32 images distinctes, chaque transition au plus proche voisin restant dans la famille (576 quarts) ; ${r.dureeMotif * r.imagesParSeconde} images par motif, ${DUREE},000 s${v ? ' ; vidéo : ' + DUREE + ',000 s, ' + DUREE * r.imagesParSeconde + ' images, 1080 × 1920' : ' (vidéo pas encore déposée à cette recette)'}`);
 }
 for (const e of echecs) console.error(`ÉCHEC ${e}`);
 process.exit(echecs.length ? 1 : 0);

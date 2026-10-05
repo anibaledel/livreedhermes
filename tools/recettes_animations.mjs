@@ -31,6 +31,13 @@
 // hexagramme sous deux familles et n'en montrait que 12 : c'était un
 // paramètre (« nombre: 12 »), pas une liste tronquée.
 //
+// « proche-binaire-32-famille-v3 » (décision d'Anibal, 2026-10-05, après
+// avoir vu P) : le fondu de 0,25 s est gardé ; le plus proche voisin se
+// cherche DANS UNE FAMILLE de 32 motifs (h0…h31 d'une même famille, chacun
+// une fois) — la famille du premier motif, tiré par la graine parmi les 256 ;
+// et le carton de fin revient, avec le nom de l'auteur : 32 × 0,75 + 2 =
+// 26,000 s, 1560 images à 60 im/s.
+//
 // La liste est ENREGISTRÉE, pas recalculée à l'affichage : si l'algorithme
 // change un jour, les recettes existantes ne bougent pas. --verifie recalcule
 // chacune depuis sa graine et signale un écart (algorithme modifié, ou liste
@@ -60,6 +67,8 @@ const DEFAUTS = { algorithme: 'proche-binaire-v1', nombre: 12, dureeMotif: 2.5, 
 // La recette 32 : 0,75 s par motif à 60 im/s, 45 images par motif exactement ;
 // fondu de 0,25 s (15 images), le tiers du motif comme le 0,8 s de 2,5 s.
 export const DEFAUTS_32 = { algorithme: 'proche-binaire-32-v2', nombre: 32, dureeMotif: 0.75, fondu: 0.25, fin: 0, imagesParSeconde: 60, densite: 4 };
+export const DEFAUTS_26 = { algorithme: 'proche-binaire-32-famille-v3', nombre: 32, dureeMotif: 0.75, fondu: 0.25, fin: 2, imagesParSeconde: 60, densite: 4 };
+export const familleDe = (slug) => slug.replace(/-h\d+$/, '');
 export const hexagrammeDe = (slug) => Number(slug.match(/-h(\d+)$/)[1]);
 
 function mulberry32(a) {
@@ -84,12 +93,15 @@ for (const fam of FAMILLES) {
   }
 }
 
-export function calculerListe(graine, nombre, unParHexagramme = false) {
+export function calculerListe(graine, nombre, unParHexagramme = false, uneFamille = false) {
   const alea = mulberry32(graine);
   const pris = new Set();
   const hexPris = new Set();
-  const libre = (c) => !pris.has(c.slug) && !(unParHexagramme && hexPris.has(hexagrammeDe(c.slug)));
+  let famille = null;
+  const libre = (c) => !pris.has(c.slug) && !(unParHexagramme && hexPris.has(hexagrammeDe(c.slug)))
+    && !(uneFamille && familleDe(c.slug) !== famille);
   let courant = candidats[Math.floor(alea() * candidats.length)];
+  famille = familleDe(courant.slug);
   const liste = [courant.slug];
   pris.add(courant.slug);
   hexPris.add(hexagrammeDe(courant.slug));
@@ -112,7 +124,8 @@ export function calculerListe(graine, nombre, unParHexagramme = false) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const verifie = process.argv.includes('--verifie');
-  // --refaire CODE… : passe ces collections à la recette 32 ; l'ancienne
+  // --refaire CODE… : passe ces collections à la recette 26 (32 motifs d'une
+  // famille, carton avec le nom de l'auteur) ; l'ancienne
   // recette est gardée (recettesAnciennes), rien ne se supprime.
   const iRefaire = process.argv.indexOf('--refaire');
   const aRefaire = iRefaire > -1 ? process.argv.slice(iRefaire + 1).filter((a) => !a.startsWith('--')) : [];
@@ -123,10 +136,10 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   for (const code of aRefaire) {
     const col = reg.collections[code];
     if (!col) { ecarts.push(`${code} : collection inconnue du registre`); continue; }
-    if (col.recette?.algorithme === DEFAUTS_32.algorithme) continue;
+    if (col.recette?.algorithme === DEFAUTS_26.algorithme) continue;
     if (col.recette) (col.recettesAnciennes ??= []).push(col.recette);
     const graine = graineDe(code);
-    col.recette = { ...DEFAUTS_32, graine, motifs: calculerListe(graine, DEFAUTS_32.nombre, true) };
+    col.recette = { ...DEFAUTS_26, graine, motifs: calculerListe(graine, DEFAUTS_26.nombre, true, true) };
     delete col.recette.nombre;
     ecrites++;
   }
@@ -143,8 +156,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     for (const s of r.motifs) if (!slugs.has(s)) ecarts.push(`${code} : motif « ${s} » inconnu ou de lecture indéfinie`);
     if (new Set(r.motifs).size !== r.motifs.length) ecarts.push(`${code} : un motif revient deux fois`);
     if (!(r.dureeMotif > r.fondu && r.fondu >= 0 && r.fin >= 0 && r.imagesParSeconde > 0 && r.densite >= 1)) ecarts.push(`${code} : durées ou densité incohérentes`);
-    if (r.algorithme === 'proche-binaire-v1' || r.algorithme === DEFAUTS_32.algorithme) {
-      const attendu = calculerListe(r.graine, r.motifs.length, r.algorithme === DEFAUTS_32.algorithme);
+    if (['proche-binaire-v1', DEFAUTS_32.algorithme, DEFAUTS_26.algorithme].includes(r.algorithme)) {
+      const attendu = calculerListe(r.graine, r.motifs.length, r.algorithme !== 'proche-binaire-v1', r.algorithme === DEFAUTS_26.algorithme);
       if (attendu.join() !== r.motifs.join()) ecarts.push(`${code} : la liste ne sort plus de sa graine ${r.graine} (algorithme modifié, ou liste retouchée sans « algorithme »: « manuel »)`);
     }
     const duree = r.motifs.length * r.dureeMotif + r.fin;
