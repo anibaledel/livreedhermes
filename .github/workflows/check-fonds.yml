@@ -109,6 +109,8 @@ jobs:
       - run: node tools/check_fond_ecran_animation.mjs local
       - run: node tools/check_fond_ecran_deux_outils.mjs local
       - run: node tools/check_galerie_animations.mjs local
+      # le parcours des épingles encre et crème : à jour, sans jumelles
+      - run: node tools/epingles_encre_creme.mjs --verifie
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/video_reference.mjs --verifie B2 P
       - run: node tools/check_ecrivain_unique.mjs local
