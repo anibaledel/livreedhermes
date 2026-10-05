@@ -68,6 +68,13 @@ jobs:
         with:
           node-version: '20'
       - run: node tools/verify_fonds.mjs
+      # cymatique.html : la table MODES_DE_FAMILLE (affichée en badge) recalculée
+      # depuis les masques, et les trois correspondances de plaque — chacun avec
+      # son essai, qui doit échouer
+      - run: node tools/verify_modes_de_famille.mjs
+      - run: node tools/verify_modes_de_famille.mjs --essai
+      - run: node tools/verify_cymatique_plate_modes.mjs
+      - run: node tools/verify_cymatique_plate_modes.mjs --essai
       - run: node tools/calculs_fonds.mjs
       - run: node tools/verify_lecture_binaire.mjs
       - run: node tools/check_couleurs.mjs

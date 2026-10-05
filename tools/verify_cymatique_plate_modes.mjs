@@ -18,22 +18,36 @@
    bord) ; bords libres : cos(mπx/12)·cos(nπy/12) (ventre au bord).
    N'affiche que ce qui donne 0 écart — sinon le script s'arrête.
 
-   Usage : node tools/verify_cymatique_plate_modes.mjs
+   Le contrôle MORD : --essai inverse un triangle du premier motif et
+   exige un échec.
+
+   Usage : node tools/verify_cymatique_plate_modes.mjs [--essai]
    ============================================================ */
 import { GRID, PER_CELL } from '../assets/bicolore-render.js';
-import { sectorPoint, parityBit } from '../assets/bicolore-axes.js';
+import { sectorPoint, parityBit, systemes } from '../assets/bicolore-axes.js';
 import { k2Of } from '../assets/bicolore-k2.mjs';
 
 const PARTS = GRID * GRID * PER_CELL;
 
+// Les axes orthogonaux d'écarts ±e autour du centre (6, 6), dans les deux
+// directions, au format de assets/bicolore-axes.js depuis le 2026-09-25
+// (b96d964d : parité par systèmes de bandes, une liste {nature, ecart} ; la
+// polarité ne fait plus partie des axes, elle s'applique au bit brut). Ce
+// script avait été écrit 23 h plus tôt contre l'ancienne forme
+// ({type: 'ortho', t, polarity}) et levait « systemesList is not iterable »
+// depuis : réparé ici, sans rien changer à ce qu'il vérifie.
 function orthoAxesRaw(list, polarity) {
-  const t = new Set();
-  for (const e of list) { t.add(6 - e); t.add(6 + e); }
-  return { type: 'ortho', t: [...t], polarity };
+  const axes = [];
+  for (const e of list) for (const ecart of e === 0 ? [0] : [-e, e]) axes.push({ nature: 'H', ecart }, { nature: 'V', ecart });
+  return { systemes: systemes(axes), polarity };
 }
 function generate(axes) {
   const m = new Uint8Array(PARTS);
-  for (let gi = 0; gi < PARTS; gi++) { const [x, y] = sectorPoint(gi); m[gi] = parityBit(axes, x, y); }
+  for (let gi = 0; gi < PARTS; gi++) {
+    const [x, y] = sectorPoint(gi);
+    const brut = parityBit(axes.systemes, x, y);
+    m[gi] = axes.polarity === 'inverse' ? 1 - brut : brut;
+  }
   return m;
 }
 
@@ -63,9 +77,11 @@ const CASES = [
   },
 ];
 
+const essai = process.argv.includes('--essai');
 let allOk = true;
 for (const c of CASES) {
   const mask = generate(c.axes);
+  if (essai && c === CASES[0]) mask[0] ^= 1;
   let mism = 0;
   for (let gi = 0; gi < PARTS; gi++) {
     const [x, y] = sectorPoint(gi);
@@ -84,4 +100,8 @@ for (const c of CASES) {
 console.log(allOk
   ? '\nLes trois correspondances vérifiées, 0 écart chacune — la page peut les citer.'
   : '\nDES ÉCARTS SUBSISTENT — ne pas afficher tant que ce n\'est pas 0.');
+if (essai) {
+  if (!allOk) { console.log('Essai : un triangle inversé, le contrôle échoue bien.'); process.exit(0); }
+  console.error('Essai : un triangle inversé, et le contrôle ne le voit pas.'); process.exit(1);
+}
 process.exit(allOk ? 0 : 1);
