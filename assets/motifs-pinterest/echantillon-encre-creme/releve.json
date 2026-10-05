@@ -1,0 +1,650 @@
+{
+ "registre": {
+  "lignes": 256,
+  "publiees": 12,
+  "a_programmer": 244,
+  "parSerie": {
+   "corpus-1024|publiee": 12,
+   "corpus-1024-cellule|a_programmer": 63,
+   "corpus-1024-monochrome|a_programmer": 61,
+   "corpus-1024-cellule-monochrome|a_programmer": 61,
+   "corpus-1024|a_programmer": 59
+  }
+ },
+ "parcours": {
+  "motifs": 244,
+  "epingles": 488,
+  "familles": [
+   {
+    "famille": "bases-yang-mut",
+    "motifs": 28,
+    "premier": "bases-yang-mut-h4"
+   },
+   {
+    "famille": "bases-yang",
+    "motifs": 30,
+    "premier": "bases-yang-h2"
+   },
+   {
+    "famille": "par2-yang-yin-mut",
+    "motifs": 31,
+    "premier": "par2-yang-yin-mut-h1"
+   },
+   {
+    "famille": "par2-yin-mut-yang-mut",
+    "motifs": 31,
+    "premier": "par2-yin-mut-yang-mut-h1"
+   },
+   {
+    "famille": "par2-yin-yang",
+    "motifs": 31,
+    "premier": "par2-yin-yang-h1"
+   },
+   {
+    "famille": "par2-yin-yang-mut",
+    "motifs": 31,
+    "premier": "par2-yin-yang-mut-h1"
+   },
+   {
+    "famille": "par3-sans-yang",
+    "motifs": 31,
+    "premier": "par3-sans-yang-h1"
+   },
+   {
+    "famille": "par3-sans-yang-mut",
+    "motifs": 31,
+    "premier": "par3-sans-yang-mut-h1"
+   }
+  ]
+ },
+ "jumelles": [
+  [
+   "par2-yin-yang-h6",
+   "par3-sans-yang-mut-h1"
+  ],
+  [
+   "par2-yin-yang-h5",
+   "par3-sans-yang-mut-h2"
+  ],
+  [
+   "par2-yin-yang-h4",
+   "par3-sans-yang-mut-h3"
+  ],
+  [
+   "par2-yin-yang-h3",
+   "par3-sans-yang-mut-h4"
+  ],
+  [
+   "par2-yin-yang-h2",
+   "par3-sans-yang-mut-h5"
+  ],
+  [
+   "par2-yin-yang-h1",
+   "par3-sans-yang-mut-h6"
+  ],
+  [
+   "par2-yin-yang-h15",
+   "par3-sans-yang-mut-h8"
+  ],
+  [
+   "par2-yin-yang-h14",
+   "par3-sans-yang-mut-h9"
+  ],
+  [
+   "par2-yin-yang-h13",
+   "par3-sans-yang-mut-h10"
+  ],
+  [
+   "par2-yin-yang-h12",
+   "par3-sans-yang-mut-h11"
+  ],
+  [
+   "par2-yin-yang-h11",
+   "par3-sans-yang-mut-h12"
+  ],
+  [
+   "par2-yin-yang-h10",
+   "par3-sans-yang-mut-h13"
+  ],
+  [
+   "par2-yin-yang-h9",
+   "par3-sans-yang-mut-h14"
+  ],
+  [
+   "par2-yin-yang-h8",
+   "par3-sans-yang-mut-h15"
+  ],
+  [
+   "par2-yin-yang-h23",
+   "par3-sans-yang-mut-h16"
+  ],
+  [
+   "par2-yin-yang-h22",
+   "par3-sans-yang-mut-h17"
+  ],
+  [
+   "par2-yin-yang-h21",
+   "par3-sans-yang-mut-h18"
+  ],
+  [
+   "par2-yin-yang-h20",
+   "par3-sans-yang-mut-h19"
+  ],
+  [
+   "par2-yin-yang-h19",
+   "par3-sans-yang-mut-h20"
+  ],
+  [
+   "par2-yin-yang-h18",
+   "par3-sans-yang-mut-h21"
+  ],
+  [
+   "par2-yin-yang-h17",
+   "par3-sans-yang-mut-h22"
+  ],
+  [
+   "par2-yin-yang-h16",
+   "par3-sans-yang-mut-h23"
+  ],
+  [
+   "par2-yin-yang-h31",
+   "par3-sans-yang-mut-h24"
+  ],
+  [
+   "par2-yin-yang-h30",
+   "par3-sans-yang-mut-h25"
+  ],
+  [
+   "par2-yin-yang-h29",
+   "par3-sans-yang-mut-h26"
+  ],
+  [
+   "par2-yin-yang-h28",
+   "par3-sans-yang-mut-h27"
+  ],
+  [
+   "par2-yin-yang-h27",
+   "par3-sans-yang-mut-h28"
+  ],
+  [
+   "par2-yin-yang-h26",
+   "par3-sans-yang-mut-h29"
+  ],
+  [
+   "par2-yin-yang-h25",
+   "par3-sans-yang-mut-h30"
+  ],
+  [
+   "par2-yin-yang-h24",
+   "par3-sans-yang-mut-h31"
+  ]
+ ],
+ "echantillon": [
+  "bases-yang-mut-h4",
+  "bases-yang-h2",
+  "par2-yang-yin-mut-h1",
+  "par2-yin-mut-yang-mut-h1",
+  "par2-yin-yang-h1",
+  "par2-yin-yang-mut-h1"
+ ],
+ "mesures": [
+  {
+   "slug": "bases-yang-mut-h4",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 843,
+     "pixels_de_nuance_differente": 11219,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 903,
+     "pixels_de_nuance_differente": 4607,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 4770,
+    "dont_a_2px_du_joint": 1336,
+    "pixels_encre_creme_inverses": 244,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 0,
+     "pavage_d_un_tenant": 0.002
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.0013333333333333333,
+     "pavage_d_un_tenant": 0.002
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/bases-yang-mut-h4.png"
+   }
+  },
+  {
+   "slug": "bases-yang-h2",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 340,
+     "pixels_de_nuance_differente": 10101,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 479,
+     "pixels_de_nuance_differente": 7266,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 4316,
+    "dont_a_2px_du_joint": 3270,
+    "pixels_encre_creme_inverses": 76,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 0,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.002,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/bases-yang-h2.png"
+   }
+  },
+  {
+   "slug": "par2-yang-yin-mut-h1",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 381,
+     "pixels_de_nuance_differente": 10161,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 439,
+     "pixels_de_nuance_differente": 5578,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 4102,
+    "dont_a_2px_du_joint": 3056,
+    "pixels_encre_creme_inverses": 70,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 0,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.002,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/par2-yang-yin-mut-h1.png"
+   }
+  },
+  {
+   "slug": "par2-yin-mut-yang-mut-h1",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 890,
+     "pixels_de_nuance_differente": 11409,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 934,
+     "pixels_de_nuance_differente": 9658,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 8499,
+    "dont_a_2px_du_joint": 5061,
+    "pixels_encre_creme_inverses": 252,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 0,
+     "pavage_d_un_tenant": 0.002
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.0013333333333333333,
+     "pavage_d_un_tenant": 0.002
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/par2-yin-mut-yang-mut-h1.png"
+   }
+  },
+  {
+   "slug": "par2-yin-yang-h1",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 373,
+     "pixels_de_nuance_differente": 10281,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 940,
+     "pixels_de_nuance_differente": 9473,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 13044,
+    "dont_a_2px_du_joint": 11998,
+    "pixels_encre_creme_inverses": 12039,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 1,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.9986666666666667,
+     "pavage_d_un_tenant": 0.0016666666666666668
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/par2-yin-yang-h1.png"
+   }
+  },
+  {
+   "slug": "par2-yin-yang-mut-h1",
+   "pavages": {
+    "4x6": {
+     "carreau_px": 252,
+     "dx": 0,
+     "dy": 0,
+     "coupe_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 895,
+     "pixels_de_nuance_differente": 11409,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 0,
+      "bas": 0,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 250,
+     "carreaux": [
+      4,
+      6
+     ]
+    },
+    "3x4": {
+     "carreau_px": 336,
+     "dx": 0,
+     "dy": 252,
+     "coupe_px": {
+      "haut": 84,
+      "bas": 84,
+      "gauche": 0,
+      "droite": 0
+     },
+     "pixels": 1524096,
+     "pixels_encre_creme_inverses": 1362,
+     "pixels_de_nuance_differente": 10433,
+     "centre": true,
+     "coupe_final_px": {
+      "haut": 83.33,
+      "bas": 83.33,
+      "gauche": 0,
+      "droite": 0
+     },
+     "carreau_final_px": 333.33,
+     "carreaux": [
+      3,
+      4.5
+     ]
+    }
+   },
+   "raccord": {
+    "pixels": 9000000,
+    "pixels_de_nuance_differente": 15451,
+    "dont_a_2px_du_joint": 12015,
+    "pixels_encre_creme_inverses": 12212,
+    "changement_au_joint_vertical": {
+     "cellule_2x2": 1,
+     "pavage_d_un_tenant": 0.002
+    },
+    "changement_au_joint_horizontal": {
+     "cellule_2x2": 0.9993333333333333,
+     "pavage_d_un_tenant": 0.002
+    },
+    "image": "assets/motifs-pinterest/echantillon-encre-creme/raccord-2x2/par2-yin-yang-mut-h1.png"
+   }
+  }
+ ],
+ "octets": {
+  "cellule": [
+   22996,
+   25863,
+   25179,
+   27049,
+   26852,
+   28181
+  ],
+  "pavage-4x6": [
+   46259,
+   48069,
+   41960,
+   43254,
+   45387,
+   45391
+  ],
+  "pavage-3x4": [
+   37773,
+   43060,
+   39479,
+   39883,
+   41696,
+   41342
+  ]
+ }
+}
