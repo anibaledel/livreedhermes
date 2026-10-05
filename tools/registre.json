@@ -1,0 +1,1692 @@
+{
+ "_doc": "Le registre des outils de tools/ (tools/registre_outils.mjs). Les champs role, lit, ecrit, appele_par, utilise_par et sait_echouer se RELISENT dans le dépôt à chaque contrôle (role : la première phrase de l'en-tête du script ; appele_par : .github/workflows/ ; sait_echouer : un workflow le lance avec --essai) ; etat (actif, ponctuel, obsolete, en_panne) et panne se décident à la main. --verifie échoue dès que le registre diverge du dépôt.",
+ "outils": [
+  {
+   "fichier": "tools/_vichy_rasterize.mjs",
+   "role": "Rasterise un SVG en PNG haute résolution — appelé en sous-processus par generate_referent_vichy.py.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_referent_vichy.py"
+   ],
+   "etat": "en_panne",
+   "sait_echouer": false,
+   "panne": "import introuvable : ../scripts/node_modules/sharp/dist/index.mjs"
+  },
+  {
+   "fichier": "tools/affiches_animations.mjs",
+   "role": "la vidéo de référence d'une collection, déposée, et son affiche EXTRAITE du fichier (pas un rendu refait).",
+   "lit": [
+    "assets/animations",
+    "data/fonds",
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [
+    "data/fonds/collections-pinterest.json"
+   ],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [
+    "tools/video_reference.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/alleger_pdf.py",
+   "role": "Allège un PDF SANS TOUCHER À UNE IMAGE, puis le linéarise.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/__init__.py",
+   "role": "",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/accords.py",
+   "role": "Le recensement : une planche n'a pas de niveau, elle joue un accord (un sous-ensemble des 16 familles).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/echos.py",
+   "role": "La loi des échos : l'homothétie double (écart e -> 2e, repliée) envoie chaque famille d'axes dans une autre famille du vocabulaire (ou hors de lui, une fuite).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/parite.py",
+   "role": "Des axes à la planche : la couleur d'un triangle (ou d'une case) est la parité du nombre d'axes qui le séparent d'une origine de référence.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/plaque.py",
+   "role": "Lit une planche SVG (grille 12x12, cellule C8 : deux diagonales et deux médianes, 8 triangles par case, 1152 triangles) et rend un masque de 1152 bits (1 = sombre).",
+   "lit": [
+    "data/ORIGINES"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/axes/releve.py",
+   "role": "Lit un PDF de planche d'axes (dossier « axes seul sur gris median ») et en sort les droites {nature, ecart}.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/bicolore_galerie_comptes.mjs",
+   "role": "Les comptes de la galerie bicolore par les axes — reconstruit depuis le catalogue vérifié (data/AXES/catalogue.json, chantier axes-loi-parite), pas depuis l'ancienne table RAW_ECARTS (voir assets/bicolore-axes.js).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/bicolore_galerie_data.mjs",
+   "role": "Générateur de data/bicolore_galerie_v1.json, la source de galerie-bicolore.html.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/calculs_fonds.mjs",
+   "role": "Les valeurs calculées de la collection de fonds (famille, isométrie, fraction, raccord, contraste ; couverture de chaque glyphe à l'échelle 1), écrites une fois dans data/fonds/collection-v1.calculs.json pour que les pages ne refassent p…",
+   "lit": [
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/calibrate_referent.py",
+   "role": "Calibre C_PUB pour un (référent, variante) La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Réécrit le 2026-09-12 : la version précédente de ce script calibrait un « c_pub » et l'écrivait DANS le fichier JSON du référent.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "en_panne",
+   "sait_echouer": false,
+   "panne": "via secubox/secu_box.py : module absent : argon2"
+  },
+  {
+   "fichier": "tools/cellule_c16.py",
+   "role": "définition de la cellule C16 (16 triangles), contrat de cellule pour le bloc de 1 : à cette finesse de trame, les frontières diagonales tombent exactement sur les arêtes des triangles (voir \"pourquoi C16\" plus bas) — plus aucun triangle …",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_bicolore_c16.py",
+    "tools/render_bicolore_c16.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/cellule_c4.py",
+   "role": "définition de la cellule C4 (4 triangles), contrat de cellule pour data/ORIGINES 6/ (bloc de 3).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/extract_origines6.py",
+    "tools/generate_bicolore_c4_origines6.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_accessibilite.mjs",
+   "role": "Contrôle automatique : passe axe-core (règles WCAG 2 A et AA) sur les pages listées ci-dessous et échoue à la première infraction.",
+   "lit": [
+    "book-viewer/index.html",
+    "data/livre/chapitres.json",
+    "en/about",
+    "en/articles",
+    "en/articles/axes-are-nodal-lines.html",
+    "en/articles/hanuman-and-harlequin.html",
+    "en/articles/verticality-chequer-mosaic-chessboard.html",
+    "en/book",
+    "en/hexagrams",
+    "en/hexagrams/0-kun-the-receptive.html",
+    "en/hexagrams/63-qian-the-creative.html",
+    "en/lexicon",
+    "en/works",
+    "es/buscar",
+    "es/hexagramas",
+    "es/hexagramas/0-kun-lo-receptivo.html",
+    "es/lexico",
+    "fr/livre",
+    "fr/motifs",
+    "fr/motifs/bases-yang-h0.html",
+    "hexagrammes/0-kun-le-receptif.html",
+    "hexagrammes/63-qian-le-createur.html",
+    "motifs/bases-yang-h0.html",
+    "th/hexagrams",
+    "th/hexagrams/0-kun.html",
+    "th/lexicon",
+    "th/search"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-accessibilite.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_accueils.mjs",
+   "role": "les huit accueils suivent le même modèle (A03).",
+   "lit": [
+    "en/about",
+    "en/articles",
+    "en/hexagrams",
+    "en/search",
+    "en/works",
+    "fr/livre",
+    "fr/livre/index.html",
+    "fr/motifs",
+    "hexagrammes/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_article.mjs",
+   "role": "un article du site, tel qu'un lecteur le reçoit : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-articles.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_bicolore_defaut.mjs",
+   "role": "Le bicolore part en ENCRE ET CRÈME, page par page (décision du 4 octobre 2026).",
+   "lit": [
+    "data/fonds/collections-pinterest.json",
+    "fr/motifs/par2-yin-yang-h5.html",
+    "motifs/bases-yang-h0.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_couleurs.mjs",
+   "role": "Les couleurs par défaut viennent d'UN SEUL jeu de constantes, assets/couleurs.js : 1.",
+   "lit": [
+    "assets/bicolore-fonds.js",
+    "assets/couleurs.js",
+    "assets/selecteur-fonds.js",
+    "assets/vue-fond-ecran.js",
+    "assets/vue-fond-motif.js",
+    "data/fonds/collections-pinterest.json",
+    "scripts/generate-motif-pages.js",
+    "tools/export_pinterest_fonds.mjs",
+    "tools/verify_lecture_binaire.mjs"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_csp.mjs",
+   "role": "Politique de sécurité du contenu (CSP) des pages sensibles : l'encodeur (chiffrement dans le navigateur) et les deux pages de paiement.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-csp.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_cymatique_outils.mjs",
+   "role": "les deux outils de cymatique.html (le micro et le générateur de sons purs) ne bloquent plus la page.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-cymatique.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_doi_licences.mjs",
+   "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_doi_perimes.mjs",
+   "role": "Contrôle automatique : aucun DOI Zenodo périmé ni aucune mention de la suite OEIS retirée ne doit réapparaître dans le dépôt.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-travaux.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_echantillon_site.mjs",
+   "role": "chaque image de l'échantillon des épingles (assets/motifs-pinterest/echantillon-encre-creme/, écrit par tools/epingles_echantillon.mjs) est servie par le site déployé, et c'est la même : réponse 200, octets identiques au fichier du dépôt…",
+   "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_ecrivain_unique.mjs",
+   "role": "l'état bicolore a UN écrivain.",
+   "lit": [
+    "assets/etat-fond-ecran.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_encodeur_sw.mjs",
+   "role": "Vérifie que CACHE_VERSION dans encodeur-sw.js est bien l'empreinte SHA-256 (12 caractères hexadécimaux) du contenu des fichiers listés dans CACHED_URLS, dans l'ordre.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-encodeur-sw.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_export_pinterest.mjs",
+   "role": "Une image exportée d'une collection (assets/motifs-pinterest/<code>/<fichier>.png) est IDENTIQUE au rendu de la page du même motif, dans le même fond : sur un échantillon de pages de motifs (tirage fixe), la page est ouverte avec ?fond=……",
+   "lit": [
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_faces_geometrie_sync.py",
+   "role": "Garde-fou : la géométrie du cube (FACES — origine et deux vecteurs d'arête par face) est copiée à l'identique dans tools/cube_edges.py, tools/generate_table_pavage.py et tools/spectre_et_cube.py.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-faces-geometrie-sync.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fond_ecran_animation.mjs",
+   "role": "L'outil bicolore de fonds-ecran.html (le second montage du moteur assets/outil-fond-ecran.js, sous le tricolore), une vidéo par collection, vérifié SUR LE SITE (déployé par défaut ; « local » sert le dépôt) : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fond_ecran_deux_outils.mjs",
+   "role": "fonds-ecran.html porte DEUX outils d'animation, l'un sous l'autre, tricolore puis bicolore, vérifiés SUR LE SITE (déployé par défaut ; « local » sert le dépôt) : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fonds_ecran_completude.py",
+   "role": "Garde-fou : data/fonds_ecran_v1.json porte bien les 15 familles × 4 natures (60 couches) et le corpus qui en découle, sur le modèle de tools/check_referent_bandes_sync.py.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds-ecran-completude.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_fonds_ecran_source.mjs",
+   "role": "fonds-ecran.html n'a qu'UNE source de motifs : data/fonds_ecran_v1.json.",
+   "lit": [
+    "assets/outil-fond-ecran.js",
+    "data/fonds_ecran_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_galerie_animations.mjs",
+   "role": "galerie-animations.html, mesurée.",
+   "lit": [
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_glossaire.mjs",
+   "role": "un concept du glossaire, UNE traduction par langue.",
+   "lit": [
+    "docs/terminologie-fr-en-es-th.md"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_jsonld_visible.py",
+   "role": "Garde-fou : le texte d'une FAQPage doit être lisible sur la page.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-jsonld-visible.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_lecteur.mjs",
+   "role": "les commandes du lecteur (book-viewer/) restent cliquables, et la page du livre reste dans son cadre (A01, audit du 4 octobre 2026 : à 1363 px, l'image débordait de 90 px au-dessus de son cadre et recouvrait les sept boutons de langue — …",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-lecteur.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_liens.mjs",
+   "role": "Contrôle automatique : chaque lien interne des pages (href, src, srcset, poster) doit mener à un fichier du dépôt.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-liens.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_livre_texte.py",
+   "role": "le test d'identité des chapitres en HTML : « le texte publié est celui du livre, pas une reconstruction ».",
+   "lit": [
+    "data/livre/chapitres.json",
+    "data/livre/ordre-exceptions.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-livre-texte.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_livres.py",
+   "role": "les huit éditions du livre (book-viewer/), et les pages du lecteur qui les montrent (book-viewer/pages/<langue>/) : 1.",
+   "lit": [
+    "book-viewer/index.html",
+    "book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_modules_portables.mjs",
+   "role": "les modules destinés à être repris ailleurs (docs/modules-portables.md, la liste entre ses deux marqueurs) ne prennent AUCUNE dépendance au site.",
+   "lit": [
+    "data/fonds_ecran_v1.json",
+    "docs/modules-portables.md"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_mp4_sans_date.mjs",
+   "role": "le MP4 de l'encodeur ne porte pas l'heure.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_no_donnees_en_dur.py",
+   "role": "Garde-fou : aucun script de tools/ ne porte de table de données codée en dur (mesures, fréquences, comptes) parallèle à ce qui existe déjà dans data/.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-no-donnees-en-dur.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_page_360.mjs",
+   "role": "la page des 360 calques affiche des nombres CALCULÉS, et ce sont ceux des données.",
+   "lit": [
+    "assets/trait-cartes",
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-page-360.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_pages_console.mjs",
+   "role": "Contrôle automatique : charge chaque page listée ci-dessous dans un navigateur headless et échoue si l'une d'elles lève une exception JavaScript non rattrapée, ou si une zone attendue reste vide.",
+   "lit": [
+    "articles/arlequin-trismegiste.html",
+    "articles/cymatique-spectre-d-un-motif.html",
+    "articles/encodeur-cacher-n-est-pas-proteger.html",
+    "articles/foliage-bouffons-de-cour.html",
+    "articles/habit-du-grand-pretre.html",
+    "articles/hanuman-et-arlequin.html",
+    "articles/le-fil-et-le-carre.html",
+    "articles/reminiscence-caillou-carre.html",
+    "articles/verticalite-damier-mosaique-echiquier.html",
+    "en/about",
+    "en/articles",
+    "en/lexicon",
+    "en/search",
+    "en/works",
+    "es/buscar",
+    "es/lexico",
+    "hexagrammes/0-kun-le-receptif.html",
+    "hexagrammes/33-yi-la-nourriture.html",
+    "hexagrammes/63-qian-le-createur.html",
+    "th/lexicon",
+    "th/search"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pages-console.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_parcours_langues.mjs",
+   "role": "dans chaque langue du livre, le parcours accueil → page du livre → visionneuse → PDF se fait dans cette langue (audit A09 du 4 octobre 2026 : un lecteur russe ouvrait un livre russe piloté en français).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-lecteur.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_pdf.py",
+   "role": "Les PDF du dépôt (suivis par git, hors archives « anciens/ ») : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_pdf_servis.py",
+   "role": "Sur le SITE DÉPLOYÉ (ce qui marche en local peut ne pas marcher en ligne) : chaque PDF des lecteurs du livre (book-viewer/*.pdf du dépôt) est demandé par une requête PARTIELLE (Range: bytes=0-1023).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_police_pages.mjs",
+   "role": "chaque caractère du texte d'une page surveillée se rend dans la pile de polices DÉCLARÉE, sans police du système.",
+   "lit": [
+    "articles/cymatique-spectre-d-un-motif.html",
+    "articles/habit-du-grand-pretre.html",
+    "articles/verticalite-damier-mosaique-echiquier.html",
+    "assets/fonts.css",
+    "assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css",
+    "en/articles",
+    "en/articles/cymatics-spectrum-of-a-pattern.html",
+    "en/articles/high-priests-garment.html",
+    "en/articles/verticality-chequer-mosaic-chessboard.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-articles.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_police_zh.mjs",
+   "role": "la police chinoise hébergée porte chaque caractère chinois du site.",
+   "lit": [
+    "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_recette_32.mjs",
+   "role": "chaque animation à la recette 32 enchaîne réellement les 32 hexagrammes, une fois chacun, au plus proche voisin.",
+   "lit": [
+    "data/fonds/collections-pinterest.json",
+    "data/fonds_ecran_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_redirections.mjs",
+   "role": "les redirections du site, toutes, et ce qu'elles ne doivent pas faire.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_referent_bandes_sync.py",
+   "role": "Garde-fou : data/referent_bandes_v1.json est une vue générée de data/referent_bicolore_v1.json (tools/generate_referent_bandes.py) ; ce script échoue si les masques du fichier en place divergent de ce que le générateur produirait.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referent-bandes-sync.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_selecteur_fonds.mjs",
+   "role": "Vérifie le sélecteur de fond SUR LE SITE (déployé par défaut ; « local » sert le dépôt, ou une autre base) : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_selection_clavier.mjs",
+   "role": "creation-motifs-yi-king.html se pilote au clavier seul (A02, audit du 4 octobre 2026 : les 16 cartes .sel-card et les 64 cases .ech-cell étaient des div sans rôle ni tabindex, cliquables à la souris seulement).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-selection-clavier.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_series_pinterest.py",
+   "role": "Les quatre séries du corpus Pinterest (data/fonds/collections-pinterest.json, « series ») contre leurs images, assets/motifs-pinterest/<série>/*.png.",
+   "lit": [
+    "assets/motifs-pinterest",
+    "data/fonds/collections-pinterest.json",
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-series-pinterest.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_six_langues.mjs",
+   "role": "les vérifications du lot « six langues » qui demandent un navigateur, sur un serveur local OU sur le site déployé : 1.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_tuiles.mjs",
+   "role": "les tuiles de navigation (les boutons animés du bas de page) sont sur TOUTES les adresses du sitemap, dans la langue de la page.",
+   "lit": [
+    "es/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/check_videos_site.mjs",
+   "role": "chaque vidéo inscrite au registre (data/fonds/collections-pinterest.json, « video ») est servie par le site déployé, et c'est LA MÊME : réponse 200, taille et empreinte SHA-256 de l'affiche et de la vidéo égales à celles du registre.",
+   "lit": [
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/compte_hreflang.mjs",
+   "role": "compte les <link rel=\"alternate\" hreflang> du site et vérifie leur réciprocité.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-langues.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/correspondance_motifs.mjs",
+   "role": "Le nom d'image d'un motif et l'adresse de sa page, écrits côte à côte (data/motifs-correspondance.json).",
+   "lit": [
+    "data/motifs-correspondance.json",
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/croix_ansee.py",
+   "role": "Les croix ansées d'ordre 6 : énumération sous les critères de la planche 040.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/cube_croisements.py",
+   "role": "Le cube sur les paires qui croisent les familles.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/cube_edges.py",
+   "role": "Vérification de la règle d'arête sur le cube.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/cube_croisements.py",
+    "tools/make_figures.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/derive_echelles.py",
+   "role": "Écrit k_pic (mesuré) et les deux échelles dans data/referent_bandes_v1.json.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "en_panne",
+   "sait_echouer": false,
+   "panne": "« REFERENT_PATH » absent de tools/measure_k_pic.py ; « measure » absent de tools/measure_k_pic.py"
+  },
+  {
+   "fichier": "tools/enum_criteres.py",
+   "role": "§4.3 de la note « The Ansate Cross » : dénombrement exhaustif des coloriages d'ordre 6 satisfaisant les critères I–IV, puis de ceux qui satisfont en plus la structure de ligne de la croix ansée.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/epingles_echantillon.mjs",
+   "role": "l'échantillon des nouvelles épingles Pinterest, à valider sur image avant toute production (consigne « épingles — les images d'abord », 2026-10-05).",
+   "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme",
+    "data/fonds/epingles-pinterest.csv",
+    "tools/epingles_mesures.py"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/epingles_encre_creme.mjs",
+   "role": "le parcours des épingles encre et crème, et leurs images (décisions d'Anibal, 2026-10-05) : - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN SITUATION en 3 × 4½, 1000 × 1500, centrée (un quart de carreau coupé en haut et …",
+   "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme",
+    "data/fonds/epingles-parcours.json",
+    "data/fonds/epingles-pinterest.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/epingles_mesures.py",
+   "role": "la part « mesure » de tools/epingles_echantillon.mjs (appelée par lui, un argument JSON) : réduction des pavages à 1000 × 1500, centrage relu sur l'image, raccord de la cellule en 2 × 2.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/epingles_echantillon.mjs"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/epingles_pinterest.mjs",
+   "role": "la liste des épingles de la campagne Pinterest, à reprogrammer, tirée du registre (data/fonds/collections-pinterest.json, « campagne ») : l'attribution page → série y est ENREGISTRÉE ; ce script ne la calcule pas, il la lit, la vérifie e…",
+   "lit": [
+    "assets/motifs-pinterest",
+    "data/fonds/collections-pinterest.json",
+    "data/fonds/epingles-pinterest.csv",
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-series-pinterest.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/export_pinterest_fonds.mjs",
+   "role": "Une collection Pinterest : les 256 motifs du corpus, chacun dans un fond (et une superposition facultative), au format assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500 (le 2:3 de Pinterest, le motif répété 6 × 9).",
+   "lit": [
+    "assets/motifs-pinterest",
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_couleurs.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/extract_exemples_plate.mjs",
+   "role": "Lit une planche coloriée de data/EXEMPLES/ (T2 ou T3, quinze images par génération) et en tire le masque brut des 1152 triangles C8, par lecture de couleur — jamais par nom de classe (protocole-axes.md §2.3 : \"Les bases...",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/extract_origines6.py",
+   "role": "extracteur pour data/ORIGINES 6/ (cellule C4, voir cellule_c4.py).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_bicolore_c4_origines6.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/familles.py",
+   "role": "génère les 15 familles d'axes en bicolore.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_bicolore_c16.py",
+    "tools/generate_bicolore_c4_origines6.py",
+    "tools/generate_referent_bicolore.py",
+    "tools/generate_referent_bicolore_origines.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/figure_en_ligne.mjs",
+   "role": "une figure SVG d'article, incluse EN LIGNE dans sa page depuis son fichier, sans copie à la main.",
+   "lit": [
+    "articles/le-fil-et-le-carre.html",
+    "assets/articles/chadya-chadaka.svg"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-articles.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/filtre_unified.py",
+   "role": "Reproduit le Théorème 2 de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube » : construit les candidats (famille, teinteA, teinteB, n) pour les 15 familles, les deux couples (yang,yang_mut) et…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_bicolore_c16.py",
+   "role": "trame C16·B1, dérivée de C8·B2 (converti en C16 sans perte — voir cellule_c16.py).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_bicolore_c4_origines6.py",
+   "role": "trame C4·B3, depuis data/ORIGINES 6/ (cellule C4, voir cellule_c4.py).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_fonds_ecran.py",
+   "role": "Générateur de data/fonds_ecran_v1.json Lit data/referent_360_v3.json (360 cartes, 15 familles × 4 natures × 6 niveaux — la source complète, celle que la note \"A Half-Shift Criterion...\" cite en section 8) et reconstruit les 60 couches (u…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_fonds_ecran_completude.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_256.py",
+   "role": "Générateur de data/referent_256_v3.json La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Lit l'échiquier droit de la page 047 du livre (256 carrés magiques 6×6, croix ansée) depuis le SVG source fourni par l'auteur, et produit : - data…",
+   "lit": [
+    "data/referent_256_src/source.svg"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_360.py",
+   "role": "Générateur de data/referent_360_v3.json La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Lit les 360 calques sources (SVG, un par (famille, teinte, niveau)) et produit : - data/referent_360_src/<famille>/<teinte>/<niveau>.svg (copie no…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_bicolore_c16.py",
+    "tools/generate_bicolore_c4_origines6.py",
+    "tools/generate_referent_bicolore.py",
+    "tools/generate_referent_bicolore_origines.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_6x6.py",
+   "role": "Génère les 256 référents 6×6 aléatoires (v3) La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Décision de l'auteur (2026-09-12) : 256 référents (au lieu des 10 graines Carter-Random précédentes), générés par l'algorithme normatif ChaCh…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_bandes.py",
+   "role": "Générateur de data/referent_bandes_v1.json VUE GÉNÉRÉE de data/referent_bicolore_v1.json — ne dessine plus les masques indépendamment.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_referent_bandes_sync.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_bicolore.py",
+   "role": "Générateur de data/referent_bicolore_v1.json Lit les 4 fonds de base (data/referent_bicolore_src/BASES/, via familles.py) et la matrice LAYER_OF (tools/generate_referent_360.py, source unique, non dupliquée) pour produire les 15 familles…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_bicolore_c16.py",
+    "tools/generate_referent_bicolore_origines.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_bicolore_origines.py",
+   "role": "variante C8·Bn du référent bicolore, depuis un dossier de 15 planches tracées \"bandes<FAMILLE>.svg\" (une par famille) — à la différence de generate_referent_bicolore.py, qui lit ses 4 fonds de base dans data/referent_bicolore_src/BASES/.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_referent_vichy.py",
+   "role": "Générateur de data/referent_vichy_v1.json Les 15 SVG source (data/referent_vichy_src/, dossier VICHY fourni) sont retravaillés à la main dans Illustrator, pas des sorties de générateur — contrairement à referent_bicolore_v1.json.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/generate_table_pavage.py",
+   "role": "La table des 1770 paires pour la page de création guidée (creation-motifs-yi-king.html).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/inventaire_zenodo.py",
+   "role": "les dépôts Zenodo d'Anibal tels que Zenodo les LECTURE SEULE : uniquement des requêtes GET sur l'API publique de Zenodo, sans jeton.",
+   "lit": [
+    "tools/check_doi_perimes.mjs"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "inventaire-zenodo.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/lib_fonds_site.mjs",
+   "role": "Outils partagés par l'export Pinterest des fonds et par sa vérification : un petit serveur statique du dépôt (les modules ES du site s'importent par HTTP, comme sur le site), les 256 lignes canoniques de data/motifs-index.csv, et la gril…",
+   "lit": [
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_article.mjs",
+    "tools/check_bicolore_defaut.mjs",
+    "tools/check_cymatique_outils.mjs",
+    "tools/check_ecrivain_unique.mjs",
+    "tools/check_export_pinterest.mjs",
+    "tools/check_fond_ecran_animation.mjs",
+    "tools/check_fond_ecran_deux_outils.mjs",
+    "tools/check_galerie_animations.mjs",
+    "tools/check_lecteur.mjs",
+    "tools/check_page_360.mjs",
+    "tools/check_parcours_langues.mjs",
+    "tools/check_selecteur_fonds.mjs",
+    "tools/check_selection_clavier.mjs",
+    "tools/epingles_echantillon.mjs",
+    "tools/epingles_encre_creme.mjs",
+    "tools/export_pinterest_fonds.mjs",
+    "tools/releve_texte_rouge.mjs",
+    "tools/video_reference.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/lib_woff2.mjs",
+   "role": "la table cmap d'une police woff2 (décompression brotli de Node, sans dépendance).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_police_pages.mjs",
+    "tools/check_police_zh.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/livre_html.py",
+   "role": "les chapitres du livre en HTML : pour chaque page du livre, dans l'ordre, la planche (book-viewer/pages/<langue>/<code>.webp) avec sa légende, puis le texte de cette page tel que le PDF le porte (tools/livre_texte.py).",
+   "lit": [
+    "data/livre/chapitres.json",
+    "en/book",
+    "en/book/index.html",
+    "fr/livre",
+    "fr/livre/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-livre-texte.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/livre_texte.py",
+   "role": "le texte de chaque page du livre, tel que le PDF de la langue le porte.",
+   "lit": [
+    "book-viewer/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_livre_texte.py",
+    "tools/livre_html.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/make_figures.py",
+   "role": "Figures vectorielles (SVG) de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/make_motifs_index.mjs",
+   "role": "",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/measure_k_pic.py",
+   "role": "Mesure k_pic (fréquence spatiale dominante) des quinze gammes, pour les DEUX générations T1 et bandes, depuis les SVG sources.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/derive_echelles.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/pages_webp.py",
+   "role": "Les pages du lecteur du livre (book-viewer/pages/<langue>/), produites depuis le PDF de la langue, selon la convention RELEVÉE sur les quatre langues existantes (fr, en, es, th), le 3 octobre 2026 : - 111 fichiers, un par code de PAGE_CO…",
+   "lit": [
+    "book-viewer/index.html",
+    "book-viewer/pages"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/paires_croisees.py",
+   "role": "L'ensemble élargi : condition faible et paires inter-familles.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/cube_croisements.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/planche_fonds.mjs",
+   "role": "Planche de contrôle de la collection de fonds (data/fonds/collection-v1.json) : chaque vignette est la sortie de motifSvg() d'assets/bicolore-fonds.js telle quelle — ce script ne dessine rien lui-même, il range les rendus du moteur sur u…",
+   "lit": [
+    "data/AXES/catalogue.json",
+    "data/fonds/collection-v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/police_iast.py",
+   "role": "les lettres de la translittération savante du sanskrit (IAST) que Barlow Semi Condensed ne porte pas, composées dans Barlow même.",
+   "lit": [
+    "assets/fonts/barlow-semi-condensed"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/police_zh.py",
+   "role": "la police chinoise du site, réduite aux caractères employés.",
+   "lit": [
+    "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/recalibrate_carter_v3.py",
+   "role": "Campagne de recalibration C_PUB (câblage v3) La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Recalibre C_PUB pour les SEPT variantes câblées : carter256, carter360, cartermix, carterrandom90, carterrandom360, carter18, carterhybrid.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "en_panne",
+   "sait_echouer": false,
+   "panne": "via secubox/secu_box.py : module absent : argon2"
+  },
+  {
+   "fichier": "tools/recettes_animations.mjs",
+   "role": "la RECETTE de l'animation de chaque collection, écrite une fois dans le registre (data/fonds/collections-pinterest.json).",
+   "lit": [
+    "data/fonds/collection-v1.json",
+    "data/fonds/collections-pinterest.json",
+    "data/fonds_ecran_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/registre.mjs",
+   "role": "L'écriture du registre des collections (data/fonds/collections-pinterest.json), en UN SEUL endroit : indentation d'un espace, et une épingle de la campagne par ligne.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/affiches_animations.mjs",
+    "tools/export_pinterest_fonds.mjs",
+    "tools/recettes_animations.mjs",
+    "tools/restaurer_collection.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/registre_outils.mjs",
+   "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
+   "lit": [
+    "tools/axes",
+    "tools/registre.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-registre-outils.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/releve_rouges.mjs",
+   "role": "le relevé des ROUGES du site : toutes les valeurs de couleur écrites dans les fichiers HTML, CSS et JS suivis par git (#rgb, #rrggbb, rgb()/rgba(), et le nom « red »), gardées quand elles sont rouges, avec leur nombre d'occurrences, les …",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/releve_texte_rouge.mjs",
+   "role": "Les déclarations « color: var(--red) » du site, classées par ce qu'elles colorent RÉELLEMENT, mesuré dans le navigateur.",
+   "lit": [
+    "fr/motifs/par2-yin-yang-h5.html",
+    "motifs/bases-yang-h0.html"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/render_bicolore_c16.py",
+   "role": "rendu SVG autonome d'une famille au format C16 (voir cellule_c16.py), pour vérification visuelle.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/requirements.txt",
+   "role": "les modules Python dont dépendent les scripts de tools/",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-registre-outils.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/restaurer_collection.mjs",
+   "role": "remet en place une exportation GARDÉE d'une collection Pinterest (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), au lieu de la refabriquer.",
+   "lit": [
+    "assets/motifs-pinterest",
+    "data/fonds/collections-pinterest.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/selection_ordre6.py",
+   "role": "Des 256 carrés d'ordre 6 aux premières formes unifiées.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/cube_edges.py",
+    "tools/make_figures.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/spectre_et_cube.py",
+   "role": "La fermeture sur le cube a-t-elle une signature spectrale ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/tous_croisements.py",
+   "role": "L'ensemble complet des grilles qui pavent.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/validate_referent.py",
+   "role": "Validateur générique de référent (format v3) La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Format v3 figé, contenu paramétrable : tout référent (le 360 de l'auteur, le 256 du livre, ou un référent personnalisé futur) doit satisfaire…",
+   "lit": [
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verif_axes.py",
+   "role": "Point d'entrée unique de la loi des axes, de la parité et des échos (voir docs/ETAT_AXES.md).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verif_carre_magique.py",
+   "role": "VÉRIFICATEUR DE CARRÉS MAGIQUES — \"La Livrée d'Hermès\" Outil de vérification pour la méthode des carrés solaires (ordre 6, croix ansée EGO/ALTER) et pour tout carré magique classique (ordre N).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/generate_referent_256.py",
+    "tools/verif_protocole.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verif_protocole.py",
+   "role": "vérification indépendante des sections 2, 4 et 5 de « The Ansate Cross ».",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_bicolore_axes_catalogue.mjs",
+   "role": "Contrôle (a) — inter-implémentation.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_bicolore_axes_cles.mjs",
+   "role": "Contrôle indépendant de toute image de planche : recalcule, depuis systemes() et parityBit() (assets/bicolore-axes.js) sur la subdivision C8 (grille 12×12, 1152 triangles), quatre invariants du dépôt Zenodo 10.5281/zenodo.22965031, versi…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_bicolore_axes_t0.mjs",
+   "role": "Vérifie que la règle de parité de assets/bicolore-axes.js (sans aucune polarité par famille — voir la note de ce fichier) reproduit data/ORIGINES (via data/referent_bicolore_v1.json) au bit près pour T0, à l'inversion de couleur connue e…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_bicolore_images.mjs",
+   "role": "Contrôle (b) — vérité de terrain réelle : les 60 images du métier (data/referent_360_v3.json) sont des figures de parité du système des axes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_cymatique_plate_modes.mjs",
+   "role": "Vérifie, au triangle près, la correspondance entre motif bicolore et mode de plaque annoncée sur cymatique.html — sur le modèle de tools/verify_bicolore_axes_yang_t2.mjs.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/verify_fonds.mjs",
+   "role": "Le test qui gèle l'essentiel des fonds de case (assets/bicolore-fonds.js, data/fonds/collection-v1.json).",
+   "lit": [
+    "data/AXES/catalogue.json",
+    "data/fonds/collection-v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_generateur_v2_doublement.mjs",
+   "role": "Contrôle du bouton « descendre » (dédoublement θ ↦ 2θ) de creation-bicolore-v2.html — règle donnée par Anibal, pas rédérivée (assets/bicolore-axes.js::DOUBLEMENT_ANGLE/DOUBLEMENT_ORTHO/doubleDe/ doubleAccord).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_lecture_binaire.mjs",
+   "role": "La lecture binaire des motifs tricolores (assets/lecture-binaire.js), sur les 256 pages de motifs telles qu'elles sont servies (motifs/*.html : la grille lue est celle que la page affiche, grille_polarite_yang, dans son bloc motifDataJSON).",
+   "lit": [
+    "data/fonds/collection-v1.json",
+    "data/fonds_ecran_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [
+    "tools/check_couleurs.mjs"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_modes_de_famille.mjs",
+   "role": "la table MODES_DE_FAMILLE de cymatique.html, affichée au visiteur en badge (mode, bords, f = 32 × (m² + n²)), recalculée depuis les données, sans rien lire d'autre de la page que la table elle-même.",
+   "lit": [
+    "data/referent_bandes_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/verify_six_formes.mjs",
+   "role": "Six formes indépendantes, pas huit.",
+   "lit": [
+    "data/fonds_ecran_v1.json",
+    "data/motifs-index.csv"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-series-pinterest.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/video_reference.mjs",
+   "role": "LA VIDÉO DE RÉFÉRENCE d'une collection, produite hors navigateur par ffmpeg / libx264.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  }
+ ]
+}
