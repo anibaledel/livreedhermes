@@ -148,6 +148,12 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   for (const code of aAjouter) {
     if (!codesConnus.has(code)) { ecarts.push(`${code} : ni fond ni assemblage de data/fonds/collection-v1.json`); continue; }
     if (reg.collections[code]) continue;
+    // un code qui dessine la même chose qu'un code déjà inscrit (« identique »,
+    // calculé par le moteur) n'a pas sa propre animation : il est le synonyme
+    // de l'inscrit (décision d'Anibal, 2026-10-05 : BA33, B3x en synonyme)
+    const fond = collection.fonds.find((f) => f.id === code);
+    const deja = (fond?.identique || []).find((c) => reg.collections[c]);
+    if (deja) { ecarts.push(`${code} : dessine la même chose que ${deja}, déjà inscrit — c'en est le synonyme, pas une animation de plus`); continue; }
     const graine = graineDe(code);
     const recette = { ...DEFAUTS_26, graine, motifs: calculerListe(graine, DEFAUTS_26.nombre, true, true) };
     delete recette.nombre;
