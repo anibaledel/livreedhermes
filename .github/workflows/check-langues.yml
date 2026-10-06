@@ -33,6 +33,11 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #     qui entre dans un groupe de langues doit sortir de STATIC_PAGES — oublié
 #     pour outils.html et soutenir.html, ce que seul update-sitemap.yml, sur
 #     main, aurait vu. Le sitemap engendré ici n'est pas commité.
+#     Il passe EN PREMIER : check_tuiles.mjs lit sitemap.xml, et une PR ne
+#     commite plus le sitemap (update-sitemap.yml le régénère sur main après
+#     la fusion — le commiter aussi dans la PR mettait la PR en conflit avec
+#     chaque passage du robot). Le contrôle lit donc le sitemap de la PR,
+#     engendré ici, et non celui, en retard, du dépôt.
 
 on:
   push:
@@ -50,6 +55,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - run: node scripts/generate-sitemap.js
       - run: node tools/check_glossaire.mjs
       - run: node tools/check_tuiles.mjs
       - run: node tools/check_tuiles.mjs --essai
@@ -61,4 +67,3 @@ jobs:
       - run: node tools/check_doi_licences.mjs
       - run: node tools/check_police_zh.mjs
       - run: node scripts/build-outils-langues.js --verifie
-      - run: node scripts/generate-sitemap.js

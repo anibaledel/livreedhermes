@@ -20,7 +20,13 @@
 //      relatif oublié à la profondeur ../../ se voit ici) ;
 //   7. chaque adresse est au sitemap ;
 //   8. (local seulement) la page française n'a pas changé depuis REF, son
-//      bloc hreflang mis à part : ce lot ajoute, il ne modifie pas.
+//      bloc hreflang mis à part : ce lot ajoute, il ne modifie pas. C'est
+//      l'invariant d'un lot de traduction, pas une règle permanente : une
+//      retouche légitime d'une page française d'outil le briserait. La CI ne
+//      le passe donc pas — son clone superficiel n'a pas REF, et la
+//      comparaison est sautée, ce que le contrôle dit en clair. En CI, la
+//      dérive entre une page et ses traductions est vue ailleurs :
+//      build-outils-langues.js --verifie (check-langues.yml).
 //
 // Usage : node tools/check_outils_langues.mjs [local | https://anibal-amiot.com] [--depuis REF] [--essai]
 import { chromium } from 'playwright';
@@ -159,7 +165,8 @@ for (const g of groupes) {
     let avant = null;
     // absent dans un clone peu profond (CI) : la comparaison se fait alors en local seulement
     try { avant = execFileSync('git', ['show', `${REF}:${fr[2]}`], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] }); } catch {}
-    if (avant !== null) {
+    if (avant === null) console.log(`      ${fr[2]} : comparaison avec ${REF} sautée (${REF} absent du clone)`);
+    else {
       const apres = readFileSync(path.join(ROOT, fr[2]), 'utf8');
       if (sans(avant) !== sans(apres)) echec(`${fr[2]} : la page française a changé depuis ${REF} hors de son bloc hreflang`);
       else console.log(`      ${fr[2]} : identique à ${REF} hors du bloc hreflang (${Buffer.byteLength(sans(apres))} octets)`);

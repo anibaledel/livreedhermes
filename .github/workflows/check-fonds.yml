@@ -131,6 +131,9 @@ jobs:
       # les outils traduits (scripts/build-outils-langues.js) : 200, langue et
       # canonical propres, alternates réciproques, langue fixée, texte en dur
       # dans sa langue, aucune ressource en échec ; --essai : défauts posés, vus
+      # sitemap.xml engendré d'abord : check_outils_langues y cherche chaque adresse,
+      # et une PR ne commite pas le sitemap (update-sitemap.yml, sur main)
+      - run: node scripts/generate-sitemap.js
       - run: node tools/check_outils_langues.mjs local
       - run: node tools/check_outils_langues.mjs local --essai
       # le parcours des épingles encre et crème : à jour, sans jumelles
