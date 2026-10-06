@@ -5,7 +5,9 @@
 
      data/galerie-animations.json            les groupes, leurs adresses, les textes
      data/fonds/collections-pinterest.json   le registre : recette, vidéo, rang
-     data/fonds/collection-v1.json           le nom de chaque fond
+     data/fonds/collection-v1.json           le nom de chaque fond ; la forme et
+                                             l'échelle de chaque superposition
+     docs/terminologie-fr-en-es-th.md        le nom des formes dans chaque langue
      assets/animations/vignettes/            les vignettes WebP (tools/vignettes_animations.py)
 
    Chaque page porte deux zones écrites ici : @galerie-tete (titre, description,
@@ -79,6 +81,24 @@ const urlGroupe = (l, g) => G.adresses[l].groupe.replace('{slug}', g.slugs[G.adr
 const fichierDe = (u) => (u.endsWith('/') ? `${u}index.html` : u);
 const prefixeDe = (u) => '../'.repeat(fichierDe(u).split('/').length - 1);
 
+// Les formes de superposition, lues au glossaire : les lignes « étoile (forme
+// de superposition) », etc., une colonne par langue dans l'ordre de
+// scripts/langues.js. La clé est le mot français sans accent, celle du JSON.
+function formesDuGlossaire() {
+  const md = fs.readFileSync(path.join(ROOT, 'docs/terminologie-fr-en-es-th.md'), 'utf8');
+  const langues = Object.keys(LANGUES);
+  const out = {};
+  for (const ligne of md.split('\n')) {
+    const m = /^\|\s*([^|(]+?)\s*\(forme de superposition\)\s*\|(.*)$/.exec(ligne);
+    if (!m) continue;
+    const cellules = m[2].split('|').map((c) => c.trim());
+    const cle = m[1].normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    out[cle] = { fr: m[1] };
+    langues.slice(1).forEach((l, k) => { out[cle][l] = cellules[k]; });
+  }
+  return out;
+}
+
 async function main() {
   const { nomDuFond } = await import(pathToFileURL(path.join(ROOT, 'assets/selecteur-fonds.js')).href);
   const { decomposer } = await import(pathToFileURL(path.join(ROOT, 'assets/bicolore-fonds.js')).href);
@@ -88,19 +108,34 @@ async function main() {
   // le nom des fonds existe en français et en anglais (assets/selecteur-fonds.js) :
   // les autres langues prennent l'anglais
   const nomFond = (code, l) => { const f = fonds.get(decomposer(code).fond); return f ? nomDuFond(f, l === 'fr' ? 'fr' : 'en') : ''; };
+  // Une carte d'assemblage (P+E95) nomme le fond, puis la figure : la forme et
+  // l'échelle se lisent dans collection-v1.json (R est un rond, C un carré —
+  // la lettre ne se lit pas), le nom de la forme dans le glossaire.
+  const superpositions = new Map(collection.superpositions.map((s) => [s.id, s]));
+  const FORMES = formesDuGlossaire();
+  const libelle = (code, l, T) => {
+    const { superposition } = decomposer(code);
+    if (!superposition) return nomFond(code, l);
+    const s = superpositions.get(superposition);
+    if (!s) throw new Error(`${code} : superposition ${superposition} absente de data/fonds/collection-v1.json`);
+    if (!FORMES[s.forme]) throw new Error(`${code} : forme « ${s.forme} » absente du glossaire (docs/terminologie-fr-en-es-th.md)`);
+    return remplir(T.assemblage, { fond: nomFond(code, l), forme: FORMES[s.forme][l], p: Math.round(s.echelle * 100) });
+  };
 
   const vignette = (code, p, T, taille) => `${p}assets/animations/vignettes/${code}-${taille}.webp`;
-  const image = (code, p, T) => {
+  const image = (code, p, T, l) => {
     if (!VIGNETTES[code]) return '';
-    return `<img src="${vignette(code, p, T, 360)}" srcset="${vignette(code, p, T, 360)} 360w, ${vignette(code, p, T, 720)} 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="${esc(remplir(T.altVignette, { code }))}">`;
+    return `<img src="${vignette(code, p, T, 360)}" srcset="${vignette(code, p, T, 360)} 360w, ${vignette(code, p, T, 720)} 720w" sizes="(max-width: 420px) 88vw, 360px" width="360" height="640" loading="lazy" alt="${esc(decomposer(code).superposition ? remplir(T.altAssemblage, { code, libelle: libelle(code, l, T) }) : remplir(T.altVignette, { code }))}">`;
   };
   const meta = (code, l, T) => {
     const col = REGISTRE[code];
-    const parts = [nomFond(code, l), remplir(T.motifs, { n: col.recette.motifs.length }), remplir(T.duree, { s: String(dureeTotale(col.recette)).replace('.', T.decimale) })];
+    const parts = [libelle(code, l, T), remplir(T.motifs, { n: col.recette.motifs.length }), remplir(T.duree, { s: String(dureeTotale(col.recette)).replace('.', T.decimale) })];
     if (col.rang) parts.push(remplir(T.rang, { r: col.rang }));
     return parts.filter(Boolean).map(esc).join(' · ');
   };
   const affiche720 = (code) => (VIGNETTES[code] ? ` data-affiche="assets/animations/vignettes/${code}-720.webp"` : '');
+  // les libellés d'assemblage sont composés ici : la page n'en a pas besoin
+  const pourLaPage = ({ assemblage, altAssemblage, ...T }) => T;
   const donnees = (obj) => `<script type="application/json" id="galerie-donnees">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
 
   function tete(l, u, titre, description, imageOg) {
@@ -154,7 +189,7 @@ async function main() {
   <p class="anim-groupe-place">${esc(remplir(T.groupeSur, { i: i + 1, n: G.groupes.length }))}</p>
   <h2><a class="anim-lien-groupe" href="${href}">${esc(g.nom[l])}</a></h2>
   <p class="anim-meta">${esc(g.texte[l])}</p>
-  <div class="anim-ecran">${image(g.temoin, p, T)}</div>
+  <div class="anim-ecran">${image(g.temoin, p, T, l)}</div>
   <p class="anim-meta">${esc(remplir(T.temoin, { code: g.temoin }))} · ${esc(remplir(T.nAnimations, { n: g.codes.length }))}</p>
   <a class="anim-lien-groupe" href="${href}">${esc(remplir(T.voir, { n: g.codes.length }))}</a>
 </article>`;
@@ -167,7 +202,7 @@ async function main() {
       `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}fonds-ecran.html` })}</p>`,
       `<div class="anim-grille" id="groupes">\n${cartes}\n</div>`,
       synonymes(T),
-      donnees({ page: 'entree', textes: T, groupeDe }),
+      donnees({ page: 'entree', textes: pourLaPage(T), groupeDe }),
     ].join('\n');
     const titre = `${T.titre} — La Livrée d'Hermès`;
     return { u, tete: tete(l, u, titre, T.description, `${SITE}/assets/animations/vignettes/${G.groupes[0].temoin}-720.webp`), corps };
@@ -183,7 +218,7 @@ async function main() {
     const cartes = g.codes.map((code) => `<article class="anim-carte" id="${code}" data-code="${code}"${affiche720(code)}>
   <h2>${esc(remplir(T.collection, { code }))}</h2>
   <p class="anim-meta">${meta(code, l, T)}</p>
-  <div class="anim-ecran">${image(code, p, T)}</div>
+  <div class="anim-ecran">${image(code, p, T, l)}</div>
 </article>`).join('\n');
     const liste = G.groupes.map((h, j) => `<li><a href="${SITE}/${urlGroupe(l, h)}"${j === i ? ' aria-current="page"' : ''}>${j + 1}. ${esc(h.nom[l])}</a></li>`).join('');
     const corps = [
@@ -197,7 +232,7 @@ async function main() {
   <a class="anim-toutes" href="${SITE}/${urlEntree(l)}">${esc(T.toutes)}</a>
   <a rel="next" href="${SITE}/${urlGroupe(l, suiv)}">${esc(remplir(T.suivant, { groupe: suiv.nom[l] }))}</a>
 </nav>`,
-      donnees({ page: 'groupe', textes: T }),
+      donnees({ page: 'groupe', textes: pourLaPage(T) }),
     ].filter(Boolean).join('\n');
     const titre = `${g.nom[l]} — ${T.titre} — La Livrée d'Hermès`;
     return { u, tete: tete(l, u, titre, remplir(T.descriptionGroupe, { groupe: g.nom[l] }), `${SITE}/assets/animations/vignettes/${g.temoin}-720.webp`), corps };

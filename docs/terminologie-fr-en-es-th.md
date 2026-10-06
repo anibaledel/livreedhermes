@@ -56,6 +56,11 @@ dans les pages anglaises comme dans la partie anglaise de `llms.txt`.
 | ligne nodale | nodal line | línea nodal | เส้นโหนด | 节线 | узловая линия | linha nodal | नोडीय रेखा | — |
 | ligne d'iso-amplitude | iso-amplitude line | línea de isoamplitud | เส้นแอมพลิจูดเท่ากัน | 等幅线 | линия равной амплитуды | linha de isoamplitude | सम-आयाम रेखा | — |
 | région de référence | reference region | región de referencia | บริเวณอ้างอิง | 参考区域 | опорная область | região de referência | संदर्भ क्षेत्र | — |
+| étoile (forme de superposition) | star | estrella | ดาว | 星形 | звезда | estrela | तारा | forme de superposition (`etoile` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
+| rond (forme de superposition) | disc | disco | วงกลมทึบ | 圆盘 | круг | disco | चकती | forme de superposition (`rond` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — une surface pleine : EN « disc », jamais « circle » (une ligne) |
+| carré (forme de superposition) | square | cuadrado | สี่เหลี่ยมจัตุรัส | 正方形 | квадрат | quadrado | वर्ग | forme de superposition (`carre` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) |
+| croix (forme de superposition) | cross | cruz | กางเขน | 十字 | крест | cruz | क्रॉस | forme de superposition (`croix` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — TH et HI comme dans « croix ansée » |
+| losange (forme de superposition) | lozenge | rombo | สี่เหลี่ยมขนมเปียกปูน | 菱形 | ромб | losango | समचतुर्भुज | forme de superposition (`losange` dans data/fonds/collection-v1.json) ; compose les libellés des cartes d'assemblage (scripts/build-galerie-animations.js) — EN « lozenge », déjà en usage dans le sélecteur de fonds |
 
 ## Termes du système
 
