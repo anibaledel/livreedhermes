@@ -23,7 +23,7 @@
 // l'activation. Ne pas l'éditer à la main : `node tools/check_encodeur_sw.mjs --ecrit`
 // la recalcule, et le même script sans option fait échouer la CI si elle est périmée.
 
-const CACHE_VERSION = 'c61ebc7c119f';
+const CACHE_VERSION = 'fd112b719349';
 const CACHE_PREFIX = 'encodeur-';
 const CACHE_NAME = CACHE_PREFIX + CACHE_VERSION;
 // Avec les trois référents que loadReferents() charge : sans eux,

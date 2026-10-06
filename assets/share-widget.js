@@ -102,14 +102,21 @@
     injectStyle();
     var block = buildBlock(label, url, title);
 
-    // .credit-line d'abord (insertion avant elle) : ancre stable, qui ne
-    // bouge pas si l'ordre caducée / bouton Soutien change dans le pied de
-    // page. Repli sur .footer-caduceus, .footer-title-logo puis
+    // .credit-line d'abord (insertion APRÈS elle : les boutons de partage
+    // viennent sous le gif du bas de page et sous la ligne « © … Créé en
+    // collaboration avec Claude », demande d'Anibal du 2026-10-06) : ancre
+    // stable, qui ne bouge pas si l'ordre caducée / bouton Soutien change
+    // dans le pied de page. Repli sur .footer-caduceus, .footer-title-logo puis
     // .site-nav-row pour les pages qui n'ont pas .credit-line, et sur la
     // fin de <body> en tout dernier recours.
     var creditLine = document.querySelector('.credit-line');
     if(creditLine){
-      creditLine.insertAdjacentElement('beforebegin', block);
+      creditLine.insertAdjacentElement('afterend', block);
+      // Un pied ordonné en flex (style.css et 42 pages : .note > .share-buttons
+      // 7, .credit-line 8) remettrait le partage AU-DESSUS du crédit, quel que
+      // soit l'ordre du HTML : il prend donc le rang de la ligne de crédit, et
+      // à rang égal l'ordre du HTML le place juste après elle.
+      block.style.order = getComputedStyle(creditLine).order;
     } else {
       var anchor = document.querySelector('.footer-caduceus') || document.querySelector('.footer-title-logo') || document.querySelector('.site-nav-row');
       if(anchor){

@@ -430,26 +430,6 @@ ${linesHtml}
 
 </main>
 <!-- @main:end -->
-  <div class="note">
-    <div class="site-nav-row">
-      <a class="site-nav-btn" href="https://anibal-amiot.com/index.html">Accueil</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/tirage-livree-hermes.html">Tirage</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/cymatique.html">Cymatique</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/lexique.html">Lexique</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/articles.html">Articles</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/fr/livre/">Le livre</a>
-    </div>
-    <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
-      <span class="credit-sep">·</span>
-      <span>Créé en collaboration avec Claude</span>
-    </div>
-    <div class="footer-title-logo">
-      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
-    </div>
-    ${SOUTIEN_LINK_HTML}
-  </div>
 ${PIED}
 </div>
 ${FOOTER_CTA_SCRIPT}
