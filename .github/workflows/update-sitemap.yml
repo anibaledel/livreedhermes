@@ -18,6 +18,12 @@ name: Update sitemap
 # le ruleset continue d'exiger la revue de code owner pour tout le monde,
 # seule cette App précise — permission contents:write sur ce seul dépôt,
 # rien d'autre — peut la contourner, et seulement pour ce workflow.
+#
+# Une PR ne commite donc pas sitemap.xml : ce workflow le régénère après la
+# fusion, et un sitemap commité dans la PR entrait en conflit avec chacun de
+# ses passages (lastmod réécrit). Les contrôles qui lisent le sitemap
+# (check_tuiles, check_outils_langues, check_article) l'engendrent eux-mêmes
+# en CI avant de le lire.
 
 on:
   push:

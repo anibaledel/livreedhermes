@@ -48,6 +48,9 @@ jobs:
           node-version: '20'
       - run: npm install playwright@1
       - run: npx playwright install --with-deps chromium
+      # sitemap.xml engendré d'abord : une PR ne le commite pas (update-sitemap.yml
+      # le régénère sur main après la fusion)
+      - run: node scripts/generate-sitemap.js
       - run: node tools/check_article.mjs local le-fil-et-le-carre
 
   # le site déployé : après la publication de main par GitHub Pages

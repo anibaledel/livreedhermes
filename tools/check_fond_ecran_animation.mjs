@@ -64,10 +64,15 @@ const lireEtat = () => p.evaluate(async () => {
 });
 
 // 1. l'état dans l'URL, et le rechargement
-await p.goto(`${BASE}/fonds-ecran.html?${new URLSearchParams(ETAT)}`, { waitUntil: 'networkidle' });
+// On attend le chargement de la page, puis l'état prêt de chaque étape
+// (pret(), un sélecteur précis) — jamais « networkidle » : la galerie
+// bicolore, cible de la redirection de l'étape 7, charge assez longtemps
+// pour que le réseau ne soit jamais au repos 500 ms dans les 30 s d'un
+// runner lent (échec du 2026-10-06 sur main, sans défaut de la page).
+await p.goto(`${BASE}/fonds-ecran.html?${new URLSearchParams(ETAT)}`, { waitUntil: 'load' });
 await pret();
 const e1 = await lireEtat();
-await p.reload({ waitUntil: 'networkidle' });
+await p.reload({ waitUntil: 'load' });
 await pret();
 const e2 = await lireEtat();
 const attendu = { code: 'B121+E95', palette: '#efeae0,#23232b', teinte: 'multi' };
@@ -187,7 +192,7 @@ if (reinit.palette !== PALETTE_DEFAUT.join(',') || reinit.d !== 4 || reinit.r !=
 console.log(`   pause « ${pause} » ; densité 7 et rythme 2,5 s dans l'URL (${vue}) ; réinitialiser → ${reinit.palette}, densité ${reinit.d}, rythme ${reinit.r} s`);
 await p.evaluate(() => O('bicolore').quitter());
 // la vue relue depuis l'URL, chaque outil sur ses clés
-await p.goto(`${BASE}/fonds-ecran.html?densite=9&rythme=3.5&bdensite=11&brythme=6`, { waitUntil: 'networkidle' });
+await p.goto(`${BASE}/fonds-ecran.html?densite=9&rythme=3.5&bdensite=11&brythme=6`, { waitUntil: 'load' });
 await pret();
 const vues = await p.evaluate(() => ['tricolore', 'bicolore'].map((r) => [O(r).etat().densite, C(r, 'sizeSlider').value, C(r, 'rhythmSlider').value, C(r, 'rhythmLabel').textContent]));
 if (vues[0].join('/') !== '9/9/3.5/3.5 s' || vues[1].join('/') !== '11/11/6/6 s') echec(`vue relue : tricolore ${vues[0].join(' / ')} ; bicolore ${vues[1].join(' / ')}`);
@@ -198,8 +203,10 @@ if (!hudTri.teinte || hudTri.couleurs) echec(`barre tricolore : ${JSON.stringify
 
 // 7. l'ancienne adresse du fond d'écran fixe mène au même rendu, sur la galerie bicolore
 const ancienne = 'motif=par2-yin-yang-h5&fond=B2&sup=E95&c0=c8102e&c1=23232b';
-await p.goto(`${BASE}/fonds-ecran.html?${ancienne}`, { waitUntil: 'networkidle' });
-await p.waitForFunction(() => document.querySelector('#ffApercu svg'));
+// la page part aussitôt vers la galerie : on attend d'y être arrivé, puis l'aperçu
+await p.goto(`${BASE}/fonds-ecran.html?${ancienne}`, { waitUntil: 'commit' });
+await p.waitForURL(/galerie-bicolore\.html/, { waitUntil: 'load' });
+await p.waitForFunction(() => document.querySelector('#ffApercu svg'), null, { timeout: 60000 });
 const arrivee = new URL(p.url());
 const rendu7 = await p.evaluate(async () => {
   const { fondEcranSvg } = await import('/assets/bicolore-fonds.js');
