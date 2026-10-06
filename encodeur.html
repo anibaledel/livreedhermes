@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-FunNsLqmu9EETkou7z6ToRV/imSO3R4IczsYAZhMbus=' 'sha256-i2UtbkZsC/YS675rGfmOGdSZB1R6xS8Jjp2cESk73qI=' 'sha256-9ZEAt27zgb02YL4/qvIQGl4B4ARCBitedG2lJshtSCg=' 'sha256-uSwRm42XdTMVCsuvqbNI0gCkzx6wqaqRjVYA30unSy8='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://livreedhermes-soutien.anibalamiot.workers.dev; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-FunNsLqmu9EETkou7z6ToRV/imSO3R4IczsYAZhMbus=' 'sha256-9ZEAt27zgb02YL4/qvIQGl4B4ARCBitedG2lJshtSCg=' 'sha256-uSwRm42XdTMVCsuvqbNI0gCkzx6wqaqRjVYA30unSy8=' 'sha256-i2UtbkZsC/YS675rGfmOGdSZB1R6xS8Jjp2cESk73qI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://livreedhermes-soutien.anibalamiot.workers.dev; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Encodeur stéganographique — La Livrée d'Hermès</title>
 <meta name="description" content="Outil d'encodage stéganographique géométrique par double référent (croix ansée + Jacquard), en accès libre sur La Livrée d'Hermès.">
@@ -578,46 +578,8 @@ if('serviceWorker' in navigator){
 
   </main>
 <!-- @main:end -->
-<div class="note">
-    <div class="center-logo-slot">
-      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
-    </div>
-    <button type="button" class="site-nav-btn" id="btnSoutienFooter" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</button>
-
-    <div class="site-nav-row">
-      <a class="site-nav-btn" href="index.html">Accueil</a>
-      <a class="site-nav-btn" href="https://anibal-amiot.com/tirage-livree-hermes.html">Tirage</a>
-      <a class="site-nav-btn" href="hexagrammes/">Hexagrammes</a>
-      <a class="site-nav-btn" href="creation-motifs-yi-king.html">Créer un motif</a>
-      <a class="site-nav-btn" href="unified-patterns.html">Unified Patterns</a>
-      <a class="site-nav-btn" href="galerie-patterns-unifies.html">Galerie</a>
-      <a class="site-nav-btn" href="telechargements.html">Motifs SVG</a>
-      <a class="site-nav-btn" href="cymatique.html">Cymatique</a>
-      <a class="site-nav-btn" href="fonds-ecran.html">Fond d'écran</a>
-      <a class="site-nav-btn" href="360-calques.html">Impression</a>
-      <a class="site-nav-btn current" href="encodeur.html" aria-current="page">Encodeur</a>
-      <a class="site-nav-btn" href="contact.html">Contact</a>
-      <a class="site-nav-btn" href="a-propos.html">À propos</a>
-      <a class="site-nav-btn" href="lexique.html">Lexique</a>
-      <a class="site-nav-btn" href="articles.html">Articles</a>
-    </div>
-
-    <div class="credit-line">
-      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
-      <span class="credit-sep">·</span>
-      <span>Créé en collaboration avec Claude</span>
-    </div>
-
-    <div class="footer-title-logo">
-      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
-    </div>
-    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
-  </div>
 </div>
 
-<script>
-  document.getElementById('credit-year').textContent = new Date().getFullYear();
-</script>
 <script src="assets/soutien-gate.js"></script>
 <script>
 (function(){
@@ -2260,5 +2222,8 @@ import {
   </p>
 </footer>
 <!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
