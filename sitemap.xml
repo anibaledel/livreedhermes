@@ -39,25 +39,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/chiffres-et-sources.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://anibal-amiot.com/contact.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://anibal-amiot.com/profil.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-    <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/encodeur.html</loc>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -1995,6 +1976,142 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/galeria-bicolor/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/two-colour-gallery/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/two-colour-gallery/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/contact.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/contact/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/contacto/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/contact/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/contact/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/contact/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/contact/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/profil.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/profil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/documentary-profile/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/perfil-documental/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/profile/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/documentary-profile/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/documentary-profile/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/profil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/documentary-profile/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/perfil-documental/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/profile/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/documentary-profile/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/perfil-documental/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/profil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/documentary-profile/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/perfil-documental/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/profile/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/documentary-profile/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/profile/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/profil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/documentary-profile/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/perfil-documental/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/profile/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/documentary-profile/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/chiffres-et-sources.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/figures-and-sources/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/cifras-y-fuentes/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/figures-and-sources/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/outils.html</loc>

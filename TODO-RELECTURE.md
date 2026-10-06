@@ -488,3 +488,32 @@ Reste en français sur ces pages, et pourquoi :
 - les noms de familles et de fonds du **fond d'écran fixe** de la galerie bicolore, et la phrase sous son aperçu : ils viennent du module partagé
   `assets/vue-fond-ecran.js`, qui n'a pas encore de langue (chantier de `fonds-ecran.html`) ;
 - les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`, communes à toutes les pages.
+
+## Outils traduits, étape 3 — contact, profil, chiffres et sources (2026-10-06)
+
+Neuf pages nouvelles, en anglais, espagnol et thaï, sur le modèle de l'étape 2 (une table par page, `data/outils-langues/<page>.json`,
+chaque ligne avec sa provenance ; « SANS SOURCE » marque ce que j'ai écrit). Termes du glossaire : croix ansée, carré solaire, calque,
+planche, demi-décalage, grain de lecture, case, accord, système de bandes, région de référence, Carter, licence.
+
+Où corriger : dans la table de la page, puis `node scripts/build-outils-langues.js`.
+
+- `contact.html` → en/contact/, es/contacto/, th/contact/ : 20 textes, dont **17 sans source** ; les autres reprennent les tuiles.
+- `profil.html` → en/documentary-profile/, es/perfil-documental/, th/profile/ : 33 textes, dont **29 sans source** pour l'espagnol et
+  le thaï. L'anglais reprend la formulation d'en/about/ partout où elle existe. Les titres officiels des deux brevets restent en français,
+  avec une glose dans la langue, comme sur en/about/.
+- `chiffres-et-sources.html` → en/figures-and-sources/, es/cifras-y-fuentes/, th/figures-and-sources/ : 49 textes, dont **42 sans source** ;
+  les autres reprennent les tuiles et le dictionnaire de 360 calques.
+
+Reste en français sur ces pages, et pourquoi :
+- les commandes et ce qu'elles impriment (`<p class="commande">`, `<pre class="sortie">`) : c'est la sortie des scripts, telle qu'on
+  l'obtient ; l'introduction le dit (« les scripts impriment en français »), une phrase ajoutée à la traduction ;
+- les titres officiels des brevets (glosés), et les noms de fichiers.
+
+Laissées sans traduction à cette étape, et pourquoi :
+- `telechargements.html` : la page se dit elle-même provisoire (« Le contenu de cette page n'est pas encore défini ») ; la traduire
+  maintenant, c'est la retraduire quand elle existera ;
+- `la-livree-d-hermes.html` : son rôle est déjà tenu dans chaque langue par la présentation du traité (en/book/, es/libro/, th/book/…),
+  et son corps présente déjà chaque édition dans sa langue ;
+- `unified-patterns.html` : son panneau porte les 64 textes de Jugement des hexagrammes, qui relèvent du livre — même raison que
+  `creation-motifs-yi-king.html`, à faire ensemble ;
+- `carter-demo.html` : satellite de l'encodeur, à faire avec lui (CSP stricte, service worker).

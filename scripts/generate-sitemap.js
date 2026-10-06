@@ -101,9 +101,9 @@ const STATIC_PAGES = [
   { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
   // 'outils.html' : dans le groupe « outils » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
-  { loc: `${SITE}/chiffres-et-sources.html`, file: 'chiffres-et-sources.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/contact.html`, file: 'contact.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/profil.html`, file: 'profil.html', changefreq: 'monthly', priority: '0.5' },
+  // 'chiffres-et-sources.html' : dans le groupe « outil-chiffres-et-sources » de scripts/langues.js (étape 3).
+  // 'contact.html' : dans le groupe « outil-contact » de scripts/langues.js (étape 3).
+  // 'profil.html' : dans le groupe « outil-profil » de scripts/langues.js (étape 3).
   // 'soutenir.html' : dans le groupe « soutien » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },

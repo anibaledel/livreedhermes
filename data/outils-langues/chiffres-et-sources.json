@@ -1,0 +1,348 @@
+{
+ "_doc": "Textes de chiffres-et-sources.html et leurs traductions (scripts/build-outils-langues.js). Les commandes et ce qu'elles impriment (<p class=\"commande\">, <pre class=\"sortie\">) restent en français : c'est la sortie des scripts, telle qu'on l'obtient. « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "Chiffres et sources — La Livrée d'Hermès",
+   "en": "Figures and sources — La Livrée d'Hermès",
+   "es": "Cifras y fuentes — La Livrée d'Hermès",
+   "th": "ตัวเลขและแหล่งที่มา — La Livrée d'Hermès",
+   "source": "nav-tiles (chiffres-et-sources)"
+  },
+  {
+   "fr": "Chaque chiffre du site, le script du dépôt qui le reproduit et la ligne qu'il imprime : 2 croix ansées, 256 carrés solaires, 360 calques, 512 grilles unifiées.",
+   "en": "Every figure on the site, the repository script that reproduces it and the line it prints: 2 ansate crosses, 256 solar squares, 360 layers, 512 unified grids.",
+   "es": "Cada cifra del sitio, el script del repositorio que la reproduce y la línea que imprime: 2 cruces ansadas, 256 cuadrados solares, 360 capas, 512 rejillas unificadas.",
+   "th": "ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ในคลังโค้ดที่สร้างซ้ำได้ และบรรทัดที่สคริปต์พิมพ์ออกมา: กางเขนหูหิ้ว 2 แบบ จัตุรัสสุริยะ 256 แบบ แผ่นลาย 360 แผ่น ตารางรวมเป็นหนึ่ง 512 แบบ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"position\": 2, \"name\": \"La Livrée d'Hermès\", \"item\": \"https://anibal-amiot.com/la-livree-d-hermes.html\"",
+   "en": "\"position\": 2, \"name\": \"La Livrée d'Hermès\", \"item\": \"https://anibal-amiot.com/en/book/\"",
+   "es": "\"position\": 2, \"name\": \"La Livrée d'Hermès\", \"item\": \"https://anibal-amiot.com/es/libro/\"",
+   "th": "\"position\": 2, \"name\": \"La Livrée d'Hermès\", \"item\": \"https://anibal-amiot.com/th/book/\"",
+   "source": "le traité dans la langue de la page (la-livree-d-hermes.html n'existe qu'en français)"
+  },
+  {
+   "fr": "<a href=\"https://anibal-amiot.com/la-livree-d-hermes.html\">La Livrée d'Hermès</a>",
+   "en": "<a href=\"https://anibal-amiot.com/en/book/\">La Livrée d'Hermès</a>",
+   "es": "<a href=\"https://anibal-amiot.com/es/libro/\">La Livrée d'Hermès</a>",
+   "th": "<a href=\"https://anibal-amiot.com/th/book/\">La Livrée d'Hermès</a>",
+   "source": "le traité dans la langue de la page"
+  },
+  {
+   "fr": "\"position\": 3, \"name\": \"Chiffres et sources\"",
+   "en": "\"position\": 3, \"name\": \"Figures and sources\"",
+   "es": "\"position\": 3, \"name\": \"Cifras y fuentes\"",
+   "th": "\"position\": 3, \"name\": \"ตัวเลขและแหล่งที่มา\"",
+   "source": "nav-tiles (chiffres-et-sources)"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Chiffres et sources</span>",
+   "en": "<span aria-current=\"page\">Figures and sources</span>",
+   "es": "<span aria-current=\"page\">Cifras y fuentes</span>",
+   "th": "<span aria-current=\"page\">ตัวเลขและแหล่งที่มา</span>",
+   "source": "nav-tiles (chiffres-et-sources)"
+  },
+  {
+   "fr": "<h1>Chiffres et sources</h1>",
+   "en": "<h1>Figures and sources</h1>",
+   "es": "<h1>Cifras y fuentes</h1>",
+   "th": "<h1>ตัวเลขและแหล่งที่มา</h1>",
+   "source": "nav-tiles (chiffres-et-sources)"
+  },
+  {
+   "fr": "<p>Chaque nombre, le script qui le reproduit, et la ligne qu'il imprime</p>",
+   "en": "<p>Every number, the script that reproduces it, and the line it prints</p>",
+   "es": "<p>Cada número, el script que lo reproduce y la línea que imprime</p>",
+   "th": "<p>ตัวเลขแต่ละตัว สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les chiffres avancés sur ce site ne sont pas des affirmations à croire sur parole. Chacun sort d'un script du dépôt, qui lit les données publiées et se relance en quelques minutes. Cette page les réunit : l'énoncé, la commande, et ce qu'elle imprime — les lignes qui portent le chiffre, telles que vous les obtiendrez en la lançant vous-même. Seul le temps d'exécution varie d'une machine à l'autre. Le code est sous ",
+   "en": "The figures put forward on this site are not claims to be taken on trust. Each one comes out of a script in the repository, which reads the published data and runs again in a few minutes. This page brings them together: the statement, the command, and what it prints — the lines that carry the figure, exactly as you will get them by running it yourself (the scripts print in French). Only the running time varies from one machine to another. The code is under ",
+   "es": "Las cifras que se presentan en este sitio no son afirmaciones que haya que creer bajo palabra. Cada una sale de un script del repositorio, que lee los datos publicados y se vuelve a ejecutar en pocos minutos. Esta página las reúne: el enunciado, el comando y lo que imprime — las líneas que llevan la cifra, tal como las obtendrá al ejecutarlo usted mismo (los scripts imprimen en francés). Solo el tiempo de ejecución varía de una máquina a otra. El código está bajo ",
+   "th": "ตัวเลขที่นำเสนอบนเว็บไซต์นี้ไม่ใช่ข้อกล่าวอ้างที่ต้องเชื่อตามคำบอกเล่า แต่ละตัวมาจากสคริปต์ในคลังโค้ด ซึ่งอ่านข้อมูลที่เผยแพร่แล้ว และรันซ้ำได้ภายในไม่กี่นาที หน้านี้รวบรวมไว้ด้วยกัน: ข้อความที่กล่าวอ้าง คำสั่ง และสิ่งที่คำสั่งพิมพ์ออกมา — บรรทัดที่มีตัวเลขนั้น ตรงตามที่คุณจะได้เมื่อรันเอง (สคริปต์พิมพ์ผลเป็นภาษาฝรั่งเศส) มีเพียงเวลาที่ใช้รันเท่านั้นที่ต่างกันไปตามเครื่อง โค้ดอยู่ภายใต้สัญญาอนุญาต ",
+   "source": "SANS SOURCE (ajout : « les scripts impriment en français », la sortie reste telle quelle)"
+  },
+  {
+   "fr": ">AGPL v3</a>, dans <a href=\"https://github.com/anibaledel/livreedhermes\">le dépôt GitHub</a>.</p>",
+   "en": ">AGPL v3</a>, in <a href=\"https://github.com/anibaledel/livreedhermes\">the GitHub repository</a>.</p>",
+   "es": ">AGPL v3</a>, en <a href=\"https://github.com/anibaledel/livreedhermes\">el repositorio de GitHub</a>.</p>",
+   "th": ">AGPL v3</a> ใน<a href=\"https://github.com/anibaledel/livreedhermes\">คลังโค้ดบน GitHub</a></p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<thead><tr><th>Chiffre</th><th>Ce qu'il énonce</th><th>Où il se vérifie</th></tr></thead>",
+   "en": "<thead><tr><th>Figure</th><th>What it states</th><th>Where it is checked</th></tr></thead>",
+   "es": "<thead><tr><th>Cifra</th><th>Lo que enuncia</th><th>Dónde se verifica</th></tr></thead>",
+   "th": "<thead><tr><th>ตัวเลข</th><th>สิ่งที่กล่าวอ้าง</th><th>ตรวจสอบได้ที่</th></tr></thead>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>planches du traité</td>",
+   "en": "<td>plates of the treatise</td>",
+   "es": "<td>láminas del tratado</td>",
+   "th": "<td>แผ่นภาพของตำรา</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>croix ansées d'ordre 6</td>",
+   "en": "<td>ansate crosses of order 6</td>",
+   "es": "<td>cruces ansadas de orden 6</td>",
+   "th": "<td>กางเขนหูหิ้วอันดับ 6</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>carrés solaires d'ordre 6, 128 par croix, ensemble complet</td>",
+   "en": "<td>solar squares of order 6, 128 per cross, complete set</td>",
+   "es": "<td>cuadrados solares de orden 6, 128 por cruz, conjunto completo</td>",
+   "th": "<td>จัตุรัสสุริยะอันดับ 6 กางเขนละ 128 แบบ ครบทั้งชุด</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>carrés magiques d'ordre 12 par assemblage, constante 870</td>",
+   "en": "<td>magic squares of order 12 by assembly, constant 870</td>",
+   "es": "<td>cuadrados mágicos de orden 12 por ensamblaje, constante 870</td>",
+   "th": "<td>จัตุรัสกลอันดับ 12 โดยการประกอบ ค่าคงที่ 870</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>calques : 15 familles d'axes × 4 natures × 6 niveaux</td>",
+   "en": "<td>layers: 15 axis families × 4 natures × 6 levels</td>",
+   "es": "<td>capas: 15 familias de ejes × 4 naturalezas × 6 niveles</td>",
+   "th": "<td>แผ่นลาย: 15 ตระกูลแกน × 4 ธรรมชาติ × 6 ระดับ</td>",
+   "source": "360-calques.html, UI.<langue>.calquesRelation"
+  },
+  {
+   "fr": "<td>8 sur 15</td>",
+   "en": "<td>8 of 15</td>",
+   "es": "<td>8 de 15</td>",
+   "th": "<td>8 จาก 15</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>familles admises par le critère de demi-décalage</td>",
+   "en": "<td>families admitted by the half-shift criterion</td>",
+   "es": "<td>familias admitidas por el criterio de semidesplazamiento</td>",
+   "th": "<td>ตระกูลที่ผ่านเกณฑ์การเลื่อนครึ่งคาบ</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>grilles unifiées, pavages du plan, orbites de symétrie</td>",
+   "en": "<td>unified grids, tilings of the plane, symmetry orbits</td>",
+   "es": "<td>rejillas unificadas, teselados del plano, órbitas de simetría</td>",
+   "th": "<td>ตารางรวมเป็นหนึ่ง การปูลายบนระนาบ วงโคจรสมมาตร</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>parmi elles, celles qui se referment sur le cube</td>",
+   "en": "<td>among them, those that close up on the cube</td>",
+   "es": "<td>entre ellas, las que se cierran sobre el cubo</td>",
+   "th": "<td>ในจำนวนนั้น ตารางที่ปิดเข้ากันบนลูกบาศก์</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>256 bits</td>",
+   "en": "<td>256 bits</td>",
+   "es": "<td>256 bits</td>",
+   "th": "<td>256 บิต</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>taille de clé de Carter ; la géométrie n'ajoute rien</td>",
+   "en": "<td>Carter's key size; the geometry adds nothing</td>",
+   "es": "<td>tamaño de clave de Carter; la geometría no añade nada</td>",
+   "th": "<td>ขนาดกุญแจของคาร์เตอร์ เรขาคณิตไม่ได้เพิ่มอะไร</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>normes AES-256-GCM et XChaCha20-Poly1305</td>",
+   "en": "<td>AES-256-GCM and XChaCha20-Poly1305 standards</td>",
+   "es": "<td>normas AES-256-GCM y XChaCha20-Poly1305</td>",
+   "th": "<td>มาตรฐาน AES-256-GCM และ XChaCha20-Poly1305</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>figures bicolores distinctes par XOR de 16 instances d'axes, grain triangle / grain case</td>",
+   "en": "<td>distinct two-colour figures by XOR of 16 axis instances, triangle grain / cell grain</td>",
+   "es": "<td>figuras bicolores distintas por XOR de 16 instancias de ejes, grano de lectura triángulo / grano de lectura casilla</td>",
+   "th": "<td>รูปสองสีที่ต่างกันจากการ XOR อินสแตนซ์ของแกน 16 ตัว เกรนการอ่านสามเหลี่ยม / เกรนการอ่านช่อง</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>rang GF(2) des 16 instances, grain triangle / grain case — sur C1, 12 si les figures gardent la polarité que la règle leur donne (11 si une région de référence est imposée claire, [A] §5.4) ; sur C8 rien ne dépend de la convention</td>",
+   "en": "<td>GF(2) rank of the 16 instances, triangle grain / cell grain — on C1, 12 if the figures keep the polarity the rule gives them (11 if a reference region is forced to be light, [A] §5.4); on C8 nothing depends on the convention</td>",
+   "es": "<td>rango GF(2) de las 16 instancias, grano de lectura triángulo / grano de lectura casilla — sobre C1, 12 si las figuras conservan la polaridad que la regla les da (11 si se impone clara una región de referencia, [A] §5.4); sobre C8 nada depende de la convención</td>",
+   "th": "<td>แรงก์ GF(2) ของอินสแตนซ์ 16 ตัว เกรนการอ่านสามเหลี่ยม / เกรนการอ่านช่อง — บน C1 ได้ 12 หากรูปคงขั้วที่กฎกำหนดให้ (11 หากบังคับให้บริเวณอ้างอิงเป็นสีอ่อน, [A] §5.4) บน C8 ไม่มีสิ่งใดขึ้นกับข้อตกลง</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>figures bicolores qui ferment sur le cube au grain case (π = identité)</td>",
+   "en": "<td>two-colour figures that close on the cube at cell grain (π = identity)</td>",
+   "es": "<td>figuras bicolores que cierran sobre el cubo con grano de lectura casilla (π = identidad)</td>",
+   "th": "<td>รูปสองสีที่ปิดบนลูกบาศก์ที่เกรนการอ่านช่อง (π = เอกลักษณ์)</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>motifs de la galerie bicolore : les 144 fermées, moins l'uni clair et l'uni sombre</td>",
+   "en": "<td>patterns of the two-colour gallery: the 144 closed ones, minus plain light and plain dark</td>",
+   "es": "<td>motivos de la galería bicolor: las 144 cerradas, menos el liso claro y el liso oscuro</td>",
+   "th": "<td>ลวดลายในแกลเลอรีสองสี: 144 แบบที่ปิด ลบสีพื้นอ่อนและสีพื้นเข้ม</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<td>familles bicolores (YIN/YIN mutant) qui ferment seules sur le cube, accord minimal = 1 instance — à ne pas confondre avec un autre « 7 » du dépôt portant sur des familles YANG/YANG mutant et une tout autre propriété (droites tracées vs. systèmes de bandes)</td>",
+   "en": "<td>two-colour families (YIN/mutant YIN) that close on the cube on their own, minimal chord = 1 instance — not to be confused with another “7” in the repository about mutant YANG/YANG families and an entirely different property (drawn lines vs. band systems)</td>",
+   "es": "<td>familias bicolores (YIN/YIN mutante) que cierran solas sobre el cubo, acorde mínimo = 1 instancia — no confundir con otro «7» del repositorio que trata de familias YANG/YANG mutante y de una propiedad completamente distinta (rectas trazadas frente a sistemas de bandas)</td>",
+   "th": "<td>ตระกูลสองสี (หยิน/หยินกลายพันธุ์) ที่ปิดบนลูกบาศก์ได้ด้วยตัวเอง คอร์ดเล็กที่สุด = 1 อินสแตนซ์ — อย่าสับสนกับ « 7 » อีกตัวในคลังโค้ดที่ว่าด้วยตระกูลหยาง/หยางกลายพันธุ์ และคุณสมบัติที่ต่างออกไปโดยสิ้นเชิง (เส้นตรงที่ลาก กับระบบแถบ)</td>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">Ce que chaque script imprime</p>",
+   "en": ">What each script prints</p>",
+   "es": ">Lo que imprime cada script</p>",
+   "th": ">สิ่งที่แต่ละสคริปต์พิมพ์ออกมา</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Les deux croix ansées</h2>",
+   "en": "<h2>The two ansate crosses</h2>",
+   "es": "<h2>Las dos cruces ansadas</h2>",
+   "th": "<h2>กางเขนหูหิ้วสองแบบ</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "L'énumération part des appariements possibles, sans supposer la symétrie, et applique les critères de la planche 040. La symétrie centrale en ressort comme conséquence — 8 sur 8 — et non comme hypothèse.",
+   "en": "The enumeration starts from the possible pairings, without assuming symmetry, and applies the criteria of plate 040. Central symmetry comes out of it as a consequence — 8 out of 8 — not as an assumption.",
+   "es": "La enumeración parte de los emparejamientos posibles, sin suponer la simetría, y aplica los criterios de la lámina 040. La simetría central resulta de ello como consecuencia — 8 de 8 — y no como hipótesis.",
+   "th": "การแจงนับเริ่มจากการจับคู่ที่เป็นไปได้ทั้งหมด โดยไม่สมมุติความสมมาตรไว้ก่อน แล้วใช้เกณฑ์ของแผ่นภาพ 040 ความสมมาตรแบบจุดศูนย์กลางจึงปรากฏออกมาเป็นผลลัพธ์ — 8 จาก 8 — ไม่ใช่เป็นสมมุติฐาน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "quelques secondes — le script dessine ensuite les deux croix",
+   "en": "a few seconds — the script then draws the two crosses",
+   "es": "unos segundos — el script dibuja luego las dos cruces",
+   "th": "ไม่กี่วินาที — จากนั้นสคริปต์จะวาดกางเขนทั้งสอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Les 256 carrés solaires</h2>",
+   "en": "<h2>The 256 solar squares</h2>",
+   "es": "<h2>Los 256 cuadrados solares</h2>",
+   "th": "<h2>จัตุรัสสุริยะ 256 แบบ</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Deux scripts se rejoignent ici. ",
+   "en": "Two scripts meet here. ",
+   "es": "Aquí se unen dos scripts. ",
+   "th": "สคริปต์สองตัวมาบรรจบกันที่นี่ ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "</code> énumère sans lire aucune donnée : il part des critères et compte. <code>",
+   "en": "</code> enumerates without reading any data: it starts from the criteria and counts. <code>",
+   "es": "</code> enumera sin leer ningún dato: parte de los criterios y cuenta. <code>",
+   "th": "</code> แจงนับโดยไม่อ่านข้อมูลใดเลย: เริ่มจากเกณฑ์แล้วนับ <code>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "</code> part des 256 carrés publiés et vérifie qu'ils sont magiques. Les deux chemins se rencontrent sur le même nombre.",
+   "en": "</code> starts from the 256 published squares and checks that they are magic. The two paths meet on the same number.",
+   "es": "</code> parte de los 256 cuadrados publicados y verifica que son mágicos. Los dos caminos se encuentran en el mismo número.",
+   "th": "</code> เริ่มจากจัตุรัส 256 แบบที่เผยแพร่ แล้วตรวจว่าเป็นจัตุรัสกลจริง ทั้งสองเส้นทางมาพบกันที่ตัวเลขเดียวกัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "environ trois minutes ; le temps affiché varie selon la machine",
+   "en": "about three minutes; the time shown varies with the machine",
+   "es": "unos tres minutos; el tiempo indicado varía según la máquina",
+   "th": "ประมาณสามนาที เวลาที่แสดงขึ้นกับเครื่อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Le million et demi est l'ensemble sous les quatre critères <i>seuls</i>. Les 128 n'apparaissent qu'en imposant en plus la structure de ligne de la croix. Ces 128 sont ceux d'<i>une</i> croix ; la seconde, image miroir de la première, donne les 128 autres — d'où 256.",
+   "en": "The million and a half is the set under the four criteria <i>alone</i>. The 128 appear only when the row structure of the cross is imposed as well. These 128 are those of <i>one</i> cross; the second, mirror image of the first, gives the other 128 — hence 256.",
+   "es": "El millón y medio es el conjunto bajo los cuatro criterios <i>solos</i>. Los 128 solo aparecen al imponer además la estructura de fila de la cruz. Estos 128 son los de <i>una</i> cruz; la segunda, imagen especular de la primera, da los otros 128 — de ahí 256.",
+   "th": "หนึ่งล้านห้าแสนคือเซตภายใต้เกณฑ์ทั้งสี่<i>เพียงอย่างเดียว</i> 128 แบบจะปรากฏก็ต่อเมื่อกำหนดโครงสร้างแถวของกางเขนเพิ่มเข้าไปด้วย 128 แบบนี้เป็นของกางเขน<i>หนึ่ง</i>อัน อันที่สองซึ่งเป็นภาพสะท้อนของอันแรก ให้อีก 128 แบบ — จึงได้ 256",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "— extrait des lignes qui portent les chiffres",
+   "en": "— excerpt of the lines that carry the figures",
+   "es": "— extracto de las líneas que llevan las cifras",
+   "th": "— ตัดตอนบรรทัดที่มีตัวเลข",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">quelques secondes</p>",
+   "en": ">a few seconds</p>",
+   "es": ">unos segundos</p>",
+   "th": ">ไม่กี่วินาที</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Les 360 calques</h2>",
+   "en": "<h2>The 360 layers</h2>",
+   "es": "<h2>Las 360 capas</h2>",
+   "th": "<h2>แผ่นลาย 360 แผ่น</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Le vocabulaire de motifs : 15 familles d'axes × 4 natures font 60 images, chacune tracée sur six niveaux — d'où 360 calques. Le nombre est porté par le fichier de données lui-même, pas par un commentaire.",
+   "en": "The vocabulary of patterns: 15 axis families × 4 natures make 60 images, each drawn on six levels — hence 360 layers. The number is carried by the data file itself, not by a comment.",
+   "es": "El vocabulario de motivos: 15 familias de ejes × 4 naturalezas dan 60 imágenes, cada una trazada en seis niveles — de ahí 360 capas. El número lo lleva el propio archivo de datos, no un comentario.",
+   "th": "คลังคำของลวดลาย: 15 ตระกูลแกน × 4 ธรรมชาติ ได้ 60 ภาพ แต่ละภาพวาดบนหกระดับ — จึงได้แผ่นลาย 360 แผ่น ตัวเลขนี้อยู่ในไฟล์ข้อมูลเอง ไม่ได้อยู่ในคำอธิบายประกอบ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Le critère de demi-décalage et le cube</h2>",
+   "en": "<h2>The half-shift criterion and the cube</h2>",
+   "es": "<h2>El criterio de semidesplazamiento y el cubo</h2>",
+   "th": "<h2>เกณฑ์การเลื่อนครึ่งคาบและลูกบาศก์</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Un motif est unifié si le translater d'une demi-période revient à échanger ses deux images. Le critère ne retient que 8 familles sur 15 — celles qui comptent exactement une base diagonale, yang ou yang mutant — et la moitié exacte des grilles obtenues se referme sur les six faces d'un cube.",
+   "en": "A pattern is unified if translating it by half a period amounts to swapping its two images. The criterion keeps only 8 families out of 15 — those with exactly one diagonal base, yang or mutant yang — and exactly half of the grids obtained close up on the six faces of a cube.",
+   "es": "Un motivo es unificado si trasladarlo medio período equivale a intercambiar sus dos imágenes. El criterio solo retiene 8 familias de 15 — las que tienen exactamente una base diagonal, yang o yang mutante — y exactamente la mitad de las rejillas obtenidas se cierra sobre las seis caras de un cubo.",
+   "th": "ลวดลายหนึ่งเป็นลวดลายรวมเป็นหนึ่ง หากการเลื่อนครึ่งคาบให้ผลเท่ากับการสลับภาพทั้งสองของมัน เกณฑ์นี้คัดไว้เพียง 8 ตระกูลจาก 15 — ตระกูลที่มีฐานแนวทแยงเพียงหนึ่งเดียวพอดี เป็นหยางหรือหยางกลายพันธุ์ — และครึ่งหนึ่งพอดีของตารางที่ได้ปิดเข้ากันบนหกหน้าของลูกบาศก์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "environ quarante-cinq secondes",
+   "en": "about forty-five seconds",
+   "es": "unos cuarenta y cinco segundos",
+   "th": "ประมาณสี่สิบห้าวินาที",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Les deux chiffres sans script</h2>",
+   "en": "<h2>The two figures without a script</h2>",
+   "es": "<h2>Las dos cifras sin script</h2>",
+   "th": "<h2>ตัวเลขสองตัวที่ไม่มีสคริปต์</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les <b>111 planches</b> se comptent dans le livre lui-même : les quatre PDF publiés portent 111 pages chacun. Les <b>256 bits</b> sont la taille de clé des deux chiffrements standard que Carter emploie en cascade, sans les modifier : AES-256-GCM par-dessus XChaCha20-Poly1305, sous des clés indépendantes. La géométrie n'ajoute rien à la sécurité, et les preuves tiennent même si la disposition est connue.",
+   "en": "The <b>111 plates</b> are counted in the book itself: the four published PDFs have 111 pages each. The <b>256 bits</b> are the key size of the two standard ciphers that Carter uses in cascade, without modifying them: AES-256-GCM on top of XChaCha20-Poly1305, under independent keys. The geometry adds nothing to security, and the proofs hold even if the layout is known.",
+   "es": "Las <b>111 láminas</b> se cuentan en el propio libro: los cuatro PDF publicados tienen 111 páginas cada uno. Los <b>256 bits</b> son el tamaño de clave de los dos cifrados estándar que Carter emplea en cascada, sin modificarlos: AES-256-GCM sobre XChaCha20-Poly1305, con claves independientes. La geometría no añade nada a la seguridad, y las pruebas se sostienen aunque la disposición sea conocida.",
+   "th": "<b>แผ่นภาพ 111 แผ่น</b> นับได้จากตัวหนังสือเอง: PDF ทั้งสี่ฉบับที่เผยแพร่มี 111 หน้าเท่ากัน <b>256 บิต</b> คือขนาดกุญแจของการเข้ารหัสมาตรฐานสองชนิดที่คาร์เตอร์ใช้ซ้อนกันโดยไม่ดัดแปลง: AES-256-GCM ซ้อนบน XChaCha20-Poly1305 ภายใต้กุญแจที่เป็นอิสระต่อกัน เรขาคณิตไม่ได้เพิ่มความปลอดภัยใด ๆ และการพิสูจน์ยังคงใช้ได้แม้จะรู้การจัดวาง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Pour aller plus loin : le <a href=\"lexique.html\">lexique</a> pour les notions, <a href=\"book-viewer/index.html\">le livre en ligne</a>, ou le <a href=\"profil.html\">profil documentaire</a> pour les brevets et publications. Contenus sous ",
+   "en": "To go further: the <a href=\"en/lexicon/\">lexicon</a> for the notions, <a href=\"en/book/\">the book online</a>, or the <a href=\"en/documentary-profile/\">documentary profile</a> for the patents and publications. Content under ",
+   "es": "Para ir más lejos: el <a href=\"es/lexico/\">léxico</a> para las nociones, <a href=\"es/libro/\">el libro en línea</a>, o el <a href=\"es/perfil-documental/\">perfil documental</a> para las patentes y publicaciones. Contenidos bajo ",
+   "th": "อ่านต่อ: <a href=\"th/lexicon/\">อภิธานศัพท์</a> สำหรับแนวคิดต่าง ๆ <a href=\"th/book/\">หนังสือออนไลน์</a> หรือ<a href=\"th/profile/\">โปรไฟล์เอกสาร</a> สำหรับสิทธิบัตรและสิ่งพิมพ์ เนื้อหาอยู่ภายใต้สัญญาอนุญาต ",
+   "source": "SANS SOURCE (liens vers les pages de la langue)"
+  },
+  {
+   "fr": ">CC BY-NC 4.0</a>, code sous <a href=",
+   "en": ">CC BY-NC 4.0</a>, code under <a href=",
+   "es": ">CC BY-NC 4.0</a>, código bajo <a href=",
+   "th": ">CC BY-NC 4.0</a> โค้ดอยู่ภายใต้ <a href=",
+   "source": "SANS SOURCE"
+  }
+ ]
+}

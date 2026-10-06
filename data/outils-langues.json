@@ -350,6 +350,63 @@
           "ogLocale": "th_TH"
         }
       }
+    },
+    {
+      "source": "contact.html",
+      "priorite": "0.6",
+      "textes": "data/outils-langues/contact.json",
+      "langues": {
+        "en": {
+          "dossier": "en/contact/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/contacto/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/contact/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "profil.html",
+      "priorite": "0.5",
+      "textes": "data/outils-langues/profil.json",
+      "langues": {
+        "en": {
+          "dossier": "en/documentary-profile/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/perfil-documental/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/profile/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "chiffres-et-sources.html",
+      "priorite": "0.6",
+      "textes": "data/outils-langues/chiffres-et-sources.json",
+      "langues": {
+        "en": {
+          "dossier": "en/figures-and-sources/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/cifras-y-fuentes/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/figures-and-sources/",
+          "ogLocale": "th_TH"
+        }
+      }
     }
   ],
   "communs": [

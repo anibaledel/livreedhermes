@@ -1,0 +1,236 @@
+{
+ "_doc": "Textes de profil.html et leurs traductions (scripts/build-outils-langues.js). L'anglais reprend, là où elle existe, la formulation d'en/about/ (qui reprend déjà brevets et dessins et modèles). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "Profil documentaire — Anibal Amiot | Inventeur",
+   "en": "Documentary profile — Anibal Amiot | Inventor",
+   "es": "Perfil documental — Anibal Amiot | Inventor",
+   "th": "โปรไฟล์เอกสาร — Anibal Amiot | นักประดิษฐ์",
+   "source": "SANS SOURCE (nav-tiles pour « Perfil documental » / « โปรไฟล์เอกสาร »)"
+  },
+  {
+   "fr": "Profil documentaire d'Anibal Amiot : brevets français et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12 de La Livrée d'Hermès.",
+   "en": "Documentary profile of Anibal Amiot: French patents and 63 designs registered with INPI, covering the order-12 squares of La Livrée d'Hermès.",
+   "es": "Perfil documental de Anibal Amiot: patentes francesas y 63 dibujos y modelos registrados en el INPI, que cubren los cuadrados de orden 12 de La Livrée d'Hermès.",
+   "th": "โปรไฟล์เอกสารของ Anibal Amiot: สิทธิบัตรฝรั่งเศสและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12 ของ La Livrée d'Hermès",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Anibal Amiot — Profil documentaire, Inventeur",
+   "en": "Anibal Amiot — Documentary profile, Inventor",
+   "es": "Anibal Amiot — Perfil documental, Inventor",
+   "th": "Anibal Amiot — โปรไฟล์เอกสาร นักประดิษฐ์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"propertyID\": \"Dépôt (priorité)\"",
+   "en": "\"propertyID\": \"Filing (priority)\"",
+   "es": "\"propertyID\": \"Presentación (prioridad)\"",
+   "th": "\"propertyID\": \"การยื่นจด (วันถือสิทธิ)\"",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "\"propertyID\": \"Dépôt\"",
+   "en": "\"propertyID\": \"Filing\"",
+   "es": "\"propertyID\": \"Presentación\"",
+   "th": "\"propertyID\": \"การยื่นจด\"",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "\"propertyID\": \"Délivrance\"",
+   "en": "\"propertyID\": \"Grant\"",
+   "es": "\"propertyID\": \"Concesión\"",
+   "th": "\"propertyID\": \"การออกสิทธิบัตร\"",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "\"propertyID\": \"Numéro d'enregistrement (INPI)\"",
+   "en": "\"propertyID\": \"Registration number (INPI)\"",
+   "es": "\"propertyID\": \"Número de registro (INPI)\"",
+   "th": "\"propertyID\": \"เลขทะเบียน (INPI)\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"description\": \"Précurseur direct du système de calques développé dans La Livrée d'Hermès.\"",
+   "en": "\"description\": \"Direct forerunner of the system of layers developed in La Livrée d'Hermès.\"",
+   "es": "\"description\": \"Precursor directo del sistema de capas desarrollado en La Livrée d'Hermès.\"",
+   "th": "\"description\": \"ต้นแบบโดยตรงของระบบแผ่นลายที่พัฒนาใน La Livrée d'Hermès\"",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "\"name\": \"Dessins et modèles — carrés d'ordre 12\"",
+   "en": "\"name\": \"Registered designs — order-12 squares\"",
+   "es": "\"name\": \"Dibujos y modelos — cuadrados de orden 12\"",
+   "th": "\"name\": \"แบบผลิตภัณฑ์ — จัตุรัสอันดับ 12\"",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "63 dessins et modèles couvrant les principaux carrés d'ordre 12, socle géométrique de La Livrée d'Hermès.",
+   "en": "63 designs covering the principal order-12 squares, the geometric foundation of La Livrée d'Hermès.",
+   "es": "63 dibujos y modelos que cubren los principales cuadrados de orden 12, base geométrica de La Livrée d'Hermès.",
+   "th": "แบบผลิตภัณฑ์ 63 แบบ ครอบคลุมจัตุรัสอันดับ 12 หลัก ๆ ซึ่งเป็นรากฐานทางเรขาคณิตของ La Livrée d'Hermès",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "\"position\": 2, \"name\": \"Profil documentaire\"",
+   "en": "\"position\": 2, \"name\": \"Documentary profile\"",
+   "es": "\"position\": 2, \"name\": \"Perfil documental\"",
+   "th": "\"position\": 2, \"name\": \"โปรไฟล์เอกสาร\"",
+   "source": "nav-tiles (profil)"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Profil documentaire</span>",
+   "en": "<span aria-current=\"page\">Documentary profile</span>",
+   "es": "<span aria-current=\"page\">Perfil documental</span>",
+   "th": "<span aria-current=\"page\">โปรไฟล์เอกสาร</span>",
+   "source": "nav-tiles (profil)"
+  },
+  {
+   "fr": "<h1>Profil documentaire</h1>",
+   "en": "<h1>Documentary profile</h1>",
+   "es": "<h1>Perfil documental</h1>",
+   "th": "<h1>โปรไฟล์เอกสาร</h1>",
+   "source": "nav-tiles (profil)"
+  },
+  {
+   "fr": "<p>Brevets et dessins et modèles vérifiables auprès de l'INPI</p>",
+   "en": "<p>Patents and registered designs, verifiable with INPI</p>",
+   "es": "<p>Patentes y dibujos y modelos verificables ante el INPI</p>",
+   "th": "<p>สิทธิบัตรและแบบผลิตภัณฑ์ที่ตรวจสอบได้กับ INPI</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "alt=\"Anibal Amiot — portrait\"",
+   "en": "alt=\"Anibal Amiot — portrait\"",
+   "es": "alt=\"Anibal Amiot — retrato\"",
+   "th": "alt=\"Anibal Amiot — ภาพบุคคล\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Portrait — montage photographique",
+   "en": "Portrait — photographic montage",
+   "es": "Retrato — montaje fotográfico",
+   "th": "ภาพบุคคล — ภาพตัดต่อ",
+   "source": "SANS SOURCE (en/about/ : « Portrait — photographic montage ») ; en : en/about/"
+  },
+  {
+   "fr": "Anibal Amiot, également connu sous son nom complet Anibal Edelberto Amiot, est auteur, éditeur, concepteur, artiste et inventeur. Son activité d'édition de livres a notamment été exercée via la structure Agnibal Editions (SIREN 841620818, Paris), enregistrée sous le code NAF 5811Z, Édition de livres. Il est l'auteur de ",
+   "en": "Anibal Amiot, also known by his full name Anibal Edelberto Amiot, is an author, publisher, designer, artist and inventor. His book-publishing activity was carried out notably through Agnibal Editions (SIREN 841620818, Paris), registered under NAF code 5811Z, book publishing. He is the author of ",
+   "es": "Anibal Amiot, también conocido por su nombre completo Anibal Edelberto Amiot, es autor, editor, diseñador, artista e inventor. Su actividad de edición de libros se ejerció en particular a través de la estructura Agnibal Editions (SIREN 841620818, París), registrada con el código NAF 5811Z, Edición de libros. Es el autor de ",
+   "th": "Anibal Amiot หรือในชื่อเต็ม Anibal Edelberto Amiot เป็นนักเขียน บรรณาธิการ-ผู้จัดพิมพ์ นักออกแบบ ศิลปิน และนักประดิษฐ์ งานจัดพิมพ์หนังสือของเขาดำเนินการผ่านกิจการ Agnibal Editions (SIREN 841620818 ปารีส) ซึ่งจดทะเบียนภายใต้รหัส NAF 5811Z การจัดพิมพ์หนังสือ เขาเป็นผู้เขียน ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ", un livre d'arithmogéométrie disponible en accès libre sur ce site, et le titulaire des brevets et des dessins et modèles détaillés ci-dessous, déposés en France et vérifiables auprès de l'Institut National de la Propriété Industrielle (INPI). Sa ",
+   "en": ", a book of arithmogeometry freely available on this site, and the holder of the patents and registered designs detailed below, filed in France and verifiable with the French National Institute of Industrial Property (INPI). His ",
+   "es": ", un libro de aritmogeometría disponible en acceso libre en este sitio, y el titular de las patentes y de los dibujos y modelos detallados a continuación, presentados en Francia y verificables ante el Instituto Nacional de la Propiedad Industrial francés (INPI). Su ",
+   "th": " หนังสือเลขาคณิตศาสตร์ที่เปิดให้อ่านฟรีบนเว็บไซต์นี้ และเป็นผู้ถือสิทธิบัตรและแบบผลิตภัณฑ์ตามรายละเอียดด้านล่าง ซึ่งยื่นจดในฝรั่งเศสและตรวจสอบได้กับสถาบันทรัพย์สินอุตสาหกรรมแห่งชาติของฝรั่งเศส (INPI) ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">fiche Wikidata</a> recense ses activités et ses dépôts à l'INPI.",
+   "en": ">Wikidata entry</a> lists his activities and his INPI filings.",
+   "es": ">ficha de Wikidata</a> recoge sus actividades y sus registros en el INPI.",
+   "th": ">ข้อมูล Wikidata</a> ของเขารวบรวมกิจกรรมและการยื่นจดต่อ INPI ไว้",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Brevets</h2>",
+   "en": "<h2>Patents</h2>",
+   "es": "<h2>Patentes</h2>",
+   "th": "<h2>สิทธิบัตร</h2>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "<p class=\"patent-title\">Brevet <span class=\"num\">FR2840678</span> — Arme transformable pouvant convenir à la pratique de plusieurs arts martiaux</p>",
+   "en": "<p class=\"patent-title\">Patent <span class=\"num\">FR2840678</span> — <span lang=\"fr\">Arme transformable pouvant convenir à la pratique de plusieurs arts martiaux</span> (convertible weapon suited to the practice of several martial arts)</p>",
+   "es": "<p class=\"patent-title\">Patente <span class=\"num\">FR2840678</span> — <span lang=\"fr\">Arme transformable pouvant convenir à la pratique de plusieurs arts martiaux</span> (arma transformable apta para la práctica de varias artes marciales)</p>",
+   "th": "<p class=\"patent-title\">สิทธิบัตร <span class=\"num\">FR2840678</span> — <span lang=\"fr\">Arme transformable pouvant convenir à la pratique de plusieurs arts martiaux</span> (อาวุธแปลงรูปที่ใช้ได้กับศิลปะการต่อสู้หลายแขนง)</p>",
+   "source": "SANS SOURCE (forme d'en/about/ : titre officiel en français, glose dans la langue) ; en : en/about/"
+  },
+  {
+   "fr": "<p class=\"patent-title\">Brevet <span class=\"num\">FR2865054</span> — Procédé et dispositif pour la composition automatisée d'un motif symbolique exprimant une relation mathématique</p>",
+   "en": "<p class=\"patent-title\">Patent <span class=\"num\">FR2865054</span> — <span lang=\"fr\">Procédé et dispositif pour la composition automatisée d'un motif symbolique exprimant une relation mathématique</span> (process and device for the automated composition of a symbolic pattern expressing a mathematical relation)</p>",
+   "es": "<p class=\"patent-title\">Patente <span class=\"num\">FR2865054</span> — <span lang=\"fr\">Procédé et dispositif pour la composition automatisée d'un motif symbolique exprimant une relation mathématique</span> (procedimiento y dispositivo para la composición automatizada de un motivo simbólico que expresa una relación matemática)</p>",
+   "th": "<p class=\"patent-title\">สิทธิบัตร <span class=\"num\">FR2865054</span> — <span lang=\"fr\">Procédé et dispositif pour la composition automatisée d'un motif symbolique exprimant une relation mathématique</span> (กรรมวิธีและอุปกรณ์สำหรับประกอบลวดลายเชิงสัญลักษณ์ที่แสดงความสัมพันธ์ทางคณิตศาสตร์แบบอัตโนมัติ)</p>",
+   "source": "SANS SOURCE (forme d'en/about/ : titre officiel en français, glose dans la langue) ; en : en/about/"
+  },
+  {
+   "fr": "Dépôt (priorité) : FR0206929, 5 juin 2002<br>",
+   "en": "Filing (priority): FR0206929, June 5, 2002<br>",
+   "es": "Presentación (prioridad): FR0206929, 5 de junio de 2002<br>",
+   "th": "การยื่นจด (วันถือสิทธิ): FR0206929, 5 มิถุนายน 2002<br>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Publication : FR2840678A1, 12 décembre 2003<br>",
+   "en": "Publication: FR2840678A1, December 12, 2003<br>",
+   "es": "Publicación: FR2840678A1, 12 de diciembre de 2003<br>",
+   "th": "การประกาศโฆษณา: FR2840678A1, 12 ธันวาคม 2003<br>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Délivrance : FR2840678B1, 22 septembre 2006</p>",
+   "en": "Grant: FR2840678B1, September 22, 2006</p>",
+   "es": "Concesión: FR2840678B1, 22 de septiembre de 2006</p>",
+   "th": "การออกสิทธิบัตร: FR2840678B1, 22 กันยายน 2006</p>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Dépôt : FR0400189, 9 janvier 2004<br>",
+   "en": "Filing: FR0400189, January 9, 2004<br>",
+   "es": "Presentación: FR0400189, 9 de enero de 2004<br>",
+   "th": "การยื่นจด: FR0400189, 9 มกราคม 2004<br>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Publication : FR2865054A1, 15 juillet 2005<br>",
+   "en": "Publication: FR2865054A1, July 15, 2005<br>",
+   "es": "Publicación: FR2865054A1, 15 de julio de 2005<br>",
+   "th": "การประกาศโฆษณา: FR2865054A1, 15 กรกฎาคม 2005<br>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Délivrance : FR2865054B1, 4 juillet 2008</p>",
+   "en": "Grant: FR2865054B1, July 4, 2008</p>",
+   "es": "Concesión: FR2865054B1, 4 de julio de 2008</p>",
+   "th": "การออกสิทธิบัตร: FR2865054B1, 4 กรกฎาคม 2008</p>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Ce second brevet, portant sur la composition automatisée d'un motif symbolique à partir d'une relation mathématique, est le précurseur direct du système de calques développé dans La Livrée d'Hermès.",
+   "en": "This second patent, on the automated composition of a symbolic pattern from a mathematical relation, is the direct forerunner of the system of layers developed in La Livrée d'Hermès.",
+   "es": "Esta segunda patente, sobre la composición automatizada de un motivo simbólico a partir de una relación matemática, es el precursor directo del sistema de capas desarrollado en La Livrée d'Hermès.",
+   "th": "สิทธิบัตรฉบับที่สองนี้ ว่าด้วยการประกอบลวดลายเชิงสัญลักษณ์แบบอัตโนมัติจากความสัมพันธ์ทางคณิตศาสตร์ เป็นต้นแบบโดยตรงของระบบแผ่นลายที่พัฒนาใน La Livrée d'Hermès",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "<h2>Dessins et modèles</h2>",
+   "en": "<h2>Registered designs</h2>",
+   "es": "<h2>Dibujos y modelos</h2>",
+   "th": "<h2>แบบผลิตภัณฑ์</h2>",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "63 dessins et modèles déposés le 4 juillet 2019 sous le numéro d'enregistrement 20193057, couvrant les principaux carrés d'ordre 12 — le socle géométrique de La Livrée d'Hermès.",
+   "en": "63 designs registered on July 4, 2019 under registration number 20193057, covering the principal order-12 squares — the geometric foundation of La Livrée d'Hermès.",
+   "es": "63 dibujos y modelos registrados el 4 de julio de 2019 con el número de registro 20193057, que cubren los principales cuadrados de orden 12 — la base geométrica de La Livrée d'Hermès.",
+   "th": "แบบผลิตภัณฑ์ 63 แบบ จดทะเบียนเมื่อวันที่ 4 กรกฎาคม 2019 ภายใต้เลขทะเบียน 20193057 ครอบคลุมจัตุรัสอันดับ 12 หลัก ๆ — รากฐานทางเรขาคณิตของ La Livrée d'Hermès",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "Sources vérifiables : data.inpi.fr, Google Patents, Espacenet.",
+   "en": "Verifiable sources: data.inpi.fr, Google Patents, Espacenet.",
+   "es": "Fuentes verificables: data.inpi.fr, Google Patents, Espacenet.",
+   "th": "แหล่งที่ตรวจสอบได้: data.inpi.fr, Google Patents, Espacenet",
+   "source": "SANS SOURCE ; en : en/about/"
+  },
+  {
+   "fr": "<a href=\"index.html\" style=\"color:var(--gold);\">La Livrée d'Hermès</a>",
+   "en": "<a href=\"en/\" style=\"color:var(--gold);\">La Livrée d'Hermès</a>",
+   "es": "<a href=\"es/\" style=\"color:var(--gold);\">La Livrée d'Hermès</a>",
+   "th": "<a href=\"th/\" style=\"color:var(--gold);\">La Livrée d'Hermès</a>",
+   "source": "lien vers l'accueil dans la langue de la page"
+  }
+ ]
+}
