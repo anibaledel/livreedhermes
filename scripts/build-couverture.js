@@ -165,6 +165,11 @@ const PAGES = [
   ['la-livree-d-hermes.html', 'fr'],
 ];
 
+// Exposé pour scripts/build-outils-langues.js : la page traduite d'un outil
+// qui porte la phrase (en/yi-king-draw/) la reçoit dans sa langue.
+module.exports = { phrase };
+if (require.main !== module) return;
+
 if (process.argv.includes('--montre')) { for (const l of ORDRE) console.log(`${l} : ${phrase(l)}`); process.exit(0); }
 
 const verifie = process.argv.includes('--verifie');

@@ -1,0 +1,448 @@
+{
+  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md).",
+  "pages": [
+    {
+      "source": "cymatique.html",
+      "priorite": "0.7",
+      "langue": "let LANG = initialLang();",
+      "langues": {
+        "en": {
+          "dossier": "en/cymatics/",
+          "ogLocale": "en_GB",
+          "remplacements": [
+            {
+              "fr": "Cymatique — La Livrée d'Hermès",
+              "trad": "Cymatics — La Livrée d'Hermès",
+              "source": "nav-tiles (cymatique) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale approche le mieux le son émis. Ses figures sont les lignes de niveau d'un mode propre exact de plaque — non mesuré.",
+              "trad": "The tiling whose spatial frequency comes closest to the sound you make. Its figures are the level lines of an exact eigenmode of a plate — not measured.",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e"
+            },
+            {
+              "fr": "Un outil d'écoute et un résultat : les seize familles d'axes sont les lignes de niveau de cos(πx/3), mode propre exact d'une plaque carrée à bords guidés et d'une cavité acoustique. Les deux lois de fréquence diffèrent, et une mesure les départagerait.",
+              "trad": "A listening tool and a result: the sixteen families of axes are the level lines of cos(πx/3), an exact eigenmode of a square plate with guided edges and of an acoustic cavity. The two frequency laws differ, and a measurement would decide between them.",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Les seize familles d'axes sont les lignes de niveau d'un mode propre exact de plaque carrée à bords guidés. Aucune mesure n'a été faite.",
+              "trad": "The sixteen families of axes are the level lines of an exact eigenmode of a square plate with guided edges. No measurement has been made.",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.",
+              "trad": "The tiling whose spatial frequency comes closest to the sound you make. Three of these patterns coincide, checked triangle by triangle, with eigenmodes of a square plate — f = 128 × k² is their law, not a convention.",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite"
+            },
+            {
+              "fr": "\"name\": \"Cymatique\"",
+              "trad": "\"name\": \"Cymatics\"",
+              "source": "nav-tiles (cymatique)"
+            },
+            {
+              "fr": "<meta property=\"og:locale:alternate\" content=\"en_GB\">",
+              "trad": "<meta property=\"og:locale:alternate\" content=\"fr_FR\">",
+              "source": "la page française devient l'autre langue"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/en/\">Home</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"Home\", \"item\": \"https://anibal-amiot.com/en/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"Tools\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">Cymatique</span>",
+              "trad": "<span aria-current=\"page\">Cymatics</span>",
+              "source": "nav-tiles (cymatique)"
+            }
+          ]
+        },
+        "es": {
+          "dossier": "es/cimatica/",
+          "ogLocale": "es_ES",
+          "remplacements": [
+            {
+              "fr": "Cymatique — La Livrée d'Hermès",
+              "trad": "Cimática — La Livrée d'Hermès",
+              "source": "nav-tiles (cymatique) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale approche le mieux le son émis. Ses figures sont les lignes de niveau d'un mode propre exact de plaque — non mesuré.",
+              "trad": "El teselado cuya frecuencia espacial se acerca más al sonido que usted emite. Sus figuras son las líneas de nivel de un modo propio exacto de placa — no medido.",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e"
+            },
+            {
+              "fr": "Un outil d'écoute et un résultat : les seize familles d'axes sont les lignes de niveau de cos(πx/3), mode propre exact d'une plaque carrée à bords guidés et d'une cavité acoustique. Les deux lois de fréquence diffèrent, et une mesure les départagerait.",
+              "trad": "Una herramienta de escucha y un resultado: las dieciséis familias de ejes son las líneas de nivel de cos(πx/3), modo propio exacto de una placa cuadrada de bordes guiados y de una cavidad acústica. Las dos leyes de frecuencia difieren, y una medición las desempataría.",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Les seize familles d'axes sont les lignes de niveau d'un mode propre exact de plaque carrée à bords guidés. Aucune mesure n'a été faite.",
+              "trad": "Las dieciséis familias de ejes son las líneas de nivel de un modo propio exacto de una placa cuadrada de bordes guiados. No se ha hecho ninguna medición.",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.",
+              "trad": "El teselado cuya frecuencia espacial se acerca más al sonido que usted emite. Tres de estos motivos coinciden, verificado triángulo por triángulo, con modos propios de una placa cuadrada — f = 128 × k² es su ley, no una convención.",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite"
+            },
+            {
+              "fr": "\"name\": \"Cymatique\"",
+              "trad": "\"name\": \"Cimática\"",
+              "source": "nav-tiles (cymatique)"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Ruta de navegación\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/es/\">Inicio</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"Inicio\", \"item\": \"https://anibal-amiot.com/es/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"Herramientas\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">Cymatique</span>",
+              "trad": "<span aria-current=\"page\">Cimática</span>",
+              "source": "nav-tiles (cymatique)"
+            }
+          ]
+        },
+        "th": {
+          "dossier": "th/cymatics/",
+          "ogLocale": "th_TH",
+          "remplacements": [
+            {
+              "fr": "Cymatique — La Livrée d'Hermès",
+              "trad": "ไซแมติกส์ — La Livrée d'Hermès",
+              "source": "nav-tiles (cymatique) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale approche le mieux le son émis. Ses figures sont les lignes de niveau d'un mode propre exact de plaque — non mesuré.",
+              "trad": "การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด รูปทรงของมันคือเส้นระดับของโหมดเฉพาะที่แม่นตรงของแผ่นเพลต — ยังไม่ได้วัด",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e"
+            },
+            {
+              "fr": "Un outil d'écoute et un résultat : les seize familles d'axes sont les lignes de niveau de cos(πx/3), mode propre exact d'une plaque carrée à bords guidés et d'une cavité acoustique. Les deux lois de fréquence diffèrent, et une mesure les départagerait.",
+              "trad": "เครื่องมือสำหรับการฟังและผลลัพธ์หนึ่ง: ตระกูลแกนทั้งสิบหกคือเส้นระดับของ cos(πx/3) ซึ่งเป็นโหมดเฉพาะที่แม่นตรงของแผ่นเพลตสี่เหลี่ยมจัตุรัสที่มีขอบแบบนำทางและของโพรงเสียง กฎความถี่ทั้งสองต่างกัน และการวัดจะชี้ขาดได้",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Les seize familles d'axes sont les lignes de niveau d'un mode propre exact de plaque carrée à bords guidés. Aucune mesure n'a été faite.",
+              "trad": "ตระกูลแกนทั้งสิบหกคือเส้นระดับของโหมดเฉพาะที่แม่นตรงของแผ่นเพลตสี่เหลี่ยมจัตุรัสที่มีขอบแบบนำทาง ยังไม่มีการวัดใด ๆ",
+              "source": "SANS SOURCE"
+            },
+            {
+              "fr": "Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez. Trois de ces motifs coïncident, vérifié triangle par triangle, avec des modes propres d'une plaque carrée — f = 128 × k² en est la loi, pas une convention.",
+              "trad": "การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด ลวดลายสามแบบในนี้ตรงกับโหมดเฉพาะของแผ่นเพลตสี่เหลี่ยมจัตุรัส ตรวจสอบทีละสามเหลี่ยม — f = 128 × k² คือกฎของมัน ไม่ใช่ข้อตกลง",
+              "source": "nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite"
+            },
+            {
+              "fr": "\"name\": \"Cymatique\"",
+              "trad": "\"name\": \"ไซแมติกส์\"",
+              "source": "nav-tiles (cymatique)"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"เส้นทางนำทาง\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/th/\">หน้าแรก</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"หน้าแรก\", \"item\": \"https://anibal-amiot.com/th/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"เครื่องมือ\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">Cymatique</span>",
+              "trad": "<span aria-current=\"page\">ไซแมติกส์</span>",
+              "source": "nav-tiles (cymatique)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "source": "360-calques.html",
+      "priorite": "0.9",
+      "langue": "let LANG = 'fr';",
+      "langues": {
+        "en": {
+          "dossier": "en/360-layers/",
+          "ogLocale": "en_GB",
+          "remplacements": [
+            {
+              "fr": "La Livrée d'Hermès — 360 calques",
+              "trad": "La Livrée d'Hermès — 360 layers",
+              "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer.",
+              "trad": "Draw and download the print layers of La Livrée d'Hermès, in 4 categories of trait combinations, as print-ready SVG.",
+              "source": "adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées"
+            },
+            {
+              "fr": "\"name\": \"360 calques\"",
+              "trad": "\"name\": \"360 layers\"",
+              "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/en/\">Home</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"Home\", \"item\": \"https://anibal-amiot.com/en/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"Tools\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">360 calques</span>",
+              "trad": "<span aria-current=\"page\">360 layers</span>",
+              "source": "nav-tiles (impression)"
+            }
+          ]
+        },
+        "es": {
+          "dossier": "es/360-capas/",
+          "ogLocale": "es_ES",
+          "remplacements": [
+            {
+              "fr": "La Livrée d'Hermès — 360 calques",
+              "trad": "La Livrée d'Hermès — 360 capas",
+              "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer.",
+              "trad": "Realice la tirada y descargue las capas de impresión de La Livrée d'Hermès, en 4 categorías de combinaciones de trazos, en formato SVG listo para imprimir.",
+              "source": "adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées"
+            },
+            {
+              "fr": "\"name\": \"360 calques\"",
+              "trad": "\"name\": \"360 capas\"",
+              "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"Ruta de navegación\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/es/\">Inicio</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"Inicio\", \"item\": \"https://anibal-amiot.com/es/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"Herramientas\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">360 calques</span>",
+              "trad": "<span aria-current=\"page\">360 capas</span>",
+              "source": "nav-tiles (impression)"
+            }
+          ]
+        },
+        "th": {
+          "dossier": "th/360-layers/",
+          "ogLocale": "th_TH",
+          "remplacements": [
+            {
+              "fr": "La Livrée d'Hermès — 360 calques",
+              "trad": "La Livrée d'Hermès — แผ่นลาย 360 แผ่น",
+              "source": "nav-tiles (impression) ; titre, og:title, twitter:title"
+            },
+            {
+              "fr": "Tirez et téléchargez les calques d'impression de La Livrée d'Hermès, en 4 catégories de combinaisons de traits, au format SVG prêt à imprimer.",
+              "trad": "ทำการทำนายและดาวน์โหลดแผ่นลายสำหรับพิมพ์ของ La Livrée d'Hermès ใน 4 หมวดของการผสมเส้น เป็นไฟล์ SVG ที่พร้อมพิมพ์",
+              "source": "adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées"
+            },
+            {
+              "fr": "\"name\": \"360 calques\"",
+              "trad": "\"name\": \"แผ่นลาย 360 แผ่น\"",
+              "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+              "trad": "<nav class=\"breadcrumb\" aria-label=\"เส้นทางนำทาง\">",
+              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/th/\">หน้าแรก</a>",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+              "trad": "\"name\": \"หน้าแรก\", \"item\": \"https://anibal-amiot.com/th/\"",
+              "source": "fil d'Ariane des hexagrammes en/es/th"
+            },
+            {
+              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
+              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+            },
+            {
+              "fr": "\"name\": \"Outils\"",
+              "trad": "\"name\": \"เครื่องมือ\"",
+              "source": "nav-tiles (outils)"
+            },
+            {
+              "fr": "<span aria-current=\"page\">360 calques</span>",
+              "trad": "<span aria-current=\"page\">แผ่นลาย 360 แผ่น</span>",
+              "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "เฮกซะแกรม",
+              "trad": "ฉักลักษณ์",
+              "source": "glossaire (docs/terminologie-fr-en-es-th.md) : « hexagramme » en thaï est ฉักลักษณ์, เฮกซะแกรม est refusé — le dictionnaire UI.th de 360-calques.html porte encore la variante refusée"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "source": "tirage-livree-hermes.html",
+      "priorite": "0.9",
+      "langue": "let LANG = initialLang();",
+      "langues": {
+        "en": {
+          "dossier": "en/yi-king-draw/",
+          "ogLocale": "en_GB",
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King et échiquier des 64 hexagrammes — La Livrée d'Hermès</title>",
+              "trad": "<title>Yi King draw and chessboard of the 64 hexagrams — La Livrée d'Hermès</title>",
+              "source": "adapté de nav-tiles (tirage, en)"
+            },
+            {
+              "fr": "Tirez un hexagramme au hasard et découvrez son carré : le Yi King en oracle, et l'échiquier des 64 mutations en ordre binaire 00 → 63. La Livrée d'Hermès, Anibal Amiot.",
+              "trad": "Draw a hexagram at random and discover its square: the Yi King as an oracle, and the chessboard of the 64 changes in binary order 00 → 63. La Livrée d'Hermès, Anibal Amiot.",
+              "source": "nav-tiles (tirage, en) pour la 1re phrase ; SANS SOURCE pour la suite"
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, EGO ALTER, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "arithmogeometry, magic squares, solar squares, ansate cross, EGO ALTER, Yi King, Jacquard, verticality, Pythagoras, Plato, anamnesis, ceremonial fabric, livery, Anibal Edelberto Amiot, Q141191562",
+              "source": "SANS SOURCE (mots-clés)"
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — a treatise in 111 plates\">",
+              "source": "en/index.html (og:title)"
+            },
+            {
+              "fr": "Traité en 111 planches : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "A treatise on arithmogeometry in 111 plates by Anibal Edelberto Amiot: magic squares built geometrically, from the ansate cross to Jacquard weaving.",
+              "source": "en/index.html (og:description)"
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — a treatise in 111 plates\">",
+              "source": "en/index.html (twitter:title)"
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "A treatise on arithmogeometry in 111 plates by Anibal Edelberto Amiot: magic squares built geometrically, from the ansate cross to Jacquard weaving.",
+              "source": "en/index.html (twitter:description)"
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"Arithmogeometry\",\n        \"Magic squares\",\n        \"Jacquard weaving\",\n        \"Chladni figures\",\n        \"Finite geometry\"",
+              "source": "SANS SOURCE (données structurées, knowsAbout)"
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"A treatise on arithmogeometry\"",
+              "source": "en/index.html (description)"
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "A treatise on arithmogeometry in 111 plates: magic squares built geometrically, from the ansate cross to Jacquard weaving.",
+              "source": "adapté de en/index.html (description)"
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"Verification scripts for La Livrée d'Hermès\"",
+              "source": "SANS SOURCE"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

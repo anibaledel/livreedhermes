@@ -128,6 +128,11 @@ jobs:
       # la navigation en cinq catégories (scripts/nav-tiles.js), JavaScript coupé :
       # une catégorie principale par page, ouverte et marquée ; clic, clavier, 390 px, cibles en 200
       - run: node tools/check_navigation.mjs local
+      # les outils traduits (scripts/build-outils-langues.js) : 200, langue et
+      # canonical propres, alternates réciproques, langue fixée, texte en dur
+      # dans sa langue, aucune ressource en échec ; --essai : défauts posés, vus
+      - run: node tools/check_outils_langues.mjs local
+      - run: node tools/check_outils_langues.mjs local --essai
       # le parcours des épingles encre et crème : à jour, sans jumelles
       - run: node tools/epingles_encre_creme.mjs --verifie
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
@@ -188,6 +193,13 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11; do
             node tools/check_echantillon_site.mjs https://anibal-amiot.com && exit 0
             echo "essai $i : le site ne sert pas encore l'échantillon ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
+      # les outils traduits, sur le site déployé
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_outils_langues.mjs https://anibal-amiot.com && exit 0
+            echo "essai $i : le site ne sert pas encore les outils traduits ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1
       # le bicolore par défaut (encre et crème) sur chaque page de rendu, et

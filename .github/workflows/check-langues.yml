@@ -25,6 +25,10 @@ name: Langues — glossaire, hreflang, phrase canonique, DOI et licences
 #     BY-NC sur chaque page ajoutée ;
 #   - check_police_zh.mjs : la police chinoise hébergée couvre chaque caractère
 #     des pages chinoises ;
+#   - build-outils-langues.js --verifie : les outils dont le texte était déjà
+#     traduit (cymatique, 360 calques, tirage) ont une page par langue, écrite
+#     depuis la page française et data/outils-langues.json — une page française
+#     corrigée sans régénération, ou un texte français à traduire disparu, échoue ;
 #   - generate-sitemap.js : il refuse une adresse déclarée deux fois. Une page
 #     qui entre dans un groupe de langues doit sortir de STATIC_PAGES — oublié
 #     pour outils.html et soutenir.html, ce que seul update-sitemap.yml, sur
@@ -56,4 +60,5 @@ jobs:
       - run: node scripts/build-langues.js --verifie
       - run: node tools/check_doi_licences.mjs
       - run: node tools/check_police_zh.mjs
+      - run: node scripts/build-outils-langues.js --verifie
       - run: node scripts/generate-sitemap.js

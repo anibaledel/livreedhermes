@@ -420,3 +420,54 @@ Pages : `galerie-animations.html` et `animations/`, `en/animations/`,
 - le **nom de chaque fond** sur les cartes n'existe qu'en français et en
   anglais : les six autres langues affichent le nom anglais ;
 - hindi : « पैटर्न » pour motif (le terme du glossaire ; « नमूना » y est refusé).
+
+## Outils traduits — cymatique, 360 calques, tirage (2026-10-06, étape 1 des outils en langues)
+
+Sept pages nouvelles, écrites par `scripts/build-outils-langues.js` depuis la page
+française : `en/cymatics/`, `es/cimatica/`, `th/cymatics/`, `en/360-layers/`,
+`es/360-capas/`, `th/360-layers/`, `en/yi-king-draw/`. Leur corps vient du
+dictionnaire que chaque page portait déjà (`UI.en`, `UI.es`, `UI.th`) : rien n'y a été
+traduit par ce lot, il est seulement devenu visible. La mention de relecture que
+cymatique affichait déjà en espagnol et en thaï reste en place.
+
+Où corriger : le corps dans le dictionnaire `UI` de la page française
+(`cymatique.html`, `360-calques.html`, `tirage-livree-hermes.html`) ; la tête
+(titre, description, données structurées) et le fil d'Ariane dans
+`data/outils-langues.json`. Puis `node scripts/build-outils-langues.js`.
+
+**Sans source humaine** (écrits pour ce lot ; « adapté » = repris d'un texte du
+site puis complété) :
+
+- `en/cymatics/` (en) :
+  - « The tiling whose spatial frequency comes closest to the sound you make. Its figures are the level lines of an exact eigenmode of a plate — not measured. » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e
+  - « A listening tool and a result: the sixteen families of axes are the level lines of cos(πx/3), an exact eigenmode of a square plate with guided edges and of a… » — SANS SOURCE
+  - « The sixteen families of axes are the level lines of an exact eigenmode of a square plate with guided edges. No measurement has been made. » — SANS SOURCE
+  - « The tiling whose spatial frequency comes closest to the sound you make. Three of these patterns coincide, checked triangle by triangle, with eigenmodes of a … » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite
+- `es/cimatica/` (es) :
+  - « El teselado cuya frecuencia espacial se acerca más al sonido que usted emite. Sus figuras son las líneas de nivel de un modo propio exacto de placa — no medido. » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e
+  - « Una herramienta de escucha y un resultado: las dieciséis familias de ejes son las líneas de nivel de cos(πx/3), modo propio exacto de una placa cuadrada de b… » — SANS SOURCE
+  - « Las dieciséis familias de ejes son las líneas de nivel de un modo propio exacto de una placa cuadrada de bordes guiados. No se ha hecho ninguna medición. » — SANS SOURCE
+  - « El teselado cuya frecuencia espacial se acerca más al sonido que usted emite. Tres de estos motivos coinciden, verificado triángulo por triángulo, con modos … » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite
+- `th/cymatics/` (th) :
+  - « การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด รูปทรงของมันคือเส้นระดับของโหมดเฉพาะที่แม่นตรงของแผ่นเพลต — ยังไม่ได้วัด » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la 2e
+  - « เครื่องมือสำหรับการฟังและผลลัพธ์หนึ่ง: ตระกูลแกนทั้งสิบหกคือเส้นระดับของ cos(πx/3) ซึ่งเป็นโหมดเฉพาะที่แม่นตรงของแผ่นเพลตสี่เหลี่ยมจัตุรัสที่มีขอบแบบนำทางและ… » — SANS SOURCE
+  - « ตระกูลแกนทั้งสิบหกคือเส้นระดับของโหมดเฉพาะที่แม่นตรงของแผ่นเพลตสี่เหลี่ยมจัตุรัสที่มีขอบแบบนำทาง ยังไม่มีการวัดใด ๆ » — SANS SOURCE
+  - « การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด ลวดลายสามแบบในนี้ตรงกับโหมดเฉพาะของแผ่นเพลตสี่เหลี่ยมจัตุรัส ตรวจสอบทีละสามเหลี่ยม … » — nav-tiles (cymatique) pour la 1re phrase ; SANS SOURCE pour la suite
+- `en/360-layers/` (en) :
+  - « Draw and download the print layers of La Livrée d'Hermès, in 4 categories of trait combinations, as print-ready SVG. » — adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées
+- `es/360-capas/` (es) :
+  - « Realice la tirada y descargue las capas de impresión de La Livrée d'Hermès, en 4 categorías de combinaciones de trazos, en formato SVG listo para imprimir. » — adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées
+- `th/360-layers/` (th) :
+  - « ทำการทำนายและดาวน์โหลดแผ่นลายสำหรับพิมพ์ของ La Livrée d'Hermès ใน 4 หมวดของการผสมเส้น เป็นไฟล์ SVG ที่พร้อมพิมพ์ » — adapté de nav-tiles (impression, motifs-svg) ; description, og, twitter, données structurées
+- `en/yi-king-draw/` (en) :
+  - « <title>Yi King draw and chessboard of the 64 hexagrams — La Livrée d'Hermès</title> » — adapté de nav-tiles (tirage, en)
+  - « Draw a hexagram at random and discover its square: the Yi King as an oracle, and the chessboard of the 64 changes in binary order 00 → 63. La Livrée d'Hermès… » — nav-tiles (tirage, en) pour la 1re phrase ; SANS SOURCE pour la suite
+  - « arithmogeometry, magic squares, solar squares, ansate cross, EGO ALTER, Yi King, Jacquard, verticality, Pythagoras, Plato, anamnesis, ceremonial fabric, live… » — SANS SOURCE (mots-clés)
+  - « "Arithmogeometry",         "Magic squares",         "Jacquard weaving",         "Chladni figures",         "Finite geometry" » — SANS SOURCE (données structurées, knowsAbout)
+  - « A treatise on arithmogeometry in 111 plates: magic squares built geometrically, from the ansate cross to Jacquard weaving. » — adapté de en/index.html (description)
+  - « "name": "Verification scripts for La Livrée d'Hermès" » — SANS SOURCE
+
+Correction de glossaire posée par le générateur : en thaï, le dictionnaire
+`UI.th` de `360-calques.html` dit encore « เฮกซะแกรม » (variante refusée) ;
+`th/360-layers/` porte « ฉักลักษณ์ », le terme du glossaire. La page française n'a
+pas été touchée : à corriger dans son dictionnaire à la prochaine retouche.

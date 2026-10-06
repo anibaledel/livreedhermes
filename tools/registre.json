@@ -184,6 +184,7 @@
    "lit": [
     "book-viewer/index.html",
     "data/livre/chapitres.json",
+    "data/outils-langues.json",
     "en/about",
     "en/articles",
     "en/articles/axes-are-nodal-lines.html",
@@ -613,6 +614,20 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_outils_langues.mjs",
+   "role": "les outils sortis à une adresse par langue, mesurés dans un navigateur (scripts/build-outils-langues.js, data/outils-langues.json).",
+   "lit": [
+    "assets/share-widget.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/check_page_360.mjs",
@@ -1228,6 +1243,7 @@
     "tools/check_galerie_animations.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_navigation.mjs",
+    "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",
     "tools/check_parcours_langues.mjs",
     "tools/check_selecteur_fonds.mjs",

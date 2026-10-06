@@ -207,6 +207,16 @@ const AVEC_TUILES_EN_PLUS = new Set([
 ]);
 const ZONE_VIDE = '<!-- @navtiles:start -->\n<!-- @navtiles:end -->';
 const AVEC_REGLAGES = new Set(['tirage-livree-hermes.html', 'creation-motifs-yi-king.html']);
+// Les outils traduits (scripts/build-outils-langues.js) sont écrits depuis leur
+// page française, zone @navtiles comprise, et la gardent À SA PLACE : ils
+// suivent le régime de leur source (sinon la zone serait retirée et reposée
+// avant le pied, APRÈS le script qui écrit l'année du crédit).
+for (const p of require('../data/outils-langues.json').pages) {
+  for (const c of Object.values(p.langues)) {
+    if (AVEC_TUILES_EN_PLUS.has(p.source)) AVEC_TUILES_EN_PLUS.add(`${c.dossier}index.html`);
+    if (AVEC_REGLAGES.has(p.source)) AVEC_REGLAGES.add(`${c.dossier}index.html`);
+  }
+}
 
 /* ---- Adoption : effacer l'en-tête écrit à la main, sous ses trois formes,
    et le traducteur Google Translate — retiré du site (décision de l'auteur,
@@ -481,7 +491,7 @@ function parcourir(dir, acc = []) {
 /* Exposé pour scripts/generate-hexagram-pages.js : les 64 pages engendrées
    portent le même en-tête que les autres, depuis les mêmes fragments, et non
    une quatrième copie écrite dans le gabarit. */
-module.exports = { rendre, zone, rendreNavTiles };
+module.exports = { rendre, zone, rendreNavTiles, traiter };
 
 if (require.main !== module) return;
 

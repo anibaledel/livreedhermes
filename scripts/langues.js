@@ -160,6 +160,18 @@ for (const [code, l] of Object.entries(LANGUES)) {
   for (const g of GALERIE.groupes) l.pages[`galerie-animations-${g.id}`] = a.groupe.replace('{slug}', g.slugs[a.slugs]);
 }
 
+// Les outils dont le texte était déjà traduit dans leur dictionnaire
+// (prompt-cc-outils-langues.md, étape 1) : une page par langue, écrite par
+// scripts/build-outils-langues.js depuis la page française. Les adresses
+// sont déclarées dans data/outils-langues.json, versées ici comme celles
+// de la galerie.
+const OUTILS_TRADUITS = require('../data/outils-langues.json').pages
+  .map((p) => ({ ...p, nom: `outil-${p.source.replace(/\.html$/, '')}` }));
+for (const p of OUTILS_TRADUITS) {
+  LANGUES.fr.pages[p.nom] = p.source;
+  for (const [code, c] of Object.entries(p.langues)) LANGUES[code].pages[p.nom] = c.dossier;
+}
+
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
 
@@ -237,6 +249,9 @@ GROUPES.push({
 GROUPES.push({ nom: 'galerie-animations', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('galerie-animations') });
 for (const g of GALERIE.groupes) {
   GROUPES.push({ nom: `galerie-animations-${g.id}`, changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe(`galerie-animations-${g.id}`) });
+}
+for (const p of OUTILS_TRADUITS) {
+  GROUPES.push({ nom: p.nom, changefreq: 'monthly', priority: p.priorite, rangee: false, pages: pagesDe(p.nom) });
 }
 GROUPES.push({ nom: 'outils', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('outils') });
 GROUPES.push({ nom: 'soutien', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('soutien') });

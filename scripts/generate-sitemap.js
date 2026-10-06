@@ -85,7 +85,8 @@ function urlEntry({ loc, file, changefreq, priority, hreflang }) {
 // Pages fixes du site (hors articles / hexagrammes, gérés automatiquement plus bas).
 const STATIC_PAGES = [
   // Le tirage du Yi King et l'échiquier : la racine est devenue un accueil (A03, 2026-10-04).
-  { loc: `${SITE}/tirage-livree-hermes.html`, file: 'tirage-livree-hermes.html', changefreq: 'monthly', priority: '0.9' },
+  // 'tirage-livree-hermes.html', '360-calques.html', 'cymatique.html' : dans les groupes « outil-… » de
+  // scripts/langues.js (data/outils-langues.json, 2026-10-06), avec leurs pages traduites et leurs alternates.
   { loc: `${SITE}/creation-motifs-yi-king.html`, file: 'creation-motifs-yi-king.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/bicolore.html`, file: 'bicolore.html', changefreq: 'monthly', priority: '0.8' },
   // Liée depuis toutes les pages (tuile « Motifs bicolores v2 ») et absente du sitemap jusqu'au
@@ -95,11 +96,9 @@ const STATIC_PAGES = [
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
   // 'galerie-animations.html' : dans le groupe « galerie-animations » de scripts/langues.js (lot 7), avec ses alternates et ses six pages de groupe.
-  { loc: `${SITE}/360-calques.html`, file: '360-calques.html', changefreq: 'monthly', priority: '0.9' },
   { loc: `${SITE}/galerie-patterns-unifies.html`, file: 'galerie-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/galerie-bicolore.html`, file: 'galerie-bicolore.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
-  { loc: `${SITE}/cymatique.html`, file: 'cymatique.html', changefreq: 'monthly', priority: '0.7' },
   // 'outils.html' : dans le groupe « outils » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
   { loc: `${SITE}/chiffres-et-sources.html`, file: 'chiffres-et-sources.html', changefreq: 'monthly', priority: '0.6' },
