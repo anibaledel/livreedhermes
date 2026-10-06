@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Figures and sources — La Livrée d'Hermès</title>
+<meta name="description" content="Every figure on the site, the repository script that reproduces it and the line it prints: 2 ansate crosses, 256 solar squares, 360 layers, 512 unified grids.">
+<meta property="og:title" content="Figures and sources — La Livrée d'Hermès">
+<meta property="og:description" content="Every figure on the site, the repository script that reproduces it and the line it prints: 2 ansate crosses, 256 solar squares, 360 layers, 512 unified grids.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/en/figures-and-sources/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/en/figures-and-sources/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Figures and sources — La Livrée d'Hermès">
+<meta name="twitter:description" content="Every figure on the site, the repository script that reproduces it and the line it prints: 2 ansate crosses, 256 solar squares, 360 layers, 512 unified grids.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "La Livrée d'Hermès", "item": "https://anibal-amiot.com/en/book/" },
+    { "@type": "ListItem", "position": 3, "name": "Figures and sources", "item": "https://anibal-amiot.com/en/figures-and-sources/" }
+  ]
+}
+</script>
+
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  /* ---------- contenu lexique (même traitement que profil.html) ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:calc(15px + var(--fs-bump)); line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; text-align:center; }
+  .profile-section h2{
+    font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .profile-section p.profile-text{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:0; }
+  .profile-section p.profile-text b{ color:var(--white); font-weight:400; }
+  /* ---------- tableau des chiffres et sorties de script ---------- */
+  .chiffres{
+    width:100%; max-width:80ch; margin:0 auto 34px; border-collapse:collapse;
+    text-align:left; font-size:calc(12.5px + var(--fs-bump));
+  }
+  /* Le doré du site : sans cette règle, les liens hors .profile-sources
+     tombent sur le bleu par défaut du navigateur, illisible sur fond noir. */
+  .profile-intro a, .profile-text a, .chiffres a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover{ text-decoration-color:currentColor; }
+  .chiffres th, .chiffres td{ padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
+  .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
+  .chiffres td{ color:var(--dim); line-height:1.5; }
+  .chiffres code, .sortie code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
+  .sortie{
+    max-width:64ch; margin:0 auto 26px; padding:14px 16px;
+    border:1px solid var(--line); background:var(--panel); overflow-x:auto;
+    font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; color:var(--dim);
+    white-space:pre-wrap; overflow-wrap:anywhere; tab-size:2;
+    /* pre-wrap plutôt que pre : une ligne trop longue se replie au lieu
+       d'être masquée hors du cadre. Le lecteur voit tout, quitte à perdre
+       l'alignement des colonnes — le contenu prime sur la mise en colonne. */
+  }
+  .sortie b{ color:var(--white); font-weight:400; }
+  .commande{
+    max-width:64ch; margin:0 auto 10px; color:var(--gold);
+    font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size:calc(11.5px + var(--fs-bump)); text-align:center;
+  }
+  .commande-note{ font-family:inherit; color:var(--dim); font-style:italic;
+    font-size:calc(11px + var(--fs-bump)); margin-left:.6em; }
+  .duree{ max-width:64ch; margin:0 auto 26px; text-align:center;
+    font-size:calc(11px + var(--fs-bump)); color:var(--dim); font-style:italic; }
+  @media (max-width:640px){
+    .chiffres{ font-size:calc(11.5px + var(--fs-bump)); }
+    .chiffres th, .chiffres td{ padding:7px 6px; }
+  }
+  .profile-sources{ max-width:64ch; margin:0 auto; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; text-align:center; }
+  .profile-sources a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-sources a:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:0 auto 40px; text-align:left; }
+  .faq-block-title{ font-size:calc(12px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 16px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:14px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(14.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:12px 0 0; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .profile-intro, .profile-section p.profile-text, .profile-sources{ font-size:calc(14.5px + var(--fs-bump)); }
+    .faq-item summary{ font-size:calc(15px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- colonnes latérales décoratives (gif animé, mécanisme repris de la page Articles) ---------- */
+  .side-band{
+    position:fixed; top:0; bottom:0; width:150px;
+    pointer-events:none; z-index:5; opacity:0; transition:width .3s ease;
+    background-image:url('../../assets/caducee-unified-patterns-tint.gif');
+    background-repeat:repeat; background-size:116px 116px; background-color:#050505;
+  }
+  .side-band.visible{ animation:sideBandFadeIn .5s ease forwards; }
+  @keyframes sideBandFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+  .side-band.left{ left:0; }
+  .side-band.right{ right:0; }
+  @media (max-width:1320px){ .side-band{ display:none; } }
+  @media (min-width:1620px){ .side-band{ width:222px; } }
+  @media (min-width:1900px){ .side-band{ width:290px; } }
+  @media (prefers-reduced-motion: reduce){ .side-band{ display:none; } }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/figures-and-sources/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="side-band left visible"></div>
+<div class="side-band right visible"></div>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-26-lexique.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/en/book/">La Livrée d'Hermès</a><span class="sep">/</span><span aria-current="page">Figures and sources</span>
+    </nav>
+    <h1>Figures and sources</h1>
+    <p>Every number, the script that reproduces it, and the line it prints</p>
+  </header>
+  </div>
+
+
+  <div class="profile-body">
+    <p class="profile-intro">The figures put forward on this site are not claims to be taken on trust. Each one comes out of a script in the repository, which reads the published data and runs again in a few minutes. This page brings them together: the statement, the command, and what it prints — the lines that carry the figure, exactly as you will get them by running it yourself (the scripts print in French). Only the running time varies from one machine to another. The code is under <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a>, in <a href="https://github.com/anibaledel/livreedhermes">the GitHub repository</a>.</p>
+
+    <table class="chiffres">
+      <thead><tr><th>Figure</th><th>What it states</th><th>Where it is checked</th></tr></thead>
+      <tbody>
+        <tr><td>111</td><td>plates of the treatise</td><td><a href="https://doi.org/10.5281/zenodo.22722485">Zenodo</a></td></tr>
+        <tr><td>2</td><td>ansate crosses of order 6</td><td><code>croix_ansee.py</code></td></tr>
+        <tr><td>256</td><td>solar squares of order 6, 128 per cross, complete set</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
+        <tr><td>64</td><td>magic squares of order 12 by assembly, constant 870</td><td><code>verif_protocole.py</code></td></tr>
+        <tr><td>360</td><td>layers: 15 axis families × 4 natures × 6 levels</td><td><code>referent_360_v3.json</code></td></tr>
+        <tr><td>8 of 15</td><td>families admitted by the half-shift criterion</td><td><code>cube_edges.py</code></td></tr>
+        <tr><td>512 / 256 / 128</td><td>unified grids, tilings of the plane, symmetry orbits</td><td><code>cube_edges.py</code></td></tr>
+        <tr><td>256 / 128 / 64</td><td>among them, those that close up on the cube</td><td><code>cube_edges.py</code></td></tr>
+        <tr><td>256 bits</td><td>Carter's key size; the geometry adds nothing</td><td>AES-256-GCM and XChaCha20-Poly1305 standards</td></tr>
+        <tr><td>8191 / 4095</td><td>distinct two-colour figures by XOR of 16 axis instances, triangle grain / cell grain</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
+        <tr><td>13 / 12</td><td>GF(2) rank of the 16 instances, triangle grain / cell grain — on C1, 12 if the figures keep the polarity the rule gives them (11 if a reference region is forced to be light, [A] §5.4); on C8 nothing depends on the convention</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
+        <tr><td>144</td><td>two-colour figures that close on the cube at cell grain (π = identity)</td><td><code>assets/bicolore-cube-c1.mjs</code></td></tr>
+        <tr><td>142</td><td>patterns of the two-colour gallery: the 144 closed ones, minus plain light and plain dark</td><td><code>tools/bicolore_galerie_data.mjs</code>, <code>data/bicolore_galerie_v1.json</code></td></tr>
+        <tr><td>7</td><td>two-colour families (YIN/mutant YIN) that close on the cube on their own, minimal chord = 1 instance — not to be confused with another “7” in the repository about mutant YANG/YANG families and an entirely different property (drawn lines vs. band systems)</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
+      </tbody>
+    </table>
+
+    <p class="faq-block-title" style="max-width:64ch;margin:46px auto 26px;padding-top:34px;border-top:1px solid var(--line);">What each script prints</p>
+
+    <section class="profile-section">
+      <h2>The two ansate crosses</h2>
+      <p class="profile-text">The enumeration starts from the possible pairings, without assuming symmetry, and applies the criteria of plate 040. Central symmetry comes out of it as a consequence — 8 out of 8 — not as an assumption.</p>
+    </section>
+    <p class="commande">python tools/croix_ansee.py</p>
+    <pre class="sortie">choix bruts (2 paires par ligne, 6 lignes) : 64
+appariements cohérents                    : 8
+  dont à symétrie centrale                : 8
+critères II–III sur les lignes seules     : 8
+critères II–III sur lignes et colonnes    : <b>2</b></pre>
+    <p class="duree">a few seconds — the script then draws the two crosses</p>
+
+    <section class="profile-section">
+      <h2>The 256 solar squares</h2>
+      <p class="profile-text">Two scripts meet here. <code>enum_criteres.py</code> enumerates without reading any data: it starts from the criteria and counts. <code>verif_protocole.py</code> starts from the 256 published squares and checks that they are magic. The two paths meet on the same number.</p>
+    </section>
+    <p class="commande">python tools/enum_criteres.py</p>
+    <pre class="sortie">jeux R/B : 48384
+colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
+avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
+    <p class="duree">about three minutes; the time shown varies with the machine</p>
+    <div class="profile-section">
+      <p class="profile-text">The million and a half is the set under the four criteria <i>alone</i>. The 128 appear only when the row structure of the cross is imposed as well. These 128 are those of <i>one</i> cross; the second, mirror image of the first, gives the other 128 — hence 256.</p>
+    </div>
+    <p class="commande">python tools/verif_protocole.py<span class="commande-note">— excerpt of the lines that carry the figures</span></p>
+    <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
+§2    cellules diagonales complémentaires par symétrie centrale    : 256/256
+§5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
+    <p class="duree">a few seconds</p>
+
+    <section class="profile-section">
+      <h2>The 360 layers</h2>
+      <p class="profile-text">The vocabulary of patterns: 15 axis families × 4 natures make 60 images, each drawn on six levels — hence 360 layers. The number is carried by the data file itself, not by a comment.</p>
+    </section>
+    <p class="commande">python -c "import json; print(len(json.load(open('data/referent_360_v3.json'))['calques']))"</p>
+    <pre class="sortie"><b>360</b></pre>
+
+    <section class="profile-section">
+      <h2>The half-shift criterion and the cube</h2>
+      <p class="profile-text">A pattern is unified if translating it by half a period amounts to swapping its two images. The criterion keeps only 8 families out of 15 — those with exactly one diagonal base, yang or mutant yang — and exactly half of the grids obtained close up on the six faces of a cube.</p>
+    </section>
+    <p class="commande">python tools/cube_edges.py<span class="commande-note">— excerpt of the lines that carry the figures</span></p>
+    <pre class="sortie">familles : 15 ; <b>images : 60</b>
+couples unifiés (6 couples testés par famille) : 16 dans <b>8</b> familles
+
+Corpus (Théorème 2)
+    grilles distinctes : <b>512</b>
+    pavages distincts  : <b>256</b>
+
+Règle d'arête (Théorème 3)
+    grilles distinctes   : <b>256</b>
+    pavages distincts    : <b>128</b>
+
+Orbites de Γ (Section 4 et Remarque de la Section 6)
+    corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
+    <p class="duree">about forty-five seconds</p>
+
+    <section class="profile-section">
+      <h2>The two figures without a script</h2>
+      <p class="profile-text">The <b>111 plates</b> are counted in the book itself: the four published PDFs have 111 pages each. The <b>256 bits</b> are the key size of the two standard ciphers that Carter uses in cascade, without modifying them: AES-256-GCM on top of XChaCha20-Poly1305, under independent keys. The geometry adds nothing to security, and the proofs hold even if the layout is known.</p>
+    </section>
+
+    <p class="profile-sources">To go further: the <a href="../../en/lexicon/">lexicon</a> for the notions, <a href="../../en/book/">the book online</a>, or the <a href="../../en/documentary-profile/">documentary profile</a> for the patents and publications. Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a>, code under <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a>.</p>
+  </div>
+
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter</a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws & prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">Two-colour patterns v2</span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/cymatics/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">Tools</span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">Support</span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/" aria-current="page"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+</div>
+
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../profil.html" hreflang="fr">Author profile (French)</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Support</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

@@ -1,0 +1,145 @@
+{
+ "_doc": "Textes de contact.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "Contact — Anibal Amiot | Designer textile en Thaïlande",
+   "en": "Contact — Anibal Amiot | Textile designer in Thailand",
+   "es": "Contacto — Anibal Amiot | Diseñador textil en Tailandia",
+   "th": "ติดต่อ — Anibal Amiot | นักออกแบบสิ่งทอในประเทศไทย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Contactez Anibal Amiot, créateur textile basé en Thaïlande, par email ou sur les réseaux sociaux, pour un projet ou une commande de motifs et tirages textiles.",
+   "en": "Contact Anibal Amiot, a textile designer based in Thailand, by email or on social media, for a project or an order of textile patterns and prints.",
+   "es": "Contacte con Anibal Amiot, creador textil establecido en Tailandia, por correo electrónico o en las redes sociales, para un proyecto o un encargo de motivos e impresiones textiles.",
+   "th": "ติดต่อ Anibal Amiot นักออกแบบสิ่งทอที่อาศัยอยู่ในประเทศไทย ทางอีเมลหรือโซเชียลมีเดีย สำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Anibal Amiot, créateur textile, designer textile Thaïlande, industrie textile Thaïlande, développement textile Asie du Sud-Est, créateur textile Bangkok, collaboration textile ministérielle",
+   "en": "Anibal Amiot, textile designer, textile designer Thailand, Thai textile industry, textile development Southeast Asia, textile designer Bangkok, ministerial textile collaboration",
+   "es": "Anibal Amiot, creador textil, diseñador textil Tailandia, industria textil Tailandia, desarrollo textil Sudeste Asiático, creador textil Bangkok, colaboración textil ministerial",
+   "th": "Anibal Amiot, นักออกแบบสิ่งทอ, นักออกแบบสิ่งทอ ประเทศไทย, อุตสาหกรรมสิ่งทอไทย, การพัฒนาสิ่งทอ เอเชียตะวันออกเฉียงใต้, นักออกแบบสิ่งทอ กรุงเทพฯ, ความร่วมมือด้านสิ่งทอระดับกระทรวง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Contact — Anibal Amiot\"",
+   "en": "\"name\": \"Contact — Anibal Amiot\"",
+   "es": "\"name\": \"Contacto — Anibal Amiot\"",
+   "th": "\"name\": \"ติดต่อ — Anibal Amiot\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"position\": 2, \"name\": \"Contact\"",
+   "en": "\"position\": 2, \"name\": \"Contact\"",
+   "es": "\"position\": 2, \"name\": \"Contacto\"",
+   "th": "\"position\": 2, \"name\": \"ติดต่อ\"",
+   "source": "nav-tiles (contact)"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Contact</span>",
+   "en": "<span aria-current=\"page\">Contact</span>",
+   "es": "<span aria-current=\"page\">Contacto</span>",
+   "th": "<span aria-current=\"page\">ติดต่อ</span>",
+   "source": "nav-tiles (contact)"
+  },
+  {
+   "fr": "<h1>Contact</h1>",
+   "en": "<h1>Contact</h1>",
+   "es": "<h1>Contacto</h1>",
+   "th": "<h1>ติดต่อ</h1>",
+   "source": "nav-tiles (contact)"
+  },
+  {
+   "fr": "<p>Un projet, une collaboration ou une commande de motifs et tirages textiles</p>",
+   "en": "<p>A project, a collaboration or an order of textile patterns and prints</p>",
+   "es": "<p>Un proyecto, una colaboración o un encargo de motivos e impresiones textiles</p>",
+   "th": "<p>โครงการ ความร่วมมือ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Pour toute question, projet de motif sur mesure, tirage textile ou collaboration, écrivez directement par email ou retrouvez Anibal Amiot sur les réseaux sociaux :",
+   "en": "For any question, custom pattern project, textile print or collaboration, write directly by email or find Anibal Amiot on social media:",
+   "es": "Para cualquier pregunta, proyecto de motivo a medida, impresión textil o colaboración, escriba directamente por correo electrónico o encuentre a Anibal Amiot en las redes sociales:",
+   "th": "หากมีคำถาม โครงการลวดลายสั่งทำ งานพิมพ์บนผ้า หรือความร่วมมือ เขียนอีเมลถึงโดยตรง หรือติดตาม Anibal Amiot ได้ทางโซเชียลมีเดีย:",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "(temporairement indisponible)",
+   "en": "(temporarily unavailable)",
+   "es": "(temporalmente no disponible)",
+   "th": "(ไม่พร้อมใช้งานชั่วคราว)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Temporairement indisponible",
+   "en": "Temporarily unavailable",
+   "es": "Temporalmente no disponible",
+   "th": "ไม่พร้อมใช้งานชั่วคราว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Discussion sur Reddit",
+   "en": "Discussion on Reddit",
+   "es": "Debate en Reddit",
+   "th": "พูดคุยบน Reddit",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Anibal Amiot — auteur du projet",
+   "en": "Anibal Amiot — author of the project",
+   "es": "Anibal Amiot — autor del proyecto",
+   "th": "Anibal Amiot — ผู้ริเริ่มโครงการ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Anibal Amiot est le concepteur du projet La Livrée d'Hermès, une recherche originale portant sur la construction géométrique de carrés magiques auto-construits (« carrés solaires ») et leur application au tirage du Yi King. Basé en Thaïlande, il développe également un volet textile lié à cette recherche, en lien avec les acteurs locaux du secteur.",
+   "en": "Anibal Amiot is the designer of the La Livrée d'Hermès project, an original piece of research on the geometric construction of self-constructed magic squares (“solar squares”) and their application to the Yi King draw. Based in Thailand, he is also developing a textile side of this research, together with local players in the sector.",
+   "es": "Anibal Amiot es el creador del proyecto La Livrée d'Hermès, una investigación original sobre la construcción geométrica de cuadrados mágicos autoconstruidos («cuadrados solares») y su aplicación a la tirada del Yi King. Establecido en Tailandia, desarrolla también una vertiente textil vinculada a esta investigación, en relación con los actores locales del sector.",
+   "th": "Anibal Amiot เป็นผู้ออกแบบโครงการ La Livrée d'Hermès งานวิจัยต้นฉบับว่าด้วยการสร้างจัตุรัสกลที่สร้างตัวเองได้ด้วยเรขาคณิต (« จัตุรัสสุริยะ ») และการนำไปใช้ในการทำนายอี้จิง เขาอาศัยอยู่ในประเทศไทย และกำลังพัฒนางานด้านสิ่งทอที่เชื่อมโยงกับงานวิจัยนี้ ร่วมกับผู้ประกอบการท้องถิ่นในวงการ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Deux brevets français déposés en 2002 et 2004 (FR2840678, FR2865054), et 63 dessins et modèles déposés le 4 juillet 2019 (n° d'enregistrement 20193057) couvrant les principaux carrés d'ordre 12 — le socle géométrique de La Livrée d'Hermès. Pour le détail documenté de ces titres, voir le ",
+   "en": "Two French patents filed in 2002 and 2004 (FR2840678, FR2865054), and 63 designs registered on July 4, 2019 (registration no. 20193057) covering the principal order-12 squares — the geometric foundation of La Livrée d'Hermès. For the documented detail of these titles, see the ",
+   "es": "Dos patentes francesas presentadas en 2002 y 2004 (FR2840678, FR2865054), y 63 dibujos y modelos registrados el 4 de julio de 2019 (n.º de registro 20193057) que cubren los principales cuadrados de orden 12 — la base geométrica de La Livrée d'Hermès. Para el detalle documentado de estos títulos, véase el ",
+   "th": "สิทธิบัตรฝรั่งเศสสองฉบับที่ยื่นในปี 2002 และ 2004 (FR2840678, FR2865054) และแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนเมื่อวันที่ 4 กรกฎาคม 2019 (เลขทะเบียน 20193057) ครอบคลุมจัตุรัสอันดับ 12 หลัก ๆ — รากฐานทางเรขาคณิตของ La Livrée d'Hermès รายละเอียดของสิทธิเหล่านี้พร้อมเอกสารอ้างอิง ดูที่",
+   "source": "SANS SOURCE (en : d'après en/about/)"
+  },
+  {
+   "fr": "<a href=\"profil.html\">profil documentaire complet</a>, ou la ",
+   "en": "<a href=\"en/documentary-profile/\">full documentary profile</a>, or the ",
+   "es": "<a href=\"es/perfil-documental/\">perfil documental completo</a>, o la ",
+   "th": "<a href=\"th/profile/\">โปรไฟล์เอกสารฉบับเต็ม</a> หรือ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "fiche Wikidata d'Anibal Edelberto Amiot",
+   "en": "Wikidata entry for Anibal Edelberto Amiot",
+   "es": "ficha de Wikidata de Anibal Edelberto Amiot",
+   "th": "ข้อมูล Wikidata ของ Anibal Edelberto Amiot",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Inventeur — brevets déposés : ",
+   "en": "Inventor — patents filed: ",
+   "es": "Inventor — patentes presentadas: ",
+   "th": "นักประดิษฐ์ — สิทธิบัตรที่ยื่นจด: ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": " (procédé de composition automatisée d'un motif symbolique — précurseur direct de la méthode de La Livrée d'Hermès), ",
+   "en": " (process for the automated composition of a symbolic pattern — direct forerunner of the method of La Livrée d'Hermès), ",
+   "es": " (procedimiento de composición automatizada de un motivo simbólico — precursor directo del método de La Livrée d'Hermès), ",
+   "th": " (กรรมวิธีประกอบลวดลายเชิงสัญลักษณ์แบบอัตโนมัติ — ต้นแบบโดยตรงของวิธีการใน La Livrée d'Hermès), ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": " (arme transformable pour arts martiaux).",
+   "en": " (convertible weapon for martial arts).",
+   "es": " (arma transformable para artes marciales).",
+   "th": " (อาวุธแปลงรูปสำหรับศิลปะการต่อสู้).",
+   "source": "SANS SOURCE"
+  }
+ ]
+}
