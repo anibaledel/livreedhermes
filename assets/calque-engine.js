@@ -15,7 +15,7 @@ window.CalqueEngine = (function(){
   // l'espace par défaut se charge au même endroit depuis une page de la racine
   // (tirage-livree-hermes.html) comme depuis une page traduite (en/yi-king-draw/,
   // scripts/build-outils-langues.js), où « assets/… » relatif ne mène nulle part.
-  const RACINE = document.currentScript && document.currentScript.src
+  const RACINE = typeof document !== 'undefined' && document.currentScript && document.currentScript.src
     ? new URL('../', document.currentScript.src).href : '';
   const NATURE_KEY = { yang:'YANG', 'yang-mut':'YANGMUT', yin:'YIN', 'yin-mut':'YINMUT' };
 
