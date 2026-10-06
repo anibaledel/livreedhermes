@@ -552,3 +552,20 @@ Reste en français, et pourquoi :
 - le texte des 32 paires à télécharger (`32-paires-chrono-FR.pdf`) : le bouton le dit (« en français ») ;
 - les noms de fichiers (`grille.png`, `grille.json`, le SVG) ;
 - les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`.
+
+## Galerie d'animations — libellés des cartes d'assemblage (2026-10-06)
+
+Les dix cartes `+…` nomment désormais le fond **et** la figure (« aplat + étoile à 95 % »),
+composés par `scripts/build-galerie-animations.js` depuis `data/fonds/collection-v1.json`
+(forme, échelle) et le glossaire (nom de la forme). Le français et l'anglais viennent du
+prompt d'Anibal ; le reste est **SANS SOURCE**, à relire :
+
+- les cinq formes (étoile, rond, carré, croix, losange) en ES, TH, ZH, RU, PT, HI —
+  glossaire, lignes « (forme de superposition) » ;
+- le gabarit `assemblage` (« {fond} + {forme} à {p} % ») et `altAssemblage` en ES, TH, ZH,
+  RU, PT, HI — `data/galerie-animations.json`. TH « มาตราส่วน », ZH « 比例 », RU « масштаб »,
+  HI « पैमाना » disent « échelle » : à confirmer.
+
+Défaut connu, non corrigé dans ce lot : dans les six langues autres que FR et EN, le **nom
+du fond** reste en anglais (« solid + disco al 45 % ») — `nomDuFond` d'
+`assets/selecteur-fonds.js` n'existe qu'en français et en anglais.
