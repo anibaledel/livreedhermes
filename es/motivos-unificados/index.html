@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Patterns — La Livrée d'Hermès</title>
+<meta name="description" content="Los 64 motivos textiles asociados a los 64 hexagramas del Yi King, personalizables en color y descargables en alta resolución para impresión textil.">
+<meta property="og:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta property="og:description" content="Los 64 motivos textiles asociados a los 64 hexagramas del Yi King, personalizables en color y descargables en alta resolución para impresión textil.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/es/motivos-unificados/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/es/motivos-unificados/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta name="twitter:description" content="Los 64 motivos textiles asociados a los 64 hexagramas del Yi King, personalizables en color y descargables en alta resolución para impresión textil.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  header .eyebrow{
+    letter-spacing:.35em;
+    font-size:calc(11px + var(--fs-bump));
+    color:var(--red);
+    text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
+  }
+
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+    color:var(--dim); /* sans ceci, un <a> sans couleur explicite hérite du bleu de lien
+                          par défaut du navigateur (#0000EE, 2.23:1 sur --bg) quand
+                          l'emoji drapeau se replie sur son glyphe texte (FR/GB/ES/TH) —
+                          quasi illisible. --dim (8.91:1), comme le .dl-label voisin. */
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .book-bar .dl-group{ flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box;
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+  }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+  .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; display:inline-block;
+  }
+  .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .layout{ display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
+  @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+
+  .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
+  .grid-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .grid-head .label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
+  .axis-note{ font-size:calc(9.5px + var(--fs-bump)); color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note b{ color:var(--red); font-weight:400; }
+
+  .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
+  .cell{
+    aspect-ratio:1; background:#050505; border:1px solid var(--line);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    padding:3px; position:relative; overflow:hidden;
+    transition:border-color .12s ease, transform .12s ease;
+  }
+  .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
+  .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .cell .num{ position:absolute; top:2px; left:3px; font-size:calc(7px + var(--fs-bump)); color:var(--dim); z-index:1; }
+  .cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
+
+  .empty-state{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:496px; gap:24px;
+    color:var(--dim); font-size:calc(13px + var(--fs-bump));
+    text-align:center; line-height:1.7;
+  }
+  .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
+  @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
+
+  /* ===== bloc motif : couleur, agrandissement, texte, tessellation ===== */
+  .liseret{ border:1px solid var(--gold); padding:6px; }
+  .motif-color-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .motif-color-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  #motifColorInput{ width:44px; height:28px; border:1px solid var(--line-strong); background:transparent; cursor:pointer; padding:0; }
+  .motif-swatches{ display:flex; gap:6px; align-items:center; }
+  .motif-swatch{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:inline-block; }
+  .motif-swatch-tag{ font-size:calc(9px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+
+  /* même taille que .pavage-sq de la page Tirage (le carré qui montre le tirage) */
+  .motif-box{ width:130px; height:130px; background:#050505; display:flex; align-items:center; justify-content:center; }
+  .motif-box img{ width:100%; height:100%; display:block; }
+  .motif-box-wrap{ margin-bottom:14px; }
+  .motif-box-wrap .liseret{ display:inline-block; } /* se resserre autour du carré 130x130 au lieu de s'étirer en rectangle */
+
+  .num-big{ font-size:calc(12px + var(--fs-bump)); color:var(--red); letter-spacing:.2em; }
+  .motif-detail h2{ font-weight:400; font-size:calc(28px + var(--fs-bump)); margin:6px 0 2px; letter-spacing:.02em; }
+  .pinyin{ color:var(--dim); font-style:italic; font-size:calc(13px + var(--fs-bump)); margin-bottom:6px; }
+  .altnum{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-bottom:20px; }
+
+  .keyword{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px; }
+  .keyword-sub{ font-size:calc(15px + var(--fs-bump)); font-style:italic; color:var(--red); margin:-2px 0 8px; }
+  .judgement{ font-size:calc(13.5px + var(--fs-bump)); line-height:1.65; color:var(--white); max-width:62ch; }
+
+  .tessellation-wrap{ margin-top:28px; max-width:400px; }
+  .tessellation-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .motif-tess-box{
+    aspect-ratio:1/1; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .detail-outer{ padding:20px 18px; min-height:0; }
+    .grid-panel{ padding:12px; }
+    .book-bar{ gap:10px; }
+    .book-bar .dl-group{ padding:6px 10px; }
+    .site-nav-btn{ padding:11px 16px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .book-bar .dl-btn{ padding:10px 14px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    .judgement{ font-size:calc(15px + var(--fs-bump)); }
+    .empty-state{ font-size:calc(14.5px + var(--fs-bump)); }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué son los Unified Patterns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los Unified Patterns son celdas de teselación en las que las esquinas hacen eco del centro, para generar la frecuencia de un solo motivo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuáles son las restricciones de creación de los Unified Patterns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se identifican los Unified Patterns entre las rejillas equilibradas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se clasifican estas matrices?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La clasificación utiliza el sistema Jacquard para generar y organizar las matrices equilibradas y los Unified Patterns. El capítulo VII de La Livrée d'Hermès está dedicado a la clasificación binaria de estas matrices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sobre qué armonía se ha verificado este sistema?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El sistema de codificación se ha estudiado y verificado para la armonía 12/12/6/6 (cuatro matrices de relleno repartidas en dos pares de 12 y dos pares de 6 elementos)."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://anibal-amiot.com/es/" },
+    { "@type": "ListItem", "position": 2, "name": "Herramientas", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Unified Patterns", "item": "https://anibal-amiot.com/es/motivos-unificados/" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Ir al contenido</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-38-unified-patterns.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="https://anibal-amiot.com/es/">Inicio</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Herramientas</a><span class="sep">/</span><span aria-current="page">Unified Patterns</span>
+    </nav>
+    <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1 id="txt-title">Unified Patterns</h1>
+    <p id="txt-subtitle" style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">Los 64 motivos textiles asociados a los 64 hexagramas del Yi King: haga clic en una casilla para personalizar su color y descargar el motivo.</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.</p>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" id="txt-readBook" href="../../es/libro/" target="_blank" rel="noopener">Leer el libro</a>
+        <span class="flags">
+          <!-- @drapeaux-lire:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../fr/livre/" target="_blank" rel="noopener" hreflang="fr" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="../../en/book/" target="_blank" rel="noopener" hreflang="en" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="../../es/libro/" target="_blank" rel="noopener" hreflang="es" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="../../th/book/" target="_blank" rel="noopener" hreflang="th" title="ไทย">🇹🇭</a>
+          <a class="flag-btn ready" href="../../zh/book/" target="_blank" rel="noopener" hreflang="zh-Hans" title="简体中文">🇨🇳</a>
+          <a class="flag-btn ready" href="../../ru/book/" target="_blank" rel="noopener" hreflang="ru" title="Русский">🇷🇺</a>
+          <a class="flag-btn ready" href="../../pt/book/" target="_blank" rel="noopener" hreflang="pt-PT" title="Português">🇵🇹</a>
+          <a class="flag-btn ready" href="../../hi/book/" target="_blank" rel="noopener" hreflang="hi" title="हिन्दी">🇮🇳</a>
+          <!-- @drapeaux-lire:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlPdfBook">Descargar el PDF del libro</span>
+        <span class="flags">
+          <!-- @drapeaux-pdf:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf" download title="Русский (RU)">🇷🇺</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf" download title="Português (PT)">🇵🇹</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf" download title="हिन्दी (HI)">🇮🇳</a>
+          <!-- @drapeaux-pdf:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlYiKing">Descargar la traducción del Yi-King</span>
+        <span class="flags">
+          <!-- @drapeaux-docx:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ZH.docx" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+          <span class="flag-btn" title="Português — bientôt">🇵🇹</span>
+          <span class="flag-btn" title="हिन्दी — bientôt">🇮🇳</span>
+          <!-- @drapeaux-docx:end -->
+        </span>
+      </span>
+    </div>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <p class="faq-block-title">Preguntas frecuentes</p>
+    <details class="faq-item">
+      <summary>¿Qué son los Unified Patterns?<span class="q-mark">＋</span></summary>
+      <p>Los Unified Patterns son celdas de teselación en las que las esquinas hacen eco del centro, para generar la frecuencia de un solo motivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuáles son las restricciones de creación de los Unified Patterns?<span class="q-mark">＋</span></summary>
+      <p>Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se identifican los Unified Patterns entre las rejillas equilibradas?<span class="q-mark">＋</span></summary>
+      <p>La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se clasifican estas matrices?<span class="q-mark">＋</span></summary>
+      <p>La clasificación utiliza el sistema Jacquard para generar y organizar las matrices equilibradas y los Unified Patterns. El capítulo VII de La Livrée d'Hermès está dedicado a la clasificación binaria de estas matrices.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Sobre qué armonía se ha verificado este sistema?<span class="q-mark">＋</span></summary>
+      <p>El sistema de codificación se ha estudiado y verificado para la armonía 12/12/6/6 (cuatro matrices de relleno repartidas en dos pares de 12 y dos pares de 6 elementos).</p>
+    </details>
+  </div>
+
+  <div class="layout">
+    <div class="grid-panel">
+      <div class="grid-head">
+        <span class="label">Motivos unificados</span>
+        <span class="label">00 → 63</span>
+      </div>
+      <div class="axis-note">Mismo orden cronológico que la página <b>Tirada del Yi King</b>: <b>Lo Creativo</b> abajo a la derecha, <b>Lo Receptivo</b> arriba a la izquierda. Haga clic en una casilla para abrirla al lado.</div>
+      <div class="hexgrid" id="hexgrid"></div>
+    </div>
+
+    <div class="detail-outer">
+      <div id="detail">
+        <div class="empty-state"><picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès" width="420" height="594"></picture>Haga clic en una casilla del tablero para mostrar su motivo, elegir su color y ver su teselación.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pied de page ===== -->
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../es/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Inicio</span><span class="nav-tile-excerpt">El libro, sus láminas y el conjunto de las herramientas.</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Artículos</span><span class="nav-tile-excerpt">Reflexiones e investigaciones en torno a La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Apoye La Livrée d'Hermès al precio que quiera: todo es libre bajo CC BY-NC 4.0; su apoyo financia la continuación del proyecto.">Hágase Colaborador/a</a>
+
+    <nav class="nav-categories" aria-label="Páginas del sitio">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galerías</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../es/animaciones/"><span class="nav-cat-label">Galería de animaciones</span><span class="nav-cat-texte">Las animaciones de las colecciones de fondos, en seis grupos: para ver, previsualizar y descargar en MP4.</span></a></li>
+          <li><a href="../../es/galeria-bicolor/"><span class="nav-cat-label">Galería bicolor</span><span class="nav-cat-texte">142 motivos bicolores generados por los ejes y cerrados sobre el cubo — grano de lectura, teselado, exportación.</span></a></li>
+          <li><a href="../../es/galeria-tricolor/"><span class="nav-cat-label">Galería tricolor</span><span class="nav-cat-texte">Motivos unificados, generados por mezcla de matices — seleccione un motivo para ver su teselado.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animaciones</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../es/animaciones/"><span class="nav-cat-label">Galería de animaciones</span><span class="nav-cat-texte">Las animaciones de las colecciones de fondos, en seis grupos: para ver, previsualizar y descargar en MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">Fondo de pantalla</span><span class="nav-cat-texte">Fondos de pantalla textiles a pantalla completa, reactivos al sonido o en modo meditativo a ritmo regulable.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tiradas e impresiones</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">Tirada del Yi King</span><span class="nav-cat-texte">Saque un hexagrama al azar y descubra su cuadrado, o recorra el tablero de las 64 mutaciones.</span></a></li>
+          <li><a href="../../es/360-capas/"><span class="nav-cat-label">360 capas</span><span class="nav-cat-texte">Realice la tirada y descargue las capas de impresión, listas para imprimir.</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">Motivos SVG</span><span class="nav-cat-texte">Descargue las capas de impresión en 4 categorías de combinaciones de rasgos, en formato SVG.</span></a></li>
+          <li><a href="../../es/hexagramas/"><span class="nav-cat-label">Hexagramas</span><span class="nav-cat-texte">Los 64 hexagramas del Yi King: juicio, trigramas y el cuadrado mágico asociado a cada uno.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Herramientas creativas</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../es/crear-un-motivo/"><span class="nav-cat-label">Crear un motivo</span><span class="nav-cat-texte">Componga sus propios motivos textiles a partir de las 60 imágenes del Yi King.</span></a></li>
+          <li><a href="../../es/motivos-bicolores/"><span class="nav-cat-label">Motivos bicolores</span><span class="nav-cat-texte">Componga una celda de 12×12: seis niveles, cada uno con su familia y su matiz.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">Motivos bicolores v2</span><span class="nav-cat-texte">El segundo corte de las diagonales (YA/AY), vocabulario y estados del semidesplazamiento — junto a la herramienta v1.</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">Codificador</span><span class="nav-cat-texte">Codificación esteganográfica geométrica por doble referente, cruz ansada y Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Demostración interactiva: la cuadrícula y los referentes derivados de la clave.</span></a></li>
+          <li><a href="../../es/motivos-unificados/" aria-current="page"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Los 64 motivos de los hexagramas, personalizables y descargables en alta resolución.</span></a></li>
+          <li><a href="../../es/cimatica/"><span class="nav-cat-label">Cimática</span><span class="nav-cat-texte">El teselado cuya frecuencia espacial se acerca más al sonido que usted emite.</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">Herramientas</span><span class="nav-cat-texte">Todas las herramientas interactivas del sitio, reunidas en un solo lugar.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Acerca del proyecto</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../es/libro/"><span class="nav-cat-label">El tratado</span><span class="nav-cat-texte">El tratado y sus ediciones traducidas, los hexagramas y el léxico.</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">Acerca de</span><span class="nav-cat-texte">El autor y su libro, en la encrucijada de la filosofía, las matemáticas y las ciencias aplicadas.</span></a></li>
+          <li><a href="../../es/lexico/"><span class="nav-cat-label">Léxico</span><span class="nav-cat-texte">Diez nociones clave para comprender La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../es/perfil-documental/"><span class="nav-cat-label">Perfil documental</span><span class="nav-cat-texte">Patentes y 63 dibujos y modelos registrados en el INPI, que cubren los cuadrados de orden 12.</span></a></li>
+          <li><a href="../../es/contacto/"><span class="nav-cat-label">Contacto</span><span class="nav-cat-texte">Contacte con el autor para un proyecto o un encargo de motivos e impresiones textiles.</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">Apoyar</span><span class="nav-cat-texte">Apoyar La Livrée d'Hermès a precio libre: el sitio y su contenido siguen siendo gratuitos.</span></a></li>
+          <li><a href="../../es/cifras-y-fuentes/"><span class="nav-cat-label">Cifras y fuentes</span><span class="nav-cat-texte">Cada cifra del sitio, el script que la reproduce y la línea que imprime.</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">Trabajos</span><span class="nav-cat-texte">Los depósitos, el código y los artículos presentados, cada uno fechado y abierto.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Creado en colaboración con Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+
+</div>
+
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+// ---------- ordre chronologique (identique à index.html / 360-calques.html) ----------
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+const CHRONO_BY_KW = {};
+KINGWEN_BY_CHRONO.forEach((kw,chrono)=>{ CHRONO_BY_KW[kw] = chrono; });
+
+// ---------- texte général des 64 hexagrammes (même contenu/source que la page Tirage) ----------
+// HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+const HEX_KW = {
+1:["Qian","Lo Creativo","Arranque","El rasgo lleno se lanza solo, todavía sin vestidura. En el primerísimo grado de la figura, la potencia existe ya por entero, pero aún no ha tomado ninguna forma reconocible: no está vestida de ninguna función, de ningún papel. Es la fuerza en estado puro, antes de darse un nombre. Este rasgo anuncia lo que serán los cinco siguientes: una progresión en la que el poder de actuar se va confeccionando poco a poco un hábito, hasta que la figura entera, en la cima, descubre que incluso la mayor fuerza debe aprender a contenerse."],
+2:["Kun","Lo Receptivo","Asiento","El suelo recibe, la forma se posa. Nada ha acontecido todavía y, sin embargo, todo se ha vuelto ya posible: la tierra del primer rasgo no exige nada, espera. No es la pasividad de quien renuncia, sino la paciencia de quien sabe que la docilidad bien entendida lleva en sí toda la fecundidad por venir. La figura entera se desplegará a partir de esta sola cualidad: acoger antes de querer imponer, posarse antes de pretender construir."],
+3:["Zhun","La Dificultad Inicial","Germinación","El germen se esfuerza bajo la tierra del cuadrado. Todo nacimiento comienza en la oscuridad y la resistencia: la semilla ignora aún la forma que tomará, solo sabe crecer. Este rasgo dice la dificultad que no es un fracaso, sino la condición misma de todo comienzo verdadero: nada grande ha surgido jamás sin haber tenido antes que desprenderse de lo que lo retenía."],
+4:["Meng","La Necedad Juvenil","Aprendizaje","La ignorancia del discípulo llama al maestro. Ignorar no es una debilidad, es una apertura: quien todavía no sabe es precisamente quien puede aprender. La figura entera gira en torno a este encuentro necesario entre la inexperiencia que busca y la experiencia que responde; sin esa humildad primera, ninguna enseñanza puede hacer mella."],
+5:["Xu","La Espera","Templanza","El agua espera bajo el cielo su justa hora. Esperar no es no hacer nada: es mantener la propia posición con constancia mientras las condiciones se forman en otra parte, fuera del alcance de la voluntad. Este rasgo enseña que la precipitación destruye lo que solo la paciencia puede llevar a cabo: la lluvia vendrá cuando el cielo y la tierra estén dispuestos a encontrarse, no antes."],
+6:["Song","El Conflicto","Desenlace","La discordia de las fuerzas opuestas busca su salida. El conflicto no se evita ni se busca: se reconoce por lo que es, una tensión entre dos movimientos que, por naturaleza, no pueden coexistir sin fricción. La sabiduría aquí no consiste en ganar a toda costa, sino en saber cuándo una disputa merece llevarse hasta el final y cuándo merece abandonarse a tiempo."],
+7:["Shi","El Ejército","Cadencia","La disciplina colectiva se regula como la marcha de una tropa. Ninguna fuerza dispersa vale lo que una fuerza organizada: este rasgo dice que el verdadero poder nunca es el de un solo gesto deslumbrante, sino el de un orden pacientemente mantenido, donde cada cual conoce su lugar y el movimiento de conjunto prevalece sobre el impulso individual."],
+8:["Bi","La Solidaridad","Tejido","La unión de los clanes se anuda por debajo, como el hilo de la urdimbre. Lo que se mantiene unido de forma duradera se teje en la discreción, rasgo tras rasgo, antes incluso de que la estructura sea visible desde fuera. La verdadera solidaridad no se decreta desde arriba: se construye desde la base, hilo tras hilo, hasta formar una trama que ya nada puede deshacer."],
+9:["Xiao Chu","La Fuerza Domesticadora de lo Pequeño","Itinerancia","El freno ligero puesto sobre el gran designio. Todo gran proyecto conoce momentos en que solo es posible una contención menor, en que no se puede más que inflexionar ligeramente el curso de las cosas sin cambiarlo radicalmente. Este rasgo enseña la virtud del gesto modesto: todavía no es la hora de actuar en grande, es la hora de ajustar, con paciencia, lo que puede ajustarse."],
+10:["Lu","El Porte","Plenitud","Cada paso puesto sobre la cola del tigre sin desviarse. El peligro no siempre ha de evitarse: a veces debe atravesarse, siempre que se camine por él con una atención total, sin un gesto de más. Este rasgo dice que la prudencia no es el miedo: es esa concentración exacta que permite avanzar allí donde la desatención sería fatal."],
+11:["Tai","La Paz","Alianza","El Cielo y la Tierra se encuentran y se intercambian libremente. Cuando lo alto consiente en descender y lo bajo consiente en subir, la comunicación se vuelve total y fecunda. Este rasgo enseña que la prosperidad duradera nace siempre de este intercambio recíproco: nunca de una sola dirección impuesta, siempre de un encuentro en el que cada uno da y recibe a la vez."],
+12:["Pi","El Estancamiento","Lentitud","Cuando la comunicación queda cortada por el rechazo del sistema. No es un accidente pasajero, sino un bloqueo estructural: las fuerzas que deberían responderse se han petrificado cada una en su propio rechazo. Este rasgo dice que hay momentos en que de nada sirve forzar el paso: hay que esperar a que las condiciones mismas se desplacen, o retirarse sin perder la propia virtud en una lucha vana."],
+13:["Tong Ren","La Comunidad con los Hombres","Estabilidad","La fraternidad que se abre al mundo encuentra su zócalo. Una comunidad solo es sólida si no se encierra en sí misma: es abriéndose a los demás, buscando lo que une antes que lo que divide, como encuentra un asiento duradero. Este rasgo enseña que la pertenencia más fuerte nace a menudo del contacto con el exterior, no del repliegue."],
+14:["Da You","La Posesión de lo Grande","Sobresalto","La riqueza acumulada se mide por su capacidad de atravesar el choque. No cuenta la cantidad poseída, sino la solidez de lo que se ha construido: una posesión verdadera resiste la prueba, mientras que una abundancia mal fundada se derrumba al primer golpe. Este rasgo invita a no confundir nunca la acumulación con la verdadera riqueza, que se demuestra en la duración."],
+15:["Qian","La Modestia","Alquimia","El borrarse a sí mismo nutre la transmutación en el crisol. Nada se transforma de verdad sin que una parte de uno mismo consienta en desaparecer en el proceso. Este rasgo dice que la humildad no es una virtud pasiva: es la condición activa de toda transformación profunda, el crisol donde lo antiguo se disuelve para que lo nuevo pueda tomar forma."],
+16:["Yu","El Entusiasmo","Impulso","El trueno sale de la tierra y pone los cuerpos en movimiento. Existe una energía que no se ordena, que brota y arrastra por sí misma, sin necesidad de forzarla. Este rasgo enseña que el verdadero poder de reunir nunca viene de la coacción, sino de esa vibración común que solo un entusiasmo sincero puede despertar."],
+17:["Sui","El Seguimiento","Profundidad","Seguir el movimiento del tiempo obliga a volver a bajar para cavar la fuente. No se puede seguir de forma duradera sin regresar, de vez en cuando, a lo que nutre el movimiento mismo. Este rasgo enseña que la adaptación más justa no es la más móvil, sino la que sabe volver a su propio origen antes de ponerse de nuevo en marcha."],
+18:["Gu","El Trabajo en lo Echado a Perder","Reparación","Enderezar la corrupción de una herencia gastada. Lo que se ha descuidado durante demasiado tiempo acaba exigiendo un trabajo arduo, pero ese trabajo no es una maldición: es la ocasión de refundar sobre bases más sanas. Este rasgo dice que la herencia dañada solo está perdida si uno se niega a ocuparse de ella."],
+19:["Lin","El Acercamiento","Crecimiento","El acercamiento benévolo de las fuerzas vivas estimula el ascenso paciente. Nada grande se conquista de un golpe; todo lo que crece de verdad lo hace por acercamientos sucesivos, cada uno de los cuales prepara el siguiente. Este rasgo enseña que el crecimiento auténtico se mide en pasos, no en saltos."],
+20:["Guan","La Contemplación","Convergencia","Mirar a lo lejos desde la torre federa lo que estaba disperso. Una visión amplia no dispersa la atención, la reúne: es tomando altura como se descubren los lazos invisibles entre cosas que, de cerca, parecían no tener relación. Este rasgo dice que comprender precede siempre al poder de actuar con acierto."],
+21:["Shi He","La Mordedura Tajante","Filo","Cortar lo falso para soldar lo justo. Hay obstáculos que no se rodean: deben atravesarse, morderse, superarse mediante una decisión neta. Este rasgo enseña que la claridad necesita a veces dureza para imponerse, y que esa dureza, empleada con acierto, no es violencia sino justicia."],
+22:["Bi","La Gracia","Depuración","El ornamento y la belleza de la forma ceden, en el extremo, su lugar a la decisión. Toda belleza tiene su límite útil: pasado cierto punto, el ornamento debe borrarse ante la necesidad de actuar. Este rasgo recuerda que la forma sirve al fondo, y no a la inversa: en cuanto una invade el terreno del otro, hay que saber simplificar."],
+23:["Bo","La Desintegración","Mutación","El derrumbe del antiguo edificio libera la energía de un crecimiento nuevo. Lo que se desmorona no se lo lleva todo consigo: la ruina de una forma agotada despeja el espacio y la energía necesarios para lo que ha de seguir. Este rasgo enseña a no temer el estallido de las estructuras que se han vuelto huecas: precede siempre a una renovación."],
+24:["Fu","El Retorno","Renacimiento","El principio vital regresa en el corazón de la noche más densa. Nada está nunca definitivamente perdido mientras subsista, en alguna parte, ese germen minúsculo que vuelve a empezar. Este rasgo dice que el punto más bajo contiene ya, en germen, el movimiento del retorno: es precisamente en la oscuridad más completa donde la luz vuelve a crecer."],
+25:["Wu Wang","La Inocencia","Desenlace","Actuar sin artificio disuelve por sí mismo los nudos del obstáculo. La complicación nace casi siempre del cálculo; la verdadera sencillez, en cambio, desactiva los obstáculos antes incluso de afrontarlos. Este rasgo enseña que la rectitud espontánea resuelve a menudo lo que la astucia más hábil no hace sino enredar aún más."],
+26:["Da Chu","La Fuerza Domesticadora de lo Grande","Contención","La acumulación interior de la potencia hace frente a la dureza del relieve. Lo que crece en el interior, invisible, termina siempre por encontrar una resistencia exterior, y es ese mismo encuentro el que revela y afina la fuerza acumulada. Este rasgo dice que el obstáculo no es el enemigo de la potencia, sino su prueba necesaria."],
+27:["Yi","La Nutrición","Distinción","Lo que nutre el espíritu se opone a lo que divide las miradas. No todo alimento eleva por igual: ciertas palabras, ciertos pensamientos fortalecen; otros dispersan y debilitan. Este rasgo invita a elegir con el mismo cuidado aquello con lo que se nutre el espíritu que aquello con lo que se nutre el cuerpo."],
+28:["Da Guo","La Preponderancia de lo Grande","Estructura","La viga maestra que se comba bajo su propio peso. Una estructura llevada al extremo de su capacidad anuncia, con su misma flexión, el momento en que deberá o bien romperse o bien ser descargada. Este rasgo enseña a reconocer los signos precursores de la ruptura antes de que sobrevenga."],
+29:["Kan","Lo Insondable","Prueba","Navegar en el agua que no se deja sondear. Ciertas profundidades nunca se miden por completo de antemano: solo se puede aprender a moverse en ellas con los medios a mano, sin pretender jamás dominarlas del todo. Este rasgo dice que la verdadera competencia ante el peligro no es eliminarlo, sino aprender a nadar en él."],
+30:["Li","Lo Adherente, el Fuego","Irradiación","La claridad del fuego se adhiere a lo que vive para propagar su resplandor. Nada brilla en el vacío: toda claridad verdadera necesita un anclaje, una materia a la que unirse para desplegarse. Este rasgo enseña que la independencia total no es un ideal: incluso la luz más pura necesita aquello que ilumina."],
+31:["Xian","El Influjo","Resonancia","La emoción sutil del influjo mutuo, apenas perceptible. Los lazos más profundos entre los seres se anudan a menudo antes incluso de que se pronuncie una palabra, en ese registro discreto del sentir compartido. Este rasgo dice que el influjo más duradero nunca es el que se impone ruidosamente, sino el que se desliza, casi imperceptible, entre dos presencias abiertas la una a la otra."],
+32:["Heng","La Duración","Permanencia","La constancia en el tiempo atraviesa la prueba del repliegue. Lo que dura de verdad no es lo que rechaza todo cambio, sino lo que sabe, cuando es preciso, retirarse por un tiempo sin perder su propia dirección. Este rasgo enseña que la verdadera duración incluye sus propias pausas."],
+33:["Dun","La Retirada","Permanencia","La duración se afirma sabiendo apartarse para durar mejor. Paradójicamente, lo que más tiempo perdura es a menudo aquello que supo, en el momento oportuno, desaparecer de la escena. Este rasgo enseña que la retirada estratégica no interrumpe la continuidad: la protege."],
+34:["Da Zhuang","El Poder de lo Grande","Resonancia","La influencia se amplifica hasta convertirse en una fuerza que ya no se contiene. Lo que comienza como una simple resonancia puede, si nada viene a encauzarlo, crecer hasta escapar a todo control. Este rasgo advierte que el poder sin disciplina se vuelve, tarde o temprano, contra quien lo despliega."],
+35:["Jin","El Progreso","Resplandor","El resplandor asciende, como el sol, hacia el reconocimiento del mediodía. Todo ascenso verdadero sigue su propio ritmo, como el sol, que nunca salta directamente a su cenit. Este rasgo dice que el reconocimiento merecido llega siempre a su tiempo, nunca antes, nunca después."],
+36:["Ming Yi","El Oscurecimiento de la Luz","Prueba","Avanzar bajo una luz voluntariamente velada. No se trata de apagar la propia claridad, sino de saber contenerla cuando las circunstancias vuelven peligroso su pleno resplandor. Este rasgo enseña la disciplina de quien sigue obrando con justicia, aun cuando nadie pueda verlo todavía."],
+37:["Jia Ren","El Clan","Estructura","El rigor ordenado de la célula familiar. Ninguna estructura más amplia se sostiene sin que su célula más íntima, la del hogar, esté ella misma ordenada y sea justa. Este rasgo dice que el orden del mundo comienza siempre por el orden de la casa."],
+38:["Kui","La Oposición","Distinción","Se opera la criba entre las palabras que elevan y las que separan. No toda divergencia es una ruptura: ciertas oposiciones, bien comprendidas, afinan el pensamiento en lugar de quebrarlo. Este rasgo enseña a distinguir el desacuerdo fecundo del conflicto estéril."],
+39:["Jian","El Obstáculo","Contención","La paciencia se convierte ella misma en escudo frente al relieve. Ante lo que no puede franquearse de frente, la paciencia no es resignación sino protección activa: preserva la energía para el momento en que el paso se abra. Este rasgo dice que todo obstáculo contiene, en hueco, la indicación del rodeo justo."],
+40:["Jie","La Liberación","Desenlace","Los nudos del obstáculo se sueltan, el paso se abre. Lo que parecía inextricable acaba, con el tiempo y con la tensión adecuada aflojada en el momento oportuno, por desatarse por sí solo. Este rasgo enseña que la liberación rara vez llega por la fuerza: viene cuando la presión encuentra por fin su justa salida."],
+41:["Sun","La Merma","Renuncia","Volver al centro exige consentir en perder lo que estorbaba. Solo se regresa a lo esencial aceptando dejar ir lo que, con el tiempo, se ha revelado superfluo. Este rasgo dice que no toda pérdida es un empobrecimiento: ciertas mermas son la condición misma del regreso a lo que verdaderamente importa."],
+42:["Yi","El Aumento","Mutación","Se libera la energía de un acrecentamiento nuevo. Lo que crece verdaderamente nunca lo hace solo: el crecimiento auténtico libera una energía que beneficia a algo más amplio que quien la porta. Este rasgo enseña que el verdadero acrecentamiento se reconoce por lo que comparte, no por lo que acumula."],
+43:["Guai","La Irrupción","Depuración","La decisión que corta en seco y elimina lo superfluo. Llega un momento en que la vacilación misma se vuelve más peligrosa que el filo de la decisión. Este rasgo dice que la irrupción verdadera no consiste en destruirlo todo, sino en retirar con precisión lo que, en exceso, amenazaba al conjunto."],
+44:["Gou","Ir al Encuentro","Filo","El encuentro imprevisto expone al riesgo tanto como a la unión. Todo lo que se presenta sin avisar lleva en sí una ambigüedad: promesa de vínculo o germen de peligro, nunca se sabe de entrada. Este rasgo enseña la vigilancia que no es desconfianza, sino discernimiento en el momento mismo del encuentro."],
+45:["Cui","La Reunión","Convergencia","La contemplación es ya una reunión silenciosa. Aun antes de que los cuerpos se reúnan, los espíritus que comparten una misma mirada están ya, en cierto sentido, reunidos. Este rasgo dice que la verdadera unión comienza siempre en lo invisible, mucho antes de hacerse visible."],
+46:["Sheng","El Empuje hacia Arriba","Crecimiento","Acercarse y crecer son un solo gesto vertical. No existe separación verdadera entre aproximarse a la propia meta y crecer hacia ella: ambos movimientos son uno solo, como el tallo que brota es ya, en germen, el árbol venidero. Este rasgo enseña la continuidad entre el pequeño gesto presente y el gran resultado futuro."],
+47:["Kun","La Desazón","Reparación","Nada se restaura sin consentir primero en carecer. No hay renacimiento verdadero sin haber pasado antes por la experiencia real de la indigencia. Este rasgo dice que la desazón, bien atravesada, no es solo una prueba que padecer sino una purificación que prepara el regreso de la abundancia."],
+48:["Jing","El Pozo","Profundidad","Solo se sigue bien lo que primero se ha sacado del fondo. Ningún recurso aprovecha a quien permanece en la superficie: hay que descender, buscar, sacar de veras para que el pozo entregue lo que contiene. Este rasgo enseña que la profundidad es la condición misma de la utilidad."],
+49:["Ge","La Revolución","Impulso","El fuego bajo el lago disuelve la vieja piel. Todo cambio profundo exige primero que la forma antigua se disuelva, por incómodo que sea ese momento de transición. Este rasgo dice que la revolución más justa nunca es gratuita: responde a una necesidad que la forma antigua ya no podía contener."],
+50:["Ding","El Caldero","Alquimia","La forma más discreta es la que mejor recoge la esencia. No es el brillo exterior lo que define el valor de un recipiente, sino su capacidad de preservar y transformar lo que recibe. Este rasgo enseña que el verdadero valor se aloja a menudo en lo que parece más modesto en apariencia."],
+51:["Zhen","La Conmoción","Sobresalto","Lo que queda en pie tras el choque es lo que verdaderamente se poseía. El choque no crea nada, revela: lo que se derrumba a la primera sacudida nunca fue tan sólido como parecía. Este rasgo dice que la prueba es siempre, de algún modo, un revelador de verdad."],
+52:["Gen","El Aquietamiento","Estabilidad","El movimiento se detiene para que lo esencial se vea. Solo en la inmovilidad ciertas cosas, ocultas por la agitación permanente, se vuelven por fin visibles. Este rasgo enseña que saber detenerse no es renunciar a actuar, es darse los medios de ver dónde actuar de verdad."],
+53:["Jian","El Desarrollo","Lentitud","Raíz, tronco, rama: un paso tras otro endereza el eje. Ningún crecimiento auténtico se salta una etapa: cada grado prepara el siguiente, en un orden que nada puede invertir sin comprometerlo todo. Este rasgo dice que la paciencia del desarrollo gradual es en sí misma una forma de fuerza."],
+54:["Gui Mei","La Desposada","Alianza","La unión sellada compromete dos órdenes desiguales en una misma trama. No toda unión nace en la igualdad perfecta; algunas comienzan en el desequilibrio y deben encontrar, con el tiempo, su propia justicia. Este rasgo enseña que la lealtad en la duración puede reparar lo que las condiciones iniciales no habían hecho justo."],
+55:["Feng","La Abundancia","Plenitud","La hora del pleno mediodía, en que la luz ya no proyecta sombra. Existe un instante, en la cima de toda plenitud, en que ya nada queda oculto; pero ese instante, por naturaleza, no puede sino declinar después. Este rasgo enseña a saborear la abundancia sin olvidar que lleva en sí su propio límite."],
+56:["Lu","El Andariego","Itinerancia","Sin hogar ni lugar, la librea reemplaza a la casa. Cuando falta la morada, son el hábito, la postura, la conducta los que deben ocupar su lugar: una dignidad que ya no depende del lugar sino de la manera de ser. Este rasgo dice que la identidad más sólida es la que uno lleva consigo, independiente de todo anclaje exterior."],
+57:["Xun","Lo Suave, el Viento","Tejido","El viento penetra en todas partes sin ruido, como la trama. La fuerza más discreta es a veces la más eficaz: no encuentra resistencia frontal porque nunca se anuncia como fuerza. Este rasgo enseña el poder de la influencia continua y silenciosa."],
+58:["Dui","Lo Alegre","Cadencia","La claridad del lago que reúne y pone en común. Lo que reúne sin coacción, por la sola atracción natural de lo que ofrece, crea los vínculos más duraderos. Este rasgo dice que la verdadera comunidad se reconoce por la ligereza con que se forma."],
+59:["Huan","La Disolución","Desenlace","Lo que se enfrentaba se dispersa y vuelve a ser fluido. Los bloqueos más rígidos acaban, con el tiempo y el movimiento justo, por dispersarse por sí solos. Este rasgo enseña que la disolución no es una pérdida sino un regreso al estado fluido, previo a toda forma nueva."],
+60:["Jie","La Limitación","Contención","El bambú forma sus nudos para que la savia no se disperse. Sin los límites que la jalonan, el crecimiento mismo perdería su fuerza dispersándose sin dirección. Este rasgo dice que la limitación bien establecida no es un freno a la vida, sino la condición de su vigor."],
+61:["Zhong Fu","La Verdad Interior","Aprendizaje","El centro vacío del corazón se convierte en el lugar donde se aloja la confianza. Precisamente porque el corazón no se cierra sobre sí mismo, porque sigue siendo un espacio abierto, la confianza auténtica puede establecerse en él. Este rasgo enseña que la sinceridad más profunda nace de un vacío acogedor, no de una certeza cerrada."],
+62:["Xiao Guo","La Preponderancia de lo Pequeño","Germinación","El pequeño rasgo desborda su marco. Hay momentos en que solo el detalle, el gesto mesurado, puede aún actuar; querer entonces la gran acción sería un error de juicio. Este rasgo dice que el acierto, en ciertas circunstancias, se encuentra precisamente en la pequeñez asumida."],
+63:["Ji Ji","Después de la Consumación","Asiento","La costura está cerrada, la malla está anudada. Lo acabado lleva siempre en sí el germen de lo que vendrá a deshacerlo: nada concluido está eternamente concluido. Este rasgo enseña que la consumación verdadera incluye la conciencia de su propia fragilidad."],
+64:["Wei Ji","Antes de la Consumación","Inicio","El paso está abierto, pero la trama aún no está tejida. Nada está todavía consumado, pero tampoco nada es imposible: la puerta sigue abierta a lo que, pacientemente, queda por construir. Este rasgo dice que lo inacabado no es un fracaso: es la condición misma de todo lo que está por venir, el punto desde donde recomienza, incansablemente, el ciclo entero de las 64 figuras."]
+};
+
+const IMAGE_FR = {
+1:"El Cielo se mueve sin descanso por encima del Cielo: dos veces el rasgo lleno, dos veces la misma fuerza, la una sosteniendo a la otra sin flaquear jamás. Nada viene aquí a limitar el movimiento; nada viene a detenerlo. Es la imagen del vigor puro, aquel que no conoce reposo porque aún no ha encontrado lo que podría resistirle. El sabio que contempla esta figura no ve en ella una invitación a la agitación, sino un modelo: así como el Cielo gira sin interrupción, el hombre noble no cesa de fortalecerse a sí mismo, no mediante un esfuerzo puntual, sino mediante una disciplina tan continua como el movimiento de los astros.",
+2:"La Tierra sostiene y nutre sin distinción: no elige lo que sostiene, lo sostiene todo. Dos veces el rasgo quebrado, dos veces la misma abertura, la una acogiendo a la otra sin cerrarse jamás. Es la imagen de la capacidad pura: no la que actúa primero, sino la que hace posible la acción de todo cuanto viene a ella. El sabio que contempla esta figura comprende que la generosidad no necesita brillo: así el hombre noble acoge a los seres con una virtud generosa, amplia como el suelo que no rechaza ninguna semilla.",
+3:"La Nube y el Trueno: la imagen de la dificultad primera. Arriba, el agua que aún no es lluvia; abajo, la conmoción que busca su camino sin encontrarlo todavía. Nada fluye libremente, todo se busca, todo vacila al borde de su propio nacimiento. Es la figura del comienzo entorpecido, el que debe abrirse paso antes incluso de saber adónde conduce. Así el hombre noble, ante el desorden inicial, no fuerza nada: pone orden tejiendo pacientemente sus hilos, hebra tras hebra, sin ceder a la impaciencia del resultado.",
+4:"Al pie de la montaña brota un manantial: la imagen de la necedad juvenil. El agua está ahí, viva, pero aún no sabe hacia dónde correr; tiene la fuerza sin la dirección. Es el retrato de la inexperiencia, que no es un defecto sino un estado: el de antes del aprendizaje, cuando la energía desborda sin discernimiento. Así el hombre noble, al reconocer esta figura en sí mismo o en otro, no desprecia la ignorancia: nutre su carácter mediante una acción resuelta, sabiendo que el manantial, bien guiado, llegará a ser río.",
+5:"Las nubes suben por encima del Cielo: la imagen de la espera. Todo está dispuesto para que caiga la lluvia y, sin embargo, aún no cae: el momento no está maduro. Es la figura de la preparación silenciosa, la que no fuerza la hora sino que la deja venir. Así el hombre noble come y bebe, alegre y sereno, mientras aguarda su hora: no se agota queriendo precipitar lo que tiene su propio ritmo, nutre su fuerza para el momento en que será requerida.",
+6:"El Cielo y el Agua se alejan en sentidos contrarios: la imagen del conflicto. Uno sube, la otra desciende; sus naturalezas mismas los separan, y ningún compromiso superficial puede reunirlos. Es la figura de la oposición fundamental, la que no se resuelve con la sola buena voluntad. Así el hombre noble, desde el comienzo de todo asunto, sopesa su final: no se embarca en una disputa sin haber medido, de antemano, hasta dónde puede llevarlo ese camino.",
+7:"En medio de la Tierra se oculta el Agua: la imagen del ejército. La fuerza existe, pero no se expone: se mantiene preparada, invisible, disciplinada bajo la superficie en calma. Es la figura del poder contenido, el que no necesita mostrarse para ser real. Así el hombre noble acrecienta su pueblo mediante una generosidad tolerante: la verdadera autoridad no se impone por la fuerza exhibida, sino que se construye en la constancia y la mesura.",
+8:"Sobre la Tierra, el Agua: la imagen de la solidaridad. El agua se amolda a la forma del suelo, se acurruca en él, se derrama sin combatirlo jamás: unión sin fricción, apoyo mutuo. Es la figura de la alianza natural, la que no se fuerza sino que se reconoce. Así los reyes antiguos reunían a los reinos lejanos y honraban a sus príncipes: la solidaridad duradera no nace de la coacción, sino del reconocimiento mutuo de lo que cada uno aporta al otro.",
+9:"El Viento se desplaza por encima del Cielo: la imagen de la fuerza domesticadora de lo pequeño. El viento no tiene la potencia del trueno ni la masa de la montaña: actúa por insistencia ligera, por caricia repetida más que por choque. Es la figura de la influencia discreta, la que retiene sin forzar. Así el hombre noble afina los rasgos de su cultura interior: cuando la gran fuerza aún no tiene cabida, es mediante el refinamiento paciente del detalle como se prepara lo que vendrá.",
+10:"Arriba el Cielo, abajo el Lago: la imagen del porte. Cada cosa guarda su propio lugar —el cielo permanece arriba, el lago debajo— y es ese orden respetado el que hace posible la marcha sin peligro. Es la figura de la justa distancia, la que permite avanzar incluso junto a lo que podría morder. Así el hombre noble distingue lo alto y lo bajo, y afianza la voluntad del pueblo: cada paso dado con discernimiento, sobre la cola misma del tigre, se convierte en un paso seguro.",
+11:"El Cielo y la Tierra se unen: la imagen de la paz. Lo que por naturaleza debería permanecer separado —lo alto y lo bajo— se encuentra aquí y se comunica libremente, sin obstáculo entre ellos. Es la figura de la armonía cumplida, en la que cada fuerza encuentra su complemento antes que su adversario. Así el soberano modela el camino del Cielo y de la Tierra y acude en ayuda de todos los seres: la paz no es la ausencia de movimiento, sino el intercambio vuelto fluido entre fuerzas que se responden.",
+12:"El Cielo y la Tierra no se comunican: la imagen del estancamiento. Lo alto permanece arriba, lo bajo permanece abajo, y ya nada circula entre ellos: cada uno se cierra sobre su propia naturaleza. Es la figura de la ruptura estéril, en la que incluso las fuerzas más poderosas se agotan por falta de intercambio. Así el hombre noble se retira en su virtud para escapar del peligro: cuando el tiempo ya no permite la acción fecunda, la sabiduría consiste en preservar lo esencial antes que agotarse contra un muro.",
+13:"El Cielo y el Fuego se asocian: la imagen de la comunidad con los hombres. La llama sube hacia el cielo, buscando su propia naturaleza, y en ese movimiento compartido se dibuja un parentesco entre cosas que, sin embargo, siguen siendo distintas. Es la figura de la fraternidad fundada en una dirección común más que en la uniformidad. Así el hombre noble distingue las especies y clasifica las categorías: la verdadera comunidad no niega las diferencias, las reconoce para armonizarlas mejor.",
+14:"El Fuego en lo alto del Cielo: la imagen de la gran posesión. La luz, llevada a lo más alto, ilumina todas las cosas sin excepción: nada permanece en la sombra bajo semejante resplandor. Es la figura de la abundancia visible, la que irradia hasta el punto de obligar a la responsabilidad. Así el hombre noble reprime el mal y exalta el bien, obedeciendo al favor celeste: poseer mucho nunca es neutral, obliga a discernir lo que se nutre y lo que se cercena.",
+15:"En el seno de la Tierra se alza la montaña: la imagen de la modestia. Lo más alto se deja aquí contener por lo que lo rodea, sin buscar jamás dominar el paisaje con la sola altura. Es la figura de la grandeza que se borra voluntariamente. Así el hombre noble reduce lo que sobra y aumenta lo que falta, sopesando las cosas con ecuanimidad: la modestia no es pequeñez, es la fuerza lo bastante segura de sí misma como para no necesitar mostrarse.",
+16:"El Trueno sale de la Tierra con fuerza: la imagen del entusiasmo. La energía contenida se libera de pronto, y ese surgimiento pone en marcha todo lo que la rodea: nada permanece inmóvil ante semejante estallido. Es la figura del impulso contagioso, el que arrastra sin necesidad de forzar. Así los reyes antiguos honraban el mérito con la música y la virtud: el entusiasmo bien dirigido se convierte en la fuerza más suave y más poderosa para reunir las voluntades.",
+17:"En medio del Lago, el Trueno: la imagen del seguimiento. El movimiento que retumba en lo profundo se deja llevar por lo que lo rodea en lugar de forzar su propia trayectoria: sigue el contorno del lago en vez de quebrarlo. Es la figura de la adaptación al ritmo ajeno. Así el hombre noble, al caer el crepúsculo, vuelve a su casa para descansar: seguir no es someterse, es reconocer el momento en que la acción debe ceder su lugar al reposo, como el día cede ante la noche.",
+18:"Bajo la montaña, el Viento: la imagen del trabajo en lo echado a perder. El viento se cuela por las grietas de la montaña y revela lo que, con el tiempo, se ha corrompido y espera ser enderezado. Es la figura de la reparación necesaria, la que ya no puede aplazarse. Así el hombre noble estimula al pueblo y nutre su virtud: ante lo echado a perder, no se trata de condenar el pasado, sino de arremangarse para restaurar lo que aún puede restaurarse.",
+19:"Por encima del Lago, la Tierra: la imagen del acercamiento. La tierra se inclina hacia el agua, se le acerca sin dominarla jamás por completo: un movimiento de aproximación progresiva, nunca brusca. Es la figura de la benevolencia que avanza paso a paso. Así el hombre noble enseña sin cansancio y abraza al pueblo sin límite: acercarse de verdad a alguien exige esa paciencia que nunca fuerza el encuentro.",
+20:"El Viento recorre la Tierra: la imagen de la contemplación. El viento toca cada rincón del suelo sin detenerse mucho tiempo en ninguna parte: una mirada que abarca a lo ancho más que un gesto que se demora. Es la figura de la observación que precede a la acción. Así los reyes antiguos visitaban las regiones, observaban al pueblo e instituían la enseñanza: antes de actuar sobre el mundo, hay que aprender primero a verlo tal como es, sin prisa ni prejuicio.",
+21:"El Trueno y el Relámpago se unen: la imagen de la mordedura tajante. El choque y la luz golpean juntos, el uno revelando lo que el otro quiebra: nada puede ocultarse mucho tiempo bajo semejante unión de fuerza y claridad. Es la figura de la decisión tajante iluminada por la verdad. Así los antiguos reyes hacían claras las penas y vigilantes las leyes: zanjar con justicia exige primero ver con justeza.",
+22:"Bajo la montaña, el Fuego: la imagen de la gracia. La llama ilumina las laderas de la montaña sin pretender jamás igualarla en altura: un embellecimiento que respeta lo que revela en lugar de dominarlo. Es la figura del ornamento al servicio del fondo. Así el hombre noble ilumina los múltiples asuntos, sin pretender jamás zanjar los litigios a la sola luz de las apariencias: la gracia sirve para revelar, nunca para juzgar.",
+23:"La montaña reposa sobre la Tierra: la imagen de la desintegración. Lo que parecía más sólido —la masa misma de la montaña— solo está sostenido, en realidad, por una base que puede ceder. Es la figura del derrumbe que acecha a lo que descuida sus cimientos. Así los grandes afianzan lo que está abajo para dar reposo a su morada: antes de construir más alto, siempre hay que consolidar lo que sostiene.",
+24:"El Trueno en el seno de la Tierra: la imagen del retorno. La fuerza vital, sepultada en lo más hondo del invierno, no ha desaparecido: espera, invisible, el momento de resurgir. Es la figura de la renovación oculta en la aparente inmovilidad. Así los antiguos reyes, en el solsticio, cerraban los pasos, y mercaderes y viajeros dejaban de circular: hay momentos en que el gesto más grande consiste en no precipitar nada, para dejar que el retorno se cumpla por sí mismo.",
+25:"Bajo el Cielo, el Trueno avanza: la imagen de la inocencia. El movimiento sigue su curso bajo la vasta extensión celeste, sin cálculo ni rodeo, con la sencillez de lo que nada tiene que ocultar. Es la figura de la acción recta, espontánea, no fingida. Así los antiguos reyes, ricos en virtud y acordes con el tiempo, nutrían a los diez mil seres: la inocencia no es ingenuidad, es la alineación perfecta entre la intención y el gesto.",
+26:"En el seno del Cielo, la montaña: la imagen de la fuerza domesticadora de lo grande. Una potencia considerable se mantiene contenida, retenida por algo que, sin igualarla en tamaño, sabe sin embargo frenarla. Es la figura de la gran fuerza que acepta ser disciplinada. Así el hombre noble retiene en su memoria las palabras y los actos antiguos: la verdadera grandeza no se demuestra solo por lo que despliega, sino por lo que acepta contener.",
+27:"Bajo la montaña, el Trueno: la imagen de la nutrición. El movimiento se agita en la base de lo que es estable, como la mandíbula se agita bajo el rostro inmóvil: un recordatorio de que incluso la mayor estabilidad depende de lo que se nutre por debajo. Así el hombre noble vela por sus palabras y mide su beber y su comer: lo que entra en nosotros, por la boca o por las palabras, modela aquello en lo que nos convertimos.",
+28:"El Lago sumerge la madera: la imagen de la preponderancia de lo grande. El agua sube por encima de lo que normalmente debería contenerla: una carga demasiado pesada para la estructura que la sostiene, a punto de ceder bajo su propio peso. Es la figura del fardo extremo. Así el hombre noble, solo y sin temor, deja el mundo sin amargura: hay momentos en que la carga sobrepasa lo que ningún apoyo puede sostener, y en que la única dignidad posible es hacerle frente sin queja.",
+29:"El Agua viene y vuelve: la imagen de lo insondable redoblado. El peligro se repite, ola tras ola, sin ofrecer nunca un respiro completo; pero el agua misma, en su movimiento constante, encuentra siempre su nivel. Es la figura de la prueba repetida que forja la constancia. Así el hombre noble practica constantemente la virtud y enseña los asuntos: ante el peligro que regresa, solo la práctica repetida, también ella, construye la maestría.",
+30:"Claridad y de nuevo Claridad: la imagen del Fuego que se adhiere. La luz nunca brilla sola: necesita aquello a lo que se aferra para seguir irradiando, igual que la llama necesita la madera. Es la figura del resplandor que depende de un soporte. Así el gran hombre, con su resplandor continuo, ilumina los cuatro horizontes: irradiar de forma duradera supone permanecer unido a lo que nutre la propia luz.",
+31:"Sobre la montaña, un Lago: la imagen del influjo. El agua reposa sobre la altura, se acurruca en ella sin forzarla, y es esa receptividad mutua la que permite que el influjo circule entre ambas. Es la figura de la sensibilidad compartida, antes incluso de que intervengan las palabras. Así el hombre noble acoge en sí mismo la vacuidad para recibir a los hombres: influir comienza siempre por saber dejarse tocar.",
+32:"El Trueno y el Viento: la imagen de la duración. Dos movimientos de naturaleza distinta se asocian aquí sin contradecirse, cada uno reforzando al otro en una constancia compartida. Es la figura de la perseverancia que no se desgasta. Así el hombre noble se mantiene en pie sin cambiar de dirección: durar no es resistir a lo inmóvil, es encontrar el movimiento que puede repetirse indefinidamente sin traicionarse.",
+33:"Bajo el Cielo, la montaña: la imagen de la retirada. El cielo se aleja poco a poco de la montaña, tomando distancia sin hostilidad, simplemente por la necesidad de preservar su propio movimiento. Es la figura del repliegue digno, nunca huida vergonzosa. Así el hombre noble mantiene a distancia a los hombres vulgares, no por odio, sino por dignidad: retirarse a tiempo no es una debilidad, es la sabiduría de quien sabe reconocer el momento en que quedarse costaría más que partir.",
+34:"El Trueno por encima del Cielo: la imagen del poder de lo grande. Una fuerza considerable se eleva a lo más alto, visible para todos, capaz de sacudir lo que encuentra a su paso. Es la figura del poder en su apogeo, aquel que debe aprender a dominarse precisamente porque puede arrastrarlo todo. Así el hombre noble solo camina por los senderos conformes al rito: la gran fuerza sin la justa medida se convierte en su propia ruina.",
+35:"El Sol se eleva sobre la Tierra: la imagen del progreso. La luz gana terreno, grado tras grado, sin un solo salto brusco: un movimiento ascendente tan seguro como natural. Es la figura del avance merecido. Así el hombre noble, por sí mismo, hace brillar su clara virtud: el verdadero progreso no se reclama, se manifiesta por sí mismo a quien sabe esperar hasta el amanecer.",
+36:"La luz desciende al seno de la Tierra: la imagen del oscurecimiento. Lo que debería brillar se encuentra sepultado, obligado a velar su propio resplandor para seguir existiendo sin ser destruido. Es la figura de la claridad que debe, por un tiempo, ocultarse para sobrevivir. Así el hombre noble conduce a las multitudes velando su claridad, sin dejar de ser lúcido: hay épocas en que mostrar la plena luz sería un error; la sabiduría consiste entonces en permanecer justo, en silencio.",
+37:"El Viento nace del Fuego: la imagen del clan. El calor interior engendra un movimiento que se propaga hacia fuera: lo que comienza en el hogar acaba siempre irradiando hacia el exterior. Es la figura de la influencia doméstica que modela el mundo. Así el hombre noble arraiga sus palabras en la sustancia y su conducta en la constancia: lo que se vive en la intimidad de la casa se convierte, tarde o temprano, en lo que uno lleva a todas partes.",
+38:"Arriba el Fuego, abajo el Lago: la imagen de la oposición. El fuego sube, el agua baja: dos naturalezas que se rozan sin confundirse jamás, cada una fiel a su propia dirección. Es la figura de la diferencia asumida sin ruptura total. Así el hombre noble, en la unidad, distingue lo que difiere: reconocer una oposición no obliga a destruirla; se puede coexistir con lo que nos contradice sin pretender borrarlo.",
+39:"Sobre la montaña, el Agua: la imagen del obstáculo. El agua encuentra la pendiente y no puede avanzar directamente: debe rodear, buscar otro camino, aminorar su curso natural. Es la figura de la dificultad que impone un rodeo. Así el hombre noble se vuelve hacia sí mismo y modela su propia virtud: el obstáculo exterior, cuando no puede ser forzado, se convierte en la ocasión de trabajar lo que, en uno mismo, todavía puede crecer.",
+40:"El Trueno y la Lluvia se elevan: la imagen de la liberación. La tensión acumulada en el aire se libera por fin, la tormenta estalla y purifica lo que atraviesa: un desenlace que apacigua en lugar de destruir. Es la figura del alivio tras la constricción. Así el hombre noble perdona las faltas y se muestra clemente con los agravios: la liberación verdadera no se detiene en uno mismo, se extiende también a aquellos a quienes aún podríamos mantener cautivos de sus errores.",
+41:"Bajo la montaña, el Lago: la imagen de la merma. El agua de abajo se evapora hacia la altura, pareciendo empobrecerse para nutrir lo que la domina: una pérdida que, en realidad, sirve a un equilibrio más vasto. Es la figura de la renuncia que beneficia a un conjunto más grande que uno mismo. Así el hombre noble refrena su cólera y contiene sus deseos: mermar lo que sobra en uno mismo es a menudo la condición para que otra cosa pueda crecer.",
+42:"El Viento y el Trueno: la imagen del aumento. Dos fuerzas se refuerzan mutuamente, el viento amplificando el trueno y el trueno dando al viento su plena medida: un crecimiento que se nutre del encuentro más que del aislamiento. Así el hombre noble, cuando ve el bien, se encamina hacia él; cuando tiene una falta, la corrige: el aumento verdadero no se limita a acumular, consiste en corregirse y crecer juntos.",
+43:"El Lago se eleva por encima del Cielo: la imagen de la irrupción. El agua, llevada más alto de lo que normalmente debería contenerla, amenaza con desbordarse: una tensión extrema que reclama una decisión clara y sin vuelta atrás. Es la figura de la resolución que ya no puede esperar. Así el hombre noble derrama sus dádivas hasta abajo, sin descansar en su sola virtud: cortar con fuerza debe ir siempre acompañado de generosidad hacia aquellos a quienes la decisión afecta.",
+44:"Bajo el Cielo, el Viento: la imagen de ir al encuentro. El viento recorre el espacio sin que nadie lo haya convocado, tocándolo todo a su paso: un encuentro que se impone más que planificarse. Es la figura de lo imprevisto que hay que saber acoger con discernimiento. Así el soberano, mediante sus decretos, instruye a los cuatro horizontes: lo que viene a nuestro encuentro sin ser invitado merece ser examinado antes de ser aceptado o rechazado.",
+45:"El Lago sube por encima de la Tierra: la imagen de la reunión. El agua se acumula y forma una extensión común, reuniendo en un solo lugar lo que, disperso, no habría tenido ni fuerza ni rostro. Es la figura de la convergencia que da consistencia a lo múltiple. Así el hombre noble repara sus armas para hacer frente a lo imprevisto: reunir no basta, también hay que prepararse para proteger lo que se ha reunido.",
+46:"En el seno de la Tierra crece la madera: la imagen del empuje hacia arriba. La semilla, invisible bajo la superficie, empuja pacientemente hacia la luz sin saltarse nunca las etapas: un crecimiento lento pero inexorable. Es la figura del ascenso merecido por la constancia. Así el hombre noble, dócil a la virtud, acumula lo pequeño para alcanzar lo alto y lo grande: nada de lo que crece de verdad se salta una etapa, todo se construye capa tras capa.",
+47:"El Lago está sin agua: la imagen de la desazón. Lo que debería nutrir y sostener se ha secado, dejando tras de sí una carencia flagrante allí donde se esperaba la abundancia. Es la figura del agotamiento que pone a prueba la verdadera naturaleza de quien lo atraviesa. Así el hombre noble empeña su vida para cumplir su designio: es precisamente en la carencia donde se revela aquello a lo que uno verdaderamente se aferra, hasta el punto de estar dispuesto a arriesgarlo todo por ello.",
+48:"Sobre la madera, el Agua: la imagen del pozo. El agua permanece al alcance de todos los que vienen a sacarla, inagotable mientras se sepa bajar el cubo al lugar adecuado: un recurso común que el uso nunca agota del todo. Es la figura del bien compartido que perdura. Así el hombre noble conforta al pueblo y lo exhorta a la ayuda mutua: lo que nutre de verdad a una comunidad no pertenece a nadie en propiedad, solo pasa por las manos de quienes saben sacar de él.",
+49:"En el seno del Lago, el Fuego: la imagen de la revolución. La llama arde bajo la superficie del agua, dos naturalezas que no pueden coexistir sin que una acabe transformando a la otra: un enfrentamiento que desemboca necesariamente en un cambio de estado. Así el hombre noble ordena el calendario y esclarece los tiempos: la revolución verdadera no destruye por destruir, reordena lo que el tiempo antiguo había dejado confuso.",
+50:"Sobre la madera, el Fuego: la imagen del caldero. La llama transforma la materia bruta en algo nutritivo, refinado, utilizable: un recipiente que contiene la transformación sin dejarse consumir él mismo. Es la figura de la cultura que afina sin destruir. Así el hombre noble afianza su destino haciéndolo recto: como el caldero da forma a lo que recibe, cada uno modela su propio destino por lo que elige cocer en él.",
+51:"El Trueno redoblado: la imagen de la conmoción. El choque golpea dos veces, uno repitiendo al otro, y lo que queda en pie tras semejante sacudida revela por fin su verdadera solidez. Es la figura de la prueba que examina sin destruir lo que está realmente fundado. Así el hombre noble, con temor y temblor, cultiva y examina su propia conducta: el choque exterior, por brutal que sea, puede convertirse en la ocasión de un examen interior saludable.",
+52:"Montañas unidas: la imagen del aquietamiento. Dos masas estables se superponen, una reforzando la inmovilidad de la otra: una detención que no es parálisis sino fundamento. Es la figura del reposo que hace posible la claridad. Así el hombre noble no deja que sus pensamientos vayan más allá del lugar que ocupa: detenerse en el lugar justo, sin dejar que el espíritu se extravíe más allá de su tarea presente, es la condición de toda visión justa.",
+53:"Sobre la montaña, un árbol: la imagen del desarrollo gradual. El árbol crece lentamente, raíz tras raíz, anillo tras anillo, sin saltarse jamás una sola etapa de su crecimiento: una paciencia inscrita en la madera misma. Así el hombre noble se establece en la virtud digna y mejora las costumbres: el desarrollo verdadero, como el del árbol en la pendiente, se mide en años, no en días.",
+54:"Arriba el Trueno, abajo el Lago: la imagen de la desposada. El movimiento de arriba arrastra lo que reposa debajo a una unión que no siempre es elegida por igual por ambas partes: un vínculo que compromete pese al desequilibrio inicial. Así el hombre noble, atento a lo que perdura, discierne lo que corrompe esa unión: toda alianza merece ser examinada en su duración, no juzgada solo por su comienzo.",
+55:"El Trueno y el Relámpago se cumplen juntos: la imagen de la abundancia. El movimiento y la luz alcanzan simultáneamente su pleno despliegue: un instante de plenitud total, raro y necesariamente pasajero. Es la figura del apogeo que nunca dura eternamente. Así el hombre noble dirime los litigios y aplica los castigos: en la cima de la abundancia, la claridad del juicio se vuelve más necesaria que nunca, porque es también allí donde todo puede derrumbarse.",
+56:"Sobre la montaña, el Fuego: la imagen del andariego. La llama se desplaza a lo largo de la pendiente, sin detenerse en ninguna parte, consumiendo lo que se le presenta sin arraigar jamás en un solo lugar. Es la figura de quien no tiene hogar ni lugar fijo. Así el hombre noble aplica la pena con claridad y prudencia, sin dejar que un proceso se prolongue: sin ataduras duraderas, hace falta tanto más rigor para no perderse en el camino.",
+57:"Vientos que se suceden: la imagen de lo suave redoblado. El viento sopla, y vuelve a soplar, insistiendo sin golpear jamás: una influencia que penetra por la repetición más que por la fuerza. Así el hombre noble propaga sus órdenes y lleva a cabo sus asuntos: lo que no puede imponerse de golpe acaba a menudo por instalarse gracias a la constancia suave de una insistencia paciente.",
+58:"Lagos que se unen: la imagen de lo alegre redoblado. Dos extensiones de agua se comunican, nutriéndose la una a la otra, cada una amplificando la alegría de la otra por su simple proximidad. Es la figura del compartir que multiplica en lugar de dividir. Así el hombre noble, con sus amigos, conversa y se ejercita: la alegría verdadera, como el agua de los lagos unidos, nunca se agota por ser compartida; al contrario, sale de ello reforzada.",
+59:"El Viento se mueve sobre el Agua: la imagen de la disolución. El viento agita la superficie, dispersando lo que se había congelado, rompiendo el hielo en movimiento fluido: una disolución que libera en lugar de destruir. Así los antiguos reyes ofrecían sacrificios al Soberano de lo alto y erigían templos: cuando lo que separaba a los seres empieza a disolverse, es el momento de reconstruir un vínculo común, un centro compartido.",
+60:"Sobre el Lago, el Agua: la imagen de la limitación. El agua del lago permanece contenida por sus orillas, y es ese límite mismo lo que le permite existir como lago en lugar de perderse en ciénaga informe. Es la figura de la restricción que estructura en lugar de asfixiar. Así el hombre noble establece el número y la medida, y reflexiona sobre la virtud y la conducta: la limitación elegida con acierto es lo que da forma a todas las cosas, incluido uno mismo.",
+61:"Sobre el Lago, el Viento: la imagen de la verdad interior. El viento roza la superficie del agua y la hace vibrar hasta su centro: una resonancia que parte de fuera pero toca lo interior más profundo. Es la figura de la sinceridad que se transmite sin artificio. Así el hombre noble delibera sobre los procesos y aplaza las penas de muerte: la verdad interior exige tomarse el tiempo necesario antes de decidir sobre lo que atañe a lo esencial.",
+62:"Sobre la montaña, el Trueno: la imagen de la preponderancia de lo pequeño. El movimiento se agita en la cima, contenido por la masa que lo sostiene, obligado a permanecer modesto en su amplitud aunque intenso en su energía. Así el hombre noble, en su conducta, se inclina hacia el exceso de respeto; en el duelo, hacia el exceso de pena; en sus gastos, hacia el exceso de economía: cuando las circunstancias imponen la contención, más vale pecar por exceso de modestia que por exceso de ambición.",
+63:"El Agua por encima del Fuego: la imagen de la consumación. Cada elemento ocupa exactamente el lugar que le corresponde, el agua dominando el fuego sin apagarlo por completo: un equilibrio tan perfecto que ya reclama, en germen, su propio desequilibrio venidero. Así el hombre noble piensa en la desgracia y se previene de antemano: la consumación más completa nunca es un punto de llegada definitivo, es el momento preciso en que la vigilancia debe redoblarse.",
+64:"El Fuego por encima del Agua: la imagen de lo inconcluso. Cada elemento se encuentra en el lugar inverso al que permitiría su pleno encuentro: el fuego no puede calentar el agua que se le escapa por arriba. Es la figura del desorden que aún precede al orden venidero. Así el hombre noble distingue con cuidado los seres y coloca a cada uno en su lugar: antes de que todo encuentre su justo lugar, hay que aceptar primero la lucidez del desorden presente, sin desesperar del orden por nacer."
+};
+
+// ---------- HSL (mêmes fonctions que creation-motifs-yi-king.html) ----------
+function hexToHsl(hex){
+  const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), l = (max+min)/2;
+  let h = 0, s = 0;
+  const d = max-min;
+  if(d!==0){
+    s = d / (1 - Math.abs(2*l-1));
+    switch(max){
+      case r: h = 60*(((g-b)/d)%6); break;
+      case g: h = 60*((b-r)/d+2); break;
+      default: h = 60*((r-g)/d+4);
+    }
+  }
+  if(h<0) h += 360;
+  return { h, s: s*100, l: l*100 };
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const c = (1-Math.abs(2*l-1))*s, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+function clampL(l){ return Math.max(0, Math.min(100, l)); }
+// Dérivation à partir de la structure à 3 classes de gris du gabarit ech_order_new_def_bw.svg :
+// cls-1 = zone neutre (couleur choisie telle quelle), cls-2 = zone foncée (-20% luminosité),
+// cls-3 = zone claire (+20% luminosité).
+function deriveShades(baseHex){
+  const {h,s,l} = hexToHsl(baseHex);
+  return {
+    neutral: baseHex,
+    dark: hslToHex(h, s, clampL(l-20)),
+    light: hslToHex(h, s, clampL(l+20)),
+  };
+}
+function recolorSvg(svgText, shades){
+  return svgText.replace(/<style>[\s\S]*?<\/style>/,
+    `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
+}
+// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.26–572.74) au milieu
+// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré pour que le
+// motif remplisse la vignette/l'agrandissement/la tessellation au lieu d'apparaître comme
+// un point minuscule.
+const MOTIF_CROP_VIEWBOX = '922 502 76 76'; // avec marge, pour la vignette/l'agrandissement isolés
+const MOTIF_TESS_VIEWBOX = '927.29 507.26 65.42 65.48'; // bbox exacte, sans marge, pour que les carrés du pavage se touchent
+function cropSvg(svgText, viewBox){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${viewBox}"`);
+}
+function prepareSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_CROP_VIEWBOX);
+}
+function prepareTessSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_TESS_VIEWBOX);
+}
+function svgDataUri(svgText){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
+}
+
+// ---------- chargement des 64 motifs ----------
+const MOTIF_RAW = {};
+async function loadAllMotifs(){
+  const kws = Array.from({length:64}, (_,i)=>i+1);
+  await Promise.all(kws.map(async kw=>{
+    const res = await fetch(`../../assets/unified-motifs/${kw}.svg`);
+    MOTIF_RAW[kw] = await res.text();
+  }));
+}
+
+const DEFAULT_COLOR = '#c9a15a';
+let currentColor = DEFAULT_COLOR;
+let currentKw = null;
+
+function buildGrid(){
+  const gridEl = document.getElementById('hexgrid');
+  gridEl.innerHTML = '';
+  const defaultShades = deriveShades(DEFAULT_COLOR);
+  for(let chrono=0; chrono<64; chrono++){
+    const kw = KINGWEN_BY_CHRONO[chrono];
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.chrono = chrono;
+    cell.dataset.kw = kw;
+    const label = document.createElement('div'); label.className='num'; label.textContent = chrono;
+    cell.appendChild(label);
+    const img = document.createElement('img');
+    img.src = svgDataUri(prepareSvg(MOTIF_RAW[kw], defaultShades));
+    img.alt = HEX_KW[kw][1];
+    cell.appendChild(img);
+    cell.addEventListener('click', ()=> selectMotif(kw));
+    gridEl.appendChild(cell);
+  }
+}
+
+function selectMotif(kw){
+  currentKw = kw;
+  document.querySelectorAll('.cell').forEach(c=> c.classList.toggle('active', +c.dataset.kw===kw));
+  renderMotifDetail();
+}
+
+function renderMotifDetail(){
+  const kw = currentKw;
+  const info = HEX_KW[kw];
+  const chrono = CHRONO_BY_KW[kw];
+  const panel = document.getElementById('detail');
+  panel.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'motif-detail';
+
+  // ---- sélecteur de couleur ----
+  const colorRow = document.createElement('div'); colorRow.className = 'motif-color-row';
+  const colorLabel = document.createElement('span'); colorLabel.className='motif-color-label'; colorLabel.textContent = 'Color';
+  const colorInput = document.createElement('input'); colorInput.type='color'; colorInput.id='motifColorInput'; colorInput.value = currentColor;
+  const swatches = document.createElement('div'); swatches.className='motif-swatches';
+  const swDark = document.createElement('span'); swDark.className='motif-swatch'; swDark.id='swatchDark'; swDark.title='Zona oscura (-20 % de luminosidad)';
+  const swNeutral = document.createElement('span'); swNeutral.className='motif-swatch'; swNeutral.id='swatchNeutral'; swNeutral.title='Zona neutra';
+  const swLight = document.createElement('span'); swLight.className='motif-swatch'; swLight.id='swatchLight'; swLight.title='Zona clara (+20 % de luminosidad)';
+  swatches.appendChild(swDark); swatches.appendChild(swNeutral); swatches.appendChild(swLight);
+  const resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='site-nav-btn'; resetBtn.id='btnResetMotifColor';
+  resetBtn.textContent = 'Restablecer el color';
+  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches); colorRow.appendChild(resetBtn);
+  wrap.appendChild(colorRow);
+
+  // ---- agrandissement ----
+  const boxWrap = document.createElement('div'); boxWrap.className='motif-box-wrap';
+  const liseret1 = document.createElement('div'); liseret1.className='liseret';
+  const box = document.createElement('div'); box.className='motif-box';
+  const enlargedImg = document.createElement('img'); enlargedImg.id='motifEnlargedImg'; enlargedImg.alt = info[1];
+  box.appendChild(enlargedImg);
+  liseret1.appendChild(box);
+  boxWrap.appendChild(liseret1);
+  const dlBtn = document.createElement('span'); dlBtn.className='dl-btn'; dlBtn.id='dlMotifPng'; dlBtn.style.marginTop='10px'; dlBtn.style.display='inline-block';
+  dlBtn.textContent = 'Descargar PNG en alta resolución';
+  boxWrap.appendChild(dlBtn);
+  wrap.appendChild(boxWrap);
+
+  // ---- texte général (même contenu/source que la page Tirage) ----
+  const numBig = document.createElement('div'); numBig.className='num-big';
+  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — ORDEN CRONOLÓGICO';
+  wrap.appendChild(numBig);
+  const h2 = document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
+  const pin = document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
+  const alt = document.createElement('div'); alt.className='altnum'; alt.textContent = 'n.º King Wen (tradicional): ' + kw; wrap.appendChild(alt);
+
+  const imgTxt = IMAGE_FR[kw];
+  if(imgTxt){
+    const imgTag = document.createElement('div'); imgTag.className='keyword'; imgTag.textContent = 'Imagen';
+    const imgName = document.createElement('div'); imgName.className='keyword-sub'; imgName.textContent = info[1];
+    const imgP = document.createElement('div'); imgP.className='judgement'; imgP.style.marginBottom='18px'; imgP.textContent = imgTxt;
+    wrap.appendChild(imgTag); wrap.appendChild(imgName); wrap.appendChild(imgP);
+  }
+  const jgTag = document.createElement('div'); jgTag.className='keyword'; jgTag.textContent = 'Juicio';
+  const kwEl = document.createElement('div'); kwEl.className='keyword-sub'; kwEl.textContent = info[2];
+  const judg = document.createElement('div'); judg.className='judgement'; judg.textContent = info[3];
+  wrap.appendChild(jgTag); wrap.appendChild(kwEl); wrap.appendChild(judg);
+
+  // ---- tessellation ----
+  const tessWrap = document.createElement('div'); tessWrap.className='tessellation-wrap';
+  const tessLabel = document.createElement('div'); tessLabel.className='tessellation-label'; tessLabel.textContent = 'Teselación';
+  const liseret2 = document.createElement('div'); liseret2.className='liseret';
+  const tessBox = document.createElement('div'); tessBox.className='motif-tess-box'; tessBox.id='motifTessBox';
+  liseret2.appendChild(tessBox);
+  tessWrap.appendChild(tessLabel); tessWrap.appendChild(liseret2);
+  wrap.appendChild(tessWrap);
+
+  panel.appendChild(wrap);
+
+  colorInput.addEventListener('input', (e)=>{ currentColor = e.target.value; updateColorDependentParts(); });
+  resetBtn.addEventListener('click', ()=>{ currentColor = DEFAULT_COLOR; colorInput.value = DEFAULT_COLOR; updateColorDependentParts(); });
+  dlBtn.addEventListener('click', downloadMotifPng);
+
+  updateColorDependentParts();
+}
+
+function updateColorDependentParts(){
+  if(currentKw == null) return;
+  const shades = deriveShades(currentColor);
+  const uri = svgDataUri(prepareSvg(MOTIF_RAW[currentKw], shades));
+  const enlargedImg = document.getElementById('motifEnlargedImg');
+  if(enlargedImg) enlargedImg.src = uri;
+  const tessUri = svgDataUri(prepareTessSvg(MOTIF_RAW[currentKw], shades));
+  const tessBox = document.getElementById('motifTessBox');
+  if(tessBox) tessBox.style.backgroundImage = `url("${tessUri}")`;
+  const swDark = document.getElementById('swatchDark'); if(swDark) swDark.style.background = shades.dark;
+  const swNeutral = document.getElementById('swatchNeutral'); if(swNeutral) swNeutral.style.background = shades.neutral;
+  const swLight = document.getElementById('swatchLight'); if(swLight) swLight.style.background = shades.light;
+}
+
+function downloadMotifPng(){
+  if(currentKw == null) return;
+  const info = HEX_KW[currentKw];
+  const shades = deriveShades(currentColor);
+  const recolored = prepareSvg(MOTIF_RAW[currentKw], shades);
+  const img = new Image();
+  img.onload = ()=>{
+    const size = 4096; // carré, largement au-delà de 300dpi pour un usage textile
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const slug = info[1].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+      a.download = `motif-unifie-${String(currentKw).padStart(2,'0')}-${slug}.png`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = svgDataUri(recolored);
+}
+
+(async () => {
+  await loadAllMotifs();
+  buildGrid();
+})();
+</script>
+<script src="../../assets/soutien-gate.js"></script>
+<script src="../../assets/share-widget.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pie de página">
+    <a href="../../es/">Inicio</a>
+    <a href="../../es/libro/">El libro</a>
+    <a href="../../es/hexagramas/">Hexagramas</a>
+    <a href="../../es/lexico/">Léxico</a>
+    <a href="../../motifs/" hreflang="en">Motivos (inglés)</a>
+    <a href="../../profil.html" hreflang="fr">Perfil del autor (francés)</a>
+    <a href="../../contact.html" hreflang="fr">Contacto</a>
+    <a href="../../soutenir.html" hreflang="fr">Apoyar el proyecto</a>
+    <a href="../../es/buscar/">Buscar</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenidos bajo <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · código bajo AGPL v3, licencia comercial a petición
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

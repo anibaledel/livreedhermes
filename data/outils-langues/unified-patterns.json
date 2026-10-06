@@ -1,0 +1,215 @@
+{
+ "_doc": "Textes de unified-patterns.html et leurs traductions (scripts/build-outils-langues.js). Les textes des 64 hexagrammes (HEX_KW, IMAGE_FR) n'y sont pas : ils sont lus dans leurs traductions existantes (« donnees »). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "Les 64 motifs textiles associés aux 64 hexagrammes du Yi King, personnalisables en couleur et téléchargeables en haute résolution pour impression textile.",
+   "en": "The 64 textile patterns associated with the 64 hexagrams of the Yi King, customisable in colour and downloadable in high resolution for textile printing.",
+   "es": "Los 64 motivos textiles asociados a los 64 hexagramas del Yi King, personalizables en color y descargables en alta resolución para impresión textil.",
+   "th": "ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง ปรับสีได้ และดาวน์โหลดได้ในความละเอียดสูงสำหรับพิมพ์ลงผ้า",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p class=\"faq-block-title\">Questions fréquentes</p>",
+   "en": "<p class=\"faq-block-title\">Frequently asked questions</p>",
+   "es": "<p class=\"faq-block-title\">Preguntas frecuentes</p>",
+   "th": "<p class=\"faq-block-title\">คำถามที่พบบ่อย</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Qu'est-ce que les Unified Patterns ?",
+   "en": "What are Unified Patterns?",
+   "es": "¿Qué son los Unified Patterns?",
+   "th": "Unified Patterns คืออะไร",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les Unified Patterns sont des cellules de tessellation où les coins font écho au centre, afin de générer la fréquence d'un seul motif.",
+   "en": "Unified Patterns are tessellation cells in which the corners echo the centre, so as to generate the frequency of a single pattern.",
+   "es": "Los Unified Patterns son celdas de teselación en las que las esquinas hacen eco del centro, para generar la frecuencia de un solo motivo.",
+   "th": "Unified Patterns คือเซลล์ปูลายที่มุมทั้งสี่สะท้อนจุดกึ่งกลาง เพื่อสร้างความถี่ของลวดลายเพียงแบบเดียว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Quelles sont les contraintes de création des Unified Patterns ?",
+   "en": "What are the constraints for creating Unified Patterns?",
+   "es": "¿Cuáles son las restricciones de creación de los Unified Patterns?",
+   "th": "ข้อกำหนดในการสร้าง Unified Patterns มีอะไรบ้าง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Deux contraintes définissent un Unified Pattern. La première : associer une seule et même couleur aux deux matrices de 6 éléments produit une grille équilibrée en 3×12. La seconde : les côtés de la grille doivent faire écho au centre.",
+   "en": "Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre.",
+   "es": "Dos restricciones definen un Unified Pattern. La primera: asociar un mismo color a las dos matrices de 6 elementos produce una rejilla equilibrada en 3×12. La segunda: los lados de la rejilla deben hacer eco del centro.",
+   "th": "Unified Pattern ถูกกำหนดด้วยข้อกำหนดสองข้อ ข้อแรก: การให้สีเดียวกันแก่เมทริกซ์ 6 องค์ประกอบทั้งสอง จะได้ตารางที่สมดุลแบบ 3×12 ข้อที่สอง: ด้านทั้งสี่ของตารางต้องสะท้อนจุดกึ่งกลาง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Comment les Unified Patterns sont-ils identifiés parmi les grilles équilibrées ?",
+   "en": "How are Unified Patterns identified among the balanced grids?",
+   "es": "¿Cómo se identifican los Unified Patterns entre las rejillas equilibradas?",
+   "th": "Unified Patterns ถูกระบุอย่างไรจากตารางที่สมดุลทั้งหมด",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "La première contrainte (couleur unique sur les deux matrices de 6) fait apparaître une première série de 8 Unified Patterns au sein de l'ensemble des grilles équilibrées en 3×12. C'est ce qui permet de distinguer, parmi les grilles équilibrées, celles qui sont spécifiquement des Unified Patterns.",
+   "en": "The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns.",
+   "es": "La primera restricción (un único color en las dos matrices de 6) hace aparecer una primera serie de 8 Unified Patterns dentro del conjunto de rejillas equilibradas en 3×12. Es lo que permite distinguir, entre las rejillas equilibradas, las que son específicamente Unified Patterns.",
+   "th": "ข้อกำหนดแรก (สีเดียวบนเมทริกซ์ 6 ทั้งสอง) ทำให้ Unified Patterns ชุดแรก 8 แบบปรากฏขึ้นในบรรดาตารางที่สมดุลแบบ 3×12 ทั้งหมด นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุล ตารางใดเป็น Unified Patterns โดยเฉพาะ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Comment ces matrices sont-elles classifiées ?",
+   "en": "How are these matrices classified?",
+   "es": "¿Cómo se clasifican estas matrices?",
+   "th": "เมทริกซ์เหล่านี้ถูกจัดประเภทอย่างไร",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "La classification utilise le système Jacquard pour générer et organiser les matrices équilibrées et les Unified Patterns. Le chapitre VII de La Livrée d'Hermès est consacré à la classification binaire de ces matrices.",
+   "en": "The classification uses the Jacquard system to generate and organise the balanced matrices and the Unified Patterns. Chapter VII of La Livrée d'Hermès is devoted to the binary classification of these matrices.",
+   "es": "La clasificación utiliza el sistema Jacquard para generar y organizar las matrices equilibradas y los Unified Patterns. El capítulo VII de La Livrée d'Hermès está dedicado a la clasificación binaria de estas matrices.",
+   "th": "การจัดประเภทใช้ระบบฌักการ์เพื่อสร้างและจัดระเบียบเมทริกซ์ที่สมดุลและ Unified Patterns บทที่ VII ของ La Livrée d'Hermès ว่าด้วยการจัดประเภทเมทริกซ์เหล่านี้แบบเลขฐานสอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Sur quelle harmonie ce système a-t-il été vérifié ?",
+   "en": "On which harmony has this system been verified?",
+   "es": "¿Sobre qué armonía se ha verificado este sistema?",
+   "th": "ระบบนี้ได้รับการตรวจสอบกับฮาร์โมนีใด",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments).",
+   "en": "The encoding system has been studied and verified for the 12/12/6/6 harmony (four filling matrices arranged in two pairs of 12 and two pairs of 6 elements).",
+   "es": "El sistema de codificación se ha estudiado y verificado para la armonía 12/12/6/6 (cuatro matrices de relleno repartidas en dos pares de 12 y dos pares de 6 elementos).",
+   "th": "ระบบการเข้ารหัสได้รับการศึกษาและตรวจสอบสำหรับฮาร์โมนี 12/12/6/6 (เมทริกซ์เติมสี่ชุด แบ่งเป็นสองคู่ของ 12 และสองคู่ของ 6 องค์ประกอบ)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les 64 motifs textiles associés aux 64 hexagrammes du Yi King — cliquez une case pour personnaliser sa couleur et télécharger le motif.",
+   "en": "The 64 textile patterns associated with the 64 hexagrams of the Yi King — click a cell to customise its colour and download the pattern.",
+   "es": "Los 64 motivos textiles asociados a los 64 hexagramas del Yi King: haga clic en una casilla para personalizar su color y descargar el motivo.",
+   "th": "ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง — คลิกช่องเพื่อปรับสีและดาวน์โหลดลวดลาย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<a class=\"dl-label\" id=\"txt-readBook\" href=\"fr/livre/\" target=\"_blank\" rel=\"noopener\">Lire le livre</a>",
+   "en": "<a class=\"dl-label\" id=\"txt-readBook\" href=\"en/book/\" target=\"_blank\" rel=\"noopener\">Read the book</a>",
+   "es": "<a class=\"dl-label\" id=\"txt-readBook\" href=\"es/libro/\" target=\"_blank\" rel=\"noopener\">Leer el libro</a>",
+   "th": "<a class=\"dl-label\" id=\"txt-readBook\" href=\"th/book/\" target=\"_blank\" rel=\"noopener\">อ่านหนังสือ</a>",
+   "source": "360-calques.html, UI.<langue>.readBook"
+  },
+  {
+   "fr": "<span class=\"dl-label\" id=\"txt-dlPdfBook\">Télécharger le PDF du livre</span>",
+   "en": "<span class=\"dl-label\" id=\"txt-dlPdfBook\">Download the book's PDF</span>",
+   "es": "<span class=\"dl-label\" id=\"txt-dlPdfBook\">Descargar el PDF del libro</span>",
+   "th": "<span class=\"dl-label\" id=\"txt-dlPdfBook\">ดาวน์โหลด PDF ของหนังสือ</span>",
+   "source": "360-calques.html, UI.<langue>.dlPdfBook"
+  },
+  {
+   "fr": "<span class=\"dl-label\" id=\"txt-dlYiKing\">Télécharger la traduction du Yi-King</span>",
+   "en": "<span class=\"dl-label\" id=\"txt-dlYiKing\">Download the Yi-King translation</span>",
+   "es": "<span class=\"dl-label\" id=\"txt-dlYiKing\">Descargar la traducción del Yi-King</span>",
+   "th": "<span class=\"dl-label\" id=\"txt-dlYiKing\">ดาวน์โหลดคำแปลอี้จิง</span>",
+   "source": "360-calques.html, UI.<langue>.dlYiKing"
+  },
+  {
+   "fr": "<span class=\"label\">Motifs unifiés</span>",
+   "en": "<span class=\"label\">Unified patterns</span>",
+   "es": "<span class=\"label\">Motivos unificados</span>",
+   "th": "<span class=\"label\">ลวดลายรวมเป็นหนึ่ง</span>",
+   "source": "glossaire (motif unifié)"
+  },
+  {
+   "fr": "Même ordre chronologique que la page <b>Tirage</b> : <b>Le Créateur</b> en bas à droite, <b>Le Réceptif</b> en haut à gauche. Cliquez une case pour l'ouvrir ci-contre.",
+   "en": "Same chronological order as the <b>Yi King draw</b> page: <b>The Creative</b> bottom right, <b>The Receptive</b> top left. Click a cell to open it alongside.",
+   "es": "Mismo orden cronológico que la página <b>Tirada del Yi King</b>: <b>Lo Creativo</b> abajo a la derecha, <b>Lo Receptivo</b> arriba a la izquierda. Haga clic en una casilla para abrirla al lado.",
+   "th": "ลำดับตามเวลาเดียวกับหน้า <b>การเสี่ยงทายอี้จิง</b>: <b>ผู้สร้างสรรค์</b> อยู่มุมล่างขวา <b>ผู้รับ</b> อยู่มุมบนซ้าย คลิกช่องเพื่อเปิดดูข้าง ๆ",
+   "source": "SANS SOURCE (noms des hexagrammes 1 et 2 et de la page du tirage : pages traduites et tuiles)"
+  },
+  {
+   "fr": "Cliquez une case de l'échiquier pour afficher son motif, choisir sa couleur et voir sa tessellation.",
+   "en": "Click a cell of the chessboard to show its pattern, choose its colour and see its tessellation.",
+   "es": "Haga clic en una casilla del tablero para mostrar su motivo, elegir su color y ver su teselación.",
+   "th": "คลิกช่องบนกระดานเพื่อแสดงลวดลาย เลือกสี และดูการปูลาย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "colorLabel.textContent = 'Couleur';",
+   "en": "colorLabel.textContent = 'Colour';",
+   "es": "colorLabel.textContent = 'Color';",
+   "th": "colorLabel.textContent = 'สี';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "swDark.title='Zone foncée (-20% luminosité)';",
+   "en": "swDark.title='Dark zone (-20% lightness)';",
+   "es": "swDark.title='Zona oscura (-20 % de luminosidad)';",
+   "th": "swDark.title='โซนเข้ม (ความสว่าง -20%)';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "swNeutral.title='Zone neutre';",
+   "en": "swNeutral.title='Neutral zone';",
+   "es": "swNeutral.title='Zona neutra';",
+   "th": "swNeutral.title='โซนกลาง';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "swLight.title='Zone claire (+20% luminosité)';",
+   "en": "swLight.title='Light zone (+20% lightness)';",
+   "es": "swLight.title='Zona clara (+20 % de luminosidad)';",
+   "th": "swLight.title='โซนอ่อน (ความสว่าง +20%)';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "resetBtn.textContent = 'Réinitialiser la couleur';",
+   "en": "resetBtn.textContent = 'Reset the colour';",
+   "es": "resetBtn.textContent = 'Restablecer el color';",
+   "th": "resetBtn.textContent = 'คืนค่าสี';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "dlBtn.textContent = 'Télécharger PNG haute résolution';",
+   "en": "dlBtn.textContent = 'Download high-resolution PNG';",
+   "es": "dlBtn.textContent = 'Descargar PNG en alta resolución';",
+   "th": "dlBtn.textContent = 'ดาวน์โหลด PNG ความละเอียดสูง';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "' — ORDRE CHRONOLOGIQUE'",
+   "en": "' — CHRONOLOGICAL ORDER'",
+   "es": "' — ORDEN CRONOLÓGICO'",
+   "th": "' — ลำดับตามเวลา'",
+   "source": "tirage-livree-hermes.html, UI.en.chronoLabel ; es, th : pages d'hexagrammes"
+  },
+  {
+   "fr": "'n° King Wen (traditionnel) : '",
+   "en": "'King Wen no. (traditional): '",
+   "es": "'n.º King Wen (tradicional): '",
+   "th": "'ลำดับ King Wen (ดั้งเดิม): '",
+   "source": "tirage-livree-hermes.html, UI.en.kingWenLabel ; es, th : pages d'hexagrammes"
+  },
+  {
+   "fr": "imgTag.textContent = 'Image';",
+   "en": "imgTag.textContent = 'Image';",
+   "es": "imgTag.textContent = 'Imagen';",
+   "th": "imgTag.textContent = 'ภาพลักษณ์';",
+   "source": "pages d'hexagrammes en, es, th"
+  },
+  {
+   "fr": "jgTag.textContent = 'Jugement';",
+   "en": "jgTag.textContent = 'Judgement';",
+   "es": "jgTag.textContent = 'Juicio';",
+   "th": "jgTag.textContent = 'คำตัดสิน';",
+   "source": "pages d'hexagrammes en, es, th"
+  },
+  {
+   "fr": "tessLabel.textContent = 'Tessellation';",
+   "en": "tessLabel.textContent = 'Tessellation';",
+   "es": "tessLabel.textContent = 'Teselación';",
+   "th": "tessLabel.textContent = 'การปูลาย';",
+   "source": "SANS SOURCE"
+  }
+ ]
+}

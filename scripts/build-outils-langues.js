@@ -77,6 +77,113 @@ function dictionnaire(s, source) {
   const j = s.indexOf('{', i);
   return vm.runInNewContext(`(${s.slice(j, finAccolade(s, j) + 1)})`);
 }
+// ---- tableaux de données du script, traduits (étape 4) -------------------
+// Une page sans dictionnaire peut porter ses textes dans des tableaux du
+// script (« const HEX_KW = { … }; » : les 64 hexagrammes). Ils ne passent pas
+// par la table des textes : leur traduction existe déjà ailleurs, et elle est
+// lue là, jamais recopiée — l'anglais dans les tableaux de la page du tirage
+// (HEX_KW_EN, IMAGE_EN), l'espagnol et le thaï dans
+// data/hexagrammes_traduits.json, ceux des pages d'hexagrammes traduites.
+// « donnees » : [{ "const": nom du tableau, "forme": comment le lire }].
+function litteral(s, nom, source) {
+  const i = s.indexOf(`const ${nom} = {`);
+  if (i === -1) throw new Error(`${source} : pas de « const ${nom} = { »`);
+  const j = s.indexOf('{', i);
+  const k = finAccolade(s, j);
+  return { j, k, valeur: vm.runInNewContext(`(${s.slice(j, k + 1)})`) };
+}
+const HEXAGRAMMES = {};
+function hexagrammes(lang) {
+  if (HEXAGRAMMES[lang]) return HEXAGRAMMES[lang];
+  const out = {};
+  if (lang === 'en') {
+    const t = fs.readFileSync(path.join(ROOT, 'tirage-livree-hermes.html'), 'utf8');
+    const kw = litteral(t, 'HEX_KW_EN', 'tirage-livree-hermes.html').valeur;
+    const im = litteral(t, 'IMAGE_EN', 'tirage-livree-hermes.html').valeur;
+    for (const n of Object.keys(kw)) out[n] = { name: kw[n][1], keyword: kw[n][2], judgement: kw[n][3], image: im[n] };
+  } else {
+    const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/hexagrammes_traduits.json'), 'utf8'));
+    if (!d[lang]) throw new Error(`data/hexagrammes_traduits.json : pas de langue « ${lang} »`);
+    for (const [n, h] of Object.entries(d[lang].hexagrams)) out[n] = { name: h.name, keyword: h.judgementTitle, judgement: h.judgement, image: h.image };
+  }
+  for (let n = 1; n <= 64; n++) {
+    for (const c of ['name', 'keyword', 'judgement', 'image']) {
+      if (!out[n] || !out[n][c]) throw new Error(`hexagrammes (${lang}) : n° ${n}, « ${c} » manque`);
+    }
+  }
+  return (HEXAGRAMMES[lang] = out);
+}
+// Les textes propres à l'outil de création (ses mots-clés quand ils diffèrent
+// de ceux du tirage, ses jugements de paires, ses idées médianes) : écrits
+// pour l'étape 4, chacun avec son français — qui doit être celui de la page.
+const TEXTES_CREATION = 'data/outils-langues/creation-motifs-yi-king-textes.json';
+let textesCreation = null;
+const creation = () => textesCreation || (textesCreation = JSON.parse(fs.readFileSync(path.join(ROOT, TEXTES_CREATION), 'utf8')));
+// Le mot-clé d'un hexagramme : celui du tirage quand l'outil reprend le même
+// (sa traduction existe), sinon celui de la table des mots-clés.
+let motsClesTirage = null;
+function motCle(fr, n, lang) {
+  if (!motsClesTirage) {
+    const t = fs.readFileSync(path.join(ROOT, 'tirage-livree-hermes.html'), 'utf8');
+    motsClesTirage = litteral(t, 'HEX_KW', 'tirage-livree-hermes.html').valeur;
+  }
+  if (n && motsClesTirage[n] && motsClesTirage[n][2] === fr) return hexagrammes(lang)[n].keyword;
+  for (const k of Object.keys(motsClesTirage)) if (motsClesTirage[k][2] === fr) return hexagrammes(lang)[k].keyword;
+  const m = creation().motsCles[fr];
+  if (!m || !m[lang]) throw new Error(`${TEXTES_CREATION} : mot-clé « ${fr} » sans traduction « ${lang} »`);
+  return m[lang];
+}
+function texteCreation(table, cle, fr, lang) {
+  const e = creation()[table][cle];
+  if (!e) throw new Error(`${TEXTES_CREATION} : ${table} « ${cle} » manque`);
+  if (e.fr !== fr) throw new Error(`${TEXTES_CREATION} : ${table} « ${cle} » — le français de la page a changé, la traduction a dérivé`);
+  if (!e[lang]) throw new Error(`${TEXTES_CREATION} : ${table} « ${cle} » sans « ${lang} »`);
+  return e[lang];
+}
+// Chaque forme garde du tableau français tout ce qui n'est pas du texte
+// (pinyin, numéros) et n'en remplace que le texte.
+const FORMES = {
+  // HEX_FR[kw] = { chrono, name, pinyin, image_title, image_text, jugement_title, jugement_text }
+  hexFr: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n, {
+    ...e, name: h[n].name, image_title: h[n].name, image_text: h[n].image,
+    jugement_title: motCle(e.jugement_title, n, lang), jugement_text: h[n].judgement,
+  }]))),
+  // PAIRS_FR[n] = { a, b, motcle, jugement } — les 32 paires du livre
+  paires: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n, {
+    ...e, motcle: motCle(e.motcle, null, lang), jugement: texteCreation('paires', n, e.jugement, lang),
+  }]))),
+  // ASSETS[catégorie] = [{ …, label: 'Yang fixe / Yin mutant' }] — l'étiquette
+  // des 60 images, traduite terme à terme ; aucune étiquette traduite ne doit
+  // garder un terme français de la table (sinon la génération échoue)
+  assets: (fr, h, lang) => {
+    const termes = Object.entries(creation().etiquettes).sort((a, b) => b[0].length - a[0].length);
+    const traduire = (l) => termes.reduce((t, [f, tr]) => t.split(f).join(tr[lang]), l);
+    const out = Object.fromEntries(Object.entries(fr).map(([cat, liste]) => [cat, liste.map((e) => ({ ...e, label: traduire(e.label) }))]));
+    for (const liste of Object.values(out)) for (const e of liste) {
+      if (termes.some(([f, tr]) => tr[lang] !== f && new RegExp(f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + (/\p{L}$/u.test(f) ? '(?!\\p{L})' : ''), 'u').test(e.label))) throw new Error(`${TEXTES_CREATION} : étiquette « ${e.label} » restée en français (${lang})`);
+    }
+    return JSON.stringify(out);
+  },
+  // PAIRES_32[chrono] = { title, text } — l'idée médiane, lue par son titre
+  idees: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n,
+    texteCreation('idees', e.title, e.text, lang)]))),
+  // HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+  hexKw: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify([fr[n][0], h[n].name, h[n].keyword, h[n].judgement])}`).join(',\n')}\n}`,
+  // IMAGE_FR[kw] = texte de l'Image
+  image: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify(h[n].image)}`).join(',\n')}\n}`,
+};
+function donneesTraduites(s, p, lang, nomPage) {
+  for (const d of p.donnees || []) {
+    const forme = FORMES[d.forme];
+    if (!forme) throw new Error(`${nomPage} : forme de données inconnue « ${d.forme} »`);
+    const { j, k, valeur } = litteral(s, d.const, nomPage);
+    const attendu = d.entrees || 64;
+    if (Object.keys(valeur).length !== attendu) throw new Error(`${nomPage} : ${d.const} n'a pas ${attendu} entrées`);
+    s = s.slice(0, j) + forme(valeur, hexagrammes(lang), lang) + s.slice(k + 1);
+  }
+  return s;
+}
+
 function corpsFonction(s, nom) {
   const i = s.indexOf(`function ${nom}(`);
   if (i === -1) return '';
@@ -241,6 +348,9 @@ function pageTraduite(p, lang, cfg, src) {
     }
     for (const [id, cible, k] of p.affectations || []) s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
   }
+
+  // 2 bis — les tableaux de données du script, depuis leur traduction existante
+  s = donneesTraduites(s, p, lang, nomPage);
 
   // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
   // traductions — étape 2) puis les remplacements propres à la langue. Chaque

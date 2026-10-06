@@ -1,5 +1,5 @@
 {
-  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « textes » (étape 2, pages sans dictionnaire) : la table des textes de la page, chaque ligne avec sa traduction dans chaque langue — ou le chemin d'un fichier qui la porte (data/outils-langues/<page>.json). « communs » : les textes partagés par plusieurs pages (fil d'Ariane), appliqués là où ils se trouvent. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md).",
+  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « textes » (étape 2, pages sans dictionnaire) : la table des textes de la page, chaque ligne avec sa traduction dans chaque langue — ou le chemin d'un fichier qui la porte (data/outils-langues/<page>.json). « communs » : les textes partagés par plusieurs pages (fil d'Ariane), appliqués là où ils se trouvent. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md). « donnees » (étape 4) : les tableaux du script (HEX_KW, IMAGE_FR…) remplacés par leur traduction existante, lue à sa source — tableaux anglais de tirage-livree-hermes.html, data/hexagrammes_traduits.json pour l'espagnol et le thaï.",
   "pages": [
     {
       "source": "cymatique.html",
@@ -164,6 +164,11 @@
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 layers</span>",
               "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"en/figures-and-sources/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
             }
           ]
         },
@@ -190,6 +195,11 @@
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 capas</span>",
               "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"es/cifras-y-fuentes/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
             }
           ]
         },
@@ -221,6 +231,16 @@
               "fr": "เฮกซะแกรม",
               "trad": "ฉักลักษณ์",
               "source": "glossaire (docs/terminologie-fr-en-es-th.md) : « hexagramme » en thaï est ฉักลักษณ์, เฮกซะแกรม est refusé — le dictionnaire UI.th de 360-calques.html porte encore la variante refusée"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"th/figures-and-sources/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
+            },
+            {
+              "fr": "ตัวเลขและแหล่งที่มา (FR)",
+              "trad": "ตัวเลขและแหล่งที่มา",
+              "source": "UI.th.dataSourceLink sans « (FR) » : le lien mène désormais à la page thaïe"
             }
           ]
         }
@@ -404,6 +424,74 @@
         },
         "th": {
           "dossier": "th/figures-and-sources/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "unified-patterns.html",
+      "priorite": "0.8",
+      "textes": "data/outils-langues/unified-patterns.json",
+      "donnees": [
+        {
+          "const": "HEX_KW",
+          "forme": "hexKw"
+        },
+        {
+          "const": "IMAGE_FR",
+          "forme": "image"
+        }
+      ],
+      "langues": {
+        "en": {
+          "dossier": "en/unified-patterns/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/motivos-unificados/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/unified-patterns/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "creation-motifs-yi-king.html",
+      "priorite": "0.9",
+      "textes": "data/outils-langues/creation-motifs-yi-king.json",
+      "donnees": [
+        {
+          "const": "HEX_FR",
+          "forme": "hexFr"
+        },
+        {
+          "const": "PAIRS_FR",
+          "forme": "paires",
+          "entrees": 32
+        },
+        {
+          "const": "PAIRES_32",
+          "forme": "idees"
+        },
+        {
+          "const": "ASSETS",
+          "forme": "assets",
+          "entrees": 4
+        }
+      ],
+      "langues": {
+        "en": {
+          "dossier": "en/create-a-pattern/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/crear-un-motivo/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/create-a-pattern/",
           "ogLocale": "th_TH"
         }
       }

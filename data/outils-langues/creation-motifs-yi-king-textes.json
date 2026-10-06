@@ -1,0 +1,893 @@
+{
+ "_doc": "Textes propres à creation-motifs-yi-king.html, traduits pour l'étape 4 (scripts/build-outils-langues.js, « donnees ») : les mots-clés que cet outil donne aux hexagrammes quand ils diffèrent de ceux du tirage, les 32 jugements de paires (PAIRS_FR) les 32 idées médianes (PAIRES_32), et les termes dont sont faites les étiquettes des 60 images (ASSETS : « Yang fixe / Yin mutant »…), traduites terme à terme. Tout est SANS SOURCE (à relire, TODO-RELECTURE.md). « fr » garde le texte français traduit : s'il change dans la page, la génération échoue plutôt que de laisser la traduction dériver. Les noms, Images et Jugements des 64 hexagrammes ne sont pas ici : ils viennent des traductions existantes.",
+ "motsCles": {
+  "Patience": {
+   "en": "Patience",
+   "es": "Paciencia",
+   "th": "ความอดทน"
+  },
+  "Tempérance": {
+   "en": "Temperance",
+   "es": "Templanza",
+   "th": "ความพอประมาณ"
+  },
+  "Ajustement": {
+   "en": "Adjustment",
+   "es": "Ajuste",
+   "th": "การปรับให้พอดี"
+  },
+  "Précision": {
+   "en": "Precision",
+   "es": "Precisión",
+   "th": "ความแม่นยำ"
+  },
+  "Échange": {
+   "en": "Exchange",
+   "es": "Intercambio",
+   "th": "การแลกเปลี่ยน"
+  },
+  "Blocage": {
+   "en": "Blockage",
+   "es": "Bloqueo",
+   "th": "การติดขัด"
+  },
+  "Ouverture": {
+   "en": "Openness",
+   "es": "Apertura",
+   "th": "การเปิดกว้าง"
+  },
+  "Résilience": {
+   "en": "Resilience",
+   "es": "Resiliencia",
+   "th": "ความยืดหยุ่นคืนตัว"
+  },
+  "Effacement": {
+   "en": "Self-effacement",
+   "es": "Discreción de sí",
+   "th": "การถ่อมตน"
+  },
+  "Origine": {
+   "en": "Origin",
+   "es": "Origen",
+   "th": "ต้นกำเนิด"
+  },
+  "Progressivité": {
+   "en": "Gradualness",
+   "es": "Gradualidad",
+   "th": "ความค่อยเป็นค่อยไป"
+  },
+  "Perspective": {
+   "en": "Perspective",
+   "es": "Perspectiva",
+   "th": "มุมมอง"
+  },
+  "Simplicité": {
+   "en": "Simplicity",
+   "es": "Sencillez",
+   "th": "ความเรียบง่าย"
+  },
+  "Choix": {
+   "en": "Choice",
+   "es": "Elección",
+   "th": "การเลือก"
+  },
+  "Surcharge": {
+   "en": "Overload",
+   "es": "Sobrecarga",
+   "th": "ภาระเกิน"
+  },
+  "Retrait": {
+   "en": "Withdrawal",
+   "es": "Retirada",
+   "th": "การถอยกลับ"
+  },
+  "Débordement": {
+   "en": "Overflow",
+   "es": "Desbordamiento",
+   "th": "การล้นเกิน"
+  },
+  "Reconnaissance": {
+   "en": "Recognition",
+   "es": "Reconocimiento",
+   "th": "การได้รับการยอมรับ"
+  },
+  "Discrétion": {
+   "en": "Discretion",
+   "es": "Discreción",
+   "th": "ความสุขุม"
+  },
+  "Bouclier": {
+   "en": "Shield",
+   "es": "Escudo",
+   "th": "โล่"
+  },
+  "Partage": {
+   "en": "Sharing",
+   "es": "Compartir",
+   "th": "การแบ่งปัน"
+  },
+  "Décision": {
+   "en": "Decision",
+   "es": "Decisión",
+   "th": "การตัดสินใจ"
+  },
+  "Imprévu": {
+   "en": "The unforeseen",
+   "es": "Lo imprevisto",
+   "th": "สิ่งที่ไม่คาดฝัน"
+  },
+  "Dénuement": {
+   "en": "Destitution",
+   "es": "Despojamiento",
+   "th": "ความขัดสน"
+  },
+  "Mue": {
+   "en": "Moult",
+   "es": "Muda",
+   "th": "การลอกคราบ"
+  },
+  "Pénétration": {
+   "en": "Penetration",
+   "es": "Penetración",
+   "th": "การแทรกซึม"
+  },
+  "Légèreté": {
+   "en": "Lightness",
+   "es": "Ligereza",
+   "th": "ความเบา"
+  },
+  "Fluidité": {
+   "en": "Fluidity",
+   "es": "Fluidez",
+   "th": "ความลื่นไหล"
+  },
+  "Confiance": {
+   "en": "Trust",
+   "es": "Confianza",
+   "th": "ความไว้วางใจ"
+  },
+  "Justesse": {
+   "en": "Rightness",
+   "es": "Justeza",
+   "th": "ความพอดีที่ถูกต้อง"
+  },
+  "Fragilité": {
+   "en": "Fragility",
+   "es": "Fragilidad",
+   "th": "ความเปราะบาง"
+  },
+  "Seuil": {
+   "en": "Threshold",
+   "es": "Umbral",
+   "th": "ธรณีประตู"
+  }
+ },
+ "paires": {
+  "1": {
+   "fr": "Le trait plein s'élance seul, sans encore de vêtement ; à l'autre bout de l'axe, le passage est ouvert mais la trame n'est pas encore tissée. Entre les deux : toute la livrée reste à coudre.",
+   "en": "The unbroken line surges forth alone, not yet clothed; at the other end of the axis, the passage is open but the weft is not yet woven. Between the two: the whole livery is still to be sewn.",
+   "es": "El rasgo lleno se lanza solo, todavía sin vestidura; en el otro extremo del eje, el paso está abierto pero la trama aún no está tejida. Entre ambos: toda la librea queda por coser.",
+   "th": "เส้นทึบพุ่งทะยานเพียงลำพัง ยังไร้อาภรณ์ ส่วนอีกปลายหนึ่งของแกน ทางผ่านเปิดอยู่แต่เส้นพุ่งยังมิได้ถักทอ ระหว่างทั้งสอง เครื่องแต่งกายทั้งชุดยังรอการเย็บ"
+  },
+  "2": {
+   "fr": "Le sol reçoit, la forme se pose. Ici la couture est refermée, la maille est nouée — mais une trame achevée n'attend qu'un souffle pour se rouvrir en mue.",
+   "en": "The soil receives, the form settles. Here the seam is closed, the stitch is knotted — but a finished weft waits only for a breath to open again into a moult.",
+   "es": "El suelo recibe, la forma se asienta. Aquí la costura está cerrada, el punto está anudado; pero una trama acabada solo espera un soplo para volver a abrirse en muda.",
+   "th": "ผืนดินรองรับ รูปทรงลงหลักปักฐาน ณ ที่นี้ตะเข็บปิดสนิท ห่วงผ้าผูกแน่น — แต่เส้นพุ่งที่ทอเสร็จแล้วรอเพียงลมหายใจหนึ่งเพื่อเปิดออกอีกครั้งสู่การลอกคราบ"
+  },
+  "3": {
+   "fr": "Le germe peine sous la terre du carré ; en miroir, le petit trait déborde de son cadre. L'un manque encore d'espace, l'autre en a déjà trop — la mesure juste se cherche entre les deux.",
+   "en": "The seed struggles beneath the earth of the square; in mirror image, the small line overflows its frame. One still lacks room, the other already has too much — the right measure is sought between the two.",
+   "es": "El germen pena bajo la tierra del cuadrado; en espejo, el pequeño rasgo desborda su marco. Al uno aún le falta espacio, al otro ya le sobra: la justa medida se busca entre ambos.",
+   "th": "เมล็ดพันธุ์ดิ้นรนอยู่ใต้ดินของจัตุรัส ในภาพสะท้อน เส้นเล็กล้นออกนอกกรอบของมัน ฝ่ายหนึ่งยังขาดที่ว่าง อีกฝ่ายมีมากเกินแล้ว — ความพอดีที่ถูกต้องอยู่ระหว่างทั้งสอง"
+  },
+  "4": {
+   "fr": "L'ignorance du disciple appelle le maître ; au sommet de l'axe, le centre vide du cœur devient le lieu même où la confiance se loge. On n'apprend qu'en creusant ce vide.",
+   "en": "The disciple's ignorance calls for the master; at the top of the axis, the empty centre of the heart becomes the very place where trust takes up its dwelling. One learns only by hollowing out this emptiness.",
+   "es": "La ignorancia del discípulo llama al maestro; en la cima del eje, el centro vacío del corazón se vuelve el lugar mismo donde se aloja la confianza. Solo se aprende ahondando ese vacío.",
+   "th": "ความไม่รู้ของศิษย์เรียกหาครู ณ ยอดของแกน ช่องว่างกลางใจกลายเป็นที่สถิตของความไว้วางใจ เราเรียนรู้ได้ก็ด้วยการขุดให้ช่องว่างนี้ลึกลง"
+  },
+  "5": {
+   "fr": "L'eau attend sous le ciel sa juste heure ; le bambou pose ses nœuds pour que la sève ne se disperse pas. Attendre et limiter sont un même geste : donner une forme au temps.",
+   "en": "Water waits beneath the sky for its proper hour; the bamboo sets its nodes so that the sap does not scatter. Waiting and limiting are one and the same gesture: giving time a form.",
+   "es": "El agua espera bajo el cielo su justa hora; el bambú pone sus nudos para que la savia no se disperse. Esperar y limitar son un mismo gesto: dar forma al tiempo.",
+   "th": "น้ำรอคอยใต้ฟ้าจนถึงเวลาอันสมควร ไผ่สร้างข้อปล้องเพื่อมิให้น้ำเลี้ยงกระจายหาย การรอคอยและการจำกัดคือท่าทีเดียวกัน: การให้รูปแก่กาลเวลา"
+  },
+  "6": {
+   "fr": "La discorde des forces opposées trouve son dénouement dans le courant du vent sur l'eau ; ce qui s'affrontait se disperse et redevient fluide.",
+   "en": "The discord of opposing forces finds its resolution in the current of the wind over the water; what clashed disperses and becomes fluid again.",
+   "es": "La discordia de las fuerzas opuestas encuentra su desenlace en la corriente del viento sobre el agua; lo que se enfrentaba se dispersa y vuelve a ser fluido.",
+   "th": "ความขัดแย้งของพลังที่ตรงข้ามกันพบทางคลี่คลายในกระแสลมเหนือผืนน้ำ สิ่งที่เคยปะทะกันแยกย้ายและกลับลื่นไหลอีกครั้ง"
+  },
+  "7": {
+   "fr": "La discipline collective, réglée comme la marche d'une troupe, s'achève dans la clarté du lac qui rassemble et met en commun. La rigueur enfante la parole partagée.",
+   "en": "Collective discipline, regulated like the march of a troop, ends in the clarity of the lake that gathers and holds in common. Rigour gives birth to the shared word.",
+   "es": "La disciplina colectiva, regulada como la marcha de una tropa, culmina en la claridad del lago que reúne y pone en común. El rigor engendra la palabra compartida.",
+   "th": "วินัยร่วมที่จัดระเบียบดุจการเดินแถวของกองทหาร สิ้นสุดในความใสของทะเลสาบที่รวบรวมและแบ่งปันร่วมกัน ความเคร่งครัดให้กำเนิดถ้อยคำที่แบ่งปันกัน"
+  },
+  "8": {
+   "fr": "L'union des clans se noue par en dessous, comme le fil de chaîne ; le vent pénètre partout sans bruit, comme la trame. À eux deux : le tissu social se forme, invisible et tenace.",
+   "en": "The union of the clans is knotted from below, like the warp thread; the wind penetrates everywhere without a sound, like the weft. Together they form the social fabric, invisible and tenacious.",
+   "es": "La unión de los clanes se anuda por debajo, como el hilo de urdimbre; el viento penetra por todas partes sin ruido, como la trama. Entre los dos se forma el tejido social, invisible y tenaz.",
+   "th": "การรวมกันของเผ่าพันธุ์ผูกพันจากเบื้องล่างดุจเส้นยืน ลมแทรกซึมไปทุกแห่งโดยไร้เสียงดุจเส้นพุ่ง เมื่อรวมกัน ผืนผ้าแห่งสังคมก็ก่อรูป มองไม่เห็นแต่เหนียวแน่น"
+  },
+  "9": {
+   "fr": "Le frein léger posé sur le grand dessein pousse l'esprit hors de chez lui ; le voyageur, sans feu ni lieu, mesure sa force à l'épreuve du dehors — c'est la livrée qui remplace la maison.",
+   "en": "The light brake placed on the great design drives the mind out of its home; the wanderer, without hearth or home, measures his strength against the trials of the outside — it is the livery that takes the place of the house.",
+   "es": "El freno ligero puesto al gran designio empuja al espíritu fuera de su casa; el viajero, sin techo ni hogar, mide su fuerza en la prueba del afuera: es la librea la que reemplaza a la casa.",
+   "th": "ห้ามล้อเบา ๆ ที่วางบนเจตนาอันยิ่งใหญ่ผลักจิตออกจากบ้าน ผู้เดินทางที่ไร้บ้านไร้ที่พักวัดกำลังของตนด้วยบททดสอบของโลกภายนอก — เครื่องแต่งกายคือสิ่งที่เข้ามาแทนบ้าน"
+  },
+  "10": {
+   "fr": "Chaque pas posé sur la queue du tigre sans dévier conduit à l'heure du plein midi, où la lumière ne projette plus d'ombre — l'apogée de la forme.",
+   "en": "Each step placed on the tiger's tail without swerving leads to the hour of full noon, when the light no longer casts a shadow — the apex of form.",
+   "es": "Cada paso puesto sobre la cola del tigre sin desviarse conduce a la hora del pleno mediodía, cuando la luz ya no proyecta sombra: el apogeo de la forma.",
+   "th": "ทุกก้าวที่วางลงบนหางเสือโดยไม่เบี่ยงเบน นำไปสู่ยามเที่ยงวันเต็มที่ ที่แสงไม่ทอดเงาอีกต่อไป — จุดสูงสุดของรูปทรง"
+  },
+  "11": {
+   "fr": "Le Ciel et la Terre se rencontrent et s'échangent librement ; en miroir, l'union scellée par le mariage engage deux ordres inégaux dans une même trame. La paix est toujours une couture entre deux étoffes différentes.",
+   "en": "Heaven and Earth meet and exchange freely; in mirror image, the union sealed by marriage binds two unequal orders into one weft. Peace is always a seam between two different fabrics.",
+   "es": "El Cielo y la Tierra se encuentran y se intercambian libremente; en espejo, la unión sellada por el matrimonio compromete dos órdenes desiguales en una misma trama. La paz es siempre una costura entre dos telas diferentes.",
+   "th": "ฟ้าและดินพบกันและแลกเปลี่ยนกันอย่างเสรี ในภาพสะท้อน การรวมกันที่ผนึกด้วยการแต่งงานผูกสองระเบียบที่ไม่เท่าเทียมไว้ในเส้นพุ่งเดียวกัน สันติภาพเป็นตะเข็บระหว่างผ้าสองผืนที่ต่างกันเสมอ"
+  },
+  "12": {
+   "fr": "Quand la communication est coupée par le refus du système, seule la lenteur de l'arbre sur la montagne — racine, tronc, branche, un pas après l'autre — redresse l'axe.",
+   "en": "When communication is cut off by the system's refusal, only the slowness of the tree on the mountain — root, trunk, branch, one step after another — straightens the axis.",
+   "es": "Cuando la comunicación queda cortada por el rechazo del sistema, solo la lentitud del árbol sobre la montaña —raíz, tronco, rama, un paso tras otro— endereza el eje.",
+   "th": "เมื่อการสื่อสารถูกตัดขาดด้วยการปฏิเสธของระบบ มีเพียงความเชื่องช้าของต้นไม้บนภูเขา — ราก ลำต้น กิ่ง ทีละก้าว — ที่ทำให้แกนกลับตรง"
+  },
+  "13": {
+   "fr": "La fraternité qui s'ouvre au monde trouve son socle dans l'immobilité de la montagne qui contemple ; le mouvement s'arrête pour que l'essentiel se voie.",
+   "en": "The fellowship that opens to the world finds its footing in the stillness of the contemplating mountain; movement stops so that the essential may be seen.",
+   "es": "La fraternidad que se abre al mundo encuentra su base en la inmovilidad de la montaña que contempla; el movimiento se detiene para que lo esencial se vea.",
+   "th": "ความเป็นพี่น้องที่เปิดสู่โลกพบฐานรากในความนิ่งของภูเขาที่เพ่งพินิจ การเคลื่อนไหวหยุดลงเพื่อให้สิ่งสำคัญปรากฏ"
+  },
+  "14": {
+   "fr": "La richesse accumulée se mesure à sa capacité de traverser le tonnerre sans perdre l'axe — ce qui reste debout après le choc est ce qui était vraiment possédé.",
+   "en": "Accumulated wealth is measured by its capacity to pass through the thunder without losing its axis — what remains standing after the shock is what was truly possessed.",
+   "es": "La riqueza acumulada se mide por su capacidad de atravesar el trueno sin perder el eje: lo que sigue en pie tras el choque es lo que de verdad se poseía.",
+   "th": "ความมั่งคั่งที่สะสมไว้วัดได้จากความสามารถที่จะผ่านฟ้าร้องโดยไม่เสียแกน — สิ่งที่ยังยืนอยู่หลังแรงกระแทกคือสิ่งที่เราครอบครองจริง"
+  },
+  "15": {
+   "fr": "L'effacement de soi nourrit la transmutation dans le creuset ; la forme la plus discrète est celle qui recueille le mieux l'essence.",
+   "en": "Self-effacement feeds the transmutation in the crucible; the most discreet form is the one that best gathers the essence.",
+   "es": "El borrarse a sí mismo alimenta la transmutación en el crisol; la forma más discreta es la que mejor recoge la esencia.",
+   "th": "การถ่อมตนหล่อเลี้ยงการแปรธาตุในเบ้าหลอม รูปทรงที่สุขุมที่สุดคือรูปทรงที่เก็บรวบรวมแก่นแท้ได้ดีที่สุด"
+  },
+  "16": {
+   "fr": "Le tonnerre sort de la terre et met les corps en mouvement ; en miroir, le feu sous le lac dissout l'ancienne peau. L'enthousiasme est déjà une mue qui s'ignore.",
+   "en": "Thunder comes out of the earth and sets bodies in motion; in mirror image, the fire beneath the lake dissolves the old skin. Enthusiasm is already a moult unaware of itself.",
+   "es": "El trueno sale de la tierra y pone los cuerpos en movimiento; en espejo, el fuego bajo el lago disuelve la piel antigua. El entusiasmo es ya una muda que se ignora.",
+   "th": "ฟ้าร้องออกมาจากผืนดินและทำให้ร่างกายเคลื่อนไหว ในภาพสะท้อน ไฟใต้ทะเลสาบละลายผิวหนังเก่า ความกระตือรือร้นคือการลอกคราบที่ยังไม่รู้ตัว"
+  },
+  "17": {
+   "fr": "Suivre le mouvement du temps oblige à redescendre creuser la source qui ne s'épuise pas — on ne suit bien que ce qu'on a d'abord puisé au fond.",
+   "en": "Following the movement of time obliges one to go back down and dig the source that never runs dry — one follows well only what one has first drawn from the depths.",
+   "es": "Seguir el movimiento del tiempo obliga a volver a bajar a cavar la fuente que no se agota: solo se sigue bien lo que primero se ha sacado del fondo.",
+   "th": "การตามการเคลื่อนของกาลเวลาบังคับให้กลับลงไปขุดต้นน้ำที่ไม่มีวันเหือดแห้ง — เราตามได้ดีก็แต่สิ่งที่เราตักขึ้นมาจากก้นลึกก่อน"
+  },
+  "18": {
+   "fr": "Redresser la corruption d'un héritage usé passe par la traversée d'un dénuement — on ne restaure rien sans consentir d'abord à manquer.",
+   "en": "Setting right the corruption of a worn inheritance means passing through destitution — nothing is restored without first consenting to lack.",
+   "es": "Enderezar la corrupción de una herencia gastada pasa por atravesar un despojamiento: nada se restaura sin consentir primero en carecer.",
+   "th": "การแก้ไขความเสื่อมของมรดกที่ทรุดโทรมต้องผ่านความขัดสน — ไม่มีสิ่งใดฟื้นฟูได้หากไม่ยอมขาดแคลนก่อน"
+  },
+  "19": {
+   "fr": "L'approche bienveillante des forces vives stimule l'ascension patiente de l'arbre vers la lumière — approcher et grandir sont un seul geste vertical.",
+   "en": "The benevolent approach of the living forces stimulates the patient ascent of the tree towards the light — approaching and growing are a single vertical gesture.",
+   "es": "El acercamiento benévolo de las fuerzas vivas estimula el ascenso paciente del árbol hacia la luz: acercarse y crecer son un solo gesto vertical.",
+   "th": "การเข้าใกล้อย่างเมตตาของพลังชีวิตกระตุ้นการเติบโตอย่างอดทนของต้นไม้สู่แสง — การเข้าใกล้และการเติบโตเป็นท่าทีแนวดิ่งเดียวกัน"
+  },
+  "20": {
+   "fr": "Regarder au loin depuis la tour fédère ce qui était dispersé en un seul point de ralliement — la contemplation est déjà un rassemblement silencieux.",
+   "en": "Looking far out from the tower federates what was scattered into a single rallying point — contemplation is already a silent gathering.",
+   "es": "Mirar a lo lejos desde la torre federa lo que estaba disperso en un único punto de reunión: la contemplación es ya una reunión silenciosa.",
+   "th": "การมองไกลจากหอสูงรวบรวมสิ่งที่กระจัดกระจายให้เป็นจุดนัดพบเดียว — การเพ่งพินิจคือการรวมตัวอย่างเงียบงันอยู่แล้ว"
+  },
+  "21": {
+   "fr": "Trancher le faux pour souder ce qui est juste expose aussi au risque de la rencontre imprévue — ce qui unit peut aussi corrompre s'il entre sans discernement.",
+   "en": "Cutting through the false to weld what is right also exposes one to the risk of the unforeseen encounter — what unites can also corrupt if it enters without discernment.",
+   "es": "Cortar lo falso para soldar lo justo expone también al riesgo del encuentro imprevisto: lo que une también puede corromper si entra sin discernimiento.",
+   "th": "การตัดสิ่งเท็จเพื่อเชื่อมสิ่งที่ถูกต้องก็เปิดรับความเสี่ยงของการพบพานที่ไม่คาดฝันด้วย — สิ่งที่รวมเข้าด้วยกันก็อาจทำให้เสื่อมได้ หากเข้ามาโดยปราศจากวิจารณญาณ"
+  },
+  "22": {
+   "fr": "L'ornement et la beauté de la forme cèdent, à l'extrême, la place à la décision qui tranche net et élimine le superflu.",
+   "en": "Ornament and the beauty of form give way, at the extreme, to the decision that cuts cleanly and removes the superfluous.",
+   "es": "El ornamento y la belleza de la forma ceden, en el extremo, el lugar a la decisión que corta de raíz y elimina lo superfluo.",
+   "th": "เครื่องประดับและความงามของรูปทรงหลีกทางในที่สุดให้แก่การตัดสินใจที่ตัดขาดอย่างเด็ดขาดและขจัดสิ่งเกินจำเป็น"
+  },
+  "23": {
+   "fr": "L'effondrement de l'ancien édifice et l'écornement des structures caduques libèrent, en miroir, l'énergie d'un accroissement neuf.",
+   "en": "The collapse of the old edifice and the chipping away of outworn structures release, in mirror image, the energy of a new increase.",
+   "es": "El derrumbe del antiguo edificio y el desgaste de las estructuras caducas liberan, en espejo, la energía de un aumento nuevo.",
+   "th": "การพังทลายของสิ่งปลูกสร้างเก่าและการกร่อนของโครงสร้างที่หมดยุค ปลดปล่อยพลังของการเพิ่มพูนใหม่ในภาพสะท้อน"
+  },
+  "24": {
+   "fr": "Le principe vital revient au cœur de la nuit la plus dense ; retourner au centre exige d'abord de consentir à perdre ce qui encombrait le chemin.",
+   "en": "The vital principle returns at the heart of the densest night; returning to the centre first requires consenting to lose what cluttered the path.",
+   "es": "El principio vital regresa en el corazón de la noche más densa; volver al centro exige primero consentir en perder lo que estorbaba el camino.",
+   "th": "หลักแห่งชีวิตหวนคืนกลางราตรีที่มืดมิดที่สุด การกลับสู่ศูนย์กลางต้องยอมสูญเสียสิ่งที่เกะกะทางก่อน"
+  },
+  "25": {
+   "fr": "Agir sans artifice, sans calcul rétrospectif, dissout de lui-même les nœuds de l'obstacle et libère le passage.",
+   "en": "Acting without artifice, without retrospective calculation, dissolves of itself the knots of the obstacle and frees the passage.",
+   "es": "Actuar sin artificio, sin cálculo retrospectivo, disuelve por sí mismo los nudos del obstáculo y libera el paso.",
+   "th": "การกระทำโดยไร้มารยา ไร้การคำนวณย้อนหลัง คลายปมของอุปสรรคได้เองและเปิดทางผ่าน"
+  },
+  "26": {
+   "fr": "L'accumulation intérieure de la puissance fait face à la dureté du relief ; la patience devient elle-même un bouclier.",
+   "en": "The inner accumulation of power faces the hardness of the terrain; patience itself becomes a shield.",
+   "es": "La acumulación interior de la potencia hace frente a la dureza del relieve; la paciencia se convierte ella misma en escudo.",
+   "th": "การสะสมพลังภายในเผชิญหน้ากับความแข็งกระด้างของภูมิประเทศ ความอดทนเองกลายเป็นโล่"
+  },
+  "27": {
+   "fr": "Ce qui nourrit l'esprit s'oppose à ce qui divise les vues ; le tri s'opère entre les mots qui élèvent et ceux qui séparent.",
+   "en": "What nourishes the mind stands against what divides views; the sorting takes place between the words that raise up and those that separate.",
+   "es": "Lo que alimenta el espíritu se opone a lo que divide las miradas; el discernimiento se hace entre las palabras que elevan y las que separan.",
+   "th": "สิ่งที่หล่อเลี้ยงจิตใจตรงข้ามกับสิ่งที่แบ่งแยกความคิด การคัดแยกเกิดขึ้นระหว่างถ้อยคำที่ยกระดับกับถ้อยคำที่แยกห่าง"
+  },
+  "28": {
+   "fr": "La poutre faîtière qui fléchit sous son propre poids appelle en retour la rigueur ordonnée de la cellule familiale — la charpente et la maison se répondent.",
+   "en": "The ridgepole that sags under its own weight calls in return for the ordered rigour of the family cell — the framework and the house answer each other.",
+   "es": "La viga maestra que se dobla bajo su propio peso pide a cambio el rigor ordenado de la célula familiar: la armazón y la casa se responden.",
+   "th": "คานอกไก่ที่โค้งงอใต้น้ำหนักของตัวเอง เรียกร้องกลับมาซึ่งความเคร่งครัดเป็นระเบียบของหน่วยครอบครัว — โครงหลังคาและบ้านตอบรับกัน"
+  },
+  "29": {
+   "fr": "Naviguer dans l'eau qui ne se laisse pas sonder et avancer sous une lumière volontairement voilée exigent la même chose : garder l'éclat intact au-dedans.",
+   "en": "Navigating water that cannot be sounded and advancing under a deliberately veiled light demand the same thing: keeping the brightness intact within.",
+   "es": "Navegar en el agua que no se deja sondear y avanzar bajo una luz voluntariamente velada exigen lo mismo: mantener intacto el brillo por dentro.",
+   "th": "การล่องไปในน้ำที่หยั่งไม่ถึง และการก้าวไปใต้แสงที่จงใจบดบัง เรียกร้องสิ่งเดียวกัน: รักษาความสว่างไว้ภายในให้ครบถ้วน"
+  },
+  "30": {
+   "fr": "La clarté du feu s'attache à ce qui vit pour propager son éclat et monter, comme le soleil, vers la reconnaissance de midi.",
+   "en": "The clarity of fire clings to what lives in order to spread its brightness and rise, like the sun, towards the recognition of noon.",
+   "es": "La claridad del fuego se adhiere a lo que vive para propagar su brillo y subir, como el sol, hacia el reconocimiento del mediodía.",
+   "th": "ความสว่างของไฟยึดเกาะสิ่งมีชีวิตเพื่อแผ่ความเจิดจ้า และลอยสูงขึ้นดุจดวงอาทิตย์สู่การยอมรับยามเที่ยงวัน"
+  },
+  "31": {
+   "fr": "L'émotion subtile de l'influence mutuelle, à peine perceptible, s'amplifie jusqu'à devenir la force du grand qui ne peut plus se contenir.",
+   "en": "The subtle emotion of mutual influence, barely perceptible, swells until it becomes the power of the great that can no longer be contained.",
+   "es": "La emoción sutil de la influencia mutua, apenas perceptible, se amplifica hasta convertirse en la fuerza de lo grande que ya no puede contenerse.",
+   "th": "อารมณ์อันละเอียดอ่อนของอิทธิพลซึ่งกันและกัน ที่แทบรับรู้ไม่ได้ ขยายตัวจนกลายเป็นพลังของสิ่งยิ่งใหญ่ที่ไม่อาจกักเก็บไว้ได้อีก"
+  },
+  "32": {
+   "fr": "La constance dans le temps traverse l'épreuve du repli ; la durée s'affirme précisément en sachant s'effacer pour mieux durer — inhale et exhale d'un même axe.",
+   "en": "Constancy in time passes through the trial of withdrawal; duration asserts itself precisely by knowing how to step aside in order to last — breathing in and breathing out along one and the same axis.",
+   "es": "La constancia en el tiempo atraviesa la prueba del repliegue; la duración se afirma precisamente sabiendo retirarse para durar mejor: inspirar y espirar de un mismo eje.",
+   "th": "ความมั่นคงในกาลเวลาผ่านบททดสอบของการถอยกลับ ความยั่งยืนยืนยันตัวเองด้วยการรู้จักหลีกทางเพื่อให้ยืนยาวยิ่งขึ้น — หายใจเข้าและหายใจออกบนแกนเดียวกัน"
+  }
+ },
+ "idees": {
+  "Disponibilité": {
+   "fr": "Avant toute forme, il y a une force disponible : d'un côté elle attend sans exiger, de l'autre elle s'élance sans encore savoir ce qu'elle deviendra. Les deux traits partagent la même absence de forme — non un vide, mais la condition même du passage à l'acte juste.",
+   "en": {
+    "title": "Availability",
+    "text": "Before any form, there is a force that is available: on one side it waits without demanding, on the other it surges forth without yet knowing what it will become. The two lines share the same absence of form — not an emptiness, but the very condition for passing to the right action."
+   },
+   "es": {
+    "title": "Disponibilidad",
+    "text": "Antes de toda forma hay una fuerza disponible: de un lado espera sin exigir, del otro se lanza sin saber todavía en qué se convertirá. Los dos rasgos comparten la misma ausencia de forma: no un vacío, sino la condición misma del paso al acto justo."
+   },
+   "th": {
+    "title": "ความพร้อม",
+    "text": "ก่อนจะมีรูปทรงใด ๆ ย่อมมีพลังที่พร้อมอยู่แล้ว ด้านหนึ่งพลังนั้นรอคอยโดยไม่เรียกร้อง อีกด้านหนึ่งพุ่งทะยานออกไปโดยยังไม่รู้ว่าจะกลายเป็นสิ่งใด เส้นทั้งสองมีความไร้รูปทรงร่วมกัน — ไม่ใช่ความว่างเปล่า แต่เป็นเงื่อนไขของการก้าวสู่การกระทำที่ถูกต้อง"
+   }
+  },
+  "Mesure": {
+   "fr": "Ce qui tient dans la durée ne se décrète jamais en grand : l'un se construit fil après fil depuis la base, l'autre n'infléchit qu'un peu ce qui ne peut encore être changé en profondeur. Les deux traits enseignent la même chose — la patience du petit geste, seul capable de préparer le grand.",
+   "en": {
+    "title": "Measure",
+    "text": "What holds over time is never decreed on a grand scale: one is built thread after thread from the base, the other only slightly bends what cannot yet be changed in depth. The two lines teach the same thing — the patience of the small gesture, the only one able to prepare the great."
+   },
+   "es": {
+    "title": "Medida",
+    "text": "Lo que se sostiene en el tiempo nunca se decreta a lo grande: uno se construye hilo tras hilo desde la base, el otro solo inclina un poco lo que todavía no puede cambiarse en profundidad. Los dos rasgos enseñan lo mismo: la paciencia del gesto pequeño, el único capaz de preparar el grande."
+   },
+   "th": {
+    "title": "ความพอดี",
+    "text": "สิ่งที่ยืนยาวไม่เคยถูกกำหนดขึ้นอย่างยิ่งใหญ่ ฝ่ายหนึ่งสร้างขึ้นทีละเส้นด้ายจากฐาน อีกฝ่ายเพียงโน้มสิ่งที่ยังเปลี่ยนแปลงในเชิงลึกไม่ได้เล็กน้อย เส้นทั้งสองสอนสิ่งเดียวกัน — ความอดทนของท่าทีเล็ก ๆ ซึ่งเป็นสิ่งเดียวที่เตรียมทางให้สิ่งใหญ่ได้"
+   }
+  },
+  "Consistance": {
+   "fr": "Ce qui unit vraiment ne se voit pas tout de suite : l'un se noue d'abord dans l'invisible, avant que les corps ne se rassemblent ; l'autre ne révèle sa solidité qu'au moment du choc. La vraie consistance ne se prouve jamais sur l'instant, seulement dans la durée ou l'épreuve.",
+   "en": {
+    "title": "Consistency",
+    "text": "What truly unites is not seen at once: one is first knotted in the invisible, before bodies come together; the other reveals its solidity only at the moment of the shock. True consistency is never proved in the instant, only over time or in the trial."
+   },
+   "es": {
+    "title": "Consistencia",
+    "text": "Lo que une de verdad no se ve enseguida: uno se anuda primero en lo invisible, antes de que los cuerpos se reúnan; el otro solo revela su solidez en el momento del choque. La verdadera consistencia nunca se prueba en el instante, solo en la duración o en la prueba."
+   },
+   "th": {
+    "title": "ความแน่นหนา",
+    "text": "สิ่งที่ยึดโยงกันจริงไม่ได้ปรากฏให้เห็นในทันที ฝ่ายหนึ่งผูกพันกันก่อนในสิ่งที่มองไม่เห็น ก่อนที่ร่างกายจะมารวมกัน อีกฝ่ายเผยความมั่นคงก็ต่อเมื่อเกิดแรงกระแทก ความแน่นหนาที่แท้ไม่เคยพิสูจน์ได้ในชั่วขณะ แต่ในกาลเวลาหรือในบททดสอบเท่านั้น"
+   }
+  },
+  "Distance juste": {
+   "fr": "La hauteur qui rassemble ce qui semblait dispersé, et l'obstacle qui révèle la force qu'on portait sans le savoir, procèdent du même geste : prendre de la distance — par le regard ou par la résistance — pour que ce qui était invisible se montre enfin.",
+   "en": {
+    "title": "Right distance",
+    "text": "The height that gathers what seemed scattered, and the obstacle that reveals the strength one carried without knowing it, proceed from the same gesture: taking distance — through the gaze or through resistance — so that what was invisible finally shows itself."
+   },
+   "es": {
+    "title": "Distancia justa",
+    "text": "La altura que reúne lo que parecía disperso y el obstáculo que revela la fuerza que se llevaba sin saberlo proceden del mismo gesto: tomar distancia —con la mirada o con la resistencia— para que lo invisible se muestre por fin."
+   },
+   "th": {
+    "title": "ระยะห่างที่พอดี",
+    "text": "ความสูงที่รวบรวมสิ่งที่ดูเหมือนกระจัดกระจาย และอุปสรรคที่เผยพลังซึ่งเราแบกไว้โดยไม่รู้ตัว ล้วนมาจากท่าทีเดียวกัน: การถอยออกมาให้มีระยะ — ด้วยสายตาหรือด้วยแรงต้าน — เพื่อให้สิ่งที่มองไม่เห็นปรากฏออกมาในที่สุด"
+   }
+  },
+  "Justesse du geste": {
+   "fr": "L'enthousiasme qui entraîne sans contraindre, et la décision qui tranche sans tout détruire, sont les deux faces d'un même art : agir juste, ni trop tôt ni trop tard, sans jamais forcer ce qui doit se produire de lui-même.",
+   "en": {
+    "title": "Rightness of the gesture",
+    "text": "The enthusiasm that carries along without constraining, and the decision that cuts without destroying everything, are the two faces of one and the same art: acting rightly, neither too early nor too late, without ever forcing what must happen of itself."
+   },
+   "es": {
+    "title": "Justeza del gesto",
+    "text": "El entusiasmo que arrastra sin obligar y la decisión que corta sin destruirlo todo son las dos caras de un mismo arte: actuar con justeza, ni demasiado pronto ni demasiado tarde, sin forzar nunca lo que debe producirse por sí mismo."
+   },
+   "th": {
+    "title": "ความพอดีของท่าที",
+    "text": "ความกระตือรือร้นที่พาไปโดยไม่บังคับ และการตัดสินใจที่ตัดขาดโดยไม่ทำลายทุกสิ่ง คือสองหน้าของศิลปะเดียวกัน: การกระทำอย่างถูกต้อง ไม่เร็วไปไม่ช้าไป โดยไม่ฝืนสิ่งที่ต้องเกิดขึ้นเอง"
+   }
+  },
+  "Maturation": {
+   "fr": "Ce qui s'effondre libère la place du neuf ; ce qui attend laisse le temps mûrir les conditions. La ruine comme l'attente sont deux visages d'un même processus, qui doit suivre son propre rythme plutôt que d'être précipité.",
+   "en": {
+    "title": "Ripening",
+    "text": "What collapses frees the place for the new; what waits lets time ripen the conditions. Ruin and waiting alike are two faces of one process, which must follow its own rhythm rather than be hurried."
+   },
+   "es": {
+    "title": "Maduración",
+    "text": "Lo que se derrumba libera el lugar de lo nuevo; lo que espera deja que el tiempo madure las condiciones. La ruina y la espera son dos rostros de un mismo proceso, que debe seguir su propio ritmo en lugar de ser precipitado."
+   },
+   "th": {
+    "title": "การบ่มสุก",
+    "text": "สิ่งที่พังทลายเปิดที่ว่างให้สิ่งใหม่ สิ่งที่รอคอยปล่อยให้กาลเวลาบ่มเงื่อนไขให้สุก ความพินาศและการรอคอยต่างเป็นสองหน้าของกระบวนการเดียวกัน ซึ่งต้องดำเนินไปตามจังหวะของมันเอง แทนที่จะถูกเร่งรัด"
+   }
+  },
+  "Mesure du pouvoir": {
+   "fr": "L'éclat qui monte à son rythme propre, et l'influence qui grandit jusqu'à échapper à tout contrôle, montrent les deux issues possibles d'une même force : reconnue en son temps si elle respecte sa cadence, dangereuse si rien ne vient l'encadrer.",
+   "en": {
+    "title": "Measure of power",
+    "text": "The brightness that rises at its own pace, and the influence that grows until it escapes all control, show the two possible outcomes of one and the same force: recognised in its time if it respects its cadence, dangerous if nothing comes to frame it."
+   },
+   "es": {
+    "title": "Medida del poder",
+    "text": "El brillo que sube a su propio ritmo y la influencia que crece hasta escapar a todo control muestran las dos salidas posibles de una misma fuerza: reconocida a su tiempo si respeta su cadencia, peligrosa si nada viene a encauzarla."
+   },
+   "th": {
+    "title": "ขอบเขตของอำนาจ",
+    "text": "ความเจิดจ้าที่ขึ้นสูงตามจังหวะของตน และอิทธิพลที่เติบโตจนหลุดพ้นการควบคุมทั้งปวง แสดงให้เห็นทางออกสองทางของพลังเดียวกัน: ได้รับการยอมรับในเวลาอันควรหากเคารพจังหวะของตน และเป็นอันตรายหากไม่มีสิ่งใดมาโอบกำกับ"
+   }
+  },
+  "Réciprocité": {
+   "fr": "Le blocage et l'alliance ne sont pas deux forces différentes, mais le même axe vu de ses deux extrémités : quand chacun se referme sur son propre refus, rien ne circule ; quand le haut consent à descendre et le bas à monter, tout s'échange librement.",
+   "en": {
+    "title": "Reciprocity",
+    "text": "Blockage and alliance are not two different forces, but the same axis seen from its two ends: when each closes itself off in its own refusal, nothing circulates; when the high consents to come down and the low to rise, everything is exchanged freely."
+   },
+   "es": {
+    "title": "Reciprocidad",
+    "text": "El bloqueo y la alianza no son dos fuerzas diferentes, sino el mismo eje visto desde sus dos extremos: cuando cada uno se encierra en su propio rechazo, nada circula; cuando lo alto consiente en bajar y lo bajo en subir, todo se intercambia libremente."
+   },
+   "th": {
+    "title": "การตอบแทนซึ่งกันและกัน",
+    "text": "การติดขัดและการผูกพันธมิตรไม่ใช่พลังสองอย่างที่ต่างกัน แต่เป็นแกนเดียวกันที่มองจากสองปลาย เมื่อแต่ละฝ่ายปิดตัวในการปฏิเสธของตน ไม่มีสิ่งใดไหลเวียน เมื่อเบื้องบนยอมลงมาและเบื้องล่างยอมขึ้นไป ทุกสิ่งก็แลกเปลี่ยนกันได้อย่างเสรี"
+   }
+  },
+  "Discernement": {
+   "fr": "Le germe qui revient au cœur de la nuit la plus dense, et la rencontre qui survient sans prévenir, portent tous deux une même ambiguïté : on ne sait pas encore, à l'instant où ils apparaissent, s'ils annoncent un lien ou un danger — seul le discernement le révèle.",
+   "en": {
+    "title": "Discernment",
+    "text": "The seed that returns at the heart of the densest night, and the encounter that comes without warning, both carry the same ambiguity: at the moment they appear, one does not yet know whether they announce a bond or a danger — only discernment reveals it."
+   },
+   "es": {
+    "title": "Discernimiento",
+    "text": "El germen que regresa en el corazón de la noche más densa y el encuentro que llega sin avisar llevan ambos una misma ambigüedad: en el instante en que aparecen aún no se sabe si anuncian un vínculo o un peligro; solo el discernimiento lo revela."
+   },
+   "th": {
+    "title": "วิจารณญาณ",
+    "text": "เมล็ดพันธุ์ที่หวนคืนกลางราตรีที่มืดมิดที่สุด และการพบพานที่มาโดยไม่บอกกล่าว ต่างแฝงความกำกวมเดียวกัน: ในขณะที่ปรากฏขึ้น เรายังไม่รู้ว่ามันบอกถึงสายสัมพันธ์หรืออันตราย — มีเพียงวิจารณญาณที่เผยให้เห็น"
+   }
+  },
+  "Deux forces": {
+   "fr": "Le choc qui révèle en un instant ce qui était vraiment solide, et le vent qui agit sans bruit, trait après trait, sont les deux visages de la même puissance — l'une éclatante et ponctuelle, l'autre continue et discrète, mais toutes deux également réelles.",
+   "en": {
+    "title": "Two forces",
+    "text": "The shock that reveals in an instant what was truly solid, and the wind that acts without a sound, line after line, are the two faces of the same power — one dazzling and sudden, the other continuous and discreet, but both equally real."
+   },
+   "es": {
+    "title": "Dos fuerzas",
+    "text": "El choque que revela en un instante lo que era de verdad sólido y el viento que actúa sin ruido, rasgo tras rasgo, son los dos rostros de la misma potencia: una deslumbrante y puntual, la otra continua y discreta, pero ambas igualmente reales."
+   },
+   "th": {
+    "title": "พลังสองแบบ",
+    "text": "แรงกระแทกที่เผยในชั่วพริบตาว่าสิ่งใดมั่นคงจริง และลมที่กระทำอย่างไร้เสียงทีละเส้น คือสองหน้าของพลังเดียวกัน — หนึ่งเจิดจ้าและเกิดเป็นครั้งคราว อีกหนึ่งต่อเนื่องและสุขุม แต่ทั้งสองจริงแท้เท่ากัน"
+   }
+  },
+  "Valeur cachée": {
+   "fr": "La graine qui peine encore sous la terre, et le récipient le plus discret qui recueille pourtant le mieux l'essence, disent la même chose : ce qui a le plus de valeur ne se reconnaît jamais à son éclat, mais à ce qu'il porte en germe ou en réserve.",
+   "en": {
+    "title": "Hidden value",
+    "text": "The seed still struggling beneath the earth, and the most discreet vessel that nonetheless best gathers the essence, say the same thing: what has the most value is never recognised by its brilliance, but by what it carries in germ or in reserve."
+   },
+   "es": {
+    "title": "Valor oculto",
+    "text": "La semilla que aún pena bajo la tierra y el recipiente más discreto que, sin embargo, mejor recoge la esencia dicen lo mismo: lo que más vale nunca se reconoce por su brillo, sino por lo que lleva en germen o en reserva."
+   },
+   "th": {
+    "title": "คุณค่าที่ซ่อนอยู่",
+    "text": "เมล็ดที่ยังดิ้นรนอยู่ใต้ดิน และภาชนะที่สุขุมที่สุดซึ่งกลับเก็บแก่นแท้ได้ดีที่สุด บอกสิ่งเดียวกัน: สิ่งที่มีคุณค่าที่สุดไม่เคยรู้จักได้จากความเจิดจ้า แต่จากสิ่งที่มันบ่มไว้เป็นเมล็ดหรือสะสมไว้"
+   }
+  },
+  "Retour nécessaire": {
+   "fr": "Suivre durablement exige de redescendre vers la source qui nourrit le mouvement ; réparer un héritage exige d'abord de reconnaître ce qui a été négligé. On n'avance justement qu'en consentant, d'abord, à revenir en arrière.",
+   "en": {
+    "title": "Necessary return",
+    "text": "Following over time demands going back down to the source that feeds the movement; repairing an inheritance first demands recognising what has been neglected. One moves forward rightly only by first consenting to go back."
+   },
+   "es": {
+    "title": "Regreso necesario",
+    "text": "Seguir de forma duradera exige volver a bajar hacia la fuente que alimenta el movimiento; reparar una herencia exige primero reconocer lo que se ha descuidado. Solo se avanza con justeza consintiendo, primero, en volver atrás."
+   },
+   "th": {
+    "title": "การหวนกลับที่จำเป็น",
+    "text": "การตามไปอย่างยั่งยืนเรียกร้องให้ลงกลับไปหาต้นน้ำที่หล่อเลี้ยงการเคลื่อนไหว การซ่อมแซมมรดกเรียกร้องให้ยอมรับก่อนว่าสิ่งใดถูกละเลย เราก้าวหน้าได้อย่างถูกต้องก็ด้วยการยอมถอยหลังก่อน"
+   }
+  },
+  "Vigilance": {
+   "fr": "Choisir avec soin ce dont on se nourrit l'esprit, et savoir reconnaître les signes avant-coureurs d'une structure trop tendue, relèvent de la même vigilance : ce qu'on néglige d'observer aujourd'hui devient la rupture ou l'affaiblissement de demain.",
+   "en": {
+    "title": "Vigilance",
+    "text": "Choosing with care what feeds the mind, and knowing how to recognise the warning signs of an overstretched structure, belong to the same vigilance: what one neglects to observe today becomes tomorrow's rupture or weakening."
+   },
+   "es": {
+    "title": "Vigilancia",
+    "text": "Elegir con cuidado aquello de lo que se alimenta el espíritu y saber reconocer los signos precursores de una estructura demasiado tensa pertenecen a la misma vigilancia: lo que hoy se descuida observar se convierte mañana en ruptura o debilitamiento."
+   },
+   "th": {
+    "title": "ความตื่นรู้",
+    "text": "การเลือกอย่างระมัดระวังว่าจะหล่อเลี้ยงจิตด้วยสิ่งใด และการรู้จักสัญญาณเตือนของโครงสร้างที่ตึงเกินไป ล้วนเป็นความตื่นรู้เดียวกัน: สิ่งที่เราละเลยที่จะสังเกตวันนี้ จะกลายเป็นความแตกหักหรือความอ่อนแอของวันพรุ่งนี้"
+   }
+  },
+  "Traversée": {
+   "fr": "Trancher ce qui empêche le passage, et puiser au fond du puits ce qui nourrit, sont deux formes du même effort : rien d'utile ne s'obtient en surface ou par contournement — il faut traverser, mordre, descendre, pour que la chose se livre vraiment.",
+   "en": {
+    "title": "Crossing",
+    "text": "Cutting through what blocks the passage, and drawing from the bottom of the well what nourishes, are two forms of the same effort: nothing useful is obtained on the surface or by going around — one must cross, bite, descend, for the thing truly to yield itself."
+   },
+   "es": {
+    "title": "Travesía",
+    "text": "Cortar lo que impide el paso y sacar del fondo del pozo lo que alimenta son dos formas del mismo esfuerzo: nada útil se obtiene en la superficie o rodeando; hay que atravesar, morder, descender, para que la cosa se entregue de verdad."
+   },
+   "th": {
+    "title": "การข้ามผ่าน",
+    "text": "การตัดสิ่งที่ขวางทางผ่าน และการตักสิ่งที่หล่อเลี้ยงจากก้นบ่อ เป็นสองรูปแบบของความพยายามเดียวกัน: ไม่มีสิ่งที่มีประโยชน์ใดได้มาจากผิวหน้าหรือการอ้อม — ต้องข้ามผ่าน กัดทะลุ ลงลึก เพื่อให้สิ่งนั้นเผยตัวอย่างแท้จริง"
+   }
+  },
+  "Paradoxe de la durée": {
+   "fr": "Ce qui grandit vraiment se reconnaît à ce qu'il partage, non à ce qu'il accumule ; ce qui dure vraiment se reconnaît à ce qu'il sait, par moments, se retirer. Croissance et permanence authentiques contiennent toutes deux leur propre contraire.",
+   "en": {
+    "title": "Paradox of duration",
+    "text": "What truly grows is recognised by what it shares, not by what it accumulates; what truly lasts is recognised by its knowing, at times, how to withdraw. Authentic growth and permanence both contain their own opposite."
+   },
+   "es": {
+    "title": "Paradoja de la duración",
+    "text": "Lo que crece de verdad se reconoce por lo que comparte, no por lo que acumula; lo que dura de verdad se reconoce por saber, a ratos, retirarse. El crecimiento y la permanencia auténticos contienen ambos su propio contrario."
+   },
+   "th": {
+    "title": "ปฏิทรรศน์ของความยั่งยืน",
+    "text": "สิ่งที่เติบโตจริงรู้ได้จากสิ่งที่มันแบ่งปัน ไม่ใช่สิ่งที่มันสะสม สิ่งที่ยั่งยืนจริงรู้ได้จากการที่มันรู้จักถอยออกมาในบางคราว การเติบโตและความคงทนที่แท้ต่างบรรจุสิ่งตรงข้ามของตนไว้ในตัว"
+   }
+  },
+  "Droiture": {
+   "fr": "Agir sans calcul dissout de lui-même ce qui semblait complexe ; s'approcher et grandir ne sont, en réalité, qu'un seul mouvement. Les deux traits disent la même droiture : ne pas séparer le chemin du but, ni l'intention du geste.",
+   "en": {
+    "title": "Uprightness",
+    "text": "Acting without calculation dissolves of itself what seemed complex; approaching and growing are, in reality, a single movement. The two lines speak of the same uprightness: not separating the path from the goal, nor the intention from the gesture."
+   },
+   "es": {
+    "title": "Rectitud",
+    "text": "Actuar sin cálculo disuelve por sí mismo lo que parecía complejo; acercarse y crecer no son, en realidad, más que un solo movimiento. Los dos rasgos dicen la misma rectitud: no separar el camino de la meta, ni la intención del gesto."
+   },
+   "th": {
+    "title": "ความเที่ยงตรง",
+    "text": "การกระทำโดยไร้การคำนวณคลายสิ่งที่ดูซับซ้อนได้เอง การเข้าใกล้และการเติบโตแท้จริงแล้วเป็นการเคลื่อนไหวเดียว เส้นทั้งสองกล่าวถึงความเที่ยงตรงเดียวกัน: ไม่แยกเส้นทางออกจากเป้าหมาย และไม่แยกเจตนาออกจากท่าที"
+   }
+  },
+  "Force collective": {
+   "fr": "La force d'un groupe ne vient jamais d'un seul éclat individuel : elle vient de l'ordre maintenu ensemble, ou de l'ouverture qui va chercher ce qui relie plutôt que ce qui divise. Discipline et ouverture sont les deux conditions d'une même solidité partagée.",
+   "en": {
+    "title": "Collective strength",
+    "text": "The strength of a group never comes from a single individual brilliance: it comes from order maintained together, or from the openness that seeks what connects rather than what divides. Discipline and openness are the two conditions of one shared solidity."
+   },
+   "es": {
+    "title": "Fuerza colectiva",
+    "text": "La fuerza de un grupo nunca viene de un solo brillo individual: viene del orden mantenido en conjunto, o de la apertura que busca lo que une más que lo que divide. Disciplina y apertura son las dos condiciones de una misma solidez compartida."
+   },
+   "th": {
+    "title": "พลังร่วม",
+    "text": "พลังของกลุ่มไม่เคยมาจากความเจิดจ้าของปัจเจกเพียงคนเดียว แต่มาจากระเบียบที่รักษาไว้ร่วมกัน หรือจากความเปิดกว้างที่แสวงหาสิ่งที่เชื่อมโยงมากกว่าสิ่งที่แบ่งแยก วินัยและความเปิดกว้างคือเงื่อนไขสองประการของความมั่นคงที่แบ่งปันร่วมกัน"
+   }
+  },
+  "Ordre intérieur": {
+   "fr": "Ce qui se dénoue le fait toujours de l'intérieur, quand la tension trouve enfin sa juste issue ; ce qui s'ordonne à grande échelle commence toujours par l'ordre du plus intime, la cellule du foyer. Rien d'extérieur ne se résout sans qu'un ordre intérieur ne soit d'abord posé.",
+   "en": {
+    "title": "Inner order",
+    "text": "What comes undone always does so from within, when the tension at last finds its right outlet; what is ordered on a large scale always begins with the order of the most intimate, the cell of the home. Nothing outside is resolved unless an inner order has first been set."
+   },
+   "es": {
+    "title": "Orden interior",
+    "text": "Lo que se desanuda lo hace siempre desde dentro, cuando la tensión encuentra por fin su justa salida; lo que se ordena a gran escala empieza siempre por el orden de lo más íntimo, la célula del hogar. Nada exterior se resuelve sin que antes se haya puesto un orden interior."
+   },
+   "th": {
+    "title": "ระเบียบภายใน",
+    "text": "สิ่งที่คลี่คลายย่อมคลี่คลายจากภายในเสมอ เมื่อความตึงเครียดพบทางออกที่ถูกต้องในที่สุด สิ่งที่จัดระเบียบในวงกว้างย่อมเริ่มจากระเบียบของสิ่งที่ใกล้ชิดที่สุด คือหน่วยของบ้านเรือน ไม่มีสิ่งใดภายนอกคลี่คลายได้ หากไม่มีระเบียบภายในวางไว้ก่อน"
+   }
+  },
+  "Interdépendance": {
+   "fr": "On n'élimine jamais le danger, on apprend à y nager ; la lumière la plus pure ne brille jamais seule, elle a besoin de ce à quoi elle s'attache. Les deux traits enseignent la même leçon d'humilité : rien ne se maîtrise ou ne rayonne dans l'isolement total.",
+   "en": {
+    "title": "Interdependence",
+    "text": "One never eliminates danger, one learns to swim in it; the purest light never shines alone, it needs what it clings to. The two lines teach the same lesson of humility: nothing is mastered or shines in total isolation."
+   },
+   "es": {
+    "title": "Interdependencia",
+    "text": "Nunca se elimina el peligro, se aprende a nadar en él; la luz más pura nunca brilla sola, necesita aquello a lo que se adhiere. Los dos rasgos enseñan la misma lección de humildad: nada se domina ni irradia en el aislamiento total."
+   },
+   "th": {
+    "title": "การพึ่งพาอาศัยกัน",
+    "text": "เราไม่เคยขจัดอันตรายได้ เราเรียนรู้ที่จะว่ายอยู่ในมัน แสงที่บริสุทธิ์ที่สุดไม่เคยส่องสว่างตามลำพัง มันต้องการสิ่งที่มันยึดเกาะ เส้นทั้งสองสอนบทเรียนแห่งความถ่อมตนเดียวกัน: ไม่มีสิ่งใดควบคุมได้หรือเปล่งประกายได้ในความโดดเดี่ยวสิ้นเชิง"
+   }
+  },
+  "Consentir au moins": {
+   "fr": "On ne restaure rien sans avoir d'abord traversé le manque ; la beauté elle-même doit savoir s'effacer quand la nécessité l'exige. Dans les deux cas, c'est en consentant à moins — moins d'abondance, moins d'ornement — que l'essentiel reparaît.",
+   "en": {
+    "title": "Consenting to less",
+    "text": "Nothing is restored without first passing through lack; beauty itself must know how to step aside when necessity demands it. In both cases, it is by consenting to less — less abundance, less ornament — that the essential reappears."
+   },
+   "es": {
+    "title": "Consentir en menos",
+    "text": "Nada se restaura sin haber atravesado antes la carencia; la belleza misma debe saber borrarse cuando la necesidad lo exige. En ambos casos, es consintiendo en menos —menos abundancia, menos ornamento— como lo esencial reaparece."
+   },
+   "th": {
+    "title": "การยอมรับที่น้อยลง",
+    "text": "ไม่มีสิ่งใดฟื้นฟูได้โดยไม่ผ่านความขาดแคลนก่อน ความงามเองก็ต้องรู้จักหลีกทางเมื่อความจำเป็นเรียกร้อง ทั้งสองกรณี การยอมรับที่น้อยลง — ความอุดมน้อยลง เครื่องประดับน้อยลง — คือหนทางที่สิ่งสำคัญจะปรากฏอีกครั้ง"
+   }
+  },
+  "Mue nécessaire": {
+   "fr": "Ne pas encore savoir est une ouverture, pas une faiblesse ; l'ancienne forme doit se dissoudre avant que le neuf ne prenne consistance. Apprendre et se transformer procèdent du même renoncement initial : accepter de n'être pas encore ce qu'on deviendra.",
+   "en": {
+    "title": "Necessary moult",
+    "text": "Not yet knowing is an opening, not a weakness; the old form must dissolve before the new takes on substance. Learning and transforming oneself proceed from the same initial renunciation: accepting not yet to be what one will become."
+   },
+   "es": {
+    "title": "Muda necesaria",
+    "text": "No saber todavía es una apertura, no una debilidad; la forma antigua debe disolverse antes de que lo nuevo tome consistencia. Aprender y transformarse proceden de la misma renuncia inicial: aceptar no ser todavía lo que se llegará a ser."
+   },
+   "th": {
+    "title": "การลอกคราบที่จำเป็น",
+    "text": "การยังไม่รู้คือการเปิดกว้าง ไม่ใช่ความอ่อนแอ รูปทรงเก่าต้องละลายไปก่อนที่สิ่งใหม่จะก่อตัวเป็นรูปร่าง การเรียนรู้และการเปลี่ยนแปลงตนเองมาจากการสละเริ่มแรกเดียวกัน: การยอมรับว่ายังไม่ได้เป็นสิ่งที่ตนจะกลายเป็น"
+   }
+  },
+  "Cycle": {
+   "fr": "Ce qui n'est pas encore accompli n'est pas un échec, et ce qui est accompli n'est jamais définitivement clos : l'un porte en germe ce qui reste à construire, l'autre porte en germe ce qui viendra le défaire. La fin n'est jamais qu'un commencement retourné.",
+   "en": {
+    "title": "Cycle",
+    "text": "What is not yet accomplished is not a failure, and what is accomplished is never definitively closed: one carries in germ what remains to be built, the other carries in germ what will come to undo it. The end is never more than a beginning turned over."
+   },
+   "es": {
+    "title": "Ciclo",
+    "text": "Lo que aún no está cumplido no es un fracaso, y lo que está cumplido nunca está definitivamente cerrado: uno lleva en germen lo que queda por construir, el otro lleva en germen lo que vendrá a deshacerlo. El fin nunca es más que un comienzo dado la vuelta."
+   },
+   "th": {
+    "title": "วัฏจักร",
+    "text": "สิ่งที่ยังไม่สำเร็จไม่ใช่ความล้มเหลว และสิ่งที่สำเร็จแล้วก็ไม่เคยปิดฉากอย่างเด็ดขาด ฝ่ายหนึ่งบ่มสิ่งที่ยังต้องสร้างไว้เป็นเมล็ด อีกฝ่ายบ่มสิ่งที่จะมาคลายมันออกไว้เป็นเมล็ด จุดจบไม่เคยเป็นอะไรมากไปกว่าจุดเริ่มต้นที่พลิกกลับ"
+   }
+  },
+  "Point de bascule": {
+   "fr": "Ce qui se dissout revient à l'état fluide qui précède toute forme nouvelle ; ce qui atteint sa pleine lumière ne peut, par nature, que commencer à décliner. Les deux traits disent le même instant de bascule, où un état extrême s'apprête déjà à se retourner.",
+   "en": {
+    "title": "Tipping point",
+    "text": "What dissolves returns to the fluid state that precedes every new form; what reaches its full light can, by nature, only begin to decline. The two lines speak of the same tipping instant, when an extreme state is already about to turn over."
+   },
+   "es": {
+    "title": "Punto de inflexión",
+    "text": "Lo que se disuelve vuelve al estado fluido que precede a toda forma nueva; lo que alcanza su plena luz solo puede, por naturaleza, empezar a declinar. Los dos rasgos dicen el mismo instante de inflexión, en que un estado extremo se dispone ya a darse la vuelta."
+   },
+   "th": {
+    "title": "จุดพลิกผัน",
+    "text": "สิ่งที่ละลายกลับสู่สภาวะลื่นไหลที่มาก่อนรูปทรงใหม่ทุกรูป สิ่งที่ถึงแสงสว่างเต็มที่ โดยธรรมชาติย่อมเริ่มเสื่อมลง เส้นทั้งสองกล่าวถึงขณะพลิกผันเดียวกัน ที่สภาวะสุดขั้วกำลังจะพลิกกลับอยู่แล้ว"
+   }
+  },
+  "Sagesse de la retenue": {
+   "fr": "Reconnaître un conflit sans forcément le mener jusqu'au bout, et savoir voiler son éclat quand les circonstances l'exigent, relèvent de la même sagesse : la retenue n'est pas une faiblesse, c'est le discernement de ce que le moment permet.",
+   "en": {
+    "title": "Wisdom of restraint",
+    "text": "Recognising a conflict without necessarily carrying it through to the end, and knowing how to veil one's brightness when circumstances demand it, belong to the same wisdom: restraint is not a weakness, it is the discernment of what the moment allows."
+   },
+   "es": {
+    "title": "Sabiduría de la contención",
+    "text": "Reconocer un conflicto sin llevarlo necesariamente hasta el final y saber velar el propio brillo cuando las circunstancias lo exigen pertenecen a la misma sabiduría: la contención no es una debilidad, es el discernimiento de lo que el momento permite."
+   },
+   "th": {
+    "title": "ปัญญาแห่งการยับยั้ง",
+    "text": "การยอมรับความขัดแย้งโดยไม่จำเป็นต้องดำเนินไปจนสุดทาง และการรู้จักบดบังความเจิดจ้าของตนเมื่อสถานการณ์เรียกร้อง ล้วนเป็นปัญญาเดียวกัน: การยับยั้งไม่ใช่ความอ่อนแอ แต่เป็นวิจารณญาณถึงสิ่งที่ขณะนั้นเอื้อให้ทำได้"
+   }
+  },
+  "Temps allié": {
+   "fr": "Ce qui grandit vraiment avance par degrés successifs, jamais d'un bond ; ce qui dure vraiment sait aussi, au bon moment, se retirer de la scène. Croissance et permanence se rejoignent dans une même confiance au temps, plutôt qu'à la précipitation.",
+   "en": {
+    "title": "Time as ally",
+    "text": "What truly grows advances by successive degrees, never in a leap; what truly lasts also knows, at the right moment, how to withdraw from the stage. Growth and permanence meet in the same trust in time, rather than in haste."
+   },
+   "es": {
+    "title": "El tiempo como aliado",
+    "text": "Lo que crece de verdad avanza por grados sucesivos, nunca de un salto; lo que dura de verdad sabe también, en el momento justo, retirarse de la escena. Crecimiento y permanencia se unen en una misma confianza en el tiempo, más que en la precipitación."
+   },
+   "th": {
+    "title": "กาลเวลาเป็นพันธมิตร",
+    "text": "สิ่งที่เติบโตจริงก้าวหน้าไปทีละขั้น ไม่เคยกระโดดข้าม สิ่งที่ยั่งยืนจริงก็รู้จักถอยออกจากเวทีในเวลาอันควร การเติบโตและความคงทนมาบรรจบกันในความไว้วางใจต่อกาลเวลา มากกว่าความเร่งรีบ"
+   }
+  },
+  "Justice du temps": {
+   "fr": "Une union qui commence dans le déséquilibre trouve sa propre justice avec le temps ; une croissance qui respecte chaque étape ne saute jamais de degré. Les deux traits confient à la durée ce que la précipitation ne pourrait jamais accomplir seule.",
+   "en": {
+    "title": "Justice of time",
+    "text": "A union that begins in imbalance finds its own justice with time; a growth that respects each stage never skips a degree. The two lines entrust to duration what haste could never accomplish alone."
+   },
+   "es": {
+    "title": "Justicia del tiempo",
+    "text": "Una unión que empieza en el desequilibrio encuentra su propia justicia con el tiempo; un crecimiento que respeta cada etapa nunca se salta un grado. Los dos rasgos confían a la duración lo que la precipitación nunca podría lograr sola."
+   },
+   "th": {
+    "title": "ความยุติธรรมของกาลเวลา",
+    "text": "การรวมกันที่เริ่มต้นในความไม่สมดุลจะพบความยุติธรรมของตนเมื่อเวลาผ่านไป การเติบโตที่เคารพทุกขั้นตอนไม่เคยข้ามขั้น เส้นทั้งสองฝากไว้กับกาลเวลาซึ่งสิ่งที่ความเร่งรีบไม่อาจทำสำเร็จได้ลำพัง"
+   }
+  },
+  "Structure intérieure": {
+   "fr": "Les nœuds du bambou donnent sa force à la sève qui, sans eux, se disperserait ; l'habit et la conduite du voyageur sans feu ni lieu tiennent lieu de maison. Ce qui structure et protège ne vient pas du dehors, mais d'une limite ou d'une tenue qu'on porte en soi.",
+   "en": {
+    "title": "Inner structure",
+    "text": "The nodes of the bamboo give their strength to the sap which, without them, would scatter; the dress and conduct of the wanderer without hearth or home take the place of a house. What structures and protects does not come from outside, but from a limit or a bearing one carries within."
+   },
+   "es": {
+    "title": "Estructura interior",
+    "text": "Los nudos del bambú dan su fuerza a la savia que, sin ellos, se dispersaría; el atuendo y la conducta del viajero sin techo ni hogar hacen las veces de casa. Lo que estructura y protege no viene de fuera, sino de un límite o de una compostura que se lleva dentro."
+   },
+   "th": {
+    "title": "โครงสร้างภายใน",
+    "text": "ข้อปล้องของไผ่ให้ความแข็งแรงแก่น้ำเลี้ยง ซึ่งหากไม่มีข้อปล้องก็จะกระจายหาย เครื่องแต่งกายและความประพฤติของผู้เดินทางที่ไร้บ้านไร้ที่พักทำหน้าที่แทนบ้าน สิ่งที่ให้โครงสร้างและปกป้องไม่ได้มาจากภายนอก แต่มาจากขอบเขตหรือการวางตนที่เราพกไว้ภายใน"
+   }
+  },
+  "Non-contrainte": {
+   "fr": "Les liens les plus durables se forment sans contrainte, par la seule attraction de ce qui est réellement offert ; l'essentiel, lui, ne devient visible que lorsque le mouvement s'arrête. Les deux traits enseignent la même chose : ne pas forcer — ni l'union, ni la vision.",
+   "en": {
+    "title": "Non-constraint",
+    "text": "The most lasting bonds form without constraint, through the mere attraction of what is truly offered; the essential, for its part, becomes visible only when movement stops. The two lines teach the same thing: not forcing — neither the union, nor the vision."
+   },
+   "es": {
+    "title": "No coacción",
+    "text": "Los vínculos más duraderos se forman sin coacción, por la sola atracción de lo que realmente se ofrece; lo esencial, por su parte, solo se hace visible cuando el movimiento se detiene. Los dos rasgos enseñan lo mismo: no forzar, ni la unión ni la visión."
+   },
+   "th": {
+    "title": "การไม่บังคับ",
+    "text": "สายสัมพันธ์ที่ยั่งยืนที่สุดก่อตัวโดยไม่ถูกบังคับ ด้วยแรงดึงดูดของสิ่งที่ถูกมอบให้อย่างแท้จริงเท่านั้น ส่วนสิ่งสำคัญจะปรากฏก็ต่อเมื่อการเคลื่อนไหวหยุดลง เส้นทั้งสองสอนสิ่งเดียวกัน: อย่าฝืน — ทั้งการรวมกันและการมองเห็น"
+   }
+  },
+  "Discrétion de l'essentiel": {
+   "fr": "Revenir à l'essentiel exige souvent de consentir à perdre ce qui encombrait ; l'influence la plus profonde, elle, ne s'impose jamais bruyamment. Perte et résonance se rejoignent dans une même discrétion : ce qui compte vraiment agit rarement là où on le voit.",
+   "en": {
+    "title": "Discretion of the essential",
+    "text": "Returning to the essential often demands consenting to lose what cluttered; the deepest influence, for its part, never imposes itself noisily. Loss and resonance meet in the same discretion: what truly counts rarely acts where one sees it."
+   },
+   "es": {
+    "title": "Discreción de lo esencial",
+    "text": "Volver a lo esencial exige a menudo consentir en perder lo que estorbaba; la influencia más profunda, por su parte, nunca se impone ruidosamente. Pérdida y resonancia se unen en una misma discreción: lo que de verdad cuenta rara vez actúa donde se lo ve."
+   },
+   "th": {
+    "title": "ความสุขุมของสิ่งสำคัญ",
+    "text": "การกลับสู่สิ่งสำคัญมักเรียกร้องให้ยอมสูญเสียสิ่งที่เกะกะ ส่วนอิทธิพลที่ลึกซึ้งที่สุดไม่เคยบังคับตนอย่างอึกทึก การสูญเสียและการสะท้อนก้องมาบรรจบกันในความสุขุมเดียวกัน: สิ่งที่สำคัญจริงแทบไม่เคยกระทำในที่ที่เรามองเห็น"
+   }
+  },
+  "Discernement actif": {
+   "fr": "Savoir distinguer le désaccord fécond du conflit stérile, et transformer la patience en bouclier actif face à l'obstacle, relèvent d'une même attitude : ni la fuite, ni l'affrontement systématique, mais un discernement qui agit sans forcer.",
+   "en": {
+    "title": "Active discernment",
+    "text": "Knowing how to tell fruitful disagreement from sterile conflict, and turning patience into an active shield in the face of the obstacle, belong to one attitude: neither flight nor systematic confrontation, but a discernment that acts without forcing."
+   },
+   "es": {
+    "title": "Discernimiento activo",
+    "text": "Saber distinguir el desacuerdo fecundo del conflicto estéril y transformar la paciencia en escudo activo frente al obstáculo pertenecen a una misma actitud: ni la huida ni el enfrentamiento sistemático, sino un discernimiento que actúa sin forzar."
+   },
+   "th": {
+    "title": "วิจารณญาณเชิงรุก",
+    "text": "การแยกแยะความเห็นต่างที่ให้ผลจากความขัดแย้งที่ไร้ผล และการเปลี่ยนความอดทนให้เป็นโล่ที่ทำงานต่อหน้าอุปสรรค ล้วนเป็นท่าทีเดียวกัน: ไม่หนี ไม่เผชิญหน้าทุกครั้ง แต่เป็นวิจารณญาณที่กระทำโดยไม่ฝืน"
+   }
+  },
+  "Justesse du petit": {
+   "fr": "Un cœur qui reste un espace ouvert accueille la confiance la plus sincère ; un geste mesuré, à la bonne échelle, agit parfois mieux qu'une grande action. La justesse se loge souvent dans ce qui semble le plus modeste — le vide qui accueille, le petit qui suffit.",
+   "en": {
+    "title": "Rightness of the small",
+    "text": "A heart that remains an open space welcomes the most sincere trust; a measured gesture, at the right scale, sometimes acts better than a great action. Rightness often dwells in what seems most modest — the emptiness that welcomes, the small that suffices."
+   },
+   "es": {
+    "title": "Justeza de lo pequeño",
+    "text": "Un corazón que sigue siendo un espacio abierto acoge la confianza más sincera; un gesto medido, a la escala justa, actúa a veces mejor que una gran acción. La justeza se aloja a menudo en lo que parece más modesto: el vacío que acoge, lo pequeño que basta."
+   },
+   "th": {
+    "title": "ความพอดีของสิ่งเล็ก",
+    "text": "ใจที่ยังเป็นพื้นที่เปิดรับความไว้วางใจที่จริงใจที่สุด ท่าทีที่พอประมาณในขนาดที่ถูกต้อง บางครั้งได้ผลกว่าการกระทำใหญ่ ความพอดีที่ถูกต้องมักอยู่ในสิ่งที่ดูถ่อมตนที่สุด — ความว่างที่โอบรับ สิ่งเล็กที่เพียงพอ"
+   }
+  },
+  "Attention totale": {
+   "fr": "Marcher sur la queue du tigre sans un geste de trop, et s'effacer soi-même pour que la transformation puisse s'opérer, relèvent de la même discipline : une attention si totale qu'elle laisse toute la place à ce qui doit se passer, sans jamais en rajouter.",
+   "en": {
+    "title": "Total attention",
+    "text": "Walking on the tiger's tail without one gesture too many, and effacing oneself so that the transformation can take place, belong to the same discipline: an attention so total that it leaves all the room to what must happen, without ever adding to it."
+   },
+   "es": {
+    "title": "Atención total",
+    "text": "Caminar sobre la cola del tigre sin un gesto de más y borrarse a sí mismo para que la transformación pueda realizarse pertenecen a la misma disciplina: una atención tan total que deja todo el lugar a lo que debe ocurrir, sin añadir nunca nada."
+   },
+   "th": {
+    "title": "ความใส่ใจเต็มที่",
+    "text": "การเดินบนหางเสือโดยไม่มีท่าทีเกินแม้แต่ครั้งเดียว และการถ่อมตนเพื่อให้การเปลี่ยนแปลงเกิดขึ้นได้ ล้วนเป็นวินัยเดียวกัน: ความใส่ใจที่เต็มที่จนเปิดที่ว่างทั้งหมดให้สิ่งที่ต้องเกิดขึ้น โดยไม่เติมสิ่งใดเข้าไปเลย"
+   }
+  }
+ },
+ "etiquettes": {
+  "Yang fixe": {
+   "en": "Fixed yang",
+   "es": "Yang fijo",
+   "th": "หยางคงที่"
+  },
+  "Yang mutant": {
+   "en": "Mutant yang",
+   "es": "Yang mutante",
+   "th": "หยางกลายพันธุ์"
+  },
+  "Yin fixe": {
+   "en": "Fixed yin",
+   "es": "Yin fijo",
+   "th": "ยินคงที่"
+  },
+  "Yin mutant": {
+   "en": "Mutant yin",
+   "es": "Yin mutante",
+   "th": "ยินกลายพันธุ์"
+  },
+  "Sans ": {
+   "en": "Without ",
+   "es": "Sin ",
+   "th": "ไม่มี"
+  },
+  "Yin & Yang": {
+   "en": "Yin & Yang",
+   "es": "Yin y Yang",
+   "th": "ยินและหยาง"
+  },
+  "Sans Yang fixe": {
+   "en": "Without fixed yang",
+   "es": "Sin Yang fijo",
+   "th": "ไม่มีหยางคงที่"
+  },
+  "Sans Yang mutant": {
+   "en": "Without mutant yang",
+   "es": "Sin Yang mutante",
+   "th": "ไม่มีหยางกลายพันธุ์"
+  },
+  "Sans Yin fixe": {
+   "en": "Without fixed yin",
+   "es": "Sin Yin fijo",
+   "th": "ไม่มียินคงที่"
+  },
+  "Sans Yin mutant": {
+   "en": "Without mutant yin",
+   "es": "Sin Yin mutante",
+   "th": "ไม่มียินกลายพันธุ์"
+  }
+ }
+}
