@@ -77,6 +77,9 @@ const PAGES = [
   'animations/bandes-diagonales.html',
   'th/animations/',
   'hi/animations/assemblies/',
+  // les outils traduits (scripts/build-outils-langues.js) : chacun, dans chaque langue
+  ...JSON.parse(readFileSync(path.join(ROOT, 'data/outils-langues.json'), 'utf8')).pages
+    .flatMap((p) => Object.values(p.langues).map((c) => c.dossier)),
   'es/buscar/',
   'th/search/',
   'en/articles/',

@@ -69,6 +69,9 @@ const PAGES = [
   { path: 'animations/bandes-diagonales.html' },
   { path: 'en/animations/' },
   { path: 'zh/animations/assemblies/' },
+  // les outils traduits (scripts/build-outils-langues.js) : chacun, dans chaque langue
+  ...createRequire(import.meta.url)('../data/outils-langues.json').pages
+    .flatMap((p) => Object.values(p.langues).map((c) => ({ path: c.dossier }))),
   { path: '360-calques.html' },
   { path: 'index.html' },
   { path: 'la-livree-d-hermes.html' },

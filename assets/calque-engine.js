@@ -11,6 +11,12 @@
    loadSpace()/spaceColorAt(), même mécanisme, dossier différent.
    ============================================================ */
 window.CalqueEngine = (function(){
+  // La racine du site, lue depuis l'adresse de ce script (assets/calque-engine.js) :
+  // l'espace par défaut se charge au même endroit depuis une page de la racine
+  // (tirage-livree-hermes.html) comme depuis une page traduite (en/yi-king-draw/,
+  // scripts/build-outils-langues.js), où « assets/… » relatif ne mène nulle part.
+  const RACINE = document.currentScript && document.currentScript.src
+    ? new URL('../', document.currentScript.src).href : '';
   const NATURE_KEY = { yang:'YANG', 'yang-mut':'YANGMUT', yin:'YIN', 'yin-mut':'YINMUT' };
 
   // grille canonique de cellules du viewBox source (0 0 595.28 841.89), commune
@@ -111,7 +117,7 @@ window.CalqueEngine = (function(){
 
   // API rétrocompatible : l'espace par défaut ("hexagram") = assets/trait-cartes/,
   // utilisé tel quel par tirage-livree-hermes.html et motifs (4).html.
-  function loadAll(){ return loadSpace('hexagram', 'assets/trait-cartes/'); }
+  function loadAll(){ return loadSpace('hexagram', RACINE + 'assets/trait-cartes/'); }
   function colorAt(nature, row, col){ return spaceColorAt('hexagram', nature, row, col); }
 
   // ===== Export « grille » (360-calques.html catégorie A4, creation-motifs-yi-king.html
