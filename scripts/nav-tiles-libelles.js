@@ -49,7 +49,117 @@ const GROUPES_I18N = {
   },
 };
 
+// Les cinq catégories du bloc (prompt-navigation.md, 2026-10-05), qui
+// remplacent les quatre groupes ci-dessus (GROUPES_I18N, gardés pour mémoire).
+// Toutes SANS SOURCE : aucune page du site ne les nommait encore.
+const CATEGORIES_I18N = {
+  'galeries': {
+    es: "Galerías", // SANS SOURCE
+    th: "แกลเลอรี", // SANS SOURCE
+    zh: "图库", // SANS SOURCE
+    ru: "Галереи", // SANS SOURCE
+    pt: "Galerias", // SANS SOURCE
+    hi: "गैलरी", // SANS SOURCE
+  },
+  'animations': {
+    es: "Animaciones", // adapté de data/galerie-animations.json (textes.es.titre)
+    th: "แอนิเมชัน", // adapté de data/galerie-animations.json (textes.th.titre)
+    zh: "动画", // adapté de data/galerie-animations.json (textes.zh.titre)
+    ru: "Анимации", // adapté de data/galerie-animations.json (textes.ru.titre)
+    pt: "Animações", // adapté de data/galerie-animations.json (textes.pt.titre)
+    hi: "एनिमेशन", // adapté de data/galerie-animations.json (textes.hi.titre)
+  },
+  'tirages': {
+    es: "Tiradas e impresiones", // SANS SOURCE
+    th: "การเสี่ยงทายและงานพิมพ์", // SANS SOURCE
+    zh: "起卦与印制", // SANS SOURCE
+    ru: "Гадание и печать", // SANS SOURCE
+    pt: "Tiragens e impressões", // SANS SOURCE
+    hi: "प्रश्न और मुद्रण", // SANS SOURCE
+  },
+  'outils-creatifs': {
+    es: "Herramientas creativas", // SANS SOURCE
+    th: "เครื่องมือสร้างสรรค์", // SANS SOURCE
+    zh: "创作工具", // adapté de zh/tools/index.html (« 创作 »)
+    ru: "Творческие инструменты", // SANS SOURCE
+    pt: "Ferramentas criativas", // SANS SOURCE
+    hi: "रचनात्मक उपकरण", // SANS SOURCE
+  },
+  'a-propos-du-projet': {
+    es: "Acerca del proyecto", // adapté de « El proyecto » (GROUPES_I18N)
+    th: "เกี่ยวกับโครงการ", // adapté de « โครงการ » (GROUPES_I18N)
+    zh: "关于本项目", // adapté de « 项目 » (GROUPES_I18N)
+    ru: "О проекте", // adapté de « Проект » (GROUPES_I18N)
+    pt: "Sobre o projeto", // adapté de « O projeto » (GROUPES_I18N)
+    hi: "परियोजना के बारे में", // adapté de « परियोजना » (GROUPES_I18N)
+  },
+};
+
+// Le nom du bloc pour les lecteurs d'écran (<nav aria-label>). SANS SOURCE.
+const NAV_LABEL_I18N = {
+  es: "Páginas del sitio", th: "หน้าต่าง ๆ ของเว็บไซต์", zh: "网站页面",
+  ru: "Страницы сайта", pt: "Páginas do sítio", hi: "साइट के पृष्ठ",
+};
+
 const TUILES_I18N = {
+  // Les sept pages qui n'avaient pas de tuile (prompt-navigation.md) : textes
+  // tirés de la page française, tous SANS SOURCE dans ces six langues.
+  'galerie-animations': {
+    es: { label: "Galería de animaciones", excerpt: "Las animaciones de las colecciones de fondos, en seis grupos: para ver, previsualizar y descargar en MP4." }, // adapté de data/galerie-animations.json
+    th: { label: "แกลเลอรีแอนิเมชัน", excerpt: "แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4" }, // adapté de data/galerie-animations.json
+    zh: { label: "动画图库", excerpt: "底纹系列的动画，分为六组：可观看、预览并下载为 MP4。" }, // adapté de data/galerie-animations.json
+    ru: { label: "Галерея анимаций", excerpt: "Анимации коллекций фонов в шести группах: смотреть, просматривать и скачивать в MP4." }, // adapté de data/galerie-animations.json
+    pt: { label: "Galeria de animações", excerpt: "As animações das coleções de fundos, em seis grupos: para ver, pré-visualizar e descarregar em MP4." }, // adapté de data/galerie-animations.json
+    hi: { label: "एनिमेशन गैलरी", excerpt: "पृष्ठभूमि-संग्रहों के एनिमेशन, छह समूहों में: देखें, पूर्वावलोकन करें और MP4 में डाउनलोड करें।" }, // adapté de data/galerie-animations.json
+  },
+  'tirage': {
+    es: { label: "Tirada del Yi King", excerpt: "Saque un hexagrama al azar y descubra su cuadrado, o recorra el tablero de las 64 mutaciones." }, // SANS SOURCE
+    th: { label: "การเสี่ยงทายอี้จิง", excerpt: "สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64" }, // SANS SOURCE
+    zh: { label: "易经起卦", excerpt: "随机起一卦并查看其方阵，或浏览六十四变化的棋盘。" }, // SANS SOURCE
+    ru: { label: "Гадание по И цзин", excerpt: "Вытяните гексаграмму наугад и откройте её квадрат или пройдите по доске 64 перемен." }, // SANS SOURCE
+    pt: { label: "Tiragem do I Ching", excerpt: "Tire um hexagrama ao acaso e descubra o seu quadrado, ou percorra o tabuleiro das 64 mutações." }, // SANS SOURCE
+    hi: { label: "ई चिंग से प्रश्न", excerpt: "यादृच्छिक रूप से एक हेक्साग्राम निकालें और उसका वर्ग देखें, या 64 परिवर्तनों की बिसात देखें।" }, // SANS SOURCE
+  },
+  'carter-demo': {
+    es: { label: "Carter Random", excerpt: "Demostración interactiva: la cuadrícula y los referentes derivados de la clave." }, // SANS SOURCE
+    th: { label: "Carter Random", excerpt: "การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ" }, // SANS SOURCE
+    zh: { label: "Carter Random", excerpt: "交互演示：网格以及由密钥导出的参照。" }, // SANS SOURCE
+    ru: { label: "Carter Random", excerpt: "Интерактивная демонстрация: сетка и референты, выведенные из ключа." }, // SANS SOURCE
+    pt: { label: "Carter Random", excerpt: "Demonstração interativa: a grelha e os referentes derivados da chave." }, // SANS SOURCE
+    hi: { label: "Carter Random", excerpt: "संवादात्मक प्रदर्शन: ग्रिड और कुंजी से निकले संदर्भ।" }, // SANS SOURCE
+  },
+  'profil': {
+    es: { label: "Perfil documental", excerpt: "Patentes y 63 dibujos y modelos registrados en el INPI, que cubren los cuadrados de orden 12." }, // SANS SOURCE
+    th: { label: "โปรไฟล์เอกสาร", excerpt: "สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12" }, // SANS SOURCE
+    zh: { label: "文献档案", excerpt: "在法国国家工业产权局（INPI）登记的专利与 63 项外观设计，涵盖十二阶方阵。" }, // SANS SOURCE
+    ru: { label: "Документальный профиль", excerpt: "Патенты и 63 промышленных образца, зарегистрированные в INPI, охватывающие квадраты 12-го порядка." }, // SANS SOURCE
+    pt: { label: "Perfil documental", excerpt: "Patentes e 63 desenhos e modelos registados no INPI, que cobrem os quadrados de ordem 12." }, // SANS SOURCE
+    hi: { label: "दस्तावेज़ी परिचय", excerpt: "INPI में पंजीकृत पेटेंट और 63 डिज़ाइन, जो कोटि 12 के वर्गों को समेटते हैं।" }, // SANS SOURCE
+  },
+  'soutien': {
+    es: { label: "Apoyar", excerpt: "Apoyar La Livrée d'Hermès a precio libre: el sitio y su contenido siguen siendo gratuitos." }, // adapté de includes/footer-es.html (« Apoyar el proyecto »)
+    th: { label: "สนับสนุน", excerpt: "สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี" }, // SANS SOURCE
+    zh: { label: "支持", excerpt: "以自定金额支持 La Livrée d'Hermès：网站及其内容仍完全免费。" }, // adapté de zh/support/index.html
+    ru: { label: "Поддержать", excerpt: "Поддержите La Livrée d'Hermès по свободной цене: сайт и его содержание остаются бесплатными." }, // adapté de ru/support/index.html
+    pt: { label: "Apoiar", excerpt: "Apoie La Livrée d'Hermès a preço livre: o sítio e o seu conteúdo continuam gratuitos." }, // adapté de pt/support/index.html
+    hi: { label: "सहयोग दें", excerpt: "अपनी चुनी राशि से La Livrée d'Hermès को सहयोग दें: साइट और उसकी सामग्री निःशुल्क रहती है।" }, // adapté de hi/support/index.html
+  },
+  'chiffres': {
+    es: { label: "Cifras y fuentes", excerpt: "Cada cifra del sitio, el script que la reproduce y la línea que imprime." }, // SANS SOURCE
+    th: { label: "ตัวเลขและแหล่งที่มา", excerpt: "ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา" }, // SANS SOURCE
+    zh: { label: "数字与出处", excerpt: "网站上的每个数字、复现它的脚本以及脚本打印的那一行。" }, // SANS SOURCE
+    ru: { label: "Числа и источники", excerpt: "Каждое число сайта, скрипт, который его воспроизводит, и строка, которую он печатает." }, // SANS SOURCE
+    pt: { label: "Números e fontes", excerpt: "Cada número do sítio, o script que o reproduz e a linha que imprime." }, // SANS SOURCE
+    hi: { label: "आँकड़े और स्रोत", excerpt: "साइट का हर आँकड़ा, उसे दोहराने वाली स्क्रिप्ट और उसकी छापी हुई पंक्ति।" }, // SANS SOURCE
+  },
+  'travaux': {
+    es: { label: "Trabajos", excerpt: "Los depósitos, el código y los artículos presentados, cada uno fechado y abierto." }, // SANS SOURCE
+    th: { label: "ผลงาน", excerpt: "คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย" }, // SANS SOURCE
+    zh: { label: "成果", excerpt: "存档、代码与投稿论文，每一项都有时间戳并公开。" }, // adapté de zh/works/index.html
+    ru: { label: "Работы", excerpt: "Публикации, код и поданные статьи — каждый с отметкой времени и в открытом доступе." }, // adapté de ru/works/index.html
+    pt: { label: "Trabalhos", excerpt: "Os depósitos, o código e os artigos submetidos, cada um datado e aberto." }, // adapté de pt/works/index.html
+    hi: { label: "कार्य", excerpt: "जमा किए गए अभिलेख, कोड और प्रस्तुत लेख, हर एक समय-मुहर के साथ और खुला।" }, // adapté de hi/works/index.html
+  },
   'fonds-ecran': {
     es: {
       label: "Fondo de pantalla", // es/libro/index.html:179
@@ -592,4 +702,4 @@ const COPYRIGHT_SUFFIX_I18N = {
   hi: "CC BY-NC 4.0", // hi/lexicon/index.html:403 (nom de licence, ne se traduit pas)
 };
 
-module.exports = { GROUPES_I18N, TUILES_I18N, ACCUEIL_I18N, SOUTIEN_BTN_I18N, CREDIT_COLLAB_I18N, COPYRIGHT_SUFFIX_I18N };
+module.exports = { GROUPES_I18N, CATEGORIES_I18N, NAV_LABEL_I18N, TUILES_I18N, ACCUEIL_I18N, SOUTIEN_BTN_I18N, CREDIT_COLLAB_I18N, COPYRIGHT_SUFFIX_I18N };

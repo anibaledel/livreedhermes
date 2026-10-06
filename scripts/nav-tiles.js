@@ -29,95 +29,133 @@
 const { LANGUES, GROUPES: GROUPES_LANGUES } = require('./langues.js');
 const I18N = require('./nav-tiles-libelles.js');
 
-// Quatre groupes, pas deux : deux groupes forçaient le trait (« Explorer »
-// devenait un fourre-tout mêlant lire le traité et contacter l'auteur) — voir
-// prompt-cc-fragment-retours.md §4. Répartition 6+5+3+3 = 17.
-const GROUPES = [
-  { id: 'creer', fr: 'Créer', en: 'Create' },
-  { id: 'explorer', fr: 'Explorer', en: 'Explore' },
-  { id: 'lire', fr: 'Lire', en: 'Read' },
-  { id: 'le-projet', fr: 'Le projet', en: 'The project' },
+// Cinq catégories (prompt-navigation.md, 2026-10-05) : les 19 tuiles à plat
+// ne se lisaient plus — à ce nombre on balaye, on ne choisit plus. Elles
+// remplacent les quatre groupes d'avant (Créer, Explorer, Lire, Le projet).
+// « Galeries » est une catégorie à part, pas un rangement sous l'outil
+// correspondant : un visiteur qui arrive par un reel cherche à voir, pas à
+// fabriquer (décision d'Anibal). Les six autres langues sont dans
+// nav-tiles-libelles.js (CATEGORIES_I18N), avec leur provenance.
+const CATEGORIES = [
+  { id: 'galeries', fr: 'Galeries', en: 'Galleries' },
+  { id: 'animations', fr: 'Animations', en: 'Animations' },
+  { id: 'tirages', fr: 'Tirages', en: 'Draws & prints' },
+  { id: 'outils-creatifs', fr: 'Outils créatifs', en: 'Creative tools' },
+  { id: 'a-propos-du-projet', fr: 'À propos du projet', en: 'About the project' },
 ];
 
-// Les 18 destinations canoniques (référence : le bas de page de l'accueil,
-// + Galerie bicolore — décidé, voir prompt-cc-bas-de-page-decisions.md §3).
+// Les 24 destinations rangées. « categories » : la PREMIÈRE est la catégorie
+// principale — celle qui s'ouvre quand on est sur la page, et la seule où
+// l'entrée est marquée ; les suivantes portent un lien ordinaire. Une page
+// peut figurer dans deux catégories (« deux liens valent mieux qu'un »,
+// Anibal, pour galerie-animations), jamais dans zéro, et n'a qu'une
+// principale — ce que la forme des données garantit.
 // Libellés « Galerie tricolore » / « Magic quadricolore » / « Le traité » :
 // voir prompt-cc-nommage-galeries.md et prompt-cc-renommage-quadricolore.md.
-// Les href restent les noms de fichiers ACTUELS (unified-patterns.html,
-// galerie-patterns-unifies.html, la-livree-d-hermes.html) : le renommage de
-// fichier est un lot séparé, après celui-ci.
+// Les descriptions sont celles des tuiles d'avant, conservées telles quelles ;
+// les sept pages qui n'avaient pas de tuile ont la leur, tirée de leur page.
 const TUILES = [
-  { id: 'fonds-ecran', href: 'fonds-ecran.html', icon: 'fond-ecran', groupe: 'creer',
-    fr: { label: "Fond d'écran", excerpt: "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable." },
-    en: { label: 'Wallpapers', excerpt: 'Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.' } },
-  { id: 'creation-motifs', href: 'creation-motifs-yi-king.html', icon: 'creation-motifs', groupe: 'creer',
-    fr: { label: 'Créer un motif', excerpt: 'Composez vos propres motifs textiles à partir des 60 images du Yi King.' },
-    en: { label: 'Create a pattern', excerpt: 'Compose your own textile patterns from the 60 images of the Yi King.' } },
-  { id: 'bicolore', href: 'bicolore.html', icon: 'bicolore', groupe: 'creer',
-    fr: { label: 'Motifs bicolores', excerpt: 'Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.' },
-    en: { label: 'Two-colour patterns', excerpt: 'Compose a 12×12 cell, six levels, each with its own family and tint.' } },
-  { id: 'bicolore-v2', href: 'creation-bicolore-v2.html', icon: 'bicolore', groupe: 'creer',
-    fr: { label: 'Motifs bicolores v2', excerpt: 'La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.' },
-    en: { label: 'Two-colour patterns v2', excerpt: 'The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.' } },
-  { id: 'encodeur', href: 'encodeur.html', icon: 'encodeur', groupe: 'creer',
-    fr: { label: 'Encodeur', excerpt: 'Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.' },
-    en: { label: 'Encoder', excerpt: 'Geometric steganographic encoding by double referent, ansate cross and Jacquard.' } },
-  { id: 'impression', href: '360-calques.html', icon: 'impression', groupe: 'creer',
-    fr: { label: '360 calques', excerpt: "Tirez et téléchargez les calques d'impression, prêts à imprimer." },
-    en: { label: '360 layers', excerpt: 'Draw and download print-ready layers.' } },
-  { id: 'cymatique', href: 'cymatique.html', icon: 'cymatique', groupe: 'creer',
-    fr: { label: 'Cymatique', excerpt: 'Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.' },
-    en: { label: 'Cymatics', excerpt: 'The tiling whose spatial frequency comes closest to the sound you make.' } },
-
-  { id: 'hexagrammes', href: 'hexagrammes/', icon: 'hexagrammes', groupe: 'explorer',
-    fr: { label: 'Hexagrammes', excerpt: 'Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.' },
-    en: { label: 'Hexagrams', excerpt: 'The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.' } },
-  { id: 'quadricolore', href: 'unified-patterns.html', icon: 'unified-patterns', groupe: 'explorer',
-    fr: { label: 'Magic quadricolore', excerpt: 'Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.' },
-    en: { label: 'Magic quadricolore', excerpt: 'The 64 hexagram patterns, customisable and downloadable in high resolution.' } },
-  { id: 'galerie-tricolore', href: 'galerie-patterns-unifies.html', icon: 'galerie', groupe: 'explorer',
-    fr: { label: 'Galerie tricolore', excerpt: 'Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.' },
-    en: { label: 'Three-colour gallery', excerpt: 'Unified patterns, generated by tint mixing — select a motif to see its tiling.' } },
-  { id: 'galerie-bicolore', href: 'galerie-bicolore.html', icon: 'galerie-bicolore', groupe: 'explorer',
+  { id: 'galerie-animations', href: 'galerie-animations.html', categories: ['galeries', 'animations'],
+    fr: { label: "Galerie d'animations", excerpt: 'Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.' },
+    en: { label: 'Animation gallery', excerpt: 'The animations of the ground collections, in six groups: to watch, preview and download as MP4.' } },
+  { id: 'galerie-bicolore', href: 'galerie-bicolore.html', categories: ['galeries'],
     fr: { label: 'Galerie bicolore', excerpt: '142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.' },
     en: { label: 'Two-colour gallery', excerpt: '142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.' } },
-  { id: 'motifs-svg', href: 'telechargements.html', icon: 'motifs-svg', groupe: 'explorer',
+  { id: 'galerie-tricolore', href: 'galerie-patterns-unifies.html', categories: ['galeries'],
+    fr: { label: 'Galerie tricolore', excerpt: 'Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.' },
+    en: { label: 'Three-colour gallery', excerpt: 'Unified patterns, generated by tint mixing — select a motif to see its tiling.' } },
+
+  { id: 'fonds-ecran', href: 'fonds-ecran.html', categories: ['animations'],
+    fr: { label: "Fond d'écran", excerpt: "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable." },
+    en: { label: 'Wallpapers', excerpt: 'Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.' } },
+
+  { id: 'tirage', href: 'tirage-livree-hermes.html', categories: ['tirages'],
+    fr: { label: 'Tirage du Yi King', excerpt: "Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations." },
+    en: { label: 'Yi King draw', excerpt: 'Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.' } },
+  { id: 'impression', href: '360-calques.html', categories: ['tirages'],
+    fr: { label: '360 calques', excerpt: "Tirez et téléchargez les calques d'impression, prêts à imprimer." },
+    en: { label: '360 layers', excerpt: 'Draw and download print-ready layers.' } },
+  { id: 'motifs-svg', href: 'telechargements.html', categories: ['tirages'],
     fr: { label: 'Motifs SVG', excerpt: 'Téléchargez les calques d\'impression en 4 catégories de combinaisons de traits, au format SVG.' },
     en: { label: 'SVG patterns', excerpt: 'Download the print layers in 4 categories of trait combinations, as SVG.' } },
+  { id: 'hexagrammes', href: 'hexagrammes/', categories: ['tirages'],
+    fr: { label: 'Hexagrammes', excerpt: 'Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.' },
+    en: { label: 'Hexagrams', excerpt: 'The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.' } },
 
-  { id: 'traite', href: 'la-livree-d-hermes.html', icon: 'la-livree-d-hermes', groupe: 'lire',
-    fr: { label: 'Le traité', excerpt: 'Le traité et ses éditions traduites, les hexagrammes et le lexique.' },
-    en: { label: 'The treatise', excerpt: 'The treatise and its translated editions, the hexagrams and the lexicon.' } },
-  { id: 'lexique', href: 'lexique.html', icon: 'lexique', groupe: 'lire',
-    fr: { label: 'Lexique', excerpt: "Dix notions clés pour comprendre La Livrée d'Hermès." },
-    en: { label: 'Lexicon', excerpt: "Ten key notions for understanding La Livrée d'Hermès." } },
-  { id: 'articles', href: 'articles.html', icon: 'articles', groupe: 'lire',
-    fr: { label: 'Articles', excerpt: "Réflexions et recherches autour de La Livrée d'Hermès." },
-    en: { label: 'Articles', excerpt: "Reflections and research around La Livrée d'Hermès." } },
-
-  { id: 'contact', href: 'contact.html', icon: 'contact', groupe: 'le-projet',
-    fr: { label: 'Contact', excerpt: 'Contactez l\'auteur pour un projet ou une commande de motifs et tirages textiles.' },
-    en: { label: 'Contact', excerpt: 'Contact the author for a project or a commission of patterns and textile prints.' } },
-  { id: 'a-propos', href: 'a-propos.html', icon: 'a-propos', groupe: 'le-projet',
-    fr: { label: 'À propos', excerpt: "L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées." },
-    en: { label: 'About', excerpt: 'The author and his book, at the crossing of philosophy, mathematics and applied science.' } },
-  { id: 'outils', href: 'outils.html', icon: 'outils', groupe: 'le-projet',
+  { id: 'creation-motifs', href: 'creation-motifs-yi-king.html', categories: ['outils-creatifs'],
+    fr: { label: 'Créer un motif', excerpt: 'Composez vos propres motifs textiles à partir des 60 images du Yi King.' },
+    en: { label: 'Create a pattern', excerpt: 'Compose your own textile patterns from the 60 images of the Yi King.' } },
+  { id: 'bicolore', href: 'bicolore.html', categories: ['outils-creatifs'],
+    fr: { label: 'Motifs bicolores', excerpt: 'Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.' },
+    en: { label: 'Two-colour patterns', excerpt: 'Compose a 12×12 cell, six levels, each with its own family and tint.' } },
+  { id: 'bicolore-v2', href: 'creation-bicolore-v2.html', categories: ['outils-creatifs'],
+    fr: { label: 'Motifs bicolores v2', excerpt: 'La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.' },
+    en: { label: 'Two-colour patterns v2', excerpt: 'The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.' } },
+  { id: 'encodeur', href: 'encodeur.html', categories: ['outils-creatifs'],
+    fr: { label: 'Encodeur', excerpt: 'Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.' },
+    en: { label: 'Encoder', excerpt: 'Geometric steganographic encoding by double referent, ansate cross and Jacquard.' } },
+  { id: 'carter-demo', href: 'carter-demo.html', categories: ['outils-creatifs'],
+    fr: { label: 'Carter Random', excerpt: 'Démo interactive : la grille et les référents dérivés de la clé.' },
+    en: { label: 'Carter Random', excerpt: 'Interactive demo: the grid and the referents derived from the key.' } },
+  { id: 'quadricolore', href: 'unified-patterns.html', categories: ['outils-creatifs'],
+    fr: { label: 'Magic quadricolore', excerpt: 'Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.' },
+    en: { label: 'Magic quadricolore', excerpt: 'The 64 hexagram patterns, customisable and downloadable in high resolution.' } },
+  { id: 'cymatique', href: 'cymatique.html', categories: ['outils-creatifs'],
+    fr: { label: 'Cymatique', excerpt: 'Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.' },
+    en: { label: 'Cymatics', excerpt: 'The tiling whose spatial frequency comes closest to the sound you make.' } },
+  { id: 'outils', href: 'outils.html', categories: ['outils-creatifs'],
     fr: { label: 'Outils', excerpt: 'Tous les outils interactifs du site, réunis en un seul endroit.' },
     en: { label: 'Tools', excerpt: 'All the site\'s interactive tools, gathered in one place.' } },
+
+  { id: 'traite', href: 'la-livree-d-hermes.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Le traité', excerpt: 'Le traité et ses éditions traduites, les hexagrammes et le lexique.' },
+    en: { label: 'The treatise', excerpt: 'The treatise and its translated editions, the hexagrams and the lexicon.' } },
+  { id: 'a-propos', href: 'a-propos.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'À propos', excerpt: "L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées." },
+    en: { label: 'About', excerpt: 'The author and his book, at the crossing of philosophy, mathematics and applied science.' } },
+  { id: 'lexique', href: 'lexique.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Lexique', excerpt: "Dix notions clés pour comprendre La Livrée d'Hermès." },
+    en: { label: 'Lexicon', excerpt: "Ten key notions for understanding La Livrée d'Hermès." } },
+  { id: 'profil', href: 'profil.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Profil documentaire', excerpt: "Brevets et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12." },
+    en: { label: 'Documentary profile', excerpt: 'Patents and 63 designs registered with the INPI, covering the order-12 squares.' } },
+  { id: 'contact', href: 'contact.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Contact', excerpt: 'Contactez l\'auteur pour un projet ou une commande de motifs et tirages textiles.' },
+    en: { label: 'Contact', excerpt: 'Contact the author for a project or a commission of patterns and textile prints.' } },
+  { id: 'soutien', href: 'soutenir.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Soutenir', excerpt: "Soutenir La Livrée d'Hermès à prix libre : le site et son contenu restent gratuits." },
+    en: { label: 'Support', excerpt: "Support La Livrée d'Hermès at a price you choose: the site and its content stay free." } },
+  { id: 'chiffres', href: 'chiffres-et-sources.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Chiffres et sources', excerpt: "Chaque chiffre du site, le script qui le reproduit et la ligne qu'il imprime." },
+    en: { label: 'Figures and sources', excerpt: 'Every figure on the site, the script that reproduces it and the line it prints.' } },
+  { id: 'travaux', href: 'travaux.html', categories: ['a-propos-du-projet'],
+    fr: { label: 'Travaux', excerpt: 'Les dépôts, le code et les articles soumis, chacun horodaté et ouvert.' },
+    en: { label: 'Works', excerpt: 'Deposits, code and submitted papers, each one timestamped and open.' } },
 ];
 
-// Hors des quatre groupes : « ce n'est pas une destination parmi d'autres,
-// c'est le retour » — voir prompt-cc-fragment-retours.md §4. Rendue seule,
-// au-dessus des groupes, du côté du bouton Devenir Soutien.
+// Hors des catégories, deux liens fixes au-dessus du bloc : l'accueil (« ce
+// n'est pas une destination parmi d'autres, c'est le retour » —
+// prompt-cc-fragment-retours.md §4) et les articles, qui seraient seuls dans
+// leur catégorie — une catégorie d'un élément fait cliquer deux fois pour un
+// lien (prompt-navigation.md). Ils gardent leur icône.
 const ACCUEIL = {
   id: 'accueil', href: 'index.html', icon: 'accueil',
   fr: { label: 'Accueil', excerpt: "Le livre, ses planches et l'ensemble des outils." },
   en: { label: 'Home', excerpt: "The book, its plates and the full set of tools." },
 };
+const ARTICLES = {
+  id: 'articles', href: 'articles.html', icon: 'articles',
+  fr: { label: 'Articles', excerpt: "Réflexions et recherches autour de La Livrée d'Hermès." },
+  en: { label: 'Articles', excerpt: "Reflections and research around La Livrée d'Hermès." },
+};
+const FIXES = [ACCUEIL, ARTICLES];
 
 // Les six autres langues, fusionnées depuis nav-tiles-libelles.js.
-for (const g of GROUPES) Object.assign(g, I18N.GROUPES_I18N[g.id]);
-for (const t of TUILES) {
+for (const c of CATEGORIES) {
+  if (!I18N.CATEGORIES_I18N[c.id]) throw new Error(`nav-tiles-libelles.js : pas de nom pour la catégorie ${c.id}`);
+  Object.assign(c, I18N.CATEGORIES_I18N[c.id]);
+}
+for (const t of [...TUILES, ARTICLES]) {
   if (!I18N.TUILES_I18N[t.id]) throw new Error(`nav-tiles-libelles.js : pas de textes pour la tuile ${t.id}`);
   Object.assign(t, I18N.TUILES_I18N[t.id]);
 }
@@ -141,49 +179,90 @@ function adresseLocale(id, href, lang) {
 function sansTraduction() {
   const out = {};
   for (const lang of Object.keys(LANGUES)) {
-    out[lang] = [ACCUEIL, ...TUILES].filter((t) => adresseLocale(t.id, t.href, lang) === null).map((t) => t.id);
+    out[lang] = [...FIXES, ...TUILES].filter((t) => adresseLocale(t.id, t.href, lang) === null).map((t) => t.id);
   }
   return out;
 }
 
-if (new Set(TUILES.map((t) => t.id)).size !== TUILES.length) {
+// Les refus : un id en double, une catégorie inconnue, une entrée sans
+// catégorie ou deux fois dans la même, une catégorie vide, un compte qui
+// dérive (24 entrées rangées + 2 liens fixes = les 26 pages du bloc).
+const IDS_CATEGORIES = new Set(CATEGORIES.map((c) => c.id));
+if (new Set([...FIXES, ...TUILES].map((t) => t.id)).size !== TUILES.length + FIXES.length) {
   throw new Error('nav-tiles.js : id de tuile en double.');
 }
-if (TUILES.length !== 18) {
-  throw new Error(`nav-tiles.js : ${TUILES.length} tuiles canoniques au lieu de 18 attendues.`);
+for (const t of TUILES) {
+  if (!t.categories || !t.categories.length) throw new Error(`nav-tiles.js : ${t.id} n'a aucune catégorie.`);
+  if (new Set(t.categories).size !== t.categories.length) throw new Error(`nav-tiles.js : ${t.id} figure deux fois dans la même catégorie.`);
+  for (const c of t.categories) if (!IDS_CATEGORIES.has(c)) throw new Error(`nav-tiles.js : ${t.id} dans une catégorie inconnue « ${c} ».`);
+}
+for (const c of CATEGORIES) if (!TUILES.some((t) => t.categories.includes(c.id))) throw new Error(`nav-tiles.js : catégorie ${c.id} vide.`);
+if (TUILES.length + FIXES.length !== 26) {
+  throw new Error(`nav-tiles.js : ${TUILES.length} entrées rangées et ${FIXES.length} liens fixes, 26 pages attendues.`);
+}
+
+// Les pages qui ne sont pas l'une des 26 mais en dépendent : la catégorie de
+// leur page parente s'ouvre, sans qu'aucune entrée soit marquée (on n'est pas
+// SUR la page parente). Les hexagrammes de chaque langue, les pages de groupe
+// de la galerie d'animations, les pages du livre et leurs chapitres, les
+// articles (lien fixe : rien ne s'ouvre).
+const GALERIE = require('../data/galerie-animations.json');
+function parenteDe(rel) {
+  if (/^(hexagrammes|en\/hexagrams|es\/hexagramas|th\/hexagrams)\//.test(rel)) return 'hexagrammes';
+  for (const [l, a] of Object.entries(GALERIE.adresses)) {
+    if (!a.groupe) continue;
+    const dossier = a.groupe.split('{slug}')[0];
+    if (rel.startsWith(dossier) || rel === a.entree || rel === `${a.entree}index.html`) return 'galerie-animations';
+  }
+  const livre = GROUPES_LANGUES.find((g) => g.nom === 'livre');
+  if (livre && livre.pages.some((p) => rel.startsWith(p[2].replace(/index\.html$/, '')))) return 'traite';
+  if (/^(en\/)?articles\//.test(rel)) return 'articles';
+  return null;
 }
 
 /* rel : chemin du fichier courant depuis la racine du dépôt, séparateurs `/`
    (voir scripts/build-header.js pour la normalisation). prefixe : déjà
    calculé par build-header.js (même variable, pas recalculée ici — c'est le
    seul moyen d'être certain de ne jamais diverger de son propre calcul, y
-   compris son cas spécial 404.html). */
+   compris son cas spécial 404.html).
+   Rend les deux liens fixes et les catégories, chaque entrée avec son
+   adresse dans la langue de la page ; « courante » : l'entrée qui EST la page
+   (marquée, sa catégorie principale ouverte) ; « ouverte » : la catégorie
+   qui s'ouvre (celle de la page, ou de sa page parente). */
 function tuilesPourPage(rel, prefixe, lang = 'fr') {
   const relDir = rel.endsWith('/index.html') ? rel.slice(0, -'index.html'.length) : rel;
   const estSoi = (href) => href === rel || href === relDir;
-
-  const items = [];
-  for (const t of [ACCUEIL, ...TUILES]) {
+  const avecAdresse = (t) => {
     const href = adresseLocale(t.id, t.href, lang) ?? t.href;
-    if (estSoi(href) || estSoi(t.href)) continue;
-    items.push({ ...t, finalHref: prefixe + href });
+    return { ...t, finalHref: prefixe + href, courante: estSoi(href) || estSoi(t.href) };
+  };
+  const fixes = FIXES.map(avecAdresse);
+  const entrees = TUILES.map(avecAdresse);
+  const courante = [...fixes, ...entrees].find((t) => t.courante);
+  let ouverte = null;
+  if (courante && courante.categories) ouverte = courante.categories[0];
+  if (!courante) {
+    const parente = parenteDe(rel);
+    const t = parente && TUILES.find((x) => x.id === parente);
+    if (t) ouverte = t.categories[0];
   }
+  const categories = CATEGORIES.map((c) => ({
+    ...c,
+    ouverte: c.id === ouverte,
+    entrees: entrees.filter((t) => t.categories.includes(c.id))
+      .map((t) => ({ ...t, marquee: t.courante && t.categories[0] === c.id })),
+  }));
 
-  // Assertion bruyante : jamais de doublon d'adresse, jamais un compte hors
-  // de l'intervalle attendu. Même piège que #130 (chemin relatif), même
-  // parade (échec net, pas un avertissement).
-  const hrefs = items.map((i) => i.finalHref);
-  if (new Set(hrefs).size !== hrefs.length) {
-    throw new Error(`nav-tiles.js : adresses de tuiles en double pour ${rel} : ${hrefs.join(', ')}`);
+  // Assertion bruyante : jamais deux entrées de la même catégorie vers la
+  // même adresse, et au plus une entrée marquée dans tout le bloc. Même piège
+  // que #130 (chemin relatif), même parade (échec net, pas un avertissement).
+  for (const c of categories) {
+    const hrefs = c.entrees.map((i) => i.finalHref);
+    if (new Set(hrefs).size !== hrefs.length) throw new Error(`nav-tiles.js : adresses en double dans ${c.id} pour ${rel} : ${hrefs.join(', ')}`);
   }
-  if (items.length < 18 || items.length > 19) {
-    throw new Error(`nav-tiles.js : ${items.length} tuiles pour ${rel}, attendu 18 ou 19.`);
-  }
-  if (rel === 'index.html' && items.length !== 18) {
-    throw new Error(`nav-tiles.js : l'accueil doit porter exactement 18 tuiles (auto-exclues), en a ${items.length}.`);
-  }
-
-  return items;
+  const marquees = categories.flatMap((c) => c.entrees.filter((t) => t.marquee)).length + fixes.filter((t) => t.courante).length;
+  if (marquees > 1) throw new Error(`nav-tiles.js : ${marquees} entrées marquées pour ${rel}.`);
+  return { fixes, categories };
 }
 
 // Icônes qui restent animées en permanence (comme le logo de tête) plutôt que
@@ -199,10 +278,26 @@ function htmlTuile(item, prefixe, lang) {
   const img = ICONES_TOUJOURS_ANIMEES.has(item.icon)
     ? `<picture><source srcset="${prefixe}assets/nav-icons/${item.icon}-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}-hover.gif" alt="" width="72" height="72" loading="lazy"></picture>`
     : `<img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}.png" alt="" width="72" height="72" loading="lazy">`;
-  return `<a class="nav-tile" href="${item.finalHref}">${img}<span class="nav-tile-body"><span class="nav-tile-label">${texte.label}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
+  return `<a class="nav-tile" href="${item.finalHref}"${item.courante ? ' aria-current="page"' : ''}>${img}<span class="nav-tile-body"><span class="nav-tile-label">${texte.label}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
 }
 
-const GROUPE_LABEL = Object.fromEntries(Object.keys(LANGUES).map((l) => [l, Object.fromEntries(GROUPES.map((g) => [g.id, g[l]]))]));
+// Une entrée de catégorie : le titre de la page, et sa phrase en dessous —
+// sans icône (24 images de moins par page, sur 655 pages).
+function htmlEntree(t, lang) {
+  const texte = t[lang] || t.fr;
+  return `<li><a href="${t.finalHref}"${t.marquee ? ' aria-current="page"' : ''}><span class="nav-cat-label">${texte.label}</span><span class="nav-cat-texte">${texte.excerpt}</span></a></li>`;
+}
+// Une catégorie : un <details> natif, sans JavaScript — les liens restent dans
+// le HTML, repliés ou non ; le nombre de pages à droite du titre.
+function htmlCategorie(c, lang) {
+  return `<details class="nav-cat"${c.ouverte ? ' open' : ''}>\n`
+    + `        <summary><span class="nav-cat-titre">${c[lang] || c.fr}</span><span class="nav-cat-nombre">${c.entrees.length}</span></summary>\n`
+    + `        <ul>\n          ${c.entrees.map((t) => htmlEntree(t, lang)).join('\n          ')}\n        </ul>\n`
+    + `      </details>`;
+}
+
+// Le nom du bloc pour les lecteurs d'écran (<nav aria-label>).
+const NAV_LABEL = { fr: 'Pages du site', en: 'Site pages', ...I18N.NAV_LABEL_I18N };
 
 const SOUTIEN_BTN = {
   fr: { label: 'Devenir Soutien', title: "Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet." },
@@ -214,40 +309,23 @@ const COPYRIGHT_SUFFIX = { fr: 'CC BY-NC 4.0', en: 'CC BY-NC 4.0', ...I18N.COPYR
 // Le bouton Soutien mène à la page de soutien de la langue quand elle existe.
 const SOUTIEN_HREF = (lang) => `https://anibal-amiot.com/${adresseLocale('soutien', 'soutenir.html', lang) ?? 'soutenir.html'}`;
 
-/* Rend le bloc <div class="note">...</div> complet pour une page : Accueil
-   seule au-dessus, hors des quatre groupes nommés, du côté du bouton
-   Devenir Soutien ; les quatre groupes ; puis le logo de pied, la ligne de
-   crédit et le mot-symbole — voir prompt-cc-fragment-retours.md §4. */
+/* Rend le bloc <div class="note">...</div> complet pour une page : les deux
+   liens fixes (Accueil, Articles) au-dessus, hors des catégories ; le
+   caducée et le bouton Devenir Soutien ; les cinq catégories ; puis le logo
+   de pied, la ligne de crédit et le mot-symbole. */
 function htmlNavTiles(rel, prefixe, lang = 'fr', seulementTuiles = false) {
-  const items = tuilesPourPage(rel, prefixe, lang);
-  const accueil = items.find((i) => i.id === 'accueil');
-  const parGroupe = { creer: [], explorer: [], lire: [], 'le-projet': [] };
-  for (const item of items) {
-    if (item.id === 'accueil') continue;
-    parGroupe[item.groupe].push(item);
-  }
-
-  const blocGroupe = (id) => `<div class="tile-group">\n`
-    + `      <h2 class="tile-group-heading">${GROUPE_LABEL[lang]?.[id] || GROUPE_LABEL.fr[id]}</h2>\n`
-    + `      <div class="nav-tiles">\n        ${parGroupe[id].map((t) => htmlTuile(t, prefixe, lang)).join('\n        ')}\n      </div>\n`
-    + `    </div>`;
-
-  const blocAccueil = accueil
-    ? `<div class="nav-tiles nav-tiles-accueil">\n      ${htmlTuile(accueil, prefixe, lang)}\n    </div>\n\n    `
-    : '';
+  const { fixes, categories } = tuilesPourPage(rel, prefixe, lang);
+  const blocFixes = `<div class="nav-tiles nav-tiles-accueil nav-fixes">\n      ${fixes.map((t) => htmlTuile(t, prefixe, lang)).join('\n      ')}\n    </div>`;
+  const blocCategories = `<nav class="nav-categories" aria-label="${(NAV_LABEL[lang] || NAV_LABEL.fr)}">\n      ${categories.map((c) => htmlCategorie(c, lang)).join('\n      ')}\n    </nav>`;
 
   // Les pages traduites à la main gardent leur propre pied (bouton Soutien,
-  // rangée de liens, crédit, logo) : elles ne reçoivent que les tuiles, posées
-  // avant lui — rien de ce qu'elles portent ne disparaît.
+  // rangée de liens, crédit, logo) : elles ne reçoivent que les liens et les
+  // catégories, posés avant lui — rien de ce qu'elles portent ne disparaît.
   if (seulementTuiles) {
     return `<div class="note note-tuiles">
-    ${blocAccueil}${blocGroupe('creer')}
+    ${blocFixes}
 
-    ${blocGroupe('explorer')}
-
-    ${blocGroupe('lire')}
-
-    ${blocGroupe('le-projet')}
+    ${blocCategories}
   </div>`;
   }
 
@@ -256,18 +334,14 @@ function htmlNavTiles(rel, prefixe, lang = 'fr', seulementTuiles = false) {
   const droits = COPYRIGHT_SUFFIX[lang] || COPYRIGHT_SUFFIX.fr;
 
   return `<div class="note">
-    ${blocAccueil}<div class="footer-caduceus">
+    ${blocFixes}
+
+    <div class="footer-caduceus">
       <picture><source srcset="${prefixe}assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="${prefixe}assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
     </div>
     <a class="site-nav-btn" href="${SOUTIEN_HREF(lang)}" style="display:inline-block; margin:14px 0;" title="${soutien.title}">${soutien.label}</a>
 
-    ${blocGroupe('creer')}
-
-    ${blocGroupe('explorer')}
-
-    ${blocGroupe('lire')}
-
-    ${blocGroupe('le-projet')}
+    ${blocCategories}
 
     <div class="center-logo-slot center-logo-slot-bottom">
       <picture><source srcset="${prefixe}assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="${prefixe}assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
@@ -298,4 +372,4 @@ const SANS_TUILES = new Set([
   'book-viewer/index.html',
 ]);
 
-module.exports = { GROUPES, TUILES, ACCUEIL, tuilesPourPage, htmlNavTiles, sansTraduction, SANS_TUILES };
+module.exports = { CATEGORIES, TUILES, FIXES, ACCUEIL, ARTICLES, tuilesPourPage, htmlNavTiles, sansTraduction, parenteDe, SANS_TUILES };

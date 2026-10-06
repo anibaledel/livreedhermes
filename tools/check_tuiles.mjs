@@ -14,9 +14,10 @@
 //      écrirait pour cette page, dans la langue de son <html lang> : libellés,
 //      groupes ET adresses — une tuile qui renvoie au français alors que la
 //      page traduite existe, c'est l'asymétrie de la régression hreflang #137 ;
-//   3. une page dont les tuiles écrites à la main (pages d'outils, hexagrammes
-//      anglais) sont dans une autre langue que la page : le titre de groupe
-//      lu doit être celui de la langue de la page.
+//   3. une page dont le bloc est posé hors zone (hexagrammes traduits, par leur
+//      générateur) sans les cinq catégories de la langue de la page — et,
+//      depuis la navigation en catégories (2026-10-05), toute page qui porte
+//      encore des tuiles à plat écrites à la main.
 // Il donne aussi, par langue, les destinations sans page traduite (la tuile y
 // garde l'adresse française).
 //
@@ -32,7 +33,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
-const { SANS_TUILES, GROUPES, htmlNavTiles, sansTraduction } = require('../scripts/nav-tiles.js');
+const { SANS_TUILES, CATEGORIES, htmlNavTiles, sansTraduction } = require('../scripts/nav-tiles.js');
 const { LANGUES } = require('../scripts/langues.js');
 const { TRADUITES_A_LA_MAIN } = require('../scripts/pages-traduites.js');
 const essai = process.argv.includes('--essai');
@@ -70,9 +71,13 @@ for (const u of urls) {
     }
   } else {
     aLaMain++;
-    const titres = [...s.matchAll(/<h2 class="tile-group-heading">([^<]*)<\/h2>/g)].map((x) => x[1]);
-    const voulus = GROUPES.map((g) => g[lang] || g.fr);
-    if (titres.length && !titres.every((t) => voulus.includes(t))) erreurs.push(`${rel} (${lang}) : tuiles écrites à la main dans une autre langue (${titres.join(', ')})`);
+    // hors zone : les hexagrammes traduits, dont le générateur pose le bloc
+    // lui-même (htmlNavTiles) — ses catégories doivent être celles de la
+    // langue de la page ; des tuiles à plat écrites à la main n'ont plus cours
+    const titres = [...s.matchAll(/<span class="nav-cat-titre">([^<]*)<\/span>/g)].map((x) => x[1]);
+    const voulus = CATEGORIES.map((c) => c[lang] || c.fr);
+    if (!titres.length) erreurs.push(`${rel} (${lang}) : tuiles à plat écrites à la main, sans les catégories de nav-tiles.js`);
+    else if (titres.join('|') !== voulus.join('|')) erreurs.push(`${rel} (${lang}) : catégories « ${titres.join(', ')} », attendu « ${voulus.join(', ')} »`);
   }
 }
 

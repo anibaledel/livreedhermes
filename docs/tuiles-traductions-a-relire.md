@@ -276,3 +276,21 @@ La ligne « Soutien · Contact » de la section « À propos » reprend les text
 des tuiles (bouton Soutien, tuile Contact), avec leur provenance ci-dessus.
 Le tirage n'existe qu'en français et en anglais : les six autres accueils y
 mènent en anglais (`?lang=en`).
+
+## Navigation en cinq catégories (2026-10-05, prompt-navigation.md)
+
+Posés dans les six langues (es, th, zh, ru, pt, hi), dans `scripts/nav-tiles-libelles.js`,
+chaque chaîne avec sa provenance en commentaire :
+
+- **les noms des cinq catégories** — Galeries, Animations, Tirages, Outils créatifs,
+  À propos du projet : **sans source** pour Galeries, Tirages et Outils créatifs (sauf le
+  chinois « 创作工具 », adapté de zh/tools/) ; Animations repris des titres de la galerie
+  d'animations ; À propos du projet adapté de l'ancien groupe « Le projet ». « Tirages »
+  couvre le tirage du Yi King et les calques d'impression : la traduction choisie dit les
+  deux (« Draws & prints », « Tiradas e impresiones »…) — à confirmer ;
+- **le nom du bloc** pour les lecteurs d'écran (« Pages du site ») : sans source ;
+- **les sept nouvelles entrées** — Galerie d'animations (adaptée de la galerie), Tirage du
+  Yi King, Carter Random, Profil documentaire, Chiffres et sources : sans source ; Soutenir
+  et Travaux adaptés des pages /support/ et /works/ là où elles existent (zh, ru, pt, hi).
+  Termes du glossaire respectés (`tools/check_glossaire.mjs`) : « ฉักลักษณ์ », « हेक्साग्राम »,
+  « И цзин », « ई चिंग », « I Ching » (pt), « публикация ».
