@@ -164,6 +164,11 @@
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 layers</span>",
               "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"en/figures-and-sources/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
             }
           ]
         },
@@ -190,6 +195,11 @@
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 capas</span>",
               "source": "nav-tiles (impression)"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"es/cifras-y-fuentes/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
             }
           ]
         },
@@ -221,6 +231,16 @@
               "fr": "เฮกซะแกรม",
               "trad": "ฉักลักษณ์",
               "source": "glossaire (docs/terminologie-fr-en-es-th.md) : « hexagramme » en thaï est ฉักลักษณ์, เฮกซะแกรม est refusé — le dictionnaire UI.th de 360-calques.html porte encore la variante refusée"
+            },
+            {
+              "fr": "<a href=\"chiffres-et-sources.html\" id=\"txt-dataSourceLink\"",
+              "trad": "<a href=\"th/figures-and-sources/\" id=\"txt-dataSourceLink\"",
+              "source": "la page des chiffres dans la langue de la page (étape 3)"
+            },
+            {
+              "fr": "ตัวเลขและแหล่งที่มา (FR)",
+              "trad": "ตัวเลขและแหล่งที่มา",
+              "source": "UI.th.dataSourceLink sans « (FR) » : le lien mène désormais à la page thaïe"
             }
           ]
         }
