@@ -1,5 +1,5 @@
 {
-  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « textes » (étape 2, pages sans dictionnaire) : la table des textes de la page, chaque ligne avec sa traduction dans chaque langue — ou le chemin d'un fichier qui la porte (data/outils-langues/<page>.json). « communs » : les textes partagés par plusieurs pages (fil d'Ariane), appliqués là où ils se trouvent. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md).",
+  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « textes » (étape 2, pages sans dictionnaire) : la table des textes de la page, chaque ligne avec sa traduction dans chaque langue — ou le chemin d'un fichier qui la porte (data/outils-langues/<page>.json). « communs » : les textes partagés par plusieurs pages (fil d'Ariane), appliqués là où ils se trouvent. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md). « donnees » (étape 4) : les tableaux du script (HEX_KW, IMAGE_FR…) remplacés par leur traduction existante, lue à sa source — tableaux anglais de tirage-livree-hermes.html, data/hexagrammes_traduits.json pour l'espagnol et le thaï.",
   "pages": [
     {
       "source": "cymatique.html",
@@ -424,6 +424,35 @@
         },
         "th": {
           "dossier": "th/figures-and-sources/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "unified-patterns.html",
+      "priorite": "0.8",
+      "textes": "data/outils-langues/unified-patterns.json",
+      "donnees": [
+        {
+          "const": "HEX_KW",
+          "forme": "hexKw"
+        },
+        {
+          "const": "IMAGE_FR",
+          "forme": "image"
+        }
+      ],
+      "langues": {
+        "en": {
+          "dossier": "en/unified-patterns/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/motivos-unificados/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/unified-patterns/",
           "ogLocale": "th_TH"
         }
       }

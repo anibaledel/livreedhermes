@@ -15,12 +15,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/unified-patterns.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/fonds-ecran.html</loc>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -2112,6 +2106,50 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/cifras-y-fuentes/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/figures-and-sources/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/figures-and-sources/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/unified-patterns.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/unified-patterns/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/motivos-unificados/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/unified-patterns/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/outils.html</loc>

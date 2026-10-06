@@ -77,6 +77,61 @@ function dictionnaire(s, source) {
   const j = s.indexOf('{', i);
   return vm.runInNewContext(`(${s.slice(j, finAccolade(s, j) + 1)})`);
 }
+// ---- tableaux de données du script, traduits (étape 4) -------------------
+// Une page sans dictionnaire peut porter ses textes dans des tableaux du
+// script (« const HEX_KW = { … }; » : les 64 hexagrammes). Ils ne passent pas
+// par la table des textes : leur traduction existe déjà ailleurs, et elle est
+// lue là, jamais recopiée — l'anglais dans les tableaux de la page du tirage
+// (HEX_KW_EN, IMAGE_EN), l'espagnol et le thaï dans
+// data/hexagrammes_traduits.json, ceux des pages d'hexagrammes traduites.
+// « donnees » : [{ "const": nom du tableau, "forme": comment le lire }].
+function litteral(s, nom, source) {
+  const i = s.indexOf(`const ${nom} = {`);
+  if (i === -1) throw new Error(`${source} : pas de « const ${nom} = { »`);
+  const j = s.indexOf('{', i);
+  const k = finAccolade(s, j);
+  return { j, k, valeur: vm.runInNewContext(`(${s.slice(j, k + 1)})`) };
+}
+const HEXAGRAMMES = {};
+function hexagrammes(lang) {
+  if (HEXAGRAMMES[lang]) return HEXAGRAMMES[lang];
+  const out = {};
+  if (lang === 'en') {
+    const t = fs.readFileSync(path.join(ROOT, 'tirage-livree-hermes.html'), 'utf8');
+    const kw = litteral(t, 'HEX_KW_EN', 'tirage-livree-hermes.html').valeur;
+    const im = litteral(t, 'IMAGE_EN', 'tirage-livree-hermes.html').valeur;
+    for (const n of Object.keys(kw)) out[n] = { name: kw[n][1], keyword: kw[n][2], judgement: kw[n][3], image: im[n] };
+  } else {
+    const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/hexagrammes_traduits.json'), 'utf8'));
+    if (!d[lang]) throw new Error(`data/hexagrammes_traduits.json : pas de langue « ${lang} »`);
+    for (const [n, h] of Object.entries(d[lang].hexagrams)) out[n] = { name: h.name, keyword: h.judgementTitle, judgement: h.judgement, image: h.image };
+  }
+  for (let n = 1; n <= 64; n++) {
+    for (const c of ['name', 'keyword', 'judgement', 'image']) {
+      if (!out[n] || !out[n][c]) throw new Error(`hexagrammes (${lang}) : n° ${n}, « ${c} » manque`);
+    }
+  }
+  return (HEXAGRAMMES[lang] = out);
+}
+// Chaque forme garde du tableau français tout ce qui n'est pas du texte
+// (pinyin, numéros) et n'en remplace que le texte.
+const FORMES = {
+  // HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+  hexKw: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify([fr[n][0], h[n].name, h[n].keyword, h[n].judgement])}`).join(',\n')}\n}`,
+  // IMAGE_FR[kw] = texte de l'Image
+  image: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify(h[n].image)}`).join(',\n')}\n}`,
+};
+function donneesTraduites(s, p, lang, nomPage) {
+  for (const d of p.donnees || []) {
+    const forme = FORMES[d.forme];
+    if (!forme) throw new Error(`${nomPage} : forme de données inconnue « ${d.forme} »`);
+    const { j, k, valeur } = litteral(s, d.const, nomPage);
+    if (Object.keys(valeur).length !== 64) throw new Error(`${nomPage} : ${d.const} n'a pas 64 entrées`);
+    s = s.slice(0, j) + forme(valeur, hexagrammes(lang)) + s.slice(k + 1);
+  }
+  return s;
+}
+
 function corpsFonction(s, nom) {
   const i = s.indexOf(`function ${nom}(`);
   if (i === -1) return '';
@@ -241,6 +296,9 @@ function pageTraduite(p, lang, cfg, src) {
     }
     for (const [id, cible, k] of p.affectations || []) s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
   }
+
+  // 2 bis — les tableaux de données du script, depuis leur traduction existante
+  s = donneesTraduites(s, p, lang, nomPage);
 
   // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
   // traductions — étape 2) puis les remplacements propres à la langue. Chaque

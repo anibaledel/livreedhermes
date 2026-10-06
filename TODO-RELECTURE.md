@@ -517,3 +517,18 @@ Laissées sans traduction à cette étape, et pourquoi :
 - `unified-patterns.html` : son panneau porte les 64 textes de Jugement des hexagrammes, qui relèvent du livre — même raison que
   `creation-motifs-yi-king.html`, à faire ensemble ;
 - `carter-demo.html` : satellite de l'encodeur, à faire avec lui (CSP stricte, service worker).
+
+## Outils traduits, étape 4 — Unified Patterns (2026-10-06)
+
+Trois pages nouvelles : en/unified-patterns/, es/motivos-unificados/, th/unified-patterns/. Table des textes :
+`data/outils-langues/unified-patterns.json` (30 textes, dont **22 sans source** ; les autres reprennent la barre du livre de 360 calques,
+les libellés du tirage et des pages d'hexagrammes, le glossaire).
+
+Les textes des 64 hexagrammes du panneau (nom, mot-clé, Jugement, Image) ne sont **pas** retraduits : `scripts/build-outils-langues.js`
+les lit à leur source — les tableaux anglais de `tirage-livree-hermes.html` (HEX_KW_EN, IMAGE_EN), et `data/hexagrammes_traduits.json`
+pour l'espagnol et le thaï (en relecture, voir plus haut). Une correction faite là passe ici à la prochaine génération.
+
+Reste en français, et pourquoi :
+- le nom de fichier du PNG téléchargé (`motif-unifie-NN-<nom>.png`), tiré du nom de l'hexagramme en lettres latines : en thaï, le nom
+  disparaît du fichier (`motif-unifie-01-.png`) ;
+- les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`.
