@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Patterns — La Livrée d'Hermès</title>
+<meta name="description" content="The 64 textile patterns associated with the 64 hexagrams of the Yi King, customisable in colour and downloadable in high resolution for textile printing.">
+<meta property="og:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta property="og:description" content="The 64 textile patterns associated with the 64 hexagrams of the Yi King, customisable in colour and downloadable in high resolution for textile printing.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/en/unified-patterns/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/en/unified-patterns/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta name="twitter:description" content="The 64 textile patterns associated with the 64 hexagrams of the Yi King, customisable in colour and downloadable in high resolution for textile printing.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  header .eyebrow{
+    letter-spacing:.35em;
+    font-size:calc(11px + var(--fs-bump));
+    color:var(--red);
+    text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
+  }
+
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+    color:var(--dim); /* sans ceci, un <a> sans couleur explicite hérite du bleu de lien
+                          par défaut du navigateur (#0000EE, 2.23:1 sur --bg) quand
+                          l'emoji drapeau se replie sur son glyphe texte (FR/GB/ES/TH) —
+                          quasi illisible. --dim (8.91:1), comme le .dl-label voisin. */
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .book-bar .dl-group{ flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box;
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+  }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+  .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; display:inline-block;
+  }
+  .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .layout{ display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
+  @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+
+  .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
+  .grid-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .grid-head .label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
+  .axis-note{ font-size:calc(9.5px + var(--fs-bump)); color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note b{ color:var(--red); font-weight:400; }
+
+  .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
+  .cell{
+    aspect-ratio:1; background:#050505; border:1px solid var(--line);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    padding:3px; position:relative; overflow:hidden;
+    transition:border-color .12s ease, transform .12s ease;
+  }
+  .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
+  .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .cell .num{ position:absolute; top:2px; left:3px; font-size:calc(7px + var(--fs-bump)); color:var(--dim); z-index:1; }
+  .cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
+
+  .empty-state{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:496px; gap:24px;
+    color:var(--dim); font-size:calc(13px + var(--fs-bump));
+    text-align:center; line-height:1.7;
+  }
+  .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
+  @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
+
+  /* ===== bloc motif : couleur, agrandissement, texte, tessellation ===== */
+  .liseret{ border:1px solid var(--gold); padding:6px; }
+  .motif-color-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .motif-color-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  #motifColorInput{ width:44px; height:28px; border:1px solid var(--line-strong); background:transparent; cursor:pointer; padding:0; }
+  .motif-swatches{ display:flex; gap:6px; align-items:center; }
+  .motif-swatch{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:inline-block; }
+  .motif-swatch-tag{ font-size:calc(9px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+
+  /* même taille que .pavage-sq de la page Tirage (le carré qui montre le tirage) */
+  .motif-box{ width:130px; height:130px; background:#050505; display:flex; align-items:center; justify-content:center; }
+  .motif-box img{ width:100%; height:100%; display:block; }
+  .motif-box-wrap{ margin-bottom:14px; }
+  .motif-box-wrap .liseret{ display:inline-block; } /* se resserre autour du carré 130x130 au lieu de s'étirer en rectangle */
+
+  .num-big{ font-size:calc(12px + var(--fs-bump)); color:var(--red); letter-spacing:.2em; }
+  .motif-detail h2{ font-weight:400; font-size:calc(28px + var(--fs-bump)); margin:6px 0 2px; letter-spacing:.02em; }
+  .pinyin{ color:var(--dim); font-style:italic; font-size:calc(13px + var(--fs-bump)); margin-bottom:6px; }
+  .altnum{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-bottom:20px; }
+
+  .keyword{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px; }
+  .keyword-sub{ font-size:calc(15px + var(--fs-bump)); font-style:italic; color:var(--red); margin:-2px 0 8px; }
+  .judgement{ font-size:calc(13.5px + var(--fs-bump)); line-height:1.65; color:var(--white); max-width:62ch; }
+
+  .tessellation-wrap{ margin-top:28px; max-width:400px; }
+  .tessellation-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .motif-tess-box{
+    aspect-ratio:1/1; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .detail-outer{ padding:20px 18px; min-height:0; }
+    .grid-panel{ padding:12px; }
+    .book-bar{ gap:10px; }
+    .book-bar .dl-group{ padding:6px 10px; }
+    .site-nav-btn{ padding:11px 16px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .book-bar .dl-btn{ padding:10px 14px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    .judgement{ font-size:calc(15px + var(--fs-bump)); }
+    .empty-state{ font-size:calc(14.5px + var(--fs-bump)); }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are Unified Patterns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unified Patterns are tessellation cells in which the corners echo the centre, so as to generate the frequency of a single pattern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the constraints for creating Unified Patterns?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are Unified Patterns identified among the balanced grids?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How are these matrices classified?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The classification uses the Jacquard system to generate and organise the balanced matrices and the Unified Patterns. Chapter VII of La Livrée d'Hermès is devoted to the binary classification of these matrices."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "On which harmony has this system been verified?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The encoding system has been studied and verified for the 12/12/6/6 harmony (four filling matrices arranged in two pairs of 12 and two pairs of 6 elements)."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Unified Patterns", "item": "https://anibal-amiot.com/en/unified-patterns/" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-38-unified-patterns.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Tools</a><span class="sep">/</span><span aria-current="page">Unified Patterns</span>
+    </nav>
+    <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1 id="txt-title">Unified Patterns</h1>
+    <p id="txt-subtitle" style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">The 64 textile patterns associated with the 64 hexagrams of the Yi King — click a cell to customise its colour and download the pattern.</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.</p>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" id="txt-readBook" href="../../en/book/" target="_blank" rel="noopener">Read the book</a>
+        <span class="flags">
+          <!-- @drapeaux-lire:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../fr/livre/" target="_blank" rel="noopener" hreflang="fr" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="../../en/book/" target="_blank" rel="noopener" hreflang="en" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="../../es/libro/" target="_blank" rel="noopener" hreflang="es" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="../../th/book/" target="_blank" rel="noopener" hreflang="th" title="ไทย">🇹🇭</a>
+          <a class="flag-btn ready" href="../../zh/book/" target="_blank" rel="noopener" hreflang="zh-Hans" title="简体中文">🇨🇳</a>
+          <a class="flag-btn ready" href="../../ru/book/" target="_blank" rel="noopener" hreflang="ru" title="Русский">🇷🇺</a>
+          <a class="flag-btn ready" href="../../pt/book/" target="_blank" rel="noopener" hreflang="pt-PT" title="Português">🇵🇹</a>
+          <a class="flag-btn ready" href="../../hi/book/" target="_blank" rel="noopener" hreflang="hi" title="हिन्दी">🇮🇳</a>
+          <!-- @drapeaux-lire:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlPdfBook">Download the book's PDF</span>
+        <span class="flags">
+          <!-- @drapeaux-pdf:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf" download title="Русский (RU)">🇷🇺</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf" download title="Português (PT)">🇵🇹</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf" download title="हिन्दी (HI)">🇮🇳</a>
+          <!-- @drapeaux-pdf:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlYiKing">Download the Yi-King translation</span>
+        <span class="flags">
+          <!-- @drapeaux-docx:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ZH.docx" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+          <span class="flag-btn" title="Português — bientôt">🇵🇹</span>
+          <span class="flag-btn" title="हिन्दी — bientôt">🇮🇳</span>
+          <!-- @drapeaux-docx:end -->
+        </span>
+      </span>
+    </div>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <p class="faq-block-title">Frequently asked questions</p>
+    <details class="faq-item">
+      <summary>What are Unified Patterns?<span class="q-mark">＋</span></summary>
+      <p>Unified Patterns are tessellation cells in which the corners echo the centre, so as to generate the frequency of a single pattern.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What are the constraints for creating Unified Patterns?<span class="q-mark">＋</span></summary>
+      <p>Two constraints define a Unified Pattern. The first: giving one and the same colour to the two matrices of 6 elements produces a balanced 3×12 grid. The second: the sides of the grid must echo the centre.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How are Unified Patterns identified among the balanced grids?<span class="q-mark">＋</span></summary>
+      <p>The first constraint (a single colour on the two matrices of 6) brings out a first series of 8 Unified Patterns within the set of balanced 3×12 grids. This is what makes it possible to tell, among the balanced grids, those that are specifically Unified Patterns.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How are these matrices classified?<span class="q-mark">＋</span></summary>
+      <p>The classification uses the Jacquard system to generate and organise the balanced matrices and the Unified Patterns. Chapter VII of La Livrée d'Hermès is devoted to the binary classification of these matrices.</p>
+    </details>
+    <details class="faq-item">
+      <summary>On which harmony has this system been verified?<span class="q-mark">＋</span></summary>
+      <p>The encoding system has been studied and verified for the 12/12/6/6 harmony (four filling matrices arranged in two pairs of 12 and two pairs of 6 elements).</p>
+    </details>
+  </div>
+
+  <div class="layout">
+    <div class="grid-panel">
+      <div class="grid-head">
+        <span class="label">Unified patterns</span>
+        <span class="label">00 → 63</span>
+      </div>
+      <div class="axis-note">Same chronological order as the <b>Yi King draw</b> page: <b>The Creative</b> bottom right, <b>The Receptive</b> top left. Click a cell to open it alongside.</div>
+      <div class="hexgrid" id="hexgrid"></div>
+    </div>
+
+    <div class="detail-outer">
+      <div id="detail">
+        <div class="empty-state"><picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès" width="420" height="594"></picture>Click a cell of the chessboard to show its pattern, choose its colour and see its tessellation.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pied de page ===== -->
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter</a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws & prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">Two-colour patterns v2</span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../en/unified-patterns/" aria-current="page"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/cymatics/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">Tools</span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">Support</span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+
+</div>
+
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+// ---------- ordre chronologique (identique à index.html / 360-calques.html) ----------
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+const CHRONO_BY_KW = {};
+KINGWEN_BY_CHRONO.forEach((kw,chrono)=>{ CHRONO_BY_KW[kw] = chrono; });
+
+// ---------- texte général des 64 hexagrammes (même contenu/source que la page Tirage) ----------
+// HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+const HEX_KW = {
+1:["Qian","The Creative","Onset","The unbroken line surges forth alone, not yet clothed in form. At this very first degree of the figure, the power already exists in full, yet it has taken on no recognizable shape — it wears no function, no role. This is force in its pure state, before it has given itself a name. This line announces what the five that follow will be: a progression in which the power to act gradually fashions itself a garment, until the whole figure, at its summit, discovers that even the greatest force must learn to hold itself back."],
+2:["Kun","The Receptive","Ground","The soil receives, and form settles into place. Nothing has yet happened, and yet everything is already made possible: the earth of the first line demands nothing, it waits. This is not the passivity of one who gives up, but the patience of one who knows that rightly understood docility carries within it all the fruitfulness to come. The whole figure will unfold from this one quality alone: to welcome before wishing to impose, to settle before presuming to build."],
+3:["Zhun","Difficulty at the Beginning","Germination","The seed struggles beneath the earth of the square. Every birth begins in darkness and resistance: the seed does not yet know the form it will take, it only knows how to push. This line speaks of a difficulty that is not a failure but the very condition of any true beginning — nothing great has ever emerged without first having to break free of what held it back."],
+4:["Meng","Youthful Folly","Apprenticeship","The disciple's ignorance calls the master forth. It is not a weakness to not yet know — it is an opening: the one who does not yet know is precisely the one who can learn. The whole figure turns on this necessary meeting between the inexperience that seeks and the experience that answers — without this first humility, no teaching can take hold."],
+5:["Xu","Waiting","Containment","The water waits beneath the sky for its rightful hour. To wait is not to do nothing: it is to hold one's position with constancy while conditions form elsewhere, beyond the reach of will. This line teaches that haste destroys what only patience can accomplish — the rain will come when heaven and earth are ready to meet, not before."],
+6:["Song","Conflict","Resolution","The discord of opposing forces seeks its way out. Conflict is neither avoided nor sought: it is recognized for what it is, a tension between two movements that cannot, by nature, coexist without friction. The wisdom here is not to win at all costs, but to know when a quarrel deserves to be carried through and when it deserves to be left in time."],
+7:["Shi","The Army","Cadence","Collective discipline falls into step, like a marching troop. No scattered force is worth an organized one: this line says that true power is never a single brilliant gesture, but a patiently maintained order, where each knows his place and the movement of the whole outweighs individual impulse."],
+8:["Bi","Holding Together","Weaving","The union of clans is knotted from below, like the warp thread. What holds together lastingly is woven in discretion, thread by thread, long before the structure becomes visible from outside. True solidarity is never decreed from above: it is built from the base, thread by thread, until it forms a weave that nothing can undo."],
+9:["Xiao Chu","The Taming Power of the Small","Wayfaring","The light rein set upon the great design. Every great project knows moments when only a minor restraint is possible, when one can only gently redirect the course of things without radically changing it. This line teaches the virtue of the modest gesture: it is not yet time to act on a grand scale, it is time to adjust, patiently, what can be adjusted."],
+10:["Lu","Treading","Fullness","Every step placed upon the tiger's tail without wavering. Danger is not always to be avoided — sometimes it must be crossed, provided one walks through it with total attention, without a single misstep. This line says that caution is not fear: it is that exact concentration which allows one to advance where carelessness would be fatal."],
+11:["Tai","Peace","Alliance","Heaven and Earth meet and exchange freely. When what is above consents to descend and what is below consents to rise, communication becomes total and fruitful. This line teaches that lasting prosperity is always born of this reciprocal exchange — never of a single imposed direction, always of a meeting where each gives and receives in turn."],
+12:["Pi","Standstill","Slowness","When communication is severed by the system's refusal. This is not a passing accident but a structural block: the forces that should answer each other have each frozen in their own refusal. This line says that there are moments when nothing is gained by forcing the passage — one must wait for conditions themselves to shift, or withdraw without losing one's virtue in a vain struggle."],
+13:["Tong Ren","Fellowship with Men","Stability","The brotherhood that opens to the world finds its footing. A community is solid only if it does not close in on itself: it is by opening to others, by seeking what connects rather than what divides, that it finds a lasting foundation. This line teaches that the strongest belonging is often born in contact with the outside, not in withdrawal."],
+14:["Da You","Possession in Great Measure","Jolt","Accumulated wealth is measured by its capacity to weather the shock. It is not the quantity possessed that counts, but the solidity of what has been built: true possession withstands trial, while ill-founded abundance collapses at the first blow. This line invites us never to mistake accumulation for true wealth, which proves itself only over time."],
+15:["Qian","Modesty","Alchemy","Self-effacement nourishes the transmutation within the crucible. Nothing truly transforms without some part of the self consenting to dissolve in the process. This line says that humility is not a passive virtue: it is the active condition of all deep transformation, the crucible where the old dissolves so the new may take shape."],
+16:["Yu","Enthusiasm","Momentum","Thunder rises from the earth and sets bodies into motion. There exists an energy that cannot be commanded, that springs forth and carries along of its own accord, without needing to be forced. This line teaches that the true power to gather others never comes from constraint, but from that shared vibration which only sincere enthusiasm can awaken."],
+17:["Sui","Following","Depth","To follow the movement of time requires descending again to dig the source. One cannot follow lastingly without returning, now and then, to what nourishes the movement itself. This line teaches that the truest adaptation is not the most mobile, but the one that knows how to return to its own origin before setting off again."],
+18:["Gu","Work on What Has Been Spoiled","Repair","Setting right the corruption of a worn inheritance. What has been neglected too long ends up demanding demanding work, but this work is not a curse — it is the chance to rebuild on healthier foundations. This line says that a damaged inheritance is lost only if one refuses to attend to it."],
+19:["Lin","Approach","Growth","The benevolent approach of living forces spurs a patient rise. Nothing great is ever won all at once; everything that truly grows does so through successive approaches, each preparing the next. This line teaches that authentic growth is measured in steps, not leaps."],
+20:["Guan","Contemplation","Convergence","Looking into the distance from the tower gathers what was scattered. A broad vision does not scatter attention, it gathers it: it is by rising above that one discovers the invisible links between things that, up close, seemed unrelated. This line says that understanding always precedes the power to act rightly."],
+21:["Shi He","Biting Through","Edge","Cutting away the false to weld together what is true. There are obstacles that cannot be worked around — they must be crossed, bitten through, overcome by a clean decision. This line teaches that clarity sometimes needs hardness to assert itself, and that this hardness, rightly used, is not violence but justice."],
+22:["Bi","Grace","Distillation","Ornament and beauty of form yield, at the extreme, to decision. All beauty has its useful limit: past a certain point, ornament must give way to the necessity of acting. This line reminds us that form serves substance, never the reverse — the moment one encroaches on the other, simplicity must be restored."],
+23:["Bo","Splitting Apart","Mutation","The collapse of the old edifice frees the energy of new growth. What crumbles does not take everything down with it: the ruin of an exhausted form releases the space and energy needed for what follows. This line teaches not to fear the splitting apart of structures grown hollow — it always precedes renewal."],
+24:["Fu","Return","Rebirth","The vital principle returns at the very heart of the deepest night. Nothing is ever truly lost as long as, somewhere, that tiny seed persists which begins again. This line says that the lowest point already contains, in seed, the movement of return — it is precisely in the deepest darkness that light begins to grow once more."],
+25:["Wu Wang","Innocence","Resolution","Acting without artifice dissolves the knots of obstruction by itself. Complication is born almost always of calculation; true simplicity, on the other hand, defuses obstacles before even confronting them. This line teaches that spontaneous uprightness often resolves what the cleverest scheming only tangles further."],
+26:["Da Chu","The Taming Power of the Great","Restraint","The inner accumulation of power confronts the hardness of the terrain. What grows within, unseen, always ends up meeting an outer resistance — and it is this very encounter that reveals and refines the accumulated force. This line says the obstacle is not the enemy of power, but its necessary trial."],
+27:["Yi","Nourishment","Distinction","What nourishes the spirit stands opposed to what divides the views. Not all nourishment elevates equally: some words, some thoughts strengthen, others scatter and weaken. This line invites us to choose what feeds the mind with the same care we choose what feeds the body."],
+28:["Da Guo","Preponderance of the Great","Structure","The ridgepole bends under its own weight. A structure pushed to the extreme of its capacity announces, by its very bending, the moment when it must either break or be relieved. This line teaches us to recognize the warning signs of collapse before it occurs."],
+29:["Kan","The Abysmal","Trial","Navigating water that will not be sounded. Certain depths can never be fully measured in advance — one can only learn to move within them with what means are at hand, never claiming to master them entirely. This line says that true skill before danger is not to eliminate it, but to learn to swim in it."],
+30:["Li","That Which Clings, Fire","Radiance","The clarity of fire clings to what lives, to spread its glow. Nothing shines in a vacuum: all true brightness needs an anchor, a matter to bind itself to in order to unfold. This line teaches that total independence is not an ideal — even the purest light needs something to illuminate."],
+31:["Xian","Influence","Resonance","The subtle emotion of mutual influence, barely perceptible. The deepest bonds between beings are often formed before a single word is spoken, in that quiet register of shared feeling. This line says that the most lasting influence is never the one that imposes itself loudly, but the one that slips, almost unnoticed, between two presences open to each other."],
+32:["Heng","Duration","Permanence","Constancy through time endures the trial of withdrawal. What truly lasts is not what refuses all change, but what knows, when needed, how to withdraw for a time without losing its own direction. This line teaches that true duration includes its own pauses."],
+33:["Dun","Retreat","Permanence","Duration affirms itself by knowing how to withdraw the better to last. Paradoxically, what lasts longest is often what knew, at the right moment, how to leave the stage. This line teaches that strategic withdrawal does not interrupt continuity — it protects it."],
+34:["Da Zhuang","The Power of the Great","Resonance","Influence amplifies until it becomes a force no longer contained. What begins as simple resonance can, if nothing comes to frame it, grow until it escapes all control. This line warns that power without discipline sooner or later turns against the one who wields it."],
+35:["Jin","Progress","Radiance","Brightness rises, like the sun, toward the recognition of noon. Every true ascent follows its own rhythm, like the sun, which never leaps straight to its zenith. This line says that deserved recognition always arrives in its own time, never before, never after."],
+36:["Ming Yi","Darkening of the Light","Trial","Advancing beneath a light deliberately veiled. It is not a matter of extinguishing one's own clarity, but of knowing how to contain it when circumstances make its full brightness dangerous. This line teaches the discipline of one who continues to act rightly, even when no one can yet see it."],
+37:["Jia Ren","The Family","Structure","The ordered rigor of the family cell. No wider structure holds together unless its most intimate cell — the home — is itself ordered and just. This line says that the order of the world always begins with the order of the household."],
+38:["Kui","Opposition","Distinction","The sorting occurs between words that elevate and those that divide. Not every disagreement is a rupture: some oppositions, rightly understood, refine thought rather than breaking it. This line teaches how to distinguish fruitful disagreement from sterile conflict."],
+39:["Jian","Obstruction","Restraint","Patience itself becomes a shield against the terrain. Facing what cannot be crossed head-on, patience is not resignation but an active protection — it preserves energy for the moment when the passage will open. This line says every obstacle holds, in outline, the indication of the right detour."],
+40:["Jie","Deliverance","Resolution","The knots of obstruction come loose, the passage opens. What seemed inextricable ends up, with time and the right tension released at the right moment, coming undone by itself. This line teaches that deliverance rarely comes by force — it comes when pressure finally finds its rightful outlet."],
+41:["Sun","Decrease","Renunciation","Returning to the center demands consenting to lose what encumbered. One returns to the essential only by accepting to let go of what, over time, proved superfluous. This line says not every loss is impoverishment — some decreases are the very condition of the return to what truly matters."],
+42:["Yi","Increase","Mutation","The energy of a fresh growth is released. What truly grows never does so alone: authentic growth releases an energy that benefits more than the one who carries it. This line teaches that true increase is recognized by what it shares, not by what it hoards."],
+43:["Guai","Breakthrough","Distillation","The decision that cuts clean and eliminates the superfluous. There comes a moment when hesitation itself becomes more dangerous than the sharpness of the decision. This line says true breakthrough does not consist in destroying everything, but in precisely removing what, in excess, threatened the whole."],
+44:["Gou","Coming to Meet","Edge","The unforeseen encounter risks as much as it unites. Everything that presents itself without warning carries an ambiguity within it: promise of connection or seed of danger, one never knows which at first. This line teaches the vigilance that is not suspicion, but discernment at the very moment of encounter."],
+45:["Cui","Gathering Together","Convergence","Contemplation is already a silent gathering. Even before bodies come together, minds that share the same outlook are, in a sense, already gathered. This line says true union always begins in the invisible, long before it becomes visible."],
+46:["Sheng","Pushing Upward","Growth","To approach and to grow are a single vertical gesture. There is no real separation between drawing near one's goal and growing toward it — the two movements are one, as the growing stem is already, in seed, the tree to come. This line teaches the continuity between the small present gesture and the great future result."],
+47:["Kun","Oppression","Repair","Nothing is restored without first consenting to lack. There is no true rebirth without first having passed through the real experience of deprivation. This line says that oppression, well endured, is not merely a trial to suffer but a purification that prepares the return of abundance."],
+48:["Jing","The Well","Depth","One only truly follows what one has first drawn from the depths. No resource benefits one who stays on the surface: one must descend, search, truly draw for the well to yield what it holds. This line teaches that depth is the very condition of usefulness."],
+49:["Ge","Revolution","Momentum","The fire beneath the lake dissolves the old skin. Every deep change first requires the old form to dissolve, however uncomfortable that moment of transition may be. This line says the rightest revolution is never gratuitous — it answers a necessity the old form could no longer contain."],
+50:["Ding","The Cauldron","Alchemy","The most discreet form is the one that best gathers the essence. It is not outward brilliance that defines a vessel's worth, but its capacity to preserve and transform what it receives. This line teaches that true value often resides in what seems most modest in appearance."],
+51:["Zhen","The Arousing","Jolt","What remains standing after the shock is what was truly possessed. The shock creates nothing, it reveals: what collapses at the first tremor was never as solid as it seemed. This line says trial is always, in some way, a revealer of truth."],
+52:["Gen","Keeping Still","Stability","Movement halts so that the essential may be seen. Only in stillness do certain things, masked by constant agitation, finally become visible. This line teaches that knowing how to stop is not renouncing action, it is giving oneself the means to see where to act truly."],
+53:["Jian","Development","Slowness","Root, trunk, branch — one step after another straightens the axis. No authentic growth skips a stage: each degree prepares the next, in an order that nothing can reverse without compromising everything. This line says the patience of gradual development is itself a form of strength."],
+54:["Gui Mei","The Marrying Maiden","Alliance","The sealed union binds two unequal orders into a single weave. Not every union is born in perfect equality; some begin in imbalance and must, over time, find their own justice. This line teaches that loyalty over time can repair what the initial conditions had not made fair."],
+55:["Feng","Abundance","Fullness","The hour of full noon, when light casts no more shadow. There exists an instant, at the summit of all plenitude, when nothing remains hidden — but this instant, by its very nature, can only decline afterward. This line teaches us to savor abundance without forgetting it carries its own limit within it."],
+56:["Lu","The Wanderer","Wayfaring","With neither hearth nor home, the livery stands in for the house. When a dwelling is lacking, it is the garment, the bearing, the conduct that must take its place — a dignity no longer dependent on place but on manner of being. This line says the most solid identity is the one carried with oneself, independent of any outer anchor."],
+57:["Xun","The Gentle, Wind","Weaving","The wind penetrates everywhere without a sound, like the weft. The most discreet force is sometimes the most effective: it meets no head-on resistance because it never announces itself as force. This line teaches the power of continuous, silent influence."],
+58:["Dui","The Joyous","Cadence","The clarity of the lake that gathers and holds in common. What gathers without constraint, by the sheer natural attraction of what it offers, creates the most lasting bonds. This line says true community is recognized by the lightness with which it forms."],
+59:["Huan","Dispersion","Resolution","What clashed disperses and turns fluid again. The most rigid blockages end up, given time and the right movement, dispersing on their own. This line teaches that dissolution is not a loss but a return to the fluid state, a prelude to any new form."],
+60:["Jie","Limitation","Containment","The bamboo sets its nodes so the sap will not disperse. Without the limits that punctuate it, growth itself would lose its strength by scattering without direction. This line says well-placed limitation is not a brake on life, but the condition of its vigor."],
+61:["Zhong Fu","Inner Truth","Apprenticeship","The empty center of the heart becomes the place where trust dwells. It is precisely because the heart does not close in on itself, because it remains an open space, that true trust can settle there. This line teaches that the deepest sincerity is born of a welcoming emptiness, not a closed certainty."],
+62:["Xiao Guo","Preponderance of the Small","Germination","The small line overflows its frame. There are moments when only the detail, the measured gesture, can still act — wanting grand action then would be a misjudgment. This line says rightness, in certain circumstances, is found precisely in accepted smallness."],
+63:["Ji Ji","After Completion","Ground","The seam is closed, the stitch is knotted. What is finished always carries within it the seed of what will come undo it — nothing finished is ever eternally finished. This line teaches that true completion includes awareness of its own fragility."],
+64:["Wei Ji","Before Completion","Onset","The passage is open but the weave is not yet woven. Nothing is yet accomplished, but nothing is impossible either: the door remains open to what, patiently, still remains to be built. This line says the unfinished is not a failure — it is the very condition of all that remains to come, the point from which the entire cycle of the 64 figures endlessly begins again."]
+};
+
+const IMAGE_FR = {
+1:"Heaven moves without ceasing above Heaven: the unbroken line twice over, the same force twice, one carrying the other without ever faltering. Nothing here limits the movement; nothing stops it. This is the image of pure vigor, the kind that knows no rest because it has not yet met what could resist it. The sage who contemplates this figure does not see an invitation to agitation, but a model: just as Heaven turns without interruption, the noble one never stops strengthening himself — not through occasional effort, but through a discipline as continuous as the movement of the stars.",
+2:"Earth carries and nourishes without distinction: it does not choose what it supports, it supports everything. The broken line twice over, the same openness twice, one welcoming the other without ever closing. This is the image of pure capacity — not the one that acts first, but the one that makes possible the action of all that comes to it. The sage who contemplates this figure understands that generosity needs no brilliance: thus the noble one welcomes all beings with generous virtue, as vast as the soil that refuses no seed.",
+3:"Cloud and Thunder: the image of initial difficulty. Above, water not yet rain; below, the shock that seeks its way without yet finding it. Nothing flows freely, everything searches, everything hesitates at the edge of its own birth. This is the figure of a cluttered beginning, one that must clear itself a path before even knowing where it leads. Thus the noble one, faced with initial disorder, forces nothing: he brings order by patiently weaving the threads together, strand by strand, without yielding to impatience for the outcome.",
+4:"At the foot of the mountain a spring wells up: the image of youthful folly. The water is there, lively, but it does not yet know where to flow; it has strength without direction. This is the portrait of inexperience, not as a flaw but as a state — the state before learning, when energy overflows without discernment. Thus the noble one, recognizing this figure in himself or in another, does not despise ignorance: he nourishes his character through resolute action, knowing that the spring, well guided, will become a river.",
+5:"Clouds rise above Heaven: the image of waiting. Everything is in place for the rain to fall, and yet it does not fall yet — the moment is not ripe. This is the figure of silent preparation, one that does not force the hour but lets it come. Thus the noble one eats and drinks, joyful and serene, while awaiting his hour: he does not exhaust himself trying to hasten what has its own rhythm, he nourishes his strength for the moment it will be needed.",
+6:"Heaven and Water move apart in opposite directions: the image of conflict. One rises, the other descends; their very natures separate them, and no surface compromise can reunite them. This is the figure of fundamental opposition, one that is not resolved by good will alone. Thus the noble one, at the very start of any undertaking, weighs its end: he does not enter a dispute without having measured, in advance, how far this path may lead him.",
+7:"Within the Earth, Water lies hidden: the image of the army. Strength exists, but does not display itself — it holds itself ready, invisible, disciplined beneath a calm surface. This is the figure of contained power, one that needs no show to be real. Thus the noble one increases his people through tolerant generosity: true authority is never imposed through displayed force, but built through constancy and restraint.",
+8:"Upon the Earth, Water: the image of holding together. Water takes the shape of the ground, nestles into it, spreads without ever fighting it — union without friction, mutual support. This is the figure of natural alliance, one that is not forced but recognized. Thus the ancient kings gathered the distant kingdoms and honored their princes: lasting solidarity is never born of constraint, but of the mutual recognition of what each brings to the other.",
+9:"Wind moves above Heaven: the image of the small's taming power. Wind lacks the might of thunder or the mass of a mountain — it acts through gentle insistence, through repeated touch rather than shock. This is the figure of discreet influence, one that restrains without constraining. Thus the noble one refines the features of his inner culture: when the greater force is not yet called for, it is through the patient refinement of detail that one prepares what is to come.",
+10:"Above, Heaven; below, the Lake: the image of treading. Each thing keeps its proper place — heaven remains above, the lake below — and it is this respected order that makes walking possible without danger. This is the figure of the right distance, one that allows advance even near what could bite. Thus the noble one distinguishes high from low, and steadies the resolve of the people: each step placed with discernment, even upon the tiger's tail, becomes a safe step.",
+11:"Heaven and Earth unite: the image of peace. What should, by nature, remain separate — high and low — meets here and communicates freely, with no obstacle between them. This is the figure of accomplished harmony, where each force finds its complement rather than its adversary. Thus the sovereign shapes the way of Heaven and Earth and comes to the aid of all beings: peace is not the absence of movement, but exchange become fluid between forces that answer one another.",
+12:"Heaven and Earth do not communicate: the image of standstill. What is above stays above, what is below stays below, and nothing circulates between them any longer — each closes in on its own nature. This is the figure of sterile rupture, where even the mightiest forces exhaust themselves for lack of exchange. Thus the noble one withdraws into his own virtue to escape danger: when the time no longer allows fruitful action, wisdom consists in preserving what is essential rather than wearing oneself out against a wall.",
+13:"Heaven and Fire join together: the image of fellowship with others. The flame rises toward heaven, seeking its own nature, and in this shared movement a kinship appears between things that nonetheless remain distinct. This is the figure of brotherhood founded on a shared direction rather than on uniformity. Thus the noble one distinguishes species and classifies categories: true community does not deny differences, it recognizes them in order to better bring them into harmony.",
+14:"Fire at the summit of Heaven: the image of great possession. Light, carried to the very highest point, illuminates everything without exception — nothing remains in shadow beneath such a blaze. This is the figure of visible abundance, one that shines so brightly it compels responsibility. Thus the noble one curbs evil and exalts good, obeying the favor of Heaven: to possess much is never neutral, it obliges one to discern what to nourish and what to cut away.",
+15:"Within the Earth stands the mountain: the image of modesty. What is highest here allows itself to be contained by what surrounds it, never seeking to dominate the landscape by height alone. This is the figure of greatness that effaces itself willingly. Thus the noble one reduces what is excessive and increases what is lacking, weighing all things with equity: modesty is not smallness, it is strength secure enough in itself that it need not show itself.",
+16:"Thunder bursts forth from the Earth: the image of enthusiasm. Contained energy suddenly releases, and this eruption sets everything around it into motion — nothing remains still before such a burst. This is the figure of contagious momentum, one that carries others along without needing to force them. Thus the ancient kings honored merit through music and virtue: well-directed enthusiasm becomes the gentlest and most powerful force for gathering wills together.",
+17:"In the midst of the Lake, Thunder: the image of following. The movement that rumbles in the depths lets itself be carried by what surrounds it rather than forcing its own path — it follows the contour of the lake instead of breaking it. This is the figure of adapting to another's rhythm. Thus the noble one, at dusk, returns home to rest: to follow is not to submit, it is to recognize the moment when action must yield to rest, as day yields to night.",
+18:"Beneath the mountain, Wind: the image of work on what has been spoiled. Wind rushes into the mountain's fissures, revealing what, over time, has grown corrupt and awaits redress. This is the figure of necessary repair, one that can no longer be postponed. Thus the noble one rouses the people and nourishes their virtue: faced with what is spoiled, the task is not to condemn the past, but to roll up one's sleeves and restore what can still be restored.",
+19:"Above the Lake, the Earth: the image of approach. The earth leans toward the water, drawing near without ever fully dominating it — a movement of gradual approach, never abrupt. This is the figure of benevolence that advances step by step. Thus the noble one teaches without tiring and embraces the people without limit: truly approaching someone requires this patience that never forces the encounter.",
+20:"Wind travels across the Earth: the image of contemplation. The wind touches every corner of the ground without lingering long anywhere — a gaze that embraces widely rather than a gesture that dwells. This is the figure of observation that precedes action. Thus the ancient kings visited the regions, observed the people, and established their teaching: before acting on the world, one must first learn to see it as it is, without haste or bias.",
+21:"Thunder and Lightning unite: the image of biting through. Shock and light strike together, one revealing what the other breaks — nothing can hide for long beneath such a union of force and clarity. This is the figure of the decisive cut illuminated by truth. Thus the ancient kings made punishments clear and kept the laws watchful: cutting rightly first requires seeing rightly.",
+22:"Beneath the mountain, Fire: the image of grace. The flame lights the mountain's flanks without ever claiming to equal its height — an adornment that respects what it reveals rather than dominating it. This is the figure of ornament in service of substance. Thus the noble one sheds light on the many affairs of the day, yet never presumes to settle disputes by appearances alone: grace serves to reveal, never to judge.",
+23:"The mountain rests upon the Earth: the image of splitting apart. What seemed most solid — the mountain's own mass — is in fact only sustained by a base that can give way. This is the figure of collapse awaiting whoever neglects its foundations. Thus the great secure what lies below, that their own house may find rest: before building higher, one must always strengthen what carries the weight.",
+24:"Thunder within the Earth: the image of return. The vital force, buried deep in winter, has not vanished — it waits, invisible, for the moment to rise again. This is the figure of renewal hidden within apparent stillness. Thus the ancient kings, at the solstice, closed the passes; merchants and travelers no longer moved about: there are moments when the greatest act is to hasten nothing, letting the return accomplish itself.",
+25:"Beneath Heaven, Thunder travels on: the image of innocence. Movement follows its course beneath the vast celestial expanse, without calculation or detour, with the simplicity of something that has nothing to hide. This is the figure of upright, spontaneous, unfeigned action. Thus the ancient kings, rich in virtue and attuned to the season, nourished the ten thousand beings: innocence is not naivety, it is the perfect alignment between intention and gesture.",
+26:"Within Heaven, the mountain: the image of the great's taming power. A considerable power holds itself contained, restrained by something that, without matching its size, can nonetheless check it. This is the figure of great force accepting to be disciplined. Thus the noble one keeps in memory the words and deeds of the ancients: true greatness is proven not only by what it deploys, but by what it accepts to contain.",
+27:"Beneath the mountain, Thunder: the image of nourishment. Movement stirs at the base of what is stable, as the jaw stirs beneath the still face — a reminder that even the greatest stability depends on what nourishes it from below. Thus the noble one watches over his words and measures his food and drink: what enters us, through the mouth or through words, shapes what we become.",
+28:"The Lake submerges the wood: the image of the great in excess. Water rises above what should normally contain it — a load too heavy for the structure that bears it, ready to give way under its own weight. This is the figure of the extreme burden. Thus the noble one, standing alone and unafraid, may leave the world without bitterness: there are moments when the load exceeds what any support can bear, and the only dignity left is to face it without complaint.",
+29:"Water comes and comes again: the image of the abysmal doubled. Danger repeats, wave after wave, never offering complete respite — yet water itself, in its constant motion, always finds its own level. This is the figure of repeated trial that forges constancy. Thus the noble one steadily practices virtue and teaches the ways of things: facing danger that returns, only repeated practice, in turn, builds mastery.",
+30:"Brightness, and brightness again: the image of Fire that clings. Light never shines alone — it needs something to hold onto in order to keep radiating, just as flame needs wood. This is the figure of brilliance dependent on a support. Thus the great man, through his unbroken radiance, illuminates the four horizons: to shine lastingly requires staying attached to what nourishes one's own light.",
+31:"On the mountain, a Lake: the image of influence. Water rests upon the height, settling into it without forcing it, and it is this mutual receptiveness that lets influence circulate between the two. This is the figure of shared sensitivity, even before words intervene. Thus the noble one welcomes emptiness into himself, that he may receive others: to influence begins always with knowing how to let oneself be touched.",
+32:"Thunder and Wind: the image of duration. Two movements different by nature join here without contradicting one another, each reinforcing the other in shared constancy. This is the figure of perseverance that does not wear out. Thus the noble one stands firm without changing direction: to last is not to resist all change, it is to find the movement that can repeat itself indefinitely without betraying itself.",
+33:"Beneath Heaven, the mountain: the image of retreat. Heaven gradually distances itself from the mountain, taking its leave without hostility, simply out of the need to preserve its own movement. This is the figure of dignified withdrawal, never shameful flight. Thus the noble one keeps small men at a distance — not out of hatred, but out of dignity: to withdraw in time is not weakness, it is the wisdom of one who knows when staying would cost more than leaving.",
+34:"Thunder above Heaven: the image of the great's power. Considerable force rises to the very highest point, visible to all, capable of shaking whatever lies in its path. This is the figure of power at its peak, one that must learn to master itself precisely because it could sweep everything away. Thus the noble one walks no path but those in keeping with right conduct: great force without proper measure becomes its own ruin.",
+35:"The Sun rises above the Earth: the image of progress. Light gains ground, degree by degree, without a single abrupt leap — a rising movement as sure as it is natural. This is the figure of deserved advancement. Thus the noble one, of his own accord, brings his bright virtue into the light: true progress is never claimed, it simply manifests itself to whoever knows how to wait for daybreak.",
+36:"Light descends into the Earth: the image of darkening. What should shine finds itself buried, forced to veil its own brightness in order to survive intact. This is the figure of clarity that must, for a time, conceal itself to endure. Thus the noble one leads the multitude by veiling his own clarity, while remaining lucid within: there are eras when showing one's full light would be a mistake — wisdom then lies in remaining just, in silence.",
+37:"Wind is born of Fire: the image of the family. Inner warmth engenders a movement that spreads outward — what begins at the hearth always ends up radiating elsewhere. This is the figure of domestic influence shaping the wider world. Thus the noble one grounds his words in substance, and his conduct in constancy: what is lived within the intimacy of the home becomes, sooner or later, what one carries everywhere else.",
+38:"Above, Fire; below, the Lake: the image of opposition. Fire rises, water falls — two natures that live side by side without ever merging, each faithful to its own direction. This is the figure of assumed difference without total rupture. Thus the noble one, within what is shared, discerns what differs: recognizing an opposition does not require destroying it — one can coexist with what contradicts us without pretending to erase it.",
+39:"On the mountain, Water: the image of obstruction. Water meets the slope and cannot advance directly — it must go around, seek another path, slow its natural course. This is the figure of difficulty that imposes a detour. Thus the noble one turns back upon himself and shapes his own virtue: when the outer obstacle cannot be forced, it becomes the occasion to work on what, within, can still grow.",
+40:"Thunder and Rain arise: the image of deliverance. The tension built up in the air is finally released, the storm breaks and purifies what it crosses — a resolution that soothes rather than destroys. This is the figure of relief after constraint. Thus the noble one forgives faults and shows clemency toward wrongs: true deliverance does not stop at oneself, it extends also to those still held captive by their own mistakes.",
+41:"Beneath the mountain, the Lake: the image of decrease. The water below evaporates toward the height, seeming to impoverish itself to nourish what towers over it — a loss that, in truth, serves a wider balance. This is the figure of renunciation that benefits something greater than oneself. Thus the noble one restrains his anger and contains his desires: decreasing what is excessive in oneself is often the condition for something else to grow.",
+42:"Wind and Thunder: the image of increase. Two forces reinforce one another, wind amplifying thunder and thunder giving wind its full measure — a growth that feeds on encounter rather than isolation. Thus the noble one, seeing good, moves toward it; having a fault, he corrects it: true increase is never limited to accumulating, it consists in correcting oneself and growing together.",
+43:"The Lake rises above Heaven: the image of breakthrough. Water, carried higher than what should normally contain it, threatens to overflow — an extreme tension that calls for a clear, irreversible decision. This is the figure of resolution that can wait no longer. Thus the noble one spreads his bounty downward, never resting on virtue alone: cutting decisively must always be accompanied by generosity toward those the decision affects.",
+44:"Beneath Heaven, Wind: the image of coming to meet. Wind travels through space without having been summoned, touching everything in its path — an encounter that imposes itself rather than being planned. This is the figure of the unforeseen that must be welcomed with discernment. Thus the sovereign, through his decrees, instructs the four horizons: what comes to meet us uninvited deserves to be examined before being accepted or turned away.",
+45:"The Lake rises above the Earth: the image of gathering together. Water accumulates and forms a shared expanse, gathering into one place what, scattered, would have had neither strength nor face. This is the figure of convergence that gives substance to the many. Thus the noble one repairs his weapons to guard against the unforeseen: gathering is not enough, one must also prepare to protect what has been gathered.",
+46:"Within the Earth, wood grows: the image of pushing upward. The seed, unseen beneath the surface, patiently pushes toward the light without ever skipping a stage — a growth slow but unstoppable. This is the figure of ascent earned through constancy. Thus the noble one, yielding to virtue, accumulates the small to reach what is high and great: nothing that truly grows skips a step, everything is built layer upon layer.",
+47:"The Lake is without water: the image of oppression. What should nourish and sustain has dried up, leaving behind a glaring lack where abundance was expected. This is the figure of exhaustion that tests the true nature of the one who endures it. Thus the noble one stakes his life to accomplish his purpose: it is precisely in lack that what one truly values is revealed, to the point of being ready to risk everything for it.",
+48:"Upon the wood, Water: the image of the well. Water remains accessible to all who come to draw from it, inexhaustible as long as one knows where to lower the bucket — a shared resource that use never truly depletes. This is the figure of the common good that endures. Thus the noble one comforts the people and urges them toward mutual aid: what truly nourishes a community belongs to no one in particular, it only passes through the hands of those who know how to draw from it.",
+49:"Within the Lake, Fire: the image of revolution. Flame burns beneath the water's surface, two natures that cannot coexist without one eventually transforming the other — a confrontation that necessarily leads to a change of state. Thus the noble one sets the calendar in order and makes the seasons clear: true revolution does not destroy for destruction's sake, it reorders what the old time had left confused.",
+50:"Upon the wood, Fire: the image of the cauldron. Flame transforms raw matter into something nourishing, refined, usable — a vessel that contains the transformation without being consumed by it. This is the figure of culture that refines without destroying. Thus the noble one steadies his destiny by making it upright: as the cauldron gives shape to what it receives, each person shapes their own destiny by what they choose to let cook within it.",
+51:"Thunder doubled: the image of shock. The blow strikes twice, one echoing the other, and what remains standing after such a jolt finally reveals its true solidity. This is the figure of trial that tests without destroying what is truly well-founded. Thus the noble one, in fear and trembling, examines and cultivates his own conduct: the outer shock, however brutal, can become the occasion for a salutary inner reckoning.",
+52:"Mountains joined together: the image of stillness. Two stable masses rest one upon the other, one reinforcing the stillness of the other — a halt that is not paralysis but foundation. This is the figure of rest that makes clarity possible. Thus the noble one lets no thought stray beyond the place he occupies: stopping in the right place, without letting the mind wander beyond the task at hand, is the condition for all true vision.",
+53:"On the mountain, a tree: the image of gradual development. The tree grows slowly, root after root, ring after ring, never skipping a single stage of its growth — a patience written into the wood itself. Thus the noble one establishes himself in worthy virtue and improves the ways of the world: true development, like that of the tree on the slope, is measured in years, not days.",
+54:"Above, Thunder; below, the Lake: the image of the marrying maiden. The movement above draws what rests below into a union not always equally chosen by both parties — a bond that commits despite the initial imbalance. Thus the noble one, mindful of what endures, discerns what corrupts this union: every alliance deserves to be judged over its duration, not on its beginning alone.",
+55:"Thunder and Lightning arrive together: the image of abundance. Movement and light reach their full unfolding at once — a moment of total plenitude, rare and necessarily fleeting. This is the figure of a peak that never lasts forever. Thus the noble one settles disputes and carries out punishments: at the height of abundance, clarity of judgment becomes more necessary than ever, for that is also where everything can tip over.",
+56:"On the mountain, Fire: the image of the wanderer. Flame moves along the slope, lingering nowhere, consuming what presents itself without ever taking root in one place. This is the figure of one with neither hearth nor fixed abode. Thus the noble one applies punishment with clarity and caution, letting no case drag on: without lasting attachments, all the more rigor is needed not to lose one's way along the journey.",
+57:"Winds that follow one another: the image of the gentle doubled. Wind blows, then blows again, insisting without ever striking — an influence that penetrates through repetition rather than force. Thus the noble one spreads his orders abroad and carries his affairs into effect: what cannot be imposed all at once often ends up settling in through the gentle constancy of patient insistence.",
+58:"Lakes that join one another: the image of the joyous doubled. Two bodies of water communicate, nourishing one another, each amplifying the other's joy through their sheer proximity. This is the figure of sharing that multiplies rather than divides. Thus the noble one, with his friends, discusses and practices together: true joy, like the water of joined lakes, is never depleted by being shared — it is strengthened by it.",
+59:"Wind moves above Water: the image of dispersion. Wind stirs the surface, scattering what had frozen solid, breaking the ice into fluid motion — a dissolution that liberates rather than destroys. Thus the ancient kings made offerings to the Sovereign above and raised up temples: when what separated beings begins to dissolve, it is the moment to rebuild a shared bond, a common center.",
+60:"Upon the Lake, Water: the image of limitation. The lake's water stays contained by its banks, and it is this very limit that allows it to exist as a lake rather than losing itself as a shapeless marsh. This is the figure of constraint that structures rather than stifles. Thus the noble one devises measure and number, and reflects on virtue and conduct: rightly chosen limitation is what gives form to everything, including oneself.",
+61:"Upon the Lake, Wind: the image of inner truth. Wind brushes the water's surface and makes it vibrate down to its very center — a resonance that starts from outside but touches the deepest inside. This is the figure of sincerity transmitted without artifice. Thus the noble one deliberates over cases and delays sentences of death: inner truth requires taking the necessary time before deciding on what touches the essential.",
+62:"On the mountain, Thunder: the image of the small in excess. Movement stirs at the summit, contained by the mass that bears it, forced to remain modest in scope though intense in energy. Thus the noble one, in his conduct, leans toward an excess of respect; in mourning, toward an excess of grief; in his spending, toward an excess of thrift: when circumstances demand restraint, it is better to err on the side of modesty than of ambition.",
+63:"Water above Fire: the image of completion. Each element occupies exactly the place that belongs to it, water mastering fire without fully extinguishing it — a balance so perfect it already carries, in seed, its own coming imbalance. Thus the noble one reflects on misfortune in advance and guards against it beforehand: the fullest completion is never a final destination, it is precisely the moment when vigilance must redouble.",
+64:"Fire above Water: the image of the unfinished. Each element sits in the position opposite to the one that would allow their full meeting — fire cannot warm the water that escapes it from above. This is the figure of disorder that still precedes the order to come. Thus the noble one carefully discerns each being and sets each one in its proper place: before everything finds its rightful place, one must first accept the clarity of present disorder, without despairing of the order yet to be born."
+};
+
+// ---------- HSL (mêmes fonctions que creation-motifs-yi-king.html) ----------
+function hexToHsl(hex){
+  const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), l = (max+min)/2;
+  let h = 0, s = 0;
+  const d = max-min;
+  if(d!==0){
+    s = d / (1 - Math.abs(2*l-1));
+    switch(max){
+      case r: h = 60*(((g-b)/d)%6); break;
+      case g: h = 60*((b-r)/d+2); break;
+      default: h = 60*((r-g)/d+4);
+    }
+  }
+  if(h<0) h += 360;
+  return { h, s: s*100, l: l*100 };
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const c = (1-Math.abs(2*l-1))*s, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+function clampL(l){ return Math.max(0, Math.min(100, l)); }
+// Dérivation à partir de la structure à 3 classes de gris du gabarit ech_order_new_def_bw.svg :
+// cls-1 = zone neutre (couleur choisie telle quelle), cls-2 = zone foncée (-20% luminosité),
+// cls-3 = zone claire (+20% luminosité).
+function deriveShades(baseHex){
+  const {h,s,l} = hexToHsl(baseHex);
+  return {
+    neutral: baseHex,
+    dark: hslToHex(h, s, clampL(l-20)),
+    light: hslToHex(h, s, clampL(l+20)),
+  };
+}
+function recolorSvg(svgText, shades){
+  return svgText.replace(/<style>[\s\S]*?<\/style>/,
+    `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
+}
+// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.26–572.74) au milieu
+// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré pour que le
+// motif remplisse la vignette/l'agrandissement/la tessellation au lieu d'apparaître comme
+// un point minuscule.
+const MOTIF_CROP_VIEWBOX = '922 502 76 76'; // avec marge, pour la vignette/l'agrandissement isolés
+const MOTIF_TESS_VIEWBOX = '927.29 507.26 65.42 65.48'; // bbox exacte, sans marge, pour que les carrés du pavage se touchent
+function cropSvg(svgText, viewBox){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${viewBox}"`);
+}
+function prepareSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_CROP_VIEWBOX);
+}
+function prepareTessSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_TESS_VIEWBOX);
+}
+function svgDataUri(svgText){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
+}
+
+// ---------- chargement des 64 motifs ----------
+const MOTIF_RAW = {};
+async function loadAllMotifs(){
+  const kws = Array.from({length:64}, (_,i)=>i+1);
+  await Promise.all(kws.map(async kw=>{
+    const res = await fetch(`../../assets/unified-motifs/${kw}.svg`);
+    MOTIF_RAW[kw] = await res.text();
+  }));
+}
+
+const DEFAULT_COLOR = '#c9a15a';
+let currentColor = DEFAULT_COLOR;
+let currentKw = null;
+
+function buildGrid(){
+  const gridEl = document.getElementById('hexgrid');
+  gridEl.innerHTML = '';
+  const defaultShades = deriveShades(DEFAULT_COLOR);
+  for(let chrono=0; chrono<64; chrono++){
+    const kw = KINGWEN_BY_CHRONO[chrono];
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.chrono = chrono;
+    cell.dataset.kw = kw;
+    const label = document.createElement('div'); label.className='num'; label.textContent = chrono;
+    cell.appendChild(label);
+    const img = document.createElement('img');
+    img.src = svgDataUri(prepareSvg(MOTIF_RAW[kw], defaultShades));
+    img.alt = HEX_KW[kw][1];
+    cell.appendChild(img);
+    cell.addEventListener('click', ()=> selectMotif(kw));
+    gridEl.appendChild(cell);
+  }
+}
+
+function selectMotif(kw){
+  currentKw = kw;
+  document.querySelectorAll('.cell').forEach(c=> c.classList.toggle('active', +c.dataset.kw===kw));
+  renderMotifDetail();
+}
+
+function renderMotifDetail(){
+  const kw = currentKw;
+  const info = HEX_KW[kw];
+  const chrono = CHRONO_BY_KW[kw];
+  const panel = document.getElementById('detail');
+  panel.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'motif-detail';
+
+  // ---- sélecteur de couleur ----
+  const colorRow = document.createElement('div'); colorRow.className = 'motif-color-row';
+  const colorLabel = document.createElement('span'); colorLabel.className='motif-color-label'; colorLabel.textContent = 'Colour';
+  const colorInput = document.createElement('input'); colorInput.type='color'; colorInput.id='motifColorInput'; colorInput.value = currentColor;
+  const swatches = document.createElement('div'); swatches.className='motif-swatches';
+  const swDark = document.createElement('span'); swDark.className='motif-swatch'; swDark.id='swatchDark'; swDark.title='Dark zone (-20% lightness)';
+  const swNeutral = document.createElement('span'); swNeutral.className='motif-swatch'; swNeutral.id='swatchNeutral'; swNeutral.title='Neutral zone';
+  const swLight = document.createElement('span'); swLight.className='motif-swatch'; swLight.id='swatchLight'; swLight.title='Light zone (+20% lightness)';
+  swatches.appendChild(swDark); swatches.appendChild(swNeutral); swatches.appendChild(swLight);
+  const resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='site-nav-btn'; resetBtn.id='btnResetMotifColor';
+  resetBtn.textContent = 'Reset the colour';
+  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches); colorRow.appendChild(resetBtn);
+  wrap.appendChild(colorRow);
+
+  // ---- agrandissement ----
+  const boxWrap = document.createElement('div'); boxWrap.className='motif-box-wrap';
+  const liseret1 = document.createElement('div'); liseret1.className='liseret';
+  const box = document.createElement('div'); box.className='motif-box';
+  const enlargedImg = document.createElement('img'); enlargedImg.id='motifEnlargedImg'; enlargedImg.alt = info[1];
+  box.appendChild(enlargedImg);
+  liseret1.appendChild(box);
+  boxWrap.appendChild(liseret1);
+  const dlBtn = document.createElement('span'); dlBtn.className='dl-btn'; dlBtn.id='dlMotifPng'; dlBtn.style.marginTop='10px'; dlBtn.style.display='inline-block';
+  dlBtn.textContent = 'Download high-resolution PNG';
+  boxWrap.appendChild(dlBtn);
+  wrap.appendChild(boxWrap);
+
+  // ---- texte général (même contenu/source que la page Tirage) ----
+  const numBig = document.createElement('div'); numBig.className='num-big';
+  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — CHRONOLOGICAL ORDER';
+  wrap.appendChild(numBig);
+  const h2 = document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
+  const pin = document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
+  const alt = document.createElement('div'); alt.className='altnum'; alt.textContent = 'King Wen no. (traditional): ' + kw; wrap.appendChild(alt);
+
+  const imgTxt = IMAGE_FR[kw];
+  if(imgTxt){
+    const imgTag = document.createElement('div'); imgTag.className='keyword'; imgTag.textContent = 'Image';
+    const imgName = document.createElement('div'); imgName.className='keyword-sub'; imgName.textContent = info[1];
+    const imgP = document.createElement('div'); imgP.className='judgement'; imgP.style.marginBottom='18px'; imgP.textContent = imgTxt;
+    wrap.appendChild(imgTag); wrap.appendChild(imgName); wrap.appendChild(imgP);
+  }
+  const jgTag = document.createElement('div'); jgTag.className='keyword'; jgTag.textContent = 'Judgement';
+  const kwEl = document.createElement('div'); kwEl.className='keyword-sub'; kwEl.textContent = info[2];
+  const judg = document.createElement('div'); judg.className='judgement'; judg.textContent = info[3];
+  wrap.appendChild(jgTag); wrap.appendChild(kwEl); wrap.appendChild(judg);
+
+  // ---- tessellation ----
+  const tessWrap = document.createElement('div'); tessWrap.className='tessellation-wrap';
+  const tessLabel = document.createElement('div'); tessLabel.className='tessellation-label'; tessLabel.textContent = 'Tessellation';
+  const liseret2 = document.createElement('div'); liseret2.className='liseret';
+  const tessBox = document.createElement('div'); tessBox.className='motif-tess-box'; tessBox.id='motifTessBox';
+  liseret2.appendChild(tessBox);
+  tessWrap.appendChild(tessLabel); tessWrap.appendChild(liseret2);
+  wrap.appendChild(tessWrap);
+
+  panel.appendChild(wrap);
+
+  colorInput.addEventListener('input', (e)=>{ currentColor = e.target.value; updateColorDependentParts(); });
+  resetBtn.addEventListener('click', ()=>{ currentColor = DEFAULT_COLOR; colorInput.value = DEFAULT_COLOR; updateColorDependentParts(); });
+  dlBtn.addEventListener('click', downloadMotifPng);
+
+  updateColorDependentParts();
+}
+
+function updateColorDependentParts(){
+  if(currentKw == null) return;
+  const shades = deriveShades(currentColor);
+  const uri = svgDataUri(prepareSvg(MOTIF_RAW[currentKw], shades));
+  const enlargedImg = document.getElementById('motifEnlargedImg');
+  if(enlargedImg) enlargedImg.src = uri;
+  const tessUri = svgDataUri(prepareTessSvg(MOTIF_RAW[currentKw], shades));
+  const tessBox = document.getElementById('motifTessBox');
+  if(tessBox) tessBox.style.backgroundImage = `url("${tessUri}")`;
+  const swDark = document.getElementById('swatchDark'); if(swDark) swDark.style.background = shades.dark;
+  const swNeutral = document.getElementById('swatchNeutral'); if(swNeutral) swNeutral.style.background = shades.neutral;
+  const swLight = document.getElementById('swatchLight'); if(swLight) swLight.style.background = shades.light;
+}
+
+function downloadMotifPng(){
+  if(currentKw == null) return;
+  const info = HEX_KW[currentKw];
+  const shades = deriveShades(currentColor);
+  const recolored = prepareSvg(MOTIF_RAW[currentKw], shades);
+  const img = new Image();
+  img.onload = ()=>{
+    const size = 4096; // carré, largement au-delà de 300dpi pour un usage textile
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const slug = info[1].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+      a.download = `motif-unifie-${String(currentKw).padStart(2,'0')}-${slug}.png`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = svgDataUri(recolored);
+}
+
+(async () => {
+  await loadAllMotifs();
+  buildGrid();
+})();
+</script>
+<script src="../../assets/soutien-gate.js"></script>
+<script src="../../assets/share-widget.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../profil.html" hreflang="fr">Author profile (French)</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Support</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

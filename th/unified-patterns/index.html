@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unified Patterns — La Livrée d'Hermès</title>
+<meta name="description" content="ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง ปรับสีได้ และดาวน์โหลดได้ในความละเอียดสูงสำหรับพิมพ์ลงผ้า">
+<meta property="og:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta property="og:description" content="ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง ปรับสีได้ และดาวน์โหลดได้ในความละเอียดสูงสำหรับพิมพ์ลงผ้า">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/th/unified-patterns/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/th/unified-patterns/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Unified Patterns — La Livrée d'Hermès">
+<meta name="twitter:description" content="ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง ปรับสีได้ และดาวน์โหลดได้ในความละเอียดสูงสำหรับพิมพ์ลงผ้า">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  /* ===== Repris tel quel de tirage-livree-hermes.html (charte graphique du site) ===== */
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{
+    text-align:center;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;
+  }
+  header .eyebrow{
+    letter-spacing:.35em;
+    font-size:calc(11px + var(--fs-bump));
+    color:var(--red);
+    text-transform:uppercase;
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{
+    max-width:56ch; margin:16px auto 0; color:var(--dim);
+    font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7;
+  }
+
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+    font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+    color:var(--dim); /* sans ceci, un <a> sans couleur explicite hérite du bleu de lien
+                          par défaut du navigateur (#0000EE, 2.23:1 sur --bg) quand
+                          l'emoji drapeau se replie sur son glyphe texte (FR/GB/ES/TH) —
+                          quasi illisible. --dim (8.91:1), comme le .dl-label voisin. */
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:8px 14px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .book-bar .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .book-bar .dl-group{ flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box;
+    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+  }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+  .dl-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; display:inline-block;
+  }
+  .dl-btn:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .layout{ display:grid; grid-template-columns:300px 1fr; gap:28px; align-items:start; }
+  @media (max-width:980px){ .layout{grid-template-columns:1fr;} }
+
+  .grid-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; position:sticky; top:24px; }
+  .grid-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .grid-head .label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; }
+  .axis-note{ font-size:calc(9.5px + var(--fs-bump)); color:var(--dim); line-height:1.5; margin-bottom:10px; }
+  .axis-note b{ color:var(--red); font-weight:400; }
+
+  .hexgrid{ display:grid; grid-template-columns:repeat(8,1fr); gap:4px; }
+  .cell{
+    aspect-ratio:1; background:#050505; border:1px solid var(--line);
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    padding:3px; position:relative; overflow:hidden;
+    transition:border-color .12s ease, transform .12s ease;
+  }
+  .cell:hover{ border-color:var(--red); transform:translateY(-2px); }
+  .cell.active{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .cell .num{ position:absolute; top:2px; left:3px; font-size:calc(7px + var(--fs-bump)); color:var(--dim); z-index:1; }
+  .cell img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .detail-outer{ background:var(--panel); border:1px solid var(--line); min-height:560px; padding:32px 36px; }
+
+  .empty-state{
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+    min-height:496px; gap:24px;
+    color:var(--dim); font-size:calc(13px + var(--fs-bump));
+    text-align:center; line-height:1.7;
+  }
+  .empty-state img.empty-caduceus{ width:auto; height:200px; max-width:90%; opacity:.95; margin-top:0; }
+  @media (max-width:600px){ .empty-state img.empty-caduceus{ height:140px; } }
+
+  /* ===== bloc motif : couleur, agrandissement, texte, tessellation ===== */
+  .liseret{ border:1px solid var(--gold); padding:6px; }
+  .motif-color-row{ display:flex; align-items:center; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
+  .motif-color-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+  #motifColorInput{ width:44px; height:28px; border:1px solid var(--line-strong); background:transparent; cursor:pointer; padding:0; }
+  .motif-swatches{ display:flex; gap:6px; align-items:center; }
+  .motif-swatch{ width:22px; height:22px; border-radius:50%; border:1px solid var(--line); display:inline-block; }
+  .motif-swatch-tag{ font-size:calc(9px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.06em; }
+
+  /* même taille que .pavage-sq de la page Tirage (le carré qui montre le tirage) */
+  .motif-box{ width:130px; height:130px; background:#050505; display:flex; align-items:center; justify-content:center; }
+  .motif-box img{ width:100%; height:100%; display:block; }
+  .motif-box-wrap{ margin-bottom:14px; }
+  .motif-box-wrap .liseret{ display:inline-block; } /* se resserre autour du carré 130x130 au lieu de s'étirer en rectangle */
+
+  .num-big{ font-size:calc(12px + var(--fs-bump)); color:var(--red); letter-spacing:.2em; }
+  .motif-detail h2{ font-weight:400; font-size:calc(28px + var(--fs-bump)); margin:6px 0 2px; letter-spacing:.02em; }
+  .pinyin{ color:var(--dim); font-style:italic; font-size:calc(13px + var(--fs-bump)); margin-bottom:6px; }
+  .altnum{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-bottom:20px; }
+
+  .keyword{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.15em; text-transform:uppercase; color:var(--red); margin:16px 0 6px; }
+  .keyword-sub{ font-size:calc(15px + var(--fs-bump)); font-style:italic; color:var(--red); margin:-2px 0 8px; }
+  .judgement{ font-size:calc(13.5px + var(--fs-bump)); line-height:1.65; color:var(--white); max-width:62ch; }
+
+  .tessellation-wrap{ margin-top:28px; max-width:400px; }
+  .tessellation-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:10px; }
+  .motif-tess-box{
+    aspect-ratio:1/1; background:#050505;
+    background-repeat:repeat; background-size:25% 25%;
+  }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:28px; font-family:Helvetica,Arial,sans-serif;
+  }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .detail-outer{ padding:20px 18px; min-height:0; }
+    .grid-panel{ padding:12px; }
+    .book-bar{ gap:10px; }
+    .book-bar .dl-group{ padding:6px 10px; }
+    .site-nav-btn{ padding:11px 16px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .book-bar .dl-btn{ padding:10px 14px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    .judgement{ font-size:calc(15px + var(--fs-bump)); }
+    .empty-state{ font-size:calc(14.5px + var(--fs-bump)); }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Unified Patterns คืออะไร",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unified Patterns คือเซลล์ปูลายที่มุมทั้งสี่สะท้อนจุดกึ่งกลาง เพื่อสร้างความถี่ของลวดลายเพียงแบบเดียว"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ข้อกำหนดในการสร้าง Unified Patterns มีอะไรบ้าง",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unified Pattern ถูกกำหนดด้วยข้อกำหนดสองข้อ ข้อแรก: การให้สีเดียวกันแก่เมทริกซ์ 6 องค์ประกอบทั้งสอง จะได้ตารางที่สมดุลแบบ 3×12 ข้อที่สอง: ด้านทั้งสี่ของตารางต้องสะท้อนจุดกึ่งกลาง"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Unified Patterns ถูกระบุอย่างไรจากตารางที่สมดุลทั้งหมด",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ข้อกำหนดแรก (สีเดียวบนเมทริกซ์ 6 ทั้งสอง) ทำให้ Unified Patterns ชุดแรก 8 แบบปรากฏขึ้นในบรรดาตารางที่สมดุลแบบ 3×12 ทั้งหมด นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุล ตารางใดเป็น Unified Patterns โดยเฉพาะ"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "เมทริกซ์เหล่านี้ถูกจัดประเภทอย่างไร",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "การจัดประเภทใช้ระบบฌักการ์เพื่อสร้างและจัดระเบียบเมทริกซ์ที่สมดุลและ Unified Patterns บทที่ VII ของ La Livrée d'Hermès ว่าด้วยการจัดประเภทเมทริกซ์เหล่านี้แบบเลขฐานสอง"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ระบบนี้ได้รับการตรวจสอบกับฮาร์โมนีใด",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ระบบการเข้ารหัสได้รับการศึกษาและตรวจสอบสำหรับฮาร์โมนี 12/12/6/6 (เมทริกซ์เติมสี่ชุด แบ่งเป็นสองคู่ของ 12 และสองคู่ของ 6 องค์ประกอบ)"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://anibal-amiot.com/th/" },
+    { "@type": "ListItem", "position": 2, "name": "เครื่องมือ", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Unified Patterns", "item": "https://anibal-amiot.com/th/unified-patterns/" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/unified-patterns/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-38-unified-patterns.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="https://anibal-amiot.com/th/">หน้าแรก</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">เครื่องมือ</a><span class="sep">/</span><span aria-current="page">Unified Patterns</span>
+    </nav>
+    <div class="eyebrow" id="txt-eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1 id="txt-title">Unified Patterns</h1>
+    <p id="txt-subtitle" style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">ลวดลายผ้า 64 แบบที่ผูกกับฉักลักษณ์ 64 ตัวของอี้จิง — คลิกช่องเพื่อปรับสีและดาวน์โหลดลวดลาย</p>
+    <p class="book-intro" id="txt-bookIntro">La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสกลและการถ่ายทอดสู่การทอผ้าแบบฌักการ์</p>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" id="txt-readBook" href="../../th/book/" target="_blank" rel="noopener">อ่านหนังสือ</a>
+        <span class="flags">
+          <!-- @drapeaux-lire:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../fr/livre/" target="_blank" rel="noopener" hreflang="fr" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="../../en/book/" target="_blank" rel="noopener" hreflang="en" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="../../es/libro/" target="_blank" rel="noopener" hreflang="es" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="../../th/book/" target="_blank" rel="noopener" hreflang="th" title="ไทย">🇹🇭</a>
+          <a class="flag-btn ready" href="../../zh/book/" target="_blank" rel="noopener" hreflang="zh-Hans" title="简体中文">🇨🇳</a>
+          <a class="flag-btn ready" href="../../ru/book/" target="_blank" rel="noopener" hreflang="ru" title="Русский">🇷🇺</a>
+          <a class="flag-btn ready" href="../../pt/book/" target="_blank" rel="noopener" hreflang="pt-PT" title="Português">🇵🇹</a>
+          <a class="flag-btn ready" href="../../hi/book/" target="_blank" rel="noopener" hreflang="hi" title="हिन्दी">🇮🇳</a>
+          <!-- @drapeaux-lire:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlPdfBook">ดาวน์โหลด PDF ของหนังสือ</span>
+        <span class="flags">
+          <!-- @drapeaux-pdf:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf" download title="Русский (RU)">🇷🇺</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf" download title="Português (PT)">🇵🇹</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf" download title="हिन्दी (HI)">🇮🇳</a>
+          <!-- @drapeaux-pdf:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label" id="txt-dlYiKing">ดาวน์โหลดคำแปลอี้จิง</span>
+        <span class="flags">
+          <!-- @drapeaux-docx:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ZH.docx" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+          <span class="flag-btn" title="Português — bientôt">🇵🇹</span>
+          <span class="flag-btn" title="हिन्दी — bientôt">🇮🇳</span>
+          <!-- @drapeaux-docx:end -->
+        </span>
+      </span>
+    </div>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <p class="faq-block-title">คำถามที่พบบ่อย</p>
+    <details class="faq-item">
+      <summary>Unified Patterns คืออะไร<span class="q-mark">＋</span></summary>
+      <p>Unified Patterns คือเซลล์ปูลายที่มุมทั้งสี่สะท้อนจุดกึ่งกลาง เพื่อสร้างความถี่ของลวดลายเพียงแบบเดียว</p>
+    </details>
+    <details class="faq-item">
+      <summary>ข้อกำหนดในการสร้าง Unified Patterns มีอะไรบ้าง<span class="q-mark">＋</span></summary>
+      <p>Unified Pattern ถูกกำหนดด้วยข้อกำหนดสองข้อ ข้อแรก: การให้สีเดียวกันแก่เมทริกซ์ 6 องค์ประกอบทั้งสอง จะได้ตารางที่สมดุลแบบ 3×12 ข้อที่สอง: ด้านทั้งสี่ของตารางต้องสะท้อนจุดกึ่งกลาง</p>
+    </details>
+    <details class="faq-item">
+      <summary>Unified Patterns ถูกระบุอย่างไรจากตารางที่สมดุลทั้งหมด<span class="q-mark">＋</span></summary>
+      <p>ข้อกำหนดแรก (สีเดียวบนเมทริกซ์ 6 ทั้งสอง) ทำให้ Unified Patterns ชุดแรก 8 แบบปรากฏขึ้นในบรรดาตารางที่สมดุลแบบ 3×12 ทั้งหมด นี่คือสิ่งที่ทำให้แยกได้ว่า ในบรรดาตารางที่สมดุล ตารางใดเป็น Unified Patterns โดยเฉพาะ</p>
+    </details>
+    <details class="faq-item">
+      <summary>เมทริกซ์เหล่านี้ถูกจัดประเภทอย่างไร<span class="q-mark">＋</span></summary>
+      <p>การจัดประเภทใช้ระบบฌักการ์เพื่อสร้างและจัดระเบียบเมทริกซ์ที่สมดุลและ Unified Patterns บทที่ VII ของ La Livrée d'Hermès ว่าด้วยการจัดประเภทเมทริกซ์เหล่านี้แบบเลขฐานสอง</p>
+    </details>
+    <details class="faq-item">
+      <summary>ระบบนี้ได้รับการตรวจสอบกับฮาร์โมนีใด<span class="q-mark">＋</span></summary>
+      <p>ระบบการเข้ารหัสได้รับการศึกษาและตรวจสอบสำหรับฮาร์โมนี 12/12/6/6 (เมทริกซ์เติมสี่ชุด แบ่งเป็นสองคู่ของ 12 และสองคู่ของ 6 องค์ประกอบ)</p>
+    </details>
+  </div>
+
+  <div class="layout">
+    <div class="grid-panel">
+      <div class="grid-head">
+        <span class="label">ลวดลายรวมเป็นหนึ่ง</span>
+        <span class="label">00 → 63</span>
+      </div>
+      <div class="axis-note">ลำดับตามเวลาเดียวกับหน้า <b>การเสี่ยงทายอี้จิง</b>: <b>ผู้สร้างสรรค์</b> อยู่มุมล่างขวา <b>ผู้รับ</b> อยู่มุมบนซ้าย คลิกช่องเพื่อเปิดดูข้าง ๆ</div>
+      <div class="hexgrid" id="hexgrid"></div>
+    </div>
+
+    <div class="detail-outer">
+      <div id="detail">
+        <div class="empty-state"><picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" class="empty-caduceus" alt="La Livrée d'Hermès" width="420" height="594"></picture>คลิกช่องบนกระดานเพื่อแสดงลวดลาย เลือกสี และดูการปูลาย</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Pied de page ===== -->
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../th/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">หน้าแรก</span><span class="nav-tile-excerpt">หนังสือ แผ่นภาพ และเครื่องมือทั้งหมด</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">บทความ</span><span class="nav-tile-excerpt">ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนด — ทุกอย่างเปิดให้ใช้ฟรีภายใต้ CC BY-NC 4.0 การสนับสนุนของคุณช่วยให้โครงการเดินหน้าต่อไป">มาเป็นผู้สนับสนุน</a>
+
+    <nav class="nav-categories" aria-label="หน้าต่าง ๆ ของเว็บไซต์">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แกลเลอรี</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/two-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสองสี</span><span class="nav-cat-texte">ลวดลายสองสี 142 แบบที่สร้างจากแกนและปิดบนลูกบาศก์ — เกรนการอ่าน การปูลาย การส่งออก</span></a></li>
+          <li><a href="../../th/three-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสามสี</span><span class="nav-cat-texte">ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แอนิเมชัน</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">วอลเปเปอร์</span><span class="nav-cat-texte">วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">การเสี่ยงทายและงานพิมพ์</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">การเสี่ยงทายอี้จิง</span><span class="nav-cat-texte">สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64</span></a></li>
+          <li><a href="../../th/360-layers/"><span class="nav-cat-label">แผ่นลาย 360 แผ่น</span><span class="nav-cat-texte">ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">ลวดลาย SVG</span><span class="nav-cat-texte">ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG</span></a></li>
+          <li><a href="../../th/hexagrams/"><span class="nav-cat-label">ฉักลักษณ์</span><span class="nav-cat-texte">ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">เครื่องมือสร้างสรรค์</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">สร้างลวดลาย</span><span class="nav-cat-texte">ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง</span></a></li>
+          <li><a href="../../th/two-colour-patterns/"><span class="nav-cat-label">ลวดลายสองสี</span><span class="nav-cat-texte">ประกอบเซลล์ขนาด 12×12 หกระดับ แต่ละระดับมีตระกูลและโทนสีของตัวเอง</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">ลวดลายสองสี v2</span><span class="nav-cat-texte">การแบ่งเส้นทแยงครั้งที่สอง (YA/AY) คำศัพท์และสถานะของการเลื่อนครึ่งคาบ — ควบคู่กับเครื่องมือ v1</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">ตัวเข้ารหัส</span><span class="nav-cat-texte">การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ</span></a></li>
+          <li><a href="../../th/unified-patterns/" aria-current="page"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง</span></a></li>
+          <li><a href="../../th/cymatics/"><span class="nav-cat-label">ไซแมติกส์</span><span class="nav-cat-texte">การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">เครื่องมือ</span><span class="nav-cat-texte">เครื่องมือแบบโต้ตอบทั้งหมดของเว็บไซต์ รวมไว้ในที่เดียว</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เกี่ยวกับโครงการ</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/book/"><span class="nav-cat-label">ตำรา</span><span class="nav-cat-texte">ตำราและฉบับแปล ฉักลักษณ์ และอภิธานศัพท์</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">เกี่ยวกับ</span><span class="nav-cat-texte">ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์</span></a></li>
+          <li><a href="../../th/lexicon/"><span class="nav-cat-label">อภิธานศัพท์</span><span class="nav-cat-texte">แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès</span></a></li>
+          <li><a href="../../th/profile/"><span class="nav-cat-label">โปรไฟล์เอกสาร</span><span class="nav-cat-texte">สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12</span></a></li>
+          <li><a href="../../th/contact/"><span class="nav-cat-label">ติดต่อ</span><span class="nav-cat-texte">ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">สนับสนุน</span><span class="nav-cat-texte">สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี</span></a></li>
+          <li><a href="../../th/figures-and-sources/"><span class="nav-cat-label">ตัวเลขและแหล่งที่มา</span><span class="nav-cat-texte">ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">ผลงาน</span><span class="nav-cat-texte">คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>สร้างร่วมกับ Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+
+</div>
+
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+
+// ---------- ordre chronologique (identique à index.html / 360-calques.html) ----------
+const KINGWEN_BY_CHRONO = [2,24,7,19,15,36,46,11,16,51,40,54,62,55,32,34,8,3,29,60,39,63,48,5,45,17,47,58,31,49,28,43,23,27,4,41,52,22,18,26,35,21,64,38,56,30,50,14,20,42,59,61,53,37,57,9,12,25,6,10,33,13,44,1];
+const CHRONO_BY_KW = {};
+KINGWEN_BY_CHRONO.forEach((kw,chrono)=>{ CHRONO_BY_KW[kw] = chrono; });
+
+// ---------- texte général des 64 hexagrammes (même contenu/source que la page Tirage) ----------
+// HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
+const HEX_KW = {
+1:["Qian","ผู้สร้างสรรค์","ปฐมการณ์","เส้นทึบพุ่งทะยานขึ้นเพียงลำพัง ยังไร้อาภรณ์ห่อหุ้ม ณ ขั้นแรกสุดของฉักลักษณ์ พลังมีอยู่แล้วอย่างครบถ้วน หากแต่ยังมิได้ก่อเป็นรูปใดที่จะจำแนกได้ — ยังมิได้สวมใส่หน้าที่ใด บทบาทใด นี่คือพลังในสภาวะบริสุทธิ์ ก่อนที่มันจะตั้งนามให้แก่ตน เส้นนี้บอกล่วงหน้าถึงสิ่งที่อีกห้าเส้นถัดไปจะเป็น: ความคืบหน้าซึ่งอำนาจแห่งการกระทำค่อย ๆ ตัดเย็บอาภรณ์ให้ตนเอง จนกระทั่งฉักลักษณ์ทั้งรูป ณ จุดสูงสุด ได้ค้นพบว่าแม้พลังที่ยิ่งใหญ่ที่สุดก็ต้องเรียนรู้ที่จะยับยั้งตน"],
+2:["Kun","ผู้รับ","ฐานที่ตั้ง","ผืนดินรองรับ รูปทรงวางลง ยังไม่มีสิ่งใดบังเกิด ทว่าทุกสิ่งก็เป็นไปได้แล้ว: แผ่นดินแห่งเส้นแรกมิได้เรียกร้องสิ่งใด มันรอคอย นี่มิใช่ความเฉื่อยชาของผู้ละทิ้ง หากเป็นความอดทนของผู้ที่รู้ว่าความนอบน้อมที่เข้าใจอย่างถ่องแท้ย่อมบรรจุความอุดมสมบูรณ์ทั้งปวงที่จะมาถึง ฉักลักษณ์ทั้งรูปจะคลี่ขยายออกจากคุณสมบัติเพียงประการเดียวนี้: โอบรับก่อนจะปรารถนาบงการ วางตนลงก่อนจะอ้างว่าสร้าง"],
+3:["Zhun","ความยากลำบากในปฐมกาล","การงอก","หน่ออ่อนดิ้นรนอยู่ใต้ดินของจัตุรัส การเกิดทุกครั้งเริ่มต้นในความมืดและแรงต้าน: เมล็ดยังไม่รู้ว่าตนจะมีรูปทรงเช่นไร มันรู้เพียงว่าต้องงอกขึ้น เส้นนี้กล่าวถึงความยากลำบากที่มิใช่ความล้มเหลว หากเป็นเงื่อนไขแท้ของการเริ่มต้นที่แท้จริงทุกครั้ง — ไม่เคยมีสิ่งยิ่งใหญ่ใดผุดขึ้นมาได้โดยไม่ต้องดิ้นหลุดจากสิ่งที่ยึดรั้งมันไว้ก่อน"],
+4:["Meng","ความเขลาแห่งวัยเยาว์","การฝึกเรียน","ความไม่รู้ของศิษย์เรียกหาครู การไม่รู้มิใช่ความอ่อนแอ หากเป็นการเปิดรับ: ผู้ที่ยังไม่รู้คือผู้ที่สามารถเรียนรู้ได้ ฉักลักษณ์ทั้งรูปหมุนรอบการพบกันอันจำเป็นนี้ ระหว่างความอ่อนประสบการณ์ที่แสวงหา กับประสบการณ์ที่ตอบรับ — หากปราศจากความถ่อมตนในเบื้องแรกนี้ ไม่มีคำสอนใดจะหยั่งรากได้"],
+5:["Xu","การรอคอย","ความสงบสำรวม","น้ำรอคอยเวลาอันเหมาะควรของตนอยู่ใต้ฟ้า การรอคอยมิใช่การไม่ทำสิ่งใด: มันคือการยืนหยัดในตำแหน่งของตนอย่างมั่นคง ขณะที่เงื่อนไขทั้งหลายก่อตัวขึ้นในที่อื่น พ้นเอื้อมของเจตจำนง เส้นนี้สอนว่าความรีบร้อนย่อมทำลายสิ่งที่มีเพียงความอดทนเท่านั้นจะทำให้สำเร็จได้ — ฝนจะมาเมื่อฟ้าและดินพร้อมจะพบกัน หาใช่ก่อนนั้นไม่"],
+6:["Song","ความขัดแย้ง","การคลี่คลาย","ความบาดหมางของพลังที่ตรงข้ามกันแสวงหาทางออกของตน ความขัดแย้งมิได้ถูกหลีกเลี่ยงหรือถูกแสวงหา: มันได้รับการยอมรับตามที่มันเป็น คือแรงตึงระหว่างการเคลื่อนไหวสองกระแสที่โดยธรรมชาติแล้วไม่อาจดำรงอยู่ร่วมกันได้โดยปราศจากการเสียดสี ปัญญา ณ ที่นี้มิใช่การเอาชนะไม่ว่าด้วยราคาใด หากคือการรู้ว่าเมื่อใดการวิวาทควรได้รับการดำเนินไปจนถึงที่สุด และเมื่อใดควรละจากมันไปทันเวลา"],
+7:["Shi","กองทัพ","จังหวะก้าว","วินัยของหมู่คณะถูกกำกับดุจการเดินแถวของกองทหาร ไม่มีพลังที่กระจัดกระจายใดเทียบได้กับพลังที่มีระเบียบ: เส้นนี้กล่าวว่าอำนาจที่แท้จริงไม่เคยเป็นอำนาจของการกระทำอันเจิดจ้าเพียงครั้งเดียว หากเป็นอำนาจของระเบียบที่ธำรงไว้อย่างอดทน ซึ่งแต่ละคนรู้ที่ทางของตน และการเคลื่อนไหวของส่วนรวมอยู่เหนือแรงผลักดันของปัจเจก"],
+8:["Bi","ความสามัคคี","การทอ","การรวมกันของเผ่าตระกูลถูกผูกจากเบื้องล่าง ดุจเส้นด้ายยืน สิ่งที่ยึดโยงกันไว้อย่างยั่งยืนย่อมถูกทอขึ้นอย่างเงียบเชียบ ทีละเส้น ก่อนที่โครงสร้างจะปรากฏให้เห็นจากภายนอกเสียอีก ความสามัคคีที่แท้จริงมิอาจประกาศสั่งการลงมาจากเบื้องบน: มันถูกสร้างขึ้นจากฐาน ทีละเส้นด้าย จนก่อเป็นผืนทอที่ไม่มีสิ่งใดจะรื้อทำลายได้อีก"],
+9:["Xiao Chu","พลังกล่อมเกลาของสิ่งเล็ก","การจาริก","ห้ามล้อเบา ๆ ที่วางลงบนปณิธานอันยิ่งใหญ่ โครงการใหญ่ทุกโครงการย่อมมีช่วงเวลาที่ทำได้เพียงการยับยั้งเล็กน้อย ที่ทำได้เพียงเบนกระแสของสิ่งต่าง ๆ ไปเล็กน้อยโดยไม่เปลี่ยนแปลงมันอย่างถึงราก เส้นนี้สอนคุณค่าของการกระทำที่เจียมตน: ยังมิใช่เวลาที่จะทำการใหญ่ หากเป็นเวลาที่จะปรับแต่งสิ่งที่ปรับได้อย่างอดทน"],
+10:["Lu","การก้าวเดิน","ความบริบูรณ์","ทุกก้าวที่วางลงบนหางเสือโดยไม่เบี่ยงเบน อันตรายมิใช่สิ่งที่ต้องหลีกเลี่ยงเสมอไป — บางครั้งต้องฝ่าข้ามมันไป โดยมีเงื่อนไขว่าต้องเดินด้วยความใส่ใจอย่างเต็มที่ ไม่มีการเคลื่อนไหวใดเกินจำเป็น เส้นนี้กล่าวว่าความรอบคอบมิใช่ความกลัว: มันคือสมาธิอันแม่นยำซึ่งทำให้ก้าวไปได้ในที่ซึ่งความประมาทจะนำมาซึ่งหายนะ"],
+11:["Tai","สันติ","พันธไมตรี","ฟ้าและดินพบกันและแลกเปลี่ยนกันอย่างอิสระ เมื่อเบื้องบนยอมลงมา และเบื้องล่างยอมขึ้นไป การสื่อถึงกันย่อมสมบูรณ์และอุดมผล เส้นนี้สอนว่าความรุ่งเรืองที่ยั่งยืนย่อมเกิดจากการแลกเปลี่ยนซึ่งกันและกันเช่นนี้เสมอ — ไม่เคยเกิดจากทิศทางเดียวที่ถูกบังคับ หากเกิดจากการพบกันซึ่งแต่ละฝ่ายต่างให้และรับในคราวเดียวกันเสมอ"],
+12:["Pi","ความชะงักงัน","ความเชื่องช้า","เมื่อการสื่อถึงกันถูกตัดขาดด้วยการปฏิเสธของระบบ นี่มิใช่อุบัติเหตุชั่วครู่ หากเป็นการติดขัดเชิงโครงสร้าง: พลังที่ควรขานรับกันต่างแข็งตัวอยู่ในการปฏิเสธของตน เส้นนี้กล่าวว่ามีบางวาระที่การฝืนเปิดทางไม่มีประโยชน์ — ต้องรอจนเงื่อนไขทั้งหลายเคลื่อนเปลี่ยนเอง หรือถอยออกมาโดยไม่สูญเสียคุณธรรมของตนไปในการต่อสู้ที่ไร้ผล"],
+13:["Tong Ren","ความร่วมใจกับเพื่อนมนุษย์","ความมั่นคง","ภราดรภาพที่เปิดรับโลกพบฐานรากของตน หมู่คณะจะมั่นคงได้ก็ต่อเมื่อไม่ปิดตนเอง: ด้วยการเปิดรับผู้อื่น ด้วยการแสวงหาสิ่งที่เชื่อมโยงมากกว่าสิ่งที่แบ่งแยก มันจึงพบรากฐานที่ยั่งยืน เส้นนี้สอนว่าความเป็นพวกพ้องที่แข็งแกร่งที่สุดมักเกิดขึ้นจากการสัมผัสกับภายนอก หาใช่จากการเก็บตัวไม่"],
+14:["Da You","การครอบครองอันไพศาล","แรงฮึด","ความมั่งคั่งที่สั่งสมไว้วัดได้จากความสามารถที่จะฝ่าแรงกระแทก สิ่งสำคัญมิใช่ปริมาณที่ครอบครอง หากเป็นความมั่นคงของสิ่งที่สร้างขึ้น: การครอบครองที่แท้จริงย่อมต้านทานบททดสอบ ขณะที่ความอุดมที่ตั้งอยู่บนรากฐานอันผิดพลาดย่อมพังทลายเมื่อปะทะครั้งแรก เส้นนี้เชื้อชวนให้อย่าได้สับสนการสะสมกับความมั่งคั่งที่แท้จริง ซึ่งพิสูจน์ตนในกาลเวลา"],
+15:["Qian","ความถ่อมตน","การแปรธาตุ","การลบเลือนตนหล่อเลี้ยงการแปรสภาพในเบ้าหลอม ไม่มีสิ่งใดแปรเปลี่ยนได้อย่างแท้จริง หากไม่มีส่วนหนึ่งของตนยินยอมสลายหายไปในกระบวนการ เส้นนี้กล่าวว่าความถ่อมตนมิใช่คุณธรรมที่เฉื่อยชา: มันคือเงื่อนไขเชิงรุกของการแปรเปลี่ยนอันลึกซึ้งทุกครั้ง คือเบ้าหลอมที่สิ่งเก่าละลายไปเพื่อให้สิ่งใหม่ได้ก่อรูปขึ้น"],
+16:["Yu","ความกระตือรือร้น","แรงทะยาน","อสนีผุดออกจากแผ่นดินและทำให้ร่างทั้งหลายเคลื่อนไหว มีพลังงานชนิดหนึ่งซึ่งไม่อาจสั่งการได้ มันพลุ่งขึ้นและพาสิ่งต่าง ๆ ไปด้วยตัวมันเอง โดยไม่จำเป็นต้องบังคับ เส้นนี้สอนว่าอำนาจที่แท้จริงในการรวมผู้คนไม่เคยมาจากการบีบบังคับ หากมาจากการสั่นสะเทือนร่วมกันซึ่งมีเพียงความกระตือรือร้นอันจริงใจเท่านั้นที่ปลุกขึ้นได้"],
+17:["Sui","การติดตาม","ความลึก","การติดตามความเคลื่อนไหวของกาลเวลาบังคับให้ต้องลงไปขุดหาต้นธารอีกครั้ง เราไม่อาจติดตามได้อย่างยั่งยืนหากไม่หวนกลับไปเป็นครั้งคราวยังสิ่งที่หล่อเลี้ยงความเคลื่อนไหวนั้นเอง เส้นนี้สอนว่าการปรับตัวที่ถูกต้องที่สุดมิใช่การปรับตัวที่เคลื่อนไหวมากที่สุด หากเป็นการปรับตัวที่รู้จักหวนคืนสู่ต้นกำเนิดของตนก่อนจะออกเดินทางอีกครั้ง"],
+18:["Gu","การแก้ไขสิ่งที่เสื่อมเสีย","การซ่อมแซม","การแก้ไขความเสื่อมทรามของมรดกที่ทรุดโทรม สิ่งที่ถูกละเลยมานานเกินไปย่อมเรียกร้องการงานอันหนักหน่วงในที่สุด แต่การงานนี้มิใช่คำสาป — มันคือโอกาสที่จะวางรากฐานใหม่บนฐานที่สมบูรณ์กว่า เส้นนี้กล่าวว่ามรดกที่ชำรุดจะสูญสิ้นก็ต่อเมื่อเราปฏิเสธที่จะดูแลมันเท่านั้น"],
+19:["Lin","การเข้าใกล้","การเติบโต","การเข้าใกล้อย่างเมตตาของพลังแห่งชีวิตกระตุ้นการไต่ขึ้นอย่างอดทน ไม่มีสิ่งยิ่งใหญ่ใดพิชิตได้ในคราวเดียว ทุกสิ่งที่เติบโตอย่างแท้จริงย่อมเติบโตด้วยการเข้าใกล้ทีละขั้น แต่ละขั้นเตรียมทางให้แก่ขั้นถัดไป เส้นนี้สอนว่าการเติบโตที่แท้วัดกันเป็นก้าว หาใช่เป็นการกระโดดไม่"],
+20:["Guan","การเพ่งพินิจ","การบรรจบ","การทอดสายตาไปไกลจากหอสูงรวบรวมสิ่งที่เคยกระจัดกระจายเข้าด้วยกัน ทัศนะที่กว้างไกลไม่ทำให้ความใส่ใจกระจาย หากรวบรวมมันไว้: ด้วยการขึ้นสู่ที่สูงนี่เองที่เราค้นพบสายสัมพันธ์อันมองไม่เห็นระหว่างสิ่งทั้งหลายซึ่งเมื่อมองใกล้ ๆ ดูเหมือนไม่เกี่ยวข้องกัน เส้นนี้กล่าวว่าความเข้าใจย่อมมาก่อนอำนาจที่จะกระทำอย่างถูกต้องเสมอ"],
+21:["Shi He","การกัดทะลุ","ความคมกริบ","ตัดสิ่งเท็จออกเพื่อเชื่อมสิ่งที่ถูกต้องเข้าด้วยกัน มีอุปสรรคบางอย่างที่ไม่อาจอ้อมผ่าน — ต้องฝ่าข้าม ต้องกัดทะลุ ต้องก้าวพ้นด้วยการตัดสินใจที่เด็ดขาด เส้นนี้สอนว่าความกระจ่างบางครั้งต้องอาศัยความแข็งกร้าวเพื่อสถาปนาตน และความแข็งกร้าวนั้น หากใช้อย่างถูกที่ถูกทาง มิใช่ความรุนแรง หากคือความยุติธรรม"],
+22:["Bi","ความงามสง่า","ความเรียบบริสุทธิ์","เครื่องประดับและความงามของรูปทรง ณ จุดสุดขีด ย่อมหลีกทางให้แก่การตัดสินใจ ความงามทุกอย่างมีขีดจำกัดแห่งประโยชน์ของมัน: เมื่อเลยจุดหนึ่งไป เครื่องประดับต้องถอยหลบต่อหน้าความจำเป็นที่จะต้องลงมือ เส้นนี้เตือนว่ารูปแบบรับใช้เนื้อหา หาใช่ในทางกลับกันไม่ — ทันทีที่สิ่งหนึ่งล้ำเข้าไปในอีกสิ่งหนึ่ง ต้องรู้จักทำให้เรียบง่าย"],
+23:["Bo","การแตกสลาย","การกลายพันธุ์","การพังทลายของสิ่งก่อสร้างเก่าปลดปล่อยพลังแห่งการเพิ่มพูนใหม่ สิ่งที่ล่มสลายมิได้พาทุกสิ่งไปด้วย: ซากปรักของรูปทรงที่หมดแรงแล้วเปิดพื้นที่และปลดปล่อยพลังที่จำเป็นต่อสิ่งที่จะตามมา เส้นนี้สอนไม่ให้หวาดกลัวการแตกสลายของโครงสร้างที่กลายเป็นเปลือกกลวง — มันย่อมมาก่อนการฟื้นคืนใหม่เสมอ"],
+24:["Fu","การหวนคืน","การเกิดใหม่","หลักแห่งชีวิตหวนคืนมา ณ ใจกลางของราตรีที่มืดทึบที่สุด ไม่มีสิ่งใดสูญสิ้นไปโดยเด็ดขาด ตราบที่ยังมีหน่อพันธุ์จิ๋วที่เริ่มต้นใหม่หลงเหลืออยู่ที่ใดที่หนึ่ง เส้นนี้กล่าวว่าจุดต่ำสุดย่อมบรรจุความเคลื่อนไหวแห่งการหวนคืนไว้แล้วในฐานะหน่อพันธุ์ — ในความมืดมิดที่สมบูรณ์ที่สุดนั่นเองที่แสงสว่างเริ่มเติบโตขึ้นอีกครั้ง"],
+25:["Wu Wang","ความไร้มลทิน","การคลี่คลาย","การกระทำโดยปราศจากเล่ห์กลย่อมคลายปมแห่งอุปสรรคได้เอง ความยุ่งยากซับซ้อนเกือบทุกครั้งเกิดจากการคิดคำนวณ ส่วนความเรียบง่ายที่แท้จริงนั้นปลดชนวนอุปสรรคได้ก่อนจะต้องเผชิญหน้ากับมันเสียอีก เส้นนี้สอนว่าความเที่ยงตรงที่เกิดขึ้นเองมักคลี่คลายสิ่งที่แม้เล่ห์อุบายที่แยบยลที่สุดก็ทำได้เพียงพันให้ยุ่งเหยิงยิ่งขึ้น"],
+26:["Da Chu","พลังกล่อมเกลาของสิ่งใหญ่","การยับยั้ง","การสั่งสมพลังอำนาจภายในเผชิญหน้ากับความแข็งกระด้างของภูมิประเทศ สิ่งที่เติบโตอยู่ภายในอย่างไร้ร่องรอย ย่อมได้พบกับแรงต้านจากภายนอกในที่สุดเสมอ — และการพบกันนี้เองที่เผยและขัดเกลาพลังที่สั่งสมไว้ เส้นนี้กล่าวว่าอุปสรรคมิใช่ศัตรูของพลังอำนาจ หากเป็นบททดสอบอันจำเป็นของมัน"],
+27:["Yi","การหล่อเลี้ยง","การจำแนก","สิ่งที่หล่อเลี้ยงจิตใจตั้งตรงข้ามกับสิ่งที่แบ่งแยกทัศนะ อาหารทุกอย่างมิได้ยกระดับเสมอกัน: ถ้อยคำบางอย่าง ความคิดบางอย่างเสริมกำลัง อีกบางอย่างทำให้กระจัดกระจายและอ่อนแอ เส้นนี้เชื้อชวนให้เลือกสิ่งที่ใช้หล่อเลี้ยงจิตใจด้วยความพิถีพิถันเช่นเดียวกับสิ่งที่ใช้หล่อเลี้ยงร่างกาย"],
+28:["Da Guo","ความหนักเกินของสิ่งใหญ่","โครงสร้าง","คานอกไก่ที่โค้งงอลงภายใต้น้ำหนักของตนเอง โครงสร้างที่ถูกผลักจนถึงขีดสุดแห่งความสามารถของมัน ย่อมบอกล่วงหน้าด้วยการโค้งงอนั้นเองถึงวาระที่มันจะต้องหักลง หรือต้องได้รับการปลดภาระ เส้นนี้สอนให้รู้จักสัญญาณบอกเหตุของการแตกหักก่อนที่มันจะเกิดขึ้น"],
+29:["Kan","ห้วงลึกสุดหยั่ง","บททดสอบ","การล่องไปในน้ำที่ไม่ยอมให้หยั่งวัด ความลึกบางอย่างไม่อาจวัดได้ครบถ้วนล่วงหน้า — เราทำได้เพียงเรียนรู้ที่จะเคลื่อนไหวในนั้นด้วยสิ่งที่มีอยู่ในมือ โดยไม่เคยอ้างว่าจะควบคุมมันได้ทั้งหมด เส้นนี้กล่าวว่าความสามารถที่แท้จริงเมื่อเผชิญอันตรายมิใช่การขจัดมัน หากคือการเรียนรู้ที่จะว่ายอยู่ในมัน"],
+30:["Li","สิ่งที่ยึดเกาะ ไฟ","การเปล่งรัศมี","ความสว่างของไฟยึดเกาะสิ่งที่มีชีวิตเพื่อแผ่ประกายของตน ไม่มีสิ่งใดส่องแสงได้ในความว่างเปล่า: ความสว่างที่แท้จริงทุกอย่างต้องการจุดยึด ต้องการวัตถุที่จะผูกพันเพื่อคลี่ขยายตน เส้นนี้สอนว่าความเป็นอิสระโดยสมบูรณ์มิใช่อุดมคติ — แม้แสงที่บริสุทธิ์ที่สุดก็ยังต้องการสิ่งที่มันส่องสว่าง"],
+31:["Xian","อิทธิพล","การสั่นพ้อง","ความรู้สึกอันละเอียดอ่อนของอิทธิพลซึ่งกันและกัน แทบไม่อาจรับรู้ได้ สายสัมพันธ์ที่ลึกซึ้งที่สุดระหว่างสรรพชีวิตมักถูกผูกขึ้นก่อนที่ถ้อยคำใดจะเอ่ยออกมาเสียอีก ในแดนอันแผ่วเบาแห่งความรู้สึกที่มีร่วมกัน เส้นนี้กล่าวว่าอิทธิพลที่ยั่งยืนที่สุดไม่เคยเป็นสิ่งที่บังคับตนอย่างอึกทึก หากเป็นสิ่งที่แทรกซึม แทบไม่อาจรับรู้ได้ ระหว่างสองการดำรงอยู่ที่เปิดรับซึ่งกันและกัน"],
+32:["Heng","ความยืนยง","ความคงอยู่","ความมั่นคงตลอดกาลเวลาฝ่าข้ามบททดสอบแห่งการถอยกลับ สิ่งที่ยืนยงอย่างแท้จริงมิใช่สิ่งที่ปฏิเสธความเปลี่ยนแปลงทุกอย่าง หากเป็นสิ่งที่รู้จักถอยออกไปชั่วคราวเมื่อจำเป็น โดยไม่สูญเสียทิศทางของตน เส้นนี้สอนว่าความยืนยงที่แท้จริงย่อมรวมเอาช่วงหยุดพักของมันไว้ด้วย"],
+33:["Dun","การถอยห่าง","ความคงอยู่","ความยั่งยืนยืนยันตนด้วยการรู้จักถอยออกมา เพื่อจะดำรงอยู่ได้ยาวนานยิ่งขึ้น ในทางกลับกัน สิ่งที่คงอยู่ได้นานที่สุดมักเป็นสิ่งที่รู้จักหายไปจากเวทีในจังหวะที่เหมาะสม เส้นนี้สอนว่าการถอยอย่างมีกลยุทธ์มิได้ตัดขาดความต่อเนื่อง หากแต่ปกป้องมันไว้"],
+34:["Da Zhuang","พลังแห่งความยิ่งใหญ่","การสั่นพ้อง","อิทธิพลขยายตัวจนกลายเป็นพลังที่ไม่อาจยับยั้งได้อีก สิ่งที่เริ่มต้นเป็นเพียงการสั่นพ้องเล็ก ๆ อาจเติบโตจนหลุดพ้นจากการควบคุมทั้งปวง หากไม่มีสิ่งใดมากำกับไว้ เส้นนี้เตือนว่าอำนาจที่ไร้วินัย ไม่ช้าก็เร็วจะย้อนกลับมาทำร้ายผู้ที่ใช้มัน"],
+35:["Jin","ความก้าวหน้า","การเปล่งรัศมี","ความรุ่งโรจน์ไต่ขึ้นดุจดวงอาทิตย์ สู่การได้รับการยอมรับยามเที่ยงวัน การขึ้นสู่ที่สูงอย่างแท้จริงย่อมเป็นไปตามจังหวะของตน ดั่งดวงอาทิตย์ที่ไม่เคยกระโดดขึ้นสู่จุดสุดยอดในทันที เส้นนี้กล่าวว่าการยอมรับที่สมควรได้ย่อมมาถึงในเวลาของมันเสมอ ไม่เร็วกว่า ไม่ช้ากว่า"],
+36:["Ming Yi","การมืดมัวของแสงสว่าง","บททดสอบ","ก้าวไปข้างหน้าภายใต้แสงที่จงใจอำพรางไว้ มิใช่การดับความแจ่มใสของตน แต่คือการรู้จักเก็บงำมันไว้ เมื่อสถานการณ์ทำให้ความเจิดจ้าเต็มที่กลายเป็นอันตราย เส้นนี้สอนวินัยของผู้ที่ยังคงกระทำอย่างเที่ยงธรรมต่อไป แม้ในยามที่ยังไม่มีผู้ใดมองเห็น"],
+37:["Jia Ren","คนในครอบครัว","โครงสร้าง","ความเคร่งครัดอันเป็นระเบียบของหน่วยครอบครัว ไม่มีโครงสร้างใดที่ใหญ่กว่าจะตั้งมั่นอยู่ได้ หากหน่วยที่ใกล้ชิดที่สุดของมัน คือบ้านเรือน มิได้มีระเบียบและความเที่ยงธรรมในตัวเอง เส้นนี้กล่าวว่าระเบียบของโลกเริ่มต้นจากระเบียบในบ้านเสมอ"],
+38:["Kui","ความขัดแย้ง","การแยกแยะ","การคัดสรรเกิดขึ้นระหว่างถ้อยคำที่ยกระดับกับถ้อยคำที่แบ่งแยก ความเห็นต่างมิใช่การแตกหักเสมอไป ความขัดแย้งบางอย่าง หากเข้าใจอย่างถ่องแท้ กลับขัดเกลาความคิดให้ประณีตขึ้นแทนที่จะทำลายมัน เส้นนี้สอนให้แยกแยะความเห็นต่างที่ให้ผลงอกงามออกจากความขัดแย้งที่ไร้ผล"],
+39:["Jian","อุปสรรค","การยับยั้ง","ความอดทนกลายเป็นโล่กำบังเมื่อเผชิญกับภูมิประเทศอันสูงชัน ต่อหน้าสิ่งที่ไม่อาจข้ามผ่านได้ตรง ๆ ความอดทนมิใช่การยอมจำนน หากเป็นการปกป้องอย่างตื่นตัว มันสงวนพลังไว้สำหรับวาระที่ทางผ่านจะเปิดออก เส้นนี้กล่าวว่าอุปสรรคทุกอย่างแฝงเครื่องชี้ทางอ้อมที่ถูกต้องไว้ในตัวมันเอง"],
+40:["Jie","การปลดปล่อย","การคลี่คลาย","ปมแห่งอุปสรรคคลายออก ทางผ่านเปิดกว้าง สิ่งที่ดูเหมือนพันกันจนแก้ไม่ออก ในที่สุดก็คลี่คลายไปเอง ด้วยกาลเวลาและด้วยการผ่อนแรงตึงอย่างถูกต้องในจังหวะที่เหมาะสม เส้นนี้สอนว่าการปลดปล่อยไม่ค่อยมาด้วยกำลัง มันมาถึงเมื่อแรงกดดันได้พบทางออกที่เหมาะสมของมันในที่สุด"],
+41:["Sun","การลดทอน","การสละ","การกลับคืนสู่ศูนย์กลางเรียกร้องให้ยอมสูญเสียสิ่งที่เคยรกรุงรัง เราจะกลับสู่แก่นแท้ได้ก็ต่อเมื่อยอมปล่อยสิ่งที่กาลเวลาเผยให้เห็นว่าเกินจำเป็นออกไป เส้นนี้กล่าวว่าการสูญเสียมิใช่ความยากจนลงเสมอไป การลดทอนบางอย่างคือเงื่อนไขของการกลับคืนสู่สิ่งที่สำคัญอย่างแท้จริง"],
+42:["Yi","การเพิ่มพูน","การแปรเปลี่ยน","พลังแห่งการเพิ่มพูนครั้งใหม่ถูกปลดปล่อยออกมา สิ่งที่เติบโตอย่างแท้จริงไม่เคยเติบโตเพียงลำพัง การเติบโตที่แท้ปลดปล่อยพลังที่เป็นประโยชน์กว้างไกลกว่าผู้ที่แบกรับมันไว้ เส้นนี้สอนว่าการเพิ่มพูนที่แท้จริงดูได้จากสิ่งที่มันแบ่งปัน มิใช่จากสิ่งที่มันสะสม"],
+43:["Guai","การฝ่าทะลุ","การขัดเกลาให้บริสุทธิ์","การตัดสินใจที่เฉือนขาดอย่างเด็ดขาดและขจัดสิ่งเกินจำเป็น มีวาระหนึ่งที่ความลังเลเองกลับอันตรายยิ่งกว่าความคมของการตัดสินใจ เส้นนี้กล่าวว่าการฝ่าทะลุที่แท้มิใช่การทำลายทุกสิ่ง แต่คือการขจัดสิ่งที่เกินพอดีจนคุกคามองค์รวมออกไปอย่างแม่นยำ"],
+44:["Gou","การมาพบ","ความคม","การพบพานโดยไม่คาดคิดเปิดทางให้ทั้งความเสี่ยงและการรวมเป็นหนึ่ง ทุกสิ่งที่ปรากฏขึ้นโดยไม่บอกกล่าวล้วนแฝงความกำกวมไว้ในตัว จะเป็นคำมั่นแห่งสายสัมพันธ์หรือเชื้อแห่งอันตราย เราไม่อาจรู้ได้ในทันที เส้นนี้สอนความระแวดระวังที่มิใช่ความหวาดระแวง หากคือการพินิจแยกแยะในขณะแห่งการพบพานนั้นเอง"],
+45:["Cui","การรวมตัว","การบรรจบ","การเพ่งพินิจก็คือการรวมตัวอันเงียบงันอยู่แล้ว แม้ก่อนที่ร่างกายจะมาชุมนุมกัน จิตใจที่มองไปในทางเดียวกันก็ได้รวมตัวกันแล้วในแง่หนึ่ง เส้นนี้กล่าวว่าความเป็นหนึ่งเดียวที่แท้เริ่มต้นในสิ่งที่มองไม่เห็นเสมอ นานก่อนที่จะปรากฏให้เห็น"],
+46:["Sheng","การผลักดันขึ้นสู่เบื้องบน","การเติบโต","การเข้าใกล้และการเติบโตคือท่วงท่าแนวดิ่งเดียวกัน ไม่มีการแบ่งแยกที่แท้จริงระหว่างการเข้าใกล้เป้าหมายกับการเติบโตไปสู่มัน การเคลื่อนไหวทั้งสองเป็นหนึ่งเดียว ดั่งลำต้นอ่อนที่งอกขึ้นก็คือเชื้อของต้นไม้ในวันหน้าอยู่แล้ว เส้นนี้สอนความต่อเนื่องระหว่างท่วงท่าเล็ก ๆ ในปัจจุบันกับผลอันยิ่งใหญ่ในอนาคต"],
+47:["Kun","ความอับจน","การซ่อมแซม","เราไม่อาจฟื้นฟูสิ่งใดได้หากไม่ยอมขาดแคลนเสียก่อน ไม่มีการเกิดใหม่ที่แท้จริงหากไม่เคยผ่านประสบการณ์แห่งความขัดสนจริง ๆ มาก่อน เส้นนี้กล่าวว่าความอับจนที่ข้ามผ่านอย่างถูกต้อง มิใช่เพียงบททดสอบที่ต้องอดทนรับ หากเป็นการชำระล้างที่เตรียมทางให้ความอุดมสมบูรณ์หวนคืนมา"],
+48:["Jing","บ่อน้ำ","ความลึก","เราจะเดินตามสิ่งใดได้ดีก็ต่อเมื่อได้ตักมันขึ้นมาจากก้นบึ้งเสียก่อน ไม่มีทรัพยากรใดเป็นประโยชน์แก่ผู้ที่อยู่แต่บนผิวหน้า ต้องหย่อนลงไป แสวงหา และตักขึ้นมาอย่างแท้จริง บ่อน้ำจึงจะมอบสิ่งที่มันบรรจุไว้ เส้นนี้สอนว่าความลึกคือเงื่อนไขของความเป็นประโยชน์"],
+49:["Ge","การปฏิวัติ","แรงผลักดัน","ไฟใต้บึงละลายผิวเก่าให้สลายไป ความเปลี่ยนแปลงอันลึกซึ้งทุกครั้งเรียกร้องให้รูปแบบเดิมสลายตัวเสียก่อน ไม่ว่าช่วงเปลี่ยนผ่านนั้นจะอึดอัดเพียงใด เส้นนี้กล่าวว่าการปฏิวัติที่ชอบธรรมที่สุดไม่เคยเกิดขึ้นอย่างไร้เหตุ มันตอบสนองความจำเป็นที่รูปแบบเดิมไม่อาจรองรับได้อีกต่อไป"],
+50:["Ding","กระถางสามขา","รสายนเวท","รูปทรงที่ถ่อมตนที่สุดคือรูปทรงที่รองรับแก่นสารไว้ได้ดีที่สุด มิใช่ความงามภายนอกที่กำหนดคุณค่าของภาชนะ หากเป็นความสามารถที่จะรักษาและแปรเปลี่ยนสิ่งที่มันได้รับ เส้นนี้สอนว่าคุณค่าที่แท้มักแฝงอยู่ในสิ่งที่ดูต่ำต้อยที่สุดในเปลือกนอก"],
+51:["Zhen","การสั่นสะเทือน","การสะดุ้งตื่น","สิ่งที่ยังยืนหยัดอยู่ได้หลังแรงกระแทก คือสิ่งที่เราครอบครองไว้อย่างแท้จริง แรงกระแทกมิได้สร้างสิ่งใด มันเพียงเปิดเผย สิ่งที่พังทลายลงตั้งแต่แรงสั่นครั้งแรกไม่เคยมั่นคงอย่างที่มันดูเลย เส้นนี้กล่าวว่าบททดสอบย่อมเป็นเครื่องเปิดเผยความจริงเสมอ ไม่ทางใดก็ทางหนึ่ง"],
+52:["Gen","การหยุดนิ่ง","ความมั่นคง","การเคลื่อนไหวหยุดลงเพื่อให้แก่นแท้ปรากฏ เฉพาะในความนิ่งเท่านั้นที่บางสิ่งซึ่งถูกบดบังด้วยความวุ่นวายไม่หยุดหย่อนจะปรากฏให้เห็นในที่สุด เส้นนี้สอนว่าการรู้จักหยุดมิใช่การละทิ้งการกระทำ หากคือการให้โอกาสตนเองได้เห็นว่าควรกระทำ ณ ที่ใดอย่างแท้จริง"],
+53:["Jian","การพัฒนาทีละขั้น","ความเชื่องช้า","ราก ลำต้น กิ่งก้าน ทีละก้าวทีละขั้นที่ทำให้แกนกลางตั้งตรง ไม่มีการเติบโตที่แท้จริงใดข้ามขั้นได้ แต่ละขั้นเตรียมทางให้ขั้นถัดไป ในลำดับที่ไม่มีสิ่งใดพลิกกลับได้โดยไม่ทำให้ทุกอย่างเสียหาย เส้นนี้กล่าวว่าความอดทนของการพัฒนาอย่างค่อยเป็นค่อยไปนั้นเองก็เป็นพลังรูปแบบหนึ่ง"],
+54:["Gui Mei","เจ้าสาว","พันธมิตร","การรวมกันที่ผนึกแน่นแล้ว ผูกสองระเบียบที่ไม่เท่าเทียมกันไว้ในผืนผ้าเดียวกัน การรวมกันมิได้เกิดในความเท่าเทียมสมบูรณ์เสมอไป บางครั้งเริ่มต้นในความไม่สมดุล และต้องค้นพบความเที่ยงธรรมของตนเองเมื่อกาลเวลาผ่านไป เส้นนี้สอนว่าความซื่อสัตย์ที่ยืนยาวสามารถซ่อมแซมสิ่งที่เงื่อนไขในตอนเริ่มต้นมิได้ทำให้เที่ยงธรรม"],
+55:["Feng","ความอุดมสมบูรณ์","ความเต็มเปี่ยม","ยามเที่ยงวันเต็มที่ เมื่อแสงสว่างไม่ทอดเงาอีกต่อไป มีชั่วขณะหนึ่ง ณ จุดสูงสุดของความเต็มเปี่ยมทั้งปวง ที่ไม่มีสิ่งใดหลงเหลือซ่อนเร้น แต่ชั่วขณะนั้น โดยธรรมชาติของมัน ย่อมทำได้เพียงเสื่อมถอยลงหลังจากนั้น เส้นนี้สอนให้ลิ้มรสความอุดมสมบูรณ์โดยไม่ลืมว่ามันแฝงขีดจำกัดของตนเองไว้ในตัว"],
+56:["Lu","ผู้เดินทาง","การร่อนเร่","ไร้บ้านไร้ถิ่นฐาน อาภรณ์จึงเข้าแทนที่บ้านเรือน เมื่อไม่มีที่พำนัก เครื่องนุ่งห่ม ท่วงท่า และความประพฤติจะต้องทำหน้าที่แทน เป็นศักดิ์ศรีที่มิได้ขึ้นอยู่กับสถานที่อีกต่อไป หากขึ้นอยู่กับวิถีแห่งการเป็น เส้นนี้กล่าวว่าอัตลักษณ์ที่มั่นคงที่สุดคืออัตลักษณ์ที่เราพกพาไปกับตน โดยไม่ขึ้นกับหลักยึดภายนอกใด ๆ"],
+57:["Xun","ความอ่อนโยน, ลม","การถักทอ","ลมแทรกซึมไปทุกหนแห่งอย่างไร้เสียง ดุจเส้นด้ายพุ่งในผืนผ้า พลังที่แนบเนียนที่สุดบางครั้งกลับได้ผลที่สุด มันไม่พบการต้านทานซึ่งหน้า เพราะมันไม่เคยประกาศตนว่าเป็นพลัง เส้นนี้สอนถึงอานุภาพของอิทธิพลที่ต่อเนื่องและเงียบงัน"],
+58:["Dui","ความรื่นรมย์","จังหวะ","ความใสกระจ่างของบึงที่รวบรวมและแบ่งปันร่วมกัน สิ่งที่รวบรวมโดยไม่บีบบังคับ ด้วยแรงดึงดูดตามธรรมชาติของสิ่งที่มันมอบให้เท่านั้น ย่อมก่อสายสัมพันธ์ที่ยั่งยืนที่สุด เส้นนี้กล่าวว่าประชาคมที่แท้ดูได้จากความเบาสบายที่มันก่อตัวขึ้น"],
+59:["Huan","การสลายตัว","การคลี่คลาย","สิ่งที่เคยปะทะกันกระจายตัวออกและกลับลื่นไหลอีกครั้ง การติดขัดที่แข็งทื่อที่สุด ในที่สุดก็กระจายไปเอง ด้วยกาลเวลาและการเคลื่อนไหวที่ถูกต้อง เส้นนี้สอนว่าการสลายตัวมิใช่การสูญเสีย หากเป็นการกลับคืนสู่สภาวะลื่นไหล อันเป็นเบื้องต้นของรูปแบบใหม่ทั้งปวง"],
+60:["Jie","การจำกัด","การรู้จักประมาณ","ไผ่สร้างข้อปล้องไว้เพื่อไม่ให้น้ำเลี้ยงกระจัดกระจาย หากปราศจากขอบเขตที่คั่นจังหวะ การเติบโตเองก็จะสูญเสียพลังไปกับการกระจายตัวอย่างไร้ทิศทาง เส้นนี้กล่าวว่าการจำกัดที่วางไว้อย่างเหมาะสมมิใช่เครื่องห้ามล้อชีวิต หากเป็นเงื่อนไขแห่งความแข็งแกร่งของมัน"],
+61:["Zhong Fu","สัจจะภายใน","การเรียนรู้","ศูนย์กลางอันว่างเปล่าของหัวใจกลายเป็นที่สถิตของความไว้วางใจ ก็เพราะหัวใจไม่ปิดตัวเองลง เพราะมันยังคงเป็นพื้นที่เปิดกว้างนี่เอง ความไว้วางใจที่แท้จึงตั้งมั่นอยู่ในนั้นได้ เส้นนี้สอนว่าความจริงใจที่ลึกซึ้งที่สุดเกิดจากความว่างที่พร้อมต้อนรับ มิใช่จากความแน่ใจที่ปิดตาย"],
+62:["Xiao Guo","ความเหนือกว่าของสิ่งเล็ก","การงอกงาม","เส้นเล็กล้นเกินกรอบของมัน มีบางวาระที่มีเพียงรายละเอียด ท่วงท่าที่พอประมาณ เท่านั้นที่ยังกระทำการได้ การปรารถนากระทำการใหญ่ในยามนั้นจะเป็นความผิดพลาดในการวินิจฉัย เส้นนี้กล่าวว่าในบางสถานการณ์ ความถูกต้องอยู่ในความเล็กที่ยอมรับอย่างเต็มใจนั่นเอง"],
+63:["Ji Ji","หลังความสำเร็จ","ฐานที่ตั้ง","ตะเข็บถูกเย็บปิด ห่วงถักถูกผูกไว้แล้ว สิ่งที่สำเร็จลงย่อมแฝงเชื้อของสิ่งที่จะมาคลายมันออกไว้ในตัวเสมอ ไม่มีสิ่งใดที่จบสิ้นแล้วจะจบสิ้นไปชั่วนิรันดร์ เส้นนี้สอนว่าความสำเร็จที่แท้รวมถึงการตระหนักถึงความเปราะบางของตนเองด้วย"],
+64:["Wei Ji","ก่อนความสำเร็จ","การเริ่มต้น","ทางผ่านเปิดออกแล้ว แต่ผืนผ้ายังมิได้ถูกถักทอ ยังไม่มีสิ่งใดสำเร็จ แต่ก็ไม่มีสิ่งใดเป็นไปไม่ได้ ประตูยังคงเปิดรับสิ่งที่ยังต้องสร้างขึ้นอย่างอดทน เส้นนี้กล่าวว่าความไม่สมบูรณ์มิใช่ความล้มเหลว หากคือเงื่อนไขของทุกสิ่งที่ยังจะมาถึง เป็นจุดที่วัฏจักรทั้งหมดของรูปทั้ง 64 เริ่มต้นใหม่อย่างไม่รู้จบ"]
+};
+
+const IMAGE_FR = {
+1:"ฟ้าเคลื่อนไปไม่หยุดหย่อนเหนือฟ้า: เส้นทึบสองครา พลังเดียวกันสองครา หนึ่งค้ำชูอีกหนึ่งโดยไม่เคยอ่อนแรง ณ ที่นี้ไม่มีสิ่งใดมาจำกัดการเคลื่อนไหว ไม่มีสิ่งใดมาหยุดยั้ง นี่คือภาพแห่งความแข็งแกร่งอันบริสุทธิ์ ซึ่งไม่รู้จักการพักเพราะยังไม่เคยพบสิ่งใดที่อาจต้านทานมันได้ ปราชญ์ผู้เพ่งพินิจฉักลักษณ์นี้มิได้เห็นมันเป็นคำเชื้อเชิญสู่ความกระวนกระวาย หากเป็นแบบอย่าง: ดุจฟ้าที่หมุนเวียนไม่ขาดสาย วิญญูชนย่อมไม่หยุดยั้งที่จะเสริมความมั่นคงแก่ตนเอง — มิใช่ด้วยความพยายามเป็นครั้งคราว แต่ด้วยวินัยที่ต่อเนื่องดุจการโคจรของดวงดาว",
+2:"แผ่นดินแบกรับและหล่อเลี้ยงโดยไม่แบ่งแยก: มันมิได้เลือกสิ่งที่มันค้ำจุน มันค้ำจุนทุกสิ่ง เส้นขาดสองครา ความเปิดกว้างเดียวกันสองครา หนึ่งโอบรับอีกหนึ่งโดยไม่เคยปิดลง นี่คือภาพแห่งความสามารถอันบริสุทธิ์ — มิใช่ความสามารถที่ลงมือก่อน แต่เป็นความสามารถที่ทำให้การกระทำของทุกสิ่งที่มาหามันเป็นไปได้ ปราชญ์ผู้เพ่งพินิจฉักลักษณ์นี้ย่อมเข้าใจว่าความเอื้ออารีไม่จำเป็นต้องเจิดจ้า: ดังนั้นวิญญูชนจึงโอบรับสรรพสัตว์ด้วยคุณธรรมอันเผื่อแผ่ กว้างขวางดุจผืนดินที่ไม่ปฏิเสธเมล็ดพันธุ์ใด",
+3:"เมฆและอสนี: ภาพแห่งความยากลำบากในปฐมกาล เบื้องบนคือน้ำที่ยังมิได้กลายเป็นฝน เบื้องล่างคือแรงสั่นสะเทือนที่แสวงหาทางของตนแต่ยังหาไม่พบ ไม่มีสิ่งใดไหลไปได้อย่างอิสระ ทุกสิ่งต่างแสวงหา ทุกสิ่งลังเลอยู่ที่ขอบแห่งการกำเนิดของตน นี่คือภาพแห่งการเริ่มต้นที่ติดขัด ซึ่งต้องบุกเบิกทางก่อนจะรู้เสียด้วยซ้ำว่าทางนั้นนำไปสู่ที่ใด ดังนั้นวิญญูชน เมื่อเผชิญความสับสนในเบื้องต้น จึงไม่ฝืนสิ่งใด: เขาจัดระเบียบด้วยการทอเส้นด้ายของตนอย่างอดทน ทีละเส้น ทีละเส้น โดยไม่ยอมจำนนต่อความใจร้อนอยากเห็นผล",
+4:"ณ เชิงภูเขามีตาน้ำพุ่งขึ้น: ภาพแห่งความเขลาแห่งวัยเยาว์ น้ำอยู่ตรงนั้น สดใสมีชีวิต แต่ยังไม่รู้ว่าจะไหลไปทางใด มันมีพลังแต่ไร้ทิศทาง นี่คือภาพของความอ่อนประสบการณ์ที่มิใช่ข้อบกพร่องแต่เป็นสภาวะหนึ่ง — สภาวะก่อนการเรียนรู้ เมื่อพลังล้นทะลักโดยปราศจากวิจารณญาณ ดังนั้นวิญญูชน เมื่อรู้จักภาพนี้ในตนเองหรือในผู้อื่น จึงไม่ดูแคลนความไม่รู้: เขาหล่อเลี้ยงอุปนิสัยของตนด้วยการกระทำที่เด็ดเดี่ยว โดยรู้ว่าตาน้ำนั้น หากได้รับการนำทางที่ดี จะกลายเป็นแม่น้ำ",
+5:"เมฆลอยขึ้นเหนือฟ้า: ภาพแห่งการรอคอย ทุกสิ่งพร้อมแล้วสำหรับฝนที่จะตก ทว่าฝนก็ยังไม่ตก — เวลายังไม่สุกงอม นี่คือภาพแห่งการตระเตรียมอย่างเงียบงัน ซึ่งไม่เร่งรัดเวลาแต่ปล่อยให้มันมาถึงเอง ดังนั้นวิญญูชนจึงกินและดื่ม รื่นรมย์และสงบ ระหว่างรอคอยเวลาของตน: เขาไม่ทำให้ตนเหนื่อยล้าด้วยการเร่งรัดสิ่งที่มีจังหวะของมันเอง เขาหล่อเลี้ยงพลังของตนไว้สำหรับวาระที่มันจะเป็นที่ต้องการ",
+6:"ฟ้าและน้ำแยกห่างจากกันไปในทิศทางตรงข้าม: ภาพแห่งความขัดแย้ง สิ่งหนึ่งขึ้น อีกสิ่งหนึ่งลง ธรรมชาติของมันเองแยกมันออกจากกัน และไม่มีการประนีประนอมเพียงผิวเผินใดจะรวมมันเข้าด้วยกันได้ นี่คือภาพแห่งการต่อต้านขั้นมูลฐาน ซึ่งไม่อาจคลี่คลายได้ด้วยเจตนาดีเพียงอย่างเดียว ดังนั้นวิญญูชน ตั้งแต่เริ่มต้นกิจการใด ๆ จึงชั่งตรองถึงปลายทางของมัน: เขาไม่ก้าวเข้าสู่ข้อพิพาทโดยมิได้ประเมินไว้ล่วงหน้าว่าเส้นทางนี้อาจนำเขาไปไกลเพียงใด",
+7:"ท่ามกลางแผ่นดินมีน้ำซ่อนอยู่: ภาพแห่งกองทัพ พลังมีอยู่ แต่ไม่เปิดเผยตน — มันตั้งมั่นพร้อมสรรพ ไร้ร่องรอย มีวินัยอยู่ใต้ผิวหน้าอันสงบ นี่คือภาพแห่งอำนาจที่ถูกเก็บงำ ซึ่งไม่จำเป็นต้องแสดงตนเพื่อจะเป็นจริง ดังนั้นวิญญูชนจึงเพิ่มพูนประชาชนของตนด้วยความเอื้ออารีที่อดกลั้น: อำนาจที่แท้จริงมิได้สถาปนาตนด้วยกำลังที่โอ้อวด หากก่อร่างขึ้นในความมั่นคงและการยับยั้งชั่งใจ",
+8:"บนแผ่นดินมีน้ำ: ภาพแห่งความสามัคคี น้ำโอบตามรูปของผืนดิน ขดตัวอยู่ในนั้น แผ่ซ่านไปโดยไม่เคยต่อสู้กับมัน — การรวมกันที่ปราศจากการเสียดสี การเกื้อหนุนซึ่งกันและกัน นี่คือภาพแห่งพันธมิตรตามธรรมชาติ ซึ่งมิได้ถูกบังคับแต่เกิดจากการรู้จักกัน ดังนั้นกษัตริย์ในโบราณกาลจึงรวบรวมแว่นแคว้นที่ห่างไกล และให้เกียรติแก่เจ้าผู้ครองของแคว้นเหล่านั้น: ความสามัคคีที่ยั่งยืนมิได้เกิดจากการบีบบังคับ หากเกิดจากการยอมรับซึ่งกันและกันในสิ่งที่แต่ละฝ่ายมอบให้แก่อีกฝ่าย",
+9:"ลมพัดผ่านไปเหนือฟ้า: ภาพแห่งพลังกล่อมเกลาของสิ่งเล็ก ลมไม่มีพลังของอสนีหรือมวลของภูเขา — มันกระทำด้วยการย้ำเตือนอย่างแผ่วเบา ด้วยการลูบไล้ซ้ำแล้วซ้ำเล่ามากกว่าการกระแทก นี่คือภาพแห่งอิทธิพลอันแนบเนียน ซึ่งยับยั้งโดยไม่บีบบังคับ ดังนั้นวิญญูชนจึงขัดเกลาลักษณะแห่งอารยะภายในของตน: เมื่อพลังอันยิ่งใหญ่ยังไม่ถึงคราวใช้ ก็ด้วยการประณีตในรายละเอียดอย่างอดทนนี่เองที่เราเตรียมสิ่งซึ่งจะมาถึง",
+10:"เบื้องบนคือฟ้า เบื้องล่างคือบึง: ภาพแห่งการก้าวเดิน ทุกสิ่งดำรงที่ทางของตน — ฟ้ายังคงอยู่เบื้องบน บึงอยู่เบื้องล่าง — และระเบียบที่ได้รับการเคารพนี้เองที่ทำให้การก้าวเดินเป็นไปได้โดยปลอดภัย นี่คือภาพแห่งระยะห่างอันพอเหมาะ ซึ่งทำให้ก้าวไปได้แม้อยู่ใกล้สิ่งที่อาจขบกัด ดังนั้นวิญญูชนจึงแยกแยะสูงและต่ำ และทำให้เจตจำนงของประชาชนมั่นคง: ทุกก้าวที่วางลงด้วยวิจารณญาณ แม้บนหางเสือเอง ย่อมกลายเป็นก้าวที่มั่นคงปลอดภัย",
+11:"ฟ้าและดินผสานกัน: ภาพแห่งสันติ สิ่งที่โดยธรรมชาติแล้วควรแยกจากกัน — เบื้องบนและเบื้องล่าง — ได้มาพบกัน ณ ที่นี้ และสื่อถึงกันอย่างอิสระโดยไร้สิ่งกีดขวาง นี่คือภาพแห่งความกลมกลืนที่บรรลุแล้ว ซึ่งแต่ละพลังพบส่วนเติมเต็มของตนแทนที่จะพบศัตรู ดังนั้นองค์อธิปัตย์จึงหล่อหลอมวิถีแห่งฟ้าและดิน และเกื้อกูลสรรพสัตว์: สันติมิใช่การปราศจากความเคลื่อนไหว หากคือการแลกเปลี่ยนที่ไหลลื่นระหว่างพลังที่ขานรับกันและกัน",
+12:"ฟ้าและดินไม่สื่อถึงกัน: ภาพแห่งความชะงักงัน เบื้องบนยังคงอยู่เบื้องบน เบื้องล่างยังคงอยู่เบื้องล่าง และไม่มีสิ่งใดไหลเวียนระหว่างกันอีก — ต่างฝ่ายต่างปิดตนอยู่ในธรรมชาติของตน นี่คือภาพแห่งการแตกแยกที่ไร้ผล ซึ่งแม้พลังที่ทรงอำนาจที่สุดก็หมดสิ้นไปเพราะขาดการแลกเปลี่ยน ดังนั้นวิญญูชนจึงถอยกลับเข้าสู่คุณธรรมของตนเพื่อหลีกพ้นภยันตราย: เมื่อกาลเวลาไม่เอื้อต่อการกระทำที่อุดมผลอีกต่อไป ปัญญาคือการรักษาสิ่งที่เป็นแก่นสารไว้ แทนที่จะทำให้ตนอ่อนล้าด้วยการปะทะกำแพง",
+13:"ฟ้าและไฟร่วมกัน: ภาพแห่งความร่วมใจกับเพื่อนมนุษย์ เปลวไฟพุ่งขึ้นสู่ฟ้า แสวงหาธรรมชาติของตน และในการเคลื่อนไหวร่วมกันนี้ ความเป็นญาติก็ปรากฏขึ้นระหว่างสิ่งทั้งหลายที่ยังคงแตกต่างกันอยู่ นี่คือภาพแห่งภราดรภาพที่ตั้งอยู่บนทิศทางร่วมกันมากกว่าความเหมือนกันทุกประการ ดังนั้นวิญญูชนจึงจำแนกเผ่าพันธุ์และจัดหมวดหมู่ประเภท: หมู่คณะที่แท้จริงไม่ปฏิเสธความแตกต่าง หากยอมรับมันเพื่อประสานมันให้กลมกลืนยิ่งขึ้น",
+14:"ไฟอยู่บนยอดฟ้า: ภาพแห่งการครอบครองอันยิ่งใหญ่ แสงสว่างที่ถูกยกขึ้นสู่ที่สูงสุดส่องสว่างทุกสิ่งโดยไม่มีข้อยกเว้น — ไม่มีสิ่งใดคงอยู่ในเงามืดภายใต้การลุกโชนเช่นนี้ นี่คือภาพแห่งความอุดมที่ปรากฏแก่สายตา ซึ่งเปล่งรัศมีจนก่อให้เกิดพันธะแห่งความรับผิดชอบ ดังนั้นวิญญูชนจึงกดข่มความชั่วและเชิดชูความดี โดยน้อมรับความโปรดปรานแห่งฟ้า: การครอบครองมากมายไม่เคยเป็นกลาง มันบังคับให้ต้องแยกแยะว่าเราหล่อเลี้ยงสิ่งใดและตัดทอนสิ่งใด",
+15:"ภายในแผ่นดินมีภูเขาตั้งอยู่: ภาพแห่งความถ่อมตน สิ่งที่สูงที่สุด ณ ที่นี้ยอมให้สิ่งที่ล้อมรอบโอบเก็บไว้ โดยไม่เคยแสวงหาที่จะครอบงำภูมิทัศน์ด้วยความสูงเพียงอย่างเดียว นี่คือภาพแห่งความยิ่งใหญ่ที่ลบเลือนตนเองโดยสมัครใจ ดังนั้นวิญญูชนจึงลดสิ่งที่มากเกิน และเพิ่มสิ่งที่ขาดพร่อง ชั่งน้ำหนักสิ่งทั้งหลายอย่างเสมอภาค: ความถ่อมตนมิใช่ความต่ำต้อย หากคือพลังที่มั่นใจในตนเองพอจะไม่จำเป็นต้องแสดงตน",
+16:"อสนีผุดออกจากแผ่นดินอย่างทรงพลัง: ภาพแห่งความกระตือรือร้น พลังงานที่ถูกกักเก็บไว้ปลดปล่อยออกมาอย่างฉับพลัน และการปะทุนี้ทำให้ทุกสิ่งรอบข้างเคลื่อนไหว — ไม่มีสิ่งใดคงนิ่งอยู่ได้ต่อหน้าประกายเจิดจ้าเช่นนี้ นี่คือภาพแห่งแรงทะยานที่ติดต่อถึงกัน ซึ่งพาไปโดยไม่จำเป็นต้องบีบบังคับ ดังนั้นกษัตริย์ในโบราณกาลจึงยกย่องความดีงามด้วยดนตรีและคุณธรรม: ความกระตือรือร้นที่ได้รับการนำทางอย่างดีย่อมกลายเป็นพลังที่อ่อนโยนที่สุดและทรงพลังที่สุดในการรวมเจตจำนงทั้งหลายเข้าด้วยกัน",
+17:"ท่ามกลางบึงมีอสนี: ภาพแห่งการติดตาม ความเคลื่อนไหวที่คำรามอยู่ในส่วนลึกยอมให้สิ่งรอบข้างพาไป แทนที่จะฝืนวิถีของตน — มันเคลื่อนตามขอบของบึงแทนที่จะทำลายมัน นี่คือภาพแห่งการปรับตัวเข้ากับจังหวะของผู้อื่น ดังนั้นวิญญูชน ยามสนธยา จึงกลับเรือนเพื่อพักผ่อน: การติดตามมิใช่การยอมสยบ หากคือการรู้จักวาระที่การกระทำต้องหลีกทางให้แก่การพัก ดุจกลางวันที่หลีกทางให้แก่กลางคืน",
+18:"ใต้ภูเขามีลม: ภาพแห่งการแก้ไขสิ่งที่เสื่อมเสีย ลมพัดกรูเข้าไปในรอยแยกของภูเขา เผยให้เห็นสิ่งที่เสื่อมทรามลงตามกาลเวลาและรอคอยการแก้ไข นี่คือภาพแห่งการซ่อมแซมอันจำเป็น ซึ่งไม่อาจผัดผ่อนได้อีกต่อไป ดังนั้นวิญญูชนจึงปลุกเร้าประชาชนและหล่อเลี้ยงคุณธรรมของตน: เมื่อเผชิญสิ่งที่เสื่อมเสีย สิ่งที่ต้องทำมิใช่การประณามอดีต หากคือการพับแขนเสื้อขึ้นเพื่อฟื้นฟูสิ่งที่ยังฟื้นฟูได้",
+19:"เหนือบึงมีแผ่นดิน: ภาพแห่งการเข้าใกล้ แผ่นดินโน้มลงหาน้ำ เข้าใกล้มันโดยไม่เคยครอบงำมันจนสิ้น — ความเคลื่อนไหวแห่งการขยับเข้าหาทีละน้อย ไม่เคยหักหาญ นี่คือภาพแห่งความเมตตาที่ก้าวไปทีละก้าว ดังนั้นวิญญูชนจึงสั่งสอนโดยไม่รู้เหนื่อยหน่าย และโอบรับประชาชนโดยไร้ขอบเขต: การเข้าใกล้ใครสักคนอย่างแท้จริงเรียกร้องความอดทนที่ไม่เคยเร่งรัดการพบกัน",
+20:"ลมพัดผ่านทั่วแผ่นดิน: ภาพแห่งการเพ่งพินิจ ลมสัมผัสทุกซอกมุมของผืนดินโดยไม่หยุดอยู่ที่ใดนาน — สายตาที่โอบกว้าง มากกว่าการกระทำที่รั้งรออยู่ นี่คือภาพแห่งการสังเกตที่มาก่อนการกระทำ ดังนั้นกษัตริย์ในโบราณกาลจึงเสด็จเยือนแว่นแคว้น สังเกตประชาชน และสถาปนาคำสอน: ก่อนจะกระทำต่อโลก ต้องเรียนรู้ที่จะมองเห็นโลกตามที่มันเป็นเสียก่อน โดยไม่รีบร้อนและไม่ลำเอียง",
+21:"อสนีและสายฟ้าแลบผสานกัน: ภาพแห่งการกัดทะลุ แรงกระแทกและแสงสว่างฟาดลงพร้อมกัน หนึ่งเผยให้เห็นสิ่งที่อีกหนึ่งทำลาย — ไม่มีสิ่งใดซ่อนอยู่ได้นานภายใต้การผสานกันของพลังและความกระจ่างเช่นนี้ นี่คือภาพแห่งการตัดสินที่เด็ดขาดซึ่งความจริงส่องทาง ดังนั้นกษัตริย์ในโบราณกาลจึงทำให้บทลงโทษชัดแจ้ง และทำให้กฎหมายตื่นตัวเฝ้าระวัง: การตัดสินอย่างเที่ยงตรงเรียกร้องการมองเห็นอย่างเที่ยงตรงเสียก่อน",
+22:"ใต้ภูเขามีไฟ: ภาพแห่งความงามสง่า เปลวไฟส่องสว่างเชิงเขาโดยไม่เคยอ้างว่าเทียบเท่าความสูงของมัน — การประดับประดาที่เคารพสิ่งที่มันเผยให้เห็น แทนที่จะครอบงำ นี่คือภาพแห่งเครื่องประดับที่รับใช้เนื้อหา ดังนั้นวิญญูชนจึงส่องสว่างกิจการอันหลากหลาย โดยไม่เคยบังอาจตัดสินคดีความด้วยแสงแห่งรูปลักษณ์ภายนอกเพียงอย่างเดียว: ความงามสง่ามีไว้เพื่อเผยให้เห็น หาใช่เพื่อพิพากษาไม่",
+23:"ภูเขาตั้งอยู่บนแผ่นดิน: ภาพแห่งการแตกสลาย สิ่งที่ดูมั่นคงที่สุด — มวลของภูเขาเอง — แท้จริงแล้วถูกค้ำไว้ด้วยฐานที่อาจทรุดลงได้เท่านั้น นี่คือภาพแห่งการพังทลายที่รอคอยสิ่งซึ่งละเลยรากฐานของตน ดังนั้นผู้ยิ่งใหญ่จึงเสริมความมั่นคงแก่สิ่งที่อยู่เบื้องล่าง เพื่อให้เรือนของตนสงบมั่น: ก่อนจะสร้างให้สูงขึ้น ต้องเสริมความแข็งแรงแก่สิ่งที่แบกรับไว้เสมอ",
+24:"อสนีภายในแผ่นดิน: ภาพแห่งการหวนคืน พลังชีวิตที่ถูกฝังอยู่ในส่วนลึกที่สุดของฤดูหนาวมิได้หายไป — มันรอคอยอย่างไร้ร่องรอยให้ถึงวาระที่จะผุดขึ้นอีกครั้ง นี่คือภาพแห่งการฟื้นคืนใหม่ที่ซ่อนอยู่ในความนิ่งงันที่ปรากฏ ดังนั้นกษัตริย์ในโบราณกาล ณ วันอายัน จึงปิดช่องทางสัญจร พ่อค้าและนักเดินทางไม่ไปมาอีก: มีบางวาระที่การกระทำอันยิ่งใหญ่ที่สุดคือการไม่เร่งรัดสิ่งใด เพื่อปล่อยให้การหวนคืนบรรลุผลด้วยตัวมันเอง",
+25:"ใต้ฟ้ามีอสนีเคลื่อนไป: ภาพแห่งความไร้มลทิน ความเคลื่อนไหวดำเนินไปตามวิถีของมันภายใต้ผืนฟ้าอันกว้างใหญ่ โดยไม่คิดคำนวณ ไม่อ้อมค้อม ด้วยความเรียบง่ายของสิ่งที่ไม่มีอะไรต้องปิดบัง นี่คือภาพแห่งการกระทำที่เที่ยงตรง เกิดขึ้นเอง ไม่เสแสร้ง ดังนั้นกษัตริย์ในโบราณกาล ผู้มั่งคั่งด้วยคุณธรรมและสอดคล้องกับกาลเวลา จึงหล่อเลี้ยงสรรพสิ่งนับหมื่น: ความไร้มลทินมิใช่ความไร้เดียงสา หากคือความสอดประสานอย่างสมบูรณ์ระหว่างเจตนากับการกระทำ",
+26:"ภายในฟ้ามีภูเขา: ภาพแห่งพลังกล่อมเกลาของสิ่งใหญ่ พลังอำนาจมหาศาลถูกเก็บงำไว้ ถูกยับยั้งด้วยสิ่งที่แม้จะไม่ใหญ่เทียบเท่า ก็ยังรู้จักห้ามมันไว้ได้ นี่คือภาพแห่งพลังอันยิ่งใหญ่ที่ยอมรับการถูกกำกับด้วยวินัย ดังนั้นวิญญูชนจึงจดจำถ้อยคำและการกระทำของคนโบราณไว้ในความทรงจำ: ความยิ่งใหญ่ที่แท้จริงมิได้พิสูจน์ตนด้วยสิ่งที่มันแผ่ขยายออกไปเท่านั้น หากด้วยสิ่งที่มันยอมเก็บงำไว้ด้วย",
+27:"ใต้ภูเขามีอสนี: ภาพแห่งการหล่อเลี้ยง ความเคลื่อนไหวกระเพื่อมอยู่ที่ฐานของสิ่งที่มั่นคง ดุจขากรรไกรที่ขยับอยู่ใต้ใบหน้าอันนิ่งสงบ — เครื่องเตือนใจว่าแม้ความมั่นคงที่ยิ่งใหญ่ที่สุดก็ขึ้นอยู่กับสิ่งที่ได้รับการหล่อเลี้ยงอยู่เบื้องล่าง ดังนั้นวิญญูชนจึงระวังถ้อยคำของตน และประมาณการกินการดื่มของตน: สิ่งที่เข้าสู่ตัวเรา ไม่ว่าทางปากหรือทางถ้อยคำ ย่อมหล่อหลอมสิ่งที่เราจะกลายเป็น",
+28:"บึงท่วมท้นไม้: ภาพแห่งความหนักเกินของสิ่งใหญ่ น้ำขึ้นสูงเหนือสิ่งที่ตามปกติควรกักมันไว้ — ภาระที่หนักเกินไปสำหรับโครงสร้างที่แบกรับมัน พร้อมจะทรุดลงภายใต้น้ำหนักของตนเอง นี่คือภาพแห่งภาระอันถึงขีดสุด ดังนั้นวิญญูชน แม้ลำพังและไร้ความหวาดกลัว จึงละจากโลกไปโดยไม่ขมขื่น: มีบางวาระที่ภาระเกินกว่าที่สิ่งค้ำจุนใดจะแบกรับไหว และศักดิ์ศรีเดียวที่เป็นไปได้คือการเผชิญหน้ากับมันโดยไม่ร้องคร่ำครวญ",
+29:"น้ำไหลมาแล้วไหลมาอีก: ภาพแห่งห้วงลึกสุดหยั่งที่ซ้อนทบ อันตรายวนซ้ำ ระลอกแล้วระลอกเล่า โดยไม่เคยให้ช่วงพักที่สมบูรณ์ — ทว่าน้ำเองในความเคลื่อนไหวที่ไม่หยุดยั้งย่อมหาระดับของมันพบเสมอ นี่คือภาพแห่งบททดสอบที่วนซ้ำซึ่งหล่อหลอมความมั่นคง ดังนั้นวิญญูชนจึงประพฤติคุณธรรมอย่างสม่ำเสมอ และสั่งสอนกิจการทั้งหลาย: เมื่อเผชิญอันตรายที่หวนกลับมา มีเพียงการฝึกฝนที่วนซ้ำเช่นกันเท่านั้นที่จะสร้างความเชี่ยวชาญ",
+30:"ความสว่างและความสว่างอีกครา: ภาพแห่งไฟที่ยึดเกาะ แสงไม่เคยส่องสว่างอยู่เพียงลำพัง — มันต้องการสิ่งที่มันเกาะเกี่ยวเพื่อเปล่งรัศมีต่อไป ดุจเปลวไฟที่ต้องการไม้ฟืน นี่คือภาพแห่งประกายที่พึ่งพาสิ่งรองรับ ดังนั้นมหาบุรุษ ด้วยประกายอันต่อเนื่องของตน จึงส่องสว่างไปทั่วทั้งสี่ทิศ: การเปล่งรัศมีอย่างยั่งยืนย่อมต้องยึดเกาะอยู่กับสิ่งที่หล่อเลี้ยงแสงสว่างของตน",
+31:"บนภูเขามีบึง: ภาพแห่งอิทธิพล น้ำพักอยู่บนที่สูง โอบตัวอยู่ที่นั่นโดยไม่ฝืนบังคับ และความเปิดรับซึ่งกันและกันนี้เองที่ทำให้อิทธิพลไหลเวียนระหว่างทั้งสองได้ นี่คือภาพแห่งความรู้สึกไวที่มีร่วมกัน ก่อนที่ถ้อยคำจะเข้ามาเกี่ยวข้องเสียอีก ดังนั้นวิญญูชนจึงเปิดรับความว่างไว้ในตนเพื่อต้อนรับผู้คน: การมีอิทธิพลย่อมเริ่มต้นด้วยการรู้จักยอมให้ตนถูกสัมผัสเสมอ",
+32:"อสนีและลม: ภาพแห่งความยืนยง ความเคลื่อนไหวสองอย่างที่ต่างกันโดยธรรมชาติร่วมกัน ณ ที่นี้โดยไม่ขัดแย้งกัน ต่างเสริมกำลังแก่กันในความมั่นคงที่มีร่วมกัน นี่คือภาพแห่งความเพียรที่ไม่สึกกร่อน ดังนั้นวิญญูชนจึงยืนหยัดโดยไม่เปลี่ยนทิศทาง: การยืนยงมิใช่การต้านทานอย่างนิ่งงัน หากคือการค้นพบความเคลื่อนไหวที่วนซ้ำได้ไม่สิ้นสุดโดยไม่ทรยศต่อตนเอง",
+33:"ใต้ฟ้ามีภูเขา: ภาพแห่งการถอยห่าง ฟ้าค่อย ๆ เคลื่อนห่างจากภูเขา ถอยระยะออกไปโดยไร้ความเป็นปฏิปักษ์ เพียงเพราะจำต้องรักษาการเคลื่อนไหวของตนไว้ นี่คือภาพของการถอยอย่างมีศักดิ์ศรี มิใช่การหนีอย่างน่าละอาย ดังนั้นวิญญูชนจึงเว้นระยะจากคนพาล มิใช่ด้วยความเกลียดชัง แต่ด้วยศักดิ์ศรี: การถอยทันเวลามิใช่ความอ่อนแอ หากเป็นปัญญาของผู้ที่รู้ว่าเมื่อใดการอยู่ต่อจะมีราคาสูงกว่าการจากไป",
+34:"ฟ้าร้องเหนือฟ้า: ภาพแห่งพลังของความยิ่งใหญ่ พลังมหาศาลพุ่งขึ้นสู่จุดสูงสุด ทุกคนมองเห็น และสามารถสั่นคลอนทุกสิ่งที่ขวางทาง นี่คือภาพของอำนาจ ณ จุดสูงสุด อำนาจที่ต้องเรียนรู้จะควบคุมตนเอง ก็เพราะมันสามารถพัดพาทุกสิ่งไปได้นั่นเอง ดังนั้นวิญญูชนจึงเดินเฉพาะบนวิถีที่ต้องตามจารีต: พลังอันยิ่งใหญ่ที่ปราศจากความพอดีย่อมกลายเป็นความพินาศของตนเอง",
+35:"ดวงอาทิตย์ขึ้นเหนือแผ่นดิน: ภาพแห่งความก้าวหน้า แสงสว่างแผ่ขยายทีละขั้น โดยไม่มีการกระโจนอย่างฉับพลันแม้แต่ครั้งเดียว เป็นการเคลื่อนขึ้นที่มั่นคงและเป็นธรรมชาติ นี่คือภาพของความก้าวหน้าที่สมควรได้รับ ดังนั้นวิญญูชนจึงทำให้คุณธรรมอันแจ่มใสของตนสว่างไสวขึ้นด้วยตนเอง: ความก้าวหน้าที่แท้มิได้ร้องขอ หากปรากฏขึ้นเองต่อผู้ที่รู้จักอดทนรอจนรุ่งอรุณ",
+36:"แสงสว่างลงสู่ใจกลางแผ่นดิน: ภาพแห่งความมืดมัว สิ่งที่ควรส่องสว่างกลับถูกฝังกลบ จำต้องอำพรางประกายของตนเพื่อดำรงอยู่ต่อไปโดยไม่ถูกทำลาย นี่คือภาพของความแจ่มใสที่ต้องซ่อนตัวชั่วคราวเพื่อให้รอด ดังนั้นวิญญูชนจึงนำมหาชนด้วยการอำพรางความแจ่มใสของตน ขณะที่ยังคงตื่นรู้: มีบางยุคสมัยที่การเผยแสงสว่างทั้งหมดของตนจะเป็นความผิดพลาด ปัญญาในยามนั้นคือการดำรงความเที่ยงธรรมไว้อย่างเงียบงัน",
+37:"ลมเกิดจากไฟ: ภาพแห่งคนในครอบครัว ความอบอุ่นภายในก่อให้เกิดการเคลื่อนไหวที่แผ่ออกสู่ภายนอก สิ่งที่เริ่มต้นที่เตาไฟในบ้านย่อมแผ่รัศมีออกไปข้างนอกในที่สุดเสมอ นี่คือภาพของอิทธิพลภายในบ้านที่หล่อหลอมโลก ดังนั้นวิญญูชนจึงหยั่งถ้อยคำของตนไว้ในเนื้อแท้ และหยั่งความประพฤติไว้ในความมั่นคงสม่ำเสมอ: สิ่งที่ดำเนินไปในความใกล้ชิดของบ้าน ไม่ช้าก็เร็วจะกลายเป็นสิ่งที่เราพกพาไปทุกหนแห่ง",
+38:"ไฟอยู่เบื้องบน บึงอยู่เบื้องล่าง: ภาพแห่งความขัดแย้ง ไฟลอยขึ้น น้ำไหลลง สองธรรมชาติที่อยู่เคียงกันโดยไม่เคยหลอมรวมกัน ต่างซื่อตรงต่อทิศทางของตน นี่คือภาพของความแตกต่างที่ยอมรับได้โดยไม่แตกหักสิ้นเชิง ดังนั้นวิญญูชน ภายในความเป็นหนึ่งเดียว จึงแยกแยะสิ่งที่แตกต่าง: การยอมรับว่ามีความขัดแย้งมิได้บังคับให้ต้องทำลายมัน เราอยู่ร่วมกับสิ่งที่ค้านเราได้ โดยไม่ต้องอ้างว่าจะลบมันทิ้ง",
+39:"บนภูเขามีน้ำ: ภาพแห่งอุปสรรค น้ำพบกับลาดชันและไม่อาจไหลตรงไปได้ จำต้องอ้อม หาเส้นทางอื่น และชะลอการไหลตามธรรมชาติของตน นี่คือภาพของความยากลำบากที่บังคับให้ต้องเลี่ยงอ้อม ดังนั้นวิญญูชนจึงหันกลับมาพิจารณาตนเองและบ่มเพาะคุณธรรมของตน: อุปสรรคภายนอก เมื่อไม่อาจฝ่าด้วยกำลัง ย่อมกลายเป็นโอกาสที่จะขัดเกลาสิ่งที่ในตัวเรายังเติบโตได้อีก",
+40:"ฟ้าร้องและฝนลอยขึ้น: ภาพแห่งการปลดปล่อย ความตึงเครียดที่สะสมอยู่ในอากาศได้ปลดปล่อยออกในที่สุด พายุโหมกระหน่ำและชำระล้างทุกสิ่งที่ผ่าน เป็นการคลี่คลายที่ทำให้สงบมากกว่าทำลาย นี่คือภาพของความโล่งใจหลังการถูกบีบรัด ดังนั้นวิญญูชนจึงให้อภัยความผิดพลาดและมีเมตตาต่อความผิด: การปลดปล่อยที่แท้มิได้หยุดอยู่ที่ตนเอง หากแผ่ไปถึงผู้ที่เรายังอาจกักขังไว้กับความผิดพลาดของพวกเขา",
+41:"ใต้ภูเขามีบึง: ภาพแห่งการลดทอน น้ำเบื้องล่างระเหยขึ้นสู่ที่สูง ดูเหมือนยอมพร่องตนเองเพื่อหล่อเลี้ยงสิ่งที่อยู่เหนือมัน เป็นการสูญเสียที่แท้จริงแล้วรับใช้ดุลยภาพที่กว้างใหญ่กว่า นี่คือภาพของการสละที่เป็นประโยชน์แก่องค์รวมซึ่งใหญ่กว่าตน ดังนั้นวิญญูชนจึงระงับโทสะและข่มความปรารถนา: การลดสิ่งที่เกินในตนเองมักเป็นเงื่อนไขให้สิ่งอื่นได้เติบโต",
+42:"ลมและฟ้าร้อง: ภาพแห่งการเพิ่มพูน สองพลังเสริมกำลังซึ่งกันและกัน ลมขยายเสียงฟ้าร้อง และฟ้าร้องมอบความเต็มเปี่ยมแก่ลม เป็นการเติบโตที่หล่อเลี้ยงด้วยการพบกันมากกว่าการแยกตัวโดดเดี่ยว ดังนั้นวิญญูชน เมื่อเห็นความดีก็เคลื่อนเข้าหา เมื่อมีความผิดก็แก้ไข: การเพิ่มพูนที่แท้มิได้จำกัดอยู่ที่การสะสม หากคือการแก้ไขตนเองและเติบโตไปด้วยกัน",
+43:"บึงลอยขึ้นเหนือฟ้า: ภาพแห่งการฝ่าทะลุ น้ำที่ถูกยกขึ้นสูงกว่าสิ่งที่ตามปกติควรรองรับมันไว้ คุกคามว่าจะล้นทะลัก เป็นความตึงเครียดถึงขีดสุดที่เรียกร้องการตัดสินใจอันชัดเจนและไม่หวนกลับ นี่คือภาพของความแน่วแน่ที่ไม่อาจรอได้อีกต่อไป ดังนั้นวิญญูชนจึงแจกจ่ายความเอื้อเฟื้อลงไปถึงเบื้องล่าง โดยไม่พึ่งพิงเพียงคุณธรรมของตน: การตัดสินอย่างเด็ดขาดต้องควบคู่ไปกับความเอื้ออารีต่อผู้ที่ได้รับผลจากการตัดสินใจนั้นเสมอ",
+44:"ใต้ฟ้ามีลม: ภาพแห่งการมาพบ ลมพัดผ่านห้วงอวกาศโดยไม่มีผู้ใดเรียกหา สัมผัสทุกสิ่งที่ผ่านไป เป็นการพบพานที่บังเกิดขึ้นเองมากกว่าที่จะถูกวางแผนไว้ นี่คือภาพของสิ่งไม่คาดฝันที่ต้องรู้จักต้อนรับด้วยวิจารณญาณ ดังนั้นองค์ประมุขจึงอบรมสั่งสอนทั้งสี่ทิศด้วยพระราชโองการ: สิ่งที่มาพบเราโดยไม่ได้รับเชิญ สมควรได้รับการพิจารณาก่อนจะยอมรับหรือปัดทิ้ง",
+45:"บึงยกตัวขึ้นเหนือแผ่นดิน: ภาพแห่งการรวมตัว น้ำสะสมจนกลายเป็นผืนน้ำร่วมกัน รวบรวมสิ่งที่หากกระจัดกระจายก็จะไร้ทั้งพลังและรูปโฉมไว้ในที่แห่งเดียว นี่คือภาพของการบรรจบที่ให้ความหนักแน่นแก่ความหลากหลาย ดังนั้นวิญญูชนจึงซ่อมแซมอาวุธเพื่อรับมือกับสิ่งไม่คาดฝัน: การรวมตัวเพียงอย่างเดียวยังไม่พอ ต้องเตรียมพร้อมปกป้องสิ่งที่รวบรวมไว้ด้วย",
+46:"ภายในแผ่นดินมีไม้งอกงาม: ภาพแห่งการผลักดันขึ้นสู่เบื้องบน เมล็ดพันธุ์ที่มองไม่เห็นใต้ผิวดินค่อย ๆ งอกสู่แสงสว่างอย่างอดทน โดยไม่เคยข้ามขั้นตอน เป็นการเติบโตที่เชื่องช้าแต่ไม่อาจหยุดยั้ง นี่คือภาพของการขึ้นสู่ที่สูงที่ได้มาด้วยความมั่นคงสม่ำเสมอ ดังนั้นวิญญูชน ผู้คล้อยตามคุณธรรม จึงสั่งสมสิ่งเล็กเพื่อบรรลุสิ่งสูงและยิ่งใหญ่: ไม่มีสิ่งใดที่เติบโตอย่างแท้จริงจะข้ามขั้นได้ ทุกสิ่งถูกสร้างขึ้นทีละชั้น",
+47:"บึงไร้น้ำ: ภาพแห่งความอับจน สิ่งที่ควรหล่อเลี้ยงและค้ำจุนได้เหือดแห้งไป ทิ้งความขาดแคลนอันประจักษ์ชัดไว้ในที่ซึ่งเราคาดหวังความอุดมสมบูรณ์ นี่คือภาพของความอ่อนล้าที่ทดสอบธรรมชาติแท้ของผู้ที่ข้ามผ่านมัน ดังนั้นวิญญูชนจึงอุทิศชีวิตเพื่อทำให้เจตจำนงของตนสำเร็จ: ในความขาดแคลนนี่เองที่สิ่งซึ่งเรายึดมั่นอย่างแท้จริงได้เผยตัวออกมา จนเราพร้อมจะเสี่ยงทุกสิ่งเพื่อมัน",
+48:"เหนือไม้มีน้ำ: ภาพแห่งบ่อน้ำ น้ำยังคงเข้าถึงได้สำหรับทุกคนที่มาตัก ไม่มีวันหมดสิ้นตราบที่เรารู้จักหย่อนถังลงไปในที่ที่ถูกต้อง เป็นทรัพยากรส่วนรวมที่การใช้สอยไม่เคยทำให้เหือดแห้งอย่างแท้จริง นี่คือภาพของสมบัติร่วมที่ยั่งยืน ดังนั้นวิญญูชนจึงปลอบประโลมประชาชนและเกื้อหนุนให้ช่วยเหลือกัน: สิ่งที่หล่อเลี้ยงชุมชนอย่างแท้จริงมิได้เป็นของผู้ใดโดยเฉพาะ มันเพียงผ่านมือของผู้ที่รู้จักตักมันขึ้นมา",
+49:"ภายในบึงมีไฟ: ภาพแห่งการปฏิวัติ เปลวไฟลุกไหม้อยู่ใต้ผิวน้ำ สองธรรมชาติที่ไม่อาจอยู่ร่วมกันได้โดยที่ฝ่ายหนึ่งไม่แปรเปลี่ยนอีกฝ่ายในที่สุด เป็นการปะทะที่ย่อมนำไปสู่การเปลี่ยนสภาวะ ดังนั้นวิญญูชนจึงจัดระเบียบปฏิทินและทำให้กาลเวลาแจ่มชัด: การปฏิวัติที่แท้มิได้ทำลายเพื่อทำลาย หากจัดระเบียบใหม่ให้แก่สิ่งที่ยุคเก่าปล่อยให้สับสนไว้",
+50:"เหนือไม้มีไฟ: ภาพแห่งกระถางสามขา เปลวไฟแปรวัตถุดิบให้กลายเป็นสิ่งที่หล่อเลี้ยงได้ ประณีต และใช้สอยได้ เป็นภาชนะที่บรรจุการแปรเปลี่ยนไว้โดยตัวมันเองไม่ถูกเผาผลาญ นี่คือภาพของการบ่มเพาะที่ขัดเกลาโดยไม่ทำลาย ดังนั้นวิญญูชนจึงทำให้ชะตาของตนมั่นคงด้วยการทำให้มันเที่ยงตรง: ดั่งกระถางที่ให้รูปแก่สิ่งที่มันรับไว้ แต่ละคนย่อมปั้นแต่งชะตาของตนด้วยสิ่งที่เลือกจะเคี่ยวปรุงในนั้น",
+51:"ฟ้าร้องซ้อนทวี: ภาพแห่งการสั่นสะเทือน แรงกระแทกฟาดลงสองครั้ง ครั้งหนึ่งซ้ำอีกครั้ง และสิ่งที่ยังยืนอยู่หลังแรงสั่นเช่นนั้นก็เผยความมั่นคงที่แท้ของมันออกมาในที่สุด นี่คือภาพของบททดสอบที่ทดลองโดยไม่ทำลายสิ่งที่มีรากฐานอย่างแท้จริง ดังนั้นวิญญูชน ด้วยความยำเกรงและหวั่นไหว จึงบ่มเพาะและพินิจความประพฤติของตน: แรงกระแทกจากภายนอก ไม่ว่าจะรุนแรงเพียงใด อาจกลายเป็นโอกาสแห่งการพินิจภายในที่เกื้อกูล",
+52:"ภูเขาซ้อนภูเขา: ภาพแห่งการหยุดนิ่ง มวลอันมั่นคงสองก้อนซ้อนทับกัน ต่างเสริมความนิ่งให้แก่กัน เป็นการหยุดที่มิใช่ความชะงักงัน หากเป็นรากฐาน นี่คือภาพของความสงบที่ทำให้ความแจ่มชัดเป็นไปได้ ดังนั้นวิญญูชนจึงไม่ปล่อยให้ความคิดล่วงเลยฐานะที่ตนดำรงอยู่: การหยุด ณ ที่อันควร โดยไม่ปล่อยให้จิตใจเตลิดเกินภารกิจตรงหน้า คือเงื่อนไขของการมองเห็นที่ถูกต้องทั้งปวง",
+53:"บนภูเขามีต้นไม้: ภาพแห่งการพัฒนาทีละขั้น ต้นไม้เติบโตอย่างเชื่องช้า รากแล้วรากเล่า วงปีแล้ววงปีเล่า ไม่เคยข้ามขั้นแห่งการเติบโตแม้แต่ขั้นเดียว เป็นความอดทนที่จารึกอยู่ในเนื้อไม้นั้นเอง ดังนั้นวิญญูชนจึงตั้งมั่นในคุณธรรมอันทรงเกียรติและยกระดับขนบประเพณี: การพัฒนาที่แท้ เช่นเดียวกับต้นไม้บนลาดเขา วัดกันเป็นปี มิใช่เป็นวัน",
+54:"ฟ้าร้องอยู่เบื้องบน บึงอยู่เบื้องล่าง: ภาพแห่งเจ้าสาว การเคลื่อนไหวเบื้องบนชักนำสิ่งที่สงบอยู่เบื้องล่างเข้าสู่การรวมกันซึ่งทั้งสองฝ่ายมิได้เลือกอย่างเท่าเทียมกันเสมอไป เป็นสายสัมพันธ์ที่ผูกมัดแม้จะไม่สมดุลแต่แรกเริ่ม ดังนั้นวิญญูชน ผู้ใส่ใจในสิ่งที่ยั่งยืน จึงแยกแยะสิ่งที่บ่อนทำลายการรวมกันนี้: พันธมิตรทุกแบบสมควรได้รับการพิจารณาตลอดระยะเวลาของมัน มิใช่ถูกตัดสินจากจุดเริ่มต้นเพียงอย่างเดียว",
+55:"ฟ้าร้องและฟ้าแลบบรรลุผลพร้อมกัน: ภาพแห่งความอุดมสมบูรณ์ การเคลื่อนไหวและแสงสว่างแผ่ขยายถึงขีดสุดในคราวเดียวกัน เป็นชั่วขณะแห่งความเต็มเปี่ยมโดยสมบูรณ์ ซึ่งหาได้ยากและย่อมผ่านพ้นไป นี่คือภาพของจุดสุดยอดที่ไม่เคยคงอยู่ชั่วนิรันดร์ ดังนั้นวิญญูชนจึงตัดสินข้อพิพาทและลงทัณฑ์: ณ จุดสูงสุดของความอุดมสมบูรณ์ ความแจ่มชัดแห่งการวินิจฉัยยิ่งจำเป็นกว่าที่เคย เพราะที่นั่นเองคือที่ซึ่งทุกสิ่งอาจพลิกผันได้",
+56:"บนภูเขามีไฟ: ภาพแห่งผู้เดินทาง เปลวไฟเคลื่อนไปตามลาดเขา ไม่หยุดพักที่ใด เผาผลาญสิ่งที่ปรากฏตรงหน้าโดยไม่เคยหยั่งรากลง ณ ที่แห่งใด นี่คือภาพของผู้ที่ไร้บ้านไร้ถิ่นฐานที่แน่นอน ดังนั้นวิญญูชนจึงลงโทษด้วยความแจ่มชัดและรอบคอบ โดยไม่ปล่อยให้คดีความยืดเยื้อ: เมื่อไร้สิ่งผูกพันที่ยั่งยืน ก็ยิ่งต้องเคร่งครัดเพื่อไม่ให้หลงทางระหว่างการเดินทาง",
+57:"ลมที่พัดตามกันมา: ภาพแห่งความอ่อนโยนซ้อนทวี ลมพัด แล้วพัดอีก ย้ำเตือนโดยไม่เคยกระแทก เป็นอิทธิพลที่แทรกซึมด้วยการทำซ้ำมากกว่าด้วยกำลัง ดังนั้นวิญญูชนจึงเผยแผ่คำบัญชาและลงมือดำเนินกิจการของตน: สิ่งที่ไม่อาจบังคับให้เกิดได้ในคราวเดียว มักลงหลักปักฐานได้ในที่สุดด้วยความสม่ำเสมออันอ่อนโยนของการย้ำเตือนอย่างอดทน",
+58:"บึงที่บรรจบกัน: ภาพแห่งความรื่นรมย์ซ้อนทวี ผืนน้ำสองผืนเชื่อมถึงกัน หล่อเลี้ยงซึ่งกันและกัน ต่างขยายความรื่นรมย์ของอีกฝ่ายเพียงด้วยความใกล้ชิด นี่คือภาพของการแบ่งปันที่ทวีคูณมากกว่าแบ่งแยก ดังนั้นวิญญูชนจึงสนทนาและฝึกฝนร่วมกับมิตรสหาย: ความรื่นรมย์ที่แท้ ดุจน้ำในบึงที่บรรจบกัน ไม่เคยหมดสิ้นเพราะการแบ่งปัน ตรงกันข้าม มันกลับยิ่งแข็งแกร่งขึ้น",
+59:"ลมเคลื่อนเหนือน้ำ: ภาพแห่งการสลายตัว ลมกวนผิวน้ำ กระจายสิ่งที่แข็งตัวอยู่ ทลายน้ำแข็งให้กลายเป็นการเคลื่อนไหวที่ลื่นไหล เป็นการสลายที่ปลดปล่อยมากกว่าทำลาย ดังนั้นกษัตริย์ในโบราณกาลจึงถวายเครื่องบูชาแด่องค์อธิราชเบื้องบนและสร้างศาลเจ้า: เมื่อสิ่งที่แบ่งแยกสรรพชีวิตเริ่มสลายตัว นั่นคือวาระที่จะสร้างสายสัมพันธ์ร่วมกันขึ้นใหม่ เป็นศูนย์กลางที่แบ่งปันร่วมกัน",
+60:"เหนือบึงมีน้ำ: ภาพแห่งการจำกัด น้ำในบึงถูกโอบไว้ด้วยตลิ่ง และขอบเขตนี้เองที่ทำให้มันดำรงอยู่ในฐานะบึง แทนที่จะสูญหายไปเป็นหนองน้ำไร้รูปทรง นี่คือภาพของข้อจำกัดที่สร้างโครงสร้างมากกว่าบีบรัด ดังนั้นวิญญูชนจึงกำหนดจำนวนและมาตรวัด และใคร่ครวญถึงคุณธรรมและความประพฤติ: การจำกัดที่เลือกอย่างถูกต้องคือสิ่งที่ให้รูปแก่ทุกสิ่ง รวมทั้งแก่ตัวเราเอง",
+61:"เหนือบึงมีลม: ภาพแห่งสัจจะภายใน ลมแตะผิวน้ำแผ่วเบาและทำให้มันสั่นไหวไปจนถึงใจกลาง เป็นการสั่นพ้องที่เริ่มจากภายนอกแต่สัมผัสถึงส่วนในที่ลึกที่สุด นี่คือภาพของความจริงใจที่ถ่ายทอดโดยไร้การเสแสร้ง ดังนั้นวิญญูชนจึงไตร่ตรองคดีความและชะลอโทษประหาร: สัจจะภายในเรียกร้องให้ใช้เวลาเท่าที่จำเป็นก่อนจะตัดสินในสิ่งที่เกี่ยวพันกับแก่นแท้",
+62:"บนภูเขามีฟ้าร้อง: ภาพแห่งความเหนือกว่าของสิ่งเล็ก การเคลื่อนไหวปั่นป่วนอยู่บนยอด ถูกตรึงไว้ด้วยมวลที่แบกมันไว้ จำต้องคงความถ่อมตนในขอบเขต แม้จะเข้มข้นในพลัง ดังนั้นวิญญูชน ในความประพฤติ จึงโน้มไปทางเคารพเกินพอดี ในการไว้ทุกข์ โน้มไปทางโศกเศร้าเกินพอดี ในการใช้จ่าย โน้มไปทางประหยัดเกินพอดี: เมื่อสถานการณ์บังคับให้ต้องยับยั้ง พลาดเพราะถ่อมตนเกินไปย่อมดีกว่าพลาดเพราะทะเยอทะยานเกินไป",
+63:"น้ำอยู่เหนือไฟ: ภาพแห่งความสำเร็จ แต่ละธาตุครองตำแหน่งที่เป็นของตนอย่างพอดี น้ำควบคุมไฟโดยไม่ดับมันจนสิ้น เป็นดุลยภาพที่สมบูรณ์ถึงเพียงนั้น จนเรียกหาเชื้อแห่งความไม่สมดุลที่จะมาถึงของตนเองไว้แล้ว ดังนั้นวิญญูชนจึงคำนึงถึงเคราะห์ร้ายและป้องกันไว้แต่เนิ่น ๆ: ความสำเร็จที่สมบูรณ์ที่สุดไม่เคยเป็นปลายทางสุดท้าย หากเป็นชั่วขณะที่ความระแวดระวังต้องทวีขึ้นเป็นสองเท่า",
+64:"ไฟอยู่เหนือน้ำ: ภาพแห่งสิ่งที่ยังไม่สำเร็จ แต่ละธาตุอยู่ในตำแหน่งที่กลับกันกับตำแหน่งซึ่งจะทำให้มันพบกันได้อย่างเต็มที่ ไฟไม่อาจทำให้น้ำอุ่นได้ เพราะน้ำหลุดพ้นจากมันไปทางเบื้องบน นี่คือภาพของความยุ่งเหยิงที่ยังมาก่อนระเบียบที่จะมาถึง ดังนั้นวิญญูชนจึงแยกแยะสรรพสิ่งอย่างรอบคอบ และจัดวางแต่ละสิ่งไว้ในที่ของมัน: ก่อนที่ทุกสิ่งจะได้ที่อันเหมาะสม ต้องยอมรับความยุ่งเหยิงในปัจจุบันอย่างตื่นรู้เสียก่อน โดยไม่สิ้นหวังต่อระเบียบที่กำลังจะถือกำเนิด"
+};
+
+// ---------- HSL (mêmes fonctions que creation-motifs-yi-king.html) ----------
+function hexToHsl(hex){
+  const r = parseInt(hex.slice(1,3),16)/255, g = parseInt(hex.slice(3,5),16)/255, b = parseInt(hex.slice(5,7),16)/255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b), l = (max+min)/2;
+  let h = 0, s = 0;
+  const d = max-min;
+  if(d!==0){
+    s = d / (1 - Math.abs(2*l-1));
+    switch(max){
+      case r: h = 60*(((g-b)/d)%6); break;
+      case g: h = 60*((b-r)/d+2); break;
+      default: h = 60*((r-g)/d+4);
+    }
+  }
+  if(h<0) h += 360;
+  return { h, s: s*100, l: l*100 };
+}
+function hslToHex(h,s,l){
+  s/=100; l/=100;
+  const c = (1-Math.abs(2*l-1))*s, x = c*(1-Math.abs((h/60)%2-1)), m = l-c/2;
+  let r=0,g=0,b=0;
+  if(h<60){r=c;g=x;b=0;} else if(h<120){r=x;g=c;b=0;} else if(h<180){r=0;g=c;b=x;}
+  else if(h<240){r=0;g=x;b=c;} else if(h<300){r=x;g=0;b=c;} else {r=c;g=0;b=x;}
+  const toHex = v => Math.round((v+m)*255).toString(16).padStart(2,'0');
+  return '#'+toHex(r)+toHex(g)+toHex(b);
+}
+function clampL(l){ return Math.max(0, Math.min(100, l)); }
+// Dérivation à partir de la structure à 3 classes de gris du gabarit ech_order_new_def_bw.svg :
+// cls-1 = zone neutre (couleur choisie telle quelle), cls-2 = zone foncée (-20% luminosité),
+// cls-3 = zone claire (+20% luminosité).
+function deriveShades(baseHex){
+  const {h,s,l} = hexToHsl(baseHex);
+  return {
+    neutral: baseHex,
+    dark: hslToHex(h, s, clampL(l-20)),
+    light: hslToHex(h, s, clampL(l+20)),
+  };
+}
+function recolorSvg(svgText, shades){
+  return svgText.replace(/<style>[\s\S]*?<\/style>/,
+    `<style>.cls-1{fill:${shades.neutral};}.cls-2{fill:${shades.dark};}.cls-3{fill:${shades.light};}</style>`);
+}
+// Le motif réel n'occupe qu'un petit carré centré (927.29–992.71, 507.26–572.74) au milieu
+// du canevas 1920x1080 du gabarit — le reste est vide. Recadrer sur ce carré pour que le
+// motif remplisse la vignette/l'agrandissement/la tessellation au lieu d'apparaître comme
+// un point minuscule.
+const MOTIF_CROP_VIEWBOX = '922 502 76 76'; // avec marge, pour la vignette/l'agrandissement isolés
+const MOTIF_TESS_VIEWBOX = '927.29 507.26 65.42 65.48'; // bbox exacte, sans marge, pour que les carrés du pavage se touchent
+function cropSvg(svgText, viewBox){
+  return svgText.replace(/viewBox="[^"]*"/, `viewBox="${viewBox}"`);
+}
+function prepareSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_CROP_VIEWBOX);
+}
+function prepareTessSvg(svgText, shades){
+  return cropSvg(recolorSvg(svgText, shades), MOTIF_TESS_VIEWBOX);
+}
+function svgDataUri(svgText){
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svgText);
+}
+
+// ---------- chargement des 64 motifs ----------
+const MOTIF_RAW = {};
+async function loadAllMotifs(){
+  const kws = Array.from({length:64}, (_,i)=>i+1);
+  await Promise.all(kws.map(async kw=>{
+    const res = await fetch(`../../assets/unified-motifs/${kw}.svg`);
+    MOTIF_RAW[kw] = await res.text();
+  }));
+}
+
+const DEFAULT_COLOR = '#c9a15a';
+let currentColor = DEFAULT_COLOR;
+let currentKw = null;
+
+function buildGrid(){
+  const gridEl = document.getElementById('hexgrid');
+  gridEl.innerHTML = '';
+  const defaultShades = deriveShades(DEFAULT_COLOR);
+  for(let chrono=0; chrono<64; chrono++){
+    const kw = KINGWEN_BY_CHRONO[chrono];
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.dataset.chrono = chrono;
+    cell.dataset.kw = kw;
+    const label = document.createElement('div'); label.className='num'; label.textContent = chrono;
+    cell.appendChild(label);
+    const img = document.createElement('img');
+    img.src = svgDataUri(prepareSvg(MOTIF_RAW[kw], defaultShades));
+    img.alt = HEX_KW[kw][1];
+    cell.appendChild(img);
+    cell.addEventListener('click', ()=> selectMotif(kw));
+    gridEl.appendChild(cell);
+  }
+}
+
+function selectMotif(kw){
+  currentKw = kw;
+  document.querySelectorAll('.cell').forEach(c=> c.classList.toggle('active', +c.dataset.kw===kw));
+  renderMotifDetail();
+}
+
+function renderMotifDetail(){
+  const kw = currentKw;
+  const info = HEX_KW[kw];
+  const chrono = CHRONO_BY_KW[kw];
+  const panel = document.getElementById('detail');
+  panel.innerHTML = '';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'motif-detail';
+
+  // ---- sélecteur de couleur ----
+  const colorRow = document.createElement('div'); colorRow.className = 'motif-color-row';
+  const colorLabel = document.createElement('span'); colorLabel.className='motif-color-label'; colorLabel.textContent = 'สี';
+  const colorInput = document.createElement('input'); colorInput.type='color'; colorInput.id='motifColorInput'; colorInput.value = currentColor;
+  const swatches = document.createElement('div'); swatches.className='motif-swatches';
+  const swDark = document.createElement('span'); swDark.className='motif-swatch'; swDark.id='swatchDark'; swDark.title='โซนเข้ม (ความสว่าง -20%)';
+  const swNeutral = document.createElement('span'); swNeutral.className='motif-swatch'; swNeutral.id='swatchNeutral'; swNeutral.title='โซนกลาง';
+  const swLight = document.createElement('span'); swLight.className='motif-swatch'; swLight.id='swatchLight'; swLight.title='โซนอ่อน (ความสว่าง +20%)';
+  swatches.appendChild(swDark); swatches.appendChild(swNeutral); swatches.appendChild(swLight);
+  const resetBtn = document.createElement('button'); resetBtn.type='button'; resetBtn.className='site-nav-btn'; resetBtn.id='btnResetMotifColor';
+  resetBtn.textContent = 'คืนค่าสี';
+  colorRow.appendChild(colorLabel); colorRow.appendChild(colorInput); colorRow.appendChild(swatches); colorRow.appendChild(resetBtn);
+  wrap.appendChild(colorRow);
+
+  // ---- agrandissement ----
+  const boxWrap = document.createElement('div'); boxWrap.className='motif-box-wrap';
+  const liseret1 = document.createElement('div'); liseret1.className='liseret';
+  const box = document.createElement('div'); box.className='motif-box';
+  const enlargedImg = document.createElement('img'); enlargedImg.id='motifEnlargedImg'; enlargedImg.alt = info[1];
+  box.appendChild(enlargedImg);
+  liseret1.appendChild(box);
+  boxWrap.appendChild(liseret1);
+  const dlBtn = document.createElement('span'); dlBtn.className='dl-btn'; dlBtn.id='dlMotifPng'; dlBtn.style.marginTop='10px'; dlBtn.style.display='inline-block';
+  dlBtn.textContent = 'ดาวน์โหลด PNG ความละเอียดสูง';
+  boxWrap.appendChild(dlBtn);
+  wrap.appendChild(boxWrap);
+
+  // ---- texte général (même contenu/source que la page Tirage) ----
+  const numBig = document.createElement('div'); numBig.className='num-big';
+  numBig.textContent = 'N° ' + String(chrono).padStart(2,'0') + ' — ลำดับตามเวลา';
+  wrap.appendChild(numBig);
+  const h2 = document.createElement('h2'); h2.textContent = info[1]; wrap.appendChild(h2);
+  const pin = document.createElement('div'); pin.className='pinyin'; pin.textContent = info[0]; wrap.appendChild(pin);
+  const alt = document.createElement('div'); alt.className='altnum'; alt.textContent = 'ลำดับ King Wen (ดั้งเดิม): ' + kw; wrap.appendChild(alt);
+
+  const imgTxt = IMAGE_FR[kw];
+  if(imgTxt){
+    const imgTag = document.createElement('div'); imgTag.className='keyword'; imgTag.textContent = 'ภาพลักษณ์';
+    const imgName = document.createElement('div'); imgName.className='keyword-sub'; imgName.textContent = info[1];
+    const imgP = document.createElement('div'); imgP.className='judgement'; imgP.style.marginBottom='18px'; imgP.textContent = imgTxt;
+    wrap.appendChild(imgTag); wrap.appendChild(imgName); wrap.appendChild(imgP);
+  }
+  const jgTag = document.createElement('div'); jgTag.className='keyword'; jgTag.textContent = 'คำตัดสิน';
+  const kwEl = document.createElement('div'); kwEl.className='keyword-sub'; kwEl.textContent = info[2];
+  const judg = document.createElement('div'); judg.className='judgement'; judg.textContent = info[3];
+  wrap.appendChild(jgTag); wrap.appendChild(kwEl); wrap.appendChild(judg);
+
+  // ---- tessellation ----
+  const tessWrap = document.createElement('div'); tessWrap.className='tessellation-wrap';
+  const tessLabel = document.createElement('div'); tessLabel.className='tessellation-label'; tessLabel.textContent = 'การปูลาย';
+  const liseret2 = document.createElement('div'); liseret2.className='liseret';
+  const tessBox = document.createElement('div'); tessBox.className='motif-tess-box'; tessBox.id='motifTessBox';
+  liseret2.appendChild(tessBox);
+  tessWrap.appendChild(tessLabel); tessWrap.appendChild(liseret2);
+  wrap.appendChild(tessWrap);
+
+  panel.appendChild(wrap);
+
+  colorInput.addEventListener('input', (e)=>{ currentColor = e.target.value; updateColorDependentParts(); });
+  resetBtn.addEventListener('click', ()=>{ currentColor = DEFAULT_COLOR; colorInput.value = DEFAULT_COLOR; updateColorDependentParts(); });
+  dlBtn.addEventListener('click', downloadMotifPng);
+
+  updateColorDependentParts();
+}
+
+function updateColorDependentParts(){
+  if(currentKw == null) return;
+  const shades = deriveShades(currentColor);
+  const uri = svgDataUri(prepareSvg(MOTIF_RAW[currentKw], shades));
+  const enlargedImg = document.getElementById('motifEnlargedImg');
+  if(enlargedImg) enlargedImg.src = uri;
+  const tessUri = svgDataUri(prepareTessSvg(MOTIF_RAW[currentKw], shades));
+  const tessBox = document.getElementById('motifTessBox');
+  if(tessBox) tessBox.style.backgroundImage = `url("${tessUri}")`;
+  const swDark = document.getElementById('swatchDark'); if(swDark) swDark.style.background = shades.dark;
+  const swNeutral = document.getElementById('swatchNeutral'); if(swNeutral) swNeutral.style.background = shades.neutral;
+  const swLight = document.getElementById('swatchLight'); if(swLight) swLight.style.background = shades.light;
+}
+
+function downloadMotifPng(){
+  if(currentKw == null) return;
+  const info = HEX_KW[currentKw];
+  const shades = deriveShades(currentColor);
+  const recolored = prepareSvg(MOTIF_RAW[currentKw], shades);
+  const img = new Image();
+  img.onload = ()=>{
+    const size = 4096; // carré, largement au-delà de 300dpi pour un usage textile
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob((blob)=>{
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      const slug = info[1].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+      a.download = `motif-unifie-${String(currentKw).padStart(2,'0')}-${slug}.png`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }, 'image/png');
+  };
+  img.src = svgDataUri(recolored);
+}
+
+(async () => {
+  await loadAllMotifs();
+  buildGrid();
+})();
+</script>
+<script src="../../assets/soutien-gate.js"></script>
+<script src="../../assets/share-widget.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="ส่วนท้ายของหน้า">
+    <a href="../../th/">หน้าแรก</a>
+    <a href="../../th/book/">หนังสือ</a>
+    <a href="../../th/hexagrams/">ฉักลักษณ์</a>
+    <a href="../../th/lexicon/">อภิธานศัพท์</a>
+    <a href="../../motifs/" hreflang="en">ลวดลาย (ภาษาอังกฤษ)</a>
+    <a href="../../profil.html" hreflang="fr">ประวัติผู้แต่ง (ภาษาฝรั่งเศส)</a>
+    <a href="../../contact.html" hreflang="fr">ติดต่อ</a>
+    <a href="../../soutenir.html" hreflang="fr">สนับสนุนโครงการ</a>
+    <a href="../../th/search/">ค้นหา</a>
+  </nav>
+  <p class="site-footer-licence">
+    เนื้อหาภายใต้สัญญาอนุญาต <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · โค้ดภายใต้ AGPL v3 สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
