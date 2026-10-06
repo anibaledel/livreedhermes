@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ลวดลายสองสี — La Livrée d'Hermès</title>
+<meta name="description" content="สร้างเซลล์ 12×12 โดยซ้อนระดับสองสีหกระดับ ระดับละหนึ่งเส้นของฉักลักษณ์ แล้วแบ่งปันผลงานผ่าน URL ของมัน">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/th/two-colour-patterns/">
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .composer{ display:flex; gap:28px; align-items:flex-start; justify-content:center; flex-wrap:wrap; }
+
+  .hexselect{ display:flex; flex-direction:column-reverse; gap:8px; padding:16px 10px; border:1px solid var(--line-strong); background:var(--panel); }
+  .hexselect button{
+    all:unset; cursor:pointer; width:88px; height:22px; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .hexselect button .bar{ display:flex; gap:10%; width:100%; height:9px; }
+  .hexselect button .bar span{ flex:1; background:var(--white); }
+  .hexselect button.gap .bar{ gap:14%; }
+  .hexselect button.gap .bar span{ background:var(--red); }
+  .hexselect button[aria-pressed="true"]{ outline:2px solid var(--gold); outline-offset:4px; }
+  .hexselect button .num{
+    position:absolute; left:-22px; font-size:11px; color:var(--dim); opacity:.6;
+  }
+  .hexselect button.all-toggle{
+    margin-top:8px; padding-top:10px; border-top:1px solid var(--line-strong);
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); height:auto;
+  }
+  .hexselect button.all-toggle[aria-pressed="true"]{ color:var(--gold); }
+
+  .hextabs{ display:flex; gap:6px; margin-bottom:10px; }
+  .hextabs button{
+    all:unset; cursor:pointer; flex:1; text-align:center; padding:6px 4px; font-size:11px;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--dim); border:1px solid var(--line-strong);
+  }
+  .hextabs button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
+
+  .ctl-toggle{ display:flex; gap:8px; }
+  .ctl-toggle button{
+    all:unset; cursor:pointer; flex:1; text-align:center; padding:8px 4px; font-size:12px;
+    color:var(--dim); border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .ctl-toggle button[aria-pressed="true"]{ color:var(--gold); border-color:var(--gold); }
+
+  .famille-picker{ display:flex; gap:10px; margin-top:8px; }
+  .famille-list{
+    flex:1; max-height:160px; overflow-y:auto; border:1px solid var(--line-strong); background:var(--bg);
+  }
+  .famille-list button{
+    all:unset; cursor:pointer; display:block; width:100%; padding:5px 8px; font-size:11.5px; color:var(--white);
+    box-sizing:border-box;
+  }
+  .famille-list button:hover, .famille-list button:focus-visible{ background:var(--panel); color:var(--gold); }
+  .famille-list button[aria-selected="true"]{ color:var(--gold); }
+  .famille-preview{
+    flex:0 0 70px; width:70px; height:70px; border:1px solid var(--line-strong); background:var(--bg);
+  }
+
+  .preview{ border:1px solid var(--line); padding:18px; text-align:center; }
+  .preview svg{ display:block; width:340px; max-width:70vw; height:auto; border:1px solid var(--line); }
+  .preview p{ margin:10px 0 0; font-size:12px; color:var(--dim); opacity:.7; }
+
+  .controls{ width:300px; max-width:100%; border:1px solid var(--line); padding:18px; background:var(--panel); }
+  .controls h2{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; }
+  .ctl-colors{ display:flex; gap:16px; margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line); }
+  .ctl-colors label{ display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--dim); flex:1; }
+  .ctl-colors input[type="color"]{ width:100%; height:32px; border:1px solid var(--line-strong); background:none; padding:2px; }
+  .ctl-level label{ display:block; font-size:12px; color:var(--dim); margin:12px 0 4px; }
+  .ctl-level select{
+    width:100%; padding:8px; background:var(--bg); color:var(--white); border:1px solid var(--line-strong); font-family:inherit; font-size:13px;
+  }
+
+  .share{ max-width:1120px; margin:32px auto 0; padding:0 24px; }
+  .share label{ display:block; font-size:12px; color:var(--dim); opacity:.7; margin-bottom:6px; }
+  .share input{ width:100%; padding:10px; background:var(--panel); color:var(--white); border:1px solid var(--line-strong); font-family:inherit; font-size:12px; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; } header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .composer{ flex-direction:column; align-items:center; }
+    .hexselect{ flex-direction:row; }
+  }
+</style>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/bicolore.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/two-colour-patterns/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-bicolores/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/two-colour-patterns/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/two-colour-patterns/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <header>
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="https://anibal-amiot.com/th/">หน้าแรก</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">เครื่องมือ</a><span class="sep">/</span><span aria-current="page">ลวดลายสองสี</span>
+    </nav>
+    <h1>ลวดลายสองสี</h1>
+    <p>ฉักลักษณ์สองตัวซ้อนกัน ตัวละหกระดับ — เลือกฉักลักษณ์ แล้วคลิกที่เส้นเพื่อปรับ</p>
+  </header>
+
+  <div class="composer">
+    <div>
+      <div class="hextabs" id="hexTabs" role="group" aria-label="ฉักลักษณ์ที่กำลังแก้ไข"></div>
+      <div class="hexselect" id="hexSelect" role="group" aria-label="ตัวเลือกระดับ (เส้นที่ 1 อยู่ล่างสุด เส้นที่ 6 อยู่บนสุด)"></div>
+    </div>
+
+    <div class="preview">
+      <div id="paneMotif"></div>
+      <p>เซลล์ 12×12 — <span id="previewLevelNum">เลือกระดับ 1</span></p>
+    </div>
+
+    <div class="controls">
+      <h2>โครงตาราง</h2>
+      <div class="ctl-level" style="margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line);">
+        <label for="trameSelect">เซลล์ · บล็อก</label>
+        <select id="trameSelect"></select>
+      </div>
+      <h2>การรวม</h2>
+      <div class="ctl-level" style="margin-bottom:20px; padding-bottom:18px; border-bottom:1px solid var(--line);">
+        <div class="ctl-toggle" id="combineToggle" role="group" aria-label="วิธีที่ฉักลักษณ์ทั้งสองรวมกัน">
+          <button type="button" data-mode="calque">แผ่นลาย</button>
+          <button type="button" data-mode="xor">หรือแบบเฉพาะ (XOR)</button>
+        </div>
+      </div>
+      <h2>สี</h2>
+      <div class="ctl-colors">
+        <label>โทนสี A <input type="color" id="colorA"></label>
+        <label>โทนสี B <input type="color" id="colorB"></label>
+      </div>
+      <h2 id="levelHeading">ระดับ 1</h2>
+      <div class="ctl-level">
+        <label for="familleSelect">ตระกูล</label>
+        <select id="familleSelect"></select>
+        <div class="famille-picker">
+          <div class="famille-list" id="familleList" role="listbox" aria-label="แสดงตัวอย่างเมื่อชี้ — คลิกเพื่อเลือก"></div>
+          <canvas class="famille-preview" id="famillePreview" width="70" height="70" aria-hidden="true"></canvas>
+        </div>
+        <label for="etatSelect">สถานะ</label>
+        <select id="etatSelect">
+          <option value="yang">โทนสีหยาง</option>
+          <option value="yin">โทนสียิน</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="share">
+    <label for="shareUrl">URL ของผลงานนี้</label>
+    <input type="text" id="shareUrl" readonly onclick="this.select()">
+  </div>
+</div>
+
+<script type="module">
+import { composeNiveauxMask, maskToPavageSvg, combineMasks, hexToBits } from '../../assets/bicolore-render.js';
+// Couleurs par défaut : le jeu de constantes unique (crème et encre).
+import { PALETTE_DEFAUT } from '../../assets/couleurs.js';
+
+const N_LEVELS = 6;
+
+// Une trame = un fichier de données au même format (grid/parts/per_cell/
+// layers/familles) ; le rendu (composeNiveauxMask, maskToPavageSvg) ne
+// change pas d'une trame à l'autre, seule la source chargée change.
+const TRAMES = {
+  C8B3: { file: '../../data/referent_bicolore_v1.json', label: 'C8·B3 — ต้นกำเนิด' },
+  C8B2: { file: '../../data/referent_bicolore_c8b2_v1.json', label: 'C8·B2 — ต้นกำเนิด T2' },
+  C16B1: { file: '../../data/referent_bicolore_c16b1_v1.json', label: 'C16·B1 — อนุพันธ์ (การยืดขยาย + โนมอน)' },
+  C4B3: { file: '../../data/referent_bicolore_c4b3_v1.json', label: 'C4·B3 — ต้นกำเนิด 6' },
+};
+const DEFAULT_TRAME = 'C8B3';
+
+function familleLabel(key) {
+  const terms = key.split('+');
+  const used = new Set();
+  const parts = [];
+  for (const pole of ['YIN', 'YANG']) {
+    const mut = pole + '-MUT';
+    if (terms.includes(pole) && terms.includes(mut)) {
+      parts.push(pole[0] + pole.slice(1).toLowerCase() + ' บริสุทธิ์');
+      used.add(pole); used.add(mut);
+    }
+  }
+  for (const t of terms) {
+    if (used.has(t)) continue;
+    if (t.endsWith('-MUT')) {
+      const base = t.slice(0, -4);
+      parts.push(base[0] + base.slice(1).toLowerCase() + ' (แปรเปลี่ยน)');
+    } else {
+      parts.push(t[0] + t.slice(1).toLowerCase());
+    }
+  }
+  return parts.join(' + ');
+}
+
+async function main() {
+  const params = new URLSearchParams(location.search);
+  const trame = TRAMES[params.get('t')] ? params.get('t') : DEFAULT_TRAME;
+
+  const trameSelect = document.getElementById('trameSelect');
+  Object.entries(TRAMES).forEach(([key, { label }]) => {
+    const opt = document.createElement('option');
+    opt.value = key;
+    opt.textContent = label;
+    trameSelect.appendChild(opt);
+  });
+  trameSelect.value = trame;
+  trameSelect.addEventListener('change', () => {
+    const p = new URLSearchParams(location.search);
+    p.set('t', trameSelect.value);
+    location.href = '?' + p.toString();
+  });
+
+  const res = await fetch(TRAMES[trame].file);
+  const data = await res.json();
+
+  const familleKeys = Object.keys(data.familles).sort((a, b) => {
+    const na = a.split('+').length, nb = b.split('+').length;
+    return na - nb || a.localeCompare(b);
+  });
+
+  // Deux hexagrammes indépendants, superposés — le droit (2) au-dessus.
+  // Un seul jeu de contrôles (hexSelect, familleSelect, etatSelect) : la
+  // sélection de trait (`selected`) est partagée, seul `activeHex` dit
+  // vers lequel des deux tableaux `hexagrams[1]`/`hexagrams[2]` les
+  // clics et les changements sont dirigés.
+  function readLevels(prefix, fallbackKey) {
+    const levels = [];
+    for (let n = 1; n <= N_LEVELS; n++) {
+      const raw = params.get(prefix + n);
+      let name = fallbackKey, teinte = 'yang';
+      if (raw) {
+        const [rn, rt] = raw.split('.');
+        if (data.familles[rn] && (rt === 'yang' || rt === 'yin')) { name = rn; teinte = rt; }
+      }
+      levels.push({ name, teinte });
+    }
+    return levels;
+  }
+  const hexagrams = {
+    1: readLevels('l', familleKeys[0]),
+    2: readLevels('r', familleKeys[1] || familleKeys[0]),
+  };
+  let activeHex = 1;
+
+  const combineMode = (params.get('m') === 'xor') ? 'xor' : 'calque';
+
+  const colorA = /^#[0-9a-f]{6}$/i.test(params.get('c0') || '') ? '#' + params.get('c0').replace('#', '') : PALETTE_DEFAUT[1];
+  const colorB = /^#[0-9a-f]{6}$/i.test(params.get('c1') || '') ? '#' + params.get('c1').replace('#', '') : PALETTE_DEFAUT[0];
+  document.getElementById('colorA').value = colorA;
+  document.getElementById('colorB').value = colorB;
+
+  const combineToggle = document.getElementById('combineToggle');
+  const combineBtns = [...combineToggle.querySelectorAll('button')];
+  function renderCombineToggle() {
+    combineBtns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === state.combineMode ? 'true' : 'false'));
+  }
+  const state = { combineMode };
+  combineBtns.forEach(b => b.addEventListener('click', () => {
+    state.combineMode = b.dataset.mode;
+    renderCombineToggle();
+    render();
+  }));
+  renderCombineToggle();
+
+  const hexTabs = document.getElementById('hexTabs');
+  const tabBtns = [1, 2].map(h => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = 'ฉักลักษณ์ ' + h;
+    b.addEventListener('click', () => {
+      activeHex = h;
+      renderTabs();
+      syncControls();
+      renderBars();
+    });
+    hexTabs.appendChild(b);
+    return b;
+  });
+  function renderTabs() {
+    tabBtns.forEach((b, i) => b.setAttribute('aria-pressed', (i + 1) === activeHex ? 'true' : 'false'));
+  }
+  renderTabs();
+
+  let selected = new Set([1]);
+
+  const familleSelect = document.getElementById('familleSelect');
+  familleKeys.forEach(k => {
+    const opt = document.createElement('option');
+    opt.value = k;
+    opt.textContent = familleLabel(k);
+    familleSelect.appendChild(opt);
+  });
+  const etatSelect = document.getElementById('etatSelect');
+
+  // Aperçu au survol : un select natif ne déclenche pas d'événement de
+  // survol fiable sur ses <option> (rendues par le système, hors DOM) —
+  // la liste ci-dessous est donc un second contrôle, cliquable comme le
+  // select (même valeur, même événement), qui existe pour le survol.
+  // Rendu réduit exprès : mesuré, le rendu triangle par triangle coûte
+  // ~22ms en C8 et ~55ms en C16 par aperçu (trop pour rester fluide sous
+  // un survol rapide) contre <1ms pour 144 cases pleines au pixel près —
+  // un aperçu par case, pas par triangle.
+  const GRID = 12;
+  const famillePreviewCanvas = document.getElementById('famillePreview');
+  const previewCtx = famillePreviewCanvas.getContext('2d');
+  function drawCoarsePreview(name, teinte) {
+    const perCellNow = data.per_cell;
+    const bitArr = hexToBits(data.familles[name][teinte], GRID * GRID * perCellNow);
+    const size = famillePreviewCanvas.width;
+    const cellPx = size / GRID;
+    const colorA = document.getElementById('colorA').value;
+    const colorB = document.getElementById('colorB').value;
+    for (let row = 0; row < GRID; row++) {
+      for (let col = 0; col < GRID; col++) {
+        const cell = row * GRID + col;
+        let dark = 0;
+        for (let s = 0; s < perCellNow; s++) dark += bitArr[cell * perCellNow + s];
+        previewCtx.fillStyle = (dark >= perCellNow / 2) ? colorA : colorB;
+        previewCtx.fillRect(col * cellPx, row * cellPx, cellPx + 0.5, cellPx + 0.5);
+      }
+    }
+  }
+
+  const familleList = document.getElementById('familleList');
+  const familleItems = familleKeys.map(k => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.role = 'option';
+    b.dataset.key = k;
+    b.textContent = familleLabel(k);
+    b.addEventListener('mouseenter', () => drawCoarsePreview(k, etatSelect.value));
+    b.addEventListener('focus', () => drawCoarsePreview(k, etatSelect.value));
+    b.addEventListener('click', () => {
+      familleSelect.value = k;
+      familleSelect.dispatchEvent(new Event('change'));
+    });
+    familleList.appendChild(b);
+    return b;
+  });
+  familleList.addEventListener('mouseleave', () => drawCoarsePreview(familleSelect.value, etatSelect.value));
+  function renderFamilleList() {
+    familleItems.forEach(b => b.setAttribute('aria-selected', b.dataset.key === familleSelect.value ? 'true' : 'false'));
+    drawCoarsePreview(familleSelect.value, etatSelect.value);
+  }
+
+  const hexSelect = document.getElementById('hexSelect');
+  const bars = [];
+
+  // Placé en premier dans le DOM : comme .hexselect est en
+  // column-reverse (trait 1 en bas, trait 6 en haut), le premier enfant
+  // du DOM est celui qui s'affiche le plus bas — donc sous le trait 1,
+  // sous tout l'hexagramme.
+  const allBtn = document.createElement('button');
+  allBtn.type = 'button';
+  allBtn.className = 'all-toggle';
+  allBtn.textContent = 'ทั้งหมด';
+  allBtn.addEventListener('click', toggleAll);
+  hexSelect.appendChild(allBtn);
+
+  for (let n = 1; n <= N_LEVELS; n++) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.level = String(n);
+    btn.innerHTML = '<span class="num">' + n + '</span><span class="bar"></span>';
+    btn.addEventListener('click', () => selectLevel(n));
+    hexSelect.appendChild(btn);
+    bars.push(btn);
+  }
+
+  function renderBars() {
+    const levels = hexagrams[activeHex];
+    bars.forEach((btn, i) => {
+      const n = i + 1;
+      const lvl = levels[n - 1];
+      const bar = btn.querySelector('.bar');
+      btn.classList.toggle('gap', lvl.teinte === 'yin');
+      bar.innerHTML = lvl.teinte === 'yin' ? '<span></span><span></span>' : '<span></span>';
+      btn.setAttribute('aria-pressed', selected.has(n) ? 'true' : 'false');
+    });
+    allBtn.setAttribute('aria-pressed', selected.size === N_LEVELS ? 'true' : 'false');
+  }
+
+  function syncControls() {
+    const heading = document.getElementById('levelHeading');
+    const previewNum = document.getElementById('previewLevelNum');
+    const prefix = 'ฉักลักษณ์ ' + activeHex + ' — ';
+    if (selected.size === 0) {
+      familleSelect.disabled = true;
+      etatSelect.disabled = true;
+      heading.textContent = prefix + 'ยังไม่ได้เลือกระดับ';
+      previewNum.textContent = 'ยังไม่ได้เลือกระดับ';
+      renderFamilleList();
+      return;
+    }
+    familleSelect.disabled = false;
+    etatSelect.disabled = false;
+    const levels = hexagrams[activeHex];
+    const nums = [...selected].sort((a, b) => a - b);
+    const lvl = levels[nums[0] - 1];
+    familleSelect.value = lvl.name;
+    etatSelect.value = lvl.teinte;
+    if (nums.length === 1) {
+      heading.textContent = prefix + 'ระดับ ' + nums[0];
+      previewNum.textContent = 'เลือกระดับ ' + nums[0];
+    } else {
+      heading.textContent = prefix + nums.length + ' ระดับ';
+      previewNum.textContent = 'เลือกระดับ ' + nums.join(', ');
+    }
+    renderFamilleList();
+  }
+
+  function selectLevel(n) {
+    selected = new Set([n]);
+    syncControls();
+    renderBars();
+  }
+
+  function toggleAll() {
+    selected = selected.size === N_LEVELS ? new Set() : new Set([1, 2, 3, 4, 5, 6]);
+    syncControls();
+    renderBars();
+  }
+
+  function updateUrl() {
+    const p = new URLSearchParams();
+    p.set('t', trame);
+    hexagrams[1].forEach((lvl, i) => p.set('l' + (i + 1), lvl.name + '.' + lvl.teinte));
+    hexagrams[2].forEach((lvl, i) => p.set('r' + (i + 1), lvl.name + '.' + lvl.teinte));
+    p.set('m', state.combineMode);
+    p.set('c0', document.getElementById('colorA').value.replace('#', ''));
+    p.set('c1', document.getElementById('colorB').value.replace('#', ''));
+    const url = location.origin + location.pathname + '?' + p.toString();
+    history.replaceState(null, '', '?' + p.toString());
+    document.getElementById('shareUrl').value = url;
+  }
+
+  function render() {
+    const palette = [document.getElementById('colorA').value, document.getElementById('colorB').value];
+    const perCell = data.per_cell;
+    // La combinaison s'applique aux deux masques une fois produits,
+    // jamais avant : composeNiveauxMask ne sait rien de calque/xor, et
+    // combineMasks ne sait rien de la cellule ni du bloc.
+    const mask1 = composeNiveauxMask(data.familles, data.layers, hexagrams[1], { perCell });
+    const mask2 = composeNiveauxMask(data.familles, data.layers, hexagrams[2], { perCell });
+    const mask = combineMasks(mask1, mask2, state.combineMode);
+    document.getElementById('paneMotif').innerHTML = maskToPavageSvg(mask, palette, 1, 1, { size: 500, perCell });
+    updateUrl();
+  }
+
+  familleSelect.addEventListener('change', () => {
+    const levels = hexagrams[activeHex];
+    for (const n of selected) levels[n - 1].name = familleSelect.value;
+    renderBars();
+    renderFamilleList();
+    render();
+  });
+  etatSelect.addEventListener('change', () => {
+    const levels = hexagrams[activeHex];
+    for (const n of selected) levels[n - 1].teinte = etatSelect.value;
+    renderBars();
+    renderFamilleList();
+    render();
+  });
+  document.getElementById('colorA').addEventListener('input', () => { renderFamilleList(); render(); });
+  document.getElementById('colorB').addEventListener('input', () => { renderFamilleList(); render(); });
+
+  selectLevel(1);
+  render();
+}
+
+main().catch(err => {
+  console.error(err);
+  document.querySelector('.composer').innerHTML = `<p style="color:var(--red);">เกิดข้อผิดพลาดในการโหลด: ${err.message}</p>`;
+});
+</script>
+
+</main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../th/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">หน้าแรก</span><span class="nav-tile-excerpt">หนังสือ แผ่นภาพ และเครื่องมือทั้งหมด</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">บทความ</span><span class="nav-tile-excerpt">ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนด — ทุกอย่างเปิดให้ใช้ฟรีภายใต้ CC BY-NC 4.0 การสนับสนุนของคุณช่วยให้โครงการเดินหน้าต่อไป">มาเป็นผู้สนับสนุน</a>
+
+    <nav class="nav-categories" aria-label="หน้าต่าง ๆ ของเว็บไซต์">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แกลเลอรี</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/two-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสองสี</span><span class="nav-cat-texte">ลวดลายสองสี 142 แบบที่สร้างจากแกนและปิดบนลูกบาศก์ — เกรนการอ่าน การปูลาย การส่งออก</span></a></li>
+          <li><a href="../../th/three-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสามสี</span><span class="nav-cat-texte">ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แอนิเมชัน</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">วอลเปเปอร์</span><span class="nav-cat-texte">วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">การเสี่ยงทายและงานพิมพ์</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">การเสี่ยงทายอี้จิง</span><span class="nav-cat-texte">สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64</span></a></li>
+          <li><a href="../../th/360-layers/"><span class="nav-cat-label">แผ่นลาย 360 แผ่น</span><span class="nav-cat-texte">ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">ลวดลาย SVG</span><span class="nav-cat-texte">ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG</span></a></li>
+          <li><a href="../../th/hexagrams/"><span class="nav-cat-label">ฉักลักษณ์</span><span class="nav-cat-texte">ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">เครื่องมือสร้างสรรค์</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">สร้างลวดลาย</span><span class="nav-cat-texte">ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง</span></a></li>
+          <li><a href="../../th/two-colour-patterns/" aria-current="page"><span class="nav-cat-label">ลวดลายสองสี</span><span class="nav-cat-texte">ประกอบเซลล์ขนาด 12×12 หกระดับ แต่ละระดับมีตระกูลและโทนสีของตัวเอง</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">ลวดลายสองสี v2</span><span class="nav-cat-texte">การแบ่งเส้นทแยงครั้งที่สอง (YA/AY) คำศัพท์และสถานะของการเลื่อนครึ่งคาบ — ควบคู่กับเครื่องมือ v1</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">ตัวเข้ารหัส</span><span class="nav-cat-texte">การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ</span></a></li>
+          <li><a href="../../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง</span></a></li>
+          <li><a href="../../th/cymatics/"><span class="nav-cat-label">ไซแมติกส์</span><span class="nav-cat-texte">การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">เครื่องมือ</span><span class="nav-cat-texte">เครื่องมือแบบโต้ตอบทั้งหมดของเว็บไซต์ รวมไว้ในที่เดียว</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เกี่ยวกับโครงการ</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/book/"><span class="nav-cat-label">ตำรา</span><span class="nav-cat-texte">ตำราและฉบับแปล ฉักลักษณ์ และอภิธานศัพท์</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">เกี่ยวกับ</span><span class="nav-cat-texte">ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์</span></a></li>
+          <li><a href="../../th/lexicon/"><span class="nav-cat-label">อภิธานศัพท์</span><span class="nav-cat-texte">แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès</span></a></li>
+          <li><a href="../../profil.html"><span class="nav-cat-label">โปรไฟล์เอกสาร</span><span class="nav-cat-texte">สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12</span></a></li>
+          <li><a href="../../contact.html"><span class="nav-cat-label">ติดต่อ</span><span class="nav-cat-texte">ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">สนับสนุน</span><span class="nav-cat-texte">สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี</span></a></li>
+          <li><a href="../../chiffres-et-sources.html"><span class="nav-cat-label">ตัวเลขและแหล่งที่มา</span><span class="nav-cat-texte">ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">ผลงาน</span><span class="nav-cat-texte">คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>สร้างร่วมกับ Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="ส่วนท้ายของหน้า">
+    <a href="../../th/">หน้าแรก</a>
+    <a href="../../th/book/">หนังสือ</a>
+    <a href="../../th/hexagrams/">ฉักลักษณ์</a>
+    <a href="../../th/lexicon/">อภิธานศัพท์</a>
+    <a href="../../motifs/" hreflang="en">ลวดลาย (ภาษาอังกฤษ)</a>
+    <a href="../../profil.html" hreflang="fr">ประวัติผู้แต่ง (ภาษาฝรั่งเศส)</a>
+    <a href="../../contact.html" hreflang="fr">ติดต่อ</a>
+    <a href="../../soutenir.html" hreflang="fr">สนับสนุนโครงการ</a>
+    <a href="../../th/search/">ค้นหา</a>
+  </nav>
+  <p class="site-footer-licence">
+    เนื้อหาภายใต้สัญญาอนุญาต <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · โค้ดภายใต้ AGPL v3 สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

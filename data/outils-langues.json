@@ -1,5 +1,5 @@
 {
-  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md).",
+  "_doc": "Les outils dans les autres langues (prompt-cc-outils-langues.md, étape 1) : les pages dont le texte est DÉJÀ traduit dans leur dictionnaire UI, sorties à une adresse par langue. scripts/build-outils-langues.js écrit chaque page depuis la page française ; scripts/langues.js en tire les groupes de traduction (hreflang, sitemap). « priorite » : sa priorité au sitemap, celle qu'avait la page française. « dossier » : l'adresse de la page. « langue » : la ligne qui fixe la langue au chargement, remplacée par la langue de la page. « textes » (étape 2, pages sans dictionnaire) : la table des textes de la page, chaque ligne avec sa traduction dans chaque langue — ou le chemin d'un fichier qui la porte (data/outils-langues/<page>.json). « communs » : les textes partagés par plusieurs pages (fil d'Ariane), appliqués là où ils se trouvent. « remplacements » : les textes de la page française qui ne sont pas dans son dictionnaire (tête, fil d'Ariane), avec leur traduction et sa provenance — « UI.<lang>.<clé> » quand elle est reprise du dictionnaire de la page, « nav-tiles » quand elle vient des tuiles, « SANS SOURCE » quand je l'ai écrite (à relire, TODO-RELECTURE.md).",
   "pages": [
     {
       "source": "cymatique.html",
@@ -46,31 +46,6 @@
               "source": "la page française devient l'autre langue"
             },
             {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/en/\">Home</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"Home\", \"item\": \"https://anibal-amiot.com/en/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"Tools\"",
-              "source": "nav-tiles (outils)"
-            },
-            {
               "fr": "<span aria-current=\"page\">Cymatique</span>",
               "trad": "<span aria-current=\"page\">Cymatics</span>",
               "source": "nav-tiles (cymatique)"
@@ -110,31 +85,6 @@
               "fr": "\"name\": \"Cymatique\"",
               "trad": "\"name\": \"Cimática\"",
               "source": "nav-tiles (cymatique)"
-            },
-            {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"Ruta de navegación\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/es/\">Inicio</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"Inicio\", \"item\": \"https://anibal-amiot.com/es/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"Herramientas\"",
-              "source": "nav-tiles (outils)"
             },
             {
               "fr": "<span aria-current=\"page\">Cymatique</span>",
@@ -178,31 +128,6 @@
               "source": "nav-tiles (cymatique)"
             },
             {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"เส้นทางนำทาง\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/th/\">หน้าแรก</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"หน้าแรก\", \"item\": \"https://anibal-amiot.com/th/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"เครื่องมือ\"",
-              "source": "nav-tiles (outils)"
-            },
-            {
               "fr": "<span aria-current=\"page\">Cymatique</span>",
               "trad": "<span aria-current=\"page\">ไซแมติกส์</span>",
               "source": "nav-tiles (cymatique)"
@@ -236,31 +161,6 @@
               "source": "nav-tiles (impression)"
             },
             {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/en/\">Home</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"Home\", \"item\": \"https://anibal-amiot.com/en/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"Tools\"",
-              "source": "nav-tiles (outils)"
-            },
-            {
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 layers</span>",
               "source": "nav-tiles (impression)"
@@ -287,31 +187,6 @@
               "source": "nav-tiles (impression)"
             },
             {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"Ruta de navegación\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/es/\">Inicio</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"Inicio\", \"item\": \"https://anibal-amiot.com/es/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"Herramientas\"",
-              "source": "nav-tiles (outils)"
-            },
-            {
               "fr": "<span aria-current=\"page\">360 calques</span>",
               "trad": "<span aria-current=\"page\">360 capas</span>",
               "source": "nav-tiles (impression)"
@@ -336,31 +211,6 @@
               "fr": "\"name\": \"360 calques\"",
               "trad": "\"name\": \"แผ่นลาย 360 แผ่น\"",
               "source": "nav-tiles (impression)"
-            },
-            {
-              "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
-              "trad": "<nav class=\"breadcrumb\" aria-label=\"เส้นทางนำทาง\">",
-              "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/th/\">หน้าแรก</a>",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
-              "trad": "\"name\": \"หน้าแรก\", \"item\": \"https://anibal-amiot.com/th/\"",
-              "source": "fil d'Ariane des hexagrammes en/es/th"
-            },
-            {
-              "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
-              "trad": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
-              "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
-            },
-            {
-              "fr": "\"name\": \"Outils\"",
-              "trad": "\"name\": \"เครื่องมือ\"",
-              "source": "nav-tiles (outils)"
             },
             {
               "fr": "<span aria-current=\"page\">360 calques</span>",
@@ -443,6 +293,128 @@
           ]
         }
       }
+    },
+    {
+      "source": "bicolore.html",
+      "priorite": "0.8",
+      "textes": "data/outils-langues/bicolore.json",
+      "langues": {
+        "en": {
+          "dossier": "en/two-colour-patterns/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/motivos-bicolores/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/two-colour-patterns/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "galerie-patterns-unifies.html",
+      "priorite": "0.7",
+      "textes": "data/outils-langues/galerie-patterns-unifies.json",
+      "langues": {
+        "en": {
+          "dossier": "en/three-colour-gallery/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/galeria-tricolor/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/three-colour-gallery/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
+      "source": "galerie-bicolore.html",
+      "priorite": "0.7",
+      "textes": "data/outils-langues/galerie-bicolore.json",
+      "langues": {
+        "en": {
+          "dossier": "en/two-colour-gallery/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/galeria-bicolor/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/two-colour-gallery/",
+          "ogLocale": "th_TH"
+        }
+      }
+    }
+  ],
+  "communs": [
+    {
+      "fr": "<nav class=\"breadcrumb\" aria-label=\"Fil d'Ariane\">",
+      "en": "<nav class=\"breadcrumb\" aria-label=\"Breadcrumb\">",
+      "es": "<nav class=\"breadcrumb\" aria-label=\"Ruta de navegación\">",
+      "th": "<nav class=\"breadcrumb\" aria-label=\"เส้นทางนำทาง\">",
+      "source": "pages en/es/th du site (aria-label de leur fil d'Ariane)"
+    },
+    {
+      "fr": "<a href=\"https://anibal-amiot.com/\">Accueil</a>",
+      "en": "<a href=\"https://anibal-amiot.com/en/\">Home</a>",
+      "es": "<a href=\"https://anibal-amiot.com/es/\">Inicio</a>",
+      "th": "<a href=\"https://anibal-amiot.com/th/\">หน้าแรก</a>",
+      "source": "fil d'Ariane des hexagrammes en/es/th"
+    },
+    {
+      "fr": "\"name\": \"Accueil\", \"item\": \"https://anibal-amiot.com/\"",
+      "en": "\"name\": \"Home\", \"item\": \"https://anibal-amiot.com/en/\"",
+      "es": "\"name\": \"Inicio\", \"item\": \"https://anibal-amiot.com/es/\"",
+      "th": "\"name\": \"หน้าแรก\", \"item\": \"https://anibal-amiot.com/th/\"",
+      "source": "fil d'Ariane des hexagrammes en/es/th"
+    },
+    {
+      "fr": "<a href=\"https://anibal-amiot.com/outils.html\">Outils</a>",
+      "en": "<a href=\"https://anibal-amiot.com/outils.html\">Tools</a>",
+      "es": "<a href=\"https://anibal-amiot.com/outils.html\">Herramientas</a>",
+      "th": "<a href=\"https://anibal-amiot.com/outils.html\">เครื่องมือ</a>",
+      "source": "nav-tiles (outils) — la page des outils n'existe qu'en français ici"
+    },
+    {
+      "fr": "\"name\": \"Outils\"",
+      "en": "\"name\": \"Tools\"",
+      "es": "\"name\": \"Herramientas\"",
+      "th": "\"name\": \"เครื่องมือ\"",
+      "source": "nav-tiles (outils)"
+    },
+    {
+      "fr": "<a class=\"dl-label\" href=\"fr/livre/\" target=\"_blank\" rel=\"noopener\">Lire le livre</a>",
+      "en": "<a class=\"dl-label\" href=\"en/book/\" target=\"_blank\" rel=\"noopener\">Read the book</a>",
+      "es": "<a class=\"dl-label\" href=\"es/libro/\" target=\"_blank\" rel=\"noopener\">Leer el libro</a>",
+      "th": "<a class=\"dl-label\" href=\"th/book/\" target=\"_blank\" rel=\"noopener\">อ่านหนังสือ</a>",
+      "source": "360-calques.html, UI.<langue>.readBook ; le lien mène au livre dans la langue de la page"
+    },
+    {
+      "fr": "<span class=\"dl-label\">Télécharger le PDF du livre</span>",
+      "en": "<span class=\"dl-label\">Download the book's PDF</span>",
+      "es": "<span class=\"dl-label\">Descargar el PDF del libro</span>",
+      "th": "<span class=\"dl-label\">ดาวน์โหลด PDF ของหนังสือ</span>",
+      "source": "360-calques.html, UI.<langue>.dlPdfBook"
+    },
+    {
+      "fr": "<span class=\"dl-label\">Télécharger la traduction du Yi-King</span>",
+      "en": "<span class=\"dl-label\">Download the Yi-King translation</span>",
+      "es": "<span class=\"dl-label\">Descargar la traducción del Yi-King</span>",
+      "th": "<span class=\"dl-label\">ดาวน์โหลดคำแปลอี้จิง</span>",
+      "source": "360-calques.html, UI.<langue>.dlYiKing"
+    },
+    {
+      "fr": "La Livrée d'Hermès est un livre de philosophie et de mathématiques, disponible en accès libre au lien ci-dessous. Il est centré sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
+      "en": "La Livrée d'Hermès is a book of philosophy and mathematics, freely available at the link below. It is centered on the construction of magic squares and their transcription into Jacquard weaving.",
+      "es": "La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
+      "th": "La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสกลและการถ่ายทอดสู่การทอผ้าแบบฌักการ์",
+      "source": "360-calques.html, UI.<langue>.bookIntro (th : « carré magique » et « Jacquard » ramenés au glossaire)"
     }
   ]
 }

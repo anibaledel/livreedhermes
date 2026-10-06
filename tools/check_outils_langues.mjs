@@ -147,7 +147,7 @@ for (const g of groupes) {
     if (lang !== 'fr') {
       for (const [k, v] of Object.entries(vivant)) {
         if (!(k in statique) || !v || v === statique[k]) continue;
-        if (statique[k] === statiqueFr[k] && statique[k] && v !== vivantFr[k]) { restes++; echec(`${nom} : ${k} — texte français en dur (« ${statique[k].slice(0, 60)} »), le script pose « ${v.slice(0, 60)} »`); }
+        if (statique[k] === statiqueFr[k] && /\p{L}/u.test(statique[k]) && v !== vivantFr[k]) { restes++; echec(`${nom} : ${k} — texte français en dur (« ${statique[k].slice(0, 60)} »), le script pose « ${v.slice(0, 60)} »`); }
       }
     }
     console.log(`OK    ${nom} : 200, lang ${tete.lang}, canonical sur elle, ${tete.alternates.length} alternates réciproques, au sitemap${lang !== 'fr' ? `, langue fixée, ${Object.keys(statique).length} éléments en dur dans sa langue` : ''}`);
