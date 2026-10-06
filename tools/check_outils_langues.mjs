@@ -69,6 +69,12 @@ if (essai) {
   }
 }
 await avecJs.addInitScript(() => { try { localStorage.setItem('lldh-lang', 'fr'); } catch (e) {} });
+// Seules les ressources du site sont jugées : une requête externe (la mesure
+// d'audience Cloudflare, refusée par CORS depuis un serveur local) est coupée
+// avant de partir, pour qu'une erreur qui n'est pas celle de la page ne compte pas.
+for (const ctx of [sansJs, avecJs]) {
+  await ctx.route((u) => !u.href.startsWith(BASE), (route) => route.abort());
+}
 
 // Le texte de chaque élément traduisible, sur une page chargée.
 const textes = (p) => p.evaluate(() => {
@@ -151,7 +157,8 @@ for (const g of groupes) {
   if (local) {
     const sans = (s) => s.replace(/<!-- @hreflang:start[\s\S]*?<!-- @hreflang:end -->\n?/, '');
     let avant = null;
-    try { avant = execFileSync('git', ['show', `${REF}:${fr[2]}`], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }); } catch {}
+    // absent dans un clone peu profond (CI) : la comparaison se fait alors en local seulement
+    try { avant = execFileSync('git', ['show', `${REF}:${fr[2]}`], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] }); } catch {}
     if (avant !== null) {
       const apres = readFileSync(path.join(ROOT, fr[2]), 'utf8');
       if (sans(avant) !== sans(apres)) echec(`${fr[2]} : la page française a changé depuis ${REF} hors de son bloc hreflang`);
