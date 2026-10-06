@@ -456,6 +456,45 @@
           "ogLocale": "th_TH"
         }
       }
+    },
+    {
+      "source": "creation-motifs-yi-king.html",
+      "priorite": "0.9",
+      "textes": "data/outils-langues/creation-motifs-yi-king.json",
+      "donnees": [
+        {
+          "const": "HEX_FR",
+          "forme": "hexFr"
+        },
+        {
+          "const": "PAIRS_FR",
+          "forme": "paires",
+          "entrees": 32
+        },
+        {
+          "const": "PAIRES_32",
+          "forme": "idees"
+        },
+        {
+          "const": "ASSETS",
+          "forme": "assets",
+          "entrees": 4
+        }
+      ],
+      "langues": {
+        "en": {
+          "dossier": "en/create-a-pattern/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/crear-un-motivo/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/create-a-pattern/",
+          "ogLocale": "th_TH"
+        }
+      }
     }
   ],
   "communs": [

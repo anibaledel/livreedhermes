@@ -532,3 +532,23 @@ Reste en français, et pourquoi :
 - le nom de fichier du PNG téléchargé (`motif-unifie-NN-<nom>.png`), tiré du nom de l'hexagramme en lettres latines : en thaï, le nom
   disparaît du fichier (`motif-unifie-01-.png`) ;
 - les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`.
+
+## Outils traduits, étape 4 — Créer un motif (2026-10-06)
+
+Trois pages nouvelles : en/create-a-pattern/, es/crear-un-motivo/, th/create-a-pattern/.
+
+- Interface : `data/outils-langues/creation-motifs-yi-king.json`, 71 textes, dont **62 sans source** (les autres : tuiles, glossaire,
+  pages d'hexagrammes).
+- Noms, Images et Jugements des 64 hexagrammes : lus dans leurs traductions existantes, comme pour Unified Patterns. Deux écarts
+  connus avec le français de cet outil : son Jugement du n° 1 est au pluriel (« Les traits pleins s'élancent seuls… ») là où la
+  traduction suit le singulier du tirage ; et 32 de ses mots-clés diffèrent de ceux du tirage — ceux-là sont traduits à part.
+- **Tout SANS SOURCE**, dans `data/outils-langues/creation-motifs-yi-king-textes.json` : les 32 mots-clés propres à l'outil, les
+  32 jugements de paires (PAIRS_FR, environ 860 mots), les 32 idées médianes (PAIRES_32, environ 1 430 mots), et les termes des
+  étiquettes des 60 images (Yang fixe → Fixed yang / Yang fijo / หยางคงที่ ; mutant suivant le glossaire). Chaque texte garde son
+  français : s'il change dans la page, la génération échoue au lieu de laisser la traduction dériver. Ces textes sont d'Anibal et
+  touchent au livre : c'est la partie à relire en premier.
+
+Reste en français, et pourquoi :
+- le texte des 32 paires à télécharger (`32-paires-chrono-FR.pdf`) : le bouton le dit (« en français ») ;
+- les noms de fichiers (`grille.png`, `grille.json`, le SVG) ;
+- les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`.

@@ -1,0 +1,502 @@
+{
+ "_doc": "Textes d'interface de creation-motifs-yi-king.html et leurs traductions (scripts/build-outils-langues.js). Les textes des hexagrammes, des paires et des idées médianes n'y sont pas : voir « donnees » et data/outils-langues/creation-motifs-yi-king-textes.json. « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "Créer un motif Yi King — La Livrée d'Hermès | Anibal Amiot",
+   "en": "Create a Yi King pattern — La Livrée d'Hermès | Anibal Amiot",
+   "es": "Crear un motivo del Yi King — La Livrée d'Hermès | Anibal Amiot",
+   "th": "สร้างลวดลายอี้จิง — La Livrée d'Hermès | Anibal Amiot",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Composez vos propres motifs textiles à partir des 60 images du Yi King : choisissez deux images et générez un échiquier de 64 hexagrammes, par Anibal Amiot.",
+   "en": "Compose your own textile patterns from the 60 images of the Yi King: choose two images and generate a chessboard of 64 hexagrams, by Anibal Amiot.",
+   "es": "Componga sus propios motivos textiles a partir de las 60 imágenes del Yi King: elija dos imágenes y genere un tablero de 64 hexagramas, por Anibal Amiot.",
+   "th": "ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง: เลือกสองภาพ แล้วสร้างกระดานฉักลักษณ์ 64 ช่อง โดย Anibal Amiot",
+   "source": "SANS SOURCE (début repris des tuiles)"
+  },
+  {
+   "fr": "Anibal Amiot, designer motifs textiles, atelier de motifs, création de motifs textiles, motifs répétitifs, pattern design textile, motif sur mesure, design textile digital, motifs pour impression tissu, créateur de motifs textiles sur mesure, designer motifs pour vêtements et accessoires, atelier création motifs textiles Thaïlande, designer textile Thaïlande",
+   "en": "Anibal Amiot, textile pattern designer, pattern studio, textile pattern creation, repeat patterns, textile pattern design, custom pattern, digital textile design, patterns for fabric printing, custom textile pattern creator, pattern designer for clothing and accessories, textile pattern studio Thailand, textile designer Thailand",
+   "es": "Anibal Amiot, diseñador de motivos textiles, taller de motivos, creación de motivos textiles, motivos repetitivos, diseño de patrones textiles, motivo a medida, diseño textil digital, motivos para impresión en tela, creador de motivos textiles a medida, diseñador de motivos para ropa y accesorios, taller de motivos textiles Tailandia, diseñador textil Tailandia",
+   "th": "Anibal Amiot, นักออกแบบลวดลายผ้า, สตูดิโอลวดลาย, การสร้างลวดลายผ้า, ลวดลายซ้ำ, การออกแบบลวดลายสิ่งทอ, ลวดลายสั่งทำ, การออกแบบสิ่งทอดิจิทัล, ลวดลายสำหรับพิมพ์ผ้า, ผู้สร้างลวดลายผ้าสั่งทำ, นักออกแบบลวดลายสำหรับเสื้อผ้าและเครื่องประดับ, สตูดิโอลวดลายผ้า ประเทศไทย, นักออกแบบสิ่งทอ ประเทศไทย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Créer un motif Yi King\"",
+   "en": "\"name\": \"Create a Yi King pattern\"",
+   "es": "\"name\": \"Crear un motivo del Yi King\"",
+   "th": "\"name\": \"สร้างลวดลายอี้จิง\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"position\": 3, \"name\": \"Créer un motif\"",
+   "en": "\"position\": 3, \"name\": \"Create a pattern\"",
+   "es": "\"position\": 3, \"name\": \"Crear un motivo\"",
+   "th": "\"position\": 3, \"name\": \"สร้างลวดลาย\"",
+   "source": "nav-tiles (creation-motifs-yi-king)"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Créer un motif</span>",
+   "en": "<span aria-current=\"page\">Create a pattern</span>",
+   "es": "<span aria-current=\"page\">Crear un motivo</span>",
+   "th": "<span aria-current=\"page\">สร้างลวดลาย</span>",
+   "source": "nav-tiles (creation-motifs-yi-king)"
+  },
+  {
+   "fr": "<h1>Création de motifs</h1>",
+   "en": "<h1>Pattern creation</h1>",
+   "es": "<h1>Creación de motivos</h1>",
+   "th": "<h1>การสร้างลวดลาย</h1>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p id=\"txt-headerCounts\">60 images, 6 niveaux, 360 calques</p>",
+   "en": "<p id=\"txt-headerCounts\">60 images, 6 levels, 360 layers</p>",
+   "es": "<p id=\"txt-headerCounts\">60 imágenes, 6 niveles, 360 capas</p>",
+   "th": "<p id=\"txt-headerCounts\">60 ภาพ 6 ระดับ แผ่นลาย 360 แผ่น</p>",
+   "source": "glossaire (niveau, calque)"
+  },
+  {
+   "fr": "el.textContent = `${d.n_identities} images, ${nNiveaux} niveaux, ${d.n_calques} calques`;",
+   "en": "el.textContent = `${d.n_identities} images, ${nNiveaux} levels, ${d.n_calques} layers`;",
+   "es": "el.textContent = `${d.n_identities} imágenes, ${nNiveaux} niveles, ${d.n_calques} capas`;",
+   "th": "el.textContent = `${d.n_identities} ภาพ ${nNiveaux} ระดับ แผ่นลาย ${d.n_calques} แผ่น`;",
+   "source": "glossaire (niveau, calque)"
+  },
+  {
+   "fr": "<a href=\"motifs/\" style=\"color:var(--gold);\">Parcourir les 256 pages individuelles de motifs →</a>",
+   "en": "<a href=\"motifs/\" style=\"color:var(--gold);\">Browse the 256 individual pattern pages →</a>",
+   "es": "<a href=\"motifs/\" style=\"color:var(--gold);\">Recorrer las 256 páginas individuales de motivos (en inglés y francés) →</a>",
+   "th": "<a href=\"motifs/\" style=\"color:var(--gold);\">ดูหน้าลวดลายแยกทั้ง 256 หน้า (ภาษาอังกฤษและฝรั่งเศส) →</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<span class=\"flags\" title=\"Langue du livre\">",
+   "en": "<span class=\"flags\" title=\"Language of the book\">",
+   "es": "<span class=\"flags\" title=\"Idioma del libro\">",
+   "th": "<span class=\"flags\" title=\"ภาษาของหนังสือ\">",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "title=\"Français (FR)\">Télécharger le texte des 32 paires</a>",
+   "en": "title=\"Français (FR)\">Download the text of the 32 pairs (French)</a>",
+   "es": "title=\"Français (FR)\">Descargar el texto de los 32 pares (en francés)</a>",
+   "th": "title=\"Français (FR)\">ดาวน์โหลดข้อความของ 32 คู่ (ภาษาฝรั่งเศส)</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<span class=\"dl-btn disabled\" title=\"Bientôt disponible\">Télécharger les 32 paires</span>",
+   "en": "<span class=\"dl-btn disabled\" title=\"Coming soon\">Download the 32 pairs</span>",
+   "es": "<span class=\"dl-btn disabled\" title=\"Disponible próximamente\">Descargar los 32 pares</span>",
+   "th": "<span class=\"dl-btn disabled\" title=\"เร็ว ๆ นี้\">ดาวน์โหลด 32 คู่</span>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "id=\"btnColorMode\">Multicolore</button>",
+   "en": "id=\"btnColorMode\">Multicolour</button>",
+   "es": "id=\"btnColorMode\">Multicolor</button>",
+   "th": "id=\"btnColorMode\">หลายสี</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "id=\"paletteLabelMulti\" style=\"display:none;\">Palette</span>",
+   "en": "id=\"paletteLabelMulti\" style=\"display:none;\">Palette</span>",
+   "es": "id=\"paletteLabelMulti\" style=\"display:none;\">Paleta</span>",
+   "th": "id=\"paletteLabelMulti\" style=\"display:none;\">ชุดสี</span>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "style=\"display:none;\">Réinitialiser la palette</button>",
+   "en": "style=\"display:none;\">Reset the palette</button>",
+   "es": "style=\"display:none;\">Restablecer la paleta</button>",
+   "th": "style=\"display:none;\">คืนค่าชุดสี</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<span class=\"palette-label\" id=\"monoLabel\">Teinte</span>",
+   "en": "<span class=\"palette-label\" id=\"monoLabel\">Hue</span>",
+   "es": "<span class=\"palette-label\" id=\"monoLabel\">Matiz</span>",
+   "th": "<span class=\"palette-label\" id=\"monoLabel\">โทนสี</span>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "title=\"Choisir une teinte\">",
+   "en": "title=\"Choose a hue\">",
+   "es": "title=\"Elegir un matiz\">",
+   "th": "title=\"เลือกโทนสี\">",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "id=\"btnResetMono\">Réinitialiser la teinte</button>",
+   "en": "id=\"btnResetMono\">Reset the hue</button>",
+   "es": "id=\"btnResetMono\">Restablecer el matiz</button>",
+   "th": "id=\"btnResetMono\">คืนค่าโทนสี</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "btnColorModeEl.textContent = colorMode==='mono' ? 'Multicolore' : 'Monochrome';",
+   "en": "btnColorModeEl.textContent = colorMode==='mono' ? 'Multicolour' : 'Monochrome';",
+   "es": "btnColorModeEl.textContent = colorMode==='mono' ? 'Multicolor' : 'Monocromo';",
+   "th": "btnColorModeEl.textContent = colorMode==='mono' ? 'หลายสี' : 'สีเดียว';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "{ id:'bases', label:'Bases', n:16, sub:'4 axes de base' },",
+   "en": "{ id:'bases', label:'Bases', n:16, sub:'4 base axes' },",
+   "es": "{ id:'bases', label:'Bases', n:16, sub:'4 ejes de base' },",
+   "th": "{ id:'bases', label:'ฐาน', n:16, sub:'แกนฐาน 4 แกน' },",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "{ id:'par2',  label:'Par 2', n:24, sub:'combinaisons de 2 axes' },",
+   "en": "{ id:'par2',  label:'By 2', n:24, sub:'combinations of 2 axes' },",
+   "es": "{ id:'par2',  label:'Por 2', n:24, sub:'combinaciones de 2 ejes' },",
+   "th": "{ id:'par2',  label:'ชุดละ 2', n:24, sub:'การผสม 2 แกน' },",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "{ id:'par3',  label:'Par 3', n:16, sub:'combinaisons de 3 axes' },",
+   "en": "{ id:'par3',  label:'By 3', n:16, sub:'combinations of 3 axes' },",
+   "es": "{ id:'par3',  label:'Por 3', n:16, sub:'combinaciones de 3 ejes' },",
+   "th": "{ id:'par3',  label:'ชุดละ 3', n:16, sub:'การผสม 3 แกน' },",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "{ id:'par4',  label:'Par 4', n:4,  sub:'combinaison des 4 axes' },",
+   "en": "{ id:'par4',  label:'By 4', n:4,  sub:'combination of the 4 axes' },",
+   "es": "{ id:'par4',  label:'Por 4', n:4,  sub:'combinación de los 4 ejes' },",
+   "th": "{ id:'par4',  label:'ชุดละ 4', n:4,  sub:'การผสมทั้ง 4 แกน' },",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "{ id:'les60', label:'Les 60', n:60, sub:'toutes les natures' },",
+   "en": "{ id:'les60', label:'All 60', n:60, sub:'all natures' },",
+   "es": "{ id:'les60', label:'Las 60', n:60, sub:'todas las naturalezas' },",
+   "th": "{ id:'les60', label:'ทั้ง 60', n:60, sub:'ทุกธรรมชาติ' },",
+   "source": "SANS SOURCE (« natures » : dictionnaire de 360 calques)"
+  },
+  {
+   "fr": "return {bases:'Bases', par2:'Par 2', par3:'Par 3', par4:'Par 4'}[cat] || cat;",
+   "en": "return {bases:'Bases', par2:'By 2', par3:'By 3', par4:'By 4'}[cat] || cat;",
+   "es": "return {bases:'Bases', par2:'Por 2', par3:'Por 3', par4:'Por 4'}[cat] || cat;",
+   "th": "return {bases:'ฐาน', par2:'ชุดละ 2', par3:'ชุดละ 3', par4:'ชุดละ 4'}[cat] || cat;",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "const AXIS_LABEL = { yang:'Yang', yang_mut:'Yang mut', yin_mut:'Yin mut', yin:'Yin' };",
+   "en": "const AXIS_LABEL = { yang:'Yang', yang_mut:'Mutant yang', yin_mut:'Mutant yin', yin:'Yin' };",
+   "es": "const AXIS_LABEL = { yang:'Yang', yang_mut:'Yang mutante', yin_mut:'Yin mutante', yin:'Yin' };",
+   "th": "const AXIS_LABEL = { yang:'หยาง', yang_mut:'หยางกลายพันธุ์', yin_mut:'ยินกลายพันธุ์', yin:'ยิน' };",
+   "source": "glossaire (mutant, yang, yin)"
+  },
+  {
+   "fr": "label:'Sans '+AXIS_LABEL[a]",
+   "en": "label:'Without '+AXIS_LABEL[a]",
+   "es": "label:'Sin '+AXIS_LABEL[a]",
+   "th": "label:'ไม่มี'+AXIS_LABEL[a]",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "label:'Yin & Yang'}]",
+   "en": "label:'Yin & Yang'}]",
+   "es": "label:'Yin y Yang'}]",
+   "th": "label:'ยินและหยาง'}]",
+   "source": "glossaire (yin, yang)"
+  },
+  {
+   "fr": "famille: 'Yin + Yang mutant', natures: 'Yang / Yang mutant', n: 21,",
+   "en": "famille: 'Yin + Mutant yang', natures: 'Yang / Mutant yang', n: 21,",
+   "es": "famille: 'Yin + Yang mutante', natures: 'Yang / Yang mutante', n: 21,",
+   "th": "famille: 'ยิน + หยางกลายพันธุ์', natures: 'หยาง / หยางกลายพันธุ์', n: 21,",
+   "source": "glossaire (mutant, yang, yin)"
+  },
+  {
+   "fr": "btn.innerHTML = `${cat.label}<span class=\"n\">${cat.n} images · ${cat.sub}</span>`;",
+   "en": "btn.innerHTML = `${cat.label}<span class=\"n\">${cat.n} images · ${cat.sub}</span>`;",
+   "es": "btn.innerHTML = `${cat.label}<span class=\"n\">${cat.n} imágenes · ${cat.sub}</span>`;",
+   "th": "btn.innerHTML = `${cat.label}<span class=\"n\">${cat.n} ภาพ · ${cat.sub}</span>`;",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les 60 images réunies, toutes catégories confondues. Choisissez 2 images, où qu'elles se trouvent : l'image la plus « yang » joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position — exactement comme dans l'app Tirage.",
+   "en": "The 60 images together, all categories combined. Choose 2 images, wherever they are: the more “yang” image plays the role of the Creative, the other that of the Receptive, and the chessboard of the 64 hexagrams is built by correspondence of position — exactly as in the Yi King draw.",
+   "es": "Las 60 imágenes reunidas, todas las categorías juntas. Elija 2 imágenes, estén donde estén: la imagen más «yang» desempeña el papel de Lo Creativo, la otra el de Lo Receptivo, y el tablero de los 64 hexagramas se construye por correspondencia de posición, exactamente como en la Tirada del Yi King.",
+   "th": "ภาพทั้ง 60 ภาพรวมกัน ทุกหมวดรวมเข้าด้วยกัน เลือก 2 ภาพ จากที่ใดก็ได้: ภาพที่ « หยาง » มากกว่ารับบทผู้สร้างสรรค์ อีกภาพรับบทผู้รับ และกระดานฉักลักษณ์ 64 ช่องสร้างขึ้นด้วยการเทียบตำแหน่ง — เหมือนกับในการเสี่ยงทายอี้จิงทุกประการ",
+   "source": "SANS SOURCE (noms des hexagrammes 1 et 2 et du tirage : pages traduites, tuiles)"
+  },
+  {
+   "fr": "Choisissez 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image.",
+   "en": "Choose 2 images. The more “yang” of the two plays the role of the Creative, the other that of the Receptive, and the chessboard of the 64 hexagrams is built by correspondence of position, with the real layers of each image.",
+   "es": "Elija 2 imágenes. La más «yang» de las dos desempeña el papel de Lo Creativo, la otra el de Lo Receptivo, y el tablero de los 64 hexagramas se construye por correspondencia de posición, con las capas reales de cada imagen.",
+   "th": "เลือก 2 ภาพ ภาพที่ « หยาง » มากกว่ารับบทผู้สร้างสรรค์ อีกภาพรับบทผู้รับ และกระดานฉักลักษณ์ 64 ช่องสร้างขึ้นด้วยการเทียบตำแหน่ง โดยใช้แผ่นลายจริงของแต่ละภาพ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Catégorie « ${cat.label} » (${cat.sub}) — choisissez 2 images. La plus « yang » des deux joue le rôle du Créateur, l'autre celui du Réceptif, et l'échiquier des 64 hexagrammes se construit par correspondance de position, avec les vrais calques de chaque image.`",
+   "en": "`Category “${cat.label}” (${cat.sub}) — choose 2 images. The more “yang” of the two plays the role of the Creative, the other that of the Receptive, and the chessboard of the 64 hexagrams is built by correspondence of position, with the real layers of each image.`",
+   "es": "`Categoría «${cat.label}» (${cat.sub}): elija 2 imágenes. La más «yang» de las dos desempeña el papel de Lo Creativo, la otra el de Lo Receptivo, y el tablero de los 64 hexagramas se construye por correspondencia de posición, con las capas reales de cada imagen.`",
+   "th": "`หมวด « ${cat.label} » (${cat.sub}) — เลือก 2 ภาพ ภาพที่ « หยาง » มากกว่ารับบทผู้สร้างสรรค์ อีกภาพรับบทผู้รับ และกระดานฉักลักษณ์ 64 ช่องสร้างขึ้นด้วยการเทียบตำแหน่ง โดยใช้แผ่นลายจริงของแต่ละภาพ`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Choisissez une première image'",
+   "en": "'Choose a first image'",
+   "es": "'Elija una primera imagen'",
+   "th": "'เลือกภาพแรก'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Choisissez une seconde image'",
+   "en": "'Choose a second image'",
+   "es": "'Elija una segunda imagen'",
+   "th": "'เลือกภาพที่สอง'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Deux images choisies — résultat ci-dessous'",
+   "en": "'Two images chosen — result below'",
+   "es": "'Dos imágenes elegidas: resultado a continuación'",
+   "th": "'เลือกครบสองภาพแล้ว — ดูผลด้านล่าง'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "btn.textContent='Recommencer la sélection';",
+   "en": "btn.textContent='Start the selection again';",
+   "es": "btn.textContent='Empezar de nuevo la selección';",
+   "th": "btn.textContent='เริ่มเลือกใหม่';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "` — image ${order} choisie`",
+   "en": "` — image ${order} chosen`",
+   "es": "` — imagen ${order} elegida`",
+   "th": "` — ภาพที่ ${order} ที่เลือก`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"tag\">Échiquier pas encore activé pour cette combinaison</div>",
+   "en": "<div class=\"tag\">Chessboard not yet enabled for this combination</div>",
+   "es": "<div class=\"tag\">Tablero aún no activado para esta combinación</div>",
+   "th": "<div class=\"tag\">ยังไม่เปิดใช้กระดานสำหรับการผสมนี้</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p>« ${missing.label} » (${groupLabel(missing.__cat)}) attend encore ses calques trait par trait.</p>",
+   "en": "<p>“${missing.label}” (${groupLabel(missing.__cat)}) is still waiting for its line-by-line layers.</p>",
+   "es": "<p>«${missing.label}» (${groupLabel(missing.__cat)}) espera todavía sus capas rasgo por rasgo.</p>",
+   "th": "<p>« ${missing.label} » (${groupLabel(missing.__cat)}) ยังรอแผ่นลายทีละเส้นอยู่</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Paire complète — les 64 grilles pavent, et les 64 hexagrammes ferment sur le cube.'",
+   "en": "'Complete pair — all 64 grids tile, and all 64 hexagrams close on the cube.'",
+   "es": "'Par completo: las 64 rejillas teselan, y los 64 hexagramas cierran sobre el cubo.'",
+   "th": "'คู่สมบูรณ์ — ตารางทั้ง 64 ปูลายได้ และฉักลักษณ์ทั้ง 64 ปิดบนลูกบาศก์'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Paire complète — les 64 grilles pavent ; aucune ne ferme sur le cube.'",
+   "en": "'Complete pair — all 64 grids tile; none closes on the cube.'",
+   "es": "'Par completo: las 64 rejillas teselan; ninguna cierra sobre el cubo.'",
+   "th": "'คู่สมบูรณ์ — ตารางทั้ง 64 ปูลายได้ ไม่มีตารางใดปิดบนลูกบาศก์'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Paire complète — les 64 grilles pavent ; 4 hexagrammes ferment sur le cube, repérés ci-dessous d\\'un <span class=\"badge-ferme\">liseré doré</span>.'",
+   "en": "'Complete pair — all 64 grids tile; 4 hexagrams close on the cube, marked below with a <span class=\"badge-ferme\">gold edge</span>.'",
+   "es": "'Par completo: las 64 rejillas teselan; 4 hexagramas cierran sobre el cubo, señalados abajo con un <span class=\"badge-ferme\">ribete dorado</span>.'",
+   "th": "'คู่สมบูรณ์ — ตารางทั้ง 64 ปูลายได้ ฉักลักษณ์ 4 ตัวปิดบนลูกบาศก์ ทำเครื่องหมายไว้ด้านล่างด้วย<span class=\"badge-ferme\">ขอบสีทอง</span>'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Paire nulle — aucune de ses 64 grilles ne satisfait le critère de pavage simple (la fermeture sur le cube n\\'est pas définie pour cette paire).'",
+   "en": "'Null pair — none of its 64 grids satisfies the simple tiling criterion (closure on the cube is not defined for this pair).'",
+   "es": "'Par nulo: ninguna de sus 64 rejillas cumple el criterio de teselado simple (el cierre sobre el cubo no está definido para este par).'",
+   "th": "'คู่ว่าง — ไม่มีตารางใดใน 64 ตารางที่ผ่านเกณฑ์การปูลายอย่างง่าย (การปิดบนลูกบาศก์ไม่ได้นิยามไว้สำหรับคู่นี้)'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Paire partielle — seulement ${statutPaire}/64 grilles satisfont le critère de pavage simple (la fermeture sur le cube n'est pas définie pour cette paire).`",
+   "en": "`Partial pair — only ${statutPaire}/64 grids satisfy the simple tiling criterion (closure on the cube is not defined for this pair).`",
+   "es": "`Par parcial: solo ${statutPaire}/64 rejillas cumplen el criterio de teselado simple (el cierre sobre el cubo no está definido para este par).`",
+   "th": "`คู่บางส่วน — มีเพียง ${statutPaire}/64 ตารางที่ผ่านเกณฑ์การปูลายอย่างง่าย (การปิดบนลูกบาศก์ไม่ได้นิยามไว้สำหรับคู่นี้)`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "${yangItem.label} — rôle Créateur (yang)</div>",
+   "en": "${yangItem.label} — role of the Creative (yang)</div>",
+   "es": "${yangItem.label} — papel de Lo Creativo (yang)</div>",
+   "th": "${yangItem.label} — บทผู้สร้างสรรค์ (หยาง)</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "${yinItem.label} — rôle Réceptif (yin)</div>",
+   "en": "${yinItem.label} — role of the Receptive (yin)</div>",
+   "es": "${yinItem.label} — papel de Lo Receptivo (yin)</div>",
+   "th": "${yinItem.label} — บทผู้รับ (ยิน)</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"count\">64 croisements · <b>${distinctVisuals}</b> motif${distinctVisuals>1?'s':''} visuellement distinct${distinctVisuals>1?'s':''}${tie ? ' · (égalité de score yang — attribution arbitraire)' : ''}</div>",
+   "en": "<div class=\"count\">64 crossings · <b>${distinctVisuals}</b> visually distinct pattern${distinctVisuals>1?'s':''}${tie ? ' · (tied yang score — arbitrary assignment)' : ''}</div>",
+   "es": "<div class=\"count\">64 cruces · <b>${distinctVisuals}</b> motivo${distinctVisuals>1?'s':''} visualmente distinto${distinctVisuals>1?'s':''}${tie ? ' · (empate de puntuación yang: asignación arbitraria)' : ''}</div>",
+   "th": "<div class=\"count\">64 จุดตัด · ลวดลายที่ต่างกันทางสายตา <b>${distinctVisuals}</b> แบบ${tie ? ' · (คะแนนหยางเท่ากัน — กำหนดบทโดยพลการ)' : ''}</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "${nTwinGroups} motif${nTwinGroups>1?'s':''} de cet échiquier ${nTwinGroups>1?'apparaissent':'apparaît'} deux fois (couleurs échangées entre le Créateur et le Réceptif) —\n    chaque case concernée le signale et indique l'hexagramme jumeau.</div>",
+   "en": "${nTwinGroups} pattern${nTwinGroups>1?'s':''} of this chessboard appear${nTwinGroups>1?'':'s'} twice (colours swapped between the Creative and the Receptive) —\n    each cell concerned says so and names the twin hexagram.</div>",
+   "es": "${nTwinGroups} motivo${nTwinGroups>1?'s':''} de este tablero aparece${nTwinGroups>1?'n':''} dos veces (colores intercambiados entre Lo Creativo y Lo Receptivo):\n    cada casilla afectada lo indica y señala el hexagrama gemelo.</div>",
+   "th": "ลวดลาย ${nTwinGroups} แบบของกระดานนี้ปรากฏสองครั้ง (สลับสีระหว่างผู้สร้างสรรค์กับผู้รับ) —\n    ทุกช่องที่เกี่ยวข้องจะแจ้งไว้และระบุฉักลักษณ์คู่แฝด</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"stats-line\">Numérotation ci-dessous : ordre de lecture 1 (haut-gauche) → 64 (bas-droite) — cliquez sur une case pour la numérotation King Wen traditionnelle · <b>${TOTAL_ECHIQUIERS.toLocaleString('fr-FR')}</b> échiquiers différents possibles au total avec les 60 images (C(60,2))</div>",
+   "en": "<div class=\"stats-line\">Numbering below: reading order 1 (top left) → 64 (bottom right) — click a cell for the traditional King Wen numbering · <b>${TOTAL_ECHIQUIERS.toLocaleString('en-GB')}</b> different chessboards possible in all with the 60 images (C(60,2))</div>",
+   "es": "<div class=\"stats-line\">Numeración abajo: orden de lectura 1 (arriba a la izquierda) → 64 (abajo a la derecha); haga clic en una casilla para la numeración King Wen tradicional · <b>${TOTAL_ECHIQUIERS.toLocaleString('es-ES')}</b> tableros diferentes posibles en total con las 60 imágenes (C(60,2))</div>",
+   "th": "<div class=\"stats-line\">การเรียงเลขด้านล่าง: ลำดับการอ่าน 1 (บนซ้าย) → 64 (ล่างขวา) — คลิกช่องเพื่อดูเลขลำดับ King Wen ดั้งเดิม · กระดานที่ต่างกันได้ทั้งหมด <b>${TOTAL_ECHIQUIERS.toLocaleString('th-TH')}</b> แบบจากภาพ 60 ภาพ (C(60,2))</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Choisissez une des 64 cases pour voir le motif en grand et sa signification'",
+   "en": "'Choose one of the 64 cells to see the pattern enlarged and its meaning'",
+   "es": "'Elija una de las 64 casillas para ver el motivo en grande y su significado'",
+   "th": "'เลือกหนึ่งใน 64 ช่องเพื่อดูลวดลายแบบขยายและความหมาย'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Case ${cell.chrono+1}${hexCase ? ` — ${hexCase.name}` : ''}${ferme ? ' — ferme sur le cube' : ''}`",
+   "en": "`Cell ${cell.chrono+1}${hexCase ? ` — ${hexCase.name}` : ''}${ferme ? ' — closes on the cube' : ''}`",
+   "es": "`Casilla ${cell.chrono+1}${hexCase ? ` — ${hexCase.name}` : ''}${ferme ? ' — cierra sobre el cubo' : ''}`",
+   "th": "`ช่อง ${cell.chrono+1}${hexCase ? ` — ${hexCase.name}` : ''}${ferme ? ' — ปิดบนลูกบาศก์' : ''}`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "el.title = 'Ferme sur le cube (Théorème 3/4)';",
+   "en": "el.title = 'Closes on the cube (Theorem 3/4)';",
+   "es": "el.title = 'Cierra sobre el cubo (Teorema 3/4)';",
+   "th": "el.title = 'ปิดบนลูกบาศก์ (ทฤษฎีบท 3/4)';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"lbl\">Aperçu du cube — Théorème 3/4</div>",
+   "en": "<div class=\"lbl\">Cube preview — Theorem 3/4</div>",
+   "es": "<div class=\"lbl\">Vista previa del cubo — Teorema 3/4</div>",
+   "th": "<div class=\"lbl\">ภาพตัวอย่างลูกบาศก์ — ทฤษฎีบท 3/4</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"txt\">Cette grille ferme sur le cube (les 144 contraintes d'arête sont satisfaites) —\n        habillage calculé à la volée pour cet hexagramme précis, pas préparé à l'avance.</div>",
+   "en": "<div class=\"txt\">This grid closes on the cube (the 144 edge constraints are satisfied) —\n        covering computed on the fly for this exact hexagram, not prepared in advance.</div>",
+   "es": "<div class=\"txt\">Esta rejilla cierra sobre el cubo (las 144 restricciones de arista se cumplen):\n        revestimiento calculado al vuelo para este hexagrama preciso, no preparado de antemano.</div>",
+   "th": "<div class=\"txt\">ตารางนี้ปิดบนลูกบาศก์ (ผ่านข้อบังคับของขอบทั้ง 144 ข้อ) —\n        การห่อหุ้มคำนวณทันทีสำหรับฉักลักษณ์ตัวนี้โดยเฉพาะ ไม่ได้เตรียมไว้ล่วงหน้า</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"txt\">Cet hexagramme-ci ne ferme pas sur le cube (ou son statut n'est pas déterminé) ;\n    l'image montre à la place un exemple de référence qui ne ferme pas non plus — ${ex.famille},\n    ${ex.natures}, hexagramme N°${ex.n}. Meilleur habillage possible : 8 arêtes satisfaites sur 12\n    (les cases en défaut sont encadrées) — précalculé, car trouver le MEILLEUR habillage (et non\n    simplement décider s'il en existe un parfait) demande d'énumérer les 262 144 possibilités.</div>",
+   "en": "<div class=\"txt\">This hexagram does not close on the cube (or its status is not determined);\n    the image shows instead a reference example that does not close either — ${ex.famille},\n    ${ex.natures}, hexagram no. ${ex.n}. Best possible covering: 8 edges satisfied out of 12\n    (the faulty cells are framed) — precomputed, because finding the BEST covering (and not\n    merely deciding whether a perfect one exists) requires enumerating the 262,144 possibilities.</div>",
+   "es": "<div class=\"txt\">Este hexagrama no cierra sobre el cubo (o su estado no está determinado);\n    la imagen muestra en su lugar un ejemplo de referencia que tampoco cierra — ${ex.famille},\n    ${ex.natures}, hexagrama n.º ${ex.n}. Mejor revestimiento posible: 8 aristas cumplidas de 12\n    (las casillas en falta están enmarcadas); precalculado, porque encontrar el MEJOR revestimiento (y no\n    solo decidir si existe uno perfecto) exige enumerar las 262 144 posibilidades.</div>",
+   "th": "<div class=\"txt\">ฉักลักษณ์ตัวนี้ไม่ปิดบนลูกบาศก์ (หรือยังไม่ได้กำหนดสถานะ)\n    ภาพจึงแสดงตัวอย่างอ้างอิงที่ไม่ปิดเช่นกันแทน — ${ex.famille},\n    ${ex.natures} ฉักลักษณ์ที่ ${ex.n} การห่อหุ้มที่ดีที่สุดที่เป็นไปได้: ผ่าน 8 ขอบจาก 12\n    (ช่องที่ผิดถูกตีกรอบไว้) — คำนวณไว้ล่วงหน้า เพราะการหาการห่อหุ้มที่ดีที่สุด (ไม่ใช่\n    เพียงตัดสินว่ามีแบบสมบูรณ์หรือไม่) ต้องแจกแจงความเป็นไปได้ทั้ง 262 144 แบบ</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Même motif, couleurs inversées — Créateur et Réceptif échangés'",
+   "en": "'Same pattern, colours inverted — Creative and Receptive swapped'",
+   "es": "'Mismo motivo, colores invertidos: Lo Creativo y Lo Receptivo intercambiados'",
+   "th": "'ลวดลายเดียวกัน สีกลับด้าน — สลับผู้สร้างสรรค์กับผู้รับ'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Case complémentaire de cet échiquier — n° ${cell.chrono+1} + n° ${pairCell.chrono+1} = 65`",
+   "en": "`Complementary cell of this chessboard — no. ${cell.chrono+1} + no. ${pairCell.chrono+1} = 65`",
+   "es": "`Casilla complementaria de este tablero: n.º ${cell.chrono+1} + n.º ${pairCell.chrono+1} = 65`",
+   "th": "`ช่องคู่ประกอบของกระดานนี้ — ที่ ${cell.chrono+1} + ที่ ${pairCell.chrono+1} = 65`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"tessellation-label\">Pavage — N° ${kw}</div>",
+   "en": "<div class=\"tessellation-label\">Tiling — no. ${kw}</div>",
+   "es": "<div class=\"tessellation-label\">Teselado — n.º ${kw}</div>",
+   "th": "<div class=\"tessellation-label\">การปูลาย — ที่ ${kw}</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"tessellation-label\">Pavage — N° ${pairCell.kw}</div>",
+   "en": "<div class=\"tessellation-label\">Tiling — no. ${pairCell.kw}</div>",
+   "es": "<div class=\"tessellation-label\">Teselado — n.º ${pairCell.kw}</div>",
+   "th": "<div class=\"tessellation-label\">การปูลาย — ที่ ${pairCell.kw}</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">Créer le SVG</button>",
+   "en": ">Create the SVG</button>",
+   "es": ">Crear el SVG</button>",
+   "th": ">สร้าง SVG</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Ce dessin est rigoureusement le même pour les deux hexagrammes : le Créateur et le Réceptif choisis pour cet\n               échiquier se correspondent par inversion des couleurs, donc chaque motif y figure deux fois — une fois pour\n               chacun des deux hexagrammes qu'il représente.`",
+   "en": "`This drawing is strictly the same for the two hexagrams: the Creative and the Receptive chosen for this\n               chessboard correspond by inversion of colours, so each pattern appears on it twice — once for\n               each of the two hexagrams it represents.`",
+   "es": "`Este dibujo es rigurosamente el mismo para los dos hexagramas: Lo Creativo y Lo Receptivo elegidos para este\n               tablero se corresponden por inversión de los colores, así que cada motivo figura en él dos veces: una vez por\n               cada uno de los dos hexagramas que representa.`",
+   "th": "`ภาพนี้เหมือนกันทุกประการสำหรับฉักลักษณ์ทั้งสอง: ผู้สร้างสรรค์และผู้รับที่เลือกสำหรับ\n               กระดานนี้สัมพันธ์กันด้วยการกลับสี ลวดลายแต่ละแบบจึงปรากฏสองครั้ง — ครั้งละหนึ่งสำหรับ\n               ฉักลักษณ์แต่ละตัวที่มันแทน`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "`Sur cet échiquier, chaque case n° N a pour vis-à-vis la case n° (65-N) — les deux extrémités d'un même\n               mélange entre le Créateur et le Réceptif choisis. Ici les deux motifs restent distincts (l'échiquier\n               compte 64 dessins différents), mais leur position les relie toujours l'un à l'autre.`",
+   "en": "`On this chessboard, each cell no. N faces cell no. (65-N) — the two ends of one and the same\n               blend between the chosen Creative and Receptive. Here the two patterns remain distinct (the chessboard\n               has 64 different drawings), but their position always links them to each other.`",
+   "es": "`En este tablero, cada casilla n.º N tiene enfrente la casilla n.º (65-N): los dos extremos de una misma\n               mezcla entre Lo Creativo y Lo Receptivo elegidos. Aquí los dos motivos siguen siendo distintos (el tablero\n               cuenta 64 dibujos diferentes), pero su posición los une siempre el uno al otro.`",
+   "th": "`บนกระดานนี้ ช่องที่ N แต่ละช่องจะคู่กับช่องที่ (65-N) — สองปลายของการผสม\n               เดียวกันระหว่างผู้สร้างสรรค์กับผู้รับที่เลือก ในที่นี้ลวดลายทั้งสองยังต่างกัน (กระดาน\n               มี 64 ภาพที่ต่างกัน) แต่ตำแหน่งยังเชื่อมทั้งสองไว้ด้วยกันเสมอ`",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button class=\"detail-back\">← Retour à l'échiquier</button>",
+   "en": "<button class=\"detail-back\">← Back to the chessboard</button>",
+   "es": "<button class=\"detail-back\">← Volver al tablero</button>",
+   "th": "<button class=\"detail-back\">← กลับไปที่กระดาน</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">Télécharger grille.png</button>",
+   "en": ">Download grille.png</button>",
+   "es": ">Descargar grille.png</button>",
+   "th": ">ดาวน์โหลด grille.png</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ">Télécharger grille.json</button>",
+   "en": ">Download grille.json</button>",
+   "es": ">Descargar grille.json</button>",
+   "th": ">ดาวน์โหลด grille.json</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"num-big\">N° ${kw} / 64 — TRADITION KING WEN</div>",
+   "en": "<div class=\"num-big\">No. ${kw} / 64 — KING WEN TRADITION</div>",
+   "es": "<div class=\"num-big\">N.º ${kw} / 64 — TRADICIÓN KING WEN</div>",
+   "th": "<div class=\"num-big\">ที่ ${kw} / 64 — ลำดับ King Wen ดั้งเดิม</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"lbl\">Idée médiane — ${PAIRES_32[cell.chrono].title}</div>",
+   "en": "<div class=\"lbl\">Median idea — ${PAIRES_32[cell.chrono].title}</div>",
+   "es": "<div class=\"lbl\">Idea mediana — ${PAIRES_32[cell.chrono].title}</div>",
+   "th": "<div class=\"lbl\">แนวคิดกึ่งกลาง — ${PAIRES_32[cell.chrono].title}</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div class=\"lbl\">Image</div>",
+   "en": "<div class=\"lbl\">Image</div>",
+   "es": "<div class=\"lbl\">Imagen</div>",
+   "th": "<div class=\"lbl\">ภาพลักษณ์</div>",
+   "source": "pages d'hexagrammes en, es, th"
+  },
+  {
+   "fr": "<div class=\"lbl\">Jugement</div>",
+   "en": "<div class=\"lbl\">Judgement</div>",
+   "es": "<div class=\"lbl\">Juicio</div>",
+   "th": "<div class=\"lbl\">คำตัดสิน</div>",
+   "source": "pages d'hexagrammes en, es, th"
+  }
+ ]
+}

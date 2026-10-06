@@ -3,12 +3,6 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://anibal-amiot.com/creation-motifs-yi-king.html</loc>
-    <lastmod>2026-10-06</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/creation-bicolore-v2.html</loc>
     <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
@@ -2150,6 +2144,50 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/motivos-unificados/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/unified-patterns/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/unified-patterns/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/creation-motifs-yi-king.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/crear-un-motivo/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/create-a-pattern/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/crear-un-motivo/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/crear-un-motivo/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/crear-un-motivo/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/create-a-pattern/</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/crear-un-motivo/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/create-a-pattern/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/create-a-pattern/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/outils.html</loc>
