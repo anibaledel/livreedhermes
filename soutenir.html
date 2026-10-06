@@ -131,12 +131,6 @@
 <!-- @main:end -->
 </div>
 
-<script>
-  document.getElementById('credit-year').textContent = new Date().getFullYear();
-  document.getElementById('soutenirCtaBtn').addEventListener('click', function(){
-    window.SoutienGate.showModal();
-  });
-</script>
 <script src="assets/share-widget.js"></script>
 <script src="assets/soutien-gate.js"></script>
 
@@ -244,5 +238,11 @@
   </p>
 </footer>
 <!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+  document.getElementById('soutenirCtaBtn').addEventListener('click', function(){
+    window.SoutienGate.showModal();
+  });
+</script>
 </body>
 </html>
