@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Livrée d'Hermès — Galería de motivos unificados</title>
+<meta name="description" content="Galería de los motivos unificados de La Livrée d'Hermès, engendrados por mezcla de matices — seleccione un motivo para ver su pavimentación.">
+<meta property="og:title" content="La Livrée d'Hermès — Galería de motivos unificados">
+<meta property="og:description" content="Galería de los motivos unificados de La Livrée d'Hermès, engendrados por mezcla de matices — seleccione un motivo para ver su pavimentación.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<meta property="og:url" content="https://anibal-amiot.com/es/galeria-tricolor/">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/es/galeria-tricolor/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Livrée d'Hermès — Galería de motivos unificados">
+<meta name="twitter:description" content="Galería de los motivos unificados de La Livrée d'Hermès, engendrados por mezcla de matices — seleccione un motivo para ver su pavimentación.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/title-logo-footer-og.png">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header .eyebrow{ letter-spacing:.35em; font-size:calc(11px + var(--fs-bump)); color:var(--red); text-transform:uppercase; font-family:Helvetica,Arial,sans-serif; }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{ max-width:56ch; margin:16px auto 0; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7; }
+  .book-bar{
+    display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line); font-family:Helvetica,Arial,sans-serif;
+  }
+  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flag-btn{
+    border:1px solid var(--line-strong); background:transparent; border-radius:3px;
+    width:30px; height:22px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(14px + var(--fs-bump)); cursor:pointer; text-decoration:none; opacity:.4; filter:grayscale(60%);
+    transition:opacity .12s ease, border-color .12s ease;
+    color:var(--dim); /* sans ceci, un <a> sans couleur explicite hérite du bleu de lien
+                          par défaut du navigateur (#0000EE, 2.23:1 sur --bg) quand
+                          l'emoji drapeau se replie sur son glyphe texte (FR/GB/ES/TH) —
+                          quasi illisible. --dim (8.91:1), comme le .dl-label voisin. */
+  }
+  .book-bar .flag-btn.ready{ opacity:1; filter:none; }
+  .book-bar .flag-btn.ready:hover{ border-color:var(--gold); }
+  .book-bar .flag-btn:not(.ready){ cursor:default; }
+  .book-bar .dl-group{ display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px; }
+  .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
+  .book-bar .dl-group a.dl-label{ text-decoration:none; cursor:pointer; transition:color .12s ease; }
+  .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
+
+  .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
+  .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
+  .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
+
+  .controls{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:24px 0 16px; font-family:Helvetica,Arial,sans-serif; }
+  .controls button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .controls button.active{ border-color:var(--red); color:var(--red); }
+  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
+  .mode-hint{
+    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    margin:24px 0 0;
+  }
+  #modeControls{ padding:10px 0 4px; }
+  #controls{ padding-top:8px; }
+  #tintPicker{
+    width:28px; height:28px; border:1px solid var(--line-strong); border-radius:50%;
+    padding:0; background:none; cursor:pointer; overflow:hidden;
+  }
+  #tintPicker::-webkit-color-swatch-wrapper{ padding:0; }
+  #tintPicker::-webkit-color-swatch{ border:none; border-radius:50%; }
+
+  /* ---------- barre horizontale défilante ---------- */
+  .gallery-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; }
+  .gallery-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  #gallery{
+    display:flex; gap:3px; overflow-x:auto; padding-bottom:10px;
+    scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  }
+  #gallery::-webkit-scrollbar{ height:6px; }
+  #gallery::-webkit-scrollbar-thumb{ background:var(--line); }
+  #gallery::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
+  .tile{ position:relative; cursor:pointer; background:#000; flex:0 0 auto; border:1px solid transparent; }
+  .tile canvas{ width:64px; height:64px; display:block; }
+  .tile:hover{ border-color:var(--gold); }
+  .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .tile.ferme::before{
+    content:''; position:absolute; top:2px; left:2px; width:6px; height:6px; border-radius:50%;
+    background:var(--gold); box-shadow:0 0 2px 1px rgba(0,0,0,.8); pointer-events:none; z-index:1;
+  }
+
+  /* ---------- pavage du motif sélectionné ---------- */
+  .paved-section{ margin-top:32px; }
+  .paved-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info b{ color:var(--white); font-weight:400; }
+  .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
+  .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-actions button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .paved-actions button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:28px; font-family:Helvetica,Arial,sans-serif; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.current{ border-color:var(--red); color:var(--red); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+    .book-bar .flag-btn{ width:36px; height:32px; }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué son los motivos unificados (Unified Patterns)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Los motivos unificados son celdas de teselado cuyas esquinas hacen eco del centro, para generar la frecuencia de un solo motivo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuáles son las restricciones de creación de los motivos unificados?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dos restricciones definen un motivo unificado. La primera: asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada. La segunda: los bordes de la cuadrícula deben hacer eco del centro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se identifican los motivos unificados entre las cuadrículas equilibradas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La primera restricción (un único matiz en las dos mitades de 6 niveles) aísla 8 de las 15 familias como motivos unificados, dentro de las 512 cuadrículas distintas que engendra el sistema. Es lo que permite distinguir, entre todas las cuadrículas equilibradas, las que son específicamente motivos unificados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo se clasifican estas familias?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La clasificación utiliza el sistema Jacquard para engendrar y organizar las familias equilibradas y los motivos unificados. El capítulo VII de La Livrée d'Hermès está dedicado a la clasificación binaria de estas familias."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sobre qué armonía se ha verificado este sistema?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por dos vías independientes. El cierre sobre el cubo (regla de arista): las cuadrículas cuyo revestimiento respeta la continuidad de una arista a otra cierran el cubo. Y el recuento de órbitas bajo el grupo completo de simetría (rotaciones, espejo, semidesplazamiento): las 512 cuadrículas distintas se reparten en 128 órbitas — el semidesplazamiento de una cuadrícula (traslación de medio período) deja siempre su pavimentación sin cambios."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://anibal-amiot.com/es/" },
+    { "@type": "ListItem", "position": 2, "name": "Herramientas", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Galería tricolor", "item": "https://anibal-amiot.com/es/galeria-tricolor/" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-patterns-unifies.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/three-colour-gallery/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/galeria-tricolor/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/three-colour-gallery/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/three-colour-gallery/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Ir al contenido</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-23-galerie.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a href="https://anibal-amiot.com/es/">Inicio</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">Herramientas</a><span class="sep">/</span><span aria-current="page">Galería tricolor</span>
+    </nav>
+    <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1>Galería de motivos unificados</h1>
+    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">Engendrados por mezcla de matices sobre las familias de capas — seleccione un motivo para ver su pavimentación.</p>
+    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:8px 0 0;"><a href="../../motifs/" style="color:var(--gold);">Recorrer las 256 páginas individuales de motivos →</a></p>
+    <p class="book-intro">La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.</p>
+
+    <div class="book-bar">
+      <span class="dl-group">
+        <a class="dl-label" href="../../es/libro/" target="_blank" rel="noopener">Leer el libro</a>
+        <span class="flags">
+          <!-- @drapeaux-lire:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../fr/livre/" target="_blank" rel="noopener" hreflang="fr" title="Français">🇫🇷</a>
+          <a class="flag-btn ready" href="../../en/book/" target="_blank" rel="noopener" hreflang="en" title="English">🇬🇧</a>
+          <a class="flag-btn ready" href="../../es/libro/" target="_blank" rel="noopener" hreflang="es" title="Español">🇪🇸</a>
+          <a class="flag-btn ready" href="../../th/book/" target="_blank" rel="noopener" hreflang="th" title="ไทย">🇹🇭</a>
+          <a class="flag-btn ready" href="../../zh/book/" target="_blank" rel="noopener" hreflang="zh-Hans" title="简体中文">🇨🇳</a>
+          <a class="flag-btn ready" href="../../ru/book/" target="_blank" rel="noopener" hreflang="ru" title="Русский">🇷🇺</a>
+          <a class="flag-btn ready" href="../../pt/book/" target="_blank" rel="noopener" hreflang="pt-PT" title="Português">🇵🇹</a>
+          <a class="flag-btn ready" href="../../hi/book/" target="_blank" rel="noopener" hreflang="hi" title="हिन्दी">🇮🇳</a>
+          <!-- @drapeaux-lire:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label">Descargar el PDF del libro</span>
+        <span class="flags">
+          <!-- @drapeaux-pdf:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-fr.pdf" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-en.pdf" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-zh.pdf" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-ru.pdf" download title="Русский (RU)">🇷🇺</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-pt.pdf" download title="Português (PT)">🇵🇹</a>
+          <a class="flag-btn ready" href="../../book-viewer/la-livree-d-hermes-anibal-amiot-hi.pdf" download title="हिन्दी (HI)">🇮🇳</a>
+          <!-- @drapeaux-pdf:end -->
+        </span>
+      </span>
+      <span class="dl-group">
+        <span class="dl-label">Descargar la traducción del Yi-King</span>
+        <span class="flags">
+          <!-- @drapeaux-docx:start — engendré par scripts/build-langues.js, ne pas éditer ici -->
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes.docx" download title="Français (FR)">🇫🇷</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-EN.docx" download title="English (EN)">🇬🇧</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ES.docx" download title="Español (ES)">🇪🇸</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-TH.docx" download title="ไทย (TH)">🇹🇭</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-ZH.docx" download title="简体中文 (ZH)">🇨🇳</a>
+          <a class="flag-btn ready" href="../../Le-Yi-King-64-hexagrammes-RU.docx" download title="Русский (RU)">🇷🇺</a>
+          <span class="flag-btn" title="Português — bientôt">🇵🇹</span>
+          <span class="flag-btn" title="हिन्दी — bientôt">🇮🇳</span>
+          <!-- @drapeaux-docx:end -->
+        </span>
+      </span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">1024</span><span class="l">Construcciones</span></div>
+      <div class="stat"><span class="n">512</span><span class="l">Cuadrículas distintas</span></div>
+      <div class="stat"><span class="n">256</span><span class="l">Pavimentaciones</span></div>
+    </div>
+    <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 cuenta las construcciones (familia × par de matices × hexagrama), no las formas: varias construcciones pueden dibujar la misma cuadrícula, o una cuadrícula y su desplazada de medio período la misma pavimentación — de ahí 512 cuadrículas distintas y 256 pavimentaciones.</p>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <h2 class="faq-block-title">Preguntas frecuentes</h2>
+    <details class="faq-item">
+      <summary>¿Qué son los motivos unificados (Unified Patterns)?<span class="q-mark">＋</span></summary>
+      <p>Los motivos unificados son celdas de teselado cuyas esquinas hacen eco del centro, para generar la frecuencia de un solo motivo.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cuáles son las restricciones de creación de los motivos unificados?<span class="q-mark">＋</span></summary>
+      <p>Dos restricciones definen un motivo unificado. La primera: asociar un mismo matiz a las dos mitades de 6 niveles de una familia produce una cuadrícula equilibrada. La segunda: los bordes de la cuadrícula deben hacer eco del centro.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se identifican los motivos unificados entre las cuadrículas equilibradas?<span class="q-mark">＋</span></summary>
+      <p>La primera restricción (un único matiz en las dos mitades de 6 niveles) aísla 8 de las 15 familias como motivos unificados, dentro de las 512 cuadrículas distintas que engendra el sistema. Es lo que permite distinguir, entre todas las cuadrículas equilibradas, las que son específicamente motivos unificados.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Cómo se clasifican estas familias?<span class="q-mark">＋</span></summary>
+      <p>La clasificación utiliza el sistema Jacquard para engendrar y organizar las familias equilibradas y los motivos unificados. El capítulo VII de La Livrée d'Hermès está dedicado a la clasificación binaria de estas familias.</p>
+    </details>
+    <details class="faq-item">
+      <summary>¿Sobre qué armonía se ha verificado este sistema?<span class="q-mark">＋</span></summary>
+      <p>Por dos vías independientes. El cierre sobre el cubo (regla de arista): las cuadrículas cuyo revestimiento respeta la continuidad de una arista a otra cierran el cubo. Y el recuento de órbitas bajo el grupo completo de simetría (rotaciones, espejo, semidesplazamiento): las 512 cuadrículas distintas se reparten en 128 órbitas — el semidesplazamiento de una cuadrícula (traslación de medio período) deja siempre su pavimentación sin cambios.</p>
+    </details>
+  </div>
+
+  <p class="mode-hint">Elija el modo de visualización y su coloración</p>
+  <div class="controls" id="modeControls">
+    <button id="btnColorMode" type="button">Monocromo</button>
+    <input type="color" id="tintPicker" value="#db694c" title="Elegir un matiz">
+  </div>
+
+  <div class="controls" id="controls"></div>
+  <div class="controls" id="k2Controls"></div>
+
+  <div class="gallery-panel">
+    <div class="gallery-label" id="galerie-label">Desplácese y haga clic en un motivo para seleccionarlo</div>
+    <div id="gallery" data-liste-clavier=".tile" data-choisi="selected" aria-labelledby="galerie-label" aria-orientation="horizontal"></div>
+  </div>
+
+  <div class="paved-section" id="pavedSection">
+    <h2 class="paved-label h2-neutre">Pavimentación del motivo seleccionado</h2>
+    <div class="paved-info" id="pavedInfo"></div>
+    <div class="paved-box"><canvas id="pavedCanvas" role="img" aria-label="Pavimentación del motivo seleccionado"></canvas></div>
+    <div class="paved-actions">
+      <button type="button" id="btnDlCellSvg">Descargar el SVG de la celda</button>
+      <button type="button" id="btnDlPavedSvg">Descargar el SVG de la pavimentación</button>
+      <button type="button" id="btnDlGridPng">Descargar grille.png</button>
+      <button type="button" id="btnDlGridJson">Descargar grille.json</button>
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../es/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Inicio</span><span class="nav-tile-excerpt">El libro, sus láminas y el conjunto de las herramientas.</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Artículos</span><span class="nav-tile-excerpt">Reflexiones e investigaciones en torno a La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Apoye La Livrée d'Hermès al precio que quiera: todo es libre bajo CC BY-NC 4.0; su apoyo financia la continuación del proyecto.">Hágase Colaborador/a</a>
+
+    <nav class="nav-categories" aria-label="Páginas del sitio">
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Galerías</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../es/animaciones/"><span class="nav-cat-label">Galería de animaciones</span><span class="nav-cat-texte">Las animaciones de las colecciones de fondos, en seis grupos: para ver, previsualizar y descargar en MP4.</span></a></li>
+          <li><a href="../../es/galeria-bicolor/"><span class="nav-cat-label">Galería bicolor</span><span class="nav-cat-texte">142 motivos bicolores generados por los ejes y cerrados sobre el cubo — grano de lectura, teselado, exportación.</span></a></li>
+          <li><a href="../../es/galeria-tricolor/" aria-current="page"><span class="nav-cat-label">Galería tricolor</span><span class="nav-cat-texte">Motivos unificados, generados por mezcla de matices — seleccione un motivo para ver su teselado.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animaciones</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../es/animaciones/"><span class="nav-cat-label">Galería de animaciones</span><span class="nav-cat-texte">Las animaciones de las colecciones de fondos, en seis grupos: para ver, previsualizar y descargar en MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">Fondo de pantalla</span><span class="nav-cat-texte">Fondos de pantalla textiles a pantalla completa, reactivos al sonido o en modo meditativo a ritmo regulable.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tiradas e impresiones</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">Tirada del Yi King</span><span class="nav-cat-texte">Saque un hexagrama al azar y descubra su cuadrado, o recorra el tablero de las 64 mutaciones.</span></a></li>
+          <li><a href="../../es/360-capas/"><span class="nav-cat-label">360 capas</span><span class="nav-cat-texte">Realice la tirada y descargue las capas de impresión, listas para imprimir.</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">Motivos SVG</span><span class="nav-cat-texte">Descargue las capas de impresión en 4 categorías de combinaciones de rasgos, en formato SVG.</span></a></li>
+          <li><a href="../../es/hexagramas/"><span class="nav-cat-label">Hexagramas</span><span class="nav-cat-texte">Los 64 hexagramas del Yi King: juicio, trigramas y el cuadrado mágico asociado a cada uno.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Herramientas creativas</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">Crear un motivo</span><span class="nav-cat-texte">Componga sus propios motivos textiles a partir de las 60 imágenes del Yi King.</span></a></li>
+          <li><a href="../../es/motivos-bicolores/"><span class="nav-cat-label">Motivos bicolores</span><span class="nav-cat-texte">Componga una celda de 12×12: seis niveles, cada uno con su familia y su matiz.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">Motivos bicolores v2</span><span class="nav-cat-texte">El segundo corte de las diagonales (YA/AY), vocabulario y estados del semidesplazamiento — junto a la herramienta v1.</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">Codificador</span><span class="nav-cat-texte">Codificación esteganográfica geométrica por doble referente, cruz ansada y Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Demostración interactiva: la cuadrícula y los referentes derivados de la clave.</span></a></li>
+          <li><a href="../../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Los 64 motivos de los hexagramas, personalizables y descargables en alta resolución.</span></a></li>
+          <li><a href="../../es/cimatica/"><span class="nav-cat-label">Cimática</span><span class="nav-cat-texte">El teselado cuya frecuencia espacial se acerca más al sonido que usted emite.</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">Herramientas</span><span class="nav-cat-texte">Todas las herramientas interactivas del sitio, reunidas en un solo lugar.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Acerca del proyecto</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../es/libro/"><span class="nav-cat-label">El tratado</span><span class="nav-cat-texte">El tratado y sus ediciones traducidas, los hexagramas y el léxico.</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">Acerca de</span><span class="nav-cat-texte">El autor y su libro, en la encrucijada de la filosofía, las matemáticas y las ciencias aplicadas.</span></a></li>
+          <li><a href="../../es/lexico/"><span class="nav-cat-label">Léxico</span><span class="nav-cat-texte">Diez nociones clave para comprender La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../profil.html"><span class="nav-cat-label">Perfil documental</span><span class="nav-cat-texte">Patentes y 63 dibujos y modelos registrados en el INPI, que cubren los cuadrados de orden 12.</span></a></li>
+          <li><a href="../../contact.html"><span class="nav-cat-label">Contacto</span><span class="nav-cat-texte">Contacte con el autor para un proyecto o un encargo de motivos e impresiones textiles.</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">Apoyar</span><span class="nav-cat-texte">Apoyar La Livrée d'Hermès a precio libre: el sitio y su contenido siguen siendo gratuitos.</span></a></li>
+          <li><a href="../../chiffres-et-sources.html"><span class="nav-cat-label">Cifras y fuentes</span><span class="nav-cat-texte">Cada cifra del sitio, el script que la reproduce y la línea que imprime.</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">Trabajos</span><span class="nav-cat-texte">Los depósitos, el código y los artículos presentados, cada uno fechado y abierto.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Creado en colaboración con Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+
+</div>
+
+<script src="../../assets/calque-engine.js"></script>
+<script>
+let DATA = null;
+const DEFAULT_PALETTE = { V:'#662d91', M:'#ee2a7b', O:'#fbb040' };
+let PALETTE = Object.assign({}, DEFAULT_PALETTE);
+let colorMode = 'multi'; // 'multi' = palette d'origine à 3 teintes (défaut, inchangé) ; 'mono' = teinte médiane dérivée
+// Teinte médiane par défaut du mode Monochrome, calibrée sur mesure réelle des images
+// sources de la charte Unified Patterns (identique à fonds-ecran.html) — distincte de
+// DEFAULT_PALETTE.O, qui reste la teinte "O" du mode Multicolore d'origine.
+const DEFAULT_MONO_HUE = '#db694c';
+let LAYER_OF = null;
+
+// Fermeture sur le cube (Théorèmes 3 et 4 de la note « A Half-Shift
+// Criterion on Three-Colour 12×12 Grids... »), calculée à l'affichage — rien
+// n'est stocké par motif. TYPE_DE_FAMILLE est le type (yang/yang-mut) de
+// chacune des familles utilisées par cette galerie ; null = famille non
+// admissible (Théorème 2), pas de badge. Mêmes valeurs, mêmes clés que
+// data/paires_1770_v1.json (tools/generate_table_pavage.py), reformatées
+// dans la convention fam de cette page (sans le découpage par nature : les
+// deux couches d'une entrée de cette galerie viennent toujours de la même
+// famille, donc le type se lit une fois, pas par couche).
+const TYPE_DE_FAMILLE = {
+  'bases': null,                    // regroupe les 4 axes, pas une famille (voir note) — non utilisé par entries actuellement
+  'par2:yang+yang_mut': null,
+  'par2:yang+yin_mut': 'yang',
+  'par2:yin+yang': 'yang',
+  'par2:yin+yang_mut': 'yang-mut',
+  'par2:yin+yin_mut': null,
+  'par2:yin_mut+yang_mut': 'yang-mut',
+  'par3:sans_yang': 'yang-mut',
+  'par3:sans_yang_mut': 'yang',
+  'par3:sans_yin': null,
+  'par3:sans_yin_mut': null,
+  'par4': null,
+};
+function closingSet(typeA, typeB){
+  if(!typeA || !typeB) return null;
+  if(typeA === typeB) return typeA === 'yang' ? 'ALL' : 'NONE';
+  return typeA === 'yang-mut' ? [0,2,16,18] : [45,47,61,63];
+}
+function fermetureDe(fam, n){
+  // Les deux couches d'une entrée de cette galerie viennent toujours de la
+  // même famille : typeA = typeB = type(fam), donc le Théorème 3 s'applique
+  // (fermeture constante sur les 64 indices) — closingSet() est cependant la
+  // même fonction que pour la page de création (Théorème 4) ; si des entrées
+  // inter-familles s'ajoutent un jour à cette galerie, seul l'appel change.
+  const s = closingSet(TYPE_DE_FAMILLE[fam], TYPE_DE_FAMILLE[fam]);
+  if(s === null) return null;       // non défini : pas de badge, pas une absence de fermeture
+  if(s === 'ALL') return true;
+  if(s === 'NONE') return false;
+  return s.includes(n);
+}
+
+// ---------- dérivation des teintes (identique à fonds-ecran.html) ----------
+function hexToRgb(hex){
+  hex = hex.replace('#','');
+  return [parseInt(hex.substr(0,2),16), parseInt(hex.substr(2,2),16), parseInt(hex.substr(4,2),16)];
+}
+function rgbToHex(r,g,b){
+  const c = v => Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0');
+  return '#'+c(r)+c(g)+c(b);
+}
+function rgbToHsl(r,g,b){
+  r/=255; g/=255; b/=255;
+  const mx=Math.max(r,g,b), mn=Math.min(r,g,b);
+  let h,s,l=(mx+mn)/2;
+  if(mx===mn){ h=s=0; }
+  else{
+    const d=mx-mn;
+    s = l>0.5 ? d/(2-mx-mn) : d/(mx+mn);
+    switch(mx){
+      case r: h=(g-b)/d+(g<b?6:0); break;
+      case g: h=(b-r)/d+2; break;
+      case b: h=(r-g)/d+4; break;
+    }
+    h/=6;
+  }
+  return [h,s,l];
+}
+function hslToRgb(h,s,l){
+  let r,g,b;
+  if(s===0){ r=g=b=l; }
+  else{
+    const hue2rgb=(p,q,t)=>{
+      if(t<0) t+=1; if(t>1) t-=1;
+      if(t<1/6) return p+(q-p)*6*t;
+      if(t<1/2) return q;
+      if(t<2/3) return p+(q-p)*(2/3-t)*6;
+      return p;
+    };
+    const q = l<0.5 ? l*(1+s) : l+s-l*s;
+    const p = 2*l-q;
+    r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+  }
+  return [r*255,g*255,b*255];
+}
+function adjustLightness(hex, delta){
+  const [r,g,b] = hexToRgb(hex);
+  let [h,s,l] = rgbToHsl(r,g,b);
+  l = Math.max(0, Math.min(1, l+delta));
+  const [r2,g2,b2] = hslToRgb(h,s,l);
+  return rgbToHex(r2,g2,b2);
+}
+function hueOf(hex){
+  const [r,g,b] = hexToRgb(hex);
+  return rgbToHsl(r,g,b)[0];
+}
+function rotateHue(hex, deltaHue){
+  const [r,g,b] = hexToRgb(hex);
+  let [h,s,l] = rgbToHsl(r,g,b);
+  h = (h + deltaHue + 1) % 1;
+  const [r2,g2,b2] = hslToRgb(h,s,l);
+  return rgbToHex(r2,g2,b2);
+}
+function applySingleHue(pickedHex){
+  const mauve = adjustLightness(pickedHex, +0.20);
+  const rose  = adjustLightness(pickedHex, -0.20);
+  PALETTE = { V: mauve, M: rose, O: pickedHex };
+}
+function applyTintRotation(pickedHex){
+  const deltaHue = hueOf(pickedHex) - hueOf(DEFAULT_PALETTE.O);
+  PALETTE = {
+    V: rotateHue(DEFAULT_PALETTE.V, deltaHue),
+    M: rotateHue(DEFAULT_PALETTE.M, deltaHue),
+    O: rotateHue(DEFAULT_PALETTE.O, deltaHue),
+  };
+}
+function refreshPalette(){
+  const picked = document.getElementById('tintPicker').value;
+  if(colorMode==='multi') applyTintRotation(picked);
+  else applySingleHue(picked);
+}
+
+function traitsFromChrono(n){
+  const col = n % 8, row = Math.floor(n/8);
+  const bitsCol = [col&1,(col>>1)&1,(col>>2)&1];
+  const bitsRow = [row&1,(row>>1)&1,(row>>2)&1];
+  return bitsCol.concat(bitsRow);
+}
+function hexagramGrid(n, gridA, gridB){
+  const traits = traitsFromChrono(n);
+  const grid = [];
+  for(let r=0;r<12;r++){
+    const rowArr=[];
+    for(let c=0;c<12;c++){
+      const pos = LAYER_OF[r][c];
+      const bit = traits[pos-1];
+      rowArr.push(bit===1 ? gridA[r][c] : gridB[r][c]);
+    }
+    grid.push(rowArr);
+  }
+  return grid;
+}
+
+// C2 : orbites sous Γ = D4 (8 rotations/réflexions) × σ (demi-décalage, 2) × S3
+// (permutation des 3 teintes, 6) = 96 transformations. σ est le même demi-décalage que
+// celui de la note sous les stats ("grille et son décalé d'une demi-période") : sur les 512
+// grilles distinctes, il apparie chaque grille à une autre (512/2=256 pavages, déjà annoncé)
+// — ni D4 seul ni D4×S3 ne suffisent à retomber sur 128, il fallait bien σ en plus. Vérifié
+// hors-ligne sur les 512 grilles distinctes avant d'écrire ce code : exactement 128 orbites.
+function rot90(g){ const n=g.length, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[c][n-1-r]=g[r][c]; return out; }
+function flipH(g){ return g.map(row=>[...row].reverse()); }
+function shiftHalf(g){ const n=g.length, h=n/2, out=Array.from({length:n},()=>Array(n)); for(let r=0;r<n;r++) for(let c=0;c<n;c++) out[r][c]=g[(r+h)%n][(c+h)%n]; return out; }
+function permTint(g, perm){ return g.map(row=>row.map(v=>perm[v])); }
+const TINT_PERMS = [
+  {V:'V',M:'M',O:'O'}, {V:'V',M:'O',O:'M'}, {V:'M',M:'V',O:'O'},
+  {V:'M',M:'O',O:'V'}, {V:'O',M:'V',O:'M'}, {V:'O',M:'M',O:'V'},
+];
+function gridKey(g){ return g.map(r=>r.join('')).join(''); }
+function orbitTransforms(g){
+  const out = [];
+  for(const base of [g, shiftHalf(g)]){
+    let cur = base;
+    for(let i=0;i<4;i++){
+      out.push(cur, flipH(cur));
+      cur = rot90(cur);
+    }
+  }
+  const withTints = [];
+  for(const d of out) for(const p of TINT_PERMS) withTints.push(permTint(d, p));
+  return withTints; // 2*8*6 = 96
+}
+function canonicalKey(g){
+  let best = null;
+  for(const t of orbitTransforms(g)){
+    const k = gridKey(t);
+    if(best===null || k<best) best = k;
+  }
+  return best;
+}
+
+function drawTile(canvas, grid, size){
+  size = size || 96;
+  const ctx = canvas.getContext('2d');
+  canvas.width = size; canvas.height = size;
+  const cell = size/12;
+  for(let r=0;r<12;r++){
+    for(let c=0;c<12;c++){
+      ctx.fillStyle = PALETTE[grid[r][c]];
+      ctx.fillRect(c*cell, r*cell, cell+0.6, cell+0.6);
+    }
+  }
+}
+
+// Pavage : répète le motif (sans marge) plusieurs fois pour montrer l'effet tissé continu,
+// comme la tessellation de la page Unified Patterns.
+function drawPaved(canvas, grid, repeats){
+  repeats = repeats || 4;
+  const tileSize = 144;
+  const size = tileSize * repeats;
+  const ctx = canvas.getContext('2d');
+  canvas.width = size; canvas.height = size;
+  const cell = tileSize/12;
+  for(let ty=0; ty<repeats; ty++){
+    for(let tx=0; tx<repeats; tx++){
+      const ox = tx*tileSize, oy = ty*tileSize;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          ctx.fillStyle = PALETTE[grid[r][c]];
+          ctx.fillRect(ox+c*cell, oy+r*cell, cell+0.6, cell+0.6);
+        }
+      }
+    }
+  }
+}
+
+const catLabel = {bases:'Bases', par2:'2 ejes', par3:'3 ejes', par4:'4 ejes'};
+function famLabel(fam){
+  const parts = fam.split(':');
+  if(parts.length===1) return catLabel[parts[0]] || parts[0];
+  return catLabel[parts[0]] + ' — ' + parts[1].replace('sans_','Sin ').replace('+',' + ').replace(/yang_mut/g,'Yang mut.').replace(/yin_mut/g,'Yin mut.').replace(/\byang\b/g,'Yang').replace(/\byin\b/g,'Yin');
+}
+function subLabel(s){
+  return {yang:'Yang', yang_mut:'Yang mut.', yin:'Yin', yin_mut:'Yin mut.'}[s] || s;
+}
+
+const cats = ['all','bases','par2','par3'];
+const controls = document.getElementById('controls');
+let currentFilterCat = 'all';
+function buildControls(){
+  cats.forEach(cat=>{
+    const btn = document.createElement('button');
+    btn.textContent = cat==='all' ? 'Todas (' + DATA.entries.length + ')' : catLabel[cat] + ' (' + DATA.entries.filter(e=>e[0].split(':')[0]===cat).length + ')';
+    btn.dataset.cat = cat;
+    if(cat==='all') btn.classList.add('active');
+    btn.onclick = ()=>{
+      document.querySelectorAll('#controls button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilterCat = cat;
+      render(cat);
+    };
+    controls.appendChild(btn);
+  });
+}
+
+// C3 : filtre par k² (fréquence spatiale dominante), à côté du filtre par famille —
+// combinés (ET logique) dans render(). Les boutons sont construits une fois ENTRY_K2 connu.
+const k2Controls = document.getElementById('k2Controls');
+function buildK2Filter(){
+  const distinct = [...new Set(ENTRY_K2)].sort((a,b)=>a-b);
+  const allBtn = document.createElement('button');
+  allBtn.textContent = 'k²: todos';
+  allBtn.classList.add('active');
+  allBtn.onclick = ()=>{
+    document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+    allBtn.classList.add('active');
+    filterK2 = 'all';
+    render(currentFilterCat);
+  };
+  k2Controls.appendChild(allBtn);
+  distinct.forEach(k2=>{
+    const count = ENTRY_K2.filter(v=>v===k2).length;
+    const btn = document.createElement('button');
+    btn.textContent = 'k²=' + k2 + ' (' + count + ')';
+    btn.onclick = ()=>{
+      document.querySelectorAll('#k2Controls button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      filterK2 = k2;
+      render(currentFilterCat);
+    };
+    k2Controls.appendChild(btn);
+  });
+}
+
+const galleryEl = document.getElementById('gallery');
+const pavedCanvas = document.getElementById('pavedCanvas');
+const pavedInfo = document.getElementById('pavedInfo');
+let currentEntries = [];
+let currentEntriesOrigIdx = []; // même longueur que currentEntries : index d'origine dans DATA.entries, pour retrouver son k² dans ENTRY_K2 après filtrage
+let ENTRY_K2 = []; // C3 : k² par entrée de DATA.entries (même index), calculé une fois DATA chargé
+let ENTRY_ORBIT = []; // C2 : numéro d'orbite (1..128) par entrée de DATA.entries, même index
+let filterK2 = 'all';
+function k2AtPos(idx){ return ENTRY_K2[currentEntriesOrigIdx[idx]]; }
+function orbitAtPos(idx){ return ENTRY_ORBIT[currentEntriesOrigIdx[idx]]; }
+
+function entryLabel(fam, subA, subB, n){
+  return famLabel(fam) + ' · ' + subLabel(subA) + '/' + subLabel(subB) + ' · N°' + n;
+}
+
+let selectedIdx = 0;
+function selectEntry(idx){
+  selectedIdx = idx;
+  document.querySelectorAll('.tile').forEach(t=> t.classList.toggle('selected', +t.dataset.idx===idx));
+  const [fam, subA, subB, n] = currentEntries[idx];
+  const gridA = DATA.families[fam][subA];
+  const gridB = DATA.families[fam][subB];
+  const grid = hexagramGrid(n, gridA, gridB);
+  drawPaved(pavedCanvas, grid);
+  const ferme = fermetureDe(fam, n);
+  const badge = ferme === null ? '' :
+    ferme ? ' — <span style="color:var(--gold);">cierra sobre el cubo</span>'
+          : ' — <span style="color:var(--dim);">no cierra sobre el cubo</span>';
+  const k2 = k2AtPos(idx);
+  const k2Badge = k2 === undefined ? '' : ' — k²=' + k2;
+  const orbit = orbitAtPos(idx);
+  const orbitBadge = orbit === undefined ? '' : ' — órbita n.º ' + orbit + '/128';
+  pavedInfo.innerHTML = '<b>' + famLabel(fam) + '</b> — ' + subLabel(subA) + ' / ' + subLabel(subB) + ' — hexagrama n.º ' + n + badge + k2Badge + orbitBadge;
+}
+
+// Redessine les canvases existants avec la PALETTE courante, sans reconstruire le DOM
+// ni perdre la sélection (contrairement à render(), qui reconstruit tout depuis zéro).
+function redrawAll(){
+  document.querySelectorAll('#gallery .tile').forEach(tile=>{
+    const idx = +tile.dataset.idx;
+    const [fam, subA, subB, n] = currentEntries[idx];
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    drawTile(tile.querySelector('canvas'), grid, 64);
+  });
+  if(currentEntries.length) selectEntry(selectedIdx);
+}
+
+function render(filterCat){
+  galleryEl.innerHTML = '';
+  currentEntries = [];
+  currentEntriesOrigIdx = [];
+  DATA.entries.forEach((entry, origIdx)=>{
+    const [fam] = entry;
+    if(filterCat!=='all' && fam.split(':')[0]!==filterCat) return;
+    if(filterK2!=='all' && ENTRY_K2[origIdx]!==filterK2) return;
+    currentEntries.push(entry);
+    currentEntriesOrigIdx.push(origIdx);
+  });
+  const frag = document.createDocumentFragment();
+  currentEntries.forEach(([fam, subA, subB, n], idx)=>{
+    const gridA = DATA.families[fam][subA];
+    const gridB = DATA.families[fam][subB];
+    const grid = hexagramGrid(n, gridA, gridB);
+    const ferme = fermetureDe(fam, n);
+    const tile = document.createElement('div');
+    tile.className = 'tile' + (ferme ? ' ferme' : '');
+    tile.dataset.idx = idx;
+    tile.title = entryLabel(fam, subA, subB, n) + (ferme === null ? '' : ferme ? ' — cierra sobre el cubo' : ' — no cierra sobre el cubo');
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', entryLabel(fam, subA, subB, n));
+    drawTile(canvas, grid, 64);
+    tile.appendChild(canvas);
+    tile.addEventListener('click', ()=> selectEntry(idx));
+    frag.appendChild(tile);
+  });
+  galleryEl.appendChild(frag);
+  if(currentEntries.length) selectEntry(0);
+}
+const btnColorMode = document.getElementById('btnColorMode');
+const tintPicker = document.getElementById('tintPicker');
+btnColorMode.onclick = ()=>{
+  colorMode = colorMode==='mono' ? 'multi' : 'mono';
+  btnColorMode.textContent = colorMode==='mono' ? 'Multicolor' : 'Monocromo';
+  btnColorMode.classList.toggle('active', colorMode==='mono');
+  refreshPalette();
+  redrawAll();
+};
+tintPicker.oninput = ()=>{ refreshPalette(); redrawAll(); };
+
+// ---------- export SVG (cellule seule / pavage complet), compatible Inkscape ----------
+// Contrairement aux motifs "ligne" d'unified-patterns.html, les patterns de cette galerie
+// sont de simples grilles 12x12 de couleurs (DATA.families) : le SVG le plus fidèle et le
+// plus propre à éditer sous Inkscape est donc généré directement depuis cette grille
+// (un <rect> par cellule), plutôt qu'en réutilisant l'extraction de tracés d'360-calques.html
+// (utile pour des motifs vectoriels complexes, pas pour une grille de couleurs plates).
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''); }
+
+function motifSvgMarkup(grid, repeats){
+  repeats = repeats || 1;
+  const cell = 12, tile = cell*12, size = tile*repeats;
+  let rects = '';
+  for(let ty=0; ty<repeats; ty++){
+    for(let tx=0; tx<repeats; tx++){
+      const ox = tx*tile, oy = ty*tile;
+      for(let r=0;r<12;r++){
+        for(let c=0;c<12;c++){
+          rects += `<rect x="${(ox+c*cell).toFixed(2)}" y="${(oy+r*cell).toFixed(2)}" width="${(cell+0.5).toFixed(2)}" height="${(cell+0.5).toFixed(2)}" fill="${PALETTE[grid[r][c]]}"/>\n`;
+        }
+      }
+    }
+  }
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" version="1.1">\n${rects}</svg>\n`;
+}
+
+function downloadSvgString(svgString, filename){
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function currentSelection(){
+  const [fam, subA, subB, n] = currentEntries[selectedIdx];
+  const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+  return { grid, fam, subA, subB, n };
+}
+
+document.getElementById('btnDlCellSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 1), `motif-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.svg`);
+});
+document.getElementById('btnDlPavedSvg').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  downloadSvgString(motifSvgMarkup(grid, 4), `pavage-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}-x4.svg`);
+});
+
+// C4 : export grille.png/grille.json, même moteur qu'360-calques.html (A4) — grid est déjà
+// la grille 12x12 de lettres de teinte (V/M/O) reconstruite par hexagramGrid, jamais une
+// relecture du SVG.
+document.getElementById('btnDlGridPng').addEventListener('click', async ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const hexGrid = grid.map(row => row.map(letter => PALETTE[letter] || null));
+  const blob = await CalqueEngine.gridToPNG(hexGrid);
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.png`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+document.getElementById('btnDlGridJson').addEventListener('click', ()=>{
+  const { grid, fam, subA, subB, n } = currentSelection();
+  const json = CalqueEngine.gridToJSON({
+    ordre: grid.length,
+    niveaux: traitsFromChrono(n).map(bit => bit ? 'yang' : 'yin'),
+    hexagramme: { chrono: n, famille: fam, natureA: subA, natureB: subB },
+    cases: grid,
+  });
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `grille-${slug(fam)}-${slug(subA)}-${slug(subB)}-hex${n}.json`;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+Promise.all([
+  fetch('../../data/fonds_ecran_v1.json').then(r => r.json()),
+  import('../../assets/spatial-k2.mjs'),
+]).then(([data, { k2OfLetterGrid }]) => {
+  DATA = data;
+  LAYER_OF = DATA.layerOf;
+  ENTRY_K2 = DATA.entries.map(([fam, subA, subB, n]) =>
+    k2OfLetterGrid(hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB])));
+
+  // C2 : numéro d'orbite (1..128) par entrée, par la clé canonique (forme minimale en
+  // ordre lexicographique parmi les 96 transformées). Autocontrôle : le nombre d'orbites
+  // distinctes doit valoir 128 (échiquier vérifié — voir chiffres-et-sources.html).
+  const orbitIdOfKey = new Map();
+  ENTRY_ORBIT = DATA.entries.map(([fam, subA, subB, n]) => {
+    const grid = hexagramGrid(n, DATA.families[fam][subA], DATA.families[fam][subB]);
+    const key = canonicalKey(grid);
+    if(!orbitIdOfKey.has(key)) orbitIdOfKey.set(key, orbitIdOfKey.size + 1);
+    return orbitIdOfKey.get(key);
+  });
+  if(orbitIdOfKey.size !== 128){
+    console.error('Orbites sous Γ : ' + orbitIdOfKey.size + ' trouvées, 128 attendues.');
+  }
+
+  buildControls();
+  buildK2Filter();
+  render('all');
+});
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<script src="../../assets/soutien-gate.js"></script>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/liste-clavier.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pie de página">
+    <a href="../../es/">Inicio</a>
+    <a href="../../es/libro/">El libro</a>
+    <a href="../../es/hexagramas/">Hexagramas</a>
+    <a href="../../es/lexico/">Léxico</a>
+    <a href="../../motifs/" hreflang="en">Motivos (inglés)</a>
+    <a href="../../profil.html" hreflang="fr">Perfil del autor (francés)</a>
+    <a href="../../contact.html" hreflang="fr">Contacto</a>
+    <a href="../../soutenir.html" hreflang="fr">Apoyar el proyecto</a>
+    <a href="../../es/buscar/">Buscar</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenidos bajo <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · código bajo AGPL v3, licencia comercial a petición
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

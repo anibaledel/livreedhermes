@@ -88,7 +88,7 @@ const STATIC_PAGES = [
   // 'tirage-livree-hermes.html', '360-calques.html', 'cymatique.html' : dans les groupes « outil-… » de
   // scripts/langues.js (data/outils-langues.json, 2026-10-06), avec leurs pages traduites et leurs alternates.
   { loc: `${SITE}/creation-motifs-yi-king.html`, file: 'creation-motifs-yi-king.html', changefreq: 'monthly', priority: '0.9' },
-  { loc: `${SITE}/bicolore.html`, file: 'bicolore.html', changefreq: 'monthly', priority: '0.8' },
+  // 'bicolore.html' : dans le groupe « outil-bicolore » de scripts/langues.js (étape 2 des outils en langues).
   // Liée depuis toutes les pages (tuile « Motifs bicolores v2 ») et absente du sitemap jusqu'au
   // 2026-10-05 : ni noindex ni retrait voulu — une page liée partout et cachée aux moteurs
   // n'a aucune cohérence (prompt-navigation.md).
@@ -96,8 +96,8 @@ const STATIC_PAGES = [
   { loc: `${SITE}/unified-patterns.html`, file: 'unified-patterns.html', changefreq: 'monthly', priority: '0.8' },
   { loc: `${SITE}/fonds-ecran.html`, file: 'fonds-ecran.html', changefreq: 'monthly', priority: '0.8' },
   // 'galerie-animations.html' : dans le groupe « galerie-animations » de scripts/langues.js (lot 7), avec ses alternates et ses six pages de groupe.
-  { loc: `${SITE}/galerie-patterns-unifies.html`, file: 'galerie-patterns-unifies.html', changefreq: 'monthly', priority: '0.7' },
-  { loc: `${SITE}/galerie-bicolore.html`, file: 'galerie-bicolore.html', changefreq: 'monthly', priority: '0.7' },
+  // 'galerie-patterns-unifies.html' : dans le groupe « outil-galerie-patterns-unifies » de scripts/langues.js (étape 2).
+  // 'galerie-bicolore.html' : dans le groupe « outil-galerie-bicolore » de scripts/langues.js (étape 2).
   { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
   // 'outils.html' : dans le groupe « outils » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },

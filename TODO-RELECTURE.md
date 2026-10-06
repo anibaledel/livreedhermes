@@ -471,3 +471,20 @@ Correction de glossaire posée par le générateur : en thaï, le dictionnaire
 `UI.th` de `360-calques.html` dit encore « เฮกซะแกรม » (variante refusée) ;
 `th/360-layers/` porte « ฉักลักษณ์ », le terme du glossaire. La page française n'a
 pas été touchée : à corriger dans son dictionnaire à la prochaine retouche.
+
+## Outils traduits, étape 2 — les galeries (2026-10-06)
+
+Neuf pages nouvelles, en anglais, espagnol et thaï. Ces pages n'avaient **aucun** dictionnaire : leur texte est traduit pour ce lot,
+ligne par ligne, dans une table par page (`data/outils-langues/<page>.json`). Chaque ligne y porte sa provenance ; « SANS SOURCE » marque
+ce que j'ai écrit. Les termes suivent le glossaire (grain de lecture, figure, parité, demi-décalage, calque, hexagramme).
+
+Où corriger : dans la table de la page, puis `node scripts/build-outils-langues.js`.
+
+- `bicolore.html` → en/two-colour-patterns/, es/motivos-bicolores/, th/two-colour-patterns/ : 39 textes, dont **28 sans source** ; les autres reprennent les tuiles, le dictionnaire de 360 calques ou de cymatique, ou le glossaire.
+- `galerie-patterns-unifies.html` → en/three-colour-gallery/, es/galeria-tricolor/, th/three-colour-gallery/ : 41 textes, dont **31 sans source** ; les autres reprennent les tuiles, le dictionnaire de 360 calques ou de cymatique, ou le glossaire.
+- `galerie-bicolore.html` → en/two-colour-gallery/, es/galeria-bicolor/, th/two-colour-gallery/ : 65 textes, dont **33 sans source** ; les autres reprennent les tuiles, le dictionnaire de 360 calques ou de cymatique, ou le glossaire.
+
+Reste en français sur ces pages, et pourquoi :
+- les noms de familles et de fonds du **fond d'écran fixe** de la galerie bicolore, et la phrase sous son aperçu : ils viennent du module partagé
+  `assets/vue-fond-ecran.js`, qui n'a pas encore de langue (chantier de `fonds-ecran.html`) ;
+- les infobulles des drapeaux du livre (« bientôt ») : zones engendrées par `scripts/build-langues.js`, communes à toutes les pages.

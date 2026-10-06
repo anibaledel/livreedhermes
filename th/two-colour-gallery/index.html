@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แกลเลอรีสองสี — La Livrée d'Hermès</title>
+<meta name="description" content="ลวดลายสองสี 142 แบบที่สร้างจากแกนสิบหกตระกูลและปิดบนลูกบาศก์ เกรนการอ่านเป็นสามเหลี่ยมหรือเป็นช่อง การปูลาย ส่งออก SVG และงานปัก">
+<meta property="og:title" content="แกลเลอรีสองสี — 142 ลวดลายที่ปิดบนลูกบาศก์">
+<meta property="og:description" content="ลวดลายสองสี 142 แบบที่กฎพาริตีสร้างขึ้นและห่อหุ้มหกหน้าของลูกบาศก์ เปลี่ยนเกรนการอ่าน ปูลาย ส่งออกเป็น SVG หรืองานปักดิจิทัล">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://anibal-amiot.com/th/two-colour-gallery/">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:locale" content="th_TH">
+<meta property="og:locale:alternate" content="en_GB">
+<meta property="og:site_name" content="La Livrée d'Hermès">
+<link rel="canonical" href="https://anibal-amiot.com/th/two-colour-gallery/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="แกลเลอรีสองสี — 142 ลวดลายที่ปิดบนลูกบาศก์">
+<meta name="twitter:description" content="ลวดลาย 142 แบบที่กฎพาริตีสร้างขึ้นและห่อหุ้มหกหน้าของลูกบาศก์ เกรนการอ่าน การปูลาย ส่งออก SVG และงานปัก">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1280px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header .eyebrow{ letter-spacing:.35em; font-size:calc(11px + var(--fs-bump)); color:var(--red); text-transform:uppercase; font-family:Helvetica,Arial,sans-serif; }
+  header h1{ font-weight:400; font-size:calc(30px + var(--fs-bump)); letter-spacing:.06em; margin:16px 0 8px; }
+  .book-intro{ max-width:60ch; margin:16px auto 0; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7; }
+
+  .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
+  .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
+  .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
+
+  .controls{ display:flex; justify-content:center; gap:8px; flex-wrap:wrap; padding:24px 0 16px; font-family:Helvetica,Arial,sans-serif; }
+  .controls button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .controls button.active{ border-color:var(--red); color:var(--red); }
+  .controls button:hover{ border-color:var(--gold); color:var(--gold); }
+  .grain-hint{
+    text-align:center; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    margin:24px 0 0;
+  }
+  #grainControls{ padding:10px 0 4px; }
+  #tintClair, #tintSombre{
+    width:28px; height:28px; border:1px solid var(--line-strong); border-radius:50%;
+    padding:0; background:none; cursor:pointer; overflow:hidden; vertical-align:middle; margin-left:6px;
+  }
+  #tintClair::-webkit-color-swatch-wrapper, #tintSombre::-webkit-color-swatch-wrapper{ padding:0; }
+  #tintClair::-webkit-color-swatch, #tintSombre::-webkit-color-swatch{ border:none; border-radius:50%; }
+  .tint-label{ font-size:calc(10.5px + var(--fs-bump)); color:var(--dim); letter-spacing:.06em; text-transform:uppercase; margin-left:14px; }
+
+  /* ---------- barre horizontale défilante ---------- */
+  .gallery-panel{ background:var(--panel); border:1px solid var(--line); padding:18px; }
+  .gallery-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--dim); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  #gallery{
+    display:flex; gap:3px; overflow-x:auto; padding-bottom:10px;
+    scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+  }
+  #gallery::-webkit-scrollbar{ height:6px; }
+  #gallery::-webkit-scrollbar-thumb{ background:var(--line); }
+  #gallery::-webkit-scrollbar-thumb:hover{ background:var(--gold); }
+  .tile{ position:relative; cursor:pointer; background:#000; flex:0 0 auto; border:1px solid transparent; }
+  .tile canvas{ width:64px; height:64px; display:block; }
+  .tile:hover{ border-color:var(--gold); }
+  .tile.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .statut-badge{
+    position:absolute; bottom:2px; left:2px; right:2px; text-align:center;
+    font-family:Helvetica,Arial,sans-serif; font-size:8px; letter-spacing:.04em; text-transform:uppercase;
+    padding:1px 0; color:#fff; background:rgba(0,0,0,.55); pointer-events:none;
+  }
+  .statut-invariant{ border-top:2px solid var(--line-strong); }
+  .statut-inverse{ border-top:2px solid var(--gold); }
+  .statut-echange{ border-top:2px solid var(--red); }
+
+  /* ---------- pavage du motif sélectionné ---------- */
+  .paved-section{ margin-top:32px; }
+  .paved-label{ font-size:calc(10px + var(--fs-bump)); letter-spacing:.14em; color:var(--gold); text-transform:uppercase; margin-bottom:12px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info{ font-size:calc(12px + var(--fs-bump)); color:var(--dim); margin-bottom:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-info b{ color:var(--white); font-weight:400; }
+  .paved-info .ancien-nom{ color:var(--dim); font-size:.9em; }
+  #niveauSelect{
+    background:var(--bg); color:var(--dim); border:1px solid var(--line-strong);
+    font-size:calc(10.5px + var(--fs-bump)); padding:4px 8px; margin-left:8px; cursor:pointer;
+  }
+  .paved-box{ border:1px solid var(--line); background:#000; display:flex; justify-content:center; }
+  .paved-box canvas{ width:100%; max-width:576px; height:auto; display:block; }
+  .paved-actions{ display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; font-family:Helvetica,Arial,sans-serif; }
+  .paved-actions button{
+    background:transparent; color:var(--dim); border:1px solid var(--line-strong);
+    padding:8px 16px; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; cursor:pointer;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .paved-actions button:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
+  .paved-actions button:disabled{ opacity:.35; cursor:default; }
+
+  .note{
+    margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
+    text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    margin-top:18px; padding-top:14px; border-top:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+    .faq-item summary{ font-size:calc(14px + var(--fs-bump)); }
+    .faq-item p{ font-size:calc(13.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- FAQ (accordéon natif <details>, texte présent en HTML pour l'indexation) ---------- */
+  .faq-block{ max-width:64ch; margin:26px auto 0; text-align:left; font-family:Helvetica,Arial,sans-serif; }
+  .faq-block-title{ font-size:calc(11px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:400; margin:0 0 14px; text-align:center; }
+  .faq-item{ border-top:1px solid var(--line); padding:12px 0; }
+  .faq-item:last-child{ border-bottom:1px solid var(--line); }
+  .faq-item summary{ cursor:pointer; color:var(--white); font-size:calc(13.5px + var(--fs-bump)); list-style:none; display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary .q-mark{ color:var(--gold); font-size:calc(15px + var(--fs-bump)); flex-shrink:0; }
+  .faq-item[open] summary .q-mark{ transform:rotate(45deg); display:inline-block; }
+  .faq-item p{ color:var(--dim); font-size:calc(12.5px + var(--fs-bump)); line-height:1.7; margin:10px 0 0; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/fond-ecran-fixe.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "ลวดลายสองสีในแกลเลอรีนี้คืออะไร",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ลวดลายแต่ละแบบคือ XOR ของเซตย่อยที่ไม่ว่าง (คอร์ด) ของมาสก์พื้นฐาน 16 แบบ — ตระกูลสองสีทั้ง 4 (Yin, Yin mutant, Yang, Yang mutant) ในรุ่นทั้ง 4 (T0 ถึง T3) ซึ่งแต่ละรุ่นเกิดจากแกนที่ลากไว้ของตนเอง"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ทำไมจึงมี 142 ลวดลาย ไม่ใช่ 144",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "รูป 144 แบบปิดบนลูกบาศก์ที่เกรนการอ่านระดับช่อง (ในบรรดาการผสมสมมาตรของ 6 หน้า 8⁶ แบบ มีการห่อหุ้มแบบหนึ่งที่ทำให้โทนสีต่อเนื่องจากหน้าหนึ่งไปอีกหน้าหนึ่ง) สองแบบในนั้น — สีพื้นอ่อนล้วนและสีพื้นเข้มล้วน — ปิดได้โดยปริยายจึงถูกตัดออกจากแกลเลอรี เหลือ 142 ลวดลาย"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "เกรนการอ่านเปลี่ยนอะไร",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "เกรน C8 อ่านโทนสีทีละสามเหลี่ยม (ช่องละ 8 รวม 1152) เกรน C1 อ่านทีละช่อง (รวม 144 ช่องละหนึ่งบิต) คอร์ดของแกนชุดเดียวกันให้รูปที่ต่างกันตามเกรนที่เลือก — ส่วนการปิดบนลูกบาศก์ตรวจสอบที่เกรนระดับช่อง"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "แกนมาจากไหน",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "จากแคตตาล็อกที่ตรวจสอบแล้วของงานว่าด้วยกฎของแกน พาริตี และเสียงสะท้อน: แต่ละตระกูลและแต่ละรุ่นในนั้นคือรายการเส้นตรงที่ลากไว้ (ชนิดและระยะห่าง) ซึ่งคัดลอกมาจากแผ่นภาพต้นฉบับ"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://anibal-amiot.com/th/" },
+    { "@type": "ListItem", "position": 2, "name": "เครื่องมือ", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "แกลเลอรีสองสี", "item": "https://anibal-amiot.com/th/two-colour-gallery/" }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-bicolore.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/two-colour-gallery/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/galeria-bicolor/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/two-colour-gallery/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/two-colour-gallery/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-23-galerie.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="https://anibal-amiot.com/th/">หน้าแรก</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html">เครื่องมือ</a><span class="sep">/</span><span aria-current="page">แกลเลอรีสองสี</span>
+    </nav>
+    <div class="eyebrow" style="display:none;">La Livrée d'Hermès</div>
+    <h1>แกลเลอรีลวดลายสองสี</h1>
+    <p style="color:var(--dim);font-size:calc(12px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:0;">สร้างจากแกนของ 16 ตระกูล/รุ่น และปิดบนลูกบาศก์ — เลือกลวดลายเพื่อดูการปูลาย</p>
+    <p class="book-intro">La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ที่เปิดให้เข้าถึงได้ฟรี แกลเลอรีนี้สร้างจากแคตตาล็อกที่ตรวจสอบแล้วของแกนที่ลากไว้ ด้วย XOR ของคอร์ด โดยมีการปิดเชิงเรขาคณิตบนลูกบาศก์เป็นเกณฑ์การคัดเลือกเพียงข้อเดียว</p>
+
+    <div class="stats" id="stats">
+      <div class="stat"><span class="n" id="statTotal">—</span><span class="l">ลวดลายในแกลเลอรี</span></div>
+      <div class="stat"><span class="n" id="statFermes">—</span><span class="l">ปิดบนลูกบาศก์ (C1)</span></div>
+      <div class="stat"><span class="n" id="statRang">—</span><span class="l">แรงก์ GF(2) เกรนปัจจุบัน</span></div>
+      <div class="stat"><span class="n" id="statFigures">—</span><span class="l">รูปที่ต่างกัน เกรนปัจจุบัน</span></div>
+    </div>
+    <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;" id="statsNote">
+      กำลังโหลดตัวเลขจาก data/bicolore_galerie_v1.json…
+    </p>
+  </header>
+  </div>
+
+
+  <div class="faq-block">
+    <h2 class="faq-block-title">คำถามที่พบบ่อย</h2>
+    <details class="faq-item">
+      <summary>ลวดลายสองสีในแกลเลอรีนี้คืออะไร<span class="q-mark">＋</span></summary>
+      <p>ลวดลายแต่ละแบบคือ XOR ของเซตย่อยที่ไม่ว่าง (คอร์ด) ของมาสก์พื้นฐาน 16 แบบ — ตระกูลสองสีทั้ง 4 (Yin, Yin mutant, Yang, Yang mutant) ในรุ่นทั้ง 4 (T0 ถึง T3) ซึ่งแต่ละรุ่นเกิดจากแกนที่ลากไว้ของตนเอง</p>
+    </details>
+    <details class="faq-item">
+      <summary>ทำไมจึงมี 142 ลวดลาย ไม่ใช่ 144<span class="q-mark">＋</span></summary>
+      <p>รูป 144 แบบปิดบนลูกบาศก์ที่เกรนการอ่านระดับช่อง (ในบรรดาการผสมสมมาตรของ 6 หน้า 8⁶ แบบ มีการห่อหุ้มแบบหนึ่งที่ทำให้โทนสีต่อเนื่องจากหน้าหนึ่งไปอีกหน้าหนึ่ง) สองแบบในนั้น — สีพื้นอ่อนล้วนและสีพื้นเข้มล้วน — ปิดได้โดยปริยายจึงถูกตัดออกจากแกลเลอรี เหลือ 142 ลวดลาย</p>
+    </details>
+    <details class="faq-item">
+      <summary>เกรนการอ่านเปลี่ยนอะไร<span class="q-mark">＋</span></summary>
+      <p>เกรน C8 อ่านโทนสีทีละสามเหลี่ยม (ช่องละ 8 รวม 1152) เกรน C1 อ่านทีละช่อง (รวม 144 ช่องละหนึ่งบิต) คอร์ดของแกนชุดเดียวกันให้รูปที่ต่างกันตามเกรนที่เลือก — ส่วนการปิดบนลูกบาศก์ตรวจสอบที่เกรนระดับช่อง</p>
+    </details>
+    <details class="faq-item">
+      <summary>แกนมาจากไหน<span class="q-mark">＋</span></summary>
+      <p>จากแคตตาล็อกที่ตรวจสอบแล้วของงานว่าด้วยกฎของแกน พาริตี และเสียงสะท้อน: แต่ละตระกูลและแต่ละรุ่นในนั้นคือรายการเส้นตรงที่ลากไว้ (ชนิดและระยะห่าง) ซึ่งคัดลอกมาจากแผ่นภาพต้นฉบับ</p>
+    </details>
+  </div>
+
+  <p class="grain-hint">เลือกเกรนการอ่านและการให้สี</p>
+  <div class="controls" id="grainControls">
+    <button id="btnGrainC8" type="button" data-grain="C8">เกรน C8 — สามเหลี่ยม</button>
+    <button id="btnGrainC1" type="button" data-grain="C1">เกรน C1 — ช่อง</button>
+    <span class="tint-label">อ่อน<input type="color" id="tintClair" title="โทนสีอ่อน"></span>
+    <span class="tint-label">เข้ม<input type="color" id="tintSombre" title="โทนสีเข้ม"></span>
+  </div>
+
+  <p class="grain-hint">กรองตามสถานะเมื่อเลื่อนครึ่งคาบ (6, 6)</p>
+  <div class="controls" id="statutControls">
+    <button type="button" data-statut="tous" class="active">ทั้งหมด</button>
+    <button type="button" data-statut="invariant">คงที่</button>
+    <button type="button" data-statut="inverse">กลับสี</button>
+    <button type="button" data-statut="echange">สลับ</button>
+  </div>
+  <div class="controls" id="niveauControls">
+    <label class="tint-label" for="niveauSelect">ระดับ<select id="niveauSelect"><option value="tous">ทั้งหมด</option></select></label>
+  </div>
+
+  <div class="gallery-panel">
+    <div class="gallery-label" id="galerie-label">เลื่อนดูแล้วคลิกลวดลายเพื่อเลือก</div>
+    <div id="gallery" data-liste-clavier=".tile" data-choisi="selected" aria-labelledby="galerie-label" aria-orientation="horizontal"></div>
+  </div>
+
+  <div class="paved-section" id="pavedSection">
+    <h2 class="paved-label h2-neutre">ลายปูพื้นของลวดลายที่เลือก</h2>
+    <div class="paved-info" id="pavedInfo"></div>
+    <div class="paved-box"><canvas id="pavedCanvas" role="img" aria-label="ลายปูพื้นของลวดลายที่เลือก"></canvas></div>
+    <div class="paved-actions">
+      <button type="button" id="btnDlCellSvg">ดาวน์โหลด SVG ของเซลล์</button>
+      <button type="button" id="btnDlPavedSvg">ดาวน์โหลด SVG ของลายปูพื้น</button>
+      <button type="button" id="btnDlInkstitch" title="ลากเป็นเส้นทางเดียวต่อโทนสี ใช้ได้กับเกรน C1 เท่านั้น">ดาวน์โหลดสำหรับ Ink/Stitch (C1)</button>
+    </div>
+  </div>
+
+  <!-- L'outil « fond d'écran fixe, en vecteur », déplacé de fonds-ecran.html le
+       2026-10-03 : le même module (assets/vue-fond-ecran.js, monterFondEcran),
+       pas une copie. Les adresses de l'ancienne page (?motif=…&fond=…&sup=…
+       &c0=…&c1=…) y sont redirigées et mènent au même rendu. -->
+  <section class="fond-fixe" id="fondFixe" aria-labelledby="ffTitre">
+    <h2 id="ffTitre">วอลเปเปอร์ภาพนิ่งแบบเวกเตอร์</h2>
+    <p class="ff-intro">ลวดลายหนึ่งจากคลังลวดลาย อ่านเป็นสองสี (ช่องสีเหลืองกลายเป็นสามเหลี่ยมที่เติมสีที่ใกล้ที่สุด) และวางพื้นหลังบนทุกช่อง เป็นภาพ SVG ภาพเดียวที่ไม่ขึ้นกับความละเอียด ครอบคลุม 1920 × 1080, 2560 × 1440, 4K และหน้าจออื่นใดก็ได้ ในขนาดเพียงไม่กี่กิโลไบต์ สองสีของมันคือสีของแกลเลอรีด้านบน</p>
+    <div class="ff-choix">
+      <label>ตระกูล <select id="ffFamille"></select></label>
+      <label>ฉักลักษณ์ <select id="ffHex"></select></label>
+      <label>รูป <input type="color" id="ffCouleur1"></label>
+      <label>พื้น <input type="color" id="ffCouleur2"></label>
+      <button type="button" class="ff-preset" data-palette="creme">ครีม / หมึก</button>
+      <button type="button" class="ff-preset" data-palette="bicolore">แดง / ขาว</button>
+      <button type="button" class="ff-preset" data-palette="monochrome">สีเดียว</button>
+      <label>ความหนาแน่น <input type="range" id="ffDensite" min="3" max="16" step="1" value="6"> <span id="ffDensiteVal">6</span></label>
+    </div>
+    <div class="ff-selecteur"><div class="ff-libelle">พื้น</div><div id="ffSelecteur"></div></div>
+    <p class="ff-erreur" id="ffErreur" hidden></p>
+    <div class="ff-apercu" id="ffApercu" role="img" aria-label="ตัวอย่างวอลเปเปอร์ภาพนิ่ง สัดส่วน 16:9"></div>
+    <p class="ff-description" id="ffDescription"></p>
+    <div class="ff-actions">
+      <button type="button" id="ffSvg">ดาวน์โหลด SVG (ทุกความละเอียด)</button>
+      <button type="button" id="ffPng1920">PNG 1920 × 1080</button>
+      <button type="button" id="ffPng2560">PNG 2560 × 1440</button>
+      <button type="button" id="ffPng3840">PNG 3840 × 2160 (4K)</button>
+    </div>
+    <p class="ff-deplace">แอนิเมชันแบบสามสี หรือแบบสองสีในคอลเลกชันนี้ อยู่ที่หน้า <a href="../../fonds-ecran.html">วอลเปเปอร์</a></p>
+  </section>
+
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../th/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">หน้าแรก</span><span class="nav-tile-excerpt">หนังสือ แผ่นภาพ และเครื่องมือทั้งหมด</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">บทความ</span><span class="nav-tile-excerpt">ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนด — ทุกอย่างเปิดให้ใช้ฟรีภายใต้ CC BY-NC 4.0 การสนับสนุนของคุณช่วยให้โครงการเดินหน้าต่อไป">มาเป็นผู้สนับสนุน</a>
+
+    <nav class="nav-categories" aria-label="หน้าต่าง ๆ ของเว็บไซต์">
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">แกลเลอรี</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/two-colour-gallery/" aria-current="page"><span class="nav-cat-label">แกลเลอรีสองสี</span><span class="nav-cat-texte">ลวดลายสองสี 142 แบบที่สร้างจากแกนและปิดบนลูกบาศก์ — เกรนการอ่าน การปูลาย การส่งออก</span></a></li>
+          <li><a href="../../th/three-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสามสี</span><span class="nav-cat-texte">ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แอนิเมชัน</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">วอลเปเปอร์</span><span class="nav-cat-texte">วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">การเสี่ยงทายและงานพิมพ์</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">การเสี่ยงทายอี้จิง</span><span class="nav-cat-texte">สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64</span></a></li>
+          <li><a href="../../th/360-layers/"><span class="nav-cat-label">แผ่นลาย 360 แผ่น</span><span class="nav-cat-texte">ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">ลวดลาย SVG</span><span class="nav-cat-texte">ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG</span></a></li>
+          <li><a href="../../th/hexagrams/"><span class="nav-cat-label">ฉักลักษณ์</span><span class="nav-cat-texte">ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เครื่องมือสร้างสรรค์</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">สร้างลวดลาย</span><span class="nav-cat-texte">ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง</span></a></li>
+          <li><a href="../../th/two-colour-patterns/"><span class="nav-cat-label">ลวดลายสองสี</span><span class="nav-cat-texte">ประกอบเซลล์ขนาด 12×12 หกระดับ แต่ละระดับมีตระกูลและโทนสีของตัวเอง</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">ลวดลายสองสี v2</span><span class="nav-cat-texte">การแบ่งเส้นทแยงครั้งที่สอง (YA/AY) คำศัพท์และสถานะของการเลื่อนครึ่งคาบ — ควบคู่กับเครื่องมือ v1</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">ตัวเข้ารหัส</span><span class="nav-cat-texte">การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ</span></a></li>
+          <li><a href="../../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง</span></a></li>
+          <li><a href="../../th/cymatics/"><span class="nav-cat-label">ไซแมติกส์</span><span class="nav-cat-texte">การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">เครื่องมือ</span><span class="nav-cat-texte">เครื่องมือแบบโต้ตอบทั้งหมดของเว็บไซต์ รวมไว้ในที่เดียว</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เกี่ยวกับโครงการ</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/book/"><span class="nav-cat-label">ตำรา</span><span class="nav-cat-texte">ตำราและฉบับแปล ฉักลักษณ์ และอภิธานศัพท์</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">เกี่ยวกับ</span><span class="nav-cat-texte">ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์</span></a></li>
+          <li><a href="../../th/lexicon/"><span class="nav-cat-label">อภิธานศัพท์</span><span class="nav-cat-texte">แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès</span></a></li>
+          <li><a href="../../profil.html"><span class="nav-cat-label">โปรไฟล์เอกสาร</span><span class="nav-cat-texte">สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12</span></a></li>
+          <li><a href="../../contact.html"><span class="nav-cat-label">ติดต่อ</span><span class="nav-cat-texte">ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">สนับสนุน</span><span class="nav-cat-texte">สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี</span></a></li>
+          <li><a href="../../chiffres-et-sources.html"><span class="nav-cat-label">ตัวเลขและแหล่งที่มา</span><span class="nav-cat-texte">ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">ผลงาน</span><span class="nav-cat-texte">คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>สร้างร่วมกับ Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+
+</div>
+
+<script type="module">
+import { GRID, PER_CELL, triangleGeometry, maskToPavageSvg } from '../../assets/bicolore-render.js';
+import { buildAxes, generateAxesMask, demiDecalageStatus, nomAccordAncien } from '../../assets/bicolore-axes.js';
+import { fermeSurLeCube } from '../../assets/bicolore-cube-c1.mjs';
+import { paletteDeLUrl } from '../../assets/couleurs.js';
+// Les deux couleurs de la page ont un seul écrivain : le sélecteur de l'outil
+// « fond d'écran fixe » (assets/vue-fond-ecran.js), qui tient ?c0 et ?c1. Les
+// champs de la galerie suivent l'état partagé et le changent en le demandant.
+import { monterFondEcran } from '../../assets/vue-fond-ecran.js';
+import { abonner, demanderPalette } from '../../assets/etat-fond-ecran.js';
+
+let DATA = null;
+let AXES = null;
+let grain = 'C8';
+// [clair, sombre] : crème et encre par défaut (assets/couleurs.js, le jeu
+// unique), ou les couleurs de l'URL (?c0=…&c1=…).
+let PALETTE = paletteDeLUrl();
+document.getElementById('tintClair').value = PALETTE[0];
+document.getElementById('tintSombre').value = PALETTE[1];
+let selectedIdx = 0;
+const galleryEl = document.getElementById('gallery');
+const pavedCanvas = document.getElementById('pavedCanvas');
+const pavedInfo = document.getElementById('pavedInfo');
+
+// ---------- masques : recalculés depuis les axes à chaque grain, jamais figés ----------
+const instanceMaskCache = new Map(); // "nature|gen|grain" -> Uint8Array
+function instanceMask(nature, gen, g) {
+  const key = `${nature}|${gen}|${g}`;
+  let m = instanceMaskCache.get(key);
+  if (!m) {
+    m = generateAxesMask(AXES[nature][gen] || [], { grain: g });
+    instanceMaskCache.set(key, m);
+  }
+  return m;
+}
+function xor(a, b) {
+  const out = new Uint8Array(a.length);
+  for (let i = 0; i < a.length; i++) out[i] = a[i] ^ b[i];
+  return out;
+}
+function accordMask(accord, g) {
+  const parts = g === 'C1' ? GRID * GRID : GRID * GRID * PER_CELL;
+  let m = new Uint8Array(parts);
+  for (const [nature, gen] of accord) m = xor(m, instanceMask(nature, gen, g));
+  return m;
+}
+function accordAxesBrute(accord) {
+  let out = [];
+  for (const [nature, gen] of accord) out = out.concat(AXES[nature][gen] || []);
+  return out;
+}
+
+// ---------- statut au demi-décalage (6, 6) : invariant / inversé / échangé ----------
+// Voir assets/bicolore-axes.js::demiDecalageStatus — loi vérifiée sur les 142
+// entrées (0 exception) avant tout affichage, pas seulement calculée.
+const STATUT_LABEL = { invariant: 'คงที่', inverse: 'กลับสี', echange: 'สลับ' };
+let entryStatuses = []; // index-aligné sur DATA.entries
+let statutFiltre = 'tous';
+
+// ---------- nommage (prompt-cc-renommage-site.md) ----------
+// nomAccordAncien attend des noms de catalogue ("T2 YIN MUT"), pas le format
+// court de entry.accord (["YIN-MUT","T2"]) — conversion identique à accordLabel.
+function catalogueNamesOf(accord) {
+  return accord.map(([nature, gen]) => `${gen} ${nature.replace('-MUT', ' MUT')}`);
+}
+let entryNoms = []; // index-aligné sur DATA.entries : {nom, niveau, angles}
+let niveauFiltre = 'tous';
+// Étend un masque C1 (144 bits, un par case) en 1152 bits (8 triangles par
+// case, même teinte) pour le rendu — même ordre d'index que triangleGeometry
+// (cellIdx = row*12+col, sector = 0..7) et que casePoint() de bicolore-axes.js.
+function expandC1To1152(mask144) {
+  const out = new Uint8Array(144 * 8);
+  for (let i = 0; i < 144; i++) { const b = mask144[i]; for (let k = 0; k < 8; k++) out[i * 8 + k] = b; }
+  return out;
+}
+function mask1152For(accord, g) {
+  const m = accordMask(accord, g);
+  return g === 'C1' ? expandC1To1152(m) : m;
+}
+
+// ---------- rendu canvas (triangles C8, huit par case) ----------
+function drawMask(canvas, mask1152, sizePx) {
+  canvas.width = sizePx; canvas.height = sizePx;
+  const ctx = canvas.getContext('2d');
+  const cellPx = sizePx / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  for (let i = 0; i < parts; i++) {
+    const pts = triangleGeometry(i, cellPx, PER_CELL);
+    ctx.fillStyle = mask1152[i] ? PALETTE[1] : PALETTE[0];
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    ctx.lineTo(pts[1][0], pts[1][1]);
+    ctx.lineTo(pts[2][0], pts[2][1]);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+function drawMaskTiled(canvas, mask1152, tileSizePx, repeats) {
+  const size = tileSizePx * repeats;
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  const cellPx = tileSizePx / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  const tris = [];
+  for (let i = 0; i < parts; i++) tris.push([triangleGeometry(i, cellPx, PER_CELL), mask1152[i]]);
+  for (let ty = 0; ty < repeats; ty++) for (let tx = 0; tx < repeats; tx++) {
+    const ox = tx * tileSizePx, oy = ty * tileSizePx;
+    for (const [pts, bit] of tris) {
+      ctx.fillStyle = bit ? PALETTE[1] : PALETTE[0];
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] + ox, pts[0][1] + oy);
+      ctx.lineTo(pts[1][0] + ox, pts[1][1] + oy);
+      ctx.lineTo(pts[2][0] + ox, pts[2][1] + oy);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+}
+
+function accordLabel(accord) {
+  return accord.map(([nature, gen]) => `${gen} ${nature}`).join(' + ');
+}
+
+// ---------- galerie ----------
+function visibleIndices() {
+  return DATA.entries.map((_, idx) => idx).filter(idx =>
+    (statutFiltre === 'tous' || entryStatuses[idx] === statutFiltre) &&
+    (niveauFiltre === 'tous' || entryNoms[idx].niveau === niveauFiltre));
+}
+function renderGallery() {
+  galleryEl.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  visibleIndices().forEach(idx => {
+    const entry = DATA.entries[idx];
+    const statut = entryStatuses[idx];
+    const { nom, niveau, angles } = entryNoms[idx];
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.dataset.idx = idx;
+    tile.title = `${nom} (เดิม ${accordLabel(entry.accord)}) — ระดับ ${niveau}, มุม ${angles.join('°, ')}° — ${entry.sombre}/144 ช่องสีเข้ม — ${STATUT_LABEL[statut]} เมื่อเลื่อนครึ่งคาบ`;
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', nom);
+    drawMask(canvas, mask1152For(entry.accord, grain), 64);
+    tile.appendChild(canvas);
+    const badge = document.createElement('span');
+    badge.className = `statut-badge statut-${statut}`;
+    badge.textContent = nom;
+    tile.appendChild(badge);
+    tile.addEventListener('click', () => selectEntry(idx));
+    frag.appendChild(tile);
+  });
+  galleryEl.appendChild(frag);
+  const idxs = visibleIndices();
+  selectEntry(idxs.includes(selectedIdx) ? selectedIdx : (idxs[0] ?? 0));
+}
+function redrawAll() {
+  document.querySelectorAll('#gallery .tile').forEach(tile => {
+    const idx = +tile.dataset.idx;
+    drawMask(tile.querySelector('canvas'), mask1152For(DATA.entries[idx].accord, grain), 64);
+  });
+  selectEntry(selectedIdx);
+}
+
+function selectEntry(idx) {
+  selectedIdx = idx;
+  document.querySelectorAll('.tile').forEach(t => t.classList.toggle('selected', +t.dataset.idx === idx));
+  const entry = DATA.entries[idx];
+  const statut = entryStatuses[idx];
+  const { nom, niveau, angles } = entryNoms[idx];
+  const mask1152 = mask1152For(entry.accord, grain);
+  drawMaskTiled(pavedCanvas, mask1152, 144, 4);
+  pavedInfo.innerHTML = `<b>${nom}</b> <span class="ancien-nom">(เดิม ${accordLabel(entry.accord)})</span> — ระดับ ${niveau}, มุม ${angles.join('°, ')}° — ${entry.sombre}/144 ช่องสีเข้มที่เกรน C1 — ปิดบนลูกบาศก์ — <b>${STATUT_LABEL[statut]}</b> เมื่อเลื่อนครึ่งคาบ (6, 6)`;
+}
+
+// ---------- contrôles ----------
+document.getElementById('btnGrainC8').addEventListener('click', () => setGrain('C8'));
+document.getElementById('btnGrainC1').addEventListener('click', () => setGrain('C1'));
+function setGrain(g) {
+  grain = g;
+  document.getElementById('btnGrainC8').classList.toggle('active', g === 'C8');
+  document.getElementById('btnGrainC1').classList.toggle('active', g === 'C1');
+  document.getElementById('btnDlInkstitch').disabled = g !== 'C1';
+  updateStatsForGrain();
+  redrawAll();
+}
+document.getElementById('tintClair').addEventListener('input', e => demanderPalette([e.target.value, PALETTE[1]]));
+document.getElementById('tintSombre').addEventListener('input', e => demanderPalette([PALETTE[0], e.target.value]));
+abonner((e) => {
+  PALETTE = [...e.palette];
+  document.getElementById('tintClair').value = PALETTE[0];
+  document.getElementById('tintSombre').value = PALETTE[1];
+  if (DATA && AXES) redrawAll();
+});
+monterFondEcran(document.getElementById('fondFixe')).then(() => {
+  if (location.hash === '#fondFixe') document.getElementById('fondFixe').scrollIntoView();
+}).catch((e) => {
+  document.getElementById('ffErreur').hidden = false;
+  document.getElementById('ffErreur').textContent = 'เกิดข้อผิดพลาดในการโหลด: ' + e.message;
+});
+
+document.querySelectorAll('#statutControls button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    statutFiltre = btn.dataset.statut;
+    document.querySelectorAll('#statutControls button').forEach(b => b.classList.toggle('active', b === btn));
+    renderGallery();
+  });
+});
+document.getElementById('niveauSelect').addEventListener('change', e => {
+  niveauFiltre = e.target.value === 'tous' ? 'tous' : Number(e.target.value);
+  renderGallery();
+});
+
+function updateStatsForGrain() {
+  const s = DATA.stats[grain];
+  document.getElementById('statRang').textContent = s.rang;
+  document.getElementById('statFigures').textContent = s.total.toLocaleString('th-TH');
+}
+
+// ---------- export SVG ----------
+function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
+function downloadSvgString(svgString, filename) {
+  const blob = new Blob([svgString], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function cellSvgMarkup(mask1152, size) {
+  const cellPx = size / GRID;
+  const parts = GRID * GRID * PER_CELL;
+  const body = [];
+  for (let i = 0; i < parts; i++) {
+    const pts = triangleGeometry(i, cellPx, PER_CELL);
+    const bit = mask1152[i];
+    body.push(`<polygon points="${pts.map(p => p.join(',')).join(' ')}" fill="${bit ? PALETTE[1] : PALETTE[0]}"/>`);
+  }
+  return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>\n<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" version="1.1">\n${body.join('\n')}\n</svg>\n`;
+}
+
+// Traçage par arêtes de grille, réutilisé tel quel depuis
+// creation-motifs-yi-king.html::traceColorPath — un seul chemin fermé par
+// teinte, propre à éditer sous Inkscape/Ink-Stitch. Fonctionne sur une
+// grille RECTANGULAIRE (grain C1, une valeur par case) ; le grain C8
+// (triangles) n'a pas d'équivalent Ink/Stitch sur cette page.
+function traceColorPath(grid, targetColor, cellSize) {
+  const R = grid.length, C = grid[0].length;
+  const at = (r, c) => (r >= 0 && r < R && c >= 0 && c < C) ? grid[r][c] : null;
+  const outgoing = new Map();
+  function addEdge(x1, y1, x2, y2, dir) {
+    const k = x1 + ',' + y1;
+    if (!outgoing.has(k)) outgoing.set(k, []);
+    outgoing.get(k).push({ dir, to: x2 + ',' + y2 });
+  }
+  for (let r = 0; r < R; r++) for (let c = 0; c < C; c++) {
+    if (at(r, c) !== targetColor) continue;
+    const x0 = c * cellSize, y0 = r * cellSize, x1 = (c + 1) * cellSize, y1 = (r + 1) * cellSize;
+    if (at(r - 1, c) !== targetColor) addEdge(x0, y0, x1, y0, 'E');
+    if (at(r, c + 1) !== targetColor) addEdge(x1, y0, x1, y1, 'S');
+    if (at(r + 1, c) !== targetColor) addEdge(x1, y1, x0, y1, 'W');
+    if (at(r, c - 1) !== targetColor) addEdge(x0, y1, x0, y0, 'N');
+  }
+  const RIGHT_OF = { E: 'S', S: 'W', W: 'N', N: 'E' };
+  const LEFT_OF = { E: 'N', S: 'E', W: 'S', N: 'W' };
+  const OPPOSITE = { E: 'W', S: 'N', W: 'E', N: 'S' };
+  function pickNext(vertexKey, arriveDir, used) {
+    const all = outgoing.get(vertexKey) || [];
+    const pref = [RIGHT_OF[arriveDir], arriveDir, LEFT_OF[arriveDir], OPPOSITE[arriveDir]];
+    for (const dir of pref) for (let i = 0; i < all.length; i++) {
+      const key = vertexKey + '|' + i;
+      if (all[i].dir === dir && !used.has(key)) return { edge: all[i], usedKey: key };
+    }
+    return null;
+  }
+  const usedEdges = new Set();
+  const subpaths = [];
+  for (const [startKey, edges] of outgoing) {
+    for (let i = 0; i < edges.length; i++) {
+      const usedKey = startKey + '|' + i;
+      if (usedEdges.has(usedKey)) continue;
+      const loopPts = [startKey];
+      usedEdges.add(usedKey);
+      let dir = edges[i].dir;
+      let curKey = edges[i].to;
+      let guard = 0;
+      while (curKey !== startKey && guard < 100000) {
+        guard++;
+        loopPts.push(curKey);
+        const next = pickNext(curKey, dir, usedEdges);
+        if (!next) break;
+        usedEdges.add(next.usedKey);
+        dir = next.edge.dir;
+        curKey = next.edge.to;
+      }
+      subpaths.push(loopPts);
+    }
+  }
+  return subpaths.map(pts => {
+    let s = '';
+    pts.forEach((p, i) => {
+      const [x, y] = p.split(',').map(Number);
+      s += (i === 0 ? `M ${x.toFixed(2)},${y.toFixed(2)}` : ` L ${x.toFixed(2)},${y.toFixed(2)}`);
+    });
+    return s + ' Z';
+  }).join(' ');
+}
+function generateInkstitchSVG(grid, palette) {
+  const cellSize = 10; // même échelle que bases-yang-inkstitch.svg (120mm / 12 cellules)
+  const total = grid.length * cellSize;
+  let paths = '';
+  [0, 1].forEach(bit => {
+    const hex = palette[bit];
+    if (!grid.some(row => row.includes(bit))) return;
+    const d = traceColorPath(grid, bit, cellSize);
+    paths += `<path fill="${hex}" fill-rule="evenodd" d="${d}"/>`;
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${total}mm" height="${total}mm" viewBox="0 0 ${total} ${total}">${paths}</svg>`;
+}
+function maskC1ToGrid(mask144) {
+  const grid = [];
+  for (let r = 0; r < GRID; r++) grid.push(Array.from({ length: GRID }, (_, c) => mask144[r * GRID + c]));
+  return grid;
+}
+
+document.getElementById('btnDlCellSvg').addEventListener('click', () => {
+  const entry = DATA.entries[selectedIdx];
+  const svg = cellSvgMarkup(mask1152For(entry.accord, grain), 144);
+  downloadSvgString(svg, `bicolore-${slug(accordLabel(entry.accord))}-${grain}.svg`);
+});
+document.getElementById('btnDlPavedSvg').addEventListener('click', () => {
+  const entry = DATA.entries[selectedIdx];
+  const mask1152 = mask1152For(entry.accord, grain);
+  const svg = maskToPavageSvg(mask1152, PALETTE, 4, 4, { size: 144, perCell: PER_CELL });
+  downloadSvgString(svg, `pavage-${slug(accordLabel(entry.accord))}-${grain}-x4.svg`);
+});
+document.getElementById('btnDlInkstitch').addEventListener('click', () => {
+  if (grain !== 'C1') return;
+  const entry = DATA.entries[selectedIdx];
+  const mask144 = accordMask(entry.accord, 'C1');
+  const grid = maskC1ToGrid(mask144);
+  const svg = generateInkstitchSVG(grid, PALETTE);
+  downloadSvgString(svg, `bicolore-${slug(accordLabel(entry.accord))}-inkstitch.svg`);
+});
+
+// ---------- chargement ----------
+Promise.all([
+  fetch('../../data/AXES/catalogue.json').then(r => r.json()),
+  fetch('../../data/bicolore_galerie_v1.json').then(r => r.json()),
+]).then(([catalogue, data]) => {
+  AXES = buildAxes(catalogue);
+  DATA = data;
+  entryStatuses = DATA.entries.map(entry => demiDecalageStatus(accordAxesBrute(entry.accord), AXES).status);
+  entryNoms = DATA.entries.map(entry => nomAccordAncien(catalogueNamesOf(entry.accord)));
+  const niveaux = [...new Set(entryNoms.map(n => n.niveau))].sort((a, b) => a - b);
+  const niveauSelect = document.getElementById('niveauSelect');
+  for (const n of niveaux) {
+    const opt = document.createElement('option');
+    opt.value = String(n);
+    opt.textContent = String(n);
+    niveauSelect.appendChild(opt);
+  }
+  document.getElementById('statTotal').textContent = data.total;
+  document.getElementById('statFermes').textContent = data.fermeture_totale_c1;
+  document.getElementById('statsNote').textContent =
+    `รูป ${data.fermeture_totale_c1} แบบปิดบนลูกบาศก์ที่เกรนระดับช่อง (π = เอกลักษณ์) ` +
+    `ตัดสีพื้นอ่อนล้วนและเข้มล้วนออก เหลือ ${data.total} ลวดลาย ` +
+    `แรงก์ GF(2) ของ 16 อินสแตนซ์: ${data.stats.C8.rang} ที่เกรน C8 (รูปที่ต่างกัน ${data.stats.C8.total.toLocaleString('th-TH')} แบบ) ` +
+    `${data.stats.C1.rang} ที่เกรน C1 (รูปที่ต่างกัน ${data.stats.C1.total.toLocaleString('th-TH')} แบบ)`;
+  document.getElementById('btnGrainC8').classList.add('active');
+  updateStatsForGrain();
+  renderGallery();
+}).catch(err => {
+  document.getElementById('statsNote').textContent = 'เกิดข้อผิดพลาดในการโหลดข้อมูล: ' + err.message;
+  console.error(err);
+});
+
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<script src="../../assets/soutien-gate.js"></script>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/liste-clavier.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="ส่วนท้ายของหน้า">
+    <a href="../../th/">หน้าแรก</a>
+    <a href="../../th/book/">หนังสือ</a>
+    <a href="../../th/hexagrams/">ฉักลักษณ์</a>
+    <a href="../../th/lexicon/">อภิธานศัพท์</a>
+    <a href="../../motifs/" hreflang="en">ลวดลาย (ภาษาอังกฤษ)</a>
+    <a href="../../profil.html" hreflang="fr">ประวัติผู้แต่ง (ภาษาฝรั่งเศส)</a>
+    <a href="../../contact.html" hreflang="fr">ติดต่อ</a>
+    <a href="../../soutenir.html" hreflang="fr">สนับสนุนโครงการ</a>
+    <a href="../../th/search/">ค้นหา</a>
+  </nav>
+  <p class="site-footer-licence">
+    เนื้อหาภายใต้สัญญาอนุญาต <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · โค้ดภายใต้ AGPL v3 สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

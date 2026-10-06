@@ -203,35 +203,64 @@ function prefixer(s, prefixe) {
   return out + prefixerBalises(s.slice(i), prefixe);
 }
 
+// Applique f au document hors du code des scripts : les morceaux entre deux
+// <script> (balises comprises) et le contenu des données structurées.
+function horsCode(s, f) {
+  let out = '', i = 0;
+  for (const m of s.matchAll(/(<script\b[^>]*>)([\s\S]*?)(<\/script>)/g)) {
+    out += f(s.slice(i, m.index) + m[1]) + (/application\/ld\+json/.test(m[1]) ? f(m[2]) : m[2]);
+    i = m.index + m[1].length + m[2].length;
+  }
+  return out + f(s.slice(i));
+}
+
 // ---- une page --------------------------------------------------------------
 function pageTraduite(p, lang, cfg, src) {
   const nomPage = `${p.source} (${lang})`;
   const fichier = `${cfg.dossier}index.html`;
   const prefixe = '../'.repeat(cfg.dossier.split('/').filter(Boolean).length);
-  const UI = dictionnaire(src, p.source);
-  if (!UI[lang]) throw new Error(`${nomPage} : le dictionnaire n'a pas de langue « ${lang} »`);
-  const t = (k) => (UI[lang][k] !== undefined ? UI[lang][k] : UI.fr[k]);
   let s = src;
-
-  // 1. la langue, fixée
-  if (!s.includes(p.langue)) throw new Error(`${nomPage} : la ligne « ${p.langue} » est absente`);
-  s = s.replace(p.langue, `let LANG = '${lang}'; // page ${hreflangDeCode(lang)} (scripts/build-outils-langues.js)`);
   s = s.replace(/<html([^>]*)\slang="fr"/, `<html$1 lang="${hreflangDeCode(lang)}"`);
 
-  // 2. le texte que le script pose, écrit en dur
-  const cles = Object.keys(UI.fr);
-  for (const k of cles) {
-    if (s.includes(`data-i18n="${k}"`)) s = ecrire(s, `data-i18n="${k}"`, 'text', t(k), nomPage);
-    if (s.includes(`data-i18n-html="${k}"`)) s = ecrire(s, `data-i18n-html="${k}"`, 'html', t(k), nomPage);
+  // 1 et 2 — pages À DICTIONNAIRE (étape 1) : la langue fixée, et le texte que
+  // le script pose écrit en dur. Une page sans dictionnaire (étape 2) passe
+  // directement à sa table de textes.
+  if (p.langue) {
+    const UI = dictionnaire(src, p.source);
+    if (!UI[lang]) throw new Error(`${nomPage} : le dictionnaire n'a pas de langue « ${lang} »`);
+    const t = (k) => (UI[lang][k] !== undefined ? UI[lang][k] : UI.fr[k]);
+    if (!s.includes(p.langue)) throw new Error(`${nomPage} : la ligne « ${p.langue} » est absente`);
+    s = s.replace(p.langue, `let LANG = '${lang}'; // page ${hreflangDeCode(lang)} (scripts/build-outils-langues.js)`);
+    for (const k of Object.keys(UI.fr)) {
+      if (s.includes(`data-i18n="${k}"`)) s = ecrire(s, `data-i18n="${k}"`, 'text', t(k), nomPage);
+      if (s.includes(`data-i18n-html="${k}"`)) s = ecrire(s, `data-i18n-html="${k}"`, 'html', t(k), nomPage);
+    }
+    for (const [id, cible, k] of affectations(corpsFonction(src, 'applyUILang'))) {
+      if (UI.fr[k] === undefined) continue;
+      s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
+    }
+    for (const [id, cible, k] of p.affectations || []) s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
   }
-  for (const [id, cible, k] of affectations(corpsFonction(src, 'applyUILang'))) {
-    if (UI.fr[k] === undefined) continue;
-    s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
-  }
-  for (const [id, cible, k] of p.affectations || []) s = ecrire(s, `id="${id}"`, cible, t(k), nomPage);
 
-  // 3. les textes hors dictionnaire
-  for (const r of cfg.remplacements || []) {
+  // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
+  // traductions — étape 2) puis les remplacements propres à la langue. Chaque
+  // texte français doit être présent ; les plus longs passent d'abord, pour
+  // qu'un texte court contenu dans un long ne le coupe pas.
+  // la table vit dans le fichier de données, ou dans un fichier à part
+  // (data/outils-langues/<page>.json) quand elle est longue
+  const textes = typeof p.textes === 'string' ? JSON.parse(fs.readFileSync(path.join(ROOT, p.textes), 'utf8')).textes : (p.textes || []);
+  const table = textes.map((r) => {
+    if (r[lang] === undefined) throw new Error(`${nomPage} : pas de traduction « ${lang} » pour « ${r.fr.slice(0, 80)} »`);
+    return { fr: r.fr, trad: r[lang] };
+  }).sort((a, b) => b.fr.length - a.fr.length);
+  // les textes communs (fil d'Ariane) : appliqués là où ils se trouvent
+  // — hors du code des scripts (les données structurées comprises) : un
+  // dictionnaire UI.fr garde son français, c'est le repli de la page
+  for (const r of DONNEES.communs || []) {
+    if (r[lang] === undefined || !s.includes(r.fr)) continue;
+    s = horsCode(s, (morceau) => morceau.split(r.fr).join(r[lang]));
+  }
+  for (const r of [...table, ...(cfg.remplacements || [])]) {
     if (!s.includes(r.fr)) throw new Error(`${nomPage} : texte français introuvable, la traduction a dérivé : « ${r.fr.slice(0, 80)} »`);
     s = s.split(r.fr).join(r.trad);
   }

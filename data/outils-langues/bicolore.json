@@ -1,0 +1,278 @@
+{
+ "_doc": "Textes de bicolore.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française, balises et guillemets compris ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md).",
+ "textes": [
+  {
+   "fr": "<title>Motifs bicolores — La Livrée d'Hermès</title>",
+   "en": "<title>Two-colour patterns — La Livrée d'Hermès</title>",
+   "es": "<title>Motivos bicolores — La Livrée d'Hermès</title>",
+   "th": "<title>ลวดลายสองสี — La Livrée d'Hermès</title>",
+   "source": "nav-tiles (bicolore)"
+  },
+  {
+   "fr": "Composez une cellule 12×12 en superposant six niveaux bicolores, un par trait d'hexagramme, et partagez la composition par son URL.",
+   "en": "Compose a 12×12 cell by stacking six two-colour levels, one per hexagram line, and share the composition through its URL.",
+   "es": "Componga una celda de 12×12 superponiendo seis niveles bicolores, uno por cada trazo del hexagrama, y comparta la composición mediante su URL.",
+   "th": "สร้างเซลล์ 12×12 โดยซ้อนระดับสองสีหกระดับ ระดับละหนึ่งเส้นของฉักลักษณ์ แล้วแบ่งปันผลงานผ่าน URL ของมัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Motifs bicolores</span>",
+   "en": "<span aria-current=\"page\">Two-colour patterns</span>",
+   "es": "<span aria-current=\"page\">Motivos bicolores</span>",
+   "th": "<span aria-current=\"page\">ลวดลายสองสี</span>",
+   "source": "nav-tiles (bicolore)"
+  },
+  {
+   "fr": "<h1>Motifs bicolores</h1>",
+   "en": "<h1>Two-colour patterns</h1>",
+   "es": "<h1>Motivos bicolores</h1>",
+   "th": "<h1>ลวดลายสองสี</h1>",
+   "source": "nav-tiles (bicolore)"
+  },
+  {
+   "fr": "<p>Deux hexagrammes superposés, six niveaux chacun — choisissez l'hexagramme, cliquez un trait pour le régler.</p>",
+   "en": "<p>Two stacked hexagrams, six levels each — choose the hexagram, click a line to set it.</p>",
+   "es": "<p>Dos hexagramas superpuestos, seis niveles cada uno — elija el hexagrama y haga clic en un trazo para ajustarlo.</p>",
+   "th": "<p>ฉักลักษณ์สองตัวซ้อนกัน ตัวละหกระดับ — เลือกฉักลักษณ์ แล้วคลิกที่เส้นเพื่อปรับ</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Hexagramme en cours d'édition\"",
+   "en": "aria-label=\"Hexagram being edited\"",
+   "es": "aria-label=\"Hexagrama en edición\"",
+   "th": "aria-label=\"ฉักลักษณ์ที่กำลังแก้ไข\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Sélecteur de niveau (trait 1 en bas, trait 6 en haut)\"",
+   "en": "aria-label=\"Level selector (line 1 at the bottom, line 6 at the top)\"",
+   "es": "aria-label=\"Selector de nivel (trazo 1 abajo, trazo 6 arriba)\"",
+   "th": "aria-label=\"ตัวเลือกระดับ (เส้นที่ 1 อยู่ล่างสุด เส้นที่ 6 อยู่บนสุด)\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p>Cellule 12×12 — <span id=\"previewLevelNum\">niveau 1 sélectionné</span></p>",
+   "en": "<p>12×12 cell — <span id=\"previewLevelNum\">level 1 selected</span></p>",
+   "es": "<p>Celda de 12×12 — <span id=\"previewLevelNum\">nivel 1 seleccionado</span></p>",
+   "th": "<p>เซลล์ 12×12 — <span id=\"previewLevelNum\">เลือกระดับ 1</span></p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Trame</h2>",
+   "en": "<h2>Grid</h2>",
+   "es": "<h2>Trama</h2>",
+   "th": "<h2>โครงตาราง</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label for=\"trameSelect\">Cellule · Bloc</label>",
+   "en": "<label for=\"trameSelect\">Cell · Block</label>",
+   "es": "<label for=\"trameSelect\">Celda · Bloque</label>",
+   "th": "<label for=\"trameSelect\">เซลล์ · บล็อก</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Combinaison</h2>",
+   "en": "<h2>Combination</h2>",
+   "es": "<h2>Combinación</h2>",
+   "th": "<h2>การรวม</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Comment les deux hexagrammes se combinent\"",
+   "en": "aria-label=\"How the two hexagrams combine\"",
+   "es": "aria-label=\"Cómo se combinan los dos hexagramas\"",
+   "th": "aria-label=\"วิธีที่ฉักลักษณ์ทั้งสองรวมกัน\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "data-mode=\"calque\">Calque</button>",
+   "en": "data-mode=\"calque\">Layer</button>",
+   "es": "data-mode=\"calque\">Capa</button>",
+   "th": "data-mode=\"calque\">แผ่นลาย</button>",
+   "source": "glossaire (calque)"
+  },
+  {
+   "fr": "data-mode=\"xor\">Ou-exclusif</button>",
+   "en": "data-mode=\"xor\">Exclusive or</button>",
+   "es": "data-mode=\"xor\">O exclusivo</button>",
+   "th": "data-mode=\"xor\">หรือแบบเฉพาะ (XOR)</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Couleurs</h2>",
+   "en": "<h2>Colours</h2>",
+   "es": "<h2>Colores</h2>",
+   "th": "<h2>สี</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label>Teinte A <input",
+   "en": "<label>Tint A <input",
+   "es": "<label>Matiz A <input",
+   "th": "<label>โทนสี A <input",
+   "source": "360-calques.html, UI.<langue>.teinteLabel"
+  },
+  {
+   "fr": "<label>Teinte B <input",
+   "en": "<label>Tint B <input",
+   "es": "<label>Matiz B <input",
+   "th": "<label>โทนสี B <input",
+   "source": "360-calques.html, UI.<langue>.teinteLabel"
+  },
+  {
+   "fr": "<h2 id=\"levelHeading\">Niveau 1</h2>",
+   "en": "<h2 id=\"levelHeading\">Level 1</h2>",
+   "es": "<h2 id=\"levelHeading\">Nivel 1</h2>",
+   "th": "<h2 id=\"levelHeading\">ระดับ 1</h2>",
+   "source": "cymatique.html, UI.<langue>.sectionOndeColNiveau"
+  },
+  {
+   "fr": "<label for=\"familleSelect\">Famille</label>",
+   "en": "<label for=\"familleSelect\">Family</label>",
+   "es": "<label for=\"familleSelect\">Familia</label>",
+   "th": "<label for=\"familleSelect\">ตระกูล</label>",
+   "source": "360-calques.html, UI.<langue>.familleLabel"
+  },
+  {
+   "fr": "aria-label=\"Aperçu au survol — cliquez pour choisir\"",
+   "en": "aria-label=\"Preview on hover — click to choose\"",
+   "es": "aria-label=\"Vista previa al pasar el cursor — haga clic para elegir\"",
+   "th": "aria-label=\"แสดงตัวอย่างเมื่อชี้ — คลิกเพื่อเลือก\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label for=\"etatSelect\">État</label>",
+   "en": "<label for=\"etatSelect\">State</label>",
+   "es": "<label for=\"etatSelect\">Estado</label>",
+   "th": "<label for=\"etatSelect\">สถานะ</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<option value=\"yang\">Teinte Yang</option>",
+   "en": "<option value=\"yang\">Yang tint</option>",
+   "es": "<option value=\"yang\">Matiz yang</option>",
+   "th": "<option value=\"yang\">โทนสีหยาง</option>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<option value=\"yin\">Teinte Yin</option>",
+   "en": "<option value=\"yin\">Yin tint</option>",
+   "es": "<option value=\"yin\">Matiz yin</option>",
+   "th": "<option value=\"yin\">โทนสียิน</option>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label for=\"shareUrl\">URL de cette composition</label>",
+   "en": "<label for=\"shareUrl\">URL of this composition</label>",
+   "es": "<label for=\"shareUrl\">URL de esta composición</label>",
+   "th": "<label for=\"shareUrl\">URL ของผลงานนี้</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "label: 'C8·B3 — Origines' }",
+   "en": "label: 'C8·B3 — Origins' }",
+   "es": "label: 'C8·B3 — Orígenes' }",
+   "th": "label: 'C8·B3 — ต้นกำเนิด' }",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "label: 'C8·B2 — Origines T2' }",
+   "en": "label: 'C8·B2 — Origins T2' }",
+   "es": "label: 'C8·B2 — Orígenes T2' }",
+   "th": "label: 'C8·B2 — ต้นกำเนิด T2' }",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "label: 'C16·B1 — dérivée (homothétie + gnomon)' }",
+   "en": "label: 'C16·B1 — derived (homothety + gnomon)' }",
+   "es": "label: 'C16·B1 — derivada (homotecia + gnomon)' }",
+   "th": "label: 'C16·B1 — อนุพันธ์ (การยืดขยาย + โนมอน)' }",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "label: 'C4·B3 — Origines 6' }",
+   "en": "label: 'C4·B3 — Origins 6' }",
+   "es": "label: 'C4·B3 — Orígenes 6' }",
+   "th": "label: 'C4·B3 — ต้นกำเนิด 6' }",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "pole.slice(1).toLowerCase() + ' pur');",
+   "en": "pole.slice(1).toLowerCase() + ' (pure)');",
+   "es": "pole.slice(1).toLowerCase() + ' puro');",
+   "th": "pole.slice(1).toLowerCase() + ' บริสุทธิ์');",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "base.slice(1).toLowerCase() + ' (mutant)');",
+   "en": "base.slice(1).toLowerCase() + ' (mutant)');",
+   "es": "base.slice(1).toLowerCase() + ' (mutante)');",
+   "th": "base.slice(1).toLowerCase() + ' (แปรเปลี่ยน)');",
+   "source": "noms de familles en latin (glossaire) ; seul « mutant » se traduit"
+  },
+  {
+   "fr": "b.textContent = 'Hexagramme ' + h;",
+   "en": "b.textContent = 'Hexagram ' + h;",
+   "es": "b.textContent = 'Hexagrama ' + h;",
+   "th": "b.textContent = 'ฉักลักษณ์ ' + h;",
+   "source": "glossaire (hexagramme)"
+  },
+  {
+   "fr": "allBtn.textContent = 'Tous';",
+   "en": "allBtn.textContent = 'All';",
+   "es": "allBtn.textContent = 'Todos';",
+   "th": "allBtn.textContent = 'ทั้งหมด';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "const prefix = 'Hexagramme ' + activeHex + ' — ';",
+   "en": "const prefix = 'Hexagram ' + activeHex + ' — ';",
+   "es": "const prefix = 'Hexagrama ' + activeHex + ' — ';",
+   "th": "const prefix = 'ฉักลักษณ์ ' + activeHex + ' — ';",
+   "source": "glossaire (hexagramme)"
+  },
+  {
+   "fr": "'aucun niveau sélectionné'",
+   "en": "'no level selected'",
+   "es": "'ningún nivel seleccionado'",
+   "th": "'ยังไม่ได้เลือกระดับ'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "previewNum.textContent = 'niveau ' + nums[0] + ' sélectionné';",
+   "en": "previewNum.textContent = 'level ' + nums[0] + ' selected';",
+   "es": "previewNum.textContent = 'nivel ' + nums[0] + ' seleccionado';",
+   "th": "previewNum.textContent = 'เลือกระดับ ' + nums[0];",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "heading.textContent = prefix + 'niveau ' + nums[0];",
+   "en": "heading.textContent = prefix + 'level ' + nums[0];",
+   "es": "heading.textContent = prefix + 'nivel ' + nums[0];",
+   "th": "heading.textContent = prefix + 'ระดับ ' + nums[0];",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "heading.textContent = prefix + nums.length + ' niveaux';",
+   "en": "heading.textContent = prefix + nums.length + ' levels';",
+   "es": "heading.textContent = prefix + nums.length + ' niveles';",
+   "th": "heading.textContent = prefix + nums.length + ' ระดับ';",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "previewNum.textContent = 'niveaux ' + nums.join(', ') + ' sélectionnés';",
+   "en": "previewNum.textContent = 'levels ' + nums.join(', ') + ' selected';",
+   "es": "previewNum.textContent = 'niveles ' + nums.join(', ') + ' seleccionados';",
+   "th": "previewNum.textContent = 'เลือกระดับ ' + nums.join(', ');",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Erreur de chargement : ${err.message}",
+   "en": "Loading error: ${err.message}",
+   "es": "Error de carga: ${err.message}",
+   "th": "เกิดข้อผิดพลาดในการโหลด: ${err.message}",
+   "source": "SANS SOURCE"
+  }
+ ]
+}
