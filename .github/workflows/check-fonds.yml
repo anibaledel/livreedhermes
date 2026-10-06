@@ -162,6 +162,15 @@ jobs:
             echo "essai $i : le site ne sert pas encore la navigation en catégories ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1
+      # la galerie d'animations, sur le site déployé : ses 56 adresses (entrée
+      # et six pages de groupe × huit langues), les vignettes, les anciennes
+      # adresses ?collection= redirigées, une seule animation à la fois
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_galerie_animations.mjs https://anibal-amiot.com && exit 0
+            echo "essai $i : le site ne sert pas encore la galerie attendue ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
       # chaque vidéo du registre servie par le site, et la même : 200 et
       # empreinte SHA-256 (vidéo et affiche) égale au registre — le nom ne
       # change pas quand une vidéo est refaite, seule l'empreinte le dit
