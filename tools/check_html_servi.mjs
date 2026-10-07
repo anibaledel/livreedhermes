@@ -24,6 +24,9 @@
 //
 // Usage : node tools/check_html_servi.mjs          contrôle tout le dépôt
 //         node tools/check_html_servi.mjs --essai  fausse une page des deux manières et montre qu'il refuse
+//         node tools/check_html_servi.mjs --site=https://anibal-amiot.com
+//                                                  les mêmes règles sur les pages SERVIES par le site
+//                                                  déployé (chaque page du dépôt, à son adresse)
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -93,11 +96,30 @@ if (process.argv.includes('--essai')) {
 }
 
 const toutes = pages(RACINE);
-const fautes = toutes.flatMap((f) => controler(fs.readFileSync(f, 'utf8'), path.relative(RACINE, f)));
+const site = (process.argv.find((a) => a.startsWith('--site=')) || '').slice('--site='.length).replace(/\/$/, '');
+let fautes;
+if (site) {
+  // chaque page du dépôt, lue à son adresse sur le site déployé
+  fautes = [];
+  let lues = 0;
+  const adresses = toutes.map((f) => path.relative(RACINE, f)).filter((r) => r !== '404.html');
+  for (let i = 0; i < adresses.length; i += 16) {
+    await Promise.all(adresses.slice(i, i + 16).map(async (rel) => {
+      const url = `${site}/${rel.replace(/(^|\/)index\.html$/, '$1')}`;
+      const rep = await fetch(`${url}${url.includes('?') ? '&' : '?'}v=${Date.now()}`, { cache: 'no-store' }).catch(() => null);
+      if (!rep || !rep.ok) { fautes.push(`${url} : ${rep ? rep.status : 'injoignable'}`); return; }
+      lues++;
+      fautes.push(...controler(await rep.text(), url));
+    }));
+  }
+  console.log(`Site ${site} : ${lues} pages servies lues.`);
+} else {
+  fautes = toutes.flatMap((f) => controler(fs.readFileSync(f, 'utf8'), path.relative(RACINE, f)));
+}
 if (fautes.length) {
   for (const f of fautes.slice(0, 100)) console.error(`ÉCART ${f}`);
   if (fautes.length > 100) console.error(`… et ${fautes.length - 100} autres.`);
-  console.error(`\n${fautes.length} lien(s) fautif(s) dans le HTML servi, sur ${new Set(fautes.map((f) => f.split(':')[0])).size} page(s).`);
+  console.error(`\n${fautes.length} écart(s) dans le HTML servi.`);
   process.exit(1);
 }
-console.log(`HTML servi : ${toutes.length} pages, aucun <a> imbriqué, non fermé ou sans nom accessible.`);
+console.log(`HTML servi${site ? ` (${site})` : ''} : aucun <a> imbriqué, non fermé ou sans nom accessible.`);
