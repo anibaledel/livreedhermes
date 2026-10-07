@@ -1,0 +1,151 @@
+{
+ "format_version": "referents-v1",
+ "generated_at_utc": "2026-10-07T12:11:40Z",
+ "generator_tool": "tools/index_referents.mjs",
+ "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
+ "site": "https://anibal-amiot.com/",
+ "empreintes": "https://anibal-amiot.com/data/SHA256SUMS.txt",
+ "referents": [
+  {
+   "id": "carres-ordre-6",
+   "objet": "Les 256 carrés d'ordre 6 du livre (échiquier de la page 047) : quatre couleurs, positions case par case, chiralité.",
+   "nombre": 256,
+   "nombre_relu_dans": "forms.length et n_forms",
+   "adresse": "https://anibal-amiot.com/data/referent_256_v3.json",
+   "chemin": "data/referent_256_v3.json",
+   "media_type": "application/json",
+   "octets": 483841,
+   "sha256": "a4e2c53d116d4e951204066c2cbf8d3c9539c244c3c825a093eb5c4d9bd8c6c2",
+   "version": {
+    "format_version": "referent-v3",
+    "generated_at_utc": "2026-09-11T23:39:06.931250+00:00",
+    "generator_tool": "tools/generate_referent_256.py",
+    "referent_id": "14faaeaa5487d83dd63c082a6738ec3817ad2619c63e502ac924e8a95b9da9d0"
+   },
+   "generateur": "tools/generate_referent_256.py",
+   "verificateurs": [
+    "tools/verif_protocole.py",
+    "tools/enum_criteres.py",
+    "tools/validate_referent.py"
+   ],
+   "resultats": null,
+   "sources": [
+    "data/referent_256_src/MANIFEST.json"
+   ],
+   "pages": [
+    "encodeur.html"
+   ],
+   "cles": [
+    "format_version",
+    "referent_kind",
+    "grid_size",
+    "colors",
+    "color_hues_hex",
+    "stegano_colors",
+    "crypto_color_order",
+    "forms",
+    "referent_id",
+    "generated_at_utc",
+    "generator_tool",
+    "n_forms",
+    "numbering_rule",
+    "extraction_rule",
+    "chiralite_repartition",
+    "diag",
+    "legacy_crosscheck"
+   ]
+  },
+  {
+   "id": "calques-360",
+   "objet": "Les 360 calques (60 identités famille × teinte, 6 niveaux), grille 12 × 12, trois couleurs ; invariant 48/48/48 par identité.",
+   "nombre": 360,
+   "nombre_relu_dans": "calques.length et n_calques",
+   "adresse": "https://anibal-amiot.com/data/referent_360_v3.json",
+   "chemin": "data/referent_360_v3.json",
+   "media_type": "application/json",
+   "octets": 534864,
+   "sha256": "d00a50756152ee01a65e21fb4106a2c14075be6d4363ce6361efde4951b6c6e1",
+   "version": {
+    "format_version": "referent-v3",
+    "generated_at_utc": "2026-09-11T19:32:01.573505+00:00",
+    "generator_tool": "tools/generate_referent_360.py",
+    "referent_id": "33691ad4864ae4bfa40c05dfa6c217093ae2cf3044f0a538ca0736348c7cecc2"
+   },
+   "generateur": "tools/generate_referent_360.py",
+   "verificateurs": [
+    "tools/check_page_360.mjs",
+    "tools/validate_referent.py"
+   ],
+   "resultats": null,
+   "sources": [
+    "data/referent_360_src/MANIFEST.json"
+   ],
+   "pages": [
+    "360-calques.html",
+    "chiffres-et-sources.html",
+    "creation-motifs-yi-king.html",
+    "en/360-layers/index.html",
+    "en/create-a-pattern/index.html",
+    "en/figures-and-sources/index.html",
+    "es/360-capas/index.html",
+    "es/cifras-y-fuentes/index.html",
+    "es/crear-un-motivo/index.html",
+    "th/360-layers/index.html",
+    "th/create-a-pattern/index.html",
+    "th/figures-and-sources/index.html"
+   ],
+   "cles": [
+    "format_version",
+    "referent_kind",
+    "grid_size",
+    "layer_of",
+    "colors",
+    "color_hues_hex",
+    "stegano_colors",
+    "calques",
+    "referent_id",
+    "generated_at_utc",
+    "generator_tool",
+    "n_calques",
+    "n_identities",
+    "extraction_rule",
+    "invariant_48_48_48"
+   ]
+  },
+  {
+   "id": "constructions-1024",
+   "objet": "Les 1024 constructions (triplets famille, paire de natures, numéro) des fonds tricolores, avec les 15 familles et la matrice des niveaux.",
+   "nombre": 1024,
+   "nombre_relu_dans": "entries.length",
+   "adresse": "https://anibal-amiot.com/data/fonds_ecran_v1.json",
+   "chemin": "data/fonds_ecran_v1.json",
+   "media_type": "application/json",
+   "octets": 78581,
+   "sha256": "ef900ad676941fcd02fffaf29220ea780fb01a7e05f35d284fa54665a8c1f261",
+   "version": {
+    "format_version": null,
+    "generated_at_utc": null,
+    "generator_tool": null,
+    "referent_id": null
+   },
+   "generateur": "tools/generate_fonds_ecran.py",
+   "verificateurs": [
+    "tools/check_fonds_ecran_completude.py"
+   ],
+   "resultats": null,
+   "sources": [],
+   "pages": [
+    "en/three-colour-gallery/index.html",
+    "es/galeria-tricolor/index.html",
+    "fonds-ecran.html",
+    "galerie-patterns-unifies.html",
+    "th/three-colour-gallery/index.html"
+   ],
+   "cles": [
+    "layerOf",
+    "families",
+    "entries"
+   ]
+  }
+ ]
+}

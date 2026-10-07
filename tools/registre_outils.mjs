@@ -137,6 +137,7 @@ function cheminsDe(f) {
   return { lit: [...lit].sort(), ecrit: [...ecrit].sort() };
 }
 
+const CITENT_SANS_LANCER = new Set(['tools/registre_outils.mjs', 'tools/index_referents.mjs']);
 // utilise_par : les scripts de tools/ qui l'importent ou le lancent
 function utilisateursDe(f, tous) {
   const base = path.basename(f), stem = base.replace(/\.(mjs|js|cjs|py)$/, '');
@@ -148,8 +149,10 @@ function utilisateursDe(f, tous) {
   const lance = (g) => g.endsWith('.py')
     ? source(g).split('\n').some((l) => !/^\s*#/.test(l) && /subprocess|Popen|runpy|os\.path\.join|execfile|\bexec\(/.test(l) && reJs.test(l))
     : reJs.test(source(g));
-  // le registre lui-même cite tous les fichiers sans en lancer aucun
-  return tous.filter((g) => g !== f && g !== 'tools/registre_outils.mjs' && estScript(g) && (lance(g) || (f.endsWith('.py') && g.endsWith('.py') && rePy.test(source(g))))).sort();
+  // le registre lui-même cite tous les fichiers sans en lancer aucun ; l'index
+  // des référents (index_referents.mjs) nomme les générateurs et vérificateurs
+  // de chaque référent, sans en lancer aucun non plus
+  return tous.filter((g) => g !== f && !CITENT_SANS_LANCER.has(g) && estScript(g) && (lance(g) || (f.endsWith('.py') && g.endsWith('.py') && rePy.test(source(g))))).sort();
 }
 
 // ---- tenir debout -------------------------------------------------------------------

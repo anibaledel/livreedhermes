@@ -1,0 +1,27 @@
+name: Index des référents — data/referents.json dit les fichiers
+
+# data/referents.json et data/SHA256SUMS.txt (écrits par tools/index_referents.mjs)
+# listent les référents de données du site : adresse, empreinte, clés de
+# version, générateur, vérificateurs, pages. --verifie échoue dès qu'un
+# référent diverge de son entrée (un octet suffit) ; --essai fausse une
+# empreinte puis un référent, et montre que le contrôle refuse.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/index_referents.mjs --verifie
+      - run: node tools/index_referents.mjs --essai
+      - run: cd data && sha256sum -c SHA256SUMS.txt
