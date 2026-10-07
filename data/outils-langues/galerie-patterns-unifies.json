@@ -44,10 +44,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "Parcourir les 256 pages individuelles de motifs →",
-   "en": "Browse the 256 individual pattern pages →",
-   "es": "Recorrer las 256 páginas individuales de motivos →",
-   "th": "ดูหน้าลวดลายแต่ละหน้าทั้ง 256 หน้า →",
+   "fr": "<a href=\"fr/motifs/\" style=\"color:var(--gold);\">Parcourir les 256 pages individuelles de motifs →</a>",
+   "en": "<a href=\"motifs/\" style=\"color:var(--gold);\">Browse the 256 individual pattern pages →</a>",
+   "es": "<a href=\"motifs/\" style=\"color:var(--gold);\">Recorrer las 256 páginas individuales de motivos (en inglés y francés) →</a>",
+   "th": "<a href=\"motifs/\" style=\"color:var(--gold);\">ดูหน้าลวดลายแต่ละหน้าทั้ง 256 หน้า (ภาษาอังกฤษและฝรั่งเศส) →</a>",
    "source": "SANS SOURCE"
   },
   {

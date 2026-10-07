@@ -49,7 +49,7 @@ const destination = (fr, replis) => (lang) => {
 const MODELE = {
   'le livre': destination('fr/livre/index.html', ['fr/livre/']),
   'le PDF': (lang) => [`book-viewer/la-livree-d-hermes-anibal-amiot-${lang}.pdf`],
-  'le tirage': () => ['tirage-livree-hermes.html'],
+  'le tirage': destination('tirage-livree-hermes.html', ['tirage-livree-hermes.html']),
   'les hexagrammes': destination('hexagrammes/index.html', ['hexagrammes/', 'en/hexagrams/']),
   'le lexique': destination('lexique.html', ['lexique.html']),
   'les motifs': () => ['motifs/', 'fr/motifs/'],
@@ -59,7 +59,7 @@ const MODELE = {
   'la recherche': destination('recherche.html', ['recherche.html', 'en/search/']),
   "l'auteur": destination('a-propos.html', ['a-propos.html', 'en/about/']),
   'le soutien': destination('soutenir.html', ['soutenir.html']),
-  'le contact': () => ['contact.html'],
+  'le contact': destination('contact.html', ['contact.html']),
   'le DOI': () => ['https://doi.org/10.5281/zenodo.22722485'],
   'Wikidata': () => ['https://www.wikidata.org/wiki/Q141191562'],
   'ORCID': () => ['https://orcid.org/0009-0002-6414-9448'],

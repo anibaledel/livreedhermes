@@ -32,6 +32,7 @@ const fs = require('fs');
 const path = require('path');
 const { rendre, rendreNavTiles } = require('./build-header.js');
 const ADRESSES_HEXAGRAMMES = require('./hexagrammes-adresses.js');
+const { adresseDans } = require('./langues.js');
 
 const REPO_ROOT = path.join(__dirname, '..');
 const OUT_DIR_EN = path.join(REPO_ROOT, 'motifs');
@@ -524,8 +525,8 @@ ${EN_TETE[lang]}
 <!-- @main:start -->
 <main id="contenu">
 <nav class="breadcrumb" aria-label="${s.breadcrumbLabel}">
-  <a href="${prefixe}index.html">${s.home}</a><span class="sep">/</span>
-  <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
+  <a href="${prefixe}${adresseDans('index.html', lang)}">${s.home}</a><span class="sep">/</span>
+  <a href="${prefixe}${adresseDans('galerie-patterns-unifies.html', lang)}">${s.unifiedPatterns}</a><span class="sep">/</span>
   <span aria-current="page">${escapeHtml(familyLabel)}, h${n}</span>
 </nav>
 <p class="other-langs">${s.otherLangLink(canonicalUrl(lang === 'fr' ? 'en' : 'fr', slug))}</p>
@@ -849,8 +850,8 @@ ${EN_TETE[lang]}
 <!-- @main:start -->
 <main id="contenu">
 <nav class="breadcrumb" aria-label="${s.breadcrumbLabel}">
-  <a href="${prefixe}index.html">${s.home}</a><span class="sep">/</span>
-  <a href="${prefixe}galerie-patterns-unifies.html">${s.unifiedPatterns}</a><span class="sep">/</span>
+  <a href="${prefixe}${adresseDans('index.html', lang)}">${s.home}</a><span class="sep">/</span>
+  <a href="${prefixe}${adresseDans('galerie-patterns-unifies.html', lang)}">${s.unifiedPatterns}</a><span class="sep">/</span>
   <span aria-current="page">${escapeHtml(s.indexH1)}</span>
 </nav>
 <h1 class="page-title">${escapeHtml(s.indexH1)}</h1>

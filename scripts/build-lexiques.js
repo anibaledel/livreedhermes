@@ -27,6 +27,15 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+// les boutons du bas visent la page dans la langue du lexique, si elle existe
+// (sauf le lien vers le lexique français lui-même : c'est un changement de langue voulu)
+// (L.code est la valeur de <html lang> : zh-Hans, pt-PT — on revient au code)
+const { urlDans, LANGUES, hreflangDeCode } = require('./langues.js');
+const versLaLangue = (href, htmlLang) => {
+  const lang = Object.keys(LANGUES).find((c) => hreflangDeCode(c) === htmlLang);
+  const v = urlDans(href, lang);
+  return v === `${SITE}/${LANGUES[lang].pages.lexique}` ? href : v;
+};
 
 const REPO_ROOT = path.dirname(__dirname);
 const DONNEES = path.join(REPO_ROOT, 'data', 'lexiques_traduits.json');
@@ -46,7 +55,7 @@ const brut = (s) => String(s).replace(/\*([^*]+)\*/g, '$1');
 function page(L) {
   const prof = '../'.repeat(L.dossier.split('/').length);   // en/lexicon -> ../../
   const fil = L.fil.map(([nom, href], i) => href
-    ? `<a href="${href}">${ech(nom)}</a>`
+    ? `<a href="${versLaLangue(href, L.code)}">${ech(nom)}</a>`
     : `<span aria-current="page">${ech(nom)}</span>`).join('<span class="sep">/</span>');
 
   const termes = L.definitions.map((d) => ({
@@ -87,7 +96,7 @@ ${json({ '@context': 'https://schema.org', '@type': 'FAQPage',
 <script type="application/ld+json">
 ${json({ '@context': 'https://schema.org', '@type': 'BreadcrumbList',
          itemListElement: L.fil.map(([nom, href], i) => ({
-           '@type': 'ListItem', position: i + 1, name: nom, item: href || L.url })) })}
+           '@type': 'ListItem', position: i + 1, name: nom, item: href ? versLaLangue(href, L.code) : L.url })) })}
 </script>
 <style>
   *{box-sizing:border-box;}
@@ -207,7 +216,7 @@ ${L.questions.map((q) => `      <details class="faq-item">
 
 <div class="note">
   <div class="site-nav-row">
-${L.nav.map(([nom, href]) => `    <a class="site-nav-btn" href="${href}">${ech(nom)}</a>`).join('\n')}
+${L.nav.map(([nom, href]) => `    <a class="site-nav-btn" href="${versLaLangue(href, L.code)}">${ech(nom)}</a>`).join('\n')}
   </div>
   <div class="credit-line">
     <span>${ech(L.credit)}</span>

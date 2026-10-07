@@ -33,6 +33,21 @@ import livre_texte as LT
 
 ROOT = LT.ROOT
 SITE = 'https://anibal-amiot.com'
+
+
+def _accueils():
+    # L'accueil de chaque langue, lu dans la déclaration des langues
+    # (scripts/langues.js) : le fil d'Ariane d'un chapitre anglais part de
+    # /en/, pas de l'accueil français.
+    import subprocess
+    code = ("const {LANGUES}=require('./scripts/langues.js');"
+            "process.stdout.write(JSON.stringify(Object.fromEntries("
+            "Object.entries(LANGUES).map(([c,l])=>[c,l.pages.accueil]))))")
+    sortie = subprocess.run(['node', '-e', code], cwd=ROOT, capture_output=True, text=True, check=True)
+    return json.loads(sortie.stdout)
+
+
+ACCUEILS = _accueils()
 DOI_LIVRE = '10.5281/zenodo.22722485'
 
 T = {
@@ -175,7 +190,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
     ld_ariane = {
         '@context': 'https://schema.org', '@type': 'BreadcrumbList',
         'itemListElement': [
-            {'@type': 'ListItem', 'position': 1, 'name': t['accueil'], 'item': f'{SITE}/'},
+            {'@type': 'ListItem', 'position': 1, 'name': t['accueil'], 'item': f'{SITE}/{ACCUEILS[langue]}'},
             {'@type': 'ListItem', 'position': 2, 'name': t['livre'], 'item': f'{SITE}/la-livree-d-hermes.html'},
             {'@type': 'ListItem', 'position': 3, 'name': t['edition'], 'item': livre_url},
             {'@type': 'ListItem', 'position': 4, 'name': titre, 'item': url},
@@ -250,7 +265,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
 <nav class="breadcrumb" aria-label="{esc(t['ariane'])}">
-<a href="{SITE}/">{esc(t['accueil'])}</a><span class="sep">/</span><a href="{SITE}/la-livree-d-hermes.html">{esc(t['livre'])}</a><span class="sep">/</span><a href="{livre_url}">{esc(t['edition'])}</a><span class="sep">/</span><span aria-current="page">{esc(titre)}</span>
+<a href="{SITE}/{ACCUEILS[langue]}">{esc(t['accueil'])}</a><span class="sep">/</span><a href="{SITE}/la-livree-d-hermes.html">{esc(t['livre'])}</a><span class="sep">/</span><a href="{livre_url}">{esc(t['edition'])}</a><span class="sep">/</span><span aria-current="page">{esc(titre)}</span>
 </nav>
 <h1 class="chapitre-titre">{esc(titre)}</h1>
 </div>

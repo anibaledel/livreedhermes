@@ -246,6 +246,7 @@
   <button class="nav-btn next" id="nextBtn" aria-label="Page suivante">›</button>
 </div>
 
+<p class="ui-repli" id="avisPage" role="status" hidden></p>
 <footer>
   <span id="pageLabel">Page — / —</span>
   <span class="sep">|</span>
@@ -267,21 +268,21 @@ const PAGE_CODES = ["000A","000B","001","002","003","004A","004B","004C","005","
 // @langues:start — engendré par scripts/build-langues.js, ne pas éditer ici
 const LANGS = {
   fr: { label: "Français", pages: PAGE_CODES, ready: true, lang: "fr", pdf: "la-livree-d-hermes-anibal-amiot-fr.pdf", evitement: "Aller au contenu",
-    ui: {"titre":"Le Livre — visualiseur","titreDoc":"La Livrée d'Hermès — Le Livre","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Aller à","exemple":"ex. 042","voir":"Voir","aideClavier":"← → pour naviguer · clic sur la page pour zoomer","aideTactile":"Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer","prec":"Page précédente","suiv":"Page suivante","pdf":"Télécharger le PDF","langues":"Langue du livre"} },
+    ui: {"titre":"Le Livre — visualiseur","titreDoc":"La Livrée d'Hermès — Le Livre","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Aller à","exemple":"ex. 042","voir":"Voir","aideClavier":"← → pour naviguer · clic sur la page pour zoomer","aideTactile":"Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer","prec":"Page précédente","suiv":"Page suivante","pdf":"Télécharger le PDF","langues":"Langue du livre","repliPage":"La page {code} n'existe pas dans cette édition : page {proche}, la plus proche."} },
   en: { label: "English", pages: PAGE_CODES, ready: true, lang: "en", pdf: "la-livree-d-hermes-anibal-amiot-en.pdf", evitement: "Skip to content",
-    ui: {"titre":"The Book — viewer","titreDoc":"La Livrée d'Hermès — The Book","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Go to","exemple":"e.g. 042","voir":"Go","aideClavier":"← → to turn pages · click the page to zoom","aideTactile":"Swipe left/right to turn pages · tap the page to zoom","prec":"Previous page","suiv":"Next page","pdf":"Download the PDF","langues":"Language of the book"} },
+    ui: {"titre":"The Book — viewer","titreDoc":"La Livrée d'Hermès — The Book","pageLabel":"Page {code} — {i} / {n}","alt":"Page {code}","allerA":"Go to","exemple":"e.g. 042","voir":"Go","aideClavier":"← → to turn pages · click the page to zoom","aideTactile":"Swipe left/right to turn pages · tap the page to zoom","prec":"Previous page","suiv":"Next page","pdf":"Download the PDF","langues":"Language of the book","repliPage":"Page {code} is not in this edition: showing page {proche}, the nearest."} },
   es: { label: "Español", pages: PAGE_CODES, ready: true, lang: "es", pdf: "la-livree-d-hermes-anibal-amiot-es.pdf", evitement: "Ir al contenido",
-    ui: {"titre":"El libro — visor","titreDoc":"La Livrée d'Hermès — El libro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir a","exemple":"p. ej. 042","voir":"Ver","aideClavier":"← → para pasar las páginas · clic en la página para ampliar","aideTactile":"Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar","prec":"Página anterior","suiv":"Página siguiente","pdf":"Descargar el PDF","langues":"Idioma del libro"} },
+    ui: {"titre":"El libro — visor","titreDoc":"La Livrée d'Hermès — El libro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir a","exemple":"p. ej. 042","voir":"Ver","aideClavier":"← → para pasar las páginas · clic en la página para ampliar","aideTactile":"Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar","prec":"Página anterior","suiv":"Página siguiente","pdf":"Descargar el PDF","langues":"Idioma del libro","repliPage":"La página {code} no existe en esta edición: página {proche}, la más cercana."} },
   th: { label: "ไทย", pages: PAGE_CODES, ready: true, lang: "th", pdf: "la-livree-d-hermes-anibal-amiot-th.pdf", evitement: "ข้ามไปยังเนื้อหา",
-    ui: {"titre":"หนังสือ — โปรแกรมอ่าน","titreDoc":"ลิเวรีของเฮอร์มีส — หนังสือ","pageLabel":"หน้า {code} — {i} / {n}","alt":"หน้า {code}","allerA":"ไปที่หน้า","exemple":"เช่น 042","voir":"ดู","aideClavier":"← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย","aideTactile":"ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย","prec":"หน้าก่อนหน้า","suiv":"หน้าถัดไป","pdf":"ดาวน์โหลด PDF","langues":"ภาษาของหนังสือ"} },
+    ui: {"titre":"หนังสือ — โปรแกรมอ่าน","titreDoc":"ลิเวรีของเฮอร์มีส — หนังสือ","pageLabel":"หน้า {code} — {i} / {n}","alt":"หน้า {code}","allerA":"ไปที่หน้า","exemple":"เช่น 042","voir":"ดู","aideClavier":"← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย","aideTactile":"ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย","prec":"หน้าก่อนหน้า","suiv":"หน้าถัดไป","pdf":"ดาวน์โหลด PDF","langues":"ภาษาของหนังสือ","repliPage":"ฉบับนี้ไม่มีหน้า {code} : แสดงหน้า {proche} ซึ่งใกล้ที่สุด"} },
   zh: { label: "简体中文", pages: PAGE_CODES, ready: true, lang: "zh-Hans", pdf: "la-livree-d-hermes-anibal-amiot-zh.pdf", evitement: "跳到正文",
-    ui: {"titre":"本书 — 阅读器","titreDoc":"La Livrée d'Hermès — 本书","pageLabel":"第 {code} 页 — {i} / {n}","alt":"第 {code} 页","allerA":"跳至","exemple":"例：042","voir":"查看","aideClavier":"← → 翻页 · 点击页面放大","aideTactile":"左右滑动翻页 · 轻触页面放大","prec":"上一页","suiv":"下一页","pdf":"下载 PDF","langues":"本书语言"} },
+    ui: {"titre":"本书 — 阅读器","titreDoc":"La Livrée d'Hermès — 本书","pageLabel":"第 {code} 页 — {i} / {n}","alt":"第 {code} 页","allerA":"跳至","exemple":"例：042","voir":"查看","aideClavier":"← → 翻页 · 点击页面放大","aideTactile":"左右滑动翻页 · 轻触页面放大","prec":"上一页","suiv":"下一页","pdf":"下载 PDF","langues":"本书语言","repliPage":"此版本没有第 {code} 页：显示最接近的第 {proche} 页。"} },
   ru: { label: "Русский", pages: PAGE_CODES, ready: true, lang: "ru", pdf: "la-livree-d-hermes-anibal-amiot-ru.pdf", evitement: "Перейти к содержанию",
-    ui: {"titre":"Книга — просмотр","titreDoc":"La Livrée d'Hermès — Книга","pageLabel":"Страница {code} — {i} / {n}","alt":"Страница {code}","allerA":"Перейти к странице","exemple":"напр. 042","voir":"Открыть","aideClavier":"← → — листать · щелчок по странице — увеличить","aideTactile":"Листайте влево/вправо · коснитесь страницы, чтобы увеличить","prec":"Предыдущая страница","suiv":"Следующая страница","pdf":"Скачать PDF","langues":"Язык книги"} },
+    ui: {"titre":"Книга — просмотр","titreDoc":"La Livrée d'Hermès — Книга","pageLabel":"Страница {code} — {i} / {n}","alt":"Страница {code}","allerA":"Перейти к странице","exemple":"напр. 042","voir":"Открыть","aideClavier":"← → — листать · щелчок по странице — увеличить","aideTactile":"Листайте влево/вправо · коснитесь страницы, чтобы увеличить","prec":"Предыдущая страница","suiv":"Следующая страница","pdf":"Скачать PDF","langues":"Язык книги","repliPage":"Страницы {code} нет в этом издании: открыта ближайшая, {proche}."} },
   pt: { label: "Português", pages: PAGE_CODES, ready: true, lang: "pt-PT", pdf: "la-livree-d-hermes-anibal-amiot-pt.pdf", evitement: "Ir para o conteúdo",
-    ui: {"titre":"O livro — visualizador","titreDoc":"La Livrée d'Hermès — O livro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir para a página","exemple":"ex. 042","voir":"Ver","aideClavier":"← → para mudar de página · clique na página para ampliar","aideTactile":"Deslize para a esquerda/direita para mudar de página · toque na página para ampliar","prec":"Página anterior","suiv":"Página seguinte","pdf":"Descarregar o PDF","langues":"Língua do livro"} },
+    ui: {"titre":"O livro — visualizador","titreDoc":"La Livrée d'Hermès — O livro","pageLabel":"Página {code} — {i} / {n}","alt":"Página {code}","allerA":"Ir para a página","exemple":"ex. 042","voir":"Ver","aideClavier":"← → para mudar de página · clique na página para ampliar","aideTactile":"Deslize para a esquerda/direita para mudar de página · toque na página para ampliar","prec":"Página anterior","suiv":"Página seguinte","pdf":"Descarregar o PDF","langues":"Língua do livro","repliPage":"A página {code} não existe nesta edição: página {proche}, a mais próxima."} },
   hi: { label: "हिन्दी", pages: PAGE_CODES, ready: true, lang: "hi", pdf: "la-livree-d-hermes-anibal-amiot-hi.pdf", evitement: "सामग्री पर जाएँ",
-    ui: {"titre":"पुस्तक — दर्शक","titreDoc":"La Livrée d'Hermès — पुस्तक","pageLabel":"पृष्ठ {code} — {i} / {n}","alt":"पृष्ठ {code}","allerA":"पृष्ठ पर जाएँ","exemple":"उदा. 042","voir":"देखें","aideClavier":"← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें","aideTactile":"पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें","prec":"पिछला पृष्ठ","suiv":"अगला पृष्ठ","pdf":"PDF डाउनलोड करें","langues":"पुस्तक की भाषा"} },
+    ui: {"titre":"पुस्तक — दर्शक","titreDoc":"La Livrée d'Hermès — पुस्तक","pageLabel":"पृष्ठ {code} — {i} / {n}","alt":"पृष्ठ {code}","allerA":"पृष्ठ पर जाएँ","exemple":"उदा. 042","voir":"देखें","aideClavier":"← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें","aideTactile":"पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें","prec":"पिछला पृष्ठ","suiv":"अगला पृष्ठ","pdf":"PDF डाउनलोड करें","langues":"पुस्तक की भाषा","repliPage":"इस संस्करण में पृष्ठ {code} नहीं है: निकटतम पृष्ठ {proche} दिखाया गया है।"} },
 };
 // @langues:end
 
@@ -299,12 +300,48 @@ function buildLangRow(){
     btn.lang = info.lang;  // le nom de chaque langue se prononce dans sa langue
     btn.setAttribute('aria-pressed', code===currentLang ? 'true' : 'false');
     btn.disabled = !info.ready;
-    btn.addEventListener('click', ()=>{ if(info.ready){ currentLang = code; currentIndex = 0; render(); buildLangRow(); }});
+    btn.addEventListener('click', ()=>{ if(info.ready) changerDeLangue(code); });
     row.appendChild(btn);
   });
 }
 
 function pages(){ return LANGS[currentLang].pages; }
+
+// Une page se désigne par son CODE, pas par son rang : deux éditions n'ont
+// aucune raison d'avoir le même nombre de pages. Une seule règle de
+// correspondance, pour le champ « Aller à » comme pour le changement de
+// langue : le code exact, ou le numéro sans son suffixe (« 004 » → 004A).
+function indexDuCode(list, val){
+  return list.findIndex(c => c === val || c.replace(/[A-Z]$/,'') === val);
+}
+// La page la plus proche d'un code absent : même numéro d'abord, puis le
+// numéro voisin (à égalité, la page d'avant).
+function cleDuCode(c){
+  const m = /^(\d+)([A-Z]?)$/.exec(c);
+  return m ? Number(m[1]) * 27 + (m[2] ? m[2].charCodeAt(0) - 64 : 0) : 0;
+}
+function indexLePlusProche(list, code){
+  const k = cleDuCode(code);
+  let best = 0;
+  list.forEach((c, i)=>{ if(Math.abs(cleDuCode(c) - k) < Math.abs(cleDuCode(list[best]) - k)) best = i; });
+  return best;
+}
+function changerDeLangue(code){
+  const avant = pages()[currentIndex];
+  currentLang = code;
+  const list = pages();
+  let idx = avant === undefined ? 0 : indexDuCode(list, avant);
+  let avis = null;
+  if(idx < 0 && list.length){
+    idx = indexLePlusProche(list, avant);
+    avis = texte().repliPage.replace('{code}', avant).replace('{proche}', list[idx]);
+  }
+  currentIndex = Math.max(0, idx);
+  render();
+  const el = document.getElementById('avisPage');
+  el.textContent = avis || ''; el.hidden = !avis;
+  buildLangRow();
+}
 
 // ---------- l'interface dans la langue du livre (audit A09) ----------
 // Les textes viennent de scripts/langues.js (« lecteur »), écrits dans LANGS
@@ -345,6 +382,11 @@ function render(){
   img.alt = ui.alt.replace('{code}', code);
   img.classList.remove('zoomed');
   document.getElementById('pageLabel').textContent = ui.pageLabel.replace('{code}', code).replace('{i}', currentIndex+1).replace('{n}', list.length);
+  // le champ « Aller à » dit toujours la page affichée : il s'écrit ici, là
+  // où elle est connue (après une flèche, un balayage ou un changement de langue)
+  document.getElementById('jumpInput').value = code;
+  // l'avis de repli ne vaut que pour le changement de langue qui l'a produit
+  document.getElementById('avisPage').hidden = true;
   appliquerUI();
   document.getElementById('prevBtn').disabled = currentIndex === 0;
   document.getElementById('nextBtn').disabled = currentIndex === list.length-1;
@@ -367,7 +409,7 @@ document.getElementById('jumpForm').addEventListener('submit', (e)=>{
   e.preventDefault();
   const val = document.getElementById('jumpInput').value.trim().toUpperCase().padStart(3,'0');
   const list = pages();
-  const idx = list.findIndex(c => c === val || c.replace(/[A-Z]$/,'') === val);
+  const idx = indexDuCode(list, val);
   if(idx >= 0){ currentIndex = idx; render(); }
 });
 
