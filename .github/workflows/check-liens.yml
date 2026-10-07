@@ -28,3 +28,20 @@ jobs:
       - run: node tools/check_liens.mjs
       - run: node tools/check_html_servi.mjs
       - run: node tools/check_html_servi.mjs --essai
+  # les mêmes règles sur le site DÉPLOYÉ, après la publication de main
+  site:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - if: github.event_name == 'push'
+        run: sleep 240
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_html_servi.mjs --site=https://anibal-amiot.com && exit 0
+            echo "essai $i : le site ne sert pas encore la version du dépôt ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
