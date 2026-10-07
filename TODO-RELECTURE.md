@@ -604,3 +604,11 @@ RU « Навигационная цепочка » / « Предыдущая и�
 PT « Trilho de navegação » / « Grupo anterior ou seguinte », HI « ब्रेडक्रंब » / « पिछला या अगला समूह ».
 Aussi `tools/livre_html.py` : « Chapitres (bas de page) » / « Chapters (end of page) » ;
 `scripts/nav-tiles.js` : « Draws &amp; prints » ; `encodeur.html` : « Parties de l'encodeur ».
+
+## Registre des dépôts : Chapitre VIII (2026-10-07)
+
+`data/travaux.json`, entrée « Chapitre VIII — Le Jeu » (10.5281/zenodo.23189275) : seule la
+description française existe, recopiée de la première phrase de la fiche Zenodo d'Anibal. Les
+descriptions en, zh, ru, pt, hi sont **absentes**, pas traduites : rien ne parle en son nom sans sa
+relecture. La page Travaux omet la description dans ces langues jusqu'à ce qu'Anibal les écrive ou
+relise des propositions.

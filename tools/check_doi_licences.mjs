@@ -22,6 +22,11 @@
 //     4.0 sur les listes de dépôts et nulle part ailleurs — 4 pages à ce jour
 //     (travaux.html, en/works/, zh/works/, ru/works/). Une liste traduite de
 //     plus reprend la licence des dépôts, comme son équivalent français ;
+//   - même raison pour la page d'UN dépôt (travaux/<page>/, engendrée par
+//     scripts/build-travaux-pages.js) : elle affiche la licence de son dépôt,
+//     et le résumé recopié de la fiche la cite. CC BY 4.0 n'y est admise que
+//     si l'entrée de data/travaux.json qui porte ce `page` enregistre
+//     licenceZenodo « cc-by-4.0 » ; sur une page de dépôt BY-NC, c'est un écart ;
 //   - chaque page d'une langue ajoutée (zh/, ru/, pt/… : scripts/langues.js) porte le DOI du livre
 //     (10.5281/zenodo.22722485) et la licence CC BY-NC 4.0, comme son
 //     équivalent français ;
@@ -39,6 +44,9 @@ const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'docs']);
 // langues AJOUTÉES — celles qui n'ont pas les 64 hexagrammes (zh, ru, pt…).
 const { GROUPES, LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
 const LISTES_ZENODO = new Set(GROUPES.find((g) => g.nom === 'travaux').pages.map(([, , f]) => f));
+// Pages de dépôt dont la fiche Zenodo est en CC BY 4.0, depuis le registre.
+const REGISTRE = JSON.parse(fs.readFileSync(path.join(RACINE, 'data/travaux.json'), 'utf8'));
+const PAGES_DEPOT_BY = new Set(REGISTRE.depots.filter((r) => r.page && r.licenceZenodo === 'cc-by-4.0').map((r) => `travaux/${r.page}/index.html`));
 const NOUVELLES = new RegExp(`^(${Object.keys(DECLAREES).filter((c) => !DECLAREES[c].hexagrammes).join('|')})/`);
 
 function pages(dir, acc = []) {
@@ -65,7 +73,7 @@ for (const abs of pages(RACINE)) {
   if (d) n.doi++;
   if (nc) n.bync++;
   if (b) { n.by++; byPages.push(rel); }
-  if (b && !LISTES_ZENODO.has(rel)) erreurs.push(`${rel} : CC BY 4.0 hors d'une liste de dépôts Zenodo`);
+  if (b && !LISTES_ZENODO.has(rel) && !PAGES_DEPOT_BY.has(rel)) erreurs.push(`${rel} : CC BY 4.0 hors d'une liste de dépôts Zenodo et d'une page de dépôt en cc-by-4.0`);
   if (NOUVELLES.test(rel) && !d) erreurs.push(`${rel} : sans le DOI du livre 10.5281/zenodo.22722485`);
   if (NOUVELLES.test(rel) && !nc) erreurs.push(`${rel} : sans la licence CC BY-NC 4.0`);
 }
@@ -75,4 +83,4 @@ if (erreurs.length) {
   for (const e of erreurs) console.error(`ÉCART ${e}`);
   process.exit(1);
 }
-console.log('DOI et licences en place : CC BY 4.0 sur les seules listes de dépôts, DOI et BY-NC sur chaque page ajoutée.');
+console.log('DOI et licences en place : CC BY 4.0 sur les seules listes de dépôts et pages de dépôts en cc-by-4.0, DOI et BY-NC sur chaque page ajoutée.');

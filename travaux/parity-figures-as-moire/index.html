@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parity Figures as Moiré: What Is Exact and What Is Not — Anibal Amiot</title>
+<meta name="description" content="A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moiré (Amidror), and separating three…">
+<link rel="canonical" href="https://anibal-amiot.com/travaux/parity-figures-as-moire/">
+<meta property="og:title" content="Parity Figures as Moiré: What Is Exact and What Is Not">
+<meta property="og:description" content="A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moiré (Amidror), and separating three…">
+<meta property="og:url" content="https://anibal-amiot.com/travaux/parity-figures-as-moire/">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<!-- balises citation_* : ce que lit Google Scholar (engendrées par scripts/build-travaux-pages.js) -->
+<meta name="citation_title" content="Parity Figures as Moiré: What Is Exact and What Is Not">
+<meta name="citation_author" content="Amiot, Anibal Edelberto">
+<meta name="citation_author_orcid" content="https://orcid.org/0009-0002-6414-9448">
+<meta name="citation_publication_date" content="2026/09/27">
+<meta name="citation_doi" content="10.5281/zenodo.22967584">
+<meta name="citation_publisher" content="Zenodo">
+<meta name="citation_version" content="1.0.1">
+<meta name="citation_pdf_url" content="https://zenodo.org/records/22986645/files/parity-as-moire.pdf?download=1">
+<meta name="citation_abstract_html_url" content="https://anibal-amiot.com/travaux/parity-figures-as-moire/">
+<meta name="citation_language" content="en">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://anibal-amiot.com/travaux/parity-figures-as-moire/#travail",
+      "name": "Parity Figures as Moiré: What Is Exact and What Is Not",
+      "url": "https://anibal-amiot.com/travaux/parity-figures-as-moire/",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "DOI",
+        "value": "10.5281/zenodo.22967584"
+      },
+      "sameAs": "https://doi.org/10.5281/zenodo.22967584",
+      "datePublished": "2026-09-25",
+      "dateModified": "2026-09-27",
+      "version": "1.0.1",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "isPartOf": {
+        "@type": "CollectionPage",
+        "@id": "https://anibal-amiot.com/travaux.html",
+        "name": "Travaux — Anibal Amiot"
+      },
+      "description": "A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moiré (Amidror), and separating three statements usually run together. (1) The parity figure of a union of band systems is exactly the multiplicative moiré of square gratings of transmittance ±1: exclusive-or on {0,1} is multiplication on {±1}. (2) Two printed transparencies laid on one another do not produce it: they produce the conjunction of two {0,1} gratings, which differs from the parity on 108 cells of 144 for every pair of first-generation families. (3) Two gratings of linear-polariser strips at 0°/90° do produce it, complemented, exactly (Malus's law: XNOR = 1 − XOR). (4) The doubling homothety of [A] is the second harmonic of the cosine carrier whose level sets are the axes, not of the square-wave figures, which have odd harmonics only. Every claim is checked by a script on the published axis catalogue. Nothing new is proved; no grating was printed and no polariser cut. The measurement suggested — two polariser gratings cut from the first-generation families, viewed against a light box — would show the fifteen images of the loom of [O] (doi:10.5281/zenodo.22986529), minus their tints, one pair at a time. Licences. Text and figures: CC BY 4.0. Code: AGPL v3; commercial licence on request. Version 1.0.1. References [A] and [O] corrected (deposit title and concept DOIs); licence line aligned with the record. No claim changed."
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
+
+  /* ---------- contenu travaux ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .travaux-list{ list-style:none; padding:0; margin:0; }
+  .travaux-list li{ padding:14px 0; border-top:1px solid var(--line); }
+  .travaux-list li:first-child{ border-top:none; }
+  .travaux-list cite{ font-style:normal; color:var(--white); display:block; margin-bottom:4px; font-size:14px; line-height:1.5; }
+  .travaux-list p.travaux-desc{ color:var(--dim); font-size:12.5px; line-height:1.6; margin:0 0 6px; }
+  .travaux-list a{ color:var(--gold); text-decoration:none; font-size:12.5px; }
+  .travaux-list a:hover{ text-decoration:underline; }
+  .travaux-list span.travaux-meta{ display:block; color:var(--dim); font-size:11px; margin-top:4px; letter-spacing:.02em; }
+  .travaux-list span.travaux-toutes{ color:var(--dim); font-size:11px; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; text-align:center; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .profile-intro{ font-size:14.5px; }
+  }
+</style>
+<style>
+  .travail-meta{ display:grid; grid-template-columns:max-content 1fr; gap:6px 16px; margin:18px 0 26px; }
+  .travail-meta dt{ font-weight:600; }
+  .travail-meta dd{ margin:0; }
+  .travail-resume{ max-width:72ch; line-height:1.6; }
+  .travail-zenodo, .travail-source{ opacity:.75; font-size:.92em; }
+  .profile-body a{ color:var(--gold); text-decoration:none; }
+  .profile-body a:hover{ text-decoration:underline; }
+  .travail-resume code{ font-size:.92em; }
+</style>
+<link rel="stylesheet" href="/assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/assets/fonts.css">
+<link rel="stylesheet" href="/assets/breadcrumb.css">
+<link rel="stylesheet" href="/assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-37-profil.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/travaux.html">Travaux</a><span class="sep">/</span><span aria-current="page">Parity Figures as Moiré: What Is Exact and What Is Not</span>
+    </nav>
+    <h1>Parity Figures as Moiré: What Is Exact and What Is Not</h1>
+  </header>
+  </div>
+
+  <div class="profile-body">
+    <div class="profile-section">
+      <dl class="travail-meta">
+        <dt>Auteur</dt><dd>Amiot, Anibal Edelberto (<a href="https://orcid.org/0009-0002-6414-9448">ORCID 0009-0002-6414-9448</a>)</dd>
+        <dt>Type</dt><dd>Prépublication</dd>
+        <dt>Date</dt><dd>27 septembre 2026 (première version le 25 septembre 2026)</dd>
+        <dt>Version</dt><dd>1.0.1</dd>
+        <dt>Licence</dt><dd><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> <span class="travail-zenodo">(fiche Zenodo : <code>cc-by-4.0</code>)</span></dd>
+        <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.22967584">10.5281/zenodo.22967584</a> (toutes versions, à citer) · <a href="https://doi.org/10.5281/zenodo.22986645">DOI de cette version</a></dd>
+      </dl>
+      <h2>Résumé</h2>
+      <div class="travail-resume" lang="en">
+<p>A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moiré (Amidror), and separating three statements usually run together. (1) The parity figure of a union of band systems is exactly the multiplicative moiré of square gratings of transmittance ±1: exclusive-or on {0,1} is multiplication on {±1}. (2) Two printed transparencies laid on one another do not produce it: they produce the conjunction of two {0,1} gratings, which differs from the parity on 108 cells of 144 for every pair of first-generation families. (3) Two gratings of linear-polariser strips at 0°/90° do produce it, complemented, exactly (Malus's law: XNOR = 1 − XOR). (4) The doubling homothety of [A] is the second harmonic of the cosine carrier whose level sets are the axes, not of the square-wave figures, which have odd harmonics only. Every claim is checked by a script on the published axis catalogue. Nothing new is proved; no grating was printed and no polariser cut. The measurement suggested — two polariser gratings cut from the first-generation families, viewed against a light box — would show the fifteen images of the loom of [O] (doi:10.5281/zenodo.22986529), minus their tints, one pair at a time.</p><p><strong>Licences.</strong> Text and figures: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p><p><strong>Version 1.0.1.</strong> References [A] and [O] corrected (deposit title and concept DOIs); licence line aligned with the record. No claim changed.</p>
+      </div>
+      <p class="travail-source">Texte de la fiche Zenodo, recopié tel quel (html), relevé le 2026-10-07.</p>
+      <p class="travail-pdf">Lire le texte déposé : <a href="https://zenodo.org/records/22986645/files/parity-as-moire.pdf?download=1">parity-as-moire.pdf</a></p>
+      <p><a href="https://anibal-amiot.com/travaux.html">Tous les travaux</a></p>
+    </div>
+  </div>
+</main>
+<!-- @main:end -->
+</div>
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../index.html"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="../../articles.html"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
+
+    <nav class="nav-categories" aria-label="Pages du site">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galeries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="../../galerie-bicolore.html"><span class="nav-cat-label">Galerie bicolore</span><span class="nav-cat-texte">142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.</span></a></li>
+          <li><a href="../../galerie-patterns-unifies.html"><span class="nav-cat-label">Galerie tricolore</span><span class="nav-cat-texte">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="../../fonds-ecran.html"><span class="nav-cat-label">Fond d'écran</span><span class="nav-cat-texte">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tirages</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html"><span class="nav-cat-label">Tirage du Yi King</span><span class="nav-cat-texte">Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations.</span></a></li>
+          <li><a href="../../360-calques.html"><span class="nav-cat-label">360 calques</span><span class="nav-cat-texte">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></a></li>
+          <li><a href="../../telechargements.html"><span class="nav-cat-label">Motifs SVG</span><span class="nav-cat-texte">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></a></li>
+          <li><a href="../../hexagrammes/"><span class="nav-cat-label">Hexagrammes</span><span class="nav-cat-texte">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Outils créatifs</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../creation-motifs-yi-king.html"><span class="nav-cat-label">Créer un motif</span><span class="nav-cat-texte">Composez vos propres motifs textiles à partir des 60 images du Yi King.</span></a></li>
+          <li><a href="../../bicolore.html"><span class="nav-cat-label">Motifs bicolores</span><span class="nav-cat-texte">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html"><span class="nav-cat-label">Motifs bicolores v2</span><span class="nav-cat-texte">La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.</span></a></li>
+          <li><a href="../../encodeur.html"><span class="nav-cat-label">Encodeur</span><span class="nav-cat-texte">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Démo interactive : la grille et les référents dérivés de la clé.</span></a></li>
+          <li><a href="../../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></a></li>
+          <li><a href="../../cymatique.html"><span class="nav-cat-label">Cymatique</span><span class="nav-cat-texte">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></a></li>
+          <li><a href="../../outils.html"><span class="nav-cat-label">Outils</span><span class="nav-cat-texte">Tous les outils interactifs du site, réunis en un seul endroit.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">À propos du projet</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../la-livree-d-hermes.html"><span class="nav-cat-label">Le traité</span><span class="nav-cat-texte">Le traité et ses éditions traduites, les hexagrammes et le lexique.</span></a></li>
+          <li><a href="../../a-propos.html"><span class="nav-cat-label">À propos</span><span class="nav-cat-texte">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></a></li>
+          <li><a href="../../lexique.html"><span class="nav-cat-label">Lexique</span><span class="nav-cat-texte">Dix notions clés pour comprendre La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../profil.html"><span class="nav-cat-label">Profil documentaire</span><span class="nav-cat-texte">Brevets et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12.</span></a></li>
+          <li><a href="../../contact.html"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></a></li>
+          <li><a href="../../soutenir.html"><span class="nav-cat-label">Soutenir</span><span class="nav-cat-texte">Soutenir La Livrée d'Hermès à prix libre : le site et son contenu restent gratuits.</span></a></li>
+          <li><a href="../../chiffres-et-sources.html"><span class="nav-cat-label">Chiffres et sources</span><span class="nav-cat-texte">Chaque chiffre du site, le script qui le reproduit et la ligne qu'il imprime.</span></a></li>
+          <li><a href="../../travaux.html"><span class="nav-cat-label">Travaux</span><span class="nav-cat-texte">Les dépôts, le code et les articles soumis, chacun horodaté et ouvert.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="../../">Accueil</a>
+    <a href="../../la-livree-d-hermes.html">Le traité</a>
+    <a href="../../hexagrammes/">Hexagrammes</a>
+    <a href="../../fr/motifs/">Motifs</a>
+    <a href="../../lexique.html">Lexique</a>
+    <a href="../../articles.html">Articles</a>
+    <a href="../../outils.html">Outils</a>
+    <a href="../../a-propos.html">À propos</a>
+    <a href="../../profil.html">Profil documentaire</a>
+    <a href="../../travaux.html">Travaux</a>
+    <a href="../../contact.html">Contact</a>
+    <a href="../../soutenir.html">Soutenir</a>
+    <a href="../../recherche.html">Rechercher</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

@@ -1,0 +1,1460 @@
+{
+ "format_version": "zenodo-miroir-v1",
+ "recupere_le_utc": "2026-10-07T13:24:52+00:00",
+ "source": "https://zenodo.org/api/records/<id>",
+ "_doc": "Reponses brutes de l'API Zenodo (zenodo-brut/) et vue normalisee. Recupere depuis le conteneur d'Anibal, zenodo.org etant refuse a l'environnement Claude Code. Les descriptions sont le texte d'Anibal : recopiees, non reformulees.",
+ "depots": [
+  {
+   "titre_registre": "La Livrée d'Hermès",
+   "conceptDoi": "10.5281/zenodo.22722485",
+   "versionDoi_registre": "10.5281/zenodo.22786146",
+   "versionDoi_reel": "10.5281/zenodo.23184828",
+   "ecart": "versionDoi perime",
+   "id_version": 23184828,
+   "titre": "La Livrée d'Hermès",
+   "publication_date": "2026-10-06",
+   "version": "3.0",
+   "licence": "cc-by-nc-4.0",
+   "type": "Book",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>La Livr&eacute;e d'Herm&egrave;s &mdash; Arithmog&eacute;om&eacute;trie des carr&eacute;s magiques et syst&egrave;me de tissage</p>\n<p><strong>La Livr&eacute;e d'Herm&egrave;s</strong> est un ouvrage d'arithmog&eacute;om&eacute;trie consacr&eacute; &agrave; la construction des carr&eacute;s magiques et &agrave; leur transcription en syst&egrave;me de motifs tiss&eacute;s.</p>\n<p>L'ouvrage expose une m&eacute;thode permettant de dessiner objectivement un carr&eacute; magique de n'importe quel ordre, &agrave; partir de la loi du gnomon (chaque nouvel ordre ajoute 8k+4 cases &agrave; sa p&eacute;riph&eacute;rie), puis de transcrire ces constructions en motifs color&eacute;s exploitables par un m&eacute;tier Jacquard. Il d&eacute;veloppe notamment :</p>\n<ul>\n<li>la construction des carr&eacute;s d'ordre 6, avec leurs crit&egrave;res de validit&eacute; et leur double chiralit&eacute; ;</li>\n<li>le passage &agrave; l'ordre 12 et aux ordres sup&eacute;rieurs par la m&ecirc;me loi ;</li>\n<li>un syst&egrave;me de 360 calques organis&eacute;s en 60 superpositions de six niveaux, chacune produisant une grille de 144 cases en trois couleurs &agrave; r&eacute;partition strictement &eacute;gale (48/48/48) ;</li>\n<li>l'association de ces motifs aux 64 hexagrammes du Yi King, chaque niveau correspondant &agrave; un trait ;</li>\n<li>les r&egrave;gles chromatiques qui relient les quatre natures (Yin, Yang, Yin mutant, Yang mutant) et les quinze familles d'axes de sym&eacute;trie.</li>\n</ul>\n<p>L'ouvrage est disponible en fran&ccedil;ais, anglais, espagnol et tha&iuml;. Il est diffus&eacute; en acc&egrave;s libre, &agrave; prix libre, sur le site de l'auteur : <a href=\"https://anibal-amiot.com/\">https://anibal-amiot.com/</a></p>\n<p><strong>Historique.</strong> Le syst&egrave;me a &eacute;t&eacute; d&eacute;velopp&eacute; entre 2009 et 2019 sous le titre <em>Voyage en Orient</em>, ses &eacute;tats successifs ayant fait l'objet de d&eacute;p&ocirc;ts r&eacute;guliers &agrave; la Maison des Auteurs (SACD) puis d'un d&eacute;p&ocirc;t en enveloppe Soleau &agrave; l'INPI en 2019. L'ouvrage sous sa forme actuelle et son &eacute;dition multilingue en ligne datent de 2026.</p>\n<p><strong>Propri&eacute;t&eacute; industrielle.</strong> Deux brevets d&eacute;pos&eacute;s en France (syst&egrave;mes de composition automatis&eacute;e de motifs symboliques et dispositifs m&eacute;caniques associ&eacute;s) et 63 dessins et mod&egrave;les enregistr&eacute;s &agrave; l'INPI couvrent les carr&eacute;s magiques d'ordre 12 qui constituent le socle g&eacute;om&eacute;trique de l'ouvrage.</p>\n<p><strong>R&eacute;utilisation.</strong> Le syst&egrave;me combinatoire d&eacute;crit ici est diffus&eacute; sous licence CC BY-NC 4.0 : il peut &ecirc;tre librement repris et adapt&eacute;, avec attribution, pour tout usage non commercial. L'auteur souhaite en assurer la transmission plut&ocirc;t que l'exploitation exclusive.</p>\n<p>v3 &mdash; huit &eacute;ditions (quatre de plus : chinois simplifi&eacute;, russe, portugais, hindi), toutes au format 1920 &times; 1080 et lin&eacute;aris&eacute;es. Dans toutes : nouvelle page 2 (remerciements &agrave; Marie-Laure Pannier et Amrouchi Jahi), nouvelle derni&egrave;re page (&laquo; Chapitre VIII &mdash; Mesure &raquo;), dont l'image annonce les 360 calques de la page d'impression. Fran&ccedil;ais, anglais, espagnol et tha&iuml; : nouvelle page 1 portant la licence CC BY-NC 4.0. Anglais : coquilles corrig&eacute;es (&laquo; MEASURE AND WEIGHT &raquo;, &laquo; NUMBER(S) &raquo;). Fran&ccedil;ais : l'ordre des pages est r&eacute;tabli, et la page 075 restaur&eacute;e en fran&ccedil;ais. Tha&iuml; : repass&eacute; au format 1920 &times; 1080 (il &eacute;tait en 1400 &times; 788).<br>V&eacute;rifi&eacute; sur les fichiers : licence en page 1 et remerciements en page 2 (les huit), &laquo; CHAPITRE VIII &raquo; en page 111, ordre du fran&ccedil;ais, format du tha&iuml;.<br>L'annonce des 360 calques est port&eacute;e par l'image de la page 111, pas par son texte : aucune des huit &eacute;ditions n'a &laquo; 360 &raquo; dans le texte de cette page. Anibal l'a confirm&eacute; le 4 octobre 2026, et le nombre est celui du r&eacute;f&eacute;rent (data/referent_360_v3.json : n_calques 360, n_identities 60, grid_size 12, tools/generate_referent_360.py). Le texte de la page 073 le dit aussi : un tirage &laquo; en utilisant les 360 calques (piochez 6 fois parmi les 60 calques disponibles par place de traits) &raquo;, soit 6 &times; 60 = 360.</p>",
+   "description_texte": "La Livrée d'Hermès — Arithmogéométrie des carrés magiques et système de tissage\n\nLa Livrée d'Hermès est un ouvrage d'arithmogéométrie consacré à la construction des carrés magiques et à leur transcription en système de motifs tissés.\n\nL'ouvrage expose une méthode permettant de dessiner objectivement un carré magique de n'importe quel ordre, à partir de la loi du gnomon (chaque nouvel ordre ajoute 8k+4 cases à sa périphérie), puis de transcrire ces constructions en motifs colorés exploitables par un métier Jacquard. Il développe notamment :\n\nla construction des carrés d'ordre 6, avec leurs critères de validité et leur double chiralité ;\n\nle passage à l'ordre 12 et aux ordres supérieurs par la même loi ;\n\nun système de 360 calques organisés en 60 superpositions de six niveaux, chacune produisant une grille de 144 cases en trois couleurs à répartition strictement égale (48/48/48) ;\n\nl'association de ces motifs aux 64 hexagrammes du Yi King, chaque niveau correspondant à un trait ;\n\nles règles chromatiques qui relient les quatre natures (Yin, Yang, Yin mutant, Yang mutant) et les quinze familles d'axes de symétrie.\n\nL'ouvrage est disponible en français, anglais, espagnol et thaï. Il est diffusé en accès libre, à prix libre, sur le site de l'auteur : https://anibal-amiot.com/\n\nHistorique. Le système a été développé entre 2009 et 2019 sous le titre Voyage en Orient, ses états successifs ayant fait l'objet de dépôts réguliers à la Maison des Auteurs (SACD) puis d'un dépôt en enveloppe Soleau à l'INPI en 2019. L'ouvrage sous sa forme actuelle et son édition multilingue en ligne datent de 2026.\n\nPropriété industrielle. Deux brevets déposés en France (systèmes de composition automatisée de motifs symboliques et dispositifs mécaniques associés) et 63 dessins et modèles enregistrés à l'INPI couvrent les carrés magiques d'ordre 12 qui constituent le socle géométrique de l'ouvrage.\n\nRéutilisation. Le système combinatoire décrit ici est diffusé sous licence CC BY-NC 4.0 : il peut être librement repris et adapté, avec attribution, pour tout usage non commercial. L'auteur souhaite en assurer la transmission plutôt que l'exploitation exclusive.\n\nv3 — huit éditions (quatre de plus : chinois simplifié, russe, portugais, hindi), toutes au format 1920 × 1080 et linéarisées. Dans toutes : nouvelle page 2 (remerciements à Marie-Laure Pannier et Amrouchi Jahi), nouvelle dernière page (« Chapitre VIII — Mesure »), dont l'image annonce les 360 calques de la page d'impression. Français, anglais, espagnol et thaï : nouvelle page 1 portant la licence CC BY-NC 4.0. Anglais : coquilles corrigées (« MEASURE AND WEIGHT », « NUMBER(S) »). Français : l'ordre des pages est rétabli, et la page 075 restaurée en français. Thaï : repassé au format 1920 × 1080 (il était en 1400 × 788).\nVérifié sur les fichiers : licence en page 1 et remerciements en page 2 (les huit), « CHAPITRE VIII » en page 111, ordre du français, format du thaï.\nL'annonce des 360 calques est portée par l'image de la page 111, pas par son texte : aucune des huit éditions n'a « 360 » dans le texte de cette page. Anibal l'a confirmé le 4 octobre 2026, et le nombre est celui du référent (data/referent_360_v3.json : n_calques 360, n_identities 60, grid_size 12, tools/generate_referent_360.py). Le texte de la page 073 le dit aussi : un tirage « en utilisant les 360 calques (piochez 6 fois parmi les 60 calques disponibles par place de traits) », soit 6 × 60 = 360.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "arithmogeometry magic squares combinatorics Jacquard weaving textile design pattern generation Yi King I Ching hexagrams symmetry gnomon philosophy of mathematics French English Spanish Thai"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "https://anibal-amiot.com/",
+     "relation": "isDocumentedBy",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementedBy",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.23189275",
+     "relation": "isContinuedBy",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "LLDH_Russian_111_pages_v9.pdf",
+     "octets": 17067016,
+     "checksum": "md5:3f60b58825fd0a95e5315303ec5813b4",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Russian_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_Spanish_111_pages_v9.pdf",
+     "octets": 15650765,
+     "checksum": "md5:3408a66888adb6680db7af92ca453b1b",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Spanish_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_Thai_111_pages_v9.pdf",
+     "octets": 15968156,
+     "checksum": "md5:6edb54ca418a6bee2f52c16024230da1",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Thai_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_Chinese_111_pages_v9.pdf",
+     "octets": 18208278,
+     "checksum": "md5:d314eb613ad56d068913ae51a3a6d659",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Chinese_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_English_111_pages_v9.pdf",
+     "octets": 15601131,
+     "checksum": "md5:c2d54069f984cb163b4e279cab72c51e",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_English_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_French_111_pages_v9.pdf",
+     "octets": 16418342,
+     "checksum": "md5:521658e21aa19942ae2d69ff534b8837",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_French_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_Hindi_111_pages_v9.pdf",
+     "octets": 17910029,
+     "checksum": "md5:2a46f85a5d520dd3c142aad36c43159c",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Hindi_111_pages_v9.pdf/content"
+    },
+    {
+     "nom": "LLDH_Portuguese_111_pages_v9.pdf",
+     "octets": 19124134,
+     "checksum": "md5:8951d56ec97fd36d2ee9c1afc45acfad",
+     "lien": "https://zenodo.org/api/records/23184828/files/LLDH_Portuguese_111_pages_v9.pdf/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
+   "conceptDoi": "10.5281/zenodo.23102264",
+   "versionDoi_registre": "10.5281/zenodo.23102265",
+   "versionDoi_reel": "10.5281/zenodo.23102265",
+   "ecart": "aucun",
+   "id_version": 23102265,
+   "titre": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
+   "publication_date": "2026-10-02",
+   "version": "1.0.0",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p><span>&lt;p&gt;Let B&lt;sub&gt;0&lt;/sub&gt;(x) = x, B&lt;sub&gt;h+1&lt;/sub&gt;(x) = x(1 + B&lt;sub&gt;h&lt;/sub&gt;(x))&lt;sup&gt;2&lt;/sup&gt; and N&lt;sub&gt;h&lt;/sub&gt; = B&lt;sub&gt;h&lt;/sub&gt; &minus; B&lt;sub&gt;h&minus;1&lt;/sub&gt;: N&lt;sub&gt;k,h&lt;/sub&gt; counts rooted plane binary trees with k vertices and exact height h. We prove that for every sufficiently large h the coefficient column is strictly log-concave on its whole interior, N&lt;sub&gt;k,h&lt;/sub&gt;&lt;sup&gt;2&lt;/sup&gt; &amp;gt; N&lt;sub&gt;k&minus;1,h&lt;/sub&gt;N&lt;sub&gt;k+1,h&lt;/sub&gt; for h+2 &le; k &le; 2&lt;sup&gt;h+1&lt;/sup&gt;&minus;2. The proof passes through eight asymptotic regimes &mdash; left edge, subcritical saddle, critical h&lt;sup&gt;2&lt;/sup&gt; law, quasi-pole corridor, h&lt;sup&gt;3&lt;/sup&gt; crossover, supercritical Fatou&ndash;B&ouml;ttcher regime, bulk and right edge &mdash; sewn together on explicit windows.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Status.&lt;/strong&gt; Working preprint. The proof was developed with substantial assistance from AI systems; it has been checked internally (exact computation, symbolic verification of fragile identities) but has not yet been read by a specialist in analytic combinatorics. The theorem is eventual: no explicit h&lt;sub&gt;0&lt;/sub&gt; is given. Exact computation confirms the inequality for every h &le; 16 (two independent implementations: h &le; 12 and h &le; 16).&lt;/p&gt;&lt;p&gt;The polynomials B&lt;sub&gt;h&lt;/sub&gt; enumerate the subsets closed under doubling of the complete binary trees in the 2-adic lifting of doubling modulo n (papers III&ndash;IV, doi:10.5281/zenodo.23088601).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Licences.&lt;/strong&gt; Text: CC BY 4.0. Code: AGPL v3; commercial licence on request.&lt;/p&gt;</span></p>",
+   "description_texte": "<p>Let B<sub>0</sub>(x) = x, B<sub>h+1</sub>(x) = x(1 + B<sub>h</sub>(x))<sup>2</sup> and N<sub>h</sub> = B<sub>h</sub> − B<sub>h−1</sub>: N<sub>k,h</sub> counts rooted plane binary trees with k vertices and exact height h. We prove that for every sufficiently large h the coefficient column is strictly log-concave on its whole interior, N<sub>k,h</sub><sup>2</sup> &gt; N<sub>k−1,h</sub>N<sub>k+1,h</sub> for h+2 ≤ k ≤ 2<sup>h+1</sup>−2. The proof passes through eight asymptotic regimes — left edge, subcritical saddle, critical h<sup>2</sup> law, quasi-pole corridor, h<sup>3</sup> crossover, supercritical Fatou–Böttcher regime, bulk and right edge — sewn together on explicit windows.</p><p><strong>Status.</strong> Working preprint. The proof was developed with substantial assistance from AI systems; it has been checked internally (exact computation, symbolic verification of fragile identities) but has not yet been read by a specialist in analytic combinatorics. The theorem is eventual: no explicit h<sub>0</sub> is given. Exact computation confirms the inequality for every h ≤ 16 (two independent implementations: h ≤ 12 and h ≤ 16).</p><p>The polynomials B<sub>h</sub> enumerate the subsets closed under doubling of the complete binary trees in the 2-adic lifting of doubling modulo n (papers III–IV, doi:10.5281/zenodo.23088601).</p><p><strong>Licences.</strong> Text: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "binary trees",
+    "tree height",
+    "log-concavity",
+    "analytic combinatorics",
+    "polynomial iteration",
+    "saddle-point method",
+    "Flajolet–Odlyzko"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "symbolic_audit.py",
+     "octets": 2297,
+     "checksum": "md5:fe275edcd48c3a2f5f2d634d11e10393",
+     "lien": "https://zenodo.org/api/records/23102265/files/symbolic_audit.py/content"
+    },
+    {
+     "nom": "verify_h13_16_flint.py",
+     "octets": 1300,
+     "checksum": "md5:546512e5f7e30a9d975c4dad54b14962",
+     "lien": "https://zenodo.org/api/records/23102265/files/verify_h13_16_flint.py/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 2964,
+     "checksum": "md5:b8dc1749bc5c50d3cd1c33d944041705",
+     "lien": "https://zenodo.org/api/records/23102265/files/README.md/content"
+    },
+    {
+     "nom": "EFFECTIVE_H0_LEDGER.md",
+     "octets": 4284,
+     "checksum": "md5:4fdd9f5fe48ed431f074d16bff535c1a",
+     "lien": "https://zenodo.org/api/records/23102265/files/EFFECTIVE_H0_LEDGER.md/content"
+    },
+    {
+     "nom": "LITERATURE_POSITIONING.md",
+     "octets": 2878,
+     "checksum": "md5:147f2e3aeea97c377575971d1c09fd73",
+     "lien": "https://zenodo.org/api/records/23102265/files/LITERATURE_POSITIONING.md/content"
+    },
+    {
+     "nom": "exact_height_logconcavity.tex",
+     "octets": 72097,
+     "checksum": "md5:9ed2a8321419b5e6ce68e7654d2c9c44",
+     "lien": "https://zenodo.org/api/records/23102265/files/exact_height_logconcavity.tex/content"
+    },
+    {
+     "nom": "exact_height_small_h_audit.csv",
+     "octets": 465,
+     "checksum": "md5:5c3d4e27727c2829c3a19a7df9f17918",
+     "lien": "https://zenodo.org/api/records/23102265/files/exact_height_small_h_audit.csv/content"
+    },
+    {
+     "nom": "verify_exact_height.py",
+     "octets": 5525,
+     "checksum": "md5:43c10f22772816df3d68cb15cc02def5",
+     "lien": "https://zenodo.org/api/records/23102265/files/verify_exact_height.py/content"
+    },
+    {
+     "nom": "verify_h13_16_flint.log",
+     "octets": 942,
+     "checksum": "md5:aa13a74ff5c472843a05cb840c4d5fce",
+     "lien": "https://zenodo.org/api/records/23102265/files/verify_h13_16_flint.log/content"
+    },
+    {
+     "nom": "verify_exact_height.log",
+     "octets": 174,
+     "checksum": "md5:22a1fe14d30a89506fd5ff794f68b675",
+     "lien": "https://zenodo.org/api/records/23102265/files/verify_exact_height.log/content"
+    },
+    {
+     "nom": "symbolic_audit.log",
+     "octets": 335,
+     "checksum": "md5:72eec6d54931259b618bba2c58776543",
+     "lien": "https://zenodo.org/api/records/23102265/files/symbolic_audit.log/content"
+    },
+    {
+     "nom": "exact_height_logconcavity.pdf",
+     "octets": 456018,
+     "checksum": "md5:879ef7a7626503ea55790e0d9f74dbbf",
+     "lien": "https://zenodo.org/api/records/23102265/files/exact_height_logconcavity.pdf/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
+   "conceptDoi": "10.5281/zenodo.23088601",
+   "versionDoi_registre": "10.5281/zenodo.23102045",
+   "versionDoi_reel": "10.5281/zenodo.23102045",
+   "ecart": "aucun",
+   "id_version": 23102045,
+   "titre": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
+   "publication_date": "2026-10-02",
+   "version": "1.1.1",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p><span>&lt;p&gt;Multiplication by 2 on Z/nZ after identifying x with &minus;x, studied for every n. Write n = 2^s m with m odd and r(d) = min{r &ge; 1 : 2^r &equiv; &plusmn;1 mod d}.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;I. Cycle structure.&lt;/strong&gt; For odd n the map is a permutation; its cycles are one fixed point and, for each divisor d &amp;gt; 1, &phi;(d)/(2r(d)) cycles of length r(d). &lt;strong&gt;II. 2-adic synchronization.&lt;/strong&gt; r(d) = ord_d(2)/2 exactly when all v2(ord of 2 modulo the prime-power factors) are equal and positive; the criterion depends only on the prime divisors. &lt;strong&gt;III. 2-adic lifting.&lt;/strong&gt; The full functional graph: G_{2^s m}&nbsp;</span><span>&cong;</span><span> Lift_s(G_m) &mdash; the odd part gives the cycle core, the factor 2^s universal rooted trees; the subsets of the complete binary layer closed toward the root are the plane binary trees, with B_0 = x, B_{h+1} = x(1 + B_h)^2. &lt;strong&gt;IV. Forward-closed subsets.&lt;/strong&gt; The polynomial P_n(x) counting subsets S with D(S) </span><span>&sube;</span><span> S factorises as (1 + Z_s(x)) &prod;_{d | m, d &amp;gt; 1} (1 + T_s(x)^{r(d)})^{&phi;(d)/(2r(d))}; P_n(1), for n = 1..200, is given in the dataset doi:10.5281/zenodo.22991226.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Prior work (version 1.1.0).&lt;/strong&gt; Sign-quotiented doubling is the Chebyshev map T&lt;sub&gt;2&lt;/sub&gt; in disguise (x = y + 1/y). The structure of papers I and III is known for the cyclic groups of orders p &plusmn; 1 (Vasiga&ndash;Shallit 2004) and q &plusmn; 1 (Qureshi&ndash;Panario 2019); it is given here for every modulus, with self-contained proofs and no claim of priority. The criterion of paper II is very probably classical. The enumeration of forward-closed subsets (paper IV) appears to be new.&lt;/p&gt;&lt;p&gt;Working manuscripts. Papers I&ndash;II are at version 3, III&ndash;IV at version 4. The study of the coefficients of N_h = B_h &minus; B_{h&minus;1} (exact height) is a separate working preprint, not included. Two scripts check the structure and the factorisation for 1 &le; n &le; 200 (0 mismatch); the CSV of P_n(1) is included.&lt;/p&gt;&lt;p&gt;This doubling generates the vocabulary of axes of La Livr&eacute;e d'Herm&egrave;s; the case n = 12 is Theorem 8 of the companion note doi:10.5281/zenodo.22965031.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Licences.&lt;/strong&gt; Texts: CC BY 4.0. Code: AGPL v3; commercial licence on request.&lt;/p&gt;</span></p>",
+   "description_texte": "<p>Multiplication by 2 on Z/nZ after identifying x with −x, studied for every n. Write n = 2^s m with m odd and r(d) = min{r ≥ 1 : 2^r ≡ ±1 mod d}.</p><p><strong>I. Cycle structure.</strong> For odd n the map is a permutation; its cycles are one fixed point and, for each divisor d &gt; 1, φ(d)/(2r(d)) cycles of length r(d). <strong>II. 2-adic synchronization.</strong> r(d) = ord_d(2)/2 exactly when all v2(ord of 2 modulo the prime-power factors) are equal and positive; the criterion depends only on the prime divisors. <strong>III. 2-adic lifting.</strong> The full functional graph: G_{2^s m} ≅ Lift_s(G_m) — the odd part gives the cycle core, the factor 2^s universal rooted trees; the subsets of the complete binary layer closed toward the root are the plane binary trees, with B_0 = x, B_{h+1} = x(1 + B_h)^2. <strong>IV. Forward-closed subsets.</strong> The polynomial P_n(x) counting subsets S with D(S) ⊆ S factorises as (1 + Z_s(x)) ∏_{d | m, d &gt; 1} (1 + T_s(x)^{r(d)})^{φ(d)/(2r(d))}; P_n(1), for n = 1..200, is given in the dataset doi:10.5281/zenodo.22991226.</p><p><strong>Prior work (version 1.1.0).</strong> Sign-quotiented doubling is the Chebyshev map T<sub>2</sub> in disguise (x = y + 1/y). The structure of papers I and III is known for the cyclic groups of orders p ± 1 (Vasiga–Shallit 2004) and q ± 1 (Qureshi–Panario 2019); it is given here for every modulus, with self-contained proofs and no claim of priority. The criterion of paper II is very probably classical. The enumeration of forward-closed subsets (paper IV) appears to be new.</p><p>Working manuscripts. Papers I–II are at version 3, III–IV at version 4. The study of the coefficients of N_h = B_h − B_{h−1} (exact height) is a separate working preprint, not included. Two scripts check the structure and the factorisation for 1 ≤ n ≤ 200 (0 mismatch); the CSV of P_n(1) is included.</p><p>This doubling generates the vocabulary of axes of La Livrée d'Hermès; the case n = 12 is Theorem 8 of the companion note doi:10.5281/zenodo.22965031.</p><p><strong>Licences.</strong> Texts: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "doubling map",
+    "multiplicative order",
+    "functional graphs",
+    "2-adic valuation",
+    "Chebyshev polynomials",
+    "forward-closed subsets",
+    "generating polynomials",
+    "integer sequences"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22991226",
+     "relation": "isSupplementedBy",
+     "resource_type": "dataset",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.1016/S0012-365X(03)00158-4",
+     "relation": "references",
+     "resource_type": "publication-article",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.1007/s10623-018-0545-7",
+     "relation": "references",
+     "resource_type": "publication-article",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "03_2adic_lifting.pdf",
+     "octets": 260753,
+     "checksum": "md5:47cd8c39160e7c545f46e1d870784a3b",
+     "lien": "https://zenodo.org/api/records/23102045/files/03_2adic_lifting.pdf/content"
+    },
+    {
+     "nom": "02_2adic_synchronization.pdf",
+     "octets": 211850,
+     "checksum": "md5:8427e34a4a94f75d057842970776f1de",
+     "lien": "https://zenodo.org/api/records/23102045/files/02_2adic_synchronization.pdf/content"
+    },
+    {
+     "nom": "04_closed_subset_polynomials.pdf",
+     "octets": 220766,
+     "checksum": "md5:c8d257d2202426de6b2a7f32a967bc1d",
+     "lien": "https://zenodo.org/api/records/23102045/files/04_closed_subset_polynomials.pdf/content"
+    },
+    {
+     "nom": "04_closed_subset_polynomials.tex",
+     "octets": 9266,
+     "checksum": "md5:ea9439b9d4abac5f8ae7de54039be8ed",
+     "lien": "https://zenodo.org/api/records/23102045/files/04_closed_subset_polynomials.tex/content"
+    },
+    {
+     "nom": "verify_doublement_structure.log",
+     "octets": 74,
+     "checksum": "md5:21ad2a99ce444739c697b56579f95a9f",
+     "lien": "https://zenodo.org/api/records/23102045/files/verify_doublement_structure.log/content"
+    },
+    {
+     "nom": "01_cycle_structure.pdf",
+     "octets": 204570,
+     "checksum": "md5:18295daeb58256d83226b1383b849a04",
+     "lien": "https://zenodo.org/api/records/23102045/files/01_cycle_structure.pdf/content"
+    },
+    {
+     "nom": "verify_doublement_polynomials.log",
+     "octets": 151,
+     "checksum": "md5:d9fd6c4444446a16ceb26adfd2b3a76c",
+     "lien": "https://zenodo.org/api/records/23102045/files/verify_doublement_polynomials.log/content"
+    },
+    {
+     "nom": "02_2adic_synchronization.tex",
+     "octets": 6581,
+     "checksum": "md5:df884b52777a2ebe838bdc0a24882663",
+     "lien": "https://zenodo.org/api/records/23102045/files/02_2adic_synchronization.tex/content"
+    },
+    {
+     "nom": "doublement_polynomial_verification_n1_200.csv",
+     "octets": 2998,
+     "checksum": "md5:c0c83847a7a4fbd2144cab23cb9426a9",
+     "lien": "https://zenodo.org/api/records/23102045/files/doublement_polynomial_verification_n1_200.csv/content"
+    },
+    {
+     "nom": "verify_doublement_structure.py",
+     "octets": 2824,
+     "checksum": "md5:ca71620a66266d75b1f0e4b44e1207e1",
+     "lien": "https://zenodo.org/api/records/23102045/files/verify_doublement_structure.py/content"
+    },
+    {
+     "nom": "03_2adic_lifting.tex",
+     "octets": 19486,
+     "checksum": "md5:eceeccf0ea5dc1452d013a879ab2a526",
+     "lien": "https://zenodo.org/api/records/23102045/files/03_2adic_lifting.tex/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 5708,
+     "checksum": "md5:f26bf5bb79d7892352d8696fef74c428",
+     "lien": "https://zenodo.org/api/records/23102045/files/README.md/content"
+    },
+    {
+     "nom": "references.bib",
+     "octets": 1392,
+     "checksum": "md5:d86e86f14341be560312bdaa36369249",
+     "lien": "https://zenodo.org/api/records/23102045/files/references.bib/content"
+    },
+    {
+     "nom": "01_cycle_structure.tex",
+     "octets": 8050,
+     "checksum": "md5:e041d7453b06459bf1c459ad4ecde319",
+     "lien": "https://zenodo.org/api/records/23102045/files/01_cycle_structure.tex/content"
+    },
+    {
+     "nom": "verify_doublement_polynomials.py",
+     "octets": 4037,
+     "checksum": "md5:5b1c1f6ba397509c9ef17cc92a82e5d6",
+     "lien": "https://zenodo.org/api/records/23102045/files/verify_doublement_polynomials.py/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+   "conceptDoi": "10.5281/zenodo.22986529",
+   "versionDoi_registre": "10.5281/zenodo.23101928",
+   "versionDoi_reel": "10.5281/zenodo.23101928",
+   "ecart": "aucun",
+   "id_version": 23101928,
+   "titre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+   "publication_date": "2026-10-02",
+   "version": "1.2.1",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p><span>&lt;p&gt;A Jacquard pattern system has been described in three separate ways: as sixteen families of straight axes on a 12 &times; 12 square combined by a parity rule (note [A], doi:10.5281/zenodo.22965031); as sixty three-tint images from which 512 grids are built by a six-bit selection (paper [G], data doi:10.5281/zenodo.22862110); and as level sets of a square-plate eigenmode (note [P], same deposit as [A]). This paper shows, by exhaustive check on the published data, that the three descriptions present one finite structure (the sense is made precise in &sect;1).&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Theorem 1 (finite-corpus identification).&lt;/strong&gt; Every one of the sixty images is a parity figure of axes: forty-eight cells of lines, the same for all sixty and equal to the nodal set of the degenerate guided plate mode cos(4&pi;x/a) &minus; cos(4&pi;y/a); ninety-six cells carrying the parity of a union of the four families of level T0; and one of four tint permutations, which are the four natures of the system. The fifteen families of the loom are the fifteen non-empty subsets of the four T0 families (60/60 verified). &lt;strong&gt;Corollary.&lt;/strong&gt; The half-shift theorem of [G] &mdash; exactly eight families of fifteen admit unified pairs, those with exactly one base of yang type &mdash; follows in two lines. &lt;strong&gt;Theorem 2.&lt;/strong&gt; The parity map is injective on the 70 band systems visible on the triangle subdivision, and the sixteen family figures span a [1152, 13] binary code of minimum distance 288 with a unique minimum-weight word, T0 YANG MUT&nbsp;</span><span>&oplus;</span><span> T1 YIN (parity counted from the origin corner); on the cell reading the code is [144, 12] of distance 36. &lt;strong&gt;Theorem 3.&lt;/strong&gt; On levels, the doubling homothety terminates without cycles if and only if the period is 2^a or 3&middot;2^a, has a non-trivial fixed level (120&deg;) if and only if 3 divides the period, and 12 is the smallest period with both and depth at least two.&lt;/p&gt;&lt;p&gt;Nothing is measured on a plate; the plate reading is exact for guided edges and approximate for free ones. Every number is printed by one of five scripts from &lt;code&gt;catalogue-axes.json&lt;/code&gt; and &lt;code&gt;referent_360_v3.json&lt;/code&gt;, both included, together with the six figures (SVG) and the script that draws them.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Licences.&lt;/strong&gt; Text, figures and data: CC BY 4.0. Code: AGPL v3; commercial licence on request.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Version 1.2.0.&lt;/strong&gt; Revised after reading: (1) what \\\"one object\\\" means is defined in &sect;1, and the independence of the corpora is stated there ([G] was generated and classified before the axes were formalised); (2) Theorem 1 is labelled a finite-corpus identification and Theorem 2 a finite computation; (3) new Proposition 1: the four T0 families are a basis of F_2^4, embedded injectively by the parity map (rank 4, rank 5 with the all-dark figure; new script &lt;code&gt;espace_F2_4.py&lt;/code&gt;), and the half-shift acts through a linear form, so the eight unified families are the complement of a hyperplane, 2^4 &minus; 2^3; (4) the plate section is shortened and separates \\\"exact in the guided model\\\" from \\\"predicted, not measured\\\"; (5) new &sect;6 on the two referents (256 and 360) used by the Carter encoding, as a use of the structure and not its origin; (6) &sect;7 retitled \\\"Why 12 is the smallest admissible period\\\", with its three criteria stated; (7) &sect;8 is a table sorting every statement by status. (8) &sect;5: the dimension 13 is derived from the levels (5 diagonal + 8 orthogonal); the C1 reading now states its rule for axes through cell centres (continuous closure on the side of increasing coordinate, as in regle_parite.py of [A]), on which every C1 number depends &mdash; the previous text wrongly said only two keys were affected. (9) &sect;7: the proof of Theorem 3 is read further &mdash; for any period N = 2^a M, the descent is a set of cycles of lengths r(d) = min{r : 2^r &equiv; &plusmn;1 mod d}, one family per divisor d &gt; 1 of M, with trees of height a above them; it terminates exactly when every r(d) = 1, i.e. M </span><span>&isin;</span><span> {1, 3}; the table gives the cycles for N = 10 and 18, and harmonie_N.py checks the structure for every even N &le; 200. No number changed.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Version 1.2.1.&lt;/strong&gt; Licence of the text, figures and data set to CC BY 4.0 (it read CC BY-NC 4.0 in 1.2.0); the general study of doubling modulo n is cited (doi:10.5281/zenodo.23088601). No other change.&lt;/p&gt;</span></p>",
+   "description_texte": "<p>A Jacquard pattern system has been described in three separate ways: as sixteen families of straight axes on a 12 × 12 square combined by a parity rule (note [A], doi:10.5281/zenodo.22965031); as sixty three-tint images from which 512 grids are built by a six-bit selection (paper [G], data doi:10.5281/zenodo.22862110); and as level sets of a square-plate eigenmode (note [P], same deposit as [A]). This paper shows, by exhaustive check on the published data, that the three descriptions present one finite structure (the sense is made precise in §1).</p><p><strong>Theorem 1 (finite-corpus identification).</strong> Every one of the sixty images is a parity figure of axes: forty-eight cells of lines, the same for all sixty and equal to the nodal set of the degenerate guided plate mode cos(4πx/a) − cos(4πy/a); ninety-six cells carrying the parity of a union of the four families of level T0; and one of four tint permutations, which are the four natures of the system. The fifteen families of the loom are the fifteen non-empty subsets of the four T0 families (60/60 verified). <strong>Corollary.</strong> The half-shift theorem of [G] — exactly eight families of fifteen admit unified pairs, those with exactly one base of yang type — follows in two lines. <strong>Theorem 2.</strong> The parity map is injective on the 70 band systems visible on the triangle subdivision, and the sixteen family figures span a [1152, 13] binary code of minimum distance 288 with a unique minimum-weight word, T0 YANG MUT ⊕ T1 YIN (parity counted from the origin corner); on the cell reading the code is [144, 12] of distance 36. <strong>Theorem 3.</strong> On levels, the doubling homothety terminates without cycles if and only if the period is 2^a or 3·2^a, has a non-trivial fixed level (120°) if and only if 3 divides the period, and 12 is the smallest period with both and depth at least two.</p><p>Nothing is measured on a plate; the plate reading is exact for guided edges and approximate for free ones. Every number is printed by one of five scripts from <code>catalogue-axes.json</code> and <code>referent_360_v3.json</code>, both included, together with the six figures (SVG) and the script that draws them.</p><p><strong>Licences.</strong> Text, figures and data: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p><p><strong>Version 1.2.0.</strong> Revised after reading: (1) what \\\"one object\\\" means is defined in §1, and the independence of the corpora is stated there ([G] was generated and classified before the axes were formalised); (2) Theorem 1 is labelled a finite-corpus identification and Theorem 2 a finite computation; (3) new Proposition 1: the four T0 families are a basis of F_2^4, embedded injectively by the parity map (rank 4, rank 5 with the all-dark figure; new script <code>espace_F2_4.py</code>), and the half-shift acts through a linear form, so the eight unified families are the complement of a hyperplane, 2^4 − 2^3; (4) the plate section is shortened and separates \\\"exact in the guided model\\\" from \\\"predicted, not measured\\\"; (5) new §6 on the two referents (256 and 360) used by the Carter encoding, as a use of the structure and not its origin; (6) §7 retitled \\\"Why 12 is the smallest admissible period\\\", with its three criteria stated; (7) §8 is a table sorting every statement by status. (8) §5: the dimension 13 is derived from the levels (5 diagonal + 8 orthogonal); the C1 reading now states its rule for axes through cell centres (continuous closure on the side of increasing coordinate, as in regle_parite.py of [A]), on which every C1 number depends — the previous text wrongly said only two keys were affected. (9) §7: the proof of Theorem 3 is read further — for any period N = 2^a M, the descent is a set of cycles of lengths r(d) = min{r : 2^r ≡ ±1 mod d}, one family per divisor d > 1 of M, with trees of height a above them; it terminates exactly when every r(d) = 1, i.e. M ∈ {1, 3}; the table gives the cycles for N = 10 and 18, and harmonie_N.py checks the structure for every even N ≤ 200. No number changed.</p><p><strong>Version 1.2.1.</strong> Licence of the text, figures and data set to CC BY 4.0 (it read CC BY-NC 4.0 in 1.2.0); the general study of doubling modulo n is cited (doi:10.5281/zenodo.23088601). No other change.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "Jacquard weaving",
+    "parity figures",
+    "linear codes",
+    "level sets",
+    "square plate eigenmodes",
+    "Chladni figures",
+    "half-shift criterion",
+    "doubling map",
+    "arithmogeometry"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isDocumentedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22967585",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "fig5-code.svg",
+     "octets": 291621,
+     "checksum": "md5:4e7364ad2d2b1dc396b9697b206d7e77",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig5-code.svg/content"
+    },
+    {
+     "nom": "fig4-halfshift.svg",
+     "octets": 105006,
+     "checksum": "md5:3a499728342f409981e309f72d0e04a8",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig4-halfshift.svg/content"
+    },
+    {
+     "nom": "harmonie_N.py",
+     "octets": 2632,
+     "checksum": "md5:49a7f4cb8c36ac25e089f19a7f0da228",
+     "lien": "https://zenodo.org/api/records/23101928/files/harmonie_N.py/content"
+    },
+    {
+     "nom": "espace_F2_4.log",
+     "octets": 442,
+     "checksum": "md5:1393eb2d66fade65429790bbf92ac5bb",
+     "lien": "https://zenodo.org/api/records/23101928/files/espace_F2_4.log/content"
+    },
+    {
+     "nom": "fig3-natures.svg",
+     "octets": 69435,
+     "checksum": "md5:6e9bc3e0c98bf7d8cd6d74954f118781",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig3-natures.svg/content"
+    },
+    {
+     "nom": "make_figures.py",
+     "octets": 10416,
+     "checksum": "md5:44a83a3752682a32fc3885eca1617222",
+     "lien": "https://zenodo.org/api/records/23101928/files/make_figures.py/content"
+    },
+    {
+     "nom": "verif_images_axes.log",
+     "octets": 165,
+     "checksum": "md5:8e810a2c84bf54875da88aab48024bc1",
+     "lien": "https://zenodo.org/api/records/23101928/files/verif_images_axes.log/content"
+    },
+    {
+     "nom": "one-object.md",
+     "octets": 36562,
+     "checksum": "md5:a44e89dfd4d06e0971e63d327605e0a8",
+     "lien": "https://zenodo.org/api/records/23101928/files/one-object.md/content"
+    },
+    {
+     "nom": "espace_F2_4.py",
+     "octets": 2242,
+     "checksum": "md5:e11cd568f77c5db671cd6f939ff9f13a",
+     "lien": "https://zenodo.org/api/records/23101928/files/espace_F2_4.py/content"
+    },
+    {
+     "nom": "harmonie_N.log",
+     "octets": 1669,
+     "checksum": "md5:95bb390f5c2fdd255920a0fc03bc3d31",
+     "lien": "https://zenodo.org/api/records/23101928/files/harmonie_N.log/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 1336,
+     "checksum": "md5:e34c9a9507b86ec54842d6353467f417",
+     "lien": "https://zenodo.org/api/records/23101928/files/README.md/content"
+    },
+    {
+     "nom": "verif_images_axes.py",
+     "octets": 2824,
+     "checksum": "md5:92de83acf75aace9d580d1ffaddd51ee",
+     "lien": "https://zenodo.org/api/records/23101928/files/verif_images_axes.py/content"
+    },
+    {
+     "nom": "fig6-descent.svg",
+     "octets": 3893,
+     "checksum": "md5:7ce4345c59ce4ccee920d41e2239dcfd",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig6-descent.svg/content"
+    },
+    {
+     "nom": "codes_cles.py",
+     "octets": 2724,
+     "checksum": "md5:38bffb1e5667620ed5b3f3e2657859c1",
+     "lien": "https://zenodo.org/api/records/23101928/files/codes_cles.py/content"
+    },
+    {
+     "nom": "catalogue-axes.json",
+     "octets": 24424,
+     "checksum": "md5:caccd7a5f58b527277798b2f10afbc94",
+     "lien": "https://zenodo.org/api/records/23101928/files/catalogue-axes.json/content"
+    },
+    {
+     "nom": "common.py",
+     "octets": 2600,
+     "checksum": "md5:d799fa02b17d7f901d73411a12579929",
+     "lien": "https://zenodo.org/api/records/23101928/files/common.py/content"
+    },
+    {
+     "nom": "one-object.pdf",
+     "octets": 253756,
+     "checksum": "md5:68f25b94af061f9ddd8d75855e2cada9",
+     "lien": "https://zenodo.org/api/records/23101928/files/one-object.pdf/content"
+    },
+    {
+     "nom": "fig2-theorem1.svg",
+     "octets": 55959,
+     "checksum": "md5:faffc08007e19f537419921d422be04d",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig2-theorem1.svg/content"
+    },
+    {
+     "nom": "fig1-families.svg",
+     "octets": 49185,
+     "checksum": "md5:ab4cb7ee387c7d3b3d95ccff882dccc3",
+     "lien": "https://zenodo.org/api/records/23101928/files/fig1-families.svg/content"
+    },
+    {
+     "nom": "referent_360_v3.json",
+     "octets": 534864,
+     "checksum": "md5:8c5773512e067ca5265791e90a3715bb",
+     "lien": "https://zenodo.org/api/records/23101928/files/referent_360_v3.json/content"
+    },
+    {
+     "nom": "codes_cles.log",
+     "octets": 4074,
+     "checksum": "md5:fc4b5897636db120c4f237a56f51a03a",
+     "lien": "https://zenodo.org/api/records/23101928/files/codes_cles.log/content"
+    },
+    {
+     "nom": "demi_decalage.py",
+     "octets": 1699,
+     "checksum": "md5:0c35bcb8bf9dc9cd030edfdaece25938",
+     "lien": "https://zenodo.org/api/records/23101928/files/demi_decalage.py/content"
+    },
+    {
+     "nom": "demi_decalage.log",
+     "octets": 1064,
+     "checksum": "md5:927556ed4bfdd67430eb076c0e85b899",
+     "lien": "https://zenodo.org/api/records/23101928/files/demi_decalage.log/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "conceptDoi": "10.5281/zenodo.22965031",
+   "versionDoi_registre": "10.5281/zenodo.23101285",
+   "versionDoi_reel": "10.5281/zenodo.23101285",
+   "ecart": "aucun",
+   "id_version": 23101285,
+   "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "publication_date": "2026-10-02",
+   "version": "V.3",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p><span>&lt;p&gt;Two companion notes on one finite object: a vocabulary of straight lines on a 12 &amp;times; 12 square, and the identification of that vocabulary with the level sets of an eigenmode of a square plate.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;[A] A Vocabulary of Axes Generated by an Inverse Doubling.&lt;/strong&gt; The construction's vocabulary is shown to be generated rather than chosen. One operation suffices &amp;mdash; doubling a line's offset about the centre &amp;mdash; and the origin is forced: a level fixed by the doubling has no preimage outside itself, so it cannot be generated and must be posited, while every other level is reachable. There are exactly two such levels, 0&amp;deg; and 120&amp;deg;, the second existing precisely because 3 divides 12. From those two the orthogonal vocabulary closes in two steps on 24 offsets and the diagonal one in three, the latter including the inscribed diamond, which belongs to the vocabulary and is not drawn. The backward structure is two towers of height two rather than a single chain; the parity rule that turns a set of axes into a figure is injective on band systems; the integrity check the construction affords is a linear code, [1152, 13] of minimum distance 288 on the triangle reading; and the period 12 is itself constrained, the descent terminating without a cycle exactly for N = 2^a or 3&amp;middot;2^a. A separate result, checked on all sixty published images, identifies the fifteen families of an existing pattern system with the fifteen non-empty unions of four families of the first generation.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;[P] A Generative Construction of the Level-Set Family of a Square-Plate Eigenmode.&lt;/strong&gt; Twelve of the sixteen axis families are complete level sets of the single function cos(&amp;pi;x/3) at the seven levels cos &amp;theta;, &amp;theta; = 0&amp;deg;, 30&amp;deg;, &amp;hellip;, 180&amp;deg;; the construction's involution is exactly the reflection &amp;theta; &amp;#8614; 180&amp;deg; &amp;minus; &amp;theta;. That function is an exact eigenfunction of the Kirchhoff plate with all four edges guided, and the degenerate combinations cos(4&amp;pi;x/a) &amp;plusmn; cos(4&amp;pi;y/a) are exact guided modes whose nodal sets are two of the diagonal families &amp;mdash; one of which is the 48-cell skeleton that all sixty images of the independent corpus carry in common. The same function is also the exact eigenfunction of a second, trivially realisable system, the acoustic pressure in a rigid-walled rectangular cavity, where the governing equation is Helmholtz rather than biharmonic: the two share their eigenfunctions and not their spectra, so a single ratio of measured frequencies discriminates between them. One falsifiable interferometric prediction is stated. No physical measurement was performed.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Version 1.1.&lt;/strong&gt; [A]: the cell reading C1 states its rule for axes through cell centres (an axis does not separate the cell, which closes the figure continuously, on the side of increasing coordinate); the dimension 13 is derived from the levels (5 diagonal + 8 orthogonal); a new &sect;5.5 examines a second cut of the diagonal vocabulary &mdash; twelve elements YA1&ndash;YA6, AY1&ndash;AY6 partitioning the 288 cell diagonals &mdash; which gives one generator per node of the doubling tree: codes [1152, 15, 288] and [144, 14, 36] containing those of the first cut, the same minimum-weight words, no relation among the diagonal generators, and the mutation as a shift by 3 on the diagonals too. [P]: a status table, and a new &sect;3.5 reading the second cut against cos(&pi;x/3): one complete level per generator, and exactly 127 = 2^7 &minus; 1 of its 4095 drawings are unions of whole level sets. [P] &sect;4.6: from lines to figures &mdash; an exhaustive search over exact guided and simply supported modes (indices up to 24, degenerate pairs, and integer combinations at equal m&sup2;+n&sup2;) finds 35 unions of axes that are exactly the sign pattern of a mode, eleven of the fifteen corpus families among them (scripts &lt;code&gt;signatures_chladni.py&lt;/code&gt;, &lt;code&gt;degeneres_chladni.py&lt;/code&gt;, on the fifteen generators of &lt;code&gt;generateurs_v2.py&lt;/code&gt;). [A] Theorem 8 is now proved rather than verified up to 48, and the cycles that replace termination are described: lengths r(d) = min{r : 2^r &equiv; &plusmn;1 mod d}, one family per divisor d &gt; 1 of the odd part. No number of version 1.0 changes.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Contents.&lt;/strong&gt; Both notes as PDF and Markdown source; the axis catalogue and the second cut as JSON; ten scripts that print every number cited, with the output of their last run; the two figures of [A] as SVG, generated by one of those scripts from the same catalogue.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Licences.&lt;/strong&gt; Texts and figures: CC BY 4.0. Code: AGPL v3.&lt;/p&gt;</span></p>",
+   "description_texte": "<p>Two companion notes on one finite object: a vocabulary of straight lines on a 12 &times; 12 square, and the identification of that vocabulary with the level sets of an eigenmode of a square plate.</p><p><strong>[A] A Vocabulary of Axes Generated by an Inverse Doubling.</strong> The construction's vocabulary is shown to be generated rather than chosen. One operation suffices &mdash; doubling a line's offset about the centre &mdash; and the origin is forced: a level fixed by the doubling has no preimage outside itself, so it cannot be generated and must be posited, while every other level is reachable. There are exactly two such levels, 0&deg; and 120&deg;, the second existing precisely because 3 divides 12. From those two the orthogonal vocabulary closes in two steps on 24 offsets and the diagonal one in three, the latter including the inscribed diamond, which belongs to the vocabulary and is not drawn. The backward structure is two towers of height two rather than a single chain; the parity rule that turns a set of axes into a figure is injective on band systems; the integrity check the construction affords is a linear code, [1152, 13] of minimum distance 288 on the triangle reading; and the period 12 is itself constrained, the descent terminating without a cycle exactly for N = 2^a or 3&middot;2^a. A separate result, checked on all sixty published images, identifies the fifteen families of an existing pattern system with the fifteen non-empty unions of four families of the first generation.</p><p><strong>[P] A Generative Construction of the Level-Set Family of a Square-Plate Eigenmode.</strong> Twelve of the sixteen axis families are complete level sets of the single function cos(&pi;x/3) at the seven levels cos &theta;, &theta; = 0&deg;, 30&deg;, &hellip;, 180&deg;; the construction's involution is exactly the reflection &theta; &#8614; 180&deg; &minus; &theta;. That function is an exact eigenfunction of the Kirchhoff plate with all four edges guided, and the degenerate combinations cos(4&pi;x/a) &plusmn; cos(4&pi;y/a) are exact guided modes whose nodal sets are two of the diagonal families &mdash; one of which is the 48-cell skeleton that all sixty images of the independent corpus carry in common. The same function is also the exact eigenfunction of a second, trivially realisable system, the acoustic pressure in a rigid-walled rectangular cavity, where the governing equation is Helmholtz rather than biharmonic: the two share their eigenfunctions and not their spectra, so a single ratio of measured frequencies discriminates between them. One falsifiable interferometric prediction is stated. No physical measurement was performed.</p><p><strong>Version 1.1.</strong> [A]: the cell reading C1 states its rule for axes through cell centres (an axis does not separate the cell, which closes the figure continuously, on the side of increasing coordinate); the dimension 13 is derived from the levels (5 diagonal + 8 orthogonal); a new §5.5 examines a second cut of the diagonal vocabulary — twelve elements YA1–YA6, AY1–AY6 partitioning the 288 cell diagonals — which gives one generator per node of the doubling tree: codes [1152, 15, 288] and [144, 14, 36] containing those of the first cut, the same minimum-weight words, no relation among the diagonal generators, and the mutation as a shift by 3 on the diagonals too. [P]: a status table, and a new §3.5 reading the second cut against cos(πx/3): one complete level per generator, and exactly 127 = 2^7 − 1 of its 4095 drawings are unions of whole level sets. [P] §4.6: from lines to figures — an exhaustive search over exact guided and simply supported modes (indices up to 24, degenerate pairs, and integer combinations at equal m²+n²) finds 35 unions of axes that are exactly the sign pattern of a mode, eleven of the fifteen corpus families among them (scripts <code>signatures_chladni.py</code>, <code>degeneres_chladni.py</code>, on the fifteen generators of <code>generateurs_v2.py</code>). [A] Theorem 8 is now proved rather than verified up to 48, and the cycles that replace termination are described: lengths r(d) = min{r : 2^r ≡ ±1 mod d}, one family per divisor d > 1 of the odd part. No number of version 1.0 changes.</p><p><strong>Contents.</strong> Both notes as PDF and Markdown source; the axis catalogue and the second cut as JSON; ten scripts that print every number cited, with the output of their last run; the two figures of [A] as SVG, generated by one of those scripts from the same catalogue.</p><p><strong>Licences.</strong> Texts and figures: CC BY 4.0. Code: AGPL v3.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "Chladni figures",
+    "plate eigenmodes",
+    "nodal lines",
+    "level sets",
+    "binary parity",
+    "linear codes over GF(2)",
+    "pattern grammar",
+    "Jacquard weaving",
+    "finite geometry",
+    "combinatorial design"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22862111",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866062",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "references",
+     "resource_type": "publication-softwaredocumentation",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isSupplementedBy",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "signatures_chladni.py",
+     "octets": 5667,
+     "checksum": "md5:ddbecc039555416d720e571c9584e4ee",
+     "lien": "https://zenodo.org/api/records/23101285/files/signatures_chladni.py/content"
+    },
+    {
+     "nom": "niveaux_v2.log",
+     "octets": 1878,
+     "checksum": "md5:bd2268c09ec10af3f106064cd37993b7",
+     "lien": "https://zenodo.org/api/records/23101285/files/niveaux_v2.log/content"
+    },
+    {
+     "nom": "degeneres_chladni.json",
+     "octets": 7161,
+     "checksum": "md5:acade588109548b709fda2158b22a21a",
+     "lien": "https://zenodo.org/api/records/23101285/files/degeneres_chladni.json/content"
+    },
+    {
+     "nom": "verif_paper1.py",
+     "octets": 11249,
+     "checksum": "md5:d0ec9edab883ab262bc0e006c7400391",
+     "lien": "https://zenodo.org/api/records/23101285/files/verif_paper1.py/content"
+    },
+    {
+     "nom": "degeneres_chladni.py",
+     "octets": 5405,
+     "checksum": "md5:fd1acb9a243f8c661f5ad1d7b84e04a0",
+     "lien": "https://zenodo.org/api/records/23101285/files/degeneres_chladni.py/content"
+    },
+    {
+     "nom": "generateurs_v2.log",
+     "octets": 868,
+     "checksum": "md5:8f9face9a5c0aa40b44fdb1371954669",
+     "lien": "https://zenodo.org/api/records/23101285/files/generateurs_v2.log/content"
+    },
+    {
+     "nom": "degeneres_chladni.log",
+     "octets": 301,
+     "checksum": "md5:0cb4cb200cd02b5e1026227168ebd1b2",
+     "lien": "https://zenodo.org/api/records/23101285/files/degeneres_chladni.log/content"
+    },
+    {
+     "nom": "fig_v2.py",
+     "octets": 3238,
+     "checksum": "md5:11d54ae74eee15d710990df625e81938",
+     "lien": "https://zenodo.org/api/records/23101285/files/fig_v2.py/content"
+    },
+    {
+     "nom": "common.py",
+     "octets": 2600,
+     "checksum": "md5:d799fa02b17d7f901d73411a12579929",
+     "lien": "https://zenodo.org/api/records/23101285/files/common.py/content"
+    },
+    {
+     "nom": "signatures_chladni.json",
+     "octets": 5067,
+     "checksum": "md5:949bfdd8c14c69d0011c1ac7acdc31ee",
+     "lien": "https://zenodo.org/api/records/23101285/files/signatures_chladni.json/content"
+    },
+    {
+     "nom": "reference-tailles.py",
+     "octets": 2395,
+     "checksum": "md5:444140c88bc3bac44d259a64f4d6dde2",
+     "lien": "https://zenodo.org/api/records/23101285/files/reference-tailles.py/content"
+    },
+    {
+     "nom": "niveaux_v2.py",
+     "octets": 6752,
+     "checksum": "md5:2f19c546e6f4e6bea9387704c0911228",
+     "lien": "https://zenodo.org/api/records/23101285/files/niveaux_v2.py/content"
+    },
+    {
+     "nom": "cube_bicolore.py",
+     "octets": 3532,
+     "checksum": "md5:fc4d9467bd45f298971c750d26cc2bdf",
+     "lien": "https://zenodo.org/api/records/23101285/files/cube_bicolore.py/content"
+    },
+    {
+     "nom": "signatures_chladni.log",
+     "octets": 3940,
+     "checksum": "md5:6943109d00f736f05a3bb2f7cb2d1164",
+     "lien": "https://zenodo.org/api/records/23101285/files/signatures_chladni.log/content"
+    },
+    {
+     "nom": "paper1.md",
+     "octets": 38312,
+     "checksum": "md5:e8d246ba7369bbf0c97a465103efb360",
+     "lien": "https://zenodo.org/api/records/23101285/files/paper1.md/content"
+    },
+    {
+     "nom": "fig1-tours.svg",
+     "octets": 4032,
+     "checksum": "md5:82c8a27a925b07828f3fdf0732e6559e",
+     "lien": "https://zenodo.org/api/records/23101285/files/fig1-tours.svg/content"
+    },
+    {
+     "nom": "codes_cles.py",
+     "octets": 2724,
+     "checksum": "md5:38bffb1e5667620ed5b3f3e2657859c1",
+     "lien": "https://zenodo.org/api/records/23101285/files/codes_cles.py/content"
+    },
+    {
+     "nom": "figures.py",
+     "octets": 6661,
+     "checksum": "md5:557794400c379d7c401f790f19aac528",
+     "lien": "https://zenodo.org/api/records/23101285/files/figures.py/content"
+    },
+    {
+     "nom": "verif_paper1.log",
+     "octets": 4807,
+     "checksum": "md5:9ceccf258dffdf6d7518d9fba2a00c49",
+     "lien": "https://zenodo.org/api/records/23101285/files/verif_paper1.log/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 6970,
+     "checksum": "md5:9fa3741740394488ae488fcdaa2a6cbc",
+     "lien": "https://zenodo.org/api/records/23101285/files/README.md/content"
+    },
+    {
+     "nom": "axes-v2.json",
+     "octets": 11681,
+     "checksum": "md5:3c6bd0411d44ffb3987319dad7f77159",
+     "lien": "https://zenodo.org/api/records/23101285/files/axes-v2.json/content"
+    },
+    {
+     "nom": "generateurs_v2.json",
+     "octets": 33641,
+     "checksum": "md5:b22f1443f8afe1231a3a19796559832a",
+     "lien": "https://zenodo.org/api/records/23101285/files/generateurs_v2.json/content"
+    },
+    {
+     "nom": "generateurs_v2.py",
+     "octets": 8710,
+     "checksum": "md5:f9ccc0e504a417d691c12928d134e22b",
+     "lien": "https://zenodo.org/api/records/23101285/files/generateurs_v2.py/content"
+    },
+    {
+     "nom": "catalogue-axes.json",
+     "octets": 24475,
+     "checksum": "md5:3591b1d8179ea7cd3f97c718e71a1b13",
+     "lien": "https://zenodo.org/api/records/23101285/files/catalogue-axes.json/content"
+    },
+    {
+     "nom": "regle_parite.py",
+     "octets": 1519,
+     "checksum": "md5:f225641e830a080aad7b22668c46511d",
+     "lien": "https://zenodo.org/api/records/23101285/files/regle_parite.py/content"
+    },
+    {
+     "nom": "codes_cles.log",
+     "octets": 4074,
+     "checksum": "md5:fc4b5897636db120c4f237a56f51a03a",
+     "lien": "https://zenodo.org/api/records/23101285/files/codes_cles.log/content"
+    },
+    {
+     "nom": "harmonie_N.py",
+     "octets": 2632,
+     "checksum": "md5:49a7f4cb8c36ac25e089f19a7f0da228",
+     "lien": "https://zenodo.org/api/records/23101285/files/harmonie_N.py/content"
+    },
+    {
+     "nom": "harmonie_N.log",
+     "octets": 1669,
+     "checksum": "md5:95bb390f5c2fdd255920a0fc03bc3d31",
+     "lien": "https://zenodo.org/api/records/23101285/files/harmonie_N.log/content"
+    },
+    {
+     "nom": "fig2-familles.svg",
+     "octets": 21249,
+     "checksum": "md5:abaa1b80a601b10ab572829b09c3264f",
+     "lien": "https://zenodo.org/api/records/23101285/files/fig2-familles.svg/content"
+    },
+    {
+     "nom": "paper-cymatique.pdf",
+     "octets": 194276,
+     "checksum": "md5:a00363951817a9a58d7ff770d871dcfb",
+     "lien": "https://zenodo.org/api/records/23101285/files/paper-cymatique.pdf/content"
+    },
+    {
+     "nom": "fig3-v2.svg",
+     "octets": 127352,
+     "checksum": "md5:b982cfa55fae2eb9d9d3ba3ef1906e4a",
+     "lien": "https://zenodo.org/api/records/23101285/files/fig3-v2.svg/content"
+    },
+    {
+     "nom": "paper1.pdf",
+     "octets": 249048,
+     "checksum": "md5:6a48e0d4b0087e63130ae27f6c1b5698",
+     "lien": "https://zenodo.org/api/records/23101285/files/paper1.pdf/content"
+    },
+    {
+     "nom": "paper-cymatique.md",
+     "octets": 38928,
+     "checksum": "md5:473dc9ecd2c83a9255b72c07c3c418cf",
+     "lien": "https://zenodo.org/api/records/23101285/files/paper-cymatique.md/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Parity Figures as Moiré: What Is Exact and What Is Not",
+   "conceptDoi": "10.5281/zenodo.22967584",
+   "versionDoi_registre": "10.5281/zenodo.22986645",
+   "versionDoi_reel": "10.5281/zenodo.22986645",
+   "ecart": "aucun",
+   "id_version": 22986645,
+   "titre": "Parity Figures as Moiré: What Is Exact and What Is Not",
+   "publication_date": "2026-09-27",
+   "version": "1.0.1",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"MsoPlainText\">&lt;p&gt;A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moir&eacute; (Amidror), and separating three statements usually run together. (1) The parity figure of a union of band systems is exactly the multiplicative moir&eacute; of square gratings of transmittance &plusmn;1: exclusive-or on {0,1} is multiplication on {&plusmn;1}. (2) Two printed transparencies laid on one another do not produce it: they produce the conjunction of two {0,1} gratings, which differs from the parity on 108 cells of 144 for every pair of first-generation families. (3) Two gratings of linear-polariser strips at 0&deg;/90&deg; do produce it, complemented, exactly (Malus's law: XNOR = 1 &minus; XOR). (4) The doubling homothety of [A] is the second harmonic of the cosine carrier whose level sets are the axes, not of the square-wave figures, which have odd harmonics only. Every claim is checked by a script on the published axis catalogue. Nothing new is proved; no grating was printed and no polariser cut. The measurement suggested &mdash; two polariser gratings cut from the first-generation families, viewed against a light box &mdash; would show the fifteen images of the loom of [O] (doi:10.5281/zenodo.22986529), minus their tints, one pair at a time.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Licences.&lt;/strong&gt; Text and figures: CC BY 4.0. Code: AGPL v3; commercial licence on request.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Version 1.0.1.&lt;/strong&gt; References [A] and [O] corrected (deposit title and concept DOIs); licence line aligned with the record. No claim changed.&lt;/p&gt;</p>",
+   "description_texte": "<p>A short note placing the parity construction of [A] (doi:10.5281/zenodo.22965031) inside the established theory of moiré (Amidror), and separating three statements usually run together. (1) The parity figure of a union of band systems is exactly the multiplicative moiré of square gratings of transmittance ±1: exclusive-or on {0,1} is multiplication on {±1}. (2) Two printed transparencies laid on one another do not produce it: they produce the conjunction of two {0,1} gratings, which differs from the parity on 108 cells of 144 for every pair of first-generation families. (3) Two gratings of linear-polariser strips at 0°/90° do produce it, complemented, exactly (Malus's law: XNOR = 1 − XOR). (4) The doubling homothety of [A] is the second harmonic of the cosine carrier whose level sets are the axes, not of the square-wave figures, which have odd harmonics only. Every claim is checked by a script on the published axis catalogue. Nothing new is proved; no grating was printed and no polariser cut. The measurement suggested — two polariser gratings cut from the first-generation families, viewed against a light box — would show the fifteen images of the loom of [O] (doi:10.5281/zenodo.22986529), minus their tints, one pair at a time.</p><p><strong>Licences.</strong> Text and figures: CC BY 4.0. Code: AGPL v3; commercial licence on request.</p><p><strong>Version 1.0.1.</strong> References [A] and [O] corrected (deposit title and concept DOIs); licence line aligned with the record. No claim changed.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "moiré",
+    "multiplicative moiré",
+    "parity figures",
+    "square gratings",
+    "polarisation moiré",
+    "Jacquard weaving",
+    "harmonics",
+    "Amidror"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966838",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isDocumentedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementedBy",
+     "resource_type": "software",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "parity-as-moire.pdf",
+     "octets": 85611,
+     "checksum": "md5:5296b8256f6458e9122cc77aa0985fa0",
+     "lien": "https://zenodo.org/api/records/22986645/files/parity-as-moire.pdf/content"
+    },
+    {
+     "nom": "moire.py",
+     "octets": 2389,
+     "checksum": "md5:e363c7385755892a07e742818cc5b7af",
+     "lien": "https://zenodo.org/api/records/22986645/files/moire.py/content"
+    },
+    {
+     "nom": "zenodo-metadata.json",
+     "octets": 2654,
+     "checksum": "md5:caeaa747f379581ab44e94ccd268d14d",
+     "lien": "https://zenodo.org/api/records/22986645/files/zenodo-metadata.json/content"
+    },
+    {
+     "nom": "moire.log",
+     "octets": 980,
+     "checksum": "md5:a7d8f79e7a167a4fad8b3e72f7d1a57e",
+     "lien": "https://zenodo.org/api/records/22986645/files/moire.log/content"
+    },
+    {
+     "nom": "common.py",
+     "octets": 2600,
+     "checksum": "md5:d799fa02b17d7f901d73411a12579929",
+     "lien": "https://zenodo.org/api/records/22986645/files/common.py/content"
+    },
+    {
+     "nom": "codes_cles.py",
+     "octets": 2474,
+     "checksum": "md5:ab4869c4015170886a84dfb4e99d254f",
+     "lien": "https://zenodo.org/api/records/22986645/files/codes_cles.py/content"
+    },
+    {
+     "nom": "catalogue-axes.json",
+     "octets": 24424,
+     "checksum": "md5:caccd7a5f58b527277798b2f10afbc94",
+     "lien": "https://zenodo.org/api/records/22986645/files/catalogue-axes.json/content"
+    },
+    {
+     "nom": "parity-as-moire.md",
+     "octets": 6317,
+     "checksum": "md5:09cce078af83a0e9b558072efc938fd7",
+     "lien": "https://zenodo.org/api/records/22986645/files/parity-as-moire.md/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
+   "conceptDoi": "10.5281/zenodo.22991226",
+   "versionDoi_registre": "10.5281/zenodo.22991227",
+   "versionDoi_reel": "10.5281/zenodo.22991227",
+   "ecart": "aucun",
+   "id_version": 22991227,
+   "titre": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
+   "publication_date": "2026-09-27",
+   "version": "1.0",
+   "licence": "cc-by-4.0",
+   "type": "Dataset",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>a(n) is the number of subsets S of Z/nZ such that S = &minus;S and 2S &sube; S &mdash; equivalently, the number of subsets of the levels {0, &hellip;, &lfloor;n/2&rfloor;} closed under j ↦ min(2j mod n, n &minus; 2j mod n). First terms: 2, 3, 4, 4, 4, 9, 4, 7, 8, 15, 4, 24, 4, 27, 16, 28, 8, 81, 4, 104, &hellip; For odd n, a(n) = 2^k with k the number of orbits of ⟨x ↦ 2x, x ↦ &minus;x⟩ on Z/nZ; for even n the functional graph carries trees rooted at 0 and, when 3 | n, at n/3, and is a forest exactly when n = 2^a or 3&middot;2^a.</p>\n<p>Files. b400466.txt: n and a(n) for n = 1..200 (OEIS b-file format). a400466.py: the tree formula over the functional graph, a brute-force check for n &le; 20, and the b-file generator.</p>\n<p>Origin. The sequence counts the sub-vocabularies of the axis construction of a 12 &times; 12 Jacquard pattern system, where the doubling of a line's offset from the centre is the generating operation (companion notes, doi:10.5281/zenodo.22965031; One Object, Three Descriptions, doi:10.5281/zenodo.22986529); there n = 12.</p>\n<p>Licences. Data: CC BY 4.0. Code: AGPL v3.</p>",
+   "description_texte": "a(n) is the number of subsets S of Z/nZ such that S = −S and 2S ⊆ S — equivalently, the number of subsets of the levels {0, …, ⌊n/2⌋} closed under j ↦ min(2j mod n, n − 2j mod n). First terms: 2, 3, 4, 4, 4, 9, 4, 7, 8, 15, 4, 24, 4, 27, 16, 28, 8, 81, 4, 104, … For odd n, a(n) = 2^k with k the number of orbits of ⟨x ↦ 2x, x ↦ −x⟩ on Z/nZ; for even n the functional graph carries trees rooted at 0 and, when 3 | n, at n/3, and is a forest exactly when n = 2^a or 3·2^a.\n\nFiles. b400466.txt: n and a(n) for n = 1..200 (OEIS b-file format). a400466.py: the tree formula over the functional graph, a brute-force check for n ≤ 20, and the b-file generator.\n\nOrigin. The sequence counts the sub-vocabularies of the axis construction of a 12 × 12 Jacquard pattern system, where the doubling of a line's offset from the centre is the generating operation (companion notes, doi:10.5281/zenodo.22965031; One Object, Three Descriptions, doi:10.5281/zenodo.22986529); there n = 12.\n\nLicences. Data: CC BY 4.0. Code: AGPL v3.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "OEIS",
+    "A400466",
+    "integer sequence",
+    "doubling map",
+    "cyclic group",
+    "closed subsets",
+    "Jacquard weaving",
+    "combinatorics"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "https://oeis.org/A400466",
+     "relation": "isSupplementTo",
+     "resource_type": "dataset",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966838",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isDocumentedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 818,
+     "checksum": "md5:46f4fcda513100ba791019a055cd83b4",
+     "lien": "https://zenodo.org/api/records/22991227/files/README.md/content"
+    },
+    {
+     "nom": "b400466.txt",
+     "octets": 1979,
+     "checksum": "md5:14180ce727285a061135b6011f2373b7",
+     "lien": "https://zenodo.org/api/records/22991227/files/b400466.txt/content"
+    },
+    {
+     "nom": "a400466.py",
+     "octets": 1737,
+     "checksum": "md5:bf5889d37585994e986244ff607eb15e",
+     "lien": "https://zenodo.org/api/records/22991227/files/a400466.py/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
+   "conceptDoi": "10.5281/zenodo.22862110",
+   "versionDoi_registre": "10.5281/zenodo.22967302",
+   "versionDoi_reel": "10.5281/zenodo.22967302",
+   "ecart": "aucun",
+   "id_version": 22967302,
+   "titre": "Data and verification scripts for \"A Half-Shift Criterion on Three-Colour 12×12 Grids\"",
+   "publication_date": "2026-09-25",
+   "version": null,
+   "licence": "apgl-v3",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>Donn&eacute;es et scripts de v&eacute;rification accompagnant la note <em>Un crit&egrave;re de demi-d&eacute;calage sur des grilles 12&times;12 &agrave; trois couleurs, et sa restriction sur le cube</em> , soumise au <em>Journal of Mathematics and the Arts</em> .</p>\n<p>Cette note &eacute;tudie un ensemble fini de grilles tricolores 12&times;12 issues d'un syst&egrave;me de tissage Jacquard, et un crit&egrave;re unique qui leur est impos&eacute;&nbsp;: la translation d'une grille de la moiti&eacute; de sa p&eacute;riode doit reproduire la grille obtenue par inversion de ses deux couches g&eacute;n&eacute;ratrices. Ces scripts reproduisent chaque &eacute;nonc&eacute; num&eacute;rique du texte.</p>\n<p><strong>Sc&eacute;narios</strong></p>\n<p><code>cube_edges.py</code>&mdash; reconstruit le corpus &agrave; partir des donn&eacute;es de couche, v&eacute;rifie les hypoth&egrave;ses &eacute;nonc&eacute;es et reproduit les d&eacute;comptes des sections 4, 6 et 8&nbsp;: 1024 triplets, 512 grilles distinctes, 256 pavages&nbsp;; la condition de sommet&nbsp;; la r&egrave;gle des bords avec ses 512/256/128&nbsp;; les obstructions locales et globales&nbsp;; le lemme de duplication&nbsp;; et les d&eacute;comptes d&rsquo;orbites.</p>\n<p><code>croisements.py</code>&mdash; &eacute;num&egrave;re les 1770 paires de couches et les 113 280 constructions, compte celles qui se posent seules, les quotients par le groupe de sym&eacute;trie et reproduit la classification de la section 7.</p>\n<p><code>cube_croisements.py</code>&mdash; <code>paires_croisees.py</code>les scripts plus longs dont les &eacute;l&eacute;ments ci-dessus ont &eacute;t&eacute; condens&eacute;s ; ils rapportent les m&ecirc;mes d&eacute;comptes de mani&egrave;re plus d&eacute;taill&eacute;e et sont conserv&eacute;s &agrave; des fins de v&eacute;rification crois&eacute;e.</p>\n<p><code>selection_ordre6.py</code>&mdash; reproduit la section 8 : les 256 carr&eacute;s d'ordre 6, leur regroupement en 64 formes d'ordre 12 et les 16 qui satisfont au crit&egrave;re.</p>\n<p><code>croix_ansee.py</code>&mdash; &eacute;num&egrave;re les configurations de traits sur la grille 6&times;6&nbsp;: 64 choix bruts, 8 appariements coh&eacute;rents, exactement 2 admissibles.</p>\n<p><code>verif_carre_magique.py</code>&mdash; v&eacute;rifie un carr&eacute; d'ordre 6 donn&eacute; : sommes magiques, associativit&eacute; et les quatre conditions de couleur.</p>\n<p><code>make_figures.py</code>&mdash; r&eacute;g&eacute;n&egrave;re les chiffres du billet &agrave; partir des m&ecirc;mes donn&eacute;es.</p>\n<p><strong>Donn&eacute;es</strong></p>\n<p><code>referent_256_v3.json</code>&mdash; Les 256 cases d'ordre 6, avec leurs positions par couleur et chiralit&eacute;. <br><code>referent_360_v3.json</code>&mdash; Les 360 cartes, class&eacute;es par famille, nature et niveau&nbsp;: 15 familles, 60 couches. <br><code>fonds_ecran_v1.json</code>&mdash; La carte des niveaux et les 60 couches.</p>\n<p><code>cube_edges.py</code>est une biblioth&egrave;que commune&nbsp;; <code>croisements.py</code>et en d&eacute;pendent et doivent rester dans le m&ecirc;me r&eacute;pertoire. et sont autonomes. Le temps d'ex&eacute;cution est inf&eacute;rieur &agrave; une minute pour les scripts principaux, et de quelques minutes pour les plus longs <code>cube_croisements.py</code>.<code>make_figures.py</code><code>selection_ordre6.py</code><code>paires_croisees.py</code></p>\n<p>Code publi&eacute; sous licence AGPL v3. Le trait&eacute; dont est issue la construction est d&eacute;pos&eacute; &agrave; doi:10.5281/zenodo.22722485 sous licence CC BY-NC 4.0.</p>",
+   "description_texte": "Données et scripts de vérification accompagnant la note Un critère de demi-décalage sur des grilles 12×12 à trois couleurs, et sa restriction sur le cube , soumise au Journal of Mathematics and the Arts .\n\nCette note étudie un ensemble fini de grilles tricolores 12×12 issues d'un système de tissage Jacquard, et un critère unique qui leur est imposé : la translation d'une grille de la moitié de sa période doit reproduire la grille obtenue par inversion de ses deux couches génératrices. Ces scripts reproduisent chaque énoncé numérique du texte.\n\nScénarios\n\ncube_edges.py— reconstruit le corpus à partir des données de couche, vérifie les hypothèses énoncées et reproduit les décomptes des sections 4, 6 et 8 : 1024 triplets, 512 grilles distinctes, 256 pavages ; la condition de sommet ; la règle des bords avec ses 512/256/128 ; les obstructions locales et globales ; le lemme de duplication ; et les décomptes d’orbites.\n\ncroisements.py— énumère les 1770 paires de couches et les 113 280 constructions, compte celles qui se posent seules, les quotients par le groupe de symétrie et reproduit la classification de la section 7.\n\ncube_croisements.py— paires_croisees.pyles scripts plus longs dont les éléments ci-dessus ont été condensés ; ils rapportent les mêmes décomptes de manière plus détaillée et sont conservés à des fins de vérification croisée.\n\nselection_ordre6.py— reproduit la section 8 : les 256 carrés d'ordre 6, leur regroupement en 64 formes d'ordre 12 et les 16 qui satisfont au critère.\n\ncroix_ansee.py— énumère les configurations de traits sur la grille 6×6 : 64 choix bruts, 8 appariements cohérents, exactement 2 admissibles.\n\nverif_carre_magique.py— vérifie un carré d'ordre 6 donné : sommes magiques, associativité et les quatre conditions de couleur.\n\nmake_figures.py— régénère les chiffres du billet à partir des mêmes données.\n\nDonnées\n\nreferent_256_v3.json— Les 256 cases d'ordre 6, avec leurs positions par couleur et chiralité. \nreferent_360_v3.json— Les 360 cartes, classées par famille, nature et niveau : 15 familles, 60 couches. \nfonds_ecran_v1.json— La carte des niveaux et les 60 couches.\n\ncube_edges.pyest une bibliothèque commune ; croisements.pyet en dépendent et doivent rester dans le même répertoire. et sont autonomes. Le temps d'exécution est inférieur à une minute pour les scripts principaux, et de quelques minutes pour les plus longs cube_croisements.py.make_figures.pyselection_ordre6.pypaires_croisees.py\n\nCode publié sous licence AGPL v3. Le traité dont est issue la construction est déposé à doi:10.5281/zenodo.22722485 sous licence CC BY-NC 4.0.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "half-shift criterion",
+    "three-colour grids",
+    "Jacquard weaving",
+    "cube edge rule",
+    "exhaustive enumeration",
+    "verification",
+    "combinatorics",
+    "recreational mathematics"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966839",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "CHANGES.md",
+     "octets": 1171,
+     "checksum": "md5:1726c73c7a0ea7582a0be7aa8a834f89",
+     "lien": "https://zenodo.org/api/records/22967302/files/CHANGES.md/content"
+    },
+    {
+     "nom": "cube_edges.py",
+     "octets": 26641,
+     "checksum": "md5:b908d185f93768636a9b85ad601c061c",
+     "lien": "https://zenodo.org/api/records/22967302/files/cube_edges.py/content"
+    },
+    {
+     "nom": "cube_edges.log",
+     "octets": 3002,
+     "checksum": "md5:a2f0f13e78e59d04a8b0a13614bd3563",
+     "lien": "https://zenodo.org/api/records/22967302/files/cube_edges.log/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
+   "conceptDoi": "10.5281/zenodo.22866061",
+   "versionDoi_registre": "10.5281/zenodo.22978066",
+   "versionDoi_reel": "10.5281/zenodo.22978066",
+   "ecart": "aucun",
+   "id_version": 22978066,
+   "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
+   "publication_date": "2026-09-26",
+   "version": "version 3.0",
+   "licence": "apgl-v3",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"MsoPlainText\"><span><span>Scripts Python et donn&eacute;es reproduisant chaque affirmation num&eacute;rique de la note &laquo; La Croix Ansate &raquo; : les deux croix d'ordre 6, le protocole couleur-nombre, les 256 carr&eacute;s magiques, les 64 assemblages d'ordre 12 et l'&eacute;num&eacute;ration exhaustive montrant que les 256 colorations constituent l'ensemble complet admissible selon les crit&egrave;res.</span></span></p>\n<p class=\"MsoPlainText\">the two order-18 and two order-30 grids&nbsp;</p>",
+   "description_texte": "Scripts Python et données reproduisant chaque affirmation numérique de la note « La Croix Ansate » : les deux croix d'ordre 6, le protocole couleur-nombre, les 256 carrés magiques, les 64 assemblages d'ordre 12 et l'énumération exhaustive montrant que les 256 colorations constituent l'ensemble complet admissible selon les critères.\n\nthe two order-18 and two order-30 grids",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22786146",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "TheAnsateCross_Anonymized_forReview_v3.3.docx",
+     "octets": 3956296,
+     "checksum": "md5:e0fdc1fb6300a50aec3db647c677d0ac",
+     "lien": "https://zenodo.org/api/records/22978066/files/TheAnsateCross_Anonymized_forReview_v3.3.docx/content"
+    },
+    {
+     "nom": "grilles_18_30.json",
+     "octets": 33702,
+     "checksum": "md5:aed93f2e83f67af60d4c1530a8892463",
+     "lien": "https://zenodo.org/api/records/22978066/files/grilles_18_30.json/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 3804,
+     "checksum": "md5:7f2a908f42e469221b5a6ed3122b115a",
+     "lien": "https://zenodo.org/api/records/22978066/files/README.md/content"
+    },
+    {
+     "nom": "verif_ordres_18_30.log",
+     "octets": 729,
+     "checksum": "md5:b179e71ef129c388800d7d318ffaa752",
+     "lien": "https://zenodo.org/api/records/22978066/files/verif_ordres_18_30.log/content"
+    },
+    {
+     "nom": "verif_ordres_18_30.py",
+     "octets": 2132,
+     "checksum": "md5:ee01aab54d5befabc0a106f8a43fd9f0",
+     "lien": "https://zenodo.org/api/records/22978066/files/verif_ordres_18_30.py/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Scripts de vérification de La Livrée d'Hermès",
+   "conceptDoi": null,
+   "versionDoi_registre": null,
+   "versionDoi_reel": null,
+   "ecart": "pas de DOI dans le registre (entree depot GitHub)"
+  },
+  {
+   "titre_registre": "La Livrée d'Hermès — Progress report, September 2026",
+   "conceptDoi": "10.5281/zenodo.22945021",
+   "versionDoi_registre": null,
+   "versionDoi_reel": "10.5281/zenodo.22986767",
+   "ecart": "versionDoi absent du registre",
+   "id_version": 22986767,
+   "titre": "La Livrée d'Hermès — Progress report, September 2026",
+   "publication_date": "2026-09-27",
+   "version": "2.3",
+   "licence": "cc-by-4.0",
+   "type": "Report",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p>&lt;p&gt;Progress report on the work carried out around &lt;i&gt;La Livr&eacute;e d'Herm&egrave;s&lt;/i&gt; (September 2026, version 2.3): two mathematics papers under review (&lt;i&gt;Journal of Mathematics and the Arts&lt;/i&gt;, submission 267148025; &lt;i&gt;Mathematics Magazine&lt;/i&gt;, submission 262890732); four deposited notes establishing that the sixteen axis families of the pattern system are generated by a single doubling operation, are the level sets of a square-plate eigenmode with guided edges, and that every one of the sixty Jacquard-loom images is a parity figure of those axes (60/60), with the integrity check identified as a linear [1152, 13] code of minimum distance 288 (doi:10.5281/zenodo.22965031, doi:10.5281/zenodo.22986529, and a note on moir&eacute;, doi:10.5281/zenodo.22967585); twelve theorems stated plainly; and a closed question (the order-6 magic cube by stacking, with its proof). Version 2.3 records the formatting revision of the Mathematics Magazine submission, the four-language deposit of the treatise and the moir&eacute; note; version 2.2 corrected the plate reading of version 2 (simply supported &rarr; guided; mutation = reflection of the level, not a change of boundary condition). Every claim points to a time-stamped deposit, a submission number, or a script that can be re-run. French version included.&lt;/p&gt;</p>",
+   "description_texte": "<p>Progress report on the work carried out around <i>La Livrée d'Hermès</i> (September 2026, version 2.3): two mathematics papers under review (<i>Journal of Mathematics and the Arts</i>, submission 267148025; <i>Mathematics Magazine</i>, submission 262890732); four deposited notes establishing that the sixteen axis families of the pattern system are generated by a single doubling operation, are the level sets of a square-plate eigenmode with guided edges, and that every one of the sixty Jacquard-loom images is a parity figure of those axes (60/60), with the integrity check identified as a linear [1152, 13] code of minimum distance 288 (doi:10.5281/zenodo.22965031, doi:10.5281/zenodo.22986529, and a note on moiré, doi:10.5281/zenodo.22967585); twelve theorems stated plainly; and a closed question (the order-6 magic cube by stacking, with its proof). Version 2.3 records the formatting revision of the Mathematics Magazine submission, the four-language deposit of the treatise and the moiré note; version 2.2 corrected the plate reading of version 2 (simply supported → guided; mutation = reflection of the level, not a change of boundary condition). Every claim points to a time-stamped deposit, a submission number, or a script that can be re-run. French version included.</p>",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "ansate cross",
+    "half-shift criterion",
+    "Jacquard weaving",
+    "Chladni figures",
+    "nodal lines",
+    "cymatics",
+    "frequency selective surfaces",
+    "arithmogeometry",
+    "parity figures",
+    "level sets"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementedBy",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://anibal-amiot.com",
+     "relation": "isDescribedBy",
+     "resource_type": "other",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22967302",
+     "relation": "isReferencedBy",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "documents",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966838",
+     "relation": "documents",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "compte-rendu-travaux.pdf",
+     "octets": 85299,
+     "checksum": "md5:02cc6b92e60f6d8e4a155f30fb59777e",
+     "lien": "https://zenodo.org/api/records/22986767/files/compte-rendu-travaux.pdf/content"
+    },
+    {
+     "nom": "progress-report.docx",
+     "octets": 18911,
+     "checksum": "md5:259aedc016227652a089e5f78225372c",
+     "lien": "https://zenodo.org/api/records/22986767/files/progress-report.docx/content"
+    },
+    {
+     "nom": "compte-rendu-travaux.md",
+     "octets": 18342,
+     "checksum": "md5:7abcb2ea5cf2878b3f04d5e4a347c36e",
+     "lien": "https://zenodo.org/api/records/22986767/files/compte-rendu-travaux.md/content"
+    },
+    {
+     "nom": "progress-report.md",
+     "octets": 16706,
+     "checksum": "md5:c7696364e97b31a8e374e5b32d212b11",
+     "lien": "https://zenodo.org/api/records/22986767/files/progress-report.md/content"
+    },
+    {
+     "nom": "compte-rendu-travaux.docx",
+     "octets": 19495,
+     "checksum": "md5:32ae8e846d1fb8328c8d7956e8bf0613",
+     "lien": "https://zenodo.org/api/records/22986767/files/compte-rendu-travaux.docx/content"
+    },
+    {
+     "nom": "progress-report.pdf",
+     "octets": 83036,
+     "checksum": "md5:1ea11ddaef52b478443de81e0b127dd9",
+     "lien": "https://zenodo.org/api/records/22986767/files/progress-report.pdf/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": null,
+   "conceptDoi": "23189275",
+   "versionDoi_registre": null,
+   "versionDoi_reel": "10.5281/zenodo.23189276",
+   "ecart": "depot absent du registre",
+   "id_version": 23189276,
+   "titre": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)",
+   "publication_date": "2026-10-06",
+   "version": "v.3.1",
+   "licence": "cc-by-nc-4.0",
+   "type": "Dataset",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"MsoPlainText\"><span>&gt; *La Livr&eacute;e d'Herm&egrave;s* compte sept chapitres en 111 pages ; sa derni&egrave;re page annonce le<br>&gt; huiti&egrave;me, le jeu. Le voici.<br>&gt;<br>&gt; Les 360 plaques ajour&eacute;es sont engendr&eacute;es par une r&egrave;gle unique sur un carr&eacute; de 12 &times; 12 cases :<br>&gt; soixante identit&eacute;s &mdash; quinze familles d'axes de parit&eacute;, quatre teintes &mdash; d&eacute;clin&eacute;es en six<br>&gt; niveaux. Chaque plaque porte 24 des 144 cases ; les six niveaux d'une m&ecirc;me identit&eacute; couvrent<br>&gt; la grille exactement une fois, sans recouvrement, et leur superposition sur les trois tiges du<br>&gt; socle restitue le motif complet. Chaque identit&eacute; totalise 48 cases violettes, 48 magenta et<br>&gt; 48 orange, quelle que soit la fa&ccedil;on dont ses six niveaux se les r&eacute;partissent.<br>&gt;<br>&gt; Le d&eacute;p&ocirc;t contient, pour les 360 plaques : les mod&egrave;les monochromes au format STL, les mod&egrave;les<br>&gt; multicolores au format 3MF avec affectation des mati&egrave;res, et les dessins vectoriels de la<br>&gt; g&eacute;om&eacute;trie au format SVG. S'y ajoutent le socle de 110 &times; 110 &times; 5 mm, le r&eacute;f&eacute;rent<br>&gt; `referent_360_v3.json` qui d&eacute;finit les 360 calques et dont tous les rendus d&eacute;rivent, les<br>&gt; scripts de g&eacute;n&eacute;ration et de contr&ocirc;le, les empreintes SHA-256 de chaque fichier, et la<br>&gt; documentation compl&egrave;te en fran&ccedil;ais et en anglais : deux PDF de 360 pages &agrave; l'&eacute;chelle 1:1 par<br>&gt; langue, le catalogue des 60 jeux compos&eacute;s, le plan du socle, la sp&eacute;cification, la notice<br>&gt; d'impression, la fiche d'essai et l'index.<br>&gt;<br>&gt; Plaque de 103,2 &times; 103,2 &times; 1,0 mm ; trois per&ccedil;ages &Oslash;2,2 mm ; couleur sur les 0,4 mm<br>&gt; sup&eacute;rieurs ; gravure de 0,4 mm. Les trois tiges d'acier &Oslash;2 mm sont &agrave; fournir s&eacute;par&eacute;ment.<br>&gt;<br>&gt; **Les contr&ocirc;les sont num&eacute;riques ; aucune impression physique n'a encore &eacute;t&eacute; &eacute;prouv&eacute;e.** Les<br>&gt; 360 mod&egrave;les STL sont ferm&eacute;s, orient&eacute;s et connexes ; les 360 mod&egrave;les 3MF se r&eacute;ouvrent avec des<br>&gt; volumes coh&eacute;rents ; les positions color&eacute;es de chacune des 360 entr&eacute;es sont conformes au<br>&gt; r&eacute;f&eacute;rent, et deux tests n&eacute;gatifs &mdash; un niveau fauss&eacute;, deux niveaux permut&eacute;s &mdash; sont bien<br>&gt; refus&eacute;s. Les PDF doivent s'imprimer &agrave; 100 %, sans ajustement : le segment de rep&egrave;re de 100 mm<br>&gt; permet de le v&eacute;rifier.<br>&gt;<br>&gt; La r&eacute;vision V3.1 ne touche &agrave; aucun mod&egrave;le : elle corrige les l&eacute;gendes et le contraste<br>&gt; plein/vide des PDF, et l'attribution des r&eacute;partitions de couleur exceptionnelles, qui d&eacute;pend<br>&gt; du niveau et non de la seule identit&eacute;. Les 24 plaques de l'axe `BASES / YIN-MUT` sont<br>&gt; conserv&eacute;es sans normalisation : leur irr&eacute;gularit&eacute; apparente satisfait l'invariant 48/48/48<br>&gt; d'une autre mani&egrave;re.<br>&gt;<br>&gt; Les cinq archives constituent ensemble le d&eacute;p&ocirc;t complet et se d&eacute;compressent dans un m&ecirc;me<br>&gt; dossier. `SOURCES_DATA_DOCUMENTATION` contient les sources, les donn&eacute;es et la documentation<br>&gt; bilingue int&eacute;grale ; les quatre autres contiennent les plaques par cat&eacute;gorie &mdash; BASES 001-096,<br>&gt; PAR2 097-240, PAR3 241-336, YINYANG 337-360 &mdash; avec les PDF et index de leur sous-ensemble.<br>&gt;<br>&gt; Licence : CC BY-NC 4.0 pour les mod&egrave;les, les documents et les donn&eacute;es ; AGPL v3 pour les<br>&gt; scripts du dossier `sources`.<br>&gt;<br>&gt; *La Livr&eacute;e d'Herm&egrave;s* est un livre de philosophie et de math&eacute;matiques en acc&egrave;s libre, centr&eacute;<br>&gt; sur la construction des carr&eacute;s magiques et leur transcription en tissage Jacquard.<br></span></p>",
+   "description_texte": "> *La Livrée d'Hermès* compte sept chapitres en 111 pages ; sa dernière page annonce le\n> huitième, le jeu. Le voici.\n>\n> Les 360 plaques ajourées sont engendrées par une règle unique sur un carré de 12 × 12 cases :\n> soixante identités — quinze familles d'axes de parité, quatre teintes — déclinées en six\n> niveaux. Chaque plaque porte 24 des 144 cases ; les six niveaux d'une même identité couvrent\n> la grille exactement une fois, sans recouvrement, et leur superposition sur les trois tiges du\n> socle restitue le motif complet. Chaque identité totalise 48 cases violettes, 48 magenta et\n> 48 orange, quelle que soit la façon dont ses six niveaux se les répartissent.\n>\n> Le dépôt contient, pour les 360 plaques : les modèles monochromes au format STL, les modèles\n> multicolores au format 3MF avec affectation des matières, et les dessins vectoriels de la\n> géométrie au format SVG. S'y ajoutent le socle de 110 × 110 × 5 mm, le référent\n> `referent_360_v3.json` qui définit les 360 calques et dont tous les rendus dérivent, les\n> scripts de génération et de contrôle, les empreintes SHA-256 de chaque fichier, et la\n> documentation complète en français et en anglais : deux PDF de 360 pages à l'échelle 1:1 par\n> langue, le catalogue des 60 jeux composés, le plan du socle, la spécification, la notice\n> d'impression, la fiche d'essai et l'index.\n>\n> Plaque de 103,2 × 103,2 × 1,0 mm ; trois perçages Ø2,2 mm ; couleur sur les 0,4 mm\n> supérieurs ; gravure de 0,4 mm. Les trois tiges d'acier Ø2 mm sont à fournir séparément.\n>\n> **Les contrôles sont numériques ; aucune impression physique n'a encore été éprouvée.** Les\n> 360 modèles STL sont fermés, orientés et connexes ; les 360 modèles 3MF se réouvrent avec des\n> volumes cohérents ; les positions colorées de chacune des 360 entrées sont conformes au\n> référent, et deux tests négatifs — un niveau faussé, deux niveaux permutés — sont bien\n> refusés. Les PDF doivent s'imprimer à 100 %, sans ajustement : le segment de repère de 100 mm\n> permet de le vérifier.\n>\n> La révision V3.1 ne touche à aucun modèle : elle corrige les légendes et le contraste\n> plein/vide des PDF, et l'attribution des répartitions de couleur exceptionnelles, qui dépend\n> du niveau et non de la seule identité. Les 24 plaques de l'axe `BASES / YIN-MUT` sont\n> conservées sans normalisation : leur irrégularité apparente satisfait l'invariant 48/48/48\n> d'une autre manière.\n>\n> Les cinq archives constituent ensemble le dépôt complet et se décompressent dans un même\n> dossier. `SOURCES_DATA_DOCUMENTATION` contient les sources, les données et la documentation\n> bilingue intégrale ; les quatre autres contiennent les plaques par catégorie — BASES 001-096,\n> PAR2 097-240, PAR3 241-336, YINYANG 337-360 — avec les PDF et index de leur sous-ensemble.\n>\n> Licence : CC BY-NC 4.0 pour les modèles, les documents et les données ; AGPL v3 pour les\n> scripts du dossier `sources`.\n>\n> *La Livrée d'Hermès* est un livre de philosophie et de mathématiques en accès libre, centré\n> sur la construction des carrés magiques et leur transcription en tissage Jacquard.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "La Livrée d'Hermès",
+    "arithmogéométrie",
+    "carré magique",
+    "hexagramme",
+    "trigramme",
+    "grille ajourée",
+    "impression 3D",
+    "composition par calques",
+    "motif",
+    "jeu",
+    "tissage Jacquard"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "continues",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementedBy",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://anibal-amiot.com/360-calques.html",
+     "relation": "isDocumentedBy",
+     "scheme": "url"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_ZH_HANS.zip",
+     "octets": 22986445,
+     "checksum": "md5:199891aab20aacffd82bc94ccc78bd25",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_ZH_HANS.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_DEPOT_03_SUR_05.zip",
+     "octets": 38576699,
+     "checksum": "md5:1a0557b2974a3736fb66e66c868288da",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_03_SUR_05.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_DEPOT_04_SUR_05.zip",
+     "octets": 34644219,
+     "checksum": "md5:9f751974bac254534ec7bf87aae080df",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_04_SUR_05.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_DEPOT_05_SUR_05.zip",
+     "octets": 37206846,
+     "checksum": "md5:3f1b55e53dedfac988f5594decb348f5",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_05_SUR_05.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_ES.zip",
+     "octets": 23630035,
+     "checksum": "md5:a86daf2fff13ff03450ec7210be43e2b",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_ES.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_RU.zip",
+     "octets": 23596517,
+     "checksum": "md5:fdc937eba32b1c5f1b82d04a7c09584d",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_RU.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_HI.zip",
+     "octets": 24091891,
+     "checksum": "md5:750707dfd72614b04ecd6883914a0839",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_HI.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_TH.zip",
+     "octets": 24116390,
+     "checksum": "md5:f1d5398e8a6d237a8c170b2e32058efb",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_TH.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_DEPOT_02_SUR_05.zip",
+     "octets": 34646873,
+     "checksum": "md5:0c466a56590831066d81ce8b6060bd2e",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_02_SUR_05.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_SUPPLEMENT_PT.zip",
+     "octets": 23620648,
+     "checksum": "md5:80e26b3738eb12f62a641a2c97a7d915",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_SUPPLEMENT_PT.zip/content"
+    },
+    {
+     "nom": "LLDH_V3_1_DEPOT_01_SUR_05.zip",
+     "octets": 37397331,
+     "checksum": "md5:0b1a0a5ecb5e78ffd89145a5b0cbdd1a",
+     "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_01_SUR_05.zip/content"
+    }
+   ]
+  }
+ ]
+}

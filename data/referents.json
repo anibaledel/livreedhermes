@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-10-07T12:11:40Z",
+ "generated_at_utc": "2026-10-07T15:06:52Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -33,7 +33,8 @@
     "data/referent_256_src/MANIFEST.json"
    ],
    "pages": [
-    "encodeur.html"
+    "encodeur.html",
+    "travaux/half-shift-criterion-scripts/index.html"
    ],
    "cles": [
     "format_version",
@@ -92,7 +93,11 @@
     "es/crear-un-motivo/index.html",
     "th/360-layers/index.html",
     "th/create-a-pattern/index.html",
-    "th/figures-and-sources/index.html"
+    "th/figures-and-sources/index.html",
+    "travaux/chapitre-viii-le-jeu/index.html",
+    "travaux/half-shift-criterion-scripts/index.html",
+    "travaux/la-livree-d-hermes/index.html",
+    "travaux/one-object-three-descriptions/index.html"
    ],
    "cles": [
     "format_version",
@@ -139,7 +144,8 @@
     "es/galeria-tricolor/index.html",
     "fonds-ecran.html",
     "galerie-patterns-unifies.html",
-    "th/three-colour-gallery/index.html"
+    "th/three-colour-gallery/index.html",
+    "travaux/half-shift-criterion-scripts/index.html"
    ],
    "cles": [
     "layerOf",
