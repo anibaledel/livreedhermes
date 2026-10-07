@@ -5,8 +5,13 @@
 // epingles_encre_creme.mjs — le parcours des épingles encre et crème, et
 // leurs images (décisions d'Anibal, 2026-10-05) :
 //   - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN
-//     SITUATION en 3 × 4½, 1000 × 1500, centrée (un quart de carreau coupé
-//     en haut et en bas, rien à gauche ni à droite) ; le 4 × 6 est abandonné ;
+//     SITUATION en 2 × 3 DÉCALÉ d'un demi-carreau, 1000 × 1500 (décision
+//     d'Anibal, 7 octobre 2026) : deux carreaux de 500 px en largeur, trois
+//     en hauteur, la phase du pavage déplacée d'un demi-carreau en x et en y
+//     — les quatre bords sont coupés, et le pavage se referme exactement
+//     dans les deux sens. Le 3 × 4½ du 5 octobre ne se refermait pas en
+//     hauteur (copie suivante décalée d'un demi-carreau) ; ses images restent
+//     dans encre-creme/pavage-3x4/ ;
 //   - PAS DE JUMELLES : un motif dont l'image (lecture binaire) est celle d'un
 //     motif déjà publié ou déjà pris dans le parcours en sort, et devient son
 //     synonyme. Le bloc par3-sans-yang-mut est retiré entier (sa règle :
@@ -29,7 +34,7 @@
 // colonne avant chaque frontière de case (16,7 % de pixels intermédiaires sur
 // la colonne 123 de la cellule, contre 0,4 % sur la pire ligne). Mesuré sur
 // la série : la pire colonne rejoint la pire ligne (cellule 0,13–0,53 % l'une
-// et l'autre ; 3 × 4½ 1,20–1,87 % contre 1,00–1,80 %). Le dessin ne bouge
+// et l'autre ; mesuré alors sur le 3 × 4½, 1,20–1,87 % contre 1,00–1,80 %). Le dessin ne bouge
 // pas : les pixels qui changent de couleur sont tous à moins de 3 px d'un
 // bord de case ou d'une diagonale (le débord retiré).
 // L'échantillon des rendus précédents reste dans echantillon-encre-creme/
@@ -40,7 +45,8 @@
 //         node tools/epingles_encre_creme.mjs --verifie         le parcours écrit est à jour
 //         node tools/epingles_encre_creme.mjs --serie           les images de tout le parcours (fond crème,
 //                                                               mesure de l'échantillon le 7 octobre),
-//                                                               et leur liste data/fonds/epingles-images.json
+//                                                               et leur liste data/fonds/epingles-images.json, et la liste à
+//                                                               programmer data/fonds/epingles-encre-creme.csv (URL de chaque image)
 //         node tools/epingles_encre_creme.mjs --raccord      les images servies se referment (deux exemplaires bout
 //                                                               à bout = le pavage d'un seul tenant)
 //         node tools/epingles_encre_creme.mjs --raccord --essai  une case faussée d'un pixel : refusée
@@ -59,7 +65,9 @@ const REGISTRE = path.join(ROOT, 'data/fonds/epingles-pinterest.csv');
 const SORTIE_ECHANTILLON = path.join(ROOT, 'assets/motifs-pinterest/echantillon-encre-creme');
 const SORTIE_SERIE = 'assets/motifs-pinterest/encre-creme';
 const LISTE_IMAGES = path.join(ROOT, 'data/fonds/epingles-images.json');
+const CSV_SERIE = path.join(ROOT, 'data/fonds/epingles-encre-creme.csv');
 const BLOC_RETIRE = 'par3-sans-yang-mut';
+const FORMAT_PAVAGE = 'pavage-2x3-decale';
 const PAR_JOUR = ['08:00', '11:00', '14:00', '17:00'];
 
 // ---- le registre tel qu'il est : les publiées, et le premier créneau à venir
@@ -93,11 +101,14 @@ await page.evaluate(async (palette) => {
   // recouvrait 1,875 px de la précédente, d'où une couture une colonne avant
   // chaque frontière de case — 123, 248, … 1373 dans la cellule.)
   const [CREME, ENCRE] = palette;
+  const CADRE = [bf.GRID / 2, bf.GRID / 2, 2 * bf.GRID, 3 * bf.GRID]; // le 2 × 3 décalé d'un demi-carreau
   const sens = (pts) => { let a = 0; pts.forEach(([x, y], i) => { const [u, v] = pts[(i + 1) % pts.length]; a += x * v - u * y; }); return a < 0 ? [...pts].reverse() : pts; };
   // Les sommets sont posés sur la grille des pixels (arrondis, comme le
   // faisait le calage des bords droits) : un bord droit tombe entre deux
   // pixels, jamais au travers ; seules les diagonales gardent leur
-  // anticrénelage. Une case du 3 × 4½ fait 27 ou 28 px (1000 / 36).
+  // anticrénelage. Une case du 2 × 3 fait 41 ou 42 px (1000 / 24) ; la
+  // 24e case après le bord tombe sur 1000 et la 36e sur 1500 : le raccord
+  // reprend les mêmes arrondis.
   // `faussee` (l'essai de --raccord seulement) : la colonne de cases de ce
   // rang est rendue 1 px plus large, tout ce qui suit est poussé d'autant.
   function encre(cases, colonnes, lignes, [vx, vy, vl, vh], l, h, faussee = null) {
@@ -140,21 +151,20 @@ await page.evaluate(async (palette) => {
   window.__raccord = async (grille, nom, imgCellule, imgPavage, faussee = null) => {
     const cases = casesDe(grille, nom), G = bf.GRID;
     const P = faussee === null ? await pixelsDuFichier(imgPavage)
-      : await svgEnPixels(svgFond(cases, 3, 6, [0, 9, 3 * G, 4.5 * G], 1000, 1500, faussee), 1000, 1500);
+      : await svgEnPixels(svgFond(cases, 3, 4, CADRE, 1000, 1500, faussee), 1000, 1500);
     const C = await pixelsDuFichier(imgCellule);
     return {
-      pavage_h: ecart(P, await svgEnPixels(svgFond(cases, 6, 6, [0, 9, 6 * G, 4.5 * G], 2000, 1500), 2000, 1500), 'h'),
+      pavage_h: ecart(P, await svgEnPixels(svgFond(cases, 5, 4, [CADRE[0], CADRE[1], 2 * CADRE[2], CADRE[3]], 2000, 1500), 2000, 1500), 'h'),
+      pavage_v: ecart(P, await svgEnPixels(svgFond(cases, 3, 7, [CADRE[0], CADRE[1], CADRE[2], 2 * CADRE[3]], 1000, 3000), 1000, 3000), 'v'),
       cellule_h: ecart(C, await svgEnPixels(svgFond(cases, 2, 1, [0, 0, 2 * G, G], 3000, 1500), 3000, 1500), 'h'),
       cellule_v: ecart(C, await svgEnPixels(svgFond(cases, 1, 2, [0, 0, G, 2 * G], 1500, 3000), 1500, 3000), 'v'),
     };
   };
   window.__cellule = async (grille, nom) => b64(await svgEnPng(svgFond(casesDe(grille, nom), 1, 1, [0, 0, bf.GRID, bf.GRID], 1500, 1500), 1500, 1500));
-  // 3 carreaux de large au rapport 2:3 : 4½ en hauteur ; 6 rangées tracées,
-  // le centre du cadre sur un coin de carreau (un quart coupé en haut et en bas)
-  window.__pavage = async (grille, nom) => {
-    const W = 3 * bf.GRID, H = (W * 1500) / 1000, m = 6;
-    return b64(await svgEnPng(svgFond(casesDe(grille, nom), 3, m, [0, (m * bf.GRID - H) / 2, W, H], 1000, 1500), 1000, 1500));
-  };
+  // 2 carreaux de large, 3 de haut, la phase décalée d'un demi-carreau en x
+  // et en y : le cadre (en cases) part de (6, 6) ; 3 × 4 carreaux tracés le
+  // couvrent
+  window.__pavage = async (grille, nom) => b64(await svgEnPng(svgFond(casesDe(grille, nom), 3, 4, CADRE, 1000, 1500), 1000, 1500));
 }, [...PALETTE_DEFAUT]);
 const signature = (slug) => page.evaluate(([g, s]) => window.__signature(g, s), [grilleDeLaPage(ROOT, `motifs/${slug}.html`), slug]);
 
@@ -178,13 +188,13 @@ async function calculerParcours() {
   const t0 = new Date(`${jour}T00:00:00Z`);
   const epingles = [];
   parcours.forEach((slug, i) => {
-    for (const format of ['cellule', 'pavage-3x4']) {
+    for (const format of ['cellule', FORMAT_PAVAGE]) {
       const k = epingles.length, d = new Date(t0.getTime() + Math.floor(k / PAR_JOUR.length) * 86400000);
       epingles.push({ ordre: publiees.length + k + 1, motif: slug, format, creneau: `${d.toISOString().slice(0, 10)}T${PAR_JOUR[k % PAR_JOUR.length]}` });
     }
   });
   return {
-    _doc: "Le parcours des épingles encre et crème (décisions d'Anibal, 2026-10-05), écrit par tools/epingles_encre_creme.mjs --parcours. Famille par famille, dans l'ordre de FAMILLES (assets/vue-fond-ecran.js), h0…h31, les 12 publiées sautées ; deux épingles par motif (cellule 1500 × 1500, puis mise en situation 3 × 4½ 1000 × 1500), quatre créneaux par jour à partir du premier créneau à venir du registre. Pas de jumelles : un motif dont la lecture binaire est l'image d'un motif publié ou déjà pris sort du parcours et devient son synonyme ; le bloc par3-sans-yang-mut est retiré entier (sa jumelle par2-yin-yang est gardée) — une seule exception, par3-sans-yang-mut-h0 : il est parmi les 12 publiées, qui ne se reprennent pas ; c'est donc sa jumelle par2-yin-yang-h7 qui sort (synonyme de par3-sans-yang-mut-h0). La règle par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7) est vérifiée sur les 32 paires par empreinte de pixels (7 octobre 2026), sans autre égalité entre les deux familles. Rien n'est programmé : data/fonds/epingles-pinterest.csv ne change pas.",
+    _doc: "Le parcours des épingles encre et crème (décisions d'Anibal, 2026-10-05), écrit par tools/epingles_encre_creme.mjs --parcours. Famille par famille, dans l'ordre de FAMILLES (assets/vue-fond-ecran.js), h0…h31, les 12 publiées sautées ; deux épingles par motif (cellule 1500 × 1500, puis mise en situation 2 × 3 décalé d'un demi-carreau, 1000 × 1500, décision du 7 octobre 2026), quatre créneaux par jour à partir du premier créneau à venir du registre. Pas de jumelles : un motif dont la lecture binaire est l'image d'un motif publié ou déjà pris sort du parcours et devient son synonyme ; le bloc par3-sans-yang-mut est retiré entier (sa jumelle par2-yin-yang est gardée) — une seule exception, par3-sans-yang-mut-h0 : il est parmi les 12 publiées, qui ne se reprennent pas ; c'est donc sa jumelle par2-yin-yang-h7 qui sort (synonyme de par3-sans-yang-mut-h0). La règle par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7) est vérifiée sur les 32 paires par empreinte de pixels (7 octobre 2026), sans autre égalité entre les deux familles. Rien n'est programmé : data/fonds/epingles-pinterest.csv ne change pas.",
     publiees,
     familles: familles.map((f) => ({ famille: f, motifs: parcours.filter((s) => s.startsWith(`${f}-h`)).length })),
     motifs: parcours.length,
@@ -216,9 +226,9 @@ if (args.includes('--echantillon')) {
   for (const slug of six) {
     const g = grilleDeLaPage(ROOT, `motifs/${slug}.html`);
     ecrire(path.join(SORTIE_ECHANTILLON, 'cellule-fond-creme', `${slug}.png`), await page.evaluate(([g, s]) => window.__cellule(g, s), [g, slug]));
-    ecrire(path.join(SORTIE_ECHANTILLON, 'pavage-3x4-fond-creme', `${slug}.png`), await page.evaluate(([g, s]) => window.__pavage(g, s), [g, slug]));
+    ecrire(path.join(SORTIE_ECHANTILLON, `${FORMAT_PAVAGE}-fond-creme`, `${slug}.png`), await page.evaluate(([g, s]) => window.__pavage(g, s), [g, slug]));
   }
-  console.log(`Échantillon sur fond crème : ${six.length} cellules et ${six.length} mises en situation 3 × 4½, dans ${path.relative(ROOT, SORTIE_ECHANTILLON)}/{cellule-fond-creme,pavage-3x4-fond-creme}/.`);
+  console.log(`Échantillon sur fond crème : ${six.length} cellules et ${six.length} mises en situation 2 × 3 décalé, dans ${path.relative(ROOT, SORTIE_ECHANTILLON)}/{cellule-fond-creme,${FORMAT_PAVAGE}-fond-creme}/.`);
 }
 if (args.includes('--serie')) {
   // une image par épingle du parcours, rendue comme l'échantillon validé
@@ -241,13 +251,22 @@ if (args.includes('--serie')) {
     _doc: "Les images des épingles encre et crème, une par épingle de data/fonds/epingles-parcours.json, écrites par tools/epingles_encre_creme.mjs --serie (fond crème plein puis l'encre seule, décision d'Anibal du 7 octobre 2026). Servies à https://anibal-amiot.com/<image>. tools/check_epingles_images.mjs vérifie qu'elles existent, à leur taille, à leur empreinte, sans couture.",
     epingles: images.length, octets: total, images,
   }, null, 1) + '\n');
-  console.log(`Série : ${images.length} images dans ${SORTIE_SERIE}/{cellule,pavage-3x4}/, ${(total / 1e6).toFixed(1)} Mo.`);
+  // la liste à programmer, URL par URL : une ligne par épingle du parcours
+  // (data/fonds/epingles-pinterest.csv, l'ancienne campagne tricolore, ne
+  // change pas : ses 12 épingles publiées y gardent leur image)
+  const site = 'https://anibal-amiot.com';
+  const lignesCsv = p.parcours.map((e, i) => [e.ordre, 'a_programmer', e.creneau, e.motif, e.format, path.basename(images[i].image),
+    `${site}/${images[i].image}`, `${site}/motifs/${e.motif}.html`].join(','));
+  writeFileSync(CSV_SERIE, ['ordre,statut,date,motif,format,fichier,url_image,url_page', ...lignesCsv].join('\n') + '\n');
+  console.log(`Série : ${images.length} images dans ${SORTIE_SERIE}/{cellule,${FORMAT_PAVAGE}}/, ${(total / 1e6).toFixed(1)} Mo.`);
 }
 if (args.includes('--raccord')) {
   // Seuils (sur 255) : au joint, l'écart moyen ne dépasse pas 0,1 et aucun
   // pixel ne s'écarte de plus de 2. Mesuré sur les 212 (7 octobre 2026) :
   // 0,001 de moyenne, 0,33 au pire ; le rendu calé d'avant #254 donnait
-  // 0,12 à 2,09 de moyenne et jusqu'à 90 au joint du 3 × 4½.
+  // 0,12 à 2,09 de moyenne et jusqu'à 90 au joint du 3 × 4½. Le 2 × 3
+  // décalé se contrôle dans les deux sens (le 3 × 4½ ne se refermait pas en
+  // hauteur).
   const MOY = 0.1, MAX = 2;
   const p = JSON.parse(readFileSync(LISTE_IMAGES, 'utf8'));
   const parMotif = new Map();
@@ -257,7 +276,7 @@ if (args.includes('--raccord')) {
   const fautes = [], pires = {};
   for (const slug of motifs) {
     const im = parMotif.get(slug), g = grilleDeLaPage(ROOT, `motifs/${slug}.html`);
-    const r = await page.evaluate(([g, s, c, pv, f]) => window.__raccord(g, s, c, pv, f), [g, slug, im.cellule, im['pavage-3x4'], essai ? 17 : null]);
+    const r = await page.evaluate(([g, s, c, pv, f]) => window.__raccord(g, s, c, pv, f), [g, slug, im.cellule, im[FORMAT_PAVAGE], essai ? 17 : null]);
     for (const [k, v] of Object.entries(r)) {
       if (!pires[k] || v.moy > pires[k].moy) pires[k] = { ...v, slug };
       if (v.moy > MOY || v.max > MAX) fautes.push(`${slug} ${k} : écart au joint ${v.moy.toFixed(3)} en moyenne, ${v.max.toFixed(2)} au pire (sur 255)`);
@@ -274,7 +293,7 @@ if (args.includes('--raccord')) {
     console.error(`\n${fautes.length} raccord(s) en défaut.`);
     code = 1;
   } else {
-    console.log(`Raccord : ${motifs.length} motifs, la cellule se referme dans les deux sens, le 3 × 4½ en largeur (sa hauteur, 4 carreaux ½, ne se referme pas par construction).`);
+    console.log(`Raccord : ${motifs.length} motifs, la cellule et le 2 × 3 décalé se referment dans les deux sens.`);
   }
 }
 await nav.close();

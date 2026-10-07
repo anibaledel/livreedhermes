@@ -387,6 +387,7 @@
    "role": "les images des épingles encre et crème sont là, à leur taille, et sont bien celles de la liste.",
    "lit": [
     "assets/motifs-pinterest/echantillon-encre-creme/cellule-calee/bases-yang-h2.png",
+    "data/fonds/epingles-encre-creme.csv",
     "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json"
    ],
@@ -1025,10 +1026,11 @@
   },
   {
    "fichier": "tools/epingles_encre_creme.mjs",
-   "role": "le parcours des épingles encre et crème, et leurs images (décisions d'Anibal, 2026-10-05) : - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN SITUATION en 3 × 4½, 1000 × 1500, centrée (un quart de carreau coupé en haut et …",
+   "role": "le parcours des épingles encre et crème, et leurs images (décisions d'Anibal, 2026-10-05) : - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN SITUATION en 2 × 3 DÉCALÉ d'un demi-carreau, 1000 × 1500 (décision d'Anibal, 7 o…",
    "lit": [
     "assets/motifs-pinterest/echantillon-encre-creme",
     "assets/motifs-pinterest/encre-creme",
+    "data/fonds/epingles-encre-creme.csv",
     "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json",
     "data/fonds/epingles-pinterest.csv"
