@@ -1272,6 +1272,34 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/index_referents.mjs",
+   "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
+   "lit": [
+    "data/SHA256SUMS.txt",
+    "data/fonds_ecran_v1.json",
+    "data/referent_256_src/MANIFEST.json",
+    "data/referent_256_v3.json",
+    "data/referent_360_src/MANIFEST.json",
+    "data/referent_360_v3.json",
+    "data/referents.json",
+    "tools/check_fonds_ecran_completude.py",
+    "tools/check_page_360.mjs",
+    "tools/enum_criteres.py",
+    "tools/generate_fonds_ecran.py",
+    "tools/generate_referent_256.py",
+    "tools/generate_referent_360.py",
+    "tools/validate_referent.py",
+    "tools/verif_protocole.py"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/inventaire_zenodo.py",
    "role": "les dépôts Zenodo d'Anibal tels que Zenodo les LECTURE SEULE : uniquement des requêtes GET sur l'API publique de Zenodo, sans jeton.",
    "lit": [
@@ -1505,6 +1533,7 @@
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
    "lit": [
     "tools/axes",
+    "tools/index_referents.mjs",
     "tools/registre.json"
    ],
    "ecrit": [],
