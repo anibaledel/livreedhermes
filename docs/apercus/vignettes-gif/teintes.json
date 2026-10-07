@@ -1,0 +1,130 @@
+{
+ "cycle": [
+  {
+   "base": "#e0261b",
+   "neutral": "#e0261b",
+   "dark": "#851710",
+   "light": "#ee7a73"
+  },
+  {
+   "base": "#e07e1b",
+   "neutral": "#e07e1b",
+   "dark": "#854b10",
+   "light": "#eeb173"
+  },
+  {
+   "base": "#e0e01b",
+   "neutral": "#e0e01b",
+   "dark": "#858510",
+   "light": "#eeee73"
+  },
+  {
+   "base": "#7ee01b",
+   "neutral": "#7ee01b",
+   "dark": "#4b8510",
+   "light": "#b1ee73"
+  },
+  {
+   "base": "#1be01b",
+   "neutral": "#1be01b",
+   "dark": "#108510",
+   "light": "#73ee73"
+  },
+  {
+   "base": "#1be07e",
+   "neutral": "#1be07e",
+   "dark": "#10854b",
+   "light": "#73eeb1"
+  },
+  {
+   "base": "#1be0e0",
+   "neutral": "#1be0e0",
+   "dark": "#108585",
+   "light": "#73eeee"
+  },
+  {
+   "base": "#1b7ee0",
+   "neutral": "#1b7ee0",
+   "dark": "#104b85",
+   "light": "#73b1ee"
+  },
+  {
+   "base": "#1b1be0",
+   "neutral": "#1b1be0",
+   "dark": "#101085",
+   "light": "#7373ee"
+  },
+  {
+   "base": "#7e1be0",
+   "neutral": "#7e1be0",
+   "dark": "#4b1085",
+   "light": "#b173ee"
+  },
+  {
+   "base": "#e01be0",
+   "neutral": "#e01be0",
+   "dark": "#851085",
+   "light": "#ee73ee"
+  },
+  {
+   "base": "#e01b7e",
+   "neutral": "#e01b7e",
+   "dark": "#85104b",
+   "light": "#ee73b1"
+  }
+ ],
+ "quadri": [
+  {
+   "base": "#f1a102",
+   "neutral": "#f1a102",
+   "dark": "#8c5d01",
+   "light": "#fec75b"
+  },
+  {
+   "base": "#eb6725",
+   "neutral": "#eb6725",
+   "dark": "#9c3d0e",
+   "light": "#f4a882"
+  },
+  {
+   "base": "#316287",
+   "neutral": "#316287",
+   "dark": "#162c3c",
+   "light": "#5b96c3"
+  },
+  {
+   "base": "#94abbc",
+   "neutral": "#94abbc",
+   "dark": "#5a7990",
+   "light": "#d3dce3"
+  }
+ ],
+ "tricolore": [
+  {
+   "base": "#662d91",
+   "neutral": "#662d91",
+   "dark": "#2f1543",
+   "light": "#9a59cb"
+  },
+  {
+   "base": "#ee2a7b",
+   "neutral": "#ee2a7b",
+   "dark": "#a50d4c",
+   "light": "#f688b6"
+  },
+  {
+   "base": "#fbb040",
+   "neutral": "#fbb040",
+   "dark": "#d17f04",
+   "light": "#fdd9a4"
+  }
+ ],
+ "repos": [
+  {
+   "base": "#e0261b",
+   "neutral": "#e0261b",
+   "dark": "#851710",
+   "light": "#ee7a73"
+  }
+ ]
+}
