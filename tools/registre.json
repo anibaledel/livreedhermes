@@ -386,6 +386,7 @@
    "fichier": "tools/check_epingles_images.mjs",
    "role": "les images des épingles encre et crème sont là, à leur taille, et sont bien celles de la liste.",
    "lit": [
+    "assets/motifs-pinterest/echantillon-encre-creme/cellule-calee/bases-yang-h2.png",
     "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json"
    ],

@@ -16,21 +16,27 @@
 // data/fonds/epingles-parcours.json ; data/fonds/epingles-pinterest.csv (les
 // épingles telles que programmées) ne change pas.
 //
-// LE RENDU. Les images sont rendues depuis le SVG des pages de motifs, à leur
-// taille finale, sans réduction. Les bords droits des cases (les <rect>) sont
-// calés sur le pixel (shape-rendering: crispEdges) ; les diagonales des cases
-// coupées gardent leur anticrénelage. Mesuré sur six motifs : les liserés
-// clairs entre deux cases de même couleur venaient des bords droits
-// anticrénelés — d'une case de 27,78 px (le 3 × 4½ : 1000 px pour 36 cases)
-// comme d'une case de 125 px (la cellule) — et non d'une réduction d'image :
-// un rendu direct à 1000 × 1500 SANS calage en a davantage (6,5 % de pixels
-// intermédiaires) que le rendu réduit de 1008 × 1512 (5,2 %).
+// LE RENDU (7 octobre 2026, fond crème — décision d'Anibal). Un rectangle
+// crème plein, puis l'encre seule, en un chemin : les cases d'encre et les
+// triangles d'encre des cases coupées, sommets posés sur la grille des
+// pixels. Aucune forme crème n'est tracée, aucune arête n'est partagée entre
+// deux formes. Le rendu précédent (« calé ») passait par les symboles des
+// pages de motifs, qui débordent de 1,5 % pour couvrir les joints à l'écran :
+// chaque case recouvrait 1,875 px de la précédente, d'où une couture une
+// colonne avant chaque frontière de case (16,7 % de pixels intermédiaires sur
+// la colonne 123 de la cellule, contre 0,4 % sur la pire ligne). Mesuré sur
+// la série : la pire colonne rejoint la pire ligne (cellule 0,13–0,53 % l'une
+// et l'autre ; 3 × 4½ 1,20–1,87 % contre 1,00–1,80 %). Le dessin ne bouge
+// pas : les pixels qui changent de couleur sont tous à moins de 3 px d'un
+// bord de case ou d'une diagonale (le débord retiré).
+// L'échantillon des rendus précédents reste dans echantillon-encre-creme/
+// (cellule-calee, pavage-3x4-cale) pour comparer au même endroit.
 //
 // Usage : node tools/epingles_encre_creme.mjs --parcours        écrit le parcours
 //         node tools/epingles_encre_creme.mjs --echantillon     les six motifs de l'échantillon
 //         node tools/epingles_encre_creme.mjs --verifie         le parcours écrit est à jour
-//         node tools/epingles_encre_creme.mjs --serie           les images de tout le parcours (validées
-//                                                               par Anibal sur l'échantillon le 7 octobre),
+//         node tools/epingles_encre_creme.mjs --serie           les images de tout le parcours (fond crème,
+//                                                               mesure de l'échantillon le 7 octobre),
 //                                                               et leur liste data/fonds/epingles-images.json
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
@@ -68,21 +74,44 @@ await page.evaluate(async (palette) => {
   const bf = await import('/assets/bicolore-fonds.js');
   const { lectureBinaire } = await import('/assets/lecture-binaire.js');
   const { svgEnPng } = await import('/assets/vue-fond-motif.js');
-  const json = await (await fetch('/data/fonds/collection-v1.json')).json();
-  const calculs = await (await fetch('/data/fonds/collection-v1.calculs.json')).json();
-  const fond = bf.chargerCollection(json, { calculs }).fonds.get('P');
-  const CALAGE = '<defs><style>rect{shape-rendering:crispEdges}</style>';
   const b64 = async (blob) => { const o = new Uint8Array(await blob.arrayBuffer()); let s = ''; for (let i = 0; i < o.length; i += 0x8000) s += String.fromCharCode(...o.subarray(i, i + 0x8000)); return btoa(s); };
   const casesDe = (grille, nom) => lectureBinaire(grille, nom).cases;
   window.__signature = (grille, nom) => JSON.stringify(casesDe(grille, nom));
-  window.__cellule = async (grille, nom) => b64(await svgEnPng(bf.motifSvg(casesDe(grille, nom), palette, fond, { size: 1500 }).replace('<defs>', CALAGE), 1500, 1500));
-  // 3 carreaux de large au rapport 2:3 : 4½ en hauteur ; 6 rangées rendues,
+  // LE FOND CRÈME (décision d'Anibal, 7 octobre 2026) : un rectangle crème
+  // plein, puis l'encre seule, en UN chemin — chaque case d'encre et chaque
+  // triangle d'encre des cases coupées, tous dans le même sens. Aucune forme
+  // crème n'est posée, aucune arête n'est partagée entre deux formes :
+  // l'anticrénelage de l'encre ne mélange l'encre qu'au crème qui est
+  // derrière. (Le rendu précédent passait par les symboles des pages, qui
+  // débordent de 1,5 % pour couvrir les joints à l'écran : la case suivante
+  // recouvrait 1,875 px de la précédente, d'où une couture une colonne avant
+  // chaque frontière de case — 123, 248, … 1373 dans la cellule.)
+  const [CREME, ENCRE] = palette;
+  const sens = (pts) => { let a = 0; pts.forEach(([x, y], i) => { const [u, v] = pts[(i + 1) % pts.length]; a += x * v - u * y; }); return a < 0 ? [...pts].reverse() : pts; };
+  // Les sommets sont posés sur la grille des pixels (arrondis, comme le
+  // faisait le calage des bords droits) : un bord droit tombe entre deux
+  // pixels, jamais au travers ; seules les diagonales gardent leur
+  // anticrénelage. Une case du 3 × 4½ fait 27 ou 28 px (1000 / 36).
+  function encre(cases, colonnes, lignes, [vx, vy, vl, vh], l, h) {
+    const px = (X, Y) => `${Math.round(((X - vx) * l) / vl)},${Math.round(((Y - vy) * h) / vh)}`;
+    const d = [];
+    for (let R = 0; R < lignes; R++) for (let C = 0; C < colonnes; C++) cases.forEach((k, i) => {
+      const x0 = C * bf.GRID + (i % bf.GRID), y0 = R * bf.GRID + Math.floor(i / bf.GRID);
+      const formes = k.type === 'pleine' ? (k.bit ? [[[0, 0], [1, 0], [1, 1], [0, 1]]] : [])
+        : k.triangles.filter((t) => t.bit).map((t) => t.points);
+      for (const f of formes) d.push('M' + sens(f).map(([x, y]) => px(x0 + x, y0 + y)).join('L') + 'Z');
+    });
+    return d.join('');
+  }
+  const svgFond = (cases, colonnes, lignes, vb, l, h) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${l} ${h}" width="${l}" height="${h}">`
+    + `<rect width="${l}" height="${h}" fill="${CREME}"/>`
+    + `<path fill="${ENCRE}" fill-rule="nonzero" d="${encre(cases, colonnes, lignes, vb, l, h)}"/></svg>`;
+  window.__cellule = async (grille, nom) => b64(await svgEnPng(svgFond(casesDe(grille, nom), 1, 1, [0, 0, bf.GRID, bf.GRID], 1500, 1500), 1500, 1500));
+  // 3 carreaux de large au rapport 2:3 : 4½ en hauteur ; 6 rangées tracées,
   // le centre du cadre sur un coin de carreau (un quart coupé en haut et en bas)
   window.__pavage = async (grille, nom) => {
     const W = 3 * bf.GRID, H = (W * 1500) / 1000, m = 6;
-    let svg = bf.pavageSvg(casesDe(grille, nom), palette, fond, { colonnes: 3, lignes: m, cadre: [W, H], largeur: 1000, hauteur: 1500 });
-    svg = svg.replace(`viewBox="0 0 ${W} ${H}"`, `viewBox="0 ${(m * bf.GRID - H) / 2} ${W} ${H}"`).replace('<defs>', CALAGE);
-    return b64(await svgEnPng(svg, 1000, 1500));
+    return b64(await svgEnPng(svgFond(casesDe(grille, nom), 3, m, [0, (m * bf.GRID - H) / 2, W, H], 1000, 1500), 1000, 1500));
   };
 }, [...PALETTE_DEFAUT]);
 const signature = (slug) => page.evaluate(([g, s]) => window.__signature(g, s), [grilleDeLaPage(ROOT, `motifs/${slug}.html`), slug]);
@@ -144,10 +173,10 @@ if (args.includes('--echantillon')) {
   const six = JSON.parse(readFileSync(path.join(SORTIE_ECHANTILLON, 'releve.json'), 'utf8')).echantillon;
   for (const slug of six) {
     const g = grilleDeLaPage(ROOT, `motifs/${slug}.html`);
-    ecrire(path.join(SORTIE_ECHANTILLON, 'cellule-calee', `${slug}.png`), await page.evaluate(([g, s]) => window.__cellule(g, s), [g, slug]));
-    ecrire(path.join(SORTIE_ECHANTILLON, 'pavage-3x4-cale', `${slug}.png`), await page.evaluate(([g, s]) => window.__pavage(g, s), [g, slug]));
+    ecrire(path.join(SORTIE_ECHANTILLON, 'cellule-fond-creme', `${slug}.png`), await page.evaluate(([g, s]) => window.__cellule(g, s), [g, slug]));
+    ecrire(path.join(SORTIE_ECHANTILLON, 'pavage-3x4-fond-creme', `${slug}.png`), await page.evaluate(([g, s]) => window.__pavage(g, s), [g, slug]));
   }
-  console.log(`Échantillon calé : ${six.length} cellules et ${six.length} mises en situation 3 × 4½, dans ${path.relative(ROOT, SORTIE_ECHANTILLON)}/{cellule-calee,pavage-3x4-cale}/.`);
+  console.log(`Échantillon sur fond crème : ${six.length} cellules et ${six.length} mises en situation 3 × 4½, dans ${path.relative(ROOT, SORTIE_ECHANTILLON)}/{cellule-fond-creme,pavage-3x4-fond-creme}/.`);
 }
 if (args.includes('--serie')) {
   // une image par épingle du parcours, rendue comme l'échantillon validé
@@ -167,7 +196,7 @@ if (args.includes('--serie')) {
   }
   const total = images.reduce((a, x) => a + x.octets, 0);
   writeFileSync(LISTE_IMAGES, JSON.stringify({
-    _doc: "Les images des épingles encre et crème, une par épingle de data/fonds/epingles-parcours.json, écrites par tools/epingles_encre_creme.mjs --serie (rendu calé, validé par Anibal sur l'échantillon le 7 octobre 2026). Servies à https://anibal-amiot.com/<image>. tools/check_epingles_images.mjs vérifie qu'elles existent, à leur taille, à leur empreinte.",
+    _doc: "Les images des épingles encre et crème, une par épingle de data/fonds/epingles-parcours.json, écrites par tools/epingles_encre_creme.mjs --serie (fond crème plein puis l'encre seule, décision d'Anibal du 7 octobre 2026). Servies à https://anibal-amiot.com/<image>. tools/check_epingles_images.mjs vérifie qu'elles existent, à leur taille, à leur empreinte, sans couture.",
     epingles: images.length, octets: total, images,
   }, null, 1) + '\n');
   console.log(`Série : ${images.length} images dans ${SORTIE_SERIE}/{cellule,pavage-3x4}/, ${(total / 1e6).toFixed(1)} Mo.`);
