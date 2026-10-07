@@ -345,9 +345,7 @@
   {
    "fichier": "tools/check_echantillon_site.mjs",
    "role": "chaque image de l'échantillon des épingles (assets/motifs-pinterest/echantillon-encre-creme/, écrit par tools/epingles_echantillon.mjs) est servie par le site déployé, et c'est la même : réponse 200, octets identiques au fichier du dépôt…",
-   "lit": [
-    "assets/motifs-pinterest/echantillon-encre-creme"
-   ],
+   "lit": [],
    "ecrit": [],
    "appele_par": [
     "check-fonds.yml"
@@ -381,6 +379,21 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_epingles_images.mjs",
+   "role": "les images des épingles encre et crème sont là, à leur taille, et sont bien celles de la liste.",
+   "lit": [
+    "data/fonds/epingles-images.json",
+    "data/fonds/epingles-parcours.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/check_export_pinterest.mjs",
@@ -983,6 +996,8 @@
    "role": "le parcours des épingles encre et crème, et leurs images (décisions d'Anibal, 2026-10-05) : - deux épingles par motif : la CELLULE 1500 × 1500 et la MISE EN SITUATION en 3 × 4½, 1000 × 1500, centrée (un quart de carreau coupé en haut et …",
    "lit": [
     "assets/motifs-pinterest/echantillon-encre-creme",
+    "assets/motifs-pinterest/encre-creme",
+    "data/fonds/epingles-images.json",
     "data/fonds/epingles-parcours.json",
     "data/fonds/epingles-pinterest.csv"
    ],

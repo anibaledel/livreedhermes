@@ -138,6 +138,9 @@ jobs:
       - run: node tools/check_outils_langues.mjs local --essai
       # le parcours des épingles encre et crème : à jour, sans jumelles
       - run: node tools/epingles_encre_creme.mjs --verifie
+      # les 424 images de la série : présentes, à leur taille, à leur empreinte, sans jumelle
+      - run: node tools/check_epingles_images.mjs
+      - run: node tools/check_epingles_images.mjs --essai
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/video_reference.mjs --verifie B2 P
       - run: node tools/check_ecrivain_unique.mjs local
@@ -196,6 +199,13 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11; do
             node tools/check_echantillon_site.mjs https://anibal-amiot.com && exit 0
             echo "essai $i : le site ne sert pas encore l'échantillon ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
+      # la série des épingles (424 images) : chaque image servie, identique au dépôt
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_echantillon_site.mjs https://anibal-amiot.com --dossier=assets/motifs-pinterest/encre-creme && exit 0
+            echo "essai $i : le site ne sert pas encore la série ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1
       # les outils traduits, sur le site déployé

@@ -10,15 +10,18 @@
 // Le contrôle MORD : --essai fausse en mémoire l'empreinte attendue d'une
 // image et exige un échec.
 //
-// Usage : node tools/check_echantillon_site.mjs [base] [--essai]
+// --dossier=… en vérifie un autre : assets/motifs-pinterest/encre-creme, les
+// 424 images de la série (tools/epingles_encre_creme.mjs --serie).
+//
+// Usage : node tools/check_echantillon_site.mjs [base] [--essai] [--dossier=chemin]
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const DOSSIER = 'assets/motifs-pinterest/echantillon-encre-creme';
 const args = process.argv.slice(2);
+const DOSSIER = (args.find((a) => a.startsWith('--dossier=')) || '--dossier=assets/motifs-pinterest/echantillon-encre-creme').slice('--dossier='.length);
 const essai = args.includes('--essai');
 const base = (args.find((a) => !a.startsWith('--')) || 'https://anibal-amiot.com').replace(/\/$/, '');
 const sha = (b) => createHash('sha256').update(b).digest('hex');

@@ -29,6 +29,9 @@
 // Usage : node tools/epingles_encre_creme.mjs --parcours        écrit le parcours
 //         node tools/epingles_encre_creme.mjs --echantillon     les six motifs de l'échantillon
 //         node tools/epingles_encre_creme.mjs --verifie         le parcours écrit est à jour
+//         node tools/epingles_encre_creme.mjs --serie           les images de tout le parcours (validées
+//                                                               par Anibal sur l'échantillon le 7 octobre),
+//                                                               et leur liste data/fonds/epingles-images.json
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -42,6 +45,8 @@ const args = process.argv.slice(2);
 const PARCOURS = path.join(ROOT, 'data/fonds/epingles-parcours.json');
 const REGISTRE = path.join(ROOT, 'data/fonds/epingles-pinterest.csv');
 const SORTIE_ECHANTILLON = path.join(ROOT, 'assets/motifs-pinterest/echantillon-encre-creme');
+const SORTIE_SERIE = 'assets/motifs-pinterest/encre-creme';
+const LISTE_IMAGES = path.join(ROOT, 'data/fonds/epingles-images.json');
 const BLOC_RETIRE = 'par3-sans-yang-mut';
 const PAR_JOUR = ['08:00', '11:00', '14:00', '17:00'];
 
@@ -143,6 +148,29 @@ if (args.includes('--echantillon')) {
     ecrire(path.join(SORTIE_ECHANTILLON, 'pavage-3x4-cale', `${slug}.png`), await page.evaluate(([g, s]) => window.__pavage(g, s), [g, slug]));
   }
   console.log(`Échantillon calé : ${six.length} cellules et ${six.length} mises en situation 3 × 4½, dans ${path.relative(ROOT, SORTIE_ECHANTILLON)}/{cellule-calee,pavage-3x4-cale}/.`);
+}
+if (args.includes('--serie')) {
+  // une image par épingle du parcours, rendue comme l'échantillon validé
+  const { createHash } = await import('node:crypto');
+  const p = JSON.parse(readFileSync(PARCOURS, 'utf8'));
+  const images = [];
+  for (const e of p.parcours) {
+    const g = grilleDeLaPage(ROOT, `motifs/${e.motif}.html`);
+    const rendu = e.format === 'cellule' ? '__cellule' : '__pavage';
+    const b = Buffer.from(await page.evaluate(([g, s, f]) => window[f](g, s), [g, e.motif, rendu]), 'base64');
+    const rel = `${SORTIE_SERIE}/${e.format}/${e.motif}.png`;
+    mkdirSync(path.dirname(path.join(ROOT, rel)), { recursive: true });
+    writeFileSync(path.join(ROOT, rel), b);
+    images.push({ ordre: e.ordre, motif: e.motif, format: e.format, image: rel,
+      largeur: b.readUInt32BE(16), hauteur: b.readUInt32BE(20), octets: b.length,
+      sha256: createHash('sha256').update(b).digest('hex') });
+  }
+  const total = images.reduce((a, x) => a + x.octets, 0);
+  writeFileSync(LISTE_IMAGES, JSON.stringify({
+    _doc: "Les images des épingles encre et crème, une par épingle de data/fonds/epingles-parcours.json, écrites par tools/epingles_encre_creme.mjs --serie (rendu calé, validé par Anibal sur l'échantillon le 7 octobre 2026). Servies à https://anibal-amiot.com/<image>. tools/check_epingles_images.mjs vérifie qu'elles existent, à leur taille, à leur empreinte.",
+    epingles: images.length, octets: total, images,
+  }, null, 1) + '\n');
+  console.log(`Série : ${images.length} images dans ${SORTIE_SERIE}/{cellule,pavage-3x4}/, ${(total / 1e6).toFixed(1)} Mo.`);
 }
 await nav.close();
 serveur.fermer();
