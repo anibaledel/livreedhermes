@@ -11,11 +11,18 @@
 // disparaître l'information la plus utile, l'écart. Chaque écart est nommé :
 //   - un dépôt Zenodo absent du registre ;
 //   - un versionDoi absent du registre, ou différent de la dernière version ;
-//   - un numéro de version différent de celui de la fiche (relevé à part :
-//     le registre peut écrire « v2 » là où la fiche dit « 2.0 ») ;
+//   - un numéro de version qui n'est pas celui de la fiche, à la lettre : le
+//     registre recopie le champ version tel quel, typographie comprise
+//     (« V.3.2 », « version 3.0 », « v.3.1 ») ; quand la fiche n'en porte
+//     pas, le registre n'en porte pas non plus (décision du 7 octobre 2026) ;
+//   - une licence qui n'est pas celle de la fiche : licenceZenodo recopie
+//     l'identifiant de la fiche tel quel ;
 //   - une entrée du registre avec un DOI qu'aucune fiche de l'instantané ne porte.
 // L'entrée du dépôt GitHub (type repository, sans DOI) est hors Zenodo,
 // inscrite délibérément : elle n'est pas un écart.
+// SIGNALÉ sans échouer : un identifiant de licence que Zenodo enregistre mais
+// qui n'est pas un identifiant connu (« apgl-v3 » pour « agpl-v3 ») — la
+// correction est à faire sur la fiche, par Anibal ; le registre le recopie.
 //
 // L'instantané est récupéré hors de la CI (Zenodo est refusé à
 // l'environnement des sessions) : sa date est celle de recupere_le_utc.
@@ -29,10 +36,10 @@ import path from 'node:path';
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lire = (rel) => JSON.parse(fs.readFileSync(path.join(RACINE, rel), 'utf8'));
 const doi = (x) => (x == null ? null : String(x).startsWith('10.') ? String(x) : `10.5281/zenodo.${x}`);
-const num = (v) => String(v ?? '').toLowerCase().replace(/^version\s*/, '').replace(/^v\.?\s*/, '').replace(/\.0$/, '');
+const LICENCES_CONNUES = new Set(['cc-by-4.0', 'cc-by-nc-4.0', 'agpl-3.0', 'agpl-v3', 'cc0-1.0', 'mit']);
 
 function controler(registre, instantane) {
-  const ecarts = [], horsZenodo = [], concordants = [];
+  const ecarts = [], horsZenodo = [], concordants = [], signales = [];
   const fiches = instantane.depots.filter((d) => d.conceptDoi);
   const parConcept = new Map(registre.depots.filter((r) => r.doi).map((r) => [r.doi, r]));
   for (const f of fiches) {
@@ -42,14 +49,16 @@ function controler(registre, instantane) {
     if (!r.versionDoi) ecarts.push(`${c} « ${titre} » : versionDoi absent du registre — Zenodo : ${f.versionDoi_reel} (${f.version}, ${f.publication_date})`);
     else if (r.versionDoi !== f.versionDoi_reel) ecarts.push(`${c} « ${titre} » : versionDoi périmé — registre ${r.versionDoi}, Zenodo ${f.versionDoi_reel} (${f.version}, ${f.publication_date})`);
     else concordants.push(c);
-    if (num(r.version) !== num(f.version)) ecarts.push(`${c} « ${titre} » : version — registre « ${r.version} », fiche « ${f.version} »`);
+    if ((r.version ?? null) !== (f.version ?? null)) ecarts.push(`${c} « ${titre} » : version — registre ${r.version == null ? 'sans version' : `« ${r.version} »`}, fiche ${f.version == null ? 'sans version' : `« ${f.version} »`}`);
+    if ((r.licenceZenodo ?? null) !== (f.licence ?? null)) ecarts.push(`${c} « ${titre} » : licence — registre ${r.licenceZenodo == null ? 'sans licenceZenodo' : `« ${r.licenceZenodo} »`}, fiche « ${f.licence} »`);
+    if (f.licence && !LICENCES_CONNUES.has(f.licence)) signales.push(`${c} « ${titre} » : la fiche enregistre la licence « ${f.licence} », identifiant inconnu (à corriger sur Zenodo)`);
   }
   const concepts = new Set(fiches.map((f) => doi(f.conceptDoi)));
   for (const r of registre.depots) {
     if (!r.doi) { horsZenodo.push(`${r.titre} (${r.type}${r.url ? `, ${r.url}` : ''})`); continue; }
     if (!concepts.has(r.doi)) ecarts.push(`${r.doi} « ${r.titre.slice(0, 70)} » : au registre, absent de l'instantané Zenodo`);
   }
-  return { ecarts, horsZenodo, concordants };
+  return { ecarts, horsZenodo, concordants, signales };
 }
 
 const registre = lire('data/travaux.json');
@@ -71,10 +80,11 @@ if (process.argv.includes('--essai')) {
   process.exit(0);
 }
 
-const { ecarts, horsZenodo, concordants } = controler(registre, instantane);
+const { ecarts, horsZenodo, concordants, signales } = controler(registre, instantane);
 console.log(`Instantané Zenodo du ${instantane.recupere_le_utc} : ${instantane.depots.filter((d) => d.conceptDoi).length} fiches ; registre : ${registre.depots.length} entrées.`);
 for (const h of horsZenodo) console.log(`  hors Zenodo (pas un écart) : ${h}`);
-console.log(`  concordants : ${concordants.length}`);
+console.log(`  versionDoi concordants : ${concordants.length}`);
+for (const s of signales) console.log(`  SIGNALÉ (n'échoue pas) : ${s}`);
 if (ecarts.length) {
   for (const e of ecarts) console.error(`ÉCART ${e}`);
   console.error(`\n${ecarts.length} écart(s) entre data/travaux.json et Zenodo. Le registre ne se corrige pas d'ici : décider, puis corriger data/travaux.json et relancer node scripts/build-travaux.js.`);

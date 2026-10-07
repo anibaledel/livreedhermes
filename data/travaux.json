@@ -44,7 +44,7 @@
       "type": "book",
       "titre": "La Livrée d'Hermès",
       "doi": "10.5281/zenodo.22722485",
-      "versionDoi": "10.5281/zenodo.22786146",
+      "versionDoi": "10.5281/zenodo.23184828",
       "langues": [
         "fr",
         "en",
@@ -54,12 +54,25 @@
       "licence": "CC BY-NC 4.0",
       "fr": "Traité d'arithmogéométrie en 111 planches, en quatre langues : la construction des carrés magiques par la loi du gnomon et leur transcription en motifs pour le métier Jacquard.",
       "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom.",
-      "version": "v2",
+      "version": "3.0",
       "premiere": "2026-09-12",
       "zh": "一部共 111 幅图版的数形学论著，有法文、英文、西班牙文和泰文版本：依据磬折形法则构造幻方，并将其转写为提花织机的图案。",
       "ru": "Трактат по арифмогеометрии в 111 таблицах на французском, английском, испанском и тайском: магические квадраты, построенные по закону гномона, и их перевод в узоры для жаккардового станка.",
       "pt": "Um tratado de aritmogeometria em 111 pranchas, em quatro línguas: os quadrados mágicos construídos pela lei do gnómon, e a sua transcrição em padrões para o tear Jacquard.",
-      "hi": "111 चित्रफलकों में अंकज्यामिति का एक ग्रंथ, चार भाषाओं में: ग्नोमोन के नियम से रचे गए जादुई वर्ग, और जैक्वार्ड करघे के लिए पैटर्नों में उनका रूपांतरण।"
+      "hi": "111 चित्रफलकों में अंकज्यामिति का एक ग्रंथ, चार भाषाओं में: ग्नोमोन के नियम से रचे गए जादुई वर्ग, और जैक्वार्ड करघे के लिए पैटर्नों में उनका रूपांतरण।",
+      "licenceZenodo": "cc-by-nc-4.0"
+    },
+    {
+      "section": "livre",
+      "type": "dataset",
+      "titre": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)",
+      "doi": "10.5281/zenodo.23189275",
+      "versionDoi": "10.5281/zenodo.23189276",
+      "version": "v.3.1",
+      "date": "2026-10-06",
+      "licence": "CC BY-NC 4.0",
+      "licenceZenodo": "cc-by-nc-4.0",
+      "fr": "La Livrée d'Hermès compte sept chapitres en 111 pages ; sa dernière page annonce le huitième, le jeu."
     },
     {
       "section": "prepublications",
@@ -82,7 +95,8 @@
       "zh": "工作预印本：对任意足够大的高度 h，计数恰好高度为 h 的平面二叉树的系数列在其整个内部严格对数凹。已通过精确计算验证至 h = 16；尚未经专家审读。",
       "ru": "Рабочий препринт: для любой достаточно большой высоты h столбец коэффициентов, считающих плоские бинарные деревья точной высоты h, строго логарифмически вогнут на всей своей внутренности. Подтверждено точным вычислением до h = 16; специалистом ещё не прочитано.",
       "pt": "Pré-publicação de trabalho: para toda a altura h suficientemente grande, a coluna de coeficientes que conta as árvores binárias planas de altura exata h é estritamente log-côncava em todo o seu interior. Confirmado por cálculo exato até h = 16; ainda não lido por um especialista.",
-      "hi": "कार्यरत प्रीप्रिंट: पर्याप्त बड़ी हर ऊँचाई h के लिए, ठीक h ऊँचाई वाले समतल द्विआधारी वृक्षों को गिनने वाला गुणांक-स्तंभ अपने पूरे आंतरिक भाग पर कड़ाई से लॉग-अवतल है। h = 16 तक सटीक गणना से पुष्ट; अभी किसी विशेषज्ञ ने नहीं पढ़ा।"
+      "hi": "कार्यरत प्रीप्रिंट: पर्याप्त बड़ी हर ऊँचाई h के लिए, ठीक h ऊँचाई वाले समतल द्विआधारी वृक्षों को गिनने वाला गुणांक-स्तंभ अपने पूरे आंतरिक भाग पर कड़ाई से लॉग-अवतल है। h = 16 तक सटीक गणना से पुष्ट; अभी किसी विशेषज्ञ ने नहीं पढ़ा।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "prepublications",
@@ -105,7 +119,8 @@
       "zh": "四篇工作论文，研究在 Z/nZ 中把 x 与 −x 等同之后乘以 2 的运算，适用于任意 n：循环结构、2 进同步、2 进提升，以及在倍乘下封闭的子集的计数。正是这种倍乘生成了本书的轴词汇（n = 12）。",
       "ru": "Четыре рабочие статьи об умножении на 2 в Z/nZ после отождествления x с −x, для любого n: структура циклов, 2-адическая синхронизация, 2-адический подъём и перечисление подмножеств, замкнутых относительно удвоения. Именно это удвоение порождает словарь осей книги (n = 12).",
       "pt": "Quatro notas de trabalho sobre a multiplicação por 2 em Z/nZ, após identificar x com −x, para todo o n: estrutura dos ciclos, sincronização 2-ádica, levantamento 2-ádico e a enumeração dos subconjuntos fechados pela duplicação. Esta duplicação gera o vocabulário de eixos do livro (n = 12).",
-      "hi": "x को −x से अभिन्न मानने के बाद, हर n के लिए Z/nZ में 2 से गुणन पर चार कार्यरत लेख: चक्र-संरचना, 2-ऐडिक समकालन, 2-ऐडिक उत्थापन, और द्विगुणन के अंतर्गत बंद उपसमुच्चयों की गणना। यही द्विगुणन पुस्तक के अक्षों की शब्दावली रचता है (n = 12)।"
+      "hi": "x को −x से अभिन्न मानने के बाद, हर n के लिए Z/nZ में 2 से गुणन पर चार कार्यरत लेख: चक्र-संरचना, 2-ऐडिक समकालन, 2-ऐडिक उत्थापन, और द्विगुणन के अंतर्गत बंद उपसमुच्चयों की गणना। यही द्विगुणन पुस्तक के अक्षों की शब्दावली रचता है (n = 12)।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "prepublications",
@@ -129,7 +144,8 @@
       "zh": "图案体系的三种描述（轴、织机图像、方形板本征模态的等值线）呈现的是同一个有限结构，已在已发布的六十幅图像上穷举验证。",
       "ru": "Три описания системы узоров (оси, изображения ткацкого станка, линии уровня собственной моды квадратной пластины) представляют одну конечную структуру, исчерпывающе проверенную на шестидесяти опубликованных изображениях.",
       "pt": "As três descrições do sistema de padrões (eixos, imagens do tear, conjuntos de nível de um modo próprio da placa quadrada) apresentam uma única estrutura finita, verificada exaustivamente nas sessenta imagens publicadas.",
-      "hi": "पैटर्न प्रणाली के तीन विवरण (अक्ष, करघे के चित्र, वर्गाकार पट्टिका के एक आइगेन-मोड के सम-स्तर समुच्चय) एक ही परिमित संरचना प्रस्तुत करते हैं, जिसकी प्रकाशित साठ चित्रों पर पूर्ण जाँच की गई है।"
+      "hi": "पैटर्न प्रणाली के तीन विवरण (अक्ष, करघे के चित्र, वर्गाकार पट्टिका के एक आइगेन-मोड के सम-स्तर समुच्चय) एक ही परिमित संरचना प्रस्तुत करते हैं, जिसकी प्रकाशित साठ चित्रों पर पूर्ण जाँच की गई है।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "prepublications",
@@ -149,7 +165,8 @@
       "zh": "由逆倍乘生成的轴词汇（笔记 [A]），以及它与方形板本征模态等值线的等同（笔记 [P]）。",
       "ru": "Словарь осей, порождённый обратным удвоением (заметка [A]), и его отождествление с линиями уровня собственной моды квадратной пластины (заметка [P]).",
       "pt": "O vocabulário de eixos gerado por uma duplicação inversa (nota [A]), e a sua identificação com os conjuntos de nível de um modo próprio da placa quadrada (nota [P]).",
-      "hi": "एक व्युत्क्रम द्विगुणन से बनी अक्षों की शब्दावली (टिप्पणी [A]), और वर्गाकार पट्टिका के एक आइगेन-मोड के सम-स्तर समुच्चयों से उसकी पहचान (टिप्पणी [P])।"
+      "hi": "एक व्युत्क्रम द्विगुणन से बनी अक्षों की शब्दावली (टिप्पणी [A]), और वर्गाकार पट्टिका के एक आइगेन-मोड के सम-स्तर समुच्चयों से उसकी पहचान (टिप्पणी [P])।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "prepublications",
@@ -172,7 +189,8 @@
       "zh": "奇偶性规则在莫尔纹理论中处于什么位置，以及说得太快时哪些说法会变得不成立。",
       "ru": "Где правило чётности располагается в теории муара и что в нём оказывается ложным, если формулировать его слишком поспешно.",
       "pt": "Onde se situa a regra de paridade na teoria do moiré, e o que se torna falso quando é enunciada depressa demais.",
-      "hi": "समता का नियम मोइरे के सिद्धांत में कहाँ बैठता है, और जल्दबाज़ी में कहे जाने पर क्या असत्य हो जाता है।"
+      "hi": "समता का नियम मोइरे के सिद्धांत में कहाँ बैठता है, और जल्दबाज़ी में कहे जाने पर क्या असत्य हो जाता है।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "donnees",
@@ -195,7 +213,8 @@
       "zh": "n = 1 至 200 的项 P_n(1) 及计算它们的程序：Z/nZ 中在取负和倍乘下封闭的子集的个数。",
       "ru": "Члены P_n(1) для n от 1 до 200 и вычисляющая их программа: число подмножеств Z/nZ, замкнутых относительно смены знака и удвоения.",
       "pt": "Os termos P_n(1) para n = 1 a 200 e o programa que os calcula: o número de subconjuntos de Z/nZ fechados pela negação e pela duplicação.",
-      "hi": "n = 1 से 200 तक पद P_n(1), और उन्हें गिनने वाला प्रोग्राम: Z/nZ के उन उपसमुच्चयों की संख्या जो ऋणन और द्विगुणन के अंतर्गत बंद हैं।"
+      "hi": "n = 1 से 200 तक पद P_n(1), और उन्हें गिनने वाला प्रोग्राम: Z/nZ के उन उपसमुच्चयों की संख्या जो ऋणन और द्विगुणन के अंतर्गत बंद हैं।",
+      "licenceZenodo": "cc-by-4.0"
     },
     {
       "section": "donnees",
@@ -215,14 +234,15 @@
       "zh": "关于 12 × 12 网格那篇论文的数据与脚本，该论文已投稿至 Journal of Mathematics and the Arts。",
       "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts.",
       "pt": "Dados e scripts do artigo sobre as grelhas de 12 × 12, submetido ao Journal of Mathematics and the Arts.",
-      "hi": "12 × 12 जालियों पर लेख के डेटा और स्क्रिप्टें, Journal of Mathematics and the Arts को प्रस्तुत।"
+      "hi": "12 × 12 जालियों पर लेख के डेटा और स्क्रिप्टें, Journal of Mathematics and the Arts को प्रस्तुत।",
+      "licenceZenodo": "apgl-v3"
     },
     {
       "section": "donnees",
       "type": "software",
       "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
       "doi": "10.5281/zenodo.22866061",
-      "version": "3.0",
+      "version": "version 3.0",
       "versionDoi": "10.5281/zenodo.22978066",
       "date": "2026-09-26",
       "langues": [
@@ -234,7 +254,8 @@
       "zh": "关于安卡十字那篇论文的脚本与数据，该论文已投稿至 Mathematics Magazine：256 个 6 阶幻方、64 个 12 阶组合，以及对全部可行着色的穷举。",
       "ru": "Скрипты и данные статьи о кресте с петлёй, поданной в Mathematics Magazine: 256 магических квадратов порядка 6, 64 сборки порядка 12 и исчерпывающий перебор допустимых раскрасок.",
       "pt": "Scripts e dados do artigo sobre a cruz ansada, submetido à Mathematics Magazine: os 256 quadrados mágicos de ordem 6, as 64 montagens de ordem 12 e a enumeração exaustiva das colorações admissíveis.",
-      "hi": "अंख क्रॉस पर लेख की स्क्रिप्टें और डेटा, Mathematics Magazine को प्रस्तुत: क्रम 6 के 256 जादुई वर्ग, क्रम 12 की 64 संयोजनाएँ, और स्वीकार्य रंगाइयों की पूर्ण गणना।"
+      "hi": "अंख क्रॉस पर लेख की स्क्रिप्टें और डेटा, Mathematics Magazine को प्रस्तुत: क्रम 6 के 256 जादुई वर्ग, क्रम 12 की 64 संयोजनाएँ, और स्वीकार्य रंगाइयों की पूर्ण गणना।",
+      "licenceZenodo": "apgl-v3"
     },
     {
       "section": "donnees",
@@ -266,7 +287,9 @@
       "zh": "工作进展报告，以英文撰写并附法文版：两篇论文在评审中、已存档的笔记、十二条用平实语言陈述的定理。",
       "ru": "Состояние работы, на английском с французской версией: две статьи на рецензировании, депонированные заметки, двенадцать теорем, изложенных простыми словами.",
       "pt": "Estado do trabalho, em inglês com uma versão francesa: dois artigos em avaliação, as notas depositadas, doze teoremas enunciados com simplicidade.",
-      "hi": "कार्य की स्थिति, अंग्रेज़ी में और एक फ़्रेंच संस्करण के साथ: समीक्षाधीन दो लेख, जमा की गई टिप्पणियाँ, सीधे शब्दों में कहे गए बारह प्रमेय।"
+      "hi": "कार्य की स्थिति, अंग्रेज़ी में और एक फ़्रेंच संस्करण के साथ: समीक्षाधीन दो लेख, जमा की गई टिप्पणियाँ, सीधे शब्दों में कहे गए बारह प्रमेय।",
+      "versionDoi": "10.5281/zenodo.22986767",
+      "licenceZenodo": "cc-by-4.0"
     }
   ]
 }

@@ -930,6 +930,21 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_zenodo_registre.mjs",
+   "role": "le registre des dépôts (data/travaux.json) dit-il ce que Zenodo enregistre ?",
+   "lit": [
+    "data/travaux.json",
+    "data/zenodo/depots.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-travaux.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/compte_hreflang.mjs",
    "role": "compte les <link rel=\"alternate\" hreflang> du site et vérifie leur réciprocité.",
    "lit": [],

@@ -11,7 +11,8 @@
 // et le numéro de version en clair.
 //
 // Exclus : docs/sources/ (copies datées des dépôts tels que déposés — les
-// réécrire falsifierait l'archive), l'index de recherche pagefind/ (régénéré
+// réécrire falsifierait l'archive), data/zenodo/ (l'instantané des fiches Zenodo,
+// pièce justificative : il porte les anciennes versions par nature), l'index de recherche pagefind/ (régénéré
 // sur main), et ce fichier.
 //
 // Usage : node tools/check_doi_perimes.mjs
@@ -35,7 +36,7 @@ try {
   // tools/registre.json recopie la première phrase d'en-tête de chaque script de tools/ :
   // ces en-têtes sont lus ici à la source, sauf celui de ce contrôle, qui nomme ce qu'il cherche
   sortie = execFileSync('git', ['grep', '-nIE', motif, '--', '.',
-    ':!docs/sources', ':!pagefind', ':!tools/check_doi_perimes.mjs', ':!tools/registre.json'], { encoding: 'utf8' });
+    ':!docs/sources', ':!data/zenodo', ':!pagefind', ':!tools/check_doi_perimes.mjs', ':!tools/registre.json'], { encoding: 'utf8' });
 } catch (e) {
   if (e.status !== 1) throw e; // 1 = aucune occurrence
 }

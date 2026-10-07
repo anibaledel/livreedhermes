@@ -35,6 +35,16 @@ preferred-citation:
   year: 2026
   doi: 10.5281/zenodo.22722485
 references:
+  - type: data
+    title: >-
+      Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.23189275
+    version: "v.3.1"
   - type: article
     title: >-
       Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees
@@ -114,7 +124,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22866061
-    version: "3.0"
+    version: "version 3.0"
   - type: report
     title: >-
       La Livrée d'Hermès — Progress report, September 2026

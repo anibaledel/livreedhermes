@@ -23,3 +23,6 @@ jobs:
           node-version: '20'
       - run: node scripts/build-travaux.js --verifie
       - run: node tools/check_doi_perimes.mjs
+      # le registre dit-il ce que Zenodo enregistre ? (instantané data/zenodo/, récupéré hors CI)
+      - run: node tools/check_zenodo_registre.mjs
+      - run: node tools/check_zenodo_registre.mjs --essai

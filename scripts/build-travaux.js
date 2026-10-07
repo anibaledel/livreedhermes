@@ -78,22 +78,30 @@ const T = {
   hi: { toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
   ru: { toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
-// Chaque texte traduit doit exister : une description manquante afficherait
-// « undefined » sur la page, sans erreur.
-for (const lang of ['zh', 'ru', 'pt', 'hi']) {
-  for (const x of [...DONNEES.sections, ...DONNEES.depots, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
+// Chaque titre de section et chaque renvoi doivent exister dans chaque langue :
+// un texte manquant afficherait « undefined » sur la page, sans erreur. La
+// description d'un dépôt, elle, peut manquer dans une langue : elle n'est pas
+// encore écrite par Anibal ni relue (décision du 7 octobre 2026 — rien ne parle
+// en son nom sans sa relecture) ; la page omet alors la description dans cette
+// langue au lieu d'en inventer une. Voir TODO-RELECTURE.md.
+for (const lang of ['fr', 'en', 'zh', 'ru', 'pt', 'hi']) {
+  for (const x of [...DONNEES.sections, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
     if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
   }
 }
 
+// Le registre recopie le champ version de la fiche Zenodo tel quel (« version
+// 3.0 ») ; l'affichage, qui le précède déjà du mot « version », ne le répète pas.
+const libelleVersion = (v) => v.replace(/^version\s+/i, '');
+
 function itemHtml(d, lang) {
   const t = T[lang];
-  const lignes = [`        <li>`, `          <cite>${escapeHtml(d.titre)}</cite>`,
-    `          <p class="travaux-desc">${escapeHtml(d[lang])}</p>`];
+  const lignes = [`        <li>`, `          <cite>${escapeHtml(d.titre)}</cite>`];
+  if (d[lang]) lignes.push(`          <p class="travaux-desc">${escapeHtml(d[lang])}</p>`);
   if (d.doi) lignes.push(`          <a href="${doiUrl(d.doi)}">doi:${d.doi}</a>${d.versionDoi ? ` <span class="travaux-toutes">(${t.toutes})</span>` : ''}`);
   else lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
   const meta = [TYPES[d.type][lang]];
-  if (d.version) meta.push(`${t.version} ${escapeHtml(d.version)}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
+  if (d.version) meta.push(`${t.version} ${escapeHtml(libelleVersion(d.version))}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
   if (d.versionDoi) meta.push(`<a href="${doiUrl(d.versionDoi)}">${t.cetteVersion}</a>`);
@@ -155,7 +163,7 @@ function noeud(d) {
   if (d.date && d.version) n.dateModified = d.date;
   if (d.version) n.version = d.version;
   if (d.langues) n.inLanguage = d.langues.length === 1 ? d.langues[0] : d.langues;
-  n.description = d.en;
+  if (d.en) n.description = d.en;
   if (d.licence) n.license = LICENCES[d.licence];
   if (d.doi) {
     n.isAccessibleForFree = true;
@@ -206,9 +214,9 @@ function llms() {
     'https://anibal-amiot.com/en/works/', ''];
   for (const d of DONNEES.depots) {
     if (!d.doi) continue;
-    const v = d.version ? `, version ${d.version}` : '';
+    const v = d.version ? `, version ${libelleVersion(d.version)}` : '';
     lignes.push(`- ${d.titre} (${TYPES[d.type].en.toLowerCase()}${v}): https://doi.org/${d.doi}`);
-    lignes.push(`  ${d.en}`);
+    if (d.en) lignes.push(`  ${d.en}`);
   }
   lignes.push('<!-- @travaux:end -->');
   return lignes.join('\n');
