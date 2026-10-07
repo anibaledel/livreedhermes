@@ -579,3 +579,10 @@ ne s'affiche pas encore, il attend une édition plus courte.
 
 Lexique thaï : « ตัวเลขและแหล่งที่มา (FR) » perd « (FR) » — la page existe désormais en thaï
 (`th/figures-and-sources/`), et le bouton y mène.
+
+## Fil d'Ariane des pages du livre EN, ES, TH (2026-10-07)
+
+`en/book/`, `es/libro/`, `th/book/` : le fil d'Ariane était en français (« Accueil », « Fil
+d'Ariane ») sur des pages anglaise, espagnole et thaïe. « Home », « Inicio », « หน้าแรก » viennent
+des lexiques traduits ; « Breadcrumb » de tools/livre_html.py. **SANS SOURCE** : « Ruta de
+navegación » (ES) et « เส้นทางนำทาง » (TH), le nom du fil pour les lecteurs d'écran.

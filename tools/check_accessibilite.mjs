@@ -102,6 +102,8 @@ const PAGES = [
   'book-viewer/index.html',
   'fr/livre/',
   'en/book/',
+  'es/libro/',
+  'th/book/',
   'en/lexicon/',
   'es/lexico/',
   'th/lexicon/',

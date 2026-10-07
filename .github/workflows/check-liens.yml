@@ -4,6 +4,10 @@ name: Liens internes
 # fichier du depot. Le site compte plus de 600 pages, la plupart engendrees,
 # et les menages du depot suppriment des fichiers : un lien casse ne se voit
 # qu'en cliquant dessus. Voir la docstring de tools/check_liens.mjs.
+#
+# check_html_servi.mjs lit le HTML SERVI, avant toute réparation du navigateur :
+# aucun <a> imbriqué, non fermé ou sans nom accessible (le fil d'Ariane de
+# #247 était invisible à axe-core, qui lit le DOM réparé). --essai le fait mordre.
 
 on:
   push:
@@ -22,3 +26,5 @@ jobs:
         with:
           node-version: '20'
       - run: node tools/check_liens.mjs
+      - run: node tools/check_html_servi.mjs
+      - run: node tools/check_html_servi.mjs --essai
