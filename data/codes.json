@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T18:04:26Z",
+ "generated_at_utc": "2026-10-07T18:11:50Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 193,
+  "scripts": 194,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -3213,6 +3213,24 @@
    "licence": null,
    "role": "Contrôle (b) — vérité de terrain réelle : les 60 images du métier (data/referent_360_v3.json) sont des figures de parité du système des axes.",
    "lit": [
+    "calques-360"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verify_comptes_couleurs.mjs",
+   "adresse": "https://anibal-amiot.com/tools/verify_comptes_couleurs.mjs",
+   "octets": 3679,
+   "sha256": "f92cd15de85203d60d4269381f640148f247722ad3eb3f83b67b236b2e5a923b",
+   "md5": "6682f38f51c04c0252064fd9f095df19",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
+   "lit": [
+    "carres-ordre-6",
     "calques-360"
    ],
    "ecrit": [],

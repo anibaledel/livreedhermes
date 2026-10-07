@@ -1815,6 +1815,21 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verify_comptes_couleurs.mjs",
+   "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
+   "lit": [
+    "data/referent_256_v3.json",
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_cymatique_plate_modes.mjs",
    "role": "Vérifie, au triangle près, la correspondance entre motif bicolore et mode de plaque annoncée sur cymatique.html — sur le modèle de tools/verify_bicolore_axes_yang_t2.mjs.",
    "lit": [],
