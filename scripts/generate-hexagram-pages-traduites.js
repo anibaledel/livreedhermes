@@ -38,6 +38,8 @@ const { htmlNavTiles } = require('./nav-tiles.js');
 const ROOT = path.resolve(__dirname, '..');
 const PREFIXE = '../../';
 const SITE = 'https://anibal-amiot.com';
+// un lien vers une page du site vise sa version dans la langue de la page, si elle existe
+const { adresseDans } = require('./langues.js');
 const TODAY = new Date().toISOString().slice(0, 10);
 const escapeHtml = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -96,7 +98,7 @@ const L = {
     title: (c, p, n) => `Hexagram ${c} — ${p}, ${n}`,
     description: (c, p, n, kw) => `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, trigrams and the magic square of La Livrée d'Hermès.`,
     sub: (c, kw, hz) => `Chronological no. <b>${c}</b> (binary-weight order) · King Wen no. (traditional) ${kw} · ${hz}`,
-    by: (date) => `By <a href="${SITE}/a-propos.html">Anibal Edelberto Amiot</a> — Updated ${date}`,
+    by: (date) => `By <a href="${SITE}/${adresseDans('a-propos.html', 'en')}">Anibal Edelberto Amiot</a> — Updated ${date}`,
     alt: (c, n) => `Magic square / tiling associated with hexagram ${c} (${n})`,
     figcaption: "Tiling of the magic square associated with this hexagram, La Livrée d'Hermès.",
     upper: 'Upper trigram', lower: 'Lower trigram', image: 'Image', judgement: 'Judgement', sixLines: 'The six lines',
@@ -363,7 +365,7 @@ ${lines}
       <div class="cta-row">
         <a class="cta-btn" href="${bookHref}">${l.readBook}</a>
         <a class="cta-btn" href="${SITE}/?chrono=${chrono}">${l.board}</a>
-        <a class="cta-btn" href="${SITE}/creation-motifs-yi-king.html">${l.create}</a>
+        <a class="cta-btn" href="${SITE}/${adresseDans('creation-motifs-yi-king.html', lang)}">${l.create}</a>
       </div>
 
       <hr>

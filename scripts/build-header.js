@@ -30,7 +30,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, LANGUES } = require('./langues.js');
+const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, LANGUES, adresseDans } = require('./langues.js');
 const { htmlNavTiles } = require('./nav-tiles.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -129,13 +129,27 @@ function langHtml(s) {
   return m && TEXTE_EVITEMENT[m[1].toLowerCase()] ? m[1].toLowerCase() : 'fr';
 }
 
+/* Un lien du pied ou de l'en-tête vise la page dans la langue de la page qui
+   le porte, quand elle y existe (scripts/langues.js, adresseDans) : le
+   fragment nomme la page (« {{BASE}}contact.html »), la table dit où elle vit.
+   Un lien qui annonçait une autre langue (hreflang, « (French) ») perd
+   l'annonce quand l'équivalent existe : elle serait devenue fausse. */
+function localiser(fragment, lang) {
+  return fragment.replace(/<a href="\{\{BASE\}\}([^"]*)"((?:\s+hreflang="[^"]*")?)>([^<]*)<\/a>/g, (m, chemin, annonce, libelle) => {
+    const ici = adresseDans(chemin, lang);
+    if (ici === chemin) return m;
+    const texte = annonce ? libelle.replace(/\s*[(（][^()（）]*[)）]\s*$/, '') : libelle;
+    return `<a href="{{BASE}}${ici}">${texte}</a>`;
+  });
+}
+
 function rendre(nom, prefixe, lang = 'fr') {
   // La zone garde son nom (@footer) ; seul le fragment change avec la langue.
   const fragment = nom === 'footer' && FRAGMENTS[`footer-${lang}`] ? `footer-${lang}` : nom;
   // Un lien qui ne porte que le préfixe (« Accueil ») resterait vide à la
   // racine, où le préfixe est vide : href="" mène à la page courante. Il
   // reçoit « ./ », le dossier, servi par son index.html.
-  const corps = FRAGMENTS[fragment].split('"{{BASE}}"').join(`"${prefixe || './'}"`)
+  const corps = localiser(FRAGMENTS[fragment], lang).split('"{{BASE}}"').join(`"${prefixe || './'}"`)
     .split('{{BASE}}').join(prefixe)
     .split('{{SKIP}}').join(TEXTE_EVITEMENT[lang]);
   return zone(nom, corps);

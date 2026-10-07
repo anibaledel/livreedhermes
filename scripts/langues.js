@@ -91,28 +91,28 @@ const LANGUES = {
     accueil: { lire: 'Lire en ligne', pdfPropre: 'Télécharger le PDF (FR, {mo} Mo)', pdfAnglais: 'Télécharger le PDF (EN, {mo} Mo)', carte: 'Le livre', pret: "Lisez La Livrée d'Hermès en ligne, page par page, chapitre par chapitre, avec le PDF gratuit ; les sept autres éditions aussi.", preparation: '' },
     edition: { titre: 'Édition française', lire: "Lisez La Livrée d'Hermès en ligne, page par page, avec téléchargement du PDF gratuit.", boutonLire: 'Lire le livre en ligne →', boutonPdf: 'Télécharger le PDF (FR)' },
     evitement: "Aller au contenu",
-    lecteur: { titre: "Le Livre — visualiseur", titreDoc: "La Livrée d'Hermès — Le Livre", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Aller à", exemple: "ex. 042", voir: "Voir", aideClavier: "← → pour naviguer · clic sur la page pour zoomer", aideTactile: "Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer", prec: "Page précédente", suiv: "Page suivante", pdf: "Télécharger le PDF", langues: "Langue du livre" },
+    lecteur: { titre: "Le Livre — visualiseur", titreDoc: "La Livrée d'Hermès — Le Livre", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Aller à", exemple: "ex. 042", voir: "Voir", aideClavier: "← → pour naviguer · clic sur la page pour zoomer", aideTactile: "Balayer à gauche/à droite pour naviguer · toucher la page pour zoomer", prec: "Page précédente", suiv: "Page suivante", pdf: "Télécharger le PDF", langues: "Langue du livre", repliPage: "La page {code} n'existe pas dans cette édition : page {proche}, la plus proche." },
   },
   en: {
     nom: 'English', autres: 'Other languages:', drapeau: '🇬🇧', hexagrammes: true,
     pages: { livre: 'en/book/', accueil: 'en/', lexique: 'en/lexicon/', 'a-propos': 'en/about/', travaux: 'en/works/', recherche: 'en/search/', articles: 'en/articles/' },
     edition: { titre: 'English edition', lire: "Read La Livrée d'Hermès online, page by page, with free PDF download.", boutonLire: 'Read the book online →', boutonPdf: 'Download the PDF (EN)' },
     evitement: "Skip to content",
-    lecteur: { titre: "The Book — viewer", titreDoc: "La Livrée d'Hermès — The Book", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Go to", exemple: "e.g. 042", voir: "Go", aideClavier: "← → to turn pages · click the page to zoom", aideTactile: "Swipe left/right to turn pages · tap the page to zoom", prec: "Previous page", suiv: "Next page", pdf: "Download the PDF", langues: "Language of the book" },
+    lecteur: { titre: "The Book — viewer", titreDoc: "La Livrée d'Hermès — The Book", pageLabel: "Page {code} — {i} / {n}", alt: "Page {code}", allerA: "Go to", exemple: "e.g. 042", voir: "Go", aideClavier: "← → to turn pages · click the page to zoom", aideTactile: "Swipe left/right to turn pages · tap the page to zoom", prec: "Previous page", suiv: "Next page", pdf: "Download the PDF", langues: "Language of the book", repliPage: "Page {code} is not in this edition: showing page {proche}, the nearest." },
   },
   es: {
     nom: 'Español', autres: 'Otros idiomas:', drapeau: '🇪🇸', hexagrammes: true,
     pages: { livre: 'es/libro/', accueil: 'es/', lexique: 'es/lexico/', recherche: 'es/buscar/' },
     edition: { titre: 'Edición española', lire: "Lea La Livrée d'Hermès en línea, página por página, con descarga gratuita en PDF.", boutonLire: 'Leer el libro en línea →', boutonPdf: 'Descargar el PDF (ES)' },
     evitement: "Ir al contenido",
-    lecteur: { titre: "El libro — visor", titreDoc: "La Livrée d'Hermès — El libro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir a", exemple: "p. ej. 042", voir: "Ver", aideClavier: "← → para pasar las páginas · clic en la página para ampliar", aideTactile: "Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar", prec: "Página anterior", suiv: "Página siguiente", pdf: "Descargar el PDF", langues: "Idioma del libro" },
+    lecteur: { titre: "El libro — visor", titreDoc: "La Livrée d'Hermès — El libro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir a", exemple: "p. ej. 042", voir: "Ver", aideClavier: "← → para pasar las páginas · clic en la página para ampliar", aideTactile: "Deslice a la izquierda/derecha para pasar las páginas · toque la página para ampliar", prec: "Página anterior", suiv: "Página siguiente", pdf: "Descargar el PDF", langues: "Idioma del libro", repliPage: "La página {code} no existe en esta edición: página {proche}, la más cercana." },
   },
   th: {
     nom: 'ไทย', autres: 'ภาษาอื่น:', drapeau: '🇹🇭', hexagrammes: true, titreLivre: 'ลิเวรีของเฮอร์มีส',
     pages: { livre: 'th/book/', accueil: 'th/', lexique: 'th/lexicon/', recherche: 'th/search/' },
     edition: { titre: 'ฉบับภาษาไทย', lire: "อ่าน La Livrée d'Hermès ออนไลน์ ทีละหน้า พร้อมดาวน์โหลด PDF ฟรี", boutonLire: 'อ่านหนังสือออนไลน์ →', boutonPdf: 'ดาวน์โหลด PDF (TH)' },
     evitement: "ข้ามไปยังเนื้อหา",
-    lecteur: { titre: "หนังสือ — โปรแกรมอ่าน", titreDoc: "ลิเวรีของเฮอร์มีส — หนังสือ", pageLabel: "หน้า {code} — {i} / {n}", alt: "หน้า {code}", allerA: "ไปที่หน้า", exemple: "เช่น 042", voir: "ดู", aideClavier: "← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย", aideTactile: "ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย", prec: "หน้าก่อนหน้า", suiv: "หน้าถัดไป", pdf: "ดาวน์โหลด PDF", langues: "ภาษาของหนังสือ" },
+    lecteur: { titre: "หนังสือ — โปรแกรมอ่าน", titreDoc: "ลิเวรีของเฮอร์มีส — หนังสือ", pageLabel: "หน้า {code} — {i} / {n}", alt: "หน้า {code}", allerA: "ไปที่หน้า", exemple: "เช่น 042", voir: "ดู", aideClavier: "← → เพื่อเปลี่ยนหน้า · คลิกที่หน้าเพื่อขยาย", aideTactile: "ปัดซ้าย/ขวาเพื่อเปลี่ยนหน้า · แตะที่หน้าเพื่อขยาย", prec: "หน้าก่อนหน้า", suiv: "หน้าถัดไป", pdf: "ดาวน์โหลด PDF", langues: "ภาษาของหนังสือ", repliPage: "ฉบับนี้ไม่มีหน้า {code} : แสดงหน้า {proche} ซึ่งใกล้ที่สุด" },
   },
   zh: {
     nom: '简体中文', autres: '其他语言：', hreflang: 'zh-Hans', drapeau: '🇨🇳',
@@ -120,7 +120,7 @@ const LANGUES = {
     accueil: { lire: '在线阅读', pdfPropre: '下载简体中文版 PDF（{mo} MB）', pdfAnglais: '下载英文版 PDF（{mo} MB）', carte: '论著', pret: "在线逐页阅读 La Livrée d'Hermès 简体中文版，并可免费下载 PDF；其他语言版本亦可阅读。", preparation: '在线阅读其他语言版本，并可免费下载 PDF。简体中文版正在准备中。' },
     edition: { titre: '简体中文版', lire: "在线逐页阅读 La Livrée d'Hermès，并免费下载 PDF。", preparation: '简体中文版正在准备中。可在线阅读其他语言版本，并免费下载 PDF。', boutonLire: '在线阅读本书 →', boutonPdf: '下载 PDF（简体中文）' },
     evitement: "跳到正文",
-    lecteur: { titre: "本书 — 阅读器", titreDoc: "La Livrée d'Hermès — 本书", pageLabel: "第 {code} 页 — {i} / {n}", alt: "第 {code} 页", allerA: "跳至", exemple: "例：042", voir: "查看", aideClavier: "← → 翻页 · 点击页面放大", aideTactile: "左右滑动翻页 · 轻触页面放大", prec: "上一页", suiv: "下一页", pdf: "下载 PDF", langues: "本书语言" },
+    lecteur: { titre: "本书 — 阅读器", titreDoc: "La Livrée d'Hermès — 本书", pageLabel: "第 {code} 页 — {i} / {n}", alt: "第 {code} 页", allerA: "跳至", exemple: "例：042", voir: "查看", aideClavier: "← → 翻页 · 点击页面放大", aideTactile: "左右滑动翻页 · 轻触页面放大", prec: "上一页", suiv: "下一页", pdf: "下载 PDF", langues: "本书语言", repliPage: "此版本没有第 {code} 页：显示最接近的第 {proche} 页。" },
   },
   ru: {
     nom: 'Русский', autres: 'Другие языки:', drapeau: '🇷🇺',
@@ -128,7 +128,7 @@ const LANGUES = {
     accueil: { lire: 'Читать онлайн', pdfPropre: 'PDF на русском ({mo} МБ)', pdfAnglais: 'PDF на английском ({mo} МБ)', carte: 'Трактат', pret: "Книга <i>La Livrée d'Hermès</i> на русском: чтение онлайн по страницам и бесплатный PDF. Доступны и другие языки.", preparation: "Книга <i>La Livrée d'Hermès</i>: чтение онлайн по страницам и PDF на других языках. Русское издание готовится." },
     edition: { titre: 'Русское издание', lire: "Читайте La Livrée d'Hermès онлайн, страница за страницей, с бесплатной загрузкой PDF.", preparation: 'Русское издание готовится. Пока его можно читать онлайн на других языках и бесплатно скачать PDF.', boutonLire: 'Читать книгу онлайн →', boutonPdf: 'Скачать PDF (RU)' },
     evitement: "Перейти к содержанию",
-    lecteur: { titre: "Книга — просмотр", titreDoc: "La Livrée d'Hermès — Книга", pageLabel: "Страница {code} — {i} / {n}", alt: "Страница {code}", allerA: "Перейти к странице", exemple: "напр. 042", voir: "Открыть", aideClavier: "← → — листать · щелчок по странице — увеличить", aideTactile: "Листайте влево/вправо · коснитесь страницы, чтобы увеличить", prec: "Предыдущая страница", suiv: "Следующая страница", pdf: "Скачать PDF", langues: "Язык книги" },
+    lecteur: { titre: "Книга — просмотр", titreDoc: "La Livrée d'Hermès — Книга", pageLabel: "Страница {code} — {i} / {n}", alt: "Страница {code}", allerA: "Перейти к странице", exemple: "напр. 042", voir: "Открыть", aideClavier: "← → — листать · щелчок по странице — увеличить", aideTactile: "Листайте влево/вправо · коснитесь страницы, чтобы увеличить", prec: "Предыдущая страница", suiv: "Следующая страница", pdf: "Скачать PDF", langues: "Язык книги", repliPage: "Страницы {code} нет в этом издании: открыта ближайшая, {proche}." },
   },
   pt: {
     nom: 'Português', autres: 'Outras línguas:', hreflang: 'pt-PT', drapeau: '🇵🇹',
@@ -136,7 +136,7 @@ const LANGUES = {
     accueil: { lire: 'Ler online', pdfPropre: 'PDF em português ({mo} MB)', pdfAnglais: 'PDF em inglês ({mo} MB)', carte: 'O tratado', pret: "O livro <i>La Livrée d'Hermès</i> em português: leitura online, página a página, e PDF gratuito. Também disponível noutras línguas.", preparation: "O livro <i>La Livrée d'Hermès</i>: leitura online, página a página, e PDF gratuito noutras línguas. A edição portuguesa está em preparação." },
     edition: { titre: 'Edição portuguesa', lire: "Leia La Livrée d'Hermès online, página a página, com descarga gratuita do PDF.", preparation: 'A edição portuguesa está em preparação. Entretanto, o livro pode ser lido online noutras línguas, com descarga gratuita do PDF.', boutonLire: 'Ler o livro online →', boutonPdf: 'Descarregar o PDF (PT)' },
     evitement: "Ir para o conteúdo",
-    lecteur: { titre: "O livro — visualizador", titreDoc: "La Livrée d'Hermès — O livro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir para a página", exemple: "ex. 042", voir: "Ver", aideClavier: "← → para mudar de página · clique na página para ampliar", aideTactile: "Deslize para a esquerda/direita para mudar de página · toque na página para ampliar", prec: "Página anterior", suiv: "Página seguinte", pdf: "Descarregar o PDF", langues: "Língua do livro" },
+    lecteur: { titre: "O livro — visualizador", titreDoc: "La Livrée d'Hermès — O livro", pageLabel: "Página {code} — {i} / {n}", alt: "Página {code}", allerA: "Ir para a página", exemple: "ex. 042", voir: "Ver", aideClavier: "← → para mudar de página · clique na página para ampliar", aideTactile: "Deslize para a esquerda/direita para mudar de página · toque na página para ampliar", prec: "Página anterior", suiv: "Página seguinte", pdf: "Descarregar o PDF", langues: "Língua do livro", repliPage: "A página {code} não existe nesta edição: página {proche}, a mais próxima." },
   },
   hi: {
     nom: 'हिन्दी', autres: 'अन्य भाषाएँ:', drapeau: '🇮🇳', titreLivre: 'हर्मीस की पोशाक',
@@ -144,7 +144,7 @@ const LANGUES = {
     accueil: { lire: 'ऑनलाइन पढ़ें', pdfPropre: 'हिन्दी में PDF ({mo} MB)', pdfAnglais: 'अंग्रेज़ी में PDF ({mo} MB)', carte: 'ग्रंथ', pret: "<i>La Livrée d'Hermès</i> हिन्दी में: पृष्ठ-दर-पृष्ठ ऑनलाइन पठन और निःशुल्क PDF। अन्य भाषाओं में भी उपलब्ध।", preparation: "<i>La Livrée d'Hermès</i>: अन्य भाषाओं में पृष्ठ-दर-पृष्ठ ऑनलाइन पठन और निःशुल्क PDF। हिन्दी संस्करण तैयार हो रहा है।" },
     edition: { titre: 'हिन्दी संस्करण', lire: "La Livrée d'Hermès को ऑनलाइन, पृष्ठ-दर-पृष्ठ पढ़ें, और PDF निःशुल्क डाउनलोड करें।", preparation: 'हिन्दी संस्करण तैयार हो रहा है। तब तक पुस्तक अन्य भाषाओं में ऑनलाइन पढ़ी जा सकती है, और PDF निःशुल्क डाउनलोड किया जा सकता है।', boutonLire: 'पुस्तक ऑनलाइन पढ़ें →', boutonPdf: 'PDF डाउनलोड करें (HI)' },
     evitement: "सामग्री पर जाएँ",
-    lecteur: { titre: "पुस्तक — दर्शक", titreDoc: "La Livrée d'Hermès — पुस्तक", pageLabel: "पृष्ठ {code} — {i} / {n}", alt: "पृष्ठ {code}", allerA: "पृष्ठ पर जाएँ", exemple: "उदा. 042", voir: "देखें", aideClavier: "← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें", aideTactile: "पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें", prec: "पिछला पृष्ठ", suiv: "अगला पृष्ठ", pdf: "PDF डाउनलोड करें", langues: "पुस्तक की भाषा" },
+    lecteur: { titre: "पुस्तक — दर्शक", titreDoc: "La Livrée d'Hermès — पुस्तक", pageLabel: "पृष्ठ {code} — {i} / {n}", alt: "पृष्ठ {code}", allerA: "पृष्ठ पर जाएँ", exemple: "उदा. 042", voir: "देखें", aideClavier: "← → पृष्ठ बदलने के लिए · बड़ा करने के लिए पृष्ठ पर क्लिक करें", aideTactile: "पृष्ठ बदलने के लिए बाएँ/दाएँ स्वाइप करें · बड़ा करने के लिए पृष्ठ को स्पर्श करें", prec: "पिछला पृष्ठ", suiv: "अगला पृष्ठ", pdf: "PDF डाउनलोड करें", langues: "पुस्तक की भाषा", repliPage: "इस संस्करण में पृष्ठ {code} नहीं है: निकटतम पृष्ठ {proche} दिखाया गया है।" },
   },
 };
 // La galerie d'animations (lot 7, 2026-10-05) : l'entrée et ses six pages de
@@ -382,7 +382,48 @@ const PAGES_TRADUITES = GROUPES.filter((g) => g.sitemap !== false).flatMap((g) =
     hreflang: hreflangDe(g),
   })));
 
+// -------------------------------------------------------------------------
+// L'adresse d'une page dans une langue (audit du 7 octobre 2026 : le créateur
+// français renvoyait à l'index anglais des motifs, alors que /fr/motifs/
+// existe). Un lien se compose depuis la langue de la page qui le porte : on
+// nomme la page visée par son fichier, la table dit où elle vit dans cette
+// langue. Les groupes ci-dessus en sont la source ; s'y ajoutent les pages
+// qui posent leur hreflang elles-mêmes, hors groupes.
+// -------------------------------------------------------------------------
+const EQUIVALENTS_HORS_GROUPES = [
+  // scripts/generate-motif-pages.js écrit les deux index et leur hreflang
+  { en: 'motifs/', fr: 'fr/motifs/' },
+];
+const fichierDe = (p) => (p === '' || p.endsWith('/') ? `${p}index.html` : p);
+const EQUIVALENTS = new Map();
+for (const g of GROUPES) {
+  const table = Object.fromEntries(g.pages.map(([lang, , fichier]) => [lang, fichier]));
+  for (const [, , fichier] of g.pages) EQUIVALENTS.set(fichier, table);
+}
+for (const e of EQUIVALENTS_HORS_GROUPES) {
+  const table = Object.fromEntries(Object.entries(e).map(([lang, p]) => [lang, fichierDe(p)]));
+  for (const f of Object.values(table)) EQUIVALENTS.set(f, table);
+}
+// Le chemin (depuis la racine) de la page `chemin` dans la langue `lang` :
+// « contact.html », « en » → « en/contact/ ». Rend `chemin` inchangé si la
+// page n'a pas d'équivalent dans cette langue, ou si elle y est déjà.
+function adresseDans(chemin, lang) {
+  const table = EQUIVALENTS.get(fichierDe(chemin));
+  const cible = table && table[lang];
+  if (!cible || cible === fichierDe(chemin)) return chemin;
+  return cible.replace(/(^|\/)index\.html$/, '$1');
+}
+
+// La même chose pour une adresse absolue du site (« https://anibal-amiot.com/
+// contact.html »). Une adresse qui porte une requête ou une ancre, ou qui
+// sort du site, est rendue telle quelle.
+function urlDans(url, lang) {
+  if (!url.startsWith(`${SITE}/`) || /[?#]/.test(url)) return url;
+  return `${SITE}/${adresseDans(url.slice(SITE.length + 1), lang)}`;
+}
+
 module.exports = {
   SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode, pageDe,
   BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
+  adresseDans, urlDans,
 };

@@ -45,7 +45,7 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
 const DONNEES = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/outils-langues.json'), 'utf8'));
-const { LANGUES, hreflangDeCode } = require('./langues.js');
+const { LANGUES, hreflangDeCode, adresseDans } = require('./langues.js');
 const { phrase } = require('./build-couverture.js');
 
 const echTexte = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -282,32 +282,36 @@ const RACINE = fs.readdirSync(ROOT, { withFileTypes: true }).filter((e) => !e.na
 const echRe = (x) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const NOMS = RACINE.map((e) => (e.isDirectory() ? `${echRe(e.name)}/` : `${echRe(e.name)}(?=[?#"'\`\\\\])`)).join('|');
 const relatif = (u) => u && !/^([a-z][a-z0-9+.-]*:|\/|#|\?|\$\{|\.\.\/)/i.test(u) && !/['"+]/.test(u);
-function prefixerBalises(html, prefixe) {
-  const un = (u) => (relatif(u) ? prefixe + u.replace(/^\.\//, '') : u);
+// Un lien vers une page du site vise sa version dans la langue de la page,
+// quand elle existe (scripts/langues.js, adresseDans) : « fr/motifs/ » dans la
+// page française devient « motifs/ » dans l'anglaise. Sauf un lien qui dit sa
+// langue (hreflang) : le drapeau d'une édition vise CETTE édition.
+function prefixerBalises(html, prefixe, lang) {
+  const un = (u, choisie) => (relatif(u) ? prefixe + (choisie ? u.replace(/^\.\//, '') : adresseDans(u.replace(/^\.\//, ''), lang)) : u);
   return html
     .replace(/<[a-zA-Z][^>]*>/g, (balise) => balise
-      .replace(/(\s(?:href|src|poster|action))="([^"]*)"/g, (m, a, u) => `${a}="${un(u)}"`)
+      .replace(/(\s(?:href|src|poster|action))="([^"]*)"/g, (m, a, u) => `${a}="${un(u, /\shreflang="/.test(balise))}"`)
       .replace(/(\ssrcset)="([^"]*)"/g, (m, a, v) => `${a}="${v.split(',').map((x) => {
         const [u, ...d] = x.trim().split(/\s+/);
         return [un(u), ...d].join(' ');
       }).join(', ')}"`))
     .replace(/url\((['"]?)([^'")]+)\1\)/g, (m, q, u) => (relatif(u) ? `url(${q}${prefixe}${u}${q})` : m));
 }
-function prefixer(s, prefixe) {
+function prefixer(s, prefixe, lang) {
   // Le document en morceaux : hors <script>, les balises et les url() ; dans
   // un <script>, les chaînes qui nomment un fichier ou un dossier de la racine
   // (y compris celles d'un gabarit qui écrit du HTML). Les données
   // structurées (ld+json) ne portent que des adresses absolues.
   let out = '', i = 0;
   for (const m of s.matchAll(/(<script\b[^>]*>)([\s\S]*?)(<\/script>)/g)) {
-    out += prefixerBalises(s.slice(i, m.index), prefixe) + prefixerBalises(m[1], prefixe);
+    out += prefixerBalises(s.slice(i, m.index), prefixe, lang) + prefixerBalises(m[1], prefixe, lang);
     out += /application\/ld\+json/.test(m[1])
       ? m[2]
       : m[2].replace(new RegExp(`(['"\`])(?:\\./)?(?=(?:${NOMS}))`, 'g'), `$1${prefixe}`);
     out += m[3];
     i = m.index + m[0].length;
   }
-  return out + prefixerBalises(s.slice(i), prefixe);
+  return out + prefixerBalises(s.slice(i), prefixe, lang);
 }
 
 // Applique f au document hors du code des scripts : les morceaux entre deux
@@ -390,7 +394,7 @@ function pageTraduite(p, lang, cfg, src) {
   });
 
   // 6. les chemins
-  s = prefixer(s, prefixe);
+  s = prefixer(s, prefixe, lang);
   return [fichier, s];
 }
 

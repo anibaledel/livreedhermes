@@ -569,3 +569,13 @@ prompt d'Anibal ; le reste est **SANS SOURCE**, à relire :
 Défaut connu, non corrigé dans ce lot : dans les six langues autres que FR et EN, le **nom
 du fond** reste en anglais (« solid + disco al 45 % ») — `nomDuFond` d'
 `assets/selecteur-fonds.js` n'existe qu'en français et en anglais.
+
+## Lecteur — avis de repli au changement de langue (2026-10-07)
+
+`scripts/langues.js`, `lecteur.repliPage` : quand la page lue n'existe pas dans l'édition
+choisie, le lecteur va à la plus proche et le dit. FR et EN écrits ici ; ES, TH, ZH, RU, PT,
+HI **SANS SOURCE**, à relire. Aujourd'hui les huit éditions ont les mêmes 111 pages : l'avis
+ne s'affiche pas encore, il attend une édition plus courte.
+
+Lexique thaï : « ตัวเลขและแหล่งที่มา (FR) » perd « (FR) » — la page existe désormais en thaï
+(`th/figures-and-sources/`), et le bouton y mène.
