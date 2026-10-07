@@ -586,3 +586,9 @@ Lexique thaï : « ตัวเลขและแหล่งที่มา (FR
 français ou en anglais (« Tools (French) », « Motivos (inglés) »). Les formes reprennent celles
 que les pieds de page employaient déjà ; « (en anglais) » (FR) et « (на французском) » appliqué
 aux tuiles sont à relire avec le reste.
+## Fil d'Ariane des pages du livre EN, ES, TH (2026-10-07)
+
+`en/book/`, `es/libro/`, `th/book/` : le fil d'Ariane était en français (« Accueil », « Fil
+d'Ariane ») sur des pages anglaise, espagnole et thaïe. « Home », « Inicio », « หน้าแรก » viennent
+des lexiques traduits ; « Breadcrumb » de tools/livre_html.py. **SANS SOURCE** : « Ruta de
+navegación » (ES) et « เส้นทางนำทาง » (TH), le nom du fil pour les lecteurs d'écran.

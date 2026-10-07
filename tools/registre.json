@@ -200,6 +200,7 @@
     "es/hexagramas",
     "es/hexagramas/0-kun-lo-receptivo.html",
     "es/lexico",
+    "es/libro",
     "fr/livre",
     "fr/motifs",
     "fr/motifs/bases-yang-h0.html",
@@ -208,6 +209,7 @@
     "hi/animations/assemblies",
     "motifs/bases-yang-h0.html",
     "th/animations",
+    "th/book",
     "th/hexagrams",
     "th/hexagrams/0-kun.html",
     "th/lexicon",
@@ -497,6 +499,20 @@
    "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
+  },
+  {
+   "fichier": "tools/check_html_servi.mjs",
+   "role": "les liens du HTML SERVI : aucun <a> dans un autre <a>, aucun <a> sans nom accessible.",
+   "lit": [
+    "fr/livre/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-liens.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
   },
   {
    "fichier": "tools/check_jsonld_visible.py",

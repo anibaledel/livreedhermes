@@ -80,6 +80,9 @@
     transition:border-color .12s ease, color .12s ease;
   }
   .pro-download-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-download-meta{ flex:1 1 100%; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); }
+  .pro-download-meta code{ font-size:inherit; letter-spacing:.04em; }
+  .pro-choix{ color:var(--white); }
   .pro-locked-box{ border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; }
   .pro-locked-box button{
     display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
@@ -138,30 +141,37 @@
     </div>
 
     <div class="pro-placeholder">
+      <p class="pro-choix">Choisissez un ensemble : une cellule ou un pavage, en couleur (Tricolore YPM) ou en niveaux de gris (Monochrome Black), puis le format — une archive de 1024 SVG ou un PDF de 1024 pages.</p>
       <p>Les motifs de La Livrée d'Hermès en fichiers vectoriels, libres d'accès, en quatre ensembles de 1024 constructions. Les <b>cellules</b> donnent chaque motif seul, sa maille de 12 × 12 cases ; les <b>pavages</b> la répètent quatre fois sur quatre, comme sur une étoffe. Chaque ensemble existe en trois couleurs — jaune, violet et magenta (Tricolore YPM) — ou en niveaux de gris (Monochrome Black), sous deux formes : une archive ZIP de 1024 fichiers SVG, un par construction, et un PDF de 1024 pages, entièrement vectoriel. Les constructions y sont numérotées de 000 à 1023 : les bases de 000 à 255, les combinaisons de deux axes de 256 à 767, celles de trois axes de 768 à 1023.</p>
 
+      <!-- @telechargements:start — engendré par scripts/build-telechargements.js depuis les fichiers de assets/pro-downloads/, ne pas éditer ici -->
       <div class="pro-downloads">
         <div class="pro-download-row">
           <span class="pro-download-name">Cellules — Tricolore YPM</span>
-          <a href="assets/pro-downloads/cellules-tricolore-ypm.zip" download>ZIP (1024 SVG)</a>
-          <a href="assets/pro-downloads/cellules-tricolore-ypm.pdf" download>PDF</a>
+          <a href="assets/pro-downloads/cellules-tricolore-ypm.zip" download>ZIP (1024 SVG, 965 Ko)</a>
+          <a href="assets/pro-downloads/cellules-tricolore-ypm.pdf" download>PDF (1024 pages, 1,2 Mo)</a>
+          <span class="pro-download-meta">ZIP du 19 septembre 2026, empreinte <code>40c65d95</code> · PDF du 19 septembre 2026, empreinte <code>d51af239</code></span>
         </div>
         <div class="pro-download-row">
           <span class="pro-download-name">Cellules — Monochrome Black</span>
-          <a href="assets/pro-downloads/cellules-monochrome-black.zip" download>ZIP (1024 SVG)</a>
-          <a href="assets/pro-downloads/cellules-monochrome-black.pdf" download>PDF</a>
+          <a href="assets/pro-downloads/cellules-monochrome-black.zip" download>ZIP (1024 SVG, 962 Ko)</a>
+          <a href="assets/pro-downloads/cellules-monochrome-black.pdf" download>PDF (1024 pages, 1,1 Mo)</a>
+          <span class="pro-download-meta">ZIP du 19 septembre 2026, empreinte <code>8ae6b642</code> · PDF du 19 septembre 2026, empreinte <code>b9d524bb</code></span>
         </div>
         <div class="pro-download-row">
           <span class="pro-download-name">Pavages — Tricolore YPM</span>
-          <a href="assets/pro-downloads/pavages-tricolore-ypm.zip" download>ZIP (1024 SVG)</a>
-          <a href="assets/pro-downloads/pavages-tricolore-ypm.pdf" download>PDF</a>
+          <a href="assets/pro-downloads/pavages-tricolore-ypm.zip" download>ZIP (1024 SVG, 1,1 Mo)</a>
+          <a href="assets/pro-downloads/pavages-tricolore-ypm.pdf" download>PDF (1024 pages, 10 Mo)</a>
+          <span class="pro-download-meta">ZIP du 19 septembre 2026, empreinte <code>93aaae33</code> · PDF du 19 septembre 2026, empreinte <code>e95d305f</code></span>
         </div>
         <div class="pro-download-row">
           <span class="pro-download-name">Pavages — Monochrome Black</span>
-          <a href="assets/pro-downloads/pavages-monochrome-black.zip" download>ZIP (1024 SVG)</a>
-          <a href="assets/pro-downloads/pavages-monochrome-black.pdf" download>PDF</a>
+          <a href="assets/pro-downloads/pavages-monochrome-black.zip" download>ZIP (1024 SVG, 1,1 Mo)</a>
+          <a href="assets/pro-downloads/pavages-monochrome-black.pdf" download>PDF (1024 pages, 10 Mo)</a>
+          <span class="pro-download-meta">ZIP du 19 septembre 2026, empreinte <code>2ecb9b22</code> · PDF du 19 septembre 2026, empreinte <code>b8b49f96</code></span>
         </div>
       </div>
+      <!-- @telechargements:end -->
       <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;opacity:.75;margin-top:14px;max-width:64ch;">1024 compte des constructions (famille × couple de teintes × hexagramme), pas des formes : ces fichiers correspondent à 512 grilles distinctes et 256 pavages — deux constructions peuvent dessiner la même grille sous deux familles différentes, ou une grille et son décalé d'une demi-période le même pavage. Si deux fichiers de cet ensemble sont identiques, c'est pour cette raison.</p>
     </div>
   </div>
