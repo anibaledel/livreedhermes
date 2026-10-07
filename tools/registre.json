@@ -848,7 +848,15 @@
     "data/referents.json",
     "data/resultats-etablis.json",
     "data/zenodo/depots.json",
-    "en/figures-and-sources/index.html"
+    "docs/journaux/2026-10-07/croix_ansee.log",
+    "docs/journaux/2026-10-07/enum_criteres.log",
+    "docs/journaux/2026-10-07/verif_protocole.log",
+    "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log",
+    "en/figures-and-sources/index.html",
+    "tools/croix_ansee.py",
+    "tools/cube_edges.py",
+    "tools/enum_criteres.py",
+    "tools/verif_protocole.py"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1609,6 +1617,7 @@
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
    "lit": [
     "tools/axes",
+    "tools/check_resultats_etablis.mjs",
     "tools/index_codes.mjs",
     "tools/index_referents.mjs",
     "tools/registre.json"

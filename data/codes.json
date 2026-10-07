@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T17:56:23Z",
+ "generated_at_utc": "2026-10-07T18:04:26Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1991,9 +1991,9 @@
   {
    "chemin": "tools/check_resultats_etablis.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
-   "octets": 13455,
-   "sha256": "d2fad739655cb985e1c895ab5356d0618f0958f88a3dc96bc1e100f769b33ec2",
-   "md5": "414949b320a3a48295764362373b6f45",
+   "octets": 16171,
+   "sha256": "8a4e3a7ce090de1ce649a913b274ad6ff8d266efb632010568a724c5756d6593",
+   "md5": "eb0cf002ec355fd7ea21df210b0d7ff4",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
@@ -2948,9 +2948,9 @@
   {
    "chemin": "tools/registre_outils.mjs",
    "adresse": "https://anibal-amiot.com/tools/registre_outils.mjs",
-   "octets": 22284,
-   "sha256": "f2b2c33d6c31de6021b1ba65fa958d2c2ed363521514e83253e3dbe27a25ea64",
-   "md5": "c0f850dea78bd7ce1b5c3d7230a88efd",
+   "octets": 22321,
+   "sha256": "7d1e6cd2d84f10433bbde002f5943d0af4b02139a14c9c5500b2b7046768c58d",
+   "md5": "4ca430ca8f9d1282007df3da010e8dc6",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",

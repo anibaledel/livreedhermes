@@ -301,15 +301,15 @@ critères II–III sur lignes et colonnes    : <b>2</b></pre>
     <p class="commande">python tools/enum_criteres.py</p>
     <pre class="sortie">jeux R/B : 48384
 colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
-avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
+avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : <b>128</b> ; magiques : <b>128</b></pre>
     <p class="duree">environ trois minutes ; le temps affiché varie selon la machine</p>
     <div class="profile-section">
       <p class="profile-text">Le million et demi est l'ensemble sous les quatre critères <i>seuls</i>. Les 128 n'apparaissent qu'en imposant en plus la structure de ligne de la croix. Ces 128 sont ceux d'<i>une</i> croix ; la seconde, image miroir de la première, donne les 128 autres — d'où 256.</p>
     </div>
     <p class="commande">python tools/verif_protocole.py<span class="commande-note">— extrait des lignes qui portent les chiffres</span></p>
-    <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
-§2    cellules diagonales complémentaires par symétrie centrale    : 256/256
-§5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
+    <pre class="sortie">§5       carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
+§2       cellules diagonales complémentaires par symétrie centrale       : 256/256
+§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : <b>64/64</b></pre>
     <p class="duree">quelques secondes</p>
 
     <section class="profile-section">
@@ -337,7 +337,7 @@ Règle d'arête (Théorème 3)
 
 Orbites de Γ (Section 4 et Remarque de la Section 6)
     corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
-    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)</pre>
     <p class="duree">environ quarante-cinq secondes</p>
 
     <section class="profile-section">
