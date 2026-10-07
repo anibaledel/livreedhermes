@@ -1,10 +1,11 @@
 {
  "format_version": "1.0",
- "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
+ "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
   "verifie_journal_depose": 6,
+  "verifie_ci": 1,
   "releve_journal_depose": 4,
-  "affirme": 4
+  "affirme": 3
  },
  "resultats": [
   {
@@ -622,26 +623,45 @@
    "note": "Aucun journal ne l'imprime ; contrôlable par les empreintes des figures déposées dans la V.3.2, qui ne sont pas dans l'instantané."
   },
   {
-   "id": "decoupages-192-64",
-   "intitule": "Sur les 256 carrés d'ordre 6 : 192 n'admettent qu'un découpage quadricolore admissible, 64 en admettent deux, géométriquement distincts",
+   "id": "six-formes-224-grilles",
+   "intitule": "Six formes indépendantes, pas huit : les 256 motifs dessinent 224 grilles — 192 vues une fois, 64 motifs se partageant 32 grilles",
    "enonce": {
-    "texte": null,
-    "sans_source": "SANS SOURCE : écrit nulle part ; les quatre contraintes de la page 40 du livre en sont l'énoncé."
+    "texte": "Les 256 motifs qui ont une page sont 8 formes × 32 hexagrammes (h0 à h31). Ils ne dessinent pas 256 grilles, mais **224** :",
+    "langue": "fr",
+    "source": "docs/six-formes-independantes.md, « Le résultat »",
+    "copie": "docs/six-formes-independantes.md"
    },
    "valeur": {
-    "un_decoupage": 192,
-    "deux_decoupages": 64,
-    "sur": 256
+    "motifs": 256,
+    "grilles": 224,
+    "grilles_vues_une_fois": 192,
+    "motifs_jumeles": 64,
+    "grilles_partagees": 32,
+    "relation": "par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7)"
    },
    "conditionnel": false,
    "referents": [
-    "carres-ordre-6"
+    "constructions-1024"
    ],
-   "donnees": [],
-   "script": null,
-   "preuves": [],
-   "statut": "affirme",
-   "note": "Obtenu le 7 octobre 2026 par un script jetable, non versionné. Script et fichier de sortie à produire."
+   "donnees": [
+    "data/motifs-index.csv"
+   ],
+   "script": {
+    "chemin": "tools/verify_six_formes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/verify_six_formes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-series-pinterest.yml",
+     "lignes": [
+      "1. 224 grilles distinctes ; répartition {\"1\":192,\"2\":32}",
+      "2. 32 paires de la forme par2-yin-yang-hN = par3-sans-yang-mut-h(N XOR 7)"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Les 256 motifs (8 formes × h0…h31) ne sont pas les 256 carrés d'ordre 6 (data/referent_256_v3.json). Aucun journal déposé sur Zenodo : le script, qui échoue si un seul des cinq points ne tient pas, est lancé par la CI à chaque passage."
   }
  ]
 }

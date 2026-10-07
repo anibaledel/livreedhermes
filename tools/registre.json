@@ -847,7 +847,8 @@
    "lit": [
     "data/referents.json",
     "data/resultats-etablis.json",
-    "data/zenodo/depots.json"
+    "data/zenodo/depots.json",
+    "tools/index_codes.mjs"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1341,7 +1342,9 @@
    "appele_par": [
     "check-referents.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/check_resultats_etablis.mjs"
+   ],
    "etat": "actif",
    "sait_echouer": true
   },

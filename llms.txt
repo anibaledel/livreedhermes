@@ -30,6 +30,13 @@ déposé — toutes lignes sauf la dernière (la durée).
 - Index des référents de données : https://anibal-amiot.com/data/referents.json
   (empreintes : https://anibal-amiot.com/data/SHA256SUMS.txt).
 
+Deux ensembles comptent 256 et ne sont pas le même objet : les **256 carrés
+d'ordre 6** du livre (data/referent_256_v3.json, l'échiquier de la page 047 :
+des grilles 6 × 6 à quatre couleurs) et les **256 motifs** qui ont une page
+(8 formes × 32 hexagrammes, data/motifs-index.csv : des grilles 12 × 12).
+Ces 256 motifs ne dessinent que 224 grilles distinctes — 192 vues une fois,
+64 motifs se partageant 32 grilles (docs/six-formes-independantes.md).
+
 In English: these results are established and verified. Read them rather
 than recompute them; if you do recompute, compare your output with the line
 of the deposited log — every line but the last (the run time).

@@ -10,6 +10,9 @@
 //     dans ce dépôt, dont le MD5 est celui que l'instantané Zenodo
 //     (data/zenodo/depots.json) enregistre pour ce fichier ; chaque ligne citée
 //     est, à la lettre, une ligne entière de cette copie ;
+//   - un statut « verifie_ci » : pas de journal déposé, mais le script nommé
+//     existe et un workflow de .github/workflows/ le lance (« run: node|python
+//     <chemin> ») ; c'est lui qui échoue si le résultat ne tient plus ;
 //   - un statut « releve_journal_depose » : la ligne a été relevée hors d'ici
 //     (champ releve obligatoire) ; le journal n'est pas encore versé. Imprimé
 //     EN ATTENTE, n'échoue pas ;
@@ -34,7 +37,11 @@ const lire = (rel) => fs.readFileSync(path.join(RACINE, rel));
 const json = (rel) => JSON.parse(lire(rel).toString('utf8'));
 const existe = (rel) => fs.existsSync(path.join(RACINE, rel));
 const md5 = (rel) => crypto.createHash('md5').update(lire(rel)).digest('hex');
-const STATUTS = ['verifie_journal_depose', 'releve_journal_depose', 'affirme'];
+const STATUTS = ['verifie_journal_depose', 'verifie_ci', 'releve_journal_depose', 'affirme'];
+// les commandes lancées par la CI, une par ligne « run: »
+const WORKFLOWS = fs.readdirSync(path.join(RACINE, '.github/workflows')).filter((f) => /\.ya?ml$/.test(f))
+  .map((f) => [`.github/workflows/${f}`, lire(`.github/workflows/${f}`).toString('utf8')]);
+const lancePar = (chemin) => WORKFLOWS.filter(([, t]) => new RegExp(`run:\\s*(node|python3?)\\s+${chemin.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\s|$)`, 'm').test(t)).map(([f]) => f);
 
 const referents = new Set(json('data/referents.json').referents.map((r) => r.id));
 // enregistrement Zenodo → { fichier → md5 } pour les dernières versions de l'instantané
@@ -85,9 +92,18 @@ function controler(doc) {
       if (!r.releve?.par || !r.releve?.le) ecarts.push(`${ici} : relevé sans « par » ni « le »`);
       else attente.push(`${ici} : ${preuves.map((p) => `${p.journal.fichier} (${p.journal.enregistrement})`).join(', ')} — relevé par Anibal le ${r.releve.le}, journal pas encore versé`);
     }
+    if (r.statut === 'verifie_ci') {
+      const chemin = r.script?.chemin;
+      if (!chemin) ecarts.push(`${ici} : « verifie_ci » sans script`);
+      else {
+        const wf = lancePar(chemin);
+        if (!wf.length) ecarts.push(`${ici} : « verifie_ci » mais aucun workflow ne lance ${chemin}`);
+        for (const p of preuves) if (p.ci && !wf.includes(p.ci)) ecarts.push(`${ici} : ${p.ci} ne lance pas ${chemin} (lancé par : ${wf.join(', ') || 'aucun'})`);
+      }
+    }
     for (const p of preuves) {
       const j = p.journal || {};
-      if (!(p.lignes || []).length) ecarts.push(`${ici} : preuve sans ligne imprimée (${j.fichier})`);
+      if (!(p.lignes || []).length) ecarts.push(`${ici} : preuve sans ligne imprimée (${j.fichier ?? p.ci})`);
       if (r.statut !== 'verifie_journal_depose') continue;
       if (!j.copie || !j.md5) { ecarts.push(`${ici} : « verifie_journal_depose » mais ${j.fichier} n'a pas de copie ou d'empreinte`); continue; }
       const z = instantane.get(j.enregistrement);
@@ -115,6 +131,7 @@ if (process.argv.includes('--essai')) {
     ['une ligne imprimée retouchée', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_journal_depose' && x.preuves?.length); r.preuves[0].lignes[0] = r.preuves[0].lignes[0].replace(/\d+/, (n) => String(Number(n) + 1)); }, /ligne absente/],
     ['une empreinte de journal faussée', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_journal_depose' && x.preuves?.length); r.preuves[0].journal.md5 = '0'.repeat(32); }, /MD5|instantané Zenodo donne/],
     ['un résultat affirmé promu sans journal', (d) => { const r = d.resultats.find((x) => x.statut === 'affirme'); r.statut = 'verifie_journal_depose'; d.statuts.affirme--; d.statuts.verifie_journal_depose++; }, /sans preuve/],
+    ['un résultat vérifié en CI par un script qu\'aucun workflow ne lance', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_ci'); r.script = { ...r.script, chemin: 'tools/index_codes.mjs' }; }, /aucun workflow ne lance|ne lance pas/],
     ['un énoncé vidé sans SANS SOURCE', (d) => { d.resultats[0].enonce = { texte: null }; }, /SANS SOURCE/],
   ];
   for (const [nom, fausser, attendu] of essais) {
@@ -126,7 +143,7 @@ if (process.argv.includes('--essai')) {
     ok &&= refuse;
   }
   if (!ok) { console.error('ÉCHEC de l\'essai : un fichier faussé est accepté.'); process.exit(1); }
-  console.log('Essai : les quatre falsifications sont refusées.');
+  console.log('Essai : les cinq falsifications sont refusées.');
   process.exit(0);
 }
 
