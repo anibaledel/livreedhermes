@@ -553,12 +553,12 @@ ${EN_TETE[lang]}
   <div class="renders">
     <div class="render-box">
       <div class="render-label">${s.cell}</div>
-      <canvas id="cellTriCanvas" width="320" height="320" aria-label="${s.cell} — ${s.triHeading}"></canvas>
+      <canvas id="cellTriCanvas" width="320" height="320" role="img" aria-label="${s.cell} — ${s.triHeading}"></canvas>
       <button type="button" id="btnDlCellTri" class="cta-like">${s.dl}</button>
     </div>
     <div class="render-box">
       <div class="render-label">${s.tiling}</div>
-      <canvas id="pavedTriCanvas" width="320" height="480" aria-label="${s.tiling} — ${s.triHeading}"></canvas>
+      <canvas id="pavedTriCanvas" width="320" height="480" role="img" aria-label="${s.tiling} — ${s.triHeading}"></canvas>
       <button type="button" id="btnDlPavedTri" class="cta-like">${s.dl}</button>
     </div>
   </div>
@@ -576,12 +576,12 @@ ${EN_TETE[lang]}
   <div class="renders">
     <div class="render-box">
       <div class="render-label">${s.cell}</div>
-      <canvas id="cellMonoCanvas" width="320" height="320" aria-label="${s.cell} — ${s.monoHeading}"></canvas>
+      <canvas id="cellMonoCanvas" width="320" height="320" role="img" aria-label="${s.cell} — ${s.monoHeading}"></canvas>
       <button type="button" id="btnDlCellMono" class="cta-like">${s.dl}</button>
     </div>
     <div class="render-box">
       <div class="render-label">${s.tiling}</div>
-      <canvas id="pavedMonoCanvas" width="320" height="480" aria-label="${s.tiling} — ${s.monoHeading}"></canvas>
+      <canvas id="pavedMonoCanvas" width="320" height="480" role="img" aria-label="${s.tiling} — ${s.monoHeading}"></canvas>
       <button type="button" id="btnDlPavedMono" class="cta-like">${s.dl}</button>
     </div>
   </div>
@@ -604,7 +604,7 @@ ${hexagrammeHtml}
     <button type="button" id="btnEquivComplement">${s.btnComplement(63 - n)}</button>
   </div>
   <div class="equiv-canvas-wrap">
-    <canvas id="equivCanvas" width="280" height="280" aria-label="${s.equivHeading}"></canvas>
+    <canvas id="equivCanvas" width="280" height="280" role="img" aria-label="${s.equivHeading}"></canvas>
   </div>
 </section>
 

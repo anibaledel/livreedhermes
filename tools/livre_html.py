@@ -73,7 +73,7 @@ T = {
         'prec': '← Chapitre précédent', 'suiv': 'Chapitre suivant →',
         'lire': 'Lire ces pages dans le lecteur →', 'pdf': 'Télécharger le PDF (FR)',
         'complet': 'Le livre complet', 'ouvrir': 'Ouvrir la page {code} dans le lecteur',
-        'texte': 'Texte de la page {code}', 'nav': 'Chapitres',
+        'texte': 'Texte de la page {code}', 'nav': 'Chapitres', 'nav_bas': 'Chapitres (bas de page)',
         'licence': "© Anibal Edelberto Amiot. CC BY-NC 4.0",
         'sommaire': 'Pages du chapitre',
         'chapitres': 'Lire par chapitre', 'pages': 'pages {du} à {au}', 'page_livre': 'fr/livre/index.html',
@@ -85,7 +85,7 @@ T = {
         'prec': '← Previous chapter', 'suiv': 'Next chapter →',
         'lire': 'Read these pages in the viewer →', 'pdf': 'Download the PDF (EN)',
         'complet': 'The whole book', 'ouvrir': 'Open page {code} in the viewer',
-        'texte': 'Text of page {code}', 'nav': 'Chapters',
+        'texte': 'Text of page {code}', 'nav': 'Chapters', 'nav_bas': 'Chapters (end of page)',
         'licence': "© Anibal Edelberto Amiot. CC BY-NC 4.0",
         'sommaire': 'Pages of the chapter',
         'chapitres': 'Read by chapter', 'pages': 'pages {du} to {au}', 'page_livre': 'en/book/index.html',
@@ -297,7 +297,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 <a class="primaire" href="{lecteur}">{esc(t['lire'])}</a>
 <a href="{SITE}/book-viewer/{pdf}#page={page_pdf}" download>{esc(t['pdf'])}</a>
 </div>
-<nav class="chapitre-nav" aria-label="{esc(t['nav'])}">{''.join(nav)}</nav>
+<nav class="chapitre-nav" aria-label="{esc(t['nav_bas'])}">{''.join(nav)}</nav>
 <p class="pdf-licence">{esc(t['licence'])} — <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">creativecommons.org/licenses/by-nc/4.0</a> · <a href="https://doi.org/{DOI_LIVRE}" rel="noopener" target="_blank">DOI {DOI_LIVRE}</a></p>
 </main>
 <!-- @main:end -->

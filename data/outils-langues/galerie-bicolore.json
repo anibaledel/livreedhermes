@@ -247,10 +247,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "for=\"niveauSelect\">Niveau<select id=\"niveauSelect\"><option value=\"tous\">Tous</option>",
-   "en": "for=\"niveauSelect\">Level<select id=\"niveauSelect\"><option value=\"tous\">All</option>",
-   "es": "for=\"niveauSelect\">Nivel<select id=\"niveauSelect\"><option value=\"tous\">Todos</option>",
-   "th": "for=\"niveauSelect\">ระดับ<select id=\"niveauSelect\"><option value=\"tous\">ทั้งหมด</option>",
+   "fr": "tint-label\">Niveau<select id=\"niveauSelect\"><option value=\"tous\">Tous</option>",
+   "en": "tint-label\">Level<select id=\"niveauSelect\"><option value=\"tous\">All</option>",
+   "es": "tint-label\">Nivel<select id=\"niveauSelect\"><option value=\"tous\">Todos</option>",
+   "th": "tint-label\">ระดับ<select id=\"niveauSelect\"><option value=\"tous\">ทั้งหมด</option>",
    "source": "cymatique.html, UI.<langue>.sectionOndeColNiveau"
   },
   {
