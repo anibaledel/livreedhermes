@@ -278,6 +278,7 @@
         <tr><td>7</td><td>familias bicolores (YIN/YIN mutante) que cierran solas sobre el cubo, acorde mínimo = 1 instancia — no confundir con otro «7» del repositorio que trata de familias YANG/YANG mutante y de una propiedad completamente distinta (rectas trazadas frente a sistemas de bandas)</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
       </tbody>
     </table>
+    <p class="duree">La misma tabla, legible por una máquina, con la línea impresa y el estado de cada resultado — verificado en un registro depositado en Zenodo, en un registro guardado en el repositorio, por la CI, o solo afirmado: <a href="https://anibal-amiot.com/data/resultats-etablis.json">data/resultats-etablis.json</a>.</p>
 
     <p class="faq-block-title" style="max-width:64ch;margin:46px auto 26px;padding-top:34px;border-top:1px solid var(--line);">Lo que imprime cada script</p>
 
@@ -300,15 +301,15 @@ critères II–III sur lignes et colonnes    : <b>2</b></pre>
     <p class="commande">python tools/enum_criteres.py</p>
     <pre class="sortie">jeux R/B : 48384
 colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
-avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
+avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : <b>128</b> ; magiques : <b>128</b></pre>
     <p class="duree">unos tres minutos; el tiempo indicado varía según la máquina</p>
     <div class="profile-section">
       <p class="profile-text">El millón y medio es el conjunto bajo los cuatro criterios <i>solos</i>. Los 128 solo aparecen al imponer además la estructura de fila de la cruz. Estos 128 son los de <i>una</i> cruz; la segunda, imagen especular de la primera, da los otros 128 — de ahí 256.</p>
     </div>
     <p class="commande">python tools/verif_protocole.py<span class="commande-note">— extracto de las líneas que llevan las cifras</span></p>
-    <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
-§2    cellules diagonales complémentaires par symétrie centrale    : 256/256
-§5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
+    <pre class="sortie">§5       carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
+§2       cellules diagonales complémentaires par symétrie centrale       : 256/256
+§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : <b>64/64</b></pre>
     <p class="duree">unos segundos</p>
 
     <section class="profile-section">
@@ -336,7 +337,7 @@ Règle d'arête (Théorème 3)
 
 Orbites de Γ (Section 4 et Remarque de la Section 6)
     corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
-    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)</pre>
     <p class="duree">unos cuarenta y cinco segundos</p>
 
     <section class="profile-section">

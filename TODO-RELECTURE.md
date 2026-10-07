@@ -612,3 +612,10 @@ description française existe, recopiée de la première phrase de la fiche Zeno
 descriptions en, zh, ru, pt, hi sont **absentes**, pas traduites : rien ne parle en son nom sans sa
 relecture. La page Travaux omet la description dans ces langues jusqu'à ce qu'Anibal les écrive ou
 relise des propositions.
+
+## Chiffres et sources — la phrase qui renvoie à resultats-etablis.json (2026-10-07)
+
+Sous le tableau de `chiffres-et-sources.html`, une phrase renvoie à
+`data/resultats-etablis.json`. Sa traduction anglaise, espagnole et thaïe est écrite
+pour ce lot, **sans source** (`data/outils-langues/chiffres-et-sources.json`, dernière
+entrée) : à relire dans les trois langues.
