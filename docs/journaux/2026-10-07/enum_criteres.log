@@ -1,0 +1,13 @@
+jeux R/B : 48384
+colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 142s
+avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : 128 ; magiques : 128
+
+Lecture des trois nombres ci-dessus
+  1492352 est l'ensemble COMPLET des coloriages sous les critères I–IV SEULS,
+  sans la structure de la croix ansée.
+  Imposer en plus cette structure — la condition (b) — laisse exactement
+  128 coloriages, et tous sont magiques.
+  Les quatre critères seuls ne produisent donc pas les 128 : c'est la croix
+  qui les produit. Ces coloriages sont ceux d'UNE croix ; la seconde croix,
+  image miroir de la première, donne les 128 autres — soit les 256 carrés
+  solaires de data/referent_256_v3.json, vérifiés par verif_protocole.py.

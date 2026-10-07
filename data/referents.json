@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-10-07T17:42:27Z",
+ "generated_at_utc": "2026-10-07T17:56:23Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -36,7 +36,9 @@
      "cube-edges-128-orbites",
      "cube-edges-16-formes-0-habillage",
      "cube-edges-8-classes",
-     "harmonie-12-12-6-6"
+     "harmonie-12-12-6-6",
+     "carres-solaires-256",
+     "carres-ordre-12-64"
     ]
    },
    "sources": [
@@ -99,7 +101,11 @@
      "cube-edges-512-lemme-2",
      "cube-edges-128-orbites",
      "cube-edges-16-formes-0-habillage",
-     "cube-edges-8-classes"
+     "cube-edges-8-classes",
+     "calques-360",
+     "demi-decalage-8-sur-15",
+     "corpus-512-256-128",
+     "cube-256-128-64"
     ]
    },
    "sources": [
@@ -173,7 +179,10 @@
      "cube-edges-128-orbites",
      "cube-edges-16-formes-0-habillage",
      "cube-edges-8-classes",
-     "six-formes-224-grilles"
+     "six-formes-224-grilles",
+     "demi-decalage-8-sur-15",
+     "corpus-512-256-128",
+     "cube-256-128-64"
     ]
    },
    "sources": [],

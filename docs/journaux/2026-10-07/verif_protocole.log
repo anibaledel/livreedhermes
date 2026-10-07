@@ -1,0 +1,5 @@
+§2/§4.2  le protocole reproduit le carré de référence : False
+§5       carrés magiques complets (lignes, colonnes, deux diagonales) : 256/256
+§4.1     rouge et bleu complémentaires cellule à cellule (par le miroir) : 0/256
+§2       cellules diagonales complémentaires par symétrie centrale       : 256/256
+§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : 64/64

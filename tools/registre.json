@@ -847,7 +847,8 @@
    "lit": [
     "data/referents.json",
     "data/resultats-etablis.json",
-    "data/zenodo/depots.json"
+    "data/zenodo/depots.json",
+    "en/figures-and-sources/index.html"
    ],
    "ecrit": [],
    "appele_par": [
