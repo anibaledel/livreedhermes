@@ -11,7 +11,7 @@
 //   1. la liste suit le parcours (data/fonds/epingles-parcours.json) épingle
 //      par épingle : même ordre, même motif, même format ;
 //   2. chaque image existe, en PNG, à sa taille : la cellule en 1500 × 1500,
-//      la mise en situation 3 × 4½ en 1000 × 1500 ;
+//      la mise en situation 2 × 3 décalé en 1000 × 1500 ;
 //   3. son empreinte SHA-256 est celle de la liste (une image refaite sans
 //      relancer --serie échoue) ;
 //   4. pas de jumelle : 424 empreintes distinctes pour 424 épingles ;
@@ -20,11 +20,17 @@
 //      pas celle de la pire LIGNE de plus d'un point. Le rendu calé du
 //      7 octobre en avait une par frontière de case (16,7 % sur la colonne
 //      123 de la cellule, 0,4 % sur la pire ligne) : la moyenne la masquait,
-//      l'orientation la montre. Corrigé par le fond crème plein.
+//      l'orientation la montre. Corrigé par le fond crème plein ;
+//   6. la liste à programmer (data/fonds/epingles-encre-creme.csv) désigne
+//      chaque image par son URL servie, épingle par épingle, dans l'ordre de
+//      la liste.
 //
 // Usage : node tools/check_epingles_images.mjs          contrôle
 //         node tools/check_epingles_images.mjs --essai  fausse la liste et montre qu'il refuse,
 //                                                       et refuse une image à coutures (rendu calé de l'échantillon)
+//         node tools/check_epingles_images.mjs --site=https://anibal-amiot.com
+//                                                       chaque URL de la liste à programmer, lue sur le site
+//                                                       DÉPLOYÉ : 200, et l'empreinte de la liste
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -33,7 +39,7 @@ import zlib from 'node:zlib';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lireJson = (rel) => JSON.parse(fs.readFileSync(path.join(RACINE, rel), 'utf8'));
-const TAILLE = { cellule: [1500, 1500], 'pavage-3x4': [1000, 1500] };
+const TAILLE = { cellule: [1500, 1500], 'pavage-2x3-decale': [1000, 1500] };
 const CREME = [0xef, 0xea, 0xe0], ENCRE = [0x23, 0x23, 0x2b], TOLERANCE = 18, ECART_MAX = 0.01;
 
 // Les pixels d'un PNG 8 bits (palette, RVB ou RVBA), filtres compris.
@@ -113,6 +119,39 @@ function controler(liste, parcours) {
 
 const liste = lireJson('data/fonds/epingles-images.json');
 const parcours = lireJson('data/fonds/epingles-parcours.json');
+const SITE = 'https://anibal-amiot.com';
+const CSV = 'data/fonds/epingles-encre-creme.csv';
+const lignesCsv = () => fs.readFileSync(path.join(RACINE, CSV), 'utf8').trim().split('\n').slice(1).map((l) => l.split(','));
+function controlerCsv(liste, lignes) {
+  const fautes = [];
+  if (lignes.length !== liste.images.length) fautes.push(`${CSV} : ${lignes.length} lignes pour ${liste.images.length} images`);
+  liste.images.forEach((x, i) => {
+    const l = lignes[i] || [];
+    if (Number(l[0]) !== x.ordre || l[3] !== x.motif || l[4] !== x.format || l[6] !== `${SITE}/${x.image}` || l[7] !== `${SITE}/motifs/${x.motif}.html`)
+      fautes.push(`${CSV} ligne ${i + 2} : ${l.slice(0, 5).join(',')} — la liste dit ${x.ordre} ${x.motif} ${x.format} ${SITE}/${x.image}`);
+  });
+  return fautes;
+}
+
+const site = (process.argv.find((a) => a.startsWith('--site=')) || '').slice('--site='.length).replace(/\/$/, '');
+if (site) {
+  // chaque URL de la liste à programmer, sur le site déployé : 200 et la même empreinte
+  const fautes = [];
+  const lignes = lignesCsv();
+  const parUrl = new Map(liste.images.map((x) => [`${SITE}/${x.image}`, x.sha256]));
+  for (let i = 0; i < lignes.length; i += 16) {
+    await Promise.all(lignes.slice(i, i + 16).map(async (l) => {
+      const url = l[6].replace(SITE, site);
+      const rep = await fetch(`${url}?v=${Date.now()}`, { cache: 'no-store' }).catch(() => null);
+      if (!rep || !rep.ok) { fautes.push(`${url} : ${rep ? rep.status : 'injoignable'}`); return; }
+      const h = crypto.createHash('sha256').update(Buffer.from(await rep.arrayBuffer())).digest('hex');
+      if (h !== parUrl.get(l[6])) fautes.push(`${url} : servie, mais pas l'image de la liste (empreinte ${h.slice(0, 12)})`);
+    }));
+  }
+  if (fautes.length) { for (const f of fautes.slice(0, 50)) console.error(`ÉCART ${f}`); console.error(`\n${fautes.length} URL(s) de ${CSV} en défaut sur ${site}.`); process.exit(1); }
+  console.log(`Site ${site} : les ${lignes.length} URL de ${CSV} répondent 200, chacune avec l'image de la liste.`);
+  process.exit(0);
+}
 
 if (process.argv.includes('--essai')) {
   const faussee = JSON.parse(JSON.stringify(liste));
@@ -124,13 +163,16 @@ if (process.argv.includes('--essai')) {
   const calee = 'assets/motifs-pinterest/echantillon-encre-creme/cellule-calee/bases-yang-h2.png';
   const c = couture(calee, fs.readFileSync(path.join(RACINE, calee)));
   if (c) { console.log(`  relevé : ${c}`); f.push(c); }
-  const ok = ['attendu 1500 × 1500', 'empreinte différente', 'jumelle', 'couture verticale'].every((m) => f.some((x) => x.includes(m)));
+  // une URL de la liste à programmer qui désigne l'image d'une autre épingle
+  const csvFaux = lignesCsv(); csvFaux[3] = [...csvFaux[3]]; csvFaux[3][6] = csvFaux[4][6];
+  for (const x of controlerCsv(liste, csvFaux)) { console.log(`  relevé : ${x}`); f.push(x); }
+  const ok = ['attendu 1500 × 1500', 'empreinte différente', 'jumelle', 'couture verticale', 'epingles-encre-creme.csv ligne 5'].every((m) => f.some((x) => x.includes(m)));
   if (!ok) { console.error('ÉCHEC de l\'essai : la liste faussée n\'est pas refusée.'); process.exit(1); }
   console.log('Essai : la liste faussée est refusée.');
   process.exit(0);
 }
 
-const fautes = controler(liste, parcours);
+const fautes = [...controler(liste, parcours), ...controlerCsv(liste, lignesCsv())];
 if (fautes.length) {
   for (const f of fautes.slice(0, 50)) console.error(`ÉCART ${f}`);
   console.error(`\n${fautes.length} écart(s) entre les images des épingles et leur liste.`);

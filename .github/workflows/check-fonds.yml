@@ -142,7 +142,7 @@ jobs:
       - run: node tools/check_epingles_images.mjs
       - run: node tools/check_epingles_images.mjs --essai
       # le raccord : deux exemplaires de chaque image bout à bout = le pavage d'un
-      # seul tenant (la cellule dans les deux sens, le 3 × 4½ en largeur) ;
+      # seul tenant (la cellule et le 2 × 3 décalé, dans les deux sens) ;
       # --essai : une case faussée d'un pixel, refusée
       - run: node tools/epingles_encre_creme.mjs --raccord
       - run: node tools/epingles_encre_creme.mjs --raccord --essai
@@ -211,6 +211,14 @@ jobs:
           for i in 1 2 3 4 5 6 7 8 9 10 11; do
             node tools/check_echantillon_site.mjs https://anibal-amiot.com --dossier=assets/motifs-pinterest/encre-creme && exit 0
             echo "essai $i : le site ne sert pas encore la série ; nouvel essai dans 60 s"; sleep 60
+          done
+          exit 1
+      # la liste à programmer (data/fonds/epingles-encre-creme.csv) : chaque URL
+      # répond 200 sur le site, avec l'image de la liste
+      - run: |
+          for i in 1 2 3 4 5 6 7 8 9 10 11; do
+            node tools/check_epingles_images.mjs --site=https://anibal-amiot.com && exit 0
+            echo "essai $i : le site ne sert pas encore les URL de la liste ; nouvel essai dans 60 s"; sleep 60
           done
           exit 1
       # les outils traduits, sur le site déployé
