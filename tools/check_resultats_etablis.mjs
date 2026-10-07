@@ -131,7 +131,7 @@ if (process.argv.includes('--essai')) {
     ['une ligne imprimée retouchée', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_journal_depose' && x.preuves?.length); r.preuves[0].lignes[0] = r.preuves[0].lignes[0].replace(/\d+/, (n) => String(Number(n) + 1)); }, /ligne absente/],
     ['une empreinte de journal faussée', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_journal_depose' && x.preuves?.length); r.preuves[0].journal.md5 = '0'.repeat(32); }, /MD5|instantané Zenodo donne/],
     ['un résultat affirmé promu sans journal', (d) => { const r = d.resultats.find((x) => x.statut === 'affirme'); r.statut = 'verifie_journal_depose'; d.statuts.affirme--; d.statuts.verifie_journal_depose++; }, /sans preuve/],
-    ['un résultat vérifié en CI par un script qu\'aucun workflow ne lance', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_ci'); r.script = { ...r.script, chemin: 'tools/index_codes.mjs' }; }, /aucun workflow ne lance|ne lance pas/],
+    ['un résultat vérifié en CI par un script qu\'aucun workflow ne lance', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_ci'); r.script = { ...r.script, chemin: 'tools/hors-ci.mjs' }; }, /aucun workflow ne lance|ne lance pas/],
     ['un énoncé vidé sans SANS SOURCE', (d) => { d.resultats[0].enonce = { texte: null }; }, /SANS SOURCE/],
   ];
   for (const [nom, fausser, attendu] of essais) {

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T17:42:24Z",
+ "generated_at_utc": "2026-10-07T17:45:19Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1991,9 +1991,9 @@
   {
    "chemin": "tools/check_resultats_etablis.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
-   "octets": 10434,
-   "sha256": "ca8ff10d61b2161d70be6afd19d9ea3c132263dd416787d0a7c2f136846c93f4",
-   "md5": "5f7c5c21211cb8e627c29d72954fbc7e",
+   "octets": 10430,
+   "sha256": "79b673537958af05b91588add2d1127ccfa8a9b3af972ed0b41a8ed32a094abb",
+   "md5": "d651aaeab77204be75f2770b6f92e8b9",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
