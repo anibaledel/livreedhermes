@@ -1039,7 +1039,7 @@
    ],
    "utilise_par": [],
    "etat": "actif",
-   "sait_echouer": false
+   "sait_echouer": true
   },
   {
    "fichier": "tools/epingles_mesures.py",

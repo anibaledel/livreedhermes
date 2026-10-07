@@ -141,6 +141,11 @@ jobs:
       # les 424 images de la série : présentes, à leur taille, à leur empreinte, sans jumelle
       - run: node tools/check_epingles_images.mjs
       - run: node tools/check_epingles_images.mjs --essai
+      # le raccord : deux exemplaires de chaque image bout à bout = le pavage d'un
+      # seul tenant (la cellule dans les deux sens, le 3 × 4½ en largeur) ;
+      # --essai : une case faussée d'un pixel, refusée
+      - run: node tools/epingles_encre_creme.mjs --raccord
+      - run: node tools/epingles_encre_creme.mjs --raccord --essai
       - run: command -v ffmpeg || (sudo apt-get update && sudo apt-get install -y ffmpeg)
       - run: node tools/video_reference.mjs --verifie B2 P
       - run: node tools/check_ecrivain_unique.mjs local
