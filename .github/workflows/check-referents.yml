@@ -1,10 +1,15 @@
-name: Index des référents — data/referents.json dit les fichiers
+name: Index des référents — data/referents.json dit les fichiers, codes et résultats compris
 
 # data/referents.json et data/SHA256SUMS.txt (écrits par tools/index_referents.mjs)
 # listent les référents de données du site : adresse, empreinte, clés de
 # version, générateur, vérificateurs, pages. --verifie échoue dès qu'un
 # référent diverge de son entrée (un octet suffit) ; --essai fausse une
 # empreinte puis un référent, et montre que le contrôle refuse.
+#
+# Même discipline pour data/codes.json (tools/index_codes.mjs : l'index des
+# scripts, relu dans le dépôt) et data/resultats-etablis.json
+# (tools/check_resultats_etablis.mjs : chaque ligne citée relue dans la copie
+# du journal déposé, chaque empreinte comparée à l'instantané Zenodo).
 
 on:
   push:
@@ -25,3 +30,7 @@ jobs:
       - run: node tools/index_referents.mjs --verifie
       - run: node tools/index_referents.mjs --essai
       - run: cd data && sha256sum -c SHA256SUMS.txt
+      - run: node tools/index_codes.mjs --verifie
+      - run: node tools/index_codes.mjs --essai
+      - run: node tools/check_resultats_etablis.mjs
+      - run: node tools/check_resultats_etablis.mjs --essai

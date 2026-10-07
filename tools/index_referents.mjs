@@ -54,7 +54,6 @@ const REFERENTS = [
     chemin: 'data/referent_256_v3.json',
     generateur: 'tools/generate_referent_256.py',
     verificateurs: ['tools/verif_protocole.py', 'tools/enum_criteres.py', 'tools/validate_referent.py'],
-    resultats: null,
     sources: ['data/referent_256_src/MANIFEST.json'],
   },
   {
@@ -66,7 +65,6 @@ const REFERENTS = [
     chemin: 'data/referent_360_v3.json',
     generateur: 'tools/generate_referent_360.py',
     verificateurs: ['tools/check_page_360.mjs', 'tools/validate_referent.py'],
-    resultats: null,
     sources: ['data/referent_360_src/MANIFEST.json'],
   },
   {
@@ -78,7 +76,6 @@ const REFERENTS = [
     chemin: 'data/fonds_ecran_v1.json',
     generateur: 'tools/generate_fonds_ecran.py',
     verificateurs: ['tools/check_fonds_ecran_completude.py'],
-    resultats: null,
     sources: [],
   },
 ];
@@ -96,6 +93,13 @@ function pagesHtml(dir, acc = []) {
 const PAGES = pagesHtml(RACINE).map((f) => [path.relative(RACINE, f), fs.readFileSync(f, 'utf8')]);
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex');
 
+// resultats : relus dans data/resultats-etablis.json, les résultats qui nomment ce référent
+const RESULTATS = 'data/resultats-etablis.json';
+const resultatsDe = (id) => {
+  const ids = JSON.parse(fs.readFileSync(path.join(RACINE, RESULTATS), 'utf8')).resultats.filter((r) => (r.referents || []).includes(id)).map((r) => r.id);
+  return ids.length ? { fichier: RESULTATS, adresse: SITE + RESULTATS, ids } : null;
+};
+
 // lire(chemin) → Buffer ; remplaçable par l'essai
 function construire(lire) {
   const fautes = [];
@@ -106,7 +110,7 @@ function construire(lire) {
     let comptes;
     try { comptes = d.compte(r); } catch { comptes = [NaN]; }
     if (comptes.some((n) => n !== d.nombre)) fautes.push(`${d.chemin} : ${d.compte_par} = ${comptes.join(', ')}, ${d.nombre} annoncés`);
-    for (const f of [d.generateur, ...d.verificateurs, ...d.sources, d.resultats].filter(Boolean)) {
+    for (const f of [d.generateur, ...d.verificateurs, ...d.sources].filter(Boolean)) {
       if (!fs.existsSync(path.join(RACINE, f))) fautes.push(`${d.id} : ${f} déclaré, absent du dépôt`);
     }
     const nom = path.basename(d.chemin, '.json');
@@ -123,7 +127,7 @@ function construire(lire) {
       version: Object.fromEntries(CLES_VERSION.map((k) => [k, typeof r[k] === 'string' ? r[k] : null])),
       generateur: d.generateur,
       verificateurs: d.verificateurs,
-      resultats: d.resultats,
+      resultats: resultatsDe(d.id),
       sources: d.sources,
       pages: PAGES.filter(([, s]) => s.includes(nom)).map(([p]) => p).sort(),
       cles: Object.keys(r),

@@ -1,0 +1,647 @@
+{
+ "format_version": "1.0",
+ "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
+ "statuts": {
+  "verifie_journal_depose": 6,
+  "releve_journal_depose": 4,
+  "affirme": 4
+ },
+ "resultats": [
+  {
+   "id": "code-c8",
+   "intitule": "C₈ : 1152 régions, code [1152, 13, 288]",
+   "enonce": {
+    "texte": "On $C_8$ the sixteen family figures span a code $[1152, 13]$ whose minimum distance is $288$, attained by a single word, and these parameters do not depend on the parity convention. On $C_1$ the minimum distance is $36$ and the dimension is $12$ if figures carry the polarity the rule gives them, $11$ if a reference region is required to be light.",
+    "langue": "en",
+    "source": "Axes and Level Sets (doi:10.5281/zenodo.22965031), notes/paper1.md, Theorem 6",
+    "copie": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/notes/paper1.md"
+   },
+   "valeur": {
+    "longueur": 1152,
+    "dimension": 13,
+    "distance_minimale": 288,
+    "mots_de_poids_minimal": 1
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [
+    "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/catalogue-axes.json"
+   ],
+   "script": {
+    "chemin": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.py",
+    "adresse": "https://anibal-amiot.com/docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.py",
+    "depose": {
+     "enregistrement": "23101285",
+     "fichier": "verif_paper1.py",
+     "md5": "d0ec9edab883ab262bc0e006c7400391"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22965031",
+      "enregistrement": "23101285",
+      "fichier": "verif_paper1.log",
+      "md5": "9ceccf258dffdf6d7518d9fba2a00c49",
+      "copie": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.log"
+     },
+     "lignes": [
+      "       rang des familles 13 ; [1152, 13] dmin 288 ; mots de poids min 1"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "code-c1",
+   "intitule": "C₁ : longueur 144, distance minimale 36 ; dimension 12 ou 11 selon la convention de parité",
+   "enonce": {
+    "texte": "On $C_8$ the sixteen family figures span a code $[1152, 13]$ whose minimum distance is $288$, attained by a single word, and these parameters do not depend on the parity convention. On $C_1$ the minimum distance is $36$ and the dimension is $12$ if figures carry the polarity the rule gives them, $11$ if a reference region is required to be light.",
+    "langue": "en",
+    "source": "Axes and Level Sets (doi:10.5281/zenodo.22965031), notes/paper1.md, Theorem 6",
+    "copie": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/notes/paper1.md"
+   },
+   "valeur": {
+    "longueur": 144,
+    "distance_minimale": 36
+   },
+   "conditionnel": true,
+   "branches": [
+    {
+     "condition": "les figures portent la polarité que la règle leur donne (sans ancrage)",
+     "valeur": {
+      "longueur": 144,
+      "dimension": 12,
+      "distance_minimale": 36
+     },
+     "preuves": [
+      {
+       "journal": {
+        "depot": "10.5281/zenodo.22965031",
+        "enregistrement": "23101285",
+        "fichier": "verif_paper1.log",
+        "md5": "9ceccf258dffdf6d7518d9fba2a00c49",
+        "copie": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.log"
+       },
+       "lignes": [
+        "       sans ancrage (polarite de la regle) : rang 12"
+       ]
+      },
+      {
+       "journal": {
+        "depot": "10.5281/zenodo.22986529",
+        "enregistrement": "23101928",
+        "fichier": "codes_cles.log",
+        "md5": "fc4b5897636db120c4f237a56f51a03a",
+        "copie": "docs/sources/2026-10-01/one-object-v8/codes_cles.log"
+       },
+       "lignes": [
+        "== C1: clés 72, rang 43, clés nulles [('H', -6.0), ('V', -6.0)]; rang familles 12; d_min 36; mots de poids min ['T0 YANG MUT + T1 YIN', 'T0 YANG + T1 YIN + T1 YANG', 'T0 YANG + T1 YIN MUT + T1 YANG MUT + T2 YANG + T2 YANG MUT', 'T0 YANG MUT + T1 YIN MUT + T1 YANG + T1 YANG MUT + T2 YANG + T2 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN MUT + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN MUT + T1 YANG + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG + T2 YANG MUT + T3 YIN + T3 YIN MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN + T1 YANG + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG + T2 YANG MUT + T3 YIN + T3 YIN MUT', 'T0 YANG + T1 YIN MUT + T1 YANG MUT + T2 YANG + T3 YANG', 'T0 YANG MUT + T1 YIN MUT + T1 YANG + T1 YANG MUT + T2 YANG + T3 YANG', 'T0 YANG MUT + T1 YIN + T2 YANG MUT + T3 YANG', 'T0 YANG + T1 YIN + T1 YANG + T2 YANG MUT + T3 YANG', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG + T3 YIN + T3 YIN MUT + T3 YANG', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN + T1 YANG + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG + T3 YIN + T3 YIN MUT + T3 YANG', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN MUT + T2 YIN + T2 YIN MUT + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN MUT + T1 YANG + T2 YIN + T2 YIN MUT + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG', 'T0 YANG MUT + T1 YIN + T2 YANG + T3 YANG MUT', 'T0 YANG + T1 YIN + T1 YANG + T2 YANG + T3 YANG MUT', 'T0 YANG + T1 YIN MUT + T1 YANG MUT + T2 YANG MUT + T3 YANG MUT', 'T0 YANG MUT + T1 YIN MUT + T1 YANG + T1 YANG MUT + T2 YANG MUT + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN MUT + T2 YIN + T2 YIN MUT + T2 YANG + T3 YIN + T3 YIN MUT + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN MUT + T1 YANG + T2 YIN + T2 YIN MUT + T2 YANG + T3 YIN + T3 YIN MUT + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN + T1 YANG + T1 YANG MUT + T2 YIN + T2 YIN MUT + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG MUT', 'T0 YANG + T1 YIN MUT + T1 YANG MUT + T3 YANG + T3 YANG MUT', 'T0 YANG MUT + T1 YIN MUT + T1 YANG + T1 YANG MUT + T3 YANG + T3 YANG MUT', 'T0 YANG MUT + T1 YIN + T2 YANG + T2 YANG MUT + T3 YANG + T3 YANG MUT', 'T0 YANG + T1 YIN + T1 YANG + T2 YANG + T2 YANG MUT + T3 YANG + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN + T1 YANG MUT + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT + T3 YANG + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN + T1 YANG + T1 YANG MUT + T2 YIN + T2 YIN MUT + T3 YIN + T3 YIN MUT + T3 YANG + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG MUT + T1 YIN MUT + T2 YIN + T2 YIN MUT + T2 YANG + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG + T3 YANG MUT', 'T0 YIN + T0 YIN MUT + T0 YANG + T1 YIN MUT + T1 YANG + T2 YIN + T2 YIN MUT + T2 YANG + T2 YANG MUT + T3 YIN + T3 YIN MUT + T3 YANG + T3 YANG MUT']; relations courtes ['T0 YANG + T0 YANG MUT + T1 YANG', 'T2 YANG MUT + T3 YANG', 'T2 YANG + T3 YANG MUT']; figures distinctes (réunion de clés) 4096, dont vide : True"
+       ]
+      }
+     ]
+    },
+    {
+     "condition": "une région de référence est imposée claire (avec ancrage)",
+     "valeur": {
+      "longueur": 144,
+      "dimension": 11,
+      "distance_minimale": 36
+     },
+     "preuves": [
+      {
+       "journal": {
+        "depot": "10.5281/zenodo.22965031",
+        "enregistrement": "23101285",
+        "fichier": "verif_paper1.log",
+        "md5": "9ceccf258dffdf6d7518d9fba2a00c49",
+        "copie": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.log"
+       },
+       "lignes": [
+        "       rang des familles 11 ; [144, 11] dmin 36 ; mots de poids min 1",
+        "       avec ancrage (region de reference claire) : rang 11"
+       ]
+      }
+     ]
+    }
+   ],
+   "note": "Ne s'écrit pas comme un triplet unique. « C₁ = [144, 12, 36] » est la branche sans ancrage ; le journal de verif_paper1.py imprime la branche avec ancrage dans son triplet, et les deux rangs ensuite.",
+   "referents": [],
+   "donnees": [
+    "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/catalogue-axes.json"
+   ],
+   "script": {
+    "chemin": "docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.py",
+    "adresse": "https://anibal-amiot.com/docs/sources/2026-10-01/axes-niveaux-archive-v1.1/scripts/verif_paper1.py",
+    "depose": {
+     "enregistrement": "23101285",
+     "fichier": "verif_paper1.py",
+     "md5": "d0ec9edab883ab262bc0e006c7400391"
+    },
+    "aussi": {
+     "chemin": "docs/sources/2026-10-01/one-object-v8/codes_cles.py",
+     "adresse": "https://anibal-amiot.com/docs/sources/2026-10-01/one-object-v8/codes_cles.py",
+     "depose": {
+      "enregistrement": "23101928",
+      "fichier": "codes_cles.py",
+      "md5": "38bffb1e5667620ed5b3f3e2657859c1"
+     }
+    }
+   },
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "invariant-48-48-48",
+   "intitule": "48 / 48 / 48 par identité sur les 360 calques",
+   "enonce": {
+    "texte": "Pour chaque identité (famille,teinte), la somme des cases violettes/magenta/orange sur ses 6 niveaux vaut exactement 48/48/48. 56/60 identités : 8 cases violettes par niveau uniformément. 4 identités 'YIN-MUT-*' : transposition à 2 couleurs (0 ou 16 cases violettes par niveau, jamais 8) — magenta fixe côté YIN, orange fixe côté YANG (axe2).",
+    "langue": "fr",
+    "source": "data/referent_360_v3.json, clé invariant_48_48_48"
+   },
+   "valeur": {
+    "violet": 48,
+    "magenta": 48,
+    "orange": 48,
+    "par": "identité (famille, teinte), sur ses 6 niveaux"
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360"
+   ],
+   "donnees": [],
+   "script": null,
+   "preuves": [],
+   "statut": "affirme",
+   "note": "Écrit dans le référent ; aucun journal déposé ne l'imprime."
+  },
+  {
+   "id": "croisements-1770-113280",
+   "intitule": "1770 paires de couches, 113 280 constructions",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "paires": 1770,
+    "constructions": 113280
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": null,
+    "adresse": null,
+    "depose": {
+     "enregistrement": "23214317",
+     "fichier": "tools/croisements.py (dans l'archive de la V.3.2)",
+     "md5": null
+    },
+    "note": "absent de ce dépôt et du site : à ajouter depuis l'archive de la V.3.2 (décision d'Anibal)"
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "paires non ordonnées : 1770 ; constructions : 113280"
+     ]
+    }
+   ],
+   "statut": "releve_journal_depose",
+   "releve": {
+    "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
+    "le": "2026-10-07",
+    "a_faire": "verser ici l'instantané de la fiche 23214317 et les journaux de l'archive ; le statut passera à verifie_journal_depose quand leurs empreintes seront relues"
+   },
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+  },
+  {
+   "id": "croisements-16768-9824",
+   "intitule": "16 768 constructions conformes, 9 824 grilles distinctes",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "conformes": 16768,
+    "grilles": 9824
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": null,
+    "adresse": null,
+    "depose": {
+     "enregistrement": "23214317",
+     "fichier": "tools/croisements.py (dans l'archive de la V.3.2)",
+     "md5": null
+    },
+    "note": "absent de ce dépôt et du site : à ajouter depuis l'archive de la V.3.2 (décision d'Anibal)"
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "constructions qui pavent simplement : 16768 ; grilles distinctes : 9824"
+     ]
+    }
+   ],
+   "statut": "releve_journal_depose",
+   "releve": {
+    "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
+    "le": "2026-10-07",
+    "a_faire": "verser ici l'instantané de la fiche 23214317 et les journaux de l'archive ; le statut passera à verifie_journal_depose quand leurs empreintes seront relues"
+   },
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+  },
+  {
+   "id": "croisements-1292-orbites",
+   "intitule": "1292 orbites de Γ, dont 128 du corpus",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "orbites": 1292,
+    "orbites_corpus": 128
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": null,
+    "adresse": null,
+    "depose": {
+     "enregistrement": "23214317",
+     "fichier": "tools/croisements.py (dans l'archive de la V.3.2)",
+     "md5": null
+    },
+    "note": "absent de ce dépôt et du site : à ajouter depuis l'archive de la V.3.2 (décision d'Anibal)"
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "orbites de Γ : 1292 ; dont corpus : 128"
+     ]
+    },
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/cube_croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "    orbites de Γ : 1292 ; mixtes : 0 ; hors corpus : 1164 ; admissibles hors corpus : 226 (19.4 %)"
+     ]
+    }
+   ],
+   "statut": "releve_journal_depose",
+   "releve": {
+    "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
+    "le": "2026-10-07",
+    "a_faire": "verser ici l'instantané de la fiche 23214317 et les journaux de l'archive ; le statut passera à verifie_journal_depose quand leurs empreintes seront relues"
+   },
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+  },
+  {
+   "id": "croisements-2064-admissibles",
+   "intitule": "2064 grilles admissibles sur 9 824, soit 21,0 %",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "admissibles": 2064,
+    "sur": 9824,
+    "pourcentage": 21.0
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": null,
+    "adresse": null,
+    "depose": {
+     "enregistrement": "23214317",
+     "fichier": "tools/croisements.py (dans l'archive de la V.3.2)",
+     "md5": null
+    },
+    "note": "absent de ce dépôt et du site : à ajouter depuis l'archive de la V.3.2 (décision d'Anibal)"
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "habillables : 2064/9824 (21.0 %) ; hors corpus : 1808/9312 (19.4 %) ; corpus : 256/512"
+     ]
+    },
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "23214317",
+      "fichier": "logs/cube_croisements.log",
+      "md5": null,
+      "copie": null
+     },
+     "lignes": [
+      "    admissibles : 2064/9824 (21.0 %)"
+     ]
+    }
+   ],
+   "statut": "releve_journal_depose",
+   "releve": {
+    "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
+    "le": "2026-10-07",
+    "a_faire": "verser ici l'instantané de la fiche 23214317 et les journaux de l'archive ; le statut passera à verifie_journal_depose quand leurs empreintes seront relues"
+   },
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+  },
+  {
+   "id": "cube-edges-512-lemme-2",
+   "intitule": "512 / 512 grilles en double (Lemme 2)",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "grilles_en_double": 512,
+    "sur": 512
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024",
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    grilles en double : 512/512 (chaque grille exactement deux fois) ; correspondance n ↔ n⊕7 ou n⊕56 : ✓"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "cube-edges-128-orbites",
+   "intitule": "128 orbites de Γ : 64 retenues, 64 exclues, aucune mixte",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "orbites": 128,
+    "retenues": 64,
+    "exclues": 64,
+    "mixtes": 0
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024",
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    corpus   : 128 orbites ; grilles du corpus par orbite : {4: 128}",
+      "    retenues : 64 ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "cube-edges-16-formes-0-habillage",
+   "intitule": "16 / 16 formes d'ordre 6 du corpus, 0 habillage du cube (Section 7)",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "formes": 16,
+    "presentes": 16,
+    "habillages": 0
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024",
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    formes retenues : 16 ; présentes dans le corpus : 16/16",
+      "    admettant un habillage du cube : 0"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "cube-edges-8-classes",
+   "intitule": "8 classes à permutation de teinte près",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "classes": 8
+   },
+   "conditionnel": false,
+   "referents": [
+    "calques-360",
+    "constructions-1024",
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    classes à permutation de teinte près : 8"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose"
+  },
+  {
+   "id": "harmonie-12-12-6-6",
+   "intitule": "12 / 12 / 6 / 6 sur les 36 cases d'un carré d'ordre 6",
+   "enonce": {
+    "texte": "Le système d'encodage a été étudié et vérifié pour l'harmonie 12/12/6/6 (quatre matrices de remplissage réparties en deux paires de 12 et deux paires de 6 éléments).",
+    "langue": "fr",
+    "source": "unified-patterns.html (FAQ du site)"
+   },
+   "valeur": {
+    "repartition": [
+     12,
+     12,
+     6,
+     6
+    ],
+    "cases": 36
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": null,
+   "preuves": [],
+   "statut": "affirme",
+   "note": "Aucun journal déposé ne l'imprime."
+  },
+  {
+   "id": "figures-note-octet-pour-octet",
+   "intitule": "Les cinq figures de la note, reproduites octet pour octet",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : le texte de la note soumise au Journal of Mathematics and the Arts n'est pas dans ce dépôt ; l'énoncé est à recopier depuis la note, par Anibal ou sur sa relecture. L'intitulé n'est qu'une étiquette."
+   },
+   "valeur": {
+    "figures": 5,
+    "identite": "octet pour octet"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/make_figures.py",
+    "adresse": "https://anibal-amiot.com/tools/make_figures.py",
+    "depose": null
+   },
+   "preuves": [],
+   "statut": "affirme",
+   "note": "Aucun journal ne l'imprime ; contrôlable par les empreintes des figures déposées dans la V.3.2, qui ne sont pas dans l'instantané."
+  },
+  {
+   "id": "decoupages-192-64",
+   "intitule": "Sur les 256 carrés d'ordre 6 : 192 n'admettent qu'un découpage quadricolore admissible, 64 en admettent deux, géométriquement distincts",
+   "enonce": {
+    "texte": null,
+    "sans_source": "SANS SOURCE : écrit nulle part ; les quatre contraintes de la page 40 du livre en sont l'énoncé."
+   },
+   "valeur": {
+    "un_decoupage": 192,
+    "deux_decoupages": 64,
+    "sur": 256
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": null,
+   "preuves": [],
+   "statut": "affirme",
+   "note": "Obtenu le 7 octobre 2026 par un script jetable, non versionné. Script et fichier de sortie à produire."
+  }
+ ]
+}

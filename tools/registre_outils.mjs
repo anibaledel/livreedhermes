@@ -49,6 +49,7 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { premierePhrase } from './entete.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const REGISTRE = path.join(ROOT, 'tools/registre.json');
@@ -86,38 +87,8 @@ function appelsDe(f) {
   return { appele, essai };
 }
 
-// role : la première phrase de l'en-tête, sans les lignes de licence
-function roleDe(f) {
-  const s = source(f).split('\n').slice(0, 60);
-  const lignes = [];
-  let doc = null;
-  for (const l of s) {
-    let t = l.trim();
-    if (t.startsWith('#!')) continue;
-    if (f.endsWith('.py')) {
-      if (doc === null && /^[rRuU]?("""|''')/.test(t)) { doc = t.slice(t.search(/("""|''')/), t.search(/("""|''')/) + 3); t = t.replace(/^[rRuU]?("""|''')/, ''); if (t.includes(doc)) { lignes.push(t.split(doc)[0]); break; } lignes.push(t); continue; }
-      if (doc) { if (t.includes(doc)) { lignes.push(t.split(doc)[0]); break; } lignes.push(t); continue; }
-      if (t.startsWith('#')) { lignes.push(t.replace(/^#+\s?/, '')); continue; }
-      if (t === '' && !lignes.length) continue;
-      break;
-    } else {
-      if (/^(\/\/|\/\*|\*)/.test(t) || (lignes.length && !/\*\//.test(t) && s.indexOf(l) < 40 && /^\s*\/\*/.test(s.join('\n')))) {
-        t = t.replace(/^\/\*+\s?|^\/\/\s?|^\*+\s?|\*\/$/g, '').replace(/^=+$/, '');
-        lignes.push(t);
-        if (/\*\/\s*$/.test(l)) break;
-        continue;
-      }
-      if (t === '' && !lignes.length) continue;
-      if (/^(import|const|export|let|function|async|\/\/)/.test(t)) break;
-    }
-  }
-  const texte = lignes.map((l) => l.trim())
-    .filter((l) => l && !/©|AGPL|licen[cs]e|Commercial license|^=+$|^-+$/.test(l))
-    .join(' ').replace(/\s+/g, ' ').trim();
-  const sans = texte.replace(new RegExp(`^${path.basename(f).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*[—–:-]\\s*`), '');
-  const phrase = (sans.match(/^.+?[.!?](?=\s|$)/) || [sans])[0];
-  return phrase.length > 240 ? `${phrase.slice(0, 237)}…` : phrase;
-}
+// role : la première phrase de l'en-tête (tools/entete.mjs, partagé avec index_codes.mjs)
+const roleDe = (f) => premierePhrase(f, source(f));
 
 // lit / ecrit : les chemins du dépôt nommés dans le source
 const RACINES = '(?:data|assets|docs|motifs|fr|en|es|th|zh|ru|pt|hi|book-viewer|scripts|articles|hexagrammes|tools)';

@@ -10,8 +10,8 @@ recalcules, compare ta sortie à la ligne du journal déposé — toutes lignes 
 
 - `data/referents.json` — l'index des référents de données (adresse, empreinte, générateur, vérificateurs)
 - `data/SHA256SUMS.txt` — leurs empreintes (`cd data && sha256sum -c SHA256SUMS.txt`)
-- `data/codes.json` — l'index des scripts (à venir)
-- `data/resultats-etablis.json` — les résultats, l'énoncé, la ligne imprimée, le journal déposé (à venir)
+- `data/codes.json` — l'index des scripts : adresse, empreinte, licence lue, durées avec leur machine, même octet que Zenodo ou non
+- `data/resultats-etablis.json` — les résultats : l'énoncé, la ligne imprimée, le journal déposé, le statut (vérifié, relevé, affirmé)
 - `chiffres-et-sources.html` — chaque nombre du site, le script qui le reproduit, la ligne qu'il imprime
 - `data/travaux.json` — les dépôts Zenodo ; `data/zenodo/` — l'instantané des fiches
 
