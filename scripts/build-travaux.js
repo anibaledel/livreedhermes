@@ -105,6 +105,9 @@ function itemHtml(d, lang) {
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
   if (d.versionDoi) meta.push(`<a href="${doiUrl(d.versionDoi)}">${t.cetteVersion}</a>`);
+  // la page du dépôt (résumé recopié de la fiche, scripts/build-travaux-pages.js) :
+  // en français seulement — les autres langues y viendront avec leurs pages
+  if (d.page && lang === 'fr') meta.push(`<a href="https://anibal-amiot.com/travaux/${d.page}/">résumé et fiche</a>`);
   if (d.licence) meta.push(escapeHtml(d.licence));
   if (d.anterieur) meta.push(`${t.anterieur} <a href="${doiUrl(d.anterieur.doi)}">${escapeHtml(d.anterieur[lang])}</a>`);
   lignes.push(`          <span class="travaux-meta">${meta.join(' · ')}</span>`, `        </li>`);
@@ -217,6 +220,7 @@ function llms() {
     const v = d.version ? `, version ${libelleVersion(d.version)}` : '';
     lignes.push(`- ${d.titre} (${TYPES[d.type].en.toLowerCase()}${v}): https://doi.org/${d.doi}`);
     if (d.en) lignes.push(`  ${d.en}`);
+    if (d.page) lignes.push(`  Abstract (verbatim from the Zenodo record) and metadata: https://anibal-amiot.com/travaux/${d.page}/`);
   }
   lignes.push('<!-- @travaux:end -->');
   return lignes.join('\n');

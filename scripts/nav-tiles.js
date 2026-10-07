@@ -217,6 +217,8 @@ function parenteDe(rel) {
   const livre = GROUPES_LANGUES.find((g) => g.nom === 'livre');
   if (livre && livre.pages.some((p) => rel.startsWith(p[2].replace(/index\.html$/, '')))) return 'traite';
   if (/^(en\/)?articles\//.test(rel)) return 'articles';
+  // la page d'un dépôt (travaux/<slug>/, scripts/build-travaux-pages.js) relève de Travaux
+  if (/^travaux\//.test(rel)) return 'travaux';
   return null;
 }
 

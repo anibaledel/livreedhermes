@@ -150,6 +150,14 @@ const HEXAGRAM_PAGES = fs
     priority: '0.5',
   }));
 
+// Travaux : une page par dépôt, travaux/<slug>/index.html (scripts/build-travaux-pages.js),
+// découvertes automatiquement comme les hexagrammes.
+const travauxDir = path.join(ROOT, 'travaux');
+const TRAVAUX_PAGES = (fs.existsSync(travauxDir) ? fs.readdirSync(travauxDir) : [])
+  .filter((f) => fs.existsSync(path.join(travauxDir, f, 'index.html')))
+  .sort()
+  .map((f) => ({ loc: `${SITE}/travaux/${f}/`, file: `travaux/${f}/index.html`, changefreq: 'monthly', priority: '0.6' }));
+
 // Motifs : les 512 pages engendrées par scripts/generate-motif-pages.js
 // (motifs/*.html en, fr/motifs/*.html fr), découvertes automatiquement —
 // même mécanisme que ARTICLE_PAGES/HEXAGRAM_PAGES ci-dessus. hreflang
@@ -185,7 +193,7 @@ for (const slug of motifSlugsEn) {
   MOTIF_PAGES.push({ loc: frLoc, file: `fr/motifs/${slug}.html`, changefreq: 'yearly', priority: '0.5', hreflang });
 }
 
-const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES, ...MOTIF_PAGES];
+const ALL_PAGES = [...STATIC_PAGES, ...BOOK_PAGES, ...ARTICLE_PAGES, ...HEXAGRAM_PAGES, ...TRAVAUX_PAGES, ...MOTIF_PAGES];
 
 // Aucune adresse deux fois : deux <url> pour le même <loc> est une erreur que
 // Google signale. Le cas concret qui l'a motivé : lexique.html figure dans
