@@ -217,6 +217,8 @@ picture{ display:contents; }
 .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
 .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
 .nav-tile:hover .nav-tile-label, .nav-tile:focus-visible .nav-tile-label{ color:var(--gold); }
+/* La langue d'une page visée qui n'existe pas dans celle de la page (scripts/langues.js, annonceVers) */
+.lien-langue{ text-transform:none; letter-spacing:0; font-size:.85em; color:var(--dim); }
 .nav-tile-excerpt{
   font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;

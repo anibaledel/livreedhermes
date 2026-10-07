@@ -26,7 +26,7 @@
    sansTraduction() en donne la liste par langue.
    ============================================================ */
 
-const { LANGUES, GROUPES: GROUPES_LANGUES } = require('./langues.js');
+const { LANGUES, GROUPES: GROUPES_LANGUES, annonceVers, espaceAvant } = require('./langues.js');
 const I18N = require('./nav-tiles-libelles.js');
 
 // Cinq catégories (prompt-navigation.md, 2026-10-05) : les 19 tuiles à plat
@@ -234,7 +234,8 @@ function tuilesPourPage(rel, prefixe, lang = 'fr') {
   const estSoi = (href) => href === rel || href === relDir;
   const avecAdresse = (t) => {
     const href = adresseLocale(t.id, t.href, lang) ?? t.href;
-    return { ...t, finalHref: prefixe + href, courante: estSoi(href) || estSoi(t.href) };
+    // la page n'existe pas dans la langue : la tuile le dit avant le clic
+    return { ...t, finalHref: prefixe + href, courante: estSoi(href) || estSoi(t.href), annonce: annonceVers(href, lang) };
   };
   const fixes = FIXES.map(avecAdresse);
   const entrees = TUILES.map(avecAdresse);
@@ -272,20 +273,24 @@ function tuilesPourPage(rel, prefixe, lang = 'fr') {
 // chacune avec son propre GIF, dessiné depuis ses propres données réelles.
 const ICONES_TOUJOURS_ANIMEES = new Set(['bicolore', 'galerie-bicolore']);
 
+// L'annonce d'une page dans une autre langue (scripts/langues.js, annonceVers).
+const hreflangDe = (t) => (t.annonce ? ` hreflang="${t.annonce.hreflang}"` : '');
+const marqueDe = (t) => (t.annonce ? `${espaceAvant(t.annonce.texte)}<span class="lien-langue">${t.annonce.texte}</span>` : '');
+
 function htmlTuile(item, prefixe, lang) {
   const texte = item[lang] || item.fr;
   // GIF animé : première image fixe si le visiteur demande moins de mouvement.
   const img = ICONES_TOUJOURS_ANIMEES.has(item.icon)
     ? `<picture><source srcset="${prefixe}assets/nav-icons/${item.icon}-fixe.png" media="(prefers-reduced-motion: reduce)"><img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}-hover.gif" alt="" width="72" height="72" loading="lazy"></picture>`
     : `<img class="nav-tile-icon" src="${prefixe}assets/nav-icons/${item.icon}.png" alt="" width="72" height="72" loading="lazy">`;
-  return `<a class="nav-tile" href="${item.finalHref}"${item.courante ? ' aria-current="page"' : ''}>${img}<span class="nav-tile-body"><span class="nav-tile-label">${texte.label}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
+  return `<a class="nav-tile" href="${item.finalHref}"${hreflangDe(item)}${item.courante ? ' aria-current="page"' : ''}>${img}<span class="nav-tile-body"><span class="nav-tile-label">${texte.label}${marqueDe(item)}</span><span class="nav-tile-excerpt">${texte.excerpt}</span></span></a>`;
 }
 
 // Une entrée de catégorie : le titre de la page, et sa phrase en dessous —
 // sans icône (24 images de moins par page, sur 655 pages).
 function htmlEntree(t, lang) {
   const texte = t[lang] || t.fr;
-  return `<li><a href="${t.finalHref}"${t.marquee ? ' aria-current="page"' : ''}><span class="nav-cat-label">${texte.label}</span><span class="nav-cat-texte">${texte.excerpt}</span></a></li>`;
+  return `<li><a href="${t.finalHref}"${hreflangDe(t)}${t.marquee ? ' aria-current="page"' : ''}><span class="nav-cat-label">${texte.label}${marqueDe(t)}</span><span class="nav-cat-texte">${texte.excerpt}</span></a></li>`;
 }
 // Une catégorie : un <details> natif, sans JavaScript — les liens restent dans
 // le HTML, repliés ou non ; le nombre de pages à droite du titre.
@@ -308,6 +313,7 @@ const CREDIT_COLLAB = { fr: 'Créé en collaboration avec Claude', en: 'Created 
 const COPYRIGHT_SUFFIX = { fr: 'CC BY-NC 4.0', en: 'CC BY-NC 4.0', ...I18N.COPYRIGHT_SUFFIX_I18N };
 // Le bouton Soutien mène à la page de soutien de la langue quand elle existe.
 const SOUTIEN_HREF = (lang) => `https://anibal-amiot.com/${adresseLocale('soutien', 'soutenir.html', lang) ?? 'soutenir.html'}`;
+const SOUTIEN_ANNONCE = (lang) => annonceVers(adresseLocale('soutien', 'soutenir.html', lang) ?? 'soutenir.html', lang);
 
 /* Rend le bloc <div class="note">...</div> complet pour une page : les deux
    liens fixes (Accueil, Articles) au-dessus, hors des catégories ; le
@@ -339,7 +345,7 @@ function htmlNavTiles(rel, prefixe, lang = 'fr', seulementTuiles = false) {
     <div class="footer-caduceus">
       <picture><source srcset="${prefixe}assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="${prefixe}assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
     </div>
-    <a class="site-nav-btn" href="${SOUTIEN_HREF(lang)}" style="display:inline-block; margin:14px 0;" title="${soutien.title}">${soutien.label}</a>
+    <a class="site-nav-btn" href="${SOUTIEN_HREF(lang)}"${hreflangDe({ annonce: SOUTIEN_ANNONCE(lang) })} style="display:inline-block; margin:14px 0;" title="${soutien.title}">${soutien.label}${marqueDe({ annonce: SOUTIEN_ANNONCE(lang) })}</a>
 
     ${blocCategories}
 

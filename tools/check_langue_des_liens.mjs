@@ -25,13 +25,15 @@
 //   - le lien qui porte une requête (« ?chrono=12 ») : son paramètre n'a pas
 //     forcément de sens sur l'équivalent — listé à part, à décider.
 //
-// Les liens vers une page d'une autre langue SANS équivalent (« Soutenir »,
-// les outils restés en français) ne sont pas des fautes : ils sont comptés,
-// annoncés (hreflang) ou non, et listés avec --liste.
+// Un lien vers une page d'une autre langue SANS équivalent (« Soutenir »,
+// les outils restés en français) doit l'ANNONCER avant le clic : hreflang, et
+// la langue en clair (« Tools (French) ») — décision d'Anibal, 7 octobre 2026 ;
+// scripts/langues.js (annonceVers, annoncerLiens) le pose. Un lien silencieux
+// est en faute. Les liens annoncés sont comptés, et listés avec --liste.
 //
 // Usage : node tools/check_langue_des_liens.mjs           contrôle
 //         node tools/check_langue_des_liens.mjs --liste   + la liste des liens sans équivalent
-//         node tools/check_langue_des_liens.mjs --essai   montre qu'il échoue sur un lien faussé
+//         node tools/check_langue_des_liens.mjs --essai   montre qu'il échoue sur les deux fautes
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -115,13 +117,15 @@ const toutes = pages(RACINE);
 if (process.argv.includes('--essai')) {
   // un lien faussé : la page anglaise « About » renvoie vers le contact français
   const f = path.join(RACINE, 'en/about/index.html');
-  const s = lire(f).s.replace('</main>', `<a href="${SITE}contact.html">x</a></main>`);
-  const { fautes } = controler([f], new Map([[f, { ...lire(f), s }]]));
-  if (!fautes.some((x) => x.href === `${SITE}contact.html`)) {
-    console.error('ÉCHEC de l\'essai : un lien de en/about/ vers contact.html (équivalent : en/contact/) n\'a pas été relevé.');
+  // et un lien muet vers une page restée en français (fonds-ecran.html)
+  const s = lire(f).s.replace('</main>', `<a href="${SITE}contact.html">x</a><a href="${SITE}fonds-ecran.html">y</a></main>`);
+  const { fautes, sansEquivalent } = controler([f], new Map([[f, { ...lire(f), s }]]));
+  const muet = sansEquivalent.some((x) => x.href === `${SITE}fonds-ecran.html` && !x.annonce);
+  if (!fautes.some((x) => x.href === `${SITE}contact.html`) || !muet) {
+    console.error('ÉCHEC de l\'essai : en/about/ → contact.html (équivalent : en/contact/) ou → fonds-ecran.html sans annonce n\'a pas été relevé.');
     process.exit(1);
   }
-  console.log('Essai : le lien faussé (en/about/ → contact.html) est bien relevé.');
+  console.log('Essai : les deux liens faussés (en/about/ → contact.html ; → fonds-ecran.html sans annonce) sont bien relevés.');
   process.exit(0);
 }
 
@@ -141,6 +145,8 @@ if (process.argv.includes('--liste')) {
   for (const x of requetes) { const k = `${x.lang}\t${x.href.replace(/=[^&]*/g, '=…')}\t→ ${x.bon}`; r.set(k, (r.get(k) || 0) + 1); }
   for (const [k, n] of r) console.log(`${String(n).padStart(6)}\trequête\t${k}`);
 }
+const muets = sansEquivalent.filter((x) => !x.annonce);
+for (const x of muets.slice(0, 50)) console.error(`MUET ${x.page} (${x.lang}) : « ${x.href} » est en ${x.langCible}, sans équivalent — le lien doit l'annoncer (hreflang et la langue en clair)`);
 if (fautes.length) {
   for (const x of fautes.slice(0, 50)) console.error(`ÉCART ${x.page} (${x.lang}) : « ${x.href} » est en ${x.langCible}, l'équivalent en ${x.lang} existe : ${x.bon}`);
   if (fautes.length > 50) console.error(`… et ${fautes.length - 50} autres.`);
@@ -148,4 +154,9 @@ if (fautes.length) {
   console.error('Composer le lien depuis scripts/langues.js (adresseDans, urlDans) plutôt que de l\'écrire.');
   process.exit(1);
 }
-console.log('Aucun lien ne vise une autre langue quand la page existe dans celle de la page.');
+if (muets.length) {
+  console.error(`\n${muets.length} lien(s) sur ${nPages(muets)} page(s) mènent à une autre langue sans l'annoncer.`);
+  console.error('Poser l\'annonce depuis scripts/langues.js (annonceVers, annoncerLiens).');
+  process.exit(1);
+}
+console.log('Aucun lien ne vise une autre langue quand la page existe dans celle de la page, et chaque changement de langue est annoncé.');

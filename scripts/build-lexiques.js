@@ -30,7 +30,7 @@ const path = require('path');
 // les boutons du bas visent la page dans la langue du lexique, si elle existe
 // (sauf le lien vers le lexique français lui-même : c'est un changement de langue voulu)
 // (L.code est la valeur de <html lang> : zh-Hans, pt-PT — on revient au code)
-const { urlDans, LANGUES, hreflangDeCode } = require('./langues.js');
+const { urlDans, LANGUES, hreflangDeCode, annoncerLiens } = require('./langues.js');
 const versLaLangue = (href, htmlLang) => {
   const lang = Object.keys(LANGUES).find((c) => hreflangDeCode(c) === htmlLang);
   const v = urlDans(href, lang);
@@ -239,7 +239,8 @@ function main() {
   for (const L of Object.values(donnees)) {
     const rel = path.join(L.dossier, 'index.html');
     const abs = path.join(REPO_ROOT, rel);
-    const neuf = page(L);
+    // un lien vers une page restée dans une autre langue le dit avant le clic
+    const neuf = annoncerLiens(page(L), Object.keys(LANGUES).find((c) => hreflangDeCode(c) === L.code), rel.split(path.sep).join('/'));
     const actuel = fs.existsSync(abs) ? fs.readFileSync(abs, 'utf8') : null;
     // build-header.js pose ensuite ses régions : on ne compare que hors régions.
     const sansRegions = (s) => s === null ? null

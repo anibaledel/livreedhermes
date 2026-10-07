@@ -48,6 +48,21 @@ def _accueils():
 
 
 ACCUEILS = _accueils()
+
+
+def _annonce_traite():
+    # La page du traité (la-livree-d-hermes.html) n'existe qu'en français : le
+    # fil d'Ariane d'une autre langue l'annonce avant le clic (scripts/langues.js,
+    # annonceVers ; décision d'Anibal, 7 octobre 2026).
+    import subprocess
+    code = ("const {LANGUES,annonceVers}=require('./scripts/langues.js');"
+            "process.stdout.write(JSON.stringify(Object.fromEntries("
+            "Object.keys(LANGUES).map((c)=>[c,annonceVers('la-livree-d-hermes.html',c)]))))")
+    sortie = subprocess.run(['node', '-e', code], cwd=ROOT, capture_output=True, text=True, check=True)
+    return json.loads(sortie.stdout)
+
+
+ANNONCE_TRAITE = _annonce_traite()
 DOI_LIVRE = '10.5281/zenodo.22722485'
 
 T = {
@@ -177,6 +192,9 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
     prec = publies[k - 1] if k > 0 else None
     suiv = publies[k + 1] if k + 1 < len(publies) else None
     livre_url = f"{SITE}/{'fr/livre/' if langue == 'fr' else 'en/book/'}"
+    a = ANNONCE_TRAITE.get(langue)
+    annonce_attr = f' hreflang="{a["hreflang"]}"' if a else ''
+    annonce_texte = f' <span class="lien-langue">{esc(a["texte"])}</span>' if a else ''
 
     ld_chapitre = {
         '@context': 'https://schema.org', '@type': 'Chapter',
@@ -265,7 +283,7 @@ def page(langue, ch, chapitres, codes, legendes, textes, n_pdf):
 <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
 <nav class="breadcrumb" aria-label="{esc(t['ariane'])}">
-<a href="{SITE}/{ACCUEILS[langue]}">{esc(t['accueil'])}</a><span class="sep">/</span><a href="{SITE}/la-livree-d-hermes.html">{esc(t['livre'])}</a><span class="sep">/</span><a href="{livre_url}">{esc(t['edition'])}</a><span class="sep">/</span><span aria-current="page">{esc(titre)}</span>
+<a href="{SITE}/{ACCUEILS[langue]}">{esc(t['accueil'])}</a><span class="sep">/</span><a href="{SITE}/la-livree-d-hermes.html"{annonce_attr}>{esc(t['livre'])}{annonce_texte}</a><span class="sep">/</span><a href="{livre_url}">{esc(t['edition'])}</a><span class="sep">/</span><span aria-current="page">{esc(titre)}</span>
 </nav>
 <h1 class="chapitre-titre">{esc(titre)}</h1>
 </div>
