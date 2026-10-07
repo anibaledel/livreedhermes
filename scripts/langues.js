@@ -422,8 +422,81 @@ function urlDans(url, lang) {
   return `${SITE}/${adresseDans(url.slice(SITE.length + 1), lang)}`;
 }
 
+// -------------------------------------------------------------------------
+// L'annonce d'un changement de langue (décision d'Anibal, 7 octobre 2026) :
+// un lien vers une page qui n'existe pas dans la langue de la page le dit
+// AVANT le clic — hreflang, et la langue en clair après le libellé, avec les
+// mots que les pieds de page employaient déjà (« Tools (French) »,
+// « Motivos (inglés) »). Par langue de la page, le nom de la langue visée.
+// -------------------------------------------------------------------------
+const ANNONCES = {
+  fr: { en: '(en anglais)' },
+  en: { fr: '(French)' },
+  es: { fr: '(francés)', en: '(inglés)' },
+  th: { fr: '(ภาษาฝรั่งเศส)', en: '(ภาษาอังกฤษ)' },
+  zh: { fr: '（法文）', en: '（英文）' },
+  ru: { fr: '(на французском)', en: '(на английском)' },
+  pt: { fr: '(em francês)', en: '(em inglês)' },
+  hi: { fr: '(फ़्रेंच में)', en: '(अंग्रेज़ी में)' },
+};
+for (const l of Object.keys(LANGUES)) if (!ANNONCES[l]) throw new Error(`langues.js : pas d'annonce de langue pour « ${l} »`);
+const LANGUE_DU_FICHIER = new Map();
+// La langue (code de LANGUES) d'une page du dépôt, lue dans son <html lang>.
+function langueDuFichier(chemin) {
+  const f = fichierDe(chemin.split(/[?#]/)[0]);
+  // la visionneuse change de langue avec ?read= : son <html lang> ne dit rien
+  if (f.startsWith('book-viewer/')) return null;
+  if (!LANGUE_DU_FICHIER.has(f)) {
+    let code = null;
+    try {
+      const s = require('fs').readFileSync(require('path').join(__dirname, '..', f), 'utf8');
+      const h = (/<html[^>]*\slang="([^"]+)"/i.exec(s) || [])[1];
+      code = Object.keys(LANGUES).find((c) => hreflangDeCode(c) === h) || null;
+    } catch { code = null; }
+    LANGUE_DU_FICHIER.set(f, code);
+  }
+  return LANGUE_DU_FICHIER.get(f);
+}
+// Ce qu'un lien vers `chemin` doit annoncer sur une page en `lang` : rien si
+// la page visée est dans cette langue (ou y a son équivalent, voir
+// adresseDans), sinon { hreflang, texte }.
+function annonceVers(chemin, lang) {
+  const ici = adresseDans(chemin, lang);
+  const cible = langueDuFichier(ici);
+  if (!cible || cible === lang) return null;
+  const texte = ANNONCES[lang] && ANNONCES[lang][cible];
+  if (!texte) throw new Error(`langues.js : pas d'annonce « ${cible} » pour une page « ${lang} »`);
+  return { hreflang: hreflangDeCode(cible), texte };
+}
+
+// Annonce, dans un morceau de HTML d'une page en `lang` (son fichier :
+// `fichierPage`, pour lire les liens relatifs), chaque lien vers une page
+// d'une autre langue sans équivalent : hreflang, et la langue en clair à la
+// fin du libellé. Un lien qui porte déjà hreflang (une rangée de langues, un
+// drapeau d'édition, une annonce écrite) n'est pas touché ; un lien sans
+// texte (une image) non plus.
+// L'espace avant l'annonce : aucun devant une parenthèse pleine chasse (chinois).
+const espaceAvant = (texte) => (texte.startsWith('（') ? '' : ' ');
+function annoncerLiens(html, lang, fichierPage) {
+  const path = require('path');
+  const dossier = path.posix.dirname(fichierPage);
+  return html.replace(/<a\b([^>]*)>([\s\S]*?)<\/a>/g, (m, attrs, dedans) => {
+    if (/\shreflang=/.test(attrs) || dedans.includes('lien-langue') || !dedans.replace(/<[^>]*>/g, '').trim()) return m;
+    const href = (/\shref="([^"]*)"/.exec(attrs) || [])[1];
+    if (!href || /^(#|mailto:|javascript:)/.test(href)) return m;
+    let rel;
+    if (href.startsWith(`${SITE}/`)) rel = href.slice(SITE.length + 1);
+    else if (/^[a-z][a-z0-9+.-]*:|^\/\//i.test(href)) return m;
+    else rel = path.posix.normalize(path.posix.join(dossier, href.startsWith('/') ? `.${href}` : href));
+    rel = rel.split(/[?#]/)[0].replace(/^\.\//, '');
+    if (rel.startsWith('../')) return m;
+    const a = annonceVers(rel === '.' ? '' : rel, lang);
+    return a ? `<a${attrs} hreflang="${a.hreflang}">${dedans}${espaceAvant(a.texte)}<span class="lien-langue">${a.texte}</span></a>` : m;
+  });
+}
+
 module.exports = {
   SITE, LANGUE_PAR_DEFAUT, LANGUES, GROUPES, hreflangDeCode, pageDe,
   BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, PAGES_TRADUITES, ARTICLES_TRADUITS,
-  adresseDans, urlDans,
+  adresseDans, urlDans, annonceVers, ANNONCES, annoncerLiens, espaceAvant,
 };

@@ -30,7 +30,7 @@
    ============================================================ */
 const fs = require('fs');
 const path = require('path');
-const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, LANGUES, adresseDans } = require('./langues.js');
+const { BLOC_PAR_FICHIER, RANGEE_PAR_FICHIER, LANGUES, adresseDans, annonceVers, espaceAvant } = require('./langues.js');
 const { htmlNavTiles } = require('./nav-tiles.js');
 
 const REPO_ROOT = path.resolve(__dirname, '..');
@@ -137,7 +137,14 @@ function langHtml(s) {
 function localiser(fragment, lang) {
   return fragment.replace(/<a href="\{\{BASE\}\}([^"]*)"((?:\s+hreflang="[^"]*")?)>([^<]*)<\/a>/g, (m, chemin, annonce, libelle) => {
     const ici = adresseDans(chemin, lang);
-    if (ici === chemin) return m;
+    if (ici === chemin) {
+      // pas d'équivalent dans la langue : le lien l'annonce avant le clic
+      // (décision d'Anibal, 7 octobre 2026), sauf s'il le fait déjà
+      // (un lien qui portait déjà hreflang sans le dire en clair reçoit le texte)
+      const a = annonceVers(chemin, lang);
+      if (!a || /[(（]/.test(libelle)) return m;
+      return `<a href="{{BASE}}${chemin}" hreflang="${a.hreflang}">${libelle}${espaceAvant(a.texte)}${a.texte}</a>`;
+    }
     const texte = annonce ? libelle.replace(/\s*[(（][^()（）]*[)）]\s*$/, '') : libelle;
     return `<a href="{{BASE}}${ici}">${texte}</a>`;
   });

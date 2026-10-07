@@ -45,7 +45,7 @@ const vm = require('vm');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
 const DONNEES = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/outils-langues.json'), 'utf8'));
-const { LANGUES, hreflangDeCode, adresseDans } = require('./langues.js');
+const { LANGUES, hreflangDeCode, adresseDans, annoncerLiens } = require('./langues.js');
 const { phrase } = require('./build-couverture.js');
 
 const echTexte = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -395,6 +395,8 @@ function pageTraduite(p, lang, cfg, src) {
 
   // 6. les chemins
   s = prefixer(s, prefixe, lang);
+  // un lien vers une page restée dans une autre langue le dit avant le clic
+  s = horsCode(s, (x) => annoncerLiens(x, lang, fichier));
   return [fichier, s];
 }
 

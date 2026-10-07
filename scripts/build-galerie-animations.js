@@ -36,7 +36,7 @@ const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
-const { LANGUES } = require('./langues.js');
+const { LANGUES, annoncerLiens } = require('./langues.js');
 const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/galerie-animations.json'), 'utf8'));
 const REGISTRE = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8')).collections;
 const VIGNETTES = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/animations/vignettes/vignettes.json'), 'utf8')).vignettes;
@@ -247,7 +247,9 @@ async function main() {
   const verifie = process.argv.includes('--verifie');
   const ecarts = [];
   let ecrites = 0;
-  for (const { l, u, tete: t, corps } of pages) {
+  for (const { l, u, tete: t, corps: brut } of pages) {
+    // un lien vers une page restée dans une autre langue le dit avant le clic
+    const corps = annoncerLiens(brut, l, fichierDe(u));
     const f = path.join(ROOT, fichierDe(u));
     const avant = fs.existsSync(f) ? fs.readFileSync(f, 'utf8') : null;
     let s;

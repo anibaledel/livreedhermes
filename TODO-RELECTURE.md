@@ -580,6 +580,12 @@ ne s'affiche pas encore, il attend une édition plus courte.
 Lexique thaï : « ตัวเลขและแหล่งที่มา (FR) » perd « (FR) » — la page existe désormais en thaï
 (`th/figures-and-sources/`), et le bouton y mène.
 
+## Annonce de la langue d'un lien (2026-10-07)
+
+`scripts/langues.js`, `ANNONCES` : la langue en clair après un lien vers une page restée en
+français ou en anglais (« Tools (French) », « Motivos (inglés) »). Les formes reprennent celles
+que les pieds de page employaient déjà ; « (en anglais) » (FR) et « (на французском) » appliqué
+aux tuiles sont à relire avec le reste.
 ## Fil d'Ariane des pages du livre EN, ES, TH (2026-10-07)
 
 `en/book/`, `es/libro/`, `th/book/` : le fil d'Ariane était en français (« Accueil », « Fil
