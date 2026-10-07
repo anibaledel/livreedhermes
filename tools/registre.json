@@ -323,7 +323,9 @@
   {
    "fichier": "tools/check_doi_licences.mjs",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
-   "lit": [],
+   "lit": [
+    "data/travaux.json"
+   ],
    "ecrit": [],
    "appele_par": [
     "check-langues.yml"
@@ -335,7 +337,10 @@
   {
    "fichier": "tools/check_doi_perimes.mjs",
    "role": "Contrôle automatique : aucun DOI Zenodo périmé ni aucune mention de la suite OEIS retirée ne doit réapparaître dans le dépôt.",
-   "lit": [],
+   "lit": [
+    "data/travaux.json",
+    "data/zenodo/depots.json"
+   ],
    "ecrit": [],
    "appele_par": [
     "check-travaux.yml"
