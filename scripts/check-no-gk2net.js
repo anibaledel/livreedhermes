@@ -14,6 +14,7 @@ const ALLOWLIST = new Set([
   'scripts/check-no-gk2net.js',           // ce fichier — la chaîne y figure par nécessité
   'scripts/generate-hexagram-pages.js',   // appelle ce garde-fou, en parle dans ses messages
   '.github/workflows/check-no-gk2net.yml', // décrit ce que ce workflow surveille
+  'data/codes.json',              // recopie l'en-tête de ce fichier (champ role) ; un script qui nommerait l'hébergeur est refusé dans son propre source
 ]);
 
 let output = '';

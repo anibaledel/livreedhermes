@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T16:09:57Z",
+ "generated_at_utc": "2026-10-07T16:13:14Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -706,9 +706,9 @@
   {
    "chemin": "scripts/check-no-gk2net.js",
    "adresse": "https://anibal-amiot.com/scripts/check-no-gk2net.js",
-   "octets": 2034,
-   "sha256": "004088c9a9abfdb0a26f226b5dd84554b942e274409511267f83f0fa4bd65f5b",
-   "md5": "e3d8e49cc765b3c9cfd5feeba7e6afc8",
+   "octets": 2191,
+   "sha256": "780d3a11aa51ee39f692f8fbfba3b04d9ad13e95a0189305f2087550861b9484",
+   "md5": "80918807cf0eb2fa6aeafc259e505861",
    "licence_declaree": false,
    "licence": null,
    "role": "Vérifie qu'aucun fichier suivi par git ne mentionne \"gk2.net\" en dehors des fichiers d'infrastructure où c'est le nom réel de l'hébergeur (ALLOWLIST ci-dessous).",
