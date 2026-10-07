@@ -84,6 +84,7 @@
       "attente": "Vidéo de référence à venir — l'aperçu en direct montre déjà l'animation.",
       "resultat": "{nom} : {images} images, {mo} Mo, {codec} ({mode}), produit en {s} s · SHA-256 {sha}", "quantification": "quantification fixe", "debit": "débit variable",
       "assemblage": "{fond} + {forme} à {p} %", "altAssemblage": "Animation de la collection {code}, {libelle} : image extraite de la vidéo",
+      "ariane": "Fil d'Ariane", "navSuite": "Groupe précédent ou suivant",
       "decimale": ","
     },
     "en": {
@@ -107,6 +108,7 @@
       "attente": "Reference video to come — the live preview already shows the animation.",
       "resultat": "{nom}: {images} frames, {mo} MB, {codec} ({mode}), made in {s} s · SHA-256 {sha}", "quantification": "fixed quantizer", "debit": "variable bitrate",
       "assemblage": "{fond} + {forme} at {p}%", "altAssemblage": "Animation of collection {code}, {libelle}: a frame taken from the video",
+      "ariane": "Breadcrumb", "navSuite": "Previous or next group",
       "decimale": "."
     },
     "es": {
@@ -130,6 +132,7 @@
       "attente": "Vídeo de referencia en preparación — la vista previa en directo ya muestra la animación.",
       "resultat": "{nom}: {images} imágenes, {mo} MB, {codec} ({mode}), producido en {s} s · SHA-256 {sha}", "quantification": "cuantización fija", "debit": "tasa variable",
       "assemblage": "{fond} + {forme} al {p} %", "altAssemblage": "Animación de la colección {code}, {libelle}: imagen extraída del vídeo",
+      "ariane": "Ruta de navegación", "navSuite": "Grupo anterior o siguiente",
       "decimale": ","
     },
     "th": {
@@ -153,6 +156,7 @@
       "attente": "วิดีโออ้างอิงกำลังจะมา ตัวอย่างสดแสดงแอนิเมชันได้แล้ว",
       "resultat": "{nom}: {images} เฟรม, {mo} MB, {codec} ({mode}), สร้างใน {s} วินาที · SHA-256 {sha}", "quantification": "ควอนไทซ์คงที่", "debit": "บิตเรตแปรผัน",
       "assemblage": "{fond} + {forme} มาตราส่วน {p}%", "altAssemblage": "แอนิเมชันของคอลเลกชัน {code} {libelle}: ภาพจากวิดีโอ",
+      "ariane": "เส้นทางนำทาง", "navSuite": "กลุ่มก่อนหน้าหรือถัดไป",
       "decimale": "."
     },
     "zh": {
@@ -176,6 +180,7 @@
       "attente": "参考视频即将推出——实时预览已可展示动画。",
       "resultat": "{nom}：{images} 帧，{mo} MB，{codec}（{mode}），用时 {s} 秒 · SHA-256 {sha}", "quantification": "固定量化", "debit": "可变码率",
       "assemblage": "{fond} + {forme}，比例 {p}%", "altAssemblage": "系列 {code}（{libelle}）的动画：取自视频的画面",
+      "ariane": "面包屑导航", "navSuite": "上一组或下一组",
       "decimale": "."
     },
     "ru": {
@@ -199,6 +204,7 @@
       "attente": "Эталонное видео скоро появится — живой просмотр уже показывает анимацию.",
       "resultat": "{nom}: кадров {images}, {mo} МБ, {codec} ({mode}), создано за {s} с · SHA-256 {sha}", "quantification": "постоянное квантование", "debit": "переменный битрейт",
       "assemblage": "{fond} + {forme}, масштаб {p} %", "altAssemblage": "Анимация коллекции {code}, {libelle}: кадр из видео",
+      "ariane": "Навигационная цепочка", "navSuite": "Предыдущая или следующая группа",
       "decimale": ","
     },
     "pt": {
@@ -222,6 +228,7 @@
       "attente": "Vídeo de referência em preparação — a pré-visualização em direto já mostra a animação.",
       "resultat": "{nom}: {images} imagens, {mo} MB, {codec} ({mode}), produzido em {s} s · SHA-256 {sha}", "quantification": "quantização fixa", "debit": "débito variável",
       "assemblage": "{fond} + {forme} a {p} %", "altAssemblage": "Animação da coleção {code}, {libelle}: imagem extraída do vídeo",
+      "ariane": "Trilho de navegação", "navSuite": "Grupo anterior ou seguinte",
       "decimale": ","
     },
     "hi": {
@@ -245,6 +252,7 @@
       "attente": "संदर्भ वीडियो आने वाला है — सीधा पूर्वावलोकन एनिमेशन पहले से दिखाता है।",
       "resultat": "{nom}: {images} फ़्रेम, {mo} MB, {codec} ({mode}), {s} सेकंड में बना · SHA-256 {sha}", "quantification": "स्थिर क्वांटाइज़र", "debit": "परिवर्ती बिटरेट",
       "assemblage": "{fond} + {forme}, पैमाना {p}%", "altAssemblage": "संग्रह {code} का एनिमेशन, {libelle}: वीडियो से लिया गया फ़्रेम",
+      "ariane": "ब्रेडक्रंब", "navSuite": "पिछला या अगला समूह",
       "decimale": "."
     }
   }

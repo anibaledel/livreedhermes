@@ -39,7 +39,7 @@ const I18N = require('./nav-tiles-libelles.js');
 const CATEGORIES = [
   { id: 'galeries', fr: 'Galeries', en: 'Galleries' },
   { id: 'animations', fr: 'Animations', en: 'Animations' },
-  { id: 'tirages', fr: 'Tirages', en: 'Draws & prints' },
+  { id: 'tirages', fr: 'Tirages', en: 'Draws &amp; prints' },
   { id: 'outils-creatifs', fr: 'Outils créatifs', en: 'Creative tools' },
   { id: 'a-propos-du-projet', fr: 'À propos du projet', en: 'About the project' },
 ];

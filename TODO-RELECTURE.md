@@ -592,3 +592,15 @@ aux tuiles sont à relire avec le reste.
 d'Ariane ») sur des pages anglaise, espagnole et thaïe. « Home », « Inicio », « หน้าแรก » viennent
 des lexiques traduits ; « Breadcrumb » de tools/livre_html.py. **SANS SOURCE** : « Ruta de
 navegación » (ES) et « เส้นทางนำทาง » (TH), le nom du fil pour les lecteurs d'écran.
+
+## Noms des navigations, validation HTML (2026-10-07)
+
+`data/galerie-animations.json`, clés `ariane` et `navSuite` : le nom, pour les lecteurs d'écran,
+du fil d'Ariane et de la navigation « groupe précédent / suivant » des pages d'animations
+(deux navigations sans nom distinct, relevées par html-validate). FR et EN écrits ici ;
+**SANS SOURCE**, à relire : ES « Ruta de navegación » / « Grupo anterior o siguiente »,
+TH « เส้นทางนำทาง » / « กลุ่มก่อนหน้าหรือถัดไป », ZH « 面包屑导航 » / « 上一组或下一组 »,
+RU « Навигационная цепочка » / « Предыдущая или следующая группа »,
+PT « Trilho de navegação » / « Grupo anterior ou seguinte », HI « ब्रेडक्रंब » / « पिछला या अगला समूह ».
+Aussi `tools/livre_html.py` : « Chapitres (bas de page) » / « Chapters (end of page) » ;
+`scripts/nav-tiles.js` : « Draws &amp; prints » ; `encodeur.html` : « Parties de l'encodeur ».

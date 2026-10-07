@@ -135,7 +135,7 @@ async function main() {
   };
   const affiche720 = (code) => (VIGNETTES[code] ? ` data-affiche="assets/animations/vignettes/${code}-720.webp"` : '');
   // les libellés d'assemblage sont composés ici : la page n'en a pas besoin
-  const pourLaPage = ({ assemblage, altAssemblage, ...T }) => T;
+  const pourLaPage = ({ assemblage, altAssemblage, ariane, navSuite, ...T }) => T;
   const donnees = (obj) => `<script type="application/json" id="galerie-donnees">${JSON.stringify(obj).replace(/</g, '\\u003c')}</script>`;
 
   function tete(l, u, titre, description, imageOg) {
@@ -168,7 +168,7 @@ async function main() {
 <header class="atalanta-block" style="padding:32px 24px;">
   <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
   <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
-  <nav class="breadcrumb" aria-label="${esc(T.navGroupes)}">
+  <nav class="breadcrumb" aria-label="${esc(T.ariane)}">
     <a href="${SITE}/${T.accueilHref}">${esc(T.accueil)}</a>${miettes.map(([href, texte]) => href ? `<span class="sep">/</span><a href="${href}">${esc(texte)}</a>` : `<span class="sep">/</span><span aria-current="page">${esc(texte)}</span>`).join('')}
   </nav>
   <h1>${esc(h1)}</h1>
@@ -227,7 +227,7 @@ async function main() {
       `<p class="anim-intro">${esc(g.texte[l])} ${esc(T.introGroupe)}</p>`,
       `<div class="anim-grille" id="collections">\n${cartes}\n</div>`,
       synonymes(T, g.codes),
-      `<nav class="anim-suite" aria-label="${esc(T.navGroupes)}">
+      `<nav class="anim-suite" aria-label="${esc(T.navSuite)}">
   <a rel="prev" href="${SITE}/${urlGroupe(l, prec)}">${esc(remplir(T.precedent, { groupe: prec.nom[l] }))}</a>
   <a class="anim-toutes" href="${SITE}/${urlEntree(l)}">${esc(T.toutes)}</a>
   <a rel="next" href="${SITE}/${urlGroupe(l, suiv)}">${esc(remplir(T.suivant, { groupe: suiv.nom[l] }))}</a>

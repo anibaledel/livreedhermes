@@ -899,6 +899,21 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/check_validation_html.mjs",
+   "role": "chaque page du dépôt passe la validation HTML (html-validate, règles « recommended »), sur le texte servi.",
+   "lit": [
+    "book-viewer/index.html",
+    "fr/livre/index.html"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-liens.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_videos_site.mjs",
    "role": "chaque vidéo inscrite au registre (data/fonds/collections-pinterest.json, « video ») est servie par le site déployé, et c'est LA MÊME : réponse 200, taille et empreinte SHA-256 de l'affiche et de la vidéo égales à celles du registre.",
    "lit": [
