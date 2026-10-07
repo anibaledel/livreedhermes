@@ -854,7 +854,7 @@
     "check-referents.yml"
    ],
    "utilise_par": [],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": true
   },
   {
@@ -998,9 +998,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/index_codes.mjs"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1010,9 +1008,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/index_codes.mjs"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1024,7 +1020,6 @@
    "appele_par": [],
    "utilise_par": [
     "tools/cube_croisements.py",
-    "tools/index_codes.mjs",
     "tools/make_figures.py"
    ],
    "etat": "ponctuel",
@@ -1047,9 +1042,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/index_codes.mjs"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1349,7 +1342,7 @@
     "check-referents.yml"
    ],
    "utilise_par": [],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": true
   },
   {
@@ -1480,9 +1473,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/index_codes.mjs"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1528,8 +1519,7 @@
    "ecrit": [],
    "appele_par": [],
    "utilise_par": [
-    "tools/cube_croisements.py",
-    "tools/index_codes.mjs"
+    "tools/cube_croisements.py"
    ],
    "etat": "ponctuel",
    "sait_echouer": false
@@ -1618,6 +1608,7 @@
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
    "lit": [
     "tools/axes",
+    "tools/index_codes.mjs",
     "tools/index_referents.mjs",
     "tools/registre.json"
    ],
@@ -1695,7 +1686,6 @@
    "appele_par": [],
    "utilise_par": [
     "tools/cube_edges.py",
-    "tools/index_codes.mjs",
     "tools/make_figures.py"
    ],
    "etat": "ponctuel",
@@ -1717,9 +1707,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/index_codes.mjs"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1753,7 +1741,6 @@
    "appele_par": [],
    "utilise_par": [
     "tools/generate_referent_256.py",
-    "tools/index_codes.mjs",
     "tools/verif_protocole.py"
    ],
    "etat": "ponctuel",

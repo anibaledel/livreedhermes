@@ -89,8 +89,8 @@ function duree([s, machine, le, source]) {
 }
 
 function construire() {
-  const fichiers = execFileSync('git', ['ls-files', '--', ...PERIMETRE], { cwd: RACINE, encoding: 'utf8' })
-    .split('\n').filter((f) => EXT.test(f) && !f.includes('node_modules/') && fs.existsSync(path.join(RACINE, f))).sort();
+  const fichiers = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '--', ...PERIMETRE], { cwd: RACINE, encoding: 'utf8' })
+    .split('\n').filter((f, i, t) => t.indexOf(f) === i && EXT.test(f) && !f.includes('node_modules/') && fs.existsSync(path.join(RACINE, f))).sort();
   const referents = JSON.parse(lire('data/referents.json').toString('utf8')).referents;
   const registre = new Map(JSON.parse(lire('tools/registre.json').toString('utf8')).outils.map((o) => [o.fichier, o]));
   const instantane = JSON.parse(lire('data/zenodo/depots.json').toString('utf8'));

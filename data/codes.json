@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T15:47:09Z",
+ "generated_at_utc": "2026-10-07T16:09:57Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 190,
+  "scripts": 193,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -1436,9 +1436,9 @@
   {
    "chemin": "tools/check_doi_perimes.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_doi_perimes.mjs",
-   "octets": 4242,
-   "sha256": "b6a5f7c0b0c6116f6dc9c82d1341ced429d26a634b0958572c20a22be28805f5",
-   "md5": "71071f80e0ffe1086e48a08a4a5a1a3d",
+   "octets": 4274,
+   "sha256": "197b6e1e75bae7775aa1bad75798a05254c499108b3060f4f7c88ed931d76921",
+   "md5": "d57a14b0479de5d8bff65638a6f9a7b2",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : aucun DOI Zenodo périmé ni aucune mention de la suite OEIS retirée ne doit réapparaître dans le dépôt.",
@@ -1989,6 +1989,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_resultats_etablis.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
+   "octets": 8991,
+   "sha256": "73cd699949b617c68c7ca4ff4744fe9e41f794730216d25461a58bd6ca9a996b",
+   "md5": "fd88680ebf5bdaee17bd102f5853ba7b",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_selecteur_fonds.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_selecteur_fonds.mjs",
    "octets": 9868,
@@ -2259,6 +2274,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Écrit k_pic (mesuré) et les deux échelles dans data/referent_bandes_v1.json.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/entete.mjs",
+   "adresse": "https://anibal-amiot.com/tools/entete.mjs",
+   "octets": 2184,
+   "sha256": "ea889689f1163d583e7abd03e78f27ede7f7032e7f3c6094c6e63a846d9e2a1f",
+   "md5": "820f85eb25555c3770ae802dd0c3e0b9",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la première phrase de l'en-tête d'un script, ce qu'il fait, citée et non réécrite.",
    "lit": [],
    "ecrit": [],
    "durees": [],
@@ -2610,6 +2640,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/index_codes.mjs",
+   "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
+   "octets": 12629,
+   "sha256": "113dda6af939ee609671b58902a71c29c090397cad1dcbc14d50f42ec7ff5a0e",
+   "md5": "14e881137552731d02e017e574dc1869",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
+   "lit": [
+    "calques-360"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
    "octets": 11254,
@@ -2901,9 +2948,9 @@
   {
    "chemin": "tools/registre_outils.mjs",
    "adresse": "https://anibal-amiot.com/tools/registre_outils.mjs",
-   "octets": 22259,
-   "sha256": "77b53ad03c2e970f0ca6e2efe32320618da1e99688aeef166a7ba116d7ba14be",
-   "md5": "5d6dcbd32fba8b06136c2da090b530e7",
+   "octets": 22284,
+   "sha256": "f2b2c33d6c31de6021b1ba65fa958d2c2ed363521514e83253e3dbe27a25ea64",
+   "md5": "c0f850dea78bd7ce1b5c3d7230a88efd",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",

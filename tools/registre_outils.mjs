@@ -108,7 +108,7 @@ function cheminsDe(f) {
   return { lit: [...lit].sort(), ecrit: [...ecrit].sort() };
 }
 
-const CITENT_SANS_LANCER = new Set(['tools/registre_outils.mjs', 'tools/index_referents.mjs']);
+const CITENT_SANS_LANCER = new Set(['tools/registre_outils.mjs', 'tools/index_referents.mjs', 'tools/index_codes.mjs']);
 // utilise_par : les scripts de tools/ qui l'importent ou le lancent
 function utilisateursDe(f, tous) {
   const base = path.basename(f), stem = base.replace(/\.(mjs|js|cjs|py)$/, '');

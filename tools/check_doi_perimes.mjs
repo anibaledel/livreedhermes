@@ -42,10 +42,10 @@ const motif = `zenodo\\.(${Object.keys(PERIMES).join('|')})\\b|A400466|\\bOEIS\\
 
 let sortie = '';
 try {
-  // tools/registre.json recopie la première phrase d'en-tête de chaque script de tools/ :
+  // tools/registre.json et data/codes.json recopient la première phrase d'en-tête de chaque script :
   // ces en-têtes sont lus ici à la source, sauf celui de ce contrôle, qui nomme ce qu'il cherche
   sortie = execFileSync('git', ['grep', '-nIE', motif, '--', '.',
-    ':!docs/sources', ':!data/zenodo', ':!pagefind', ':!tools/check_doi_perimes.mjs', ':!tools/registre.json'], { encoding: 'utf8' });
+    ':!docs/sources', ':!data/zenodo', ':!pagefind', ':!tools/check_doi_perimes.mjs', ':!tools/registre.json', ':!data/codes.json'], { encoding: 'utf8' });
 } catch (e) {
   if (e.status !== 1) throw e; // 1 = aucune occurrence
 }
