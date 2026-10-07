@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-10-07T15:06:52Z",
+ "generated_at_utc": "2026-10-07T15:46:12Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -28,7 +28,18 @@
     "tools/enum_criteres.py",
     "tools/validate_referent.py"
    ],
-   "resultats": null,
+   "resultats": {
+    "fichier": "data/resultats-etablis.json",
+    "adresse": "https://anibal-amiot.com/data/resultats-etablis.json",
+    "ids": [
+     "cube-edges-512-lemme-2",
+     "cube-edges-128-orbites",
+     "cube-edges-16-formes-0-habillage",
+     "cube-edges-8-classes",
+     "harmonie-12-12-6-6",
+     "decoupages-192-64"
+    ]
+   },
    "sources": [
     "data/referent_256_src/MANIFEST.json"
    ],
@@ -77,7 +88,21 @@
     "tools/check_page_360.mjs",
     "tools/validate_referent.py"
    ],
-   "resultats": null,
+   "resultats": {
+    "fichier": "data/resultats-etablis.json",
+    "adresse": "https://anibal-amiot.com/data/resultats-etablis.json",
+    "ids": [
+     "invariant-48-48-48",
+     "croisements-1770-113280",
+     "croisements-16768-9824",
+     "croisements-1292-orbites",
+     "croisements-2064-admissibles",
+     "cube-edges-512-lemme-2",
+     "cube-edges-128-orbites",
+     "cube-edges-16-formes-0-habillage",
+     "cube-edges-8-classes"
+    ]
+   },
    "sources": [
     "data/referent_360_src/MANIFEST.json"
    ],
@@ -137,7 +162,20 @@
    "verificateurs": [
     "tools/check_fonds_ecran_completude.py"
    ],
-   "resultats": null,
+   "resultats": {
+    "fichier": "data/resultats-etablis.json",
+    "adresse": "https://anibal-amiot.com/data/resultats-etablis.json",
+    "ids": [
+     "croisements-1770-113280",
+     "croisements-16768-9824",
+     "croisements-1292-orbites",
+     "croisements-2064-admissibles",
+     "cube-edges-512-lemme-2",
+     "cube-edges-128-orbites",
+     "cube-edges-16-formes-0-habillage",
+     "cube-edges-8-classes"
+    ]
+   },
    "sources": [],
    "pages": [
     "en/three-colour-gallery/index.html",

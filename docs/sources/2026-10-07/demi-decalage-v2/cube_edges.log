@@ -1,0 +1,61 @@
+familles : 15 ; images : 60
+fonds_ecran_v1.json : 60 images, identiques au référent 360 : ✓
+hypothèses (F1)–(F4) : ✓
+couples unifiés (6 couples testés par famille) : 16 dans 8 familles
+    BASE-YANG : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    BASE-YANG-MUT : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR2-YANG-YIN-MUT : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR2-YIN-MUT-YANG-MUT : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR2-YIN-YANG : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR2-YIN-YANG-MUT : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR3-SANS-YANG : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+    PAR3-SANS-YANG-MUT : [('yang', 'yang_mut'), ('yin', 'yin_mut')]
+contrôle direct sur les 64 indices (15 familles × 12 couples ordonnés) : 32 tout-vrai, 148 tout-faux, 0 mixte  ✓
+
+Corpus (Théorème 2)
+    triplets           : 1024
+    grilles distinctes : 512
+    pavages distincts  : 256
+
+Condition de sommet (Proposition 1)
+    angles de teinte π-fixe : 1024/1024  ✓
+
+Règle d'arête (Théorème 3)
+    triplets admissibles : 512/1024
+    grilles distinctes   : 256
+    pavages distincts    : 128
+    familles             : 4
+        BASE-YANG  (128 triplets)
+        PAR2-YANG-YIN-MUT  (128 triplets)
+        PAR2-YIN-YANG  (128 triplets)
+        PAR3-SANS-YANG-MUT  (128 triplets)
+
+Familles exclues : arêtes individuellement satisfaisables (sur 12)
+        BASE-YANG-MUT: [0]  → obstruction locale (aucune arête ne passe)
+        PAR2-YIN-MUT-YANG-MUT: [0]  → obstruction locale (aucune arête ne passe)
+        PAR2-YIN-YANG-MUT: [12]  → obstruction globale (chaque arête passe, pas d'assemblage)
+        PAR3-SANS-YANG: [12]  → obstruction globale (chaque arête passe, pas d'assemblage)
+
+Duplication (Lemme 2)
+    grilles en double : 512/512 (chaque grille exactement deux fois) ; correspondance n ↔ n⊕7 ou n⊕56 : ✓
+        BASE-YANG ↔ PAR2-YANG-YIN-MUT : m = 56  (128 grilles)
+        BASE-YANG-MUT ↔ PAR2-YIN-MUT-YANG-MUT : m = 56  (128 grilles)
+        PAR2-YIN-YANG ↔ PAR3-SANS-YANG-MUT : m = 7  (128 grilles)
+        PAR2-YIN-YANG-MUT ↔ PAR3-SANS-YANG : m = 56  (128 grilles)
+    même couple de natures dans les deux familles : ✓
+
+Orbites de Γ (Section 4 et Remarque de la Section 6)
+    corpus   : 128 orbites ; grilles du corpus par orbite : {4: 128}
+    retenues : 64 ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)
+
+Section 7 : formes d'ordre 6 dans le corpus (renommage RB→V, vert→M, jaune→O)
+    formes retenues : 16 ; présentes dans le corpus : 16/16
+        BASE-YANG-MUT : 16 triplets
+        PAR2-YIN-MUT-YANG-MUT : 16 triplets
+    admettant un habillage du cube : 0
+    couples dans {yang_mut} : {'yang': 8, 'yin': 8}
+    classes à permutation de teinte près : 8
+    à symétrie centrale : 16/16
+    les 64 formes d'ordre 12 : 32 classes sous Γ ; rencontrant le corpus : 8 ; rencontrant les retenues du cube : 0
+
+durée totale : 42 s

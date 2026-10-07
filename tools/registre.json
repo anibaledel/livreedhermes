@@ -842,6 +842,22 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_resultats_etablis.mjs",
+   "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
+   "lit": [
+    "data/referents.json",
+    "data/resultats-etablis.json",
+    "data/zenodo/depots.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_selecteur_fonds.mjs",
    "role": "Vérifie le sélecteur de fond SUR LE SITE (déployé par défaut ; « local » sert le dépôt, ou une autre base) : 1.",
    "lit": [],
@@ -1019,6 +1035,16 @@
    "etat": "en_panne",
    "sait_echouer": false,
    "panne": "« REFERENT_PATH » absent de tools/measure_k_pic.py ; « measure » absent de tools/measure_k_pic.py"
+  },
+  {
+   "fichier": "tools/entete.mjs",
+   "role": "la première phrase de l'en-tête d'un script, ce qu'il fait, citée et non réécrite.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/enum_criteres.py",
@@ -1294,6 +1320,32 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/index_codes.mjs",
+   "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
+   "lit": [
+    "data/codes.json",
+    "data/referents.json",
+    "data/zenodo/depots.json",
+    "docs/sources",
+    "tools/croix_ansee.py",
+    "tools/cube_croisements.py",
+    "tools/cube_edges.py",
+    "tools/make_figures.py",
+    "tools/paires_croisees.py",
+    "tools/registre.json",
+    "tools/selection_ordre6.py",
+    "tools/tous_croisements.py",
+    "tools/verif_carre_magique.py"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/index_referents.mjs",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
    "lit": [
@@ -1304,6 +1356,7 @@
     "data/referent_360_src/MANIFEST.json",
     "data/referent_360_v3.json",
     "data/referents.json",
+    "data/resultats-etablis.json",
     "tools/check_fonds_ecran_completude.py",
     "tools/check_page_360.mjs",
     "tools/enum_criteres.py",
@@ -1426,7 +1479,7 @@
   },
   {
    "fichier": "tools/make_motifs_index.mjs",
-   "role": "",
+   "role": "Produit data/motifs-index.csv (index, fichier, famille) depuis data/fonds_ecran_v1.json — sans rien rendre, juste le calcul de nom de fichier de scripts/export-galerie-pinterest.js, réutilisé tel quel pour que les deux restent d'accord.",
    "lit": [],
    "ecrit": [],
    "appele_par": [],
@@ -1555,6 +1608,7 @@
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
    "lit": [
     "tools/axes",
+    "tools/index_codes.mjs",
     "tools/index_referents.mjs",
     "tools/registre.json"
    ],
