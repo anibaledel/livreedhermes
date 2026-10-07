@@ -35,6 +35,9 @@ import { createRequire } from 'node:module';
 // Les pages des langues ajoutées (sans les 64 hexagrammes : zh, ru, pt…),
 // tirées de scripts/langues.js — une langue déclarée là entre ici d'elle-même.
 const { LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
+// Le profil documentaire dans chacune de ses langues (profil.html, en/documentary-profile/…) :
+// le pied mène à celui de la langue de la page quand il existe.
+const PROFILS = Object.values(DECLAREES).map((l) => l.pages['outil-profil']).filter(Boolean);
 const PAGES_LANGUES_AJOUTEES = Object.values(DECLAREES).filter((l) => !l.hexagrammes)
   .flatMap((l) => ['accueil', 'livre', 'lexique', 'travaux', 'outils', 'soutien'].map((g) => l.pages[g]).filter((p) => p !== undefined));
 
@@ -282,8 +285,8 @@ async function checkPage(browser, page_def) {
       else if (enTete.main > 1) problems.push(`structure : ${enTete.main} <main> sur la page, un seul est permis`);
       if (!SANS_PIED.has(fichierDe(page_def.path))) {
         if (!enTete.pied) problems.push('pied de page absent : pas de <footer class="site-footer">');
-        else if (!enTete.piedLiens.some((h) => h.includes('profil.html'))) {
-          problems.push('pied de page incomplet : pas de lien vers profil.html');
+        else if (!enTete.piedLiens.some((h) => PROFILS.some((p) => h.includes(p)))) {
+          problems.push(`pied de page incomplet : pas de lien vers le profil (${PROFILS.join(', ')})`);
         }
       }
     }
