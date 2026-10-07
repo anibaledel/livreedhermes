@@ -1,7 +1,7 @@
 {
  "_doc": "Les images des épingles encre et crème, une par épingle de data/fonds/epingles-parcours.json, écrites par tools/epingles_encre_creme.mjs --serie (fond crème plein puis l'encre seule, décision d'Anibal du 7 octobre 2026). Servies à https://anibal-amiot.com/<image>. tools/check_epingles_images.mjs vérifie qu'elles existent, à leur taille, à leur empreinte, sans couture.",
  "epingles": 424,
- "octets": 14769921,
+ "octets": 11171894,
  "images": [
   {
    "ordre": 13,
@@ -16,12 +16,12 @@
   {
    "ordre": 14,
    "motif": "bases-yang-mut-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 34603,
-   "sha256": "60049d21b5238752154b80f3ca5609f170b9343913f335573dd8013b926558a7"
+   "octets": 19512,
+   "sha256": "f7a2a23f9960fac6dc128991cf8570760d1b21f6c19f2fed7b7f7a3e9d0edb1e"
   },
   {
    "ordre": 15,
@@ -36,12 +36,12 @@
   {
    "ordre": 16,
    "motif": "bases-yang-mut-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37941,
-   "sha256": "ac49681bea332c8fa51007c1a46b61ba071ed1895a4bd01483105965a13ed195"
+   "octets": 21698,
+   "sha256": "2884583deee31b73f2b6f901e0244cc2fd013ff480983f548d627b48f6e6e3ec"
   },
   {
    "ordre": 17,
@@ -56,12 +56,12 @@
   {
    "ordre": 18,
    "motif": "bases-yang-mut-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39258,
-   "sha256": "71be223c7569b21d748a31fc4f42e18662c63fa86e3b35fc0f6ee3f41ec5a9a9"
+   "octets": 24976,
+   "sha256": "b1ce59ba86597ec239c5046487daa6b282809bb272d26a70a044d37e02ebbee8"
   },
   {
    "ordre": 19,
@@ -76,12 +76,12 @@
   {
    "ordre": 20,
    "motif": "bases-yang-mut-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35116,
-   "sha256": "2f44f25dd95cca65822cc415c7d7cbc00190828b90c6c44b29973a68fb73519f"
+   "octets": 23700,
+   "sha256": "253f3aa2c5a12975c0b023ead7cbfe7bf90d3d3bb183d7de9b03666cdc16f6b3"
   },
   {
    "ordre": 21,
@@ -96,12 +96,12 @@
   {
    "ordre": 22,
    "motif": "bases-yang-mut-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 31912,
-   "sha256": "26e678032d6c6dd28fd87aea4cbdfa1e6350940c9c208064d4692e8cc602920a"
+   "octets": 19271,
+   "sha256": "28a6236cc571905fdbdc1b4927dfec0bde3354d58d6d91f54e5ed33d2d9aab21"
   },
   {
    "ordre": 23,
@@ -116,12 +116,12 @@
   {
    "ordre": 24,
    "motif": "bases-yang-mut-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39553,
-   "sha256": "c21e97c2eafd8c48cd6abdf23d2714d0520d9a6fe6b9cf53b1aba975650b9771"
+   "octets": 23647,
+   "sha256": "831cd810b788b3fda912f63b632bd6040180eaabcfeb9fb8287c0105f5335bc5"
   },
   {
    "ordre": 25,
@@ -136,12 +136,12 @@
   {
    "ordre": 26,
    "motif": "bases-yang-mut-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42825,
-   "sha256": "3a66a77a30ab957b76c915ae0009ee2449751acdd4b294f64429cafe221a1dfa"
+   "octets": 26452,
+   "sha256": "d74d0774830b9287d47a265cff4673283439b3ef8d7012c9af34be12f5f059a1"
   },
   {
    "ordre": 27,
@@ -156,12 +156,12 @@
   {
    "ordre": 28,
    "motif": "bases-yang-mut-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42162,
-   "sha256": "3f4d7bf0bbac11e4a5fa4464760bb67bcf563ce95d20762aed4a08c1f1f12079"
+   "octets": 26005,
+   "sha256": "273f8877beb0742715c5d20ac1ab38e2190aa787d35dd0c1415353f5ad3db2df"
   },
   {
    "ordre": 29,
@@ -176,12 +176,12 @@
   {
    "ordre": 30,
    "motif": "bases-yang-mut-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39733,
-   "sha256": "8735b337d42d5dee9b8fab4fe350aabd745634d3d2584675ade2a5100db6b74e"
+   "octets": 20523,
+   "sha256": "f2de17da42d655639bac8770ed42cb31ba1b4ceb17f4b2d54cb3fc3c0623e4a1"
   },
   {
    "ordre": 31,
@@ -196,12 +196,12 @@
   {
    "ordre": 32,
    "motif": "bases-yang-mut-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39412,
-   "sha256": "7ad8edf1fde728915692f771b2a7f2d3c3ae915a3c118ce4205ea82791612bfd"
+   "octets": 23461,
+   "sha256": "b534a56b16828fe60785139f7edff3a2fd6acbadb67fb97c926c484fc7454f08"
   },
   {
    "ordre": 33,
@@ -216,12 +216,12 @@
   {
    "ordre": 34,
    "motif": "bases-yang-mut-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44114,
-   "sha256": "692112e08a6ec395e5a7f2deb0b9ab55bef0a4f99ceb72f92d8b044a7dd11444"
+   "octets": 26262,
+   "sha256": "8c389d59454c9f44af14d9b0eb72f1d949d263b8a60e21d525589ce8588ded1b"
   },
   {
    "ordre": 35,
@@ -236,12 +236,12 @@
   {
    "ordre": 36,
    "motif": "bases-yang-mut-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35736,
-   "sha256": "05db80152e30efaa0e119d52074d8d95459bc6627880b2118f7d1ea6c37ff5d7"
+   "octets": 24210,
+   "sha256": "f12eb668dea5aa0b5c9c0614440ab8db226128dfa323430e223882e5ee8b826b"
   },
   {
    "ordre": 37,
@@ -256,12 +256,12 @@
   {
    "ordre": 38,
    "motif": "bases-yang-mut-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35785,
-   "sha256": "5a3f736d97b2c0510fe378fc02c7fb0ca95db7b57731253d0460107dd10af71c"
+   "octets": 25484,
+   "sha256": "c28f0f85edd02701d155d1cc016d03a1de924a76a3004c1e70682ab0baa7afa1"
   },
   {
    "ordre": 39,
@@ -276,12 +276,12 @@
   {
    "ordre": 40,
    "motif": "bases-yang-mut-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 43455,
-   "sha256": "74304edba76598069bc31e038d565345702c0c064f1f3358205f73fb295f160b"
+   "octets": 34569,
+   "sha256": "9c049c6b2463cc6e6f2217f35f2a53d4bda2df0ad6f52e851dc3bdeb52ae1bd1"
   },
   {
    "ordre": 41,
@@ -296,12 +296,12 @@
   {
    "ordre": 42,
    "motif": "bases-yang-mut-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36787,
-   "sha256": "d77eadbbe9f7d0540577e032f6a6a4f382585b4b12dba20e7741a97ae90f1244"
+   "octets": 24032,
+   "sha256": "1894035be9890cb1be9b47a152feb95e8f6170a4f9d6888d1898b4d8844858af"
   },
   {
    "ordre": 43,
@@ -316,12 +316,12 @@
   {
    "ordre": 44,
    "motif": "bases-yang-mut-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36708,
-   "sha256": "d99b77cea0f4fb07f877134fb1c623cdb81ec534e4d3ff88ebe01201e7f207e9"
+   "octets": 27367,
+   "sha256": "4de30f2879d81893b07378de00c8bbe5316ee69d92df83ba6f02a754e84eb00d"
   },
   {
    "ordre": 45,
@@ -336,12 +336,12 @@
   {
    "ordre": 46,
    "motif": "bases-yang-mut-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42027,
-   "sha256": "c3558184a3c7018a1557fcc32d12f168a6824e327c07e725bf9a73a6b6ee8b6f"
+   "octets": 30043,
+   "sha256": "02b8e8a73175eae248e3dab39be16c953550ae4fbf09be09a21027759eae8b5a"
   },
   {
    "ordre": 47,
@@ -356,12 +356,12 @@
   {
    "ordre": 48,
    "motif": "bases-yang-mut-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45679,
-   "sha256": "7482ae53965b1266d873eb4ffac0ecb43ccb7d9333abb3f07611e4bef8a09309"
+   "octets": 33047,
+   "sha256": "674e8a9fe37322be540d8cdb44be8a280855e52f570dfe8a4253567acf8cc680"
   },
   {
    "ordre": 49,
@@ -376,12 +376,12 @@
   {
    "ordre": 50,
    "motif": "bases-yang-mut-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38945,
-   "sha256": "340e83c9d8828b6d37795f66f0b985d457c4e692bcfb08c184c5e199a3f1db21"
+   "octets": 27137,
+   "sha256": "3d8b46a7aca7e5cc0cd1f051aea1a53fe10b31919b5162ccd065dbaf615b5083"
   },
   {
    "ordre": 51,
@@ -396,12 +396,12 @@
   {
    "ordre": 52,
    "motif": "bases-yang-mut-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 33339,
-   "sha256": "96b382116241b029b2de160439d98056055f22c38275f4ff5bd85a92ca9c4fe7"
+   "octets": 26081,
+   "sha256": "40220da89e15c655e8dec56c7eb769918e59351020318bf171c1fe8a91fb0566"
   },
   {
    "ordre": 53,
@@ -416,12 +416,12 @@
   {
    "ordre": 54,
    "motif": "bases-yang-mut-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38217,
-   "sha256": "14d9a8df9fb4e95ed15d5d7b602fe59078899dbc515e6154e194182b3a3b2992"
+   "octets": 26805,
+   "sha256": "023ccb16cce85effbbd05d68a424bc5e549d6f5e6cb79c0fc7067e42b422ba3c"
   },
   {
    "ordre": 55,
@@ -436,12 +436,12 @@
   {
    "ordre": 56,
    "motif": "bases-yang-mut-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45198,
-   "sha256": "faef36763988dedc4d80851a06041c07102afeb9feddb28df0966ddf32a242ba"
+   "octets": 32176,
+   "sha256": "13534d06d4f2d1c2826c111509ff2ea0df1bc2628a884051d50340bcf640d8df"
   },
   {
    "ordre": 57,
@@ -456,12 +456,12 @@
   {
    "ordre": 58,
    "motif": "bases-yang-mut-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38904,
-   "sha256": "d0af2b908452a37325369de6d375d3f9c6e08648c917e89468931e3408db8c6b"
+   "octets": 26087,
+   "sha256": "3af38dfee7bf88e55673411c5a15fa7602429ca9632738aca808ac819a11ae00"
   },
   {
    "ordre": 59,
@@ -476,12 +476,12 @@
   {
    "ordre": 60,
    "motif": "bases-yang-mut-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37761,
-   "sha256": "3aa0986c0696f4041568b9f427c4dd8264bc4fea8b3f90fdef1409fd11f366cf"
+   "octets": 27619,
+   "sha256": "ed388aed45d3a5b50824f787fa47f24d1607bd63e6f8abd2a30a3446d7d7150e"
   },
   {
    "ordre": 61,
@@ -496,12 +496,12 @@
   {
    "ordre": 62,
    "motif": "bases-yang-mut-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42353,
-   "sha256": "a5a0e22eb48822e377711737d2f24dfec9c3290153b4d821d69729fe97b6c4a8"
+   "octets": 28508,
+   "sha256": "18a67a5e60a5dd6e3f830cb0399fcb6c8b7b90cfe4330fd6618e467a9d76b55e"
   },
   {
    "ordre": 63,
@@ -516,12 +516,12 @@
   {
    "ordre": 64,
    "motif": "bases-yang-mut-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41798,
-   "sha256": "8cc30af7a92ad53e9a28e415d76bf45d628e880f1b32319011f6fe53c3b2df52"
+   "octets": 30630,
+   "sha256": "0d21374ef40b993c8012ebcc27ba433fbed4ac814d7e872130ca54fcbc22ca19"
   },
   {
    "ordre": 65,
@@ -536,12 +536,12 @@
   {
    "ordre": 66,
    "motif": "bases-yang-mut-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38765,
-   "sha256": "b6a807b39ca8d2075962d66e11f5f4ec4deb787f0154af75088a80058025ec52"
+   "octets": 25277,
+   "sha256": "9c5900170671a50104b4650bc36977f04993bc3d97015b4499b3f4c4313569f9"
   },
   {
    "ordre": 67,
@@ -556,12 +556,12 @@
   {
    "ordre": 68,
    "motif": "bases-yang-mut-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-mut-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-mut-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 30077,
-   "sha256": "0e3c31437e3b8571a1fa8546de1396a4eaef953e7e3f7298d420cc219f5e90f6"
+   "octets": 22911,
+   "sha256": "d013ca002744dbfeeb36bdcceecb17b6d39631ef2e9cca8d50c1ed63d8989961"
   },
   {
    "ordre": 69,
@@ -576,12 +576,12 @@
   {
    "ordre": 70,
    "motif": "bases-yang-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36223,
-   "sha256": "522fa968da0617e0f3681cb331b1f99b2f543db7e16ac8f1eb3601e21e6c90cc"
+   "octets": 30825,
+   "sha256": "d5ee202ee645fcd56056f066e34d0671738d81c428d5347ceaf26a0e97732ab9"
   },
   {
    "ordre": 71,
@@ -596,12 +596,12 @@
   {
    "ordre": 72,
    "motif": "bases-yang-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37620,
-   "sha256": "bfcdd3cdafa1089c7aeaa6e8bced27f2ec357c91486c26b5fb5bf2724640d0e7"
+   "octets": 28925,
+   "sha256": "f19b7cea12559c4821d1875ba6c22df73a46d70b0b0b5c95840bf14df0787a14"
   },
   {
    "ordre": 73,
@@ -616,12 +616,12 @@
   {
    "ordre": 74,
    "motif": "bases-yang-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 34775,
-   "sha256": "10aa5d983354ae6ea39624c8535262b88da63944c9bde5c7c26a6c7a9533339b"
+   "octets": 22969,
+   "sha256": "b8afba6b164aaf50d08357360564df27535957c6f0e3d106e42f5a8711ad69c1"
   },
   {
    "ordre": 75,
@@ -636,12 +636,12 @@
   {
    "ordre": 76,
    "motif": "bases-yang-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35028,
-   "sha256": "53370adca8bb8e7847a8eb8d334d5d63d52c20afdd6f28e14e1272615bea8f6b"
+   "octets": 28875,
+   "sha256": "42e28004fbaefadb3d6a0026b9e2b91bb062e97ed256dc21f32b1a9831951fef"
   },
   {
    "ordre": 77,
@@ -656,12 +656,12 @@
   {
    "ordre": 78,
    "motif": "bases-yang-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39085,
-   "sha256": "cd5974a956f1b58bb60cd47adab537af541f9b837d5a2134c1df01c2ad205b76"
+   "octets": 30632,
+   "sha256": "65cb6363498cc2c8b2676a71d4de8c7b73a4a9cf162b74d7876002df871a085c"
   },
   {
    "ordre": 79,
@@ -676,12 +676,12 @@
   {
    "ordre": 80,
    "motif": "bases-yang-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35500,
-   "sha256": "1275a8e5fb95f3d87e9c9c44ceda3984d50de30ca3a4a993986727b394a63867"
+   "octets": 26038,
+   "sha256": "d19b90d7aa693a3b56101f25a192f93d6af6eed5e99cc3c571d55e9d8a6897c2"
   },
   {
    "ordre": 81,
@@ -696,12 +696,12 @@
   {
    "ordre": 82,
    "motif": "bases-yang-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 32456,
-   "sha256": "ef8187619e3061a80b9aa7b565223fe3d22997e20387accf98e92076f94bd630"
+   "octets": 24310,
+   "sha256": "b23beecda31763d59d993dcbee2b15f389b896664f879dc0f6325b9edd809beb"
   },
   {
    "ordre": 83,
@@ -716,12 +716,12 @@
   {
    "ordre": 84,
    "motif": "bases-yang-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39185,
-   "sha256": "e00ff462c5a43e99ab858f01d621583714d26fe2c56427c9832fc271b03375a9"
+   "octets": 28908,
+   "sha256": "6462ed53cd1490bcf91b0468603e32ae808195d62e3e67f2d11c3c47e3b4eefc"
   },
   {
    "ordre": 85,
@@ -736,12 +736,12 @@
   {
    "ordre": 86,
    "motif": "bases-yang-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41683,
-   "sha256": "f463e629ab05e6c6cfc18dd290535d1c2913f4de594c86b69350b52a36a505c7"
+   "octets": 32747,
+   "sha256": "b630f9dc4a166ed67e6c53ed60294a008c59918cb5043e69590be1027fba478e"
   },
   {
    "ordre": 87,
@@ -756,12 +756,12 @@
   {
    "ordre": 88,
    "motif": "bases-yang-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44347,
-   "sha256": "c7de85e2a4c9feb449bf07ea5f52da92618b77502ea2cf3e62102d2cb2a1ffd6"
+   "octets": 28512,
+   "sha256": "88cf3098ba1c9a74f7259f072a5e3be93ab4510e7c2731c06a941e3a358feb15"
   },
   {
    "ordre": 89,
@@ -776,12 +776,12 @@
   {
    "ordre": 90,
    "motif": "bases-yang-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39290,
-   "sha256": "08b6fe4266294221ff83029942f611cb5478ee486590be6cbd1a4a7ed71bb280"
+   "octets": 24031,
+   "sha256": "729423e6ed0410c3eab239d10866d3b44a7fa9b467513dfe75b0786fa7fc3a52"
   },
   {
    "ordre": 91,
@@ -796,12 +796,12 @@
   {
    "ordre": 92,
    "motif": "bases-yang-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36891,
-   "sha256": "e5a9d2de7909c6df65c58285d8f18107a31b504a17ccdf5998fbdc2af9921b5c"
+   "octets": 28784,
+   "sha256": "85cc0c6806f50edebb0f8497496d7cdaf950a4e9badfcb42e4ab00747f83ab2f"
   },
   {
    "ordre": 93,
@@ -816,12 +816,12 @@
   {
    "ordre": 94,
    "motif": "bases-yang-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41768,
-   "sha256": "a09297fec75fd7a3d083224e8e920da8a652d2d45a94c9999042dd066b32b49d"
+   "octets": 30743,
+   "sha256": "9b5d6134fa12b1445b41a4f0599d8beda0fa6fcd91d57132d5250db52d611727"
   },
   {
    "ordre": 95,
@@ -836,12 +836,12 @@
   {
    "ordre": 96,
    "motif": "bases-yang-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35823,
-   "sha256": "20ddfc5220f9b289f16c68ee0d57d19d722ead68afebfef93cedfbf735f7ffa0"
+   "octets": 25521,
+   "sha256": "36a1575f8412521f2c9cd11e62a86a626fc0193cc3cc6347e2a2bd14f88ee9be"
   },
   {
    "ordre": 97,
@@ -856,12 +856,12 @@
   {
    "ordre": 98,
    "motif": "bases-yang-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35170,
-   "sha256": "65f6309dc0a4a3303732ddd1edaf547de1a7a8138d8b0a2a5e92352b3d9e8d0f"
+   "octets": 26071,
+   "sha256": "be49bbb5c7e207b088647940f095f632a907aa5b03cb93a8ed24297499dd7912"
   },
   {
    "ordre": 99,
@@ -876,12 +876,12 @@
   {
    "ordre": 100,
    "motif": "bases-yang-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42408,
-   "sha256": "e49570f68af84c77000e141ece711a1a1a05b98c1de345d2ad24afeebafb1d8b"
+   "octets": 34685,
+   "sha256": "164c14645750db4215b466c5e30e5045a56728738d0a6e299baf86358e43e81c"
   },
   {
    "ordre": 101,
@@ -896,12 +896,12 @@
   {
    "ordre": 102,
    "motif": "bases-yang-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36840,
-   "sha256": "f7bb30fb34e3547f35a0dd6d74834f2065b8b7134772c8db4cd4375adac4151f"
+   "octets": 29491,
+   "sha256": "bd4a6aa3385973d0f8d35e1201d86600a1e3e7666203458cb38f0ae29cb7f995"
   },
   {
    "ordre": 103,
@@ -916,12 +916,12 @@
   {
    "ordre": 104,
    "motif": "bases-yang-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 40093,
-   "sha256": "cba50988cbf54f37a4b127986ce7745c138016fbd150cab0cff52463b2b02f57"
+   "octets": 26150,
+   "sha256": "3c630b066e7ee0d14c7a415fba04e4260eb819527be7b38e335d8b8831bb4a9a"
   },
   {
    "ordre": 105,
@@ -936,12 +936,12 @@
   {
    "ordre": 106,
    "motif": "bases-yang-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44424,
-   "sha256": "a47e1c75c7532e07e1aeb7386eeac716c6588400060ef9b9d4cb46a19016260b"
+   "octets": 28477,
+   "sha256": "13c9830707325ae2bc08860ffa1cd081a6f400c4d6dc70a695031a284b69dede"
   },
   {
    "ordre": 107,
@@ -956,12 +956,12 @@
   {
    "ordre": 108,
    "motif": "bases-yang-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46702,
-   "sha256": "24cf77b1126d8cffab5d9d635a7626d1242e31c94578eb131c6fc895abeb6da4"
+   "octets": 34279,
+   "sha256": "c276cff7f56bfb1abc576757fd518a990755dfcd7a8cb6d665f74516a9315357"
   },
   {
    "ordre": 109,
@@ -976,12 +976,12 @@
   {
    "ordre": 110,
    "motif": "bases-yang-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41510,
-   "sha256": "0bfc89e277db28d4c24a5fbef07ba4b149f741a501c0e65c8da24b756920102e"
+   "octets": 30210,
+   "sha256": "7179efd35baf5d229bac6bf71a9e0bc1ece9ddf81a2efd8692593d660fe06710"
   },
   {
    "ordre": 111,
@@ -996,12 +996,12 @@
   {
    "ordre": 112,
    "motif": "bases-yang-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37996,
-   "sha256": "2d64358831384d63779115b76e81dffa217089d516f181b2bd4c8818aa39492f"
+   "octets": 23688,
+   "sha256": "2c76d78c05441cde8e2d95a2d3f07da76c2c6ae20978338a18be785fb1bd9a07"
   },
   {
    "ordre": 113,
@@ -1016,12 +1016,12 @@
   {
    "ordre": 114,
    "motif": "bases-yang-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37627,
-   "sha256": "198c91da1d9490b5dca2ebd4ef49718d72b092e21773c185881b85b437d8bd20"
+   "octets": 28688,
+   "sha256": "bcf8ad5f7c2556c4a6dead57681770f82f034e131baf5b370d7f338e01f88013"
   },
   {
    "ordre": 115,
@@ -1036,12 +1036,12 @@
   {
    "ordre": 116,
    "motif": "bases-yang-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45321,
-   "sha256": "9c58f001ea8eb39fce099ff5a7ab0c2bc36fdf1342667aa9ba7affffa289121f"
+   "octets": 34595,
+   "sha256": "b17d5cf2601e5b837a53308bde6b50a935ff74ce8d7e278d2cfadf677d15daf1"
   },
   {
    "ordre": 117,
@@ -1056,12 +1056,12 @@
   {
    "ordre": 118,
    "motif": "bases-yang-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36829,
-   "sha256": "ae3f920995368438e0a8ca4c4c4c1a1df9431040ecb0a573dedc1970b72fd1f9"
+   "octets": 32007,
+   "sha256": "8ac6a0bd92325be58bacf89907a92afaf5815b73d10f5de6ef99847bf8d381c3"
   },
   {
    "ordre": 119,
@@ -1076,12 +1076,12 @@
   {
    "ordre": 120,
    "motif": "bases-yang-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 40891,
-   "sha256": "a505938712af8127791219ae97cc1b8cbf35daafa58653c450d3fe2bcf08f97d"
+   "octets": 24954,
+   "sha256": "022fa1169ecf0fced164f62c32d9b0e748892e275ba7441f1490a72670345df8"
   },
   {
    "ordre": 121,
@@ -1096,12 +1096,12 @@
   {
    "ordre": 122,
    "motif": "bases-yang-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 43889,
-   "sha256": "81f76a4d3c5bc436d4bcc12c1dcbbdc5abdf429c9474a194292b89017691bad4"
+   "octets": 29453,
+   "sha256": "accdd5b9e3efde0f39a7fadbc191d58a7ae63c8e49f74bb6383a95f556b86621"
   },
   {
    "ordre": 123,
@@ -1116,12 +1116,12 @@
   {
    "ordre": 124,
    "motif": "bases-yang-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 43727,
-   "sha256": "c46960df2a7f0e132d7fd9285648092ab2cd1392a18e9d0981857d709a0fb855"
+   "octets": 34376,
+   "sha256": "299ed61770a2293331a7a2fecd839b7d74802c01ca6cdb5c68d6e9180a1035a5"
   },
   {
    "ordre": 125,
@@ -1136,12 +1136,12 @@
   {
    "ordre": 126,
    "motif": "bases-yang-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38529,
-   "sha256": "2d0db3cfcf65970a0210330958f527a17808949439bfdcf2eb0f32e52011034f"
+   "octets": 27649,
+   "sha256": "7e73d8cc2f0f4927e998d2939ba1a3da2d70c5a933c3f7e4230c7ef8629c939e"
   },
   {
    "ordre": 127,
@@ -1156,12 +1156,12 @@
   {
    "ordre": 128,
    "motif": "bases-yang-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/bases-yang-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/bases-yang-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 31924,
-   "sha256": "4c8e7903a54bf6f26f3eff9faa6833ff3b76913df3d5cbd42e881d729d105c93"
+   "octets": 20300,
+   "sha256": "f016d095d2473e12868753e7a431c0820acd72d1c9cebdefd921af9fc92e5000"
   },
   {
    "ordre": 129,
@@ -1176,12 +1176,12 @@
   {
    "ordre": 130,
    "motif": "par2-yang-yin-mut-h1",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h1.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h1.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 40039,
-   "sha256": "38a2ec8528b43e0aff776cc7eb58b6e55bb20c0c46dbbcc2505479faab084b20"
+   "octets": 30569,
+   "sha256": "8772e748c5fed287b821e7c4963fc484fbbd69d9d20cebe0b21cbab99d821c73"
   },
   {
    "ordre": 131,
@@ -1196,12 +1196,12 @@
   {
    "ordre": 132,
    "motif": "par2-yang-yin-mut-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 34431,
-   "sha256": "551da58b97f6b25cc2b8f03e48952b7c324d42fbd942392a006d0d38cdac8a43"
+   "octets": 27840,
+   "sha256": "c3172d29c577f985bc6ffb7998c477083d07f544fbd6d6ed64a9aecd3e483bff"
   },
   {
    "ordre": 133,
@@ -1216,12 +1216,12 @@
   {
    "ordre": 134,
    "motif": "par2-yang-yin-mut-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35255,
-   "sha256": "de606647cdec4544e377066121ebab319a1c820c60aef2b256e81b60761f185b"
+   "octets": 23680,
+   "sha256": "ea53b6933b9ff2ca4dbb0ccb3dda69c0ac79f8ecc649c099f99bb33cc40fa4c1"
   },
   {
    "ordre": 135,
@@ -1236,12 +1236,12 @@
   {
    "ordre": 136,
    "motif": "par2-yang-yin-mut-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36554,
-   "sha256": "1c78516004d5106e18d0ded5a0b92c8366d6ad72057c3edef5dac1459425fb52"
+   "octets": 26627,
+   "sha256": "65cda7080cb62d99a67a8216bb52714ea4d287ad33cc20ad3c83efc73b3364dc"
   },
   {
    "ordre": 137,
@@ -1256,12 +1256,12 @@
   {
    "ordre": 138,
    "motif": "par2-yang-yin-mut-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36736,
-   "sha256": "44c87e039d8eb5442271826c221eff8b168324291a334f026ee829e603f2d12c"
+   "octets": 30604,
+   "sha256": "dbe67a6c473079bc6f1e27f234ba574a740d0c47cf9ef1ed519bf3a70722ddc2"
   },
   {
    "ordre": 139,
@@ -1276,12 +1276,12 @@
   {
    "ordre": 140,
    "motif": "par2-yang-yin-mut-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 30337,
-   "sha256": "b1624bf98cdf389058140f11ca066800d5a8c88a863ba833a1d496a6dd25e2e9"
+   "octets": 26130,
+   "sha256": "66600b84496ec97734cdaabf2a5a21e41896613877eb8dd136d3068564862394"
   },
   {
    "ordre": 141,
@@ -1296,12 +1296,12 @@
   {
    "ordre": 142,
    "motif": "par2-yang-yin-mut-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 24145,
-   "sha256": "27b4375d3f8ad454e8b47f2b5bbc4b7d4912bc104b13e23d22615613c0d5196f"
+   "octets": 19305,
+   "sha256": "2d8a0a47041ec979ec50d9fd2d62d8b58e7532aa7357fbd849d3a3166d677a04"
   },
   {
    "ordre": 143,
@@ -1316,12 +1316,12 @@
   {
    "ordre": 144,
    "motif": "par2-yang-yin-mut-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35532,
-   "sha256": "1742a82f2ff69a6c9d9fe6681d2e6b1bec3579a1628cf9e074c21e795e31cd65"
+   "octets": 24688,
+   "sha256": "f5f044596e525323ca74fc489e5787ec811e1cc8d92d1b999e55658fcde1c0ac"
   },
   {
    "ordre": 145,
@@ -1336,12 +1336,12 @@
   {
    "ordre": 146,
    "motif": "par2-yang-yin-mut-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42519,
-   "sha256": "e232dbee4fe98c03fa2a17b22692605afa17dc4514289ac425b4c988485435b2"
+   "octets": 31142,
+   "sha256": "a36e7d94d06792027d7a1b4a90894c6fc05058908f5803d7a6bcaf087908743f"
   },
   {
    "ordre": 147,
@@ -1356,12 +1356,12 @@
   {
    "ordre": 148,
    "motif": "par2-yang-yin-mut-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36232,
-   "sha256": "37badf1f9fb87565a4d850c8935b6b8bc042a75e67f955cbefeb411e04963d99"
+   "octets": 29119,
+   "sha256": "51a24e981c655d8c334bf83b36533ace2c4e05df2ddd107e05db69a2ce6f27fd"
   },
   {
    "ordre": 149,
@@ -1376,12 +1376,12 @@
   {
    "ordre": 150,
    "motif": "par2-yang-yin-mut-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 40439,
-   "sha256": "d45620e430b849dcf2474f10d93886bbbf80b3f5c2969b995390decf9d0d1416"
+   "octets": 25094,
+   "sha256": "d8f4526ff673b5b644606bd14941a9b390a48d9bb6499e9f9fe13f57d6ecbcf9"
   },
   {
    "ordre": 151,
@@ -1396,12 +1396,12 @@
   {
    "ordre": 152,
    "motif": "par2-yang-yin-mut-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42923,
-   "sha256": "7635c6353dfd84a819bea2aff9e13ccfe23560816df49333bdec5225599cecb3"
+   "octets": 27126,
+   "sha256": "0ed5916afbe176e1e140ec3f4f9642bb95194655011b9ff1c704d6c21d3303d7"
   },
   {
    "ordre": 153,
@@ -1416,12 +1416,12 @@
   {
    "ordre": 154,
    "motif": "par2-yang-yin-mut-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42928,
-   "sha256": "e0a101ba4402627ec4c07ef22dde67b321966c167ce0a8bb10b219db7fbc09bb"
+   "octets": 32172,
+   "sha256": "0b052181a6929b3ad6128ce57ee1e50bc96809a97e34a2d4bc583f315277589b"
   },
   {
    "ordre": 155,
@@ -1436,12 +1436,12 @@
   {
    "ordre": 156,
    "motif": "par2-yang-yin-mut-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38584,
-   "sha256": "8b47f78bffffb3f6ff3b7390a77061eca99d34ad584487edd394b86aa1ad3cb9"
+   "octets": 28605,
+   "sha256": "41fa0213e92258c462bd23216f12fdeb15d0924b03bf1634bf61147b31c99b4c"
   },
   {
    "ordre": 157,
@@ -1456,12 +1456,12 @@
   {
    "ordre": 158,
    "motif": "par2-yang-yin-mut-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 32452,
-   "sha256": "448b4930210d9a271225f515f4e5c80ba5fa22c4797d748fae3c672d37ff7e73"
+   "octets": 24411,
+   "sha256": "ff7f4584a701e36e6c77cb63986dccc9a5d85aed383e64c4720e7541ac99c202"
   },
   {
    "ordre": 159,
@@ -1476,12 +1476,12 @@
   {
    "ordre": 160,
    "motif": "par2-yang-yin-mut-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37823,
-   "sha256": "db6d89e4aead0af12078efa67ea7460a94e83511a9309862e8290c7266851e41"
+   "octets": 23459,
+   "sha256": "4a855cf2f581923e6740cef6d992fcc5bcc261a36bef3ff10a8328965fefb085"
   },
   {
    "ordre": 161,
@@ -1496,12 +1496,12 @@
   {
    "ordre": 162,
    "motif": "par2-yang-yin-mut-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42516,
-   "sha256": "7782c7a3cc2039f1219ea17332ad71badd4a7ba2c9daffac798af663371af025"
+   "octets": 29685,
+   "sha256": "568476aca7c25d7c2b943a3edfcbc6983e6a7cf11cd5dad973b8664ccb2be52c"
   },
   {
    "ordre": 163,
@@ -1516,12 +1516,12 @@
   {
    "ordre": 164,
    "motif": "par2-yang-yin-mut-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46326,
-   "sha256": "35955427cd15d29cc9e43e52e6e35efff9e7d3901de9a76dbab92c3ce5c4fcb5"
+   "octets": 35221,
+   "sha256": "cb920229066b55f17034270035a5c4754f2ab78a406a3bd1b2eab7572046df54"
   },
   {
    "ordre": 165,
@@ -1536,12 +1536,12 @@
   {
    "ordre": 166,
    "motif": "par2-yang-yin-mut-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45494,
-   "sha256": "36ac0c3f87de608078e6a03f4cf2fb62c4c9e2bcdfea4e883597322ffa901d8a"
+   "octets": 30431,
+   "sha256": "2219e0818605e49d2bd7213dd9b706c9676961ac34847a409547fdbb60edbedc"
   },
   {
    "ordre": 167,
@@ -1556,12 +1556,12 @@
   {
    "ordre": 168,
    "motif": "par2-yang-yin-mut-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39518,
-   "sha256": "68de14e41ef3a9b9472d36b848704350dafa2424f7330c41cd95bb98525deeb5"
+   "octets": 25111,
+   "sha256": "f6a57e5138db79170b9f0a8fdbb18270a7cdcfc165c3b42a3eb2041a83da59bd"
   },
   {
    "ordre": 169,
@@ -1576,12 +1576,12 @@
   {
    "ordre": 170,
    "motif": "par2-yang-yin-mut-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37041,
-   "sha256": "eac7aef39449ce92677a5cef0e6c863c091f8ba353dac9778336d0f6b4a18ec7"
+   "octets": 29000,
+   "sha256": "f9bf7fdbb7cb5b6d04a15abbb1aeaf47bce69812d1df31980195d62157e17b64"
   },
   {
    "ordre": 171,
@@ -1596,12 +1596,12 @@
   {
    "ordre": 172,
    "motif": "par2-yang-yin-mut-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41480,
-   "sha256": "f0246a1615df615bb565c43d01079ee8f361ef38ebb38d9f9fb6fbf94b8fe4ee"
+   "octets": 35015,
+   "sha256": "6a9a2e70d9512d9492e70a3ff4ac1b26845d2c0fe59b72dc60cf61dc1dea1f05"
   },
   {
    "ordre": 173,
@@ -1616,12 +1616,12 @@
   {
    "ordre": 174,
    "motif": "par2-yang-yin-mut-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35635,
-   "sha256": "ff2991168bf0e226dffb9db2abe71c18beade56e60418557dbac507659c6aed9"
+   "octets": 25643,
+   "sha256": "366d5db1b0d29531cb92d2c32180c67fd6e4c9e5d3b9baece22336073a88b765"
   },
   {
    "ordre": 175,
@@ -1636,12 +1636,12 @@
   {
    "ordre": 176,
    "motif": "par2-yang-yin-mut-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 31662,
-   "sha256": "7b752a270a10c26201f86d12dca87c01118bfed308918d9c22f1db45e1c54745"
+   "octets": 21143,
+   "sha256": "cdb247b75b9e50f0a05817982be9f852d4a5a0dc3f252d10d819a3a041a46ba0"
   },
   {
    "ordre": 177,
@@ -1656,12 +1656,12 @@
   {
    "ordre": 178,
    "motif": "par2-yang-yin-mut-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39330,
-   "sha256": "3a7aa2bda557ff84cce32b0761a80a96a8bacc653a9941da4894c9357de68ed5"
+   "octets": 28312,
+   "sha256": "11e26f2cb837ab409c2c269c7e580110748dcaadea7a44e5787200b7be220d57"
   },
   {
    "ordre": 179,
@@ -1676,12 +1676,12 @@
   {
    "ordre": 180,
    "motif": "par2-yang-yin-mut-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 43870,
-   "sha256": "6800d8ac635d16cee35075d0f10c55475c63b4ef0e5b89f3213352cccc1fd0a6"
+   "octets": 34915,
+   "sha256": "50db70d70b141d9fd08fe4831385cd12c9ee98fafe443210e130cb2e44a23cb1"
   },
   {
    "ordre": 181,
@@ -1696,12 +1696,12 @@
   {
    "ordre": 182,
    "motif": "par2-yang-yin-mut-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44883,
-   "sha256": "e87d5dd9fe2cd0028fd2055ef65d7b74d695310cc0d5042d91b39bad17b10a49"
+   "octets": 30866,
+   "sha256": "d1609ae8ff85d515aae6802103e9a677745374436427f888ddb5cc3ea30e41b5"
   },
   {
    "ordre": 183,
@@ -1716,12 +1716,12 @@
   {
    "ordre": 184,
    "motif": "par2-yang-yin-mut-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 40212,
-   "sha256": "7753264f5a49b70d1776faac9ebf41d3dd45bc73f21f17097f764cb4ca705ff1"
+   "octets": 24603,
+   "sha256": "d4bbc12f6c952328118171479523952fa145737ceaea35fd9f77e97ff99d5b43"
   },
   {
    "ordre": 185,
@@ -1736,12 +1736,12 @@
   {
    "ordre": 186,
    "motif": "par2-yang-yin-mut-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36963,
-   "sha256": "5e7c5eca1d8e2fedfb244994b16fb4ba56995f892f8bde6148745280adf500d1"
+   "octets": 31085,
+   "sha256": "b7bc7086186da2dba48dd1c52ff4af6e8a31d2d998dcb6a5b799572dcf0aeaa6"
   },
   {
    "ordre": 187,
@@ -1756,12 +1756,12 @@
   {
    "ordre": 188,
    "motif": "par2-yang-yin-mut-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44403,
-   "sha256": "e30f7646dae26f5b963527746d363194d38333b7765a5d85bc83fa5c1d781a97"
+   "octets": 33827,
+   "sha256": "0233360f1625d54a18608fe547f02bdd765e9b6213a9b11e868fe67d9c27adde"
   },
   {
    "ordre": 189,
@@ -1776,12 +1776,12 @@
   {
    "ordre": 190,
    "motif": "par2-yang-yin-mut-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yang-yin-mut-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yang-yin-mut-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37983,
-   "sha256": "77ccb039531322f1911aeb34fc6480d13539678b5c57a1e5ff5dadadafd95737"
+   "octets": 29106,
+   "sha256": "4939b86f19eb95cd4f6509cdda0d3fbba9525e11f58f55e748e5a14dd8b89c09"
   },
   {
    "ordre": 191,
@@ -1796,12 +1796,12 @@
   {
    "ordre": 192,
    "motif": "par2-yin-mut-yang-mut-h1",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h1.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h1.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39831,
-   "sha256": "33a7a3bec6d23c07e86751c920bad008a7c464e666b6cc79df266dacfa813079"
+   "octets": 25717,
+   "sha256": "d984806d5f514e5f6baec864180f93978fba9049406ad84872a0b5bd97b5bc11"
   },
   {
    "ordre": 193,
@@ -1816,12 +1816,12 @@
   {
    "ordre": 194,
    "motif": "par2-yin-mut-yang-mut-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37792,
-   "sha256": "76b7ceb26d48100ac964f074b4611fafd2a59fcc5ba3e1453b154543a6a59296"
+   "octets": 22955,
+   "sha256": "85e30239036bc539d16049b3453d49dd856e49830a11bbf48ee30c1a59b03c45"
   },
   {
    "ordre": 195,
@@ -1836,12 +1836,12 @@
   {
    "ordre": 196,
    "motif": "par2-yin-mut-yang-mut-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 34837,
-   "sha256": "bf01bab31b9298c9dbac89c95d120fe6cff4fccce5bece78385b6fb924f3a3dd"
+   "octets": 20087,
+   "sha256": "51149d8444b4800386971dd23e5097269b79a707abf5ca0bf5c775e57b96fa9a"
   },
   {
    "ordre": 197,
@@ -1856,12 +1856,12 @@
   {
    "ordre": 198,
    "motif": "par2-yin-mut-yang-mut-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36338,
-   "sha256": "5111b037b3644e701d88009e3398414e0d8feee7d957eb1d6f129bab4d1291e8"
+   "octets": 25619,
+   "sha256": "781f7dc9bfcc8b833cbe5b7c20ae83d08907e047f495bb45ca535074a569b34b"
   },
   {
    "ordre": 199,
@@ -1876,12 +1876,12 @@
   {
    "ordre": 200,
    "motif": "par2-yin-mut-yang-mut-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 35330,
-   "sha256": "6e75ac5cc20be32ae16db5e066dea4e08fe70e9346af682bc2fac7b2348d999d"
+   "octets": 22456,
+   "sha256": "a2493f743ae84adf5fea3347e338a4956bb9072f432e384a8d71b6acbef75ce9"
   },
   {
    "ordre": 201,
@@ -1896,12 +1896,12 @@
   {
    "ordre": 202,
    "motif": "par2-yin-mut-yang-mut-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 31995,
-   "sha256": "4cfc22f3014d80cb0cd433bf51b0db6ff606ff1de6a847ad921e38f502f674be"
+   "octets": 20403,
+   "sha256": "61898504c20d816829e8a12b291c46d164e553a96d432ad88520a4487a51a78c"
   },
   {
    "ordre": 203,
@@ -1916,12 +1916,12 @@
   {
    "ordre": 204,
    "motif": "par2-yin-mut-yang-mut-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 24153,
-   "sha256": "0c87b18b387a9d1f00d7d96bab0ea3cc33a1017a840a86896c1bf57b7c4e5738"
+   "octets": 14359,
+   "sha256": "7b7ff413356b4409e9ca459b53418cfc10386d0ae85a01669fedbeb976d60cb5"
   },
   {
    "ordre": 205,
@@ -1936,12 +1936,12 @@
   {
    "ordre": 206,
    "motif": "par2-yin-mut-yang-mut-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37117,
-   "sha256": "89cea4269dea98904368f2408a44e025f29a10368c6cf473f8680edb220c6750"
+   "octets": 27095,
+   "sha256": "511590844425c92dd3731f9092a19268d22c7c50a5fe7b797ee63637c6de3a82"
   },
   {
    "ordre": 207,
@@ -1956,12 +1956,12 @@
   {
    "ordre": 208,
    "motif": "par2-yin-mut-yang-mut-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44089,
-   "sha256": "af7f880685941d6cd8a16929dc87541ad8bdb69d756be00fe30e207a31b76d8a"
+   "octets": 28502,
+   "sha256": "143aa4ed5b7291d26a61f07517e552972977ff499fa6bb4aa5ec8d775fb5b166"
   },
   {
    "ordre": 209,
@@ -1976,12 +1976,12 @@
   {
    "ordre": 210,
    "motif": "par2-yin-mut-yang-mut-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39344,
-   "sha256": "82d37f618a191b517ff511d9a3f01c69fbde5ca30630ff0a1d565496186f4309"
+   "octets": 24240,
+   "sha256": "44bc78fcea6f4e8da1082ac1eff98a025c0ddf0e86e68388a749aef285b4b00f"
   },
   {
    "ordre": 211,
@@ -1996,12 +1996,12 @@
   {
    "ordre": 212,
    "motif": "par2-yin-mut-yang-mut-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39802,
-   "sha256": "4e96831053d868b3a34484c3a842519475cd1772e397c973d77945568240f097"
+   "octets": 22319,
+   "sha256": "74003a9c33ea3f3ca1053a08cf1f1cce86af0ed89d73ce410e6bde9cadd4bd06"
   },
   {
    "ordre": 213,
@@ -2016,12 +2016,12 @@
   {
    "ordre": 214,
    "motif": "par2-yin-mut-yang-mut-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42952,
-   "sha256": "d4478e7f54eee4d6dc9d219eb36ef073330a89ae093bd092f6d5d1500e9cb5ba"
+   "octets": 27678,
+   "sha256": "d972cf874748d2f072e8c0f83e9b1508ce0ed847d0b90cb3e0dd8db5640d2218"
   },
   {
    "ordre": 215,
@@ -2036,12 +2036,12 @@
   {
    "ordre": 216,
    "motif": "par2-yin-mut-yang-mut-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42811,
-   "sha256": "ee472df9efa0b40653b3a74e22157bd498add6e148531448a6f14411bda7d3f9"
+   "octets": 27886,
+   "sha256": "232a7803d278362cb8747b7290e8dbd6ff5dd7d13b2cd8e5b8ead44fa451d2bc"
   },
   {
    "ordre": 217,
@@ -2056,12 +2056,12 @@
   {
    "ordre": 218,
    "motif": "par2-yin-mut-yang-mut-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39234,
-   "sha256": "dfff20019484a68d0d78689d2ad64c993d509b0e86fa6a5993dbf7e951a86af5"
+   "octets": 25006,
+   "sha256": "b9cdd44a6075c4deca935624129550dc901d21ca45c4b6c2a98a0f38f2646ff1"
   },
   {
    "ordre": 219,
@@ -2076,12 +2076,12 @@
   {
    "ordre": 220,
    "motif": "par2-yin-mut-yang-mut-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 32478,
-   "sha256": "7d72028d1c6d51f3c12e7a9bbbbeaa1f9d9cfd7f5c55e43264a86ed41452d287"
+   "octets": 20939,
+   "sha256": "45b71c07cfbb9547549ec79b145dc412e374e8a67021bae38f3e6e8f1b42d751"
   },
   {
    "ordre": 221,
@@ -2096,12 +2096,12 @@
   {
    "ordre": 222,
    "motif": "par2-yin-mut-yang-mut-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 34036,
-   "sha256": "c65e6699618357d92949332989d645e70c4a961179a92415237ba035cded0035"
+   "octets": 26522,
+   "sha256": "fe41cce0e9f7003539ff315bac8a8562e8e094400212875623921f22912c3b43"
   },
   {
    "ordre": 223,
@@ -2116,12 +2116,12 @@
   {
    "ordre": 224,
    "motif": "par2-yin-mut-yang-mut-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39295,
-   "sha256": "19381f883726edc34bc2f3ba357506613eab246ebacbb5d4167b985bcc10a4ee"
+   "octets": 28956,
+   "sha256": "6b60e5815dadac8e7901a82ecd922803a4ca324f522c79f2512a6b963f82b1ed"
   },
   {
    "ordre": 225,
@@ -2136,12 +2136,12 @@
   {
    "ordre": 226,
    "motif": "par2-yin-mut-yang-mut-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46213,
-   "sha256": "44fe72d4a9ffe40ad5dcd287dbdf626d2e86e7d5f37901676ae077043b55acd0"
+   "octets": 33914,
+   "sha256": "f6366721bcbb8b869ee99a1abc7302eb2d1bb72a7b45ee13a87c1c60d7d81462"
   },
   {
    "ordre": 227,
@@ -2156,12 +2156,12 @@
   {
    "ordre": 228,
    "motif": "par2-yin-mut-yang-mut-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42415,
-   "sha256": "e8f4ef77e376c6cb8098b641110d8188d6ed057c9f2e0ff6621c12ed7fd0af80"
+   "octets": 29540,
+   "sha256": "da04ab0188a021c868a153a5aff3b98b10bb34d1ef4b6714cb9586ed007d7fa5"
   },
   {
    "ordre": 229,
@@ -2176,12 +2176,12 @@
   {
    "ordre": 230,
    "motif": "par2-yin-mut-yang-mut-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36957,
-   "sha256": "99ffa01e66e2e2d4dc9b92bb62dfca0293dc16cad5f5e21b2d80e4c29dc2c60e"
+   "octets": 27886,
+   "sha256": "ed7614a363a8347859ebab3e2d05594d7abe5e8f526a39ba04dd31cc16bbbb72"
   },
   {
    "ordre": 231,
@@ -2196,12 +2196,12 @@
   {
    "ordre": 232,
    "motif": "par2-yin-mut-yang-mut-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 36809,
-   "sha256": "85e58113960e67ae1ecdc34d5a02995ddb3a343250bf4a5410bda6725501b8b3"
+   "octets": 25320,
+   "sha256": "0ccc00a4ea5bc200e2d729e3f8d7f48e0f07d3c503fe779c487eb903965f94cc"
   },
   {
    "ordre": 233,
@@ -2216,12 +2216,12 @@
   {
    "ordre": 234,
    "motif": "par2-yin-mut-yang-mut-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44055,
-   "sha256": "79db1d4cfe696c37792358f2408c106ffce6e8d01c20739559cc2fea3ae1c310"
+   "octets": 34534,
+   "sha256": "4eacd98b392458d756c9c100f22c5266c7ca6ea577262cb898ddac3a696c9cd6"
   },
   {
    "ordre": 235,
@@ -2236,12 +2236,12 @@
   {
    "ordre": 236,
    "motif": "par2-yin-mut-yang-mut-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 37287,
-   "sha256": "02f8406eb8f07a8e4213ca5d8b3218e8d842fd201331f5d617c79453052084ac"
+   "octets": 26039,
+   "sha256": "6442ad4fadfd98f7f92bde5d484f8f5e610d9f596918f9b6abe3ca655cee198b"
   },
   {
    "ordre": 237,
@@ -2256,12 +2256,12 @@
   {
    "ordre": 238,
    "motif": "par2-yin-mut-yang-mut-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 30997,
-   "sha256": "0f70e88b254628194fa0ea8d8535983423d7d7687d0ccb9b8f20d9503c593675"
+   "octets": 24278,
+   "sha256": "bc37dc9da452f8dc2550ab4c86c91f802db52b8e5b408b0f36719fda13d9b4b7"
   },
   {
    "ordre": 239,
@@ -2276,12 +2276,12 @@
   {
    "ordre": 240,
    "motif": "par2-yin-mut-yang-mut-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39195,
-   "sha256": "5a49720e4e3a49dfdeb75d74a1907f9a62cfb387d20d92f7dda716e5789e6474"
+   "octets": 26645,
+   "sha256": "82b9de6c7e9858a2196d4e7f0c1a60d85908664cd44407612ead5d57c9362aef"
   },
   {
    "ordre": 241,
@@ -2296,12 +2296,12 @@
   {
    "ordre": 242,
    "motif": "par2-yin-mut-yang-mut-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41856,
-   "sha256": "06a2fffb976ba1b41e68f18bdcd97176151b0742ea9e29a551223dd49922db1c"
+   "octets": 30509,
+   "sha256": "5ce901140bf033cb4aea5c7b2cb7667002384f6fa856fb441b93c68b54bfad46"
   },
   {
    "ordre": 243,
@@ -2316,12 +2316,12 @@
   {
    "ordre": 244,
    "motif": "par2-yin-mut-yang-mut-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42125,
-   "sha256": "cde7aa0017f6e74a28b85f772009fbd57fc1752fd15c944194329f6bc6f65817"
+   "octets": 28515,
+   "sha256": "c9c98858d13a2c4d0319ba2a258919d4a4b5e905a9387941c7319730fd6e9098"
   },
   {
    "ordre": 245,
@@ -2336,12 +2336,12 @@
   {
    "ordre": 246,
    "motif": "par2-yin-mut-yang-mut-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38537,
-   "sha256": "058c4b99e973276766b02340fe1a6b85aa2302191cb8234c7e54fb1d2cce7834"
+   "octets": 28229,
+   "sha256": "c06db0b8a5b274e531dd0a50d6778872c0ff643725d1069b40c741c1093f54ef"
   },
   {
    "ordre": 247,
@@ -2356,12 +2356,12 @@
   {
    "ordre": 248,
    "motif": "par2-yin-mut-yang-mut-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39855,
-   "sha256": "bb33e42f8923a240001c256d3c8ad13d1cea13eb06dffc439d1e0cb57ca05c3c"
+   "octets": 27880,
+   "sha256": "3b068bc9ea05ce3bbc2ab95ba20f25d200c734924b34ede45e85e866b94bb9f8"
   },
   {
    "ordre": 249,
@@ -2376,12 +2376,12 @@
   {
    "ordre": 250,
    "motif": "par2-yin-mut-yang-mut-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44499,
-   "sha256": "f6f30139814c03716af92a7eed7e9dfdb06a1cfe8e60588bfc533a8459b857ae"
+   "octets": 32735,
+   "sha256": "6fab3f3bdbf6c58790b96848513673eafc14c6a82539998c520c24846ce4d053"
   },
   {
    "ordre": 251,
@@ -2396,12 +2396,12 @@
   {
    "ordre": 252,
    "motif": "par2-yin-mut-yang-mut-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-mut-yang-mut-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-mut-yang-mut-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 39056,
-   "sha256": "fff5e8f417fed928f155cbfcbd3da7ad230ce3b43df5cd7e2c10a6ce80eb1f01"
+   "octets": 27463,
+   "sha256": "f93a5721b1a3a8e39b21cc289c6d1c489aceddae5ed41a0647f96077d2867fff"
   },
   {
    "ordre": 253,
@@ -2416,12 +2416,12 @@
   {
    "ordre": 254,
    "motif": "par2-yin-yang-h1",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h1.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h1.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 43255,
-   "sha256": "9a5b93dbbdead02038cc16229e3e94b0185c3b55338203a59fef9871bbaec491"
+   "octets": 27846,
+   "sha256": "c0ac2d5f47619cbb81ac53f17c3d236d23774dd834846890860e785e733b83b5"
   },
   {
    "ordre": 255,
@@ -2436,12 +2436,12 @@
   {
    "ordre": 256,
    "motif": "par2-yin-yang-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51341,
-   "sha256": "29e4e001ab1ba48419e57ba0e6f6a3aad4931886f60d9ed32477294c3f966ff3"
+   "octets": 28733,
+   "sha256": "341b9e4d609acacaf205e6da1a39c1b46d1814008ca6163b11062782e6a205d3"
   },
   {
    "ordre": 257,
@@ -2456,12 +2456,12 @@
   {
    "ordre": 258,
    "motif": "par2-yin-yang-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51250,
-   "sha256": "b9a7ac6758787deaa59267a603cdaee2a891ac14671e1abb1ab46601676a22da"
+   "octets": 27092,
+   "sha256": "9b2d30c5c1111cfaa336dc3c47c7fbc0843b02d3cf2cbd01846dee28176cedb0"
   },
   {
    "ordre": 259,
@@ -2476,12 +2476,12 @@
   {
    "ordre": 260,
    "motif": "par2-yin-yang-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 47309,
-   "sha256": "c329120841494a7967bfefea949ac560eeae49f984d8a9677b13f02cc359a324"
+   "octets": 23884,
+   "sha256": "dd35a11959781492789f3c17857bc063db09f1713d2a2e764d1b5fe4e96847ba"
   },
   {
    "ordre": 261,
@@ -2496,12 +2496,12 @@
   {
    "ordre": 262,
    "motif": "par2-yin-yang-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46058,
-   "sha256": "9dc5aaba045d7b21d33ca3b60e201c4c60b0550c553ca97e71d9629d6bf9c352"
+   "octets": 28262,
+   "sha256": "c9f4cc9181dcf34a72beac6fc65c2819f76b4e1be400f8ebf00d860a98ede30a"
   },
   {
    "ordre": 263,
@@ -2516,12 +2516,12 @@
   {
    "ordre": 264,
    "motif": "par2-yin-yang-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 54615,
-   "sha256": "f142b4689ffe48bd34aa21d40b3e422f58605dbd61d8bb76695c022e8d358269"
+   "octets": 28618,
+   "sha256": "7a44e649019aa4f21a6446b1d075b7bd74cce7bb15e836bb4a623f01434797cc"
   },
   {
    "ordre": 265,
@@ -2536,12 +2536,12 @@
   {
    "ordre": 266,
    "motif": "par2-yin-yang-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46075,
-   "sha256": "629007be66566257b76c786a6265173e3984cb01d8f71ad75c1cc34aa56721f9"
+   "octets": 23515,
+   "sha256": "40474a413dbd470330e5b79b9cfd5706878325ebaa3c93bd218cb6dd491bf1f8"
   },
   {
    "ordre": 267,
@@ -2556,12 +2556,12 @@
   {
    "ordre": 268,
    "motif": "par2-yin-yang-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46625,
-   "sha256": "ac2e72bc043c24b6f5cc2e51f24e7f26d7d1c17d2596e174ac257b537c08be84"
+   "octets": 28893,
+   "sha256": "94dc274702912ee21a05feeef6e91552ed61ef74e2495815b73f4ab58f6f23e7"
   },
   {
    "ordre": 269,
@@ -2576,12 +2576,12 @@
   {
    "ordre": 270,
    "motif": "par2-yin-yang-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 58402,
-   "sha256": "871f2b2cc8e771f6c3d951a9b77eaf7ddc1774edb4e58d8d8fe6c72c5dd93edb"
+   "octets": 30114,
+   "sha256": "ab64ed0b3957e3d1aff95ca527fc4067a0508104ed3ae085f946a44fa9beb2e1"
   },
   {
    "ordre": 271,
@@ -2596,12 +2596,12 @@
   {
    "ordre": 272,
    "motif": "par2-yin-yang-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 55706,
-   "sha256": "1c2e56cdb97e32e1f09ad174ca04123ff8fd62515fb8af9b17cee25422a2a38d"
+   "octets": 27439,
+   "sha256": "1c4ea4ecab2e6eb7c1fb0991acb23f1d6d025a7836b4a2b9305f359ebb035e80"
   },
   {
    "ordre": 273,
@@ -2616,12 +2616,12 @@
   {
    "ordre": 274,
    "motif": "par2-yin-yang-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46458,
-   "sha256": "8749163cf44683eaa8ded2081517de049241d03a3afe791fc9b8e26da0d718b5"
+   "octets": 24570,
+   "sha256": "468cc51d811346f18db05031900cb9bc3e847ec320963c21ad02d44a1e61daff"
   },
   {
    "ordre": 275,
@@ -2636,12 +2636,12 @@
   {
    "ordre": 276,
    "motif": "par2-yin-yang-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48359,
-   "sha256": "5e69d479d81c9ef9c4f231be267ea8b98989154e6ae759552a7afce1ed660ff0"
+   "octets": 28538,
+   "sha256": "b72c88e9b4a336c2a2a58d45506cb03124b540395683a377f432a87a4cff07c6"
   },
   {
    "ordre": 277,
@@ -2656,12 +2656,12 @@
   {
    "ordre": 278,
    "motif": "par2-yin-yang-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51511,
-   "sha256": "b0a100e2d411ffe98b0db12237b1941fd7f6a7c402276b876910dafe9ec0f38b"
+   "octets": 29088,
+   "sha256": "3840f224496c88ab7c6e6fe020d7a42331d7e81659f48e1058e50559ffad92d1"
   },
   {
    "ordre": 279,
@@ -2676,12 +2676,12 @@
   {
    "ordre": 280,
    "motif": "par2-yin-yang-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48091,
-   "sha256": "f28eec0dd124472e51f086af99c52f1f83e04f763dd671ee2deb822fe223d679"
+   "octets": 25199,
+   "sha256": "97ff47de74b163f1c21fbc38976f0067a7ae3885f6c05e730ec8f4e973cfa1c3"
   },
   {
    "ordre": 281,
@@ -2696,12 +2696,12 @@
   {
    "ordre": 282,
    "motif": "par2-yin-yang-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44737,
-   "sha256": "c48d8daa33ad56fc451f7bac48f88db599ecca5648be4ae98bb94b038f00d3e2"
+   "octets": 25232,
+   "sha256": "9a71b994a0c1d77835795b473603a1e690926bce1cad88124583e8569480a5ca"
   },
   {
    "ordre": 283,
@@ -2716,12 +2716,12 @@
   {
    "ordre": 284,
    "motif": "par2-yin-yang-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57240,
-   "sha256": "48420cbce8bbee6f5c4083fc1b86ef4c774ca52d3aa7a51fd2f05d77de65acf1"
+   "octets": 34327,
+   "sha256": "28f18db2e02c5f08f9af465faa1dad7b54dce00050e483819b809b2b97f24d2f"
   },
   {
    "ordre": 285,
@@ -2736,12 +2736,12 @@
   {
    "ordre": 286,
    "motif": "par2-yin-yang-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49892,
-   "sha256": "d1b6bc2092e3a25231bebeeeb2aea2e9b4d02ef3a9392ee0f52ad9b9b3650c07"
+   "octets": 30236,
+   "sha256": "bc0d37d306773e2de1fb9fca68082d3a5e958005fcf5b174a219c335b7cdd889"
   },
   {
    "ordre": 287,
@@ -2756,12 +2756,12 @@
   {
    "ordre": 288,
    "motif": "par2-yin-yang-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49893,
-   "sha256": "8882f9672826e9ca68cfa36649c73aaa6090def1c355724ba7bc3694315ccff5"
+   "octets": 26308,
+   "sha256": "fbc00f7062c62aeb727989ad30b50f7c4342cf349271ae18e3ddbc1e9c9e0af1"
   },
   {
    "ordre": 289,
@@ -2776,12 +2776,12 @@
   {
    "ordre": 290,
    "motif": "par2-yin-yang-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 54768,
-   "sha256": "4bdd43cfb90c0846e377d0e0124bee96cb658a3bdf5cf1becd7e6daaab2febfd"
+   "octets": 27535,
+   "sha256": "4a74368b7d59e506284dc09a0d9ed3c8776dd09ecda100b78f45172590b6ce23"
   },
   {
    "ordre": 291,
@@ -2796,12 +2796,12 @@
   {
    "ordre": 292,
    "motif": "par2-yin-yang-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 60191,
-   "sha256": "87d51f5bf7fd2c8ec0fe808b8ea27f20955e99dae8be0604cade88277ab7689d"
+   "octets": 34684,
+   "sha256": "5df8c489d46ee0c477bbc0d2ae927caf6e239ab23a1a510b65b32ed0caa69044"
   },
   {
    "ordre": 293,
@@ -2816,12 +2816,12 @@
   {
    "ordre": 294,
    "motif": "par2-yin-yang-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 53570,
-   "sha256": "d93f398bb5e90cfcb531903d5ca583c383bb397a98a2401a72d28aa4f49e2560"
+   "octets": 30860,
+   "sha256": "cd744aa4519fbab3c0ddac50a833d4969c72854624ba7adbebeecb3cf9d5ddc8"
   },
   {
    "ordre": 295,
@@ -2836,12 +2836,12 @@
   {
    "ordre": 296,
    "motif": "par2-yin-yang-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46253,
-   "sha256": "ce17dd61497b7dfbf9af66f5ebf21f5ba75f35f25f1051f8b461413aca08a0d1"
+   "octets": 24528,
+   "sha256": "877a81c2a8fae15930b4c56abc8d83bc13c09db169b5cfed01284a595c22b8dc"
   },
   {
    "ordre": 297,
@@ -2856,12 +2856,12 @@
   {
    "ordre": 298,
    "motif": "par2-yin-yang-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48435,
-   "sha256": "b97b73983f23741760609a38a2143f5b3fe32e3ab1e66fef412f392ffcd046ee"
+   "octets": 25457,
+   "sha256": "7f4645105a4fee1a4214393b3805e78bbe01b5eb63a4e1ec48f0a9e74c680023"
   },
   {
    "ordre": 299,
@@ -2876,12 +2876,12 @@
   {
    "ordre": 300,
    "motif": "par2-yin-yang-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 58404,
-   "sha256": "c438d70e138db4b459c4898bb99fb3364a088f40bf7a41839cfd139588d0b8b8"
+   "octets": 33747,
+   "sha256": "28874d0c2755be8cdbad3ce6bdd31abcb91323e69dbe9df5609ab797cd8f506d"
   },
   {
    "ordre": 301,
@@ -2896,12 +2896,12 @@
   {
    "ordre": 302,
    "motif": "par2-yin-yang-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52663,
-   "sha256": "4efe6cd3b1213cd7e898b1e961c0800f7eeba0966d68e68e2fd0e5837b9e0484"
+   "octets": 30231,
+   "sha256": "39fc1b5971dbd52f32fcb0188b7081c846076d66698a378c11a0e5ace9e6ba3e"
   },
   {
    "ordre": 303,
@@ -2916,12 +2916,12 @@
   {
    "ordre": 304,
    "motif": "par2-yin-yang-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49396,
-   "sha256": "539ca23792cffa86c3918d5ec0cdc783d044230ab57d9308cf34f321de145499"
+   "octets": 25723,
+   "sha256": "e925e12618dd2abc2fb14a8241d7c895f5f204e258198e07126e32918a02a26b"
   },
   {
    "ordre": 305,
@@ -2936,12 +2936,12 @@
   {
    "ordre": 306,
    "motif": "par2-yin-yang-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48922,
-   "sha256": "4dfffe406ceaaaa61e4c24a8478a0a9bc8ca19a1366cfb5e005c05cadaa31143"
+   "octets": 27645,
+   "sha256": "aa1661709d43ce3d71614672e771117edf3f1fab7e638f66fbd239214fcdd0e8"
   },
   {
    "ordre": 307,
@@ -2956,12 +2956,12 @@
   {
    "ordre": 308,
    "motif": "par2-yin-yang-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 58027,
-   "sha256": "ada6070a85bb2c12f1997fcd80a82ab5eb4446846cdedbd49a07e3a97172df46"
+   "octets": 34288,
+   "sha256": "6c024b1d3fe756bef434cf341dca96265b899df62f696379035e51c46013fa23"
   },
   {
    "ordre": 309,
@@ -2976,12 +2976,12 @@
   {
    "ordre": 310,
    "motif": "par2-yin-yang-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45455,
-   "sha256": "5631a348c56012e38146b819811fc49ab6ef8759b0fa6775fb22682528d462e2"
+   "octets": 29864,
+   "sha256": "c5c9fad8f9d6076a96ee0bb5466a0941188f78f66adefe9db1270170c70d2d34"
   },
   {
    "ordre": 311,
@@ -2996,12 +2996,12 @@
   {
    "ordre": 312,
    "motif": "par2-yin-yang-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41921,
-   "sha256": "0930747702e589e98e398befee1bc642d8695b7f8e0b4b77e5217af425b38c3d"
+   "octets": 23871,
+   "sha256": "37ca31547658da6135bec77357fdbfaeb13794ccc0fc72ef90d43489b0ab3e4e"
   },
   {
    "ordre": 313,
@@ -3016,12 +3016,12 @@
   {
    "ordre": 314,
    "motif": "par2-yin-yang-mut-h1",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h1.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h1.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41801,
-   "sha256": "a33d69bbe2470e69a0f88e880d201c7edce19c533caed793128124659bd9fe73"
+   "octets": 21273,
+   "sha256": "526e630da3be2f6f168b36948afad3cbc36db642f907f852477d43fbbcb0baff"
   },
   {
    "ordre": 315,
@@ -3036,12 +3036,12 @@
   {
    "ordre": 316,
    "motif": "par2-yin-yang-mut-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45122,
-   "sha256": "d72f40b7278cb87e7c441d274e52639a68f3a90f8e48ae29839cc94b7048832a"
+   "octets": 20636,
+   "sha256": "9ec5dfbcc0df163c5c5439a4f594a77de5305b69f9bcedcbd3013e6aab960704"
   },
   {
    "ordre": 317,
@@ -3056,12 +3056,12 @@
   {
    "ordre": 318,
    "motif": "par2-yin-yang-mut-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48117,
-   "sha256": "e7bedb04371ad4bb88b37878bd01ca543b84d0d59dbb50b261aa0c21cf834819"
+   "octets": 22743,
+   "sha256": "22a8fd62a453e55446a794c2351df27bdc70329ff2c3a301d07e46ecf9eeca85"
   },
   {
    "ordre": 319,
@@ -3076,12 +3076,12 @@
   {
    "ordre": 320,
    "motif": "par2-yin-yang-mut-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45748,
-   "sha256": "a98db47dd9bb44f77ff869c23e1e196927964d4630a3c094b879ad06c66dcb85"
+   "octets": 19411,
+   "sha256": "7cb2e0b6e9e9324dd41fe3cfeb8ac6bbd77cd92b1fdc83a9ec1951eda8e5b21a"
   },
   {
    "ordre": 321,
@@ -3096,12 +3096,12 @@
   {
    "ordre": 322,
    "motif": "par2-yin-yang-mut-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46068,
-   "sha256": "ddb309a1c5ee4eb61fe6274a7e56e54d917e860cc0e731ebe995d92109e9c446"
+   "octets": 23660,
+   "sha256": "d2c049b4bd07a88561655318496a52b33d711b1dc3ea15d5211959e9ec7ce35d"
   },
   {
    "ordre": 323,
@@ -3116,12 +3116,12 @@
   {
    "ordre": 324,
    "motif": "par2-yin-yang-mut-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48197,
-   "sha256": "298dd2542bc47dd1706bd8d9c406942c3e978bb9672ee78c608bc18f269d245e"
+   "octets": 21977,
+   "sha256": "3e49d6ad60b746347d23e3131deb16fb2715dc8caf647106b89fbc18f71e94d6"
   },
   {
    "ordre": 325,
@@ -3136,12 +3136,12 @@
   {
    "ordre": 326,
    "motif": "par2-yin-yang-mut-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 47642,
-   "sha256": "fbd79a093057c008c0e6a83b4cc3b9760df2b79c9639236d09b16d4e46d29a01"
+   "octets": 21972,
+   "sha256": "940285e822a7080f01860d4bc33eea535165c45bbce9aca69127fbffdb5d589a"
   },
   {
    "ordre": 327,
@@ -3156,12 +3156,12 @@
   {
    "ordre": 328,
    "motif": "par2-yin-yang-mut-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 47102,
-   "sha256": "202cd5dad30a473338aa3975f59f8f0a2e974356ac4ad2708467a27b32550ba9"
+   "octets": 19876,
+   "sha256": "aa215afbe696fa1b3ebe3250fb8757f7ec6585886e2390d02611b4b29a54650c"
   },
   {
    "ordre": 329,
@@ -3176,12 +3176,12 @@
   {
    "ordre": 330,
    "motif": "par2-yin-yang-mut-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48902,
-   "sha256": "cb3bfbb21b5fa4899be51e7d76dcac421abca566ad9313cc080588c2891a6baa"
+   "octets": 23746,
+   "sha256": "616f46e13cc9b36a868913cd76d856dcb407b7c2e5b4ad96277413bc70ecebc4"
   },
   {
    "ordre": 331,
@@ -3196,12 +3196,12 @@
   {
    "ordre": 332,
    "motif": "par2-yin-yang-mut-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 54921,
-   "sha256": "93d9ec70e4fd63ce3970d7e1becce0f539c897d6764474745a5650bde27f2a9f"
+   "octets": 24135,
+   "sha256": "daf93ee7c7ea1ac89d649b07249a1cbcf670bf1db019971630c54f9a626398fc"
   },
   {
    "ordre": 333,
@@ -3216,12 +3216,12 @@
   {
    "ordre": 334,
    "motif": "par2-yin-yang-mut-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 55030,
-   "sha256": "c35b0261b8bc254562b8621d47706ce84cb93c2004e5127f34d9c95e5a1ec5b1"
+   "octets": 24240,
+   "sha256": "52df2a76895865526217861fb28bd4a248b49eb1399c121e0e3465fd3fb46c81"
   },
   {
    "ordre": 335,
@@ -3236,12 +3236,12 @@
   {
    "ordre": 336,
    "motif": "par2-yin-yang-mut-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45766,
-   "sha256": "75f16555d74f2a197020f0fcb4eabbf1ffc7515570bb850d3646782d2236f40d"
+   "octets": 20916,
+   "sha256": "1c0150ff8a27f43a1771308695cfab9f38c5fe2f343908b0775106f9f1be1d48"
   },
   {
    "ordre": 337,
@@ -3256,12 +3256,12 @@
   {
    "ordre": 338,
    "motif": "par2-yin-yang-mut-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49719,
-   "sha256": "b1c53bd98be093d05ef6fb59f618dd8444e63403272df4894752684e62e80876"
+   "octets": 24492,
+   "sha256": "628c82b2996e760e7a212bbda80f4f195a5de3b5e13b3c08557eb76e5767ba06"
   },
   {
    "ordre": 339,
@@ -3276,12 +3276,12 @@
   {
    "ordre": 340,
    "motif": "par2-yin-yang-mut-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48888,
-   "sha256": "a2a6f6683d2c8704c0a05460c51f3e2a84119848bc102a5afa99dbb5dc9c8711"
+   "octets": 24278,
+   "sha256": "d3b1d499c551f7cbef22731b082326d62326e1efc142d7f15d63e7088450c935"
   },
   {
    "ordre": 341,
@@ -3296,12 +3296,12 @@
   {
    "ordre": 342,
    "motif": "par2-yin-yang-mut-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51751,
-   "sha256": "36964bdecd37d4cb17f149cdbf2c2eb9cc22a14e6c8731a477078183d7c6a9f9"
+   "octets": 23978,
+   "sha256": "7a3d04a0dca96e7f3094a83081e74fda11307300becc172eeb4f542ed4a6b83e"
   },
   {
    "ordre": 343,
@@ -3316,12 +3316,12 @@
   {
    "ordre": 344,
    "motif": "par2-yin-yang-mut-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52167,
-   "sha256": "261e7feada6dec2e880abbe286fb61431cd7b6892dcfdca00abda57216fc8ae0"
+   "octets": 25203,
+   "sha256": "17f5db7bf3fd47a679d15b34c213a47b5891e8e30fcc77a05a1925e5d5793c09"
   },
   {
    "ordre": 345,
@@ -3336,12 +3336,12 @@
   {
    "ordre": 346,
    "motif": "par2-yin-yang-mut-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57730,
-   "sha256": "b250fb2d07ba5e0513505677343d8d57c0cca919797a40e77dc8b44cf6150a57"
+   "octets": 30979,
+   "sha256": "fb1b35a20ec3699ed724886e4b94eff05fa18c6baea8697c79e28981953c3e17"
   },
   {
    "ordre": 347,
@@ -3356,12 +3356,12 @@
   {
    "ordre": 348,
    "motif": "par2-yin-yang-mut-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49815,
-   "sha256": "7f80c05fd4f1e6050a1aaf670fae9a63b649419a3d773b435739b66623726540"
+   "octets": 25517,
+   "sha256": "37c73b278e197733fa6d1e2d04ae6991c142ca1f8b4698e39870915a302644f3"
   },
   {
    "ordre": 349,
@@ -3376,12 +3376,12 @@
   {
    "ordre": 350,
    "motif": "par2-yin-yang-mut-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48244,
-   "sha256": "35a0352be2f40153015fd33fb5008896e47d377c4a4fa3ba4760d1c4548ab791"
+   "octets": 25960,
+   "sha256": "c8d155f7ef14dc98609014b2290afdc69b055d1fde0648058e57bad17bd2b3c2"
   },
   {
    "ordre": 351,
@@ -3396,12 +3396,12 @@
   {
    "ordre": 352,
    "motif": "par2-yin-yang-mut-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57442,
-   "sha256": "84991f45f6f5a7b80cbd1b3845985673ae7d766202bf95a6037e5fc27d772e32"
+   "octets": 26586,
+   "sha256": "9b9d64e2d130c8a82cf0a52ce81fe9f0d0d86fadb6f584689bbf0ff83e3df618"
   },
   {
    "ordre": 353,
@@ -3416,12 +3416,12 @@
   {
    "ordre": 354,
    "motif": "par2-yin-yang-mut-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 60659,
-   "sha256": "aea02d4c680bd523f7cbba15fd76c5b263b947f88fe4b24676de13bf8c861f0b"
+   "octets": 31556,
+   "sha256": "d1b30e85466b77ad2b54f7a861f1e6ec5257ab88435c278e3ffa6dd2a2c69a3c"
   },
   {
    "ordre": 355,
@@ -3436,12 +3436,12 @@
   {
    "ordre": 356,
    "motif": "par2-yin-yang-mut-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52691,
-   "sha256": "d85bdff235c1b1fea07acf63417a5e55d8009d13c53dfc4bfdc4fd4a02aa37df"
+   "octets": 26644,
+   "sha256": "05f0e3ed61cad52c14f50f9d48542a399ea1b78bd788b614385df4fd9ef80d9a"
   },
   {
    "ordre": 357,
@@ -3456,12 +3456,12 @@
   {
    "ordre": 358,
    "motif": "par2-yin-yang-mut-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46317,
-   "sha256": "4c8301bf9b7a32e503d3b09ca18300b53539538efd21314b8d18cffb7be3a063"
+   "octets": 25353,
+   "sha256": "cb8fb48a40c903992134541f2d215c14141d65b32b25e56862e9f81d21d51d54"
   },
   {
    "ordre": 359,
@@ -3476,12 +3476,12 @@
   {
    "ordre": 360,
    "motif": "par2-yin-yang-mut-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 54094,
-   "sha256": "7a942e7cf40fe50460b03017010f3e3d7fc1d2ea271a7ca9294976a4984f9a54"
+   "octets": 25316,
+   "sha256": "1545a178bedff66857bb6d182554aa8076d81c3d4be8a1a36b754d511ac47e92"
   },
   {
    "ordre": 361,
@@ -3496,12 +3496,12 @@
   {
    "ordre": 362,
    "motif": "par2-yin-yang-mut-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57338,
-   "sha256": "cf4e989ecd662bd11be2e95b337d0937265343b8e3d3ededadc2a1848963201e"
+   "octets": 30269,
+   "sha256": "bde76e71d075f61911debb755036405f87438d83f22e9ea8678b1497db6872a8"
   },
   {
    "ordre": 363,
@@ -3516,12 +3516,12 @@
   {
    "ordre": 364,
    "motif": "par2-yin-yang-mut-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52800,
-   "sha256": "82404579c093d9b987c4c475e11b7491332c5530a3e3baee94d210f85a77fda5"
+   "octets": 26795,
+   "sha256": "a5c3a3f7ab2be30fab6fe0e1fe3ef9e99e3daad25c4817217dbe831d41870b89"
   },
   {
    "ordre": 365,
@@ -3536,12 +3536,12 @@
   {
    "ordre": 366,
    "motif": "par2-yin-yang-mut-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 47046,
-   "sha256": "4c14f7f6843cc86bfe0a117aae0e301b6bca31cb4eb88963ac6f76927da21a89"
+   "octets": 26435,
+   "sha256": "844cf29fb13d2aa9b939967d9a50688d6be0cd4e7ce3da4a7e5b549c7eaadc29"
   },
   {
    "ordre": 367,
@@ -3556,12 +3556,12 @@
   {
    "ordre": 368,
    "motif": "par2-yin-yang-mut-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51315,
-   "sha256": "96d1c9c95e26f71b66f6595948deaa1bbc1b4fa6521ad885d09b929fa38cfd5c"
+   "octets": 26538,
+   "sha256": "757018fa13842d39cd6c81d9b4566c8c97c9a5b89fb7fc5750a3d4dc83ae7c8d"
   },
   {
    "ordre": 369,
@@ -3576,12 +3576,12 @@
   {
    "ordre": 370,
    "motif": "par2-yin-yang-mut-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 55965,
-   "sha256": "2c6d80b20533ef5651d620921e55cd21903f8693cd32ae436e4a1541e5d202ed"
+   "octets": 30777,
+   "sha256": "c097ec85c8b8636820dca2d37d4b2d942715fb8a98ee582e0888919d8600c79d"
   },
   {
    "ordre": 371,
@@ -3596,12 +3596,12 @@
   {
    "ordre": 372,
    "motif": "par2-yin-yang-mut-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45395,
-   "sha256": "c3a3644db0354973dab2d7345726c6c0c3615bee2bf9f13db7bb1c3cfaf95045"
+   "octets": 25828,
+   "sha256": "7c7868dd3d62f0857487e8921c6f998f9d20cd1e72dc3cc0b42017030b6be481"
   },
   {
    "ordre": 373,
@@ -3616,12 +3616,12 @@
   {
    "ordre": 374,
    "motif": "par2-yin-yang-mut-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par2-yin-yang-mut-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par2-yin-yang-mut-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42619,
-   "sha256": "0500ae61b625c6aba5e75d704a73734493ee5bfabd5bcbe0326e4bfa326e9b0a"
+   "octets": 24287,
+   "sha256": "16a6ec2a49d520a0bfbc605398d0212b85c69548a67feee3bd0aec92c7b025ba"
   },
   {
    "ordre": 375,
@@ -3636,12 +3636,12 @@
   {
    "ordre": 376,
    "motif": "par3-sans-yang-h1",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h1.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h1.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48282,
-   "sha256": "c81b0f38706f8bafbbce82f7e21e5347deac249b418864e4260316812d20464f"
+   "octets": 22084,
+   "sha256": "014adcaec55eca4b53b04ba3b4885904b9450af7fb4a57f730556459ad92a7dc"
   },
   {
    "ordre": 377,
@@ -3656,12 +3656,12 @@
   {
    "ordre": 378,
    "motif": "par3-sans-yang-h2",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h2.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h2.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46213,
-   "sha256": "87a89a18fd9ac93a672150c1667192bf0edd9840c0be87aeeed8af7c798a2a67"
+   "octets": 22849,
+   "sha256": "d1cd9127f98505f28602f628c46d5ad6f6eaf669de620405201fa99f68bc4613"
   },
   {
    "ordre": 379,
@@ -3676,12 +3676,12 @@
   {
    "ordre": 380,
    "motif": "par3-sans-yang-h3",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h3.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h3.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45988,
-   "sha256": "adc4d981dec752cc4cc9ad22cda7d2f2118b62b86323e697f1c96605f714b8ce"
+   "octets": 19698,
+   "sha256": "18b171cc136702fb7fd0517be6ff2f627abd15b07d8053c6b3a40095dd785fa4"
   },
   {
    "ordre": 381,
@@ -3696,12 +3696,12 @@
   {
    "ordre": 382,
    "motif": "par3-sans-yang-h4",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h4.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h4.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 47526,
-   "sha256": "d3ed99f34484ec4dd69018c3a1076398db647b4f7b45a19579e1d9417d8b7c47"
+   "octets": 23424,
+   "sha256": "922c9aa48649289135b79c6a295831eb2f21c8e2272341f5f31ed75f9da52a9f"
   },
   {
    "ordre": 383,
@@ -3716,12 +3716,12 @@
   {
    "ordre": 384,
    "motif": "par3-sans-yang-h5",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h5.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h5.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 44690,
-   "sha256": "9fe6be610847dcb31531ac08a8c9bb96e05651fa78aa2a43be165fd222bd93d5"
+   "octets": 20599,
+   "sha256": "a08c67a1b949621d0f83e56598974bceedfcef3e4fa64a2d80b9b979a3302ea4"
   },
   {
    "ordre": 385,
@@ -3736,12 +3736,12 @@
   {
    "ordre": 386,
    "motif": "par3-sans-yang-h6",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h6.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h6.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 41920,
-   "sha256": "b537255930abc3876805dccfe847312be6ab543d77a281262664ee52012f86a4"
+   "octets": 20998,
+   "sha256": "9472e3c497d5e8061f2ca5ab3088449d6f4aee5df7271bfc84feca5de330960f"
   },
   {
    "ordre": 387,
@@ -3756,12 +3756,12 @@
   {
    "ordre": 388,
    "motif": "par3-sans-yang-h7",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h7.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h7.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 38362,
-   "sha256": "0d6a0a95deec63a8a23fb9f24f590500627f367054bf79f9d356e3a1e1bd535d"
+   "octets": 16655,
+   "sha256": "b4cd9e4ab33c6c07319cf1c1f07f3ac464f742dac2f31460139c8964aaefecde"
   },
   {
    "ordre": 389,
@@ -3776,12 +3776,12 @@
   {
    "ordre": 390,
    "motif": "par3-sans-yang-h8",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h8.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h8.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 50812,
-   "sha256": "8989a01dee943f0f53ba1b2cfe024285f97bed8a6f5608ca80abc723bd438b24"
+   "octets": 24941,
+   "sha256": "379d786247b5f7fd703a2838093f1de02f4d1f9b0ba83bdb7de38b158caf4c89"
   },
   {
    "ordre": 391,
@@ -3796,12 +3796,12 @@
   {
    "ordre": 392,
    "motif": "par3-sans-yang-h9",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h9.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h9.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48547,
-   "sha256": "affb6203aa7d713cb0fa69c822e86b0cf3fbe15b7db815d88a7b57d99be9e852"
+   "octets": 24189,
+   "sha256": "9cf2fcc0e365704d0f5d65c4dd6db8ff398f3485ab0b1a8378585cfd787eacdf"
   },
   {
    "ordre": 393,
@@ -3816,12 +3816,12 @@
   {
    "ordre": 394,
    "motif": "par3-sans-yang-h10",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h10.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h10.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49154,
-   "sha256": "6a4708c94b062755ea3b43fef38350cebf456e1e8e47f566fe210e05949f70d4"
+   "octets": 24035,
+   "sha256": "db32103c5a30bc17831c7fd0b7b77d608096bbda0888083447b0ddf67938e443"
   },
   {
    "ordre": 395,
@@ -3836,12 +3836,12 @@
   {
    "ordre": 396,
    "motif": "par3-sans-yang-h11",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h11.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h11.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45636,
-   "sha256": "9ae5949c6d2adaba51a1e9e20cb7e6be8858670e7efd0f854802d1ab6e23e3b0"
+   "octets": 21340,
+   "sha256": "91414aabc3daf7ae6421ae7657930c681005fc855ecc9a5ca220a3e93b44348f"
   },
   {
    "ordre": 397,
@@ -3856,12 +3856,12 @@
   {
    "ordre": 398,
    "motif": "par3-sans-yang-h12",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h12.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h12.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 54672,
-   "sha256": "5ed9a20c8ecdb1b88d01fadf04ae219b5489ef249e71938c1f024f1d46cd26ee"
+   "octets": 25011,
+   "sha256": "2761172b65a50ab6f5d1744ca020b6526af8b42cc18eda76501f0c487aec1c4b"
   },
   {
    "ordre": 399,
@@ -3876,12 +3876,12 @@
   {
    "ordre": 400,
    "motif": "par3-sans-yang-h13",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h13.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h13.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 55132,
-   "sha256": "2046e699882125c69929a1e100c5c86a5b909c94576177bc6289455d647772fd"
+   "octets": 24640,
+   "sha256": "a80673bc43bf67b54f47e3c2068c9803e44ebd86b8e624a193a958ec766f56c3"
   },
   {
    "ordre": 401,
@@ -3896,12 +3896,12 @@
   {
    "ordre": 402,
    "motif": "par3-sans-yang-h14",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h14.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h14.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48118,
-   "sha256": "c66f7eb15ffc7250c6b73715d4260371fabb166a61d2d81a11868ba395663e9e"
+   "octets": 23582,
+   "sha256": "f6586b4c639072a940aba550d192d8c8a82196efdbf85a0420e47e061d56bbeb"
   },
   {
    "ordre": 403,
@@ -3916,12 +3916,12 @@
   {
    "ordre": 404,
    "motif": "par3-sans-yang-h15",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h15.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h15.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46882,
-   "sha256": "74973f85fb3782b06dd6da75e92794b575febe588acae3c1b92be5e485b169c4"
+   "octets": 20297,
+   "sha256": "3a135695dc0ae4c4c4fdb8a877318e8b166c69b8b65b09903b21ef8a95b1d0fe"
   },
   {
    "ordre": 405,
@@ -3936,12 +3936,12 @@
   {
    "ordre": 406,
    "motif": "par3-sans-yang-h16",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h16.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h16.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45926,
-   "sha256": "c79bb759c359f0617f2a420b4f55332b84d4cd2e267ce10655faaa707d46f32d"
+   "octets": 24976,
+   "sha256": "4a79bb4137282db8a64510caf91daff13e55b0e6d7663482c3419642bbbd634e"
   },
   {
    "ordre": 407,
@@ -3956,12 +3956,12 @@
   {
    "ordre": 408,
    "motif": "par3-sans-yang-h17",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h17.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h17.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52805,
-   "sha256": "b3a8a07e016d019721543e20aeb2cd49cb5ec0058c4d5b89b33ce73fa80bfbe2"
+   "octets": 27082,
+   "sha256": "32638d8c5df621aa9fdb61c12eded7f6347d53788f525d02ba41fc17c280c485"
   },
   {
    "ordre": 409,
@@ -3976,12 +3976,12 @@
   {
    "ordre": 410,
    "motif": "par3-sans-yang-h18",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h18.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h18.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 60008,
-   "sha256": "a514129e633149804941685eb5a13d367651a5ad2b88ccb3e6e2ed790cf8b048"
+   "octets": 31432,
+   "sha256": "202f40d55993b5bd51b41a6a94acf93d4ba31c7f900475c8ba708c40b1bface1"
   },
   {
    "ordre": 411,
@@ -3996,12 +3996,12 @@
   {
    "ordre": 412,
    "motif": "par3-sans-yang-h19",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h19.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h19.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 58345,
-   "sha256": "3e70bd36e2554208e20bb764fde33b7d88351d140c3a3bd9206ed5876723643a"
+   "octets": 27287,
+   "sha256": "d210a3d7846f5897ed1ef588e2b6033daa1556e032490d4830c00be6aa1ba33c"
   },
   {
    "ordre": 413,
@@ -4016,12 +4016,12 @@
   {
    "ordre": 414,
    "motif": "par3-sans-yang-h20",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h20.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h20.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 48163,
-   "sha256": "c7574829e76825169ca64c5ea1db1fac0eee0fd6bc5466da0c92f8652a47f0a2"
+   "octets": 26136,
+   "sha256": "c2b30d203d87a0ab2da246f70b54d5281dfb279775ff486af470c4a4d9759925"
   },
   {
    "ordre": 415,
@@ -4036,12 +4036,12 @@
   {
    "ordre": 416,
    "motif": "par3-sans-yang-h21",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h21.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h21.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 49833,
-   "sha256": "7bf1102a164f8e24578f25f343259a99218f2994d9a3d67a8eb7a7002dc431f6"
+   "octets": 25956,
+   "sha256": "adea47e338df75dbcc40cc77e1790fdfc5831796ea3d60f981836aa7fc92d21a"
   },
   {
    "ordre": 417,
@@ -4056,12 +4056,12 @@
   {
    "ordre": 418,
    "motif": "par3-sans-yang-h22",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h22.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h22.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57769,
-   "sha256": "92867af2d265091bdaba45857a61e4a94f335f6c7d6c7f5c779385581845fd34"
+   "octets": 30694,
+   "sha256": "375aa7874d29a871c21dba2e4f7a24ebda7b7640b73b397957aa7a83351ca797"
   },
   {
    "ordre": 419,
@@ -4076,12 +4076,12 @@
   {
    "ordre": 420,
    "motif": "par3-sans-yang-h23",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h23.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h23.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51224,
-   "sha256": "f280d1e00be5ba8d6bf948cf1cf382b6b85b10b3ca67d2537a74aa5e6fe27cac"
+   "octets": 24974,
+   "sha256": "90ab083a6ed26a9337b6fccf71262911e7cc3f73fdb3348ea2c914d1a5d609ef"
   },
   {
    "ordre": 421,
@@ -4096,12 +4096,12 @@
   {
    "ordre": 422,
    "motif": "par3-sans-yang-h24",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h24.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h24.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 42227,
-   "sha256": "45729189531e63128cfb595f037bc294c7264b365d4c2813d6a90c0b76ccd7d6"
+   "octets": 24472,
+   "sha256": "be69a9026c487441988d0ded47ad05dd542d787201364b7a4f55803acf62c875"
   },
   {
    "ordre": 423,
@@ -4116,12 +4116,12 @@
   {
    "ordre": 424,
    "motif": "par3-sans-yang-h25",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h25.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h25.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 45189,
-   "sha256": "8c47f0c6500af3c3765f7bed30257b17bfb7f58b18ea29a0e9023a0bde69663a"
+   "octets": 26388,
+   "sha256": "138f9a18832bb406faf63d1e249057acafa708bf082570b01b01d1315aabd58c"
   },
   {
    "ordre": 425,
@@ -4136,12 +4136,12 @@
   {
    "ordre": 426,
    "motif": "par3-sans-yang-h26",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h26.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h26.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 56101,
-   "sha256": "4454f3a5093674fcaa8ce2a3d2d05f2de2aa71e6d197bac68f3a288ddbc9c257"
+   "octets": 30201,
+   "sha256": "69c83d2914540c0b48a4da41aab6080e400e5327b07ab842a89fb9341ef0378e"
   },
   {
    "ordre": 427,
@@ -4156,12 +4156,12 @@
   {
    "ordre": 428,
    "motif": "par3-sans-yang-h27",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h27.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h27.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 51187,
-   "sha256": "a79c510793d46e3ba7a2beeab8625ab4e3a96429a53844f1e5072e003921cab1"
+   "octets": 26696,
+   "sha256": "837dddc7954f4417f30f2554fc4eeceea87d1a87aaae7f40dafc6b82cb7aaa53"
   },
   {
    "ordre": 429,
@@ -4176,12 +4176,12 @@
   {
    "ordre": 430,
    "motif": "par3-sans-yang-h28",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h28.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h28.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 46925,
-   "sha256": "6243162c77d23be1e4f204cfeecded4dbbbfdd0e04c25f7ddfc5f59d4bf6ecee"
+   "octets": 26884,
+   "sha256": "599e1caa3b66d71b0b3906fa6003c6ab6201408a5dafff91a88a6b37c3200d56"
   },
   {
    "ordre": 431,
@@ -4196,12 +4196,12 @@
   {
    "ordre": 432,
    "motif": "par3-sans-yang-h29",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h29.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h29.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 52693,
-   "sha256": "b63bd1fbdb14a73907dee1f59574d7539adf5265eb2570be1697c7809d7af4a2"
+   "octets": 28091,
+   "sha256": "af62d8a956bc5f5c0e7a89b70dba3fd1a729c205109d6cbbe7a4e1657087d3c4"
   },
   {
    "ordre": 433,
@@ -4216,12 +4216,12 @@
   {
    "ordre": 434,
    "motif": "par3-sans-yang-h30",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h30.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h30.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 57657,
-   "sha256": "b9b54974ccd1ff2c3e65b5c6f0d15e2cda49fb7b473aecd02b061814b3ee93d8"
+   "octets": 29917,
+   "sha256": "5fb1cdaaccd1db7b9c6a66600cdea3efae4d2656ee8b429fd559193e06107ef0"
   },
   {
    "ordre": 435,
@@ -4236,12 +4236,12 @@
   {
    "ordre": 436,
    "motif": "par3-sans-yang-h31",
-   "format": "pavage-3x4",
-   "image": "assets/motifs-pinterest/encre-creme/pavage-3x4/par3-sans-yang-h31.png",
+   "format": "pavage-4x6",
+   "image": "assets/motifs-pinterest/encre-creme/pavage-4x6/par3-sans-yang-h31.png",
    "largeur": 1000,
    "hauteur": 1500,
-   "octets": 53619,
-   "sha256": "56c192b1ad9a5021912aa6ef6cee6437c5657537c9d664c3ea29001b80b343a0"
+   "octets": 25689,
+   "sha256": "c2f9836a2b7334076bdcedfaa178c1a00530d7934b849f870ba79c555b806c1a"
   }
  ]
 }

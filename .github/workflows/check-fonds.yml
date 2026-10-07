@@ -142,7 +142,7 @@ jobs:
       - run: node tools/check_epingles_images.mjs
       - run: node tools/check_epingles_images.mjs --essai
       # le raccord : deux exemplaires de chaque image bout à bout = le pavage d'un
-      # seul tenant (la cellule dans les deux sens, le 3 × 4½ en largeur) ;
+      # seul tenant (la cellule et le 4 × 6, dans les deux sens) ;
       # --essai : une case faussée d'un pixel, refusée
       - run: node tools/epingles_encre_creme.mjs --raccord
       - run: node tools/epingles_encre_creme.mjs --raccord --essai

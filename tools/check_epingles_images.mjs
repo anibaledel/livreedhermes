@@ -11,7 +11,7 @@
 //   1. la liste suit le parcours (data/fonds/epingles-parcours.json) épingle
 //      par épingle : même ordre, même motif, même format ;
 //   2. chaque image existe, en PNG, à sa taille : la cellule en 1500 × 1500,
-//      la mise en situation 3 × 4½ en 1000 × 1500 ;
+//      la mise en situation 4 × 6 en 1000 × 1500 ;
 //   3. son empreinte SHA-256 est celle de la liste (une image refaite sans
 //      relancer --serie échoue) ;
 //   4. pas de jumelle : 424 empreintes distinctes pour 424 épingles ;
@@ -33,7 +33,7 @@ import zlib from 'node:zlib';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lireJson = (rel) => JSON.parse(fs.readFileSync(path.join(RACINE, rel), 'utf8'));
-const TAILLE = { cellule: [1500, 1500], 'pavage-3x4': [1000, 1500] };
+const TAILLE = { cellule: [1500, 1500], 'pavage-4x6': [1000, 1500] };
 const CREME = [0xef, 0xea, 0xe0], ENCRE = [0x23, 0x23, 0x2b], TOLERANCE = 18, ECART_MAX = 0.01;
 
 // Les pixels d'un PNG 8 bits (palette, RVB ou RVBA), filtres compris.
