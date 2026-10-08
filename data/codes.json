@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T18:11:45Z",
+ "generated_at_utc": "2026-10-08T20:06:58Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -575,7 +575,7 @@
    "arborescence_requise": null,
    "zenodo": [
     {
-     "depot": "10.5281/zenodo.22862110",
+     "depot": null,
      "enregistrement": "22967302",
      "version": null,
      "fichier": "cube_edges.py",
@@ -2141,9 +2141,9 @@
   {
    "chemin": "tools/check_resultats_etablis.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
-   "octets": 18199,
-   "sha256": "01d6837008e7ea53f2fd525f55e4e57d73564050bd7c820e8a784ef7b2414dc0",
-   "md5": "6f5523776013b4fccd9aeb1011de27f5",
+   "octets": 19718,
+   "sha256": "1edee4136a62d0ad613ceef483c398e053da376dbb7af7e8a8488b6329fa3811",
+   "md5": "072d05189f539577c7cb766e5003a7ab",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
@@ -2276,9 +2276,9 @@
   {
    "chemin": "tools/check_zenodo_registre.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_zenodo_registre.mjs",
-   "octets": 6297,
-   "sha256": "2d12e61cfc65a8f61fe532acae8d50f05a044af1e52ceacd31afe8c993db3fe3",
-   "md5": "85b0a9361adbdf28c761bc8b23f5ff81",
+   "octets": 6314,
+   "sha256": "529e9bdfb683dd03930022634e7083dfe6c493dee6fbfed473d2263d377d89d6",
+   "md5": "b88e8fb0f40bf715ee64d0fe7a89db61",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le registre des dépôts (data/travaux.json) dit-il ce que Zenodo enregistre ?",
@@ -2436,7 +2436,7 @@
    "arborescence_requise": "tools/ à côté de data/ : REPO_ROOT est le parent de son dossier (ligne 91), où il cherche data/referent_360_v3.json ; à plat, il échoue sur « données introuvables ». Servi à https://anibal-amiot.com/tools/cube_edges.py : le télécharger seul ne suffit pas.",
    "zenodo": [
     {
-     "depot": "10.5281/zenodo.22862110",
+     "depot": null,
      "enregistrement": "22967302",
      "version": null,
      "fichier": "cube_edges.py",

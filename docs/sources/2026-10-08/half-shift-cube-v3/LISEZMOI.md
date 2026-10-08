@@ -23,8 +23,11 @@ processeurs) : `croisements.py` redonne `logs/croisements.log` ligne pour ligne,
 seule durée près (`durée : 14 s` ici, 15 s dans le journal) ; `cube_croisements.py`
 redonne `logs/cube_croisements.log` à l'octet.
 
-**Ce qui reste à faire.** Zenodo est refusé aux sessions de travail : les MD5 que la
-fiche 23214317 déclare n'ont pas pu être relus, et cette fiche n'est pas dans
-`data/zenodo/depots.json`. Les quatre résultats restent donc « relevés » ; ils
-passent à « vérifiés sur journal déposé » quand l'instantané de la fiche est versé
-et que ses MD5 sont ceux des fichiers de ce dossier.
+**L'octet déposé.** L'archive elle-même est versée à côté de ce dossier,
+`docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip` : 140 952 octets, MD5
+`69d10cdb56630bd11044292f32d7d17b`, exactement ce que déclare la fiche Zenodo 23214317
+(réponse de l'API collée par Anibal le 8 octobre 2026, versée dans
+`data/zenodo/brut/2026-10-08/rec-23214317.json`). Ce dossier en est le contenu
+décompressé. `tools/check_resultats_etablis.mjs` relit, à chaque CI, le MD5 de l'archive
+contre l'instantané, les lignes citées dans ses journaux (extraits de l'archive à la
+volée) et l'identité, à l'octet, de `tools/croisements.py` avec son membre.
