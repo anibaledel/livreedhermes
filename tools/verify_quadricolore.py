@@ -180,9 +180,13 @@ def main():
         cible = os.path.join(RACINE, 'data', 'quadricolore-planche047.json')
         rendu = json.dumps(doc, ensure_ascii=False, indent=1) + '\n'
         if os.path.exists(cible) and open(cible, encoding='utf-8').read() != rendu:
-            echecs.append(f'{cible} diffère de ce que le script recalcule')
-        open(cible, 'w', encoding='utf-8').write(rendu)
-        print(f'\n{len(motifs)} motifs écrits dans data/quadricolore-planche047.json')
+            # On n'écrit PAS : écraser effacerait l'écart qu'on vient de constater.
+            echecs.append(f'{cible} diffère de ce que le script recalcule ; '
+                          f'fichier laissé intact')
+            print(f'\n{cible} diffère du recalcul — fichier NON réécrit')
+        else:
+            open(cible, 'w', encoding='utf-8').write(rendu)
+            print(f'\n{len(motifs)} motifs écrits dans data/quadricolore-planche047.json')
 
     if '--table' in sys.argv:
         print('\nmotif → bloc de l’échiquier (R, C)')

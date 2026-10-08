@@ -23,8 +23,10 @@
 # 2. L'INVARIANT EN LIGNE LIT UN TRAIT. inv(6, 0) est constant sur chacune des
 #    8 lignes du damier, et ne prend que DEUX formes : l'une sur les lignes
 #    0 à 3, l'autre sur les lignes 4 à 7. C'est le trait du haut du trigramme
-#    supérieur, et rien d'autre. inv(0, 6) donne les deux mêmes formes,
-#    échangées.
+#    supérieur, et rien d'autre. inv(0, 6) donne les deux mêmes formes, mais
+#    échangées entre les deux moitiés — vérifié, non supposé : l'ensemble des
+#    formes est le même, et inv(0, 6) des lignes 0 à 3 est inv(6, 0) des
+#    lignes 4 à 7.
 #
 # 3. LES TRAITS BICOLORES DE CET INVARIANT LISENT LE TRIGRAMME ENTIER. Les cases
 #    rouges ou bleues contenues dans inv(6, 0) forment un ensemble de 24 cases,
@@ -87,6 +89,7 @@ def main():
         echecs.append('l’invariant diagonal n’est pas universel et sans bicolore')
 
     # 2. l'invariant en ligne lit le trait du haut
+    retenu = {}
     for dr, dc, nom in ((6, 0, 'inv(6,0)'), (0, 6, 'inv(0,6)')):
         par_ligne = constantes(blocs, lambda g: invariant(g, dr, dc), 0)
         par_col = constantes(blocs, lambda g: invariant(g, dr, dc), 1)
@@ -97,6 +100,15 @@ def main():
               f'{bool(par_col)} ; {n} forme(s), séparant les deux moitiés : {bool(moities)}')
         if not par_ligne or par_col or n != 2 or not moities:
             echecs.append(f'{nom} ne lit pas le trait du haut du trigramme supérieur')
+        retenu[nom] = par_ligne
+
+    a, b = retenu['inv(6,0)'], retenu['inv(0,6)']
+    memes = bool(a) and bool(b) and set(a.values()) == set(b.values())
+    echange = bool(a) and bool(b) and a[0] == b[4] and a[4] == b[0] and a[0] != b[0]
+    print(f'   les deux invariants portent les mêmes formes : {memes} ; '
+          f'échangées entre les moitiés : {echange}')
+    if not (memes and echange):
+        echecs.append('inv(0,6) ne donne pas les deux mêmes formes échangées')
 
     # 3. les traits bicolores de l'invariant en ligne
     def bicolore(g):
