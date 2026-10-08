@@ -2,10 +2,10 @@
  "format_version": "1.0",
  "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_journal_local = pas de journal déposé, mais un journal d'exécution est versé dans docs/journaux/ avec l'empreinte du script qui l'a produit ; le contrôle relit les lignes et échoue si le script a changé depuis ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
-  "verifie_journal_depose": 9,
+  "verifie_journal_depose": 13,
   "verifie_journal_local": 8,
   "verifie_ci": 19,
-  "releve_journal_depose": 4,
+  "releve_journal_depose": 0,
   "affirme": 2
  },
  "resultats": [
@@ -210,32 +210,35 @@
     "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
     "depose": {
      "enregistrement": "23214317",
-     "fichier": "tools/croisements.py",
-     "md5": "f5854781695f7dd359c9e4bfe3ee1fc0"
+     "fichier": "half-shift-cube-scripts-v3.zip",
+     "membre": "half-shift-cube-v3/tools/croisements.py",
+     "md5": "69d10cdb56630bd11044292f32d7d17b",
+     "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
     },
-    "note": "versé depuis l'archive half-shift-cube-scripts-v3.zip (version 3 de l'enregistrement 23214317), avec son arborescence ; à lancer depuis le dossier tools/ de l'archive. Le MD5 est celui de l'archive, à confirmer sur la fiche Zenodo."
+    "note": "dans l'archive déposée (V.3.2), dont la copie est versée à l'octet ; à lancer depuis le dossier tools/ de l'archive décompressée (docs/sources/2026-10-08/half-shift-cube-v3)."
    },
    "preuves": [
     {
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/croisements.log",
-      "md5": "3d607dd2f07622d85e4a0bbe9659c400",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "paires non ordonnées : 1770 ; constructions : 113280"
      ]
     }
    ],
-   "statut": "releve_journal_depose",
-   "releve": {
+   "statut": "verifie_journal_depose",
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici. Archive versée le 2026-10-08 : son MD5 est celui que la fiche Zenodo 23214317 déclare (réponse de l'API collée par Anibal) ; le journal a été reproduit ici depuis l'archive (voir docs/sources/2026-10-08/half-shift-cube-v3/LISEZMOI.md).",
+   "releve_initial": {
     "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
     "le": "2026-10-07",
     "a_faire": "verser l'instantané de la fiche 23214317 dans data/zenodo/depots.json : le statut passera à verifie_journal_depose si ses MD5 sont ceux des copies versées (archive v3, 8 octobre 2026, 25 empreintes SHA-256 relues ; lignes citées présentes à la lettre)"
-   },
-   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+   }
   },
   {
    "id": "croisements-16768-9824",
@@ -259,32 +262,35 @@
     "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
     "depose": {
      "enregistrement": "23214317",
-     "fichier": "tools/croisements.py",
-     "md5": "f5854781695f7dd359c9e4bfe3ee1fc0"
+     "fichier": "half-shift-cube-scripts-v3.zip",
+     "membre": "half-shift-cube-v3/tools/croisements.py",
+     "md5": "69d10cdb56630bd11044292f32d7d17b",
+     "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
     },
-    "note": "versé depuis l'archive half-shift-cube-scripts-v3.zip (version 3 de l'enregistrement 23214317), avec son arborescence ; à lancer depuis le dossier tools/ de l'archive. Le MD5 est celui de l'archive, à confirmer sur la fiche Zenodo."
+    "note": "dans l'archive déposée (V.3.2), dont la copie est versée à l'octet ; à lancer depuis le dossier tools/ de l'archive décompressée (docs/sources/2026-10-08/half-shift-cube-v3)."
    },
    "preuves": [
     {
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/croisements.log",
-      "md5": "3d607dd2f07622d85e4a0bbe9659c400",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "constructions qui pavent simplement : 16768 ; grilles distinctes : 9824"
      ]
     }
    ],
-   "statut": "releve_journal_depose",
-   "releve": {
+   "statut": "verifie_journal_depose",
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici. Archive versée le 2026-10-08 : son MD5 est celui que la fiche Zenodo 23214317 déclare (réponse de l'API collée par Anibal) ; le journal a été reproduit ici depuis l'archive (voir docs/sources/2026-10-08/half-shift-cube-v3/LISEZMOI.md).",
+   "releve_initial": {
     "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
     "le": "2026-10-07",
     "a_faire": "verser l'instantané de la fiche 23214317 dans data/zenodo/depots.json : le statut passera à verifie_journal_depose si ses MD5 sont ceux des copies versées (archive v3, 8 octobre 2026, 25 empreintes SHA-256 relues ; lignes citées présentes à la lettre)"
-   },
-   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+   }
   },
   {
    "id": "croisements-1292-orbites",
@@ -308,19 +314,22 @@
     "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
     "depose": {
      "enregistrement": "23214317",
-     "fichier": "tools/croisements.py",
-     "md5": "f5854781695f7dd359c9e4bfe3ee1fc0"
+     "fichier": "half-shift-cube-scripts-v3.zip",
+     "membre": "half-shift-cube-v3/tools/croisements.py",
+     "md5": "69d10cdb56630bd11044292f32d7d17b",
+     "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
     },
-    "note": "versé depuis l'archive half-shift-cube-scripts-v3.zip (version 3 de l'enregistrement 23214317), avec son arborescence ; à lancer depuis le dossier tools/ de l'archive. Le MD5 est celui de l'archive, à confirmer sur la fiche Zenodo."
+    "note": "dans l'archive déposée (V.3.2), dont la copie est versée à l'octet ; à lancer depuis le dossier tools/ de l'archive décompressée (docs/sources/2026-10-08/half-shift-cube-v3)."
    },
    "preuves": [
     {
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/croisements.log",
-      "md5": "3d607dd2f07622d85e4a0bbe9659c400",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "orbites de Γ : 1292 ; dont corpus : 128"
@@ -330,22 +339,23 @@
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/cube_croisements.log",
-      "md5": "83a2a6b0149df73cb9fa3d1f649da2e8",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/cube_croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/cube_croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "    orbites de Γ : 1292 ; mixtes : 0 ; hors corpus : 1164 ; admissibles hors corpus : 226 (19.4 %)"
      ]
     }
    ],
-   "statut": "releve_journal_depose",
-   "releve": {
+   "statut": "verifie_journal_depose",
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici. Archive versée le 2026-10-08 : son MD5 est celui que la fiche Zenodo 23214317 déclare (réponse de l'API collée par Anibal) ; le journal a été reproduit ici depuis l'archive (voir docs/sources/2026-10-08/half-shift-cube-v3/LISEZMOI.md).",
+   "releve_initial": {
     "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
     "le": "2026-10-07",
     "a_faire": "verser l'instantané de la fiche 23214317 dans data/zenodo/depots.json : le statut passera à verifie_journal_depose si ses MD5 sont ceux des copies versées (archive v3, 8 octobre 2026, 25 empreintes SHA-256 relues ; lignes citées présentes à la lettre)"
-   },
-   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+   }
   },
   {
    "id": "croisements-2064-admissibles",
@@ -370,19 +380,22 @@
     "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
     "depose": {
      "enregistrement": "23214317",
-     "fichier": "tools/croisements.py",
-     "md5": "f5854781695f7dd359c9e4bfe3ee1fc0"
+     "fichier": "half-shift-cube-scripts-v3.zip",
+     "membre": "half-shift-cube-v3/tools/croisements.py",
+     "md5": "69d10cdb56630bd11044292f32d7d17b",
+     "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
     },
-    "note": "versé depuis l'archive half-shift-cube-scripts-v3.zip (version 3 de l'enregistrement 23214317), avec son arborescence ; à lancer depuis le dossier tools/ de l'archive. Le MD5 est celui de l'archive, à confirmer sur la fiche Zenodo."
+    "note": "dans l'archive déposée (V.3.2), dont la copie est versée à l'octet ; à lancer depuis le dossier tools/ de l'archive décompressée (docs/sources/2026-10-08/half-shift-cube-v3)."
    },
    "preuves": [
     {
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/croisements.log",
-      "md5": "3d607dd2f07622d85e4a0bbe9659c400",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "habillables : 2064/9824 (21.0 %) ; hors corpus : 1808/9312 (19.4 %) ; corpus : 256/512"
@@ -392,22 +405,23 @@
      "journal": {
       "depot": "10.5281/zenodo.22862110",
       "enregistrement": "23214317",
-      "fichier": "logs/cube_croisements.log",
-      "md5": "83a2a6b0149df73cb9fa3d1f649da2e8",
-      "copie": "docs/sources/2026-10-08/half-shift-cube-v3/logs/cube_croisements.log"
+      "fichier": "half-shift-cube-scripts-v3.zip",
+      "membre": "half-shift-cube-v3/logs/cube_croisements.log",
+      "md5": "69d10cdb56630bd11044292f32d7d17b",
+      "copie": "docs/sources/2026-10-08/half-shift-cube-scripts-v3.zip"
      },
      "lignes": [
       "    admissibles : 2064/9824 (21.0 %)"
      ]
     }
    ],
-   "statut": "releve_journal_depose",
-   "releve": {
+   "statut": "verifie_journal_depose",
+   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici. Archive versée le 2026-10-08 : son MD5 est celui que la fiche Zenodo 23214317 déclare (réponse de l'API collée par Anibal) ; le journal a été reproduit ici depuis l'archive (voir docs/sources/2026-10-08/half-shift-cube-v3/LISEZMOI.md).",
+   "releve_initial": {
     "par": "Anibal : archive de la V.3.2 téléchargée depuis Zenodo, 25 empreintes vérifiées, huit scripts relancés, chaque journal reproduit ligne pour ligne sauf la durée",
     "le": "2026-10-07",
     "a_faire": "verser l'instantané de la fiche 23214317 dans data/zenodo/depots.json : le statut passera à verifie_journal_depose si ses MD5 sont ceux des copies versées (archive v3, 8 octobre 2026, 25 empreintes SHA-256 relues ; lignes citées présentes à la lettre)"
-   },
-   "note": "Lignes telles que relevées par Anibal ; l'indentation de croisements.log n'est pas connue ici."
+   }
   },
   {
    "id": "cube-edges-512-lemme-2",
