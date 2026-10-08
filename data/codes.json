@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T21:07:02Z",
+ "generated_at_utc": "2026-10-08T21:14:27Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1955,9 +1955,9 @@
   {
    "chemin": "tools/check_no_donnees_en_dur.py",
    "adresse": "https://anibal-amiot.com/tools/check_no_donnees_en_dur.py",
-   "octets": 9443,
-   "sha256": "391d72acc805098bcbb83389cefc6a1c7b686f83477895eea56655f0b4f54b47",
-   "md5": "c9a919e80349d17fa1923b4686614df7",
+   "octets": 9872,
+   "sha256": "12eae6fd149759c233802fea4ca3b59687a6d5d3a2439a2f26f9bc1e4c5aca25",
+   "md5": "b4c1df86533b1e7c60496aac44b08093",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Garde-fou : aucun script de tools/ ne porte de table de données codée en dur (mesures, fréquences, comptes) parallèle à ce qui existe déjà dans data/.",

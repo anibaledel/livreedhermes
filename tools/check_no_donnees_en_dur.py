@@ -97,6 +97,12 @@ ALLOWLIST = {
         "ici pour calculer la correspondance C8->C16 — une définition, pas une mesure ; "
         "rien dans data/ ne la porte. Même géométrie, à l'échelle près, que "
         "cellTriangles() dans assets/bicolore-render.js."),
+    ('compte_figures.py', 'ATTENDU'): (
+        "les comptes de figures candidates établis par force brute aux ordres 6, 8 "
+        "et 10 (et la formule aux ordres 12 et 14), gardés comme valeurs attendues "
+        "d'une assertion : le script les recalcule et sort en erreur s'ils "
+        "diffèrent. Une table de contrôle, pas une table de mesures lue à la place "
+        "d'un calcul (livraison 14.10 d'Anibal)."),
 }
 
 

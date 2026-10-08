@@ -773,3 +773,4 @@ du dépôt. De moi, à relire :
   conteneur.
 - **`suite_croix.py` à l'ordre 10** s'arrête au plafond (200 figures, « fin = PLAFOND ») :
   non exhaustif, non cité.
+- **`check_no_donnees_en_dur.py`** : `('compte_figures.py', 'ATTENDU')` ajouté à la liste blanche, avec sa raison (table de valeurs attendues d'une assertion).
