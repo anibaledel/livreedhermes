@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T13:09:47Z",
+ "generated_at_utc": "2026-10-08T13:51:50Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1914,9 +1914,9 @@
   {
    "chemin": "tools/check_police_pages.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_police_pages.mjs",
-   "octets": 7832,
-   "sha256": "eee770f733aa6bcded5d2e8cf1a0dfe2b0be10cb6b547f2bf2e3124b6b866176",
-   "md5": "26271272bb2d231ec934281afba045cc",
+   "octets": 8583,
+   "sha256": "98d48215c7edb0db3a9ef1993763bd8179b201c74ebf93a73f3861e5e5f302f8",
+   "md5": "c9040c1659884ea7d3c2f1acdc9c47ce",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "chaque caractère du texte d'une page surveillée se rend dans la pile de polices DÉCLARÉE, sans police du système.",
