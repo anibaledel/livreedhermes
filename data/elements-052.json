@@ -1,5 +1,5 @@
 {
- "_doc": "Les huit éléments de la page 052 : INHALE k et EXHALE k, relevés sur la planche, chacun six cases d'un carré d'ordre 6. EXHALE k est le demi-tour d'INHALE k ; leur réunion est une croix ansée. Ces huit formes ne se déduisent pas de data/referent_256_v3.json : elles sont la donnée de la planche, et tools/verify_echelle.py vérifie ce qu'elles satisfont.",
+ "_doc": "Les huit éléments de la page 052 : INHALE k et EXHALE k, relevés sur la planche, chacun six cases d'un carré d'ordre 6. EXHALE k est le demi-tour d'INHALE k, et leur réunion est une ROSACE : douze cases, deux par ligne et deux par colonne, hors diagonales, à symétrie centrale. Une rosace n'est pas une croix ansée : la croix ansée de la page 040 est un appariement des vingt-quatre cases hors diagonales par des traits, soumis aux trois contraintes de la planche, et il n'y en a que deux — voir tools/croix_ansee.py. Ces huit formes ne se déduisent pas de data/referent_256_v3.json : elles sont la donnée de la planche, et tools/verify_echelle.py vérifie ce qu'elles satisfont.",
  "source": "La Livrée d’Hermès, page 052",
  "elements": {
   "EXHALE-1": [

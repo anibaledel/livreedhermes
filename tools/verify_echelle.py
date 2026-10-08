@@ -54,6 +54,17 @@
 #    section « Ce qui manque » : le poids des deux jonctions est inégal, et
 #    la direction privilégiée n'a pas d'explication.
 #
+# 6. À QUOI SERT UNE ROSACE : À LIRE LE TRIGRAMME, DEUX FOIS. Une demi-rosace
+#    prend une case dans chacune des six classes, donc un témoin de chaque
+#    façon de varier. Lire ses six cases sur une ligne du damier distingue les
+#    huit colonnes — 8 éléments × 8 lignes, 64 fois sur 64. Et TROIS cases
+#    suffisent, une par trait : les six sont trois traits lus deux fois, une
+#    fois par chaque membre de la paire complémentaire. C'est une lecture
+#    redondante, non une lecture longue, et c'est ce qui donne sa raison d'être
+#    au découpage en inspir et expir : un élément lit déjà le trigramme, la
+#    rosace l'apparie à son demi-tour pour que les deux respirations soient ses
+#    deux moitiés.
+#
 # 5. SEUL LE DÉCALAGE DIAGONAL DONNE LA CONSTANTE. La forme bleue de la
 #    superposition est constante sur chaque colonne du damier pour le décalage
 #    (6, 6), et pour lui seul : les décalages (6, 0) et (0, 6) pris séparément
@@ -271,6 +282,30 @@ def main():
             echecs.append('le décalage diagonal ne donne pas la constante de colonne')
         if (dr, dc) != (6, 6) and (cst_c or cst_l):
             echecs.append(f'le décalage ({dr}, {dc}) donne une constante inattendue')
+
+    # 6. la rosace lit le trigramme
+    lus = 0
+    for R in range(8):
+        FR = {C: figure(assemblage(G, R, C)) for C in range(8)}
+        for v in el.values():
+            lectures = {tuple(FR[C][p] for p in sorted(v)) for C in range(8)}
+            lus += (len(lectures) == 8)
+    minimal = {}
+    for nom, v in el.items():
+        for k in range(1, 7):
+            bons = [c for c in itertools.combinations(sorted(v), k)
+                    if len({tuple(FC[C][p] for p in c) for C in range(8)}) == 8]
+            if bons:
+                minimal[nom] = (k, len(bons))
+                break
+    tailles = {k for k, _ in minimal.values()}
+    print(f'6. un élément lu sur ses six cases distingue les huit colonnes : '
+          f'{lus}/64 (8 éléments × 8 lignes du damier)')
+    print(f'   cases nécessaires et suffisantes : {sorted(tailles)}, '
+          f'{sorted({n for _, n in minimal.values()})} triplets par élément — '
+          f'six cases = trois traits lus deux fois')
+    if lus != 64 or tailles != {3}:
+        echecs.append('la rosace ne lit pas le trigramme comme annoncé')
 
     if echecs:
         print('\n' + '\n'.join(echecs), file=sys.stderr)

@@ -638,26 +638,26 @@ Ce qui n'est **pas** de sa main, à relire :
 
 ## Échelle, rosaces et croix ansées (2026-10-08)
 
-Versés depuis les envois d'Anibal : `tools/verify_echelle.py` (version « rosace », celle que
-décrit `CROIX-ANSEE.md`) et `data/elements-052.json`. Reportés sur les scripts du dépôt, sans
-défaire le module commun `lldh_commun.py` : les corrections d'en-tête et de sortie de
-`pavage_miroirs.py` (ordres réellement testés, blocs de 3 × 3), `verify_invariants.py`
-(« mêmes formes, échangées » désormais vérifié), `transcription.py` (CYCLE nommé à la sortie)
-et le `--json` qui n'écrase plus de `transcription.py` et `verify_quadricolore.py`. Les
-sorties sont identiques, ligne pour ligne, à celles des fichiers envoyés. À trancher :
+Versés depuis les envois d'Anibal : `tools/verify_echelle.py` (version « rosace », avec le
+point 6 « la rosace lit le trigramme ») et `data/elements-052.json` (corrigé de sa main :
+« rosace », renvoi à `croix_ansee.py`). Reportés sur les scripts du dépôt, sans défaire
+`lldh_commun.py`, et à sortie identique ligne pour ligne : `pavage_miroirs.py`,
+`verify_invariants.py`, `transcription.py`, et le `--json` qui n'écrase plus de
+`transcription.py` et `verify_quadricolore.py`. Décisions confirmées par Anibal : en-tête
+signé de `croix_ansee.py` gardé, second `verify_echelle.py` (« soixante-six ») non versé,
+« six points » gardé dans `verify_quadricolore.py`.
 
-- **`data/elements-052.json`**, champ `_doc` : « leur réunion est une **croix ansée** ».
-  Selon `CROIX-ANSEE.md`, cette réunion de douze cases s'appelle désormais **rosace**. Le
-  fichier est versé tel qu'envoyé ; le mot est à corriger de ta main si tu le veux.
-- **`verify_quadricolore.py`**, en-tête : l'envoi disait « l'un de ces **cinq** points » ; le
-  dépôt garde « **six** », qui est le nombre de points énumérés.
-- **`croix_ansee.py`** : l'envoi ne différait que par un en-tête anonymisé (« Author and
-  contact withheld for anonymised peer review ») ; le dépôt garde l'en-tête signé, cité avec
-  son empreinte par le journal du 2026-10-07. L'anonymisation est pour la soumission, pas
-  pour le site.
-- **`verify_echelle.py`, deuxième envoi** : c'était la version antérieure (« soixante-six
-  croix ansées », réponse à la relecture, révision 51), remplacée par la version « rosace ».
-  Non versée.
-- **L'article** est encore à la révision 46 sur le site ; `RELECTURE.md` parle de la 51 et
-  `CROIX-ANSEE.md` de la 70 (« croix ansée » → « rosace » pour l'objet à douze cases, phrase
-  sur les critères de la page 040 supprimée, « trois scripts » → cinq).
+L'article `articles/formes-et-figures-transcription.html` passe à la **révision 71** (même
+texte que le docx envoyé et que l'export Claude Docs, 28 071 octets ; contrôle : mêmes mots).
+Ce qui n'est pas de sa main, à relire :
+
+- les **commandes** ajoutées sous les nouveaux énoncés : `verify_echelle.py` sous « Seul le
+  décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
+  de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page
+  053 » ; `croix_ansee.py` et `verify_echelle.py` sous « Appelons rosace » ;
+- « **Huit** scripts le vérifient » (meta description) et « Les **huit** vérificateurs » dans
+  la section « Vérifier » et dans `llms.txt` : `tools/verifier_formes_figures.py` relance
+  maintenant aussi `verify_echelle.py`. Le corps de l'article dit « cinq scripts » pour son
+  tableau ; c'est son texte, il n'est pas touché ;
+- dans `verify_echelle.py`, le point 6 est écrit avant le point 5 dans l'en-tête ; la sortie
+  les imprime dans l'ordre.

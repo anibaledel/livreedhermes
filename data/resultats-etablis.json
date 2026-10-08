@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 17,
+  "verifie_ci": 18,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1815,7 +1815,44 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "Les huit éléments INHALE k / EXHALE k sont une donnée de la planche 052 (data/elements-052.json), pas une conséquence du corpus : le script vérifie aussi 0/512. La rosace n'est pas la croix ansée (entrée croix-ansees-2, tools/croix_ansee.py, deux figures). Le _doc de data/elements-052.json dit encore « leur réunion est une croix ansée » : relevé dans TODO-RELECTURE.md, non modifié."
+   "note": "Les huit éléments INHALE k / EXHALE k sont une donnée de la planche 052 (data/elements-052.json), pas une conséquence du corpus : le script vérifie aussi 0/512. La rosace n'est pas la croix ansée (entrée croix-ansees-2, tools/croix_ansee.py, deux figures)."
+  },
+  {
+   "id": "rosace-lit-le-trigramme",
+   "intitule": "Un élément de la page 052, lu sur ses six cases, distingue les huit colonnes du damier ; trois cases suffisent, une par trait",
+   "enonce": {
+    "texte": "Lire ces six cases sur une ligne du damier distingue les huit colonnes : huit éléments sur huit lignes, 64 fois sur 64. Et trois cases suffisent, une par trait — il y a huit triplets qui marchent dans un élément de six.",
+    "langue": "fr",
+    "source": "articles/formes-et-figures-transcription.html, « À quoi sert une rosace » (révision 71 d'Anibal) ; dans la page, « distingue les huit colonnes » et « trois cases suffisent » sont en gras"
+   },
+   "valeur": {
+    "elements_x_lignes": "64/64",
+    "cases_suffisantes": 3,
+    "triplets_par_element": 8
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "data/elements-052.json"
+   ],
+   "script": {
+    "chemin": "tools/verify_echelle.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "6. un élément lu sur ses six cases distingue les huit colonnes : 64/64 (8 éléments × 8 lignes du damier)",
+      "   cases nécessaires et suffisantes : [3], [8] triplets par élément — six cases = trois traits lus deux fois"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Point 6 de tools/verify_echelle.py ; dans l'en-tête du script il est écrit avant le point 5, la sortie les imprime dans l'ordre."
   },
   {
    "id": "cle-pied-jonctions-miroirs",

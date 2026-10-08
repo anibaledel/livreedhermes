@@ -28,7 +28,7 @@ déposé — toutes lignes sauf la dernière (la durée).
   relance, depuis la racine du dépôt, chaque script cité par un résultat
   « verifie_ci » et relit ses lignes à la lettre dans la sortie ;
   `node tools/check_resultats_etablis.mjs` relit les journaux déposés. Les
-  sept vérificateurs de l'article « Les formes et les figures » se relancent
+  huit vérificateurs de l'article « Les formes et les figures » se relancent
   par `python tools/verifier_formes_figures.py`.
 - Index des scripts : https://anibal-amiot.com/data/codes.json — adresse
   servie, empreintes, licence lue dans le fichier, durées avec la machine qui
