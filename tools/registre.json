@@ -1926,6 +1926,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/verify_pont_formes.py",
+   "role": "la transcription entre les formes et les figures.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_quadricolore.py",
    "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
    "lit": [
