@@ -19,8 +19,12 @@
 #      forte.
 #
 # Le compte des croix ansées d'ordre n est le nombre de candidates réalisables.
-# Il vaut 2 à l'ordre 6 et 0 à l'ordre 8 ; ces deux valeurs sont retrouvées ici
-# indépendamment de `suite_croix.py`, qui procédait par no-goods.
+# Il vaut 2 à l'ordre 6 et 0 à l'ordre 8, et ces deux valeurs sont retrouvées
+# ici indépendamment de `suite_croix.py`, qui procédait par no-goods — à
+# condition de passer `--sans-pretest`. Sans ce drapeau, le pré-test conclut
+# globalement et le chemin figure par figure n'est pas parcouru : le compte est
+# juste, mais il n'est plus un contrôle indépendant. À l'ordre 8, les deux
+# chemins ont été menés : 0 par le pré-test, et 32 figures INFEASIBLE une à une.
 #
 # LES FAMILLES QUI COMPTENT. Aux ordres 6, 8, 10, 12 et 16, l'existence suit
 # exactement la parité singulièrement/doublement paire : 2, 0, 2 048, 0, 0. À
@@ -132,16 +136,22 @@ def main():
     limite = float(av[av.index('--limite') + 1]) if '--limite' in av else 60.0
     depart = int(av[av.index('--depart') + 1]) if '--depart' in av else 0
     combien = int(av[av.index('--combien') + 1]) if '--combien' in av else None
+    sans_pretest = '--sans-pretest' in av
 
     t0 = time.time()
-    # pré-test : si aucun carré ne satisfait I + II + III, le compte est 0
-    # sans énumération des figures candidates
-    from croix_existence import essai
-    nom, mots, _ = essai(n, limite)
-    if mots is None and nom == 'INFEASIBLE':
-        print(f'ordre {n} : aucune croix ansée — le modèle complet est '
-              f'INFEASIBLE, inutile d’énumérer les figures')
-        return
+    # pré-test : si aucun carré ne satisfait I + II + III, le compte est 0 sans
+    # énumération des figures candidates. Il court-circuite donc le chemin
+    # figure par figure, qui est le contrôle INDÉPENDANT de `suite_croix.py` :
+    # `--sans-pretest` le désactive pour retrouver ce chemin.
+    if not sans_pretest:
+        from croix_existence import essai
+        nom, mots, _ = essai(n, limite)
+        if mots is None and nom == 'INFEASIBLE':
+            print(f'ordre {n} : aucune croix ansée — le modèle complet est '
+                  f'INFEASIBLE, inutile d’énumérer les figures. '
+                  f'--sans-pretest force l’examen figure par figure, qui est '
+                  f'le chemin indépendant de suite_croix.py')
+            return
     total = combien_de_candidates(n)
     print(f'ordre {n} : {total} figures candidates '
           f'(critères II–III tenus)   [{time.time() - t0:.0f} s]', flush=True)
