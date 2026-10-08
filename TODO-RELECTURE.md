@@ -684,7 +684,9 @@ Les deux scripts sont lancés en CI et cités dans `data/resultats-etablis.json`
 - **`derivation.py`, recherche d'une relation entre blocs voisins** : seuls les voisins en
   ligne (C et C + 1) sont comparés, sous cinq opérations à une permutation de couleurs
   près ; l'en-tête dit « entre blocs voisins » sans préciser le sens.
-- **`derivation.py`, « Il en reste quatre »** : l'en-tête dit que l'article annonçait cinq
-  mesures indépendantes et qu'il n'en reste que quatre, la cinquième (le pied) étant H1
-  réécrite. L'article « Les formes et les figures » n'est pas modifié par ce lot ; c'est à
-  Anibal de dire si et où le texte le reprend.
+- ~~**`derivation.py`, « Il en reste quatre »**~~ — repris par Anibal dans la révision 87
+  de l'article (sous-section « Ce qui se démontre, et ce qui s'observe »), versée par ce
+  lot avec deux commandes `python tools/derivation.py` (sous « 128 sur 128 dans chaque
+  sens » et « Ce qui ne s'en déduit pas ») ; `tools/verifier_formes_figures.py` relance
+  dix scripts, comme le tableau « Vérification » ; « Dix scripts le vérifient » (meta) et
+  « Les dix vérificateurs » (section « Vérifier », `llms.txt`) sont de moi.

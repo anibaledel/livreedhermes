@@ -1886,7 +1886,7 @@
   },
   {
    "fichier": "tools/verifier_formes_figures.py",
-   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses neuf vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
+   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses dix vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
    "lit": [],
    "ecrit": [],
    "appele_par": [],
