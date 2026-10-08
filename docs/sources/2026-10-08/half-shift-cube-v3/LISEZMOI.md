@@ -17,6 +17,12 @@ antérieures). Ils se lancent depuis `tools/` **de ce dossier**, à côté de so
 `logs/cube_croisements.log` pour quatre résultats (1770 / 113 280, 16 768 / 9 824,
 1292 orbites, 2064 admissibles). Leurs lignes sont dans ces journaux, à la lettre.
 
+**Relancé le 8 octobre 2026**, dans une copie de travail de ce dossier, depuis son
+`tools/`, sur un conteneur de session Claude Code (Intel Xeon @ 2,80 GHz, 4
+processeurs) : `croisements.py` redonne `logs/croisements.log` ligne pour ligne, à la
+seule durée près (`durée : 14 s` ici, 15 s dans le journal) ; `cube_croisements.py`
+redonne `logs/cube_croisements.log` à l'octet.
+
 **Ce qui reste à faire.** Zenodo est refusé aux sessions de travail : les MD5 que la
 fiche 23214317 déclare n'ont pas pu être relus, et cette fiche n'est pas dans
 `data/zenodo/depots.json`. Les quatre résultats restent donc « relevés » ; ils
