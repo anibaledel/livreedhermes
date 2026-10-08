@@ -2,7 +2,7 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 #
-# protocole_general.py — le protocole en vocabulaire standard, et à tout ordre.
+# protocole_general.py — le protocole en vocabulaire standard, à tout ordre pair.
 #
 # ÉNONCÉ. Soit une grille n × n. On étiquette chacune de ses n² cases par l'une
 # de quatre classes, et la case (r, c) reçoit alors l'un des quatre entiers
@@ -16,7 +16,8 @@
 # portée de deux classes à quatre : la version à deux classes, qui n'emploie que
 # B et R, est documentée pour les ordres doublement pairs seulement.
 #
-# DEUX CONDITIONS NÉCESSAIRES, valables à tout ordre, et qui sont le cœur du
+# DEUX ÉGALITÉS D'ÉQUILIBRAGE, qui ne sont PAS nécessaires à la magicité — le
+# papier en donne des contre-exemples — mais qui décrivent le cœur du
 # procédé. Chaque valeur est de la forme α·r + β·c + γ avec
 #
 #     B : α = +n, β = +1        V : α = +n, β = −1
@@ -29,7 +30,7 @@
 #     dans chaque LIGNE    : b + v = ρ + j = n / 2
 #     dans chaque COLONNE  : b + j = ρ + v = n / 2
 #
-# L'ordre doit donc être pair, et ces deux conditions ne dépendent que des
+# L'ordre doit donc être pair, et ces deux égalités ne dépendent que des
 # effectifs — ni de la forme de l'étiquetage, ni de l'ordre.
 #
 # UNE TROISIÈME CONDITION, et celle-là est nécessaire ET suffisante pour que
@@ -51,7 +52,9 @@
 # par ses cases claires, l'autre par ses cases sombres, et les deux doivent se
 # compléter exactement. C'est ce qui apparie les lignes r et n−1−r.
 #
-# LES TROIS SONT INDÉPENDANTES. Un étiquetage peut vérifier les deux conditions
+# CE QUE LE TÉMOIN ÉTABLIT, ET RIEN DE PLUS : les deux équilibrages n'impliquent
+# pas la bijection. Ce n'est pas une indépendance mutuelle des trois.
+# Un étiquetage peut vérifier les deux égalités
 # d'effectifs et manquer la troisième ; le script en exhibe un. Et les trois
 # réunies ne suffisent toujours pas à rendre le carré magique : elles laissent
 # libres les sommes de positions, qui règlent ensuite la constante et les
@@ -72,7 +75,7 @@ echecs = []
 
 
 def conditions(etiq, n):
-    """Les deux conditions d'effectifs, ligne par ligne et colonne par colonne."""
+    """Les deux égalités d'effectifs, ligne par ligne et colonne par colonne."""
     ok_l = all(sum(1 for c in range(n) if etiq[r][c] in 'BV') == n // 2 for r in range(n))
     ok_c = all(sum(1 for r in range(n) if etiq[r][c] in 'BJ') == n // 2 for c in range(n))
     return ok_l, ok_c
@@ -150,7 +153,9 @@ def main():
     if echecs:
         print('\n' + '\n'.join(echecs), file=sys.stderr)
         sys.exit(1)
-    print('\nQuatre classes, trois conditions, et l’ordre n’a qu’à être pair.')
+    print('\nQuatre classes, et un ordre pair : c’est tout ce que le protocole\n'
+          'demande pour s’écrire. Qu’un étiquetage magique existe à tout ordre\n'
+          'pair reste ouvert.')
 
 
 if __name__ == '__main__':

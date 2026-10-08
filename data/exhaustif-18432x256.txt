@@ -1,0 +1,18 @@
+18432 graines × 256 motifs = 4718592 couples
+  2000/18432   [2 s]
+  4000/18432   [4 s]
+  6000/18432   [6 s]
+  8000/18432   [9 s]
+  10000/18432   [11 s]
+  12000/18432   [13 s]
+  14000/18432   [15 s]
+  16000/18432   [17 s]
+  18000/18432   [19 s]
+
+motifs magiques par graine : {0: 10240, 16: 8192}
+attendu                     : {0: 10240, 16: 8192}
+
+contrôle : les 8 192 graines à seize motifs sont-elles exactement celles que l’alternance de parité fait paver ?
+  alternance : 8192 graines ; cache enum6 : 8192 ; identiques : True
+
+aucune graine ne pave par un motif exotique sans paver par l’alternance.   [27 s]

@@ -1045,6 +1045,16 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/congruences.py",
+   "role": "l'obstruction est-elle une CONGRUENCE, et à quel module ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/correspondance_motifs.mjs",
    "role": "Le nom d'image d'un motif et l'adresse de sa page, écrits côte à côte (data/motifs-correspondance.json).",
    "lit": [
@@ -1106,7 +1116,11 @@
    ],
    "utilise_par": [
     "tools/compte_croix.py",
-    "tools/parite_suit.py"
+    "tools/congruences.py",
+    "tools/ecarts.py",
+    "tools/localise.py",
+    "tools/parite_suit.py",
+    "tools/temoins.py"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -1156,6 +1170,16 @@
    "etat": "en_panne",
    "sait_echouer": false,
    "panne": "« REFERENT_PATH » absent de tools/measure_k_pic.py ; « measure » absent de tools/measure_k_pic.py"
+  },
+  {
+   "fichier": "tools/ecarts.py",
+   "role": "les écarts de somme de ligne, et la vraie forme de l'obstruction.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/entete.mjs",
@@ -1246,6 +1270,18 @@
    "ecrit": [],
    "appele_par": [
     "check-series-pinterest.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/exhaustif6.py",
+   "role": "les 18 432 graines contre les 256 motifs, sans exception.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
@@ -1462,15 +1498,31 @@
    ],
    "utilise_par": [
     "tools/compte_croix.py",
+    "tools/congruences.py",
     "tools/croix_auto.py",
     "tools/croix_existence.py",
+    "tools/ecarts.py",
     "tools/ligne_necessaire.py",
+    "tools/localise.py",
     "tools/miroirs_graine.py",
     "tools/parite_suit.py",
     "tools/portee_miroirs.py",
     "tools/profils.py",
-    "tools/suite_croix.py"
+    "tools/suite_croix.py",
+    "tools/temoins.py"
    ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/identite.py",
+   "role": "l'identité exacte des sommes de lignes, et sa forme (*).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
   },
@@ -1597,7 +1649,9 @@
    "appele_par": [
     "check-etiquetages.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/temoins.py"
+   ],
    "etat": "actif",
    "sait_echouer": false
   },
@@ -1650,6 +1704,16 @@
     "tools/verify_pont_formes.py"
    ],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/localise.py",
+   "role": "quelles équations de magicité créent l'obstruction ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
@@ -1723,18 +1787,34 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/parite.py",
+   "role": "pourquoi la parité de n/2 décide.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/verif_axes.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/parite_suit.py",
    "role": "les critères II et III suivent-ils de la condition I ?",
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/temoins.py"
+   ],
    "etat": "ponctuel",
    "sait_echouer": false
   },
   {
    "fichier": "tools/pavage_miroirs.py",
-   "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
+   "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m aux ordres testés ici ; sa validité pour tout m reste à démontrer.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -1812,7 +1892,9 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/verifie_portee.py"
+   ],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -1824,13 +1906,15 @@
    "appele_par": [
     "check-etiquetages.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/temoins.py"
+   ],
    "etat": "actif",
    "sait_echouer": false
   },
   {
    "fichier": "tools/protocole_general.py",
-   "role": "le protocole en vocabulaire standard, et à tout ordre.",
+   "role": "le protocole en vocabulaire standard, à tout ordre pair.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -1947,6 +2031,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/reseau.py",
+   "role": "l'ensemble 𝒟_n des vecteurs d'écarts atteignables, exactement.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/parite.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/restaurer_collection.mjs",
    "role": "remet en place une exportation GARDÉE d'une collection Pinterest (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), au lieu de la refabriquer.",
    "lit": [
@@ -1993,6 +2091,16 @@
     "tools/parite_suit.py"
    ],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/temoins.py",
+   "role": "fabrique le fichier de témoins du dépôt.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
@@ -2063,6 +2171,30 @@
    "appele_par": [],
    "utilise_par": [
     "tools/verify_cadres_ordre12.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verifie_portee.py",
+   "role": "la portée de la règle des miroirs, en assertion, SANS SOLVEUR.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verifie_temoins.py",
+   "role": "contrôle les témoins du dépôt, SANS SOLVEUR.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/identite.py"
    ],
    "etat": "actif",
    "sait_echouer": false

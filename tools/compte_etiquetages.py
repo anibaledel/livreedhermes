@@ -5,7 +5,7 @@
 # compte_etiquetages.py — combien d'étiquetages magiques à quatre classes
 # existe-t-il à l'ordre n ?
 #
-# C'est la question ouverte du papier : les trois conditions sont nécessaires,
+# C'est la question ouverte du papier : les trois critères ne suffisent pas,
 # la troisième suffit pour la bijection, mais il manque la condition sur les
 # sommes de positions qui achèverait la caractérisation. À défaut de la
 # connaître, on compte.

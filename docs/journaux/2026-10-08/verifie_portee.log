@@ -1,0 +1,37 @@
+$ python3 tools/verifie_portee.py
+ÉCHEC : ordre 4 graine : un motif magique non conforme
+corpus d’ordre 6 : 256/256 graines à 16 motifs magiques sur 16 conformes
+ordre 6, pavables (200 premières) : 200/200 à 16 motifs magiques sur 16 conformes
+ordre 6, non pavables (200 premières) : 200/200 sans aucun motif magique
+
+27 témoins magiques de data/temoins.json, 256 motifs chacun :
+  ordre   4  graine                 : 256 motifs magiques sur 16 conformes ; nécessité ABATTUE
+  ordre   6  graine                 :  16 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre   6  croix_ansee            :  16 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  10  graine                 :   8 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  10  croix_ansee            :  16 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  10  ligne_non_necessaire   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  10  parite_non_impliquee   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  10  profil_symetrique      :   8 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  14  graine                 :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  14  croix_ansee            :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  14  ligne_non_necessaire   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  14  parite_non_impliquee   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  14  profil_symetrique      :   4 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  18  graine                 :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  18  croix_ansee            :   8 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  18  ligne_non_necessaire   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  18  parite_non_impliquee   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  18  profil_symetrique      :   4 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  22  graine                 :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  22  croix_ansee            :   8 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  22  ligne_non_necessaire   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  22  parite_non_impliquee   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  22  profil_symetrique      :   8 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  26  graine                 :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  26  croix_ansee            :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  26  ligne_non_necessaire   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+  ordre  26  parite_non_impliquee   :   0 motifs magiques sur 16 conformes ; nécessité tenue
+
+(code de retour 1)
+
