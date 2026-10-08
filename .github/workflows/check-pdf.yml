@@ -36,6 +36,7 @@ jobs:
       - run: pip install pymupdf==1.28.2 numpy pillow
       - run: python3 tools/check_livres.py
       - run: python3 tools/check_livres.py --essai
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-pdf.yml
   site:
     runs-on: ubuntu-latest
     steps:
