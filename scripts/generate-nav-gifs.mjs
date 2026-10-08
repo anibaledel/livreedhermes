@@ -39,7 +39,7 @@ import { fileURLToPath } from 'node:url';
 import { createCanvas } from '@napi-rs/canvas';
 import gifenc from 'gifenc';
 import { hexToBits, triangleGeometry, PARTS } from '../assets/bicolore-render.js';
-import { ROUGE } from '../assets/couleurs.js';
+import { OR } from '../assets/couleurs.js';
 
 const { GIFEncoder, quantize, applyPalette } = gifenc;
 
@@ -50,7 +50,7 @@ const OUT_DIR = path.join(ROOT, 'assets', 'nav-icons');
 const TILE_SIZE = 36;   // = background-size en CSS (pavage 2x2 dans un carré de 72px)
 const FRAME_DELAY = 200; // ms/image — proche du rythme "rapide" du mode méditatif
 const NAV_LIGHT = '#f2ece1';
-const NAV_DARK = ROUGE; // Cymatique : le sombre d'origine (#2b2b2b) remplacé par --red, géométrie/gammes inchangées
+const NAV_DARK = OR; // Cymatique : le sombre d'origine (#2b2b2b) puis --red, remplacé le 8 oct. 2026 par l'or de Magic quadricolore ; géométrie et gammes inchangées
 
 // ---------- palette neutre (identique à generate-nav-icons.mjs) ----------
 function hexToRgb(hex){ hex=hex.replace('#',''); return [parseInt(hex.substr(0,2),16),parseInt(hex.substr(2,2),16),parseInt(hex.substr(4,2),16)]; }
@@ -101,8 +101,8 @@ function applySingleHue(pickedHex){
   const rose  = adjustLightness(pickedHex, -0.20);
   return { V: mauve, M: rose, O: pickedHex };
 }
-const RED_ANCHOR = ROUGE; // assets/couleurs.js
-const PALETTE = applySingleHue(RED_ANCHOR);
+const ANCRE = OR; // assets/couleurs.js — une seule teinte, déclinée à ±0,20 de luminosité
+const PALETTE = applySingleHue(ANCRE);
 
 // ---------- moteur fonds-ecran (hexagramGrid + pool + marche par proximité) ----------
 const fondsEcran = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'fonds_ecran_v1.json'), 'utf8'));
@@ -215,7 +215,7 @@ const NON_CYMATIQUE_ENTRIES = [
   { key: 'hexagrammes',      familyKey: FAMILY_KEYS[2],  n: 0 },
   { key: 'creation-motifs',  familyKey: FAMILY_KEYS[3],  n: 0 },
   { key: 'unified-patterns', familyKey: FAMILY_KEYS[4],  n: 0 },
-  { key: 'galerie-768',      familyKey: FAMILY_KEYS[5],  n: 0 },
+  { key: 'galerie',          familyKey: FAMILY_KEYS[5],  n: 0 }, // galerie-768 avant le renommage de la page (bbe947b1)
   { key: 'motifs-svg',       familyKey: FAMILY_KEYS[6],  n: 0 },
   { key: 'fond-ecran',       familyKey: FAMILY_KEYS[7],  n: 0 },
   { key: 'impression',       familyKey: FAMILY_KEYS[8],  n: 0 },

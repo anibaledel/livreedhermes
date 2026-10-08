@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-07T18:11:50Z",
+ "generated_at_utc": "2026-10-08T06:25:40Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -947,9 +947,9 @@
   {
    "chemin": "scripts/generate-nav-gifs.mjs",
    "adresse": "https://anibal-amiot.com/scripts/generate-nav-gifs.mjs",
-   "octets": 11039,
-   "sha256": "951ddaa222a4f2deafc898ad98eb227b5bed8dc81cfe2da6b14a6e3428b4e0d9",
-   "md5": "3a4c4f5357875097cdba6a521bd210fb",
+   "octets": 11186,
+   "sha256": "42cbfe90efbad3f6d765ac3af53ef016aaa421a17f836ee46388b2f7aabc5365",
+   "md5": "ffbcccae4a1d10fd14e46d98abe8b287",
    "licence_declaree": false,
    "licence": null,
    "role": "Génère les 15 GIF de survol des carrés de nav (assets/nav-icons/<key>-hover.gif).",
