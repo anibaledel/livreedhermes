@@ -38,6 +38,7 @@ jobs:
       - run: node tools/figure_en_ligne.mjs --verifie
       - run: node tools/check_police_pages.mjs
       - run: "! node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'"
+      - run: "! node tools/check_police_pages.mjs --pile-sans 'Noto Sans Symbols 2 LDH'"
 
   article:
     runs-on: ubuntu-latest

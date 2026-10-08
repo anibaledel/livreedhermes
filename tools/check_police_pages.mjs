@@ -18,7 +18,10 @@
 // partout : 824 pages emploient au moins un caractère hors des polices
 // déclarées — 805 après les flèches : le thaï (sans repli déclaré, et le lien
 // « ไทย » des rangées de langues), les trigrammes ☰…☷ des pages de motifs, du
-// grec, de l'hébreu. Une page s'y ajoute d'une ligne, quand elle tient.
+// grec, de l'hébreu. Une page s'y ajoute d'une ligne, quand elle tient. Depuis
+// les replis des signes (tools/police_symboles.py, 2026-10-08), le grec, les
+// signes mathématiques et les trigrammes sont portés : les pages de motifs et
+// d'hexagrammes sont entrées dans le périmètre.
 //
 // Usage : node tools/check_police_pages.mjs [page.html …]
 //         node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'
@@ -47,6 +50,16 @@ export const PAGES = [
   // aussi le thaï de la rangée des langues, qui n'a pas encore de repli
   // déclaré.
   ...['', 'book/', 'lexicon/', 'works/', 'tools/', 'support/'].map((p) => [`hi/${p}index.html`, /[\u0900-\u097F\u1CD0-\u1CF9\uA830-\uA839\uA8E0-\uA8FF]/u]),
+  // les pages qui écrivent les trigrammes ☰…☷ (repli Noto Sans Symbols 2 LDH,
+  // 2026-10-08) : les 512 pages de motifs en entier ; les 256 pages
+  // d'hexagrammes pour tout sauf le thaï (le lien « ไทย » des rangées de
+  // langues et les pages th/, qui n'ont pas encore de repli) ; les deux pages
+  // de tirage pour les seuls trigrammes (leurs drapeaux sont des émojis).
+  ...['motifs', 'fr/motifs'].flatMap((d) => fs.readdirSync(path.join(RACINE, d))
+    .filter((f) => f.endsWith('.html')).map((f) => `${d}/${f}`)),
+  ...['hexagrammes', 'en/hexagrams', 'es/hexagramas', 'th/hexagrams'].flatMap((d) => fs.readdirSync(path.join(RACINE, d))
+    .filter((f) => f.endsWith('.html')).map((f) => [`${d}/${f}`, /[^\u0E00-\u0E7F]/u])),
+  ...['tirage-livree-hermes.html', 'en/yi-king-draw/index.html'].map((p) => [p, /[\u2630-\u2637]/u]),
 ];
 const FEUILLES = ['assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css', 'assets/fonts.css'];
 const GRAISSES = [300, 400];
