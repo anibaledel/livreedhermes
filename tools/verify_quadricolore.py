@@ -27,7 +27,7 @@
 #      C = 7, huit chacune ; les deux transpositions y découpent des moitiés
 #      croisées (rangs 0-3 d'une colonne avec rangs 4-7 de l'autre).
 #
-# Le script échoue si l'un de ces cinq points cesse d'être vrai.
+# Le script échoue si l'un de ces six points cesse d'être vrai.
 #
 # Usage : cd <racine du dépôt> && python tools/verify_quadricolore.py
 #         --table   écrit en plus la correspondance motif → bloc
