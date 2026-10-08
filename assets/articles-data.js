@@ -26,6 +26,17 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "tissage-sacre-symbolisme",
+    url: "https://anibal-amiot.com/articles/tissage-sacre-symbolisme.html",
+    title: "Le tissage et le sacré : la fonction ésotérique du fil à travers les traditions",
+    dateISO: "2026-10-08",
+    dateDisplay: "Publié le 8 octobre 2026",
+    categories: ["Sagesse", "Livrée", "Philosophie"],
+    excerpt: "Du destin à l’ordre cosmique, du corps à la transmission : une lecture comparée des arts textiles.",
+    cover: "https://anibal-amiot.com/assets/articles/tissage-sacre/sainte-sophie-zoe-constantin.jpg",
+    coverAlt: "Mosaïque de la galerie sud de Sainte-Sophie : le Christ en majesté sur son trône, entre l'empereur Constantin IX Monomaque à gauche et l'impératrice Zoé à droite, tous deux en vêtements de cérémonie couverts de compartiments géométriques et de pierreries, sur fond d'or."
+  },
+  {
     slug: "le-fil-et-le-carre",
     url: "https://anibal-amiot.com/articles/le-fil-et-le-carre.html",
     title: "Le fil et le carré — ce que la tradition indienne a construit avant nous",
