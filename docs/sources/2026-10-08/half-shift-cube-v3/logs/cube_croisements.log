@@ -1,0 +1,14 @@
+familles admissibles : 8 (4 yang, 4 yang-mut)
+
+Théorème 4 — couples de couches pavant entièrement, par bloc
+    yang/yang            48 couples : tous ×48 [conforme]
+    yang-mut/yang-mut    48 couples : aucun ×48 [conforme]
+    opposés             128 couples : (0, 2, 16, 18) ×56 [conforme], (45, 47, 61, 63) ×72 [conforme]
+    trichotomie : ✓  (périphériques → couche yang ; centraux libres)
+
+Ensemble élargi : 9824 grilles, dont 512 du corpus
+Proposition 3 — angles π-fixes : 9824/9824  ✓
+Règle d'arête (Section 7)
+    admissibles : 2064/9824 (21.0 %)
+    dans le corpus : 256/512 ; hors corpus : 1808/9312 (19.4 %)
+    orbites de Γ : 1292 ; mixtes : 0 ; hors corpus : 1164 ; admissibles hors corpus : 226 (19.4 %)

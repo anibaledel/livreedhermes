@@ -143,7 +143,20 @@ function controler(doc) {
     if (r.statut !== 'affirme' && !preuves.length) ecarts.push(`${ici} : « ${r.statut} » sans preuve`);
     if (r.statut === 'releve_journal_depose') {
       if (!r.releve?.par || !r.releve?.le) ecarts.push(`${ici} : relevé sans « par » ni « le »`);
-      else attente.push(`${ici} : ${preuves.map((p) => `${p.journal.fichier} (${p.journal.enregistrement})`).join(', ')} — relevé par Anibal le ${r.releve.le}, journal pas encore versé`);
+      else {
+        // une copie versée se relit dès maintenant : lignes à la lettre, MD5 déclaré
+        for (const p of preuves) {
+          const j = p.journal || {};
+          if (!j.copie) continue;
+          if (!existe(j.copie)) { ecarts.push(`${ici} : copie du journal introuvable (${j.copie})`); continue; }
+          if (j.md5 && md5(j.copie) !== j.md5) ecarts.push(`${ici} : la copie ${j.copie} a pour MD5 ${md5(j.copie)}, le résultat dit ${j.md5}`);
+          const lignes = new Set(lire(j.copie).toString('utf8').split('\n'));
+          for (const l of p.lignes || []) if (!lignes.has(l)) ecarts.push(`${ici} : ligne absente de ${j.copie} : « ${l.trim().slice(0, 90)} »`);
+        }
+        const versee = preuves.every((p) => p.journal?.copie);
+        attente.push(`${ici} : ${preuves.map((p) => `${p.journal.fichier} (${p.journal.enregistrement})`).join(', ')} — relevé par Anibal le ${r.releve.le}, `
+          + (versee ? 'copie versée et relue, MD5 de la fiche Zenodo à confirmer' : 'journal pas encore versé'));
+      }
     }
     if (r.statut === 'verifie_ci') {
       const chemin = r.script?.chemin;
@@ -215,6 +228,7 @@ if (process.argv.includes('--essai')) {
     ['un chiffre de la page sans résultat', (d) => { d.resultats = d.resultats.filter((x) => x.id !== 'carter-256-bits'); d.statuts.affirme--; }, /n'a pas de résultat/],
     ['une sortie de la page réécrite', (d) => { d._pages = { 'chiffres-et-sources.html': lire('chiffres-et-sources.html').toString('utf8').replace('2×2 sous le même protocole (constante 870)', '2×2 (constante 870)') }; }, /pas, au caractère/],
     ['un énoncé vidé sans SANS SOURCE', (d) => { d.resultats[0].enonce = { texte: null }; }, /SANS SOURCE/],
+    ['une ligne relevée retouchée dans une copie versée', (d) => { const r = d.resultats.find((x) => x.statut === 'releve_journal_depose' && x.preuves?.[0]?.journal?.copie); r.preuves[0].lignes[0] = r.preuves[0].lignes[0].replace(/\d+/, (n) => String(Number(n) + 1)); }, /ligne absente/],
     ['un énoncé dont un mot diffère de la page', (d) => { const r = d.resultats.find((x) => x.enonce?.copie?.endsWith('.html')); r.enonce.texte = r.enonce.texte.replace(/\b(\w)(\w+)/u, (m, a, b) => b + a); }, /pas, à la lettre/],
   ];
   for (const [nom, fausser, attendu] of essais) {
@@ -226,7 +240,7 @@ if (process.argv.includes('--essai')) {
     ok &&= refuse;
   }
   if (!ok) { console.error('ÉCHEC de l\'essai : un fichier faussé est accepté.'); process.exit(1); }
-  console.log('Essai : les neuf falsifications sont refusées.');
+  console.log('Essai : les dix falsifications sont refusées.');
   process.exit(0);
 }
 

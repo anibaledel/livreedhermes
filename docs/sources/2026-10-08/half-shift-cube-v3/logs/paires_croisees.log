@@ -1,0 +1,17 @@
+couches : 60 dans 15 familles
+
+Condition FORTE (Définition 3) : B = A ∘ σ
+    couples ordonnés    : 32
+    dont inter-familles : 0  ✓ aucun
+
+Condition FAIBLE (Section 6) : g ∘ σ = π ∘ g
+    paires examinées : 1770  (C(60,2) = 1770)
+    distribution     : {0: 378, 1: 896, 2: 256, 64: 240}
+    paires complètes : 240
+        même famille : 16   inter-familles : 224
+
+Orbites de Γ = D4 × ⟨σ⟩ × S3 (ordre 96) — environ deux minutes
+    corpus          :   512 grilles,   128 orbites
+    hors corpus     :  9312 grilles,  1164 orbites
+    union           :  1292 orbites
+    intersection    :     0  ✓ disjointes

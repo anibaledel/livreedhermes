@@ -1,0 +1,15 @@
+carrés d'ordre 6 : 256, disposés en 16 × 16
+composition 6/6/12/12 : 256/256  ✓
+chiralités : {'ALTER': 128, 'EGO': 128}
+
+formes d'ordre 12 obtenues : 64
+composition 48/48/48 après fusion : 64/64  ✓
+
+Critère de la Section 3
+    formes retenues : 16/64
+    colonnes occupées : [0, 7]  ✓ (première et dernière)
+    soit à permutation de teinte près : 8
+
+Permutations rencontrées
+    {'RB': 'vert', 'jaune': 'jaune', 'vert': 'RB'}  (8 formes, teinte fixe : jaune)
+    {'RB': 'jaune', 'jaune': 'RB', 'vert': 'vert'}  (8 formes, teinte fixe : vert)
