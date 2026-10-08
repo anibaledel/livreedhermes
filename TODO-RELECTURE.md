@@ -668,3 +668,25 @@ Le contrôle des énoncés (`tools/check_resultats_etablis.mjs`) compare mainten
 seul — balisage retiré, entités décodées, espaces réduits —, pour qu'un mot en gras dans la
 page ne fasse pas échouer la comparaison. Un essai de plus vérifie qu'un mot changé est
 toujours refusé.
+
+## Dérivation et troisième condition du protocole (2026-10-08)
+
+Versés depuis les envois d'Anibal : `tools/derivation.py` (H1 « les voisins sont des
+miroirs », et ce qui s'en déduit) et la troisième condition de `tools/protocole_general.py`
+(bijection : chaque bloc de *n* valeurs partagé exactement par les lignes *k* et
+*n*−1−*k*). La correction de `protocole_general.py` est reportée sur la version du dépôt,
+qui importe `lldh_commun.py` ; sortie identique ligne pour ligne à celle du fichier envoyé.
+Les deux scripts sont lancés en CI et cités dans `data/resultats-etablis.json`. À relire :
+
+- **`protocole_general.py`, témoin d'indépendance** : `doublons = len(g * 0) == 0 and …` —
+  la première moitié est toujours vraie (`g * 0` est une liste vide) ; le test réel est la
+  seconde moitié. Sans effet sur le résultat, laissé tel quel.
+- **`derivation.py`, recherche d'une relation entre blocs voisins** : seuls les voisins en
+  ligne (C et C + 1) sont comparés, sous cinq opérations à une permutation de couleurs
+  près ; l'en-tête dit « entre blocs voisins » sans préciser le sens.
+- ~~**`derivation.py`, « Il en reste quatre »**~~ — repris par Anibal dans la révision 87
+  de l'article (sous-section « Ce qui se démontre, et ce qui s'observe »), versée par ce
+  lot avec deux commandes `python tools/derivation.py` (sous « 128 sur 128 dans chaque
+  sens » et « Ce qui ne s'en déduit pas ») ; `tools/verifier_formes_figures.py` relance
+  dix scripts, comme le tableau « Vérification » ; « Dix scripts le vérifient » (meta) et
+  « Les dix vérificateurs » (section « Vérifier », `llms.txt`) sont de moi.

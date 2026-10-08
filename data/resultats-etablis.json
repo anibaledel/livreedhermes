@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 18,
+  "verifie_ci": 19,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1540,17 +1540,23 @@
   },
   {
    "id": "protocole-quatre-classes-256",
-   "intitule": "Les 256 carrés d'ordre 6 vérifient les deux conditions d'effectifs du protocole à quatre classes, et sont magiques diagonales comprises",
+   "intitule": "Les 256 carrés d'ordre 6 vérifient les trois conditions du protocole à quatre classes (deux d'effectifs, une de bijection) et sont magiques diagonales comprises ; un témoin sépare la troisième condition des deux autres",
    "enonce": {
-    "texte": "Quatre classes, deux conditions d’effectifs, et l’ordre n’a qu’à être pair.",
+    "texte": "Quatre classes, trois conditions, et l’ordre n’a qu’à être pair.",
     "langue": "fr",
-    "source": "tools/protocole_general.py (Anibal), phrase finale ; conditions dans l'en-tête, « DEUX CONDITIONS NÉCESSAIRES »"
+    "source": "tools/protocole_general.py (Anibal), phrase finale ; conditions dans l'en-tête, « DEUX CONDITIONS NÉCESSAIRES » et « UNE TROISIÈME CONDITION »"
    },
    "valeur": {
     "condition_ligne": "256/256",
     "condition_colonne": "256/256",
+    "condition_bijection": "256/256",
     "magiques": "256/256",
-    "controle_negatif_magique": false
+    "controle_negatif_magique": false,
+    "temoin_independance": {
+     "effectifs": true,
+     "bijection": false,
+     "entiers_repetes": true
+    }
    },
    "conditionnel": false,
    "referents": [
@@ -1568,13 +1574,55 @@
      "lignes": [
       "  condition de ligne   (B + V = 3) : 256/256",
       "  condition de colonne (B + J = 3) : 256/256",
+      "  condition de bijection (chaque bloc partagé) : 256/256",
       "  carrés magiques, diagonales comprises   : 256/256",
-      "  contrôle négatif (tout en B) : conditions False, False ; magique False"
+      "  contrôle négatif (tout en B) : conditions False, False ; magique False",
+      "  témoin d’indépendance : effectifs True et True, bijection False, entiers répétés True"
      ]
     }
    ],
    "statut": "verifie_ci",
-   "note": "Le contrôle négatif (tout en B) viole les deux conditions et n'est pas magique ; le script échoue s'il l'était."
+   "note": "Le contrôle négatif (tout en B) viole les deux conditions d'effectifs et n'est pas magique ; le témoin d'indépendance (BJRBVR …) vérifie les deux et pas la troisième, et répète des entiers. Le script échoue si l'un ou l'autre cesse de séparer les conditions. Avant le 2026-10-08, le script ne portait que les deux conditions d'effectifs."
+  },
+  {
+   "id": "derivation-h1-miroirs",
+   "intitule": "Les voisins sont des miroirs (H1, 128/128 dans chaque sens) ; l'assemblage se reconstruit à partir de son seul générateur (64/64), les 64 générateurs sont distincts, et aucune relation uniforme ne relie les blocs voisins",
+   "enonce": {
+    "texte": "Démontré à partir de H1 : le pied est l’orientation, les deux axes ne se croisent pas, la chute du pied, et les 64 générateurs.",
+    "langue": "fr",
+    "source": "tools/derivation.py (Anibal), conclusion imprimée ; en-tête, « L'HYPOTHÈSE H1 », D1 à D4, O1 à O4"
+   },
+   "valeur": {
+    "h1_colonnes": "128/128",
+    "h1_lignes": "128/128",
+    "assemblages_reconstruits": "64/64",
+    "generateurs_distincts": 64,
+    "meilleure_relation_entre_voisins": "8/56"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/derivation.py",
+    "adresse": "https://anibal-amiot.com/tools/derivation.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "H1  colonne paire → impaire = miroir gauche-droite : 128/128",
+      "H1  ligne  paire → impaire = miroir haut-bas       : 128/128",
+      "D3  assemblage reconstruit à partir du seul générateur : 64/64",
+      "D4  générateurs distincts : 64/64 — les 256 carrés sont 64 formes à quatre orientations",
+      "O   relation uniforme entre blocs voisins : la meilleure vaut 8/56 — il n’y en a aucune"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "La recherche de relation uniforme ne compare que des blocs voisins en ligne (C et C + 1), sous cinq opérations (identité, deux miroirs, demi-tour, transposition) à une permutation de couleurs près."
   },
   {
    "id": "pavage-miroirs-ordre-6m",
