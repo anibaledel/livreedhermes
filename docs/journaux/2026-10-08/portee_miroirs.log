@@ -1,0 +1,20 @@
+corpus d’ordre 6 — 256 graine(s)
+    nécessité (magique ⇒ conforme)  : TENUE
+    suffisance (conforme ⇒ magique) : tenue
+      256 graine(s) :  16 motifs magiques sur 16 conformes
+ordre 6, pavables (échantillon) — 200 graine(s)
+    nécessité (magique ⇒ conforme)  : TENUE
+    suffisance (conforme ⇒ magique) : tenue
+      200 graine(s) :  16 motifs magiques sur 16 conformes
+ordre 6, non pavables (échantillon) — 200 graine(s)
+    nécessité (magique ⇒ conforme)  : TENUE
+    suffisance (conforme ⇒ magique) : abattue sur 200
+      200 graine(s) :   0 motifs magiques sur 16 conformes
+ordre 10 (solveur) — 1 graine(s)
+    nécessité (magique ⇒ conforme)  : TENUE
+    suffisance (conforme ⇒ magique) : abattue sur 1
+        1 graine(s) :   8 motifs magiques sur 16 conformes
+ordre 14 (solveur) — 1 graine(s)
+    nécessité (magique ⇒ conforme)  : TENUE
+    suffisance (conforme ⇒ magique) : abattue sur 1
+        1 graine(s) :   0 motifs magiques sur 16 conformes

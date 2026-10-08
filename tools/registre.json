@@ -927,6 +927,7 @@
    ],
    "ecrit": [],
    "appele_par": [
+    "check-etiquetages.yml",
     "check-pdf.yml",
     "check-referents.yml",
     "check-series-pinterest.yml"
@@ -992,6 +993,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/compte_etiquetages.py",
+   "role": "combien d'étiquetages magiques à quatre classes existe-t-il à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/enum6.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/compte_hreflang.mjs",
@@ -1086,6 +1099,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/enum6.py",
+   "role": "les 18 432 étiquetages magiques d'ordre 6, et ceux qui pavent.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1362,6 +1387,21 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/graine_sat.py",
+   "role": "existe-t-il un étiquetage magique à quatre classes d'ordre n lorsque n n'est pas multiple de 6 ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/miroirs_graine.py",
+    "tools/portee_miroirs.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/index_codes.mjs",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
    "lit": [
@@ -1560,6 +1600,19 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/miroirs_graine.py",
+   "role": "la règle des miroirs dépend-elle de l'ordre de la graine ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/enum6.py",
+    "tools/portee_miroirs.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/pages_webp.py",
    "role": "Les pages du lecteur du livre (book-viewer/pages/<langue>/), produites depuis le PDF de la langue, selon la convention RELEVÉE sur les quatre langues existantes (fr, en, es, th), le 3 octobre 2026 : - 111 fichiers, un par code de PAGE_CO…",
    "lit": [
@@ -1652,6 +1705,16 @@
    "lit": [
     "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2"
    ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/portee_miroirs.py",
+   "role": "jusqu'où va la règle des miroirs ?",
+   "lit": [],
    "ecrit": [],
    "appele_par": [],
    "utilise_par": [],

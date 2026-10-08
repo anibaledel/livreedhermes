@@ -1,0 +1,44 @@
+$ python3 tools/compte_etiquetages.py --ordre 2
+ordre 2 — étiquetages magiques à quatre classes
+  paire de lignes (0, 1) : 8 couples conformes à la bijection et aux sommes de ligne
+    … 0 états partiels
+  moitiés : 0 × 1 états
+
+  étiquetages magiques à quatre classes d’ordre 2 : 0
+
+$ python3 tools/compte_etiquetages.py --ordre 4
+ordre 4 — étiquetages magiques à quatre classes
+  paire de lignes (0, 3) : 96 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (1, 2) : 96 couples conformes à la bijection et aux sommes de ligne
+    … 44 états partiels
+    … 44 états partiels
+  moitiés : 44 × 44 états
+
+  étiquetages magiques à quatre classes d’ordre 4 : 16
+
+$ python3 tools/compte_etiquetages.py --ordre 6
+ordre 6 — étiquetages magiques à quatre classes
+  paire de lignes (0, 5) : 1280 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (1, 4) : 1280 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (2, 3) : 1408 couples conformes à la bijection et aux sommes de ligne
+    … 248 états partiels
+    … 248 états partiels
+    … 47745 états partiels
+  moitiés : 248 × 47745 états
+
+  étiquetages magiques à quatre classes d’ordre 6 : 18432
+
+$ python3 tools/compte_etiquetages.py --ordre 8
+ordre 8 — étiquetages magiques à quatre classes
+  paire de lignes (0, 7) : 18432 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (1, 6) : 18432 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (2, 5) : 18432 couples conformes à la bijection et aux sommes de ligne
+  paire de lignes (3, 4) : 22528 couples conformes à la bijection et aux sommes de ligne
+    … 1448 états partiels
+    … 1400581 états partiels
+    … 1448 états partiels
+    … 1614231 états partiels
+  moitiés : 1400581 × 1614231 états
+
+  étiquetages magiques à quatre classes d’ordre 8 : 29368076800
+

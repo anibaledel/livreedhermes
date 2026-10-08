@@ -3,8 +3,8 @@
  "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_journal_local = pas de journal déposé, mais un journal d'exécution est versé dans docs/journaux/ avec l'empreinte du script qui l'a produit ; le contrôle relit les lignes et échoue si le script a changé depuis ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
   "verifie_journal_depose": 9,
-  "verifie_journal_local": 8,
-  "verifie_ci": 19,
+  "verifie_journal_local": 11,
+  "verifie_ci": 21,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -2002,6 +2002,220 @@
    ],
    "statut": "verifie_ci",
    "note": "Le point 3 relit les 256 carrés : le miroir de chacun est bien son voisin du damier. C'est la preuve sur les données de la « chute du pied » que le point E de verify_cle_damier.py ne fait que poser."
+  },
+  {
+   "id": "etiquetages-magiques-comptes",
+   "intitule": "Étiquetages magiques à quatre classes : 0, 16, 18 432, 29 368 076 800 aux ordres 2, 4, 6, 8",
+   "enonce": {
+    "texte": "compte les étiquetages magiques par décomposition en paires de lignes : 0, 16, 18 432, 29 368 076 800 aux ordres 2, 4, 6, 8.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 13 d'Anibal (8 octobre 2026), tableau « Les fichiers », ligne compte_etiquetages.py",
+    "copie": "docs/sources/2026-10-08/livraison13/LIVRAISON.md"
+   },
+   "valeur": {
+    "2": 0,
+    "4": 16,
+    "6": 18432,
+    "8": 29368076800
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/compte_etiquetages.py",
+    "adresse": "https://anibal-amiot.com/tools/compte_etiquetages.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/compte_etiquetages.log",
+      "sha256": "024c0dfdfeb4ad13766f802361a23ae38010cee221f4abb8de553b11654d431b",
+      "script": "tools/compte_etiquetages.py",
+      "script_sha256": "e547869fd2c5f76e44c7469b8af7cafa53abb197b8bd23cd7973c55337cf2930",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "  étiquetages magiques à quatre classes d’ordre 2 : 0",
+      "  étiquetages magiques à quatre classes d’ordre 4 : 16",
+      "  étiquetages magiques à quatre classes d’ordre 6 : 18432",
+      "  étiquetages magiques à quatre classes d’ordre 8 : 29368076800"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "Quatre exécutions dans un même journal, chacune précédée de sa commande. Durées dans le conteneur : 0,02 s, 0,02 s, 1 s et 177 s (Anibal : 2 s à l'ordre 6, ~8 min à l'ordre 8). L'ordre 6 est aussi recompté en CI par enum6.py, qui énumère les 18 432 un à un."
+  },
+  {
+   "id": "etiquetages-ordre6-pavables",
+   "intitule": "Ordre 6 : 18 432 étiquetages magiques, 8 192 pavables (seize motifs chacun), 10 240 qui ne pavent sous aucun motif",
+   "enonce": {
+    "texte": "**Être magique ne suffit pas à paver.** Les 256 étiquetages du corpus ne sont pas tous les étiquetages magiques d'ordre 6 : il y en a **18 432**, énumérés un à un.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 13 d'Anibal (8 octobre 2026), « Ce qui est tranché »",
+    "copie": "docs/sources/2026-10-08/livraison13/LIVRAISON.md"
+   },
+   "valeur": {
+    "magiques": 18432,
+    "pavables": 8192,
+    "motifs_par_pavable": 16,
+    "non_pavables": 10240
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/enum6.py",
+    "adresse": "https://anibal-amiot.com/tools/enum6.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "étiquetages magiques énumérés : 18432",
+      "pavables par l’alternance de parité : 8192",
+      "motifs valides par graine pavable : {16: 8192}"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "enum6.py sort en erreur si l'un des comptes (18 432, 8 192, {16: 8 192}) bouge. Les 10 240 sont la différence ; que chacune ne pave sous aucun des 256 motifs n'est testé que sur un échantillon de 200 (portee_miroirs.py, journal du 8 octobre). Journal local de la même exécution : docs/journaux/2026-10-08/enum6.log (148 s dans le conteneur)."
+  },
+  {
+   "id": "etiquetage-ordre-2-absent",
+   "intitule": "Aucun étiquetage magique à quatre classes à l'ordre 2 (CP-SAT : INFEASIBLE)",
+   "enonce": {
+    "texte": "Un solveur de contraintes en trouve aux ordres 4, 6, 10, 14, 22, 26 et 34, et conclut à l'absence à l'ordre 2.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 13 d'Anibal (8 octobre 2026), « Ce qui est tranché »",
+    "copie": "docs/sources/2026-10-08/livraison13/LIVRAISON.md"
+   },
+   "valeur": {
+    "ordre": 2,
+    "statut_solveur": "INFEASIBLE"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/graine_sat.py",
+    "adresse": "https://anibal-amiot.com/tools/graine_sat.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  statut du solveur : INFEASIBLE",
+      "  AUCUN étiquetage magique à quatre classes à l’ordre 2."
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "La CI ne relance que l'ordre 2 (graine_sat.py ne sort pas en erreur ; check_sorties_ci.mjs exige la ligne). L'existence aux autres ordres est l'entrée graines-ordres-4-a-34. L'ordre 2 est aussi à 0 par le compte exhaustif (etiquetages-magiques-comptes)."
+  },
+  {
+   "id": "graines-ordres-4-a-34",
+   "intitule": "Une graine magique à quatre classes aux ordres 4, 6, 10, 14, 22, 26 et 34, recontrôlée hors du solveur",
+   "enonce": {
+    "texte": "Un solveur de contraintes en trouve aux ordres 4, 6, 10, 14, 22, 26 et 34, et conclut à l'absence à l'ordre 2. Chaque graine est recontrôlée hors du modèle du solveur (bijection, lignes, colonnes, deux diagonales).",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 13 d'Anibal (8 octobre 2026), « Ce qui est tranché »",
+    "copie": "docs/sources/2026-10-08/livraison13/LIVRAISON.md"
+   },
+   "valeur": {
+    "ordres": [
+     4,
+     6,
+     10,
+     14,
+     22,
+     26,
+     34
+    ]
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/graine_sat.py",
+    "adresse": "https://anibal-amiot.com/tools/graine_sat.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/graine_sat.log",
+      "sha256": "a469278ea03054ad3eca8b6d71a15aafee25acefa4b050f419a22e83acac7cde",
+      "script": "tools/graine_sat.py",
+      "script_sha256": "6a1de3c59210f030dc9768150449c1a50a7573a12792d4a6bec5e88a20c6c56c",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "  contrôle indépendant : carré magique d’ordre 4, constante 34 : True",
+      "  contrôle indépendant : carré magique d’ordre 6, constante 111 : True",
+      "  contrôle indépendant : carré magique d’ordre 10, constante 505 : True",
+      "  contrôle indépendant : carré magique d’ordre 14, constante 1379 : True",
+      "  contrôle indépendant : carré magique d’ordre 22, constante 5335 : True",
+      "  contrôle indépendant : carré magique d’ordre 26, constante 8801 : True",
+      "  contrôle indépendant : carré magique d’ordre 34, constante 19669 : True"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "CP-SAT à 8 processus : la graine rendue peut changer d'une exécution à l'autre ; la ligne de contrôle, elle, ne dépend que de l'existence. Durées dans le conteneur : 1 s aux ordres 10, 14, 22 ; 10 s à 26 ; 33 s à 34."
+  },
+  {
+   "id": "regle-miroirs-portee",
+   "intitule": "Règle des miroirs : nécessaire sur toutes les graines testées, suffisante pour les graines d'ordre 6 qui pavent seulement",
+   "enonce": {
+    "texte": "La réciproque tombe hors de l'ordre 6 : à l'ordre 10 la graine pave avec **huit** motifs sur les seize conformes, à l'ordre 14 elle ne pave pas.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 13 d'Anibal (8 octobre 2026), « Ce qui est tranché »",
+    "copie": "docs/sources/2026-10-08/livraison13/LIVRAISON.md"
+   },
+   "valeur": {
+    "corpus_256": "16/16",
+    "pavables_ech_200": "16/16",
+    "non_pavables_ech_200": "0/16",
+    "ordre_10": "8/16",
+    "ordre_14": "0/16",
+    "necessite_abattue": 0
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/portee_miroirs.py",
+    "adresse": "https://anibal-amiot.com/tools/portee_miroirs.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/portee_miroirs.log",
+      "sha256": "223cd19f0ce56c5728f34571ab0f590e4fe36fca3257e21f40cdeda31b71f6cb",
+      "script": "tools/portee_miroirs.py",
+      "script_sha256": "89966a1c2c4153c8155dd5be17ee2ae85677e827936c0b67d9587a3c273eee50",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "      256 graine(s) :  16 motifs magiques sur 16 conformes",
+      "      200 graine(s) :  16 motifs magiques sur 16 conformes",
+      "      200 graine(s) :   0 motifs magiques sur 16 conformes",
+      "        1 graine(s) :   8 motifs magiques sur 16 conformes",
+      "        1 graine(s) :   0 motifs magiques sur 16 conformes"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "Lancé après enum6.py (le cache pavables6.json existait). portee_miroirs.py n'a pas de code de retour : la nécessité « TENUE » et la suffisance se lisent dans le journal. Les graines d'ordres 10 et 14 sortent de CP-SAT à 8 processus ; trois relances donnent le même bilan (8/16 et 0/16), mais une autre graine pourrait en donner un autre : l'énoncé porte sur « la graine » rendue, non sur toutes."
   }
  ]
 }
