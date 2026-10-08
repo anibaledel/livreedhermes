@@ -1,11 +1,12 @@
 {
  "format_version": "1.0",
- "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
+ "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_journal_local = pas de journal déposé, mais un journal d'exécution est versé dans docs/journaux/ avec l'empreinte du script qui l'a produit ; le contrôle relit les lignes et échoue si le script a changé depuis ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
-  "verifie_journal_depose": 6,
-  "verifie_ci": 1,
+  "verifie_journal_depose": 9,
+  "verifie_journal_local": 8,
+  "verifie_ci": 5,
   "releve_journal_depose": 4,
-  "affirme": 3
+  "affirme": 2
  },
  "resultats": [
   {
@@ -170,10 +171,22 @@
     "calques-360"
    ],
    "donnees": [],
-   "script": null,
-   "preuves": [],
-   "statut": "affirme",
-   "note": "Écrit dans le référent ; aucun journal déposé ne l'imprime."
+   "script": {
+    "chemin": "tools/verify_comptes_couleurs.mjs",
+    "adresse": "https://anibal-amiot.com/tools/verify_comptes_couleurs.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "identités à 48/48/48 (violet/magenta/orange sur 6 niveaux) : 60/60",
+      "8 violettes à chaque niveau : 56 ; YIN-MUT-* à 0 ou 16 par niveau : 4"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Relu dans data/referent_360_v3.json, identité par identité ; le script échoue si une somme ou la répartition 56 + 4 annoncée diffère."
   },
   {
    "id": "croisements-1770-113280",
@@ -594,10 +607,21 @@
     "carres-ordre-6"
    ],
    "donnees": [],
-   "script": null,
-   "preuves": [],
-   "statut": "affirme",
-   "note": "Aucun journal déposé ne l'imprime."
+   "script": {
+    "chemin": "tools/verify_comptes_couleurs.mjs",
+    "adresse": "https://anibal-amiot.com/tools/verify_comptes_couleurs.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "carrés d'ordre 6 : rouge 6, bleu 6, vert 12, jaune 12 — 256/256"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Relu dans data/referent_256_v3.json : chacun des 256 carrés répartit ses 36 cases en 6 rouges, 6 bleues, 12 vertes, 12 jaunes ; le script échoue sinon."
   },
   {
    "id": "figures-note-octet-pour-octet",
@@ -662,6 +686,581 @@
    ],
    "statut": "verifie_ci",
    "note": "Les 256 motifs (8 formes × h0…h31) ne sont pas les 256 carrés d'ordre 6 (data/referent_256_v3.json). Aucun journal déposé sur Zenodo : le script, qui échoue si un seul des cinq points ne tient pas, est lancé par la CI à chaque passage."
+  },
+  {
+   "id": "planches-111",
+   "intitule": "111 planches du traité",
+   "enonce": {
+    "texte": "planches du traité",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 111 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "planches": 111
+   },
+   "script": {
+    "chemin": "tools/check_livres.py",
+    "adresse": "https://anibal-amiot.com/tools/check_livres.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-pdf.yml",
+     "lignes": [
+      "OK    fr : 111 pages 1920 × 1080, licence, remerciements, aucune écriture étrangère, en-tête sur les 111, lecteur = PDF aux pages 1, 2, 93, 111"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Les huit éditions PDF comptent 111 pages ; check_livres.py échoue sinon.",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "croix-ansees-2",
+   "intitule": "2 croix ansées d'ordre 6",
+   "enonce": {
+    "texte": "croix ansées d'ordre 6",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 2 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "croix": 2,
+    "appariements_coherents": 8,
+    "choix_bruts": 64
+   },
+   "script": {
+    "chemin": "tools/croix_ansee.py",
+    "adresse": "https://anibal-amiot.com/tools/croix_ansee.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/croix_ansee.log",
+      "sha256": "9fc398540fcb8107f8bf8b7e8c644e2790655cf659da324f42b42809de7f44b0",
+      "script": "tools/croix_ansee.py",
+      "script_sha256": "85587a2a981c421ca46f9da0ecf0b5db72f00095d4f4d359b5741cd2013e4d06",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "choix bruts (2 paires par ligne, 6 lignes) : 64",
+      "appariements cohérents                    : 8",
+      "critères II–III sur lignes et colonnes    : 2"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "carres-solaires-256",
+   "intitule": "256 carrés solaires d'ordre 6, 128 par croix",
+   "enonce": {
+    "texte": "carrés solaires d'ordre 6, 128 par croix, ensemble complet",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 256 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "carres": 256,
+    "par_croix": 128,
+    "colorations_I_IV": 1492352,
+    "jeux_RB": 48384
+   },
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "script": {
+    "chemin": "tools/enum_criteres.py",
+    "adresse": "https://anibal-amiot.com/tools/enum_criteres.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/enum_criteres.log",
+      "sha256": "7ebb8b54d445b9f307f429e4bd523c4fb183cc895e15877ccae5da565fbd3bfa",
+      "script": "tools/enum_criteres.py",
+      "script_sha256": "4f156f38fa7470ca4413d0b3ca6133329f43f4b4d6e498b5b1ef31e5261df657",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "jeux R/B : 48384",
+      "avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : 128 ; magiques : 128",
+      "  1492352 est l'ensemble COMPLET des coloriages sous les critères I–IV SEULS,"
+     ]
+    },
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/verif_protocole.log",
+      "sha256": "76986450a98cd92e4f68eca890c848862b8aa6b9f2dc68e932e8bd769c5b7962",
+      "script": "tools/verif_protocole.py",
+      "script_sha256": "3d1ea71896c865b252faea505091ed7c68dc728b7ee93e69d1b8b87dc10ca3d3",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "§5       carrés magiques complets (lignes, colonnes, deux diagonales) : 256/256",
+      "§2       cellules diagonales complémentaires par symétrie centrale       : 256/256"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "La deuxième ligne de enum_criteres.log porte une durée (« temps 142s ») : elle n'est pas citée.",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "carres-ordre-12-64",
+   "intitule": "64 carrés magiques d'ordre 12 par assemblage, constante 870",
+   "enonce": {
+    "texte": "carrés magiques d'ordre 12 par assemblage, constante 870",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 64 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "assemblages": 64,
+    "constante": 870
+   },
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "script": {
+    "chemin": "tools/verif_protocole.py",
+    "adresse": "https://anibal-amiot.com/tools/verif_protocole.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/verif_protocole.log",
+      "sha256": "76986450a98cd92e4f68eca890c848862b8aa6b9f2dc68e932e8bd769c5b7962",
+      "script": "tools/verif_protocole.py",
+      "script_sha256": "3d1ea71896c865b252faea505091ed7c68dc728b7ee93e69d1b8b87dc10ca3d3",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : 64/64"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "calques-360",
+   "intitule": "360 calques : 15 familles d'axes × 4 natures × 6 niveaux",
+   "enonce": {
+    "texte": "calques : 15 familles d'axes × 4 natures × 6 niveaux",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 360 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "calques": 360,
+    "familles": 15,
+    "natures": 4,
+    "niveaux": 6
+   },
+   "referents": [
+    "calques-360"
+   ],
+   "script": {
+    "chemin": "tools/index_referents.mjs",
+    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "data/referents.json et data/SHA256SUMS.txt écrits : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6)."
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "index_referents.mjs relit le nombre de calques dans le fichier et échoue s'il n'en compte pas 360 ; la ligne citée est celle de l'écriture de l'index.",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "demi-decalage-8-sur-15",
+   "intitule": "8 familles sur 15 admises par le critère de demi-décalage",
+   "enonce": {
+    "texte": "familles admises par le critère de demi-décalage",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 8 sur 15 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "familles_admises": 8,
+    "familles": 15,
+    "couples_unifies": 16
+   },
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "familles : 15 ; images : 60",
+      "couples unifiés (6 couples testés par famille) : 16 dans 8 familles"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "corpus-512-256-128",
+   "intitule": "512 grilles unifiées, 256 pavages du plan, 128 orbites de symétrie",
+   "enonce": {
+    "texte": "grilles unifiées, pavages du plan, orbites de symétrie",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 512 / 256 / 128 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "grilles": 512,
+    "pavages": 256,
+    "orbites": 128
+   },
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    grilles distinctes : 512",
+      "    pavages distincts  : 256",
+      "    corpus   : 128 orbites ; grilles du corpus par orbite : {4: 128}"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "cube-256-128-64",
+   "intitule": "256 grilles, 128 pavages, 64 orbites se referment sur le cube",
+   "enonce": {
+    "texte": "parmi elles, celles qui se referment sur le cube",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 256 / 128 / 64 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "grilles": 256,
+    "pavages": 128,
+    "orbites": 64
+   },
+   "referents": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "script": {
+    "chemin": "tools/cube_edges.py",
+    "adresse": "https://anibal-amiot.com/tools/cube_edges.py",
+    "depose": {
+     "enregistrement": "22967302",
+     "fichier": "cube_edges.py",
+     "md5": "b908d185f93768636a9b85ad601c061c"
+    }
+   },
+   "preuves": [
+    {
+     "journal": {
+      "depot": "10.5281/zenodo.22862110",
+      "enregistrement": "22967302",
+      "fichier": "cube_edges.log",
+      "md5": "a2f0f13e78e59d04a8b0a13614bd3563",
+      "copie": "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log"
+     },
+     "lignes": [
+      "    grilles distinctes   : 256",
+      "    pavages distincts    : 128",
+      "    retenues : 64 ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_depose",
+   "conditionnel": false,
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "carter-256-bits",
+   "intitule": "256 bits : taille de clé de Carter",
+   "enonce": {
+    "texte": "taille de clé de Carter ; la géométrie n'ajoute rien",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 256 bits »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "bits": 256
+   },
+   "script": null,
+   "preuves": [],
+   "statut": "affirme",
+   "note": "Pas un calcul : la taille de clé des deux chiffrements standard (AES-256-GCM, XChaCha20-Poly1305) que Carter emploie en cascade.",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "bicolore-8191-4095",
+   "intitule": "8191 / 4095 figures bicolores distinctes, grain triangle / grain case",
+   "enonce": {
+    "texte": "figures bicolores distinctes par XOR de 16 instances d'axes, grain triangle / grain case",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 8191 / 4095 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "grain_triangle": 8191,
+    "grain_case": 4095
+   },
+   "script": {
+    "chemin": "tools/bicolore_galerie_comptes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/bicolore_galerie_comptes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/bicolore_galerie_comptes.log",
+      "sha256": "0e59bc8a67227d3663eddb57222a3547214dd9d6d95abda831d125c6e07a03a6",
+      "script": "tools/bicolore_galerie_comptes.mjs",
+      "script_sha256": "45dd6b4f2fd9e9bae19476f600b1497168a30d653c59c0596290085faa435748",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "  figures distinctes non nulles (65 535 accords) : 8191  (+ 7 accord(s) donnant la figure nulle, écartée — pas un motif)",
+      "  figures distinctes non nulles (65 535 accords) : 4095  (+ 15 accord(s) donnant la figure nulle, écartée — pas un motif)"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "bicolore-rang-13-12",
+   "intitule": "rang GF(2) 13 / 12 des 16 instances, grain triangle / grain case",
+   "enonce": {
+    "texte": "rang GF(2) des 16 instances, grain triangle / grain case — sur C1, 12 si les figures gardent la polarité que la règle leur donne (11 si une région de référence est imposée claire, [A] §5.4) ; sur C8 rien ne dépend de la convention",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 13 / 12 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "grain_triangle": 13,
+    "grain_case": 12
+   },
+   "script": {
+    "chemin": "tools/bicolore_galerie_comptes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/bicolore_galerie_comptes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/bicolore_galerie_comptes.log",
+      "sha256": "0e59bc8a67227d3663eddb57222a3547214dd9d6d95abda831d125c6e07a03a6",
+      "script": "tools/bicolore_galerie_comptes.mjs",
+      "script_sha256": "45dd6b4f2fd9e9bae19476f600b1497168a30d653c59c0596290085faa435748",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "  rang GF(2) des 16 instances : 13  (garde-fou : figures non nulles = 2^13 - 1 = 8191)",
+      "  rang GF(2) des 16 instances : 12  (garde-fou : figures non nulles = 2^12 - 1 = 4095)"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "Mêmes dimensions que code-c8 et la branche sans ancrage de code-c1.",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "bicolore-144-fermees",
+   "intitule": "144 figures bicolores fermées sur le cube au grain case",
+   "enonce": {
+    "texte": "figures bicolores qui ferment sur le cube au grain case (π = identité)",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 144 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "fermees": 144,
+    "distinctes": 4096
+   },
+   "script": {
+    "chemin": "tools/bicolore_galerie_comptes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/bicolore_galerie_comptes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/bicolore_galerie_comptes.log",
+      "sha256": "0e59bc8a67227d3663eddb57222a3547214dd9d6d95abda831d125c6e07a03a6",
+      "script": "tools/bicolore_galerie_comptes.mjs",
+      "script_sha256": "45dd6b4f2fd9e9bae19476f600b1497168a30d653c59c0596290085faa435748",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "  fermeture sur le cube (π = identité, continuité) : 144 figures fermées / 4096 distinctes (uni clair + uni sombre inclus)"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "La page nomme assets/bicolore-cube-c1.mjs, la fonction de fermeture ; le compte est imprimé par tools/bicolore_galerie_comptes.mjs, qui l'emploie.",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "bicolore-142-galerie",
+   "intitule": "142 motifs de la galerie bicolore",
+   "enonce": {
+    "texte": "motifs de la galerie bicolore : les 144 fermées, moins l'uni clair et l'uni sombre",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 142 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "motifs": 142
+   },
+   "donnees": [
+    "data/bicolore_galerie_v1.json"
+   ],
+   "script": {
+    "chemin": "tools/bicolore_galerie_comptes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/bicolore_galerie_comptes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/bicolore_galerie_comptes.log",
+      "sha256": "0e59bc8a67227d3663eddb57222a3547214dd9d6d95abda831d125c6e07a03a6",
+      "script": "tools/bicolore_galerie_comptes.mjs",
+      "script_sha256": "45dd6b4f2fd9e9bae19476f600b1497168a30d653c59c0596290085faa435748",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "  taille minimale d'accord, sur les 142 PUBLIÉS (galerie-bicolore.html) : 1:7 2:19 3:29 4:16 5:7 6:19 7:29 8:16"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "conditionnel": false,
+   "referents": [],
+   "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "bicolore-7-familles",
+   "intitule": "7 instances YIN / YIN mutant qui ferment seules sur le cube",
+   "enonce": {
+    "texte": "familles bicolores (YIN/YIN mutant) qui ferment seules sur le cube, accord minimal = 1 instance — à ne pas confondre avec un autre « 7 » du dépôt portant sur des familles YANG/YANG mutant et une tout autre propriété (droites tracées vs. systèmes de bandes)",
+    "langue": "fr",
+    "source": "chiffres-et-sources.html, tableau, ligne « 7 »",
+    "copie": "chiffres-et-sources.html"
+   },
+   "valeur": {
+    "instances": 7
+   },
+   "script": {
+    "chemin": "tools/bicolore_galerie_comptes.mjs",
+    "adresse": "https://anibal-amiot.com/tools/bicolore_galerie_comptes.mjs",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-07/bicolore_galerie_comptes.log",
+      "sha256": "0e59bc8a67227d3663eddb57222a3547214dd9d6d95abda831d125c6e07a03a6",
+      "script": "tools/bicolore_galerie_comptes.mjs",
+      "script_sha256": "45dd6b4f2fd9e9bae19476f600b1497168a30d653c59c0596290085faa435748",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-07"
+     },
+     "lignes": [
+      "  instances seules qui se referment sur le cube (7, accord minimal = 1 instance) : YIN T0, YIN T1, YIN T2, YIN-MUT T0, YIN-MUT T1, YIN-MUT T2, YIN-MUT T3"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "page": "chiffres-et-sources.html"
   }
  ]
 }

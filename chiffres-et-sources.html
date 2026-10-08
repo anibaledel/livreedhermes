@@ -61,8 +61,8 @@
   }
   /* Le doré du site : sans cette règle, les liens hors .profile-sources
      tombent sur le bleu par défaut du navigateur, illisible sur fond noir. */
-  .profile-intro a, .profile-text a, .chiffres a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
-  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover{ text-decoration-color:currentColor; }
+  .profile-intro a, .profile-text a, .chiffres a, .duree a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover, .duree a:hover{ text-decoration-color:currentColor; }
   .chiffres th, .chiffres td{ padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
@@ -278,6 +278,7 @@
         <tr><td>7</td><td>familles bicolores (YIN/YIN mutant) qui ferment seules sur le cube, accord minimal = 1 instance — à ne pas confondre avec un autre « 7 » du dépôt portant sur des familles YANG/YANG mutant et une tout autre propriété (droites tracées vs. systèmes de bandes)</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
       </tbody>
     </table>
+    <p class="duree">Le même tableau, lisible par une machine, avec pour chaque résultat la ligne imprimée et son statut — vérifié sur un journal déposé sur Zenodo, sur un journal versé au dépôt, par la CI, ou seulement affirmé : <a href="https://anibal-amiot.com/data/resultats-etablis.json">data/resultats-etablis.json</a>.</p>
 
     <p class="faq-block-title" style="max-width:64ch;margin:46px auto 26px;padding-top:34px;border-top:1px solid var(--line);">Ce que chaque script imprime</p>
 
@@ -300,15 +301,15 @@ critères II–III sur lignes et colonnes    : <b>2</b></pre>
     <p class="commande">python tools/enum_criteres.py</p>
     <pre class="sortie">jeux R/B : 48384
 colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
-avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
+avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : <b>128</b> ; magiques : <b>128</b></pre>
     <p class="duree">environ trois minutes ; le temps affiché varie selon la machine</p>
     <div class="profile-section">
       <p class="profile-text">Le million et demi est l'ensemble sous les quatre critères <i>seuls</i>. Les 128 n'apparaissent qu'en imposant en plus la structure de ligne de la croix. Ces 128 sont ceux d'<i>une</i> croix ; la seconde, image miroir de la première, donne les 128 autres — d'où 256.</p>
     </div>
     <p class="commande">python tools/verif_protocole.py<span class="commande-note">— extrait des lignes qui portent les chiffres</span></p>
-    <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
-§2    cellules diagonales complémentaires par symétrie centrale    : 256/256
-§5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
+    <pre class="sortie">§5       carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
+§2       cellules diagonales complémentaires par symétrie centrale       : 256/256
+§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : <b>64/64</b></pre>
     <p class="duree">quelques secondes</p>
 
     <section class="profile-section">
@@ -336,7 +337,7 @@ Règle d'arête (Théorème 3)
 
 Orbites de Γ (Section 4 et Remarque de la Section 6)
     corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
-    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)</pre>
     <p class="duree">environ quarante-cinq secondes</p>
 
     <section class="profile-section">

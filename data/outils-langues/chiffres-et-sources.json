@@ -343,6 +343,13 @@
    "es": ">CC BY-NC 4.0</a>, código bajo <a href=",
    "th": ">CC BY-NC 4.0</a> โค้ดอยู่ภายใต้ <a href=",
    "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Le même tableau, lisible par une machine, avec pour chaque résultat la ligne imprimée et son statut — vérifié sur un journal déposé sur Zenodo, sur un journal versé au dépôt, par la CI, ou seulement affirmé :",
+   "en": "The same table, machine-readable, with the printed line and the status of each result — verified against a log deposited on Zenodo, against a log kept in the repository, by CI, or only stated:",
+   "es": "La misma tabla, legible por una máquina, con la línea impresa y el estado de cada resultado — verificado en un registro depositado en Zenodo, en un registro guardado en el repositorio, por la CI, o solo afirmado:",
+   "th": "ตารางเดียวกันในรูปแบบที่เครื่องอ่านได้ พร้อมบรรทัดที่พิมพ์ออกมาและสถานะของผลลัพธ์แต่ละรายการ — ตรวจสอบกับบันทึกที่ฝากไว้บน Zenodo กับบันทึกที่เก็บไว้ในคลังโค้ด โดย CI หรือเพียงแต่ระบุไว้:",
+   "source": "SANS SOURCE"
   }
  ]
 }

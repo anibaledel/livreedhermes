@@ -61,8 +61,8 @@
   }
   /* Le doré du site : sans cette règle, les liens hors .profile-sources
      tombent sur le bleu par défaut du navigateur, illisible sur fond noir. */
-  .profile-intro a, .profile-text a, .chiffres a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
-  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover{ text-decoration-color:currentColor; }
+  .profile-intro a, .profile-text a, .chiffres a, .duree a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .profile-intro a:hover, .profile-text a:hover, .chiffres a:hover, .duree a:hover{ text-decoration-color:currentColor; }
   .chiffres th, .chiffres td{ padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
@@ -278,6 +278,7 @@
         <tr><td>7</td><td>ตระกูลสองสี (หยิน/หยินกลายพันธุ์) ที่ปิดบนลูกบาศก์ได้ด้วยตัวเอง คอร์ดเล็กที่สุด = 1 อินสแตนซ์ — อย่าสับสนกับ « 7 » อีกตัวในคลังโค้ดที่ว่าด้วยตระกูลหยาง/หยางกลายพันธุ์ และคุณสมบัติที่ต่างออกไปโดยสิ้นเชิง (เส้นตรงที่ลาก กับระบบแถบ)</td><td><code>tools/bicolore_galerie_comptes.mjs</code></td></tr>
       </tbody>
     </table>
+    <p class="duree">ตารางเดียวกันในรูปแบบที่เครื่องอ่านได้ พร้อมบรรทัดที่พิมพ์ออกมาและสถานะของผลลัพธ์แต่ละรายการ — ตรวจสอบกับบันทึกที่ฝากไว้บน Zenodo กับบันทึกที่เก็บไว้ในคลังโค้ด โดย CI หรือเพียงแต่ระบุไว้: <a href="https://anibal-amiot.com/data/resultats-etablis.json">data/resultats-etablis.json</a>.</p>
 
     <p class="faq-block-title" style="max-width:64ch;margin:46px auto 26px;padding-top:34px;border-top:1px solid var(--line);">สิ่งที่แต่ละสคริปต์พิมพ์ออกมา</p>
 
@@ -300,15 +301,15 @@ critères II–III sur lignes et colonnes    : <b>2</b></pre>
     <p class="commande">python tools/enum_criteres.py</p>
     <pre class="sortie">jeux R/B : 48384
 colorations I–IV : 1492352 ; magiques complètes : 128 ; temps 180s
-avec la condition (b) (…) : <b>128</b> ; magiques : <b>128</b></pre>
+avec la condition (b) (diagonales de même couleur par ligne ; paires miroir = un trait + une paire unie) : <b>128</b> ; magiques : <b>128</b></pre>
     <p class="duree">ประมาณสามนาที เวลาที่แสดงขึ้นกับเครื่อง</p>
     <div class="profile-section">
       <p class="profile-text">หนึ่งล้านห้าแสนคือเซตภายใต้เกณฑ์ทั้งสี่<i>เพียงอย่างเดียว</i> 128 แบบจะปรากฏก็ต่อเมื่อกำหนดโครงสร้างแถวของกางเขนเพิ่มเข้าไปด้วย 128 แบบนี้เป็นของกางเขน<i>หนึ่ง</i>อัน อันที่สองซึ่งเป็นภาพสะท้อนของอันแรก ให้อีก 128 แบบ — จึงได้ 256</p>
     </div>
     <p class="commande">python tools/verif_protocole.py<span class="commande-note">— ตัดตอนบรรทัดที่มีตัวเลข</span></p>
-    <pre class="sortie">§5    carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
-§2    cellules diagonales complémentaires par symétrie centrale    : 256/256
-§5/§7 ordre 12, les 64 assemblages 2×2 (constante 870)             : <b>64/64</b></pre>
+    <pre class="sortie">§5       carrés magiques complets (lignes, colonnes, deux diagonales) : <b>256/256</b>
+§2       cellules diagonales complémentaires par symétrie centrale       : 256/256
+§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : <b>64/64</b></pre>
     <p class="duree">ไม่กี่วินาที</p>
 
     <section class="profile-section">
@@ -336,7 +337,7 @@ Règle d'arête (Théorème 3)
 
 Orbites de Γ (Section 4 et Remarque de la Section 6)
     corpus   : <b>128</b> orbites ; grilles du corpus par orbite : {4: 128}
-    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓</pre>
+    retenues : <b>64</b> ; exclues : 64 ; orbites mixtes : 0  ✓ (l'habillabilité est constante sur les orbites)</pre>
     <p class="duree">ประมาณสี่สิบห้าวินาที</p>
 
     <section class="profile-section">

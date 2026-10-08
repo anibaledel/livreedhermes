@@ -847,7 +847,16 @@
    "lit": [
     "data/referents.json",
     "data/resultats-etablis.json",
-    "data/zenodo/depots.json"
+    "data/zenodo/depots.json",
+    "docs/journaux/2026-10-07/croix_ansee.log",
+    "docs/journaux/2026-10-07/enum_criteres.log",
+    "docs/journaux/2026-10-07/verif_protocole.log",
+    "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log",
+    "en/figures-and-sources/index.html",
+    "tools/croix_ansee.py",
+    "tools/cube_edges.py",
+    "tools/enum_criteres.py",
+    "tools/verif_protocole.py"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1608,6 +1617,7 @@
    "role": "le registre des outils du dépôt (tools/registre.json), et le contrôle qui ÉCHOUE QUAND IL MENT (consigne « un registre des outils du dépôt », 2026-10-05).",
    "lit": [
     "tools/axes",
+    "tools/check_resultats_etablis.mjs",
     "tools/index_codes.mjs",
     "tools/index_referents.mjs",
     "tools/registre.json"
@@ -1799,6 +1809,21 @@
    "ecrit": [],
    "appele_par": [
     "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_comptes_couleurs.mjs",
+   "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
+   "lit": [
+    "data/referent_256_v3.json",
+    "data/referent_360_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
