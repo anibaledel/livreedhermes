@@ -2304,6 +2304,7 @@
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/tissage-sacre/sainte-sophie-zoe-constantin.jpg</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg</image:loc></image:image>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg</image:loc></image:image>
@@ -8094,8 +8095,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/book/chapter-8/"/>
   </url>
   <url>
+    <loc>https://anibal-amiot.com/articles/formes-et-figures-transcription.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/047.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/052.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/formes-colonne.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/049.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/invariant-diagonal.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/formes-ligne.png</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/059.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/fr/053.webp</image:loc></image:image>
+    <image:image><image:loc>https://anibal-amiot.com/assets/articles/formes-figures/miroirs.png</image:loc></image:image>
+  </url>
+  <url>
     <loc>https://anibal-amiot.com/articles/le-fil-et-le-carre.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/le-fil-et-le-carre-cover.jpg</image:loc></image:image>
