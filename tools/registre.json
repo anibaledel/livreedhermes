@@ -1751,9 +1751,10 @@
    "appele_par": [],
    "utilise_par": [
     "tools/generate_referent_256.py",
-    "tools/verif_protocole.py"
+    "tools/verif_protocole.py",
+    "tools/verify_cadres_ordre12.py"
    ],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1762,8 +1763,10 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [],
-   "etat": "ponctuel",
+   "utilise_par": [
+    "tools/verify_cadres_ordre12.py"
+   ],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1809,6 +1812,18 @@
    "ecrit": [],
    "appele_par": [
     "check-bicolore-axes.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_cadres_ordre12.py",
+   "role": "« Du centrage pair pair » (livre, page 031) : quatre copies d'un même carré d'ordre 6, conformes ou miroirs, dans un cadre d'ordre 12, donnent un carré magique d'ordre 12.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
    ],
    "utilise_par": [],
    "etat": "actif",
@@ -1896,6 +1911,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/verify_quadricolore.py",
+   "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/verify_six_formes.mjs",

@@ -33,5 +33,7 @@ jobs:
       - run: node tools/index_codes.mjs --verifie
       - run: node tools/index_codes.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
+      - run: python3 tools/verify_quadricolore.py
+      - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs
       - run: node tools/check_resultats_etablis.mjs --essai
