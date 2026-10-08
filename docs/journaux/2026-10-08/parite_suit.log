@@ -1,0 +1,35 @@
+$ python3 tools/parite_suit.py
+ordre 6 — la parité suit-elle de la condition I ?
+  ligne 0 : la parité suit de la condition I
+  ligne 1 : la parité suit de la condition I
+  ligne 2 : la parité suit de la condition I
+  colonne 0 : la parité suit de la condition I
+  colonne 1 : la parité suit de la condition I
+  colonne 2 : la parité suit de la condition I
+ordre 10 — la parité suit-elle de la condition I ?
+  ligne 0 : la parité suit de la condition I
+  ligne 1 : la parité suit de la condition I
+  ligne 2 : la parité suit de la condition I
+  ligne 3 : la parité suit de la condition I
+  ligne 4 : CONTRE-EXEMPLE, contrôle indépendant OK
+  colonne 0 : la parité suit de la condition I
+  colonne 1 : la parité suit de la condition I
+  colonne 2 : CONTRE-EXEMPLE, contrôle indépendant OK
+  colonne 3 : la parité suit de la condition I
+  colonne 4 : la parité suit de la condition I
+ordre 14 — la parité suit-elle de la condition I ?
+  ligne 0 : la parité suit de la condition I
+  ligne 1 : la parité suit de la condition I
+  ligne 2 : la parité suit de la condition I
+  ligne 3 : la parité suit de la condition I
+  ligne 4 : la parité suit de la condition I
+  ligne 5 : CONTRE-EXEMPLE, contrôle indépendant OK
+  ligne 6 : CONTRE-EXEMPLE, contrôle indépendant OK
+  colonne 0 : la parité suit de la condition I
+  colonne 1 : la parité suit de la condition I
+  colonne 2 : la parité suit de la condition I
+  colonne 3 : CONTRE-EXEMPLE, contrôle indépendant OK
+  colonne 4 : la parité suit de la condition I
+  colonne 5 : la parité suit de la condition I
+  colonne 6 : la parité suit de la condition I
+

@@ -1,0 +1,44 @@
+$ python3 tools/profils.py --ordre 6
+ordre 6 — profils symétriques (a, a, 18−a, 18−a) ; les profils non symétriques ne sont pas explorés ici
+  le tiers vaudrait a = n²/3 = 12.00 — entier
+  (9, 9, 9, 9) : AUCUN
+  (10, 10, 8, 8) : existe  [contrôle indépendant : OK]
+  (11, 11, 7, 7) : AUCUN
+  (12, 12, 6, 6) : existe  [contrôle indépendant : OK]
+  (13, 13, 5, 5) : AUCUN
+  (14, 14, 4, 4) : AUCUN
+  (15, 15, 3, 3) : AUCUN
+  (16, 16, 2, 2) : AUCUN
+  (17, 17, 1, 1) : AUCUN
+  (18, 18, 0, 0) : AUCUN
+
+$ python3 tools/profils.py
+ordre 10 — profils symétriques (a, a, 50−a, 50−a) ; les profils non symétriques ne sont pas explorés ici
+  le tiers vaudrait a = n²/3 = 33.33 — NON ENTIER : impossible
+  (25, 25, 25, 25) : non tranché (UNKNOWN)
+  (26, 26, 24, 24) : existe  [contrôle indépendant : OK]
+  (27, 27, 23, 23) : non tranché (UNKNOWN)
+  (28, 28, 22, 22) : existe  [contrôle indépendant : OK]
+  (29, 29, 21, 21) : non tranché (UNKNOWN)
+  (30, 30, 20, 20) : existe  [contrôle indépendant : OK]
+  (31, 31, 19, 19) : non tranché (UNKNOWN)
+  (32, 32, 18, 18) : existe  [contrôle indépendant : OK]
+  (33, 33, 17, 17) : non tranché (UNKNOWN)
+  (34, 34, 16, 16) : existe  [contrôle indépendant : OK]
+  (35, 35, 15, 15) : non tranché (UNKNOWN)
+  (36, 36, 14, 14) : existe  [contrôle indépendant : OK]
+  (37, 37, 13, 13) : non tranché (UNKNOWN)
+  (38, 38, 12, 12) : existe  [contrôle indépendant : OK]
+  (39, 39, 11, 11) : non tranché (UNKNOWN)
+  (40, 40, 10, 10) : existe  [contrôle indépendant : OK]
+  (41, 41, 9, 9) : non tranché (UNKNOWN)
+  (42, 42, 8, 8) : non tranché (UNKNOWN)
+  (43, 43, 7, 7) : non tranché (UNKNOWN)
+  (44, 44, 6, 6) : non tranché (UNKNOWN)
+  (45, 45, 5, 5) : non tranché (UNKNOWN)
+  (46, 46, 4, 4) : non tranché (UNKNOWN)
+  (47, 47, 3, 3) : AUCUN
+  (48, 48, 2, 2) : AUCUN
+  (49, 49, 1, 1) : AUCUN
+  (50, 50, 0, 0) : AUCUN
+

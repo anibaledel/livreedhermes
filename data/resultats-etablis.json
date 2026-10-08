@@ -3,8 +3,8 @@
  "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_journal_local = pas de journal déposé, mais un journal d'exécution est versé dans docs/journaux/ avec l'empreinte du script qui l'a produit ; le contrôle relit les lignes et échoue si le script a changé depuis ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
   "verifie_journal_depose": 13,
-  "verifie_journal_local": 11,
-  "verifie_ci": 21,
+  "verifie_journal_local": 16,
+  "verifie_ci": 26,
   "releve_journal_depose": 0,
   "affirme": 2
  },
@@ -2230,6 +2230,415 @@
    ],
    "statut": "verifie_journal_local",
    "note": "Lancé après enum6.py (le cache pavables6.json existait). portee_miroirs.py n'a pas de code de retour : la nécessité « TENUE » et la suffisance se lisent dans le journal. Les graines d'ordres 10 et 14 sortent de CP-SAT à 8 processus ; trois relances donnent le même bilan (8/16 et 0/16), mais une autre graine pourrait en donner un autre : l'énoncé porte sur « la graine » rendue, non sur toutes."
+  },
+  {
+   "id": "croix-figures-candidates-formule",
+   "intitule": "Figures candidates : rang n − 1, 2^((n² − 6n + 4)/4) figures, de l'ordre 6 à l'ordre 42",
+   "enonce": {
+    "texte": "Le rang vaut **n − 1**, et c'est démontré.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Le compte des figures candidates : une formule démontrée »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": 2,
+    "8": 32,
+    "10": 2048,
+    "12": 524288,
+    "14": "2^29",
+    "16": "2^41"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/compte_figures.py",
+    "adresse": "https://anibal-amiot.com/tools/compte_figures.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "ordre   6 :    6 orbites, rang   5, 2 figures candidates",
+      "ordre   8 :   12 orbites, rang   7, 32 figures candidates",
+      "ordre  10 :   20 orbites, rang   9, 2048 figures candidates",
+      "ordre  12 :   30 orbites, rang  11, 524288 figures candidates",
+      "ordre  14 :   42 orbites, rang  13, 536870912 figures candidates",
+      "ordre  16 :   56 orbites, rang  15, 2199023255552 figures candidates"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "compte_figures.py sort en erreur si le rang n'est pas n − 1 ou si le compte s'écarte de la formule, aux dix ordres de 6 à 42. Le calcul du rang est exact ; la preuve (graphe biparti) est dans la note d'Anibal, non dans le script. C'est un majorant du nombre de croix ansées."
+  },
+  {
+   "id": "croix-equivalence-ordre6",
+   "intitule": "Ordre 6 : condition d'effectifs par colonne = croix ansée (I + II + III) = pavable, ensemble par ensemble sur les 18 432",
+   "enonce": {
+    "texte": "condition d'effectifs par colonne ⟺ porte une croix ansée ⟺ pave",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Ce que la condition de colonne est vraiment »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "colonne": 8192,
+    "croix_ansee": 8192,
+    "pavables": 8192,
+    "condition_I_seule": 8192,
+    "corpus_croix": 256,
+    "figures_distinctes": 2
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/croix_auto.py",
+    "adresse": "https://anibal-amiot.com/tools/croix_auto.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "    condition d’effectifs par colonne : 8192",
+      "    croix ansée au sens I + II + III  : 8192",
+      "    pavent                            : 8192",
+      "    colonne = croix ansée             : True",
+      "    colonne = pavable                 : True",
+      "    condition I ⟺ I + II + III        : True"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "croix_auto.py lit le cache pavables6.json qu'écrit enum6.py, lancé juste avant dans le même job ; sans ce cache il ne fait que la partie corpus. Il sort en erreur si l'équivalence tombe."
+  },
+  {
+   "id": "croix-ansee-absente-8-12",
+   "intitule": "Aucune croix ansée aux ordres 8 et 12 (INFEASIBLE) ; une à l'ordre 6",
+   "enonce": {
+    "texte": "Aucun carré auto-construit portant une croix ansée n'existe aux ordres 8, 12 et 16, où le solveur prouve l'impossibilité.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Existence par ordre »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": "existe",
+    "8": "INFEASIBLE",
+    "12": "INFEASIBLE"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/croix_existence.py",
+    "adresse": "https://anibal-amiot.com/tools/croix_existence.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "ordre   6 : croix ansée — magique True, critères True, traits par ligne [1], par colonne [1]",
+      "ordre   8 : AUCUNE croix ansée",
+      "ordre  12 : AUCUNE croix ansée"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "La CI ne relance que les ordres 6, 8 et 12, dont la sortie ne dépend pas du carré rendu. L'ordre 16 (212 s ici, ~40 min chez Anibal) est l'entrée croix-ansee-absente-16. Aux ordres 10, 14, 18 une croix existe ; les traits par ligne imprimés dépendent du carré rendu (ici [1, 3, 5, 7] à l'ordre 18, la note dit 1, 3, 5)."
+  },
+  {
+   "id": "croix-ansee-absente-16",
+   "intitule": "Aucune croix ansée à l'ordre 16 (INFEASIBLE)",
+   "enonce": {
+    "texte": "Aucun carré auto-construit portant une croix ansée n'existe aux ordres 8, 12 et 16, où le solveur prouve l'impossibilité.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Existence par ordre »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "16": "INFEASIBLE"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/croix_existence.py",
+    "adresse": "https://anibal-amiot.com/tools/croix_existence.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/croix_existence.log",
+      "sha256": "6e604fda6f8c4f4240583cde90f909d21ceb4b0c34616852f243bee9470b6180",
+      "script": "tools/croix_existence.py",
+      "script_sha256": "4057ed8fd609f9e261e24ad5ca565d105095194dbac5a8ffb64236700276cb41",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "ordre  16 : AUCUNE croix ansée"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "croix_existence.py --ordres 16 --limite 3600 : INFEASIBLE en 212 s dans le conteneur. Le même journal porte l'exécution par défaut (ordres 6, 8, 10, 12, 14, 18)."
+  },
+  {
+   "id": "croix-comptes-exacts",
+   "intitule": "Croix ansées : 2, 0, 2 048, 0 aux ordres 6, 8, 10, 12, figure par figure à l'ordre 8",
+   "enonce": {
+    "texte": "Les comptes exacts sont désormais connus aux ordres 6, 8, 10, 12 et 16 : **2, 0, 2 048, 0, 0**.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Ce qui reste »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": 2,
+    "8": 0,
+    "10": 2048,
+    "12": 0,
+    "16": 0
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/compte_croix.py",
+    "adresse": "https://anibal-amiot.com/tools/compte_croix.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/compte_croix.log",
+      "sha256": "9f3b804c56781c7044db5700fad643c135535f8804afc3f3332afefc63848494",
+      "script": "tools/compte_croix.py",
+      "script_sha256": "f761c17fc69b48f5afcf763bb8b63a7635ed900753b36347a14428850bf8cb1b",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "ordre 6 — croix ansées : 2 réalisables sur 2 figures examinées ; 0 impossibles, 0 non tranchées",
+      "ordre 8 — croix ansées : 0 réalisables sur 32 figures examinées ; 32 impossibles, 0 non tranchées",
+      "ordre 10 — croix ansées : 2048 réalisables sur 2048 figures examinées ; 0 impossibles, 0 non tranchées",
+      "ordre 12 : aucune croix ansée — le modèle complet est INFEASIBLE, inutile d’énumérer les figures. --sans-pretest force l’examen figure par figure, qui est le chemin indépendant de suite_croix.py",
+      "ordre 14 — croix ansées : 10 réalisables sur 10 figures examinées ; 0 impossibles, 0 non tranchées"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "L'ordre 8 est compté deux fois : par le pré-test (modèle complet INFEASIBLE) et figure par figure avec --sans-pretest (32 INFEASIBLE). L'ordre 12 ne l'est que par le pré-test. Le 0 de l'ordre 16 vient de croix_existence.py (entrée croix-ansee-absente-16), pas de ce script. À l'ordre 14, dix figures au rang 400 000 000 seulement (2^29 candidates). Durée de l'ordre 10 : 75 s ici, 418 s chez Anibal."
+  },
+  {
+   "id": "suite-croix-figures-6-8",
+   "intitule": "Figures distinctes par no-goods : 2 à l'ordre 6, 32 à l'ordre 8 (aucune ne tient II–III), énumération complète",
+   "enonce": {
+    "texte": "énumère exhaustivement les figures distinctes par no-goods : 2 à l'ordre 6, 32 à l'ordre 8",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), tableau « Les fichiers », ligne suite_croix.py",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": 2,
+    "8": 32,
+    "8_criteres_tenus": 0
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/suite_croix.py",
+    "adresse": "https://anibal-amiot.com/tools/suite_croix.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/suite_croix.log",
+      "sha256": "13e3f6610ac29fb86600ef2b63b71bc9edac075c5bdae13adcde50b61edc27f2",
+      "script": "tools/suite_croix.py",
+      "script_sha256": "79efc7be391bf26be559297af71a7d8def5670daefc1b626714f13f8aa8fdaea",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "ordre   6 : 2 figure(s) distincte(s), dont 2 tenant les critères II–III ; fin = INFEASIBLE ; contrôles magiques : True",
+      "ordre   8 : 32 figure(s) distincte(s), dont 0 tenant les critères II–III ; fin = INFEASIBLE ; contrôles magiques : True"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "1 856 s dans le conteneur, ordre 10 compris : celui-ci s'arrête au plafond (« fin = PLAFOND », 200 figures), il n'est pas exhaustif et n'est pas cité."
+  },
+  {
+   "id": "croix-ansee-n-dessins-libres",
+   "intitule": "Dessins libres (géométrie seule) : 2, 32, 2 048 aux ordres 6, 8, 10",
+   "enonce": {
+    "texte": "le comptage **géométrique** (dessins libres) à l'ordre n, pour comparaison : 2 à l'ordre 6, 32 à l'ordre 8, 2 048 à l'ordre 10",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), tableau « Les fichiers », ligne croix_ansee_n.py",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": 2,
+    "8": 32,
+    "10": 2048
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/croix_ansee_n.py",
+    "adresse": "https://anibal-amiot.com/tools/croix_ansee_n.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/croix_ansee_n.log",
+      "sha256": "6a83890b332fb2543299b50dfd6057c29bb6bf9eacf68767af291d21d6da1b3e",
+      "script": "tools/croix_ansee_n.py",
+      "script_sha256": "e6475d20f799a962a53019525c3bcdc5cdda4812929b87acde52829cbb5468a2",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "  idem lignes ET colonnes              : 2",
+      "  idem lignes ET colonnes              : 32",
+      "  idem lignes ET colonnes              : 2048"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "Un bit par orbite : le script présuppose la symétrie centrale (son en-tête le dit). 193 s dans le conteneur. Les trois lignes citées sont, dans l'ordre du journal, celles des ordres 6, 8 et 10."
+  },
+  {
+   "id": "parite-suit-de-I",
+   "intitule": "La parité (II–III) suit de la condition I partout à l'ordre 6, pas au centre dès l'ordre 10",
+   "enonce": {
+    "texte": "les critères II–III suivent-ils de la condition I : oui partout à l'ordre 6, non au centre dès l'ordre 10 (contre-exemples recontrôlés)",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), tableau « Les fichiers », ligne parite_suit.py",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": "suit partout",
+    "10": "contre-exemples ligne 4, colonne 2",
+    "14": "contre-exemples lignes 5, 6, colonne 3"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/parite_suit.py",
+    "adresse": "https://anibal-amiot.com/tools/parite_suit.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-08/parite_suit.log",
+      "sha256": "cc76018aa0c24d216124203381905ccc8d59beb869a6064315f2bd1a59c0fe15",
+      "script": "tools/parite_suit.py",
+      "script_sha256": "33fbd1f3196e6c0e898bde7ce785c29b76018cb64d1c40ebb66820f06f7e786e",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-08"
+     },
+     "lignes": [
+      "  ligne 4 : CONTRE-EXEMPLE, contrôle indépendant OK",
+      "  colonne 2 : CONTRE-EXEMPLE, contrôle indépendant OK",
+      "  ligne 5 : CONTRE-EXEMPLE, contrôle indépendant OK",
+      "  ligne 6 : CONTRE-EXEMPLE, contrôle indépendant OK",
+      "  colonne 3 : CONTRE-EXEMPLE, contrôle indépendant OK"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "324 s dans le conteneur. À l'ordre 6, les six lignes et colonnes impriment « la parité suit de la condition I » (INFEASIBLE)."
+  },
+  {
+   "id": "ligne-egalite-centre",
+   "intitule": "|d·u| ≤ (n−1)/2 : d = 0 forcé hors du centre ; au centre, des carrés magiques avec d ≠ 0 aux ordres 10, 14 et 18",
+   "enonce": {
+    "texte": "Au centre l'inégalité ne force rien, et le solveur y trouve des carrés magiques avec d ≠ 0 aux ordres 10, 14 et 18, recontrôlés hors du modèle.",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), « Le point que l'audit soulève, et sa réponse »",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "6": "aucun d ≠ 0",
+    "10": "ligne 4, d = 1",
+    "14": "lignes 5 et 6",
+    "18": "lignes 7 et 8"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/ligne_necessaire.py",
+    "adresse": "https://anibal-amiot.com/tools/ligne_necessaire.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  ligne  4 (u =   -1), b =  6, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  5 (u =   -3), b =  8, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  6 (u =   -1), b =  8, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  6 (u =   -1), b =  9, d = 2 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  7 (u =   -3), b = 10, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  8 (u =   -1), b = 10, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True",
+      "  ligne  8 (u =   -1), b = 11, d = 2 : l’inégalité permet ; EXISTE, contrôle indépendant True"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "La CI lance les ordres 6, 10, 14 et 18 (7 s) ; le script sort en erreur si un carré viole l'inégalité. Il ne teste que d = 1 et d = 2. À l'ordre 6 aucune ligne n'admet d ≠ 0."
+  },
+  {
+   "id": "profils-ordre-6",
+   "intitule": "Profils symétriques à l'ordre 6 : seuls (10,10,8,8) et (12,12,6,6) existent",
+   "enonce": {
+    "texte": "seuls (12,12,6,6) et (10,10,8,8) à l'ordre 6, les autres prouvés impossibles",
+    "langue": "fr",
+    "source": "LIVRAISON.md de la livraison 14.10 d'Anibal (9 octobre 2026), tableau « Les fichiers », ligne profils.py",
+    "copie": "docs/sources/2026-10-08/livraison-14.10/LIVRAISON.md"
+   },
+   "valeur": {
+    "existent": [
+     "(10,10,8,8)",
+     "(12,12,6,6)"
+    ]
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/profils.py",
+    "adresse": "https://anibal-amiot.com/tools/profils.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  (9, 9, 9, 9) : AUCUN",
+      "  (10, 10, 8, 8) : existe  [contrôle indépendant : OK]",
+      "  (11, 11, 7, 7) : AUCUN",
+      "  (12, 12, 6, 6) : existe  [contrôle indépendant : OK]",
+      "  (13, 13, 5, 5) : AUCUN",
+      "  (18, 18, 0, 0) : AUCUN"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "profils.py ne sort pas en erreur ; check_sorties_ci.mjs exige ces lignes. Les profils (14, 14, 4, 4) à (17, 17, 1, 1) sont aussi AUCUN. À l'ordre 10 (journal local), 15 profils sur 26 restent non tranchés en 60 s chacun."
   }
  ]
 }

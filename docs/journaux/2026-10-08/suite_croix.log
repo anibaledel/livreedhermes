@@ -1,0 +1,23 @@
+$ python3 tools/suite_croix.py
+ordre   6 : 2 figure(s) distincte(s), dont 2 tenant les critères II–III ; fin = INFEASIBLE ; contrôles magiques : True
+    traits par ligne [1, 1, 1, 1, 1, 1], par colonne [1, 1, 1, 1, 1, 1], critères tenus
+    traits par ligne [1, 1, 1, 1, 1, 1], par colonne [1, 1, 1, 1, 1, 1], critères tenus
+ordre   8 : 32 figure(s) distincte(s), dont 0 tenant les critères II–III ; fin = INFEASIBLE ; contrôles magiques : True
+    traits par ligne [2, 2, 2, 2, 2, 2, 2, 2], par colonne [2, 0, 2, 0, 0, 2, 0, 2], critères non
+    traits par ligne [2, 2, 2, 2, 2, 2, 2, 2], par colonne [0, 0, 2, 2, 2, 2, 0, 0], critères non
+    traits par ligne [0, 2, 2, 0, 0, 2, 2, 0], par colonne [2, 2, 2, 2, 2, 2, 2, 2], critères non
+    traits par ligne [2, 2, 2, 2, 2, 2, 2, 2], par colonne [2, 2, 0, 0, 0, 0, 2, 2], critères non
+    traits par ligne [2, 2, 2, 2, 2, 2, 2, 2], par colonne [0, 0, 2, 2, 2, 2, 0, 0], critères non
+    traits par ligne [2, 0, 2, 2, 2, 2, 0, 2], par colonne [2, 0, 2, 2, 2, 2, 0, 2], critères non
+    traits par ligne [2, 2, 2, 2, 2, 2, 2, 2], par colonne [0, 2, 0, 2, 2, 0, 2, 0], critères non
+    traits par ligne [0, 2, 2, 0, 0, 2, 2, 0], par colonne [2, 2, 2, 2, 2, 2, 2, 2], critères non
+ordre  10 : 200 figure(s) distincte(s), dont 171 tenant les critères II–III ; fin = PLAFOND ; contrôles magiques : True
+    traits par ligne [3, 1, 1, 1, 1, 1, 1, 1, 1, 3], par colonne [3, 1, 3, 3, 3, 3, 3, 3, 1, 3], critères tenus
+    traits par ligne [3, 1, 3, 1, 1, 1, 1, 3, 1, 3], par colonne [1, 3, 3, 1, 3, 3, 1, 3, 3, 1], critères tenus
+    traits par ligne [1, 1, 3, 3, 3, 3, 3, 3, 1, 1], par colonne [1, 1, 3, 1, 3, 3, 1, 3, 1, 1], critères tenus
+    traits par ligne [1, 3, 1, 3, 1, 1, 3, 1, 3, 1], par colonne [1, 3, 3, 3, 1, 1, 3, 3, 3, 1], critères tenus
+    traits par ligne [1, 1, 3, 1, 1, 1, 1, 3, 1, 1], par colonne [3, 3, 3, 1, 3, 3, 1, 3, 3, 3], critères tenus
+    traits par ligne [1, 3, 1, 3, 3, 3, 3, 1, 3, 1], par colonne [1, 3, 1, 1, 3, 3, 1, 1, 3, 1], critères tenus
+    traits par ligne [3, 1, 1, 3, 2, 2, 3, 1, 1, 3], par colonne [3, 3, 2, 1, 1, 1, 1, 2, 3, 3], critères non
+    traits par ligne [1, 1, 3, 3, 1, 1, 3, 3, 1, 1], par colonne [3, 1, 1, 3, 3, 3, 3, 1, 1, 3], critères tenus
+

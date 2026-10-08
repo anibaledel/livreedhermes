@@ -54,7 +54,7 @@ jobs:
       - run: python3 tools/compte_figures.py
       - run: python3 tools/compte_croix.py --ordre 6
       - run: python3 tools/croix_existence.py --ordres 6,8,12
-      - run: python3 tools/ligne_necessaire.py
+      - run: python3 tools/ligne_necessaire.py --ordres 6,10,14,18
       - run: python3 tools/profils.py --ordre 6
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai
