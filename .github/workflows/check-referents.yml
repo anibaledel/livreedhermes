@@ -27,11 +27,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/requirements.txt
       - run: node tools/index_referents.mjs --verifie
       - run: node tools/index_referents.mjs --essai
       - run: cd data && sha256sum -c SHA256SUMS.txt
       - run: node tools/index_codes.mjs --verifie
       - run: node tools/index_codes.mjs --essai
       - run: node tools/verify_comptes_couleurs.mjs
+      - run: python3 tools/verify_quadricolore.py
+      - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs
       - run: node tools/check_resultats_etablis.mjs --essai

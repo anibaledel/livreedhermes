@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 5,
+  "verifie_ci": 8,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1261,6 +1261,134 @@
    "referents": [],
    "donnees": [],
    "page": "chiffres-et-sources.html"
+  },
+  {
+   "id": "quadricolore-64-motifs",
+   "intitule": "Les 64 motifs de Magic quadricolore sont l'échiquier de la page 047, rouge et bleu fondus en une teinte",
+   "enonce": {
+    "texte": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_quadricolore.py (Anibal), qui énonce les cinq points vérifiés"
+   },
+   "valeur": {
+    "motifs": 64,
+    "grille": 12,
+    "par_teinte": 48,
+    "assemblages_distincts": 64,
+    "fusion": "rouge + bleu → une teinte ; gris et jaune gardent la leur"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "assets/unified-motifs/1.svg"
+   ],
+   "script": {
+    "chemin": "tools/verify_quadricolore.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_quadricolore.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "2. motifs lus en 12 × 12, 48 par teinte : 64/64",
+      "3. motifs retrouvés dans le référent, case par case : 64/64",
+      "4. affectations de teintes distinctes : 1",
+      "5. assemblages distincts : 64/64"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si l'un des cinq points cesse d'être vrai."
+  },
+  {
+   "id": "cadres-ordre-12-512",
+   "intitule": "Du centrage pair pair (page 031) : 512 carrés magiques d'ordre 12 en deux familles de 256, disjointes des 64 assemblages voisins",
+   "enonce": {
+    "texte": "quatre copies d'un même carré d'ordre 6, conformes ou miroirs, dans un cadre d'ordre 12, donnent un carré magique d'ordre 12.",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_cadres_ordre12.py (Anibal), d'après « Du centrage pair pair », livre, page 031"
+   },
+   "valeur": {
+    "par_agencement": 256,
+    "constante": 870,
+    "familles": 2,
+    "total": 512,
+    "en_commun": 0,
+    "assemblages_voisins": 64,
+    "voisins_dans_les_familles": 0
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cadres_ordre12.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cadres_ordre12.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. miroir à droite  : 256/256 magiques, constante [870], 256 grilles distinctes",
+      "1. miroir en bas    : 256/256 magiques, constante [870], 256 grilles distinctes",
+      "2. droite = gauche et bas = haut : True et True",
+      "3. les deux familles sont disjointes : 0 grille(s) en commun, 512 au total",
+      "4. corpus clos par inversion des couleurs : True",
+      "5. assemblages de quatre carrés voisins : 64 distincts, 0 dans les deux familles"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si l'un des cinq points cesse d'être vrai. Il importe protocole et grille6 de tools/verif_protocole.py."
+  },
+  {
+   "id": "quadricolore-16-unified-patterns",
+   "intitule": "16 des 64 motifs de Magic quadricolore sont des unified patterns : les colonnes 0 et 7 de l'échiquier, huit chacune",
+   "enonce": {
+    "texte": "16 des 64 sont des « unified patterns » : le motif garde sa forme quand on le décale d'une demi-période en ligne ET en colonne (6 cases dans chaque sens) à une transposition de teinte près.",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_quadricolore.py (Anibal), point 6"
+   },
+   "valeur": {
+    "unified_patterns": 16,
+    "sur": 64,
+    "rb_gris": 8,
+    "rb_jaune": 8,
+    "les_deux": 0,
+    "colonnes": {
+     "0": 8,
+     "7": 8
+    }
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "assets/unified-motifs/1.svg"
+   ],
+   "script": {
+    "chemin": "tools/verify_quadricolore.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_quadricolore.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "6. unified patterns (demi-décalage diagonal, une teinte transposée) : 16/64",
+      "   RB ↔ gris : 8, RB ↔ jaune : 8, les deux : 0",
+      "   colonnes de l’échiquier : {0: 8, 7: 8}"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si le compte n'est pas 16, si une même grille admet les deux transpositions, ou si les colonnes ne sont pas 0 et 7."
   }
  ]
 }

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T05:39:50Z",
+ "generated_at_utc": "2026-10-08T06:30:57Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 194,
+  "scripts": 196,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -3221,6 +3221,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/verify_cadres_ordre12.py",
+   "adresse": "https://anibal-amiot.com/tools/verify_cadres_ordre12.py",
+   "octets": 6126,
+   "sha256": "a11120cf646aa5be38ef524e2fd3c64c4d0e8dd5f66c79f13f27e27ab531aee6",
+   "md5": "a427216e1e0286f62870c3726c048541",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "« Du centrage pair pair » (livre, page 031) : quatre copies d'un même carré d'ordre 6, conformes ou miroirs, dans un cadre d'ordre 12, donnent un carré magique d'ordre 12.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/verify_comptes_couleurs.mjs",
    "adresse": "https://anibal-amiot.com/tools/verify_comptes_couleurs.mjs",
    "octets": 3679,
@@ -3310,6 +3327,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la table MODES_DE_FAMILLE de cymatique.html, affichée au visiteur en badge (mode, bords, f = 32 × (m² + n²)), recalculée depuis les données, sans rien lire d'autre de la page que la table elle-même.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verify_quadricolore.py",
+   "adresse": "https://anibal-amiot.com/tools/verify_quadricolore.py",
+   "octets": 7811,
+   "sha256": "fbb6467984472ca7f49c1090c89a331a071b51791ac21951c3b682020fe6b13d",
+   "md5": "29f8fadca4d97b3a27e75984412c1f4f",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
+   "lit": [
+    "carres-ordre-6"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
