@@ -22,7 +22,7 @@ name: Étiquetages magiques à quatre classes et croix ansée — comptes, absen
 #     existent, les autres sont INFEASIBLE (1 s).
 # Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
 # compte_croix aux ordres 8, 10, 12, 14, croix_existence à l'ordre 16) ont leur
-# journal dans docs/journaux/2026-10-09/.
+# journal dans docs/journaux/2026-10-08/.
 # Job à part de check-referents.yml : check_sorties_ci.mjs relance chaque script
 # cité, et enum6.py ne doit pas allonger le job des référents.
 # compte_etiquetages.py (ordres 2, 4, 6, 8) et portee_miroirs.py ont leurs
