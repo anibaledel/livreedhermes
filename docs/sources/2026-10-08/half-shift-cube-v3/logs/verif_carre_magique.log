@@ -1,0 +1,46 @@
+============================================================
+ VÉRIFICATION DU CARRÉ DE RÉFÉRENCE (666)
+============================================================
+
+--- Vérification carré d'ordre 6 ---
+Constante magique attendue : 111
+Contenu = 1..36 : True
+Lignes correctes : True
+Colonnes correctes : True
+Diagonale principale : 111 (attendu 111) -> True
+Anti-diagonale : 111 (attendu 111) -> True
+=> CARRÉ MAGIQUE : True
+Associatif (complément à 37 par symétrie centrale) : False
+   (premières paires non complémentaires : [((0, 1), (5, 4), 32, 2), ((0, 2), (5, 3), 3, 4), ((0, 3), (5, 2), 34, 33)])
+
+--- Vérification croix ansée ---
+Critère I  (symétrie rouge/bleu, EGO ou ALTER) : True  (chiralité=EGO, rouge=6, bleu=6)
+Critère II (rouge/bleu absents des diagonales)        : True
+Critère III (>=1 rouge/bleu par ligne)                : True
+Critère IV (équilibre grand/petit par ligne)          : True
+=> TOUS LES CRITÈRES RESPECTÉS : True
+
+============================================================
+ POUR VÉRIFIER VOS PROPRES CARRÉS
+============================================================
+
+1. Carré numérique (n'importe quel ordre) :
+
+    from verif_carre_magique import is_magic_square
+    mon_carre = [[..], [..], ...]   # NxN, valeurs 1..N²
+    is_magic_square(mon_carre)
+
+2. Encodage couleur (ordre 6, croix ansée) :
+
+    from verif_carre_magique import check_croix_ansee
+    mes_couleurs = [['rouge','bleu',...], ...]  # 6x6
+    check_croix_ansee(mes_couleurs)
+
+3. Pour vérifier PLUSIEURS carrés d'un coup (ex. les 256 encodages,
+   ou les 64 variantes d'ordre 12), placez-les dans une liste et
+   bouclez :
+
+    resultats = [is_magic_square(c, verbose=False) for c in mes_carres]
+    nb_valides = sum(1 for r in resultats if r["magique"])
+    print(f"{nb_valides} / {len(mes_carres)} carrés valides")
+

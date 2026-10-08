@@ -1,0 +1,29 @@
+couches : 60
+paires non ordonnées : 1770 ; constructions : 113280
+constructions qui pavent simplement : 16768 ; grilles distinctes : 9824
+grilles à plusieurs involutions possibles : 0
+paires complètes (64/64) : 240 ; autres paires : 1530, contributions {1: 896, 2: 256}
+    dont intra-famille : 16 ; inter-familles : 224
+corpus : 512 grilles, toutes dans l'ensemble élargi : True
+orbites de Γ : 1292 ; dont corpus : 128
+orbites atteintes par les seules paires complètes : 1292
+orbites propres aux paires partielles : 0  ✓ aucune
+Proposition 3 — grilles sans teinte π-fixe aux quatre angles : 0
+habillables : 2064/9824 (21.0 %) ; hors corpus : 1808/9312 (19.4 %) ; corpus : 256/512
+orbites mixtes : 0 ; orbites hors corpus habillables : 226/1164 (19.4 %)
+durée : 15 s
+
+Théorème 4
+    combinaisons qualifiantes par paire de familles : {8} sur 28 paires ; total 224
+    bloc croisé : nombre d'indices habillables → {4: 128}
+    bloc yang/yang : nombre d'indices habillables → {64: 48}
+    bloc mut/mut : nombre d'indices habillables → {0: 48}
+    A de type yang : {(45, 47, 61, 63): 72}
+    A de type yang_mut : {(0, 2, 16, 18): 56}
+Niveaux
+    niveau 1 : distance moyenne au centre 4.31, cases de bord 12
+    niveau 2 : distance moyenne au centre 4.29, cases de bord 0
+    niveau 3 : distance moyenne au centre 4.44, cases de bord 8
+    niveau 4 : distance moyenne au centre 4.63, cases de bord 8
+    niveau 5 : distance moyenne au centre 4.57, cases de bord 0
+    niveau 6 : distance moyenne au centre 5.25, cases de bord 16

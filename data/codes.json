@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T16:16:45Z",
+ "generated_at_utc": "2026-10-08T17:36:59Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,10 +9,10 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 211,
-  "sans_licence_declaree": 71,
+  "scripts": 219,
+  "sans_licence_declaree": 72,
   "deposes_meme_octet": 16,
-  "deposes_octet_different": 3,
+  "deposes_octet_different": 5,
   "depose_absent_du_depot": 14
  },
  "codes": [
@@ -507,6 +507,156 @@
      "meme_octet": true
     }
    ]
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croisements.py",
+   "octets": 9818,
+   "sha256": "cb6d37e3340f737c56a21f222080cce499cf90fe18d049ca9f5587845bd76758",
+   "md5": "f5854781695f7dd359c9e4bfe3ee1fc0",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "Vérification de la Section 7 (« Beyond the corpus: crossing families ») : toutes les paires de couches, pavage simple, orbites de Γ, condition de sommet (Proposition 3), règle d'arête et trichotomie (Théorème 4).",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/croix_ansee.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/croix_ansee.py",
+   "octets": 4837,
+   "sha256": "85587a2a981c421ca46f9da0ecf0b5db72f00095d4f4d359b5741cd2013e4d06",
+   "md5": "9f49a80230bef8bb80e54069ecfc7c76",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "Les croix ansées d'ordre 6 : énumération sous les critères de la planche 040.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/cube_croisements.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/cube_croisements.py",
+   "octets": 11499,
+   "sha256": "e755728f0fd3b4cc240e2801312f10cfa5205c38b6a32b74ae9dded334eb4a4f",
+   "md5": "854969c1fcd1da88bf37d66e29a0b16c",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "La règle d'arête au-delà du corpus (Section 7).",
+   "lit": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/cube_edges.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/cube_edges.py",
+   "octets": 26646,
+   "sha256": "a117213e4b084ef6f7d0446bd0852982c24f6a929337cb123106ddb11850cf9f",
+   "md5": "fb40c71d4ec8e70ea19546c03878edf3",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "Vérification de la règle d'arête sur le cube.",
+   "lit": [
+    "carres-ordre-6",
+    "calques-360",
+    "constructions-1024"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": [
+    {
+     "depot": "10.5281/zenodo.22862110",
+     "enregistrement": "22967302",
+     "version": null,
+     "fichier": "cube_edges.py",
+     "md5_depose": "b908d185f93768636a9b85ad601c061c",
+     "meme_octet": false
+    }
+   ]
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/make_figures.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/make_figures.py",
+   "octets": 10055,
+   "sha256": "683cbd87f84ad2e388cd582bbca6b54b14efd483741d7de588660a0c692442f2",
+   "md5": "b083208efd72a3128cf5c8be5f8c001a",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "Figures vectorielles (SVG) de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": [
+    {
+     "depot": "10.5281/zenodo.22986529",
+     "enregistrement": "23101928",
+     "version": "1.2.1",
+     "fichier": "make_figures.py",
+     "md5_depose": "44a83a3752682a32fc3885eca1617222",
+     "meme_octet": false
+    }
+   ]
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/paires_croisees.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/paires_croisees.py",
+   "octets": 10445,
+   "sha256": "999ae8167829dba4787b62f98f6b982997a13abe79815b1eb9b9bcd448f684d3",
+   "md5": "4668ab30857aed72d4f68521e03d2b1d",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "L'ensemble élargi : condition faible et paires inter-familles.",
+   "lit": [
+    "calques-360",
+    "constructions-1024"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/selection_ordre6.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/selection_ordre6.py",
+   "octets": 6177,
+   "sha256": "bd62c562c8fbbf4cf5a4f2b87665ca6494b71628b046c4c17543ed56cf4929bd",
+   "md5": "134b8efc533faeba610aee2d25020d85",
+   "licence_declaree": true,
+   "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
+   "role": "Des 256 carrés d'ordre 6 aux premières formes unifiées.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "docs/sources/2026-10-08/half-shift-cube-v3/tools/verif_carre_magique.py",
+   "adresse": "https://anibal-amiot.com/docs/sources/2026-10-08/half-shift-cube-v3/tools/verif_carre_magique.py",
+   "octets": 12069,
+   "sha256": "2844dc9799b61718daad677856552a656e18e517bd2b2be067c67b5c3c284537",
+   "md5": "e477173787d0522bed6e75ba4070ba0b",
+   "licence_declaree": false,
+   "licence": null,
+   "role": "VÉRIFICATEUR DE CARRÉS MAGIQUES — \"La Livrée d'Hermès\" Outil de vérification pour la méthode des carrés solaires (ordre 6, croix ansée EGO/ALTER) et pour tout carré magique classique (ordre N).",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
   },
   {
    "chemin": "scripts/_debug_grids.mjs",
@@ -1991,9 +2141,9 @@
   {
    "chemin": "tools/check_resultats_etablis.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
-   "octets": 17045,
-   "sha256": "3690505089f8b0d9a6d506a6bd787b0948bc6e9307019178fb93d0e0687e5e70",
-   "md5": "c4d5ba6e120f3c0462ba0a1bfd3fb4fe",
+   "octets": 18199,
+   "sha256": "01d6837008e7ea53f2fd525f55e4e57d73564050bd7c820e8a784ef7b2414dc0",
+   "md5": "6f5523776013b4fccd9aeb1011de27f5",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
