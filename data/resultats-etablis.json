@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 8,
+  "verifie_ci": 11,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1389,6 +1389,149 @@
    ],
    "statut": "verifie_ci",
    "note": "Le script échoue si le compte n'est pas 16, si une même grille admet les deux transpositions, ou si les colonnes ne sont pas 0 et 7."
+  },
+  {
+   "id": "cle-damier-ligne-nombre-colonne-forme",
+   "intitule": "Sur le damier 16 × 16 la ligne porte un nombre ; sur le damier 8 × 8 la colonne porte une forme, qui est le trigramme inférieur écrit en position",
+   "enonce": {
+    "texte": "La ligne du damier porte un nombre, la colonne porte une forme, et cette forme est le trigramme.",
+    "langue": "fr",
+    "source": "tools/verify_cle_damier.py (Anibal), en-tête points A à E et phrase finale"
+   },
+   "valeur": {
+    "lignes_constantes": 16,
+    "colonnes_constantes_16x16": 0,
+    "valeurs_de_ligne": [
+     3,
+     9,
+     5,
+     7,
+     7,
+     5,
+     5,
+     7,
+     5,
+     7,
+     7,
+     5,
+     5,
+     7,
+     3,
+     9
+    ],
+    "recouvrement_inhale_exhale_bleu": 0,
+    "reunion_bleu": 48,
+    "colonnes_constantes_8x8": 8,
+    "formes_distinctes": 8,
+    "lignes_constantes_8x8": 0,
+    "trigramme_lu": "8/8"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cle_damier.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cle_damier.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "A. rouge + bleu dans la moitié haute : constant sur 16/16 lignes, 0/16 colonnes",
+      "    3  9  5  7  7  5  5  7  5  7  7  5  5  7  3  9",
+      "D. inhale ∩ exhale sur le bleu : [0] case(s) ; réunion : [48] cases",
+      "B. forme bleue de inhale + exhale : constante sur 8/8 colonnes (8 formes distinctes), 0/8 lignes",
+      "C. la forme de la colonne C est le trigramme C écrit en position : 8/8"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le point E (chute du pied) est imprimé mais n'est pas cité ici : (c ^ 1) // 2 == c // 2 est vrai pour tout entier, il ne relit pas les données."
+  },
+  {
+   "id": "cle-couleurs-64-16x4",
+   "intitule": "Un hexagramme vaut un tétragramme et une couleur : 64 = 16 × 4, les seize groupes étant les super-blocs 2 × 2 du damier",
+   "enonce": {
+    "texte": "Un trigramme vaut donc ses deux traits du haut, plus un bit : palindrome ou non. Un hexagramme vaut deux trigrammes, donc quatre traits du haut plus deux bits : hexagramme = tétragramme × couleur, 64 = 16 × 4",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_cle_couleurs.py (Anibal), points 1 à 3"
+   },
+   "valeur": {
+    "elementaux_palindromes": "8/8 trigrammes",
+    "couples_distincts": 64,
+    "par_couleur": 16,
+    "super_blocs_quatre_couleurs": 16
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cle_couleurs.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cle_couleurs.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. élémental ⟺ palindrome, sur les 8 trigrammes : True",
+      "2. hexagramme ↔ (tétragramme, couleur) : 64/64 couples distincts ; effectifs {'BLEU': 16, 'CIEL': 16, 'GRIS': 16, 'NUIT': 16}",
+      "3. super-blocs 2 × 2 du damier portant les quatre couleurs : 16/16 ; le tétragramme du groupe est bien (ligne // 2, colonne // 2) : True"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si l'un des points 1 à 3, ou le compte par blocs du point 4, cesse d'être vrai. Le témoin Roi Wen est imprimé, pas contrôlé : la même ligne imprime 0/16 pour les quatres consécutifs de l'ordre par poids."
+  },
+  {
+   "id": "pont-formes-changements",
+   "intitule": "La constante de ligne et les unified patterns se lisent sur les traits, par le nombre de changements c d'un trigramme",
+   "enonce": {
+    "texte": "Les deux constantes du damier se traduisent en traits, et elles se traduisent par le même invariant : le nombre de changements entre traits voisins d'un trigramme.",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_pont_formes.py (Anibal), points 1 à 3"
+   },
+   "valeur": {
+    "lignes_constantes": 16,
+    "lignes_conformes_formule": 16,
+    "formule": "v = 6 − (−1)^p × (3 − 2c)",
+    "unified_patterns": 16,
+    "colonnes": [
+     "terre",
+     "ciel"
+    ],
+    "transposition_conforme": 16,
+    "rb_gris": 8,
+    "rb_jaune": 8
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_pont_formes.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_pont_formes.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "0. c pair ⟺ trigramme élémental, sur les 8 trigrammes : True",
+      "1. constante de ligne : 16/16 lignes constantes, 16/16 conformes à v = 6 − (−1)^p × (3 − 2c)",
+      "2. unified patterns : 16/64, et ce sont exactement les assemblages dont le trigramme inférieur a c = 0 : True",
+      "   colonnes concernées : terre, ciel",
+      "3. transposition RB ↔ gris quand le trait du haut s’accorde avec le trigramme inférieur : 16/16",
+      "   RB ↔ gris : 8, RB ↔ jaune : 8"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si l'un des points 0 à 3 cesse d'être vrai (l'en-tête dit « ces trois points » ; le point 0 est contrôlé aussi)."
   }
  ]
 }
