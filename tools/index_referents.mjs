@@ -190,12 +190,14 @@ if (args.includes('--essai')) {
 
 if (args.includes('--verifie')) {
   const fautes = verifier(lireDisque, existant(INDEX), existant(SOMMES));
+  const { entrees } = construire(lireDisque);
   if (fautes.length) {
     for (const f of fautes) console.error(`ÉCART ${f}`);
     console.error(`\n${fautes.length} écart(s) entre l'index des référents et les fichiers. Relancer : node tools/index_referents.mjs`);
     process.exit(1);
   }
   console.log(`Index des référents à jour : ${REFERENTS.length} référents, empreintes conformes (${SOMMES}).`);
+  console.log(`Recomptés : ${entrees.map((e) => `${e.id} (${e.nombre}, ${e.sha256.slice(0, 8)})`).join(', ')}.`);
   process.exit(0);
 }
 

@@ -36,3 +36,4 @@ jobs:
       - run: node tools/verify_six_formes.mjs
       - run: node tools/epingles_pinterest.mjs --verifie
       - run: python tools/check_series_pinterest.py
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-series-pinterest.yml

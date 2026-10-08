@@ -917,6 +917,22 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_sorties_ci.mjs",
+   "role": "les lignes que data/resultats-etablis.json cite pour un résultat « verifie_ci » sont-elles, à la lettre, dans ce que le script imprime ?",
+   "lit": [
+    "data/resultats-etablis.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-pdf.yml",
+    "check-referents.yml",
+    "check-series-pinterest.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_tuiles.mjs",
    "role": "les tuiles de navigation (les boutons animés du bas de page) sont sur TOUTES les adresses du sitemap, dans la langue de la page.",
    "lit": [
