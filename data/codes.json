@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T06:04:02Z",
+ "generated_at_utc": "2026-10-08T06:13:07Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3335,9 +3335,9 @@
   {
    "chemin": "tools/verify_quadricolore.py",
    "adresse": "https://anibal-amiot.com/tools/verify_quadricolore.py",
-   "octets": 6168,
-   "sha256": "b8f607947936ec8f4fc2512cf1deb19a0fc3ede8bde7f2941d39fb73078deef5",
-   "md5": "b7e355b42aabc324711e2ed85d72ece8",
+   "octets": 7812,
+   "sha256": "b32413509612b2411a28c26a2a0f1630fb6b19d0057566bb535a79668181ceba",
+   "md5": "def477165f0543fac000bd4a46075ff4",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",

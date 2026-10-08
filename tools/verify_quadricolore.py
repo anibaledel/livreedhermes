@@ -18,7 +18,14 @@
 #      donc 48 / 48 / 48 par motif ;
 #   4. l'affectation des trois teintes est la même dans les 64 fichiers ;
 #   5. les 64 motifs correspondent à 64 assemblages distincts : une bijection
-#      avec les 8 × 8 blocs de l'échiquier.
+#      avec les 8 × 8 blocs de l'échiquier ;
+#   6. 16 des 64 sont des « unified patterns » : le motif garde sa forme quand
+#      on le décale d'une demi-période en ligne ET en colonne (6 cases dans
+#      chaque sens) à une transposition de teinte près. La teinte transposée
+#      est toujours celle du rouge-bleu fusionné, contre le gris ou contre le
+#      jaune. Ces 16 sont les deux colonnes de côté de l'échiquier, C = 0 et
+#      C = 7, huit chacune ; les deux transpositions y découpent des moitiés
+#      croisées (rangs 0-3 d'une colonne avec rangs 4-7 de l'autre).
 #
 # Le script échoue si l'un de ces cinq points cesse d'être vrai.
 #
@@ -124,6 +131,22 @@ def main():
     if len(blocs) != len(trouve):
         echecs.append('deux motifs renvoient au même assemblage')
 
+    # 6. les unified patterns : invariance par demi-décalage diagonal
+    def unifie(G, m):
+        return all(G[(r + 6) % 12][(c + 6) % 12] == m[G[r][c]]
+                   for r in range(12) for c in range(12))
+    avec_gris  = {k for k, t in cibles.items() if unifie(t, {'RB': 'G', 'G': 'RB', 'J': 'J'})}
+    avec_jaune = {k for k, t in cibles.items() if unifie(t, {'RB': 'J', 'J': 'RB', 'G': 'G'})}
+    unifies = avec_gris | avec_jaune
+    colonnes = collections.Counter(C for _, C in unifies)
+    print(f'6. unified patterns (demi-décalage diagonal, une teinte transposée) : {len(unifies)}/64')
+    print(f'   RB ↔ gris : {len(avec_gris)}, RB ↔ jaune : {len(avec_jaune)}, '
+          f'les deux : {len(avec_gris & avec_jaune)}')
+    print(f'   colonnes de l’échiquier : {dict(sorted(colonnes.items()))}')
+    if len(unifies) != 16 or avec_gris & avec_jaune or sorted(colonnes) != [0, 7]:
+        echecs.append(f'unified patterns : {len(unifies)} au lieu de 16, '
+                      f'colonnes {sorted(colonnes)} au lieu de [0, 7]')
+
     if '--table' in sys.argv:
         print('\nmotif → bloc de l’échiquier (R, C)')
         for n in sorted(trouve):
@@ -134,7 +157,7 @@ def main():
         print('\n' + '\n'.join(echecs), file=sys.stderr)
         sys.exit(1)
     print('\nLes 64 motifs de Magic quadricolore sont l’échiquier de la page 047, '
-          'rouge et bleu fondus en une teinte.')
+          'rouge et bleu fondus en une teinte ; 16 d’entre eux sont des unified patterns.')
 
 
 if __name__ == '__main__':
