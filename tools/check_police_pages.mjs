@@ -19,6 +19,8 @@
 // déclarées — 805 après les flèches : le thaï (sans repli déclaré, et le lien
 // « ไทย » des rangées de langues), les trigrammes ☰…☷ des pages de motifs, du
 // grec, de l'hébreu. Une page s'y ajoute d'une ligne, quand elle tient.
+// Depuis les replis du 2026-10-08 (tools/police_symboles.py, tools/police_thai.py),
+// le grec, les signes mathématiques, les trigrammes et le thaï sont portés.
 //
 // Usage : node tools/check_police_pages.mjs [page.html …]
 //         node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'
@@ -37,6 +39,20 @@ const ARTICLES_EN_ATTENTE = {
   'articles/habit-du-grand-pretre.html': 'hébreu (U+05B0–05EA)',
   'en/articles/high-priests-garment.html': 'hébreu (U+05B0–05EA)',
 };
+// toutes les pages HTML du site qui emploient une écriture donnée
+function pagesAvec(re) {
+  const out = [];
+  const marche = (d) => {
+    for (const e of fs.readdirSync(path.join(RACINE, d), { withFileTypes: true })) {
+      if (e.name.startsWith('.') || e.name === 'node_modules') continue;
+      const rel = d ? `${d}/${e.name}` : e.name;
+      if (e.isDirectory()) marche(rel);
+      else if (e.name.endsWith('.html') && re.test(fs.readFileSync(path.join(RACINE, rel), 'utf8'))) out.push(rel);
+    }
+  };
+  marche('');
+  return out.sort();
+}
 export const PAGES = [
   // les articles, français et anglais, en entier — sauf ceux qui emploient
   // encore une écriture ou un signe sans repli déclaré (ARTICLES_EN_ATTENTE)
@@ -47,6 +63,11 @@ export const PAGES = [
   // aussi le thaï de la rangée des langues, qui n'a pas encore de repli
   // déclaré.
   ...['', 'book/', 'lexicon/', 'works/', 'tools/', 'support/'].map((p) => [`hi/${p}index.html`, /[\u0900-\u097F\u1CD0-\u1CF9\uA830-\uA839\uA8E0-\uA8FF]/u]),
+  // le thaï (repli Noto Sans Thai LDH, 2026-10-08) : sur toute page qui en
+  // écrit — les pages th/ et le lien « ไทย » des rangées de langues —, chaque
+  // caractère thaï doit sortir de la pile déclarée. Restreint à cette écriture :
+  // ces pages portent aussi les drapeaux des rangées, des émojis laissés au système.
+  ...pagesAvec(/[\u0E00-\u0E7F]/u).map((p) => [p, /[\u0E00-\u0E7F]/u]),
 ];
 const FEUILLES = ['assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css', 'assets/fonts.css'];
 const GRAISSES = [300, 400];
