@@ -24,3 +24,7 @@ __pycache__/
 /lalivreedhermes FR pdf copyright.pdf
 /lalivreedhermes TH pdf copyright.pdf
 /LLDH CARRELONG 4TRAD 2026 JUILLET-047.svg
+
+# Cache écrit par tools/enum6.py (les 18 432 étiquetages d’ordre 6, ~1 Mo) ;
+# portee_miroirs.py le relit s’il existe. Régénérable, jamais versé.
+/tools/pavables6.json
