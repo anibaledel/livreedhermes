@@ -647,17 +647,30 @@ point 6 « la rosace lit le trigramme ») et `data/elements-052.json` (corrigé 
 signé de `croix_ansee.py` gardé, second `verify_echelle.py` (« soixante-six ») non versé,
 « six points » gardé dans `verify_quadricolore.py`.
 
-L'article `articles/formes-et-figures-transcription.html` passe à la **révision 71** (même
-texte que le docx envoyé et que l'export Claude Docs, 28 071 octets ; contrôle : mêmes mots).
-Ce qui n'est pas de sa main, à relire :
+L'article `articles/formes-et-figures-transcription.html` est à la **révision 72** (relue dans
+l'artefact Claude Docs ; par rapport à la 71 : « huit scripts » et trois lignes de plus au
+tableau de la section « Vérification »). Ce qui n'est pas de sa main, à relire :
 
+- **le tableau « Vérification », aligné sur `tools/verifier_formes_figures.py`** (règle
+  d'Anibal : la liste fait foi). La révision 72 y liste `croix_ansee.py`, que la commande
+  unique ne relance pas ; elle relance `transcription.py`, que le tableau ne listait pas. Sur
+  le site, la ligne `croix_ansee.py` est remplacée par
+  « `tools/transcription.py` | la transcription entre les 64 assemblages d'ordre 12 et les 64
+  hexagrammes, par lecture des formes et non par leur position » — le texte de la colonne est
+  tiré de l'en-tête de `transcription.py`. À reporter dans l'artefact si c'est le bon choix.
+  Note : `croix_ansee.py` ne sort jamais en erreur (il imprime ses comptes sans les
+  contrôler) ; il ne peut donc pas être l'un des « scripts qui sortent en erreur dès qu'un
+  point cesse d'être vrai ». Son résultat est tenu par son journal du 2026-10-07 ;
 - les **commandes** ajoutées sous les nouveaux énoncés : `verify_echelle.py` sous « Seul le
   décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
   de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page
   053 » ; `croix_ansee.py` et `verify_echelle.py` sous « Appelons rosace » ;
 - « **Huit** scripts le vérifient » (meta description) et « Les **huit** vérificateurs » dans
-  la section « Vérifier » et dans `llms.txt` : `tools/verifier_formes_figures.py` relance
-  maintenant aussi `verify_echelle.py`. Le corps de l'article dit « cinq scripts » pour son
-  tableau ; c'est son texte, il n'est pas touché ;
-- dans `verify_echelle.py`, le point 6 est écrit avant le point 5 dans l'en-tête ; la sortie
-  les imprime dans l'ordre.
+  la section « Vérifier » et dans `llms.txt`.
+- `verify_echelle.py` : l'en-tête corrigé (point 6 avant le point 5) n'est pas encore arrivé
+  en fichier ; le dépôt garde la version précédente.
+
+Le contrôle des énoncés (`tools/check_resultats_etablis.mjs`) compare maintenant au texte
+seul — balisage retiré, entités décodées, espaces réduits —, pour qu'un mot en gras dans la
+page ne fasse pas échouer la comparaison. Un essai de plus vérifie qu'un mot changé est
+toujours refusé.

@@ -1823,7 +1823,8 @@
    "enonce": {
     "texte": "Lire ces six cases sur une ligne du damier distingue les huit colonnes : huit éléments sur huit lignes, 64 fois sur 64. Et trois cases suffisent, une par trait — il y a huit triplets qui marchent dans un élément de six.",
     "langue": "fr",
-    "source": "articles/formes-et-figures-transcription.html, « À quoi sert une rosace » (révision 71 d'Anibal) ; dans la page, « distingue les huit colonnes » et « trois cases suffisent » sont en gras"
+    "source": "articles/formes-et-figures-transcription.html, « À quoi sert une rosace » (révision 71 d'Anibal)",
+    "copie": "articles/formes-et-figures-transcription.html"
    },
    "valeur": {
     "elements_x_lignes": "64/64",
