@@ -1661,6 +1661,43 @@
       "42": "20/20"
      },
      "sous_ensembles_ordre_30": 25
+    },
+    "sous_groupe_ordre_12": {
+     "motifs": 16,
+     "identiques_sur_graines": "256/256",
+     "equations": [
+      "h0=h2",
+      "h1=h3",
+      "v0=v1",
+      "v2=v3"
+     ]
+    },
+    "forme_h_par_colonne_v_par_ligne": {
+     "12": "128/128 (16 motifs × 8 graines)",
+     "18": "512/512 (64 motifs × 8 graines)"
+    },
+    "echantillon_ordre_18": {
+     "tirages": 4000,
+     "magiques": 70,
+     "de_la_forme": 1,
+     "graine_hasard": 0
+    },
+    "tirages_conformes_effectifs": {
+     "6": "369 conformes sur 400000, 0 magiques",
+     "10": "0 conforme sur 400000",
+     "14": "0 conforme sur 400000",
+     "graine_hasard": 1
+    },
+    "regle_des_miroirs": {
+     "enonce": "h(i,j) = h(m−1−i, j) et v(i,j) = v(i, m−1−j)",
+     "motifs": "2^(2m·ceil(m/2))",
+     "exhaustif_ordre_18": "4096/262144 sur les graines 0 et 1, identiques, tous conformes à la règle",
+     "echantillons": {
+      "12": "16/16 conformes magiques, 0/190 hors règle",
+      "18": "64/64, 0/197",
+      "24": "64/64, 0/200",
+      "30": "64/64, 0/200"
+     }
     }
    },
    "conditionnel": false,
@@ -1695,12 +1732,30 @@
       "  DDDD — ordre  18 : 256/256",
       "  DDDD — ordre  30 : 20/20",
       "  DDDD — ordre  42 : 20/20",
-      "  ordre 30, 10 × 10 blocs de trois : chaque sous-ensemble 25 fois"
+      "  ordre 30, 10 × 10 blocs de trois : chaque sous-ensemble 25 fois",
+      "  motifs valides : 16 ; identiques sur les 256 graines : 256/256",
+      "  sous-groupe de (Z/2)⁸ : True, d’ordre 16 = 2^4",
+      "  h₀=h₂, h₁=h₃, v₀=v₁, v₂=v₃ sur les seize : True ; motifs vérifiant ces équations : 16/256",
+      "  motifs donnés par la règle des miroirs : 16/256",
+      "  ordre  12 (m=2) : 2^4 = 16 motifs annoncés ; conformes magiques 16/16 ; hors règle magiques 0/190",
+      "  ordre  18 (m=3) : 2^12 = 4096 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/197",
+      "  ordre  24 (m=4) : 2^16 = 65536 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/200",
+      "  ordre  30 (m=5) : 2^30 = 1073741824 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/200",
+      "  ordre  12 : 128/128 (2^4 motifs × 8 graines)",
+      "  ordre  18 : 512/512 (2^6 motifs × 8 graines)",
+      "  graine 0 : 4096 motifs magiques, dont 4096 conformes à la règle",
+      "  graine 1 : 4096 motifs magiques, dont 4096 conformes à la règle, identique à la graine 0 : True",
+      "  la règle est donc nécessaire et suffisante à l’ordre 18, sans échantillon",
+      "ordre 18, 4000 motifs tirés au hasard (graine 0) : 70 magiques, dont 1 de la forme annoncée",
+      "  la forme est donc suffisante, non nécessaire au-delà de l’ordre 12",
+      "  ordre  6 : 369 conformes aux deux conditions d’effectifs sur 400000 tirages, 0 magiques",
+      "  ordre 10 : 0 conformes aux deux conditions d’effectifs sur 400000 tirages, 0 magiques",
+      "  ordre 14 : 0 conformes aux deux conditions d’effectifs sur 400000 tirages, 0 magiques"
      ]
     }
    ],
    "statut": "verifie_ci",
-   "note": "L'en-tête annonçait l'ordre 36 sur échantillon ; Anibal l'a corrigé (2026-10-08) : ordres 6 à 30 complets, 42, 48, 60 sur échantillon, les trois que le script teste. Section ajoutée : l'unité du pavage est le bloc de 3 × 3 de la page 034."
+   "note": "L'en-tête annonçait l'ordre 36 sur échantillon ; Anibal l'a corrigé (2026-10-08) : ordres 6 à 30 complets, 42, 48, 60 sur échantillon, les trois que le script teste. Section ajoutée : l'unité du pavage est le bloc de 3 × 3 de la page 034. Depuis le 2026-10-08 (envoi d'Anibal) : le sous-groupe des seize à l'ordre 12, la règle des miroirs à tout ordre (exhaustive aux ordres 12 et 18 avec --exhaustif, sur échantillon aux ordres 24 et 30), la forme « h par colonne, v par ligne » (vérifiée sur 8 graines), et, avec --echantillons (lancé en CI avec --exhaustif), les deux tirages à graine de hasard fixée."
   },
   {
    "id": "invariants-inspir-expir",

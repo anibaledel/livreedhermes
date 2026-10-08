@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T15:03:53Z",
+ "generated_at_utc": "2026-10-08T16:16:45Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2905,9 +2905,9 @@
   {
    "chemin": "tools/pavage_miroirs.py",
    "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
-   "octets": 6687,
-   "sha256": "7333421afcaf491a96b48540c238185d63ade04aeb0224416dd119d1d2f8d89e",
-   "md5": "907f8ea1b91e9090bd1f2c747866c2eb",
+   "octets": 19802,
+   "sha256": "37119fa7a2e698d4b4f33ef4bad70dd3dd766a537077f18318867369d00d9345",
+   "md5": "b9e5a0fddf737bdc5e6fe86de789de7c",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
