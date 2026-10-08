@@ -25,6 +25,14 @@
    posées sur l'axe du « + » de Barlow — choix d'Anibal, 2026-10-04.
    tools/check_police_pages.mjs échoue si une page qu'il surveille emploie un
    caractère qu'aucune police déclarée ne porte.
+   Les signes (lot « formes et figures », 2026-10-08) : le grec, les indices
+   et exposants, les signes mathématiques et les huit trigrammes ☰…☷, que
+   Barlow ne porte pas. Trois sous-ensembles de polices SIL OFL 1.1 prises
+   dans google/fonts et vérifiées à l'octet (tools/police_symboles.py les
+   recalcule) : Roboto Condensed — la famille du cyrillique, instanciée en
+   300 et 400 — pour le grec, ⁰…₉ et √ ≤ ≥ ∞ ≠ ; Noto Sans Math pour le reste
+   du bloc U+2200–22FF (∩ ∪ …) ; Noto Sans Symbols 2 pour U+2630–2637.
+   fonts/noto-sans-math/OFL.txt, fonts/noto-sans-symbols-2/OFL.txt.
 
    L'hindi (hi/, lot « hindi », 2026-10-04) : Noto Sans Devanagari, la tranche
    « devanagari » de @fontsource/noto-sans-devanagari 5.3.0 (SIL OFL 1.1,
@@ -88,8 +96,40 @@
   src: url('fonts/noto-sans-devanagari/noto-sans-devanagari-devanagari-400-normal.woff2') format('woff2');
   unicode-range: U+0900-097F, U+1CD0-1CF9, U+200C-200D, U+20A8, U+20B9, U+20F0, U+25CC, U+A830-A839, U+A8E0-A8FF;
 }
+@font-face {
+  font-family: 'Roboto Condensed LDH';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/roboto-condensed/roboto-condensed-symboles-ldh-300-normal.woff2') format('woff2');
+  unicode-range: U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+2070, U+2074-208E, U+2202, U+2206, U+220F, U+2211-2212, U+221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265;
+}
+@font-face {
+  font-family: 'Roboto Condensed LDH';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/roboto-condensed/roboto-condensed-symboles-ldh-400-normal.woff2') format('woff2');
+  unicode-range: U+0391-03A1, U+03A3-03A9, U+03B1-03C9, U+2070, U+2074-208E, U+2202, U+2206, U+220F, U+2211-2212, U+221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265;
+}
+@font-face {
+  font-family: 'Noto Sans Math LDH';
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-math/noto-sans-math-ldh.woff2') format('woff2');
+  unicode-range: U+2200-2201, U+2203-2205, U+2207-220E, U+2210, U+2213-2219, U+221B-221D, U+221F-222A, U+222C-2247, U+2249-225F, U+2261-2263, U+2266-22FF;
+}
+@font-face {
+  font-family: 'Noto Sans Symbols 2 LDH';
+  font-style: normal;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-symbols-2/noto-sans-symbols-2-ldh.woff2') format('woff2');
+  unicode-range: U+2630-2637;
+}
 :root, body {
-  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans SC LDH', 'Noto Sans Devanagari LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans SC LDH', 'Noto Sans Devanagari LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
 }
 
