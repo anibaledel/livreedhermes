@@ -25,6 +25,13 @@
 //   GRIS  — #808285, l'ancien gris par défaut de cymatique.html : le rendu
 //           monochrome du site (MONOCHROME_SITE), gris sur BLANC — 3,44:1
 //           (mesuré par check_couleurs.mjs), au-dessus du seuil de 3:1.
+//   OR    — #c9a15a, l'or de unified-patterns.html (Magic quadricolore) et le
+//           --gold du site. Ancre des GIF de navigation depuis le 8 oct. 2026,
+//           à la place de ROUGE. Sur le crème #f2ece1 des icônes, les trois
+//           nuances qu'en tire applySingleHue donnent 1,32:1 / 2,05:1 / 4,12:1,
+//           contre 2,33:1 / 4,00:1 / 8,40:1 pour le rouge : les boutons sont
+//           volontairement plus discrets, c'est une décision d'Anibal du
+//           8 octobre 2026. La lisibilité du motif repose sur la nuance sombre.
 //
 // Ce sont des défauts, pas des contraintes : toute autre teinte reste
 // choisissable dans les sélecteurs de couleur, et l'état part dans l'URL.
@@ -33,6 +40,7 @@ export const CREME = '#efeae0';
 export const ENCRE = '#23232b';
 export const GRIS = '#808285';
 export const ROUGE = '#e0261b';
+export const OR = '#c9a15a';
 export const BLANC = '#f2f2f0';
 
 // [bit 0, bit 1] : le clair est le fond, le bit 1 porte la figure.
