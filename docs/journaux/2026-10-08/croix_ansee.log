@@ -1,0 +1,33 @@
+choix bruts (2 paires par ligne, 6 lignes) : 64
+appariements cohérents                    : 8
+  dont à symétrie centrale                : 8
+critères II–III sur les lignes seules     : 8
+critères II–III sur lignes et colonnes    : 2
+
+croix 1 — traits horizontaux par ligne : [(1, 4), (2, 3), (0, 5), (0, 5), (2, 3), (1, 4)]
+· ──┼─┼── ·
+    │ │    
+│ · ┼─┼ · │
+│   │ │   │
+┼─┼─┼─┼─┼─┼
+│ │ │ │ │ │
+┼─┼─┼─┼─┼─┼
+│   │ │   │
+│ · ┼─┼ · │
+    │ │    
+· ──┼─┼── ·
+
+croix 2 — traits horizontaux par ligne : [(2, 3), (0, 5), (1, 4), (1, 4), (0, 5), (2, 3)]
+· │ ─── │ ·
+  │     │  
+──┼─┼─┼─┼──
+  │ │ │ │  
+│ ┼─┼─┼─┼ │
+│ │ │ │ │ │
+│ ┼─┼─┼─┼ │
+  │ │ │ │  
+──┼─┼─┼─┼──
+  │     │  
+· │ ─── │ ·
+
+Trois contraintes simultanées, deux croix ansées — et la symétrie centrale en est une conséquence, non une hypothèse.

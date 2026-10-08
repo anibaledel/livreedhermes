@@ -658,9 +658,10 @@ tableau de la section « Vérification »). Ce qui n'est pas de sa main, à reli
   « `tools/transcription.py` | la transcription entre les 64 assemblages d'ordre 12 et les 64
   hexagrammes, par lecture des formes et non par leur position » — le texte de la colonne est
   tiré de l'en-tête de `transcription.py`. À reporter dans l'artefact si c'est le bon choix.
-  Note : `croix_ansee.py` ne sort jamais en erreur (il imprime ses comptes sans les
-  contrôler) ; il ne peut donc pas être l'un des « scripts qui sortent en erreur dès qu'un
-  point cesse d'être vrai ». Son résultat est tenu par son journal du 2026-10-07 ;
+  ~~Note : `croix_ansee.py` ne sort jamais en erreur~~ — corrigé par Anibal le 2026-10-08 :
+  il sort en erreur si l'un de ses quatre comptes change, et la CI le relance. Il peut donc
+  entrer dans la commande unique ; **à trancher** : le tableau de la révision 72 (avec
+  `croix_ansee.py`, sans `transcription.py`), ou neuf scripts (les deux) ;
 - les **commandes** ajoutées sous les nouveaux énoncés : `verify_echelle.py` sous « Seul le
   décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
   de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page

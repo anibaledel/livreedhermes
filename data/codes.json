@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T14:10:52Z",
+ "generated_at_utc": "2026-10-08T14:14:41Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1992,8 +1992,8 @@
    "chemin": "tools/check_resultats_etablis.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_resultats_etablis.mjs",
    "octets": 17045,
-   "sha256": "67505891d8aa769b791455884953a9f9682277d3964e32aca2e1abffb937d05e",
-   "md5": "9a82d819a1a4816dda13a46e1f6a8dd7",
+   "sha256": "3690505089f8b0d9a6d506a6bd787b0948bc6e9307019178fb93d0e0687e5e70",
+   "md5": "c4d5ba6e120f3c0462ba0a1bfd3fb4fe",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "data/resultats-etablis.json dit-il vrai sur ses preuves ?",
@@ -2171,9 +2171,9 @@
   {
    "chemin": "tools/croix_ansee.py",
    "adresse": "https://anibal-amiot.com/tools/croix_ansee.py",
-   "octets": 4837,
-   "sha256": "85587a2a981c421ca46f9da0ecf0b5db72f00095d4f4d359b5741cd2013e4d06",
-   "md5": "9f49a80230bef8bb80e54069ecfc7c76",
+   "octets": 5601,
+   "sha256": "19e483a4eaeea0c3e93d5e95334b7f4402e20d93e37d61e6332bcd68c642aafd",
+   "md5": "841f3b14917c160a92dcf193f69f6cbc",
    "licence_declaree": true,
    "licence": "AGPL v3 (non-commercial) / Commercial license: anibaledel@gmail.com",
    "role": "Les croix ansées d'ordre 6 : énumération sous les critères de la planche 040.",
@@ -3427,12 +3427,12 @@
   {
    "chemin": "tools/verify_echelle.py",
    "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
-   "octets": 14889,
-   "sha256": "912bafa3fcbed7cf6fd56941386abccabb4dea03681abbcea03badc1b2beae51",
-   "md5": "112884b2f77cd671331ff2a91993b200",
+   "octets": 14882,
+   "sha256": "2f4172cf6248d6e1480203c8b0baa607a28b99ec58d724363e40327fd4d73fd3",
+   "md5": "c1b574eee5e3e724bd546101fdaf32c9",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
-   "role": "les énoncés chiffrés de l'article que les quatre autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les…",
+   "role": "les énoncés chiffrés de l'article que les autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les décala…",
    "lit": [
     "carres-ordre-6"
    ],

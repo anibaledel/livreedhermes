@@ -33,11 +33,14 @@ symétriques — la symétrie est une conséquence, pas une hypothèse),
 planche 040, l'une l'image de l'autre par un quart de tour composé avec
 l'échange des choix.
 
+Le script SORT EN ERREUR si l'un de ces quatre comptes cesse d'être celui-ci.
+Il peut donc être relancé en CI comme les autres vérificateurs.
+
 Usage
 -----
     python tools/croix_ansee.py
 """
-import itertools
+import itertools, sys
 
 N = 6
 DIAG = {(r, r) for r in range(N)} | {(r, N - 1 - r) for r in range(N)}
@@ -95,6 +98,9 @@ def dessin(traits):
     return '\n'.join(''.join(row) for row in g)
 
 
+ATTENDU = {'coherents': 8, 'symetriques': 8, 'lignes': 8, 'lignes_et_colonnes': 2}
+
+
 def main():
     options = [paires_ligne(r) for r in range(N)]
     assert all(len(o) == 2 for o in options)
@@ -114,9 +120,21 @@ def main():
     print(f"critères II–III sur les lignes seules     : {len(a)}")
     print(f"critères II–III sur lignes et colonnes    : {len(b)}")
     print()
+    obtenu = {'coherents': len(coherents),
+              'symetriques': sum(sym_centrale(t) for _, t in coherents),
+              'lignes': len(a), 'lignes_et_colonnes': len(b)}
+    ecarts = [f"{k} : {obtenu[k]} au lieu de {v}"
+              for k, v in ATTENDU.items() if obtenu[k] != v]
+
     for i, (ch, t) in enumerate(b, 1):
         print(f"croix {i} — traits horizontaux par ligne : {[ch[r] for r in range(N)]}")
         print(dessin(t)); print()
+
+    if ecarts:
+        print('\n'.join(ecarts), file=sys.stderr)
+        sys.exit(1)
+    print("Trois contraintes simultanées, deux croix ansées — et la symétrie "
+          "centrale en est une conséquence, non une hypothèse.")
 
 
 if __name__ == '__main__':

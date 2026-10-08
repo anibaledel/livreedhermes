@@ -743,12 +743,12 @@
    "preuves": [
     {
      "journal_local": {
-      "fichier": "docs/journaux/2026-10-07/croix_ansee.log",
-      "sha256": "9fc398540fcb8107f8bf8b7e8c644e2790655cf659da324f42b42809de7f44b0",
+      "fichier": "docs/journaux/2026-10-08/croix_ansee.log",
+      "sha256": "2367e32494c163c769aa73c2c3f0870ea9656b6fc3b3d3b22e98c47ddb05934d",
       "script": "tools/croix_ansee.py",
-      "script_sha256": "85587a2a981c421ca46f9da0ecf0b5db72f00095d4f4d359b5741cd2013e4d06",
+      "script_sha256": "19e483a4eaeea0c3e93d5e95334b7f4402e20d93e37d61e6332bcd68c642aafd",
       "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
-      "le": "2026-10-07"
+      "le": "2026-10-08"
      },
      "lignes": [
       "choix bruts (2 paires par ligne, 6 lignes) : 64",
@@ -764,7 +764,7 @@
    "referents": [],
    "donnees": [],
    "page": "chiffres-et-sources.html",
-   "note": "La croix ansée est un appariement des 24 cases hors diagonales par des traits, sous les trois critères de la planche 040 ; la symétrie centrale en sort comme conséquence (8/8), pas comme hypothèse. Ce n'est pas la rosace (12 cases, INHALE k ∪ EXHALE k) de tools/verify_echelle.py : voir l'entrée echelle-classes-transversales-rosaces."
+   "note": "La croix ansée est un appariement des 24 cases hors diagonales par des traits, sous les trois critères de la planche 040 ; la symétrie centrale en sort comme conséquence (8/8), pas comme hypothèse. Ce n'est pas la rosace (12 cases, INHALE k ∪ EXHALE k) de tools/verify_echelle.py : voir l'entrée echelle-classes-transversales-rosaces. Depuis le 2026-10-08, le script sort en erreur si l'un de ses quatre comptes change (correction d'Anibal) et la CI le relance ; le journal du 2026-10-07, sortie de la version précédente, reste en place."
   },
   {
    "id": "carres-solaires-256",

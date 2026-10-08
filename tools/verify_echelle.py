@@ -2,8 +2,8 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 #
-# verify_echelle.py — les énoncés chiffrés de l'article que les quatre autres
-# scripts ne couvraient pas : les six classes d'invariance de la page 059, les
+# verify_echelle.py — les énoncés chiffrés de l'article que les autres scripts
+# ne couvraient pas : les six classes d'invariance de la page 059, les
 # huit transversales, les quatre rosaces et leurs orbites, la connexité inégale
 # des deux jonctions, et les décalages (6, 0) et (0, 6) pris séparément.
 #
