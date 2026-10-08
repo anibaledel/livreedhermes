@@ -38,6 +38,7 @@ const ARTICLES_EN_ATTENTE = {
   'en/articles/verticality-chequer-mosaic-chessboard.html': 'ǚ (U+01DA, pinyin)',
   'articles/habit-du-grand-pretre.html': 'hébreu (U+05B0–05EA)',
   'en/articles/high-priests-garment.html': 'hébreu (U+05B0–05EA)',
+  'articles/formes-et-figures-transcription.html': 'grec α β γ, ≥ ∩ ∪, indices ₁ ₂, exposants ⁶ ⁹, trigrammes ☰ ☷',
 };
 export const PAGES = [
   // les articles, français et anglais, en entier — sauf ceux qui emploient
