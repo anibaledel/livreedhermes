@@ -39,6 +39,7 @@ jobs:
       - run: node tools/verify_comptes_couleurs.mjs
       - run: python3 tools/verify_quadricolore.py --json
       - run: python3 tools/verify_cle_couleurs.py
+      - run: python3 tools/verify_cle_damier.py
       - run: python3 tools/verify_pont_formes.py
       - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs

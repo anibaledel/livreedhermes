@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 10,
+  "verifie_ci": 11,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1389,6 +1389,67 @@
    ],
    "statut": "verifie_ci",
    "note": "Le script échoue si le compte n'est pas 16, si une même grille admet les deux transpositions, ou si les colonnes ne sont pas 0 et 7."
+  },
+  {
+   "id": "cle-damier-ligne-nombre-colonne-forme",
+   "intitule": "Sur le damier 16 × 16 la ligne porte un nombre ; sur le damier 8 × 8 la colonne porte une forme, qui est le trigramme inférieur écrit en position",
+   "enonce": {
+    "texte": "La ligne du damier porte un nombre, la colonne porte une forme, et cette forme est le trigramme.",
+    "langue": "fr",
+    "source": "tools/verify_cle_damier.py (Anibal), en-tête points A à E et phrase finale"
+   },
+   "valeur": {
+    "lignes_constantes": 16,
+    "colonnes_constantes_16x16": 0,
+    "valeurs_de_ligne": [
+     3,
+     9,
+     5,
+     7,
+     7,
+     5,
+     5,
+     7,
+     5,
+     7,
+     7,
+     5,
+     5,
+     7,
+     3,
+     9
+    ],
+    "recouvrement_inhale_exhale_bleu": 0,
+    "reunion_bleu": 48,
+    "colonnes_constantes_8x8": 8,
+    "formes_distinctes": 8,
+    "lignes_constantes_8x8": 0,
+    "trigramme_lu": "8/8"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cle_damier.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cle_damier.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "A. rouge + bleu dans la moitié haute : constant sur 16/16 lignes, 0/16 colonnes",
+      "    3  9  5  7  7  5  5  7  5  7  7  5  5  7  3  9",
+      "D. inhale ∩ exhale sur le bleu : [0] case(s) ; réunion : [48] cases",
+      "B. forme bleue de inhale + exhale : constante sur 8/8 colonnes (8 formes distinctes), 0/8 lignes",
+      "C. la forme de la colonne C est le trigramme C écrit en position : 8/8"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le point E (chute du pied) est imprimé mais n'est pas cité ici : (c ^ 1) // 2 == c // 2 est vrai pour tout entier, il ne relit pas les données."
   },
   {
    "id": "cle-couleurs-64-16x4",

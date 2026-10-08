@@ -1843,6 +1843,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verify_cle_damier.py",
+   "role": "la transcription entre les 16 tétragrammes et les 64 hexagrammes, lue sur les clefs de positionnement du damier.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_comptes_couleurs.mjs",
    "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
    "lit": [
