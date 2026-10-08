@@ -58,46 +58,11 @@
 # Usage : cd <racine du dépôt> && python tools/verify_cle_damier.py
 #         --formes   dessine en plus les huit formes de colonne
 
-import json, os, sys, collections
+import sys, collections
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REFERENT = os.path.join(RACINE, 'data', 'referent_256_v3.json')
+from lldh_commun import BASCULES, assemblage, carres, superposition
+
 echecs = []
-
-
-def carre(f):
-    g = [[None] * 6 for _ in range(6)]
-    for c in ('rouge', 'bleu', 'vert', 'jaune'):
-        for r, cc in f[c + '_positions']:
-            g[r][cc] = c
-    return g
-
-
-def assemblage(G, R, C):
-    """Le bloc 2 × 2 de l'échiquier en (R, C), d'ordre 12."""
-    g = [[None] * 12 for _ in range(12)]
-    for dr in range(2):
-        for dc in range(2):
-            p = G[(2 * R + dr, 2 * C + dc)]
-            for r in range(6):
-                for c in range(6):
-                    g[6 * dr + r][6 * dc + c] = p[r][c]
-    return g
-
-
-def superposition(g, couleur='bleu'):
-    """La forme d'une couleur dans inhale + exhale : le bloc réuni à son
-    décalage d'une demi-période en ligne et en colonne (page 058)."""
-    return frozenset((i, j) for i in range(12) for j in range(12)
-                     if g[i][j] == couleur or g[(i + 6) % 12][(j + 6) % 12] == couleur)
-
-
-# les trois bascules, du bord vers le centre : (poids, cases si yin, cases si yang)
-BASCULES = [
-    (4, {(0, 2), (0, 3), (5, 2), (5, 3)}, {(2, 0), (2, 5), (3, 0), (3, 5)}),
-    (2, {(1, 0), (1, 5), (4, 0), (4, 5)}, {(0, 1), (0, 4), (5, 1), (5, 4)}),
-    (1, {(2, 1), (2, 4), (3, 1), (3, 4)}, {(1, 2), (1, 3), (4, 2), (4, 3)}),
-]
 
 
 def tuile_du_trigramme(t):
@@ -109,8 +74,7 @@ def tuile_du_trigramme(t):
 
 
 def main():
-    doc = json.load(open(REFERENT, encoding='utf-8'))
-    G = {(f['row'], f['col']): carre(f) for f in doc['forms']}
+    G = carres()
 
     # A. la constante de ligne sur le damier 16 × 16
     lignes, colonnes = collections.defaultdict(set), collections.defaultdict(set)
@@ -142,7 +106,7 @@ def main():
     # B. la constante de colonne sur le damier 8 × 8
     formes_col, formes_lig = collections.defaultdict(set), collections.defaultdict(set)
     for (R, C), g in blocs.items():
-        s = superposition(g)
+        s = superposition(g, 'bleu')
         formes_col[C].add(s)
         formes_lig[R].add(s)
     nc = sum(1 for C in formes_col if len(formes_col[C]) == 1)

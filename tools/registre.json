@@ -771,6 +771,7 @@
    "role": "chaque caractère du texte d'une page surveillée se rend dans la pile de polices DÉCLARÉE, sans police du système.",
    "lit": [
     "articles/cymatique-spectre-d-un-motif.html",
+    "articles/formes-et-figures-transcription.html",
     "articles/habit-du-grand-pretre.html",
     "articles/verticalite-damier-mosaique-echiquier.html",
     "assets/fonts.css",
@@ -1493,6 +1494,24 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/lldh_commun.py",
+   "role": "ce que les vérificateurs des carrés d'ordre 6 partagent : la lecture du référent, le protocole, le carré, l'assemblage, le test magique, et les conventions des trigrammes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/pavage_miroirs.py",
+    "tools/protocole_general.py",
+    "tools/transcription.py",
+    "tools/verify_cle_damier.py",
+    "tools/verify_cle_pied.py",
+    "tools/verify_invariants.py",
+    "tools/verify_pont_formes.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/make_figures.py",
    "role": "Figures vectorielles (SVG) de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».",
    "lit": [],
@@ -1550,6 +1569,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/pavage_miroirs.py",
+   "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/planche_fonds.mjs",
    "role": "Planche de contrôle de la collection de fonds (data/fonds/collection-v1.json) : chaque vignette est la sortie de motifSvg() d'assets/bicolore-fonds.js telle quelle — ce script ne dessine rien lui-même, il range les rendus du moteur sur u…",
    "lit": [
@@ -1584,6 +1615,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/protocole_general.py",
+   "role": "le protocole en vocabulaire standard, et à tout ordre.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1739,6 +1782,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/transcription.py",
+   "role": "la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par LECTURE des formes et non par leur position.",
+   "lit": [
+    "data/referent_256_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/validate_referent.py",
    "role": "Validateur générique de référent (format v3) La Livrée d'Hermès — Anibal Edelberto Amiot (2026) Format v3 figé, contenu paramétrable : tout référent (le 360 de l'auteur, le 256 du livre, ou un référent personnalisé futur) doit satisfaire…",
    "lit": [
@@ -1784,6 +1841,16 @@
     "tools/verify_cadres_ordre12.py"
    ],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verifier_formes_figures.py",
+   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses sept vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
@@ -1871,6 +1938,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verify_cle_pied.py",
+   "role": "la cinquième clef, et le pied rendu aux deux axes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_comptes_couleurs.mjs",
    "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
    "lit": [
@@ -1920,6 +1999,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_invariants.py",
+   "role": "les invariants de l'inspir et de l'expir (page 049), et la forme que porte la LIGNE du damier.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
