@@ -45,55 +45,22 @@
 
 import json, os, sys, collections
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REFERENT = os.path.join(RACINE, 'data', 'referent_256_v3.json')
-NOM = {0b111: 'ciel', 0b101: 'feu', 0b010: 'eau', 0b000: 'terre',
-       0b110: 'vent', 0b100: 'montagne', 0b011: 'lac', 0b001: 'tonnerre'}
-ELEMENTAUX = {'ciel', 'feu', 'eau', 'terre'}
-
-# Les trois bascules du trigramme inférieur, du bord vers le centre.
-# (poids du trait, cases si yin, cases si yang) dans la tuile de 6 × 6.
-BASCULES = [
-    (4, {(0, 2), (0, 3), (5, 2), (5, 3)}, {(2, 0), (2, 5), (3, 0), (3, 5)}),
-    (2, {(1, 0), (1, 5), (4, 0), (4, 5)}, {(0, 1), (0, 4), (5, 1), (5, 4)}),
-    (1, {(2, 1), (2, 4), (3, 1), (3, 4)}, {(1, 2), (1, 3), (4, 2), (4, 3)}),
-]
-
-# La seule convention : le point de départ et le sens du cycle à quatre que
-# parcourent les deux traits du bas du trigramme supérieur, dans chaque moitié.
-CYCLE = [0b00, 0b01, 0b10, 0b11]
+# BASCULES (les trois bascules du trigramme inférieur) et CYCLE (la seule
+# convention : le point de départ et le sens du cycle à quatre des deux traits
+# du bas du trigramme supérieur) sont dans lldh_commun.py.
+from lldh_commun import (BASCULES, CYCLE, ELEMENTAUX, NOM, RACINE, assemblage,
+                         carres, jonctions as jonctions_d, superposition)
 
 echecs = []
 
 
-def carre(f):
-    g = [[None] * 6 for _ in range(6)]
-    for c in ('rouge', 'bleu', 'vert', 'jaune'):
-        for r, cc in f[c + '_positions']:
-            g[r][cc] = c
-    return g
-
-
-def assemblage(G, R, C):
-    g = [[None] * 12 for _ in range(12)]
-    for dr in range(2):
-        for dc in range(2):
-            p = G[(2 * R + dr, 2 * C + dc)]
-            for r in range(6):
-                for c in range(6):
-                    g[6 * dr + r][6 * dc + c] = p[r][c]
-    return g
-
-
 def jonctions(t):
-    h, m, b = (t >> 2) & 1, (t >> 1) & 1, t & 1
-    return int(h != m) + int(m != b)
+    return sum(jonctions_d(t))
 
 
 def lire_inferieur(g):
     """Les trois bascules de la forme bleue de la superposition diagonale."""
-    forme = {(i, j) for i in range(12) for j in range(12)
-             if g[i][j] == 'bleu' or g[(i + 6) % 12][(j + 6) % 12] == 'bleu'}
+    forme = superposition(g, 'bleu')
     tuile = {(i % 6, j % 6) for i, j in forme}
     t = 0
     for poids, yin, yang in BASCULES:
@@ -135,8 +102,7 @@ def cles_superieur(G):
 
 
 def main():
-    doc = json.load(open(REFERENT, encoding='utf-8'))
-    G = {(f['row'], f['col']): carre(f) for f in doc['forms']}
+    G = carres()
     blocs = {(R, C): assemblage(G, R, C) for R in range(8) for C in range(8)}
     cles = cles_superieur(G)
 

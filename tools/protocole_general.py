@@ -41,37 +41,11 @@
 #         --ordre N --etiquettes <fichier>   vérifie un étiquetage d'ordre N
 #         (fichier : N lignes de N caractères parmi B R V J)
 
-import json, os, sys
+import sys
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CLASSES = {'bleu': 'B', 'rouge': 'R', 'vert': 'V', 'jaune': 'J'}
+from lldh_commun import etiquetage, lire_referent, magique, protocole
+
 echecs = []
-
-
-def valeur(classe, r, c, n):
-    B = n * r + c + 1
-    V = n * r + (n - 1 - c) + 1
-    return {'B': B, 'R': n * n + 1 - B, 'V': V, 'J': n * n + 1 - V}[classe]
-
-
-def grille(etiq, n):
-    return [[valeur(etiq[r][c], r, c, n) for c in range(n)] for r in range(n)]
-
-
-def magique(g, n):
-    M = n * (n * n + 1) // 2
-    if sorted(x for ligne in g for x in ligne) != list(range(1, n * n + 1)):
-        return False, 'les n² entiers ne sont pas tous présents une fois'
-    for i in range(n):
-        if sum(g[i]) != M:
-            return False, f'ligne {i}'
-        if sum(g[r][i] for r in range(n)) != M:
-            return False, f'colonne {i}'
-    if sum(g[i][i] for i in range(n)) != M:
-        return False, 'diagonale'
-    if sum(g[i][n - 1 - i] for i in range(n)) != M:
-        return False, 'antidiagonale'
-    return True, None
 
 
 def conditions(etiq, n):
@@ -87,25 +61,20 @@ def main():
         chemin = sys.argv[sys.argv.index('--etiquettes') + 1]
         etiq = [ligne.strip() for ligne in open(chemin) if ligne.strip()]
         ok_l, ok_c = conditions(etiq, n)
-        m, pourquoi = magique(grille(etiq, n), n)
+        m, pourquoi = magique(protocole(etiq, n), n)
         print(f'ordre {n} : condition de ligne {ok_l}, condition de colonne {ok_c}, '
               f'magique {m}' + (f' ({pourquoi})' if pourquoi else ''))
         sys.exit(0 if m else 1)
 
-    doc = json.load(open(os.path.join(RACINE, 'data', 'referent_256_v3.json'),
-                        encoding='utf-8'))
+    doc = lire_referent()
     n = 6
     mag = lig = col = 0
     for f in doc['forms']:
-        etiq = [[None] * n for _ in range(n)]
-        for nom, lettre in CLASSES.items():
-            for r, c in f[nom + '_positions']:
-                etiq[r][c] = lettre
-        etiq = [''.join(ligne) for ligne in etiq]
+        etiq = [''.join(ligne) for ligne in etiquetage(f)]
         a, b = conditions(etiq, n)
         lig += a
         col += b
-        mag += magique(grille(etiq, n), n)[0]
+        mag += magique(protocole(etiq, n), n)[0]
     print(f'corpus des 256 carrés d’ordre 6')
     print(f'  condition de ligne   (B + V = {n // 2}) : {lig}/256')
     print(f'  condition de colonne (B + J = {n // 2}) : {col}/256')
@@ -116,7 +85,7 @@ def main():
     # les deux conditions sont nécessaires : un contre-exemple qui en viole une
     etiq = ['B' * n for _ in range(n)]
     a, b = conditions(etiq, n)
-    m, _ = magique(grille(etiq, n), n)
+    m, _ = magique(protocole(etiq, n), n)
     print(f'  contrôle négatif (tout en B) : conditions {a}, {b} ; magique {m}')
     if m:
         echecs.append('le contrôle négatif est magique, l’énoncé est faux')

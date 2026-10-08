@@ -27,10 +27,10 @@
 #
 # Usage : cd <racine du dépôt> && python tools/pavage_miroirs.py [--jusqua M]
 
-import json, os, sys, itertools, random
+import sys, itertools, random
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LETTRE = {'rouge': 'R', 'bleu': 'B', 'vert': 'V', 'jaune': 'J'}
+from lldh_commun import etiquetage, lire_referent, magique as magique_grille, protocole
+
 echecs = []
 
 ident = lambda e: [r[:] for r in e]
@@ -40,29 +40,9 @@ demi = lambda e: [r[::-1] for r in e[::-1]]
 OPS = {'C': ident, 'H': horiz, 'V': verti, 'D': demi}
 
 
-def etiquetage(f):
-    e = [[None] * 6 for _ in range(6)]
-    for coul, l in LETTRE.items():
-        for r, c in f[coul + '_positions']:
-            e[r][c] = l
-    return e
-
-
-def valeur(k, r, c, n):
-    B = n * r + c + 1
-    W = n * r + (n - 1 - c) + 1
-    return {'B': B, 'R': n * n + 1 - B, 'V': W, 'J': n * n + 1 - W}[k]
-
-
 def magique(e, n):
-    M = n * (n * n + 1) // 2
-    g = [[valeur(e[r][c], r, c, n) for c in range(n)] for r in range(n)]
-    if sorted(x for ligne in g for x in ligne) != list(range(1, n * n + 1)):
-        return False
-    return (all(sum(g[i]) == M for i in range(n))
-            and all(sum(g[r][i] for r in range(n)) == M for i in range(n))
-            and sum(g[i][i] for i in range(n)) == M
-            and sum(g[i][n - 1 - i] for i in range(n)) == M)
+    """L'étiquetage e d'ordre n donne-t-il, par le protocole, un carré magique ?"""
+    return magique_grille(protocole(e, n), n)[0]
 
 
 def alterne(m):
@@ -84,8 +64,7 @@ def pave(base, m, motif):
 
 
 def main():
-    doc = json.load(open(os.path.join(RACINE, 'data', 'referent_256_v3.json'),
-                         encoding='utf-8'))
+    doc = lire_referent()
     bases = [etiquetage(f) for f in doc['forms']]
     jusqua = int(sys.argv[sys.argv.index('--jusqua') + 1]) if '--jusqua' in sys.argv else 5
 

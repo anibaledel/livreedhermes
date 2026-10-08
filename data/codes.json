@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T11:49:19Z",
+ "generated_at_utc": "2026-10-08T11:51:32Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 205,
+  "scripts": 206,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -2766,6 +2766,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/lldh_commun.py",
+   "adresse": "https://anibal-amiot.com/tools/lldh_commun.py",
+   "octets": 4883,
+   "sha256": "04ddba97d07ba53b8a2620c896d5c03c5a584117472d01db9f775d0ef8728939",
+   "md5": "96da8de1f23eadd6994cc34147488866",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "ce que les vérificateurs des carrés d'ordre 6 partagent : la lecture du référent, le protocole, le carré, l'assemblage, le test magique, et les conventions des trigrammes.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/make_figures.py",
    "adresse": "https://anibal-amiot.com/tools/make_figures.py",
    "octets": 9737,
@@ -2871,15 +2888,13 @@
   {
    "chemin": "tools/pavage_miroirs.py",
    "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
-   "octets": 4501,
-   "sha256": "aa1440c68ba1f59b08dfc59b8817c8e2495251604725f967c59f3ef804bbbca8",
-   "md5": "4c72db0ffc8b053acaa17abd23977c01",
+   "octets": 3720,
+   "sha256": "f09845fe768ac02518f9b454f42402a6a366d7fdce35c56568f569fcb94933d6",
+   "md5": "a965b2fef663ac628c8ab4ad489f3189",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -2933,15 +2948,13 @@
   {
    "chemin": "tools/protocole_general.py",
    "adresse": "https://anibal-amiot.com/tools/protocole_general.py",
-   "octets": 5484,
-   "sha256": "2017c1d8ae21626139b94901b2d25508f1b9671fda902f92c9b3ec0bfceae935",
-   "md5": "9911306b73e6c4959f355c8216a117ec",
+   "octets": 4326,
+   "sha256": "e04322eb495386e2483367cef62e2a91d68d23df762499a0ffb2bdc5ae9878d3",
+   "md5": "d3c5b7931650f63d0eb09acb118b4169",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le protocole en vocabulaire standard, et à tout ordre.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3139,9 +3152,9 @@
   {
    "chemin": "tools/transcription.py",
    "adresse": "https://anibal-amiot.com/tools/transcription.py",
-   "octets": 10771,
-   "sha256": "d49f786736fd1bf0a5f52c6dd7b0e7f7f398a0bacb754da81bfe04de14158ee9",
-   "md5": "900947d80b3e90ccad1e26f8d4bcdb77",
+   "octets": 9502,
+   "sha256": "0bdb47caa747b7a1e698a052b7500b6da79e9580d6a0b7c2b5b21c9064add42a",
+   "md5": "d0fd7906771f9297be4cc10cc5a84a43",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par LECTURE des formes et non par leur position.",
@@ -3321,15 +3334,13 @@
   {
    "chemin": "tools/verify_cle_damier.py",
    "adresse": "https://anibal-amiot.com/tools/verify_cle_damier.py",
-   "octets": 9078,
-   "sha256": "1f3b289ec7ca6fc92f0dd6742eb74685688368e398fb0ed8f594fa7054cafa13",
-   "md5": "b0917ea3f0e4c9e0dda496e4163f1c16",
+   "octets": 7692,
+   "sha256": "16446aa480b41cf61562bf45533cb00dce6bf0db5840b43503a33c0281dbb7e6",
+   "md5": "685b3d39c429c097f350a1cb925a0919",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la transcription entre les 16 tétragrammes et les 64 hexagrammes, lue sur les clefs de positionnement du damier.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3338,15 +3349,13 @@
   {
    "chemin": "tools/verify_cle_pied.py",
    "adresse": "https://anibal-amiot.com/tools/verify_cle_pied.py",
-   "octets": 6927,
-   "sha256": "74032787b666207ee1fd17744dc10d38cc267c54df928ecca65c41dfad53e3e2",
-   "md5": "ec6b382cd17a208efa2927d46eaa9632",
+   "octets": 5788,
+   "sha256": "4de3410aaeed8a1bf1cbb77185e233b76704cbb4161ffa77c53bc6684a76f7e3",
+   "md5": "5d46f9810669f45cb0e1c02a1a324ccb",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la cinquième clef, et le pied rendu aux deux axes.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3418,15 +3427,13 @@
   {
    "chemin": "tools/verify_invariants.py",
    "adresse": "https://anibal-amiot.com/tools/verify_invariants.py",
-   "octets": 7873,
-   "sha256": "daae224c994679751c829de36d747c8680563ad19e789945b1f5232f2da554c1",
-   "md5": "f96040597aa889614c4f081f7c3809c7",
+   "octets": 7056,
+   "sha256": "abef36b239abb03aacfc505b8d8f77cab0646a43ebfa2010900233512e09054e",
+   "md5": "0f4e0b8b9839544d34cd1fe17d34e628",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les invariants de l'inspir et de l'expir (page 049), et la forme que porte la LIGNE du damier.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3467,15 +3474,13 @@
   {
    "chemin": "tools/verify_pont_formes.py",
    "adresse": "https://anibal-amiot.com/tools/verify_pont_formes.py",
-   "octets": 6549,
-   "sha256": "f0a8f75bb0c314c86cdee4cec947fdecc41f765201688e48af31494a03568a17",
-   "md5": "791e48eea9add1ef8102d7b5010f86a3",
+   "octets": 5649,
+   "sha256": "a7c586dcb0a68fb9dab83145fff213e1a0855f0b6c5f8b5f89509df0d73dee97",
+   "md5": "58d8dde2617f0016c00d4e251744a038",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la transcription entre les formes et les figures.",
-   "lit": [
-    "carres-ordre-6"
-   ],
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

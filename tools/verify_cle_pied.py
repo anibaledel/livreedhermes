@@ -51,56 +51,23 @@
 #
 # Usage : cd <racine du dépôt> && python tools/verify_cle_pied.py
 
-import json, os, sys, collections
+import sys, collections
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REFERENT = os.path.join(RACINE, 'data', 'referent_256_v3.json')
-NOM = {0b111: 'ciel', 0b101: 'feu', 0b010: 'eau', 0b000: 'terre',
-       0b110: 'vent', 0b100: 'montagne', 0b011: 'lac', 0b001: 'tonnerre'}
+from lldh_commun import NOM, assemblage, carres, jonctions, superposition
+
 INVERSION = {'rouge': 'bleu', 'bleu': 'rouge', 'vert': 'jaune', 'jaune': 'vert'}
 echecs = []
 
 
-def carre(f):
-    g = [[None] * 6 for _ in range(6)]
-    for c in ('rouge', 'bleu', 'vert', 'jaune'):
-        for r, cc in f[c + '_positions']:
-            g[r][cc] = c
-    return g
-
-
-def jonctions(t):
-    h, m, b = (t >> 2) & 1, (t >> 1) & 1, t & 1
-    return int(h != m), int(m != b)
-
-
-def assemblage(G, R, C):
-    g = [[None] * 12 for _ in range(12)]
-    for dr in range(2):
-        for dc in range(2):
-            p = G[(2 * R + dr, 2 * C + dc)]
-            for r in range(6):
-                for c in range(6):
-                    g[6 * dr + r][6 * dc + c] = p[r][c]
-    return g
-
-
-def superposee(g, couleur):
-    """La forme d'une couleur dans inhale + exhale (page 059)."""
-    return frozenset((i, j) for i in range(12) for j in range(12)
-                     if g[i][j] == couleur or g[(i + 6) % 12][(j + 6) % 12] == couleur)
-
-
 def main():
-    doc = json.load(open(REFERENT, encoding='utf-8'))
-    G = {(f['row'], f['col']): carre(f) for f in doc['forms']}
+    G = carres()
 
     # 1. la cinquième clef
     bleu, rouge = {}, {}
     constantes = 0
     for C in range(8):
-        fb = {superposee(assemblage(G, R, C), 'bleu') for R in range(8)}
-        fr = {superposee(assemblage(G, R, C), 'rouge') for R in range(8)}
+        fb = {superposition(assemblage(G, R, C), 'bleu') for R in range(8)}
+        fr = {superposition(assemblage(G, R, C), 'rouge') for R in range(8)}
         constantes += len(fb) == 1 and len(fr) == 1
         bleu[C], rouge[C] = next(iter(fb)), next(iter(fr))
     echange = sum(1 for C in range(8) if bleu[C] == rouge[7 - C])

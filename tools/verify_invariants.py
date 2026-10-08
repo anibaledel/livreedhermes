@@ -45,32 +45,11 @@
 # Usage : cd <racine du dépôt> && python tools/verify_invariants.py
 #         --formes   dessine en plus les huit formes de ligne
 
-import json, os, sys, collections
+import sys, collections
 
-RACINE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REFERENT = os.path.join(RACINE, 'data', 'referent_256_v3.json')
-NOM = {0b111: 'ciel', 0b101: 'feu', 0b010: 'eau', 0b000: 'terre',
-       0b110: 'vent', 0b100: 'montagne', 0b011: 'lac', 0b001: 'tonnerre'}
+from lldh_commun import NOM, assemblage, carres
+
 echecs = []
-
-
-def carre(f):
-    g = [[None] * 6 for _ in range(6)]
-    for c in ('rouge', 'bleu', 'vert', 'jaune'):
-        for r, cc in f[c + '_positions']:
-            g[r][cc] = c
-    return g
-
-
-def assemblage(G, R, C):
-    g = [[None] * 12 for _ in range(12)]
-    for dr in range(2):
-        for dc in range(2):
-            p = G[(2 * R + dr, 2 * C + dc)]
-            for r in range(6):
-                for c in range(6):
-                    g[6 * dr + r][6 * dc + c] = p[r][c]
-    return g
 
 
 def invariant(g, dr, dc):
@@ -91,8 +70,7 @@ def constantes(blocs, mesure, axe):
 
 
 def main():
-    doc = json.load(open(REFERENT, encoding='utf-8'))
-    G = {(f['row'], f['col']): carre(f) for f in doc['forms']}
+    G = carres()
     blocs = {(R, C): assemblage(G, R, C) for R in range(8) for C in range(8)}
 
     # 1. l'invariant des invariants

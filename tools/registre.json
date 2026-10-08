@@ -1493,6 +1493,24 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/lldh_commun.py",
+   "role": "ce que les vérificateurs des carrés d'ordre 6 partagent : la lecture du référent, le protocole, le carré, l'assemblage, le test magique, et les conventions des trigrammes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/pavage_miroirs.py",
+    "tools/protocole_general.py",
+    "tools/transcription.py",
+    "tools/verify_cle_damier.py",
+    "tools/verify_cle_pied.py",
+    "tools/verify_invariants.py",
+    "tools/verify_pont_formes.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/make_figures.py",
    "role": "Figures vectorielles (SVG) de la note « A Half-Shift Criterion on Three-Colour 12×12 Grids, and Its Restriction on the Cube ».",
    "lit": [],
