@@ -632,6 +632,5 @@ Ce qui n'est **pas** de sa main, à relire :
   la ligne avant « dans chaque **colonne** » que l'export avait perdu ;
 - la **meta description** et l'**extrait** de la liste des articles (l'extrait est une phrase
   de l'article) ; les catégories Géométrie, Livrée, Divination ;
-- la figure **`formes-colonne.png`** : recalculée depuis `data/referent_256_v3.json` dans le
-  style des quatre autres (l'image envoyée n'est pas arrivée en fichier). À remplacer par
-  l'originale si elle diffère.
+- ~~la figure `formes-colonne.png`~~ : remplacée le 2026-10-08 par l'originale d'Anibal
+  (mêmes cases que la version recalculée ; seules les étiquettes différaient).
