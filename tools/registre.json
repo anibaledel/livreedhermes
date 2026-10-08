@@ -1831,6 +1831,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verify_cle_couleurs.py",
+   "role": "la quatrième clef (page 068) et la transcription stricte entre les 16 tétragrammes et les 64 hexagrammes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_comptes_couleurs.mjs",
    "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
    "lit": [
@@ -1916,7 +1928,9 @@
   {
    "fichier": "tools/verify_quadricolore.py",
    "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
-   "lit": [],
+   "lit": [
+    "data/referent_256_v3.json"
+   ],
    "ecrit": [],
    "appele_par": [
     "check-referents.yml"

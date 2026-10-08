@@ -30,7 +30,11 @@
 # Le script échoue si l'un de ces six points cesse d'être vrai.
 #
 # Usage : cd <racine du dépôt> && python tools/verify_quadricolore.py
-#         --table   écrit en plus la correspondance motif → bloc
+#         --table   imprime en plus la correspondance motif → bloc
+#         --json    écrit data/quadricolore-planche047.json (le même contenu,
+#                   rangé comme l'échiquier) et sort en erreur si le fichier
+#                   déjà présent diffère de ce que le script recalcule — c'est
+#                   ce qui permet à la CI de relire le JSON versé.
 
 import json, os, re, sys, itertools, collections
 
@@ -146,6 +150,39 @@ def main():
     if len(unifies) != 16 or avec_gris & avec_jaune or sorted(colonnes) != [0, 7]:
         echecs.append(f'unified patterns : {len(unifies)} au lieu de 16, '
                       f'colonnes {sorted(colonnes)} au lieu de [0, 7]')
+
+    if '--json' in sys.argv:
+        par_bloc = {k: (n, m) for n, (k, m) in trouve.items()}
+        motifs = []
+        for R in range(8):
+            for C in range(8):
+                if (R, C) not in par_bloc:
+                    echecs.append(f'bloc R={R} C={C} sans motif : JSON non écrit')
+                    break
+                n, _ = par_bloc[(R, C)]
+                motifs.append({
+                    'rang': R, 'colonne': C,
+                    'fichier': f'assets/unified-motifs/{n}.svg',
+                    'carres_ordre6': [[2 * R, 2 * R + 1], [2 * C, 2 * C + 1]],
+                    'unified_pattern': (R, C) in unifies,
+                    'transposition': ('RB↔gris' if (R, C) in avec_gris else
+                                      'RB↔jaune' if (R, C) in avec_jaune else None),
+                })
+        doc = {
+            '_doc': "Les 64 motifs de Magic quadricolore rangés comme l'échiquier de la "
+                    "planche 047 : rang et colonne du bloc 2 × 2, fichier SVG correspondant, "
+                    "et le caractère unified pattern (invariance par demi-décalage diagonal "
+                    "à une transposition de teinte près). Écrit et vérifié par "
+                    "tools/verify_quadricolore.py --json.",
+            'source': 'data/referent_256_v3.json',
+            'motifs': motifs,
+        }
+        cible = os.path.join(RACINE, 'data', 'quadricolore-planche047.json')
+        rendu = json.dumps(doc, ensure_ascii=False, indent=1) + '\n'
+        if os.path.exists(cible) and open(cible, encoding='utf-8').read() != rendu:
+            echecs.append(f'{cible} diffère de ce que le script recalcule')
+        open(cible, 'w', encoding='utf-8').write(rendu)
+        print(f'\n{len(motifs)} motifs écrits dans data/quadricolore-planche047.json')
 
     if '--table' in sys.argv:
         print('\nmotif → bloc de l’échiquier (R, C)')

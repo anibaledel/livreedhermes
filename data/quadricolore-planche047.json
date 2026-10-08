@@ -1,0 +1,1094 @@
+{
+ "_doc": "Les 64 motifs de Magic quadricolore rangés comme l'échiquier de la planche 047 : rang et colonne du bloc 2 × 2, fichier SVG correspondant, et le caractère unified pattern (invariance par demi-décalage diagonal à une transposition de teinte près). Écrit et vérifié par tools/verify_quadricolore.py --json.",
+ "source": "data/referent_256_v3.json",
+ "motifs": [
+  {
+   "rang": 0,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/2.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 0,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/24.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/7.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/19.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/15.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/36.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/46.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 0,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/11.svg",
+   "carres_ordre6": [
+    [
+     0,
+     1
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 1,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/16.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 1,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/51.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/40.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/54.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/62.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/55.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/32.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 1,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/34.svg",
+   "carres_ordre6": [
+    [
+     2,
+     3
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 2,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/8.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 2,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/3.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/29.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/60.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/39.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/63.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/48.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 2,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/5.svg",
+   "carres_ordre6": [
+    [
+     4,
+     5
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 3,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/45.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 3,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/17.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/47.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/58.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/31.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/49.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/28.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 3,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/43.svg",
+   "carres_ordre6": [
+    [
+     6,
+     7
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 4,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/23.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 4,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/27.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/4.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/41.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/52.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/22.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/18.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 4,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/26.svg",
+   "carres_ordre6": [
+    [
+     8,
+     9
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 5,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/35.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 5,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/21.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/64.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/38.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/56.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/30.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/50.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 5,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/14.svg",
+   "carres_ordre6": [
+    [
+     10,
+     11
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 6,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/20.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 6,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/42.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/59.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/61.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/53.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/37.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/57.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 6,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/9.svg",
+   "carres_ordre6": [
+    [
+     12,
+     13
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  },
+  {
+   "rang": 7,
+   "colonne": 0,
+   "fichier": "assets/unified-motifs/12.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     0,
+     1
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔jaune"
+  },
+  {
+   "rang": 7,
+   "colonne": 1,
+   "fichier": "assets/unified-motifs/25.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     2,
+     3
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 2,
+   "fichier": "assets/unified-motifs/6.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     4,
+     5
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 3,
+   "fichier": "assets/unified-motifs/10.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     6,
+     7
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 4,
+   "fichier": "assets/unified-motifs/33.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 5,
+   "fichier": "assets/unified-motifs/13.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 6,
+   "fichier": "assets/unified-motifs/44.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     12,
+     13
+    ]
+   ],
+   "unified_pattern": false,
+   "transposition": null
+  },
+  {
+   "rang": 7,
+   "colonne": 7,
+   "fichier": "assets/unified-motifs/1.svg",
+   "carres_ordre6": [
+    [
+     14,
+     15
+    ],
+    [
+     14,
+     15
+    ]
+   ],
+   "unified_pattern": true,
+   "transposition": "RB↔gris"
+  }
+ ]
+}

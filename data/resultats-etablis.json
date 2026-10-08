@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 8,
+  "verifie_ci": 9,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1389,6 +1389,41 @@
    ],
    "statut": "verifie_ci",
    "note": "Le script échoue si le compte n'est pas 16, si une même grille admet les deux transpositions, ou si les colonnes ne sont pas 0 et 7."
+  },
+  {
+   "id": "cle-couleurs-64-16x4",
+   "intitule": "Un hexagramme vaut un tétragramme et une couleur : 64 = 16 × 4, les seize groupes étant les super-blocs 2 × 2 du damier",
+   "enonce": {
+    "texte": "Un trigramme vaut donc ses deux traits du haut, plus un bit : palindrome ou non. Un hexagramme vaut deux trigrammes, donc quatre traits du haut plus deux bits : hexagramme = tétragramme × couleur, 64 = 16 × 4",
+    "langue": "fr",
+    "source": "en-tête de tools/verify_cle_couleurs.py (Anibal), points 1 à 3"
+   },
+   "valeur": {
+    "elementaux_palindromes": "8/8 trigrammes",
+    "couples_distincts": 64,
+    "par_couleur": 16,
+    "super_blocs_quatre_couleurs": 16
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cle_couleurs.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cle_couleurs.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. élémental ⟺ palindrome, sur les 8 trigrammes : True",
+      "2. hexagramme ↔ (tétragramme, couleur) : 64/64 couples distincts ; effectifs {'BLEU': 16, 'CIEL': 16, 'GRIS': 16, 'NUIT': 16}",
+      "3. super-blocs 2 × 2 du damier portant les quatre couleurs : 16/16 ; le tétragramme du groupe est bien (ligne // 2, colonne // 2) : True"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le script échoue si l'un des points 1 à 3, ou le compte par blocs du point 4, cesse d'être vrai. Le témoin Roi Wen est imprimé, pas contrôlé : la même ligne imprime 0/16 pour les quatres consécutifs de l'ordre par poids."
   }
  ]
 }
