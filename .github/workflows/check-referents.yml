@@ -43,7 +43,7 @@ jobs:
       - run: python3 tools/verify_pont_formes.py
       - run: python3 tools/protocole_general.py
       - run: python3 tools/derivation.py
-      - run: python3 tools/pavage_miroirs.py --echantillons
+      - run: python3 tools/pavage_miroirs.py --exhaustif --echantillons
       - run: python3 tools/verify_cle_pied.py
       - run: python3 tools/verify_invariants.py
       - run: python3 tools/transcription.py --json

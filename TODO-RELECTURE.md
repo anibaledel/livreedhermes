@@ -709,11 +709,12 @@ lance avec `--echantillons` (≈ 70 s). À relire :
   d'effectifs seulement (le papier le dit ensuite en toutes lettres).
 - **`forme_annoncee`** vérifie la forme sur 8 graines, non sur les 256 ; à l'ordre 18,
   les 256 coûteraient environ 3 s de plus.
-- **Un compte exhaustif, fait pour contrôle et non versé** : à l'ordre 18, sur les
-  262 144 motifs, **4 096 = 2¹²** sont magiques pour les graines 0, 1 et 100, le même
-  ensemble pour 0 et 1, et c'est un sous-groupe de (ℤ/2)¹⁸ défini par six équations :
-  h₀ = h₆, h₁ = h₇, h₂ = h₈, v₀ = v₂, v₃ = v₅, v₆ = v₈ (blocs numérotés 3·ligne + colonne).
-  Le miroir gauche-droite y est le même pour les lignes de blocs 0 et 2, le miroir
-  haut-bas le même pour les colonnes de blocs 0 et 2. L'échantillon 70/4 000 en est un
-  estimateur cohérent (4 000 / 64 ≈ 62,5). Le papier dit la caractérisation ouverte à
-  partir de l'ordre 18 ; à Anibal de dire s'il veut ce compte dans un script.
+- ~~**Un compte exhaustif, fait pour contrôle et non versé**~~ — repris par Anibal
+  (`pavage_miroirs_4.py`) : la règle des miroirs h(i, j) = h(m−1−i, j),
+  v(i, j) = v(i, m−1−j), et `--exhaustif` énumère les 262 144 motifs de l'ordre 18 sur
+  deux graines (4 096, tous conformes à la règle). Les six équations trouvées pour
+  contrôle en sont le cas m = 3.
+- **La règle « à tout ordre »** : elle est exhaustive aux ordres 12 et 18 seulement ; aux
+  ordres 24 et 30, le script tire 64 motifs conformes (tous magiques) et 200 motifs au
+  hasard hors règle (aucun magique). L'en-tête dit « une seule règle le décrit à tout
+  ordre » : c'est démontré à 12 et 18, échantillonné au-delà.

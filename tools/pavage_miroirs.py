@@ -35,31 +35,44 @@
 # 10 × 10 blocs de trois, et chacun des quatre sous-ensembles y paraît
 # exactement vingt-cinq fois.
 #
-# LE SOUS-GROUPE DES SEIZE. Les motifs valides à l'ordre 12 ne sont pas un
-# ensemble quelconque : codés dans (Z/2)⁸ par les deux bits de miroir de chaque
-# bloc, ils forment un SOUS-GROUPE d'ordre 2⁴, le même pour les 256 graines, et
-# il est défini par quatre équations :
+# LA RÈGLE DES MIROIRS. Les motifs valides ne sont pas un ensemble quelconque :
+# codés dans (Z/2)^(2m²) par les deux bits de miroir de chaque bloc, ils forment
+# un SOUS-GROUPE, le même pour les 256 graines, et une seule règle le décrit à
+# tout ordre. En notant h(i, j) et v(i, j) les deux bits du bloc (i, j) :
 #
-#     h₀ = h₂ ,  h₁ = h₃ ,  v₀ = v₁ ,  v₂ = v₃
+#     le pavage est magique  <=>  h(i, j) = h(m−1−i, j)  et  v(i, j) = v(i, m−1−j)
 #
-# c'est-à-dire : le miroir gauche-droite ne dépend que de la COLONNE de blocs,
-# le miroir haut-bas que de la LIGNE de blocs. Un bit libre par colonne, un par
-# ligne : 2² × 2² = seize. L'alternance par parité en est un élément.
+# Le bit horizontal est invariant quand on renverse l'indice de LIGNE de blocs,
+# le bit vertical quand on renverse celui de COLONNE. C'est le même renversement
+# r <-> n−1−r que celui de la condition de bijection du protocole.
 #
-# Cette forme donne 2^(2m) étiquetages magiques à l'ordre 6m — 16/16 à l'ordre
-# 12, 64/64 à l'ordre 18. Elle est SUFFISANTE, et nécessaire au seul ordre 12 :
-# à l'ordre 18 un échantillon de motifs quelconques en donne d'autres.
+# Le décompte suit : les orbites de i <-> m−1−i sont au nombre de ceil(m/2),
+# un bit libre par orbite et par colonne, autant pour v, soit
+#
+#     2^(2m·ceil(m/2))  motifs valides à l'ordre 6m
+#
+#     ordre 12 : 2⁴ = 16        sur 4⁴ = 256
+#     ordre 18 : 2¹² = 4096     sur 4⁹ = 262144
+#     ordre 24 : 2¹⁶ = 65536    sur 4¹⁶
+#     ordre 30 : 2³⁰            sur 4²⁵
+#
+# Le cas où h ne dépend que de la colonne et v que de la ligne est un
+# sous-groupe PROPRE dès m ≥ 3 : il ne donne que 2^(2m) motifs.
 #
 # TIRAGES ALÉATOIRES. Les deux échantillons de ce script fixent leur graine de
 # hasard, pour que leurs chiffres se reproduisent à l'identique.
 #
 # Usage : cd <racine du dépôt> && python tools/pavage_miroirs.py [--jusqua M]
-#         --echantillons   ajoute les deux tirages aléatoires (plus lent)
+#         --echantillons   ajoute les deux tirages aléatoires (environ 70 s)
+#         --exhaustif      énumère les 262 144 motifs de l'ordre 18 sur deux
+#                          graines : la règle y devient démontrée et non
+#                          échantillonnée (environ 2 minutes)
 
 
 import sys, itertools, random, collections
 
-from lldh_commun import etiquetage, lire_referent, magique as magique_grille, protocole
+from lldh_commun import (etiquetage, lire_referent, magique as magique_grille, protocole,
+                         valeur)
 
 echecs = []
 
@@ -158,8 +171,146 @@ def par_bloc(m, H, V):
             for i in range(m)]
 
 
+def regle(m, H, V):
+    """La règle des miroirs : h invariant par i -> m-1-i, v par j -> m-1-j."""
+    return all(H[i][j] == H[m - 1 - i][j] and V[i][j] == V[i][m - 1 - j]
+               for i in range(m) for j in range(m))
+
+
+def pave_hv(base, m, H, V):
+    n = 6 * m
+    e = [[None] * n for _ in range(n)]
+    for i in range(m):
+        for j in range(m):
+            b = [r[:] for r in base]
+            if H[i][j]:
+                b = [r[::-1] for r in b]
+            if V[i][j]:
+                b = b[::-1]
+            for r in range(6):
+                for c in range(6):
+                    e[6 * i + r][6 * j + c] = b[r][c]
+    return e
+
+
+def regle_des_miroirs(bases, jusqua=5, tirages=64):
+    """La règle est nécessaire et suffisante, et elle donne 2^(2m·ceil(m/2))."""
+    rng = random.Random(7)
+    print('\nla règle des miroirs : h(i,j) = h(m−1−i, j) et v(i,j) = v(i, m−1−j)')
+    for m in range(2, jusqua + 1):
+        n = 6 * m
+        libres = 2 * m * ((m + 1) // 2)
+        orb = [(k, m - 1 - k) for k in range((m + 1) // 2)]
+
+        ok = ech = 0
+        for _ in range(min(2 ** libres, tirages)):
+            H = [[0] * m for _ in range(m)]
+            V = [[0] * m for _ in range(m)]
+            for j in range(m):
+                for a, b in orb:
+                    x = rng.randint(0, 1)
+                    H[a][j] = H[b][j] = x
+            for i in range(m):
+                for a, b in orb:
+                    x = rng.randint(0, 1)
+                    V[i][a] = V[i][b] = x
+            ech += 1
+            ok += magique(pave_hv(bases[rng.randrange(len(bases))], m, H, V), n)
+
+        hors = mag_hors = 0
+        for _ in range(200):
+            H = [[rng.randint(0, 1) for _ in range(m)] for _ in range(m)]
+            V = [[rng.randint(0, 1) for _ in range(m)] for _ in range(m)]
+            if regle(m, H, V):
+                continue
+            hors += 1
+            mag_hors += magique(pave_hv(bases[0], m, H, V), n)
+
+        print(f'  ordre {n:3d} (m={m}) : 2^{libres} = {2 ** libres} motifs annoncés ; '
+              f'conformes magiques {ok}/{ech} ; hors règle magiques {mag_hors}/{hors}')
+        if ok != ech or mag_hors:
+            echecs.append(f'la règle des miroirs tombe à l’ordre {n}')
+
+
+def exhaustif_ordre18(bases, graines=2):
+    """L'énumération complète à l'ordre 18 : 4096 motifs, et ce sont
+    exactement ceux de la règle. La nécessité cesse d'être échantillonnée.
+
+    On précalcule, pour chaque bloc et chaque orientation, sa contribution aux
+    sommes de lignes, de colonnes et de diagonales : le test d'un motif se
+    réduit alors à neuf additions vectorielles, et les 262 144 motifs passent
+    en quelques dizaines de secondes. La bijection n'est vérifiée que sur les
+    motifs qui franchissent les sommes.
+    """
+    m, n = 3, 18
+    M = n * (n * n + 1) // 2
+    ORI = [(0, 0), (1, 0), (0, 1), (1, 1)]
+    print(f'\nénumération exhaustive à l’ordre 18 ({4 ** (m * m)} motifs, '
+          f'{graines} graines)')
+    ref = None
+    for g in range(graines):
+        base = bases[g]
+        contrib = {}
+        for i in range(m):
+            for j in range(m):
+                for h, v in ORI:
+                    b = [r[:] for r in base]
+                    if h:
+                        b = [r[::-1] for r in b]
+                    if v:
+                        b = b[::-1]
+                    lig = [0] * n
+                    col = [0] * n
+                    d1 = d2 = 0
+                    for r in range(6):
+                        for c in range(6):
+                            R, C = 6 * i + r, 6 * j + c
+                            x = valeur(b[r][c], R, C, n)
+                            lig[R] += x
+                            col[C] += x
+                            if R == C:
+                                d1 += x
+                            if R + C == n - 1:
+                                d2 += x
+                    contrib[(i, j, h, v)] = (lig, col, d1, d2)
+
+        bons = set()
+        for mot in itertools.product(ORI, repeat=m * m):
+            lig = [0] * n
+            col = [0] * n
+            d1 = d2 = 0
+            for k, (h, v) in enumerate(mot):
+                a_, b_, c1, c2 = contrib[(k // m, k % m, h, v)]
+                for t in range(n):
+                    lig[t] += a_[t]
+                    col[t] += b_[t]
+                d1 += c1
+                d2 += c2
+            if d1 != M or d2 != M:
+                continue
+            if any(x != M for x in lig) or any(x != M for x in col):
+                continue
+            H = [[mot[i * m + j][0] for j in range(m)] for i in range(m)]
+            V = [[mot[i * m + j][1] for j in range(m)] for i in range(m)]
+            if magique(pave_hv(base, m, H, V), n):
+                bons.add(mot)
+
+        par_regle = {mot for mot in bons
+                     if regle(m, [[mot[i * m + j][0] for j in range(m)] for i in range(m)],
+                                 [[mot[i * m + j][1] for j in range(m)] for i in range(m)])}
+        memes = '' if ref is None else f', identique à la graine 0 : {bons == ref}'
+        if ref is None:
+            ref = bons
+        print(f'  graine {g} : {len(bons)} motifs magiques, dont {len(par_regle)} '
+              f'conformes à la règle{memes}')
+        if len(bons) != 4096 or par_regle != bons or (g and bons != ref):
+            echecs.append(f'l’énumération de l’ordre 18 contredit la règle (graine {g})')
+    print('  la règle est donc nécessaire et suffisante à l’ordre 18, sans échantillon')
+
+
 def sous_groupe(bases):
-    """Les motifs valides à l'ordre 12 : un sous-groupe, et ses équations."""
+    """L'énumération exhaustive à l'ordre 12 : seize, un sous-groupe, et la
+    règle les redonne exactement."""
     tous = list(itertools.product('CHVD', repeat=4))
     ref = None
     memes = 0
@@ -193,6 +344,16 @@ def sous_groupe(bases):
           f'motifs vérifiant ces équations : {reciproque}/256')
     if not eq or reciproque != 16:
         echecs.append('les quatre équations ne caractérisent pas les seize motifs')
+
+    # et ce sont exactement les motifs que donne la règle générale
+    par_regle = sum(1 for m in tous
+                    if regle(2, [[BITS[m[0]][0], BITS[m[1]][0]],
+                                 [BITS[m[2]][0], BITS[m[3]][0]]],
+                                [[BITS[m[0]][1], BITS[m[1]][1]],
+                                 [BITS[m[2]][1], BITS[m[3]][1]]]))
+    print(f'  motifs donnés par la règle des miroirs : {par_regle}/256')
+    if par_regle != 16:
+        echecs.append('la règle des miroirs ne redonne pas les seize motifs')
 
 
 def forme_annoncee(bases):
@@ -291,7 +452,10 @@ def main():
 
     blocs_de_trois(bases, ech20)
     sous_groupe(bases)
+    regle_des_miroirs(bases)
     forme_annoncee(bases[:8])
+    if '--exhaustif' in sys.argv:
+        exhaustif_ordre18(bases)
     if '--echantillons' in sys.argv:
         echantillon_ordre18(bases)
         echantillon_graines()
