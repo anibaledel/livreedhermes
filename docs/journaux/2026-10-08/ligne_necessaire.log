@@ -1,0 +1,56 @@
+$ python3 tools/ligne_necessaire.py
+ordre 6 — l’inégalité démontrée : |d·u| ≤ 2
+  ligne  0 (u =   -5), b =  4, d = 1 : l’inégalité interdit ; aucun
+  ligne  0 (u =   -5), b =  5, d = 2 : l’inégalité interdit ; aucun
+  ligne  1 (u =   -3), b =  4, d = 1 : l’inégalité interdit ; aucun
+  ligne  1 (u =   -3), b =  5, d = 2 : l’inégalité interdit ; aucun
+  ligne  2 (u =   -1), b =  4, d = 1 : l’inégalité permet ; aucun
+  ligne  2 (u =   -1), b =  5, d = 2 : l’inégalité permet ; aucun
+ordre 10 — l’inégalité démontrée : |d·u| ≤ 4
+  ligne  0 (u =   -9), b =  6, d = 1 : l’inégalité interdit ; aucun
+  ligne  0 (u =   -9), b =  7, d = 2 : l’inégalité interdit ; aucun
+  ligne  1 (u =   -7), b =  6, d = 1 : l’inégalité interdit ; aucun
+  ligne  1 (u =   -7), b =  7, d = 2 : l’inégalité interdit ; aucun
+  ligne  2 (u =   -5), b =  6, d = 1 : l’inégalité interdit ; aucun
+  ligne  2 (u =   -5), b =  7, d = 2 : l’inégalité interdit ; aucun
+  ligne  3 (u =   -3), b =  6, d = 1 : l’inégalité permet ; aucun
+  ligne  3 (u =   -3), b =  7, d = 2 : l’inégalité interdit ; aucun
+  ligne  4 (u =   -1), b =  6, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True
+  ligne  4 (u =   -1), b =  7, d = 2 : l’inégalité permet ; aucun
+ordre 14 — l’inégalité démontrée : |d·u| ≤ 6
+  ligne  0 (u =  -13), b =  8, d = 1 : l’inégalité interdit ; aucun
+  ligne  0 (u =  -13), b =  9, d = 2 : l’inégalité interdit ; aucun
+  ligne  1 (u =  -11), b =  8, d = 1 : l’inégalité interdit ; aucun
+  ligne  1 (u =  -11), b =  9, d = 2 : l’inégalité interdit ; aucun
+  ligne  2 (u =   -9), b =  8, d = 1 : l’inégalité interdit ; aucun
+  ligne  2 (u =   -9), b =  9, d = 2 : l’inégalité interdit ; aucun
+  ligne  3 (u =   -7), b =  8, d = 1 : l’inégalité interdit ; aucun
+  ligne  3 (u =   -7), b =  9, d = 2 : l’inégalité interdit ; aucun
+  ligne  4 (u =   -5), b =  8, d = 1 : l’inégalité permet ; aucun
+  ligne  4 (u =   -5), b =  9, d = 2 : l’inégalité interdit ; aucun
+  ligne  5 (u =   -3), b =  8, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True
+  ligne  5 (u =   -3), b =  9, d = 2 : l’inégalité permet ; aucun
+  ligne  6 (u =   -1), b =  8, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True
+  ligne  6 (u =   -1), b =  9, d = 2 : l’inégalité permet ; EXISTE, contrôle indépendant True
+
+$ python3 tools/ligne_necessaire.py --ordres 18
+ordre 18 — l’inégalité démontrée : |d·u| ≤ 8
+  ligne  0 (u =  -17), b = 10, d = 1 : l’inégalité interdit ; aucun
+  ligne  0 (u =  -17), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  1 (u =  -15), b = 10, d = 1 : l’inégalité interdit ; aucun
+  ligne  1 (u =  -15), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  2 (u =  -13), b = 10, d = 1 : l’inégalité interdit ; aucun
+  ligne  2 (u =  -13), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  3 (u =  -11), b = 10, d = 1 : l’inégalité interdit ; aucun
+  ligne  3 (u =  -11), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  4 (u =   -9), b = 10, d = 1 : l’inégalité interdit ; aucun
+  ligne  4 (u =   -9), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  5 (u =   -7), b = 10, d = 1 : l’inégalité permet ; aucun
+  ligne  5 (u =   -7), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  6 (u =   -5), b = 10, d = 1 : l’inégalité permet ; aucun
+  ligne  6 (u =   -5), b = 11, d = 2 : l’inégalité interdit ; aucun
+  ligne  7 (u =   -3), b = 10, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True
+  ligne  7 (u =   -3), b = 11, d = 2 : l’inégalité permet ; aucun
+  ligne  8 (u =   -1), b = 10, d = 1 : l’inégalité permet ; EXISTE, contrôle indépendant True
+  ligne  8 (u =   -1), b = 11, d = 2 : l’inégalité permet ; EXISTE, contrôle indépendant True
+

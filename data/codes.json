@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T20:06:58Z",
+ "generated_at_utc": "2026-10-08T21:14:27Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 224,
+  "scripts": 233,
   "sans_licence_declaree": 72,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1955,9 +1955,9 @@
   {
    "chemin": "tools/check_no_donnees_en_dur.py",
    "adresse": "https://anibal-amiot.com/tools/check_no_donnees_en_dur.py",
-   "octets": 9443,
-   "sha256": "391d72acc805098bcbb83389cefc6a1c7b686f83477895eea56655f0b4f54b47",
-   "md5": "c9a919e80349d17fa1923b4686614df7",
+   "octets": 9872,
+   "sha256": "12eae6fd149759c233802fea4ca3b59687a6d5d3a2439a2f26f9bc1e4c5aca25",
+   "md5": "b4c1df86533b1e7c60496aac44b08093",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Garde-fou : aucun script de tools/ ne porte de table de données codée en dur (mesures, fréquences, comptes) parallèle à ce qui existe déjà dans data/.",
@@ -2289,6 +2289,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/compte_croix.py",
+   "adresse": "https://anibal-amiot.com/tools/compte_croix.py",
+   "octets": 8798,
+   "sha256": "f761c17fc69b48f5afcf763bb8b63a7635ed900753b36347a14428850bf8cb1b",
+   "md5": "adbe8a9c994bab3ea62e2349f5d308fa",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "COMBIEN de croix ansées à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/compte_etiquetages.py",
    "adresse": "https://anibal-amiot.com/tools/compte_etiquetages.py",
    "octets": 5486,
@@ -2297,6 +2312,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "combien d'étiquetages magiques à quatre classes existe-t-il à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/compte_figures.py",
+   "adresse": "https://anibal-amiot.com/tools/compte_figures.py",
+   "octets": 8933,
+   "sha256": "905b98ad983aebf53aa70d5a828982bf47b49ab2b97e1ae747ce9404bf461761",
+   "md5": "05557a09f17a5bc9cc1782e862848755",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "combien de figures candidates à l'ordre n, et pourquoi c'est toujours une puissance de deux.",
    "lit": [],
    "ecrit": [],
    "durees": [],
@@ -2352,6 +2382,53 @@
      "source": "relevé d'Anibal, consigne « codes et résultats »"
     }
    ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/croix_ansee_n.py",
+   "adresse": "https://anibal-amiot.com/tools/croix_ansee_n.py",
+   "octets": 6390,
+   "sha256": "e6475d20f799a962a53019525c3bcdc5cdda4812929b87acde52829cbb5468a2",
+   "md5": "017457e5bbae4eb209b117455d570c29",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les critères de la planche 040 à l'ordre n.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/croix_auto.py",
+   "adresse": "https://anibal-amiot.com/tools/croix_auto.py",
+   "octets": 9743,
+   "sha256": "2aee727e69359ef3ba8068399ba23d546cd6f2f40c4475a56b3b150fb4a2b818",
+   "md5": "f1f89500f6810c894565dba5e60b3afc",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la croix ansée n'est pas un dessin libre : le carré la donne.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/croix_existence.py",
+   "adresse": "https://anibal-amiot.com/tools/croix_existence.py",
+   "octets": 4061,
+   "sha256": "4057ed8fd609f9e261e24ad5ca565d105095194dbac5a8ffb64236700276cb41",
+   "md5": "5582ce59de5516f8250677ee79b62631",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "à quels ordres existe-t-il une croix ansée ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
    "arborescence_requise": null,
    "zenodo": []
   },
@@ -2948,6 +3025,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/ligne_necessaire.py",
+   "adresse": "https://anibal-amiot.com/tools/ligne_necessaire.py",
+   "octets": 5145,
+   "sha256": "b9375a6eec476889ee9eeb149a85c8a665327d789f2539f48d9324a5008bd9d2",
+   "md5": "c14aa932247d9cc2ca71f1c67a508d5e",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "à quelles lignes l'égalité d'effectifs est-elle forcée ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/livre_html.py",
    "adresse": "https://anibal-amiot.com/tools/livre_html.py",
    "octets": 21584,
@@ -3113,6 +3205,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/parite_suit.py",
+   "adresse": "https://anibal-amiot.com/tools/parite_suit.py",
+   "octets": 4547,
+   "sha256": "33fbd1f3196e6c0e898bde7ce785c29b76018cb64d1c40ebb66820f06f7e786e",
+   "md5": "149df33aaaedbf896c62e55b8304c638",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les critères II et III suivent-ils de la condition I ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/pavage_miroirs.py",
    "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
    "octets": 19802,
@@ -3214,6 +3321,21 @@
    "lit": [
     "carres-ordre-6"
    ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/profils.py",
+   "adresse": "https://anibal-amiot.com/tools/profils.py",
+   "octets": 4880,
+   "sha256": "23fcd23a1eaf620f503294c76296b4bb4ce589147fc485c12b1390e94e375a82",
+   "md5": "97ffd088abe95021679fa318e444bdd2",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les profils SYMÉTRIQUES (a, a, b, b) réalisables à l'ordre n.",
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3393,6 +3515,21 @@
     "calques-360",
     "constructions-1024"
    ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/suite_croix.py",
+   "adresse": "https://anibal-amiot.com/tools/suite_croix.py",
+   "octets": 6701,
+   "sha256": "79efc7be391bf26be559297af71a7d8def5670daefc1b626714f13f8aa8fdaea",
+   "md5": "3b142ea6bbd595d44907beea645df11b",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "combien de croix ansées à l'ordre n ?",
+   "lit": [],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

@@ -1,0 +1,12 @@
+$ python3 tools/compte_figures.py
+ordre   6 :    6 orbites, rang   5, 2 figures candidates
+ordre   8 :   12 orbites, rang   7, 32 figures candidates
+ordre  10 :   20 orbites, rang   9, 2048 figures candidates
+ordre  12 :   30 orbites, rang  11, 524288 figures candidates
+ordre  14 :   42 orbites, rang  13, 536870912 figures candidates
+ordre  16 :   56 orbites, rang  15, 2199023255552 figures candidates
+ordre  18 :   72 orbites, rang  17, 36028797018963968 figures candidates
+ordre  22 :  110 orbites, rang  21, 618970019642690137449562112 figures candidates
+ordre  30 :  210 orbites, rang  29, 3064991081731777716716694054300618367237478244367204352 figures candidates
+ordre  42 :  420 orbites, rang  41, 1231312693637327475383720003129487931408741852202045208373384168882678805359287831606695820465153613775207124697088 figures candidates
+

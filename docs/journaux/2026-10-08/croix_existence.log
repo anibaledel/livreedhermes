@@ -1,0 +1,11 @@
+$ python3 tools/croix_existence.py
+ordre   6 : croix ansée — magique True, critères True, traits par ligne [1], par colonne [1]
+ordre   8 : AUCUNE croix ansée
+ordre  10 : croix ansée — magique True, critères True, traits par ligne [1, 3], par colonne [1, 3]
+ordre  12 : AUCUNE croix ansée
+ordre  14 : croix ansée — magique True, critères True, traits par ligne [1, 3, 5], par colonne [1, 3, 5]
+ordre  18 : croix ansée — magique True, critères True, traits par ligne [1, 3, 5, 7], par colonne [1, 3, 5, 7]
+
+$ python3 tools/croix_existence.py --ordres 16 --limite 3600
+ordre  16 : AUCUNE croix ansée
+

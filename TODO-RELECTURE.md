@@ -745,3 +745,32 @@ reproduites dans le conteneur (journaux dans `docs/journaux/2026-10-08/`). Le pa
   d'ordre 10, une d'ordre 14. Les 10 240 non pavables ne sont testées que sur 200.
 - **`portee_miroirs.py` en assertion** : question d'Anibal, en attente de sa réponse ;
   pour l'instant journal local seulement.
+
+## Livraison 14.10 : la croix ansée à l'ordre n (2026-10-08)
+
+Les neuf scripts sont versés tels quels (14.8, puis `compte_croix.py` de la 14.10). Les
+valeurs de `LIVRAISON.md` sont reproduites dans le conteneur, journaux dans
+`docs/journaux/2026-10-08/`. Les papiers (révisions 66 et 73, `.docx` et `.md`) restent hors
+du dépôt. De moi, à relire :
+
+- **Dix entrées** dans `data/resultats-etablis.json` (`croix-…`, `suite-croix-figures-6-8`,
+  `parite-suit-de-I`, `ligne-egalite-centre`, `profils-ordre-6`) : intitulés, notes, lignes
+  citées. Énoncés copiés de `LIVRAISON.md` (14.10).
+- **CI `check-etiquetages.yml`** : `croix_auto` (après `enum6`), `compte_figures`,
+  `compte_croix --ordre 6`, `croix_existence --ordres 6,8,12`,
+  `ligne_necessaire --ordres 6,10,14,18`, `profils --ordre 6`. `profils.py` ne sort pas en
+  erreur : ce sont les lignes citées qui le tiennent.
+- **Ordre 18, traits par ligne** : `croix_existence.py` imprime ici [1, 3, 5, 7], la table
+  « Existence par ordre » dit 1, 3, 5. Le solveur rend un autre carré ; la colonne « traits
+  par ligne » de cette table décrit un carré, pas l'ordre.
+- **« Retrouve 2 à l'ordre 6 et 0 à l'ordre 8 par un chemin indépendant »** (tableau des
+  fichiers, ligne `compte_croix.py`) : vrai avec `--sans-pretest` seulement ; sans le
+  drapeau, l'ordre 8 est conclu par le pré-test. L'en-tête 14.10 le dit, la ligne du tableau
+  non.
+- **L'ordre 12** n'est compté que par le pré-test (modèle complet INFEASIBLE), pas figure
+  par figure.
+- **`profils.py` à l'ordre 10** : 15 profils sur 26 « non tranché » en 60 s chacun dans le
+  conteneur.
+- **`suite_croix.py` à l'ordre 10** s'arrête au plafond (200 figures, « fin = PLAFOND ») :
+  non exhaustif, non cité.
+- **`check_no_donnees_en_dur.py`** : `('compte_figures.py', 'ATTENDU')` ajouté à la liste blanche, avec sa raison (table de valeurs attendues d'une assertion).

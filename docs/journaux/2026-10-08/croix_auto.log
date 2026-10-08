@@ -1,0 +1,47 @@
+$ python3 tools/croix_auto.py
+corpus d’ordre 6 — 256 étiquetage(s)
+    sans figure candidate (condition I non satisfaite) : 0
+    avec figure candidate (condition I satisfaite)     : 256
+    dont croix ansées (I + II + III)                   : 256
+    figures distinctes                                 : 2
+         256 : critères tenus, traits par ligne [1, 1, 1, 1, 1, 1], par colonne [1, 1, 1, 1, 1, 1]
+· ──┼─┼── ·
+    │ │    
+│ · ┼─┼ · │
+│   │ │   │
+┼─┼─┼─┼─┼─┼
+│ │ │ │ │ │
+┼─┼─┼─┼─┼─┼
+│   │ │   │
+│ · ┼─┼ · │
+    │ │    
+· ──┼─┼── ·
+
+· │ ─── │ ·
+  │     │  
+──┼─┼─┼─┼──
+  │ │ │ │  
+│ ┼─┼─┼─┼ │
+│ │ │ │ │ │
+│ ┼─┼─┼─┼ │
+  │ │ │ │  
+──┼─┼─┼─┼──
+  │     │  
+· │ ─── │ ·
+
+tous les étiquetages magiques d’ordre 6 — 18432 étiquetage(s)
+    sans figure candidate (condition I non satisfaite) : 10240
+    avec figure candidate (condition I satisfaite)     : 8192
+    dont croix ansées (I + II + III)                   : 8192
+    figures distinctes                                 : 2
+        8192 : critères tenus, traits par ligne [1, 1, 1, 1, 1, 1], par colonne [1, 1, 1, 1, 1, 1]
+    condition I seule                 : 8192
+
+équivalence à l’ordre 6, sur 18432 étiquetages :
+    condition d’effectifs par colonne : 8192
+    croix ansée au sens I + II + III  : 8192
+    pavent                            : 8192
+    colonne = croix ansée             : True
+    colonne = pavable                 : True
+    condition I ⟺ I + II + III        : True
+

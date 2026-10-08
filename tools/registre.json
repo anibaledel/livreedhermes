@@ -995,6 +995,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/compte_croix.py",
+   "role": "COMBIEN de croix ansées à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/compte_etiquetages.py",
    "role": "combien d'étiquetages magiques à quatre classes existe-t-il à l'ordre n ?",
    "lit": [],
@@ -1002,6 +1014,20 @@
    "appele_par": [],
    "utilise_par": [
     "tools/enum6.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/compte_figures.py",
+   "role": "combien de figures candidates à l'ordre n, et pourquoi c'est toujours une puissance de deux.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/compte_croix.py"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -1042,6 +1068,46 @@
     "check-referents.yml"
    ],
    "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/croix_ansee_n.py",
+   "role": "les critères de la planche 040 à l'ordre n.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/compte_croix.py",
+    "tools/compte_figures.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/croix_auto.py",
+   "role": "la croix ansée n'est pas un dessin libre : le carré la donne.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/croix_existence.py",
+   "role": "à quels ordres existe-t-il une croix ansée ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/compte_croix.py",
+    "tools/parite_suit.py"
+   ],
    "etat": "actif",
    "sait_echouer": false
   },
@@ -1395,8 +1461,15 @@
     "check-etiquetages.yml"
    ],
    "utilise_par": [
+    "tools/compte_croix.py",
+    "tools/croix_auto.py",
+    "tools/croix_existence.py",
+    "tools/ligne_necessaire.py",
     "tools/miroirs_graine.py",
-    "tools/portee_miroirs.py"
+    "tools/parite_suit.py",
+    "tools/portee_miroirs.py",
+    "tools/profils.py",
+    "tools/suite_croix.py"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -1513,6 +1586,18 @@
     "tools/check_police_pages.mjs",
     "tools/check_police_zh.mjs"
    ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/ligne_necessaire.py",
+   "role": "à quelles lignes l'égalité d'effectifs est-elle forcée ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
    "etat": "actif",
    "sait_echouer": false
   },
@@ -1638,6 +1723,16 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/parite_suit.py",
+   "role": "les critères II et III suivent-ils de la condition I ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/pavage_miroirs.py",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
    "lit": [],
@@ -1719,6 +1814,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/profils.py",
+   "role": "les profils SYMÉTRIQUES (a, a, b, b) réalisables à l'ordre n.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1873,6 +1980,19 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/suite_croix.py",
+   "role": "combien de croix ansées à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/croix_existence.py",
+    "tools/parite_suit.py"
+   ],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
