@@ -647,14 +647,12 @@ point 6 « la rosace lit le trigramme ») et `data/elements-052.json` (corrigé 
 signé de `croix_ansee.py` gardé, second `verify_echelle.py` (« soixante-six ») non versé,
 « six points » gardé dans `verify_quadricolore.py`.
 
-L'article `articles/formes-et-figures-transcription.html` est à la **révision 81** (docx
-d'Anibal ; ses dix images sont celles du dépôt, `formes-colonne.png` étant l'originale de
-#276). Par rapport à la 72 : le tableau
-« Vérification » porte `transcription.py` (aligné sur `tools/verifier_formes_figures.py`),
-et le tableau de la section des rosaces liste leurs propriétés de position, non plus les
-critères des traits de la page 040. ~~Tableau « Vérification » à aligner sur la commande
-unique~~ — fait par Anibal dans la 81 ; `croix_ansee.py` sort en erreur depuis le
-2026-10-08 et la CI le relance, sans être dans la commande unique de l'article.
+L'article `articles/formes-et-figures-transcription.html` est à la **révision 82** (lue
+dans l'artefact Claude Docs, construite sur le docx de la 81 ; mêmes mots). « neuf
+scripts » : le tableau « Vérification » porte `transcription.py` et `croix_ansee.py`, et
+`tools/verifier_formes_figures.py` relance les mêmes neuf — décision d'Anibal : chacun
+couvre un énoncé de l'article que l'autre ne couvre pas. Le tableau des rosaces liste
+leurs propriétés de position (révision 81).
 
 Ce qui n'est pas de sa main, à relire :
 
@@ -662,7 +660,7 @@ Ce qui n'est pas de sa main, à relire :
   décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
   de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page
   053 » ; `croix_ansee.py` et `verify_echelle.py` sous « Appelons rosace » ;
-- « **Huit** scripts le vérifient » (meta description) et « Les **huit** vérificateurs » dans
+- « **Neuf** scripts le vérifient » (meta description) et « Les **neuf** vérificateurs » dans
   la section « Vérifier » et dans `llms.txt`.
 - ~~`verify_echelle.py` : point 6 écrit avant le point 5 dans l'en-tête~~ — corrigé par
   Anibal (2026-10-08), code et sortie inchangés.

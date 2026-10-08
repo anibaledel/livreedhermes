@@ -3,7 +3,7 @@
 # AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 #
 # verifier_formes_figures.py — la commande unique de l'article « Les formes et
-# les figures : une transcription » : relance ses huit vérificateurs, l'un
+# les figures : une transcription » : relance ses neuf vérificateurs, l'un
 # après l'autre, et échoue dès que l'un d'eux échoue. Rien n'est écrit : la
 # transcription est relancée sans --json.
 #
@@ -17,7 +17,7 @@ import os, subprocess, sys
 ICI = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = ['protocole_general.py', 'pavage_miroirs.py', 'verify_cle_damier.py',
            'verify_pont_formes.py', 'verify_cle_pied.py', 'verify_invariants.py',
-           'transcription.py', 'verify_echelle.py']
+           'transcription.py', 'verify_echelle.py', 'croix_ansee.py']
 
 for nom in SCRIPTS:
     print(f'== tools/{nom}', flush=True)

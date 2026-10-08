@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Les formes et les figures : une transcription — La Livrée d'Hermès</title>
-<meta name="description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Huit scripts le vérifient.">
+<meta name="description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Neuf scripts le vérifient.">
 <meta property="og:title" content="Les formes et les figures : une transcription">
-<meta property="og:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Huit scripts le vérifient.">
+<meta property="og:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Neuf scripts le vérifient.">
 <meta property="og:url" content="https://anibal-amiot.com/articles/formes-et-figures-transcription.html">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png">
@@ -15,7 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png">
 <meta name="twitter:title" content="Les formes et les figures : une transcription">
-<meta name="twitter:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Huit scripts le vérifient.">
+<meta name="twitter:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Neuf scripts le vérifient.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -34,7 +34,7 @@
       "@id": "https://anibal-amiot.com/articles/formes-et-figures-transcription.html",
       "headline": "Les formes et les figures : une transcription",
       "image": "https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png",
-      "description": "Les 256 carrés d'ordre 6 de La Livrée d'Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l'orientation. Huit scripts le vérifient.",
+      "description": "Les 256 carrés d'ordre 6 de La Livrée d'Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l'orientation. Neuf scripts le vérifient.",
       "datePublished": "2026-10-08",
       "dateModified": "2026-10-08",
       "inLanguage": "fr",
@@ -334,7 +334,7 @@
       <details><summary>Sommaire</summary><nav aria-label="Sommaire de l’article"><ol><li><a href="#verifier">Vérifier</a></li><li><a href="#le-resultat">Le résultat</a></li><li><a href="#les-objets">Les objets</a></li><li><a href="#la-forme-donne-les-traits">La forme donne les traits</a></li><li><a href="#les-jonctions">Les jonctions</a></li><li><a href="#six-douze-vingt-quatre">Six, douze, vingt-quatre</a></li><li><a href="#la-constante-de-ligne">La constante de ligne</a></li><li><a href="#le-pied-est-l-orientation">Le pied est l'orientation</a></li><li><a href="#les-unified-patterns">Les unified patterns</a></li><li><a href="#le-dictionnaire">Le dictionnaire</a></li><li><a href="#verification">Vérification</a></li><li><a href="#les-rosaces-d-ordre-6">Les rosaces d'ordre 6</a></li><li><a href="#ce-qui-manque">Ce qui manque</a></li></ol></nav>
       </details>
       <h2 id="verifier">Vérifier</h2>
-      <p>Chaque énoncé chiffré de ce texte qu'un script recalcule est suivi de la commande correspondante. Les huit vérificateurs se relancent d'une seule commande, depuis la racine du <a href="https://github.com/anibaledel/livreedhermes">dépôt</a> ; elle échoue dès que l'un d'eux échoue :</p>
+      <p>Chaque énoncé chiffré de ce texte qu'un script recalcule est suivi de la commande correspondante. Les neuf vérificateurs se relancent d'une seule commande, depuis la racine du <a href="https://github.com/anibaledel/livreedhermes">dépôt</a> ; elle échoue dès que l'un d'eux échoue :</p>
       <p class="verifier"><code>python <a href="../tools/verifier_formes_figures.py">tools/verifier_formes_figures.py</a></code></p>
       <p>Les énoncés vérifiés et les lignes que chaque script doit imprimer sont rangés dans <a href="../data/resultats-etablis.json">data/resultats-etablis.json</a>.</p>
       <h2 id="le-resultat">Le résultat</h2>
@@ -447,8 +447,8 @@
       <p>Les trois bascules de la forme de colonne sont commandées par les traits bruts, une chacune, et aucune mesure de cette forme n'est égale à <i>c</i>. Sa connexité lit les jonctions, mais inégalement : 32 adjacences et 20 composantes sans jonction, 48 et 12 pour la jonction du bas, 64 et 4 pour celle du haut. Le système ne se réduit pas à une mesure unique.</p>
       <p class="verifier"><code>python <a href="../tools/verify_echelle.py">tools/verify_echelle.py</a></code></p>
       <h2 id="verification">Vérification</h2>
-      <p>Tout ce qui précède est calculé sur <code>data/referent_256_v3.json</code> et sur les 64 fichiers de <code>assets/unified-motifs</code>, par huit scripts qui sortent en erreur dès qu'un point cesse d'être vrai.</p>
-      <div class="table-defile"><table><thead><tr><th>script</th><th>ce qu'il établit</th></tr></thead><tbody><tr><td><code>tools/verify_cle_damier.py</code></td><td>la forme de colonne, les trois bascules, la non-superposition inhale / exhale</td></tr><tr><td><code>tools/verify_pont_formes.py</code></td><td>la constante de ligne et sa formule fermée, les unified patterns, la transposition de teinte</td></tr><tr><td><code>tools/verify_cle_pied.py</code></td><td>l'échange bleu / rouge, les quatre jonctions, le recouvrement à la demi-période, les deux miroirs</td></tr><tr><td><code>tools/verify_invariants.py</code></td><td>l'invariant diagonal universel, l'invariant en ligne, et la forme que portent ses traits bicolores</td></tr><tr><td><code>tools/verify_echelle.py</code></td><td>les six classes d'invariance, les huit transversales, les quatre rosaces et leurs orbites, la connexité des deux jonctions, et le décalage diagonal comme seul porteur de la constante</td></tr><tr><td><code>tools/protocole_general.py</code></td><td>le protocole en vocabulaire standard, et les deux conditions d'effectifs par ligne et par colonne</td></tr><tr><td><code>tools/pavage_miroirs.py</code></td><td>la méthode : pavage par miroirs alternés, à l'échelle du carré d'ordre 6 et à celle du bloc de 3</td></tr><tr><td><code>tools/transcription.py</code></td><td>la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par lecture des formes et non par leur position</td></tr></tbody></table></div>
+      <p>Tout ce qui précède est calculé sur <code>data/referent_256_v3.json</code> et sur les 64 fichiers de <code>assets/unified-motifs</code>, par neuf scripts qui sortent en erreur dès qu'un point cesse d'être vrai.</p>
+      <div class="table-defile"><table><thead><tr><th>script</th><th>ce qu'il établit</th></tr></thead><tbody><tr><td><code>tools/verify_cle_damier.py</code></td><td>la forme de colonne, les trois bascules, la non-superposition inhale / exhale</td></tr><tr><td><code>tools/verify_pont_formes.py</code></td><td>la constante de ligne et sa formule fermée, les unified patterns, la transposition de teinte</td></tr><tr><td><code>tools/verify_cle_pied.py</code></td><td>l'échange bleu / rouge, les quatre jonctions, le recouvrement à la demi-période, les deux miroirs</td></tr><tr><td><code>tools/verify_invariants.py</code></td><td>l'invariant diagonal universel, l'invariant en ligne, et la forme que portent ses traits bicolores</td></tr><tr><td><code>tools/verify_echelle.py</code></td><td>les six classes d'invariance, les huit transversales, les quatre rosaces et leurs orbites, la connexité des deux jonctions, et le décalage diagonal comme seul porteur de la constante</td></tr><tr><td><code>tools/protocole_general.py</code></td><td>le protocole en vocabulaire standard, et les deux conditions d'effectifs par ligne et par colonne</td></tr><tr><td><code>tools/pavage_miroirs.py</code></td><td>la méthode : pavage par miroirs alternés, à l'échelle du carré d'ordre 6 et à celle du bloc de 3</td></tr><tr><td><code>tools/transcription.py</code></td><td>la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par lecture des formes et non par leur position</td></tr><tr><td><code>tools/croix_ansee.py</code></td><td>les croix ansées de la page 040 : les trois contraintes n'en admettent que deux, et la symétrie centrale en est une conséquence et non une hypothèse</td></tr></tbody></table></div>
       <h2 id="les-rosaces-d-ordre-6">Les rosaces d'ordre 6</h2>
       <h3 id="les-huit-elements-sont-des-demi-rosaces">Les huit éléments sont des demi-rosaces</h3>
       <p>Appelons rosace — et non croix ansée, qui désigne chez l'auteur un appariement des vingt-quatre cases par des traits, et dont la page 040 n'admet que deux — la figure de douze cases qu'est la <b>paire</b> INHALE <i>k</i> ∪ EXHALE <i>k</i>. Les quatre rosaces partagent les mêmes propriétés de position, les quatre sans exception :</p>
