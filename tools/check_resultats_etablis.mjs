@@ -54,7 +54,7 @@ const lignesTableau = (rel) => [...lire(rel).toString('utf8').matchAll(/<tr><td>
 const PAGES = { 'chiffres-et-sources.html': 'en/figures-and-sources/index.html' };
 // le journal dont chaque bloc « sortie » de la page est un extrait, par script
 const JOURNAUX_PAGE = {
-  'tools/croix_ansee.py': 'docs/journaux/2026-10-07/croix_ansee.log',
+  'tools/croix_ansee.py': 'docs/journaux/2026-10-08/croix_ansee.log',
   'tools/enum_criteres.py': 'docs/journaux/2026-10-07/enum_criteres.log',
   'tools/verif_protocole.py': 'docs/journaux/2026-10-08/verif_protocole.log',
   'tools/cube_edges.py': 'docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log',
@@ -93,6 +93,18 @@ for (const d of json('data/zenodo/depots.json').depots) {
   if (id) instantane.set(id, new Map((d.fichiers || []).map((f) => [f.nom, String(f.checksum).replace(/^md5:/, '')])));
 }
 
+// Le texte seul, pour comparer un énoncé à sa copie : balisage retiré (un mot en
+// gras ou en italique reste le même mot), entités décodées, espaces réduits. Le
+// contrôle ne doit pas dicter la typographie du texte qu'il relit.
+const ENTITES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+function texteSeul(s) {
+  return s.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]*>/g, '')
+    .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, n) => n[0] === '#'
+      ? String.fromCodePoint(n[1].toLowerCase() === 'x' ? parseInt(n.slice(2), 16) : parseInt(n.slice(1), 10))
+      : ENTITES[n.toLowerCase()] ?? m)
+    .replace(/\s+/g, ' ');
+}
+
 function controler(doc) {
   const ecarts = [], attente = [], vus = new Set();
   const preuvesDe = (r) => [...(r.preuves || []), ...(r.branches || []).flatMap((b) => b.preuves || [])];
@@ -105,9 +117,8 @@ function controler(doc) {
     const e = r.enonce || {};
     if (!e.texte && !e.sans_source) ecarts.push(`${ici} : énoncé vide sans la mention SANS SOURCE`);
     if (e.texte && e.copie) {
-      const plat = (s) => s.replace(/\s+/g, ' ');
       if (!existe(e.copie)) ecarts.push(`${ici} : copie de l'énoncé introuvable (${e.copie})`);
-      else if (!plat(lire(e.copie).toString('utf8')).includes(plat(e.texte))) ecarts.push(`${ici} : l'énoncé n'est pas, à la lettre, dans ${e.copie}`);
+      else if (!texteSeul(lire(e.copie).toString('utf8')).includes(texteSeul(e.texte))) ecarts.push(`${ici} : l'énoncé n'est pas, à la lettre, dans ${e.copie}`);
     }
     // conditionnel
     if (r.conditionnel && !(r.branches || []).length) ecarts.push(`${ici} : conditionnel sans branches`);
@@ -204,6 +215,7 @@ if (process.argv.includes('--essai')) {
     ['un chiffre de la page sans résultat', (d) => { d.resultats = d.resultats.filter((x) => x.id !== 'carter-256-bits'); d.statuts.affirme--; }, /n'a pas de résultat/],
     ['une sortie de la page réécrite', (d) => { d._pages = { 'chiffres-et-sources.html': lire('chiffres-et-sources.html').toString('utf8').replace('2×2 sous le même protocole (constante 870)', '2×2 (constante 870)') }; }, /pas, au caractère/],
     ['un énoncé vidé sans SANS SOURCE', (d) => { d.resultats[0].enonce = { texte: null }; }, /SANS SOURCE/],
+    ['un énoncé dont un mot diffère de la page', (d) => { const r = d.resultats.find((x) => x.enonce?.copie?.endsWith('.html')); r.enonce.texte = r.enonce.texte.replace(/\b(\w)(\w+)/u, (m, a, b) => b + a); }, /pas, à la lettre/],
   ];
   for (const [nom, fausser, attendu] of essais) {
     const d = JSON.parse(JSON.stringify(doc));
@@ -214,7 +226,7 @@ if (process.argv.includes('--essai')) {
     ok &&= refuse;
   }
   if (!ok) { console.error('ÉCHEC de l\'essai : un fichier faussé est accepté.'); process.exit(1); }
-  console.log('Essai : les huit falsifications sont refusées.');
+  console.log('Essai : les neuf falsifications sont refusées.');
   process.exit(0);
 }
 

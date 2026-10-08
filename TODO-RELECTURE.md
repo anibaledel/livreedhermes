@@ -634,3 +634,37 @@ Ce qui n'est **pas** de sa main, à relire :
   de l'article) ; les catégories Géométrie, Livrée, Divination ;
 - ~~la figure `formes-colonne.png`~~ : remplacée le 2026-10-08 par l'originale d'Anibal
   (mêmes cases que la version recalculée ; seules les étiquettes différaient).
+
+## Échelle, rosaces et croix ansées (2026-10-08)
+
+Versés depuis les envois d'Anibal : `tools/verify_echelle.py` (version « rosace », avec le
+point 6 « la rosace lit le trigramme ») et `data/elements-052.json` (corrigé de sa main :
+« rosace », renvoi à `croix_ansee.py`). Reportés sur les scripts du dépôt, sans défaire
+`lldh_commun.py`, et à sortie identique ligne pour ligne : `pavage_miroirs.py`,
+`verify_invariants.py`, `transcription.py`, et le `--json` qui n'écrase plus de
+`transcription.py` et `verify_quadricolore.py`. Décisions confirmées par Anibal : en-tête
+signé de `croix_ansee.py` gardé, second `verify_echelle.py` (« soixante-six ») non versé,
+« six points » gardé dans `verify_quadricolore.py`.
+
+L'article `articles/formes-et-figures-transcription.html` est à la **révision 82** (lue
+dans l'artefact Claude Docs, construite sur le docx de la 81 ; mêmes mots). « neuf
+scripts » : le tableau « Vérification » porte `transcription.py` et `croix_ansee.py`, et
+`tools/verifier_formes_figures.py` relance les mêmes neuf — décision d'Anibal : chacun
+couvre un énoncé de l'article que l'autre ne couvre pas. Le tableau des rosaces liste
+leurs propriétés de position (révision 81).
+
+Ce qui n'est pas de sa main, à relire :
+
+- les **commandes** ajoutées sous les nouveaux énoncés : `verify_echelle.py` sous « Seul le
+  décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
+  de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page
+  053 » ; `croix_ansee.py` et `verify_echelle.py` sous « Appelons rosace » ;
+- « **Neuf** scripts le vérifient » (meta description) et « Les **neuf** vérificateurs » dans
+  la section « Vérifier » et dans `llms.txt`.
+- ~~`verify_echelle.py` : point 6 écrit avant le point 5 dans l'en-tête~~ — corrigé par
+  Anibal (2026-10-08), code et sortie inchangés.
+
+Le contrôle des énoncés (`tools/check_resultats_etablis.mjs`) compare maintenant au texte
+seul — balisage retiré, entités décodées, espaces réduits —, pour qu'un mot en gras dans la
+page ne fasse pas échouer la comparaison. Un essai de plus vérifie qu'un mot changé est
+toujours refusé.

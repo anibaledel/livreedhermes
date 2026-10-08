@@ -46,6 +46,8 @@ jobs:
       - run: python3 tools/verify_cle_pied.py
       - run: python3 tools/verify_invariants.py
       - run: python3 tools/transcription.py --json
+      - run: python3 tools/verify_echelle.py
+      - run: python3 tools/croix_ansee.py
       - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs
       - run: node tools/check_resultats_etablis.mjs --essai

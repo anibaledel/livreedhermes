@@ -41,7 +41,9 @@
 #
 # Usage : cd <racine du dépôt> && python tools/transcription.py
 #         --table   imprime la table des 64
-#         --json    écrit data/transcription-64.json
+#         --json    réécrit data/transcription-64.json s'il est identique au
+#                   recalcul ; s'il diffère, le script le laisse intact et
+#                   échoue, pour que l'écart reste lisible sur le disque
 
 import json, os, sys, collections
 
@@ -127,6 +129,10 @@ def main():
     print(f'1. lectures redonnant la case du damier : {lus}/64')
     if lus != 64:
         echecs.append(f'{64 - lus} assemblages mal lus')
+    print(f'   (le trigramme inférieur se lit sans convention ; celui du '
+          f'supérieur suit CYCLE = {[f"{v:02b}" for v in CYCLE]}, point de '
+          f'départ du cycle à quatre — un autre choix renumérote les huit '
+          f'formes de ligne et fait tomber ce 64/64)')
 
     # 2. parité des jonctions = élémental ou manifestation
     bons = sum(1 for e in table
@@ -186,9 +192,13 @@ def main():
         }
         rendu = json.dumps(doc, ensure_ascii=False, indent=1) + '\n'
         if os.path.exists(cible) and open(cible, encoding='utf-8').read() != rendu:
-            echecs.append(f'{cible} diffère de ce que le script recalcule')
-        open(cible, 'w', encoding='utf-8').write(rendu)
-        print(f'\n{len(table)} assemblages écrits dans data/transcription-64.json')
+            # On n'écrit PAS : écraser effacerait l'écart qu'on vient de constater.
+            echecs.append(f'{cible} diffère de ce que le script recalcule ; '
+                          f'fichier laissé intact')
+            print(f'\n{cible} diffère du recalcul — fichier NON réécrit')
+        else:
+            open(cible, 'w', encoding='utf-8').write(rendu)
+            print(f'\n{len(table)} assemblages écrits dans data/transcription-64.json')
 
     if echecs:
         print('\n' + '\n'.join(echecs), file=sys.stderr)

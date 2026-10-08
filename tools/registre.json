@@ -851,8 +851,8 @@
     "data/referents.json",
     "data/resultats-etablis.json",
     "data/zenodo/depots.json",
-    "docs/journaux/2026-10-07/croix_ansee.log",
     "docs/journaux/2026-10-07/enum_criteres.log",
+    "docs/journaux/2026-10-08/croix_ansee.log",
     "docs/journaux/2026-10-08/verif_protocole.log",
     "docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log",
     "en/figures-and-sources/index.html",
@@ -1025,9 +1025,11 @@
    "role": "Les croix ansées d'ordre 6 : énumération sous les critères de la planche 040.",
    "lit": [],
    "ecrit": [],
-   "appele_par": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
    "utilise_par": [],
-   "etat": "ponctuel",
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1872,7 +1874,7 @@
   },
   {
    "fichier": "tools/verifier_formes_figures.py",
-   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses sept vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
+   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses neuf vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
    "lit": [],
    "ecrit": [],
    "appele_par": [],
@@ -2002,6 +2004,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/verify_echelle.py",
+   "role": "les énoncés chiffrés de l'article que les autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les décala…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/verify_fonds.mjs",

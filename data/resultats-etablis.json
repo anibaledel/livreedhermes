@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 16,
+  "verifie_ci": 18,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -731,7 +731,9 @@
    "valeur": {
     "croix": 2,
     "appariements_coherents": 8,
-    "choix_bruts": 64
+    "choix_bruts": 64,
+    "a_symetrie_centrale": 8,
+    "criteres_lignes_seules": 8
    },
    "script": {
     "chemin": "tools/croix_ansee.py",
@@ -741,16 +743,18 @@
    "preuves": [
     {
      "journal_local": {
-      "fichier": "docs/journaux/2026-10-07/croix_ansee.log",
-      "sha256": "9fc398540fcb8107f8bf8b7e8c644e2790655cf659da324f42b42809de7f44b0",
+      "fichier": "docs/journaux/2026-10-08/croix_ansee.log",
+      "sha256": "2367e32494c163c769aa73c2c3f0870ea9656b6fc3b3d3b22e98c47ddb05934d",
       "script": "tools/croix_ansee.py",
-      "script_sha256": "85587a2a981c421ca46f9da0ecf0b5db72f00095d4f4d359b5741cd2013e4d06",
+      "script_sha256": "19e483a4eaeea0c3e93d5e95334b7f4402e20d93e37d61e6332bcd68c642aafd",
       "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
-      "le": "2026-10-07"
+      "le": "2026-10-08"
      },
      "lignes": [
       "choix bruts (2 paires par ligne, 6 lignes) : 64",
       "appariements cohérents                    : 8",
+      "  dont à symétrie centrale                : 8",
+      "critères II–III sur les lignes seules     : 8",
       "critères II–III sur lignes et colonnes    : 2"
      ]
     }
@@ -759,7 +763,8 @@
    "conditionnel": false,
    "referents": [],
    "donnees": [],
-   "page": "chiffres-et-sources.html"
+   "page": "chiffres-et-sources.html",
+   "note": "La croix ansée est un appariement des 24 cases hors diagonales par des traits, sous les trois critères de la planche 040 ; la symétrie centrale en sort comme conséquence (8/8), pas comme hypothèse. Ce n'est pas la rosace (12 cases, INHALE k ∪ EXHALE k) de tools/verify_echelle.py : voir l'entrée echelle-classes-transversales-rosaces. Depuis le 2026-10-08, le script sort en erreur si l'un de ses quatre comptes change (correction d'Anibal) et la CI le relance ; le journal du 2026-10-07, sortie de la version précédente, reste en place."
   },
   {
    "id": "carres-solaires-256",
@@ -1592,7 +1597,23 @@
      "48": "12/12",
      "60": "12/12"
     },
-    "motifs_ordre_12": "16/256"
+    "motifs_ordre_12": "16/256",
+    "blocs_de_trois": {
+     "regles_orientation_ordre_12": "2/256",
+     "regles": [
+      "CCCC",
+      "DDDD"
+     ],
+     "ordres_complets": {
+      "12": "256/256",
+      "18": "256/256"
+     },
+     "ordres_echantillon": {
+      "30": "20/20",
+      "42": "20/20"
+     },
+     "sous_ensembles_ordre_30": 25
+    }
    },
    "conditionnel": false,
    "referents": [
@@ -1616,12 +1637,22 @@
       "ordre  42 (7 × 7 blocs) : 12/12 sur échantillon",
       "ordre  48 (8 × 8 blocs) : 12/12 sur échantillon",
       "ordre  60 (10 × 10 blocs) : 12/12 sur échantillon",
-      "motifs de miroirs donnant un carré magique à l’ordre 12 : 16/256"
+      "motifs de miroirs donnant un carré magique à l’ordre 12 : 16/256",
+      "  règles d’orientation par bloc valides à l’ordre 12 : 2/256  (CCCC, DDDD — tout conforme, tout demi-tour)",
+      "  CCCC — ordre  12 : 256/256",
+      "  CCCC — ordre  18 : 256/256",
+      "  CCCC — ordre  30 : 20/20",
+      "  CCCC — ordre  42 : 20/20",
+      "  DDDD — ordre  12 : 256/256",
+      "  DDDD — ordre  18 : 256/256",
+      "  DDDD — ordre  30 : 20/20",
+      "  DDDD — ordre  42 : 20/20",
+      "  ordre 30, 10 × 10 blocs de trois : chaque sous-ensemble 25 fois"
      ]
     }
    ],
    "statut": "verifie_ci",
-   "note": "L'en-tête annonce aussi l'ordre 36 sur échantillon ; le script ne le teste pas (échantillons aux ordres 42, 48, 60). Les lignes citées sont celles qu'il imprime."
+   "note": "L'en-tête annonçait l'ordre 36 sur échantillon ; Anibal l'a corrigé (2026-10-08) : ordres 6 à 30 complets, 42, 48, 60 sur échantillon, les trois que le script teste. Section ajoutée : l'unité du pavage est le bloc de 3 × 3 de la page 034."
   },
   {
    "id": "invariants-inspir-expir",
@@ -1656,6 +1687,7 @@
       "   couleurs de l’invariant diagonal : {'jaune': 1536, 'vert': 1536}",
       "2. inv(6,0) : constant par ligne True, par colonne False ; 2 forme(s), séparant les deux moitiés : True",
       "2. inv(0,6) : constant par ligne True, par colonne False ; 2 forme(s), séparant les deux moitiés : True",
+      "   les deux invariants portent les mêmes formes : True ; échangées entre les moitiés : True",
       "3. traits bicolores de inv(6,0) : constants par ligne True, par colonne False ; 8 formes distinctes de [24] cases",
       "4. orbites : 10 au total, dont 2 noyaux de moitié et 8 paires",
       "   paires de la moitié haute : [(0, 1), (0, 3), (1, 2), (2, 3)]"
@@ -1663,7 +1695,7 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "L'en-tête dit que inv(0,6) donne « les deux mêmes formes, échangées » que inv(6,0) ; le script vérifie que chacun a deux formes séparant les moitiés, pas qu'elles sont les mêmes."
+   "note": "« inv(0,6) donne les deux mêmes formes, échangées » est vérifié depuis le 2026-10-08 (ligne « les deux invariants portent les mêmes formes »), et le script échoue si ça cesse d'être vrai."
   },
   {
    "id": "transcription-64-lecture",
@@ -1696,6 +1728,7 @@
      "ci": ".github/workflows/check-referents.yml",
      "lignes": [
       "1. lectures redonnant la case du damier : 64/64",
+      "   (le trigramme inférieur se lit sans convention ; celui du supérieur suit CYCLE = ['00', '01', '10', '11'], point de départ du cycle à quatre — un autre choix renumérote les huit formes de ligne et fait tomber ce 64/64)",
       "2. parité des jonctions = élémental / manifestation : 64/64",
       "3. unified patterns prédits par la lecture : 16, observés : 16, identiques : True",
       "4. constante de ligne conforme à la formule : 16/16"
@@ -1703,7 +1736,124 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "La table des formes du trigramme supérieur est construite sur la colonne 0 à partir du rang R (CYCLE, seule convention déclarée) ; le 64/64 du supérieur établit donc que la forme est constante par ligne et distincte, la valeur du trigramme venant de la convention. --json relit data/transcription-64.json au même octet."
+   "note": "La table des formes du trigramme supérieur est construite sur la colonne 0 à partir du rang R (CYCLE, seule convention déclarée) ; le 64/64 du supérieur établit donc que la forme est constante par ligne et distincte, la valeur du trigramme venant de la convention. --json relit data/transcription-64.json au même octet. Le script le dit lui-même sous le 64/64 (ligne « CYCLE = »)."
+  },
+  {
+   "id": "echelle-classes-transversales-rosaces",
+   "intitule": "Six classes d'invariance, huit transversales de la page 052, quatre rosaces en huit figures, connexité inégale des jonctions, seul le décalage diagonal donne la constante",
+   "enonce": {
+    "texte": "Six classes, huit transversales, quatre rosaces : l’échelle se referme.",
+    "langue": "fr",
+    "source": "tools/verify_echelle.py (Anibal), phrase finale ; en-tête points 1 à 5"
+   },
+   "valeur": {
+    "classes": 6,
+    "cases_par_classe": 16,
+    "cases_par_quadrant": 4,
+    "transversales_page_052": "8/8",
+    "demi_tour": "4/4",
+    "transversales_du_corpus": "0/512",
+    "rosaces": 4,
+    "figures_sous_symetries": 8,
+    "orbites": 4,
+    "cases_support": 24,
+    "couverture": 2,
+    "connexite": {
+     "aucune": [
+      32,
+      20
+     ],
+     "coeur-ventre": [
+      48,
+      12
+     ],
+     "tete-coeur": [
+      64,
+      4
+     ],
+     "les_deux": [
+      48,
+      12
+     ]
+    },
+    "decalage_constant_par_colonne": "(6, 6) seul"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "data/elements-052.json"
+   ],
+   "script": {
+    "chemin": "tools/verify_echelle.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. classes d’invariance : 6, de [16] cases ; complémentaires deux à deux : 6/6",
+      "   un trait par paire : {'bas': 2, 'haut': 2, 'milieu': 2} ; cases par quadrant de 6 × 6 : [(4, 4, 4, 4)]",
+      "2. éléments de la page 052 transversaux des six classes : 8/8 ; EXHALE k = demi-tour d’INHALE k : 4/4",
+      "   formes rouges ou bleues du corpus qui sont transversales : 0/512 — les éléments sont une donnée de la planche, pas du corpus",
+      "3. rosaces : 4 ; douze cases, deux par ligne et par colonne, hors diagonales, à symétrie centrale : True",
+      "   (la croix ansée de la page 040 est un autre objet, et il n’y en a que deux : voir tools/croix_ansee.py)",
+      "   fermées sous les huit symétries du carré : 8 figures, en 4 orbites de [2]",
+      "   support = les 24 cases hors diagonales : True ; couverture par les quatre rosaces : [2] sur 24 cases",
+      "4. connexité des formes de colonne, par couple de jonctions (rouge et bleu réunis)",
+      "   d₁=0 d₂=0  aucune              32 adjacences, 20 composantes",
+      "   d₁=0 d₂=1  cœur-ventre seule   48 adjacences, 12 composantes",
+      "   d₁=1 d₂=0  tête-cœur seule     64 adjacences,  4 composantes",
+      "   d₁=1 d₂=1  les deux            48 adjacences, 12 composantes",
+      "5. formes de colonne selon le décalage",
+      "   décalage (6, 6) : constante par colonne True, par ligne False",
+      "   décalage (6, 0) : constante par colonne False, par ligne False",
+      "   décalage (0, 6) : constante par colonne False, par ligne False"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Les huit éléments INHALE k / EXHALE k sont une donnée de la planche 052 (data/elements-052.json), pas une conséquence du corpus : le script vérifie aussi 0/512. La rosace n'est pas la croix ansée (entrée croix-ansees-2, tools/croix_ansee.py, deux figures)."
+  },
+  {
+   "id": "rosace-lit-le-trigramme",
+   "intitule": "Un élément de la page 052, lu sur ses six cases, distingue les huit colonnes du damier ; trois cases suffisent, une par trait",
+   "enonce": {
+    "texte": "Lire ces six cases sur une ligne du damier distingue les huit colonnes : huit éléments sur huit lignes, 64 fois sur 64. Et trois cases suffisent, une par trait — il y a huit triplets qui marchent dans un élément de six.",
+    "langue": "fr",
+    "source": "articles/formes-et-figures-transcription.html, « À quoi sert une rosace » (révision 71 d'Anibal)",
+    "copie": "articles/formes-et-figures-transcription.html"
+   },
+   "valeur": {
+    "elements_x_lignes": "64/64",
+    "cases_suffisantes": 3,
+    "triplets_par_element": 8
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "data/elements-052.json"
+   ],
+   "script": {
+    "chemin": "tools/verify_echelle.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "6. un élément lu sur ses six cases distingue les huit colonnes : 64/64 (8 éléments × 8 lignes du damier)",
+      "   cases nécessaires et suffisantes : [3], [8] triplets par élément — six cases = trois traits lus deux fois"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Point 6 de tools/verify_echelle.py."
   },
   {
    "id": "cle-pied-jonctions-miroirs",
