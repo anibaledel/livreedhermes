@@ -1,6 +1,6 @@
 {
  "format_version": "referents-v1",
- "generated_at_utc": "2026-10-08T11:49:20Z",
+ "generated_at_utc": "2026-10-08T12:00:03Z",
  "generator_tool": "tools/index_referents.mjs",
  "_doc": "Index des référents de données de La Livrée d'Hermès : une entrée par référent, avec son adresse, son empreinte SHA-256, ses clés de version, le script qui l'écrit, ceux qui le vérifient, et les pages qui s'en servent. Écrit par tools/index_referents.mjs ; --verifie (en CI) échoue dès qu'un référent diverge de son entrée. Les empreintes sont aussi dans data/SHA256SUMS.txt (cd data && sha256sum -c SHA256SUMS.txt).",
  "site": "https://anibal-amiot.com/",
@@ -55,6 +55,7 @@
     "data/referent_256_src/MANIFEST.json"
    ],
    "pages": [
+    "articles/formes-et-figures-transcription.html",
     "encodeur.html",
     "travaux/half-shift-criterion-scripts/index.html"
    ],

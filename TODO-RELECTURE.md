@@ -619,3 +619,19 @@ Sous le tableau de `chiffres-et-sources.html`, une phrase renvoie à
 `data/resultats-etablis.json`. Sa traduction anglaise, espagnole et thaïe est écrite
 pour ce lot, **sans source** (`data/outils-langues/chiffres-et-sources.json`, dernière
 entrée) : à relire dans les trois langues.
+
+## Article « Les formes et les figures : une transcription » (2026-10-08)
+
+`articles/formes-et-figures-transcription.html` : le corps est la révision 46 de l'artefact
+Claude Docs d'Anibal, recopiée mot pour mot (contrôle : mêmes mots que l'export Markdown).
+Ce qui n'est **pas** de sa main, à relire :
+
+- la section **« Vérifier »** en tête (trois phrases) et les **commandes** posées sous les
+  énoncés chiffrés (`python tools/…`), demandées par `PROMPT-integration.md` ;
+- les deux **formules**, réécrites en HTML (le site ne rend pas le LaTeX), et un retour à
+  la ligne avant « dans chaque **colonne** » que l'export avait perdu ;
+- la **meta description** et l'**extrait** de la liste des articles (l'extrait est une phrase
+  de l'article) ; les catégories Géométrie, Livrée, Divination ;
+- la figure **`formes-colonne.png`** : recalculée depuis `data/referent_256_v3.json` dans le
+  style des quatre autres (l'image envoyée n'est pas arrivée en fichier). À remplacer par
+  l'originale si elle diffère.

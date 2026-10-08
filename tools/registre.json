@@ -1843,6 +1843,16 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verifier_formes_figures.py",
+   "role": "la commande unique de l'article « Les formes et les figures : une transcription » : relance ses sept vérificateurs, l'un après l'autre, et échoue dès que l'un d'eux échoue.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_bicolore_axes_catalogue.mjs",
    "role": "Contrôle (a) — inter-implémentation.",
    "lit": [],

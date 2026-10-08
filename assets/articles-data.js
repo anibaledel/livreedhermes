@@ -26,6 +26,17 @@ window.ARTICLE_CATEGORIES = ["Livrée", "Verticalité", "Divination", "Géométr
 
 window.ARTICLES = [
   {
+    slug: "formes-et-figures-transcription",
+    url: "https://anibal-amiot.com/articles/formes-et-figures-transcription.html",
+    title: "Les formes et les figures : une transcription",
+    dateISO: "2026-10-08",
+    dateDisplay: "Publié le 8 octobre 2026",
+    categories: ["Géométrie", "Livrée", "Divination"],
+    excerpt: "Le fait saillant, qu'on ne pouvait pas deviner : le trigramme est porté par la forme, le pied par l'orientation.",
+    cover: "https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png",
+    coverAlt: "Les quatre groupes de jonctions, rouge et bleu réunis"
+  },
+  {
     slug: "tissage-sacre-symbolisme",
     url: "https://anibal-amiot.com/articles/tissage-sacre-symbolisme.html",
     title: "Le tissage et le sacré : la fonction ésotérique du fil à travers les traditions",

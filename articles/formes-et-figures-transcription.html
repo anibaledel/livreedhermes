@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Les formes et les figures : une transcription — La Livrée d'Hermès</title>
+<meta name="description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Sept scripts le vérifient.">
+<meta property="og:title" content="Les formes et les figures : une transcription">
+<meta property="og:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Sept scripts le vérifient.">
+<meta property="og:url" content="https://anibal-amiot.com/articles/formes-et-figures-transcription.html">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png">
+<meta property="article:published_time" content="2026-10-08">
+<link rel="canonical" href="https://anibal-amiot.com/articles/formes-et-figures-transcription.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png">
+<meta name="twitter:title" content="Les formes et les figures : une transcription">
+<meta name="twitter:description" content="Les 256 carrés d&#x27;ordre 6 de La Livrée d&#x27;Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l&#x27;orientation. Sept scripts le vérifient.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    },
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/articles/formes-et-figures-transcription.html",
+      "headline": "Les formes et les figures : une transcription",
+      "image": "https://anibal-amiot.com/assets/articles/formes-figures/jonctions.png",
+      "description": "Les 256 carrés d'ordre 6 de La Livrée d'Hermès sur un damier de tétragrammes : le trigramme est porté par la forme, le pied par l'orientation. Sept scripts le vérifient.",
+      "datePublished": "2026-10-08",
+      "dateModified": "2026-10-08",
+      "inLanguage": "fr",
+      "keywords": [
+        "carré magique",
+        "ordre 6",
+        "tétragrammes",
+        "trigrammes",
+        "hexagrammes",
+        "Yi King",
+        "unified patterns",
+        "jonctions",
+        "miroirs",
+        "vérification"
+      ],
+      "author": {
+        "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "La Livrée d'Hermès",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://anibal-amiot.com/assets/title-logo-footer.png"
+        }
+      },
+      "url": "https://anibal-amiot.com/articles/formes-et-figures-transcription.html",
+      "mainEntityOfPage": "https://anibal-amiot.com/articles/formes-et-figures-transcription.html",
+      "isPartOf": {
+        "@type": "Blog",
+        "name": "Articles — La Livrée d'Hermès",
+        "url": "https://anibal-amiot.com/articles.html"
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Accueil",
+      "item": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Articles",
+      "item": "https://anibal-amiot.com/articles.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Les formes et les figures : une transcription",
+      "item": "https://anibal-amiot.com/articles/formes-et-figures-transcription.html"
+    }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:calc(28px + var(--fs-bump)); letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 20px; }
+
+  .breadcrumb{ max-width:64ch; margin:0 auto 20px; text-align:center; font-size:calc(11px + var(--fs-bump)); letter-spacing:.03em; color:var(--dim); }
+  .breadcrumb a{ color:var(--dim); text-decoration:none; }
+  .breadcrumb a:hover{ color:var(--gold); }
+  .breadcrumb .sep{ margin:0 6px; opacity:.5; }
+  .breadcrumb [aria-current]{ color:var(--gold); }
+
+  /* ---------- article ---------- */
+  .article-body{ padding:24px 0 8px; }
+  .article-title{ max-width:64ch; margin:0 auto 8px; font-size:calc(26px + var(--fs-bump)); font-weight:400; line-height:1.35; text-align:center; }
+  .article-date{ max-width:64ch; margin:0 auto 14px; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); font-style:italic; text-align:center; }
+  .article-date a{ color:var(--dim); }
+  .article-date a:hover{ color:var(--gold); }
+  .article-badges{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; max-width:64ch; margin:0 auto 22px; }
+  .article-badge{ border:1px solid var(--line); color:var(--gold); font-size:calc(9.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; }
+  .article-content{ max-width:64ch; margin:0 auto; text-align:center; color:var(--dim); font-size:calc(15px + var(--fs-bump)); line-height:1.8; }
+  .article-content h2{
+    color:var(--gold); font-size:calc(15px + var(--fs-bump)); font-weight:400; letter-spacing:.02em;
+    margin:34px 0 14px; text-align:center;
+  }
+  .article-content h3{
+    color:var(--dim); font-size:calc(13px + var(--fs-bump)); font-weight:400; font-style:italic;
+    margin:26px 0 12px; text-align:center;
+  }
+  .article-content p{ margin:0 0 18px; }
+  .article-content p:last-child{ margin-bottom:0; }
+  .article-content b{ color:var(--white); font-weight:400; }
+  .article-content i{ color:var(--white); font-style:italic; }
+  .article-content hr{ border:none; border-top:1px solid var(--line); margin:30px 0; }
+  .article-content table{
+    width:100%; margin:0 0 22px; border-collapse:collapse; text-align:left;
+    font-size:calc(12.5px + var(--fs-bump));
+  }
+  .article-content th, .article-content td{ padding:7px 10px; border-bottom:1px solid var(--line); }
+  .article-content th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
+  .article-content figure{ margin:0 0 22px; }
+  .article-content figure img{ width:100%; height:auto; display:block; border:1px solid var(--line); background:#000; }
+  .article-content figcaption{ font-size:calc(11.5px + var(--fs-bump)); color:var(--dim); margin-top:8px; font-style:italic; line-height:1.5; }
+  .article-content figcaption a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content figcaption a:hover{ text-decoration-color:currentColor; }
+  .article-epigraph{ font-size:calc(14.5px + var(--fs-bump)); font-style:italic; color:var(--gold); margin:0 0 22px; }
+  .article-content ul{ text-align:left; margin:0 0 18px; padding-left:1.4em; }
+  .article-content li{ margin:0 0 6px; }
+  .article-content ul.article-sources a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  /* La figure est un SVG EN LIGNE (tools/figure_en_ligne.mjs) : vectorielle,
+     son texte prend la police du site (font-family:inherit) et se lit à toute
+     taille. En entier sur un écran large ; sous 640 px, ses trois grilles
+     passent l'une sous l'autre plutôt que de rétrécir : chaque vue est un
+     petit <svg viewBox="cadrage"> qui réutilise la même figure par <use>. */
+  .article-content figure.figure-svg svg{ display:block; width:100%; height:auto; }
+  .figure-etroite{ display:none; }
+  @media (max-width:640px){
+    .article-content figure.figure-svg .figure-large{ display:none; }
+    .figure-etroite{ display:flex; flex-direction:column; align-items:center; background:#efeae0; border:1px solid var(--line); padding:8px 0; }
+    .article-content figure.figure-svg .figure-etroite .vue-grille{ width:min(100%, 300px); }
+    .article-content figure.figure-svg .figure-etroite .vue-operation{ width:72px; }
+    .article-content figure.figure-svg .figure-etroite .vue-formule{ width:100%; }
+  }
+  /* le code garde la police du site : une police à chasse fixe du système
+     n'aurait ni la même allure ni, partout, le ā */
+  .article-content code{ font-family:inherit; }
+  .article-sources{ font-size:calc(12.5px + var(--fs-bump)); opacity:.85; }
+
+  .article-back-bottom{ display:block; max-width:64ch; margin:40px auto 0; color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; text-decoration:none; text-align:center; }
+  .article-back-bottom:hover{ color:var(--gold); }
+  .article-nav-links{ display:flex; justify-content:space-between; gap:16px; max-width:64ch; margin:24px auto 0; flex-wrap:wrap; }
+  .article-nav-links a{ color:var(--dim); font-size:calc(11.5px + var(--fs-bump)); line-height:1.5; text-decoration:none; max-width:48%; }
+  .article-nav-links a:hover{ color:var(--gold); }
+  .article-nav-links .nav-label{ display:block; font-size:calc(9.5px + var(--fs-bump)); text-transform:uppercase; letter-spacing:.08em; color:var(--gold); margin-bottom:4px; }
+  .article-nav-links .nav-next{ text-align:right; margin-left:auto; }
+  @media (max-width:480px){ .article-nav-links a{ max-width:100%; } .article-nav-links .nav-next{ text-align:left; margin-left:0; } }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{
+    margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{
+    margin-top:6px; display:flex; align-items:center; justify-content:center;
+    font-size:calc(10px + var(--fs-bump)); color:var(--dim);
+  }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn.disabled{ opacity:.35; cursor:default; }
+  .nav-tiles{
+    display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;
+    max-width:840px; margin:18px auto 0;
+  }
+  .nav-tiles > .nav-tile:last-child:nth-child(odd){
+    grid-column:1 / -1; max-width:calc(50% - 6px); justify-self:center;
+  }
+  .nav-tile{
+    display:flex; flex-direction:row; align-items:center; gap:10px;
+    padding:6px 10px; border:1px solid var(--line-strong); text-decoration:none; color:var(--dim);
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .nav-tile:hover{ border-color:var(--gold); }
+  .nav-tile-icon{
+    width:72px; height:72px; flex-shrink:0; display:block;
+    background-repeat:repeat; background-size:36px 36px;
+    background-image:var(--rest-icon);
+    image-rendering:pixelated;
+  }
+  .nav-tile:hover .nav-tile-icon{ background-image:var(--hover-icon); }
+  @media (prefers-reduced-motion: reduce){
+    .nav-tile:hover .nav-tile-icon{ background-image:var(--rest-icon); }
+  }
+  .nav-tile-body{ display:flex; flex-direction:column; justify-content:center; min-width:0; }
+  .nav-tile-label{ font-size:calc(13px + var(--fs-bump)); letter-spacing:.04em; text-transform:uppercase; line-height:1.3; margin:0 0 3px; color:var(--white); }
+  .nav-tile:hover .nav-tile-label{ color:var(--gold); }
+  .nav-tile-excerpt{
+    font-size:calc(11.5px + var(--fs-bump)); line-height:1.4; color:var(--dim); margin:0; min-height:calc((11.5px + var(--fs-bump)) * 2.8);
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .note > .center-logo-slot{ order:1; }
+  .note > .nav-tiles{ order:2; }
+  .note > .footer-caduceus{ order:3; }
+  .note > .site-nav-btn{ order:4; }
+  .note > .nav-tiles.nav-tiles-group-2{ order:5; }
+  .note > .center-logo-slot.center-logo-slot-bottom{ order:6; }
+  .note > .share-buttons{ order:7; }
+  .note > .credit-line{ order:8; }
+  .note > .footer-title-logo{ order:9; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  /* ---------- mobile : mise en page ---------- */
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:calc(22px + var(--fs-bump)); }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:calc(19px + var(--fs-bump)); letter-spacing:.02em; }
+    header p{ font-size:calc(14px + var(--fs-bump)); }
+    .article-title{ font-size:calc(21px + var(--fs-bump)); }
+    .article-content{ font-size:calc(14.5px + var(--fs-bump)); }
+  }
+
+  /* ---------- article long à sommaire ---------- */
+  .article-content.texte-long{ text-align:left; }
+  .article-content.texte-long h2{ text-align:left; scroll-margin-top:20px; }
+  .article-content a.renvoi{ color:var(--gold); font-size:calc(11px + var(--fs-bump)); white-space:nowrap; text-decoration:none; }
+  .article-content a.renvoi:hover{ text-decoration:underline; }
+  .article-content p a:not(.renvoi), .article-content details a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .article-content details{ border:1px solid var(--line); padding:12px 18px; margin:0 0 26px; }
+  .article-content summary{ cursor:pointer; color:var(--gold); letter-spacing:.04em; }
+  .article-content details ol{ margin:10px 0 0; padding-left:1.4em; }
+  .article-content details li{ margin:5px 0; }
+  .article-content p.reference{ font-size:calc(12.5px + var(--fs-bump)); line-height:1.65; margin:0 0 10px; overflow-wrap:anywhere; }
+  .article-content p.reference:target{ outline:1px solid var(--gold); outline-offset:4px; }
+
+  .article-content blockquote{ margin:0 0 18px; padding:8px 18px; border-left:1px solid var(--gold); color:var(--white); }
+  .article-content p.formule{ text-align:center; color:var(--white); font-size:calc(15px + var(--fs-bump)); line-height:2; overflow-x:auto; }
+  .article-content p.verifier{ margin:-8px 0 20px; font-size:calc(12px + var(--fs-bump)); }
+  .article-content p.verifier code{ color:var(--dim); letter-spacing:.02em; }
+  .article-content p.verifier code::before{ content:"$ "; opacity:.6; }
+  .article-content table td, .article-content table th{ vertical-align:top; }
+  .article-content .table-defile{ overflow-x:auto; margin:0 0 22px; }
+  .article-content .table-defile table{ margin:0; }
+</style>
+<link rel="stylesheet" href="../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
+<header class="site-header">
+  <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="article-body">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Fil d'Ariane">
+        <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/articles.html">Articles</a><span class="sep">/</span><span aria-current="page">Les formes et les figures : une transcription</span>
+      </nav>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<!-- @langues:end -->
+
+      <h1 class="article-title">Les formes et les figures : une transcription</h1>
+      <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Publié le 8 octobre 2026</p>
+      <div class="article-badges" id="articleBadges"><span class="article-badge">Géométrie</span><span class="article-badge">Livrée</span><span class="article-badge">Divination</span></div>
+    </div>
+
+    <div class="article-content texte-long">
+      <details><summary>Sommaire</summary><nav aria-label="Sommaire de l’article"><ol><li><a href="#verifier">Vérifier</a></li><li><a href="#le-resultat">Le résultat</a></li><li><a href="#les-objets">Les objets</a></li><li><a href="#la-forme-donne-les-traits">La forme donne les traits</a></li><li><a href="#les-jonctions">Les jonctions</a></li><li><a href="#six-douze-vingt-quatre">Six, douze, vingt-quatre</a></li><li><a href="#la-constante-de-ligne">La constante de ligne</a></li><li><a href="#le-pied-est-l-orientation">Le pied est l'orientation</a></li><li><a href="#les-unified-patterns">Les unified patterns</a></li><li><a href="#le-dictionnaire">Le dictionnaire</a></li><li><a href="#verification">Vérification</a></li><li><a href="#les-croix-ansees-d-ordre-6">Les croix ansées d'ordre 6</a></li><li><a href="#ce-qui-manque">Ce qui manque</a></li></ol></nav>
+      </details>
+      <h2 id="verifier">Vérifier</h2>
+      <p>Chaque énoncé chiffré de ce texte qu'un script recalcule est suivi de la commande correspondante. Les sept vérificateurs se relancent d'une seule commande, depuis la racine du <a href="https://github.com/anibaledel/livreedhermes">dépôt</a> ; elle échoue dès que l'un d'eux échoue :</p>
+      <p class="verifier"><code>python <a href="../tools/verifier_formes_figures.py">tools/verifier_formes_figures.py</a></code></p>
+      <p>Les énoncés vérifiés et les lignes que chaque script doit imprimer sont rangés dans <a href="../data/resultats-etablis.json">data/resultats-etablis.json</a>.</p>
+      <h2 id="le-resultat">Le résultat</h2>
+      <p>Les 256 carrés d'ordre 6 de <i>La Livrée d'Hermès</i> se rangent sur un damier 16 × 16 dont la ligne et la colonne valent chacune un tétragramme. Chacun des quatre traits de ces tétragrammes a une contrepartie géométrique sur les carrés eux-mêmes, et la correspondance est exacte sur les 256.</p>
+      <div class="table-defile"><table><thead><tr><th>ce qui est écrit</th><th>ce qui le porte</th></tr></thead><tbody><tr><td>les trois traits du trigramme</td><td>la forme bleue de la superposition inhale + exhale, écrite du bord vers le centre</td></tr><tr><td>les deux jonctions du trigramme</td><td>l'échange du bleu et du rouge entre colonnes opposées</td></tr><tr><td>la jonction cœur-ventre seule</td><td>le recouvrement de la forme bleue à la demi-période, 0 case ou 2</td></tr><tr><td>le nombre de jonctions, et le pied</td><td>la constante de ligne, par une formule fermée</td></tr><tr><td>le pied</td><td>le miroir du carré, gauche-droite pour la colonne, haut-bas pour la ligne</td></tr></tbody></table></div>
+      <p>Il n'y a plus d'analogie de disposition nulle part. Chaque énoncé est une égalité vérifiable sur les données, et les cinq se vérifient ensemble.</p>
+      <p>Le fait saillant, qu'on ne pouvait pas deviner : <b>le trigramme est porté par la forme, le pied par l'orientation</b>. Les trois premiers traits se lisent dans le dessin, le quatrième dans la façon dont le dessin est retourné. C'est pourquoi aucune mesure de la forme ne rendait jamais le pied.</p>
+      <h2 id="les-objets">Les objets</h2>
+      <p>Le corpus est celui de <code>data/referent_256_v3.json</code> : 256 carrés d'ordre 6, quatre couleurs par carré — rouge, bleu, gris et jaune — réparties 6, 6, 12, 12 sur les trente-six cases, sans exception. Ils occupent la planche 047 en damier 16 × 16.</p>
+      <p>Quatre carrés voisins 2 × 2 forment un assemblage d'ordre 12. Les 64 assemblages occupent un damier 8 × 8 ; c'est la galerie Magic quadricolore, et ce sont les pages 053 à 058.</p>
+      <figure><img src="../book-viewer/pages/fr/047.webp" alt="Page 047 — les 64 assemblages d&#x27;ordre 12 à gauche, les 256 carrés d&#x27;ordre 6 à droite" loading="lazy" width="1920" height="1080"><figcaption>Page 047. À droite, les 256 carrés d'ordre 6 en damier 16 × 16, groupés quatre par quatre ; à gauche, les 64 assemblages d'ordre 12 que ces groupes forment, en damier 8 × 8. Les deux damiers de ce papier sont sur une seule planche.</figcaption></figure>
+      <p><b>Inhale et exhale</b> sont deux fenêtres sur le même pavage. Un assemblage se répète de période 12 dans les deux sens ; inhale en prend une fenêtre, exhale celle qui est décalée d'une demi-période en ligne et en colonne (page 052). Leur superposition, pages 058 et 059, est l'assemblage réuni à son décalé de six cases en diagonale.</p>
+      <figure><img src="../book-viewer/pages/fr/052.webp" alt="Page 052 — le principe des respirations : inhale et exhale sont deux fenêtres sur le même pavage, décalées d&#x27;une demi-période" loading="lazy" width="1920" height="1080"><figcaption>Page 052. Les deux cadres orange marquent les deux fenêtres : l'une centrée, l'autre décalée de six cases en diagonale.</figcaption></figure>
+      <p>Cette réunion se lit comme une forme et non comme une somme, parce que la forme bleue et sa décalée ne se recouvrent jamais : 0 case commune sur les 64 assemblages, réunion de 48 cases, exactement le double. Il en va de même du rouge.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_cle_damier.py">tools/verify_cle_damier.py</a></code></p>
+      <p>Enfin, la ligne et la colonne du damier 16 × 16 valent chacune un tétragramme, et celles du damier 8 × 8 un trigramme : la projection de l'un sur l'autre est la chute du pied, deux colonnes pour une.</p>
+      <h3 id="le-protocole-en-vocabulaire-standard">Le protocole, en vocabulaire standard</h3>
+      <p>Les quatre couleurs sont un étiquetage des cases en quatre classes. La case (<i>r</i>, <i>c</i>) d'une grille <i>n</i> × <i>n</i> reçoit, selon sa classe, l'un des quatre entiers</p>
+      <p class="formule"><i>B</i>(<i>r</i>, <i>c</i>) = <i>n</i><i>r</i> + <i>c</i> + 1,&emsp; <i>R</i>(<i>r</i>, <i>c</i>) = <i>n</i>² + 1 − <i>B</i>(<i>r</i>, <i>c</i>),<br><i>V</i>(<i>r</i>, <i>c</i>) = <i>n</i><i>r</i> + (<i>n</i> − 1 − <i>c</i>) + 1,&emsp; <i>J</i>(<i>r</i>, <i>c</i>) = <i>n</i>² + 1 − <i>V</i>(<i>r</i>, <i>c</i>).</p>
+      <p>C'est la méthode de la table de motifs, dite criss-cross, portée de deux classes à quatre : la version à deux classes, qui n'emploie que <i>B</i> et <i>R</i>, n'est documentée que pour les ordres doublement pairs.</p>
+      <p>Chaque valeur est de la forme α<i>r</i> + β<i>c</i> + γ, avec α = +<i>n</i> pour <i>B</i> et <i>V</i>, −<i>n</i> pour <i>R</i> et <i>J</i> ; β = +1 pour <i>B</i> et <i>J</i>, −1 pour <i>R</i> et <i>V</i>. Pour qu'une somme de ligne ne dépende pas de <i>r</i>, les α doivent s'annuler ; pour qu'une somme de colonne ne dépende pas de <i>c</i>, ce sont les β. D'où deux conditions d'effectifs, valables à tout ordre :</p>
+      <blockquote>dans chaque <b>ligne</b> : <i>B</i> + <i>V</i> = <i>R</i> + <i>J</i> = <i>n</i> / 2<br>dans chaque <b>colonne</b> : <i>B</i> + <i>J</i> = <i>R</i> + <i>V</i> = <i>n</i> / 2</blockquote>
+      <p>L'ordre doit donc être pair, et c'est la seule contrainte que ces conditions imposent. Les 256 carrés les vérifient, 256 sur 256, et sont magiques diagonales comprises, 256 sur 256.</p>
+      <p class="verifier"><code>python <a href="../tools/protocole_general.py">tools/protocole_general.py</a></code></p>
+      <p>Ces conditions sont nécessaires, non suffisantes : un étiquetage tiré au hasard qui les respecte n'est pas magique, les sommes de positions réglant ensuite la constante et les deux diagonales. Le contenu du procédé est donc dans la règle qui engendre les étiquetages, pas dans ces deux égalités.</p>
+      <h3 id="la-methode-pavage-et-miroirs">La méthode : pavage et miroirs</h3>
+      <p>La règle qui engendre les étiquetages est un pavage par miroirs alternés, et elle ne s'arrête à aucun ordre.</p>
+      <p>Soit <i>E</i> un étiquetage d'ordre 6 du corpus et <i>m</i> ≥ 1. On pave une grille d'ordre 6<i>m</i> avec <i>m</i> × <i>m</i> copies de <i>E</i>, celle du bloc (<i>i</i>, <i>j</i>) étant <i>E</i> si <i>i</i> et <i>j</i> sont pairs, son miroir gauche-droite si <i>j</i> est impair, son miroir haut-bas si <i>i</i> est impair, son demi-tour si les deux le sont. Un miroir par parité, dans chaque sens. On applique ensuite le protocole à l'ordre <i>n</i> = 6<i>m</i>.</p>
+      <div class="table-defile"><table><thead><tr><th>ordre</th><th>blocs</th><th>carrés magiques, diagonales comprises</th></tr></thead><tbody><tr><td>6</td><td>1 × 1</td><td>256 / 256</td></tr><tr><td>12</td><td>2 × 2</td><td>256 / 256</td></tr><tr><td>18</td><td>3 × 3</td><td>256 / 256</td></tr><tr><td>24</td><td>4 × 4</td><td>256 / 256</td></tr><tr><td>30</td><td>5 × 5</td><td>256 / 256</td></tr><tr><td>42, 48, 60</td><td>7 × 7, 8 × 8, 10 × 10</td><td>12 / 12 sur échantillon</td></tr></tbody></table></div>
+      <p>Les quatre agencements du centrage pair pair, page 031, sont le cas <i>m</i> = 2 de cette règle.</p>
+      <p>Le motif de miroirs n'est pas libre, et c'est ce qui fait la règle : à l'ordre 12, sur les 256 façons de choisir l'une des quatre orientations dans chacun des quatre blocs, <b>seize</b> donnent un carré magique. L'alternance par parité en fait partie.</p>
+      <p class="verifier"><code>python <a href="../tools/pavage_miroirs.py">tools/pavage_miroirs.py</a></code></p>
+      <p>La construction reste ponctuelle à tout ordre : la valeur d'une case ne dépend que de ses coordonnées et de sa classe, et la classe se lit sur le pavage sans rien calculer. Il n'y a ni suite d'opérations, ni retour en arrière, ni ordre de remplissage — ce que les méthodes classiques d'ordre singulièrement pair, LUX, Strachey, bordure, superposition, sont toutes.</p>
+      <p>L'unité du pavage n'est d'ailleurs pas le carré d'ordre 6 mais le bloc de 3 × 3 — les quatre sous-ensembles de la page 034. En pavant une grille d'ordre 6<i>m</i> avec 2<i>m</i> × 2<i>m</i> blocs de 3, le bloc (<i>I</i>, <i>J</i>) prenant le sous-ensemble (<i>I</i> mod 2, <i>J</i> mod 2), le résultat est magique : 256/256 aux ordres 12 et 18, 20/20 sur échantillon aux ordres 30 et 42. Il en va de même si l'on applique un demi-tour à chaque bloc ; sur les 256 règles d'orientation par bloc de 3, ces deux-là sont les seules qui passent.</p>
+      <p>Le décompte de la page 034 en découle : à l'ordre 30, la grille compte 10 × 10 blocs de trois, et chacun des quatre sous-ensembles y paraît exactement vingt-cinq fois.</p>
+      <h2 id="la-forme-donne-les-traits">La forme donne les traits</h2>
+      <p>Sur le damier 8 × 8, la forme bleue de la superposition inhale + exhale est la même sur chacune des 8 colonnes, et sur aucune ligne. Huit colonnes, huit formes distinctes.</p>
+      <p>Cette forme est 6-périodique : une tuile de 6 × 6 répétée quatre fois, douze cases par tuile, réparties en trois paires d'orbites de quatre cases. Chaque paire est une bascule commandée par un trait du trigramme inférieur — un trait, une bascule, aucune interaction.</p>
+      <div class="table-defile"><table><thead><tr><th>trait</th><th>position de la bascule</th><th>yin</th><th>yang</th></tr></thead><tbody><tr><td>haut</td><td>anneau extérieur</td><td>bande haute et basse</td><td>bandes latérales</td></tr><tr><td>milieu</td><td>anneau médian</td><td>extrémités des rangs 1 et 4</td><td>coins des bandes haute et basse</td></tr><tr><td>bas</td><td>cœur</td><td>cœur des rangs 2 et 3</td><td>centre des rangs 1 et 4</td></tr></tbody></table></div>
+      <p>Le trigramme est donc écrit <b>radialement</b> : le trait du haut sur l'anneau extérieur, celui du milieu sur l'anneau suivant, celui du bas au centre. Trois traits, trois bascules, huit formes ; la colonne du damier et le trigramme inférieur sont le même objet écrit deux fois.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_cle_damier.py">tools/verify_cle_damier.py</a></code></p>
+      <figure><img src="../assets/articles/formes-figures/formes-colonne.png" alt="Les huit formes de colonne, tuile de 6 × 6, une par trigramme" loading="lazy" width="618" height="370"><figcaption>Les huit formes de colonne, à l'échelle de la tuile. Le trait du haut commande l'anneau extérieur, le milieu l'anneau médian, le bas le cœur : terre et ciel, aux deux extrêmes, sont les seules à ne rien changer d'un anneau à l'autre.</figcaption></figure>
+      <p>Seul le décalage diagonal donne ce résultat. Les décalages (6, 0) et (0, 6) pris séparément ne produisent aucune constante, ni de ligne ni de colonne.</p>
+      <h3 id="la-ligne-porte-une-forme-elle-aussi">La ligne porte une forme elle aussi</h3>
+      <p>La dissymétrie entre les deux axes n'est qu'apparente, et c'est la page 049 qui le montre : elle teinte en clair les cases où l'inspir et l'expir s'accordent.</p>
+      <figure><img src="../book-viewer/pages/fr/049.webp" alt="Page 049 — les 64 fleurs et leurs 8 familles, les invariants en teinte claire" loading="lazy" width="1920" height="1080"><figcaption>Page 049. La teinte claire marque les cases où l'inspir et l'expir s'accordent ; les cases rouges et bleues qui subsistent sont celles que la suite isole.</figcaption></figure>
+      <p>Appelons invariant d'un décalage l'ensemble des cases qui gardent leur couleur sous ce décalage. À une demi-période il y en a trois : inv(6, 0) et inv(0, 6), de 96 cases, et inv(6, 6), de 48.</p>
+      <p><b>L'invariant des invariants ne porte rien.</b> inv(6, 0) ∩ inv(0, 6) = inv(6, 6), et cet invariant diagonal est le même sur les 64 assemblages : une seule forme, moitié grise, moitié jaune, sans une seule case rouge ni bleue. Croiser les deux invariants efface toute l'information, et c'est pourquoi elle se cherche dans les traits bicolores isolés à l'intérieur d'un seul invariant.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_invariants.py">tools/verify_invariants.py</a></code></p>
+      <figure><img src="../assets/articles/formes-figures/invariant-diagonal.png" alt="L&#x27;invariant diagonal, identique sur les 64 assemblages" loading="lazy" width="300" height="326"><figcaption>L'invariant diagonal. Une seule forme pour tout le corpus, moitié grise, moitié jaune, pas une case rouge ni bleue : rien à y lire.</figcaption></figure>
+      <p>L'invariant en ligne, pris seul, ne lit qu'un trait : il est constant sur les 8 lignes du damier et ne prend que deux formes, l'une sur les lignes 0 à 3, l'autre sur les lignes 4 à 7 — le trait du haut du trigramme supérieur.</p>
+      <p>Mais <b>ses cases rouges ou bleues lisent le trigramme entier</b>. Elles forment un ensemble de 24 cases, constant sur chacune des 8 lignes du damier, et les huit formes sont distinctes. La ligne porte donc une forme, exactement comme la colonne.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_invariants.py">tools/verify_invariants.py</a></code></p>
+      <figure><img src="../assets/articles/formes-figures/formes-ligne.png" alt="Les huit formes de ligne : les traits bicolores isolés dans l&#x27;invariant en ligne" loading="lazy" width="714" height="418"><figcaption>Les huit formes de ligne, 24 cases chacune. Comparer avec les formes de colonne : même information, écriture différente.</figcaption></figure>
+      <p>Elle ne l'écrit pas de la même façon, et c'est là que la dissymétrie subsiste, déplacée. La forme de colonne est faite de trois bascules indépendantes, une par trait. La forme de ligne est faite d'un noyau fixe par moitié, plus quatre orbites appariées selon le cycle 00 → 01 → 10 → 11 → 00 des deux traits du bas. La colonne écrit le trigramme en trois interrupteurs ; la ligne le place sur un cadran.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_invariants.py">tools/verify_invariants.py</a></code></p>
+      <p>Et les deux formes que prend l'invariant en ligne sont deux croix ansées. Dans le quadrant, le complémentaire de l'invariant compte douze cases, deux par ligne et deux par colonne, aucune sur une diagonale, à symétrie centrale — les critères de la page 040 au complet. Celle des lignes 0 à 3 et celle des lignes 4 à 7 sont <b>disjointes</b>, leur réunion est les vingt-quatre cases libres, et chacune est la transposée de l'autre, c'est-à-dire son quart de tour.</p>
+      <p>La bascule du Yi King entre les trente-deux premiers hexagrammes et les trente-deux suivants est donc inscrite dans les formes : les trente-deux du haut sont bâtis sur une croix, les trente-deux du bas sur l'autre, et les deux croix se partagent le carré à angle droit.</p>
+      <h2 id="les-jonctions">Les jonctions</h2>
+      <p>Appelons <b>jonction</b> un endroit où un trigramme change de trait. Il y en a deux : d₁ entre le haut et le milieu, d₂ entre le milieu et le bas. Le complément d'un trigramme, tous ses traits échangés, laisse les jonctions intactes : elles sont ce qui survit au complément.</p>
+      <p>Dans la superposition inhale + exhale du pied androgyne (page 059), <b>la forme bleue de la colonne C est la forme rouge de la colonne 7 − C</b>, case pour case, sur les quatre couples de colonnes opposées. Rouge et bleu d'une même colonne sont par ailleurs disjoints, 48 cases chacun.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_cle_pied.py">tools/verify_cle_pied.py</a></code></p>
+      <figure><img src="../book-viewer/pages/fr/059.webp" alt="Page 059 — superposition des dispositions inhale et exhale du pied androgyne" loading="lazy" width="1920" height="1080"><figcaption>Page 059. Les 64 assemblages, rouge et bleu superposés. C'est sur cette planche que se lit l'échange entre colonnes opposées.</figcaption></figure>
+      <p>Or une colonne opposée est un trigramme complémenté. Les quatre couples sont donc exactement les quatre valeurs du couple de jonctions.</p>
+      <div class="table-defile"><table><thead><tr><th>jonctions</th><th>trigrammes</th></tr></thead><tbody><tr><td>aucune</td><td>terre, ciel</td></tr><tr><td>cœur-ventre</td><td>tonnerre, vent</td></tr><tr><td>tête-cœur</td><td>lac, montagne</td></tr><tr><td>les deux</td><td>eau, feu</td></tr></tbody></table></div>
+      <figure><img src="../assets/articles/formes-figures/jonctions.png" alt="Les quatre groupes de jonctions, rouge et bleu réunis" loading="lazy" width="492" height="544"><figcaption>Les quatre figures bicolores, une par couple de jonctions. Échanger le rouge et le bleu sur l'une donne sa colonne opposée : huit colonnes, quatre figures.</figcaption></figure>
+      <p>Deux conséquences. D'abord, <b>les quatre groupes sont les quatre pavages de la page 053</b> : à l'intérieur d'un groupe, les deux formes sont superposables — par translation et symétrie pour terre-ciel et lac-montagne, par transposition pour les deux autres — si bien que huit colonnes ne donnent que quatre figures. Deux de ces quatre partagent le même contour monochrome et ne se distinguent que par l'échange du rouge et du bleu : c'est la figure bicolore, non le contour, qui sépare les quatre.</p>
+      <figure><img src="../book-viewer/pages/fr/053.webp" alt="Page 053 — les pavages, rangés en quatre colonnes" loading="lazy" width="1920" height="1080"><figcaption>Page 053. Quatre colonnes de pavages, non pas huit : c'est le décompte que les jonctions prédisent. La rangée encadrée est celle du pied androgyne.</figcaption></figure>
+      <p>Ensuite, la jonction du bas se lit aussi sur le carré d'ordre 6, seul. La forme bleue d'un carré et son décalage d'une demi-période (3, 3) se recouvrent sur 0 case si d₂ = 0, sur 2 cases si d₂ = 1, sur les 16 colonnes du damier 16 × 16 et indépendamment du pied.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_cle_pied.py">tools/verify_cle_pied.py</a></code></p>
+      <h2 id="six-douze-vingt-quatre">Six, douze, vingt-quatre</h2>
+      <p>Les cases rouges et bleues de la superposition se répartissent en six classes de seize cases, selon la façon dont leur couleur varie d'une colonne du damier à l'autre. Les six comportements sont trois paires complémentaires, une par trait du trigramme inférieur.</p>
+      <div class="table-defile"><table><thead><tr><th>comportement sur les colonnes 0 à 7</th><th>trait</th></tr></thead><tbody><tr><td>RRRRBBBB et BBBBRRRR</td><td>le haut</td></tr><tr><td>RRBBRRBB et BBRRBBRR</td><td>le milieu</td></tr><tr><td>RBRBRBRB et BRBRBRBR</td><td>le bas</td></tr></tbody></table></div>
+      <p>Chaque classe pose exactement quatre cases dans chaque quadrant de 6 × 6. Les huit éléments des pages 052 et 053 prennent exactement une case dans chacune des six classes : ce sont des <b>transversales des six classes d'invariance</b>, un représentant de chaque façon de varier. Les vingt-quatre cases qu'ils occupent dans un quadrant sont couvertes chacune deux fois, et aucune ne tombe dans le carré central.</p>
+      <p>De là part une échelle à trois crans.</p>
+      <div class="table-defile"><table><thead><tr><th>ordre</th><th>ce qui s'y trouve</th></tr></thead><tbody><tr><td>6</td><td>l'élément, six cases ; celui d'EXHALE <i>k</i> est le demi-tour de celui d'INHALE <i>k</i></td></tr><tr><td>12</td><td>l'élément posé par le centrage pair pair, miroirs vers l'extérieur — conforme, miroir horizontal à droite, miroir vertical en bas, demi-tour en diagonale, le même agencement pour les huit</td></tr><tr><td>24</td><td>chaque case doublée en bloc de 2 × 2, pour la mise en situation</td></tr></tbody></table></div>
+      <p>Le passage à l'ordre 12 fait d'EXHALE <i>k</i> le demi-décalage de INHALE <i>k</i>. Les recouvrements suivent un cycle à quatre : 1-2, 2-3, 3-4 et 4-1 se recoupent sur huit cases, 1-3 et 2-4 sur aucune. Chaque colonne de la page 053 est alors EXHALE <i>k</i>, sa réunion avec INHALE <i>k</i>, et INHALE <i>k</i>.</p>
+      <p>Les nombres sont des puissances de deux et le rapport l'est aussi : 4⁶ = 2¹² transversales possibles, 2³ retenues, soit une sur 2⁹.</p>
+      <h2 id="la-constante-de-ligne">La constante de ligne</h2>
+      <p>Sur le damier 16 × 16, le nombre de cases rouge ou bleue dans la moitié haute d'un carré est constant sur chacune des 16 lignes, et sur aucune colonne. C'est la mesure « haut contre bas » qui sépare les figures géomantiques en Fixes et Mobiles à la page 065.</p>
+      <p>Elle a une formule fermée. Si <i>t</i> est le trigramme de la ligne, <i>p</i> son pied et <i>c</i> = d₁ + d₂ son nombre de jonctions :</p>
+      <p class="formule"><i>v</i> = 6 − (−1)<sup><i>p</i></sup> (3 − 2<i>c</i>)</p>
+      <p>Soit 3 ou 9 quand le trigramme est uniforme, 5 ou 7 sinon, le pied décidant lequel des deux. Seize lignes sur seize.</p>
+      <div class="table-defile"><table><thead><tr><th><i>c</i></th><th>trigrammes</th><th><i>v</i> au pied plein</th><th><i>v</i> au pied coupé</th></tr></thead><tbody><tr><td>0</td><td>terre, ciel</td><td>3</td><td>9</td></tr><tr><td>1</td><td>tonnerre, lac, montagne, vent</td><td>5</td><td>7</td></tr><tr><td>2</td><td>eau, feu</td><td>7</td><td>5</td></tr></tbody></table></div>
+      <p class="verifier"><code>python <a href="../tools/verify_pont_formes.py">tools/verify_pont_formes.py</a></code></p>
+      <p>La constante de ligne est donc plus pauvre que la cinquième clef : elle ne lit que la somme des jonctions, et confond tonnerre-vent avec lac-montagne. En revanche elle lit le pied, ce que la clef des jonctions ne fait pas. Les deux sont complémentaires, non redondantes.</p>
+      <p>Aucune mesure de couleur sur une région du carré n'est constante par colonne sans l'être globalement. La ligne porte un nombre, la colonne porte une forme.</p>
+      <h2 id="le-pied-est-l-orientation">Le pied est l'orientation</h2>
+      <p>Aucune mesure de la forme ne rend le pied, et c'est pour une bonne raison : il n'est pas dans la forme.</p>
+      <blockquote>Changer le pied de la <b>colonne</b> revient à prendre le miroir gauche-droite du carré. Changer le pied de la <b>ligne</b> revient à prendre le miroir haut-bas.</blockquote>
+      <p>256 carrés sur 256, dans les deux cas. Et les deux axes ne se croisent jamais : le miroir gauche-droite n'agit pas sur la ligne, le miroir haut-bas n'agit pas sur la colonne, 0 sur 256 chacun.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_cle_pied.py">tools/verify_cle_pied.py</a></code></p>
+      <figure><img src="../assets/articles/formes-figures/miroirs.png" alt="Un carré d&#x27;ordre 6 et ses deux miroirs" loading="lazy" width="716" height="282"><figcaption>Le carré de la ligne 0, colonne 0, et ses deux miroirs. Chacun est le carré voisin : à droite sur le damier pour le miroir gauche-droite, en dessous pour le miroir haut-bas. Les quatre carrés d'un bloc sont un carré et ses trois miroirs.</figcaption></figure>
+      <p>Le pied n'est donc pas une quantité à mesurer mais une orientation à constater. Le trigramme est porté par le dessin, le pied par la façon dont le dessin est retourné — et chaque axe a son miroir, sans interférence.</p>
+      <p>C'est aussi ce qui explique la chute du pied, qui jusqu'ici n'était qu'un fait de numérotation. Passer du damier 16 × 16 au damier 8 × 8, c'est assembler quatre carrés voisins ; et quatre carrés voisins sont, par ce qui précède, un carré et ses trois miroirs. L'assemblage efface les deux pieds parce qu'il réunit les quatre orientations.</p>
+      <h2 id="les-unified-patterns">Les unified patterns</h2>
+      <p>Un assemblage est un <i>unified pattern</i> quand il garde sa forme en se décalant d'une demi-période en ligne et en colonne, à une transposition de teinte près. Il y en a 16 sur les 64.</p>
+      <blockquote>Un assemblage est un unified pattern si et seulement si <b>son trigramme inférieur est le ciel ou la terre</b>, c'est-à-dire si et seulement si ce trigramme n'a aucune jonction.</blockquote>
+      <p>16 sur 16, sans exception. Les colonnes 0 et 7 ne sont pas deux colonnes de bord : ce sont ☷ et ☰, les deux trigrammes dont les trois traits sont semblables.</p>
+      <p>La transposition suit la même logique. Elle est rouge-bleu ↔ gris quand le trait du haut de l'hexagramme s'accorde avec la valeur uniforme du trigramme inférieur, et rouge-bleu ↔ jaune quand il s'y oppose. Huit de chaque, les deux jeux disjoints.</p>
+      <p class="verifier"><code>python <a href="../tools/verify_pont_formes.py">tools/verify_pont_formes.py</a></code></p>
+      <p>La propriété qui paraissait la plus géométrique du corpus — une invariance par demi-translation — se traduit donc sans reste en une condition sur les traits. C'est le passage le plus net dans ce sens : les autres clefs vont du damier vers les figures, celle-ci va de la forme vers le trait.</p>
+      <h2 id="le-dictionnaire">Le dictionnaire</h2>
+      <div class="table-defile"><table><thead><tr><th>trait du tétragramme</th><th>poids</th><th>où il se lit sur les formes</th></tr></thead><tbody><tr><td>tête</td><td>8</td><td>bascule de l'anneau extérieur de la tuile</td></tr><tr><td>cœur</td><td>4</td><td>bascule de l'anneau médian</td></tr><tr><td>ventre</td><td>2</td><td>bascule du cœur de la tuile</td></tr><tr><td>pied</td><td>1</td><td>miroir du carré — gauche-droite en colonne, haut-bas en ligne</td></tr></tbody></table></div>
+      <p>Et les quantités dérivées, qui donnent les quatre lectures croisées :</p>
+      <div class="table-defile"><table><thead><tr><th>quantité</th><th>où elle se lit</th></tr></thead><tbody><tr><td>d₁ et d₂, les deux jonctions</td><td>l'échange bleu / rouge entre colonnes opposées (4 groupes)</td></tr><tr><td>d₂ seule</td><td>le recouvrement à la demi-période sur le carré d'ordre 6</td></tr><tr><td>c = d₁ + d₂, avec le pied</td><td>la constante de ligne</td></tr><tr><td>c = 0 sur le trigramme inférieur</td><td>le caractère unified pattern de l'assemblage</td></tr><tr><td>la parité de c</td><td>élémental contre manifestation</td></tr></tbody></table></div>
+      <p>Les clefs se recoupent sans se répéter, et c'est ce qui donne sa solidité à l'ensemble. La forme épelle les trois traits ; les jonctions en donnent une lecture indépendante, insensible au complément ; la constante de ligne en donne une troisième, plus pauvre sur le trigramme mais seule à porter le pied. Trois mesures indépendantes qui tombent d'accord valent mieux qu'une mesure unique qui se suffirait — celle-là, on ne pourrait pas la vérifier.</p>
+      <p>Les trois bascules de la forme de colonne sont commandées par les traits bruts, une chacune, et aucune mesure de cette forme n'est égale à <i>c</i>. Sa connexité lit les jonctions, mais inégalement : 32 adjacences et 20 composantes sans jonction, 48 et 12 pour la jonction du bas, 64 et 4 pour celle du haut. Le système ne se réduit pas à une mesure unique.</p>
+      <h2 id="verification">Vérification</h2>
+      <p>Tout ce qui précède est calculé sur <code>data/referent_256_v3.json</code> et sur les 64 fichiers de <code>assets/unified-motifs</code>, par trois scripts qui sortent en erreur dès qu'un point cesse d'être vrai.</p>
+      <div class="table-defile"><table><thead><tr><th>script</th><th>ce qu'il établit</th></tr></thead><tbody><tr><td><code>tools/verify_cle_damier.py</code></td><td>la forme de colonne, les trois bascules, la non-superposition inhale / exhale</td></tr><tr><td><code>tools/verify_pont_formes.py</code></td><td>la constante de ligne et sa formule fermée, les unified patterns, la transposition de teinte</td></tr><tr><td><code>tools/verify_cle_pied.py</code></td><td>l'échange bleu / rouge, les quatre jonctions, le recouvrement à la demi-période, les deux miroirs</td></tr><tr><td><code>tools/verify_invariants.py</code></td><td>l'invariant diagonal universel, l'invariant en ligne, et la forme que portent ses traits bicolores</td></tr></tbody></table></div>
+      <h2 id="les-croix-ansees-d-ordre-6">Les croix ansées d'ordre 6</h2>
+      <h3 id="les-huit-elements-sont-des-demi-croix">Les huit éléments sont des demi-croix</h3>
+      <p>La croix ansée n'est pas l'élément, c'est la <b>paire</b> INHALE <i>k</i> ∪ EXHALE <i>k</i>, une fois les cases reliées. Les quatre paires vérifient tous les critères de la page 040, les quatre sans exception :</p>
+      <div class="table-defile"><table><thead><tr><th>critère (page 040)</th><th>vérification</th></tr></thead><tbody><tr><td>ne relie pas les cases des diagonales</td><td>aucune case diagonale dans les quatre paires</td></tr><tr><td>nombre impair de traits par ligne</td><td>exactement un, sur les six lignes et les six colonnes</td></tr><tr><td>au moins un trait horizontal par ligne</td><td>les six lignes sont couvertes</td></tr><tr><td>symétrie centrale</td><td>vérifiée</td></tr></tbody></table></div>
+      <p>Une croix ansée occupe douze cases, six par demi-croix, et l'inspir et l'expir sont ses deux moitiés — l'une le demi-tour de l'autre, ce qui est la symétrie centrale lue en deux temps. Les vingt-quatre cases hors diagonales du 6 × 6 sont partagées par les quatre croix, chacune en prenant douze, et les six classes d'invariance de la page 059 les partitionnent quatre par quatre.</p>
+      <p>La sélection des huit transversales parmi les 2¹² est donc celle des croix ansées d'ordre 6, et l'échelle entière se referme : la croix à l'ordre 6, ses deux moitiés portées à l'ordre 12 par le centrage pair pair, le tout doublé à l'ordre 24.</p>
+      <p><b>Les quatre colonnes de la page 053.</b> Le compte est expliqué. L'énumération des croix ansées d'ordre 6 — douze cases, deux par ligne et deux par colonne, hors diagonales, faites de deux moitiés symétriques l'une de l'autre — en donne <b>huit, réparties en quatre orbites de deux sous les symétries du carré</b>. Les quatre croix des pages 052 et 053 sont un représentant de chaque orbite. Il y a donc quatre colonnes parce qu'il y a quatre classes de croix, non par coïncidence avec les quatre couples de jonctions. Et la page 059 dit sur quel couple de jonctions elles se posent : sur les huit colonnes, deux seulement portent le profil d'une croix — douze cases rouges et douze bleues, deux par ligne et deux par colonne, hors diagonales, à symétrie centrale. Ce sont terre et ciel, le couple sans jonction, et les six autres colonnes donnent des répartitions de 0, 2 ou 4 par ligne. Les deux échangent leurs couleurs : le rouge de terre est le bleu de ciel. Il n'y a pas d'appariement d'une orbite à un couple : les quatre croix occupent le même support, les vingt-quatre cases hors diagonales, et c'est le même couple sans jonction qui les porte toutes. Le quatre des colonnes vient du nombre d'orbites, celui des couples vient des deux jonctions ; l'égalité des deux comptes n'a pas de cause commune. L'ordre des colonnes de la page 053 est d'ailleurs un rangement de proche en proche, non une indexation.</p>
+      <h2 id="ce-qui-manque">Ce qui manque</h2>
+      <p>Une remarque avant la liste, parce qu'elle ferme une question plutôt qu'elle n'en ouvre une : le découpage d'une croix en ses deux moitiés ne change rien à l'arrivée. Chaque croix admet quatre partages en inspir et expir, et dans les quatre la seconde moitié est le demi-décalage de la première. Portés à l'ordre 12 par le centrage pair pair, ces quatre partages donnent huit moitiés distinctes mais <b>une seule superposition</b>, celle du livre, sur les quatre croix. La forme mère ne dépend pas du chemin.</p>
+      <p><b>Le poids inégal des deux jonctions.</b> Dans la forme de colonne, la jonction du haut découpe la figure en quatre composantes connexes, celle du bas en douze. La direction privilégiée n'a pas d'explication.</p>
+      <p><b>Les deux écritures du trigramme.</b> La colonne l'écrit en trois bascules indépendantes, la ligne le place sur un cycle à quatre. La racine est maintenant visible : les traits de la colonne sont portés par des opérations internes au carré, ceux de la ligne ne le sont pas. L'inversion des couleurs retourne d'un coup les trois traits du trigramme de la colonne, et combinée au miroir gauche-droite elle réalise le passage d'une colonne à son opposée, <i>c</i> → 15 − <i>c</i>, sur les 256 carrés. Rien ne fait de même sur la ligne : parmi les huit symétries du carré croisées avec les vingt-quatre permutations de couleurs, les opérations qui préservent le corpus ne donnent que huit déplacements, dont la part de ligne se réduit au pied. Et ce n'est pas un choix de montage. Des vingt-quatre façons de placer les quatre carrés d'un assemblage, huit conservent à la colonne sa forme constante et ses huit valeurs ; aucune ne la donne à la ligne. Le damier lui-même n'est pas symétrique par échange de la ligne et de la colonne : aucune transposition, directe ou inversée, ne relie le carré (r, c) au carré (c, r), 0 sur 256. La dissymétrie appartient au corpus des 256, pas à sa présentation. Reste à dire d'où elle y vient.</p>
+    </div>
+
+    <a class="article-back-bottom" href="https://anibal-amiot.com/articles.html">← Retour aux articles</a>
+    <div class="article-nav-links" id="articleNavLinks"><a class="nav-prev" href="https://anibal-amiot.com/articles/le-fil-et-le-carre.html"><span class="nav-label">← Précédent · Géométrie</span>Le fil et le carré — ce que la tradition indienne a construit avant nous</a></div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../index.html"><img class="nav-tile-icon" src="../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="../articles.html"><img class="nav-tile-icon" src="../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
+
+    <nav class="nav-categories" aria-label="Pages du site">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galeries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="../galerie-bicolore.html"><span class="nav-cat-label">Galerie bicolore</span><span class="nav-cat-texte">142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.</span></a></li>
+          <li><a href="../galerie-patterns-unifies.html"><span class="nav-cat-label">Galerie tricolore</span><span class="nav-cat-texte">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="../fonds-ecran.html"><span class="nav-cat-label">Fond d'écran</span><span class="nav-cat-texte">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tirages</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../tirage-livree-hermes.html"><span class="nav-cat-label">Tirage du Yi King</span><span class="nav-cat-texte">Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations.</span></a></li>
+          <li><a href="../360-calques.html"><span class="nav-cat-label">360 calques</span><span class="nav-cat-texte">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></a></li>
+          <li><a href="../telechargements.html"><span class="nav-cat-label">Motifs SVG</span><span class="nav-cat-texte">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></a></li>
+          <li><a href="../hexagrammes/"><span class="nav-cat-label">Hexagrammes</span><span class="nav-cat-texte">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Outils créatifs</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../creation-motifs-yi-king.html"><span class="nav-cat-label">Créer un motif</span><span class="nav-cat-texte">Composez vos propres motifs textiles à partir des 60 images du Yi King.</span></a></li>
+          <li><a href="../bicolore.html"><span class="nav-cat-label">Motifs bicolores</span><span class="nav-cat-texte">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></a></li>
+          <li><a href="../creation-bicolore-v2.html"><span class="nav-cat-label">Motifs bicolores v2</span><span class="nav-cat-texte">La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.</span></a></li>
+          <li><a href="../encodeur.html"><span class="nav-cat-label">Encodeur</span><span class="nav-cat-texte">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></a></li>
+          <li><a href="../carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Démo interactive : la grille et les référents dérivés de la clé.</span></a></li>
+          <li><a href="../unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></a></li>
+          <li><a href="../cymatique.html"><span class="nav-cat-label">Cymatique</span><span class="nav-cat-texte">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></a></li>
+          <li><a href="../outils.html"><span class="nav-cat-label">Outils</span><span class="nav-cat-texte">Tous les outils interactifs du site, réunis en un seul endroit.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">À propos du projet</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../la-livree-d-hermes.html"><span class="nav-cat-label">Le traité</span><span class="nav-cat-texte">Le traité et ses éditions traduites, les hexagrammes et le lexique.</span></a></li>
+          <li><a href="../a-propos.html"><span class="nav-cat-label">À propos</span><span class="nav-cat-texte">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></a></li>
+          <li><a href="../lexique.html"><span class="nav-cat-label">Lexique</span><span class="nav-cat-texte">Dix notions clés pour comprendre La Livrée d'Hermès.</span></a></li>
+          <li><a href="../profil.html"><span class="nav-cat-label">Profil documentaire</span><span class="nav-cat-texte">Brevets et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12.</span></a></li>
+          <li><a href="../contact.html"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></a></li>
+          <li><a href="../soutenir.html"><span class="nav-cat-label">Soutenir</span><span class="nav-cat-texte">Soutenir La Livrée d'Hermès à prix libre : le site et son contenu restent gratuits.</span></a></li>
+          <li><a href="../chiffres-et-sources.html"><span class="nav-cat-label">Chiffres et sources</span><span class="nav-cat-texte">Chaque chiffre du site, le script qui le reproduit et la ligne qu'il imprime.</span></a></li>
+          <li><a href="../travaux.html"><span class="nav-cat-label">Travaux</span><span class="nav-cat-texte">Les dépôts, le code et les articles soumis, chacun horodaté et ouvert.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+</div>
+
+<script src="../assets/share-widget.js" data-label="Partager cet article"></script>
+<script src="../assets/articles-data.js"></script>
+<script>
+(function(){
+  var CURRENT_SLUG = "formes-et-figures-transcription";
+  var articles = (window.ARTICLES || []).slice().sort(function(a, b){ return b.dateISO.localeCompare(a.dateISO); });
+  var current = articles.find(function(a){ return a.slug === CURRENT_SLUG; });
+  if(!current) return;
+
+  var badgesEl = document.getElementById('articleBadges');
+  if(badgesEl){
+    badgesEl.innerHTML = current.categories.map(function(c){ return '<span class="article-badge">' + c + '</span>'; }).join('');
+  }
+
+  var primaryCategory = current.categories[0];
+  var sameCategory = articles.filter(function(a){ return a.categories.indexOf(primaryCategory) !== -1; });
+  var pos = sameCategory.findIndex(function(a){ return a.slug === CURRENT_SLUG; });
+  var next = pos > 0 ? sameCategory[pos - 1] : null;
+  var prev = pos < sameCategory.length - 1 ? sameCategory[pos + 1] : null;
+
+  var navEl = document.getElementById('articleNavLinks');
+  if(navEl && (prev || next)){
+    var html = '';
+    html += prev ? '<a class="nav-prev" href="' + prev.url + '"><span class="nav-label">← Précédent · ' + primaryCategory + '</span>' + prev.title + '</a>' : '<span></span>';
+    if(next){
+      html += '<a class="nav-next" href="' + next.url + '"><span class="nav-label">Suivant · ' + primaryCategory + ' →</span>' + next.title + '</a>';
+    }
+    navEl.innerHTML = html;
+  }
+})();
+</script>
+
+<script src="../assets/soutien-gate.js"></script>
+
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="../">Accueil</a>
+    <a href="../la-livree-d-hermes.html">Le traité</a>
+    <a href="../hexagrammes/">Hexagrammes</a>
+    <a href="../fr/motifs/">Motifs</a>
+    <a href="../lexique.html">Lexique</a>
+    <a href="../articles.html">Articles</a>
+    <a href="../outils.html">Outils</a>
+    <a href="../a-propos.html">À propos</a>
+    <a href="../profil.html">Profil documentaire</a>
+    <a href="../travaux.html">Travaux</a>
+    <a href="../contact.html">Contact</a>
+    <a href="../soutenir.html">Soutenir</a>
+    <a href="../recherche.html">Rechercher</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
