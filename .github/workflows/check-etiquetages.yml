@@ -1,4 +1,4 @@
-name: Étiquetages magiques à quatre classes — comptes d'ordre 6 et absence à l'ordre 2
+name: Étiquetages magiques à quatre classes et croix ansée — comptes, absences, équivalences
 
 # Les scripts de la livraison 13 d'Anibal (8 octobre 2026) :
 #   - enum6.py énumère les 18 432 étiquetages magiques d'ordre 6 et les trie en
@@ -7,6 +7,22 @@ name: Étiquetages magiques à quatre classes — comptes d'ordre 6 et absence �
 #   - graine_sat.py --ordre 2 : le solveur CP-SAT conclut à l'absence
 #     (INFEASIBLE). Le script ne sort pas en erreur de lui-même ; c'est
 #     check_sorties_ci.mjs qui exige la ligne « AUCUN étiquetage … ».
+# Livraison 14.10 (9 octobre 2026), la croix ansée à l'ordre n :
+#   - croix_auto.py, après enum6.py dont il lit le cache pavables6.json :
+#     l'équivalence colonne = croix ansée = pavable sur les 18 432 ; sort en
+#     erreur si elle tombe.
+#   - compte_figures.py : rang n − 1 et 2^((n² − 6n + 4)/4) figures candidates
+#     jusqu'à l'ordre 42 ; sort en erreur si le rang ou la formule bougent.
+#   - compte_croix.py --ordre 6 : les 2 candidates, réalisables.
+#   - croix_existence.py --ordres 6,8,12 : les ordres dont la sortie ne dépend
+#     pas du carré rendu par le solveur (aux ordres 10, 14, 18 les traits par
+#     ligne changent d'une exécution à l'autre).
+#   - ligne_necessaire.py : sort en erreur si un carré viole |d·u| ≤ (n−1)/2.
+#   - profils.py --ordre 6 : les profils symétriques (10,10,8,8) et (12,12,6,6)
+#     existent, les autres sont INFEASIBLE (1 s).
+# Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
+# compte_croix aux ordres 8, 10, 12, 14, croix_existence à l'ordre 16) ont leur
+# journal dans docs/journaux/2026-10-09/.
 # Job à part de check-referents.yml : check_sorties_ci.mjs relance chaque script
 # cité, et enum6.py ne doit pas allonger le job des référents.
 # compte_etiquetages.py (ordres 2, 4, 6, 8) et portee_miroirs.py ont leurs
@@ -34,5 +50,11 @@ jobs:
       - run: pip install ortools==9.15.6755
       - run: python3 tools/enum6.py
       - run: python3 tools/graine_sat.py --ordre 2 --limite 60
+      - run: python3 tools/croix_auto.py
+      - run: python3 tools/compte_figures.py
+      - run: python3 tools/compte_croix.py --ordre 6
+      - run: python3 tools/croix_existence.py --ordres 6,8,12
+      - run: python3 tools/ligne_necessaire.py
+      - run: python3 tools/profils.py --ordre 6
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai
