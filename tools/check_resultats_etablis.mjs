@@ -56,7 +56,7 @@ const PAGES = { 'chiffres-et-sources.html': 'en/figures-and-sources/index.html' 
 const JOURNAUX_PAGE = {
   'tools/croix_ansee.py': 'docs/journaux/2026-10-07/croix_ansee.log',
   'tools/enum_criteres.py': 'docs/journaux/2026-10-07/enum_criteres.log',
-  'tools/verif_protocole.py': 'docs/journaux/2026-10-07/verif_protocole.log',
+  'tools/verif_protocole.py': 'docs/journaux/2026-10-08/verif_protocole.log',
   'tools/cube_edges.py': 'docs/sources/2026-10-07/demi-decalage-v2/cube_edges.log',
 };
 const texteHtml = (h) => h.replace(/<[^>]+>/g, '').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&');
