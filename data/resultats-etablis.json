@@ -802,16 +802,16 @@
     },
     {
      "journal_local": {
-      "fichier": "docs/journaux/2026-10-07/verif_protocole.log",
-      "sha256": "76986450a98cd92e4f68eca890c848862b8aa6b9f2dc68e932e8bd769c5b7962",
+      "fichier": "docs/journaux/2026-10-08/verif_protocole.log",
+      "sha256": "47b32cf6bbe307c8aa7c3e75599a0059ff2bdb8dbd5a24e76b799df77fda8df4",
       "script": "tools/verif_protocole.py",
-      "script_sha256": "3d1ea71896c865b252faea505091ed7c68dc728b7ee93e69d1b8b87dc10ca3d3",
+      "script_sha256": "afae0fa6d091ba2294d2916b5ae9b562bf3f8c7cda018340a7766af7c3a7ffe1",
       "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
-      "le": "2026-10-07"
+      "le": "2026-10-08"
      },
      "lignes": [
       "§5       carrés magiques complets (lignes, colonnes, deux diagonales) : 256/256",
-      "§2       cellules diagonales complémentaires par symétrie centrale       : 256/256"
+      "§2       diagonales : deux cases centralement symétriques, même teinte (gris ou jaune), donc somme 37 : 256/256"
      ]
     }
    ],
@@ -845,12 +845,12 @@
    "preuves": [
     {
      "journal_local": {
-      "fichier": "docs/journaux/2026-10-07/verif_protocole.log",
-      "sha256": "76986450a98cd92e4f68eca890c848862b8aa6b9f2dc68e932e8bd769c5b7962",
+      "fichier": "docs/journaux/2026-10-08/verif_protocole.log",
+      "sha256": "47b32cf6bbe307c8aa7c3e75599a0059ff2bdb8dbd5a24e76b799df77fda8df4",
       "script": "tools/verif_protocole.py",
-      "script_sha256": "3d1ea71896c865b252faea505091ed7c68dc728b7ee93e69d1b8b87dc10ca3d3",
+      "script_sha256": "afae0fa6d091ba2294d2916b5ae9b562bf3f8c7cda018340a7766af7c3a7ffe1",
       "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
-      "le": "2026-10-07"
+      "le": "2026-10-08"
      },
      "lignes": [
       "§5/§7    ordre 12, les 64 assemblages 2×2 sous le même protocole (constante 870) : 64/64"
