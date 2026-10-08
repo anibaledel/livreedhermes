@@ -1616,6 +1616,18 @@
    ],
    "ecrit": [],
    "appele_par": [],
+   "utilise_par": [
+    "tools/police_thai.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/police_thai.py",
+   "role": "le repli hébergé du thaï : les pages th/ et le lien « ไทย » des rangées de langues, que Barlow Semi Condensed ne porte pas.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false

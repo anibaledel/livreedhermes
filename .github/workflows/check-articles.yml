@@ -39,6 +39,7 @@ jobs:
       - run: node tools/check_police_pages.mjs
       - run: "! node tools/check_police_pages.mjs --pile-sans 'Barlow Semi Condensed IAST LDH'"
       - run: "! node tools/check_police_pages.mjs --pile-sans 'Noto Sans Symbols 2 LDH'"
+      - run: "! node tools/check_police_pages.mjs --pile-sans 'Noto Sans Thai LDH'"
 
   article:
     runs-on: ubuntu-latest
