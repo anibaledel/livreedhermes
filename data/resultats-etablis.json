@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 11,
+  "verifie_ci": 15,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1532,6 +1532,178 @@
    ],
    "statut": "verifie_ci",
    "note": "Le script échoue si l'un des points 0 à 3 cesse d'être vrai (l'en-tête dit « ces trois points » ; le point 0 est contrôlé aussi)."
+  },
+  {
+   "id": "protocole-quatre-classes-256",
+   "intitule": "Les 256 carrés d'ordre 6 vérifient les deux conditions d'effectifs du protocole à quatre classes, et sont magiques diagonales comprises",
+   "enonce": {
+    "texte": "Quatre classes, deux conditions d’effectifs, et l’ordre n’a qu’à être pair.",
+    "langue": "fr",
+    "source": "tools/protocole_general.py (Anibal), phrase finale ; conditions dans l'en-tête, « DEUX CONDITIONS NÉCESSAIRES »"
+   },
+   "valeur": {
+    "condition_ligne": "256/256",
+    "condition_colonne": "256/256",
+    "magiques": "256/256",
+    "controle_negatif_magique": false
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/protocole_general.py",
+    "adresse": "https://anibal-amiot.com/tools/protocole_general.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "  condition de ligne   (B + V = 3) : 256/256",
+      "  condition de colonne (B + J = 3) : 256/256",
+      "  carrés magiques, diagonales comprises   : 256/256",
+      "  contrôle négatif (tout en B) : conditions False, False ; magique False"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le contrôle négatif (tout en B) viole les deux conditions et n'est pas magique ; le script échoue s'il l'était."
+  },
+  {
+   "id": "pavage-miroirs-ordre-6m",
+   "intitule": "Un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m",
+   "enonce": {
+    "texte": "Soit E un étiquetage d'ordre 6 du corpus, et m ≥ 1. On pave une grille d'ordre 6m avec m × m copies de E [...] Le résultat est un carré magique, diagonales comprises.",
+    "langue": "fr",
+    "source": "en-tête de tools/pavage_miroirs.py (Anibal), « ÉNONCÉ »"
+   },
+   "valeur": {
+    "ordres_complets": {
+     "6": "256/256",
+     "12": "256/256",
+     "18": "256/256",
+     "24": "256/256",
+     "30": "256/256"
+    },
+    "ordres_echantillon": {
+     "42": "12/12",
+     "48": "12/12",
+     "60": "12/12"
+    },
+    "motifs_ordre_12": "16/256"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/pavage_miroirs.py",
+    "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "ordre   6 (1 × 1 blocs) : 256/256 magiques",
+      "ordre  12 (2 × 2 blocs) : 256/256 magiques",
+      "ordre  18 (3 × 3 blocs) : 256/256 magiques",
+      "ordre  24 (4 × 4 blocs) : 256/256 magiques",
+      "ordre  30 (5 × 5 blocs) : 256/256 magiques",
+      "ordre  42 (7 × 7 blocs) : 12/12 sur échantillon",
+      "ordre  48 (8 × 8 blocs) : 12/12 sur échantillon",
+      "ordre  60 (10 × 10 blocs) : 12/12 sur échantillon",
+      "motifs de miroirs donnant un carré magique à l’ordre 12 : 16/256"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "L'en-tête annonce aussi l'ordre 36 sur échantillon ; le script ne le teste pas (échantillons aux ordres 42, 48, 60). Les lignes citées sont celles qu'il imprime."
+  },
+  {
+   "id": "invariants-inspir-expir",
+   "intitule": "L'invariant diagonal est le même sur les 64 assemblages et sans case rouge ni bleue ; les traits bicolores de l'invariant en ligne portent huit formes, une par ligne du damier",
+   "enonce": {
+    "texte": "La ligne porte une forme elle aussi : les traits bicolores isolés dans son invariant.",
+    "langue": "fr",
+    "source": "tools/verify_invariants.py (Anibal), phrase finale ; en-tête points 1 à 4"
+   },
+   "valeur": {
+    "invariant_diagonal_formes": 1,
+    "cases": 48,
+    "formes_de_ligne": 8,
+    "cases_par_forme": 24,
+    "orbites": 10
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_invariants.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_invariants.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. inv(6,0) ∩ inv(0,6) = inv(6,6) : True ; formes diagonales distinctes sur les 64 : 1 (48 cases)",
+      "   couleurs de l’invariant diagonal : {'jaune': 1536, 'vert': 1536}",
+      "2. inv(6,0) : constant par ligne True, par colonne False ; 2 forme(s), séparant les deux moitiés : True",
+      "2. inv(0,6) : constant par ligne True, par colonne False ; 2 forme(s), séparant les deux moitiés : True",
+      "3. traits bicolores de inv(6,0) : constants par ligne True, par colonne False ; 8 formes distinctes de [24] cases",
+      "4. orbites : 10 au total, dont 2 noyaux de moitié et 8 paires",
+      "   paires de la moitié haute : [(0, 1), (0, 3), (1, 2), (2, 3)]"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "L'en-tête dit que inv(0,6) donne « les deux mêmes formes, échangées » que inv(6,0) ; le script vérifie que chacun a deux formes séparant les moitiés, pas qu'elles sont les mêmes."
+  },
+  {
+   "id": "transcription-64-lecture",
+   "intitule": "Les deux trigrammes se lisent sur l'assemblage, et leur couple est l'hexagramme : 64/64",
+   "enonce": {
+    "texte": "Les deux trigrammes se lisent sur l’assemblage, et leur couple est l’hexagramme.",
+    "langue": "fr",
+    "source": "tools/transcription.py (Anibal), phrase finale"
+   },
+   "valeur": {
+    "lectures": "64/64",
+    "parite": "64/64",
+    "unified_patterns": 16,
+    "constante_de_ligne": "16/16"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [
+    "data/transcription-64.json"
+   ],
+   "script": {
+    "chemin": "tools/transcription.py",
+    "adresse": "https://anibal-amiot.com/tools/transcription.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. lectures redonnant la case du damier : 64/64",
+      "2. parité des jonctions = élémental / manifestation : 64/64",
+      "3. unified patterns prédits par la lecture : 16, observés : 16, identiques : True",
+      "4. constante de ligne conforme à la formule : 16/16"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "La table des formes du trigramme supérieur est construite sur la colonne 0 à partir du rang R (CYCLE, seule convention déclarée) ; le 64/64 du supérieur établit donc que la forme est constante par ligne et distincte, la valeur du trigramme venant de la convention. --json relit data/transcription-64.json au même octet."
   }
  ]
 }

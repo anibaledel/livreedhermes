@@ -1,0 +1,647 @@
+{
+ "_doc": "La transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, obtenue en LISANT les deux trigrammes sur les formes : les trois bascules de la forme bleue de la superposition diagonale pour le trigramme inférieur, les traits bicolores de l'invariant en ligne pour le supérieur. Écrit et vérifié par tools/transcription.py --json.",
+ "source": "data/referent_256_v3.json",
+ "convention": "Le sens du cycle à quatre des deux traits du bas du trigramme supérieur ; tout le reste est contraint.",
+ "assemblages": [
+  {
+   "rang": 0,
+   "colonne": 0,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 0,
+   "fond": "gris",
+   "tetragramme": 0,
+   "unified_pattern": true
+  },
+  {
+   "rang": 0,
+   "colonne": 1,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 1,
+   "fond": "nuit",
+   "tetragramme": 0,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 2,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 2,
+   "fond": "gris",
+   "tetragramme": 1,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 3,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 3,
+   "fond": "nuit",
+   "tetragramme": 1,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 4,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 4,
+   "fond": "nuit",
+   "tetragramme": 2,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 5,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 5,
+   "fond": "gris",
+   "tetragramme": 2,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 6,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 6,
+   "fond": "nuit",
+   "tetragramme": 3,
+   "unified_pattern": false
+  },
+  {
+   "rang": 0,
+   "colonne": 7,
+   "trigramme_superieur": "terre",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 7,
+   "fond": "gris",
+   "tetragramme": 3,
+   "unified_pattern": true
+  },
+  {
+   "rang": 1,
+   "colonne": 0,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 8,
+   "fond": "bleu foncé",
+   "tetragramme": 0,
+   "unified_pattern": true
+  },
+  {
+   "rang": 1,
+   "colonne": 1,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 9,
+   "fond": "ciel",
+   "tetragramme": 0,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 2,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 10,
+   "fond": "bleu foncé",
+   "tetragramme": 1,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 3,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 11,
+   "fond": "ciel",
+   "tetragramme": 1,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 4,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 12,
+   "fond": "ciel",
+   "tetragramme": 2,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 5,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 13,
+   "fond": "bleu foncé",
+   "tetragramme": 2,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 6,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 14,
+   "fond": "ciel",
+   "tetragramme": 3,
+   "unified_pattern": false
+  },
+  {
+   "rang": 1,
+   "colonne": 7,
+   "trigramme_superieur": "tonnerre",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 15,
+   "fond": "bleu foncé",
+   "tetragramme": 3,
+   "unified_pattern": true
+  },
+  {
+   "rang": 2,
+   "colonne": 0,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 16,
+   "fond": "gris",
+   "tetragramme": 4,
+   "unified_pattern": true
+  },
+  {
+   "rang": 2,
+   "colonne": 1,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 17,
+   "fond": "nuit",
+   "tetragramme": 4,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 2,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 18,
+   "fond": "gris",
+   "tetragramme": 5,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 3,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 19,
+   "fond": "nuit",
+   "tetragramme": 5,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 4,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 20,
+   "fond": "nuit",
+   "tetragramme": 6,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 5,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 21,
+   "fond": "gris",
+   "tetragramme": 6,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 6,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 22,
+   "fond": "nuit",
+   "tetragramme": 7,
+   "unified_pattern": false
+  },
+  {
+   "rang": 2,
+   "colonne": 7,
+   "trigramme_superieur": "eau",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 23,
+   "fond": "gris",
+   "tetragramme": 7,
+   "unified_pattern": true
+  },
+  {
+   "rang": 3,
+   "colonne": 0,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 24,
+   "fond": "bleu foncé",
+   "tetragramme": 4,
+   "unified_pattern": true
+  },
+  {
+   "rang": 3,
+   "colonne": 1,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 25,
+   "fond": "ciel",
+   "tetragramme": 4,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 2,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 26,
+   "fond": "bleu foncé",
+   "tetragramme": 5,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 3,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 27,
+   "fond": "ciel",
+   "tetragramme": 5,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 4,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 28,
+   "fond": "ciel",
+   "tetragramme": 6,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 5,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 29,
+   "fond": "bleu foncé",
+   "tetragramme": 6,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 6,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 30,
+   "fond": "ciel",
+   "tetragramme": 7,
+   "unified_pattern": false
+  },
+  {
+   "rang": 3,
+   "colonne": 7,
+   "trigramme_superieur": "lac",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 31,
+   "fond": "bleu foncé",
+   "tetragramme": 7,
+   "unified_pattern": true
+  },
+  {
+   "rang": 4,
+   "colonne": 0,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 32,
+   "fond": "bleu foncé",
+   "tetragramme": 8,
+   "unified_pattern": true
+  },
+  {
+   "rang": 4,
+   "colonne": 1,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 33,
+   "fond": "ciel",
+   "tetragramme": 8,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 2,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 34,
+   "fond": "bleu foncé",
+   "tetragramme": 9,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 3,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 35,
+   "fond": "ciel",
+   "tetragramme": 9,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 4,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 36,
+   "fond": "ciel",
+   "tetragramme": 10,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 5,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 37,
+   "fond": "bleu foncé",
+   "tetragramme": 10,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 6,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 38,
+   "fond": "ciel",
+   "tetragramme": 11,
+   "unified_pattern": false
+  },
+  {
+   "rang": 4,
+   "colonne": 7,
+   "trigramme_superieur": "montagne",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 39,
+   "fond": "bleu foncé",
+   "tetragramme": 11,
+   "unified_pattern": true
+  },
+  {
+   "rang": 5,
+   "colonne": 0,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 40,
+   "fond": "gris",
+   "tetragramme": 8,
+   "unified_pattern": true
+  },
+  {
+   "rang": 5,
+   "colonne": 1,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 41,
+   "fond": "nuit",
+   "tetragramme": 8,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 2,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 42,
+   "fond": "gris",
+   "tetragramme": 9,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 3,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 43,
+   "fond": "nuit",
+   "tetragramme": 9,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 4,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 44,
+   "fond": "nuit",
+   "tetragramme": 10,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 5,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 45,
+   "fond": "gris",
+   "tetragramme": 10,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 6,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 46,
+   "fond": "nuit",
+   "tetragramme": 11,
+   "unified_pattern": false
+  },
+  {
+   "rang": 5,
+   "colonne": 7,
+   "trigramme_superieur": "feu",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 47,
+   "fond": "gris",
+   "tetragramme": 11,
+   "unified_pattern": true
+  },
+  {
+   "rang": 6,
+   "colonne": 0,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 48,
+   "fond": "bleu foncé",
+   "tetragramme": 12,
+   "unified_pattern": true
+  },
+  {
+   "rang": 6,
+   "colonne": 1,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 49,
+   "fond": "ciel",
+   "tetragramme": 12,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 2,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 50,
+   "fond": "bleu foncé",
+   "tetragramme": 13,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 3,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 51,
+   "fond": "ciel",
+   "tetragramme": 13,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 4,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 52,
+   "fond": "ciel",
+   "tetragramme": 14,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 5,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 53,
+   "fond": "bleu foncé",
+   "tetragramme": 14,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 6,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 54,
+   "fond": "ciel",
+   "tetragramme": 15,
+   "unified_pattern": false
+  },
+  {
+   "rang": 6,
+   "colonne": 7,
+   "trigramme_superieur": "vent",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 55,
+   "fond": "bleu foncé",
+   "tetragramme": 15,
+   "unified_pattern": true
+  },
+  {
+   "rang": 7,
+   "colonne": 0,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "terre",
+   "hexagramme": 56,
+   "fond": "gris",
+   "tetragramme": 12,
+   "unified_pattern": true
+  },
+  {
+   "rang": 7,
+   "colonne": 1,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "tonnerre",
+   "hexagramme": 57,
+   "fond": "nuit",
+   "tetragramme": 12,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 2,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "eau",
+   "hexagramme": 58,
+   "fond": "gris",
+   "tetragramme": 13,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 3,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "lac",
+   "hexagramme": 59,
+   "fond": "nuit",
+   "tetragramme": 13,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 4,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "montagne",
+   "hexagramme": 60,
+   "fond": "nuit",
+   "tetragramme": 14,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 5,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "feu",
+   "hexagramme": 61,
+   "fond": "gris",
+   "tetragramme": 14,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 6,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "vent",
+   "hexagramme": 62,
+   "fond": "nuit",
+   "tetragramme": 15,
+   "unified_pattern": false
+  },
+  {
+   "rang": 7,
+   "colonne": 7,
+   "trigramme_superieur": "ciel",
+   "trigramme_inferieur": "ciel",
+   "hexagramme": 63,
+   "fond": "gris",
+   "tetragramme": 15,
+   "unified_pattern": true
+  }
+ ]
+}

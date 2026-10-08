@@ -1534,6 +1534,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/pavage_miroirs.py",
+   "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/planche_fonds.mjs",
    "role": "Planche de contrôle de la collection de fonds (data/fonds/collection-v1.json) : chaque vignette est la sortie de motifSvg() d'assets/bicolore-fonds.js telle quelle — ce script ne dessine rien lui-même, il range les rendus du moteur sur u…",
    "lit": [
@@ -1568,6 +1580,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/protocole_general.py",
+   "role": "le protocole en vocabulaire standard, et à tout ordre.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1720,6 +1744,20 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/transcription.py",
+   "role": "la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par LECTURE des formes et non par leur position.",
+   "lit": [
+    "data/referent_256_v3.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1904,6 +1942,18 @@
    "appele_par": [],
    "utilise_par": [],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/verify_invariants.py",
+   "role": "les invariants de l'inspir et de l'expir (page 049), et la forme que porte la LIGNE du damier.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {

@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T08:06:51Z",
+ "generated_at_utc": "2026-10-08T11:44:55Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 199,
+  "scripts": 203,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -2854,6 +2854,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/pavage_miroirs.py",
+   "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
+   "octets": 4501,
+   "sha256": "aa1440c68ba1f59b08dfc59b8817c8e2495251604725f967c59f3ef804bbbca8",
+   "md5": "4c72db0ffc8b053acaa17abd23977c01",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/planche_fonds.mjs",
    "adresse": "https://anibal-amiot.com/tools/planche_fonds.mjs",
    "octets": 6182,
@@ -2893,6 +2910,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la police chinoise du site, réduite aux caractères employés.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/protocole_general.py",
+   "adresse": "https://anibal-amiot.com/tools/protocole_general.py",
+   "octets": 5484,
+   "sha256": "2017c1d8ae21626139b94901b2d25508f1b9671fda902f92c9b3ec0bfceae935",
+   "md5": "9911306b73e6c4959f355c8216a117ec",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le protocole en vocabulaire standard, et à tout ordre.",
+   "lit": [
+    "carres-ordre-6"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,
@@ -3084,6 +3118,23 @@
      "source": "inventaire des scripts"
     }
    ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/transcription.py",
+   "adresse": "https://anibal-amiot.com/tools/transcription.py",
+   "octets": 10771,
+   "sha256": "d49f786736fd1bf0a5f52c6dd7b0e7f7f398a0bacb754da81bfe04de14158ee9",
+   "md5": "900947d80b3e90ccad1e26f8d4bcdb77",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par LECTURE des formes et non par leur position.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
    "arborescence_requise": null,
    "zenodo": []
   },
@@ -3327,6 +3378,23 @@
    "licence": null,
    "role": "Contrôle du bouton « descendre » (dédoublement θ ↦ 2θ) de creation-bicolore-v2.html — règle donnée par Anibal, pas rédérivée (assets/bicolore-axes.js::DOUBLEMENT_ANGLE/DOUBLEMENT_ORTHO/doubleDe/ doubleAccord).",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verify_invariants.py",
+   "adresse": "https://anibal-amiot.com/tools/verify_invariants.py",
+   "octets": 7873,
+   "sha256": "daae224c994679751c829de36d747c8680563ad19e789945b1f5232f2da554c1",
+   "md5": "f96040597aa889614c4f081f7c3809c7",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les invariants de l'inspir et de l'expir (page 049), et la forme que porte la LIGNE du damier.",
+   "lit": [
+    "carres-ordre-6"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

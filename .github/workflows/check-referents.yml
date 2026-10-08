@@ -41,6 +41,10 @@ jobs:
       - run: python3 tools/verify_cle_couleurs.py
       - run: python3 tools/verify_cle_damier.py
       - run: python3 tools/verify_pont_formes.py
+      - run: python3 tools/protocole_general.py
+      - run: python3 tools/pavage_miroirs.py
+      - run: python3 tools/verify_invariants.py
+      - run: python3 tools/transcription.py --json
       - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs
       - run: node tools/check_resultats_etablis.mjs --essai
