@@ -776,7 +776,12 @@
     "assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css",
     "en/articles",
     "en/articles/high-priests-garment.html",
-    "en/articles/verticality-chequer-mosaic-chessboard.html"
+    "en/articles/verticality-chequer-mosaic-chessboard.html",
+    "en/hexagrams",
+    "en/yi-king-draw/index.html",
+    "es/hexagramas",
+    "fr/motifs",
+    "th/hexagrams"
    ],
    "ecrit": [],
    "appele_par": [
@@ -1611,6 +1616,18 @@
     "assets/fonts/noto-sans-math/noto-sans-math-ldh.woff2",
     "assets/fonts/noto-sans-symbols-2/noto-sans-symbols-2-ldh.woff2"
    ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/police_thai.py"
+   ],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/police_thai.py",
+   "role": "le repli hébergé du thaï : les pages th/ et le lien « ไทย » des rangées de langues, que Barlow Semi Condensed ne porte pas.",
+   "lit": [],
    "ecrit": [],
    "appele_par": [],
    "utilise_par": [],

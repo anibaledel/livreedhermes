@@ -33,6 +33,11 @@
    300 et 400 — pour le grec, ⁰…₉ et √ ≤ ≥ ∞ ≠ ; Noto Sans Math pour le reste
    du bloc U+2200–22FF (∩ ∪ …) ; Noto Sans Symbols 2 pour U+2630–2637.
    fonts/noto-sans-math/OFL.txt, fonts/noto-sans-symbols-2/OFL.txt.
+   Le thaï (pages th/ et lien « ไทย » des rangées de langues, 2026-10-08) :
+   Noto Sans Thai, police variable instanciée à la largeur 87,5
+   (semi-condensée, comme Barlow Semi Condensed) en 300 et 400, le bloc
+   thaï entier avec ses règles de mise en forme (tools/police_thai.py ;
+   SIL OFL 1.1, fonts/noto-sans-thai/OFL.txt).
 
    L'hindi (hi/, lot « hindi », 2026-10-04) : Noto Sans Devanagari, la tranche
    « devanagari » de @fontsource/noto-sans-devanagari 5.3.0 (SIL OFL 1.1,
@@ -128,8 +133,24 @@
   src: url('fonts/noto-sans-symbols-2/noto-sans-symbols-2-ldh.woff2') format('woff2');
   unicode-range: U+2630-2637;
 }
+@font-face {
+  font-family: 'Noto Sans Thai LDH';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('fonts/noto-sans-thai/noto-sans-thai-ldh-300-normal.woff2') format('woff2');
+  unicode-range: U+0E01-0E3A, U+0E3F-0E5B;
+}
+@font-face {
+  font-family: 'Noto Sans Thai LDH';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/noto-sans-thai/noto-sans-thai-ldh-400-normal.woff2') format('woff2');
+  unicode-range: U+0E01-0E3A, U+0E3F-0E5B;
+}
 :root, body {
-  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans SC LDH', 'Noto Sans Devanagari LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Barlow Semi Condensed', 'Barlow Semi Condensed IAST LDH', 'Roboto Condensed LDH', 'Noto Sans Math LDH', 'Noto Sans Symbols 2 LDH', 'Noto Sans SC LDH', 'Noto Sans Devanagari LDH', 'Noto Sans Thai LDH', 'Bahnschrift', -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
   font-weight: 300;
 }
 

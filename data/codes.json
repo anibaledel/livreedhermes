@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T14:24:08Z",
+ "generated_at_utc": "2026-10-08T14:25:59Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 209,
+  "scripts": 210,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -1914,9 +1914,9 @@
   {
    "chemin": "tools/check_police_pages.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_police_pages.mjs",
-   "octets": 6698,
-   "sha256": "6ce771129a9a2e24af8c601fb08ab9227ac640d349873ec359e69b505adb6cf5",
-   "md5": "41991851b375f854f3ecba12c9007d77",
+   "octets": 8583,
+   "sha256": "98d48215c7edb0db3a9ef1993763bd8179b201c74ebf93a73f3861e5e5f302f8",
+   "md5": "c9040c1659884ea7d3c2f1acdc9c47ce",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "chaque caractère du texte d'une page surveillée se rend dans la pile de polices DÉCLARÉE, sans police du système.",
@@ -2939,6 +2939,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les replis hébergés des signes que Barlow Semi Condensed ne porte pas : le grec, les indices et exposants, les signes mathématiques, les huit trigrammes ☰…☷.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/police_thai.py",
+   "adresse": "https://anibal-amiot.com/tools/police_thai.py",
+   "octets": 2113,
+   "sha256": "f03f99c7baf3bfa419d2637c6285581bb4cea691e718847721f6b7b315199cca",
+   "md5": "f1146354afd4fbfa6e327c2e9a498d30",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "le repli hébergé du thaï : les pages th/ et le lien « ไทย » des rangées de langues, que Barlow Semi Condensed ne porte pas.",
    "lit": [],
    "ecrit": [],
    "durees": [],
