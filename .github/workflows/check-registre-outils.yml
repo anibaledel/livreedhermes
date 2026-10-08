@@ -38,7 +38,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r tools/requirements.txt pymupdf==1.28.2 pikepdf pypdfium2 fonttools cryptography
+      - run: pip install -r tools/requirements.txt pymupdf==1.28.2 pikepdf pypdfium2 fonttools cryptography ortools==9.15.6755
       - run: npm install --no-save playwright@1 html-validate@9.7.1
       - run: node tools/registre_outils.mjs --verifie
       - run: node tools/registre_outils.mjs --essai

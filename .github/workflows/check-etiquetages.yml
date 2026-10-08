@@ -1,0 +1,38 @@
+name: Étiquetages magiques à quatre classes — comptes d'ordre 6 et absence à l'ordre 2
+
+# Les scripts de la livraison 13 d'Anibal (8 octobre 2026) :
+#   - enum6.py énumère les 18 432 étiquetages magiques d'ordre 6 et les trie en
+#     pavables (8 192, seize motifs chacun) et non pavables ; il sort en erreur
+#     si l'un de ces comptes bouge. Environ 2 min 30 dans un conteneur.
+#   - graine_sat.py --ordre 2 : le solveur CP-SAT conclut à l'absence
+#     (INFEASIBLE). Le script ne sort pas en erreur de lui-même ; c'est
+#     check_sorties_ci.mjs qui exige la ligne « AUCUN étiquetage … ».
+# Job à part de check-referents.yml : check_sorties_ci.mjs relance chaque script
+# cité, et enum6.py ne doit pas allonger le job des référents.
+# compte_etiquetages.py (ordres 2, 4, 6, 8) et portee_miroirs.py ont leurs
+# journaux dans docs/journaux/2026-10-08/ (statut verifie_journal_local).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install ortools==9.15.6755
+      - run: python3 tools/enum6.py
+      - run: python3 tools/graine_sat.py --ordre 2 --limite 60
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai

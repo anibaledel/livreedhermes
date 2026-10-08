@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T17:57:15Z",
+ "generated_at_utc": "2026-10-08T20:06:58Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 219,
+  "scripts": 224,
   "sans_licence_declaree": 72,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2289,6 +2289,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/compte_etiquetages.py",
+   "adresse": "https://anibal-amiot.com/tools/compte_etiquetages.py",
+   "octets": 5486,
+   "sha256": "e547869fd2c5f76e44c7469b8af7cafa53abb197b8bd23cd7973c55337cf2930",
+   "md5": "14493f36554f652904f01d0d8be97d3c",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "combien d'étiquetages magiques à quatre classes existe-t-il à l'ordre n ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/compte_hreflang.mjs",
    "adresse": "https://anibal-amiot.com/tools/compte_hreflang.mjs",
    "octets": 4844,
@@ -2471,6 +2486,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la première phrase de l'en-tête d'un script, ce qu'il fait, citée et non réécrite.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/enum6.py",
+   "adresse": "https://anibal-amiot.com/tools/enum6.py",
+   "octets": 3164,
+   "sha256": "2afa0ba2f10803921315635918975138047ae6c7c6c16c2fbd95a44afe9b5d38",
+   "md5": "86fd50c2a6e56b3727bb56149934ea03",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les 18 432 étiquetages magiques d'ordre 6, et ceux qui pavent.",
    "lit": [],
    "ecrit": [],
    "durees": [],
@@ -2822,6 +2852,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/graine_sat.py",
+   "adresse": "https://anibal-amiot.com/tools/graine_sat.py",
+   "octets": 4413,
+   "sha256": "6a1de3c59210f030dc9768150449c1a50a7573a12792d4a6bec5e88a20c6c56c",
+   "md5": "17815dfe7e22be0a14e7f025c93d112c",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "existe-t-il un étiquetage magique à quatre classes d'ordre n lorsque n n'est pas multiple de 6 ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
    "octets": 12629,
@@ -3013,6 +3058,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/miroirs_graine.py",
+   "adresse": "https://anibal-amiot.com/tools/miroirs_graine.py",
+   "octets": 4080,
+   "sha256": "4066370c21b05db69e9410ea5deb4ae9dcbd75b3b8340176f6047fd87ebcf9f7",
+   "md5": "ac1e89146e0c2d2dda9c8f62511bf62a",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la règle des miroirs dépend-elle de l'ordre de la graine ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/pages_webp.py",
    "adresse": "https://anibal-amiot.com/tools/pages_webp.py",
    "octets": 3701,
@@ -3137,6 +3197,23 @@
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la police chinoise du site, réduite aux caractères employés.",
    "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/portee_miroirs.py",
+   "adresse": "https://anibal-amiot.com/tools/portee_miroirs.py",
+   "octets": 4046,
+   "sha256": "89966a1c2c4153c8155dd5be17ee2ae85677e827936c0b67d9587a3c273eee50",
+   "md5": "d1fd0b3025f3661081b8cc1051cb45b1",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "jusqu'où va la règle des miroirs ?",
+   "lit": [
+    "carres-ordre-6"
+   ],
    "ecrit": [],
    "durees": [],
    "arborescence_requise": null,

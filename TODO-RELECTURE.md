@@ -718,3 +718,30 @@ lance avec `--echantillons` (≈ 70 s). À relire :
   ordres 24 et 30, le script tire 64 motifs conformes (tous magiques) et 200 motifs au
   hasard hors règle (aucun magique). L'en-tête dit « une seule règle le décrit à tout
   ordre » : c'est démontré à 12 et 18, échantillonné au-delà.
+
+## Livraison 13 : étiquetages magiques, graines, portée de la règle (2026-10-08)
+
+Les cinq scripts sont versés tels quels ; toutes les valeurs de `LIVRAISON.md` sont
+reproduites dans le conteneur (journaux dans `docs/journaux/2026-10-08/`). Le papier
+(révision 35) reste hors du site. De moi, à relire :
+
+- **Cinq entrées** dans `data/resultats-etablis.json` (`etiquetages-magiques-comptes`,
+  `etiquetages-ordre6-pavables`, `etiquetage-ordre-2-absent`, `graines-ordres-4-a-34`,
+  `regle-miroirs-portee`) : intitulés, notes et choix des lignes citées. Les énoncés sont
+  copiés de `LIVRAISON.md`, versée dans `docs/sources/2026-10-08/livraison13/`.
+- **Le workflow `check-etiquetages.yml`** : `enum6.py` (il sort en erreur de lui-même) et
+  `graine_sat.py --ordre 2` (il ne sort pas en erreur ; `check_sorties_ci.mjs` exige la
+  ligne « AUCUN … »), avec `ortools==9.15.6755`. Job à part, parce que
+  `check_sorties_ci.mjs` relance chaque script cité.
+- **`/tools/pavables6.json` dans `.gitignore`** : le cache d'`enum6.py` (1,6 Mo).
+- **« Quatre scripts »** : `LIVRAISON.md` dit quatre fichiers, l'archive en contient cinq
+  (`miroirs_graine.py` en plus). Et « les quatre autres n'utilisent que la bibliothèque
+  standard » : `portee_miroirs.py` importe `graine_sat`, donc `ortools`, sans condition ;
+  `miroirs_graine.py` aussi dans son `main`.
+- **La graine d'ordre 10 ou 14** sort de CP-SAT à 8 processus : trois relances de
+  `portee_miroirs.py` donnent le même bilan (8/16, 0/16), mais rien ne garantit la même
+  graine. « À l'ordre 10 la graine pave avec huit motifs » porte sur une graine.
+- **« Nécessaire partout »** : testé sur le corpus, 200 + 200 graines d'ordre 6, une graine
+  d'ordre 10, une d'ordre 14. Les 10 240 non pavables ne sont testées que sur 200.
+- **`portee_miroirs.py` en assertion** : question d'Anibal, en attente de sa réponse ;
+  pour l'instant journal local seulement.
