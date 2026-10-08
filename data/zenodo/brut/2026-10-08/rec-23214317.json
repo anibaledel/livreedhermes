@@ -1,0 +1,213 @@
+{
+  "access": {
+    "embargo": {
+      "active": false,
+      "reason": null
+    },
+    "files": "public",
+    "record": "public",
+    "status": "open"
+  },
+  "created": "2026-10-07T13:59:14.517024+00:00",
+  "custom_fields": {
+    "code:codeRepository": "https://github.com/anibaledel/livreedhermes"
+  },
+  "deletion_status": {
+    "is_deleted": false,
+    "status": "P"
+  },
+  "files": {
+    "count": 2,
+    "default_preview": "CHANGES.md",
+    "enabled": true,
+    "entries": {
+      "CHANGES.md": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:f865ea4693f9127afe895a3a153bb646",
+        "ext": "md",
+        "id": "07c5a2a9-16c6-4991-ade5-61ca7f47dda6",
+        "key": "CHANGES.md",
+        "links": {
+          "content": "https://zenodo.org/api/records/23214317/files/CHANGES.md/content",
+          "self": "https://zenodo.org/api/records/23214317/files/CHANGES.md"
+        },
+        "metadata": {},
+        "mimetype": "text/markdown",
+        "size": 4168,
+        "storage_class": "L"
+      },
+      "half-shift-cube-scripts-v3.zip": {
+        "access": {
+          "hidden": false
+        },
+        "checksum": "md5:69d10cdb56630bd11044292f32d7d17b",
+        "ext": "zip",
+        "id": "58492cc3-6f92-43ca-b0e0-0af57292de04",
+        "key": "half-shift-cube-scripts-v3.zip",
+        "links": {
+          "container": "https://zenodo.org/api/records/23214317/files/half-shift-cube-scripts-v3.zip/container",
+          "content": "https://zenodo.org/api/records/23214317/files/half-shift-cube-scripts-v3.zip/content",
+          "self": "https://zenodo.org/api/records/23214317/files/half-shift-cube-scripts-v3.zip"
+        },
+        "metadata": {},
+        "mimetype": "application/zip",
+        "size": 140952,
+        "storage_class": "L"
+      }
+    },
+    "order": [],
+    "total_bytes": 145120
+  },
+  "id": "23214317",
+  "is_draft": false,
+  "is_published": true,
+  "links": {
+    "doi": "https://doi.org/10.5281/zenodo.23214317",
+    "files": "https://zenodo.org/api/records/23214317/files",
+    "latest": "https://zenodo.org/api/records/23214317/versions/latest",
+    "latest_html": "https://zenodo.org/records/23214317/latest",
+    "parent": "https://zenodo.org/api/records/22862110",
+    "parent_doi": "https://doi.org/10.5281/zenodo.22862110",
+    "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.22862110",
+    "parent_html": "https://zenodo.org/records/22862110",
+    "self": "https://zenodo.org/api/records/23214317",
+    "self_doi": "https://doi.org/10.5281/zenodo.23214317",
+    "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.23214317",
+    "self_html": "https://zenodo.org/records/23214317",
+    "versions": "https://zenodo.org/api/records/23214317/versions"
+  },
+  "metadata": {
+    "copyright": "© 2026 Anibal Edelberto Amiot",
+    "creators": [
+      {
+        "person_or_org": {
+          "family_name": "Amiot",
+          "given_name": "Anibal Edelberto",
+          "identifiers": [
+            {
+              "identifier": "0009-0002-6414-9448",
+              "scheme": "orcid"
+            }
+          ],
+          "name": "Amiot, Anibal Edelberto",
+          "type": "personal"
+        }
+      }
+    ],
+    "languages": [
+      {
+        "id": "eng",
+        "title": {
+          "en": "English"
+        }
+      }
+    ],
+    "publication_date": "2026-10-07",
+    "publisher": "Zenodo",
+    "related_identifiers": [
+      {
+        "identifier": "10.5281/zenodo.22722485",
+        "relation_type": {
+          "id": "issupplementto"
+        },
+        "resource_type": {
+          "id": "publication-book"
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "10.5281/zenodo.22945021",
+        "relation_type": {
+          "id": "isreferencedby"
+        },
+        "resource_type": {
+          "id": "publication-report"
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "10.5281/zenodo.22966839",
+        "relation_type": {
+          "id": "isreferencedby"
+        },
+        "resource_type": {
+          "id": "publication-preprint"
+        },
+        "scheme": "doi"
+      },
+      {
+        "identifier": "https://github.com/anibaledel/livreedhermes",
+        "relation_type": {
+          "id": "issupplementto"
+        },
+        "resource_type": {
+          "id": "software"
+        },
+        "scheme": "url"
+      }
+    ],
+    "resource_type": {
+      "id": "software",
+      "title": {
+        "en": "Software"
+      }
+    },
+    "rights": [
+      {
+        "id": "agpl-3.0-only",
+        "props": {
+          "scheme": "spdx",
+          "url": "https://www.gnu.org/licenses/agpl.txt"
+        },
+        "title": {
+          "en": "GNU Affero General Public License v3.0 only"
+        }
+      }
+    ],
+    "subjects": [
+      {"subject": "magic squares"},
+      {"subject": "half-shift criterion"},
+      {"subject": "three-colour grids"},
+      {"subject": "Jacquard weaving"},
+      {"subject": "cube edge rule"},
+      {"subject": "exhaustive enumeration"},
+      {"subject": "verification"},
+      {"subject": "combinatorics"},
+      {"subject": "recreational mathematics"}
+    ],
+    "title": "Data and verification scripts for \"A Half-Shift Criterion on Three-Colour 12×12 Grids\"",
+    "version": "V.3.2"
+  },
+  "parent": {
+    "id": "22862110",
+    "pids": {
+      "doi": {
+        "client": "datacite",
+        "identifier": "10.5281/zenodo.22862110",
+        "provider": "datacite"
+      }
+    }
+  },
+  "pids": {
+    "doi": {
+      "client": "datacite",
+      "identifier": "10.5281/zenodo.23214317",
+      "provider": "datacite"
+    },
+    "oai": {
+      "identifier": "oai:zenodo.org:23214317",
+      "provider": "oai"
+    }
+  },
+  "revision_id": 3,
+  "status": "published",
+  "updated": "2026-10-07T13:59:14.827933+00:00",
+  "versions": {
+    "index": 4,
+    "is_latest": true,
+    "is_latest_draft": true
+  },
+  "_releve": "Réponse de https://zenodo.org/api/records/23214317 collée par Anibal le 2026-10-08 (zenodo.org refusé à l'environnement Claude Code). Champs repris tels quels ; omis : les descriptions HTML (recopiées dans data/zenodo/depots.json), les statistiques de consultation, les liens d'administration de la fiche, les affiliations du créateur et les traductions allemandes des intitulés."
+}
