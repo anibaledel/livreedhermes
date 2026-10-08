@@ -1669,6 +1669,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [
+    "check-referents.yml",
     "check-registre-outils.yml"
    ],
    "utilise_par": [],

@@ -27,6 +27,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/requirements.txt
       - run: node tools/index_referents.mjs --verifie
       - run: node tools/index_referents.mjs --essai
       - run: cd data && sha256sum -c SHA256SUMS.txt
