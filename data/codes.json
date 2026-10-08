@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T14:08:53Z",
+ "generated_at_utc": "2026-10-08T14:10:52Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3428,8 +3428,8 @@
    "chemin": "tools/verify_echelle.py",
    "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
    "octets": 14889,
-   "sha256": "93cda0693043eb681e50e3f6cf3a9d403db0621b91b764bb8c280a9f99407c8f",
-   "md5": "75b30c02c9499fbb0c66ac1ccccf8a8f",
+   "sha256": "912bafa3fcbed7cf6fd56941386abccabb4dea03681abbcea03badc1b2beae51",
+   "md5": "112884b2f77cd671331ff2a91993b200",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les énoncés chiffrés de l'article que les quatre autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les…",

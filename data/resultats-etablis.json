@@ -1853,7 +1853,7 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "Point 6 de tools/verify_echelle.py ; dans l'en-tête du script il est écrit avant le point 5, la sortie les imprime dans l'ordre."
+   "note": "Point 6 de tools/verify_echelle.py."
   },
   {
    "id": "cle-pied-jonctions-miroirs",

@@ -667,8 +667,8 @@ tableau de la section « Vérification »). Ce qui n'est pas de sa main, à reli
   053 » ; `croix_ansee.py` et `verify_echelle.py` sous « Appelons rosace » ;
 - « **Huit** scripts le vérifient » (meta description) et « Les **huit** vérificateurs » dans
   la section « Vérifier » et dans `llms.txt`.
-- `verify_echelle.py` : l'en-tête corrigé (point 6 avant le point 5) n'est pas encore arrivé
-  en fichier ; le dépôt garde la version précédente.
+- ~~`verify_echelle.py` : point 6 écrit avant le point 5 dans l'en-tête~~ — corrigé par
+  Anibal (2026-10-08), code et sortie inchangés.
 
 Le contrôle des énoncés (`tools/check_resultats_etablis.mjs`) compare maintenant au texte
 seul — balisage retiré, entités décodées, espaces réduits —, pour qu'un mot en gras dans la

@@ -54,6 +54,12 @@
 #    section « Ce qui manque » : le poids des deux jonctions est inégal, et
 #    la direction privilégiée n'a pas d'explication.
 #
+# 5. SEUL LE DÉCALAGE DIAGONAL DONNE LA CONSTANTE. La forme bleue de la
+#    superposition est constante sur chaque colonne du damier pour le décalage
+#    (6, 6), et pour lui seul : les décalages (6, 0) et (0, 6) pris séparément
+#    ne donnent de constante ni par colonne ni par ligne. La forme se lit sur
+#    le 12 × 12 entier ; la replier sur 6 × 6 efface la distinction.
+#
 # 6. À QUOI SERT UNE ROSACE : À LIRE LE TRIGRAMME, DEUX FOIS. Une demi-rosace
 #    prend une case dans chacune des six classes, donc un témoin de chaque
 #    façon de varier. Lire ses six cases sur une ligne du damier distingue les
@@ -64,12 +70,6 @@
 #    au découpage en inspir et expir : un élément lit déjà le trigramme, la
 #    rosace l'apparie à son demi-tour pour que les deux respirations soient ses
 #    deux moitiés.
-#
-# 5. SEUL LE DÉCALAGE DIAGONAL DONNE LA CONSTANTE. La forme bleue de la
-#    superposition est constante sur chaque colonne du damier pour le décalage
-#    (6, 6), et pour lui seul : les décalages (6, 0) et (0, 6) pris séparément
-#    ne donnent de constante ni par colonne ni par ligne. La forme se lit sur
-#    le 12 × 12 entier ; la replier sur 6 × 6 efface la distinction.
 #
 # Usage : cd <racine du dépôt> && python tools/verify_echelle.py
 
