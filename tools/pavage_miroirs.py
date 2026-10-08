@@ -35,7 +35,27 @@
 # 10 × 10 blocs de trois, et chacun des quatre sous-ensembles y paraît
 # exactement vingt-cinq fois.
 #
+# LE SOUS-GROUPE DES SEIZE. Les motifs valides à l'ordre 12 ne sont pas un
+# ensemble quelconque : codés dans (Z/2)⁸ par les deux bits de miroir de chaque
+# bloc, ils forment un SOUS-GROUPE d'ordre 2⁴, le même pour les 256 graines, et
+# il est défini par quatre équations :
+#
+#     h₀ = h₂ ,  h₁ = h₃ ,  v₀ = v₁ ,  v₂ = v₃
+#
+# c'est-à-dire : le miroir gauche-droite ne dépend que de la COLONNE de blocs,
+# le miroir haut-bas que de la LIGNE de blocs. Un bit libre par colonne, un par
+# ligne : 2² × 2² = seize. L'alternance par parité en est un élément.
+#
+# Cette forme donne 2^(2m) étiquetages magiques à l'ordre 6m — 16/16 à l'ordre
+# 12, 64/64 à l'ordre 18. Elle est SUFFISANTE, et nécessaire au seul ordre 12 :
+# à l'ordre 18 un échantillon de motifs quelconques en donne d'autres.
+#
+# TIRAGES ALÉATOIRES. Les deux échantillons de ce script fixent leur graine de
+# hasard, pour que leurs chiffres se reproduisent à l'identique.
+#
 # Usage : cd <racine du dépôt> && python tools/pavage_miroirs.py [--jusqua M]
+#         --echantillons   ajoute les deux tirages aléatoires (plus lent)
+
 
 import sys, itertools, random, collections
 
@@ -123,6 +143,124 @@ def blocs_de_trois(bases, ech):
         echecs.append('le décompte de la page 034 ne donne pas 25 par sous-ensemble')
 
 
+BITS = {'C': (0, 0), 'H': (1, 0), 'V': (0, 1), 'D': (1, 1)}
+
+
+def vecteur(motif):
+    """Le motif comme élément de (Z/2)^(2k)."""
+    return tuple(b for o in motif for b in BITS[o])
+
+
+def par_bloc(m, H, V):
+    """Le motif où le miroir h ne dépend que de la colonne de blocs et le
+    miroir v que de la ligne : la forme annoncée."""
+    return [[('C', 'H', 'V', 'D')[H[j] + 2 * V[i]] for j in range(m)]
+            for i in range(m)]
+
+
+def sous_groupe(bases):
+    """Les motifs valides à l'ordre 12 : un sous-groupe, et ses équations."""
+    tous = list(itertools.product('CHVD', repeat=4))
+    ref = None
+    memes = 0
+    for b in bases:
+        S = frozenset(m for m in tous
+                      if magique(pave(b, 2, [[m[0], m[1]], [m[2], m[3]]]), 12))
+        if ref is None:
+            ref = S
+        memes += (S == ref)
+    print(f'\nle sous-groupe des motifs valides à l’ordre 12')
+    print(f'  motifs valides : {len(ref)} ; identiques sur les 256 graines : {memes}/256')
+    if len(ref) != 16 or memes != 256:
+        echecs.append('les motifs valides ne sont pas seize, les mêmes pour toutes les graines')
+
+    vecs = [vecteur(m) for m in ref]
+    zero = tuple([0] * 8)
+    groupe = (zero in vecs and
+              all(tuple((a[i] + b[i]) % 2 for i in range(8)) in vecs
+                  for a in vecs for b in vecs))
+    print(f'  sous-groupe de (Z/2)⁸ : {groupe}, d’ordre {len(vecs)} = 2^{len(vecs).bit_length() - 1}')
+    if not groupe:
+        echecs.append('les motifs valides ne forment pas un sous-groupe')
+
+    # h0=h2, h1=h3, v0=v1, v2=v3  —  indices : h_k en 2k, v_k en 2k+1
+    eq = all(v[0] == v[4] and v[2] == v[6] and v[1] == v[3] and v[5] == v[7]
+             for v in vecs)
+    reciproque = sum(1 for m in tous
+                     if (lambda v: v[0] == v[4] and v[2] == v[6]
+                         and v[1] == v[3] and v[5] == v[7])(vecteur(m)))
+    print(f'  h₀=h₂, h₁=h₃, v₀=v₁, v₂=v₃ sur les seize : {eq} ; '
+          f'motifs vérifiant ces équations : {reciproque}/256')
+    if not eq or reciproque != 16:
+        echecs.append('les quatre équations ne caractérisent pas les seize motifs')
+
+
+def forme_annoncee(bases):
+    """« h par colonne de blocs, v par ligne » : 2^(2m) motifs, tous magiques."""
+    print('\nles motifs « h par colonne, v par ligne »')
+    for m in (2, 3):
+        n = 6 * m
+        total = ok = 0
+        for H in itertools.product((0, 1), repeat=m):
+            for V in itertools.product((0, 1), repeat=m):
+                motif = par_bloc(m, H, V)
+                for b in bases:
+                    total += 1
+                    ok += magique(pave(b, m, motif), n)
+        attendu = 4 ** m * len(bases)
+        print(f'  ordre {n:3d} : {ok}/{total} (2^{2 * m} motifs × {len(bases)} graines)')
+        if ok != total or total != attendu:
+            echecs.append(f'la forme annoncée échoue à l’ordre {n}')
+
+
+def echantillon_ordre18(bases, tirages=4000):
+    """Combien de motifs QUELCONQUES sont magiques à l'ordre 18, et combien
+    d'entre eux sont de la forme annoncée. Graine fixée."""
+    rng = random.Random(0)
+    base = bases[0]
+    m = 3
+    mag = conformes = 0
+    for _ in range(tirages):
+        motif = [[rng.choice('CHVD') for _ in range(m)] for _ in range(m)]
+        if magique(pave(base, m, motif), 18):
+            mag += 1
+            H = [BITS[motif[0][j]][0] for j in range(m)]
+            V = [BITS[motif[i][0]][1] for i in range(m)]
+            conformes += (motif == par_bloc(m, H, V))
+    print(f'\nordre 18, {tirages} motifs tirés au hasard (graine 0) : {mag} magiques, '
+          f'dont {conformes} de la forme annoncée')
+    print('  la forme est donc suffisante, non nécessaire au-delà de l’ordre 12')
+    if mag <= conformes:
+        echecs.append('l’échantillon ne montre plus d’autres motifs magiques à l’ordre 18')
+
+
+def echantillon_graines(tirages=400000):
+    """Un étiquetage conforme aux trois conditions est-il souvent magique ?
+    Graine fixée. Sert à montrer que les conditions sont loin de suffire."""
+    rng = random.Random(1)
+    print(f'\nétiquetages tirés au hasard parmi les conformes (graine 1)')
+    for n in (6, 10, 14):
+        conformes = magiques = 0
+        for _ in range(tirages):
+            e = []
+            for r in range(n):
+                pos = list(range(n))
+                rng.shuffle(pos)
+                ligne = [None] * n
+                for i, c in enumerate(pos):
+                    ligne[c] = rng.choice('BV') if i < n // 2 else rng.choice('RJ')
+                e.append(ligne)
+            if not all(sum(1 for r in range(n) if e[r][c] in 'BJ') == n // 2
+                       for c in range(n)):
+                continue
+            conformes += 1
+            magiques += magique(e, n)
+        print(f'  ordre {n:2d} : {conformes} conformes aux deux conditions '
+              f'd’effectifs sur {tirages} tirages, {magiques} magiques')
+        if magiques:
+            echecs.append(f'un étiquetage magique est apparu au hasard à l’ordre {n}')
+
+
 def main():
     doc = lire_referent()
     bases = [etiquetage(f) for f in doc['forms']]
@@ -152,6 +290,11 @@ def main():
         echecs.append(f'{bons} motifs valides au lieu de 16')
 
     blocs_de_trois(bases, ech20)
+    sous_groupe(bases)
+    forme_annoncee(bases[:8])
+    if '--echantillons' in sys.argv:
+        echantillon_ordre18(bases)
+        echantillon_graines()
 
     if echecs:
         print('\n' + '\n'.join(echecs), file=sys.stderr)

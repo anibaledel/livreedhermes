@@ -690,3 +690,30 @@ Les deux scripts sont lancés en CI et cités dans `data/resultats-etablis.json`
   sens » et « Ce qui ne s'en déduit pas ») ; `tools/verifier_formes_figures.py` relance
   dix scripts, comme le tableau « Vérification » ; « Dix scripts le vérifient » (meta) et
   « Les dix vérificateurs » (section « Vérifier », `llms.txt`) sont de moi.
+
+## Les comptes du papier « Un protocole ponctuel » (2026-10-08)
+
+Le papier reste hors du site (décision d'Anibal) ; seul le script qui en imprime les
+chiffres est versé. `tools/pavage_miroirs.py` reprend l'envoi d'Anibal
+(`pavage_miroirs_3.py`) sur la version du dépôt qui importe `lldh_commun.py` — sortie
+identique ligne pour ligne, avec et sans `--echantillons` : le sous-groupe des seize à
+l'ordre 12, la forme « h par colonne, v par ligne », et les deux tirages à graine fixée
+(70 magiques sur 4 000 motifs à l'ordre 18, dont 1 de la forme ; 369 étiquetages conformes
+aux deux conditions d'effectifs sur 400 000 à l'ordre 6, 0 aux ordres 10 et 14). La CI le
+lance avec `--echantillons` (≈ 70 s). À relire :
+
+- **`echantillon_graines`** ne tire que des étiquetages conformes aux deux conditions
+  d'effectifs (la ligne par construction, la colonne testée) ; la condition de bijection
+  n'est pas testée. Le papier dit « tiré au hasard parmi ceux qui les respectent » juste
+  après « les trois réunies » : les chiffres qui suivent portent sur les deux conditions
+  d'effectifs seulement (le papier le dit ensuite en toutes lettres).
+- **`forme_annoncee`** vérifie la forme sur 8 graines, non sur les 256 ; à l'ordre 18,
+  les 256 coûteraient environ 3 s de plus.
+- **Un compte exhaustif, fait pour contrôle et non versé** : à l'ordre 18, sur les
+  262 144 motifs, **4 096 = 2¹²** sont magiques pour les graines 0, 1 et 100, le même
+  ensemble pour 0 et 1, et c'est un sous-groupe de (ℤ/2)¹⁸ défini par six équations :
+  h₀ = h₆, h₁ = h₇, h₂ = h₈, v₀ = v₂, v₃ = v₅, v₆ = v₈ (blocs numérotés 3·ligne + colonne).
+  Le miroir gauche-droite y est le même pour les lignes de blocs 0 et 2, le miroir
+  haut-bas le même pour les colonnes de blocs 0 et 2. L'échantillon 70/4 000 en est un
+  estimateur cohérent (4 000 / 64 ≈ 62,5). Le papier dit la caractérisation ouverte à
+  partir de l'ordre 18 ; à Anibal de dire s'il veut ce compte dans un script.
