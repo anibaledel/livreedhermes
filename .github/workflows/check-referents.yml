@@ -48,3 +48,5 @@ jobs:
       - run: python3 tools/verify_cadres_ordre12.py
       - run: node tools/check_resultats_etablis.mjs
       - run: node tools/check_resultats_etablis.mjs --essai
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-referents.yml
+      - run: node tools/check_sorties_ci.mjs .github/workflows/check-referents.yml --essai

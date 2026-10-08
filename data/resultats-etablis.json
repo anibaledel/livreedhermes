@@ -889,12 +889,12 @@
     {
      "ci": ".github/workflows/check-referents.yml",
      "lignes": [
-      "data/referents.json et data/SHA256SUMS.txt écrits : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6)."
+      "Recomptés : carres-ordre-6 (256, a4e2c53d), calques-360 (360, d00a5075), constructions-1024 (1024, ef900ad6)."
      ]
     }
    ],
    "statut": "verifie_ci",
-   "note": "index_referents.mjs relit le nombre de calques dans le fichier et échoue s'il n'en compte pas 360 ; la ligne citée est celle de l'écriture de l'index.",
+   "note": "index_referents.mjs relit le nombre de calques dans le fichier et échoue s'il n'en compte pas 360 ; la ligne citée est celle de --verifie, le mode que lance la CI (jusqu'au 8 oct. 2026 elle citait la ligne de l'écriture, que la CI n'imprime pas : écart relevé par check_sorties_ci.mjs).",
    "conditionnel": false,
    "donnees": [],
    "page": "chiffres-et-sources.html"

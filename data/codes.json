@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T11:44:55Z",
+ "generated_at_utc": "2026-10-08T11:46:11Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 203,
+  "scripts": 204,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -2064,6 +2064,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/check_sorties_ci.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_sorties_ci.mjs",
+   "octets": 4475,
+   "sha256": "a372ab5df91a61b115d306939536aba3bcbdf5ffe50ea5a8af12a6b8ab5cc277",
+   "md5": "e3b8576c860fe154fb4bdae2b7b4aa29",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les lignes que data/resultats-etablis.json cite pour un résultat « verifie_ci » sont-elles, à la lettre, dans ce que le script imprime ?",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/check_tuiles.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_tuiles.mjs",
    "octets": 6249,
@@ -2659,9 +2674,9 @@
   {
    "chemin": "tools/index_referents.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_referents.mjs",
-   "octets": 11254,
-   "sha256": "bf2ee3b729e9d6b03c005f8603c3bfd3a731039ced61f8d9905f56f7ee9e307b",
-   "md5": "32a756783e95378e2c10276e4aa1dd3f",
+   "octets": 11415,
+   "sha256": "b18cb378fa8f4a2c2d4c17a939cfbaba0b09dc84b04ff789d924088ae7da4de7",
+   "md5": "c0616a3f5ab6bf50c12b2eaa76e8c8ad",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des référents de données du site : data/referents.json (ce que chaque référent contient, à quelle adresse, qui l'écrit, qui le vérifie, quelles pages s'en servent) et data/SHA256SUMS.txt (l'empreinte de chacun, au format de sha25…",
