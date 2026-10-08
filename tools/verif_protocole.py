@@ -56,12 +56,12 @@ CARRE_REFERENCE = [
 ]
 
 COULEURS_REFERENCE = [
-    ['jaune', 'vert', 'rouge', 'vert', 'vert', 'jaune'],
-    ['rouge', 'jaune', 'vert', 'vert', 'jaune', 'vert'],
-    ['vert', 'rouge', 'jaune', 'jaune', 'vert', 'vert'],
-    ['bleu', 'rouge', 'jaune', 'jaune', 'vert', 'bleu'],
-    ['rouge', 'jaune', 'bleu', 'bleu', 'jaune', 'vert'],
-    ['jaune', 'bleu', 'rouge', 'vert', 'bleu', 'jaune'],
+    ['vert', 'jaune', 'bleu', 'jaune', 'jaune', 'vert'],
+    ['bleu', 'vert', 'jaune', 'jaune', 'vert', 'jaune'],
+    ['jaune', 'bleu', 'vert', 'vert', 'jaune', 'jaune'],
+    ['rouge', 'bleu', 'vert', 'vert', 'jaune', 'rouge'],
+    ['bleu', 'vert', 'rouge', 'rouge', 'vert', 'jaune'],
+    ['vert', 'rouge', 'bleu', 'jaune', 'rouge', 'vert'],
 ]
 
 if __name__ == '__main__':
@@ -77,10 +77,11 @@ if __name__ == '__main__':
         magiques += is_magic_square(g, verbose=False)['magique']
         diag_compl += all(g[i][i] + g[5 - i][5 - i] == 37 and g[i][5 - i] + g[5 - i][i] == 37 for i in range(6))
         mir = (lambda r, c: (5 - c, 5 - r)) if f['chiralite'] == 'EGO' else (lambda r, c: (c, r))
-        rb_compl += all(g[r][c] + g[mir(r, c)[0]][mir(r, c)[1]] == 37 for r, c in f['rouge_positions'])
+        bleus = {tuple(x) for x in f['bleu_positions']}
+        rb_compl += all(mir(r, c) in bleus for r, c in f['rouge_positions'])
     print(f"§5       carrés magiques complets (lignes, colonnes, deux diagonales) : {magiques}/256")
-    print(f"§4.1     rouge et bleu complémentaires cellule à cellule (par le miroir) : {rb_compl}/256")
-    print(f"§2       cellules diagonales complémentaires par symétrie centrale       : {diag_compl}/256")
+    print(f"§4.1     le miroir de chiralité envoie chaque case rouge sur une case bleue : {rb_compl}/256")
+    print(f"§2       diagonales : deux cases centralement symétriques, même teinte (gris ou jaune), donc somme 37 : {diag_compl}/256")
 
     ok12 = 0
     for R in range(8):
