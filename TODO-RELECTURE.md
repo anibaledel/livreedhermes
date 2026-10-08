@@ -635,3 +635,29 @@ Ce qui n'est **pas** de sa main, à relire :
 - la figure **`formes-colonne.png`** : recalculée depuis `data/referent_256_v3.json` dans le
   style des quatre autres (l'image envoyée n'est pas arrivée en fichier). À remplacer par
   l'originale si elle diffère.
+
+## Échelle, rosaces et croix ansées (2026-10-08)
+
+Versés depuis les envois d'Anibal : `tools/verify_echelle.py` (version « rosace », celle que
+décrit `CROIX-ANSEE.md`) et `data/elements-052.json`. Reportés sur les scripts du dépôt, sans
+défaire le module commun `lldh_commun.py` : les corrections d'en-tête et de sortie de
+`pavage_miroirs.py` (ordres réellement testés, blocs de 3 × 3), `verify_invariants.py`
+(« mêmes formes, échangées » désormais vérifié), `transcription.py` (CYCLE nommé à la sortie)
+et le `--json` qui n'écrase plus de `transcription.py` et `verify_quadricolore.py`. Les
+sorties sont identiques, ligne pour ligne, à celles des fichiers envoyés. À trancher :
+
+- **`data/elements-052.json`**, champ `_doc` : « leur réunion est une **croix ansée** ».
+  Selon `CROIX-ANSEE.md`, cette réunion de douze cases s'appelle désormais **rosace**. Le
+  fichier est versé tel qu'envoyé ; le mot est à corriger de ta main si tu le veux.
+- **`verify_quadricolore.py`**, en-tête : l'envoi disait « l'un de ces **cinq** points » ; le
+  dépôt garde « **six** », qui est le nombre de points énumérés.
+- **`croix_ansee.py`** : l'envoi ne différait que par un en-tête anonymisé (« Author and
+  contact withheld for anonymised peer review ») ; le dépôt garde l'en-tête signé, cité avec
+  son empreinte par le journal du 2026-10-07. L'anonymisation est pour la soumission, pas
+  pour le site.
+- **`verify_echelle.py`, deuxième envoi** : c'était la version antérieure (« soixante-six
+  croix ansées », réponse à la relecture, révision 51), remplacée par la version « rosace ».
+  Non versée.
+- **L'article** est encore à la révision 46 sur le site ; `RELECTURE.md` parle de la 51 et
+  `CROIX-ANSEE.md` de la 70 (« croix ansée » → « rosace » pour l'objet à douze cases, phrase
+  sur les critères de la page 040 supprimée, « trois scripts » → cinq).

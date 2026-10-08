@@ -1987,6 +1987,18 @@
    "sait_echouer": true
   },
   {
+   "fichier": "tools/verify_echelle.py",
+   "role": "les énoncés chiffrés de l'article que les quatre autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les…",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_fonds.mjs",
    "role": "Le test qui gèle l'essentiel des fonds de case (assets/bicolore-fonds.js, data/fonds/collection-v1.json).",
    "lit": [

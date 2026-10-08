@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T12:47:27Z",
+ "generated_at_utc": "2026-10-08T13:37:34Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 208,
+  "scripts": 209,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -2888,9 +2888,9 @@
   {
    "chemin": "tools/pavage_miroirs.py",
    "adresse": "https://anibal-amiot.com/tools/pavage_miroirs.py",
-   "octets": 3720,
-   "sha256": "f09845fe768ac02518f9b454f42402a6a366d7fdce35c56568f569fcb94933d6",
-   "md5": "a965b2fef663ac628c8ab4ad489f3189",
+   "octets": 6687,
+   "sha256": "7333421afcaf491a96b48540c238185d63ade04aeb0224416dd119d1d2f8d89e",
+   "md5": "907f8ea1b91e9090bd1f2c747866c2eb",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m, pour tout m.",
@@ -3167,9 +3167,9 @@
   {
    "chemin": "tools/transcription.py",
    "adresse": "https://anibal-amiot.com/tools/transcription.py",
-   "octets": 9502,
-   "sha256": "0bdb47caa747b7a1e698a052b7500b6da79e9580d6a0b7c2b5b21c9064add42a",
-   "md5": "d0fd7906771f9297be4cc10cc5a84a43",
+   "octets": 10211,
+   "sha256": "23f7098526cbf5423cafcd79b29b32356e5c27c105cb34982956bb924734efc7",
+   "md5": "2f30216d86c1b1b704967846a72b7855",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la transcription entre les 64 assemblages d'ordre 12 et les 64 hexagrammes, par LECTURE des formes et non par leur position.",
@@ -3425,6 +3425,23 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/verify_echelle.py",
+   "adresse": "https://anibal-amiot.com/tools/verify_echelle.py",
+   "octets": 13050,
+   "sha256": "85de9f919e2f388c2d4067864fbf1abcf08755d1988169c5d38fb924083004e7",
+   "md5": "a63cf473b73f2ea9a6c87af184133a56",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "les énoncés chiffrés de l'article que les quatre autres scripts ne couvraient pas : les six classes d'invariance de la page 059, les huit transversales, les quatre rosaces et leurs orbites, la connexité inégale des deux jonctions, et les…",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/verify_fonds.mjs",
    "adresse": "https://anibal-amiot.com/tools/verify_fonds.mjs",
    "octets": 14752,
@@ -3457,9 +3474,9 @@
   {
    "chemin": "tools/verify_invariants.py",
    "adresse": "https://anibal-amiot.com/tools/verify_invariants.py",
-   "octets": 7056,
-   "sha256": "abef36b239abb03aacfc505b8d8f77cab0646a43ebfa2010900233512e09054e",
-   "md5": "0f4e0b8b9839544d34cd1fe17d34e628",
+   "octets": 7725,
+   "sha256": "508018f641dc33c9dfbed4e901c4b5158eb4652d8b7459f681141484c3672037",
+   "md5": "3a257c901ac67b46450712fa06ea6bf6",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les invariants de l'inspir et de l'expir (page 049), et la forme que porte la LIGNE du damier.",
@@ -3519,9 +3536,9 @@
   {
    "chemin": "tools/verify_quadricolore.py",
    "adresse": "https://anibal-amiot.com/tools/verify_quadricolore.py",
-   "octets": 9940,
-   "sha256": "9d0a41434baf95a70f65d849977fb280efe93e7cde39c72373ea3451828d39b5",
-   "md5": "71c12651d7f60adff50364627466a193",
+   "octets": 10183,
+   "sha256": "15056a114adee73fdddda18e2bc693b266a8793e73e8872c3660c05077ae335e",
+   "md5": "fd469d3e426f098a104d9ec60685949f",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les 64 motifs de la galerie Magic quadricolore sont l'échiquier de la page 047, en trois teintes au lieu de quatre.",
