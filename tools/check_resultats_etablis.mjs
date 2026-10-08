@@ -42,6 +42,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lire = (rel) => fs.readFileSync(path.join(RACINE, rel));
@@ -130,7 +131,17 @@ function controler(doc) {
     const scripts = r.script ? [r.script, ...(r.script.aussi ? [r.script.aussi] : [])] : [];
     for (const s of scripts) {
       if (s.chemin && !existe(s.chemin)) ecarts.push(`${ici} : script introuvable (${s.chemin})`);
-      if (s.chemin && existe(s.chemin) && s.depose?.md5) {
+      if (s.chemin && existe(s.chemin) && s.depose?.md5 && s.depose.membre) {
+        // script déposé DANS une archive : l'archive versée a le MD5 déposé, et le
+        // script versé est, à l'octet, le membre de cette archive
+        if (!s.depose.copie || !existe(s.depose.copie)) ecarts.push(`${ici} : copie de l'archive déposée introuvable (${s.depose.copie})`);
+        else {
+          if (md5(s.depose.copie) !== s.depose.md5) ecarts.push(`${ici} : ${s.depose.copie} n'est pas l'archive déposée (${md5(s.depose.copie)}, déposé ${s.depose.md5})`);
+          let membre = null;
+          try { membre = execFileSync('unzip', ['-p', path.join(RACINE, s.depose.copie), s.depose.membre]); } catch { ecarts.push(`${ici} : ${s.depose.membre} introuvable dans ${s.depose.copie}`); }
+          if (membre && !lire(s.chemin).equals(membre)) ecarts.push(`${ici} : ${s.chemin} n'est pas, à l'octet, ${s.depose.membre} de l'archive déposée`);
+        }
+      } else if (s.chemin && existe(s.chemin) && s.depose?.md5) {
         const m = md5(s.chemin);
         if (m !== s.depose.md5) ecarts.push(`${ici} : ${s.chemin} n'est pas l'octet déposé (${m}, déposé ${s.depose.md5})`);
         const z = instantane.get(s.depose.enregistrement);
@@ -190,8 +201,15 @@ function controler(doc) {
       if (!existe(j.copie)) { ecarts.push(`${ici} : copie du journal introuvable (${j.copie})`); continue; }
       const m = md5(j.copie);
       if (m !== j.md5) ecarts.push(`${ici} : la copie ${j.copie} a pour MD5 ${m}, le journal déposé ${j.md5}`);
-      const lignes = new Set(lire(j.copie).toString('utf8').split('\n'));
-      for (const l of p.lignes || []) if (!lignes.has(l)) ecarts.push(`${ici} : ligne absente de ${j.copie} : « ${l.trim().slice(0, 90)} »`);
+      // un journal déposé DANS une archive : la copie est l'archive (son MD5 est celui
+      // de la fiche), et les lignes se relisent dans le membre, extrait à la volée
+      let texte;
+      if (j.membre) {
+        try { texte = execFileSync('unzip', ['-p', path.join(RACINE, j.copie), j.membre]).toString('utf8'); }
+        catch { ecarts.push(`${ici} : ${j.membre} introuvable dans ${j.copie}`); continue; }
+      } else texte = lire(j.copie).toString('utf8');
+      const lignes = new Set(texte.split('\n'));
+      for (const l of p.lignes || []) if (!lignes.has(l)) ecarts.push(`${ici} : ligne absente de ${j.membre ? `${j.copie}:${j.membre}` : j.copie} : « ${l.trim().slice(0, 90)} »`);
     }
   }
   for (const [page, traduite] of Object.entries(PAGES)) {
@@ -228,7 +246,7 @@ if (process.argv.includes('--essai')) {
     ['un chiffre de la page sans résultat', (d) => { d.resultats = d.resultats.filter((x) => x.id !== 'carter-256-bits'); d.statuts.affirme--; }, /n'a pas de résultat/],
     ['une sortie de la page réécrite', (d) => { d._pages = { 'chiffres-et-sources.html': lire('chiffres-et-sources.html').toString('utf8').replace('2×2 sous le même protocole (constante 870)', '2×2 (constante 870)') }; }, /pas, au caractère/],
     ['un énoncé vidé sans SANS SOURCE', (d) => { d.resultats[0].enonce = { texte: null }; }, /SANS SOURCE/],
-    ['une ligne relevée retouchée dans une copie versée', (d) => { const r = d.resultats.find((x) => x.statut === 'releve_journal_depose' && x.preuves?.[0]?.journal?.copie); r.preuves[0].lignes[0] = r.preuves[0].lignes[0].replace(/\d+/, (n) => String(Number(n) + 1)); }, /ligne absente/],
+    ['une ligne retouchée dans un journal déposé dans une archive', (d) => { const r = d.resultats.find((x) => x.statut === 'verifie_journal_depose' && x.preuves?.[0]?.journal?.membre); r.preuves[0].lignes[0] = r.preuves[0].lignes[0].replace(/\d+/, (n) => String(Number(n) + 1)); }, /ligne absente/],
     ['un énoncé dont un mot diffère de la page', (d) => { const r = d.resultats.find((x) => x.enonce?.copie?.endsWith('.html')); r.enonce.texte = r.enonce.texte.replace(/\b(\w)(\w+)/u, (m, a, b) => b + a); }, /pas, à la lettre/],
   ];
   for (const [nom, fausser, attendu] of essais) {

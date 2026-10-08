@@ -36,7 +36,7 @@ import path from 'node:path';
 const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const lire = (rel) => JSON.parse(fs.readFileSync(path.join(RACINE, rel), 'utf8'));
 const doi = (x) => (x == null ? null : String(x).startsWith('10.') ? String(x) : `10.5281/zenodo.${x}`);
-const LICENCES_CONNUES = new Set(['cc-by-4.0', 'cc-by-nc-4.0', 'agpl-3.0', 'agpl-v3', 'cc0-1.0', 'mit']);
+const LICENCES_CONNUES = new Set(['cc-by-4.0', 'cc-by-nc-4.0', 'agpl-3.0', 'agpl-3.0-only', 'agpl-v3', 'cc0-1.0', 'mit']);
 
 function controler(registre, instantane) {
   const ecarts = [], horsZenodo = [], concordants = [], signales = [];

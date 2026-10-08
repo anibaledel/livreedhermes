@@ -229,8 +229,8 @@
       "type": "software",
       "titre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
       "doi": "10.5281/zenodo.22862110",
-      "versionDoi": "10.5281/zenodo.22967302",
-      "date": "2026-09-25",
+      "versionDoi": "10.5281/zenodo.23214317",
+      "date": "2026-10-07",
       "langues": [
         "fr"
       ],
@@ -242,8 +242,9 @@
       "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts.",
       "pt": "Dados e scripts do artigo sobre as grelhas de 12 × 12, submetido ao Journal of Mathematics and the Arts.",
       "hi": "12 × 12 जालियों पर लेख के डेटा और स्क्रिप्टें, Journal of Mathematics and the Arts को प्रस्तुत।",
-      "licenceZenodo": "apgl-v3",
-      "page": "half-shift-criterion-scripts"
+      "licenceZenodo": "agpl-3.0-only",
+      "page": "half-shift-criterion-scripts",
+      "version": "V.3.2"
     },
     {
       "section": "donnees",
