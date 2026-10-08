@@ -32,13 +32,10 @@ const RACINE = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..
 // Les articles qui attendent un repli, et lequel : ils rentrent dans le
 // contrôle dès que la police qui leur manque est déclarée.
 const ARTICLES_EN_ATTENTE = {
-  'articles/cymatique-spectre-d-un-motif.html': '√ (U+221A)',
-  'en/articles/cymatics-spectrum-of-a-pattern.html': '√ (U+221A)',
   'articles/verticalite-damier-mosaique-echiquier.html': 'ǚ (U+01DA, pinyin)',
   'en/articles/verticality-chequer-mosaic-chessboard.html': 'ǚ (U+01DA, pinyin)',
   'articles/habit-du-grand-pretre.html': 'hébreu (U+05B0–05EA)',
   'en/articles/high-priests-garment.html': 'hébreu (U+05B0–05EA)',
-  'articles/formes-et-figures-transcription.html': 'grec α β γ, ≥ ∩ ∪, indices ₁ ₂, exposants ⁶ ⁹, trigrammes ☰ ☷',
 };
 export const PAGES = [
   // les articles, français et anglais, en entier — sauf ceux qui emploient
