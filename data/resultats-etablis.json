@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 9,
   "verifie_journal_local": 8,
-  "verifie_ci": 15,
+  "verifie_ci": 16,
   "releve_journal_depose": 4,
   "affirme": 2
  },
@@ -1704,6 +1704,51 @@
    ],
    "statut": "verifie_ci",
    "note": "La table des formes du trigramme supérieur est construite sur la colonne 0 à partir du rang R (CYCLE, seule convention déclarée) ; le 64/64 du supérieur établit donc que la forme est constante par ligne et distincte, la valeur du trigramme venant de la convention. --json relit data/transcription-64.json au même octet."
+  },
+  {
+   "id": "cle-pied-jonctions-miroirs",
+   "intitule": "La cinquième clef lit les deux jonctions ; le pied est l'orientation du carré (miroir gauche-droite en colonne, haut-bas en ligne)",
+   "enonce": {
+    "texte": "Le trigramme est porté par la forme, le pied par l’orientation.",
+    "langue": "fr",
+    "source": "tools/verify_cle_pied.py (Anibal), phrase finale ; en-tête points 1 à 3"
+   },
+   "valeur": {
+    "bleu_egal_rouge_oppose": "8/8",
+    "couples_de_jonctions": 4,
+    "recouvrement_d2": "16/16",
+    "miroir_colonne": "256/256",
+    "miroir_ligne": "256/256",
+    "croisements": "0/256"
+   },
+   "conditionnel": false,
+   "referents": [
+    "carres-ordre-6"
+   ],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/verify_cle_pied.py",
+    "adresse": "https://anibal-amiot.com/tools/verify_cle_pied.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "1. formes constantes par colonne : 8/8 ; bleu(C) = rouge(7 − C) : 8/8 ; rouge et bleu disjoints : True",
+      "   les colonnes opposées forment les 4 couples de jonctions : True",
+      "     (d1=0, d2=0)  terre / ciel",
+      "     (d1=0, d2=1)  tonnerre / vent",
+      "     (d1=1, d2=0)  lac / montagne",
+      "     (d1=1, d2=1)  eau / feu",
+      "2. recouvrement au demi-décalage (3, 3) : 0 case si d2 = 0, 2 si d2 = 1 — 16/16 colonnes",
+      "3. pied de la colonne = miroir gauche-droite : 256/256 ; pied de la ligne = miroir haut-bas : 256/256",
+      "   les axes ne se croisent pas : 0/256 et 0/256"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "note": "Le point 3 relit les 256 carrés : le miroir de chacun est bien son voisin du damier. C'est la preuve sur les données de la « chute du pied » que le point E de verify_cle_damier.py ne fait que poser."
   }
  ]
 }

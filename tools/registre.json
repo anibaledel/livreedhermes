@@ -1909,6 +1909,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/verify_cle_pied.py",
+   "role": "la cinquième clef, et le pied rendu aux deux axes.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/verify_comptes_couleurs.mjs",
    "role": "deux comptes de couleurs, relus dans les référents et imprimés, pour qu'ils ne restent pas affirmés : 1.",
    "lit": [

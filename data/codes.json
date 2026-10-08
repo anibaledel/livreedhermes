@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T11:46:11Z",
+ "generated_at_utc": "2026-10-08T11:49:19Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 204,
+  "scripts": 205,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -3327,6 +3327,23 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la transcription entre les 16 tétragrammes et les 64 hexagrammes, lue sur les clefs de positionnement du damier.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/verify_cle_pied.py",
+   "adresse": "https://anibal-amiot.com/tools/verify_cle_pied.py",
+   "octets": 6927,
+   "sha256": "74032787b666207ee1fd17744dc10d38cc267c54df928ecca65c41dfad53e3e2",
+   "md5": "ec6b382cd17a208efa2927d46eaa9632",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la cinquième clef, et le pied rendu aux deux axes.",
    "lit": [
     "carres-ordre-6"
    ],
