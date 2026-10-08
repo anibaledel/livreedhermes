@@ -1054,6 +1054,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/derivation.py",
+   "role": "ce qui se démontre, et ce qui s'observe.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-referents.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/derive_echelles.py",
    "role": "Écrit k_pic (mesuré) et les deux échelles dans data/referent_bandes_v1.json.",
    "lit": [],

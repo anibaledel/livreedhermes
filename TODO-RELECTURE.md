@@ -634,3 +634,23 @@ Ce qui n'est **pas** de sa main, à relire :
   de l'article) ; les catégories Géométrie, Livrée, Divination ;
 - ~~la figure `formes-colonne.png`~~ : remplacée le 2026-10-08 par l'originale d'Anibal
   (mêmes cases que la version recalculée ; seules les étiquettes différaient).
+
+## Dérivation et troisième condition du protocole (2026-10-08)
+
+Versés depuis les envois d'Anibal : `tools/derivation.py` (H1 « les voisins sont des
+miroirs », et ce qui s'en déduit) et la troisième condition de `tools/protocole_general.py`
+(bijection : chaque bloc de *n* valeurs partagé exactement par les lignes *k* et
+*n*−1−*k*). La correction de `protocole_general.py` est reportée sur la version du dépôt,
+qui importe `lldh_commun.py` ; sortie identique ligne pour ligne à celle du fichier envoyé.
+Les deux scripts sont lancés en CI et cités dans `data/resultats-etablis.json`. À relire :
+
+- **`protocole_general.py`, témoin d'indépendance** : `doublons = len(g * 0) == 0 and …` —
+  la première moitié est toujours vraie (`g * 0` est une liste vide) ; le test réel est la
+  seconde moitié. Sans effet sur le résultat, laissé tel quel.
+- **`derivation.py`, recherche d'une relation entre blocs voisins** : seuls les voisins en
+  ligne (C et C + 1) sont comparés, sous cinq opérations à une permutation de couleurs
+  près ; l'en-tête dit « entre blocs voisins » sans préciser le sens.
+- **`derivation.py`, « Il en reste quatre »** : l'en-tête dit que l'article annonçait cinq
+  mesures indépendantes et qu'il n'en reste que quatre, la cinquième (le pied) étant H1
+  réécrite. L'article « Les formes et les figures » n'est pas modifié par ce lot ; c'est à
+  Anibal de dire si et où le texte le reprend.

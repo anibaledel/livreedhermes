@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-08T13:51:50Z",
+ "generated_at_utc": "2026-10-08T14:48:30Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 209,
+  "scripts": 210,
   "sans_licence_declaree": 71,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 3,
@@ -2281,6 +2281,23 @@
    ]
   },
   {
+   "chemin": "tools/derivation.py",
+   "adresse": "https://anibal-amiot.com/tools/derivation.py",
+   "octets": 7680,
+   "sha256": "4a1700db4d1576e58d94839154071b681f1af75c865d5c1efde6222953bea02e",
+   "md5": "2786fe8a2e61a0c717a00dc21e209655",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "ce qui se démontre, et ce qui s'observe.",
+   "lit": [
+    "carres-ordre-6"
+   ],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/derive_echelles.py",
    "adresse": "https://anibal-amiot.com/tools/derive_echelles.py",
    "octets": 5362,
@@ -2978,9 +2995,9 @@
   {
    "chemin": "tools/protocole_general.py",
    "adresse": "https://anibal-amiot.com/tools/protocole_general.py",
-   "octets": 4326,
-   "sha256": "e04322eb495386e2483367cef62e2a91d68d23df762499a0ffb2bdc5ae9878d3",
-   "md5": "d3c5b7931650f63d0eb09acb118b4169",
+   "octets": 7125,
+   "sha256": "b67c481fc886848a6506ba763f18462c3e459372a4812c40146de4ae72372dd7",
+   "md5": "97ae8eafa951cf9af69d4dc0c1456bcd",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le protocole en vocabulaire standard, et à tout ordre.",
