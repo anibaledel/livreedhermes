@@ -647,21 +647,17 @@ point 6 « la rosace lit le trigramme ») et `data/elements-052.json` (corrigé 
 signé de `croix_ansee.py` gardé, second `verify_echelle.py` (« soixante-six ») non versé,
 « six points » gardé dans `verify_quadricolore.py`.
 
-L'article `articles/formes-et-figures-transcription.html` est à la **révision 72** (relue dans
-l'artefact Claude Docs ; par rapport à la 71 : « huit scripts » et trois lignes de plus au
-tableau de la section « Vérification »). Ce qui n'est pas de sa main, à relire :
+L'article `articles/formes-et-figures-transcription.html` est à la **révision 81** (docx
+d'Anibal ; ses dix images sont celles du dépôt, `formes-colonne.png` étant l'originale de
+#276). Par rapport à la 72 : le tableau
+« Vérification » porte `transcription.py` (aligné sur `tools/verifier_formes_figures.py`),
+et le tableau de la section des rosaces liste leurs propriétés de position, non plus les
+critères des traits de la page 040. ~~Tableau « Vérification » à aligner sur la commande
+unique~~ — fait par Anibal dans la 81 ; `croix_ansee.py` sort en erreur depuis le
+2026-10-08 et la CI le relance, sans être dans la commande unique de l'article.
 
-- **le tableau « Vérification », aligné sur `tools/verifier_formes_figures.py`** (règle
-  d'Anibal : la liste fait foi). La révision 72 y liste `croix_ansee.py`, que la commande
-  unique ne relance pas ; elle relance `transcription.py`, que le tableau ne listait pas. Sur
-  le site, la ligne `croix_ansee.py` est remplacée par
-  « `tools/transcription.py` | la transcription entre les 64 assemblages d'ordre 12 et les 64
-  hexagrammes, par lecture des formes et non par leur position » — le texte de la colonne est
-  tiré de l'en-tête de `transcription.py`. À reporter dans l'artefact si c'est le bon choix.
-  ~~Note : `croix_ansee.py` ne sort jamais en erreur~~ — corrigé par Anibal le 2026-10-08 :
-  il sort en erreur si l'un de ses quatre comptes change, et la CI le relance. Il peut donc
-  entrer dans la commande unique ; **à trancher** : le tableau de la révision 72 (avec
-  `croix_ansee.py`, sans `transcription.py`), ou neuf scripts (les deux) ;
+Ce qui n'est pas de sa main, à relire :
+
 - les **commandes** ajoutées sous les nouveaux énoncés : `verify_echelle.py` sous « Seul le
   décalage diagonal », « Chaque classe pose exactement quatre cases », « Les trois bascules
   de la forme de colonne », « Et trois cases suffisent », « Les quatre colonnes de la page
