@@ -1,0 +1,166 @@
+{
+ "_doc": "Textes de fonds-ecran.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française ; « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md). Les libellés de l'outil lui-même (cartes, aide, barre de l'écran plein) sont dans assets/outil-fond-ecran.js, qui lit la langue de la page ; les 32 textes de paires (PAIRS32, affichés à la pause) restent en français, comme sur 360-calques en/es/th ; la phrase du sélecteur (assets/vue-fond-ecran.js, module partagé) aussi. Les liens vers les galeries mènent à celles de la langue ; ceux du script (« Figer », lien du fond fixe) restent vers la galerie bicolore française.",
+ "textes": [
+  {
+   "fr": "La Livrée d'Hermès — Fonds d'écran",
+   "en": "La Livrée d'Hermès — Wallpapers",
+   "es": "La Livrée d'Hermès — Fondos de pantalla",
+   "th": "La Livrée d'Hermès — วอลเปเปอร์",
+   "source": "nav-tiles (fonds-ecran) pour es et th ; SANS SOURCE pour en"
+  },
+  {
+   "fr": "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable, avec personnalisation de couleur — par Anibal Amiot.",
+   "en": "Full-screen textile wallpapers, reacting to sound or in a meditative mode at an adjustable pace, with colour customisation — by Anibal Amiot.",
+   "es": "Fondos de pantalla textiles a pantalla completa, reactivos al sonido o en modo meditativo a ritmo regulable, con personalización del color — por Anibal Amiot.",
+   "th": "วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้ พร้อมปรับแต่งสี — โดย Anibal Amiot",
+   "source": "nav-tiles (fonds-ecran, excerpt) pour es et th, complété ; SANS SOURCE pour en"
+  },
+  {
+   "fr": "\"name\": \"Fonds d'écran — La Livrée d'Hermès\"",
+   "en": "\"name\": \"Wallpapers — La Livrée d'Hermès\"",
+   "es": "\"name\": \"Fondos de pantalla — La Livrée d'Hermès\"",
+   "th": "\"name\": \"วอลเปเปอร์ — La Livrée d'Hermès\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Fonds d'écran textiles plein écran, réactifs au son (micro ou fichier audio) ou en mode méditatif à rythme réglable, avec personnalisation de couleur.",
+   "en": "Full-screen textile wallpapers, reacting to sound (microphone or audio file) or in a meditative mode at an adjustable pace, with colour customisation.",
+   "es": "Fondos de pantalla textiles a pantalla completa, reactivos al sonido (micrófono o archivo de audio) o en modo meditativo a ritmo regulable, con personalización del color.",
+   "th": "วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง (ไมโครโฟนหรือไฟล์เสียง) หรือในโหมดสมาธิที่ปรับจังหวะได้ พร้อมปรับแต่งสี",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"operatingSystem\": \"Any (navigateur web)\"",
+   "en": "\"operatingSystem\": \"Any (web browser)\"",
+   "es": "\"operatingSystem\": \"Any (navegador web)\"",
+   "th": "\"operatingSystem\": \"Any (เว็บเบราว์เซอร์)\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Fond d'écran\"",
+   "en": "\"name\": \"Wallpaper\"",
+   "es": "\"name\": \"Fondo de pantalla\"",
+   "th": "\"name\": \"วอลเปเปอร์\"",
+   "source": "nav-tiles (fonds-ecran, label) pour es et th ; SANS SOURCE pour en"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Fond d'écran</span>",
+   "en": "<span aria-current=\"page\">Wallpaper</span>",
+   "es": "<span aria-current=\"page\">Fondo de pantalla</span>",
+   "th": "<span aria-current=\"page\">วอลเปเปอร์</span>",
+   "source": "nav-tiles (fonds-ecran, label) pour es et th ; SANS SOURCE pour en"
+  },
+  {
+   "fr": "<h1>Fonds d'écran</h1>",
+   "en": "<h1>Wallpapers</h1>",
+   "es": "<h1>Fondos de pantalla</h1>",
+   "th": "<h1>วอลเปเปอร์</h1>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Choisissez une catégorie de motifs unifiés, en plein écran, réactifs au son ou en mode méditatif.",
+   "en": "Choose a category of unified patterns, full screen, reacting to sound or in meditative mode.",
+   "es": "Elija una categoría de motivos unificados, a pantalla completa, reactivos al sonido o en modo meditativo.",
+   "th": "เลือกหมวดลวดลายรวม เต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Deux outils, l'un sous l'autre : le tricolore, puis le bicolore. Choisissez une catégorie de motifs unifiés ; une fois lancé, le pavage occupe l'écran entier et change au rythme du son — le vôtre (micro) ou un fichier que vous proposez.",
+   "en": "Two tools, one below the other: the three-colour, then the two-colour. Choose a category of unified patterns; once started, the tiling fills the whole screen and changes with the rhythm of sound — yours (microphone) or a file you provide.",
+   "es": "Dos herramientas, una debajo de la otra: la tricolor y luego la bicolor. Elija una categoría de motivos unificados; una vez lanzado, el teselado ocupa toda la pantalla y cambia al ritmo del sonido — el suyo (micrófono) o un archivo que usted proponga.",
+   "th": "เครื่องมือสองชิ้น วางเรียงกัน: แบบสามสี แล้วตามด้วยแบบสองสี เลือกหมวดลวดลายรวม เมื่อเริ่มแล้ว ลายปูจะเต็มทั้งจอและเปลี่ยนไปตามจังหวะเสียง — เสียงของคุณ (ไมโครโฟน) หรือไฟล์ที่คุณเลือกเอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2 id=\"titreTricolore\">Tricolore</h2>",
+   "en": "<h2 id=\"titreTricolore\">Three-colour</h2>",
+   "es": "<h2 id=\"titreTricolore\">Tricolor</h2>",
+   "th": "<h2 id=\"titreTricolore\">สามสี</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2 id=\"titreBicolore\">Bicolore</h2>",
+   "en": "<h2 id=\"titreBicolore\">Two-colour</h2>",
+   "es": "<h2 id=\"titreBicolore\">Bicolor</h2>",
+   "th": "<h2 id=\"titreBicolore\">สองสี</h2>",
+   "source": "nav-tiles (galerie-bicolore) pour « bicolor », « สองสี »"
+  },
+  {
+   "fr": "Trois couleurs, dérivées d'une teinte. L'animation fixe de chaque collection est dans <a href=\"galerie-animations.html\" style=\"color:var(--gold);\">la galerie d'animations</a>.",
+   "en": "Three colours, derived from one hue. Each collection's fixed animation is in <a href=\"en/animations/\" style=\"color:var(--gold);\">the animation gallery</a>.",
+   "es": "Tres colores, derivados de un tono. La animación fija de cada colección está en <a href=\"es/animaciones/\" style=\"color:var(--gold);\">la galería de animaciones</a>.",
+   "th": "สามสี ที่ได้จากเฉดสีเดียว แอนิเมชันคงที่ของแต่ละคอลเลกชันอยู่ใน<a href=\"th/animations/\" style=\"color:var(--gold);\">แกลเลอรีแอนิเมชัน</a>",
+   "source": "SANS SOURCE ; le lien mène à la galerie d'animations de la langue"
+  },
+  {
+   "fr": "Deux couleurs, encre et crème par défaut : la figure et le fond de chaque motif, lu en binaire, avec la collection choisie ici.",
+   "en": "Two colours, ink and cream by default: the figure and the ground of each pattern, read in binary, with the collection chosen here.",
+   "es": "Dos colores, tinta y crema por defecto: la figura y el fondo de cada motivo, leído en binario, con la colección elegida aquí.",
+   "th": "สองสี หมึกและครีมเป็นค่าเริ่มต้น: รูปและพื้นของแต่ละลวดลาย อ่านแบบไบนารี ตามคอลเลกชันที่เลือกไว้ที่นี่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h3 id=\"ffTitre\">Collection et couleurs</h3>",
+   "en": "<h3 id=\"ffTitre\">Collection and colours</h3>",
+   "es": "<h3 id=\"ffTitre\">Colección y colores</h3>",
+   "th": "<h3 id=\"ffTitre\">คอลเลกชันและสี</h3>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label>Figure <input",
+   "en": "<label>Figure <input",
+   "es": "<label>Figura <input",
+   "th": "<label>รูป <input",
+   "source": "data/outils-langues/galerie-bicolore.json (glossaire, figure)"
+  },
+  {
+   "fr": "<label>Fond <input",
+   "en": "<label>Ground <input",
+   "es": "<label>Fondo <input",
+   "th": "<label>พื้น <input",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "data-palette=\"creme\">Crème / encre</button>",
+   "en": "data-palette=\"creme\">Cream / ink</button>",
+   "es": "data-palette=\"creme\">Crema / tinta</button>",
+   "th": "data-palette=\"creme\">ครีม / หมึก</button>",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "data-palette=\"bicolore\">Rouge / blanc</button>",
+   "en": "data-palette=\"bicolore\">Red / white</button>",
+   "es": "data-palette=\"bicolore\">Rojo / blanco</button>",
+   "th": "data-palette=\"bicolore\">แดง / ขาว</button>",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "data-palette=\"monochrome\">Monochrome</button>",
+   "en": "data-palette=\"monochrome\">Monochrome</button>",
+   "es": "data-palette=\"monochrome\">Monocromo</button>",
+   "th": "data-palette=\"monochrome\">สีเดียว</button>",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "<div class=\"ff-libelle\">Fond</div>",
+   "en": "<div class=\"ff-libelle\">Ground</div>",
+   "es": "<div class=\"ff-libelle\">Fondo</div>",
+   "th": "<div class=\"ff-libelle\">พื้น</div>",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "href=\"galerie-bicolore.html#fondFixe\">Fond d'écran fixe, en vecteur — galerie bicolore</a>",
+   "en": "href=\"en/two-colour-gallery/#fondFixe\">Fixed wallpaper, as vectors — two-colour gallery</a>",
+   "es": "href=\"es/galeria-bicolor/#fondFixe\">Fondo de pantalla fijo, en vectorial — galería bicolor</a>",
+   "th": "href=\"th/two-colour-gallery/#fondFixe\">วอลเปเปอร์แบบคงที่ เป็นเวกเตอร์ — แกลเลอรีสองสี</a>",
+   "source": "SANS SOURCE ; « galería bicolor », « แกลเลอรีสองสี » : nav-tiles (galerie-bicolore)"
+  },
+  {
+   "fr": "'Erreur de chargement : ' + e.message",
+   "en": "'Loading error: ' + e.message",
+   "es": "'Error de carga: ' + e.message",
+   "th": "'เกิดข้อผิดพลาดในการโหลด: ' + e.message",
+   "source": "data/outils-langues/galerie-bicolore.json"
+  }
+ ]
+}

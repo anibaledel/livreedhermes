@@ -825,3 +825,32 @@ dépôt. De moi, à relire :
 - **Écart de nombre** : le message parlait de la révision 128 et de « deux nouveaux
   scripts » ; l'archive porte la révision 130 et aucun script neuf (`verifie_portee.py`
   remplace le mien, `parite.py` gagne la réciproque).
+
+## Outils traduits, étape 2 — Fonds d'écran (2026-10-09)
+
+`fonds-ecran.html` → en/wallpapers/, es/fondos-de-pantalla/, th/wallpapers/. Deux endroits à relire :
+
+- **la page** : `data/outils-langues/fonds-ecran.json`, 23 textes, dont **11 sans source** ; les autres reprennent les tuiles
+  (`scripts/nav-tiles-libelles.js`, entrée « fonds-ecran », pour es et th — l'anglais y est SANS SOURCE) ou la table de la
+  galerie bicolore. L'introduction du livre et les boutons de téléchargement viennent des textes communs, déjà relus ailleurs.
+  Où corriger : dans la table, puis `node scripts/build-outils-langues.js`.
+- **l'outil lui-même** (cartes, aide en neuf points, barre de l'écran plein, messages d'erreur, texte de pause) :
+  `assets/outil-fond-ecran.js`, dictionnaire `TEXTES` en tête du module, 53 clés en anglais, espagnol et thaï, **toutes sans
+  source**. Le module lit la langue dans `<html lang>` ; le français est le repli, et la page française rend exactement le même
+  texte qu'avant (vérifié en comparant son DOM avec l'ancien module, et par `check_outils_langues.mjs local --depuis origin/main`).
+  Choix à relire : « Ground » pour « Fond » (bit 0) et « Figure » pour « Figure » (bit 1), comme dans la galerie bicolore ;
+  « Full Reactive » / « Full Reactivo » gardent l'anglais du nom de mode ; « Draw page » / « página Tirada » pour la page Tirage.
+
+Reste en français sur ces pages, et pourquoi :
+- les **32 textes de paires** affichés à la pause (`PAIRS32`) : c'est déjà le cas sur 360 calques en/es/th ; à traduire une seule fois
+  pour les deux pages, dans un lot à part ;
+- la phrase du **sélecteur de fond** (« quantité · contraste à distance », « échelle ») : module partagé `assets/vue-fond-ecran.js`,
+  sans langue ;
+- les liens du **script** (« Figer », lien du fond fixe) mènent à la galerie bicolore française : ils portent l'état du motif dans
+  l'adresse, que la page traduite lit de la même façon, mais je ne les ai pas basculés sans le vérifier.
+
+Ailleurs sur le site, pour que les liens visent la page dans la langue du visiteur :
+- l'introduction de la galerie d'animations en/es/th (`data/galerie-animations.json`, clé `fondsEcran`) perd « (in French) » ;
+- le bouton « Wallpaper » des pages du livre en/es/th (pages écrites à la main) ;
+- l'essai de `tools/check_langue_des_liens.mjs` prenait `fonds-ecran.html` comme exemple de page restée en français : il prend
+  désormais `encodeur.html`.
