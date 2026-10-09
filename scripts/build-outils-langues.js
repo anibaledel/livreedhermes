@@ -172,8 +172,30 @@ const FORMES = {
   // IMAGE_FR[kw] = texte de l'Image
   image: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify(h[n].image)}`).join(',\n')}\n}`,
 };
-function donneesTraduites(s, p, lang, nomPage) {
-  for (const d of p.donnees || []) {
+// Les données propres à une langue (cfg.donnees) s'ajoutent à celles de la
+// page ; la forme « dictionnaire » remplace la constante par celle du fichier
+// de la langue (cfg.dictionnaire), qui doit avoir la même forme.
+function formeDictionnaire(fr, cfg, lang, nom) {
+  const v = dictionnaireDe(cfg, lang)[nom];
+  if (v === undefined) throw new Error(`${cfg.dictionnaire} (${lang}) : pas de « ${nom} »`);
+  const forme = (x) => (x && typeof x === 'object' ? Object.keys(x).sort().map((k) => `${k}:${forme(x[k])}`).join(',') : typeof x);
+  if (forme(v) !== forme(fr)) throw new Error(`${cfg.dictionnaire} (${lang}) : « ${nom} » n'a pas la forme de la constante de la page`);
+  return JSON.stringify(v);
+}
+const DICTIONNAIRES = {};
+function dictionnaireDe(cfg, lang) {
+  const f = cfg.dictionnaire;
+  DICTIONNAIRES[f] = DICTIONNAIRES[f] || JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+  if (!DICTIONNAIRES[f][lang]) throw new Error(`${f} : pas de langue « ${lang} »`);
+  return DICTIONNAIRES[f][lang];
+}
+function donneesTraduites(s, p, lang, nomPage, cfg = {}) {
+  for (const d of [...(p.donnees || []), ...(cfg.donnees || [])]) {
+    if (d.forme === 'dictionnaire') {
+      const { j, k, valeur } = litteral(s, d.const, nomPage);
+      s = s.slice(0, j) + formeDictionnaire(valeur, cfg, lang, d.const) + s.slice(k + 1);
+      continue;
+    }
     const forme = FORMES[d.forme];
     if (!forme) throw new Error(`${nomPage} : forme de données inconnue « ${d.forme} »`);
     const { j, k, valeur } = litteral(s, d.const, nomPage);
@@ -338,6 +360,17 @@ function pageTraduite(p, lang, cfg, src) {
   // directement à sa table de textes.
   if (p.langue) {
     const UI = dictionnaire(src, p.source);
+    // Une langue que le dictionnaire de la page n'a pas vient d'un fichier
+    // de données (cfg.dictionnaire, clé UI de la langue) : elle est ajoutée
+    // au dictionnaire de la page traduite seulement — la page française ne
+    // change pas.
+    if (!UI[lang] && cfg.dictionnaire) {
+      const ajout = dictionnaireDe(cfg, lang).UI;
+      const manque = Object.keys(UI.fr).filter((k) => ajout[k] === undefined);
+      if (manque.length) throw new Error(`${cfg.dictionnaire} (${lang}) : clés absentes du dictionnaire : ${manque.join(', ')}`);
+      UI[lang] = ajout;
+      s = s.replace('const UI = {', `const UI = {\n  ${lang}: ${JSON.stringify(ajout)},`);
+    }
     if (!UI[lang]) throw new Error(`${nomPage} : le dictionnaire n'a pas de langue « ${lang} »`);
     const t = (k) => (UI[lang][k] !== undefined ? UI[lang][k] : UI.fr[k]);
     if (!s.includes(p.langue)) throw new Error(`${nomPage} : la ligne « ${p.langue} » est absente`);
@@ -354,7 +387,7 @@ function pageTraduite(p, lang, cfg, src) {
   }
 
   // 2 bis — les tableaux de données du script, depuis leur traduction existante
-  s = donneesTraduites(s, p, lang, nomPage);
+  s = donneesTraduites(s, p, lang, nomPage, cfg);
 
   // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
   // traductions — étape 2) puis les remplacements propres à la langue. Chaque
