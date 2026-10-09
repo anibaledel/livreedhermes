@@ -50,3 +50,15 @@ ses témoins 31 à 33 (voir `TODO-RELECTURE.md`).
 
 Machine : conteneur de session Claude Code, Intel Xeon @ 2,80 GHz, 4 processeurs, Python 3.11,
 ortools 9.15.6755.
+
+## Dépôt 15.37 (même jour) — l'archive du dépôt Zenodo 10.5281/zenodo.23269974
+
+| journal | commandes |
+|---|---|
+| `fibres-depot-15.37.log` | `fibres.py` (ordres 6 et 10 par défaut), puis `fibres.py --ordres 6,10` ; la mémoire est le `ru_maxrss` du processus |
+
+Sortie identique au journal d'Anibal `data/fibres.txt`. Les autres scripts de
+l'archive 15.37 sont identiques, octet pour octet, à ceux du dépôt 15.34 déjà versés
+(`pavage_miroirs.py` et `protocole_general.py` : identiques aux versions autonomes
+du 15.34, dont les changements de texte sont déjà reportés) ; leurs journaux sont
+ceux du 15.34 ci-dessus.

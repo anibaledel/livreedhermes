@@ -1,0 +1,46 @@
+$ python3 tools/fibres.py 
+les fibres de la projection « étiquetage ↦ figure »
+
+=== ordre 6 ===
+  fibre               4096  pour      2 figure(s)
+  figures : 2   (formule 2^(m²−3m+1) = 2)
+  somme des fibres : 8192
+  total de recollement.py : 8192 — accord : True
+  projection uniforme : True
+
+=== ordre 10 ===
+  fibre       260919263232  pour    648 figure(s)
+  fibre       289910292480  pour   1136 figure(s)
+  fibre       322122547200  pour    264 figure(s)
+  figures : 2048   (formule 2^(m²−3m+1) = 2048)
+  somme des fibres : 583454127292416
+  total de recollement.py : 583454127292416 — accord : True
+  projection uniforme : False
+
+à l'ordre 6 la projection est uniforme ; à l'ordre 10 elle ne l'est pas,
+et les trois tailles sont entre elles comme 81 : 90 : 100, soit 9², 9·10, 10².
+[code 0, 66 s, mémoire max 0.0 Go]
+
+$ python3 tools/fibres.py --ordres 6,10
+les fibres de la projection « étiquetage ↦ figure »
+
+=== ordre 6 ===
+  fibre               4096  pour      2 figure(s)
+  figures : 2   (formule 2^(m²−3m+1) = 2)
+  somme des fibres : 8192
+  total de recollement.py : 8192 — accord : True
+  projection uniforme : True
+
+=== ordre 10 ===
+  fibre       260919263232  pour    648 figure(s)
+  fibre       289910292480  pour   1136 figure(s)
+  fibre       322122547200  pour    264 figure(s)
+  figures : 2048   (formule 2^(m²−3m+1) = 2048)
+  somme des fibres : 583454127292416
+  total de recollement.py : 583454127292416 — accord : True
+  projection uniforme : False
+
+à l'ordre 6 la projection est uniforme ; à l'ordre 10 elle ne l'est pas,
+et les trois tailles sont entre elles comme 81 : 90 : 100, soit 9², 9·10, 10².
+[code 0, 66 s, mémoire max 0.0 Go]
+
