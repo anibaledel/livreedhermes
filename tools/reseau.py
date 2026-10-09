@@ -6,11 +6,13 @@
 #
 # LA QUESTION. La croix ansée existe aux ordres 6 et 10, pas aux ordres 8, 12 et
 # 16. Un étiquetage satisfaisant la bijection, la condition I et les critères
-# II et III est magique si et seulement si son vecteur d'écarts
+# II et III a ses sommes de LIGNES magiques si et seulement si son vecteur
 #
 #       δ_r = S_r − M
 #
-# est nul. L'obstruction se dit donc : 0 ∈ 𝒟_6, 0 ∉ 𝒟_8, 0 ∈ 𝒟_10. La borne
+# est nul — mais ce n'est PAS la magicité : les colonnes restent à contrôler, et
+# un témoin d'ordre 6 a δ = 0 avec des colonnes à 101 et 121. δ = 0 est
+# nécessaire, et son impossibilité suffit donc à conclure. L'obstruction se dit : 0 ∈ 𝒟_6, 0 ∉ 𝒟_8, 0 ∈ 𝒟_10. La borne
 # démontrée décrit l'enveloppe de 𝒟_n ; elle ne dit rien de ses trous. On
 # calcule ici 𝒟_n tout entier, sans solveur.
 #
@@ -200,22 +202,25 @@ def paire(n, r):
     valeurs d'écart atteignables)."""
     m, M = n // 2, n * (n * n + 1) // 2
     orbs = [o for o in orbites(n) if any(a == r for a, _ in o)]
-    dp = {(0, 0, 0): None}          # (somme partielle, h_r, masque colonnes)
+    # Le DP compte les CONFIGURATIONS : chaque état porte sa multiplicité. Sans
+    # elle, on compterait des états fusionnés, ce qui n'a aucun sens combinatoire.
+    dp = {(0, 0, 0): 1}             # (somme partielle, h_r, masque colonnes)
     for orbite in orbs:
         opts = etats(n, orbite)
         cols = sorted({c for _, c in orbite if c < m})
         suiv = {}
-        for (s, h, cp) in dp:
+        for (s, h, cp), poids in dp.items():
             for apport, horiz in opts:
                 ncp = cp
                 if horiz is False:
                     for c in cols:
                         ncp ^= 1 << c
-                suiv[(s + apport[r], h + (1 if horiz else 0), ncp)] = None
+                cle = (s + apport[r], h + (1 if horiz else 0), ncp)
+                suiv[cle] = suiv.get(cle, 0) + poids
         dp = suiv
-    nuls = [k for k in dp if k[0] == M and k[1] % 2 == 1]
+    nuls = sum(p for k, p in dp.items() if k[0] == M and k[1] % 2 == 1)
     atteints = {k[0] - M for k in dp if k[1] % 2 == 1}
-    return len(nuls), len(atteints)
+    return nuls, len(atteints)
 
 
 def rapport(n, trace=False, fenetre=None):

@@ -38,8 +38,11 @@
 #
 # LA RÈGLE DES MIROIRS. Les motifs valides ne sont pas un ensemble quelconque :
 # codés dans (Z/2)^(2m²) par les deux bits de miroir de chaque bloc, ils forment
-# un SOUS-GROUPE, le même pour les 256 graines, et une seule règle le décrit à
-# tout ordre. En notant h(i, j) et v(i, j) les deux bits du bloc (i, j) :
+# un SOUS-GROUPE, le même pour toutes les graines contrôlées, et une seule règle
+# le décrit aux ordres où l'énumération est praticable : exhaustivement aux
+# ordres 12 et 18, par échantillon aux ordres 24 et 30, conjecturalement
+# au-delà. Et la NÉCESSITÉ demande une graine non invariante par les miroirs —
+# voir `verifie_portee.py`. En notant h(i, j) et v(i, j) les deux bits du bloc (i, j) :
 #
 #     le pavage est magique  <=>  h(i, j) = h(m−1−i, j)  et  v(i, j) = v(i, m−1−j)
 #
@@ -50,7 +53,10 @@
 # Le décompte suit : les orbites de i <-> m−1−i sont au nombre de ceil(m/2),
 # un bit libre par orbite et par colonne, autant pour v, soit
 #
-#     2^(2m·ceil(m/2))  motifs valides à l'ordre 6m
+#     2^(2m·ceil(m/2))  motifs conformes à la règle à l'ordre 6m
+#
+# « conformes » et non « valides » : l'égalité des deux ensembles est établie
+# exhaustivement aux ordres 12 et 18 seulement.
 #
 #     ordre 12 : 2⁴ = 16        sur 4⁴ = 256
 #     ordre 18 : 2¹² = 4096     sur 4⁹ = 262144
@@ -195,7 +201,10 @@ def pave_hv(base, m, H, V):
 
 
 def regle_des_miroirs(bases, jusqua=5, tirages=64):
-    """La règle est nécessaire et suffisante, et elle donne 2^(2m·ceil(m/2))."""
+    """Les motifs conformes à la règle sont 2^(2m·ceil(m/2)). Qu'ils soient
+    exactement les motifs magiques est vérifié exhaustivement aux ordres 12 et
+    18, par échantillon ensuite ; et la nécessité suppose la graine non
+    invariante par les miroirs."""
     rng = random.Random(7)
     print('\nla règle des miroirs : h(i,j) = h(m−1−i, j) et v(i,j) = v(i, m−1−j)')
     for m in range(2, jusqua + 1):

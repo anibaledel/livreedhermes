@@ -1,0 +1,35 @@
+$ python3 tools/identite.py
+ordre 6, 18432 étiquetages magiques : identité exacte 18432/18432, forme (*) 18432/18432
+  graine                 ordre   4 : identité True, (*) sans objet
+  graine                 ordre   6 : identité True, (*) True
+  croix_ansee            ordre   6 : identité True, (*) True
+  graine                 ordre  10 : identité True, (*) sans objet
+  croix_ansee            ordre  10 : identité True, (*) True
+  ligne_non_necessaire   ordre  10 : identité True, (*) sans objet
+  parite_non_impliquee   ordre  10 : identité True, (*) True
+  profil_symetrique      ordre  10 : identité True, (*) sans objet
+  graine                 ordre  14 : identité True, (*) sans objet
+  croix_ansee            ordre  14 : identité True, (*) True
+  ligne_non_necessaire   ordre  14 : identité True, (*) sans objet
+  parite_non_impliquee   ordre  14 : identité True, (*) True
+  profil_symetrique      ordre  14 : identité True, (*) sans objet
+  graine                 ordre  18 : identité True, (*) sans objet
+  croix_ansee            ordre  18 : identité True, (*) True
+  ligne_non_necessaire   ordre  18 : identité True, (*) sans objet
+  parite_non_impliquee   ordre  18 : identité True, (*) True
+  profil_symetrique      ordre  18 : identité True, (*) sans objet
+  graine                 ordre  22 : identité True, (*) sans objet
+  croix_ansee            ordre  22 : identité True, (*) True
+  ligne_non_necessaire   ordre  22 : identité True, (*) sans objet
+  parite_non_impliquee   ordre  22 : identité True, (*) True
+  profil_symetrique      ordre  22 : identité True, (*) sans objet
+  graine                 ordre  26 : identité True, (*) sans objet
+  croix_ansee            ordre  26 : identité True, (*) True
+  ligne_non_necessaire   ordre  26 : identité True, (*) sans objet
+  parite_non_impliquee   ordre  26 : identité True, (*) True
+  lignes_sans_colonnes   ordre   6 : identité True, (*) True
+  miroirs_hors_portee    ordre   4 : identité True, (*) sans objet
+  miroirs_hors_portee    ordre   8 : identité True, (*) sans objet
+
+les deux formes tiennent partout.
+

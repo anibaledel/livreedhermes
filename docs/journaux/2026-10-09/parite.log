@@ -1,3 +1,4 @@
+$ python3 tools/parite.py
 la première paire de lignes, configuration par configuration :
   l'identité δ_0 = n(n−1)·A + W, et ses conséquences
 
@@ -19,3 +20,4 @@ la réciproque locale, par construction, aux ordres impairs en m :
   ordre  34 : δ_0 = 0   ligne 0 = BBRRRRRRRRBBBBBBBBBBBBBBRRRRRRRRJB
 
 donc à m impair la première paire de lignes n'oppose plus d'obstacle : le théorème est exact, et non seulement nécessaire.
+
