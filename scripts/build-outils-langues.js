@@ -326,6 +326,21 @@ function horsCode(s, f) {
   return out + f(s.slice(i));
 }
 
+const ADRESSES_HEX = require('./hexagrammes-adresses.js');
+function hexagrammesDansLaLangue(s, lang, nomPage) {
+  const debut = 'function hexagramPageUrl(chrono){';
+  const i = s.indexOf(debut);
+  if (i === -1 || !ADRESSES_HEX.DOSSIER[lang]) return s;
+  const k = finAccolade(s, i + debut.length - 1);
+  const table = Array.from({ length: 64 }, (_, c) => ADRESSES_HEX.fichier(c, lang));
+  for (const f of table) if (!fs.existsSync(path.join(ROOT, f))) throw new Error(`${nomPage} : page hexagramme absente : ${f}`);
+  return s.slice(0, i) + `function hexagramPageUrl(chrono){
+  // la page de l'hexagramme dans la langue de la page (scripts/build-outils-langues.js,
+  // adresses de scripts/hexagrammes-adresses.js)
+  return ${JSON.stringify(table)}[chrono];
+}` + s.slice(k + 1);
+}
+
 // ---- une page --------------------------------------------------------------
 function pageTraduite(p, lang, cfg, src) {
   const nomPage = `${p.source} (${lang})`;
@@ -382,6 +397,11 @@ function pageTraduite(p, lang, cfg, src) {
   // la phrase canonique des langues du site, quand la page la porte, dans sa langue
   s = s.replace(/(<!-- @couverture:start[^>]*-->)[\s\S]*?(<!-- @couverture:end -->)/, (m, a, b) => a + phrase(lang) + b);
   s = s.replace(/<meta property="og:locale" content="fr_FR">/, `<meta property="og:locale" content="${cfg.ogLocale}">`);
+
+  // 3 bis — le lien « en savoir plus » vers la page d'un hexagramme : le script
+  // compose l'adresse française (hexagramPageUrl) ; la page traduite vise la
+  // page de sa langue, quand le site l'a (scripts/hexagrammes-adresses.js).
+  s = hexagrammesDansLaLangue(s, lang, nomPage);
 
   // 4. l'adresse propre
   s = s.split(`${SITE}/${p.source}`).join(`${SITE}/${cfg.dossier}`);

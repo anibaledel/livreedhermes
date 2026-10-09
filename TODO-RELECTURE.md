@@ -886,3 +886,11 @@ Ce qui diffère des autres outils traduits :
 Ailleurs : le lien « Open the encoder (in French) » de l'article anglais sur l'encodeur, et le bouton « Encoder » des
 pages du livre en/es/th, visent la page de leur langue ; l'essai de `check_langue_des_liens.mjs` prend désormais
 `carter-demo.html` comme page restée en français.
+
+## Tirage traduit : le lien vers la page de l'hexagramme (2026-10-09)
+
+Sur les pages traduites du tirage, « More about this hexagram → » menait à la page hexagramme **française** : le script
+compose l'adresse française (`hexagramPageUrl`). Le générateur remplace désormais cette fonction, dans les pages
+traduites seulement, par la table des 64 adresses de la langue (`scripts/hexagrammes-adresses.js`, la source des
+générateurs de pages hexagrammes) et échoue si une de ces pages manque. La page française ne change pas. Rien à relire
+côté texte.
