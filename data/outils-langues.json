@@ -244,7 +244,14 @@
             }
           ]
         }
-      }
+      },
+      "donnees": [
+        {
+          "const": "PAIRS_32",
+          "forme": "paires32Liste",
+          "entrees": 32
+        }
+      ]
     },
     {
       "source": "tirage-livree-hermes.html",
@@ -388,7 +395,14 @@
           "dossier": "th/wallpapers/",
           "ogLocale": "th_TH"
         }
-      }
+      },
+      "donnees": [
+        {
+          "const": "PAIRS32",
+          "forme": "paires32",
+          "entrees": 32
+        }
+      ]
     },
     {
       "source": "contact.html",
