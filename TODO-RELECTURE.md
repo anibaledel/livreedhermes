@@ -935,3 +935,21 @@ son essai reconnaît les deux adresses). Le bouton « Tirada » des pages du liv
 
 Le générateur sait désormais compléter le dictionnaire d'une page traduite (`cfg.dictionnaire`) et remplacer des
 données par langue (`cfg.donnees`, forme « dictionnaire »).
+
+## Téléchargements des motifs en anglais, espagnol et thaï (2026-10-09)
+
+`telechargements.html` → en/downloads/, es/descargas/, th/downloads/. Une table, `data/outils-langues/telechargements.json` :
+- **« textes »** : titre, description, fil d'Ariane, trois paragraphes, **sans source** (le fil d'Ariane reprend les tuiles) ;
+- **« zone »** : les libellés de la liste des fichiers. Cette liste n'est pas traduite à la main : `scripts/build-telechargements.js`
+  la rend dans chaque langue depuis les fichiers publiés (poids, date, empreinte lus dans les fichiers), avec ces libellés,
+  les mois de la langue et son séparateur décimal (calendrier grégorien en thaï). La page française reste écrite à
+  l'identique.
+
+Choix à relire : « cells / tilings », « celdas / teselados », « เซลล์ / การปูลาย » (usage des pages traduites du site) ;
+« fingerprint », « huella », « ค่าแฮช » pour « empreinte ».
+
+À savoir pour une réexportation des fichiers : relancer `node scripts/build-telechargements.js` **puis**
+`node scripts/build-outils-langues.js` ; sinon `build-outils-langues.js --verifie` (CI) échoue sur les trois pages
+traduites, dont la liste ne correspond plus aux fichiers.
+
+Ailleurs : le bouton « SVG Patterns » des pages du livre en/es/th vise la page de sa langue.

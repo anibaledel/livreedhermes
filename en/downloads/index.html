@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patterns — full download — La Livrée d'Hermès</title>
+<meta name="description" content="The patterns of La Livrée d'Hermès as vector SVG and PDF, 1024 constructions per set — cells and tilings, in three colours or in greyscale —, freely available.">
+<link rel="canonical" href="https://anibal-amiot.com/en/downloads/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://anibal-amiot.com/en/downloads/#app",
+      "name": "Downloads",
+      "url": "https://anibal-amiot.com/en/downloads/",
+      "description": "The patterns of La Livrée d'Hermès as vector SVG and PDF, 1024 constructions per set — cells and tilings, in three colours or in greyscale —, freely available.",
+      "applicationCategory": "UtilitiesApplication",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "SVG patterns", "item": "https://anibal-amiot.com/en/downloads/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .pro-body{ padding:24px 0 8px; text-align:center; max-width:64ch; margin:0 auto; }
+  .pro-title{ font-size:26px; font-weight:400; margin:0 0 26px; }
+  .pro-placeholder{ border:1px solid var(--line); padding:40px 28px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-downloads{ margin-top:26px; text-align:left; }
+  .pro-download-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-top:1px solid var(--line); padding:14px 0; }
+  .pro-download-row:first-child{ border-top:none; }
+  .pro-download-name{ flex:1 1 220px; color:var(--white); font-size:13.5px; text-align:left; }
+  .pro-download-row a{
+    border:1px solid var(--line); color:var(--dim); text-decoration:none;
+    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:8px 14px;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-download-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-download-meta{ flex:1 1 100%; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); }
+  .pro-download-meta code{ font-size:inherit; letter-spacing:.04em; }
+  .pro-choix{ color:var(--white); }
+  .pro-locked-box{ border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-locked-box button{
+    display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-locked-box button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="pro-body">
+    <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-06-telechargements.avif);">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html" hreflang="fr">Tools <span class="lien-langue">(French)</span></a><span class="sep">/</span><span aria-current="page">SVG patterns</span>
+      </nav>
+      <h1 class="pro-title">Patterns — full download</h1>
+    </div>
+    </div>
+
+    <div class="pro-placeholder">
+      <p class="pro-choix">Choose a set: a cell or a tiling, in colour (Tricolore YPM) or in greyscale (Monochrome Black), then the format — an archive of 1024 SVG files or a 1024-page PDF.</p>
+      <p>The patterns of La Livrée d'Hermès as vector files, freely available, in four sets of 1024 constructions. The <b>cells</b> give each pattern on its own, its 12 × 12 grid of squares; the <b>tilings</b> repeat it four times by four, as on a fabric. Each set comes in three colours — yellow, purple and magenta (Tricolore YPM) — or in greyscale (Monochrome Black), in two forms: a ZIP archive of 1024 SVG files, one per construction, and a 1024-page PDF, fully vector. The constructions are numbered from 000 to 1023: the bases from 000 to 255, the combinations of two axes from 256 to 767, those of three axes from 768 to 1023.</p>
+
+      <!-- @telechargements:start — engendré par scripts/build-telechargements.js depuis les fichiers de assets/pro-downloads/, ne pas éditer ici -->
+      <div class="pro-downloads">
+        <div class="pro-download-row">
+          <span class="pro-download-name">Cells — Tricolore YPM</span>
+          <a href="../../assets/pro-downloads/cellules-tricolore-ypm.zip" download>ZIP (1024 SVG, 965 KB)</a>
+          <a href="../../assets/pro-downloads/cellules-tricolore-ypm.pdf" download>PDF (1024 pages, 1.2 MB)</a>
+          <span class="pro-download-meta">ZIP of 19 September 2026, fingerprint <code>40c65d95</code> · PDF of 19 September 2026, fingerprint <code>d51af239</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Cells — Monochrome Black</span>
+          <a href="../../assets/pro-downloads/cellules-monochrome-black.zip" download>ZIP (1024 SVG, 962 KB)</a>
+          <a href="../../assets/pro-downloads/cellules-monochrome-black.pdf" download>PDF (1024 pages, 1.1 MB)</a>
+          <span class="pro-download-meta">ZIP of 19 September 2026, fingerprint <code>8ae6b642</code> · PDF of 19 September 2026, fingerprint <code>b9d524bb</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Tilings — Tricolore YPM</span>
+          <a href="../../assets/pro-downloads/pavages-tricolore-ypm.zip" download>ZIP (1024 SVG, 1.1 MB)</a>
+          <a href="../../assets/pro-downloads/pavages-tricolore-ypm.pdf" download>PDF (1024 pages, 10 MB)</a>
+          <span class="pro-download-meta">ZIP of 19 September 2026, fingerprint <code>93aaae33</code> · PDF of 19 September 2026, fingerprint <code>e95d305f</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">Tilings — Monochrome Black</span>
+          <a href="../../assets/pro-downloads/pavages-monochrome-black.zip" download>ZIP (1024 SVG, 1.1 MB)</a>
+          <a href="../../assets/pro-downloads/pavages-monochrome-black.pdf" download>PDF (1024 pages, 10 MB)</a>
+          <span class="pro-download-meta">ZIP of 19 September 2026, fingerprint <code>2ecb9b22</code> · PDF of 19 September 2026, fingerprint <code>b8b49f96</code></span>
+        </div>
+      </div>
+      <!-- @telechargements:end -->
+      <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;opacity:.75;margin-top:14px;max-width:64ch;">1024 counts constructions (family × pair of hues × hexagram), not shapes: these files correspond to 512 distinct grids and 256 tilings — two constructions can draw the same grid under two different families, or a grid and its half-period shift the same tiling. If two files in this set are identical, that is why.</p>
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/soutien-gate.js"></script>
+<script>
+(function(){
+  var b = document.getElementById('btnSoutienFooter');
+  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
+})();
+</script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter <span class="lien-langue">(French)</span></a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/wallpapers/"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Draws &amp; prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../en/downloads/" aria-current="page"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/create-a-pattern/"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Two-colour patterns v2 <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../en/encoder/"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../en/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/cymatics/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../outils.html" hreflang="fr"><span class="nav-cat-label">Tools <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../soutenir.html" hreflang="fr"><span class="nav-cat-label">Support <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../en/documentary-profile/">Author profile</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../en/contact/">Contact</a>
+    <a href="../../soutenir.html" hreflang="fr">Support (French)</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

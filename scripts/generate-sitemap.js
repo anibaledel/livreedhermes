@@ -98,7 +98,7 @@ const STATIC_PAGES = [
   // 'galerie-animations.html' : dans le groupe « galerie-animations » de scripts/langues.js (lot 7), avec ses alternates et ses six pages de groupe.
   // 'galerie-patterns-unifies.html' : dans le groupe « outil-galerie-patterns-unifies » de scripts/langues.js (étape 2).
   // 'galerie-bicolore.html' : dans le groupe « outil-galerie-bicolore » de scripts/langues.js (étape 2).
-  { loc: `${SITE}/telechargements.html`, file: 'telechargements.html', changefreq: 'monthly', priority: '0.6' },
+  // 'telechargements.html' : dans le groupe « outil-telechargements » de scripts/langues.js (étape 3).
   // 'outils.html' : dans le groupe « outils » de scripts/langues.js (lot « six langues »), avec ses alternates.
   { loc: `${SITE}/la-livree-d-hermes.html`, file: 'la-livree-d-hermes.html', changefreq: 'monthly', priority: '0.7' },
   // 'chiffres-et-sources.html' : dans le groupe « outil-chiffres-et-sources » de scripts/langues.js (étape 3).

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ลวดลาย — ดาวน์โหลดทั้งชุด — La Livrée d'Hermès</title>
+<meta name="description" content="ลวดลายของ La Livrée d'Hermès ในรูปแบบเวกเตอร์ SVG และ PDF ชุดละ 1024 โครงสร้าง — ทั้งเซลล์และการปูลาย ในสามสีหรือโทนสีเทา — เปิดให้เข้าถึงได้ฟรี">
+<link rel="canonical" href="https://anibal-amiot.com/th/downloads/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://anibal-amiot.com/th/downloads/#app",
+      "name": "ดาวน์โหลด",
+      "url": "https://anibal-amiot.com/th/downloads/",
+      "description": "ลวดลายของ La Livrée d'Hermès ในรูปแบบเวกเตอร์ SVG และ PDF ชุดละ 1024 โครงสร้าง — ทั้งเซลล์และการปูลาย ในสามสีหรือโทนสีเทา — เปิดให้เข้าถึงได้ฟรี",
+      "applicationCategory": "UtilitiesApplication",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://anibal-amiot.com/th/" },
+    { "@type": "ListItem", "position": 2, "name": "เครื่องมือ", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "ลวดลาย SVG", "item": "https://anibal-amiot.com/th/downloads/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+
+  .pro-body{ padding:24px 0 8px; text-align:center; max-width:64ch; margin:0 auto; }
+  .pro-title{ font-size:26px; font-weight:400; margin:0 0 26px; }
+  .pro-placeholder{ border:1px solid var(--line); padding:40px 28px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-downloads{ margin-top:26px; text-align:left; }
+  .pro-download-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-top:1px solid var(--line); padding:14px 0; }
+  .pro-download-row:first-child{ border-top:none; }
+  .pro-download-name{ flex:1 1 220px; color:var(--white); font-size:13.5px; text-align:left; }
+  .pro-download-row a{
+    border:1px solid var(--line); color:var(--dim); text-decoration:none;
+    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:8px 14px;
+    transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-download-row a:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-download-meta{ flex:1 1 100%; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); }
+  .pro-download-meta code{ font-size:inherit; letter-spacing:.04em; }
+  .pro-choix{ color:var(--white); }
+  .pro-locked-box{ border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; }
+  .pro-locked-box button{
+    display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; transition:border-color .12s ease, color .12s ease;
+  }
+  .pro-locked-box button:hover{ border-color:var(--gold); color:var(--gold); }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } header h1{ font-size:22px; } }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+
+  <div class="pro-body">
+    <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-06-telechargements.avif);">
+    <div class="atalanta-block" style="padding:28px 24px;">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+      <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+        <a href="https://anibal-amiot.com/th/">หน้าแรก</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html" hreflang="fr">เครื่องมือ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a><span class="sep">/</span><span aria-current="page">ลวดลาย SVG</span>
+      </nav>
+      <h1 class="pro-title">ลวดลาย — ดาวน์โหลดทั้งชุด</h1>
+    </div>
+    </div>
+
+    <div class="pro-placeholder">
+      <p class="pro-choix">เลือกชุดที่ต้องการ: เซลล์หรือการปูลาย แบบสี (Tricolore YPM) หรือโทนสีเทา (Monochrome Black) แล้วเลือกรูปแบบไฟล์ — ไฟล์บีบอัดรวม SVG 1024 ไฟล์ หรือ PDF 1024 หน้า</p>
+      <p>ลวดลายของ La Livrée d'Hermès ในรูปแบบไฟล์เวกเตอร์ เปิดให้เข้าถึงได้ฟรี แบ่งเป็นสี่ชุด ชุดละ 1024 โครงสร้าง <b>เซลล์</b>แสดงลวดลายแต่ละแบบเพียงลำพัง คือตาราง 12 × 12 ช่องของลวดลายนั้น ส่วน<b>การปูลาย</b>นำลวดลายมาซ้ำสี่คูณสี่ครั้ง เหมือนบนผืนผ้า แต่ละชุดมีทั้งแบบสามสี — เหลือง ม่วง และม่วงแดง (Tricolore YPM) — และแบบโทนสีเทา (Monochrome Black) ในสองรูปแบบ: ไฟล์บีบอัด ZIP รวม SVG 1024 ไฟล์ หนึ่งไฟล์ต่อหนึ่งโครงสร้าง และ PDF 1024 หน้าที่เป็นเวกเตอร์ทั้งหมด โครงสร้างมีหมายเลขตั้งแต่ 000 ถึง 1023: ลวดลายพื้นฐานตั้งแต่ 000 ถึง 255 การผสมสองแกนตั้งแต่ 256 ถึง 767 และการผสมสามแกนตั้งแต่ 768 ถึง 1023</p>
+
+      <!-- @telechargements:start — engendré par scripts/build-telechargements.js depuis les fichiers de assets/pro-downloads/, ne pas éditer ici -->
+      <div class="pro-downloads">
+        <div class="pro-download-row">
+          <span class="pro-download-name">เซลล์ — Tricolore YPM</span>
+          <a href="../../assets/pro-downloads/cellules-tricolore-ypm.zip" download>ZIP (1024 SVG, 965 KB)</a>
+          <a href="../../assets/pro-downloads/cellules-tricolore-ypm.pdf" download>PDF (1024 หน้า, 1.2 MB)</a>
+          <span class="pro-download-meta">ZIP วันที่ 19 กันยายน 2026 ค่าแฮช <code>40c65d95</code> · PDF วันที่ 19 กันยายน 2026 ค่าแฮช <code>d51af239</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">เซลล์ — Monochrome Black</span>
+          <a href="../../assets/pro-downloads/cellules-monochrome-black.zip" download>ZIP (1024 SVG, 962 KB)</a>
+          <a href="../../assets/pro-downloads/cellules-monochrome-black.pdf" download>PDF (1024 หน้า, 1.1 MB)</a>
+          <span class="pro-download-meta">ZIP วันที่ 19 กันยายน 2026 ค่าแฮช <code>8ae6b642</code> · PDF วันที่ 19 กันยายน 2026 ค่าแฮช <code>b9d524bb</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">การปูลาย — Tricolore YPM</span>
+          <a href="../../assets/pro-downloads/pavages-tricolore-ypm.zip" download>ZIP (1024 SVG, 1.1 MB)</a>
+          <a href="../../assets/pro-downloads/pavages-tricolore-ypm.pdf" download>PDF (1024 หน้า, 10 MB)</a>
+          <span class="pro-download-meta">ZIP วันที่ 19 กันยายน 2026 ค่าแฮช <code>93aaae33</code> · PDF วันที่ 19 กันยายน 2026 ค่าแฮช <code>e95d305f</code></span>
+        </div>
+        <div class="pro-download-row">
+          <span class="pro-download-name">การปูลาย — Monochrome Black</span>
+          <a href="../../assets/pro-downloads/pavages-monochrome-black.zip" download>ZIP (1024 SVG, 1.1 MB)</a>
+          <a href="../../assets/pro-downloads/pavages-monochrome-black.pdf" download>PDF (1024 หน้า, 10 MB)</a>
+          <span class="pro-download-meta">ZIP วันที่ 19 กันยายน 2026 ค่าแฮช <code>2ecb9b22</code> · PDF วันที่ 19 กันยายน 2026 ค่าแฮช <code>b8b49f96</code></span>
+        </div>
+      </div>
+      <!-- @telechargements:end -->
+      <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;opacity:.75;margin-top:14px;max-width:64ch;">1024 คือจำนวนโครงสร้าง (ตระกูล × คู่สี × ฉักลักษณ์) ไม่ใช่จำนวนรูปทรง: ไฟล์เหล่านี้ตรงกับตารางที่ต่างกัน 512 แบบ และการปูลาย 256 แบบ — สองโครงสร้างอาจวาดตารางเดียวกันภายใต้สองตระกูลที่ต่างกัน หรือตารางหนึ่งกับตารางที่เลื่อนไปครึ่งคาบของมันอาจให้การปูลายแบบเดียวกัน หากไฟล์สองไฟล์ในชุดนี้เหมือนกัน นี่คือเหตุผล</p>
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/soutien-gate.js"></script>
+<script>
+(function(){
+  var b = document.getElementById('btnSoutienFooter');
+  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
+})();
+</script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../th/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">หน้าแรก</span><span class="nav-tile-excerpt">หนังสือ แผ่นภาพ และเครื่องมือทั้งหมด</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">บทความ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-tile-excerpt">ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนด — ทุกอย่างเปิดให้ใช้ฟรีภายใต้ CC BY-NC 4.0 การสนับสนุนของคุณช่วยให้โครงการเดินหน้าต่อไป">มาเป็นผู้สนับสนุน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a>
+
+    <nav class="nav-categories" aria-label="หน้าต่าง ๆ ของเว็บไซต์">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แกลเลอรี</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/two-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสองสี</span><span class="nav-cat-texte">ลวดลายสองสี 142 แบบที่สร้างจากแกนและปิดบนลูกบาศก์ — เกรนการอ่าน การปูลาย การส่งออก</span></a></li>
+          <li><a href="../../th/three-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสามสี</span><span class="nav-cat-texte">ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แอนิเมชัน</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/wallpapers/"><span class="nav-cat-label">วอลเปเปอร์</span><span class="nav-cat-texte">วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">การเสี่ยงทายและงานพิมพ์</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../th/yi-king-draw/"><span class="nav-cat-label">การเสี่ยงทายอี้จิง</span><span class="nav-cat-texte">สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64</span></a></li>
+          <li><a href="../../th/360-layers/"><span class="nav-cat-label">แผ่นลาย 360 แผ่น</span><span class="nav-cat-texte">ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์</span></a></li>
+          <li><a href="../../th/downloads/" aria-current="page"><span class="nav-cat-label">ลวดลาย SVG</span><span class="nav-cat-texte">ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG</span></a></li>
+          <li><a href="../../th/hexagrams/"><span class="nav-cat-label">ฉักลักษณ์</span><span class="nav-cat-texte">ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เครื่องมือสร้างสรรค์</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/create-a-pattern/"><span class="nav-cat-label">สร้างลวดลาย</span><span class="nav-cat-texte">ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง</span></a></li>
+          <li><a href="../../th/two-colour-patterns/"><span class="nav-cat-label">ลวดลายสองสี</span><span class="nav-cat-texte">ประกอบเซลล์ขนาด 12×12 หกระดับ แต่ละระดับมีตระกูลและโทนสีของตัวเอง</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">ลวดลายสองสี v2 <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">การแบ่งเส้นทแยงครั้งที่สอง (YA/AY) คำศัพท์และสถานะของการเลื่อนครึ่งคาบ — ควบคู่กับเครื่องมือ v1</span></a></li>
+          <li><a href="../../th/encoder/"><span class="nav-cat-label">ตัวเข้ารหัส</span><span class="nav-cat-texte">การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ</span></a></li>
+          <li><a href="../../th/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง</span></a></li>
+          <li><a href="../../th/cymatics/"><span class="nav-cat-label">ไซแมติกส์</span><span class="nav-cat-texte">การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด</span></a></li>
+          <li><a href="../../outils.html" hreflang="fr"><span class="nav-cat-label">เครื่องมือ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">เครื่องมือแบบโต้ตอบทั้งหมดของเว็บไซต์ รวมไว้ในที่เดียว</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เกี่ยวกับโครงการ</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/book/"><span class="nav-cat-label">ตำรา</span><span class="nav-cat-texte">ตำราและฉบับแปล ฉักลักษณ์ และอภิธานศัพท์</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">เกี่ยวกับ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์</span></a></li>
+          <li><a href="../../th/lexicon/"><span class="nav-cat-label">อภิธานศัพท์</span><span class="nav-cat-texte">แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès</span></a></li>
+          <li><a href="../../th/profile/"><span class="nav-cat-label">โปรไฟล์เอกสาร</span><span class="nav-cat-texte">สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12</span></a></li>
+          <li><a href="../../th/contact/"><span class="nav-cat-label">ติดต่อ</span><span class="nav-cat-texte">ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</span></a></li>
+          <li><a href="../../soutenir.html" hreflang="fr"><span class="nav-cat-label">สนับสนุน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี</span></a></li>
+          <li><a href="../../th/figures-and-sources/"><span class="nav-cat-label">ตัวเลขและแหล่งที่มา</span><span class="nav-cat-texte">ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</span></a></li>
+          <li><a href="../../travaux.html" hreflang="fr"><span class="nav-cat-label">ผลงาน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>สร้างร่วมกับ Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="ส่วนท้ายของหน้า">
+    <a href="../../th/">หน้าแรก</a>
+    <a href="../../th/book/">หนังสือ</a>
+    <a href="../../th/hexagrams/">ฉักลักษณ์</a>
+    <a href="../../th/lexicon/">อภิธานศัพท์</a>
+    <a href="../../motifs/" hreflang="en">ลวดลาย (ภาษาอังกฤษ)</a>
+    <a href="../../th/profile/">ประวัติผู้แต่ง</a>
+    <a href="../../th/contact/">ติดต่อ</a>
+    <a href="../../soutenir.html" hreflang="fr">สนับสนุนโครงการ (ภาษาฝรั่งเศส)</a>
+    <a href="../../th/search/">ค้นหา</a>
+  </nav>
+  <p class="site-footer-licence">
+    เนื้อหาภายใต้สัญญาอนุญาต <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · โค้ดภายใต้ AGPL v3 สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
