@@ -9,12 +9,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/fonds-ecran.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/telechargements.html</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -57,7 +51,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
@@ -72,7 +66,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/libro/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
@@ -87,7 +81,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/book/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fr/livre/"/>
@@ -178,7 +172,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
@@ -193,7 +187,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
@@ -208,7 +202,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/"/>
@@ -298,7 +292,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/lexicon/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
@@ -313,7 +307,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/lexico/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
@@ -328,7 +322,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/lexicon/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/lexique.html"/>
@@ -413,7 +407,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/about/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
@@ -437,7 +431,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/works/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -525,7 +519,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -547,7 +541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -569,7 +563,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -699,7 +693,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/solid-and-bands/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -719,7 +713,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/liso-y-bandas/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -739,7 +733,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/solid-and-bands/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P-720.webp</image:loc></image:image>
@@ -860,7 +854,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/bands-of-widths/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
@@ -881,7 +875,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/bandas-de-anchos/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
@@ -902,7 +896,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/bands-of-widths/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B121-720.webp</image:loc></image:image>
@@ -1029,7 +1023,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/diagonal-bands/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
@@ -1051,7 +1045,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/bandas-diagonales/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
@@ -1073,7 +1067,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/diagonal-bands/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/B6D-720.webp</image:loc></image:image>
@@ -1204,7 +1198,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/orientation-polygons/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
@@ -1225,7 +1219,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/poligonos-de-orientacion/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
@@ -1246,7 +1240,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/orientation-polygons/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/CCE-720.webp</image:loc></image:image>
@@ -1371,7 +1365,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/quantity-grounds/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
@@ -1391,7 +1385,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/fondos-de-cantidad/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
@@ -1411,7 +1405,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/quantity-grounds/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/PCA12-720.webp</image:loc></image:image>
@@ -1537,7 +1531,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/animations/assemblies/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
@@ -1563,7 +1557,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/animaciones/ensamblajes/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
@@ -1589,7 +1583,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/animations/assemblies/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/animations/vignettes/P+E95-720.webp</image:loc></image:image>
@@ -1731,7 +1725,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/cymatics/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1743,7 +1737,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/cimatica/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1755,7 +1749,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/cymatics/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1778,7 +1772,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/360-layers/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/360-calques.html"/>
@@ -1789,7 +1783,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/360-capas/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/360-calques.html"/>
@@ -1800,7 +1794,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/360-layers/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/360-calques.html"/>
@@ -1821,7 +1815,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/yi-king-draw/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1842,7 +1836,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/two-colour-patterns/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/bicolore.html"/>
@@ -1853,7 +1847,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/motivos-bicolores/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/bicolore.html"/>
@@ -1864,7 +1858,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/two-colour-patterns/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/bicolore.html"/>
@@ -1886,7 +1880,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/three-colour-gallery/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-patterns-unifies.html"/>
@@ -1897,7 +1891,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/galeria-tricolor/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-patterns-unifies.html"/>
@@ -1908,7 +1902,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/three-colour-gallery/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/galerie-patterns-unifies.html"/>
@@ -1931,7 +1925,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/two-colour-gallery/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1943,7 +1937,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/galeria-bicolor/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1955,7 +1949,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/two-colour-gallery/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
@@ -1964,6 +1958,50 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/galeria-bicolor/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/two-colour-gallery/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/two-colour-gallery/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/fonds-ecran.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/wallpapers/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/fondos-de-pantalla/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/wallpapers/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/fonds-ecran.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/contact.html</loc>
@@ -1978,7 +2016,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/contact/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
@@ -1989,7 +2027,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/contacto/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
@@ -2000,7 +2038,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/contact/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/contact.html"/>
@@ -2023,7 +2061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/documentary-profile/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
@@ -2035,7 +2073,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/perfil-documental/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
@@ -2047,7 +2085,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/profile/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/anibal-amiot-portrait.jpg</image:loc></image:image>
@@ -2070,7 +2108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/figures-and-sources/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
@@ -2081,7 +2119,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/cifras-y-fuentes/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
@@ -2092,7 +2130,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/figures-and-sources/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/chiffres-et-sources.html"/>
@@ -2114,7 +2152,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/unified-patterns/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
@@ -2125,7 +2163,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/motivos-unificados/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
@@ -2136,7 +2174,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/unified-patterns/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/unified-patterns.html"/>
@@ -2158,7 +2196,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/create-a-pattern/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
@@ -2169,7 +2207,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/crear-un-motivo/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
@@ -2180,7 +2218,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/create-a-pattern/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/creation-motifs-yi-king.html"/>
@@ -2322,7 +2360,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg</image:loc></image:image>
@@ -2351,7 +2389,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/thrice-great-harlequin.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/penguilly-parade-cover.jpg</image:loc></image:image>
@@ -2372,7 +2410,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/axes-are-nodal-lines.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/axes-lignes-nodales-cover.jpg</image:loc></image:image>
@@ -2394,7 +2432,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/cymatics-spectrum-of-a-pattern.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/cymatique-quinze-gammes-cover.jpg</image:loc></image:image>
@@ -2418,7 +2456,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/encoder-hiding-is-not-protecting.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/encodeur-referent-256-cover.jpg</image:loc></image:image>
@@ -2442,7 +2480,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/foliage-court-jesters.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/visconti-sforza-fou.jpg</image:loc></image:image>
@@ -2464,7 +2502,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/high-priests-garment.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/grand-pretre-tashbetz-1874.jpg</image:loc></image:image>
@@ -2485,7 +2523,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/hanuman-and-harlequin.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/hanuman-mouth-075.jpg</image:loc></image:image>
@@ -2509,7 +2547,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/reminiscence-pebble-square.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/reminiscence-socrate-alcibiade-cover.jpg</image:loc></image:image>
@@ -2542,7 +2580,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/articles/verticality-chequer-mosaic-chessboard.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/articles/checkmate-retzsch.jpg</image:loc></image:image>
@@ -2574,7 +2612,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2586,7 +2624,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2598,7 +2636,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2630,7 +2668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/0-kun-the-receptive.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2650,7 +2688,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/0-kun-lo-receptivo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2670,7 +2708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/0-kun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/0.png</image:loc></image:image>
@@ -2710,7 +2748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/1-fu-return.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/1.png</image:loc></image:image>
@@ -2730,7 +2768,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/1-fu-el-retorno.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/1.png</image:loc></image:image>
@@ -2750,7 +2788,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/1-fu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/1.png</image:loc></image:image>
@@ -2790,7 +2828,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/2-shi-the-army.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/2.png</image:loc></image:image>
@@ -2810,7 +2848,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/2-shi-el-ejercito.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/2.png</image:loc></image:image>
@@ -2830,7 +2868,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/2-shi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/2.png</image:loc></image:image>
@@ -2870,7 +2908,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/3-lin-approach.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/3.png</image:loc></image:image>
@@ -2890,7 +2928,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/3-lin-el-acercamiento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/3.png</image:loc></image:image>
@@ -2910,7 +2948,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/3-lin.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/3.png</image:loc></image:image>
@@ -2950,7 +2988,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/4-qian-modesty.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/4.png</image:loc></image:image>
@@ -2970,7 +3008,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/4-qian-la-modestia.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/4.png</image:loc></image:image>
@@ -2990,7 +3028,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/4-qian.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/4.png</image:loc></image:image>
@@ -3030,7 +3068,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/5-ming-yi-darkening-of-the-light.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/5.png</image:loc></image:image>
@@ -3050,7 +3088,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/5-ming-yi-el-oscurecimiento-de-la-luz.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/5.png</image:loc></image:image>
@@ -3070,7 +3108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/5-ming-yi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/5.png</image:loc></image:image>
@@ -3110,7 +3148,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/6-sheng-pushing-upward.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/6.png</image:loc></image:image>
@@ -3130,7 +3168,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/6-sheng-el-empuje-hacia-arriba.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/6.png</image:loc></image:image>
@@ -3150,7 +3188,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/6-sheng.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/6.png</image:loc></image:image>
@@ -3190,7 +3228,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/7-tai-peace.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/7.png</image:loc></image:image>
@@ -3210,7 +3248,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/7-tai-la-paz.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/7.png</image:loc></image:image>
@@ -3230,7 +3268,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/7-tai.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/7.png</image:loc></image:image>
@@ -3270,7 +3308,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/8-yu-enthusiasm.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/8.png</image:loc></image:image>
@@ -3290,7 +3328,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/8-yu-el-entusiasmo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/8.png</image:loc></image:image>
@@ -3310,7 +3348,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/8-yu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/8.png</image:loc></image:image>
@@ -3350,7 +3388,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/9-zhen-the-arousing.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/9.png</image:loc></image:image>
@@ -3370,7 +3408,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/9-zhen-la-conmocion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/9.png</image:loc></image:image>
@@ -3390,7 +3428,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/9-zhen.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/9.png</image:loc></image:image>
@@ -3430,7 +3468,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/10-jie-deliverance.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/10.png</image:loc></image:image>
@@ -3450,7 +3488,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/10-jie-la-liberacion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/10.png</image:loc></image:image>
@@ -3470,7 +3508,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/10-jie.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/10.png</image:loc></image:image>
@@ -3510,7 +3548,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/11-gui-mei-the-marrying-maiden.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/11.png</image:loc></image:image>
@@ -3530,7 +3568,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/11-gui-mei-la-desposada.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/11.png</image:loc></image:image>
@@ -3550,7 +3588,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/11-gui-mei.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/11.png</image:loc></image:image>
@@ -3590,7 +3628,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/12-xiao-guo-preponderance-of-the-small.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/12.png</image:loc></image:image>
@@ -3610,7 +3648,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/12-xiao-guo-la-preponderancia-de-lo-pequeno.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/12.png</image:loc></image:image>
@@ -3630,7 +3668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/12-xiao-guo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/12.png</image:loc></image:image>
@@ -3670,7 +3708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/13-feng-abundance.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/13.png</image:loc></image:image>
@@ -3690,7 +3728,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/13-feng-la-abundancia.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/13.png</image:loc></image:image>
@@ -3710,7 +3748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/13-feng.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/13.png</image:loc></image:image>
@@ -3750,7 +3788,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/14-heng-duration.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/14.png</image:loc></image:image>
@@ -3770,7 +3808,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/14-heng-la-duracion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/14.png</image:loc></image:image>
@@ -3790,7 +3828,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/14-heng.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/14.png</image:loc></image:image>
@@ -3830,7 +3868,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/15-da-zhuang-the-power-of-the-great.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/15.png</image:loc></image:image>
@@ -3850,7 +3888,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/15-da-zhuang-el-poder-de-lo-grande.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/15.png</image:loc></image:image>
@@ -3870,7 +3908,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/15-da-zhuang.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/15.png</image:loc></image:image>
@@ -3910,7 +3948,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/16-bi-holding-together.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/16.png</image:loc></image:image>
@@ -3930,7 +3968,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/16-bi-la-solidaridad.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/16.png</image:loc></image:image>
@@ -3950,7 +3988,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/16-bi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/16.png</image:loc></image:image>
@@ -3990,7 +4028,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/17-zhun-difficulty-at-the-beginning.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/17.png</image:loc></image:image>
@@ -4010,7 +4048,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/17-zhun-la-dificultad-inicial.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/17.png</image:loc></image:image>
@@ -4030,7 +4068,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/17-zhun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/17.png</image:loc></image:image>
@@ -4070,7 +4108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/18-kan-the-abysmal.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/18.png</image:loc></image:image>
@@ -4090,7 +4128,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/18-kan-lo-insondable.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/18.png</image:loc></image:image>
@@ -4110,7 +4148,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/18-kan.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/18.png</image:loc></image:image>
@@ -4150,7 +4188,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/19-jie-limitation.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/19.png</image:loc></image:image>
@@ -4170,7 +4208,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/19-jie-la-limitacion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/19.png</image:loc></image:image>
@@ -4190,7 +4228,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/19-jie.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/19.png</image:loc></image:image>
@@ -4230,7 +4268,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/20-jian-obstruction.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/20.png</image:loc></image:image>
@@ -4250,7 +4288,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/20-jian-el-obstaculo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/20.png</image:loc></image:image>
@@ -4270,7 +4308,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/20-jian.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/20.png</image:loc></image:image>
@@ -4310,7 +4348,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/21-ji-ji-after-completion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/21.png</image:loc></image:image>
@@ -4330,7 +4368,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/21-ji-ji-despues-de-la-consumacion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/21.png</image:loc></image:image>
@@ -4350,7 +4388,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/21-ji-ji.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/21.png</image:loc></image:image>
@@ -4390,7 +4428,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/22-jing-the-well.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/22.png</image:loc></image:image>
@@ -4410,7 +4448,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/22-jing-el-pozo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/22.png</image:loc></image:image>
@@ -4430,7 +4468,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/22-jing.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/22.png</image:loc></image:image>
@@ -4470,7 +4508,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/23-xu-waiting.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/23.png</image:loc></image:image>
@@ -4490,7 +4528,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/23-xu-la-espera.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/23.png</image:loc></image:image>
@@ -4510,7 +4548,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/23-xu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/23.png</image:loc></image:image>
@@ -4550,7 +4588,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/24-cui-gathering-together.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/24.png</image:loc></image:image>
@@ -4570,7 +4608,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/24-cui-la-reunion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/24.png</image:loc></image:image>
@@ -4590,7 +4628,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/24-cui.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/24.png</image:loc></image:image>
@@ -4630,7 +4668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/25-sui-following.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/25.png</image:loc></image:image>
@@ -4650,7 +4688,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/25-sui-el-seguimiento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/25.png</image:loc></image:image>
@@ -4670,7 +4708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/25-sui.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/25.png</image:loc></image:image>
@@ -4710,7 +4748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/26-kun-oppression.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/26.png</image:loc></image:image>
@@ -4730,7 +4768,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/26-kun-la-desazon.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/26.png</image:loc></image:image>
@@ -4750,7 +4788,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/26-kun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/26.png</image:loc></image:image>
@@ -4790,7 +4828,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/27-dui-the-joyous.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/27.png</image:loc></image:image>
@@ -4810,7 +4848,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/27-dui-lo-alegre.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/27.png</image:loc></image:image>
@@ -4830,7 +4868,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/27-dui.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/27.png</image:loc></image:image>
@@ -4870,7 +4908,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/28-xian-influence.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/28.png</image:loc></image:image>
@@ -4890,7 +4928,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/28-xian-el-influjo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/28.png</image:loc></image:image>
@@ -4910,7 +4948,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/28-xian.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/28.png</image:loc></image:image>
@@ -4950,7 +4988,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/29-ge-revolution.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/29.png</image:loc></image:image>
@@ -4970,7 +5008,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/29-ge-la-revolucion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/29.png</image:loc></image:image>
@@ -4990,7 +5028,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/29-ge.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/29.png</image:loc></image:image>
@@ -5030,7 +5068,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/30-da-guo-preponderance-of-the-great.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/30.png</image:loc></image:image>
@@ -5050,7 +5088,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/30-da-guo-la-preponderancia-de-lo-grande.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/30.png</image:loc></image:image>
@@ -5070,7 +5108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/30-da-guo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/30.png</image:loc></image:image>
@@ -5110,7 +5148,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/31-guai-breakthrough.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/31.png</image:loc></image:image>
@@ -5130,7 +5168,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/31-guai-la-irrupcion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/31.png</image:loc></image:image>
@@ -5150,7 +5188,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/31-guai.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/31.png</image:loc></image:image>
@@ -5190,7 +5228,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/32-bo-splitting-apart.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/32.png</image:loc></image:image>
@@ -5210,7 +5248,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/32-bo-la-desintegracion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/32.png</image:loc></image:image>
@@ -5230,7 +5268,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/32-bo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/32.png</image:loc></image:image>
@@ -5270,7 +5308,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/33-yi-nourishment.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/33.png</image:loc></image:image>
@@ -5290,7 +5328,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/33-yi-la-nutricion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/33.png</image:loc></image:image>
@@ -5310,7 +5348,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/33-yi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/33.png</image:loc></image:image>
@@ -5350,7 +5388,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/34-meng-youthful-folly.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/34.png</image:loc></image:image>
@@ -5370,7 +5408,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/34-meng-la-necedad-juvenil.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/34.png</image:loc></image:image>
@@ -5390,7 +5428,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/34-meng.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/34.png</image:loc></image:image>
@@ -5430,7 +5468,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/35-sun-decrease.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/35.png</image:loc></image:image>
@@ -5450,7 +5488,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/35-sun-la-merma.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/35.png</image:loc></image:image>
@@ -5470,7 +5508,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/35-sun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/35.png</image:loc></image:image>
@@ -5510,7 +5548,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/36-gen-keeping-still.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/36.png</image:loc></image:image>
@@ -5530,7 +5568,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/36-gen-el-aquietamiento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/36.png</image:loc></image:image>
@@ -5550,7 +5588,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/36-gen.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/36.png</image:loc></image:image>
@@ -5590,7 +5628,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/37-bi-grace.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/37.png</image:loc></image:image>
@@ -5610,7 +5648,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/37-bi-la-gracia.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/37.png</image:loc></image:image>
@@ -5630,7 +5668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/37-bi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/37.png</image:loc></image:image>
@@ -5670,7 +5708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/38-gu-work-on-what-has-been-spoiled.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/38.png</image:loc></image:image>
@@ -5690,7 +5728,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/38-gu-el-trabajo-en-lo-echado-a-perder.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/38.png</image:loc></image:image>
@@ -5710,7 +5748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/38-gu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/38.png</image:loc></image:image>
@@ -5750,7 +5788,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/39-da-chu-the-taming-power-of-the-great.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/39.png</image:loc></image:image>
@@ -5770,7 +5808,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/39-da-chu-la-fuerza-domesticadora-de-lo-grande.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/39.png</image:loc></image:image>
@@ -5790,7 +5828,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/39-da-chu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/39.png</image:loc></image:image>
@@ -5830,7 +5868,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/40-jin-progress.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/40.png</image:loc></image:image>
@@ -5850,7 +5888,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/40-jin-el-progreso.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/40.png</image:loc></image:image>
@@ -5870,7 +5908,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/40-jin.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/40.png</image:loc></image:image>
@@ -5910,7 +5948,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/41-shi-he-biting-through.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/41.png</image:loc></image:image>
@@ -5930,7 +5968,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/41-shi-he-la-mordedura-tajante.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/41.png</image:loc></image:image>
@@ -5950,7 +5988,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/41-shi-he.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/41.png</image:loc></image:image>
@@ -5990,7 +6028,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/42-wei-ji-before-completion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/42.png</image:loc></image:image>
@@ -6010,7 +6048,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/42-wei-ji-antes-de-la-consumacion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/42.png</image:loc></image:image>
@@ -6030,7 +6068,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/42-wei-ji.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/42.png</image:loc></image:image>
@@ -6070,7 +6108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/43-kui-opposition.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/43.png</image:loc></image:image>
@@ -6090,7 +6128,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/43-kui-la-oposicion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/43.png</image:loc></image:image>
@@ -6110,7 +6148,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/43-kui.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/43.png</image:loc></image:image>
@@ -6150,7 +6188,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/44-lu-the-wanderer.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/44.png</image:loc></image:image>
@@ -6170,7 +6208,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/44-lu-el-andariego.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/44.png</image:loc></image:image>
@@ -6190,7 +6228,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/44-lu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/44.png</image:loc></image:image>
@@ -6230,7 +6268,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/45-li-that-which-clings-fire.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/45.png</image:loc></image:image>
@@ -6250,7 +6288,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/45-li-lo-adherente-el-fuego.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/45.png</image:loc></image:image>
@@ -6270,7 +6308,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/45-li.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/45.png</image:loc></image:image>
@@ -6310,7 +6348,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/46-ding-the-cauldron.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/46.png</image:loc></image:image>
@@ -6330,7 +6368,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/46-ding-el-caldero.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/46.png</image:loc></image:image>
@@ -6350,7 +6388,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/46-ding.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/46.png</image:loc></image:image>
@@ -6390,7 +6428,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/47-da-you-possession-in-great-measure.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/47.png</image:loc></image:image>
@@ -6410,7 +6448,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/47-da-you-la-posesion-de-lo-grande.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/47.png</image:loc></image:image>
@@ -6430,7 +6468,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/47-da-you.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/47.png</image:loc></image:image>
@@ -6470,7 +6508,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/48-guan-contemplation.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/48.png</image:loc></image:image>
@@ -6490,7 +6528,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/48-guan-la-contemplacion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/48.png</image:loc></image:image>
@@ -6510,7 +6548,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/48-guan.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/48.png</image:loc></image:image>
@@ -6550,7 +6588,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/49-yi-increase.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/49.png</image:loc></image:image>
@@ -6570,7 +6608,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/49-yi-el-aumento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/49.png</image:loc></image:image>
@@ -6590,7 +6628,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/49-yi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/49.png</image:loc></image:image>
@@ -6630,7 +6668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/50-huan-dispersion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/50.png</image:loc></image:image>
@@ -6650,7 +6688,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/50-huan-la-disolucion.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/50.png</image:loc></image:image>
@@ -6670,7 +6708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/50-huan.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/50.png</image:loc></image:image>
@@ -6710,7 +6748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/51-zhong-fu-inner-truth.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/51.png</image:loc></image:image>
@@ -6730,7 +6768,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/51-zhong-fu-la-verdad-interior.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/51.png</image:loc></image:image>
@@ -6750,7 +6788,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/51-zhong-fu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/51.png</image:loc></image:image>
@@ -6790,7 +6828,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/52-jian-development.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/52.png</image:loc></image:image>
@@ -6810,7 +6848,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/52-jian-el-desarrollo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/52.png</image:loc></image:image>
@@ -6830,7 +6868,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/52-jian.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/52.png</image:loc></image:image>
@@ -6870,7 +6908,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/53-jia-ren-the-family.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/53.png</image:loc></image:image>
@@ -6890,7 +6928,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/53-jia-ren-el-clan.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/53.png</image:loc></image:image>
@@ -6910,7 +6948,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/53-jia-ren.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/53.png</image:loc></image:image>
@@ -6950,7 +6988,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/54-xun-the-gentle-wind.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/54.png</image:loc></image:image>
@@ -6970,7 +7008,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/54-xun-lo-suave-el-viento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/54.png</image:loc></image:image>
@@ -6990,7 +7028,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/54-xun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/54.png</image:loc></image:image>
@@ -7030,7 +7068,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/55-xiao-chu-the-taming-power-of-the-small.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/55.png</image:loc></image:image>
@@ -7050,7 +7088,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/55-xiao-chu-la-fuerza-domesticadora-de-lo-pequeno.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/55.png</image:loc></image:image>
@@ -7070,7 +7108,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/55-xiao-chu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/55.png</image:loc></image:image>
@@ -7110,7 +7148,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/56-pi-standstill.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/56.png</image:loc></image:image>
@@ -7130,7 +7168,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/56-pi-el-estancamiento.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/56.png</image:loc></image:image>
@@ -7150,7 +7188,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/56-pi.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/56.png</image:loc></image:image>
@@ -7190,7 +7228,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/57-wu-wang-innocence.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/57.png</image:loc></image:image>
@@ -7210,7 +7248,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/57-wu-wang-la-inocencia.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/57.png</image:loc></image:image>
@@ -7230,7 +7268,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/57-wu-wang.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/57.png</image:loc></image:image>
@@ -7270,7 +7308,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/58-song-conflict.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/58.png</image:loc></image:image>
@@ -7290,7 +7328,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/58-song-el-conflicto.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/58.png</image:loc></image:image>
@@ -7310,7 +7348,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/58-song.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/58.png</image:loc></image:image>
@@ -7350,7 +7388,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/59-lu-treading.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/59.png</image:loc></image:image>
@@ -7370,7 +7408,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/59-lu-el-porte.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/59.png</image:loc></image:image>
@@ -7390,7 +7428,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/59-lu.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/59.png</image:loc></image:image>
@@ -7430,7 +7468,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/60-dun-retreat.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/60.png</image:loc></image:image>
@@ -7450,7 +7488,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/60-dun-la-retirada.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/60.png</image:loc></image:image>
@@ -7470,7 +7508,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/60-dun.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/60.png</image:loc></image:image>
@@ -7510,7 +7548,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/61-tong-ren-fellowship-with-men.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/61.png</image:loc></image:image>
@@ -7530,7 +7568,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/61-tong-ren-la-comunidad-con-los-hombres.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/61.png</image:loc></image:image>
@@ -7550,7 +7588,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/61-tong-ren.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/61.png</image:loc></image:image>
@@ -7590,7 +7628,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/62-gou-coming-to-meet.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/62.png</image:loc></image:image>
@@ -7610,7 +7648,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/62-gou-ir-al-encuentro.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/62.png</image:loc></image:image>
@@ -7630,7 +7668,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/62-gou.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/62.png</image:loc></image:image>
@@ -7670,7 +7708,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/hexagrams/63-qian-the-creative.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/63.png</image:loc></image:image>
@@ -7690,7 +7728,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/es/hexagramas/63-qian-lo-creativo.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/63.png</image:loc></image:image>
@@ -7710,7 +7748,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/th/hexagrams/63-qian.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/hexagrammes/63.png</image:loc></image:image>
@@ -7747,7 +7785,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-1/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/000A.webp</image:loc></image:image>
@@ -7779,7 +7817,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-2/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/005.webp</image:loc></image:image>
@@ -7809,7 +7847,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-3/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/009.webp</image:loc></image:image>
@@ -7841,7 +7879,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-4/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/013.webp</image:loc></image:image>
@@ -7875,7 +7913,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-5/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/019.webp</image:loc></image:image>
@@ -7945,7 +7983,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-6/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/025.webp</image:loc></image:image>
@@ -8037,7 +8075,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-7/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/063.webp</image:loc></image:image>
@@ -8086,7 +8124,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/en/book/chapter-8/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
     <image:image><image:loc>https://anibal-amiot.com/book-viewer/pages/en/093.webp</image:loc></image:image>
@@ -8203,7 +8241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h0.png</image:loc></image:image>
@@ -8223,7 +8261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h0.png</image:loc></image:image>
@@ -8243,7 +8281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h1.png</image:loc></image:image>
@@ -8263,7 +8301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h10.png</image:loc></image:image>
@@ -8283,7 +8321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h11.png</image:loc></image:image>
@@ -8303,7 +8341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h12.png</image:loc></image:image>
@@ -8323,7 +8361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h13.png</image:loc></image:image>
@@ -8343,7 +8381,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h14.png</image:loc></image:image>
@@ -8363,7 +8401,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h15.png</image:loc></image:image>
@@ -8383,7 +8421,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h16.png</image:loc></image:image>
@@ -8403,7 +8441,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h17.png</image:loc></image:image>
@@ -8423,7 +8461,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h18.png</image:loc></image:image>
@@ -8443,7 +8481,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h19.png</image:loc></image:image>
@@ -8463,7 +8501,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h2.png</image:loc></image:image>
@@ -8483,7 +8521,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h20.png</image:loc></image:image>
@@ -8503,7 +8541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h21.png</image:loc></image:image>
@@ -8523,7 +8561,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h22.png</image:loc></image:image>
@@ -8543,7 +8581,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h23.png</image:loc></image:image>
@@ -8563,7 +8601,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h24.png</image:loc></image:image>
@@ -8583,7 +8621,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h25.png</image:loc></image:image>
@@ -8603,7 +8641,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h26.png</image:loc></image:image>
@@ -8623,7 +8661,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h27.png</image:loc></image:image>
@@ -8643,7 +8681,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h28.png</image:loc></image:image>
@@ -8663,7 +8701,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h29.png</image:loc></image:image>
@@ -8683,7 +8721,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h3.png</image:loc></image:image>
@@ -8703,7 +8741,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h30.png</image:loc></image:image>
@@ -8723,7 +8761,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h31.png</image:loc></image:image>
@@ -8743,7 +8781,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h4.png</image:loc></image:image>
@@ -8763,7 +8801,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h5.png</image:loc></image:image>
@@ -8783,7 +8821,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h6.png</image:loc></image:image>
@@ -8803,7 +8841,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h7.png</image:loc></image:image>
@@ -8823,7 +8861,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h8.png</image:loc></image:image>
@@ -8843,7 +8881,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-h9.png</image:loc></image:image>
@@ -8863,7 +8901,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h0.png</image:loc></image:image>
@@ -8883,7 +8921,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h1.png</image:loc></image:image>
@@ -8903,7 +8941,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h10.png</image:loc></image:image>
@@ -8923,7 +8961,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h11.png</image:loc></image:image>
@@ -8943,7 +8981,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h12.png</image:loc></image:image>
@@ -8963,7 +9001,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h13.png</image:loc></image:image>
@@ -8983,7 +9021,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h14.png</image:loc></image:image>
@@ -9003,7 +9041,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h15.png</image:loc></image:image>
@@ -9023,7 +9061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h16.png</image:loc></image:image>
@@ -9043,7 +9081,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h17.png</image:loc></image:image>
@@ -9063,7 +9101,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h18.png</image:loc></image:image>
@@ -9083,7 +9121,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h19.png</image:loc></image:image>
@@ -9103,7 +9141,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h2.png</image:loc></image:image>
@@ -9123,7 +9161,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h20.png</image:loc></image:image>
@@ -9143,7 +9181,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h21.png</image:loc></image:image>
@@ -9163,7 +9201,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h22.png</image:loc></image:image>
@@ -9183,7 +9221,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h23.png</image:loc></image:image>
@@ -9203,7 +9241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h24.png</image:loc></image:image>
@@ -9223,7 +9261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h25.png</image:loc></image:image>
@@ -9243,7 +9281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h26.png</image:loc></image:image>
@@ -9263,7 +9301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h27.png</image:loc></image:image>
@@ -9283,7 +9321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h28.png</image:loc></image:image>
@@ -9303,7 +9341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h29.png</image:loc></image:image>
@@ -9323,7 +9361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h3.png</image:loc></image:image>
@@ -9343,7 +9381,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h30.png</image:loc></image:image>
@@ -9363,7 +9401,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h31.png</image:loc></image:image>
@@ -9383,7 +9421,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h4.png</image:loc></image:image>
@@ -9403,7 +9441,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h5.png</image:loc></image:image>
@@ -9423,7 +9461,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h6.png</image:loc></image:image>
@@ -9443,7 +9481,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h7.png</image:loc></image:image>
@@ -9463,7 +9501,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h8.png</image:loc></image:image>
@@ -9483,7 +9521,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/bases-yang-mut-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/bases-yang-mut-h9.png</image:loc></image:image>
@@ -9503,7 +9541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h0.png</image:loc></image:image>
@@ -9523,7 +9561,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h1.png</image:loc></image:image>
@@ -9543,7 +9581,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h10.png</image:loc></image:image>
@@ -9563,7 +9601,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h11.png</image:loc></image:image>
@@ -9583,7 +9621,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h12.png</image:loc></image:image>
@@ -9603,7 +9641,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h13.png</image:loc></image:image>
@@ -9623,7 +9661,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h14.png</image:loc></image:image>
@@ -9643,7 +9681,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h15.png</image:loc></image:image>
@@ -9663,7 +9701,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h16.png</image:loc></image:image>
@@ -9683,7 +9721,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h17.png</image:loc></image:image>
@@ -9703,7 +9741,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h18.png</image:loc></image:image>
@@ -9723,7 +9761,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h19.png</image:loc></image:image>
@@ -9743,7 +9781,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h2.png</image:loc></image:image>
@@ -9763,7 +9801,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h20.png</image:loc></image:image>
@@ -9783,7 +9821,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h21.png</image:loc></image:image>
@@ -9803,7 +9841,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h22.png</image:loc></image:image>
@@ -9823,7 +9861,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h23.png</image:loc></image:image>
@@ -9843,7 +9881,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h24.png</image:loc></image:image>
@@ -9863,7 +9901,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h25.png</image:loc></image:image>
@@ -9883,7 +9921,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h26.png</image:loc></image:image>
@@ -9903,7 +9941,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h27.png</image:loc></image:image>
@@ -9923,7 +9961,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h28.png</image:loc></image:image>
@@ -9943,7 +9981,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h29.png</image:loc></image:image>
@@ -9963,7 +10001,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h3.png</image:loc></image:image>
@@ -9983,7 +10021,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h30.png</image:loc></image:image>
@@ -10003,7 +10041,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h31.png</image:loc></image:image>
@@ -10023,7 +10061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h4.png</image:loc></image:image>
@@ -10043,7 +10081,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h5.png</image:loc></image:image>
@@ -10063,7 +10101,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h6.png</image:loc></image:image>
@@ -10083,7 +10121,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h7.png</image:loc></image:image>
@@ -10103,7 +10141,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h8.png</image:loc></image:image>
@@ -10123,7 +10161,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yang-yin-mut-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yang-yin-mut-h9.png</image:loc></image:image>
@@ -10143,7 +10181,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h0.png</image:loc></image:image>
@@ -10163,7 +10201,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h1.png</image:loc></image:image>
@@ -10183,7 +10221,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h10.png</image:loc></image:image>
@@ -10203,7 +10241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h11.png</image:loc></image:image>
@@ -10223,7 +10261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h12.png</image:loc></image:image>
@@ -10243,7 +10281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h13.png</image:loc></image:image>
@@ -10263,7 +10301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h14.png</image:loc></image:image>
@@ -10283,7 +10321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h15.png</image:loc></image:image>
@@ -10303,7 +10341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h16.png</image:loc></image:image>
@@ -10323,7 +10361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h17.png</image:loc></image:image>
@@ -10343,7 +10381,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h18.png</image:loc></image:image>
@@ -10363,7 +10401,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h19.png</image:loc></image:image>
@@ -10383,7 +10421,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h2.png</image:loc></image:image>
@@ -10403,7 +10441,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h20.png</image:loc></image:image>
@@ -10423,7 +10461,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h21.png</image:loc></image:image>
@@ -10443,7 +10481,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h22.png</image:loc></image:image>
@@ -10463,7 +10501,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h23.png</image:loc></image:image>
@@ -10483,7 +10521,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h24.png</image:loc></image:image>
@@ -10503,7 +10541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h25.png</image:loc></image:image>
@@ -10523,7 +10561,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h26.png</image:loc></image:image>
@@ -10543,7 +10581,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h27.png</image:loc></image:image>
@@ -10563,7 +10601,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h28.png</image:loc></image:image>
@@ -10583,7 +10621,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h29.png</image:loc></image:image>
@@ -10603,7 +10641,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h3.png</image:loc></image:image>
@@ -10623,7 +10661,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h30.png</image:loc></image:image>
@@ -10643,7 +10681,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h31.png</image:loc></image:image>
@@ -10663,7 +10701,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h4.png</image:loc></image:image>
@@ -10683,7 +10721,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h5.png</image:loc></image:image>
@@ -10703,7 +10741,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h6.png</image:loc></image:image>
@@ -10723,7 +10761,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h7.png</image:loc></image:image>
@@ -10743,7 +10781,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h8.png</image:loc></image:image>
@@ -10763,7 +10801,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-mut-yang-mut-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-mut-yang-mut-h9.png</image:loc></image:image>
@@ -10783,7 +10821,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h0.png</image:loc></image:image>
@@ -10803,7 +10841,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h1.png</image:loc></image:image>
@@ -10823,7 +10861,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h10.png</image:loc></image:image>
@@ -10843,7 +10881,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h11.png</image:loc></image:image>
@@ -10863,7 +10901,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h12.png</image:loc></image:image>
@@ -10883,7 +10921,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h13.png</image:loc></image:image>
@@ -10903,7 +10941,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h14.png</image:loc></image:image>
@@ -10923,7 +10961,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h15.png</image:loc></image:image>
@@ -10943,7 +10981,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h16.png</image:loc></image:image>
@@ -10963,7 +11001,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h17.png</image:loc></image:image>
@@ -10983,7 +11021,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h18.png</image:loc></image:image>
@@ -11003,7 +11041,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h19.png</image:loc></image:image>
@@ -11023,7 +11061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h2.png</image:loc></image:image>
@@ -11043,7 +11081,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h20.png</image:loc></image:image>
@@ -11063,7 +11101,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h21.png</image:loc></image:image>
@@ -11083,7 +11121,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h22.png</image:loc></image:image>
@@ -11103,7 +11141,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h23.png</image:loc></image:image>
@@ -11123,7 +11161,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h24.png</image:loc></image:image>
@@ -11143,7 +11181,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h25.png</image:loc></image:image>
@@ -11163,7 +11201,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h26.png</image:loc></image:image>
@@ -11183,7 +11221,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h27.png</image:loc></image:image>
@@ -11203,7 +11241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h28.png</image:loc></image:image>
@@ -11223,7 +11261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h29.png</image:loc></image:image>
@@ -11243,7 +11281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h3.png</image:loc></image:image>
@@ -11263,7 +11301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h30.png</image:loc></image:image>
@@ -11283,7 +11321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h31.png</image:loc></image:image>
@@ -11303,7 +11341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h4.png</image:loc></image:image>
@@ -11323,7 +11361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h5.png</image:loc></image:image>
@@ -11343,7 +11381,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h6.png</image:loc></image:image>
@@ -11363,7 +11401,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h7.png</image:loc></image:image>
@@ -11383,7 +11421,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h8.png</image:loc></image:image>
@@ -11403,7 +11441,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-h9.png</image:loc></image:image>
@@ -11423,7 +11461,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h0.png</image:loc></image:image>
@@ -11443,7 +11481,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h1.png</image:loc></image:image>
@@ -11463,7 +11501,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h10.png</image:loc></image:image>
@@ -11483,7 +11521,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h11.png</image:loc></image:image>
@@ -11503,7 +11541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h12.png</image:loc></image:image>
@@ -11523,7 +11561,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h13.png</image:loc></image:image>
@@ -11543,7 +11581,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h14.png</image:loc></image:image>
@@ -11563,7 +11601,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h15.png</image:loc></image:image>
@@ -11583,7 +11621,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h16.png</image:loc></image:image>
@@ -11603,7 +11641,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h17.png</image:loc></image:image>
@@ -11623,7 +11661,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h18.png</image:loc></image:image>
@@ -11643,7 +11681,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h19.png</image:loc></image:image>
@@ -11663,7 +11701,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h2.png</image:loc></image:image>
@@ -11683,7 +11721,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h20.png</image:loc></image:image>
@@ -11703,7 +11741,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h21.png</image:loc></image:image>
@@ -11723,7 +11761,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h22.png</image:loc></image:image>
@@ -11743,7 +11781,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h23.png</image:loc></image:image>
@@ -11763,7 +11801,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h24.png</image:loc></image:image>
@@ -11783,7 +11821,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h25.png</image:loc></image:image>
@@ -11803,7 +11841,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h26.png</image:loc></image:image>
@@ -11823,7 +11861,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h27.png</image:loc></image:image>
@@ -11843,7 +11881,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h28.png</image:loc></image:image>
@@ -11863,7 +11901,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h29.png</image:loc></image:image>
@@ -11883,7 +11921,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h3.png</image:loc></image:image>
@@ -11903,7 +11941,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h30.png</image:loc></image:image>
@@ -11923,7 +11961,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h31.png</image:loc></image:image>
@@ -11943,7 +11981,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h4.png</image:loc></image:image>
@@ -11963,7 +12001,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h5.png</image:loc></image:image>
@@ -11983,7 +12021,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h6.png</image:loc></image:image>
@@ -12003,7 +12041,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h7.png</image:loc></image:image>
@@ -12023,7 +12061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h8.png</image:loc></image:image>
@@ -12043,7 +12081,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par2-yin-yang-mut-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par2-yin-yang-mut-h9.png</image:loc></image:image>
@@ -12063,7 +12101,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h0.png</image:loc></image:image>
@@ -12083,7 +12121,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h1.png</image:loc></image:image>
@@ -12103,7 +12141,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h10.png</image:loc></image:image>
@@ -12123,7 +12161,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h11.png</image:loc></image:image>
@@ -12143,7 +12181,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h12.png</image:loc></image:image>
@@ -12163,7 +12201,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h13.png</image:loc></image:image>
@@ -12183,7 +12221,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h14.png</image:loc></image:image>
@@ -12203,7 +12241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h15.png</image:loc></image:image>
@@ -12223,7 +12261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h16.png</image:loc></image:image>
@@ -12243,7 +12281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h17.png</image:loc></image:image>
@@ -12263,7 +12301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h18.png</image:loc></image:image>
@@ -12283,7 +12321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h19.png</image:loc></image:image>
@@ -12303,7 +12341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h2.png</image:loc></image:image>
@@ -12323,7 +12361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h20.png</image:loc></image:image>
@@ -12343,7 +12381,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h21.png</image:loc></image:image>
@@ -12363,7 +12401,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h22.png</image:loc></image:image>
@@ -12383,7 +12421,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h23.png</image:loc></image:image>
@@ -12403,7 +12441,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h24.png</image:loc></image:image>
@@ -12423,7 +12461,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h25.png</image:loc></image:image>
@@ -12443,7 +12481,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h26.png</image:loc></image:image>
@@ -12463,7 +12501,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h27.png</image:loc></image:image>
@@ -12483,7 +12521,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h28.png</image:loc></image:image>
@@ -12503,7 +12541,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h29.png</image:loc></image:image>
@@ -12523,7 +12561,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h3.png</image:loc></image:image>
@@ -12543,7 +12581,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h30.png</image:loc></image:image>
@@ -12563,7 +12601,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h31.png</image:loc></image:image>
@@ -12583,7 +12621,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h4.png</image:loc></image:image>
@@ -12603,7 +12641,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h5.png</image:loc></image:image>
@@ -12623,7 +12661,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h6.png</image:loc></image:image>
@@ -12643,7 +12681,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h7.png</image:loc></image:image>
@@ -12663,7 +12701,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h8.png</image:loc></image:image>
@@ -12683,7 +12721,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-h9.png</image:loc></image:image>
@@ -12703,7 +12741,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h0.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h0.png</image:loc></image:image>
@@ -12723,7 +12761,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h1.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h1.png</image:loc></image:image>
@@ -12743,7 +12781,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h10.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h10.png</image:loc></image:image>
@@ -12763,7 +12801,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h11.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h11.png</image:loc></image:image>
@@ -12783,7 +12821,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h12.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h12.png</image:loc></image:image>
@@ -12803,7 +12841,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h13.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h13.png</image:loc></image:image>
@@ -12823,7 +12861,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h14.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h14.png</image:loc></image:image>
@@ -12843,7 +12881,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h15.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h15.png</image:loc></image:image>
@@ -12863,7 +12901,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h16.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h16.png</image:loc></image:image>
@@ -12883,7 +12921,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h17.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h17.png</image:loc></image:image>
@@ -12903,7 +12941,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h18.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h18.png</image:loc></image:image>
@@ -12923,7 +12961,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h19.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h19.png</image:loc></image:image>
@@ -12943,7 +12981,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h2.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h2.png</image:loc></image:image>
@@ -12963,7 +13001,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h20.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h20.png</image:loc></image:image>
@@ -12983,7 +13021,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h21.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h21.png</image:loc></image:image>
@@ -13003,7 +13041,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h22.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h22.png</image:loc></image:image>
@@ -13023,7 +13061,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h23.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h23.png</image:loc></image:image>
@@ -13043,7 +13081,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h24.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h24.png</image:loc></image:image>
@@ -13063,7 +13101,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h25.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h25.png</image:loc></image:image>
@@ -13083,7 +13121,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h26.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h26.png</image:loc></image:image>
@@ -13103,7 +13141,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h27.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h27.png</image:loc></image:image>
@@ -13123,7 +13161,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h28.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h28.png</image:loc></image:image>
@@ -13143,7 +13181,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h29.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h29.png</image:loc></image:image>
@@ -13163,7 +13201,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h3.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h3.png</image:loc></image:image>
@@ -13183,7 +13221,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h30.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h30.png</image:loc></image:image>
@@ -13203,7 +13241,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h31.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h31.png</image:loc></image:image>
@@ -13223,7 +13261,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h4.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h4.png</image:loc></image:image>
@@ -13243,7 +13281,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h5.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h5.png</image:loc></image:image>
@@ -13263,7 +13301,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h6.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h6.png</image:loc></image:image>
@@ -13283,7 +13321,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h7.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h7.png</image:loc></image:image>
@@ -13303,7 +13341,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h8.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h8.png</image:loc></image:image>
@@ -13323,7 +13361,7 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/motifs/par3-sans-yang-mut-h9.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/motifs-preview/par3-sans-yang-mut-h9.png</image:loc></image:image>
