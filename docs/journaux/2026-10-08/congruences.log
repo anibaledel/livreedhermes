@@ -1,0 +1,86 @@
+$ python3 tools/congruences.py --ordres 8 --modules 2,4,8,16,18,19,32,34,36,64,0
+ordre 8 — modules demandés
+  mod 2          : OPTIMAL
+  mod 4          : OPTIMAL
+  mod 8          : OPTIMAL
+  mod 16         : OPTIMAL
+  mod 18         : OPTIMAL
+  mod 19         : INFEASIBLE
+  mod 32         : OPTIMAL
+  mod 34         : OPTIMAL
+  mod 36         : INFEASIBLE
+  mod 64         : INFEASIBLE
+  entier (= M)   : INFEASIBLE
+
+$ python3 tools/congruences.py --ordres 8 --balayage
+ordre 8 — balayage de tous les modules de 2 à n² = 64
+  mod    2 : OPTIMAL
+  mod    3 : OPTIMAL
+  mod    4 : OPTIMAL
+  mod    5 : OPTIMAL
+  mod    6 : OPTIMAL
+  mod    7 : OPTIMAL
+  mod    8 : OPTIMAL
+  mod    9 : OPTIMAL
+  mod   10 : OPTIMAL
+  mod   11 : OPTIMAL
+  mod   12 : OPTIMAL
+  mod   13 : OPTIMAL
+  mod   14 : OPTIMAL
+  mod   15 : OPTIMAL
+  mod   16 : OPTIMAL
+  mod   17 : OPTIMAL
+  mod   18 : OPTIMAL
+  mod   19 : INFEASIBLE
+  mod   20 : OPTIMAL
+  mod   21 : INFEASIBLE
+  mod   22 : OPTIMAL
+  mod   23 : INFEASIBLE
+  mod   24 : OPTIMAL
+  mod   25 : INFEASIBLE
+  mod   26 : OPTIMAL
+  mod   27 : INFEASIBLE
+  mod   28 : OPTIMAL
+  mod   29 : INFEASIBLE
+  mod   30 : OPTIMAL
+  mod   31 : INFEASIBLE
+  mod   32 : OPTIMAL
+  mod   33 : INFEASIBLE
+  mod   34 : OPTIMAL
+  mod   35 : INFEASIBLE
+  mod   36 : INFEASIBLE
+  mod   37 : INFEASIBLE
+  mod   38 : INFEASIBLE
+  mod   39 : INFEASIBLE
+  mod   40 : INFEASIBLE
+  mod   41 : INFEASIBLE
+  mod   42 : INFEASIBLE
+  mod   43 : INFEASIBLE
+  mod   44 : INFEASIBLE
+  mod   45 : INFEASIBLE
+  mod   46 : INFEASIBLE
+  mod   47 : INFEASIBLE
+  mod   48 : INFEASIBLE
+  mod   49 : INFEASIBLE
+  mod   50 : INFEASIBLE
+  mod   51 : INFEASIBLE
+  mod   52 : INFEASIBLE
+  mod   53 : INFEASIBLE
+  mod   54 : INFEASIBLE
+  mod   55 : INFEASIBLE
+  mod   56 : INFEASIBLE
+  mod   57 : INFEASIBLE
+  mod   58 : INFEASIBLE
+  mod   59 : INFEASIBLE
+  mod   60 : INFEASIBLE
+  mod   61 : INFEASIBLE
+  mod   62 : INFEASIBLE
+  mod   63 : INFEASIBLE
+  mod   64 : INFEASIBLE
+  entier   : INFEASIBLE
+
+  satisfaisables : 25 modules
+  impossibles    : 38 modules — le plus petit est 19
+
+  plus petit module obstructif : 19
+

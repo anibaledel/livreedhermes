@@ -1,0 +1,20 @@
+$ python3 tools/exhaustif6.py
+18432 graines × 256 motifs = 4718592 couples
+  2000/18432   [1 s]
+  4000/18432   [2 s]
+  6000/18432   [4 s]
+  8000/18432   [5 s]
+  10000/18432   [7 s]
+  12000/18432   [8 s]
+  14000/18432   [9 s]
+  16000/18432   [10 s]
+  18000/18432   [12 s]
+
+motifs magiques par graine : {0: 10240, 16: 8192}
+attendu                     : {0: 10240, 16: 8192}
+
+contrôle : les 8 192 graines à seize motifs sont-elles exactement celles que l’alternance de parité fait paver ?
+  alternance : 8192 graines ; cache enum6 : 8192 ; identiques : True
+
+aucune graine ne pave par un motif exotique sans paver par l’alternance.   [17 s]
+

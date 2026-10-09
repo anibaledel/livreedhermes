@@ -1,0 +1,11 @@
+$ python3 tools/parite.py
+la première paire de lignes, configuration par configuration :
+  l'identité δ_0 = n(n−1)·A + W, et ses conséquences
+
+  ordre   4 (n/2 =  2, pair  ) :        64 configurations à h impair, dont       0 d'écart nul — identité vérifiée partout
+  ordre   6 (n/2 =  3, impair) :      1024 configurations à h impair, dont     128 d'écart nul — identité vérifiée partout
+  ordre   8 (n/2 =  4, pair  ) :     16384 configurations à h impair, dont       0 d'écart nul — identité vérifiée partout
+  ordre  10 (n/2 =  5, impair) :    262144 configurations à h impair, dont   20224 d'écart nul — identité vérifiée partout
+
+aucun écart nul à n/2 pair, comme le théorème le demande.
+

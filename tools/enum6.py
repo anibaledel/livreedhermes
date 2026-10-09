@@ -12,8 +12,15 @@
 # milieu : la troisième paire est indexée par ce qu'il faut lui fournir), puis on
 # teste chacun sur les 256 motifs de miroirs du pavage 2 × 2 (ordre 12).
 
-# Résultats attendus : 18 432 étiquetages magiques, 8 192 pavables, seize
-# motifs valides pour chacun d'eux, aucun motif valide pour les 10 240 autres.
+# Résultats attendus : 18 432 étiquetages magiques, 8 192 pavables par
+# l'alternance de parité, seize motifs valides pour chacun d'eux.
+#
+# ATTENTION À LA PORTÉE DE CE SCRIPT. Il définit « pavable » comme « pavable par
+# l'alternance de parité », puis n'essaie les 256 motifs que sur les graines
+# ainsi retenues. Il n'exclut donc pas, à lui seul, qu'une graine pave par un
+# motif exotique sans paver par l'alternance. C'est `exhaustif6.py` qui ferme ce
+# trou en testant les 18 432 × 256 = 4 718 592 couples : aucune des 10 240
+# n'a de motif magique, et les 8 192 en ont exactement seize.
 #
 # Usage : cd <racine du dépôt> && python tools/enum6.py   (environ 10 minutes)
 

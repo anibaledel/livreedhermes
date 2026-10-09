@@ -20,6 +20,19 @@ name: Étiquetages magiques à quatre classes et croix ansée — comptes, absen
 #   - ligne_necessaire.py : sort en erreur si un carré viole |d·u| ≤ (n−1)/2.
 #   - profils.py --ordre 6 : les profils symétriques (10,10,8,8) et (12,12,6,6)
 #     existent, les autres sont INFEASIBLE (1 s).
+# Dépôt 15.11 (9 octobre 2026), cinq scripts en Python nu (sans ortools) :
+#   - verifie_temoins.py : les 29 témoins de data/temoins.json recalculés ;
+#     sort en erreur si l'un ne passe pas.
+#   - identite.py : l'identité exacte et la forme (*) sur les 18 432 (cache
+#     d'enum6.py) et sur les témoins ; sort en erreur si elle tombe.
+#   - exhaustif6.py : les 18 432 × 256 couples graine/motif, {0: 10240,
+#     16: 8192} ; sort en erreur si le partage bouge.
+#   - reseau.py --ordres 8,12,16,20 --fenetre 0 : aucun vecteur d'écarts nul
+#     aux ordres doublement pairs testés, sans solveur.
+#   - parite.py : l'identité δ_0 = n(n−1)·A + W sur les 279 616 configurations
+#     des ordres 4 à 10.
+# Les scripts à solveur du dépôt 15.11 (localise, ecarts, congruences) ont leur
+# journal dans docs/journaux/2026-10-08/.
 # Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
 # compte_croix aux ordres 8, 10, 12, 14, croix_existence à l'ordre 16) ont leur
 # journal dans docs/journaux/2026-10-08/.
@@ -56,5 +69,10 @@ jobs:
       - run: python3 tools/croix_existence.py --ordres 6,8,12
       - run: python3 tools/ligne_necessaire.py --ordres 6,10,14,18
       - run: python3 tools/profils.py --ordre 6
+      - run: python3 tools/verifie_temoins.py
+      - run: python3 tools/identite.py
+      - run: python3 tools/exhaustif6.py
+      - run: python3 tools/reseau.py --ordres 8,12,16,20 --fenetre 0
+      - run: python3 tools/parite.py
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai

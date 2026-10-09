@@ -1,0 +1,14 @@
+la PREMIÈRE paire de lignes, seule : combien de configurations annulent son écart ?
+
+  ordre   4 (n/2 =  2, pair  ) :        0 configurations,      4 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre   6 (n/2 =  3, impair) :        2 configurations,     23 écarts atteignables — écart nul possible
+  ordre   8 (n/2 =  4, pair  ) :        0 configurations,     60 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre  10 (n/2 =  5, impair) :        8 configurations,    125 écarts atteignables — écart nul possible
+  ordre  12 (n/2 =  6, pair  ) :        0 configurations,    226 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre  14 (n/2 =  7, impair) :       32 configurations,    371 écarts atteignables — écart nul possible
+  ordre  16 (n/2 =  8, pair  ) :        0 configurations,    568 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre  18 (n/2 =  9, impair) :      128 configurations,    825 écarts atteignables — écart nul possible
+  ordre  20 (n/2 = 10, pair  ) :        0 configurations,   1150 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre  22 (n/2 = 11, impair) :      512 configurations,   1551 écarts atteignables — écart nul possible
+  ordre  24 (n/2 = 12, pair  ) :        0 configurations,   2036 écarts atteignables — ÉCART NUL IMPOSSIBLE
+  ordre  26 (n/2 = 13, impair) :     2048 configurations,   2613 écarts atteignables — écart nul possible

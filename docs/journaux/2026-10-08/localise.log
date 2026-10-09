@@ -1,0 +1,5 @@
+$ python3 tools/localise.py
+ordre   6 : I+II+III seuls OPTIMAL      | + sommes de LIGNES OPTIMAL      | + sommes de COLONNES OPTIMAL     
+ordre   8 : I+II+III seuls OPTIMAL      | + sommes de LIGNES INFEASIBLE   | + sommes de COLONNES INFEASIBLE  
+ordre  10 : I+II+III seuls OPTIMAL      | + sommes de LIGNES OPTIMAL      | + sommes de COLONNES OPTIMAL     
+

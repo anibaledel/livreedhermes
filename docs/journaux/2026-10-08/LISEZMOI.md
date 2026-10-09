@@ -17,6 +17,16 @@
 | `ligne_necessaire.log` | `python3 tools/ligne_necessaire.py` (ordres 6, 10, 14), puis `--ordres 18` |
 | `profils.log` | `python3 tools/profils.py --ordre 6`, puis `python3 tools/profils.py` (ordre 10) |
 | `croix_ansee_n.log` | `python3 tools/croix_ansee_n.py` (ordres 6, 8, 10) |
+| `compte_etiquetages-depot-15.11.log` | les mêmes quatre exécutions, relancées après le changement d'en-tête du dépôt 15.11 ; sortie identique à `compte_etiquetages.log`, qui reste en place |
+| `verifie_temoins.log` | `python3 tools/verifie_temoins.py` |
+| `identite.log` | `python3 tools/identite.py` |
+| `exhaustif6.log` | `python3 tools/exhaustif6.py` |
+| `reseau.log` | `python3 tools/reseau.py --ordres 8,12,16,20 --fenetre 0`, puis `--ordres 4,…,26 --paire0` |
+| `parite.log` | `python3 tools/parite.py` |
+| `localise.log` | `python3 tools/localise.py` |
+| `ecarts.log` | `python3 tools/ecarts.py` avec `--zero`, `--cherche-impair`, `--bornes`, `--bornes --h 1,3`, `--direction` |
+| `congruences.log` | `python3 tools/congruences.py --ordres 8 --modules 2,4,8,16,18,19,32,34,36,64,0`, puis `--balayage` |
+| `verifie_portee.log` | `python3 tools/verifie_portee.py` — **code de retour 1** : la nécessité tombe sur le témoin d'ordre 4 |
 
 `tools/verif_protocole.py` corrigé le 8 octobre 2026 : la grille des couleurs du carré de
 référence, le test §4.1 (le miroir de chiralité envoie chaque case rouge sur une case
@@ -49,6 +59,15 @@ secondes. Les solveurs tournent sur 8 processus : le carré rendu, donc les trai
 ligne imprimés aux ordres 10, 14, 18, peut changer d'une exécution à l'autre, et un
 « non tranché » à limite de temps peut basculer. La note d'Anibal est copiée dans
 `docs/sources/2026-10-08/livraison-14.10/` ; le papier qui l'accompagnait n'est pas versé.
+
+Dépôt 15.11 d'Anibal (9 octobre 2026) : neuf scripts neufs versés tels quels ;
+`compte_etiquetages.py` et `enum6.py` repris tels quels (en-têtes) ; `pavage_miroirs.py` et
+`protocole_general.py` : seuls les changements de texte sont reportés sur les versions du
+dépôt (qui importent `lldh_commun.py`), sorties identiques octet pour octet à celles
+d'Anibal. `data/temoins.json` et les cinq journaux `data/*.txt` d'Anibal sont versés tels
+quels ; les sorties d'ici concordent avec eux. `verifie_portee.py` est de moi (voir
+`TODO-RELECTURE.md`). DEPOT.md, README.md et requirements.txt sont copiés dans
+`docs/sources/2026-10-08/depot-15.11/` ; le papier (révision 116) n'est pas versé.
 
 Machine : conteneur de session Claude Code, Intel Xeon @ 2,80 GHz, 4 processeurs.
 `data/resultats-etablis.json` cite ce journal (statut `verifie_journal_local`) avec son

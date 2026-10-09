@@ -3,7 +3,8 @@
 # AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 #
 # pavage_miroirs.py — la méthode : un carré d'ordre 6 pavé par miroirs alternés
-# donne un carré magique d'ordre 6m, pour tout m.
+# donne un carré magique d'ordre 6m aux ordres testés ici ; sa validité pour
+# tout m reste à démontrer.
 #
 # ÉNONCÉ. Soit E un étiquetage d'ordre 6 du corpus, et m ≥ 1. On pave une grille
 # d'ordre 6m avec m × m copies de E, la copie du bloc (i, j) étant
@@ -396,7 +397,7 @@ def echantillon_ordre18(bases, tirages=4000):
 
 
 def echantillon_graines(tirages=400000):
-    """Un étiquetage conforme aux trois conditions est-il souvent magique ?
+    """Un étiquetage conforme aux trois critères est-il souvent magique ?
     Graine fixée. Sert à montrer que les conditions sont loin de suffire."""
     rng = random.Random(1)
     print(f'\nétiquetages tirés au hasard parmi les conformes (graine 1)')
@@ -416,7 +417,7 @@ def echantillon_graines(tirages=400000):
                 continue
             conformes += 1
             magiques += magique(e, n)
-        print(f'  ordre {n:2d} : {conformes} conformes aux deux conditions '
+        print(f'  ordre {n:2d} : {conformes} conformes aux deux équilibrages '
               f'd’effectifs sur {tirages} tirages, {magiques} magiques')
         if magiques:
             echecs.append(f'un étiquetage magique est apparu au hasard à l’ordre {n}')

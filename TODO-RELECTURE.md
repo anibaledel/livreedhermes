@@ -774,3 +774,34 @@ du dépôt. De moi, à relire :
 - **`suite_croix.py` à l'ordre 10** s'arrête au plafond (200 figures, « fin = PLAFOND ») :
   non exhaustif, non cité.
 - **`check_no_donnees_en_dur.py`** : `('compte_figures.py', 'ATTENDU')` ajouté à la liste blanche, avec sa raison (table de valeurs attendues d'une assertion).
+
+## Dépôt 15.11 : témoins, parité de n/2, écarts (2026-10-09)
+
+Neuf scripts neufs versés tels quels ; `compte_etiquetages.py`, `enum6.py` repris tels
+quels ; changements de texte de `pavage_miroirs.py` et `protocole_general.py` reportés sur
+les versions `lldh_commun` (sorties identiques à celles d'Anibal). `data/temoins.json` et
+`data/*.txt` versés. Le papier (révision 116) reste hors du dépôt. De moi, à relire :
+
+- **`tools/verifie_portee.py`** — l'assertion de `portee_miroirs.py` demandée par Anibal,
+  sur le patron de `verifie_temoins.py` : corpus, échantillons d'ordre 6 (cache d'`enum6`),
+  et les 27 témoins magiques de `data/temoins.json`, sans solveur. **Il sort en erreur** :
+  la graine d'ordre 4 (VJJV / BRRB / BRRB / VJJV) est invariante par les deux miroirs, ses
+  256 motifs sont magiques, 16 seulement conformes. La nécessité tient sur les 26 autres.
+  Rien n'est corrigé ; le script n'est pas en CI tant que la portée n'est pas décidée
+  (ordre ≥ 6 ? graines non invariantes ?).
+- **Le bilan à l'ordre 10 dépend de la graine** : 8/16 pour la graine, 16/16 pour la croix
+  ansée, 0/16 pour les témoins de ligne et de parité. À l'ordre 14 : 0/16 ou 4/16.
+- **`statut_depot`** : champ nouveau dans `data/resultats-etablis.json`, au vocabulaire des six
+  statuts de `DEPOT.md`, posé sur les entrées du dépôt 15.11 et sur
+  `croix-ansee-absente-8-12` et `-16` (passées à « 1. démontré », l'ancien statut dans
+  `statut_depot_anterieur`). Le contrôle ne le lit pas.
+- **CI `check-etiquetages.yml`** : `verifie_temoins`, `identite`, `exhaustif6`,
+  `reseau --ordres 8,12,16,20 --fenetre 0`, `parite`.
+- **Énoncés modifiés** : `protocole-quatre-classes-256` (nouvelle phrase finale, l'ancienne
+  dans `enonce_anterieur`) ; `pavage-miroirs-ordre-6m` (« deux équilibrages » dans trois
+  lignes citées).
+- **Les deux écarts textuels de la 14.10** (colonne « traits par ligne », ligne
+  `compte_croix.py` sans `--sans-pretest`) sont dans la copie de `LIVRAISON.md` de la 14.10,
+  qui reste telle quelle : la correction est dans le papier et `DEPOT.md`.
+- **Durées** : balayage de `congruences` 6 s ici (~20 min annoncées), `ecarts --direction`
+  29 s (~3 min).
