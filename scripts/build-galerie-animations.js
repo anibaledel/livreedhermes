@@ -36,7 +36,7 @@ const { pathToFileURL } = require('url');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
-const { LANGUES, annoncerLiens } = require('./langues.js');
+const { LANGUES, annoncerLiens, adresseDans } = require('./langues.js');
 const G = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/galerie-animations.json'), 'utf8'));
 const REGISTRE = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/fonds/collections-pinterest.json'), 'utf8')).collections;
 const VIGNETTES = JSON.parse(fs.readFileSync(path.join(ROOT, 'assets/animations/vignettes/vignettes.json'), 'utf8')).vignettes;
@@ -199,7 +199,7 @@ async function main() {
     for (const [s, c] of Object.entries(G.synonymes)) groupeDe[s] = groupeDe[c];
     const corps = [
       bandeau(T, l, [[null, T.titre]], T.titre, T.sousTitre),
-      `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}fonds-ecran.html` })}</p>`,
+      `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}${adresseDans('fonds-ecran.html', l)}` })}</p>`,
       `<div class="anim-grille" id="groupes">\n${cartes}\n</div>`,
       synonymes(T),
       donnees({ page: 'entree', textes: pourLaPage(T), groupeDe }),

@@ -372,6 +372,25 @@
       }
     },
     {
+      "source": "fonds-ecran.html",
+      "priorite": "0.8",
+      "textes": "data/outils-langues/fonds-ecran.json",
+      "langues": {
+        "en": {
+          "dossier": "en/wallpapers/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/fondos-de-pantalla/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/wallpapers/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
       "source": "contact.html",
       "priorite": "0.6",
       "textes": "data/outils-langues/contact.json",

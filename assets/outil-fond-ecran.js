@@ -30,6 +30,233 @@
 // ?brythme pour le bicolore (la collection et les couleurs : ?fond, ?sup,
 // ?c0, ?c1, tenues par le sélecteur de la page).
 
+// Les libellés de l'outil, par langue de la page (<html lang>) : le français
+// est le repli, et la page française rend exactement le même texte qu'avant
+// (scripts/build-outils-langues.js écrit en/es/th ; traductions à relire,
+// TODO-RELECTURE.md).
+const TEXTES = {
+  fr: {
+    fond: "Fond",
+    figure: "Figure",
+    titreFond: "Couleur du fond (bit 0)",
+    titreFigure: "Couleur de la figure (bit 1)",
+    creme: "Crème / encre",
+    rougeBlanc: "Rouge / blanc",
+    monochrome: "Monochrome",
+    multicolore: "Multicolore",
+    choisirTeinte: "Choisir une teinte",
+    aideBi: ["🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.", "📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.", "🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.", "🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les médiums pilotent le changement de motif, en continu. Pas de teinte sur les basses : deux couleurs n'ont pas de teinte à faire tourner.", "⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme, le texte de sa paire et la collection.", "🎨 <b>Couleurs</b> — le fond et la figure : encre et crème par défaut, « Rouge / blanc » ou « Monochrome » d'un clic ; la collection se choisit ci-dessus.", "▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.", "🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe, en vecteur, sur la galerie bicolore.", "🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l'écran ; le nom du fichier porte le code de la collection. Si le navigateur n'encode pas le H.264 (Firefox, Chromium), l'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari."],
+    aideTri: ["🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.", "📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.", "🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.", "🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.", "⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l'hexagramme ainsi que le texte de la paire à laquelle il appartient.", "🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d'origine (3 teintes distinctes) autour de la couleur choisie.", "▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu'au format resserré utilisé sur la page Tirage.", "🖼 <b>Figer</b> — reprend le motif à l'écran dans le fond d'écran fixe, en vecteur, sur la galerie bicolore.", "🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l'écran. Si le navigateur n'encode pas le H.264 (Firefox, Chromium), l'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari."],
+    options: "Options de modulation, une fois la catégorie choisie :",
+    canvasBi: "Fond d'écran bicolore animé",
+    canvasTri: "Fond d'écran tricolore animé",
+    micro: "🎤 Micro",
+    fichier: "📁 Fichier audio",
+    meditatif: "🧘 Méditatif",
+    rythmeAria: "Rythme du mode méditatif (secondes)",
+    densite: "Densité",
+    reinit: "↺ Réinitialiser",
+    fullTitreBi: "Médiums→motif",
+    fullTitreTri: "Basses→teinte, médiums→motif",
+    full: "🌈 Full Réactif",
+    pause: "⏸ Pause",
+    reprendre: "▶ Reprendre",
+    figerTitre: "Reprendre ce motif dans le fond d'écran fixe, en vecteur — sur la galerie bicolore",
+    figer: "🖼 Figer",
+    ratioTitre: "Ratio d'export vidéo",
+    vertical: "9:16 (vertical)",
+    carre: "1:1 (carré)",
+    natif: "Natif (écran)",
+    dureeTitre: "Durée d'enregistrement",
+    manuel: "Manuel",
+    enregTitre: "Enregistre le pavage animé et le son en cours en vidéo",
+    enregistrer: "🎬 Enregistrer",
+    quitter: "✕ Quitter",
+    motifs: " motifs",
+    pleinEcranAbsent: "Plein écran non disponible sur ce navigateur — le pavage reste affiché dans la fenêtre.",
+    pleinEcranRefuse: "Plein écran refusé ou indisponible — le pavage reste affiché dans la fenêtre.",
+    microAbsent: "Le microphone n'est pas accessible sur ce navigateur (souvent le cas hors HTTPS). Utilisez plutôt un fichier audio ou le mode méditatif.",
+    microIndispo: "Micro indisponible : ",
+    mp4Indispo: "MP4 H.264 indisponible sur ce navigateur",
+    mp4Titre: "Ce navigateur n'encode pas le H.264 : utilisez Google Chrome (version 126 ou plus) ou Safari.",
+    arreter: "⏹ Arrêter",
+    choisirCat: "Choisissez d'abord une catégorie de motifs.",
+    videoNonSupp: "L'enregistrement vidéo n'est pas supporté par ce navigateur.",
+    enregRefuse: "Enregistrement refusé : ce navigateur n'encode pas la vidéo en MP4 H.264, le seul format que les réseaux lisent partout. Utilisez Google Chrome (version 126 ou plus) ou Safari.",
+    demarrageImpossible: "Impossible de démarrer l'enregistrement : ",
+    videoEnreg: "Vidéo enregistrée (MP4).",
+    enCours: "Enregistrement en cours…",
+    hexagramme: "Hexagramme N°",
+    paire: " — Paire ",
+    collection: " · Collection ",
+  },
+  en: {
+    fond: "Ground",
+    figure: "Figure",
+    titreFond: "Ground colour (bit 0)",
+    titreFigure: "Figure colour (bit 1)",
+    creme: "Cream / ink",
+    rougeBlanc: "Red / white",
+    monochrome: "Monochrome",
+    multicolore: "Multicolour",
+    choisirTeinte: "Choose a hue",
+    aideBi: ["🎤 <b>Microphone</b> — the tiling changes with the rhythm of the ambient sound actually heard.", "📁 <b>Audio file</b> — same principle, with a track you provide yourself.", "🧘 <b>Meditative</b> — no sound needed; a regular, adjustable pace (from 0.5 to 30 seconds) scrolls the patterns with a soft fade.", "🌈 <b>Full Reactive</b> — with the microphone or an audio file active: the mid frequencies drive the change of pattern, continuously. No hue on the bass: two colours have no hue to rotate.", "⏸ <b>Pause</b> — freezes the current pattern and shows the hexagram number, the text of its pair and the collection.", "🎨 <b>Colours</b> — the ground and the figure: ink and cream by default, “Red / white” or “Monochrome” in one click; the collection is chosen above.", "▦ <b>Density</b> — adjusts the size of the patterns, from the default large format down to the tight format used on the Draw page.", "🖼 <b>Freeze</b> — takes the pattern on screen into the fixed wallpaper, as vectors, on the two-colour gallery.", "🎬 <b>Record</b> — an MP4 video (H.264), playable on every phone, in 9:16 (1080 × 1920), 1:1 or the screen format; the file name carries the collection code. If the browser does not encode H.264 (Firefox, Chromium), recording is refused — use Google Chrome (version 126 or later) or Safari."],
+    aideTri: ["🎤 <b>Microphone</b> — the tiling changes with the rhythm of the ambient sound actually heard.", "📁 <b>Audio file</b> — same principle, with a track you provide yourself.", "🧘 <b>Meditative</b> — no sound needed; a regular, adjustable pace (from 0.5 to 30 seconds) scrolls the patterns with a soft fade.", "🌈 <b>Full Reactive</b> — with the microphone or an audio file active: the bass drives the hue, the mid frequencies the change of pattern — continuously, with no manual setting. The density of the tiling stays fixed, adjustable with the Density setting.", "⏸ <b>Pause</b> — freezes the current pattern and shows the hexagram number as well as the text of the pair it belongs to.", "🎨 <b>Hue</b> — switches between two settings: “Monochrome” (the default) derives everything from a single middle hue, the two other shades being computed automatically at ±20% lightness; “Multicolour” rotates the original palette (3 distinct hues) around the chosen colour.", "▦ <b>Density</b> — adjusts the size of the patterns, from the default large format down to the tight format used on the Draw page.", "🖼 <b>Freeze</b> — takes the pattern on screen into the fixed wallpaper, as vectors, on the two-colour gallery.", "🎬 <b>Record</b> — an MP4 video (H.264), playable on every phone, in 9:16 (1080 × 1920), 1:1 or the screen format. If the browser does not encode H.264 (Firefox, Chromium), recording is refused — use Google Chrome (version 126 or later) or Safari."],
+    options: "Modulation options, once the category is chosen:",
+    canvasBi: "Animated two-colour wallpaper",
+    canvasTri: "Animated three-colour wallpaper",
+    micro: "🎤 Microphone",
+    fichier: "📁 Audio file",
+    meditatif: "🧘 Meditative",
+    rythmeAria: "Pace of the meditative mode (seconds)",
+    densite: "Density",
+    reinit: "↺ Reset",
+    fullTitreBi: "Mids→pattern",
+    fullTitreTri: "Bass→hue, mids→pattern",
+    full: "🌈 Full Reactive",
+    pause: "⏸ Pause",
+    reprendre: "▶ Resume",
+    figerTitre: "Take this pattern into the fixed wallpaper, as vectors — on the two-colour gallery",
+    figer: "🖼 Freeze",
+    ratioTitre: "Video export ratio",
+    vertical: "9:16 (portrait)",
+    carre: "1:1 (square)",
+    natif: "Native (screen)",
+    dureeTitre: "Recording length",
+    manuel: "Manual",
+    enregTitre: "Records the animated tiling and the current sound as a video",
+    enregistrer: "🎬 Record",
+    quitter: "✕ Exit",
+    motifs: " patterns",
+    pleinEcranAbsent: "Full screen is not available in this browser — the tiling stays shown in the window.",
+    pleinEcranRefuse: "Full screen refused or unavailable — the tiling stays shown in the window.",
+    microAbsent: "The microphone is not accessible in this browser (often the case outside HTTPS). Use an audio file or the meditative mode instead.",
+    microIndispo: "Microphone unavailable: ",
+    mp4Indispo: "MP4 H.264 unavailable in this browser",
+    mp4Titre: "This browser does not encode H.264: use Google Chrome (version 126 or later) or Safari.",
+    arreter: "⏹ Stop",
+    choisirCat: "Choose a pattern category first.",
+    videoNonSupp: "Video recording is not supported by this browser.",
+    enregRefuse: "Recording refused: this browser does not encode video as MP4 H.264, the only format that social networks play everywhere. Use Google Chrome (version 126 or later) or Safari.",
+    demarrageImpossible: "Could not start recording: ",
+    videoEnreg: "Video saved (MP4).",
+    enCours: "Recording…",
+    hexagramme: "Hexagram No. ",
+    paire: " — Pair ",
+    collection: " · Collection ",
+  },
+  es: {
+    fond: "Fondo",
+    figure: "Figura",
+    titreFond: "Color del fondo (bit 0)",
+    titreFigure: "Color de la figura (bit 1)",
+    creme: "Crema / tinta",
+    rougeBlanc: "Rojo / blanco",
+    monochrome: "Monocromo",
+    multicolore: "Multicolor",
+    choisirTeinte: "Elegir un tono",
+    aideBi: ["🎤 <b>Micrófono</b> — el teselado cambia al ritmo del sonido ambiente realmente oído.", "📁 <b>Archivo de audio</b> — mismo principio, con una pieza que usted mismo propone.", "🧘 <b>Meditativo</b> — no hace falta sonido; un ritmo regular y regulable (de 0,5 a 30 segundos) hace desfilar los motivos con un fundido suave.", "🌈 <b>Full Reactivo</b> — con el micrófono o un archivo de audio activo: los medios dirigen el cambio de motivo, de forma continua. Sin tono en los graves: dos colores no tienen tono que hacer girar.", "⏸ <b>Pausa</b> — fija el motivo en curso y muestra el número del hexagrama, el texto de su par y la colección.", "🎨 <b>Colores</b> — el fondo y la figura: tinta y crema por defecto, «Rojo / blanco» o «Monocromo» con un clic; la colección se elige más arriba.", "▦ <b>Densidad</b> — ajusta el tamaño de los motivos, del gran formato por defecto al formato estrecho usado en la página Tirada.", "🖼 <b>Fijar</b> — lleva el motivo en pantalla al fondo de pantalla fijo, en vectorial, en la galería bicolor.", "🎬 <b>Grabar</b> — un vídeo MP4 (H.264), legible en todos los teléfonos, en 9:16 (1080 × 1920), 1:1 o en el formato de la pantalla; el nombre del archivo lleva el código de la colección. Si el navegador no codifica H.264 (Firefox, Chromium), la grabación se rechaza — use Google Chrome (versión 126 o posterior) o Safari."],
+    aideTri: ["🎤 <b>Micrófono</b> — el teselado cambia al ritmo del sonido ambiente realmente oído.", "📁 <b>Archivo de audio</b> — mismo principio, con una pieza que usted mismo propone.", "🧘 <b>Meditativo</b> — no hace falta sonido; un ritmo regular y regulable (de 0,5 a 30 segundos) hace desfilar los motivos con un fundido suave.", "🌈 <b>Full Reactivo</b> — con el micrófono o un archivo de audio activo: los graves dirigen el tono, los medios el cambio de motivo — de forma continua, sin ajuste manual. La densidad del teselado sigue fija, regulable con el parámetro Densidad.", "⏸ <b>Pausa</b> — fija el motivo en curso y muestra el número del hexagrama así como el texto del par al que pertenece.", "🎨 <b>Tono</b> — alterna entre dos ajustes: «Monocromo» (por defecto) lo deriva todo de un único tono medio, calculando automáticamente los otros dos matices a ±20 % de luminosidad; «Multicolor» hace girar la paleta original (3 tonos distintos) alrededor del color elegido.", "▦ <b>Densidad</b> — ajusta el tamaño de los motivos, del gran formato por defecto al formato estrecho usado en la página Tirada.", "🖼 <b>Fijar</b> — lleva el motivo en pantalla al fondo de pantalla fijo, en vectorial, en la galería bicolor.", "🎬 <b>Grabar</b> — un vídeo MP4 (H.264), legible en todos los teléfonos, en 9:16 (1080 × 1920), 1:1 o en el formato de la pantalla. Si el navegador no codifica H.264 (Firefox, Chromium), la grabación se rechaza — use Google Chrome (versión 126 o posterior) o Safari."],
+    options: "Opciones de modulación, una vez elegida la categoría:",
+    canvasBi: "Fondo de pantalla bicolor animado",
+    canvasTri: "Fondo de pantalla tricolor animado",
+    micro: "🎤 Micrófono",
+    fichier: "📁 Archivo de audio",
+    meditatif: "🧘 Meditativo",
+    rythmeAria: "Ritmo del modo meditativo (segundos)",
+    densite: "Densidad",
+    reinit: "↺ Restablecer",
+    fullTitreBi: "Medios→motivo",
+    fullTitreTri: "Graves→tono, medios→motivo",
+    full: "🌈 Full Reactivo",
+    pause: "⏸ Pausa",
+    reprendre: "▶ Reanudar",
+    figerTitre: "Llevar este motivo al fondo de pantalla fijo, en vectorial — en la galería bicolor",
+    figer: "🖼 Fijar",
+    ratioTitre: "Proporción de exportación de vídeo",
+    vertical: "9:16 (vertical)",
+    carre: "1:1 (cuadrado)",
+    natif: "Nativo (pantalla)",
+    dureeTitre: "Duración de la grabación",
+    manuel: "Manual",
+    enregTitre: "Graba en vídeo el teselado animado y el sonido en curso",
+    enregistrer: "🎬 Grabar",
+    quitter: "✕ Salir",
+    motifs: " motivos",
+    pleinEcranAbsent: "Pantalla completa no disponible en este navegador — el teselado sigue mostrándose en la ventana.",
+    pleinEcranRefuse: "Pantalla completa rechazada o no disponible — el teselado sigue mostrándose en la ventana.",
+    microAbsent: "El micrófono no es accesible en este navegador (a menudo fuera de HTTPS). Use mejor un archivo de audio o el modo meditativo.",
+    microIndispo: "Micrófono no disponible: ",
+    mp4Indispo: "MP4 H.264 no disponible en este navegador",
+    mp4Titre: "Este navegador no codifica H.264: use Google Chrome (versión 126 o posterior) o Safari.",
+    arreter: "⏹ Detener",
+    choisirCat: "Elija primero una categoría de motivos.",
+    videoNonSupp: "Este navegador no admite la grabación de vídeo.",
+    enregRefuse: "Grabación rechazada: este navegador no codifica el vídeo en MP4 H.264, el único formato que las redes leen en todas partes. Use Google Chrome (versión 126 o posterior) o Safari.",
+    demarrageImpossible: "No se pudo iniciar la grabación: ",
+    videoEnreg: "Vídeo grabado (MP4).",
+    enCours: "Grabando…",
+    hexagramme: "Hexagrama n.º ",
+    paire: " — Par ",
+    collection: " · Colección ",
+  },
+  th: {
+    fond: "พื้น",
+    figure: "รูป",
+    titreFond: "สีพื้น (บิต 0)",
+    titreFigure: "สีรูป (บิต 1)",
+    creme: "ครีม / หมึก",
+    rougeBlanc: "แดง / ขาว",
+    monochrome: "สีเดียว",
+    multicolore: "หลายสี",
+    choisirTeinte: "เลือกเฉดสี",
+    aideBi: ["🎤 <b>ไมโครโฟน</b> — ลายปูเปลี่ยนไปตามจังหวะเสียงรอบตัวที่ได้ยินจริง", "📁 <b>ไฟล์เสียง</b> — หลักการเดียวกัน กับเพลงที่คุณเลือกเอง", "🧘 <b>สมาธิ</b> — ไม่ต้องใช้เสียง จังหวะสม่ำเสมอที่ปรับได้ (0.5 ถึง 30 วินาที) เลื่อนลวดลายด้วยการเฟดอย่างนุ่มนวล", "🌈 <b>ตอบสนองเต็มที่</b> — เมื่อเปิดไมโครโฟนหรือไฟล์เสียง: เสียงกลางควบคุมการเปลี่ยนลวดลายอย่างต่อเนื่อง ไม่มีเฉดสีจากเสียงทุ้ม: สองสีไม่มีเฉดสีให้หมุน", "⏸ <b>หยุดชั่วคราว</b> — หยุดลวดลายปัจจุบันไว้ และแสดงหมายเลขเฮกซะแกรม ข้อความของคู่ และคอลเลกชัน", "🎨 <b>สี</b> — พื้นและรูป: หมึกและครีมเป็นค่าเริ่มต้น «แดง / ขาว» หรือ «สีเดียว» ในคลิกเดียว คอลเลกชันเลือกได้ด้านบน", "▦ <b>ความหนาแน่น</b> — ปรับขนาดลวดลาย ตั้งแต่ขนาดใหญ่ตามค่าเริ่มต้นจนถึงขนาดแน่นที่ใช้ในหน้าการเสี่ยงทาย", "🖼 <b>ตรึง</b> — นำลวดลายบนจอไปไว้ในวอลเปเปอร์แบบคงที่ เป็นเวกเตอร์ ในแกลเลอรีสองสี", "🎬 <b>บันทึก</b> — วิดีโอ MP4 (H.264) เล่นได้บนโทรศัพท์ทุกเครื่อง ในสัดส่วน 9:16 (1080 × 1920), 1:1 หรือขนาดจอ ชื่อไฟล์มีรหัสคอลเลกชัน หากเบราว์เซอร์ไม่เข้ารหัส H.264 (Firefox, Chromium) การบันทึกจะถูกปฏิเสธ — ใช้ Google Chrome (เวอร์ชัน 126 ขึ้นไป) หรือ Safari"],
+    aideTri: ["🎤 <b>ไมโครโฟน</b> — ลายปูเปลี่ยนไปตามจังหวะเสียงรอบตัวที่ได้ยินจริง", "📁 <b>ไฟล์เสียง</b> — หลักการเดียวกัน กับเพลงที่คุณเลือกเอง", "🧘 <b>สมาธิ</b> — ไม่ต้องใช้เสียง จังหวะสม่ำเสมอที่ปรับได้ (0.5 ถึง 30 วินาที) เลื่อนลวดลายด้วยการเฟดอย่างนุ่มนวล", "🌈 <b>ตอบสนองเต็มที่</b> — เมื่อเปิดไมโครโฟนหรือไฟล์เสียง: เสียงทุ้มควบคุมเฉดสี เสียงกลางควบคุมการเปลี่ยนลวดลาย — อย่างต่อเนื่อง โดยไม่ต้องปรับเอง ความหนาแน่นของลายปูคงที่ ปรับได้ด้วยค่าความหนาแน่น", "⏸ <b>หยุดชั่วคราว</b> — หยุดลวดลายปัจจุบันไว้ และแสดงหมายเลขเฮกซะแกรม พร้อมข้อความของคู่ที่ลวดลายนั้นสังกัด", "🎨 <b>เฉดสี</b> — สลับระหว่างสองการตั้งค่า: «สีเดียว» (ค่าเริ่มต้น) สร้างทุกอย่างจากเฉดสีกลางเพียงสีเดียว อีกสองเฉดคำนวณอัตโนมัติที่ความสว่าง ±20% ส่วน «หลายสี» หมุนจานสีเดิม (3 เฉดสีต่างกัน) รอบสีที่เลือก", "▦ <b>ความหนาแน่น</b> — ปรับขนาดลวดลาย ตั้งแต่ขนาดใหญ่ตามค่าเริ่มต้นจนถึงขนาดแน่นที่ใช้ในหน้าการเสี่ยงทาย", "🖼 <b>ตรึง</b> — นำลวดลายบนจอไปไว้ในวอลเปเปอร์แบบคงที่ เป็นเวกเตอร์ ในแกลเลอรีสองสี", "🎬 <b>บันทึก</b> — วิดีโอ MP4 (H.264) เล่นได้บนโทรศัพท์ทุกเครื่อง ในสัดส่วน 9:16 (1080 × 1920), 1:1 หรือขนาดจอ หากเบราว์เซอร์ไม่เข้ารหัส H.264 (Firefox, Chromium) การบันทึกจะถูกปฏิเสธ — ใช้ Google Chrome (เวอร์ชัน 126 ขึ้นไป) หรือ Safari"],
+    options: "ตัวเลือกการปรับ เมื่อเลือกหมวดแล้ว:",
+    canvasBi: "วอลเปเปอร์สองสีแบบเคลื่อนไหว",
+    canvasTri: "วอลเปเปอร์สามสีแบบเคลื่อนไหว",
+    micro: "🎤 ไมโครโฟน",
+    fichier: "📁 ไฟล์เสียง",
+    meditatif: "🧘 สมาธิ",
+    rythmeAria: "จังหวะของโหมดสมาธิ (วินาที)",
+    densite: "ความหนาแน่น",
+    reinit: "↺ รีเซ็ต",
+    fullTitreBi: "เสียงกลาง→ลวดลาย",
+    fullTitreTri: "เสียงทุ้ม→เฉดสี, เสียงกลาง→ลวดลาย",
+    full: "🌈 ตอบสนองเต็มที่",
+    pause: "⏸ หยุดชั่วคราว",
+    reprendre: "▶ เล่นต่อ",
+    figerTitre: "นำลวดลายนี้ไปไว้ในวอลเปเปอร์แบบคงที่ เป็นเวกเตอร์ — ในแกลเลอรีสองสี",
+    figer: "🖼 ตรึง",
+    ratioTitre: "สัดส่วนวิดีโอที่ส่งออก",
+    vertical: "9:16 (แนวตั้ง)",
+    carre: "1:1 (สี่เหลี่ยมจัตุรัส)",
+    natif: "ตามจอ",
+    dureeTitre: "ระยะเวลาบันทึก",
+    manuel: "กำหนดเอง",
+    enregTitre: "บันทึกลายปูเคลื่อนไหวและเสียงที่กำลังเล่นเป็นวิดีโอ",
+    enregistrer: "🎬 บันทึก",
+    quitter: "✕ ออก",
+    motifs: " ลวดลาย",
+    pleinEcranAbsent: "เบราว์เซอร์นี้ไม่รองรับโหมดเต็มจอ — ลายปูยังแสดงอยู่ในหน้าต่าง",
+    pleinEcranRefuse: "โหมดเต็มจอถูกปฏิเสธหรือใช้ไม่ได้ — ลายปูยังแสดงอยู่ในหน้าต่าง",
+    microAbsent: "เบราว์เซอร์นี้เข้าถึงไมโครโฟนไม่ได้ (มักเกิดเมื่อไม่ใช่ HTTPS) โปรดใช้ไฟล์เสียงหรือโหมดสมาธิแทน",
+    microIndispo: "ใช้ไมโครโฟนไม่ได้: ",
+    mp4Indispo: "เบราว์เซอร์นี้ใช้ MP4 H.264 ไม่ได้",
+    mp4Titre: "เบราว์เซอร์นี้ไม่เข้ารหัส H.264: ใช้ Google Chrome (เวอร์ชัน 126 ขึ้นไป) หรือ Safari",
+    arreter: "⏹ หยุด",
+    choisirCat: "โปรดเลือกหมวดลวดลายก่อน",
+    videoNonSupp: "เบราว์เซอร์นี้ไม่รองรับการบันทึกวิดีโอ",
+    enregRefuse: "การบันทึกถูกปฏิเสธ: เบราว์เซอร์นี้ไม่เข้ารหัสวิดีโอเป็น MP4 H.264 ซึ่งเป็นรูปแบบเดียวที่โซเชียลเน็ตเวิร์กเล่นได้ทุกที่ ใช้ Google Chrome (เวอร์ชัน 126 ขึ้นไป) หรือ Safari",
+    demarrageImpossible: "เริ่มบันทึกไม่ได้: ",
+    videoEnreg: "บันทึกวิดีโอแล้ว (MP4)",
+    enCours: "กำลังบันทึก…",
+    hexagramme: "เฮกซะแกรมที่ ",
+    paire: " — คู่ที่ ",
+    collection: " · คอลเลกชัน ",
+  },
+};
+const L = Object.assign({}, TEXTES.fr, TEXTES[(document.documentElement.lang || 'fr').slice(0, 2)] || {});
 const catLabel = { bases: 'Bases', par2: 'Par 2', par3: 'Par 3', par4: 'Par 4' };
 const CATS = ['bases', 'par2', 'par3', 'par4'];
 const DEFAULT_PALETTE = { V: '#662d91', M: '#ee2a7b', O: '#fbb040' };
@@ -85,83 +312,63 @@ function gabarit(rendu) {
   const bi = rendu === 'bicolore';
   const couleurs = bi
     ? `<span class="hud-couleurs" style="display:inline-flex; align-items:center; gap:6px;">
-        <label class="hud-label">Fond <input type="color" data-r="c0" title="Couleur du fond (bit 0)"></label>
-        <label class="hud-label">Figure <input type="color" data-r="c1" title="Couleur de la figure (bit 1)"></label>
-        <button type="button" class="anim-preset" data-palette="creme">Crème / encre</button>
-        <button type="button" class="anim-preset" data-palette="bicolore">Rouge / blanc</button>
-        <button type="button" class="anim-preset" data-palette="monochrome">Monochrome</button>
+        <label class="hud-label">${L.fond} <input type="color" data-r="c0" title="${L.titreFond}"></label>
+        <label class="hud-label">${L.figure} <input type="color" data-r="c1" title="${L.titreFigure}"></label>
+        <button type="button" class="anim-preset" data-palette="creme">${L.creme}</button>
+        <button type="button" class="anim-preset" data-palette="bicolore">${L.rougeBlanc}</button>
+        <button type="button" class="anim-preset" data-palette="monochrome">${L.monochrome}</button>
       </span>`
     : `<span class="hud-couleurs" style="display:inline-flex; align-items:center; gap:6px;">
-        <button data-r="btnMode">Multicolore</button>
-        <input type="color" data-r="tintPicker" value="${DEFAULT_MONO_HUE}" title="Choisir une teinte">
+        <button data-r="btnMode">${L.multicolore}</button>
+        <input type="color" data-r="tintPicker" value="${DEFAULT_MONO_HUE}" title="${L.choisirTeinte}">
       </span>`;
   // l'aide, sous les cartes : le texte du tricolore est celui de la page d'origine
-  const aide = bi ? [
-    '🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.',
-    '📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.',
-    '🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.',
-    '🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les médiums pilotent le changement de motif, en continu. Pas de teinte sur les basses : deux couleurs n\'ont pas de teinte à faire tourner.',
-    '⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l\'hexagramme, le texte de sa paire et la collection.',
-    '🎨 <b>Couleurs</b> — le fond et la figure : encre et crème par défaut, « Rouge / blanc » ou « Monochrome » d\'un clic ; la collection se choisit ci-dessus.',
-    '▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu\'au format resserré utilisé sur la page Tirage.',
-    '🖼 <b>Figer</b> — reprend le motif à l\'écran dans le fond d\'écran fixe, en vecteur, sur la galerie bicolore.',
-    '🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l\'écran ; le nom du fichier porte le code de la collection. Si le navigateur n\'encode pas le H.264 (Firefox, Chromium), l\'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari.',
-  ] : [
-    '🎤 <b>Micro</b> — le pavage change au rythme du son ambiant réellement entendu.',
-    '📁 <b>Fichier audio</b> — même principe, avec un morceau que vous proposez vous-même.',
-    '🧘 <b>Méditatif</b> — aucun son requis ; un rythme régulier et réglable (de 0,5 à 30 secondes) fait défiler les motifs en fondu doux.',
-    '🌈 <b>Full Réactif</b> — avec micro ou fichier audio actif : les basses pilotent la teinte, les médiums le changement de motif — en continu, sans réglage manuel. La densité du pavage reste fixe, réglable via le paramètre Densité.',
-    '⏸ <b>Pause</b> — fige le motif en cours et affiche le numéro de l\'hexagramme ainsi que le texte de la paire à laquelle il appartient.',
-    '🎨 <b>Teinte</b> — bascule entre deux réglages : « Monochrome » (par défaut) dérive tout depuis une seule teinte médiane, les deux autres nuances étant calculées automatiquement à ±20% de luminosité ; « Multicolore » fait tourner la palette d\'origine (3 teintes distinctes) autour de la couleur choisie.',
-    '▦ <b>Densité</b> — ajuste la taille des motifs, du grand format par défaut jusqu\'au format resserré utilisé sur la page Tirage.',
-    '🖼 <b>Figer</b> — reprend le motif à l\'écran dans le fond d\'écran fixe, en vecteur, sur la galerie bicolore.',
-    '🎬 <b>Enregistrer</b> — une vidéo MP4 (H.264), lisible sur tous les téléphones, en 9:16 (1080 × 1920), 1:1 ou au format de l\'écran. Si le navigateur n\'encode pas le H.264 (Firefox, Chromium), l\'enregistrement est refusé — utilisez Google Chrome (version 126 ou plus) ou Safari.',
-  ];
+  const aide = bi ? L.aideBi : L.aideTri;
   return `
   <div class="cat-grid" data-r="catGrid"></div>
   <div class="mod-options">
-    <strong>Options de modulation, une fois la catégorie choisie :</strong>
+    <strong>${L.options}</strong>
     ${aide.map((l) => `<div>${l}</div>`).join('\n    ')}
   </div>
   <div class="fe-stage" data-r="stage">
-    <canvas data-r="canvas" role="img" aria-label="Fond d'écran ${bi ? 'bicolore' : 'tricolore'} animé"></canvas>
+    <canvas data-r="canvas" role="img" aria-label="${bi ? L.canvasBi : L.canvasTri}"></canvas>
     <div class="fe-pause" data-r="pauseInfo"><div class="hex"></div><div class="keyword"></div><div class="text"></div></div>
     <div class="fe-hud">
       <div class="left">
-        <button data-r="btnMic">🎤 Micro</button>
-        <button data-r="btnFile">📁 Fichier audio</button>
-        <button data-r="btnMeditative">🧘 Méditatif</button>
+        <button data-r="btnMic">${L.micro}</button>
+        <button data-r="btnFile">${L.fichier}</button>
+        <button data-r="btnMeditative">${L.meditatif}</button>
         <span data-r="rhythmWrap" style="display:none; align-items:center; gap:6px;">
-          <input type="range" data-r="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;" aria-label="Rythme du mode méditatif (secondes)">
+          <input type="range" data-r="rhythmSlider" min="0.5" max="30" step="0.5" value="8" style="width:90px;" aria-label="${L.rythmeAria}">
           <span data-r="rhythmLabel" class="hud-label">8 s</span>
         </span>
         ${couleurs}
         <span style="display:inline-flex; align-items:center; gap:6px;">
-          <span class="hud-label">Densité</span>
-          <input type="range" data-r="sizeSlider" aria-label="Densité" min="4" max="32" step="1" value="4" style="width:90px;">
+          <span class="hud-label">${L.densite}</span>
+          <input type="range" data-r="sizeSlider" aria-label="${L.densite}" min="4" max="32" step="1" value="4" style="width:90px;">
         </span>
-        <button data-r="btnReset">↺ Réinitialiser</button>
-        <button data-r="btnFullReactive" title="${bi ? 'Médiums→motif' : 'Basses→teinte, médiums→motif'}">🌈 Full Réactif</button>
-        <button data-r="btnPause">⏸ Pause</button>
-        <button data-r="btnFiger" title="Reprendre ce motif dans le fond d'écran fixe, en vecteur — sur la galerie bicolore">🖼 Figer</button>
+        <button data-r="btnReset">${L.reinit}</button>
+        <button data-r="btnFullReactive" title="${bi ? L.fullTitreBi : L.fullTitreTri}">${L.full}</button>
+        <button data-r="btnPause">${L.pause}</button>
+        <button data-r="btnFiger" title="${L.figerTitre}">${L.figer}</button>
         <span style="display:inline-flex; align-items:center; gap:6px;">
-          <select data-r="recordRatio" title="Ratio d'export vidéo">
-            <option value="916">9:16 (vertical)</option>
-            <option value="11">1:1 (carré)</option>
-            <option value="native">Natif (écran)</option>
+          <select data-r="recordRatio" title="${L.ratioTitre}">
+            <option value="916">${L.vertical}</option>
+            <option value="11">${L.carre}</option>
+            <option value="native">${L.natif}</option>
           </select>
-          <select data-r="recordDuration" title="Durée d'enregistrement">
-            <option value="manual">Manuel</option>
+          <select data-r="recordDuration" title="${L.dureeTitre}">
+            <option value="manual">${L.manuel}</option>
             <option value="15">15 s</option>
             <option value="30">30 s</option>
             <option value="60">60 s</option>
           </select>
-          <button data-r="btnRecord" title="Enregistre le pavage animé et le son en cours en vidéo">🎬 Enregistrer</button>
+          <button data-r="btnRecord" title="${L.enregTitre}">${L.enregistrer}</button>
           <span data-r="formatVideo" class="format-video" aria-live="polite"></span>
         </span>
         <div class="fe-level"><div class="fe-level-fill" data-r="levelFill"></div></div>
       </div>
-      <button data-r="btnExit">✕ Quitter</button>
+      <button data-r="btnExit">${L.quitter}</button>
     </div>
     <input type="file" class="fe-file" data-r="fileInput" accept="audio/*">
     <audio data-r="audioEl" loop></audio>
@@ -261,7 +468,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   }
   function appliquerTeinte() {
     if (BI) return;
-    $s('btnMode').textContent = colorMode === 'mono' ? 'Multicolore' : 'Monochrome';
+    $s('btnMode').textContent = colorMode === 'mono' ? L.multicolore : L.monochrome;
     $s('btnMode').classList.toggle('active', colorMode === 'multi');
   }
   appliquerTeinte();
@@ -303,7 +510,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
       preview.setAttribute('aria-hidden', 'true');
       card.appendChild(preview);
       const label = document.createElement('div'); label.className = 'label'; label.textContent = catLabel[cat];
-      const count = document.createElement('div'); count.className = 'count'; count.textContent = grids.length + ' motifs';
+      const count = document.createElement('div'); count.className = 'count'; count.textContent = grids.length + L.motifs;
       card.append(label, count);
       if (grids.length > 0) { apercus.push([preview, grids[0].grid]); drawApercu(preview, grids[0].grid); card.onclick = () => launch(cat, grids); }
       grille.appendChild(card);
@@ -396,8 +603,8 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   }
   function requestStageFullscreen() {
     const req = stage.requestFullscreen || stage.webkitRequestFullscreen;
-    if (!req) { showStageNotice('Plein écran non disponible sur ce navigateur — le pavage reste affiché dans la fenêtre.'); return; }
-    req.call(stage).catch(() => showStageNotice('Plein écran refusé ou indisponible — le pavage reste affiché dans la fenêtre.'));
+    if (!req) { showStageNotice(L.pleinEcranAbsent); return; }
+    req.call(stage).catch(() => showStageNotice(L.pleinEcranRefuse));
   }
 
   // --- méditatif ---
@@ -425,7 +632,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   // --- lancer, quitter ---
   function launch(cat, grids) {
     currentGrids = grids; currentIndex = -1; visited = new Set(); paused = false;
-    $s('btnPause').textContent = '⏸ Pause'; $s('btnPause').classList.remove('active');
+    $s('btnPause').textContent = L.pause; $s('btnPause').classList.remove('active');
     pauseInfo.classList.remove('visible');
     fullReactive = false; $s('btnFullReactive').classList.remove('active');
     if (page) page.style.display = 'none';
@@ -471,7 +678,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   function stopAudio() { if (sourceNode) { try { sourceNode.disconnect(); } catch { /* déjà déconnecté */ } sourceNode = null; } audioEl.pause(); }
   $s('btnMic').onclick = async () => {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      showStageNotice("Le microphone n'est pas accessible sur ce navigateur (souvent le cas hors HTTPS). Utilisez plutôt un fichier audio ou le mode méditatif.", 6000);
+      showStageNotice(L.microAbsent, 6000);
       return;
     }
     stopMeditative(); ensureAudioContext(); stopAudio();
@@ -479,7 +686,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       sourceNode = audioCtx.createMediaStreamSource(stream);
       sourceNode.connect(analyser);
-    } catch (e) { showStageNotice('Micro indisponible : ' + e.message, 5000); }
+    } catch (e) { showStageNotice(L.microIndispo + e.message, 5000); }
   };
   $s('btnFile').onclick = () => { stopMeditative(); $s('fileInput').click(); };
   $s('btnMeditative').onclick = () => (meditativeActive ? stopMeditative() : startMeditative());
@@ -508,20 +715,20 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   {
     const el = $s('formatVideo');
     if (formatVideoDisponible()) { el.textContent = 'MP4 · H.264'; el.classList.remove('indisponible'); }
-    else { el.textContent = 'MP4 H.264 indisponible sur ce navigateur'; el.classList.add('indisponible'); el.title = "Ce navigateur n'encode pas le H.264 : utilisez Google Chrome (version 126 ou plus) ou Safari."; }
+    else { el.textContent = L.mp4Indispo; el.classList.add('indisponible'); el.title = L.mp4Titre; }
   }
   const stopCompositeLoop = () => { if (recordCompositeRAF) { cancelAnimationFrame(recordCompositeRAF); recordCompositeRAF = null; } };
   function setRecordingUI(on) {
     const btn = $s('btnRecord');
-    btn.textContent = on ? '⏹ Arrêter' : '🎬 Enregistrer';
+    btn.textContent = on ? L.arreter : L.enregistrer;
     btn.classList.toggle('active', on);
     $s('recordRatio').disabled = on; $s('recordDuration').disabled = on;
   }
   function startRecording() {
-    if (!currentGrid) { showStageNotice("Choisissez d'abord une catégorie de motifs.", 4000); return; }
-    if (!window.MediaRecorder || !canvas.captureStream) { showStageNotice("L'enregistrement vidéo n'est pas supporté par ce navigateur.", 5000); return; }
+    if (!currentGrid) { showStageNotice(L.choisirCat, 4000); return; }
+    if (!window.MediaRecorder || !canvas.captureStream) { showStageNotice(L.videoNonSupp, 5000); return; }
     if (!formatVideoDisponible()) {
-      showStageNotice("Enregistrement refusé : ce navigateur n'encode pas la vidéo en MP4 H.264, le seul format que les réseaux lisent partout. Utilisez Google Chrome (version 126 ou plus) ou Safari.", 7000);
+      showStageNotice(L.enregRefuse, 7000);
       return;
     }
     const ratio = $s('recordRatio').value;
@@ -543,7 +750,7 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
     const mimeType = pickRecorderMimeType(hasAudio);
     recordedChunks = [];
     try { mediaRecorder = mimeType ? new MediaRecorder(combined, { mimeType }) : new MediaRecorder(combined); } catch (e) {
-      showStageNotice("Impossible de démarrer l'enregistrement : " + e.message, 5000); stopCompositeLoop(); return;
+      showStageNotice(L.demarrageImpossible + e.message, 5000); stopCompositeLoop(); return;
     }
     mediaRecorder.ondataavailable = (e) => { if (e.data && e.data.size > 0) recordedChunks.push(e.data); };
     mediaRecorder.onstop = () => {
@@ -558,12 +765,12 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
       a.download = `fond-ecran-${nom}-${ratio === 'native' ? 'natif' : ratio === '916' ? '1080x1920' : '1080x1080'}-${Date.now()}.mp4`;
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-      showStageNotice('Vidéo enregistrée (MP4).', 5000);
+      showStageNotice(L.videoEnreg, 5000);
       setRecordingUI(false);
     };
     mediaRecorder.start();
     setRecordingUI(true);
-    showStageNotice('Enregistrement en cours…', 3000);
+    showStageNotice(L.enCours, 3000);
     const duree = $s('recordDuration').value;
     if (duree !== 'manual') recordAutoStopTimer = setTimeout(stopRecording, parseInt(duree, 10) * 1000);
   }
@@ -592,11 +799,11 @@ export function monterOutilFondEcran(section, { rendu, source, paires, bicolore 
   };
   $s('btnPause').onclick = (e) => {
     paused = !paused;
-    e.target.textContent = paused ? '▶ Reprendre' : '⏸ Pause';
+    e.target.textContent = paused ? L.reprendre : L.pause;
     e.target.classList.toggle('active', paused);
     if (paused && currentIndex !== -1) {
       const entry = currentGrids[currentIndex], pn = paireNumberFor(entry.n), pair = paires[pn];
-      pauseInfo.querySelector('.hex').textContent = 'Hexagramme N°' + entry.n + ' — Paire ' + pn + (BI ? ' · Collection ' + bico.code() : '');
+      pauseInfo.querySelector('.hex').textContent = L.hexagramme + entry.n + L.paire + pn + (BI ? L.collection + bico.code() : '');
       pauseInfo.querySelector('.keyword').textContent = pair.keyword;
       pauseInfo.querySelector('.text').textContent = pair.text;
       pauseInfo.classList.add('visible');
