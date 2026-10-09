@@ -1,0 +1,78 @@
+$ python3 tools/recollement.py --ordres 4,6,8 --profils
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 4 (m = 2) ===
+  paire 0 et 3 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 2 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+=== ordre 6 (m = 3) ===
+  paire 0 et 5 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 1 et 4 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 2 et 3 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 0 :          8 états
+  après la paire 1 :         23 états
+  après la paire 2 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+=== ordre 8 (m = 4) ===
+  paire 0 et 7 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 6 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 2 et 5 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 3 et 4 (recollée en 4ᵉ) :      24 profils distincts,          384 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+[code 0, 2 s]
+
+$ python3 tools/recollement.py --ordres 4,6,8 --inverse --profils
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 4 (m = 2) ===
+  paire 1 et 2 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 3 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+=== ordre 6 (m = 3) ===
+  paire 2 et 3 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 1 et 4 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 0 et 5 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 2 :         16 états
+  après la paire 1 :        117 états
+  après la paire 0 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+=== ordre 8 (m = 4) ===
+  paire 3 et 4 (recollée en 1ᵉ) :      24 profils distincts,          384 configurations locales
+  paire 2 et 5 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 6 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 7 (recollée en 4ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+[code 0, 1 s]
+
+$ python3 tools/recollement.py --ordres 6 --ordre-paires 1,0,2 --profils
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 6 (m = 3) ===
+  paire 1 et 4 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 0 et 5 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 2 et 3 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 1 :         12 états
+  après la paire 0 :         23 états
+  après la paire 2 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+[code 0, 0 s]
+
+$ python3 tools/recollement.py --ordres 8 --ordre-paires 1,0,2,3 --profils
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 8 (m = 4) ===
+  paire 1 et 6 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 7 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 2 et 5 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 3 et 4 (recollée en 4ᵉ) :      24 profils distincts,          384 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+[code 0, 1 s]
+

@@ -1,16 +1,12 @@
-Sortie brute de :
-
-  python tools/verifie_portee.py
-
-======================================================================
-
+$ python3 tools/verifie_portee.py
 NÉCESSITÉ (magique ⇒ conforme), graines non invariantes par les miroirs :
-  284 graines testées, 0 échec(s)
+  286 graines testées, 0 échec(s)
 
-HORS PORTÉE, écartées parce qu'invariantes : 3
+HORS PORTÉE, écartées parce qu'invariantes : 4
   [---] témoin 1 (graine), ordre 4 : invariante par les deux
   [---] témoin 29 (miroirs_hors_portee), ordre 4 : invariante par les deux
   [---] témoin 30 (miroirs_hors_portee), ordre 8 : invariante par les deux
+  [---] témoin 33 (existence_doublement_paire), ordre 20 : invariante par les deux
 
 LES 18432 ÉTIQUETAGES MAGIQUES D'ORDRE 6, un par un :
   invariants par le miroir gauche-droite : 0
@@ -21,3 +17,5 @@ LES 18432 ÉTIQUETAGES MAGIQUES D'ORDRE 6, un par un :
 NON ASSERTÉ ICI : la suffisance hors de l'ordre 6. Elle dépend de la graine.
 
 l'assertion tient, dans sa portée : en pavage 2 × 2, aucune des graines non invariantes testées ne pave magiquement par un motif non conforme. Rien n'est établi pour m > 2.
+[code 0, 9 s]
+

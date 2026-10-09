@@ -1,0 +1,108 @@
+Après cet en-tête, sorties des quatre commandes suivantes, dans cet ordre,
+séparées par des titres de section, plus un extrait de contrôle de l'ordre 10. Sans --ordres,
+le script ne traite que 6 et 10 : les ordres sont donc donnés explicitement.
+
+  python tools/recollement.py --ordres 4,6,8 --profils
+  python tools/recollement.py --ordres 4,6,8 --inverse --profils
+  python tools/recollement.py --ordres 6 --ordre-paires 1,0,2 --profils
+  python tools/recollement.py --ordres 8 --ordre-paires 1,0,2,3 --profils
+
+La section finale sur l'ordre 10 est reproduite par deux commandes séparées,
+d'environ six minutes et 5 Go chacune, citées dans cette section.
+
+======================================================================
+
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 4 (m = 2) ===
+  paire 0 et 3 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 2 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+=== ordre 6 (m = 3) ===
+  paire 0 et 5 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 1 et 4 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 2 et 3 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 0 :          8 états
+  après la paire 1 :         23 états
+  après la paire 2 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+=== ordre 8 (m = 4) ===
+  paire 0 et 7 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 6 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 2 et 5 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 3 et 4 (recollée en 4ᵉ) :      24 profils distincts,          384 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+
+--- contrôle croisé 1 : paires recollées en ordre inverse
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 4 (m = 2) ===
+  paire 1 et 2 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 3 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+=== ordre 6 (m = 3) ===
+  paire 2 et 3 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 1 et 4 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 0 et 5 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 2 :         16 états
+  après la paire 1 :        117 états
+  après la paire 0 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+=== ordre 8 (m = 4) ===
+  paire 3 et 4 (recollée en 1ᵉ) :      24 profils distincts,          384 configurations locales
+  paire 2 et 5 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 1 et 6 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 7 (recollée en 4ᵉ) :       0 profils distincts,            0 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+
+--- contrôle croisé 2 : ordre de paires imposé
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 6 (m = 3) ===
+  paire 1 et 4 (recollée en 1ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 0 et 5 (recollée en 2ᵉ) :      16 profils distincts,          128 configurations locales
+  paire 2 et 3 (recollée en 3ᵉ) :      16 profils distincts,          128 configurations locales
+  après la paire 1 :         12 états
+  après la paire 0 :         23 états
+  après la paire 2 :          1 états
+  recollements complets (lignes ET colonnes magiques, II et III) : 8192
+
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 8 (m = 4) ===
+  paire 1 et 6 (recollée en 1ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 0 et 7 (recollée en 2ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 2 et 5 (recollée en 3ᵉ) :       0 profils distincts,            0 configurations locales
+  paire 3 et 4 (recollée en 4ᵉ) :      24 profils distincts,          384 configurations locales
+  recollements complets (lignes ET colonnes magiques, II et III) : 0
+
+
+======================================================================
+ORDRE 10 — deux ordres de recollement indépendants, calculés séparément
+(environ 6 min et 5 Go de pointe chacun)
+======================================================================
+
+python tools/recollement.py --ordres 10 --profils
+  paire 0 et 9 :  568 profils, 20224 configurations locales
+  paire 1 et 8 :  568 profils, 20224
+  paire 2 et 7 :  568 profils, 20224
+  paire 3 et 6 :  576 profils, 20480
+  paire 4 et 5 :  568 profils, 20224
+  états : 568, 110507, 234493, 40483, 1
+  recollements complets : 583454127292416
+
+python tools/recollement.py --ordres 10 --ordre-paires 1,0,2,3,4 --profils
+  états : 568, 110507, 234493, 40483, 1
+  recollements complets : 583454127292416
+
+  LES DEUX ORDRES DONNENT LE MÊME ENTIER. L'option --inverse complète épuise
+  la mémoire à cet ordre : l'élagage par atteignabilité dépend de l'ordre des
+  paires, et le parcours entièrement inversé garde trop d'états à la troisième
+  paire. Le compte, lui, n'en dépend pas, et c'est ce que ces deux parcours
+  vérifient. Tout est en Python nu : aucun solveur n'intervient.

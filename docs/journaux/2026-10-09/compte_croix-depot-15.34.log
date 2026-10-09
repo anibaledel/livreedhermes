@@ -1,0 +1,77 @@
+$ python3 tools/compte_croix.py --ordre 6
+ordre 6 : 2 figures candidates (critères II–III tenus)   [0 s]
+  2/2 : réalisables 2, impossibles 0, non tranchées 0   [0 s]
+
+ordre 6 — croix ansées : 2 réalisables sur 2 figures examinées ; 0 impossibles, 0 non tranchées
+[code 0, 0 s]
+
+$ python3 tools/compte_croix.py --ordre 8
+ordre 8 : aucune croix ansée — le modèle complet est INFEASIBLE, inutile d’énumérer les figures. --sans-pretest force l’examen figure par figure, qui est le chemin indépendant de suite_croix.py
+[code 0, 1 s]
+
+$ python3 tools/compte_croix.py --ordre 8 --sans-pretest
+ordre 8 : 32 figures candidates (critères II–III tenus)   [0 s]
+  32/32 : réalisables 0, impossibles 32, non tranchées 0   [0 s]
+
+ordre 8 — croix ansées : 0 réalisables sur 32 figures examinées ; 32 impossibles, 0 non tranchées
+[code 0, 1 s]
+
+$ python3 tools/compte_croix.py --ordre 10
+ordre 10 : 2048 figures candidates (critères II–III tenus)   [0 s]
+  50/2048 : réalisables 50, impossibles 0, non tranchées 0   [2 s]
+  100/2048 : réalisables 100, impossibles 0, non tranchées 0   [4 s]
+  150/2048 : réalisables 150, impossibles 0, non tranchées 0   [6 s]
+  200/2048 : réalisables 200, impossibles 0, non tranchées 0   [8 s]
+  250/2048 : réalisables 250, impossibles 0, non tranchées 0   [10 s]
+  300/2048 : réalisables 300, impossibles 0, non tranchées 0   [12 s]
+  350/2048 : réalisables 350, impossibles 0, non tranchées 0   [14 s]
+  400/2048 : réalisables 400, impossibles 0, non tranchées 0   [16 s]
+  450/2048 : réalisables 450, impossibles 0, non tranchées 0   [18 s]
+  500/2048 : réalisables 500, impossibles 0, non tranchées 0   [20 s]
+  550/2048 : réalisables 550, impossibles 0, non tranchées 0   [22 s]
+  600/2048 : réalisables 600, impossibles 0, non tranchées 0   [24 s]
+  650/2048 : réalisables 650, impossibles 0, non tranchées 0   [25 s]
+  700/2048 : réalisables 700, impossibles 0, non tranchées 0   [27 s]
+  750/2048 : réalisables 750, impossibles 0, non tranchées 0   [29 s]
+  800/2048 : réalisables 800, impossibles 0, non tranchées 0   [31 s]
+  850/2048 : réalisables 850, impossibles 0, non tranchées 0   [33 s]
+  900/2048 : réalisables 900, impossibles 0, non tranchées 0   [35 s]
+  950/2048 : réalisables 950, impossibles 0, non tranchées 0   [37 s]
+  1000/2048 : réalisables 1000, impossibles 0, non tranchées 0   [39 s]
+  1050/2048 : réalisables 1050, impossibles 0, non tranchées 0   [40 s]
+  1100/2048 : réalisables 1100, impossibles 0, non tranchées 0   [42 s]
+  1150/2048 : réalisables 1150, impossibles 0, non tranchées 0   [44 s]
+  1200/2048 : réalisables 1200, impossibles 0, non tranchées 0   [46 s]
+  1250/2048 : réalisables 1250, impossibles 0, non tranchées 0   [48 s]
+  1300/2048 : réalisables 1300, impossibles 0, non tranchées 0   [50 s]
+  1350/2048 : réalisables 1350, impossibles 0, non tranchées 0   [52 s]
+  1400/2048 : réalisables 1400, impossibles 0, non tranchées 0   [54 s]
+  1450/2048 : réalisables 1450, impossibles 0, non tranchées 0   [56 s]
+  1500/2048 : réalisables 1500, impossibles 0, non tranchées 0   [58 s]
+  1550/2048 : réalisables 1550, impossibles 0, non tranchées 0   [60 s]
+  1600/2048 : réalisables 1600, impossibles 0, non tranchées 0   [62 s]
+  1650/2048 : réalisables 1650, impossibles 0, non tranchées 0   [63 s]
+  1700/2048 : réalisables 1700, impossibles 0, non tranchées 0   [65 s]
+  1750/2048 : réalisables 1750, impossibles 0, non tranchées 0   [67 s]
+  1800/2048 : réalisables 1800, impossibles 0, non tranchées 0   [69 s]
+  1850/2048 : réalisables 1850, impossibles 0, non tranchées 0   [71 s]
+  1900/2048 : réalisables 1900, impossibles 0, non tranchées 0   [73 s]
+  1950/2048 : réalisables 1950, impossibles 0, non tranchées 0   [75 s]
+  2000/2048 : réalisables 2000, impossibles 0, non tranchées 0   [77 s]
+  2048/2048 : réalisables 2048, impossibles 0, non tranchées 0   [79 s]
+
+ordre 10 — croix ansées : 2048 réalisables sur 2048 figures examinées ; 0 impossibles, 0 non tranchées
+[code 0, 79 s]
+
+$ python3 tools/compte_croix.py --ordre 12
+ordre 12 : aucune croix ansée — le modèle complet est INFEASIBLE, inutile d’énumérer les figures. --sans-pretest force l’examen figure par figure, qui est le chemin indépendant de suite_croix.py
+[code 0, 5 s]
+
+$ python3 tools/compte_croix.py --ordre 14 --depart 400000000 --combien 10
+ordre 14 : 536870912 figures candidates (critères II–III tenus)   [0 s]
+  400000010/536870912 : réalisables 10, impossibles 0, non tranchées 0   [1 s]
+
+ordre 14 — croix ansées : 10 réalisables sur 10 figures examinées ; 0 impossibles, 0 non tranchées
+  lot partiel : 10 figures sur 536870912 ; relancer avec --depart 400000010
+[code 0, 2 s]
+

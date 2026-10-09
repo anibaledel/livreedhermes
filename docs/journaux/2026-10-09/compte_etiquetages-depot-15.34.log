@@ -1,0 +1,9 @@
+$ python3 tools/compte_etiquetages.py --ordre 2
+ordre 2 — étiquetages magiques à quatre classes
+  paire de lignes (0, 1) : 8 couples conformes à la bijection et aux sommes de ligne
+    … 0 états partiels
+  moitiés : 0 × 1 états
+
+  étiquetages magiques à quatre classes d’ordre 2 : 0
+[code 0, 0 s]
+

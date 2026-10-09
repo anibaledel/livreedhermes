@@ -11,10 +11,15 @@
 # — sans dépendre d'un solveur ni de sa version.
 #
 # CE QU'IL NE PEUT PAS CONTRÔLER, et c'est dit ici plutôt que caché : les
-# résultats NÉGATIFS qui n'ont pas de certificat court : « aucun étiquetage
-# magique à l'ordre 2 » et « les 32 figures de l'ordre 8 sont toutes
-# impossibles », figure par figure, demandent de relancer CP-SAT. En revanche
-# l'absence de croix ansée à l'ordre doublement pair est démontrée et contrôlée
+# résultats NÉGATIFS, puisqu'une absence ne se verse pas comme objet fini.
+# « Aucun étiquetage magique à l'ordre 2 » n'est donc pas porté par ce fichier
+# — mais il ne demande plus de solveur : il est démontré en trois lignes sur le
+# carré 2 × 2 et contrôlé exhaustivement par `construction.py --existence`
+# (256 étiquetages, 24 permutations) et `compte_etiquetages.py --ordre 2`.
+# Les verdicts CP-SAT figure
+# par figure de l'ordre 8 ne sont pas certifiés individuellement ici ; leur
+# conclusion globale — aucune des 32 n'est réalisable — est désormais une
+# conséquence du théorème doublement pair, démontré dans le papier et contrôlé
 # sans solveur par `parite.py`. Le
 # dépôt les étiquette comme tels, avec la version d'ortools et le temps de
 # calcul.
@@ -187,6 +192,38 @@ def controle(t):
         return True, (f'condition I, traits par ligne {sorted(set(h))}, '
                       f'par colonne {sorted(set(v))}')
 
+    if genre == 'existence_doublement_paire':
+        if condition_I(mots, n):
+            return False, ('la condition I est vérifiée : ce témoin doit en être '
+                           'dépourvu, sinon il ne témoigne de rien')
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from construction import classique
+        cl = classique(n)
+        attendu = [''.join(cl[(r, c)] for c in range(n)) for r in range(n)]
+        if attendu != mots:
+            return False, 'le motif classique B/R ne reproduit pas cet étiquetage'
+        return True, ('magique, deux classes seulement, et la condition I '
+                      'N’est PAS vérifiée : il ne porte aucune croix ansée, '
+                      'comme le théorème négatif l’exige à cet ordre')
+
+    if genre == 'construction_canonique':
+        if not condition_I(mots, n):
+            return False, 'la condition I n’est pas vérifiée'
+        h, v = comptes_de_traits(mots, n)
+        if not (all(x % 2 == 1 for x in h) and all(x % 2 == 1 for x in v)):
+            return False, f'parité violée : lignes {h}, colonnes {v}'
+        # et il doit être RE-ENGENDRÉ à l'identique par la recette, sans
+        # solveur : le témoin contrôle la reproductibilité, pas seulement la
+        # magicité.
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        from construction import canonique, realise, mots as motsde
+        cl = realise(n, canonique(n // 2))
+        if cl is None or motsde(n, cl) != mots:
+            return False, 'la recette ne reproduit pas cet étiquetage'
+        return True, (f'magique, condition I, traits par ligne '
+                      f'{sorted(set(h))}, par colonne {sorted(set(v))}, et '
+                      f'reproduit à l’identique par `construction.py`')
+
     if genre == 'ligne_non_necessaire':
         r = t['ligne']
         b = sum(1 for k in mots[r] if k in 'BV')
@@ -248,9 +285,13 @@ def main():
         print(f'{echecs} témoin(s) en échec', file=sys.stderr)
         sys.exit(1)
     print(f'les {len(d["temoins"])} témoins passent.')
-    print('Rappel : les résultats NÉGATIFS du papier — aucun étiquetage à '
-          'l’ordre 2, les 32 figures de l’ordre 8 une à une — n’ont pas '
-          'de certificat court et ne sont pas contrôlés ici.')
+    print('Rappel : l’impossibilité de l’ordre 2 n’est pas portée par le '
+          'fichier de témoins — une absence ne se verse pas comme objet. Elle '
+          'est démontrée analytiquement et contrôlée exhaustivement, sans '
+          'solveur, par construction.py --existence et compte_etiquetages.py '
+          '--ordre 2. Les verdicts CP-SAT figure par figure de l’ordre 8 ne '
+          'sont pas certifiés un à un, mais leur conclusion globale — aucune '
+          'des 32 n’est réalisable — suit du théorème doublement pair.')
 
 
 if __name__ == '__main__':

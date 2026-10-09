@@ -9,16 +9,23 @@
 # lignes de bibliothèque standard, sans solveur et sans installer quoi que ce
 # soit. Celle des résultats NÉGATIFS qui porte sur les ordres doublement pairs a
 # désormais la preuve la plus courte du dossier — voir `parite.py`. Ce qui n'a
-# toujours pas de certificat court, c'est « aucun étiquetage à l'ordre 2 » et
-# « les 32 figures de l'ordre 8 sont toutes impossibles », figure par figure :
-# ceux-là ne sont reproductibles qu'en relançant CP-SAT. Le dépôt doit donc distinguer les deux, et ce script
+# toujours pas de certificat court sous forme de TÉMOIN, c'est « aucun
+# étiquetage à l'ordre 2 » — une absence ne se verse pas dans un fichier
+# d'objets. Mais elle est démontrée en trois lignes (a+b = c+d et a+c = b+d
+# donnent b = c, impossible dans une bijection) et contrôlée exhaustivement
+# sans solveur par `construction.py --existence` et `compte_etiquetages.py
+# --ordre 2`. Les
+# verdicts figure par figure de l'ordre 8 ne sont pas certifiés un à un ici,
+# mais leur conclusion globale suit du théorème doublement pair. Le dépôt doit donc distinguer les deux, et ce script
 # produit la moitié certifiable.
 #
 # Ce script-ci demande `ortools` ; `verifie_temoins.py`, qui relit son fichier,
 # n'utilise que la bibliothèque standard. C'est tout l'intérêt : un lecteur
 # contrôle sans rien installer les énoncés d'existence du papier. Les
-# impossibilités n'ont pas de certificat court, sauf celle du doublement pair,
-# qui est désormais démontrée et contrôlée par parite.py.
+# impossibilités ne se versent pas comme témoins, mais elles ne sont plus pour
+# autant portées par un solveur : celle du doublement pair est démontrée et
+# contrôlée par `parite.py`, et celle de l'ordre 2 par `construction.py
+# --existence` et `compte_etiquetages.py --ordre 2`.
 #
 # Usage : cd <racine du dépôt> && python tools/temoins.py [--ordres 4,6,10,14]
 #         [--limite S]   écrit data/temoins.json

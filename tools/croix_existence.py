@@ -13,9 +13,12 @@
 # RÉSULTATS. Croix ansée aux ordres 6, 10, 14, 18, 30 ; AUCUNE aux ordres 8, 12
 # et 16, où le solveur conclut à l'impossibilité (l'ordre 16 demande environ
 # 40 minutes). Aux cinq ordres tranchés, l'existence suit donc exactement la
-# parité singulièrement/doublement paire. La généralisation reste CONJECTURALE :
-# si elle tient, la croix ansée est un objet du singulièrement pair, la famille
-# où les méthodes classiques coûtent le plus ; rien ici ne le démontre.
+# parité singulièrement/doublement paire. Et la généralisation n'est PLUS
+# conjecturale : elle est démontrée dans les deux sens — `parite.py` interdit
+# tout au doublement pair, `construction.py` réalise toute figure candidate au
+# singulièrement pair. La croix ansée est donc bien un objet du singulièrement
+# pair, la famille où les méthodes classiques coûtent le plus, et ce script
+# n'est plus qu'un contrôle par solveur de cas particuliers de ce théorème.
 #
 # Usage : cd <racine du dépôt> && python tools/croix_existence.py
 #         [--ordres 6,10,14,18] [--limite S]
