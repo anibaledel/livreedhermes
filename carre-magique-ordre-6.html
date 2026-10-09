@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carré magique d'ordre 6 : construction géométrique, somme 111 et croix ansée | Anibal Amiot</title>
+<meta name="description" content="Un carré magique d'ordre 6 somme à 111. Construction case par case à quatre classes, exemple complet, les deux figures de croix ansée, les 18 432 étiquetages et les 8 192 qui pavent, comparaison avec LUX et Strachey.">
+<meta property="og:title" content="Carré magique d'ordre 6 : construction géométrique, somme 111 et croix ansée | Anibal Amiot">
+<meta property="og:description" content="Un carré magique d'ordre 6 somme à 111. Construction case par case à quatre classes, exemple complet, les deux figures de croix ansée, les 18 432 étiquetages et les 8 192 qui pavent, comparaison avec LUX et Strachey.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:url" content="https://anibal-amiot.com/carre-magique-ordre-6.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://anibal-amiot.com/carre-magique-ordre-6.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Carré magique d'ordre 6 : construction géométrique, somme 111 et croix ansée | Anibal Amiot">
+<meta name="twitter:description" content="Un carré magique d'ordre 6 somme à 111. Construction case par case à quatre classes, exemple complet, les deux figures de croix ansée, les 18 432 étiquetages et les 8 192 qui pavent, comparaison avec LUX et Strachey.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/carre-magique-ordre-6.html#article",
+      "url": "https://anibal-amiot.com/carre-magique-ordre-6.html",
+      "headline": "Carré magique d'ordre 6 : construction géométrique, somme 111 et croix ansée",
+      "inLanguage": "fr",
+      "author": {
+        "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Carré magique d'ordre 6"
+        },
+        {
+          "@type": "Thing",
+          "name": "Carré magique"
+        },
+        {
+          "@type": "Thing",
+          "name": "Croix ansée"
+        }
+      ],
+      "isBasedOn": {
+        "@id": "https://doi.org/10.5281/zenodo.22722485"
+      },
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://anibal-amiot.com/carre-magique-ordre-6.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Pourquoi la somme d'un carré magique d'ordre 6 vaut-elle 111 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Les nombres de 1 à 36 totalisent 36 × 37 / 2 = 666, et six lignes de somme égale se partagent ce total : 666 / 6 = 111. En général M = n(n²+1)/2."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Combien y a-t-il de figures de croix ansée à l'ordre 6 ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Deux, exactement, et elles sont complémentaires : là où l'une porte un trait horizontal, l'autre porte un trait vertical. 8 192 étiquetages magiques les portent, 4 096 pour chacune."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "En quoi la méthode diffère-t-elle de LUX ou de Strachey ?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "LUX et Strachey sont des procédés : il faut les exécuter. Ici la valeur d'une case se calcule depuis ses coordonnées et sa classe, sans les autres cases."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
+    { "@type": "ListItem", "position": 2, "name": "Travaux", "item": "https://anibal-amiot.com/travaux.html" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
+
+  /* ---------- contenu travaux ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .travaux-list{ list-style:none; padding:0; margin:0; }
+  .travaux-list li{ padding:14px 0; border-top:1px solid var(--line); }
+  .travaux-list li:first-child{ border-top:none; }
+  .travaux-list cite{ font-style:normal; color:var(--white); display:block; margin-bottom:4px; font-size:14px; line-height:1.5; }
+  .travaux-list p.travaux-desc{ color:var(--dim); font-size:12.5px; line-height:1.6; margin:0 0 6px; }
+  .travaux-list a{ color:var(--gold); text-decoration:none; font-size:12.5px; }
+  .travaux-list a:hover{ text-decoration:underline; }
+  .travaux-list span.travaux-meta{ display:block; color:var(--dim); font-size:11px; margin-top:4px; letter-spacing:.02em; }
+  .travaux-list span.travaux-toutes{ color:var(--dim); font-size:11px; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; text-align:center; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .profile-intro{ font-size:14.5px; }
+  }
+  /* ---------- ajouts : page carrés magiques d'ordre pair ---------- */
+  .profile-section h3{
+    font-size:13px; letter-spacing:.06em; color:var(--white);
+    font-weight:400; margin:22px 0 8px;
+  }
+  .profile-section p{ color:var(--dim); font-size:14px; line-height:1.8; margin:0 0 14px; }
+  .profile-section em{ font-style:italic; color:var(--white); }
+  .profile-section strong{ font-weight:400; color:var(--gold); }
+  p.formule{
+    text-align:center; color:var(--white); font-size:14px; line-height:2;
+    margin:18px 0; padding:14px 16px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .profile-section pre{
+    overflow-x:auto; margin:16px 0; padding:14px 16px;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+  }
+  .profile-section pre code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.9; color:var(--dim); white-space:pre;
+  }
+  table.tableau-ordres{
+    width:100%; border-collapse:collapse; margin:18px 0; font-size:13px;
+  }
+  table.tableau-ordres caption{
+    caption-side:top; text-align:left; color:var(--gold);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-bottom:8px;
+  }
+  table.tableau-ordres th, table.tableau-ordres td{
+    border:1px solid var(--line); padding:7px 9px; text-align:center;
+    color:var(--dim); font-weight:400;
+  }
+  table.tableau-ordres thead th{ color:var(--white); }
+  table.tableau-ordres tbody th{ color:var(--gold); text-align:left; }
+
+  /* ---------- carré affiché et figures ---------- */
+  table.carre-magique{
+    border-collapse:collapse; margin:18px auto; font-size:13px;
+  }
+  table.carre-magique caption{
+    caption-side:top; text-align:center; color:var(--gold);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-bottom:10px;
+  }
+  table.carre-magique td{
+    border:1px solid var(--line); width:46px; height:46px; text-align:center;
+    vertical-align:middle; color:var(--white); position:relative; padding:0;
+  }
+  table.carre-magique td span{
+    display:block; font-size:9px; letter-spacing:.08em; color:var(--gold); margin-top:1px;
+  }
+  .deux-figures{
+    display:flex; flex-wrap:wrap; gap:24px; justify-content:center; margin:22px 0;
+  }
+  .deux-figures figure{ margin:0; text-align:center; }
+  .deux-figures figcaption{
+    color:var(--dim); font-size:11px; letter-spacing:.1em;
+    text-transform:uppercase; margin-top:8px;
+  }
+</style>
+<link rel="stylesheet" href="assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/breadcrumb.css">
+<link rel="stylesheet" href="assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/carre-magique-ordre-6.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/order-6-magic-square/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/order-6-magic-square/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Aller au contenu</a>
+<header class="site-header">
+  <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-37-profil.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Fil d'Ariane">
+      <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><span aria-current="page">Carré magique d'ordre 6</span>
+    </nav>
+    <h1>Carré magique d'ordre 6</h1>
+    <p>Construction géométrique, somme 111 et croix ansée</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Autres langues : <a href="https://anibal-amiot.com/en/order-6-magic-square/">English</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="profile-body">
+    <p class="profile-intro">Un carré magique d'ordre 6 range les nombres de 1 à 36 dans une grille
+    6 × 6 de façon que chaque ligne, chaque colonne et les deux diagonales somment à
+    <strong>111</strong>. La méthode exposée ici en construit un <strong>case par case</strong> :
+    la valeur d'une case se calcule depuis ses coordonnées, sans remplir les autres.</p>
+
+    <div class="profile-section">
+      <h2>Pourquoi la somme vaut 111</h2>
+      <p>Les trente-six nombres de 1 à 36 totalisent 36 × 37 / 2 = 666. Six lignes de somme égale se
+      partagent ce total, donc chaque ligne vaut 666 / 6 = <strong>111</strong>. En général la
+      constante magique d'un carré d'ordre <em>n</em> vaut
+      <em>M</em> = <em>n</em>(<em>n</em>²+1)/2 : 15 à l'ordre 3, 34 à l'ordre 4, 65 à l'ordre 5,
+      111 à l'ordre 6, 505 à l'ordre 10.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Un exemple complet</h2>
+      <p>Voici un carré produit par la méthode, avec la classe de chaque case en petit. Les six
+      lignes, les six colonnes et les deux diagonales valent 111.</p>
+      <table class="carre-magique">
+        <caption>Un carré magique d'ordre 6 du protocole, et son étiquetage</caption>
+        <tbody>
+          <tr><td data-classe="R">36<span>R</span></td><td data-classe="B">2<span>B</span></td><td data-classe="B">3<span>B</span></td><td data-classe="J">34<span>J</span></td><td data-classe="B">5<span>B</span></td><td data-classe="R">31<span>R</span></td></tr>
+          <tr><td data-classe="B">7<span>B</span></td><td data-classe="R">29<span>R</span></td><td data-classe="B">9<span>B</span></td><td data-classe="B">10<span>B</span></td><td data-classe="R">26<span>R</span></td><td data-classe="J">30<span>J</span></td></tr>
+          <tr><td data-classe="B">13<span>B</span></td><td data-classe="B">14<span>B</span></td><td data-classe="R">22<span>R</span></td><td data-classe="R">21<span>R</span></td><td data-classe="J">23<span>J</span></td><td data-classe="B">18<span>B</span></td></tr>
+          <tr><td data-classe="V">24<span>V</span></td><td data-classe="B">20<span>B</span></td><td data-classe="R">16<span>R</span></td><td data-classe="R">15<span>R</span></td><td data-classe="J">17<span>J</span></td><td data-classe="V">19<span>V</span></td></tr>
+          <tr><td data-classe="B">25<span>B</span></td><td data-classe="R">11<span>R</span></td><td data-classe="V">28<span>V</span></td><td data-classe="V">27<span>V</span></td><td data-classe="R">8<span>R</span></td><td data-classe="J">12<span>J</span></td></tr>
+          <tr><td data-classe="R">6<span>R</span></td><td data-classe="V">35<span>V</span></td><td data-classe="B">33<span>B</span></td><td data-classe="J">4<span>J</span></td><td data-classe="V">32<span>V</span></td><td data-classe="R">1<span>R</span></td></tr>
+        </tbody>
+      </table>
+      <p>Il n'est pas <em>associatif</em> : deux cases opposées par le centre n'y somment pas
+      toujours à 37. Aucun carré magique d'ordre singulièrement pair ne l'est, et c'est un théorème
+      ancien, pas une faiblesse de la méthode.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>La construction ponctuelle</h2>
+      <p>Chaque case reçoit une classe parmi quatre, et sa valeur suit de ses coordonnées
+      (<em>r</em> pour la ligne, <em>c</em> pour la colonne, numérotées de 0 à 5) :</p>
+      <p class="formule"><em>B</em> = 6<em>r</em> + <em>c</em> + 1
+      &nbsp;·&nbsp; <em>V</em> = 6<em>r</em> + (5−<em>c</em>) + 1
+      &nbsp;·&nbsp; <em>R</em> = 37 − <em>B</em>
+      &nbsp;·&nbsp; <em>J</em> = 37 − <em>V</em></p>
+      <p><em>B</em> lit la ligne de gauche à droite, <em>V</em> la lit à l'envers, et <em>R</em> et
+      <em>J</em> sont leurs complémentaires à 37. La case (2, 3) du tableau ci-dessus porte la classe
+      <em>R</em> : <em>B</em> vaudrait 6×2 + 3 + 1 = 16, donc <em>R</em> = 37 − 16 = 21. C'est bien
+      la valeur affichée. Aucun calcul n'a eu besoin des autres cases.</p>
+      <p>Trois conditions pèsent sur l'étiquetage. La première, sur les positions, est nécessaire et
+      suffisante pour que les trente-six nombres soient tous présents une fois. Les deux autres sont
+      des égalités d'effectifs par ligne et par colonne, et c'est la seconde qui sélectionne, à
+      l'ordre 6, exactement les étiquetages intéressants.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Les deux figures de croix ansée</h2>
+      <p>Les cases hors diagonales s'apparient deux à deux : horizontalement quand les deux classes
+      sont partenaires par <em>B</em> ↔ <em>J</em> ou <em>R</em> ↔ <em>V</em>, verticalement sinon.
+      Les traits ainsi tracés dessinent une figure, et à l'ordre 6 il n'y en a
+      <strong>que deux</strong> — ce qui est démontré, et revérifié par énumération complète.</p>
+      <div class="deux-figures">
+        <figure>
+          <svg viewBox="0 0 252 252" width="252" height="252" role="img" aria-label="Premiere figure de croix ansee d'ordre 6" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="252" height="252" fill="none"/>
+            <line x1="18" y1="18" x2="234" y2="18" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="18" x2="18" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="54" x2="234" y2="54" stroke="var(--line)" stroke-width="1"/>
+            <line x1="54" y1="18" x2="54" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="90" x2="234" y2="90" stroke="var(--line)" stroke-width="1"/>
+            <line x1="90" y1="18" x2="90" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="126" x2="234" y2="126" stroke="var(--line)" stroke-width="1"/>
+            <line x1="126" y1="18" x2="126" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="162" x2="234" y2="162" stroke="var(--line)" stroke-width="1"/>
+            <line x1="162" y1="18" x2="162" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="198" x2="234" y2="198" stroke="var(--line)" stroke-width="1"/>
+            <line x1="198" y1="18" x2="198" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="234" x2="234" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="234" y1="18" x2="234" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <circle cx="36" cy="36" r="2.5" fill="var(--dim)"/>
+            <circle cx="216" cy="36" r="2.5" fill="var(--dim)"/>
+            <circle cx="72" cy="72" r="2.5" fill="var(--dim)"/>
+            <circle cx="180" cy="72" r="2.5" fill="var(--dim)"/>
+            <circle cx="108" cy="108" r="2.5" fill="var(--dim)"/>
+            <circle cx="144" cy="108" r="2.5" fill="var(--dim)"/>
+            <circle cx="144" cy="144" r="2.5" fill="var(--dim)"/>
+            <circle cx="108" cy="144" r="2.5" fill="var(--dim)"/>
+            <circle cx="180" cy="180" r="2.5" fill="var(--dim)"/>
+            <circle cx="72" cy="180" r="2.5" fill="var(--dim)"/>
+            <circle cx="216" cy="216" r="2.5" fill="var(--dim)"/>
+            <circle cx="36" cy="216" r="2.5" fill="var(--dim)"/>
+            <line x1="108" y1="36" x2="144" y2="36" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="36" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="72" x2="216" y2="72" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="72" r="4" fill="var(--gold)"/>
+            <line x1="72" y1="108" x2="180" y2="108" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="108" r="4" fill="var(--gold)"/>
+            <line x1="72" y1="144" x2="180" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="144" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="144" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="180" x2="216" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="180" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="108" y1="216" x2="144" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="216" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="72" y1="36" x2="72" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="72" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="180" y1="36" x2="180" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="180" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="108" y1="72" x2="108" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="108" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="144" y1="72" x2="144" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="144" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="108" x2="36" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="36" cy="144" r="4" fill="var(--gold)"/>
+            <line x1="216" y1="108" x2="216" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="216" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="144" r="4" fill="var(--gold)"/>
+          </svg>
+          <figcaption>Première figure</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 252 252" width="252" height="252" role="img" aria-label="Seconde figure de croix ansee d'ordre 6" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="252" height="252" fill="none"/>
+            <line x1="18" y1="18" x2="234" y2="18" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="18" x2="18" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="54" x2="234" y2="54" stroke="var(--line)" stroke-width="1"/>
+            <line x1="54" y1="18" x2="54" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="90" x2="234" y2="90" stroke="var(--line)" stroke-width="1"/>
+            <line x1="90" y1="18" x2="90" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="126" x2="234" y2="126" stroke="var(--line)" stroke-width="1"/>
+            <line x1="126" y1="18" x2="126" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="162" x2="234" y2="162" stroke="var(--line)" stroke-width="1"/>
+            <line x1="162" y1="18" x2="162" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="198" x2="234" y2="198" stroke="var(--line)" stroke-width="1"/>
+            <line x1="198" y1="18" x2="198" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="18" y1="234" x2="234" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <line x1="234" y1="18" x2="234" y2="234" stroke="var(--line)" stroke-width="1"/>
+            <circle cx="36" cy="36" r="2.5" fill="var(--dim)"/>
+            <circle cx="216" cy="36" r="2.5" fill="var(--dim)"/>
+            <circle cx="72" cy="72" r="2.5" fill="var(--dim)"/>
+            <circle cx="180" cy="72" r="2.5" fill="var(--dim)"/>
+            <circle cx="108" cy="108" r="2.5" fill="var(--dim)"/>
+            <circle cx="144" cy="108" r="2.5" fill="var(--dim)"/>
+            <circle cx="144" cy="144" r="2.5" fill="var(--dim)"/>
+            <circle cx="108" cy="144" r="2.5" fill="var(--dim)"/>
+            <circle cx="180" cy="180" r="2.5" fill="var(--dim)"/>
+            <circle cx="72" cy="180" r="2.5" fill="var(--dim)"/>
+            <circle cx="216" cy="216" r="2.5" fill="var(--dim)"/>
+            <circle cx="36" cy="216" r="2.5" fill="var(--dim)"/>
+            <line x1="72" y1="36" x2="180" y2="36" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="36" r="4" fill="var(--gold)"/>
+            <line x1="108" y1="72" x2="144" y2="72" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="72" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="108" x2="216" y2="108" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="108" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="144" x2="216" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="144" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="144" r="4" fill="var(--gold)"/>
+            <line x1="108" y1="180" x2="144" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="180" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="72" y1="216" x2="180" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="216" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="108" y1="36" x2="108" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="108" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="108" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="144" y1="36" x2="144" y2="216" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="144" cy="36" r="4" fill="var(--gold)"/>
+            <circle cx="144" cy="216" r="4" fill="var(--gold)"/>
+            <line x1="36" y1="72" x2="36" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="36" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="36" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="216" y1="72" x2="216" y2="180" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="216" cy="72" r="4" fill="var(--gold)"/>
+            <circle cx="216" cy="180" r="4" fill="var(--gold)"/>
+            <line x1="72" y1="108" x2="72" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="72" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="72" cy="144" r="4" fill="var(--gold)"/>
+            <line x1="180" y1="108" x2="180" y2="144" stroke="var(--gold)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="180" cy="108" r="4" fill="var(--gold)"/>
+            <circle cx="180" cy="144" r="4" fill="var(--gold)"/>
+          </svg>
+          <figcaption>Seconde figure</figcaption>
+        </figure>
+      </div>
+      <p>Les deux sont exactement complémentaires : là où l'une porte un trait horizontal, l'autre
+      porte un trait vertical. Ce n'est pas une symétrie miroir, c'est une antinomie — les deux
+      seules manières de tenir les contraintes, et elles s'excluent case par case. Les points gris
+      marquent les douze cases diagonales, qui ne portent pas de trait.</p>
+      <p>Chaque ligne porte un seul trait horizontal et chaque colonne un seul trait vertical :
+      nombres impairs, comme les critères l'exigent. Cette parité impaire est précisément ce qui
+      interdit la figure aux ordres 8, 12, 16 — et ce qui l'autorise à 6, 10, 14, 18. Voir
+      <a href="carres-magiques-ordre-pair.html" style="color:var(--gold);">la page sur les ordres pairs en général</a>.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Combien y en a-t-il</h2>
+      <p>Les comptes sont exacts et obtenus par énumération complète, en Python sans dépendance.</p>
+      <table class="tableau-ordres">
+        <caption>À l'ordre 6, par énumération exhaustive</caption>
+        <tbody>
+          <tr><th>étiquetages magiques du protocole</th><td>18 432</td></tr>
+          <tr><th>dont ceux qui respectent l'égalité d'effectifs par colonne</th><td>8 192</td></tr>
+          <tr><th>dont ceux qui pavent par l'alternance de parité</th><td>8 192</td></tr>
+          <tr><th>dont ceux qui portent une croix ansée</th><td>8 192</td></tr>
+          <tr><th>figures de croix ansée distinctes</th><td>2</td></tr>
+        </tbody>
+      </table>
+      <p>Les trois ensembles de 8 192 <strong>coïncident</strong>, et vérifiés élément par élément,
+      non en cardinal : à l'ordre 6, la condition de colonne est exactement le critère de pavabilité,
+      et la croix ansée en est la forme dessinée. Aux ordres supérieurs, cette équivalence n'est pas
+      établie. Et 8 192 étiquetages ne portent que 2 figures : chaque figure est réalisée par 4 096
+      étiquetages, et la répartition est exactement égale.</p>
+      <p>Les 10 240 autres étiquetages magiques sont magiques sans porter de croix : ils violent
+      l'égalité d'effectifs par colonne, qui n'est donc pas une condition de magicité.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Ce que font les méthodes classiques</h2>
+      <p>L'ordre 6 est le plus petit ordre <em>singulièrement pair</em> — pair sans être divisible
+      par 4 — et c'est le cas réputé difficile. Les méthodes connues sont des procédés :</p>
+      <h3>LUX (Conway)</h3>
+      <p>On construit un carré impair d'ordre 3 puis on remplace chaque case par un bloc 2 × 2 de
+      type L, U ou X selon sa position. Le procédé marche, mais il faut l'exécuter : rien ne donne la
+      valeur d'une case depuis ses coordonnées.</p>
+      <h3>Strachey</h3>
+      <p>On découpe le carré en quatre quadrants d'ordre 3, on les remplit par la méthode des ordres
+      impairs, puis on échange certaines colonnes entre quadrants. Même remarque : c'est une suite
+      d'opérations, avec des cas particuliers sur les lignes centrales.</p>
+      <h3>La méthode des motifs</h3>
+      <p>À deux classes seulement, elle est bien connue et bien formalisée, et elle donne une vraie
+      formule ponctuelle — mais elle n'est documentée que pour les ordres <em>doublement</em> pairs,
+      4, 8, 12. Le passage à quatre classes est ce qui débloque l'ordre 6.</p>
+      <p>La différence pratique : ici, pour connaître la case (4, 2), on lit sa classe et on applique
+      la formule. On n'a pas besoin des trente-cinq autres.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Code et données</h2>
+      <p>Tout est vérifiable sans rien installer, en Python nu :</p>
+      <pre tabindex="0"><code>python tools/compte_etiquetages.py --ordre 6   # les 18 432
+python tools/enum6.py                          # les 8 192 qui pavent
+python tools/croix_auto.py --ordre 6           # l'equivalence triple
+python tools/construction.py --toutes          # les 2 figures, construites</code></pre>
+      <p>Les scripts, les données et la carte de confiance — chaque énoncé classé par son statut —
+      sont dans <a href="https://github.com/anibaledel/livreedhermes" style="color:var(--dim);">le dépôt de code</a>. Le corpus
+      de 256 étiquetages d'ordre 6 dont tout ceci est sorti est identifié sur la planche 047 du
+      traité, <a href="https://doi.org/10.5281/zenodo.22722485" style="color:var(--dim);">doi:10.5281/zenodo.22722485</a>.</p>
+    </div>
+
+    <p class="profile-sources">Voir aussi :
+    <a href="carres-magiques-ordre-pair.html" style="color:var(--gold);">les carrés magiques d'ordre pair en général</a>,
+    <a href="lexique.html" style="color:var(--gold);">le lexique</a>, <a href="travaux.html" style="color:var(--gold);">les dépôts horodatés</a>.</p>
+  </div>
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="assets/share-widget.js"></script>
+<script src="assets/soutien-gate.js"></script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="index.html"><img class="nav-tile-icon" src="assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Accueil</span><span class="nav-tile-excerpt">Le livre, ses planches et l'ensemble des outils.</span></span></a>
+      <a class="nav-tile" href="articles.html"><img class="nav-tile-icon" src="assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Réflexions et recherches autour de La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" style="display:inline-block; margin:14px 0;" title="Soutenez la Livrée d'Hermès à prix libre : tout reste libre sous CC BY-NC 4.0, votre soutien finance la suite du projet.">Devenir Soutien</a>
+
+    <nav class="nav-categories" aria-label="Pages du site">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galeries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="galerie-bicolore.html"><span class="nav-cat-label">Galerie bicolore</span><span class="nav-cat-texte">142 motifs bicolores engendrés par les axes et fermés sur le cube — maille, pavage, export.</span></a></li>
+          <li><a href="galerie-patterns-unifies.html"><span class="nav-cat-label">Galerie tricolore</span><span class="nav-cat-texte">Patterns unifiés, engendrés par mélange de teintes — sélectionnez un motif pour voir son pavage.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="galerie-animations.html"><span class="nav-cat-label">Galerie d'animations</span><span class="nav-cat-texte">Les animations des collections de fonds, en six groupes : à regarder, à prévisualiser, à télécharger en MP4.</span></a></li>
+          <li><a href="fonds-ecran.html"><span class="nav-cat-label">Fond d'écran</span><span class="nav-cat-texte">Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Tirages</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="tirage-livree-hermes.html"><span class="nav-cat-label">Tirage du Yi King</span><span class="nav-cat-texte">Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations.</span></a></li>
+          <li><a href="360-calques.html"><span class="nav-cat-label">360 calques</span><span class="nav-cat-texte">Tirez et téléchargez les calques d'impression, prêts à imprimer.</span></a></li>
+          <li><a href="telechargements.html"><span class="nav-cat-label">Motifs SVG</span><span class="nav-cat-texte">Téléchargez les calques d'impression en 4 catégories de combinaisons de traits, au format SVG.</span></a></li>
+          <li><a href="hexagrammes/"><span class="nav-cat-label">Hexagrammes</span><span class="nav-cat-texte">Les 64 hexagrammes du Yi-King : jugement, trigrammes et carré magique pour chacun.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Outils créatifs</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="creation-motifs-yi-king.html"><span class="nav-cat-label">Créer un motif</span><span class="nav-cat-texte">Composez vos propres motifs textiles à partir des 60 images du Yi King.</span></a></li>
+          <li><a href="bicolore.html"><span class="nav-cat-label">Motifs bicolores</span><span class="nav-cat-texte">Composez une cellule 12×12, six niveaux, chacun sa famille et sa teinte.</span></a></li>
+          <li><a href="creation-bicolore-v2.html"><span class="nav-cat-label">Motifs bicolores v2</span><span class="nav-cat-texte">La seconde découpe des diagonales (YA/AY), vocabulaire et statuts du demi-décalage — à côté de l’outil v1.</span></a></li>
+          <li><a href="encodeur.html"><span class="nav-cat-label">Encodeur</span><span class="nav-cat-texte">Encodage stéganographique géométrique par double référent, croix ansée et Jacquard.</span></a></li>
+          <li><a href="carter-demo.html"><span class="nav-cat-label">Carter Random</span><span class="nav-cat-texte">Démo interactive : la grille et les référents dérivés de la clé.</span></a></li>
+          <li><a href="unified-patterns.html"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.</span></a></li>
+          <li><a href="cymatique.html"><span class="nav-cat-label">Cymatique</span><span class="nav-cat-texte">Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.</span></a></li>
+          <li><a href="outils.html"><span class="nav-cat-label">Outils</span><span class="nav-cat-texte">Tous les outils interactifs du site, réunis en un seul endroit.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">À propos du projet</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="la-livree-d-hermes.html"><span class="nav-cat-label">Le traité</span><span class="nav-cat-texte">Le traité et ses éditions traduites, les hexagrammes et le lexique.</span></a></li>
+          <li><a href="a-propos.html"><span class="nav-cat-label">À propos</span><span class="nav-cat-texte">L'auteur et son livre, au croisement de la philosophie, des mathématiques et des sciences appliquées.</span></a></li>
+          <li><a href="lexique.html"><span class="nav-cat-label">Lexique</span><span class="nav-cat-texte">Dix notions clés pour comprendre La Livrée d'Hermès.</span></a></li>
+          <li><a href="profil.html"><span class="nav-cat-label">Profil documentaire</span><span class="nav-cat-texte">Brevets et 63 dessins et modèles déposés à l'INPI, couvrant les carrés d'ordre 12.</span></a></li>
+          <li><a href="contact.html"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contactez l'auteur pour un projet ou une commande de motifs et tirages textiles.</span></a></li>
+          <li><a href="soutenir.html"><span class="nav-cat-label">Soutenir</span><span class="nav-cat-texte">Soutenir La Livrée d'Hermès à prix libre : le site et son contenu restent gratuits.</span></a></li>
+          <li><a href="chiffres-et-sources.html"><span class="nav-cat-label">Chiffres et sources</span><span class="nav-cat-texte">Chaque chiffre du site, le script qui le reproduit et la ligne qu'il imprime.</span></a></li>
+          <li><a href="travaux.html"><span class="nav-cat-label">Travaux</span><span class="nav-cat-texte">Les dépôts, le code et les articles soumis, chacun horodaté et ouvert.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Créé en collaboration avec Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Pied de page">
+    <a href="./">Accueil</a>
+    <a href="la-livree-d-hermes.html">Le traité</a>
+    <a href="hexagrammes/">Hexagrammes</a>
+    <a href="fr/motifs/">Motifs</a>
+    <a href="lexique.html">Lexique</a>
+    <a href="articles.html">Articles</a>
+    <a href="outils.html">Outils</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="profil.html">Profil documentaire</a>
+    <a href="travaux.html">Travaux</a>
+    <a href="contact.html">Contact</a>
+    <a href="soutenir.html">Soutenir</a>
+    <a href="recherche.html">Rechercher</a>
+  </nav>
+  <p class="site-footer-licence">
+    Contenus sous <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code sous AGPL v3, licence commerciale sur demande
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>

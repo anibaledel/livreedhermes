@@ -219,8 +219,8 @@ function parenteDe(rel) {
   if (/^(en\/)?articles\//.test(rel)) return 'articles';
   // la page d'un dépôt (travaux/<slug>/, scripts/build-travaux-pages.js) relève de Travaux
   if (/^travaux\//.test(rel)) return 'travaux';
-  // les carrés magiques d'ordre pair (2026-10-09) : ce que les dépôts établissent, exposé sans le code
-  if (/^(carres-magiques-ordre-pair\.html|en\/even-order-magic-square-construction\/)/.test(rel)) return 'travaux';
+  // les carrés magiques d'ordre pair et d'ordre 6 (2026-10-09) : ce que les dépôts établissent, exposé sans le code
+  if (/^(carres-magiques-ordre-pair\.html|carre-magique-ordre-6\.html|en\/even-order-magic-square-construction\/|en\/order-6-magic-square\/)/.test(rel)) return 'travaux';
   return null;
 }
 
