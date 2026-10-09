@@ -33,6 +33,16 @@ name: Étiquetages magiques à quatre classes et croix ansée — comptes, absen
 #     des ordres 4 à 10, et la réciproque locale aux ordres 6 à 34 (dépôt 15.14).
 #   - verifie_portee.py (dépôt 15.14) : la nécessité de la règle des miroirs sur
 #     284 graines non invariantes, sans solveur ; sort en erreur sur un échec.
+# Dépôt 15.34 (9 octobre 2026), deux scripts en Python nu :
+#   - construction.py : --existence (un étiquetage magique à tout ordre pair
+#     n ≥ 4, l'ordre 2 seul impossible), la figure canonique aux ordres 2 à 50,
+#     toutes les figures des ordres 6 et 10 (29 s), et un échantillon ; chaque
+#     commande sort en erreur si une construction échoue. check_sorties_ci.mjs
+#     ne relit que la première (--existence) ; les autres ont leur journal.
+#   - recollement.py : --profils (8 192 à l'ordre 6, 0 aux ordres 4 et 8, lignes
+#     relues), --table (sort en erreur sur un écart), --construit et --geometrie
+#     (journal). L'ordre 10 (~6 min et 5 Go) a son journal dans
+#     docs/journaux/2026-10-09/.
 # Les scripts à solveur du dépôt 15.11 (localise, ecarts, congruences) ont leur
 # journal dans docs/journaux/2026-10-08/.
 # Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
@@ -77,5 +87,13 @@ jobs:
       - run: python3 tools/reseau.py --ordres 8,12,16,20 --fenetre 0
       - run: python3 tools/parite.py
       - run: python3 tools/verifie_portee.py
+      - run: python3 tools/construction.py --existence
+      - run: python3 tools/construction.py --ordres 2,4,6,8,10,14,18,22,26,30,34,38,42,46,50
+      - run: python3 tools/construction.py --toutes
+      - run: python3 tools/construction.py --echantillon 20 --ordres 6,10,14,18,22,26,30
+      - run: python3 tools/recollement.py --ordres 4,6,8 --profils
+      - run: python3 tools/recollement.py --ordres 4,6,8,10,12,14 --table
+      - run: python3 tools/recollement.py --ordres 6,10,14,18 --construit
+      - run: python3 tools/recollement.py --ordres 4,6,8,10,12,14 --geometrie
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai

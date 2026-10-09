@@ -4,8 +4,8 @@
 #
 # miroirs_graine.py — la règle des miroirs dépend-elle de l'ordre de la graine ?
 #
-# La règle a été établie pour les graines d'ordre 6 : en pavant l'ordre 6m avec
-# m×m copies, le résultat est magique SI ET SEULEMENT SI
+# La règle a été dégagée sur les graines d'ordre 6 : en pavant l'ordre 6m avec
+# m×m copies, le résultat semble magique exactement quand
 #
 #     h(i, j) = h(m−1−i, j)   et   v(i, j) = v(i, m−1−j)
 #

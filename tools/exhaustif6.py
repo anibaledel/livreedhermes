@@ -89,11 +89,26 @@ def main():
     print(f'{len(tous)} graines × {len(motifs)} motifs = '
           f'{len(tous) * len(motifs)} couples', flush=True)
 
+    # les bits de miroir de chaque orientation : (h, v)
+    BITS = {'C': (0, 0), 'H': (1, 0), 'V': (0, 1), 'D': (1, 1)}
+    def conforme(mo):
+        """h(i,j) = h(m−1−i, j) et v(i,j) = v(i, m−1−j), pour m = 2."""
+        b = {cases[k]: BITS[mo[k]] for k in range(4)}
+        return (all(b[(i, j)][0] == b[(1 - i, j)][0] for i in range(2)
+                    for j in range(2))
+                and all(b[(i, j)][1] == b[(i, 1 - j)][1] for i in range(2)
+                        for j in range(2)))
+    conformes = {mo for mo in motifs if conforme(mo)}
+    print(f'motifs conformes à la règle des miroirs : {len(conformes)} sur '
+          f'{len(motifs)}', flush=True)
+
     comptes = {}
+    desaccords = 0
     for idx, g in enumerate(tous):
         pr = {(i, j, o): profil(g, i, j, o, N, t)
               for (i, j) in cases for o in ORIENT}
         bons = 0
+        magiques = set()
         for mo in motifs:
             p = [pr[(cases[k][0], cases[k][1], mo[k])] for k in range(4)]
             # lignes : bloc (0,0)+(0,1) pour les lignes 0..5, (1,0)+(1,1) ensuite
@@ -111,12 +126,23 @@ def main():
             if len(u) != N * N:
                 continue
             bons += 1
+            magiques.add(mo)
         comptes[bons] = comptes.get(bons, 0) + 1
+        # l'égalité des ensembles, et pas seulement des cardinaux
+        if bons and magiques != conformes:
+            desaccords += 1
         if (idx + 1) % 2000 == 0:
             print(f'  {idx + 1}/{len(tous)}   [{time.time() - t0:.0f} s]',
                   flush=True)
 
     print(f'\nmotifs magiques par graine : {dict(sorted(comptes.items()))}')
+    print(f'parmi les graines ayant au moins un motif magique \u2014 les 8 192 qui '
+          f'pavent \u2014, celles dont l\u2019ensemble des motifs magiques diff\u00e8re des '
+          f'seize motifs conformes : {desaccords}')
+    if desaccords:
+        print('ÉCART : la règle des miroirs n’est pas exacte à l’ordre 12',
+              file=sys.stderr)
+        sys.exit(1)
     attendu = {0: 10240, 16: 8192}
     print(f'attendu                     : {attendu}')
     if comptes != attendu:

@@ -29,9 +29,12 @@
 # LES FAMILLES QUI COMPTENT. Aux ordres 6, 8, 10, 12 et 16, l'existence suit
 # exactement la parité singulièrement/doublement paire : 2, 0, 2 048, 0, 0. À
 # l'ordre 14, un échantillon de 201 figures réparties sur les 2^29 candidates
-# les donne toutes réalisables. La généralisation reste CONJECTURALE. Si elle
-# tient, et comme la proportion du tiers du corpus exige en outre 6 | n, la
-# suite à indexer
+# les donne toutes réalisables — échantillon aujourd'hui périmé. La
+# généralisation n'est PLUS conjecturale : elle est démontrée dans les deux
+# sens (`parite.py` au doublement pair, `construction.py` au singulièrement
+# pair), et ce script n'en est plus qu'un contrôle indépendant par solveur aux
+# ordres 6, 8 et 10. Comme la proportion du tiers du corpus exige en outre
+# 6 | n, la suite à indexer
 # n'est donc pas celle de tous les ordres pairs — elle serait criblée de zéros
 # et de termes non tranchés — mais celle du singulièrement pair, n = 6, 10, 14,
 # 18, 22, 26, 30, et à l'intérieur celle des multiples impairs de 6, n = 6, 18,

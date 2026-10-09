@@ -1,0 +1,79 @@
+$ python3 tools/construction.py --existence
+le corollaire d'existence : un étiquetage magique à tout ordre pair n ≥ 4
+
+  ordre   2 : impossible — 0 étiquetage magique parmi les 256 de l'ordre 2, et 0 carré 2×2 normal à lignes et colonnes égales parmi les 24 (preuve : b = c) : True
+  ordre   4 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre   6 : croix ansée canonique, magique et conforme : True
+  ordre   8 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  10 : croix ansée canonique, magique et conforme : True
+  ordre  12 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  14 : croix ansée canonique, magique et conforme : True
+  ordre  16 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  18 : croix ansée canonique, magique et conforme : True
+  ordre  20 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  22 : croix ansée canonique, magique et conforme : True
+  ordre  24 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  26 : croix ansée canonique, magique et conforme : True
+  ordre  28 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  30 : croix ansée canonique, magique et conforme : True
+  ordre  32 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  34 : croix ansée canonique, magique et conforme : True
+  ordre  36 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  38 : croix ansée canonique, magique et conforme : True
+  ordre  40 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  42 : croix ansée canonique, magique et conforme : True
+  ordre  44 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  46 : croix ansée canonique, magique et conforme : True
+  ordre  48 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+  ordre  50 : croix ansée canonique, magique et conforme : True
+  ordre  52 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)
+
+les deux branches couvrent tous les ordres pairs n ≥ 4 ; l'ordre 2 est
+le seul ordre pair impossible.
+[code 0, 2 s]
+
+$ python3 tools/construction.py --ordres 2,4,6,8,10,14,18,22,26,30,34,38,42,46,50
+la figure canonique — V si c ≡ r+1 (mod m), H ailleurs
+
+  ordre   2 : m = 1 < 3, hors théorème — aucune orbite hors diagonale, donc 0 trait par ligne, et II veut un nombre impair : il échoue, donc aucune croix ansée. L'absence d'étiquetage MAGIQUE à l'ordre 2 est une autre affaire, et se voit sur le carré 2×2 : voir --existence
+  ordre   4 : m = 2 pair, aucune croix ansée (théorème)
+  ordre   6 (m =  3) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBBJBR
+  ordre   8 : m = 4 pair, aucune croix ansée (théorème)
+  ordre  10 (m =  5) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRVVVBR
+  ordre  14 (m =  7) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRVVVVVBR
+  ordre  18 (m =  9) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRVVVVVVVBR
+  ordre  22 (m = 11) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRVVVVVVVVVBR
+  ordre  26 (m = 13) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRVVVVVVVVVVVBR
+  ordre  30 (m = 15) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRVVVVVVVVVVVVVBR
+  ordre  34 (m = 17) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVBR
+  ordre  38 (m = 19) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVVVBR
+  ordre  42 (m = 21) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVVVVVBR
+  ordre  46 (m = 23) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVVVVVVVBR
+  ordre  50 (m = 25) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVVVVVVVVVBR
+
+une croix ansée magique à tout ordre singulièrement pair, sans solveur
+et sans résoudre le système GF(2).
+[code 0, 1 s]
+
+$ python3 tools/construction.py --toutes
+TOUTES les figures candidates, construites une à une
+
+  ordre   6 (m = 3) : 2 figures candidates (formule 2^(3²−3·3+1) = 2) ; construites et magiques : 2
+  ordre  10 (m = 5) : 2048 figures candidates (formule 2^(5²−3·5+1) = 2048) ; construites et magiques : 2048
+
+à l'ordre 10, les 2 048 sur 2 048 sont ainsi retrouvées sans solveur,
+par construction et non par recherche.
+[code 0, 29 s]
+
+$ python3 tools/construction.py --echantillon 20 --ordres 6,10,14,18,22,26,30
+20 figures tirées au hasard par ordre, graine fixée
+
+  ordre   6 (m =  3) : 20/20 construites et magiques
+  ordre  10 (m =  5) : 20/20 construites et magiques
+  ordre  14 (m =  7) : 20/20 construites et magiques
+  ordre  18 (m =  9) : 20/20 construites et magiques
+  ordre  22 (m = 11) : 20/20 construites et magiques
+  ordre  26 (m = 13) : 20/20 construites et magiques
+  ordre  30 (m = 15) : 20/20 construites et magiques
+[code 0, 6 s]
+

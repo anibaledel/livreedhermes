@@ -1,3 +1,11 @@
+Sortie brute de :
+
+  python tools/congruences.py --ordres 8 --balayage
+
+Cette commande demande ortools.
+
+======================================================================
+
 ordre 8 — balayage de tous les modules de 2 à n² = 64
   mod    2 : OPTIMAL
   mod    3 : OPTIMAL

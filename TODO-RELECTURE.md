@@ -961,6 +961,57 @@ traduites seulement, par la table des 64 adresses de la langue (`scripts/hexagra
 générateurs de pages hexagrammes) et échoue si une de ces pages manque. La page française ne change pas. Rien à relire
 côté texte. S'applique aux trois langues du tirage : en/yi-king-draw, es/tirada-del-yi-king, th/yi-king-draw — ce qui règle
 le point « en savoir plus » laissé ouvert dans la section du tirage en espagnol et en thaï.
+## Dépôt 15.34 : théorème positif, classification, recollement (2026-10-09)
+
+Deux scripts neufs versés tels quels (`construction.py`, `recollement.py`) ; dix scripts
+repris tels quels (`compte_croix`, `croix_existence`, `miroirs_graine`, `portee_miroirs`,
+`reseau`, `parite`, `temoins`, `exhaustif6`, `verifie_portee`, `verifie_temoins`) ;
+changements de texte de `pavage_miroirs.py` et `protocole_general.py` reportés sur les
+versions du dépôt (sorties identiques à celles d'Anibal). `data/temoins.json` (34 témoins)
+et `data/*.txt` versés, `DEPOT.md`, `README.md` et `requirements.txt` copiés dans
+`docs/sources/2026-10-09/depot-15.34/`. Le papier (rev194) reste hors du dépôt. De moi, à
+relire :
+
+- **ÉCART 284 → 286.** Avec les 34 témoins du dépôt, `verifie_portee.py` teste **286**
+  graines et en écarte **4** (le témoin 33 du script, d'ordre 20, `existence_doublement_paire`,
+  est invariant par les deux miroirs). `DEPOT.md` (sections 2 et 6) et le journal
+  `data/portee-assertion.txt` du dépôt disent **284** et **3** : ils ont été produits avant
+  l'ajout des témoins 31 à 33. Rien n'est corrigé : l'énoncé cité garde 284, la ligne
+  relue en CI dit 286 (`portee-necessite-non-invariantes`, valeurs `graines` et
+  `graines_selon_l_enonce`). À Anibal de relancer son journal et d'ajuster le texte.
+- **Numérotation des témoins** : `verifie_portee.py` compte depuis 0, `DEPOT.md` depuis 1 —
+  le « témoin 34 (ordre 20) » de `DEPOT.md` est le « témoin 33 » de la sortie.
+- **Sept entrées nouvelles** dans `data/resultats-etablis.json` :
+  `existence-tout-ordre-pair` (CI), `croix-ansee-theoreme-positif`, `table-locale-139-orbites`,
+  `centre-du-quotient`, `paires-sans-obstruction-locale` (journal),
+  `recollement-8192-ordre-6`, `miroirs-ensembles-ordre-12` (CI) ; plus
+  `recollement-ordre-10` (journal local, deux ordres de recollement).
+  `check_sorties_ci.mjs` ne relit que la **première** commande d'un script dans le workflow :
+  les lignes de `construction.py --ordres/--toutes/--echantillon` et de
+  `recollement.py --table/--construit/--geometrie` sont donc prouvées par journal, la CI
+  ne vérifiant que leur code de retour.
+- **Journaux périmés** (scripts changés) : `regle-miroirs-portee`, `croix-ansee-absente-16`,
+  `croix-comptes-exacts`, `paire0-ordres-4-26` relancés, mêmes lignes ; les anciens journaux
+  dans `preuves_anterieures`.
+- **`temoins-29-sans-solveur`** : 34 témoins, ligne « les 34 témoins passent. ».
+- **`pavage-miroirs-ordre-6m`** : la sortie de `pavage_miroirs.py --exhaustif` restreint sa
+  conclusion à l'ordre 18 (« pour les deux graines contrôlées — exhaustif sur l’espace des
+  motifs, non sur celui des graines ») ; ligne citée mise à jour, l'ancienne preuve dans
+  `preuves_anterieures`.
+- **`etiquetage-ordre-2-absent`** : `statut_depot` « 4. obtenu par solveur » (contrôle
+  historique, redondant) ; l'absence démontrée est portée par `existence-tout-ordre-pair`.
+- **CI** : huit commandes de plus dans `check-etiquetages.yml` (`construction.py` ×4,
+  `recollement.py` ×4, ~40 s en tout). Hors CI : `--apports` et `--par-colonne` (~95 s
+  chacun, journal `table-locale-depot-15.34.log`), l'ordre 10.
+- **Contrôle `check_resultats_etablis.mjs`** : il retirait le « balisage » des copies
+  `.md` comme des pages HTML ; dans `DEPOT.md`, `m² < n(n−1)` … `>` effaçait tout le texte
+  intermédiaire et aucun énoncé de la section 1 ne se relisait. Le balisage n'est
+  désormais retiré que des copies HTML.
+- **Durées ici** : `exhaustif6` 17 s (26–27 s annoncées), `construction --toutes` 29 s,
+  `croix_existence --ordres 16` 296 s, `compte_croix --ordre 10` 79 s. Ordre 10 du
+  recollement : 257 s et 251 s, même entier 583 454 127 292 416 par les deux ordres ; mémoire
+  de pointe (`ru_maxrss`) environ 0,1 Go, contre « 5 Go » annoncés (le journal d'Anibal
+  lance `--profils` en plus) — écart de mesure à signaler, pas de résultat.
 
 ## Pages « Carrés magiques d'ordre pair » et « Carré magique d'ordre 6 » (FR, EN) (2026-10-09)
 

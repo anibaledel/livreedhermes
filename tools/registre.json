@@ -1057,6 +1057,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/construction.py",
+   "role": "toute figure candidate est réalisable à m impair.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [
+    "tools/verifie_temoins.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/correspondance_motifs.mjs",
    "role": "Le nom d'image d'un motif et l'adresse de sa page, écrits côte à côte (data/motifs-correspondance.json).",
    "lit": [
@@ -1791,7 +1805,7 @@
   },
   {
    "fichier": "tools/parite.py",
-   "role": "pourquoi la parité de n/2 décide.",
+   "role": "pourquoi n/2 doit être impair.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -1955,6 +1969,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/recollement.py",
+   "role": "le problème global comme somme nulle de m objets locaux.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/registre.mjs",
    "role": "L'écriture du registre des collections (data/fonds/collections-pinterest.json), en UN SEUL endroit : indentation d'un espace, et une épingle de la campagne par ligne.",
    "lit": [],
@@ -2042,7 +2068,9 @@
     "check-etiquetages.yml"
    ],
    "utilise_par": [
-    "tools/parite.py"
+    "tools/construction.py",
+    "tools/parite.py",
+    "tools/recollement.py"
    ],
    "etat": "actif",
    "sait_echouer": false
