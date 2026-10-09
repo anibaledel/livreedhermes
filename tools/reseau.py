@@ -12,7 +12,12 @@
 #
 # est nul — mais ce n'est PAS la magicité : les colonnes restent à contrôler, et
 # un témoin d'ordre 6 a δ = 0 avec des colonnes à 101 et 121. δ = 0 est
-# nécessaire, et son impossibilité suffit donc à conclure. L'obstruction se dit : 0 ∈ 𝒟_6, 0 ∉ 𝒟_8, 0 ∈ 𝒟_10. La borne
+# nécessaire, et son impossibilité suffit donc à conclure. L'obstruction se dit : 0 ∈ 𝒟_6, 0 ∉ 𝒟_8, 0 ∈ 𝒟_10 — trois cas
+# particuliers de la classification générale, aujourd'hui démontrée dans les
+# deux sens (`parite.py` et `construction.py`) : POUR n ≥ 6, 0 ∈ 𝒟_n si et
+# seulement si n/2 est impair. La borne n ≥ 6 compte : à n = 2, n/2 = 1 est
+# impair et pourtant 0 ∉ 𝒟_2 — `--ordres 2 --fenetre 0` rend zéro vecteur,
+# puisque aucun étiquetage d'ordre 2 ne satisfait déjà bijection + I + II + III. La borne
 # démontrée décrit l'enveloppe de 𝒟_n ; elle ne dit rien de ses trous. On
 # calcule ici 𝒟_n tout entier, sans solveur.
 #

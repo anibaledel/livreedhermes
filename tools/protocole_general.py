@@ -154,8 +154,10 @@ def main():
         print('\n' + '\n'.join(echecs), file=sys.stderr)
         sys.exit(1)
     print('\nQuatre classes, et un ordre pair : c’est tout ce que le protocole\n'
-          'demande pour s’écrire. Qu’un étiquetage magique existe à tout ordre\n'
-          'pair reste ouvert.')
+          'demande pour s’écrire. Et un étiquetage magique existe à TOUT ordre\n'
+          'pair n ≥ 4 : le motif classique B/R aux ordres doublement pairs, la\n'
+          'croix ansée canonique aux ordres singulièrement pairs. L’ordre 2 est\n'
+          'le seul ordre pair impossible. Voir construction.py --existence.')
 
 
 if __name__ == '__main__':

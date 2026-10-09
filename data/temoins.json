@@ -760,6 +760,70 @@
     "JBBRRBBJ"
    ],
    "enonce": "une graine invariante par les deux miroirs existe aussi à l'ordre 8, donc restreindre la règle aux « ordres ≥ 6 » serait faux : c'est l'invariance qui la borne, pas l'ordre. Il en existe aussi aux ordres 12 et 16, et aucune aux ordres 6, 10 et 14"
+  },
+  {
+   "ordre": 6,
+   "genre": "construction_canonique",
+   "magique": true,
+   "etiquetage": [
+    "RBBJBR",
+    "BRBBRJ",
+    "BBRRJB",
+    "VBRRJV",
+    "BRVVRJ",
+    "RVBJVR"
+   ],
+   "enonce": "la figure canonique — V si c ≡ r+1 (mod m), H ailleurs — réalisée par la recette de `construction.py` à l'ordre 6 : obtenue sans solveur et sans résoudre le système GF(2), elle témoigne du théorème positif (toute figure candidate est réalisable dès que m = n/2 est impair, m ≥ 3)"
+  },
+  {
+   "ordre": 14,
+   "genre": "construction_canonique",
+   "magique": true,
+   "etiquetage": [
+    "RBRRRRRVVVVVBR",
+    "RRBRRRRVVVVBRV",
+    "RRRBBBBJJJBRVV",
+    "BRRRBBBJJBRVVJ",
+    "BBBBRBBJBRJJJJ",
+    "BBBBBRBBRJJJJJ",
+    "BBBBBBRRJJJJJB",
+    "VBBBBBRRJJJJJV",
+    "BBBBBRVVRJJJJJ",
+    "BBBBRVBJVRJJJJ",
+    "BRRRVBBJJVRVVJ",
+    "RRRVBBBJJJVRVV",
+    "RRVRRRRVVVVVRV",
+    "RVRRRRRVVVVVVR"
+   ],
+   "enonce": "la figure canonique — V si c ≡ r+1 (mod m), H ailleurs — réalisée par la recette de `construction.py` à l'ordre 14 : obtenue sans solveur et sans résoudre le système GF(2), elle témoigne du théorème positif (toute figure candidate est réalisable dès que m = n/2 est impair, m ≥ 3)"
+  },
+  {
+   "ordre": 20,
+   "genre": "existence_doublement_paire",
+   "magique": true,
+   "etiquetage": [
+    "BRRBBRRBBRRBBRRBBRRB",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "BRRBBRRBBRRBBRRBBRRB",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "RBBRRBBRRBBRRBBRRBBR",
+    "BRRBBRRBBRRBBRRBBRRB"
+   ],
+   "enonce": "le motif classique à deux classes B/R à l'ordre 20, écrit dans le protocole : magique, mais ne vérifiant pas la condition I, donc sans croix ansée — le théorème négatif l'interdit à tout ordre doublement pair. C'est la branche n ≡ 0 (mod 4) du corollaire d'existence complète, et le témoin que les deux questions — étiquetage magique, croix ansée — sont distinctes"
   }
  ]
 }

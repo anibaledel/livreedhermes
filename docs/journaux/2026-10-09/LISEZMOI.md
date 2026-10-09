@@ -20,3 +20,33 @@ et `docs/journaux/2026-10-08/reseau.log` (comptes `--paire0` sans multiplicités
 en place : ils sont la sortie des versions précédentes.
 
 Machine : conteneur de session Claude Code, Intel Xeon @ 2,80 GHz, 4 processeurs.
+
+## Dépôt 15.34 (même jour)
+
+Les journaux suffixés `-depot-15.34.log` sont la sortie des scripts du dépôt 15.34
+d'Anibal ; ceux d'avant restent en place, ils sont la sortie des versions précédentes.
+Chaque journal porte ses commandes (`$ …`) et, après chacune, son code de retour et sa
+durée.
+
+| journal | commandes |
+|---|---|
+| `construction-depot-15.34.log` | `construction.py --existence`, `--ordres 2,4,6,8,10,14,…,50`, `--toutes`, `--echantillon 20 --ordres 6,10,…,30` |
+| `recollement-depot-15.34.log` | `recollement.py --ordres 4,6,8 --profils`, `--inverse --profils`, `--ordres 6 --ordre-paires 1,0,2 --profils`, `--ordres 8 --ordre-paires 1,0,2,3 --profils` |
+| `recollement10-depot-15.34.log` | `recollement.py --ordres 10`, puis `--ordres 10 --ordre-paires 1,0,2,3,4` ; la mémoire est le `ru_maxrss` du processus |
+| `table-locale-depot-15.34.log` | `recollement.py --table`, `--apports`, `--par-colonne`, `--construit`, `--geometrie` |
+| `exhaustif6-depot-15.34.log`, `verifie_portee-…`, `verifie_temoins-…`, `identite-…`, `parite-…` | sans argument (`parite.py --ordres 4,6,8,10`) |
+| `reseau-depot-15.34.log` | `reseau.py --ordres 4,…,26 --paire0` |
+| `reseau-fenetre-depot-15.34.log` | `reseau.py --ordres 8,12,16,20 --fenetre 0` |
+| `compte_etiquetages-depot-15.34.log` | `compte_etiquetages.py --ordre 2` |
+| `portee_miroirs-depot-15.34.log` | `portee_miroirs.py` (cache `tools/pavables6.json` présent) |
+| `compte_croix-depot-15.34.log` | `compte_croix.py --ordre 6`, `8`, `8 --sans-pretest`, `10`, `12`, `14 --depart 400000000 --combien 10` |
+| `croix_existence-depot-15.34.log` | `croix_existence.py`, puis `--ordres 16 --limite 3600` |
+
+Les sorties concordent avec les journaux d'Anibal (`data/construction.txt`,
+`data/recollement.txt`, `data/table-locale.txt`, `data/exhaustif-18432x256.txt`,
+`data/paire0.txt`, `data/parite-controle.txt`), sauf `verifie_portee` : 286 graines et 4
+hors portée ici, 284 et 3 dans `data/portee-assertion.txt`, journal d'Anibal antérieur à
+ses témoins 31 à 33 (voir `TODO-RELECTURE.md`).
+
+Machine : conteneur de session Claude Code, Intel Xeon @ 2,80 GHz, 4 processeurs, Python 3.11,
+ortools 9.15.6755.

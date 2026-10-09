@@ -96,10 +96,13 @@ for (const d of json('data/zenodo/depots.json').depots) {
 
 // Le texte seul, pour comparer un énoncé à sa copie : balisage retiré (un mot en
 // gras ou en italique reste le même mot), entités décodées, espaces réduits. Le
-// contrôle ne doit pas dicter la typographie du texte qu'il relit.
+// contrôle ne doit pas dicter la typographie du texte qu'il relit. Le balisage
+// n'est retiré que d'une copie HTML : dans un .md, « < » est un signe (m² < n(n−1)),
+// et le retirer jusqu'au « > » suivant effacerait le texte à relire.
 const ENTITES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
-function texteSeul(s) {
-  return s.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]*>/g, '')
+function texteSeul(s, html = true) {
+  if (html) s = s.replace(/<(script|style)\b[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]*>/g, '');
+  return s
     .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, n) => n[0] === '#'
       ? String.fromCodePoint(n[1].toLowerCase() === 'x' ? parseInt(n.slice(2), 16) : parseInt(n.slice(1), 10))
       : ENTITES[n.toLowerCase()] ?? m)
@@ -119,7 +122,7 @@ function controler(doc) {
     if (!e.texte && !e.sans_source) ecarts.push(`${ici} : énoncé vide sans la mention SANS SOURCE`);
     if (e.texte && e.copie) {
       if (!existe(e.copie)) ecarts.push(`${ici} : copie de l'énoncé introuvable (${e.copie})`);
-      else if (!texteSeul(lire(e.copie).toString('utf8')).includes(texteSeul(e.texte))) ecarts.push(`${ici} : l'énoncé n'est pas, à la lettre, dans ${e.copie}`);
+      else if (!texteSeul(lire(e.copie).toString('utf8'), /\.html?$/i.test(e.copie)).includes(texteSeul(e.texte, /\.html?$/i.test(e.copie)))) ecarts.push(`${ici} : l'énoncé n'est pas, à la lettre, dans ${e.copie}`);
     }
     // conditionnel
     if (r.conditionnel && !(r.branches || []).length) ecarts.push(`${ici} : conditionnel sans branches`);

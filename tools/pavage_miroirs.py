@@ -15,7 +15,8 @@
 #     demi-tour de E              si i et j sont impairs
 #
 # — autrement dit : un miroir par parité, dans chaque sens. On applique ensuite
-# le protocole à l'ordre n = 6m. Le résultat est un carré magique, diagonales
+# le protocole à l'ordre n = 6m. Aux ordres testés ici, le résultat est un carré
+# magique, diagonales
 # comprises.
 #
 # VÉRIFIÉ. 256/256 aux ordres 6, 12, 18, 24 et 30 ; 12/12 sur échantillon aux
@@ -39,10 +40,12 @@
 # LA RÈGLE DES MIROIRS. Les motifs valides ne sont pas un ensemble quelconque :
 # codés dans (Z/2)^(2m²) par les deux bits de miroir de chaque bloc, ils forment
 # un SOUS-GROUPE, le même pour toutes les graines contrôlées, et une seule règle
-# le décrit aux ordres où l'énumération est praticable : exhaustivement aux
-# ordres 12 et 18, par échantillon aux ordres 24 et 30, conjecturalement
-# au-delà. Et la NÉCESSITÉ demande une graine non invariante par les miroirs —
-# voir `verifie_portee.py`. En notant h(i, j) et v(i, j) les deux bits du bloc (i, j) :
+# le décrit aux ordres où l'énumération est praticable : ordre 12, exhaustif
+# sur les graines pavables et les motifs ; ordre 18, exhaustif sur les motifs
+# de deux graines ; échantillon aux ordres 24 et 30 ; conjecture au-delà.
+# L'assertion de nécessité testée dans `verifie_portee.py` est restreinte aux
+# graines non invariantes par les miroirs : l'invariance peut fournir des
+# contre-exemples, sans caractériser tous les cas d'échec. En notant h(i, j) et v(i, j) les deux bits du bloc (i, j) :
 #
 #     le pavage est magique  <=>  h(i, j) = h(m−1−i, j)  et  v(i, j) = v(i, m−1−j)
 #
@@ -55,8 +58,12 @@
 #
 #     2^(2m·ceil(m/2))  motifs conformes à la règle à l'ordre 6m
 #
-# « conformes » et non « valides » : l'égalité des deux ensembles est établie
-# exhaustivement aux ordres 12 et 18 seulement.
+# Ce décompte est DÉMONTRÉ, à tout m : la contrainte sur h identifie i à m−1−i,
+# donc ceil(m/2) orbites de lignes par colonne, soit m·ceil(m/2) bits libres ;
+# autant pour v. « conformes » et non « valides » parce que l'égalité des deux
+# ensembles, elle, relève du calcul : ordre 12, exhaustif sur les graines
+# pavables et les motifs ; ordre 18, exhaustif sur les motifs de deux graines ;
+# échantillon aux ordres 24 et 30 ; conjecture au-delà.
 #
 #     ordre 12 : 2⁴ = 16        sur 4⁴ = 256
 #     ordre 18 : 2¹² = 4096     sur 4⁹ = 262144
@@ -72,8 +79,11 @@
 # Usage : cd <racine du dépôt> && python tools/pavage_miroirs.py [--jusqua M]
 #         --echantillons   ajoute les deux tirages aléatoires (environ 70 s)
 #         --exhaustif      énumère les 262 144 motifs de l'ordre 18 sur deux
-#                          graines : la règle y devient démontrée et non
-#                          échantillonnée (environ 2 minutes)
+#                          graines : la règle y devient VÉRIFIÉE EXHAUSTIVEMENT
+#                          dans l'espace des motifs pour ces deux graines, et
+#                          non plus échantillonnée — « démontré » est réservé
+#                          dans ce dépôt à une preuve analytique
+#                          (environ 2 minutes)
 
 
 import sys, itertools, random, collections
@@ -315,7 +325,7 @@ def exhaustif_ordre18(bases, graines=2):
               f'conformes à la règle{memes}')
         if len(bons) != 4096 or par_regle != bons or (g and bons != ref):
             echecs.append(f'l’énumération de l’ordre 18 contredit la règle (graine {g})')
-    print('  la règle est donc nécessaire et suffisante à l’ordre 18, sans échantillon')
+    print('  la règle est donc nécessaire et suffisante à l’ordre 18 pour les deux graines contrôlées — exhaustif sur l’espace des motifs, non sur celui des graines')
 
 
 def sous_groupe(bases):
@@ -473,7 +483,7 @@ def main():
     if echecs:
         print('\n' + '\n'.join(echecs), file=sys.stderr)
         sys.exit(1)
-    print('\nUn carré d’ordre 6, un pavage par miroirs alternés, et l’ordre 6m suit.')
+    print('\nUn carré d’ordre 6, un pavage par miroirs alternés, et les ordres 6m testés ici suivent.')
 
 
 if __name__ == '__main__':

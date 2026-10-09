@@ -1,0 +1,19 @@
+$ python3 tools/reseau.py --ordres 8,12,16,20 --fenetre 0
+=== ordre 8 ===  (fenêtre |δ_r| ≤ 0)
+
+ordre 8 : 0 vecteurs d'écarts avec |δ_r| ≤ 0 pour tout r
+  aucun étiquetage ne satisfait bijection + I + II + III dans cette fenêtre.
+=== ordre 12 ===  (fenêtre |δ_r| ≤ 0)
+
+ordre 12 : 0 vecteurs d'écarts avec |δ_r| ≤ 0 pour tout r
+  aucun étiquetage ne satisfait bijection + I + II + III dans cette fenêtre.
+=== ordre 16 ===  (fenêtre |δ_r| ≤ 0)
+
+ordre 16 : 0 vecteurs d'écarts avec |δ_r| ≤ 0 pour tout r
+  aucun étiquetage ne satisfait bijection + I + II + III dans cette fenêtre.
+=== ordre 20 ===  (fenêtre |δ_r| ≤ 0)
+
+ordre 20 : 0 vecteurs d'écarts avec |δ_r| ≤ 0 pour tout r
+  aucun étiquetage ne satisfait bijection + I + II + III dans cette fenêtre.
+[code 0, 2 s]
+

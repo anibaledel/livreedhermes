@@ -1,0 +1,43 @@
+$ python3 tools/verifie_temoins.py
+34 témoins lus dans /home/user/livreedhermes/data/temoins.json
+contrôle sans solveur, bibliothèque standard seule
+
+  [OK ] independance           ordre   6 : équilibrage tenu, bijection violée : 13 valeurs répétées
+  [OK ] graine                 ordre   4 : magique, constante 34
+  [OK ] graine                 ordre   6 : magique, constante 111
+  [OK ] croix_ansee            ordre   6 : condition I, traits par ligne [1], par colonne [1]
+  [OK ] graine                 ordre  10 : magique, constante 505
+  [OK ] croix_ansee            ordre  10 : condition I, traits par ligne [1, 3], par colonne [1, 3]
+  [OK ] ligne_non_necessaire   ordre  10 : ligne 4 : 6 cases B ou V au lieu de 5 ; |d·u| = 1 ≤ 4, conforme à l’inégalité
+  [OK ] parite_non_impliquee   ordre  10 : condition I tenue, et la ligne 4 porte 2 traits, un nombre pair
+  [OK ] profil_symetrique      ordre  10 : profil (B, R, V, J) = [26, 26, 24, 24], somme 100 = n²
+  [OK ] graine                 ordre  14 : magique, constante 1379
+  [OK ] croix_ansee            ordre  14 : condition I, traits par ligne [1, 3, 5], par colonne [1, 3, 5]
+  [OK ] ligne_non_necessaire   ordre  14 : ligne 6 : 8 cases B ou V au lieu de 7 ; |d·u| = 1 ≤ 6, conforme à l’inégalité
+  [OK ] parite_non_impliquee   ordre  14 : condition I tenue, et la ligne 6 porte 4 traits, un nombre pair
+  [OK ] profil_symetrique      ordre  14 : profil (B, R, V, J) = [50, 50, 48, 48], somme 196 = n²
+  [OK ] graine                 ordre  18 : magique, constante 2925
+  [OK ] croix_ansee            ordre  18 : condition I, traits par ligne [1, 3, 5, 7], par colonne [3, 5]
+  [OK ] ligne_non_necessaire   ordre  18 : ligne 8 : 10 cases B ou V au lieu de 9 ; |d·u| = 1 ≤ 8, conforme à l’inégalité
+  [OK ] parite_non_impliquee   ordre  18 : condition I tenue, et la ligne 8 porte 6 traits, un nombre pair
+  [OK ] profil_symetrique      ordre  18 : profil (B, R, V, J) = [84, 84, 78, 78], somme 324 = n²
+  [OK ] graine                 ordre  22 : magique, constante 5335
+  [OK ] croix_ansee            ordre  22 : condition I, traits par ligne [3, 5, 7, 9], par colonne [3, 5, 7, 9]
+  [OK ] ligne_non_necessaire   ordre  22 : ligne 10 : 12 cases B ou V au lieu de 11 ; |d·u| = 1 ≤ 10, conforme à l’inégalité
+  [OK ] parite_non_impliquee   ordre  22 : condition I tenue, et la ligne 10 porte 4 traits, un nombre pair
+  [OK ] profil_symetrique      ordre  22 : profil (B, R, V, J) = [124, 124, 118, 118], somme 484 = n²
+  [OK ] graine                 ordre  26 : magique, constante 8801
+  [OK ] croix_ansee            ordre  26 : condition I, traits par ligne [3, 5, 7, 9], par colonne [3, 5, 7, 9, 11]
+  [OK ] ligne_non_necessaire   ordre  26 : ligne 12 : 14 cases B ou V au lieu de 13 ; |d·u| = 1 ≤ 12, conforme à l’inégalité
+  [OK ] parite_non_impliquee   ordre  26 : condition I tenue, et la ligne 12 porte 6 traits, un nombre pair
+  [OK ] lignes_sans_colonnes   ordre   6 : δ = 0 et γ = [-10, 0, 0, 0, 0, 10] : les lignes sont magiques, les colonnes non
+  [OK ] miroirs_hors_portee    ordre   4 : magique et invariante par les deux miroirs : le bit de miroir correspondant ne change pas le bloc, donc la nécessité de la règle ne s’y applique pas
+  [OK ] miroirs_hors_portee    ordre   8 : magique et invariante par les deux miroirs : le bit de miroir correspondant ne change pas le bloc, donc la nécessité de la règle ne s’y applique pas
+  [OK ] construction_canonique ordre   6 : magique, condition I, traits par ligne [1], par colonne [1], et reproduit à l’identique par `construction.py`
+  [OK ] construction_canonique ordre  14 : magique, condition I, traits par ligne [5], par colonne [1], et reproduit à l’identique par `construction.py`
+  [OK ] existence_doublement_paire ordre  20 : magique, deux classes seulement, et la condition I N’est PAS vérifiée : il ne porte aucune croix ansée, comme le théorème négatif l’exige à cet ordre
+
+les 34 témoins passent.
+Rappel : l’impossibilité de l’ordre 2 n’est pas portée par le fichier de témoins — une absence ne se verse pas comme objet. Elle est démontrée analytiquement et contrôlée exhaustivement, sans solveur, par construction.py --existence et compte_etiquetages.py --ordre 2. Les verdicts CP-SAT figure par figure de l’ordre 8 ne sont pas certifiés un à un, mais leur conclusion globale — aucune des 32 n’est réalisable — suit du théorème doublement pair.
+[code 0, 0 s]
+

@@ -1,0 +1,16 @@
+$ python3 tools/recollement.py --ordres 10
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 10 (m = 5) ===
+  recollements complets (lignes ET colonnes magiques, II et III) : 583454127292416
+
+[code 0, 257 s, mémoire max 0.1 Go]
+
+$ python3 tools/recollement.py --ordres 10 --ordre-paires 1,0,2,3,4
+le recollement : m objets locaux d'écart nul, de somme nulle sur les colonnes
+
+=== ordre 10 (m = 5) ===
+  recollements complets (lignes ET colonnes magiques, II et III) : 583454127292416
+
+[code 0, 251 s, mémoire max 0.1 Go]
+

@@ -1,9 +1,4 @@
-Sortie brute de :
-
-  python tools/reseau.py --ordres 4,6,8,10,12,14,16,18,20,22,24,26 --paire0
-
-======================================================================
-
+$ python3 tools/reseau.py --ordres 4,6,8,10,12,14,16,18,20,22,24,26 --paire0
 la PREMIÈRE paire de lignes, seule : combien de configurations annulent son écart ?
 
   ordre   4 (n/2 =  2, pair  ) :        0 configurations,      4 écarts atteignables — ÉCART NUL IMPOSSIBLE
@@ -18,3 +13,5 @@ la PREMIÈRE paire de lignes, seule : combien de configurations annulent son éc
   ordre  22 (n/2 = 11, impair) : 62458544128 configurations,   1551 écarts atteignables — écart nul possible
   ordre  24 (n/2 = 12, pair  ) :        0 configurations,   2036 écarts atteignables — ÉCART NUL IMPOSSIBLE
   ordre  26 (n/2 = 13, impair) : 10055603453952 configurations,   2613 écarts atteignables — écart nul possible
+[code 0, 38 s]
+

@@ -10,15 +10,18 @@
 # tranche ce qui peut passer en assertion, et sort en code 1 sinon. Python nu,
 # aucun solveur : il relit des graines versées au dépôt.
 #
-# CE QUI EST ASSERTÉ. La seule NÉCESSITÉ — magique ⇒ conforme — et seulement
-# pour une graine NON INVARIANTE par les miroirs.
+# CE QUI EST ASSERTÉ, ET RIEN DE PLUS. La seule NÉCESSITÉ — magique ⇒ conforme
+# —, pour une graine NON INVARIANTE par les miroirs, et dans le seul pavage
+# 2 × 2 : les 256 motifs testés ici sont les quatre blocs d'un pavage à deux
+# copies dans chaque direction. Rien n'est établi pour m > 2.
 #
-# POURQUOI CETTE PORTÉE, ET PAS « AUX ORDRES ≥ 6 ». Si la graine est invariante
+# POURQUOI ÉCARTER LES GRAINES INVARIANTES. Si la graine est invariante
 # par le miroir gauche-droite, le bit h du bloc ne change rien à ce bloc : deux
 # motifs qui ne diffèrent que par ce bit pavent le même carré. La règle
-# distingue alors des motifs que le pavage ne distingue pas, et l'ensemble des
-# motifs magiques devient strictement plus gros que celui des motifs conformes.
-# La nécessité tombe, et la cause est l'invariance, pas l'ordre.
+# distingue alors des motifs que le pavage ne distingue pas. Plus précisément :
+# si une telle graine possède un motif magique conforme, retourner le bit
+# redondant laisse le pavage inchangé et produit un motif magique NON conforme.
+# L'invariance peut donc faire tomber la nécessité.
 #
 # Le témoin est la graine d'ordre 4
 #
@@ -27,12 +30,21 @@
 # invariante par les DEUX miroirs : ses 256 motifs pavent magiquement, alors
 # que 16 seulement sont conformes.
 #
-# ET « AUX ORDRES ≥ 6 » EST FAUX. Des étiquetages magiques invariants par les
-# miroirs existent aussi aux ordres 8, 12 et 16 — CP-SAT en produit —, et aucun
-# aux ordres 6, 10 et 14. Aucun des 18 432 étiquetages magiques d'ordre 6 n'est
-# invariant, ce que ce script revérifie : c'est pour cela que la nécessité tient
-# sur tout le corpus, et non parce que l'ordre y serait ≥ 6. La formulation par
-# l'ordre serait vraie sur l'échantillon et fausse comme énoncé.
+# L'INVARIANCE NE CARACTÉRISE RIEN. Une graine invariante qui n'aurait aucun
+# pavage magique satisferait l'implication trivialement. L'invariance fournit
+# des contre-exemples ; elle ne décrit pas tous les cas d'échec.
+#
+# ET « AUX ORDRES ≥ 6 » SERAIT FAUX. Des étiquetages magiques invariants par
+# les miroirs existent aussi aux ordres 8, 12 et 16 — CP-SAT en produit —, et
+# aucun aux ordres 6, 10 et 14 : la formulation par l'ordre serait vraie sur
+# l'échantillon et fausse comme énoncé.
+#
+# CE QUE L'ABSENCE D'INVARIANCE N'EXPLIQUE PAS. Aucun des 18 432 étiquetages
+# magiques d'ordre 6 n'est invariant, ce que ce script revérifie un par un :
+# l'obstruction d'invariance y est donc absente. Elle n'y explique pas la
+# nécessité pour autant — « non invariant ⇒ (magique ⇒ conforme) » n'est pas
+# démontré, et la nécessité sur l'ensemble des 18 432 est établie séparément
+# par `exhaustif6.py`, qui énumère les 18 432 × 256 couples.
 #
 # CE QUI N'EST PAS ASSERTÉ. La SUFFISANCE — conforme ⇒ magique — hors de
 # l'ordre 6. Elle dépend de la graine : aux ordres 10 et 14, certaines graines
@@ -89,6 +101,15 @@ def graines():
     return out
 
 
+def les_18432():
+    """Les 18 432 étiquetages magiques d'ordre 6, du cache d'enum6.py."""
+    chemin = os.path.join(ICI, 'pavables6.json')
+    if not os.path.exists(chemin):
+        return None
+    d = json.load(open(chemin, encoding='utf-8'))
+    return [g if isinstance(g, list) else list(g) for g in d['tous']]
+
+
 def main():
     echecs, exclus, testes = [], [], 0
     inv6 = 0
@@ -115,16 +136,35 @@ def main():
     print(f'\nHORS PORTÉE, écartées parce qu\'invariantes : {len(exclus)}')
     for nom, n, sens in exclus:
         print(f'  [---] {nom}, ordre {n} : invariante par {sens}')
-    print(f'\nDont graines d\'ordre 6 invariantes : {inv6} — aucune n\'existe '
-          f'parmi les 18 432, c\'est pourquoi la nécessité tient sur tout le '
-          f'corpus.')
+    # le contrôle annoncé sur les 18 432, vraiment fait
+    tous = les_18432()
+    if tous is None:
+        print('\n[!] tools/pavables6.json absent : le contrôle des 18 432 '
+              'n\'a pas pu être fait. Lancer d\'abord enum6.py.')
+        return 1
+    ih = sum(1 for g in tous if invariances(g)[0])
+    iv = sum(1 for g in tous if invariances(g)[1])
+    un = sum(1 for g in tous if any(invariances(g)))
+    print(f'\nLES {len(tous)} ÉTIQUETAGES MAGIQUES D\'ORDRE 6, un par un :')
+    print(f'  invariants par le miroir gauche-droite : {ih}')
+    print(f'  invariants par le miroir haut-bas      : {iv}')
+    print(f'  invariants par l\'un ou l\'autre         : {un}')
+    print('  l\'obstruction d\'invariance est donc absente des 18 432 \u2014 mais '
+          'elle n\'y explique pas la nécessité pour autant. La nécessité sur '
+          'l\'ensemble des 18 432 est établie séparément par `exhaustif6.py`, '
+          'qui énumère les 18 432 x 256 couples.')
+    if ih or iv:
+        print('ÉCART : un étiquetage magique d\'ordre 6 invariant existe',
+              file=sys.stderr)
+        return 1
     print('\nNON ASSERTÉ ICI : la suffisance hors de l\'ordre 6. Elle dépend '
           'de la graine.')
     if echecs:
         print('\nL\'assertion tombe.')
         return 1
-    print('\nl\'assertion tient : aucune graine non invariante ne pave '
-          'magiquement par un motif non conforme.')
+    print('\nl\'assertion tient, dans sa portée : en pavage 2 × 2, aucune des '
+          'graines non invariantes testées ne pave magiquement par un motif '
+          'non conforme. Rien n\'est établi pour m > 2.')
     return 0
 
 

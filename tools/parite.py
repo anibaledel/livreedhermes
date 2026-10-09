@@ -2,7 +2,7 @@
 # © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 # AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 #
-# parite.py — pourquoi la parité de n/2 décide. Le théorème, et son contrôle.
+# parite.py — pourquoi n/2 doit être impair. Le théorème, et son contrôle.
 #
 # LE THÉORÈME. Sous la bijection, la condition I et le critère II, l'écart de la
 # PREMIÈRE paire de lignes ne peut s'annuler que si n/2 est impair. Il n'y a
@@ -47,12 +47,12 @@
 # CE QUE CELA DONNE. La conjecture « la parité de n/2 décide de la
 # réalisabilité » est démontrée dans son sens négatif : aux ordres doublement
 # pairs, rien n'existe, et il n'y a plus d'ordre à trancher un par un. Le sens
-# positif — à tout ordre singulièrement pair, une croix ansée magique existe —
-# est démontré exhaustivement, figure par figure, aux ordres 6 et 10 seulement ;
-# vérifié sur 201 figures échantillonnées à l'ordre 14 ; et aux ordres 18, 22,
-# 26 et 30 on n'a que des témoins d'existence d'une croix ansée, ce qui n'est
-# pas la réalisation de toutes les figures candidates. L'ordre 34 n'a pas de
-# témoin de croix ansée du tout.
+# positif — à tout ordre singulièrement pair, toute figure candidate est
+# réalisable — est démontré lui aussi, par `construction.py` : la table des
+# états d'orbite sépare les lignes des colonnes, et les parités II et III
+# permettent d'annuler les deux défauts séparément. La classification est donc
+# complète à n = 2m ≥ 6 : réalisable si et seulement si m est impair, et le
+# nombre de FIGURES de croix ansée vaut 2^(m²−3m+1) à m impair, 0 sinon.
 #
 # CE QUE CELA NE DIT PAS. Que δ = 0 suffise à la magicité : les colonnes
 # restent à contrôler, et un témoin d'ordre 6 a δ = 0 avec des colonnes

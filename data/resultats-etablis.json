@@ -3,8 +3,8 @@
  "_doc": "Les résultats établis du projet : l'énoncé tel qu'il est écrit (ou SANS SOURCE), la valeur lisible par une machine, le référent (id de data/referents.json), le script qui le reproduit, et la ligne exacte qu'il imprime dans un journal déposé sur Zenodo. Lis-les plutôt que de les recalculer ; si tu les recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée). statut : verifie_journal_depose = la ligne est dans un journal déposé dont une copie, à l'empreinte déposée, est dans ce dépôt (tools/check_resultats_etablis.mjs la relit à chaque CI) ; verifie_journal_local = pas de journal déposé, mais un journal d'exécution est versé dans docs/journaux/ avec l'empreinte du script qui l'a produit ; le contrôle relit les lignes et échoue si le script a changé depuis ; verifie_ci = pas de journal déposé, mais le script du dépôt qui imprime la ligne échoue si le résultat ne tient pas, et la CI le lance à chaque passage ; releve_journal_depose = la ligne est dans un journal déposé, relevée par Anibal, mais le journal n'est pas encore dans ce dépôt ; affirme = aucune ligne imprimée dans un journal déposé. Un résultat conditionnel porte ses branches, chacune avec sa condition et ses preuves.",
  "statuts": {
   "verifie_journal_depose": 13,
-  "verifie_journal_local": 22,
-  "verifie_ci": 34,
+  "verifie_journal_local": 27,
+  "verifie_ci": 37,
   "releve_journal_depose": 0,
   "affirme": 2
  },
@@ -1763,7 +1763,7 @@
       "  ordre  18 : 512/512 (2^6 motifs × 8 graines)",
       "  graine 0 : 4096 motifs magiques, dont 4096 conformes à la règle",
       "  graine 1 : 4096 motifs magiques, dont 4096 conformes à la règle, identique à la graine 0 : True",
-      "  la règle est donc nécessaire et suffisante à l’ordre 18, sans échantillon",
+      "  la règle est donc nécessaire et suffisante à l’ordre 18 pour les deux graines contrôlées — exhaustif sur l’espace des motifs, non sur celui des graines",
       "ordre 18, 4000 motifs tirés au hasard (graine 0) : 70 magiques, dont 1 de la forme annoncée",
       "  la forme est donc suffisante, non nécessaire au-delà de l’ordre 12",
       "  ordre  6 : 369 conformes aux deux équilibrages d’effectifs sur 400000 tirages, 0 magiques",
@@ -1773,7 +1773,53 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "L'en-tête annonçait l'ordre 36 sur échantillon ; Anibal l'a corrigé (2026-10-08) : ordres 6 à 30 complets, 42, 48, 60 sur échantillon, les trois que le script teste. Section ajoutée : l'unité du pavage est le bloc de 3 × 3 de la page 034. Depuis le 2026-10-08 (envoi d'Anibal) : le sous-groupe des seize à l'ordre 12, la règle des miroirs à tout ordre (exhaustive aux ordres 12 et 18 avec --exhaustif, sur échantillon aux ordres 24 et 30), la forme « h par colonne, v par ligne » (vérifiée sur 8 graines), et, avec --echantillons (lancé en CI avec --exhaustif), les deux tirages à graine de hasard fixée. Le 2026-10-09 (dépôt 15.11), libellé « deux conditions d’effectifs » devenu « deux équilibrages d’effectifs » dans la sortie ; l'en-tête dit maintenant la validité pour tout m « à démontrer »."
+   "note": "L'en-tête annonçait l'ordre 36 sur échantillon ; Anibal l'a corrigé (2026-10-08) : ordres 6 à 30 complets, 42, 48, 60 sur échantillon, les trois que le script teste. Section ajoutée : l'unité du pavage est le bloc de 3 × 3 de la page 034. Depuis le 2026-10-08 (envoi d'Anibal) : le sous-groupe des seize à l'ordre 12, la règle des miroirs à tout ordre (exhaustive aux ordres 12 et 18 avec --exhaustif, sur échantillon aux ordres 24 et 30), la forme « h par colonne, v par ligne » (vérifiée sur 8 graines), et, avec --echantillons (lancé en CI avec --exhaustif), les deux tirages à graine de hasard fixée. Le 2026-10-09 (dépôt 15.11), libellé « deux conditions d’effectifs » devenu « deux équilibrages d’effectifs » dans la sortie ; l'en-tête dit maintenant la validité pour tout m « à démontrer ». Le 2026-10-09 (dépôt 15.34), la conclusion à l'ordre 18 est restreinte dans la sortie : « pour les deux graines contrôlées — exhaustif sur l’espace des motifs, non sur celui des graines » ; ligne citée mise à jour, l'ancienne dans preuves_anterieures.",
+   "preuves_anterieures": [
+    {
+     "ci": ".github/workflows/check-referents.yml",
+     "lignes": [
+      "ordre   6 (1 × 1 blocs) : 256/256 magiques",
+      "ordre  12 (2 × 2 blocs) : 256/256 magiques",
+      "ordre  18 (3 × 3 blocs) : 256/256 magiques",
+      "ordre  24 (4 × 4 blocs) : 256/256 magiques",
+      "ordre  30 (5 × 5 blocs) : 256/256 magiques",
+      "ordre  42 (7 × 7 blocs) : 12/12 sur échantillon",
+      "ordre  48 (8 × 8 blocs) : 12/12 sur échantillon",
+      "ordre  60 (10 × 10 blocs) : 12/12 sur échantillon",
+      "motifs de miroirs donnant un carré magique à l’ordre 12 : 16/256",
+      "  règles d’orientation par bloc valides à l’ordre 12 : 2/256  (CCCC, DDDD — tout conforme, tout demi-tour)",
+      "  CCCC — ordre  12 : 256/256",
+      "  CCCC — ordre  18 : 256/256",
+      "  CCCC — ordre  30 : 20/20",
+      "  CCCC — ordre  42 : 20/20",
+      "  DDDD — ordre  12 : 256/256",
+      "  DDDD — ordre  18 : 256/256",
+      "  DDDD — ordre  30 : 20/20",
+      "  DDDD — ordre  42 : 20/20",
+      "  ordre 30, 10 × 10 blocs de trois : chaque sous-ensemble 25 fois",
+      "  motifs valides : 16 ; identiques sur les 256 graines : 256/256",
+      "  sous-groupe de (Z/2)⁸ : True, d’ordre 16 = 2^4",
+      "  h₀=h₂, h₁=h₃, v₀=v₁, v₂=v₃ sur les seize : True ; motifs vérifiant ces équations : 16/256",
+      "  motifs donnés par la règle des miroirs : 16/256",
+      "  ordre  12 (m=2) : 2^4 = 16 motifs annoncés ; conformes magiques 16/16 ; hors règle magiques 0/190",
+      "  ordre  18 (m=3) : 2^12 = 4096 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/197",
+      "  ordre  24 (m=4) : 2^16 = 65536 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/200",
+      "  ordre  30 (m=5) : 2^30 = 1073741824 motifs annoncés ; conformes magiques 64/64 ; hors règle magiques 0/200",
+      "  ordre  12 : 128/128 (2^4 motifs × 8 graines)",
+      "  ordre  18 : 512/512 (2^6 motifs × 8 graines)",
+      "  graine 0 : 4096 motifs magiques, dont 4096 conformes à la règle",
+      "  graine 1 : 4096 motifs magiques, dont 4096 conformes à la règle, identique à la graine 0 : True",
+      "  la règle est donc nécessaire et suffisante à l’ordre 18, sans échantillon",
+      "ordre 18, 4000 motifs tirés au hasard (graine 0) : 70 magiques, dont 1 de la forme annoncée",
+      "  la forme est donc suffisante, non nécessaire au-delà de l’ordre 12",
+      "  ordre  6 : 369 conformes aux deux équilibrages d’effectifs sur 400000 tirages, 0 magiques",
+      "  ordre 10 : 0 conformes aux deux équilibrages d’effectifs sur 400000 tirages, 0 magiques",
+      "  ordre 14 : 0 conformes aux deux équilibrages d’effectifs sur 400000 tirages, 0 magiques"
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "pavage_miroirs.py du dépôt 15.34 : la phrase sur l'ordre 18 restreinte aux deux graines contrôlées"
+    }
+   ]
   },
   {
    "id": "invariants-inspir-expir",
@@ -2146,7 +2192,8 @@
     }
    ],
    "statut": "verifie_ci",
-   "note": "La CI ne relance que l'ordre 2 (graine_sat.py ne sort pas en erreur ; check_sorties_ci.mjs exige la ligne). L'existence aux autres ordres est l'entrée graines-ordres-4-a-34. L'ordre 2 est aussi à 0 par le compte exhaustif (etiquetages-magiques-comptes)."
+   "note": "La CI ne relance que l'ordre 2 (graine_sat.py ne sort pas en erreur ; check_sorties_ci.mjs exige la ligne). L'existence aux autres ordres est l'entrée graines-ordres-4-a-34. L'ordre 2 est aussi à 0 par le compte exhaustif (etiquetages-magiques-comptes). Dépôt 15.34 : contrôle CP-SAT « historique, désormais redondant » ; l'absence est démontrée (b = c sur le carré 2×2) et contrôlée sans solveur par construction.py --existence (entrée existence-tout-ordre-pair).",
+   "statut_depot": "4. obtenu par solveur"
   },
   {
    "id": "graines-ordres-4-a-34",
@@ -2230,6 +2277,27 @@
    "preuves": [
     {
      "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/portee_miroirs-depot-15.34.log",
+      "sha256": "88a12179fda16f30df4450c3ccb046e73223dc137e8bd7cf8c137d0bb725a6cc",
+      "script": "tools/portee_miroirs.py",
+      "script_sha256": "afd44aa32fe8245eb13ed2103923689b11a0abbbee005cb46253940ccd4f1b25",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "      256 graine(s) :  16 motifs magiques sur 16 conformes",
+      "      200 graine(s) :  16 motifs magiques sur 16 conformes",
+      "      200 graine(s) :   0 motifs magiques sur 16 conformes",
+      "        1 graine(s) :   8 motifs magiques sur 16 conformes",
+      "        1 graine(s) :   0 motifs magiques sur 16 conformes"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "Lancé après enum6.py (le cache pavables6.json existait). portee_miroirs.py n'a pas de code de retour : la nécessité « TENUE » et la suffisance se lisent dans le journal. Les graines d'ordres 10 et 14 sortent de CP-SAT à 8 processus ; trois relances donnent le même bilan (8/16 et 0/16), mais une autre graine pourrait en donner un autre : l'énoncé porte sur « la graine » rendue, non sur toutes. Le 2026-10-09, tools/verifie_portee.py relit les témoins de data/temoins.json : la nécessité tombe sur la graine d'ordre 4 (VJJV/BRRB/BRRB/VJJV, invariante par les deux miroirs : 256 motifs magiques sur 16 conformes) ; elle tient sur les 26 autres témoins magiques (ordres 6 à 26). Le bilan à l'ordre 10 dépend de la graine : 8/16 pour la graine, 16/16 pour la croix ansée. Journal docs/journaux/2026-10-08/verifie_portee.log (code de retour 1). Décision d'Anibal (2026-10-09, dépôt 15.14) : la nécessité vaut pour toute graine non invariante par les miroirs ; « aux ordres ≥ 6 » serait faux (graines invariantes aux ordres 8, 12, 16). Assertion : entrée portee-necessite-non-invariantes. Le 2026-10-09 (dépôt 15.34), tools/portee_miroirs.py change (en-tête et statuts) : relancé, mêmes lignes, journal docs/journaux/2026-10-09/portee_miroirs-depot-15.34.log ; l'ancien journal reste dans preuves_anterieures.",
+   "preuves_anterieures": [
+    {
+     "journal_local": {
       "fichier": "docs/journaux/2026-10-08/portee_miroirs.log",
       "sha256": "223cd19f0ce56c5728f34571ab0f590e4fe36fca3257e21f40cdeda31b71f6cb",
       "script": "tools/portee_miroirs.py",
@@ -2243,11 +2311,11 @@
       "      200 graine(s) :   0 motifs magiques sur 16 conformes",
       "        1 graine(s) :   8 motifs magiques sur 16 conformes",
       "        1 graine(s) :   0 motifs magiques sur 16 conformes"
-     ]
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "tools/portee_miroirs.py remplacé par la version du dépôt 15.34"
     }
-   ],
-   "statut": "verifie_journal_local",
-   "note": "Lancé après enum6.py (le cache pavables6.json existait). portee_miroirs.py n'a pas de code de retour : la nécessité « TENUE » et la suffisance se lisent dans le journal. Les graines d'ordres 10 et 14 sortent de CP-SAT à 8 processus ; trois relances donnent le même bilan (8/16 et 0/16), mais une autre graine pourrait en donner un autre : l'énoncé porte sur « la graine » rendue, non sur toutes. Le 2026-10-09, tools/verifie_portee.py relit les témoins de data/temoins.json : la nécessité tombe sur la graine d'ordre 4 (VJJV/BRRB/BRRB/VJJV, invariante par les deux miroirs : 256 motifs magiques sur 16 conformes) ; elle tient sur les 26 autres témoins magiques (ordres 6 à 26). Le bilan à l'ordre 10 dépend de la graine : 8/16 pour la graine, 16/16 pour la croix ansée. Journal docs/journaux/2026-10-08/verifie_portee.log (code de retour 1). Décision d'Anibal (2026-10-09, dépôt 15.14) : la nécessité vaut pour toute graine non invariante par les miroirs ; « aux ordres ≥ 6 » serait faux (graines invariantes aux ordres 8, 12, 16). Assertion : entrée portee-necessite-non-invariantes."
+   ]
   },
   {
    "id": "croix-figures-candidates-formule",
@@ -2393,6 +2461,25 @@
    "preuves": [
     {
      "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/croix_existence-depot-15.34.log",
+      "sha256": "bfc4ffe26551b3634def249758b5d0321860aff73bbcd5e5a849c99543076058",
+      "script": "tools/croix_existence.py",
+      "script_sha256": "1b87bc5ad34a6f449d549636980e161fb3387b1e0e835d4e48c5a0cf53cb2263",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "ordre  16 : AUCUNE croix ansée"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "croix_existence.py --ordres 16 --limite 3600 : INFEASIBLE en 212 s dans le conteneur. Le même journal porte l'exécution par défaut (ordres 6, 8, 10, 12, 14, 18). Le 2026-10-09 (dépôt 15.11), le statut passe d'« établi par solveur, sans certificat indépendant » à « démontré » : le théorème sur la parité de n/2 couvre tout ordre doublement pair, et reseau.py --fenetre 0 le refait sans solveur (entrée croix-ansee-absente-doublement-pair). Le 2026-10-09 (dépôt 15.34), tools/croix_existence.py change (en-tête et statuts) : relancé, mêmes lignes, journal docs/journaux/2026-10-09/croix_existence-depot-15.34.log ; l'ancien journal reste dans preuves_anterieures. L'ordre 16 prend 296 s ici avec la version 15.34.",
+   "statut_depot": "1. démontré",
+   "statut_depot_anterieur": "4. établi par solveur, sans certificat indépendant",
+   "preuves_anterieures": [
+    {
+     "journal_local": {
       "fichier": "docs/journaux/2026-10-08/croix_existence.log",
       "sha256": "6e604fda6f8c4f4240583cde90f909d21ceb4b0c34616852f243bee9470b6180",
       "script": "tools/croix_existence.py",
@@ -2402,13 +2489,11 @@
      },
      "lignes": [
       "ordre  16 : AUCUNE croix ansée"
-     ]
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "tools/croix_existence.py remplacé par la version du dépôt 15.34"
     }
-   ],
-   "statut": "verifie_journal_local",
-   "note": "croix_existence.py --ordres 16 --limite 3600 : INFEASIBLE en 212 s dans le conteneur. Le même journal porte l'exécution par défaut (ordres 6, 8, 10, 12, 14, 18). Le 2026-10-09 (dépôt 15.11), le statut passe d'« établi par solveur, sans certificat indépendant » à « démontré » : le théorème sur la parité de n/2 couvre tout ordre doublement pair, et reseau.py --fenetre 0 le refait sans solveur (entrée croix-ansee-absente-doublement-pair).",
-   "statut_depot": "1. démontré",
-   "statut_depot_anterieur": "4. établi par solveur, sans certificat indépendant"
+   ]
   },
   {
    "id": "croix-comptes-exacts",
@@ -2437,6 +2522,27 @@
    "preuves": [
     {
      "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/compte_croix-depot-15.34.log",
+      "sha256": "b97d7d014f7541892382c19958679f946408f4f42e90b823fd40f35532571ca1",
+      "script": "tools/compte_croix.py",
+      "script_sha256": "a0121ae5d81db039f6cd44626117d4edf8cddbf29bdcbbeb50475d1f787d017d",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "ordre 6 — croix ansées : 2 réalisables sur 2 figures examinées ; 0 impossibles, 0 non tranchées",
+      "ordre 8 — croix ansées : 0 réalisables sur 32 figures examinées ; 32 impossibles, 0 non tranchées",
+      "ordre 10 — croix ansées : 2048 réalisables sur 2048 figures examinées ; 0 impossibles, 0 non tranchées",
+      "ordre 12 : aucune croix ansée — le modèle complet est INFEASIBLE, inutile d’énumérer les figures. --sans-pretest force l’examen figure par figure, qui est le chemin indépendant de suite_croix.py",
+      "ordre 14 — croix ansées : 10 réalisables sur 10 figures examinées ; 0 impossibles, 0 non tranchées"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "note": "L'ordre 8 est compté deux fois : par le pré-test (modèle complet INFEASIBLE) et figure par figure avec --sans-pretest (32 INFEASIBLE). L'ordre 12 ne l'est que par le pré-test. Le 0 de l'ordre 16 vient de croix_existence.py (entrée croix-ansee-absente-16), pas de ce script. À l'ordre 14, dix figures au rang 400 000 000 seulement (2^29 candidates). Durée de l'ordre 10 : 75 s ici, 418 s chez Anibal. Le 2026-10-09 (dépôt 15.34), tools/compte_croix.py change (en-tête et statuts) : relancé, mêmes lignes, journal docs/journaux/2026-10-09/compte_croix-depot-15.34.log ; l'ancien journal reste dans preuves_anterieures. Ordre 10 : 79 s avec la version 15.34. Le dépôt 15.34 classe ce compte « redondant avec le théorème positif » (entrée croix-ansee-theoreme-positif).",
+   "preuves_anterieures": [
+    {
+     "journal_local": {
       "fichier": "docs/journaux/2026-10-08/compte_croix.log",
       "sha256": "9f3b804c56781c7044db5700fad643c135535f8804afc3f3332afefc63848494",
       "script": "tools/compte_croix.py",
@@ -2450,11 +2556,11 @@
       "ordre 10 — croix ansées : 2048 réalisables sur 2048 figures examinées ; 0 impossibles, 0 non tranchées",
       "ordre 12 : aucune croix ansée — le modèle complet est INFEASIBLE, inutile d’énumérer les figures. --sans-pretest force l’examen figure par figure, qui est le chemin indépendant de suite_croix.py",
       "ordre 14 — croix ansées : 10 réalisables sur 10 figures examinées ; 0 impossibles, 0 non tranchées"
-     ]
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "tools/compte_croix.py remplacé par la version du dépôt 15.34"
     }
-   ],
-   "statut": "verifie_journal_local",
-   "note": "L'ordre 8 est compté deux fois : par le pré-test (modèle complet INFEASIBLE) et figure par figure avec --sans-pretest (32 INFEASIBLE). L'ordre 12 ne l'est que par le pré-test. Le 0 de l'ordre 16 vient de croix_existence.py (entrée croix-ansee-absente-16), pas de ce script. À l'ordre 14, dix figures au rang 400 000 000 seulement (2^29 candidates). Durée de l'ordre 10 : 75 s ici, 418 s chez Anibal."
+   ]
   },
   {
    "id": "suite-croix-figures-6-8",
@@ -2664,7 +2770,7 @@
   },
   {
    "id": "temoins-29-sans-solveur",
-   "intitule": "Les témoins de data/temoins.json recalculés sans solveur (31 depuis le dépôt 15.14)",
+   "intitule": "Les témoins de data/temoins.json recalculés sans solveur (34 depuis le dépôt 15.34)",
    "enonce": {
     "texte": "recalcule chacun depuis les formules du protocole et contrôle l'énoncé qu'il porte, **sans solveur**. Code de retour 0 si tous passent.",
     "langue": "fr",
@@ -2672,7 +2778,7 @@
     "copie": "docs/sources/2026-10-08/depot-15.11/DEPOT.md"
    },
    "valeur": {
-    "temoins": 31,
+    "temoins": 34,
     "ordres": [
      4,
      6,
@@ -2680,6 +2786,7 @@
      10,
      14,
      18,
+     20,
      22,
      26
     ]
@@ -2696,13 +2803,23 @@
     {
      "ci": ".github/workflows/check-etiquetages.yml",
      "lignes": [
-      "les 31 témoins passent."
+      "les 34 témoins passent."
      ]
     }
    ],
    "statut": "verifie_ci",
    "statut_depot": "2. vérifié exhaustivement sans solveur",
-   "note": "Bibliothèque standard seule. Contrôle la moitié positive (existences, contre-exemples), pas les résultats négatifs ni les dénombrements. Le 2026-10-09 (dépôt 15.14) : deux témoins de genre miroirs_hors_portee (ordres 4 et 8) portent le total à 31 ; ligne citée mise à jour. L'id garde le nombre 29."
+   "note": "Bibliothèque standard seule. Contrôle la moitié positive (existences, contre-exemples), pas les résultats négatifs ni les dénombrements. Le 2026-10-09 (dépôt 15.14) : deux témoins de genre miroirs_hors_portee (ordres 4 et 8) portent le total à 31 ; ligne citée mise à jour. L'id garde le nombre 29. Le 2026-10-09 (dépôt 15.34) : trois témoins de plus, deux construction_canonique (ordres 6 et 14) et un existence_doublement_paire (ordre 20), soit 34 ; ligne citée mise à jour, l'ancienne dans preuves_anterieures. Journal d'ici : docs/journaux/2026-10-09/verifie_temoins-depot-15.34.log.",
+   "preuves_anterieures": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "les 31 témoins passent."
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "trois témoins ajoutés au dépôt 15.34 (31 → 34)"
+    }
+   ]
   },
   {
    "id": "identite-exacte",
@@ -2847,10 +2964,10 @@
    "preuves": [
     {
      "journal_local": {
-      "fichier": "docs/journaux/2026-10-09/reseau.log",
-      "sha256": "1902d6f3c20ec97f45b2bf9a76e1e906c73eac6857f3f6fa1619a574b225cb53",
+      "fichier": "docs/journaux/2026-10-09/reseau-depot-15.34.log",
+      "sha256": "5a4eaa9ea4ccf6eb917ab1dd880ca71ac7508c72fcb8f8071b91f279287ea5b9",
       "script": "tools/reseau.py",
-      "script_sha256": "e33c408e39518c24e9001b1f387c12d97b6f489c4afbfb081dacfddc2d3efb7e",
+      "script_sha256": "a28b9a3d1269cc11f27863c28c238f823b3a3418c1e214001cd3f461560b6f9a",
       "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
       "le": "2026-10-09"
      },
@@ -2862,7 +2979,7 @@
    ],
    "statut": "verifie_journal_local",
    "statut_depot": "2. vérifié exhaustivement sans solveur",
-   "note": "35 s dans le conteneur. Même tableau que data/paire0.txt (version 15.14). Les comptes d'avant le 2026-10-09 (0, 2, 0, 8, …, 2 048) étaient ceux des états fusionnés : ancien énoncé dans enonce_anterieur, ancienne preuve dans preuves_anterieures. Les comptes aux ordres 6 et 10 recoupent ceux de parite.py (128 et 20 224).",
+   "note": "35 s dans le conteneur. Même tableau que data/paire0.txt (version 15.14). Les comptes d'avant le 2026-10-09 (0, 2, 0, 8, …, 2 048) étaient ceux des états fusionnés : ancien énoncé dans enonce_anterieur, ancienne preuve dans preuves_anterieures. Les comptes aux ordres 6 et 10 recoupent ceux de parite.py (128 et 20 224). Le 2026-10-09 (dépôt 15.34), tools/reseau.py change (en-tête et statuts) : relancé, mêmes lignes, journal docs/journaux/2026-10-09/reseau-depot-15.34.log ; l'ancien journal reste dans preuves_anterieures.",
    "enonce_anterieur": {
     "texte": "le compte des configurations de la première paire de lignes d'écart nul, ordres 4 à 26 : 0, 2, 0, 8, 0, 32, 0, 128, 0, 512, 0, 2 048 — un zéro à chaque ordre doublement pair",
     "copie": "docs/sources/2026-10-08/depot-15.11/DEPOT.md",
@@ -2870,6 +2987,22 @@
     "raison": "reseau.py --paire0 comptait les états fusionnés, non les configurations (corrigé dans le dépôt 15.14)"
    },
    "preuves_anterieures": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/reseau.log",
+      "sha256": "1902d6f3c20ec97f45b2bf9a76e1e906c73eac6857f3f6fa1619a574b225cb53",
+      "script": "tools/reseau.py",
+      "script_sha256": "e33c408e39518c24e9001b1f387c12d97b6f489c4afbfb081dacfddc2d3efb7e",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  ordre   4 (n/2 =  2, pair  ) :        0 configurations,      4 écarts atteignables — ÉCART NUL IMPOSSIBLE",
+      "  ordre  26 (n/2 = 13, impair) : 10055603453952 configurations,   2613 écarts atteignables — écart nul possible"
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "tools/reseau.py remplacé par la version du dépôt 15.34"
+    },
     {
      "journal_local": {
       "fichier": "docs/journaux/2026-10-08/reseau.log",
@@ -3141,17 +3274,19 @@
   },
   {
    "id": "portee-necessite-non-invariantes",
-   "intitule": "Règle des miroirs : nécessaire sur les 284 graines non invariantes (corpus + témoins), sans solveur",
+   "intitule": "Règle des miroirs : nécessaire sur les graines non invariantes (corpus + témoins), en pavage 2 × 2, sans solveur",
    "enonce": {
-    "texte": "**la nécessité de la règle des miroirs en assertion**, sur les 256 graines du corpus et les témoins non invariants : 284 graines, aucun pavage magique par un motif non conforme",
+    "texte": "**la nécessité de la règle des miroirs en assertion, dans le pavage 2 × 2 seulement** : sur les 256 graines du corpus et les témoins non invariants — 284 graines —, aucun pavage magique par un motif non conforme. Rien n'est établi pour m > 2.",
     "langue": "fr",
-    "source": "DEPOT.md du dépôt 15.14 d'Anibal (9 octobre 2026), section 2",
-    "copie": "docs/sources/2026-10-09/depot-15.14/DEPOT.md"
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 2",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
    },
    "valeur": {
-    "graines": 284,
+    "graines": 286,
     "echecs": 0,
-    "hors_portee": 3
+    "hors_portee": 4,
+    "graines_selon_l_enonce": 284,
+    "hors_portee_selon_le_journal_d_anibal": 3
    },
    "conditionnel": false,
    "referents": [],
@@ -3165,16 +3300,36 @@
     {
      "ci": ".github/workflows/check-etiquetages.yml",
      "lignes": [
-      "  284 graines testées, 0 échec(s)",
+      "  286 graines testées, 0 échec(s)",
       "  [---] témoin 1 (graine), ordre 4 : invariante par les deux",
       "  [---] témoin 30 (miroirs_hors_portee), ordre 8 : invariante par les deux",
-      "l'assertion tient : aucune graine non invariante ne pave magiquement par un motif non conforme."
+      "  [---] témoin 33 (existence_doublement_paire), ordre 20 : invariante par les deux",
+      "l'assertion tient, dans sa portée : en pavage 2 × 2, aucune des graines non invariantes testées ne pave magiquement par un motif non conforme. Rien n'est établi pour m > 2."
      ]
     }
    ],
    "statut": "verifie_ci",
    "statut_depot": "2. vérifié exhaustivement sans solveur",
-   "note": "Version d'Anibal (dépôt 15.14), qui remplace celle du 8 octobre (code 1 sur la graine d'ordre 4, journal gardé dans docs/journaux/2026-10-08/verifie_portee.log). N'asserte que la nécessité ; la suffisance hors de l'ordre 6 dépend de la graine et n'est pas assertée. Journal d'Anibal : data/portee-assertion.txt, identique à la sortie d'ici."
+   "note": "Version d'Anibal (dépôt 15.14), qui remplace celle du 8 octobre (code 1 sur la graine d'ordre 4, journal gardé dans docs/journaux/2026-10-08/verifie_portee.log). N'asserte que la nécessité ; la suffisance hors de l'ordre 6 dépend de la graine et n'est pas assertée. Journal d'Anibal : data/portee-assertion.txt, identique à la sortie d'ici. ÉCART (2026-10-09, dépôt 15.34) : avec les 34 témoins du dépôt, verifie_portee.py teste 286 graines et en écarte 4 (le témoin 33, d'ordre 20, est invariant par les deux miroirs) ; l'énoncé de DEPOT.md et le journal data/portee-assertion.txt du dépôt disent 284 et 3, comptés avant l'ajout des témoins 31 à 33. Les deux nombres sont gardés tels quels (valeur.graines est la sortie d'ici, valeur.graines_selon_l_enonce celle de l'énoncé) ; c'est à Anibal de relancer son journal. Journal d'ici : docs/journaux/2026-10-09/verifie_portee-depot-15.34.log. Le témoin 33 du script est le témoin 34 de DEPOT.md (le script numérote depuis 0).",
+   "enonce_anterieur": {
+    "texte": "**la nécessité de la règle des miroirs en assertion**, sur les 256 graines du corpus et les témoins non invariants : 284 graines, aucun pavage magique par un motif non conforme",
+    "copie": "docs/sources/2026-10-09/depot-15.14/DEPOT.md",
+    "jusqu_au": "2026-10-09",
+    "raison": "dépôt 15.34 : la portée est restreinte au pavage 2 × 2"
+   },
+   "preuves_anterieures": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  284 graines testées, 0 échec(s)",
+      "  [---] témoin 1 (graine), ordre 4 : invariante par les deux",
+      "  [---] témoin 30 (miroirs_hors_portee), ordre 8 : invariante par les deux",
+      "l'assertion tient : aucune graine non invariante ne pave magiquement par un motif non conforme."
+     ],
+     "remplace_le": "2026-10-09",
+     "raison": "verifie_portee.py et data/temoins.json du dépôt 15.34"
+    }
+   ]
   },
   {
    "id": "miroirs-hors-portee",
@@ -3263,6 +3418,362 @@
    "statut": "verifie_ci",
    "statut_depot": "1. démontré",
    "note": "Deux lignes, pas un carré : ne contrôle ni les autres lignes, ni le critère III, ni γ, et ne donne aucune croix ansée magique (DEPOT.md le dit). parite.py s'arrête sur assert si δ_0 ≠ 0."
+  },
+  {
+   "id": "existence-tout-ordre-pair",
+   "intitule": "Un étiquetage magique à tout ordre pair n ≥ 4 ; l'ordre 2 seul impossible",
+   "enonce": {
+    "texte": "**corollaire d'existence complète : le protocole admet un étiquetage magique normal diagonal à TOUT ordre pair n ≥ 4, et l'ordre 2 est le seul ordre pair impossible.**",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 1",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "ordres": "2 à 52",
+    "ordre_2": "impossible",
+    "n_mod_4_egal_0": "motif classique B/R",
+    "n_mod_4_egal_2": "croix ansée canonique"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/construction.py",
+    "adresse": "https://anibal-amiot.com/tools/construction.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  ordre   2 : impossible — 0 étiquetage magique parmi les 256 de l'ordre 2, et 0 carré 2×2 normal à lignes et colonnes égales parmi les 24 (preuve : b = c) : True",
+      "  ordre   4 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)",
+      "  ordre   6 : croix ansée canonique, magique et conforme : True",
+      "  ordre  52 : motif classique B/R, magique : True ; porte une croix : False (le théorème négatif l'interdit)",
+      "les deux branches couvrent tous les ordres pairs n ≥ 4 ; l'ordre 2 est",
+      "le seul ordre pair impossible."
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "statut_depot": "1. démontré",
+   "note": "Démontré dans DEPOT.md (deux branches explicites, et b = c pour l'ordre 2) ; construction.py --existence en est l'assertion exécutable de 2 à 52 et sort en erreur si une branche échoue. 2 s dans le conteneur. Journal d'ici : docs/journaux/2026-10-09/construction-depot-15.34.log."
+  },
+  {
+   "id": "croix-ansee-theoreme-positif",
+   "intitule": "Théorème positif : à n = 2m ≥ 6, m impair, toute figure candidate est réalisable ; N(n) = 2^(m²−3m+1)",
+   "enonce": {
+    "texte": "**le théorème positif : à n = 2m ≥ 6 avec m impair, TOUTE figure candidate est réalisable.**",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 1",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "canonique": "ordres 6 à 50",
+    "toutes_ordre_6": "2/2",
+    "toutes_ordre_10": "2048/2048",
+    "echantillon": "20/20 aux ordres 6 à 30",
+    "N(n)": "2^(m²−3m+1) si m impair, 0 si m pair"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/construction.py",
+    "adresse": "https://anibal-amiot.com/tools/construction.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/construction-depot-15.34.log",
+      "sha256": "ce5d53a72724f39a8da3946d4bb31698bdb1c884b762fc4fa6bb12ee9549c718",
+      "script": "tools/construction.py",
+      "script_sha256": "7791f027c3a0a212937d5cda6f25f1b9e9b493165be6d11c6d3e13048a1e1052",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  ordre  10 (m =  5) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRVVVBR",
+      "  ordre  50 (m = 25) : construit, bijectif, lignes, colonnes et diagonales magiques, figure conforme, et son échangé B↔R/V↔J de même (x ↦ n²+1−x) : True   ligne 0 = RBRRRRRRRRRRRRRRRRRRRRRRRVVVVVVVVVVVVVVVVVVVVVVVBR",
+      "  ordre   6 (m = 3) : 2 figures candidates (formule 2^(3²−3·3+1) = 2) ; construites et magiques : 2",
+      "  ordre  10 (m = 5) : 2048 figures candidates (formule 2^(5²−3·5+1) = 2048) ; construites et magiques : 2048",
+      "  ordre  30 (m = 15) : 20/20 construites et magiques"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "statut_depot": "1. démontré",
+   "note": "Démontré dans DEPOT.md ; construction.py réalise la recette au lieu de l'affirmer. Avec l'obstruction doublement paire (entrée croix-ansee-absente-doublement-pair), la classification est complète pour n = 2m ≥ 6 : N(n) = 2^(m²−3m+1) si m est impair, 0 sinon (DEPOT.md, section 1). La CI relance les trois commandes (--ordres, --toutes, --echantillon), qui sortent en erreur si une construction échoue ; check_sorties_ci.mjs ne relit que la première commande du workflow pour un script (--existence), d'où la preuve par journal. --toutes : 29 s ici."
+  },
+  {
+   "id": "table-locale-139-orbites",
+   "intitule": "La table des états d'orbite et la borne |b − C| ≤ n·|u_r|, contrôlées sur les 139 orbites des ordres 4 à 14",
+   "enonce": {
+    "texte": "**la table des états d'orbite, et la borne des apports qui en découle**",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 1",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "orbites": 139,
+    "ecarts": 0,
+    "ordres": [
+     4,
+     6,
+     8,
+     10,
+     12,
+     14
+    ]
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/recollement.py",
+    "adresse": "https://anibal-amiot.com/tools/recollement.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/table-locale-depot-15.34.log",
+      "sha256": "dec7571aa1b174b06d16f5f45aba208ee89a7c76be9633be883c207c5c26d415",
+      "script": "tools/recollement.py",
+      "script_sha256": "c6bd595584a5981603e3829cef37d2f38d1c3a904be79ee03fc555803c8a8b73",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  ordre  14 :   49 orbites, 0 écart(s) à la table",
+      "139 orbites testées, 0 écart(s). La table est donc exacte sur ces ordres, et la borne en découle."
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "statut_depot": "1. démontré",
+   "note": "Démontré dans DEPOT.md ; recollement.py --ordres 4,6,8,10,12,14 --table le contrôle (sort en erreur sur un écart, lancé par la CI). Sans --ordres le script ne fait que 6 et 10. Même sortie que data/table-locale.txt."
+  },
+  {
+   "id": "centre-du-quotient",
+   "intitule": "n ≡ 2 (mod 4) ⟺ la grille quotient des orbites a un centre ; deux centres distincts",
+   "enonce": {
+    "texte": "**n ≡ 2 (mod 4) ⟺ la grille quotient des orbites possède un centre.**",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 1",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "ordres": [
+     4,
+     6,
+     8,
+     10,
+     12,
+     14
+    ],
+    "ordre_10": {
+     "centre_du_quotient": 2,
+     "couche_la_plus_serree": 4,
+     "rayons": [
+      90,
+      70,
+      50,
+      30,
+      10
+     ]
+    }
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/recollement.py",
+    "adresse": "https://anibal-amiot.com/tools/recollement.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/table-locale-depot-15.34.log",
+      "sha256": "dec7571aa1b174b06d16f5f45aba208ee89a7c76be9633be883c207c5c26d415",
+      "script": "tools/recollement.py",
+      "script_sha256": "c6bd595584a5981603e3829cef37d2f38d1c3a904be79ee03fc555803c8a8b73",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  ordre  10 (m =  5, impair) : centres de quadrants [(2, 2), (2, 7), (7, 2), (7, 7)]",
+      "            centre du quotient r = 2, couche la plus serrée r = 4 — deux objets distincts",
+      "            rayons des couches : [90, 70, 50, 30, 10] (ils décroissent de 20)",
+      "  ordre   8 (m =  4, pair) : la grille quotient n'a pas de centre ; rayons des couches [56, 40, 24, 8]"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "statut_depot": "1. démontré",
+   "note": "Démontré dans DEPOT.md ; recollement.py --geometrie le contrôle aux ordres 4 à 14. --geometrie sort toujours en 0 : la preuve est la lecture des lignes. La même sortie porte la signature modulo 3 (« observé exactement, pas encore démontré » dans DEPOT.md, non reprise ici)."
+  },
+  {
+   "id": "paires-sans-obstruction-locale",
+   "intitule": "À ordre singulièrement pair, aucune paire de lignes n'oppose d'obstruction locale ; la colonne diagonale, atteignable dès m ≥ 5",
+   "enonce": {
+    "texte": "**à ordre singulièrement pair, aucune paire de lignes n'oppose d'obstruction locale.**",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 1",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "ordres": [
+     6,
+     10,
+     14,
+     18
+    ],
+    "colonne_diagonale_m_3": "impossible",
+    "colonne_diagonale_m_ge_5": "atteinte"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/recollement.py",
+    "adresse": "https://anibal-amiot.com/tools/recollement.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/table-locale-depot-15.34.log",
+      "sha256": "dec7571aa1b174b06d16f5f45aba208ee89a7c76be9633be883c207c5c26d415",
+      "script": "tools/recollement.py",
+      "script_sha256": "c6bd595584a5981603e3829cef37d2f38d1c3a904be79ee03fc555803c8a8b73",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  ordre   6 (m = 3) : I toute paire a un profil (δ=0, h_r=1) : True ; II colonnes c≠r atteignent C±n|u_r| : True ; III colonne c=r : IMPOSSIBLE",
+      "  ordre  10 (m = 5) : I toute paire a un profil (δ=0, h_r=3) : True ; II colonnes c≠r atteignent C±n|u_r| : True ; III colonne c=r : atteinte, h_r=1"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "statut_depot": "1. démontré",
+   "note": "Démontré dans DEPOT.md ; recollement.py --ordres 6,10,14,18 --construit réalise la construction (sort toujours en 0 : la preuve est la lecture des lignes). DEPOT.md dit l'énoncé de la colonne diagonale « rendu secondaire par le théorème positif »."
+  },
+  {
+   "id": "recollement-8192-ordre-6",
+   "intitule": "Le recollement des paires de lignes : 8 192 croix ansées magiques à l'ordre 6, 0 aux ordres 4 et 8",
+   "enonce": {
+    "texte": "Le recollement de m paires de lignes d'écart nul redonne **8 192** à l'ordre 6, c'est-à-dire exactement le nombre d'étiquetages magiques portant une croix ansée que `croix_auto.py` trouve par énumération, et **0** aux ordres 4 et 8, comme le théorème le demande.",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 2",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "4": 0,
+    "6": 8192,
+    "8": 0
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/recollement.py",
+    "adresse": "https://anibal-amiot.com/tools/recollement.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  recollements complets (lignes ET colonnes magiques, II et III) : 8192",
+      "  recollements complets (lignes ET colonnes magiques, II et III) : 0",
+      "  après la paire 2 :          1 états"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "statut_depot": "2. vérifié exhaustivement sans solveur",
+   "note": "Python nu. La CI lance --ordres 4,6,8 --profils (lignes relues) ; les parcours inverse et 1,0,2,… donnent le même compte (journal d'ici docs/journaux/2026-10-09/recollement-depot-15.34.log, identique à data/recollement.txt hors ordre 10). Recoupe croix-equivalence-ordre6 (8 192 pavables)."
+  },
+  {
+   "id": "recollement-ordre-10",
+   "intitule": "Le recollement à l'ordre 10 : 583 454 127 292 416 croix ansées magiques, par deux ordres de recollement",
+   "enonce": {
+    "texte": "à l'ordre 10, le même recollement donne **583 454 127 292 416** étiquetages magiques portant une croix ansée — **Python nu, aucun solveur** —, et deux ordres de recollement indépendants, le direct et `1,0,2,3,4`, donnent le même entier",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 2",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "ordre": 10,
+    "croix_ansees_magiques": 583454127292416,
+    "ordres_de_recollement": [
+     "direct",
+     "1,0,2,3,4"
+    ]
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/recollement.py",
+    "adresse": "https://anibal-amiot.com/tools/recollement.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "journal_local": {
+      "fichier": "docs/journaux/2026-10-09/recollement10-depot-15.34.log",
+      "sha256": "e7df28950b9036f5635084e763ba6489be36164dcd36d51a694f572499b5c2fa",
+      "script": "tools/recollement.py",
+      "script_sha256": "c6bd595584a5981603e3829cef37d2f38d1c3a904be79ee03fc555803c8a8b73",
+      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+      "le": "2026-10-09"
+     },
+     "lignes": [
+      "  recollements complets (lignes ET colonnes magiques, II et III) : 583454127292416"
+     ]
+    }
+   ],
+   "statut": "verifie_journal_local",
+   "statut_depot": "2. vérifié exhaustivement sans solveur",
+   "note": "Les deux commandes impriment la même ligne (257 s et 251 s ici ; ~6 min chez Anibal). Mémoire de pointe mesurée ici (ru_maxrss) : environ 0,1 Go, contre « 5 Go » annoncés dans DEPOT.md et data/recollement.txt ; la commande du journal d'Anibal porte en plus --profils, la mienne non. Même entier que data/recollement.txt. Ce nombre somme les réalisations de toutes les figures ; la réalisabilité de chacune est le théorème positif (entrée croix-ansee-theoreme-positif)."
+  },
+  {
+   "id": "miroirs-ensembles-ordre-12",
+   "intitule": "Règle des miroirs à l'ordre 12, ensemble par ensemble : 0 désaccord sur les 8 192 graines qui pavent",
+   "enonce": {
+    "texte": "**à l'ordre 12, la règle des miroirs est exacte, ensemble par ensemble** : pour chacune des 8 192 graines qui pavent, les 16 motifs magiques sont exactement les 16 motifs conformes à la règle — 0 désaccord sur les 8 192, et non seulement l'égalité des cardinaux",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.34 d'Anibal (9 octobre 2026), section 2",
+    "copie": "docs/sources/2026-10-09/depot-15.34/DEPOT.md"
+   },
+   "valeur": {
+    "graines": 8192,
+    "desaccords": 0
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/exhaustif6.py",
+    "adresse": "https://anibal-amiot.com/tools/exhaustif6.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "parmi les graines ayant au moins un motif magique — les 8 192 qui pavent —, celles dont l’ensemble des motifs magiques diffère des seize motifs conformes : 0"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "statut_depot": "2. vérifié exhaustivement sans solveur",
+   "note": "Même exécution que l'entrée exhaustif-18432x256 (17 s ici, 26 s chez Anibal) ; la version 15.34 d'exhaustif6.py compare les ensembles et plus seulement les cardinaux."
   }
  ]
 }

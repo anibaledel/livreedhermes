@@ -4,8 +4,10 @@
 #
 # portee_miroirs.py — jusqu'où va la règle des miroirs ?
 #
-# `pavage_miroirs.py` établit, sur les 256 étiquetages du corpus, que le pavage
-# d'ordre 6m est magique SI ET SEULEMENT SI
+# Au pavage 2 × 2, la règle est exacte sur le corpus d'ordre 6 : `pavage_miroirs.py`
+# le vérifie sur les 256 étiquetages, et `exhaustif6.py` sur les 18 432. Ce
+# script-ci explore séparément nécessité et suffisance HORS corpus, et ne teste
+# lui aussi que les 256 motifs du pavage 2 × 2. La règle est
 #
 #     h(i, j) = h(m−1−i, j)   et   v(i, j) = v(i, m−1−j)
 #
