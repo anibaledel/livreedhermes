@@ -61,7 +61,7 @@
       },
       {
         "question": "What is the ansate cross?",
-        "reponse": "A centrally symmetric figure of strokes on the 6 × 6 grid, joining pairwise the complementary cells of an order-6 magic square. Under the book's criteria exactly two exist, each the image of the other."
+        "reponse": "A centrally symmetric figure of strokes on the 6 × 6 grid, joining pairwise the complementary cells of an order-6 magic square. Under the book's criteria exactly two exist, each the image of the other. Order 6 is a special case: at every order n = 2m ≥ 6 with m odd there are exactly 2^(m²−3m+1) ansate-cross figures, all realisable — 2,048 at order 10 — and none when m is even."
       },
       {
         "question": "Is the book free?",

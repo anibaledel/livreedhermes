@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Even-order magic squares — a construction for every even order | Anibal Amiot</title>
+<meta name="description" content="For every even order n >= 4 a pointwise construction gives a magic square: a two-class pattern when 4 divides n, a four-class ansate cross when n = 2 (mod 4). Order 2 is impossible. Formulas, code and verification.">
+<meta property="og:title" content="Even-order magic squares — a construction for every even order | Anibal Amiot">
+<meta property="og:description" content="For every even order n >= 4 a pointwise construction gives a magic square: a two-class pattern when 4 divides n, a four-class ansate cross when n = 2 (mod 4). Order 2 is impossible. Formulas, code and verification.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:url" content="https://anibal-amiot.com/en/even-order-magic-square-construction/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<link rel="canonical" href="https://anibal-amiot.com/en/even-order-magic-square-construction/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Even-order magic squares — a construction for every even order | Anibal Amiot">
+<meta name="twitter:description" content="For every even order n >= 4 a pointwise construction gives a magic square: a two-class pattern when 4 divides n, a four-class ansate cross when n = 2 (mod 4). Order 2 is impossible. Formulas, code and verification.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Research deposits", "item": "https://anibal-amiot.com/en/works/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{
+    margin:0; background:var(--bg); color:var(--white);
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+  img, canvas, svg{ max-width:100%; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:28px; letter-spacing:.05em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:12px; margin:0 0 20px; }
+
+  /* ---------- contenu travaux ---------- */
+  .profile-body{ padding:24px 0 8px; }
+  .profile-intro{
+    max-width:64ch; margin:0 auto 34px; color:var(--dim);
+    font-size:15px; line-height:1.8; text-align:center;
+  }
+  .profile-section{ max-width:64ch; margin:0 auto 34px; }
+  .profile-section h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);
+    font-weight:400; margin:0 0 16px; padding-bottom:8px; border-bottom:1px solid var(--line);
+  }
+  .travaux-list{ list-style:none; padding:0; margin:0; }
+  .travaux-list li{ padding:14px 0; border-top:1px solid var(--line); }
+  .travaux-list li:first-child{ border-top:none; }
+  .travaux-list cite{ font-style:normal; color:var(--white); display:block; margin-bottom:4px; font-size:14px; line-height:1.5; }
+  .travaux-list p.travaux-desc{ color:var(--dim); font-size:12.5px; line-height:1.6; margin:0 0 6px; }
+  .travaux-list a{ color:var(--gold); text-decoration:none; font-size:12.5px; }
+  .travaux-list a:hover{ text-decoration:underline; }
+  .travaux-list span.travaux-meta{ display:block; color:var(--dim); font-size:11px; margin-top:4px; letter-spacing:.02em; }
+  .travaux-list span.travaux-toutes{ color:var(--dim); font-size:11px; }
+  .profile-sources{ color:var(--dim); font-size:11px; margin-top:18px; text-align:center; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    font-size:10px; color:var(--dim); margin-top:10px;
+  }
+  .credit-line .credit-sep{ opacity:.5; }
+  .site-nav-row{
+    display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+    margin-top:6px; }
+  .site-nav-btn{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px;
+    cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease;
+  }
+  .site-nav-btn:not(.disabled):hover{ border-color:var(--gold); color:var(--gold); }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+  .footer-caduceus{ display:flex; justify-content:center; margin:24px 0; }
+  .footer-caduceus img{ height:clamp(240px, 21vw + 78px, 355.56px); width:auto; opacity:.9; }
+  @media (max-width:768px){ .footer-caduceus img{ height:170px; } }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header{ margin-bottom:20px; padding-bottom:16px; }
+    header h1{ font-size:22px; }
+    .site-nav-btn{ padding:11px 16px; }
+  }
+  @media (max-width:480px){
+    header h1{ font-size:19px; letter-spacing:.02em; }
+    header p{ font-size:14px; }
+    .profile-intro{ font-size:14.5px; }
+  }
+  /* ---------- ajouts : page carrés magiques d'ordre pair ---------- */
+  .profile-section h3{
+    font-size:13px; letter-spacing:.06em; color:var(--white);
+    font-weight:400; margin:22px 0 8px;
+  }
+  .profile-section p{ color:var(--dim); font-size:14px; line-height:1.8; margin:0 0 14px; }
+  .profile-section em{ font-style:italic; color:var(--white); }
+  .profile-section strong{ font-weight:400; color:var(--gold); }
+  p.formule{
+    text-align:center; color:var(--white); font-size:14px; line-height:2;
+    margin:18px 0; padding:14px 16px;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .profile-section pre{
+    overflow-x:auto; margin:16px 0; padding:14px 16px;
+    border:1px solid var(--line); background:rgba(0,0,0,.18);
+  }
+  .profile-section pre code{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px; line-height:1.9; color:var(--dim); white-space:pre;
+  }
+  table.tableau-ordres{
+    width:100%; border-collapse:collapse; margin:18px 0; font-size:13px;
+  }
+  table.tableau-ordres caption{
+    caption-side:top; text-align:left; color:var(--gold);
+    font-size:11px; letter-spacing:.12em; text-transform:uppercase; padding-bottom:8px;
+  }
+  table.tableau-ordres th, table.tableau-ordres td{
+    border:1px solid var(--line); padding:7px 9px; text-align:center;
+    color:var(--dim); font-weight:400;
+  }
+  table.tableau-ordres thead th{ color:var(--white); }
+  table.tableau-ordres tbody th{ color:var(--gold); text-align:left; }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://anibal-amiot.com/en/even-order-magic-square-construction/#article",
+      "url": "https://anibal-amiot.com/en/even-order-magic-square-construction/",
+      "headline": "Even-order magic squares: a construction for every even order",
+      "inLanguage": "en",
+      "author": {
+        "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+      },
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Magic square"
+        },
+        {
+          "@type": "Thing",
+          "name": "Even-order magic square"
+        },
+        {
+          "@type": "Thing",
+          "name": "Ansate cross"
+        }
+      ],
+      "isBasedOn": {
+        "@id": "https://doi.org/10.5281/zenodo.22722485"
+      },
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q141191562",
+        "https://orcid.org/0009-0002-6414-9448"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://anibal-amiot.com/en/even-order-magic-square-construction/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the magic sum of an order-6 square?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "111. The constant is M = n(n^2+1)/2, so 6 x 37 / 2 = 111 for n = 6."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the singly even order held to be difficult?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because the classical methods there are procedures, not formulas: LUX, Strachey, the quadrant split with exchanges. They produce a square, not a rule giving a cell's value from its coordinates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this protocol generate every magic square?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The four classes reach only a part of them: 0, 16, 18432 and 29368076800 at orders 2, 4, 6 and 8. Characterizing and counting these labellings at every order remains an open problem."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/carres-magiques-ordre-pair.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/even-order-magic-square-construction/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/even-order-magic-square-construction/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-37-profil.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><span aria-current="page">Even-order magic squares</span>
+    </nav>
+    <h1>Even-order magic squares</h1>
+    <p>A pointwise construction for every even order n ≥ 4</p>
+<!-- @langues:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<p class="other-langs">Other languages: <a href="https://anibal-amiot.com/carres-magiques-ordre-pair.html">Français</a></p>
+<!-- @langues:end -->
+  </header>
+  </div>
+
+  <div class="profile-body">
+    <p class="profile-intro">For every even order <em>n</em> ≥ 4 a magic labelling of the pointwise
+    protocol exists. If 4 divides <em>n</em>, a classical two-class construction suffices. If
+    <em>n</em> ≡ 2 (mod 4) and <em>n</em> ≥ 6, a four-class construction carrying an ansate cross
+    exists. Order 2 is impossible.</p>
+
+    <div class="profile-section">
+      <h2>What the pointwise protocol is</h2>
+      <p>An even-order magic square is built here <strong>cell by cell</strong>. Each cell is given
+      one of four classes — <em>B</em>, <em>R</em>, <em>V</em>, <em>J</em> — and its value then
+      depends on nothing but its coordinates and its class:</p>
+      <p class="formule"><em>B</em>(<em>r</em>,<em>c</em>) = <em>n·r</em> + <em>c</em> + 1
+      &nbsp;·&nbsp; <em>V</em>(<em>r</em>,<em>c</em>) = <em>n·r</em> + (<em>n</em>−1−<em>c</em>) + 1
+      &nbsp;·&nbsp; <em>R</em> = <em>n</em>²+1−<em>B</em>
+      &nbsp;·&nbsp; <em>J</em> = <em>n</em>²+1−<em>V</em></p>
+      <p>No sequence of operations, no filling order, no backtracking: one formula, and a cell is
+      computed without the others. The whole difficulty moves into the choice of the labelling,
+      which is what the result below settles.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>A construction for every even order</h2>
+      <p>Existence is settled, and for all even orders at once. Two branches suffice, and both are
+      explicit.</p>
+      <h3>Doubly even orders: 4, 8, 12, 16, 20…</h3>
+      <p>When 4 divides <em>n</em>, the protocol contains, as its two-class sub-case, the classical
+      pattern of the pattern method:</p>
+      <p class="formule"><em>L</em>(<em>r</em>,<em>c</em>) = <em>B</em> if <em>r</em> mod 4 =
+      <em>c</em> mod 4 or (<em>r</em> mod 4) + (<em>c</em> mod 4) = 3, and <em>R</em> otherwise.</p>
+      <p>In each packet of four consecutive cells of a row, the two <em>B</em> cells have the same
+      sum of residues as the two <em>R</em> cells, so the packet sums to 2(<em>n</em>²+1). There are
+      <em>n</em>/4 of them, hence a row sum equal to the magic constant
+      <em>M</em> = (<em>n</em>/2)(<em>n</em>²+1), and the same computation holds per column. On the
+      diagonal every cell is <em>B</em>; on the antidiagonal too.</p>
+      <h3>Singly even orders: 6, 10, 14, 18, 22…</h3>
+      <p>When <em>n</em> ≡ 2 (mod 4) and <em>n</em> ≥ 6, all four classes are needed, and the
+      construction goes through the <strong>ansate cross</strong>: the figure drawn by the traits
+      that pair the off-diagonal cells. One explicit figure works at every order — vertical if
+      <em>c</em> ≡ <em>r</em>+1 (mod <em>m</em>) with <em>m</em> = <em>n</em>/2, horizontal
+      elsewhere. Every row and every column of the quotient then carries exactly one vertical, hence
+      <em>m</em>−2 horizontals, an odd number: the figure is admissible, and a rule of signs
+      realizes it.</p>
+      <h3>Order 2</h3>
+      <p>Impossible, for a reason that owes nothing to the protocol. If a normal 2 × 2 square with
+      rows (<em>a</em>, <em>b</em>) and (<em>c</em>, <em>d</em>) had equal row and column sums, then
+      <em>a</em>+<em>b</em> = <em>c</em>+<em>d</em> and <em>a</em>+<em>c</em> = <em>b</em>+<em>d</em>;
+      subtracting, <em>b</em>−<em>c</em> = <em>c</em>−<em>b</em>, so <em>b</em> = <em>c</em>, which
+      contradicts each value occurring once.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>The classification of ansate crosses</h2>
+      <p>A <strong>figure</strong> is an orientation — horizontal or vertical — of each off-diagonal
+      cell of the <em>m</em> × <em>m</em> quotient grid, where <em>m</em> = <em>n</em>/2. It is a
+      <strong>candidate</strong> when every quotient row carries an odd number of horizontals and
+      every quotient column an odd number of verticals. Which ones are realized by a magic
+      labelling was the question. It is settled, in both directions:</p>
+      <p class="formule">for <em>n</em> = 2<em>m</em> ≥ 6, a candidate figure is realizable
+      <strong>if and only if <em>m</em> is odd</strong>.</p>
+      <p>And the number of ansate-cross figures is therefore exactly</p>
+      <p class="formule"><em>N</em>(<em>n</em>) = 2<sup><em>m</em>²−3<em>m</em>+1</sup> for odd
+      <em>m</em>, 0 for even <em>m</em>.</p>
+      <table class="tableau-ordres">
+        <caption>Number of ansate-cross figures by order</caption>
+        <thead><tr><th scope="col"><em>n</em></th><th scope="col">6</th><th scope="col">10</th><th scope="col">14</th><th scope="col">18</th><th scope="col">22</th><th scope="col">26</th><th scope="col">30</th><th scope="col">42</th></tr></thead>
+        <tbody><tr><th scope="row">figures</th><td>2</td><td>2,048</td><td>2²⁹</td><td>2⁵⁵</td><td>2⁸⁹</td><td>2¹³¹</td><td>2¹⁸¹</td><td>2³⁷⁹</td></tr></tbody>
+      </table>
+      <p>At doubly even orders — 8, 12, 16, 20 — there is none, and that is not a failure of search:
+      a parity obstruction, local to a single pair of rows, forbids it at every doubly even order. A
+      magic square still exists there, through the two-class branch:
+      <strong>the existence of a square and the existence of an ansate cross are two distinct
+      questions</strong>.</p>
+      <p>Nor should these be confused: the number of <em>figures</em> is not the number of
+      <em>labellings</em> carrying one, which is far larger — 8,192 labellings for 2 figures at
+      order 6, and 583,454,127,292,416 for 2,048 figures at order 10.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>How to check</h2>
+      <p>Nothing here asks you to take my word for it. The code repository holds twenty-eight
+      scripts in plain Python, with no dependency, and every statement is classified by its status —
+      proved, verified exhaustively, obtained by solver, verified on a sample. Three commands
+      reproduce the core:</p>
+      <pre><code>python tools/construction.py --existence
+python tools/construction.py --toutes
+python tools/parite.py</code></pre>
+      <p>The first builds a magic square at every even order from 2 to 52 through the branch that
+      applies, and exits with an error if one fails. The second rebuilds <strong>all</strong>
+      candidate figures of orders 6 and 10 — 2 out of 2, then 2,048 out of 2,048 — with no solver.
+      The third checks the parity obstruction on the 279,616 configurations of orders 4 to 10.</p>
+    </div>
+
+    <div class="profile-section">
+      <h2>Frequently asked</h2>
+      <h3>What is the magic sum of an order-6 square?</h3>
+      <p>111. The constant is <em>M</em> = <em>n</em>(<em>n</em>²+1)/2, so 6 × 37 / 2 = 111 for
+      <em>n</em> = 6, 34 for <em>n</em> = 4, and 505 for <em>n</em> = 10.</p>
+      <h3>Why is the singly even order held to be difficult?</h3>
+      <p>Because the classical methods there are procedures, not formulas: LUX, Strachey, the
+      quadrant split with exchanges. They produce a square, not a rule giving a cell's value from
+      its coordinates.</p>
+      <h3>Does this protocol generate every magic square?</h3>
+      <p>No, and claiming so would be false. The four classes reach only a part of them: 0, 16,
+      18,432 and 29,368,076,800 at orders 2, 4, 6 and 8. Characterizing and counting these
+      labellings at every order remains an open problem.</p>
+      <h3>Is the method new?</h3>
+      <p>The move from two classes to four is, and so is the fact that it unlocks the singly even
+      order. The two-class version is well known — it is the pattern-table method — but it is
+      documented only for doubly even orders.</p>
+    </div>
+
+    <p class="profile-sources">Verifiable sources: <a href="../works/" style="color:var(--dim);">the time-stamped deposits</a>
+    and <a href="https://github.com/anibaledel/livreedhermes" style="color:var(--dim);">the code
+    repository</a>. The treatise all of this is drawn from:
+    <a href="https://doi.org/10.5281/zenodo.22722485" style="color:var(--dim);">doi:10.5281/zenodo.22722485</a>.</p>
+  </div>
+</main>
+<!-- @main:end -->
+</div>
+<script src="../../assets/share-widget.js"></script>
+<script src="../../assets/soutien-gate.js"></script>
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter <span class="lien-langue">(French)</span></a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/wallpapers/"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws &amp; prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../en/downloads/"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/create-a-pattern/"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Two-colour patterns v2 <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../en/encoder/"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../en/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/cymatics/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../outils.html" hreflang="fr"><span class="nav-cat-label">Tools <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../soutenir.html" hreflang="fr"><span class="nav-cat-label">Support <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../en/documentary-profile/">Author profile</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../en/contact/">Contact</a>
+    <a href="../../soutenir.html" hreflang="fr">Support (French)</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
