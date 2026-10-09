@@ -1012,3 +1012,70 @@ relire :
   recollement : 257 s et 251 s, même entier 583 454 127 292 416 par les deux ordres ; mémoire
   de pointe (`ru_maxrss`) environ 0,1 Go, contre « 5 Go » annoncés (le journal d'Anibal
   lance `--profils` en plus) — écart de mesure à signaler, pas de résultat.
+
+## Pages « Carrés magiques d'ordre pair » et « Carré magique d'ordre 6 » (FR, EN) (2026-10-09)
+
+Quatre pages livrées (`pages-carres-magiques.zip`, `pages-ordre-6.zip`), posées aux
+emplacements de `OU-LES-POSER.md` et `OU-LES-POSER-ORDRE-6.md` :
+`carres-magiques-ordre-pair.html`, `en/even-order-magic-square-construction/`,
+`carre-magique-ordre-6.html`, `en/order-6-magic-square/`. Les blocs engendrés sont
+repassés au générateur : hreflang dans la zone `@hreflang`, et le menu ne marque plus
+« Travaux » comme page courante (la catégorie s'ouvre, comme pour une page de dépôt).
+
+**À NE PAS LAISSER PASSER — 4 096 par figure.** Les deux pages d'ordre 6 (corps et
+JSON-LD de la FAQ) affirment que les 8 192 étiquetages se répartissent exactement 4 096
+par figure. Le nombre est juste : Anibal l'a calculé, et je l'ai recalculé ici
+(`figure()` et `criteres()` de `tools/croix_auto.py` sur le cache d'`enum6.py` : deux
+figures, 4 096 et 4 096). Mais **aucun script du dépôt ne l'imprime et il n'est pas
+dans `data/resultats-etablis.json`** : aucun contrôle ne le relit. À porter par le
+dépôt 15.35 (script, journal, entrée) ; d'ici là, c'est un nombre du site sans preuve
+dans le dépôt.
+
+Corrections d'Anibal (9 octobre, message) :
+- « Est-ce une méthode nouvelle ? » (FR, EN) : « À notre connaissance » ajouté en tête
+  de la réponse — la nouveauté s'argumente par l'absence, comme dans la section « Place
+  dans la littérature » du papier (Chia et Kok 2024 ; Ibrahim, Jibril et Umar 2013 ;
+  Chen et Grigorescu 2019).
+- « vingt-huit scripts » retiré (FR, EN) : c'était le compte de l'archive, pas du
+  GitHub lié. Quand l'archive aura son DOI : « L'archive du dépôt contient vingt-huit
+  scripts en Python nu, sans dépendance », avec le lien vers le DOI Zenodo.
+- Pas de tuile de menu pour ces pages (décision d'Anibal) : les liens depuis Travaux et
+  le lexique suffisent.
+
+Sources pointées :
+- « elle n'est documentée que pour les ordres doublement pairs » (méthode des motifs,
+  pages d'ordre pair et d'ordre 6) : Chen et Grigorescu, *A simple formula and lower
+  bound for doubly even normal magic squares*, 2019 — la référence de la section
+  « Place dans la littérature » du papier, qui porte la phrase. Elle n'est pas citée
+  sur la page.
+
+De moi, à relire :
+- **Groupes de traduction** `carres-magiques-ordre-pair` et `carre-magique-ordre-6`
+  dans `scripts/langues.js` (fr, en ; x-default anglais) : hreflang, rangée « Autres
+  langues », sitemap. Les pages ouvrent la catégorie de Travaux (`parenteDe`,
+  `scripts/nav-tiles.js`).
+- **SANS SOURCE — lexique** (`lexique.html`, entrée « croix ansée » de la FAQ et son
+  JSON-LD) : « L'ordre 6 est un cas particulier : à tout ordre n = 2m ≥ 6 avec m impair,
+  il existe exactement 2^(m²−3m+1) figures de croix ansée, toutes réalisables — 2 048 à
+  l'ordre 10 —, et aucune quand m est pair. » et des liens vers les deux pages. Anglais :
+  la même phrase dans `data/lexiques_traduits.json` (le lexique anglais en est
+  engendré), sans lien — le générateur n'en pose pas dans une réponse.
+- **SANS SOURCE — Travaux** (`travaux.html`, `en/works/`) : une ligne sous
+  l'introduction, « Ce que ces dépôts établissent sur les carrés magiques, exposé sans
+  le code : … », avec les liens vers les deux pages.
+- **Balisage, sans toucher au texte** : `scope` sur les `<th>` du tableau des figures
+  (validation HTML, wcag/h63) ; couleur des liens du corps et des sources (le bleu par
+  défaut sur fond noir échouait au contraste) ; `tabindex="0"` sur le bloc de commandes
+  de la page d'ordre 6 (région défilante) ; la page d'ordre 6 française portait une
+  rangée « Autres langues » écrite à la main en plus de la zone engendrée — retirée.
+- **Vérifié depuis les pages** : le carré affiché (formules de classe case par case,
+  bijection 1…36, lignes, colonnes, diagonales à 111, non associatif) ; les deux SVG
+  sont exactement les deux figures calculées, points gris sur les douze cases
+  diagonales ; les figures sont complémentaires case par case ; un trait horizontal par
+  ligne et un vertical par colonne ; 18 432 / 8 192 / égalité des trois ensembles
+  (`croix_auto.py --ordre 6`) ; nombres de la page d'ordre pair contre
+  `data/resultats-etablis.json`.
+- **« planche 047 »** : `data/referents.json` dit « l'échiquier de la page 047 ».
+- **Dépendance** : les pages citent `construction.py` et les résultats du dépôt 15.34 —
+  la PR attend la fusion de #292.
+- **Non fait** : traductions es/th/zh/ru/pt/hi (le hreflang ne les déclare pas).

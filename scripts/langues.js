@@ -172,6 +172,13 @@ for (const p of OUTILS_TRADUITS) {
   for (const [code, c] of Object.entries(p.langues)) LANGUES[code].pages[p.nom] = c.dossier;
 }
 
+// Les pages sur les carrés magiques d'ordre pair et d'ordre 6 (2026-10-09) : français et
+// anglais seulement, les autres langues n'existent pas encore.
+LANGUES.fr.pages['carres-magiques-ordre-pair'] = 'carres-magiques-ordre-pair.html';
+LANGUES.en.pages['carres-magiques-ordre-pair'] = 'en/even-order-magic-square-construction/';
+LANGUES.fr.pages['carre-magique-ordre-6'] = 'carre-magique-ordre-6.html';
+LANGUES.en.pages['carre-magique-ordre-6'] = 'en/order-6-magic-square/';
+
 // La valeur hreflang (et <html lang>) d'un code de langue.
 const hreflangDeCode = (lang) => LANGUES[lang].hreflang || lang;
 
@@ -253,6 +260,8 @@ for (const g of GALERIE.groupes) {
 for (const p of OUTILS_TRADUITS) {
   GROUPES.push({ nom: p.nom, changefreq: 'monthly', priority: p.priorite, rangee: false, pages: pagesDe(p.nom) });
 }
+GROUPES.push({ nom: 'carre-magique-ordre-6', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('carre-magique-ordre-6') });
+GROUPES.push({ nom: 'carres-magiques-ordre-pair', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('carres-magiques-ordre-pair') });
 GROUPES.push({ nom: 'outils', changefreq: 'monthly', priority: '0.7', rangee: true, pages: pagesDe('outils') });
 GROUPES.push({ nom: 'soutien', changefreq: 'monthly', priority: '0.6', rangee: true, pages: pagesDe('soutien') });
 // La liste des articles elle-même : articles.html et sa jumelle anglaise.

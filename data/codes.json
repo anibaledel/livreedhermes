@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-09T18:18:54Z",
+ "generated_at_utc": "2026-10-09T19:38:19Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1161,9 +1161,9 @@
   {
    "chemin": "scripts/langues.js",
    "adresse": "https://anibal-amiot.com/scripts/langues.js",
-   "octets": 37086,
-   "sha256": "2b127a55257f5564ef34125661ef1e9e5236a892e4864ddee6b806beed4e9379",
-   "md5": "4acbb12fa6f7a718fc325dcb9c267cc1",
+   "octets": 37862,
+   "sha256": "d3295a71daa59dda52817f912cdbbcb0294c8ba0fb225e12a15211bbe4e6f43f",
+   "md5": "c28c39db17a00882470ac421dea7a86a",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique des groupes de traduction du site.",
@@ -1206,9 +1206,9 @@
   {
    "chemin": "scripts/nav-tiles.js",
    "adresse": "https://anibal-amiot.com/scripts/nav-tiles.js",
-   "octets": 26309,
-   "sha256": "ae0c1e56d51b5b070c9260424f5d29e34386d4f00b0709688e265417ad1d9347",
-   "md5": "ae179758d353b7e3c312b4387bb017ca",
+   "octets": 26602,
+   "sha256": "1f458d10683fe02150229ada218a994ded62a09981b07dd3ef43a978b35b5c78",
+   "md5": "35d893f75b4064ce569779c8672a9e0a",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique du bloc de navigation en tuiles (GIF rouge et blanc, grille de tuiles groupées, logo de pied), partagé par les 24 pages qui le portaient chacune à la main, par le gabarit des 64 hexagrammes (generate-hexagram-pages.js), et …",
