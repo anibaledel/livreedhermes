@@ -942,4 +942,5 @@ Sur les pages traduites du tirage, « More about this hexagram → » menait à 
 compose l'adresse française (`hexagramPageUrl`). Le générateur remplace désormais cette fonction, dans les pages
 traduites seulement, par la table des 64 adresses de la langue (`scripts/hexagrammes-adresses.js`, la source des
 générateurs de pages hexagrammes) et échoue si une de ces pages manque. La page française ne change pas. Rien à relire
-côté texte.
+côté texte. S'applique aux trois langues du tirage : en/yi-king-draw, es/tirada-del-yi-king, th/yi-king-draw — ce qui règle
+le point « en savoir plus » laissé ouvert dans la section du tirage en espagnol et en thaï.
