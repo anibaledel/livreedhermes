@@ -1,0 +1,118 @@
+{
+ "_doc": "Textes de telechargements.html et leurs traductions. « textes » : la table habituelle de scripts/build-outils-langues.js (« fr » : sous-chaîne EXACTE de la page française). « zone » : les libellés de la liste des téléchargements (zone @telechargements), que scripts/build-telechargements.js rend depuis les fichiers publiés dans chaque langue — poids, date et empreinte lus dans les fichiers, jamais recopiés ; « meta » : {format}, {date}, {empreinte} remplis par le générateur. « SANS SOURCE » : traduit pour ce lot, à relire (TODO-RELECTURE.md) ; « celda », « teselado », « เซลล์ », « การปูลาย » suivent l'usage des pages traduites du site.",
+ "textes": [
+  {
+   "fr": "<title>Motifs — téléchargement complet — La Livrée d'Hermès</title>",
+   "en": "<title>Patterns — full download — La Livrée d'Hermès</title>",
+   "es": "<title>Motivos — descarga completa — La Livrée d'Hermès</title>",
+   "th": "<title>ลวดลาย — ดาวน์โหลดทั้งชุด — La Livrée d'Hermès</title>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h1 class=\"pro-title\">Motifs — téléchargement complet</h1>",
+   "en": "<h1 class=\"pro-title\">Patterns — full download</h1>",
+   "es": "<h1 class=\"pro-title\">Motivos — descarga completa</h1>",
+   "th": "<h1 class=\"pro-title\">ลวดลาย — ดาวน์โหลดทั้งชุด</h1>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les motifs de La Livrée d'Hermès en SVG et en PDF vectoriels, 1024 constructions par ensemble — cellules et pavages, en trois couleurs ou en niveaux de gris —, en accès libre.",
+   "en": "The patterns of La Livrée d'Hermès as vector SVG and PDF, 1024 constructions per set — cells and tilings, in three colours or in greyscale —, freely available.",
+   "es": "Los motivos de La Livrée d'Hermès en SVG y PDF vectoriales, 1024 construcciones por conjunto —celdas y teselados, en tres colores o en escala de grises—, en acceso libre.",
+   "th": "ลวดลายของ La Livrée d'Hermès ในรูปแบบเวกเตอร์ SVG และ PDF ชุดละ 1024 โครงสร้าง — ทั้งเซลล์และการปูลาย ในสามสีหรือโทนสีเทา — เปิดให้เข้าถึงได้ฟรี",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Téléchargements\",",
+   "en": "\"name\": \"Downloads\",",
+   "es": "\"name\": \"Descargas\",",
+   "th": "\"name\": \"ดาวน์โหลด\",",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Motifs SVG</span>",
+   "en": "<span aria-current=\"page\">SVG patterns</span>",
+   "es": "<span aria-current=\"page\">Motivos SVG</span>",
+   "th": "<span aria-current=\"page\">ลวดลาย SVG</span>",
+   "source": "nav-tiles (motifs-svg, label) : scripts/nav-tiles.js pour en, nav-tiles-libelles.js pour es et th"
+  },
+  {
+   "fr": "\"name\": \"Motifs SVG\", \"item\"",
+   "en": "\"name\": \"SVG patterns\", \"item\"",
+   "es": "\"name\": \"Motivos SVG\", \"item\"",
+   "th": "\"name\": \"ลวดลาย SVG\", \"item\"",
+   "source": "nav-tiles (motifs-svg, label)"
+  },
+  {
+   "fr": "Choisissez un ensemble : une cellule ou un pavage, en couleur (Tricolore YPM) ou en niveaux de gris (Monochrome Black), puis le format — une archive de 1024 SVG ou un PDF de 1024 pages.",
+   "en": "Choose a set: a cell or a tiling, in colour (Tricolore YPM) or in greyscale (Monochrome Black), then the format — an archive of 1024 SVG files or a 1024-page PDF.",
+   "es": "Elija un conjunto: una celda o un teselado, en color (Tricolore YPM) o en escala de grises (Monochrome Black), y después el formato: un archivo comprimido de 1024 SVG o un PDF de 1024 páginas.",
+   "th": "เลือกชุดที่ต้องการ: เซลล์หรือการปูลาย แบบสี (Tricolore YPM) หรือโทนสีเทา (Monochrome Black) แล้วเลือกรูปแบบไฟล์ — ไฟล์บีบอัดรวม SVG 1024 ไฟล์ หรือ PDF 1024 หน้า",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les motifs de La Livrée d'Hermès en fichiers vectoriels, libres d'accès, en quatre ensembles de 1024 constructions. Les <b>cellules</b> donnent chaque motif seul, sa maille de 12 × 12 cases ; les <b>pavages</b> la répètent quatre fois sur quatre, comme sur une étoffe. Chaque ensemble existe en trois couleurs — jaune, violet et magenta (Tricolore YPM) — ou en niveaux de gris (Monochrome Black), sous deux formes : une archive ZIP de 1024 fichiers SVG, un par construction, et un PDF de 1024 pages, entièrement vectoriel. Les constructions y sont numérotées de 000 à 1023 : les bases de 000 à 255, les combinaisons de deux axes de 256 à 767, celles de trois axes de 768 à 1023.",
+   "en": "The patterns of La Livrée d'Hermès as vector files, freely available, in four sets of 1024 constructions. The <b>cells</b> give each pattern on its own, its 12 × 12 grid of squares; the <b>tilings</b> repeat it four times by four, as on a fabric. Each set comes in three colours — yellow, purple and magenta (Tricolore YPM) — or in greyscale (Monochrome Black), in two forms: a ZIP archive of 1024 SVG files, one per construction, and a 1024-page PDF, fully vector. The constructions are numbered from 000 to 1023: the bases from 000 to 255, the combinations of two axes from 256 to 767, those of three axes from 768 to 1023.",
+   "es": "Los motivos de La Livrée d'Hermès en archivos vectoriales, de acceso libre, en cuatro conjuntos de 1024 construcciones. Las <b>celdas</b> dan cada motivo solo, su malla de 12 × 12 casillas; los <b>teselados</b> la repiten cuatro veces por cuatro, como en una tela. Cada conjunto existe en tres colores —amarillo, violeta y magenta (Tricolore YPM)— o en escala de grises (Monochrome Black), en dos formas: un archivo ZIP de 1024 archivos SVG, uno por construcción, y un PDF de 1024 páginas, enteramente vectorial. Las construcciones están numeradas de 000 a 1023: las bases de 000 a 255, las combinaciones de dos ejes de 256 a 767, las de tres ejes de 768 a 1023.",
+   "th": "ลวดลายของ La Livrée d'Hermès ในรูปแบบไฟล์เวกเตอร์ เปิดให้เข้าถึงได้ฟรี แบ่งเป็นสี่ชุด ชุดละ 1024 โครงสร้าง <b>เซลล์</b>แสดงลวดลายแต่ละแบบเพียงลำพัง คือตาราง 12 × 12 ช่องของลวดลายนั้น ส่วน<b>การปูลาย</b>นำลวดลายมาซ้ำสี่คูณสี่ครั้ง เหมือนบนผืนผ้า แต่ละชุดมีทั้งแบบสามสี — เหลือง ม่วง และม่วงแดง (Tricolore YPM) — และแบบโทนสีเทา (Monochrome Black) ในสองรูปแบบ: ไฟล์บีบอัด ZIP รวม SVG 1024 ไฟล์ หนึ่งไฟล์ต่อหนึ่งโครงสร้าง และ PDF 1024 หน้าที่เป็นเวกเตอร์ทั้งหมด โครงสร้างมีหมายเลขตั้งแต่ 000 ถึง 1023: ลวดลายพื้นฐานตั้งแต่ 000 ถึง 255 การผสมสองแกนตั้งแต่ 256 ถึง 767 และการผสมสามแกนตั้งแต่ 768 ถึง 1023",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "1024 compte des constructions (famille × couple de teintes × hexagramme), pas des formes : ces fichiers correspondent à 512 grilles distinctes et 256 pavages — deux constructions peuvent dessiner la même grille sous deux familles différentes, ou une grille et son décalé d'une demi-période le même pavage. Si deux fichiers de cet ensemble sont identiques, c'est pour cette raison.",
+   "en": "1024 counts constructions (family × pair of hues × hexagram), not shapes: these files correspond to 512 distinct grids and 256 tilings — two constructions can draw the same grid under two different families, or a grid and its half-period shift the same tiling. If two files in this set are identical, that is why.",
+   "es": "1024 cuenta construcciones (familia × par de tonos × hexagrama), no formas: estos archivos corresponden a 512 cuadrículas distintas y 256 teselados —dos construcciones pueden dibujar la misma cuadrícula bajo dos familias diferentes, o una cuadrícula y su desplazada de medio período el mismo teselado—. Si dos archivos de este conjunto son idénticos, es por esta razón.",
+   "th": "1024 คือจำนวนโครงสร้าง (ตระกูล × คู่สี × ฉักลักษณ์) ไม่ใช่จำนวนรูปทรง: ไฟล์เหล่านี้ตรงกับตารางที่ต่างกัน 512 แบบ และการปูลาย 256 แบบ — สองโครงสร้างอาจวาดตารางเดียวกันภายใต้สองตระกูลที่ต่างกัน หรือตารางหนึ่งกับตารางที่เลื่อนไปครึ่งคาบของมันอาจให้การปูลายแบบเดียวกัน หากไฟล์สองไฟล์ในชุดนี้เหมือนกัน นี่คือเหตุผล",
+   "source": "SANS SOURCE"
+  }
+ ],
+ "zone": {
+  "en": {
+   "ensembles": [
+    "Cells — Tricolore YPM",
+    "Cells — Monochrome Black",
+    "Tilings — Tricolore YPM",
+    "Tilings — Monochrome Black"
+   ],
+   "pages": "pages",
+   "unites": [
+    "KB",
+    "MB"
+   ],
+   "decimale": ".",
+   "locale": "en-GB",
+   "meta": "{format} of {date}, fingerprint <code>{empreinte}</code>"
+  },
+  "es": {
+   "ensembles": [
+    "Celdas — Tricolore YPM",
+    "Celdas — Monochrome Black",
+    "Teselados — Tricolore YPM",
+    "Teselados — Monochrome Black"
+   ],
+   "pages": "páginas",
+   "unites": [
+    "KB",
+    "MB"
+   ],
+   "decimale": ",",
+   "locale": "es-ES",
+   "meta": "{format} del {date}, huella <code>{empreinte}</code>"
+  },
+  "th": {
+   "ensembles": [
+    "เซลล์ — Tricolore YPM",
+    "เซลล์ — Monochrome Black",
+    "การปูลาย — Tricolore YPM",
+    "การปูลาย — Monochrome Black"
+   ],
+   "pages": "หน้า",
+   "unites": [
+    "KB",
+    "MB"
+   ],
+   "decimale": ".",
+   "locale": "th-TH-u-ca-gregory",
+   "meta": "{format} วันที่ {date} ค่าแฮช <code>{empreinte}</code>"
+  }
+ }
+}

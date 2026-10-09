@@ -9,12 +9,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/telechargements.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/la-livree-d-hermes.html</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -1798,12 +1792,14 @@
   </url>
   <url>
     <loc>https://anibal-amiot.com/tirage-livree-hermes.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/tirage-livree-hermes.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/tirada-del-yi-king/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/yi-king-draw/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/"/>
   </url>
   <url>
@@ -1814,6 +1810,32 @@
     <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
     <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/tirage-livree-hermes.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/tirada-del-yi-king/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/tirada-del-yi-king/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/tirage-livree-hermes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/tirada-del-yi-king/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/yi-king-draw/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/tirage-livree-hermes.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/yi-king-draw/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/tirada-del-yi-king/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/yi-king-draw/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/yi-king-draw/"/>
   </url>
   <url>
@@ -1995,6 +2017,50 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/telechargements.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/downloads/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/descargas/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/downloads/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/telechargements.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/descargas/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/downloads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/downloads/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/encodeur.html</loc>
