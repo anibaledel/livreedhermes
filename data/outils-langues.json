@@ -391,6 +391,25 @@
       }
     },
     {
+      "source": "encodeur.html",
+      "priorite": "0.6",
+      "textes": "data/outils-langues/encodeur.json",
+      "langues": {
+        "en": {
+          "dossier": "en/encoder/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/codificador/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/encoder/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
       "source": "contact.html",
       "priorite": "0.6",
       "textes": "data/outils-langues/contact.json",

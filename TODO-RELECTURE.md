@@ -854,3 +854,35 @@ Ailleurs sur le site, pour que les liens visent la page dans la langue du visite
 - le bouton « Wallpaper » des pages du livre en/es/th (pages écrites à la main) ;
 - l'essai de `tools/check_langue_des_liens.mjs` prenait `fonds-ecran.html` comme exemple de page restée en français : il prend
   désormais `encodeur.html`.
+
+## Outils traduits, étape 2 — Encodeur (2026-10-09)
+
+`encodeur.html` → en/encoder/, es/codificador/, th/encoder/. Une seule table, `data/outils-langues/encodeur.json` :
+210 textes, **tous sans source** sauf le fil d'Ariane (« Encoder », « Codificador », « ตัวเข้ารหัส », repris des tuiles).
+Elle couvre la page et le module de l'outil, qui est en ligne dans la page : messages d'erreur, résultats, infobulles
+des référents. Où corriger : dans la table, puis `node scripts/build-outils-langues.js`. Aucune traduction ne porte de
+guillemet droit ' ou " (ces textes vivent aussi dans des chaînes JavaScript) : en écrire un casserait le module.
+
+Choix à relire :
+- les termes que le français laisse en anglais restent en anglais : offer, fingerprint, vault, Exchange, passphrase,
+  forward secrecy, manifest, tag, Nonce ;
+- en anglais, le vocabulaire suit l'article *The encoder: hiding is not protecting* (grid, block, grammar, noise) ;
+- en espagnol, « grille » est « cuadrícula », comme dans la tuile espagnole de la démo Carter Random (scripts/nav-tiles-libelles.js) ; « sel » est « sal » ;
+- **en thaï, « Carter » est resté en latin** (Carter-256, Carter-Random, « Passphrase Carter »), alors que le glossaire
+  (`docs/terminologie-fr-en-es-th.md`, ligne « Carter (l'encodeur) ») donne « คาร์เตอร์ ». Je l'ai gardé en latin parce
+  que ce sont des noms de variantes, écrits tels quels dans le sélecteur et les fichiers ; à trancher.
+
+Ce qui diffère des autres outils traduits :
+- **la CSP** : l'encodeur n'exécute ses scripts en ligne que par leur empreinte SHA-256. Le générateur recalcule la balise
+  des pages traduites ; `tools/check_csp.mjs` les vérifie aussi, par son propre calcul ;
+- **pas de service worker sur les pages traduites** : `encodeur-sw.js` met en cache la page française, et sa portée
+  (`./encodeur`) ne couvre pas en/es/th. Le mode hors ligne reste celui de la page française. Le faire marcher dans les
+  trois langues demanderait de changer le service worker (ses adresses en cache, sa portée), donc une décision ;
+- `CACHE_VERSION` du service worker est recalculée (`check_encodeur_sw.mjs --ecrit`) : la page française a pris son
+  bloc hreflang ;
+- les noms des fichiers téléchargés restent français (grille_carter.csv, grille_steganographique.csv), comme le texte qui
+  les cite.
+
+Ailleurs : le lien « Open the encoder (in French) » de l'article anglais sur l'encodeur, et le bouton « Encoder » des
+pages du livre en/es/th, visent la page de leur langue ; l'essai de `check_langue_des_liens.mjs` prend désormais
+`carter-demo.html` comme page restée en français.

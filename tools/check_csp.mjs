@@ -24,7 +24,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const PAGES = ['encodeur.html', 'soutenir.html', 'soutien-succes.html'];
+const SOURCES = ['encodeur.html', 'soutenir.html', 'soutien-succes.html'];
+// Les traductions d'une page à CSP (scripts/build-outils-langues.js, qui
+// recalcule leur politique) : même exigence, vérifiée ici par un calcul
+// indépendant de celui du générateur.
+const OUTILS = JSON.parse(readFileSync(path.join(ROOT, 'data/outils-langues.json'), 'utf8'));
+const PAGES = [...SOURCES, ...OUTILS.pages
+  .filter((p) => SOURCES.includes(p.source))
+  .flatMap((p) => Object.values(p.langues).map((l) => `${l.dossier}index.html`))];
 const WORKER = 'https://livreedhermes-soutien.anibalamiot.workers.dev';
 
 // Scripts exécutés par le navigateur : sans type, ou de type JavaScript /

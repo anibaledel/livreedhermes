@@ -117,16 +117,16 @@ const toutes = pages(RACINE);
 if (process.argv.includes('--essai')) {
   // un lien faussé : la page anglaise « About » renvoie vers le contact français
   const f = path.join(RACINE, 'en/about/index.html');
-  // et un lien muet vers une page restée en français (encodeur.html ; c'était
-  // fonds-ecran.html jusqu'à sa traduction en/es/th, octobre 2026)
-  const s = lire(f).s.replace('</main>', `<a href="${SITE}contact.html">x</a><a href="${SITE}encodeur.html">y</a></main>`);
+  // et un lien muet vers une page restée en français (carter-demo.html ; ce
+  // furent fonds-ecran.html puis encodeur.html, jusqu'à leur traduction en/es/th)
+  const s = lire(f).s.replace('</main>', `<a href="${SITE}contact.html">x</a><a href="${SITE}carter-demo.html">y</a></main>`);
   const { fautes, sansEquivalent } = controler([f], new Map([[f, { ...lire(f), s }]]));
-  const muet = sansEquivalent.some((x) => x.href === `${SITE}encodeur.html` && !x.annonce);
+  const muet = sansEquivalent.some((x) => x.href === `${SITE}carter-demo.html` && !x.annonce);
   if (!fautes.some((x) => x.href === `${SITE}contact.html`) || !muet) {
-    console.error('ÉCHEC de l\'essai : en/about/ → contact.html (équivalent : en/contact/) ou → encodeur.html sans annonce n\'a pas été relevé.');
+    console.error('ÉCHEC de l\'essai : en/about/ → contact.html (équivalent : en/contact/) ou → carter-demo.html sans annonce n\'a pas été relevé.');
     process.exit(1);
   }
-  console.log('Essai : les deux liens faussés (en/about/ → contact.html ; → encodeur.html sans annonce) sont bien relevés.');
+  console.log('Essai : les deux liens faussés (en/about/ → contact.html ; → carter-demo.html sans annonce) sont bien relevés.');
   process.exit(0);
 }
 
