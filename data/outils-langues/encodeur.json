@@ -1,0 +1,1475 @@
+{
+ "_doc": "Textes de encodeur.html et leurs traductions (scripts/build-outils-langues.js). « fr » : sous-chaîne EXACTE de la page française, y compris dans le module de l'outil (messages d'erreur, résultats, infobulles) : le module est en ligne dans la page, la table le traduit par sous-chaîne. Aucune traduction ne porte de guillemet droit ' ou \" qui ne soit pas déjà dans « fr » (ces textes vivent aussi dans des chaînes JavaScript). « source » : provenance, « SANS SOURCE » quand la traduction est écrite pour ce lot (à relire, TODO-RELECTURE.md). La politique de sécurité du contenu (CSP) des pages traduites est recalculée par le générateur. Les pages traduites n'enregistrent pas le service worker : encodeur-sw.js met en cache la page française et sa portée « ./encodeur » ne couvre pas les dossiers en/es/th ; le mode hors ligne reste celui de la page française.",
+ "textes": [
+  {
+   "fr": "Encodeur stéganographique — La Livrée d'Hermès",
+   "en": "Steganographic encoder — La Livrée d'Hermès",
+   "es": "Codificador esteganográfico — La Livrée d'Hermès",
+   "th": "ตัวเข้ารหัสซ่อนข้อมูล — La Livrée d'Hermès",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Outil d'encodage stéganographique géométrique par double référent (croix ansée + Jacquard), en accès libre sur La Livrée d'Hermès.",
+   "en": "Geometric steganographic encoding tool using a double referent (ansate cross + Jacquard), freely available on La Livrée d'Hermès.",
+   "es": "Herramienta de codificación esteganográfica geométrica por doble referente (cruz ansada + Jacquard), de acceso libre en La Livrée d'Hermès.",
+   "th": "เครื่องมือเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ (กางเขนหูหิ้ว + ฌักการ์) เปิดให้ใช้ได้โดยเสรีบน La Livrée d'Hermès",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Encodeur stéganographique\",",
+   "en": "\"name\": \"Steganographic encoder\",",
+   "es": "\"name\": \"Codificador esteganográfico\",",
+   "th": "\"name\": \"ตัวเข้ารหัสซ่อนข้อมูล\",",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\"name\": \"Encodeur\", \"item\"",
+   "en": "\"name\": \"Encoder\", \"item\"",
+   "es": "\"name\": \"Codificador\", \"item\"",
+   "th": "\"name\": \"ตัวเข้ารหัส\", \"item\"",
+   "source": "nav-tiles (encodeur, label) : scripts/nav-tiles.js pour en, nav-tiles-libelles.js pour es et th"
+  },
+  {
+   "fr": "<span aria-current=\"page\">Encodeur</span>",
+   "en": "<span aria-current=\"page\">Encoder</span>",
+   "es": "<span aria-current=\"page\">Codificador</span>",
+   "th": "<span aria-current=\"page\">ตัวเข้ารหัส</span>",
+   "source": "nav-tiles (encodeur, label) : scripts/nav-tiles.js pour en, nav-tiles-libelles.js pour es et th"
+  },
+  {
+   "fr": "<h1>Encodeur stéganographique</h1>",
+   "en": "<h1>Steganographic encoder</h1>",
+   "es": "<h1>Codificador esteganográfico</h1>",
+   "th": "<h1>ตัวเข้ารหัสซ่อนข้อมูล</h1>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Cachez un message dans une grille de nombres — double référent croix ansée + Jacquard",
+   "en": "Hide a message in a grid of numbers — double referent ansate cross + Jacquard",
+   "es": "Oculte un mensaje en una cuadrícula de números — doble referente cruz ansada + Jacquard",
+   "th": "ซ่อนข้อความไว้ในตารางตัวเลข — ตัวอ้างอิงคู่ กางเขนหูหิ้ว + ฌักการ์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<a href=\"carter-demo.html\" style=\"color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;\">Voir la démo interactive Carter Random</a> — visualisation de la grille (référents dérivés de la clé), en accès libre",
+   "en": "<a href=\"carter-demo.html\" style=\"color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;\">See the interactive Carter Random demo</a> — a visualisation of the grid (referents derived from the key), freely available",
+   "es": "<a href=\"carter-demo.html\" style=\"color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;\">Ver la demostración interactiva Carter Random</a> — visualización de la cuadrícula (referentes derivados de la clave), de acceso libre",
+   "th": "<a href=\"carter-demo.html\" style=\"color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;\">ดูเดโมแบบโต้ตอบ Carter Random</a> — แสดงภาพตาราง (ตัวอ้างอิงที่ได้จากคีย์) เปิดให้ใช้ได้โดยเสรี",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p id=\"encLoading\">Chargement des référents…</p>",
+   "en": "<p id=\"encLoading\">Loading referents…</p>",
+   "es": "<p id=\"encLoading\">Cargando los referentes…</p>",
+   "th": "<p id=\"encLoading\">กำลังโหลดตัวอ้างอิง…</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"active\" data-tab=\"demo\">⚡ Démo</button>",
+   "en": "<button type=\"button\" class=\"active\" data-tab=\"demo\">⚡ Demo</button>",
+   "es": "<button type=\"button\" class=\"active\" data-tab=\"demo\">⚡ Demo</button>",
+   "th": "<button type=\"button\" class=\"active\" data-tab=\"demo\">⚡ เดโม</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"exchange\">🔑 Exchange</button>",
+   "en": "<button type=\"button\" data-tab=\"exchange\">🔑 Exchange</button>",
+   "es": "<button type=\"button\" data-tab=\"exchange\">🔑 Exchange</button>",
+   "th": "<button type=\"button\" data-tab=\"exchange\">🔑 Exchange</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"encoder\">📨 Message</button>",
+   "en": "<button type=\"button\" data-tab=\"encoder\">📨 Message</button>",
+   "es": "<button type=\"button\" data-tab=\"encoder\">📨 Mensaje</button>",
+   "th": "<button type=\"button\" data-tab=\"encoder\">📨 ข้อความ</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"decoder\">🔓 Déchiffrer</button>",
+   "en": "<button type=\"button\" data-tab=\"decoder\">🔓 Decrypt</button>",
+   "es": "<button type=\"button\" data-tab=\"decoder\">🔓 Descifrar</button>",
+   "th": "<button type=\"button\" data-tab=\"decoder\">🔓 ถอดรหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"vault\">💾 Vault</button>",
+   "en": "<button type=\"button\" data-tab=\"vault\">💾 Vault</button>",
+   "es": "<button type=\"button\" data-tab=\"vault\">💾 Vault</button>",
+   "th": "<button type=\"button\" data-tab=\"vault\">💾 Vault</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"disk\">🔒 Chiffrement</button>",
+   "en": "<button type=\"button\" data-tab=\"disk\">🔒 Encryption</button>",
+   "es": "<button type=\"button\" data-tab=\"disk\">🔒 Cifrado</button>",
+   "th": "<button type=\"button\" data-tab=\"disk\">🔒 การเข้ารหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"referents\">📐 Référents</button>",
+   "en": "<button type=\"button\" data-tab=\"referents\">📐 Referents</button>",
+   "es": "<button type=\"button\" data-tab=\"referents\">📐 Referentes</button>",
+   "th": "<button type=\"button\" data-tab=\"referents\">📐 ตัวอ้างอิง</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" data-tab=\"about\">📖 À propos</button>",
+   "en": "<button type=\"button\" data-tab=\"about\">📖 About</button>",
+   "es": "<button type=\"button\" data-tab=\"about\">📖 Acerca de</button>",
+   "th": "<button type=\"button\" data-tab=\"about\">📖 เกี่ยวกับ</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Démonstration : message ANIBALAMIOTX",
+   "en": "Demonstration: message ANIBALAMIOTX",
+   "es": "Demostración: mensaje ANIBALAMIOTX",
+   "th": "การสาธิต: ข้อความ ANIBALAMIOTX",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>ANIBALAMIOTX</b> est d'abord chiffré avec XChaCha20-Poly1305 (clé maître de 256 bits), puis le texte chiffré est réparti sur les blocs qu'une seule et même clé désigne comme « message » dans une grille 90×90 — le reste est du bruit indiscernable, y compris les blocs « structurés », statistiquement identiques aux blocs « message » sans la clé. La confidentialité vient du chiffrement, la géométrie ne fait que cacher où se trouve le texte chiffré.",
+   "en": "<b>ANIBALAMIOTX</b> is first encrypted with XChaCha20-Poly1305 (256-bit master key), then the ciphertext is spread across the blocks that one and the same key designates as “message” in a 90×90 grid — the rest is indistinguishable noise, including the “structured” blocks, which are statistically identical to the “message” blocks without the key. Confidentiality comes from the encryption; the geometry only hides where the ciphertext is.",
+   "es": "<b>ANIBALAMIOTX</b> se cifra primero con XChaCha20-Poly1305 (clave maestra de 256 bits); después, el texto cifrado se reparte entre los bloques que una sola y misma clave designa como «mensaje» en una cuadrícula de 90×90 — el resto es ruido indistinguible, incluidos los bloques «estructurados», estadísticamente idénticos a los bloques «mensaje» sin la clave. La confidencialidad procede del cifrado; la geometría solo oculta dónde se encuentra el texto cifrado.",
+   "th": "<b>ANIBALAMIOTX</b> ถูกเข้ารหัสด้วย XChaCha20-Poly1305 ก่อน (คีย์หลักขนาด 256 บิต) จากนั้นข้อความที่เข้ารหัสแล้วจะถูกกระจายลงบนบล็อกที่คีย์เดียวกันนั้นกำหนดให้เป็น “ข้อความ” ในตาราง 90×90 — ส่วนที่เหลือเป็นสัญญาณรบกวนที่แยกไม่ออก รวมถึงบล็อก “มีโครงสร้าง” ซึ่งหากไม่มีคีย์ก็เหมือนกับบล็อก “ข้อความ” ในเชิงสถิติ ความลับมาจากการเข้ารหัส ส่วนเรขาคณิตทำหน้าที่เพียงซ่อนตำแหน่งของข้อความที่เข้ารหัสแล้ว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnRunDemo\">Lancer la démonstration</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnRunDemo\">Run the demonstration</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnRunDemo\">Iniciar la demostración</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnRunDemo\">เริ่มการสาธิต</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Échange de clés — X25519 authentifié (triple DH)",
+   "en": "Key exchange — authenticated X25519 (triple DH)",
+   "es": "Intercambio de claves — X25519 autenticado (triple DH)",
+   "th": "การแลกเปลี่ยนคีย์ — X25519 แบบยืนยันตัวตน (triple DH)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Deux correspondants dérivent la même session sans transmettre de secret. Trois Diffie-Hellman entrent dans la dérivation : éphémère × éphémère pour la forward secrecy, puis éphémère × identité de chaque côté, ce qui lie les identités long terme à la session. Un relais qui substitue ses propres clés éphémères ne possède aucune des deux identités privées : il ne peut pas calculer la clé. Même protocole que la CLI Python — une session dérivée ici et une session dérivée par <code>secu-box exchange</code> aboutissent à la même clé.",
+   "en": "Two correspondents derive the same session without transmitting any secret. Three Diffie-Hellman exchanges go into the derivation: ephemeral × ephemeral for forward secrecy, then ephemeral × identity on each side, which binds the long-term identities to the session. A relay that substitutes its own ephemeral keys holds neither of the two private identities: it cannot compute the key. Same protocol as the Python CLI — a session derived here and a session derived by <code>secu-box exchange</code> arrive at the same key.",
+   "es": "Dos interlocutores derivan la misma sesión sin transmitir ningún secreto. En la derivación intervienen tres Diffie-Hellman: efímera × efímera para la forward secrecy, y después efímera × identidad en cada lado, lo que vincula las identidades de largo plazo a la sesión. Un relé que sustituya sus propias claves efímeras no posee ninguna de las dos identidades privadas: no puede calcular la clave. Mismo protocolo que la CLI de Python — una sesión derivada aquí y una sesión derivada con <code>secu-box exchange</code> llegan a la misma clave.",
+   "th": "คู่สื่อสารสองฝ่ายได้เซสชันเดียวกันโดยไม่ต้องส่งความลับใด ๆ การสร้างคีย์ใช้ Diffie-Hellman สามชุด: ชั่วคราว × ชั่วคราว เพื่อ forward secrecy จากนั้น ชั่วคราว × ตัวตน ของแต่ละฝ่าย ซึ่งผูกตัวตนระยะยาวเข้ากับเซสชัน ตัวกลางที่สอดแทรกคีย์ชั่วคราวของตนเองเข้ามาไม่มีคีย์ส่วนตัวของตัวตนฝ่ายใดเลย จึงคำนวณคีย์ไม่ได้ ใช้โปรโตคอลเดียวกับ CLI Python — เซสชันที่สร้างที่นี่และเซสชันที่สร้างด้วย <code>secu-box exchange</code> จะได้คีย์เดียวกัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Ce qui vous protège :</b> la vérification, par un canal séparé (appel vocal, rencontre), du fingerprint d'identité que l'offer de votre correspondant annonce. Sans elle, rien ne distingue votre correspondant d'un relais qui se présenterait avec sa propre identité. La chaîne d'authentification affichée après dérivation reste disponible en secours, si le fingerprint n'a pas pu être confronté avant.<br><br>\n              <b>Sur votre identité :</b> sa clé privée est conservée dans ce navigateur sous une forme que le code de la page ne peut pas lire — il peut seulement s'en servir pour dériver. Contrepartie : elle ne peut être ni sauvegardée ni déplacée vers un autre navigateur. Effacer les données du site la détruit définitivement, avec le fingerprint que vos correspondants connaissent. Une identité de la CLI Python ne peut pas non plus être importée ici : chaque côté garde la sienne, ce qui n'empêche pas les deux de dialoguer.",
+   "en": "<b>What protects you:</b> checking, over a separate channel (voice call, meeting in person), the identity fingerprint announced by your correspondent’s offer. Without it, nothing distinguishes your correspondent from a relay presenting itself with its own identity. The authentication chain displayed after derivation remains available as a fallback, if the fingerprint could not be compared beforehand.<br><br>\n              <b>About your identity:</b> its private key is kept in this browser in a form the page’s code cannot read — it can only use it to derive. The trade-off: it can be neither backed up nor moved to another browser. Clearing the site’s data destroys it permanently, along with the fingerprint your correspondents know. An identity from the Python CLI cannot be imported here either: each side keeps its own, which does not prevent the two from communicating.",
+   "es": "<b>Lo que le protege:</b> la verificación, por un canal separado (llamada de voz, encuentro en persona), del fingerprint de identidad que anuncia la offer de su interlocutor. Sin ella, nada distingue a su interlocutor de un relé que se presentara con su propia identidad. La cadena de autenticación mostrada tras la derivación sigue disponible como recurso, si el fingerprint no pudo cotejarse antes.<br><br>\n              <b>Sobre su identidad:</b> su clave privada se conserva en este navegador de una forma que el código de la página no puede leer — solo puede usarla para derivar. Contrapartida: no puede guardarse como copia de seguridad ni trasladarse a otro navegador. Borrar los datos del sitio la destruye definitivamente, junto con el fingerprint que conocen sus interlocutores. Tampoco puede importarse aquí una identidad de la CLI de Python: cada lado conserva la suya, lo que no impide que ambos se comuniquen.",
+   "th": "<b>สิ่งที่ปกป้องคุณ:</b> การตรวจสอบ fingerprint ของตัวตนที่ offer ของคู่สื่อสารประกาศไว้ ผ่านช่องทางแยกต่างหาก (โทรศัพท์ หรือพบกันตัวจริง) หากไม่ตรวจสอบ ก็ไม่มีสิ่งใดแยกคู่สื่อสารของคุณออกจากตัวกลางที่แสดงตัวด้วยตัวตนของตนเองได้ สายการยืนยันตัวตนที่แสดงหลังการสร้างเซสชันยังใช้เป็นทางสำรองได้ หากยังไม่ได้เทียบ fingerprint ไว้ก่อน<br><br>\n              <b>เกี่ยวกับตัวตนของคุณ:</b> คีย์ส่วนตัวถูกเก็บในเบราว์เซอร์นี้ในรูปแบบที่โค้ดของหน้าเว็บอ่านไม่ได้ — ทำได้เพียงใช้คีย์นั้นเพื่อสร้างเซสชัน ข้อแลกเปลี่ยนคือ ไม่สามารถสำรองหรือย้ายคีย์ไปยังเบราว์เซอร์อื่นได้ การล้างข้อมูลของเว็บไซต์จะทำลายคีย์อย่างถาวร พร้อมกับ fingerprint ที่คู่สื่อสารของคุณรู้จัก ตัวตนจาก CLI Python ก็นำเข้าที่นี่ไม่ได้เช่นกัน: แต่ละฝ่ายเก็บตัวตนของตนไว้ ซึ่งไม่ได้ขัดขวางให้ทั้งสองฝ่ายสื่อสารกัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Étape 0 — Votre identité",
+   "en": "Step 0 — Your identity",
+   "es": "Paso 0 — Su identidad",
+   "th": "ขั้นที่ 0 — ตัวตนของคุณ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div id=\"sc-identity-box\" class=\"enc-info-box\">Chargement…</div>",
+   "en": "<div id=\"sc-identity-box\" class=\"enc-info-box\">Loading…</div>",
+   "es": "<div id=\"sc-identity-box\" class=\"enc-info-box\">Cargando…</div>",
+   "th": "<div id=\"sc-identity-box\" class=\"enc-info-box\">กำลังโหลด…</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnScCreateIdentity\" hidden>Créer mon identité</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnScCreateIdentity\" hidden>Create my identity</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnScCreateIdentity\" hidden>Crear mi identidad</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnScCreateIdentity\" hidden>สร้างตัวตนของฉัน</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Étape 1 — Votre offer",
+   "en": "Step 1 — Your offer",
+   "es": "Paso 1 — Su offer",
+   "th": "ขั้นที่ 1 — offer ของคุณ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnScGenerate\">Générer mon offer</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnScGenerate\">Generate my offer</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnScGenerate\">Generar mi offer</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnScGenerate\">สร้าง offer ของฉัน</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Mon offer — identité ‖ éphémère, 128 caractères hex (à envoyer à votre correspondant)",
+   "en": "My offer — identity ‖ ephemeral, 128 hex characters (to send to your correspondent)",
+   "es": "Mi offer — identidad ‖ efímera, 128 caracteres hex (para enviar a su interlocutor)",
+   "th": "offer ของฉัน — ตัวตน ‖ ชั่วคราว, 128 อักขระ hex (ส่งให้คู่สื่อสารของคุณ)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScCopyPub\">Copier</button>",
+   "en": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScCopyPub\">Copy</button>",
+   "es": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScCopyPub\">Copiar</button>",
+   "th": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScCopyPub\">คัดลอก</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Étape 2 — Offer de votre correspondant",
+   "en": "Step 2 — Your correspondent’s offer",
+   "es": "Paso 2 — Offer de su interlocutor",
+   "th": "ขั้นที่ 2 — offer ของคู่สื่อสาร",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Offer reçue (128 caractères hex)",
+   "en": "Offer received (128 hex characters)",
+   "es": "Offer recibida (128 caracteres hex)",
+   "th": "offer ที่ได้รับ (128 อักขระ hex)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnScDerive\">Dériver la session</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnScDerive\">Derive the session</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnScDerive\">Derivar la sesión</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnScDerive\">สร้างเซสชัน</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Les clés de session sont stockées dans votre navigateur (localStorage). Effacer l'historique ou utiliser la navigation privée les supprime. Aucune donnée n'est envoyée au serveur.",
+   "en": "Session keys are stored in your browser (localStorage). Clearing your history or using private browsing deletes them. No data is sent to the server.",
+   "es": "Las claves de sesión se almacenan en su navegador (localStorage). Borrar el historial o usar la navegación privada las elimina. No se envía ningún dato al servidor.",
+   "th": "คีย์เซสชันถูกเก็บในเบราว์เซอร์ของคุณ (localStorage) การล้างประวัติหรือการใช้โหมดท่องเว็บแบบส่วนตัวจะลบคีย์เหล่านี้ ไม่มีข้อมูลใดถูกส่งไปยังเซิร์ฟเวอร์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Session active</h2>",
+   "en": "<h2>Active session</h2>",
+   "es": "<h2>Sesión activa</h2>",
+   "th": "<h2>เซสชันที่ใช้งานอยู่</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Aucune session active. Dérivez une session ci-dessus, ou utilisez les onglets Message/Déchiffrer avec des clés générées librement.",
+   "en": "No active session. Derive a session above, or use the Message/Decrypt tabs with freely generated keys.",
+   "es": "Ninguna sesión activa. Derive una sesión más arriba, o utilice las pestañas Mensaje/Descifrar con claves generadas libremente.",
+   "th": "ไม่มีเซสชันที่ใช้งานอยู่ สร้างเซสชันด้านบน หรือใช้แท็บ ข้อความ/ถอดรหัส ด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScClearSession\" hidden>Effacer la session</button>",
+   "en": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScClearSession\" hidden>Clear the session</button>",
+   "es": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScClearSession\" hidden>Borrar la sesión</button>",
+   "th": "<button type=\"button\" class=\"enc-btn secondary\" id=\"btnScClearSession\" hidden>ล้างเซสชัน</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Envoyer avec la session active",
+   "en": "Send with the active session",
+   "es": "Enviar con la sesión activa",
+   "th": "ส่งด้วยเซสชันที่ใช้งานอยู่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Aucune session active (onglet Exchange) — encode ci-dessous avec des clés générées librement.",
+   "en": "No active session (Exchange tab) — encode below with freely generated keys.",
+   "es": "Ninguna sesión activa (pestaña Exchange) — codifique más abajo con claves generadas libremente.",
+   "th": "ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange) — เข้ารหัสด้านล่างด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"enc-session-message\">Message à envoyer</label>",
+   "en": "<label class=\"enc-label\" for=\"enc-session-message\">Message to send</label>",
+   "es": "<label class=\"enc-label\" for=\"enc-session-message\">Mensaje que enviar</label>",
+   "th": "<label class=\"enc-label\" for=\"enc-session-message\">ข้อความที่จะส่ง</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Encoder et télécharger la grille",
+   "en": "Encode and download the grid",
+   "es": "Codificar y descargar la cuadrícula",
+   "th": "เข้ารหัสและดาวน์โหลดตาราง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Encoder un message (clé libre)",
+   "en": "Encode a message (free key)",
+   "es": "Codificar un mensaje (clave libre)",
+   "th": "เข้ารหัสข้อความ (คีย์อิสระ)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"enc-message\">Message à encoder</label>",
+   "en": "<label class=\"enc-label\" for=\"enc-message\">Message to encode</label>",
+   "es": "<label class=\"enc-label\" for=\"enc-message\">Mensaje que codificar</label>",
+   "th": "<label class=\"enc-label\" for=\"enc-message\">ข้อความที่จะเข้ารหัส</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"enc-variant\">Variante</label>",
+   "en": "<label class=\"enc-label\" for=\"enc-variant\">Variant</label>",
+   "es": "<label class=\"enc-label\" for=\"enc-variant\">Variante</label>",
+   "th": "<label class=\"enc-label\" for=\"enc-variant\">รูปแบบ</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnEncode\">Encoder</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnEncode\">Encode</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnEncode\">Codificar</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnEncode\">เข้ารหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"enc-key1\">Clé maître Carter</label>",
+   "en": "<label class=\"enc-label\" for=\"enc-key1\">Carter master key</label>",
+   "es": "<label class=\"enc-label\" for=\"enc-key1\">Clave maestra Carter</label>",
+   "th": "<label class=\"enc-label\" for=\"enc-key1\">คีย์หลัก Carter</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Grille encodée (CSV, aperçu)",
+   "en": "Encoded grid (CSV, preview)",
+   "es": "Cuadrícula codificada (CSV, vista previa)",
+   "th": "ตารางที่เข้ารหัสแล้ว (CSV, ตัวอย่าง)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "⬇ Télécharger la grille CSV",
+   "en": "⬇ Download the CSV grid",
+   "es": "⬇ Descargar la cuadrícula CSV",
+   "th": "⬇ ดาวน์โหลดตาราง CSV",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Grille Carter (grammaire dérivée de la clé)",
+   "en": "Carter grid (grammar derived from the key)",
+   "es": "Cuadrícula Carter (gramática derivada de la clave)",
+   "th": "ตาราง Carter (ไวยากรณ์ที่ได้จากคีย์)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Une seule passphrase dérive, par HKDF-SHA256, la clé de chiffrement et la grammaire de la grille (rôle — pur / structuré / message — et forme de chacun de ses blocs) — aucun placement n'est stocké en dehors de la clé. Les blocs « structurés » et « message » sont statistiquement indiscernables sans elle. Chaque encodage tire un <b>sel</b> aléatoire, affiché après coup : le transmettre avec la passphrase. Il n'est pas secret et ne figure pas dans le CSV, mais sans lui la grille reste close — et c'est lui qui empêche qu'une table précalculée sur des passphrases courantes n'ouvre les grilles de tous les utilisateurs à la fois.",
+   "en": "A single passphrase derives, via HKDF-SHA256, the encryption key and the grammar of the grid (the role — pure / structured / message — and the shape of each of its blocks) — no placement is stored outside the key. The “structured” and “message” blocks are statistically indistinguishable without it. Each encoding draws a random <b>salt</b>, displayed afterwards: send it along with the passphrase. It is not secret and does not appear in the CSV, but without it the grid stays closed — and it is what prevents a table precomputed over common passphrases from opening every user’s grids at once.",
+   "es": "Una sola passphrase deriva, mediante HKDF-SHA256, la clave de cifrado y la gramática de la cuadrícula (función — puro / estructurado / mensaje — y forma de cada uno de sus bloques) — ninguna ubicación se almacena fuera de la clave. Los bloques «estructurados» y «mensaje» son estadísticamente indistinguibles sin ella. Cada codificación extrae una <b>sal</b> aleatoria, que se muestra a posteriori: transmítala junto con la passphrase. No es secreta y no figura en el CSV, pero sin ella la cuadrícula permanece cerrada — y es ella la que impide que una tabla precalculada sobre passphrases habituales abra a la vez las cuadrículas de todos los usuarios.",
+   "th": "passphrase เดียวสร้างทั้งคีย์เข้ารหัสและไวยากรณ์ของตาราง (บทบาท — บริสุทธิ์ / มีโครงสร้าง / ข้อความ — และรูปทรงของแต่ละบล็อก) ด้วย HKDF-SHA256 — ไม่มีการจัดวางใดถูกเก็บไว้นอกคีย์ บล็อก “มีโครงสร้าง” และ “ข้อความ” แยกไม่ออกในเชิงสถิติหากไม่มีคีย์ การเข้ารหัสแต่ละครั้งจะสุ่ม<b>ซอลต์</b>ใหม่และแสดงให้เห็นภายหลัง: ให้ส่งไปพร้อมกับ passphrase ซอลต์ไม่ใช่ความลับและไม่อยู่ใน CSV แต่หากไม่มีซอลต์ ตารางจะยังคงเปิดไม่ได้ — และซอลต์นี้เองที่ป้องกันไม่ให้ตารางที่คำนวณไว้ล่วงหน้าจาก passphrase ยอดนิยมเปิดตารางของผู้ใช้ทุกคนได้ในคราวเดียว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"carter-passphrase\">Passphrase Carter</label>",
+   "en": "<label class=\"enc-label\" for=\"carter-passphrase\">Carter passphrase</label>",
+   "es": "<label class=\"enc-label\" for=\"carter-passphrase\">Passphrase Carter</label>",
+   "th": "<label class=\"enc-label\" for=\"carter-passphrase\">passphrase Carter</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"carter-message\">Message à encoder</label>",
+   "en": "<label class=\"enc-label\" for=\"carter-message\">Message to encode</label>",
+   "es": "<label class=\"enc-label\" for=\"carter-message\">Mensaje que codificar</label>",
+   "th": "<label class=\"enc-label\" for=\"carter-message\">ข้อความที่จะเข้ารหัส</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"carter-variant\">Variante</label>",
+   "en": "<label class=\"enc-label\" for=\"carter-variant\">Variant</label>",
+   "es": "<label class=\"enc-label\" for=\"carter-variant\">Variante</label>",
+   "th": "<label class=\"enc-label\" for=\"carter-variant\">รูปแบบ</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Encoder et télécharger grille_carter.csv",
+   "en": "Encode and download grille_carter.csv",
+   "es": "Codificar y descargar grille_carter.csv",
+   "th": "เข้ารหัสและดาวน์โหลด grille_carter.csv",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Déchiffrer avec la session active",
+   "en": "Decrypt with the active session",
+   "es": "Descifrar con la sesión activa",
+   "th": "ถอดรหัสด้วยเซสชันที่ใช้งานอยู่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Aucune session active (onglet Exchange).",
+   "en": "No active session (Exchange tab).",
+   "es": "Ninguna sesión activa (pestaña Exchange).",
+   "th": "ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Grille CSV (coller ou charger)",
+   "en": "CSV grid (paste or load)",
+   "es": "Cuadrícula CSV (pegar o cargar)",
+   "th": "ตาราง CSV (วางหรือโหลด)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecodeSession\">Déchiffrer</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecodeSession\">Decrypt</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecodeSession\">Descifrar</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecodeSession\">ถอดรหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Décoder avec une clé manuelle",
+   "en": "Decode with a manual key",
+   "es": "Decodificar con una clave manual",
+   "th": "ถอดรหัสด้วยคีย์ที่ป้อนเอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Clé maître Carter (hex)",
+   "en": "Carter master key (hex)",
+   "es": "Clave maestra Carter (hex)",
+   "th": "คีย์หลัก Carter (hex)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"dec-variant\">Variante</label>",
+   "en": "<label class=\"enc-label\" for=\"dec-variant\">Variant</label>",
+   "es": "<label class=\"enc-label\" for=\"dec-variant\">Variante</label>",
+   "th": "<label class=\"enc-label\" for=\"dec-variant\">รูปแบบ</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecode\">Décoder</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecode\">Decode</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecode\">Decodificar</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnDecode\">ถอดรหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Charger depuis un fichier",
+   "en": "Load from a file",
+   "es": "Cargar desde un archivo",
+   "th": "โหลดจากไฟล์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"dec-file-grid\">Fichier grille CSV</label>",
+   "en": "<label class=\"enc-label\" for=\"dec-file-grid\">CSV grid file</label>",
+   "es": "<label class=\"enc-label\" for=\"dec-file-grid\">Archivo de cuadrícula CSV</label>",
+   "th": "<label class=\"enc-label\" for=\"dec-file-grid\">ไฟล์ตาราง CSV</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Décoder une grille Carter",
+   "en": "Decode a Carter grid",
+   "es": "Decodificar una cuadrícula Carter",
+   "th": "ถอดรหัสตาราง Carter",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"carter-dec-passphrase\">Passphrase Carter</label>",
+   "en": "<label class=\"enc-label\" for=\"carter-dec-passphrase\">Carter passphrase</label>",
+   "es": "<label class=\"enc-label\" for=\"carter-dec-passphrase\">Passphrase Carter</label>",
+   "th": "<label class=\"enc-label\" for=\"carter-dec-passphrase\">passphrase Carter</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Sel de la grille (32 caractères hex, transmis avec la passphrase)",
+   "en": "Grid salt (32 hex characters, sent with the passphrase)",
+   "es": "Sal de la cuadrícula (32 caracteres hex, transmitida con la passphrase)",
+   "th": "ซอลต์ของตาราง (32 อักขระ hex ส่งมาพร้อมกับ passphrase)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"carter-dec-variant\">Variante</label>",
+   "en": "<label class=\"enc-label\" for=\"carter-dec-variant\">Variant</label>",
+   "es": "<label class=\"enc-label\" for=\"carter-dec-variant\">Variante</label>",
+   "th": "<label class=\"enc-label\" for=\"carter-dec-variant\">รูปแบบ</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnCarterDecode\">Décoder</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnCarterDecode\">Decode</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnCarterDecode\">Decodificar</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnCarterDecode\">ถอดรหัส</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Vault chiffré — fichiers",
+   "en": "Encrypted vault — files",
+   "es": "Vault cifrado — archivos",
+   "th": "Vault ที่เข้ารหัส — ไฟล์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Chiffre vos fichiers dans le navigateur (AES-256-GCM par entrée, manifest chiffré, HMAC-SHA256 global — format inspiré de <code>vault_lib.py</code>). Aucun fichier ni passphrase n'est transmis au serveur.",
+   "en": "Encrypts your files in the browser (AES-256-GCM per entry, encrypted manifest, global HMAC-SHA256 — format inspired by <code>vault_lib.py</code>). No file or passphrase is sent to the server.",
+   "es": "Cifra sus archivos en el navegador (AES-256-GCM por entrada, manifest cifrado, HMAC-SHA256 global — formato inspirado en <code>vault_lib.py</code>). No se transmite al servidor ningún archivo ni passphrase.",
+   "th": "เข้ารหัสไฟล์ของคุณในเบราว์เซอร์ (AES-256-GCM ต่อรายการ, manifest ที่เข้ารหัส, HMAC-SHA256 ทั้งชุด — รูปแบบได้แรงบันดาลใจจาก <code>vault_lib.py</code>) ไม่มีไฟล์หรือ passphrase ใดถูกส่งไปยังเซิร์ฟเวอร์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Avertissement :</b> vos fichiers sont chiffrés localement. Conservez votre passphrase — sans elle, les fichiers sont irrécupérables. Dérivation de clé : PBKDF2-SHA256 (300 000 itérations), moins résistante au brute-force GPU/ASIC que l'Argon2id de la CLI Python — pour une utilisation sensible en production, préférer <code>secu-box vault</code> (voir À propos).",
+   "en": "<b>Warning:</b> your files are encrypted locally. Keep your passphrase — without it, the files are unrecoverable. Key derivation: PBKDF2-SHA256 (300,000 iterations), less resistant to GPU/ASIC brute force than the Python CLI’s Argon2id — for sensitive production use, prefer <code>secu-box vault</code> (see About).",
+   "es": "<b>Advertencia:</b> sus archivos se cifran localmente. Conserve su passphrase — sin ella, los archivos son irrecuperables. Derivación de clave: PBKDF2-SHA256 (300 000 iteraciones), menos resistente a la fuerza bruta por GPU/ASIC que el Argon2id de la CLI de Python — para un uso sensible en producción, es preferible <code>secu-box vault</code> (véase Acerca de).",
+   "th": "<b>คำเตือน:</b> ไฟล์ของคุณถูกเข้ารหัสภายในเครื่อง โปรดเก็บ passphrase ไว้ให้ดี — หากไม่มี passphrase ไฟล์จะกู้คืนไม่ได้ การสร้างคีย์: PBKDF2-SHA256 (300 000 รอบ) ทนต่อการเดาแบบ brute-force ด้วย GPU/ASIC ได้น้อยกว่า Argon2id ของ CLI Python — สำหรับการใช้งานที่อ่อนไหวในระบบจริง ควรใช้ <code>secu-box vault</code> (ดูแท็บ เกี่ยวกับ)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"vault-passphrase\">Passphrase du vault</label>",
+   "en": "<label class=\"enc-label\" for=\"vault-passphrase\">Vault passphrase</label>",
+   "es": "<label class=\"enc-label\" for=\"vault-passphrase\">Passphrase del vault</label>",
+   "th": "<label class=\"enc-label\" for=\"vault-passphrase\">passphrase ของ vault</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Créer un nouveau vault",
+   "en": "Create a new vault",
+   "es": "Crear un vault nuevo",
+   "th": "สร้าง vault ใหม่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Ouvrir un fichier .sbvault",
+   "en": "Open a .sbvault file",
+   "es": "Abrir un archivo .sbvault",
+   "th": "เปิดไฟล์ .sbvault",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div id=\"vault-status\" class=\"enc-info-box\" style=\"margin-top:12px\">Aucun vault ouvert.</div>",
+   "en": "<div id=\"vault-status\" class=\"enc-info-box\" style=\"margin-top:12px\">No vault open.</div>",
+   "es": "<div id=\"vault-status\" class=\"enc-info-box\" style=\"margin-top:12px\">Ningún vault abierto.</div>",
+   "th": "<div id=\"vault-status\" class=\"enc-info-box\" style=\"margin-top:12px\">ยังไม่ได้เปิด vault</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Ajouter un fichier</h2>",
+   "en": "<h2>Add a file</h2>",
+   "es": "<h2>Añadir un archivo</h2>",
+   "th": "<h2>เพิ่มไฟล์</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultAdd\">Chiffrer et ajouter</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultAdd\">Encrypt and add</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultAdd\">Cifrar y añadir</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultAdd\">เข้ารหัสและเพิ่ม</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Contenu du vault</h2>",
+   "en": "<h2>Vault contents</h2>",
+   "es": "<h2>Contenido del vault</h2>",
+   "th": "<h2>เนื้อหาของ vault</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Exporter</h2>",
+   "en": "<h2>Export</h2>",
+   "es": "<h2>Exportar</h2>",
+   "th": "<h2>ส่งออก</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultExport\">⬇ Télécharger vault.sbvault</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultExport\">⬇ Download vault.sbvault</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultExport\">⬇ Descargar vault.sbvault</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnVaultExport\">⬇ ดาวน์โหลด vault.sbvault</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Référent 256 — Table des formes de la croix ansée",
+   "en": "Referent 256 — Table of the shapes of the ansate cross",
+   "es": "Referente 256 — Tabla de las formas de la cruz ansada",
+   "th": "ตัวอ้างอิง 256 — ตารางรูปทรงของกางเขนหูหิ้ว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "256 configurations géométriques distinctes : non des rotations, mais toutes les colorations qui satisfont les critères I à IV de la croix ansée (dénombrement exhaustif, 128 par chiralité EGO/ALTER — voir l'article <i>The Ansate Cross</i>). Survolez une cellule pour voir ses positions. ×2 couleurs = 512 formes utilisables.",
+   "en": "256 distinct geometric configurations: not rotations, but all the colourings that satisfy criteria I to IV of the ansate cross (exhaustive enumeration, 128 per chirality EGO/ALTER — see the article <i>The Ansate Cross</i>). Hover over a cell to see its positions. ×2 colours = 512 usable shapes.",
+   "es": "256 configuraciones geométricas distintas: no rotaciones, sino todas las coloraciones que cumplen los criterios I a IV de la cruz ansada (recuento exhaustivo, 128 por quiralidad EGO/ALTER — véase el artículo <i>The Ansate Cross</i>). Pase el cursor sobre una celda para ver sus posiciones. ×2 colores = 512 formas utilizables.",
+   "th": "รูปแบบเรขาคณิตที่แตกต่างกัน 256 แบบ: ไม่ใช่การหมุน แต่เป็นการระบายสีทั้งหมดที่เป็นไปตามเกณฑ์ I ถึง IV ของกางเขนหูหิ้ว (นับครบทุกกรณี 128 แบบต่อไครัลลิตี EGO/ALTER — ดูบทความ <i>The Ansate Cross</i>) วางเมาส์เหนือช่องเพื่อดูตำแหน่ง ×2 สี = 512 รูปทรงที่ใช้ได้",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Référent 360 — Calques Jacquard",
+   "en": "Referent 360 — Jacquard layers",
+   "es": "Referente 360 — Capas Jacquard",
+   "th": "ตัวอ้างอิง 360 — แผ่นลายฌักการ์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "60 images × 6 niveaux = 360 calques (15 familles × 4 natures). Chaque calque sélectionne 8 positions de lecture dans un bloc 12×12. (<span id=\"ref360-count\">—</span> formes extraites des fichiers SVG sources.)",
+   "en": "60 images × 6 levels = 360 layers (15 families × 4 natures). Each layer selects 8 reading positions in a 12×12 block. (<span id=\"ref360-count\">—</span> shapes extracted from the source SVG files.)",
+   "es": "60 imágenes × 6 niveles = 360 capas (15 familias × 4 naturalezas). Cada capa selecciona 8 posiciones de lectura en un bloque de 12×12. (<span id=\"ref360-count\">—</span> formas extraídas de los archivos SVG de origen.)",
+   "th": "60 ภาพ × 6 ระดับ = 360 แผ่นลาย (15 ตระกูล × 4 ลักษณะ) แต่ละแผ่นลายเลือกตำแหน่งอ่าน 8 ตำแหน่งในบล็อก 12×12 (<span id=\"ref360-count\">—</span> รูปทรงที่สกัดจากไฟล์ SVG ต้นฉบับ)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Stéganographie géométrique — chiffrer puis dissimuler",
+   "en": "Geometric steganography — encrypt, then conceal",
+   "es": "Esteganografía geométrica — cifrar y después ocultar",
+   "th": "การซ่อนข้อมูลเชิงเรขาคณิต — เข้ารหัสก่อนแล้วจึงซ่อน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Ce système est une application cryptographique des constructions arithmogéométriques développées dans <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026). Soumis à l'<a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> en septembre 2026. Architecture revue suite à un audit cryptologique externe (2026-09-10).",
+   "en": "This system is a cryptographic application of the arithmo-geometric constructions developed in <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026). Submitted to the <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> in September 2026. Architecture revised following an external cryptological audit (2026-09-10).",
+   "es": "Este sistema es una aplicación criptográfica de las construcciones aritmogeométricas desarrolladas en <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026). Enviado al <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> en septiembre de 2026. Arquitectura revisada tras una auditoría criptológica externa (2026-09-10).",
+   "th": "ระบบนี้เป็นการประยุกต์ด้านวิทยาการเข้ารหัสของโครงสร้างเลขาคณิตศาสตร์ที่พัฒนาไว้ใน <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026) ส่งไปยัง <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> ในเดือนกันยายน 2026 สถาปัตยกรรมได้รับการทบทวนหลังการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอก (2026-09-10)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Principe :</b> le message est d'abord chiffré (XChaCha20-Poly1305), puis le texte chiffré est réparti sur les blocs d'une grille de nombres — le reste est du bruit uniforme. La confidentialité vient du chiffrement, la géométrie ne fait que cacher où se trouve le texte chiffré. Sans la clé, la grille est statistiquement indiscernable du bruit aléatoire : c'est le χ² affiché dans l'onglet Démo qui en fait le contrôle, pas une affirmation.<br><br>\n              <b>Clé maître :</b> 256 bits, générée aléatoirement (ou dérivée d'une passphrase, ou d'une session Exchange). Une seule clé, dérivée par HKDF-SHA256 en une clé de chiffrement et une clé de grammaire — ces deux usages ne partagent jamais le même matériel de clé.<br><br>\n              <b>Grammaire :</b> la clé de grammaire assigne à chaque bloc de la grille un rôle (pur / structuré / message) et une forme, tirés dans le Référent 256 (croix ansée) ou un référent 6×6 régénéré pour Carter-Random. Les blocs « structurés » et « message » sont statistiquement indiscernables l'un de l'autre sans la clé — ils existent précisément pour cette raison, pas pour porter du contenu.<br><br>\n              <b>Authentification :</b> une clé ou des données incorrectes échouent explicitement à l'authentification (Poly1305), jamais rendues en fausse lecture plausible.<br><br>\n              <b>Variantes :</b> Carter-256 (référent croix ansée fixe) et Carter-Random (référent 6×6 régénéré par clé) sont portées et vérifiées en JavaScript contre les vecteurs produits par le code Python. Les autres variantes du même système (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté Python mais ne sont pas encore portées dans le navigateur.",
+   "en": "<b>Principle:</b> the message is first encrypted (XChaCha20-Poly1305), then the ciphertext is spread across the blocks of a grid of numbers — the rest is uniform noise. Confidentiality comes from the encryption; the geometry only hides where the ciphertext is. Without the key, the grid is statistically indistinguishable from random noise: it is the χ² displayed in the Demo tab that checks this, not an assertion.<br><br>\n              <b>Master key:</b> 256 bits, randomly generated (or derived from a passphrase, or from an Exchange session). A single key, derived by HKDF-SHA256 into an encryption key and a grammar key — these two uses never share the same key material.<br><br>\n              <b>Grammar:</b> the grammar key assigns each block of the grid a role (pure / structured / message) and a shape, drawn from the Referent 256 (ansate cross) or from a 6×6 referent regenerated for Carter-Random. The “structured” and “message” blocks are statistically indistinguishable from one another without the key — they exist precisely for that reason, not to carry content.<br><br>\n              <b>Authentication:</b> a wrong key or incorrect data explicitly fail authentication (Poly1305), never returned as a plausible false reading.<br><br>\n              <b>Variants:</b> Carter-256 (fixed ansate cross referent) and Carter-Random (6×6 referent regenerated per key) are ported to JavaScript and verified against the vectors produced by the Python code. The other variants of the same system (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) exist on the Python side but are not yet ported to the browser.",
+   "es": "<b>Principio:</b> el mensaje se cifra primero (XChaCha20-Poly1305); después, el texto cifrado se reparte entre los bloques de una cuadrícula de números — el resto es ruido uniforme. La confidencialidad procede del cifrado; la geometría solo oculta dónde se encuentra el texto cifrado. Sin la clave, la cuadrícula es estadísticamente indistinguible del ruido aleatorio: es el χ² mostrado en la pestaña Demo el que lo comprueba, no una afirmación.<br><br>\n              <b>Clave maestra:</b> 256 bits, generada aleatoriamente (o derivada de una passphrase, o de una sesión Exchange). Una sola clave, derivada mediante HKDF-SHA256 en una clave de cifrado y una clave de gramática — estos dos usos nunca comparten el mismo material de clave.<br><br>\n              <b>Gramática:</b> la clave de gramática asigna a cada bloque de la cuadrícula una función (puro / estructurado / mensaje) y una forma, extraídas del Referente 256 (cruz ansada) o de un referente de 6×6 regenerado para Carter-Random. Los bloques «estructurados» y «mensaje» son estadísticamente indistinguibles entre sí sin la clave — existen precisamente por esa razón, no para portar contenido.<br><br>\n              <b>Autenticación:</b> una clave o unos datos incorrectos fallan explícitamente en la autenticación (Poly1305); nunca se devuelven como una lectura falsa verosímil.<br><br>\n              <b>Variantes:</b> Carter-256 (referente cruz ansada fijo) y Carter-Random (referente de 6×6 regenerado por clave) están portadas y verificadas en JavaScript frente a los vectores producidos por el código Python. Las demás variantes del mismo sistema (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existen del lado de Python, pero aún no están portadas al navegador.",
+   "th": "<b>หลักการ:</b> ข้อความถูกเข้ารหัสก่อน (XChaCha20-Poly1305) จากนั้นข้อความที่เข้ารหัสแล้วจะถูกกระจายลงบนบล็อกของตารางตัวเลข — ส่วนที่เหลือเป็นสัญญาณรบกวนแบบสม่ำเสมอ ความลับมาจากการเข้ารหัส ส่วนเรขาคณิตทำหน้าที่เพียงซ่อนตำแหน่งของข้อความที่เข้ารหัสแล้ว หากไม่มีคีย์ ตารางจะแยกไม่ออกจากสัญญาณรบกวนแบบสุ่มในเชิงสถิติ: ค่า χ² ที่แสดงในแท็บ เดโม คือการตรวจสอบเรื่องนี้ ไม่ใช่เพียงคำกล่าวอ้าง<br><br>\n              <b>คีย์หลัก:</b> 256 บิต สร้างแบบสุ่ม (หรือได้จาก passphrase หรือจากเซสชัน Exchange) คีย์เดียวถูกแยกด้วย HKDF-SHA256 เป็นคีย์เข้ารหัสและคีย์ไวยากรณ์ — การใช้งานทั้งสองนี้ไม่เคยใช้วัสดุคีย์เดียวกัน<br><br>\n              <b>ไวยากรณ์:</b> คีย์ไวยากรณ์กำหนดบทบาท (บริสุทธิ์ / มีโครงสร้าง / ข้อความ) และรูปทรงให้แต่ละบล็อกของตาราง โดยสุ่มเลือกจากตัวอ้างอิง 256 (กางเขนหูหิ้ว) หรือจากตัวอ้างอิง 6×6 ที่สร้างใหม่สำหรับ Carter-Random บล็อก “มีโครงสร้าง” และ “ข้อความ” แยกจากกันไม่ออกในเชิงสถิติหากไม่มีคีย์ — บล็อกเหล่านี้มีอยู่เพื่อเหตุผลนี้โดยเฉพาะ ไม่ได้มีไว้บรรจุเนื้อหา<br><br>\n              <b>การยืนยันความถูกต้อง:</b> คีย์หรือข้อมูลที่ไม่ถูกต้องจะล้มเหลวในการยืนยันความถูกต้องอย่างชัดแจ้ง (Poly1305) ไม่มีวันถูกแสดงผลเป็นการอ่านที่ผิดแต่ดูน่าเชื่อ<br><br>\n              <b>รูปแบบ:</b> Carter-256 (ตัวอ้างอิงกางเขนหูหิ้วแบบคงที่) และ Carter-Random (ตัวอ้างอิง 6×6 ที่สร้างใหม่ตามคีย์) ถูกพอร์ตและตรวจสอบใน JavaScript เทียบกับเวกเตอร์ที่สร้างโดยโค้ด Python รูปแบบอื่นของระบบเดียวกัน (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) มีอยู่ในฝั่ง Python แต่ยังไม่ได้พอร์ตมายังเบราว์เซอร์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Kerckhoffs :</b> le système respecte le principe de Kerckhoffs (1883) — l'algorithme est entièrement public, le secret repose uniquement sur les clés et, optionnellement, sur des référents personnalisés.<br><br>\n              <b>Brevet antécédent :</b> <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> (2004) — composition automatisée d'un motif symbolique à partir d'une relation mathématique.<br><br>\n              <b>Contact :</b> anibaledel@gmail.com · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "en": "<b>Kerckhoffs:</b> the system follows Kerckhoffs’s principle (1883) — the algorithm is entirely public; the secret rests solely on the keys and, optionally, on custom referents.<br><br>\n              <b>Prior patent:</b> <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> (2004) — automated composition of a symbolic pattern from a mathematical relation.<br><br>\n              <b>Contact:</b> anibaledel@gmail.com · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "es": "<b>Kerckhoffs:</b> el sistema respeta el principio de Kerckhoffs (1883) — el algoritmo es enteramente público; el secreto reside únicamente en las claves y, opcionalmente, en referentes personalizados.<br><br>\n              <b>Patente anterior:</b> <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> (2004) — composición automatizada de un motivo simbólico a partir de una relación matemática.<br><br>\n              <b>Contacto:</b> anibaledel@gmail.com · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "th": "<b>Kerckhoffs:</b> ระบบนี้เป็นไปตามหลักการของ Kerckhoffs (1883) — อัลกอริทึมเปิดเผยต่อสาธารณะทั้งหมด ความลับขึ้นอยู่กับคีย์เท่านั้น และอาจรวมถึงตัวอ้างอิงที่ปรับแต่งเองด้วย<br><br>\n              <b>สิทธิบัตรก่อนหน้า:</b> <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> (2004) — การประกอบลวดลายเชิงสัญลักษณ์โดยอัตโนมัติจากความสัมพันธ์ทางคณิตศาสตร์<br><br>\n              <b>ติดต่อ:</b> anibaledel@gmail.com · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Architecture SecuBox</h2>",
+   "en": "<h2>SecuBox architecture</h2>",
+   "es": "<h2>Arquitectura SecuBox</h2>",
+   "th": "<h2>สถาปัตยกรรม SecuBox</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "SecuBox assemble cinq composants indépendants, chacun documenté et vérifié séparément dans ses propres onglets :",
+   "en": "SecuBox brings together five independent components, each documented and verified separately in its own tabs:",
+   "es": "SecuBox reúne cinco componentes independientes, cada uno documentado y verificado por separado en sus propias pestañas:",
+   "th": "SecuBox ประกอบด้วยองค์ประกอบอิสระห้าส่วน แต่ละส่วนมีเอกสารและได้รับการตรวจสอบแยกกันในแท็บของตนเอง:",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>1. Exchange (X25519)</b> — échange de clés authentifié par triple Diffie-Hellman sur courbe Curve25519 (natif dans l'API Web Crypto de ce navigateur) : éphémère × éphémère pour la forward secrecy, puis éphémère × identité de chaque côté, ce qui lie les identités long terme à la session. HKDF-SHA256 sur le transcript complet — les quatre clés publiques — dérive la clé de session. Un relais qui substitue ses clés éphémères ne possède aucune des deux identités privées et ne peut donc pas calculer la clé ; l'authentification tient à la vérification hors bande du fingerprint d'identité annoncé par l'offer. La clé privée éphémère est détruite après dérivation. <b>Même protocole que la CLI Python</b> : une session dérivée ici et une session dérivée par <code>secu-box exchange</code> aboutissent à la même clé — vérifié par dérivation croisée des deux implémentations. Seule l'identité elle-même n'est pas transportable d'un côté à l'autre : la CLI protège la sienne par Argon2id, absent de Web Crypto, et celle du navigateur est non extractible par construction. Chaque côté garde donc la sienne.<br><br>\n              <b>2. Message / Déchiffrer</b> — stéganographie géométrique Carter (voir ci-dessus), utilisant la clé maître dérivée par la session Exchange active, une passphrase, ou saisie directement.<br><br>\n              <b>3. Vault</b> — chiffrement de fichiers en local, AES-256-GCM par entrée, manifest chiffré, HMAC-SHA256 global (architecture inspirée de <code>vault_lib.py</code>).<br><br>\n              <b>4. Chiffrement fichier</b> — SPN géométrique (Ref256+Ref360) en couche de diversification de clé, AES-256-GCM en couche de chiffrement authentifié (voir l'onglet Chiffrement).<br><br>\n              <b>5. Référents 256 et 360</b> — les tables de formes géométriques (croix ansée, Jacquard) qui alimentent les composants ci-dessus.<br><br>\n              <b>Note sur les substitutions de chiffrement :</b> le composant Message/Déchiffrer (2) utilise XChaCha20-Poly1305 en JavaScript pur, identique à la référence Python (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) et vérifié contre ses vecteurs — plus de substitution ici. Le Vault (3) et le Chiffrement fichier (4) restent sur AES-256-GCM natif du navigateur, XChaCha20-Poly1305 n'étant pas exposé par l'API Web Crypto pour ces deux composants ; même classe de garantie (AEAD, 256 bits, standard audité). X25519 est implémenté nativement et identiquement des deux côtés.<br><br>\n              <b>Écart connu — dérivation de clé du Vault :</b> depuis sa version 1.2, <code>vault_lib.py</code> utilise Argon2id (memory-hard, résistant GPU/ASIC) au lieu de PBKDF2 pour sa dérivation de clé interne. Les navigateurs n'ont ni Argon2id ni scrypt en natif — contrairement aux cas ci-dessus, il n'existe pas d'équivalent Web Crypto à substituer sans ajouter une dépendance externe. Le Vault de cette page reste donc sur PBKDF2 (300 000 itérations) et, de ce fait, moins résistant au brute-force par GPU/ASIC que son homologue Python. Pour une utilisation sensible en production, préférer la CLI Python (<code>secu-box vault</code>).<br><br>\n              <b>Avertissement général :</b> SecuBox est un système expérimental basé sur des constructions géométriques originales. La couche cryptographique (AES-256-GCM, X25519, HKDF, PBKDF2) est standard et auditée. La couche géométrique (La Livrée d'Hermès) est en cours d'évaluation formelle — voir l'audit cryptologique externe du 2026-09-10 mentionné dans les onglets Chiffrement et Déchiffrer.",
+   "en": "<b>1. Exchange (X25519)</b> — key exchange authenticated by triple Diffie-Hellman over the Curve25519 curve (native in this browser’s Web Crypto API): ephemeral × ephemeral for forward secrecy, then ephemeral × identity on each side, which binds the long-term identities to the session. HKDF-SHA256 over the complete transcript — the four public keys — derives the session key. A relay that substitutes its ephemeral keys holds neither of the two private identities and therefore cannot compute the key; authentication rests on out-of-band verification of the identity fingerprint announced by the offer. The ephemeral private key is destroyed after derivation. <b>Same protocol as the Python CLI</b>: a session derived here and a session derived by <code>secu-box exchange</code> arrive at the same key — verified by cross-derivation between the two implementations. Only the identity itself cannot be carried from one side to the other: the CLI protects its own with Argon2id, which Web Crypto lacks, and the browser’s is non-extractable by design. Each side therefore keeps its own.<br><br>\n              <b>2. Message / Decrypt</b> — Carter geometric steganography (see above), using the master key derived by the active Exchange session, a passphrase, or one entered directly.<br><br>\n              <b>3. Vault</b> — local file encryption, AES-256-GCM per entry, encrypted manifest, global HMAC-SHA256 (architecture inspired by <code>vault_lib.py</code>).<br><br>\n              <b>4. File encryption</b> — geometric SPN (Ref256+Ref360) as a key-diversification layer, AES-256-GCM as the authenticated-encryption layer (see the Encryption tab).<br><br>\n              <b>5. Referents 256 and 360</b> — the tables of geometric shapes (ansate cross, Jacquard) that feed the components above.<br><br>\n              <b>Note on cipher substitutions:</b> the Message/Decrypt component (2) uses XChaCha20-Poly1305 in pure JavaScript, identical to the Python reference (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) and verified against its vectors — no more substitution here. The Vault (3) and File encryption (4) remain on the browser’s native AES-256-GCM, as XChaCha20-Poly1305 is not exposed by the Web Crypto API for these two components; same class of guarantee (AEAD, 256 bits, audited standard). X25519 is implemented natively and identically on both sides.<br><br>\n              <b>Known gap — Vault key derivation:</b> since its version 1.2, <code>vault_lib.py</code> uses Argon2id (memory-hard, GPU/ASIC-resistant) instead of PBKDF2 for its internal key derivation. Browsers have neither Argon2id nor scrypt natively — unlike the cases above, there is no Web Crypto equivalent to substitute without adding an external dependency. The Vault on this page therefore remains on PBKDF2 (300,000 iterations) and is, as a result, less resistant to GPU/ASIC brute force than its Python counterpart. For sensitive production use, prefer the Python CLI (<code>secu-box vault</code>).<br><br>\n              <b>General warning:</b> SecuBox is an experimental system based on original geometric constructions. The cryptographic layer (AES-256-GCM, X25519, HKDF, PBKDF2) is standard and audited. The geometric layer (La Livrée d'Hermès) is undergoing formal evaluation — see the external cryptological audit of 2026-09-10 mentioned in the Encryption and Decrypt tabs.",
+   "es": "<b>1. Exchange (X25519)</b> — intercambio de claves autenticado por triple Diffie-Hellman sobre la curva Curve25519 (nativo en la API Web Crypto de este navegador): efímera × efímera para la forward secrecy, y después efímera × identidad en cada lado, lo que vincula las identidades de largo plazo a la sesión. HKDF-SHA256 sobre el transcript completo — las cuatro claves públicas — deriva la clave de sesión. Un relé que sustituya sus claves efímeras no posee ninguna de las dos identidades privadas y, por tanto, no puede calcular la clave; la autenticación depende de la verificación fuera de banda del fingerprint de identidad anunciado por la offer. La clave privada efímera se destruye tras la derivación. <b>Mismo protocolo que la CLI de Python</b>: una sesión derivada aquí y una sesión derivada con <code>secu-box exchange</code> llegan a la misma clave — verificado mediante derivación cruzada de las dos implementaciones. Solo la identidad en sí no es transportable de un lado a otro: la CLI protege la suya con Argon2id, ausente de Web Crypto, y la del navegador es no extraíble por construcción. Cada lado conserva, pues, la suya.<br><br>\n              <b>2. Mensaje / Descifrar</b> — esteganografía geométrica Carter (véase más arriba), que utiliza la clave maestra derivada por la sesión Exchange activa, una passphrase o una clave introducida directamente.<br><br>\n              <b>3. Vault</b> — cifrado local de archivos, AES-256-GCM por entrada, manifest cifrado, HMAC-SHA256 global (arquitectura inspirada en <code>vault_lib.py</code>).<br><br>\n              <b>4. Cifrado de archivos</b> — SPN geométrica (Ref256+Ref360) como capa de diversificación de clave, AES-256-GCM como capa de cifrado autenticado (véase la pestaña Cifrado).<br><br>\n              <b>5. Referentes 256 y 360</b> — las tablas de formas geométricas (cruz ansada, Jacquard) que alimentan los componentes anteriores.<br><br>\n              <b>Nota sobre las sustituciones de cifrado:</b> el componente Mensaje/Descifrar (2) utiliza XChaCha20-Poly1305 en JavaScript puro, idéntico a la referencia Python (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) y verificado frente a sus vectores — aquí ya no hay sustitución. El Vault (3) y el Cifrado de archivos (4) siguen con el AES-256-GCM nativo del navegador, ya que la API Web Crypto no expone XChaCha20-Poly1305 para estos dos componentes; misma clase de garantía (AEAD, 256 bits, estándar auditado). X25519 está implementado de forma nativa e idéntica en ambos lados.<br><br>\n              <b>Diferencia conocida — derivación de clave del Vault:</b> desde su versión 1.2, <code>vault_lib.py</code> utiliza Argon2id (memory-hard, resistente a GPU/ASIC) en lugar de PBKDF2 para su derivación de clave interna. Los navegadores no disponen de forma nativa ni de Argon2id ni de scrypt — a diferencia de los casos anteriores, no existe un equivalente en Web Crypto que sustituir sin añadir una dependencia externa. Por tanto, el Vault de esta página sigue con PBKDF2 (300 000 iteraciones) y, en consecuencia, es menos resistente a la fuerza bruta por GPU/ASIC que su homólogo en Python. Para un uso sensible en producción, es preferible la CLI de Python (<code>secu-box vault</code>).<br><br>\n              <b>Advertencia general:</b> SecuBox es un sistema experimental basado en construcciones geométricas originales. La capa criptográfica (AES-256-GCM, X25519, HKDF, PBKDF2) es estándar y está auditada. La capa geométrica (La Livrée d'Hermès) está en proceso de evaluación formal — véase la auditoría criptológica externa del 2026-09-10 mencionada en las pestañas Cifrado y Descifrar.",
+   "th": "<b>1. Exchange (X25519)</b> — การแลกเปลี่ยนคีย์แบบยืนยันตัวตนด้วย triple Diffie-Hellman บนเส้นโค้ง Curve25519 (มีมาในตัวใน API Web Crypto ของเบราว์เซอร์นี้): ชั่วคราว × ชั่วคราว เพื่อ forward secrecy จากนั้น ชั่วคราว × ตัวตน ของแต่ละฝ่าย ซึ่งผูกตัวตนระยะยาวเข้ากับเซสชัน HKDF-SHA256 บน transcript ทั้งหมด — คีย์สาธารณะทั้งสี่ — สร้างคีย์เซสชัน ตัวกลางที่สอดแทรกคีย์ชั่วคราวของตนเองไม่มีคีย์ส่วนตัวของตัวตนฝ่ายใดเลย จึงคำนวณคีย์ไม่ได้ การยืนยันตัวตนขึ้นอยู่กับการตรวจสอบ fingerprint ของตัวตนที่ offer ประกาศไว้ผ่านช่องทางอื่น คีย์ส่วนตัวชั่วคราวถูกทำลายหลังการสร้างเซสชัน <b>ใช้โปรโตคอลเดียวกับ CLI Python</b>: เซสชันที่สร้างที่นี่และเซสชันที่สร้างด้วย <code>secu-box exchange</code> จะได้คีย์เดียวกัน — ตรวจสอบแล้วด้วยการสร้างเซสชันไขว้ระหว่างสองการใช้งาน มีเพียงตัวตนเท่านั้นที่ย้ายข้ามฝั่งไม่ได้: CLI ปกป้องตัวตนของตนด้วย Argon2id ซึ่งไม่มีใน Web Crypto และตัวตนของเบราว์เซอร์ถูกออกแบบให้ดึงออกไม่ได้ แต่ละฝั่งจึงเก็บตัวตนของตนไว้<br><br>\n              <b>2. ข้อความ / ถอดรหัส</b> — การซ่อนข้อมูลเชิงเรขาคณิต Carter (ดูด้านบน) โดยใช้คีย์หลักที่ได้จากเซสชัน Exchange ที่ใช้งานอยู่ จาก passphrase หรือป้อนโดยตรง<br><br>\n              <b>3. Vault</b> — การเข้ารหัสไฟล์ภายในเครื่อง AES-256-GCM ต่อรายการ, manifest ที่เข้ารหัส, HMAC-SHA256 ทั้งชุด (สถาปัตยกรรมได้แรงบันดาลใจจาก <code>vault_lib.py</code>)<br><br>\n              <b>4. การเข้ารหัสไฟล์</b> — SPN เชิงเรขาคณิต (Ref256+Ref360) เป็นชั้นกระจายคีย์ และ AES-256-GCM เป็นชั้นการเข้ารหัสแบบยืนยันความถูกต้อง (ดูแท็บ การเข้ารหัส)<br><br>\n              <b>5. ตัวอ้างอิง 256 และ 360</b> — ตารางรูปทรงเรขาคณิต (กางเขนหูหิ้ว, ฌักการ์) ที่ป้อนข้อมูลให้องค์ประกอบข้างต้น<br><br>\n              <b>หมายเหตุเรื่องการทดแทนอัลกอริทึมเข้ารหัส:</b> องค์ประกอบ ข้อความ/ถอดรหัส (2) ใช้ XChaCha20-Poly1305 ใน JavaScript ล้วน เหมือนกับต้นแบบ Python (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) และตรวจสอบเทียบกับเวกเตอร์ของต้นแบบแล้ว — ส่วนนี้ไม่มีการทดแทนอีกต่อไป Vault (3) และการเข้ารหัสไฟล์ (4) ยังคงใช้ AES-256-GCM ที่มีในตัวเบราว์เซอร์ เนื่องจาก API Web Crypto ไม่มี XChaCha20-Poly1305 ให้สององค์ประกอบนี้ใช้ ระดับการรับประกันเดียวกัน (AEAD, 256 บิต, มาตรฐานที่ผ่านการตรวจสอบ) X25519 ถูกใช้งานแบบมีในตัวและเหมือนกันทั้งสองฝั่ง<br><br>\n              <b>ความต่างที่ทราบอยู่แล้ว — การสร้างคีย์ของ Vault:</b> ตั้งแต่เวอร์ชัน 1.2 <code>vault_lib.py</code> ใช้ Argon2id (memory-hard ทนต่อ GPU/ASIC) แทน PBKDF2 สำหรับการสร้างคีย์ภายใน เบราว์เซอร์ไม่มีทั้ง Argon2id และ scrypt ในตัว — ต่างจากกรณีข้างต้น ไม่มีสิ่งเทียบเท่าใน Web Crypto ที่จะนำมาทดแทนได้โดยไม่เพิ่มการพึ่งพาภายนอก Vault ของหน้านี้จึงยังคงใช้ PBKDF2 (300 000 รอบ) และด้วยเหตุนี้จึงทนต่อ brute-force ด้วย GPU/ASIC ได้น้อยกว่าฝั่ง Python สำหรับการใช้งานที่อ่อนไหวในระบบจริง ควรใช้ CLI Python (<code>secu-box vault</code>)<br><br>\n              <b>คำเตือนทั่วไป:</b> SecuBox เป็นระบบทดลองที่ตั้งอยู่บนโครงสร้างเรขาคณิตที่คิดขึ้นใหม่ ชั้นวิทยาการเข้ารหัส (AES-256-GCM, X25519, HKDF, PBKDF2) เป็นมาตรฐานและผ่านการตรวจสอบแล้ว ชั้นเรขาคณิต (La Livrée d'Hermès) อยู่ระหว่างการประเมินอย่างเป็นทางการ — ดูการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอกวันที่ 2026-09-10 ที่กล่าวถึงในแท็บ การเข้ารหัส และ ถอดรหัส",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "SecuBox — Code source : <a href=\"https://github.com/anibaledel/livreedhermes\" target=\"_blank\" rel=\"noopener\">AGPL v3, licence commerciale sur demande</a> ·\n            Usage commercial : <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> ·\n            Algorithme : <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) ·\n            Brevet FR2865054 · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "en": "SecuBox — Source code: <a href=\"https://github.com/anibaledel/livreedhermes\" target=\"_blank\" rel=\"noopener\">AGPL v3, commercial licence on request</a> ·\n            Commercial use: <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> ·\n            Algorithm: <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) ·\n            Patent FR2865054 · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "es": "SecuBox — Código fuente: <a href=\"https://github.com/anibaledel/livreedhermes\" target=\"_blank\" rel=\"noopener\">AGPL v3, licencia comercial bajo petición</a> ·\n            Uso comercial: <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> ·\n            Algoritmo: <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) ·\n            Patente FR2865054 · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "th": "SecuBox — ซอร์สโค้ด: <a href=\"https://github.com/anibaledel/livreedhermes\" target=\"_blank\" rel=\"noopener\">AGPL v3, สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ</a> ·\n            การใช้งานเชิงพาณิชย์: <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> ·\n            อัลกอริทึม: <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) ·\n            สิทธิบัตร FR2865054 · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Initialisation de la table de permutation…",
+   "en": "Initialising the permutation table…",
+   "es": "Inicializando la tabla de permutación…",
+   "th": "กำลังเตรียมตารางการเรียงสับเปลี่ยน…",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Chiffrement hybride — géométrique + AES-256-GCM",
+   "en": "Hybrid encryption — geometric + AES-256-GCM",
+   "es": "Cifrado híbrido — geométrico + AES-256-GCM",
+   "th": "การเข้ารหัสแบบผสม — เชิงเรขาคณิต + AES-256-GCM",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Architecture à deux couches, suite à un audit cryptologique externe : une couche géométrique (SPN Ref256+Ref360, S-box GF(2⁸), 4 tours) dérive une clé de session unique par secteur — diversification de clé, pas le chiffrement lui-même — puis AES-256-GCM chiffre et authentifie chaque secteur individuellement, avec une authentification HMAC-SHA256 globale par-dessus. Une passphrase incorrecte ou un fichier altéré sont détectés, jamais rendus en bruit silencieux. Distinct de l'outil de stéganographie ci-dessus. Entièrement côté client : la passphrase et les fichiers ne quittent jamais le navigateur.",
+   "en": "A two-layer architecture, following an external cryptological audit: a geometric layer (SPN Ref256+Ref360, S-box GF(2⁸), 4 rounds) derives a unique session key per sector — key diversification, not the encryption itself — then AES-256-GCM encrypts and authenticates each sector individually, with a global HMAC-SHA256 authentication on top. A wrong passphrase or a tampered file is detected, never returned as silent noise. Separate from the steganography tool above. Entirely client-side: the passphrase and the files never leave the browser.",
+   "es": "Arquitectura de dos capas, tras una auditoría criptológica externa: una capa geométrica (SPN Ref256+Ref360, S-box GF(2⁸), 4 rondas) deriva una clave de sesión única por sector — diversificación de clave, no el cifrado en sí — y después AES-256-GCM cifra y autentica cada sector individualmente, con una autenticación HMAC-SHA256 global por encima. Una passphrase incorrecta o un archivo alterado se detectan; nunca se devuelven como ruido silencioso. Distinto de la herramienta de esteganografía anterior. Íntegramente del lado del cliente: la passphrase y los archivos nunca salen del navegador.",
+   "th": "สถาปัตยกรรมสองชั้น ซึ่งปรับตามการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอก: ชั้นเรขาคณิต (SPN Ref256+Ref360, S-box GF(2⁸), 4 รอบ) สร้างคีย์เซสชันเฉพาะสำหรับแต่ละเซกเตอร์ — เป็นการกระจายคีย์ ไม่ใช่ตัวการเข้ารหัสเอง — จากนั้น AES-256-GCM เข้ารหัสและยืนยันความถูกต้องของแต่ละเซกเตอร์แยกกัน โดยมีการยืนยันความถูกต้อง HMAC-SHA256 ทั้งชุดซ้อนอยู่ด้านบน passphrase ที่ไม่ถูกต้องหรือไฟล์ที่ถูกแก้ไขจะถูกตรวจพบ ไม่มีวันกลายเป็นสัญญาณรบกวนแบบเงียบ ๆ แยกต่างหากจากเครื่องมือซ่อนข้อมูลด้านบน ทำงานฝั่งไคลเอนต์ทั้งหมด: passphrase และไฟล์ไม่เคยออกจากเบราว์เซอร์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"disk-passphrase\">Passphrase</label>",
+   "en": "<label class=\"enc-label\" for=\"disk-passphrase\">Passphrase</label>",
+   "es": "<label class=\"enc-label\" for=\"disk-passphrase\">Passphrase</label>",
+   "th": "<label class=\"enc-label\" for=\"disk-passphrase\">passphrase</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Saisie une seule fois, utilisée directement par les boutons Chiffrer et Déchiffrer ci-dessous.",
+   "en": "Entered once, used directly by the Encrypt and Decrypt buttons below.",
+   "es": "Se introduce una sola vez y la utilizan directamente los botones Cifrar y Descifrar de más abajo.",
+   "th": "ป้อนเพียงครั้งเดียว ใช้โดยตรงกับปุ่ม เข้ารหัส และ ถอดรหัส ด้านล่าง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Chiffrer un fichier</h2>",
+   "en": "<h2>Encrypt a file</h2>",
+   "es": "<h2>Cifrar un archivo</h2>",
+   "th": "<h2>เข้ารหัสไฟล์</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<label class=\"enc-label\" for=\"disk-file-encrypt\">Fichier à chiffrer</label>",
+   "en": "<label class=\"enc-label\" for=\"disk-file-encrypt\">File to encrypt</label>",
+   "es": "<label class=\"enc-label\" for=\"disk-file-encrypt\">Archivo que cifrar</label>",
+   "th": "<label class=\"enc-label\" for=\"disk-file-encrypt\">ไฟล์ที่จะเข้ารหัส</label>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskEncrypt\">Chiffrer →</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskEncrypt\">Encrypt →</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskEncrypt\">Cifrar →</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskEncrypt\">เข้ารหัส →</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Déchiffrer un fichier</h2>",
+   "en": "<h2>Decrypt a file</h2>",
+   "es": "<h2>Descifrar un archivo</h2>",
+   "th": "<h2>ถอดรหัสไฟล์</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Fichier .lldh à déchiffrer",
+   "en": ".lldh file to decrypt",
+   "es": "Archivo .lldh que descifrar",
+   "th": "ไฟล์ .lldh ที่จะถอดรหัส",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskDecrypt\">Déchiffrer →</button>",
+   "en": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskDecrypt\">Decrypt →</button>",
+   "es": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskDecrypt\">Descifrar →</button>",
+   "th": "<button type=\"button\" class=\"enc-btn\" id=\"btnDiskDecrypt\">ถอดรหัส →</button>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Une passphrase incorrecte ou un fichier altéré déclenchent une erreur explicite (vérification HMAC-SHA256) plutôt que de produire du bruit silencieux.",
+   "en": "A wrong passphrase or a tampered file triggers an explicit error (HMAC-SHA256 verification) rather than producing silent noise.",
+   "es": "Una passphrase incorrecta o un archivo alterado provocan un error explícito (verificación HMAC-SHA256) en lugar de producir ruido silencioso.",
+   "th": "passphrase ที่ไม่ถูกต้องหรือไฟล์ที่ถูกแก้ไขจะทำให้เกิดข้อผิดพลาดอย่างชัดแจ้ง (การตรวจสอบ HMAC-SHA256) แทนที่จะให้ผลเป็นสัญญาณรบกวนแบบเงียบ ๆ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h2>Statistiques de sécurité</h2>",
+   "en": "<h2>Security statistics</h2>",
+   "es": "<h2>Estadísticas de seguridad</h2>",
+   "th": "<h2>สถิติด้านความปลอดภัย</h2>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Couche géométrique (diversification de clé)</b> : SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 prouvé, Nyberg 1994), permutation Ref256 (12 288 configurations), MixBlock MDS (ShiftRows+MixColumns AES, branch number ≥4), permutation Ref360 (342 configurations), 4 tours — dérive une clé de session de 256 bits par secteur, non revendiquée comme chiffrement autonome",
+   "en": "<b>Geometric layer (key diversification)</b>: SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 proven, Nyberg 1994), Ref256 permutation (12,288 configurations), MixBlock MDS (AES ShiftRows+MixColumns, branch number ≥4), Ref360 permutation (342 configurations), 4 rounds — derives a 256-bit session key per sector, not claimed as a standalone cipher",
+   "es": "<b>Capa geométrica (diversificación de clave)</b>: SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 demostrado, Nyberg 1994), permutación Ref256 (12 288 configuraciones), MixBlock MDS (ShiftRows+MixColumns AES, branch number ≥4), permutación Ref360 (342 configuraciones), 4 rondas — deriva una clave de sesión de 256 bits por sector, no presentada como cifrado autónomo",
+   "th": "<b>ชั้นเรขาคณิต (การกระจายคีย์)</b>: SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 พิสูจน์แล้ว, Nyberg 1994), การเรียงสับเปลี่ยน Ref256 (12 288 รูปแบบ), MixBlock MDS (ShiftRows+MixColumns AES, branch number ≥4), การเรียงสับเปลี่ยน Ref360 (342 รูปแบบ), 4 รอบ — สร้างคีย์เซสชันขนาด 256 บิตต่อเซกเตอร์ ไม่ได้อ้างว่าเป็นการเข้ารหัสที่ใช้ได้ด้วยตัวเอง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Couche standard (confidentialité + intégrité)</b> : AES-256-GCM par secteur, tag d'authentification de 128 bits — la référence Python utilise XChaCha20-Poly1305 (absent de l'API Web Crypto des navigateurs) ; AES-256-GCM lui est substitué ici, même classe de garantie via l'implémentation native et auditée du navigateur",
+   "en": "<b>Standard layer (confidentiality + integrity)</b>: AES-256-GCM per sector, 128-bit authentication tag — the Python reference uses XChaCha20-Poly1305 (absent from browsers’ Web Crypto API); AES-256-GCM is substituted for it here, same class of guarantee through the browser’s native, audited implementation",
+   "es": "<b>Capa estándar (confidencialidad + integridad)</b>: AES-256-GCM por sector, tag de autenticación de 128 bits — la referencia Python utiliza XChaCha20-Poly1305 (ausente de la API Web Crypto de los navegadores); aquí se sustituye por AES-256-GCM, misma clase de garantía mediante la implementación nativa y auditada del navegador",
+   "th": "<b>ชั้นมาตรฐาน (ความลับ + ความครบถ้วน)</b>: AES-256-GCM ต่อเซกเตอร์, tag ยืนยันความถูกต้องขนาด 128 บิต — ต้นแบบ Python ใช้ XChaCha20-Poly1305 (ไม่มีใน API Web Crypto ของเบราว์เซอร์) ที่นี่จึงใช้ AES-256-GCM แทน ระดับการรับประกันเดียวกันผ่านการใช้งานที่มีในตัวและผ่านการตรวจสอบของเบราว์เซอร์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Dérivation de clé</b> : PBKDF2-SHA256, 300 000 itérations — une fois passphrase → clé maître (sel de 128 bits géré par la page), une seconde fois clé maître → clé géométrique (sel de 256 bits propre à chaque fichier)",
+   "en": "<b>Key derivation</b>: PBKDF2-SHA256, 300,000 iterations — once passphrase → master key (128-bit salt managed by the page), a second time master key → geometric key (256-bit salt specific to each file)",
+   "es": "<b>Derivación de clave</b>: PBKDF2-SHA256, 300 000 iteraciones — una vez passphrase → clave maestra (sal de 128 bits gestionada por la página), una segunda vez clave maestra → clave geométrica (sal de 256 bits propia de cada archivo)",
+   "th": "<b>การสร้างคีย์</b>: PBKDF2-SHA256, 300 000 รอบ — ครั้งแรก passphrase → คีย์หลัก (ซอลต์ 128 บิตที่หน้าเว็บจัดการ) ครั้งที่สอง คีย์หลัก → คีย์เรขาคณิต (ซอลต์ 256 บิตเฉพาะของแต่ละไฟล์)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Nonce</b> : 192 bits (aléatoire par fichier), un nonce distinct par secteur dérivé via HKDF-SHA256",
+   "en": "<b>Nonce</b>: 192 bits (random per file), a distinct nonce per sector derived via HKDF-SHA256",
+   "es": "<b>Nonce</b>: 192 bits (aleatorio por archivo), un nonce distinto por sector derivado mediante HKDF-SHA256",
+   "th": "<b>Nonce</b>: 192 บิต (สุ่มต่อไฟล์) โดยมี nonce แยกกันต่อเซกเตอร์ที่ได้ผ่าน HKDF-SHA256",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Intégrité</b> : tag AES-GCM par secteur + HMAC-SHA256 global (256 bits) — détecte toute altération ou passphrase incorrecte, jamais rendue en bruit silencieux",
+   "en": "<b>Integrity</b>: AES-GCM tag per sector + global HMAC-SHA256 (256 bits) — detects any tampering or wrong passphrase, never returned as silent noise",
+   "es": "<b>Integridad</b>: tag AES-GCM por sector + HMAC-SHA256 global (256 bits) — detecta cualquier alteración o passphrase incorrecta; nunca se devuelve como ruido silencioso",
+   "th": "<b>ความครบถ้วน</b>: tag AES-GCM ต่อเซกเตอร์ + HMAC-SHA256 ทั้งชุด (256 บิต) — ตรวจพบการแก้ไขใด ๆ หรือ passphrase ที่ไม่ถูกต้อง ไม่มีวันกลายเป็นสัญญาณรบกวนแบบเงียบ ๆ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<h4>Licence</h4>",
+   "en": "<h4>Licence</h4>",
+   "es": "<h4>Licencia</h4>",
+   "th": "<h4>สัญญาอนุญาต</h4>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Ce logiciel est distribué sous <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">GNU AGPL v3</a>.",
+   "en": "This software is distributed under the <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">GNU AGPL v3</a>.",
+   "es": "Este software se distribuye bajo la <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">GNU AGPL v3</a>.",
+   "th": "ซอฟต์แวร์นี้เผยแพร่ภายใต้ <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\">GNU AGPL v3</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Licence commerciale sur demande, pour un usage sans les obligations de l'AGPL (intégration produit, application défense, service payant) : <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> — voir aussi la <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL\" target=\"_blank\" rel=\"noopener\">licence commerciale</a>.",
+   "en": "Commercial licence on request, for use without the obligations of the AGPL (product integration, defence application, paid service): <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> — see also the <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL\" target=\"_blank\" rel=\"noopener\">commercial licence</a>.",
+   "es": "Licencia comercial bajo petición, para un uso sin las obligaciones de la AGPL (integración en productos, aplicación de defensa, servicio de pago): <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> — véase también la <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL\" target=\"_blank\" rel=\"noopener\">licencia comercial</a>.",
+   "th": "สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ สำหรับการใช้งานโดยไม่มีข้อผูกพันของ AGPL (การผนวกเข้ากับผลิตภัณฑ์ การใช้งานด้านกลาโหม บริการแบบเสียค่าใช้จ่าย): <a href=\"mailto:anibaledel@gmail.com\">anibaledel@gmail.com</a> — ดูเพิ่มเติมที่ <a href=\"https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL\" target=\"_blank\" rel=\"noopener\">สัญญาอนุญาตเชิงพาณิชย์</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Algorithme décrit dans l'<a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) · Brevet antécédent : <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "en": "Algorithm described in the <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) · Prior patent: <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "es": "Algoritmo descrito en el <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) · Patente anterior: <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "th": "อัลกอริทึมอธิบายไว้ใน <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR ePrint 2026</a> (CC BY) · สิทธิบัตรก่อนหน้า: <a href=\"https://patents.google.com/patent/FR2865054A1/fr\" target=\"_blank\" rel=\"noopener\">FR2865054</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Système soumis à l'<a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> — Septembre 2026 · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a> · Brevet FR2865054",
+   "en": "System submitted to the <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> — September 2026 · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a> · Patent FR2865054",
+   "es": "Sistema enviado al <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> — Septiembre de 2026 · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a> · Patente FR2865054",
+   "th": "ระบบส่งไปยัง <a href=\"https://eprint.iacr.org\" target=\"_blank\" rel=\"noopener\">IACR Cryptology ePrint Archive</a> — กันยายน 2026 · <a href=\"https://anibal-amiot.com\" target=\"_blank\" rel=\"noopener\">anibal-amiot.com</a> · Wikidata <a href=\"https://www.wikidata.org/wiki/Q141191562\" target=\"_blank\" rel=\"noopener\">Q141191562</a> · สิทธิบัตร FR2865054",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Parties de l'encodeur\"",
+   "en": "aria-label=\"Encoder sections\"",
+   "es": "aria-label=\"Partes del codificador\"",
+   "th": "aria-label=\"ส่วนต่าง ๆ ของตัวเข้ารหัส\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Grille d'encodage\"",
+   "en": "aria-label=\"Encoding grid\"",
+   "es": "aria-label=\"Cuadrícula de codificación\"",
+   "th": "aria-label=\"ตารางการเข้ารหัส\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"Coller l'offer du correspondant\"",
+   "en": "placeholder=\"Paste your correspondent’s offer\"",
+   "es": "placeholder=\"Pegue la offer del interlocutor\"",
+   "th": "placeholder=\"วาง offer ของคู่สื่อสาร\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"VOTRE MESSAGE ICI\"",
+   "en": "placeholder=\"YOUR MESSAGE HERE\"",
+   "es": "placeholder=\"SU MENSAJE AQUÍ\"",
+   "th": "placeholder=\"ข้อความของคุณที่นี่\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"Passphrase Carter\"",
+   "en": "placeholder=\"Carter passphrase\"",
+   "es": "placeholder=\"Passphrase Carter\"",
+   "th": "placeholder=\"passphrase Carter\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Charger une grille CSV depuis un fichier\"",
+   "en": "aria-label=\"Load a CSV grid from a file\"",
+   "es": "aria-label=\"Cargar una cuadrícula CSV desde un archivo\"",
+   "th": "aria-label=\"โหลดตาราง CSV จากไฟล์\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"Clé maître (hex 64 caractères)\"",
+   "en": "placeholder=\"Master key (64 hex characters)\"",
+   "es": "placeholder=\"Clave maestra (hex, 64 caracteres)\"",
+   "th": "placeholder=\"คีย์หลัก (hex 64 อักขระ)\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"laisser vide pour une grille produite avant septembre 2026\"",
+   "en": "placeholder=\"leave empty for a grid produced before September 2026\"",
+   "es": "placeholder=\"dejar vacío para una cuadrícula producida antes de septiembre de 2026\"",
+   "th": "placeholder=\"เว้นว่างไว้สำหรับตารางที่สร้างก่อนเดือนกันยายน 2026\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"Passphrase du vault\"",
+   "en": "placeholder=\"Vault passphrase\"",
+   "es": "placeholder=\"Passphrase del vault\"",
+   "th": "placeholder=\"passphrase ของ vault\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Fichier .sbvault à ouvrir\"",
+   "en": "aria-label=\".sbvault file to open\"",
+   "es": "aria-label=\"Archivo .sbvault que abrir\"",
+   "th": "aria-label=\"ไฟล์ .sbvault ที่จะเปิด\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "aria-label=\"Fichier à ajouter au vault\"",
+   "en": "aria-label=\"File to add to the vault\"",
+   "es": "aria-label=\"Archivo que añadir al vault\"",
+   "th": "aria-label=\"ไฟล์ที่จะเพิ่มลงใน vault\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "placeholder=\"Votre passphrase\"",
+   "en": "placeholder=\"Your passphrase\"",
+   "es": "placeholder=\"Su passphrase\"",
+   "th": "placeholder=\"passphrase ของคุณ\"",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Carter-256 — référent croix ansée (par défaut)",
+   "en": "Carter-256 — ansate cross referent (default)",
+   "es": "Carter-256 — referente cruz ansada (por defecto)",
+   "th": "Carter-256 — ตัวอ้างอิงกางเขนหูหิ้ว (ค่าเริ่มต้น)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Carter-Random — référent aléatoire dérivé de la clé",
+   "en": "Carter-Random — random referent derived from the key",
+   "es": "Carter-Random — referente aleatorio derivado de la clave",
+   "th": "Carter-Random — ตัวอ้างอิงแบบสุ่มที่ได้จากคีย์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Variante non disponible dans le navigateur : ${variant}.",
+   "en": "Variant not available in the browser: ${variant}.",
+   "es": "Variante no disponible en el navegador: ${variant}.",
+   "th": "รูปแบบนี้ใช้ในเบราว์เซอร์ไม่ได้: ${variant}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Cette clé dérive une grammaire en mode méta (concentrique), pas encore porté en JS — réessayer avec une autre clé.",
+   "en": "This key derives a grammar in meta (concentric) mode, not yet ported to JS — try again with another key.",
+   "es": "Esta clave deriva una gramática en modo meta (concéntrico), aún no portado a JS — vuelva a intentarlo con otra clave.",
+   "th": "คีย์นี้สร้างไวยากรณ์ในโหมดเมตา (ซ้อนศูนย์กลาง) ซึ่งยังไม่ได้พอร์ตเป็น JS — ลองใหม่ด้วยคีย์อื่น",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<div>Message encodé : <span class=\"enc-msg\">${msg}</span></div>\n       <div style=\"margin-top:6px\">Décodé : <span class=\"enc-msg\">${decoded}</span> — identique : ${decoded===msg}</div>",
+   "en": "<div>Encoded message: <span class=\"enc-msg\">${msg}</span></div>\n       <div style=\"margin-top:6px\">Decoded: <span class=\"enc-msg\">${decoded}</span> — identical: ${decoded===msg}</div>",
+   "es": "<div>Mensaje codificado: <span class=\"enc-msg\">${msg}</span></div>\n       <div style=\"margin-top:6px\">Decodificado: <span class=\"enc-msg\">${decoded}</span> — idéntico: ${decoded===msg}</div>",
+   "th": "<div>ข้อความที่เข้ารหัส: <span class=\"enc-msg\">${msg}</span></div>\n       <div style=\"margin-top:6px\">ถอดรหัสได้: <span class=\"enc-msg\">${decoded}</span> — ตรงกัน: ${decoded===msg}</div>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<b>Carter-256</b>, grille 90×90 (8 100 cellules) — une seule clé maître de 256 bits dérive le chiffrement (XChaCha20-Poly1305) et la grammaire de la grille · ${nMsgCells} cellules portent le message sur 8 100<br>\n       χ² des 44 symboles sur la grille entière : <b>${chi2.toFixed(1)}</b> (${df} degrés de liberté) — une grille indiscernable du bruit uniforme donne un χ² proche de ${df}.",
+   "en": "<b>Carter-256</b>, 90×90 grid (8,100 cells) — a single 256-bit master key derives the encryption (XChaCha20-Poly1305) and the grammar of the grid · ${nMsgCells} cells carry the message out of 8,100<br>\n       χ² of the 44 symbols over the whole grid: <b>${chi2.toFixed(1)}</b> (${df} degrees of freedom) — a grid indistinguishable from uniform noise gives a χ² close to ${df}.",
+   "es": "<b>Carter-256</b>, cuadrícula de 90×90 (8 100 celdas) — una sola clave maestra de 256 bits deriva el cifrado (XChaCha20-Poly1305) y la gramática de la cuadrícula · ${nMsgCells} celdas portan el mensaje de 8 100<br>\n       χ² de los 44 símbolos sobre la cuadrícula entera: <b>${chi2.toFixed(1)}</b> (${df} grados de libertad) — una cuadrícula indistinguible del ruido uniforme da un χ² cercano a ${df}.",
+   "th": "<b>Carter-256</b>, ตาราง 90×90 (8 100 ช่อง) — คีย์หลักเดียวขนาด 256 บิตสร้างทั้งการเข้ารหัส (XChaCha20-Poly1305) และไวยากรณ์ของตาราง · ${nMsgCells} ช่องบรรจุข้อความ จากทั้งหมด 8 100 ช่อง<br>\n       χ² ของสัญลักษณ์ 44 ตัวบนตารางทั้งหมด: <b>${chi2.toFixed(1)}</b> (${df} องศาความเสรี) — ตารางที่แยกไม่ออกจากสัญญาณรบกวนแบบสม่ำเสมอจะให้ค่า χ² ใกล้เคียง ${df}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entrez un message.",
+   "en": "Enter a message.",
+   "es": "Introduzca un mensaje.",
+   "th": "ป้อนข้อความ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Message « ${msg} » encodé — grille 90×90, variante ${variant}.",
+   "en": "Message “${msg}” encoded — 90×90 grid, variant ${variant}.",
+   "es": "Mensaje «${msg}» codificado — cuadrícula de 90×90, variante ${variant}.",
+   "th": "เข้ารหัสข้อความ “${msg}” แล้ว — ตาราง 90×90, รูปแบบ ${variant}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Clé maître Carter (hex) : ",
+   "en": "Carter master key (hex): ",
+   "es": "Clave maestra Carter (hex): ",
+   "th": "คีย์หลัก Carter (hex): ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Remplis la grille et la clé maître.",
+   "en": "Fill in the grid and the master key.",
+   "es": "Rellene la cuadrícula y la clave maestra.",
+   "th": "กรอกตารางและคีย์หลัก",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Message décodé : <span class=\"enc-msg\">${msg}</span>",
+   "en": "Decoded message: <span class=\"enc-msg\">${msg}</span>",
+   "es": "Mensaje decodificado: <span class=\"enc-msg\">${msg}</span>",
+   "th": "ข้อความที่ถอดรหัสได้: <span class=\"enc-msg\">${msg}</span>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Offer invalide : ${raw.length} octets, ${SC_OFFER_SIZE} attendus (identité ‖ éphémère).",
+   "en": "Invalid offer: ${raw.length} bytes, ${SC_OFFER_SIZE} expected (identity ‖ ephemeral).",
+   "es": "Offer no válida: ${raw.length} bytes, se esperaban ${SC_OFFER_SIZE} (identidad ‖ efímera).",
+   "th": "offer ไม่ถูกต้อง: ${raw.length} ไบต์ ต้องการ ${SC_OFFER_SIZE} (ตัวตน ‖ ชั่วคราว)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "L'offer annonce votre propre identité : réflexion du message ou correspondant mal choisi.",
+   "en": "The offer announces your own identity: the message was reflected back, or the wrong correspondent was chosen.",
+   "es": "La offer anuncia su propia identidad: reflexión del mensaje o interlocutor mal elegido.",
+   "th": "offer นี้ประกาศตัวตนของคุณเอง: ข้อความถูกสะท้อนกลับ หรือเลือกคู่สื่อสารผิด",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Session active : <b>${scSession.sessionId}</b> (Carter-256, grille 90×90)",
+   "en": "Active session: <b>${scSession.sessionId}</b> (Carter-256, 90×90 grid)",
+   "es": "Sesión activa: <b>${scSession.sessionId}</b> (Carter-256, cuadrícula de 90×90)",
+   "th": "เซสชันที่ใช้งานอยู่: <b>${scSession.sessionId}</b> (Carter-256, ตาราง 90×90)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Session active : ${scSession.sessionId}",
+   "en": "Active session: ${scSession.sessionId}",
+   "es": "Sesión activa: ${scSession.sessionId}",
+   "th": "เซสชันที่ใช้งานอยู่: ${scSession.sessionId}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Session active : ${scSession.sessionId} (Carter-256, grille 90×90)",
+   "en": "Active session: ${scSession.sessionId} (Carter-256, 90×90 grid)",
+   "es": "Sesión activa: ${scSession.sessionId} (Carter-256, cuadrícula de 90×90)",
+   "th": "เซสชันที่ใช้งานอยู่: ${scSession.sessionId} (Carter-256, ตาราง 90×90)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Dérive une session d\\'abord (onglet Exchange).",
+   "en": "Derive a session first (Exchange tab).",
+   "es": "Derive primero una sesión (pestaña Exchange).",
+   "th": "สร้างเซสชันก่อน (แท็บ Exchange)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entre un message.",
+   "en": "Enter a message.",
+   "es": "Introduzca un mensaje.",
+   "th": "ป้อนข้อความ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "« ${msg} » encodé et téléchargé — grille_${scSession.sessionId.slice(0,8)}.csv",
+   "en": "“${msg}” encoded and downloaded — grille_${scSession.sessionId.slice(0,8)}.csv",
+   "es": "«${msg}» codificado y descargado — grille_${scSession.sessionId.slice(0,8)}.csv",
+   "th": "เข้ารหัสและดาวน์โหลด “${msg}” แล้ว — grille_${scSession.sessionId.slice(0,8)}.csv",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Aucune identité sur ce navigateur. En créer une avant tout échange : c'est elle qui authentifie vos sessions.",
+   "en": "No identity in this browser. Create one before any exchange: it is what authenticates your sessions.",
+   "es": "Ninguna identidad en este navegador. Cree una antes de cualquier intercambio: es ella la que autentica sus sesiones.",
+   "th": "ยังไม่มีตัวตนในเบราว์เซอร์นี้ ให้สร้างก่อนการแลกเปลี่ยนใด ๆ: ตัวตนนี้คือสิ่งที่ยืนยันเซสชันของคุณ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Fingerprint de votre identité : <b>${await scFingerprintOf(pub)}</b><br>",
+   "en": "Fingerprint of your identity: <b>${await scFingerprintOf(pub)}</b><br>",
+   "es": "Fingerprint de su identidad: <b>${await scFingerprintOf(pub)}</b><br>",
+   "th": "fingerprint ของตัวตนของคุณ: <b>${await scFingerprintOf(pub)}</b><br>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Clé publique : <span style=\"word-break:break-all\">${scBytesToHex(pub)}</span><br>",
+   "en": "Public key: <span style=\"word-break:break-all\">${scBytesToHex(pub)}</span><br>",
+   "es": "Clave pública: <span style=\"word-break:break-all\">${scBytesToHex(pub)}</span><br>",
+   "th": "คีย์สาธารณะ: <span style=\"word-break:break-all\">${scBytesToHex(pub)}</span><br>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Le donner à vos correspondants par un canal sûr — c'est ce qu'ils confronteront à l'offer que vous leur enverrez.",
+   "en": "Give it to your correspondents over a secure channel — it is what they will compare with the offer you send them.",
+   "es": "Comuníquelo a sus interlocutores por un canal seguro — es lo que cotejarán con la offer que usted les envíe.",
+   "th": "มอบค่านี้ให้คู่สื่อสารผ่านช่องทางที่ปลอดภัย — พวกเขาจะใช้ค่านี้เทียบกับ offer ที่คุณส่งไปให้",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Créez d'abord votre identité (étape 0).",
+   "en": "Create your identity first (step 0).",
+   "es": "Cree primero su identidad (paso 0).",
+   "th": "สร้างตัวตนของคุณก่อน (ขั้นที่ 0)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Générez votre offer (étape 1) avant de dériver.",
+   "en": "Generate your offer (step 1) before deriving.",
+   "es": "Genere su offer (paso 1) antes de derivar.",
+   "th": "สร้าง offer ของคุณ (ขั้นที่ 1) ก่อนสร้างเซสชัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Offer invalide : 128 caractères hexadécimaux attendus (identité ‖ éphémère).",
+   "en": "Invalid offer: 128 hexadecimal characters expected (identity ‖ ephemeral).",
+   "es": "Offer no válida: se esperaban 128 caracteres hexadecimales (identidad ‖ efímera).",
+   "th": "offer ไม่ถูกต้อง: ต้องเป็นอักขระเลขฐานสิบหก 128 ตัว (ตัวตน ‖ ชั่วคราว)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "L'offer annonce le fingerprint :\\n\\n${fp}\\n\\nConfrontez-le à celui que votre correspondant vous a donné par un autre canal. S'ils diffèrent, quelqu'un s'interpose.\\n\\nCorrespond-il ?",
+   "en": "The offer announces the fingerprint:\\n\\n${fp}\\n\\nCompare it with the one your correspondent gave you over another channel. If they differ, someone is intercepting.\\n\\nDoes it match?",
+   "es": "La offer anuncia el fingerprint:\\n\\n${fp}\\n\\nCotéjelo con el que su interlocutor le ha dado por otro canal. Si difieren, alguien se interpone.\\n\\n¿Coincide?",
+   "th": "offer นี้ประกาศ fingerprint:\\n\\n${fp}\\n\\nเทียบกับค่าที่คู่สื่อสารให้คุณผ่านช่องทางอื่น หากไม่ตรงกัน แสดงว่ามีผู้แทรกกลาง\\n\\nตรงกันหรือไม่?",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Échange interrompu — session non dérivée.",
+   "en": "Exchange interrupted — session not derived.",
+   "es": "Intercambio interrumpido — sesión no derivada.",
+   "th": "การแลกเปลี่ยนถูกยกเลิก — ไม่ได้สร้างเซสชัน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Session dérivée ✓<br>Session ID : <b>${session.sessionId}</b><br>",
+   "en": "Session derived ✓<br>Session ID: <b>${session.sessionId}</b><br>",
+   "es": "Sesión derivada ✓<br>Session ID: <b>${session.sessionId}</b><br>",
+   "th": "สร้างเซสชันแล้ว ✓<br>session ID: <b>${session.sessionId}</b><br>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Authentifiée par triple DH — l'identité <b>${fp}</b> est liée à cette session.<br>",
+   "en": "Authenticated by triple DH — the identity <b>${fp}</b> is bound to this session.<br>",
+   "es": "Autenticada por triple DH — la identidad <b>${fp}</b> está vinculada a esta sesión.<br>",
+   "th": "ยืนยันตัวตนด้วย triple DH — ตัวตน <b>${fp}</b> ผูกอยู่กับเซสชันนี้<br>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Chaîne d'authentification (secours, si le fingerprint n'a pas pu être vérifié avant) :<br>",
+   "en": "Authentication chain (fallback, if the fingerprint could not be verified beforehand):<br>",
+   "es": "Cadena de autenticación (recurso, si el fingerprint no pudo verificarse antes):<br>",
+   "th": "สายการยืนยันตัวตน (ทางสำรอง หากยังไม่ได้ตรวจสอบ fingerprint ไว้ก่อน):<br>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Forward secrecy : clé éphémère détruite ✓",
+   "en": "Forward secrecy: ephemeral key destroyed ✓",
+   "es": "Forward secrecy: clave efímera destruida ✓",
+   "th": "forward secrecy: ทำลายคีย์ชั่วคราวแล้ว ✓",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Colle ou charge une grille CSV.",
+   "en": "Paste or load a CSV grid.",
+   "es": "Pegue o cargue una cuadrícula CSV.",
+   "th": "วางหรือโหลดตาราง CSV",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Clé incorrecte ou grille corrompue : ",
+   "en": "Wrong key or corrupted grid: ",
+   "es": "Clave incorrecta o cuadrícula dañada: ",
+   "th": "คีย์ไม่ถูกต้องหรือตารางเสียหาย: ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Sel invalide : ${CARTER_SALT_BYTES*2} caractères hexadécimaux attendus.",
+   "en": "Invalid salt: ${CARTER_SALT_BYTES*2} hexadecimal characters expected.",
+   "es": "Sal no válida: se esperaban ${CARTER_SALT_BYTES*2} caracteres hexadecimales.",
+   "th": "ซอลต์ไม่ถูกต้อง: ต้องเป็นอักขระเลขฐานสิบหก ${CARTER_SALT_BYTES*2} ตัว",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entre une passphrase Carter.",
+   "en": "Enter a Carter passphrase.",
+   "es": "Introduzca una passphrase Carter.",
+   "th": "ป้อน passphrase Carter",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "« ${msg} » encodé et téléchargé — grille_carter.csv (variante ${variant}).<br><br><b>Sel de cette grille :</b><br><b style=\"word-break:break-all\">${saltHex}</b><br>Le transmettre au destinataire <b>avec la passphrase</b>, par le même canal hors bande. Il n'est pas secret et ne figure pas dans le CSV — l'y écrire signalerait un contenu chiffré. Sans lui, la grille est indéchiffrable ; il est propre à cette grille et change à chaque encodage.",
+   "en": "“${msg}” encoded and downloaded — grille_carter.csv (variant ${variant}).<br><br><b>Salt for this grid:</b><br><b style=\"word-break:break-all\">${saltHex}</b><br>Send it to the recipient <b>with the passphrase</b>, over the same out-of-band channel. It is not secret and does not appear in the CSV — writing it there would signal encrypted content. Without it, the grid cannot be decrypted; it is specific to this grid and changes with every encoding.",
+   "es": "«${msg}» codificado y descargado — grille_carter.csv (variante ${variant}).<br><br><b>Sal de esta cuadrícula:</b><br><b style=\"word-break:break-all\">${saltHex}</b><br>Transmítala al destinatario <b>junto con la passphrase</b>, por el mismo canal fuera de banda. No es secreta y no figura en el CSV — escribirla en él delataría un contenido cifrado. Sin ella, la cuadrícula es indescifrable; es propia de esta cuadrícula y cambia en cada codificación.",
+   "th": "เข้ารหัสและดาวน์โหลด “${msg}” แล้ว — grille_carter.csv (รูปแบบ ${variant})<br><br><b>ซอลต์ของตารางนี้:</b><br><b style=\"word-break:break-all\">${saltHex}</b><br>ส่งให้ผู้รับ<b>พร้อมกับ passphrase</b> ผ่านช่องทางอื่นเดียวกัน ซอลต์ไม่ใช่ความลับและไม่อยู่ใน CSV — การเขียนลงไปจะเผยว่ามีเนื้อหาที่เข้ารหัส หากไม่มีซอลต์ ตารางจะถอดรหัสไม่ได้ ซอลต์เป็นของตารางนี้โดยเฉพาะและเปลี่ยนทุกครั้งที่เข้ารหัส",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entre la passphrase Carter.",
+   "en": "Enter the Carter passphrase.",
+   "es": "Introduzca la passphrase Carter.",
+   "th": "ป้อน passphrase Carter",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Sel de vault invalide.",
+   "en": "Invalid vault salt.",
+   "es": "Sal de vault no válida.",
+   "th": "ซอลต์ของ vault ไม่ถูกต้อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Vault trop court ou corrompu.",
+   "en": "Vault too short or corrupted.",
+   "es": "Vault demasiado corto o dañado.",
+   "th": "vault สั้นเกินไปหรือเสียหาย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Fichier non reconnu (magic invalide).",
+   "en": "Unrecognised file (invalid magic).",
+   "es": "Archivo no reconocido (magic no válido).",
+   "th": "ไม่รู้จักไฟล์นี้ (magic ไม่ถูกต้อง)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Version ${version} non supportée (attendu ${VAULT_VERSION_LEGACY} ou ${VAULT_VERSION}).",
+   "en": "Version ${version} not supported (expected ${VAULT_VERSION_LEGACY} or ${VAULT_VERSION}).",
+   "es": "Versión ${version} no admitida (se esperaba ${VAULT_VERSION_LEGACY} o ${VAULT_VERSION}).",
+   "th": "ไม่รองรับเวอร์ชัน ${version} (ต้องการ ${VAULT_VERSION_LEGACY} หรือ ${VAULT_VERSION})",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Algorithme ${algo} non supporté par cette page (attendu AES-256-GCM).",
+   "en": "Algorithm ${algo} not supported by this page (expected AES-256-GCM).",
+   "es": "Algoritmo ${algo} no admitido por esta página (se esperaba AES-256-GCM).",
+   "th": "หน้านี้ไม่รองรับอัลกอริทึม ${algo} (ต้องการ AES-256-GCM)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Vault corrompu ou passphrase incorrecte.",
+   "en": "Vault corrupted or wrong passphrase.",
+   "es": "Vault dañado o passphrase incorrecta.",
+   "th": "vault เสียหายหรือ passphrase ไม่ถูกต้อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Vault tronqué (en-tête manifest manquant).",
+   "en": "Vault truncated (manifest header missing).",
+   "es": "Vault truncado (falta la cabecera del manifest).",
+   "th": "vault ถูกตัดทอน (ไม่มีส่วนหัว manifest)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Manifest trop grand : ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — vault forgé ou corrompu.",
+   "en": "Manifest too large: ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — forged or corrupted vault.",
+   "es": "Manifest demasiado grande: ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — vault falsificado o dañado.",
+   "th": "manifest ใหญ่เกินไป: ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — vault ถูกปลอมแปลงหรือเสียหาย",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Manifest tronqué.",
+   "en": "Manifest truncated.",
+   "es": "Manifest truncado.",
+   "th": "manifest ถูกตัดทอน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Trop d'entrées : ${names.length} > ${VAULT_MAX_ENTRIES}.",
+   "en": "Too many entries: ${names.length} > ${VAULT_MAX_ENTRIES}.",
+   "es": "Demasiadas entradas: ${names.length} > ${VAULT_MAX_ENTRIES}.",
+   "th": "รายการมากเกินไป: ${names.length} > ${VAULT_MAX_ENTRIES}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entrée '${name}' tronquée (en-tête).",
+   "en": "Entry '${name}' truncated (header).",
+   "es": "Entrada '${name}' truncada (cabecera).",
+   "th": "รายการ '${name}' ถูกตัดทอน (ส่วนหัว)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entrée '${name}' trop grande : ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}.",
+   "en": "Entry '${name}' too large: ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}.",
+   "es": "Entrada '${name}' demasiado grande: ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}.",
+   "th": "รายการ '${name}' ใหญ่เกินไป: ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entrée '${name}' tronquée (données).",
+   "en": "Entry '${name}' truncated (data).",
+   "es": "Entrada '${name}' truncada (datos).",
+   "th": "รายการ '${name}' ถูกตัดทอน (ข้อมูล)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Hash invalide pour '${name}'.",
+   "en": "Invalid hash for '${name}'.",
+   "es": "Hash no válido para '${name}'.",
+   "th": "hash ไม่ถูกต้องสำหรับ '${name}'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'${name}' absent du vault.",
+   "en": "'${name}' not in the vault.",
+   "es": "'${name}' no está en el vault.",
+   "th": "ไม่มี '${name}' ใน vault",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "<p class=\"ref-note\">Vault vide.</p>",
+   "en": "<p class=\"ref-note\">Empty vault.</p>",
+   "es": "<p class=\"ref-note\">Vault vacío.</p>",
+   "th": "<p class=\"ref-note\">vault ว่างเปล่า</p>",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entre une passphrase.",
+   "en": "Enter a passphrase.",
+   "es": "Introduzca una passphrase.",
+   "th": "ป้อน passphrase",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Nouveau vault créé (vide, en mémoire) — ajoute des fichiers puis exporte.",
+   "en": "New vault created (empty, in memory) — add files, then export.",
+   "es": "Nuevo vault creado (vacío, en memoria) — añada archivos y después expórtelo.",
+   "th": "สร้าง vault ใหม่แล้ว (ว่างเปล่า อยู่ในหน่วยความจำ) — เพิ่มไฟล์แล้วจึงส่งออก",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Entre la passphrase du vault avant de l\\'ouvrir.",
+   "en": "Enter the vault passphrase before opening it.",
+   "es": "Introduzca la passphrase del vault antes de abrirlo.",
+   "th": "ป้อน passphrase ของ vault ก่อนเปิด",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Vault ouvert : ${input.files[0].name} (${currentVault.list().length} fichier(s)).",
+   "en": "Vault opened: ${input.files[0].name} (${currentVault.list().length} file(s)).",
+   "es": "Vault abierto: ${input.files[0].name} (${currentVault.list().length} archivo(s)).",
+   "th": "เปิด vault แล้ว: ${input.files[0].name} (${currentVault.list().length} ไฟล์)",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Créez ou ouvrez un vault d\\'abord.",
+   "en": "Create or open a vault first.",
+   "es": "Cree o abra primero un vault.",
+   "th": "สร้างหรือเปิด vault ก่อน",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Choisissez un fichier.",
+   "en": "Choose a file.",
+   "es": "Elija un archivo.",
+   "th": "เลือกไฟล์",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'${file.name}' ajouté (${data.length.toLocaleString('fr-FR')} octets) — exporte pour sauvegarder.",
+   "en": "'${file.name}' added (${data.length.toLocaleString('en-GB')} bytes) — export to save.",
+   "es": "'${file.name}' añadido (${data.length.toLocaleString('es-ES')} bytes) — exporte para guardar.",
+   "th": "เพิ่ม '${file.name}' แล้ว (${data.length.toLocaleString('th-TH')} ไบต์) — ส่งออกเพื่อบันทึก",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Erreur de chargement des référents — essayez de recharger la page.",
+   "en": "Error loading the referents — try reloading the page.",
+   "es": "Error al cargar los referentes — intente recargar la página.",
+   "th": "โหลดตัวอ้างอิงไม่สำเร็จ — ลองโหลดหน้าเว็บใหม่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Données trop courtes.",
+   "en": "Data too short.",
+   "es": "Datos demasiado cortos.",
+   "th": "ข้อมูลสั้นเกินไป",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "MAC global invalide — fichier altéré ou passphrase incorrecte.",
+   "en": "Invalid global MAC — tampered file or wrong passphrase.",
+   "es": "MAC global no válido — archivo alterado o passphrase incorrecta.",
+   "th": "MAC ทั้งชุดไม่ถูกต้อง — ไฟล์ถูกแก้ไขหรือ passphrase ไม่ถูกต้อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Longueur chiffrée invalide.",
+   "en": "Invalid encrypted length.",
+   "es": "Longitud cifrada no válida.",
+   "th": "ความยาวข้อมูลเข้ารหัสไม่ถูกต้อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Tag AES-GCM invalide au secteur ${s} — fichier altéré ou passphrase incorrecte.",
+   "en": "Invalid AES-GCM tag at sector ${s} — tampered file or wrong passphrase.",
+   "es": "Tag AES-GCM no válido en el sector ${s} — archivo alterado o passphrase incorrecta.",
+   "th": "tag AES-GCM ไม่ถูกต้องที่เซกเตอร์ ${s} — ไฟล์ถูกแก้ไขหรือ passphrase ไม่ถูกต้อง",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Tables de permutation en cours d\\'initialisation, réessayez dans un instant.",
+   "en": "Permutation tables still initialising, try again in a moment.",
+   "es": "Tablas de permutación en proceso de inicialización; vuelva a intentarlo en un instante.",
+   "th": "ตารางการเรียงสับเปลี่ยนกำลังเตรียมอยู่ โปรดลองใหม่อีกสักครู่",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Choisissez un fichier .lldh.",
+   "en": "Choose a .lldh file.",
+   "es": "Elija un archivo .lldh.",
+   "th": "เลือกไฟล์ .lldh",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Fichier trop court.",
+   "en": "File too short.",
+   "es": "Archivo demasiado corto.",
+   "th": "ไฟล์สั้นเกินไป",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "Erreur de déchiffrement : ",
+   "en": "Decryption error: ",
+   "es": "Error de descifrado: ",
+   "th": "ถอดรหัสผิดพลาด: ",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "'Erreur : '",
+   "en": "'Error: '",
+   "es": "'Error: '",
+   "th": "'ข้อผิดพลาด: '",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "+' formes'",
+   "en": "+' shapes'",
+   "es": "+' formas'",
+   "th": "+' รูปทรง'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "' octets — chiffré ✓'",
+   "en": "' bytes — encrypted ✓'",
+   "es": "' bytes — cifrado ✓'",
+   "th": "' ไบต์ — เข้ารหัสแล้ว ✓'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "' octets — déchiffré ✓'",
+   "en": "' bytes — decrypted ✓'",
+   "es": "' bytes — descifrado ✓'",
+   "th": "' ไบต์ — ถอดรหัสแล้ว ✓'",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "+ ' octets')",
+   "en": "+ ' bytes')",
+   "es": "+ ' bytes')",
+   "th": "+ ' ไบต์')",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": ")} octets — sha256:",
+   "en": ")} bytes — sha256:",
+   "es": ")} bytes — sha256:",
+   "th": ")} ไบต์ — sha256:",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "toLocaleString('fr-FR')",
+   "en": "toLocaleString('en-GB')",
+   "es": "toLocaleString('es-ES')",
+   "th": "toLocaleString('th-TH')",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "cell.title=`Forme #",
+   "en": "cell.title=`Shape #",
+   "es": "cell.title=`Forma #",
+   "th": "cell.title=`รูปทรง #",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\\nBleu : ${",
+   "en": "\\nBlue: ${",
+   "es": "\\nAzul: ${",
+   "th": "\\nน้ำเงิน: ${",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\\nRouge : ${",
+   "en": "\\nRed: ${",
+   "es": "\\nRojo: ${",
+   "th": "\\nแดง: ${",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "\\nCouleurs : ${",
+   "en": "\\nColours: ${",
+   "es": "\\nColores: ${",
+   "th": "\\nสี: ${",
+   "source": "SANS SOURCE"
+  },
+  {
+   "fr": "if('serviceWorker' in navigator){\n  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('encodeur-sw.js', { scope: './encodeur' }).catch(()=>{}); });\n}",
+   "en": "// Hors ligne : encodeur-sw.js ne sert que la page française (encodeur.html, portée « ./encodeur »).",
+   "es": "// Hors ligne : encodeur-sw.js ne sert que la page française (encodeur.html, portée « ./encodeur »).",
+   "th": "// Hors ligne : encodeur-sw.js ne sert que la page française (encodeur.html, portée « ./encodeur »).",
+   "source": "technique : pas de service worker sur les pages traduites (voir _doc)"
+  }
+ ]
+}

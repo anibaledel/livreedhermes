@@ -299,7 +299,9 @@
   {
    "fichier": "tools/check_csp.mjs",
    "role": "Politique de sécurité du contenu (CSP) des pages sensibles : l'encodeur (chiffrement dans le navigateur) et les deux pages de paiement.",
-   "lit": [],
+   "lit": [
+    "data/outils-langues.json"
+   ],
    "ecrit": [],
    "appele_par": [
     "check-csp.yml"

@@ -21,13 +21,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://anibal-amiot.com/encodeur.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
-  </url>
-  <url>
     <loc>https://anibal-amiot.com/carter-demo.html</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -2002,6 +1995,54 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/fondos-de-pantalla/"/>
     <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/wallpapers/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/wallpapers/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/encodeur.html</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/en/encoder/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/es/codificador/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/"/>
+  </url>
+  <url>
+    <loc>https://anibal-amiot.com/th/encoder/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image><image:loc>https://anibal-amiot.com/assets/og_image_anibal_amiot.png</image:loc></image:image>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/"/>
+    <xhtml:link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/"/>
   </url>
   <url>
     <loc>https://anibal-amiot.com/contact.html</loc>
