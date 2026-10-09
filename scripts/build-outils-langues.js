@@ -55,6 +55,8 @@ const echAttr = (s) => echTexte(s).replace(/"/g, '&quot;');
 // L'objet littéral « const UI = { … }; », lu en sautant chaînes et commentaires,
 // puis évalué à part : c'est un littéral sans référence extérieure.
 function finAccolade(s, j) {
+  // l'accolade (objet) ou le crochet (tableau) ouvert en j
+  const [ouvre, ferme] = s[j] === '[' ? ['[', ']'] : ['{', '}'];
   let p = 0, chaine = null;
   for (let k = j; k < s.length; k++) {
     const c = s[k];
@@ -66,8 +68,8 @@ function finAccolade(s, j) {
     if (c === '/' && s[k + 1] === '/') { k = s.indexOf('\n', k); continue; }
     if (c === '/' && s[k + 1] === '*') { k = s.indexOf('*/', k) + 1; continue; }
     if (c === '"' || c === "'" || c === '`') { chaine = c; continue; }
-    if (c === '{') p++;
-    else if (c === '}') { p--; if (p === 0) return k; }
+    if (c === ouvre) p++;
+    else if (c === ferme) { p--; if (p === 0) return k; }
   }
   throw new Error('accolade non fermée');
 }
@@ -86,9 +88,9 @@ function dictionnaire(s, source) {
 // data/hexagrammes_traduits.json, ceux des pages d'hexagrammes traduites.
 // « donnees » : [{ "const": nom du tableau, "forme": comment le lire }].
 function litteral(s, nom, source) {
-  const i = s.indexOf(`const ${nom} = {`);
-  if (i === -1) throw new Error(`${source} : pas de « const ${nom} = { »`);
-  const j = s.indexOf('{', i);
+  const m = new RegExp(`const ${nom} = [{[]`).exec(s);
+  if (!m) throw new Error(`${source} : pas de « const ${nom} = { » ni « const ${nom} = [ »`);
+  const j = m.index + m[0].length - 1;
   const k = finAccolade(s, j);
   return { j, k, valeur: vm.runInNewContext(`(${s.slice(j, k + 1)})`) };
 }

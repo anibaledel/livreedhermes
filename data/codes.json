@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-09T13:12:37Z",
+ "generated_at_utc": "2026-10-09T15:51:06Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -781,9 +781,9 @@
   {
    "chemin": "scripts/build-outils-langues.js",
    "adresse": "https://anibal-amiot.com/scripts/build-outils-langues.js",
-   "octets": 23769,
-   "sha256": "ad9b5f4310e6896ff1b2b4d426dc5de465694119d906a9055fc02576f61a147c",
-   "md5": "3cd3651fe948fa85dfe27ed20898701a",
+   "octets": 25900,
+   "sha256": "18bd1d1c440455f44bfe4fbe48ac5940ff3abca55e9d7fa58f56f414fcc05373",
+   "md5": "ab1e4f9ddda254d5697b9557ee369865",
    "licence_declaree": false,
    "licence": null,
    "role": "les outils dont le texte est DÉJÀ traduit, sortis à une adresse par langue (prompt-cc-outils-langues.md, étape 1).",
@@ -1481,9 +1481,9 @@
   {
    "chemin": "tools/check_accueils.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_accueils.mjs",
-   "octets": 6414,
-   "sha256": "ef56838df9e7694aa5e73670d5b9ebdf97b2b8f7dfd8a4f15312d6681e192853",
-   "md5": "bb0ac49a9e8c59c4bdb02ca4ccee64c6",
+   "octets": 6577,
+   "sha256": "2fea3ddaa0a5a5511d3ff91917bade54e4009cb8b9ca6f1abcb00788a9aaefc7",
+   "md5": "c172258061bc5ca88da3c6ca43404459",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les huit accueils suivent le même modèle (A03).",

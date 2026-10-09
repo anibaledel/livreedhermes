@@ -1,0 +1,377 @@
+{
+ "_doc": "Le tirage du Yi King (tirage-livree-hermes.html) en espagnol et en thaï : la page française ne porte que les langues fr et en. Par langue : UI, le dictionnaire de la page (ses 99 clés, ajouté au dictionnaire de la page traduite seulement) ; LINE_COMMENT et TRIGRAMS, qui remplacent les constantes françaises (forme « dictionnaire », scripts/build-outils-langues.js). Les noms, Jugements et Images des hexagrammes viennent de data/hexagrammes_traduits.json (formes hexKw et image). Traductions SANS SOURCE sauf LINE_COMMENT et TRIGRAMS, repris de data/hexagrammes_traduits.json ; à relire (TODO-RELECTURE.md).",
+ "es": {
+  "UI": {
+   "eyebrow": "La Livrée d'Hermès",
+   "title": "La Livrée d'Hermès — un tratado en 111 láminas",
+   "ctaLire": "Leer en línea",
+   "ctaPdf": "Descargar el PDF (ES, 16 MB)",
+   "ctaLireHref": "book-viewer/?read=es",
+   "ctaPdfHref": "book-viewer/la-livree-d-hermes-anibal-amiot-es.pdf",
+   "menuNav": "Menú principal",
+   "menuTraite": "El tratado",
+   "menuOutils": "Herramientas",
+   "menuArticles": "Artículos",
+   "menuLexique": "Léxico",
+   "menuAPropos": "Acerca de",
+   "menuSoutenir": "Apoyar",
+   "readBook": "Leer el libro",
+   "dlPdf": "Descargar el PDF",
+   "langBookTitle": "Idioma del libro",
+   "dlYiKing": "Descargar la traducción del Yi-King",
+   "dl360": "Archivo de los 360 motivos",
+   "grid": "El tablero",
+   "oracleTitle": "El oráculo",
+   "bookTitle": "El libro",
+   "toolsTitle": "Las herramientas",
+   "drawBtn": "Tirar las monedas (6 rasgos)",
+   "legendLabel": "Rasgos — simbolismo tradicional",
+   "legendYangFixe": "Yang fijo",
+   "legendYangMut": "Yang mutante — va a quebrarse",
+   "legendYinFixe": "Yin fijo",
+   "legendYinMut": "Yin mutante — va a llenarse",
+   "emptyState": "Haga clic en una casilla del tablero para consultar un hexagrama,<br>o tire las monedas para obtener una lectura — con, si los hay, sus rasgos mutantes y el hexagrama resultante.",
+   "axisNote": "Filas = trigrama <b>superior</b> (0 a 7, de arriba abajo) · Columnas = trigrama <b>inferior</b> (0 a 7, de izquierda a derecha) · N.º = fila×8 + columna",
+   "chronoLabel": "ORDEN CRONOLÓGICO",
+   "kingWenLabel": "n.º King Wen (tradicional): ",
+   "kingWenShort": "King Wen n.º",
+   "hexMoreInfo": "Más sobre este hexagrama →",
+   "imageLabel": "Imagen",
+   "judgementLabel": "Juicio",
+   "navHexagrammes": "Hexagramas",
+   "navMotif": "Crear un motivo",
+   "navUnified": "Unified Patterns",
+   "navGalerie": "Galería",
+   "navMotifsSvg": "Motivos SVG",
+   "navCymatique": "Cimática",
+   "navWallpaper": "Fondo de pantalla",
+   "navPrint": "Impresión",
+   "navEncodeur": "Codificador",
+   "navContact": "Contacto",
+   "navAbout": "Acerca de",
+   "navLexique": "Léxico",
+   "navArticles": "Artículos",
+   "navHexagrammesDesc": "Los 64 hexagramas del Yi-King: juicio, trigramas y cuadrado mágico de cada uno.",
+   "navMotifDesc": "Componga sus propios motivos textiles a partir de las 60 imágenes del Yi King.",
+   "navUnifiedDesc": "Los 64 motivos de los hexagramas, personalizables y descargables en alta resolución.",
+   "navGalerieDesc": "Motivos unificados, generados por mezcla de matices — seleccione un motivo para ver su teselado.",
+   "navMotifsSvgDesc": "Descargue las capas de impresión en 4 categorías de combinaciones de rasgos, en formato SVG.",
+   "navCymatiqueDesc": "El teselado cuya frecuencia espacial se acerca más al sonido que usted emite.",
+   "navWallpaperDesc": "Fondos de pantalla textiles a pantalla completa, reactivos al sonido o en modo meditativo a ritmo regulable.",
+   "navPrintDesc": "Realice la tirada y descargue las capas de impresión, listas para imprimir.",
+   "navEncodeurDesc": "Codificación esteganográfica geométrica por doble referente, cruz ansada y Jacquard.",
+   "navContactDesc": "Contacte con el autor para un proyecto o un encargo de motivos e impresiones textiles.",
+   "navAboutDesc": "El autor y su libro, en la encrucijada de la filosofía, las matemáticas y las ciencias aplicadas.",
+   "navLexiqueDesc": "Diez nociones clave para comprender La Livrée d'Hermès.",
+   "navArticlesDesc": "Reflexiones e investigaciones en torno a La Livrée d'Hermès.",
+   "superior": "Superior",
+   "inferior": "Inferior",
+   "xrefBinome": "Binomio (volteado)",
+   "xrefOppose": "Opuesto (invertido)",
+   "pavageFixed": "Teselado — solo rasgos fijos",
+   "pavageReprod": "Teselado — reproducido bajo el de partida",
+   "traitMutant": "Rasgo mutante — posición ",
+   "triadTerreBase": "Tierra (base)",
+   "triadTerreFin": "Tierra (culminación)",
+   "triadHommeBase": "Hombre (base)",
+   "triadHommeFin": "Hombre (culminación)",
+   "triadCielBase": "Cielo (base)",
+   "triadCielFin": "Cielo (culminación)",
+   "hexAnt": "Hexagrama anterior",
+   "hexPost": "Hexagrama posterior",
+   "movingLines": "Rasgos mutantes: ",
+   "movingLinesEnd": " — son los únicos rasgos que cambian entre las dos situaciones.",
+   "pavageAnt": "Teselado — situación anterior",
+   "pavagePost": "Teselado — situación posterior",
+   "situationTag": "En qué se convierte la situación",
+   "copyLink": "Copiar el enlace",
+   "copied": "Copiado",
+   "footerNote1": "Numeración cronológica binaria (su sistema, p.067) — el nombre y el juicio siguen siendo los del Yi-king tradicional, como referencia.",
+   "footerNote2Pre": "Teselado: transcripción real en cuadrado de 144, calculada a partir de sus capas 1-6. Los cuatro juegos — ",
+   "footerNote2Post": " — están ya todos integrados.",
+   "footerNote3": "Una tirada realizada queda codificada en la URL (<code>?tire=</code>) — copie el enlace para compartirla o recuperarla tal cual.",
+   "yangFixeW": "Yang fijo",
+   "yinFixeW": "Yin fijo",
+   "yangMutW": "Yang mutante",
+   "yinMutW": "Yin mutante",
+   "paletteLabel": "Paleta",
+   "paletteReset": "Restablecer la paleta",
+   "positionsGuideToggle": "Significado de las 6 posiciones",
+   "positionsGuide": "<p class=\"positions-guide-title\">Significado de las 6 posiciones (de abajo arriba)</p><div class=\"positions-guide-item\"><b>1.er rasgo — La base.</b> El punto de partida de la situación. Una pregunta que empieza a plantearse más que a resolverse.</div><div class=\"positions-guide-item\"><b>2.º rasgo — El sostén interior.</b> La posición central del trigrama inferior, a menudo asociada a lo que le sostiene desde dentro — una relación de confianza, un recurso estable.</div><div class=\"positions-guide-item\"><b>3.er rasgo — La transición.</b> En la frontera entre el mundo interior y el mundo exterior. Posición inestable por naturaleza: la tensión entre la vacilación y el paso a la acción.</div><div class=\"positions-guide-item\"><b>4.º rasgo — El umbral.</b> El comienzo del trigrama superior. La entrada en el mundo social o profesional, a menudo junto a la posición rectora (5.º rasgo).</div><div class=\"positions-guide-item\"><b>5.º rasgo — El rector.</b> El centro del trigrama superior — la posición más justa y más influyente del hexagrama.</div><div class=\"positions-guide-item\"><b>6.º rasgo — La culminación.</b> El final del ciclo. A menudo el exceso o la superación de una situación que ha llegado a su término.</div>",
+   "newOnSiteHtml": "Nuevo en el sitio: descubra las nociones clave del proyecto en el <a href=\"es/lexico/\" style=\"color:var(--gold);\">léxico</a>, o lea los <a href=\"articles.html\" style=\"color:var(--gold);\">artículos</a> (en francés) que prolongan el enfoque. Encuentre también todas las <a href=\"outils.html\" style=\"color:var(--gold);\">herramientas</a> del sitio y <a href=\"la-livree-d-hermes.html\" style=\"color:var(--gold);\">el tratado</a> en un solo lugar.",
+   "bookIntro": "La Livrée d'Hermès es un libro de filosofía y matemáticas, disponible en acceso libre en el enlace siguiente. Está centrado en la construcción de cuadrados mágicos y su transcripción en tejido Jacquard.",
+   "tirageGuide": "<p>El Yi King es un libro de sabiduría que puede utilizarse como oráculo. Si tiene una pregunta concreta, interiorícela antes de pulsar el botón de tirada. Sin pregunta particular, la tirada indica la situación del momento. Puede encadenar varias tiradas para varias preguntas — pero una sola tirada ya basta por sí misma para el mensaje que corresponde a su consulta.</p><p>Si simplemente desea explorar el significado de los hexagramas y de las imágenes correlacionadas, seleccione directamente una casilla del tablero. Para más información sobre las imágenes, no dude en leer el libro.</p>"
+  },
+  "LINE_COMMENT": {
+   "1": {
+    "0": "En la base de la tierra, el vacío se cierra: lo que aún no era más que una abertura comienza a llenarse.",
+    "1": "En la base de la tierra, lo lleno se estremece: el impulso yang que sostenía la figura entera consiente en ceder su lugar."
+   },
+   "2": {
+    "0": "La tierra receptiva alcanza su colmo: la acogida silenciosa que sostenía la parte baja de la figura va a afirmarse.",
+    "1": "La tierra afianzada toca su límite: la solidez que sostenía el edificio se dispone a cambiar de naturaleza."
+   },
+   "3": {
+    "0": "En el umbral entre la tierra y el hombre, la flexibilidad se carga: lo que por naturaleza cedía se dispone a endurecerse.",
+    "1": "En el umbral entre la tierra y el hombre, la fuerza vacila: lo que actuaba con firmeza titubea antes de darse la vuelta."
+   },
+   "4": {
+    "0": "En la escucha del hombre, el hueco se colma: la disponibilidad que recibía pronto va a afirmarse.",
+    "1": "En la acción del hombre, lo lleno encuentra su límite: la iniciativa que guiaba la figura se repliega sobre sí misma."
+   },
+   "5": {
+    "0": "En el lugar del sabio, el vacío se llena: la flexibilidad que gobernaba con discreción se carga de una fuerza nueva.",
+    "1": "En el lugar del sabio, lo lleno se ahueca: la fuerza que gobernaba la figura desde el centro se dispone a invertirse."
+   },
+   "6": {
+    "0": "En la cima, el vacío alcanza su colmo y se cierra: la abertura más extrema se vuelca hacia su contrario.",
+    "1": "En la cima, lo lleno termina su carrera y se quiebra: lo que culminaba no puede ir más lejos sin darse la vuelta."
+   }
+  },
+  "TRIGRAMS": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "Lo Receptivo",
+    "image": "la Tierra",
+    "role": "la madre"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "Lo Suscitativo",
+    "image": "el Trueno",
+    "role": "el hijo mayor"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "Lo Insondable",
+    "image": "el Agua",
+    "role": "el hijo mediano"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "Lo Alegre",
+    "image": "el Lago",
+    "role": "la hija menor"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "La Inmovilización",
+    "image": "la Montaña",
+    "role": "el hijo menor"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "Lo Adherente",
+    "image": "el Fuego",
+    "role": "la hija mediana"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "Lo Suave",
+    "image": "el Viento",
+    "role": "la hija mayor"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "Lo Creativo",
+    "image": "el Cielo",
+    "role": "el padre"
+   }
+  ]
+ },
+ "th": {
+  "UI": {
+   "eyebrow": "La Livrée d'Hermès",
+   "title": "La Livrée d'Hermès — ตำรา 111 แผ่นภาพ",
+   "ctaLire": "อ่านหนังสือออนไลน์",
+   "ctaPdf": "ดาวน์โหลด PDF (TH, 16 MB)",
+   "ctaLireHref": "book-viewer/?read=th",
+   "ctaPdfHref": "book-viewer/la-livree-d-hermes-anibal-amiot-th.pdf",
+   "menuNav": "เมนูหลัก",
+   "menuTraite": "ตำรา",
+   "menuOutils": "เครื่องมือ",
+   "menuArticles": "บทความ",
+   "menuLexique": "อภิธานศัพท์",
+   "menuAPropos": "เกี่ยวกับ",
+   "menuSoutenir": "สนับสนุน",
+   "readBook": "อ่านหนังสือ",
+   "dlPdf": "ดาวน์โหลด PDF",
+   "langBookTitle": "ภาษาของหนังสือ",
+   "dlYiKing": "ดาวน์โหลดคำแปลอี้จิง",
+   "dl360": "คลังลวดลาย 360 แบบ",
+   "grid": "กระดาน",
+   "oracleTitle": "คำพยากรณ์",
+   "bookTitle": "หนังสือ",
+   "toolsTitle": "เครื่องมือ",
+   "drawBtn": "โยนเหรียญ (6 เส้น)",
+   "legendLabel": "เส้น — ความหมายเชิงสัญลักษณ์ตามขนบดั้งเดิม",
+   "legendYangFixe": "หยางคงที่",
+   "legendYangMut": "หยางกลายพันธุ์ — กำลังจะแตกออก",
+   "legendYinFixe": "ยินคงที่",
+   "legendYinMut": "ยินกลายพันธุ์ — กำลังจะถูกเติมเต็ม",
+   "emptyState": "คลิกช่องใดช่องหนึ่งบนกระดานเพื่อดูฉักลักษณ์<br>หรือโยนเหรียญเพื่อเสี่ยงทาย — พร้อมเส้นกลายพันธุ์และฉักลักษณ์ที่เกิดขึ้นตามมา หากมี",
+   "axisNote": "แถว = ตรีลักษณ์<b>บน</b> (0 ถึง 7 จากบนลงล่าง) · คอลัมน์ = ตรีลักษณ์<b>ล่าง</b> (0 ถึง 7 จากซ้ายไปขวา) · ลำดับที่ = แถว×8 + คอลัมน์",
+   "chronoLabel": "ลำดับตามเวลา",
+   "kingWenLabel": "ลำดับ King Wen (ดั้งเดิม): ",
+   "kingWenShort": "ลำดับ King Wen ที่ ",
+   "hexMoreInfo": "ข้อมูลเพิ่มเติมเกี่ยวกับฉักลักษณ์นี้ →",
+   "imageLabel": "ภาพลักษณ์",
+   "judgementLabel": "คำตัดสิน",
+   "navHexagrammes": "ฉักลักษณ์",
+   "navMotif": "สร้างลวดลาย",
+   "navUnified": "Unified Patterns",
+   "navGalerie": "แกลเลอรี",
+   "navMotifsSvg": "ลวดลาย SVG",
+   "navCymatique": "ไซแมติกส์",
+   "navWallpaper": "วอลเปเปอร์",
+   "navPrint": "การพิมพ์",
+   "navEncodeur": "ตัวเข้ารหัส",
+   "navContact": "ติดต่อ",
+   "navAbout": "เกี่ยวกับ",
+   "navLexique": "อภิธานศัพท์",
+   "navArticles": "บทความ",
+   "navHexagrammesDesc": "ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์",
+   "navMotifDesc": "ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง",
+   "navUnifiedDesc": "ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง",
+   "navGalerieDesc": "ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย",
+   "navMotifsSvgDesc": "ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG",
+   "navCymatiqueDesc": "การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด",
+   "navWallpaperDesc": "วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้",
+   "navPrintDesc": "ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์",
+   "navEncodeurDesc": "การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์",
+   "navContactDesc": "ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า",
+   "navAboutDesc": "ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์",
+   "navLexiqueDesc": "แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès",
+   "navArticlesDesc": "ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès",
+   "superior": "ตรีลักษณ์บน",
+   "inferior": "ตรีลักษณ์ล่าง",
+   "xrefBinome": "ฉักลักษณ์คู่ (กลับหัว)",
+   "xrefOppose": "ฉักลักษณ์ตรงข้าม (สลับเส้น)",
+   "pavageFixed": "การปูลาย — เฉพาะเส้นคงที่",
+   "pavageReprod": "การปูลาย — แสดงซ้ำใต้ฉักลักษณ์เริ่มต้น",
+   "traitMutant": "เส้นกลายพันธุ์ — ตำแหน่งที่ ",
+   "triadTerreBase": "แผ่นดิน (ฐาน)",
+   "triadTerreFin": "แผ่นดิน (การลุล่วง)",
+   "triadHommeBase": "มนุษย์ (ฐาน)",
+   "triadHommeFin": "มนุษย์ (การลุล่วง)",
+   "triadCielBase": "ฟ้า (ฐาน)",
+   "triadCielFin": "ฟ้า (การลุล่วง)",
+   "hexAnt": "ฉักลักษณ์ก่อนหน้า",
+   "hexPost": "ฉักลักษณ์ภายหลัง",
+   "movingLines": "เส้นกลายพันธุ์: ",
+   "movingLinesEnd": " — เส้นเหล่านี้เท่านั้นที่พลิกเปลี่ยนระหว่างสองสถานการณ์",
+   "pavageAnt": "การปูลาย — สถานการณ์ก่อนหน้า",
+   "pavagePost": "การปูลาย — สถานการณ์ภายหลัง",
+   "situationTag": "สิ่งที่สถานการณ์จะกลายเป็น",
+   "copyLink": "คัดลอกลิงก์",
+   "copied": "คัดลอกแล้ว",
+   "footerNote1": "การนับลำดับฐานสองตามเวลา (ระบบของคุณเอง, หน้า 067) — ชื่อและคำตัดสินยังคงเป็นของอี้จิงตามขนบดั้งเดิม เพื่อใช้เป็นจุดอ้างอิง",
+   "footerNote2Pre": "การปูลาย: การถ่ายทอดจริงลงในจัตุรัส 144 ช่อง คำนวณจากแผ่นลาย 1-6 ของคุณ ทั้งสี่ชุด — ",
+   "footerNote2Post": " — ได้รวมไว้ครบทั้งหมดแล้ว",
+   "footerNote3": "การเสี่ยงทายที่ทำแล้วจะถูกเข้ารหัสไว้ใน URL (<code>?tire=</code>) — คัดลอกลิงก์เพื่อแบ่งปัน หรือเพื่อเปิดกลับมาดูได้ตรงตามเดิม",
+   "yangFixeW": "หยางคงที่",
+   "yinFixeW": "ยินคงที่",
+   "yangMutW": "หยางกลายพันธุ์",
+   "yinMutW": "ยินกลายพันธุ์",
+   "paletteLabel": "ชุดสี",
+   "paletteReset": "รีเซ็ตชุดสี",
+   "positionsGuideToggle": "ความหมายของ 6 ตำแหน่ง",
+   "positionsGuide": "<p class=\"positions-guide-title\">ความหมายของ 6 ตำแหน่ง (จากล่างขึ้นบน)</p><div class=\"positions-guide-item\"><b>เส้นที่ 1 — ฐาน</b> จุดเริ่มต้นของสถานการณ์ คำถามที่เพิ่งเริ่มก่อตัว มากกว่าจะเริ่มคลี่คลาย</div><div class=\"positions-guide-item\"><b>เส้นที่ 2 — แรงค้ำจุนภายใน</b> ตำแหน่งกลางของตรีลักษณ์ล่าง มักเกี่ยวข้องกับสิ่งที่ประคับประคองคุณจากภายใน — ความสัมพันธ์ที่ไว้วางใจได้ ทรัพยากรที่มั่นคง</div><div class=\"positions-guide-item\"><b>เส้นที่ 3 — การเปลี่ยนผ่าน</b> อยู่บนรอยต่อระหว่างโลกภายในกับโลกภายนอก เป็นตำแหน่งที่ไม่มั่นคงโดยธรรมชาติ: แรงตึงระหว่างความลังเลกับการลงมือทำ</div><div class=\"positions-guide-item\"><b>เส้นที่ 4 — ธรณีประตู</b> จุดเริ่มต้นของตรีลักษณ์บน การก้าวเข้าสู่โลกทางสังคมหรือการงาน มักอยู่เคียงข้างตำแหน่งผู้นำ (เส้นที่ 5) โดยตรง</div><div class=\"positions-guide-item\"><b>เส้นที่ 5 — ผู้นำ</b> ศูนย์กลางของตรีลักษณ์บน — ตำแหน่งที่ถูกต้องที่สุดและมีอิทธิพลมากที่สุดของฉักลักษณ์</div><div class=\"positions-guide-item\"><b>เส้นที่ 6 — การลุล่วง</b> จุดสิ้นสุดของวัฏจักร มักเป็นความเกินพอดี หรือการล้ำเลยของสถานการณ์ที่มาถึงจุดสิ้นสุดแล้ว</div>",
+   "newOnSiteHtml": "ใหม่บนเว็บไซต์: ทำความรู้จักแนวคิดสำคัญของโครงการได้ใน<a href=\"th/lexicon/\" style=\"color:var(--gold);\">อภิธานศัพท์</a> หรืออ่าน<a href=\"articles.html\" style=\"color:var(--gold);\">บทความ</a>ที่ต่อยอดแนวทางนี้ และยังพบ<a href=\"outils.html\" style=\"color:var(--gold);\">เครื่องมือ</a>ทั้งหมดของเว็บไซต์และ<a href=\"la-livree-d-hermes.html\" style=\"color:var(--gold);\">ตำรา</a>ได้ในที่เดียว",
+   "bookIntro": "La Livrée d'Hermès เป็นหนังสือปรัชญาและคณิตศาสตร์ เปิดให้เข้าถึงได้ฟรีตามลิงก์ด้านล่าง หนังสือเล่มนี้เน้นการสร้างจัตุรัสกลและการแปลงเป็นลายทอแบบฌักการ์",
+   "tirageGuide": "<p>อี้จิงเป็นคัมภีร์แห่งปัญญาที่ใช้เป็นเครื่องเสี่ยงทายได้ หากคุณมีคำถามที่ชัดเจน จงตั้งคำถามนั้นไว้ในใจก่อนกดปุ่ม “โยนเหรียญ” หากไม่มีคำถามเฉพาะ การเสี่ยงทายจะบ่งบอกสถานการณ์ในขณะนั้น คุณอาจเสี่ยงทายต่อเนื่องหลายครั้งสำหรับหลายคำถามก็ได้ — แต่การเสี่ยงทายเพียงครั้งเดียวก็เพียงพอในตัวเองแล้วสำหรับสารที่ตรงกับการปรึกษาของคุณ</p><p>หากคุณเพียงต้องการสำรวจความหมายของฉักลักษณ์และภาพที่สัมพันธ์กัน ให้เลือกช่องบนกระดานได้โดยตรง สำหรับข้อมูลเพิ่มเติมเกี่ยวกับภาพ เชิญอ่านหนังสือ</p>"
+  },
+  "LINE_COMMENT": {
+   "1": {
+    "0": "ที่ฐานของแผ่นดิน ความว่างปิดตัวลง: สิ่งที่เคยเป็นเพียงช่องเปิดเริ่มถูกเติมเต็ม",
+    "1": "ที่ฐานของแผ่นดิน ความเต็มสั่นไหว: จุดเริ่มต้นแห่งหยางที่เคยแบกรับฉักลักษณ์ทั้งรูปยินยอมสละที่ทางของตน"
+   },
+   "2": {
+    "0": "แผ่นดินผู้รับถึงขีดสุดของตน: การต้อนรับอันเงียบงันที่เคยแบกรับส่วนล่างของฉักลักษณ์กำลังจะยืนยันตน",
+    "1": "แผ่นดินที่มั่นคงแล้วแตะขีดจำกัดของตน: ความแข็งแกร่งที่เคยค้ำจุนสิ่งก่อสร้างกำลังจะเปลี่ยนธรรมชาติของมัน"
+   },
+   "3": {
+    "0": "ที่ธรณีประตูระหว่างแผ่นดินกับมนุษย์ ความอ่อนหยุ่นเพิ่มน้ำหนัก: สิ่งที่เคยยอมโอนอ่อนโดยธรรมชาติกำลังจะแข็งตัว",
+    "1": "ที่ธรณีประตูระหว่างแผ่นดินกับมนุษย์ พลังสั่นคลอน: สิ่งที่เคยกระทำด้วยความแข็งแกร่งลังเลก่อนจะพลิกกลับ"
+   },
+   "4": {
+    "0": "ในการสดับฟังของมนุษย์ ความกลวงถูกเติมเต็ม: ความพร้อมเปิดรับที่เคยรองรับกำลังจะยืนยันตนในไม่ช้า",
+    "1": "ในการกระทำของมนุษย์ ความเต็มพบขอบเขตของตน: ความริเริ่มที่เคยนำฉักลักษณ์ม้วนพับกลับเข้าหาตนเอง"
+   },
+   "5": {
+    "0": "ณ ที่นั่งของปราชญ์ ความว่างถูกเติมเต็ม: ความอ่อนหยุ่นที่เคยปกครองอย่างแนบเนียนได้รับพลังใหม่",
+    "1": "ณ ที่นั่งของปราชญ์ ความเต็มกลายเป็นโพรง: พลังที่เคยปกครองฉักลักษณ์จากศูนย์กลางกำลังจะพลิกกลับ"
+   },
+   "6": {
+    "0": "ที่ยอดสุด ความว่างถึงขีดสุดและปิดตัวลง: ช่องเปิดที่สุดขั้วที่สุดพลิกไปสู่ขั้วตรงข้ามของตน",
+    "1": "ที่ยอดสุด ความเต็มสิ้นสุดวิถีของตนและแตกหัก: สิ่งที่เคยถึงจุดสูงสุดไม่อาจไปไกลกว่านี้ได้โดยไม่หวนกลับ"
+   }
+  },
+  "TRIGRAMS": [
+   {
+    "name": "Kun",
+    "symbol": "☷",
+    "nature": "ผู้รับ",
+    "image": "แผ่นดิน",
+    "role": "มารดา"
+   },
+   {
+    "name": "Zhen",
+    "symbol": "☳",
+    "nature": "ผู้ปลุก",
+    "image": "อสนี",
+    "role": "บุตรชายคนโต"
+   },
+   {
+    "name": "Kan",
+    "symbol": "☵",
+    "nature": "ห้วงลึกสุดหยั่ง",
+    "image": "น้ำ",
+    "role": "บุตรชายคนกลาง"
+   },
+   {
+    "name": "Dui",
+    "symbol": "☱",
+    "nature": "ผู้รื่นรมย์",
+    "image": "บึง",
+    "role": "บุตรสาวคนสุดท้อง"
+   },
+   {
+    "name": "Gen",
+    "symbol": "☶",
+    "nature": "ความหยุดนิ่ง",
+    "image": "ภูเขา",
+    "role": "บุตรชายคนสุดท้อง"
+   },
+   {
+    "name": "Li",
+    "symbol": "☲",
+    "nature": "สิ่งที่ยึดเกาะ",
+    "image": "ไฟ",
+    "role": "บุตรสาวคนกลาง"
+   },
+   {
+    "name": "Xun",
+    "symbol": "☴",
+    "nature": "ผู้อ่อนโยน",
+    "image": "ลม",
+    "role": "บุตรสาวคนโต"
+   },
+   {
+    "name": "Qian",
+    "symbol": "☰",
+    "nature": "ผู้สร้างสรรค์",
+    "image": "ฟ้า",
+    "role": "บิดา"
+   }
+  ]
+ }
+}
