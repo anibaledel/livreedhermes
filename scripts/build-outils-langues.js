@@ -55,6 +55,8 @@ const echAttr = (s) => echTexte(s).replace(/"/g, '&quot;');
 // L'objet littéral « const UI = { … }; », lu en sautant chaînes et commentaires,
 // puis évalué à part : c'est un littéral sans référence extérieure.
 function finAccolade(s, j) {
+  // l'accolade (objet) ou le crochet (tableau) ouvert en j
+  const [ouvre, ferme] = s[j] === '[' ? ['[', ']'] : ['{', '}'];
   let p = 0, chaine = null;
   for (let k = j; k < s.length; k++) {
     const c = s[k];
@@ -66,8 +68,8 @@ function finAccolade(s, j) {
     if (c === '/' && s[k + 1] === '/') { k = s.indexOf('\n', k); continue; }
     if (c === '/' && s[k + 1] === '*') { k = s.indexOf('*/', k) + 1; continue; }
     if (c === '"' || c === "'" || c === '`') { chaine = c; continue; }
-    if (c === '{') p++;
-    else if (c === '}') { p--; if (p === 0) return k; }
+    if (c === ouvre) p++;
+    else if (c === ferme) { p--; if (p === 0) return k; }
   }
   throw new Error('accolade non fermée');
 }
@@ -86,9 +88,9 @@ function dictionnaire(s, source) {
 // data/hexagrammes_traduits.json, ceux des pages d'hexagrammes traduites.
 // « donnees » : [{ "const": nom du tableau, "forme": comment le lire }].
 function litteral(s, nom, source) {
-  const i = s.indexOf(`const ${nom} = {`);
-  if (i === -1) throw new Error(`${source} : pas de « const ${nom} = { »`);
-  const j = s.indexOf('{', i);
+  const m = new RegExp(`const ${nom} = [{[]`).exec(s);
+  if (!m) throw new Error(`${source} : pas de « const ${nom} = { » ni « const ${nom} = [ »`);
+  const j = m.index + m[0].length - 1;
   const k = finAccolade(s, j);
   return { j, k, valeur: vm.runInNewContext(`(${s.slice(j, k + 1)})`) };
 }
@@ -117,6 +119,18 @@ function hexagrammes(lang) {
 // de ceux du tirage, ses jugements de paires, ses idées médianes) : écrits
 // pour l'étape 4, chacun avec son français — qui doit être celui de la page.
 const TEXTES_CREATION = 'data/outils-langues/creation-motifs-yi-king-textes.json';
+// Les 32 textes de paires, lus par leur mot-clé français ; le texte français
+// doit être celui de la page, sinon la traduction a dérivé.
+const PAIRES_32 = 'data/outils-langues/paires-32.json';
+let paires32 = null;
+function paire32(motcle, texte, lang) {
+  paires32 = paires32 || JSON.parse(fs.readFileSync(path.join(ROOT, PAIRES_32), 'utf8')).paires;
+  const e = paires32.find((x) => x.fr.keyword === motcle);
+  if (!e) throw new Error(`${PAIRES_32} : pas de paire « ${motcle} »`);
+  if (e.fr.text !== texte) throw new Error(`${PAIRES_32} : le texte français de « ${motcle} » n'est plus celui de la page, la traduction a dérivé`);
+  if (!e[lang]) throw new Error(`${PAIRES_32} : « ${motcle} » n'a pas de traduction « ${lang} »`);
+  return e[lang];
+}
 let textesCreation = null;
 const creation = () => textesCreation || (textesCreation = JSON.parse(fs.readFileSync(path.join(ROOT, TEXTES_CREATION), 'utf8')));
 // Le mot-clé d'un hexagramme : celui du tirage quand l'outil reprend le même
@@ -167,6 +181,17 @@ const FORMES = {
   // PAIRES_32[chrono] = { title, text } — l'idée médiane, lue par son titre
   idees: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n,
     texteCreation('idees', e.title, e.text, lang)]))),
+  // Les 32 textes de paires (mot-clé et texte), communs à 360 calques et aux
+  // fonds d'écran, traduits une fois dans data/outils-langues/paires-32.json :
+  // PAIRS32[n] = { …, keyword, text } (fonds d'écran) ;
+  // PAIRS_32 = [[kwA, kwB, mot-clé, texte], …] (360 calques).
+  paires32: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n, {
+    ...e, ...paire32(e.keyword, e.text, lang),
+  }]))),
+  paires32Liste: (fr, h, lang) => `[\n${fr.map(([a, b, motcle, texte]) => {
+    const t = paire32(motcle, texte, lang);
+    return `  ${JSON.stringify([a, b, t.keyword, t.text])}`;
+  }).join(',\n')}\n]`,
   // HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
   hexKw: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify([fr[n][0], h[n].name, h[n].keyword, h[n].judgement])}`).join(',\n')}\n}`,
   // IMAGE_FR[kw] = texte de l'Image
