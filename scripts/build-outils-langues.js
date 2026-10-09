@@ -56,6 +56,8 @@ const echAttr = (s) => echTexte(s).replace(/"/g, '&quot;');
 // L'objet littéral « const UI = { … }; », lu en sautant chaînes et commentaires,
 // puis évalué à part : c'est un littéral sans référence extérieure.
 function finAccolade(s, j) {
+  // l'accolade (objet) ou le crochet (tableau) ouvert en j
+  const [ouvre, ferme] = s[j] === '[' ? ['[', ']'] : ['{', '}'];
   let p = 0, chaine = null;
   for (let k = j; k < s.length; k++) {
     const c = s[k];
@@ -67,8 +69,8 @@ function finAccolade(s, j) {
     if (c === '/' && s[k + 1] === '/') { k = s.indexOf('\n', k); continue; }
     if (c === '/' && s[k + 1] === '*') { k = s.indexOf('*/', k) + 1; continue; }
     if (c === '"' || c === "'" || c === '`') { chaine = c; continue; }
-    if (c === '{') p++;
-    else if (c === '}') { p--; if (p === 0) return k; }
+    if (c === ouvre) p++;
+    else if (c === ferme) { p--; if (p === 0) return k; }
   }
   throw new Error('accolade non fermée');
 }
@@ -87,9 +89,9 @@ function dictionnaire(s, source) {
 // data/hexagrammes_traduits.json, ceux des pages d'hexagrammes traduites.
 // « donnees » : [{ "const": nom du tableau, "forme": comment le lire }].
 function litteral(s, nom, source) {
-  const i = s.indexOf(`const ${nom} = {`);
-  if (i === -1) throw new Error(`${source} : pas de « const ${nom} = { »`);
-  const j = s.indexOf('{', i);
+  const m = new RegExp(`const ${nom} = [{[]`).exec(s);
+  if (!m) throw new Error(`${source} : pas de « const ${nom} = { » ni « const ${nom} = [ »`);
+  const j = m.index + m[0].length - 1;
   const k = finAccolade(s, j);
   return { j, k, valeur: vm.runInNewContext(`(${s.slice(j, k + 1)})`) };
 }
@@ -118,6 +120,18 @@ function hexagrammes(lang) {
 // de ceux du tirage, ses jugements de paires, ses idées médianes) : écrits
 // pour l'étape 4, chacun avec son français — qui doit être celui de la page.
 const TEXTES_CREATION = 'data/outils-langues/creation-motifs-yi-king-textes.json';
+// Les 32 textes de paires, lus par leur mot-clé français ; le texte français
+// doit être celui de la page, sinon la traduction a dérivé.
+const PAIRES_32 = 'data/outils-langues/paires-32.json';
+let paires32 = null;
+function paire32(motcle, texte, lang) {
+  paires32 = paires32 || JSON.parse(fs.readFileSync(path.join(ROOT, PAIRES_32), 'utf8')).paires;
+  const e = paires32.find((x) => x.fr.keyword === motcle);
+  if (!e) throw new Error(`${PAIRES_32} : pas de paire « ${motcle} »`);
+  if (e.fr.text !== texte) throw new Error(`${PAIRES_32} : le texte français de « ${motcle} » n'est plus celui de la page, la traduction a dérivé`);
+  if (!e[lang]) throw new Error(`${PAIRES_32} : « ${motcle} » n'a pas de traduction « ${lang} »`);
+  return e[lang];
+}
 let textesCreation = null;
 const creation = () => textesCreation || (textesCreation = JSON.parse(fs.readFileSync(path.join(ROOT, TEXTES_CREATION), 'utf8')));
 // Le mot-clé d'un hexagramme : celui du tirage quand l'outil reprend le même
@@ -168,13 +182,46 @@ const FORMES = {
   // PAIRES_32[chrono] = { title, text } — l'idée médiane, lue par son titre
   idees: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n,
     texteCreation('idees', e.title, e.text, lang)]))),
+  // Les 32 textes de paires (mot-clé et texte), communs à 360 calques et aux
+  // fonds d'écran, traduits une fois dans data/outils-langues/paires-32.json :
+  // PAIRS32[n] = { …, keyword, text } (fonds d'écran) ;
+  // PAIRS_32 = [[kwA, kwB, mot-clé, texte], …] (360 calques).
+  paires32: (fr, h, lang) => JSON.stringify(Object.fromEntries(Object.entries(fr).map(([n, e]) => [n, {
+    ...e, ...paire32(e.keyword, e.text, lang),
+  }]))),
+  paires32Liste: (fr, h, lang) => `[\n${fr.map(([a, b, motcle, texte]) => {
+    const t = paire32(motcle, texte, lang);
+    return `  ${JSON.stringify([a, b, t.keyword, t.text])}`;
+  }).join(',\n')}\n]`,
   // HEX_KW[kw] = [pinyin, nom, mot-clé, texte du Jugement]
   hexKw: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify([fr[n][0], h[n].name, h[n].keyword, h[n].judgement])}`).join(',\n')}\n}`,
   // IMAGE_FR[kw] = texte de l'Image
   image: (fr, h) => `{\n${Object.keys(fr).map((n) => `${n}:${JSON.stringify(h[n].image)}`).join(',\n')}\n}`,
 };
-function donneesTraduites(s, p, lang, nomPage) {
-  for (const d of p.donnees || []) {
+// Les données propres à une langue (cfg.donnees) s'ajoutent à celles de la
+// page ; la forme « dictionnaire » remplace la constante par celle du fichier
+// de la langue (cfg.dictionnaire), qui doit avoir la même forme.
+function formeDictionnaire(fr, cfg, lang, nom) {
+  const v = dictionnaireDe(cfg, lang)[nom];
+  if (v === undefined) throw new Error(`${cfg.dictionnaire} (${lang}) : pas de « ${nom} »`);
+  const forme = (x) => (x && typeof x === 'object' ? Object.keys(x).sort().map((k) => `${k}:${forme(x[k])}`).join(',') : typeof x);
+  if (forme(v) !== forme(fr)) throw new Error(`${cfg.dictionnaire} (${lang}) : « ${nom} » n'a pas la forme de la constante de la page`);
+  return JSON.stringify(v);
+}
+const DICTIONNAIRES = {};
+function dictionnaireDe(cfg, lang) {
+  const f = cfg.dictionnaire;
+  DICTIONNAIRES[f] = DICTIONNAIRES[f] || JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'));
+  if (!DICTIONNAIRES[f][lang]) throw new Error(`${f} : pas de langue « ${lang} »`);
+  return DICTIONNAIRES[f][lang];
+}
+function donneesTraduites(s, p, lang, nomPage, cfg = {}) {
+  for (const d of [...(p.donnees || []), ...(cfg.donnees || [])]) {
+    if (d.forme === 'dictionnaire') {
+      const { j, k, valeur } = litteral(s, d.const, nomPage);
+      s = s.slice(0, j) + formeDictionnaire(valeur, cfg, lang, d.const) + s.slice(k + 1);
+      continue;
+    }
     const forme = FORMES[d.forme];
     if (!forme) throw new Error(`${nomPage} : forme de données inconnue « ${d.forme} »`);
     const { j, k, valeur } = litteral(s, d.const, nomPage);
@@ -354,6 +401,17 @@ function pageTraduite(p, lang, cfg, src) {
   // directement à sa table de textes.
   if (p.langue) {
     const UI = dictionnaire(src, p.source);
+    // Une langue que le dictionnaire de la page n'a pas vient d'un fichier
+    // de données (cfg.dictionnaire, clé UI de la langue) : elle est ajoutée
+    // au dictionnaire de la page traduite seulement — la page française ne
+    // change pas.
+    if (!UI[lang] && cfg.dictionnaire) {
+      const ajout = dictionnaireDe(cfg, lang).UI;
+      const manque = Object.keys(UI.fr).filter((k) => ajout[k] === undefined);
+      if (manque.length) throw new Error(`${cfg.dictionnaire} (${lang}) : clés absentes du dictionnaire : ${manque.join(', ')}`);
+      UI[lang] = ajout;
+      s = s.replace('const UI = {', `const UI = {\n  ${lang}: ${JSON.stringify(ajout)},`);
+    }
     if (!UI[lang]) throw new Error(`${nomPage} : le dictionnaire n'a pas de langue « ${lang} »`);
     const t = (k) => (UI[lang][k] !== undefined ? UI[lang][k] : UI.fr[k]);
     if (!s.includes(p.langue)) throw new Error(`${nomPage} : la ligne « ${p.langue} » est absente`);
@@ -370,7 +428,7 @@ function pageTraduite(p, lang, cfg, src) {
   }
 
   // 2 bis — les tableaux de données du script, depuis leur traduction existante
-  s = donneesTraduites(s, p, lang, nomPage);
+  s = donneesTraduites(s, p, lang, nomPage, cfg);
 
   // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
   // traductions — étape 2) puis les remplacements propres à la langue. Chaque

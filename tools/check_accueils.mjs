@@ -70,7 +70,9 @@ const lignes = [];
 for (const lang of Object.keys(LANGUES)) {
   const rel = lang === 'fr' ? 'index.html' : `${dans('index.html', lang)}index.html`;
   let s = fs.readFileSync(path.join(ROOT, rel), 'utf8');
-  if (essai && lang === 'es') s = s.replace(/<a class="en-card" href="[^"]*tirage-livree-hermes[^"]*"[\s\S]*?<\/a>/, '');
+  // la carte du tirage, qu'elle vise la page française ou la page espagnole
+  // (es/tirada-del-yi-king/, depuis la traduction du tirage)
+  if (essai && lang === 'es') s = s.replace(/<a class="en-card" href="[^"]*(?:tirage-livree-hermes|tirada-del-yi-king)[^"]*"[\s\S]*?<\/a>/, '');
   if (essai && lang === 'th') s = s.replace('href="https://anibal-amiot.com/th/lexicon/"', 'href="https://anibal-amiot.com/lexique.html"');
   // le contenu propre : sans les zones engendrées ni le <head>
   const corps = s.replace(/<head>[\s\S]*?<\/head>/, '')

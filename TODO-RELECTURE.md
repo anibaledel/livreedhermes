@@ -886,6 +886,55 @@ Ce qui diffère des autres outils traduits :
 Ailleurs : le lien « Open the encoder (in French) » de l'article anglais sur l'encodeur, et le bouton « Encoder » des
 pages du livre en/es/th, visent la page de leur langue ; l'essai de `check_langue_des_liens.mjs` prend désormais
 `carter-demo.html` comme page restée en français.
+## Les 32 textes de paires en anglais, espagnol et thaï (2026-10-09)
+
+Les textes d'Anibal (mot-clé et paragraphe) affichés à la pause des fonds d'écran et sous chaque hexagramme de
+360 calques étaient restés en français sur les pages en/es/th (section « Fonds d’écran » ci-dessus). Ils sont traduits
+**une fois** pour les deux pages, dans `data/outils-langues/paires-32.json`, **tous sans source**. Le générateur les lit
+par le mot-clé français et échoue si le texte français d'une page change sans la table.
+
+Choix à relire :
+- **citations du Yi King** (« ») : en anglais Wilhelm/Baynes, entre “ ” — “sublime success” pour le Créateur et le
+  Réceptif (paire 1), “supreme success” ailleurs, “without error” pour le Retour (paire 2, « sans erreur »), “without
+  blame” pour « sans faute » (paire 26) ; en espagnol Wilhelm/Vogelmann, « elevado éxito », « sin falla » (paire 2),
+  « como el sol al mediodía » ; en thaï, traduites pour ce lot (le site n'a pas de Jugement canonique en thaï) ;
+- **mots-clés anglais** : « Bascule » → Tipping point, « Prestance » → Presence (« Bearing » sert déjà à « Tenue »),
+  « Dépouillement » → Divestment ;
+- **espagnol** : « rasgo » pour trait et « juicio » pour jugement, comme les autres pages espagnoles ; noms
+  d'hexagrammes du site en minuscules dans la phrase (« el influjo », « la merma ») ; « Délivrance et famille » →
+  « Liberación y clan » (nom du site « El Clan ») ; « jeune ignorant » → « el joven necio » (Vogelmann) ;
+- **thaï** : les incises « dit l'un », « dit l'autre » sont placées après la proposition, un peu raides ;
+  « Renouvellement » → การเริ่มใหม่ ; « sans feu ni lieu » gardé littéral (ไร้เตาไฟไร้ที่พำนัก), pour garder le feu du
+  Voyageur.
+
+Le générateur lit désormais aussi un tableau (`const X = [ … ]`), pour le `PAIRS_32` de 360 calques.
+## Tirage du Yi King en espagnol et en thaï (2026-10-09)
+
+`tirage-livree-hermes.html` → es/tirada-del-yi-king/, th/yi-king-draw/ (l'anglais existait). La page française ne
+porte que les langues fr et en : elle ne change pas. Ce qui vient d'ailleurs :
+- **noms, Jugements et Images des 64 hexagrammes** : `data/hexagrammes_traduits.json`, déjà publié sur les pages
+  es/hexagramas/ et th/hexagrams/ ;
+- **commentaires des traits mutants et trigrammes** : repris tels quels du même fichier ;
+- **interface** (99 libellés) et **en-tête** (titre, description, données structurées) : `data/outils-langues/tirage.json`
+  et les « remplacements » de `data/outils-langues.json`, **sans source**.
+
+Choix à relire :
+- espagnol : « rasgo » et « teselado » (comme es/hexagramas/) alors que es/360-capas dit « línea mutante » et
+  « pavimentación » ; « tablero » pour l'échiquier ; « Léxico » comme le menu espagnol ;
+- thaï : « mutant » = กลายพันธุ์ (glossaire) alors que th/360-layers dit เส้นแปรเปลี่ยน ; Image et Jugement =
+  ภาพลักษณ์ / คำตัดสิน (pages des hexagrammes) alors que th/360-layers dit ภาพ / คำพิพากษา ; « carrés magiques » =
+  จัตุรัสกล (glossaire) ;
+- le bouton PDF dit « 16 MB » pour l'espagnol et le thaï (taille réelle des fichiers) ; l'accueil thaï annonce
+  « 13 MB » — écart à trancher, non corrigé ici ;
+- le lien « en savoir plus » d'un hexagramme mène à la page hexagramme **française**, comme déjà sur la page anglaise :
+  le script compose l'adresse française (`hexagramPageUrl`) ; le faire viser la page de la langue est un lot à part ;
+
+Ailleurs : la carte « Tirada » / « การทำนาย » des accueils espagnol et thaï visait la page anglaise (« Se abre en
+inglés. », « เปิดเป็นภาษาอังกฤษ ») ; elle vise la page de sa langue et perd cette phrase (`check_accueils.mjs` l'exigeait ;
+son essai reconnaît les deux adresses). Le bouton « Tirada » des pages du livre es/th aussi.
+
+Le générateur sait désormais compléter le dictionnaire d'une page traduite (`cfg.dictionnaire`) et remplacer des
+données par langue (`cfg.donnees`, forme « dictionnaire »).
 
 ## Tirage traduit : le lien vers la page de l'hexagramme (2026-10-09)
 

@@ -244,7 +244,14 @@
             }
           ]
         }
-      }
+      },
+      "donnees": [
+        {
+          "const": "PAIRS_32",
+          "forme": "paires32Liste",
+          "entrees": 32
+        }
+      ]
     },
     {
       "source": "tirage-livree-hermes.html",
@@ -309,6 +316,186 @@
               "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
               "trad": "\"name\": \"Verification scripts for La Livrée d'Hermès\"",
               "source": "SANS SOURCE"
+            }
+          ]
+        },
+        "es": {
+          "dossier": "es/tirada-del-yi-king/",
+          "ogLocale": "es_ES",
+          "dictionnaire": "data/outils-langues/tirage.json",
+          "donnees": [
+            {
+              "const": "HEX_KW",
+              "forme": "hexKw"
+            },
+            {
+              "const": "IMAGE_FR",
+              "forme": "image"
+            },
+            {
+              "const": "LINE_COMMENT",
+              "forme": "dictionnaire"
+            },
+            {
+              "const": "TRIGRAMS",
+              "forme": "dictionnaire"
+            }
+          ],
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King et échiquier des 64 hexagrammes — La Livrée d'Hermès</title>",
+              "trad": "<title>Tirada del Yi King y tablero de los 64 hexagramas — La Livrée d'Hermès</title>",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Tirez un hexagramme au hasard et découvrez son carré : le Yi King en oracle, et l'échiquier des 64 mutations en ordre binaire 00 → 63. La Livrée d'Hermès, Anibal Amiot.",
+              "trad": "Saque un hexagrama al azar y descubra su cuadrado: el Yi King como oráculo, y el tablero de las 64 mutaciones en orden binario 00 → 63. La Livrée d'Hermès, Anibal Amiot.",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, EGO ALTER, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "aritmogeometría, cuadrados mágicos, cuadrados solares, cruz ansada, EGO ALTER, Yi-King, Jacquard, verticalidad, Pitágoras, Platón, anamnesis, tejido ceremonial, librea, Anibal Edelberto Amiot, Q141191562",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De la aritmogeometría al tejido\">",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Traité en 111 planches : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "Tratado en 111 láminas: método constructivo original para los cuadrados mágicos, de la cruz ansada al tejido Jacquard. Cuadrados solares, Pectoral, matriz de las 360 capas.",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Aritmogeometría y tejido\">",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "Método constructivo original para los cuadrados mágicos de todos los órdenes. Del psephos pitagórico a la cruz ansada — Anibal Edelberto Amiot.",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"Aritmogeometría\",\n        \"Cuadrados mágicos\",\n        \"Tejido Jacquard\",\n        \"Figuras de Chladni\",\n        \"Geometría finita\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"Tratado de aritmogeometría\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "Tratado de aritmogeometría en 111 láminas. Método constructivo original para los cuadrados mágicos de todas las categorías, de la cruz ansada al tejido Jacquard.",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"Scripts de verificación de La Livrée d'Hermès\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "LANG==='en' ? 'Hexagram' : 'Hexagramme'",
+              "trad": "LANG==='en' ? 'Hexagram' : 'Hexagrama'",
+              "source": "SANS SOURCE (libellé des cases de l’échiquier, écrit en dur dans le script)"
+            },
+            {
+              "fr": ": \"L'échiquier : 64 hexagrammes, flèches pour se déplacer\");",
+              "trad": ": \"El tablero: 64 hexagramas, flechas para desplazarse\");",
+              "source": "SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le script)"
+            }
+          ]
+        },
+        "th": {
+          "dossier": "th/yi-king-draw/",
+          "ogLocale": "th_TH",
+          "dictionnaire": "data/outils-langues/tirage.json",
+          "donnees": [
+            {
+              "const": "HEX_KW",
+              "forme": "hexKw"
+            },
+            {
+              "const": "IMAGE_FR",
+              "forme": "image"
+            },
+            {
+              "const": "LINE_COMMENT",
+              "forme": "dictionnaire"
+            },
+            {
+              "const": "TRIGRAMS",
+              "forme": "dictionnaire"
+            }
+          ],
+          "remplacements": [
+            {
+              "fr": "<title>Tirage du Yi King et échiquier des 64 hexagrammes — La Livrée d'Hermès</title>",
+              "trad": "<title>การเสี่ยงทายอี้จิงและกระดานฉักลักษณ์ทั้ง 64 — La Livrée d'Hermès</title>",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Tirez un hexagramme au hasard et découvrez son carré : le Yi King en oracle, et l'échiquier des 64 mutations en ordre binaire 00 → 63. La Livrée d'Hermès, Anibal Amiot.",
+              "trad": "สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน: อี้จิงในฐานะเครื่องเสี่ยงทาย และกระดานของการเปลี่ยนแปลงทั้ง 64 ตามลำดับฐานสอง 00 → 63 · La Livrée d'Hermès, Anibal Amiot",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "arithmogéométrie, carrés magiques, carrés solaires, croix ansée, EGO ALTER, Yi-King, Jacquard, verticalité, Pythagore, Platon, anamnèse, tissu cérémoniel, livrée, Anibal Edelberto Amiot, Q141191562",
+              "trad": "เลขาคณิตศาสตร์, จัตุรัสกล, จัตุรัสสุริยะ, กางเขนหูหิ้ว, EGO ALTER, อี้จิง, ฌักการ์, ความเป็นแนวดิ่ง, พีทาโกรัส, เพลโต, อนามเนสิส, ผ้าพิธีกรรม, livrée, Anibal Edelberto Amiot, Q141191562",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — De l'arithmogéométrie au tissu\">",
+              "trad": "<meta property=\"og:title\" content=\"La Livrée d'Hermès — จากเลขาคณิตศาสตร์สู่ผืนผ้า\">",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Traité en 111 planches : méthode constructive originale pour les carrés magiques, de la croix ansée au tissu Jacquard. Carrés solaires, Pectoral, matrice des 360 couches.",
+              "trad": "ตำรา 111 แผ่นภาพ: วิธีสร้างจัตุรัสกลแบบใหม่ จากกางเขนหูหิ้วสู่ผ้าทอฌักการ์ จัตุรัสสุริยะ Pectoral และเมทริกซ์ของแผ่นลาย 360 แผ่น",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — Arithmogéométrie et tissu\">",
+              "trad": "<meta name=\"twitter:title\" content=\"La Livrée d'Hermès — เลขาคณิตศาสตร์และผืนผ้า\">",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Méthode constructive originale pour les carrés magiques de tous ordres. Du pséphos pythagoricien à la croix ansée — Anibal Edelberto Amiot.",
+              "trad": "วิธีสร้างจัตุรัสกลทุกอันดับแบบใหม่ จากเม็ดกรวดนับ (psephos) ของสำนักพีทาโกรัสสู่กางเขนหูหิ้ว — Anibal Edelberto Amiot",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"Arithmogéométrie\",\n        \"Carrés magiques\",\n        \"Tissage Jacquard\",\n        \"Figures de Chladni\",\n        \"Géométrie finie\"",
+              "trad": "\"เลขาคณิตศาสตร์\",\n        \"จัตุรัสกล\",\n        \"ลายทอแบบฌักการ์\",\n        \"รูปแบบคลาดนี\",\n        \"เรขาคณิตจำกัด\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"subtitle\": \"Traité d'arithmogéométrie\"",
+              "trad": "\"subtitle\": \"ตำราว่าด้วยเลขาคณิตศาสตร์\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "Traité d'arithmogéométrie en 111 planches. Méthode constructive originale pour les carrés magiques de toutes catégories, de la croix ansée au tissu Jacquard.",
+              "trad": "ตำราเลขาคณิตศาสตร์ 111 แผ่นภาพ วิธีสร้างจัตุรัสกลทุกประเภทแบบใหม่ จากกางเขนหูหิ้วสู่ผ้าทอฌักการ์",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "\"name\": \"Scripts de vérification de La Livrée d'Hermès\"",
+              "trad": "\"name\": \"สคริปต์ตรวจสอบของ La Livrée d'Hermès\"",
+              "source": "SANS SOURCE (en-tête ; la ligne anglaise correspondante dit sa source)"
+            },
+            {
+              "fr": "LANG==='en' ? 'Hexagram' : 'Hexagramme'",
+              "trad": "LANG==='en' ? 'Hexagram' : 'ฉักลักษณ์'",
+              "source": "SANS SOURCE (libellé des cases de l’échiquier, écrit en dur dans le script)"
+            },
+            {
+              "fr": ": \"L'échiquier : 64 hexagrammes, flèches pour se déplacer\");",
+              "trad": ": \"กระดาน: ฉักลักษณ์ 64 ช่อง ใช้ปุ่มลูกศรเพื่อเลื่อน\");",
+              "source": "SANS SOURCE (aria-label de l’échiquier, écrit en dur dans le script)"
             }
           ]
         }
@@ -388,7 +575,14 @@
           "dossier": "th/wallpapers/",
           "ogLocale": "th_TH"
         }
-      }
+      },
+      "donnees": [
+        {
+          "const": "PAIRS32",
+          "forme": "paires32",
+          "entrees": 32
+        }
+      ]
     },
     {
       "source": "encodeur.html",
