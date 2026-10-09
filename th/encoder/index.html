@@ -1,0 +1,2230 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-0YWuIfEIbXWFRhakm7JsYV1bSFmf6Xafqxk4Fi8Y9TY=' 'sha256-9ZEAt27zgb02YL4/qvIQGl4B4ARCBitedG2lJshtSCg=' 'sha256-XjPOdEwbicvEdaPKZCr2uaZmGKJ+PegQm5K9VJvrnTM=' 'sha256-i2UtbkZsC/YS675rGfmOGdSZB1R6xS8Jjp2cESk73qI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://livreedhermes-soutien.anibalamiot.workers.dev; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ตัวเข้ารหัสซ่อนข้อมูล — La Livrée d'Hermès</title>
+<meta name="description" content="เครื่องมือเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ (กางเขนหูหิ้ว + ฌักการ์) เปิดให้ใช้ได้โดยเสรีบน La Livrée d'Hermès">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/th/encoder/">
+<meta property="og:title" content="ตัวเข้ารหัสซ่อนข้อมูล — La Livrée d'Hermès">
+<meta property="og:description" content="เครื่องมือเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ (กางเขนหูหิ้ว + ฌักการ์) เปิดให้ใช้ได้โดยเสรีบน La Livrée d'Hermès">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://anibal-amiot.com/th/encoder/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="La Livrée d'Hermès">
+<meta property="og:locale" content="th_TH">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ตัวเข้ารหัสซ่อนข้อมูล — La Livrée d'Hermès">
+<meta name="twitter:description" content="เครื่องมือเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ (กางเขนหูหิ้ว + ฌักการ์) เปิดให้ใช้ได้โดยเสรีบน La Livrée d'Hermès">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://anibal-amiot.com/th/encoder/#app",
+      "name": "ตัวเข้ารหัสซ่อนข้อมูล",
+      "url": "https://anibal-amiot.com/th/encoder/",
+      "description": "เครื่องมือเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ (กางเขนหูหิ้ว + ฌักการ์) เปิดให้ใช้ได้โดยเสรีบน La Livrée d'Hermès",
+      "applicationCategory": "SecurityApplication",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "หน้าแรก", "item": "https://anibal-amiot.com/th/" },
+    { "@type": "ListItem", "position": 2, "name": "เครื่องมือ", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "ตัวเข้ารหัส", "item": "https://anibal-amiot.com/th/encoder/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:26px; letter-spacing:.04em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:13.5px; margin:0; }
+
+  .pro-body{ padding:24px 0 8px; }
+  .pro-title{ font-size:26px; font-weight:400; margin:0 0 26px; text-align:center; }
+  .pro-locked-box{ max-width:64ch; margin:0 auto; border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; text-align:center; }
+  .pro-locked-box ul{ text-align:left; max-width:46ch; margin:16px auto 0; padding-left:20px; }
+  .pro-locked-box li{ margin-bottom:8px; }
+  .pro-locked-box button{
+    display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; transition:border-color .12s ease, color .12s ease; min-height:44px;
+  }
+  .pro-locked-box button:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-locked-box .back-link{ display:inline-block; margin-top:14px; color:var(--dim); font-size:11.5px; text-decoration:underline; }
+  .pro-locked-box .back-link:hover{ color:var(--gold); }
+
+  #encLoading{ text-align:center; color:var(--dim); font-size:13.5px; font-style:italic; padding:30px 0; }
+
+  /* ---------- interface encodeur ---------- */
+  .enc-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 0 24px; border-bottom:1px solid var(--line); padding-bottom:16px; }
+  .enc-nav button{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px;
+    cursor:pointer; font-family:inherit; transition:border-color .12s ease, color .12s ease; min-height:44px;
+  }
+  .enc-nav button.active, .enc-nav button:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-tab{ display:none; text-align:left; }
+  .enc-tab.active{ display:block; }
+  .enc-card{ max-width:760px; margin:0 auto 20px; border:1px solid var(--line); padding:24px 22px; }
+  .enc-card h2{ color:var(--gold); font-size:14.5px; font-weight:400; letter-spacing:.02em; margin:0 0 16px; }
+  .enc-label{ display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); opacity:.85; margin:16px 0 6px; }
+  .enc-label:first-of-type{ margin-top:0; }
+  .enc-input, .enc-textarea, .enc-select{
+    width:100%; padding:11px 12px; border:1px solid var(--line-strong); background:var(--panel);
+    color:var(--white); font-family:inherit; font-size:13.5px;
+  }
+  .enc-textarea{ min-height:110px; resize:vertical; font-family:monospace; font-size:13px; }
+  .enc-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px){ .enc-row{ grid-template-columns:1fr; } }
+  .enc-btn{
+    display:inline-block; border:1px solid var(--red); color:var(--red); background:transparent;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:12px 20px;
+    cursor:pointer; margin:16px 8px 0 0; transition:border-color .12s ease, color .12s ease;
+    min-height:44px; font-family:inherit;
+  }
+  .enc-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-btn.secondary{ border-color:var(--line-strong); color:var(--dim); }
+  .enc-btn.secondary:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-info-box{ border-left:3px solid var(--gold); background:var(--panel); padding:12px 16px; font-size:14px; line-height:1.7; margin-top:16px; color:var(--dim); }
+  .enc-info-box b{ color:var(--gold); font-weight:400; }
+  .enc-result-box{ border-left:3px solid var(--red); background:var(--panel); padding:12px 16px; font-size:13px; margin-top:16px; }
+  .enc-result-box .enc-msg{ font-size:19px; color:var(--gold); letter-spacing:.03em; }
+  #grid-canvas-wrap{ overflow:auto; margin-top:16px; border:1px solid var(--line); }
+  canvas{ display:block; }
+  .ref-note{ font-size:14px; color:var(--dim); opacity:.85; line-height:1.6; margin:0 0 14px; }
+  .ref-grid{ display:grid; gap:3px; margin-top:6px; }
+  .ref256-grid{ grid-template-columns:repeat(16, 1fr); }
+  .ref-cell{ aspect-ratio:1; background:var(--panel); border:1px solid var(--line); cursor:pointer; }
+  .ref-cell:hover{ border-color:var(--gold); }
+  .ref360-type-label{ font-size:11px; color:var(--dim); opacity:.8; margin:14px 0 6px; text-transform:uppercase; letter-spacing:.04em; }
+  .ref360-grid{ display:grid; grid-template-columns:repeat(24, 1fr); gap:3px; margin-bottom:6px; }
+  .ref360-cell{ aspect-ratio:1; background:var(--panel); border:1px solid var(--line); cursor:pointer; }
+  .ref360-cell:hover{ border-color:var(--gold); }
+  .keyspace-bar{ height:28px; border:1px solid var(--gold); margin-top:10px; display:flex; align-items:center; padding:0 12px; color:var(--gold); font-size:11px; letter-spacing:.02em; }
+  .enc-about p{ font-size:13.5px; line-height:1.8; margin:0 0 14px; color:var(--dim); }
+  .enc-about a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .enc-about a:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- onglet Chiffrement ---------- */
+  .disk-status{ text-align:center; color:var(--dim); font-size:13px; font-style:italic; padding:16px 0; }
+  .disk-file-info{ font-size:13px; color:var(--dim); opacity:.85; margin-top:8px; }
+  .enc-progress{ height:8px; border:1px solid var(--line); margin-top:14px; overflow:hidden; display:none; }
+  .enc-progress.active{ display:block; }
+  .enc-progress-bar{ height:100%; width:0%; background:var(--gold); transition:width .15s linear; }
+  .disk-stats div{ margin-bottom:6px; }
+  .disk-stats div:last-child{ margin-bottom:0; }
+  .disk-stats b{ color:var(--gold); font-weight:400; }
+  .license-box{ border-top:1px solid var(--line); margin-top:24px; padding-top:18px; font-size:13.5px; color:var(--dim); line-height:1.7; }
+  .license-box h4{ color:var(--gold); font-weight:400; font-size:11px; text-transform:uppercase; letter-spacing:.06em; margin:0 0 10px; }
+  .license-box p{ margin:0 0 10px; }
+  .license-box p:last-child{ margin-bottom:0; opacity:.75; font-size:11px; }
+  .license-box a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .license-box a:hover{ text-decoration-color:currentColor; }
+  .license-footer{ text-align:center; font-size:11px; color:var(--dim); opacity:.75; line-height:1.8; margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .license-footer a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .license-footer a:hover{ text-decoration-color:currentColor; }
+  .iacr-mention{ max-width:64ch; margin:30px auto 0; text-align:center; font-size:11px; color:var(--dim); opacity:.8; line-height:1.7; border-top:1px solid var(--line); padding-top:18px; }
+  .iacr-mention a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .iacr-mention a:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header h1{ font-size:21px; }
+    .enc-nav button{ padding:11px 12px; font-size:10px; }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- D6 : appli installable, propre à cette page (pas dans le bloc @head-icons généré) -->
+<link rel="manifest" href="../../encodeur.webmanifest">
+<meta name="theme-color" content="#0a0a0a">
+<script>
+// Hors ligne : encodeur-sw.js ne sert que la page française (encodeur.html, portée « ./encodeur »).
+</script>
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-44-encodeur.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="เส้นทางนำทาง">
+      <a href="https://anibal-amiot.com/th/">หน้าแรก</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html" hreflang="fr">เครื่องมือ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a><span class="sep">/</span><span aria-current="page">ตัวเข้ารหัส</span>
+    </nav>
+    <h1>ตัวเข้ารหัสซ่อนข้อมูล</h1>
+    <p>ซ่อนข้อความไว้ในตารางตัวเลข — ตัวอ้างอิงคู่ กางเขนหูหิ้ว + ฌักการ์</p>
+    <p style="font-size:0.85rem;margin-top:6px;"><a href="../../carter-demo.html" style="color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;" hreflang="fr">ดูเดโมแบบโต้ตอบ Carter Random <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a> — แสดงภาพตาราง (ตัวอ้างอิงที่ได้จากคีย์) เปิดให้ใช้ได้โดยเสรี</p>
+  </header>
+  </div>
+
+
+  <div class="pro-body">
+    <div id="encProOnly">
+      <p id="encLoading">กำลังโหลดตัวอ้างอิง…</p>
+
+      <div id="encApp" hidden>
+        <nav class="enc-nav" aria-label="ส่วนต่าง ๆ ของตัวเข้ารหัส">
+          <button type="button" class="active" data-tab="demo">⚡ เดโม</button>
+          <button type="button" data-tab="exchange">🔑 Exchange</button>
+          <button type="button" data-tab="encoder">📨 ข้อความ</button>
+          <button type="button" data-tab="decoder">🔓 ถอดรหัส</button>
+          <button type="button" data-tab="vault">💾 Vault</button>
+          <button type="button" data-tab="disk">🔒 การเข้ารหัส</button>
+          <button type="button" data-tab="referents">📐 ตัวอ้างอิง</button>
+          <button type="button" data-tab="about">📖 เกี่ยวกับ</button>
+        </nav>
+
+        <!-- DÉMO -->
+        <div id="tab-demo" class="enc-tab active">
+          <div class="enc-card">
+            <h2>การสาธิต: ข้อความ ANIBALAMIOTX</h2>
+            <p class="enc-info-box"><b>ANIBALAMIOTX</b> ถูกเข้ารหัสด้วย XChaCha20-Poly1305 ก่อน (คีย์หลักขนาด 256 บิต) จากนั้นข้อความที่เข้ารหัสแล้วจะถูกกระจายลงบนบล็อกที่คีย์เดียวกันนั้นกำหนดให้เป็น “ข้อความ” ในตาราง 90×90 — ส่วนที่เหลือเป็นสัญญาณรบกวนที่แยกไม่ออก รวมถึงบล็อก “มีโครงสร้าง” ซึ่งหากไม่มีคีย์ก็เหมือนกับบล็อก “ข้อความ” ในเชิงสถิติ ความลับมาจากการเข้ารหัส ส่วนเรขาคณิตทำหน้าที่เพียงซ่อนตำแหน่งของข้อความที่เข้ารหัสแล้ว</p>
+            <button type="button" class="enc-btn" id="btnRunDemo">เริ่มการสาธิต</button>
+            <div id="demo-result" hidden>
+              <div class="enc-result-box" id="demo-msg"></div>
+              <div class="enc-info-box" id="demo-ks"></div>
+              <div id="grid-canvas-wrap"><canvas id="demo-canvas" role="img" aria-label="ตารางการเข้ารหัส"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXCHANGE -->
+        <div id="tab-exchange" class="enc-tab">
+          <div class="enc-card">
+            <h2>การแลกเปลี่ยนคีย์ — X25519 แบบยืนยันตัวตน (triple DH)</h2>
+            <p class="ref-note">คู่สื่อสารสองฝ่ายได้เซสชันเดียวกันโดยไม่ต้องส่งความลับใด ๆ การสร้างคีย์ใช้ Diffie-Hellman สามชุด: ชั่วคราว × ชั่วคราว เพื่อ forward secrecy จากนั้น ชั่วคราว × ตัวตน ของแต่ละฝ่าย ซึ่งผูกตัวตนระยะยาวเข้ากับเซสชัน ตัวกลางที่สอดแทรกคีย์ชั่วคราวของตนเองเข้ามาไม่มีคีย์ส่วนตัวของตัวตนฝ่ายใดเลย จึงคำนวณคีย์ไม่ได้ ใช้โปรโตคอลเดียวกับ CLI Python — เซสชันที่สร้างที่นี่และเซสชันที่สร้างด้วย <code>secu-box exchange</code> จะได้คีย์เดียวกัน</p>
+            <div class="enc-info-box">
+              <b>สิ่งที่ปกป้องคุณ:</b> การตรวจสอบ fingerprint ของตัวตนที่ offer ของคู่สื่อสารประกาศไว้ ผ่านช่องทางแยกต่างหาก (โทรศัพท์ หรือพบกันตัวจริง) หากไม่ตรวจสอบ ก็ไม่มีสิ่งใดแยกคู่สื่อสารของคุณออกจากตัวกลางที่แสดงตัวด้วยตัวตนของตนเองได้ สายการยืนยันตัวตนที่แสดงหลังการสร้างเซสชันยังใช้เป็นทางสำรองได้ หากยังไม่ได้เทียบ fingerprint ไว้ก่อน<br><br>
+              <b>เกี่ยวกับตัวตนของคุณ:</b> คีย์ส่วนตัวถูกเก็บในเบราว์เซอร์นี้ในรูปแบบที่โค้ดของหน้าเว็บอ่านไม่ได้ — ทำได้เพียงใช้คีย์นั้นเพื่อสร้างเซสชัน ข้อแลกเปลี่ยนคือ ไม่สามารถสำรองหรือย้ายคีย์ไปยังเบราว์เซอร์อื่นได้ การล้างข้อมูลของเว็บไซต์จะทำลายคีย์อย่างถาวร พร้อมกับ fingerprint ที่คู่สื่อสารของคุณรู้จัก ตัวตนจาก CLI Python ก็นำเข้าที่นี่ไม่ได้เช่นกัน: แต่ละฝ่ายเก็บตัวตนของตนไว้ ซึ่งไม่ได้ขัดขวางให้ทั้งสองฝ่ายสื่อสารกัน
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>ขั้นที่ 0 — ตัวตนของคุณ</h2>
+            <div id="sc-identity-box" class="enc-info-box">กำลังโหลด…</div>
+            <button type="button" class="enc-btn" id="btnScCreateIdentity" hidden>สร้างตัวตนของฉัน</button>
+          </div>
+
+          <div class="enc-card">
+            <h2>ขั้นที่ 1 — offer ของคุณ</h2>
+            <button type="button" class="enc-btn" id="btnScGenerate">สร้าง offer ของฉัน</button>
+            <div id="sc-my-key" hidden style="margin-top:12px">
+              <label class="enc-label" for="sc-my-pub">offer ของฉัน — ตัวตน ‖ ชั่วคราว, 128 อักขระ hex (ส่งให้คู่สื่อสารของคุณ)</label>
+              <textarea class="enc-textarea" id="sc-my-pub" readonly style="min-height:50px"></textarea>
+              <button type="button" class="enc-btn secondary" id="btnScCopyPub">คัดลอก</button>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>ขั้นที่ 2 — offer ของคู่สื่อสาร</h2>
+            <label class="enc-label" for="sc-their-pub">offer ที่ได้รับ (128 อักขระ hex)</label>
+            <input type="text" class="enc-input" id="sc-their-pub" placeholder="วาง offer ของคู่สื่อสาร">
+            <button type="button" class="enc-btn" id="btnScDerive">สร้างเซสชัน</button>
+            <div id="sc-session-result" hidden style="margin-top:14px">
+              <div class="enc-result-box" id="sc-session-info"></div>
+              <p class="ref-note" style="margin-top:8px">คีย์เซสชันถูกเก็บในเบราว์เซอร์ของคุณ (localStorage) การล้างประวัติหรือการใช้โหมดท่องเว็บแบบส่วนตัวจะลบคีย์เหล่านี้ ไม่มีข้อมูลใดถูกส่งไปยังเซิร์ฟเวอร์</p>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>เซสชันที่ใช้งานอยู่</h2>
+            <div id="sc-active-session" class="enc-info-box">ไม่มีเซสชันที่ใช้งานอยู่ สร้างเซสชันด้านบน หรือใช้แท็บ ข้อความ/ถอดรหัส ด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ</div>
+            <button type="button" class="enc-btn secondary" id="btnScClearSession" hidden>ล้างเซสชัน</button>
+          </div>
+        </div>
+
+        <!-- ENCODER -->
+        <div id="tab-encoder" class="enc-tab">
+          <div class="enc-card">
+            <h2>ส่งด้วยเซสชันที่ใช้งานอยู่</h2>
+            <div id="enc-session-status" class="enc-info-box">ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange) — เข้ารหัสด้านล่างด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ</div>
+            <label class="enc-label" for="enc-session-message">ข้อความที่จะส่ง</label>
+            <input type="text" class="enc-input" id="enc-session-message" placeholder="ข้อความของคุณที่นี่" maxlength="200">
+            <button type="button" class="enc-btn" id="btnEncodeSession">เข้ารหัสและดาวน์โหลดตาราง</button>
+            <div id="enc-session-result" hidden>
+              <div class="enc-info-box" id="enc-session-info"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>เข้ารหัสข้อความ (คีย์อิสระ)</h2>
+            <label class="enc-label" for="enc-message">ข้อความที่จะเข้ารหัส</label>
+            <input type="text" class="enc-input" id="enc-message" placeholder="ข้อความของคุณที่นี่" maxlength="200">
+            <label class="enc-label" for="enc-variant">รูปแบบ</label>
+            <select class="enc-select" id="enc-variant"></select>
+            <button type="button" class="enc-btn" id="btnEncode">เข้ารหัส</button>
+            <div id="enc-result" hidden>
+              <div class="enc-info-box" id="enc-info"></div>
+              <div class="enc-row" style="margin-top:14px">
+                <div>
+                  <label class="enc-label" for="enc-key1">คีย์หลัก Carter</label>
+                  <textarea class="enc-textarea" id="enc-key1" readonly></textarea>
+                </div>
+                <div>
+                  <label class="enc-label" for="enc-grid-out">ตารางที่เข้ารหัสแล้ว (CSV, ตัวอย่าง)</label>
+                  <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
+                </div>
+              </div>
+              <!-- Hors soutien-gate.js, volontairement (voir la même note sur
+                   btnVaultExport plus bas) : cette grille encode le message
+                   que LE VISITEUR a saisi ci-dessus, pas un motif que le site
+                   fabrique pour lui — la règle du soutien porte sur les
+                   sorties du système (SVG, broderie...), pas sur ce que le
+                   visiteur y dépose. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction. -->
+              <button type="button" class="enc-btn" id="btnDownloadGrid">⬇ ดาวน์โหลดตาราง CSV</button>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>ตาราง Carter (ไวยากรณ์ที่ได้จากคีย์)</h2>
+            <p class="ref-note">passphrase เดียวสร้างทั้งคีย์เข้ารหัสและไวยากรณ์ของตาราง (บทบาท — บริสุทธิ์ / มีโครงสร้าง / ข้อความ — และรูปทรงของแต่ละบล็อก) ด้วย HKDF-SHA256 — ไม่มีการจัดวางใดถูกเก็บไว้นอกคีย์ บล็อก “มีโครงสร้าง” และ “ข้อความ” แยกไม่ออกในเชิงสถิติหากไม่มีคีย์ การเข้ารหัสแต่ละครั้งจะสุ่ม<b>ซอลต์</b>ใหม่และแสดงให้เห็นภายหลัง: ให้ส่งไปพร้อมกับ passphrase ซอลต์ไม่ใช่ความลับและไม่อยู่ใน CSV แต่หากไม่มีซอลต์ ตารางจะยังคงเปิดไม่ได้ — และซอลต์นี้เองที่ป้องกันไม่ให้ตารางที่คำนวณไว้ล่วงหน้าจาก passphrase ยอดนิยมเปิดตารางของผู้ใช้ทุกคนได้ในคราวเดียว</p>
+            <label class="enc-label" for="carter-passphrase">passphrase Carter</label>
+            <input type="password" class="enc-input" id="carter-passphrase" placeholder="passphrase Carter" autocomplete="off">
+            <label class="enc-label" for="carter-message">ข้อความที่จะเข้ารหัส</label>
+            <input type="text" class="enc-input" id="carter-message" placeholder="ข้อความของคุณที่นี่" maxlength="200">
+            <label class="enc-label" for="carter-variant">รูปแบบ</label>
+            <select class="enc-select" id="carter-variant"></select>
+            <button type="button" class="enc-btn" id="btnCarterEncode">เข้ารหัสและดาวน์โหลด grille_carter.csv</button>
+            <div id="carter-encode-result" hidden>
+              <div class="enc-info-box" id="carter-encode-info"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DECODER -->
+        <div id="tab-decoder" class="enc-tab">
+          <div class="enc-card">
+            <h2>ถอดรหัสด้วยเซสชันที่ใช้งานอยู่</h2>
+            <div id="dec-session-status" class="enc-info-box">ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange)</div>
+            <label class="enc-label" for="dec-session-grid">ตาราง CSV (วางหรือโหลด)</label>
+            <textarea class="enc-textarea" id="dec-session-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <input type="file" class="enc-input" id="dec-session-file-grid" aria-label="โหลดตาราง CSV จากไฟล์" accept=".csv">
+            <button type="button" class="enc-btn" id="btnDecodeSession">ถอดรหัส</button>
+            <div id="dec-session-result" hidden>
+              <div class="enc-result-box" id="dec-session-msg"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>ถอดรหัสด้วยคีย์ที่ป้อนเอง</h2>
+            <label class="enc-label" for="dec-grid">ตาราง CSV (วางหรือโหลด)</label>
+            <textarea class="enc-textarea" id="dec-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <label class="enc-label" for="dec-masterkey">คีย์หลัก Carter (hex)</label>
+            <input type="text" class="enc-input" id="dec-masterkey" placeholder="คีย์หลัก (hex 64 อักขระ)" autocomplete="off">
+            <label class="enc-label" for="dec-variant">รูปแบบ</label>
+            <select class="enc-select" id="dec-variant"></select>
+            <button type="button" class="enc-btn" id="btnDecode">ถอดรหัส</button>
+            <div id="dec-result" hidden>
+              <div class="enc-result-box" id="dec-msg"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>โหลดจากไฟล์</h2>
+            <label class="enc-label" for="dec-file-grid">ไฟล์ตาราง CSV</label>
+            <input type="file" class="enc-input" id="dec-file-grid" accept=".csv">
+          </div>
+
+          <div class="enc-card">
+            <h2>ถอดรหัสตาราง Carter</h2>
+            <label class="enc-label" for="carter-dec-passphrase">passphrase Carter</label>
+            <input type="password" class="enc-input" id="carter-dec-passphrase" placeholder="passphrase Carter" autocomplete="off">
+            <label class="enc-label" for="carter-dec-salt">ซอลต์ของตาราง (32 อักขระ hex ส่งมาพร้อมกับ passphrase)</label>
+            <input type="text" class="enc-input" id="carter-dec-salt" placeholder="เว้นว่างไว้สำหรับตารางที่สร้างก่อนเดือนกันยายน 2026" autocomplete="off">
+            <label class="enc-label" for="carter-dec-grid">ตาราง CSV (วางหรือโหลด)</label>
+            <textarea class="enc-textarea" id="carter-dec-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <input type="file" class="enc-input" id="carter-dec-file-grid" aria-label="โหลดตาราง CSV จากไฟล์" accept=".csv">
+            <label class="enc-label" for="carter-dec-variant">รูปแบบ</label>
+            <select class="enc-select" id="carter-dec-variant"></select>
+            <button type="button" class="enc-btn" id="btnCarterDecode">ถอดรหัส</button>
+            <div id="carter-dec-result" hidden>
+              <div class="enc-result-box" id="carter-dec-msg"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAULT -->
+        <div id="tab-vault" class="enc-tab">
+          <div class="enc-card">
+            <h2>Vault ที่เข้ารหัส — ไฟล์</h2>
+            <p class="ref-note">เข้ารหัสไฟล์ของคุณในเบราว์เซอร์ (AES-256-GCM ต่อรายการ, manifest ที่เข้ารหัส, HMAC-SHA256 ทั้งชุด — รูปแบบได้แรงบันดาลใจจาก <code>vault_lib.py</code>) ไม่มีไฟล์หรือ passphrase ใดถูกส่งไปยังเซิร์ฟเวอร์</p>
+            <div class="enc-info-box"><b>คำเตือน:</b> ไฟล์ของคุณถูกเข้ารหัสภายในเครื่อง โปรดเก็บ passphrase ไว้ให้ดี — หากไม่มี passphrase ไฟล์จะกู้คืนไม่ได้ การสร้างคีย์: PBKDF2-SHA256 (300 000 รอบ) ทนต่อการเดาแบบ brute-force ด้วย GPU/ASIC ได้น้อยกว่า Argon2id ของ CLI Python — สำหรับการใช้งานที่อ่อนไหวในระบบจริง ควรใช้ <code>secu-box vault</code> (ดูแท็บ เกี่ยวกับ)</div>
+            <label class="enc-label" for="vault-passphrase">passphrase ของ vault</label>
+            <input type="password" class="enc-input" id="vault-passphrase" placeholder="passphrase ของ vault" autocomplete="off">
+            <div class="enc-row">
+              <button type="button" class="enc-btn" id="btnVaultNew">สร้าง vault ใหม่</button>
+              <button type="button" class="enc-btn secondary" id="btnVaultOpenPrompt">เปิดไฟล์ .sbvault</button>
+            </div>
+            <input type="file" class="enc-input" id="vault-file-open" aria-label="ไฟล์ .sbvault ที่จะเปิด" accept=".sbvault" hidden>
+            <div id="vault-status" class="enc-info-box" style="margin-top:12px">ยังไม่ได้เปิด vault</div>
+          </div>
+
+          <div id="vault-app" hidden>
+            <div class="enc-card">
+              <h2>เพิ่มไฟล์</h2>
+              <input type="file" class="enc-input" id="vault-file-add" aria-label="ไฟล์ที่จะเพิ่มลงใน vault">
+              <button type="button" class="enc-btn" id="btnVaultAdd">เข้ารหัสและเพิ่ม</button>
+              <div class="disk-file-info" id="vault-add-info"></div>
+            </div>
+            <div class="enc-card">
+              <h2>เนื้อหาของ vault</h2>
+              <div id="vault-list"></div>
+            </div>
+            <div class="enc-card">
+              <h2>ส่งออก</h2>
+              <!-- Hors soutien-gate.js, volontairement : ce fichier est le
+                   coffre chiffré du visiteur, avec SON mot de passe et SON
+                   contenu — pas une sortie que le système génère pour lui. La
+                   règle posée par Anibal : le soutien porte sur ce que
+                   l'outil fabrique (SVG, broderie...), pas sur ce que le
+                   visiteur y a déposé. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction —
+                   même note sur btnDownloadGrid plus haut. -->
+              <button type="button" class="enc-btn" id="btnVaultExport">⬇ ดาวน์โหลด vault.sbvault</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RÉFÉRENTS -->
+        <div id="tab-referents" class="enc-tab">
+          <div class="enc-card">
+            <h2>ตัวอ้างอิง 256 — ตารางรูปทรงของกางเขนหูหิ้ว</h2>
+            <p class="ref-note">รูปแบบเรขาคณิตที่แตกต่างกัน 256 แบบ: ไม่ใช่การหมุน แต่เป็นการระบายสีทั้งหมดที่เป็นไปตามเกณฑ์ I ถึง IV ของกางเขนหูหิ้ว (นับครบทุกกรณี 128 แบบต่อไครัลลิตี EGO/ALTER — ดูบทความ <i>The Ansate Cross</i>) วางเมาส์เหนือช่องเพื่อดูตำแหน่ง ×2 สี = 512 รูปทรงที่ใช้ได้</p>
+            <div class="ref-grid ref256-grid" id="ref256-display"></div>
+          </div>
+          <div class="enc-card">
+            <h2>ตัวอ้างอิง 360 — แผ่นลายฌักการ์</h2>
+            <p class="ref-note">60 ภาพ × 6 ระดับ = 360 แผ่นลาย (15 ตระกูล × 4 ลักษณะ) แต่ละแผ่นลายเลือกตำแหน่งอ่าน 8 ตำแหน่งในบล็อก 12×12 (<span id="ref360-count">—</span> รูปทรงที่สกัดจากไฟล์ SVG ต้นฉบับ)</p>
+            <div id="ref360-groups"></div>
+          </div>
+        </div>
+
+        <!-- À PROPOS -->
+        <div id="tab-about" class="enc-tab">
+          <div class="enc-card enc-about">
+            <h2>การซ่อนข้อมูลเชิงเรขาคณิต — เข้ารหัสก่อนแล้วจึงซ่อน</h2>
+            <p>ระบบนี้เป็นการประยุกต์ด้านวิทยาการเข้ารหัสของโครงสร้างเลขาคณิตศาสตร์ที่พัฒนาไว้ใน <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026) ส่งไปยัง <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> ในเดือนกันยายน 2026 สถาปัตยกรรมได้รับการทบทวนหลังการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอก (2026-09-10)</p>
+            <div class="enc-info-box">
+              <b>หลักการ:</b> ข้อความถูกเข้ารหัสก่อน (XChaCha20-Poly1305) จากนั้นข้อความที่เข้ารหัสแล้วจะถูกกระจายลงบนบล็อกของตารางตัวเลข — ส่วนที่เหลือเป็นสัญญาณรบกวนแบบสม่ำเสมอ ความลับมาจากการเข้ารหัส ส่วนเรขาคณิตทำหน้าที่เพียงซ่อนตำแหน่งของข้อความที่เข้ารหัสแล้ว หากไม่มีคีย์ ตารางจะแยกไม่ออกจากสัญญาณรบกวนแบบสุ่มในเชิงสถิติ: ค่า χ² ที่แสดงในแท็บ เดโม คือการตรวจสอบเรื่องนี้ ไม่ใช่เพียงคำกล่าวอ้าง<br><br>
+              <b>คีย์หลัก:</b> 256 บิต สร้างแบบสุ่ม (หรือได้จาก passphrase หรือจากเซสชัน Exchange) คีย์เดียวถูกแยกด้วย HKDF-SHA256 เป็นคีย์เข้ารหัสและคีย์ไวยากรณ์ — การใช้งานทั้งสองนี้ไม่เคยใช้วัสดุคีย์เดียวกัน<br><br>
+              <b>ไวยากรณ์:</b> คีย์ไวยากรณ์กำหนดบทบาท (บริสุทธิ์ / มีโครงสร้าง / ข้อความ) และรูปทรงให้แต่ละบล็อกของตาราง โดยสุ่มเลือกจากตัวอ้างอิง 256 (กางเขนหูหิ้ว) หรือจากตัวอ้างอิง 6×6 ที่สร้างใหม่สำหรับ Carter-Random บล็อก “มีโครงสร้าง” และ “ข้อความ” แยกจากกันไม่ออกในเชิงสถิติหากไม่มีคีย์ — บล็อกเหล่านี้มีอยู่เพื่อเหตุผลนี้โดยเฉพาะ ไม่ได้มีไว้บรรจุเนื้อหา<br><br>
+              <b>การยืนยันความถูกต้อง:</b> คีย์หรือข้อมูลที่ไม่ถูกต้องจะล้มเหลวในการยืนยันความถูกต้องอย่างชัดแจ้ง (Poly1305) ไม่มีวันถูกแสดงผลเป็นการอ่านที่ผิดแต่ดูน่าเชื่อ<br><br>
+              <b>รูปแบบ:</b> Carter-256 (ตัวอ้างอิงกางเขนหูหิ้วแบบคงที่) และ Carter-Random (ตัวอ้างอิง 6×6 ที่สร้างใหม่ตามคีย์) ถูกพอร์ตและตรวจสอบใน JavaScript เทียบกับเวกเตอร์ที่สร้างโดยโค้ด Python รูปแบบอื่นของระบบเดียวกัน (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) มีอยู่ในฝั่ง Python แต่ยังไม่ได้พอร์ตมายังเบราว์เซอร์
+            </div>
+            <div class="enc-info-box">
+              <b>Kerckhoffs:</b> ระบบนี้เป็นไปตามหลักการของ Kerckhoffs (1883) — อัลกอริทึมเปิดเผยต่อสาธารณะทั้งหมด ความลับขึ้นอยู่กับคีย์เท่านั้น และอาจรวมถึงตัวอ้างอิงที่ปรับแต่งเองด้วย<br><br>
+              <b>สิทธิบัตรก่อนหน้า:</b> <a href="https://patents.google.com/patent/FR2865054A1/fr" target="_blank" rel="noopener">FR2865054</a> (2004) — การประกอบลวดลายเชิงสัญลักษณ์โดยอัตโนมัติจากความสัมพันธ์ทางคณิตศาสตร์<br><br>
+              <b>ติดต่อ:</b> anibaledel@gmail.com · <a href="https://anibal-amiot.com" target="_blank" rel="noopener">anibal-amiot.com</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a>
+            </div>
+          </div>
+
+          <div class="enc-card enc-about">
+            <h2>สถาปัตยกรรม SecuBox</h2>
+            <p>SecuBox ประกอบด้วยองค์ประกอบอิสระห้าส่วน แต่ละส่วนมีเอกสารและได้รับการตรวจสอบแยกกันในแท็บของตนเอง:</p>
+            <div class="enc-info-box">
+              <b>1. Exchange (X25519)</b> — การแลกเปลี่ยนคีย์แบบยืนยันตัวตนด้วย triple Diffie-Hellman บนเส้นโค้ง Curve25519 (มีมาในตัวใน API Web Crypto ของเบราว์เซอร์นี้): ชั่วคราว × ชั่วคราว เพื่อ forward secrecy จากนั้น ชั่วคราว × ตัวตน ของแต่ละฝ่าย ซึ่งผูกตัวตนระยะยาวเข้ากับเซสชัน HKDF-SHA256 บน transcript ทั้งหมด — คีย์สาธารณะทั้งสี่ — สร้างคีย์เซสชัน ตัวกลางที่สอดแทรกคีย์ชั่วคราวของตนเองไม่มีคีย์ส่วนตัวของตัวตนฝ่ายใดเลย จึงคำนวณคีย์ไม่ได้ การยืนยันตัวตนขึ้นอยู่กับการตรวจสอบ fingerprint ของตัวตนที่ offer ประกาศไว้ผ่านช่องทางอื่น คีย์ส่วนตัวชั่วคราวถูกทำลายหลังการสร้างเซสชัน <b>ใช้โปรโตคอลเดียวกับ CLI Python</b>: เซสชันที่สร้างที่นี่และเซสชันที่สร้างด้วย <code>secu-box exchange</code> จะได้คีย์เดียวกัน — ตรวจสอบแล้วด้วยการสร้างเซสชันไขว้ระหว่างสองการใช้งาน มีเพียงตัวตนเท่านั้นที่ย้ายข้ามฝั่งไม่ได้: CLI ปกป้องตัวตนของตนด้วย Argon2id ซึ่งไม่มีใน Web Crypto และตัวตนของเบราว์เซอร์ถูกออกแบบให้ดึงออกไม่ได้ แต่ละฝั่งจึงเก็บตัวตนของตนไว้<br><br>
+              <b>2. ข้อความ / ถอดรหัส</b> — การซ่อนข้อมูลเชิงเรขาคณิต Carter (ดูด้านบน) โดยใช้คีย์หลักที่ได้จากเซสชัน Exchange ที่ใช้งานอยู่ จาก passphrase หรือป้อนโดยตรง<br><br>
+              <b>3. Vault</b> — การเข้ารหัสไฟล์ภายในเครื่อง AES-256-GCM ต่อรายการ, manifest ที่เข้ารหัส, HMAC-SHA256 ทั้งชุด (สถาปัตยกรรมได้แรงบันดาลใจจาก <code>vault_lib.py</code>)<br><br>
+              <b>4. การเข้ารหัสไฟล์</b> — SPN เชิงเรขาคณิต (Ref256+Ref360) เป็นชั้นกระจายคีย์ และ AES-256-GCM เป็นชั้นการเข้ารหัสแบบยืนยันความถูกต้อง (ดูแท็บ การเข้ารหัส)<br><br>
+              <b>5. ตัวอ้างอิง 256 และ 360</b> — ตารางรูปทรงเรขาคณิต (กางเขนหูหิ้ว, ฌักการ์) ที่ป้อนข้อมูลให้องค์ประกอบข้างต้น<br><br>
+              <b>หมายเหตุเรื่องการทดแทนอัลกอริทึมเข้ารหัส:</b> องค์ประกอบ ข้อความ/ถอดรหัส (2) ใช้ XChaCha20-Poly1305 ใน JavaScript ล้วน เหมือนกับต้นแบบ Python (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) และตรวจสอบเทียบกับเวกเตอร์ของต้นแบบแล้ว — ส่วนนี้ไม่มีการทดแทนอีกต่อไป Vault (3) และการเข้ารหัสไฟล์ (4) ยังคงใช้ AES-256-GCM ที่มีในตัวเบราว์เซอร์ เนื่องจาก API Web Crypto ไม่มี XChaCha20-Poly1305 ให้สององค์ประกอบนี้ใช้ ระดับการรับประกันเดียวกัน (AEAD, 256 บิต, มาตรฐานที่ผ่านการตรวจสอบ) X25519 ถูกใช้งานแบบมีในตัวและเหมือนกันทั้งสองฝั่ง<br><br>
+              <b>ความต่างที่ทราบอยู่แล้ว — การสร้างคีย์ของ Vault:</b> ตั้งแต่เวอร์ชัน 1.2 <code>vault_lib.py</code> ใช้ Argon2id (memory-hard ทนต่อ GPU/ASIC) แทน PBKDF2 สำหรับการสร้างคีย์ภายใน เบราว์เซอร์ไม่มีทั้ง Argon2id และ scrypt ในตัว — ต่างจากกรณีข้างต้น ไม่มีสิ่งเทียบเท่าใน Web Crypto ที่จะนำมาทดแทนได้โดยไม่เพิ่มการพึ่งพาภายนอก Vault ของหน้านี้จึงยังคงใช้ PBKDF2 (300 000 รอบ) และด้วยเหตุนี้จึงทนต่อ brute-force ด้วย GPU/ASIC ได้น้อยกว่าฝั่ง Python สำหรับการใช้งานที่อ่อนไหวในระบบจริง ควรใช้ CLI Python (<code>secu-box vault</code>)<br><br>
+              <b>คำเตือนทั่วไป:</b> SecuBox เป็นระบบทดลองที่ตั้งอยู่บนโครงสร้างเรขาคณิตที่คิดขึ้นใหม่ ชั้นวิทยาการเข้ารหัส (AES-256-GCM, X25519, HKDF, PBKDF2) เป็นมาตรฐานและผ่านการตรวจสอบแล้ว ชั้นเรขาคณิต (La Livrée d'Hermès) อยู่ระหว่างการประเมินอย่างเป็นทางการ — ดูการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอกวันที่ 2026-09-10 ที่กล่าวถึงในแท็บ การเข้ารหัส และ ถอดรหัส
+            </div>
+          </div>
+
+          <div class="license-footer">
+            SecuBox — ซอร์สโค้ด: <a href="https://github.com/anibaledel/livreedhermes" target="_blank" rel="noopener">AGPL v3, สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ</a> ·
+            การใช้งานเชิงพาณิชย์: <a href="mailto:anibaledel@gmail.com">anibaledel@gmail.com</a> ·
+            อัลกอริทึม: <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR ePrint 2026</a> (CC BY) ·
+            สิทธิบัตร FR2865054 · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a>
+          </div>
+        </div>
+
+        <!-- CHIFFREMENT (Référent 256) -->
+        <div id="tab-disk" class="enc-tab">
+          <div id="disk-init-status" class="disk-status">กำลังเตรียมตารางการเรียงสับเปลี่ยน…</div>
+
+          <div id="disk-app" hidden>
+            <div class="enc-card">
+              <h2>การเข้ารหัสแบบผสม — เชิงเรขาคณิต + AES-256-GCM</h2>
+              <p class="ref-note">สถาปัตยกรรมสองชั้น ซึ่งปรับตามการตรวจสอบด้านวิทยาการเข้ารหัสจากภายนอก: ชั้นเรขาคณิต (SPN Ref256+Ref360, S-box GF(2⁸), 4 รอบ) สร้างคีย์เซสชันเฉพาะสำหรับแต่ละเซกเตอร์ — เป็นการกระจายคีย์ ไม่ใช่ตัวการเข้ารหัสเอง — จากนั้น AES-256-GCM เข้ารหัสและยืนยันความถูกต้องของแต่ละเซกเตอร์แยกกัน โดยมีการยืนยันความถูกต้อง HMAC-SHA256 ทั้งชุดซ้อนอยู่ด้านบน passphrase ที่ไม่ถูกต้องหรือไฟล์ที่ถูกแก้ไขจะถูกตรวจพบ ไม่มีวันกลายเป็นสัญญาณรบกวนแบบเงียบ ๆ แยกต่างหากจากเครื่องมือซ่อนข้อมูลด้านบน ทำงานฝั่งไคลเอนต์ทั้งหมด: passphrase และไฟล์ไม่เคยออกจากเบราว์เซอร์</p>
+              <label class="enc-label" for="disk-passphrase">passphrase</label>
+              <input type="password" class="enc-input" id="disk-passphrase" placeholder="passphrase ของคุณ" autocomplete="off">
+              <p class="ref-note" style="margin-top:8px">ป้อนเพียงครั้งเดียว ใช้โดยตรงกับปุ่ม เข้ารหัส และ ถอดรหัส ด้านล่าง</p>
+            </div>
+
+            <div class="enc-card">
+              <h2>เข้ารหัสไฟล์</h2>
+              <label class="enc-label" for="disk-file-encrypt">ไฟล์ที่จะเข้ารหัส</label>
+              <input type="file" class="enc-input" id="disk-file-encrypt">
+              <div class="disk-file-info" id="disk-encrypt-info"></div>
+              <button type="button" class="enc-btn" id="btnDiskEncrypt">เข้ารหัส →</button>
+              <div class="enc-progress" id="disk-encrypt-progress"><div class="enc-progress-bar" id="disk-encrypt-progress-bar"></div></div>
+            </div>
+
+            <div class="enc-card">
+              <h2>ถอดรหัสไฟล์</h2>
+              <label class="enc-label" for="disk-file-decrypt">ไฟล์ .lldh ที่จะถอดรหัส</label>
+              <input type="file" class="enc-input" id="disk-file-decrypt" accept=".lldh">
+              <div class="disk-file-info" id="disk-decrypt-info"></div>
+              <button type="button" class="enc-btn" id="btnDiskDecrypt">ถอดรหัส →</button>
+              <div class="enc-progress" id="disk-decrypt-progress"><div class="enc-progress-bar" id="disk-decrypt-progress-bar"></div></div>
+              <p class="ref-note" style="margin-top:12px">passphrase ที่ไม่ถูกต้องหรือไฟล์ที่ถูกแก้ไขจะทำให้เกิดข้อผิดพลาดอย่างชัดแจ้ง (การตรวจสอบ HMAC-SHA256) แทนที่จะให้ผลเป็นสัญญาณรบกวนแบบเงียบ ๆ</p>
+            </div>
+
+            <div class="enc-card">
+              <h2>สถิติด้านความปลอดภัย</h2>
+              <div class="disk-stats enc-info-box">
+                <div><b>ชั้นเรขาคณิต (การกระจายคีย์)</b>: SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 พิสูจน์แล้ว, Nyberg 1994), การเรียงสับเปลี่ยน Ref256 (12 288 รูปแบบ), MixBlock MDS (ShiftRows+MixColumns AES, branch number ≥4), การเรียงสับเปลี่ยน Ref360 (342 รูปแบบ), 4 รอบ — สร้างคีย์เซสชันขนาด 256 บิตต่อเซกเตอร์ ไม่ได้อ้างว่าเป็นการเข้ารหัสที่ใช้ได้ด้วยตัวเอง</div>
+                <div><b>ชั้นมาตรฐาน (ความลับ + ความครบถ้วน)</b>: AES-256-GCM ต่อเซกเตอร์, tag ยืนยันความถูกต้องขนาด 128 บิต — ต้นแบบ Python ใช้ XChaCha20-Poly1305 (ไม่มีใน API Web Crypto ของเบราว์เซอร์) ที่นี่จึงใช้ AES-256-GCM แทน ระดับการรับประกันเดียวกันผ่านการใช้งานที่มีในตัวและผ่านการตรวจสอบของเบราว์เซอร์</div>
+                <div><b>การสร้างคีย์</b>: PBKDF2-SHA256, 300 000 รอบ — ครั้งแรก passphrase → คีย์หลัก (ซอลต์ 128 บิตที่หน้าเว็บจัดการ) ครั้งที่สอง คีย์หลัก → คีย์เรขาคณิต (ซอลต์ 256 บิตเฉพาะของแต่ละไฟล์)</div>
+                <div><b>Nonce</b>: 192 บิต (สุ่มต่อไฟล์) โดยมี nonce แยกกันต่อเซกเตอร์ที่ได้ผ่าน HKDF-SHA256</div>
+                <div><b>ความครบถ้วน</b>: tag AES-GCM ต่อเซกเตอร์ + HMAC-SHA256 ทั้งชุด (256 บิต) — ตรวจพบการแก้ไขใด ๆ หรือ passphrase ที่ไม่ถูกต้อง ไม่มีวันกลายเป็นสัญญาณรบกวนแบบเงียบ ๆ</div>
+              </div>
+            </div>
+
+            <div class="license-box">
+              <h4>สัญญาอนุญาต</h4>
+              <p>ซอฟต์แวร์นี้เผยแพร่ภายใต้ <a href="https://github.com/anibaledel/livreedhermes/blob/main/LICENSE" target="_blank" rel="noopener">GNU AGPL v3</a></p>
+              <p>สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ สำหรับการใช้งานโดยไม่มีข้อผูกพันของ AGPL (การผนวกเข้ากับผลิตภัณฑ์ การใช้งานด้านกลาโหม บริการแบบเสียค่าใช้จ่าย): <a href="mailto:anibaledel@gmail.com">anibaledel@gmail.com</a> — ดูเพิ่มเติมที่ <a href="https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL" target="_blank" rel="noopener">สัญญาอนุญาตเชิงพาณิชย์</a></p>
+              <p>อัลกอริทึมอธิบายไว้ใน <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR ePrint 2026</a> (CC BY) · สิทธิบัตรก่อนหน้า: <a href="https://patents.google.com/patent/FR2865054A1/fr" target="_blank" rel="noopener">FR2865054</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="iacr-mention">
+      ระบบส่งไปยัง <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> — กันยายน 2026 · <a href="https://anibal-amiot.com" target="_blank" rel="noopener">anibal-amiot.com</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a> · สิทธิบัตร FR2865054
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/soutien-gate.js"></script>
+<script>
+(function(){
+  var b = document.getElementById('btnSoutienFooter');
+  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
+})();
+</script>
+
+
+<!-- ============================================================
+     Encodeur stéganographique — la stéganographie Carter (js/carter-core.js)
+     est un port JS de stegano/carter.py et stegano/carter_random.py, vérifié
+     contre les vecteurs produits par le code Python (vectors/carter_v3.json).
+     Vault, Exchange et Chiffrement fichier restent des implémentations
+     indépendantes, propres à cette page. En accès libre : charge les
+     référents dès le chargement de la page.
+     ============================================================ -->
+<script type="module">
+import {
+  encode_carter, decode_carter, encode_carter_random, decode_carter_random,
+  carter256_find_grammar, carter_random_find_grammar, carter_random_positions,
+  carter256_positions, get_referent6x6, derive_sweep_index,
+  ROLE_PURE, ROLE_STRUCTURED, ROLE_MESSAGE, RANDOM_STEGANO_COLORS,
+  ALPHA_LEN, hexToBytes as carterHexToBytes,
+  bytesToHex as carterBytesToHex, hkdf_sha256, carter256_split,
+  CARTER_GRID, CARTER_BLOCK, CARTER_SIDE,
+} from '../../js/carter-core.js';
+
+  let REF256 = null, REF360 = null, REF256_V3 = null;
+
+  // Variantes Carter exposées dans l'interface — seules carter256 et
+  // carterrandom sont portées en JS (voir js/carter-core.js). Les six autres
+  // (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté
+  // Python mais ne sont pas portées dans le navigateur (D4) : retirées d'ici,
+  // mentionnées une seule fois dans l'onglet À propos plutôt que rappelées à
+  // chaque entrée du sélecteur.
+  const CARTER_VARIANTS = [
+    { id: 'carter256',    label: 'Carter-256 — ตัวอ้างอิงกางเขนหูหิ้ว (ค่าเริ่มต้น)' },
+    { id: 'carterrandom', label: 'Carter-Random — ตัวอ้างอิงแบบสุ่มที่ได้จากคีย์' },
+  ];
+
+  async function carterEncodeByVariant(variant, message, masterKey){
+    if(variant === 'carter256') return encode_carter(message, masterKey, REF256_V3);
+    if(variant === 'carterrandom'){ const { grid } = await encode_carter_random(message, masterKey); return grid; }
+    throw new Error(`รูปแบบนี้ใช้ในเบราว์เซอร์ไม่ได้: ${variant}`);
+  }
+  async function carterDecodeByVariant(variant, grid, masterKey){
+    if(variant === 'carter256') return decode_carter(grid, masterKey, REF256_V3);
+    if(variant === 'carterrandom') return decode_carter_random(grid, masterKey);
+    throw new Error(`รูปแบบนี้ใช้ในเบราว์เซอร์ไม่ได้: ${variant}`);
+  }
+  function populateVariantSelect(selectEl){
+    selectEl.innerHTML = CARTER_VARIANTS.map(v => `<option value="${v.id}">${v.label}</option>`).join('');
+  }
+
+  function showTab(name, btnEl){
+    document.querySelectorAll('.enc-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.enc-nav button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    if(btnEl) btnEl.classList.add('active');
+    if(name==='referents') renderReferents();
+  }
+
+  // ============================================================
+  // Stéganographie géométrique Carter — chiffrer puis dissimuler
+  // (stegano/carter.py, stegano/carter_random.py, portés en JS dans
+  // js/carter-core.js et vérifiés octet pour octet contre les vecteurs
+  // produits par le code Python — vectors/carter_v3.json). Une seule clé
+  // maître de 256 bits dérive, par HKDF-SHA256, la clé de chiffrement
+  // (XChaCha20-Poly1305) et la grammaire (rôle — pur / structuré / message —
+  // et forme de chacun des blocs de la grille) : aucune métadonnée de
+  // placement n'existe en dehors de la clé, et un bloc structuré est
+  // statistiquement indiscernable d'un bloc message sans elle.
+  // ============================================================
+
+  // Rôles par cellule — pour la seule visualisation (coloration de la
+  // grille) ; encode/decode réels passent entièrement par
+  // carterEncodeByVariant()/carterDecodeByVariant() ci-dessus, qui
+  // appellent directement js/carter-core.js. Aucune logique dupliquée ici :
+  // carter256_find_grammar()/carter_random_find_grammar() délèguent à la
+  // même recherche de grammaire que l'encodage réel.
+  async function computeCarterRoles(variant, masterKey){
+    if(variant === 'carter256'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, grammar } = await carter256_find_grammar(grammar_key, REF256_V3);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      grammar.blocks.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
+        for(const [gr, gc] of carter256_positions(br, bc, g, REF256_V3)) roles[gr*CARTER_GRID+gc] = g.role;
+      });
+      return roles;
+    }
+    if(variant === 'carterrandom'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, refIdx, metaMode, grammar } = await carter_random_find_grammar(grammar_key, CARTER_GRID);
+      if(metaMode) throw new Error('คีย์นี้สร้างไวยากรณ์ในโหมดเมตา (ซ้อนศูนย์กลาง) ซึ่งยังไม่ได้พอร์ตเป็น JS — ลองใหม่ด้วยคีย์อื่น');
+      const ref = await get_referent6x6(refIdx);
+      const sweepOfColor = {};
+      for(const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      const nSide = CARTER_GRID/CARTER_BLOCK;
+      grammar.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/nSide), bc = i%nSide;
+        const form = ref[g.form_id];
+        const r0 = br*CARTER_BLOCK, c0 = bc*CARTER_BLOCK;
+        for(const [pr, pc] of carter_random_positions(form, sweepOfColor)){
+          const gr = r0+pr, gc = c0+pc;
+          if(gr<CARTER_GRID && gc<CARTER_GRID) roles[gr*CARTER_GRID+gc] = g.role;
+        }
+      });
+      return roles;
+    }
+    return null; // variante non visualisée (rôle par cellule non applicable/non porté)
+  }
+
+  function drawCarterGrid(grid, roles, canvasId){
+    const N = grid.length, cs = 8;
+    const canvas = document.getElementById(canvasId);
+    canvas.width = N*cs; canvas.height = N*cs;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, N*cs, N*cs);
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      const role = roles ? roles[r*N+c] : ROLE_PURE;
+      if(role === ROLE_MESSAGE) ctx.fillStyle = 'rgba(224,38,27,0.85)';
+      else if(role === ROLE_STRUCTURED) ctx.fillStyle = 'rgba(201,161,90,0.65)';
+      else { const v = grid[r][c]; const g = Math.floor(40+v*1.4); ctx.fillStyle = `rgb(${g},${g},${g-6})`; }
+      ctx.fillRect(c*cs, r*cs, cs-1, cs-1);
+    }
+    ctx.strokeStyle = 'rgba(242,242,240,0.15)'; ctx.lineWidth = 0.5;
+    for(let b=0; b<=CARTER_SIDE; b++){
+      ctx.beginPath(); ctx.moveTo(b*CARTER_BLOCK*cs, 0); ctx.lineTo(b*CARTER_BLOCK*cs, N*cs); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, b*CARTER_BLOCK*cs); ctx.lineTo(N*cs, b*CARTER_BLOCK*cs); ctx.stroke();
+    }
+  }
+
+  // χ² des 44 symboles sur l'ensemble de la grille — le contrôle promis par
+  // l'article (« cherchez les cases, vous ne les trouverez pas ») : sous
+  // l'hypothèse nulle (grille indiscernable du bruit uniforme), la
+  // statistique suit une loi du χ² à 43 degrés de liberté. Pas un argument
+  // marketing : un χ² anormalement élevé indique un biais réel, à corriger.
+  function chiSquareUniform(grid){
+    const counts = new Array(ALPHA_LEN).fill(0);
+    let total = 0;
+    for(const row of grid) for(const v of row){ counts[v]++; total++; }
+    const expected = total/ALPHA_LEN;
+    let chi2 = 0;
+    for(const n of counts) chi2 += (n-expected)*(n-expected)/expected;
+    return { chi2, df: ALPHA_LEN-1, n: total };
+  }
+
+  let _lastGrid = null, _lastMasterKey = null, _lastVariant = null;
+
+  async function runDemo(){
+    if(!REF256_V3) return;
+    const msg = 'ANIBALAMIOTX';
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    const variant = 'carter256';
+    const grid = await carterEncodeByVariant(variant, msg, masterKey);
+    const decoded = await carterDecodeByVariant(variant, grid, masterKey);
+    const roles = await computeCarterRoles(variant, masterKey);
+    const nMsgCells = roles ? roles.reduce((s,r)=>s+(r===ROLE_MESSAGE?1:0),0) : 0;
+    const { chi2, df } = chiSquareUniform(grid);
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
+    document.getElementById('demo-result').hidden = false;
+    document.getElementById('demo-msg').innerHTML =
+      `<div>ข้อความที่เข้ารหัส: <span class="enc-msg">${msg}</span></div>
+       <div style="margin-top:6px">ถอดรหัสได้: <span class="enc-msg">${decoded}</span> — ตรงกัน: ${decoded===msg}</div>`;
+    document.getElementById('demo-ks').innerHTML =
+      `<b>Carter-256</b>, ตาราง 90×90 (8 100 ช่อง) — คีย์หลักเดียวขนาด 256 บิตสร้างทั้งการเข้ารหัส (XChaCha20-Poly1305) และไวยากรณ์ของตาราง · ${nMsgCells} ช่องบรรจุข้อความ จากทั้งหมด 8 100 ช่อง<br>
+       χ² ของสัญลักษณ์ 44 ตัวบนตารางทั้งหมด: <b>${chi2.toFixed(1)}</b> (${df} องศาความเสรี) — ตารางที่แยกไม่ออกจากสัญญาณรบกวนแบบสม่ำเสมอจะให้ค่า χ² ใกล้เคียง ${df}`;
+    drawCarterGrid(grid, roles, 'demo-canvas');
+  }
+
+  async function encodeMessage(){
+    if(!REF256_V3) return;
+    const infoEl = document.getElementById('enc-info');
+    const resultEl = document.getElementById('enc-result');
+    const msg = document.getElementById('enc-message').value.trim().toUpperCase();
+    if(!msg){ resultEl.hidden=false; infoEl.textContent='ป้อนข้อความ'; return; }
+    const variant = document.getElementById('enc-variant').value;
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    let grid;
+    try{
+      grid = await carterEncodeByVariant(variant, msg, masterKey);
+    }catch(e){
+      resultEl.hidden=false;
+      infoEl.textContent = 'ข้อผิดพลาด: ' + e.message;
+      return;
+    }
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
+    document.getElementById('enc-result').hidden=false;
+    document.getElementById('enc-info').innerHTML =
+      `เข้ารหัสข้อความ “${msg}” แล้ว — ตาราง 90×90, รูปแบบ ${variant}`;
+    document.getElementById('enc-key1').value = 'คีย์หลัก Carter (hex): ' + carterBytesToHex(masterKey);
+    const csvLines = grid.slice(0,5).map(r=>r.join(',')).join('\n')+'\n...';
+    document.getElementById('enc-grid-out').value = csvLines;
+  }
+  function gridToCsv(grid){ return grid.map(r=>r.join(',')).join('\n'); }
+  function downloadGrid(){
+    if(!_lastGrid) return;
+    const blob = new Blob([gridToCsv(_lastGrid)], {type:'text/csv'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'grille_steganographique.csv'; a.click();
+  }
+
+  async function decodeMessage(){
+    if(!REF256_V3) return;
+    const resultEl = document.getElementById('dec-msg');
+    const csvStr = document.getElementById('dec-grid').value.trim();
+    const keyHex = document.getElementById('dec-masterkey').value.trim();
+    const variant = document.getElementById('dec-variant').value;
+    if(!csvStr || !keyHex){ resultEl.textContent='กรอกตารางและคีย์หลัก'; document.getElementById('dec-result').hidden=false; return; }
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const masterKey = carterHexToBytes(keyHex);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
+      document.getElementById('dec-result').hidden=false;
+      resultEl.innerHTML = `ข้อความที่ถอดรหัสได้: <span class="enc-msg">${msg}</span>`;
+    } catch(e){
+      document.getElementById('dec-result').hidden=false;
+      resultEl.textContent = 'ข้อผิดพลาด: '+e.message;
+    }
+  }
+  function loadGridFile(input){
+    if(!input.files[0]) return;
+    const fr=new FileReader();
+    fr.onload=e=>{ document.getElementById('dec-grid').value=e.target.result; };
+    fr.readAsText(input.files[0]);
+  }
+
+  // ============================================================
+  // Exchange — échange de clés X25519 authentifié par triple DH, identique
+  // au protocole de secu_box.py. Une session dérivée ici et une session
+  // dérivée par la CLI Python aboutissent à la même clé.
+  //
+  // Un portage antérieur s'en tenait à un échange éphémère authentifié par
+  // comparaison vocale d'une chaîne (SAS), au motif que la CLI protège son
+  // identité exportée par Argon2id, absent de l'API Web Crypto. Ce motif
+  // confondait deux choses : Argon2id empêche de TRANSPORTER une identité
+  // entre la CLI et le navigateur, il n'empêche pas les deux implémentations
+  // de PARLER ensemble. Le protocole ne demande que X25519 et HKDF-SHA256,
+  // tous deux natifs ici. Chaque côté garde donc son identité propre, et
+  // l'échange fonctionne entre eux.
+  //
+  // La clé privée d'identité est un CryptoKey non extractible conservé dans
+  // IndexedDB : le code de la page ne peut pas la lire, seulement s'en
+  // servir pour dériver. Contrepartie assumée — elle ne peut pas être
+  // sauvegardée ni déplacée vers un autre navigateur ; perdre les données du
+  // site, c'est perdre l'identité et son fingerprint.
+
+  const SC_IDB_NAME = 'secubox-identity', SC_IDB_STORE = 'keys';
+  const SC_SESSION_INFO = 'SecuBox-Session-v2-3dh';
+  const SC_OFFER_SIZE = 64;   // 32 octets d'identité publique + 32 d'éphémère
+
+  function scIdbOpen(){
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(SC_IDB_NAME, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore(SC_IDB_STORE);
+      r.onsuccess = () => res(r.result);
+      r.onerror   = () => rej(r.error);
+    });
+  }
+  function scIdbTx(mode, fn){
+    return scIdbOpen().then(db => new Promise((res, rej) => {
+      const tx = db.transaction(SC_IDB_STORE, mode);
+      const rq = fn(tx.objectStore(SC_IDB_STORE));
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror   = () => rej(rq.error);
+    }));
+  }
+
+  // Identité long terme : paire X25519 dont la privée n'est pas extractible.
+  async function scLoadIdentity(){
+    try { return await scIdbTx('readonly', st => st.get('identity')); }
+    catch(e){ return null; }
+  }
+  async function scCreateIdentity(){
+    const kp = await crypto.subtle.generateKey({name:'X25519'}, false, ['deriveBits']);
+    await scIdbTx('readwrite', st => st.put(kp, 'identity'));
+    return kp;
+  }
+  async function scIdentityPub(kp){
+    return new Uint8Array(await crypto.subtle.exportKey('raw', kp.publicKey));
+  }
+  async function scFingerprintOf(pubRaw){
+    const h = new Uint8Array(await crypto.subtle.digest('SHA-256', pubRaw));
+    return Array.from(h.slice(0,6)).map(b=>b.toString(16).padStart(2,'0')).join(':');
+  }
+
+  function scSplitOffer(raw){
+    if(raw.length !== SC_OFFER_SIZE)
+      throw new Error(`offer ไม่ถูกต้อง: ${raw.length} ไบต์ ต้องการ ${SC_OFFER_SIZE} (ตัวตน ‖ ชั่วคราว)`);
+    return [raw.slice(0,32), raw.slice(32)];
+  }
+  async function scOfferFingerprint(raw){
+    return scFingerprintOf(scSplitOffer(raw)[0]);
+  }
+
+  async function scDh(privKey, peerPubRaw){
+    const pub = await crypto.subtle.importKey('raw', peerPubRaw, {name:'X25519'}, false, []);
+    return new Uint8Array(await crypto.subtle.deriveBits({name:'X25519', public: pub}, privKey, 256));
+  }
+  function scConcat(...arrs){
+    const n = arrs.reduce((a,b)=>a+b.length, 0);
+    const out = new Uint8Array(n);
+    let o = 0;
+    for(const a of arrs){ out.set(a, o); o += a.length; }
+    return out;
+  }
+  async function scHkdf(ikm, saltStr, infoBytes, bits){
+    const k = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
+    return new Uint8Array(await crypto.subtle.deriveBits(
+      {name:'HKDF', hash:'SHA-256',
+       salt: new TextEncoder().encode(saltStr), info: infoBytes}, k, bits));
+  }
+  // X25519 est nativement supporté par l'API Web Crypto de ce navigateur
+  // (vérifié) — pas de substitution nécessaire, contrairement à AES-256-GCM
+  // pour XChaCha20-Poly1305 ailleurs sur cette page.
+  // ============================================================
+  let scEphemeralKeyPair = null, scMyPubHex = null, scSession = null;
+
+  function scBytesToHex(bytes){ return Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+  function scHexToBytes(hex){ const a = new Uint8Array(hex.length/2); for(let i=0;i<a.length;i++) a[i]=parseInt(hex.substr(i*2,2),16); return a; }
+  function scCompareBytes(a,b){ for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]-b[i]; } return 0; }
+
+  async function scGenerateEphemeralKeyPair(){
+    // extractable=false : ne s'applique qu'a la cle PRIVEE (la publique reste
+    // exportable par specification). La cle privee ephemere ne doit jamais
+    // pouvoir etre extraite par du code de la page.
+    const kp = await crypto.subtle.generateKey({name:'X25519'}, false, ['deriveBits']);
+    const pubRaw = await crypto.subtle.exportKey('raw', kp.publicKey);
+    return { keyPair: kp, publicHex: scBytesToHex(new Uint8Array(pubRaw)) };
+  }
+
+  // Dérivation de session — triple DH, port exact de secu_box.py::Session.derive.
+  //
+  //   DH_ee = ECDH(éphémère moi, éphémère pair)   → forward secrecy
+  //   DH_es = ECDH(éphémère moi, identité pair)   → authentifie le pair
+  //   DH_se = ECDH(identité moi, éphémère pair)   → m'authentifie auprès de lui
+  //
+  // Un relais qui substitue les clés éphémères ne possède aucune des deux
+  // identités privées : il ne peut calculer ni DH_es ni DH_se, donc pas la
+  // clé de session. L'authentification tient à la vérification hors bande du
+  // fingerprint d'identité annoncé par l'offer.
+  async function scDeriveSession(identityKp, myEphKp, theirOfferRaw){
+    const [theirId, theirEph] = scSplitOffer(theirOfferRaw);
+    const myId  = await scIdentityPub(identityKp);
+    const myEph = new Uint8Array(await crypto.subtle.exportKey('raw', myEphKp.publicKey));
+
+    if(scCompareBytes(myId, theirId) === 0)
+      throw new Error("offer นี้ประกาศตัวตนของคุณเอง: ข้อความถูกสะท้อนกลับ หรือเลือกคู่สื่อสารผิด");
+
+    const dhEe = await scDh(myEphKp.privateKey,     theirEph);
+    const dhEs = await scDh(myEphKp.privateKey,     theirId);
+    const dhSe = await scDh(identityKp.privateKey,  theirEph);
+
+    // Ordre canonique dérivé des deux identités publiques : chez le pair,
+    // notre DH_es est son DH_se, et l'ordre les range identiquement.
+    const avant = scCompareBytes(myId, theirId) < 0;
+    const cross = avant ? scConcat(dhEs, dhSe) : scConcat(dhSe, dhEs);
+    const ids   = avant ? scConcat(myId, theirId) : scConcat(theirId, myId);
+    const ephs  = avant ? scConcat(myEph, theirEph) : scConcat(theirEph, myEph);
+
+    // Transcript complet dans info : les quatre clés publiques sont
+    // authentifiées par la clé dérivée. Les 32 premiers octets deviennent
+    // directement la clé maître Carter (masterKey) — plus de dérivation
+    // géométrique séparée (Clé B/C/2) : la grammaire de la grille est
+    // elle-même dérivée de cette clé maître par carter-core.js.
+    const km = await scHkdf(scConcat(dhEe, cross), SC_SESSION_INFO, scConcat(ids, ephs), 512);
+    const masterKey = km.slice(0,32);
+
+    // Dérivés du matériel HKDF, sous des libellés propres — jamais du secret
+    // ECDH brut, qui ne doit pas se retrouver engagé dans une valeur publiée.
+    const sessionId  = scBytesToHex(await scHkdf(km, SC_SESSION_INFO, new TextEncoder().encode('session-id'), 64));
+    const authString = Array.from(await scHkdf(km, SC_SESSION_INFO, new TextEncoder().encode('session-auth-string'), 128))
+      .map(b=>b.toString(16).padStart(2,'0')).join(':');
+
+    return { masterKeyHex: scBytesToHex(masterKey), sessionId, authString };
+  }
+
+  const SC_SESSION_KEY = 'secubox_session_v1';
+
+  function scSaveSession(session){
+    localStorage.setItem(SC_SESSION_KEY, JSON.stringify(session));
+    scSession = session;
+  }
+  function scLoadSession(){
+    try{
+      const raw = localStorage.getItem(SC_SESSION_KEY);
+      scSession = raw ? JSON.parse(raw) : null;
+    }catch(e){ scSession = null; }
+    return scSession;
+  }
+  function scClearSession(){
+    localStorage.removeItem(SC_SESSION_KEY);
+    scSession = null;
+  }
+
+  function scRefreshActiveSessionUI(){
+    const el = document.getElementById('sc-active-session');
+    const clearBtn = document.getElementById('btnScClearSession');
+    if(!el) return;
+    if(scSession){
+      el.innerHTML = `เซสชันที่ใช้งานอยู่: <b>${scSession.sessionId}</b> (Carter-256, ตาราง 90×90)`;
+      clearBtn.hidden = false;
+    }else{
+      el.textContent = 'ไม่มีเซสชันที่ใช้งานอยู่ สร้างเซสชันด้านบน หรือใช้แท็บ ข้อความ/ถอดรหัส ด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ';
+      clearBtn.hidden = true;
+    }
+    const decStatus = document.getElementById('dec-session-status');
+    if(decStatus){
+      decStatus.textContent = scSession
+        ? `เซสชันที่ใช้งานอยู่: ${scSession.sessionId}`
+        : 'ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange)';
+    }
+    const encStatus = document.getElementById('enc-session-status');
+    if(encStatus){
+      encStatus.textContent = scSession
+        ? `เซสชันที่ใช้งานอยู่: ${scSession.sessionId} (Carter-256, ตาราง 90×90)`
+        : 'ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange) — เข้ารหัสด้านล่างด้วยคีย์ที่สร้างขึ้นเองอย่างอิสระ';
+    }
+  }
+
+  async function onEncodeSession(){
+    const infoEl = document.getElementById('enc-session-info');
+    const resultBox = document.getElementById('enc-session-result');
+    if(!REF256_V3) return;
+    if(!scSession){ resultBox.hidden=false; infoEl.textContent = 'สร้างเซสชันก่อน (แท็บ Exchange)'; return; }
+    const msg = document.getElementById('enc-session-message').value.trim().toUpperCase();
+    if(!msg){ resultBox.hidden=false; infoEl.textContent = 'ป้อนข้อความ'; return; }
+    try{
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const grid = await carterEncodeByVariant('carter256', msg, masterKey);
+      const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `grille_${scSession.sessionId.slice(0,8)}.csv`;
+      a.click();
+      resultBox.hidden = false;
+      infoEl.innerHTML = `เข้ารหัสและดาวน์โหลด “${msg}” แล้ว — grille_${scSession.sessionId.slice(0,8)}.csv`;
+    }catch(e){
+      resultBox.hidden = false;
+      infoEl.textContent = 'ข้อผิดพลาด: ' + e.message;
+    }
+  }
+
+  let scIdentity = null;
+
+  async function scEnsureIdentity(){
+    if(scIdentity) return scIdentity;
+    scIdentity = await scLoadIdentity();
+    return scIdentity;
+  }
+
+  async function scRefreshIdentityUI(){
+    const box = document.getElementById('sc-identity-box');
+    const btn = document.getElementById('btnScCreateIdentity');
+    const kp  = await scEnsureIdentity();
+    if(!kp){
+      box.innerHTML = "ยังไม่มีตัวตนในเบราว์เซอร์นี้ ให้สร้างก่อนการแลกเปลี่ยนใด ๆ: ตัวตนนี้คือสิ่งที่ยืนยันเซสชันของคุณ";
+      btn.hidden = false;
+      return null;
+    }
+    const pub = await scIdentityPub(kp);
+    box.innerHTML = `fingerprint ของตัวตนของคุณ: <b>${await scFingerprintOf(pub)}</b><br>`
+      + `คีย์สาธารณะ: <span style="word-break:break-all">${scBytesToHex(pub)}</span><br>`
+      + `มอบค่านี้ให้คู่สื่อสารผ่านช่องทางที่ปลอดภัย — พวกเขาจะใช้ค่านี้เทียบกับ offer ที่คุณส่งไปให้`;
+    btn.hidden = true;
+    return kp;
+  }
+
+  async function onScCreateIdentity(){
+    if(await scEnsureIdentity()) return;
+    scIdentity = await scCreateIdentity();
+    await scRefreshIdentityUI();
+  }
+
+  async function onScGenerate(){
+    const idKp = await scRefreshIdentityUI();
+    if(!idKp){
+      document.getElementById('sc-my-key').hidden = true;
+      return;
+    }
+    const kp = await scGenerateEphemeralKeyPair();
+    scEphemeralKeyPair = kp.keyPair;
+    const offer = scConcat(await scIdentityPub(idKp), scHexToBytes(kp.publicHex));
+    scMyPubHex = scBytesToHex(offer);
+    document.getElementById('sc-my-key').hidden = false;
+    document.getElementById('sc-my-pub').value = scMyPubHex;
+  }
+
+  async function onScCopyPub(){
+    if(!scMyPubHex) return;
+    try{ await navigator.clipboard.writeText(scMyPubHex); }catch(e){}
+  }
+
+  async function onScDerive(){
+    const resultEl = document.getElementById('sc-session-info');
+    const resultBox = document.getElementById('sc-session-result');
+    if(!REF256) return;
+    const idKp = await scEnsureIdentity();
+    if(!idKp){ resultBox.hidden=false; resultEl.textContent = "สร้างตัวตนของคุณก่อน (ขั้นที่ 0)"; return; }
+    if(!scEphemeralKeyPair){ resultBox.hidden=false; resultEl.textContent = 'สร้าง offer ของคุณ (ขั้นที่ 1) ก่อนสร้างเซสชัน'; return; }
+    const theirOfferHex = document.getElementById('sc-their-pub').value.trim().toLowerCase();
+    if(!/^[0-9a-f]{128}$/.test(theirOfferHex)){ resultBox.hidden=false; resultEl.textContent = "offer ไม่ถูกต้อง: ต้องเป็นอักขระเลขฐานสิบหก 128 ตัว (ตัวตน ‖ ชั่วคราว)"; return; }
+    try{
+      const theirOffer = scHexToBytes(theirOfferHex);
+      const fp = await scOfferFingerprint(theirOffer);
+      if(!confirm(`offer นี้ประกาศ fingerprint:\n\n${fp}\n\nเทียบกับค่าที่คู่สื่อสารให้คุณผ่านช่องทางอื่น หากไม่ตรงกัน แสดงว่ามีผู้แทรกกลาง\n\nตรงกันหรือไม่?`)){
+        resultBox.hidden = false;
+        resultEl.textContent = 'การแลกเปลี่ยนถูกยกเลิก — ไม่ได้สร้างเซสชัน';
+        return;
+      }
+      const session = await scDeriveSession(idKp, scEphemeralKeyPair, theirOffer);
+      scSaveSession(session);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `สร้างเซสชันแล้ว ✓<br>session ID: <b>${session.sessionId}</b><br>`
+        + `ยืนยันตัวตนด้วย triple DH — ตัวตน <b>${fp}</b> ผูกอยู่กับเซสชันนี้<br>`
+        + `สายการยืนยันตัวตน (ทางสำรอง หากยังไม่ได้ตรวจสอบ fingerprint ไว้ก่อน):<br>`
+        + `<b style="word-break:break-all">${session.authString}</b><br>`
+        + `forward secrecy: ทำลายคีย์ชั่วคราวแล้ว ✓`;
+      scEphemeralKeyPair = null; scMyPubHex = null;
+      document.getElementById('sc-my-key').hidden = true;
+      scRefreshActiveSessionUI();
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'ข้อผิดพลาด: ' + e.message;
+    }
+  }
+
+  function onScClearSession(){
+    scClearSession();
+    scRefreshActiveSessionUI();
+  }
+
+  async function onDecodeSession(){
+    const statusEl = document.getElementById('dec-session-status');
+    const resultEl = document.getElementById('dec-session-msg');
+    const resultBox = document.getElementById('dec-session-result');
+    if(!REF256_V3) return;
+    if(!scSession){ statusEl.textContent = 'ไม่มีเซสชันที่ใช้งานอยู่ (แท็บ Exchange)'; return; }
+    const csvStr = document.getElementById('dec-session-grid').value.trim();
+    if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'วางหรือโหลดตาราง CSV'; return; }
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const msg = await carterDecodeByVariant('carter256', grid, masterKey);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `ข้อความที่ถอดรหัสได้: <span class="enc-msg">${msg}</span>`;
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'คีย์ไม่ถูกต้องหรือตารางเสียหาย: ' + e.message;
+    }
+  }
+
+  // Couche de confort passphrase → clé maître (PBKDF2-SHA256, 300 000
+  // itérations), indépendante de la variante Carter choisie ci-dessous —
+  // voir la note d'audit 2026-09-10 sur le sel : tiré au hasard à chaque
+  // encodage, transmis avec la passphrase, jamais écrit dans le CSV.
+  const CARTER_SALT_BYTES = 16;
+  const CARTER_LEGACY_SALT = 'SecuBox-Carter-KDF-v1';
+  async function carterDeriveMasterKey(passphrase, salt){
+    const saltBytes = salt && salt.length ? salt : new TextEncoder().encode(CARTER_LEGACY_SALT);
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: saltBytes, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  function carterNewSalt(){ return crypto.getRandomValues(new Uint8Array(CARTER_SALT_BYTES)); }
+  function carterSaltToHex(b){ return Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  function carterSaltFromHex(hex){
+    const h = hex.trim().toLowerCase().replace(/[^0-9a-f]/g,'');
+    if(!h) return null;
+    if(h.length !== CARTER_SALT_BYTES*2) throw new Error(`ซอลต์ไม่ถูกต้อง: ต้องเป็นอักขระเลขฐานสิบหก ${CARTER_SALT_BYTES*2} ตัว`);
+    const a = new Uint8Array(CARTER_SALT_BYTES);
+    for(let i=0;i<a.length;i++) a[i] = parseInt(h.substr(i*2,2),16);
+    return a;
+  }
+
+  async function onCarterEncode(){
+    const infoEl = document.getElementById('carter-encode-info');
+    const resultBox = document.getElementById('carter-encode-result');
+    if(!REF256_V3) return;
+    const pass = document.getElementById('carter-passphrase').value;
+    if(!pass){ resultBox.hidden=false; infoEl.textContent = 'ป้อน passphrase Carter'; return; }
+    const msg = document.getElementById('carter-message').value.trim().toUpperCase();
+    if(!msg){ resultBox.hidden=false; infoEl.textContent = 'ป้อนข้อความ'; return; }
+    const variant = document.getElementById('carter-variant').value;
+    try{
+      const salt = carterNewSalt();
+      const saltHex = carterSaltToHex(salt);
+      const masterKey = await carterDeriveMasterKey(pass, salt);
+      const grid = await carterEncodeByVariant(variant, msg, masterKey);
+      const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'grille_carter.csv';
+      a.click();
+      resultBox.hidden = false;
+      infoEl.innerHTML = `เข้ารหัสและดาวน์โหลด “${msg}” แล้ว — grille_carter.csv (รูปแบบ ${variant})<br><br><b>ซอลต์ของตารางนี้:</b><br><b style="word-break:break-all">${saltHex}</b><br>ส่งให้ผู้รับ<b>พร้อมกับ passphrase</b> ผ่านช่องทางอื่นเดียวกัน ซอลต์ไม่ใช่ความลับและไม่อยู่ใน CSV — การเขียนลงไปจะเผยว่ามีเนื้อหาที่เข้ารหัส หากไม่มีซอลต์ ตารางจะถอดรหัสไม่ได้ ซอลต์เป็นของตารางนี้โดยเฉพาะและเปลี่ยนทุกครั้งที่เข้ารหัส`;
+    }catch(e){
+      resultBox.hidden = false;
+      infoEl.textContent = 'ข้อผิดพลาด: ' + e.message;
+    }
+  }
+
+  async function onCarterDecode(){
+    const resultEl = document.getElementById('carter-dec-msg');
+    const resultBox = document.getElementById('carter-dec-result');
+    if(!REF256_V3) return;
+    const pass = document.getElementById('carter-dec-passphrase').value;
+    if(!pass){ resultBox.hidden=false; resultEl.textContent = 'ป้อน passphrase Carter'; return; }
+    const csvStr = document.getElementById('carter-dec-grid').value.trim();
+    if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'วางหรือโหลดตาราง CSV'; return; }
+    const variant = document.getElementById('carter-dec-variant').value;
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const salt = carterSaltFromHex(document.getElementById('carter-dec-salt').value);
+      const masterKey = await carterDeriveMasterKey(pass, salt);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `ข้อความที่ถอดรหัสได้: <span class="enc-msg">${msg}</span>`;
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'คีย์ไม่ถูกต้องหรือตารางเสียหาย: ' + e.message;
+    }
+  }
+
+  // ============================================================
+  // Vault v1.1 — coffre de fichiers chiffrés (vault_lib.py porté en JS)
+  // Corrections d'audit portées depuis vault_lib.py v1.1 (2026-09-10) :
+  //   [A1] Taille manifest bornée (MAX_MANIFEST_SIZE) avant déchiffrement.
+  //   [A2] Taille et nombre d'entrées bornés (MAX_ENTRY_SIZE/MAX_ENTRIES).
+  //   [A4] Clé MAC dédiée dérivée par HKDF — master_key jamais réutilisée
+  //        directement pour l'intégrité (séparation des usages de clé).
+  //   [A5] En-tête versionné : magic "SBVT" + version + identifiant d'algo.
+  // [A3] (XChaCha20 réel à nonce 24 octets) ne s'applique pas ici : cette
+  // page utilise déjà AES-256-GCM (nonce 12 octets, natif Web Crypto) à la
+  // place de XChaCha20-Poly1305, substitution indépendante de la taille de
+  // nonce choisie côté Python — voir la note en tête de page.
+  // Format .sbvault : [4B magic "SBVT"][1B version][1B algo][2B réservés]
+  // [32B salt][4B taille manifest][manifest chiffré][entrées chiffrées,
+  // chacune [4B taille][données]][32B HMAC-SHA256 (clé dédiée)].
+  // Clé maître : PBKDF2-SHA256(passphrase, 'SecuBox-Vault-KDF-v1', 300000,
+  // 32) — sel fixe applicatif (pas aléatoire) : même mécanisme que
+  // secu_box_cli.py::_vault_key(), qui permet de rouvrir le même vault avec
+  // la seule passphrase, sans avoir à conserver un sel séparé. Manifest,
+  // entrées et MAC ont chacun leur propre clé dérivée par HKDF-SHA256
+  // depuis le sel interne du vault (aléatoire, embarqué dans le fichier).
+  //
+  // KDF : PBKDF2-SHA256 (300 000 itérations) — WebCrypto natif.
+  // Note : vault_lib.py v1.2 utilise Argon2id (memory-hard, GPU-resistant).
+  // WebCrypto n'expose pas d'équivalent natif Argon2id ou scrypt.
+  // Pour une utilisation sensible en production, préférer la CLI Python.
+  // ============================================================
+  const VAULT_MAGIC = new Uint8Array([0x53,0x42,0x56,0x54]); // "SBVT"
+  const VAULT_VERSION = 2;        // v2 : PBKDF2 salé par le sel du vault
+  const VAULT_VERSION_LEGACY = 1; // v1 : lecture seule (sel applicatif fixe)
+  const VAULT_ALG_AESGCM = 2; // convention propre à cette page (1 = xchacha20 côté Python, non utilisé ici)
+  const VAULT_HEADER_SIZE = 4+1+1+2+32; // magic+version+algo+réservés+salt
+  const VAULT_MAX_MANIFEST_SIZE = 64*1024*1024;   // 64 Mo
+  const VAULT_MAX_ENTRY_SIZE    = 512*1024*1024;  // 512 Mo
+  const VAULT_MAX_ENTRIES       = 65536;
+
+  // CORRECTIF AUDIT : la v1 dérivait la clé maître avec un libellé applicatif
+  // FIXE, identique pour tous les vaults et tous les utilisateurs. Les 300 000
+  // itérations ne coûtaient donc qu'une fois à un attaquant : une seule table
+  // précalculée passphrase -> clé maître ouvrait n'importe quel vault. Le
+  // format embarquait pourtant déjà un sel aléatoire de 32 octets dans son
+  // en-tête (offset 8), utilisé pour les sous-clés HKDF ; la v2 s'en sert
+  // aussi pour PBKDF2, ce qui rend tout précalcul propre à un seul fichier.
+  // Aucun sel à conserver à part : il reste lu dans l'en-tête du vault.
+  async function vaultDeriveMasterKey(passphrase, salt){
+    if(!(salt instanceof Uint8Array) || salt.length !== 32){
+      throw new Error('ซอลต์ของ vault ไม่ถูกต้อง');
+    }
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  // Vaults v1 déjà créés : même dérivation qu'avant, en lecture seule. Un
+  // vault v1 rouvert est ré-exporté en v2 (donc salé) au prochain export.
+  async function vaultDeriveMasterKeyLegacy(passphrase){
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: new TextEncoder().encode('SecuBox-Vault-KDF-v1'), iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  // Sel d'un vault existant, lu avant toute dérivation.
+  function vaultReadHeader(bytes){
+    if(bytes.length < VAULT_HEADER_SIZE + 4 + 32) throw new Error('vault สั้นเกินไปหรือเสียหาย');
+    for(let i=0;i<4;i++){ if(bytes[i] !== VAULT_MAGIC[i]) throw new Error('ไม่รู้จักไฟล์นี้ (magic ไม่ถูกต้อง)'); }
+    const version = bytes[4];
+    if(version !== VAULT_VERSION && version !== VAULT_VERSION_LEGACY){
+      throw new Error(`ไม่รองรับเวอร์ชัน ${version} (ต้องการ ${VAULT_VERSION_LEGACY} หรือ ${VAULT_VERSION})`);
+    }
+    return { version, algo: bytes[5], salt: bytes.slice(8, 8+32) };
+  }
+  async function vaultDeriveSubKey(masterKey, salt, infoStr){
+    const keyMaterial = await crypto.subtle.importKey('raw', masterKey, 'HKDF', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info: new TextEncoder().encode(infoStr)}, keyMaterial, 256);
+    return new Uint8Array(bits);
+  }
+  function vaultEntryKey(masterKey, entryName, salt){ return vaultDeriveSubKey(masterKey, salt, `SecuBox-Vault-Entry-v1:${entryName}`); }
+  function vaultManifestKey(masterKey, salt){ return vaultDeriveSubKey(masterKey, salt, 'SecuBox-Vault-Manifest-v1'); }
+  function vaultMacKey(masterKey, salt){ return vaultDeriveSubKey(masterKey, salt, 'SecuBox-Vault-MAC-v1'); }
+
+  async function vaultEnc(data, keyBytes, aad){
+    const key = await crypto.subtle.importKey('raw', keyBytes, {name:'AES-GCM'}, false, ['encrypt']);
+    const nonce = crypto.getRandomValues(new Uint8Array(12));
+    const ctBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv:nonce, additionalData:aad, tagLength:128}, key, data);
+    const out = new Uint8Array(12+ctBuf.byteLength);
+    out.set(nonce,0); out.set(new Uint8Array(ctBuf),12);
+    return out;
+  }
+  async function vaultDec(data, keyBytes, aad){
+    const nonce = data.slice(0,12);
+    const ct = data.slice(12);
+    const key = await crypto.subtle.importKey('raw', keyBytes, {name:'AES-GCM'}, false, ['decrypt']);
+    const ptBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce, additionalData:aad, tagLength:128}, key, ct);
+    return new Uint8Array(ptBuf);
+  }
+  async function vaultHmac(key, data){
+    const k = await crypto.subtle.importKey('raw', key, {name:'HMAC', hash:'SHA-256'}, false, ['sign']);
+    return new Uint8Array(await crypto.subtle.sign('HMAC', k, data));
+  }
+  function vaultTimingSafeEqual(a,b){
+    if(a.length!==b.length) return false;
+    let d=0; for(let i=0;i<a.length;i++) d|=a[i]^b[i];
+    return d===0;
+  }
+  async function vaultSha256Hex(data){
+    const h = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
+    return Array.from(h).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  class Vault{
+    constructor(masterKey, salt, entries){
+      this.masterKey = masterKey;
+      this.salt = salt;
+      this.entries = entries; // Map<name, {data:Uint8Array, sha256:hex, size:number}>
+    }
+    static create(masterKey, salt){
+      // Le sel doit être celui qui a servi à dériver masterKey (cf. onVaultNew).
+      return new Vault(masterKey, salt || crypto.getRandomValues(new Uint8Array(32)), new Map());
+    }
+    static async open(bytes, masterKey){
+      if(bytes.length < VAULT_HEADER_SIZE + 4 + 32) throw new Error('vault สั้นเกินไปหรือเสียหาย');
+      for(let i=0;i<4;i++){ if(bytes[i] !== VAULT_MAGIC[i]) throw new Error('ไม่รู้จักไฟล์นี้ (magic ไม่ถูกต้อง)'); }
+      const { algo, salt } = vaultReadHeader(bytes);
+      if(algo !== VAULT_ALG_AESGCM) throw new Error(`หน้านี้ไม่รองรับอัลกอริทึม ${algo} (ต้องการ AES-256-GCM)`);
+      const macKey = await vaultMacKey(masterKey, salt);
+      const macRecv = bytes.slice(bytes.length-32);
+      const payload = bytes.slice(0, bytes.length-32);
+      const macCalc = await vaultHmac(macKey, payload);
+      if(!vaultTimingSafeEqual(macRecv, macCalc)) throw new Error('vault เสียหายหรือ passphrase ไม่ถูกต้อง');
+
+      const rest = payload.slice(VAULT_HEADER_SIZE);
+      if(rest.length < 4) throw new Error('vault ถูกตัดทอน (ไม่มีส่วนหัว manifest)');
+      const mkey = await vaultManifestKey(masterKey, salt);
+      const manifestSize = new DataView(rest.buffer, rest.byteOffset, 4).getUint32(0, false);
+      if(manifestSize > VAULT_MAX_MANIFEST_SIZE) throw new Error(`manifest ใหญ่เกินไป: ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — vault ถูกปลอมแปลงหรือเสียหาย`);
+      if(rest.length < 4+manifestSize) throw new Error('manifest ถูกตัดทอน');
+      const manifestEnc = rest.slice(4, 4+manifestSize);
+      const manifestRaw = await vaultDec(manifestEnc, mkey, new TextEncoder().encode('manifest'));
+      const manifest = JSON.parse(new TextDecoder().decode(manifestRaw));
+      const names = Object.keys(manifest);
+      if(names.length > VAULT_MAX_ENTRIES) throw new Error(`รายการมากเกินไป: ${names.length} > ${VAULT_MAX_ENTRIES}`);
+
+      let cursor = 4+manifestSize;
+      const entries = new Map();
+      for(const name of names){
+        const meta = manifest[name];
+        if(cursor + 4 > rest.length) throw new Error(`รายการ '${name}' ถูกตัดทอน (ส่วนหัว)`);
+        const entrySize = new DataView(rest.buffer, rest.byteOffset+cursor, 4).getUint32(0,false);
+        cursor += 4;
+        if(entrySize > VAULT_MAX_ENTRY_SIZE) throw new Error(`รายการ '${name}' ใหญ่เกินไป: ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}`);
+        if(cursor + entrySize > rest.length) throw new Error(`รายการ '${name}' ถูกตัดทอน (ข้อมูล)`);
+        const entryEnc = rest.slice(cursor, cursor+entrySize);
+        cursor += entrySize;
+        const ekey = await vaultEntryKey(masterKey, name, salt);
+        const data = await vaultDec(entryEnc, ekey, new TextEncoder().encode(name));
+        const h = await vaultSha256Hex(data);
+        if(h !== meta.sha256) throw new Error(`hash ไม่ถูกต้องสำหรับ '${name}'`);
+        entries.set(name, {data, sha256:h, size:data.length});
+      }
+      return new Vault(masterKey, salt, entries);
+    }
+    async add(name, data){
+      const h = await vaultSha256Hex(data);
+      this.entries.set(name, {data, sha256:h, size:data.length});
+    }
+    get(name){
+      if(!this.entries.has(name)) throw new Error(`ไม่มี '${name}' ใน vault`);
+      return this.entries.get(name).data;
+    }
+    remove(name){
+      if(!this.entries.has(name)) throw new Error(`ไม่มี '${name}' ใน vault`);
+      this.entries.delete(name);
+    }
+    list(){
+      return Array.from(this.entries.entries()).map(([name,m])=>({name, size:m.size, sha256:m.sha256}));
+    }
+    async save(){
+      const mkey = await vaultManifestKey(this.masterKey, this.salt);
+      const macKey = await vaultMacKey(this.masterKey, this.salt);
+      const manifest = {};
+      for(const [name,m] of this.entries) manifest[name] = {sha256:m.sha256, size:m.size};
+      const manifestRaw = new TextEncoder().encode(JSON.stringify(manifest));
+      const manifestEnc = await vaultEnc(manifestRaw, mkey, new TextEncoder().encode('manifest'));
+
+      const parts = [];
+      for(const [name,m] of this.entries){
+        const ekey = await vaultEntryKey(this.masterKey, name, this.salt);
+        const entryEnc = await vaultEnc(m.data, ekey, new TextEncoder().encode(name));
+        const sizeBuf = new Uint8Array(4);
+        new DataView(sizeBuf.buffer).setUint32(0, entryEnc.length, false);
+        parts.push(sizeBuf, entryEnc);
+      }
+      const entriesLen = parts.reduce((s,p)=>s+p.length,0);
+      const entriesBlob = new Uint8Array(entriesLen);
+      let off=0; for(const p of parts){ entriesBlob.set(p, off); off+=p.length; }
+
+      const manifestSizeBuf = new Uint8Array(4);
+      new DataView(manifestSizeBuf.buffer).setUint32(0, manifestEnc.length, false);
+
+      const header = new Uint8Array(VAULT_HEADER_SIZE);
+      header.set(VAULT_MAGIC, 0);
+      header[4] = VAULT_VERSION;
+      header[5] = VAULT_ALG_AESGCM;
+      header[6] = 0; header[7] = 0; // réservés
+      header.set(this.salt, 8);
+
+      const payload = new Uint8Array(header.length + 4 + manifestEnc.length + entriesBlob.length);
+      let p2 = 0;
+      payload.set(header, p2); p2 += header.length;
+      payload.set(manifestSizeBuf, p2); p2 += 4;
+      payload.set(manifestEnc, p2); p2 += manifestEnc.length;
+      payload.set(entriesBlob, p2);
+
+      const mac = await vaultHmac(macKey, payload);
+      const out = new Uint8Array(payload.length+32);
+      out.set(payload,0); out.set(mac,payload.length);
+      return out;
+    }
+  }
+
+  let currentVault = null;
+
+  function vaultRenderList(){
+    const el = document.getElementById('vault-list');
+    const entries = currentVault ? currentVault.list() : [];
+    if(!entries.length){ el.innerHTML = '<p class="ref-note">vault ว่างเปล่า</p>'; return; }
+    el.innerHTML = entries.map(e =>
+      `<div class="disk-file-info" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px">
+        <span>${e.name} — ${e.size.toLocaleString('th-TH')} ไบต์ — sha256:${e.sha256.slice(0,12)}…</span>
+        <span>
+          <button type="button" class="enc-btn secondary" style="padding:6px 10px" data-vault-get="${e.name}">⬇</button>
+          <button type="button" class="enc-btn secondary" style="padding:6px 10px" data-vault-rm="${e.name}">✕</button>
+        </span>
+      </div>`
+    ).join('');
+    el.querySelectorAll('[data-vault-get]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const name = btn.getAttribute('data-vault-get');
+        const data = currentVault.get(name);
+        const blob = new Blob([data]);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob); a.download = name; a.click();
+      });
+    });
+    el.querySelectorAll('[data-vault-rm]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        currentVault.remove(btn.getAttribute('data-vault-rm'));
+        vaultRenderList();
+      });
+    });
+  }
+
+  async function onVaultNew(){
+    const statusEl = document.getElementById('vault-status');
+    const pass = document.getElementById('vault-passphrase').value;
+    if(!pass){ statusEl.textContent = 'ป้อน passphrase'; return; }
+    const salt = crypto.getRandomValues(new Uint8Array(32));
+    const masterKey = await vaultDeriveMasterKey(pass, salt);
+    currentVault = Vault.create(masterKey, salt);
+    document.getElementById('vault-app').hidden = false;
+    statusEl.textContent = 'สร้าง vault ใหม่แล้ว (ว่างเปล่า อยู่ในหน่วยความจำ) — เพิ่มไฟล์แล้วจึงส่งออก';
+    vaultRenderList();
+  }
+
+  function onVaultOpenPrompt(){
+    document.getElementById('vault-file-open').click();
+  }
+
+  async function onVaultFileOpen(input){
+    const statusEl = document.getElementById('vault-status');
+    if(!input.files[0]) return;
+    const pass = document.getElementById('vault-passphrase').value;
+    if(!pass){ statusEl.textContent = 'ป้อน passphrase ของ vault ก่อนเปิด'; return; }
+    const bytes = new Uint8Array(await input.files[0].arrayBuffer());
+    try{
+      // Le sel se lit dans l'en-tête AVANT la dérivation (v2) ; les vaults v1
+      // gardent leur dérivation d'origine le temps d'être ré-exportés.
+      const head = vaultReadHeader(bytes);
+      const masterKey = head.version === VAULT_VERSION_LEGACY
+        ? await vaultDeriveMasterKeyLegacy(pass)
+        : await vaultDeriveMasterKey(pass, head.salt);
+      currentVault = await Vault.open(bytes, masterKey);
+      document.getElementById('vault-app').hidden = false;
+      statusEl.textContent = `เปิด vault แล้ว: ${input.files[0].name} (${currentVault.list().length} ไฟล์)`;
+      vaultRenderList();
+    }catch(e){
+      statusEl.textContent = 'ข้อผิดพลาด: ' + e.message;
+    }
+  }
+
+  async function onVaultAdd(){
+    const infoEl = document.getElementById('vault-add-info');
+    const input = document.getElementById('vault-file-add');
+    if(!currentVault){ infoEl.textContent = 'สร้างหรือเปิด vault ก่อน'; return; }
+    if(!input.files[0]){ infoEl.textContent = 'เลือกไฟล์'; return; }
+    const file = input.files[0];
+    const data = new Uint8Array(await file.arrayBuffer());
+    await currentVault.add(file.name, data);
+    infoEl.textContent = `เพิ่ม '${file.name}' แล้ว (${data.length.toLocaleString('th-TH')} ไบต์) — ส่งออกเพื่อบันทึก`;
+    vaultRenderList();
+  }
+
+  async function onVaultExport(){
+    if(!currentVault) return;
+    const bytes = await currentVault.save();
+    const blob = new Blob([bytes], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'vault.sbvault';
+    a.click();
+  }
+
+  function renderReferents(){
+    if(!REF256_V3||!REF360) return;
+    const g256=document.getElementById('ref256-display');
+    if(g256.childElementCount===0){
+      // D3 : affiche REF256_V3 (celui que l'encodage emploie réellement), pas REF256 (l'ancien
+      // fichier, encore chargé pour diskBuildTables mais plus pour cet affichage) — les
+      // positions survolées ici sont désormais celles qui gouvernent l'encodage.
+      REF256_V3.forms.forEach(f=>{
+        const cell=document.createElement('div');
+        cell.className='ref-cell';
+        cell.title=`รูปทรง #${f.id} (${f.row},${f.col}) — ${f.chiralite}\nน้ำเงิน: ${JSON.stringify(f.bleu_positions)}\nแดง: ${JSON.stringify(f.rouge_positions)}`;
+        const cv=document.createElement('canvas');
+        cv.width=cv.height=30;
+        const ctx=cv.getContext('2d');
+        ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,30,30);
+        const cs=4;
+        f.bleu_positions.forEach(([r,c])=>{ ctx.fillStyle='#c9a15a'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        f.rouge_positions.forEach(([r,c])=>{ ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--red').trim(); ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        cell.appendChild(cv);
+        g256.appendChild(cell);
+      });
+    }
+    document.getElementById('ref360-count').textContent=REF360.length;
+    const g360=document.getElementById('ref360-groups');
+    if(g360.childElementCount===0){
+      const byType={};
+      REF360.forEach(f=>{ if(!byType[f.type]) byType[f.type]=[]; byType[f.type].push(f); });
+      const cols={'C1':'#c9a15a','C2':getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),'C3':'#f2f2f0','C4':'#7a6244'};
+      for(const[type,forms] of Object.entries(byType)){
+        const label=document.createElement('p');
+        label.className='ref360-type-label';
+        label.textContent=type+' — '+forms.length+' รูปทรง';
+        g360.appendChild(label);
+        const grid=document.createElement('div');
+        grid.className='ref360-grid';
+        forms.slice(0,48).forEach(f=>{
+          const cell=document.createElement('div');
+          cell.className='ref360-cell';
+          cell.title=`#${f.id} ${f.subtype}\nสี: ${(f.available_colors||[]).join(', ')}`;
+          const cv=document.createElement('canvas');
+          cv.width=cv.height=24;
+          const ctx=cv.getContext('2d');
+          ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,24,24);
+          const cs=2;
+          Object.entries(f.positions||{}).forEach(([col,pos])=>{
+            ctx.fillStyle=cols[col]||'#999';
+            pos.forEach(([r,c])=>ctx.fillRect(c*cs,r*cs,cs,cs));
+          });
+          cell.appendChild(cv); grid.appendChild(cell);
+        });
+        g360.appendChild(grid);
+      }
+    }
+  }
+
+  async function loadReferents(){
+    try{
+      const [r256, r360, r256v3] = await Promise.all([
+        fetch('../../data/referent_256.json').then(r => r.json()),
+        fetch('../../data/referent_360.json').then(r => r.json()),
+        fetch('../../data/referent_256_v3.json').then(r => r.json()),
+      ]);
+      REF256 = r256;
+      REF360 = r360;
+      REF256_V3 = r256v3;
+      document.getElementById('encLoading').hidden = true;
+      document.getElementById('encApp').hidden = false;
+      // Tables de permutation du chiffrement disque (Ref256 + Ref360) :
+      // précalculées une seule fois ici, juste après le chargement des référents.
+      diskTables = diskBuildTables(REF256, REF360);
+      document.getElementById('disk-init-status').hidden = true;
+      document.getElementById('disk-app').hidden = false;
+    }catch(e){
+      document.getElementById('encLoading').textContent = "โหลดตัวอ้างอิงไม่สำเร็จ — ลองโหลดหน้าเว็บใหม่";
+    }
+  }
+
+  // ============================================================
+  // Chiffrement de fichiers — architecture hybride (disk_lib.py porté en JS) :
+  //   Couche géométrique (SPN Ref256+Ref360, S-box GF(2^8), 4 tours, MixBlock)
+  //     → diversification de clé de session par secteur, PAS le chiffrement
+  //       lui-même (suite à audit cryptologique externe du 2026-09-10).
+  //   Couche standard → AES-256-GCM par secteur (authentifié individuellement)
+  //     + HMAC-SHA256 global. La référence Python utilise XChaCha20-Poly1305
+  //     (absent de l'API Web Crypto native) ; AES-256-GCM est substitué ici —
+  //     même classe de garantie (AEAD, 256 bits, standard audité) via
+  //     crypto.subtle plutôt qu'une implémentation ChaCha20 maison. Décision
+  //     validée explicitement : pas d'interopérabilité binaire avec le
+  //     fichier .lldh produit par le script Python (déjà le cas par ailleurs).
+  // ============================================================
+  let diskTables = null;
+
+  const DISK_SECTOR_SIZE  = 512;
+  const DISK_TAG_SIZE     = 16;   // tag AES-GCM (128 bits)
+  const DISK_N_ROUNDS     = 4;
+  const DISK_INNER_NONCE_SIZE = 24; // nonce global GeoSPN (HKDF dérive le nonce par secteur)
+  const DISK_INNER_SALT_SIZE  = 32; // sel PBKDF2 pour master_key -> geo_key (interne à GeoSPN)
+  const DISK_OUTER_SALT_SIZE  = 16; // sel PBKDF2 pour passphrase -> master_key (géré par la page)
+  const DISK_MAC_SIZE     = 32;
+
+  // Génère les 24 permutations de [0,1,2,3] en ordre lexicographique, pour
+  // correspondre exactement à itertools.permutations(range(4)) côté Python —
+  // requis depuis que build_perm_table_256 applique réellement le décalage
+  // géométrique (dr,dc) par sous-bloc (voir plus bas), ce qui rend l'ordre
+  // d'énumération significatif pour la permutation résultante.
+  const DISK_ALL_ORDERS = (() => {
+    const perms = [];
+    const a = [0,1,2,3];
+    function permute(arr, l=0){
+      if(l === arr.length){ perms.push([...arr]); return; }
+      for(let i=l;i<arr.length;i++){
+        [arr[l],arr[i]]=[arr[i],arr[l]];
+        permute(arr,l+1);
+        [arr[l],arr[i]]=[arr[i],arr[l]];
+      }
+    }
+    permute(a);
+    perms.sort((x,y)=>{
+      for(let i=0;i<x.length;i++){ if(x[i]!==y[i]) return x[i]-y[i]; }
+      return 0;
+    });
+    return perms;
+  })();
+  const DISK_OFFSETS_12 = [[0,0],[0,6],[6,0],[6,6]];
+  const DISK_COLOR_ORDERS = [
+    ['C1','C2','C3'],['C1','C3','C2'],['C2','C1','C3'],
+    ['C2','C3','C1'],['C3','C1','C2'],['C3','C2','C1']
+  ];
+
+  async function diskSha256(bytes){
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return new Uint8Array(digest);
+  }
+
+  // ── GF(2^8) — polynôme irréductible d'AES : x^8+x^4+x^3+x+1 ────────────────
+  function diskGfMul(a, b){
+    let r = 0;
+    for(let i=0;i<8;i++){
+      if(b & 1) r ^= a;
+      const hi = a & 0x80; a = (a << 1) & 0xff;
+      if(hi) a ^= 0x1b;
+      b >>= 1;
+    }
+    return r;
+  }
+  const DISK_GF_INV = (() => {
+    const inv = new Array(256).fill(0);
+    for(let x=1;x<256;x++){
+      for(let y=1;y<256;y++){ if(diskGfMul(x,y) === 1){ inv[x] = y; break; } }
+    }
+    return inv;
+  })();
+  function diskPopcount8(v){
+    v = v & 0xff; let c = 0;
+    while(v){ c += v & 1; v >>= 1; }
+    return c;
+  }
+  function diskGf2MatVec(M, x){
+    let r = 0;
+    for(let i=0;i<M.length;i++) r |= (diskPopcount8(M[i] & x) % 2) << i;
+    return r;
+  }
+  function diskGf2MatInv(M){
+    const n = 8;
+    const rows = new Array(n);
+    for(let i=0;i<n;i++) rows[i] = (M[i] & 0xff) | (256 << i);
+    for(let col=0; col<n; col++){
+      let pivot = -1;
+      for(let r=col;r<n;r++){ if((rows[r]>>col)&1){ pivot=r; break; } }
+      if(pivot < 0) return null;
+      [rows[col], rows[pivot]] = [rows[pivot], rows[col]];
+      for(let r=0;r<n;r++){
+        if(r!==col && ((rows[r]>>col)&1)) rows[r] ^= rows[col];
+      }
+    }
+    const result = new Array(n);
+    for(let i=0;i<n;i++) result[i] = (rows[i] >> n) & 0xff;
+    return result;
+  }
+
+  // S-box géométrique GF(2^8) : S(x) = M·GF_INV(x) ⊕ c, avec M dérivée du seed
+  // (qui intègre le config_id géométrique). max_DDT ≤ 4 [Nyberg 1994], niveau
+  // AES. Porté depuis disk_lib.py::_make_sbox_gf.
+  async function diskMakeSboxGf(seed){
+    const h1 = await diskSha256(seed);
+    const seedX = new Uint8Array(seed.length + 1);
+    seedX.set(seed, 0);
+    seedX[seed.length] = 0x78; // 'x'
+    const h2 = await diskSha256(seedX);
+    const rng = new Uint8Array(64);
+    rng.set(h1, 0);
+    rng.set(h2, 32);
+    const M = new Array(8);
+    for(let i=0;i<8;i++){
+      M[i] = 1 << i;
+      for(let j=i+1;j<8;j++){
+        if((rng[i] >> (j-i-1)) & 1) M[i] |= (1 << j);
+      }
+    }
+    const constVal = rng[8];
+    const Mi = diskGf2MatInv(M);
+    const sbox = new Array(256);
+    const sboxInv = new Array(256);
+    for(let x=0;x<256;x++) sbox[x] = diskGf2MatVec(M, DISK_GF_INV[x]) ^ constVal;
+    for(let y=0;y<256;y++) sboxInv[y] = DISK_GF_INV[diskGf2MatVec(Mi, y ^ constVal)];
+    return [sbox, sboxInv];
+  }
+
+  // MixBlock MDS géométrique : ShiftRows + MixColumns AES sur GF(2^8), la
+  // matrice 24 octets étant vue comme 4 lignes × 6 colonnes. Remplace l'ancien
+  // MixBlock triangulaire — un audit (test_avalanche.py, 2026-09-10) a mesuré
+  // sa faiblesse structurelle (branch number 2, certains octets sans
+  // contribution croisée) contre le branch number ≥4 prouvé de cette matrice
+  // MDS [Daemen & Rijmen 2002]. Porté depuis disk_lib.py::_mix/_unmix (v11).
+  const DISK_MDS = [[2,3,1,1],[1,2,3,1],[1,1,2,3],[3,1,1,2]];
+  const DISK_MDS_INV = [[14,11,13,9],[9,14,11,13],[13,9,14,11],[11,13,9,14]];
+  function diskShiftRows(data){
+    const r = new Uint8Array(24);
+    for(let row=0; row<4; row++){
+      for(let col=0; col<6; col++) r[row*6+col] = data[row*6 + (col+row)%6];
+    }
+    return r;
+  }
+  function diskUnshiftRows(data){
+    const r = new Uint8Array(24);
+    for(let row=0; row<4; row++){
+      for(let col=0; col<6; col++) r[row*6 + (col+row)%6] = data[row*6+col];
+    }
+    return r;
+  }
+  function diskMixCols(data, matrix){
+    const r = new Uint8Array(24);
+    for(let col=0; col<6; col++){
+      const v = [data[0*6+col], data[1*6+col], data[2*6+col], data[3*6+col]];
+      for(let row=0; row<4; row++){
+        let x = 0;
+        for(let k=0;k<4;k++) x ^= diskGfMul(matrix[row][k], v[k]);
+        r[row*6+col] = x;
+      }
+    }
+    return r;
+  }
+  function diskMix(data){ return diskMixCols(diskShiftRows(data), DISK_MDS); }
+  function diskUnmix(data){ return diskUnshiftRows(diskMixCols(data, DISK_MDS_INV)); }
+
+  // ── Tables de permutation géométrique (Ref256 + Ref360) ────────────────────
+  function diskPermFromSeq(seq){
+    const P = Array.from({length:24},(_,i)=>i).sort((a,b)=>seq[a]-seq[b]);
+    const Pinv = new Array(24);
+    P.forEach((p,i)=>{ Pinv[p]=i; });
+    return [P, Pinv];
+  }
+  function diskFilterRef360(ref360){
+    return ref360.filter(f => {
+      let total = 0;
+      for(const k in f.positions) total += f.positions[k].length;
+      return total === 24;
+    });
+  }
+  function diskBuildTables(ref256, ref360Raw){
+    const pt256 = new Map();
+    for(const form of ref256){
+      for(let oi=0; oi<DISK_ALL_ORDERS.length; oi++){
+        for(const [col, ck] of [[0,'blue'],[1,'orange']]){
+          const seqAbs = [];
+          for(const slot of DISK_ALL_ORDERS[oi]){
+            const [dr,dc] = DISK_OFFSETS_12[slot];
+            for(const [r,c] of form[ck]) seqAbs.push((r+dr)*12+(c+dc));
+          }
+          pt256.set(`${form.id},${oi},${col}`, diskPermFromSeq(seqAbs));
+        }
+      }
+    }
+    const ref360 = diskFilterRef360(ref360Raw);
+    const pt360 = new Map();
+    for(let i=0;i<ref360.length;i++){
+      const form = ref360[i];
+      for(let oi=0; oi<DISK_COLOR_ORDERS.length; oi++){
+        const seq = [];
+        for(const col of DISK_COLOR_ORDERS[oi]){
+          const positions = form.positions[col] || [];
+          for(const [r,c] of positions) seq.push(r*12+c);
+        }
+        if(seq.length === 24) pt360.set(`${i},${oi}`, diskPermFromSeq(seq));
+      }
+    }
+    const pt360Keys = Array.from(pt360.keys())
+      .map(k=>k.split(',').map(Number))
+      .sort((a,b)=> a[0]-b[0] || a[1]-b[1]);
+    return { pt256, pt360, pt360Keys, n360: ref360.length };
+  }
+
+  function diskResolve360Key(tables, idx360, oi360){
+    let key = `${idx360},${oi360}`;
+    if(!tables.pt360.has(key)){
+      const fb = tables.pt360Keys[idx360 % tables.pt360Keys.length];
+      key = `${fb[0]},${fb[1]}`;
+    }
+    return key;
+  }
+
+  // Diversification de clé de session (32B) par secteur, via le SPN
+  // géométrique — PAS un chiffrement en soi, juste block = master_key XOR
+  // SHA256(nonce+secteur), puis 2 chunks de 24B passés chacun par 4 tours de
+  // (S-box GF → Perm Ref256 → MixBlock → Perm Ref360), dont les 16 premiers
+  // octets de sortie forment une moitié de la clé de session. Porté depuis
+  // disk_lib.py::_geo_derive — vérifié octet pour octet contre la référence
+  // Python (seule la couche AEAD qui suit diverge, voir plus haut).
+  async function diskGeoDerive(masterKey, nonce, sn, tables, nRounds){
+    const seedMaterial = new Uint8Array(nonce.length + 8);
+    seedMaterial.set(nonce, 0);
+    new DataView(seedMaterial.buffer, nonce.length, 8).setBigUint64(0, BigInt(sn), false);
+    const h = await diskSha256(seedMaterial);
+    const block = new Uint8Array(32);
+    for(let i=0;i<32;i++) block[i] = masterKey[i] ^ h[i];
+
+    const result = new Uint8Array(32);
+    for(let chunkI=0; chunkI<2; chunkI++){
+      const chunk = new Uint8Array(24);
+      const start = chunkI*12;
+      for(let i=0;i<24;i++){ const srcIdx = start+i; if(srcIdx < block.length) chunk[i] = block[srcIdx]; }
+      let data = chunk;
+      for(let rnd=0; rnd<nRounds; rnd++){
+        const salt = new Uint8Array(24);
+        const sv = new DataView(salt.buffer, 0, 16);
+        sv.setBigUint64(0, BigInt(sn), false);
+        sv.setUint32(8, chunkI, false);
+        sv.setUint32(12, rnd, false);
+        salt.set(nonce.slice(0,8), 16);
+        const dkInput = new Uint8Array(masterKey.length + salt.length);
+        dkInput.set(masterKey, 0); dkInput.set(salt, masterKey.length);
+        const dk = await diskSha256(dkInput);
+        const cfg = dk[0] % 256;
+        const oi = ((dk[1]<<8)|dk[2]) % 24;
+        const col = dk[3] & 1;
+        const idx360 = dk[4] % tables.n360;
+        const oi360 = dk[5] % 6;
+        const seedInput = new Uint8Array(masterKey.length + salt.length + 1);
+        seedInput.set(masterKey, 0); seedInput.set(salt, masterKey.length); seedInput[masterKey.length+salt.length] = cfg;
+        const seed = await diskSha256(seedInput);
+        const [sbox] = await diskMakeSboxGf(seed);
+        const [P256] = tables.pt256.get(`${cfg},${oi},${col}`);
+        const [P360] = tables.pt360.get(diskResolve360Key(tables, idx360, oi360));
+        const sub = new Uint8Array(24);
+        for(let i=0;i<24;i++) sub[i] = sbox[data[i]];
+        const p256 = new Uint8Array(24);
+        for(let i=0;i<24;i++) p256[i] = sub[P256[i]];
+        const mx = diskMix(p256);
+        const next = new Uint8Array(24);
+        for(let i=0;i<24;i++) next[i] = mx[P360[i]];
+        data = next;
+      }
+      result.set(data.slice(0,16), chunkI*16);
+    }
+    return result;
+  }
+
+  // Nonce unique par secteur, dérivé du nonce global via HKDF-SHA256 —
+  // vérifié octet pour octet contre cryptography.hazmat...HKDF côté Python.
+  async function diskSectorNonce(globalNonce, sectorNum){
+    const salt = new Uint8Array(8);
+    new DataView(salt.buffer).setBigUint64(0, BigInt(sectorNum), false);
+    const info = new TextEncoder().encode('GeoSPN-sector-nonce');
+    const keyMaterial = await crypto.subtle.importKey('raw', globalNonce, 'HKDF', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info}, keyMaterial, DISK_INNER_NONCE_SIZE*8);
+    return new Uint8Array(bits);
+  }
+
+  function diskTimingSafeEqual(a, b){
+    if(a.length !== b.length) return false;
+    let diff = 0;
+    for(let i=0;i<a.length;i++) diff |= a[i]^b[i];
+    return diff === 0;
+  }
+
+  async function diskHmacSha256(key, data){
+    const k = await crypto.subtle.importKey('raw', key, {name:'HMAC', hash:'SHA-256'}, false, ['sign']);
+    const sig = await crypto.subtle.sign('HMAC', k, data);
+    return new Uint8Array(sig);
+  }
+
+  async function diskPbkdf2(secret, salt, iterations, dklenBytes){
+    const km = await crypto.subtle.importKey('raw', secret, {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations, hash:'SHA-256'}, km, dklenBytes*8);
+    return new Uint8Array(bits);
+  }
+
+  // Format : [32B sel interne][24B nonce global][secteurs, chacun 512B+16B de
+  // tag AES-GCM][32B HMAC-SHA256 global]. Chaque secteur a sa propre clé de
+  // session (diskGeoDerive) et son propre nonce (HKDF du nonce global) — une
+  // passphrase incorrecte ou un fichier altéré échouent au tag AES-GCM et/ou
+  // au HMAC global plutôt que de produire du bruit silencieux.
+  async function diskEncrypt(fileData, masterKey, tables, onProgress){
+    const innerSalt = crypto.getRandomValues(new Uint8Array(DISK_INNER_SALT_SIZE));
+    const globalNonce = crypto.getRandomValues(new Uint8Array(DISK_INNER_NONCE_SIZE));
+    const geoKey = await diskPbkdf2(masterKey, innerSalt, 300000, 32);
+
+    const olen = fileData.byteLength;
+    const unpadded = new Uint8Array(8+olen);
+    new DataView(unpadded.buffer).setBigUint64(0, BigInt(olen), false);
+    unpadded.set(new Uint8Array(fileData), 8);
+    const pad = (DISK_SECTOR_SIZE - unpadded.length % DISK_SECTOR_SIZE) % DISK_SECTOR_SIZE;
+    const padded = new Uint8Array(unpadded.length+pad);
+    padded.set(unpadded, 0);
+
+    const nSectors = padded.length/DISK_SECTOR_SIZE;
+    const ciphertext = new Uint8Array(nSectors*(DISK_SECTOR_SIZE+DISK_TAG_SIZE));
+    for(let s=0; s<nSectors; s++){
+      const sector = padded.slice(s*DISK_SECTOR_SIZE, (s+1)*DISK_SECTOR_SIZE);
+      const sessionKey = await diskGeoDerive(geoKey, globalNonce, s, tables, DISK_N_ROUNDS);
+      const sectorNonce = (await diskSectorNonce(globalNonce, s)).slice(0, 12);
+      const aad = new Uint8Array(8+globalNonce.length);
+      new DataView(aad.buffer, 0, 8).setBigUint64(0, BigInt(s), false);
+      aad.set(globalNonce, 8);
+      const key = await crypto.subtle.importKey('raw', sessionKey, {name:'AES-GCM'}, false, ['encrypt']);
+      const encBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv:sectorNonce, additionalData:aad, tagLength:128}, key, sector);
+      ciphertext.set(new Uint8Array(encBuf), s*(DISK_SECTOR_SIZE+DISK_TAG_SIZE));
+      if(onProgress) onProgress(Math.round((s+1)/nSectors*100));
+    }
+    const payload = new Uint8Array(innerSalt.length+globalNonce.length+ciphertext.length);
+    payload.set(innerSalt, 0); payload.set(globalNonce, innerSalt.length); payload.set(ciphertext, innerSalt.length+globalNonce.length);
+    const mac = await diskHmacSha256(masterKey, payload);
+    const out = new Uint8Array(payload.length+DISK_MAC_SIZE);
+    out.set(payload, 0); out.set(mac, payload.length);
+    return out;
+  }
+
+  async function diskDecrypt(data, masterKey, tables, onProgress){
+    if(data.length < DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE+DISK_MAC_SIZE) throw new Error('ข้อมูลสั้นเกินไป');
+    const macRecv = data.slice(data.length-DISK_MAC_SIZE);
+    const payload = data.slice(0, data.length-DISK_MAC_SIZE);
+    const macCalc = await diskHmacSha256(masterKey, payload);
+    if(!diskTimingSafeEqual(macRecv, macCalc)) throw new Error('MAC ทั้งชุดไม่ถูกต้อง — ไฟล์ถูกแก้ไขหรือ passphrase ไม่ถูกต้อง');
+    const innerSalt = payload.slice(0, DISK_INNER_SALT_SIZE);
+    const globalNonce = payload.slice(DISK_INNER_SALT_SIZE, DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE);
+    const ciphertext = payload.slice(DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE);
+    const sectorEncSize = DISK_SECTOR_SIZE+DISK_TAG_SIZE;
+    if(ciphertext.length % sectorEncSize !== 0) throw new Error('ความยาวข้อมูลเข้ารหัสไม่ถูกต้อง');
+    const geoKey = await diskPbkdf2(masterKey, innerSalt, 300000, 32);
+    const nSectors = ciphertext.length/sectorEncSize;
+    const plaintext = new Uint8Array(nSectors*DISK_SECTOR_SIZE);
+    for(let s=0; s<nSectors; s++){
+      const encSector = ciphertext.slice(s*sectorEncSize, (s+1)*sectorEncSize);
+      const sessionKey = await diskGeoDerive(geoKey, globalNonce, s, tables, DISK_N_ROUNDS);
+      const sectorNonce = (await diskSectorNonce(globalNonce, s)).slice(0, 12);
+      const aad = new Uint8Array(8+globalNonce.length);
+      new DataView(aad.buffer, 0, 8).setBigUint64(0, BigInt(s), false);
+      aad.set(globalNonce, 8);
+      const key = await crypto.subtle.importKey('raw', sessionKey, {name:'AES-GCM'}, false, ['decrypt']);
+      let decBuf;
+      try{
+        decBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv:sectorNonce, additionalData:aad, tagLength:128}, key, encSector);
+      }catch(e){
+        throw new Error(`tag AES-GCM ไม่ถูกต้องที่เซกเตอร์ ${s} — ไฟล์ถูกแก้ไขหรือ passphrase ไม่ถูกต้อง`);
+      }
+      plaintext.set(new Uint8Array(decBuf), s*DISK_SECTOR_SIZE);
+      if(onProgress) onProgress(Math.round((s+1)/nSectors*100));
+    }
+    const olen = Number(new DataView(plaintext.buffer).getBigUint64(0, false));
+    return plaintext.slice(8, 8+olen);
+  }
+
+  // Dérive la clé maître depuis la passphrase avec un sel — sel aléatoire et
+  // propre à chaque fichier au chiffrement (embarqué en tête de sortie), sel
+  // lu depuis le fichier au déchiffrement : la passphrase seule ne suffit
+  // jamais à reproduire la clé sans connaître ce sel.
+  async function diskPassphraseToKey(passphrase, salt){
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+
+  function diskSetProgress(barId, wrapId, pct){
+    const wrap = document.getElementById(wrapId);
+    wrap.classList.add('active');
+    document.getElementById(barId).style.width = pct + '%';
+  }
+
+  async function onDiskEncrypt(){
+    const infoEl = document.getElementById('disk-encrypt-info');
+    if(!diskTables){ infoEl.textContent = 'ตารางการเรียงสับเปลี่ยนกำลังเตรียมอยู่ โปรดลองใหม่อีกสักครู่'; return; }
+    const pass = document.getElementById('disk-passphrase').value;
+    if(!pass){ infoEl.textContent = 'ป้อน passphrase'; return; }
+    const input = document.getElementById('disk-file-encrypt');
+    if(!input.files[0]){ infoEl.textContent = 'เลือกไฟล์'; return; }
+    const file = input.files[0];
+    const buf = new Uint8Array(await file.arrayBuffer());
+    diskSetProgress('disk-encrypt-progress-bar','disk-encrypt-progress',0);
+    const salt = crypto.getRandomValues(new Uint8Array(DISK_OUTER_SALT_SIZE));
+    const masterKey = await diskPassphraseToKey(pass, salt);
+    const encBody = await diskEncrypt(buf, masterKey, diskTables, pct=>diskSetProgress('disk-encrypt-progress-bar','disk-encrypt-progress',pct));
+    const out = new Uint8Array(DISK_OUTER_SALT_SIZE + encBody.length);
+    out.set(salt, 0);
+    out.set(encBody, DISK_OUTER_SALT_SIZE);
+    const blob = new Blob([out], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name + '.lldh';
+    a.click();
+    infoEl.textContent = file.name + ' — ' + file.size.toLocaleString('th-TH') + ' ไบต์ — เข้ารหัสแล้ว ✓';
+  }
+
+  async function onDiskDecrypt(){
+    const infoEl = document.getElementById('disk-decrypt-info');
+    if(!diskTables){ infoEl.textContent = 'ตารางการเรียงสับเปลี่ยนกำลังเตรียมอยู่ โปรดลองใหม่อีกสักครู่'; return; }
+    const pass = document.getElementById('disk-passphrase').value;
+    if(!pass){ infoEl.textContent = 'ป้อน passphrase'; return; }
+    const input = document.getElementById('disk-file-decrypt');
+    if(!input.files[0]){ infoEl.textContent = 'เลือกไฟล์ .lldh'; return; }
+    const file = input.files[0];
+    const buf = new Uint8Array(await file.arrayBuffer());
+    if(buf.length < DISK_OUTER_SALT_SIZE){ infoEl.textContent = 'ไฟล์สั้นเกินไป'; return; }
+    diskSetProgress('disk-decrypt-progress-bar','disk-decrypt-progress',0);
+    let out;
+    try{
+      const salt = buf.slice(0, DISK_OUTER_SALT_SIZE);
+      const masterKey = await diskPassphraseToKey(pass, salt);
+      out = await diskDecrypt(buf.slice(DISK_OUTER_SALT_SIZE), masterKey, diskTables, pct=>diskSetProgress('disk-decrypt-progress-bar','disk-decrypt-progress',pct));
+    }catch(e){
+      infoEl.textContent = 'ถอดรหัสผิดพลาด: ' + e.message;
+      return;
+    }
+    const blob = new Blob([out], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name.replace(/\.lldh$/i, '') || 'fichier_dechiffre';
+    a.click();
+    infoEl.textContent = file.name + ' — ' + file.size.toLocaleString('th-TH') + ' ไบต์ — ถอดรหัสแล้ว ✓';
+  }
+
+  function wireUI(){
+    document.querySelectorAll('.enc-nav button[data-tab]').forEach(btn=>{
+      btn.addEventListener('click', function(){ showTab(this.getAttribute('data-tab'), this); });
+    });
+    populateVariantSelect(document.getElementById('enc-variant'));
+    populateVariantSelect(document.getElementById('carter-variant'));
+    populateVariantSelect(document.getElementById('dec-variant'));
+    populateVariantSelect(document.getElementById('carter-dec-variant'));
+    document.getElementById('btnRunDemo').addEventListener('click', runDemo);
+    document.getElementById('btnEncode').addEventListener('click', encodeMessage);
+    document.getElementById('btnDecode').addEventListener('click', decodeMessage);
+    document.getElementById('btnDownloadGrid').addEventListener('click', downloadGrid);
+    document.getElementById('dec-file-grid').addEventListener('change', function(){ loadGridFile(this); });
+
+    document.getElementById('btnDiskEncrypt').addEventListener('click', onDiskEncrypt);
+    document.getElementById('btnDiskDecrypt').addEventListener('click', onDiskDecrypt);
+    document.getElementById('disk-file-encrypt').addEventListener('change', function(){
+      const f = this.files[0];
+      document.getElementById('disk-encrypt-info').textContent = f ? (f.name + ' — ' + f.size.toLocaleString('th-TH') + ' ไบต์') : '';
+    });
+    document.getElementById('disk-file-decrypt').addEventListener('change', function(){
+      const f = this.files[0];
+      document.getElementById('disk-decrypt-info').textContent = f ? (f.name + ' — ' + f.size.toLocaleString('th-TH') + ' ไบต์') : '';
+    });
+
+    document.getElementById('btnScCreateIdentity').addEventListener('click', onScCreateIdentity);
+    scRefreshIdentityUI();
+    document.getElementById('btnScGenerate').addEventListener('click', onScGenerate);
+    document.getElementById('btnScCopyPub').addEventListener('click', onScCopyPub);
+    document.getElementById('btnScDerive').addEventListener('click', onScDerive);
+    document.getElementById('btnScClearSession').addEventListener('click', onScClearSession);
+    document.getElementById('btnEncodeSession').addEventListener('click', onEncodeSession);
+    document.getElementById('btnDecodeSession').addEventListener('click', onDecodeSession);
+    document.getElementById('dec-session-file-grid').addEventListener('change', function(){
+      if(!this.files[0]) return;
+      const fr = new FileReader();
+      fr.onload = e => { document.getElementById('dec-session-grid').value = e.target.result; };
+      fr.readAsText(this.files[0]);
+    });
+
+    document.getElementById('btnVaultNew').addEventListener('click', onVaultNew);
+    document.getElementById('btnVaultOpenPrompt').addEventListener('click', onVaultOpenPrompt);
+    document.getElementById('vault-file-open').addEventListener('change', function(){ onVaultFileOpen(this); });
+    document.getElementById('btnVaultAdd').addEventListener('click', onVaultAdd);
+    document.getElementById('btnVaultExport').addEventListener('click', onVaultExport);
+
+    document.getElementById('btnCarterEncode').addEventListener('click', onCarterEncode);
+    document.getElementById('btnCarterDecode').addEventListener('click', onCarterDecode);
+    document.getElementById('carter-dec-file-grid').addEventListener('change', function(){
+      if(!this.files[0]) return;
+      const fr = new FileReader();
+      fr.onload = e => { document.getElementById('carter-dec-grid').value = e.target.result; };
+      fr.readAsText(this.files[0]);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    wireUI();
+    scLoadSession();
+    scRefreshActiveSessionUI();
+    const proOnlyEl = document.getElementById('encProOnly');
+    function tryInit(){
+      if(!proOnlyEl.hidden && !REF256){ loadReferents(); }
+    }
+    new MutationObserver(tryInit).observe(proOnlyEl, {attributes:true, attributeFilter:['hidden']});
+    tryInit();
+  });
+</script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../th/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">หน้าแรก</span><span class="nav-tile-excerpt">หนังสือ แผ่นภาพ และเครื่องมือทั้งหมด</span></span></a>
+      <a class="nav-tile" href="../../articles.html" hreflang="fr"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">บทความ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-tile-excerpt">ข้อคิดและงานวิจัยเกี่ยวกับ La Livrée d'Hermès</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนด — ทุกอย่างเปิดให้ใช้ฟรีภายใต้ CC BY-NC 4.0 การสนับสนุนของคุณช่วยให้โครงการเดินหน้าต่อไป">มาเป็นผู้สนับสนุน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a>
+
+    <nav class="nav-categories" aria-label="หน้าต่าง ๆ ของเว็บไซต์">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แกลเลอรี</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/two-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสองสี</span><span class="nav-cat-texte">ลวดลายสองสี 142 แบบที่สร้างจากแกนและปิดบนลูกบาศก์ — เกรนการอ่าน การปูลาย การส่งออก</span></a></li>
+          <li><a href="../../th/three-colour-gallery/"><span class="nav-cat-label">แกลเลอรีสามสี</span><span class="nav-cat-texte">ลวดลายรวมเป็นหนึ่ง สร้างจากการผสมโทนสี — เลือกลวดลายเพื่อดูการปูลาย</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">แอนิเมชัน</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../th/animations/"><span class="nav-cat-label">แกลเลอรีแอนิเมชัน</span><span class="nav-cat-texte">แอนิเมชันของคอลเลกชันพื้นลาย แบ่งเป็นหกกลุ่ม ดู ดูตัวอย่าง และดาวน์โหลดเป็น MP4</span></a></li>
+          <li><a href="../../th/wallpapers/"><span class="nav-cat-label">วอลเปเปอร์</span><span class="nav-cat-texte">วอลเปเปอร์ลายผ้าเต็มจอ ตอบสนองต่อเสียง หรือในโหมดสมาธิที่ปรับจังหวะได้</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">การเสี่ยงทายและงานพิมพ์</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../tirage-livree-hermes.html" hreflang="fr"><span class="nav-cat-label">การเสี่ยงทายอี้จิง <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">สุ่มฉักลักษณ์หนึ่งแล้วดูจัตุรัสของมัน หรือไล่ดูกระดานของการเปลี่ยนแปลงทั้ง 64</span></a></li>
+          <li><a href="../../th/360-layers/"><span class="nav-cat-label">แผ่นลาย 360 แผ่น</span><span class="nav-cat-texte">ทำการทำนาย แล้วดาวน์โหลดแผ่นลายที่พร้อมพิมพ์</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">ลวดลาย SVG <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">ดาวน์โหลดแผ่นลายสำหรับพิมพ์ใน 4 หมวดของการผสมเส้น ในรูปแบบ SVG</span></a></li>
+          <li><a href="../../th/hexagrams/"><span class="nav-cat-label">ฉักลักษณ์</span><span class="nav-cat-texte">ฉักลักษณ์ทั้ง 64 ของอี้จิง: คำตัดสิน ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">เครื่องมือสร้างสรรค์</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/create-a-pattern/"><span class="nav-cat-label">สร้างลวดลาย</span><span class="nav-cat-texte">ประกอบลวดลายผ้าของคุณเองจากภาพ 60 ภาพของอี้จิง</span></a></li>
+          <li><a href="../../th/two-colour-patterns/"><span class="nav-cat-label">ลวดลายสองสี</span><span class="nav-cat-texte">ประกอบเซลล์ขนาด 12×12 หกระดับ แต่ละระดับมีตระกูลและโทนสีของตัวเอง</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">ลวดลายสองสี v2 <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">การแบ่งเส้นทแยงครั้งที่สอง (YA/AY) คำศัพท์และสถานะของการเลื่อนครึ่งคาบ — ควบคู่กับเครื่องมือ v1</span></a></li>
+          <li><a href="../../th/encoder/" aria-current="page"><span class="nav-cat-label">ตัวเข้ารหัส</span><span class="nav-cat-texte">การเข้ารหัสซ่อนข้อมูลเชิงเรขาคณิตด้วยตัวอ้างอิงคู่ กางเขนหูหิ้ว และฌักการ์</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">การสาธิตแบบโต้ตอบ: ตารางและตัวอ้างอิงที่ได้จากกุญแจ</span></a></li>
+          <li><a href="../../th/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">ลวดลาย 64 แบบของฉักลักษณ์ ปรับแต่งได้และดาวน์โหลดได้ในความละเอียดสูง</span></a></li>
+          <li><a href="../../th/cymatics/"><span class="nav-cat-label">ไซแมติกส์</span><span class="nav-cat-texte">การปูลายที่มีความถี่เชิงพื้นที่ใกล้เคียงกับเสียงที่คุณเปล่งออกมามากที่สุด</span></a></li>
+          <li><a href="../../outils.html" hreflang="fr"><span class="nav-cat-label">เครื่องมือ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">เครื่องมือแบบโต้ตอบทั้งหมดของเว็บไซต์ รวมไว้ในที่เดียว</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">เกี่ยวกับโครงการ</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../th/book/"><span class="nav-cat-label">ตำรา</span><span class="nav-cat-texte">ตำราและฉบับแปล ฉักลักษณ์ และอภิธานศัพท์</span></a></li>
+          <li><a href="../../a-propos.html" hreflang="fr"><span class="nav-cat-label">เกี่ยวกับ <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">ผู้แต่งและหนังสือของเขา ณ จุดบรรจบของปรัชญา คณิตศาสตร์ และวิทยาศาสตร์ประยุกต์</span></a></li>
+          <li><a href="../../th/lexicon/"><span class="nav-cat-label">อภิธานศัพท์</span><span class="nav-cat-texte">แนวคิดสำคัญสิบประการเพื่อทำความเข้าใจ La Livrée d'Hermès</span></a></li>
+          <li><a href="../../th/profile/"><span class="nav-cat-label">โปรไฟล์เอกสาร</span><span class="nav-cat-texte">สิทธิบัตรและแบบผลิตภัณฑ์ 63 แบบที่จดทะเบียนกับ INPI ครอบคลุมจัตุรัสอันดับ 12</span></a></li>
+          <li><a href="../../th/contact/"><span class="nav-cat-label">ติดต่อ</span><span class="nav-cat-texte">ติดต่อผู้แต่งสำหรับโครงการ หรือการสั่งทำลวดลายและงานพิมพ์บนผ้า</span></a></li>
+          <li><a href="../../soutenir.html" hreflang="fr"><span class="nav-cat-label">สนับสนุน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">สนับสนุน La Livrée d'Hermès ในราคาที่คุณกำหนดเอง เว็บไซต์และเนื้อหายังคงเป็นของฟรี</span></a></li>
+          <li><a href="../../th/figures-and-sources/"><span class="nav-cat-label">ตัวเลขและแหล่งที่มา</span><span class="nav-cat-texte">ตัวเลขทุกตัวบนเว็บไซต์ สคริปต์ที่สร้างซ้ำ และบรรทัดที่สคริปต์พิมพ์ออกมา</span></a></li>
+          <li><a href="../../travaux.html" hreflang="fr"><span class="nav-cat-label">ผลงาน <span class="lien-langue">(ภาษาฝรั่งเศส)</span></span><span class="nav-cat-texte">คลังข้อมูล โค้ด และบทความที่ส่งตีพิมพ์ แต่ละชิ้นประทับเวลาและเปิดเผย</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>สร้างร่วมกับ Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="ส่วนท้ายของหน้า">
+    <a href="../../th/">หน้าแรก</a>
+    <a href="../../th/book/">หนังสือ</a>
+    <a href="../../th/hexagrams/">ฉักลักษณ์</a>
+    <a href="../../th/lexicon/">อภิธานศัพท์</a>
+    <a href="../../motifs/" hreflang="en">ลวดลาย (ภาษาอังกฤษ)</a>
+    <a href="../../th/profile/">ประวัติผู้แต่ง</a>
+    <a href="../../th/contact/">ติดต่อ</a>
+    <a href="../../soutenir.html" hreflang="fr">สนับสนุนโครงการ (ภาษาฝรั่งเศส)</a>
+    <a href="../../th/search/">ค้นหา</a>
+  </nav>
+  <p class="site-footer-licence">
+    เนื้อหาภายใต้สัญญาอนุญาต <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · โค้ดภายใต้ AGPL v3 สัญญาอนุญาตเชิงพาณิชย์ตามคำขอ
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
