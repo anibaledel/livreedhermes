@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-09T17:12:27Z",
+ "generated_at_utc": "2026-10-09T18:12:55Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -781,9 +781,9 @@
   {
    "chemin": "scripts/build-outils-langues.js",
    "adresse": "https://anibal-amiot.com/scripts/build-outils-langues.js",
-   "octets": 28896,
-   "sha256": "86092fdf73d83f895f70c3f557bb09d2860f0e358358c5dfa5ebe3bcad57090f",
-   "md5": "0e75a94193d139eace9a0def893efbc0",
+   "octets": 29969,
+   "sha256": "40d6c1c70bcea01732806fc047bb4d03e2ae0509452f03ecefbd88e8ac027877",
+   "md5": "2459db1a1de4598a1484ccb53aa2f023",
    "licence_declaree": false,
    "licence": null,
    "role": "les outils dont le texte est DÉJÀ traduit, sortis à une adresse par langue (prompt-cc-outils-langues.md, étape 1).",
