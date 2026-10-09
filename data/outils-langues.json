@@ -391,6 +391,25 @@
       }
     },
     {
+      "source": "telechargements.html",
+      "priorite": "0.6",
+      "textes": "data/outils-langues/telechargements.json",
+      "langues": {
+        "en": {
+          "dossier": "en/downloads/",
+          "ogLocale": "en_GB"
+        },
+        "es": {
+          "dossier": "es/descargas/",
+          "ogLocale": "es_ES"
+        },
+        "th": {
+          "dossier": "th/downloads/",
+          "ogLocale": "th_TH"
+        }
+      }
+    },
+    {
       "source": "encodeur.html",
       "priorite": "0.6",
       "textes": "data/outils-langues/encodeur.json",

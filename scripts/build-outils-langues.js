@@ -356,6 +356,11 @@ function pageTraduite(p, lang, cfg, src) {
 
   // 2 bis — les tableaux de données du script, depuis leur traduction existante
   s = donneesTraduites(s, p, lang, nomPage);
+  // 2 ter — la liste des téléchargements, rendue dans la langue depuis les
+  // fichiers publiés (scripts/build-telechargements.js, zone(lang))
+  if (s.includes('<!-- @telechargements:start')) {
+    s = s.replace(/<!-- @telechargements:start[\s\S]*?<!-- @telechargements:end -->/, require('./build-telechargements.js').zone(lang));
+  }
 
   // 3. les textes hors dictionnaire : la table de la page (une ligne, ses
   // traductions — étape 2) puis les remplacements propres à la langue. Chaque
