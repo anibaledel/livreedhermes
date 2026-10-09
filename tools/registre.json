@@ -1756,7 +1756,8 @@
    "appele_par": [],
    "utilise_par": [
     "tools/enum6.py",
-    "tools/portee_miroirs.py"
+    "tools/portee_miroirs.py",
+    "tools/verifie_portee.py"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -1820,7 +1821,9 @@
    "appele_par": [
     "check-referents.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/verifie_portee.py"
+   ],
    "etat": "actif",
    "sait_echouer": false
   },
@@ -1892,9 +1895,7 @@
    "lit": [],
    "ecrit": [],
    "appele_par": [],
-   "utilise_par": [
-    "tools/verifie_portee.py"
-   ],
+   "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false
   },
@@ -2177,10 +2178,12 @@
   },
   {
    "fichier": "tools/verifie_portee.py",
-   "role": "la portée de la règle des miroirs, en assertion, SANS SOLVEUR.",
+   "role": "la règle des miroirs en assertion, et sa vraie portée.",
    "lit": [],
    "ecrit": [],
-   "appele_par": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
    "utilise_par": [],
    "etat": "ponctuel",
    "sait_echouer": false

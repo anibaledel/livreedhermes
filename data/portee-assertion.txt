@@ -1,0 +1,13 @@
+NÉCESSITÉ (magique ⇒ conforme), graines non invariantes par les miroirs :
+  284 graines testées, 0 échec(s)
+
+HORS PORTÉE, écartées parce qu'invariantes : 3
+  [---] témoin 1 (graine), ordre 4 : invariante par les deux
+  [---] témoin 29 (miroirs_hors_portee), ordre 4 : invariante par les deux
+  [---] témoin 30 (miroirs_hors_portee), ordre 8 : invariante par les deux
+
+Dont graines d'ordre 6 invariantes : 0 — aucune n'existe parmi les 18 432, c'est pourquoi la nécessité tient sur tout le corpus.
+
+NON ASSERTÉ ICI : la suffisance hors de l'ordre 6. Elle dépend de la graine.
+
+l'assertion tient : aucune graine non invariante ne pave magiquement par un motif non conforme.

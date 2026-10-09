@@ -48,8 +48,11 @@
 # réalisabilité » est démontrée dans son sens négatif : aux ordres doublement
 # pairs, rien n'existe, et il n'y a plus d'ordre à trancher un par un. Le sens
 # positif — à tout ordre singulièrement pair, une croix ansée magique existe —
-# reste établi par construction aux ordres 6, 10, 14, 18, 22, 26 et 34, et
-# conjecturé au-delà.
+# est démontré exhaustivement, figure par figure, aux ordres 6 et 10 seulement ;
+# vérifié sur 201 figures échantillonnées à l'ordre 14 ; et aux ordres 18, 22,
+# 26 et 30 on n'a que des témoins d'existence d'une croix ansée, ce qui n'est
+# pas la réalisation de toutes les figures candidates. L'ordre 34 n'a pas de
+# témoin de croix ansée du tout.
 #
 # CE QUE CELA NE DIT PAS. Que δ = 0 suffise à la magicité : les colonnes
 # restent à contrôler, et un témoin d'ordre 6 a δ = 0 avec des colonnes
@@ -145,6 +148,56 @@ def controle(n):
     return total, nuls
 
 
+def classes_orbite(n, orbite):
+    """Les états admissibles d'une orbite de la première paire de lignes,
+    rangés par ce que la preuve regarde : horizontale, ou traversante avec les
+    deux membres que la ligne 0 reçoit tous deux grands (++) ou tous deux
+    petits (−−), ou de signes opposés."""
+    diag = {(a, a) for a in range(n)} | {(a, n - 1 - a) for a in range(n)}
+    rang = {'horizontal': [], '++': [], '--': [], 'oppose': []}
+    for cl in etats(n, orbite, brut=True):
+        hor = [k for (a, c), k in cl.items()
+               if a == 0 and (a, c) not in diag
+               and cl[(a, n - 1 - c)] == H_PARTENAIRE[k]]
+        if hor:
+            rang['horizontal'].append(cl)
+            continue
+        sg = sorted(+1 if valeur(k, a, c, n) > n else -1
+                    for (a, c), k in cl.items() if a == 0)
+        rang['++' if sg == [1, 1] else
+             '--' if sg == [-1, -1] else 'oppose'].append(cl)
+    return rang
+
+
+def reciproque(n):
+    """La réciproque locale, par construction : pour m = n/2 impair, on met une
+    orbite horizontale et autant d'orbites ++ que d'orbites −−, ce qui donne
+    A = 0 et W = 0, donc δ_0 = 0. Renvoie l'étiquetage construit de la paire de
+    lignes, et son écart."""
+    m = n // 2
+    if m % 2 == 0:
+        return None, None
+    diag = {(a, a) for a in range(n)} | {(a, n - 1 - a) for a in range(n)}
+    orbs = [o for o in orbites(n) if any(a == 0 for a, _ in o)]
+    # l'orbite diagonale ne porte pas de trait : la seule horizontale demandée
+    # par le critère II va sur une orbite non diagonale, et le reste — l'orbite
+    # diagonale comprise — se partage à parts égales entre ++ et −−.
+    hors = [o for o in orbs if not any(p in diag for p in o)]
+    sur = [o for o in orbs if any(p in diag for p in o)]
+    ordre = [hors[0]] + hors[1:] + sur
+    besoins = ['horizontal'] + ['++'] * ((m - 1) // 2) + ['--'] * ((m - 1) // 2)
+    cl = {}
+    for o, besoin in zip(ordre, besoins):
+        r = classes_orbite(n, o)
+        if not r[besoin]:
+            return None, f'aucun état « {besoin} » disponible sur une orbite'
+        cl.update(r[besoin][0])
+    M = n * (n * n + 1) // 2
+    S = sum(valeur(k, a, c, n) for (a, c), k in cl.items() if a == 0)
+    lignes = [''.join(cl[(a, c)] for c in range(n)) for a in (0, n - 1)]
+    return lignes, S - M
+
+
 if __name__ == '__main__':
     av = sys.argv
     ordres = ([int(o) for o in av[av.index('--ordres') + 1].split(',')]
@@ -159,3 +212,13 @@ if __name__ == '__main__':
               f'{total:9d} configurations à h impair, dont {nuls:7d} '
               f"d'écart nul — identité vérifiée partout", flush=True)
     print('\naucun écart nul à n/2 pair, comme le théorème le demande.')
+    print('\nla réciproque locale, par construction, aux ordres impairs en m :')
+    for n in [6, 10, 14, 18, 22, 26, 30, 34]:
+        lignes, d = reciproque(n)
+        if lignes is None:
+            print(f'  ordre {n:3d} : {d}')
+            continue
+        assert d == 0, (n, d)
+        print(f'  ordre {n:3d} : δ_0 = {d}   ligne 0 = {lignes[0]}', flush=True)
+    print('\ndonc à m impair la première paire de lignes n\'oppose plus '
+          'd\'obstacle : le théorème est exact, et non seulement nécessaire.')

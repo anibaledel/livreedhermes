@@ -7,9 +7,11 @@
 # POURQUOI. Les résultats POSITIFS de ce travail sont des objets finis : une
 # graine, une croix ansée, un contre-exemple. Chacun se revérifie en quelques
 # lignes de bibliothèque standard, sans solveur et sans installer quoi que ce
-# soit. Les résultats NÉGATIFS — « aucune croix ansée à l'ordre 16 » — n'ont pas
-# de certificat court : ils ne sont reproductibles qu'en relançant CP-SAT, donc
-# dépendent de sa version. Le dépôt doit donc distinguer les deux, et ce script
+# soit. Celle des résultats NÉGATIFS qui porte sur les ordres doublement pairs a
+# désormais la preuve la plus courte du dossier — voir `parite.py`. Ce qui n'a
+# toujours pas de certificat court, c'est « aucun étiquetage à l'ordre 2 » et
+# « les 32 figures de l'ordre 8 sont toutes impossibles », figure par figure :
+# ceux-là ne sont reproductibles qu'en relançant CP-SAT. Le dépôt doit donc distinguer les deux, et ce script
 # produit la moitié certifiable.
 #
 # Ce script-ci demande `ortools` ; `verifie_temoins.py`, qui relit son fichier,

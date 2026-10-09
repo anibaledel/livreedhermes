@@ -11,9 +11,11 @@
 # — sans dépendre d'un solveur ni de sa version.
 #
 # CE QU'IL NE PEUT PAS CONTRÔLER, et c'est dit ici plutôt que caché : les
-# résultats NÉGATIFS. « Aucun étiquetage magique à l'ordre 2 », « aucune croix
-# ansée aux ordres 8, 12 et 16 », « les 32 figures de l'ordre 8 sont toutes
-# impossibles » n'ont pas de certificat court : il faut relancer CP-SAT. Le
+# résultats NÉGATIFS qui n'ont pas de certificat court : « aucun étiquetage
+# magique à l'ordre 2 » et « les 32 figures de l'ordre 8 sont toutes
+# impossibles », figure par figure, demandent de relancer CP-SAT. En revanche
+# l'absence de croix ansée à l'ordre doublement pair est démontrée et contrôlée
+# sans solveur par `parite.py`. Le
 # dépôt les étiquette comme tels, avec la version d'ortools et le temps de
 # calcul.
 #
@@ -134,6 +136,20 @@ def controle(t):
         return True, (f'équilibrage tenu, bijection violée : '
                       f'{n * n - len(set(vus))} valeurs répétées')
 
+    if genre == 'miroirs_hors_portee':
+        if not mag:
+            return False, 'l\u2019\u00e9tiquetage n\u2019est pas magique'
+        ref = [list(l) for l in mots]
+        h = [l[::-1] for l in ref] == ref
+        v = ref[::-1] == ref
+        if not (h or v):
+            return False, 'la graine n\u2019est pas invariante : pas un t\u00e9moin'
+        sens = ('les deux miroirs' if h and v else
+                'le miroir gauche-droite' if h else 'le miroir haut-bas')
+        return True, (f'magique et invariante par {sens} : le bit de miroir '
+                      f'correspondant ne change pas le bloc, donc la '
+                      f'n\u00e9cessit\u00e9 de la r\u00e8gle ne s\u2019y applique pas')
+
     if genre == 'lignes_sans_colonnes':
         if not condition_I(mots, n):
             return False, 'la condition I n’est pas vérifiée'
@@ -233,7 +249,7 @@ def main():
         sys.exit(1)
     print(f'les {len(d["temoins"])} témoins passent.')
     print('Rappel : les résultats NÉGATIFS du papier — aucun étiquetage à '
-          'l’ordre 2, aucune croix ansée à l’ordre doublement pair (désormais démontré dans le papier) — n’ont pas '
+          'l’ordre 2, les 32 figures de l’ordre 8 une à une — n’ont pas '
           'de certificat court et ne sont pas contrôlés ici.')
 
 

@@ -732,6 +732,34 @@
     "BBJJJB"
    ],
    "enonce": "bijection, condition I, critères II et III, diagonales magiques et δ = 0 — et pourtant pas magique : les colonnes valent (101, 111, 111, 111, 111, 121). L’annulation des écarts de ligne ne suffit donc pas à la magicité"
+  },
+  {
+   "ordre": 4,
+   "genre": "miroirs_hors_portee",
+   "magique": true,
+   "etiquetage": [
+    "VJJV",
+    "BRRB",
+    "BRRB",
+    "VJJV"
+   ],
+   "enonce": "graine magique invariante par les deux miroirs : ses 256 motifs de pavage 2 × 2 sont magiques alors que 16 seulement sont conformes à la règle. La nécessité de la règle ne vaut donc que pour une graine non invariante"
+  },
+  {
+   "ordre": 8,
+   "genre": "miroirs_hors_portee",
+   "magique": true,
+   "etiquetage": [
+    "JBBRRBBJ",
+    "JJVBBVJJ",
+    "RRVBBVRR",
+    "RVJVVJVR",
+    "RVJVVJVR",
+    "RRVBBVRR",
+    "JJVBBVJJ",
+    "JBBRRBBJ"
+   ],
+   "enonce": "une graine invariante par les deux miroirs existe aussi à l'ordre 8, donc restreindre la règle aux « ordres ≥ 6 » serait faux : c'est l'invariance qui la borne, pas l'ordre. Il en existe aussi aux ordres 12 et 16, et aucune aux ordres 6, 10 et 14"
   }
  ]
 }

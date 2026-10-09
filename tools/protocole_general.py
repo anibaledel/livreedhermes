@@ -130,7 +130,7 @@ def main():
     if not (lig == col == bij == mag == 256):
         echecs.append('le corpus ne vérifie pas l’énoncé')
 
-    # les conditions sont nécessaires : un contre-exemple qui en viole une
+    # un contre-exemple qui viole une des égalités d'équilibrage
     etiq = ['B' * n for _ in range(n)]
     a, b = conditions(etiq, n)
     m, _ = magique(protocole(etiq, n), n)
@@ -138,7 +138,7 @@ def main():
     if m:
         echecs.append('le contrôle négatif est magique, l’énoncé est faux')
 
-    # les trois sont indépendantes : un étiquetage conforme aux deux premières
+    # ce que le témoin établit, et rien de plus : un étiquetage conforme aux deux équilibrages
     # et pas à la troisième
     temoin = ['BJRBVR', 'BRVVJR', 'VJBJRB', 'VRRVJB', 'VRJVJB', 'JJBBRV']
     a, b = conditions(temoin, n)

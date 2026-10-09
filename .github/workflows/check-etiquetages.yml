@@ -30,7 +30,9 @@ name: Étiquetages magiques à quatre classes et croix ansée — comptes, absen
 #   - reseau.py --ordres 8,12,16,20 --fenetre 0 : aucun vecteur d'écarts nul
 #     aux ordres doublement pairs testés, sans solveur.
 #   - parite.py : l'identité δ_0 = n(n−1)·A + W sur les 279 616 configurations
-#     des ordres 4 à 10.
+#     des ordres 4 à 10, et la réciproque locale aux ordres 6 à 34 (dépôt 15.14).
+#   - verifie_portee.py (dépôt 15.14) : la nécessité de la règle des miroirs sur
+#     284 graines non invariantes, sans solveur ; sort en erreur sur un échec.
 # Les scripts à solveur du dépôt 15.11 (localise, ecarts, congruences) ont leur
 # journal dans docs/journaux/2026-10-08/.
 # Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
@@ -74,5 +76,6 @@ jobs:
       - run: python3 tools/exhaustif6.py
       - run: python3 tools/reseau.py --ordres 8,12,16,20 --fenetre 0
       - run: python3 tools/parite.py
+      - run: python3 tools/verifie_portee.py
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml
       - run: node tools/check_sorties_ci.mjs .github/workflows/check-etiquetages.yml --essai

@@ -805,3 +805,23 @@ les versions `lldh_commun` (sorties identiques à celles d'Anibal). `data/temoin
   qui reste telle quelle : la correction est dans le papier et `DEPOT.md`.
 - **Durées** : balayage de `congruences` 6 s ici (~20 min annoncées), `ecarts --direction`
   29 s (~3 min).
+
+## Dépôt 15.14 : portée de la règle des miroirs (2026-10-09)
+
+Décision d'Anibal : la nécessité vaut « pour toute graine non invariante par les miroirs »
+(« aux ordres ≥ 6 » est réfuté : graines invariantes aux ordres 8, 12, 16). Son
+`verifie_portee.py` remplace le mien et entre en CI. Le papier (révision 130) reste hors du
+dépôt. De moi, à relire :
+
+- **Trois entrées** : `portee-necessite-non-invariantes`, `miroirs-hors-portee`,
+  `reciproque-locale-m-impair`.
+- **`paire0-ordres-4-26`** : l'énoncé du 15.11 (0, 2, 0, 8, …) comptait des états
+  fusionnés ; remplacé par celui du 15.14 (multiplicités), l'ancien dans `enonce_anterieur`,
+  l'ancienne preuve dans `preuves_anterieures`.
+- **`temoins-29-sans-solveur`** : la ligne citée passe à « les 31 témoins passent. » ; l'id
+  garde 29.
+- **Tableau d'existence des graines invariantes** (4, 8, 12, 16 oui ; 6, 10, 14 non) : refait
+  par CP-SAT dans la session, concordant, non versé.
+- **Écart de nombre** : le message parlait de la révision 128 et de « deux nouveaux
+  scripts » ; l'archive porte la révision 130 et aucun script neuf (`verifie_portee.py`
+  remplace le mien, `parite.py` gagne la réciproque).
