@@ -105,7 +105,7 @@ const STATIC_PAGES = [
   // 'contact.html' : dans le groupe « outil-contact » de scripts/langues.js (étape 3).
   // 'profil.html' : dans le groupe « outil-profil » de scripts/langues.js (étape 3).
   // 'soutenir.html' : dans le groupe « soutien » de scripts/langues.js (lot « six langues »), avec ses alternates.
-  { loc: `${SITE}/encodeur.html`, file: 'encodeur.html', changefreq: 'monthly', priority: '0.6' },
+  // 'encodeur.html' : dans le groupe « outil-encodeur » de scripts/langues.js (étape 2).
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
 ];
 

@@ -41,6 +41,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
@@ -425,6 +426,26 @@ function pageTraduite(p, lang, cfg, src) {
   return [fichier, s];
 }
 
+// Une page à politique de sécurité du contenu (l'encodeur) n'autorise ses
+// scripts en ligne que par leur empreinte SHA-256 : la traduction et les
+// chemins préfixés changent ces scripts, la politique est donc recalculée sur
+// la page finale. Même calcul que tools/check_csp.mjs, qui le refait de son
+// côté sur ces pages et échoue si la balise est périmée.
+const BALISE_CSP = /(<meta http-equiv="Content-Security-Policy" content="[^"]*script-src 'self')((?: 'sha256-[A-Za-z0-9+/=]+')*)/;
+function avecCsp(html) {
+  if (!BALISE_CSP.test(html)) return html;
+  const empreintes = [];
+  for (const m of html.matchAll(/<script(\s[^>]*)?>([\s\S]*?)<\/script>/gi)) {
+    const attrs = m[1] || '';
+    if (/\ssrc\s*=/.test(attrs)) continue;
+    const type = (/\stype\s*=\s*"([^"]*)"/i.exec(attrs) || [, ''])[1];
+    if (!/^(|text\/javascript|application\/javascript|module)$/i.test(type)) continue;
+    const e = `'sha256-${crypto.createHash('sha256').update(m[2].replace(/\r\n?/g, '\n'), 'utf8').digest('base64')}'`;
+    if (!empreintes.includes(e)) empreintes.push(e);
+  }
+  return html.replace(BALISE_CSP, (m, debut) => `${debut}${empreintes.map((e) => ` ${e}`).join('')}`);
+}
+
 function pages() {
   const { traiter } = require('./build-header.js');
   const out = [];
@@ -433,7 +454,7 @@ function pages() {
     for (const [lang, cfg] of Object.entries(p.langues)) {
       if (!LANGUES[lang]) throw new Error(`${p.source} : langue inconnue « ${lang} »`);
       const [fichier, brut] = pageTraduite(p, lang, cfg, src);
-      out.push([fichier, traiter(fichier, brut)]);
+      out.push([fichier, avecCsp(traiter(fichier, brut))]);
     }
   }
   return out;

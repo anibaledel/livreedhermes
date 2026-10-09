@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-0YWuIfEIbXWFRhakm7JsYV1bSFmf6Xafqxk4Fi8Y9TY=' 'sha256-9ZEAt27zgb02YL4/qvIQGl4B4ARCBitedG2lJshtSCg=' 'sha256-aLxHnQ/a5vxO2hJVBGZLT8zbyjjHR6BwT5wtSwftfFs=' 'sha256-i2UtbkZsC/YS675rGfmOGdSZB1R6xS8Jjp2cESk73qI='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://livreedhermes-soutien.anibalamiot.workers.dev; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Steganographic encoder — La Livrée d'Hermès</title>
+<meta name="description" content="Geometric steganographic encoding tool using a double referent (ansate cross + Jacquard), freely available on La Livrée d'Hermès.">
+<meta name="author" content="Anibal Edelberto Amiot">
+<link rel="canonical" href="https://anibal-amiot.com/en/encoder/">
+<meta property="og:title" content="Steganographic encoder — La Livrée d'Hermès">
+<meta property="og:description" content="Geometric steganographic encoding tool using a double referent (ansate cross + Jacquard), freely available on La Livrée d'Hermès.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://anibal-amiot.com/en/encoder/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="La Livrée d'Hermès">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Steganographic encoder — La Livrée d'Hermès">
+<meta name="twitter:description" content="Geometric steganographic encoding tool using a double referent (ansate cross + Jacquard), freely available on La Livrée d'Hermès.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "sameAs": ["https://www.wikidata.org/wiki/Q141191562", "https://orcid.org/0009-0002-6414-9448"]
+    },
+    {
+      "@type": "Book",
+      "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes",
+      "name": "La Livrée d'Hermès",
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.22722485" },
+      "sameAs": "https://zenodo.org/records/22722485",
+      "license": "https://creativecommons.org/licenses/by-nc/4.0/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://anibal-amiot.com/#website",
+      "name": "La Livrée d'Hermès",
+      "url": "https://anibal-amiot.com/"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://anibal-amiot.com/en/encoder/#app",
+      "name": "Steganographic encoder",
+      "url": "https://anibal-amiot.com/en/encoder/",
+      "description": "Geometric steganographic encoding tool using a double referent (ansate cross + Jacquard), freely available on La Livrée d'Hermès.",
+      "applicationCategory": "SecurityApplication",
+      "isAccessibleForFree": true,
+      "author": { "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot" },
+      "isPartOf": { "@id": "https://anibal-amiot.com/#website" },
+      "about": { "@id": "https://anibal-amiot.com/a-propos.html#la-livree-dhermes" }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://anibal-amiot.com/en/" },
+    { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://anibal-amiot.com/outils.html" },
+    { "@type": "ListItem", "position": 3, "name": "Encoder", "item": "https://anibal-amiot.com/en/encoder/" }
+  ]
+}
+</script>
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  img, canvas, svg{ max-width:100%; }
+  [hidden]{ display:none !important; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  header{ text-align:center; margin-bottom:28px; border-bottom:1px solid var(--line); padding-bottom:20px; }
+  header h1{ font-weight:400; font-size:26px; letter-spacing:.04em; margin:8px 0 4px; }
+  header p{ color:var(--dim); font-size:13.5px; margin:0; }
+
+  .pro-body{ padding:24px 0 8px; }
+  .pro-title{ font-size:26px; font-weight:400; margin:0 0 26px; text-align:center; }
+  .pro-locked-box{ max-width:64ch; margin:0 auto; border:1px solid var(--gold); padding:28px 24px; color:var(--dim); font-size:14.5px; line-height:1.8; text-align:center; }
+  .pro-locked-box ul{ text-align:left; max-width:46ch; margin:16px auto 0; padding-left:20px; }
+  .pro-locked-box li{ margin-bottom:8px; }
+  .pro-locked-box button{
+    display:inline-block; margin-top:18px; border:1px solid var(--red); color:var(--red);
+    background:transparent; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    padding:13px 24px; cursor:pointer; transition:border-color .12s ease, color .12s ease; min-height:44px;
+  }
+  .pro-locked-box button:hover{ border-color:var(--gold); color:var(--gold); }
+  .pro-locked-box .back-link{ display:inline-block; margin-top:14px; color:var(--dim); font-size:11.5px; text-decoration:underline; }
+  .pro-locked-box .back-link:hover{ color:var(--gold); }
+
+  #encLoading{ text-align:center; color:var(--dim); font-size:13.5px; font-style:italic; padding:30px 0; }
+
+  /* ---------- interface encodeur ---------- */
+  .enc-nav{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:0 0 24px; border-bottom:1px solid var(--line); padding-bottom:16px; }
+  .enc-nav button{
+    border:1px solid var(--line-strong); background:transparent; color:var(--dim);
+    font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:11px 16px;
+    cursor:pointer; font-family:inherit; transition:border-color .12s ease, color .12s ease; min-height:44px;
+  }
+  .enc-nav button.active, .enc-nav button:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-tab{ display:none; text-align:left; }
+  .enc-tab.active{ display:block; }
+  .enc-card{ max-width:760px; margin:0 auto 20px; border:1px solid var(--line); padding:24px 22px; }
+  .enc-card h2{ color:var(--gold); font-size:14.5px; font-weight:400; letter-spacing:.02em; margin:0 0 16px; }
+  .enc-label{ display:block; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--dim); opacity:.85; margin:16px 0 6px; }
+  .enc-label:first-of-type{ margin-top:0; }
+  .enc-input, .enc-textarea, .enc-select{
+    width:100%; padding:11px 12px; border:1px solid var(--line-strong); background:var(--panel);
+    color:var(--white); font-family:inherit; font-size:13.5px;
+  }
+  .enc-textarea{ min-height:110px; resize:vertical; font-family:monospace; font-size:13px; }
+  .enc-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px){ .enc-row{ grid-template-columns:1fr; } }
+  .enc-btn{
+    display:inline-block; border:1px solid var(--red); color:var(--red); background:transparent;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase; padding:12px 20px;
+    cursor:pointer; margin:16px 8px 0 0; transition:border-color .12s ease, color .12s ease;
+    min-height:44px; font-family:inherit;
+  }
+  .enc-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-btn.secondary{ border-color:var(--line-strong); color:var(--dim); }
+  .enc-btn.secondary:hover{ border-color:var(--gold); color:var(--gold); }
+  .enc-info-box{ border-left:3px solid var(--gold); background:var(--panel); padding:12px 16px; font-size:14px; line-height:1.7; margin-top:16px; color:var(--dim); }
+  .enc-info-box b{ color:var(--gold); font-weight:400; }
+  .enc-result-box{ border-left:3px solid var(--red); background:var(--panel); padding:12px 16px; font-size:13px; margin-top:16px; }
+  .enc-result-box .enc-msg{ font-size:19px; color:var(--gold); letter-spacing:.03em; }
+  #grid-canvas-wrap{ overflow:auto; margin-top:16px; border:1px solid var(--line); }
+  canvas{ display:block; }
+  .ref-note{ font-size:14px; color:var(--dim); opacity:.85; line-height:1.6; margin:0 0 14px; }
+  .ref-grid{ display:grid; gap:3px; margin-top:6px; }
+  .ref256-grid{ grid-template-columns:repeat(16, 1fr); }
+  .ref-cell{ aspect-ratio:1; background:var(--panel); border:1px solid var(--line); cursor:pointer; }
+  .ref-cell:hover{ border-color:var(--gold); }
+  .ref360-type-label{ font-size:11px; color:var(--dim); opacity:.8; margin:14px 0 6px; text-transform:uppercase; letter-spacing:.04em; }
+  .ref360-grid{ display:grid; grid-template-columns:repeat(24, 1fr); gap:3px; margin-bottom:6px; }
+  .ref360-cell{ aspect-ratio:1; background:var(--panel); border:1px solid var(--line); cursor:pointer; }
+  .ref360-cell:hover{ border-color:var(--gold); }
+  .keyspace-bar{ height:28px; border:1px solid var(--gold); margin-top:10px; display:flex; align-items:center; padding:0 12px; color:var(--gold); font-size:11px; letter-spacing:.02em; }
+  .enc-about p{ font-size:13.5px; line-height:1.8; margin:0 0 14px; color:var(--dim); }
+  .enc-about a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .enc-about a:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- onglet Chiffrement ---------- */
+  .disk-status{ text-align:center; color:var(--dim); font-size:13px; font-style:italic; padding:16px 0; }
+  .disk-file-info{ font-size:13px; color:var(--dim); opacity:.85; margin-top:8px; }
+  .enc-progress{ height:8px; border:1px solid var(--line); margin-top:14px; overflow:hidden; display:none; }
+  .enc-progress.active{ display:block; }
+  .enc-progress-bar{ height:100%; width:0%; background:var(--gold); transition:width .15s linear; }
+  .disk-stats div{ margin-bottom:6px; }
+  .disk-stats div:last-child{ margin-bottom:0; }
+  .disk-stats b{ color:var(--gold); font-weight:400; }
+  .license-box{ border-top:1px solid var(--line); margin-top:24px; padding-top:18px; font-size:13.5px; color:var(--dim); line-height:1.7; }
+  .license-box h4{ color:var(--gold); font-weight:400; font-size:11px; text-transform:uppercase; letter-spacing:.06em; margin:0 0 10px; }
+  .license-box p{ margin:0 0 10px; }
+  .license-box p:last-child{ margin-bottom:0; opacity:.75; font-size:11px; }
+  .license-box a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .license-box a:hover{ text-decoration-color:currentColor; }
+  .license-footer{ text-align:center; font-size:11px; color:var(--dim); opacity:.75; line-height:1.8; margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+  .license-footer a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .license-footer a:hover{ text-decoration-color:currentColor; }
+  .iacr-mention{ max-width:64ch; margin:30px auto 0; text-align:center; font-size:11px; color:var(--dim); opacity:.8; line-height:1.7; border-top:1px solid var(--line); padding-top:18px; }
+  .iacr-mention a{ color:var(--gold); text-decoration:underline; text-decoration-color:rgba(201,161,90,.45); text-underline-offset:3px; }
+  .iacr-mention a:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- pied de page (identique aux autres pages) ---------- */
+  .note{ margin-top:60px; padding-top:24px; border-top:1px solid var(--line); text-align:center; }
+  .credit-line{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; font-size:10px; color:var(--dim); margin-top:10px; }
+  .credit-line .credit-sep{ opacity:.5; }
+  .credit-line-secondary{ margin-top:6px; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--dim); }
+  .credit-line-secondary a{ color:var(--dim); text-decoration:underline; }
+  .credit-line-secondary a:hover{ color:var(--gold); }
+  .site-nav-row{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:6px; }
+  .site-nav-btn{ border:1px solid var(--line-strong); background:transparent; color:var(--dim); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; padding:9px 16px; cursor:pointer; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .site-nav-btn:hover{ border-color:var(--gold); color:var(--gold); }
+  .site-nav-btn[aria-current="page"]{ border-color:var(--red); color:var(--red); cursor:default; pointer-events:none; }
+  .center-logo-slot{ display:flex; justify-content:center; margin:26px 0; }
+  .center-logo-slot img{ width:60px; height:60px; opacity:.9; }
+  .footer-title-logo{ display:flex; justify-content:center; margin:22px 0 4px; }
+  .footer-title-logo img{ width:220px; max-width:70%; height:auto; opacity:.85; }
+
+  @media (max-width:768px){
+    .wrap{ padding:20px 16px 48px; }
+    header h1{ font-size:21px; }
+    .enc-nav button{ padding:11px 12px; font-size:10px; }
+  }
+</style>
+<link rel="stylesheet" href="../../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../../style.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/breadcrumb.css">
+<link rel="stylesheet" href="../../assets/atalanta-bg.css">
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+<!-- D6 : appli installable, propre à cette page (pas dans le bloc @head-icons généré) -->
+<link rel="manifest" href="../../encodeur.webmanifest">
+<meta name="theme-color" content="#0a0a0a">
+<script>
+// Hors ligne : encodeur-sw.js ne sert que la page française (encodeur.html, portée « ./encodeur »).
+</script>
+<!-- @hreflang:start — engendré depuis scripts/langues.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="alternate" hreflang="fr" href="https://anibal-amiot.com/encodeur.html">
+<link rel="alternate" hreflang="en" href="https://anibal-amiot.com/en/encoder/">
+<link rel="alternate" hreflang="es" href="https://anibal-amiot.com/es/codificador/">
+<link rel="alternate" hreflang="th" href="https://anibal-amiot.com/th/encoder/">
+<link rel="alternate" hreflang="x-default" href="https://anibal-amiot.com/en/encoder/">
+<!-- @hreflang:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <div class="atalanta-zone" style="--atalanta-plate:url(/assets/atalanta/plate-44-encodeur.avif);">
+  <header class="atalanta-block" style="padding:32px 24px;">
+    <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+    <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://anibal-amiot.com/en/">Home</a><span class="sep">/</span><a href="https://anibal-amiot.com/outils.html" hreflang="fr">Tools <span class="lien-langue">(French)</span></a><span class="sep">/</span><span aria-current="page">Encoder</span>
+    </nav>
+    <h1>Steganographic encoder</h1>
+    <p>Hide a message in a grid of numbers — double referent ansate cross + Jacquard</p>
+    <p style="font-size:0.85rem;margin-top:6px;"><a href="../../carter-demo.html" style="color:var(--gold);text-decoration-color:rgba(201,161,90,.45);text-underline-offset:3px;" hreflang="fr">See the interactive Carter Random demo <span class="lien-langue">(French)</span></a> — a visualisation of the grid (referents derived from the key), freely available</p>
+  </header>
+  </div>
+
+
+  <div class="pro-body">
+    <div id="encProOnly">
+      <p id="encLoading">Loading referents…</p>
+
+      <div id="encApp" hidden>
+        <nav class="enc-nav" aria-label="Encoder sections">
+          <button type="button" class="active" data-tab="demo">⚡ Demo</button>
+          <button type="button" data-tab="exchange">🔑 Exchange</button>
+          <button type="button" data-tab="encoder">📨 Message</button>
+          <button type="button" data-tab="decoder">🔓 Decrypt</button>
+          <button type="button" data-tab="vault">💾 Vault</button>
+          <button type="button" data-tab="disk">🔒 Encryption</button>
+          <button type="button" data-tab="referents">📐 Referents</button>
+          <button type="button" data-tab="about">📖 About</button>
+        </nav>
+
+        <!-- DÉMO -->
+        <div id="tab-demo" class="enc-tab active">
+          <div class="enc-card">
+            <h2>Demonstration: message ANIBALAMIOTX</h2>
+            <p class="enc-info-box"><b>ANIBALAMIOTX</b> is first encrypted with XChaCha20-Poly1305 (256-bit master key), then the ciphertext is spread across the blocks that one and the same key designates as “message” in a 90×90 grid — the rest is indistinguishable noise, including the “structured” blocks, which are statistically identical to the “message” blocks without the key. Confidentiality comes from the encryption; the geometry only hides where the ciphertext is.</p>
+            <button type="button" class="enc-btn" id="btnRunDemo">Run the demonstration</button>
+            <div id="demo-result" hidden>
+              <div class="enc-result-box" id="demo-msg"></div>
+              <div class="enc-info-box" id="demo-ks"></div>
+              <div id="grid-canvas-wrap"><canvas id="demo-canvas" role="img" aria-label="Encoding grid"></canvas></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXCHANGE -->
+        <div id="tab-exchange" class="enc-tab">
+          <div class="enc-card">
+            <h2>Key exchange — authenticated X25519 (triple DH)</h2>
+            <p class="ref-note">Two correspondents derive the same session without transmitting any secret. Three Diffie-Hellman exchanges go into the derivation: ephemeral × ephemeral for forward secrecy, then ephemeral × identity on each side, which binds the long-term identities to the session. A relay that substitutes its own ephemeral keys holds neither of the two private identities: it cannot compute the key. Same protocol as the Python CLI — a session derived here and a session derived by <code>secu-box exchange</code> arrive at the same key.</p>
+            <div class="enc-info-box">
+              <b>What protects you:</b> checking, over a separate channel (voice call, meeting in person), the identity fingerprint announced by your correspondent’s offer. Without it, nothing distinguishes your correspondent from a relay presenting itself with its own identity. The authentication chain displayed after derivation remains available as a fallback, if the fingerprint could not be compared beforehand.<br><br>
+              <b>About your identity:</b> its private key is kept in this browser in a form the page’s code cannot read — it can only use it to derive. The trade-off: it can be neither backed up nor moved to another browser. Clearing the site’s data destroys it permanently, along with the fingerprint your correspondents know. An identity from the Python CLI cannot be imported here either: each side keeps its own, which does not prevent the two from communicating.
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>Step 0 — Your identity</h2>
+            <div id="sc-identity-box" class="enc-info-box">Loading…</div>
+            <button type="button" class="enc-btn" id="btnScCreateIdentity" hidden>Create my identity</button>
+          </div>
+
+          <div class="enc-card">
+            <h2>Step 1 — Your offer</h2>
+            <button type="button" class="enc-btn" id="btnScGenerate">Generate my offer</button>
+            <div id="sc-my-key" hidden style="margin-top:12px">
+              <label class="enc-label" for="sc-my-pub">My offer — identity ‖ ephemeral, 128 hex characters (to send to your correspondent)</label>
+              <textarea class="enc-textarea" id="sc-my-pub" readonly style="min-height:50px"></textarea>
+              <button type="button" class="enc-btn secondary" id="btnScCopyPub">Copy</button>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>Step 2 — Your correspondent’s offer</h2>
+            <label class="enc-label" for="sc-their-pub">Offer received (128 hex characters)</label>
+            <input type="text" class="enc-input" id="sc-their-pub" placeholder="Paste your correspondent’s offer">
+            <button type="button" class="enc-btn" id="btnScDerive">Derive the session</button>
+            <div id="sc-session-result" hidden style="margin-top:14px">
+              <div class="enc-result-box" id="sc-session-info"></div>
+              <p class="ref-note" style="margin-top:8px">Session keys are stored in your browser (localStorage). Clearing your history or using private browsing deletes them. No data is sent to the server.</p>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>Active session</h2>
+            <div id="sc-active-session" class="enc-info-box">No active session. Derive a session above, or use the Message/Decrypt tabs with freely generated keys.</div>
+            <button type="button" class="enc-btn secondary" id="btnScClearSession" hidden>Clear the session</button>
+          </div>
+        </div>
+
+        <!-- ENCODER -->
+        <div id="tab-encoder" class="enc-tab">
+          <div class="enc-card">
+            <h2>Send with the active session</h2>
+            <div id="enc-session-status" class="enc-info-box">No active session (Exchange tab) — encode below with freely generated keys.</div>
+            <label class="enc-label" for="enc-session-message">Message to send</label>
+            <input type="text" class="enc-input" id="enc-session-message" placeholder="YOUR MESSAGE HERE" maxlength="200">
+            <button type="button" class="enc-btn" id="btnEncodeSession">Encode and download the grid</button>
+            <div id="enc-session-result" hidden>
+              <div class="enc-info-box" id="enc-session-info"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>Encode a message (free key)</h2>
+            <label class="enc-label" for="enc-message">Message to encode</label>
+            <input type="text" class="enc-input" id="enc-message" placeholder="YOUR MESSAGE HERE" maxlength="200">
+            <label class="enc-label" for="enc-variant">Variant</label>
+            <select class="enc-select" id="enc-variant"></select>
+            <button type="button" class="enc-btn" id="btnEncode">Encode</button>
+            <div id="enc-result" hidden>
+              <div class="enc-info-box" id="enc-info"></div>
+              <div class="enc-row" style="margin-top:14px">
+                <div>
+                  <label class="enc-label" for="enc-key1">Carter master key</label>
+                  <textarea class="enc-textarea" id="enc-key1" readonly></textarea>
+                </div>
+                <div>
+                  <label class="enc-label" for="enc-grid-out">Encoded grid (CSV, preview)</label>
+                  <textarea class="enc-textarea" id="enc-grid-out" readonly></textarea>
+                </div>
+              </div>
+              <!-- Hors soutien-gate.js, volontairement (voir la même note sur
+                   btnVaultExport plus bas) : cette grille encode le message
+                   que LE VISITEUR a saisi ci-dessus, pas un motif que le site
+                   fabrique pour lui — la règle du soutien porte sur les
+                   sorties du système (SVG, broderie...), pas sur ce que le
+                   visiteur y dépose. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction. -->
+              <button type="button" class="enc-btn" id="btnDownloadGrid">⬇ Download the CSV grid</button>
+            </div>
+          </div>
+
+          <div class="enc-card">
+            <h2>Carter grid (grammar derived from the key)</h2>
+            <p class="ref-note">A single passphrase derives, via HKDF-SHA256, the encryption key and the grammar of the grid (the role — pure / structured / message — and the shape of each of its blocks) — no placement is stored outside the key. The “structured” and “message” blocks are statistically indistinguishable without it. Each encoding draws a random <b>salt</b>, displayed afterwards: send it along with the passphrase. It is not secret and does not appear in the CSV, but without it the grid stays closed — and it is what prevents a table precomputed over common passphrases from opening every user’s grids at once.</p>
+            <label class="enc-label" for="carter-passphrase">Carter passphrase</label>
+            <input type="password" class="enc-input" id="carter-passphrase" placeholder="Carter passphrase" autocomplete="off">
+            <label class="enc-label" for="carter-message">Message to encode</label>
+            <input type="text" class="enc-input" id="carter-message" placeholder="YOUR MESSAGE HERE" maxlength="200">
+            <label class="enc-label" for="carter-variant">Variant</label>
+            <select class="enc-select" id="carter-variant"></select>
+            <button type="button" class="enc-btn" id="btnCarterEncode">Encode and download grille_carter.csv</button>
+            <div id="carter-encode-result" hidden>
+              <div class="enc-info-box" id="carter-encode-info"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DECODER -->
+        <div id="tab-decoder" class="enc-tab">
+          <div class="enc-card">
+            <h2>Decrypt with the active session</h2>
+            <div id="dec-session-status" class="enc-info-box">No active session (Exchange tab).</div>
+            <label class="enc-label" for="dec-session-grid">CSV grid (paste or load)</label>
+            <textarea class="enc-textarea" id="dec-session-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <input type="file" class="enc-input" id="dec-session-file-grid" aria-label="Load a CSV grid from a file" accept=".csv">
+            <button type="button" class="enc-btn" id="btnDecodeSession">Decrypt</button>
+            <div id="dec-session-result" hidden>
+              <div class="enc-result-box" id="dec-session-msg"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>Decode with a manual key</h2>
+            <label class="enc-label" for="dec-grid">CSV grid (paste or load)</label>
+            <textarea class="enc-textarea" id="dec-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <label class="enc-label" for="dec-masterkey">Carter master key (hex)</label>
+            <input type="text" class="enc-input" id="dec-masterkey" placeholder="Master key (64 hex characters)" autocomplete="off">
+            <label class="enc-label" for="dec-variant">Variant</label>
+            <select class="enc-select" id="dec-variant"></select>
+            <button type="button" class="enc-btn" id="btnDecode">Decode</button>
+            <div id="dec-result" hidden>
+              <div class="enc-result-box" id="dec-msg"></div>
+            </div>
+          </div>
+          <div class="enc-card">
+            <h2>Load from a file</h2>
+            <label class="enc-label" for="dec-file-grid">CSV grid file</label>
+            <input type="file" class="enc-input" id="dec-file-grid" accept=".csv">
+          </div>
+
+          <div class="enc-card">
+            <h2>Decode a Carter grid</h2>
+            <label class="enc-label" for="carter-dec-passphrase">Carter passphrase</label>
+            <input type="password" class="enc-input" id="carter-dec-passphrase" placeholder="Carter passphrase" autocomplete="off">
+            <label class="enc-label" for="carter-dec-salt">Grid salt (32 hex characters, sent with the passphrase)</label>
+            <input type="text" class="enc-input" id="carter-dec-salt" placeholder="leave empty for a grid produced before September 2026" autocomplete="off">
+            <label class="enc-label" for="carter-dec-grid">CSV grid (paste or load)</label>
+            <textarea class="enc-textarea" id="carter-dec-grid" placeholder="1,23,5,14,2,..."></textarea>
+            <input type="file" class="enc-input" id="carter-dec-file-grid" aria-label="Load a CSV grid from a file" accept=".csv">
+            <label class="enc-label" for="carter-dec-variant">Variant</label>
+            <select class="enc-select" id="carter-dec-variant"></select>
+            <button type="button" class="enc-btn" id="btnCarterDecode">Decode</button>
+            <div id="carter-dec-result" hidden>
+              <div class="enc-result-box" id="carter-dec-msg"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VAULT -->
+        <div id="tab-vault" class="enc-tab">
+          <div class="enc-card">
+            <h2>Encrypted vault — files</h2>
+            <p class="ref-note">Encrypts your files in the browser (AES-256-GCM per entry, encrypted manifest, global HMAC-SHA256 — format inspired by <code>vault_lib.py</code>). No file or passphrase is sent to the server.</p>
+            <div class="enc-info-box"><b>Warning:</b> your files are encrypted locally. Keep your passphrase — without it, the files are unrecoverable. Key derivation: PBKDF2-SHA256 (300,000 iterations), less resistant to GPU/ASIC brute force than the Python CLI’s Argon2id — for sensitive production use, prefer <code>secu-box vault</code> (see About).</div>
+            <label class="enc-label" for="vault-passphrase">Vault passphrase</label>
+            <input type="password" class="enc-input" id="vault-passphrase" placeholder="Vault passphrase" autocomplete="off">
+            <div class="enc-row">
+              <button type="button" class="enc-btn" id="btnVaultNew">Create a new vault</button>
+              <button type="button" class="enc-btn secondary" id="btnVaultOpenPrompt">Open a .sbvault file</button>
+            </div>
+            <input type="file" class="enc-input" id="vault-file-open" aria-label=".sbvault file to open" accept=".sbvault" hidden>
+            <div id="vault-status" class="enc-info-box" style="margin-top:12px">No vault open.</div>
+          </div>
+
+          <div id="vault-app" hidden>
+            <div class="enc-card">
+              <h2>Add a file</h2>
+              <input type="file" class="enc-input" id="vault-file-add" aria-label="File to add to the vault">
+              <button type="button" class="enc-btn" id="btnVaultAdd">Encrypt and add</button>
+              <div class="disk-file-info" id="vault-add-info"></div>
+            </div>
+            <div class="enc-card">
+              <h2>Vault contents</h2>
+              <div id="vault-list"></div>
+            </div>
+            <div class="enc-card">
+              <h2>Export</h2>
+              <!-- Hors soutien-gate.js, volontairement : ce fichier est le
+                   coffre chiffré du visiteur, avec SON mot de passe et SON
+                   contenu — pas une sortie que le système génère pour lui. La
+                   règle posée par Anibal : le soutien porte sur ce que
+                   l'outil fabrique (SVG, broderie...), pas sur ce que le
+                   visiteur y a déposé. Ne pas ajouter à GATED_BUTTON_IDS par
+                   souci d'uniformité sans repasser par cette distinction —
+                   même note sur btnDownloadGrid plus haut. -->
+              <button type="button" class="enc-btn" id="btnVaultExport">⬇ Download vault.sbvault</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RÉFÉRENTS -->
+        <div id="tab-referents" class="enc-tab">
+          <div class="enc-card">
+            <h2>Referent 256 — Table of the shapes of the ansate cross</h2>
+            <p class="ref-note">256 distinct geometric configurations: not rotations, but all the colourings that satisfy criteria I to IV of the ansate cross (exhaustive enumeration, 128 per chirality EGO/ALTER — see the article <i>The Ansate Cross</i>). Hover over a cell to see its positions. ×2 colours = 512 usable shapes.</p>
+            <div class="ref-grid ref256-grid" id="ref256-display"></div>
+          </div>
+          <div class="enc-card">
+            <h2>Referent 360 — Jacquard layers</h2>
+            <p class="ref-note">60 images × 6 levels = 360 layers (15 families × 4 natures). Each layer selects 8 reading positions in a 12×12 block. (<span id="ref360-count">—</span> shapes extracted from the source SVG files.)</p>
+            <div id="ref360-groups"></div>
+          </div>
+        </div>
+
+        <!-- À PROPOS -->
+        <div id="tab-about" class="enc-tab">
+          <div class="enc-card enc-about">
+            <h2>Geometric steganography — encrypt, then conceal</h2>
+            <p>This system is a cryptographic application of the arithmo-geometric constructions developed in <i>La Livrée d'Hermès</i> (Anibal Edelberto Amiot, 2026). Submitted to the <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> in September 2026. Architecture revised following an external cryptological audit (2026-09-10).</p>
+            <div class="enc-info-box">
+              <b>Principle:</b> the message is first encrypted (XChaCha20-Poly1305), then the ciphertext is spread across the blocks of a grid of numbers — the rest is uniform noise. Confidentiality comes from the encryption; the geometry only hides where the ciphertext is. Without the key, the grid is statistically indistinguishable from random noise: it is the χ² displayed in the Demo tab that checks this, not an assertion.<br><br>
+              <b>Master key:</b> 256 bits, randomly generated (or derived from a passphrase, or from an Exchange session). A single key, derived by HKDF-SHA256 into an encryption key and a grammar key — these two uses never share the same key material.<br><br>
+              <b>Grammar:</b> the grammar key assigns each block of the grid a role (pure / structured / message) and a shape, drawn from the Referent 256 (ansate cross) or from a 6×6 referent regenerated for Carter-Random. The “structured” and “message” blocks are statistically indistinguishable from one another without the key — they exist precisely for that reason, not to carry content.<br><br>
+              <b>Authentication:</b> a wrong key or incorrect data explicitly fail authentication (Poly1305), never returned as a plausible false reading.<br><br>
+              <b>Variants:</b> Carter-256 (fixed ansate cross referent) and Carter-Random (6×6 referent regenerated per key) are ported to JavaScript and verified against the vectors produced by the Python code. The other variants of the same system (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) exist on the Python side but are not yet ported to the browser.
+            </div>
+            <div class="enc-info-box">
+              <b>Kerckhoffs:</b> the system follows Kerckhoffs’s principle (1883) — the algorithm is entirely public; the secret rests solely on the keys and, optionally, on custom referents.<br><br>
+              <b>Prior patent:</b> <a href="https://patents.google.com/patent/FR2865054A1/fr" target="_blank" rel="noopener">FR2865054</a> (2004) — automated composition of a symbolic pattern from a mathematical relation.<br><br>
+              <b>Contact:</b> anibaledel@gmail.com · <a href="https://anibal-amiot.com" target="_blank" rel="noopener">anibal-amiot.com</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a>
+            </div>
+          </div>
+
+          <div class="enc-card enc-about">
+            <h2>SecuBox architecture</h2>
+            <p>SecuBox brings together five independent components, each documented and verified separately in its own tabs:</p>
+            <div class="enc-info-box">
+              <b>1. Exchange (X25519)</b> — key exchange authenticated by triple Diffie-Hellman over the Curve25519 curve (native in this browser’s Web Crypto API): ephemeral × ephemeral for forward secrecy, then ephemeral × identity on each side, which binds the long-term identities to the session. HKDF-SHA256 over the complete transcript — the four public keys — derives the session key. A relay that substitutes its ephemeral keys holds neither of the two private identities and therefore cannot compute the key; authentication rests on out-of-band verification of the identity fingerprint announced by the offer. The ephemeral private key is destroyed after derivation. <b>Same protocol as the Python CLI</b>: a session derived here and a session derived by <code>secu-box exchange</code> arrive at the same key — verified by cross-derivation between the two implementations. Only the identity itself cannot be carried from one side to the other: the CLI protects its own with Argon2id, which Web Crypto lacks, and the browser’s is non-extractable by design. Each side therefore keeps its own.<br><br>
+              <b>2. Message / Decrypt</b> — Carter geometric steganography (see above), using the master key derived by the active Exchange session, a passphrase, or one entered directly.<br><br>
+              <b>3. Vault</b> — local file encryption, AES-256-GCM per entry, encrypted manifest, global HMAC-SHA256 (architecture inspired by <code>vault_lib.py</code>).<br><br>
+              <b>4. File encryption</b> — geometric SPN (Ref256+Ref360) as a key-diversification layer, AES-256-GCM as the authenticated-encryption layer (see the Encryption tab).<br><br>
+              <b>5. Referents 256 and 360</b> — the tables of geometric shapes (ansate cross, Jacquard) that feed the components above.<br><br>
+              <b>Note on cipher substitutions:</b> the Message/Decrypt component (2) uses XChaCha20-Poly1305 in pure JavaScript, identical to the Python reference (<code>stegano/carter.py</code>, <code>stegano/carter_random.py</code>) and verified against its vectors — no more substitution here. The Vault (3) and File encryption (4) remain on the browser’s native AES-256-GCM, as XChaCha20-Poly1305 is not exposed by the Web Crypto API for these two components; same class of guarantee (AEAD, 256 bits, audited standard). X25519 is implemented natively and identically on both sides.<br><br>
+              <b>Known gap — Vault key derivation:</b> since its version 1.2, <code>vault_lib.py</code> uses Argon2id (memory-hard, GPU/ASIC-resistant) instead of PBKDF2 for its internal key derivation. Browsers have neither Argon2id nor scrypt natively — unlike the cases above, there is no Web Crypto equivalent to substitute without adding an external dependency. The Vault on this page therefore remains on PBKDF2 (300,000 iterations) and is, as a result, less resistant to GPU/ASIC brute force than its Python counterpart. For sensitive production use, prefer the Python CLI (<code>secu-box vault</code>).<br><br>
+              <b>General warning:</b> SecuBox is an experimental system based on original geometric constructions. The cryptographic layer (AES-256-GCM, X25519, HKDF, PBKDF2) is standard and audited. The geometric layer (La Livrée d'Hermès) is undergoing formal evaluation — see the external cryptological audit of 2026-09-10 mentioned in the Encryption and Decrypt tabs.
+            </div>
+          </div>
+
+          <div class="license-footer">
+            SecuBox — Source code: <a href="https://github.com/anibaledel/livreedhermes" target="_blank" rel="noopener">AGPL v3, commercial licence on request</a> ·
+            Commercial use: <a href="mailto:anibaledel@gmail.com">anibaledel@gmail.com</a> ·
+            Algorithm: <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR ePrint 2026</a> (CC BY) ·
+            Patent FR2865054 · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a>
+          </div>
+        </div>
+
+        <!-- CHIFFREMENT (Référent 256) -->
+        <div id="tab-disk" class="enc-tab">
+          <div id="disk-init-status" class="disk-status">Initialising the permutation table…</div>
+
+          <div id="disk-app" hidden>
+            <div class="enc-card">
+              <h2>Hybrid encryption — geometric + AES-256-GCM</h2>
+              <p class="ref-note">A two-layer architecture, following an external cryptological audit: a geometric layer (SPN Ref256+Ref360, S-box GF(2⁸), 4 rounds) derives a unique session key per sector — key diversification, not the encryption itself — then AES-256-GCM encrypts and authenticates each sector individually, with a global HMAC-SHA256 authentication on top. A wrong passphrase or a tampered file is detected, never returned as silent noise. Separate from the steganography tool above. Entirely client-side: the passphrase and the files never leave the browser.</p>
+              <label class="enc-label" for="disk-passphrase">Passphrase</label>
+              <input type="password" class="enc-input" id="disk-passphrase" placeholder="Your passphrase" autocomplete="off">
+              <p class="ref-note" style="margin-top:8px">Entered once, used directly by the Encrypt and Decrypt buttons below.</p>
+            </div>
+
+            <div class="enc-card">
+              <h2>Encrypt a file</h2>
+              <label class="enc-label" for="disk-file-encrypt">File to encrypt</label>
+              <input type="file" class="enc-input" id="disk-file-encrypt">
+              <div class="disk-file-info" id="disk-encrypt-info"></div>
+              <button type="button" class="enc-btn" id="btnDiskEncrypt">Encrypt →</button>
+              <div class="enc-progress" id="disk-encrypt-progress"><div class="enc-progress-bar" id="disk-encrypt-progress-bar"></div></div>
+            </div>
+
+            <div class="enc-card">
+              <h2>Decrypt a file</h2>
+              <label class="enc-label" for="disk-file-decrypt">.lldh file to decrypt</label>
+              <input type="file" class="enc-input" id="disk-file-decrypt" accept=".lldh">
+              <div class="disk-file-info" id="disk-decrypt-info"></div>
+              <button type="button" class="enc-btn" id="btnDiskDecrypt">Decrypt →</button>
+              <div class="enc-progress" id="disk-decrypt-progress"><div class="enc-progress-bar" id="disk-decrypt-progress-bar"></div></div>
+              <p class="ref-note" style="margin-top:12px">A wrong passphrase or a tampered file triggers an explicit error (HMAC-SHA256 verification) rather than producing silent noise.</p>
+            </div>
+
+            <div class="enc-card">
+              <h2>Security statistics</h2>
+              <div class="disk-stats enc-info-box">
+                <div><b>Geometric layer (key diversification)</b>: SPN Ref256+Ref360 — S-box GF(2⁸) (max_DDT ≤ 4 proven, Nyberg 1994), Ref256 permutation (12,288 configurations), MixBlock MDS (AES ShiftRows+MixColumns, branch number ≥4), Ref360 permutation (342 configurations), 4 rounds — derives a 256-bit session key per sector, not claimed as a standalone cipher</div>
+                <div><b>Standard layer (confidentiality + integrity)</b>: AES-256-GCM per sector, 128-bit authentication tag — the Python reference uses XChaCha20-Poly1305 (absent from browsers’ Web Crypto API); AES-256-GCM is substituted for it here, same class of guarantee through the browser’s native, audited implementation</div>
+                <div><b>Key derivation</b>: PBKDF2-SHA256, 300,000 iterations — once passphrase → master key (128-bit salt managed by the page), a second time master key → geometric key (256-bit salt specific to each file)</div>
+                <div><b>Nonce</b>: 192 bits (random per file), a distinct nonce per sector derived via HKDF-SHA256</div>
+                <div><b>Integrity</b>: AES-GCM tag per sector + global HMAC-SHA256 (256 bits) — detects any tampering or wrong passphrase, never returned as silent noise</div>
+              </div>
+            </div>
+
+            <div class="license-box">
+              <h4>Licence</h4>
+              <p>This software is distributed under the <a href="https://github.com/anibaledel/livreedhermes/blob/main/LICENSE" target="_blank" rel="noopener">GNU AGPL v3</a>.</p>
+              <p>Commercial licence on request, for use without the obligations of the AGPL (product integration, defence application, paid service): <a href="mailto:anibaledel@gmail.com">anibaledel@gmail.com</a> — see also the <a href="https://github.com/anibaledel/livreedhermes/blob/main/LICENSE-COMMERCIAL" target="_blank" rel="noopener">commercial licence</a>.</p>
+              <p>Algorithm described in the <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR ePrint 2026</a> (CC BY) · Prior patent: <a href="https://patents.google.com/patent/FR2865054A1/fr" target="_blank" rel="noopener">FR2865054</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="iacr-mention">
+      System submitted to the <a href="https://eprint.iacr.org" target="_blank" rel="noopener">IACR Cryptology ePrint Archive</a> — September 2026 · <a href="https://anibal-amiot.com" target="_blank" rel="noopener">anibal-amiot.com</a> · Wikidata <a href="https://www.wikidata.org/wiki/Q141191562" target="_blank" rel="noopener">Q141191562</a> · Patent FR2865054
+    </div>
+  </div>
+
+  </main>
+<!-- @main:end -->
+</div>
+
+<script src="../../assets/soutien-gate.js"></script>
+<script>
+(function(){
+  var b = document.getElementById('btnSoutienFooter');
+  if(b) b.addEventListener('click', function(){ if(window.SoutienGate) window.SoutienGate.showModal(); });
+})();
+</script>
+
+
+<!-- ============================================================
+     Encodeur stéganographique — la stéganographie Carter (js/carter-core.js)
+     est un port JS de stegano/carter.py et stegano/carter_random.py, vérifié
+     contre les vecteurs produits par le code Python (vectors/carter_v3.json).
+     Vault, Exchange et Chiffrement fichier restent des implémentations
+     indépendantes, propres à cette page. En accès libre : charge les
+     référents dès le chargement de la page.
+     ============================================================ -->
+<script type="module">
+import {
+  encode_carter, decode_carter, encode_carter_random, decode_carter_random,
+  carter256_find_grammar, carter_random_find_grammar, carter_random_positions,
+  carter256_positions, get_referent6x6, derive_sweep_index,
+  ROLE_PURE, ROLE_STRUCTURED, ROLE_MESSAGE, RANDOM_STEGANO_COLORS,
+  ALPHA_LEN, hexToBytes as carterHexToBytes,
+  bytesToHex as carterBytesToHex, hkdf_sha256, carter256_split,
+  CARTER_GRID, CARTER_BLOCK, CARTER_SIDE,
+} from '../../js/carter-core.js';
+
+  let REF256 = null, REF360 = null, REF256_V3 = null;
+
+  // Variantes Carter exposées dans l'interface — seules carter256 et
+  // carterrandom sont portées en JS (voir js/carter-core.js). Les six autres
+  // (Deniable, Carter-360, Carter-Mix, Carter-18, Carter-Hybrid) existent côté
+  // Python mais ne sont pas portées dans le navigateur (D4) : retirées d'ici,
+  // mentionnées une seule fois dans l'onglet À propos plutôt que rappelées à
+  // chaque entrée du sélecteur.
+  const CARTER_VARIANTS = [
+    { id: 'carter256',    label: 'Carter-256 — ansate cross referent (default)' },
+    { id: 'carterrandom', label: 'Carter-Random — random referent derived from the key' },
+  ];
+
+  async function carterEncodeByVariant(variant, message, masterKey){
+    if(variant === 'carter256') return encode_carter(message, masterKey, REF256_V3);
+    if(variant === 'carterrandom'){ const { grid } = await encode_carter_random(message, masterKey); return grid; }
+    throw new Error(`Variant not available in the browser: ${variant}.`);
+  }
+  async function carterDecodeByVariant(variant, grid, masterKey){
+    if(variant === 'carter256') return decode_carter(grid, masterKey, REF256_V3);
+    if(variant === 'carterrandom') return decode_carter_random(grid, masterKey);
+    throw new Error(`Variant not available in the browser: ${variant}.`);
+  }
+  function populateVariantSelect(selectEl){
+    selectEl.innerHTML = CARTER_VARIANTS.map(v => `<option value="${v.id}">${v.label}</option>`).join('');
+  }
+
+  function showTab(name, btnEl){
+    document.querySelectorAll('.enc-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.enc-nav button').forEach(b=>b.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    if(btnEl) btnEl.classList.add('active');
+    if(name==='referents') renderReferents();
+  }
+
+  // ============================================================
+  // Stéganographie géométrique Carter — chiffrer puis dissimuler
+  // (stegano/carter.py, stegano/carter_random.py, portés en JS dans
+  // js/carter-core.js et vérifiés octet pour octet contre les vecteurs
+  // produits par le code Python — vectors/carter_v3.json). Une seule clé
+  // maître de 256 bits dérive, par HKDF-SHA256, la clé de chiffrement
+  // (XChaCha20-Poly1305) et la grammaire (rôle — pur / structuré / message —
+  // et forme de chacun des blocs de la grille) : aucune métadonnée de
+  // placement n'existe en dehors de la clé, et un bloc structuré est
+  // statistiquement indiscernable d'un bloc message sans elle.
+  // ============================================================
+
+  // Rôles par cellule — pour la seule visualisation (coloration de la
+  // grille) ; encode/decode réels passent entièrement par
+  // carterEncodeByVariant()/carterDecodeByVariant() ci-dessus, qui
+  // appellent directement js/carter-core.js. Aucune logique dupliquée ici :
+  // carter256_find_grammar()/carter_random_find_grammar() délèguent à la
+  // même recherche de grammaire que l'encodage réel.
+  async function computeCarterRoles(variant, masterKey){
+    if(variant === 'carter256'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, grammar } = await carter256_find_grammar(grammar_key, REF256_V3);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      grammar.blocks.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/CARTER_SIDE), bc = i%CARTER_SIDE;
+        for(const [gr, gc] of carter256_positions(br, bc, g, REF256_V3)) roles[gr*CARTER_GRID+gc] = g.role;
+      });
+      return roles;
+    }
+    if(variant === 'carterrandom'){
+      const { grammar_key } = await carter256_split(masterKey);
+      const { gkCtr, refIdx, metaMode, grammar } = await carter_random_find_grammar(grammar_key, CARTER_GRID);
+      if(metaMode) throw new Error('This key derives a grammar in meta (concentric) mode, not yet ported to JS — try again with another key.');
+      const ref = await get_referent6x6(refIdx);
+      const sweepOfColor = {};
+      for(const c of RANDOM_STEGANO_COLORS) sweepOfColor[c] = await derive_sweep_index(gkCtr, c);
+      const roles = new Uint8Array(CARTER_GRID*CARTER_GRID).fill(ROLE_PURE);
+      const nSide = CARTER_GRID/CARTER_BLOCK;
+      grammar.forEach((g, i) => {
+        if(g.role === ROLE_PURE) return;
+        const br = Math.floor(i/nSide), bc = i%nSide;
+        const form = ref[g.form_id];
+        const r0 = br*CARTER_BLOCK, c0 = bc*CARTER_BLOCK;
+        for(const [pr, pc] of carter_random_positions(form, sweepOfColor)){
+          const gr = r0+pr, gc = c0+pc;
+          if(gr<CARTER_GRID && gc<CARTER_GRID) roles[gr*CARTER_GRID+gc] = g.role;
+        }
+      });
+      return roles;
+    }
+    return null; // variante non visualisée (rôle par cellule non applicable/non porté)
+  }
+
+  function drawCarterGrid(grid, roles, canvasId){
+    const N = grid.length, cs = 8;
+    const canvas = document.getElementById(canvasId);
+    canvas.width = N*cs; canvas.height = N*cs;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#0a0a0a'; ctx.fillRect(0, 0, N*cs, N*cs);
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      const role = roles ? roles[r*N+c] : ROLE_PURE;
+      if(role === ROLE_MESSAGE) ctx.fillStyle = 'rgba(224,38,27,0.85)';
+      else if(role === ROLE_STRUCTURED) ctx.fillStyle = 'rgba(201,161,90,0.65)';
+      else { const v = grid[r][c]; const g = Math.floor(40+v*1.4); ctx.fillStyle = `rgb(${g},${g},${g-6})`; }
+      ctx.fillRect(c*cs, r*cs, cs-1, cs-1);
+    }
+    ctx.strokeStyle = 'rgba(242,242,240,0.15)'; ctx.lineWidth = 0.5;
+    for(let b=0; b<=CARTER_SIDE; b++){
+      ctx.beginPath(); ctx.moveTo(b*CARTER_BLOCK*cs, 0); ctx.lineTo(b*CARTER_BLOCK*cs, N*cs); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, b*CARTER_BLOCK*cs); ctx.lineTo(N*cs, b*CARTER_BLOCK*cs); ctx.stroke();
+    }
+  }
+
+  // χ² des 44 symboles sur l'ensemble de la grille — le contrôle promis par
+  // l'article (« cherchez les cases, vous ne les trouverez pas ») : sous
+  // l'hypothèse nulle (grille indiscernable du bruit uniforme), la
+  // statistique suit une loi du χ² à 43 degrés de liberté. Pas un argument
+  // marketing : un χ² anormalement élevé indique un biais réel, à corriger.
+  function chiSquareUniform(grid){
+    const counts = new Array(ALPHA_LEN).fill(0);
+    let total = 0;
+    for(const row of grid) for(const v of row){ counts[v]++; total++; }
+    const expected = total/ALPHA_LEN;
+    let chi2 = 0;
+    for(const n of counts) chi2 += (n-expected)*(n-expected)/expected;
+    return { chi2, df: ALPHA_LEN-1, n: total };
+  }
+
+  let _lastGrid = null, _lastMasterKey = null, _lastVariant = null;
+
+  async function runDemo(){
+    if(!REF256_V3) return;
+    const msg = 'ANIBALAMIOTX';
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    const variant = 'carter256';
+    const grid = await carterEncodeByVariant(variant, msg, masterKey);
+    const decoded = await carterDecodeByVariant(variant, grid, masterKey);
+    const roles = await computeCarterRoles(variant, masterKey);
+    const nMsgCells = roles ? roles.reduce((s,r)=>s+(r===ROLE_MESSAGE?1:0),0) : 0;
+    const { chi2, df } = chiSquareUniform(grid);
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
+    document.getElementById('demo-result').hidden = false;
+    document.getElementById('demo-msg').innerHTML =
+      `<div>Encoded message: <span class="enc-msg">${msg}</span></div>
+       <div style="margin-top:6px">Decoded: <span class="enc-msg">${decoded}</span> — identical: ${decoded===msg}</div>`;
+    document.getElementById('demo-ks').innerHTML =
+      `<b>Carter-256</b>, 90×90 grid (8,100 cells) — a single 256-bit master key derives the encryption (XChaCha20-Poly1305) and the grammar of the grid · ${nMsgCells} cells carry the message out of 8,100<br>
+       χ² of the 44 symbols over the whole grid: <b>${chi2.toFixed(1)}</b> (${df} degrees of freedom) — a grid indistinguishable from uniform noise gives a χ² close to ${df}.`;
+    drawCarterGrid(grid, roles, 'demo-canvas');
+  }
+
+  async function encodeMessage(){
+    if(!REF256_V3) return;
+    const infoEl = document.getElementById('enc-info');
+    const resultEl = document.getElementById('enc-result');
+    const msg = document.getElementById('enc-message').value.trim().toUpperCase();
+    if(!msg){ resultEl.hidden=false; infoEl.textContent='Enter a message.'; return; }
+    const variant = document.getElementById('enc-variant').value;
+    const masterKey = crypto.getRandomValues(new Uint8Array(32));
+    let grid;
+    try{
+      grid = await carterEncodeByVariant(variant, msg, masterKey);
+    }catch(e){
+      resultEl.hidden=false;
+      infoEl.textContent = 'Error: ' + e.message;
+      return;
+    }
+    _lastGrid = grid; _lastMasterKey = masterKey; _lastVariant = variant;
+    document.getElementById('enc-result').hidden=false;
+    document.getElementById('enc-info').innerHTML =
+      `Message “${msg}” encoded — 90×90 grid, variant ${variant}.`;
+    document.getElementById('enc-key1').value = 'Carter master key (hex): ' + carterBytesToHex(masterKey);
+    const csvLines = grid.slice(0,5).map(r=>r.join(',')).join('\n')+'\n...';
+    document.getElementById('enc-grid-out').value = csvLines;
+  }
+  function gridToCsv(grid){ return grid.map(r=>r.join(',')).join('\n'); }
+  function downloadGrid(){
+    if(!_lastGrid) return;
+    const blob = new Blob([gridToCsv(_lastGrid)], {type:'text/csv'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = 'grille_steganographique.csv'; a.click();
+  }
+
+  async function decodeMessage(){
+    if(!REF256_V3) return;
+    const resultEl = document.getElementById('dec-msg');
+    const csvStr = document.getElementById('dec-grid').value.trim();
+    const keyHex = document.getElementById('dec-masterkey').value.trim();
+    const variant = document.getElementById('dec-variant').value;
+    if(!csvStr || !keyHex){ resultEl.textContent='Fill in the grid and the master key.'; document.getElementById('dec-result').hidden=false; return; }
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const masterKey = carterHexToBytes(keyHex);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
+      document.getElementById('dec-result').hidden=false;
+      resultEl.innerHTML = `Decoded message: <span class="enc-msg">${msg}</span>`;
+    } catch(e){
+      document.getElementById('dec-result').hidden=false;
+      resultEl.textContent = 'Error: '+e.message;
+    }
+  }
+  function loadGridFile(input){
+    if(!input.files[0]) return;
+    const fr=new FileReader();
+    fr.onload=e=>{ document.getElementById('dec-grid').value=e.target.result; };
+    fr.readAsText(input.files[0]);
+  }
+
+  // ============================================================
+  // Exchange — échange de clés X25519 authentifié par triple DH, identique
+  // au protocole de secu_box.py. Une session dérivée ici et une session
+  // dérivée par la CLI Python aboutissent à la même clé.
+  //
+  // Un portage antérieur s'en tenait à un échange éphémère authentifié par
+  // comparaison vocale d'une chaîne (SAS), au motif que la CLI protège son
+  // identité exportée par Argon2id, absent de l'API Web Crypto. Ce motif
+  // confondait deux choses : Argon2id empêche de TRANSPORTER une identité
+  // entre la CLI et le navigateur, il n'empêche pas les deux implémentations
+  // de PARLER ensemble. Le protocole ne demande que X25519 et HKDF-SHA256,
+  // tous deux natifs ici. Chaque côté garde donc son identité propre, et
+  // l'échange fonctionne entre eux.
+  //
+  // La clé privée d'identité est un CryptoKey non extractible conservé dans
+  // IndexedDB : le code de la page ne peut pas la lire, seulement s'en
+  // servir pour dériver. Contrepartie assumée — elle ne peut pas être
+  // sauvegardée ni déplacée vers un autre navigateur ; perdre les données du
+  // site, c'est perdre l'identité et son fingerprint.
+
+  const SC_IDB_NAME = 'secubox-identity', SC_IDB_STORE = 'keys';
+  const SC_SESSION_INFO = 'SecuBox-Session-v2-3dh';
+  const SC_OFFER_SIZE = 64;   // 32 octets d'identité publique + 32 d'éphémère
+
+  function scIdbOpen(){
+    return new Promise((res, rej) => {
+      const r = indexedDB.open(SC_IDB_NAME, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore(SC_IDB_STORE);
+      r.onsuccess = () => res(r.result);
+      r.onerror   = () => rej(r.error);
+    });
+  }
+  function scIdbTx(mode, fn){
+    return scIdbOpen().then(db => new Promise((res, rej) => {
+      const tx = db.transaction(SC_IDB_STORE, mode);
+      const rq = fn(tx.objectStore(SC_IDB_STORE));
+      rq.onsuccess = () => res(rq.result);
+      rq.onerror   = () => rej(rq.error);
+    }));
+  }
+
+  // Identité long terme : paire X25519 dont la privée n'est pas extractible.
+  async function scLoadIdentity(){
+    try { return await scIdbTx('readonly', st => st.get('identity')); }
+    catch(e){ return null; }
+  }
+  async function scCreateIdentity(){
+    const kp = await crypto.subtle.generateKey({name:'X25519'}, false, ['deriveBits']);
+    await scIdbTx('readwrite', st => st.put(kp, 'identity'));
+    return kp;
+  }
+  async function scIdentityPub(kp){
+    return new Uint8Array(await crypto.subtle.exportKey('raw', kp.publicKey));
+  }
+  async function scFingerprintOf(pubRaw){
+    const h = new Uint8Array(await crypto.subtle.digest('SHA-256', pubRaw));
+    return Array.from(h.slice(0,6)).map(b=>b.toString(16).padStart(2,'0')).join(':');
+  }
+
+  function scSplitOffer(raw){
+    if(raw.length !== SC_OFFER_SIZE)
+      throw new Error(`Invalid offer: ${raw.length} bytes, ${SC_OFFER_SIZE} expected (identity ‖ ephemeral).`);
+    return [raw.slice(0,32), raw.slice(32)];
+  }
+  async function scOfferFingerprint(raw){
+    return scFingerprintOf(scSplitOffer(raw)[0]);
+  }
+
+  async function scDh(privKey, peerPubRaw){
+    const pub = await crypto.subtle.importKey('raw', peerPubRaw, {name:'X25519'}, false, []);
+    return new Uint8Array(await crypto.subtle.deriveBits({name:'X25519', public: pub}, privKey, 256));
+  }
+  function scConcat(...arrs){
+    const n = arrs.reduce((a,b)=>a+b.length, 0);
+    const out = new Uint8Array(n);
+    let o = 0;
+    for(const a of arrs){ out.set(a, o); o += a.length; }
+    return out;
+  }
+  async function scHkdf(ikm, saltStr, infoBytes, bits){
+    const k = await crypto.subtle.importKey('raw', ikm, 'HKDF', false, ['deriveBits']);
+    return new Uint8Array(await crypto.subtle.deriveBits(
+      {name:'HKDF', hash:'SHA-256',
+       salt: new TextEncoder().encode(saltStr), info: infoBytes}, k, bits));
+  }
+  // X25519 est nativement supporté par l'API Web Crypto de ce navigateur
+  // (vérifié) — pas de substitution nécessaire, contrairement à AES-256-GCM
+  // pour XChaCha20-Poly1305 ailleurs sur cette page.
+  // ============================================================
+  let scEphemeralKeyPair = null, scMyPubHex = null, scSession = null;
+
+  function scBytesToHex(bytes){ return Array.from(bytes).map(b=>b.toString(16).padStart(2,'0')).join(''); }
+  function scHexToBytes(hex){ const a = new Uint8Array(hex.length/2); for(let i=0;i<a.length;i++) a[i]=parseInt(hex.substr(i*2,2),16); return a; }
+  function scCompareBytes(a,b){ for(let i=0;i<a.length;i++){ if(a[i]!==b[i]) return a[i]-b[i]; } return 0; }
+
+  async function scGenerateEphemeralKeyPair(){
+    // extractable=false : ne s'applique qu'a la cle PRIVEE (la publique reste
+    // exportable par specification). La cle privee ephemere ne doit jamais
+    // pouvoir etre extraite par du code de la page.
+    const kp = await crypto.subtle.generateKey({name:'X25519'}, false, ['deriveBits']);
+    const pubRaw = await crypto.subtle.exportKey('raw', kp.publicKey);
+    return { keyPair: kp, publicHex: scBytesToHex(new Uint8Array(pubRaw)) };
+  }
+
+  // Dérivation de session — triple DH, port exact de secu_box.py::Session.derive.
+  //
+  //   DH_ee = ECDH(éphémère moi, éphémère pair)   → forward secrecy
+  //   DH_es = ECDH(éphémère moi, identité pair)   → authentifie le pair
+  //   DH_se = ECDH(identité moi, éphémère pair)   → m'authentifie auprès de lui
+  //
+  // Un relais qui substitue les clés éphémères ne possède aucune des deux
+  // identités privées : il ne peut calculer ni DH_es ni DH_se, donc pas la
+  // clé de session. L'authentification tient à la vérification hors bande du
+  // fingerprint d'identité annoncé par l'offer.
+  async function scDeriveSession(identityKp, myEphKp, theirOfferRaw){
+    const [theirId, theirEph] = scSplitOffer(theirOfferRaw);
+    const myId  = await scIdentityPub(identityKp);
+    const myEph = new Uint8Array(await crypto.subtle.exportKey('raw', myEphKp.publicKey));
+
+    if(scCompareBytes(myId, theirId) === 0)
+      throw new Error("The offer announces your own identity: the message was reflected back, or the wrong correspondent was chosen.");
+
+    const dhEe = await scDh(myEphKp.privateKey,     theirEph);
+    const dhEs = await scDh(myEphKp.privateKey,     theirId);
+    const dhSe = await scDh(identityKp.privateKey,  theirEph);
+
+    // Ordre canonique dérivé des deux identités publiques : chez le pair,
+    // notre DH_es est son DH_se, et l'ordre les range identiquement.
+    const avant = scCompareBytes(myId, theirId) < 0;
+    const cross = avant ? scConcat(dhEs, dhSe) : scConcat(dhSe, dhEs);
+    const ids   = avant ? scConcat(myId, theirId) : scConcat(theirId, myId);
+    const ephs  = avant ? scConcat(myEph, theirEph) : scConcat(theirEph, myEph);
+
+    // Transcript complet dans info : les quatre clés publiques sont
+    // authentifiées par la clé dérivée. Les 32 premiers octets deviennent
+    // directement la clé maître Carter (masterKey) — plus de dérivation
+    // géométrique séparée (Clé B/C/2) : la grammaire de la grille est
+    // elle-même dérivée de cette clé maître par carter-core.js.
+    const km = await scHkdf(scConcat(dhEe, cross), SC_SESSION_INFO, scConcat(ids, ephs), 512);
+    const masterKey = km.slice(0,32);
+
+    // Dérivés du matériel HKDF, sous des libellés propres — jamais du secret
+    // ECDH brut, qui ne doit pas se retrouver engagé dans une valeur publiée.
+    const sessionId  = scBytesToHex(await scHkdf(km, SC_SESSION_INFO, new TextEncoder().encode('session-id'), 64));
+    const authString = Array.from(await scHkdf(km, SC_SESSION_INFO, new TextEncoder().encode('session-auth-string'), 128))
+      .map(b=>b.toString(16).padStart(2,'0')).join(':');
+
+    return { masterKeyHex: scBytesToHex(masterKey), sessionId, authString };
+  }
+
+  const SC_SESSION_KEY = 'secubox_session_v1';
+
+  function scSaveSession(session){
+    localStorage.setItem(SC_SESSION_KEY, JSON.stringify(session));
+    scSession = session;
+  }
+  function scLoadSession(){
+    try{
+      const raw = localStorage.getItem(SC_SESSION_KEY);
+      scSession = raw ? JSON.parse(raw) : null;
+    }catch(e){ scSession = null; }
+    return scSession;
+  }
+  function scClearSession(){
+    localStorage.removeItem(SC_SESSION_KEY);
+    scSession = null;
+  }
+
+  function scRefreshActiveSessionUI(){
+    const el = document.getElementById('sc-active-session');
+    const clearBtn = document.getElementById('btnScClearSession');
+    if(!el) return;
+    if(scSession){
+      el.innerHTML = `Active session: <b>${scSession.sessionId}</b> (Carter-256, 90×90 grid)`;
+      clearBtn.hidden = false;
+    }else{
+      el.textContent = 'No active session. Derive a session above, or use the Message/Decrypt tabs with freely generated keys.';
+      clearBtn.hidden = true;
+    }
+    const decStatus = document.getElementById('dec-session-status');
+    if(decStatus){
+      decStatus.textContent = scSession
+        ? `Active session: ${scSession.sessionId}`
+        : 'No active session (Exchange tab).';
+    }
+    const encStatus = document.getElementById('enc-session-status');
+    if(encStatus){
+      encStatus.textContent = scSession
+        ? `Active session: ${scSession.sessionId} (Carter-256, 90×90 grid)`
+        : 'No active session (Exchange tab) — encode below with freely generated keys.';
+    }
+  }
+
+  async function onEncodeSession(){
+    const infoEl = document.getElementById('enc-session-info');
+    const resultBox = document.getElementById('enc-session-result');
+    if(!REF256_V3) return;
+    if(!scSession){ resultBox.hidden=false; infoEl.textContent = 'Derive a session first (Exchange tab).'; return; }
+    const msg = document.getElementById('enc-session-message').value.trim().toUpperCase();
+    if(!msg){ resultBox.hidden=false; infoEl.textContent = 'Enter a message.'; return; }
+    try{
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const grid = await carterEncodeByVariant('carter256', msg, masterKey);
+      const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `grille_${scSession.sessionId.slice(0,8)}.csv`;
+      a.click();
+      resultBox.hidden = false;
+      infoEl.innerHTML = `“${msg}” encoded and downloaded — grille_${scSession.sessionId.slice(0,8)}.csv`;
+    }catch(e){
+      resultBox.hidden = false;
+      infoEl.textContent = 'Error: ' + e.message;
+    }
+  }
+
+  let scIdentity = null;
+
+  async function scEnsureIdentity(){
+    if(scIdentity) return scIdentity;
+    scIdentity = await scLoadIdentity();
+    return scIdentity;
+  }
+
+  async function scRefreshIdentityUI(){
+    const box = document.getElementById('sc-identity-box');
+    const btn = document.getElementById('btnScCreateIdentity');
+    const kp  = await scEnsureIdentity();
+    if(!kp){
+      box.innerHTML = "No identity in this browser. Create one before any exchange: it is what authenticates your sessions.";
+      btn.hidden = false;
+      return null;
+    }
+    const pub = await scIdentityPub(kp);
+    box.innerHTML = `Fingerprint of your identity: <b>${await scFingerprintOf(pub)}</b><br>`
+      + `Public key: <span style="word-break:break-all">${scBytesToHex(pub)}</span><br>`
+      + `Give it to your correspondents over a secure channel — it is what they will compare with the offer you send them.`;
+    btn.hidden = true;
+    return kp;
+  }
+
+  async function onScCreateIdentity(){
+    if(await scEnsureIdentity()) return;
+    scIdentity = await scCreateIdentity();
+    await scRefreshIdentityUI();
+  }
+
+  async function onScGenerate(){
+    const idKp = await scRefreshIdentityUI();
+    if(!idKp){
+      document.getElementById('sc-my-key').hidden = true;
+      return;
+    }
+    const kp = await scGenerateEphemeralKeyPair();
+    scEphemeralKeyPair = kp.keyPair;
+    const offer = scConcat(await scIdentityPub(idKp), scHexToBytes(kp.publicHex));
+    scMyPubHex = scBytesToHex(offer);
+    document.getElementById('sc-my-key').hidden = false;
+    document.getElementById('sc-my-pub').value = scMyPubHex;
+  }
+
+  async function onScCopyPub(){
+    if(!scMyPubHex) return;
+    try{ await navigator.clipboard.writeText(scMyPubHex); }catch(e){}
+  }
+
+  async function onScDerive(){
+    const resultEl = document.getElementById('sc-session-info');
+    const resultBox = document.getElementById('sc-session-result');
+    if(!REF256) return;
+    const idKp = await scEnsureIdentity();
+    if(!idKp){ resultBox.hidden=false; resultEl.textContent = "Create your identity first (step 0)."; return; }
+    if(!scEphemeralKeyPair){ resultBox.hidden=false; resultEl.textContent = 'Generate your offer (step 1) before deriving.'; return; }
+    const theirOfferHex = document.getElementById('sc-their-pub').value.trim().toLowerCase();
+    if(!/^[0-9a-f]{128}$/.test(theirOfferHex)){ resultBox.hidden=false; resultEl.textContent = "Invalid offer: 128 hexadecimal characters expected (identity ‖ ephemeral)."; return; }
+    try{
+      const theirOffer = scHexToBytes(theirOfferHex);
+      const fp = await scOfferFingerprint(theirOffer);
+      if(!confirm(`The offer announces the fingerprint:\n\n${fp}\n\nCompare it with the one your correspondent gave you over another channel. If they differ, someone is intercepting.\n\nDoes it match?`)){
+        resultBox.hidden = false;
+        resultEl.textContent = 'Exchange interrupted — session not derived.';
+        return;
+      }
+      const session = await scDeriveSession(idKp, scEphemeralKeyPair, theirOffer);
+      scSaveSession(session);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `Session derived ✓<br>Session ID: <b>${session.sessionId}</b><br>`
+        + `Authenticated by triple DH — the identity <b>${fp}</b> is bound to this session.<br>`
+        + `Authentication chain (fallback, if the fingerprint could not be verified beforehand):<br>`
+        + `<b style="word-break:break-all">${session.authString}</b><br>`
+        + `Forward secrecy: ephemeral key destroyed ✓`;
+      scEphemeralKeyPair = null; scMyPubHex = null;
+      document.getElementById('sc-my-key').hidden = true;
+      scRefreshActiveSessionUI();
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'Error: ' + e.message;
+    }
+  }
+
+  function onScClearSession(){
+    scClearSession();
+    scRefreshActiveSessionUI();
+  }
+
+  async function onDecodeSession(){
+    const statusEl = document.getElementById('dec-session-status');
+    const resultEl = document.getElementById('dec-session-msg');
+    const resultBox = document.getElementById('dec-session-result');
+    if(!REF256_V3) return;
+    if(!scSession){ statusEl.textContent = 'No active session (Exchange tab).'; return; }
+    const csvStr = document.getElementById('dec-session-grid').value.trim();
+    if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'Paste or load a CSV grid.'; return; }
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const masterKey = carterHexToBytes(scSession.masterKeyHex);
+      const msg = await carterDecodeByVariant('carter256', grid, masterKey);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `Decoded message: <span class="enc-msg">${msg}</span>`;
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'Wrong key or corrupted grid: ' + e.message;
+    }
+  }
+
+  // Couche de confort passphrase → clé maître (PBKDF2-SHA256, 300 000
+  // itérations), indépendante de la variante Carter choisie ci-dessous —
+  // voir la note d'audit 2026-09-10 sur le sel : tiré au hasard à chaque
+  // encodage, transmis avec la passphrase, jamais écrit dans le CSV.
+  const CARTER_SALT_BYTES = 16;
+  const CARTER_LEGACY_SALT = 'SecuBox-Carter-KDF-v1';
+  async function carterDeriveMasterKey(passphrase, salt){
+    const saltBytes = salt && salt.length ? salt : new TextEncoder().encode(CARTER_LEGACY_SALT);
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: saltBytes, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  function carterNewSalt(){ return crypto.getRandomValues(new Uint8Array(CARTER_SALT_BYTES)); }
+  function carterSaltToHex(b){ return Array.from(b).map(x=>x.toString(16).padStart(2,'0')).join(''); }
+  function carterSaltFromHex(hex){
+    const h = hex.trim().toLowerCase().replace(/[^0-9a-f]/g,'');
+    if(!h) return null;
+    if(h.length !== CARTER_SALT_BYTES*2) throw new Error(`Invalid salt: ${CARTER_SALT_BYTES*2} hexadecimal characters expected.`);
+    const a = new Uint8Array(CARTER_SALT_BYTES);
+    for(let i=0;i<a.length;i++) a[i] = parseInt(h.substr(i*2,2),16);
+    return a;
+  }
+
+  async function onCarterEncode(){
+    const infoEl = document.getElementById('carter-encode-info');
+    const resultBox = document.getElementById('carter-encode-result');
+    if(!REF256_V3) return;
+    const pass = document.getElementById('carter-passphrase').value;
+    if(!pass){ resultBox.hidden=false; infoEl.textContent = 'Enter a Carter passphrase.'; return; }
+    const msg = document.getElementById('carter-message').value.trim().toUpperCase();
+    if(!msg){ resultBox.hidden=false; infoEl.textContent = 'Enter a message.'; return; }
+    const variant = document.getElementById('carter-variant').value;
+    try{
+      const salt = carterNewSalt();
+      const saltHex = carterSaltToHex(salt);
+      const masterKey = await carterDeriveMasterKey(pass, salt);
+      const grid = await carterEncodeByVariant(variant, msg, masterKey);
+      const blob = new Blob([gridToCsv(grid)], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'grille_carter.csv';
+      a.click();
+      resultBox.hidden = false;
+      infoEl.innerHTML = `“${msg}” encoded and downloaded — grille_carter.csv (variant ${variant}).<br><br><b>Salt for this grid:</b><br><b style="word-break:break-all">${saltHex}</b><br>Send it to the recipient <b>with the passphrase</b>, over the same out-of-band channel. It is not secret and does not appear in the CSV — writing it there would signal encrypted content. Without it, the grid cannot be decrypted; it is specific to this grid and changes with every encoding.`;
+    }catch(e){
+      resultBox.hidden = false;
+      infoEl.textContent = 'Error: ' + e.message;
+    }
+  }
+
+  async function onCarterDecode(){
+    const resultEl = document.getElementById('carter-dec-msg');
+    const resultBox = document.getElementById('carter-dec-result');
+    if(!REF256_V3) return;
+    const pass = document.getElementById('carter-dec-passphrase').value;
+    if(!pass){ resultBox.hidden=false; resultEl.textContent = 'Enter the Carter passphrase.'; return; }
+    const csvStr = document.getElementById('carter-dec-grid').value.trim();
+    if(!csvStr){ resultBox.hidden=false; resultEl.textContent = 'Paste or load a CSV grid.'; return; }
+    const variant = document.getElementById('carter-dec-variant').value;
+    try{
+      const grid = csvStr.split('\n').map(r=>r.split(',').map(Number));
+      const salt = carterSaltFromHex(document.getElementById('carter-dec-salt').value);
+      const masterKey = await carterDeriveMasterKey(pass, salt);
+      const msg = await carterDecodeByVariant(variant, grid, masterKey);
+      resultBox.hidden = false;
+      resultEl.innerHTML = `Decoded message: <span class="enc-msg">${msg}</span>`;
+    }catch(e){
+      resultBox.hidden = false;
+      resultEl.textContent = 'Wrong key or corrupted grid: ' + e.message;
+    }
+  }
+
+  // ============================================================
+  // Vault v1.1 — coffre de fichiers chiffrés (vault_lib.py porté en JS)
+  // Corrections d'audit portées depuis vault_lib.py v1.1 (2026-09-10) :
+  //   [A1] Taille manifest bornée (MAX_MANIFEST_SIZE) avant déchiffrement.
+  //   [A2] Taille et nombre d'entrées bornés (MAX_ENTRY_SIZE/MAX_ENTRIES).
+  //   [A4] Clé MAC dédiée dérivée par HKDF — master_key jamais réutilisée
+  //        directement pour l'intégrité (séparation des usages de clé).
+  //   [A5] En-tête versionné : magic "SBVT" + version + identifiant d'algo.
+  // [A3] (XChaCha20 réel à nonce 24 octets) ne s'applique pas ici : cette
+  // page utilise déjà AES-256-GCM (nonce 12 octets, natif Web Crypto) à la
+  // place de XChaCha20-Poly1305, substitution indépendante de la taille de
+  // nonce choisie côté Python — voir la note en tête de page.
+  // Format .sbvault : [4B magic "SBVT"][1B version][1B algo][2B réservés]
+  // [32B salt][4B taille manifest][manifest chiffré][entrées chiffrées,
+  // chacune [4B taille][données]][32B HMAC-SHA256 (clé dédiée)].
+  // Clé maître : PBKDF2-SHA256(passphrase, 'SecuBox-Vault-KDF-v1', 300000,
+  // 32) — sel fixe applicatif (pas aléatoire) : même mécanisme que
+  // secu_box_cli.py::_vault_key(), qui permet de rouvrir le même vault avec
+  // la seule passphrase, sans avoir à conserver un sel séparé. Manifest,
+  // entrées et MAC ont chacun leur propre clé dérivée par HKDF-SHA256
+  // depuis le sel interne du vault (aléatoire, embarqué dans le fichier).
+  //
+  // KDF : PBKDF2-SHA256 (300 000 itérations) — WebCrypto natif.
+  // Note : vault_lib.py v1.2 utilise Argon2id (memory-hard, GPU-resistant).
+  // WebCrypto n'expose pas d'équivalent natif Argon2id ou scrypt.
+  // Pour une utilisation sensible en production, préférer la CLI Python.
+  // ============================================================
+  const VAULT_MAGIC = new Uint8Array([0x53,0x42,0x56,0x54]); // "SBVT"
+  const VAULT_VERSION = 2;        // v2 : PBKDF2 salé par le sel du vault
+  const VAULT_VERSION_LEGACY = 1; // v1 : lecture seule (sel applicatif fixe)
+  const VAULT_ALG_AESGCM = 2; // convention propre à cette page (1 = xchacha20 côté Python, non utilisé ici)
+  const VAULT_HEADER_SIZE = 4+1+1+2+32; // magic+version+algo+réservés+salt
+  const VAULT_MAX_MANIFEST_SIZE = 64*1024*1024;   // 64 Mo
+  const VAULT_MAX_ENTRY_SIZE    = 512*1024*1024;  // 512 Mo
+  const VAULT_MAX_ENTRIES       = 65536;
+
+  // CORRECTIF AUDIT : la v1 dérivait la clé maître avec un libellé applicatif
+  // FIXE, identique pour tous les vaults et tous les utilisateurs. Les 300 000
+  // itérations ne coûtaient donc qu'une fois à un attaquant : une seule table
+  // précalculée passphrase -> clé maître ouvrait n'importe quel vault. Le
+  // format embarquait pourtant déjà un sel aléatoire de 32 octets dans son
+  // en-tête (offset 8), utilisé pour les sous-clés HKDF ; la v2 s'en sert
+  // aussi pour PBKDF2, ce qui rend tout précalcul propre à un seul fichier.
+  // Aucun sel à conserver à part : il reste lu dans l'en-tête du vault.
+  async function vaultDeriveMasterKey(passphrase, salt){
+    if(!(salt instanceof Uint8Array) || salt.length !== 32){
+      throw new Error('Invalid vault salt.');
+    }
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  // Vaults v1 déjà créés : même dérivation qu'avant, en lecture seule. Un
+  // vault v1 rouvert est ré-exporté en v2 (donc salé) au prochain export.
+  async function vaultDeriveMasterKeyLegacy(passphrase){
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt: new TextEncoder().encode('SecuBox-Vault-KDF-v1'), iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+  // Sel d'un vault existant, lu avant toute dérivation.
+  function vaultReadHeader(bytes){
+    if(bytes.length < VAULT_HEADER_SIZE + 4 + 32) throw new Error('Vault too short or corrupted.');
+    for(let i=0;i<4;i++){ if(bytes[i] !== VAULT_MAGIC[i]) throw new Error('Unrecognised file (invalid magic).'); }
+    const version = bytes[4];
+    if(version !== VAULT_VERSION && version !== VAULT_VERSION_LEGACY){
+      throw new Error(`Version ${version} not supported (expected ${VAULT_VERSION_LEGACY} or ${VAULT_VERSION}).`);
+    }
+    return { version, algo: bytes[5], salt: bytes.slice(8, 8+32) };
+  }
+  async function vaultDeriveSubKey(masterKey, salt, infoStr){
+    const keyMaterial = await crypto.subtle.importKey('raw', masterKey, 'HKDF', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info: new TextEncoder().encode(infoStr)}, keyMaterial, 256);
+    return new Uint8Array(bits);
+  }
+  function vaultEntryKey(masterKey, entryName, salt){ return vaultDeriveSubKey(masterKey, salt, `SecuBox-Vault-Entry-v1:${entryName}`); }
+  function vaultManifestKey(masterKey, salt){ return vaultDeriveSubKey(masterKey, salt, 'SecuBox-Vault-Manifest-v1'); }
+  function vaultMacKey(masterKey, salt){ return vaultDeriveSubKey(masterKey, salt, 'SecuBox-Vault-MAC-v1'); }
+
+  async function vaultEnc(data, keyBytes, aad){
+    const key = await crypto.subtle.importKey('raw', keyBytes, {name:'AES-GCM'}, false, ['encrypt']);
+    const nonce = crypto.getRandomValues(new Uint8Array(12));
+    const ctBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv:nonce, additionalData:aad, tagLength:128}, key, data);
+    const out = new Uint8Array(12+ctBuf.byteLength);
+    out.set(nonce,0); out.set(new Uint8Array(ctBuf),12);
+    return out;
+  }
+  async function vaultDec(data, keyBytes, aad){
+    const nonce = data.slice(0,12);
+    const ct = data.slice(12);
+    const key = await crypto.subtle.importKey('raw', keyBytes, {name:'AES-GCM'}, false, ['decrypt']);
+    const ptBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv:nonce, additionalData:aad, tagLength:128}, key, ct);
+    return new Uint8Array(ptBuf);
+  }
+  async function vaultHmac(key, data){
+    const k = await crypto.subtle.importKey('raw', key, {name:'HMAC', hash:'SHA-256'}, false, ['sign']);
+    return new Uint8Array(await crypto.subtle.sign('HMAC', k, data));
+  }
+  function vaultTimingSafeEqual(a,b){
+    if(a.length!==b.length) return false;
+    let d=0; for(let i=0;i<a.length;i++) d|=a[i]^b[i];
+    return d===0;
+  }
+  async function vaultSha256Hex(data){
+    const h = new Uint8Array(await crypto.subtle.digest('SHA-256', data));
+    return Array.from(h).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+
+  class Vault{
+    constructor(masterKey, salt, entries){
+      this.masterKey = masterKey;
+      this.salt = salt;
+      this.entries = entries; // Map<name, {data:Uint8Array, sha256:hex, size:number}>
+    }
+    static create(masterKey, salt){
+      // Le sel doit être celui qui a servi à dériver masterKey (cf. onVaultNew).
+      return new Vault(masterKey, salt || crypto.getRandomValues(new Uint8Array(32)), new Map());
+    }
+    static async open(bytes, masterKey){
+      if(bytes.length < VAULT_HEADER_SIZE + 4 + 32) throw new Error('Vault too short or corrupted.');
+      for(let i=0;i<4;i++){ if(bytes[i] !== VAULT_MAGIC[i]) throw new Error('Unrecognised file (invalid magic).'); }
+      const { algo, salt } = vaultReadHeader(bytes);
+      if(algo !== VAULT_ALG_AESGCM) throw new Error(`Algorithm ${algo} not supported by this page (expected AES-256-GCM).`);
+      const macKey = await vaultMacKey(masterKey, salt);
+      const macRecv = bytes.slice(bytes.length-32);
+      const payload = bytes.slice(0, bytes.length-32);
+      const macCalc = await vaultHmac(macKey, payload);
+      if(!vaultTimingSafeEqual(macRecv, macCalc)) throw new Error('Vault corrupted or wrong passphrase.');
+
+      const rest = payload.slice(VAULT_HEADER_SIZE);
+      if(rest.length < 4) throw new Error('Vault truncated (manifest header missing).');
+      const mkey = await vaultManifestKey(masterKey, salt);
+      const manifestSize = new DataView(rest.buffer, rest.byteOffset, 4).getUint32(0, false);
+      if(manifestSize > VAULT_MAX_MANIFEST_SIZE) throw new Error(`Manifest too large: ${manifestSize} > ${VAULT_MAX_MANIFEST_SIZE} — forged or corrupted vault.`);
+      if(rest.length < 4+manifestSize) throw new Error('Manifest truncated.');
+      const manifestEnc = rest.slice(4, 4+manifestSize);
+      const manifestRaw = await vaultDec(manifestEnc, mkey, new TextEncoder().encode('manifest'));
+      const manifest = JSON.parse(new TextDecoder().decode(manifestRaw));
+      const names = Object.keys(manifest);
+      if(names.length > VAULT_MAX_ENTRIES) throw new Error(`Too many entries: ${names.length} > ${VAULT_MAX_ENTRIES}.`);
+
+      let cursor = 4+manifestSize;
+      const entries = new Map();
+      for(const name of names){
+        const meta = manifest[name];
+        if(cursor + 4 > rest.length) throw new Error(`Entry '${name}' truncated (header).`);
+        const entrySize = new DataView(rest.buffer, rest.byteOffset+cursor, 4).getUint32(0,false);
+        cursor += 4;
+        if(entrySize > VAULT_MAX_ENTRY_SIZE) throw new Error(`Entry '${name}' too large: ${entrySize} > ${VAULT_MAX_ENTRY_SIZE}.`);
+        if(cursor + entrySize > rest.length) throw new Error(`Entry '${name}' truncated (data).`);
+        const entryEnc = rest.slice(cursor, cursor+entrySize);
+        cursor += entrySize;
+        const ekey = await vaultEntryKey(masterKey, name, salt);
+        const data = await vaultDec(entryEnc, ekey, new TextEncoder().encode(name));
+        const h = await vaultSha256Hex(data);
+        if(h !== meta.sha256) throw new Error(`Invalid hash for '${name}'.`);
+        entries.set(name, {data, sha256:h, size:data.length});
+      }
+      return new Vault(masterKey, salt, entries);
+    }
+    async add(name, data){
+      const h = await vaultSha256Hex(data);
+      this.entries.set(name, {data, sha256:h, size:data.length});
+    }
+    get(name){
+      if(!this.entries.has(name)) throw new Error(`'${name}' not in the vault.`);
+      return this.entries.get(name).data;
+    }
+    remove(name){
+      if(!this.entries.has(name)) throw new Error(`'${name}' not in the vault.`);
+      this.entries.delete(name);
+    }
+    list(){
+      return Array.from(this.entries.entries()).map(([name,m])=>({name, size:m.size, sha256:m.sha256}));
+    }
+    async save(){
+      const mkey = await vaultManifestKey(this.masterKey, this.salt);
+      const macKey = await vaultMacKey(this.masterKey, this.salt);
+      const manifest = {};
+      for(const [name,m] of this.entries) manifest[name] = {sha256:m.sha256, size:m.size};
+      const manifestRaw = new TextEncoder().encode(JSON.stringify(manifest));
+      const manifestEnc = await vaultEnc(manifestRaw, mkey, new TextEncoder().encode('manifest'));
+
+      const parts = [];
+      for(const [name,m] of this.entries){
+        const ekey = await vaultEntryKey(this.masterKey, name, this.salt);
+        const entryEnc = await vaultEnc(m.data, ekey, new TextEncoder().encode(name));
+        const sizeBuf = new Uint8Array(4);
+        new DataView(sizeBuf.buffer).setUint32(0, entryEnc.length, false);
+        parts.push(sizeBuf, entryEnc);
+      }
+      const entriesLen = parts.reduce((s,p)=>s+p.length,0);
+      const entriesBlob = new Uint8Array(entriesLen);
+      let off=0; for(const p of parts){ entriesBlob.set(p, off); off+=p.length; }
+
+      const manifestSizeBuf = new Uint8Array(4);
+      new DataView(manifestSizeBuf.buffer).setUint32(0, manifestEnc.length, false);
+
+      const header = new Uint8Array(VAULT_HEADER_SIZE);
+      header.set(VAULT_MAGIC, 0);
+      header[4] = VAULT_VERSION;
+      header[5] = VAULT_ALG_AESGCM;
+      header[6] = 0; header[7] = 0; // réservés
+      header.set(this.salt, 8);
+
+      const payload = new Uint8Array(header.length + 4 + manifestEnc.length + entriesBlob.length);
+      let p2 = 0;
+      payload.set(header, p2); p2 += header.length;
+      payload.set(manifestSizeBuf, p2); p2 += 4;
+      payload.set(manifestEnc, p2); p2 += manifestEnc.length;
+      payload.set(entriesBlob, p2);
+
+      const mac = await vaultHmac(macKey, payload);
+      const out = new Uint8Array(payload.length+32);
+      out.set(payload,0); out.set(mac,payload.length);
+      return out;
+    }
+  }
+
+  let currentVault = null;
+
+  function vaultRenderList(){
+    const el = document.getElementById('vault-list');
+    const entries = currentVault ? currentVault.list() : [];
+    if(!entries.length){ el.innerHTML = '<p class="ref-note">Empty vault.</p>'; return; }
+    el.innerHTML = entries.map(e =>
+      `<div class="disk-file-info" style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px">
+        <span>${e.name} — ${e.size.toLocaleString('en-GB')} bytes — sha256:${e.sha256.slice(0,12)}…</span>
+        <span>
+          <button type="button" class="enc-btn secondary" style="padding:6px 10px" data-vault-get="${e.name}">⬇</button>
+          <button type="button" class="enc-btn secondary" style="padding:6px 10px" data-vault-rm="${e.name}">✕</button>
+        </span>
+      </div>`
+    ).join('');
+    el.querySelectorAll('[data-vault-get]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const name = btn.getAttribute('data-vault-get');
+        const data = currentVault.get(name);
+        const blob = new Blob([data]);
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob); a.download = name; a.click();
+      });
+    });
+    el.querySelectorAll('[data-vault-rm]').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        currentVault.remove(btn.getAttribute('data-vault-rm'));
+        vaultRenderList();
+      });
+    });
+  }
+
+  async function onVaultNew(){
+    const statusEl = document.getElementById('vault-status');
+    const pass = document.getElementById('vault-passphrase').value;
+    if(!pass){ statusEl.textContent = 'Enter a passphrase.'; return; }
+    const salt = crypto.getRandomValues(new Uint8Array(32));
+    const masterKey = await vaultDeriveMasterKey(pass, salt);
+    currentVault = Vault.create(masterKey, salt);
+    document.getElementById('vault-app').hidden = false;
+    statusEl.textContent = 'New vault created (empty, in memory) — add files, then export.';
+    vaultRenderList();
+  }
+
+  function onVaultOpenPrompt(){
+    document.getElementById('vault-file-open').click();
+  }
+
+  async function onVaultFileOpen(input){
+    const statusEl = document.getElementById('vault-status');
+    if(!input.files[0]) return;
+    const pass = document.getElementById('vault-passphrase').value;
+    if(!pass){ statusEl.textContent = 'Enter the vault passphrase before opening it.'; return; }
+    const bytes = new Uint8Array(await input.files[0].arrayBuffer());
+    try{
+      // Le sel se lit dans l'en-tête AVANT la dérivation (v2) ; les vaults v1
+      // gardent leur dérivation d'origine le temps d'être ré-exportés.
+      const head = vaultReadHeader(bytes);
+      const masterKey = head.version === VAULT_VERSION_LEGACY
+        ? await vaultDeriveMasterKeyLegacy(pass)
+        : await vaultDeriveMasterKey(pass, head.salt);
+      currentVault = await Vault.open(bytes, masterKey);
+      document.getElementById('vault-app').hidden = false;
+      statusEl.textContent = `Vault opened: ${input.files[0].name} (${currentVault.list().length} file(s)).`;
+      vaultRenderList();
+    }catch(e){
+      statusEl.textContent = 'Error: ' + e.message;
+    }
+  }
+
+  async function onVaultAdd(){
+    const infoEl = document.getElementById('vault-add-info');
+    const input = document.getElementById('vault-file-add');
+    if(!currentVault){ infoEl.textContent = 'Create or open a vault first.'; return; }
+    if(!input.files[0]){ infoEl.textContent = 'Choose a file.'; return; }
+    const file = input.files[0];
+    const data = new Uint8Array(await file.arrayBuffer());
+    await currentVault.add(file.name, data);
+    infoEl.textContent = `'${file.name}' added (${data.length.toLocaleString('en-GB')} bytes) — export to save.`;
+    vaultRenderList();
+  }
+
+  async function onVaultExport(){
+    if(!currentVault) return;
+    const bytes = await currentVault.save();
+    const blob = new Blob([bytes], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'vault.sbvault';
+    a.click();
+  }
+
+  function renderReferents(){
+    if(!REF256_V3||!REF360) return;
+    const g256=document.getElementById('ref256-display');
+    if(g256.childElementCount===0){
+      // D3 : affiche REF256_V3 (celui que l'encodage emploie réellement), pas REF256 (l'ancien
+      // fichier, encore chargé pour diskBuildTables mais plus pour cet affichage) — les
+      // positions survolées ici sont désormais celles qui gouvernent l'encodage.
+      REF256_V3.forms.forEach(f=>{
+        const cell=document.createElement('div');
+        cell.className='ref-cell';
+        cell.title=`Shape #${f.id} (${f.row},${f.col}) — ${f.chiralite}\nBlue: ${JSON.stringify(f.bleu_positions)}\nRed: ${JSON.stringify(f.rouge_positions)}`;
+        const cv=document.createElement('canvas');
+        cv.width=cv.height=30;
+        const ctx=cv.getContext('2d');
+        ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,30,30);
+        const cs=4;
+        f.bleu_positions.forEach(([r,c])=>{ ctx.fillStyle='#c9a15a'; ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        f.rouge_positions.forEach(([r,c])=>{ ctx.fillStyle=getComputedStyle(document.documentElement).getPropertyValue('--red').trim(); ctx.fillRect(c*cs+1,r*cs+1,cs-1,cs-1); });
+        cell.appendChild(cv);
+        g256.appendChild(cell);
+      });
+    }
+    document.getElementById('ref360-count').textContent=REF360.length;
+    const g360=document.getElementById('ref360-groups');
+    if(g360.childElementCount===0){
+      const byType={};
+      REF360.forEach(f=>{ if(!byType[f.type]) byType[f.type]=[]; byType[f.type].push(f); });
+      const cols={'C1':'#c9a15a','C2':getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),'C3':'#f2f2f0','C4':'#7a6244'};
+      for(const[type,forms] of Object.entries(byType)){
+        const label=document.createElement('p');
+        label.className='ref360-type-label';
+        label.textContent=type+' — '+forms.length+' shapes';
+        g360.appendChild(label);
+        const grid=document.createElement('div');
+        grid.className='ref360-grid';
+        forms.slice(0,48).forEach(f=>{
+          const cell=document.createElement('div');
+          cell.className='ref360-cell';
+          cell.title=`#${f.id} ${f.subtype}\nColours: ${(f.available_colors||[]).join(', ')}`;
+          const cv=document.createElement('canvas');
+          cv.width=cv.height=24;
+          const ctx=cv.getContext('2d');
+          ctx.fillStyle='#0a0a0a'; ctx.fillRect(0,0,24,24);
+          const cs=2;
+          Object.entries(f.positions||{}).forEach(([col,pos])=>{
+            ctx.fillStyle=cols[col]||'#999';
+            pos.forEach(([r,c])=>ctx.fillRect(c*cs,r*cs,cs,cs));
+          });
+          cell.appendChild(cv); grid.appendChild(cell);
+        });
+        g360.appendChild(grid);
+      }
+    }
+  }
+
+  async function loadReferents(){
+    try{
+      const [r256, r360, r256v3] = await Promise.all([
+        fetch('../../data/referent_256.json').then(r => r.json()),
+        fetch('../../data/referent_360.json').then(r => r.json()),
+        fetch('../../data/referent_256_v3.json').then(r => r.json()),
+      ]);
+      REF256 = r256;
+      REF360 = r360;
+      REF256_V3 = r256v3;
+      document.getElementById('encLoading').hidden = true;
+      document.getElementById('encApp').hidden = false;
+      // Tables de permutation du chiffrement disque (Ref256 + Ref360) :
+      // précalculées une seule fois ici, juste après le chargement des référents.
+      diskTables = diskBuildTables(REF256, REF360);
+      document.getElementById('disk-init-status').hidden = true;
+      document.getElementById('disk-app').hidden = false;
+    }catch(e){
+      document.getElementById('encLoading').textContent = "Error loading the referents — try reloading the page.";
+    }
+  }
+
+  // ============================================================
+  // Chiffrement de fichiers — architecture hybride (disk_lib.py porté en JS) :
+  //   Couche géométrique (SPN Ref256+Ref360, S-box GF(2^8), 4 tours, MixBlock)
+  //     → diversification de clé de session par secteur, PAS le chiffrement
+  //       lui-même (suite à audit cryptologique externe du 2026-09-10).
+  //   Couche standard → AES-256-GCM par secteur (authentifié individuellement)
+  //     + HMAC-SHA256 global. La référence Python utilise XChaCha20-Poly1305
+  //     (absent de l'API Web Crypto native) ; AES-256-GCM est substitué ici —
+  //     même classe de garantie (AEAD, 256 bits, standard audité) via
+  //     crypto.subtle plutôt qu'une implémentation ChaCha20 maison. Décision
+  //     validée explicitement : pas d'interopérabilité binaire avec le
+  //     fichier .lldh produit par le script Python (déjà le cas par ailleurs).
+  // ============================================================
+  let diskTables = null;
+
+  const DISK_SECTOR_SIZE  = 512;
+  const DISK_TAG_SIZE     = 16;   // tag AES-GCM (128 bits)
+  const DISK_N_ROUNDS     = 4;
+  const DISK_INNER_NONCE_SIZE = 24; // nonce global GeoSPN (HKDF dérive le nonce par secteur)
+  const DISK_INNER_SALT_SIZE  = 32; // sel PBKDF2 pour master_key -> geo_key (interne à GeoSPN)
+  const DISK_OUTER_SALT_SIZE  = 16; // sel PBKDF2 pour passphrase -> master_key (géré par la page)
+  const DISK_MAC_SIZE     = 32;
+
+  // Génère les 24 permutations de [0,1,2,3] en ordre lexicographique, pour
+  // correspondre exactement à itertools.permutations(range(4)) côté Python —
+  // requis depuis que build_perm_table_256 applique réellement le décalage
+  // géométrique (dr,dc) par sous-bloc (voir plus bas), ce qui rend l'ordre
+  // d'énumération significatif pour la permutation résultante.
+  const DISK_ALL_ORDERS = (() => {
+    const perms = [];
+    const a = [0,1,2,3];
+    function permute(arr, l=0){
+      if(l === arr.length){ perms.push([...arr]); return; }
+      for(let i=l;i<arr.length;i++){
+        [arr[l],arr[i]]=[arr[i],arr[l]];
+        permute(arr,l+1);
+        [arr[l],arr[i]]=[arr[i],arr[l]];
+      }
+    }
+    permute(a);
+    perms.sort((x,y)=>{
+      for(let i=0;i<x.length;i++){ if(x[i]!==y[i]) return x[i]-y[i]; }
+      return 0;
+    });
+    return perms;
+  })();
+  const DISK_OFFSETS_12 = [[0,0],[0,6],[6,0],[6,6]];
+  const DISK_COLOR_ORDERS = [
+    ['C1','C2','C3'],['C1','C3','C2'],['C2','C1','C3'],
+    ['C2','C3','C1'],['C3','C1','C2'],['C3','C2','C1']
+  ];
+
+  async function diskSha256(bytes){
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    return new Uint8Array(digest);
+  }
+
+  // ── GF(2^8) — polynôme irréductible d'AES : x^8+x^4+x^3+x+1 ────────────────
+  function diskGfMul(a, b){
+    let r = 0;
+    for(let i=0;i<8;i++){
+      if(b & 1) r ^= a;
+      const hi = a & 0x80; a = (a << 1) & 0xff;
+      if(hi) a ^= 0x1b;
+      b >>= 1;
+    }
+    return r;
+  }
+  const DISK_GF_INV = (() => {
+    const inv = new Array(256).fill(0);
+    for(let x=1;x<256;x++){
+      for(let y=1;y<256;y++){ if(diskGfMul(x,y) === 1){ inv[x] = y; break; } }
+    }
+    return inv;
+  })();
+  function diskPopcount8(v){
+    v = v & 0xff; let c = 0;
+    while(v){ c += v & 1; v >>= 1; }
+    return c;
+  }
+  function diskGf2MatVec(M, x){
+    let r = 0;
+    for(let i=0;i<M.length;i++) r |= (diskPopcount8(M[i] & x) % 2) << i;
+    return r;
+  }
+  function diskGf2MatInv(M){
+    const n = 8;
+    const rows = new Array(n);
+    for(let i=0;i<n;i++) rows[i] = (M[i] & 0xff) | (256 << i);
+    for(let col=0; col<n; col++){
+      let pivot = -1;
+      for(let r=col;r<n;r++){ if((rows[r]>>col)&1){ pivot=r; break; } }
+      if(pivot < 0) return null;
+      [rows[col], rows[pivot]] = [rows[pivot], rows[col]];
+      for(let r=0;r<n;r++){
+        if(r!==col && ((rows[r]>>col)&1)) rows[r] ^= rows[col];
+      }
+    }
+    const result = new Array(n);
+    for(let i=0;i<n;i++) result[i] = (rows[i] >> n) & 0xff;
+    return result;
+  }
+
+  // S-box géométrique GF(2^8) : S(x) = M·GF_INV(x) ⊕ c, avec M dérivée du seed
+  // (qui intègre le config_id géométrique). max_DDT ≤ 4 [Nyberg 1994], niveau
+  // AES. Porté depuis disk_lib.py::_make_sbox_gf.
+  async function diskMakeSboxGf(seed){
+    const h1 = await diskSha256(seed);
+    const seedX = new Uint8Array(seed.length + 1);
+    seedX.set(seed, 0);
+    seedX[seed.length] = 0x78; // 'x'
+    const h2 = await diskSha256(seedX);
+    const rng = new Uint8Array(64);
+    rng.set(h1, 0);
+    rng.set(h2, 32);
+    const M = new Array(8);
+    for(let i=0;i<8;i++){
+      M[i] = 1 << i;
+      for(let j=i+1;j<8;j++){
+        if((rng[i] >> (j-i-1)) & 1) M[i] |= (1 << j);
+      }
+    }
+    const constVal = rng[8];
+    const Mi = diskGf2MatInv(M);
+    const sbox = new Array(256);
+    const sboxInv = new Array(256);
+    for(let x=0;x<256;x++) sbox[x] = diskGf2MatVec(M, DISK_GF_INV[x]) ^ constVal;
+    for(let y=0;y<256;y++) sboxInv[y] = DISK_GF_INV[diskGf2MatVec(Mi, y ^ constVal)];
+    return [sbox, sboxInv];
+  }
+
+  // MixBlock MDS géométrique : ShiftRows + MixColumns AES sur GF(2^8), la
+  // matrice 24 octets étant vue comme 4 lignes × 6 colonnes. Remplace l'ancien
+  // MixBlock triangulaire — un audit (test_avalanche.py, 2026-09-10) a mesuré
+  // sa faiblesse structurelle (branch number 2, certains octets sans
+  // contribution croisée) contre le branch number ≥4 prouvé de cette matrice
+  // MDS [Daemen & Rijmen 2002]. Porté depuis disk_lib.py::_mix/_unmix (v11).
+  const DISK_MDS = [[2,3,1,1],[1,2,3,1],[1,1,2,3],[3,1,1,2]];
+  const DISK_MDS_INV = [[14,11,13,9],[9,14,11,13],[13,9,14,11],[11,13,9,14]];
+  function diskShiftRows(data){
+    const r = new Uint8Array(24);
+    for(let row=0; row<4; row++){
+      for(let col=0; col<6; col++) r[row*6+col] = data[row*6 + (col+row)%6];
+    }
+    return r;
+  }
+  function diskUnshiftRows(data){
+    const r = new Uint8Array(24);
+    for(let row=0; row<4; row++){
+      for(let col=0; col<6; col++) r[row*6 + (col+row)%6] = data[row*6+col];
+    }
+    return r;
+  }
+  function diskMixCols(data, matrix){
+    const r = new Uint8Array(24);
+    for(let col=0; col<6; col++){
+      const v = [data[0*6+col], data[1*6+col], data[2*6+col], data[3*6+col]];
+      for(let row=0; row<4; row++){
+        let x = 0;
+        for(let k=0;k<4;k++) x ^= diskGfMul(matrix[row][k], v[k]);
+        r[row*6+col] = x;
+      }
+    }
+    return r;
+  }
+  function diskMix(data){ return diskMixCols(diskShiftRows(data), DISK_MDS); }
+  function diskUnmix(data){ return diskUnshiftRows(diskMixCols(data, DISK_MDS_INV)); }
+
+  // ── Tables de permutation géométrique (Ref256 + Ref360) ────────────────────
+  function diskPermFromSeq(seq){
+    const P = Array.from({length:24},(_,i)=>i).sort((a,b)=>seq[a]-seq[b]);
+    const Pinv = new Array(24);
+    P.forEach((p,i)=>{ Pinv[p]=i; });
+    return [P, Pinv];
+  }
+  function diskFilterRef360(ref360){
+    return ref360.filter(f => {
+      let total = 0;
+      for(const k in f.positions) total += f.positions[k].length;
+      return total === 24;
+    });
+  }
+  function diskBuildTables(ref256, ref360Raw){
+    const pt256 = new Map();
+    for(const form of ref256){
+      for(let oi=0; oi<DISK_ALL_ORDERS.length; oi++){
+        for(const [col, ck] of [[0,'blue'],[1,'orange']]){
+          const seqAbs = [];
+          for(const slot of DISK_ALL_ORDERS[oi]){
+            const [dr,dc] = DISK_OFFSETS_12[slot];
+            for(const [r,c] of form[ck]) seqAbs.push((r+dr)*12+(c+dc));
+          }
+          pt256.set(`${form.id},${oi},${col}`, diskPermFromSeq(seqAbs));
+        }
+      }
+    }
+    const ref360 = diskFilterRef360(ref360Raw);
+    const pt360 = new Map();
+    for(let i=0;i<ref360.length;i++){
+      const form = ref360[i];
+      for(let oi=0; oi<DISK_COLOR_ORDERS.length; oi++){
+        const seq = [];
+        for(const col of DISK_COLOR_ORDERS[oi]){
+          const positions = form.positions[col] || [];
+          for(const [r,c] of positions) seq.push(r*12+c);
+        }
+        if(seq.length === 24) pt360.set(`${i},${oi}`, diskPermFromSeq(seq));
+      }
+    }
+    const pt360Keys = Array.from(pt360.keys())
+      .map(k=>k.split(',').map(Number))
+      .sort((a,b)=> a[0]-b[0] || a[1]-b[1]);
+    return { pt256, pt360, pt360Keys, n360: ref360.length };
+  }
+
+  function diskResolve360Key(tables, idx360, oi360){
+    let key = `${idx360},${oi360}`;
+    if(!tables.pt360.has(key)){
+      const fb = tables.pt360Keys[idx360 % tables.pt360Keys.length];
+      key = `${fb[0]},${fb[1]}`;
+    }
+    return key;
+  }
+
+  // Diversification de clé de session (32B) par secteur, via le SPN
+  // géométrique — PAS un chiffrement en soi, juste block = master_key XOR
+  // SHA256(nonce+secteur), puis 2 chunks de 24B passés chacun par 4 tours de
+  // (S-box GF → Perm Ref256 → MixBlock → Perm Ref360), dont les 16 premiers
+  // octets de sortie forment une moitié de la clé de session. Porté depuis
+  // disk_lib.py::_geo_derive — vérifié octet pour octet contre la référence
+  // Python (seule la couche AEAD qui suit diverge, voir plus haut).
+  async function diskGeoDerive(masterKey, nonce, sn, tables, nRounds){
+    const seedMaterial = new Uint8Array(nonce.length + 8);
+    seedMaterial.set(nonce, 0);
+    new DataView(seedMaterial.buffer, nonce.length, 8).setBigUint64(0, BigInt(sn), false);
+    const h = await diskSha256(seedMaterial);
+    const block = new Uint8Array(32);
+    for(let i=0;i<32;i++) block[i] = masterKey[i] ^ h[i];
+
+    const result = new Uint8Array(32);
+    for(let chunkI=0; chunkI<2; chunkI++){
+      const chunk = new Uint8Array(24);
+      const start = chunkI*12;
+      for(let i=0;i<24;i++){ const srcIdx = start+i; if(srcIdx < block.length) chunk[i] = block[srcIdx]; }
+      let data = chunk;
+      for(let rnd=0; rnd<nRounds; rnd++){
+        const salt = new Uint8Array(24);
+        const sv = new DataView(salt.buffer, 0, 16);
+        sv.setBigUint64(0, BigInt(sn), false);
+        sv.setUint32(8, chunkI, false);
+        sv.setUint32(12, rnd, false);
+        salt.set(nonce.slice(0,8), 16);
+        const dkInput = new Uint8Array(masterKey.length + salt.length);
+        dkInput.set(masterKey, 0); dkInput.set(salt, masterKey.length);
+        const dk = await diskSha256(dkInput);
+        const cfg = dk[0] % 256;
+        const oi = ((dk[1]<<8)|dk[2]) % 24;
+        const col = dk[3] & 1;
+        const idx360 = dk[4] % tables.n360;
+        const oi360 = dk[5] % 6;
+        const seedInput = new Uint8Array(masterKey.length + salt.length + 1);
+        seedInput.set(masterKey, 0); seedInput.set(salt, masterKey.length); seedInput[masterKey.length+salt.length] = cfg;
+        const seed = await diskSha256(seedInput);
+        const [sbox] = await diskMakeSboxGf(seed);
+        const [P256] = tables.pt256.get(`${cfg},${oi},${col}`);
+        const [P360] = tables.pt360.get(diskResolve360Key(tables, idx360, oi360));
+        const sub = new Uint8Array(24);
+        for(let i=0;i<24;i++) sub[i] = sbox[data[i]];
+        const p256 = new Uint8Array(24);
+        for(let i=0;i<24;i++) p256[i] = sub[P256[i]];
+        const mx = diskMix(p256);
+        const next = new Uint8Array(24);
+        for(let i=0;i<24;i++) next[i] = mx[P360[i]];
+        data = next;
+      }
+      result.set(data.slice(0,16), chunkI*16);
+    }
+    return result;
+  }
+
+  // Nonce unique par secteur, dérivé du nonce global via HKDF-SHA256 —
+  // vérifié octet pour octet contre cryptography.hazmat...HKDF côté Python.
+  async function diskSectorNonce(globalNonce, sectorNum){
+    const salt = new Uint8Array(8);
+    new DataView(salt.buffer).setBigUint64(0, BigInt(sectorNum), false);
+    const info = new TextEncoder().encode('GeoSPN-sector-nonce');
+    const keyMaterial = await crypto.subtle.importKey('raw', globalNonce, 'HKDF', false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'HKDF', hash:'SHA-256', salt, info}, keyMaterial, DISK_INNER_NONCE_SIZE*8);
+    return new Uint8Array(bits);
+  }
+
+  function diskTimingSafeEqual(a, b){
+    if(a.length !== b.length) return false;
+    let diff = 0;
+    for(let i=0;i<a.length;i++) diff |= a[i]^b[i];
+    return diff === 0;
+  }
+
+  async function diskHmacSha256(key, data){
+    const k = await crypto.subtle.importKey('raw', key, {name:'HMAC', hash:'SHA-256'}, false, ['sign']);
+    const sig = await crypto.subtle.sign('HMAC', k, data);
+    return new Uint8Array(sig);
+  }
+
+  async function diskPbkdf2(secret, salt, iterations, dklenBytes){
+    const km = await crypto.subtle.importKey('raw', secret, {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations, hash:'SHA-256'}, km, dklenBytes*8);
+    return new Uint8Array(bits);
+  }
+
+  // Format : [32B sel interne][24B nonce global][secteurs, chacun 512B+16B de
+  // tag AES-GCM][32B HMAC-SHA256 global]. Chaque secteur a sa propre clé de
+  // session (diskGeoDerive) et son propre nonce (HKDF du nonce global) — une
+  // passphrase incorrecte ou un fichier altéré échouent au tag AES-GCM et/ou
+  // au HMAC global plutôt que de produire du bruit silencieux.
+  async function diskEncrypt(fileData, masterKey, tables, onProgress){
+    const innerSalt = crypto.getRandomValues(new Uint8Array(DISK_INNER_SALT_SIZE));
+    const globalNonce = crypto.getRandomValues(new Uint8Array(DISK_INNER_NONCE_SIZE));
+    const geoKey = await diskPbkdf2(masterKey, innerSalt, 300000, 32);
+
+    const olen = fileData.byteLength;
+    const unpadded = new Uint8Array(8+olen);
+    new DataView(unpadded.buffer).setBigUint64(0, BigInt(olen), false);
+    unpadded.set(new Uint8Array(fileData), 8);
+    const pad = (DISK_SECTOR_SIZE - unpadded.length % DISK_SECTOR_SIZE) % DISK_SECTOR_SIZE;
+    const padded = new Uint8Array(unpadded.length+pad);
+    padded.set(unpadded, 0);
+
+    const nSectors = padded.length/DISK_SECTOR_SIZE;
+    const ciphertext = new Uint8Array(nSectors*(DISK_SECTOR_SIZE+DISK_TAG_SIZE));
+    for(let s=0; s<nSectors; s++){
+      const sector = padded.slice(s*DISK_SECTOR_SIZE, (s+1)*DISK_SECTOR_SIZE);
+      const sessionKey = await diskGeoDerive(geoKey, globalNonce, s, tables, DISK_N_ROUNDS);
+      const sectorNonce = (await diskSectorNonce(globalNonce, s)).slice(0, 12);
+      const aad = new Uint8Array(8+globalNonce.length);
+      new DataView(aad.buffer, 0, 8).setBigUint64(0, BigInt(s), false);
+      aad.set(globalNonce, 8);
+      const key = await crypto.subtle.importKey('raw', sessionKey, {name:'AES-GCM'}, false, ['encrypt']);
+      const encBuf = await crypto.subtle.encrypt({name:'AES-GCM', iv:sectorNonce, additionalData:aad, tagLength:128}, key, sector);
+      ciphertext.set(new Uint8Array(encBuf), s*(DISK_SECTOR_SIZE+DISK_TAG_SIZE));
+      if(onProgress) onProgress(Math.round((s+1)/nSectors*100));
+    }
+    const payload = new Uint8Array(innerSalt.length+globalNonce.length+ciphertext.length);
+    payload.set(innerSalt, 0); payload.set(globalNonce, innerSalt.length); payload.set(ciphertext, innerSalt.length+globalNonce.length);
+    const mac = await diskHmacSha256(masterKey, payload);
+    const out = new Uint8Array(payload.length+DISK_MAC_SIZE);
+    out.set(payload, 0); out.set(mac, payload.length);
+    return out;
+  }
+
+  async function diskDecrypt(data, masterKey, tables, onProgress){
+    if(data.length < DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE+DISK_MAC_SIZE) throw new Error('Data too short.');
+    const macRecv = data.slice(data.length-DISK_MAC_SIZE);
+    const payload = data.slice(0, data.length-DISK_MAC_SIZE);
+    const macCalc = await diskHmacSha256(masterKey, payload);
+    if(!diskTimingSafeEqual(macRecv, macCalc)) throw new Error('Invalid global MAC — tampered file or wrong passphrase.');
+    const innerSalt = payload.slice(0, DISK_INNER_SALT_SIZE);
+    const globalNonce = payload.slice(DISK_INNER_SALT_SIZE, DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE);
+    const ciphertext = payload.slice(DISK_INNER_SALT_SIZE+DISK_INNER_NONCE_SIZE);
+    const sectorEncSize = DISK_SECTOR_SIZE+DISK_TAG_SIZE;
+    if(ciphertext.length % sectorEncSize !== 0) throw new Error('Invalid encrypted length.');
+    const geoKey = await diskPbkdf2(masterKey, innerSalt, 300000, 32);
+    const nSectors = ciphertext.length/sectorEncSize;
+    const plaintext = new Uint8Array(nSectors*DISK_SECTOR_SIZE);
+    for(let s=0; s<nSectors; s++){
+      const encSector = ciphertext.slice(s*sectorEncSize, (s+1)*sectorEncSize);
+      const sessionKey = await diskGeoDerive(geoKey, globalNonce, s, tables, DISK_N_ROUNDS);
+      const sectorNonce = (await diskSectorNonce(globalNonce, s)).slice(0, 12);
+      const aad = new Uint8Array(8+globalNonce.length);
+      new DataView(aad.buffer, 0, 8).setBigUint64(0, BigInt(s), false);
+      aad.set(globalNonce, 8);
+      const key = await crypto.subtle.importKey('raw', sessionKey, {name:'AES-GCM'}, false, ['decrypt']);
+      let decBuf;
+      try{
+        decBuf = await crypto.subtle.decrypt({name:'AES-GCM', iv:sectorNonce, additionalData:aad, tagLength:128}, key, encSector);
+      }catch(e){
+        throw new Error(`Invalid AES-GCM tag at sector ${s} — tampered file or wrong passphrase.`);
+      }
+      plaintext.set(new Uint8Array(decBuf), s*DISK_SECTOR_SIZE);
+      if(onProgress) onProgress(Math.round((s+1)/nSectors*100));
+    }
+    const olen = Number(new DataView(plaintext.buffer).getBigUint64(0, false));
+    return plaintext.slice(8, 8+olen);
+  }
+
+  // Dérive la clé maître depuis la passphrase avec un sel — sel aléatoire et
+  // propre à chaque fichier au chiffrement (embarqué en tête de sortie), sel
+  // lu depuis le fichier au déchiffrement : la passphrase seule ne suffit
+  // jamais à reproduire la clé sans connaître ce sel.
+  async function diskPassphraseToKey(passphrase, salt){
+    const keyMat = await crypto.subtle.importKey('raw', new TextEncoder().encode(passphrase), {name:'PBKDF2'}, false, ['deriveBits']);
+    const bits = await crypto.subtle.deriveBits({name:'PBKDF2', salt, iterations:300000, hash:'SHA-256'}, keyMat, 256);
+    return new Uint8Array(bits);
+  }
+
+  function diskSetProgress(barId, wrapId, pct){
+    const wrap = document.getElementById(wrapId);
+    wrap.classList.add('active');
+    document.getElementById(barId).style.width = pct + '%';
+  }
+
+  async function onDiskEncrypt(){
+    const infoEl = document.getElementById('disk-encrypt-info');
+    if(!diskTables){ infoEl.textContent = 'Permutation tables still initialising, try again in a moment.'; return; }
+    const pass = document.getElementById('disk-passphrase').value;
+    if(!pass){ infoEl.textContent = 'Enter a passphrase.'; return; }
+    const input = document.getElementById('disk-file-encrypt');
+    if(!input.files[0]){ infoEl.textContent = 'Choose a file.'; return; }
+    const file = input.files[0];
+    const buf = new Uint8Array(await file.arrayBuffer());
+    diskSetProgress('disk-encrypt-progress-bar','disk-encrypt-progress',0);
+    const salt = crypto.getRandomValues(new Uint8Array(DISK_OUTER_SALT_SIZE));
+    const masterKey = await diskPassphraseToKey(pass, salt);
+    const encBody = await diskEncrypt(buf, masterKey, diskTables, pct=>diskSetProgress('disk-encrypt-progress-bar','disk-encrypt-progress',pct));
+    const out = new Uint8Array(DISK_OUTER_SALT_SIZE + encBody.length);
+    out.set(salt, 0);
+    out.set(encBody, DISK_OUTER_SALT_SIZE);
+    const blob = new Blob([out], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name + '.lldh';
+    a.click();
+    infoEl.textContent = file.name + ' — ' + file.size.toLocaleString('en-GB') + ' bytes — encrypted ✓';
+  }
+
+  async function onDiskDecrypt(){
+    const infoEl = document.getElementById('disk-decrypt-info');
+    if(!diskTables){ infoEl.textContent = 'Permutation tables still initialising, try again in a moment.'; return; }
+    const pass = document.getElementById('disk-passphrase').value;
+    if(!pass){ infoEl.textContent = 'Enter a passphrase.'; return; }
+    const input = document.getElementById('disk-file-decrypt');
+    if(!input.files[0]){ infoEl.textContent = 'Choose a .lldh file.'; return; }
+    const file = input.files[0];
+    const buf = new Uint8Array(await file.arrayBuffer());
+    if(buf.length < DISK_OUTER_SALT_SIZE){ infoEl.textContent = 'File too short.'; return; }
+    diskSetProgress('disk-decrypt-progress-bar','disk-decrypt-progress',0);
+    let out;
+    try{
+      const salt = buf.slice(0, DISK_OUTER_SALT_SIZE);
+      const masterKey = await diskPassphraseToKey(pass, salt);
+      out = await diskDecrypt(buf.slice(DISK_OUTER_SALT_SIZE), masterKey, diskTables, pct=>diskSetProgress('disk-decrypt-progress-bar','disk-decrypt-progress',pct));
+    }catch(e){
+      infoEl.textContent = 'Decryption error: ' + e.message;
+      return;
+    }
+    const blob = new Blob([out], {type:'application/octet-stream'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name.replace(/\.lldh$/i, '') || 'fichier_dechiffre';
+    a.click();
+    infoEl.textContent = file.name + ' — ' + file.size.toLocaleString('en-GB') + ' bytes — decrypted ✓';
+  }
+
+  function wireUI(){
+    document.querySelectorAll('.enc-nav button[data-tab]').forEach(btn=>{
+      btn.addEventListener('click', function(){ showTab(this.getAttribute('data-tab'), this); });
+    });
+    populateVariantSelect(document.getElementById('enc-variant'));
+    populateVariantSelect(document.getElementById('carter-variant'));
+    populateVariantSelect(document.getElementById('dec-variant'));
+    populateVariantSelect(document.getElementById('carter-dec-variant'));
+    document.getElementById('btnRunDemo').addEventListener('click', runDemo);
+    document.getElementById('btnEncode').addEventListener('click', encodeMessage);
+    document.getElementById('btnDecode').addEventListener('click', decodeMessage);
+    document.getElementById('btnDownloadGrid').addEventListener('click', downloadGrid);
+    document.getElementById('dec-file-grid').addEventListener('change', function(){ loadGridFile(this); });
+
+    document.getElementById('btnDiskEncrypt').addEventListener('click', onDiskEncrypt);
+    document.getElementById('btnDiskDecrypt').addEventListener('click', onDiskDecrypt);
+    document.getElementById('disk-file-encrypt').addEventListener('change', function(){
+      const f = this.files[0];
+      document.getElementById('disk-encrypt-info').textContent = f ? (f.name + ' — ' + f.size.toLocaleString('en-GB') + ' bytes') : '';
+    });
+    document.getElementById('disk-file-decrypt').addEventListener('change', function(){
+      const f = this.files[0];
+      document.getElementById('disk-decrypt-info').textContent = f ? (f.name + ' — ' + f.size.toLocaleString('en-GB') + ' bytes') : '';
+    });
+
+    document.getElementById('btnScCreateIdentity').addEventListener('click', onScCreateIdentity);
+    scRefreshIdentityUI();
+    document.getElementById('btnScGenerate').addEventListener('click', onScGenerate);
+    document.getElementById('btnScCopyPub').addEventListener('click', onScCopyPub);
+    document.getElementById('btnScDerive').addEventListener('click', onScDerive);
+    document.getElementById('btnScClearSession').addEventListener('click', onScClearSession);
+    document.getElementById('btnEncodeSession').addEventListener('click', onEncodeSession);
+    document.getElementById('btnDecodeSession').addEventListener('click', onDecodeSession);
+    document.getElementById('dec-session-file-grid').addEventListener('change', function(){
+      if(!this.files[0]) return;
+      const fr = new FileReader();
+      fr.onload = e => { document.getElementById('dec-session-grid').value = e.target.result; };
+      fr.readAsText(this.files[0]);
+    });
+
+    document.getElementById('btnVaultNew').addEventListener('click', onVaultNew);
+    document.getElementById('btnVaultOpenPrompt').addEventListener('click', onVaultOpenPrompt);
+    document.getElementById('vault-file-open').addEventListener('change', function(){ onVaultFileOpen(this); });
+    document.getElementById('btnVaultAdd').addEventListener('click', onVaultAdd);
+    document.getElementById('btnVaultExport').addEventListener('click', onVaultExport);
+
+    document.getElementById('btnCarterEncode').addEventListener('click', onCarterEncode);
+    document.getElementById('btnCarterDecode').addEventListener('click', onCarterDecode);
+    document.getElementById('carter-dec-file-grid').addEventListener('change', function(){
+      if(!this.files[0]) return;
+      const fr = new FileReader();
+      fr.onload = e => { document.getElementById('carter-dec-grid').value = e.target.result; };
+      fr.readAsText(this.files[0]);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    wireUI();
+    scLoadSession();
+    scRefreshActiveSessionUI();
+    const proOnlyEl = document.getElementById('encProOnly');
+    function tryInit(){
+      if(!proOnlyEl.hidden && !REF256){ loadReferents(); }
+    }
+    new MutationObserver(tryInit).observe(proOnlyEl, {attributes:true, attributeFilter:['hidden']});
+    tryInit();
+  });
+</script>
+
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../../en/"><img class="nav-tile-icon" src="../../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../../en/articles/"><img class="nav-tile-icon" src="../../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter <span class="lien-langue">(French)</span></a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../../en/wallpapers/"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws &amp; prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../../telechargements.html" hreflang="fr"><span class="nav-cat-label">SVG patterns <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat" open>
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/create-a-pattern/"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Two-colour patterns v2 <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../../en/encoder/" aria-current="page"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../../en/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../../en/cymatics/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../../outils.html" hreflang="fr"><span class="nav-cat-label">Tools <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../../soutenir.html" hreflang="fr"><span class="nav-cat-label">Support <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../../en/">Home</a>
+    <a href="../../en/book/">The book</a>
+    <a href="../../en/hexagrams/">Hexagrams</a>
+    <a href="../../motifs/">Patterns</a>
+    <a href="../../en/lexicon/">Lexicon</a>
+    <a href="../../en/articles/">Articles</a>
+    <a href="../../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../../en/about/">About</a>
+    <a href="../../en/documentary-profile/">Author profile</a>
+    <a href="../../en/works/">Research deposits</a>
+    <a href="../../en/contact/">Contact</a>
+    <a href="../../soutenir.html" hreflang="fr">Support (French)</a>
+    <a href="../../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<script>
+  document.getElementById('credit-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
