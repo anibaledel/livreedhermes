@@ -908,3 +908,30 @@ Choix à relire :
   Voyageur.
 
 Le générateur lit désormais aussi un tableau (`const X = [ … ]`), pour le `PAIRS_32` de 360 calques.
+## Tirage du Yi King en espagnol et en thaï (2026-10-09)
+
+`tirage-livree-hermes.html` → es/tirada-del-yi-king/, th/yi-king-draw/ (l'anglais existait). La page française ne
+porte que les langues fr et en : elle ne change pas. Ce qui vient d'ailleurs :
+- **noms, Jugements et Images des 64 hexagrammes** : `data/hexagrammes_traduits.json`, déjà publié sur les pages
+  es/hexagramas/ et th/hexagrams/ ;
+- **commentaires des traits mutants et trigrammes** : repris tels quels du même fichier ;
+- **interface** (99 libellés) et **en-tête** (titre, description, données structurées) : `data/outils-langues/tirage.json`
+  et les « remplacements » de `data/outils-langues.json`, **sans source**.
+
+Choix à relire :
+- espagnol : « rasgo » et « teselado » (comme es/hexagramas/) alors que es/360-capas dit « línea mutante » et
+  « pavimentación » ; « tablero » pour l'échiquier ; « Léxico » comme le menu espagnol ;
+- thaï : « mutant » = กลายพันธุ์ (glossaire) alors que th/360-layers dit เส้นแปรเปลี่ยน ; Image et Jugement =
+  ภาพลักษณ์ / คำตัดสิน (pages des hexagrammes) alors que th/360-layers dit ภาพ / คำพิพากษา ; « carrés magiques » =
+  จัตุรัสกล (glossaire) ;
+- le bouton PDF dit « 16 MB » pour l'espagnol et le thaï (taille réelle des fichiers) ; l'accueil thaï annonce
+  « 13 MB » — écart à trancher, non corrigé ici ;
+- le lien « en savoir plus » d'un hexagramme mène à la page hexagramme **française**, comme déjà sur la page anglaise :
+  le script compose l'adresse française (`hexagramPageUrl`) ; le faire viser la page de la langue est un lot à part ;
+
+Ailleurs : la carte « Tirada » / « การทำนาย » des accueils espagnol et thaï visait la page anglaise (« Se abre en
+inglés. », « เปิดเป็นภาษาอังกฤษ ») ; elle vise la page de sa langue et perd cette phrase (`check_accueils.mjs` l'exigeait ;
+son essai reconnaît les deux adresses). Le bouton « Tirada » des pages du livre es/th aussi.
+
+Le générateur sait désormais compléter le dictionnaire d'une page traduite (`cfg.dictionnaire`) et remplacer des
+données par langue (`cfg.donnees`, forme « dictionnaire »).
