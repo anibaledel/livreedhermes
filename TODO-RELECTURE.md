@@ -1117,3 +1117,49 @@ contient `depot-15.37.zip` (MD5 3c6a809f38c6ca49e3f6a75b2d1b421e), la fiche à r
   `README.md`, `README.en.md`, `requirements.txt`. Le papier (rev199) reste hors du dépôt.
 - **Après publication, côté Anibal** (fiche de dépôt) : DOI de concept dans le papier ;
   élément Wikidata du dépôt.
+
+## Page « Cymatique » → « Chladni » (envoi 61, 2026-10-10)
+
+Spécification d'Anibal (`envoi61-page-chladni.md`) appliquée :
+- **Renommage** : `cymatique.html` → `chladni.html`, `en/cymatics/` → `en/chladni/`,
+  `es/cimatica/` → `es/chladni/`, `th/cymatics/` → `th/chladni/` (`git mv`, l'historique
+  suit). Chaque ancienne adresse porte une page de redirection (canonical, refresh 0,
+  `location.replace` qui garde paramètres et ancre, `noindex`), sur le modèle
+  d'`impression.html` ; elles sont hors du périmètre de `build-header.js` et hors du
+  sitemap. Liens réécrits partout où ils sont engendrés ou écrits (tuiles des ~990
+  pages, accueil, hexagrammes, motifs, articles, scripts, contrôles, workflow,
+  `data/outils-langues.json`).
+- **Titre, description, h1, `pageTitle`** fr et en : à la lettre de l'envoi. La page
+  s'appelle « Chladni » aussi dans le JSON-LD et le fil d'Ariane, dans toutes les langues.
+- **Section `sectionClassif`** insérée entre « Deux systèmes exacts, deux lois » et
+  « Écoute » ; clés fr et en à la lettre, es et th reçoivent le texte anglais (comme
+  demandé, en attendant une relecture). « Ce qui n'est pas établi » inchangée.
+- **Lien « Le détail, avec la vérification → »** : vers le DOI de concept
+  10.5281/zenodo.22965031 (il visait l'article `articles/axes-lignes-nodales.html`, que la
+  page ne lie donc plus).
+
+**À NE PAS LAISSER PASSER — la section de classification n'a aucune preuve dans le
+dépôt.** Quatre impossibles sur quinze, R(N) = (8a + 3)·τ(M), 38 figures sur 16 383 à
+la période 12, la correction 35 → 38, la recherche jusqu'à l'indice 72 : aucun script du
+dépôt ne l'imprime, rien dans `data/resultats-etablis.json`, et la dernière version de
+10.5281/zenodo.22965031 dans l'instantané `data/zenodo/` (V.3, 2 octobre) ne porte pas
+« les quatre scripts » dont parle la section. Contrôle de cohérence seulement, fait ici :
+R(12) = (8·2 + 3)·τ(3) = 19 × 2 = 38 ; 16 383 = 2¹⁴ − 1 (sept niveaux lus deux fois) ;
+15 = 2⁴ − 1. Les « onze sur quinze » étaient déjà sur la page (encadré, et
+`tools/verify_modes_de_famille.mjs` : « 15 familles, 11 avec un mode dans la table »).
+Il faut : les quatre scripts, leurs journaux, la version du dépôt qui les porte.
+
+De moi, à relire :
+- **SANS SOURCE** — description anglaise (`data/outils-langues.json`) : « The Chladni
+  figures of the pattern system: level lines of an exact plate eigenmode, a complete
+  classification of the realisable figures, and the link with cymatics. No measurement. »
+- **es, th** : titre = l'ancien titre avec « Chladni » pour seul changement (« Chladni —
+  escalas y frecuencias », « Chladni — บันไดเสียงและความถี่ ») ; description = la
+  traduction de l'ancienne description, gardée (toujours juste), à refaire sur la neuve.
+- **Non touché, à décider** : le libellé de la tuile du menu (« Cymatique », « Cymatics »,
+  « Cimática »… dans `scripts/nav-tiles-libelles.js`, 8 langues ; c'est aussi le lien de
+  l'accueil) — elle mène à la page Chladni sous l'ancien nom. Le nom des contrôles
+  (`check_cymatique_outils.mjs`, `verify_cymatique_plate_modes.mjs`), la clé de stockage
+  `lldh-cymatique-echelle`, l'image `plate-40-cymatique.avif`, et les mentions de
+  provenance dans `assets/`, `docs/`, `data/outils-langues/*.json` (« source :
+  cymatique.html ») restent : ce sont des noms internes ou des traces.

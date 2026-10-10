@@ -43,7 +43,7 @@ if (PALETTE_DEFAUT_.some((c) => ['#000000', '#ffffff', ROUGE, BLANC].includes(c)
 if (PALETTES.creme[0] !== CREME || PALETTES.creme[1] !== ENCRE || PALETTES.bicolore[0] !== BLANC || PALETTES.bicolore[1] !== ROUGE || PALETTES.monochrome[1] !== GRIS) echecs.push('PALETTES mal composées');
 // 3
 // les rendus bicolores de motif, et ceux qui doivent importer le jeu
-const RENDUS = ['creation-bicolore-v2.html', 'bicolore.html', 'galerie-bicolore.html', 'cymatique.html', 'fonds-ecran.html', 'assets/vue-fond-motif.js', 'assets/vue-fond-ecran.js', 'tools/export_pinterest_fonds.mjs'];
+const RENDUS = ['creation-bicolore-v2.html', 'bicolore.html', 'galerie-bicolore.html', 'chladni.html', 'fonds-ecran.html', 'assets/vue-fond-motif.js', 'assets/vue-fond-ecran.js', 'tools/export_pinterest_fonds.mjs'];
 const AUTRES = ['assets/selecteur-fonds.js', 'assets/bicolore-fonds.js', 'scripts/generate-motif-pages.js', 'tools/verify_lecture_binaire.mjs'];
 const FICHIERS = [...RENDUS, ...AUTRES];
 const valeurs = [ROUGE, BLANC, CREME, ENCRE, GRIS];

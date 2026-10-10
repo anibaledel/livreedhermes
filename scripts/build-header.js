@@ -43,6 +43,8 @@ const HORS_PERIMETRE = new Set([
   'galerie-768-patterns-unifies.html', 'galerie-884-patterns-unifies.html',
   // redirige vers 360-calques.html depuis le renommage de la page (2026-10-04)
   'impression.html',
+  // redirigent vers chladni.html et ses traductions depuis le renommage (2026-10-10)
+  'cymatique.html', 'en/cymatics/index.html', 'es/cimatica/index.html', 'th/cymatics/index.html',
   'motifs (4).html',
 ]);
 const DOSSIERS_IGNORES = new Set(['.git', 'node_modules', 'js', 'includes']);
@@ -205,7 +207,7 @@ function estPageMotif(rel) {
 // (audit logo haut/bas sur les 620 pages).
 const AVEC_TUILES_EN_PLUS = new Set([
   'bicolore.html',
-  'cymatique.html',
+  'chladni.html',
   'soutien-succes.html',
   'creation-bicolore-v2.html',
   // Pages de recherche (scripts/build-recherche.mjs), créées avec le bloc.
@@ -456,7 +458,7 @@ function traiter(rel, src) {
     // partagé et ferme avant la navigation de bas de page, qui n'en fait pas
     // partie. Les marqueurs le rendent relançable sans effet.
     // Garde-fou : une page qui porte déjà un <main> n'en reçoit pas un second.
-    // Le cas s'est produit sur cymatique.html, où <main> servait de conteneur
+    // Le cas s'est produit sur chladni.html, où <main> servait de conteneur
     // de grille — deux <main> sur une page sont invalides, et le contrôle de
     // chargement le signale désormais.
     if (!s.includes('<!-- @main:start') && !/<main[\s>]/.test(s)) {

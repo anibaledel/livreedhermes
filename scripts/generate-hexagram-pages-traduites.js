@@ -145,7 +145,7 @@ const L = {
     indexDescription: 'Los 64 hexagramas del Yi King en el orden cronológico del sitio: juicio, imagen, trigramas y el cuadrado mágico asociado a cada uno.',
     indexH1: 'Los 64 hexagramas',
     indexSub: 'Cada hexagrama del Yi King, en el orden cronológico (por pesos binarios) que usa este sitio, con su juicio, su imagen, sus trigramas y el cuadrado mágico asociado.',
-    // Même mention que cymatique.html (UI.es.i18nReviewNote).
+    // Même mention que chladni.html (UI.es.i18nReviewNote).
     revue: 'Traducción en revisión — si detectas un error, indícalo.',
   },
   th: {
@@ -175,7 +175,7 @@ const L = {
     indexDescription: 'ฉักลักษณ์ทั้ง 64 ของอี้จิง เรียงตามลำดับเวลาของเว็บไซต์: คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กับแต่ละฉักลักษณ์',
     indexH1: 'ฉักลักษณ์ทั้ง 64',
     indexSub: 'ฉักลักษณ์แต่ละตัวของอี้จิง เรียงตามลำดับเวลา (ตามน้ำหนักฐานสอง) ที่ใช้ในเว็บไซต์นี้ พร้อมคำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลที่สัมพันธ์กัน',
-    // Même mention que cymatique.html (UI.th.i18nReviewNote).
+    // Même mention que chladni.html (UI.th.i18nReviewNote).
     revue: 'การแปลอยู่ระหว่างการตรวจทาน — หากพบข้อผิดพลาด กรุณาแจ้งให้ทราบ',
   },
 };

@@ -2,7 +2,7 @@
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// check_cymatique_outils.mjs — les deux outils de cymatique.html (le micro et
+// check_cymatique_outils.mjs — les deux outils de chladni.html (le micro et
 // le générateur de sons purs) ne bloquent plus la page.
 //
 // Le défaut qu'il attrape : show() reconstruisait le pavage (1152 polygones,
@@ -74,13 +74,13 @@ async function ouvrir(fichierAudio, lang = 'fr') {
   const page = await ctx.newPage();
   await page.route('**/beacon.min.js', (r) => r.fulfill({ body: '', contentType: 'text/javascript' }));
   if (essai) {
-    await page.route('**/cymatique.html*', async (r) => {
+    await page.route('**/chladni.html*', async (r) => {
       const rep = await r.fetch();
       const corps = (await rep.text()).replace('if (name === shown && !force) return;', '').replace('const CONFIRMATION_MS = 150;', 'const CONFIRMATION_MS = 0;');
       await r.fulfill({ response: rep, body: corps });
     });
   }
-  await page.goto(`${base}/cymatique.html?lang=${lang}`, { waitUntil: 'networkidle' });
+  await page.goto(`${base}/chladni.html?lang=${lang}`, { waitUntil: 'networkidle' });
   await page.waitForFunction(() => document.querySelectorAll('.gamme-row').length === 15);
   await page.evaluate(() => {
     window.__n = { rendus: 0, nan: 0 };
@@ -165,5 +165,5 @@ if (essai) {
   console.error('\nEssai : garde-fou retiré, et le contrôle ne le voit pas.'); process.exit(1);
 }
 for (const e of erreurs) console.error(`ÉCHEC ${e}`);
-if (!erreurs.length) console.log('\nLes deux outils de cymatique.html : rythme tenu, micro interrupteur, exclusion mutuelle, jamais NaN.');
+if (!erreurs.length) console.log('\nLes deux outils de chladni.html : rythme tenu, micro interrupteur, exclusion mutuelle, jamais NaN.');
 process.exit(erreurs.length ? 1 : 0);

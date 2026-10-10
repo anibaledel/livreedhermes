@@ -2,7 +2,7 @@
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// verify_modes_de_famille.mjs — la table MODES_DE_FAMILLE de cymatique.html,
+// verify_modes_de_famille.mjs — la table MODES_DE_FAMILLE de chladni.html,
 // affichée au visiteur en badge (mode, bords, f = 32 × (m² + n²)), recalculée
 // depuis les données, sans rien lire d'autre de la page que la table elle-même.
 //
@@ -41,10 +41,10 @@ const PARTS = GRID * GRID * PER_CELL;
 const MAX = 24;
 
 // la table et les noms, tels que la page les publie
-const page = readFileSync(path.join(ROOT, 'cymatique.html'), 'utf8');
+const page = readFileSync(path.join(ROOT, 'chladni.html'), 'utf8');
 const objet = (nom) => {
   const m = page.match(new RegExp(`const ${nom} = (\\{[\\s\\S]*?\\n\\});`));
-  if (!m) throw new Error(`${nom} introuvable dans cymatique.html`);
+  if (!m) throw new Error(`${nom} introuvable dans chladni.html`);
   return Function(`"use strict"; return (${m[1]});`)();
 };
 const TABLE = objet('MODES_DE_FAMILLE');

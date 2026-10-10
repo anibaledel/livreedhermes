@@ -62,7 +62,7 @@ const PAGES = [
   { path: 'carter-demo.html' },
   { path: 'contact.html' },
   { path: 'creation-motifs-yi-king.html', zone: '#pickArea' },
-  { path: 'cymatique.html' },
+  { path: 'chladni.html' },
   { path: 'encodeur.html' },
   { path: 'fonds-ecran.html' },
   { path: 'galerie-768-patterns-unifies.html', horsEnTete: true },
