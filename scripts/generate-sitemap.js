@@ -85,7 +85,7 @@ function urlEntry({ loc, file, changefreq, priority, hreflang }) {
 // Pages fixes du site (hors articles / hexagrammes, gérés automatiquement plus bas).
 const STATIC_PAGES = [
   // Le tirage du Yi King et l'échiquier : la racine est devenue un accueil (A03, 2026-10-04).
-  // 'tirage-livree-hermes.html', '360-calques.html', 'cymatique.html' : dans les groupes « outil-… » de
+  // 'tirage-livree-hermes.html', '360-calques.html', 'chladni.html' : dans les groupes « outil-… » de
   // scripts/langues.js (data/outils-langues.json, 2026-10-06), avec leurs pages traduites et leurs alternates.
   // 'creation-motifs-yi-king.html' : dans le groupe « outil-creation-motifs-yi-king » de scripts/langues.js (étape 4).
   // 'bicolore.html' : dans le groupe « outil-bicolore » de scripts/langues.js (étape 2 des outils en langues).

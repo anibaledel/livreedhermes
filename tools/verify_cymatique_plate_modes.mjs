@@ -1,6 +1,6 @@
 /* ============================================================
    Vérifie, au triangle près, la correspondance entre motif bicolore et
-   mode de plaque annoncée sur cymatique.html — sur le modèle de
+   mode de plaque annoncée sur chladni.html — sur le modèle de
    tools/verify_bicolore_axes_yang_t2.mjs.
 
    La loi (pas une convention) : pour une plaque simplement appuyée, les

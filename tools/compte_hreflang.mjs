@@ -44,7 +44,9 @@ for (const abs of pages(RACINE)) {
   const alt = new Map();
   for (const m of s.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">/g)) alt.set(m[1], m[2]);
   const lang = (/<html[^>]*\slang="([^"]+)"/i.exec(s) || [])[1] || null;
-  info.set(rel, { lang, alt });
+  // une page de redirection (ancienne adresse d'une page renommée) n'est pas une traduction
+  const redirection = /<meta http-equiv="refresh"/i.test(s);
+  info.set(rel, { lang, alt, redirection });
 }
 
 const avec = [...info.values()].filter((p) => p.alt.size);
@@ -76,7 +78,7 @@ for (const [rel, p] of info) {
 const { LANGUES: DECLAREES, hreflangDeCode } = createRequire(import.meta.url)('../scripts/langues.js');
 const DOSSIERS_DE_LANGUE = new RegExp(`^(${Object.keys(DECLAREES).join('|')})/`);
 for (const [rel, p] of info) {
-  if (DOSSIERS_DE_LANGUE.test(rel) && !p.alt.size) {
+  if (DOSSIERS_DE_LANGUE.test(rel) && !p.alt.size && !p.redirection) {
     erreurs.push(`${rel} : page traduite sans aucun hreflang — l'ajouter à un groupe de scripts/langues.js`);
   }
 }

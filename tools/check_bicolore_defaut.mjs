@@ -40,7 +40,7 @@ const PAGES = [
   ['bicolore.html', ['#colorB', '#colorA']],
   ['galerie-bicolore.html', ['#tintClair', '#tintSombre'], null, { canevas: '#pavedCanvas' }],
   ['galerie-bicolore.html#fondFixe', ['#ffCouleur2', '#ffCouleur1'], '.ff-preset[data-palette=bicolore]'],
-  ['cymatique.html', ['#pal0', '#pal1']],
+  ['chladni.html', ['#pal0', '#pal1']],
   // l'outil bicolore de fonds-ecran.html (le second montage du moteur : son écran a les champs c0 / c1)
   ['fonds-ecran.html#outilBicolore', ['[data-r=c0]', '[data-r=c1]'], '.anim-preset[data-palette=bicolore]', { canevas: '.fe-stage:has([data-r=c0]) canvas', lancer: '#outilBicolore .cat-card', attendre: 2500 }],
   ['fonds-ecran.html#fondFixe', ['#ffCouleur2', '#ffCouleur1'], '.ff-preset[data-palette=bicolore]'],

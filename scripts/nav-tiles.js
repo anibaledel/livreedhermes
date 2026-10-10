@@ -100,7 +100,7 @@ const TUILES = [
   { id: 'quadricolore', href: 'unified-patterns.html', categories: ['outils-creatifs'],
     fr: { label: 'Magic quadricolore', excerpt: 'Les 64 motifs des hexagrammes, personnalisables et téléchargeables en haute résolution.' },
     en: { label: 'Magic quadricolore', excerpt: 'The 64 hexagram patterns, customisable and downloadable in high resolution.' } },
-  { id: 'cymatique', href: 'cymatique.html', categories: ['outils-creatifs'],
+  { id: 'cymatique', href: 'chladni.html', categories: ['outils-creatifs'],
     fr: { label: 'Cymatique', excerpt: 'Le pavage dont la fréquence spatiale se rapproche le plus du son que vous émettez.' },
     en: { label: 'Cymatics', excerpt: 'The tiling whose spatial frequency comes closest to the sound you make.' } },
   { id: 'outils', href: 'outils.html', categories: ['outils-creatifs'],

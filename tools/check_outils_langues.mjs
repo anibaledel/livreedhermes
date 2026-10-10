@@ -67,7 +67,7 @@ if (essai) {
     await ctx.route((u) => u.href === versBase(premiere[1]), async (route) => {
       const rep = await route.fetch();
       let html = await rep.text();
-      html = html.replace(/(data-i18n="pageTitle">)[^<]*/, '$1Cymatique — gammes et fréquences')
+      html = html.replace(/(data-i18n="pageTitle">)[^<]*/, '$1Chladni — figures, gammes et fréquences')
         .replace(/<link rel="alternate" hreflang="es"[^>]*>\n?/, '')
         .replace('src="../../assets/share-widget.js"', 'src="assets/share-widget.js"');
       await route.fulfill({ response: rep, body: html });

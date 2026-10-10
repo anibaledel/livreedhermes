@@ -3,11 +3,11 @@
    build-outils-langues.js — les outils dont le texte est DÉJÀ traduit, sortis
    à une adresse par langue (prompt-cc-outils-langues.md, étape 1).
 
-   cymatique.html, 360-calques.html et tirage-livree-hermes.html portent leur
+   chladni.html, 360-calques.html et tirage-livree-hermes.html portent leur
    texte en plusieurs langues dans un dictionnaire JavaScript (UI.fr, UI.en…),
    mais à une seule adresse : la traduction bascule au clic, et un moteur de
    recherche ne la voit pas. Ce script écrit, depuis la page française et
-   rien d'autre, une page par langue à son adresse (en/cymatics/…) :
+   rien d'autre, une page par langue à son adresse (en/chladni/…) :
 
      1. la langue est fixée : la ligne qui la choisissait au chargement
         (localStorage, ?lang=) devient « let LANG = '<langue>'; » ;

@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: '20'
       - run: node tools/verify_fonds.mjs
-      # cymatique.html : la table MODES_DE_FAMILLE (affichée en badge) recalculée
+      # chladni.html : la table MODES_DE_FAMILLE (affichée en badge) recalculée
       # depuis les masques, et les trois correspondances de plaque — chacun avec
       # son essai, qui doit échouer
       - run: node tools/verify_modes_de_famille.mjs

@@ -312,7 +312,7 @@
   },
   {
    "fichier": "tools/check_cymatique_outils.mjs",
-   "role": "les deux outils de cymatique.html (le micro et le générateur de sons purs) ne bloquent plus la page.",
+   "role": "les deux outils de chladni.html (le micro et le générateur de sons purs) ne bloquent plus la page.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -2370,7 +2370,7 @@
   },
   {
    "fichier": "tools/verify_cymatique_plate_modes.mjs",
-   "role": "Vérifie, au triangle près, la correspondance entre motif bicolore et mode de plaque annoncée sur cymatique.html — sur le modèle de tools/verify_bicolore_axes_yang_t2.mjs.",
+   "role": "Vérifie, au triangle près, la correspondance entre motif bicolore et mode de plaque annoncée sur chladni.html — sur le modèle de tools/verify_bicolore_axes_yang_t2.mjs.",
    "lit": [],
    "ecrit": [],
    "appele_par": [
@@ -2448,7 +2448,7 @@
   },
   {
    "fichier": "tools/verify_modes_de_famille.mjs",
-   "role": "la table MODES_DE_FAMILLE de cymatique.html, affichée au visiteur en badge (mode, bords, f = 32 × (m² + n²)), recalculée depuis les données, sans rien lire d'autre de la page que la table elle-même.",
+   "role": "la table MODES_DE_FAMILLE de chladni.html, affichée au visiteur en badge (mode, bords, f = 32 × (m² + n²)), recalculée depuis les données, sans rien lire d'autre de la page que la table elle-même.",
    "lit": [
     "data/referent_bandes_v1.json"
    ],
