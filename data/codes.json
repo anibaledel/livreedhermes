@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-09T19:38:19Z",
+ "generated_at_utc": "2026-10-09T21:08:20Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 245,
+  "scripts": 246,
   "sans_licence_declaree": 72,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2775,6 +2775,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "génère les 15 familles d'axes en bicolore.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/fibres.py",
+   "adresse": "https://anibal-amiot.com/tools/fibres.py",
+   "octets": 6415,
+   "sha256": "6abc232886378fbb48f0887f6fbcbbe937d81ff19816e27f9723098a70842169",
+   "md5": "0117880db4a56196d5d1562e7b4efcf8",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "combien d'étiquetages réalisent UNE figure donnée.",
    "lit": [],
    "ecrit": [],
    "durees": [],

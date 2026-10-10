@@ -4,7 +4,7 @@
  "statuts": {
   "verifie_journal_depose": 13,
   "verifie_journal_local": 27,
-  "verifie_ci": 37,
+  "verifie_ci": 38,
   "releve_journal_depose": 0,
   "affirme": 2
  },
@@ -3741,6 +3741,51 @@
    "statut": "verifie_journal_local",
    "statut_depot": "2. vérifié exhaustivement sans solveur",
    "note": "Les deux commandes impriment la même ligne (257 s et 251 s ici ; ~6 min chez Anibal). Mémoire de pointe mesurée ici (ru_maxrss) : environ 0,1 Go, contre « 5 Go » annoncés dans DEPOT.md et data/recollement.txt ; la commande du journal d'Anibal porte en plus --profils, la mienne non. Même entier que data/recollement.txt. Ce nombre somme les réalisations de toutes les figures ; la réalisabilité de chacune est le théorème positif (entrée croix-ansee-theoreme-positif)."
+  },
+  {
+   "id": "fibres-projection-figure",
+   "intitule": "Fibres de la projection « étiquetage ↦ figure » : 4 096 par figure à l'ordre 6, trois tailles à l'ordre 10",
+   "enonce": {
+    "texte": "**les fibres de la projection « étiquetage ↦ figure »** : à l'ordre 6 elle est uniforme, 4 096 étiquetages par figure, 2 × 4 096 = 8 192 ; à l'ordre 10 elle ne l'est PAS — trois tailles, 260 919 263 232 pour 648 figures, 289 910 292 480 pour 1 136, 322 122 547 200 pour 264, de somme exactement 583 454 127 292 416.",
+    "langue": "fr",
+    "source": "DEPOT.md du dépôt 15.37 d'Anibal (9 octobre 2026), section 2 — archive du dépôt Zenodo 10.5281/zenodo.23269974",
+    "copie": "docs/sources/2026-10-09/depot-15.37/DEPOT.md"
+   },
+   "valeur": {
+    "6": {
+     "4096": 2
+    },
+    "10": {
+     "260919263232": 648,
+     "289910292480": 1136,
+     "322122547200": 264
+    },
+    "rapport": "81 : 90 : 100"
+   },
+   "conditionnel": false,
+   "referents": [],
+   "donnees": [],
+   "script": {
+    "chemin": "tools/fibres.py",
+    "adresse": "https://anibal-amiot.com/tools/fibres.py",
+    "depose": null
+   },
+   "preuves": [
+    {
+     "ci": ".github/workflows/check-etiquetages.yml",
+     "lignes": [
+      "  fibre               4096  pour      2 figure(s)",
+      "  total de recollement.py : 8192 — accord : True",
+      "  fibre       260919263232  pour    648 figure(s)",
+      "  fibre       289910292480  pour   1136 figure(s)",
+      "  fibre       322122547200  pour    264 figure(s)",
+      "  total de recollement.py : 583454127292416 — accord : True"
+     ]
+    }
+   ],
+   "statut": "verifie_ci",
+   "statut_depot": "2. vérifié exhaustivement sans solveur",
+   "note": "Python nu. Le script sort en erreur si la somme des fibres diffère, à chaque ordre, du total de recollement.py, calculé par paires de lignes sans séparer les figures (contrôle croisé). 66 s dans le conteneur ; sortie identique au journal d'Anibal data/fibres.txt ; journal d'ici docs/journaux/2026-10-09/fibres-depot-15.37.log. Porte le « 4 096 par figure » des pages carre-magique-ordre-6.html et en/order-6-magic-square/. Quel invariant de la figure fixe la taille de sa fibre est ouvert (DEPOT.md, section 6). Le dépôt 15.37 est l'archive du dépôt Zenodo « Pointwise protocol for even-order magic squares » (concept 10.5281/zenodo.23269974, version 1.0 10.5281/zenodo.23269975) ; script.depose reste vide tant que l'archive n'est pas dans data/zenodo/."
   },
   {
    "id": "miroirs-ensembles-ordre-12",

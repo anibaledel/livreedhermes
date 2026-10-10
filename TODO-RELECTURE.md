@@ -1079,3 +1079,41 @@ De moi, à relire :
 - **Dépendance** : les pages citent `construction.py` et les résultats du dépôt 15.34 —
   la PR attend la fusion de #292.
 - **Non fait** : traductions es/th/zh/ru/pt/hi (le hreflang ne les déclare pas).
+
+## Dépôt Zenodo « Pointwise protocol for even-order magic squares » — archive 15.37 (2026-10-09)
+
+Publié par Anibal : DOI « toutes versions » 10.5281/zenodo.23269974, version 1.0
+10.5281/zenodo.23269975 (9 octobre 2026), version 1.1 10.5281/zenodo.23270595.
+L'archive reçue (`depot-zenodo-protocole-ponctuel_4.zip`, MD5 7873501358509ccfea10abf8f8d71d7d)
+contient `depot-15.37.zip` (MD5 3c6a809f38c6ca49e3f6a75b2d1b421e), la fiche à remplir
+(fr, en) et la description. De moi, à relire :
+
+- **Le 4 096 par figure est maintenant porté** : `tools/fibres.py` (neuf, versé tel
+  quel) l'imprime, et l'entrée `fibres-projection-figure` de
+  `data/resultats-etablis.json` le relit en CI (`fibres.py --ordres 6,10`, 66 s) avec
+  les trois tailles de l'ordre 10. L'avertissement « à ne pas laisser passer » de la
+  section des pages d'ordre 6 est levé par ce lot ; il reste écrit plus haut, comme
+  trace.
+- **Les deux pages d'ordre pair** (fr, en) : « L'archive du dépôt contient vingt-neuf
+  scripts en Python nu, sans dépendance », le lien « archive du dépôt » visant le DOI
+  « toutes versions » — la phrase dictée par Anibal (avec vingt-huit), le nombre
+  corrigé par sa fiche de dépôt (vingt-neuf, vérifié : 29 fichiers `tools/*.py` dans
+  l'archive). **À relire** : « sans dépendance » — la description Zenodo dit « sans
+  dépendance pour la plus grande part » (dix scripts importent ortools : `compte_croix`,
+  `congruences`, `croix_existence`, `ecarts`, `graine_sat`, `ligne_necessaire`, `localise`,
+  `parite_suit`, `profils`, `suite_croix`).
+- **Pas dans `data/travaux.json`, pas sur Travaux** : `check_zenodo_registre.mjs` (CI)
+  refuse un DOI au registre qu'aucune fiche de l'instantané `data/zenodo/` ne porte, et
+  zenodo.org est refusé au conteneur. Il faut un instantané neuf, depuis le conteneur
+  d'Anibal (comme le précédent) ; l'entrée se fait ensuite.
+- **Version 1.1** (10.5281/zenodo.23270595) : son contenu n'est pas dans l'envoi ; on ne
+  sait pas ce qui la distingue de la 1.0. L'archive versée ici est celle de la 1.0.
+- **Écart 284 → 286 toujours là** : `DEPOT.md` 15.37 et `data/portee-assertion.txt`
+  (identique au 15.34) disent encore 284 graines et 3 hors portée ; la CI imprime 286 et 4.
+- **`fibres.py --ordres 6`** imprime aussi la conclusion sur l'ordre 10 (« à l'ordre 10
+  elle ne l'est pas… ») sans avoir calculé l'ordre 10 : la phrase finale est écrite en
+  dur. Relevé, non corrigé (script d'Anibal) ; la CI lance les deux ordres.
+- **Sources copiées** dans `docs/sources/2026-10-09/depot-15.37/` : `DEPOT.md`,
+  `README.md`, `README.en.md`, `requirements.txt`. Le papier (rev199) reste hors du dépôt.
+- **Après publication, côté Anibal** (fiche de dépôt) : DOI de concept dans le papier ;
+  élément Wikidata du dépôt.

@@ -43,6 +43,10 @@ name: Étiquetages magiques à quatre classes et croix ansée — comptes, absen
 #     relues), --table (sort en erreur sur un écart), --construit et --geometrie
 #     (journal). L'ordre 10 (~6 min et 5 Go) a son journal dans
 #     docs/journaux/2026-10-09/.
+# Dépôt 15.37 (9 octobre 2026, archive du dépôt Zenodo 10.5281/zenodo.23269974) :
+#   - fibres.py --ordres 6,10 : la fibre de la projection « étiquetage ↦ figure »,
+#     4 096 par figure à l'ordre 6, trois tailles à l'ordre 10 ; sort en erreur si
+#     la somme des fibres diffère du total de recollement.py (66 s).
 # Les scripts à solveur du dépôt 15.11 (localise, ecarts, congruences) ont leur
 # journal dans docs/journaux/2026-10-08/.
 # Les scripts plus longs (suite_croix, parite_suit, profils à l'ordre 10, croix_ansee_n,
@@ -91,6 +95,7 @@ jobs:
       - run: python3 tools/construction.py --ordres 2,4,6,8,10,14,18,22,26,30,34,38,42,46,50
       - run: python3 tools/construction.py --toutes
       - run: python3 tools/construction.py --echantillon 20 --ordres 6,10,14,18,22,26,30
+      - run: python3 tools/fibres.py --ordres 6,10
       - run: python3 tools/recollement.py --ordres 4,6,8 --profils
       - run: python3 tools/recollement.py --ordres 4,6,8,10,12,14 --table
       - run: python3 tools/recollement.py --ordres 6,10,14,18 --construit

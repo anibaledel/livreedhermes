@@ -1065,6 +1065,7 @@
     "check-etiquetages.yml"
    ],
    "utilise_par": [
+    "tools/fibres.py",
     "tools/verifie_temoins.py"
    ],
    "etat": "actif",
@@ -1353,6 +1354,18 @@
     "tools/generate_referent_bicolore_origines.py"
    ],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/fibres.py",
+   "role": "combien d'étiquetages réalisent UNE figure donnée.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-etiquetages.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
    "sait_echouer": false
   },
   {
@@ -1976,7 +1989,9 @@
    "appele_par": [
     "check-etiquetages.yml"
    ],
-   "utilise_par": [],
+   "utilise_par": [
+    "tools/fibres.py"
+   ],
    "etat": "actif",
    "sait_echouer": false
   },
