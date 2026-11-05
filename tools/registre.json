@@ -2549,6 +2549,16 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/zenodo_instantane.py",
+   "role": "écrit data/zenodo/depots.json (la vue normalisée de l'instantané des fiches Zenodo) depuis les réponses brutes de l'API.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
   }
  ]
 }

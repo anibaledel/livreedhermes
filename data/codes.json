@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-05T17:09:26Z",
+ "generated_at_utc": "2026-11-05T17:49:10Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 249,
+  "scripts": 250,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -4229,6 +4229,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "les vignettes WebP des pages de la galerie d'animations, réduites depuis l'affiche de chaque vidéo de référence (l'image extraite du MP4, data/fonds/collections-pinterest.json, champ video.affiche).",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/zenodo_instantane.py",
+   "adresse": "https://anibal-amiot.com/tools/zenodo_instantane.py",
+   "octets": 13551,
+   "sha256": "325873025753113c35f9cd7163ba992f94b2dc2a35c01091d9967110f68cb681",
+   "md5": "e4995a49aac29480ee0532bf5a7c4e57",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
+   "role": "écrit data/zenodo/depots.json (la vue normalisée de l'instantané des fiches Zenodo) depuis les réponses brutes de l'API.",
    "lit": [],
    "ecrit": [],
    "durees": [],
