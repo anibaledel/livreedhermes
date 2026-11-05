@@ -10,9 +10,16 @@
     "en": "Verification programs, figure scripts and English editing were prepared with AI assistants (Claude, Anthropic; ChatGPT, OpenAI). Each deposit states this use; the author reviews all outputs and is responsible for the content.",
     "fr": "Les programmes de vérification, les scripts des figures et la relecture de l'anglais ont été préparés avec des assistants d'IA (Claude, Anthropic ; ChatGPT, OpenAI). Chaque dépôt le déclare ; l'auteur relit tout et répond du contenu."
   },
+  "groups": {
+    "Book": {"en": "Book", "fr": "Livre"},
+    "Ansate cross and even-order magic squares": {"en": "Ansate cross and even-order magic squares", "fr": "Croix ansée et carrés magiques d'ordre pair"},
+    "Patterns, axes and level sets": {"en": "Patterns, axes and level sets", "fr": "Motifs, axes et lignes de niveau"},
+    "Doubling modulo n": {"en": "Doubling modulo n", "fr": "Doublement modulo n"},
+    "Reports": {"en": "Reports", "fr": "Comptes rendus"}
+  },
   "conventions": [
     {"en": "Four numerical readings of a grid of order n, with C = n² + 1: B (blue) = nr + c + 1, R (red) = C − B, V (grey) = nr + n − c, J (yellow) = C − V.", "fr": "Quatre lectures numériques d'une grille d'ordre n, avec C = n² + 1 : B (bleu) = nr + c + 1, R (rouge) = C − B, V (gris) = nr + n − c, J (jaune) = C − V."},
-    {"en": "The two order-six ansate crosses are called cross 1 and cross 2; cross 2 is the cross of the book's reference square. The former names EGO and ALTER are no longer used.", "fr": "Les deux croix ansées d'ordre six s'appellent croix 1 et croix 2 ; la croix 2 est celle du carré de référence du livre. Les anciens noms EGO et ALTER ne sont plus employés."},
+    {"en": "The two order-six ansate crosses are numbered cross 1 and cross 2 in the papers; cross 2 is the cross of the book's reference square. The plates of the book name them EGO and ALTER.", "fr": "Les articles numérotent les deux croix ansées d'ordre six croix 1 et croix 2 ; la croix 2 est celle du carré de référence du livre. Les planches du livre les nomment EGO et ALTER."},
     {"en": "Alpha and omega are the cells of the smallest and largest numbers of a square (1 and 36 at order six).", "fr": "Alpha et oméga désignent les cases du plus petit et du plus grand nombre d'un carré (1 et 36 à l'ordre six)."},
     {"en": "Merging blue and red gives the three-tint (tricolour) patterns; the four-colour, three-colour and two-colour systems descend from one another.", "fr": "La fusion du bleu et du rouge donne les motifs à trois teintes (tricolores) ; les systèmes quadricolore, tricolore et bicolore descendent l'un de l'autre."}
   ],
@@ -24,7 +31,7 @@
       "summary_fr": "Arithmogéométrie des carrés magiques et leur transcription en un système de motifs pour métier Jacquard ; huit éditions linguistiques.",
       "version": "3.0", "date": "2026-10-06",
       "status_en": "Published (open access)", "status_fr": "Publié (accès libre)",
-      "doi": "10.5281/zenodo.22722485", "version_doi": null, "license": "CC BY-NC 4.0", "pending": false
+      "doi": "10.5281/zenodo.22722485", "version_doi": "10.5281/zenodo.23184828", "license": "CC BY-NC 4.0", "pending": false
     },
     {
       "id": "plaques-360", "group": "Book", "type": "dataset",
@@ -33,7 +40,7 @@
       "summary_fr": "Modèles STL, 3MF et SVG des 360 plaques ajourées, avec les scripts de génération et une documentation bilingue.",
       "version": "3.1", "date": "2026-10-06",
       "status_en": "Published", "status_fr": "Publié",
-      "doi": null, "version_doi": null, "license": "CC BY-NC 4.0", "pending": false
+      "doi": "10.5281/zenodo.23189275", "version_doi": "10.5281/zenodo.23189276", "license": "CC BY-NC 4.0", "pending": false
     },
     {
       "id": "ansate-cross-order6", "group": "Ansate cross and even-order magic squares", "type": "article",
@@ -96,7 +103,7 @@
       "summary_fr": "Situe la construction par parité dans la théorie du moiré et sépare ce qui est exact de ce qui ne l'est pas.",
       "version": "1.0.1", "date": "2026-09-27",
       "status_en": "Preprint", "status_fr": "Prépublication",
-      "doi": "10.5281/zenodo.22967585", "version_doi": null, "license": "CC BY 4.0 (texts), AGPL-3.0 (code)", "pending": false
+      "doi": "10.5281/zenodo.22967584", "version_doi": "10.5281/zenodo.22986645", "license": "CC BY 4.0 (texts), AGPL-3.0 (code)", "pending": false
     },
     {
       "id": "doubling-I-IV", "group": "Doubling modulo n", "type": "preprint",
@@ -114,7 +121,7 @@
       "summary_fr": "Log-concavité stricte, à terme, des colonnes de coefficients des arbres binaires plans de hauteur exacte ; prépublication de travail, pas encore relue par un spécialiste.",
       "version": "1.0.0", "date": "2026-10-02",
       "status_en": "Working preprint", "status_fr": "Prépublication de travail",
-      "doi": null, "version_doi": null, "license": "CC BY 4.0 (text), AGPL-3.0 (code)", "pending": false
+      "doi": "10.5281/zenodo.23102264", "version_doi": "10.5281/zenodo.23102265", "license": "CC BY 4.0 (text), AGPL-3.0 (code)", "pending": false
     },
     {
       "id": "subsets-dataset", "group": "Doubling modulo n", "type": "dataset",
@@ -123,7 +130,7 @@
       "summary_fr": "Les termes a(1)…a(200) et le programme qui les calcule.",
       "version": "1.0", "date": "2026-09-27",
       "status_en": "Published", "status_fr": "Publié",
-      "doi": "10.5281/zenodo.22991226", "version_doi": null, "license": "CC BY 4.0 (data), AGPL-3.0 (code)", "pending": false
+      "doi": "10.5281/zenodo.22991226", "version_doi": "10.5281/zenodo.22991227", "license": "CC BY 4.0 (data), AGPL-3.0 (code)", "pending": false
     },
     {
       "id": "compte-rendu", "group": "Reports", "type": "report",

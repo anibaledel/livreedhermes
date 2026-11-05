@@ -78,7 +78,7 @@ TEXTES = {
         "conventions": "Conventions",
         "method": "Un mot sur la méthode",
         "licence": "Licence",
-        "detail": 'Présentation détaillée des dépôts : <a href="../travaux.html">Travaux</a>.',
+        "detail": 'Présentation détaillée des dépôts : <a href="../travaux.html" hreflang="fr">Travaux</a>.',
     },
 }
 
@@ -168,7 +168,8 @@ def section(data, code):
              f'<a href="https://orcid.org/{esc(a["orcid"])}" rel="noopener">ORCID {esc(a["orcid"])}</a> · '
              f'<a href="https://www.wikidata.org/wiki/{esc(a["wikidata"])}" rel="noopener">Wikidata {esc(a["wikidata"])}</a></p>')
     for g, works in groups(data).items():
-        p.append(f"  <h3>{esc(g)}</h3>")
+        nom = data.get("groups", {}).get(g, {}).get(code, g)
+        p.append(f"  <h3>{esc(nom)}</h3>")
         p.append("  <table>")
         p.append("    <thead><tr>" + "".join(f'<th scope="col">{esc(c)}</th>' for c in t["cols"]) + "</tr></thead>")
         p.append("    <tbody>")

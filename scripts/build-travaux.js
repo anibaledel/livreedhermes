@@ -24,7 +24,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const DONNEES = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/travaux.json'), 'utf8'));
+// Registre fusionné : versions, DOI et statuts viennent de research/status.json (scripts/travaux-donnees.js).
+const DONNEES = require('./travaux-donnees.js').charger();
 const SITE = 'https://anibal-amiot.com';
 const AUTEUR = `${SITE}/a-propos.html#anibal-amiot`;
 
@@ -35,6 +36,7 @@ const doiUrl = (doi) => `https://doi.org/${doi}`;
 const TYPES = {
   book: { schema: 'Book', cff: 'book', fr: 'Livre', en: 'Book', zh: '书籍', ru: 'Книга', pt: 'Livro', hi: 'पुस्तक' },
   preprint: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Prépublication', en: 'Preprint', zh: '预印本', ru: 'Препринт', pt: 'Pré-publicação', hi: 'प्रीप्रिंट' },
+  article: { schema: 'ScholarlyArticle', cff: 'article', fr: 'Article', en: 'Article', zh: '论文', ru: 'Статья', pt: 'Artigo', hi: 'लेख' },
   dataset: { schema: 'Dataset', cff: 'data', fr: 'Jeu de données', en: 'Dataset', zh: '数据集', ru: 'Набор данных', pt: 'Conjunto de dados', hi: 'डेटासेट' },
   software: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Code et données', en: 'Code and data', zh: '代码与数据', ru: 'Код и данные', pt: 'Código e dados', hi: 'कोड और डेटा' },
   repository: { schema: 'SoftwareSourceCode', cff: 'software', fr: 'Dépôt de code', en: 'Code repository', zh: '代码仓库', ru: 'Репозиторий кода', pt: 'Repositório de código', hi: 'कोड रिपॉज़िटरी' },
@@ -49,7 +51,7 @@ for (const d of DONNEES.depots) {
   if (!TYPES[d.type]) throw new Error(`data/travaux.json : type inconnu « ${d.type} » (${d.titre})`);
   if (d.licence && !LICENCES[d.licence]) throw new Error(`data/travaux.json : licence inconnue « ${d.licence} » (${d.titre})`);
   if (!DONNEES.sections.some((s) => s.id === d.section)) throw new Error(`data/travaux.json : section inconnue « ${d.section} » (${d.titre})`);
-  if (!d.doi && !d.url) throw new Error(`data/travaux.json : ni doi ni url (${d.titre})`);
+  if (!d.doi && !d.url && !d.research_id) throw new Error(`data/travaux.json : ni doi ni url (${d.titre})`);
 }
 
 const MOIS = {
@@ -70,13 +72,13 @@ function dateLisible(iso, lang) {
 }
 
 const T = {
-  fr: { toutes: 'toutes versions, à citer', version: 'version', cetteVersion: 'DOI de cette version', premiere: 'première version le', anterieur: 'voir aussi la' },
-  en: { toutes: 'all versions, to cite', version: 'version', cetteVersion: 'DOI of this version', premiere: 'first version', anterieur: 'see also the' },
+  fr: { statut: 'statut', toutes: 'toutes versions, à citer', version: 'version', cetteVersion: 'DOI de cette version', premiere: 'première version le', anterieur: 'voir aussi la' },
+  en: { statut: 'status', toutes: 'all versions, to cite', version: 'version', cetteVersion: 'DOI of this version', premiere: 'first version', anterieur: 'see also the' },
   // Chinois et russe (lot « six langues »), portugais et hindi (2026-10-04) : à relire, voir TODO-RELECTURE.md.
-  zh: { toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
-  pt: { toutes: 'todas as versões, a citar', version: 'versão', cetteVersion: 'DOI desta versão', premiere: 'primeira versão em', anterieur: 'ver também a' },
-  hi: { toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
-  ru: { toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
+  zh: { statut: '状态', toutes: '所有版本，引用请用此 DOI', version: '版本', cetteVersion: '本版本的 DOI', premiere: '首版于', anterieur: '另见' },
+  pt: { statut: 'estado', toutes: 'todas as versões, a citar', version: 'versão', cetteVersion: 'DOI desta versão', premiere: 'primeira versão em', anterieur: 'ver também a' },
+  hi: { statut: 'स्थिति', toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
+  ru: { statut: 'статус', toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
 // Chaque titre de section et chaque renvoi doivent exister dans chaque langue :
 // un texte manquant afficherait « undefined » sur la page, sans erreur. La
@@ -85,7 +87,7 @@ const T = {
 // en son nom sans sa relecture) ; la page omet alors la description dans cette
 // langue au lieu d'en inventer une. Voir TODO-RELECTURE.md.
 for (const lang of ['fr', 'en', 'zh', 'ru', 'pt', 'hi']) {
-  for (const x of [...DONNEES.sections, ...DONNEES.depots.map((d) => d.anterieur).filter(Boolean)]) {
+  for (const x of [...DONNEES.sections, ...DONNEES.depots.flatMap((d) => [d.anterieur, d.renvoi]).filter(Boolean)]) {
     if (!x[lang]) throw new Error(`data/travaux.json : texte « ${lang} » manquant (${x.titre || x.id || x.doi})`);
   }
 }
@@ -99,8 +101,9 @@ function itemHtml(d, lang) {
   const lignes = [`        <li>`, `          <cite>${escapeHtml(d.titre)}</cite>`];
   if (d[lang]) lignes.push(`          <p class="travaux-desc">${escapeHtml(d[lang])}</p>`);
   if (d.doi) lignes.push(`          <a href="${doiUrl(d.doi)}">doi:${d.doi}</a>${d.versionDoi ? ` <span class="travaux-toutes">(${t.toutes})</span>` : ''}`);
-  else lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
+  else if (d.url) lignes.push(`          <a href="${escapeHtml(d.url)}">${escapeHtml(d.url.replace(/^https:\/\//, ''))}</a>`);
   const meta = [TYPES[d.type][lang]];
+  if (d.statut) meta.push(`${t.statut}${lang === 'fr' ? ' : ' : lang === 'zh' ? '：' : ': '}${escapeHtml(d.statut[lang] || d.statut.en)}`);
   if (d.version) meta.push(`${t.version} ${escapeHtml(libelleVersion(d.version))}${d.date ? `${lang === 'zh' ? '，' : ', '}${dateLisible(d.date, lang)}` : ''}`);
   else if (d.date) meta.push(dateLisible(d.date, lang));
   if (d.premiere && d.premiere !== d.date) meta.push(`${t.premiere} ${dateLisible(d.premiere, lang)}`);
@@ -110,6 +113,7 @@ function itemHtml(d, lang) {
   if (d.page && lang === 'fr') meta.push(`<a href="https://anibal-amiot.com/travaux/${d.page}/">résumé et fiche</a>`);
   if (d.licence) meta.push(escapeHtml(d.licence));
   if (d.anterieur) meta.push(`${t.anterieur} <a href="${doiUrl(d.anterieur.doi)}">${escapeHtml(d.anterieur[lang])}</a>`);
+  if (d.renvoi) meta.push(`${t.anterieur} <a href="${doiUrl(d.renvoi.doi)}">${escapeHtml(d.renvoi[lang])}</a>`);
   lignes.push(`          <span class="travaux-meta">${meta.join(' · ')}</span>`, `        </li>`);
   return lignes.join('\n');
 }
@@ -151,15 +155,21 @@ function listeHtml(lang) {
     + blocs.join('\n\n') + `\n    <!-- @travaux:end -->`;
 }
 
+// Un dépôt sans DOI ni adresse (article en évaluation) a pour identifiant son ancre sur /research/.
+function idDepot(d) { return d.doi ? doiUrl(d.doi) : d.url || `${SITE}/research/#en-${d.research_id}`; }
+
 function noeud(d) {
   const type = TYPES[d.type].schema;
-  const n = { '@type': type, '@id': d.doi ? doiUrl(d.doi) : d.url, name: d.titre, author: { '@id': AUTEUR } };
+  const n = { '@type': type, '@id': idDepot(d), name: d.titre, author: { '@id': AUTEUR } };
+  if (d.statut) n.creativeWorkStatus = d.statut.en;
   if (d.doi) {
     n.url = doiUrl(d.doi);
     n.identifier = [{ '@type': 'PropertyValue', propertyID: 'DOI', value: d.doi }];
     n.sameAs = doiUrl(d.doi);
-  } else {
+  } else if (d.url) {
     n.codeRepository = d.url;
+  } else {
+    n.url = `${SITE}/research/#en-${d.research_id}`;
   }
   if (d.premiere) n.datePublished = d.premiere;
   else if (d.date && !d.version) n.datePublished = d.date;
@@ -186,7 +196,7 @@ function ldHtml(lang, url, nom) {
   const graphe = [
     { '@type': 'CollectionPage', '@id': `${url}#page`, url, name: nom, inLanguage: lang,
       author: { '@id': AUTEUR }, about: { '@id': AUTEUR },
-      hasPart: DONNEES.depots.map((d) => ({ '@id': d.doi ? doiUrl(d.doi) : d.url })) },
+      hasPart: DONNEES.depots.map((d) => ({ '@id': idDepot(d) })) },
     { '@type': 'Person', '@id': AUTEUR, name: 'Anibal Edelberto Amiot',
       sameAs: ['https://www.wikidata.org/wiki/Q141191562', 'https://orcid.org/0009-0002-6414-9448'] },
     ...DONNEES.depots.map(noeud),

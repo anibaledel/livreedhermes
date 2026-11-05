@@ -43,7 +43,9 @@ const ROOT = path.resolve(__dirname, '..');
 const SITE = 'https://anibal-amiot.com';
 const ORCID = '0009-0002-6414-9448';
 const AUTEUR = `${SITE}/a-propos.html#anibal-amiot`;
-const registre = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/travaux.json'), 'utf8'));
+// registre fusionné avec research/status.json (scripts/travaux-donnees.js) : les pages de dépôt
+// lisent d'ici le DOI et la page ; titre, résumé et version viennent de la fiche Zenodo.
+const registre = require('./travaux-donnees.js').charger();
 const instantane = JSON.parse(fs.readFileSync(path.join(ROOT, 'data/zenodo/depots.json'), 'utf8'));
 const fiches = new Map(instantane.depots.filter((d) => d.conceptDoi)
   .map((d) => [String(d.conceptDoi).startsWith('10.') ? d.conceptDoi : `10.5281/zenodo.${d.conceptDoi}`, d]));

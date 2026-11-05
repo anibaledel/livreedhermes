@@ -27,6 +27,7 @@
 
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 
 const PERIMES = {
   '22966838': '22986529 (One Object)', '22966839': '22986529 (One Object)',
@@ -50,7 +51,8 @@ try {
   if (e.status !== 1) throw e; // 1 = aucune occurrence
 }
 // page de dépôt → description de sa fiche Zenodo
-const registre = JSON.parse(fs.readFileSync('data/travaux.json', 'utf8'));
+// registre fusionné avec research/status.json : le DOI vient de status.json (scripts/travaux-donnees.js)
+const registre = createRequire(import.meta.url)('../scripts/travaux-donnees.js').charger();
 const fiches = new Map(JSON.parse(fs.readFileSync('data/zenodo/depots.json', 'utf8')).depots
   .filter((f) => f.conceptDoi).map((f) => [`10.5281/zenodo.${String(f.conceptDoi).replace(/^10\.5281\/zenodo\./, '')}`, f]));
 const recopie = (l) => {

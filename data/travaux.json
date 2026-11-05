@@ -1,5 +1,5 @@
 {
-  "_doc": "Source unique des dépôts d'Anibal Amiot (Zenodo). scripts/build-travaux.js en engendre la liste et le JSON-LD de travaux.html et de en/works/, les références de CITATION.cff et la section des dépôts de llms.txt ; la CI (check-travaux.yml) échoue si ces fichiers ne correspondent plus à ces données. Titres : recopiés tels quels des fiches Zenodo, sauf quand titreZenodo garde la forme exacte de la fiche (titre à corriger sur Zenodo). doi = DOI « toutes versions » (concept), à citer ; versionDoi = DOI de la dernière version connue ; premiere = date de la première version quand elle est connue. Pour ajouter un dépôt : une entrée ici, puis node scripts/build-travaux.js.",
+  "_doc": "Source unique des dépôts d'Anibal Amiot (Zenodo). scripts/build-travaux.js en engendre la liste et le JSON-LD de travaux.html et de en/works/, les références de CITATION.cff et la section des dépôts de llms.txt ; la CI (check-travaux.yml) échoue si ces fichiers ne correspondent plus à ces données. Titres : recopiés tels quels des fiches Zenodo, sauf quand titreZenodo garde la forme exacte de la fiche (titre à corriger sur Zenodo). doi = DOI « toutes versions » (concept), à citer ; versionDoi = DOI de la dernière version connue ; premiere = date de la première version quand elle est connue. Pour ajouter un dépôt : une entrée ici, puis node scripts/build-travaux.js. Versions, DOI, dates et statuts : une seule source, research/status.json (scripts/travaux-donnees.js les verse dans chaque entrée qui porte research_id) — ils ne s'écrivent donc plus ici ; une entrée sans research_id garde les siens. depose_apres_instantane : dépôt Zenodo plus récent que data/zenodo/ (tools/check_zenodo_registre.mjs ne le tient pas pour un écart).",
   "sections": [
     {
       "id": "livre",
@@ -43,8 +43,7 @@
       "section": "livre",
       "type": "book",
       "titre": "La Livrée d'Hermès",
-      "doi": "10.5281/zenodo.22722485",
-      "versionDoi": "10.5281/zenodo.23184828",
+      "research_id": "livree-hermes",
       "langues": [
         "fr",
         "en",
@@ -54,7 +53,6 @@
       "licence": "CC BY-NC 4.0",
       "fr": "Traité d'arithmogéométrie en 111 planches, en quatre langues : la construction des carrés magiques par la loi du gnomon et leur transcription en motifs pour le métier Jacquard.",
       "en": "A treatise on arithmogeometry in 111 plates, in four languages: magic squares built by the law of the gnomon, and their transcription into patterns for the Jacquard loom.",
-      "version": "3.0",
       "premiere": "2026-09-12",
       "zh": "一部共 111 幅图版的数形学论著，有法文、英文、西班牙文和泰文版本：依据磬折形法则构造幻方，并将其转写为提花织机的图案。",
       "ru": "Трактат по арифмогеометрии в 111 таблицах на французском, английском, испанском и тайском: магические квадраты, построенные по закону гномона, и их перевод в узоры для жаккардового станка.",
@@ -67,10 +65,7 @@
       "section": "livre",
       "type": "dataset",
       "titre": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)",
-      "doi": "10.5281/zenodo.23189275",
-      "versionDoi": "10.5281/zenodo.23189276",
-      "version": "v.3.1",
-      "date": "2026-10-06",
+      "research_id": "plaques-360",
       "licence": "CC BY-NC 4.0",
       "licenceZenodo": "cc-by-nc-4.0",
       "fr": "La Livrée d'Hermès compte sept chapitres en 111 pages ; sa dernière page annonce le huitième, le jeu.",
@@ -78,12 +73,36 @@
     },
     {
       "section": "prepublications",
+      "type": "article",
+      "titre": "The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares",
+      "research_id": "ansate-cross-order6",
+      "fr": "Les deux croix ansées d'ordre six et les 256 colorations du livre qui donnent des carrés magiques. En évaluation ; le manuscrit n'est pas public pendant l'évaluation. Son code et ses données sont dans la fiche du code de vérification.",
+      "en": "The two order-six ansate crosses and the 256 colourings of the book that give magic squares. Under review; the manuscript is not public during review. Its code and data are in the verification-code record.",
+      "renvoi": {
+        "doi": "10.5281/zenodo.22866061",
+        "fr": "fiche du code de vérification",
+        "en": "verification-code record",
+        "zh": "验证代码条目",
+        "ru": "запись кода проверки",
+        "pt": "ficha do código de verificação",
+        "hi": "सत्यापन-कोड की प्रविष्टि"
+      }
+    },
+    {
+      "section": "prepublications",
+      "type": "preprint",
+      "titre": "The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry",
+      "research_id": "ansate-cross-general",
+      "fr": "Un protocole ponctuel à quatre classes pour les carrés magiques d'ordre pair : théorème commun de réalisation, cas strict, symétrie de couleur aux ordres simplement pairs 6t (t impair), croissance par un support antipodal périodique. Anglais et français, révision 223.",
+      "en": "A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.",
+      "licence": "CC BY 4.0",
+      "depose_apres_instantane": true
+    },
+    {
+      "section": "prepublications",
       "type": "preprint",
       "titre": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
-      "doi": "10.5281/zenodo.23102264",
-      "version": "1.0.0",
-      "versionDoi": "10.5281/zenodo.23102265",
-      "date": "2026-10-02",
+      "research_id": "log-concavity",
       "premiere": "2026-10-02",
       "langues": [
         "en"
@@ -105,10 +124,7 @@
       "section": "prepublications",
       "type": "preprint",
       "titre": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
-      "doi": "10.5281/zenodo.23088601",
-      "version": "1.1.1",
-      "versionDoi": "10.5281/zenodo.23102045",
-      "date": "2026-10-02",
+      "research_id": "doubling-I-IV",
       "langues": [
         "en"
       ],
@@ -130,10 +146,7 @@
       "section": "prepublications",
       "type": "preprint",
       "titre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
-      "doi": "10.5281/zenodo.22986529",
-      "version": "1.2.1",
-      "versionDoi": "10.5281/zenodo.23101928",
-      "date": "2026-10-02",
+      "research_id": "one-object",
       "langues": [
         "en"
       ],
@@ -156,10 +169,7 @@
       "section": "prepublications",
       "type": "preprint",
       "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
-      "doi": "10.5281/zenodo.22965031",
-      "version": "V.3",
-      "versionDoi": "10.5281/zenodo.23101285",
-      "date": "2026-10-02",
+      "research_id": "axes-chladni",
       "premiere": "2026-09-25",
       "langues": [
         "en"
@@ -178,9 +188,7 @@
       "section": "prepublications",
       "type": "preprint",
       "titre": "Parity Figures as Moiré: What Is Exact and What Is Not",
-      "doi": "10.5281/zenodo.22967584",
-      "version": "1.0.1",
-      "date": "2026-09-27",
+      "research_id": "moire",
       "premiere": "2026-09-25",
       "langues": [
         "en"
@@ -191,7 +199,6 @@
       ],
       "fr": "Où la règle de parité se place dans la théorie du moiré, et ce qui y est faux quand on le dit vite.",
       "en": "Where the parity rule sits in the theory of moiré, and what becomes false when it is stated too quickly.",
-      "versionDoi": "10.5281/zenodo.22986645",
       "zh": "奇偶性规则在莫尔纹理论中处于什么位置，以及说得太快时哪些说法会变得不成立。",
       "ru": "Где правило чётности располагается в теории муара и что в нём оказывается ложным, если формулировать его слишком поспешно.",
       "pt": "Onde se situa a regra de paridade na teoria do moiré, e o que se torna falso quando é enunciada depressa demais.",
@@ -203,10 +210,7 @@
       "section": "donnees",
       "type": "dataset",
       "titre": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
-      "doi": "10.5281/zenodo.22991226",
-      "version": "1.0",
-      "versionDoi": "10.5281/zenodo.22991227",
-      "date": "2026-09-27",
+      "research_id": "subsets-dataset",
       "premiere": "2026-09-27",
       "langues": [
         "en"
@@ -228,9 +232,7 @@
       "section": "donnees",
       "type": "software",
       "titre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
-      "doi": "10.5281/zenodo.22862110",
-      "versionDoi": "10.5281/zenodo.23214317",
-      "date": "2026-10-07",
+      "research_id": "unified-patterns",
       "langues": [
         "fr"
       ],
@@ -243,17 +245,13 @@
       "pt": "Dados e scripts do artigo sobre as grelhas de 12 × 12, submetido ao Journal of Mathematics and the Arts.",
       "hi": "12 × 12 जालियों पर लेख के डेटा और स्क्रिप्टें, Journal of Mathematics and the Arts को प्रस्तुत।",
       "licenceZenodo": "agpl-3.0-only",
-      "page": "half-shift-criterion-scripts",
-      "version": "V.3.2"
+      "page": "half-shift-criterion-scripts"
     },
     {
       "section": "donnees",
       "type": "software",
       "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
-      "doi": "10.5281/zenodo.22866061",
-      "version": "version 3.0",
-      "versionDoi": "10.5281/zenodo.22978066",
-      "date": "2026-09-26",
+      "research_id": "ansate-cross-code",
       "langues": [
         "fr"
       ],
@@ -284,9 +282,7 @@
       "section": "rapports",
       "type": "report",
       "titre": "La Livrée d'Hermès — Progress report, September 2026",
-      "doi": "10.5281/zenodo.22945021",
-      "version": "2.3",
-      "date": "2026-09-27",
+      "research_id": "compte-rendu",
       "langues": [
         "en",
         "fr"
@@ -298,7 +294,6 @@
       "ru": "Состояние работы, на английском с французской версией: две статьи на рецензировании, депонированные заметки, двенадцать теорем, изложенных простыми словами.",
       "pt": "Estado do trabalho, em inglês com uma versão francesa: dois artigos em avaliação, as notas depositadas, doze teoremas enunciados com simplicidade.",
       "hi": "कार्य की स्थिति, अंग्रेज़ी में और एक फ़्रेंच संस्करण के साथ: समीक्षाधीन दो लेख, जमा की गई टिप्पणियाँ, सीधे शब्दों में कहे गए बारह प्रमेय।",
-      "versionDoi": "10.5281/zenodo.22986767",
       "licenceZenodo": "cc-by-4.0",
       "page": "progress-report-september-2026"
     }

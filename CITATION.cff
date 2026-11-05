@@ -44,7 +44,17 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.23189275
-    version: "v.3.1"
+    version: "3.1"
+  - type: article
+    title: >-
+      The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry
+    authors:
+      - family-names: Amiot
+        given-names: Anibal Edelberto
+        orcid: https://orcid.org/0009-0002-6414-9448
+    year: 2026
+    doi: 10.5281/zenodo.23269974
+    version: "223"
   - type: article
     title: >-
       Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees
@@ -74,7 +84,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22986529
-    version: "1.2.1"
+    version: "1.4.0"
   - type: article
     title: >-
       Axes and Level Sets of a Jacquard Pattern System — two companion notes
@@ -84,7 +94,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22965031
-    version: "V.3"
+    version: "2.14"
   - type: article
     title: >-
       Parity Figures as Moiré: What Is Exact and What Is Not
@@ -114,7 +124,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22862110
-    version: "V.3.2"
+    version: "2.19"
   - type: software
     title: >-
       The Ansate Cross — verification code for a self-constructing method of order-6 magic squares
@@ -124,7 +134,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22866061
-    version: "version 3.0"
+    version: "4.0.1"
   - type: report
     title: >-
       La Livrée d'Hermès — Progress report, September 2026
@@ -134,4 +144,4 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22945021
-    version: "2.3"
+    version: "2026-11-05"

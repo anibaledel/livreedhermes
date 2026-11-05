@@ -84,6 +84,10 @@ function cible(page, href) {
 }
 const urlDe = (f) => SITE + path.relative(RACINE, f).replace(/(^|\/)index\.html$/, '$1');
 
+// Pages qui portent deux langues sur la même page (<html lang> = la première, une section `lang` pour l'autre) :
+// /research/ (tools/build_research.py). Un lien qui y déclare sa langue (hreflang) n'est pas une faute.
+const BILINGUES = new Set(['research/index.html']);
+
 function controler(liste, essai) {
   const fautes = [], sansEquivalent = [], requetes = [];
   for (const page of liste) {
@@ -105,6 +109,7 @@ function controler(liste, essai) {
       if (!bon) { sansEquivalent.push(cas); continue; }
       if (bon === moi) continue;                              // changer de langue est l'objet du lien
       if (annonce && LIVRES.test(relCible)) continue;         // le choix d'une édition
+      if (annonce && BILINGUES.has(rel)) continue;            // page bilingue : sa section française lie la page française, et le dit (hreflang)
       if (c.requete) { requetes.push(cas); continue; }
       fautes.push(cas);
     }

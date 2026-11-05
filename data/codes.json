@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-05T14:51:01Z",
+ "generated_at_utc": "2026-11-05T15:06:23Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,8 +9,8 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 248,
-  "sans_licence_declaree": 72,
+  "scripts": 249,
+  "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
   "depose_absent_du_depot": 14
@@ -826,9 +826,9 @@
   {
    "chemin": "scripts/build-travaux-pages.js",
    "adresse": "https://anibal-amiot.com/scripts/build-travaux-pages.js",
-   "octets": 15072,
-   "sha256": "29e5277929d55991ac7443d853bde8a566b4830416a1d6bd1393f6bdca0f7063",
-   "md5": "22c4ec2e80e64b2e08688a9214cf4188",
+   "octets": 15232,
+   "sha256": "d521a5659c5e0709121d69400771186f70f85fb16c55087b05d6f47bd2edb388",
+   "md5": "626f92db505bf1c7ce6f4461ad138919",
    "licence_declaree": false,
    "licence": null,
    "role": "une page par dépôt Zenodo, travaux/<slug>/, portant le résumé de la fiche, recopié tel quel (corpus lisible, lot des pages, 7 octobre 2026).",
@@ -841,9 +841,9 @@
   {
    "chemin": "scripts/build-travaux.js",
    "adresse": "https://anibal-amiot.com/scripts/build-travaux.js",
-   "octets": 17519,
-   "sha256": "b9fc61f2b97eef2ec8abfb3bf07b64afc09b6bbabc275b8035638c4f41812cbb",
-   "md5": "9a792fcfb2f8bf878c1dc9dc6056e062",
+   "octets": 18477,
+   "sha256": "416056c1c2a7aa7b88112a3e98b3a867e204b26677aa230574ed0a96f13a25c2",
+   "md5": "1f6a933daf6f6b4b5203c0835718fb7f",
    "licence_declaree": false,
    "licence": null,
    "role": "Liste des dépôts (Zenodo) d'Anibal Amiot, depuis data/travaux.json.",
@@ -1234,6 +1234,21 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/travaux-donnees.js",
+   "adresse": "https://anibal-amiot.com/scripts/travaux-donnees.js",
+   "octets": 2080,
+   "sha256": "412e981a27dff75fb52023075ba7b40cba5eb066a5304e979b494ea20d396833",
+   "md5": "da5a295b3c3d041f7b26dd3ac3d2fa7a",
+   "licence_declaree": false,
+   "licence": null,
+   "role": "le registre des dépôts tel que les pages le lisent.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/_vichy_rasterize.mjs",
    "adresse": "https://anibal-amiot.com/tools/_vichy_rasterize.mjs",
    "octets": 799,
@@ -1403,9 +1418,9 @@
   {
    "chemin": "tools/build_research.py",
    "adresse": "https://anibal-amiot.com/tools/build_research.py",
-   "octets": 17105,
-   "sha256": "56e7717734f38fe6aadc777a366cc6392230be5121aee00e869c28f620d0b93f",
-   "md5": "5c20583ed8cd0562cdee6161eef2fcc6",
+   "octets": 17182,
+   "sha256": "570b6214056d556d58cbf4660a3f6cdf1d9cbf458064731dcfc10d4a0dfd763b",
+   "md5": "2e26f6cd4f5e5f5e7cbbbde447668c84",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "engendre la page « État des travaux » depuis research/status.json.",
@@ -1601,9 +1616,9 @@
   {
    "chemin": "tools/check_doi_perimes.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_doi_perimes.mjs",
-   "octets": 4274,
-   "sha256": "197b6e1e75bae7775aa1bad75798a05254c499108b3060f4f7c88ed931d76921",
-   "md5": "d57a14b0479de5d8bff65638a6f9a7b2",
+   "octets": 4443,
+   "sha256": "56736a1e752a1cf02fa3ab01996d1ba7048f42d0a6061366975b763c9b2b21aa",
+   "md5": "5f82b62392aa6e5bbd86dc838e49c293",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Contrôle automatique : aucun DOI Zenodo périmé ni aucune mention de la suite OEIS retirée ne doit réapparaître dans le dépôt.",
@@ -1848,9 +1863,9 @@
   {
    "chemin": "tools/check_langue_des_liens.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_langue_des_liens.mjs",
-   "octets": 8959,
-   "sha256": "4f1fbfc3e127fbf5098719108ad6a34deb2f551db97d192ca791e6e9d73737f6",
-   "md5": "96a0b2c4687ae99283178da90bc6354e",
+   "octets": 9382,
+   "sha256": "91e599621204ea93c5bca45c9f5e7d503be9cc06a8e449dadd17b367f141fddb",
+   "md5": "f3a02efa180d66f05297f28aaf6cc74f",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "un lien mène à la page dans la langue de celle qui le porte, quand cette page existe.",
@@ -2291,9 +2306,9 @@
   {
    "chemin": "tools/check_zenodo_registre.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_zenodo_registre.mjs",
-   "octets": 6314,
-   "sha256": "529e9bdfb683dd03930022634e7083dfe6c493dee6fbfed473d2263d377d89d6",
-   "md5": "b88e8fb0f40bf715ee64d0fe7a89db61",
+   "octets": 7732,
+   "sha256": "759fc58a8cec0f0cd77e3d4897c54230ed4e00f76ffd8702647c12b15363dc33",
+   "md5": "c2570c781d1f6c06d0a579246109a440",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le registre des dépôts (data/travaux.json) dit-il ce que Zenodo enregistre ?",

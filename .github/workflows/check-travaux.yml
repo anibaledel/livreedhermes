@@ -2,7 +2,8 @@ name: Liste des dépôts (data/travaux.json)
 
 # travaux.html, en/works/, CITATION.cff et llms.txt listent les dépôts
 # Zenodo de l'auteur ; scripts/build-travaux.js les écrit tous depuis
-# data/travaux.json. Ce contrôle échoue si les données changent sans que
+# data/travaux.json — versions, DOI et statuts compris, qui viennent de
+# research/status.json (scripts/travaux-donnees.js). Ce contrôle échoue si les données changent sans que
 # ces fichiers soient régénérés — ou l'inverse, une retouche à la main.
 
 on:
@@ -22,6 +23,8 @@ jobs:
         with:
           node-version: '20'
       - run: node scripts/build-travaux.js --verifie
+      # /research/ et la zone @research de llms.txt, depuis research/status.json : rien ne doit changer
+      - run: python3 tools/build_research.py && git diff --exit-code -- research/index.html llms.txt
       # les pages des dépôts (travaux/<slug>/), engendrées depuis le registre et l'instantané Zenodo
       - run: node scripts/build-travaux-pages.js --verifie
       - run: node tools/check_doi_perimes.mjs
