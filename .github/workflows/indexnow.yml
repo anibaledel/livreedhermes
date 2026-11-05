@@ -12,7 +12,8 @@ name: IndexNow
 
 on:
   workflow_run:
-    workflows: ["pages-build-deployment"]
+    # le même workflow porte les deux noms selon l'endroit où GitHub l'affiche
+    workflows: ["pages-build-deployment", "pages build and deployment"]
     types: [completed]
   workflow_dispatch:
     inputs:
@@ -70,8 +71,8 @@ jobs:
           set -euo pipefail
           tete=$(git rev-parse HEAD)
           # le déploiement réussi juste avant celui-ci ; à défaut, le parent
-          precedent=$(gh api "repos/${{ github.repository }}/actions/workflows/pages-build-deployment/runs?status=success&branch=main&per_page=30" \
-            --jq "[.workflow_runs[] | select(.head_sha != \"$tete\")] | .[0].head_sha // empty" 2>/dev/null || true)
+          precedent=$(gh api "repos/${{ github.repository }}/actions/runs?event=dynamic&status=success&branch=main&per_page=30" \
+            --jq "[.workflow_runs[] | select(.name == \"pages build and deployment\" and .head_sha != \"$tete\")] | .[0].head_sha // empty" 2>/dev/null || true)
           if [ -z "$precedent" ] || ! git cat-file -e "$precedent^{commit}" 2>/dev/null; then precedent="HEAD~1"; fi
           echo "avant=$precedent" >> "$GITHUB_OUTPUT"
           echo "déployé : $tete — précédent : $precedent"
