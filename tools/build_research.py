@@ -61,6 +61,7 @@ TEXTES = {
         "conventions": "Conventions",
         "method": "A word on method",
         "licence": "Licence",
+        "detail": 'Detailed presentation of the deposits: <a href="../en/works/">Research deposits</a>.',
     },
     "fr": {
         "lang": "fr",
@@ -75,6 +76,7 @@ TEXTES = {
         "conventions": "Conventions",
         "method": "Un mot sur la méthode",
         "licence": "Licence",
+        "detail": 'Présentation détaillée des dépôts : <a href="../travaux.html">Travaux</a>.',
     },
 }
 
@@ -97,7 +99,7 @@ CSS = """
   .rs-sec td{ border-bottom:1px solid var(--line); padding:10px 10px 10px 0; vertical-align:top; line-height:1.5; }
   .rs-title{ color:var(--white); }
   .rs-summary{ display:block; color:var(--dim); font-size:calc(11px + var(--fs-bump)); margin-top:4px; line-height:1.55; }
-  .rs-sec td a{ white-space:nowrap; }
+  .rs-sec td a, .rs-sec td time{ white-space:nowrap; }
   .rs-sec ul{ max-width:78ch; padding-left:20px; color:var(--dim); line-height:1.7; font-size:calc(13px + var(--fs-bump)); }
   .rs-sec li{ margin:0 0 8px; }
   .rs-sec p.rs-method{ max-width:78ch; color:var(--dim); line-height:1.7; font-size:calc(13px + var(--fs-bump)); }
@@ -145,7 +147,7 @@ def groups(data):
 def version_doi_cell(w, t):
     if w.get("version_doi"):
         return doi_link(w["version_doi"])
-    if w.get("doi"):
+    if w.get("pending"):
         return f'<span class="rs-pending">{t["in_progress"]}</span>'
     return "—"
 
@@ -158,6 +160,7 @@ def section(data, code):
     p = [f'<section class="rs-sec" lang="{t["lang"]}" id="{code}" aria-labelledby="h-{code}">']
     p.append(f'  <h2 id="h-{code}">{esc(t["h2"])}</h2>')
     p.append(f'  <p class="rs-usage">{t["intro"]}</p>')
+    p.append(f'  <p class="rs-meta">{t["detail"]}</p>')
     p.append(f'  <p class="rs-meta">{esc(t["updated"])} : <time datetime="{esc(data["updated"])}">{esc(data["updated"])}</time></p>')
     p.append(f'  <p class="rs-meta">{esc(t["author"])} : {esc(a["name"])} · '
              f'<a href="https://orcid.org/{esc(a["orcid"])}" rel="noopener">ORCID {esc(a["orcid"])}</a> · '
@@ -171,7 +174,7 @@ def section(data, code):
             cells = [
                 ("rs-cell-title", t["cols"][0],
                  f'<span class="rs-title">{esc(w["title"])}</span>'
-                 f'<span class="rs-summary" lang="en">{esc(w["summary"])}</span>'),
+                 f'<span class="rs-summary" lang="{code}">{esc(w["summary_" + code])}</span>'),
                 ("", t["cols"][1], esc(TYPES[w["type"]][i])),
                 ("", t["cols"][2], esc(w["version"])),
                 ("", t["cols"][3], esc(w[status_key])),
