@@ -66,8 +66,8 @@ function imagesDe(file, loc) {
 const echapperXml = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 let nbImages = 0;
 
-function urlEntry({ loc, file, changefreq, priority, hreflang }) {
-  const lm = lastmod(file);
+function urlEntry({ loc, file, changefreq, priority, hreflang, lastmodFixe }) {
+  const lm = lastmodFixe || lastmod(file);
   let xml = `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${lm}</lastmod>\n    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n`;
   for (const img of imagesDe(file, loc)) {
     xml += `    <image:image><image:loc>${echapperXml(img)}</image:loc></image:image>\n`;
@@ -107,6 +107,10 @@ const STATIC_PAGES = [
   // 'soutenir.html' : dans le groupe « soutien » de scripts/langues.js (lot « six langues »), avec ses alternates.
   // 'encodeur.html' : dans le groupe « outil-encodeur » de scripts/langues.js (étape 2).
   { loc: `${SITE}/carter-demo.html`, file: 'carter-demo.html', changefreq: 'monthly', priority: '0.4' },
+  // État des travaux (tools/build_research.py) : le lastmod est la date `updated` de research/status.json,
+  // la date de l'état décrit et non celle du dernier commit du fichier.
+  { loc: `${SITE}/research/`, file: 'research/index.html', changefreq: 'weekly', priority: '0.8',
+    lastmodFixe: JSON.parse(fs.readFileSync(path.join(ROOT, 'research', 'status.json'), 'utf8')).updated },
 ];
 
 // Pages traduites, avec liens alternates réciproques. La liste vit dans

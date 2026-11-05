@@ -1,0 +1,125 @@
+{
+  "updated": "2026-11-05",
+  "author": {
+    "name": "Anibal Edelberto Amiot",
+    "orcid": "0009-0002-6414-9448",
+    "wikidata": "Q141191562",
+    "url": "https://anibal-amiot.com"
+  },
+  "ai_use": {
+    "en": "Verification programs, figure scripts and English editing were prepared with AI assistants (Claude, Anthropic; ChatGPT, OpenAI). Each deposit states this use; the author reviews all outputs and is responsible for the content.",
+    "fr": "Les programmes de vérification, les scripts des figures et la relecture de l'anglais ont été préparés avec des assistants d'IA (Claude, Anthropic ; ChatGPT, OpenAI). Chaque dépôt le déclare ; l'auteur relit tout et répond du contenu."
+  },
+  "conventions": [
+    {"en": "Four numerical readings of a grid of order n, with C = n² + 1: B (blue) = nr + c + 1, R (red) = C − B, V (grey) = nr + n − c, J (yellow) = C − V.", "fr": "Quatre lectures numériques d'une grille d'ordre n, avec C = n² + 1 : B (bleu) = nr + c + 1, R (rouge) = C − B, V (gris) = nr + n − c, J (jaune) = C − V."},
+    {"en": "The two order-six ansate crosses are called cross 1 and cross 2; cross 2 is the cross of the book's reference square. The former names EGO and ALTER are no longer used.", "fr": "Les deux croix ansées d'ordre six s'appellent croix 1 et croix 2 ; la croix 2 est celle du carré de référence du livre. Les anciens noms EGO et ALTER ne sont plus employés."},
+    {"en": "Alpha and omega are the cells of the smallest and largest numbers of a square (1 and 36 at order six).", "fr": "Alpha et oméga désignent les cases du plus petit et du plus grand nombre d'un carré (1 et 36 à l'ordre six)."},
+    {"en": "Merging blue and red gives the three-tint (tricolour) patterns; the four-colour, three-colour and two-colour systems descend from one another.", "fr": "La fusion du bleu et du rouge donne les motifs à trois teintes (tricolores) ; les systèmes quadricolore, tricolore et bicolore descendent l'un de l'autre."}
+  ],
+  "works": [
+    {
+      "id": "livree-hermes", "group": "Book", "type": "book",
+      "title": "La Livrée d'Hermès",
+      "summary": "Arithmogeometry of magic squares and their transcription into a Jacquard pattern system; eight language editions.",
+      "version": "3.0", "date": "2026-10-06",
+      "status_en": "Published (open access)", "status_fr": "Publié (accès libre)",
+      "doi": "10.5281/zenodo.22722485", "version_doi": null, "license": "CC BY-NC 4.0"
+    },
+    {
+      "id": "plaques-360", "group": "Book", "type": "dataset",
+      "title": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès",
+      "summary": "STL, 3MF and SVG models of the 360 perforated plates, with generation scripts and bilingual documentation.",
+      "version": "3.1", "date": "2026-10-06",
+      "status_en": "Published", "status_fr": "Publié",
+      "doi": null, "version_doi": null, "license": "CC BY-NC 4.0"
+    },
+    {
+      "id": "ansate-cross-order6", "group": "Ansate cross and even-order magic squares", "type": "article",
+      "title": "The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares",
+      "summary": "The two order-six ansate crosses and the 256 colourings of the book that give magic squares. Under review; the manuscript is not public during review. Its code and data are in the verification-code record.",
+      "version": "v3.5", "date": "2026-11-05",
+      "status_en": "Under review (Mathematics Magazine)", "status_fr": "En évaluation (Mathematics Magazine)",
+      "doi": null, "version_doi": null
+    },
+    {
+      "id": "ansate-cross-general", "group": "Ansate cross and even-order magic squares", "type": "preprint",
+      "title": "The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry",
+      "summary": "A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.",
+      "version": "223", "date": "2026-11-05",
+      "status_en": "Preprint", "status_fr": "Prépublication",
+      "doi": "10.5281/zenodo.23269974", "version_doi": "10.5281/zenodo.23978781", "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+    },
+    {
+      "id": "ansate-cross-code", "group": "Ansate cross and even-order magic squares", "type": "software",
+      "title": "The Ansate Cross — verification code and data",
+      "summary": "Independent audit, verification programs and data for the ansate-cross papers, including the figure scripts of the order-six article.",
+      "version": "4.0.1", "date": "2026-11-05",
+      "status_en": "Published (new version being deposited)", "status_fr": "Publié (nouvelle version en cours de dépôt)",
+      "doi": "10.5281/zenodo.22866061", "version_doi": null, "license": "AGPL-3.0 (code), CC BY 4.0 (texts), CC BY-NC 4.0 (data)"
+    },
+    {
+      "id": "unified-patterns", "group": "Patterns, axes and level sets", "type": "software",
+      "title": "Unified Patterns — companion article, data and verification (half-shift criterion on three-colour 12 × 12 grids)",
+      "summary": "Companion article 'From Ansate Cross Colourings to Unified Patterns and Sound Forms' (v2.19, with supplement C1–C6 and certificates) and the data and scripts of the half-shift note submitted to the Journal of Mathematics and the Arts.",
+      "version": "2.19", "date": "2026-11-05",
+      "status_en": "Half-shift note under review (Journal of Mathematics and the Arts); companion article: preprint", "status_fr": "Note du demi-décalage en évaluation (Journal of Mathematics and the Arts) ; article compagnon : prépublication",
+      "doi": "10.5281/zenodo.22862110", "version_doi": null, "license": "AGPL-3.0 (code), CC BY 4.0 (texts)"
+    },
+    {
+      "id": "axes-chladni", "group": "Patterns, axes and level sets", "type": "preprint",
+      "title": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+      "summary": "A vocabulary of axes generated by an inverse doubling on the 12 × 12 square, and its identification with the level sets of a square-plate eigenmode.",
+      "version": "2.14", "date": "2026-11-05",
+      "status_en": "Preprint (new version being deposited)", "status_fr": "Prépublication (nouvelle version en cours de dépôt)",
+      "doi": "10.5281/zenodo.22965031", "version_doi": null, "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+    },
+    {
+      "id": "one-object", "group": "Patterns, axes and level sets", "type": "preprint",
+      "title": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+      "summary": "The axes, the sixty images and the 512 grids of the pattern system are shown, by exhaustive check, to present one finite structure.",
+      "version": "1.4.0", "date": "2026-11-05",
+      "status_en": "Preprint (new version being deposited)", "status_fr": "Prépublication (nouvelle version en cours de dépôt)",
+      "doi": "10.5281/zenodo.22986529", "version_doi": null, "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+    },
+    {
+      "id": "moire", "group": "Patterns, axes and level sets", "type": "preprint",
+      "title": "Parity Figures as Moiré: What Is Exact and What Is Not",
+      "summary": "Places the parity construction within the theory of moiré and separates what is exact from what is not.",
+      "version": "1.0.1", "date": "2026-09-27",
+      "status_en": "Preprint", "status_fr": "Prépublication",
+      "doi": "10.5281/zenodo.22967585", "version_doi": null, "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+    },
+    {
+      "id": "doubling-I-IV", "group": "Doubling modulo n", "type": "preprint",
+      "title": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
+      "summary": "Multiplication by 2 on Z/nZ after identifying x with −x, for every n: cycles, 2-adic lifting and the enumeration of forward-closed subsets.",
+      "version": "1.1.1", "date": "2026-10-02",
+      "status_en": "Working papers", "status_fr": "Documents de travail",
+      "doi": "10.5281/zenodo.23088601", "version_doi": "10.5281/zenodo.23102045", "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+    },
+    {
+      "id": "log-concavity", "group": "Doubling modulo n", "type": "preprint",
+      "title": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
+      "summary": "Eventual strict log-concavity of the coefficient columns of exact-height plane binary trees; working preprint, not yet read by a specialist.",
+      "version": "1.0.0", "date": "2026-10-02",
+      "status_en": "Working preprint", "status_fr": "Prépublication de travail",
+      "doi": null, "version_doi": null, "license": "CC BY 4.0 (text), AGPL-3.0 (code)"
+    },
+    {
+      "id": "subsets-dataset", "group": "Doubling modulo n", "type": "dataset",
+      "title": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
+      "summary": "Terms a(1)…a(200) and the program that computes them.",
+      "version": "1.0", "date": "2026-09-27",
+      "status_en": "Published", "status_fr": "Publié",
+      "doi": "10.5281/zenodo.22991226", "version_doi": null, "license": "CC BY 4.0 (data), AGPL-3.0 (code)"
+    },
+    {
+      "id": "compte-rendu", "group": "Reports", "type": "report",
+      "title": "La Livrée d'Hermès — compte rendu de travaux / progress report",
+      "summary": "Progress report on the work around the book: papers under review, deposits, results and open questions.",
+      "version": "2026-11-05", "date": "2026-11-05",
+      "status_en": "Published (new version being deposited)", "status_fr": "Publié (nouvelle version en cours de dépôt)",
+      "doi": "10.5281/zenodo.22945021", "version_doi": null
+    }
+  ]
+}

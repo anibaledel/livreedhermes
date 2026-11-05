@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research — current state / Travaux — état actuel | Anibal Amiot</title>
+<meta name="description" content="Reference state of the work of Anibal Edelberto Amiot: every paper, deposit and dataset with its current version, status and DOIs. État de référence des travaux : versions, statuts et DOI.">
+<link rel="canonical" href="https://anibal-amiot.com/research/">
+<link rel="alternate" type="application/json" href="/research/status.json">
+<meta property="og:title" content="Research — current state / Travaux — état actuel | Anibal Amiot">
+<meta property="og:description" content="Reference state of the work of Anibal Edelberto Amiot: every paper, deposit and dataset with its current version, status and DOIs. État de référence des travaux : versions, statuts et DOI.">
+<meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<meta property="og:url" content="https://anibal-amiot.com/research/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Research — current state / Travaux — état actuel | Anibal Amiot">
+<meta name="twitter:description" content="Reference state of the work of Anibal Edelberto Amiot: every paper, deposit and dataset with its current version, status and DOIs. État de référence des travaux : versions, statuts et DOI.">
+<meta name="twitter:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
+<style>
+  *{box-sizing:border-box;}
+  html{ overflow-x:hidden; }
+  body{ margin:0; background:var(--bg); color:var(--white); min-height:100vh; overflow-x:hidden; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:32px 24px 64px; }
+  .rs-top{ text-align:center; margin:0 0 28px; padding-bottom:20px; border-bottom:1px solid var(--line); }
+  .rs-top h1{ font-weight:400; font-size:calc(26px + var(--fs-bump)); letter-spacing:.04em; margin:8px 0 12px; }
+  .rs-top p{ color:var(--dim); margin:4px 0; font-size:calc(13px + var(--fs-bump)); }
+  .rs-top a, .rs-sec a{ color:var(--gold); }
+  .rs-sec{ margin:0 0 56px; }
+  .rs-sec h2{ font-weight:400; font-size:calc(20px + var(--fs-bump)); letter-spacing:.04em; margin:0 0 14px; }
+  .rs-sec h3{ font-weight:400; font-size:calc(13px + var(--fs-bump)); letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:30px 0 10px; }
+  .rs-usage{ max-width:72ch; color:var(--dim); font-size:calc(14px + var(--fs-bump)); line-height:1.7; margin:0 0 8px; }
+  .rs-meta{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); margin:0 0 6px; }
+  .rs-sec table{ width:100%; border-collapse:collapse; font-size:calc(12px + var(--fs-bump)); }
+  .rs-sec th{ text-align:left; font-weight:400; color:var(--dim); border-bottom:1px solid var(--line-strong); padding:8px 10px 8px 0; vertical-align:bottom; }
+  .rs-sec td{ border-bottom:1px solid var(--line); padding:10px 10px 10px 0; vertical-align:top; line-height:1.5; }
+  .rs-title{ color:var(--white); }
+  .rs-summary{ display:block; color:var(--dim); font-size:calc(11px + var(--fs-bump)); margin-top:4px; line-height:1.55; }
+  .rs-sec td a{ white-space:nowrap; }
+  .rs-sec ul{ max-width:78ch; padding-left:20px; color:var(--dim); line-height:1.7; font-size:calc(13px + var(--fs-bump)); }
+  .rs-sec li{ margin:0 0 8px; }
+  .rs-sec p.rs-method{ max-width:78ch; color:var(--dim); line-height:1.7; font-size:calc(13px + var(--fs-bump)); }
+  /* sous 600 px de large, le tableau devient une liste */
+  @media (max-width:600px){
+    .wrap{ padding:24px 16px 48px; }
+    .rs-sec table, .rs-sec tbody, .rs-sec tr, .rs-sec td{ display:block; width:100%; }
+    .rs-sec thead{ position:absolute; left:-9999px; }
+    .rs-sec tr{ border:1px solid var(--line); border-radius:6px; padding:10px 12px; margin:0 0 12px; }
+    .rs-sec td{ border:0; padding:4px 0; display:flex; gap:10px; }
+    .rs-sec td a{ white-space:normal; word-break:break-all; }
+    .rs-sec td::before{ content:attr(data-label); flex:0 0 38%; color:var(--dim); }
+    .rs-sec td.rs-cell-title{ display:block; padding-bottom:8px; }
+    .rs-sec td.rs-cell-title::before{ content:none; }
+  }
+</style>
+<link rel="stylesheet" href="../assets/fonts/barlow-semi-condensed/barlow-semi-condensed.css">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/breadcrumb.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot",
+      "name": "Anibal Edelberto Amiot",
+      "url": "https://anibal-amiot.com",
+      "sameAs": [
+        "https://orcid.org/0009-0002-6414-9448",
+        "https://www.wikidata.org/wiki/Q141191562"
+      ],
+      "identifier": "https://orcid.org/0009-0002-6414-9448"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://anibal-amiot.com/research/#works",
+      "name": "Research — current state / Travaux — état actuel",
+      "dateModified": "2026-11-05",
+      "numberOfItems": 13,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Book",
+            "@id": "https://anibal-amiot.com/research/#livree-hermes",
+            "name": "La Livrée d'Hermès",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "3.0",
+            "dateModified": "2026-10-06",
+            "creativeWorkStatus": "Published (open access)",
+            "url": "https://doi.org/10.5281/zenodo.22722485",
+            "identifier": "https://doi.org/10.5281/zenodo.22722485",
+            "license": "CC BY-NC 4.0"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Dataset",
+            "@id": "https://anibal-amiot.com/research/#plaques-360",
+            "name": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "3.1",
+            "dateModified": "2026-10-06",
+            "creativeWorkStatus": "Published",
+            "url": "https://anibal-amiot.com/research/#en-plaques-360",
+            "license": "CC BY-NC 4.0"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#ansate-cross-order6",
+            "name": "The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "v3.5",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Under review (Mathematics Magazine)",
+            "url": "https://anibal-amiot.com/research/#en-ansate-cross-order6"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#ansate-cross-general",
+            "name": "The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "223",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Preprint",
+            "url": "https://doi.org/10.5281/zenodo.23269974",
+            "identifier": "https://doi.org/10.5281/zenodo.23269974",
+            "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://anibal-amiot.com/research/#ansate-cross-code",
+            "name": "The Ansate Cross — verification code and data",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "4.0.1",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Published (new version being deposited)",
+            "url": "https://doi.org/10.5281/zenodo.22866061",
+            "identifier": "https://doi.org/10.5281/zenodo.22866061",
+            "license": "AGPL-3.0 (code), CC BY 4.0 (texts), CC BY-NC 4.0 (data)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "item": {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://anibal-amiot.com/research/#unified-patterns",
+            "name": "Unified Patterns — companion article, data and verification (half-shift criterion on three-colour 12 × 12 grids)",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "2.19",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Half-shift note under review (Journal of Mathematics and the Arts); companion article: preprint",
+            "url": "https://doi.org/10.5281/zenodo.22862110",
+            "identifier": "https://doi.org/10.5281/zenodo.22862110",
+            "license": "AGPL-3.0 (code), CC BY 4.0 (texts)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#axes-chladni",
+            "name": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "2.14",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Preprint (new version being deposited)",
+            "url": "https://doi.org/10.5281/zenodo.22965031",
+            "identifier": "https://doi.org/10.5281/zenodo.22965031",
+            "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#one-object",
+            "name": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "1.4.0",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Preprint (new version being deposited)",
+            "url": "https://doi.org/10.5281/zenodo.22986529",
+            "identifier": "https://doi.org/10.5281/zenodo.22986529",
+            "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 9,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#moire",
+            "name": "Parity Figures as Moiré: What Is Exact and What Is Not",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "1.0.1",
+            "dateModified": "2026-09-27",
+            "creativeWorkStatus": "Preprint",
+            "url": "https://doi.org/10.5281/zenodo.22967585",
+            "identifier": "https://doi.org/10.5281/zenodo.22967585",
+            "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 10,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#doubling-I-IV",
+            "name": "Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "1.1.1",
+            "dateModified": "2026-10-02",
+            "creativeWorkStatus": "Working papers",
+            "url": "https://doi.org/10.5281/zenodo.23088601",
+            "identifier": "https://doi.org/10.5281/zenodo.23088601",
+            "license": "CC BY 4.0 (texts), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 11,
+          "item": {
+            "@type": "ScholarlyArticle",
+            "@id": "https://anibal-amiot.com/research/#log-concavity",
+            "name": "Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "1.0.0",
+            "dateModified": "2026-10-02",
+            "creativeWorkStatus": "Working preprint",
+            "url": "https://anibal-amiot.com/research/#en-log-concavity",
+            "license": "CC BY 4.0 (text), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 12,
+          "item": {
+            "@type": "Dataset",
+            "@id": "https://anibal-amiot.com/research/#subsets-dataset",
+            "name": "Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "1.0",
+            "dateModified": "2026-09-27",
+            "creativeWorkStatus": "Published",
+            "url": "https://doi.org/10.5281/zenodo.22991226",
+            "identifier": "https://doi.org/10.5281/zenodo.22991226",
+            "license": "CC BY 4.0 (data), AGPL-3.0 (code)"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 13,
+          "item": {
+            "@type": "Report",
+            "@id": "https://anibal-amiot.com/research/#compte-rendu",
+            "name": "La Livrée d'Hermès — compte rendu de travaux / progress report",
+            "author": {
+              "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
+            },
+            "version": "2026-11-05",
+            "dateModified": "2026-11-05",
+            "creativeWorkStatus": "Published (new version being deposited)",
+            "url": "https://doi.org/10.5281/zenodo.22945021",
+            "identifier": "https://doi.org/10.5281/zenodo.22945021"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<!-- @head-icons:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<!-- @head-icons:end -->
+</head>
+<body>
+<div class="wrap">
+<!-- @header:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<a class="skip-link" href="#contenu" style="position:absolute;left:-9999px;">Skip to content</a>
+<header class="site-header">
+  <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" style="width:264px;max-width:80%;height:auto;display:block;margin:0 auto 10px;">
+</header>
+<!-- @header:end -->
+<!-- @main:start -->
+<main id="contenu">
+  <header class="rs-top">
+    <nav class="breadcrumb" aria-label="Breadcrumb / Fil d'Ariane">
+      <a href="../en/">Home / Accueil</a><span class="sep">/</span><span aria-current="page">Research / Travaux</span>
+    </nav>
+    <h1>Research — current state<br><span lang="fr">Travaux — état actuel</span></h1>
+    <p>Anibal Edelberto Amiot · <time datetime="2026-11-05">2026-11-05</time></p>
+    <p><a href="#en">English</a> · <a href="#fr" hreflang="fr" lang="fr">Français</a> · <a href="/research/status.json" type="application/json">status.json</a></p>
+  </header>
+<section class="rs-sec" lang="en" id="en" aria-labelledby="h-en">
+  <h2 id="h-en">Research — current state</h2>
+  <p class="rs-usage">This page is the reference state of the author's work. Cite the "all versions" DOI; the latest version DOI identifies the files described here. Machine-readable copy: <a href="/research/status.json">/research/status.json</a>.</p>
+  <p class="rs-meta">Last updated : <time datetime="2026-11-05">2026-11-05</time></p>
+  <p class="rs-meta">Author : Anibal Edelberto Amiot · <a href="https://orcid.org/0009-0002-6414-9448" rel="noopener">ORCID 0009-0002-6414-9448</a> · <a href="https://www.wikidata.org/wiki/Q141191562" rel="noopener">Wikidata Q141191562</a></p>
+  <h3>Book</h3>
+  <table>
+    <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Current version</th><th scope="col">Status</th><th scope="col">DOI (all versions)</th><th scope="col">Version DOI</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="en-livree-hermes"><td class="rs-cell-title" data-label="Title"><span class="rs-title">La Livrée d&#x27;Hermès</span><span class="rs-summary" lang="en">Arithmogeometry of magic squares and their transcription into a Jacquard pattern system; eight language editions.</span></td><td data-label="Type">Book</td><td data-label="Current version">3.0</td><td data-label="Status">Published (open access)</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener">10.5281/zenodo.22722485</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-10-06">2026-10-06</time></td></tr>
+      <tr id="en-plaques-360"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d&#x27;Hermès</span><span class="rs-summary" lang="en">STL, 3MF and SVG models of the 360 perforated plates, with generation scripts and bilingual documentation.</span></td><td data-label="Type">Dataset</td><td data-label="Current version">3.1</td><td data-label="Status">Published</td><td data-label="DOI (all versions)">—</td><td data-label="Version DOI">—</td><td data-label="Date"><time datetime="2026-10-06">2026-10-06</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Ansate cross and even-order magic squares</h3>
+  <table>
+    <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Current version</th><th scope="col">Status</th><th scope="col">DOI (all versions)</th><th scope="col">Version DOI</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="en-ansate-cross-order6"><td class="rs-cell-title" data-label="Title"><span class="rs-title">The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares</span><span class="rs-summary" lang="en">The two order-six ansate crosses and the 256 colourings of the book that give magic squares. Under review; the manuscript is not public during review. Its code and data are in the verification-code record.</span></td><td data-label="Type">Article</td><td data-label="Current version">v3.5</td><td data-label="Status">Under review (Mathematics Magazine)</td><td data-label="DOI (all versions)">—</td><td data-label="Version DOI">—</td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="en-ansate-cross-general"><td class="rs-cell-title" data-label="Title"><span class="rs-title">The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry</span><span class="rs-summary" lang="en">A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">223</td><td data-label="Status">Preprint</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.23269974" rel="noopener">10.5281/zenodo.23269974</a></td><td data-label="Version DOI"><a href="https://doi.org/10.5281/zenodo.23978781" rel="noopener">10.5281/zenodo.23978781</a></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="en-ansate-cross-code"><td class="rs-cell-title" data-label="Title"><span class="rs-title">The Ansate Cross — verification code and data</span><span class="rs-summary" lang="en">Independent audit, verification programs and data for the ansate-cross papers, including the figure scripts of the order-six article.</span></td><td data-label="Type">Software</td><td data-label="Current version">4.0.1</td><td data-label="Status">Published (new version being deposited)</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22866061" rel="noopener">10.5281/zenodo.22866061</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Patterns, axes and level sets</h3>
+  <table>
+    <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Current version</th><th scope="col">Status</th><th scope="col">DOI (all versions)</th><th scope="col">Version DOI</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="en-unified-patterns"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Unified Patterns — companion article, data and verification (half-shift criterion on three-colour 12 × 12 grids)</span><span class="rs-summary" lang="en">Companion article &#x27;From Ansate Cross Colourings to Unified Patterns and Sound Forms&#x27; (v2.19, with supplement C1–C6 and certificates) and the data and scripts of the half-shift note submitted to the Journal of Mathematics and the Arts.</span></td><td data-label="Type">Software</td><td data-label="Current version">2.19</td><td data-label="Status">Half-shift note under review (Journal of Mathematics and the Arts); companion article: preprint</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22862110" rel="noopener">10.5281/zenodo.22862110</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="en-axes-chladni"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Axes and Level Sets of a Jacquard Pattern System — two companion notes</span><span class="rs-summary" lang="en">A vocabulary of axes generated by an inverse doubling on the 12 × 12 square, and its identification with the level sets of a square-plate eigenmode.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">2.14</td><td data-label="Status">Preprint (new version being deposited)</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22965031" rel="noopener">10.5281/zenodo.22965031</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="en-one-object"><td class="rs-cell-title" data-label="Title"><span class="rs-title">One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System</span><span class="rs-summary" lang="en">The axes, the sixty images and the 512 grids of the pattern system are shown, by exhaustive check, to present one finite structure.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">1.4.0</td><td data-label="Status">Preprint (new version being deposited)</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22986529" rel="noopener">10.5281/zenodo.22986529</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="en-moire"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Parity Figures as Moiré: What Is Exact and What Is Not</span><span class="rs-summary" lang="en">Places the parity construction within the theory of moiré and separates what is exact from what is not.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">1.0.1</td><td data-label="Status">Preprint</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22967585" rel="noopener">10.5281/zenodo.22967585</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-09-27">2026-09-27</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Doubling modulo n</h3>
+  <table>
+    <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Current version</th><th scope="col">Status</th><th scope="col">DOI (all versions)</th><th scope="col">Version DOI</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="en-doubling-I-IV"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers</span><span class="rs-summary" lang="en">Multiplication by 2 on Z/nZ after identifying x with −x, for every n: cycles, 2-adic lifting and the enumeration of forward-closed subsets.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">1.1.1</td><td data-label="Status">Working papers</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.23088601" rel="noopener">10.5281/zenodo.23088601</a></td><td data-label="Version DOI"><a href="https://doi.org/10.5281/zenodo.23102045" rel="noopener">10.5281/zenodo.23102045</a></td><td data-label="Date"><time datetime="2026-10-02">2026-10-02</time></td></tr>
+      <tr id="en-log-concavity"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees</span><span class="rs-summary" lang="en">Eventual strict log-concavity of the coefficient columns of exact-height plane binary trees; working preprint, not yet read by a specialist.</span></td><td data-label="Type">Preprint</td><td data-label="Current version">1.0.0</td><td data-label="Status">Working preprint</td><td data-label="DOI (all versions)">—</td><td data-label="Version DOI">—</td><td data-label="Date"><time datetime="2026-10-02">2026-10-02</time></td></tr>
+      <tr id="en-subsets-dataset"><td class="rs-cell-title" data-label="Title"><span class="rs-title">Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program</span><span class="rs-summary" lang="en">Terms a(1)…a(200) and the program that computes them.</span></td><td data-label="Type">Dataset</td><td data-label="Current version">1.0</td><td data-label="Status">Published</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22991226" rel="noopener">10.5281/zenodo.22991226</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-09-27">2026-09-27</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Reports</h3>
+  <table>
+    <thead><tr><th scope="col">Title</th><th scope="col">Type</th><th scope="col">Current version</th><th scope="col">Status</th><th scope="col">DOI (all versions)</th><th scope="col">Version DOI</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="en-compte-rendu"><td class="rs-cell-title" data-label="Title"><span class="rs-title">La Livrée d&#x27;Hermès — compte rendu de travaux / progress report</span><span class="rs-summary" lang="en">Progress report on the work around the book: papers under review, deposits, results and open questions.</span></td><td data-label="Type">Report</td><td data-label="Current version">2026-11-05</td><td data-label="Status">Published (new version being deposited)</td><td data-label="DOI (all versions)"><a href="https://doi.org/10.5281/zenodo.22945021" rel="noopener">10.5281/zenodo.22945021</a></td><td data-label="Version DOI"><span class="rs-pending">deposit in progress</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Conventions</h3>
+  <ul>
+    <li>Four numerical readings of a grid of order n, with C = n² + 1: B (blue) = nr + c + 1, R (red) = C − B, V (grey) = nr + n − c, J (yellow) = C − V.</li>
+    <li>The two order-six ansate crosses are called cross 1 and cross 2; cross 2 is the cross of the book&#x27;s reference square. The former names EGO and ALTER are no longer used.</li>
+    <li>Alpha and omega are the cells of the smallest and largest numbers of a square (1 and 36 at order six).</li>
+    <li>Merging blue and red gives the three-tint (tricolour) patterns; the four-colour, three-colour and two-colour systems descend from one another.</li>
+  </ul>
+  <h3>A word on method</h3>
+  <p class="rs-method">Verification programs, figure scripts and English editing were prepared with AI assistants (Claude, Anthropic; ChatGPT, OpenAI). Each deposit states this use; the author reviews all outputs and is responsible for the content.</p>
+</section>
+<section class="rs-sec" lang="fr" id="fr" aria-labelledby="h-fr">
+  <h2 id="h-fr">Travaux — état actuel</h2>
+  <p class="rs-usage">Cette page donne l'état de référence des travaux de l'auteur. Citer le DOI « toutes versions » ; le DOI de la dernière version identifie les fichiers décrits ici. Copie lisible par machine : <a href="/research/status.json">/research/status.json</a>.</p>
+  <p class="rs-meta">Dernière mise à jour : <time datetime="2026-11-05">2026-11-05</time></p>
+  <p class="rs-meta">Auteur : Anibal Edelberto Amiot · <a href="https://orcid.org/0009-0002-6414-9448" rel="noopener">ORCID 0009-0002-6414-9448</a> · <a href="https://www.wikidata.org/wiki/Q141191562" rel="noopener">Wikidata Q141191562</a></p>
+  <h3>Book</h3>
+  <table>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Type</th><th scope="col">Version courante</th><th scope="col">Statut</th><th scope="col">DOI (toutes versions)</th><th scope="col">DOI de la version</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="fr-livree-hermes"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">La Livrée d&#x27;Hermès</span><span class="rs-summary" lang="en">Arithmogeometry of magic squares and their transcription into a Jacquard pattern system; eight language editions.</span></td><td data-label="Type">Livre</td><td data-label="Version courante">3.0</td><td data-label="Statut">Publié (accès libre)</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener">10.5281/zenodo.22722485</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-10-06">2026-10-06</time></td></tr>
+      <tr id="fr-plaques-360"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d&#x27;Hermès</span><span class="rs-summary" lang="en">STL, 3MF and SVG models of the 360 perforated plates, with generation scripts and bilingual documentation.</span></td><td data-label="Type">Données</td><td data-label="Version courante">3.1</td><td data-label="Statut">Publié</td><td data-label="DOI (toutes versions)">—</td><td data-label="DOI de la version">—</td><td data-label="Date"><time datetime="2026-10-06">2026-10-06</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Ansate cross and even-order magic squares</h3>
+  <table>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Type</th><th scope="col">Version courante</th><th scope="col">Statut</th><th scope="col">DOI (toutes versions)</th><th scope="col">DOI de la version</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="fr-ansate-cross-order6"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares</span><span class="rs-summary" lang="en">The two order-six ansate crosses and the 256 colourings of the book that give magic squares. Under review; the manuscript is not public during review. Its code and data are in the verification-code record.</span></td><td data-label="Type">Article</td><td data-label="Version courante">v3.5</td><td data-label="Statut">En évaluation (Mathematics Magazine)</td><td data-label="DOI (toutes versions)">—</td><td data-label="DOI de la version">—</td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="fr-ansate-cross-general"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry</span><span class="rs-summary" lang="en">A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">223</td><td data-label="Statut">Prépublication</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.23269974" rel="noopener">10.5281/zenodo.23269974</a></td><td data-label="DOI de la version"><a href="https://doi.org/10.5281/zenodo.23978781" rel="noopener">10.5281/zenodo.23978781</a></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="fr-ansate-cross-code"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">The Ansate Cross — verification code and data</span><span class="rs-summary" lang="en">Independent audit, verification programs and data for the ansate-cross papers, including the figure scripts of the order-six article.</span></td><td data-label="Type">Logiciel</td><td data-label="Version courante">4.0.1</td><td data-label="Statut">Publié (nouvelle version en cours de dépôt)</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22866061" rel="noopener">10.5281/zenodo.22866061</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Patterns, axes and level sets</h3>
+  <table>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Type</th><th scope="col">Version courante</th><th scope="col">Statut</th><th scope="col">DOI (toutes versions)</th><th scope="col">DOI de la version</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="fr-unified-patterns"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Unified Patterns — companion article, data and verification (half-shift criterion on three-colour 12 × 12 grids)</span><span class="rs-summary" lang="en">Companion article &#x27;From Ansate Cross Colourings to Unified Patterns and Sound Forms&#x27; (v2.19, with supplement C1–C6 and certificates) and the data and scripts of the half-shift note submitted to the Journal of Mathematics and the Arts.</span></td><td data-label="Type">Logiciel</td><td data-label="Version courante">2.19</td><td data-label="Statut">Note du demi-décalage en évaluation (Journal of Mathematics and the Arts) ; article compagnon : prépublication</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22862110" rel="noopener">10.5281/zenodo.22862110</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="fr-axes-chladni"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Axes and Level Sets of a Jacquard Pattern System — two companion notes</span><span class="rs-summary" lang="en">A vocabulary of axes generated by an inverse doubling on the 12 × 12 square, and its identification with the level sets of a square-plate eigenmode.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">2.14</td><td data-label="Statut">Prépublication (nouvelle version en cours de dépôt)</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22965031" rel="noopener">10.5281/zenodo.22965031</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="fr-one-object"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System</span><span class="rs-summary" lang="en">The axes, the sixty images and the 512 grids of the pattern system are shown, by exhaustive check, to present one finite structure.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">1.4.0</td><td data-label="Statut">Prépublication (nouvelle version en cours de dépôt)</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22986529" rel="noopener">10.5281/zenodo.22986529</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+      <tr id="fr-moire"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Parity Figures as Moiré: What Is Exact and What Is Not</span><span class="rs-summary" lang="en">Places the parity construction within the theory of moiré and separates what is exact from what is not.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">1.0.1</td><td data-label="Statut">Prépublication</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22967585" rel="noopener">10.5281/zenodo.22967585</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-09-27">2026-09-27</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Doubling modulo n</h3>
+  <table>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Type</th><th scope="col">Version courante</th><th scope="col">Statut</th><th scope="col">DOI (toutes versions)</th><th scope="col">DOI de la version</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="fr-doubling-I-IV"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers</span><span class="rs-summary" lang="en">Multiplication by 2 on Z/nZ after identifying x with −x, for every n: cycles, 2-adic lifting and the enumeration of forward-closed subsets.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">1.1.1</td><td data-label="Statut">Documents de travail</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.23088601" rel="noopener">10.5281/zenodo.23088601</a></td><td data-label="DOI de la version"><a href="https://doi.org/10.5281/zenodo.23102045" rel="noopener">10.5281/zenodo.23102045</a></td><td data-label="Date"><time datetime="2026-10-02">2026-10-02</time></td></tr>
+      <tr id="fr-log-concavity"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees</span><span class="rs-summary" lang="en">Eventual strict log-concavity of the coefficient columns of exact-height plane binary trees; working preprint, not yet read by a specialist.</span></td><td data-label="Type">Prépublication</td><td data-label="Version courante">1.0.0</td><td data-label="Statut">Prépublication de travail</td><td data-label="DOI (toutes versions)">—</td><td data-label="DOI de la version">—</td><td data-label="Date"><time datetime="2026-10-02">2026-10-02</time></td></tr>
+      <tr id="fr-subsets-dataset"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program</span><span class="rs-summary" lang="en">Terms a(1)…a(200) and the program that computes them.</span></td><td data-label="Type">Données</td><td data-label="Version courante">1.0</td><td data-label="Statut">Publié</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22991226" rel="noopener">10.5281/zenodo.22991226</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-09-27">2026-09-27</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Reports</h3>
+  <table>
+    <thead><tr><th scope="col">Titre</th><th scope="col">Type</th><th scope="col">Version courante</th><th scope="col">Statut</th><th scope="col">DOI (toutes versions)</th><th scope="col">DOI de la version</th><th scope="col">Date</th></tr></thead>
+    <tbody>
+      <tr id="fr-compte-rendu"><td class="rs-cell-title" data-label="Titre"><span class="rs-title">La Livrée d&#x27;Hermès — compte rendu de travaux / progress report</span><span class="rs-summary" lang="en">Progress report on the work around the book: papers under review, deposits, results and open questions.</span></td><td data-label="Type">Compte rendu</td><td data-label="Version courante">2026-11-05</td><td data-label="Statut">Publié (nouvelle version en cours de dépôt)</td><td data-label="DOI (toutes versions)"><a href="https://doi.org/10.5281/zenodo.22945021" rel="noopener">10.5281/zenodo.22945021</a></td><td data-label="DOI de la version"><span class="rs-pending">en cours de dépôt</span></td><td data-label="Date"><time datetime="2026-11-05">2026-11-05</time></td></tr>
+    </tbody>
+  </table>
+  <h3>Conventions</h3>
+  <ul>
+    <li>Quatre lectures numériques d&#x27;une grille d&#x27;ordre n, avec C = n² + 1 : B (bleu) = nr + c + 1, R (rouge) = C − B, V (gris) = nr + n − c, J (jaune) = C − V.</li>
+    <li>Les deux croix ansées d&#x27;ordre six s&#x27;appellent croix 1 et croix 2 ; la croix 2 est celle du carré de référence du livre. Les anciens noms EGO et ALTER ne sont plus employés.</li>
+    <li>Alpha et oméga désignent les cases du plus petit et du plus grand nombre d&#x27;un carré (1 et 36 à l&#x27;ordre six).</li>
+    <li>La fusion du bleu et du rouge donne les motifs à trois teintes (tricolores) ; les systèmes quadricolore, tricolore et bicolore descendent l&#x27;un de l&#x27;autre.</li>
+  </ul>
+  <h3>Un mot sur la méthode</h3>
+  <p class="rs-method">Les programmes de vérification, les scripts des figures et la relecture de l&#x27;anglais ont été préparés avec des assistants d&#x27;IA (Claude, Anthropic ; ChatGPT, OpenAI). Chaque dépôt le déclare ; l&#x27;auteur relit tout et répond du contenu.</p>
+</section>
+</main>
+<!-- @main:end -->
+</div>
+<!-- @navtiles:start — engendré depuis scripts/nav-tiles.js, ne pas éditer ici (voir scripts/build-header.js) -->
+<div class="note">
+    <div class="nav-tiles nav-tiles-accueil nav-fixes">
+      <a class="nav-tile" href="../en/"><img class="nav-tile-icon" src="../assets/nav-icons/accueil.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Home</span><span class="nav-tile-excerpt">The book, its plates and the full set of tools.</span></span></a>
+      <a class="nav-tile" href="../en/articles/"><img class="nav-tile-icon" src="../assets/nav-icons/articles.png" alt="" width="72" height="72" loading="lazy"><span class="nav-tile-body"><span class="nav-tile-label">Articles</span><span class="nav-tile-excerpt">Reflections and research around La Livrée d'Hermès.</span></span></a>
+    </div>
+
+    <div class="footer-caduceus">
+      <picture><source srcset="../assets/logo-caducee-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-caducee.gif" alt="La Livrée d'Hermès" width="420" height="594" loading="lazy"></picture>
+    </div>
+    <a class="site-nav-btn" href="https://anibal-amiot.com/soutenir.html" hreflang="fr" style="display:inline-block; margin:14px 0;" title="Support La Livrée d'Hermès at a price you choose: everything stays free under CC BY-NC 4.0; your support funds the project's future.">Become a Supporter <span class="lien-langue">(French)</span></a>
+
+    <nav class="nav-categories" aria-label="Site pages">
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Galleries</span><span class="nav-cat-nombre">3</span></summary>
+        <ul>
+          <li><a href="../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../en/two-colour-gallery/"><span class="nav-cat-label">Two-colour gallery</span><span class="nav-cat-texte">142 two-colour patterns generated by the axes and closed on the cube — grain, tiling, export.</span></a></li>
+          <li><a href="../en/three-colour-gallery/"><span class="nav-cat-label">Three-colour gallery</span><span class="nav-cat-texte">Unified patterns, generated by tint mixing — select a motif to see its tiling.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Animations</span><span class="nav-cat-nombre">2</span></summary>
+        <ul>
+          <li><a href="../en/animations/"><span class="nav-cat-label">Animation gallery</span><span class="nav-cat-texte">The animations of the ground collections, in six groups: to watch, preview and download as MP4.</span></a></li>
+          <li><a href="../en/wallpapers/"><span class="nav-cat-label">Wallpapers</span><span class="nav-cat-texte">Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Draws &amp; prints</span><span class="nav-cat-nombre">4</span></summary>
+        <ul>
+          <li><a href="../en/yi-king-draw/"><span class="nav-cat-label">Yi King draw</span><span class="nav-cat-texte">Draw a hexagram at random and discover its square, or browse the chessboard of the 64 changes.</span></a></li>
+          <li><a href="../en/360-layers/"><span class="nav-cat-label">360 layers</span><span class="nav-cat-texte">Draw and download print-ready layers.</span></a></li>
+          <li><a href="../en/downloads/"><span class="nav-cat-label">SVG patterns</span><span class="nav-cat-texte">Download the print layers in 4 categories of trait combinations, as SVG.</span></a></li>
+          <li><a href="../en/hexagrams/"><span class="nav-cat-label">Hexagrams</span><span class="nav-cat-texte">The 64 hexagrams of the Yi King: judgment, trigrams and magic square for each.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">Creative tools</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../en/create-a-pattern/"><span class="nav-cat-label">Create a pattern</span><span class="nav-cat-texte">Compose your own textile patterns from the 60 images of the Yi King.</span></a></li>
+          <li><a href="../en/two-colour-patterns/"><span class="nav-cat-label">Two-colour patterns</span><span class="nav-cat-texte">Compose a 12×12 cell, six levels, each with its own family and tint.</span></a></li>
+          <li><a href="../creation-bicolore-v2.html" hreflang="fr"><span class="nav-cat-label">Two-colour patterns v2 <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">The second diagonal split (YA/AY), vocabulary and half-shift statuses — alongside the v1 tool.</span></a></li>
+          <li><a href="../en/encoder/"><span class="nav-cat-label">Encoder</span><span class="nav-cat-texte">Geometric steganographic encoding by double referent, ansate cross and Jacquard.</span></a></li>
+          <li><a href="../carter-demo.html" hreflang="fr"><span class="nav-cat-label">Carter Random <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Interactive demo: the grid and the referents derived from the key.</span></a></li>
+          <li><a href="../en/unified-patterns/"><span class="nav-cat-label">Magic quadricolore</span><span class="nav-cat-texte">The 64 hexagram patterns, customisable and downloadable in high resolution.</span></a></li>
+          <li><a href="../en/chladni/"><span class="nav-cat-label">Cymatics</span><span class="nav-cat-texte">The tiling whose spatial frequency comes closest to the sound you make.</span></a></li>
+          <li><a href="../outils.html" hreflang="fr"><span class="nav-cat-label">Tools <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">All the site's interactive tools, gathered in one place.</span></a></li>
+        </ul>
+      </details>
+      <details class="nav-cat">
+        <summary><span class="nav-cat-titre">About the project</span><span class="nav-cat-nombre">8</span></summary>
+        <ul>
+          <li><a href="../en/book/"><span class="nav-cat-label">The treatise</span><span class="nav-cat-texte">The treatise and its translated editions, the hexagrams and the lexicon.</span></a></li>
+          <li><a href="../en/about/"><span class="nav-cat-label">About</span><span class="nav-cat-texte">The author and his book, at the crossing of philosophy, mathematics and applied science.</span></a></li>
+          <li><a href="../en/lexicon/"><span class="nav-cat-label">Lexicon</span><span class="nav-cat-texte">Ten key notions for understanding La Livrée d'Hermès.</span></a></li>
+          <li><a href="../en/documentary-profile/"><span class="nav-cat-label">Documentary profile</span><span class="nav-cat-texte">Patents and 63 designs registered with the INPI, covering the order-12 squares.</span></a></li>
+          <li><a href="../en/contact/"><span class="nav-cat-label">Contact</span><span class="nav-cat-texte">Contact the author for a project or a commission of patterns and textile prints.</span></a></li>
+          <li><a href="../soutenir.html" hreflang="fr"><span class="nav-cat-label">Support <span class="lien-langue">(French)</span></span><span class="nav-cat-texte">Support La Livrée d'Hermès at a price you choose: the site and its content stay free.</span></a></li>
+          <li><a href="../en/figures-and-sources/"><span class="nav-cat-label">Figures and sources</span><span class="nav-cat-texte">Every figure on the site, the script that reproduces it and the line it prints.</span></a></li>
+          <li><a href="../en/works/"><span class="nav-cat-label">Works</span><span class="nav-cat-texte">Deposits, code and submitted papers, each one timestamped and open.</span></a></li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="center-logo-slot center-logo-slot-bottom">
+      <picture><source srcset="../assets/logo-static-fixe.png" media="(prefers-reduced-motion: reduce)"><img src="../assets/logo-static.gif" alt="La Livrée d'Hermès" width="176" height="176" loading="lazy"></picture>
+    </div>
+
+    <div class="credit-line">
+      <span>© <span id="credit-year">2026</span> Anibal Edelberto Amiot — CC BY-NC 4.0</span>
+      <span class="credit-sep">·</span>
+      <span>Created in collaboration with Claude</span>
+    </div>
+
+    <div class="footer-title-logo">
+      <img src="../assets/title-logo-footer.png" alt="La Livrée d'Hermès" width="264" height="65" loading="lazy">
+    </div>
+  </div>
+<!-- @navtiles:end -->
+<!-- @footer:start — engendré depuis includes/, ne pas éditer ici (voir scripts/build-header.js) -->
+<footer class="site-footer">
+  <nav class="site-footer-nav" aria-label="Footer">
+    <a href="../en/">Home</a>
+    <a href="../en/book/">The book</a>
+    <a href="../en/hexagrams/">Hexagrams</a>
+    <a href="../motifs/">Patterns</a>
+    <a href="../en/lexicon/">Lexicon</a>
+    <a href="../en/articles/">Articles</a>
+    <a href="../outils.html" hreflang="fr">Tools (French)</a>
+    <a href="../en/about/">About</a>
+    <a href="../en/documentary-profile/">Author profile</a>
+    <a href="../en/works/">Research deposits</a>
+    <a href="../research/">Research state</a>
+    <a href="../en/contact/">Contact</a>
+    <a href="../soutenir.html" hreflang="fr">Support (French)</a>
+    <a href="../en/search/">Search</a>
+  </nav>
+  <p class="site-footer-licence">
+    Content under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>
+    · code under AGPL v3, commercial licence on request
+    · <a href="https://doi.org/10.5281/zenodo.22722485" rel="noopener" target="_blank">DOI 10.5281/zenodo.22722485</a>
+  </p>
+</footer>
+<!-- @footer:end -->
+<!-- @analytics:start — engendré depuis includes/analytics.json, ne pas éditer ici (voir scripts/build-header.js) -->
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fe648755f2f4ccd92fc5d60014ccac0"}'></script>
+<!-- @analytics:end -->
+</body>
+</html>
