@@ -127,6 +127,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/build_research.py",
+   "role": "engendre la page « État des travaux » depuis research/status.json.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-travaux.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/calculs_fonds.mjs",
    "role": "Les valeurs calculées de la collection de fonds (famille, isométrie, fraction, raccord, contraste ; couverture de chaque glyphe à l'échelle 1), écrites une fois dans data/fonds/collection-v1.calculs.json pour que les pages ne refassent p…",
    "lit": [
@@ -340,7 +352,6 @@
    "fichier": "tools/check_doi_perimes.mjs",
    "role": "Contrôle automatique : aucun DOI Zenodo périmé ni aucune mention de la suite OEIS retirée ne doit réapparaître dans le dépôt.",
    "lit": [
-    "data/travaux.json",
     "data/zenodo/depots.json"
    ],
    "ecrit": [],
@@ -985,7 +996,6 @@
    "fichier": "tools/check_zenodo_registre.mjs",
    "role": "le registre des dépôts (data/travaux.json) dit-il ce que Zenodo enregistre ?",
    "lit": [
-    "data/travaux.json",
     "data/zenodo/depots.json"
    ],
    "ecrit": [],
@@ -1609,6 +1619,18 @@
    "utilise_par": [],
    "etat": "actif",
    "sait_echouer": true
+  },
+  {
+   "fichier": "tools/indexnow.py",
+   "role": "prévient Bing, Yandex, Naver, Seznam et Yep des pages nouvelles, modifiées ou supprimées (protocole IndexNow, https://www.indexnow.org/).",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "indexnow.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
   },
   {
    "fichier": "tools/inventaire_zenodo.py",

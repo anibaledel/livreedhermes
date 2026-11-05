@@ -1163,3 +1163,7 @@ De moi, à relire :
   `lldh-cymatique-echelle`, l'image `plate-40-cymatique.avif`, et les mentions de
   provenance dans `assets/`, `docs/`, `data/outils-langues/*.json` (« source :
   cymatique.html ») restent : ce sont des noms internes ou des traces.
+
+## CI — à faire plus tard
+
+- Mettre à jour les actions vers les versions Node 24 ; vérifier les workflows sous Ubuntu 26. (Les journaux signalent `actions/checkout@v4`, `setup-node@v4` et `setup-python@v5` sur Node.js 20, obsolète, et le passage de `ubuntu-latest` à Ubuntu 26. Sans effet pour l'instant.)
