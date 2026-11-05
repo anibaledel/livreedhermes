@@ -43,7 +43,11 @@ const IGNORES = new Set(['.git', 'node_modules', 'pagefind', 'docs']);
 // Depuis scripts/langues.js : les listes de dépôts (groupe « travaux ») et les
 // langues AJOUTÉES — celles qui n'ont pas les 64 hexagrammes (zh, ru, pt…).
 const { GROUPES, LANGUES: DECLAREES } = createRequire(import.meta.url)('../scripts/langues.js');
-const LISTES_ZENODO = new Set(GROUPES.find((g) => g.nom === 'travaux').pages.map(([, , f]) => f));
+const LISTES_ZENODO = new Set([...GROUPES.find((g) => g.nom === 'travaux').pages.map(([, , f]) => f),
+  // research/index.html (tools/build_research.py, depuis research/status.json) est aussi une liste de dépôts :
+  // son JSON-LD porte la licence propre à chaque dépôt (« CC BY 4.0 (texts), AGPL-3.0 (code) »), comme
+  // travaux.html ; le site, lui, reste en CC BY-NC 4.0 (pied de page).
+  'research/index.html']);
 // Pages de dépôt dont la fiche Zenodo est en CC BY 4.0, depuis le registre.
 const REGISTRE = JSON.parse(fs.readFileSync(path.join(RACINE, 'data/travaux.json'), 'utf8'));
 const PAGES_DEPOT_BY = new Set(REGISTRE.depots.filter((r) => r.page && r.licenceZenodo === 'cc-by-4.0').map((r) => `travaux/${r.page}/index.html`));

@@ -1,0 +1,85 @@
+name: IndexNow
+
+# Prévient Bing, Yandex, Naver, Seznam et Yep (api.indexnow.org) des pages
+# nouvelles, modifiées ou supprimées — APRÈS la publication effective du site,
+# pas au simple push : sinon les moteurs liraient l'ancienne version.
+#
+# Le site se publie depuis la branche main par le workflow automatique de
+# GitHub Pages (« pages-build-deployment »), qui n'a pas de fichier dans ce
+# dépôt : on s'accroche donc à lui par workflow_run, et seulement s'il a réussi.
+# Aucun secret : la clé IndexNow est publique (<clé>.txt à la racine).
+# Voir tools/indexnow.py.
+
+on:
+  workflow_run:
+    workflows: ["pages-build-deployment"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Envoyer toutes les adresses de sitemap.xml (--all)"
+        type: boolean
+        default: false
+
+# contents: pour lire le dépôt ; actions: pour retrouver le déploiement
+# précédent (le commit « avant »). Rien d'autre.
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  indexnow:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # le commit déployé, pas la pointe de main : les envois suivants
+          # portent sur ce qui a changé entre deux déploiements
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Clé IndexNow
+        id: cle
+        run: |
+          set -euo pipefail
+          f=$(ls | grep -E '^[0-9a-f]{32}\.txt$' | head -n 1)
+          [ -n "$f" ] || { echo "aucun fichier de clé IndexNow à la racine"; exit 1; }
+          echo "fichier=$f" >> "$GITHUB_OUTPUT"
+          echo "cle=${f%.txt}" >> "$GITHUB_OUTPUT"
+
+      - name: Attendre que la clé soit servie par le site
+        run: |
+          for i in $(seq 1 10); do
+            corps=$(curl -fsS --max-time 20 "https://anibal-amiot.com/${{ steps.cle.outputs.fichier }}" || true)
+            if [ "$corps" = "${{ steps.cle.outputs.cle }}" ]; then echo "clé servie (essai $i)"; exit 0; fi
+            echo "essai $i/10 : clé pas encore servie"; sleep 30
+          done
+          echo "la clé n'est pas servie par https://anibal-amiot.com/${{ steps.cle.outputs.fichier }}"; exit 1
+
+      - name: Commit précédemment déployé
+        id: avant
+        if: github.event_name == 'workflow_run' || inputs.all != true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tete=$(git rev-parse HEAD)
+          # le déploiement réussi juste avant celui-ci ; à défaut, le parent
+          precedent=$(gh api "repos/${{ github.repository }}/actions/workflows/pages-build-deployment/runs?status=success&branch=main&per_page=30" \
+            --jq "[.workflow_runs[] | select(.head_sha != \"$tete\")] | .[0].head_sha // empty" 2>/dev/null || true)
+          if [ -z "$precedent" ] || ! git cat-file -e "$precedent^{commit}" 2>/dev/null; then precedent="HEAD~1"; fi
+          echo "avant=$precedent" >> "$GITHUB_OUTPUT"
+          echo "déployé : $tete — précédent : $precedent"
+
+      - name: Envoyer
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.all }}" = "true" ]; then
+            python3 tools/indexnow.py --all
+          else
+            python3 tools/indexnow.py --since "${{ steps.avant.outputs.avant }}"
+          fi

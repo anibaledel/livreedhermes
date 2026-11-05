@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-10-10T03:03:22Z",
+ "generated_at_utc": "2026-11-05T14:51:01Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-10-07T13:24:52+00:00"
  },
  "comptes": {
-  "scripts": 246,
+  "scripts": 248,
   "sans_licence_declaree": 72,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1131,9 +1131,9 @@
   {
    "chemin": "scripts/generate-sitemap.js",
    "adresse": "https://anibal-amiot.com/scripts/generate-sitemap.js",
-   "octets": 12882,
-   "sha256": "1cef91ecad4cb23315646b3b92c1591b94dbacc77747b95f4acaef6c3334fba8",
-   "md5": "bfa1f5eebc8f53cb2bc8e213480b7b1e",
+   "octets": 13300,
+   "sha256": "6dc376bdb1762af0427af8efccc3538fdf689b557e4f810f14b5d1fe913697e9",
+   "md5": "db6c62cafe3236ff180f9352be8d088d",
    "licence_declaree": false,
    "licence": null,
    "role": "Génère sitemap.xml à partir des pages réellement présentes dans le dépôt, plutôt que de maintenir une liste figée à la main.",
@@ -1401,6 +1401,21 @@
    "zenodo": []
   },
   {
+   "chemin": "tools/build_research.py",
+   "adresse": "https://anibal-amiot.com/tools/build_research.py",
+   "octets": 17105,
+   "sha256": "56e7717734f38fe6aadc777a366cc6392230be5121aee00e869c28f620d0b93f",
+   "md5": "5c20583ed8cd0562cdee6161eef2fcc6",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
+   "role": "engendre la page « État des travaux » depuis research/status.json.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "tools/calculs_fonds.mjs",
    "adresse": "https://anibal-amiot.com/tools/calculs_fonds.mjs",
    "octets": 1516,
@@ -1571,9 +1586,9 @@
   {
    "chemin": "tools/check_doi_licences.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_doi_licences.mjs",
-   "octets": 4918,
-   "sha256": "a9b5d4d5ee3ae008124bbd8e938dc4d7d1270c4f40765baeaf0ebf8b4313c74d",
-   "md5": "e1505da40eb9222c9ed41ccec95ed842",
+   "octets": 5243,
+   "sha256": "4d8fe0b86561aa3eee646c4e1aeae380b3ce54430e121a498670cfa630d5ea8e",
+   "md5": "231e58d902004ea69f1e78b5d7339855",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
@@ -3065,6 +3080,21 @@
     "constructions-1024"
    ],
    "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/indexnow.py",
+   "adresse": "https://anibal-amiot.com/tools/indexnow.py",
+   "octets": 6319,
+   "sha256": "a73ec0969e17ff3be4911823f394af3e6e6a8b5a0b535c04a2ca823a78a6d541",
+   "md5": "3c6ba0cf11541e35e3a960510857b9eb",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
+   "role": "prévient Bing, Yandex, Naver, Seznam et Yep des pages nouvelles, modifiées ou supprimées (protocole IndexNow, https://www.indexnow.org/).",
+   "lit": [],
+   "ecrit": null,
    "durees": [],
    "arborescence_requise": null,
    "zenodo": []

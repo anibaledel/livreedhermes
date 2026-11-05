@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
+# AGPL v3 / Commercial license on request: anibaledel@gmail.com
 """build_research.py — engendre la page « État des travaux » depuis research/status.json.
 
 Source unique : research/status.json. Ce script (Python 3, bibliothèque
