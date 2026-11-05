@@ -160,7 +160,7 @@
     display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap;
     margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
   }
-  .book-bar .flags{ display:flex; gap:6px; align-items:center; }
+  .book-bar .flags{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; align-items:center; max-width:100%; }
   .book-bar .flag-btn{
     border:1px solid var(--line-strong); background:transparent; border-radius:3px;
     width:30px; height:22px; display:flex; align-items:center; justify-content:center;
@@ -183,7 +183,7 @@
   .book-bar .dl-btn.disabled{ opacity:.35; cursor:default; }
   .book-bar .dl-btn.disabled:hover{ border-color:var(--line-strong); color:var(--dim); }
   .book-bar .dl-group{
-    display:flex; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
+    display:flex; flex-wrap:wrap; justify-content:center; max-width:100%; box-sizing:border-box; align-items:center; gap:8px; border:1px solid var(--line); padding:7px 12px;
   }
   .book-bar .dl-label{ font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; color:var(--dim); }
   .palette-picker{

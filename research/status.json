@@ -66,8 +66,8 @@
       "summary_en": "Independent audit, verification programs and data for the ansate-cross papers, including the figure scripts of the order-six article.",
       "summary_fr": "Audit indépendant, programmes de vérification et données des articles sur la croix ansée, dont les scripts des figures de l'article d'ordre six.",
       "version": "4.0.1", "date": "2026-11-05",
-      "status_en": "Published (new version being deposited)", "status_fr": "Publié (nouvelle version en cours de dépôt)",
-      "doi": "10.5281/zenodo.22866061", "version_doi": null, "license": "AGPL-3.0 (code), CC BY 4.0 (texts), CC BY-NC 4.0 (data)", "pending": true
+      "status_en": "Published", "status_fr": "Publié",
+      "doi": "10.5281/zenodo.22866061", "version_doi": "10.5281/zenodo.23983584", "license": "AGPL-3.0 (code), CC BY 4.0 (texts), CC BY-NC 4.0 (data)", "pending": false
     },
     {
       "id": "unified-patterns", "group": "Patterns, axes and level sets", "type": "software",
