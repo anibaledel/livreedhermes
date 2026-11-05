@@ -119,6 +119,10 @@ def serre(s):
     return re.sub(r'[\s\-\u00ad\ufffd]', '', s)
 
 
+# Le site est derrière Cloudflare, qui peut refuser l'identifiant par défaut de Python (« Python-urllib »).
+USER_AGENT = 'anibal-amiot-ci/1.0 (+https://github.com/anibaledel/livreedhermes)'
+
+
 def lire(rel, base):
     if not base:
         return open(os.path.join(ROOT, rel), encoding='utf-8').read()
@@ -126,7 +130,7 @@ def lire(rel, base):
     derniere = None
     for _ in range(6):
         try:
-            with urllib.request.urlopen(url, timeout=30) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': USER_AGENT}), timeout=30) as r:
                 return r.read().decode('utf-8')
         except Exception as e:  # le déploiement peut être en cours
             derniere = e

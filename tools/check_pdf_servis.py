@@ -6,9 +6,10 @@
 # pas marcher en ligne) : chaque PDF des lecteurs du livre
 # (book-viewer/*.pdf du dépôt) est demandé par une requête PARTIELLE
 # (Range: bytes=0-1023). Exigé :
-#   - 206 Partial Content, Content-Range, et Accept-Ranges: bytes — sans
-#     requêtes partielles, la linéarisation ne sert à rien : le navigateur
-#     télécharge tout avant d'afficher la première page ;
+#   - 206 Partial Content et Content-Range correct — sans requêtes
+#     partielles, la linéarisation ne sert à rien : le navigateur télécharge
+#     tout avant d'afficher la première page. L'en-tête Accept-Ranges peut
+#     manquer (un relais le retire) ; s'il est là, il doit valoir « bytes » ;
 #   - « /Linearized » dans les premiers octets servis : le fichier en ligne
 #     est bien le fichier linéarisé.
 # Un fichier tout juste poussé peut répondre 404, ou encore dans son ancienne
@@ -36,7 +37,9 @@ def verifier(url):
     lin = b'/Linearized' in debut[:1024]
     ecarts = []
     if statut != 206 or not cr.startswith('bytes 0-1023/'): ecarts.append(f'{url} : la requête partielle n\'est pas honorée (HTTP {statut})')
-    if ar.lower() != 'bytes': ecarts.append(f'{url} : Accept-Ranges « {ar} », attendu « bytes »')
+    # Accept-Ranges absent : accepté si le 206 et son Content-Range prouvent que la requête partielle est honorée
+    # (certains relais le retirent) ; présent, il doit dire « bytes ».
+    if ar != '—' and ar.lower() != 'bytes': ecarts.append(f'{url} : Accept-Ranges « {ar} », attendu « bytes »')
     if not lin: ecarts.append(f'{url} : le fichier servi n\'est pas linéarisé')
     return ecarts, (f'{url} : HTTP {statut}, Accept-Ranges: {ar}, Content-Range: {cr}, '
                     f'{len(debut)} octets reçus, linéarisé : {"oui" if lin else "NON"}')

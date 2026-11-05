@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-05T15:25:17Z",
+ "generated_at_utc": "2026-11-05T17:09:26Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1908,9 +1908,9 @@
   {
    "chemin": "tools/check_livre_texte.py",
    "adresse": "https://anibal-amiot.com/tools/check_livre_texte.py",
-   "octets": 11555,
-   "sha256": "96acfefab2d53c5858de2f134b70986fd8e00b089f8f976a067e3e2c93381cbf",
-   "md5": "25bbae5ce2f76f950a4cf7f962bce682",
+   "octets": 11811,
+   "sha256": "d1a4e5de2738220e16338df5dc31cbfc18417ae6c4cd767f0ad8556695516755",
+   "md5": "9a7d22996aadcec1444441bbca91794b",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le test d'identité des chapitres en HTML : « le texte publié est celui du livre, pas une reconstruction ».",
@@ -2079,9 +2079,9 @@
   {
    "chemin": "tools/check_pdf_servis.py",
    "adresse": "https://anibal-amiot.com/tools/check_pdf_servis.py",
-   "octets": 3116,
-   "sha256": "e14fbe77b1ca9f5b8de900f45de01ad444bd6122cc41c7dc8d509c5a3ec1a37b",
-   "md5": "53190a2ca82bfd12c63e380c4f0ddfb3",
+   "octets": 3418,
+   "sha256": "6aa410ad02400a96e7626aa114c91f9226e5a36d4d6e96ecca5baf59d91f4132",
+   "md5": "9475b487378f3402ef791cf85c7b2207",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "Sur le SITE DÉPLOYÉ (ce qui marche en local peut ne pas marcher en ligne) : chaque PDF des lecteurs du livre (book-viewer/*.pdf du dépôt) est demandé par une requête PARTIELLE (Range: bytes=0-1023).",
