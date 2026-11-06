@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-06T15:57:36Z",
+ "generated_at_utc": "2026-11-06T16:39:48Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -841,9 +841,9 @@
   {
    "chemin": "scripts/build-travaux.js",
    "adresse": "https://anibal-amiot.com/scripts/build-travaux.js",
-   "octets": 22248,
-   "sha256": "b3391f4241379ceb60b56a0e8cb3c02130a10b4404e4eae2317968937a14ff39",
-   "md5": "5c740be5665326b56de24b7248248744",
+   "octets": 21084,
+   "sha256": "bf4d5af6a8ab01b83692745ca6b067dbffdd50d81501ea5f7c600f8ceb174216",
+   "md5": "851b79234d034c18bf3575732d8d1bf7",
    "licence_declaree": false,
    "licence": null,
    "role": "Liste des dépôts (Zenodo) d'Anibal Amiot, depuis data/travaux.json.",

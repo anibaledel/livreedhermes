@@ -382,3 +382,19 @@ picture{ display:contents; }
 
 /* La phrase canonique des langues (scripts/build-couverture.js). */
 .couverture-langues{ max-width:64ch; margin:16px auto 0; color:var(--dim); font-size:calc(12px + var(--fs-bump)); line-height:1.7; text-align:center; }
+
+/* Le tableau « Versions de référence » des listes de dépôts (scripts/build-travaux.js). */
+.versions-ref{ margin:0 0 24px; }
+.versions-ref table{ width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.5; }
+.versions-ref th{ text-align:left; font-weight:400; color:var(--dim); border-bottom:1px solid var(--line-strong); padding:6px 8px 6px 0; }
+.versions-ref td{ padding:8px 8px 8px 0; border-top:1px solid var(--line); vertical-align:top; overflow-wrap:anywhere; }
+.versions-ref a{ color:var(--gold); text-decoration:none; }
+.versions-ref a:hover{ text-decoration:underline; }
+.versions-ref .maj{ color:var(--dim); font-size:11px; margin:8px 0 0; }
+@media (max-width:600px){
+  .versions-ref thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  .versions-ref table, .versions-ref tbody, .versions-ref tr, .versions-ref td{ display:block; width:100%; box-sizing:border-box; }
+  .versions-ref tr{ border-top:1px solid var(--line); padding:8px 0; }
+  .versions-ref td{ border-top:none; padding:2px 0; }
+  .versions-ref td::before{ content:attr(data-label) " : "; color:var(--dim); }
+}
