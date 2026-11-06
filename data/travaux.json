@@ -96,6 +96,7 @@
       "fr": "Un protocole ponctuel à quatre classes pour les carrés magiques d'ordre pair : théorème commun de réalisation, cas strict, symétrie de couleur aux ordres simplement pairs 6t (t impair), croissance par un support antipodal périodique. Anglais et français, révision 223.",
       "en": "A pointwise four-class protocol for even-order magic squares: a common realisation theorem, the strict case, colour symmetry at singly even orders 6t (t odd), and growth by a periodic antipodal support. English and French, revision 223.",
       "licence": "CC BY 4.0",
+      "licenceZenodo": "cc-by-4.0",
       "depose_apres_instantane": true
     },
     {
@@ -244,7 +245,7 @@
       "ru": "Данные и скрипты статьи о сетках 12 × 12, поданной в Journal of Mathematics and the Arts.",
       "pt": "Dados e scripts do artigo sobre as grelhas de 12 × 12, submetido ao Journal of Mathematics and the Arts.",
       "hi": "12 × 12 जालियों पर लेख के डेटा और स्क्रिप्टें, Journal of Mathematics and the Arts को प्रस्तुत।",
-      "licenceZenodo": "agpl-3.0-only",
+      "licenceZenodo": "apgl-v3",
       "page": "half-shift-criterion-scripts"
     },
     {
