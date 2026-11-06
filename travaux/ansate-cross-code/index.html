@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Ansate Cross — verification code for a self-constructing method of order-6 magic squares — Anibal Amiot</title>
-<meta name="description" content="Scripts Python et données reproduisant chaque affirmation numérique de la note « La Croix Ansate » : les deux croix d&#39;ordre 6, le protocole couleur-nombre,…">
+<meta name="description" content="Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the…">
 <link rel="canonical" href="https://anibal-amiot.com/travaux/ansate-cross-code/">
 <meta property="og:title" content="The Ansate Cross — verification code for a self-constructing method of order-6 magic squares">
-<meta property="og:description" content="Scripts Python et données reproduisant chaque affirmation numérique de la note « La Croix Ansate » : les deux croix d&#39;ordre 6, le protocole couleur-nombre,…">
+<meta property="og:description" content="Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the…">
 <meta property="og:url" content="https://anibal-amiot.com/travaux/ansate-cross-code/">
 <meta property="og:type" content="article">
 <meta property="og:image" content="https://anibal-amiot.com/assets/og_image_anibal_amiot.png">
@@ -15,12 +15,12 @@
 <meta name="citation_title" content="The Ansate Cross — verification code for a self-constructing method of order-6 magic squares">
 <meta name="citation_author" content="Amiot, Anibal Edelberto">
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0002-6414-9448">
-<meta name="citation_publication_date" content="2026/09/26">
+<meta name="citation_publication_date" content="2026/11/05">
 <meta name="citation_doi" content="10.5281/zenodo.22866061">
 <meta name="citation_publisher" content="Zenodo">
-<meta name="citation_version" content="version 3.0">
+<meta name="citation_version" content="4.0.1">
 <meta name="citation_abstract_html_url" content="https://anibal-amiot.com/travaux/ansate-cross-code/">
-<meta name="citation_language" content="fr">
+<meta name="citation_language" content="en">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,7 +39,7 @@
       "@id": "https://anibal-amiot.com/travaux/ansate-cross-code/#travail",
       "name": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
       "url": "https://anibal-amiot.com/travaux/ansate-cross-code/",
-      "inLanguage": "fr",
+      "inLanguage": "en",
       "author": {
         "@id": "https://anibal-amiot.com/a-propos.html#anibal-amiot"
       },
@@ -49,15 +49,15 @@
         "value": "10.5281/zenodo.22866061"
       },
       "sameAs": "https://doi.org/10.5281/zenodo.22866061",
-      "datePublished": "2026-09-26",
-      "version": "version 3.0",
+      "datePublished": "2026-11-05",
+      "version": "4.0.1",
       "license": "https://www.gnu.org/licenses/agpl-3.0.html",
       "isPartOf": {
         "@type": "CollectionPage",
         "@id": "https://anibal-amiot.com/travaux.html",
         "name": "Travaux — Anibal Amiot"
       },
-      "description": "Scripts Python et données reproduisant chaque affirmation numérique de la note « La Croix Ansate » : les deux croix d'ordre 6, le protocole couleur-nombre, les 256 carrés magiques, les 64 assemblages d'ordre 12 et l'énumération exhaustive montrant que les 256 colorations constituent l'ensemble complet admissible selon les critères. the two order-18 and two order-30 grids"
+      "description": "Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the singly even orders 6t with t odd. Version 4.0.1 adds a standalone, standard-library verifier for the focused order-six manuscript v3.5 (python3 verification-v3.5/verify_v35.py): it rebuilds the 256 compatible colourings, 64 per cross and reflection, compares them exactly with the published data, and checks the 64 specified order-12 assemblies, four grids at orders 18 and 30 and the order-10 example of the gnomon figure. The manuscript v3.5 is under journal review and is not included. In revision 223 the statement on the use of AI tools no longer mentions help with proofs. Version 4.0 added an independent audit, written from the statements of the article without reusing the historical programs. The audit covers the following. - It reconstructs the 256 order-six sources and matches them cell by cell to the historical data. - It checks their octet code and their classes under the two label mirrors and global complementation. - It transports the sources canonically up to order 66. - At order 18 it builds and checks one numerical witness for each of the 524,288 periodic pairing figures. It also recovers the 17,984 row-regular figures, the 2,653 vertical-degree profiles, the 23 complete-fibre sizes and the values Z1 = 2, Z3 = 992 and Z5 = 980,967,552. - It checks the synchronised-mirror family (2,048 colourings at 18), the two-seed fields (65,536) and the three-cell dictionary (496 tiles; 8 local cases of 64 pairs). To run it: python3 audit/run_all.py (Python 3.9+ and NumPy, about one minute). Logs and outputs are included. The record also contains: - the vector atlas of the 256 sources; - a JSON file of the sources with labels, values and octet codes; - the nine grey-scale-legible figures of the English manuscript, with the programs that draw them; - the current text, revision 223, in English and French, and the French revision 220; - the archived proof folders and the historical verification programs. The finite checks accompany the proofs and do not replace them. At order 18 the audit is exhaustive in pairing figures, with one witness colouring per figure; it does not enumerate all colourings. Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data, figures and tool outputs under CC BY-NC 4.0."
     }
   ]
 }
@@ -181,17 +181,21 @@
       <dl class="travail-meta">
         <dt>Auteur</dt><dd>Amiot, Anibal Edelberto (<a href="https://orcid.org/0009-0002-6414-9448">ORCID 0009-0002-6414-9448</a>)</dd>
         <dt>Type</dt><dd>Code et données</dd>
-        <dt>Date</dt><dd>26 septembre 2026</dd>
-        <dt>Version</dt><dd>version 3.0</dd>
+        <dt>Date</dt><dd>5 novembre 2026</dd>
+        <dt>Version</dt><dd>4.0.1</dd>
         <dt>Licence</dt><dd><a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL v3</a> <span class="travail-zenodo">(fiche Zenodo : <code>apgl-v3</code>)</span></dd>
-        <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.22866061">10.5281/zenodo.22866061</a> (toutes versions, à citer) · <a href="https://doi.org/10.5281/zenodo.22978066">DOI de cette version</a></dd>
+        <dt>DOI</dt><dd><a href="https://doi.org/10.5281/zenodo.22866061">10.5281/zenodo.22866061</a> (toutes versions, à citer) · <a href="https://doi.org/10.5281/zenodo.23983584">DOI de cette version</a></dd>
       </dl>
       <h2>Résumé</h2>
-      <div class="travail-resume" lang="fr">
-<p>Scripts Python et données reproduisant chaque affirmation numérique de la note « La Croix Ansate » : les deux croix d&#39;ordre 6, le protocole couleur-nombre, les 256 carrés magiques, les 64 assemblages d&#39;ordre 12 et l&#39;énumération exhaustive montrant que les 256 colorations constituent l&#39;ensemble complet admissible selon les critères.</p>
-<p>the two order-18 and two order-30 grids</p>
+      <div class="travail-resume" lang="en">
+<p>Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the singly even orders 6t with t odd.</p>
+<p>Version 4.0.1 adds a standalone, standard-library verifier for the focused order-six manuscript v3.5 (python3 verification-v3.5/verify_v35.py): it rebuilds the 256 compatible colourings, 64 per cross and reflection, compares them exactly with the published data, and checks the 64 specified order-12 assemblies, four grids at orders 18 and 30 and the order-10 example of the gnomon figure. The manuscript v3.5 is under journal review and is not included. In revision 223 the statement on the use of AI tools no longer mentions help with proofs.</p>
+<p>Version 4.0 added an independent audit, written from the statements of the article without reusing the historical programs. The audit covers the following. - It reconstructs the 256 order-six sources and matches them cell by cell to the historical data. - It checks their octet code and their classes under the two label mirrors and global complementation. - It transports the sources canonically up to order 66. - At order 18 it builds and checks one numerical witness for each of the 524,288 periodic pairing figures. It also recovers the 17,984 row-regular figures, the 2,653 vertical-degree profiles, the 23 complete-fibre sizes and the values Z1 = 2, Z3 = 992 and Z5 = 980,967,552. - It checks the synchronised-mirror family (2,048 colourings at 18), the two-seed fields (65,536) and the three-cell dictionary (496 tiles; 8 local cases of 64 pairs). To run it: python3 audit/run_all.py (Python 3.9+ and NumPy, about one minute). Logs and outputs are included.</p>
+<p>The record also contains: - the vector atlas of the 256 sources; - a JSON file of the sources with labels, values and octet codes; - the nine grey-scale-legible figures of the English manuscript, with the programs that draw them; - the current text, revision 223, in English and French, and the French revision 220; - the archived proof folders and the historical verification programs.</p>
+<p>The finite checks accompany the proofs and do not replace them. At order 18 the audit is exhaustive in pairing figures, with one witness colouring per figure; it does not enumerate all colourings.</p>
+<p>Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data, figures and tool outputs under CC BY-NC 4.0.</p>
       </div>
-      <p class="travail-source">Texte de la fiche Zenodo, recopié tel quel (texte brut), relevé le 2026-10-07.</p>
+      <p class="travail-source">Texte de la fiche Zenodo, recopié tel quel (texte brut), relevé le 2026-11-06.</p>
       <p><a href="https://anibal-amiot.com/travaux.html">Tous les travaux</a></p>
     </div>
   </div>

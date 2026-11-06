@@ -1,15 +1,15 @@
 {
  "format_version": "zenodo-miroir-v1",
- "recupere_le_utc": "2026-10-07T13:24:52+00:00",
+ "recupere_le_utc": "2026-11-06T00:16:37+00:00",
  "source": "https://zenodo.org/api/records/<id>",
  "_doc": "Reponses brutes de l'API Zenodo (zenodo-brut/) et vue normalisee. Recupere depuis le conteneur d'Anibal, zenodo.org etant refuse a l'environnement Claude Code. Les descriptions sont le texte d'Anibal : recopiees, non reformulees.",
  "depots": [
   {
    "titre_registre": "La Livrée d'Hermès",
    "conceptDoi": "10.5281/zenodo.22722485",
-   "versionDoi_registre": "10.5281/zenodo.22786146",
+   "versionDoi_registre": "10.5281/zenodo.23184828",
    "versionDoi_reel": "10.5281/zenodo.23184828",
-   "ecart": "versionDoi perime",
+   "ecart": "aucun",
    "id_version": 23184828,
    "titre": "La Livrée d'Hermès",
    "publication_date": "2026-10-06",
@@ -365,7 +365,7 @@
   },
   {
    "titre_registre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
-   "conceptDoi": "10.5281/zenodo.22986529",
+   "conceptDoi": null,
    "versionDoi_registre": "10.5281/zenodo.23101928",
    "versionDoi_reel": "10.5281/zenodo.23101928",
    "ecart": "aucun",
@@ -585,11 +585,13 @@
      "checksum": "md5:927556ed4bfdd67430eb076c0e85b899",
      "lien": "https://zenodo.org/api/records/23101928/files/demi_decalage.log/content"
     }
-   ]
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22986529",
+   "_doc": "Version antérieure de 10.5281/zenodo.22986529, remplacée par 10.5281/zenodo.23986406 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
    "titre_registre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
-   "conceptDoi": "10.5281/zenodo.22965031",
+   "conceptDoi": null,
    "versionDoi_registre": "10.5281/zenodo.23101285",
    "versionDoi_reel": "10.5281/zenodo.23101285",
    "ecart": "aucun",
@@ -863,7 +865,9 @@
      "checksum": "md5:473dc9ecd2c83a9255b72c07c3c418cf",
      "lien": "https://zenodo.org/api/records/23101285/files/paper-cymatique.md/content"
     }
-   ]
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22965031",
+   "_doc": "Version antérieure de 10.5281/zenodo.22965031, remplacée par 10.5281/zenodo.23990857 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
    "titre_registre": "Parity Figures as Moiré: What Is Exact and What Is Not",
@@ -1061,7 +1065,7 @@
   },
   {
    "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
-   "conceptDoi": "10.5281/zenodo.22862110",
+   "conceptDoi": null,
    "versionDoi_registre": "10.5281/zenodo.23214317",
    "versionDoi_reel": "10.5281/zenodo.23214317",
    "ecart": "aucun",
@@ -1138,7 +1142,9 @@
      "lien": "https://zenodo.org/api/records/23214317/files/half-shift-cube-scripts-v3.zip/content"
     }
    ],
-   "releve": "fiche relevée le 2026-10-08 : réponse de l'API collée par Anibal (data/zenodo/brut/2026-10-08/rec-23214317.json) ; le reste de l'instantané date de recupere_le_utc"
+   "releve": "fiche relevée le 2026-10-08 : réponse de l'API collée par Anibal (data/zenodo/brut/2026-10-08/rec-23214317.json) ; le reste de l'instantané date de recupere_le_utc",
+   "version_anterieure_de": "10.5281/zenodo.22862110",
+   "_doc": "Version antérieure de 10.5281/zenodo.22862110, remplacée par 10.5281/zenodo.23991050 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
    "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
@@ -1224,7 +1230,7 @@
   },
   {
    "titre_registre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
-   "conceptDoi": "10.5281/zenodo.22866061",
+   "conceptDoi": null,
    "versionDoi_registre": "10.5281/zenodo.22978066",
    "versionDoi_reel": "10.5281/zenodo.22978066",
    "ecart": "aucun",
@@ -1284,7 +1290,9 @@
      "checksum": "md5:ee01aab54d5befabc0a106f8a43fd9f0",
      "lien": "https://zenodo.org/api/records/22978066/files/verif_ordres_18_30.py/content"
     }
-   ]
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22866061",
+   "_doc": "Version antérieure de 10.5281/zenodo.22866061, remplacée par 10.5281/zenodo.23983584 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
    "titre_registre": "Scripts de vérification de La Livrée d'Hermès",
@@ -1295,7 +1303,7 @@
   },
   {
    "titre_registre": "La Livrée d'Hermès — Progress report, September 2026",
-   "conceptDoi": "10.5281/zenodo.22945021",
+   "conceptDoi": null,
    "versionDoi_registre": null,
    "versionDoi_reel": "10.5281/zenodo.22986767",
    "ecart": "versionDoi absent du registre",
@@ -1415,14 +1423,16 @@
      "checksum": "md5:1ea11ddaef52b478443de81e0b127dd9",
      "lien": "https://zenodo.org/api/records/22986767/files/progress-report.pdf/content"
     }
-   ]
+   ],
+   "version_anterieure_de": "10.5281/zenodo.22945021",
+   "_doc": "Version antérieure de 10.5281/zenodo.22945021, remplacée par 10.5281/zenodo.23986580 : gardée pour mémoire. Sans conceptDoi, elle n'entre pas dans la comparaison du registre."
   },
   {
-   "titre_registre": null,
-   "conceptDoi": "23189275",
-   "versionDoi_registre": null,
+   "titre_registre": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)",
+   "conceptDoi": "10.5281/zenodo.23189275",
+   "versionDoi_registre": "10.5281/zenodo.23189276",
    "versionDoi_reel": "10.5281/zenodo.23189276",
-   "ecart": "depot absent du registre",
+   "ecart": "aucun",
    "id_version": 23189276,
    "titre": "Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d'Hermès (V3.1)",
    "publication_date": "2026-10-06",
@@ -1536,6 +1546,546 @@
      "octets": 37397331,
      "checksum": "md5:0b1a0a5ecb5e78ffd89145a5b0cbdd1a",
      "lien": "https://zenodo.org/api/records/23189276/files/LLDH_V3_1_DEPOT_01_SUR_05.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry",
+   "conceptDoi": "10.5281/zenodo.23269974",
+   "versionDoi_registre": "10.5281/zenodo.23978781",
+   "versionDoi_reel": "10.5281/zenodo.23978781",
+   "ecart": "aucun",
+   "id_version": 23978781,
+   "titre": "The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry",
+   "publication_date": "2026-11-05",
+   "version": "223",
+   "licence": "cc-by-4.0",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\"><span>A pointwise protocol for even-order magic squares. Each cell of an even-order grid receives one of four classes, and its value follows from its coordinates and its class alone.</span></p>\n<p class=\"MsoBodyText\"><span>Version 1.0 held the paper and its twenty-nine scripts; its notes are kept in historique-depot-15.37/, together with the confidence map DEPOT.md (from proved to conjectured) and an English guide. The scripts are in tools/.</span></p>\n<p class=\"MsoBodyText\"><span>The protocol has since become the common framework of the Ansate Cross article, which covers: - the common realisation theorem for even orders; - the strict case I as a special case; - gnomons; - the balanced symmetric families.</span></p>\n<p class=\"MsoBodyText\"><span>This version adds the current text of that article, revision 223 (5 November 2026), in English and French (Markdown, Word, PDF), together with the French revision 220, proof folders 39&ndash;56 with data and logs, and the shared change journal. The independent audit of the Ansate Cross results is in the companion code record 10.5281/zenodo.22866061.</span></p>\n<p class=\"MsoBodyText\"><span>Quick check, with no solver needed: python3 tools/verifie_temoins.py; python3 tools/construction.py; python3 tools/fibres.py.</span></p>\n<p class=\"MsoBodyText\"><span>Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0.</span></p>",
+   "description_texte": "A pointwise protocol for even-order magic squares. Each cell of an even-order grid receives one of four classes, and its value follows from its coordinates and its class alone.\n\nVersion 1.0 held the paper and its twenty-nine scripts; its notes are kept in historique-depot-15.37/, together with the confidence map DEPOT.md (from proved to conjectured) and an English guide. The scripts are in tools/.\n\nThe protocol has since become the common framework of the Ansate Cross article, which covers: - the common realisation theorem for even orders; - the strict case I as a special case; - gnomons; - the balanced symmetric families.\n\nThis version adds the current text of that article, revision 223 (5 November 2026), in English and French (Markdown, Word, PDF), together with the French revision 220, proof folders 39–56 with data and logs, and the shared change journal. The independent audit of the Ansate Cross results is in the companion code record 10.5281/zenodo.22866061.\n\nQuick check, with no solver needed: python3 tools/verifie_temoins.py; python3 tools/construction.py; python3 tools/fibres.py.\n\nLicences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "even order",
+    "singly even order",
+    "four-class labelling",
+    "ansate cross",
+    "pointwise construction",
+    "parity obstruction",
+    "orbit decomposition",
+    "classification",
+    "reproducible verification",
+    "La Livrée d'Hermès"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isDocumentedBy",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "isSupplementedBy",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "protocole-general-rev223.zip",
+     "octets": 109384681,
+     "checksum": "md5:4bfd9642110c3aa28d2ae03e3de1a10c",
+     "lien": "https://zenodo.org/api/records/23978781/files/protocole-general-rev223.zip/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 1863,
+     "checksum": "md5:db9828abaefbe55a50ed1fa271dd28d9",
+     "lien": "https://zenodo.org/api/records/23978781/files/README.md/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
+   "conceptDoi": "10.5281/zenodo.22866061",
+   "versionDoi_registre": "10.5281/zenodo.23983584",
+   "versionDoi_reel": "10.5281/zenodo.23983584",
+   "ecart": "aucun",
+   "id_version": 23983584,
+   "titre": "The Ansate Cross — verification code for a self-constructing method of order-6 magic squares",
+   "publication_date": "2026-11-05",
+   "version": "4.0.1",
+   "licence": "apgl-v3",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\"><span>Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the singly even orders 6t with t odd.</span></p>\n<p class=\"MsoBodyText\"><span>Version 4.0.1 adds a standalone, standard-library verifier for the focused order-six manuscript v3.5 (python3 verification-v3.5/verify_v35.py): it rebuilds the 256 compatible colourings, 64 per cross and reflection, compares them exactly with the published data, and checks the 64 specified order-12 assemblies, four grids at orders 18 and 30 and the order-10 example of the gnomon figure. The manuscript v3.5 is under journal review and is not included. In revision 223 the statement on the use of AI tools no longer mentions help with proofs.</span></p>\n<p class=\"MsoBodyText\"><span>Version 4.0 added an independent audit, written from the statements of the article without reusing the historical programs. The audit covers the following. - It reconstructs the 256 order-six sources and matches them cell by cell to the historical data. - It checks their octet code and their classes under the two label mirrors and global complementation. - It transports the sources canonically up to order 66. - At order 18 it builds and checks one numerical witness for each of the 524,288 periodic pairing figures. It also recovers the 17,984 row-regular figures, the 2,653 vertical-degree profiles, the 23 complete-fibre sizes and the values Z1 = 2, Z3 = 992 and Z5 = 980,967,552. - It checks the synchronised-mirror family (2,048 colourings at 18), the two-seed fields (65,536) and the three-cell dictionary (496 tiles; 8 local cases of 64 pairs). To run it: python3 audit/run_all.py (Python 3.9+ and NumPy, about one minute). Logs and outputs are included.</span></p>\n<p class=\"MsoBodyText\"><span>The record also contains: - the vector atlas of the 256 sources; - a JSON file of the sources with labels, values and octet codes; - the nine grey-scale-legible figures of the English manuscript, with the programs that draw them; - the current text, revision 223, in English and French, and the French revision 220; - the archived proof folders and the historical verification programs.</span></p>\n<p class=\"MsoBodyText\"><span>The finite checks accompany the proofs and do not replace them. At order 18 the audit is exhaustive in pairing figures, with one witness colouring per figure; it does not enumerate all colourings.</span></p>\n<p class=\"MsoBodyText\"><span>Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data, figures and tool outputs under CC BY-NC 4.0.</span></p>",
+   "description_texte": "Code and data for the ansate cross: order-six magic squares read through four numerical readings of a grid, their colour symmetry, and their growth to the singly even orders 6t with t odd.\n\nVersion 4.0.1 adds a standalone, standard-library verifier for the focused order-six manuscript v3.5 (python3 verification-v3.5/verify_v35.py): it rebuilds the 256 compatible colourings, 64 per cross and reflection, compares them exactly with the published data, and checks the 64 specified order-12 assemblies, four grids at orders 18 and 30 and the order-10 example of the gnomon figure. The manuscript v3.5 is under journal review and is not included. In revision 223 the statement on the use of AI tools no longer mentions help with proofs.\n\nVersion 4.0 added an independent audit, written from the statements of the article without reusing the historical programs. The audit covers the following. - It reconstructs the 256 order-six sources and matches them cell by cell to the historical data. - It checks their octet code and their classes under the two label mirrors and global complementation. - It transports the sources canonically up to order 66. - At order 18 it builds and checks one numerical witness for each of the 524,288 periodic pairing figures. It also recovers the 17,984 row-regular figures, the 2,653 vertical-degree profiles, the 23 complete-fibre sizes and the values Z1 = 2, Z3 = 992 and Z5 = 980,967,552. - It checks the synchronised-mirror family (2,048 colourings at 18), the two-seed fields (65,536) and the three-cell dictionary (496 tiles; 8 local cases of 64 pairs). To run it: python3 audit/run_all.py (Python 3.9+ and NumPy, about one minute). Logs and outputs are included.\n\nThe record also contains: - the vector atlas of the 256 sources; - a JSON file of the sources with labels, values and octet codes; - the nine grey-scale-legible figures of the English manuscript, with the programs that draw them; - the current text, revision 223, in English and French, and the French revision 220; - the archived proof folders and the historical verification programs.\n\nThe finite checks accompany the proofs and do not replace them. At order 18 the audit is exhaustive in pairing figures, with one witness colouring per figure; it does not enumerate all colourings.\n\nLicences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data, figures and tool outputs under CC BY-NC 4.0.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "singly even order",
+    "colour symmetry",
+    "combinatorial construction",
+    "verification",
+    "ansate cross"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23269974",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 3281,
+     "checksum": "md5:b574b8daff24ef8ec71c8c4d98cb733a",
+     "lien": "https://zenodo.org/api/records/23983584/files/README.md/content"
+    },
+    {
+     "nom": "ansate-cross-code-v4.0.1.zip",
+     "octets": 104028001,
+     "checksum": "md5:97fdd6d057793de3af94acfdee010ecd",
+     "lien": "https://zenodo.org/api/records/23983584/files/ansate-cross-code-v4.0.1.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+   "conceptDoi": "10.5281/zenodo.22986529",
+   "versionDoi_registre": "10.5281/zenodo.23986406",
+   "versionDoi_reel": "10.5281/zenodo.23986406",
+   "ecart": "aucun",
+   "id_version": 23986406,
+   "titre": "One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System",
+   "publication_date": "2026-11-05",
+   "version": "1.4.0",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\"><span>Version 1.4.0 (v10) of &ldquo;One Object, Three Descriptions&rdquo;. The paper shows that three separate descriptions of a Jacquard pattern system present one finite structure: sixteen families of axes combined by a parity rule, sixty three-tint images with 512 grids, and the level sets of a square-plate eigenmode.</span></p>\n<p class=\"MsoBodyText\"><span>The historical theorems are kept. New Sections 10 and 11 connect the description to: - the balanced ansate-cross sources and their strata; - the graphical equivalences between them; - the 62 selected classes and their 52 radial spectral signatures.</span></p>\n<p class=\"MsoBodyText\"><span>Version 1.2.1 is kept in historique-v1.2.1/. The spectral counts are finite results at period twelve.</span></p>\n<p class=\"MsoBodyText\"><span>Licence: texts and figures under CC BY 4.0; code under AGPL v3.</span></p>",
+   "description_texte": "Version 1.4.0 (v10) of “One Object, Three Descriptions”. The paper shows that three separate descriptions of a Jacquard pattern system present one finite structure: sixteen families of axes combined by a parity rule, sixty three-tint images with 512 grids, and the level sets of a square-plate eigenmode.\n\nThe historical theorems are kept. New Sections 10 and 11 connect the description to: - the balanced ansate-cross sources and their strata; - the graphical equivalences between them; - the 62 selected classes and their 52 radial spectral signatures.\n\nVersion 1.2.1 is kept in historique-v1.2.1/. The spectral counts are finite results at period twelve.\n\nLicence: texts and figures under CC BY 4.0; code under AGPL v3.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "Jacquard weaving",
+    "parity figures",
+    "linear codes",
+    "level sets",
+    "square plate eigenmodes",
+    "Chladni figures",
+    "half-shift criterion",
+    "doubling map",
+    "arithmogeometry"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isDocumentedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22967585",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "one-object-v1.4.0.zip",
+     "octets": 93783073,
+     "checksum": "md5:28347a5e25e83762818b9e235908b013",
+     "lien": "https://zenodo.org/api/records/23986406/files/one-object-v1.4.0.zip/content"
+    },
+    {
+     "nom": "README.md",
+     "octets": 975,
+     "checksum": "md5:f1c932cdb28b0c8648542e1a12b5595f",
+     "lien": "https://zenodo.org/api/records/23986406/files/README.md/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "La Livrée d'Hermès — Progress report, September 2026",
+   "conceptDoi": "10.5281/zenodo.22945021",
+   "versionDoi_registre": "10.5281/zenodo.23986580",
+   "versionDoi_reel": "10.5281/zenodo.23986580",
+   "ecart": "aucun",
+   "id_version": 23986580,
+   "titre": "La Livrée d'Hermès — Progress report, September 2026",
+   "publication_date": "2026-11-05",
+   "version": "2026.11.05",
+   "licence": "cc-by-4.0",
+   "type": "Report",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\"><span>Progress report on the mathematical study of La Livr&eacute;e d&rsquo;Herm&egrave;s, as of 5 November 2026.</span></p>\n<p class=\"MsoBodyText\"><span>It contains: - the coordinated report of 31 October 2026, in French with an English summary; - an addendum of 5 November in both languages; - the current versions of the articles; - the latest results, including the supplement C1&ndash;C6 and the audit report of 5 November.</span></p>\n<p class=\"MsoBodyText\"><span>The addendum summarises the new results: - exact spectral ambiguities at source orders 18 and 30; - the J-area law in gnomons; - the directional corpus of 379,920 patterns at order 30; - a conditional octet of 256 patterns with eight free binary choices. It also summarises their audit: the sixteen certificates reproduce, and independent programs confirm the octet, the isospectral pair, the J-area law and the count of 172 at order 18.</span></p>\n<p class=\"MsoBodyText\"><span>Licence: CC BY 4.0.</span></p>",
+   "description_texte": "Progress report on the mathematical study of La Livrée d’Hermès, as of 5 November 2026.\n\nIt contains: - the coordinated report of 31 October 2026, in French with an English summary; - an addendum of 5 November in both languages; - the current versions of the articles; - the latest results, including the supplement C1–C6 and the audit report of 5 November.\n\nThe addendum summarises the new results: - exact spectral ambiguities at source orders 18 and 30; - the J-area law in gnomons; - the directional corpus of 379,920 patterns at order 30; - a conditional octet of 256 patterns with eight free binary choices. It also summarises their audit: the sixteen certificates reproduce, and independent programs confirm the octet, the isospectral pair, the J-area law and the count of 172 at order 18.\n\nLicence: CC BY 4.0.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "ansate cross",
+    "half-shift criterion",
+    "Jacquard weaving",
+    "Chladni figures",
+    "nodal lines",
+    "cymatics",
+    "frequency selective surfaces",
+    "arithmogeometry",
+    "parity figures",
+    "level sets"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementedBy",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "https://anibal-amiot.com",
+     "relation": "isDescribedBy",
+     "resource_type": "other",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22862110",
+     "relation": "references",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22967302",
+     "relation": "isReferencedBy",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22965031",
+     "relation": "documents",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966838",
+     "relation": "documents",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 1046,
+     "checksum": "md5:15d4a26fc86fad7713a2fa1e56313fc2",
+     "lien": "https://zenodo.org/api/records/23986580/files/README.md/content"
+    },
+    {
+     "nom": "compte-rendu-2026-11-05.zip",
+     "octets": 43427206,
+     "checksum": "md5:6f56d90faf625b3ebc78c1f6b731074e",
+     "lien": "https://zenodo.org/api/records/23986580/files/compte-rendu-2026-11-05.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "conceptDoi": "10.5281/zenodo.22965031",
+   "versionDoi_registre": "10.5281/zenodo.23990857",
+   "versionDoi_reel": "10.5281/zenodo.23990857",
+   "ecart": "aucun",
+   "id_version": 23990857,
+   "titre": "Axes and Level Sets of a Jacquard Pattern System — two companion notes",
+   "publication_date": "2026-11-05",
+   "version": "2.15",
+   "licence": "cc-by-4.0",
+   "type": "Preprint",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\">Two companion notes on a Jacquard axis grammar. The original axis notes are kept in axes-notes-originales/. The expanded Chladni note, version 2.15, is titled &ldquo;From a Jacquard Axis Grammar to Eigenmodes: Chebyshev Cycles, Cyclotomic Condensation, and a Complete Period-N Spectral Classification&rdquo;. Version 2.14 is kept in manuscrit-v2.14/.</p>\n<p class=\"MsoBodyText\">Version 2.15 extends Section 4.26 and adds Section 4.27: - the finite recognition of a class from its radial weights, established at side twelve, does not extend to larger orders: at source order 18 there are 128 pairs with equal radial weights, and at order 30 a balanced pair with equal moduli at every index; - four levels of information are kept apart: signed coefficients, moduli, radial weights and radial support; - area profiles as a complementary geometric selection, with the open question of the factor sixteen in the count 379,920; - a computed sonification of a family of 256 patterns at order 18, with a self-contained keyboard page and a prototype page in which the sound selects a pattern.</p>\n<p class=\"MsoBodyText\">The spectral counts concern finite corpora. The sonifications are computations, not physical measurements. Spectral injectivity beyond side twelve and any measurement on a plate remain open. The record includes editable sources, code, data and verification logs.</p>\n<p class=\"MsoBodyText\">Licence: texts and figures under CC BY 4.0; code under AGPL v3.</p>",
+   "description_texte": "Two companion notes on a Jacquard axis grammar. The original axis notes are kept in axes-notes-originales/. The expanded Chladni note, version 2.15, is titled “From a Jacquard Axis Grammar to Eigenmodes: Chebyshev Cycles, Cyclotomic Condensation, and a Complete Period-N Spectral Classification”. Version 2.14 is kept in manuscrit-v2.14/.\n\nVersion 2.15 extends Section 4.26 and adds Section 4.27: - the finite recognition of a class from its radial weights, established at side twelve, does not extend to larger orders: at source order 18 there are 128 pairs with equal radial weights, and at order 30 a balanced pair with equal moduli at every index; - four levels of information are kept apart: signed coefficients, moduli, radial weights and radial support; - area profiles as a complementary geometric selection, with the open question of the factor sixteen in the count 379,920; - a computed sonification of a family of 256 patterns at order 18, with a self-contained keyboard page and a prototype page in which the sound selects a pattern.\n\nThe spectral counts concern finite corpora. The sonifications are computations, not physical measurements. Spectral injectivity beyond side twelve and any measurement on a plate remain open. The record includes editable sources, code, data and verification logs.\n\nLicence: texts and figures under CC BY 4.0; code under AGPL v3.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "Chladni figures",
+    "plate eigenmodes",
+    "nodal lines",
+    "level sets",
+    "binary parity",
+    "linear codes over GF(2)",
+    "pattern grammar",
+    "Jacquard weaving",
+    "finite geometry",
+    "combinatorial design",
+    "period-N classification",
+    "divisor function",
+    "Chebyshev dynamics",
+    "nodal sign patterns",
+    "axis grammar",
+    "spectral information"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22862111",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "references",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866062",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "references",
+     "resource_type": "publication-softwaredocumentation",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isSupplementedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.23088601",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 2199,
+     "checksum": "md5:788d5f7b077c9f5b9924388a6dd6fb24",
+     "lien": "https://zenodo.org/api/records/23990857/files/README.md/content"
+    },
+    {
+     "nom": "axes-chladni-v2.15.zip",
+     "octets": 134649880,
+     "checksum": "md5:950971b6bcbd9738898160352c0d8500",
+     "lien": "https://zenodo.org/api/records/23990857/files/axes-chladni-v2.15.zip/content"
+    }
+   ]
+  },
+  {
+   "titre_registre": "Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »",
+   "conceptDoi": "10.5281/zenodo.22862110",
+   "versionDoi_registre": "10.5281/zenodo.23991050",
+   "versionDoi_reel": "10.5281/zenodo.23991050",
+   "ecart": "aucun",
+   "id_version": 23991050,
+   "titre": "Data and verification scripts for \"A Half-Shift Criterion on Three-Colour 12×12 Grids\"",
+   "publication_date": "2026-11-05",
+   "version": "2.20",
+   "licence": "apgl-v3",
+   "type": "Software",
+   "createurs": [
+    {
+     "nom": "Amiot, Anibal Edelberto",
+     "orcid": "0009-0002-6414-9448"
+    }
+   ],
+   "description_html": "<p class=\"FirstParagraph\">Companion article &ldquo;From Ansate Cross Colourings to Unified Patterns and Sound Forms&rdquo;, version 2.20, in English and French, together with its supplement C1&ndash;C6, certificates and independent audit. The data and scripts of the half-shift criterion on three-colour 12 &times; 12 grids are kept unchanged in half-shift-cube-v3/. Versions 2.18 and 2.19 of the article are kept.</p>\n<p class=\"MsoBodyText\">Version 2.20 extends Section 24: - the XOR-translation stabiliser of the directional corpus of 379,920 patterns at order 30 is trivial in the 55-bit option encoding; replacement graphs, a six-group threshold, a conditional four-bit action on 336 words and a partial covering by sixteen-word families (258,192 of 379,920 words); the structural origin of the factor sixteen remains open; - whole-diamond balance at source orders 18, 30 and 42, and the partition of the order-18 balanced corpus into 858 families of 256 patterns; - a listening experiment on a family of 256 at order 18, a computed sonification and not a physical measurement.</p>\n<p class=\"MsoBodyText\">New proof folders (preuves/) hold the scripts, data and reports for the eighth setting across the 858 families, the exact invariance of one spectral shell in 32 families at order 18, its compensated analogue at order 30 and a transfer to order 42. The statistics over the 858 families describe the chosen pairing of positions.</p>\n<p class=\"MsoBodyText\">The finite counts are counts within the stated domains (second cross, J covering, group I, three-cell-block code). They do not classify all patterns or all magic squares.</p>\n<p class=\"MsoBodyText\">Licences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0.</p>",
+   "description_texte": "Companion article “From Ansate Cross Colourings to Unified Patterns and Sound Forms”, version 2.20, in English and French, together with its supplement C1–C6, certificates and independent audit. The data and scripts of the half-shift criterion on three-colour 12 × 12 grids are kept unchanged in half-shift-cube-v3/. Versions 2.18 and 2.19 of the article are kept.\n\nVersion 2.20 extends Section 24: - the XOR-translation stabiliser of the directional corpus of 379,920 patterns at order 30 is trivial in the 55-bit option encoding; replacement graphs, a six-group threshold, a conditional four-bit action on 336 words and a partial covering by sixteen-word families (258,192 of 379,920 words); the structural origin of the factor sixteen remains open; - whole-diamond balance at source orders 18, 30 and 42, and the partition of the order-18 balanced corpus into 858 families of 256 patterns; - a listening experiment on a family of 256 at order 18, a computed sonification and not a physical measurement.\n\nNew proof folders (preuves/) hold the scripts, data and reports for the eighth setting across the 858 families, the exact invariance of one spectral shell in 32 families at order 18, its compensated analogue at order 30 and a transfer to order 42. The statistics over the 858 families describe the chosen pairing of positions.\n\nThe finite counts are counts within the stated domains (second cross, J covering, group I, three-cell-block code). They do not classify all patterns or all magic squares.\n\nLicences: code under AGPL v3, with a commercial licence on request; article texts under CC BY 4.0; data and generated files under CC BY-NC 4.0.",
+   "descriptions_additionnelles": [],
+   "titres_traduits": [],
+   "mots_cles": [
+    "magic squares",
+    "half-shift criterion",
+    "three-colour grids",
+    "Jacquard weaving",
+    "cube edge rule",
+    "exhaustive enumeration",
+    "verification",
+    "combinatorics",
+    "recreational mathematics",
+    "spectral invariance",
+    "certificates",
+    "isospectral patterns",
+    "iscrete cosine transform"
+   ],
+   "oeuvres_liees": [
+    {
+     "identifier": "10.5281/zenodo.22722485",
+     "relation": "isSupplementTo",
+     "resource_type": "publication-book",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22945021",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-report",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22966839",
+     "relation": "isReferencedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "https://github.com/anibaledel/livreedhermes",
+     "relation": "isSupplementTo",
+     "resource_type": "software",
+     "scheme": "url"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "isSupplementedBy",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22866061",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    },
+    {
+     "identifier": "10.5281/zenodo.22986529",
+     "relation": "references",
+     "resource_type": "publication-preprint",
+     "scheme": "doi"
+    }
+   ],
+   "fichiers": [
+    {
+     "nom": "README.md",
+     "octets": 3921,
+     "checksum": "md5:878b8b01ba6cb8d6684b0a7b4cd410fa",
+     "lien": "https://zenodo.org/api/records/23991050/files/README.md/content"
+    },
+    {
+     "nom": "unified-patterns-v2.20.zip",
+     "octets": 181828168,
+     "checksum": "md5:61388bfa5b0278ea2720da58450a2ca4",
+     "lien": "https://zenodo.org/api/records/23991050/files/unified-patterns-v2.20.zip/content"
     }
    ]
   }

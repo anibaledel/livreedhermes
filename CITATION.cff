@@ -94,7 +94,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22965031
-    version: "2.14"
+    version: "2.15"
   - type: article
     title: >-
       Parity Figures as Moiré: What Is Exact and What Is Not
@@ -124,7 +124,7 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22862110
-    version: "2.19"
+    version: "2.20"
   - type: software
     title: >-
       The Ansate Cross — verification code for a self-constructing method of order-6 magic squares
@@ -144,4 +144,4 @@ references:
         orcid: https://orcid.org/0009-0002-6414-9448
     year: 2026
     doi: 10.5281/zenodo.22945021
-    version: "2026-11-05"
+    version: "2026.11.05"
