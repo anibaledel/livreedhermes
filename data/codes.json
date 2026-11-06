@@ -1,12 +1,12 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-05T17:49:10Z",
+ "generated_at_utc": "2026-11-06T08:35:25Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
  "instantane_zenodo": {
   "fichier": "data/zenodo/depots.json",
-  "recupere_le_utc": "2026-10-07T13:24:52+00:00"
+  "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
   "scripts": 250,
@@ -575,7 +575,7 @@
    "arborescence_requise": null,
    "zenodo": [
     {
-     "depot": null,
+     "depot": "10.5281/zenodo.22862110",
      "enregistrement": "22967302",
      "version": null,
      "fichier": "cube_edges.py",
@@ -1601,9 +1601,9 @@
   {
    "chemin": "tools/check_doi_licences.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_doi_licences.mjs",
-   "octets": 5243,
-   "sha256": "4d8fe0b86561aa3eee646c4e1aeae380b3ce54430e121a498670cfa630d5ea8e",
-   "md5": "231e58d902004ea69f1e78b5d7339855",
+   "octets": 5332,
+   "sha256": "11449426e9339495e245df331be73864835cf2d92f318bf5561ca17af46f4672",
+   "md5": "da91a3a5aadd9475a6430a5dc66e2911",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "Test de non-régression écrit pour le lot « six langues » : ajouter deux - CC BY 4.0 ne figure QUE sur les listes des dépôts Zenodo (travaux.html et ses traductions, engendrées par scripts/build-travaux.js) : c'est la NE PAS « NORMALISER …",
@@ -2573,7 +2573,7 @@
    "arborescence_requise": "tools/ à côté de data/ : REPO_ROOT est le parent de son dossier (ligne 91), où il cherche data/referent_360_v3.json ; à plat, il échoue sur « données introuvables ». Servi à https://anibal-amiot.com/tools/cube_edges.py : le télécharger seul ne suffit pas.",
    "zenodo": [
     {
-     "depot": null,
+     "depot": "10.5281/zenodo.22862110",
      "enregistrement": "22967302",
      "version": null,
      "fichier": "cube_edges.py",
@@ -3066,9 +3066,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 12629,
-   "sha256": "113dda6af939ee609671b58902a71c29c090397cad1dcbc14d50f42ec7ff5a0e",
-   "md5": "14e881137552731d02e017e574dc1869",
+   "octets": 12685,
+   "sha256": "c514c6e72e3a0e96dabb50fc3939c9abdcb58d99913a581eff67b7645527f254",
+   "md5": "4f9cd25a09fdfc809854a8b1c08246de",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
@@ -4238,9 +4238,9 @@
   {
    "chemin": "tools/zenodo_instantane.py",
    "adresse": "https://anibal-amiot.com/tools/zenodo_instantane.py",
-   "octets": 13551,
-   "sha256": "325873025753113c35f9cd7163ba992f94b2dc2a35c01091d9967110f68cb681",
-   "md5": "e4995a49aac29480ee0532bf5a7c4e57",
+   "octets": 14345,
+   "sha256": "e19526f5fa75a58fd98d2319686cfa64a335a7f62726bab2d744f6efd10541c9",
+   "md5": "abe61020907e64ebb614192a4f661a23",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "écrit data/zenodo/depots.json (la vue normalisée de l'instantané des fiches Zenodo) depuis les réponses brutes de l'API.",

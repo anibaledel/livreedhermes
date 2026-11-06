@@ -97,7 +97,7 @@ function construire() {
   // nom de fichier → fichiers déposés (dernière version de chaque dépôt)
   const deposes = new Map();
   for (const d of instantane.depots) for (const f of d.fichiers || []) {
-    const e = { depot: d.conceptDoi ? `10.5281/zenodo.${String(d.conceptDoi).replace(/^10\.5281\/zenodo\./, '')}` : null, enregistrement: String(d.versionDoi_reel || '').replace(/^10\.5281\/zenodo\./, ''), version: d.version ?? null, fichier: f.nom, md5_depose: String(f.checksum).replace(/^md5:/, '') };
+    const e = { depot: (d.conceptDoi || d.version_anterieure_de) ? `10.5281/zenodo.${String(d.conceptDoi || d.version_anterieure_de).replace(/^10\.5281\/zenodo\./, '')}` : null, enregistrement: String(d.versionDoi_reel || '').replace(/^10\.5281\/zenodo\./, ''), version: d.version ?? null, fichier: f.nom, md5_depose: String(f.checksum).replace(/^md5:/, '') };
     if (!deposes.has(f.nom)) deposes.set(f.nom, []);
     deposes.get(f.nom).push(e);
   }
