@@ -67,6 +67,10 @@
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
   .chiffres td{ color:var(--dim); line-height:1.5; }
+  @media (max-width:600px){
+    .chiffres th, .chiffres td{ padding:8px 6px; overflow-wrap:anywhere; }
+    .chiffres td:first-child{ white-space:normal; }
+  }
   .chiffres code, .sortie code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
   .sortie{
     max-width:64ch; margin:0 auto 26px; padding:14px 16px;
@@ -264,7 +268,7 @@
       <tbody>
         <tr><td>111</td><td>pages du traité</td><td><a href="https://doi.org/10.5281/zenodo.22722485">Zenodo</a></td></tr>
         <tr><td>2</td><td>croix ansées d'ordre 6</td><td><code>croix_ansee.py</code></td></tr>
-        <tr><td>256</td><td>carrés solaires d'ordre 6, 128 par croix, ensemble complet</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
+        <tr><td>256</td><td>carrés solaires d'ordre 6 : les 256 colorations compatibles des deux croix ansées (critères I–IV et condition (b)), 128 par croix — pas tous les carrés magiques d'ordre 6</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
         <tr><td>64</td><td>carrés magiques d'ordre 12 par assemblage, constante 870</td><td><code>verif_protocole.py</code></td></tr>
         <tr><td>360</td><td>calques : 15 familles d'axes × 4 natures × 6 niveaux</td><td><code>referent_360_v3.json</code></td></tr>
         <tr><td>8 sur 15</td><td>familles admises par le critère de demi-décalage</td><td><code>cube_edges.py</code></td></tr>

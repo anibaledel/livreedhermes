@@ -67,6 +67,10 @@
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
   .chiffres td{ color:var(--dim); line-height:1.5; }
+  @media (max-width:600px){
+    .chiffres th, .chiffres td{ padding:8px 6px; overflow-wrap:anywhere; }
+    .chiffres td:first-child{ white-space:normal; }
+  }
   .chiffres code, .sortie code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
   .sortie{
     max-width:64ch; margin:0 auto 26px; padding:14px 16px;
@@ -264,7 +268,7 @@
       <tbody>
         <tr><td>111</td><td>หน้าของตำรา</td><td><a href="https://doi.org/10.5281/zenodo.22722485">Zenodo</a></td></tr>
         <tr><td>2</td><td>กางเขนหูหิ้วอันดับ 6</td><td><code>croix_ansee.py</code></td></tr>
-        <tr><td>256</td><td>จัตุรัสสุริยะอันดับ 6 กางเขนละ 128 แบบ ครบทั้งชุด</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
+        <tr><td>256</td><td>จัตุรัสสุริยะอันดับ 6: การระบายสี 256 แบบที่เข้ากันได้ของกางเขนหูหิ้วทั้งสอง (เกณฑ์ I–IV และเงื่อนไข (b)) กางเขนละ 128 แบบ — ไม่ใช่กำลังสองมหัศจรรย์อันดับ 6 ทั้งหมด</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
         <tr><td>64</td><td>จัตุรัสกลอันดับ 12 โดยการประกอบ ค่าคงที่ 870</td><td><code>verif_protocole.py</code></td></tr>
         <tr><td>360</td><td>แผ่นลาย: 15 ตระกูลแกน × 4 ธรรมชาติ × 6 ระดับ</td><td><code>referent_360_v3.json</code></td></tr>
         <tr><td>8 จาก 15</td><td>ตระกูลที่ผ่านเกณฑ์การเลื่อนครึ่งคาบ</td><td><code>cube_edges.py</code></td></tr>

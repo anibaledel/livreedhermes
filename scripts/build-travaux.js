@@ -80,6 +80,45 @@ const T = {
   hi: { statut: 'स्थिति', toutes: 'सभी संस्करण, उद्धरण के लिए', version: 'संस्करण', cetteVersion: 'इस संस्करण का DOI', premiere: 'पहला संस्करण', anterieur: 'यह भी देखें:' },
   ru: { statut: 'статус', toutes: 'все версии, для цитирования', version: 'версия', cetteVersion: 'DOI этой версии', premiere: 'первая версия —', anterieur: 'см. также' },
 };
+// Le tableau des versions de référence, en tête de chaque liste : les mêmes
+// versions, DOI de version et dates que la liste, tirés de research/status.json
+// (via travaux-donnees.js), avec la date de dernière mise à jour du fichier.
+// Libellés zh/ru/pt/hi : à relire (TODO-RELECTURE.md).
+const VERSIONS_REF = {
+  fr: { titre: 'Versions de référence', col: ['Dépôt', 'Version', 'DOI de la version', 'Date'], maj: (d) => `Tableau tiré de research/status.json, mis à jour le ${d}.` },
+  en: { titre: 'Reference versions', col: ['Deposit', 'Version', 'Version DOI', 'Date'], maj: (d) => `Table drawn from research/status.json, last updated ${d}.` },
+  zh: { titre: '参考版本', col: ['存档', '版本', '版本 DOI', '日期'], maj: (d) => `本表取自 research/status.json，最后更新于 ${d}。` },
+  ru: { titre: 'Актуальные версии', col: ['Публикация', 'Версия', 'DOI версии', 'Дата'], maj: (d) => `Таблица составлена по research/status.json, обновлено ${d}.` },
+  pt: { titre: 'Versões de referência', col: ['Depósito', 'Versão', 'DOI da versão', 'Data'], maj: (d) => `Tabela tirada de research/status.json, atualizada em ${d}.` },
+  hi: { titre: 'संदर्भ संस्करण', col: ['जमा', 'संस्करण', 'संस्करण का DOI', 'तिथि'], maj: (d) => `यह तालिका research/status.json से ली गई है, अंतिम अद्यतन ${d}।` },
+};
+const MISE_A_JOUR = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'research', 'status.json'), 'utf8')).updated;
+const CSS_VERSIONS = `    <style>
+    .versions-ref{ margin:0 0 24px; }
+    .versions-ref table{ width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.5; }
+    .versions-ref th{ text-align:left; font-weight:400; color:var(--dim); border-bottom:1px solid var(--line-strong); padding:6px 8px 6px 0; }
+    .versions-ref td{ padding:8px 8px 8px 0; border-top:1px solid var(--line); vertical-align:top; overflow-wrap:anywhere; }
+    .versions-ref a{ color:var(--gold); text-decoration:none; }
+    .versions-ref a:hover{ text-decoration:underline; }
+    .versions-ref .maj{ color:var(--dim); font-size:11px; margin:8px 0 0; }
+    @media (max-width:600px){
+      .versions-ref thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      .versions-ref table, .versions-ref tbody, .versions-ref tr, .versions-ref td{ display:block; width:100%; box-sizing:border-box; }
+      .versions-ref tr{ border-top:1px solid var(--line); padding:8px 0; }
+      .versions-ref td{ border-top:none; padding:2px 0; }
+      .versions-ref td::before{ content:attr(data-label) " : "; color:var(--dim); }
+    }
+    </style>
+`;
+function versionsHtml(lang) {
+  const v = VERSIONS_REF[lang];
+  const lignes = DONNEES.depots.filter((d) => d.version || d.versionDoi).map((d) => {
+    const doi = d.versionDoi ? `<a href="${doiUrl(d.versionDoi)}">doi:${d.versionDoi}</a>` : '—';
+    return `          <tr><td data-label="${v.col[0]}">${escapeHtml(d.titre)}</td><td data-label="${v.col[1]}">${d.version ? escapeHtml(libelleVersion(d.version)) : '—'}</td><td data-label="${v.col[2]}">${doi}</td><td data-label="${v.col[3]}">${d.date ? dateLisible(d.date, lang) : '—'}</td></tr>`;
+  });
+  return CSS_VERSIONS + `    <div class="profile-section versions-ref" id="versions-reference">\n      <h2>${v.titre}</h2>\n      <table>\n        <thead><tr>${v.col.map((c) => `<th scope="col">${c}</th>`).join('')}</tr></thead>\n        <tbody>\n${lignes.join('\n')}\n        </tbody>\n      </table>\n      <p class="maj">${v.maj(dateLisible(MISE_A_JOUR, lang))}</p>\n    </div>\n\n`;
+}
+
 // Chaque titre de section et chaque renvoi doivent exister dans chaque langue :
 // un texte manquant afficherait « undefined » sur la page, sans erreur. La
 // description d'un dépôt, elle, peut manquer dans une langue : elle n'est pas
@@ -152,6 +191,7 @@ function listeHtml(lang) {
   }).filter(Boolean);
   return `<!-- @travaux:start — engendré depuis data/travaux.json (scripts/build-travaux.js) -->\n`
     + `    <p class="profile-intro travaux-licences">${escapeHtml(phraseLicences(lang))}</p>\n\n`
+    + versionsHtml(lang)
     + blocs.join('\n\n') + `\n    <!-- @travaux:end -->`;
 }
 

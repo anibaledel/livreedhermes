@@ -49,6 +49,12 @@
   .book-bar .dl-group a.dl-label:hover{ color:var(--gold); }
 
   .stats{ display:flex; justify-content:center; gap:28px; margin:24px 0 4px; flex-wrap:wrap; font-family:Helvetica,Arial,sans-serif; }
+  .comptes{ max-width:62ch; margin:14px auto 0; padding:0; list-style:none; text-align:left; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.6; color:var(--dim); overflow-wrap:anywhere; }
+  .comptes li{ padding:6px 0; border-top:1px solid var(--line); }
+  .comptes b{ color:var(--gold); font-weight:400; }
+  .critere{ max-width:62ch; margin:16px auto 0; padding:12px 16px; text-align:left; border:1px solid var(--line-strong); border-radius:3px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.65; color:var(--dim); overflow-wrap:anywhere; }
+  .critere h2{ margin:0 0 6px; font-size:calc(12.5px + var(--fs-bump)); font-weight:400; color:var(--gold); letter-spacing:.04em; }
+  .critere p{ margin:6px 0 0; }
   .stat .n{ font-size:calc(22px + var(--fs-bump)); color:var(--gold); display:block; font-weight:400; }
   .stat .l{ font-size:calc(10px + var(--fs-bump)); color:var(--dim); text-transform:uppercase; letter-spacing:.08em; }
 
@@ -347,6 +353,18 @@
       <div class="stat"><span class="n">256</span><span class="l">Pavimentaciones</span></div>
     </div>
     <p style="color:var(--dim);font-size:calc(11px + var(--fs-bump));font-family:Helvetica,Arial,sans-serif;margin:6px 0 0;opacity:.75;">1024 cuenta las construcciones (familia × par de matices × hexagrama), no las formas: varias construcciones pueden dibujar la misma cuadrícula, o una cuadrícula y su desplazada de medio período la misma pavimentación — de ahí 512 cuadrículas distintas y 256 pavimentaciones.</p>
+    <ul class="comptes" id="comptes-unifies">
+      <li><b>1 024 constructions</b> — des triplets (famille, couple de teintes, hexagramme) retenus par le critère ci-dessous, sur 8 des 15 familles. Aucune équivalence : chaque triplet compte pour un.</li>
+      <li><b>512 grilles distinctes</b> — les constructions qui dessinent la même grille de 12 × 12 sont comptées une fois.</li>
+      <li><b>256 pavages</b> — une grille et sa décalée d'une demi-période (6 cases en ligne et en colonne) donnent le même pavage du plan : elles sont comptées ensemble.</li>
+      <li><b>128 orbites</b> — les 512 grilles distinctes regroupées sous le groupe de symétrie complet (rotations, miroir, demi-décalage) ; chaque orbite contient 4 grilles du corpus.</li>
+    </ul>
+    <div class="critere" id="critere-exact">
+      <h2>Le critère exact</h2>
+      <p>Une construction (famille, teinte A, teinte B, hexagramme <i>n</i>) donne la grille <i>g</i> de 12 × 12. Soit <i>d</i> la grille <i>g</i> décalée de 6 cases en ligne et de 6 cases en colonne, en recollant les bords (tore) : <i>d</i>[r][c] = <i>g</i>[(r−6) mod 12][(c−6) mod 12]. Soit <i>s</i> la grille du même hexagramme dont les deux teintes A et B sont échangées. La construction est retenue si et seulement si <i>d</i> = <i>s</i>, case par case, sans exception.</p>
+      <p>C'est le critère du demi-décalage, tel que le calcule <code>tools/filtre_unified.py</code> (il retient 1 024 constructions sur 8 familles) ; <code>tools/cube_edges.py</code> en vérifie les conséquences (512 grilles distinctes, 256 pavages, 128 orbites).</p>
+      <p><b>Intuition, sans valeur de définition :</b> « les coins font écho au centre » — le décalage d'une demi-période amène le centre sur les coins, et le critère demande que ce décalage revienne à échanger les deux teintes.</p>
+    </div>
   </header>
   </div>
 

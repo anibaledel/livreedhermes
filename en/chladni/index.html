@@ -253,34 +253,13 @@
   </header>
   </div>
 
-  <div class="cym-note" id="sectionOnde">
-    <h2 data-i18n="sectionOndeHeading">One wave, seven cuts</h2>
-    <p data-i18n="sectionOndeP1">The eight orthogonal families are the lines where cos(πx/3) equals cos θ, for θ a multiple of 30°:</p>
-    <div class="cym-table-wrap"><table class="cym-table" id="sectionOndeTable"></table></div>
-    <p data-i18n="sectionOndeP2">Mutation is the reflection of the angle about 90°, that is, the exchange of the wave's two phases. It is not a naming convention: since the doubling is two-to-one, every antecedent comes in pairs, and the base and its mutant are the two branches of the inverse.</p>
-  </div>
-
-  <div class="cym-note" id="section2">
-    <h2 data-i18n="section2Heading">Two exact systems, two laws</h2>
-    <p data-i18n="section2P1">The product cos(πx/3)·cos(πy/3) is an exact eigenfunction of two different problems:</p>
+  <div class="cym-note" id="observations">
+    <h2 data-i18n="obsHeading">What you observe</h2>
     <ul>
-      <li data-i18n="section2Li1">the Kirchhoff plate with guided edges, biharmonic equation, whose spectrum gives f ∝ m² + n²;</li>
-      <li data-i18n="section2Li2">the rectangular acoustic cavity with rigid walls, Helmholtz equation with Neumann condition, whose spectrum gives f ∝ √(m² + n²).</li>
+      <li data-i18n="obs1">Play a pure tone or enable the microphone: the page looks for the closest of the fifteen scales to the sound heard.</li>
+      <li data-i18n="obs2">The scale it retains determines the tiling shown.</li>
+      <li data-i18n="obs3">Nothing is measured on a real plate: the figure is a calculation. See “What is not established” below.</li>
     </ul>
-    <p data-i18n="section2P2">The boundary condition is satisfied identically in both cases. The guided-edge plate is not the one from classical demonstrations, with free edges, where the cosine product is only an approximation; the cavity, for its part, is any rectangular box. The cavity result assumes a zero vertical index: a flat box, or excitation below the first vertical cutoff — beyond that, a third term enters the spectrum.</p>
-    <p data-i18n="section2P3">The two problems share their eigenfunctions but not their spectra, which gives a test on a single figure:</p>
-    <div class="cym-table-wrap"><table class="cym-table" id="section2Table"></table></div>
-    <p data-i18n-html="section2P4">On the three values that are perfect squares, the plate law gives 128, 512, 1152 — ratios 1 : 4 : 9. The cavity law gives <strong>128, 256, 384</strong>, that is, C, its octave, and the fifth above: ratios <strong>1 : 2 : 3</strong>, the harmonic series.</p>
-    <p data-i18n="section2P5">The 128 Hz reference pitch is a calibration in both cases: it fixes the size of the system, not its geometry. What is not a calibration is the choice between the two laws — and that is measurable.</p>
-    <p data-i18n="section2P6">This page counts whole periods over the grid's twelve cells, which gives k² = 8 for the pattern with gaps 0 and 3. The plate convention counts half-wavelengths along the side, which gives mode (4,4) and k² = 32 for the same pattern. The two are related by k²(grid) = (m² + n²) ⁄ 4.</p>
-    <p data-i18n="section2P7">Two modes are at play, and they are not at the same frequency: the carrier (4,0), which is one-dimensional bending and carries the seven levels, and the figure (4,4), whose nodal set is the zero level and which sand would draw. Under the plate law their ratio is 2, under the cavity law √2. That is a second discriminating test.</p>
-  </div>
-
-  <div class="cym-note" id="sectionClassif">
-    <h2 data-i18n="sectionClassifHeading">Which figures a plate can show</h2>
-    <p data-i18n="sectionClassifP1">The vocabulary generates figures by a parity rule, and not all of them are plate figures. Of the fifteen figures given by the four base lines, eleven are exactly the sign sets of exact eigenmodes and four are impossible. The four are not failed searches: they would require a horizontal, a vertical and a diagonal line to meet at one interior point, whereas the nodal branches of a Laplace eigenfunction always cross at equal angles. The impossibility is local and proved, not a computational bound.</p>
-    <p data-i18n="sectionClassifP2">The count generalises to every even period. Writing N = 2^a · M with M odd, and taking every complete level read once orthogonally and once diagonally, the number of realisable figures is exactly R(N) = (8a + 3) · τ(M), where τ(M) is the number of divisors of M. Each odd divisor of M contributes a frequency-dilated copy of the same classification. At period 12, the period of the grid, that gives 38 realisable figures out of 16,383 possible chords.</p>
-    <p data-i18n="sectionClassifP3">That 38 corrects a 35: the initial search was bounded at indices m, n ≤ 24 and missed three figures, whose representatives sit at indices 36 and 48. An independent search pushed to index 72 recovers all 38. The proof, the four scripts that replay it and the log of every correction are in the deposit.</p>
   </div>
 
   <div class="cym-workspace">
@@ -336,6 +315,36 @@
     </div>
   </div>
 
+  <div class="cym-note" id="sectionOnde">
+    <h2 data-i18n="sectionOndeHeading">One wave, seven cuts</h2>
+    <p data-i18n="sectionOndeP1">The eight orthogonal families are the lines where cos(πx/3) equals cos θ, for θ a multiple of 30°:</p>
+    <div class="cym-table-wrap"><table class="cym-table" id="sectionOndeTable"></table></div>
+    <p data-i18n="sectionOndeP2">Mutation is the reflection of the angle about 90°, that is, the exchange of the wave's two phases. It is not a naming convention: since the doubling is two-to-one, every antecedent comes in pairs, and the base and its mutant are the two branches of the inverse.</p>
+  </div>
+
+  <div class="cym-note" id="section2">
+    <h2 data-i18n="section2Heading">Two exact systems, two laws</h2>
+    <p data-i18n="section2P1">The product cos(πx/3)·cos(πy/3) is an exact eigenfunction of two different problems:</p>
+    <ul>
+      <li data-i18n="section2Li1">the Kirchhoff plate with guided edges, biharmonic equation, whose spectrum gives f ∝ m² + n²;</li>
+      <li data-i18n="section2Li2">the rectangular acoustic cavity with rigid walls, Helmholtz equation with Neumann condition, whose spectrum gives f ∝ √(m² + n²).</li>
+    </ul>
+    <p data-i18n="section2P2">The boundary condition is satisfied identically in both cases. The guided-edge plate is not the one from classical demonstrations, with free edges, where the cosine product is only an approximation; the cavity, for its part, is any rectangular box. The cavity result assumes a zero vertical index: a flat box, or excitation below the first vertical cutoff — beyond that, a third term enters the spectrum.</p>
+    <p data-i18n="section2P3">The two problems share their eigenfunctions but not their spectra, which gives a test on a single figure:</p>
+    <div class="cym-table-wrap"><table class="cym-table" id="section2Table"></table></div>
+    <p data-i18n-html="section2P4">On the three values that are perfect squares, the plate law gives 128, 512, 1152 — ratios 1 : 4 : 9. The cavity law gives <strong>128, 256, 384</strong>, that is, C, its octave, and the fifth above: ratios <strong>1 : 2 : 3</strong>, the harmonic series.</p>
+    <p data-i18n="section2P5">The 128 Hz reference pitch is a calibration in both cases: it fixes the size of the system, not its geometry. What is not a calibration is the choice between the two laws — and that is measurable.</p>
+    <p data-i18n="section2P6">This page counts whole periods over the grid's twelve cells, which gives k² = 8 for the pattern with gaps 0 and 3. The plate convention counts half-wavelengths along the side, which gives mode (4,4) and k² = 32 for the same pattern. The two are related by k²(grid) = (m² + n²) ⁄ 4.</p>
+    <p data-i18n="section2P7">Two modes are at play, and they are not at the same frequency: the carrier (4,0), which is one-dimensional bending and carries the seven levels, and the figure (4,4), whose nodal set is the zero level and which sand would draw. Under the plate law their ratio is 2, under the cavity law √2. That is a second discriminating test.</p>
+  </div>
+
+  <div class="cym-note" id="sectionClassif">
+    <h2 data-i18n="sectionClassifHeading">Which figures a plate can show</h2>
+    <p data-i18n="sectionClassifP1">The vocabulary generates figures by a parity rule, and not all of them are plate figures. Of the fifteen figures given by the four base lines, eleven are exactly the sign sets of exact eigenmodes and four are impossible. The four are not failed searches: they would require a horizontal, a vertical and a diagonal line to meet at one interior point, whereas the nodal branches of a Laplace eigenfunction always cross at equal angles. The impossibility is local and proved, not a computational bound.</p>
+    <p data-i18n="sectionClassifP2">The count generalises to every even period. Writing N = 2^a · M with M odd, and taking every complete level read once orthogonally and once diagonally, the number of realisable figures is exactly R(N) = (8a + 3) · τ(M), where τ(M) is the number of divisors of M. Each odd divisor of M contributes a frequency-dilated copy of the same classification. At period 12, the period of the grid, that gives 38 realisable figures out of 16,383 possible chords.</p>
+    <p data-i18n="sectionClassifP3">That 38 corrects a 35: the initial search was bounded at indices m, n ≤ 24 and missed three figures, whose representatives sit at indices 36 and 48. An independent search pushed to index 72 recovers all 38. The proof, the four scripts that replay it and the log of every correction are in the deposit.</p>
+  </div>
+
   <div class="cym-note" id="sectionCaveats">
     <h2 data-i18n="sectionCaveatsHeading">What is not established</h2>
     <p data-i18n-html="sectionCaveatsP1"><strong>Only one of the seven cuts is a nodal line</strong> — the one at 90°. The other six are iso-amplitude lines: sand would not show them. They are not invisible for that: time-average holographic interferometry, and ESPI, produce fringes that are precisely iso-amplitude curves. And in a water basin, the surface elevation <em>is</em> the mode: the seven levels are iso-elevation lines there, visible under raking light. A water basin adds a third system, but not a third test: sloshing there is dispersive, ω² = g·k·tanh(k·h), and all three systems share the figure but not the spectrum — the ratio that discriminates plate from cavity does not carry over to it.</p>
@@ -362,6 +371,10 @@ import { PALETTE_DEFAUT } from '../../assets/couleurs.js';
 // sera remplacé par les clés qu'il contient une fois rempli.
 const UI = {
   fr: {
+    obsHeading: "Ce qu'on observe",
+    obs1: "Jouez un son pur ou activez le micro : la page cherche, parmi les quinze gammes, celle dont la fréquence est la plus proche du son entendu.",
+    obs2: "La gamme retenue détermine le pavage affiché.",
+    obs3: "Rien n'est mesuré sur une plaque réelle : la figure est un calcul. Voir « Ce qui n'est pas établi » plus bas.",
     pageTitle: "Chladni — figures, scales and frequencies",
     framingLink: "Le détail, avec la vérification →",
     framing1: "Le vocabulaire n'est pas choisi, il est <strong>engendré</strong>. Une seule opération suffit — doubler l'écart d'une droite par rapport au centre du carré — et l'origine n'est pas libre non plus : un niveau que le doublement laisse en place n'a pas d'antécédent ailleurs qu'en lui-même, donc il ne peut pas être engendré et doit être posé. Il y en a exactement deux, 0° et 120°, le second existant parce que 3 divise 12. En partant de ces deux-là et en remontant le doublement, les écarts orthogonaux se referment en deux étapes sur les 24 possibles, et les diagonaux en trois — losange inscrit compris, qui appartient au vocabulaire sans être tracé.",
@@ -434,6 +447,10 @@ const UI = {
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
   },
   en: {
+    obsHeading: "What you observe",
+    obs1: "Play a pure tone or enable the microphone: the page looks for the closest of the fifteen scales to the sound heard.",
+    obs2: "The scale it retains determines the tiling shown.",
+    obs3: "Nothing is measured on a real plate: the figure is a calculation. See “What is not established” below.",
     pageTitle: "Chladni — figures, scales and frequencies",
     framingLink: "The detail, with the verification →",
     framing1: "The vocabulary is not chosen, it is <strong>generated</strong>. One operation suffices — doubling a line's offset about the centre of the square — and the origin is not free either: a level the doubling leaves in place has no preimage outside itself, so it cannot be generated and must be posited. There are exactly two, 0° and 120°, the second existing because 3 divides 12. Starting from those two and running the doubling backwards, the orthogonal offsets close in two steps on all 24, and the diagonal ones in three — including the inscribed diamond, which belongs to the vocabulary without being drawn.",
@@ -506,6 +523,10 @@ const UI = {
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
   },
   es: {
+    obsHeading: "Lo que se observa",
+    obs1: "Reproduzca un tono puro o active el micrófono: la página busca, entre las quince escalas, la más cercana al sonido oído.",
+    obs2: "La escala elegida determina el teselado mostrado.",
+    obs3: "No se mide nada en una placa real: la figura es un cálculo. Véase «Lo que no está establecido» más abajo.",
     pageTitle: "Chladni — escalas y frecuencias",
     framing: "La correspondencia que sigue es construida, no física: se basa en la frecuencia espacial dominante de cada escala, medida por transformada de Fourier — no en una ley que predijera lo que mostraría una placa o un agua en vibración. Una figura de Chladni depende de la geometría del recipiente, de su profundidad, de la tensión superficial; nada de lo que aparece aquí la sustituye. Si surge un parecido en ciertas frecuencias, es una observación digna de anotarse, no una prueba.",
     framingLink: "El detalle, con la verificación →",
@@ -577,6 +598,10 @@ const UI = {
     echelleOrdinaleHelp: "los dieciséis valores repartidos por rango, de do 128 Hz a do 256 Hz — comparación inmediata.",
   },
   th: {
+    obsHeading: "สิ่งที่สังเกตได้",
+    obs1: "เล่นเสียงบริสุทธิ์หรือเปิดไมโครโฟน: หน้านี้จะหาสเกลที่ใกล้เคียงเสียงที่ได้ยินที่สุดในสิบห้าสเกล",
+    obs2: "สเกลที่เลือกกำหนดลายปูที่แสดง",
+    obs3: "ไม่มีการวัดบนแผ่นจริง: ภาพนี้เป็นผลจากการคำนวณ ดู «สิ่งที่ยังไม่ได้รับการพิสูจน์» ด้านล่าง",
     pageTitle: "Chladni — บันไดเสียงและความถี่",
     framing: "ความสอดคล้องที่แสดงด้านล่างนี้เป็นสิ่งที่สร้างขึ้น ไม่ใช่ปรากฏการณ์ทางกายภาพ โดยอาศัยความถี่เชิงพื้นที่ที่เด่นของแต่ละบันไดเสียง วัดด้วยการแปลงฟูริเยร์ มิใช่กฎที่ทำนายว่าแผ่นสั่นหรือน้ำที่สั่นจะแสดงรูปใด ภาพคลาดนีขึ้นอยู่กับรูปทรงของภาชนะ ความลึก และแรงตึงผิว สิ่งที่แสดงที่นี่ไม่ได้แทนที่สิ่งเหล่านั้น หากพบความคล้ายคลึงที่ความถี่บางค่า ถือเป็นข้อสังเกตที่ควรบันทึกไว้ ไม่ใช่ข้อพิสูจน์",
     framingLink: "รายละเอียด พร้อมการตรวจสอบ →",

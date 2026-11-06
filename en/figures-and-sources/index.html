@@ -67,6 +67,10 @@
   .chiffres th{ color:var(--gold); font-weight:400; letter-spacing:.02em; }
   .chiffres td:first-child{ color:var(--white); white-space:nowrap; }
   .chiffres td{ color:var(--dim); line-height:1.5; }
+  @media (max-width:600px){
+    .chiffres th, .chiffres td{ padding:8px 6px; overflow-wrap:anywhere; }
+    .chiffres td:first-child{ white-space:normal; }
+  }
   .chiffres code, .sortie code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; }
   .sortie{
     max-width:64ch; margin:0 auto 26px; padding:14px 16px;
@@ -264,7 +268,7 @@
       <tbody>
         <tr><td>111</td><td>pages of the treatise</td><td><a href="https://doi.org/10.5281/zenodo.22722485">Zenodo</a></td></tr>
         <tr><td>2</td><td>ansate crosses of order 6</td><td><code>croix_ansee.py</code></td></tr>
-        <tr><td>256</td><td>solar squares of order 6, 128 per cross, complete set</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
+        <tr><td>256</td><td>solar squares of order 6: the 256 compatible colourings of the two ansate crosses (criteria I–IV and condition (b)), 128 per cross — not all magic squares of order 6</td><td><code>enum_criteres.py</code>, <code>verif_protocole.py</code></td></tr>
         <tr><td>64</td><td>magic squares of order 12 by assembly, constant 870</td><td><code>verif_protocole.py</code></td></tr>
         <tr><td>360</td><td>layers: 15 axis families × 4 natures × 6 levels</td><td><code>referent_360_v3.json</code></td></tr>
         <tr><td>8 of 15</td><td>families admitted by the half-shift criterion</td><td><code>cube_edges.py</code></td></tr>

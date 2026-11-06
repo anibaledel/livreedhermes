@@ -748,6 +748,45 @@
     <!-- @travaux:start — engendré depuis data/travaux.json (scripts/build-travaux.js) -->
     <p class="profile-intro travaux-licences">यह साइट CC BY-NC 4.0 लाइसेंस के अंतर्गत है। नीचे का हर जमा उसी लाइसेंस को बनाए रखता है जिसके अंतर्गत वह प्रकाशित हुआ था, जो हर एक के साथ दिया गया है: 8 जमाओं के लिए CC BY 4.0, 3 जमाओं के लिए AGPL v3, 2 जमाओं के लिए CC BY-NC 4.0।</p>
 
+    <style>
+    .versions-ref{ margin:0 0 24px; }
+    .versions-ref table{ width:100%; border-collapse:collapse; font-size:12.5px; line-height:1.5; }
+    .versions-ref th{ text-align:left; font-weight:400; color:var(--dim); border-bottom:1px solid var(--line-strong); padding:6px 8px 6px 0; }
+    .versions-ref td{ padding:8px 8px 8px 0; border-top:1px solid var(--line); vertical-align:top; overflow-wrap:anywhere; }
+    .versions-ref a{ color:var(--gold); text-decoration:none; }
+    .versions-ref a:hover{ text-decoration:underline; }
+    .versions-ref .maj{ color:var(--dim); font-size:11px; margin:8px 0 0; }
+    @media (max-width:600px){
+      .versions-ref thead{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      .versions-ref table, .versions-ref tbody, .versions-ref tr, .versions-ref td{ display:block; width:100%; box-sizing:border-box; }
+      .versions-ref tr{ border-top:1px solid var(--line); padding:8px 0; }
+      .versions-ref td{ border-top:none; padding:2px 0; }
+      .versions-ref td::before{ content:attr(data-label) " : "; color:var(--dim); }
+    }
+    </style>
+    <div class="profile-section versions-ref" id="versions-reference">
+      <h2>संदर्भ संस्करण</h2>
+      <table>
+        <thead><tr><th scope="col">जमा</th><th scope="col">संस्करण</th><th scope="col">संस्करण का DOI</th><th scope="col">तिथि</th></tr></thead>
+        <tbody>
+          <tr><td data-label="जमा">La Livrée d&#39;Hermès</td><td data-label="संस्करण">3.0</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23184828">doi:10.5281/zenodo.23184828</a></td><td data-label="तिथि">6 अक्टूबर 2026</td></tr>
+          <tr><td data-label="जमा">Chapitre VIII — Le Jeu : Les 360 plaques ajourées de La Livrée d&#39;Hermès (V3.1)</td><td data-label="संस्करण">3.1</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23189276">doi:10.5281/zenodo.23189276</a></td><td data-label="तिथि">6 अक्टूबर 2026</td></tr>
+          <tr><td data-label="जमा">The Ansate Cross: A Self-Constructing Method for Order-6 Magic Squares</td><td data-label="संस्करण">v3.5</td><td data-label="संस्करण का DOI">—</td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">The Ansate Cross: Even-Order Realisation and Singly Even Colour Symmetry</td><td data-label="संस्करण">223</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23978781">doi:10.5281/zenodo.23978781</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">Strict Log-Concavity Across All Scales for Exact-Height Plane Binary Trees</td><td data-label="संस्करण">1.0.0</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23102265">doi:10.5281/zenodo.23102265</a></td><td data-label="तिथि">2 अक्टूबर 2026</td></tr>
+          <tr><td data-label="जमा">Sign-Quotiented Doubling Modulo n: Cycle Structure, 2-Adic Synchronization, Lifting, and Forward-Closed Subsets — Four Working Papers</td><td data-label="संस्करण">1.1.1</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23102045">doi:10.5281/zenodo.23102045</a></td><td data-label="तिथि">2 अक्टूबर 2026</td></tr>
+          <tr><td data-label="जमा">One Object, Three Descriptions: Axes, Images and Grids of a Jacquard Pattern System</td><td data-label="संस्करण">1.4.0</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23986406">doi:10.5281/zenodo.23986406</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">Axes and Level Sets of a Jacquard Pattern System — two companion notes</td><td data-label="संस्करण">2.15</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23990857">doi:10.5281/zenodo.23990857</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">Parity Figures as Moiré: What Is Exact and What Is Not</td><td data-label="संस्करण">1.0.1</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.22986645">doi:10.5281/zenodo.22986645</a></td><td data-label="तिथि">27 सितंबर 2026</td></tr>
+          <tr><td data-label="जमा">Number of subsets of Z/nZ closed under negation and doubling: terms to n = 200 and program</td><td data-label="संस्करण">1.0</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.22991227">doi:10.5281/zenodo.22991227</a></td><td data-label="तिथि">27 सितंबर 2026</td></tr>
+          <tr><td data-label="जमा">Data and verification scripts for « A half-shift criterion on three-colour 12×12 grids »</td><td data-label="संस्करण">2.20</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23991050">doi:10.5281/zenodo.23991050</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">The Ansate Cross — verification code for a self-constructing method of order-6 magic squares</td><td data-label="संस्करण">4.0.1</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23983584">doi:10.5281/zenodo.23983584</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+          <tr><td data-label="जमा">La Livrée d&#39;Hermès — Progress report, September 2026</td><td data-label="संस्करण">2026.11.05</td><td data-label="संस्करण का DOI"><a href="https://doi.org/10.5281/zenodo.23986580">doi:10.5281/zenodo.23986580</a></td><td data-label="तिथि">5 नवंबर 2026</td></tr>
+        </tbody>
+      </table>
+      <p class="maj">यह तालिका research/status.json से ली गई है, अंतिम अद्यतन 5 नवंबर 2026।</p>
+    </div>
+
     <div class="profile-section">
       <h2>पुस्तक</h2>
       <ul class="travaux-list">
