@@ -26,7 +26,7 @@
 //     scripts/build-travaux-pages.js) : elle affiche la licence de son dépôt,
 //     et le résumé recopié de la fiche la cite. CC BY 4.0 n'y est admise que
 //     si l'entrée de data/travaux.json qui porte ce `page` enregistre
-//     licenceZenodo « cc-by-4.0 » ; sur une page de dépôt BY-NC, c'est un écart ;
+//     licenceZenodo ou licenceTextes « cc-by-4.0 » (texte sous CC BY, code sous AGPL) ; sur une page de dépôt BY-NC, c'est un écart ;
 //   - chaque page d'une langue ajoutée (zh/, ru/, pt/… : scripts/langues.js) porte le DOI du livre
 //     (10.5281/zenodo.22722485) et la licence CC BY-NC 4.0, comme son
 //     équivalent français ;
@@ -50,7 +50,7 @@ const LISTES_ZENODO = new Set([...GROUPES.find((g) => g.nom === 'travaux').pages
   'research/index.html']);
 // Pages de dépôt dont la fiche Zenodo est en CC BY 4.0, depuis le registre.
 const REGISTRE = JSON.parse(fs.readFileSync(path.join(RACINE, 'data/travaux.json'), 'utf8'));
-const PAGES_DEPOT_BY = new Set(REGISTRE.depots.filter((r) => r.page && r.licenceZenodo === 'cc-by-4.0').map((r) => `travaux/${r.page}/index.html`));
+const PAGES_DEPOT_BY = new Set(REGISTRE.depots.filter((r) => r.page && (r.licenceZenodo === 'cc-by-4.0' || r.licenceTextes === 'cc-by-4.0')).map((r) => `travaux/${r.page}/index.html`));
 const NOUVELLES = new RegExp(`^(${Object.keys(DECLAREES).filter((c) => !DECLAREES[c].hexagrammes).join('|')})/`);
 
 function pages(dir, acc = []) {
