@@ -79,10 +79,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "<td>planches du traité</td>",
-   "en": "<td>plates of the treatise</td>",
-   "es": "<td>láminas del tratado</td>",
-   "th": "<td>แผ่นภาพของตำรา</td>",
+   "fr": "<td>pages du traité</td>",
+   "en": "<td>pages of the treatise</td>",
+   "es": "<td>páginas del tratado</td>",
+   "th": "<td>หน้าของตำรา</td>",
    "source": "SANS SOURCE"
   },
   {
@@ -324,10 +324,10 @@
    "source": "SANS SOURCE"
   },
   {
-   "fr": "Les <b>111 planches</b> se comptent dans le livre lui-même : les quatre PDF publiés portent 111 pages chacun. Les <b>256 bits</b> sont la taille de clé des deux chiffrements standard que Carter emploie en cascade, sans les modifier : AES-256-GCM par-dessus XChaCha20-Poly1305, sous des clés indépendantes. La géométrie n'ajoute rien à la sécurité, et les preuves tiennent même si la disposition est connue.",
-   "en": "The <b>111 plates</b> are counted in the book itself: the four published PDFs have 111 pages each. The <b>256 bits</b> are the key size of the two standard ciphers that Carter uses in cascade, without modifying them: AES-256-GCM on top of XChaCha20-Poly1305, under independent keys. The geometry adds nothing to security, and the proofs hold even if the layout is known.",
-   "es": "Las <b>111 láminas</b> se cuentan en el propio libro: los cuatro PDF publicados tienen 111 páginas cada uno. Los <b>256 bits</b> son el tamaño de clave de los dos cifrados estándar que Carter emplea en cascada, sin modificarlos: AES-256-GCM sobre XChaCha20-Poly1305, con claves independientes. La geometría no añade nada a la seguridad, y las pruebas se sostienen aunque la disposición sea conocida.",
-   "th": "<b>แผ่นภาพ 111 แผ่น</b> นับได้จากตัวหนังสือเอง: PDF ทั้งสี่ฉบับที่เผยแพร่มี 111 หน้าเท่ากัน <b>256 บิต</b> คือขนาดกุญแจของการเข้ารหัสมาตรฐานสองชนิดที่คาร์เตอร์ใช้ซ้อนกันโดยไม่ดัดแปลง: AES-256-GCM ซ้อนบน XChaCha20-Poly1305 ภายใต้กุญแจที่เป็นอิสระต่อกัน เรขาคณิตไม่ได้เพิ่มความปลอดภัยใด ๆ และการพิสูจน์ยังคงใช้ได้แม้จะรู้การจัดวาง",
+   "fr": "Les <b>111 pages</b> se comptent dans le livre lui-même : les quatre PDF publiés en portent 111 chacun. Les <b>256 bits</b> sont la taille de clé des deux chiffrements standard que Carter emploie en cascade, sans les modifier : AES-256-GCM par-dessus XChaCha20-Poly1305, sous des clés indépendantes. La géométrie n'ajoute rien à la sécurité, et les preuves tiennent même si la disposition est connue.",
+   "en": "The <b>111 pages</b> are counted in the book itself: each of the four published PDFs has 111. The <b>256 bits</b> are the key size of the two standard ciphers that Carter uses in cascade, without modifying them: AES-256-GCM on top of XChaCha20-Poly1305, under independent keys. The geometry adds nothing to security, and the proofs hold even if the layout is known.",
+   "es": "Las <b>111 páginas</b> se cuentan en el propio libro: cada uno de los cuatro PDF publicados tiene 111. Los <b>256 bits</b> son el tamaño de clave de los dos cifrados estándar que Carter emplea en cascada, sin modificarlos: AES-256-GCM sobre XChaCha20-Poly1305, con claves independientes. La geometría no añade nada a la seguridad, y las pruebas se sostienen aunque la disposición sea conocida.",
+   "th": "<b>111 หน้า</b> นับได้จากตัวหนังสือเอง: PDF ทั้งสี่ฉบับที่เผยแพร่มี 111 หน้าเท่ากัน <b>256 บิต</b> คือขนาดกุญแจของการเข้ารหัสมาตรฐานสองชนิดที่คาร์เตอร์ใช้ซ้อนกันโดยไม่ดัดแปลง: AES-256-GCM ซ้อนบน XChaCha20-Poly1305 ภายใต้กุญแจที่เป็นอิสระต่อกัน เรขาคณิตไม่ได้เพิ่มความปลอดภัยใด ๆ และการพิสูจน์ยังคงใช้ได้แม้จะรู้การจัดวาง",
    "source": "SANS SOURCE"
   },
   {
