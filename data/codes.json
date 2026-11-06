@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-06T16:39:48Z",
+ "generated_at_utc": "2026-11-06T18:30:00Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1266,9 +1266,9 @@
   {
    "chemin": "tools/affiches_animations.mjs",
    "adresse": "https://anibal-amiot.com/tools/affiches_animations.mjs",
-   "octets": 12990,
-   "sha256": "baabf5571d1389630e9ed804cf5581ec5f8cf3f9e5e7e6f7d74abe76500f1343",
-   "md5": "7e6dc9b4b0e498e942f31a008d72d44c",
+   "octets": 13882,
+   "sha256": "13920ca2224e30146dd9c202d2ab07cfca18b84b9ca1fba763d76f958420e9cc",
+   "md5": "45e4e2755d7e5f22c6f3cc42e4473fb6",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la vidéo de référence d'une collection, déposée, et son affiche EXTRAITE du fichier (pas un rendu refait).",
@@ -3661,9 +3661,9 @@
   {
    "chemin": "tools/restaurer_collection.mjs",
    "adresse": "https://anibal-amiot.com/tools/restaurer_collection.mjs",
-   "octets": 4750,
-   "sha256": "d9fa211130eb90cf8dbe5495c2ec9fa02b188431856d9dc79ba01a753f967b6e",
-   "md5": "e6bc1e2abf3d3602f0caa43cd0a8c6c4",
+   "octets": 5070,
+   "sha256": "ccebd9d5c9af166f9f97b3b61d9e6e0638b8d789fa1619ab652a8c61581a5794",
+   "md5": "60b29419d7d1358b2877ef1dd86a9528",
    "licence_declaree": true,
    "licence": "AGPL v3 / Commercial license on request: anibaledel@gmail.com",
    "role": "remet en place une exportation GARDÉE d'une collection Pinterest (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), au lieu de la refabriquer.",

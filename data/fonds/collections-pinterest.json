@@ -1,6 +1,6 @@
 {
  "_doc": "Les collections Pinterest des fonds (assets/motifs-pinterest/<code>/<fichier>.png, 1000 × 1500), exportées par tools/export_pinterest_fonds.mjs, qui écrit ici la palette employée [bit 0, bit 1] ; tools/check_export_pinterest.mjs ouvre les pages dans ces couleurs pour comparer. P a été exportée le 2 octobre 2026 aux couleurs de la page d'alors (magenta, violet), avant que le défaut ne devienne le bicolore noir sur crème d'assets/couleurs.js. Le <fichier> d'une image et l'adresse de sa page : data/motifs-correspondance.json. « rang » : l'ordre de publication arrêté le 3 octobre 2026 — B2 (2 égales), B121 (1-2-1), B6D (6 diagonales) ; P et B2D restent, sans rang. B2D a été exportée en #f2f2f0 / #000000, le défaut d'alors ; B2, B121 et B6D en crème #efeae0 et encre #23232b. Le 3 octobre 2026, le bicolore passe au rouge #e0261b sur blanc #f2f2f0, la charte du site (assets/couleurs.js) : B6D est ré-exportée la première (la trame la plus serrée, jugée à l'œil en vignette avant les autres), puis P, B2D, B2 et B121 : les cinq collections sont en rouge et blanc. « anciennes » : les exportations remplacées, gardées à côté (assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/), avec leur palette et leur date. « pinterest » : false — la collection reste sur le site mais ne part pas sur Pinterest. B6D (décision du 3 octobre 2026) : sa trame, la plus fine, se fond à la taille d'une épingle (236 × 354 px : 4 % de pixels rouge pur contre 26 % pour B2, 90 % de mélange) et sa vidéo pèse 40,7 Mo contre 13,3 pour B2 — même cause, deux mesures.",
- "_doc_anciennes": "Rien ne se supprime : chaque exportation remplacée (images, puis vidéo) est gardée à côté, sa PALETTE DANS LE NOM — assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/ et assets/animations/anciennes/<code>-<c0>-<c1>-<format>.mp4 — et inscrite ici (« anciennes », « videosAnciennes »). C’est ce qui a rendu possible, le 2026-10-04, le retour à l’encre et au crème sans rien refaire : B2, B121 et B6D ont été restaurées depuis leur dossier gardé (tools/restaurer_collection.mjs), après comparaison octet pour octet avec une exportation fraîche du moteur actuel ; seules P et B2D, sans exportation gardée dans ces couleurs, ont été ré-exportées.",
+ "_doc_anciennes": "Rien ne se supprime : chaque exportation remplacée (images, puis vidéo) est gardée à côté, sa PALETTE DANS LE NOM — assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>/ et assets/animations/anciennes/<code>-<c0>-<c1>-<format>.mp4 — et inscrite ici (« anciennes », « videosAnciennes »). C’est ce qui a rendu possible, le 2026-10-04, le retour à l’encre et au crème sans rien refaire : B2, B121 et B6D ont été restaurées depuis leur dossier gardé (tools/restaurer_collection.mjs), après comparaison octet pour octet avec une exportation fraîche du moteur actuel ; seules P et B2D, sans exportation gardée dans ces couleurs, ont été ré-exportées. 2026-11-06 : les dossiers anciennes/ (assets/animations/anciennes/ et assets/motifs-pinterest/anciennes/) ont quitté main pour alléger la publication ; ils sont intacts, au même chemin, sur la branche archive-medias. tools/affiches_animations.mjs --verifie y relit les vidéos gardées (SHA-256 compris). Pour remettre un dossier : git fetch origin archive-medias, puis git checkout origin/archive-medias -- <chemin>.",
  "collections": {
   "P": {
    "palette": [
@@ -283,8 +283,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "84411081f26dd31e84483eec331274c061e5015c1e1cd525a5f38dbb20c6df55",
-    "sha256Affiche": "46c25af366ddf503ad90aaa951850a8e63438a525631b2d555c58db1fc345635"
+    "sha256": "f3ea7f1b01fbee6975d801b0b7af6cf44d3a897b057606f83ab39a95b2c90bd1",
+    "sha256Affiche": "549c186ce56845cc1bf0d8384b5813e838ba857abce686fd964a899e33583d8b"
    },
    "videosAnciennes": [
     {
@@ -570,8 +570,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "7c678630f820d75970faf1611d6843dbe02f6095f9d2f7337ece4703ab8681b3",
-    "sha256Affiche": "01400f5d393c81388d246840be311e8f6e123c585d4b1dc2d79179c877c9a82c"
+    "sha256": "e5a8df75535b8e44b754f74c822b6616251cbce9f69294a412dff3696a6f7dd8",
+    "sha256Affiche": "fed8e8022f447e4a263d7cb3c486bdd4aa6f860743cf2ee4689f19cd432acd18"
    },
    "restauree": {
     "depuis": "assets/motifs-pinterest/anciennes/B121-efeae0-23232b",
@@ -716,8 +716,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "6ecc9ad2c0cc9a92e687e607fe87cf58a50786c653fa737d7d49ad1a7f26e285",
-    "sha256Affiche": "c9cd2d2313e213e0139631ff41b85db5b903dd8f18a5b3a77bad7be1547eceb2"
+    "sha256": "46c1e8badd60627e00b6db7c43226af8a4b880311707872dccb536231ae8b8c2",
+    "sha256Affiche": "19ba8f3b8c6c7d60c47b761860990f41126b9eca8c785e2496765202d7db8e7a"
    },
    "pinterest": false,
    "restauree": {
@@ -841,8 +841,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "c8189d90ce9d62acefcbdce45d28f35c9ae690ae97d44e32463a4e2d8e9a3f6e",
-    "sha256Affiche": "70f5c6579c0695f1a1b2957cd6a180d28fc6fd76ece94b359e7d2d61e6fdf212"
+    "sha256": "1c379896ed43ba3045205f294343b46fc15eb5fb99f2794614f2592baf6ac258",
+    "sha256Affiche": "447945a7aef6bfdf02f70a8fce36bd8872f360a81e9febe44a9399103ae800d9"
    }
   },
   "B4": {
@@ -904,8 +904,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "cfb7a137d00e33aec70c6ec6d9b66207e85af56ad7ac84251a396519a195c091",
-    "sha256Affiche": "3aedad45d37ff8b6ba476cd69af1c231b0507c7a3c67d9aa0c5b029209573f65"
+    "sha256": "d3170ef16b8ca2fd2cdf51d5d3c8e8972a2565d28d246ba23c01d14f6b61b5ca",
+    "sha256Affiche": "5bc9815c9344408e340f765e8a49acff86bfb0a64d1548608fe96b0d90a02354"
    }
   },
   "B12m": {
@@ -967,8 +967,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "bbfb5742dec73d9871a636da3a0e69cf2e855692bfad12d77ceda892cb1332e1",
-    "sha256Affiche": "4430aa869f5a5977c713f047dcc2d9545fb3cf545d057d4bdf45f6537bb6bff2"
+    "sha256": "7b3dc8ff40d0d9064135e2f8b3be94110155c0c2f2ca2ddf336a5083baa7696b",
+    "sha256Affiche": "74d003ad522e13abd8094f635e8b47cb459f30094ac527188a5f548221ed28fe"
    }
   },
   "B3n": {
@@ -1030,8 +1030,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "2f98039899293afa9e7baef91b396b4a03150c80ca1b4458f6c916972b948de8",
-    "sha256Affiche": "0d087b4e4604cc44adb0136764656f5972a879f1c61e46128970f92afdcc8a75"
+    "sha256": "89c752477eefb3b81c18016930a12159d74483834e3959116f54f4fc9bbf3dae",
+    "sha256Affiche": "034366c35e698cb3b6398378f8b059c5a9ec05bc790330cff50706c3839c5241"
    }
   },
   "BA50": {
@@ -1093,8 +1093,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "83a4c1a94f59403764efb335c68d3c8c8e762262fd5e2b71fe21a26e6150c5b0",
-    "sha256Affiche": "9d09c01d730276c6540f56099f7da173a0d0faa62e02698fb4e5fea655949e4b"
+    "sha256": "9c5a08d8017834821546835c765dac588234d0881258c4a0c4088827561d67f2",
+    "sha256Affiche": "a2559ee1b1031c34d00a520ceb04e4b7d6741952eb67e1e3cf217247717b953f"
    }
   },
   "B3D": {
@@ -1156,8 +1156,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "5c481732519fb4e7ea6f6f6340b97970469b42db966e80e1ebea817b707f62a4",
-    "sha256Affiche": "548a54c655f7bcb8fb370e7969ca7299046d8235d21fb99d5fded6fe1581cae7"
+    "sha256": "72f8e6cc891c42a55d3d41279001bf7fa66ab7b0e9cf10e8a6bf7bb05cf093a6",
+    "sha256Affiche": "a7cc5968fcaadc70cdc367f30d8a337fd9b3e288dbe4acdc28e7f943059eb154"
    }
   },
   "B4D": {
@@ -1219,8 +1219,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "f4b9f9a94c2da73d4e6774df97a6a468f65eb401e87e0a4eb9886265d40a4699",
-    "sha256Affiche": "ce5c13f4a9da5f75f882d4c96182188e80d3f88a84bf7e0f1625b382a1be9207"
+    "sha256": "4909a7d89de6a28ac82cb44e1961db843248b1fa437fd975fa98b16ed3374368",
+    "sha256Affiche": "1ee480d979ee339deba64c2f6de2f1d6ef9ccb684c87e2cdd746af9e87d8e0e8"
    }
   },
   "B121D": {
@@ -1282,8 +1282,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "ade88826051b60fa9941fcb460bb7b5cdd59aa44474fda08aeeefd10f3512e1c",
-    "sha256Affiche": "3609b5cf933ba9218d209f294909c3270b089837198ebe0e05dcc8a40f70ed05"
+    "sha256": "cb30f29f634262953126d532afaf9d0ef6ecd159f1f9fb34bc7f5dd8e66c500b",
+    "sha256Affiche": "4ec3307a2fbe9931557bca8fbfb41926e62363cf58219dc82004bab0f452a8ad"
    }
   },
   "B11211D": {
@@ -1345,8 +1345,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "7dab769082f7411d29ae39e90f70e46aaec9a80e67b9fefcf8757cdf6bc73429",
-    "sha256Affiche": "63bb855af2721824db3bd9b9fa5d860060f81be79b0fc120df4976bf0ebeb30e"
+    "sha256": "f4fa22fe897f2fa0c15345a5060910b3565d0bb7bc8adc7dff759099a81b9050",
+    "sha256Affiche": "a8f6ec50147de5b85f8c4a44c5aa9bd1f484c14ef4f5fb6324fa30c8e724e12c"
    }
   },
   "BA33": {
@@ -1408,8 +1408,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "d3e2c94c4177308f089c2acbbab01c9ab036210d50ac321a32a34b5033ffa7bf",
-    "sha256Affiche": "ff2a6bb79783c8857f13a3dd38813ef66750827be76e6cde7034ace8142002f7"
+    "sha256": "e0f0a9ce4a22736cab42086682da77b05cc0a2d18bb29d7bb25c549ed061a4fa",
+    "sha256Affiche": "c7043ea446d55e8f86ce31419fa66ba987a7783406754a27ccafbd680ea84670"
    },
    "synonymes": [
     "B3x"
@@ -1474,8 +1474,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "8a010f774602e0c5520d3ccd64a78fa4144f3a500c324fd098ba89d815f2926e",
-    "sha256Affiche": "c490578b276100703b2e0b868d42d7adcd22492494a4b1294f7d538cdd507193"
+    "sha256": "078136ed10d0f1dd6dbdda164aee74c6369dd00cccd9ffb2395337d6e618dc2f",
+    "sha256Affiche": "88976a1c8a8d73f9f3dab05e83d4f9e2f357e1a8d5cf37983d09e24efd429fc5"
    }
   },
   "QT": {
@@ -1537,8 +1537,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "a40e486f1ee65268dbda0cd38b39c097079a90b87d8c12c829f14a24becba848",
-    "sha256Affiche": "e5a1208f13d42e634bcc83168c39d14b28087dee819150e787ab82dc4244c2ab"
+    "sha256": "0f7bc65127a2f02666da6f8017e08f2041e04ba1d88bd5b17e340e5379fb80ec",
+    "sha256Affiche": "4f0b0239c72877433a1539af9162ee0d4467bfc932b1250bff8027945e27f04f"
    }
   },
   "TRC": {
@@ -1600,8 +1600,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "df511ce651ac601d9e000bf3dca1bd018d89ebed07ba31342cc2c00fef00a7c4",
-    "sha256Affiche": "02632de672232681f4eb490c3fddda5a5cf0bc0f34cfa2a8c300222828e8ab7b"
+    "sha256": "b7c03671d6b240ab202e7dcce665219a0a120814bc98c1e1b3ffa75e12cfad08",
+    "sha256Affiche": "f8aa3372badd209c5b4375f7b47690f38b49a5f862ec51b4d35fbdf979df34d5"
    }
   },
   "QRT": {
@@ -1663,8 +1663,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "f07ce1f66ca3c1af34d4625d47dbae26ff915fb52131d9218cded667249405ac",
-    "sha256Affiche": "49bd0469bbcd45a5fd667dd963cc4bfae64887e20559f8f75f3b377b3cb01490"
+    "sha256": "f954108b05b6a75c394ca5d7bf548a7c750f77506841ea4e60a8a8381f718d8e",
+    "sha256Affiche": "8994ccbc4fa342123bd19a26ea8ad1132f22059672f538a711f86257f7e3afb5"
    }
   },
   "ESC": {
@@ -1726,8 +1726,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "4ee15a5f59520877ce18635b556587bfbb93201324a0df46cfb869a5d9fbfe87",
-    "sha256Affiche": "18f1e9a8b2f6d73841780250470b2bdb9797c7c025bdfb8c142d429ab020dbe3"
+    "sha256": "631c2c2657f4e341a1a59686391786a12474568b6194d776084920c5d9393edf",
+    "sha256Affiche": "4e38628a591727bc7c11694812ba0195aee0c51cb3e27e7ac53c761ab185a05c"
    }
   },
   "PCA12": {
@@ -1789,8 +1789,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "14810703abd806aad9a956b04e51372324f0cfd499ac1639ae727fa543716b04",
-    "sha256Affiche": "612cf052a8a1853f1092fdaeae9dfdbe6af481b43fb877fbe18c48e9986af4ad"
+    "sha256": "cf13dcf60887ed9ab1bc7782f67856e33a361c3292edb30679214f8754dcbb2b",
+    "sha256Affiche": "9f716b6239be645436bdc64c0dac18b6bdf656a721044f795e7392e1592b986e"
    }
   },
   "SEC13": {
@@ -1852,8 +1852,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "1a7efada04bd8d9be2baba10d945509df8793dafb3e84f243903d12edf05be6b",
-    "sha256Affiche": "f655d7e9aa6331ad7dc307a18920be613ef16d8831af293f06f04dbc961f0764"
+    "sha256": "9e8fb46b86ff53bb4f1e4e0e143aab614abb1f85950e92de8122355c893fcea2",
+    "sha256Affiche": "d53e572205f378b8feaea8a1a6388595c4cb66f855ef178f794b3fc80ed942d9"
    }
   },
   "LOS25": {
@@ -1915,8 +1915,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "fc195ea2b17ba6fceea015d65216d7e2a1b9273bfe3e46e4024986ecd4e74ae4",
-    "sha256Affiche": "c2f8381fbcfb70939c6ebd553e82b7c8d9622384caf304973a22fb814326bf58"
+    "sha256": "24aa315319f4906308b1bfd6d38cb721355bfb83d4383228a41bcf82aaf77f49",
+    "sha256Affiche": "64d55c3ec169165dddd1abbdea51178eb3ece02f27035e7643c6626c891714a5"
    }
   },
   "CAD36": {
@@ -1978,8 +1978,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "a5ec85440e7c0da80277632ea4784273d58d1e64761e43e46c4c2e0f1f971b61",
-    "sha256Affiche": "4049102c8fe6b85d3fcaa2f84413987267eb1c988633e7aa0835be402fa292b7"
+    "sha256": "61c28b5346712bf744bed7a3d40286d96eca82f897e4fecb2153478653ba9c40",
+    "sha256Affiche": "6235ea08ec9b2abd67ae13a3132b9ebfd317cc893885fb27dc7c7fc4d7aa939b"
    }
   },
   "P+E95": {
@@ -2041,8 +2041,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "34655897fcfef742c0ff86094e907c23ceac80e5b1b52510a832b0f5af2ecf94",
-    "sha256Affiche": "67f30dc158d7a970cc27dc11d90a5a483c4f9b8febb2a1b3b9e463e7018f3450"
+    "sha256": "1737db7aaa4cadbfe067143ca05a03ba7224942407d951a0574f21cb1f2e1614",
+    "sha256Affiche": "aaeac52168b259924316f4aa1aad2ab8a387c107b2f680eefb71bab52f36f5fa"
    }
   },
   "P+R45": {
@@ -2104,8 +2104,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "97a0eb94f2e85ff9885fd8e3fa2a5c51116c8f98538dc45853be4c01eda5ab18",
-    "sha256Affiche": "bd7c0c47037bfb9ab478b408f70f9556124b62b2eec5831ad0da977978e95d6d"
+    "sha256": "216d0057fa259612374f805c7773e9b0f4d7311a2584b0c00636902b06003ff1",
+    "sha256Affiche": "da8c3b324ead2169c5c10cca88d0b492045a041598f45b04c92e96dc6861ba5e"
    }
   },
   "P+C70": {
@@ -2167,8 +2167,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "27171370531daf80d057c8cfa62792603cc99b2e8cc48a15f83ae99eadeff0f3",
-    "sha256Affiche": "e389de1c8396d1034115909e3cf1a0743da43f25a9f53873734efbece056dc2d"
+    "sha256": "2c71ed179595ed58b4b1c39e590ecf5310ee02d793f4c1c1b6a820180e7b07e9",
+    "sha256Affiche": "ecd40753c1b481e4eb0603d0194b18fe3df773c067614e2daec3129419fcf347"
    }
   },
   "P+R80": {
@@ -2230,8 +2230,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "37a50ee4bbfed0f4b120ec1aec910e51901b94e670cacfaee4bb7728d227b5f7",
-    "sha256Affiche": "f72b96683d9e41278d52627f55ea801820183fae4bc69673dc454b8940dc52dd"
+    "sha256": "12ce9f79a36d75ca1b18c1a19f60515dc402d8ea290a80128a49b0ee13557d70",
+    "sha256Affiche": "4b439b5d18477be0a70c98863ef8fdc07f690f43dde13bbb79ee081a5b52880b"
    }
   },
   "P+X87": {
@@ -2293,8 +2293,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "3b3dac24f0dbafd0669b69ffea847d362f34efeccddba20ae3f3a27b0b441b57",
-    "sha256Affiche": "181ed6f586a2ab6bab01a81fdf415aba32e0d7cbd0132ca52ed37938f71a1110"
+    "sha256": "3f219649712af4eac55d41ca42a5576f4ba278f2ada43fa831024efbde4d30e0",
+    "sha256Affiche": "e93e7a6aeaefbf9f2dd740725cd51f6626e5f4680848c7d8d6f0c9b3c809cf8e"
    }
   },
   "P+L95": {
@@ -2356,8 +2356,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "0f397b2fb30633bf7c30c213dd55f209c3285c618ef26dbfc777f566426265bc",
-    "sha256Affiche": "491543260783b7fcb25cafdaaa8620a7807daca44187e60a8b189e94086c0de4"
+    "sha256": "fb192182f1a05d811b10277807435e07ac156a2b7bd466a4cb8b1401d765002b",
+    "sha256Affiche": "63b2904b853a4723bc6e4b8f1144e0e17d3d0c9a3955cd820435b2daf3296762"
    }
   },
   "B3D+E95": {
@@ -2419,8 +2419,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "22d591c96f9b60381161c7680f099c07b5b5d814381856702a789ae7bb17dc2c",
-    "sha256Affiche": "b5bf68506325fdb0c715a14ae7b6e516bc00480f409a8c4646f1d43eba094c6c"
+    "sha256": "395b8b0eb68631101b1e4ebb3b72563b8e3138c381318ea93c90bd7d709141fb",
+    "sha256Affiche": "f0221f9d1730ff994341764802de5bc087752ae0e8a4f7edce82408460f47a1a"
    }
   },
   "CCE+E95": {
@@ -2482,8 +2482,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "034f277b27da5edd512e8bb360317b5a69030cc651b4f350a2e5b2ba0954aacc",
-    "sha256Affiche": "794284c550904706ca14a673e07630c9d0765134ce2e59225aa99e2df9c9a539"
+    "sha256": "0a12f9c3d1edaf1567a3410df08404b49e0c82fdf9e82b2e021a68b774e535aa",
+    "sha256Affiche": "6428a4595724924723c45bcb2fd405340a77c54669d43050b4fe201783bd44cf"
    }
   },
   "QT+R45": {
@@ -2545,8 +2545,8 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "5b769b5aa1d843981f26304e875e84032a033998b8e10f621bfdf8f9ba2391e5",
-    "sha256Affiche": "5c8b0837995efd1a0ed79b091da13f0110949292bf35f9e1a8435a7950e8ef35"
+    "sha256": "8fbcb724b8a6c7fb58028b6d451f142e4837c578a0fb83da90a0bae1a147cf9c",
+    "sha256Affiche": "d16e318b2889868cebac88f614e7f301db7f6abd4134d5c74dc0fa72db6b9d89"
    }
   },
   "BA50+E95": {
@@ -2608,12 +2608,12 @@
     "recette": "proche-binaire-32-famille-v3",
     "image": 23,
     "images": 1560,
-    "sha256": "c3f0b7b7e0b2aec59814e35da36ec24e653cfced5127d37deb812d00c21efb73",
-    "sha256Affiche": "421e9a10bc21eb82feb611f089599533a6c3d148b5706c09199c927b332fe1db"
+    "sha256": "4067d039b4cfc49769bca239337d20ea8bbfe315c0c99adad509065997668616",
+    "sha256Affiche": "a7c480c8ffe337c4b8b48bcf2c8ebbc75a7a6451ff785c602660faba3dcdcad9"
    }
   }
  },
- "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette.",
+ "_doc_recette": "« recette » : l'animation de la collection, fixée une fois par tools/recettes_animations.mjs — graine, liste ORDONNÉE des motifs (adresses des pages de motifs), durée de chaque motif et du fondu, carton de fin, cadence, densité (tuiles sur le petit côté). La vue (vitesse, couleurs) est au visiteur, dans l'URL de galerie-animations.html. « video » : l'animation de référence, produite hors navigateur par ffmpeg / libx264 (tools/video_reference.mjs, reproductible octet pour octet) et déposée (assets/animations/), et son affiche extraite du fichier (tools/affiches_animations.mjs). L'empreinte d'un fichier vidéo dépend des versions de Chromium et de ffmpeg : c'est l'empreinte du fichier DÉPOSÉ, inscrite ici, qui fait foi — jamais une valeur calculée ailleurs. Les vidéos se produisent APRÈS la ré-exportation des collections dans leur palette. CHANGEMENT DE STATUT, 2026-11-06 : pour alléger la publication (GitHub Pages refuse par intermittence plus de 1 Go), les 32 vidéos autres que B2 et P ont été réencodées (ffmpeg / libx264, CRF 26, preset veryfast, sans piste audio ; même résolution, même cadence, mêmes 1560 images) et redéposées par tools/affiches_animations.mjs depose, qui a recalculé leurs empreintes et réextrait leurs affiches. Ces 32 ne sont donc plus reproductibles octet pour octet par tools/video_reference.mjs ; seules B2 et P le restent (video_reference.mjs --verifie B2 P). Leurs originaux sont gardés, au même chemin, sur la branche archive-medias.",
  "_doc_series": "« series » : les quatre séries du corpus Pinterest, 256 images chacune, sous les MÊMES 256 noms de fichier (un par page de motif, 8 formes × h0…h31 ; le nom est le même en français et en anglais, la page anglaise sert de référence). Les noms de dossier sont gardés tels quels — des épingles portent ces adresses — même quand ils sont inexacts : « monochrome » désigne TROIS niveaux de gris. La palette de chaque série recopie assets/couleurs.js (check_couleurs.mjs) ; check_series_pinterest.py vérifie que chaque image l'emploie. Mesures du 2026-10-03 : dans chaque série, 224 images distinctes pour 256 fichiers — les 32 paires de grilles identiques de par2-yin-yang et par3-sans-yang-mut (hN ↔ h(N XOR 7)) ; voir docs/six-formes-independantes.md.",
  "series": {
   "corpus-1024": {

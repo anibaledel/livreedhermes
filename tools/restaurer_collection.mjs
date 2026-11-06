@@ -10,6 +10,11 @@
 // palette dans le nom du dossier, et inscrite au registre (« anciennes »).
 // C'est ce qui rend un retour de palette possible sans rien refaire.
 //
+// Depuis le 2026-11-06, les anciennes/ ne sont plus sur main (publication trop lourde) : elles
+// sont intactes, au même chemin, sur la branche archive-medias. Les rapatrier d'abord :
+//   git fetch origin archive-medias
+//   git checkout origin/archive-medias -- assets/motifs-pinterest/anciennes/<code>-<c0>-<c1>
+//
 //   node tools/restaurer_collection.mjs <code> <dossier gardé> [--temoin DIR]
 //     - --temoin DIR : une exportation fraîche du moteur actuel, dans la même
 //       palette (tools/export_pinterest_fonds.mjs <code> --palette … --sortie

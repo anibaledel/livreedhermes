@@ -136,7 +136,17 @@ export function verifier(racine) {
         else console.log(`${code} : vidéo remplacée (${x.recette}) intacte dans l'historique, commit ${x.commit.slice(0, 8)}`);
         continue;
       }
-      if (!existsSync(f)) ecarts.push(`${code} : vidéo gardée absente (${x.fichier})`);
+      if (!existsSync(f)) {
+        // 2026-11-06 : les anciennes/ ont quitté main (publication trop lourde) ; elles sont intactes,
+        // au même chemin, sur la branche archive-medias — on les y relit, SHA-256 compris
+        let octets = null;
+        for (const ref of ['origin/archive-medias', 'archive-medias']) {
+          try { octets = execFileSync('git', ['-C', racine, 'show', `${ref}:${x.fichier}`], { maxBuffer: 1 << 28, stdio: ['ignore', 'pipe', 'ignore'] }); break; } catch { /* essai suivant */ }
+        }
+        if (!octets) ecarts.push(`${code} : vidéo gardée absente (${x.fichier}), et introuvable sur la branche archive-medias`);
+        else if (createHash('sha256').update(octets).digest('hex') !== x.sha256) ecarts.push(`${code} : la vidéo gardée ${x.fichier}, lue sur archive-medias, a changé (SHA-256)`);
+        else console.log(`${code} : vidéo gardée ${x.fichier} (${x.palette.join(' / ')}), lue sur archive-medias, inchangée`);
+      }
       else if (sha(f) !== x.sha256) ecarts.push(`${code} : la vidéo gardée ${x.fichier} a changé (SHA-256)`);
       else console.log(`${code} : vidéo gardée ${x.fichier} (${x.palette.join(' / ')}), inchangée`);
     }

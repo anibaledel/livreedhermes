@@ -96,6 +96,8 @@ jobs:
           for c in $(node -e "const r=require('./data/fonds/collections-pinterest.json');for(const c of Object.values(r.collections))for(const v of c.videosAnciennes||[])if(v.remplacee&&v.commit)console.log(v.commit)" | sort -u); do
             git fetch --no-tags --depth=1 origin "$c"
           done
+      # les vidéos gardées hors de main (anciennes/) se relisent sur la branche archive-medias
+      - run: git fetch --no-tags --depth=1 origin archive-medias:refs/remotes/origin/archive-medias
       - run: node tools/affiches_animations.mjs --verifie
       # la galerie en sept pages × huit langues : écrite depuis data/galerie-animations.json
       # (aucune page périmée), et ses vignettes WebP tirées de l'affiche du registre
