@@ -1167,3 +1167,4 @@ De moi, à relire :
 ## CI — à faire plus tard
 
 - Mettre à jour les actions vers les versions Node 24 ; vérifier les workflows sous Ubuntu 26. (Les journaux signalent `actions/checkout@v4`, `setup-node@v4` et `setup-python@v5` sur Node.js 20, obsolète, et le passage de `ubuntu-latest` à Ubuntu 26. Sans effet pour l'instant.)
+- Choisir entre *Mesure* et *Le Jeu* pour le chapitre VIII. (Le lecteur du livre, `data/livre/chapitres.json`, et la page 093 du PDF disent « Chapitre VIII — Mesure » ; le dépôt Zenodo des 360 plaques (10.5281/zenodo.23189275) s'intitule « Chapitre VIII — Le Jeu » et la dernière page du livre annonce « le jeu ». Tant que ce n'est pas tranché, aucune page du site ne doit nommer ce chapitre là où les deux noms se contredisent.)
