@@ -48,7 +48,7 @@ if (!essai) {
     'g=json.load(sys.stdin)',
     "print(json.dumps({'shells':m.shells12,'v':[m.spectrum_of(1-np.array(x).reshape(12,12)).tolist() for x in g]}))",
   ].join('\n');
-  const sortie = JSON.parse(execFileSync('python3', ['-I', '-c', script, path.join(ROOT, 'tools/musique_chladni_recette_12.py')], { input: entree, encoding: 'utf8' }));
+  const sortie = JSON.parse(execFileSync('python3', ['-c', script, path.join(ROOT, 'tools/musique_chladni_recette_12.py')], { input: entree, encoding: 'utf8' }));
   ok(JSON.stringify(sortie.shells) === JSON.stringify(M.SHELLS12), 'les cercles K du moteur ne sont pas ceux de la recette');
   let pire = 0;
   choix.forEach((i, j) => { const v = M.spectreDuMotif(corpus.lum[i]); v.forEach((x, k) => { pire = Math.max(pire, Math.abs(x - sortie.v[j][k])); }); });
