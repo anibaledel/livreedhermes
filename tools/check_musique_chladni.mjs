@@ -125,6 +125,36 @@ try {
   await page.click('#vmAnnuler');
   ok((await etat()).valide.pal !== 'son', 'la teinte qui suit le son doit être désactivée par défaut');
 
+
+  // plein écran : couvre la fenêtre, aucun étirement, cases carrées (1920 × 1080 et 390 × 844 en portrait)
+  const mesurePlein = (pg) => pg.evaluate(() => {
+    const c = document.getElementById('vmPleinToile'), W = c.width, H = c.height, d = c.getContext('2d').getImageData(0, 0, W, H).data, r = c.getBoundingClientRect(), n = {};
+    for (let k = 0; k < d.length; k += 4 * 29) { const q = `${d[k]},${d[k + 1]},${d[k + 2]}`; n[q] = (n[q] || 0) + 1; }
+    const pal = Object.entries(n).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([q]) => q.split(',').map(Number)), cl = new Uint8Array(W * H);
+    for (let i = 0; i < W * H; i++) { let bj = 0, bd = 1e9; for (let j = 0; j < 3; j++) { const e = (d[i * 4] - pal[j][0]) ** 2 + (d[i * 4 + 1] - pal[j][1]) ** 2 + (d[i * 4 + 2] - pal[j][2]) ** 2; if (e < bd) { bd = e; bj = j; } } cl[i] = bj; }
+    const premier = (hist, attendu) => { const tot = Object.values(hist).reduce((a, b) => a + b, 0), cles = Object.keys(hist).map(Number).filter((l) => l >= attendu * 0.6).sort((a, b) => a - b); return cles.find((l) => hist[l] > tot * 0.04); };
+    const hh = {}, hv = {}, attendu = window.__voirSaMusique.caseAttendue();
+    for (let y = 3; y < H; y += 37) { let run = 1; for (let x = 1; x < W; x++) { if (cl[y * W + x] === cl[y * W + x - 1]) run++; else { if (x - run > 0) hh[run] = (hh[run] || 0) + 1; run = 1; } } }
+    for (let x = 3; x < W; x += 37) { let run = 1; for (let y = 1; y < H; y++) { if (cl[y * W + x] === cl[(y - 1) * W + x]) run++; else { if (y - run > 0) hv[run] = (hv[run] || 0) + 1; run = 1; } } }
+    return { W, H, rect: { x: r.x, y: r.y, w: r.width, h: r.height }, iw: innerWidth, ih: innerHeight, fs: !!document.fullscreenElement, caseH: premier(hh, attendu), caseV: premier(hv, attendu), attendu };
+  });
+  for (const [w, h] of [[1920, 1080], [390, 844]]) {
+    const pg = await (await navigateur.newContext({ viewport: { width: w, height: h } })).newPage();
+    await pg.goto(`${base}/musique-chladni.html`); await pg.waitForFunction(() => window.__voirSaMusique); await pg.selectOption('#vmSource', 'j2'); await pg.click('#vmLecture');
+    await pg.click('#vm-g-view-btn'); await pg.click('#vm-o-view-pavage'); await pg.click('#vmValider'); await pg.waitForTimeout(500);
+    await pg.click('#vmPleinBtn'); await pg.waitForTimeout(900);
+    const m = await mesurePlein(pg);
+    ok(Math.abs(m.rect.x) <= 1 && Math.abs(m.rect.y) <= 1 && Math.abs(m.rect.w - m.iw) <= 1 && Math.abs(m.rect.h - m.ih) <= 1, `plein écran ${w} × ${h} : le canvas ne couvre pas la fenêtre ${JSON.stringify(m.rect)}`);
+    ok(Math.abs(m.W / m.rect.w - m.H / m.rect.h) * m.rect.w <= 1, `plein écran ${w} × ${h} : le bitmap ${m.W} × ${m.H} est étiré dans ${m.rect.w} × ${m.rect.h}`);
+    ok(m.caseH && m.caseV && Math.abs(m.caseH - m.caseV) <= 1, `plein écran ${w} × ${h} : cases de ${m.caseH} × ${m.caseV} px (carrées à 1 px près attendues)`);
+    ok(m.caseH && Math.abs(m.caseH - m.attendu) <= 1.5, `plein écran ${w} × ${h} : case de ${m.caseH} px, ${m.attendu.toFixed(1)} px attendus (l'échelle de la fenêtre validée)`);
+    if (w === 1920) await pg.screenshot({ path: process.env.CAPTURE_PLEIN || '/tmp/claude-0/plein-1920.png' });
+    await pg.keyboard.press('Escape'); await pg.waitForTimeout(300);
+    ok(await pg.isHidden('#vmPlein'), `plein écran ${w} × ${h} : Échap doit refermer la scène`);
+  }
+  // la fenêtre montre 2 × l'ordre cases de large : 24, 36, 60 (2 × 2 tuiles à l'ordre 12, une seule tuile aux ordres 18 et 30)
+  ok(await page.evaluate(() => [12, 18, 30].map((o) => window.__voirSaMusique.tuilesParCote(o) * window.__voirSaMusique.M.GRILLE[o]).join()) === '24,36,60', 'la fenêtre doit montrer 24, 36 et 60 cases de large aux ordres 12, 18 et 30');
+
   // enregistrement : trois secondes
   await page.locator('#vmEnregistrement').evaluate((n) => { n.closest('details').open = true; });
   await page.selectOption('#vmFormatVideo', '45');

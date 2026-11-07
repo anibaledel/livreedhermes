@@ -103,10 +103,15 @@ function tuile(col, j, vue, fond, c, T) {
   x.putImageData(im, 0, 0); cacheTuiles.set(cle, t); if (cacheTuiles.size > 120) cacheTuiles.delete(cacheTuiles.keys().next().value);
   return t;
 }
-/** Le pavage 2 × 2 par translation (jamais de miroir), qui continue à remplir un cadre plus long que large. */
-function pavage(ctx, W, H, t, alpha) {
-  const s = Math.min(W, H) / CONFIG.pavage, ox = (W - s * Math.ceil(W / s)) / 2, oy = (H - s * Math.ceil(H / s)) / 2;
-  ctx.globalAlpha = alpha; for (let y = oy; y < H; y += s) for (let x = ox; x < W; x += s) ctx.drawImage(t, x, y, s, s); ctx.globalAlpha = 1;
+// Combien de tuiles par côté dans une fenêtre : la fenêtre montre 2 × l'ordre cases de large (équilibre
+// « 4 blocs de 12, de 18, de 30 » voulu par l'auteur) — 24 cases à l'ordre 12 (2 × 2 tuiles de 12 × 12),
+// 36 à l'ordre 18 et 60 à l'ordre 30 (UNE tuile de 36 × 36, de 60 × 60 : un décalage de 18 ou de 30 cases
+// donne l'image inversée, ce ne sont pas quatre copies).
+const tuilesParCote = (fmt) => Math.max(1, (CONFIG.pavage * fmt) / M.GRILLE[fmt]);
+// Le pavage par translation (jamais de miroir) : tuiles de `s` points (par défaut le cadre / le nombre de tuiles), centré, qui remplit tout le cadre.
+function pavage(ctx, W, H, t, alpha, fmt = 12, s = Math.min(W, H) / tuilesParCote(fmt)) {
+  const ox = (W - s * Math.ceil(W / s)) / 2, oy = (H - s * Math.ceil(H / s)) / 2;
+  ctx.globalAlpha = alpha; for (let y = oy; y < H - 0.01; y += s) for (let x = ox; x < W - 0.01; x += s) ctx.drawImage(t, x, y, s, s); ctx.globalAlpha = 1;
 }
 
 // ---------- une fenêtre : sa configuration, son pilote, son rendu ----------
@@ -122,11 +127,11 @@ class Fenetre {
   }
   reglages() { if (this.p) this.p.reglages(this.options()); }
   pas(attaque) { if (!S.pause) this.dernier = this.p.pas({ v: profilDe(S.blocs.get(this.cfg.col)).lisse, attaque, t: S.tSim }); }
-  peindre(ctx = this.ctx, W = this.cv.width, H = this.cv.height, T = C.tuileFenetre) {
+  peindre(ctx = this.ctx, W = this.cv.width, H = this.cv.height, T = C.tuileFenetre, s) {
     const c = this.cfg, pal = couleurs(c), d = this.dernier;
     ctx.fillStyle = hex(pal[1]); ctx.fillRect(0, 0, W, H);
-    if (d.fondu < 1 && d.ancien >= 0) { pavage(ctx, W, H, tuile(c.col, d.ancien, c.view, c.fond, c, T), 1); pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), d.fondu); }
-    else pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), 1);
+    if (d.fondu < 1 && d.ancien >= 0) { pavage(ctx, W, H, tuile(c.col, d.ancien, c.view, c.fond, c, T), 1, c.fmt, s); pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), d.fondu, c.fmt, s); }
+    else pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), 1, c.fmt, s);
   }
 }
 
@@ -155,7 +160,7 @@ function boucle(ms) {
   if (essaiF.dernier.fondu < 1) { essaiF.dernier.fondu = Math.min(1, essaiF.dernier.fondu + dt / 1000 / (C.fonduSecondes * (S.calme ? 3 : 1))); }
   S.fps = S.fps ? S.fps * 0.92 + (1000 / Math.max(1, dt)) * 0.08 : 1000 / Math.max(1, dt);
   valide.peindre(); essaiF.peindre(undefined, undefined, undefined, S.tuileEssai);
-  if (enPleinEcran) valide.peindre($('vmPleinToile').getContext('2d'), $('vmPleinToile').width, $('vmPleinToile').height, C.tuilePleinEcran);
+  if (enPleinEcran) { const pc = $('vmPleinToile'); valide.peindre(pc.getContext('2d'), pc.width, pc.height, C.tuilePleinEcran, tuilePleinEcran(pc)); }
   if (projection && !projection.win.closed) { const c = projection.canvas; if (c.width !== 720) c.width = c.height = 720; valide.peindre(c.getContext('2d'), 720, 720, C.tuileFenetre); }
   if (rec) composer();
   if (Math.floor(ms / 500) !== dernierInfo) { dernierInfo = Math.floor(ms / 500); majInfo(); adapter(); if (esel.pal === 'son' || valCfg.pal === 'son') dessinerMiniatures(); }
@@ -299,12 +304,36 @@ function lancerEnregistrement() {
 function arreterEnregistrement() { if (rec && rec.mr.state !== 'inactive') rec.mr.stop(); }
 
 // ---------- plein écran (toujours la fenêtre validée) et projection ----------
-function pleinEcran() {
-  const f = $('vmPlein'); if (!f.requestFullscreen) return message(T('pleinEcranIndispo'));
-  f.hidden = false; const c = $('vmPleinToile'); c.width = Math.max(720, screen.width); c.height = Math.max(720, screen.height);
-  f.requestFullscreen().then(() => { enPleinEcran = true; }).catch(() => { f.hidden = true; message(T('pleinEcranIndispo')); });
+// Le plein écran. Cause de l'ancien défaut : le canvas était dimensionné à l'écran (largeur × hauteur) mais la
+// feuille de style lui imposait `aspect-ratio: 1` et `max-width/max-height` — le bitmap 16:9 était affiché dans
+// une boîte carrée, donc étiré, et la scène ne couvrait pas l'écran. Maintenant : l'élément de la scène passe en
+// plein écran par l'API Fullscreen (préfixe webkit en repli) ; sans elle (iPhone), la scène est en position fixe
+// sur toute la fenêtre ; le canvas fait exactement la taille CSS de la scène × la densité de pixels (plafonnée),
+// sans aucun étirement ; il est redessiné au changement de taille ou d'orientation.
+let pleinNatif = false;
+const pleinDemandeNatif = () => document.fullscreenElement || document.webkitFullscreenElement;
+function calerPlein() {
+  const f = $('vmPlein'), c = $('vmPleinToile'), cw = f.clientWidth || innerWidth, ch = f.clientHeight || innerHeight;
+  let k = Math.min(window.devicePixelRatio || 1, 2); const px = cw * ch * k * k, PLAFOND = 4.2e6; if (px > PLAFOND) k *= Math.sqrt(PLAFOND / px); // la cadence d'abord
+  const w = Math.max(2, Math.round(cw * k)), h = Math.max(2, Math.round(ch * k));
+  if (c.width !== w || c.height !== h) { c.width = w; c.height = h; }
+  c.dataset.echelle = String(w / cw); // points du canvas par pixel CSS
 }
-function sortiePleinEcran() { const f = $('vmPlein'); f.hidden = true; enPleinEcran = false; f.classList.remove('vm-masque'); }
+// La taille d'une tuile en plein écran : l'échelle de case de la fenêtre validée (tuile de `grille` cases), en points du canvas.
+function tuilePleinEcran(c) {
+  const fmt = valCfg.fmt, g = M.GRILLE[fmt], cvF = $('vmValideToile'), cssFenetre = (cvF && cvF.getBoundingClientRect().width) || 260, caseCss = cssFenetre / (CONFIG.pavage * fmt);
+  return caseCss * g * (Number(c.dataset.echelle) || 1);
+}
+function pleinEcran() {
+  const f = $('vmPlein'), natif = f.requestFullscreen || f.webkitRequestFullscreen;
+  f.hidden = false; enPleinEcran = true; f.classList.remove('vm-masque'); calerPlein(); veilleScene();
+  const repli = () => { pleinNatif = false; message(T('pleinEcranRepli'), true); calerPlein(); }; // scène fixe sur toute la fenêtre
+  if (!natif) return repli();
+  pleinNatif = true;
+  try { const p = natif.call(f); if (p && p.catch) p.catch(repli); } catch { repli(); }
+}
+function sortiePleinEcran() { const f = $('vmPlein'); f.hidden = true; enPleinEcran = false; pleinNatif = false; f.classList.remove('vm-masque'); }
+function quitterPlein() { if (pleinDemandeNatif()) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } sortiePleinEcran(); }
 function veilleScene() { const f = $('vmPlein'); f.classList.remove('vm-masque'); clearTimeout(minuteurScene); if (enPleinEcran) minuteurScene = setTimeout(() => f.classList.add('vm-masque'), CONFIG.scene.masquerApresMs); }
 function ouvrirProjection() {
   const w = window.open('', 'voir-sa-musique-projection', 'popup,width=960,height=540');
@@ -376,7 +405,8 @@ function dessinerMiniatures() {
       x.putImageData(im, 0, 0);
     } else { // format, collection : le motif lui-même (vue Cellules), jamais une figure « signes »
       const col = cle === 'col' ? valeur : colDefaut(+valeur);
-      if (S.blocs.has(col)) x.drawImage(tuile(col, 0, 'pavage', esel.fond, { ...esel, col }, 360), 0, 0, 68, 68); else { x.fillStyle = hex(pal[1]); x.fillRect(0, 0, 68, 68); }
+      x.fillStyle = hex(pal[1]); x.fillRect(0, 0, 68, 68);
+      if (S.blocs.has(col)) pavage(x, 68, 68, tuile(col, 0, 'pavage', esel.fond, { ...esel, col }, 360), 1, FMT_DE[col]); // la même fenêtre que les deux grandes : 2 × l'ordre cases de large
     }
   }
 }
@@ -443,7 +473,7 @@ function habiller() {
 function clavier(e) {
   if (e.target.closest && e.target.closest('input,select,textarea')) return;
   const k = e.key.toLowerCase(), vues = Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]);
-  if (e.key === 'Escape') { fermerTout(); return; }
+  if (e.key === 'Escape') { if (enPleinEcran) quitterPlein(); fermerTout(); return; }
   if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; viser(esel); rafraichir(); }
   else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; viser(esel); rafraichir(); }
   else if (k === 'p') { S.pause = !S.pause; $('vmPause').setAttribute('aria-pressed', String(S.pause)); }
@@ -458,16 +488,18 @@ export async function monter() {
   valide.setCfg(valCfg); essaiF.setCfg(esel);
   construireSon(); construireGroupes(); reglagesAvances(); commandesScene(); rafraichir();
   $('vmValider').addEventListener('click', valider); $('vmAnnuler').addEventListener('click', annuler); $('vmPleinBtn').addEventListener('click', pleinEcran);
-  $('vmQuitter').addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen(); sortiePleinEcran(); });
+  $('vmQuitter').addEventListener('click', quitterPlein);
   $('vmBasculeValide').addEventListener('click', () => document.body.classList.remove('vm-essai-seul'));
   $('vmBasculeEssai').addEventListener('click', () => document.body.classList.add('vm-essai-seul'));
   document.addEventListener('click', (e) => { if (!e.target.closest('.vm-opts')) fermerTout(); });
   document.addEventListener('keydown', clavier);
-  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) sortiePleinEcran(); });
+  const changePlein = () => { if (!enPleinEcran) return; if (!pleinDemandeNatif() && pleinNatif) sortiePleinEcran(); else calerPlein(); }; // sorti par Échap, ou redimensionné
+  for (const ev of ['fullscreenchange', 'webkitfullscreenchange']) document.addEventListener(ev, changePlein);
+  for (const ev of ['resize', 'orientationchange']) window.addEventListener(ev, () => { if (enPleinEcran) calerPlein(); });
   for (const ev of ['mousemove', 'pointerdown', 'keydown', 'touchstart']) document.addEventListener(ev, veilleScene);
   document.addEventListener('visibilitychange', () => { S.acc = 0; });
   if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', listerEntrees);
   window.addEventListener('pagehide', () => { arreterSource(); if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); });
   requestAnimationFrame(boucle);
-  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile };
+  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile, tuilesParCote, caseAttendue: () => tuilePleinEcran($('vmPleinToile')) / M.GRILLE[valCfg.fmt] };
 }
