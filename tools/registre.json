@@ -1830,10 +1830,8 @@
   },
   {
    "fichier": "tools/musique_chladni_donnees.mjs",
-   "role": "les données de la page « Voir sa musique » (ordre 12).",
+   "role": "les données d'ordre 12 de la page « Voir sa musique » (data/musique-chladni-12.json) sont celles du dépôt.",
    "lit": [
-    "data/fonds/collection-v1.calculs.json",
-    "data/fonds/collection-v1.json",
     "data/fonds_ecran_v1.json",
     "data/musique-chladni-12.json"
    ],
@@ -2528,8 +2526,10 @@
   },
   {
    "fichier": "tools/verify_musique_chladni.mjs",
-   "role": "le moteur de la page « Voir sa musique » (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.",
+   "role": "le moteur de « Voir sa musique » (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.",
    "lit": [
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
     "data/musique-chladni-12.json",
     "tools/musique_chladni_recette_12.py"
    ],

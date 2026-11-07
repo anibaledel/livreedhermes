@@ -15,12 +15,15 @@ export const CONFIG = Object.freeze({
     Object.freeze({ ordre: 18, actif: false, raison: 'seconde livraison' }),
     Object.freeze({ ordre: 30, actif: false, raison: 'seconde livraison' }),
   ]),
-  rendus: Object.freeze({ bicolore: true, tricolore: true }),
-  vues: Object.freeze({ signes: true, lignes: true, motif: true, fusion: true }), // « signes » : la vue par défaut
-  pilotage: Object.freeze({ image: true, rythme: true, guide: true }),
+  collections: Object.freeze({ tri: true, bi: true }),
+  vues: Object.freeze({ signes: true, lignes: true, pavage: true }), // à l'ordre 12 le format bascule sur « Cellules »
+  pilotage: Object.freeze({ image: true, rythme: true, chemin: true }),
   pulsation: true,   // « à chaque attaque » (par défaut), « à chaque temps », « toutes les 4 pulsations »
-  inspection: true,  // le mode d'inspection : le spectre de la musique et celui du motif, côte à côte
-  fonds: Object.freeze({ selecteur: true, defaut: 'B2', cycleSecondes: 8 }),
+  variantesDeCase: true, // les neuf fonds en bandes, rotation de 90° (bicolore seulement) ; B2 par défaut
+  teinteSuitLeSon: true, // désactivé par défaut
+  couleursPerso: true,
+  fenetreEssai: true,  // Validé / Essai
+  pavage: 2,         // 2 × 2, d'office, par translation (jamais par miroir)
 
   entrees: Object.freeze({ fichier: true, micro: true, peripheriques: true, captureOnglet: true, musiqueEssai: true, morceaux: true }),
 
@@ -37,17 +40,18 @@ export const CONFIG = Object.freeze({
 
   // Réglages initiaux du moteur (assets/musique-chladni-moteur.js)
   moteur: Object.freeze({
-    fref: 220,            // Hz, f_K = fref · √K / 2
-    resolutionFigure: 120, // côté du calcul de la figure ; réduit si la page n'atteint pas 30 images/s
+    fref: 220,            // Hz à l'ordre 12 (110 Hz aux ordres 18 et 30) : f_K = fref · √K / 2
     imagesParSeconde: 30,
     lissage: 0.45,        // part du nouveau spectre dans le lissage (0 = figé, 1 = brut)
-    sensibilite: 1,       // détection des notes (1 = réglage de l'auteur)
-    seuilLignes: 0.07,    // |F| < seuil : ligne nodale (0,03 à 0,12)
+    seuilAttaques: 0.45,  // en écarts-types au-dessus de la moyenne du flux (plus bas : plus sensible)
+    intervalleMinSecondes: 0.45, // entre deux attaques : réglable (au plus ~133 attaques par minute à 0,45 s)
     hysteresis: 0.07,
     tenueMinImages: 8,
     fonduSecondes: 0.3,
-    intervalleMinSecondes: 0.45,
     penteDesGraves: true,
+    teinteParImage: 3,    // la teinte qui suit le son : pente limitée à ±3° par image
+    tuileFenetre: 360,    // côté de la tuile des fenêtres Validé / Essai
+    tuilePleinEcran: 720, // côté de la tuile du plein écran et de l'enregistrement
   }),
 
   // Les 7 morceaux fournis (60 s chacun, compositions originales faites avec l'aide de l'IA)

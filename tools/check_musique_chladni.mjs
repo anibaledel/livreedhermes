@@ -7,10 +7,10 @@
 //
 //   - elle se charge sans erreur de script ; tous ses textes viennent de
 //     assets/musique-chladni-textes.js (aucun texte français en dur dans le code de l'interface) ;
-//   - un morceau fait choisir des motifs, dans chacune des quatre vues ; le bicolore dessine
-//     deux couleurs en « signes » et « lignes », le tricolore trois ;
-//   - les trois modes de pilotage, la pulsation, le mode d'inspection, le bicolore et le tricolore, les raccourcis (1 à 4, Espace,
-//     P, M), le sélecteur de fond ;
+//   - six en-têtes, deux fenêtres (Validé, Essai), l'aperçu au survol, Valider/Annuler ; les ordres
+//     18 et 30 désactivés ; les neuf variantes de case (bicolore seulement), deux couleurs chacune ;
+//   - un morceau fait choisir des motifs dans les trois vues et les trois modes ; le tricolore a trois valeurs ;
+//   - les raccourcis (1 à 3, Espace, V, P), Échap et le clic extérieur ferment un panneau ;
 //   - le micro (faux périphérique) démarre ; le refus du micro est dit clairement ;
 //   - rien n'est envoyé : aucune requête hors du site pendant l'usage ;
 //   - l'enregistrement fournit une vidéo (MP4 si le navigateur l'écrit, sinon WebM), avec du son ;
@@ -48,51 +48,72 @@ try {
   page.on('request', (r) => { const u = new URL(r.url()); if (u.origin !== origine && !/^(data|blob):/.test(r.url()) && !/cloudflareinsights|google|fonts\./.test(u.host)) externes.add(u.host); });
   if (essai) await page.route('**/assets/musique-chladni-moteur.js', (r) => r.fulfill({ contentType: 'text/javascript', body: 'export * from "/assets/musique-chladni-moteur-absent.js";' }));
   await page.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
-  await page.waitForSelector('#mcMorceau-j2', { timeout: 20000 });
-  const etat = () => page.evaluate(() => window.__musiqueChladni.etat());
-  const couleurs = () => page.evaluate(() => { const d = document.getElementById('mcCanvas').getContext('2d').getImageData(0, 0, 720, 720).data, s = new Set(); for (let i = 0; i < d.length; i += 4 * 101) s.add(`${d[i]},${d[i + 1]},${d[i + 2]}`); return s.size; });
+  await page.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
+  const etat = () => page.evaluate(() => window.__voirSaMusique.etat());
+  const couleurs = async (id) => { for (let t = 0; t < 40 && (await etat()).fondu < 1; t++) await page.waitForTimeout(100); return couleursBrut(id); };
+  const couleursBrut = (id) => page.evaluate((i) => { const c = document.getElementById(i), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; const n = {}; let t = 0; for (let k = 0; k < d.length; k += 4 * 13) { const q = `${d[k] >> 5},${d[k + 1] >> 5},${d[k + 2] >> 5}`; n[q] = (n[q] || 0) + 1; t++; } let cum = 0, m = 0; for (const x of Object.values(n).sort((a, b) => b - a)) { cum += x; m++; if (cum / t >= 0.75) break; } return m; }, id);
+  const trace = (id) => page.evaluate((i) => { const c = document.getElementById(i), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data, n = {}; let t = 0; for (let k = 0; k < d.length; k += 4 * 13) { const q = `${d[k] >> 5},${d[k + 1] >> 5},${d[k + 2] >> 5}`; n[q] = (n[q] || 0) + 1; t++; } return Object.values(n).filter((x) => x / t > 0.003).length; }, id);
+  const ouvrir = async (g) => { await page.click(`#vm-g-${g}-btn`); };
+  const choisir = async (g, v) => { await ouvrir(g); await page.click(`#vm-o-${g}-${v}`); };
 
-  await page.click('#mcMorceau-j2'); await page.waitForTimeout(3500);
+  // six en-têtes, deux fenêtres, ordre 12 seul
+  ok((await page.$$('.vm-opts .vm-grp > h3 > button')).length === 6, 'six en-têtes attendus');
+  ok(await page.isDisabled('#vm-o-fmt-18') && await page.isDisabled('#vm-o-fmt-30'), 'les ordres 18 et 30 doivent être désactivés');
+  ok((await page.$$('#vm-g-fond .vm-o')).length === 9, 'neuf variantes de case attendues');
+  ok(await page.isHidden('#vm-g-fond'), 'la variante de case ne s’applique qu’au bicolore : cachée au tricolore');
+
+  await page.selectOption('#vmSource', 'j2'); await page.click('#vmLecture'); await page.waitForTimeout(3500);
   let e = await etat();
   ok(e.source === 'morceau' && e.motif >= 0, `un morceau ne choisit aucun motif (${JSON.stringify(e)})`);
   ok(e.fps >= 15, `${e.fps.toFixed(1)} images par seconde, 15 au moins attendues`);
-  ok(await couleurs() === 2, 'bicolore, vue « signes » : deux couleurs attendues');
-  await page.click('#mcVue-lignes'); await page.waitForTimeout(800);
-  ok(await couleurs() === 2, 'bicolore, vue « lignes » : deux couleurs attendues');
-  await page.click('#mcVue-motif'); await page.waitForTimeout(1200);
-  ok(await couleurs() >= 2, 'bicolore, vue « motif » : rien de dessiné');
-  await page.click('#mcVue-fusion'); await page.waitForTimeout(500);
-  await page.click('#mcMode-rythme'); await page.waitForTimeout(2500);
-  ok((await etat()).mode === 'rythme', 'le mode « rythme » ne s’active pas');
-  await page.click('#mcRendu-tricolore'); await page.click('#mcVue-signes'); await page.waitForTimeout(1500);
-  ok(await couleurs() === 3, 'tricolore, vue « signes » : trois gris attendus');
-  await page.click('#mcRendu-bicolore');
+  ok(await couleurs('vmValideToile') === 2, 'tricolore, vue « signes » : la palette crème a deux couleurs');
+  ok(e.motif === e.motifEssai, 'les deux fenêtres, mêmes réglages, doivent montrer le même motif');
 
-  // raccourcis (après un clic à la souris, le bouton rend le focus)
-  await page.keyboard.press('3'); ok((await etat()).vue === 'motif', 'touche 3 : vue « motif » attendue');
-  await page.keyboard.press('Space'); ok((await etat()).mode === 'guide', 'Espace : le mode « guide » suit le mode « rythme »');
-  await page.keyboard.press('Space'); ok((await etat()).mode === 'image', 'Espace : retour au mode « image » attendu');
-  await page.click('#mcMode-guide'); await page.waitForTimeout(2500); ok((await etat()).mode === 'guide' && (await etat()).motif >= 0, 'le mode « guide » ne choisit aucun motif');
-  ok(await page.isVisible('#mcPulsation'), 'le choix de la pulsation manque');
-  await page.check('#mcInspecter'); await page.waitForTimeout(600); ok(await page.isVisible('#mcInspection'), 'le mode d’inspection n’affiche rien');
-  ok(await page.evaluate(() => { const d = document.getElementById('mcInspection').getContext('2d').getImageData(0, 0, 720, 160).data; const s = new Set(); for (let i = 0; i < d.length; i += 4 * 211) s.add(d[i] + ',' + d[i + 1] + ',' + d[i + 2]); return s.size >= 2; }), 'le mode d’inspection est vide');
-  await page.uncheck('#mcInspecter');
-  await page.keyboard.press('m'); ok((await etat()).rendu === 'tricolore', 'touche M : tricolore attendu'); await page.keyboard.press('m');
-  await page.keyboard.press('p'); ok(await page.getAttribute('#mcPause', 'aria-pressed') === 'true', 'touche P : pause attendue'); await page.keyboard.press('p');
-  await page.click('#mcFondMode-cycle'); await page.selectOption('#mcFond', await page.$$eval('#mcFond option', (o) => o[1].value)); ok((await etat()).fond !== 'B2', 'le sélecteur de fond ne change pas le fond');
+  // aperçu au survol : l'essai change, le validé non
+  await ouvrir('col'); await page.hover('#vm-o-col-bi'); await page.waitForTimeout(500);
+  const cap = await page.textContent('#vmEssaiCap'), capV = await page.textContent('#vmValideCap');
+  ok(/Bicolore/.test(cap) && /Tricolore/.test(capV), `aperçu au survol : légende de l'essai « ${cap} », du validé « ${capV} »`);
+  await page.click('#vm-o-col-bi'); await page.waitForTimeout(300);
+  ok(await page.isVisible('#vm-g-fond'), 'la variante de case doit apparaître au bicolore');
+  ok((await etat()).valide.col === 'tri', 'le validé ne doit pas changer avant « Valider l’essai »');
+  await page.click('#vmValider'); await page.waitForTimeout(500);
+  e = await etat(); ok(e.valide.col === 'bi', 'Valider l’essai : le validé doit devenir bicolore');
+  ok(await couleurs('vmValideToile') === 2, 'bicolore, signes : deux couleurs attendues');
+  // clic à l'extérieur et Échap ferment le panneau
+  await ouvrir('view'); await page.mouse.click(5, 5); ok(!(await page.$('.vm-grp.open')), 'un clic à l’extérieur doit fermer le panneau');
+  await ouvrir('view'); await page.keyboard.press('Escape'); ok(!(await page.$('.vm-grp.open')), 'Échap doit fermer le panneau');
+  // vues
+  for (const v of ['lignes', 'pavage', 'signes']) { await choisir('view', v); await page.click('#vmValider'); await page.waitForTimeout(500); await couleurs('vmValideToile'); ok(await trace('vmValideToile') >= 2, `vue « ${v} » : rien de dessiné`); }
+  // variante de case : les 9 bandes se dessinent, deux couleurs
+  await choisir('view', 'pavage'); await page.click('#vmValider');
+  for (const id of await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))) { await choisir('fond', id); await page.click('#vmValider'); await page.waitForTimeout(150); ok(await couleurs('vmValideToile') === 2, `variante ${id} : deux couleurs attendues`); }
+  // tricolore : trois valeurs
+  await choisir('col', 'tri'); await choisir('pal', 'creme'); await choisir('view', 'pavage'); await page.click('#vmValider'); await page.waitForTimeout(500);
+  ok(await couleurs('vmValideToile') === 3, 'tricolore, cellules : trois valeurs attendues');
+  // modes : changer de mode après plusieurs pas ne casse rien
+  for (const m of ['rythme', 'chemin', 'image']) { await choisir('mode', m); await page.click('#vmValider'); await page.waitForTimeout(1800); const x = await etat(); ok(x.valide.mode === m && x.motif >= 0, `mode « ${m} » : pas de motif`); }
+  // raccourcis
+  await page.mouse.click(5, 5); await page.keyboard.press('2'); ok((await etat()).essai.view === 'lignes', 'touche 2 : vue « lignes » attendue');
+  await page.keyboard.press('Space'); ok((await etat()).essai.mode !== 'image', 'Espace : mode suivant attendu');
+  await page.keyboard.press('v'); ok((await etat()).valide.view === 'lignes', 'touche V : valider attendu');
+  await page.locator('#vmReglages').evaluate((n) => { n.closest('details').open = true; });
+  await page.keyboard.press('p'); ok(await page.getAttribute('#vmPause', 'aria-pressed') === 'true', 'touche P : pause attendue'); await page.keyboard.press('p');
+  await page.click('#vmAnnuler');
+  ok((await etat()).valide.pal !== 'son', 'la teinte qui suit le son doit être désactivée par défaut');
 
   // enregistrement : trois secondes
-  await page.selectOption('#mcFormat', '45');
+  await page.locator('#vmEnregistrement').evaluate((n) => { n.closest('details').open = true; });
+  await page.selectOption('#vmFormatVideo', '45');
   const dl = page.waitForEvent('download', { timeout: 30000 });
-  await page.click('#mcEnreg'); await page.waitForTimeout(3000); await page.click('#mcEnreg');
+  await page.click('#vmEnreg'); await page.waitForTimeout(3000); await page.click('#vmEnreg');
   const fichier = await dl, v = await page.evaluate(() => window.__derniereVideo);
   ok(v && v.octets > 20000 && v.largeur === 1080 && v.hauteur === 1350, `enregistrement 4:5 : ${JSON.stringify(v)}`);
   ok(/\.(mp4|webm)$/.test(fichier.suggestedFilename()), 'enregistrement : extension inattendue');
 
   // micro
-  await page.click('#mcArreter'); await page.click('#mcMicro'); await page.waitForTimeout(2000);
+  await page.click('#vmLecture'); await page.selectOption('#vmSource', 'mic'); await page.click('#vmLecture'); await page.waitForTimeout(2000);
   ok((await etat()).source === 'micro', 'le micro (faux périphérique) ne démarre pas');
-  await page.click('#mcArreter');
+  await page.click('#vmLecture');
 
   // rien n'est envoyé
   ok(externes.size === 0, `requêtes hors du site : ${[...externes].join(', ')}`);
@@ -101,14 +122,15 @@ try {
   // le refus du micro est dit
   const refus = await (await navigateur.newContext({ viewport: { width: 1000, height: 900 } })).newPage();
   await refus.addInitScript(() => { navigator.mediaDevices.getUserMedia = () => Promise.reject(Object.assign(new Error('refusé'), { name: 'NotAllowedError' })); });
-  await refus.goto(`${base}/musique-chladni.html`); await refus.waitForSelector('#mcMicro'); await refus.click('#mcMicro'); await refus.waitForTimeout(500);
-  const texte = await refus.textContent('#mcMessage');
+  await refus.goto(`${base}/musique-chladni.html`); await refus.waitForFunction(() => window.__voirSaMusique); await refus.selectOption('#vmSource', 'mic'); await refus.click('#vmLecture'); await refus.waitForTimeout(500);
+  const texte = await refus.textContent('#vmMessage');
   ok(/refusé/.test(texte) && /Autorisez/.test(texte), `micro refusé : message inattendu « ${texte} »`);
 
   // 390 et 360 px
   for (const w of [390, 360]) {
     const mobile = await (await navigateur.newContext({ viewport: { width: w, height: 800 } })).newPage();
-    await mobile.goto(`${base}/musique-chladni.html`); await mobile.waitForSelector('#mcMorceau-j1'); await mobile.waitForTimeout(500);
+    await mobile.goto(`${base}/musique-chladni.html`); await mobile.waitForFunction(() => window.__voirSaMusique); await mobile.waitForTimeout(500);
+    await mobile.click('#vm-g-col-btn');
     const largeur = await mobile.evaluate(() => {
       let max = document.documentElement.scrollWidth;
       for (const el of document.querySelectorAll('main *')) { const r = el.getBoundingClientRect(); if (r.width && r.right > max) max = r.right; }
@@ -123,6 +145,6 @@ if (essai) {
   console.error('Essai : la page privée de son moteur n’a pas été refusée.'); process.exit(1);
 }
 if (echecs.length) { for (const f of echecs) console.error('ÉCHEC ' + f); process.exit(1); }
-console.log('Voir sa musique : charge, dessine en quatre vues et deux rendus, pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
+console.log('Voir sa musique : charge, dessine en trois vues, neuf variantes de case et deux collections, pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
 if (serveur && serveur.fermer) serveur.fermer();
 process.exit(0);

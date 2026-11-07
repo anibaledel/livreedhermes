@@ -1,479 +1,440 @@
 // musique-chladni-ui.js — La Livrée d'Hermès
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// L'interface de musique-chladni.html. Elle relie le moteur (musique-chladni-moteur.js, sans
-// DOM) au navigateur : sources audio, canevas, commandes, enregistrement, mode scène.
-// Aucune phrase ici (tout est dans musique-chladni-textes.js) et aucun réglage de fonctionnalité
-// (tout est dans musique-chladni-config.js). La page n'envoie RIEN : fichier, micro et audio
-// capturé restent dans le navigateur.
+// L'interface de « Voir sa musique » (musique-chladni.html), d'après la maquette validée par
+// l'auteur : deux fenêtres (Validé / Essai) alimentées par UNE seule analyse du son, six en-têtes
+// dont chaque clic déroule un panneau de choix (survol = aperçu dans l'essai), pavage 2 × 2 par
+// translation. Elle relie le moteur (musique-chladni-moteur.js, sans DOM) au navigateur : sources
+// audio, canevas, enregistrement, plein écran, fenêtre de projection.
+// Aucune phrase ici (tout est dans musique-chladni-textes.js), aucun réglage de fonctionnalité
+// (tout est dans musique-chladni-config.js), aucune couleur recopiée (assets/couleurs.js).
+// La page n'envoie RIEN : fichier, micro et audio capturé restent dans le navigateur.
 import * as M from './musique-chladni-moteur.js';
 import { CONFIG } from './musique-chladni-config.js';
-import { TEXTES, texte as T } from './musique-chladni-textes.js';
-import { PALETTES, PINTEREST_NIVEAUX_DE_GRIS, ENCRE, CREME, OR } from './couleurs.js';
-import { chargerCollection, motifSvg, rasteriser } from './bicolore-fonds.js';
-import { lectureBinaire } from './lecture-binaire.js';
+import { texte as T } from './musique-chladni-textes.js';
+import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js';
+import { chargerCollection, rasteriser } from './bicolore-fonds.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
   const e = document.createElement(tag);
-  for (const [k, v] of Object.entries(attrs)) {
-    if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v);
-  }
+  for (const [k, v] of Object.entries(attrs)) { if (k === 'class') e.className = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? '' : v); }
   for (const c of enfants.flat()) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
   return e;
 };
-const hexVersRgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const lJson = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(`${u} : ${r.status}`); return r.json(); });
-const TAILLE = 720;
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const hex = (a) => '#' + a.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
 const MQ_CALME = window.matchMedia ? matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+const C = CONFIG.moteur;
 
 // ---------- l'état ----------
 const S = {
-  donnees: null, coll: null, fondsOrdre: [], grilles: { bi: [], tri: [] }, corpus: { bi: null, tri: null },
-  ordre: 12, rendu: 'bicolore', paire: 'creme', vue: 'signes', mode: M.MODES.IMAGE, pulsation: M.PULSATIONS.ATTAQUE, inspecter: false,
-  fondMode: 'fixe', fondId: CONFIG.fonds.defaut, fondDepuis: 0,
-  ...CONFIG.moteur, calme: MQ_CALME.matches, pause: false, signature: CONFIG.enregistrement.signature,
-  source: null, sourceTexte: '', morceauIA: false,
-  lissé: new Float64Array(M.NS12), dernier: { motif: -1, ancien: -1, fondu: 1, score: 0 }, t0: 0,
-  champs: null, F: null, res: CONFIG.moteur.resolutionFigure, images: [], fps: 0,
+  donnees: null, blocs: {}, coll: null, bandes: new Map(),
+  lisse: new Float64Array(M.NS12), tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
+  seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
+  calme: MQ_CALME.matches, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
+  perso: { ink: rgb(ENCRE), bg: rgb(CREME) }, tuileEssai: C.tuileFenetre, lent: 0, resReduite: false, ia: false,
 };
-const A = { ctx: null, an: null, sortie: null, dest: null, el: null, srcEl: null, srcNode: null, flux: null, essai: null, wake: null };
-let pilote = null, detecteur = null, detecteurGrave = null, canvas, c2d, hors, hors2d, info, raf = 0, dernierMs = 0, projection = null;
-let rec = null;
+const CFG0 = { mode: 'image', fmt: 12, col: 'tri', view: 'signes', fond: 'B2', pal: 'creme' };
+let valCfg = { ...CFG0 }, esel = { ...CFG0 };
+const A = { ctx: null, an8: null, an2: null, entree: null, sortie: null, dest: null, el: null, srcEl: null, srcNode: null, flux: null, essai: null, wake: null, url: null };
+let detecteur = null, valide = null, essaiF = null, rec = null, projection = null, enPleinEcran = false, minuteurScene = 0, dernierMs = 0, dernierInfo = -1;
+const f8 = new Float32Array(4096), f2 = new Float32Array(1024);
 
-const corpusActif = () => (S.rendu === 'bicolore' ? S.corpus.bi : S.corpus.tri);
-const grillesActives = () => (S.rendu === 'bicolore' ? S.grilles.bi : S.grilles.tri);
-const palette = () => PALETTES[S.paire];
+// ---------- couleurs ----------
+const hsl = (h, s, l) => { h /= 360; const f = (n) => { const k = (n + h * 12) % 12, a = s * Math.min(l, 1 - l); return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); }; return [f(0), f(8), f(4)].map((x) => Math.round(x * 255)); };
+const PALETTES_PAGE = ['creme', 'monochrome', ...(CONFIG.couleursPerso ? ['perso'] : []), ...(CONFIG.teinteSuitLeSon ? ['son'] : [])];
+function couleurs(c) { // [encre, fond, milieu?] en RGB
+  if (c.pal === 'perso') return [S.perso.ink, S.perso.bg];
+  if (c.pal === 'son') { const h = Math.round(S.teinte / 3) * 3; return [hsl(h, 0.6, 0.22), hsl(h, 0.4, 0.9)]; }
+  const p = PALETTES[c.pal]; return c.pal === 'creme' ? [rgb(p[1]), rgb(p[0]), rgb(GRIS)] : [rgb(p[1]), rgb(p[0])]; // clair = bit 0 = fond ; encre = bit 1
+}
+const paletteCle = (c) => couleurs(c).map((x) => (x ? x.join(',') : '')).join('|');
 
 // ---------- les données ----------
-function grilleDe(d, [fam, subA, subB, n]) {
-  const col = n % 8, row = Math.floor(n / 8);
-  const traits = [col & 1, (col >> 1) & 1, (col >> 2) & 1, row & 1, (row >> 1) & 1, (row >> 2) & 1];
-  const A = d.families[fam][subA], B = d.families[fam][subB];
-  return d.layerOf.map((ligne, r) => ligne.map((pos, c) => (traits[pos - 1] === 1 ? A[r][c] : B[r][c])));
-}
-const octets = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
-
-/** L'ordre des fonds du plus proche au plus proche, en partant du fond par défaut. */
-function ordreDesFonds(coll) {
-  const ids = [...coll.fonds.keys()], g = new Map();
-  for (const id of ids) { const f = coll.fonds.get(id); g.set(id, [rasteriser(f, 0, 12), rasteriser(f, 1, 12)]); }
-  const ham = (a, b) => { let s = 0; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) s++; return s; };
-  const dist = (a, b) => Math.min(ham(g.get(a)[0], g.get(b)[0]) + ham(g.get(a)[1], g.get(b)[1]), ham(g.get(a)[0], g.get(b)[1]) + ham(g.get(a)[1], g.get(b)[0]));
-  const depart = ids.includes(CONFIG.fonds.defaut) ? CONFIG.fonds.defaut : ids[0], suite = [depart], reste = new Set(ids.filter((x) => x !== depart));
-  while (reste.size) { const dernier = suite[suite.length - 1]; let best = null, bd = Infinity; for (const x of reste) { const d = dist(dernier, x); if (d < bd) { bd = d; best = x; } } suite.push(best); reste.delete(best); }
-  return suite;
-}
-
 async function charger() {
-  const [donnees, lum, jColl, jCalc] = await Promise.all([lJson('data/fonds_ecran_v1.json'), lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json')]);
-  S.donnees = donnees; S.lum = lum;
-  S.coll = chargerCollection(jColl, { calculs: jCalc });
-  S.fondsOrdre = ordreDesFonds(S.coll);
-  S.grilles.bi = lum.entrees.map((e) => grilleDe(donnees, e));
-  S.grilles.tri = lum.tricolore.entrees.map((e) => grilleDe(donnees, e));
-  S.corpus.bi = M.creerCorpus(octets(lum.lum));
-  S.corpus.tri = M.creerCorpus(octets(lum.tricolore.lum));
+  const [donnees, jColl, jCalc] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json')]);
+  S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc });
+  for (const id of ['tri', 'bi']) { S.blocs[id] = M.preparerBloc(donnees, id); const e = M.controlerBloc(S.blocs[id]); if (e.length) throw new Error(e.join(' ; ')); }
+  for (const id of M.BANDES) if (!S.coll.fonds.get(id)) throw new Error(T('bandeManque', { id }));
+}
+function etats(id) { // les deux états d'une case : le fond, et le même fond tourné de 90° (mode unique, forcé ici)
+  if (!S.bandes.has(id)) S.bandes.set(id, M.etatsDeCase(Uint8Array.from(rasteriser(S.coll.fonds.get(id), 0, 60), (x) => (x === 1 ? 1 : 0)), 60));
+  return S.bandes.get(id);
 }
 
-// ---------- le dessin ----------
-function figureVersToile(couleursDe) {
-  const R = S.res, img = hors2d.createImageData(R, R), d = img.data;
-  for (let i = 0; i < S.F.length; i++) { const c = couleursDe(S.F[i]); d[i * 4] = c[0]; d[i * 4 + 1] = c[1]; d[i * 4 + 2] = c[2]; d[i * 4 + 3] = 255; }
-  hors.width = hors.height = R; hors2d.putImageData(img, 0, 0);
-  c2d.imageSmoothingEnabled = false; c2d.drawImage(hors, 0, 0, TAILLE, TAILLE);
-}
-function couleursFigure(vue) {
-  if (S.rendu === 'bicolore') {
-    const clair = hexVersRgb(palette()[0]), sombre = hexVersRgb(palette()[1]);
-    return vue === 'lignes' ? (v) => (M.teinteLignes(v, S.seuilLignes) === 0 ? sombre : clair) : (v) => (M.teinteSignes(v) === 0 ? sombre : clair);
+// ---------- les tuiles (un motif, une vue, des couleurs) ----------
+const cacheTuiles = new Map();
+function tuile(col, j, vue, fond, c, T) {
+  const bloc = S.blocs[col], pal = couleurs(c), cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col === 'bi' ? fond : ''}|${paletteCle(c)}`;
+  let t = cacheTuiles.get(cle); if (t) { cacheTuiles.delete(cle); cacheTuiles.set(cle, t); return t; } // LRU
+  const A8 = new Uint8Array(T * T);
+  if (vue === 'pavage') { if (col === 'tri') M.masqueTricolore(bloc, j, T, A8); else M.masqueBicolore(bloc, j, etats(fond), T, A8); }
+  else M.figure12(M.champ12(bloc, j), T, vue, A8);
+  t = document.createElement('canvas'); t.width = t.height = T;
+  const x = t.getContext('2d'), im = x.createImageData(T, T), d = im.data, [ink, bg, mid] = pal, tri3 = col === 'tri' && vue === 'pavage' && mid;
+  for (let i = 0; i < T * T; i++) {
+    let r, g, b; const a = A8[i];
+    if (tri3) { const q = a === 255 ? ink : a === 128 ? mid : bg; [r, g, b] = q; }
+    else { const k = a / 255; r = bg[0] + (ink[0] - bg[0]) * k; g = bg[1] + (ink[1] - bg[1]) * k; b = bg[2] + (ink[2] - bg[2]) * k; }
+    d[i * 4] = r; d[i * 4 + 1] = g; d[i * 4 + 2] = b; d[i * 4 + 3] = 255;
   }
-  const [sombre, milieu, clair] = PINTEREST_NIVEAUX_DE_GRIS.map(hexVersRgb); // M, O, V
-  return (v) => (Math.abs(v) < S.seuilLignes ? milieu : v > 0 ? sombre : clair);
+  x.putImageData(im, 0, 0); cacheTuiles.set(cle, t); if (cacheTuiles.size > 260) cacheTuiles.delete(cacheTuiles.keys().next().value);
+  return t;
 }
-const cacheImages = new Map();
-function imageDuMotif(i) {
-  const cle = `${i}|${S.fondId}|${palette().join()}`;
-  let e = cacheImages.get(cle);
-  if (!e) {
-    e = { ok: false, img: new Image() };
-    try {
-      const { cases } = lectureBinaire(S.grilles.bi[i], `motif ${i}`);
-      const svg = motifSvg(cases, palette(), S.coll.fonds.get(S.fondId), { size: TAILLE });
-      const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml' }));
-      e.img.onload = () => { e.ok = true; URL.revokeObjectURL(url); };
-      e.img.src = url;
-    } catch (err) { e.erreur = err; }
-    cacheImages.set(cle, e);
-    if (cacheImages.size > 400) cacheImages.delete(cacheImages.keys().next().value);
-  }
-  return e.ok ? e.img : null;
-}
-function dessinerMotif(i, alpha) {
-  if (i < 0) return;
-  c2d.globalAlpha = alpha;
-  if (S.rendu === 'bicolore') { const im = imageDuMotif(i); if (im) c2d.drawImage(im, 0, 0, TAILLE, TAILLE); }
-  else {
-    const [sombre, milieu, clair] = PINTEREST_NIVEAUX_DE_GRIS, g = S.grilles.tri[i], p = TAILLE / 12, ton = { M: sombre, O: milieu, V: clair };
-    g.forEach((ligne, r) => ligne.forEach((c, k) => { c2d.fillStyle = ton[c]; c2d.fillRect(k * p, r * p, p + 1, p + 1); }));
-  }
-  c2d.globalAlpha = 1;
-}
-function dessiner(t) {
-  const r = S.dernier, vue = M.vueAuTemps(S.vue, t);
-  c2d.fillStyle = S.rendu === 'bicolore' ? palette()[0] : PINTEREST_NIVEAUX_DE_GRIS[2];
-  c2d.fillRect(0, 0, TAILLE, TAILLE);
-  if (vue === 'motif') {
-    if (r.fondu < 1 && r.ancien >= 0) dessinerMotif(r.ancien, 1);
-    dessinerMotif(r.motif, r.fondu < 1 && r.ancien >= 0 ? r.fondu : 1);
-  } else if (M.calculerFigure(S.lissé, S.champs, S.F)) figureVersToile(couleursFigure(vue));
-  if (projection && !projection.closed && projection.canvas) { const p = projection.canvas; if (p.width !== TAILLE) p.width = p.height = TAILLE; p.getContext('2d').drawImage(canvas, 0, 0); }
+/** Le pavage 2 × 2 par translation (jamais de miroir), qui continue à remplir un cadre plus long que large. */
+function pavage(ctx, W, H, t, alpha) {
+  const s = Math.min(W, H) / CONFIG.pavage, ox = (W - s * Math.ceil(W / s)) / 2, oy = (H - s * Math.ceil(H / s)) / 2;
+  ctx.globalAlpha = alpha; for (let y = oy; y < H; y += s) for (let x = ox; x < W; x += s) ctx.drawImage(t, x, y, s, s); ctx.globalAlpha = 1;
 }
 
-// ---------- le mode d'inspection ----------
-function dessinerInspection() {
-  const c = $('mcInspection'); if (!c || c.hidden) return;
-  const g = c.getContext('2d'), W = c.width, H = c.height, n = M.NS12, pas = W / n;
-  g.fillStyle = CREME; g.fillRect(0, 0, W, H);
-  let nn = 0; for (let k = 0; k < n; k++) nn += S.lissé[k] * S.lissé[k]; nn = Math.sqrt(nn) || 1;
-  const motif = S.dernier.motif, cible = motif >= 0 ? corpusActif().spectres[motif] : null;
-  let mx = 0.0001; for (let k = 0; k < n; k++) mx = Math.max(mx, S.lissé[k] / nn, cible ? cible[k] : 0);
-  for (let k = 0; k < n; k++) {
-    const a = (S.lissé[k] / nn) / mx * (H - 8), b = cible ? cible[k] / mx * (H - 8) : 0;
-    g.fillStyle = ENCRE; g.fillRect(k * pas + 1, H - a, pas / 2 - 1, a);
-    g.fillStyle = OR; g.fillRect(k * pas + pas / 2, H - b, pas / 2 - 1, b);
+// ---------- une fenêtre : sa configuration, son pilote, son rendu ----------
+class Fenetre {
+  constructor(cv, cap) { this.cv = cv; this.ctx = cv.getContext('2d'); this.cap = cap; this.cfg = null; this.p = null; this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
+  options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation }; }
+  setCfg(c) {
+    const ancienne = this.cfg; this.cfg = { ...c };
+    if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs[c.col], this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
+    else this.p.reglages(this.options());
+    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col === 'bi' && c.view === 'pavage' ? ` · ${T('fond', { id: c.fond })}` : '';
+    this.cap.textContent = T('legendeFenetre', { mode: T('modes')[c.mode][0], collection: colInfo[0], vue, fond: variante, palette: T('palettes')[c.pal][0] });
   }
+  reglages() { if (this.p) this.p.reglages(this.options()); }
+  pas(attaque) { if (!S.pause) this.dernier = this.p.pas({ v: S.lisse, attaque, t: S.tSim }); }
+  peindre(ctx = this.ctx, W = this.cv.width, H = this.cv.height, T = C.tuileFenetre) {
+    const c = this.cfg, pal = couleurs(c), d = this.dernier;
+    ctx.fillStyle = hex(pal[1]); ctx.fillRect(0, 0, W, H);
+    if (d.fondu < 1 && d.ancien >= 0) { pavage(ctx, W, H, tuile(c.col, d.ancien, c.view, c.fond, c, T), 1); pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), d.fondu); }
+    else pavage(ctx, W, H, tuile(c.col, d.motif, c.view, c.fond, c, T), 1);
+  }
+}
+
+// ---------- l'analyse du son : UNE seule, pour les deux fenêtres ----------
+function analyser() {
+  A.an8.getFloatFrequencyData(f8); A.an2.getFloatFrequencyData(f2);
+  const sr = A.ctx.sampleRate, brut = M.bandesDuSon(f8, sr, { fref: C.fref, pente: S.pente });
+  for (let k = 0; k < M.NS12; k++) S.lisse[k] = (1 - S.lissage) * S.lisse[k] + S.lissage * brut[k];
+  if (valCfg.pal === 'son' || esel.pal === 'son') S.teinte = M.suivreTeinte(f8, sr, S.teinte);
+  return detecteur.traiter(f2, sr, S.tSim).attaque;
 }
 
 // ---------- la boucle ----------
-function creerMoteur() {
-  pilote = M.creerPilote(corpusActif(), { mode: S.mode, hysteresis: S.hysteresis, tenueMin: S.tenueMinImages, fondu: S.fonduSecondes, calme: S.calme, pulsation: S.pulsation });
-  detecteur = M.creerDetecteurAttaques({ intervalleMin: S.intervalleMinSecondes, sensibilite: S.sensibilite });
-  detecteurGrave = M.creerDetecteurAttaques({ fMin: 40, fMax: 160, intervalleMin: 0.5, sensibilite: S.sensibilite });
-}
-function prochainFond() { const i = S.fondsOrdre.indexOf(S.fondId); S.fondId = S.fondsOrdre[(i + 1) % S.fondsOrdre.length]; const s = $('mcFond'); if (s) s.value = S.fondId; }
 function boucle(ms) {
-  raf = requestAnimationFrame(boucle);
-  if (ms - dernierMs < 1000 / S.imagesParSeconde - 3) return;
-  const dt = ms - dernierMs; dernierMs = ms;
-  S.fps = S.fps ? S.fps * 0.9 + (1000 / dt) * 0.1 : 1000 / dt;
-  const t = (ms - S.t0) / 1000;
-  if (A.an && S.source) {
-    const db = new Float32Array(A.an.frequencyBinCount); A.an.getFloatFrequencyData(db);
-    const brut = M.bandesDuSon(db, A.ctx.sampleRate, { fref: S.fref, pente: S.penteDesGraves });
-    for (let k = 0; k < M.NS12; k++) S.lissé[k] = (1 - S.lissage) * S.lissé[k] + S.lissage * brut[k];
-    const att = detecteur.traiter(db, A.ctx.sampleRate, t), grave = detecteurGrave.traiter(db, A.ctx.sampleRate, t);
-    if (!S.pause) S.dernier = pilote.pas({ v: S.lissé, attaque: att.attaque, t });
-    if (S.fondMode === 'grave' && grave.attaque) prochainFond();
-  }
-  if (S.fondMode === 'cycle' && t - S.fondDepuis >= CONFIG.fonds.cycleSecondes) { S.fondDepuis = t; prochainFond(); }
-  dessiner(t);
-  dessinerInspection();
-  if (rec) composerEnregistrement();
-  if (Math.floor(ms / 500) !== S.dernierInfo) { S.dernierInfo = Math.floor(ms / 500); majInfo(); adapterResolution(); }
+  requestAnimationFrame(boucle);
+  const dt = Math.min(100, ms - dernierMs); dernierMs = ms;
+  S.acc = Math.min(100, S.acc + dt); // borné : un onglet resté en arrière-plan ne rejoue pas des secondes
+  const actif = A.ctx && S.source && A.ctx.state === 'running' && !document.hidden;
+  if (actif) { let pas = 0; while (S.acc >= 33 && pas < 3) { S.acc -= 33; pas++; S.tSim += 0.033; const att = analyser(); valide.pas(att); essaiF.pas(att); } }
+  else S.acc = 0;
+  if (valide.dernier.fondu < 1) { valide.dernier.fondu = Math.min(1, valide.dernier.fondu + dt / 1000 / (C.fonduSecondes * (S.calme ? 3 : 1))); }
+  if (essaiF.dernier.fondu < 1) { essaiF.dernier.fondu = Math.min(1, essaiF.dernier.fondu + dt / 1000 / (C.fonduSecondes * (S.calme ? 3 : 1))); }
+  S.fps = S.fps ? S.fps * 0.92 + (1000 / Math.max(1, dt)) * 0.08 : 1000 / Math.max(1, dt);
+  valide.peindre(); essaiF.peindre(undefined, undefined, undefined, S.tuileEssai);
+  if (enPleinEcran) valide.peindre($('vmPleinToile').getContext('2d'), $('vmPleinToile').width, $('vmPleinToile').height, C.tuilePleinEcran);
+  if (projection && !projection.win.closed) { const c = projection.canvas; if (c.width !== 720) c.width = c.height = 720; valide.peindre(c.getContext('2d'), 720, 720, C.tuileFenetre); }
+  if (rec) composer();
+  if (Math.floor(ms / 500) !== dernierInfo) { dernierInfo = Math.floor(ms / 500); majInfo(); adapter(); if (esel.pal === 'son' || valCfg.pal === 'son') dessinerMiniatures(); }
 }
-function adapterResolution() { // 30 images/s d'abord : on baisse la résolution de la figure, pas la cadence
-  if (!S.source || S.pause) { S.lent = 0; return; }
-  S.lent = S.fps < S.imagesParSeconde * 0.85 ? (S.lent || 0) + 1 : 0;
-  if (S.lent >= 4 && S.res > 48) { S.res = Math.max(48, Math.round(S.res * 0.8)); S.champs = M.creerChamps(S.res); S.F = new Float32Array(S.res * S.res); S.lent = 0; S.resReduite = true; }
-}
-function majPulsation() {
-  const sel = $('mcPulsation'); if (!sel || !pilote) return;
-  const e = pilote.pulsation(), a = $('mcAidePulsation');
-  for (const o of sel.options) o.disabled = o.value !== M.PULSATIONS.ATTAQUE && !e.regulier;
-  if (!e.regulier && S.pulsation !== M.PULSATIONS.ATTAQUE) { S.pulsation = M.PULSATIONS.ATTAQUE; sel.value = S.pulsation; appliquerEtat(); }
-  if (a) a.textContent = `${T('pulsationAide')} ${e.regulier ? T('pulsationDetectee', { bpm: Math.round(e.bpm) }) : T('pulsationAucune')}`;
+function adapter() { // 30 images/s d'abord : on baisse la résolution de l'essai, pas la cadence
+  const lent = S.source && S.fps < C.imagesParSeconde * 0.8; S.lent = lent ? S.lent + 1 : 0;
+  if (S.lent >= 6 && S.tuileEssai > 180) { S.tuileEssai = Math.max(180, Math.round(S.tuileEssai * 0.75)); S.resReduite = true; S.lent = 0; }
 }
 function majInfo() {
-  const r = S.dernier, n = corpusActif().n;
-  const parties = [S.source ? T('sourceActive', { source: S.sourceTexte }) : T('silence')];
-  if (S.source && r.motif >= 0) parties.push(T('infoMotif', { i: r.motif + 1, n, score: r.score.toFixed(2) }));
-  if (S.rendu === 'bicolore' && CONFIG.fonds.selecteur) parties.push(T('infoFond', { fond: S.fondId }));
-  if (S.source) parties.push(T('infoImages', { fps: S.fps.toFixed(0) }));
-  if (S.pause) parties.push(T('infoPause'));
-  info.textContent = parties.join(' · ');
-  majPulsation();
+  const j = valide.dernier.motif, n = S.blocs[valCfg.col].n, p = [S.etat || T('etatDepart')];
+  if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
+  if (S.resReduite) p.push(T('infoResolution'));
+  $('vmInfo').textContent = p.join(' · ');
+  const pu = valide.p.pulsation(), sel = $('vmPulsation'), aide = $('vmAidePulsation');
+  if (sel) for (const o of sel.options) o.disabled = o.value !== M.PULSATIONS.ATTAQUE && !pu.regulier;
+  if (!pu.regulier && S.pulsation !== M.PULSATIONS.ATTAQUE) { S.pulsation = M.PULSATIONS.ATTAQUE; if (sel) sel.value = S.pulsation; valide.reglages(); essaiF.reglages(); }
+  if (aide) aide.textContent = `${T('pulsationAide')} ${pu.regulier ? T('pulsationDetectee', { bpm: Math.round(pu.bpm) }) : T('pulsationAucune')}`;
 }
+function message(t, bon = false) { const e = $('vmMessage'); e.textContent = t || ''; e.dataset.etat = t ? (bon ? 'ok' : 'erreur') : ''; }
 
 // ---------- l'audio ----------
 async function audioPret() {
-  if (!A.ctx) {
-    A.ctx = new (window.AudioContext || window.webkitAudioContext)();
-    A.an = A.ctx.createAnalyser(); A.an.fftSize = 16384; A.an.smoothingTimeConstant = 0.5; A.an.minDecibels = -110;
-    A.sortie = A.ctx.createGain(); A.an.connect(A.sortie); A.sortie.connect(A.ctx.destination);
-    A.dest = A.ctx.createMediaStreamDestination(); A.an.connect(A.dest);
-  }
+  if (A.ctx) { await A.ctx.resume(); return; }
+  A.ctx = new (window.AudioContext || window.webkitAudioContext)();
+  A.an8 = A.ctx.createAnalyser(); A.an8.fftSize = 8192; A.an8.smoothingTimeConstant = 0; A.an8.minDecibels = -110;
+  A.an2 = A.ctx.createAnalyser(); A.an2.fftSize = 2048; A.an2.smoothingTimeConstant = 0; A.an2.minDecibels = -110;
+  A.entree = A.ctx.createGain(); A.sortie = A.ctx.createGain(); A.dest = A.ctx.createMediaStreamDestination();
+  A.entree.connect(A.an8); A.entree.connect(A.an2); A.entree.connect(A.dest); A.entree.connect(A.sortie); A.sortie.connect(A.ctx.destination);
   await A.ctx.resume();
 }
 function arreterSource() {
-  if (A.el) { A.el.pause(); }
+  if (A.el) A.el.pause();
   if (A.srcNode) { try { A.srcNode.disconnect(); } catch { /* déjà détaché */ } A.srcNode = null; }
-  if (A.flux) { A.flux.getTracks().forEach((p) => p.stop()); A.flux = null; }
+  if (A.flux) { A.flux.getTracks().forEach((p) => p.stop()); A.flux = null; } // un nouvel appel du micro arrête la piste précédente
   if (A.essai) { clearInterval(A.essai.timer); A.essai.noeuds.forEach((n) => { try { n.stop(); n.disconnect(); } catch { /* déjà arrêté */ } }); A.essai = null; }
   if (A.wake) { A.wake.release().catch(() => {}); A.wake = null; }
-  S.source = null; S.sourceTexte = ''; S.morceauIA = false; S.lissé.fill(0); if (pilote) pilote.reinitialiser(); if (detecteur) detecteur.reinitialiser(); if (detecteurGrave) detecteurGrave.reinitialiser();
-  S.dernier = { motif: -1, ancien: -1, fondu: 1, score: 0 };
-  majBoutons();
+  S.source = null; S.ia = false; S.lisse.fill(0); detecteur.reinitialiser(); valide.p.reinitialiser(); essaiF.p.reinitialiser();
+  valide.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; essaiF.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 };
+  $('vmLecture').textContent = T('lecture'); $('vmLecture').setAttribute('aria-pressed', 'false');
 }
-async function demarrer(source, texte, { audible = true, ia = false } = {}) {
-  erreur('');
-  await audioPret();
-  S.source = source; S.sourceTexte = texte; S.morceauIA = ia; S.t0 = performance.now(); S.fondDepuis = 0;
-  A.sortie.gain.value = audible ? 1 : 0;
+async function demarrer(source, etat, audible, ia = false) {
+  message(''); await audioPret();
+  S.source = source; S.etat = etat; S.ia = ia; S.tSim = 0; A.sortie.gain.value = audible ? 1 : 0; detecteur.reinitialiser();
+  $('vmLecture').textContent = T('arreter'); $('vmLecture').setAttribute('aria-pressed', 'true');
   if (CONFIG.scene.veilleEmpechee && navigator.wakeLock) navigator.wakeLock.request('screen').then((w) => { A.wake = w; }).catch(() => {});
-  majBoutons();
 }
 function elementAudio() {
-  if (!A.el) { A.el = new Audio(); A.el.crossOrigin = 'anonymous'; A.el.loop = true; A.el.addEventListener('error', () => { erreur(T('erreurFichier')); arreterSource(); }); }
+  if (!A.el) { A.el = new Audio(); A.el.loop = true; A.el.addEventListener('ended', () => { if (S.source === 'fichier' || S.source === 'morceau') arreterSource(); }); A.el.addEventListener('error', () => { if (A.el.src) { message(T('erreurFichier')); arreterSource(); } }); }
   return A.el;
 }
-async function lireElement(url, source, texte, ia) {
-  arreterSource(); await audioPret();
-  const e = elementAudio(); e.src = url;
+async function lireElement(url, source, etat, ia) {
+  arreterSource(); await audioPret(); const e = elementAudio(); e.src = url;
   if (!A.srcEl) A.srcEl = A.ctx.createMediaElementSource(e);
-  A.srcNode = A.srcEl; A.srcEl.connect(A.an);
-  await demarrer(source, texte, { audible: true, ia });
-  try { await e.play(); } catch (err) { erreur(T('erreurAudio', { message: err.message })); arreterSource(); }
+  A.srcNode = A.srcEl; A.srcEl.connect(A.entree);
+  await demarrer(source, etat, true, ia);
+  try { await e.play(); } catch (err) { message(T('erreurAudio', { message: err.message })); arreterSource(); }
 }
-async function depuisFlux(flux, source, texte) {
-  arreterSource(); await audioPret();
-  A.flux = flux; A.srcNode = A.ctx.createMediaStreamSource(flux); A.srcNode.connect(A.an);
-  flux.getAudioTracks().forEach((p) => p.addEventListener('ended', () => { if (A.flux === flux) { erreur(T('microCoupe')); arreterSource(); } }));
-  await demarrer(source, texte, { audible: false });
-}
-async function ouvrirMicro(deviceId = null) {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return erreur(T('erreurMicroAbsent'));
-  try {
-    const flux = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, ...(deviceId ? { deviceId: { exact: deviceId } } : {}) } });
-    await depuisFlux(flux, deviceId ? 'entree' : 'micro', deviceId ? T('sources').entree.replace('{nom}', nomEntree(deviceId)) : T('sources').micro);
-    await listerEntrees();
-  } catch (err) {
-    erreur(err && (err.name === 'NotAllowedError' || err.name === 'SecurityError') ? T('erreurMicroRefuse') : err && err.name === 'NotFoundError' ? T('erreurMicroAbsent') : T('erreurMicro', { message: err && err.message }));
-  }
+async function depuisFlux(flux, source, etat) {
+  arreterSource(); await audioPret(); A.flux = flux; A.srcNode = A.ctx.createMediaStreamSource(flux); A.srcNode.connect(A.entree);
+  flux.getAudioTracks().forEach((p) => p.addEventListener('ended', () => { if (A.flux === flux) { message(T('microCoupe')); arreterSource(); } }));
+  await demarrer(source, etat, false);
 }
 let entrees = [];
-const nomEntree = (id) => (entrees.find((x) => x.deviceId === id) || {}).label || id;
 async function listerEntrees() {
   if (!CONFIG.entrees.peripheriques || !navigator.mediaDevices || !navigator.mediaDevices.enumerateDevices) return;
   entrees = (await navigator.mediaDevices.enumerateDevices()).filter((d) => d.kind === 'audioinput');
-  const s = $('mcEntree'); if (!s) return;
-  const courant = s.value; s.replaceChildren(el('option', { value: '' }, T('entreeDefaut')), ...entrees.map((d, i) => el('option', { value: d.deviceId }, d.label || `${T('entree')} ${i + 1}`)));
-  s.value = courant;
+  const s = $('vmEntree'); if (!s) return; const v = s.value;
+  s.replaceChildren(el('option', { value: '' }, T('entreeDefaut')), ...entrees.map((d, i) => el('option', { value: d.deviceId }, d.label || `${T('entree')} ${i + 1}`))); s.value = v;
+}
+async function ouvrirMicro() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return message(T('erreurMicroAbsent'));
+  const id = $('vmEntree') ? $('vmEntree').value : '';
+  try {
+    const flux = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false, ...(id ? { deviceId: { exact: id } } : {}) } });
+    await depuisFlux(flux, id ? 'entree' : 'micro', id ? T('etatEntree', { nom: (entrees.find((x) => x.deviceId === id) || {}).label || id }) : T('etatMicro')); await listerEntrees();
+  } catch (err) { message(err && (err.name === 'NotAllowedError' || err.name === 'SecurityError') ? T('erreurMicroRefuse') : err && err.name === 'NotFoundError' ? T('erreurMicroAbsent') : T('erreurMicro', { message: err && err.message })); }
 }
 async function capturerOnglet() {
-  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) return erreur(T('erreurOnglet'));
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) return message(T('erreurOnglet'));
   try {
-    const flux = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-    flux.getVideoTracks().forEach((p) => p.stop());
-    if (!flux.getAudioTracks().length) { erreur(T('erreurOngletSansSon')); return; }
-    await depuisFlux(new MediaStream(flux.getAudioTracks()), 'onglet', T('sources').onglet);
-  } catch (err) { erreur(err && err.name === 'NotAllowedError' ? T('erreurOnglet') : T('erreurAudio', { message: err && err.message })); }
+    const flux = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }); flux.getVideoTracks().forEach((p) => p.stop());
+    if (!flux.getAudioTracks().length) return message(T('erreurOngletSansSon'));
+    await depuisFlux(new MediaStream(flux.getAudioTracks()), 'onglet', T('etatOnglet'));
+  } catch (err) { message(err && err.name === 'NotAllowedError' ? T('erreurOnglet') : T('erreurAudio', { message: err && err.message })); }
 }
 function musiqueEssai() { // les accords de la page test de l'auteur, sur l'ancrage de la page
   arreterSource();
-  demarrer('essai', T('sources').essai, { audible: true }).then(() => {
-    const noeuds = [], note = (freq, t, dur, g) => {
-      const o = A.ctx.createOscillator(), e = A.ctx.createGain(); o.type = 'triangle'; o.frequency.value = freq;
-      e.gain.setValueAtTime(0, t); e.gain.linearRampToValueAtTime(g, t + 0.03); e.gain.exponentialRampToValueAtTime(0.0005, t + dur);
-      o.connect(e); e.connect(A.an); o.start(t); o.stop(t + dur + 0.05); noeuds.push(o);
-    };
+  demarrer('essai', T('etatEssai'), true).then(() => {
+    const noeuds = [], note = (f, t, dur, g) => { const o = A.ctx.createOscillator(), e = A.ctx.createGain(); o.type = 'triangle'; o.frequency.value = f; e.gain.setValueAtTime(0, t); e.gain.linearRampToValueAtTime(g, t + 0.03); e.gain.exponentialRampToValueAtTime(0.0005, t + dur); o.connect(e); e.connect(A.entree); o.start(t); o.stop(t + dur + 0.05); noeuds.push(o); };
     const accords = [[0, 4, 7, 12], [5, 9, 12, 17], [7, 11, 14, 19], [2, 5, 9, 14]]; let pas = 0;
-    const jouer = () => { const c = accords[Math.floor(pas / 4) % 4], n = c[pas % 4], f = S.fref * Math.pow(2, (n + (pas % 3) * 12) / 12); note(f, A.ctx.currentTime + 0.02, 0.9, 0.18); note(f * Math.sqrt(2.3), A.ctx.currentTime + 0.02, 0.6, 0.05); pas++; };
+    const jouer = () => { const c = accords[Math.floor(pas / 4) % 4], n = c[pas % 4], f = C.fref * Math.pow(2, (n + (pas % 3) * 12) / 12); note(f, A.ctx.currentTime + 0.02, 0.9, 0.18); note(f * Math.sqrt(2.3), A.ctx.currentTime + 0.02, 0.6, 0.05); pas++; };
     A.essai = { noeuds, timer: setInterval(jouer, 260) }; jouer();
-  }).catch((err) => erreur(T('erreurAudio', { message: err.message })));
+  }).catch((err) => message(T('erreurAudio', { message: err.message })));
+}
+async function lecture() {
+  if (S.source) return arreterSource();
+  const v = $('vmSource').value;
+  if (v === 'mic') return ouvrirMicro();
+  if (v === 'onglet') return capturerOnglet();
+  if (v === 'essai') return musiqueEssai();
+  if (v === 'file') { if (!A.fichierUrl) return $('vmFichier').click(); return lireElement(A.fichierUrl, 'fichier', T('etatFichier', { nom: A.fichierNom }), false); }
+  const m = CONFIG.morceaux.find((x) => x.id === v); if (m) return lireElement(m.fichier, 'morceau', T('etatMorceau'), true);
 }
 
-// ---------- l'enregistrement (comme assets/outil-fond-ecran.js) ----------
+// ---------- l'enregistrement (comme assets/outil-fond-ecran.js) : les signes en plein cadre, le bandeau, rien d'autre ----------
 const FORMATS_VIDEO = ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,opus"', 'video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
-const choisirMime = () => (window.MediaRecorder ? FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || '' : '');
-function dimensions(format) { return format === '916' ? [1080, 1920] : format === '45' ? [1080, 1350] : [1080, 1080]; }
-function composerEnregistrement() {
-  const { cible, c, W, H } = rec;
-  c.fillStyle = S.rendu === 'bicolore' ? palette()[0] : PINTEREST_NIVEAUX_DE_GRIS[2]; c.fillRect(0, 0, W, H);
-  const cote = Math.min(W, H), x = (W - cote) / 2, y = (H - cote) / 2;
-  c.drawImage(canvas, x, y, cote, cote);
+const dimensions = (f) => (f === '916' ? [1080, 1920] : f === '45' ? [1080, 1350] : [1080, 1080]);
+function composer() {
+  const { c, W, H } = rec;
+  valide.peindre(c, W, H, C.tuilePleinEcran);
   if (S.signature) {
-    const lignes = [CONFIG.enregistrement.signatureTexte]; if (S.morceauIA) lignes.push(CONFIG.enregistrement.ligneIA);
-    const haut = 30 + lignes.length * 40, fond = hexVersRgb(PALETTES.creme[1]);
-    c.fillStyle = `rgba(${fond[0]},${fond[1]},${fond[2]},0.55)`; c.fillRect(0, H - haut, W, haut);
-    c.fillStyle = PALETTES.creme[0]; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '600 30px system-ui, sans-serif';
+    const lignes = [CONFIG.enregistrement.signatureTexte]; if (S.ia) lignes.push(CONFIG.enregistrement.ligneIA);
+    const haut = 30 + lignes.length * 40, e = rgb(ENCRE);
+    c.fillStyle = `rgba(${e[0]},${e[1]},${e[2]},0.55)`; c.fillRect(0, H - haut, W, haut);
+    c.fillStyle = CREME; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '600 30px system-ui, sans-serif';
     lignes.forEach((l, i) => c.fillText(l, W / 2, H - haut + 28 + i * 40 + 12));
   }
 }
 function lancerEnregistrement() {
   if (rec) return arreterEnregistrement();
-  if (!window.MediaRecorder || !canvas.captureStream) return erreur(T('enregIndispo'));
-  if (!S.source) return erreur(T('enregSansSource'));
-  const format = $('mcFormat').value, [W, H] = dimensions(format), cible = document.createElement('canvas'); cible.width = W; cible.height = H;
-  const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p));
-  A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p));
-  const mime = choisirMime(); let mr;
-  try { mr = mime ? new MediaRecorder(flux, { mimeType: mime }) : new MediaRecorder(flux); } catch (err) { return erreur(T('enregErreur', { message: err.message })); }
-  const morceaux = []; rec = { cible, c: cible.getContext('2d'), W, H, mr, debut: performance.now(), minuteur: null };
+  if (!window.MediaRecorder) return message(T('enregIndispo'));
+  if (!S.source) return message(T('enregSansSource'));
+  const format = $('vmFormatVideo').value, [W, H] = dimensions(format), cible = document.createElement('canvas'); cible.width = W; cible.height = H;
+  if (!cible.captureStream) return message(T('enregIndispo'));
+  const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p)); A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p));
+  const mime = FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || ''; let mr;
+  try { mr = mime ? new MediaRecorder(flux, { mimeType: mime }) : new MediaRecorder(flux); } catch (err) { return message(T('enregErreur', { message: err.message })); }
+  const morceaux = []; rec = { c: cible.getContext('2d'), W, H, mr, debut: performance.now(), minuteur: null };
   mr.ondataavailable = (e) => { if (e.data && e.data.size) morceaux.push(e.data); };
   mr.onstop = () => {
     clearInterval(rec.minuteur); flux.getTracks().forEach((p) => p.stop());
     const type = mr.mimeType || mime || 'video/webm', mp4 = /mp4/.test(type), blob = new Blob(morceaux, { type });
-    const a = el('a', { href: URL.createObjectURL(blob), download: `musique-chladni-${S.ordre}-${S.rendu}-${S.vue}-${dimensions(format).join('x')}-${Date.now()}.${mp4 ? 'mp4' : 'webm'}` });
+    const a = el('a', { href: URL.createObjectURL(blob), download: `voir-sa-musique-${valCfg.col}-${valCfg.view}-${W}x${H}-${Date.now()}.${mp4 ? 'mp4' : 'webm'}` });
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    erreur(mp4 ? T('enregPret') : T('enregPret') + ' ' + T('enregWebm'), true);
-    window.__derniereVideo = { type, octets: blob.size, largeur: W, hauteur: H }; rec = null; majBoutons();
+    message(mp4 ? T('enregPret') : `${T('enregPret')} ${T('enregWebm')}`, true);
+    window.__derniereVideo = { type, octets: blob.size, largeur: W, hauteur: H }; rec = null; $('vmEnreg').textContent = T('enreg'); $('vmEnreg').setAttribute('aria-pressed', 'false');
   };
-  mr.start(); majBoutons();
-  const duree = CONFIG.enregistrement.dureesSecondes[0];
-  rec.minuteur = setInterval(() => { const s = Math.ceil(duree - (performance.now() - rec.debut) / 1000); $('mcEnreg').textContent = T('enregEnCours', { s: Math.max(0, s) }); if (s <= 0) arreterEnregistrement(); }, 250);
+  mr.start(); $('vmEnreg').setAttribute('aria-pressed', 'true');
+  rec.minuteur = setInterval(() => { const s = Math.ceil(CONFIG.enregistrement.dureesSecondes[0] - (performance.now() - rec.debut) / 1000); $('vmEnreg').textContent = T('enregEnCours', { s: Math.max(0, s) }); if (s <= 0) arreterEnregistrement(); }, 250);
 }
 function arreterEnregistrement() { if (rec && rec.mr.state !== 'inactive') rec.mr.stop(); }
 
-// ---------- la scène ----------
-let minuteurScene = 0;
-function sceneActive() { return document.fullscreenElement === $('mcScene'); }
-function basculerScene() {
-  const s = $('mcScene');
-  if (sceneActive()) { document.exitFullscreen(); return; }
-  if (!s.requestFullscreen) return erreur(T('pleinEcranIndispo'));
-  s.requestFullscreen().catch(() => erreur(T('pleinEcranIndispo')));
+// ---------- plein écran (toujours la fenêtre validée) et projection ----------
+function pleinEcran() {
+  const f = $('vmPlein'); if (!f.requestFullscreen) return message(T('pleinEcranIndispo'));
+  f.hidden = false; const c = $('vmPleinToile'); c.width = Math.max(720, screen.width); c.height = Math.max(720, screen.height);
+  f.requestFullscreen().then(() => { enPleinEcran = true; }).catch(() => { f.hidden = true; message(T('pleinEcranIndispo')); });
 }
-function veilleScene() {
-  const s = $('mcScene'); s.classList.remove('mc-masque'); clearTimeout(minuteurScene);
-  if (sceneActive()) minuteurScene = setTimeout(() => s.classList.add('mc-masque'), CONFIG.scene.masquerApresMs);
-}
+function sortiePleinEcran() { const f = $('vmPlein'); f.hidden = true; enPleinEcran = false; f.classList.remove('vm-masque'); }
+function veilleScene() { const f = $('vmPlein'); f.classList.remove('vm-masque'); clearTimeout(minuteurScene); if (enPleinEcran) minuteurScene = setTimeout(() => f.classList.add('vm-masque'), CONFIG.scene.masquerApresMs); }
 function ouvrirProjection() {
-  const w = window.open('', 'musique-chladni-projection', 'popup,width=960,height=540');
-  if (!w) return erreur(T('projectionBloquee'));
+  const w = window.open('', 'voir-sa-musique-projection', 'popup,width=960,height=540');
+  if (!w) return message(T('projectionBloquee'));
   w.document.title = T('titrePage'); w.document.body.style.cssText = 'margin:0;background:#000;display:flex;align-items:center;justify-content:center;height:100vh';
-  const c = w.document.createElement('canvas'); c.width = c.height = TAILLE; c.style.cssText = 'max-width:100%;max-height:100vh;aspect-ratio:1'; w.document.body.append(c);
-  projection = { closed: false, canvas: c, win: w }; w.addEventListener('pagehide', () => { projection = null; });
-  w.document.addEventListener('keydown', (e) => { if (e.key === 'f' || e.key === 'F') c.requestFullscreen && c.requestFullscreen().catch(() => {}); });
+  const c = w.document.createElement('canvas'); c.width = c.height = 720; c.style.cssText = 'max-width:100%;max-height:100vh;aspect-ratio:1'; w.document.body.append(c);
+  projection = { win: w, canvas: c }; w.addEventListener('pagehide', () => { projection = null; });
 }
 
-// ---------- les commandes ----------
-function erreur(msg, bonne = false) { const e = $('mcMessage'); if (!e) return; e.textContent = msg || ''; e.dataset.etat = msg ? (bonne ? 'ok' : 'erreur') : ''; }
-function appliquerEtat() {
-  pilote.reglages({ mode: S.mode, hysteresis: S.hysteresis, tenueMin: S.tenueMinImages, fondu: S.fonduSecondes, calme: S.calme, pulsation: S.pulsation });
-  const calme = S.calme ? 3 : 1;
-  detecteur.intervalle(S.intervalleMinSecondes * calme); detecteur.sensibilite(S.sensibilite); detecteurGrave.sensibilite(S.sensibilite);
+// ---------- les six en-têtes et leurs panneaux ----------
+const miniatures = [];
+function appliquer(cle, valeur) {
+  const n = { ...esel, [cle]: valeur };
+  if (cle === 'fmt') { n.col = 'tri'; n.view = 'pavage'; } // l'ordre 12 bascule la vue sur « Cellules »
+  if (cle === 'col' && valeur === 'bi' && esel.view === 'pavage') n.view = 'pavage';
+  return n;
 }
-function changerRendu(r) { S.rendu = r; creerMoteur(); appliquerEtat(); S.dernier = { motif: -1, ancien: -1, fondu: 1, score: 0 }; majBoutons(); }
-function majBoutons() {
-  const set = (id, vrai) => { const b = $(id); if (b) b.setAttribute('aria-pressed', String(!!vrai)); };
-  for (const v of Object.keys(CONFIG.vues)) set(`mcVue-${v}`, S.vue === v);
-  for (const m of Object.keys(CONFIG.pilotage)) set(`mcMode-${m}`, S.mode === m);
-  for (const r of ['bicolore', 'tricolore']) set(`mcRendu-${r}`, S.rendu === r);
-  for (const f of Object.keys(T('fondModes'))) set(`mcFondMode-${f}`, S.fondMode === f);
-  set('mcMicro', S.source === 'micro'); set('mcEssai', S.source === 'essai'); set('mcOnglet', S.source === 'onglet'); set('mcPause', S.pause);
-  const b = $('mcEnreg'); if (b && !rec) b.textContent = T('enreg'); if (b) b.setAttribute('aria-pressed', String(!!rec));
-  const aide = $('mcAideVue'); if (aide) aide.textContent = T('vueAide')[S.vue] + (S.rendu === 'tricolore' && (S.vue === 'signes' || S.vue === 'lignes') ? ' ' + T('vueTricolore') : '');
-  const ap = $('mcAidePilotage'); if (ap) ap.textContent = T('pilotageAide')[S.mode];
-  const ar = $('mcAideRendu'); if (ar) ar.textContent = S.rendu === 'bicolore' ? T('renduAideBicolore') : T('renduAideTricolore');
-  const af = $('mcAideFond'); if (af) af.textContent = T('fondAide')[S.fondMode].replace('{n}', CONFIG.fonds.cycleSecondes) + (S.rendu === 'tricolore' ? ' ' + T('fondNonBicolore') : '');
+function option(groupe, cle, valeur, titre, detail, miniature, desactive = false) {
+  const b = el('button', { type: 'button', class: 'vm-o', id: `vm-o-${groupe}-${valeur}`, 'data-g': groupe, 'data-k': valeur, 'aria-pressed': 'false', disabled: desactive || null, title: detail || '' },
+    miniature ? el('canvas', { width: miniature === 'double' ? 136 : 68, height: 68, 'aria-hidden': 'true' }) : null, el('div', {}, el('b', {}, titre), detail ? el('small', {}, detail) : null));
+  if (miniature) miniatures.push([b.querySelector('canvas'), cle, valeur]);
+  const num = (v) => (isNaN(+v) ? v : +v);
+  if (!desactive) {
+    b.addEventListener('mouseenter', () => { essaiF.setCfg(appliquer(cle, num(valeur))); });
+    b.addEventListener('focus', () => { essaiF.setCfg(appliquer(cle, num(valeur))); });
+    b.addEventListener('click', () => { esel = appliquer(cle, num(valeur)); essaiF.setCfg(esel); rafraichir(); });
+  }
+  return b;
 }
-function bouton(id, libelle, onclick, pressable = false) { return el('button', { type: 'button', id, onclick, ...(pressable ? { 'aria-pressed': 'false' } : {}) }, libelle); }
-function curseur(id, libelle, min, max, pas, valeur, onchange) {
-  const sortie = el('output', { for: id }, String(valeur));
-  const i = el('input', { type: 'range', id, min, max, step: pas, value: valeur, oninput: (e) => { sortie.textContent = e.target.value; onchange(Number(e.target.value)); } });
-  return el('label', { class: 'mc-curseur', for: id }, el('span', {}, libelle), i, sortie);
+function groupe(id, cle, titre, options) {
+  const g = $(id), btn = el('button', { type: 'button', id: `${id}-btn`, 'aria-expanded': 'false', 'aria-controls': `${id}-pan` }, titre), pan = el('div', { class: 'vm-pan', id: `${id}-pan`, role: 'group', 'aria-label': titre }, options);
+  g.replaceChildren(el('h3', {}, btn), pan);
+  btn.addEventListener('click', (ev) => { ev.stopPropagation(); const ouvrir = !g.classList.contains('open'); fermerTout(); if (ouvrir) { g.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); } });
+  g.addEventListener('mouseleave', () => essaiF.setCfg(esel));
+  g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget)) essaiF.setCfg(esel); });
 }
-const groupe = (titre, ...contenu) => el('fieldset', { class: 'mc-groupe' }, el('legend', {}, titre), ...contenu);
+function fermerTout() { for (const g of document.querySelectorAll('.vm-opts .vm-grp.open')) { g.classList.remove('open'); g.querySelector('button').setAttribute('aria-expanded', 'false'); } }
+function construireGroupes() {
+  miniatures.length = 0;
+  const G = T('groupes');
+  groupe('vm-g-mode', 'mode', G.mode, Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]).map((m) => option('mode', 'mode', m, T('modes')[m][0], T('modes')[m][1])));
+  groupe('vm-g-fmt', 'fmt', G.fmt, CONFIG.ordres.map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{n\}/g, o.ordre).replace('{m}', S.blocs.tri.n + S.blocs.bi.n) : '', o.actif ? 'simple' : null, !o.actif)));
+  groupe('vm-g-col', 'col', G.col, Object.keys(CONFIG.collections).filter((c) => CONFIG.collections[c]).map((c) => option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.blocs[c].n), 'simple')));
+  groupe('vm-g-view', 'view', G.view, Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]).map((v) => option('view', 'view', v, T('vues')[v][0], T('vues')[v][1])));
+  if (CONFIG.variantesDeCase) groupe('vm-g-fond', 'fond', G.fond, [el('p', { class: 'vm-aide' }, T('fondAide')), ...M.BANDES.map((id) => option('fond', 'fond', id, T('fond', { id }), '', 'double'))]);
+  else $('vm-g-fond').remove();
+  const pers = el('div', { id: 'vmPerso', class: 'vm-aide', hidden: true }, el('label', {}, T('persoMotif'), ' ', el('input', { type: 'color', id: 'vmPi', value: hex(S.perso.ink) })), ' ', el('label', {}, T('persoFond'), ' ', el('input', { type: 'color', id: 'vmPb', value: hex(S.perso.bg) })));
+  groupe('vm-g-pal', 'pal', G.pal, [...PALETTES_PAGE.map((k) => option('pal', 'pal', k, T('palettes')[k][0], T('palettes')[k][1], 'simple')), pers, el('p', { class: 'vm-aide' }, T('tricoloreAide'))]);
+  const persoChange = () => { S.perso = { ink: rgb($('vmPi').value), bg: rgb($('vmPb').value) }; esel = { ...esel, pal: 'perso' }; cacheTuiles.clear(); essaiF.setCfg(esel); rafraichir(); };
+  $('vmPi').addEventListener('input', persoChange); $('vmPb').addEventListener('input', persoChange);
+}
+function dessinerMiniatures() {
+  const pal = couleurs(esel);
+  for (const [cv, cle, valeur] of miniatures) {
+    const x = cv.getContext('2d');
+    if (cle === 'pal') {
+      if (valeur === 'son') { const g = x.createLinearGradient(0, 0, 68, 68); for (let i = 0; i <= 6; i++) g.addColorStop(i / 6, hex(hsl(i * 50, 0.6, 0.4))); x.fillStyle = g; x.fillRect(0, 0, 68, 68); }
+      else { const p = couleurs({ pal: valeur }); x.fillStyle = hex(p[1]); x.fillRect(0, 0, 68, 68); x.fillStyle = hex(p[0]); x.beginPath(); x.moveTo(68, 0); x.lineTo(68, 68); x.lineTo(0, 56); x.closePath(); x.fill(); }
+    } else if (cle === 'fond') { // une seule case, de chaque côté : l'état 1, puis l'état 0 (le même fond tourné de 90°)
+      const e = etats(valeur), im = x.createImageData(136, 68);
+      for (let i = 0; i < 2; i++) for (let py = 0; py < 68; py++) for (let px = 0; px < 68; px++) { const on = (i ? e.a0 : e.a1)[Math.floor(py * e.R / 68) * e.R + Math.floor(px * e.R / 68)], c = on ? pal[0] : pal[1], o = (py * 136 + i * 68 + px) * 4; im.data[o] = c[0]; im.data[o + 1] = c[1]; im.data[o + 2] = c[2]; im.data[o + 3] = 255; }
+      x.putImageData(im, 0, 0);
+    } else { // format, collection : le motif lui-même (vue Cellules), jamais une figure « signes »
+      const col = cle === 'col' ? valeur : 'tri'; x.drawImage(tuile(col, 0, 'pavage', esel.fond, { ...esel, col }, 360), 0, 0, 68, 68);
+    }
+  }
+}
+function rafraichir() {
+  const marque = (g, vrai, val) => { for (const b of document.querySelectorAll(`.vm-o[data-g="${g}"]`)) { b.setAttribute('aria-pressed', String(vrai(b.dataset.k))); b.classList.toggle('val', val(b.dataset.k)); } };
+  marque('mode', (k) => esel.mode === k, (k) => valCfg.mode === k); marque('fmt', (k) => esel.fmt === +k, (k) => valCfg.fmt === +k); marque('col', (k) => esel.col === k, (k) => valCfg.col === k);
+  marque('view', (k) => esel.view === k, (k) => valCfg.view === k); marque('fond', (k) => esel.fond === k, (k) => valCfg.fond === k); marque('pal', (k) => esel.pal === k, (k) => valCfg.pal === k);
+  const g = $('vm-g-fond'); if (g) g.hidden = esel.col !== 'bi';
+  $('vmPerso').hidden = esel.pal !== 'perso'; dessinerMiniatures();
+}
+function valider() { valCfg = { ...esel }; valide.setCfg(valCfg); valide.p = M.creerPilote(S.blocs[valCfg.col], valide.options()); valide.p.copier(essaiF.p); valide.dernier = { ...essaiF.dernier }; rafraichir(); }
+function annuler() { esel = { ...valCfg }; essaiF.setCfg(esel); rafraichir(); }
 
-function construire() {
-  const cmd = $('mcCommandes'); cmd.replaceChildren();
-  // après un clic à la souris le bouton rend le focus : la barre d'espace bascule alors les modes (au clavier, elle active le bouton)
-  if (!cmd.dataset.pret) { cmd.dataset.pret = '1'; cmd.addEventListener('click', (e) => { const b = e.target.closest('button'); if (b && e.detail > 0) b.blur(); }); }
-  // le son
-  const morceaux = CONFIG.entrees.morceaux ? el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('morceauxTitre') }, CONFIG.morceaux.map((m, i) => bouton(`mcMorceau-${m.id}`, T('morceau', { n: i + 1, note: T('notes')[m.id] }), () => lireElement(m.fichier, 'morceau', T('sources').morceau.replace('{n}', i + 1), true)))) : null;
-  const fichier = el('input', { type: 'file', id: 'mcFichier', accept: 'audio/*', hidden: true, onchange: (e) => { const f = e.target.files[0]; if (f) lireElement(URL.createObjectURL(f), 'fichier', T('sources').fichier.replace('{nom}', f.name), false); } });
-  cmd.append(groupe(T('sonTitre'),
-    el('div', { class: 'mc-rangee' },
-      CONFIG.entrees.fichier ? [fichier, bouton('mcBtnFichier', T('fichier'), () => fichier.click())] : null,
-      CONFIG.entrees.micro ? bouton('mcMicro', T('micro'), () => (S.source === 'micro' ? arreterSource() : ouvrirMicro()), true) : null,
-      CONFIG.entrees.musiqueEssai ? bouton('mcEssai', T('essai'), () => (S.source === 'essai' ? arreterSource() : musiqueEssai()), true) : null,
-      CONFIG.entrees.captureOnglet ? bouton('mcOnglet', T('onglet'), capturerOnglet, true) : null,
-      bouton('mcArreter', T('arreter'), arreterSource)),
-    CONFIG.entrees.peripheriques ? el('label', { class: 'mc-curseur', for: 'mcEntree' }, el('span', {}, T('entree')), el('select', { id: 'mcEntree', onchange: (e) => (e.target.value ? ouvrirMicro(e.target.value) : S.source && S.source !== 'micro' && ouvrirMicro()) }, el('option', { value: '' }, T('entreeDefaut')))) : null,
-    el('p', { class: 'mc-aide' }, T('entreeAide')),
-    morceaux ? [el('h3', {}, T('morceauxTitre')), morceaux, el('p', { class: 'mc-aide', id: 'mcIA' }, T('mentionIA'))] : null));
-  // le motif
-  const ordres = el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('ordre') }, CONFIG.ordres.map((o) => el('button', { type: 'button', 'aria-pressed': String(o.ordre === S.ordre), disabled: !o.actif || null, title: o.actif ? null : o.raison }, o.actif ? T('ordreN', { n: o.ordre }) : T('ordreBientot', { n: o.ordre }))));
-  const rendus = el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('rendu') }, ['bicolore', 'tricolore'].filter((r) => CONFIG.rendus[r]).map((r) => bouton(`mcRendu-${r}`, T(r), () => changerRendu(r), true)));
-  const paires = el('label', { class: 'mc-curseur', for: 'mcPaire' }, el('span', {}, T('paire')), el('select', { id: 'mcPaire', onchange: (e) => { S.paire = e.target.value; cacheImages.clear(); } }, Object.keys(PALETTES).map((k) => el('option', { value: k }, `${PALETTES[k][0]} / ${PALETTES[k][1]}`))));
-  cmd.append(groupe(T('formatTitre'), ordres, rendus, el('p', { class: 'mc-aide', id: 'mcAideRendu' }), paires));
-  // la vue et le pilotage
-  const vues = el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('vueTitre') }, Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]).map((v, i) => bouton(`mcVue-${v}`, `${i + 1}. ${T('vues')[v]}`, () => { S.vue = v; majBoutons(); }, true)));
-  const modes = el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('pilotageTitre') }, Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]).map((m) => bouton(`mcMode-${m}`, T('pilotage')[m], () => { S.mode = m; appliquerEtat(); majBoutons(); }, true)));
-  cmd.append(groupe(T('vueTitre'), vues, el('p', { class: 'mc-aide', id: 'mcAideVue' })), groupe(T('pilotageTitre'), modes, el('p', { class: 'mc-aide', id: 'mcAidePilotage' })));
-  if (CONFIG.pulsation) {
-    cmd.append(groupe(T('pulsationTitre'),
-      el('label', { class: 'mc-curseur', for: 'mcPulsation' }, el('span', {}, T('pulsationTitre')),
-        el('select', { id: 'mcPulsation', onchange: (e) => { S.pulsation = e.target.value; appliquerEtat(); } }, Object.keys(T('pulsations')).map((k) => el('option', { value: k }, T('pulsations')[k])))),
-      el('p', { class: 'mc-aide', id: 'mcAidePulsation' }, T('pulsationAide'))));
-  }
-  // le fond
-  if (CONFIG.fonds.selecteur) {
-    const fm = el('div', { class: 'mc-rangee', role: 'group', 'aria-label': T('fondTitre') }, Object.keys(T('fondModes')).map((f) => bouton(`mcFondMode-${f}`, T('fondModes')[f], () => { S.fondMode = f; S.fondDepuis = (performance.now() - S.t0) / 1000; majBoutons(); }, true)));
-    const choix = el('label', { class: 'mc-curseur', for: 'mcFond' }, el('span', {}, T('fondChoix')), el('select', { id: 'mcFond', onchange: (e) => { S.fondId = e.target.value; } }, S.fondsOrdre.map((id) => el('option', { value: id }, id))));
-    cmd.append(groupe(T('fondTitre'), fm, choix, el('p', { class: 'mc-aide', id: 'mcAideFond' })));
-    choix.querySelector('select').value = S.fondId;
-  }
-  // les réglages
-  cmd.append(groupe(T('reglagesTitre'),
-    curseur('mcSens', T('sensibilite'), 0.3, 3, 0.1, S.sensibilite, (v) => { S.sensibilite = v; appliquerEtat(); }),
-    curseur('mcLissage', T('lissage'), 0.05, 1, 0.05, S.lissage, (v) => { S.lissage = v; }),
-    curseur('mcVitesse', T('vitesse'), 0.2, 2, 0.05, S.intervalleMinSecondes, (v) => { S.intervalleMinSecondes = v; appliquerEtat(); }),
-    curseur('mcSeuil', T('seuil'), M.SEUIL_LIGNES_MIN, M.SEUIL_LIGNES_MAX, 0.01, S.seuilLignes, (v) => { S.seuilLignes = v; }),
-    el('label', { class: 'mc-case' }, el('input', { type: 'checkbox', id: 'mcCalme', checked: S.calme || null, onchange: (e) => { S.calme = e.target.checked; appliquerEtat(); } }), T('calme')),
-    el('p', { class: 'mc-aide' }, T('calmeAide')),
-    el('label', { class: 'mc-case' }, el('input', { type: 'checkbox', id: 'mcPente', checked: S.penteDesGraves || null, onchange: (e) => { S.penteDesGraves = e.target.checked; } }), T('pente')),
-    bouton('mcPause', T('pause'), () => { S.pause = !S.pause; majBoutons(); }, true),
-    CONFIG.inspection ? [
-      el('label', { class: 'mc-case' }, el('input', { type: 'checkbox', id: 'mcInspecter', onchange: (e) => { S.inspecter = e.target.checked; const c = $('mcInspection'); if (c) c.hidden = !S.inspecter; const l = $('mcLegendeInspection'); if (l) l.hidden = !S.inspecter; } }), T('inspecter')),
-      el('p', { class: 'mc-aide' }, T('inspecterAide'))] : null));
-  if (CONFIG.inspection && !$('mcInspection')) {
-    $('mcInfo').after(el('canvas', { id: 'mcInspection', width: 720, height: 160, hidden: true, role: 'img', 'aria-label': T('inspectionLegende') }), el('p', { class: 'mc-aide', id: 'mcLegendeInspection', hidden: true }, T('inspectionLegende')));
-  }
-  // la scène
-  const scene = [];
-  if (CONFIG.scene.pleinEcran) scene.push(bouton('mcScenePleine', T('scene'), basculerScene));
-  if (CONFIG.scene.fenetreProjection) scene.push(bouton('mcProjection', T('projection'), ouvrirProjection));
-  cmd.append(groupe(T('sceneTitre'), el('div', { class: 'mc-rangee' }, scene), el('p', { class: 'mc-aide' }, `${T('sceneAide')} ${T('projectionAide')} ${CONFIG.scene.veilleEmpechee ? T('veille') : ''}`)));
-  // l'enregistrement
-  if (CONFIG.enregistrement.actif) {
-    cmd.append(groupe(T('enregTitre'),
-      el('label', { class: 'mc-curseur', for: 'mcFormat' }, el('span', {}, T('format')), el('select', { id: 'mcFormat' }, CONFIG.enregistrement.formats.map((f) => el('option', { value: f }, T('formats')[f])))),
-      el('label', { class: 'mc-case' }, el('input', { type: 'checkbox', id: 'mcSignature', checked: S.signature || null, onchange: (e) => { S.signature = e.target.checked; } }), T('signature', { texte: CONFIG.enregistrement.signatureTexte })),
-      bouton('mcEnreg', T('enreg'), lancerEnregistrement, true)));
-  }
-  cmd.append(groupe(T('raccourcisTitre'), el('dl', { class: 'mc-raccourcis' }, T('raccourcis').flatMap(([k, v]) => [el('dt', {}, el('kbd', {}, k)), el('dd', {}, v)]))));
-  majBoutons();
+// ---------- la page ----------
+function reglagesAvances() {
+  const curseur = (id, libelle, min, max, pas, v, f, aide) => { const o = el('output', { for: id }, String(v)); return el('div', { class: 'vm-ligne' }, el('label', { for: id }, libelle), el('input', { type: 'range', id, min, max, step: pas, value: v, oninput: (e) => { o.textContent = e.target.value; f(Number(e.target.value)); } }), o, aide ? el('small', { class: 'vm-aide' }, aide) : null); };
+  const conteneur = $('vmReglages'); conteneur.replaceChildren(
+    curseur('vmSeuil', T('sensibilite'), 0.15, 1, 0.05, S.seuil, (v) => { S.seuil = v; detecteur.seuil(v); }, T('sensibiliteAide')),
+    curseur('vmIntervalle', T('intervalle'), 0.2, 1, 0.05, S.intervalle, (v) => { S.intervalle = v; detecteur.intervalle(v * (S.calme ? 3 : 1)); }, T('intervalleAide')),
+    curseur('vmLissage', T('lissage'), 0.05, 1, 0.05, S.lissage, (v) => { S.lissage = v; }),
+    CONFIG.pulsation ? el('div', { class: 'vm-ligne' }, el('label', { for: 'vmPulsation' }, T('pulsationTitre')), el('select', { id: 'vmPulsation', onchange: (e) => { S.pulsation = e.target.value; valide.reglages(); essaiF.reglages(); } }, Object.keys(T('pulsations')).map((k) => el('option', { value: k }, T('pulsations')[k]))), el('small', { class: 'vm-aide', id: 'vmAidePulsation' }, T('pulsationAide'))) : null,
+    el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmCalme', checked: S.calme || null, onchange: (e) => { S.calme = e.target.checked; detecteur.intervalle(S.intervalle * (S.calme ? 3 : 1)); valide.reglages(); essaiF.reglages(); } }), T('calme')), el('small', { class: 'vm-aide' }, T('calmeAide')),
+    el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmPente', checked: S.pente || null, onchange: (e) => { S.pente = e.target.checked; } }), T('pente')),
+    el('button', { type: 'button', id: 'vmPause', 'aria-pressed': 'false', onclick: (e) => { S.pause = !S.pause; e.currentTarget.setAttribute('aria-pressed', String(S.pause)); } }, T('pauseImage')));
+}
+function commandesScene() {
+  const c = $('vmScene'); c.replaceChildren();
+  if (CONFIG.scene.fenetreProjection) c.append(el('button', { type: 'button', id: 'vmProjection', onclick: ouvrirProjection }, T('projection')));
+  c.append(el('p', { class: 'vm-aide' }, `${T('sceneAide')} ${CONFIG.scene.veilleEmpechee ? T('veille') : ''}`));
+  const e = $('vmEnregistrement'); e.replaceChildren();
+  if (CONFIG.enregistrement.actif) e.append(
+    el('div', { class: 'vm-ligne' }, el('label', { for: 'vmFormatVideo' }, T('formatVideo')), el('select', { id: 'vmFormatVideo' }, CONFIG.enregistrement.formats.map((f) => el('option', { value: f }, T('format' + f))))),
+    el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmSignature', checked: S.signature || null, onchange: (ev) => { S.signature = ev.target.checked; } }), T('signature', { texte: CONFIG.enregistrement.signatureTexte })),
+    el('button', { type: 'button', id: 'vmEnreg', 'aria-pressed': 'false', onclick: lancerEnregistrement }, T('enreg')));
+  $('vmRaccourcis').replaceChildren(...T('raccourcis').flatMap(([k, v]) => [el('dt', {}, el('kbd', {}, k)), el('dd', {}, v)]));
+}
+function construireSon() {
+  const src = $('vmSource'); src.replaceChildren(
+    ...(CONFIG.entrees.morceaux ? CONFIG.morceaux.map((m, i) => el('option', { value: m.id }, T('morceau', { n: i + 1, note: T('notes')[m.id] }))) : []),
+    CONFIG.entrees.fichier ? el('option', { value: 'file' }, T('sourceFichier')) : null, CONFIG.entrees.micro ? el('option', { value: 'mic' }, T('sourceMicro')) : null,
+    CONFIG.entrees.musiqueEssai ? el('option', { value: 'essai' }, T('sourceEssai')) : null, CONFIG.entrees.captureOnglet ? el('option', { value: 'onglet' }, T('sourceOnglet')) : null);
+  let precedent = src.value;
+  src.addEventListener('change', () => { if (S.source) arreterSource(); if (src.value === 'file') { $('vmFichier').click(); } else precedent = src.value; });
+  const f = $('vmFichier');
+  f.addEventListener('change', (e) => { const fi = e.target.files[0]; if (!fi) { src.value = precedent; return; } if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); A.fichierUrl = URL.createObjectURL(fi); A.fichierNom = fi.name; precedent = 'file'; if (S.source) arreterSource(); S.etat = T('etatFichier', { nom: fi.name }); });
+  f.addEventListener('cancel', () => { src.value = precedent; }); // le choix de fichier annulé
+  $('vmLecture').addEventListener('click', lecture); $('vmLecture').textContent = T('lecture');
+  $('vmEntreeLigne').hidden = !CONFIG.entrees.peripheriques;
+  $('vmEntree').replaceChildren(el('option', { value: '' }, T('entreeDefaut')));
 }
 function habiller() {
   for (const e of document.querySelectorAll('[data-t]')) e.textContent = T(e.dataset.t);
   document.title = T('titrePage');
-  const voir = $('mcVoirAussi'); voir.replaceChildren(...T('voirAussi').map((c) => el('a', { class: 'mc-carte', href: c.href }, el('b', {}, c.titre), el('span', {}, c.texte))));
+  $('vmVoirAussi').replaceChildren(...T('voirAussi').map((c) => el('a', { class: 'vm-carte', href: c.href }, el('b', {}, c.titre), el('span', {}, c.texte))));
+  $('vmValideTitre').replaceChildren(T('valide'), ' ', el('span', { class: 'vm-tag' }, T('valideTag')));
+  $('vmEssaiTitre').replaceChildren(T('essai'), ' ', el('span', { class: 'vm-tag e' }, T('essaiTag')));
+  $('vmValider').textContent = T('validerEssai'); $('vmAnnuler').textContent = T('annuler'); $('vmPleinBtn').textContent = T('pleinEcran'); $('vmQuitter').textContent = T('quitterPleinEcran');
+  $('vmFenAide').textContent = T('fenetresAide'); $('vmMentionIA').textContent = T('mentionIA'); $('vmEntreeAide').textContent = T('entreeAide');
+  $('vmValideToile').setAttribute('aria-label', T('fenetreValide')); $('vmEssaiToile').setAttribute('aria-label', T('fenetreEssai'));
+  $('vmBasculeValide').textContent = T('basculeValide'); $('vmBasculeEssai').textContent = T('basculeEssai'); $('vmEntreeLabel').textContent = T('entree');
+  $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre');
 }
 function clavier(e) {
-  if (e.target.closest && e.target.closest('input[type=text],select,textarea')) return;
+  if (e.target.closest && e.target.closest('input,select,textarea')) return;
   const k = e.key.toLowerCase(), vues = Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]);
-  if (/^[1-4]$/.test(k) && vues[Number(k) - 1]) { S.vue = vues[Number(k) - 1]; majBoutons(); }
-  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); S.mode = ms[(ms.indexOf(S.mode) + 1) % ms.length]; appliquerEtat(); majBoutons(); }
-  else if (k === 'p') { S.pause = !S.pause; majBoutons(); }
-  else if (k === 'f') basculerScene();
-  else if (k === 'r') lancerEnregistrement();
-  else if (k === 'm') changerRendu(S.rendu === 'bicolore' ? 'tricolore' : 'bicolore');
+  if (e.key === 'Escape') { fermerTout(); return; }
+  if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; essaiF.setCfg(esel); rafraichir(); }
+  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; essaiF.setCfg(esel); rafraichir(); }
+  else if (k === 'p') { S.pause = !S.pause; $('vmPause').setAttribute('aria-pressed', String(S.pause)); }
+  else if (k === 'v') valider(); else if (k === 'f') pleinEcran(); else if (k === 'r') lancerEnregistrement();
 }
 
 export async function monter() {
-  canvas = $('mcCanvas'); c2d = canvas.getContext('2d'); info = $('mcInfo');
-  hors = document.createElement('canvas'); hors2d = hors.getContext('2d');
   habiller();
-  try { await charger(); } catch (err) { erreur(T('erreurAudio', { message: err.message })); return; }
-  S.champs = M.creerChamps(S.res); S.F = new Float32Array(S.res * S.res);
-  creerMoteur(); appliquerEtat(); construire();
+  try { await charger(); } catch (err) { message(T('erreurDonnees', { message: err.message })); return; }
+  detecteur = M.creerDetecteurAttaques({ intervalleMin: S.intervalle, sigma: S.seuil });
+  valide = new Fenetre($('vmValideToile'), $('vmValideCap')); essaiF = new Fenetre($('vmEssaiToile'), $('vmEssaiCap'));
+  valide.setCfg(valCfg); essaiF.setCfg(esel);
+  construireSon(); construireGroupes(); reglagesAvances(); commandesScene(); rafraichir();
+  $('vmValider').addEventListener('click', valider); $('vmAnnuler').addEventListener('click', annuler); $('vmPleinBtn').addEventListener('click', pleinEcran);
+  $('vmQuitter').addEventListener('click', () => { if (document.fullscreenElement) document.exitFullscreen(); sortiePleinEcran(); });
+  $('vmBasculeValide').addEventListener('click', () => document.body.classList.remove('vm-essai-seul'));
+  $('vmBasculeEssai').addEventListener('click', () => document.body.classList.add('vm-essai-seul'));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.vm-opts')) fermerTout(); });
   document.addEventListener('keydown', clavier);
+  document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) sortiePleinEcran(); });
   for (const ev of ['mousemove', 'pointerdown', 'keydown', 'touchstart']) document.addEventListener(ev, veilleScene);
-  document.addEventListener('fullscreenchange', veilleScene);
+  document.addEventListener('visibilitychange', () => { S.acc = 0; });
   if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', listerEntrees);
-  window.addEventListener('pagehide', arreterSource);
-  raf = requestAnimationFrame(boucle);
-  window.__musiqueChladni = { S, M, etat: () => ({ source: S.source, motif: S.dernier.motif, vue: S.vue, mode: S.mode, rendu: S.rendu, fps: S.fps, res: S.res, fond: S.fondId }), arreterSource, lireElement, ouvrirMicro, musiqueEssai };
+  window.addEventListener('pagehide', () => { arreterSource(); if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); });
+  requestAnimationFrame(boucle);
+  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte }), arreterSource, lireElement, tuile };
 }

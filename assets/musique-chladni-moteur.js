@@ -1,24 +1,22 @@
 // musique-chladni-moteur.js — La Livrée d'Hermès
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// Le moteur de la page « Voir sa musique » : analyse du son, spectre d'un motif, appariement
-// motif-son, figure de Chladni, détection des attaques de notes, pilotage. AUCUN accès au DOM,
-// à Web Audio ni au réseau : il reçoit des tableaux (spectre en dB, grilles de luminosité) et
-// rend des tableaux. Il tourne tel quel dans un navigateur, dans Node, et dans une WebView.
+// Le moteur de la page « Voir sa musique » : analyse du son, spectre des motifs, appariement,
+// pilotage, figures de Chladni (signes et lignes nodales du motif lui-même), variantes de case,
+// détection des attaques, pulsation, teinte qui suit le son. AUCUN accès au DOM, à Web Audio ni
+// au réseau : il reçoit des tableaux (spectre en dB, blocs de données) et rend des tableaux.
+// Il tourne tel quel dans un navigateur, dans Node, et dans une WebView.
 //
-// Ordre 12 (le cœur de la page). Le spectre d'un motif suit la recette de l'auteur
-// (tools/musique_chladni_recette_12.py, n° 91, extraite du script qui a produit les Reels) :
-// la luminosité du motif RENDU (fond compris), ramenée à 12 × 12 par la moyenne de chaque
-// case, puis l'énergie de la FFT 2D par cercle K = m² + n² (m, n de −6 à 6, tore 12 × 12),
-// racine carrée. f_K = FREF12 · √K / 2. La valeur donnée à V, M ou O n'intervient pas.
+// ORDRE 12 (le seul de cette livraison ; 18 et 30 : seconde livraison, déclarés dans la
+// configuration). Deux collections de motifs unifiés (data/musique-chladni-12.json) :
+// tricolore (512 grilles) et bicolore (136, lisibles par la règle du 3 octobre, aucun repli).
+// Le spectre d'un motif (recette n° 91) : racine de l'énergie de la FFT 2D du champ
+// V = +1, O = 0, M = −1 par cercle K = m² + n² (m, n de −6 à 6, 26 cercles), normalisé à la
+// norme 1 ; f_K = fref · √K / 2, fref = 220 Hz. Le bicolore prend le spectre de la grille
+// tricolore (en attendant les blocs par variante : bloc-<ordre>-<collection>-<bande>.json).
 //
-// Appariement, figure de Chladni et analyse du son : repris de la page test de l'auteur
-// (chladni-musique-test.html), avec les réglages demandés — cosinus centré, hystérésis 0,07,
-// tenue minimale de 8 images.
-//
-// La détection des attaques (flux spectral 220–4000 Hz, seuil moyenne + 0,45 écart-type,
-// intervalle minimal de 0,45 s) est une fonction NOUVELLE et SÉPARÉE : elle ne reprend rien du
-// mode réactif de fonds-ecran.html (assets/outil-fond-ecran.js), qui reste inchangé.
+// La détection des attaques et la pulsation sont des fonctions NOUVELLES et SÉPARÉES : elles ne
+// reprennent rien du mode réactif de fonds-ecran.html (assets/outil-fond-ecran.js), inchangé.
 
 export const ORDRE = 12;
 export const FREF12 = 220;
@@ -36,93 +34,186 @@ const INDEX_K = new Map(SHELLS12.map((k, i) => [k, i]));
 /** Fréquence du cercle K : f_K = fref · √K / 2. */
 export const frequenceDuCercle = (K, fref = FREF12) => fref * Math.sqrt(K) / 2;
 
-// ---------- spectre d'un motif ----------
+const norme = (v) => { let s = 0; for (let i = 0; i < v.length; i++) s += v[i] * v[i]; return Math.sqrt(s); };
+const octets = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+const flottants = (b64) => { const o = octets(b64); return new Float32Array(o.buffer, o.byteOffset, o.byteLength / 4); };
+
+// ---------- le spectre d'un champ 12 × 12 ----------
 
 const COS = new Float64Array(ORDRE * ORDRE), SIN = new Float64Array(ORDRE * ORDRE);
 for (let k = 0; k < ORDRE; k++) for (let n = 0; n < ORDRE; n++) {
   COS[k * ORDRE + n] = Math.cos(2 * Math.PI * k * n / ORDRE);
   SIN[k * ORDRE + n] = -Math.sin(2 * Math.PI * k * n / ORDRE);
 }
-
-/**
- * |FFT 2D|² / 144 d'une grille 12 × 12 (Float64Array de 144, ligne par ligne), indexée [mi, ni].
- */
+/** |FFT 2D|² / 144 d'un champ 12 × 12 (ligne par ligne), indexé [ky, kx]. */
 function puissanceFFT2(f) {
-  const re1 = new Float64Array(CASES), im1 = new Float64Array(CASES);
-  for (let r = 0; r < ORDRE; r++) for (let k = 0; k < ORDRE; k++) { // FFT des lignes
+  const re1 = new Float64Array(CASES), im1 = new Float64Array(CASES), P = new Float64Array(CASES);
+  for (let r = 0; r < ORDRE; r++) for (let k = 0; k < ORDRE; k++) {
     let a = 0, b = 0;
     for (let c = 0; c < ORDRE; c++) { const x = f[r * ORDRE + c]; a += x * COS[k * ORDRE + c]; b += x * SIN[k * ORDRE + c]; }
     re1[r * ORDRE + k] = a; im1[r * ORDRE + k] = b;
   }
-  const P = new Float64Array(CASES);
-  for (let k = 0; k < ORDRE; k++) for (let l = 0; l < ORDRE; l++) { // puis des colonnes
+  for (let k = 0; k < ORDRE; k++) for (let l = 0; l < ORDRE; l++) {
     let a = 0, b = 0;
-    for (let r = 0; r < ORDRE; r++) {
-      const c = COS[l * ORDRE + r], s = SIN[l * ORDRE + r], x = re1[r * ORDRE + k], y = im1[r * ORDRE + k];
-      a += x * c - y * s; b += x * s + y * c;
-    }
+    for (let r = 0; r < ORDRE; r++) { const c = COS[l * ORDRE + r], s = SIN[l * ORDRE + r], x = re1[r * ORDRE + k], y = im1[r * ORDRE + k]; a += x * c - y * s; b += x * s + y * c; }
     P[l * ORDRE + k] = (a * a + b * b) / CASES;
   }
   return P;
 }
-
-/**
- * Le vecteur √W d'un motif (recette n° 91). `lum` : 144 luminosités entre 0 (encre) et 1 (crème),
- * la moyenne de chaque case du motif rendu. Rend un Float64Array de NS12 valeurs.
- */
-export function spectreDuMotif(lum) {
-  if (lum.length !== CASES) throw new Error(`spectreDuMotif : ${CASES} cases attendues, ${lum.length} reçues`);
-  const champ = new Float64Array(CASES);
-  let moyenne = 0;
-  for (let i = 0; i < CASES; i++) { champ[i] = 1 - lum[i]; moyenne += champ[i]; }
-  moyenne /= CASES;
-  for (let i = 0; i < CASES; i++) champ[i] -= moyenne;
-  const P = puissanceFFT2(champ), w = new Float64Array(NS12);
+/** Le vecteur √W d'un champ 12 × 12 (recette n° 91), non normalisé. */
+export function spectreDuChamp(champ) {
+  const f = Float64Array.from(champ); let m = 0; for (const x of f) m += x; m /= CASES; for (let i = 0; i < CASES; i++) f[i] -= m;
+  const P = puissanceFFT2(f), w = new Float64Array(NS12);
   for (let mi = 0; mi < ORDRE; mi++) for (let ni = 0; ni < ORDRE; ni++) {
-    const m = mi <= 6 ? mi : mi - 12, q = ni <= 6 ? ni : ni - 12, K = m * m + q * q;
+    const a = mi <= 6 ? mi : mi - 12, b = ni <= 6 ? ni : ni - 12, K = a * a + b * b;
     if (K) w[INDEX_K.get(K)] += P[mi * ORDRE + ni];
   }
   return w.map(Math.sqrt);
 }
 
-const norme = (v) => { let s = 0; for (let i = 0; i < v.length; i++) s += v[i] * v[i]; return Math.sqrt(s); };
+// ---------- les blocs : une collection de motifs avec ses spectres, voisins et chaîne ----------
 
-/**
- * Le corpus : pour chaque motif sa grille de luminosité (octets 0–255, 144 par motif, comme dans
- * data/musique-chladni-12.json), son spectre ramené à la norme 1 (comme les spectres de la page
- * test), la moyenne du corpus, et chaque spectre centré puis normalisé.
- */
-export function creerCorpus(octets) {
-  const n = octets.length / CASES;
-  if (!Number.isInteger(n) || n < 2) throw new Error('creerCorpus : un nombre entier de motifs (au moins deux) est attendu');
-  const lum = [], spectres = [], moyenne = new Float64Array(NS12);
-  for (let i = 0; i < n; i++) {
-    const g = Float64Array.from(octets.subarray(i * CASES, (i + 1) * CASES), (x) => x / 255);
-    const s = spectreDuMotif(g), nn = norme(s) || 1;
-    const u = s.map((x) => x / nn);
-    lum.push(g); spectres.push(u);
-    for (let k = 0; k < NS12; k++) moyenne[k] += u[k] / n;
+/** Un bloc de data/musique-chladni-12.json, prêt à servir : spectres centrés, normalisés, position dans la chaîne. */
+export function preparerBloc(donnees, id) {
+  const c = donnees.collections.find((x) => x.id === id);
+  if (!c) throw new Error(`bloc « ${id} » absent des données`);
+  const NS = donnees.shells.length, n = c.n;
+  if (NS !== NS12 || donnees.shells.some((k, i) => k !== SHELLS12[i])) throw new Error('les cercles K du bloc ne sont pas ceux du moteur');
+  const bloc = { id, label: c.label, n, NS, ids: c.ids, rac: c.rac, chain: c.chain, shells: donnees.shells, fref: donnees.fref, tri: !!c.cls };
+  if (c.cls) { bloc.cls = octets(c.cls); if (bloc.cls.length !== n * CASES) throw new Error('cls : longueur inattendue'); bloc.P = flottants(c.P); }
+  else {
+    bloc.lb = octets(c.lb); if (bloc.lb.length !== n * CASES) throw new Error('lb : longueur inattendue');
+    const Pt = flottants(donnees.collections.find((x) => x.cls).P); bloc.P = new Float32Array(n * NS);
+    c.tri.forEach((t, k) => bloc.P.set(Pt.subarray(t * NS, (t + 1) * NS), k * NS)); // le spectre de la grille tricolore
+    bloc.triIndex = c.tri;
   }
-  const centres = spectres.map((u) => {
-    const c = u.map((x, k) => x - moyenne[k]), nn = norme(c) || 1;
-    return c.map((x) => x / nn);
-  });
-  const corpus = { n, lum, spectres, moyenne, centres, raccords: null };
-  corpus.raccords = calculerRaccords(corpus);
-  return corpus;
+  if (bloc.P.length !== n * NS) throw new Error('P : longueur inattendue');
+  const moyenne = new Float64Array(NS); for (let j = 0; j < n; j++) for (let k = 0; k < NS; k++) moyenne[k] += bloc.P[j * NS + k] / n;
+  bloc.mean = moyenne; bloc.Pc = new Float32Array(n * NS);
+  for (let j = 0; j < n; j++) {
+    let s = 0; for (let k = 0; k < NS; k++) { const v = bloc.P[j * NS + k] - moyenne[k]; bloc.Pc[j * NS + k] = v; s += v * v; }
+    s = Math.sqrt(s) || 1; for (let k = 0; k < NS; k++) bloc.Pc[j * NS + k] /= s;
+  }
+  bloc.posChaine = new Int32Array(n); bloc.chain.forEach((j, p) => { bloc.posChaine[j] = p; });
+  return bloc;
+}
+/** Contrôles de chargement : la chaîne est une permutation, 7 voisins distincts par motif, indices valides. */
+export function controlerBloc(b) {
+  const e = [];
+  if (new Set(b.chain).size !== b.n || b.chain.some((j) => !(j >= 0 && j < b.n))) e.push(`${b.id} : la chaîne n'est pas une permutation des ${b.n} motifs`);
+  if (b.rac.length !== b.n || b.rac.some((v, i) => v.length < 1 || new Set(v).size !== v.length || v.includes(i) || v.some((j) => !(j >= 0 && j < b.n)))) e.push(`${b.id} : voisins invalides`);
+  if (b.ids.length !== b.n) e.push(`${b.id} : ${b.ids.length} identifiants pour ${b.n} motifs`);
+  return e;
 }
 
-// ---------- analyse du son ----------
+/** Le champ 12 × 12 d'un motif : V = +1, O = 0, M = −1 ; en bicolore, la moyenne des 4 triangles à ±1. */
+export function champ12(bloc, j) {
+  const f = new Float64Array(CASES);
+  if (bloc.cls) { for (let i = 0; i < CASES; i++) { const c = bloc.cls[j * CASES + i]; f[i] = c === 2 ? 1 : c === 1 ? 0 : -1; } }
+  else for (let i = 0; i < CASES; i++) { const l = bloc.lb[j * CASES + i]; let s = 0; for (let q = 0; q < 4; q++) s += ((l >> q) & 1) ? 1 : -1; f[i] = s / 4; }
+  return f;
+}
+
+// ---------- les figures de Chladni du motif lui-même (ordre 12) ----------
+
+/** Les 144 coefficients de Fourier du champ (la composante continue écartée). C[ky][kx] = [re, im]. */
+export function coefficients12(champ) {
+  const C = [];
+  for (let ky = 0; ky < 12; ky++) { C.push([]); for (let kx = 0; kx < 12; kx++) {
+    let re = 0, im = 0;
+    for (let y = 0; y < 12; y++) for (let x = 0; x < 12; x++) { const a = -2 * Math.PI * (ky * y + kx * x) / 12, v = champ[y * 12 + x]; re += v * Math.cos(a); im += v * Math.sin(a); }
+    C[ky].push([re / 144, im / 144]);
+  } }
+  C[0][0] = [0, 0];
+  return C;
+}
+const FREQ13 = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
+/** La valeur du champ reconstruit en un point (X, Y) du tore, en cases (les cases sont aux entiers). */
+export function valeurFourier12(C, X, Y) {
+  let v = 0;
+  for (const kx of FREQ13) for (const ky of FREQ13) {
+    const w = (Math.abs(kx) === 6 ? 0.5 : 1) * (Math.abs(ky) === 6 ? 0.5 : 1), [cr, ci] = C[(ky + 12) % 12][(kx + 12) % 12], a = 2 * Math.PI * (ky * Y + kx * X) / 12;
+    v += w * (cr * Math.cos(a) - ci * Math.sin(a));
+  }
+  return v;
+}
+/**
+ * Les signes (champ > 0) ou les lignes nodales (|champ| < 0,07 du maximum) du motif lui-même,
+ * sur une tuile de T × T points ; `A` (Uint8Array de T × T) reçoit 255 (encre) ou 0. Le motif est
+ * périodique : le pavage par translation donne 4 tuiles. Pas de miroir, jamais.
+ */
+export function figure12(champ, T, vue, A) {
+  const C = coefficients12(champ), cs = [], sn = [];
+  for (const k of FREQ13) { const a = new Float64Array(T), c = new Float64Array(T); for (let p = 0; p < T; p++) { const X = (p + 0.5) / T * 12 - 0.5; a[p] = Math.cos(2 * Math.PI * k * X / 12); c[p] = Math.sin(2 * Math.PI * k * X / 12); } cs.push(a); sn.push(c); }
+  const F = new Float32Array(T * T); let mx = 0;
+  for (let py = 0; py < T; py++) {
+    const G = [];
+    for (let ik = 0; ik < 13; ik++) { const kx = FREQ13[ik]; let gr = 0, gi = 0;
+      for (let jk = 0; jk < 13; jk++) { const ky = FREQ13[jk], w = Math.abs(ky) === 6 ? 0.5 : 1, [cr, ci] = C[(ky + 12) % 12][(kx + 12) % 12], c = cs[jk][py], s = sn[jk][py]; gr += w * (cr * c - ci * s); gi += w * (cr * s + ci * c); }
+      G.push([gr, gi, Math.abs(kx) === 6 ? 0.5 : 1]); }
+    for (let px = 0; px < T; px++) { let v = 0; for (let ik = 0; ik < 13; ik++) { const g = G[ik]; v += g[2] * (g[0] * cs[ik][px] - g[1] * sn[ik][px]); } F[py * T + px] = v; const a = Math.abs(v); if (a > mx) mx = a; }
+  }
+  mx = mx || 1;
+  for (let i = 0; i < T * T; i++) { const v = F[i] / mx; A[i] = (vue === 'signes' ? v > 0 : Math.abs(v) < 0.07) ? 255 : 0; }
+  return A;
+}
+
+// ---------- les variantes de case (bicolore) ----------
+
+/** Les neuf fonds en bandes retenus pour la page ; B2 par défaut. Tous les autres sont écartés. */
+export const BANDES = Object.freeze(['B2', 'B3', 'B4', 'B121', 'B11211D', 'B12m', 'B3x', 'BA33', 'BA50']);
+export const BANDE_DEFAUT = 'B2';
+/**
+ * Les deux états d'une case : l'état 1 est le fond (`encre1` : R × R octets, 1 = encre), l'état 0
+ * est le même fond tourné de 90° — mode unique, l'orientation est uniforme sur tout le motif.
+ * L'encre est donc la même dans les deux états (critère d'équilibre).
+ */
+export function etatsDeCase(encre1, R = 60) {
+  if (encre1.length !== R * R) throw new Error('etatsDeCase : R × R points attendus');
+  const a0 = new Uint8Array(R * R);
+  for (let y = 0; y < R; y++) for (let x = 0; x < R; x++) a0[x * R + (R - 1 - y)] = encre1[y * R + x]; // 90° dans le sens horaire
+  return { R, a1: Uint8Array.from(encre1), a0 };
+}
+/**
+ * Le masque d'encre d'un motif bicolore sur T × T points : chaque case est lue en 4 triangles
+ * (N, E, S, O) ; chaque triangle est dessiné avec l'état 1 ou 0 du fond choisi. Chaque point moyenne
+ * 2 × 2 sous-échantillons (255 × la part d'encre) : avec 30 points par case et R = 60, un échantillon
+ * unique par point ne lirait qu'un point sur deux de la grille d'état et fausserait la part d'encre
+ * (B4 : 46,7 % au lieu de 50 %). Audit de la maquette, n° 4.
+ */
+export function masqueBicolore(bloc, j, etats, T, A = new Uint8Array(T * T)) {
+  const { R, a1, a0 } = etats, cp = T / 12;
+  if (bloc.lb.length !== bloc.n * CASES) throw new Error('masqueBicolore : lb de longueur inattendue');
+  for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) {
+    let n = 0;
+    for (const dy of [0.25, 0.75]) for (const dx of [0.25, 0.75]) {
+      const fy = (y + dy) / cp, fx = (x + dx) / cp, cy = Math.floor(fy), cx = Math.floor(fx), v = fy - cy, u = fx - cx;
+      const d1 = u - v, d2 = u + v - 1, reg = d1 > 0 ? (d2 < 0 ? 0 : 1) : (d2 > 0 ? 2 : 3);
+      const arr = ((bloc.lb[j * CASES + cy * 12 + cx] >> reg) & 1) ? a1 : a0;
+      n += arr[Math.min(R - 1, Math.floor(v * R)) * R + Math.min(R - 1, Math.floor(u * R))];
+    }
+    A[y * T + x] = Math.round(255 * n / 4);
+  }
+  return A;
+}
+/** Le masque du motif tricolore en cellules : 255 = V (encre), 128 = O (gris moyen), 0 = M (crème). */
+export function masqueTricolore(bloc, j, T, A = new Uint8Array(T * T)) {
+  const cp = T / 12;
+  for (let y = 0; y < T; y++) { const cy = Math.floor(y / cp); for (let x = 0; x < T; x++) { const c = bloc.cls[j * CASES + cy * 12 + Math.floor(x / cp)]; A[y * T + x] = c === 2 ? 255 : c === 1 ? 128 : 0; } }
+  return A;
+}
+
+// ---------- l'analyse du son ----------
 
 /**
- * Le vecteur de la musique aux fréquences des cercles K. `db` : le spectre de l'analyseur en dB
+ * Le vecteur de la musique aux fréquences des cercles K. `db` : spectre de l'analyseur en dB
  * (getFloatFrequencyData), `sampleRate` en Hz. Pour chaque cercle, le maximum des trois cases les
- * plus proches de f_K, en amplitude ; `pente` compense la pente des graves (×√(f / fref)).
+ * plus proches de f_K, en amplitude ; `pente` compense la pente des graves (× √(f / fref)).
  */
-export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true } = {}) {
-  const n = db.length, ny = sampleRate / 2, bw = ny / n, out = new Float64Array(NS12);
-  for (let k = 0; k < NS12; k++) {
-    const f = frequenceDuCercle(SHELLS12[k], fref);
+export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true, shells = SHELLS12 } = {}) {
+  const n = db.length, ny = sampleRate / 2, bw = ny / n, out = new Float64Array(shells.length);
+  for (let k = 0; k < shells.length; k++) {
+    const f = frequenceDuCercle(shells[k], fref);
     if (f >= ny * 0.9) continue;
     const c = Math.round(f / bw), lo = Math.max(0, c - 1), hi = Math.min(n - 1, c + 1);
     let m = -200; for (let i = lo; i <= hi; i++) if (db[i] > m) m = db[i];
@@ -132,65 +223,21 @@ export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true } = {}
   }
   return out;
 }
-
-/**
- * L'appariement : le motif dont le spectre ressemble le plus à celui de la musique (cosinus
- * centré). Le motif `courant` est gardé tant qu'il reste à moins de `hysteresis` du meilleur.
- * Rend { i, score, courant } ; i = −1 en cas de silence.
- */
-export function apparier(v, corpus, courant = -1, hysteresis = 0.07) {
-  const nn = norme(v);
-  if (nn < 1e-9) return { i: -1, score: 0, courant: -2 };
-  const uc = Float64Array.from(v, (x, k) => x / nn - corpus.moyenne[k]), un = norme(uc) || 1;
-  let meilleur = -2, bi = -1;
-  const sim = (c) => { let s = 0; for (let k = 0; k < NS12; k++) s += uc[k] * c[k]; return s / un; };
-  for (let i = 0; i < corpus.n; i++) { const s = sim(corpus.centres[i]); if (s > meilleur) { meilleur = s; bi = i; } }
-  const cur = courant >= 0 ? sim(corpus.centres[courant]) : -2;
-  return { i: courant >= 0 && cur > meilleur - hysteresis ? courant : bi, score: meilleur, courant: cur };
+/** Le vecteur de la musique, normalisé puis centré sur la moyenne du bloc, puis normalisé ; null en cas de silence. */
+export function vecteurAudio(v, bloc) {
+  const nn = norme(v); if (nn < 1e-9) return null;
+  const a = new Float32Array(bloc.NS); let t = 0;
+  for (let k = 0; k < bloc.NS; k++) { a[k] = v[k] / nn - bloc.mean[k]; t += a[k] * a[k]; }
+  t = Math.sqrt(t) || 1; for (let k = 0; k < bloc.NS; k++) a[k] /= t;
+  return a;
 }
-
-// ---------- la figure de Chladni ----------
-
-/**
- * Les champs de chaque cercle K : la somme des modes cosinus du carré cos(mπx)·cos(nπy) pour
- * m² + n² = K, normalisée (page test). `res` : côté du calcul, à réduire sur un téléphone.
- */
-export function creerChamps(res = 180) {
-  return SHELLS12.map((K) => {
-    const f = new Float32Array(res * res), paires = [];
-    for (let m = 0; m * m <= K; m++) { const n = Math.round(Math.sqrt(K - m * m)); if (n * n + m * m === K && m <= n) paires.push([m, n]); }
-    const cm = (a) => { const t = new Float32Array(res); for (let i = 0; i < res; i++) t[i] = Math.cos(a * Math.PI * (i + 0.5) / res); return t; };
-    for (const [m, n] of paires) {
-      const A = cm(m), B = cm(n);
-      for (let y = 0; y < res; y++) for (let x = 0; x < res; x++) f[y * res + x] += A[x] * B[y] + (m === n ? 0 : B[x] * A[y]);
-    }
-    let mx = 0; for (let i = 0; i < f.length; i++) mx = Math.max(mx, Math.abs(f[i]));
-    mx = mx || 1; for (let i = 0; i < f.length; i++) f[i] /= mx;
-    return f;
-  });
+const cosinus = (bloc, j, a) => { let s = 0; for (let k = 0; k < bloc.NS; k++) s += bloc.Pc[j * bloc.NS + k] * a[k]; return s; };
+/** Le motif du bloc dont le spectre ressemble le plus à celui de la musique (cosinus centré). */
+export function meilleurMotif(v, bloc) {
+  const a = vecteurAudio(v, bloc); if (!a) return { i: -1, score: 0 };
+  let bi = 0, bs = -9; for (let j = 0; j < bloc.n; j++) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; bi = j; } }
+  return { i: bi, score: bs };
 }
-
-/**
- * La figure : la somme des champs, pondérée par le vecteur de la musique. `F` (Float32Array de
- * res²) est rempli, normalisé entre −1 et 1 ; rend false si le son est trop faible.
- */
-export function calculerFigure(v, champs, F) {
-  let mx = 0; for (let k = 0; k < NS12; k++) mx = Math.max(mx, v[k]);
-  if (mx < 1e-9) return false;
-  F.fill(0);
-  for (let k = 0; k < NS12; k++) {
-    const w = Math.pow(v[k] / mx, 0.8); if (w < 0.02) continue;
-    const f = champs[k]; for (let i = 0; i < F.length; i++) F[i] += w * f[i];
-  }
-  let fm = 0; for (let i = 0; i < F.length; i++) fm = Math.max(fm, Math.abs(F[i]));
-  fm = fm || 1; for (let i = 0; i < F.length; i++) F[i] /= fm;
-  return true;
-}
-
-export const SEUIL_LIGNES = 0.07, SEUIL_LIGNES_MIN = 0.03, SEUIL_LIGNES_MAX = 0.12;
-/** Deux couleurs pour un point de la figure : 0 = encre, 1 = crème. `seuil` : réglage de 0,03 à 0,12. */
-export const teinteLignes = (val, seuil = SEUIL_LIGNES) => (Math.abs(val) < seuil ? 0 : 1);
-export const teinteSignes = (val) => (val > 0 ? 0 : 1);
 
 // ---------- la détection des attaques (fonction nouvelle et séparée) ----------
 
@@ -212,6 +259,7 @@ export function creerDetecteurAttaques({ fMin = 220, fMax = 4000, sigma = 0.45, 
   return {
     reglages: { fMin, fMax, sigma, intervalleMin, fenetre },
     sensibilite(x) { sensibilite = x > 0 ? x : 1; },
+    seuil(x) { sigma = x > 0 ? x : 0.45; }, // le seuil en écarts-types (défaut 0,45 ; plus bas = plus sensible)
     intervalle(s) { intervalleMin = s; },
     reinitialiser() { precedent = null; derniere = -Infinity; hist.length = 0; recents.length = 0; },
     /** `db` : spectre en dB ; `t` : temps en secondes. Rend { attaque, temps, flux, seuil }. */
@@ -277,86 +325,44 @@ export function creerSuiviPulsation({ tolerance = 0.18, minAttaques = 6, bpmMin 
   };
 }
 
+// ---------- la teinte qui suit le son ----------
+
+/**
+ * Mode de couleur « la teinte suit le son » (désactivé par défaut) : la teinte vise le centroïde
+ * spectral (100–5000 Hz, 200 Hz → 0°, 5000 Hz → 300°), lissée, pente limitée à ±3° par image.
+ * Rend la nouvelle teinte, en degrés.
+ */
+export function suivreTeinte(db, sampleRate, teinte) {
+  const n = db.length, bw = sampleRate / 2 / n; let sw = 0, sf = 0;
+  for (let i = Math.floor(100 / bw); i < Math.floor(5000 / bw) && i < n; i++) { const m = db[i] > -200 ? Math.pow(10, db[i] / 20) : 0; sw += m; sf += m * i * bw; }
+  if (sw <= 1e-6) return teinte;
+  const cible = Math.min(1, Math.max(0, Math.log2(sf / sw / 200) / Math.log2(5000 / 200))) * 300;
+  return teinte + Math.max(-3, Math.min(3, (cible - teinte) * 0.04));
+}
+
 // ---------- le pilotage ----------
 
-/** Distance entre deux motifs : ce que le visiteur voit (les grilles de luminosité). */
-export function distanceVisible(corpus, a, b) {
-  const A = corpus.lum[a], B = corpus.lum[b]; let s = 0;
-  for (let i = 0; i < CASES; i++) { const d = A[i] - B[i]; s += d * d; }
-  return Math.sqrt(s);
-}
-
-/**
- * Les voisins de chaque motif : les `n` (7) plus proches par la distance sur ce que le visiteur voit
- * (les grilles de luminosité), calculés une fois à la construction du corpus. Un motif identique au
- * motif courant (même image, autre identifiant) n'est pas un voisin : il ne changerait rien.
- */
-export function calculerRaccords(corpus, n = 7) {
-  const out = [];
-  for (let i = 0; i < corpus.n; i++) {
-    const d = [];
-    for (let j = 0; j < corpus.n; j++) if (j !== i) { const x = distanceVisible(corpus, i, j); if (x > 1e-9) d.push([x, j]); }
-    d.sort((u, v) => u[0] - v[0] || u[1] - v[1]);
-    out.push(d.slice(0, n).map((x) => x[1]));
-  }
-  return out;
-}
-
-/**
- * Mode « le son guide le chemin » : le rythme décide QUAND le motif change, le spectre décide VERS OÙ.
- * On compare le spectre de la musique (centré, comme l'appariement) à ceux des voisins du motif
- * courant (`corpus.raccords`) et on prend le plus proche. Le motif que l'on vient de quitter n'est
- * écarté que s'il reste un autre voisin : le dessin reste reconnaissable, sans aller-retour.
- */
-export function voisinLePlusProcheDuSon(v, corpus, courant, ancien = -1) {
-  const nn = norme(v); if (nn < 1e-9) return -1;
-  const uc = Float64Array.from(v, (x, k) => x / nn - corpus.moyenne[k]);
-  const voisins = corpus.raccords[courant].filter((j) => j !== ancien);
-  const candidats = voisins.length ? voisins : corpus.raccords[courant];
-  let meilleur = -Infinity, bi = -1;
-  for (const j of candidats) { let s = 0; for (let k = 0; k < NS12; k++) s += uc[k] * corpus.centres[j][k]; if (s > meilleur) { meilleur = s; bi = j; } }
-  return bi;
-}
-
-/**
- * Le motif suivant en mode « le son définit le rythme » : le plus proche du courant, hors des
- * `memoire` derniers motifs vus (une chaîne de proximité, sans aller-retour).
- */
-export function suivantLePlusProche(corpus, courant, vus = [], memoire = 12) {
-  const exclus = new Set(vus.slice(-memoire)); exclus.add(courant);
-  let meilleur = Infinity, bi = -1;
-  for (let i = 0; i < corpus.n; i++) {
-    if (exclus.has(i)) continue;
-    const d = distanceVisible(corpus, courant, i);
-    if (d < meilleur) { meilleur = d; bi = i; }
-  }
-  return bi;
-}
-
-export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme', GUIDE: 'guide' });
+export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme', CHEMIN: 'chemin' });
 export const PULSATIONS = Object.freeze({ ATTAQUE: 'attaque', TEMPS: 'temps', QUATRE: 'quatre' });
-export const VUES = Object.freeze(['signes', 'lignes', 'motif', 'fusion']);
-export const PERIODE_FUSION = 3.4;
-/** La vue qu'il faut montrer à l'instant t (secondes) : en « fusion », motif → lignes → signes. */
-export function vueAuTemps(vue, t) {
-  if (vue !== 'fusion') return vue;
-  return ['motif', 'lignes', 'signes'][Math.floor(t / PERIODE_FUSION) % 3];
-}
+export const VUES = Object.freeze(['signes', 'lignes', 'pavage']);
 
 /**
- * Le pilote. Il garde le motif courant, la tenue (images depuis le dernier changement), le
- * fondu, et rend à chaque image { motif, ancien, fondu, change, score }.
- *  - « image » : le motif est celui que choisit l'appariement (hystérésis 0,07), tenu au moins
- *    `tenueMin` images (8, environ 0,27 s) ;
- *  - « rythme » : le motif change à chaque attaque, pour le plus proche du précédent.
- * `calme` (réduire les changements rapides) allonge le fondu et l'intervalle minimal.
+ * Le pilote d'une fenêtre. Il garde le motif courant (`motif`, toujours à jour, quel que soit le mode),
+ * le précédent, la tenue et le fondu, et rend à chaque image { motif, ancien, fondu, change, score }.
+ *  - « image » : le motif est celui que choisit l'appariement (cosinus centré, hystérésis 0,07), tenu au
+ *    moins `tenueMin` images (8, environ 0,27 s) ;
+ *  - « rythme » : à chaque attaque, un pas dans la chaîne de proximité du bloc (le motif courant garde sa
+ *    place dans la chaîne : changer de mode en cours de route ne la perd pas) ;
+ *  - « chemin » : à chaque attaque, le rythme décide QUAND, le spectre décide VERS OÙ : le plus proche de
+ *    la musique parmi les voisins du motif courant (`rac`), sauf le précédent s'il en reste un autre.
+ * « Quand » : à chaque attaque, ou — si une pulsation régulière est détectée — à chaque temps ou toutes les
+ * 4 pulsations. `calme` allonge le fondu et la tenue (réduire les changements rapides).
  */
-export function creerPilote(corpus, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE } = {}) {
-  let courant = -1, ancien = -1, tenue = 1e9, tChange = -1e9, vus = [], etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation };
+export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE } = {}) {
+  let courant = 0, ancien = -1, precedent = -1, tenue = 1e9, tChange = -1e9;
+  const etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation };
   const suivi = creerSuiviPulsation();
   const facteur = () => (etat.calme ? 3 : 1);
-  // Le moment du changement : à chaque attaque, ou — quand une pulsation régulière est détectée —
-  // à chaque temps (les attaques hors temps sont ignorées) ou toutes les 4 pulsations.
   const momentJuste = (attaque, t) => {
     if (!attaque) return false;
     const e = suivi.etat();
@@ -364,30 +370,38 @@ export function creerPilote(corpus, { mode = MODES.IMAGE, hysteresis = 0.07, ten
     if (suivi.ecartAuTemps(t) > 0.25) return false;
     return etat.pulsation === PULSATIONS.QUATRE ? t - tChange >= 3.5 * e.periode : true;
   };
+  const aller = (j, t) => { if (j === courant || j < 0) return false; ancien = courant; precedent = courant; courant = j; tenue = 0; tChange = t; return true; };
   return {
     etat,
     pulsation() { return suivi.etat(); },
-    mode(m) { etat.mode = m; },
     reglages(r) { Object.assign(etat, r); },
-    reinitialiser() { courant = ancien = -1; tenue = 1e9; tChange = -1e9; vus = []; suivi.reinitialiser(); },
+    /** Reprend l'état d'une autre fenêtre (« Valider l'essai »). */
+    copier(autre) { courant = autre.motif(); ancien = autre.ancien(); precedent = autre.precedent(); tenue = 1e9; },
+    motif() { return courant; }, ancien() { return ancien; }, precedent() { return precedent; },
+    reinitialiser() { courant = 0; ancien = -1; precedent = -1; tenue = 1e9; tChange = -1e9; suivi.reinitialiser(); },
     /** `v` : vecteur de la musique ; `attaque` : booléen du détecteur ; `t` : secondes. */
     pas({ v, attaque = false, t }) {
       tenue++;
       if (attaque) suivi.attaque(t);
       let change = false, score = 0;
-      const tenueRequise = etat.tenueMin * facteur();
       if (etat.mode === MODES.IMAGE) {
-        const r = apparier(v, corpus, courant, etat.hysteresis); score = r.score;
-        if (r.i >= 0 && r.i !== courant && (courant < 0 || tenue >= tenueRequise)) { ancien = courant; courant = r.i; change = true; }
-      } else if (momentJuste(attaque, t) && tenue >= tenueRequise) {
-        const r = apparier(v, corpus, -1, 0); score = r.score;
-        let suivant;
-        if (courant < 0) suivant = r.i >= 0 ? r.i : 0;
-        else if (etat.mode === MODES.RYTHME) suivant = suivantLePlusProche(corpus, courant, vus);
-        else suivant = voisinLePlusProcheDuSon(v, corpus, courant, ancien); // « le son guide le chemin »
-        if (suivant >= 0 && suivant !== courant) { ancien = courant; courant = suivant; change = true; }
+        const a = vecteurAudio(v, bloc);
+        if (a) {
+          let bi = 0, bs = -9; for (let j = 0; j < bloc.n; j++) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; bi = j; } }
+          score = bs;
+          if (bi !== courant && bs > cosinus(bloc, courant, a) + etat.hysteresis && tenue >= etat.tenueMin * facteur()) change = aller(bi, t);
+        }
+      } else if (momentJuste(attaque, t)) {
+        if (etat.mode === MODES.RYTHME) change = aller(bloc.chain[(bloc.posChaine[courant] + 1) % bloc.n], t);
+        else {
+          const a = vecteurAudio(v, bloc);
+          if (a) {
+            let cand = bloc.rac[courant].filter((j) => j !== precedent); if (!cand.length) cand = bloc.rac[courant];
+            let best = cand[0], bs = -9; for (const j of cand) { const s = cosinus(bloc, j, a); if (s > bs) { bs = s; best = j; } }
+            score = bs; change = aller(best, t);
+          }
+        }
       }
-      if (change) { tenue = 0; tChange = t; vus.push(courant); if (vus.length > 64) vus.shift(); }
       const duree = etat.fondu * facteur();
       return { motif: courant, ancien, fondu: duree > 0 ? Math.min(1, (t - tChange) / duree) : 1, change, score };
     },
