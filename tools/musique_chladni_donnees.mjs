@@ -2,7 +2,7 @@
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// musique_chladni_donnees.mjs — les données de la page « La musique dessine » (ordre 12).
+// musique_chladni_donnees.mjs — les données de la page « Voir sa musique » (ordre 12).
 //
 // Pour chaque motif d'ordre 12 des catégories Par 2 et Par 3 de data/fonds_ecran_v1.json
 // (la catégorie « bases » est écartée : décision de l'auteur), la luminosité de ce que le

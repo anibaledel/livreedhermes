@@ -655,6 +655,20 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_musique_chladni.mjs",
+   "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
+   "lit": [
+    "assets/musique-chladni-ui.js"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_navigation.mjs",
    "role": "le bloc de navigation en cinq catégories (scripts/nav-tiles.js, prompt-navigation.md), mesuré dans un navigateur, sur les 26 pages qu'il range, JAVASCRIPT COUPÉ : 1.",
    "lit": [],
@@ -1664,6 +1678,7 @@
     "tools/check_fond_ecran_deux_outils.mjs",
     "tools/check_galerie_animations.mjs",
     "tools/check_lecteur.mjs",
+    "tools/check_musique_chladni.mjs",
     "tools/check_navigation.mjs",
     "tools/check_outils_langues.mjs",
     "tools/check_page_360.mjs",
@@ -1809,6 +1824,35 @@
     "tools/enum6.py",
     "tools/portee_miroirs.py",
     "tools/verifie_portee.py"
+   ],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/musique_chladni_donnees.mjs",
+   "role": "les données de la page « Voir sa musique » (ordre 12).",
+   "lit": [
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/fonds_ecran_v1.json",
+    "data/musique-chladni-12.json"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/musique_chladni_recette_12.py",
+   "role": "Recette de l'auteur, copiée telle quelle (n° 91, extraite de tri/render8.py, lignes 70-93) : la référence que tools/verify_musique_chladni.mjs compare au moteur assets/musique-chladni-moteur.js.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/verify_musique_chladni.mjs"
    ],
    "etat": "actif",
    "sait_echouer": false
@@ -2477,6 +2521,21 @@
    "ecrit": [],
    "appele_par": [
     "check-fonds.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
+   "fichier": "tools/verify_musique_chladni.mjs",
+   "role": "le moteur de la page « Voir sa musique » (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.",
+   "lit": [
+    "data/musique-chladni-12.json",
+    "tools/musique_chladni_recette_12.py"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-musique-chladni.yml"
    ],
    "utilise_par": [],
    "etat": "actif",

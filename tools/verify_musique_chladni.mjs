@@ -2,7 +2,7 @@
 // © Anibal Edelberto Amiot 2026 — La Livrée d'Hermès
 // AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// verify_musique_chladni.mjs — le moteur de la page « La musique dessine »
+// verify_musique_chladni.mjs — le moteur de la page « Voir sa musique »
 // (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.
 //
 //   1. le spectre d'un motif est CELUI DE LA RECETTE DE L'AUTEUR (n° 91,
@@ -16,6 +16,9 @@
 //      et un bruit stable n'en donne aucune ;
 //   6. le pilote : tenue minimale de 8 images, un seul changement par attaque en mode rythme,
 //      chaîne de proximité sans retour immédiat ;
+//   6b. les raccords (7 voisins visibles, sans soi-même ni doublon), le mode « le son guide le chemin »
+//       (le rythme décide quand, le spectre décide vers où : toujours un voisin du motif courant),
+//       la pulsation (régulière ou non, « à chaque temps », « toutes les 4 pulsations ») ;
 //   7. --essai : un moteur faussé (mauvaise fréquence d'ancrage) doit être refusé par l'écho.
 //
 // Usage : node tools/verify_musique_chladni.mjs [--essai]
@@ -154,6 +157,51 @@ console.log(`4. figure ${RES} × ${RES} : maximum 1, lignes ${(100 * lignes / F.
   ok(n === 0, `mode rythme : ${n} changements sans aucune attaque`);
   ok(M.vueAuTemps('fusion', 0) === 'motif' && M.vueAuTemps('fusion', 3.5) === 'lignes' && M.vueAuTemps('fusion', 7) === 'signes' && M.vueAuTemps('signes', 99) === 'signes', 'vue « fusion » : motif → lignes → signes toutes les 3,4 s');
   console.log(`6. pilote : mode image ${chgts.length} changements espacés d'au moins 8 images ; mode rythme ${suite.length} changements sur attaques, aucun retour immédiat, aucun sans attaque ; fusion toutes les ${M.PERIODE_FUSION} s.`);
+}
+
+// 6b. raccords, mode « guide », pulsation
+{
+  const toutes = [corpus, M.creerCorpus(Uint8Array.from(Buffer.from(donnees.tricolore.lum, 'base64')))];
+  for (const c of toutes) {
+    const r = c.raccords;
+    ok(r.length === c.n && r.every((v, i) => v.length === 7 && !v.includes(i) && new Set(v).size === 7), 'raccords : 7 voisins distincts, sans le motif lui-même');
+    ok(r.every((v, i) => v.every((j) => M.distanceVisible(c, i, j) > 1e-9)), 'raccords : un voisin identique au motif courant');
+    ok(r.every((v, i) => v.every((j, k) => k === 0 || M.distanceVisible(c, i, v[k - 1]) <= M.distanceVisible(c, i, j) + 1e-12)), 'raccords : pas triés du plus proche au plus lointain');
+  }
+  const v1 = M.bandesDuSon(sonDuMotif(10, M.FREF12), SR, { pente: false });
+  const g = M.creerPilote(corpus, { mode: M.MODES.GUIDE }), suite = []; let prec = -1, horsVoisin = 0, sansAttaque = 0;
+  for (let f = 0; f < 400; f++) {
+    const x = g.pas({ v: v1, attaque: f % 12 === 0, t: f / 30 });
+    if (x.change) { if (prec >= 0 && !corpus.raccords[prec].includes(x.motif)) horsVoisin++; suite.push(x.motif); prec = x.motif; }
+    else if (f % 12 !== 0 && x.motif !== suite[suite.length - 1] && suite.length) sansAttaque++;
+  }
+  ok(suite.length >= 20, `mode guide : ${suite.length} changements seulement`);
+  ok(horsVoisin === 0, `mode guide : ${horsVoisin} changements vers un motif qui n'est pas un voisin du courant`);
+  ok(sansAttaque === 0, 'mode guide : un changement sans attaque');
+  ok(suite.every((m, i) => i < 2 || m !== suite[i - 2]), 'mode guide : retour immédiat au motif précédent');
+  // pulsation
+  const reg = M.creerSuiviPulsation(); for (let i = 0; i < 10; i++) reg.attaque(i * 0.5 + (i % 2 ? 0.03 : -0.02));
+  const er = reg.etat(); ok(er.regulier && Math.abs(er.bpm - 120) < 6, `pulsation régulière à 120 par minute non reconnue (${JSON.stringify(er)})`);
+  const irr = M.creerSuiviPulsation(); [0, 0.31, 0.9, 1.02, 1.8, 2.05, 2.95, 3.1, 4.4, 4.52].forEach((t) => irr.attaque(t));
+  ok(!irr.etat().regulier, 'pulsation : des attaques irrégulières ne font pas une pulsation');
+  // 120 par minute (un temps toutes les 15 images), avec une attaque hors temps tous les cinq temps :
+  // 83 % des attaques sont sur la grille, la pulsation reste régulière
+  const mesurer = (pulsation) => {
+    const p = M.creerPilote(corpus, { mode: M.MODES.RYTHME, pulsation }), changements = [];
+    for (let f = 0; f < 30 * 40; f++) {
+      const surTemps = f % 15 === 0, horsTemps = f % 75 === 40 && f > 300;
+      if (p.pas({ v: v1, attaque: surTemps || horsTemps, t: f / 30 }).change) changements.push(f);
+    }
+    return changements.filter((f) => f > 450); // après la mise en route (3 s pour reconnaître la pulsation)
+  };
+  const a = mesurer(M.PULSATIONS.ATTAQUE), t = mesurer(M.PULSATIONS.TEMPS), q = mesurer(M.PULSATIONS.QUATRE);
+  const horsTemps = (liste) => liste.filter((f) => f % 15 !== 0).length;
+  ok(horsTemps(a) > 0, "pulsation : « à chaque attaque » devait aussi changer sur les attaques hors temps");
+  ok(horsTemps(t) === 0, `pulsation : « à chaque temps » a changé ${horsTemps(t)} fois sur une attaque hors temps`);
+  ok(q.every((f, i) => i === 0 || (f - q[i - 1]) / 30 >= 1.7), "pulsation : « toutes les 4 pulsations » a changé en moins de 1,7 s (3,5 temps)");
+  ok(q.length >= 10 && q.length <= 22, `toutes les 4 pulsations : ${q.length} changements entre 15 s et 40 s à 120 par minute (environ 12 attendus)`);
+  ok(t.length > q.length, `pulsation : à chaque temps ${t.length} changements, toutes les 4 pulsations ${q.length}`);
+  console.log(`6b. raccords : 7 voisins distincts pour ${corpus.n} + ${toutes[1].n} motifs ; mode guide : ${suite.length} changements, tous vers un voisin ; pulsation : ${er.bpm.toFixed(0)} par minute reconnue, irrégulière refusée ; après la mise en route, changements à chaque attaque ${a.length} (dont ${horsTemps(a)} hors temps), à chaque temps ${t.length} (aucun hors temps), toutes les 4 pulsations ${q.length}.`);
 }
 
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }

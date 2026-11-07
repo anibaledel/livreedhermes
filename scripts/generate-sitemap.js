@@ -93,6 +93,8 @@ const STATIC_PAGES = [
   // 2026-10-05 : ni noindex ni retrait voulu — une page liée partout et cachée aux moteurs
   // n'a aucune cohérence (prompt-navigation.md).
   { loc: `${SITE}/creation-bicolore-v2.html`, file: 'creation-bicolore-v2.html', changefreq: 'monthly', priority: '0.7' },
+  // Voir sa musique (2026-11-07) : page en français seulement pour l'instant ; ses traductions viendront dans un groupe de scripts/langues.js.
+  { loc: `${SITE}/musique-chladni.html`, file: 'musique-chladni.html', changefreq: 'monthly', priority: '0.7' },
   // 'unified-patterns.html' : dans le groupe « outil-unified-patterns » de scripts/langues.js (étape 4).
   // 'fonds-ecran.html' : dans le groupe « outil-fonds-ecran » de scripts/langues.js (étape 2).
   // 'galerie-animations.html' : dans le groupe « galerie-animations » de scripts/langues.js (lot 7), avec ses alternates et ses six pages de groupe.

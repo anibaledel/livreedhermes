@@ -1,0 +1,44 @@
+name: Voir sa musique — le moteur et la page
+
+# tools/verify_musique_chladni.mjs : le moteur (assets/musique-chladni-moteur.js) fait ce que dit
+# sa consigne — son spectre d'un motif est celui de la recette de l'auteur (n° 91,
+# tools/musique_chladni_recette_12.py, exécutée par python3), l'écho retrouve les motifs, les
+# attaques sont vues à 0,45 s au moins l'une de l'autre, le pilote tient 8 images.
+# tools/musique_chladni_donnees.mjs --verifie : data/musique-chladni-12.json (les luminosités 12 × 12
+# du rendu de la galerie, motifSvg) est celui que Chromium recalcule.
+# tools/check_musique_chladni.mjs : la page, dans Chromium, avec un vrai morceau et un faux micro —
+# quatre vues, deux rendus, deux modes, enregistrement, 390 et 360 px, rien d'envoyé.
+# --essai : un moteur faussé, une page privée de son moteur doivent échouer.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  moteur:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: pip install numpy
+      - run: node tools/verify_musique_chladni.mjs
+      - run: node tools/verify_musique_chladni.mjs --essai
+  page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/musique_chladni_donnees.mjs --verifie
+      - run: node tools/check_musique_chladni.mjs local
+      - run: node tools/check_musique_chladni.mjs local --essai

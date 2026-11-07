@@ -236,6 +236,7 @@
     <p class="framing" data-i18n="framing2">และคำศัพท์ที่ถูกสร้างขึ้นนี้ตรงกัน เส้นต่อเส้น กับเส้นระดับของฟังก์ชันเดียว คือ cos(πx/3) ที่ถูกตัดที่ความสูงเจ็ดระดับ ฟังก์ชันนี้เป็นฟังก์ชันไอเกนที่แม่นตรง — ไม่ใช่การประมาณ — ของแผ่นเพลตสี่เหลี่ยมขอบนำ: แม่นตรงโดยตรงสำหรับตระกูลตั้งฉาก และโดยคู่เสื่อมถอย (ผลรวมหรือผลต่างของโหมด (m, n) และ (n, m) ตามแนวคิดของ Colwell) สำหรับตระกูลทแยงมุม ความสอดคล้องนี้จึงไม่ใช่ความคล้ายคลึงที่วัดได้ด้วยการแปลงฟูริเยร์อีกต่อไป</p>
     <p class="framing" data-i18n="framing3">สิ่งที่ยังอยู่นอกเหนือขอบเขตจะกล่าวถึงด้านล่าง และควรอ่าน คือ ยังไม่มีการวัดใด ๆ เกิดขึ้น และในเจ็ดระดับมีเพียงหนึ่งเดียวที่เป็นเส้นโหนด</p>
     <p class="framing"><a href="https://doi.org/10.5281/zenodo.22965031" data-i18n="framingLink">รายละเอียด พร้อมการตรวจสอบ →</a></p>
+    <p class="framing" data-i18n-html="musiqueLien">ดูดนตรีของคุณ: <a href="../../musique-chladni.html" hreflang="fr">หน้า «Voir sa musique» <span class="lien-langue">(ภาษาฝรั่งเศส)</span></a> (ภาษาฝรั่งเศส)</p>
     <div class="encadre-gamme-modes" data-i18n-html="encadreGammeModes">บันไดเสียงหนึ่งคือการผสมกันของสี่ฐาน สำหรับสิบเอ็ดจากสิบห้า ความถี่ที่แสดงคือความถี่ของโหมดแผ่นเพลตที่วาดรูปเดียวกันทุกประการ ส่วนอีกสี่ที่เหลือเป็นเพียงความถี่เด่นของรูปนั้นเท่านั้น การเปลี่ยนจากเสียงที่ได้ยินไปเป็นบันไดเสียงยังคงเป็นข้อตกลงของหน้านี้</div>
     <div class="echelle-row" id="echelleRow">
       <span class="echelle-label" data-i18n="echelleLabel">มาตราส่วน</span>
@@ -371,6 +372,7 @@ import { PALETTE_DEFAUT } from '../../assets/couleurs.js';
 // sera remplacé par les clés qu'il contient une fois rempli.
 const UI = {
   fr: {
+    musiqueLien: "Voir sa musique : <a href=\"../../musique-chladni.html\">la page « Voir sa musique »</a> (en français).",
     obsHeading: "Ce qu'on observe",
     obs1: "Jouez un son pur ou activez le micro : la page cherche, parmi les quinze gammes, celle dont la fréquence est la plus proche du son entendu.",
     obs2: "La gamme retenue détermine le pavage affiché.",
@@ -447,6 +449,7 @@ const UI = {
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
   },
   en: {
+    musiqueLien: "See your music: <a href=\"../../musique-chladni.html\">the page “Voir sa musique”</a> (in French).",
     obsHeading: "What you observe",
     obs1: "Play a pure tone or enable the microphone: the page looks for the closest of the fifteen scales to the sound heard.",
     obs2: "The scale it retains determines the tiling shown.",
@@ -523,6 +526,7 @@ const UI = {
     cat1: "1 base", cat2: "2 bases", cat3: "3 bases", cat4: "4 bases",
   },
   es: {
+    musiqueLien: "Ver tu música: <a href=\"../../musique-chladni.html\">la página «Voir sa musique»</a> (en francés).",
     obsHeading: "Lo que se observa",
     obs1: "Reproduzca un tono puro o active el micrófono: la página busca, entre las quince escalas, la más cercana al sonido oído.",
     obs2: "La escala elegida determina el teselado mostrado.",
@@ -598,6 +602,7 @@ const UI = {
     echelleOrdinaleHelp: "los dieciséis valores repartidos por rango, de do 128 Hz a do 256 Hz — comparación inmediata.",
   },
   th: {
+    musiqueLien: "ดูดนตรีของคุณ: <a href=\"../../musique-chladni.html\">หน้า «Voir sa musique»</a> (ภาษาฝรั่งเศส)",
     obsHeading: "สิ่งที่สังเกตได้",
     obs1: "เล่นเสียงบริสุทธิ์หรือเปิดไมโครโฟน: หน้านี้จะหาสเกลที่ใกล้เคียงเสียงที่ได้ยินที่สุดในสิบห้าสเกล",
     obs2: "สเกลที่เลือกกำหนดลายปูที่แสดง",

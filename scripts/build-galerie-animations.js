@@ -199,7 +199,7 @@ async function main() {
     for (const [s, c] of Object.entries(G.synonymes)) groupeDe[s] = groupeDe[c];
     const corps = [
       bandeau(T, l, [[null, T.titre]], T.titre, T.sousTitre),
-      `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}${adresseDans('fonds-ecran.html', l)}` })}</p>`,
+      `<p class="anim-intro">${esc(remplir(T.intro, { n }))} ${remplir(T.fondsEcran, { href: `${p}${adresseDans('fonds-ecran.html', l)}` })}${T.musique ? ' ' + remplir(T.musique, { href: `${p}musique-chladni.html` }) : ''}</p>`,
       `<div class="anim-grille" id="groupes">\n${cartes}\n</div>`,
       synonymes(T),
       donnees({ page: 'entree', textes: pourLaPage(T), groupeDe }),

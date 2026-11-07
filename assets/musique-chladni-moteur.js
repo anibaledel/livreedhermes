@@ -1,7 +1,7 @@
 // musique-chladni-moteur.js — La Livrée d'Hermès
 // © Anibal Edelberto Amiot 2026 — AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com
 //
-// Le moteur de la page « La musique dessine » : analyse du son, spectre d'un motif, appariement
+// Le moteur de la page « Voir sa musique » : analyse du son, spectre d'un motif, appariement
 // motif-son, figure de Chladni, détection des attaques de notes, pilotage. AUCUN accès au DOM,
 // à Web Audio ni au réseau : il reçoit des tableaux (spectre en dB, grilles de luminosité) et
 // rend des tableaux. Il tourne tel quel dans un navigateur, dans Node, et dans une WebView.
@@ -107,7 +107,9 @@ export function creerCorpus(octets) {
     const c = u.map((x, k) => x - moyenne[k]), nn = norme(c) || 1;
     return c.map((x) => x / nn);
   });
-  return { n, lum, spectres, moyenne, centres };
+  const corpus = { n, lum, spectres, moyenne, centres, raccords: null };
+  corpus.raccords = calculerRaccords(corpus);
+  return corpus;
 }
 
 // ---------- analyse du son ----------
@@ -237,6 +239,44 @@ export function creerDetecteurAttaques({ fMin = 220, fMax = 4000, sigma = 0.45, 
   };
 }
 
+// ---------- la pulsation ----------
+
+/**
+ * Cherche une pulsation régulière dans les instants des attaques. La période candidate est la médiane
+ * ou la moyenne des intervalles, ou leur moitié, ou leur double (une attaque sur deux, ou des croches) ; elle est
+ * retenue si au moins `part` des attaques tombent, à `tolerance` près d'une période, sur la grille
+ * des temps ancrée sur la dernière attaque, et si elle reste entre `bpmMin` et `bpmMax`.
+ * Rend { regulier, periode, bpm }.
+ */
+export function creerSuiviPulsation({ tolerance = 0.18, minAttaques = 6, bpmMin = 50, bpmMax = 200, part = 0.8 } = {}) {
+  const temps = [];
+  // la phase de la grille des temps : la moyenne circulaire des attaques modulo la période (une attaque
+  // hors temps ne déplace pas la grille, contrairement à une grille ancrée sur la dernière attaque)
+  const phaseDe = (p) => { let c = 0, s = 0; for (const t of temps) { const a = 2 * Math.PI * t / p; c += Math.cos(a); s += Math.sin(a); } return Math.atan2(s, c) / (2 * Math.PI); };
+  const ecart = (t, p, ph) => { const r = (((t / p - ph) % 1) + 1) % 1; return Math.min(r, 1 - r); };
+  const etat = () => {
+    if (temps.length < minAttaques) return { regulier: false };
+    const iv = []; for (let i = 1; i < temps.length; i++) iv.push(temps[i] - temps[i - 1]);
+    const tri = iv.slice().sort((a, b) => a - b), med = tri[Math.floor(tri.length / 2)];
+    const moy = (temps[temps.length - 1] - temps[0]) / (temps.length - 1); // robuste à un tremblement symétrique ; la médiane l'est aux attaques manquantes ou en trop
+    let meilleur = null;
+    for (const p of [med, med / 2, med * 2, moy, moy / 2, moy * 2]) {
+      const bpm = 60 / p; if (bpm < bpmMin || bpm > bpmMax) continue;
+      const ph = phaseDe(p); let bon = 0; for (const t of temps) if (ecart(t, p, ph) <= tolerance) bon++;
+      const score = bon / temps.length;
+      if (score >= part && (!meilleur || score > meilleur.score + 1e-9 || (Math.abs(score - meilleur.score) < 1e-9 && p > meilleur.periode))) meilleur = { periode: p, score, phase: ph };
+    }
+    return meilleur ? { regulier: true, periode: meilleur.periode, bpm: 60 / meilleur.periode, phase: meilleur.phase } : { regulier: false };
+  };
+  return {
+    attaque(t) { temps.push(t); if (temps.length > 16) temps.shift(); },
+    reinitialiser() { temps.length = 0; },
+    etat,
+    /** La distance, en fraction de période, entre l'instant t et le temps le plus proche. */
+    ecartAuTemps(t) { const e = etat(); return e.regulier ? ecart(t, e.periode, e.phase) : null; },
+  };
+}
+
 // ---------- le pilotage ----------
 
 /** Distance entre deux motifs : ce que le visiteur voit (les grilles de luminosité). */
@@ -244,6 +284,38 @@ export function distanceVisible(corpus, a, b) {
   const A = corpus.lum[a], B = corpus.lum[b]; let s = 0;
   for (let i = 0; i < CASES; i++) { const d = A[i] - B[i]; s += d * d; }
   return Math.sqrt(s);
+}
+
+/**
+ * Les voisins de chaque motif : les `n` (7) plus proches par la distance sur ce que le visiteur voit
+ * (les grilles de luminosité), calculés une fois à la construction du corpus. Un motif identique au
+ * motif courant (même image, autre identifiant) n'est pas un voisin : il ne changerait rien.
+ */
+export function calculerRaccords(corpus, n = 7) {
+  const out = [];
+  for (let i = 0; i < corpus.n; i++) {
+    const d = [];
+    for (let j = 0; j < corpus.n; j++) if (j !== i) { const x = distanceVisible(corpus, i, j); if (x > 1e-9) d.push([x, j]); }
+    d.sort((u, v) => u[0] - v[0] || u[1] - v[1]);
+    out.push(d.slice(0, n).map((x) => x[1]));
+  }
+  return out;
+}
+
+/**
+ * Mode « le son guide le chemin » : le rythme décide QUAND le motif change, le spectre décide VERS OÙ.
+ * On compare le spectre de la musique (centré, comme l'appariement) à ceux des voisins du motif
+ * courant (`corpus.raccords`) et on prend le plus proche. Le motif que l'on vient de quitter n'est
+ * écarté que s'il reste un autre voisin : le dessin reste reconnaissable, sans aller-retour.
+ */
+export function voisinLePlusProcheDuSon(v, corpus, courant, ancien = -1) {
+  const nn = norme(v); if (nn < 1e-9) return -1;
+  const uc = Float64Array.from(v, (x, k) => x / nn - corpus.moyenne[k]);
+  const voisins = corpus.raccords[courant].filter((j) => j !== ancien);
+  const candidats = voisins.length ? voisins : corpus.raccords[courant];
+  let meilleur = -Infinity, bi = -1;
+  for (const j of candidats) { let s = 0; for (let k = 0; k < NS12; k++) s += uc[k] * corpus.centres[j][k]; if (s > meilleur) { meilleur = s; bi = j; } }
+  return bi;
 }
 
 /**
@@ -261,7 +333,8 @@ export function suivantLePlusProche(corpus, courant, vus = [], memoire = 12) {
   return bi;
 }
 
-export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme' });
+export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme', GUIDE: 'guide' });
+export const PULSATIONS = Object.freeze({ ATTAQUE: 'attaque', TEMPS: 'temps', QUATRE: 'quatre' });
 export const VUES = Object.freeze(['signes', 'lignes', 'motif', 'fusion']);
 export const PERIODE_FUSION = 3.4;
 /** La vue qu'il faut montrer à l'instant t (secondes) : en « fusion », motif → lignes → signes. */
@@ -278,25 +351,40 @@ export function vueAuTemps(vue, t) {
  *  - « rythme » : le motif change à chaque attaque, pour le plus proche du précédent.
  * `calme` (réduire les changements rapides) allonge le fondu et l'intervalle minimal.
  */
-export function creerPilote(corpus, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false } = {}) {
-  let courant = -1, ancien = -1, tenue = 1e9, tChange = -1e9, vus = [], etat = { mode, hysteresis, tenueMin, fondu, calme };
+export function creerPilote(corpus, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE } = {}) {
+  let courant = -1, ancien = -1, tenue = 1e9, tChange = -1e9, vus = [], etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation };
+  const suivi = creerSuiviPulsation();
   const facteur = () => (etat.calme ? 3 : 1);
+  // Le moment du changement : à chaque attaque, ou — quand une pulsation régulière est détectée —
+  // à chaque temps (les attaques hors temps sont ignorées) ou toutes les 4 pulsations.
+  const momentJuste = (attaque, t) => {
+    if (!attaque) return false;
+    const e = suivi.etat();
+    if (etat.pulsation === PULSATIONS.ATTAQUE || !e.regulier) return true;
+    if (suivi.ecartAuTemps(t) > 0.25) return false;
+    return etat.pulsation === PULSATIONS.QUATRE ? t - tChange >= 3.5 * e.periode : true;
+  };
   return {
     etat,
+    pulsation() { return suivi.etat(); },
     mode(m) { etat.mode = m; },
     reglages(r) { Object.assign(etat, r); },
-    reinitialiser() { courant = ancien = -1; tenue = 1e9; tChange = -1e9; vus = []; },
+    reinitialiser() { courant = ancien = -1; tenue = 1e9; tChange = -1e9; vus = []; suivi.reinitialiser(); },
     /** `v` : vecteur de la musique ; `attaque` : booléen du détecteur ; `t` : secondes. */
     pas({ v, attaque = false, t }) {
       tenue++;
+      if (attaque) suivi.attaque(t);
       let change = false, score = 0;
       const tenueRequise = etat.tenueMin * facteur();
       if (etat.mode === MODES.IMAGE) {
         const r = apparier(v, corpus, courant, etat.hysteresis); score = r.score;
         if (r.i >= 0 && r.i !== courant && (courant < 0 || tenue >= tenueRequise)) { ancien = courant; courant = r.i; change = true; }
-      } else if (attaque && tenue >= tenueRequise) {
+      } else if (momentJuste(attaque, t) && tenue >= tenueRequise) {
         const r = apparier(v, corpus, -1, 0); score = r.score;
-        const suivant = courant < 0 ? (r.i >= 0 ? r.i : 0) : suivantLePlusProche(corpus, courant, vus);
+        let suivant;
+        if (courant < 0) suivant = r.i >= 0 ? r.i : 0;
+        else if (etat.mode === MODES.RYTHME) suivant = suivantLePlusProche(corpus, courant, vus);
+        else suivant = voisinLePlusProcheDuSon(v, corpus, courant, ancien); // « le son guide le chemin »
         if (suivant >= 0 && suivant !== courant) { ancien = courant; courant = suivant; change = true; }
       }
       if (change) { tenue = 0; tChange = t; vus.push(courant); if (vus.length > 64) vus.shift(); }
