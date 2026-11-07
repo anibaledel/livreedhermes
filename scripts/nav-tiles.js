@@ -44,7 +44,7 @@ const CATEGORIES = [
   { id: 'a-propos-du-projet', fr: 'À propos du projet', en: 'About the project' },
 ];
 
-// Les 24 destinations rangées. « categories » : la PREMIÈRE est la catégorie
+// Les 25 destinations rangées. « categories » : la PREMIÈRE est la catégorie
 // principale — celle qui s'ouvre quand on est sur la page, et la seule où
 // l'entrée est marquée ; les suivantes portent un lien ordinaire. Une page
 // peut figurer dans deux catégories (« deux liens valent mieux qu'un »,
@@ -68,6 +68,9 @@ const TUILES = [
   { id: 'fonds-ecran', href: 'fonds-ecran.html', categories: ['animations'],
     fr: { label: "Fond d'écran", excerpt: "Fonds d'écran textiles plein écran, réactifs au son ou en mode méditatif à rythme réglable." },
     en: { label: 'Wallpapers', excerpt: 'Full-screen textile wallpapers, sound-reactive or at an adjustable meditative pace.' } },
+  { id: 'voir-sa-musique', href: 'musique-chladni.html', categories: ['animations'],
+    fr: { label: 'Voir sa musique', excerpt: 'Choisissez un morceau, un fichier ou le micro : la page cherche le motif de La Livrée d’Hermès dont le spectre ressemble le plus à celui du son.' },
+    en: { label: 'See your music', excerpt: 'Pick a track, a file or the microphone: the page finds the La Livrée d’Hermès pattern whose spectrum is closest to the sound.' } },
 
   { id: 'tirage', href: 'tirage-livree-hermes.html', categories: ['tirages'],
     fr: { label: 'Tirage du Yi King', excerpt: "Tirez un hexagramme au hasard et découvrez son carré, ou parcourez l'échiquier des 64 mutations." },
@@ -186,7 +189,7 @@ function sansTraduction() {
 
 // Les refus : un id en double, une catégorie inconnue, une entrée sans
 // catégorie ou deux fois dans la même, une catégorie vide, un compte qui
-// dérive (24 entrées rangées + 2 liens fixes = les 26 pages du bloc).
+// dérive (25 entrées rangées + 2 liens fixes = les 27 pages du bloc).
 const IDS_CATEGORIES = new Set(CATEGORIES.map((c) => c.id));
 if (new Set([...FIXES, ...TUILES].map((t) => t.id)).size !== TUILES.length + FIXES.length) {
   throw new Error('nav-tiles.js : id de tuile en double.');
@@ -197,11 +200,11 @@ for (const t of TUILES) {
   for (const c of t.categories) if (!IDS_CATEGORIES.has(c)) throw new Error(`nav-tiles.js : ${t.id} dans une catégorie inconnue « ${c} ».`);
 }
 for (const c of CATEGORIES) if (!TUILES.some((t) => t.categories.includes(c.id))) throw new Error(`nav-tiles.js : catégorie ${c.id} vide.`);
-if (TUILES.length + FIXES.length !== 26) {
-  throw new Error(`nav-tiles.js : ${TUILES.length} entrées rangées et ${FIXES.length} liens fixes, 26 pages attendues.`);
+if (TUILES.length + FIXES.length !== 27) {
+  throw new Error(`nav-tiles.js : ${TUILES.length} entrées rangées et ${FIXES.length} liens fixes, 27 pages attendues.`);
 }
 
-// Les pages qui ne sont pas l'une des 26 mais en dépendent : la catégorie de
+// Les pages qui ne sont pas l'une des 27 mais en dépendent : la catégorie de
 // leur page parente s'ouvre, sans qu'aucune entrée soit marquée (on n'est pas
 // SUR la page parente). Les hexagrammes de chaque langue, les pages de groupe
 // de la galerie d'animations, les pages du livre et leurs chapitres, les

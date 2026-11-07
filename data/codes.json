@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-07T12:20:50Z",
+ "generated_at_utc": "2026-11-07T12:21:00Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -1191,9 +1191,9 @@
   {
    "chemin": "scripts/nav-tiles-libelles.js",
    "adresse": "https://anibal-amiot.com/scripts/nav-tiles-libelles.js",
-   "octets": 51450,
-   "sha256": "d84cb89bc487651cce6ee03e927a085dbcb4934ac54aefab00e3b4fd649a974d",
-   "md5": "11c6df723a4bcb4a91f7785818cc8f95",
+   "octets": 51690,
+   "sha256": "379c35434ae0a24452027d1ba4d0557ebf0ce8eea78939c9bbcd4b74150827e9",
+   "md5": "435089e82b6e439b1892526e03e94587",
    "licence_declaree": false,
    "licence": null,
    "role": "les textes des tuiles de navigation dans les six langues ajoutées après le français et l'anglais (es, th, zh, ru, pt, hi).",
@@ -1206,9 +1206,9 @@
   {
    "chemin": "scripts/nav-tiles.js",
    "adresse": "https://anibal-amiot.com/scripts/nav-tiles.js",
-   "octets": 26600,
-   "sha256": "b73a484edddd880c992d5f6521fa4b7691016b2b6ccbfb281d85ab83d261dbde",
-   "md5": "7aba9c9c864176a0506b2e6f7ee24c35",
+   "octets": 27066,
+   "sha256": "01cf89071254e222c4feb3f54a3bb8312179cde18dab482fbf04099032aa9093",
+   "md5": "f2d09e56859613c970196251a45a4ecd",
    "licence_declaree": false,
    "licence": null,
    "role": "source unique du bloc de navigation en tuiles (GIF rouge et blanc, grille de tuiles groupées, logo de pied), partagé par les 24 pages qui le portaient chacune à la main, par le gabarit des 64 hexagrammes (generate-hexagram-pages.js), et …",

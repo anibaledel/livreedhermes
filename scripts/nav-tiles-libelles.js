@@ -160,6 +160,9 @@ const TUILES_I18N = {
     pt: { label: "Trabalhos", excerpt: "Os depósitos, o código e os artigos submetidos, cada um datado e aberto." }, // adapté de pt/works/index.html
     hi: { label: "कार्य", excerpt: "जमा किए गए अभिलेख, कोड और प्रस्तुत लेख, हर एक समय-मुहर के साथ और खुला।" }, // adapté de hi/works/index.html
   },
+  // « Voir sa musique » : français et anglais dans nav-tiles.js ; les six autres langues viendront avec leur traduction
+  // (la tuile affiche le texte français tant qu'elles manquent : item[lang] || item.fr).
+  'voir-sa-musique': {},
   'fonds-ecran': {
     es: {
       label: "Fondo de pantalla", // es/libro/index.html:179
