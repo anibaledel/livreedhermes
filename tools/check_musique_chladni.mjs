@@ -171,7 +171,7 @@ try {
       const c = await navigateur.newContext({ viewport: { width: largeur, height: 900 } }), pg = await c.newPage(), reqs = [], errs = [];
       pg.on('request', (r) => reqs.push(r.url())); pg.on('pageerror', (e) => errs.push(e.message));
       // les erreurs des services tiers (balise de mesure, lecteur YouTube) ne sont pas celles de la page
-      pg.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource|ERR_|cloudflareinsights|CORS policy|Permissions policy|compute-pressure/i.test(m.text())) errs.push(m.text()); });
+      pg.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource|ERR_|cloudflareinsights|CORS policy|Permissions policy|compute-pressure|\[TikTok\]/i.test(m.text())) errs.push(m.text()); });
       if (corps !== undefined) await pg.route('**/data/musique-chladni/semaine.json', (r) => (corps === null ? r.fulfill({ status: 404, body: '' }) : r.fulfill({ contentType: 'application/json', body: JSON.stringify(corps) })));
       await pg.goto(`${base}/musique-chladni.html`); await pg.waitForFunction(() => window.__voirSaMusique); await pg.waitForTimeout(800);
       return { pg, reqs, errs };
