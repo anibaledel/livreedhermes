@@ -13,6 +13,11 @@
 // Le spectre d'un motif (recette de l'auteur, n° 91) se calcule dans le moteur, à partir de
 // cette grille : assets/musique-chladni-moteur.js.
 //
+// Tricolore : les trois gris du site (assets/couleurs.js, PINTEREST_NIVEAUX_DE_GRIS : M le plus
+// sombre, O intermédiaire, V le plus clair). La case est d'un seul gris ; sa luminosité est la
+// moyenne des trois canaux. Les motifs dont les deux diagonales sont entièrement en M sont
+// exclus. Même recette du spectre que le bicolore.
+//
 // Un motif que lectureBinaire ne sait pas lire est écarté et listé (« illisibles ») : jamais
 // de repli silencieux.
 //
@@ -24,7 +29,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chargerCollection, motifSvg } from '../assets/bicolore-fonds.js';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
-import { PALETTE_DEFAUT } from '../assets/couleurs.js';
+import { PALETTE_DEFAUT, PINTEREST_NIVEAUX_DE_GRIS } from '../assets/couleurs.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SORTIE = path.join(ROOT, 'data/musique-chladni-12.json');
@@ -83,6 +88,19 @@ async function luminosites(images) {
   } finally { await navigateur.close(); }
 }
 
+const GRIS = { M: PINTEREST_NIVEAUX_DE_GRIS[0], O: PINTEREST_NIVEAUX_DE_GRIS[1], V: PINTEREST_NIVEAUX_DE_GRIS[2] };
+const luminositeDuGris = (hex) => [1, 3, 5].reduce((s, i) => s + parseInt(hex.slice(i, i + 2), 16), 0) / 3 / 255;
+function tricolore() {
+  const donnees = lire('data/fonds_ecran_v1.json'), entrees = [], lum = [], exclus = [];
+  for (const e of donnees.entries) {
+    if (!/^par[23]:/.test(e[0])) continue;
+    const g = grilleDe(donnees, e);
+    if (g.every((l, i) => l[i] === 'M' && l[11 - i] === 'M')) { exclus.push(e); continue; }
+    entrees.push(e); lum.push(g.flat().map((c) => luminositeDuGris(GRIS[c])));
+  }
+  return { gris: GRIS, entrees, exclus: exclus.length, lum };
+}
+
 const enOctets = (grilles) => Buffer.from(Uint8Array.from(grilles.flatMap((g) => g.map((v) => Math.round(v * 255))))).toString('base64');
 
 if (process.argv.includes('--verifie')) {
@@ -97,9 +115,12 @@ if (process.argv.includes('--verifie')) {
   const lum = await luminosites(choix.map((i) => images[i]));
   let pire = 0;
   choix.forEach((i, j) => lum[j].forEach((v, k) => { pire = Math.max(pire, Math.abs(v - octets[i * 144 + k] / 255)); }));
+  const tri = tricolore();
+  if (JSON.stringify(tri.entrees) !== JSON.stringify(fichier.tricolore.entrees)) ecarts.push('la liste du tricolore a changé (relancer sans --verifie)');
+  else if (enOctets(tri.lum) !== fichier.tricolore.lum) ecarts.push('luminosités du tricolore ≠ fichier');
   if (pire > 0.01) ecarts.push(`luminosité d'un motif rendue ≠ fichier (écart ${pire.toFixed(4)} > 0,01)`);
   if (ecarts.length) { for (const e of ecarts) console.error('ÉCART ' + e); process.exit(1); }
-  console.log(`${choix.length} motifs sur ${entrees.length} relus dans Chromium : écart de luminosité au plus ${pire.toFixed(4)} (une marche de quantification = 0,0039).`);
+  console.log(`tricolore : ${tri.entrees.length} motifs identiques au fichier. ${choix.length} motifs sur ${entrees.length} relus dans Chromium : écart de luminosité au plus ${pire.toFixed(4)} (une marche de quantification = 0,0039).`);
 } else {
   const { entrees, images, illisibles } = svgs();
   const lum = await luminosites(images);
@@ -108,6 +129,8 @@ if (process.argv.includes('--verifie')) {
     fond: FOND, palette: [...PALETTE_DEFAUT], rendu_px: PX, case_px: CASE,
     entrees, illisibles, lum: enOctets(lum),
   };
+  const tri = tricolore();
+  fichier.tricolore = { _doc: "Tricolore, ordre 12 : Par 2 et Par 3, hors les motifs dont les deux diagonales sont entièrement en M. Une case = un des trois gris du site (assets/couleurs.js) ; « lum » : 144 octets par motif, comme pour le bicolore.", gris: tri.gris, exclus_diagonales_en_M: tri.exclus, entrees: tri.entrees, lum: enOctets(tri.lum) };
   writeFileSync(SORTIE, JSON.stringify(fichier) + '\n');
-  console.log(`${SORTIE} : ${entrees.length} motifs lisibles, ${illisibles.length} illisibles.`);
+  console.log(`${SORTIE} : bicolore ${entrees.length} motifs lisibles (${illisibles.length} illisibles) ; tricolore ${tri.entrees.length} motifs (${tri.exclus} exclus, diagonales en M).`);
 }

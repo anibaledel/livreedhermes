@@ -185,30 +185,34 @@ export function calculerFigure(v, champs, F) {
   return true;
 }
 
-export const SEUIL_LIGNES = 0.07;
-/** Deux couleurs pour un point de la figure : 0 = encre, 1 = crème. */
-export const teinteLignes = (val) => (Math.abs(val) < SEUIL_LIGNES ? 0 : 1);
+export const SEUIL_LIGNES = 0.07, SEUIL_LIGNES_MIN = 0.03, SEUIL_LIGNES_MAX = 0.12;
+/** Deux couleurs pour un point de la figure : 0 = encre, 1 = crème. `seuil` : réglage de 0,03 à 0,12. */
+export const teinteLignes = (val, seuil = SEUIL_LIGNES) => (Math.abs(val) < seuil ? 0 : 1);
 export const teinteSignes = (val) => (val > 0 ? 0 : 1);
 
 // ---------- la détection des attaques (fonction nouvelle et séparée) ----------
 
 /**
  * Détecte les attaques de notes par le flux spectral : la somme, sur les cases de l'analyseur
- * entre `fMin` et `fMax`, des hausses d'amplitude d'une image à la suivante. Une attaque est
- * déclarée quand le flux dépasse la moyenne + `sigma` × l'écart-type du flux des `fenetre`
- * dernières images, et qu'au moins `intervalleMin` secondes ont passé depuis la précédente.
- * `sensibilite` (1 = réglage de l'auteur) divise `sigma`. `fenetre` n'est pas fixée par la
- * consigne : 43 images (environ 1,4 s à 30 images par seconde), réglable.
+ * entre `fMin` et `fMax`, des hausses d'amplitude d'une image à la suivante. Une image est une
+ * attaque si (1) son flux dépasse la moyenne + `sigma` × l'écart-type du flux des `fenetre`
+ * dernières images, (2) c'est le maximum local à ±2 images, et (3) au moins `intervalleMin`
+ * secondes ont passé depuis la précédente attaque. Le script de l'auteur calcule moyenne et
+ * écart-type sur tout l'extrait de 15 s ; en direct il faut une fenêtre glissante, et 1,4 s
+ * (43 images) rate des notes dans les passages denses : 90 images (environ 3 s), réglable.
+ * `sensibilite` (1 = réglage de l'auteur) divise `sigma`. Comme le maximum local demande deux
+ * images de plus, l'attaque est annoncée avec deux images de retard, et `temps` donne l'instant
+ * de son pic.
  */
-export function creerDetecteurAttaques({ fMin = 220, fMax = 4000, sigma = 0.45, intervalleMin = 0.45, fenetre = 43, sensibilite = 1 } = {}) {
+export function creerDetecteurAttaques({ fMin = 220, fMax = 4000, sigma = 0.45, intervalleMin = 0.45, fenetre = 90, sensibilite = 1 } = {}) {
   let precedent = null, derniere = -Infinity;
-  const flux = [];
+  const hist = [], recents = [];
   return {
     reglages: { fMin, fMax, sigma, intervalleMin, fenetre },
     sensibilite(x) { sensibilite = x > 0 ? x : 1; },
     intervalle(s) { intervalleMin = s; },
-    reinitialiser() { precedent = null; derniere = -Infinity; flux.length = 0; },
-    /** `db` : spectre en dB ; `t` : temps en secondes. Rend { attaque, flux, seuil }. */
+    reinitialiser() { precedent = null; derniere = -Infinity; hist.length = 0; recents.length = 0; },
+    /** `db` : spectre en dB ; `t` : temps en secondes. Rend { attaque, temps, flux, seuil }. */
     traiter(db, sampleRate, t) {
       const n = db.length, bw = sampleRate / 2 / n;
       const lo = Math.max(1, Math.floor(fMin / bw)), hi = Math.min(n - 1, Math.ceil(fMax / bw));
@@ -217,13 +221,18 @@ export function creerDetecteurAttaques({ fMin = 220, fMax = 4000, sigma = 0.45, 
       let f = 0;
       if (precedent && precedent.length === mag.length) for (let i = 0; i < mag.length; i++) f += Math.max(0, mag[i] - precedent[i]);
       precedent = mag;
-      let moy = 0; for (const x of flux) moy += x; moy = flux.length ? moy / flux.length : 0;
-      let v = 0; for (const x of flux) v += (x - moy) * (x - moy); v = flux.length ? Math.sqrt(v / flux.length) : 0;
+      hist.push(f); if (hist.length > fenetre) hist.shift();
+      recents.push({ t, f }); if (recents.length > 5) recents.shift();
+      let moy = 0; for (const x of hist) moy += x; moy /= hist.length;
+      let v = 0; for (const x of hist) v += (x - moy) * (x - moy); v = Math.sqrt(v / hist.length);
       const seuil = moy + (sigma / sensibilite) * v;
-      const attaque = flux.length >= 5 && f > seuil && f > 1e-9 && t - derniere >= intervalleMin;
-      if (attaque) derniere = t;
-      flux.push(f); if (flux.length > fenetre) flux.shift();
-      return { attaque, flux: f, seuil };
+      let attaque = false, temps = null;
+      if (recents.length === 5 && hist.length >= 5) {
+        const c = recents[2];
+        const pic = recents[0].f <= c.f && recents[1].f <= c.f && recents[3].f < c.f && recents[4].f < c.f; // maximum local à ±2 images
+        if (pic && c.f > seuil && c.f > 1e-9 && c.t - derniere >= intervalleMin) { attaque = true; temps = c.t; derniere = c.t; }
+      }
+      return { attaque, temps, flux: f, seuil };
     },
   };
 }

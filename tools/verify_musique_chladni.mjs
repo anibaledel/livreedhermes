@@ -55,10 +55,10 @@ if (!essai) {
 
 // 2. écho : le spectre d'un motif, converti en spectre de son, retrouve le motif
 const SR = 48000, N = 8192;
-const sonDuMotif = (i, ancrage) => {
+const sonDuMotif = (i, ancrage, c = corpus) => {
   const db = new Float32Array(N).fill(-200), bw = SR / 2 / N;
   for (let k = 0; k < M.NS12; k++) {
-    const f = M.frequenceDuCercle(M.SHELLS12[k], ancrage), a = corpus.spectres[i][k];
+    const f = M.frequenceDuCercle(M.SHELLS12[k], ancrage), a = c.spectres[i][k];
     if (a > 1e-6) db[Math.round(f / bw)] = 20 * Math.log10(a);
   }
   return db;
@@ -80,6 +80,20 @@ if (essai) {
   console.error("Essai : le moteur faussé n'a pas été refusé."); process.exit(1);
 }
 console.log(`2. écho : ${retrouves.length} motifs sur ${total} retrouvés par l'analyse du son puis l'appariement.`);
+
+// 2b. tricolore (ordre 12, les trois gris du site) : même écho
+{
+  const tri = M.creerCorpus(Uint8Array.from(Buffer.from(donnees.tricolore.lum, 'base64')));
+  ok(tri.n === donnees.tricolore.entrees.length, 'tricolore : nombre de grilles ≠ nombre de motifs');
+  let trouves = 0, tot = 0;
+  for (let i = 0; i < tri.n; i += Math.max(1, Math.floor(tri.n / 60))) {
+    const r = M.apparier(M.bandesDuSon(sonDuMotif(i, M.FREF12, tri), SR, { pente: false }), tri, -1, 0);
+    let cos = 0; for (let k = 0; k < M.NS12; k++) cos += tri.centres[r.i][k] * tri.centres[i][k];
+    tot++; if (cos > 1 - 1e-6) trouves++;
+  }
+  ok(trouves === tot, `tricolore, écho : ${tot - trouves} motifs sur ${tot} non retrouvés`);
+  console.log(`2b. tricolore : ${tri.n} motifs ; écho ${trouves} sur ${tot} retrouvés.`);
+}
 
 // 3. silence et hystérésis
 const silence = M.bandesDuSon(new Float32Array(N).fill(-200), SR, { pente: false });
@@ -117,6 +131,7 @@ console.log(`4. figure ${RES} × ${RES} : maximum 1, lignes ${(100 * lignes / F.
   const attendues = Math.floor((10 - 1) / 0.6) + (1 % 0.6 < 0.1 ? 1 : 0);
   ok(trouvees.length >= attendues - 2 && trouvees.length <= attendues + 1, `attaques : ${trouvees.length} vues pour environ ${attendues}`);
   ok(trouvees.every((t, i) => i === 0 || t - trouvees[i - 1] >= 0.45 - 1e-9), 'deux attaques à moins de 0,45 s');
+  { const d = M.creerDetecteurAttaques(); ok(d.reglages.fenetre === 90, 'fenêtre du détecteur : 90 images'); }
   const calme = M.creerDetecteurAttaques(); let fausses = 0;
   for (let t = 0; t < 10; t += 1 / fps) if (calme.traiter(new Float32Array(N).fill(-60), SR, t).attaque) fausses++;
   ok(fausses === 0, `${fausses} attaques dans un bruit stable`);
