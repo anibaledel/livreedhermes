@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-07T18:49:08Z",
+ "generated_at_utc": "2026-11-07T19:39:09Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -2000,9 +2000,9 @@
   {
    "chemin": "tools/check_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_chladni.mjs",
-   "octets": 26424,
-   "sha256": "aa3eeac645099a4384838413c6f8c94a29c98d2d11322c8aad44269692a7ec09",
-   "md5": "d3a8640702748c2f991eadb82d95bd70",
+   "octets": 26592,
+   "sha256": "2e259afe20261a0bccca9657ed5e8a5eed24540ef454724b7843e33ac271cdcd",
+   "md5": "1799430e2663a0ebb89f82692c51c338",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
