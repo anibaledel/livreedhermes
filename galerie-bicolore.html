@@ -98,6 +98,29 @@
   .paved-actions button:hover:not(:disabled){ border-color:var(--gold); color:var(--gold); }
   .paved-actions button:disabled{ opacity:.35; cursor:default; }
 
+  /* ---------- extension aux ordres 18 et 30 (assets/galerie-bicolore-ordres.js) ---------- */
+  .ordre-controles{ padding:8px 0 4px; }
+  .ordres-sup{ margin-top:16px; }
+  .ordres-sup h2{ text-align:center; font-weight:400; font-size:calc(20px + var(--fs-bump)); margin:12px 0 8px; }
+  .ordres-intro{ max-width:70ch; margin:0 auto 12px; color:var(--dim); font-family:Helvetica,Arial,sans-serif; font-size:calc(11.5px + var(--fs-bump)); line-height:1.7; }
+  .ordres-etat{ text-align:center; color:var(--dim); min-height:1.4em; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); }
+  .coll-sup{ margin:26px 0; }
+  .coll-sup h3{ font-weight:400; font-size:calc(14px + var(--fs-bump)); color:var(--gold); letter-spacing:.06em; margin:0 0 10px; font-family:Helvetica,Arial,sans-serif; }
+  .grille-sup{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px, 1fr)); gap:4px; background:var(--panel); border:1px solid var(--line); padding:10px; }
+  .tuile-sup{ position:relative; display:block; padding:0; margin:0; aspect-ratio:1; width:100%; background:var(--bg); border:1px solid transparent; cursor:pointer; }
+  .tuile-sup canvas{ width:100%; height:100%; display:block; }
+  .tuile-sup:hover{ border-color:var(--gold); }
+  .tuile-sup.selected{ border-color:var(--red); box-shadow:0 0 0 1px var(--red); }
+  .tuile-sup:focus-visible{ outline:3px solid var(--gold); outline-offset:1px; }
+  #ordresPave{ background:var(--bg); color:var(--white); border:1px solid var(--line-strong); max-width:min(96vw, 760px); width:100%; padding:16px; }
+  #ordresPave::backdrop{ background:rgba(0,0,0,.78); }
+  #ordresPave h2{ font-weight:400; font-size:calc(16px + var(--fs-bump)); margin:0 0 6px; overflow-wrap:anywhere; }
+  #ordresPave p{ color:var(--dim); margin:0 0 10px; font-family:Helvetica,Arial,sans-serif; font-size:calc(12px + var(--fs-bump)); }
+  #ordresPaveToile{ width:100%; height:auto; aspect-ratio:1; display:block; border:1px solid var(--line); }
+  #ordresPave button{ margin-top:12px; background:transparent; color:var(--dim); border:1px solid var(--line-strong); padding:8px 16px; cursor:pointer; font-size:calc(10.5px + var(--fs-bump)); letter-spacing:.06em; text-transform:uppercase; }
+  #ordresPave button:hover{ border-color:var(--gold); color:var(--gold); }
+  @media (max-width:520px){ .grille-sup{ grid-template-columns:repeat(auto-fill, minmax(72px, 1fr)); padding:6px; } .wrap{ padding-left:12px; padding-right:12px; } }
+
   .note{
     margin-top:40px; font-family:Helvetica,Arial,sans-serif; font-size:calc(11px + var(--fs-bump)); color:var(--dim);
     text-align:center; line-height:1.7; border-top:1px solid var(--line); padding-top:16px;
@@ -284,6 +307,13 @@
   </header>
   </div>
 
+  <div class="controls ordre-controles" id="ordreControles" role="group" aria-label="Ordre du motif">
+    <button type="button" data-ordre="12" class="active" aria-pressed="true">Ordre 12</button>
+    <button type="button" data-ordre="18" aria-pressed="false">Ordre 18</button>
+    <button type="button" data-ordre="30" aria-pressed="false">Ordre 30</button>
+  </div>
+
+  <div id="ordre12">
 
   <div class="faq-block">
     <h2 class="faq-block-title">Questions fréquentes</h2>
@@ -369,6 +399,22 @@
     </div>
     <p class="ff-deplace">L'animation, en tricolore ou dans cette collection en bicolore, est sur la page <a href="fonds-ecran.html">Fonds d'écran</a>.</p>
   </section>
+
+  </div><!-- /#ordre12 : le contenu d'origine de la page, inchangé -->
+
+  <section class="ordres-sup" id="ordresSup" aria-labelledby="ordresTitre" hidden>
+    <h2 id="ordresTitre">Ordres 18 et 30</h2>
+    <p class="ordres-intro" id="ordresIntro"></p>
+    <p class="ordres-etat" id="ordresEtat" role="status" aria-live="polite"></p>
+    <div id="ordresSections"></div>
+  </section>
+
+  <dialog id="ordresPave" aria-labelledby="ordresPaveTitre">
+    <h2 id="ordresPaveTitre">Pavage</h2>
+    <p id="ordresPaveInfo"></p>
+    <canvas id="ordresPaveToile" width="720" height="720" role="img" aria-label="Pavage continu du motif"></canvas>
+    <button type="button" id="ordresPaveFermer">Fermer</button>
+  </dialog>
 
   </main>
 <!-- @main:end -->
@@ -835,6 +881,7 @@ Promise.all([
 
 document.getElementById('credit-year').textContent = new Date().getFullYear();
 </script>
+<script type="module" src="assets/galerie-bicolore-ordres.js"></script>
 <script src="assets/soutien-gate.js"></script>
 <script src="assets/share-widget.js"></script>
 <script src="assets/liste-clavier.js"></script>

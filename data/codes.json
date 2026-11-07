@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-07T12:21:00Z",
+ "generated_at_utc": "2026-11-07T16:30:09Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 254,
+  "scripts": 255,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -1794,6 +1794,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la galerie d'animations, mesurée : l'entrée (galerie-animations.html) et ses six pages de groupe, dans les huit langues (scripts/build-galerie-animations.js, data/galerie-animations.json).",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/check_galerie_bicolore_ordres.mjs",
+   "adresse": "https://anibal-amiot.com/tools/check_galerie_bicolore_ordres.mjs",
+   "octets": 10357,
+   "sha256": "e9968111454f33e0cc91e9f9555a31833484b9a51c3c24ac38359d20de88d144",
+   "md5": "2f46f3453e0857df647611edfebcec68",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la « Galerie bicolore » étendue aux ordres 18 et 30, dans Chromium.",
    "lit": [],
    "ecrit": [],
    "durees": [],

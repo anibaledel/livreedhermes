@@ -1,0 +1,29 @@
+name: Galerie bicolore — les ordres 18 et 30
+
+# tools/check_galerie_bicolore_ordres.mjs : la « Galerie bicolore » (galerie-bicolore.html) étendue aux
+# ordres 18 (1 280 motifs, 7 collections) et 30 (88 motifs), dans Chromium : l'ordre 12 d'origine
+# inchangé, les ancres #o30-… et #o18-… qui choisissent l'ordre à l'ouverture et amènent le motif à
+# l'écran, les vignettes dessinées à la demande, le pavage continu, 390 et 360 px sans débordement.
+# --essai : une page privée de son module d'extension doit échouer.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install playwright@1
+      - run: npx playwright install --with-deps chromium
+      - run: node tools/check_galerie_bicolore_ordres.mjs local
+      - run: node tools/check_galerie_bicolore_ordres.mjs local --essai

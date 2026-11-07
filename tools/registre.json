@@ -510,6 +510,18 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_galerie_bicolore_ordres.mjs",
+   "role": "la « Galerie bicolore » étendue aux ordres 18 et 30, dans Chromium.",
+   "lit": [],
+   "ecrit": [],
+   "appele_par": [
+    "check-galerie-bicolore-ordres.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_glossaire.mjs",
    "role": "un concept du glossaire, UNE traduction par langue.",
    "lit": [
@@ -1677,6 +1689,7 @@
     "tools/check_fond_ecran_animation.mjs",
     "tools/check_fond_ecran_deux_outils.mjs",
     "tools/check_galerie_animations.mjs",
+    "tools/check_galerie_bicolore_ordres.mjs",
     "tools/check_lecteur.mjs",
     "tools/check_musique_chladni.mjs",
     "tools/check_navigation.mjs",
