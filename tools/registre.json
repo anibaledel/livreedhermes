@@ -536,6 +536,24 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/check_hexagrammes_deux_numeros.mjs",
+   "role": "aucune mention numérotée d'un hexagramme sans ses deux numéros.",
+   "lit": [
+    "en/hexagrams",
+    "es/hexagramas",
+    "fr/motifs",
+    "scripts/extract-hexagram-data.js",
+    "th/hexagrams"
+   ],
+   "ecrit": [],
+   "appele_par": [
+    "check-hexagrammes-deux-numeros.yml"
+   ],
+   "utilise_par": [],
+   "etat": "actif",
+   "sait_echouer": true
+  },
+  {
    "fichier": "tools/check_hors_navigation.mjs",
    "role": "un lot qui touche la navigation du bas de page ne touche RIEN d'autre : chaque page HTML du dépôt, navigation retirée, est identique à l'octet près à ce qu'elle était au commit de référence.",
    "lit": [],

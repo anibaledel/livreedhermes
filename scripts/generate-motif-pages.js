@@ -164,6 +164,10 @@ function hexagramName(n, lang = 'fr') {
   return `${pinyin}, ${nom}`;
 }
 
+// Convention écrite partout : l'index binaire (0 à 63, ordre du système) et, à côté, le numéro
+// traditionnel King Wen (HEXDATA.KINGWEN_BY_CHRONO, jamais recalculé ici).
+const kingWenDe = (n) => HEXDATA.KINGWEN_BY_CHRONO[n];
+
 function motifSlug(fam, n) {
   return `${slugify(fam)}-h${n}`;
 }
@@ -193,7 +197,7 @@ const STR = {
     symetrie: (liste) => liste.length === 5
       ? 'The cell has every symmetry of the square: both axes, the diagonal, the quarter turn and the half turn.'
       : `The cell is unchanged by ${liste.map((t) => ({ axeVertical: 'reflection in the vertical axis', axeHorizontal: 'reflection in the horizontal axis', diagonale: 'reflection in the diagonal', quartDeTour: 'a quarter turn', demiTour: 'a half turn' })[t]).join(', ')}.`,
-    hexHeading: (n, nom) => `Hexagram ${n} — ${nom}`,
+    hexHeading: (n, nom, kw) => `Hexagram ${n} (King Wen no. ${kw}) — ${nom}`,
     hexPara: (haut, bas) => `Upper trigram ${haut.symbol} ${haut.name} (${haut.nature}, ${haut.image}); lower trigram ${bas.symbol} ${bas.name} (${bas.nature}, ${bas.image}).`,
     imageLabel: 'Image',
     judgementLabel: 'Judgement',
@@ -203,11 +207,11 @@ const STR = {
     home: 'Home',
     unifiedPatterns: 'Unified Patterns',
     titleOf: (familyShort, hexName) => `${hexName} — ${familyShort}`,
-    headingOf: (familyLabel, n, hexName) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName})`,
+    headingOf: (familyLabel, n, hexName, kw) => `Unified Pattern — ${familyLabel}, hexagram ${n} (${hexName} — King Wen no. ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}en/lexicon/`,
     otherLangLink: (href) => `<a href="${href}" hreflang="fr" lang="fr">Version française</a>`,
-    descriptionOf: (familyLabel, n, hexName) => `A 12×12 Jacquard pattern generated from ${familyLabel.toLowerCase()} and hexagram ${n} (${hexName}) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.`,
-    articleSub: (hexHref, hexName) => `One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
+    descriptionOf: (familyLabel, n, hexName, kw) => `A 12×12 Jacquard pattern generated from ${familyLabel.toLowerCase()} and hexagram ${n} (${hexName} — King Wen no. ${kw}) of La Livrée d'Hermès — cell, tiling, two equivalent recolourings, and the underlying data.`,
+    articleSub: (hexHref, hexName) => `One of 256 distinct Unified Patterns — a 12×12 Jacquard construction where every cell's colour is read off a single hexagram of the <em>Yi King</em>, hexagram <a href="${hexHref}">${escapeHtml(hexName)}</a>. <span class="convention-hex">Binary numbering 0–63; in brackets, the traditional King Wen number.</span>`,
     classification: (familyLabel, lexiqueHref) => `Family <strong>${escapeHtml(familyLabel)}</strong>, one of the 8 admissible families (out of 15) in the system's classification — see the <a href="${lexiqueHref}">lexicon</a> for how families are built and admitted.`,
     cell: 'Cell', tiling: 'Tiling',
     triHeading: 'Tricolour — three independent colours',
@@ -252,7 +256,7 @@ const STR = {
     symetrie: (liste) => liste.length === 5
       ? 'La cellule a toutes les symétries du carré : les deux axes, la diagonale, le quart de tour et le demi-tour.'
       : `La cellule est invariante par ${liste.map((t) => ({ axeVertical: "symétrie d'axe vertical", axeHorizontal: "symétrie d'axe horizontal", diagonale: 'symétrie par rapport à la diagonale', quartDeTour: 'rotation d\'un quart de tour', demiTour: 'rotation d\'un demi-tour' })[t]).join(', ')}.`,
-    hexHeading: (n, nom) => `L'hexagramme ${n} — ${nom}`,
+    hexHeading: (n, nom, kw) => `L'hexagramme ${n} (n° King Wen ${kw}) — ${nom}`,
     hexPara: (haut, bas) => `Trigramme supérieur ${haut.symbol} ${haut.name} (${haut.nature}, ${haut.image}) ; trigramme inférieur ${bas.symbol} ${bas.name} (${bas.nature}, ${bas.image}).`,
     imageLabel: 'Image',
     judgementLabel: 'Jugement',
@@ -262,11 +266,11 @@ const STR = {
     home: 'Accueil',
     unifiedPatterns: 'Patterns unifiés',
     titleOf: (familyShort, hexName) => `${hexName} — motif ${familyShort}`,
-    headingOf: (familyLabel, n, hexName) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName})`,
+    headingOf: (familyLabel, n, hexName, kw) => `Motif unifié — ${familyLabel}, hexagramme ${n} (${hexName} — n° King Wen ${kw})`,
     lexiconHref: (prefixe) => `${prefixe}lexique.html`,
     otherLangLink: (href) => `<a href="${href}" hreflang="en" lang="en">English version</a>`,
-    descriptionOf: (familyLabel, n, hexName) => `Un motif Jacquard 12×12 engendré depuis ${familyLabel.toLowerCase()} et l'hexagramme ${n} (${hexName}) de La Livrée d'Hermès — cellule, pavage, deux recoloriages équivalents et les données sous-jacentes.`,
-    articleSub: (hexHref, hexName) => `Un des 256 patterns unifiés distincts — une construction Jacquard 12×12 où la couleur de chaque cellule se lit sur un seul hexagramme du <em>Yi King</em>, l'hexagramme <a href="${hexHref}">${escapeHtml(hexName)}</a>.`,
+    descriptionOf: (familyLabel, n, hexName, kw) => `Un motif Jacquard 12×12 engendré depuis ${familyLabel.toLowerCase()} et l'hexagramme ${n} (${hexName} — n° King Wen ${kw}) de La Livrée d'Hermès — cellule, pavage, deux recoloriages équivalents et les données sous-jacentes.`,
+    articleSub: (hexHref, hexName) => `Un des 256 patterns unifiés distincts — une construction Jacquard 12×12 où la couleur de chaque cellule se lit sur un seul hexagramme du <em>Yi King</em>, l'hexagramme <a href="${hexHref}">${escapeHtml(hexName)}</a>. <span class="convention-hex">Numérotation binaire 0–63 ; entre parenthèses, n° traditionnel King Wen.</span>`,
     classification: (familyLabel, lexiqueHref) => `Famille <strong>${escapeHtml(familyLabel)}</strong>, une des 8 familles admissibles (sur 15) dans la classification du système — voir le <a href="${lexiqueHref}">lexique</a> pour la construction et l'admission des familles.`,
     cell: 'Cellule', tiling: 'Pavage',
     triHeading: 'Tricolore — trois couleurs indépendantes',
@@ -335,7 +339,7 @@ function renderPage(fam, n, lang) {
     : `${prefixFor(lang)}hexagrammes/${hexagramSlug(n)}`;
   const hexName = hexagramName(n, lang);
   const title = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexName);
-  const description = s.descriptionOf(familyLabel, n, hexName);
+  const description = s.descriptionOf(familyLabel, n, hexName, kingWenDe(n));
   const canonical = canonicalUrl(lang, slug);
   const canonicalOther = canonicalUrl(other, slug);
   const canonicalEn = lang === 'en' ? canonical : canonicalOther;
@@ -382,7 +386,7 @@ ${lecture.map((l) => `      <tr><th scope="row">${l.position}</th><td>${s.lectur
   const haut = trigrammes[valeurTrigramme(traitsHex.slice(3, 6))];
   const bas = trigrammes[valeurTrigramme(traitsHex.slice(0, 3))];
   const hexagrammeHtml = `<section class="hexagramme-section">
-  <h2>${escapeHtml(s.hexHeading(n, hexNom))}</h2>
+  <h2>${escapeHtml(s.hexHeading(n, hexNom, kingWenDe(n)))}</h2>
   <p>${escapeHtml(s.hexPara(haut, bas))}</p>
   <h3>${s.imageLabel}</h3>
   <p>${escapeHtml(imageTexte)}</p>
@@ -530,7 +534,7 @@ ${EN_TETE[lang]}
   <span aria-current="page">${escapeHtml(familyLabel)}, h${n}</span>
 </nav>
 <p class="other-langs">${s.otherLangLink(canonicalUrl(lang === 'fr' ? 'en' : 'fr', slug))}</p>
-<h1 class="article-title">${escapeHtml(s.headingOf(familyLabel, n, hexName))}</h1>
+<h1 class="article-title">${escapeHtml(s.headingOf(familyLabel, n, hexName, kingWenDe(n)))}</h1>
 <p class="article-sub">
   ${s.articleSub(hexHref, hexName)}
 </p>
@@ -778,7 +782,8 @@ function renderIndexPage(lang) {
     const familyLabel = FAMILY_LABEL[lang][fam] || fam;
     const items = [];
     for (let n = 0; n < 32; n++) {
-      items.push(`        <a class="motif-grid-item" href="${motifSlug(fam, n)}.html">h${n}</a>`);
+      const titre = s.titleOf(FAMILY_SHORT[lang][fam] || familyLabel, hexagramName(n, lang)); // le titre de la fiche, tel quel
+      items.push(`        <a class="motif-grid-item" href="${motifSlug(fam, n)}.html">${escapeHtml(titre)}</a>`);
     }
     return `  <section class="family-block">
     <h2>${escapeHtml(familyLabel)} <span class="family-count">(${s.indexFamilyCount(32)})</span></h2>
@@ -835,8 +840,8 @@ ${ICONES[lang]}
   .family-block{ margin:0 0 34px; }
   .family-block h2{ color:var(--gold); font-size:calc(16px + var(--fs-bump)); font-weight:400; letter-spacing:.02em; margin:0 0 14px; text-align:center; }
   .family-block .family-count{ color:var(--dim); font-size:calc(12px + var(--fs-bump)); font-weight:400; }
-  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(64px, 1fr)); gap:8px; }
-  .motif-grid-item{ border:1px solid var(--line); color:var(--dim); font-size:calc(12px + var(--fs-bump)); text-align:center; padding:10px 6px; text-decoration:none; transition:border-color .12s ease, color .12s ease; }
+  .motif-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:8px; }
+  .motif-grid-item{ border:1px solid var(--line); color:var(--dim); font-size:calc(12px + var(--fs-bump)); text-align:center; padding:10px 8px; text-decoration:none; overflow-wrap:anywhere; transition:border-color .12s ease, color .12s ease; }
   .motif-grid-item:hover{ border-color:var(--gold); color:var(--gold); }
   @media (max-width:768px){ .wrap{ padding:20px 16px 48px; } }
 </style>

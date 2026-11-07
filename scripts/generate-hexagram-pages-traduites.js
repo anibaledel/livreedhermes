@@ -94,12 +94,12 @@ const L = {
     date: (y, m, d) => `${MOIS.en[m - 1]} ${d}, ${y}`,
     home: 'Home', homeUrl: `${SITE}/en/`, book: 'The book', bookUrl: `${SITE}/en/book/`, lexiconUrl: `${SITE}/en/lexicon/`,
     hexagrams: 'Hexagrams', breadcrumb: 'Breadcrumb',
-    hexName: (c, n) => `Hexagram ${c} — ${n}`,
-    title: (c, p, n) => `Hexagram ${c} — ${p}, ${n}`,
+    hexName: (c, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${n}`,
+    title: (c, p, n, kw) => `Hexagram ${c} (King Wen no. ${kw}) — ${p}, ${n}`,
     description: (c, p, n, kw) => `Hexagram ${c} (${p}, ${n}, King Wen no. ${kw}): judgement, image, trigrams and the magic square of La Livrée d'Hermès.`,
-    sub: (c, kw, hz) => `Chronological no. <b>${c}</b> (binary-weight order) · King Wen no. (traditional) ${kw} · ${hz}`,
+    sub: (c, kw, hz) => `Binary index <b>${c}</b> (0 to 63; the site's "chronological no.", binary-weight order) · traditional King Wen no. <b>${kw}</b> · ${hz}`,
     by: (date) => `By <a href="${SITE}/${adresseDans('a-propos.html', 'en')}">Anibal Edelberto Amiot</a> — Updated ${date}`,
-    alt: (c, n) => `Magic square / tiling associated with hexagram ${c} (${n})`,
+    alt: (c, n, kw) => `Magic square / tiling associated with hexagram ${c} (King Wen no. ${kw}, ${n})`,
     figcaption: "Tiling of the magic square associated with this hexagram, La Livrée d'Hermès.",
     upper: 'Upper trigram', lower: 'Lower trigram', image: 'Image', judgement: 'Judgement', sixLines: 'The six lines',
     pos: ['First line', 'Second line', 'Third line', 'Fourth line', 'Fifth line', 'Sixth line'],
@@ -108,7 +108,7 @@ const L = {
     lexicon: (href) => `For the notions used here — magic square, layer and casting, the Yi Jing — see the <a href="${href}">project lexicon</a>.`,
     motifsHeading: 'The patterns of this hexagram',
     motifsIntro: 'Eight 12×12 Jacquard patterns are generated from this hexagram, one for each admissible family of the system. Each has its own page: cell, tiling, recolourings and data.',
-    motifsComplement: (link, c, b) => `This hexagram is the binary complement of hexagram ${link} (63 − ${c} = ${b}): its patterns have exactly the same shape, only their colours are permuted. Here are the eight patterns of hexagram ${b}, one for each admissible family.`,
+    motifsComplement: (link, c, b, kwb) => `This hexagram is the binary complement of hexagram ${link} (63 − ${c} = ${b}): its patterns have exactly the same shape, only their colours are permuted. Here are the eight patterns of hexagram ${b} (King Wen no. ${kwb}), one for each admissible family.`,
     neighbours: 'Neighbouring hexagrams', sharing: 'Hexagrams sharing a trigram',
     sameUpper: (s, n) => `Same upper trigram (${s} ${n}): `, sameLower: (s, n) => `Same lower trigram (${s} ${n}): `,
     back: '← All 64 hexagrams',
@@ -123,12 +123,12 @@ const L = {
     date: (y, m, d) => `${d} de ${MOIS.es[m - 1]} de ${y}`,
     home: 'Inicio', homeUrl: `${SITE}/es/`, book: 'El libro', bookUrl: `${SITE}/es/libro/`, lexiconUrl: `${SITE}/es/lexico/`,
     hexagrams: 'Hexagramas', breadcrumb: 'Ruta de navegación',
-    hexName: (c, n) => `Hexagrama ${c} — ${n}`,
-    title: (c, p, n) => `Hexagrama ${c} — ${p}, ${n}`,
+    hexName: (c, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${n}`,
+    title: (c, p, n, kw) => `Hexagrama ${c} (n.º King Wen ${kw}) — ${p}, ${n}`,
     description: (c, p, n, kw) => `Hexagrama ${c} (${p}, ${n}, n.º King Wen ${kw}): juicio, imagen, trigramas y el cuadrado mágico de La Livrée d'Hermès.`,
-    sub: (c, kw, hz) => `N.º cronológico <b>${c}</b> (orden por pesos binarios) · n.º King Wen (tradicional) ${kw} · ${hz}`,
+    sub: (c, kw, hz) => `Índice binario <b>${c}</b> (0 a 63; «n.º cronológico» del sitio, orden por pesos binarios) · n.º tradicional King Wen <b>${kw}</b> · ${hz}`,
     by: (date) => `Por <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — Actualizado el ${date}`,
-    alt: (c, n) => `Cuadrado mágico / teselado asociado al hexagrama ${c} (${n})`,
+    alt: (c, n, kw) => `Cuadrado mágico / teselado asociado al hexagrama ${c} (n.º King Wen ${kw}, ${n})`,
     figcaption: "Teselado del cuadrado mágico asociado a este hexagrama, La Livrée d'Hermès.",
     upper: 'Trigrama superior', lower: 'Trigrama inferior', image: 'Imagen', judgement: 'Juicio', sixLines: 'Los seis rasgos',
     pos: ['Primer rasgo', 'Segundo rasgo', 'Tercer rasgo', 'Cuarto rasgo', 'Quinto rasgo', 'Sexto rasgo'],
@@ -137,7 +137,7 @@ const L = {
     lexicon: (href) => `Para las nociones empleadas aquí — cuadrado mágico, capa y tirada, el Yi King — consulte el <a href="${href}">léxico del proyecto</a>.`,
     motifsHeading: 'Los motivos de este hexagrama',
     motifsIntro: 'De este hexagrama se generan ocho motivos Jacquard de 12×12, uno por cada familia admisible del sistema. Cada uno tiene su página (en inglés): celda, teselado, recoloreados y datos.',
-    motifsComplement: (link, c, b) => `Este hexagrama es el complemento binario del hexagrama ${link} (63 − ${c} = ${b}): sus motivos tienen exactamente la misma forma; solo se permutan sus colores. Estos son los ocho motivos del hexagrama ${b}, uno por cada familia admisible (páginas en inglés).`,
+    motifsComplement: (link, c, b, kwb) => `Este hexagrama es el complemento binario del hexagrama ${link} (63 − ${c} = ${b}): sus motivos tienen exactamente la misma forma; solo se permutan sus colores. Estos son los ocho motivos del hexagrama ${b} (n.º King Wen ${kwb}), uno por cada familia admisible (páginas en inglés).`,
     neighbours: 'Hexagramas vecinos', sharing: 'Hexagramas que comparten un trigrama',
     sameUpper: (s, n) => `Mismo trigrama superior (${s} ${n}): `, sameLower: (s, n) => `Mismo trigrama inferior (${s} ${n}): `,
     back: '← Los 64 hexagramas',
@@ -153,12 +153,12 @@ const L = {
     date: (y, m, d) => `${d} ${MOIS.th[m - 1]} ${y}`,
     home: 'หน้าแรก', homeUrl: `${SITE}/th/`, book: 'หนังสือ', bookUrl: `${SITE}/th/book/`, lexiconUrl: `${SITE}/th/lexicon/`,
     hexagrams: 'ฉักลักษณ์', breadcrumb: 'เส้นทางนำทาง',
-    hexName: (c, n) => `ฉักลักษณ์ที่ ${c} — ${n}`,
-    title: (c, p, n) => `ฉักลักษณ์ที่ ${c} — ${p}, ${n}`,
+    hexName: (c, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${n}`,
+    title: (c, p, n, kw) => `ฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}) — ${p}, ${n}`,
     description: (c, p, n, kw) => `ฉักลักษณ์ที่ ${c} (${p}, ${n}, ลำดับ King Wen ที่ ${kw}): คำตัดสิน ภาพลักษณ์ ตรีลักษณ์ และจัตุรัสกลของ La Livrée d'Hermès`,
-    sub: (c, kw, hz) => `ลำดับตามเวลา <b>${c}</b> (เรียงตามน้ำหนักฐานสอง) · ลำดับ King Wen (ดั้งเดิม) ${kw} · ${hz}`,
+    sub: (c, kw, hz) => `ดัชนีฐานสอง <b>${c}</b> (0 ถึง 63 ; ลำดับตามเวลาของเว็บไซต์ เรียงตามน้ำหนักฐานสอง) · ลำดับ King Wen (ดั้งเดิม) <b>${kw}</b> · ${hz}`,
     by: (date) => `โดย <a href="${SITE}/a-propos.html" hreflang="fr">Anibal Edelberto Amiot</a> — ปรับปรุงเมื่อ ${date}`,
-    alt: (c, n) => `จัตุรัสกล / การปูลายที่สัมพันธ์กับฉักลักษณ์ที่ ${c} (${n})`,
+    alt: (c, n, kw) => `จัตุรัสกล / การปูลายที่สัมพันธ์กับฉักลักษณ์ที่ ${c} (ลำดับ King Wen ที่ ${kw}, ${n})`,
     figcaption: "การปูลายของจัตุรัสกลที่สัมพันธ์กับฉักลักษณ์นี้, La Livrée d'Hermès",
     upper: 'ตรีลักษณ์บน', lower: 'ตรีลักษณ์ล่าง', image: 'ภาพลักษณ์', judgement: 'คำตัดสิน', sixLines: 'หกเส้น',
     pos: ['เส้นที่หนึ่ง', 'เส้นที่สอง', 'เส้นที่สาม', 'เส้นที่สี่', 'เส้นที่ห้า', 'เส้นที่หก'],
@@ -167,7 +167,7 @@ const L = {
     lexicon: (href) => `สำหรับแนวคิดที่ใช้ในหน้านี้ — จัตุรัสกล ชั้นลายและการเสี่ยงทาย อี้จิง — ดู<a href="${href}">อภิธานศัพท์ของโครงการ</a>`,
     motifsHeading: 'ลวดลายของฉักลักษณ์นี้',
     motifsIntro: 'ลวดลายแจ็คการ์ดขนาด 12×12 จำนวนแปดลายสร้างขึ้นจากฉักลักษณ์นี้ หนึ่งลายต่อหนึ่งตระกูลที่ยอมรับได้ของระบบ แต่ละลายมีหน้าของตนเอง (ภาษาอังกฤษ): เซลล์ การปูลาย การเปลี่ยนสี และข้อมูล',
-    motifsComplement: (link, c, b) => `ฉักลักษณ์นี้เป็นส่วนเติมเต็มฐานสองของฉักลักษณ์ ${link} (63 − ${c} = ${b}) ลวดลายของฉักลักษณ์นี้จึงมีรูปทรงเหมือนกันทุกประการ ต่างกันเพียงการสลับสี ต่อไปนี้คือลวดลายแปดลายของฉักลักษณ์ที่ ${b} หนึ่งลายต่อหนึ่งตระกูล (หน้าภาษาอังกฤษ)`,
+    motifsComplement: (link, c, b, kwb) => `ฉักลักษณ์นี้เป็นส่วนเติมเต็มฐานสองของฉักลักษณ์ ${link} (63 − ${c} = ${b}) ลวดลายของฉักลักษณ์นี้จึงมีรูปทรงเหมือนกันทุกประการ ต่างกันเพียงการสลับสี ต่อไปนี้คือลวดลายแปดลายของฉักลักษณ์ที่ ${b} (ลำดับ King Wen ที่ ${kwb}) หนึ่งลายต่อหนึ่งตระกูล (หน้าภาษาอังกฤษ)`,
     neighbours: 'ฉักลักษณ์ข้างเคียง', sharing: 'ฉักลักษณ์ที่มีตรีลักษณ์ร่วมกัน',
     sameUpper: (s, n) => `ตรีลักษณ์บนเดียวกัน (${s} ${n}): `, sameLower: (s, n) => `ตรีลักษณ์ล่างเดียวกัน (${s} ${n}): `,
     back: '← ฉักลักษณ์ทั้ง 64',
@@ -220,7 +220,7 @@ function genererLangue(lang) {
 
   function motifsHtml(chrono) {
     const base = chrono < 32 ? chrono : 63 - chrono;
-    const intro = chrono < 32 ? l.motifsIntro : l.motifsComplement(hexLink(info[base]), chrono, base);
+    const intro = chrono < 32 ? l.motifsIntro : l.motifsComplement(hexLink(info[base]), chrono, base, info[base].kw);
     const cartes = MOTIFS.ORDERED_FAMILIES.map((fam) => {
       const slug = MOTIFS.motifSlug(fam, base);
       return `        <a class="motif-card" href="${SITE}/motifs/${slug}.html"${lang === 'en' ? '' : ' hreflang="en"'}><img src="${PREFIXE}assets/motifs-preview/${slug}.png" alt="" width="96" height="96" loading="lazy"><span>${escapeHtml(MOTIFS.FAMILY_LABEL.en[fam])}</span></a>`;
@@ -243,7 +243,7 @@ ${cartes}
     const prev = info[(chrono + 63) % 64], next = info[(chrono + 1) % 64];
     const sameUpper = info.filter((x) => x.chrono !== chrono && x.upperVal === h.upperVal);
     const sameLower = info.filter((x) => x.chrono !== chrono && x.lowerVal === h.lowerVal);
-    const title = l.title(chrono, pinyin, name);
+    const title = l.title(chrono, pinyin, name, kw);
     const description = l.description(chrono, pinyin, name, kw);
 
     const lines = traits.map((bit, i) => `      <div class="hexline">
@@ -279,7 +279,7 @@ ${cartes}
 {
   "@context": "https://schema.org",
   "@type": "DefinedTerm",
-  "name": ${JSON.stringify(l.hexName(chrono, name))},
+  "name": ${JSON.stringify(l.hexName(chrono, name, kw))},
   "description": ${JSON.stringify(description)},
   "inLanguage": "${lang}",
   "inDefinedTermSet": "${l.lexiconUrl}",
@@ -301,7 +301,7 @@ ${cartes}
     { "@type": "ListItem", "position": 1, "name": ${JSON.stringify(l.home)}, "item": "${l.homeUrl}" },
     { "@type": "ListItem", "position": 2, "name": ${JSON.stringify(l.book)}, "item": "${l.bookUrl}" },
     { "@type": "ListItem", "position": 3, "name": ${JSON.stringify(l.hexagrams)}, "item": "${A.url(null, lang)}" },
-    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(l.hexName(chrono, name))}, "item": "${url}" }
+    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(l.hexName(chrono, name, kw))}, "item": "${url}" }
   ]
 }
 </script>
@@ -323,7 +323,7 @@ ${EN_TETE}
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
       <nav class="breadcrumb" aria-label="${l.breadcrumb}">
-        <a href="${l.homeUrl}">${l.home}</a><span class="sep">/</span><a href="${l.bookUrl}">${l.book}</a><span class="sep">/</span><a href="${A.url(null, lang)}">${l.hexagrams}</a><span class="sep">/</span><span aria-current="page">${escapeHtml(l.hexName(chrono, name))}</span>
+        <a href="${l.homeUrl}">${l.home}</a><span class="sep">/</span><a href="${l.bookUrl}">${l.book}</a><span class="sep">/</span><a href="${A.url(null, lang)}">${l.hexagrams}</a><span class="sep">/</span><span aria-current="page">${escapeHtml(l.hexName(chrono, name, kw))}</span>
       </nav>
       <!-- @langues:start --><!-- @langues:end -->
 
@@ -339,7 +339,7 @@ ${EN_TETE}
 ${column}
         </div>
         <figure class="hex-square">
-          <img src="${PREFIXE}assets/hexagrammes/${chrono}.png" alt="${escapeHtml(l.alt(chrono, name))}" width="480" height="480">
+          <img src="${PREFIXE}assets/hexagrammes/${chrono}.png" alt="${escapeHtml(l.alt(chrono, name, kw))}" width="480" height="480">
           <figcaption>${escapeHtml(l.figcaption)}</figcaption>
         </figure>
       </div>
@@ -444,7 +444,7 @@ ${scriptAnnee}<script src="${PREFIXE}assets/share-widget.js"></script>
   "inLanguage": "${lang}",
   "url": "${url}",
   "hasPart": [
-${info.map((i) => `    { "@type": "DefinedTerm", "name": ${JSON.stringify(l.hexName(i.chrono, i.name))}, "url": "${A.url(i.chrono, lang)}" }`).join(',\n')}
+${info.map((i) => `    { "@type": "DefinedTerm", "name": ${JSON.stringify(l.hexName(i.chrono, i.name, i.kw))}, "url": "${A.url(i.chrono, lang)}" }`).join(',\n')}
   ]
 }
 </script>

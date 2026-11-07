@@ -1,0 +1,25 @@
+name: Hexagrammes — les deux numéros
+
+# tools/check_hexagrammes_deux_numeros.mjs : aucune mention numérotée d'un hexagramme (pages hexagrammes
+# fr, en, es, th ; fiches de motifs fr et en) sans son index binaire ET son numéro traditionnel King Wen
+# (scripts/extract-hexagram-data.js). --essai : une mention incomplète, ou avec un mauvais numéro, doit être vue.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  numeros:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: node tools/check_hexagrammes_deux_numeros.mjs
+      - run: node tools/check_hexagrammes_deux_numeros.mjs --essai

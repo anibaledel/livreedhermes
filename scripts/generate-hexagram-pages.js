@@ -146,7 +146,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 }
 
 function hexLinkHtml(info){
-  return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
+  return `<a href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`;
 }
 
 // Les motifs d'un hexagramme : les 256 motifs unifiés portent sur les
@@ -159,7 +159,7 @@ function motifsHtml(chrono){
   const baseInfo = allInfo[base];
   const intro = chrono < 32
     ? `Huit motifs Jacquard 12×12 sont engendrés à partir de cet hexagramme, un par famille admissible du système. Chacun a sa page : cellule, pavage, recoloriages et données.`
-    : `Cet hexagramme est le complément binaire de l'hexagramme ${hexLinkHtml(baseInfo)} (63 − ${chrono} = ${base}) : ses motifs ont exactement la même forme, seules leurs couleurs sont permutées. Voici les huit motifs de l'hexagramme ${base}, un par famille admissible.`;
+    : `Cet hexagramme est le complément binaire de l'hexagramme ${hexLinkHtml(baseInfo)} (63 − ${chrono} = ${base}) : ses motifs ont exactement la même forme, seules leurs couleurs sont permutées. Voici les huit motifs de l'hexagramme ${base} (n° King Wen ${baseInfo.kwNum}), un par famille admissible.`;
   const cartes = MOTIFS.ORDERED_FAMILIES.map(fam => {
     const slug = MOTIFS.motifSlug(fam, base);
     const label = MOTIFS.FAMILY_LABEL.fr[fam];
@@ -188,7 +188,7 @@ for(let chrono = 0; chrono < 64; chrono++){
   const nextInfo = allInfo[(chrono + 1) % 64];
   const sameUpper = allInfo.filter(h => h.chrono !== chrono && h.upperVal === allInfo[chrono].upperVal);
   const sameLower = allInfo.filter(h => h.chrono !== chrono && h.lowerVal === allInfo[chrono].lowerVal);
-  const title = `Hexagramme ${chrono} — ${pinyin}, ${nameFr}`;
+  const title = `Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${pinyin}, ${nameFr}`;
   const description = `Hexagramme ${chrono} (${pinyin}, ${nameFr}, n° King Wen ${kwNum}) : jugement, trigrammes et carré magique de La Livrée d'Hermès.`;
 
   const linesHtml = traits.map((bit, i) => {
@@ -225,7 +225,7 @@ for(let chrono = 0; chrono < 64; chrono++){
 {
   "@context": "https://schema.org",
   "@type": "DefinedTerm",
-  "name": "Hexagramme ${chrono} — ${escapeHtml(nameFr)}",
+  "name": "Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${escapeHtml(nameFr)}",
   "description": ${JSON.stringify(description)},
   "inDefinedTermSet": "https://anibal-amiot.com/lexique.html",
   "url": "${url}",
@@ -246,7 +246,7 @@ for(let chrono = 0; chrono < 64; chrono++){
     { "@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://anibal-amiot.com/" },
     { "@type": "ListItem", "position": 2, "name": "Le traité", "item": "https://anibal-amiot.com/la-livree-d-hermes.html" },
     { "@type": "ListItem", "position": 3, "name": "Hexagrammes", "item": "https://anibal-amiot.com/hexagrammes/" },
-    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(`Hexagramme ${chrono} — ${nameFr}`)}, "item": "${url}" }
+    { "@type": "ListItem", "position": 4, "name": ${JSON.stringify(`Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${nameFr}`)}, "item": "${url}" }
   ]
 }
 </script>
@@ -354,14 +354,14 @@ ${EN_TETE}
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <span class="corner2 tl2"></span><span class="corner2 tr2"></span><span class="corner2 bl2"></span><span class="corner2 br2"></span>
       <nav class="breadcrumb" aria-label="Fil d'Ariane">
-        <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} — ${escapeHtml(nameFr)}</span>
+        <a href="https://anibal-amiot.com/">Accueil</a><span class="sep">/</span><a href="https://anibal-amiot.com/la-livree-d-hermes.html">Le traité</a><span class="sep">/</span><a href="https://anibal-amiot.com/hexagrammes/">Hexagrammes</a><span class="sep">/</span><span aria-current="page">Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${escapeHtml(nameFr)}</span>
       </nav>
       <!-- @langues:start --><!-- @langues:end -->
 
       <a class="article-back" href="https://anibal-amiot.com/?chrono=${chrono}">← Voir cet hexagramme sur l'échiquier</a>
 
-      <h1 class="article-title">Hexagramme ${chrono} — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
-      <p class="article-sub">N° chronologique <b>${chrono}</b> (ordre par poids binaires) · n° King Wen (traditionnel) ${kwNum} · ${escapeHtml(hanzi || '')}</p>
+      <h1 class="article-title">Hexagramme ${chrono} (n° King Wen ${kwNum}) — ${escapeHtml(pinyin)}, ${escapeHtml(nameFr)}</h1>
+      <p class="article-sub">Index binaire <b>${chrono}</b> (0 à 63 ; « n° chronologique » du site, ordre par poids binaires) · n° traditionnel King Wen <b>${kwNum}</b> · ${escapeHtml(hanzi || '')}</p>
       <p class="article-date">Par <a href="https://anibal-amiot.com/a-propos.html">Anibal Edelberto Amiot</a> — Mis à jour le ${DATE_FR_PLACEHOLDER}</p>
     </div>
     </div>
@@ -372,7 +372,7 @@ ${EN_TETE}
 ${hexColumn}
         </div>
         <figure class="hex-square">
-          <img src="../assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (${escapeHtml(nameFr)})" width="480" height="480">
+          <img src="../assets/hexagrammes/${chrono}.png" alt="Carré magique / pavage associé à l'hexagramme ${chrono} (n° King Wen ${kwNum}, ${escapeHtml(nameFr)})" width="480" height="480">
           <figcaption>Pavage du carré magique associé à cet hexagramme, La Livrée d'Hermès.</figcaption>
         </figure>
       </div>
@@ -480,7 +480,7 @@ const listingTitle = 'Hexagrammes — La Livrée d\'Hermès';
 const listingDescription = 'Les 64 hexagrammes du Yi-King dans l\'ordre chronologique du site : jugement, trigrammes et carré magique associés à chacun.';
 
 const gridItems = allInfo.map(info =>
-  `        <a class="hex-grid-item" href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`
+  `        <a class="hex-grid-item" href="https://anibal-amiot.com/hexagrammes/${info.slug}">${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.pinyin)}, ${escapeHtml(info.nameFr)}</a>`
 ).join('\n');
 
 const listingHtml = `<!DOCTYPE html>
@@ -507,7 +507,7 @@ const listingHtml = `<!DOCTYPE html>
   "description": ${JSON.stringify(listingDescription)},
   "url": "${listingUrl}",
   "hasPart": [
-${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.chrono} — ${escapeHtml(info.nameFr)}", "url": "https://anibal-amiot.com/hexagrammes/${info.slug}" }`).join(',\n')}
+${allInfo.map(info => `    { "@type": "DefinedTerm", "name": "Hexagramme ${info.chrono} (n° King Wen ${info.kwNum}) — ${escapeHtml(info.nameFr)}", "url": "https://anibal-amiot.com/hexagrammes/${info.slug}" }`).join(',\n')}
   ]
 }
 </script>
