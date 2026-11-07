@@ -688,7 +688,9 @@
    "fichier": "tools/check_musique_chladni.mjs",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
    "lit": [
-    "assets/musique-chladni-ui.js"
+    "assets/musique-chladni-ui.js",
+    "data/musique-chladni/semaine.json",
+    "tools/semaine.mjs"
    ],
    "ecrit": [],
    "appele_par": [
@@ -2210,6 +2212,20 @@
     "tools/make_figures.py"
    ],
    "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/semaine.mjs",
+   "role": "valide data/musique-chladni/semaine.json, le fichier du bloc « La semaine » de la page « Voir sa musique ».",
+   "lit": [
+    "data/musique-chladni/semaine.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [
+    "tools/check_musique_chladni.mjs"
+   ],
+   "etat": "actif",
    "sait_echouer": false
   },
   {

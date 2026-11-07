@@ -14,6 +14,7 @@ import { CONFIG } from './musique-chladni-config.js';
 import { texte as T } from './musique-chladni-textes.js';
 import { PALETTES, ENCRE, CREME, GRIS } from './couleurs.js';
 import { chargerCollection, rasteriser } from './bicolore-fonds.js';
+import { monterSemaine } from './musique-chladni-semaine.js';
 
 const $ = (id) => document.getElementById(id);
 const el = (tag, attrs = {}, ...enfants) => {
@@ -482,6 +483,7 @@ function clavier(e) {
 
 export async function monter() {
   habiller();
+  monterSemaine(); // le bloc « La semaine » : indépendant des données de l'outil, masqué si son fichier manque
   try { await charger(); } catch (err) { message(T('erreurDonnees', { message: err.message })); return; }
   detecteur = M.creerDetecteurAttaques({ intervalleMin: S.intervalle, sigma: S.seuil });
   valide = new Fenetre($('vmValideToile'), $('vmValideCap')); essaiF = new Fenetre($('vmEssaiToile'), $('vmEssaiCap'));

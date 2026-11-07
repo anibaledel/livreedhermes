@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-07T17:33:53Z",
+ "generated_at_utc": "2026-11-07T18:49:08Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 256,
+  "scripts": 257,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -2000,9 +2000,9 @@
   {
    "chemin": "tools/check_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/check_musique_chladni.mjs",
-   "octets": 19925,
-   "sha256": "44cffa43699db4bfae2c1ec868f80b3a705101c0d623ff5b5d22f4459f293927",
-   "md5": "d6445186dae534b5954d3556c7a5a399",
+   "octets": 26424,
+   "sha256": "aa3eeac645099a4384838413c6f8c94a29c98d2d11322c8aad44269692a7ec09",
+   "md5": "d3a8640702748c2f991eadb82d95bd70",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la page musique-chladni.html, dans Chromium, avec un vrai son (un des 7 morceaux fournis) et un faux micro.",
@@ -3771,6 +3771,21 @@
      "source": "relevé d'Anibal, consigne « codes et résultats »"
     }
    ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/semaine.mjs",
+   "adresse": "https://anibal-amiot.com/tools/semaine.mjs",
+   "octets": 3364,
+   "sha256": "e71ed5f6a6b943bbc9c3a6585617c2f1d0dd3edffdf596a57c264856835a6735",
+   "md5": "549f93d6abcf1b7b3e2115837241e4cb",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "valide data/musique-chladni/semaine.json, le fichier du bloc « La semaine » de la page « Voir sa musique ».",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
    "arborescence_requise": null,
    "zenodo": []
   },

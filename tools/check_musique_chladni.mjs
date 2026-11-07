@@ -11,6 +11,7 @@
 //     les six variantes de case (collections bicolores), deux couleurs chacune, un changement de bande garde le motif ;
 //   - un morceau fait choisir des motifs dans les trois vues et les trois modes ; le tricolore a trois valeurs ;
 //   - les raccourcis (1 à 3, Espace, V, P), Échap et le clic extérieur ferment un panneau ;
+//   - le bloc « La semaine » : 7 cartes, aucune requête vers YouTube ni TikTok avant le clic, lien de repli, masqué sans données, tools/semaine.mjs ;
 //   - le micro (faux périphérique) démarre ; le refus du micro est dit clairement ;
 //   - rien n'est envoyé : aucune requête hors du site pendant l'usage ;
 //   - l'enregistrement fournit une vidéo (MP4 si le navigateur l'écrit, sinon WebM), avec du son ;
@@ -163,6 +164,69 @@ try {
   const fichier = await dl, v = await page.evaluate(() => window.__derniereVideo);
   ok(v && v.octets > 20000 && v.largeur === 1080 && v.hauteur === 1350, `enregistrement 4:5 : ${JSON.stringify(v)}`);
   ok(/\.(mp4|webm)$/.test(fichier.suggestedFilename()), 'enregistrement : extension inattendue');
+
+  // le bloc « La semaine » : sept cartes, rien de YouTube ni de TikTok avant le clic, repli, masqué sans données
+  {
+    const nouvelle = async (corps, largeur = 390) => {
+      const c = await navigateur.newContext({ viewport: { width: largeur, height: 900 } }), pg = await c.newPage(), reqs = [], errs = [];
+      pg.on('request', (r) => reqs.push(r.url())); pg.on('pageerror', (e) => errs.push(e.message));
+      pg.on('console', (m) => { if (m.type() === 'error' && !/Failed to load resource|ERR_/.test(m.text())) errs.push(m.text()); });
+      if (corps !== undefined) await pg.route('**/data/musique-chladni/semaine.json', (r) => (corps === null ? r.fulfill({ status: 404, body: '' }) : r.fulfill({ contentType: 'application/json', body: JSON.stringify(corps) })));
+      await pg.goto(`${base}/musique-chladni.html`); await pg.waitForFunction(() => window.__voirSaMusique); await pg.waitForTimeout(800);
+      return { pg, reqs, errs };
+    };
+    const affiches = JSON.parse((await import('node:fs')).readFileSync(path.join(ROOT, 'data/musique-chladni/semaine.json'), 'utf8')).jours.map((j) => j.affiche); // les affiches de la semaine, telles que le fichier les nomme
+    const tiers = (reqs) => reqs.filter((u) => /youtube|youtu\.be|tiktok|ytimg|googlevideo/i.test(u));
+    // les données réelles : 7 cartes, la mention exacte, aucune requête tierce avant le clic, 390 et 360 px
+    for (const w of [390, 360]) {
+      const { pg, reqs, errs } = await nouvelle(undefined, w);
+      ok(await pg.isVisible('#vmSemaine') && (await pg.$$('.vm-jour')).length === 7, `« La semaine » (${w} px) : 7 cartes attendues`);
+      ok((await pg.textContent('#vmSemaineMention')).trim() === 'Musique composée avec l\'aide de l\'IA par MC Claude.', 'la mention « Musique composée avec l\'aide de l\'IA par MC Claude. » doit être exacte');
+      ok(tiers(reqs).length === 0, `« La semaine » : requêtes vers YouTube/TikTok avant tout clic : ${tiers(reqs).slice(0, 3).join(' | ')}`);
+      const large = await pg.evaluate(() => { let max = document.documentElement.scrollWidth; for (const e of document.querySelectorAll('#vmSemaine *')) { const r = e.getBoundingClientRect(); if (r.width && r.right > max) max = r.right; } return Math.ceil(max); });
+      ok(large <= w, `« La semaine » à ${w} px : ${large} px de large`);
+      ok(errs.length === 0, `« La semaine » : erreurs ${errs.slice(0, 2).join(' | ')}`);
+      if (w === 390 && process.env.CAPTURE_SEMAINE) await pg.locator('#vmSemaine').screenshot({ path: process.env.CAPTURE_SEMAINE });
+      await pg.context().close();
+    }
+    // un jour sans vidéo (« bientôt »), un faux identifiant YouTube sans réseau (lien de repli), un TikTok
+    {
+      const jours = [
+        { n: 1, tonalite: 'do dièse mineur', date: '2026-11-09', affiche: affiches[0] },
+        { n: 2, tonalite: 'la mineur', date: '', affiche: affiches[1], youtube: 'AAAAAAAAAAA', tiktok: 'https://www.tiktok.com/@compte/video/7000000000000000000' },
+      ];
+      const { pg, reqs, errs } = await nouvelle({ semaine: 'essai', titre: 'Essai', jours });
+      const cartes = await pg.$$('.vm-jour');
+      ok(cartes.length === 2, `fixture : 2 cartes attendues (${cartes.length})`);
+      ok(/Bientôt/.test(await cartes[0].textContent()) && (await cartes[0].$$('button')).length === 0, 'un jour sans vidéo ne montre que son affiche et « Bientôt »');
+      ok(/9 novembre 2026/.test(await cartes[0].textContent()), 'la date de publication doit s\'afficher');
+      ok(tiers(reqs).length === 0, 'fixture : requêtes tierces avant le clic');
+      await pg.click('.vm-jour:nth-of-type(2) .vm-jour-aff'); await pg.waitForTimeout(600);
+      const src = await pg.getAttribute('.vm-jour iframe', 'src');
+      ok(/^https:\/\/www\.youtube-nocookie\.com\/embed\/AAAAAAAAAAA\?/.test(src || '') && !/autoplay/.test(src || ''), `YouTube : adresse nocookie sans lecture automatique attendue (${src})`);
+      ok(await pg.isVisible('.vm-jour-liens a'), 'le lien direct « Voir sur YouTube » doit rester affiché sous le lecteur');
+      ok(tiers(reqs).some((u) => /youtube-nocookie/.test(u)) && !tiers(reqs).some((u) => /tiktok/.test(u)), 'après le clic : YouTube seulement, TikTok pas encore');
+      await pg.click('.vm-jour-autre'); await pg.waitForTimeout(600);
+      ok(await pg.isVisible('.vm-jour .tiktok-embed') && tiers(reqs).some((u) => /tiktok\.com\/embed\.js/.test(u)), 'TikTok : le lecteur officiel ne se charge qu\'au clic sur « Lire ici (TikTok) »');
+      ok(errs.length === 0, `intégration impossible sans réseau : aucune erreur bloquante attendue (${errs.slice(0, 2).join(' | ')})`);
+      await pg.context().close();
+    }
+    // fichier vide, sans jours, ou absent : le bloc entier est masqué, sans exception
+    for (const [nom, corps] of [['vide', {}], ['sans jours', { semaine: 'x', jours: [] }], ['absent', null]]) {
+      const { pg, errs } = await nouvelle(corps);
+      ok(await pg.isHidden('#vmSemaine'), `fichier ${nom} : le bloc doit être masqué`);
+      ok(errs.length === 0, `fichier ${nom} : erreur ${errs.slice(0, 2).join(' | ')}`);
+      await pg.context().close();
+    }
+    // l'outil de contrôle : le vrai fichier passe, un faux identifiant échoue
+    const { spawnSync } = await import('node:child_process'), { writeFileSync, mkdtempSync } = await import('node:fs'), { tmpdir } = await import('node:os');
+    const bon = spawnSync('node', [path.join(ROOT, 'tools/semaine.mjs')], { encoding: 'utf8' });
+    ok(bon.status === 0, `tools/semaine.mjs : le fichier de la semaine doit passer (${(bon.stderr || '').split('\n')[0]})`);
+    const tmp = path.join(mkdtempSync(path.join(tmpdir(), 'semaine-')), 'semaine.json');
+    writeFileSync(tmp, JSON.stringify({ semaine: 'x', jours: [{ n: 1, tonalite: 'la', affiche: affiches[0], youtube: 'trop-court' }, { n: 1, tonalite: 'la', affiche: `${affiches[0]}.absente`, tiktok: 'http://exemple.org/x' }] }));
+    const mauvais = spawnSync('node', [path.join(ROOT, 'tools/semaine.mjs'), tmp], { encoding: 'utf8' });
+    ok(mauvais.status === 1 && /11 caractères/.test(mauvais.stderr) && /en double/.test(mauvais.stderr) && /n'existe pas/.test(mauvais.stderr) && /TikTok/.test(mauvais.stderr), 'tools/semaine.mjs : identifiant court, numéro en double, affiche absente et URL TikTok fausse doivent être refusés');
+  }
 
   // micro
   await page.click('#vmLecture'); await page.selectOption('#vmSource', 'mic'); await page.click('#vmLecture'); await page.waitForTimeout(2000);

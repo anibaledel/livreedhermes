@@ -159,6 +159,19 @@ export const TEXTES = {
     infoImages: '{fps} images/s',
     infoResolution: 'résolution réduite',
 
+    // le bloc « La semaine »
+    semaineTitre: 'La semaine',
+    semaineMention: 'Musique composée avec l\'aide de l\'IA par MC Claude.',
+    semaineTiers: 'Un clic sur une affiche charge le lecteur de YouTube ou de TikTok : un service tiers, qui reçoit alors votre visite. Rien n\'est chargé avant.',
+    jourTitre: 'Jour {n} — {tonalite}',
+    datePub: 'Publié le {date}',
+    bientot: 'Bientôt',
+    lire: 'Lire la vidéo du jour {n}, {tonalite}',
+    lireTiktok: 'Lire ici (TikTok)',
+    voirYoutube: 'Voir sur YouTube',
+    voirTiktok: 'Voir sur TikTok',
+    afficheAlt: 'Affiche du jour {n} — {tonalite}',
+    lecteurTitre: 'Vidéo du jour {n}',
     voirAussiTitre: 'Voir aussi',
     voirAussi: [
       { href: 'galerie-bicolore.html', titre: 'Galerie bicolore', texte: 'Les motifs bicolores engendrés par les axes, fermés sur le cube : maille, pavage, export.' },

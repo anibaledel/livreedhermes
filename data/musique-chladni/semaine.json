@@ -1,0 +1,55 @@
+{
+  "semaine": "semaine-7",
+  "titre": "Semaine 7",
+  "jours": [
+    {
+      "n": 1,
+      "tonalite": "do dièse mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour1.jpg",
+      "youtube": "zfbYOyP7CAU"
+    },
+    {
+      "n": 2,
+      "tonalite": "la mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour2.jpg",
+      "youtube": "BjO7OMw_mT8"
+    },
+    {
+      "n": 3,
+      "tonalite": "ré mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour3.jpg",
+      "youtube": "QpR7WxuaZxg"
+    },
+    {
+      "n": 4,
+      "tonalite": "mi mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour4.jpg",
+      "youtube": "pG7k3Tl85Vo"
+    },
+    {
+      "n": 5,
+      "tonalite": "sol mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour5.jpg",
+      "youtube": "wyIH4WKbuW8"
+    },
+    {
+      "n": 6,
+      "tonalite": "si mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour6.jpg",
+      "youtube": "aLx3oiHcE2M"
+    },
+    {
+      "n": 7,
+      "tonalite": "do mineur",
+      "date": "",
+      "affiche": "assets/semaine/jour7.jpg",
+      "youtube": "7R_Ls2SkZXY"
+    }
+  ]
+}
