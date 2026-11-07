@@ -70,11 +70,11 @@ function chargerOrdre(o) { // 18 et 30 : à la demande, au premier choix du form
 }
 async function assurer(c) { if (S.blocs.has(c.col)) return; const o = FMT_DE[c.col]; if (!S.jb[o]) { message(T('chargementOrdre', { n: o })); await chargerOrdre(o); message(''); } if (!S.blocs.has(c.col)) construire(c.col); }
 async function charger() {
-  const [donnees, jColl, jCalc, jb12, c1830, sym12] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`)]);
-  S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12 }; S.charges[12] = Promise.resolve();
+  const [donnees, jColl, jCalc, jb12, c1830, sym12, centrale12] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`), lJson(`${DIR}centrale12-indices.json`)]);
+  S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12, centrale12 }; S.charges[12] = Promise.resolve();
   const tri = M.preparerBloc(donnees, 'tri'), e = M.controlerBloc(tri); if (e.length) throw new Error(e.join(' ; '));
   S.blocs.set('tri', tri);
-  for (const col of ['lis', 'bi']) construire(col);
+  for (const col of ['bi', 'ce']) construire(col);
   for (const o of CONFIG.ordres) for (const d of M.definirCollections(o.ordre, S.defs)) S.tailles[d.id] = d.indices.length;
   S.tailles.tri = tri.n;
   for (const id of M.BANDES) if (!S.coll.fonds.get(id)) throw new Error(T('bandeManque', { id }));

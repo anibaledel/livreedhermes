@@ -156,8 +156,9 @@ export function preparerBlocStructure(jb, { id, label = id, indices }) {
 }
 
 /** Les collections d'un ordre, d'après les fichiers d'indices (aucune grille relue). */
-export function definirCollections(ordre, { collections1830, sym12 }) {
-  if (ordre === 12) return [{ id: 'lis', indices: Array.from({ length: 272 }, (_, i) => i) }, { id: 'bi', indices: sym12.indices.slice() }];
+export function definirCollections(ordre, { collections1830, sym12, centrale12 }) {
+  // ordre 12 : les 272 grilles lisibles se séparent en deux ensembles disjoints de 136 (deux miroirs ; symétrie centrale à 180° seule)
+  if (ordre === 12) return [{ id: 'bi', indices: sym12.indices.slice() }, { id: 'ce', indices: centrale12.indices.slice() }];
   const c = collections1830[String(ordre)], groupes = Object.keys(c), nom = (k) => k.replace(`o${ordre}-`, '');
   const prefixes = groupes.filter((k) => /^p\d+$/.test(nom(k))).sort(), autres = groupes.filter((k) => !/^p\d+$/.test(nom(k)));
   const ordreAutres = ['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote'];

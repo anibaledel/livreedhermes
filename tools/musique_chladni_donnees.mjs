@@ -130,7 +130,15 @@ const DIR = 'data/musique-chladni/';
   ok(egaux === 272, `ordre 12 : ${egaux} lb sur 272 coïncident octet par octet avec lecture-binaire.js`);
   ok(memeGrille === 272 && lisiblesTri.size === 272, `ordre 12 : ${memeGrille} grilles de la référence sont des grilles lisibles du tricolore (${lisiblesTri.size} lisibles)`);
   ok(symOk === 272, `ordre 12 : sym12-indices ne correspond pas à l'indicateur « sym » de la référence (${symOk}/272)`);
-  console.log(`Blocs de structure (paquet n° 158) : ${lignes.join(' ; ')} ; ordre 12 : ${egaux}/272 lb identiques à la sortie de lecture-binaire.js, ${memeGrille}/272 grilles = les lisibles du tricolore, ${sym.indices.length} à deux miroirs ; ordres 18 et 30 : collections partitionnant les motifs.`);
+  // les 272 grilles lisibles = deux ensembles disjoints de 136 : deux miroirs (sym12) et symétrie centrale à 180° seule (centrale12)
+  const cen = lire(`${DIR}centrale12-indices.json`), ensS = new Set(sym.indices), ensC = new Set(cen.indices);
+  ok(cen.indices.length === 136 && ensC.size === 136 && cen.ids.length === 136, `centrale12-indices : 136 indices distincts attendus (${cen.indices.length})`);
+  ok(cen.indices.every((i) => i >= 0 && i < 272 && !ensS.has(i)), 'les deux ensembles de l\'ordre 12 ne sont pas disjoints');
+  ok(new Set([...ensS, ...ensC]).size === 272, `l'union des deux ensembles fait ${new Set([...ensS, ...ensC]).size} motifs, 272 attendus`);
+  ok(cen.ids.every((id, k) => id === jb[12].ids[cen.indices[k]]), 'centrale12-indices : les identifiants ne sont pas ceux du bloc');
+  let centrales = 0; for (const i of cen.indices) { const g = ref[i].grid; if (g.split('').every((x, p) => x === g[143 - p]) && !ref[i].sym) centrales++; }
+  ok(centrales === 136, `symétrie centrale à 180° : ${centrales}/136 grilles la vérifient sans avoir les deux miroirs`);
+  console.log(`Blocs de structure (paquet n° 158) : ${lignes.join(' ; ')} ; ordre 12 : ${egaux}/272 lb identiques à la sortie de lecture-binaire.js, ${memeGrille}/272 grilles = les lisibles du tricolore, ${sym.indices.length} à deux miroirs + ${cen.indices.length} à symétrie centrale seule = 272 (ensembles disjoints, symétrie centrale vérifiée sur la grille) ; ordres 18 et 30 : collections partitionnant les motifs.`);
 }
 
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }

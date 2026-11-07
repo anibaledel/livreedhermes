@@ -86,8 +86,8 @@ export const TEXTES = {
     ordreIndisponible: 'Les données de l\'ordre {n} ne se chargent pas : {message}',
     collections: {
       tri: ['Tricolore — motifs unifiés', '{n} motifs (grilles 12 × 12 distinctes)'],
-      lis: ['Bicolore — lisibles', '{n} motifs (lisibles par la règle du 3 octobre)'],
       bi: ['Bicolore — motifs unifiés', '{n} motifs (deux miroirs, lisibles par la règle du 3 octobre)'],
+      ce: ['Bicolore — symétrie centrale', '{n} motifs (symétrie centrale à 180° seule, lisibles par la règle du 3 octobre)'],
       b1971128: ['Famille b1971128', '{n} motifs'],
       b16012838: ['Famille b16012838', '{n} motifs'],
       b3016090: ['Famille b3016090', '{n} motifs'],

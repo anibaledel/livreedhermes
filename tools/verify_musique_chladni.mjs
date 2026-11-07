@@ -36,7 +36,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (rel) => JSON.parse(readFileSync(path.join(ROOT, rel), 'utf8'));
 const donnees = lire('data/musique-chladni-12.json'), jb = {}, DIR = 'data/musique-chladni/';
 for (const o of [12, 18, 30]) jb[o] = lire(`${DIR}bloc-${o}-structure.json`);
-const defs = { collections1830: lire(`${DIR}collections-18-30.json`), sym12: lire(`${DIR}sym12-indices.json`) };
+const defs = { collections1830: lire(`${DIR}collections-18-30.json`), sym12: lire(`${DIR}sym12-indices.json`), centrale12: lire(`${DIR}centrale12-indices.json`) };
 const tri = M.preparerBloc(donnees, 'tri');
 /** Tous les blocs de la page : tricolore 12, puis les collections des trois ordres (voisins et chaîne calculés ici). */
 const blocs = [tri];
@@ -123,7 +123,7 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
 // ---- 3 bis. figures aux ordres 18 et 30 : reconstruction de Fourier du champ de structure (pas d'« interprétation spectrale ») ----
 {
   const lignes = [];
-  for (const [o, id] of [[12, 'lis'], [18, 'b1971128'], [30, 'p30']]) {
+  for (const [o, id] of [[12, 'ce'], [18, 'b1971128'], [30, 'p30']]) {
     const bloc = blocs.find((b) => b.ordre === o && b.id === id), g = bloc.grid; let pire = 0, per = 0;
     for (const j of [0, Math.floor(bloc.n / 2)]) {
       const champ = M.champ(bloc, j), C = M.coefficients(champ, g); let m = 0; for (const x of champ) m += x; m /= g * g;
