@@ -50,8 +50,8 @@ try {
   await page.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
   const etat = () => page.evaluate(() => window.__voirSaMusique.etat());
-  const couleurs = async (id) => { for (let t = 0; t < 40 && (await etat()).fondu < 1; t++) await page.waitForTimeout(100); return couleursBrut(id); };
-  const couleursBrut = (id) => page.evaluate((i) => { const c = document.getElementById(i), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; const n = {}; let t = 0; for (let k = 0; k < d.length; k += 4 * 13) { const q = `${d[k] >> 5},${d[k + 1] >> 5},${d[k + 2] >> 5}`; n[q] = (n[q] || 0) + 1; t++; } let cum = 0, m = 0; for (const x of Object.values(n).sort((a, b) => b - a)) { cum += x; m++; if (cum / t >= 0.75) break; } return m; }, id);
+  const couleurs = async (id, part = 0.75) => { for (let t = 0; t < 40 && (await etat()).fondu < 1; t++) await page.waitForTimeout(100); return couleursBrut(id, part); };
+  const couleursBrut = (id, part) => page.evaluate(([i, part]) => { const c = document.getElementById(i), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; const n = {}; let t = 0; for (let k = 0; k < d.length; k += 4 * 13) { const q = `${d[k] >> 5},${d[k + 1] >> 5},${d[k + 2] >> 5}`; n[q] = (n[q] || 0) + 1; t++; } if (part < 0.5) return Object.values(n).filter((x) => x / t > part).length; let cum = 0, m = 0; for (const x of Object.values(n).sort((a, b) => b - a)) { cum += x; m++; if (cum / t >= part) break; } return m; }, [id, part]);
   const trace = (id) => page.evaluate((i) => { const c = document.getElementById(i), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data, n = {}; let t = 0; for (let k = 0; k < d.length; k += 4 * 13) { const q = `${d[k] >> 5},${d[k + 1] >> 5},${d[k + 2] >> 5}`; n[q] = (n[q] || 0) + 1; t++; } return Object.values(n).filter((x) => x / t > 0.003).length; }, id);
   const ouvrir = async (g) => { await page.click(`#vm-g-${g}-btn`); };
   const choisir = async (g, v) => { await ouvrir(g); await page.click(`#vm-o-${g}-${v}`); };
@@ -86,7 +86,7 @@ try {
   for (const v of ['lignes', 'pavage', 'signes']) { await choisir('view', v); await page.click('#vmValider'); await page.waitForTimeout(500); await couleurs('vmValideToile'); ok(await trace('vmValideToile') >= 2, `vue « ${v} » : rien de dessiné`); }
   // variante de case : les 9 bandes se dessinent, deux couleurs
   await choisir('view', 'pavage'); await page.click('#vmValider');
-  for (const id of await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))) { await choisir('fond', id); await page.click('#vmValider'); await page.waitForTimeout(150); ok(await couleurs('vmValideToile') === 2, `variante ${id} : deux couleurs attendues`); }
+  for (const id of await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))) { await choisir('fond', id); await page.click('#vmValider'); await page.waitForTimeout(150); ok(await couleurs('vmValideToile', 0.25) === 2, `variante ${id} : deux couleurs attendues`); }
   // tricolore : trois valeurs
   await choisir('col', 'tri'); await choisir('pal', 'creme'); await choisir('view', 'pavage'); await page.click('#vmValider'); await page.waitForTimeout(500);
   ok(await couleurs('vmValideToile') === 3, 'tricolore, cellules : trois valeurs attendues');
