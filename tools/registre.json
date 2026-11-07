@@ -1833,6 +1833,7 @@
    "role": "les données d'ordre 12 de la page « Voir sa musique » (data/musique-chladni-12.json) sont celles du dépôt.",
    "lit": [
     "data/fonds_ecran_v1.json",
+    "data/musique-chladni",
     "data/musique-chladni-12.json"
    ],
    "ecrit": [],
@@ -2530,6 +2531,7 @@
    "lit": [
     "data/fonds/collection-v1.calculs.json",
     "data/fonds/collection-v1.json",
+    "data/musique-chladni",
     "data/musique-chladni-12.json",
     "tools/musique_chladni_recette_12.py"
    ],

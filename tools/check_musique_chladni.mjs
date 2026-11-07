@@ -7,8 +7,8 @@
 //
 //   - elle se charge sans erreur de script ; tous ses textes viennent de
 //     assets/musique-chladni-textes.js (aucun texte français en dur dans le code de l'interface) ;
-//   - six en-têtes, deux fenêtres (Validé, Essai), l'aperçu au survol, Valider/Annuler ; les ordres
-//     18 et 30 désactivés ; les neuf variantes de case (bicolore seulement), deux couleurs chacune ;
+//   - six en-têtes, deux fenêtres (Validé, Essai), l'aperçu au survol, Valider/Annuler ; les ordres 18 et 30 chargés à la demande ;
+//     les six variantes de case (collections bicolores), deux couleurs chacune, un changement de bande garde le motif ;
 //   - un morceau fait choisir des motifs dans les trois vues et les trois modes ; le tricolore a trois valeurs ;
 //   - les raccourcis (1 à 3, Espace, V, P), Échap et le clic extérieur ferment un panneau ;
 //   - le micro (faux périphérique) démarre ; le refus du micro est dit clairement ;
@@ -42,10 +42,10 @@ const echecs = [], ok = (c, m) => { if (!c) echecs.push(m); return c; };
 const navigateur = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required', '--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] });
 try {
   const ctx = await navigateur.newContext({ viewport: { width: 1000, height: 1200 }, acceptDownloads: true });
-  const page = await ctx.newPage(), erreurs = [], externes = new Set();
+  const page = await ctx.newPage(), erreurs = [], externes = new Set(), demandes = [];
   const origine = new URL(base).origin;
   page.on('pageerror', (e) => erreurs.push(e.message));
-  page.on('request', (r) => { const u = new URL(r.url()); if (u.origin !== origine && !/^(data|blob):/.test(r.url()) && !/cloudflareinsights|google|fonts\./.test(u.host)) externes.add(u.host); });
+  page.on('request', (r) => { demandes.push(r.url()); const u = new URL(r.url()); if (u.origin !== origine && !/^(data|blob):/.test(r.url()) && !/cloudflareinsights|google|fonts\./.test(u.host)) externes.add(u.host); });
   if (essai) await page.route('**/assets/musique-chladni-moteur.js', (r) => r.fulfill({ contentType: 'text/javascript', body: 'export * from "/assets/musique-chladni-moteur-absent.js";' }));
   await page.goto(`${base}/musique-chladni.html`, { waitUntil: 'load' });
   await page.waitForFunction(() => window.__voirSaMusique, null, { timeout: 20000 });
@@ -58,8 +58,9 @@ try {
 
   // six en-têtes, deux fenêtres, ordre 12 seul
   ok((await page.$$('.vm-opts .vm-grp > h3 > button')).length === 6, 'six en-têtes attendus');
-  ok(await page.isDisabled('#vm-o-fmt-18') && await page.isDisabled('#vm-o-fmt-30'), 'les ordres 18 et 30 doivent être désactivés');
-  ok((await page.$$('#vm-g-fond .vm-o')).length === 9, 'neuf variantes de case attendues');
+  ok(!(await page.isDisabled('#vm-o-fmt-18')) && !(await page.isDisabled('#vm-o-fmt-30')), 'les ordres 18 et 30 doivent être proposés');
+  ok(!demandes.some((u) => /bloc-(18|30)-structure/.test(u)), 'les ordres 18 et 30 ne doivent pas se charger avant le premier choix du format');
+  ok((await page.$$('#vm-g-fond .vm-o')).length === 6, 'six variantes de case attendues (B3x, BA33, BA50 sont des alias, jamais proposés)');
   ok(await page.isHidden('#vm-g-fond'), 'la variante de case ne s’applique qu’au bicolore : cachée au tricolore');
 
   await page.selectOption('#vmSource', 'j2'); await page.click('#vmLecture'); await page.waitForTimeout(3500);
@@ -87,6 +88,27 @@ try {
   // variante de case : les 9 bandes se dessinent, deux couleurs
   await choisir('view', 'pavage'); await page.click('#vmValider');
   for (const id of await page.$$eval('#vm-g-fond .vm-o', (o) => o.map((x) => x.dataset.k))) { await choisir('fond', id); await page.click('#vmValider'); await page.waitForTimeout(150); ok(await couleurs('vmValideToile', 0.25) === 2, `variante ${id} : deux couleurs attendues`); }
+  // ordres 18 et 30 : chargés au premier choix ; collections, variante de case, changement de bande sans rien recalculer
+  await choisir('fmt', '18'); await page.waitForFunction(() => window.__voirSaMusique.etat().blocs.includes('b1971128'), null, { timeout: 20000 }); await page.click('#vmValider');
+  ok(demandes.some((u) => /bloc-18-structure/.test(u)), 'l\'ordre 18 ne s\'est pas chargé au choix du format');
+  ok(!demandes.some((u) => /bloc-30-structure/.test(u)), 'l\'ordre 30 s\'est chargé sans avoir été choisi');
+  e = await etat(); ok(e.valide.fmt === 18 && e.valide.col === 'b1971128' && e.n === 128, `ordre 18 : collection par défaut attendue b1971128 (128 motifs) : ${JSON.stringify(e.valide)} n=${e.n}`);
+  await ouvrir('col'); ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden])', (o) => o.map((x) => x.dataset.k))).join() === 'b1971128,b16012838,b3016090,f613,f18,fpilote,p18', 'ordre 18 : sept collections attendues');
+  ok((await page.$$eval('.vm-o[data-g="col"]:not([hidden]) small', (o) => o.map((x) => x.textContent.match(/\d+/)[0]))).join() === '128,128,128,256,256,256,128', 'ordre 18 : comptes 128, 128, 128, 256, 256, 256, 128 attendus'); await page.mouse.click(5, 5);
+  ok(await page.isVisible('#vm-g-fond'), 'ordre 18 : la variante de case doit être proposée');
+  for (const v of ['signes', 'lignes']) { await choisir('view', v); await page.click('#vmValider'); await page.waitForTimeout(600); ok(await trace('vmValideToile') >= 2, `ordre 18 : vue « ${v} » vide`); }
+  await choisir('view', 'pavage'); await page.click('#vmValider'); await page.waitForTimeout(300);
+  {
+    await page.locator('#vmReglages').evaluate((n) => { n.closest('details').open = true; });
+    await page.click('#vmPause'); const avant = await etat();
+    await choisir('fond', 'B121'); await page.click('#vmValider'); await choisir('fond', 'B12m'); await page.click('#vmValider'); const apres = await etat();
+    ok(apres.constructions === avant.constructions && apres.valide.col === avant.valide.col && apres.motif === avant.motif, `un changement de bande doit garder le motif et ne rien recalculer (${avant.motif} puis ${apres.motif}, constructions ${avant.constructions} puis ${apres.constructions})`);
+    await page.click('#vmPause');
+  }
+  await choisir('fmt', '30'); await page.waitForFunction(() => window.__voirSaMusique.etat().blocs.includes('p30'), null, { timeout: 20000 }); await page.click('#vmValider'); await page.waitForTimeout(600);
+  e = await etat(); ok(e.valide.fmt === 30 && e.n === 88, `ordre 30 : 88 motifs attendus (${e.n})`); ok(await couleurs('vmValideToile', 0.25) === 2, 'ordre 30 : deux couleurs attendues');
+  for (const m of ['rythme', 'chemin', 'image']) { await choisir('mode', m); await page.click('#vmValider'); await page.waitForTimeout(1500); const x = await etat(); ok(x.valide.mode === m && x.motif >= 0 && x.motif < 88, `ordre 30 mode « ${m} » : motif ${x.motif}`); }
+  await choisir('fmt', '12'); await page.click('#vmValider');
   // tricolore : trois valeurs
   await choisir('col', 'tri'); await choisir('pal', 'creme'); await choisir('view', 'pavage'); await page.click('#vmValider'); await page.waitForTimeout(500);
   ok(await couleurs('vmValideToile') === 3, 'tricolore, cellules : trois valeurs attendues');
@@ -145,6 +167,6 @@ if (essai) {
   console.error('Essai : la page privée de son moteur n’a pas été refusée.'); process.exit(1);
 }
 if (echecs.length) { for (const f of echecs) console.error('ÉCHEC ' + f); process.exit(1); }
-console.log('Voir sa musique : charge, dessine en trois vues, neuf variantes de case et deux collections, pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
+console.log('Voir sa musique : charge, dessine en trois vues, six variantes de case, les trois ordres (18 et 30 à la demande), pilote en trois modes, enregistre, tient à 390 et 360 px, et n’envoie rien.');
 if (serveur && serveur.fermer) serveur.fermer();
 process.exit(0);

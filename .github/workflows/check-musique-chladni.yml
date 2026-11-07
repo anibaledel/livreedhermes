@@ -6,9 +6,11 @@ name: Voir sa musique — le moteur et la page
 # attaques sont vues à 0,45 s au moins l'une de l'autre, le pilote tient 8 images.
 # tools/musique_chladni_donnees.mjs : data/musique-chladni-12.json est celui du dépôt (512 motifs
 # tricolores = les 1024 entrées de data/fonds_ecran_v1.json dédoublonnées ; 272 lisibles par la règle
-# du 3 octobre ; 136 à deux miroirs et lisibles = le bicolore ; 120 refusées, listées).
+# du 3 octobre ; 136 à deux miroirs et lisibles ; 120 refusées, listées) ; les blocs de structure des
+# trois ordres (data/musique-chladni/, paquet n° 158) : empreintes, P recalculé depuis les lb, les 272
+# lb de l'ordre 12 identiques à la sortie de assets/lecture-binaire.js, collections des ordres 18 et 30.
 # tools/check_musique_chladni.mjs : la page, dans Chromium, avec un vrai morceau et un faux micro —
-# six en-têtes, deux fenêtres, neuf variantes de case, trois modes, enregistrement, 390 et 360 px,
+# six en-têtes, deux fenêtres, six variantes de case, trois ordres, trois modes, enregistrement, 390 et 360 px,
 # rien d'envoyé.
 # --essai : un moteur faussé, une page privée de son moteur doivent échouer.
 

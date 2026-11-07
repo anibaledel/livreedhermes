@@ -30,13 +30,18 @@ const C = CONFIG.moteur;
 
 // ---------- l'état ----------
 const S = {
-  donnees: null, blocs: {}, coll: null, bandes: new Map(),
-  lisse: new Float64Array(M.NS12), tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
+  donnees: null, blocs: new Map(), jb: {}, charges: {}, defs: null, tailles: {}, profils: new Map(), constructions: 0, coll: null, bandes: new Map(),
+  tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
   seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
   calme: MQ_CALME.matches, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
   perso: { ink: rgb(ENCRE), bg: rgb(CREME) }, tuileEssai: C.tuileFenetre, lent: 0, resReduite: false, ia: false,
 };
+const DIR = 'data/musique-chladni/';
+const FMT_DE = {}; for (const o of CONFIG.ordres) for (const c of o.collections) FMT_DE[c] = o.ordre;
+const colDefaut = (fmt) => CONFIG.ordres.find((o) => o.ordre === fmt).collections.find((c) => CONFIG.collections[c]);
 const CFG0 = { mode: 'image', fmt: 12, col: 'tri', view: 'signes', fond: 'B2', pal: 'creme' };
+const bloc = (c) => S.blocs.get(c.col) || null;
+const profilDe = (b) => { if (!S.profils.has(b.profil)) S.profils.set(b.profil, { shells: b.shells, fref: b.fref, lisse: new Float64Array(b.NS) }); return S.profils.get(b.profil); };
 let valCfg = { ...CFG0 }, esel = { ...CFG0 };
 const A = { ctx: null, an8: null, an2: null, entree: null, sortie: null, dest: null, el: null, srcEl: null, srcNode: null, flux: null, essai: null, wake: null, url: null };
 let detecteur = null, valide = null, essaiF = null, rec = null, projection = null, enPleinEcran = false, minuteurScene = 0, dernierMs = 0, dernierInfo = -1;
@@ -53,10 +58,25 @@ function couleurs(c) { // [encre, fond, milieu?] en RGB
 const paletteCle = (c) => couleurs(c).map((x) => (x ? x.join(',') : '')).join('|');
 
 // ---------- les données ----------
+function construire(col) { // un bloc de structure : spectres du fichier, voisins et chaîne calculés dans la collection
+  const o = FMT_DE[col], def = M.definirCollections(o, S.defs).find((d) => d.id === col);
+  const b = M.preparerBlocStructure(S.jb[o], { id: col, indices: def.indices }); S.constructions++;
+  const e = M.controlerBloc(b); if (e.length) throw new Error(e.join(' ; '));
+  S.blocs.set(col, b); return b;
+}
+function chargerOrdre(o) { // 18 et 30 : à la demande, au premier choix du format
+  if (!S.charges[o]) S.charges[o] = S.jb[o] ? Promise.resolve() : lJson(`${DIR}bloc-${o}-structure.json`).then((j) => { S.jb[o] = j; });
+  return S.charges[o];
+}
+async function assurer(c) { if (S.blocs.has(c.col)) return; const o = FMT_DE[c.col]; if (!S.jb[o]) { message(T('chargementOrdre', { n: o })); await chargerOrdre(o); message(''); } if (!S.blocs.has(c.col)) construire(c.col); }
 async function charger() {
-  const [donnees, jColl, jCalc] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json')]);
-  S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc });
-  for (const id of ['tri', 'bi']) { S.blocs[id] = M.preparerBloc(donnees, id); const e = M.controlerBloc(S.blocs[id]); if (e.length) throw new Error(e.join(' ; ')); }
+  const [donnees, jColl, jCalc, jb12, c1830, sym12] = await Promise.all([lJson('data/musique-chladni-12.json'), lJson('data/fonds/collection-v1.json'), lJson('data/fonds/collection-v1.calculs.json'), lJson(`${DIR}bloc-12-structure.json`), lJson(`${DIR}collections-18-30.json`), lJson(`${DIR}sym12-indices.json`)]);
+  S.donnees = donnees; S.coll = chargerCollection(jColl, { calculs: jCalc }); S.jb[12] = jb12; S.defs = { collections1830: c1830, sym12 }; S.charges[12] = Promise.resolve();
+  const tri = M.preparerBloc(donnees, 'tri'), e = M.controlerBloc(tri); if (e.length) throw new Error(e.join(' ; '));
+  S.blocs.set('tri', tri);
+  for (const col of ['lis', 'bi']) construire(col);
+  for (const o of CONFIG.ordres) for (const d of M.definirCollections(o.ordre, S.defs)) S.tailles[d.id] = d.indices.length;
+  S.tailles.tri = tri.n;
   for (const id of M.BANDES) if (!S.coll.fonds.get(id)) throw new Error(T('bandeManque', { id }));
 }
 function etats(id) { // les deux états d'une case : le fond, et le même fond tourné de 90° (mode unique, forcé ici)
@@ -67,11 +87,11 @@ function etats(id) { // les deux états d'une case : le fond, et le même fond t
 // ---------- les tuiles (un motif, une vue, des couleurs) ----------
 const cacheTuiles = new Map();
 function tuile(col, j, vue, fond, c, T) {
-  const bloc = S.blocs[col], pal = couleurs(c), cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col === 'bi' ? fond : ''}|${paletteCle(c)}`;
+  const bl = S.blocs.get(col), pal = couleurs(c), cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col !== 'tri' ? fond : ''}|${paletteCle(c)}`;
   let t = cacheTuiles.get(cle); if (t) { cacheTuiles.delete(cle); cacheTuiles.set(cle, t); return t; } // LRU
   const A8 = new Uint8Array(T * T);
-  if (vue === 'pavage') { if (col === 'tri') M.masqueTricolore(bloc, j, T, A8); else M.masqueBicolore(bloc, j, etats(fond), T, A8); }
-  else M.figure12(M.champ12(bloc, j), T, vue, A8);
+  if (vue === 'pavage') { if (col === 'tri') M.masqueTricolore(bl, j, T, A8); else M.masqueBicolore(bl, j, etats(fond), T, A8); }
+  else M.figure(M.champ(bl, j), bl.grid, T, vue, A8);
   t = document.createElement('canvas'); t.width = t.height = T;
   const x = t.getContext('2d'), im = x.createImageData(T, T), d = im.data, [ink, bg, mid] = pal, tri3 = col === 'tri' && vue === 'pavage' && mid;
   for (let i = 0; i < T * T; i++) {
@@ -80,7 +100,7 @@ function tuile(col, j, vue, fond, c, T) {
     else { const k = a / 255; r = bg[0] + (ink[0] - bg[0]) * k; g = bg[1] + (ink[1] - bg[1]) * k; b = bg[2] + (ink[2] - bg[2]) * k; }
     d[i * 4] = r; d[i * 4 + 1] = g; d[i * 4 + 2] = b; d[i * 4 + 3] = 255;
   }
-  x.putImageData(im, 0, 0); cacheTuiles.set(cle, t); if (cacheTuiles.size > 260) cacheTuiles.delete(cacheTuiles.keys().next().value);
+  x.putImageData(im, 0, 0); cacheTuiles.set(cle, t); if (cacheTuiles.size > 120) cacheTuiles.delete(cacheTuiles.keys().next().value);
   return t;
 }
 /** Le pavage 2 × 2 par translation (jamais de miroir), qui continue à remplir un cadre plus long que large. */
@@ -95,13 +115,13 @@ class Fenetre {
   options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation }; }
   setCfg(c) {
     const ancienne = this.cfg; this.cfg = { ...c };
-    if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs[c.col], this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
+    if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs.get(c.col), this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
     else this.p.reglages(this.options());
-    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col === 'bi' && c.view === 'pavage' ? ` · ${T('fond', { id: c.fond })}` : '';
+    const colInfo = T('collections')[c.col], vue = T('vues')[c.view][0], variante = c.col !== 'tri' && c.view === 'pavage' ? ` · ${T('fond', { id: c.fond })}` : '';
     this.cap.textContent = T('legendeFenetre', { mode: T('modes')[c.mode][0], collection: colInfo[0], vue, fond: variante, palette: T('palettes')[c.pal][0] });
   }
   reglages() { if (this.p) this.p.reglages(this.options()); }
-  pas(attaque) { if (!S.pause) this.dernier = this.p.pas({ v: S.lisse, attaque, t: S.tSim }); }
+  pas(attaque) { if (!S.pause) this.dernier = this.p.pas({ v: profilDe(S.blocs.get(this.cfg.col)).lisse, attaque, t: S.tSim }); }
   peindre(ctx = this.ctx, W = this.cv.width, H = this.cv.height, T = C.tuileFenetre) {
     const c = this.cfg, pal = couleurs(c), d = this.dernier;
     ctx.fillStyle = hex(pal[1]); ctx.fillRect(0, 0, W, H);
@@ -113,8 +133,12 @@ class Fenetre {
 // ---------- l'analyse du son : UNE seule, pour les deux fenêtres ----------
 function analyser() {
   A.an8.getFloatFrequencyData(f8); A.an2.getFloatFrequencyData(f2);
-  const sr = A.ctx.sampleRate, brut = M.bandesDuSon(f8, sr, { fref: C.fref, pente: S.pente });
-  for (let k = 0; k < M.NS12; k++) S.lisse[k] = (1 - S.lissage) * S.lisse[k] + S.lissage * brut[k];
+  const sr = A.ctx.sampleRate, vus = new Set();
+  for (const f of [valide, essaiF]) { // une analyse du son, un vecteur par profil de coquilles (fref et cercles K) utilisé par une fenêtre
+    const pr = profilDe(S.blocs.get(f.cfg.col)); if (vus.has(pr)) continue; vus.add(pr);
+    const brut = M.bandesDuSon(f8, sr, { fref: pr.fref, pente: S.pente, shells: pr.shells });
+    for (let k = 0; k < pr.lisse.length; k++) pr.lisse[k] = (1 - S.lissage) * pr.lisse[k] + S.lissage * brut[k];
+  }
   if (valCfg.pal === 'son' || esel.pal === 'son') S.teinte = M.suivreTeinte(f8, sr, S.teinte);
   return detecteur.traiter(f2, sr, S.tSim).attaque;
 }
@@ -141,7 +165,7 @@ function adapter() { // 30 images/s d'abord : on baisse la résolution de l'essa
   if (S.lent >= 6 && S.tuileEssai > 180) { S.tuileEssai = Math.max(180, Math.round(S.tuileEssai * 0.75)); S.resReduite = true; S.lent = 0; }
 }
 function majInfo() {
-  const j = valide.dernier.motif, n = S.blocs[valCfg.col].n, p = [S.etat || T('etatDepart')];
+  const j = valide.dernier.motif, n = S.blocs.get(valCfg.col).n, p = [S.etat || T('etatDepart')];
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
   if (S.resReduite) p.push(T('infoResolution'));
   $('vmInfo').textContent = p.join(' · ');
@@ -168,7 +192,7 @@ function arreterSource() {
   if (A.flux) { A.flux.getTracks().forEach((p) => p.stop()); A.flux = null; } // un nouvel appel du micro arrête la piste précédente
   if (A.essai) { clearInterval(A.essai.timer); A.essai.noeuds.forEach((n) => { try { n.stop(); n.disconnect(); } catch { /* déjà arrêté */ } }); A.essai = null; }
   if (A.wake) { A.wake.release().catch(() => {}); A.wake = null; }
-  S.source = null; S.ia = false; S.lisse.fill(0); detecteur.reinitialiser(); valide.p.reinitialiser(); essaiF.p.reinitialiser();
+  S.source = null; S.ia = false; for (const pr of S.profils.values()) pr.lisse.fill(0); detecteur.reinitialiser(); valide.p.reinitialiser(); essaiF.p.reinitialiser();
   valide.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; essaiF.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 };
   $('vmLecture').textContent = T('lecture'); $('vmLecture').setAttribute('aria-pressed', 'false');
 }
@@ -292,11 +316,18 @@ function ouvrirProjection() {
 
 // ---------- les six en-têtes et leurs panneaux ----------
 const miniatures = [];
+let cible = null;
 function appliquer(cle, valeur) {
   const n = { ...esel, [cle]: valeur };
-  if (cle === 'fmt') { n.col = 'tri'; n.view = 'pavage'; } // l'ordre 12 bascule la vue sur « Cellules »
-  if (cle === 'col' && valeur === 'bi' && esel.view === 'pavage') n.view = 'pavage';
+  if (cle === 'fmt') { n.col = colDefaut(valeur); n.view = 'pavage'; } // le format bascule sur « Cellules » et sur sa collection par défaut
+  if (cle === 'col') n.fmt = FMT_DE[valeur];
+  if (cle === 'fond') n.fond = M.resoudreBande(valeur);
   return n;
+}
+/** Montre une configuration dans l'essai ; l'ordre 18 ou 30 se charge d'abord, au premier choix. */
+function viser(cfg) {
+  cible = cfg; if (bloc(cfg)) { essaiF.setCfg(cfg); return; }
+  assurer(cfg).then(() => { if (cible === cfg) essaiF.setCfg(cfg); rafraichir(); }).catch((err) => message(T('ordreIndisponible', { n: cfg.fmt, message: err.message })));
 }
 function option(groupe, cle, valeur, titre, detail, miniature, desactive = false) {
   const b = el('button', { type: 'button', class: 'vm-o', id: `vm-o-${groupe}-${valeur}`, 'data-g': groupe, 'data-k': valeur, 'aria-pressed': 'false', disabled: desactive || null, title: detail || '' },
@@ -304,9 +335,9 @@ function option(groupe, cle, valeur, titre, detail, miniature, desactive = false
   if (miniature) miniatures.push([b.querySelector('canvas'), cle, valeur]);
   const num = (v) => (isNaN(+v) ? v : +v);
   if (!desactive) {
-    b.addEventListener('mouseenter', () => { essaiF.setCfg(appliquer(cle, num(valeur))); });
-    b.addEventListener('focus', () => { essaiF.setCfg(appliquer(cle, num(valeur))); });
-    b.addEventListener('click', () => { esel = appliquer(cle, num(valeur)); essaiF.setCfg(esel); rafraichir(); });
+    b.addEventListener('mouseenter', () => { viser(appliquer(cle, num(valeur))); });
+    b.addEventListener('focus', () => { viser(appliquer(cle, num(valeur))); });
+    b.addEventListener('click', () => { esel = appliquer(cle, num(valeur)); viser(esel); rafraichir(); });
   }
   return b;
 }
@@ -314,22 +345,22 @@ function groupe(id, cle, titre, options) {
   const g = $(id), btn = el('button', { type: 'button', id: `${id}-btn`, 'aria-expanded': 'false', 'aria-controls': `${id}-pan` }, titre), pan = el('div', { class: 'vm-pan', id: `${id}-pan`, role: 'group', 'aria-label': titre }, options);
   g.replaceChildren(el('h3', {}, btn), pan);
   btn.addEventListener('click', (ev) => { ev.stopPropagation(); const ouvrir = !g.classList.contains('open'); fermerTout(); if (ouvrir) { g.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); } });
-  g.addEventListener('mouseleave', () => essaiF.setCfg(esel));
-  g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget)) essaiF.setCfg(esel); });
+  g.addEventListener('mouseleave', () => viser(esel));
+  g.addEventListener('focusout', (e) => { if (!g.contains(e.relatedTarget)) viser(esel); });
 }
 function fermerTout() { for (const g of document.querySelectorAll('.vm-opts .vm-grp.open')) { g.classList.remove('open'); g.querySelector('button').setAttribute('aria-expanded', 'false'); } }
 function construireGroupes() {
   miniatures.length = 0;
   const G = T('groupes');
   groupe('vm-g-mode', 'mode', G.mode, Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]).map((m) => option('mode', 'mode', m, T('modes')[m][0], T('modes')[m][1])));
-  groupe('vm-g-fmt', 'fmt', G.fmt, CONFIG.ordres.map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{n\}/g, o.ordre).replace('{m}', S.blocs.tri.n + S.blocs.bi.n) : '', o.actif ? 'simple' : null, !o.actif)));
-  groupe('vm-g-col', 'col', G.col, Object.keys(CONFIG.collections).filter((c) => CONFIG.collections[c]).map((c) => option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.blocs[c].n), 'simple')));
+  groupe('vm-g-fmt', 'fmt', G.fmt, CONFIG.ordres.map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{g\}/g, M.GRILLE[o.ordre]) : '', o.actif ? 'simple' : null, !o.actif)));
+  groupe('vm-g-col', 'col', G.col, CONFIG.ordres.flatMap((o) => o.collections.filter((c) => CONFIG.collections[c]).map((c) => { const b = option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.tailles[c]), 'simple'); b.dataset.fmt = String(o.ordre); return b; })));
   groupe('vm-g-view', 'view', G.view, Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]).map((v) => option('view', 'view', v, T('vues')[v][0], T('vues')[v][1])));
   if (CONFIG.variantesDeCase) groupe('vm-g-fond', 'fond', G.fond, [el('p', { class: 'vm-aide' }, T('fondAide')), ...M.BANDES.map((id) => option('fond', 'fond', id, T('fond', { id }), '', 'double'))]);
   else $('vm-g-fond').remove();
   const pers = el('div', { id: 'vmPerso', class: 'vm-aide', hidden: true }, el('label', {}, T('persoMotif'), ' ', el('input', { type: 'color', id: 'vmPi', value: hex(S.perso.ink) })), ' ', el('label', {}, T('persoFond'), ' ', el('input', { type: 'color', id: 'vmPb', value: hex(S.perso.bg) })));
   groupe('vm-g-pal', 'pal', G.pal, [...PALETTES_PAGE.map((k) => option('pal', 'pal', k, T('palettes')[k][0], T('palettes')[k][1], 'simple')), pers, el('p', { class: 'vm-aide' }, T('tricoloreAide'))]);
-  const persoChange = () => { S.perso = { ink: rgb($('vmPi').value), bg: rgb($('vmPb').value) }; esel = { ...esel, pal: 'perso' }; cacheTuiles.clear(); essaiF.setCfg(esel); rafraichir(); };
+  const persoChange = () => { S.perso = { ink: rgb($('vmPi').value), bg: rgb($('vmPb').value) }; esel = { ...esel, pal: 'perso' }; cacheTuiles.clear(); viser(esel); rafraichir(); };
   $('vmPi').addEventListener('input', persoChange); $('vmPb').addEventListener('input', persoChange);
 }
 function dessinerMiniatures() {
@@ -344,7 +375,8 @@ function dessinerMiniatures() {
       for (let i = 0; i < 2; i++) for (let py = 0; py < 68; py++) for (let px = 0; px < 68; px++) { const on = (i ? e.a0 : e.a1)[Math.floor(py * e.R / 68) * e.R + Math.floor(px * e.R / 68)], c = on ? pal[0] : pal[1], o = (py * 136 + i * 68 + px) * 4; im.data[o] = c[0]; im.data[o + 1] = c[1]; im.data[o + 2] = c[2]; im.data[o + 3] = 255; }
       x.putImageData(im, 0, 0);
     } else { // format, collection : le motif lui-même (vue Cellules), jamais une figure « signes »
-      const col = cle === 'col' ? valeur : 'tri'; x.drawImage(tuile(col, 0, 'pavage', esel.fond, { ...esel, col }, 360), 0, 0, 68, 68);
+      const col = cle === 'col' ? valeur : colDefaut(+valeur);
+      if (S.blocs.has(col)) x.drawImage(tuile(col, 0, 'pavage', esel.fond, { ...esel, col }, 360), 0, 0, 68, 68); else { x.fillStyle = hex(pal[1]); x.fillRect(0, 0, 68, 68); }
     }
   }
 }
@@ -352,11 +384,12 @@ function rafraichir() {
   const marque = (g, vrai, val) => { for (const b of document.querySelectorAll(`.vm-o[data-g="${g}"]`)) { b.setAttribute('aria-pressed', String(vrai(b.dataset.k))); b.classList.toggle('val', val(b.dataset.k)); } };
   marque('mode', (k) => esel.mode === k, (k) => valCfg.mode === k); marque('fmt', (k) => esel.fmt === +k, (k) => valCfg.fmt === +k); marque('col', (k) => esel.col === k, (k) => valCfg.col === k);
   marque('view', (k) => esel.view === k, (k) => valCfg.view === k); marque('fond', (k) => esel.fond === k, (k) => valCfg.fond === k); marque('pal', (k) => esel.pal === k, (k) => valCfg.pal === k);
-  const g = $('vm-g-fond'); if (g) g.hidden = esel.col !== 'bi';
+  for (const b of document.querySelectorAll('.vm-o[data-g="col"]')) b.hidden = Number(b.dataset.fmt) !== esel.fmt;
+  const g = $('vm-g-fond'); if (g) g.hidden = esel.col === 'tri'; // la variante de case : collections bicolores, aux trois ordres
   $('vmPerso').hidden = esel.pal !== 'perso'; dessinerMiniatures();
 }
-function valider() { valCfg = { ...esel }; valide.setCfg(valCfg); valide.p = M.creerPilote(S.blocs[valCfg.col], valide.options()); valide.p.copier(essaiF.p); valide.dernier = { ...essaiF.dernier }; rafraichir(); }
-function annuler() { esel = { ...valCfg }; essaiF.setCfg(esel); rafraichir(); }
+function valider() { if (!bloc(esel)) return; valCfg = { ...esel }; valide.setCfg(valCfg); valide.p = M.creerPilote(bloc(valCfg), valide.options()); valide.p.copier(essaiF.p); valide.dernier = { ...essaiF.dernier }; rafraichir(); }
+function annuler() { esel = { ...valCfg }; viser(esel); rafraichir(); }
 
 // ---------- la page ----------
 function reglagesAvances() {
@@ -411,8 +444,8 @@ function clavier(e) {
   if (e.target.closest && e.target.closest('input,select,textarea')) return;
   const k = e.key.toLowerCase(), vues = Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]);
   if (e.key === 'Escape') { fermerTout(); return; }
-  if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; essaiF.setCfg(esel); rafraichir(); }
-  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; essaiF.setCfg(esel); rafraichir(); }
+  if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; viser(esel); rafraichir(); }
+  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; viser(esel); rafraichir(); }
   else if (k === 'p') { S.pause = !S.pause; $('vmPause').setAttribute('aria-pressed', String(S.pause)); }
   else if (k === 'v') valider(); else if (k === 'f') pleinEcran(); else if (k === 'r') lancerEnregistrement();
 }
@@ -436,5 +469,5 @@ export async function monter() {
   if (navigator.mediaDevices && navigator.mediaDevices.addEventListener) navigator.mediaDevices.addEventListener('devicechange', listerEntrees);
   window.addEventListener('pagehide', () => { arreterSource(); if (A.fichierUrl) URL.revokeObjectURL(A.fichierUrl); });
   requestAnimationFrame(boucle);
-  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte }), arreterSource, lireElement, tuile };
+  window.__voirSaMusique = { S, M, etat: () => ({ source: S.source, motif: valide.dernier.motif, motifEssai: essaiF.dernier.motif, fondu: Math.min(valide.dernier.fondu, essaiF.dernier.fondu), valide: { ...valCfg }, essai: { ...esel }, fps: S.fps, tuileEssai: S.tuileEssai, teinte: S.teinte, constructions: S.constructions, blocs: [...S.blocs.keys()], n: valide.dernier && S.blocs.get(valCfg.col).n, msVoisins: Object.fromEntries([...S.blocs].map(([k, b]) => [k, b.msVoisins || 0])), memoireJs: performance.memory ? performance.memory.usedJSHeapSize : null }), arreterSource, lireElement, tuile };
 }

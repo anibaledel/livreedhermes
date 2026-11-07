@@ -20,7 +20,8 @@
 //
 // Usage : node tools/musique_chladni_donnees.mjs            vérifie
 //         node tools/musique_chladni_donnees.mjs --refus    liste les 120 grilles à deux miroirs refusées
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lectureBinaire } from '../assets/lecture-binaire.js';
@@ -86,6 +87,51 @@ for (let j = 0; j < 512; j++) {
 }
 ok(pire < 1e-6, `spectres : le moteur ≠ le P du fichier (écart ${pire.toExponential(2)})`);
 for (const e of [...M.controlerBloc(blocTri), ...M.controlerBloc(blocBi)]) echecs.push(e);
+
+// ---- les blocs de structure (data/musique-chladni/, paquet n° 158, corpus v5) ----
+const DIR = 'data/musique-chladni/';
+{
+  const sommes = new Map(readFileSync(path.join(ROOT, DIR, 'SHA256SUMS.txt'), 'utf8').trim().split('\n').map((l) => { const [h, f] = l.trim().split(/\s+/); return [f.replace('donnees/', ''), h]; }));
+  for (const [f, h] of sommes) { if (!existsSync(path.join(ROOT, DIR, f))) { echecs.push(`${DIR}${f} absent`); continue; } const r = createHash('sha256').update(readFileSync(path.join(ROOT, DIR, f))).digest('hex'); ok(r === h, `${DIR}${f} : l'empreinte n'est pas celle du paquet n° 158`); }
+  const jb = {}, GR = { 12: 12, 18: 36, 30: 60 };
+  for (const o of [12, 18, 30]) jb[o] = lire(`${DIR}bloc-${o}-structure.json`);
+  const coll = lire(`${DIR}collections-18-30.json`), sym = lire(`${DIR}sym12-indices.json`), ref = lire(`${DIR}reference-12-lecture-3-octobre.json`);
+  // comptes et collections
+  ok(jb[12].ids.length === 272 && jb[18].ids.length === 1280 && jb[30].ids.length === 88, `blocs : ${jb[12].ids.length}, ${jb[18].ids.length}, ${jb[30].ids.length} motifs (272, 1280, 88 attendus)`);
+  for (const o of [12, 18, 30]) { ok(new Set(jb[o].ids).size === jb[o].ids.length, `ordre ${o} : des identifiants en double`); ok(jb[o].lb.length === jb[o].ids.length, `ordre ${o} : lb et ids de longueurs différentes`); }
+  for (const o of [18, 30]) { const tous = Object.values(coll[String(o)]).flat(); ok(new Set(tous).size === tous.length && tous.length === jb[o].ids.length && tous.every((i) => i >= 0 && i < jb[o].ids.length), `ordre ${o} : les collections ne partitionnent pas les ${jb[o].ids.length} motifs`); }
+  ok(sym.indices.length === 136 && sym.indices.every((i) => i >= 0 && i < 272), 'sym12-indices : 136 indices attendus');
+  // P = spectre du champ de structure (bits à 1 / 4), recalculé pour chaque motif, aux coquilles du bloc
+  const lignes = [];
+  for (const o of [12, 18, 30]) {
+    const g = GR[o], b = jb[o], NS = b.shells.length, P = new Float32Array(Uint8Array.from(Buffer.from(b.P, 'base64')).buffer); let pire = 0, nuls = 0, horsCoquilles = 0;
+    ok(Number(b.fref) === (o === 12 ? 220 : 110), `ordre ${o} : fref ${b.fref}`);
+    for (let j = 0; j < b.ids.length; j++) {
+      const lbj = Uint8Array.from(Buffer.from(b.lb[j], 'base64')); if (lbj.length !== g * g) { ok(false, `ordre ${o} motif ${j} : lb de ${lbj.length} octets`); break; }
+      const champ = Float64Array.from(lbj, (l) => ((l & 1) + ((l >> 1) & 1) + ((l >> 2) & 1) + ((l >> 3) & 1)) / 4);
+      const s = M.spectreDuChamp(champ, g, b.shells), nn = Math.hypot(...s) || 1; if (nn < 1e-9) nuls++;
+      for (let k = 0; k < NS; k++) pire = Math.max(pire, Math.abs(s[k] / nn - P[j * NS + k]));
+      const tout = M.spectreDuChamp(champ, g, M.cerclesPossibles(g)), nt = Math.hypot(...tout); horsCoquilles = Math.max(horsCoquilles, Math.abs(nt - nn) / (nt || 1));
+      let n2 = 0; for (let k = 0; k < NS; k++) n2 += P[j * NS + k] ** 2; if (!(Math.abs(Math.sqrt(n2) - 1) < 1e-5)) ok(false, `ordre ${o} motif ${j} : P de norme ${Math.sqrt(n2)}`);
+    }
+    ok(pire < 1e-6, `ordre ${o} : le spectre du champ de structure s'écarte de P de ${pire.toExponential(2)}`); ok(nuls === 0, `ordre ${o} : ${nuls} spectres nuls`); ok(horsCoquilles < 1e-6, `ordre ${o} : de l'énergie hors des coquilles du bloc (${horsCoquilles.toExponential(2)})`);
+    lignes.push(`ordre ${o} : ${b.ids.length} motifs, ${NS} coquilles, fref ${b.fref}, grille ${g} × ${g}, spectre recalculé à ${pire.toExponential(1)} près, aucun nul`);
+  }
+  // ordre 12 : les 272 lb sont ceux de lecture-binaire.js, octet par octet (non-régression), et la liste de référence est celle des lisibles
+  let egaux = 0, memeGrille = 0, symOk = 0; const lisiblesTri = new Set(grilles.filter((_, j) => lisibles[j]).map((g) => g.map((r) => r.join('')).join('')));
+  ok(ref.length === 272, 'référence : 272 entrées attendues');
+  ref.forEach((r, k) => {
+    const g = Array.from({ length: 12 }, (_, i) => r.grid.slice(i * 12, i * 12 + 12).split('')), blk = Uint8Array.from(Buffer.from(jb[12].lb[k], 'base64'));
+    let m = null; try { m = masque(lectureBinaire(g, `r${k}`).cases); } catch { m = null; }
+    if (m && m.every((v, i) => v === blk[i]) && r.bits.flat().every((v, i) => v === blk[i])) egaux++;
+    if (lisiblesTri.has(r.grid)) memeGrille++;
+    if (r.sym === sym.indices.includes(k)) symOk++;
+  });
+  ok(egaux === 272, `ordre 12 : ${egaux} lb sur 272 coïncident octet par octet avec lecture-binaire.js`);
+  ok(memeGrille === 272 && lisiblesTri.size === 272, `ordre 12 : ${memeGrille} grilles de la référence sont des grilles lisibles du tricolore (${lisiblesTri.size} lisibles)`);
+  ok(symOk === 272, `ordre 12 : sym12-indices ne correspond pas à l'indicateur « sym » de la référence (${symOk}/272)`);
+  console.log(`Blocs de structure (paquet n° 158) : ${lignes.join(' ; ')} ; ordre 12 : ${egaux}/272 lb identiques à la sortie de lecture-binaire.js, ${memeGrille}/272 grilles = les lisibles du tricolore, ${sym.indices.length} à deux miroirs ; ordres 18 et 30 : collections partitionnant les motifs.`);
+}
 
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log(`Ordre 12 : ${tri.n} motifs tricolores (identiques à ceux du dépôt) ; règle du 3 octobre : ${nLisibles} lisibles, ${512 - nLisibles} refusées ; ${nMiroirs} à deux miroirs dont ${nBoth} lisibles = les ${bi.n} du bicolore, retrouvés par leur lecture binaire ; ${refus.length} à deux miroirs refusées (liste : --refus) ; spectres égaux à ${pire.toExponential(1)} près.`);

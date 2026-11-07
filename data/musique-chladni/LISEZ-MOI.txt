@@ -1,0 +1,7 @@
+Paquet de données n° 158 · corpus v5 allégé pour le prompt CC v7
+bloc-<12|18|30>-structure.json : P (float32 little-endian, base64, L2), shells (coquilles K), ids, lb (base64, 1 octet par case : bits N=1, E=2, S=4, O=8), fref. C'est le spectre d'appariement de toutes les collections et de toutes les bandes.
+bandes-6-polygones.json : B2, B3, B4, B121, B11211D, B12m (polygones en fractions de case). manifest.json : alias_bandes (B3x et BA33 = B3, BA50 = B121) et ids_remappes (ancien id haché -> tous12NNN).
+sym12-indices.json : indices, dans bloc-12-structure.json, des 136 grilles bicolores unifiées à deux miroirs.
+collections-18-30.json : indices par collection (préfixe d'identifiant) aux ordres 18 et 30.
+Les blocs par bande (spectres) du corpus v5 ne sont pas inclus : le pilotage n'en a pas besoin.
+Motifs de Anibal Edelberto Amiot, anibal-amiot.com, CC BY-NC 4.0. Données produites par ChatGPT (corpus v5), vérifiées par Claude.

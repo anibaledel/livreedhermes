@@ -7,13 +7,16 @@
 // au réseau : il reçoit des tableaux (spectre en dB, blocs de données) et rend des tableaux.
 // Il tourne tel quel dans un navigateur, dans Node, et dans une WebView.
 //
-// ORDRE 12 (le seul de cette livraison ; 18 et 30 : seconde livraison, déclarés dans la
-// configuration). Deux collections de motifs unifiés (data/musique-chladni-12.json) :
-// tricolore (512 grilles) et bicolore (136, lisibles par la règle du 3 octobre, aucun repli).
-// Le spectre d'un motif (recette n° 91) : racine de l'énergie de la FFT 2D du champ
-// V = +1, O = 0, M = −1 par cercle K = m² + n² (m, n de −6 à 6, 26 cercles), normalisé à la
-// norme 1 ; f_K = fref · √K / 2, fref = 220 Hz. Le bicolore prend le spectre de la grille
-// tricolore (en attendant les blocs par variante : bloc-<ordre>-<collection>-<bande>.json).
+// LES TROIS ORDRES (12, 18, 30). L'appariement du son et du motif se fait TOUJOURS sur le spectre
+// du champ de structure du motif (champ de bits : nombre de bits à 1 par case, divisé par quatre),
+// le même pour toutes les variantes de case : la bande ne sert qu'à dessiner. Les blocs de structure
+// (data/musique-chladni/bloc-<ordre>-structure.json) donnent P (norme 1), les coquilles K de l'ordre
+// et fref (220 Hz à l'ordre 12, 110 Hz aux ordres 18 et 30) ; les voisins et la chaîne se calculent
+// à la construction, à l'intérieur de la collection active. Seule la collection tricolore de
+// l'ordre 12 (512 grilles, data/musique-chladni-12.json) garde son spectre propre (recette n° 91 :
+// FFT 2D du champ V = +1, O = 0, M = −1, énergie par cercle K = m² + n², racine, norme 1).
+// La grille de cases d'un ordre : 12 → 12 × 12, 18 → 36 × 36, 30 → 60 × 60 (la longueur des `lb`).
+// f_K = fref · √K / 2.
 //
 // La détection des attaques et la pulsation sont des fonctions NOUVELLES et SÉPARÉES : elles ne
 // reprennent rien du mode réactif de fonds-ecran.html (assets/outil-fond-ecran.js), inchangé.
@@ -29,7 +32,6 @@ export const SHELLS12 = (() => {
   return Array.from(s).sort((a, b) => a - b);
 })();
 export const NS12 = SHELLS12.length;
-const INDEX_K = new Map(SHELLS12.map((k, i) => [k, i]));
 
 /** Fréquence du cercle K : f_K = fref · √K / 2. */
 export const frequenceDuCercle = (K, fref = FREF12) => fref * Math.sqrt(K) / 2;
@@ -38,48 +40,70 @@ const norme = (v) => { let s = 0; for (let i = 0; i < v.length; i++) s += v[i] *
 const octets = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
 const flottants = (b64) => { const o = octets(b64); return new Float32Array(o.buffer, o.byteOffset, o.byteLength / 4); };
 
-// ---------- le spectre d'un champ 12 × 12 ----------
+// ---------- le spectre d'un champ g × g ----------
 
-const COS = new Float64Array(ORDRE * ORDRE), SIN = new Float64Array(ORDRE * ORDRE);
-for (let k = 0; k < ORDRE; k++) for (let n = 0; n < ORDRE; n++) {
-  COS[k * ORDRE + n] = Math.cos(2 * Math.PI * k * n / ORDRE);
-  SIN[k * ORDRE + n] = -Math.sin(2 * Math.PI * k * n / ORDRE);
+/** La grille de cases de chaque ordre. */
+export const GRILLE = Object.freeze({ 12: 12, 18: 36, 30: 60 });
+/** Les cercles K = m² + n² possibles d'une grille g × g (m, n de −g/2 à g/2), K = 0 écarté, croissants. */
+export function cerclesPossibles(g) {
+  const s = new Set(), h = g / 2;
+  for (let m = -h; m <= h; m++) for (let n = -h; n <= h; n++) if (m || n) s.add(m * m + n * n);
+  return Array.from(s).sort((a, b) => a - b);
 }
-/** |FFT 2D|² / 144 d'un champ 12 × 12 (ligne par ligne), indexé [ky, kx]. */
-function puissanceFFT2(f) {
-  const re1 = new Float64Array(CASES), im1 = new Float64Array(CASES), P = new Float64Array(CASES);
-  for (let r = 0; r < ORDRE; r++) for (let k = 0; k < ORDRE; k++) {
+const tablesTrig = new Map();
+function trig(g) {
+  if (!tablesTrig.has(g)) { const c = new Float64Array(g * g), s = new Float64Array(g * g); for (let k = 0; k < g; k++) for (let n = 0; n < g; n++) { c[k * g + n] = Math.cos(2 * Math.PI * k * n / g); s[k * g + n] = -Math.sin(2 * Math.PI * k * n / g); } tablesTrig.set(g, [c, s]); }
+  return tablesTrig.get(g);
+}
+/** |FFT 2D|² / g² d'un champ g × g (ligne par ligne), indexé [ky, kx]. */
+function puissanceFFT2(f, g) {
+  const [COS, SIN] = trig(g), N = g * g, re1 = new Float64Array(N), im1 = new Float64Array(N), P = new Float64Array(N);
+  for (let r = 0; r < g; r++) for (let k = 0; k < g; k++) {
     let a = 0, b = 0;
-    for (let c = 0; c < ORDRE; c++) { const x = f[r * ORDRE + c]; a += x * COS[k * ORDRE + c]; b += x * SIN[k * ORDRE + c]; }
-    re1[r * ORDRE + k] = a; im1[r * ORDRE + k] = b;
+    for (let c = 0; c < g; c++) { const x = f[r * g + c]; a += x * COS[k * g + c]; b += x * SIN[k * g + c]; }
+    re1[r * g + k] = a; im1[r * g + k] = b;
   }
-  for (let k = 0; k < ORDRE; k++) for (let l = 0; l < ORDRE; l++) {
+  for (let k = 0; k < g; k++) for (let l = 0; l < g; l++) {
     let a = 0, b = 0;
-    for (let r = 0; r < ORDRE; r++) { const c = COS[l * ORDRE + r], s = SIN[l * ORDRE + r], x = re1[r * ORDRE + k], y = im1[r * ORDRE + k]; a += x * c - y * s; b += x * s + y * c; }
-    P[l * ORDRE + k] = (a * a + b * b) / CASES;
+    for (let r = 0; r < g; r++) { const c = COS[l * g + r], s = SIN[l * g + r], x = re1[r * g + k], y = im1[r * g + k]; a += x * c - y * s; b += x * s + y * c; }
+    P[l * g + k] = (a * a + b * b) / N;
   }
   return P;
 }
-/** Le vecteur √W d'un champ 12 × 12 (recette n° 91), non normalisé. */
-export function spectreDuChamp(champ) {
-  const f = Float64Array.from(champ); let m = 0; for (const x of f) m += x; m /= CASES; for (let i = 0; i < CASES; i++) f[i] -= m;
-  const P = puissanceFFT2(f), w = new Float64Array(NS12);
-  for (let mi = 0; mi < ORDRE; mi++) for (let ni = 0; ni < ORDRE; ni++) {
-    const a = mi <= 6 ? mi : mi - 12, b = ni <= 6 ? ni : ni - 12, K = a * a + b * b;
-    if (K) w[INDEX_K.get(K)] += P[mi * ORDRE + ni];
+/** Le vecteur √W d'un champ g × g aux cercles `shells` (recette n° 91 à g = 12), non normalisé. */
+export function spectreDuChamp(champ, g = ORDRE, shells = SHELLS12) {
+  const N = g * g, f = Float64Array.from(champ); let m = 0; for (const x of f) m += x; m /= N; for (let i = 0; i < N; i++) f[i] -= m;
+  const P = puissanceFFT2(f, g), w = new Float64Array(shells.length), idx = new Map(shells.map((k, i) => [k, i])), h = g / 2;
+  for (let mi = 0; mi < g; mi++) for (let ni = 0; ni < g; ni++) {
+    const a = mi <= h ? mi : mi - g, b = ni <= h ? ni : ni - g, K = a * a + b * b;
+    if (K && idx.has(K)) w[idx.get(K)] += P[mi * g + ni];
   }
   return w.map(Math.sqrt);
 }
 
 // ---------- les blocs : une collection de motifs avec ses spectres, voisins et chaîne ----------
 
-/** Un bloc de data/musique-chladni-12.json, prêt à servir : spectres centrés, normalisés, position dans la chaîne. */
+/** Centre les spectres sur la moyenne de la collection, les normalise, et pose la position dans la chaîne. */
+function finaliser(bloc) {
+  const { n, NS } = bloc, moyenne = new Float64Array(NS);
+  for (let j = 0; j < n; j++) for (let k = 0; k < NS; k++) moyenne[k] += bloc.P[j * NS + k] / n;
+  bloc.mean = moyenne; bloc.Pc = new Float32Array(n * NS);
+  for (let j = 0; j < n; j++) {
+    let s = 0; for (let k = 0; k < NS; k++) { const v = bloc.P[j * NS + k] - moyenne[k]; bloc.Pc[j * NS + k] = v; s += v * v; }
+    s = Math.sqrt(s) || 1; for (let k = 0; k < NS; k++) bloc.Pc[j * NS + k] /= s;
+  }
+  if (bloc.chain) { bloc.posChaine = new Int32Array(n); bloc.chain.forEach((j, p) => { bloc.posChaine[j] = p; }); }
+  bloc.profil = `${bloc.fref}|${bloc.shells.join(',')}`; // les blocs de même profil partagent la même analyse du son
+  return bloc;
+}
+
+/** Un bloc de data/musique-chladni-12.json (la collection tricolore, ses voisins et sa chaîne viennent du fichier). */
 export function preparerBloc(donnees, id) {
   const c = donnees.collections.find((x) => x.id === id);
   if (!c) throw new Error(`bloc « ${id} » absent des données`);
   const NS = donnees.shells.length, n = c.n;
   if (NS !== NS12 || donnees.shells.some((k, i) => k !== SHELLS12[i])) throw new Error('les cercles K du bloc ne sont pas ceux du moteur');
-  const bloc = { id, label: c.label, n, NS, ids: c.ids, rac: c.rac, chain: c.chain, shells: donnees.shells, fref: donnees.fref, tri: !!c.cls };
+  const bloc = { id, ordre: ORDRE, grid: ORDRE, label: c.label, n, NS, ids: c.ids, rac: c.rac, chain: c.chain, shells: donnees.shells, fref: donnees.fref, tri: !!c.cls };
   if (c.cls) { bloc.cls = octets(c.cls); if (bloc.cls.length !== n * CASES) throw new Error('cls : longueur inattendue'); bloc.P = flottants(c.P); }
   else {
     bloc.lb = octets(c.lb); if (bloc.lb.length !== n * CASES) throw new Error('lb : longueur inattendue');
@@ -88,81 +112,143 @@ export function preparerBloc(donnees, id) {
     bloc.triIndex = c.tri;
   }
   if (bloc.P.length !== n * NS) throw new Error('P : longueur inattendue');
-  const moyenne = new Float64Array(NS); for (let j = 0; j < n; j++) for (let k = 0; k < NS; k++) moyenne[k] += bloc.P[j * NS + k] / n;
-  bloc.mean = moyenne; bloc.Pc = new Float32Array(n * NS);
-  for (let j = 0; j < n; j++) {
-    let s = 0; for (let k = 0; k < NS; k++) { const v = bloc.P[j * NS + k] - moyenne[k]; bloc.Pc[j * NS + k] = v; s += v * v; }
-    s = Math.sqrt(s) || 1; for (let k = 0; k < NS; k++) bloc.Pc[j * NS + k] /= s;
+  return finaliser(bloc);
+}
+
+/** Les 7 plus proches voisins (cosinus centré) de chaque motif, et la chaîne gloutonne (du motif 0, toujours le plus proche non visité). */
+export function voisinsEtChaine(Pc, n, NS, nb = 7) {
+  const sim = new Float32Array(n * n);
+  for (let i = 0; i < n; i++) { sim[i * n + i] = -2; for (let j = i + 1; j < n; j++) { let s = 0; for (let k = 0; k < NS; k++) s += Pc[i * NS + k] * Pc[j * NS + k]; sim[i * n + j] = s; sim[j * n + i] = s; } }
+  const rac = [];
+  for (let i = 0; i < n; i++) {
+    const top = []; // [indice, s], croissant en s : on garde les nb meilleurs
+    for (let j = 0; j < n; j++) { if (j === i) continue; const s = sim[i * n + j]; if (top.length < nb) { top.push([j, s]); top.sort((a, b) => a[1] - b[1]); } else if (s > top[0][1]) { top[0] = [j, s]; top.sort((a, b) => a[1] - b[1]); } }
+    rac.push(top.reverse().map((t) => t[0]));
   }
+  const vu = new Uint8Array(n), chain = [0]; vu[0] = 1;
+  for (let c = 1; c < n; c++) { const i = chain[c - 1]; let bj = -1, bs = -Infinity; for (let j = 0; j < n; j++) if (!vu[j] && sim[i * n + j] > bs) { bs = sim[i * n + j]; bj = j; } vu[bj] = 1; chain.push(bj); }
+  return { rac, chain };
+}
+
+/**
+ * Un bloc d'un fichier data/musique-chladni/bloc-<ordre>-structure.json, restreint à une collection
+ * (`indices`, dans l'ordre du fichier). Les spectres sont ceux du champ de structure ; les voisins
+ * et la chaîne se calculent ici, à l'intérieur de la collection.
+ */
+export function preparerBlocStructure(jb, { id, label = id, indices }) {
+  const ordre = Number(jb.fmt), g = GRILLE[ordre], N = g * g, NS = jb.shells.length;
+  if (!g) throw new Error(`ordre ${jb.fmt} inconnu`);
+  if (!jb._P) jb._P = flottants(jb.P);
+  if (jb._P.length !== jb.ids.length * NS || jb.lb.length !== jb.ids.length) throw new Error(`bloc ${ordre} : P ou lb de longueur inattendue`);
+  const n = indices.length, P = new Float32Array(n * NS), lb = new Uint8Array(n * N);
+  indices.forEach((src, k) => {
+    if (!(src >= 0 && src < jb.ids.length)) throw new Error(`collection ${id} : indice ${src} hors du bloc`);
+    P.set(jb._P.subarray(src * NS, (src + 1) * NS), k * NS);
+    const o = octets(jb.lb[src]); if (o.length !== N) throw new Error(`bloc ${ordre} : lb de ${o.length} octets, ${N} attendus`); lb.set(o, k * N);
+  });
+  const bloc = { id, ordre, grid: g, label, n, NS, ids: indices.map((i) => jb.ids[i]), shells: jb.shells, fref: Number(jb.fref), lb, P, tri: false, source: indices };
+  finaliser(bloc);
+  const t0 = typeof performance !== 'undefined' ? performance.now() : 0;
+  Object.assign(bloc, voisinsEtChaine(bloc.Pc, n, NS));
   bloc.posChaine = new Int32Array(n); bloc.chain.forEach((j, p) => { bloc.posChaine[j] = p; });
+  bloc.msVoisins = typeof performance !== 'undefined' ? performance.now() - t0 : 0;
   return bloc;
 }
-/** Contrôles de chargement : la chaîne est une permutation, 7 voisins distincts par motif, indices valides. */
+
+/** Les collections d'un ordre, d'après les fichiers d'indices (aucune grille relue). */
+export function definirCollections(ordre, { collections1830, sym12 }) {
+  if (ordre === 12) return [{ id: 'lis', indices: Array.from({ length: 272 }, (_, i) => i) }, { id: 'bi', indices: sym12.indices.slice() }];
+  const c = collections1830[String(ordre)], groupes = Object.keys(c), nom = (k) => k.replace(`o${ordre}-`, '');
+  const prefixes = groupes.filter((k) => /^p\d+$/.test(nom(k))).sort(), autres = groupes.filter((k) => !/^p\d+$/.test(nom(k)));
+  const ordreAutres = ['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote'];
+  const res = ordreAutres.filter((x) => autres.includes(`o${ordre}-${x}`)).map((x) => ({ id: x, indices: c[`o${ordre}-${x}`].slice() }));
+  if (prefixes.length) res.push({ id: `p${ordre}`, indices: prefixes.flatMap((k) => c[k]).sort((a, b) => a - b) });
+  return res;
+}
+
+/** Contrôles de chargement : chaîne = permutation, 7 voisins distincts, identifiants, cercles K de la grille de l'ordre, spectres sans NaN. */
 export function controlerBloc(b) {
   const e = [];
   if (new Set(b.chain).size !== b.n || b.chain.some((j) => !(j >= 0 && j < b.n))) e.push(`${b.id} : la chaîne n'est pas une permutation des ${b.n} motifs`);
   if (b.rac.length !== b.n || b.rac.some((v, i) => v.length < 1 || new Set(v).size !== v.length || v.includes(i) || v.some((j) => !(j >= 0 && j < b.n)))) e.push(`${b.id} : voisins invalides`);
   if (b.ids.length !== b.n) e.push(`${b.id} : ${b.ids.length} identifiants pour ${b.n} motifs`);
+  const possibles = new Set(cerclesPossibles(b.grid));
+  if (b.shells.length !== b.NS || b.shells.some((k, i) => !possibles.has(k) || (i && k <= b.shells[i - 1]))) e.push(`${b.id} : les cercles K ne sont pas des m² + n² croissants de la grille ${b.grid} × ${b.grid}`);
+  if (b.P.length !== b.n * b.NS) e.push(`${b.id} : P de longueur inattendue`);
+  let nuls = 0, nan = 0; for (let j = 0; j < b.n; j++) { let s = 0; for (let k = 0; k < b.NS; k++) { const v = b.P[j * b.NS + k]; if (!Number.isFinite(v)) nan++; s += v * v; } if (!(s > 1e-12)) nuls++; }
+  if (nan) e.push(`${b.id} : ${nan} valeurs non finies dans P`);
+  if (nuls) e.push(`${b.id} : ${nuls} spectres nuls`);
   return e;
 }
 
-/** Le champ 12 × 12 d'un motif : V = +1, O = 0, M = −1 ; en bicolore, la moyenne des 4 triangles à ±1. */
-export function champ12(bloc, j) {
-  const f = new Float64Array(CASES);
-  if (bloc.cls) { for (let i = 0; i < CASES; i++) { const c = bloc.cls[j * CASES + i]; f[i] = c === 2 ? 1 : c === 1 ? 0 : -1; } }
-  else for (let i = 0; i < CASES; i++) { const l = bloc.lb[j * CASES + i]; let s = 0; for (let q = 0; q < 4; q++) s += ((l >> q) & 1) ? 1 : -1; f[i] = s / 4; }
+/** Le champ g × g d'un motif : tricolore V = +1, O = 0, M = −1 ; bicolore, la moyenne des 4 triangles à ±1 (= bits à 1 / 2 − 1). */
+export function champ(bloc, j) {
+  const g = bloc.grid, N = g * g, f = new Float64Array(N);
+  if (bloc.cls) { for (let i = 0; i < N; i++) { const c = bloc.cls[j * N + i]; f[i] = c === 2 ? 1 : c === 1 ? 0 : -1; } }
+  else for (let i = 0; i < N; i++) { const l = bloc.lb[j * N + i]; f[i] = (((l & 1) + ((l >> 1) & 1) + ((l >> 2) & 1) + ((l >> 3) & 1)) / 2) - 1; }
   return f;
 }
+export const champ12 = champ;
 
-// ---------- les figures de Chladni du motif lui-même (ordre 12) ----------
+// ---------- les figures de Chladni du motif lui-même ----------
 
-/** Les 144 coefficients de Fourier du champ (la composante continue écartée). C[ky][kx] = [re, im]. */
-export function coefficients12(champ) {
-  const C = [];
-  for (let ky = 0; ky < 12; ky++) { C.push([]); for (let kx = 0; kx < 12; kx++) {
+/** Les g² coefficients de Fourier du champ (la composante continue écartée). C[ky][kx] = [re, im]. */
+export function coefficients(champ, g = ORDRE) {
+  const C = [], N = g * g;
+  for (let ky = 0; ky < g; ky++) { C.push([]); for (let kx = 0; kx < g; kx++) {
     let re = 0, im = 0;
-    for (let y = 0; y < 12; y++) for (let x = 0; x < 12; x++) { const a = -2 * Math.PI * (ky * y + kx * x) / 12, v = champ[y * 12 + x]; re += v * Math.cos(a); im += v * Math.sin(a); }
-    C[ky].push([re / 144, im / 144]);
+    for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) { const a = -2 * Math.PI * (ky * y + kx * x) / g, v = champ[y * g + x]; re += v * Math.cos(a); im += v * Math.sin(a); }
+    C[ky].push([re / N, im / N]);
   } }
   C[0][0] = [0, 0];
   return C;
 }
-const FREQ13 = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];
+export const coefficients12 = (champ) => coefficients(champ, 12);
+const frequences = (g) => Array.from({ length: g + 1 }, (_, i) => i - g / 2);
 /** La valeur du champ reconstruit en un point (X, Y) du tore, en cases (les cases sont aux entiers). */
-export function valeurFourier12(C, X, Y) {
-  let v = 0;
-  for (const kx of FREQ13) for (const ky of FREQ13) {
-    const w = (Math.abs(kx) === 6 ? 0.5 : 1) * (Math.abs(ky) === 6 ? 0.5 : 1), [cr, ci] = C[(ky + 12) % 12][(kx + 12) % 12], a = 2 * Math.PI * (ky * Y + kx * X) / 12;
+export function valeurFourier(C, X, Y, g = ORDRE) {
+  const h = g / 2; let v = 0;
+  for (const kx of frequences(g)) for (const ky of frequences(g)) {
+    const w = (Math.abs(kx) === h ? 0.5 : 1) * (Math.abs(ky) === h ? 0.5 : 1), [cr, ci] = C[(ky + g) % g][(kx + g) % g], a = 2 * Math.PI * (ky * Y + kx * X) / g;
     v += w * (cr * Math.cos(a) - ci * Math.sin(a));
   }
   return v;
 }
+export const valeurFourier12 = (C, X, Y) => valeurFourier(C, X, Y, 12);
 /**
  * Les signes (champ > 0) ou les lignes nodales (|champ| < 0,07 du maximum) du motif lui-même,
- * sur une tuile de T × T points ; `A` (Uint8Array de T × T) reçoit 255 (encre) ou 0. Le motif est
- * périodique : le pavage par translation donne 4 tuiles. Pas de miroir, jamais.
+ * sur une tuile de T × T points, reconstruits par les g² coefficients de Fourier de son champ ;
+ * `A` (Uint8Array de T × T) reçoit 255 (encre) ou 0. Le motif est périodique : le pavage par
+ * translation donne 4 tuiles. Pas de miroir, jamais. Valable aux trois ordres (g = 12, 36, 60).
  */
-export function figure12(champ, T, vue, A) {
-  const C = coefficients12(champ), cs = [], sn = [];
-  for (const k of FREQ13) { const a = new Float64Array(T), c = new Float64Array(T); for (let p = 0; p < T; p++) { const X = (p + 0.5) / T * 12 - 0.5; a[p] = Math.cos(2 * Math.PI * k * X / 12); c[p] = Math.sin(2 * Math.PI * k * X / 12); } cs.push(a); sn.push(c); }
+export function figure(champ, g, T, vue, A) {
+  const C = coefficients(champ, g), FR = frequences(g), h = g / 2, nf = FR.length, cs = [], sn = [];
+  for (const k of FR) { const a = new Float64Array(T), c = new Float64Array(T); for (let p = 0; p < T; p++) { const X = (p + 0.5) / T * g - 0.5; a[p] = Math.cos(2 * Math.PI * k * X / g); c[p] = Math.sin(2 * Math.PI * k * X / g); } cs.push(a); sn.push(c); }
   const F = new Float32Array(T * T); let mx = 0;
   for (let py = 0; py < T; py++) {
     const G = [];
-    for (let ik = 0; ik < 13; ik++) { const kx = FREQ13[ik]; let gr = 0, gi = 0;
-      for (let jk = 0; jk < 13; jk++) { const ky = FREQ13[jk], w = Math.abs(ky) === 6 ? 0.5 : 1, [cr, ci] = C[(ky + 12) % 12][(kx + 12) % 12], c = cs[jk][py], s = sn[jk][py]; gr += w * (cr * c - ci * s); gi += w * (cr * s + ci * c); }
-      G.push([gr, gi, Math.abs(kx) === 6 ? 0.5 : 1]); }
-    for (let px = 0; px < T; px++) { let v = 0; for (let ik = 0; ik < 13; ik++) { const g = G[ik]; v += g[2] * (g[0] * cs[ik][px] - g[1] * sn[ik][px]); } F[py * T + px] = v; const a = Math.abs(v); if (a > mx) mx = a; }
+    for (let ik = 0; ik < nf; ik++) { const kx = FR[ik]; let gr = 0, gi = 0;
+      for (let jk = 0; jk < nf; jk++) { const ky = FR[jk], w = Math.abs(ky) === h ? 0.5 : 1, [cr, ci] = C[(ky + g) % g][(kx + g) % g], c = cs[jk][py], s = sn[jk][py]; gr += w * (cr * c - ci * s); gi += w * (cr * s + ci * c); }
+      G.push([gr, gi, Math.abs(kx) === h ? 0.5 : 1]); }
+    for (let px = 0; px < T; px++) { let v = 0; for (let ik = 0; ik < nf; ik++) { const q = G[ik]; v += q[2] * (q[0] * cs[ik][px] - q[1] * sn[ik][px]); } F[py * T + px] = v; const a = Math.abs(v); if (a > mx) mx = a; }
   }
   mx = mx || 1;
   for (let i = 0; i < T * T; i++) { const v = F[i] / mx; A[i] = (vue === 'signes' ? v > 0 : Math.abs(v) < 0.07) ? 255 : 0; }
   return A;
 }
+export const figure12 = (champ, T, vue, A) => figure(champ, 12, T, vue, A);
 
-// ---------- les variantes de case (bicolore) ----------
+// ---------- les variantes de case (collections bicolores, aux trois ordres) ----------
 
-/** Les neuf fonds en bandes retenus pour la page ; B2 par défaut. Tous les autres sont écartés. */
-export const BANDES = Object.freeze(['B2', 'B3', 'B4', 'B121', 'B11211D', 'B12m', 'B3x', 'BA33', 'BA50']);
+/**
+ * Les six fonds en bandes retenus pour la page ; B2 par défaut. Tous les autres sont écartés. B3x et
+ * BA33 ont exactement les polygones et les spectres de B3, BA50 ceux de B121 : ce sont des alias,
+ * résolus ici pour les anciens réglages, jamais proposés.
+ */
+export const BANDES = Object.freeze(['B2', 'B3', 'B4', 'B121', 'B11211D', 'B12m']);
+export const ALIAS_BANDES = Object.freeze({ B3x: 'B3', BA33: 'B3', BA50: 'B121' });
 export const BANDE_DEFAUT = 'B2';
+export const resoudreBande = (id) => (BANDES.includes(id) ? id : ALIAS_BANDES[id] || BANDE_DEFAUT);
 /**
  * Les deux états d'une case : l'état 1 est le fond (`encre1` : R × R octets, 1 = encre), l'état 0
  * est le même fond tourné de 90° — mode unique, l'orientation est uniforme sur tout le motif.
@@ -175,21 +261,20 @@ export function etatsDeCase(encre1, R = 60) {
   return { R, a1: Uint8Array.from(encre1), a0 };
 }
 /**
- * Le masque d'encre d'un motif bicolore sur T × T points : chaque case est lue en 4 triangles
- * (N, E, S, O) ; chaque triangle est dessiné avec l'état 1 ou 0 du fond choisi. Chaque point moyenne
- * 2 × 2 sous-échantillons (255 × la part d'encre) : avec 30 points par case et R = 60, un échantillon
- * unique par point ne lirait qu'un point sur deux de la grille d'état et fausserait la part d'encre
- * (B4 : 46,7 % au lieu de 50 %). Audit de la maquette, n° 4.
+ * Le masque d'encre d'un motif bicolore sur T × T points : chaque case (grille g × g, g = 12, 36 ou
+ * 60) est lue en 4 triangles (N, E, S, O) ; chaque triangle est dessiné avec l'état 1 ou 0 du fond
+ * choisi. Chaque point moyenne 2 × 2 sous-échantillons (255 × la part d'encre) : un échantillon
+ * unique par point fausserait la part d'encre des bandes fines (B4 : 46,7 % au lieu de 50 %).
  */
 export function masqueBicolore(bloc, j, etats, T, A = new Uint8Array(T * T)) {
-  const { R, a1, a0 } = etats, cp = T / 12;
-  if (bloc.lb.length !== bloc.n * CASES) throw new Error('masqueBicolore : lb de longueur inattendue');
+  const { R, a1, a0 } = etats, g = bloc.grid, N = g * g, cp = T / g;
+  if (bloc.lb.length !== bloc.n * N) throw new Error('masqueBicolore : lb de longueur inattendue');
   for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) {
     let n = 0;
     for (const dy of [0.25, 0.75]) for (const dx of [0.25, 0.75]) {
-      const fy = (y + dy) / cp, fx = (x + dx) / cp, cy = Math.floor(fy), cx = Math.floor(fx), v = fy - cy, u = fx - cx;
+      const fy = (y + dy) / cp, fx = (x + dx) / cp, cy = Math.min(g - 1, Math.floor(fy)), cx = Math.min(g - 1, Math.floor(fx)), v = fy - cy, u = fx - cx;
       const d1 = u - v, d2 = u + v - 1, reg = d1 > 0 ? (d2 < 0 ? 0 : 1) : (d2 > 0 ? 2 : 3);
-      const arr = ((bloc.lb[j * CASES + cy * 12 + cx] >> reg) & 1) ? a1 : a0;
+      const arr = ((bloc.lb[j * N + cy * g + cx] >> reg) & 1) ? a1 : a0;
       n += arr[Math.min(R - 1, Math.floor(v * R)) * R + Math.min(R - 1, Math.floor(u * R))];
     }
     A[y * T + x] = Math.round(255 * n / 4);

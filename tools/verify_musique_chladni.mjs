@@ -34,8 +34,14 @@ import { chargerCollection, rasteriser } from '../assets/bicolore-fonds.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const lire = (rel) => JSON.parse(readFileSync(path.join(ROOT, rel), 'utf8'));
-const donnees = lire('data/musique-chladni-12.json');
-const tri = M.preparerBloc(donnees, 'tri'), bi = M.preparerBloc(donnees, 'bi');
+const donnees = lire('data/musique-chladni-12.json'), jb = {}, DIR = 'data/musique-chladni/';
+for (const o of [12, 18, 30]) jb[o] = lire(`${DIR}bloc-${o}-structure.json`);
+const defs = { collections1830: lire(`${DIR}collections-18-30.json`), sym12: lire(`${DIR}sym12-indices.json`) };
+const tri = M.preparerBloc(donnees, 'tri');
+/** Tous les blocs de la page : tricolore 12, puis les collections des trois ordres (voisins et chaîne calculés ici). */
+const blocs = [tri];
+for (const o of [12, 18, 30]) for (const c of M.definirCollections(o, defs)) blocs.push(M.preparerBlocStructure(jb[o], { id: c.id, indices: c.indices }));
+const bi = blocs.find((b) => b.id === 'bi');
 const echecs = [], ok = (c, m) => { if (!c) echecs.push(m); return c; };
 const essai = process.argv.includes('--essai');
 
@@ -56,25 +62,26 @@ const essai = process.argv.includes('--essai');
 const SR = 48000, N = 8192;
 const sonDuMotif = (bloc, i, ancrage) => {
   const db = new Float32Array(N).fill(-200), bw = SR / 2 / N;
-  for (let k = 0; k < M.NS12; k++) { const a = bloc.P[i * M.NS12 + k]; if (a > 1e-6) db[Math.round(M.frequenceDuCercle(M.SHELLS12[k], ancrage) / bw)] = 20 * Math.log10(a); }
+  for (let k = 0; k < bloc.NS; k++) { const a = bloc.P[i * bloc.NS + k]; if (a > 1e-6) db[Math.round(M.frequenceDuCercle(bloc.shells[k], ancrage ? ancrage * bloc.fref / 220 : bloc.fref) / bw)] = 20 * Math.log10(a); }
   return db;
 };
 const cos = (bloc, a, b) => { let s = 0; for (let k = 0; k < bloc.NS; k++) s += bloc.Pc[a * bloc.NS + k] * bloc.Pc[b * bloc.NS + k]; return s; };
 const echo = (bloc, ancrage) => {
   let trouves = 0, total = 0;
   for (let i = 0; i < bloc.n; i += Math.max(1, Math.floor(bloc.n / 70))) {
-    const v = M.bandesDuSon(sonDuMotif(bloc, i, ancrage), SR, { pente: false }), r = M.meilleurMotif(v, bloc);
+    const v = M.bandesDuSon(sonDuMotif(bloc, i, ancrage), SR, { pente: false, fref: bloc.fref, shells: bloc.shells }), r = M.meilleurMotif(v, bloc);
     total++; if (r.i >= 0 && cos(bloc, r.i, i) > 1 - 1e-6) trouves++;
   }
   return { trouves, total };
 };
-const eTri = echo(tri, essai ? 200 : M.FREF12), eBi = echo(bi, essai ? 200 : M.FREF12);
-ok(eTri.trouves === eTri.total && eBi.trouves === eBi.total, `écho : tricolore ${eTri.trouves}/${eTri.total}, bicolore ${eBi.trouves}/${eBi.total}`);
+const echos = blocs.map((b) => [b, echo(b, essai ? 200 : 0)]);
+for (const [b, e] of echos) ok(e.trouves === e.total, `écho : ${b.ordre} ${b.id} ${e.trouves}/${e.total}`);
+const resume = echos.map(([b, e]) => `${b.ordre}/${b.id} ${e.trouves}/${e.total}`).join(', ');
 if (essai) {
-  if (echecs.length) { console.log(`Essai : un moteur faussé (ancrage 200 Hz au lieu de ${M.FREF12}) est refusé — ${echecs[0]}`); process.exit(0); }
+  if (echecs.length) { console.log(`Essai : un moteur faussé (ancrage 200 Hz au lieu de 220) est refusé — ${echecs[0]}`); process.exit(0); }
   console.error("Essai : le moteur faussé n'a pas été refusé."); process.exit(1);
 }
-console.log(`1. écho : tricolore ${eTri.trouves}/${eTri.total}, bicolore ${eBi.trouves}/${eBi.total} retrouvés par l'analyse du son puis l'appariement.`);
+console.log(`1. écho (${blocs.length} collections, trois ordres) : ${resume} — retrouvés par l'analyse du son puis l'appariement.`);
 
 // ---- 2. silence, hystérésis, tenue ----
 const silence = M.bandesDuSon(new Float32Array(N).fill(-200), SR, { pente: false });
@@ -111,6 +118,24 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   ok(desaccords === 0, `figure : ${desaccords} pixels sur ${essais} ne suivent pas le champ`);
   ok(parts.every((p) => !/^(signes|lignes) (0|100) %/.test(p)), `figure : tuile unie (${parts.join(', ')})`);
   console.log(`3. figures de l'ordre 12 : champ reconstruit égal au motif aux cases à ${ecartCases.toExponential(0)} près (${jeux} motifs), périodique à ${ecartPeriode.toExponential(0)} près ; tuile 96 × 96 : ${parts.join(', ')}.`);
+}
+
+// ---- 3 bis. figures aux ordres 18 et 30 : reconstruction de Fourier du champ de structure (pas d'« interprétation spectrale ») ----
+{
+  const lignes = [];
+  for (const [o, id] of [[12, 'lis'], [18, 'b1971128'], [30, 'p30']]) {
+    const bloc = blocs.find((b) => b.ordre === o && b.id === id), g = bloc.grid; let pire = 0, per = 0;
+    for (const j of [0, Math.floor(bloc.n / 2)]) {
+      const champ = M.champ(bloc, j), C = M.coefficients(champ, g); let m = 0; for (const x of champ) m += x; m /= g * g;
+      for (let y = 0; y < g; y += 5) for (let x = 0; x < g; x += 5) pire = Math.max(pire, Math.abs(M.valeurFourier(C, x, y, g) - (champ[y * g + x] - m)));
+      per = Math.max(per, Math.abs(M.valeurFourier(C, 1.3, 2.7, g) - M.valeurFourier(C, 1.3 + g, 2.7 + g, g)));
+    }
+    ok(pire < 1e-9 && per < 1e-9, `figure ${o} : écart aux cases ${pire.toExponential(2)}, périodicité ${per.toExponential(2)}`);
+    const T = 120, A = new Uint8Array(T * T), pc = [];
+    for (const vue of ['signes', 'lignes']) { M.figure(M.champ(bloc, 1), g, T, vue, A); const part = A.reduce((a, x) => a + (x ? 1 : 0), 0) / A.length; ok(part > 0.02 && part < 0.98, `figure ${o} ${vue} : tuile unie (${(100 * part).toFixed(0)} % d'encre)`); pc.push(`${vue} ${(100 * part).toFixed(0)} %`); }
+    lignes.push(`ordre ${o} (grille ${g} × ${g}) écart ${pire.toExponential(0)}, ${pc.join(', ')}`);
+  }
+  console.log(`3 bis. figures par coefficients de Fourier du champ de structure : ${lignes.join(' ; ')}.`);
 }
 
 // ---- 4. pilotage : rythme, chemin, changement de mode ----
@@ -172,32 +197,40 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   console.log(`6. pulsation : ${er.bpm.toFixed(0)} par minute reconnue, irrégulière refusée ; changements à chaque attaque ${a.length} (dont ${horsT(a)} hors temps), à chaque temps ${t.length} (aucun hors temps), toutes les 4 pulsations ${q.length}.`);
 }
 
-// ---- 7. variantes de case ----
+// ---- 7. variantes de case : six bandes, 16 quartets, encre égale dans les deux états ----
 {
   const coll = chargerCollection(lire('data/fonds/collection-v1.json'), { calculs: lire('data/fonds/collection-v1.calculs.json') });
-  const lignes = []; let pireR = 0, pireR30 = 0;
+  const polygones = lire(`${DIR}bandes-6-polygones.json`), attendu = { B2: 50, B3: 100 / 3, B4: 50, B121: 50, B11211D: 33.5, B12m: 66.9 }, tol = { B2: 0.2, B3: 0.2, B4: 0.2, B121: 0.2, B11211D: 0.3, B12m: 0.3 };
+  const aire = (pts) => Math.abs(pts.reduce((s2, p, i) => { const q = pts[(i + 1) % pts.length]; return s2 + p[0] * q[1] - q[0] * p[1]; }, 0)) / 2;
+  const lignes = []; let pireR = 0, pireAttendu = 0, pirePoly = 0, pireCanvas = 0;
+  ok(M.BANDES.length === 6 && M.BANDES.join() === 'B2,B3,B4,B121,B11211D,B12m', 'la liste doit être B2, B3, B4, B121, B11211D, B12m');
+  ok(M.resoudreBande('B3x') === 'B3' && M.resoudreBande('BA33') === 'B3' && M.resoudreBande('BA50') === 'B121' && M.resoudreBande('inconnue') === 'B2', 'les alias B3x, BA33, BA50 doivent se résoudre en B3, B3, B121');
   for (const id of M.BANDES) {
     const f = coll.fonds.get(id); if (!ok(!!f, `bande ${id} absente de la collection`)) continue;
-    for (const R of [60, 30]) {
-      const e = M.etatsDeCase(Uint8Array.from(rasteriser(f, 0, R), (x) => (x === 1 ? 1 : 0)), R);
-      const s1 = e.a1.reduce((s, x) => s + x, 0), s0 = e.a0.reduce((s, x) => s + x, 0);
-      ok(s1 === s0, `${id} à ${R} px : l'encre diffère entre les deux états (${s1} / ${s0})`);
-      for (let y = 0; y < R && R === 60; y++) for (let x = 0; x < R; x++) if (e.a0[x * R + (R - 1 - y)] !== e.a1[y * R + x]) { ok(false, `${id} : l'état 0 n'est pas l'état 1 tourné de 90°`); y = R; break; }
+    const E = (R) => M.etatsDeCase(Uint8Array.from(rasteriser(f, 0, R), (x) => (x === 1 ? 1 : 0)), R), e60 = E(60), e120 = E(120), e240 = E(240);
+    for (const e of [e60, e240]) {
+      const s1 = e.a1.reduce((q, x) => q + x, 0), s0 = e.a0.reduce((q, x) => q + x, 0);
+      ok(s1 === s0, `${id} à ${e.R} px : l'encre diffère entre les deux états (${s1} / ${s0})`);
+      for (let y = 0; y < e.R; y++) for (let x = 0; x < e.R; x++) if (e.a0[x * e.R + (e.R - 1 - y)] !== e.a1[y * e.R + x]) { ok(false, `${id} : l'état 0 n'est pas l'état 1 tourné de 90°`); y = e.R; break; }
     }
-    const E = (R) => M.etatsDeCase(Uint8Array.from(rasteriser(f, 0, R), (x) => (x === 1 ? 1 : 0)), R), e60 = E(60), e30 = E(30), e120 = E(120);
-    // 16 combinaisons de bits (N, E, S, O) pour une case : la part d'encre à 60 px et à 30 px
-    const bloc = { n: 1, lb: new Uint8Array(144), cls: null }; let pireId = 0, pire30 = 0; const encres = [];
+    const part240 = 100 * e240.a1.reduce((q, x) => q + x, 0) / (240 * 240), poly = 100 * polygones[id].filter((q) => q.c === 1).reduce((q, x) => q + aire(x.pts), 0);
+    pireAttendu = Math.max(pireAttendu, Math.abs(part240 - attendu[id])); pirePoly = Math.max(pirePoly, Math.abs(part240 - poly));
+    ok(Math.abs(part240 - attendu[id]) <= tol[id], `${id} : ${part240.toFixed(2)} % d'encre à 240 px, ${attendu[id].toFixed(1)} % attendus`);
+    // 16 quartets (N, E, S, O) sur une case de la grille 12 : la part d'encre du rendu Canvas (masqueBicolore) à 60 et à 120 px
+    const bloc = { n: 1, lb: new Uint8Array(144), grid: 12 }, encres = [];
     for (let combi = 0; combi < 16; combi++) {
       bloc.lb.fill(combi);
-      const part = (e, T) => { const A = M.masqueBicolore(bloc, 0, e, T); let s = 0; for (const x of A) s += x / 255; return s / A.length; };
-      const p60 = part(e60, 360), p30 = part(e30, 360), p120 = part(e120, 360); pireId = Math.max(pireId, Math.abs(p60 - p120)); pire30 = Math.max(pire30, Math.abs(p60 - p30)); encres.push(p60);
+      const part = (e, T) => { const A = M.masqueBicolore(bloc, 0, e, T); let q = 0; for (const x of A) q += x / 255; return q / A.length; };
+      const p60 = part(e60, 360), p120 = part(e120, 360); pireR = Math.max(pireR, Math.abs(p60 - p120)); encres.push(p60);
     }
-    pireR = Math.max(pireR, pireId); pireR30 = Math.max(pireR30, pire30);
-    // la référence à 30 px est grossière (les bandes de B4 y font 7,5 px) : on compare à 120 px, et l'écart à 30 px est affiché
-    ok(pireId < 0.005, `${id} : le rendu à 60 px s'écarte du rendu à 120 px de ${(100 * pireId).toFixed(2)} %`);
-    lignes.push(`${id} ${(100 * encres[15]).toFixed(1)} % (état 1)/${(100 * encres[0]).toFixed(1)} % (état 0)`);
+    const un = { n: 1, lb: new Uint8Array(1), grid: 1 }; // une seule case de 240 px : le rendu Canvas contre le raster à 240 px
+    for (const combi of [0, 15]) { un.lb[0] = combi; const A = M.masqueBicolore(un, 0, e240, 240); let q = 0; for (const x of A) q += x / 255; pireCanvas = Math.max(pireCanvas, Math.abs(100 * q / A.length - part240)); }
+    const equilibre = Math.abs(encres[15] - encres[0]); ok(equilibre < 0.005, `${id} : l'encre de l'état 1 (${(100 * encres[15]).toFixed(2)} %) et de l'état 0 (${(100 * encres[0]).toFixed(2)} %) diffèrent au rendu`);
+    ok(pireR < 0.005, `${id} : le rendu à 60 px s'écarte du rendu à 120 px de ${(100 * pireR).toFixed(2)} %`);
+    lignes.push(`${id} ${part240.toFixed(1)} %`);
   }
-  console.log(`7. variantes de case : ${M.BANDES.length} bandes, état 0 = état 1 tourné de 90°, même encre ; 16 combinaisons de bits : rendu à 60 px contre 120 px, écart au plus ${(100 * pireR).toFixed(2)} % (contre la référence grossière à 30 px : ${(100 * pireR30).toFixed(2)} %) ; encre ${lignes.join(', ')}.`);
+  ok(pirePoly < 0.5, `les polygones de bandes-6-polygones.json s'écartent du dessin du dépôt de ${pirePoly.toFixed(2)} points`);
+  console.log(`7. variantes de case : 6 bandes (${lignes.join(', ')} d'encre à 240 px, écart maximal aux valeurs attendues ${pireAttendu.toFixed(2)} point), état 0 = état 1 tourné de 90°, même encre ; 16 quartets : rendu Canvas à 60 px contre 120 px, puis quartets tout-à-1 et tout-à-0, écart au plus ${(100 * pireR).toFixed(2)} %, une case de 240 px contre le raster à 240 px, écart au plus ${pireCanvas.toFixed(2)} point ; polygones fournis contre dessin du dépôt ${pirePoly.toFixed(2)} point.`);
 }
 
 // ---- 8. teinte qui suit le son ----
@@ -209,6 +242,35 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   ok(h > 100 && h < 300, `teinte : ${h.toFixed(0)}° pour un son centré vers 2,5 kHz`);
   ok(M.suivreTeinte(new Float32Array(N).fill(-200), SR, 123) === 123, 'teinte : le silence change la teinte');
   console.log(`8. teinte qui suit le son : pente au plus ${pente.toFixed(1)}° par image, ${h.toFixed(0)}° vers 2,5 kHz, silence sans effet.`);
+}
+
+// ---- 9. les trois modes de pilotage sur les trois ordres, spectres sains, voisins et chaîne ----
+{
+  const lignes = [];
+  for (const bloc of blocs) {
+    for (const e of M.controlerBloc(bloc)) echecs.push(e);
+    const v = M.bandesDuSon(sonDuMotif(bloc, Math.floor(bloc.n / 3), 0), SR, { pente: false, fref: bloc.fref, shells: bloc.shells });
+    for (const mode of [M.MODES.IMAGE, M.MODES.RYTHME, M.MODES.CHEMIN]) {
+      const p = M.creerPilote(bloc, { mode }); let chg = 0, f = 0;
+      for (; f < 150; f++) { if (p.pas({ v, attaque: f % 12 === 0 && f > 0, t: f / 30 }).change) chg++; }
+      p.reglages({ mode: mode === M.MODES.IMAGE ? M.MODES.RYTHME : M.MODES.IMAGE });
+      const avant = p.motif(); for (let g2 = 0; g2 < 30; g2++) p.pas({ v, attaque: g2 % 12 === 0, t: (f + g2) / 30 });
+      ok(p.motif() >= 0 && p.motif() < bloc.n, `${bloc.ordre}/${bloc.id} mode ${mode} : motif hors bloc après changement de mode (${avant} puis ${p.motif()})`);
+      if (mode !== M.MODES.IMAGE) ok(chg >= 5, `${bloc.ordre}/${bloc.id} mode ${mode} : ${chg} changements seulement`);
+    }
+    lignes.push(`${bloc.ordre}/${bloc.id} ${bloc.n}`);
+  }
+  console.log(`9. trois modes de pilotage, changement de mode après plusieurs pas, spectres sans NaN ni nul, voisins et chaîne valides : ${lignes.join(', ')}.`);
+}
+
+// ---- 10. performance et mémoire ----
+{
+  const ms = blocs.filter((b) => b.ordre === 18).reduce((a, b) => a + (b.msVoisins || 0), 0), pire = Math.max(...blocs.map((b) => b.msVoisins || 0));
+  const octetsTotal = blocs.filter((b) => b.ordre === 18).reduce((a, b) => a + b.P.byteLength + b.Pc.byteLength + b.lb.byteLength, 0);
+  const t0 = performance.now(); const v18 = M.bandesDuSon(sonDuMotif(blocs.find((b) => b.id === 'f613'), 5, 0), SR, { pente: false, fref: 110, shells: jb[18].shells });
+  for (let i = 0; i < 100; i++) M.meilleurMotif(v18, blocs.find((b) => b.id === 'f613'));
+  const msMatch = (performance.now() - t0) / 100;
+  console.log(`10. format 18, 1 280 motifs en 7 collections : voisins et chaîne en ${ms.toFixed(0)} ms au total (la plus lente ${pire.toFixed(0)} ms, collection de ${Math.max(...blocs.filter((b) => b.ordre === 18).map((b) => b.n))} motifs), ${(octetsTotal / 1e6).toFixed(1)} Mo de tableaux ; appariement d'un son sur 256 motifs : ${msMatch.toFixed(2)} ms.`);
 }
 
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
