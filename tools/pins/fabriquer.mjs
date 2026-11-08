@@ -146,7 +146,7 @@ if (opt('--lot-jours')) {
       date: dateDuJour(p.jour), rang: parJour[p.jour], tableau: t.tableau, url_image: `https://raw.githubusercontent.com/${DEPOT}/main/${nom}/${fichier}`, titre: t.titre,
       description: pav
         ? `Motif géométrique bicolore sans couture, ordre ${ORDRE}, ${p.id} : une tuile Jacquard de ${cases} cases répétée par translation, sans miroir, tirée de La Livrée d'Hermès. CC BY-NC 4.0. À voir dans la galerie : ${t.lien}`
-        : `Tuile géométrique bicolore, ordre ${ORDRE}, ${p.id} : une tuile Jacquard de ${cases} cases, la cellule du motif sans couture de La Livrée d'Hermès. CC BY-NC 4.0. À voir dans la galerie : ${t.lien}`,
+        : `Tuile géométrique bicolore, ordre ${ORDRE}, ${p.id} : une tuile Jacquard de ${cases} cases, motif de base à répéter, tirée de La Livrée d'Hermès. CC BY-NC 4.0. À voir dans la galerie : ${t.lien}`,
       texte_alternatif: pav
         ? `Black and cream geometric seamless pattern, order ${ORDRE}, ${p.id}: a ${cases} cell bicolor Jacquard tile repeated by translation.`
         : `Black and cream geometric tile, order ${ORDRE}, ${p.id}: a single ${cases} cell bicolor Jacquard tile on a cream background.`,
@@ -166,7 +166,7 @@ if (opt('--lot-jours')) {
     for (const e of entrees) { const b = pngDeLot(nom, e.fichier), d = b && b.readUInt32BE(12) === 0x49484452 ? [b.readUInt32BE(16), b.readUInt32BE(20)] : null, [L, H] = e.type === 'tuile' ? [LT, HT] : [LP, HP]; if (!(d && d[0] === L && d[1] === H)) bad.push(`${e.fichier} : ${d ? d.join(' × ') : 'absent'}`); }
     for (const m of mes) if (!(m.pasEntier && m.casesTuile === C.g)) bad.push(`${m.fichier} : pas ${m.pasPixels}, ${m.casesTuile} cases`);
     if (new Set(entrees.map((e) => e.titre)).size !== entrees.length) bad.push('titres en double');
-    if (Object.values(parJour).some((n) => n !== PAR_JOUR)) bad.push(`jours incomplets : ${JSON.stringify(parJour)}`);
+    if (Object.entries(parJour).some(([j, n]) => n > PAR_JOUR || (n < PAR_JOUR && Number(j) < j2))) bad.push(`jours incomplets : ${JSON.stringify(parJour)}`); // seul le dernier jour du lot peut avoir moins de 12 épingles
     let ancresOk = 0; for (const e of entrees) { await page.goto(`${serveur.url}/galerie-bicolore.html#${e.motif_id}`); try { await page.waitForFunction(([i, o]) => !!document.getElementById(i) && window.__galerieOrdres && window.__galerieOrdres.etat().ordre === o, [e.motif_id, ORDRE], { timeout: 30000 }); ancresOk++; } catch { bad.push(`ancre #${e.motif_id}`); } }
     if (bad.length) { for (const b of bad) console.error('ÉCHEC ' + b); process.exit(1); }
     const octets = entrees.reduce((a, e) => a + pngDeLot(nom, e.fichier).length, 0), parTab = {}; for (const e of entrees) parTab[e.tableau] = (parTab[e.tableau] || 0) + 1;
