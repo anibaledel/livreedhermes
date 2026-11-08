@@ -1721,6 +1721,7 @@
     "tools/epingles_echantillon.mjs",
     "tools/epingles_encre_creme.mjs",
     "tools/export_pinterest_fonds.mjs",
+    "tools/pins/fabriquer.mjs",
     "tools/releve_texte_rouge.mjs",
     "tools/video_reference.mjs"
    ],
@@ -1952,6 +1953,20 @@
     "tools/verifie_portee.py"
    ],
    "etat": "actif",
+   "sait_echouer": false
+  },
+  {
+   "fichier": "tools/pins/fabriquer.mjs",
+   "role": "la fabrique d'images d'épingles Pinterest des motifs bicolores (ordre 30, puis ordre 18), en local.",
+   "lit": [
+    "data/fonds/collection-v1.calculs.json",
+    "data/fonds/collection-v1.json",
+    "data/musique-chladni/collections-18-30.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
    "sait_echouer": false
   },
   {
