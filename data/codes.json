@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-07T20:01:43Z",
+ "generated_at_utc": "2026-11-08T04:02:01Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 257,
+  "scripts": 258,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -3470,6 +3470,21 @@
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la méthode : un carré d'ordre 6 pavé par miroirs alternés donne un carré magique d'ordre 6m aux ordres testés ici ; sa validité pour tout m reste à démontrer.",
+   "lit": [],
+   "ecrit": [],
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "tools/pins/fabriquer.mjs",
+   "adresse": "https://anibal-amiot.com/tools/pins/fabriquer.mjs",
+   "octets": 24805,
+   "sha256": "a5ab9f0eadcf62e9b5b17c2cd65753cd370d45825835c68d2e9b717b2a35b573",
+   "md5": "91da9738255c8fdcecc9571f64a512df",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "la fabrique d'images d'épingles Pinterest des motifs bicolores (ordre 30, puis ordre 18), en local.",
    "lit": [],
    "ecrit": [],
    "durees": [],

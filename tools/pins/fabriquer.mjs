@@ -15,8 +15,7 @@
 //
 // Nommage déductible de l'identifiant : pins/o30/<id>-tuile.png, pins/o30/<id>-pavage.png (idem pins/o18/). Fichiers d'état et de textes : pins/etat.json,
 // pins/textes.json (un titre anglais distinct par épingle ; description anglaise puis une phrase française ; lien vers la Galerie bicolore avec l'ancre).
-// Publication : 12 par jour. Ordre 30 : la tuile d'un motif vient 7 jours au moins après son pavage. Ordre 18 : une cellule et un pavage par motif, le même
-// jour (6 motifs par jour), les collections alternées (aucun motif voisin ne suit). Un pas premier avec l'effectif écarte les voisins de la chaîne de proximité.
+// Publication : 12 par jour. Ordre 30 : la tuile d'un motif vient 7 jours au moins après son pavage. Ordre 18 : de même (7 jours), les collections alternées (aucun motif voisin ne suit). Un pas premier avec l'effectif écarte les voisins de la chaîne de proximité.
 //
 // Usage : node tools/pins/fabriquer.mjs --ordre 30 --lot-essai    les 6 premiers motifs de l'ordre 30, en tuile et en pavage (12 images)
 //         node tools/pins/fabriquer.mjs --ordre 18 --lot-essai    3 motifs de 3 collections, en cellule et en pavage (6 images)
@@ -38,7 +37,7 @@ const lire = (rel) => JSON.parse(readFileSync(path.join(ROOT, rel), 'utf8'));
 const PAR_JOUR = 12, JPEG = null;
 const CONF = {
   30: { g: 60, pxTuile: 13, pxPavage: 17, casesH: 90, collections: ['p30'], ecartJours: 7, tableau: { pavage: 'Seamless Patterns 30', tuile: 'Geometric tiles 30' }, tailleLot: 6, pas: 37 },
-  18: { g: 36, pxTuile: 22, pxPavage: 28, casesH: 54, collections: ['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote', 'p18'], ecartJours: 0, tableau: { pavage: 'Seamless Patterns 18', tuile: 'Geometric Tiles 18' }, tailleLot: 3, pas: 7 },
+  18: { g: 36, pxTuile: 22, pxPavage: 28, casesH: 54, collections: ['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote', 'p18'], ecartJours: 7, tableau: { pavage: 'Seamless Patterns 18', tuile: 'Geometric Tiles 18' }, tailleLot: 3, pas: 7 },
 };
 const C = CONF[ORDRE];
 if (!C) { console.error('--ordre 30 ou 18'); process.exit(2); }
@@ -53,10 +52,19 @@ const pgcd = (a, b) => (b ? pgcd(b, a % b) : a);
 const parCol = C.collections.map((id) => { const b = blocs.get(id); let pas = C.pas; while (pgcd(pas, b.n) !== 1) pas++; return Array.from({ length: b.n }, (_, k) => ({ id: b.ids[b.chain[(k * pas) % b.n]], j: b.chain[(k * pas) % b.n], col: id })); });
 const motifs = []; for (let k = 0; k < Math.max(...parCol.map((l) => l.length)); k++) for (const l of parCol) if (l[k]) motifs.push(l[k]);
 const N = motifs.length, pins = [];
-if (C.ecartJours > 0) { // ordre 30 : tous les pavages d'abord, puis les tuiles, 7 jours au moins plus tard
-  motifs.forEach((m, k) => pins.push({ ...m, type: 'pavage', rang: k })); motifs.forEach((m, k) => pins.push({ ...m, type: 'tuile', rang: N + k }));
-} else { motifs.forEach((m, k) => { pins.push({ ...m, type: 'tuile', rang: 2 * k }); pins.push({ ...m, type: 'pavage', rang: 2 * k + 1 }); }); } // ordre 18 : la cellule et le pavage du motif, le même jour
-for (const p of pins) { p.jour = Math.floor(p.rang / PAR_JOUR) + 1; p.fichier = `o${ORDRE}/${p.id}-${p.type}.png`; }
+// 12 par jour ; chaque jour : jusqu'à 6 cellules dont le pavage est sorti 7 jours au moins plus tôt, le reste en pavages (puis, une fois les pavages épuisés, des cellules)
+{
+  const jourPavage = new Map(); let ip = 0, ic = 0;
+  const eligible = (jour) => ic < N && jourPavage.has(motifs[ic].id) && jourPavage.get(motifs[ic].id) <= jour - C.ecartJours;
+  for (let jour = 1; ip < N || ic < N; jour++) {
+    const duJour = []; let cellules = 0;
+    while (cellules < (ip < N ? PAR_JOUR / 2 : PAR_JOUR) && eligible(jour)) { duJour.push({ ...motifs[ic], type: 'tuile' }); ic++; cellules++; }
+    while (duJour.length < PAR_JOUR && ip < N) { duJour.push({ ...motifs[ip], type: 'pavage' }); jourPavage.set(motifs[ip].id, jour); ip++; }
+    while (duJour.length < PAR_JOUR && eligible(jour)) { duJour.push({ ...motifs[ic], type: 'tuile' }); ic++; }
+    for (const p of duJour) pins.push({ ...p, rang: pins.length, jour });
+  }
+}
+for (const p of pins) p.fichier = `o${ORDRE}/${p.id}-${p.type}.png`;
 const cases = `${C.g} × ${C.g}`;
 const textes = pins.map((p) => {
   const pav = p.type === 'pavage', lien = `${PAGE_GALERIE}#${p.id}`;
@@ -87,13 +95,13 @@ const RENDU = `async (spec) => {
     for (let i = 0; i < T * T; i++) { const k = A[i] / 255; d[i * 4] = fond[0] + (ink[0] - fond[0]) * k; d[i * 4 + 1] = fond[1] + (ink[1] - fond[1]) * k; d[i * 4 + 2] = fond[2] + (ink[2] - fond[2]) * k; d[i * 4 + 3] = 255; } x.putImageData(im, 0, 0); return c; };
   const bandeau = (x, L, H) => { const h = 64; x.fillStyle = 'rgba(' + ink.join(',') + ',0.55)'; x.fillRect(0, H - h, L, h); x.fillStyle = 'rgb(' + fond.join(',') + ')'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '600 26px system-ui, sans-serif'; x.fillText('anibal-amiot.com · CC BY-NC 4.0', L / 2, H - h / 2); };
   const image = (p) => {
-    const c = document.createElement('canvas'), x = c.getContext('2d'); let L, H;
-    if (p.type === 'tuile') { L = spec.LT; H = spec.HT; c.width = L; c.height = H; x.fillStyle = 'rgb(' + fond.join(',') + ')'; x.fillRect(0, 0, L, H); const T = spec.g * spec.pxTuile; x.drawImage(tuile(p.col, p.j, T), Math.round((L - T) / 2), Math.round((H - 64 - T) / 2)); }
-    else { L = spec.LP; H = spec.HP; c.width = L; c.height = H; x.fillStyle = 'rgb(' + fond.join(',') + ')'; x.fillRect(0, 0, L, H); const T = spec.g * spec.pxPavage, t = tuile(p.col, p.j, T), base = Math.round((H - T) / 2); // une seule cellule en largeur, centrée sur son centre de symétrie
+    const c = document.createElement('canvas'), x = c.getContext('2d'); let L, H, pas, tp;
+    if (p.type === 'tuile') { L = spec.LT; H = spec.HT; c.width = L; c.height = H; x.fillStyle = 'rgb(' + fond.join(',') + ')'; x.fillRect(0, 0, L, H); const tc = tuile(p.col, p.j, spec.g * spec.pxTuile); tp = tc.width; pas = tc.width / blocs[p.col].grid; x.drawImage(tc, Math.round((L - tc.width) / 2), Math.round((H - 64 - tc.height) / 2)); }
+    else { L = spec.LP; H = spec.HP; c.width = L; c.height = H; x.fillStyle = 'rgb(' + fond.join(',') + ')'; x.fillRect(0, 0, L, H); const t = tuile(p.col, p.j, spec.g * spec.pxPavage), T = t.width; tp = T; pas = T / blocs[p.col].grid; const base = Math.round((H - T) / 2); // une seule cellule en largeur, centrée sur son centre de symétrie
       for (let k = -2; k <= 2; k++) x.drawImage(t, 0, base + k * T); }
-    bandeau(x, L, H); return c; };
+    bandeau(x, L, H); c.__mesure = { fichier: p.fichier, type: p.type, ordre: spec.ordre, largeur: c.width, hauteur: c.height, casesTuile: blocs[p.col].grid, pasPixels: pas, pasEntier: Number.isInteger(pas), tuilePixels: tp, casesParCoteLargeur: p.type === 'pavage' ? c.width / pas : blocs[p.col].grid, casesParCoteHauteur: p.type === 'pavage' ? c.height / pas : blocs[p.col].grid }; return c; };
   const sortie = [], toiles = [];
-  for (const p of spec.pins) { const c = image(p); toiles.push(c); sortie.push({ fichier: p.fichier, png: c.toDataURL('image/png').split(',')[1] }); }
+  for (const p of spec.pins) { const c = image(p); toiles.push(c); sortie.push({ fichier: p.fichier, mesure: c.__mesure, png: c.toDataURL('image/png').split(',')[1] }); }
   // la planche contact : colonnes de vignettes de hauteur 375, une ligne d'étiquette sous chacune
   const h = 375, e = 22, cols = spec.colonnes, lignes = Math.ceil(toiles.length / cols), ws = toiles.map((c) => Math.round(h * c.width / c.height)), w = Math.max(...ws);
   const pl = document.createElement('canvas'); pl.width = cols * w + (cols + 1) * 10; pl.height = lignes * (h + e) + (lignes + 1) * 10; const px = pl.getContext('2d');
@@ -122,6 +130,7 @@ const ecrire = (rel, contenu) => { const f = path.join(SORTIE, rel); mkdirSync(p
 const csv = (lignes, cols) => [cols.join(';'), ...lignes.map((l) => cols.map((c) => `"${String(l[c]).replace(/"/g, '""')}"`).join(';'))].join('\n') + '\n';
 const ouvrirPage = async (serveur, nav) => { const page = await nav.newPage({ viewport: { width: 1100, height: 900 } }); await page.goto(`${serveur.url}/includes/head-icons.html`); return page; };
 
+const mesures = [];
 if (!verifie) {
   const serveur = await servirDepot(ROOT), nav = await chromium.launch();
   try {
@@ -129,6 +138,7 @@ if (!verifie) {
     const spec = { ordre: ORDRE, g: C.g, pxTuile: C.pxTuile, pxPavage: C.pxPavage, LT, HT, LP, HP, collections: C.collections, fichierBloc: `data/musique-chladni/bloc-${ORDRE}-structure.json`, colonnes: ORDRE === 30 ? 4 : 3, pins: lot.map((p) => ({ id: p.id, j: p.j, col: p.col, type: p.type, fichier: p.fichier })) };
     const r = await page.evaluate(`(${RENDU})(${JSON.stringify(spec)})`);
     for (const im of r.images) ecrire(im.fichier, Buffer.from(im.png, 'base64'));
+    mesures.push(...r.images.map((im) => im.mesure));
     ecrire(nomPlanche, Buffer.from(r.planche, 'base64'));
   } finally { await nav.close(); if (serveur.fermer) serveur.fermer(); }
   // le fichier d'état : toutes les épingles planifiées, tous les ordres déjà planifiés ; celles du lot sont « prête », les autres « a_fabriquer »
@@ -139,6 +149,9 @@ if (!verifie) {
   tx.epingles = [...tx.epingles.filter((e) => e.ordre !== ORDRE), ...textes].sort((a, b) => a.ordre - b.ordre || a.rang - b.rang);
   ecrire('etat.json', JSON.stringify({ _doc: 'État de chaque épingle : a_fabriquer, prete, programmee, publiee ; date : AAAA-MM-JJ de la programmation ou de la publication, sinon null. C\'est ce fichier qui évite tout doublon. « tableau » : le nom exact du tableau Pinterest (l\'identifiant numérique est résolu côté Metricool).', par_jour: PAR_JOUR, epingles: etat.epingles }, null, 1) + '\n');
   ecrire('textes.json', JSON.stringify({ _doc: 'Textes des épingles (générés par tools/pins/fabriquer.mjs) : un titre anglais distinct par épingle.', epingles: tx.epingles }, null, 1) + '\n');
+  const ctrlPath = path.join(SORTIE, 'controle-cases.json'), ctrl = existsSync(ctrlPath) ? JSON.parse(readFileSync(ctrlPath, 'utf8')) : { images: [] };
+  ctrl.images = [...ctrl.images.filter((m) => m.ordre !== ORDRE), ...mesures].sort((a, b) => a.ordre - b.ordre || a.fichier.localeCompare(b.fichier));
+  ecrire('controle-cases.json', JSON.stringify({ _doc: 'Pour chaque image du lot : le nombre de cases (tuile : la cellule entière ; pavage : cases par côté), le pas en points par case et la taille de l\'image, calculés à partir de la sortie du rendu (la cellule réellement dessinée), non estimés sur l\'image. pasEntier : un nombre entier de points par case, sans rééchantillonnage.', images: ctrl.images }, null, 1) + '\n');
   ecrire(`${nomLot}.json`, JSON.stringify(lotTextes, null, 1) + '\n');
   ecrire(`${nomLot}.csv`, csv(lotTextes, ['fichier', 'tableau', 'titre', 'lien', 'rang', 'jour', 'description']));
   console.log(`Ordre ${ORDRE} : ${lot.length} images dans ${SORTIE}/o${ORDRE}/, ${nomPlanche}, etat.json (${etat.epingles.length} épingles planifiées), textes.json, ${nomLot}.json et .csv. Rien n'est poussé.`);
@@ -153,8 +166,11 @@ for (const p of lot) { const b = pngDe(p.fichier), d = dim(b), [L, H] = p.type =
 const tous = existsSync(path.join(SORTIE, 'textes.json')) ? JSON.parse(readFileSync(path.join(SORTIE, 'textes.json'), 'utf8')).epingles : textes;
 ok(new Set(tous.map((t) => t.titre)).size === tous.length, 'des titres d\'épingles sont en double');
 ok(textes.every((t) => t.description.includes('CC BY-NC 4.0') && t.description.includes(t.lien)), 'chaque description doit porter la licence et son lien');
-if (C.ecartJours > 0) for (const m of motifs) ok(pins.find((p) => p.id === m.id && p.type === 'tuile').rang - pins.find((p) => p.id === m.id && p.type === 'pavage').rang >= C.ecartJours * PAR_JOUR, `motif ${m.id} : tuile et pavage à moins de ${C.ecartJours} jours`);
-else for (const m of motifs.slice(0, 200)) ok(pins.find((p) => p.id === m.id && p.type === 'tuile').jour === pins.find((p) => p.id === m.id && p.type === 'pavage').jour, `motif ${m.id} : la cellule et le pavage doivent sortir le même jour`);
+for (const m of motifs) ok(pins.find((p) => p.id === m.id && p.type === 'tuile').jour - pins.find((p) => p.id === m.id && p.type === 'pavage').jour >= C.ecartJours, `motif ${m.id} : la cellule et le pavage sortent à moins de ${C.ecartJours} jours d'écart`);
+{ const parJour = {}; for (const p of pins) parJour[p.jour] = (parJour[p.jour] || 0) + 1; ok(Object.values(parJour).every((n) => n <= PAR_JOUR), 'plus de 12 épingles un même jour'); }
+{ const ctrl = existsSync(path.join(SORTIE, 'controle-cases.json')) ? JSON.parse(readFileSync(path.join(SORTIE, 'controle-cases.json'), 'utf8')).images.filter((m) => m.ordre === ORDRE) : [];
+  ok(ctrl.length === lot.length, `controle-cases.json : ${ctrl.length} images, ${lot.length} attendues`);
+  for (const m of ctrl) { ok(m.pasEntier && m.pasPixels === (m.type === 'tuile' ? C.pxTuile : C.pxPavage), `${m.fichier} : pas de ${m.pasPixels} points par case (${m.type === 'tuile' ? C.pxTuile : C.pxPavage} entiers attendus)`); ok(m.casesTuile === C.g, `${m.fichier} : ${m.casesTuile} cases, ${C.g} attendues`); if (m.type === 'pavage') ok(m.casesParCoteLargeur === C.g && m.casesParCoteHauteur === C.casesH, `${m.fichier} : pavage de ${m.casesParCoteLargeur} × ${m.casesParCoteHauteur} cases, ${C.g} × ${C.casesH} attendues`); } }
 const serveur2 = await servirDepot(ROOT), nav2 = await chromium.launch(); let periodes = null, ancres = 0, vignette = null;
 try {
   const page = await ouvrirPage(serveur2, nav2);
