@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-08T04:02:01Z",
+ "generated_at_utc": "2026-11-08T08:33:28Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -3479,9 +3479,9 @@
   {
    "chemin": "tools/pins/fabriquer.mjs",
    "adresse": "https://anibal-amiot.com/tools/pins/fabriquer.mjs",
-   "octets": 24805,
-   "sha256": "a5ab9f0eadcf62e9b5b17c2cd65753cd370d45825835c68d2e9b717b2a35b573",
-   "md5": "91da9738255c8fdcecc9571f64a512df",
+   "octets": 30105,
+   "sha256": "b97f858931ae9233330fa69757b685124da17912d8d765fb34a761283a7e08b2",
+   "md5": "d03eb60d421f5576e0fee766a5ca77a9",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "la fabrique d'images d'épingles Pinterest des motifs bicolores (ordre 30, puis ordre 18), en local.",

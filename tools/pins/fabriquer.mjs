@@ -130,6 +130,51 @@ const ecrire = (rel, contenu) => { const f = path.join(SORTIE, rel); mkdirSync(p
 const csv = (lignes, cols) => [cols.join(';'), ...lignes.map((l) => cols.map((c) => `"${String(l[c]).replace(/"/g, '""')}"`).join(';'))].join('\n') + '\n';
 const ouvrirPage = async (serveur, nav) => { const page = await nav.newPage({ viewport: { width: 1100, height: 900 } }); await page.goto(`${serveur.url}/includes/head-icons.html`); return page; };
 
+// ---------- un lot de jours : les images d'un lot, le manifeste de programmation, la vérification ----------
+// node tools/pins/fabriquer.mjs --ordre 30 --lot-jours 1-7 --debut 2026-11-12 --nom lot-01
+// Les épingles du plan dont le jour est dans l'intervalle, dans l'ordre de publication : pins/<nom>/<id>-<type>.png, manifeste-<nom>.json (la date, le rang dans la
+// journée — jamais l'heure —, le tableau, l'adresse brute de l'image, le titre, la description en français, le texte alternatif en anglais, le lien et le motif).
+const pngDeLot = (nom, f) => { const fp = path.join(SORTIE, nom, f); return existsSync(fp) ? readFileSync(fp) : null; };
+const opt = (n) => (args.includes(n) ? args[args.indexOf(n) + 1] : null);
+if (opt('--lot-jours')) {
+  const [j1, j2] = opt('--lot-jours').split('-').map(Number), debut = opt('--debut'), nom = opt('--nom') || 'lot-01', DEPOT = 'anibaledel/motifs-pins';
+  const sel = pins.filter((p) => p.jour >= j1 && p.jour <= j2).sort((a, b) => a.rang - b.rang);
+  const dateDuJour = (jour) => { const d = new Date(`${debut}T00:00:00Z`); d.setUTCDate(d.getUTCDate() + jour - j1); return d.toISOString().slice(0, 10); };
+  const parJour = {}; const entrees = sel.map((p) => {
+    parJour[p.jour] = (parJour[p.jour] || 0) + 1; const t = textes.find((x) => x.fichier === p.fichier), pav = p.type === 'pavage', fichier = `${p.id}-${p.type}.png`;
+    return {
+      date: dateDuJour(p.jour), rang: parJour[p.jour], tableau: t.tableau, url_image: `https://raw.githubusercontent.com/${DEPOT}/main/${nom}/${fichier}`, titre: t.titre,
+      description: pav
+        ? `Motif géométrique bicolore sans couture, ordre ${ORDRE}, ${p.id} : une tuile Jacquard de ${cases} cases répétée par translation, sans miroir, tirée de La Livrée d'Hermès. CC BY-NC 4.0. À voir dans la galerie : ${t.lien}`
+        : `Tuile géométrique bicolore, ordre ${ORDRE}, ${p.id} : une tuile Jacquard de ${cases} cases, la cellule du motif sans couture de La Livrée d'Hermès. CC BY-NC 4.0. À voir dans la galerie : ${t.lien}`,
+      texte_alternatif: pav
+        ? `Black and cream geometric seamless pattern, order ${ORDRE}, ${p.id}: a ${cases} cell bicolor Jacquard tile repeated by translation.`
+        : `Black and cream geometric tile, order ${ORDRE}, ${p.id}: a single ${cases} cell bicolor Jacquard tile on a cream background.`,
+      lien: t.lien, motif_id: p.id, type: p.type, ordre: ORDRE, fichier,
+    };
+  });
+  const serveur = await servirDepot(ROOT), nav = await chromium.launch(); const mes = [];
+  try {
+    const page = await ouvrirPage(serveur, nav);
+    const spec = { ordre: ORDRE, g: C.g, pxTuile: C.pxTuile, pxPavage: C.pxPavage, LT, HT, LP, HP, collections: C.collections, fichierBloc: `data/musique-chladni/bloc-${ORDRE}-structure.json`, colonnes: 4, pins: sel.map((p) => ({ id: p.id, j: p.j, col: p.col, type: p.type, fichier: `${p.id}-${p.type}.png` })) };
+    const r = await page.evaluate(`(${RENDU})(${JSON.stringify(spec)})`);
+    for (const im of r.images) { ecrire(`${nom}/${im.fichier}`, Buffer.from(im.png, 'base64')); mes.push(im.mesure); }
+    ecrire(`manifeste-${nom}.json`, JSON.stringify({ lot: nom, depot: DEPOT, ordre: ORDRE, du: dateDuJour(j1), au: dateDuJour(j2), par_jour: PAR_JOUR, epingles: entrees }, null, 1) + '\n');
+    ecrire(`${nom}/manifeste-${nom}.json`, JSON.stringify({ lot: nom, depot: DEPOT, ordre: ORDRE, du: dateDuJour(j1), au: dateDuJour(j2), par_jour: PAR_JOUR, epingles: entrees }, null, 1) + '\n');
+    // la vérification du lot : fichiers, dimensions, pas entier, titres, jours, ancres de la Galerie bicolore
+    const bad = [];
+    for (const e of entrees) { const b = pngDeLot(nom, e.fichier), d = b && b.readUInt32BE(12) === 0x49484452 ? [b.readUInt32BE(16), b.readUInt32BE(20)] : null, [L, H] = e.type === 'tuile' ? [LT, HT] : [LP, HP]; if (!(d && d[0] === L && d[1] === H)) bad.push(`${e.fichier} : ${d ? d.join(' × ') : 'absent'}`); }
+    for (const m of mes) if (!(m.pasEntier && m.casesTuile === C.g)) bad.push(`${m.fichier} : pas ${m.pasPixels}, ${m.casesTuile} cases`);
+    if (new Set(entrees.map((e) => e.titre)).size !== entrees.length) bad.push('titres en double');
+    if (Object.values(parJour).some((n) => n !== PAR_JOUR)) bad.push(`jours incomplets : ${JSON.stringify(parJour)}`);
+    let ancresOk = 0; for (const e of entrees) { await page.goto(`${serveur.url}/galerie-bicolore.html#${e.motif_id}`); try { await page.waitForFunction(([i, o]) => !!document.getElementById(i) && window.__galerieOrdres && window.__galerieOrdres.etat().ordre === o, [e.motif_id, ORDRE], { timeout: 30000 }); ancresOk++; } catch { bad.push(`ancre #${e.motif_id}`); } }
+    if (bad.length) { for (const b of bad) console.error('ÉCHEC ' + b); process.exit(1); }
+    const octets = entrees.reduce((a, e) => a + pngDeLot(nom, e.fichier).length, 0), parTab = {}; for (const e of entrees) parTab[e.tableau] = (parTab[e.tableau] || 0) + 1;
+    console.log(`${nom} : ${entrees.length} épingles du ${dateDuJour(j1)} au ${dateDuJour(j2)} (${JSON.stringify(parJour)}), par tableau ${JSON.stringify(parTab)}, ${(octets / 1e6).toFixed(2)} Mo, pas entiers, titres distincts, ${ancresOk} ancres ouvertes sur l'ordre ${ORDRE}.`);
+  } finally { await nav.close(); if (serveur.fermer) serveur.fermer(); }
+  process.exit(0);
+}
+
 const mesures = [];
 if (!verifie) {
   const serveur = await servirDepot(ROOT), nav = await chromium.launch();
