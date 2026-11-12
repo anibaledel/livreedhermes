@@ -192,6 +192,39 @@ async function majCles() {
   $('vmClesCorps').replaceChildren(el('p', { class: 'vm-aide' }, T('clesAide')), el('p', { class: 'vm-aide' }, T('clesMotif', { i: j + 1, n: b.n, collection: T('collections')[valCfg.col][0] })),
     ...l.figures.map((f) => el('div', { class: 'vm-ligne' }, el('b', {}, T('clesFigure')[f.nom]), ' : ', f.cles ? (f.cles.length ? T('clesActives', { n: f.cles.length, liste: f.cles.map(nom).join(' ; ') }) + (f.complement ? T('clesComplement') : '') : T('clesAucune')) : T('clesHors'))));
 }
+// ---------- « Pour comprendre » (option) : deux vues pédagogiques, aucun lien avec le son ----------
+let comprendreMonte = false;
+function peindrePM(cv, F, { signes = false } = {}) { // F : champ de −1 à 1 (Float32Array ou Int8Array), T × T
+  const T = cv.width, x = cv.getContext('2d'), im = x.createImageData(T, T), [ink, bg] = couleurs(valCfg), d = im.data;
+  for (let i = 0; i < T * T; i++) {
+    const v = F[i], k = signes ? (v > 0 ? 1 : 0) : Math.abs(v) < 0.07 ? 1 : 0, o = i * 4, c = signes ? (k ? ink : bg) : (k ? ink : bg);
+    d[o] = c[0]; d[o + 1] = c[1]; d[o + 2] = c[2]; d[o + 3] = 255;
+  }
+  x.putImageData(im, 0, 0);
+}
+function monterComprendre() {
+  if (comprendreMonte) return; comprendreMonte = true;
+  const toile = (id, alt, t = 240) => el('canvas', { id, width: t, height: t, role: 'img', 'aria-label': alt, style: 'max-width:100%;height:auto;border:1px solid currentColor' });
+  const paire = () => { const s = Number($('vmPaireS').value), F = M.pairesDegenerees(240, s, 4); // signes en aplat, ligne nodale par-dessus
+    const cv = $('vmPaireToile'), x = cv.getContext('2d'), im = x.createImageData(240, 240), [ink, bg] = couleurs(valCfg), d = im.data;
+    for (let i = 0; i < 240 * 240; i++) { const v = F[i], nod = Math.abs(v) < 0.07, c = nod ? ink : v > 0 ? [Math.round((ink[0] + bg[0] * 3) / 4), Math.round((ink[1] + bg[1] * 3) / 4), Math.round((ink[2] + bg[2] * 3) / 4)] : bg, o = i * 4; d[o] = c[0]; d[o + 1] = c[1]; d[o + 2] = c[2]; d[o + 3] = 255; }
+    x.putImageData(im, 0, 0); $('vmPaireVal').textContent = s.toFixed(2); };
+  const moire = () => { const ang = Number($('vmMoireAngle').value), per = Number($('vmMoirePer').value) / 100, T = 240, P = 20;
+    const A = M.reseauPM(T, P, 0), B = M.reseauPM(T, P * per, ang * Math.PI / 180);
+    peindrePM($('vmMoireA'), A, { signes: true }); peindrePM($('vmMoireB'), B, { signes: true }); peindrePM($('vmMoireP'), M.produitXnor(A, B), { signes: true });
+    $('vmMoireAngleVal').textContent = ang.toFixed(1); $('vmMoirePerVal').textContent = Math.round(per * 100); };
+  const rg = (id, min, max, pas, v, f) => el('input', { type: 'range', id, min, max, step: pas, value: v, oninput: f });
+  $('vmComprendreCorps').replaceChildren(
+    el('p', { class: 'vm-aide' }, T('comprendreAide')),
+    el('h3', {}, T('paireTitre')), el('p', { class: 'vm-aide' }, T('paireAide')),
+    el('div', { class: 'vm-ligne' }, el('label', { for: 'vmPaireS' }, T('paireMelange')), rg('vmPaireS', -1, 1, 0.05, 1, paire), el('output', { id: 'vmPaireVal', for: 'vmPaireS' }, '1.00')),
+    toile('vmPaireToile', T('paireAlt')),
+    el('h3', {}, T('moireTitre')), el('p', { class: 'vm-aide' }, T('moireAide')),
+    el('div', { class: 'vm-ligne' }, el('label', { for: 'vmMoireAngle' }, T('moireAngle')), rg('vmMoireAngle', 0, 20, 0.5, 4, moire), el('output', { id: 'vmMoireAngleVal', for: 'vmMoireAngle' }, '4.0')),
+    el('div', { class: 'vm-ligne' }, el('label', { for: 'vmMoirePer' }, T('moirePeriode')), rg('vmMoirePer', 90, 115, 1, 100, moire), el('output', { id: 'vmMoirePerVal', for: 'vmMoirePer' }, '100')),
+    el('div', { class: 'vm-ligne', style: 'display:flex;gap:.6rem;flex-wrap:wrap' }, el('figure', { style: 'margin:0' }, toile('vmMoireA', T('moireA'), 240), el('figcaption', {}, T('moireA'))), el('figure', { style: 'margin:0' }, toile('vmMoireB', T('moireB'), 240), el('figcaption', {}, T('moireB'))), el('figure', { style: 'margin:0' }, toile('vmMoireP', T('moireAlt'), 240), el('figcaption', {}, T('moireProduit')))));
+  paire(); moire();
+}
 function majInfo() {
   const j = valide.dernier.motif, n = S.blocs.get(valCfg.col).n, p = [S.etat || T('etatDepart')];
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
@@ -496,7 +529,7 @@ function habiller() {
   $('vmFenAide').textContent = T('fenetresAide'); $('vmMentionIA').textContent = T('mentionIA'); $('vmEntreeAide').textContent = T('entreeAide');
   $('vmValideToile').setAttribute('aria-label', T('fenetreValide')); $('vmEssaiToile').setAttribute('aria-label', T('fenetreEssai'));
   $('vmBasculeValide').textContent = T('basculeValide'); $('vmBasculeEssai').textContent = T('basculeEssai'); $('vmEntreeLabel').textContent = T('entree');
-  $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre'); $('vmTitreCles').textContent = T('clesTitre');
+  $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre'); $('vmTitreCles').textContent = T('clesTitre'); $('vmTitreComprendre').textContent = T('comprendreTitre');
 }
 function clavier(e) {
   if (e.target.closest && e.target.closest('input,select,textarea')) return;
@@ -516,6 +549,7 @@ export async function monter() {
   valide = new Fenetre($('vmValideToile'), $('vmValideCap')); essaiF = new Fenetre($('vmEssaiToile'), $('vmEssaiCap'));
   valide.setCfg(valCfg); essaiF.setCfg(esel);
   construireSon(); construireGroupes(); reglagesAvances(); commandesScene(); rafraichir();
+  if (CONFIG.options.pourComprendre) { const d = $('vmComprendre'); d.hidden = false; d.addEventListener('toggle', () => { if (d.open) monterComprendre(); }); }
   $('vmValider').addEventListener('click', valider); $('vmAnnuler').addEventListener('click', annuler); $('vmPleinBtn').addEventListener('click', pleinEcran);
   $('vmQuitter').addEventListener('click', quitterPlein);
   $('vmBasculeValide').addEventListener('click', () => document.body.classList.remove('vm-essai-seul'));

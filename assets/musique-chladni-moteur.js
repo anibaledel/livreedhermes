@@ -265,6 +265,34 @@ export function figureDuSon(v, shells, g, T, vue, A) { return figureDeCoefficien
 /** L'écart de deux figures (même taille) : 255 là où une seule des deux est à l'encre, 0 ailleurs. */
 export function ecartDeFigures(A1, A2, A) { for (let i = 0; i < A.length; i++) A[i] = (A1[i] > 0) !== (A2[i] > 0) ? 255 : 0; return A; }
 
+// ---------- deux vues pour comprendre (aucun lien avec le son) ----------
+
+/**
+ * Le champ du mode (m, 0) d'une plaque carrée de côté a et de sa paire dégénérée, sur T × T points : cos(mπx/a) + s·cos(mπy/a),
+ * s de −1 à +1 (s = 1 : somme, s = −1 : différence ; tout s entre les deux est un mélange des deux modes dégénérés (m, 0) et (0, m)).
+ * m = 4 : cos(4πx/a) + cos(4πy/a) et cos(4πx/a) − cos(4πy/a). Normalisé à un maximum de 1 en valeur absolue.
+ */
+export function pairesDegenerees(T, s, m = 4) {
+  const F = new Float32Array(T * T), cx = Float64Array.from({ length: T }, (_, p) => Math.cos(m * Math.PI * (p + 0.5) / T)); let mx = 0;
+  for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) { const v = cx[x] + s * cx[y]; F[y * T + x] = v; if (Math.abs(v) > mx) mx = Math.abs(v); }
+  if (mx > 0) for (let i = 0; i < F.length; i++) F[i] /= mx;
+  return F;
+}
+/**
+ * Un réseau de ±1 sur T × T points : damier de période `periode` (en points), tourné de `angle` (radians) autour du centre.
+ * C'est la parité (−1)^(i + j) de la case (i, j) du réseau.
+ */
+export function reseauPM(T, periode, angle = 0) {
+  const R = new Int8Array(T * T), c = Math.cos(angle), s = Math.sin(angle), h = T / 2;
+  for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) {
+    const u = (x - h) * c + (y - h) * s, v = -(x - h) * s + (y - h) * c;
+    R[y * T + x] = ((Math.floor(u / periode) + Math.floor(v / periode)) & 1) ? -1 : 1;
+  }
+  return R;
+}
+/** Le produit de deux réseaux de ±1 : +1 là où les deux s'accordent, −1 là où ils diffèrent (XNOR sur les bits 0/1 ; deux polariseurs croisés). */
+export function produitXnor(A, B, out = new Int8Array(A.length)) { for (let i = 0; i < A.length; i++) out[i] = A[i] * B[i]; return out; }
+
 // ---------- les variantes de case (collections bicolores, aux trois ordres) ----------
 
 /**

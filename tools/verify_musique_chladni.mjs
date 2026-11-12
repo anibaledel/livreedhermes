@@ -365,5 +365,24 @@ print(json.dumps(out))`;
   }
 }
 
+// ---- 15. « Pour comprendre » : la paire dégénérée (4, 0) et la parité comme produit de deux réseaux de ±1 ----
+{
+  const T = 96, F1 = M.pairesDegenerees(T, 1), Fm = M.pairesDegenerees(T, -1), F0 = M.pairesDegenerees(T, 0);
+  let ecart = 0; for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) ecart = Math.max(ecart, Math.abs(Fm[y * T + x] - F1[((y + T / 4) % T) * T + x]));
+  ok(ecart < 1e-6, `paire dégénérée : cos(4πx/a) − cos(4πy/a) devrait être cos(4πx/a) + cos(4πy/a) décalé d'un quart de côté en y (écart ${ecart})`);
+  let lignesEgales = true; for (let y = 1; y < T; y++) for (let x = 0; x < T; x++) if (Math.abs(F0[y * T + x] - F0[x]) > 1e-9) lignesEgales = false;
+  ok(lignesEgales, 'paire dégénérée : à s = 0, il ne doit rester que cos(4πx/a) (lignes toutes égales)');
+  ok(Math.abs(Math.max(...F1) - 1) < 1e-6 && Math.abs(Math.min(...F1) + 1) < 1e-6, 'paire dégénérée : champ normalisé à ±1');
+  const brut = (x, y) => Math.cos(4 * Math.PI * (x + 0.5) / T) + Math.cos(4 * Math.PI * (y + 0.5) / T); let mxb = 0; for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) mxb = Math.max(mxb, Math.abs(brut(x, y)));
+  let nul = 0; for (let y = 0; y < T; y++) for (let x = 0; x < T; x++) if (Math.abs(F1[y * T + x] - brut(x, y) / mxb) > 1e-6) nul++;
+  ok(nul === 0, `paire dégénérée : ${nul} points ne valent pas cos(4πx/a) + cos(4πy/a), au facteur de normalisation près`);
+  const A = M.reseauPM(T, 12, 0), B = M.reseauPM(T, 12, 0.1), P = M.produitXnor(A, B), PA = M.produitXnor(A, A);
+  ok(PA.every((x) => x === 1), 'réseaux : le produit d\'un réseau par lui-même doit valoir +1 partout');
+  const bit = (r) => (r < 0 ? 1 : 0); let xnor = 0; for (let i = 0; i < A.length; i++) if ((1 - (bit(A[i]) ^ bit(B[i]))) !== (P[i] === 1 ? 1 : 0)) xnor++;
+  ok(xnor === 0, `réseaux : ${xnor} points où le produit ±1 n'est pas le XNOR des bits`);
+  ok(A.every((x) => x === 1 || x === -1) && new Set(A).size === 2 && P.some((x) => x === 1) && P.some((x) => x === -1), 'réseaux : valeurs ±1 attendues, produit non constant pour un réseau tourné');
+  console.log('15. « Pour comprendre » : cos(4πx/a) − cos(4πy/a) = cos(4πx/a) + cos(4πy/a) décalé d\'un quart de côté, à s = 0 des lignes verticales seules, champ normalisé à ±1 ; produit de deux réseaux de ±1 = XNOR des bits, +1 partout pour un réseau multiplié par lui-même.');
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');
