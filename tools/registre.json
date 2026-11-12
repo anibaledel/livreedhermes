@@ -1619,6 +1619,8 @@
     "data/referents.json",
     "data/zenodo/depots.json",
     "docs/sources",
+    "scripts/essai-musique-chladni-options.mjs",
+    "scripts/mesure-appariement.mjs",
     "tools/croix_ansee.py",
     "tools/cube_croisements.py",
     "tools/cube_edges.py",
