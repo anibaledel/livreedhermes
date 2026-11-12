@@ -273,5 +273,23 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   console.log(`10. format 18, 1 280 motifs en 7 collections : voisins et chaîne en ${ms.toFixed(0)} ms au total (la plus lente ${pire.toFixed(0)} ms, collection de ${Math.max(...blocs.filter((b) => b.ordre === 18).map((b) => b.n))} motifs), ${(octetsTotal / 1e6).toFixed(1)} Mo de tableaux ; appariement d'un son sur 256 motifs : ${msMatch.toFixed(2)} ms.`);
 }
 
+// ---- 11. option « figure du son » : le champ construit porte le spectre du son, et le rendu du motif est inchangé ----
+{
+  const resume = [];
+  for (const o of [12, 18, 30]) {
+    const b = blocs.find((x) => x.ordre === o), g = b.grid, v = Float64Array.from(b.shells, (_, k) => Math.abs(Math.sin(k * 1.7)) + 0.1), C = M.coefficientsDuSon(v, b.shells, g);
+    const f = new Float64Array(g * g); for (let y = 0; y < g; y++) for (let x = 0; x < g; x++) f[y * g + x] = M.valeurFourier(C, x, y, g);
+    const w = M.spectreDuChamp(f, g, b.shells); let sv = 0, sw = 0, sp = 0; for (let k = 0; k < v.length; k++) { sv += v[k] ** 2; sw += w[k] ** 2; sp += v[k] * w[k]; }
+    const cos = sp / Math.sqrt(sv * sw); ok(cos > 0.9999, `figure du son, ordre ${o} : le champ construit ne porte pas le spectre du son (cosinus ${cos})`);
+    const T = 90, A1 = new Uint8Array(T * T), A2 = new Uint8Array(T * T); M.figureDuSon(v, b.shells, g, T, 'signes', A1); M.figureDuSon(v, b.shells, g, T, 'signes', A2);
+    ok(A1.some((x) => x) && A1.some((x) => !x), `figure du son, ordre ${o} : figure vide ou pleine`);
+    ok(A1.every((x, i) => x === A2[i]), `figure du son, ordre ${o} : non déterministe`);
+    const Z = new Uint8Array(T * T); M.figureDuSon(new Float64Array(b.NS), b.shells, g, T, 'lignes', Z); ok(Z.every((x) => !x), `figure du son, ordre ${o} : le silence doit donner une figure vide`);
+    const E = M.ecartDeFigures(A1, A1, new Uint8Array(T * T)); ok(E.every((x) => !x), `écart d'une figure avec elle-même non nul (ordre ${o})`);
+    resume.push(`${o} (cosinus ${cos.toFixed(6)})`);
+  }
+  console.log(`11. option « figure du son » aux ordres ${resume.join(', ')} : le champ somme des ondes de chaque cercle porte le spectre du son ; silence = figure vide ; figure du motif inchangée (rendu de \`figure\` refait par \`figureDeCoefficients\`).`);
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');

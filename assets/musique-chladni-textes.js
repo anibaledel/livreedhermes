@@ -124,6 +124,10 @@ export const TEXTES = {
     calmeAide: 'Un fondu plus long et une tenue plus grande. Activé d\'office si votre système demande moins d\'animations.',
     pente: 'Compenser la pente des graves',
     pauseImage: 'Pause de l\'image',
+    optionsTitre: 'Options',
+    figureTitre: 'Figure (vues Signes et Lignes)',
+    figureChoix: { motif: 'Du motif retenu', son: 'Du son', ecart: 'Les deux (écart)' },
+    figureAide: 'Du motif retenu : la figure de Chladni du motif choisi (réglage de départ). Du son : la somme des ondes de chaque cercle, pondérées par l\'énergie que le son y met, sans passer par un motif. Les deux : les endroits où ces deux figures diffèrent. Le son ne livre pas les phases : elles sont mises à zéro.',
 
     // scène, enregistrement
     sceneTitre: 'La scène',

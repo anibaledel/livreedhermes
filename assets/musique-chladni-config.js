@@ -27,6 +27,12 @@ export const CONFIG = Object.freeze({
   fenetreEssai: true,  // Validé / Essai
   pavage: 2,         // 2 × 2, d'office, par translation (jamais par miroir)
 
+  // Options ajoutées après coup : chacune est PROPOSÉE (true) mais son réglage de départ reproduit le comportement d'avant
+  // (figure du motif retenu). Mettre false la retire de l'interface sans toucher au code.
+  options: Object.freeze({
+    figureDuSon: true, // « Figure : du motif retenu / du son / les deux (écart) » ; départ : du motif retenu
+  }),
+
   entrees: Object.freeze({ fichier: true, micro: true, peripheriques: true, captureOnglet: true, musiqueEssai: true, morceaux: true }),
 
   enregistrement: Object.freeze({

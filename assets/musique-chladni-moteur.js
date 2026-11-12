@@ -222,8 +222,10 @@ export const valeurFourier12 = (C, X, Y) => valeurFourier(C, X, Y, 12);
  * `A` (Uint8Array de T × T) reçoit 255 (encre) ou 0. Le motif est périodique : le pavage par
  * translation donne 4 tuiles. Pas de miroir, jamais. Valable aux trois ordres (g = 12, 36, 60).
  */
-export function figure(champ, g, T, vue, A) {
-  const C = coefficients(champ, g), FR = frequences(g), h = g / 2, nf = FR.length, cs = [], sn = [];
+export function figure(champ, g, T, vue, A) { return figureDeCoefficients(coefficients(champ, g), g, T, vue, A); }
+/** Le rendu commun : signes ou lignes nodales (seuil 0,07 du maximum) du champ dont on donne les coefficients de Fourier. */
+export function figureDeCoefficients(C, g, T, vue, A) {
+  const FR = frequences(g), h = g / 2, nf = FR.length, cs = [], sn = [];
   for (const k of FR) { const a = new Float64Array(T), c = new Float64Array(T); for (let p = 0; p < T; p++) { const X = (p + 0.5) / T * g - 0.5; a[p] = Math.cos(2 * Math.PI * k * X / g); c[p] = Math.sin(2 * Math.PI * k * X / g); } cs.push(a); sn.push(c); }
   const F = new Float32Array(T * T); let mx = 0;
   for (let py = 0; py < T; py++) {
@@ -233,11 +235,31 @@ export function figure(champ, g, T, vue, A) {
       G.push([gr, gi, Math.abs(kx) === h ? 0.5 : 1]); }
     for (let px = 0; px < T; px++) { let v = 0; for (let ik = 0; ik < nf; ik++) { const q = G[ik]; v += q[2] * (q[0] * cs[ik][px] - q[1] * sn[ik][px]); } F[py * T + px] = v; const a = Math.abs(v); if (a > mx) mx = a; }
   }
-  mx = mx || 1;
+  if (!(mx > 1e-12)) { A.fill(0); return A; } // champ nul (silence) : rien à dessiner
   for (let i = 0; i < T * T; i++) { const v = F[i] / mx; A[i] = (vue === 'signes' ? v > 0 : Math.abs(v) < 0.07) ? 255 : 0; }
   return A;
 }
 export const figure12 = (champ, T, vue, A) => figure(champ, 12, T, vue, A);
+
+/**
+ * Les coefficients de Fourier du champ « du son » : chaque cercle K du vecteur `v` (une amplitude par
+ * élément de `shells`) devient la somme des ondes cos(2π(kx·x + ky·y)/g) de tous les (kx, ky) de
+ * norme² K, d'énergie totale égale au carré de son amplitude. Phases toutes nulles : c'est le champ
+ * le plus symétrique que ce spectre puisse porter, il n'est pas retrouvé du son (le son n'en livre
+ * pas les phases). Option « figure du son », n'intervient pas dans le rendu par défaut.
+ */
+export function coefficientsDuSon(v, shells, g) {
+  const h = g / 2, idx = new Map(shells.map((k, i) => [k, i])), nb = new Float64Array(shells.length), C = [];
+  for (let ky = 0; ky < g; ky++) { C.push([]); for (let kx = 0; kx < g; kx++) C[ky].push([0, 0]); }
+  const K = (m, n) => { const a = m <= h ? m : m - g, b = n <= h ? n : n - g; return a * a + b * b; };
+  for (let ky = 0; ky < g; ky++) for (let kx = 0; kx < g; kx++) { const k = K(kx, ky); if (k && idx.has(k)) nb[idx.get(k)]++; }
+  for (let ky = 0; ky < g; ky++) for (let kx = 0; kx < g; kx++) { const k = K(kx, ky); if (k && idx.has(k)) { const i = idx.get(k); C[ky][kx][0] = (v[i] || 0) / Math.sqrt(nb[i]); } }
+  return C;
+}
+/** La figure du son : même rendu que `figure` (signes ou lignes nodales), à partir du vecteur de cercles du son. */
+export function figureDuSon(v, shells, g, T, vue, A) { return figureDeCoefficients(coefficientsDuSon(v, shells, g), g, T, vue, A); }
+/** L'écart de deux figures (même taille) : 255 là où une seule des deux est à l'encre, 0 ailleurs. */
+export function ecartDeFigures(A1, A2, A) { for (let i = 0; i < A.length; i++) A[i] = (A1[i] > 0) !== (A2[i] > 0) ? 255 : 0; return A; }
 
 // ---------- les variantes de case (collections bicolores, aux trois ordres) ----------
 

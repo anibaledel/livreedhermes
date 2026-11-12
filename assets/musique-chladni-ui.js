@@ -34,7 +34,7 @@ const S = {
   donnees: null, blocs: new Map(), jb: {}, charges: {}, defs: null, tailles: {}, profils: new Map(), constructions: 0, coll: null, bandes: new Map(),
   tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
   seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
-  calme: MQ_CALME.matches, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
+  calme: MQ_CALME.matches, figure: 'motif', pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
   perso: { ink: rgb(ENCRE), bg: rgb(CREME) }, tuileEssai: C.tuileFenetre, lent: 0, resReduite: false, ia: false,
 };
 const DIR = 'data/musique-chladni/';
@@ -88,11 +88,16 @@ function etats(id) { // les deux états d'une case : le fond, et le même fond t
 // ---------- les tuiles (un motif, une vue, des couleurs) ----------
 const cacheTuiles = new Map();
 function tuile(col, j, vue, fond, c, T) {
-  const bl = S.blocs.get(col), pal = couleurs(c), cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col !== 'tri' ? fond : ''}|${paletteCle(c)}`;
+  const bl = S.blocs.get(col), pal = couleurs(c), pr = profilDe(bl), sonCle = S.figure !== 'motif' && vue !== 'pavage' ? `|${S.figure}:${pr.sonCle || ''}` : ''; // option « figure du son » : jamais en pavage
+  const cle = `${T}|${col}|${j}|${vue}|${vue === 'pavage' && col !== 'tri' ? fond : ''}|${paletteCle(c)}${sonCle}`;
   let t = cacheTuiles.get(cle); if (t) { cacheTuiles.delete(cle); cacheTuiles.set(cle, t); return t; } // LRU
   const A8 = new Uint8Array(T * T);
   if (vue === 'pavage') { if (col === 'tri') M.masqueTricolore(bl, j, T, A8); else M.masqueBicolore(bl, j, etats(fond), T, A8); }
-  else M.figure(M.champ(bl, j), bl.grid, T, vue, A8);
+  else if (!sonCle) M.figure(M.champ(bl, j), bl.grid, T, vue, A8);
+  else { // « du son » : la somme des ondes de chaque cercle, pondérées par le vecteur du son ; « écart » : où elle diffère de la figure du motif
+    M.figureDuSon(pr.sonV, bl.shells, bl.grid, T, vue, A8);
+    if (S.figure === 'ecart') { const m = new Uint8Array(T * T); M.figure(M.champ(bl, j), bl.grid, T, vue, m); M.ecartDeFigures(m, A8, A8); }
+  }
   t = document.createElement('canvas'); t.width = t.height = T;
   const x = t.getContext('2d'), im = x.createImageData(T, T), d = im.data, [ink, bg, mid] = pal, tri3 = col === 'tri' && vue === 'pavage' && mid;
   for (let i = 0; i < T * T; i++) {
@@ -137,6 +142,11 @@ class Fenetre {
 }
 
 // ---------- l'analyse du son : UNE seule, pour les deux fenêtres ----------
+/** Le vecteur du son de l'option « figure du son » : normalisé, arrondi à 16 niveaux (la clé du cache des tuiles ne change que si la figure change). */
+function vecteurDuSon(pr) {
+  let mx = 0; for (const x of pr.lisse) if (x > mx) mx = x;
+  pr.sonT = S.tSim; pr.sonV = Float64Array.from(pr.lisse, (x) => (mx > 1e-9 ? Math.round(x / mx * 15) / 15 : 0)); pr.sonCle = mx > 1e-9 ? pr.sonV.join(',') : 'silence';
+}
 function analyser() {
   A.an8.getFloatFrequencyData(f8); A.an2.getFloatFrequencyData(f2);
   const sr = A.ctx.sampleRate, vus = new Set();
@@ -144,6 +154,7 @@ function analyser() {
     const pr = profilDe(S.blocs.get(f.cfg.col)); if (vus.has(pr)) continue; vus.add(pr);
     const brut = M.bandesDuSon(f8, sr, { fref: pr.fref, pente: S.pente, shells: pr.shells });
     for (let k = 0; k < pr.lisse.length; k++) pr.lisse[k] = (1 - S.lissage) * pr.lisse[k] + S.lissage * brut[k];
+    if (S.figure !== 'motif' && S.tSim - (pr.sonT ?? -1) >= 0.1) vecteurDuSon(pr); // l'option « figure du son » : 10 figures par seconde au plus
   }
   if (valCfg.pal === 'son' || esel.pal === 'son') S.teinte = M.suivreTeinte(f8, sr, S.teinte);
   return detecteur.traiter(f2, sr, S.tSim).attaque;
@@ -432,6 +443,7 @@ function reglagesAvances() {
     CONFIG.pulsation ? el('div', { class: 'vm-ligne' }, el('label', { for: 'vmPulsation' }, T('pulsationTitre')), el('select', { id: 'vmPulsation', onchange: (e) => { S.pulsation = e.target.value; valide.reglages(); essaiF.reglages(); } }, Object.keys(T('pulsations')).map((k) => el('option', { value: k }, T('pulsations')[k]))), el('small', { class: 'vm-aide', id: 'vmAidePulsation' }, T('pulsationAide'))) : null,
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmCalme', checked: S.calme || null, onchange: (e) => { S.calme = e.target.checked; detecteur.intervalle(S.intervalle * (S.calme ? 3 : 1)); valide.reglages(); essaiF.reglages(); } }), T('calme')), el('small', { class: 'vm-aide' }, T('calmeAide')),
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmPente', checked: S.pente || null, onchange: (e) => { S.pente = e.target.checked; } }), T('pente')),
+    ...(CONFIG.options.figureDuSon ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmFigure' }, T('figureTitre')), el('select', { id: 'vmFigure', onchange: (e) => { S.figure = e.target.value; for (const pr of S.profils.values()) { pr.sonT = undefined; pr.sonCle = ''; } if (S.figure !== 'motif') for (const pr of S.profils.values()) vecteurDuSon(pr); } }, Object.keys(T('figureChoix')).map((k) => el('option', { value: k, selected: S.figure === k || null }, T('figureChoix')[k]))), el('small', { class: 'vm-aide' }, T('figureAide')))] : []),
     el('button', { type: 'button', id: 'vmPause', 'aria-pressed': 'false', onclick: (e) => { S.pause = !S.pause; e.currentTarget.setAttribute('aria-pressed', String(S.pause)); } }, T('pauseImage')));
 }
 function commandesScene() {
