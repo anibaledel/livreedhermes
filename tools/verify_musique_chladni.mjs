@@ -343,7 +343,7 @@ for nom, pts in (('C8', pts_C8()), ('C1', pts_C1())):
     KV = [cc.key_vec(k, pts) for k in cc.KEYS]
     out[nom] = {'cles': [[k[0], k[1]] for k in cc.KEYS], 'empreintes': [hashlib.sha256(np.packbits(v).tobytes()).hexdigest() for v in KV], 'rang': gf2_rank(np.array(KV)), 'nulles': [i for i, v in enumerate(KV) if v.sum() == 0]}
 print(json.dumps(out))`;
-  const r = spawnSync('python3', ['-I', '-c', py], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
+  const r = spawnSync('python3', ['-c', py], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
   if (r.status !== 0) ok(false, `clés : python3 a échoué : ${String(r.stderr).split('\n').slice(-3).join(' ')}`);
   else {
     const P = JSON.parse(r.stdout), res = [];
