@@ -181,11 +181,23 @@ function adapter() { // 30 images/s d'abord : on baisse la résolution de l'essa
   const lent = S.source && S.fps < C.imagesParSeconde * 0.8; S.lent = lent ? S.lent + 1 : 0;
   if (S.lent >= 6 && S.tuileEssai > 180) { S.tuileEssai = Math.max(180, Math.round(S.tuileEssai * 0.75)); S.resReduite = true; S.lent = 0; }
 }
+// ---------- la lecture en clés (option, ordre 12) : un panneau replié, affichage seul ----------
+let clesModule = null, clesAffiche = '';
+async function majCles() {
+  const d = $('vmCles'); if (!d || !CONFIG.options.lectureEnCles) return;
+  d.hidden = valCfg.fmt !== 12; if (d.hidden || !d.open) return;
+  const j = valide.dernier.motif, cle = `${valCfg.col}|${j}`; if (cle === clesAffiche) return; clesAffiche = cle;
+  clesModule ||= await import('./cles-axes.js');
+  const b = S.blocs.get(valCfg.col), l = clesModule.lectureEnCles(b, j), nom = (c) => `${T('clesNatures')[c.nature]} ${c.e > 0 ? '+' : ''}${String(c.e).replace('.', ',').replace('-', '−')}`;
+  $('vmClesCorps').replaceChildren(el('p', { class: 'vm-aide' }, T('clesAide')), el('p', { class: 'vm-aide' }, T('clesMotif', { i: j + 1, n: b.n, collection: T('collections')[valCfg.col][0] })),
+    ...l.figures.map((f) => el('div', { class: 'vm-ligne' }, el('b', {}, T('clesFigure')[f.nom]), ' : ', f.cles ? (f.cles.length ? T('clesActives', { n: f.cles.length, liste: f.cles.map(nom).join(' ; ') }) + (f.complement ? T('clesComplement') : '') : T('clesAucune')) : T('clesHors'))));
+}
 function majInfo() {
   const j = valide.dernier.motif, n = S.blocs.get(valCfg.col).n, p = [S.etat || T('etatDepart')];
   if (S.source) { p.push(T('infoMotif', { i: j + 1, n })); p.push(T('infoImages', { fps: S.fps.toFixed(0) })); }
   if (S.resReduite) p.push(T('infoResolution'));
   $('vmInfo').textContent = p.join(' · ');
+  majCles();
   const pu = valide.p.pulsation(), sel = $('vmPulsation'), aide = $('vmAidePulsation');
   if (sel) for (const o of sel.options) o.disabled = o.value !== M.PULSATIONS.ATTAQUE && !pu.regulier;
   if (!pu.regulier && S.pulsation !== M.PULSATIONS.ATTAQUE) { S.pulsation = M.PULSATIONS.ATTAQUE; if (sel) sel.value = S.pulsation; valide.reglages(); essaiF.reglages(); }
@@ -484,7 +496,7 @@ function habiller() {
   $('vmFenAide').textContent = T('fenetresAide'); $('vmMentionIA').textContent = T('mentionIA'); $('vmEntreeAide').textContent = T('entreeAide');
   $('vmValideToile').setAttribute('aria-label', T('fenetreValide')); $('vmEssaiToile').setAttribute('aria-label', T('fenetreEssai'));
   $('vmBasculeValide').textContent = T('basculeValide'); $('vmBasculeEssai').textContent = T('basculeEssai'); $('vmEntreeLabel').textContent = T('entree');
-  $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre');
+  $('vmSonLabel').textContent = T('sonChoix'); $('vmTitreReglages').textContent = T('reglagesTitre'); $('vmTitreScene').textContent = T('sceneTitre'); $('vmTitreEnreg').textContent = T('enregTitre'); $('vmTitreRacc').textContent = T('raccourcisTitre'); $('vmTitreCles').textContent = T('clesTitre');
 }
 function clavier(e) {
   if (e.target.closest && e.target.closest('input,select,textarea')) return;

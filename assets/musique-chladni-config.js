@@ -31,6 +31,7 @@ export const CONFIG = Object.freeze({
   // (figure du motif retenu). Mettre false la retire de l'interface sans toucher au code.
   options: Object.freeze({
     figureDuSon: true, // « Figure : du motif retenu / du son / les deux (écart) » ; départ : du motif retenu
+    lectureEnCles: true, // panneau replié « Lecture en clés » (ordre 12 : clés de la note des axes dont la somme redonne le motif) ; affichage seul
     loiDeFrequence: true, // « racine » (départ : échelle compressée pour l'oreille) ou « plaque » (f = c·K, loi de la plaque réelle) ; c réglable
   }),
 

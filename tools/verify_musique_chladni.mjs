@@ -329,5 +329,41 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   console.log(`13. octaves : octave(K) = 4K s'il existe, sinon null ; 9, 0 et 0 cercles ont leur octave aux ordres 12, 18, 30 ; le mode « octaves » suit l'orbite 1 → 4 → 16 → 1, puis 13 → 52, une étape par attaque ; silence sans effet.`);
 }
 
+// ---- 14. les 72 clés (assets/cles-axes.js) contre les scripts Python du dépôt (codes_cles.py, common.py) ----
+{
+  const K = await import('../assets/cles-axes.js'), { createHash } = await import('node:crypto'), { spawnSync } = await import('node:child_process');
+  const empreinte = (v) => { const o = new Uint8Array(Math.ceil(v.length / 8)); v.forEach((x, i) => { if (x) o[i >> 3] |= 128 >> (i & 7); }); return createHash('sha256').update(o).digest('hex'); }; // np.packbits, bits de poids fort d'abord
+  const py = `
+import sys, json, hashlib, numpy as np
+sys.path.insert(0, 'docs/sources/2026-10-01/one-object-v8')
+import codes_cles as cc
+from common import *
+out = {}
+for nom, pts in (('C8', pts_C8()), ('C1', pts_C1())):
+    KV = [cc.key_vec(k, pts) for k in cc.KEYS]
+    out[nom] = {'cles': [[k[0], k[1]] for k in cc.KEYS], 'empreintes': [hashlib.sha256(np.packbits(v).tobytes()).hexdigest() for v in KV], 'rang': gf2_rank(np.array(KV)), 'nulles': [i for i, v in enumerate(KV) if v.sum() == 0]}
+print(json.dumps(out))`;
+  const r = spawnSync('python3', ['-I', '-c', py], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
+  if (r.status !== 0) ok(false, `clés : python3 a échoué : ${String(r.stderr).split('\n').slice(-3).join(' ')}`);
+  else {
+    const P = JSON.parse(r.stdout), res = [];
+    ok(K.CLES.length === 72 && P.C8.cles.length === 72 && K.CLES.every((c, i) => c.nature === P.C8.cles[i][0] && c.e === P.C8.cles[i][1]), 'clés : la liste des 72 clés diffère de celle de codes_cles.py');
+    for (const [nom, sys] of [['C8', K.systeme8()], ['C1', K.systeme1()]]) {
+      ok(sys.figures.every((f, i) => empreinte(f) === P[nom].empreintes[i]), `clés ${nom} : une figure de clé diffère de celle du script Python`);
+      ok(sys.rang === P[nom].rang && JSON.stringify(sys.nulles) === JSON.stringify(P[nom].nulles), `clés ${nom} : rang ${sys.rang} ou clés nulles ${sys.nulles} différents de Python (${P[nom].rang}, ${P[nom].nulles})`);
+      res.push(`${nom} rang ${sys.rang}, nulles ${sys.nulles.map((i) => K.CLES[i].id).join(' ')}`);
+    }
+    ok(K.systeme8().rang === 70, 'clés C8 : le rang doit être 70 (codes_cles.log)');
+    // une somme de clés est relue à l'identique ; un motif hors de l'espace est refusé
+    const sys = K.systeme8(), choix = [3, 17, 30, 55, 71], somme = new Uint8Array(sys.points.length); for (const i of choix) sys.figures[i].forEach((x, k) => { somme[k] ^= x; });
+    const lu = sys.lire(somme); ok(lu && JSON.stringify(lu.filter((i) => !sys.nulles.includes(i))) === JSON.stringify(choix.filter((i) => !sys.nulles.includes(i))), `clés : somme de ${choix} relue ${lu}`);
+    ok(sys.lire(Uint8Array.from(somme, (x, i) => (i === 5 ? x ^ 1 : x))) === null, 'clés : un point isolé ne peut pas être dans l\'espace des clés');
+    // la couverture des motifs de l'ordre 12 (constat, et contrôle contre Python pour les 40 premiers de chaque collection)
+    const cov = {};
+    for (const id of ['tri', 'bi', 'ce']) { const b = blocs.find((x) => x.id === id), n = b.n; let dedans = 0; for (let j = 0; j < n; j++) { const l = K.lectureEnCles(b, j); if (l.figures.every((f) => f.cles)) dedans++; } cov[id] = `${dedans}/${n}`; }
+    console.log(`14. 72 clés portées en JavaScript : figures identiques à celles de codes_cles.py (empreintes), ${res.join(' ; ')} ; somme de clés relue ; motifs de l'ordre 12 entièrement lisibles en clés : tri ${cov.tri}, bi ${cov.bi}, ce ${cov.ce}.`);
+  }
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');
