@@ -161,6 +161,13 @@
    "es": "'Error de carga: ' + e.message",
    "th": "'เกิดข้อผิดพลาดในการโหลด: ' + e.message",
    "source": "data/outils-langues/galerie-bicolore.json"
+  },
+  {
+   "fr": "Voir sa musique : <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">la page « Voir sa musique »</a> (en français).",
+   "en": "See your music: <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">the page “Voir sa musique”</a> (in French).",
+   "es": "Ver tu música: <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">la página «Voir sa musique»</a> (en francés).",
+   "th": "ดูดนตรีของคุณ: <a href=\"musique-chladni.html\" style=\"color:var(--gold);\">หน้า «Voir sa musique»</a> (ภาษาฝรั่งเศส)",
+   "source": "chladni.html (clé musiqueLien) : même phrase, mêmes traductions"
   }
  ]
 }
