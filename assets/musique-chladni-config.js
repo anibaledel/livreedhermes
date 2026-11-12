@@ -44,7 +44,7 @@ export const CONFIG = Object.freeze({
     formats: Object.freeze(['916', '45', '11']),
     signature: true, // le bandeau « anibal-amiot.com », réglage visible, activé par défaut
     signatureTexte: 'anibal-amiot.com',
-    ligneIA: "Musique composée avec l'IA par MC Claude", // seulement pour les morceaux fournis
+    ligneIA: "Musique composée avec l'IA par MC Claude.", // le même texte (avec son point) que le bloc « La semaine » ; seulement pour les morceaux fournis
   }),
 
   scene: Object.freeze({ pleinEcran: true, fenetreProjection: true, veilleEmpechee: true, masquerApresMs: 3000 }),

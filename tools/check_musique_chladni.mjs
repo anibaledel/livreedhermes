@@ -40,6 +40,13 @@ const echecs = [], ok = (c, m) => { if (!c) echecs.push(m); return c; };
   ok(phrases.length === 0, `texte français en dur dans musique-chladni-ui.js : ${phrases.slice(0, 3).join(' | ')}`);
 }
 
+// la mention de l'IA est UN seul texte, avec son point : incrustation des enregistrements, bloc « La semaine » (texte et HTML), phrase d'explication
+{
+  const { CONFIG } = await import('../assets/musique-chladni-config.js'), { texte } = await import('../assets/musique-chladni-textes.js'), phrase = 'Musique composée avec l\'IA par MC Claude.';
+  ok(CONFIG.enregistrement.ligneIA === phrase, `ligneIA doit être « ${phrase} » (avec son point) : « ${CONFIG.enregistrement.ligneIA} »`);
+  ok(texte('semaineMention') === phrase && readFileSync(path.join(ROOT, 'musique-chladni.html'), 'utf8').includes(`>${phrase}<`) && texte('mentionIA').includes(`« ${phrase} »`), 'la mention de l\'IA diffère entre la config, les textes et la page');
+}
+
 const navigateur = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required', '--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'] });
 try {
   const ctx = await navigateur.newContext({ viewport: { width: 1000, height: 1200 }, acceptDownloads: true });

@@ -323,8 +323,11 @@ async function lecture() {
 }
 
 // ---------- l'enregistrement (comme assets/outil-fond-ecran.js) : les signes en plein cadre, le bandeau, rien d'autre ----------
-const FORMATS_VIDEO = ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,opus"', 'video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+const FORMATS_VIDEO = ['video/mp4;codecs="avc1.640028,mp4a.40.2"', 'video/mp4;codecs="avc1.42E01E,mp4a.40.2"', 'video/mp4;codecs="avc1,mp4a.40.2"', 'video/mp4;codecs="h264,aac"', 'video/mp4;codecs="avc1.42E01E,opus"', 'video/mp4;codecs=avc1.640028', 'video/mp4;codecs=avc1.42E01E', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
 const dimensions = (f) => (f === '916' ? [1080, 1920] : f === '45' ? [1080, 1350] : [1080, 1080]);
+// L'AAC (H.264 + AAC dans un MP4) est essayé EN PREMIER ; l'Opus n'est qu'un repli, annoncé à l'écran (iPhone, QuickTime et certaines applications de publication le lisent mal).
+const typeVideo = () => FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || '';
+const avecAac = (t) => /mp4a|aac/.test(t);
 function composer() {
   const { c, W, H } = rec;
   valide.peindre(c, W, H, C.tuilePleinEcran);
@@ -343,7 +346,7 @@ function lancerEnregistrement() {
   const format = $('vmFormatVideo').value, [W, H] = dimensions(format), cible = document.createElement('canvas'); cible.width = W; cible.height = H;
   if (!cible.captureStream) return message(T('enregIndispo'));
   const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p)); A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p));
-  const mime = FORMATS_VIDEO.find((t) => MediaRecorder.isTypeSupported(t)) || ''; let mr;
+  const mime = typeVideo(); let mr;
   try { mr = mime ? new MediaRecorder(flux, { mimeType: mime }) : new MediaRecorder(flux); } catch (err) { return message(T('enregErreur', { message: err.message })); }
   const morceaux = []; rec = { c: cible.getContext('2d'), W, H, mr, debut: performance.now(), minuteur: null };
   mr.ondataavailable = (e) => { if (e.data && e.data.size) morceaux.push(e.data); };
@@ -352,8 +355,8 @@ function lancerEnregistrement() {
     const type = mr.mimeType || mime || 'video/webm', mp4 = /mp4/.test(type), blob = new Blob(morceaux, { type });
     const a = el('a', { href: URL.createObjectURL(blob), download: `voir-sa-musique-${valCfg.col}-${valCfg.view}-${W}x${H}-${Date.now()}.${mp4 ? 'mp4' : 'webm'}` });
     document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
-    message(mp4 ? T('enregPret') : `${T('enregPret')} ${T('enregWebm')}`, true);
-    window.__derniereVideo = { type, octets: blob.size, largeur: W, hauteur: H }; rec = null; $('vmEnreg').textContent = T('enreg'); $('vmEnreg').setAttribute('aria-pressed', 'false');
+    message(mp4 ? (avecAac(type) ? T('enregPret') : `${T('enregPret')} ${T('enregOpus')}`) : `${T('enregPret')} ${T('enregWebm')}`, true);
+    window.__derniereVideo = { type, aac: avecAac(type), octets: blob.size, largeur: W, hauteur: H }; rec = null; $('vmEnreg').textContent = T('enreg'); $('vmEnreg').setAttribute('aria-pressed', 'false');
   };
   mr.start(); $('vmEnreg').setAttribute('aria-pressed', 'true');
   rec.minuteur = setInterval(() => { const s = Math.ceil(CONFIG.enregistrement.dureesSecondes[0] - (performance.now() - rec.debut) / 1000); $('vmEnreg').textContent = T('enregEnCours', { s: Math.max(0, s) }); if (s <= 0) arreterEnregistrement(); }, 250);
@@ -502,6 +505,7 @@ function commandesScene() {
   if (CONFIG.enregistrement.actif) e.append(
     el('div', { class: 'vm-ligne' }, el('label', { for: 'vmFormatVideo' }, T('formatVideo')), el('select', { id: 'vmFormatVideo' }, CONFIG.enregistrement.formats.map((f) => el('option', { value: f }, T('format' + f))))),
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmSignature', checked: S.signature || null, onchange: (ev) => { S.signature = ev.target.checked; } }), T('signature', { texte: CONFIG.enregistrement.signatureTexte })),
+    window.MediaRecorder ? el('p', { class: 'vm-aide', id: 'vmAideAudio' }, avecAac(typeVideo()) ? T('enregAac') : /mp4/.test(typeVideo()) ? T('enregOpusAvant') : T('enregWebm')) : null,
     el('button', { type: 'button', id: 'vmEnreg', 'aria-pressed': 'false', onclick: lancerEnregistrement }, T('enreg')));
   $('vmRaccourcis').replaceChildren(...T('raccourcis').flatMap(([k, v]) => [el('dt', {}, el('kbd', {}, k)), el('dd', {}, v)]));
 }
