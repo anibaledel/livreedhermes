@@ -182,7 +182,7 @@ try {
     for (const w of [390, 360]) {
       const { pg, reqs, errs } = await nouvelle(undefined, w);
       ok(await pg.isVisible('#vmSemaine') && (await pg.$$('.vm-jour')).length === 7, `« La semaine » (${w} px) : 7 cartes attendues`);
-      ok((await pg.textContent('#vmSemaineMention')).trim() === 'Musique composée avec l\'aide de l\'IA par MC Claude.', 'la mention « Musique composée avec l\'aide de l\'IA par MC Claude. » doit être exacte');
+      ok((await pg.textContent('#vmSemaineMention')).trim() === 'Musique composée avec l\'IA par MC Claude.', 'la mention « Musique composée avec l\'IA par MC Claude. » doit être exacte');
       ok(tiers(reqs).length === 0, `« La semaine » : requêtes vers YouTube/TikTok avant tout clic : ${tiers(reqs).slice(0, 3).join(' | ')}`);
       const large = await pg.evaluate(() => { let max = document.documentElement.scrollWidth; for (const e of document.querySelectorAll('#vmSemaine *')) { const r = e.getBoundingClientRect(); if (r.width && r.right > max) max = r.right; } return Math.ceil(max); });
       ok(large <= w, `« La semaine » à ${w} px : ${large} px de large`);

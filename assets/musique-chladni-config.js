@@ -22,7 +22,7 @@ export const CONFIG = Object.freeze({
   pilotage: Object.freeze({ image: true, rythme: true, chemin: true }),
   pulsation: true,   // « à chaque attaque » (par défaut), « à chaque temps », « toutes les 4 pulsations »
   variantesDeCase: true, // les six fonds en bandes (B3x, BA33, BA50 : alias), rotation de 90°, collections bicolores des trois ordres ; B2 par défaut
-  teinteSuitLeSon: true, // désactivé par défaut
+  teinteSuitLeSon: true, // palette « son » proposée, non choisie par défaut (la page démarre en « crème »)
   couleursPerso: true,
   fenetreEssai: true,  // Validé / Essai
   pavage: 2,         // 2 × 2, d'office, par translation (jamais par miroir)

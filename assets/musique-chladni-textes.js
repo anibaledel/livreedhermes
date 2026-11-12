@@ -161,7 +161,7 @@ export const TEXTES = {
 
     // le bloc « La semaine »
     semaineTitre: 'La semaine',
-    semaineMention: 'Musique composée avec l\'aide de l\'IA par MC Claude.',
+    semaineMention: 'Musique composée avec l\'IA par MC Claude.',
     semaineTiers: 'Un clic sur une affiche charge le lecteur de YouTube ou de TikTok : un service tiers, qui reçoit alors votre visite. Rien n\'est chargé avant.',
     jourTitre: 'Jour {n} — {tonalite}',
     datePub: 'Publié le {date}',
