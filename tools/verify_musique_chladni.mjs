@@ -291,5 +291,24 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   console.log(`11. option « figure du son » aux ordres ${resume.join(', ')} : le champ somme des ondes de chaque cercle porte le spectre du son ; silence = figure vide ; figure du motif inchangée (rendu de \`figure\` refait par \`figureDeCoefficients\`).`);
 }
 
+// ---- 12. option « loi de la plaque » : f = c·K, la loi de départ reste f = fref·√K/2 ----
+{
+  const b12 = blocs.find((x) => x.ordre === 12), K = b12.shells, fmin = M.frequenceSelonLoi(K[0], { loi: 'plaque' }), fmax = M.frequenceSelonLoi(K[K.length - 1], { loi: 'plaque' });
+  ok(Math.abs(fmin - 31.85) < 1e-9 && Math.abs(fmax - 31.85 * 72) < 1e-9, `loi de la plaque à l'ordre 12 : ${fmin}–${fmax} Hz au lieu de 31,85–2 293,2`);
+  ok(M.frequenceSelonLoi(10, { fref: 220 }) === M.frequenceDuCercle(10, 220), 'la loi de départ doit rester f = fref·√K/2');
+  // un sinus à la fréquence du cercle K tombe dans le cercle K sous chaque loi (cercle bien en dessous de 0,9 × Nyquist)
+  const resume = [];
+  for (const loi of ['racine', 'plaque']) {
+    let bons = 0, total = 0;
+    for (const k of [3, 8, 15, 22, 25]) { const K1 = K[k], f = M.frequenceSelonLoi(K1, { loi, fref: 220 }); if (f > SR * 0.4) continue;
+      const db = new Float32Array(4096).fill(-110), bw = SR / 2 / 4096; db[Math.round(f / bw)] = -20;
+      const v = M.bandesDuSon(db, SR, { fref: 220, pente: false, shells: K, loi }); total++; if (v[k] >= Math.max(...v) - 1e-12) bons++; } // à égalité près : deux cercles voisins peuvent partager la même case de l'analyseur
+    ok(bons === total && total > 0, `loi ${loi} : un sinus à la fréquence du cercle n'est pas rendu par ce cercle (${bons}/${total})`); resume.push(`${loi} ${bons}/${total}`);
+  }
+  const d0 = M.bandesDuSon(new Float32Array(4096).fill(-60), SR, { fref: 220 }), d1 = M.bandesDuSon(new Float32Array(4096).fill(-60), SR, { fref: 220, loi: 'racine', c: 99 });
+  ok(d0.every((x, i) => x === d1[i]), 'racine : c ne doit rien changer');
+  console.log(`12. option « loi de la plaque » : f = c·K de ${fmin.toFixed(2)} à ${fmax.toFixed(1)} Hz à l'ordre 12 ; un sinus à la fréquence d'un cercle tombe dans ce cercle sous chaque loi (${resume.join(', ')}) ; la loi de départ (racine) est inchangée et ignore c.`);
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');

@@ -34,7 +34,7 @@ const S = {
   donnees: null, blocs: new Map(), jb: {}, charges: {}, defs: null, tailles: {}, profils: new Map(), constructions: 0, coll: null, bandes: new Map(),
   tSim: 0, teinte: 200, acc: 0, fps: 0, source: null, etat: '',
   seuil: C.seuilAttaques, intervalle: C.intervalleMinSecondes, lissage: C.lissage, pente: C.penteDesGraves,
-  calme: MQ_CALME.matches, figure: 'motif', pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
+  calme: MQ_CALME.matches, figure: 'motif', loi: M.LOIS.RACINE, cPlaque: C.cPlaque, pulsation: M.PULSATIONS.ATTAQUE, pause: false, signature: CONFIG.enregistrement.signature,
   perso: { ink: rgb(ENCRE), bg: rgb(CREME) }, tuileEssai: C.tuileFenetre, lent: 0, resReduite: false, ia: false,
 };
 const DIR = 'data/musique-chladni/';
@@ -152,7 +152,7 @@ function analyser() {
   const sr = A.ctx.sampleRate, vus = new Set();
   for (const f of [valide, essaiF]) { // une analyse du son, un vecteur par profil de coquilles (fref et cercles K) utilisé par une fenêtre
     const pr = profilDe(S.blocs.get(f.cfg.col)); if (vus.has(pr)) continue; vus.add(pr);
-    const brut = M.bandesDuSon(f8, sr, { fref: pr.fref, pente: S.pente, shells: pr.shells });
+    const brut = M.bandesDuSon(f8, sr, { fref: pr.fref, pente: S.pente, shells: pr.shells, loi: S.loi, c: S.cPlaque });
     for (let k = 0; k < pr.lisse.length; k++) pr.lisse[k] = (1 - S.lissage) * pr.lisse[k] + S.lissage * brut[k];
     if (S.figure !== 'motif' && S.tSim - (pr.sonT ?? -1) >= 0.1) vecteurDuSon(pr); // l'option « figure du son » : 10 figures par seconde au plus
   }
@@ -443,8 +443,11 @@ function reglagesAvances() {
     CONFIG.pulsation ? el('div', { class: 'vm-ligne' }, el('label', { for: 'vmPulsation' }, T('pulsationTitre')), el('select', { id: 'vmPulsation', onchange: (e) => { S.pulsation = e.target.value; valide.reglages(); essaiF.reglages(); } }, Object.keys(T('pulsations')).map((k) => el('option', { value: k }, T('pulsations')[k]))), el('small', { class: 'vm-aide', id: 'vmAidePulsation' }, T('pulsationAide'))) : null,
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmCalme', checked: S.calme || null, onchange: (e) => { S.calme = e.target.checked; detecteur.intervalle(S.intervalle * (S.calme ? 3 : 1)); valide.reglages(); essaiF.reglages(); } }), T('calme')), el('small', { class: 'vm-aide' }, T('calmeAide')),
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmPente', checked: S.pente || null, onchange: (e) => { S.pente = e.target.checked; } }), T('pente')),
+    ...(CONFIG.options.loiDeFrequence ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmLoi' }, T('loiTitre')), el('select', { id: 'vmLoi', onchange: (e) => { S.loi = e.target.value; $('vmC').disabled = S.loi !== M.LOIS.PLAQUE; for (const pr of S.profils.values()) pr.lisse.fill(0); } }, Object.keys(T('loiChoix')).map((k) => el('option', { value: k, selected: S.loi === k || null }, T('loiChoix')[k]))), el('small', { class: 'vm-aide' }, T('loiAide'))),
+      curseur('vmC', T('loiC'), 10, 100, 0.05, S.cPlaque, (v) => { S.cPlaque = v; })] : []),
     ...(CONFIG.options.figureDuSon ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmFigure' }, T('figureTitre')), el('select', { id: 'vmFigure', onchange: (e) => { S.figure = e.target.value; for (const pr of S.profils.values()) { pr.sonT = undefined; pr.sonCle = ''; } if (S.figure !== 'motif') for (const pr of S.profils.values()) vecteurDuSon(pr); } }, Object.keys(T('figureChoix')).map((k) => el('option', { value: k, selected: S.figure === k || null }, T('figureChoix')[k]))), el('small', { class: 'vm-aide' }, T('figureAide')))] : []),
     el('button', { type: 'button', id: 'vmPause', 'aria-pressed': 'false', onclick: (e) => { S.pause = !S.pause; e.currentTarget.setAttribute('aria-pressed', String(S.pause)); } }, T('pauseImage')));
+  if (CONFIG.options.loiDeFrequence) $('vmC').disabled = S.loi !== M.LOIS.PLAQUE; // c ne sert qu'à la loi de la plaque
 }
 function commandesScene() {
   const c = $('vmScene'); c.replaceChildren();

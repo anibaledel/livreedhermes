@@ -31,6 +31,7 @@ export const CONFIG = Object.freeze({
   // (figure du motif retenu). Mettre false la retire de l'interface sans toucher au code.
   options: Object.freeze({
     figureDuSon: true, // « Figure : du motif retenu / du son / les deux (écart) » ; départ : du motif retenu
+    loiDeFrequence: true, // « racine » (départ : échelle compressée pour l'oreille) ou « plaque » (f = c·K, loi de la plaque réelle) ; c réglable
   }),
 
   entrees: Object.freeze({ fichier: true, micro: true, peripheriques: true, captureOnglet: true, musiqueEssai: true, morceaux: true }),
@@ -57,6 +58,7 @@ export const CONFIG = Object.freeze({
     tenueMinImages: 8,
     fonduSecondes: 0.3,
     penteDesGraves: true,
+    cPlaque: 31.85,       // Hz par unité de m² + n² (loi « plaque » : aluminium de 3 mm, 48 cm) ; réglable
     teinteParImage: 3,    // la teinte qui suit le son : pente limitée à ±3° par image
     tuileFenetre: 360,    // côté de la tuile des fenêtres Validé / Essai
     tuilePleinEcran: 720, // côté de la tuile du plein écran et de l'enregistrement

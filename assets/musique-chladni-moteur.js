@@ -35,6 +35,10 @@ export const NS12 = SHELLS12.length;
 
 /** Fréquence du cercle K : f_K = fref · √K / 2. */
 export const frequenceDuCercle = (K, fref = FREF12) => fref * Math.sqrt(K) / 2;
+/** Les deux lois de fréquence : `racine` (celle de la page, f = fref·√K/2, échelle compressée pour l'oreille) et `plaque` (f = c·K, la loi d'une plaque réelle : aluminium de 3 mm, 48 cm, c = 31,85 Hz par unité de m² + n²). */
+export const LOIS = Object.freeze({ RACINE: 'racine', PLAQUE: 'plaque' });
+export const C_PLAQUE = 31.85;
+export const frequenceSelonLoi = (K, { loi = LOIS.RACINE, fref = FREF12, c = C_PLAQUE } = {}) => (loi === LOIS.PLAQUE ? c * K : frequenceDuCercle(K, fref));
 
 const norme = (v) => { let s = 0; for (let i = 0; i < v.length; i++) s += v[i] * v[i]; return Math.sqrt(s); };
 const octets = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
@@ -318,10 +322,10 @@ export function masqueTricolore(bloc, j, T, A = new Uint8Array(T * T)) {
  * (getFloatFrequencyData), `sampleRate` en Hz. Pour chaque cercle, le maximum des trois cases les
  * plus proches de f_K, en amplitude ; `pente` compense la pente des graves (× √(f / fref)).
  */
-export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true, shells = SHELLS12 } = {}) {
+export function bandesDuSon(db, sampleRate, { fref = FREF12, pente = true, shells = SHELLS12, loi = LOIS.RACINE, c: cPlaque = C_PLAQUE } = {}) {
   const n = db.length, ny = sampleRate / 2, bw = ny / n, out = new Float64Array(shells.length);
   for (let k = 0; k < shells.length; k++) {
-    const f = frequenceDuCercle(shells[k], fref);
+    const f = frequenceSelonLoi(shells[k], { loi, fref, c: cPlaque });
     if (f >= ny * 0.9) continue;
     const c = Math.round(f / bw), lo = Math.max(0, c - 1), hi = Math.min(n - 1, c + 1);
     let m = -200; for (let i = lo; i <= hi; i++) if (db[i] > m) m = db[i];
