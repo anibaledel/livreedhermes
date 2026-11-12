@@ -123,7 +123,7 @@ function pavage(ctx, W, H, t, alpha, fmt = 12, s = Math.min(W, H) / tuilesParCot
 // ---------- une fenêtre : sa configuration, son pilote, son rendu ----------
 class Fenetre {
   constructor(cv, cap) { this.cv = cv; this.ctx = cv.getContext('2d'); this.cap = cap; this.cfg = null; this.p = null; this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
-  options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation }; }
+  options() { return { mode: this.cfg.mode, hysteresis: C.hysteresis, tenueMin: C.tenueMinImages, fondu: C.fonduSecondes, calme: S.calme, pulsation: S.pulsation, facteurOctave: S.loi === M.LOIS.PLAQUE ? 2 : 4 }; }
   setCfg(c) {
     const ancienne = this.cfg; this.cfg = { ...c };
     if (!this.p || !ancienne || ancienne.col !== c.col) { this.p = M.creerPilote(S.blocs.get(c.col), this.options()); this.dernier = { motif: 0, ancien: -1, fondu: 1, score: 0 }; }
@@ -443,7 +443,7 @@ function reglagesAvances() {
     CONFIG.pulsation ? el('div', { class: 'vm-ligne' }, el('label', { for: 'vmPulsation' }, T('pulsationTitre')), el('select', { id: 'vmPulsation', onchange: (e) => { S.pulsation = e.target.value; valide.reglages(); essaiF.reglages(); } }, Object.keys(T('pulsations')).map((k) => el('option', { value: k }, T('pulsations')[k]))), el('small', { class: 'vm-aide', id: 'vmAidePulsation' }, T('pulsationAide'))) : null,
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmCalme', checked: S.calme || null, onchange: (e) => { S.calme = e.target.checked; detecteur.intervalle(S.intervalle * (S.calme ? 3 : 1)); valide.reglages(); essaiF.reglages(); } }), T('calme')), el('small', { class: 'vm-aide' }, T('calmeAide')),
     el('label', { class: 'vm-case' }, el('input', { type: 'checkbox', id: 'vmPente', checked: S.pente || null, onchange: (e) => { S.pente = e.target.checked; } }), T('pente')),
-    ...(CONFIG.options.loiDeFrequence ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmLoi' }, T('loiTitre')), el('select', { id: 'vmLoi', onchange: (e) => { S.loi = e.target.value; $('vmC').disabled = S.loi !== M.LOIS.PLAQUE; for (const pr of S.profils.values()) pr.lisse.fill(0); } }, Object.keys(T('loiChoix')).map((k) => el('option', { value: k, selected: S.loi === k || null }, T('loiChoix')[k]))), el('small', { class: 'vm-aide' }, T('loiAide'))),
+    ...(CONFIG.options.loiDeFrequence ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmLoi' }, T('loiTitre')), el('select', { id: 'vmLoi', onchange: (e) => { S.loi = e.target.value; valide.reglages(); essaiF.reglages(); $('vmC').disabled = S.loi !== M.LOIS.PLAQUE; for (const pr of S.profils.values()) pr.lisse.fill(0); } }, Object.keys(T('loiChoix')).map((k) => el('option', { value: k, selected: S.loi === k || null }, T('loiChoix')[k]))), el('small', { class: 'vm-aide' }, T('loiAide'))),
       curseur('vmC', T('loiC'), 10, 100, 0.05, S.cPlaque, (v) => { S.cPlaque = v; })] : []),
     ...(CONFIG.options.figureDuSon ? [el('div', { class: 'vm-ligne' }, el('label', { for: 'vmFigure' }, T('figureTitre')), el('select', { id: 'vmFigure', onchange: (e) => { S.figure = e.target.value; for (const pr of S.profils.values()) { pr.sonT = undefined; pr.sonCle = ''; } if (S.figure !== 'motif') for (const pr of S.profils.values()) vecteurDuSon(pr); } }, Object.keys(T('figureChoix')).map((k) => el('option', { value: k, selected: S.figure === k || null }, T('figureChoix')[k]))), el('small', { class: 'vm-aide' }, T('figureAide')))] : []),
     el('button', { type: 'button', id: 'vmPause', 'aria-pressed': 'false', onclick: (e) => { S.pause = !S.pause; e.currentTarget.setAttribute('aria-pressed', String(S.pause)); } }, T('pauseImage')));
@@ -491,7 +491,7 @@ function clavier(e) {
   const k = e.key.toLowerCase(), vues = Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]);
   if (e.key === 'Escape') { if (enPleinEcran) quitterPlein(); fermerTout(); return; }
   if (/^[1-3]$/.test(k) && vues[Number(k) - 1]) { esel = { ...esel, view: vues[Number(k) - 1] }; viser(esel); rafraichir(); }
-  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; viser(esel); rafraichir(); }
+  else if (k === ' ' && e.target.tagName !== 'BUTTON') { e.preventDefault(); const ms = Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m] && m !== M.MODES.OCTAVES); esel = { ...esel, mode: ms[(ms.indexOf(esel.mode) + 1) % ms.length] }; viser(esel); rafraichir(); }
   else if (k === 'p') { S.pause = !S.pause; $('vmPause').setAttribute('aria-pressed', String(S.pause)); }
   else if (k === 'v') valider(); else if (k === 'f') pleinEcran(); else if (k === 'r') lancerEnregistrement();
 }

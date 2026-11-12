@@ -454,7 +454,17 @@ export function suivreTeinte(db, sampleRate, teinte) {
 
 // ---------- le pilotage ----------
 
-export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme', CHEMIN: 'chemin' });
+export const MODES = Object.freeze({ IMAGE: 'image', RYTHME: 'rythme', CHEMIN: 'chemin', OCTAVES: 'octaves' });
+
+// ---------- l'octave comme doublement ----------
+// Sous la loi de départ f = fref·√K/2, doubler la fréquence, c'est multiplier K par 4 : l'octave du cercle K est le cercle 4K, s'il existe
+// dans la grille (K = m² + n² avec |m|, |n| ≤ g/2). Sous la loi de la plaque f = c·K, l'octave est 2K (`facteur` = 2).
+/** Le cercle à l'octave au-dessus de K parmi `shells`, ou null s'il n'existe pas. */
+export const octave = (K, shells, facteur = 4) => (shells.includes(K * facteur) ? K * facteur : null);
+/** Le cercle à l'octave au-dessous de K, ou null. */
+export const octaveInverse = (K, shells, facteur = 4) => (K % facteur === 0 && shells.includes(K / facteur) ? K / facteur : null);
+/** L'orbite K → 4K → 16K… tant que le cercle existe (K compris). */
+export function orbiteOctaves(K, shells, facteur = 4) { const o = [K]; for (let n = octave(K, shells, facteur); n !== null; n = octave(n, shells, facteur)) o.push(n); return o; }
 export const PULSATIONS = Object.freeze({ ATTAQUE: 'attaque', TEMPS: 'temps', QUATRE: 'quatre' });
 export const VUES = Object.freeze(['signes', 'lignes', 'pavage']);
 
@@ -466,13 +476,17 @@ export const VUES = Object.freeze(['signes', 'lignes', 'pavage']);
  *  - « rythme » : à chaque attaque, un pas dans la chaîne de proximité du bloc (le motif courant garde sa
  *    place dans la chaîne : changer de mode en cours de route ne la perd pas) ;
  *  - « chemin » : à chaque attaque, le rythme décide QUAND, le spectre décide VERS OÙ : le plus proche de
- *    la musique parmi les voisins du motif courant (`rac`), sauf le précédent s'il en reste un autre.
+ *    la musique parmi les voisins du motif courant (`rac`), sauf le précédent s'il en reste un autre ;
+ *  - « octaves » : à chaque attaque, la note dominante (le cercle K de plus grande amplitude) définit l'orbite
+ *    K → 4K → 16K… (cercles qui existent) ; le motif suit cette orbite, un cercle par attaque, en boucle : à chaque
+ *    étape, le motif de plus grande amplitude à ce cercle. Une autre note dominante repart du début de son orbite.
  * « Quand » : à chaque attaque, ou — si une pulsation régulière est détectée — à chaque temps ou toutes les
  * 4 pulsations. `calme` allonge le fondu et la tenue (réduire les changements rapides).
  */
-export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE } = {}) {
-  let courant = 0, ancien = -1, precedent = -1, tenue = 1e9, tChange = -1e9;
-  const etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation };
+export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenueMin = 8, fondu = 0.3, calme = false, pulsation = PULSATIONS.ATTAQUE, facteurOctave = 4 } = {}) {
+  let courant = 0, ancien = -1, precedent = -1, tenue = 1e9, tChange = -1e9, noteOrbite = -1, etapeOrbite = 0;
+  const meilleurs = new Map(); // cercle -> le motif de plus grande amplitude à ce cercle (mode « octaves »)
+  const etat = { mode, hysteresis, tenueMin, fondu, calme, pulsation, facteurOctave };
   const suivi = creerSuiviPulsation();
   const facteur = () => (etat.calme ? 3 : 1);
   const momentJuste = (attaque, t) => {
@@ -505,6 +519,16 @@ export function creerPilote(bloc, { mode = MODES.IMAGE, hysteresis = 0.07, tenue
         }
       } else if (momentJuste(attaque, t)) {
         if (etat.mode === MODES.RYTHME) change = aller(bloc.chain[(bloc.posChaine[courant] + 1) % bloc.n], t);
+        else if (etat.mode === MODES.OCTAVES) {
+          let dom = -1, mx = 0; for (let k = 0; k < bloc.NS; k++) if (v[k] > mx) { mx = v[k]; dom = k; }
+          if (dom >= 0) {
+            const orbite = orbiteOctaves(bloc.shells[dom], bloc.shells, etat.facteurOctave);
+            etapeOrbite = dom === noteOrbite ? (etapeOrbite + 1) % orbite.length : 0; noteOrbite = dom;
+            const k = bloc.shells.indexOf(orbite[etapeOrbite]);
+            if (!meilleurs.has(k)) { let bj = 0; for (let j = 1; j < bloc.n; j++) if (bloc.P[j * bloc.NS + k] > bloc.P[bj * bloc.NS + k]) bj = j; meilleurs.set(k, bj); }
+            score = bloc.P[meilleurs.get(k) * bloc.NS + k]; change = aller(meilleurs.get(k), t);
+          }
+        }
         else {
           const a = vecteurAudio(v, bloc);
           if (a) {

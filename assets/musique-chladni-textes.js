@@ -76,6 +76,7 @@ export const TEXTES = {
       image: ['Le son définit l\'image', 'À chaque instant, le motif dont le spectre ressemble le plus à celui de la musique.'],
       rythme: ['Le son définit le rythme', 'Un pas dans la chaîne de proximité à chaque attaque de note.'],
       chemin: ['Le son guide le chemin', 'Le rythme décide quand, le spectre décide vers quel voisin.'],
+      octaves: ['Le son suit l\'octave', 'À chaque attaque, un pas sur l\'orbite de la note dominante : le cercle K, puis son octave 4K, puis 16K…, quand ces cercles existent.'],
     },
     vues: {
       signes: ['Signes', 'Les zones positives de la figure du motif.'],

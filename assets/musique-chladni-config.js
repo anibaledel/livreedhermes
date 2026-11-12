@@ -19,7 +19,7 @@ export const CONFIG = Object.freeze({
   // Une collection désactivée ici disparaît de l'interface.
   collections: Object.freeze({ tri: true, bi: true, ce: true, b1971128: true, b16012838: true, b3016090: true, f613: true, f18: true, fpilote: true, p18: true, p30: true }),
   vues: Object.freeze({ signes: true, lignes: true, pavage: true }), // à l'ordre 12 le format bascule sur « Cellules »
-  pilotage: Object.freeze({ image: true, rythme: true, chemin: true }),
+  pilotage: Object.freeze({ image: true, rythme: true, chemin: true, octaves: true }), // « octaves » : option, hors du cycle de la barre d'espace ; départ : image
   pulsation: true,   // « à chaque attaque » (par défaut), « à chaque temps », « toutes les 4 pulsations »
   variantesDeCase: true, // les six fonds en bandes (B3x, BA33, BA50 : alias), rotation de 90°, collections bicolores des trois ordres ; B2 par défaut
   teinteSuitLeSon: true, // palette « son » proposée, non choisie par défaut (la page démarre en « crème »)

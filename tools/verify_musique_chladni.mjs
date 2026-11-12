@@ -310,5 +310,24 @@ ok(M.meilleurMotif(silence, tri).i === -1, 'le silence choisit un motif');
   console.log(`12. option « loi de la plaque » : f = c·K de ${fmin.toFixed(2)} à ${fmax.toFixed(1)} Hz à l'ordre 12 ; un sinus à la fréquence d'un cercle tombe dans ce cercle sous chaque loi (${resume.join(', ')}) ; la loi de départ (racine) est inchangée et ignore c.`);
 }
 
+// ---- 13. l'octave comme doublement, et le mode « octaves » du pilote ----
+{
+  const b12 = blocs.find((x) => x.ordre === 12), K = b12.shells;
+  ok(M.octave(1, K) === 4 && M.octave(2, K) === 8 && M.octave(3, K) === null && M.octave(72, K) === null, 'octave(K) : 1→4, 2→8, 3→null, 72→null attendus à l\'ordre 12');
+  ok(M.octaveInverse(4, K) === 1 && M.octaveInverse(5, K) === null && M.octaveInverse(20, K) === 5, 'octaveInverse : 4→1, 5→null, 20→5 attendus');
+  ok(JSON.stringify(M.orbiteOctaves(1, K)) === '[1,4,16]' && JSON.stringify(M.orbiteOctaves(3, K)) === '[3]', 'orbiteOctaves : [1,4,16] et [3] attendus');
+  const nbOctaves = {}; for (const o of [12, 18, 30]) { const sh = blocs.find((x) => x.ordre === o).shells; nbOctaves[o] = sh.filter((k) => M.octave(k, sh) !== null).length; }
+  ok(nbOctaves[12] === 9 && nbOctaves[18] === 0 && nbOctaves[30] === 0, `octaves existantes aux ordres 12, 18, 30 : ${JSON.stringify(nbOctaves)} au lieu de 9, 0, 0`);
+  // le pilote suit l'orbite de la note dominante, un cercle par attaque, en boucle
+  const p = M.creerPilote(b12, { mode: 'octaves', tenueMin: 1, fondu: 0 }), v = new Float64Array(b12.NS), iK = (k) => K.indexOf(k); v[iK(1)] = 1; const vus = [];
+  for (let i = 0; i < 6; i++) { const r = p.pas({ v, attaque: true, t: i }); vus.push(r.motif); }
+  const meilleur = (k) => { let bj = 0; for (let j = 1; j < b12.n; j++) if (b12.P[j * b12.NS + iK(k)] > b12.P[bj * b12.NS + iK(k)]) bj = j; return bj; };
+  ok(vus.slice(0, 3).every((m, i) => m === meilleur([1, 4, 16][i])) && vus[3] === vus[0], `mode « octaves » : le motif ne suit pas l'orbite 1 → 4 → 16 → 1 (${vus.join(', ')})`);
+  const p3 = M.creerPilote(b12, { mode: 'octaves', tenueMin: 1, fondu: 0 }), v3 = new Float64Array(b12.NS); v3[iK(13)] = 1; v3[iK(1)] = 0.2; const a = p3.pas({ v: v3, attaque: true, t: 0 }).motif, b = p3.pas({ v: v3, attaque: true, t: 1 }).motif;
+  ok(a === meilleur(13) && b === meilleur(52), 'mode « octaves » : la note dominante 13 doit mener à 13 puis 52');
+  const pn = M.creerPilote(b12, { mode: 'octaves' }); ok(pn.pas({ v: new Float64Array(b12.NS), attaque: true, t: 0 }).change === false, 'mode « octaves » : le silence ne doit rien changer');
+  console.log(`13. octaves : octave(K) = 4K s'il existe, sinon null ; 9, 0 et 0 cercles ont leur octave aux ordres 12, 18, 30 ; le mode « octaves » suit l'orbite 1 → 4 → 16 → 1, puis 13 → 52, une étape par attaque ; silence sans effet.`);
+}
+
 if (echecs.length) { for (const e of echecs) console.error('ÉCHEC ' + e); process.exit(1); }
 console.log('Le moteur de « Voir sa musique » : tout tient.');
