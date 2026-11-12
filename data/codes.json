@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-12T13:32:55Z",
+ "generated_at_utc": "2026-11-12T14:23:36Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 258,
+  "scripts": 261,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -869,6 +869,28 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/essai-musique-chladni-options.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/essai-musique-chladni-options.mjs",
+   "octets": 8383,
+   "sha256": "b9c6e8b91ab68b0a50e344f5ecd21c5bc1c9ad6c55ff49d4b72e755415793c26",
+   "md5": "8c65732951373ea11d78c735bdf04c8d",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "essaie dans un vrai navigateur (Chromium, Playwright) les options ajoutées à « Voir sa musique » (figure du son, loi de la plaque, mode « octaves », lecture en clés, « Pour comprendre »), aux ordres 12, 18 et 30, avec un morceau fourni e…",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 115,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-12",
+     "source": "essai complet avec une copie « avant » du dépôt (3 ordres, morceau et sinus, 390 px)"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "scripts/export-galerie-batch.js",
    "adresse": "https://anibal-amiot.com/scripts/export-galerie-batch.js",
    "octets": 9831,
@@ -1189,6 +1211,28 @@
    "zenodo": []
   },
   {
+   "chemin": "scripts/mesure-appariement.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/mesure-appariement.mjs",
+   "octets": 12632,
+   "sha256": "cd61a7379f382066d428700e4828f36ddfc621e21677d23b6450ea0c2dd5af61",
+   "md5": "d339c2c6287495c8c9965b750d6d0d92",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "mesure l'appariement du son et du motif de « Voir sa musique », sans rien corriger.",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 42,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-12",
+     "source": "mesure faite en écrivant le script (7 morceaux et 3 sinus, trois ordres)"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
    "chemin": "scripts/nav-tiles-libelles.js",
    "adresse": "https://anibal-amiot.com/scripts/nav-tiles-libelles.js",
    "octets": 51690,
@@ -1212,6 +1256,21 @@
    "licence_declaree": false,
    "licence": null,
    "role": "source unique du bloc de navigation en tuiles (GIF rouge et blanc, grille de tuiles groupées, logo de pied), partagé par les 24 pages qui le portaient chacune à la main, par le gabarit des 64 hexagrammes (generate-hexagram-pages.js), et …",
+   "lit": [],
+   "ecrit": null,
+   "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/octaves.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/octaves.mjs",
+   "octets": 5588,
+   "sha256": "d55733708b89ee050a75366b5c13cf40ce08cd6eefbe864e5896f03e19a17631",
+   "md5": "70e1c3a5e91ee80d461f290a4c9284a9",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "dit quelles octaves retombent sur un cercle existant aux ordres 12, 18 et 30 de « Voir sa musique », et l'écrit dans docs/octaves.md.",
    "lit": [],
    "ecrit": null,
    "durees": [],
@@ -3111,9 +3170,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 12685,
-   "sha256": "c514c6e72e3a0e96dabb50fc3939c9abdcb58d99913a581eff67b7645527f254",
-   "md5": "4f9cd25a09fdfc809854a8b1c08246de",
+   "octets": 13008,
+   "sha256": "3581e676ca7c32bd6e4390d6a433816bac15fd711c26483465a220fecd7ff199",
+   "md5": "ff601e92cadc683e86deeb64ae47829c",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
@@ -4266,9 +4325,9 @@
   {
    "chemin": "tools/verify_musique_chladni.mjs",
    "adresse": "https://anibal-amiot.com/tools/verify_musique_chladni.mjs",
-   "octets": 24096,
-   "sha256": "7a53c1403202a9b90825fb1e66b9e41348881ee14bfd14a4d2279596a377e2cf",
-   "md5": "4561f4f673b04f053093c2863f7790a0",
+   "octets": 36258,
+   "sha256": "406f1ca7d3f8266457de133666334f2c54ace07520a8a685fa7d9d0d0e7f4695",
+   "md5": "558c2b300181273e902bc8cd00bc3faf",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "le moteur de « Voir sa musique » (assets/musique-chladni-moteur.js) fait ce que dit sa consigne.",
