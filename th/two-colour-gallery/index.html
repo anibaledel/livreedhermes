@@ -641,6 +641,7 @@ function renderGallery() {
     const tile = document.createElement('div');
     tile.className = 'tile';
     tile.dataset.idx = idx;
+    tile.id = `o12-b${String(idx).padStart(3, '0')}`; // ancre stable #o12-bNNN : NNN = rang dans data/bicolore_galerie_v1.json (les épingles de l'ordre 12 y renvoient)
     tile.title = `${nom} (เดิม ${accordLabel(entry.accord)}) — ระดับ ${niveau}, มุม ${angles.join('°, ')}° — ${entry.sombre}/144 ช่องสีเข้ม — ${STATUT_LABEL[statut]} เมื่อเลื่อนครึ่งคาบ`;
     const canvas = document.createElement('canvas');
     canvas.setAttribute('role', 'img');
@@ -676,6 +677,16 @@ function selectEntry(idx) {
   drawMaskTiled(pavedCanvas, mask1152, 144, 4);
   pavedInfo.innerHTML = `<b>${nom}</b> <span class="ancien-nom">(เดิม ${accordLabel(entry.accord)})</span> — ระดับ ${niveau}, มุม ${angles.join('°, ')}° — ${entry.sombre}/144 ช่องสีเข้มที่เกรน C1 — ปิดบนลูกบาศก์ — <b>${STATUT_LABEL[statut]}</b> เมื่อเลื่อนครึ่งคาบ (6, 6)`;
 }
+
+// ---------- ancre #o12-bNNN : ouvre le motif et défile jusqu'à lui ----------
+function allerAu12() {
+  const m = /^#o12-b(\d{3})$/.exec(location.hash); if (!m || !DATA) return;
+  const idx = Number(m[1]); if (idx >= DATA.entries.length) return;
+  let tile = document.getElementById(location.hash.slice(1));
+  if (!tile) { statutFiltre = 'tous'; niveauFiltre = 'tous'; renderGallery(); tile = document.getElementById(location.hash.slice(1)); }
+  selectEntry(idx); if (tile) tile.scrollIntoView({ block: 'nearest', inline: 'center' });
+}
+window.addEventListener('hashchange', allerAu12);
 
 // ---------- contrôles ----------
 document.getElementById('btnGrainC8').addEventListener('click', () => setGrain('C8'));
@@ -874,6 +885,7 @@ Promise.all([
   document.getElementById('btnGrainC8').classList.add('active');
   updateStatsForGrain();
   renderGallery();
+  allerAu12();
 }).catch(err => {
   document.getElementById('statsNote').textContent = 'เกิดข้อผิดพลาดในการโหลดข้อมูล: ' + err.message;
   console.error(err);

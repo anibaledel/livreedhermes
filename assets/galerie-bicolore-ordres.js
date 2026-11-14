@@ -118,9 +118,10 @@ async function montrerOrdre(o) {
   $('ordresSections').replaceChildren(frag);
   for (const [b, obs] of tous) obs.observe(b);
 }
-function ordreDeHash() { const m = /^#o(18|30)-/.exec(location.hash); return m ? Number(m[1]) : null; }
+function ordreDeHash() { const m = /^#o(12|18|30)-/.exec(location.hash); return m ? Number(m[1]) : null; }
 async function allerAuMotif() {
   const o = ordreDeHash(); if (!o) return;
+  if (o === 12) { if (S.ordre !== 12) await montrerOrdre(12); return; } // la galerie de l'ordre 12 (page galerie-bicolore.html) sélectionne elle-même le motif : allerAu12()
   if (S.ordre !== o || $('ordresSup').hidden) await montrerOrdre(o);
   const e = document.getElementById(decodeURIComponent(location.hash.slice(1)));
   if (e && e.classList.contains('tuile-sup')) { for (const s of document.querySelectorAll('.tuile-sup.selected')) s.classList.remove('selected'); e.classList.add('selected'); e.scrollIntoView({ block: 'center' }); }
