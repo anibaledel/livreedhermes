@@ -1619,13 +1619,19 @@
     "data/referents.json",
     "data/zenodo/depots.json",
     "docs/sources",
+    "scripts/build-musique-textes.mjs",
+    "scripts/build-outils-support-langues.js",
+    "scripts/essai-musique-chladni-enregistrements.mjs",
     "scripts/essai-musique-chladni-options.mjs",
+    "scripts/essai-trois-pages.mjs",
+    "scripts/essai-voir-sa-musique-langues.mjs",
     "scripts/mesure-appariement.mjs",
     "tools/croix_ansee.py",
     "tools/cube_croisements.py",
     "tools/cube_edges.py",
     "tools/make_figures.py",
     "tools/paires_croisees.py",
+    "tools/pins/fabriquer_12.mjs",
     "tools/registre.json",
     "tools/selection_ordre6.py",
     "tools/tous_croisements.py",
@@ -1724,6 +1730,7 @@
     "tools/epingles_encre_creme.mjs",
     "tools/export_pinterest_fonds.mjs",
     "tools/pins/fabriquer.mjs",
+    "tools/pins/fabriquer_12.mjs",
     "tools/releve_texte_rouge.mjs",
     "tools/video_reference.mjs"
    ],
@@ -1972,6 +1979,19 @@
    "sait_echouer": false
   },
   {
+   "fichier": "tools/pins/fabriquer_12.mjs",
+   "role": "les épingles Pinterest des motifs bicolores de l'ORDRE 12 (les 142 motifs de galerie-bicolore.html), lot d'essai : 3 motifs, chacun en TUILE (la cellule de 12 × 12 cases, 60 px par case : 720 × 720) et en PAVAGE (4 cellules en largeur, 6…",
+   "lit": [
+    "data/AXES/catalogue.json",
+    "data/bicolore_galerie_v1.json"
+   ],
+   "ecrit": [],
+   "appele_par": [],
+   "utilise_par": [],
+   "etat": "ponctuel",
+   "sait_echouer": false
+  },
+  {
    "fichier": "tools/planche_fonds.mjs",
    "role": "Planche de contrôle de la collection de fonds (data/fonds/collection-v1.json) : chaque vignette est la sortie de motifSvg() d'assets/bicolore-fonds.js telle quelle — ce script ne dessine rien lui-même, il range les rendus du moteur sur u…",
    "lit": [
@@ -2025,7 +2045,9 @@
    "fichier": "tools/police_zh.py",
    "role": "la police chinoise du site, réduite aux caractères employés.",
    "lit": [
-    "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2"
+    "assets/fonts/noto-sans-sc/noto-sans-sc-ldh.woff2",
+    "data/musique-chladni/traductions/statique.json",
+    "data/musique-chladni/traductions/zh.json"
    ],
    "ecrit": [],
    "appele_par": [],
