@@ -39,6 +39,7 @@ const S = {
 };
 const DIR = 'data/musique-chladni/';
 const FMT_DE = {}; for (const o of CONFIG.ordres) for (const c of o.collections) FMT_DE[c] = o.ordre;
+const ordresProposes = () => CONFIG.ordres.filter((o) => CONFIG.ordresProposes.includes(o.ordre)); // l'interface ne propose que ceux-là (voir CONFIG.ordresProposes)
 const colDefaut = (fmt) => CONFIG.ordres.find((o) => o.ordre === fmt).collections.find((c) => CONFIG.collections[c]);
 const CFG0 = { mode: 'image', fmt: 12, col: 'tri', view: 'signes', fond: 'B2', pal: 'creme' };
 const bloc = (c) => S.blocs.get(c.col) || null;
@@ -442,8 +443,8 @@ function construireGroupes() {
   miniatures.length = 0;
   const G = T('groupes');
   groupe('vm-g-mode', 'mode', G.mode, Object.keys(CONFIG.pilotage).filter((m) => CONFIG.pilotage[m]).map((m) => option('mode', 'mode', m, T('modes')[m][0], T('modes')[m][1])));
-  groupe('vm-g-fmt', 'fmt', G.fmt, CONFIG.ordres.map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{g\}/g, M.GRILLE[o.ordre]) : '', o.actif ? 'simple' : null, !o.actif)));
-  groupe('vm-g-col', 'col', G.col, CONFIG.ordres.flatMap((o) => o.collections.filter((c) => CONFIG.collections[c]).map((c) => { const b = option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.tailles[c]), 'simple'); b.dataset.fmt = String(o.ordre); return b; })));
+  groupe('vm-g-fmt', 'fmt', G.fmt, ordresProposes().map((o) => option('fmt', 'fmt', String(o.ordre), o.actif ? T('format').titre.replace('{n}', o.ordre) : T('format').bientot.replace('{n}', o.ordre), o.actif ? T('format').detail.replace(/\{g\}/g, M.GRILLE[o.ordre]) : '', o.actif ? 'simple' : null, !o.actif)));
+  groupe('vm-g-col', 'col', G.col, ordresProposes().flatMap((o) => o.collections.filter((c) => CONFIG.collections[c]).map((c) => { const b = option('col', 'col', c, T('collections')[c][0], T('collections')[c][1].replace('{n}', S.tailles[c]), 'simple'); b.dataset.fmt = String(o.ordre); return b; })));
   groupe('vm-g-view', 'view', G.view, Object.keys(CONFIG.vues).filter((v) => CONFIG.vues[v]).map((v) => option('view', 'view', v, T('vues')[v][0], T('vues')[v][1])));
   if (CONFIG.variantesDeCase) groupe('vm-g-fond', 'fond', G.fond, [el('p', { class: 'vm-aide' }, T('fondAide')), ...M.BANDES.map((id) => option('fond', 'fond', id, T('fond', { id }), '', 'double'))]);
   else $('vm-g-fond').remove();

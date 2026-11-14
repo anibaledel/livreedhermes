@@ -30,6 +30,8 @@ const rapport = { departIdentique: [], essais: [], etroit: [], erreurs: [] };
 
 async function page(base, largeur = 1000, hauteur = 1000) {
   const ctx = await nav.newContext({ viewport: { width: largeur, height: hauteur } }), p = await ctx.newPage(), errs = [];
+  // l'interface ne propose que l'ordre 12 (CONFIG.ordresProposes) : cet essai rouvre les ordres 18 et 30 par la seule valeur du réglage (sans effet sur une copie plus ancienne)
+  await p.route('**/assets/musique-chladni-config.js', async (r) => { const rep = await r.fetch(), t = await rep.text(); await r.fulfill({ response: rep, body: t.replace('ordresProposes: Object.freeze([12])', 'ordresProposes: Object.freeze([12, 18, 30])') }); });
   p.on('pageerror', (e) => errs.push(`erreur de page : ${e.message}`)); p.on('console', (m) => { if (m.type() === 'error' && !BRUIT.test(m.text())) errs.push(`console : ${m.text()}`); });
   await p.goto(`${base}/musique-chladni.html`); await p.waitForFunction(() => window.__voirSaMusique, null, { timeout: 30000 });
   return { p, errs, ctx };

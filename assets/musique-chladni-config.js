@@ -16,6 +16,10 @@ export const CONFIG = Object.freeze({
     Object.freeze({ ordre: 18, actif: true, collections: Object.freeze(['b1971128', 'b16012838', 'b3016090', 'f613', 'f18', 'fpilote', 'p18']) }),
     Object.freeze({ ordre: 30, actif: true, collections: Object.freeze(['p30']) }),
   ]),
+  // Les ordres que l'INTERFACE propose. Tout se joue sur la cellule de 12 × 12 ; le code des ordres 18 et 30 et leurs données restent,
+  // derrière ce réglage : les rouvrir = changer cette valeur en [12, 18, 30] (rien d'autre). Une adresse ?ordre=18 ou ?ordre=30 est sans effet :
+  // la page ne lit pas ce paramètre et s'ouvre à l'ordre 12.
+  ordresProposes: Object.freeze([12]),
   // Une collection désactivée ici disparaît de l'interface.
   collections: Object.freeze({ tri: true, bi: true, ce: true, b1971128: true, b16012838: true, b3016090: true, f613: true, f18: true, fpilote: true, p18: true, p30: true }),
   vues: Object.freeze({ signes: true, lignes: true, pavage: true }), // à l'ordre 12 le format bascule sur « Cellules »
