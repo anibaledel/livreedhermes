@@ -65,6 +65,7 @@ const DUREES = {
   ],
   'tools/tous_croisements.py': [[30, 'conteneur', '2026-10-07', 'inventaire des scripts']],
   'scripts/mesure-appariement.mjs': [[42, 'conteneur', '2026-11-12', 'mesure faite en écrivant le script (7 morceaux et 3 sinus, trois ordres)']],
+  'scripts/essai-musique-chladni-enregistrements.mjs': [[160, 'conteneur', '2026-11-14', 'les 9 enregistrements de 15 s (3 formats × 3 cadrages), ffprobe et ffmpeg ; Chromium de Playwright : H.264 + Opus, pas d\'AAC']],
   'scripts/essai-musique-chladni-options.mjs': [[115, 'conteneur', '2026-11-12', 'essai complet avec une copie « avant » du dépôt (3 ordres, morceau et sinus, 390 px)']],
   'tools/paires_croisees.py': [[13, 'anibal', '2026-10-07', 'relevé d\'Anibal, consigne « codes et résultats »']],
   'tools/selection_ordre6.py': [[1, 'anibal', '2026-10-07', 'relevé d\'Anibal, consigne « codes et résultats »']],

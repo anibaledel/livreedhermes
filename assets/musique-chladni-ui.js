@@ -345,7 +345,7 @@ function lancerEnregistrement() {
   if (!S.source) return message(T('enregSansSource'));
   const format = $('vmFormatVideo').value, [W, H] = dimensions(format), cible = document.createElement('canvas'); cible.width = W; cible.height = H;
   if (!cible.captureStream) return message(T('enregIndispo'));
-  const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p)); A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p));
+  const flux = new MediaStream(); cible.captureStream(30).getVideoTracks().forEach((p) => flux.addTrack(p)); A.dest.stream.getAudioTracks().forEach((p) => flux.addTrack(p.clone())); // des CLONES : onstop arrête les pistes du flux, et la piste de A.dest sert aux enregistrements suivants
   const mime = typeVideo(); let mr;
   try { mr = mime ? new MediaRecorder(flux, { mimeType: mime }) : new MediaRecorder(flux); } catch (err) { return message(T('enregErreur', { message: err.message })); }
   const morceaux = []; rec = { c: cible.getContext('2d'), W, H, mr, debut: performance.now(), minuteur: null };

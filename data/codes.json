@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-12T17:17:44Z",
+ "generated_at_utc": "2026-11-14T13:43:31Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 261,
+  "scripts": 262,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -865,6 +865,28 @@
    "lit": [],
    "ecrit": null,
    "durees": [],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/essai-musique-chladni-enregistrements.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/essai-musique-chladni-enregistrements.mjs",
+   "octets": 4585,
+   "sha256": "07d0a6d21970a7d2a1daa3a32e24687aae8a8f55037d7de970e3005f83b97c3b",
+   "md5": "c1999e25f446e01c3b55847959ccba76",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "fait dans Chromium (Playwright) les 9 enregistrements de 15 s de « Voir sa musique » (3 formats × 3 cadrages) avec un morceau fourni, puis les passe à ffprobe (codecs, durée, taille) et à ffmpeg (décodage sans erreur).",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 160,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "les 9 enregistrements de 15 s (3 formats × 3 cadrages), ffprobe et ffmpeg ; Chromium de Playwright : H.264 + Opus, pas d'AAC"
+    }
+   ],
    "arborescence_requise": null,
    "zenodo": []
   },
@@ -3170,9 +3192,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 13008,
-   "sha256": "3581e676ca7c32bd6e4390d6a433816bac15fd711c26483465a220fecd7ff199",
-   "md5": "ff601e92cadc683e86deeb64ae47829c",
+   "octets": 13229,
+   "sha256": "05377656e4aabab24727344fbdf6fcf23cc9e89816c2c3b51bc991745a55d5c9",
+   "md5": "8a291090d1d81ece6a89bcce7f10149f",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
