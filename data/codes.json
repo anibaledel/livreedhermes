@@ -1,6 +1,6 @@
 {
  "format_version": "1.0",
- "generated_at_utc": "2026-11-14T13:43:31Z",
+ "generated_at_utc": "2026-11-14T13:46:14Z",
  "generator_tool": "tools/index_codes.mjs",
  "_doc": "L'index des scripts du dépôt (tools/, scripts/, docs/sources/). Chaque champ est relu dans le dépôt par tools/index_codes.mjs, sauf les durées (toujours avec leur machine), l'arborescence requise et les dépôts hors instantané, déclarés dans ce script. zenodo : les fichiers du même nom dans l'instantané data/zenodo/depots.json, meme_octet nommément. Les résultats que ces scripts reproduisent, avec la ligne qu'ils impriment : data/resultats-etablis.json. Lis plutôt que de recalculer ; si tu recalcules, compare ta sortie à la ligne du journal déposé, toutes lignes sauf la dernière (la durée).",
  "site": "https://anibal-amiot.com/",
@@ -9,7 +9,7 @@
   "recupere_le_utc": "2026-11-06T00:16:37+00:00"
  },
  "comptes": {
-  "scripts": 262,
+  "scripts": 263,
   "sans_licence_declaree": 73,
   "deposes_meme_octet": 16,
   "deposes_octet_different": 5,
@@ -907,6 +907,28 @@
      "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
      "mesure_le": "2026-11-12",
      "source": "essai complet avec une copie « avant » du dépôt (3 ordres, morceau et sinus, 390 px)"
+    }
+   ],
+   "arborescence_requise": null,
+   "zenodo": []
+  },
+  {
+   "chemin": "scripts/essai-trois-pages.mjs",
+   "adresse": "https://anibal-amiot.com/scripts/essai-trois-pages.mjs",
+   "octets": 5984,
+   "sha256": "6fc8fc239cb3c4c407df492d2aef150000580f7b17065abad1a5cc8220599831",
+   "md5": "00efe305ff4b65834f193dc3e59550b9",
+   "licence_declaree": true,
+   "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
+   "role": "essaie dans Chromium (Playwright) les trois pages sonores (Cymatique, Voir sa musique, Fond d'écran) : la barre « Trois portes » (assets/trois-portes.js), ses trois liens, aucun débordement à 390 px, aucune erreur de console, une capture…",
+   "lit": [],
+   "ecrit": null,
+   "durees": [
+    {
+     "secondes": 60,
+     "machine": "conteneur de session Claude Code : Intel Xeon @ 2,80 GHz, 4 processeurs",
+     "mesure_le": "2026-11-14",
+     "source": "les trois pages sonores : barre, liens, 390 px, morceau et sinus à l'ordre 12"
     }
    ],
    "arborescence_requise": null,
@@ -3192,9 +3214,9 @@
   {
    "chemin": "tools/index_codes.mjs",
    "adresse": "https://anibal-amiot.com/tools/index_codes.mjs",
-   "octets": 13229,
-   "sha256": "05377656e4aabab24727344fbdf6fcf23cc9e89816c2c3b51bc991745a55d5c9",
-   "md5": "8a291090d1d81ece6a89bcce7f10149f",
+   "octets": 13382,
+   "sha256": "bba732fa4833cac7b0a7e15165bcb7f68d6562d37a4c838787f9c7a3b6617d54",
+   "md5": "c4c6e7bf2bdc6b2b87076bde4250ad53",
    "licence_declaree": true,
    "licence": "AGPL v3 / licence commerciale sur demande : anibaledel@gmail.com",
    "role": "l'index des scripts du dépôt : data/codes.json, sur le modèle de data/referents.json (même en-tête de version, même discipline d'empreintes, même --verifie qui échoue quand l'index diverge du dépôt).",
